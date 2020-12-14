@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep 11 11:05:26 2020 by Eclipse SUMO netconvert Version v1_7_0+0011-1fd856dfd8
+<!-- generated on Mon Dec 14 11:32:28 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="749.69,1632.80" convBoundary="0.00,0.00,1936.91,2334.07" origBoundary="-749.69,-1632.80,1187.22,701.26" projParameter="!"/>
 
@@ -67,8 +67,8 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="13" from="13-SourceNode" to="13-DestinationNode" priority="-1" type="4" spreadType="center">
         <lane id="13_0" index="0" speed="13.89" length="49.13" shape="1001.16,1425.89 978.53,1469.50"/>
     </edge>
-    <edge id="14" from="14-SourceNode" to="14-DestinationNode" priority="-1" type="5" spreadType="center" shape="1087.01,1462.74 1059.00,1448.93 1053.63,1447.09 1049.93,1446.35 1045.18,1445.99 1041.07,1445.83 1037.41,1445.76 1032.87,1445.39 1029.12,1444.69 1024.85,1443.66 1019.58,1441.79 1003.46,1434.23 964.10,1414.98">
-        <lane id="14_0" index="0" speed="13.89" length="133.19" shape="1087.01,1462.74 1059.00,1448.93 1053.63,1447.09 1049.93,1446.35 1045.18,1445.99 1041.07,1445.83 1037.41,1445.76 1032.87,1445.39 1029.12,1444.69 1024.85,1443.66 1019.58,1441.79 1003.46,1434.23 964.10,1414.98"/>
+    <edge id="14" from="14-SourceNode" to="14-DestinationNode" priority="-1" type="5" spreadType="center" shape="1087.01,1462.74 1059.00,1448.93 1053.62,1447.09 1049.93,1446.35 1045.18,1445.99 1041.07,1445.83 1037.41,1445.76 1032.87,1445.39 1029.12,1444.69 1024.85,1443.66 1019.58,1441.79 1003.46,1434.23 964.10,1414.98">
+        <lane id="14_0" index="0" speed="13.89" length="133.19" shape="1087.01,1462.74 1059.00,1448.93 1053.62,1447.09 1049.93,1446.35 1045.18,1445.99 1041.07,1445.83 1037.41,1445.76 1032.87,1445.39 1029.12,1444.69 1024.85,1443.66 1019.58,1441.79 1003.46,1434.23 964.10,1414.98"/>
     </edge>
     <edge id="15" from="15-SourceNode" to="15-DestinationNode" priority="-1" type="1" spreadType="center">
         <lane id="15_0" index="0" speed="13.89" length="36.84" shape="994.90,1424.74 1028.35,1440.20"/>

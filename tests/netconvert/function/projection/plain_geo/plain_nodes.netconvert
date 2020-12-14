@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:31:04 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Mon Dec 14 11:32:50 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<nodes version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
     <node id="0" x="12.014696" y="48.121418" type="priority" shape="12.014650,48.121482 12.014736,48.121484 12.014737,48.121609 12.015046,48.121619 12.015065,48.121364 12.014732,48.121356 12.014692,48.121346 12.014601,48.121387 12.014598,48.121444"/>
     <node id="1" x="12.061386" y="48.087529" type="dead_end"/>
     <node id="gneJ0" x="12.013354" y="48.121383" type="dead_end"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jul  3 08:20:40 2020 by Eclipse SUMO netconvert Version v1_6_0+1121-71d7a99dd1
+<!-- generated on Mon Dec 14 11:31:59 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -27,7 +27,7 @@
 </configuration>
 -->
 
-<net version="1.6" junctionCornerDetail="5" rectangularLaneCut="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.9" junctionCornerDetail="5" rectangularLaneCut="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.02,-0.28" convBoundary="0.00,0.00,1738.51,765.99" origBoundary="-0.02,0.28,1740.72,766.26" projParameter="!"/>
 

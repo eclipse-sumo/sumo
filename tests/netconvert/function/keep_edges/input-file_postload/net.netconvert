@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:31:01 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Mon Dec 14 11:32:44 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -50,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-662333.88,-5415120.05" convBoundary="0.26,18.96,493.51,822.04" origBoundary="11.213969,48.867634,11.228192,48.875956" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -65,8 +65,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":-15_6_0" index="0" speed="27.78" length="2.34" shape="302.34,701.48 302.29,700.58 302.94,699.30"/>
     </edge>
     <edge id=":-15_3" function="internal">
-        <lane id=":-15_3_0" index="0" speed="27.78" length="0.17" shape="301.30,696.55 301.37,696.51"/>
-        <lane id=":-15_3_1" index="1" speed="27.78" length="0.17" shape="302.73,699.41 302.94,699.30"/>
+        <lane id=":-15_3_0" index="0" speed="27.78" length="0.16" shape="301.30,696.55 301.37,696.51"/>
+        <lane id=":-15_3_1" index="1" speed="27.78" length="0.16" shape="302.73,699.41 302.94,699.30"/>
     </edge>
     <edge id=":-15_5" function="internal">
         <lane id=":-15_5_0" index="0" speed="27.78" length="2.34" shape="302.73,699.41 304.16,699.59 304.88,700.13"/>
