@@ -117,6 +117,9 @@ public:
     /// @brief about toggled gaming status
     void setToolBarVisibility(const bool value);
 
+    /// @brief get all objects of the given type
+    std::vector<GUIGlID> getObjectIDs(int messageId) const;
+
     /// @brief erase GLObjChooser
     void eraseGLObjChooser(GUIDialog_GLObjChooser* GLObjChooser);
 

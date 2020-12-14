@@ -55,7 +55,7 @@ public:
      * @param[in] title The title to use
      * @param[in] glStorage The storage to retrieve ids from
      */
-    GUIDialog_GLObjChooser(GUISUMOViewParent* SUMOViewParent,
+    GUIDialog_GLObjChooser(GUISUMOViewParent* SUMOViewParent, int messageId,
                            FXIcon* icon, const FXString& title, const std::vector<GUIGlID>& ids,
                            GUIGlObjectStorage& glStorage);
 

@@ -30,8 +30,8 @@
 // method definitions
 // ===========================================================================
 
-GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, FXIcon* icon, const std::string& title, const std::vector<GNEAttributeCarrier*>& ACs):
-    GUIDialog_ChooserAbstract(viewParent, icon, title.c_str(), std::vector<GUIGlID>(), GUIGlObjectStorage::gIDStorage),
+GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, int messageId, FXIcon* icon, const std::string& title, const std::vector<GNEAttributeCarrier*>& ACs):
+    GUIDialog_ChooserAbstract(viewParent, messageId, icon, title.c_str(), std::vector<GUIGlID>(), GUIGlObjectStorage::gIDStorage),
     myViewParent(viewParent),
     myACs(ACs),
     myFilteredACs(ACs),

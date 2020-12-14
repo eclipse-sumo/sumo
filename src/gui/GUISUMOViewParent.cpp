@@ -219,9 +219,48 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject* sender, FXSelector, void*) {
 }
 
 
+std::vector<GUIGlID>
+GUISUMOViewParent::getObjectIDs(int messageId) const {
+    switch (messageId) {
+        case MID_LOCATEJUNCTION:
+            return static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs(myParent->listInternal());
+        case MID_LOCATEEDGE:
+            return GUIEdge::getIDs(myParent->listInternal());
+        case MID_LOCATEVEHICLE: {
+            std::vector<GUIGlID> vehicles;
+            static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(
+                    vehicles, myParent->listParking(), myParent->listTeleporting());
+            return vehicles;
+        }
+        case MID_LOCATEPERSON: {
+            std::vector<GUIGlID> persons;
+            static_cast<GUITransportableControl&>(MSNet::getInstance()->getPersonControl()).insertIDs(persons);
+            return persons;
+        }
+        case MID_LOCATECONTAINER: {
+            // get containers
+            std::vector<GUIGlID> containers;
+            static_cast<GUITransportableControl&>(MSNet::getInstance()->getContainerControl()).insertIDs(containers);
+            return containers;
+        }
+        case MID_LOCATETLS:
+            return static_cast<GUINet*>(GUINet::getInstance())->getTLSIDs();
+        case MID_LOCATEADD:
+            return GUIGlObject_AbstractAdd::getIDList(GLO_ADDITIONALELEMENT);
+        case MID_LOCATEPOI:
+            return static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPOIIds();
+        case MID_LOCATEPOLY:
+            return static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPolygonIDs();
+        default:
+            throw ProcessError("Unknown Message ID in onCmdLocate");
+    }
+}
+
+
 long
 GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
-    switch (FXSELID(sel)) {
+    int messageId = FXSELID(sel);
+    switch (messageId) {
         case MID_LOCATEJUNCTION: {
             // check if dialog is already opened
             if (myGLObjChooser.ACChooserJunction) {
@@ -229,7 +268,7 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 myGLObjChooser.ACChooserJunction->restore();
                 myGLObjChooser.ACChooserJunction->setFocus();
             } else {
-                myGLObjChooser.ACChooserJunction = new GUIDialog_GLObjChooser(this,
+                myGLObjChooser.ACChooserJunction = new GUIDialog_GLObjChooser(this, messageId,
                         GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), "Junction Chooser",
                         static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs(myParent->listInternal()),
                         GUIGlObjectStorage::gIDStorage);
@@ -243,7 +282,7 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 myGLObjChooser.ACChooserEdges->restore();
                 myGLObjChooser.ACChooserEdges->setFocus();
             } else {
-                myGLObjChooser.ACChooserEdges = new GUIDialog_GLObjChooser(this,
+                myGLObjChooser.ACChooserEdges = new GUIDialog_GLObjChooser(this, messageId,
                         GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), "Edge Chooser",
                         GUIEdge::getIDs(myParent->listInternal()),
                         GUIGlObjectStorage::gIDStorage);
@@ -265,7 +304,7 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 myGLObjChooser.ACChooserVehicles->restore();
                 myGLObjChooser.ACChooserVehicles->setFocus();
             } else {
-                myGLObjChooser.ACChooserVehicles = new GUIDialog_GLObjChooser(this,
+                myGLObjChooser.ACChooserVehicles = new GUIDialog_GLObjChooser(this, messageId,
                         GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), "Vehicle Chooser",
                         vehicles,
                         GUIGlObjectStorage::gIDStorage);
@@ -282,7 +321,7 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 myGLObjChooser.ACChooserPersons->restore();
                 myGLObjChooser.ACChooserPersons->setFocus();
             } else {
-                myGLObjChooser.ACChooserPersons = new GUIDialog_GLObjChooser(this,
+                myGLObjChooser.ACChooserPersons = new GUIDialog_GLObjChooser(this, messageId,
                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), "Person Chooser",
                         persons,
                         GUIGlObjectStorage::gIDStorage);
@@ -299,7 +338,7 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 myGLObjChooser.ACChooserContainer->restore();
                 myGLObjChooser.ACChooserContainer->setFocus();
             } else {
-                myGLObjChooser.ACChooserContainer = new GUIDialog_GLObjChooser(this,
+                myGLObjChooser.ACChooserContainer = new GUIDialog_GLObjChooser(this, messageId,
                         GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), "Container Chooser",
                         containers,
                         GUIGlObjectStorage::gIDStorage);
@@ -313,7 +352,7 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 myGLObjChooser.ACChooserTLS->restore();
                 myGLObjChooser.ACChooserTLS->setFocus();
             } else {
-                myGLObjChooser.ACChooserTLS = new GUIDialog_GLObjChooser(this,
+                myGLObjChooser.ACChooserTLS = new GUIDialog_GLObjChooser(this, messageId,
                         GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), "Traffic Lights Chooser",
                         static_cast<GUINet*>(GUINet::getInstance())->getTLSIDs(),
                         GUIGlObjectStorage::gIDStorage);
@@ -327,7 +366,7 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 myGLObjChooser.ACChooserAdditional->restore();
                 myGLObjChooser.ACChooserAdditional->setFocus();
             } else {
-                myGLObjChooser.ACChooserAdditional = new GUIDialog_GLObjChooser(this,
+                myGLObjChooser.ACChooserAdditional = new GUIDialog_GLObjChooser(this, messageId,
                         GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), "Additional Objects Chooser",
                         GUIGlObject_AbstractAdd::getIDList(GLO_ADDITIONALELEMENT),
                         GUIGlObjectStorage::gIDStorage);
@@ -341,7 +380,7 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 myGLObjChooser.ACChooserPOI->restore();
                 myGLObjChooser.ACChooserPOI->setFocus();
             } else {
-                myGLObjChooser.ACChooserPOI = new GUIDialog_GLObjChooser(this,
+                myGLObjChooser.ACChooserPOI = new GUIDialog_GLObjChooser(this, messageId,
                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), "POI Chooser",
                         static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPOIIds(),
                         GUIGlObjectStorage::gIDStorage);
@@ -355,7 +394,7 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 myGLObjChooser.ACChooserPolygon->restore();
                 myGLObjChooser.ACChooserPolygon->setFocus();
             } else {
-                myGLObjChooser.ACChooserPolygon = new GUIDialog_GLObjChooser(this,
+                myGLObjChooser.ACChooserPolygon = new GUIDialog_GLObjChooser(this, messageId,
                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), "Polygon Chooser",
                         static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPolygonIDs(),
                         GUIGlObjectStorage::gIDStorage);

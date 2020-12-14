@@ -426,6 +426,12 @@ GNEViewParent::onCmdClose(FXObject*, FXSelector /* sel */, void*) {
     return 1;
 }
 
+std::vector<GUIGlID>
+GNEViewParent::getObjectIDs(int messageId) const {
+    UNUSED_PARAMETER(messageId);
+    std::vector<GUIGlID> result;
+    return result;
+}
 
 long
 GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
@@ -434,7 +440,8 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     if (viewNet) {
         // declare a vector in which save attribute carriers to locate
         std::vector<GNEAttributeCarrier*> ACsToLocate;
-        switch (FXSELID(sel)) {
+        int messageId = FXSELID(sel);
+        switch (messageId) {
             case MID_LOCATEJUNCTION: {
                 if (myACChoosers.ACChooserJunction) {
                     // restore focus in the existent chooser dialog
@@ -447,7 +454,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (const auto& junction : junctions) {
                         ACsToLocate.push_back(junction);
                     }
-                    myACChoosers.ACChooserJunction = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), "Junction Chooser", ACsToLocate);
+                    myACChoosers.ACChooserJunction = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), "Junction Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -463,7 +470,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (const auto& edge : edges) {
                         ACsToLocate.push_back(edge);
                     }
-                    myACChoosers.ACChooserEdges = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), "Edge Chooser", ACsToLocate);
+                    myACChoosers.ACChooserEdges = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), "Edge Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -494,7 +501,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (const auto& flow : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_FLOW)) {
                         ACsToLocate.push_back(flow.second);
                     }
-                    myACChoosers.ACChooserVehicles = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), "Vehicle Chooser", ACsToLocate);
+                    myACChoosers.ACChooserVehicles = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), "Vehicle Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -515,7 +522,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (const auto& personFlow : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW)) {
                         ACsToLocate.push_back(personFlow.second);
                     }
-                    myACChoosers.ACChooserPersons = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), "Person Chooser", ACsToLocate);
+                    myACChoosers.ACChooserPersons = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), "Person Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -531,7 +538,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (const auto& route : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
                         ACsToLocate.push_back(route.second);
                     }
-                    myACChoosers.ACChooserRoutes = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), "Route Chooser", ACsToLocate);
+                    myACChoosers.ACChooserRoutes = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), "Route Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -567,7 +574,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (const auto& stopParkingArea : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_PARKINGAREA)) {
                         ACsToLocate.push_back(stopParkingArea.second);
                     }
-                    myACChoosers.ACChooserStops = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), "Stop Chooser", ACsToLocate);
+                    myACChoosers.ACChooserStops = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), "Stop Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -585,7 +592,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                             ACsToLocate.push_back(junction);
                         }
                     }
-                    myACChoosers.ACChooserTLS = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), "TLS Chooser", ACsToLocate);
+                    myACChoosers.ACChooserTLS = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), "TLS Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -601,7 +608,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                             ACsToLocate.push_back(additional.second);
                         }
                     }
-                    myACChoosers.ACChooserAdditional = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), "Additional Chooser", ACsToLocate);
+                    myACChoosers.ACChooserAdditional = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), "Additional Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -618,7 +625,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (const auto& POILane : viewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POILANE)) {
                         ACsToLocate.push_back(POILane.second);
                     }
-                    myACChoosers.ACChooserPOI = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), "POI Chooser", ACsToLocate);
+                    myACChoosers.ACChooserPOI = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), "POI Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -632,7 +639,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (const auto& polygon : viewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POLY)) {
                         ACsToLocate.push_back(polygon.second);
                     }
-                    myACChoosers.ACChooserPolygon = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), "Poly Chooser", ACsToLocate);
+                    myACChoosers.ACChooserPolygon = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), "Poly Chooser", ACsToLocate);
                 }
                 break;
             }

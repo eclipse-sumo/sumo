@@ -219,6 +219,9 @@ public:
     /// @brief Called when user change the splitter between FrameArea and ViewNet
     long onCmdUpdateFrameAreaWidth(FXObject*, FXSelector, void*);
     /// @}
+   
+    std::vector<GUIGlID> getObjectIDs(int messageId) const;
+
 
 protected:
     FOX_CONSTRUCTOR(GNEViewParent)

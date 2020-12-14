@@ -42,9 +42,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent* SUMOViewParent,
+GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent* SUMOViewParent, int messageId,
         FXIcon* icon, const FXString& title, const std::vector<GUIGlID>& ids, GUIGlObjectStorage& glStorage) :
-    GUIDialog_ChooserAbstract(SUMOViewParent, icon, title, ids, glStorage),
+    GUIDialog_ChooserAbstract(SUMOViewParent, messageId, icon, title, ids, glStorage),
     mySUMOViewParent(SUMOViewParent) {
 }
 

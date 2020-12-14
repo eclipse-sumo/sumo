@@ -71,6 +71,12 @@ public:
     /// @brief return a reference to navigation toolbar
     FXToolBar* getNavigationToolBar(GUISUMOAbstractView& v);
 
+    virtual std::vector<GUIGlID> getObjectIDs(int messageId) const {
+        // FOX does not allow abstract virtual function here
+        UNUSED_PARAMETER(messageId);
+        return  std::vector<GUIGlID>();
+    }
+
     /// @ brief return a pointer to locator popup
     FXPopup* getLocatorPopup();
 

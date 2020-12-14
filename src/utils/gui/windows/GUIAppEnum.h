@@ -245,6 +245,8 @@ enum {
     MID_OK,
     /// @brief Cancel-button pressed
     MID_CANCEL,
+    /// @brief Update-button pressed
+    MID_UPDATE,
     /// @}
 
     /// @name Main Window File Menu - IDs

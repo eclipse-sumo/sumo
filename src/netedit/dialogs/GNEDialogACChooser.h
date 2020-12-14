@@ -49,7 +49,7 @@ public:
      * @param[in] title The title to use
      * @param[in] ACs list of choosen ACs
      */
-    GNEDialogACChooser(GNEViewParent* viewParent, FXIcon* icon, const std::string& title, const std::vector<GNEAttributeCarrier*>& ACs);
+    GNEDialogACChooser(GNEViewParent* viewParent, int messageId, FXIcon* icon, const std::string& title, const std::vector<GNEAttributeCarrier*>& ACs);
 
     /// @brief Destructor
     ~GNEDialogACChooser();
