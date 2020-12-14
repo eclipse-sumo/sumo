@@ -26,6 +26,7 @@
 
 #include "MSLaneChanger.h"
 #include "MSNet.h"
+#include "MSLink.h"
 #include "MSVehicle.h"
 #include "MSVehicleType.h"
 #include "MSVehicleTransfer.h"

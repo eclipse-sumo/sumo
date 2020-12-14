@@ -27,7 +27,7 @@
 #include <microsim/MSJunction.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
-#include <microsim/MSVehicle.h>
+#include <microsim/MSLink.h>
 #include <microsim/MSMoveReminder.h>
 #include <microsim/output/MSXMLRawOut.h>
 #include <microsim/output/MSDetectorFileOutput.h>

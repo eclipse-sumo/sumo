@@ -26,13 +26,15 @@
 #include <config.h>
 
 #include <microsim/MSGlobals.h>
+#include <microsim/MSLeaderInfo.h>
 #include <microsim/MSVehicle.h>
 
-class MSLane;
 
 // ===========================================================================
-// used enumeration
+// class declarations
 // ===========================================================================
+class MSLane;
+
 
 // ===========================================================================
 // class definitions

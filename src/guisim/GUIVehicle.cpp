@@ -43,6 +43,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSLink.h>
 #include <microsim/MSStop.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>

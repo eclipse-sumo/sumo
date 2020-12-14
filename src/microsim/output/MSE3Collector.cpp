@@ -25,9 +25,10 @@
 
 #include <algorithm>
 
-#include "MSE3Collector.h"
+#include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
+#include "MSE3Collector.h"
 
 //#define DEBUG_E3_NOTIFY_MOVE
 //#define DEBUG_E3_NOTIFY_ENTER

@@ -22,6 +22,7 @@
 #include <limits>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSStop.h>
 #include <microsim/transportables/MSTransportable.h>
 #include "MSRoutingEngine.h"

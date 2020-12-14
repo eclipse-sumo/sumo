@@ -27,6 +27,7 @@
 #include <utils/common/RandHelper.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSLink.h>
 #include <microsim/MSNet.h>
 #include "MSLCM_DK2008.h"
 

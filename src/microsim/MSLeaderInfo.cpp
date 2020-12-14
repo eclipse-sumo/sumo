@@ -27,6 +27,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSLane.h>
 #include "MSLeaderInfo.h"
 
 

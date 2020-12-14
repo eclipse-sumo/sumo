@@ -27,6 +27,7 @@
 #include <microsim/transportables/MSStageDriving.h>
 #include <microsim/transportables/MSStageTranship.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/MSVehicleControl.h>

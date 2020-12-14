@@ -21,6 +21,7 @@
 
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSLane.h>
 #include <microsim/output/MSRouteProbe.h>
 #include <microsim/trigger/MSCalibrator.h>
 #include <libsumo/TraCIConstants.h>

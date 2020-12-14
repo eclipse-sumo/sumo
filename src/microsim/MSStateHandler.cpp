@@ -40,6 +40,7 @@
 #include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSLink.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleTransfer.h>

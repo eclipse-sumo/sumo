@@ -42,6 +42,7 @@
 #include <utils/foxtools/FXConditionalLock.h>
 #endif
 #include <microsim/MSLane.h>
+#include <microsim/MSLink.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleType.h>

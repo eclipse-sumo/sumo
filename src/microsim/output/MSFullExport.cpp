@@ -28,6 +28,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEdgeControl.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>

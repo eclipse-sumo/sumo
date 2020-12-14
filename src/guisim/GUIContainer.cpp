@@ -25,6 +25,7 @@
 #include <string>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>

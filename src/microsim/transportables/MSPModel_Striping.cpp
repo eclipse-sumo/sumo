@@ -30,6 +30,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSLink.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/transportables/MSStage.h>

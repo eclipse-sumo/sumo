@@ -35,6 +35,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSLink.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>

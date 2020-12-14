@@ -1220,6 +1220,15 @@ MSVehicle::getPositionAlongBestLanes(double offset) const {
 }
 
 
+double
+MSVehicle::getMaxSpeedOnLane() const {
+    if (myLane != nullptr) {
+        return myLane->getVehicleMaxSpeed(this);
+    }
+    return myType->getMaxSpeed();
+}
+
+
 Position
 MSVehicle::validatePosition(Position result, double offset) const {
     int furtherIndex = 0;
@@ -1291,6 +1300,12 @@ MSVehicle::setActionStepLength(double actionStepLength, bool resetOffset) {
     if (resetOffset) {
         resetActionOffset();
     }
+}
+
+
+bool
+MSVehicle::congested() const {
+    return myState.mySpeed < (60.0 / 3.6) || myLane->getSpeedLimit() < (60.1 / 3.6);
 }
 
 
@@ -2465,11 +2480,15 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 arrivalTimeBraking = MAX2(arrivalTime, t + TIME2STEPS(seen / ((v + arrivalSpeedBraking) * 0.5)));
             }
         }
+        // estimate leave speed for passing time computation
+        // l=linkLength, a=accel, t=continuousTime, v=vLeave
+        // l=v*t + 0.5*a*t^2, solve for t and multiply with a, then add v
+        const double estimatedLeaveSpeed = MIN2((*link)->getViaLaneOrLane()->getVehicleMaxSpeed(this),
+            getCarFollowModel().estimateSpeedAfterDistance((*link)->getLength(), arrivalSpeed, getVehicleType().getCarFollowModel().getMaxAccel()));
         lfLinks.push_back(DriveProcessItem(*link, v, vLinkWait, setRequest,
                                            arrivalTime, arrivalSpeed,
                                            arrivalTimeBraking, arrivalSpeedBraking,
-                                           seen,
-                                           estimateLeaveSpeed(*link, arrivalSpeed)));
+                                           seen, estimatedLeaveSpeed));
         if ((*link)->getViaLane() == nullptr) {
             hadNonInternal = true;
             ++view;

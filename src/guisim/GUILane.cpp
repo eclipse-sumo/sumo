@@ -39,6 +39,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSLink.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSVehicleTransfer.h>

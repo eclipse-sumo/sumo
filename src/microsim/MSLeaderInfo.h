@@ -23,7 +23,7 @@
 
 #include <string>
 #include <vector>
-
+#include <utils/common/StdDefs.h>
 
 // ===========================================================================
 // class declarations

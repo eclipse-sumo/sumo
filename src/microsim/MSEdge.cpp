@@ -39,6 +39,7 @@
 #include "MSLane.h"
 #include "MSLaneChanger.h"
 #include "MSLaneChangerSublane.h"
+#include "MSLink.h"
 #include "MSGlobals.h"
 #include "MSNet.h"
 #include "MSVehicle.h"

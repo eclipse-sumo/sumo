@@ -28,6 +28,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSLink.h>
 #include <libsumo/TraCIConstants.h>
 #include "Lane.h"
 

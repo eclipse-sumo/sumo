@@ -30,6 +30,7 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSStop.h>
 
 #include "MSDispatch.h"

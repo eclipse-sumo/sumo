@@ -24,6 +24,7 @@
 #include <utils/common/StringUtils.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSLink.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSDriverState.h>
 #include <microsim/MSGlobals.h>

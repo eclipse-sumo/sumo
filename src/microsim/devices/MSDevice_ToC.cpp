@@ -31,6 +31,7 @@
 #include <utils/common/WrappingCommand.h>
 #include <utils/common/RGBColor.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSRouteHandler.h>
 #include <microsim/MSVehicleControl.h>

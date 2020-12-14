@@ -31,6 +31,7 @@
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSLink.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/transportables/MSPerson.h>

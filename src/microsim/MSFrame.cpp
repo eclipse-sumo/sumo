@@ -42,6 +42,7 @@
 #include <microsim/MSJunction.h>
 #include <microsim/MSRoute.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice.h>

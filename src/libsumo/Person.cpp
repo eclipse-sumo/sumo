@@ -22,6 +22,7 @@
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/transportables/MSPerson.h>
@@ -35,6 +36,7 @@
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/router/PedestrianRouter.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
+#include "Helper.h"
 #include "VehicleType.h"
 #include "Person.h"
 
