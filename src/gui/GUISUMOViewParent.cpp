@@ -142,35 +142,7 @@ GUISUMOViewParent::setToolBarVisibility(const bool value) {
 
 void
 GUISUMOViewParent::eraseGLObjChooser(GUIDialog_GLObjChooser* GLObjChooser) {
-    if (GLObjChooser == nullptr) {
-        throw ProcessError("ChooserDialog already deleted");
-    } else if (GLObjChooser == myGLObjChooser.ACChooserJunction) {
-        myGLObjChooser.ACChooserJunction = nullptr;
-    } else if (GLObjChooser == myGLObjChooser.ACChooserEdges) {
-        myGLObjChooser.ACChooserEdges = nullptr;
-    } else if (GLObjChooser == myGLObjChooser.ACChooserVehicles) {
-        myGLObjChooser.ACChooserVehicles = nullptr;
-    } else if (GLObjChooser == myGLObjChooser.ACChooserPersons) {
-        myGLObjChooser.ACChooserPersons = nullptr;
-    } else if (GLObjChooser == myGLObjChooser.ACChooserRoutes) {
-        myGLObjChooser.ACChooserRoutes = nullptr;
-    } else if (GLObjChooser == myGLObjChooser.ACChooserStops) {
-        myGLObjChooser.ACChooserStops = nullptr;
-    } else if (GLObjChooser == myGLObjChooser.ACChooserTLS) {
-        myGLObjChooser.ACChooserTLS = nullptr;
-    } else if (GLObjChooser == myGLObjChooser.ACChooserContainer) {
-        myGLObjChooser.ACChooserContainer = nullptr;
-    } else if (GLObjChooser == myGLObjChooser.ACChooserAdditional) {
-        myGLObjChooser.ACChooserAdditional = nullptr;
-    } else if (GLObjChooser == myGLObjChooser.ACChooserPOI) {
-        myGLObjChooser.ACChooserPOI = nullptr;
-    } else if (GLObjChooser == myGLObjChooser.ACChooserPolygon) {
-        myGLObjChooser.ACChooserPolygon = nullptr;
-    } else if (GLObjChooser == myGLObjChooser.ACChooserProhibition) {
-        myGLObjChooser.ACChooserProhibition = nullptr;
-    } else {
-        throw ProcessError("Unregistered chooserDialog");
-    }
+    myGLObjChooser[GLObjChooser->getMessageId()] = nullptr;
 }
 
 
@@ -228,8 +200,12 @@ GUISUMOViewParent::getObjectIDs(int messageId) const {
             return GUIEdge::getIDs(myParent->listInternal());
         case MID_LOCATEVEHICLE: {
             std::vector<GUIGlID> vehicles;
-            static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(
-                    vehicles, myParent->listParking(), myParent->listTeleporting());
+            if (MSGlobals::gUseMesoSim) {
+                static_cast<GUIMEVehicleControl*>(static_cast<GUINet*>(MSNet::getInstance())->getGUIMEVehicleControl())->insertVehicleIDs(vehicles);
+            } else {
+                static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(
+                        vehicles, myParent->listParking(), myParent->listTeleporting());
+            }
             return vehicles;
         }
         case MID_LOCATEPERSON: {
@@ -260,149 +236,55 @@ GUISUMOViewParent::getObjectIDs(int messageId) const {
 long
 GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     int messageId = FXSELID(sel);
-    switch (messageId) {
-        case MID_LOCATEJUNCTION: {
-            // check if dialog is already opened
-            if (myGLObjChooser.ACChooserJunction) {
-                // restore focus in the existent chooser dialog
-                myGLObjChooser.ACChooserJunction->restore();
-                myGLObjChooser.ACChooserJunction->setFocus();
-            } else {
-                myGLObjChooser.ACChooserJunction = new GUIDialog_GLObjChooser(this, messageId,
-                        GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), "Junction Chooser",
-                        static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs(myParent->listInternal()),
-                        GUIGlObjectStorage::gIDStorage);
-            }
-            break;
+    if (myGLObjChooser.count(messageId) == 0 || myGLObjChooser[messageId] == nullptr) {
+        FXIcon* icon = nullptr;
+        std::string title = "";
+        switch (messageId) {
+            case MID_LOCATEJUNCTION:
+                icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION);
+                title = "Junction Chooser";
+                break;
+            case MID_LOCATEEDGE:
+                icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE);
+                title = "Edge Chooser";
+                break;
+            case MID_LOCATEVEHICLE:
+                icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE);
+                title = "Vehicle Chooser";
+                break;
+            case MID_LOCATEPERSON:
+                icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON);
+                title = "Person Chooser";
+                break;
+            case MID_LOCATECONTAINER:
+                icon = GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER);
+                title = "Container Chooser";
+                break;
+            case MID_LOCATETLS:
+                icon = GUIIconSubSys::getIcon(GUIIcon::LOCATETLS);
+                title = "Traffic Lights Chooser";
+                break;
+            case MID_LOCATEADD:
+                icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEADD);
+                title = "Additional Objects Chooser";
+                break;
+            case MID_LOCATEPOI:
+                icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI);
+                title = "POI Chooser";
+                break;
+            case MID_LOCATEPOLY:
+                icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY);
+                title = "Polygon Chooser";
+                break;
+            default:
+                throw ProcessError("Unknown Message ID in onCmdLocate");
         }
-        case MID_LOCATEEDGE: {
-            // check if dialog is already opened
-            if (myGLObjChooser.ACChooserEdges) {
-                // restore focus in the existent chooser dialog
-                myGLObjChooser.ACChooserEdges->restore();
-                myGLObjChooser.ACChooserEdges->setFocus();
-            } else {
-                myGLObjChooser.ACChooserEdges = new GUIDialog_GLObjChooser(this, messageId,
-                        GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), "Edge Chooser",
-                        GUIEdge::getIDs(myParent->listInternal()),
-                        GUIGlObjectStorage::gIDStorage);
-            }
-            break;
-        }
-        case MID_LOCATEVEHICLE: {
-            // get vehicles
-            std::vector<GUIGlID> vehicles;
-            if (MSGlobals::gUseMesoSim) {
-                static_cast<GUIMEVehicleControl*>(static_cast<GUINet*>(MSNet::getInstance())->getGUIMEVehicleControl())->insertVehicleIDs(vehicles);
-            } else {
-                static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(
-                    vehicles, myParent->listParking(), myParent->listTeleporting());
-            }
-            // check if dialog is already opened
-            if (myGLObjChooser.ACChooserVehicles) {
-                // restore focus in the existent chooser dialog
-                myGLObjChooser.ACChooserVehicles->restore();
-                myGLObjChooser.ACChooserVehicles->setFocus();
-            } else {
-                myGLObjChooser.ACChooserVehicles = new GUIDialog_GLObjChooser(this, messageId,
-                        GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), "Vehicle Chooser",
-                        vehicles,
-                        GUIGlObjectStorage::gIDStorage);
-            }
-            break;
-        }
-        case MID_LOCATEPERSON: {
-            // get persons
-            std::vector<GUIGlID> persons;
-            static_cast<GUITransportableControl&>(MSNet::getInstance()->getPersonControl()).insertIDs(persons);
-            // check if dialog is already opened
-            if (myGLObjChooser.ACChooserPersons) {
-                // restore focus in the existent chooser dialog
-                myGLObjChooser.ACChooserPersons->restore();
-                myGLObjChooser.ACChooserPersons->setFocus();
-            } else {
-                myGLObjChooser.ACChooserPersons = new GUIDialog_GLObjChooser(this, messageId,
-                        GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), "Person Chooser",
-                        persons,
-                        GUIGlObjectStorage::gIDStorage);
-            }
-            break;
-        }
-        case MID_LOCATECONTAINER: {
-            // get containers
-            std::vector<GUIGlID> containers;
-            static_cast<GUITransportableControl&>(MSNet::getInstance()->getContainerControl()).insertIDs(containers);
-            // check if dialog is already opened
-            if (myGLObjChooser.ACChooserContainer) {
-                // restore focus in the existent chooser dialog
-                myGLObjChooser.ACChooserContainer->restore();
-                myGLObjChooser.ACChooserContainer->setFocus();
-            } else {
-                myGLObjChooser.ACChooserContainer = new GUIDialog_GLObjChooser(this, messageId,
-                        GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), "Container Chooser",
-                        containers,
-                        GUIGlObjectStorage::gIDStorage);
-            }
-            break;
-        }
-        case MID_LOCATETLS: {
-            // check if dialog is already opened
-            if (myGLObjChooser.ACChooserTLS) {
-                // restore focus in the existent chooser dialog
-                myGLObjChooser.ACChooserTLS->restore();
-                myGLObjChooser.ACChooserTLS->setFocus();
-            } else {
-                myGLObjChooser.ACChooserTLS = new GUIDialog_GLObjChooser(this, messageId,
-                        GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), "Traffic Lights Chooser",
-                        static_cast<GUINet*>(GUINet::getInstance())->getTLSIDs(),
-                        GUIGlObjectStorage::gIDStorage);
-            }
-            break;
-        }
-        case MID_LOCATEADD: {
-            // check if dialog is already opened
-            if (myGLObjChooser.ACChooserAdditional) {
-                // restore focus in the existent chooser dialog
-                myGLObjChooser.ACChooserAdditional->restore();
-                myGLObjChooser.ACChooserAdditional->setFocus();
-            } else {
-                myGLObjChooser.ACChooserAdditional = new GUIDialog_GLObjChooser(this, messageId,
-                        GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), "Additional Objects Chooser",
-                        GUIGlObject_AbstractAdd::getIDList(GLO_ADDITIONALELEMENT),
-                        GUIGlObjectStorage::gIDStorage);
-            }
-            break;
-        }
-        case MID_LOCATEPOI: {
-            // check if dialog is already opened
-            if (myGLObjChooser.ACChooserPOI) {
-                // restore focus in the existent chooser dialog
-                myGLObjChooser.ACChooserPOI->restore();
-                myGLObjChooser.ACChooserPOI->setFocus();
-            } else {
-                myGLObjChooser.ACChooserPOI = new GUIDialog_GLObjChooser(this, messageId,
-                        GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), "POI Chooser",
-                        static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPOIIds(),
-                        GUIGlObjectStorage::gIDStorage);
-            }
-            break;
-        }
-        case MID_LOCATEPOLY: {
-            // check if dialog is already opened
-            if (myGLObjChooser.ACChooserPolygon) {
-                // restore focus in the existent chooser dialog
-                myGLObjChooser.ACChooserPolygon->restore();
-                myGLObjChooser.ACChooserPolygon->setFocus();
-            } else {
-                myGLObjChooser.ACChooserPolygon = new GUIDialog_GLObjChooser(this, messageId,
-                        GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), "Polygon Chooser",
-                        static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPolygonIDs(),
-                        GUIGlObjectStorage::gIDStorage);
-            }
-            break;
-        }
-        default:
-            throw ProcessError("Unknown Message ID in onCmdLocate");
+
+        myGLObjChooser[messageId] = new GUIDialog_GLObjChooser(this, messageId, icon, title.c_str(), getObjectIDs(messageId), GUIGlObjectStorage::gIDStorage);
+
+    } else {
+        myGLObjChooser[messageId]->restore();
+        myGLObjChooser[messageId]->setFocus();
     }
     myLocatorPopup->popdown();
     myLocatorButton->killFocus();
@@ -521,41 +403,5 @@ GUISUMOViewParent::onUpdSpeedFactor(FXObject* sender, FXSelector, void* ptr) {
     return 1;
 }
 
-// ===========================================================================
-// private
-// ===========================================================================
-
-GUISUMOViewParent::GLObjChooser::GLObjChooser() :
-    ACChooserJunction(nullptr),
-    ACChooserEdges(nullptr),
-    ACChooserVehicles(nullptr),
-    ACChooserPersons(nullptr),
-    ACChooserContainer(nullptr),
-    ACChooserTLS(nullptr),
-    ACChooserAdditional(nullptr),
-    ACChooserPOI(nullptr),
-    ACChooserPolygon(nullptr),
-    ACChooserRoutes(nullptr),
-    ACChooserStops(nullptr),
-    ACChooserProhibition(nullptr) {
-}
-
-
-GUISUMOViewParent::GLObjChooser::~GLObjChooser() {
-    // remove all dialogs
-    // delete for a nullptr is valid, so no check needed
-    delete ACChooserJunction;
-    delete ACChooserEdges;
-    delete ACChooserVehicles;
-    delete ACChooserPersons;
-    delete ACChooserContainer;
-    delete ACChooserTLS;
-    delete ACChooserAdditional;
-    delete ACChooserPOI;
-    delete ACChooserPolygon;
-    delete ACChooserRoutes;
-    delete ACChooserStops;
-    delete ACChooserProhibition;
-}
 
 /****************************************************************************/

@@ -111,6 +111,10 @@ public:
     /// @brief sets the focus after the window is created to work-around bug in libfox
     void show();
 
+    int getMessageId() const {
+        return myMessageId;
+    }
+
 protected:
     /// @brief fox need this
     FOX_CONSTRUCTOR(GUIDialog_ChooserAbstract)
