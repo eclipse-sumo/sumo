@@ -91,7 +91,6 @@ CLASS::getContextSubscriptionResults(const std::string& objectID) { \
 void \
 CLASS::subscribeParameterWithKey(const std::string& objectID, const std::string& key, double beginTime, double endTime) { \
     libsumo::Helper::subscribe(libsumo::CMD_SUBSCRIBE_##DOMAIN##_VARIABLE, objectID, std::vector<int>({libsumo::VAR_PARAMETER_WITH_KEY}), beginTime, endTime, libsumo::TraCIResults {{libsumo::VAR_PARAMETER_WITH_KEY, std::make_shared<libsumo::TraCIString>(key)}}); \
-    libsumo::Helper::addSubscriptionParam(key); \
 }
 
 
@@ -229,12 +228,12 @@ struct TraCIDouble : TraCIResult {
         os << value;
         return os.str();
     }
-    const std::vector<unsigned char> toPacket() const {
+/*    const std::vector<unsigned char> toPacket() const {
         std::vector<unsigned char> dest(sizeof(value) + 1);
         dest[0] = (unsigned char)libsumo::TYPE_DOUBLE;
         std::memcpy(dest.data() + 1, &value, sizeof(value));
         return dest;
-    }
+    }*/
     double value;
 };
 
@@ -245,6 +244,14 @@ struct TraCIString : TraCIResult {
     std::string getString() {
         return value;
     }
+/*    const std::vector<unsigned char> toPacket() const {
+        std::vector<unsigned char> dest(sizeof(value) + 5);
+        dest[0] = (unsigned char)libsumo::TYPE_STRING;
+        const int size = (int)value.size();
+        std::memcpy(dest.data() + 1, &size, sizeof(size));
+        std::memcpy(dest.data() + 5, &value, sizeof(value));
+        return dest;
+    }*/
     std::string value;
 };
 
