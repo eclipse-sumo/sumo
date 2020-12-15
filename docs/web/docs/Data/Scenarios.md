@@ -58,6 +58,8 @@ Italy.
 
 # Turin SUMO Traffic (TuST)
 - [Main Page](https://github.com/marcorapelli/TuSTScenario)
+!!! note
+    requires [git-lfs](https://git-lfs.github.com/) to download
 
 # TAPASCologne
 
