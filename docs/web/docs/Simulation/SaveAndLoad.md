@@ -37,7 +37,7 @@ files that were used when saving the state file and set option **--begin** to th
 time when the state was saved. Additional files (i.e. more vehicles) can
 be added without problems.
 
-When the option **--load-state.offset** is set all, times loaded from the simulation state will
+When the option **--load-state.offset** is set, all times loaded from the simulation state will
 be shifted by the given amount. This can be used to reset the simulation
 second to 0 after midnight and still have the loaded vehicles function
 properly.
