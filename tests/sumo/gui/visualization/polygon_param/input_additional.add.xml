@@ -1,8 +1,11 @@
-<additional>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <poly id="0" color="blue" fill="1" shape="0,0 0,500 500,500 0,0" angle="0.00">
         <param key="blub" value="bla"/>
         <param key="blubber" value=""/>
         <param key="fasel"/>
     </poly>
     <poly id="1" color="blue" fill="1" shape="-1734.30,279.06 -1734.30,379.06 -534.30,379.06 -534.30,279.06 -1734.30,279.06" angle="90.00"/>
+    <poly id="poly_0" color="blue" fill="0" layer="128.00" shape="2000,99500 2000,40000 95000,40000 95000,99500 2000,99500"/>
 </additional>
