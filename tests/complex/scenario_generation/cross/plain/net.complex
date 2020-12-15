@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 18 19:59:36 2020 by Eclipse SUMO netconvert Version v1_5_0+0151-fa16b8df33
+<!-- generated on Tue Dec 15 07:18:32 2020 by Eclipse SUMO netconvert Version v1_8_0+0244-31fa555382
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="/tmp/tmpzXtdjs"/>
-        <edge-files value="/tmp/tmpOS3akq"/>
-        <connection-files value="/tmp/tmp8utOsG"/>
+        <node-files value="/tmp/tmps7g7RV"/>
+        <edge-files value="/tmp/tmprnzees"/>
+        <connection-files value="/tmp/tmpYr427g"/>
     </input>
 
     <output>
@@ -21,7 +21,7 @@
 </configuration>
 -->
 
-<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="0.00,0.00,1000.00,1000.00" projParameter="!"/>
 
