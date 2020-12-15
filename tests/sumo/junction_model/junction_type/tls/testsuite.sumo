@@ -12,3 +12,9 @@ incompatible_program
 
 # see #6068
 right_on_red_program
+
+# test yellow phase behavior with low decel value 
+low_decel
+
+# test yellow phase behavior with low decel value 
+low_decel_idm

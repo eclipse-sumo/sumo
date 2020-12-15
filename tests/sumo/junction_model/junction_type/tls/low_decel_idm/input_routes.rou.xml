@@ -1,0 +1,9 @@
+<routes>
+    <vType id="t0" sigma="0" decel="2.0" carFollowModel="IDM"/>
+
+    <vehicle id="ego" type="t0" depart="30" departPos="8" departSpeed="max" speedFactor="1">
+        <route edges="SC CN"/>
+    </vehicle>
+
+
+</routes>
