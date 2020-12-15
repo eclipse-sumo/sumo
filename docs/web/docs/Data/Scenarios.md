@@ -57,7 +57,9 @@ Italy.
 - Publication: David Förster, Hans Löhr, Anne Grätz, Jonathan Petit, and Frank Kargl, "An Evaluation of Pseudonym Changes for Vehicular Networks in Large-scale, Realistic Traffic Scenarios", IEEE Transactions on Intelligent Transportation Systems 19.10 (2017): 3400-3405, doi: [10.1109/TITS.2017.2775519](https://doi.org/10.1109/TITS.2017.2775519).
 
 # Turin SUMO Traffic (TuST)
+
 - [Main Page](https://github.com/marcorapelli/TuSTScenario)
+
 !!! note
     requires [git-lfs](https://git-lfs.github.com/) to download
 
