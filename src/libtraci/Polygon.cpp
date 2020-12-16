@@ -57,7 +57,7 @@ Polygon::getShape(const std::string& polygonID) {
 
 bool
 Polygon::getFilled(const std::string& polygonID) {
-    return Dom::getInt(libsumo::VAR_FILL, polygonID);
+    return Dom::getInt(libsumo::VAR_FILL, polygonID) != 0;
 }
 
 

@@ -296,6 +296,14 @@ Simulation::getBusStopWaitingIDList(const std::string& stopID) {
 }
 
 
+std::vector<libsumo::TraCICollision>
+Simulation::getCollisions() {
+    std::vector<libsumo::TraCICollision> result;
+    return result;
+}
+
+
+
 double
 Simulation::getDeltaT() {
     return Dom::getDouble(libsumo::VAR_DELTA_T, "");
