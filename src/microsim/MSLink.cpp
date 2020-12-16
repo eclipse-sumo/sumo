@@ -48,8 +48,8 @@
 //#define DEBUG_COND (myLane->getID()=="43[0]_0" && myLaneBefore->getID()==":33_0_0")
 //#define DEBUG_COND (myLane->getID()=="end_0")
 //#define DEBUG_COND (true)
-//#define DEBUG_COND2(obj) (obj->isSelected())
-#define DEBUG_COND2(obj) (obj->getID() == "train2")
+#define DEBUG_COND2(obj) (obj->isSelected())
+//#define DEBUG_COND2(obj) (obj->getID() == "train2")
 //#define DEBUG_COND_ZIPPER (gDebugFlag1)
 //#define DEBUG_COND_ZIPPER (true)
 #define DEBUG_COND_ZIPPER (ego->isSelected())
@@ -62,6 +62,8 @@ const SUMOTime MSLink::myLookaheadTime = TIME2STEPS(1);
 const SUMOTime MSLink::myLookaheadTimeZipper = TIME2STEPS(4);
 
 const double MSLink::ZIPPER_ADAPT_DIST(100);
+
+#define INVALID_TIME -1000
 
 // time to link in seconds below which adaptation should take place
 #define ZIPPER_ADAPT_TIME 10
@@ -462,7 +464,7 @@ MSLink::getApproaching(const SUMOVehicle* veh) const {
     if (i != myApproachingVehicles.end()) {
         return i->second;
     } else {
-        return ApproachingVehicleInformation(-1000, -1000, 0, 0, false, -1000, 0, 0, 0, 0, 0);
+        return ApproachingVehicleInformation(INVALID_TIME, INVALID_TIME, 0, 0, false, INVALID_TIME, 0, 0, 0, 0, 0);
     }
 }
 
@@ -1068,6 +1070,9 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                                    && leaderBackDist < leader->getVehicleType().getLength()
                                    && (!foeExitLink->isInternalJunctionLink() || foeIsBicycleTurn));
             const bool isOpposite = leader->getLaneChangeModel().isOpposite();
+            const auto avi = foeExitLink->getApproaching(leader);
+            // if leader is not found, assume that it performed a lane change in the last step
+            const bool willPass = avi.willPass || (avi.arrivalTime == INVALID_TIME && sameTarget);
             if (gDebugFlag1) {
                 std::cout << " candidate leader=" << leader->getID()
                           << " cannotIgnore=" << cannotIgnore
@@ -1077,7 +1082,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                           << " fcwidth=" << foeCrossingWidth
                           << " foePastCP=" << pastTheCrossingPoint
                           << " inTheWay=" << inTheWay
-                          << " willPass=" << foeExitLink->getApproaching(leader).willPass
+                          << " willPass=" << willPass
                           << " isFrontOnLane=" << leader->isFrontOnLane(foeLane)
                           << " ignoreGreenCont=" << ignoreGreenCont
                           << " isOpposite=" << isOpposite << "\n";
@@ -1087,21 +1092,24 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             }
             // ignore greenCont foe vehicles that are not in the way
             if (ignoreGreenCont && !inTheWay) {
+                if (gDebugFlag1) std::cout << "   ignoreGreenCont\n";
                 continue;
             }
             // after entering the conflict area, ignore foe vehicles that are not in the way
             if (distToCrossing < -POSITION_EPS && !inTheWay
                     && (ego == nullptr || !MSGlobals::gComputeLC || distToCrossing < -ego->getVehicleType().getLength())) {
+                if (gDebugFlag1) std::cout << "   ego entered conflict area\n";
                 continue;
             }
             // ignore foe vehicles that will not pass
             if ((!cannotIgnore || leader->isStopped() || sameTarget)
-                    && !foeExitLink->getApproaching(leader).willPass
+                    && !willPass
                     && leader->isFrontOnLane(foeLane)
                     && !isOpposite
                     && !inTheWay
                     // willPass is false if the vehicle is already on the stopping edge
                     && !leader->willStop()) {
+                if (gDebugFlag1) std::cout << "   foe will not pass\n";
                 continue;
             }
             // check whether foe is blocked and might need to change before leaving the junction
@@ -1115,6 +1123,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 const double posLatLeader = leader->getLateralPositionOnLane() + leader->getLatOffset(foeLane);
                 const double latGap = (fabs(posLat - posLatLeader)
                                        - 0.5 * (ego->getVehicleType().getWidth() + leader->getVehicleType().getWidth()));
+                const double maneuverDist = leader->getLaneChangeModel().getManeuverDist() * (posLat < posLatLeader ? -1 : 1);
                 if (gDebugFlag1) {
                     std::cout << " sublaneFoe lane=" << myInternalLaneBefore->getID()
                               << " sameSource=" << sameSource
@@ -1127,9 +1136,10 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                               << " leaderLat=" << posLatLeader
                               << " leaderLatOffset=" << leader->getLatOffset(foeLane)
                               << " latGap=" << latGap
+                              << " maneuverDist=" << maneuverDist
                               << "\n";
                 }
-                if (latGap > 0) {
+                if (latGap > 0 && (latGap > maneuverDist || !sameTarget)) {
                     const MSLink* foeEntryLink = foeLane->getIncomingLanes().front().viaLink;
                     if (sameSource) {
                         // for lanes from the same edge, higer index implies a
@@ -1137,6 +1147,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                         const bool leaderFromRight = (myIndex > foeEntryLink->getIndex());
                         if ((posLat > posLatLeader) == leaderFromRight) {
                             // ignore speed since lanes diverge
+                            if (gDebugFlag1) std::cout << "   ignored (same source) leaderFromRight=" << leaderFromRight << "\n";
                             continue;
                         }
                     } else {
@@ -1154,6 +1165,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                                         || leaderFromRight == (leader->getLaneChangeModel().getSpeedLat() < latGap))
                                     && (ego->getLaneChangeModel().getSpeedLat() == 0
                                         || leaderFromRight == (ego->getLaneChangeModel().getSpeedLat() > latGap))) {
+                                if (gDebugFlag1) std::cout << "   ignored (different source) leaderFromRight=" << leaderFromRight << "\n";
                                 continue;
                             }
                         } else {
