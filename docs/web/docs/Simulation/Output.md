@@ -133,6 +133,8 @@ Alternatively, the [values for edges or lanes](Output.md#values_for_edges_or_lan
   and loading/unloading of persons and containers
 - [battery usage](../Models/Electric.md#battery-output):
   information about battery state for electric vehicles
+- [collision output](../Simulation/Output/Collisions.md):
+  information about collisions among vehicles and between vehicles and pedestrians
 
 ## simulation(network)-based information
 
