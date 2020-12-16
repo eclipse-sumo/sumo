@@ -8,7 +8,7 @@
     <vehicle id="stopped" type="noCoop" route="r0" departPos="40" depart="0">
         <stop lane="VODUGES_beg_0" endPos="58" duration="7"/>
     </vehicle>
-    <vehicle id="stopped2"  route="r0" departPos="40" depart="2">
+    <vehicle id="stopped2" type="noCoop" route="r0" departPos="40" depart="2">
         <stop lane="VODUGES_beg_0" endPos="50" duration="6"/>
     </vehicle>
     <vehicle id="overtaking" route="r0" departPos="0"  depart="2"/>
