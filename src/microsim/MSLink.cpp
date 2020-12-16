@@ -533,10 +533,13 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
             for (const auto& it : foeLink->myApproachingVehicles) {
                 const SUMOVehicle* foe = it.first;
                 // there only is a conflict if the paths cross
-                if (((myDirection == LinkDirection::RIGHT || myDirection == LinkDirection::PARTRIGHT)
+                // and if the vehicles are not currently in a car-following relationship
+                const double egoWidth = ego == nullptr ? 1.8 : ego->getVehicleType().getWidth();
+                if (!lateralOverlap(posLat, egoWidth, foe->getLateralPositionOnLane() + it.second.latOffset, foe->getVehicleType().getWidth())
+                        && (((myDirection == LinkDirection::RIGHT || myDirection == LinkDirection::PARTRIGHT)
                         && (posLat * lhSign > (foe->getLateralPositionOnLane() + it.second.latOffset) * lhSign))
                         || ((myDirection == LinkDirection::LEFT || myDirection == LinkDirection::PARTLEFT)
-                            && (posLat * lhSign < (foe->getLateralPositionOnLane() + it.second.latOffset) * lhSign))) {
+                            && (posLat * lhSign < (foe->getLateralPositionOnLane() + it.second.latOffset) * lhSign)))) {
                     if (blockedByFoe(foe, it.second, arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, false,
                                      impatience, decel, waitingTime, ego)) {
 #ifdef MSLink_DEBUG_OPENED
@@ -1531,6 +1534,11 @@ MSLink::checkContOff() const {
         }
     }
     return false;
+}
+
+bool
+MSLink::lateralOverlap(double posLat, double width, double posLat2, double width2) {
+    return fabs(posLat2 - posLat) < (width + width2) / 2;
 }
 
 std::string

@@ -605,6 +605,10 @@ private:
     double computeDistToDivergence(const MSLane* lane, const MSLane* sibling, double minDist, bool sameSource) const;
 
 
+    /// @brief check whether the given vehicle positions overlap laterally
+    static bool lateralOverlap(double posLat, double width, double posLat2, double width2);
+
+
 private:
     /// @brief The lane behind the junction approached by this link
     MSLane* myLane;

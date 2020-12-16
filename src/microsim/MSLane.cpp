@@ -757,7 +757,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         }
         hadRailSignal |= (*link)->getTLLogic() != nullptr;
 
-        if (!(*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength(), aVehicle->getImpatience(), cfModel.getMaxDecel(), 0, posLat)
+        if (!(*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength(), aVehicle->getImpatience(),
+                    cfModel.getMaxDecel(), 0, posLat, nullptr, false, aVehicle)
                 || !(*link)->havePriority()) {
             // have to stop at junction
             std::string errorMsg = "";
@@ -2380,7 +2381,7 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
         // get the next link used
         std::vector<MSLink*>::const_iterator link = succLinkSec(veh, view, *nextLane, bestLaneConts);
         if (nextLane->isLinkEnd(link) || !(*link)->opened(arrivalTime, speed, speed, veh.getVehicleType().getLength(),
-                veh.getImpatience(), veh.getCarFollowModel().getMaxDecel(), 0, veh.getLateralPositionOnLane()) || (*link)->haveRed()) {
+                veh.getImpatience(), veh.getCarFollowModel().getMaxDecel(), 0, veh.getLateralPositionOnLane(), nullptr, false, &veh) || (*link)->haveRed()) {
 #ifdef DEBUG_CONTEXT
             if (DEBUG_COND2(&veh)) {
                 std::cout << "    cannot continue after nextLane=" << nextLane->getID() << "\n";
@@ -2492,7 +2493,7 @@ MSLane::getCriticalLeader(double dist, double seen, double speed, const MSVehicl
         // get the next link used
         std::vector<MSLink*>::const_iterator link = succLinkSec(veh, view, *nextLane, bestLaneConts);
         if (nextLane->isLinkEnd(link) || !(*link)->opened(arrivalTime, speed, speed, veh.getVehicleType().getLength(),
-                veh.getImpatience(), veh.getCarFollowModel().getMaxDecel(), 0, veh.getLateralPositionOnLane()) || (*link)->haveRed()) {
+                veh.getImpatience(), veh.getCarFollowModel().getMaxDecel(), 0, veh.getLateralPositionOnLane(), nullptr, false, &veh) || (*link)->haveRed()) {
             return result;
         }
         // check for link leaders
@@ -3383,7 +3384,7 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
         // get the next link used
         std::vector<MSLink*>::const_iterator link = succLinkSec(*ego, view, *nextLane, bestLaneConts);
         if (nextLane->isLinkEnd(link) || !(*link)->opened(arrivalTime, speed, speed, ego->getVehicleType().getLength(),
-                ego->getImpatience(), ego->getCarFollowModel().getMaxDecel(), 0, ego->getLateralPositionOnLane()) || (*link)->haveRed()) {
+                ego->getImpatience(), ego->getCarFollowModel().getMaxDecel(), 0, ego->getLateralPositionOnLane(), nullptr, false, ego) || (*link)->haveRed()) {
             break;
         }
         // check for link leaders

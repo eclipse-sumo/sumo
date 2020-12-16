@@ -4328,7 +4328,7 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
                                      || (myInfluencer != nullptr && !myInfluencer->getRespectJunctionPriority())
                                      || item.myLink->opened(item.myArrivalTime, item.myArrivalSpeed,
                                              item.getLeaveSpeed(), getVehicleType().getLength(),
-                                             getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane())));
+                                             getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane(), nullptr, false, this)));
             bool allowsContinuation = (item.myLink == nullptr || item.myLink->isCont() || opened) && !item.hadStoppedVehicle;
 #ifdef DEBUG_CHECKREWINDLINKLANES
             if (DEBUG_COND) std::cout

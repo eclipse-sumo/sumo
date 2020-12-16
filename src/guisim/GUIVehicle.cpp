@@ -861,7 +861,7 @@ GUIVehicle::selectBlockingFoes() const {
         const bool isOpen =
 #endif
             dpi.myLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLength(),
-                               getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane(), &blockingFoes);
+                               getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane(), &blockingFoes, false, this);
 #ifdef DEBUG_FOES
         if (!isOpen) {
             std::cout << "     closed due to:\n";
@@ -881,7 +881,7 @@ GUIVehicle::selectBlockingFoes() const {
                     parallelLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
                                          getVehicleType().getLength(), getImpatience(),
                                          getCarFollowModel().getMaxDecel(),
-                                         getWaitingTime(), shadowLatPos, &blockingFoes);
+                                         getWaitingTime(), shadowLatPos, &blockingFoes, false, this);
 #ifdef DEBUG_FOES
                 if (!isShadowOpen) {
                     std::cout <<  "    foes at shadow link=" << parallelLink->getViaLaneOrLane()->getID() << ":\n";
