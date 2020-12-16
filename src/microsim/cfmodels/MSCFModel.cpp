@@ -70,7 +70,7 @@ MSCFModel::VehicleVariables::~VehicleVariables() {}
 
 
 double
-MSCFModel::brakeGap(const double speed, const double decel, const double headwayTime) {
+MSCFModel::brakeGap(const double speed, const double decel, const double headwayTime) const {
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         return brakeGapEuler(speed, decel, headwayTime);
     } else {
@@ -345,7 +345,7 @@ MSCFModel::followSpeedTransient(double duration, const MSVehicle* const /*veh*/,
 }
 
 double
-MSCFModel::distAfterTime(double t, double speed, const double accel) {
+MSCFModel::distAfterTime(double t, double speed, const double accel) const {
     if (accel >= 0.) {
         return (speed + 0.5 * accel * t) * t;
     }
