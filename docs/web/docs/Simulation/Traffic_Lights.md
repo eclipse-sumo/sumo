@@ -311,6 +311,8 @@ To use custom detectors (i.e. for custom placement or output) additional paramet
    <param key="gneE42_2" value="customDetector1"/>
 ```
 
+By assigning the special value `NO_DETECTOR`, the detector for a given lane key can be completely disabled.
+
 !!! caution
     Custom detectors only work when the 'tlLogic' is loaded from an additional file.
 
