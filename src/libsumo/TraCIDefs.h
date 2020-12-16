@@ -573,7 +573,7 @@ struct TraCICollision {
     double colliderSpeed;
     double victimSpeed;
     /// @brief The type of collision
-    std::string collisionType;
+    std::string type;
     /// @brief The lane where the collision happended
     std::string lane;
     /// @brief The position of the collision along the lane

@@ -335,7 +335,7 @@ Simulation::getCollisions() {
             c2.victimType = c.victimType;
             c2.colliderSpeed = c.colliderSpeed;
             c2.victimSpeed = c.victimSpeed;
-            c2.collisionType = c.type;
+            c2.type = c.type;
             c2.lane = c.lane->getID();
             c2.pos = c.pos;
             result.push_back(c2);
