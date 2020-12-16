@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_8_0+0116-3b29811196
+Eclipse SUMO netconvert Version v1_8_0+0261-d8d0c429ef
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -295,7 +295,7 @@ TLS Building Options:
                                         one incoming edge ['opposites',
                                         'incoming']
   --tls.no-mixed                       Avoid phases with green and red signals
-                                        for different connectionss from the same
+                                        for different connections from the same
                                         lane
   --tls.min-dur INT                    Default minimum phase duration for
                                         traffic lights with variable phase
