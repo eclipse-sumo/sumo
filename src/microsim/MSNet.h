@@ -70,6 +70,7 @@ class MSDynamicShapeUpdater;
 class PolygonDynamics;
 class MSEdgeWeightsStorage;
 class SUMOVehicle;
+class SUMOTrafficObject;
 class MSTractionSubstation;
 class MSStoppingPlace;
 template<class E, class L, class N, class V>
@@ -671,7 +672,7 @@ public:
     /// @}
 
     /// @brief register collision and return whether it was the first one involving these vehicles
-    bool registerCollision(const SUMOVehicle* collider, const SUMOVehicle* victim, const std::string& collisionType, const MSLane* lane, double pos);
+    bool registerCollision(const SUMOTrafficObject* collider, const SUMOTrafficObject* victim, const std::string& collisionType, const MSLane* lane, double pos);
 
     const CollisionMap& getCollisions() const {
         return myCollisions;
