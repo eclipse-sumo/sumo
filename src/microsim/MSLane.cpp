@@ -1754,6 +1754,9 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                 break;
         }
     }
+    if (collisionType == "frontal collision") {
+        collisionType = "frontal";
+    }
     const bool newCollision = MSNet::getInstance()->registerCollision(collider, victim, collisionType, this, collider->getPositionOnLane(this));
     if (newCollision) {
         WRITE_WARNING(prefix
