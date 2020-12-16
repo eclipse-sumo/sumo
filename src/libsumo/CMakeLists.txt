@@ -99,7 +99,7 @@ if(SWIG_FOUND)
 				COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/LICENSE java/META-INF
 				COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/NOTICE.md classes/META-INF
 				COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/LICENSE classes/META-INF
-                COMMAND "${Java_JAVAC_EXECUTABLE}" --release 8 -d classes java/*.java
+                COMMAND "${Java_JAVAC_EXECUTABLE}" -source 1.8 -target 1.8 -d classes java/*.java
                 COMMAND "${Java_JAR_EXECUTABLE}" -cfM ${CMAKE_SOURCE_DIR}/bin/libsumojni.jar -C classes .
                 COMMAND "${Java_JAR_EXECUTABLE}" -cfM ${CMAKE_SOURCE_DIR}/bin/libsumojni_src.jar -C java .
             )
