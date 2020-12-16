@@ -324,8 +324,10 @@ Determines the speed at which the vehicle should end its route;
 - "`current`": the vehicle will not change
 it's lane when nearing arrival. It will use whatever lane is more
 convenient to reach its arrival position. *(default behavior)*
-- `≥0`: the vehicle changes lanes to end
-it's route on the specified lane
+- `≥0`: the vehicle changes lanes to end it's route on the specified lane
+- "`random`": the vehicle will chose a random permitted lane on it's arrival edge and if necessary change it's lane to end there.
+- "`first`": the vehicle will arrive on the rightmost permitted lane.
+
 
 ### arrivalPos
 
