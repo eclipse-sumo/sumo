@@ -1088,6 +1088,14 @@ MSNet::informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState
 
 bool
 MSNet::registerCollision(const SUMOTrafficObject* collider, const SUMOTrafficObject* victim, const std::string& collisionType, const MSLane* lane, double pos) {
+    auto it = myCollisions.find(collider->getID());
+    if (it != myCollisions.end()) {
+        for (const Collision& old : it->second) {
+            if (old.victim == victim->getID()) {
+                return false;
+            }
+        }
+    }
     Collision c;
     c.victim = victim->getID();
     c.colliderType = collider->getVehicleType().getID();
@@ -1098,7 +1106,6 @@ MSNet::registerCollision(const SUMOTrafficObject* collider, const SUMOTrafficObj
     c.lane = lane;
     c.pos = pos;
     myCollisions[collider->getID()].push_back(c);
-    // xxx reject repeat collision from another detection stage
     return true;
 }
 
