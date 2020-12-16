@@ -57,8 +57,10 @@ Italy.
 - Publication: David Förster, Hans Löhr, Anne Grätz, Jonathan Petit, and Frank Kargl, "An Evaluation of Pseudonym Changes for Vehicular Networks in Large-scale, Realistic Traffic Scenarios", IEEE Transactions on Intelligent Transportation Systems 19.10 (2017): 3400-3405, doi: [10.1109/TITS.2017.2775519](https://doi.org/10.1109/TITS.2017.2775519).
 
 # Turin SUMO Traffic (TuST)
+A large-scale mesoscopic traffic simulation of a 400-sqkm area around the Municipality of Turin.
 
 - [Main Page](https://github.com/marcorapelli/TuSTScenario)
+- Publication: M. Rapelli, C. Casetti and G. Gagliardi, "TuST: from Raw Data to Vehicular Traffic Simulation in Turin," 2019 IEEE/ACM 23rd International Symposium on Distributed Simulation and Real Time Applications (DS-RT), Cosenza, Italy, 2019, pp. 1-8, doi: 10.1109/DS-RT47707.2019.8958652. [pre-print](https://ieeexplore.ieee.org/document/8958652)
 
 !!! note
     requires [git-lfs](https://git-lfs.github.com/) to download
