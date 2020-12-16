@@ -119,7 +119,7 @@ class Collision(object):
         self.victimType = victimType
         self.colliderSpeed = colliderSpeed
         self.victimSpeed = victimSpeed
-        self.collisionType = collisionType
+        self.type = collisionType
         self.lane = lane
         self.pos = pos
 
@@ -140,7 +140,7 @@ class Collision(object):
             self.__attr_repr__("victimType"),
             self.__attr_repr__("colliderSpeed"),
             self.__attr_repr__("victimSpeed"),
-            self.__attr_repr__("collisionType"),
+            self.__attr_repr__("type"),
             self.__attr_repr__("lane"),
             self.__attr_repr__("pos"),
         ] if v != ""])
