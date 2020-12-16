@@ -197,6 +197,11 @@ this repository <https://github.com/DLR-TS/SUMOLibraries>, if you want
 to develop with Visual Studio. If you just want to run SUMO, use the
 binary downloads above which already contain the runtime dependencies.
 
+## Scenarios and other Data
+- [complete scenarios](Data/Scenarios.md)
+- [networks](Data/Networks.md)
+- [traffic data](Data/Traffic_Data.md)
+
 ## Note on Licensing
 
 SUMO is licensed under the
