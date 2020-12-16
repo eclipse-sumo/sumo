@@ -701,10 +701,10 @@ transitions.
 
 ## Setting the complete Program
 
-Using the method **setCompleteRedYellowGreenDefinition**, a static
+Using the method **setProgramLogic**, a static
 signal plan can be loaded. Since this method requires a complex data
 structure as argument, it is recommend to first obtain a data structure
-using **getCompleteRedYellowGreenDefinition** and then modify it
+using **getAllProgramLogics** and then modify it.
 
 ## Switching between pre-defined Programs
 
