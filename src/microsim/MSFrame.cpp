@@ -259,6 +259,9 @@ MSFrame::fillOptions() {
     oc.doRegister("stop-output", new Option_FileName());
     oc.addDescription("stop-output", "Output", "Record stops and loading/unloading of passenger and containers for all vehicles into FILE");
 
+    oc.doRegister("collision-output", new Option_FileName());
+    oc.addDescription("collision-output", "Output", "Write collision information into FILE");
+
     oc.doRegister("statistic-output", new Option_FileName());
     oc.addSynonyme("statistic-output", "statistics-output");
     oc.addDescription("statistic-output", "Output", "Write overall statistics into FILE");
@@ -647,6 +650,7 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("bt-output", "bt-output");
     OutputDevice::createDeviceByOption("lanechange-output", "lanechanges");
     OutputDevice::createDeviceByOption("stop-output", "stops", "stopinfo_file.xsd");
+    OutputDevice::createDeviceByOption("collision-output", "collisions", "collision_file.xsd");
     OutputDevice::createDeviceByOption("statistic-output", "statistics", "statistic_file.xsd");
 
 #ifdef _DEBUG

@@ -480,6 +480,28 @@ MSNet::generateStatistics(SUMOTime start) {
 }
 
 void
+MSNet::writeCollisions() const {
+    OutputDevice& od = OutputDevice::getDeviceByOption("collision-output");
+    for (const auto& item : myCollisions) {
+        for (const auto& c : item.second) {
+            od.openTag("collision");
+            od.writeAttr("time", time2string(getCurrentTimeStep()));
+            od.writeAttr("type", c.type);
+            od.writeAttr("lane", c.lane->getID());
+            od.writeAttr("pos", c.pos);
+            od.writeAttr("collider", item.first);
+            od.writeAttr("victim", c.victim);
+            od.writeAttr("colliderType", c.colliderType);
+            od.writeAttr("victimType", c.victimType);
+            od.writeAttr("colliderSpeed", c.colliderSpeed);
+            od.writeAttr("victimSpeed", c.victimSpeed);
+            od.closeTag();
+        }
+    }
+    
+}
+
+void
 MSNet::writeStatistics() const {
     OutputDevice& od = OutputDevice::getDeviceByOption("statistic-output");
     od.openTag("vehicles");
@@ -981,6 +1003,10 @@ MSNet::writeOutput() {
         if (dev->generatesOutput()) {
             dev->writeOutput();
         }
+    }
+
+    if (OptionsCont::getOptions().isSet("collision-output")) {
+        writeCollisions();
     }
 }
 
