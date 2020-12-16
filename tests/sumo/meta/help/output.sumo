@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_7_0+1385-c75ca7897d
+Eclipse SUMO sumo Version v1_8_0+0257-1258e9dc73
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -213,6 +213,8 @@ Processing Options:
                                         detectors
   --tls.delay_based.detector-range FLOAT  Sets default range for detecting
                                         delayed vehicles
+  --tls.yellow.min-decel FLOAT         Minimum deceleration when braking at
+                                        yellow
   --time-to-impatience TIME            Specify how long a vehicle may wait
                                         until impatience grows from 0 to 1,
                                         defaults to 300, non-positive values
@@ -691,8 +693,6 @@ GUI Only Options:
                                         position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                         windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing

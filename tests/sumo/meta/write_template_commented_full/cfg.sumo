@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 30 17:47:43 2020 by Eclipse SUMO sumo Version v1_7_0+1385-c75ca7897d
+<!-- generated on Wed Dec 16 00:09:00 2020 by Eclipse SUMO sumo Version v1_8_0+0257-1258e9dc73
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -338,6 +338,9 @@
 
         <!-- Sets default range for detecting delayed vehicles -->
         <tls.delay_based.detector-range value="100" type="FLOAT"/>
+
+        <!-- Minimum deceleration when braking at yellow -->
+        <tls.yellow.min-decel value="3" type="FLOAT"/>
 
         <!-- Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth -->
         <time-to-impatience value="300" type="TIME"/>
@@ -986,9 +989,6 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="FLOAT"/>
-
-        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
-        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>
