@@ -65,6 +65,8 @@ A large-scale mesoscopic traffic simulation of a 400-sqkm area around the Munici
 !!! note
     requires [git-lfs](https://git-lfs.github.com/) to download
 
+![TuST.png](../images/TuST.gif "TuST")
+
 # TAPASCologne
 
 ![ssnap_TapasCologne_0.1.gif](../images/Ssnap_TapasCologne_0.1.gif
