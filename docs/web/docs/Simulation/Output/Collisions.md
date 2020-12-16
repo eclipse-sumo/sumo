@@ -40,7 +40,8 @@ The following collision types are written
 
 - collision: rear collision (leader vehicle is the victim)
 - frontal: collision will driving through the opposite direction lane (the vehicle using the opposite direction lane is the collider)
+- junction: collision between vehicles on a junction. Collider and Victim are assigned arbitrarily.
 - sharedLane: collision between vehicle and person on the same lane. The person is always the victim
 - crossing: collision between vehicle and person on a pedestrian crossing. The person is always the victim
 - walkingarea: collision between vehicle and person on a walkingarea. The person is always the victim
-- junction: other collision between vehicle and person on a junction. The person is always the victim
+- junctionPedestrian: other collision between vehicle and person on a junction. The person is always the victim

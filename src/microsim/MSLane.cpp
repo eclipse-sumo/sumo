@@ -1557,7 +1557,7 @@ MSLane::detectPedestrianJunctionCollision(const MSVehicle* collider, const Posit
             }
 #endif
             if (colliderBoundary.overlapsWith((*it_p)->getBoundingBox())) {
-                std::string collisionType = "junction";
+                std::string collisionType = "junctionPedestrian";
                 if (foeLane->getEdge().isCrossing()) {
                     collisionType = "crossing";
                 } else if (foeLane->getEdge().isWalkingArea()) {
@@ -1665,8 +1665,9 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
         return;
     }
     std::string collisionType = ((collider->getLaneChangeModel().isOpposite() != victim->getLaneChangeModel().isOpposite()
-                                  || (&collider->getLane()->getEdge() == victim->getLane()->getEdge().getBidiEdge()))
-                                 ?  "frontal collision" : "collision");
+                || (&collider->getLane()->getEdge() == victim->getLane()->getEdge().getBidiEdge()))
+            ?  "frontal collision"
+            : (isInternal() ? "junction collision" : "collision"));
     // in frontal collisions the opposite vehicle is the collider
     if (victim->getLaneChangeModel().isOpposite() && !collider->getLaneChangeModel().isOpposite()) {
         std::swap(collider, victim);
@@ -1756,6 +1757,8 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
     }
     if (collisionType == "frontal collision") {
         collisionType = "frontal";
+    } else if (collisionType == "junction collision") {
+        collisionType = "junction";
     }
     const bool newCollision = MSNet::getInstance()->registerCollision(collider, victim, collisionType, this, collider->getPositionOnLane(this));
     if (newCollision) {
