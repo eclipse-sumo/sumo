@@ -1760,6 +1760,7 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
 #endif
     MSNet::getInstance()->informVehicleStateListener(victim, MSNet::VEHICLE_STATE_COLLISION);
     MSNet::getInstance()->informVehicleStateListener(collider, MSNet::VEHICLE_STATE_COLLISION);
+    MSNet::getInstance()->registerCollision(collider, victim, collisionType, this, collider->getPositionOnLane(this));
     MSNet::getInstance()->getVehicleControl().registerCollision();
 }
 

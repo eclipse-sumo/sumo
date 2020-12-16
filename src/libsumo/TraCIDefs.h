@@ -563,4 +563,21 @@ public:
     /// @brief time when the reservation was made
     double reservationTime;
 };
+
+struct TraCICollision {
+    /// @brief The ids of the participating vehicles and persons
+    std::string collider;
+    std::string victim;
+    std::string colliderType;
+    std::string victimType;
+    double colliderSpeed;
+    double victimSpeed;
+    /// @brief The type of collision
+    std::string collisionType;
+    /// @brief The lane where the collision happended
+    std::string lane;
+    /// @brief The position of the collision along the lane
+    double pos;
+};
+
 }

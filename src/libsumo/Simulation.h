@@ -110,6 +110,7 @@ public:
      */
     static std::vector<std::string> getBusStopWaitingIDList(const std::string& stopID);
 
+    static std::vector<libsumo::TraCICollision> getCollisions();
 
     static double getDeltaT();
 

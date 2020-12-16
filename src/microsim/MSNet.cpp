@@ -592,6 +592,7 @@ MSNet::simulationStep() {
     MSRoutingEngine::waitForAll();
 #endif
     if (MSGlobals::gCheck4Accidents) {
+        myCollisions.clear();
         myEdges->detectCollisions(myStep, STAGE_EVENTS);
     }
     // check whether the tls programs need to be switched
@@ -1085,6 +1086,19 @@ MSNet::informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState
     }
 }
 
+bool
+MSNet::registerCollision(const SUMOVehicle* collider, const SUMOVehicle* victim, const std::string& collisionType, const MSLane* lane, double pos) {
+    Collision c;
+    c.victim = victim->getID();
+    c.colliderType = collider->getVehicleType().getID();
+    c.victimType = victim->getVehicleType().getID();
+    c.colliderSpeed = collider->getSpeed();
+    c.victimSpeed = victim->getSpeed();
+    c.type = collisionType;
+    c.lane = lane;
+    c.pos = pos;
+    myCollisions[collider->getID()].push_back(c);
+}
 
 bool
 MSNet::addStoppingPlace(const SumoXMLTag category, MSStoppingPlace* stop) {

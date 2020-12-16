@@ -1186,6 +1186,9 @@ TRACI_CONST int CMD_SAVE_SIMSTATE = 0x95;
 // triggers saving simulation state (set: simulation)
 TRACI_CONST int CMD_LOAD_SIMSTATE = 0x96;
 
+// retrieve detail data for each collision
+TRACI_CONST int VAR_COLLISIONS = 0x23;
+
 // sets/retrieves abstract parameter
 TRACI_CONST int VAR_PARAMETER = 0x7e;
 
