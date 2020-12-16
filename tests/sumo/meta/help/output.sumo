@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_8_0+0257-1258e9dc73
+Eclipse SUMO sumo Version v1_8_0+0279-2946cbf903
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -125,6 +125,7 @@ Output Options:
   --stop-output FILE                   Record stops and loading/unloading of
                                         passenger and containers for all
                                         vehicles into FILE
+  --collision-output FILE              Write collision information into FILE
   --statistic-output FILE              Write overall statistics into FILE
   --save-state.times STR[]             Use TIME[] as times at which a network
                                         state written

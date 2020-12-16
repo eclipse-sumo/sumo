@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 16 00:09:00 2020 by Eclipse SUMO sumo Version v1_8_0+0257-1258e9dc73
+<!-- generated on Wed Dec 16 20:13:04 2020 by Eclipse SUMO sumo Version v1_8_0+0279-2946cbf903
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -80,6 +80,7 @@
         <lanechange-output.ended value="false" type="BOOL" help="Record end of lane change manoeuvres"/>
         <lanechange-output.xy value="false" type="BOOL" help="Record coordinates of lane change manoeuvres"/>
         <stop-output value="" type="FILE" help="Record stops and loading/unloading of passenger and containers for all vehicles into FILE"/>
+        <collision-output value="" type="FILE" help="Write collision information into FILE"/>
         <statistic-output value="" synonymes="statistics-output" type="FILE" help="Write overall statistics into FILE"/>
         <save-state.times value="" type="STR[]" help="Use TIME[] as times at which a network state written"/>
         <save-state.period value="-1" type="TIME" help="save state repeatedly after TIME period"/>
