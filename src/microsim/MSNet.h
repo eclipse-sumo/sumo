@@ -288,6 +288,9 @@ public:
      */
     const std::string generateStatistics(SUMOTime start);
 
+    /// @brief write collision output to (xml) file
+    void writeCollisions() const;
+
     /// @brief write statistic output to (xml) file
     void writeStatistics() const;
 
