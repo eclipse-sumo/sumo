@@ -380,6 +380,9 @@ MSFrame::fillOptions() {
     oc.doRegister("tls.delay_based.detector-range", new Option_Float(100));
     oc.addDescription("tls.delay_based.detector-range", "Processing", "Sets default range for detecting delayed vehicles");
 
+    oc.doRegister("tls.yellow.min-decel", new Option_Float(3.0));
+    oc.addDescription("tls.yellow.min-decel", "Processing", "Minimum deceleration when braking at yellow");
+
     oc.doRegister("time-to-impatience", new Option_String("300", "TIME"));
     oc.addDescription("time-to-impatience", "Processing", "Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth");
 
@@ -900,6 +903,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gModelParkingManoeuver = oc.getBool("parking.maneuver");
 
     MSGlobals::gStopTolerance = oc.getFloat("ride.stop-tolerance");
+    MSGlobals::gTLSYellowMinDecel = oc.getFloat("tls.yellow.min-decel");
 
 #ifdef _DEBUG
     if (oc.isSet("movereminder-output")) {

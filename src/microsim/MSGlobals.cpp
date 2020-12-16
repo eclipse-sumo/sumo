@@ -75,6 +75,7 @@ bool MSGlobals::gModelParkingManoeuver;
 bool MSGlobals::gSublane(false);
 
 double MSGlobals::gStopTolerance;
+double MSGlobals::gTLSYellowMinDecel;
 
 bool MSGlobals::gLefthand(false);
 

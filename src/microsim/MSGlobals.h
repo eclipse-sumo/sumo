@@ -132,6 +132,9 @@ public:
     /// @brief The tolerance to apply when matching waiting persons and vehicles
     static double gStopTolerance;
 
+    /// @brief The minimum deceleration at a yellow traffic light (only overruled by emergencyDecel)
+    static double gTLSYellowMinDecel;
+
     /// @brief Whether lefthand-drive is being simulated
     static bool gLefthand;
 };

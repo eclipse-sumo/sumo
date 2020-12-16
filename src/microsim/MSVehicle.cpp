@@ -2250,7 +2250,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         double laneStopOffset;
         const double majorStopOffset = MAX2(getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_GAP, DIST_TO_STOPLINE_EXPECT_PRIORITY), lane->getStopOffset(this));
         const double minorStopOffset = lane->getStopOffset(this);
-        const double brakeDist = cfModel.brakeGap(myState.mySpeed, cfModel.getMaxDecel(), 0);
+        // override low desired decel at yellow
+        const double stopDecel = (*link)->haveYellow() ? MAX2(MIN2(MSGlobals::gTLSYellowMinDecel, cfModel.getEmergencyDecel()), cfModel.getMaxDecel()) : cfModel.getMaxDecel();
+        const double brakeDist = cfModel.brakeGap(myState.mySpeed, stopDecel, 0);
         const bool canBrakeBeforeLaneEnd = seen >= brakeDist;
         const bool canBrakeBeforeStopLine = seen - lane->getStopOffset(this) >= brakeDist;
         if (yellowOrRed) {
@@ -2330,7 +2332,12 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // - even if red, if we cannot break we should issue a request
         bool setRequest = (v > NUMERICAL_EPS_SPEED && !abortRequestAfterMinor) || (leavingCurrentIntersection);
 
-        double vLinkWait = MIN2(v, cfModel.stopSpeed(this, getSpeed(), stopDist));
+        double stopSpeed = cfModel.stopSpeed(this, getSpeed(), stopDist);
+        if ((*link)->haveYellow() && canBrakeBeforeLaneEnd) {
+            // prevent overshooting deceleration after overriding with MSGlobals::gTLSYellowMinDecel
+            stopSpeed = MAX2(stopSpeed, getSpeed() - ACCEL2SPEED(stopDecel));
+        }
+        double vLinkWait = MIN2(v, stopSpeed);
 #ifdef DEBUG_PLAN_MOVE
         if (DEBUG_COND) {
             std::cout
