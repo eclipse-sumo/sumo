@@ -6,14 +6,66 @@ permalink: /ChangeLog/
 ## Git Master
 
 ### Bugfixes
+- Simulation
+  - Fixed disappearing vehicle when transporting containers with taxi. Issue #7893
+  - Fixed collisions between pedestrians and vehicles on shared space #7960
+  - Vehicles with low (desired) decel value will no longer perform an emergency stop on after being when caught in the "Yellow Light Dilemma Zone". Instead they will brake with decel **--tls.yellow.min-decel** (default: 3) as long as they have a sufficiently high emergencyDecel value. Issue #7956
+  - Sublane model fixes
+    - Fixed deadlock in roundabout. Issue #7935
+    - Fixed invalid deceleration at intersection due to misinterpreting lateral position of approaching foes #7925
+    - Fixed collision in sublane model after parallel internal edges (requries rebuilding the network) #3619
+  
+- sumo-gui
+  - Fixed long pause on right-click in large networks. Issue #7927 (Regression in 1.4.0)
+  - Routes for vehicles with dark color are no longer colored black #7934
+  
+- netedit
+  - Fixed invalid E2 detector shape #7895 (Regression in 1.7.0)
+  - Access elements can only be placed on lane that permit pedestrian traffic. Issue #5893
+  - Fixed issues when adding stops in person plan. #7829
+  - Fixed issue where written network (with only invalid crossings) is modified upon reloading #7765
+  - In Traffic Light mode, cycle time is now updated, when new phase is inserted #7961
+
+- netconvert
+  - Fixed invalid signal plans in network with unusual geometry. Issue #7915
+
 - od2trips
   - Fixed invalid begin and end times when writting personFlows. Issue #7885
   
 - TraCI
   - Function 'vehicle.getSpeedWithoutTraCI' now returns original model speeds after calling moveToXY. Issue #7190
+  - Fixed issues with mapping location and speed for funnction 'person.moveToXY' . Issue #7907, #7908
+  - Fixed crash when switching to carFollowModel that requries vehicle variables. Issue #7949
+  
+- Tools
+  - Fixed error in xml2csv.py when loading files names consists only of numbers. Issue #7910
+  - Fixed invalid routes when [importing MATSim plans](Tools/Import/MATSim.md) #7948
+  
   
 ### Enhancements
+- Simulation
+  - Added stop atttribute 'permitted' to restrict persons and containers that can enter vehicle at stop #7869
+  - In tripinfo-output, the access stage of a person plan now includes attributes depart and arrival. Issue #7822
+  - Detectors for actuated traffic lights can now be selectively disabled by setting the special id 'NO_DETECTOR' for a lane. #7919
+  - Setting vehicle attribute `arrivalLane="random"` and `"first"` is now supported. Issue #7932
+  
+- sumo-gui
+  - Random color for containers is now supported. Issue #7941
+  - Added 'Update' button to object selection dialogs to refresh the object list. Issue #7942
+  
+- Netconvert
+  - Added option **--tls.no-mixed** which prevents building phases where different connections from the same lane have green and red signals. Issue #7821
+  - Element `<laneType>` is now supported in an edge `<type>` to pre-configure speed, width and permissions for individual lanes. Issue #7791
+  
+- Tools
+  - The tool [gridDistricts.py](Tools/District.md#griddistrictspy) can be used to generated a grid of districts (TAZs) for a given network. #7946
+
 ### Other
+
+- Netconvert
+  - Parallel turn lanes are no longer written as distinct edges but are instead written as multi-lane edge with different lane lenghts. As before, lane-changing on an intersection is not permitted on a turn lane.
+  - Written network version is now 1.9.0
+  
 
 ## Version 1.8.0 (02.12.2020)
 
