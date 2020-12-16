@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Dec 16 20:11:26 2020 by Eclipse SUMO sumo Version v1_8_0+0279-2946cbf903
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net3.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <collision-output value="collisions.xml"/>
+    </output>
+
+    <processing>
+        <collision.check-junctions value="true"/>
+    </processing>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="42321"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<collisions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/collision_file.xsd">
+    <collision time="4.00" type="collision" lane="SC_3" pos="25.10" collider="c0" victim="v0" colliderType="reckless" victimType="slow" colliderSpeed="15.00" victimSpeed="5.00"/>
+    <collision time="4.00" type="collision" lane="SC_4" pos="25.10" collider="c1" victim="v1" colliderType="reckless" victimType="slow" colliderSpeed="15.00" victimSpeed="5.00"/>
+    <collision time="15.00" type="sharedLane" lane="EC_0" pos="85.15" collider="c3" victim="pWE.37" colliderType="reckless" victimType="DEFAULT_PEDTYPE" colliderSpeed="15.00" victimSpeed="0.00"/>
+    <collision time="16.00" type="crossing" lane=":C_c0_0" pos="13.28" collider="c2" victim="pWE.3" colliderType="reckless" victimType="DEFAULT_PEDTYPE" colliderSpeed="15.00" victimSpeed="1.37"/>
+    <collision time="17.00" type="crossing" lane=":C_c0_0" pos="13.28" collider="c2" victim="pWE.3" colliderType="reckless" victimType="DEFAULT_PEDTYPE" colliderSpeed="15.00" victimSpeed="0.00"/>
+</collisions>

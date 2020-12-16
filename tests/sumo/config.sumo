@@ -41,6 +41,7 @@ bt:bt.xml
 tripinfos:tripinfos.xml
 statistic:statistic.xml
 stopinfos:stopinfos.xml
+collisions:collisions.xml
 vtypeprobe:vtypeprobe.xml
 vehroutes:vehroutes.xml
 vehroutes_ignore_arrival:vehroutes_ignore_arrival.xml
@@ -119,6 +120,7 @@ bt:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
 statistic:<!--{[->]}-->
 stopinfos:<!--{[->]}-->
+collisions:<!--{[->]}-->
 tripinfosPrefix:<!--{[->]}-->
 vtypeprobe:<!--{[->]}-->
 vehroutes:^<!--{[->]}-->

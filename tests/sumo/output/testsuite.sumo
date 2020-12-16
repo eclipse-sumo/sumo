@@ -77,6 +77,7 @@ queue-output
 
 # test the duration log output
 duration_log
+collisions
 
 # --statistic-output
 statistic

@@ -71,6 +71,7 @@ detector:detector.xml
 tocs:tocs.xml
 stops:stops.xml
 stopinfos:stopinfos.xml
+collisions:collisions.xml
 ssm:ssm.xml
 
 [run_dependent_text]
@@ -105,6 +106,7 @@ rawdump:<!--{[->]}-->
 fcd:<!--{[->]}-->
 stops:<!--{[->]}-->
 stopinfos:<!--{[->]}-->
+collisions:<!--{[->]}-->
 ssm:<!--{[->]}-->
 lanechanges:<!--{[->]}-->
 state:<!--{[->]}-->

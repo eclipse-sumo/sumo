@@ -33,6 +33,7 @@ traci.start([sumolib.checkBinary('sumo'),
     "-n", "input_net3.net.xml",
     "-r", "input_routes.rou.xml",
     "--collision.check-junctions",
+    "--collision-output", "collisions.xml",
     "--no-step-log"
     ])
 traci.simulationStep()
