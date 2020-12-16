@@ -143,7 +143,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
                     server.getWrapperStorage().writeString(c.victim);
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                    server.getWrapperStorage().writeString(c.type);
+                    server.getWrapperStorage().writeString(c.colliderType);
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
                     server.getWrapperStorage().writeString(c.victimType);
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
@@ -151,7 +151,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
                     server.getWrapperStorage().writeDouble(c.victimSpeed);
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                    server.getWrapperStorage().writeString(c.collisionType);
+                    server.getWrapperStorage().writeString(c.type);
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
                     server.getWrapperStorage().writeString(c.lane);
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
