@@ -1506,15 +1506,17 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
             }
 #endif
             if (leader.first != 0 && leader.second < length) {
-                WRITE_WARNING(
-                    "Vehicle '" + v->getID()
-                    + "' collision with person '" + leader.first->getID()
-                    + "', lane='" + getID()
-                    + "', gap=" + toString(leader.second - length)
-                    + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
-                    + " stage=" + stage + ".");
-                MSNet::getInstance()->getVehicleControl().registerCollision();
-                MSNet::getInstance()->registerCollision(v, leader.first, "sharedLane", this, leader.first->getEdgePos());
+                const bool newCollision = MSNet::getInstance()->registerCollision(v, leader.first, "sharedLane", this, leader.first->getEdgePos());
+                if (newCollision) {
+                    WRITE_WARNING(
+                            "Vehicle '" + v->getID()
+                            + "' collision with person '" + leader.first->getID()
+                            + "', lane='" + getID()
+                            + "', gap=" + toString(leader.second - length)
+                            + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
+                            + " stage=" + stage + ".");
+                    MSNet::getInstance()->getVehicleControl().registerCollision();
+                }
             }
         }
     }
@@ -1555,20 +1557,22 @@ MSLane::detectPedestrianJunctionCollision(const MSVehicle* collider, const Posit
             }
 #endif
             if (colliderBoundary.overlapsWith((*it_p)->getBoundingBox())) {
-                WRITE_WARNING(
-                    "Vehicle '" + collider->getID()
-                    + "' collision with person '" + (*it_p)->getID()
-                    + "', lane='" + getID()
-                    + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
-                    + " stage=" + stage + ".");
-                MSNet::getInstance()->getVehicleControl().registerCollision();
                 std::string collisionType = "junction";
                 if (foeLane->getEdge().isCrossing()) {
                     collisionType = "crossing";
                 } else if (foeLane->getEdge().isWalkingArea()) {
                     collisionType = "walkingarea";
                 }
-                MSNet::getInstance()->registerCollision(collider, *it_p, collisionType, foeLane, (*it_p)->getEdgePos());
+                const bool newCollision = MSNet::getInstance()->registerCollision(collider, *it_p, collisionType, foeLane, (*it_p)->getEdgePos());
+                if (newCollision) {
+                    WRITE_WARNING(
+                            "Vehicle '" + collider->getID()
+                            + "' collision with person '" + (*it_p)->getID()
+                            + "', lane='" + getID()
+                            + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
+                            + " stage=" + stage + ".");
+                    MSNet::getInstance()->getVehicleControl().registerCollision();
+                }
             }
         }
     }
@@ -1750,12 +1754,18 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                 break;
         }
     }
-    WRITE_WARNING(prefix
-                  + "', lane='" + getID()
-                  + "', gap=" + toString(gap)
-                  + (MSGlobals::gSublane ? "', latGap=" + toString(latGap) : "")
-                  + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
-                  + " stage=" + stage + ".");
+    const bool newCollision = MSNet::getInstance()->registerCollision(collider, victim, collisionType, this, collider->getPositionOnLane(this));
+    if (newCollision) {
+        WRITE_WARNING(prefix
+                + "', lane='" + getID()
+                + "', gap=" + toString(gap)
+                + (MSGlobals::gSublane ? "', latGap=" + toString(latGap) : "")
+                + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
+                + " stage=" + stage + ".");
+        MSNet::getInstance()->informVehicleStateListener(victim, MSNet::VEHICLE_STATE_COLLISION);
+        MSNet::getInstance()->informVehicleStateListener(collider, MSNet::VEHICLE_STATE_COLLISION);
+        MSNet::getInstance()->getVehicleControl().registerCollision();
+    }
 #ifdef DEBUG_COLLISIONS
     if (DEBUG_COND2(collider)) {
         toRemove.erase(collider);
@@ -1766,10 +1776,6 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
         toTeleport.erase(victim);
     }
 #endif
-    MSNet::getInstance()->informVehicleStateListener(victim, MSNet::VEHICLE_STATE_COLLISION);
-    MSNet::getInstance()->informVehicleStateListener(collider, MSNet::VEHICLE_STATE_COLLISION);
-    MSNet::getInstance()->registerCollision(collider, victim, collisionType, this, collider->getPositionOnLane(this));
-    MSNet::getInstance()->getVehicleControl().registerCollision();
 }
 
 
