@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov 24 08:00:40 2020 by Eclipse SUMO sumo Version v1_7_0+1207-a8319472a5
+<!-- generated on Wed Dec 16 09:04:34 2020 by Eclipse SUMO sumo Version v1_8_0+0259-9804453cff
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -4377,7 +4377,7 @@
     </vehicle>
 
     <vehicle id="876" depart="3504.00" arrival="3844.00">
-        <route cost="267.91" savings="0.00" edges="831 -831 -662 -652 658 828 1941 -2436 -2403 -1466 1468" exitTimes="3533.00 3609.00 3653.00 3698.00 3707.00 3745.00 3763.00 3784.00 3803.00 3820.00 3844.00"/>
+        <route cost="267.90" savings="0.00" edges="831 -831 -662 -652 658 828 1941 -2436 -2403 -1466 1468" exitTimes="3533.00 3609.00 3653.00 3698.00 3707.00 3745.00 3763.00 3784.00 3803.00 3820.00 3844.00"/>
     </vehicle>
 
     <vehicle id="811" depart="3244.00" arrival="3845.00">
