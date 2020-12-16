@@ -69,12 +69,12 @@ TEST_F(MSCFModelTest, test_method_static_brakeGap) {
     const double v = 3;
     const double b = 4;
     const double t = 1; // tau
-    EXPECT_DOUBLE_EQ(3, MSCFModel::brakeGap(v, b, t));
-    EXPECT_DOUBLE_EQ(0, MSCFModel::brakeGap(v, b, 0));
-    EXPECT_DOUBLE_EQ(3, MSCFModel::brakeGap(7, b, 0));
-    EXPECT_DOUBLE_EQ(28.6, MSCFModel::brakeGap(18.4, 4.5, 0));
-    EXPECT_DOUBLE_EQ(47., MSCFModel::brakeGap(22.9, 4.5, 0));
-    EXPECT_DOUBLE_EQ(44., MSCFModel::brakeGap(22.25, 4.5, 0));
+    EXPECT_DOUBLE_EQ(3, m->brakeGap(v, b, t));
+    EXPECT_DOUBLE_EQ(0, m->brakeGap(v, b, 0));
+    EXPECT_DOUBLE_EQ(3, m->brakeGap(7, b, 0));
+    EXPECT_DOUBLE_EQ(28.6, m->brakeGap(18.4, 4.5, 0));
+    EXPECT_DOUBLE_EQ(47., m->brakeGap(22.9, 4.5, 0));
+    EXPECT_DOUBLE_EQ(44., m->brakeGap(22.25, 4.5, 0));
 }
 
 TEST_F(MSCFModelTest, test_method_static_freeSpeed) {
