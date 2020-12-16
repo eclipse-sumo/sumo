@@ -308,11 +308,11 @@ public:
      * @param[in] speed The vehicle's current speed
      * @return The distance needed to halt
      */
-    inline double brakeGap(const double speed) const {
+    virtual double brakeGap(const double speed) const {
         return brakeGap(speed, myDecel, myHeadwayTime);
     }
 
-    static double brakeGap(const double speed, const double decel, const double headwayTime);
+    virtual double brakeGap(const double speed, const double decel, const double headwayTime) const;
 
     static double brakeGapEuler(const double speed, const double decel, const double headwayTime);
 
@@ -444,7 +444,7 @@ public:
 
 
     /// @brief calculates the distance travelled after accelerating for time t
-    static double distAfterTime(double t, double speed, double accel);
+    virtual double distAfterTime(double t, double speed, double accel) const;
 
 
 
