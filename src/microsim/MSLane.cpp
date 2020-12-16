@@ -1514,6 +1514,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                     + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
                     + " stage=" + stage + ".");
                 MSNet::getInstance()->getVehicleControl().registerCollision();
+                MSNet::getInstance()->registerCollision(v, leader.first, "sharedLane", this, leader.first->getEdgePos());
             }
         }
     }
@@ -1561,6 +1562,13 @@ MSLane::detectPedestrianJunctionCollision(const MSVehicle* collider, const Posit
                     + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
                     + " stage=" + stage + ".");
                 MSNet::getInstance()->getVehicleControl().registerCollision();
+                std::string collisionType = "junction";
+                if (foeLane->getEdge().isCrossing()) {
+                    collisionType = "crossing";
+                } else if (foeLane->getEdge().isWalkingArea()) {
+                    collisionType = "walkingarea";
+                }
+                MSNet::getInstance()->registerCollision(collider, *it_p, collisionType, foeLane, (*it_p)->getEdgePos());
             }
         }
     }
