@@ -48,6 +48,7 @@ permalink: /ChangeLog/
   - In tripinfo-output, the access stage of a person plan now includes attributes depart and arrival. Issue #7822
   - Detectors for actuated traffic lights can now be selectively disabled by setting the special id 'NO_DETECTOR' for a lane. #7919
   - Setting vehicle attribute `arrivalLane="random"` and `"first"` is now supported. Issue #7932
+  - Added new option **--collision-output** to write information on collisions to an XML file. Issue #7990.
   
 - sumo-gui
   - Random color for containers is now supported. Issue #7941
@@ -57,6 +58,9 @@ permalink: /ChangeLog/
   - Added option **--tls.no-mixed** which prevents building phases where different connections from the same lane have green and red signals. Issue #7821
   - Element `<laneType>` is now supported in an edge `<type>` to pre-configure speed, width and permissions for individual lanes. Issue #7791
   
+- TraCI
+  - Added function 'traci.simulation.getCollisions' to retrieve a list of collision objects for the current time step. This also includes collisions between vehicles and pedestrians. Issue #7728
+
 - Tools
   - The tool [gridDistricts.py](Tools/District.md#griddistrictspy) can be used to generated a grid of districts (TAZs) for a given network. #7946
 
