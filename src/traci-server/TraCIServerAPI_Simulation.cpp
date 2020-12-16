@@ -130,6 +130,35 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             case libsumo::VAR_EMERGENCYSTOPPING_VEHICLES_IDS:
                 writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_EMERGENCYSTOP);
                 break;
+            case libsumo::VAR_COLLISIONS: {
+                std::vector<libsumo::TraCICollision> collisions = libsumo::Simulation::getCollisions();
+                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
+                const int cnt = 1 + (int)collisions.size() * 4;
+                server.getWrapperStorage().writeInt(cnt);
+                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
+                server.getWrapperStorage().writeInt((int)collisions.size());
+                for (const auto& c : collisions) {
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                    server.getWrapperStorage().writeString(c.collider);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                    server.getWrapperStorage().writeString(c.victim);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                    server.getWrapperStorage().writeString(c.colliderType);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                    server.getWrapperStorage().writeString(c.victimType);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                    server.getWrapperStorage().writeDouble(c.colliderSpeed);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                    server.getWrapperStorage().writeDouble(c.victimSpeed);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                    server.getWrapperStorage().writeString(c.collisionType);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                    server.getWrapperStorage().writeString(c.lane);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                    server.getWrapperStorage().writeDouble(c.pos);
+                }
+                break;
+            }
             case libsumo::VAR_DELTA_T:
                 server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
                 server.getWrapperStorage().writeDouble(libsumo::Simulation::getDeltaT());

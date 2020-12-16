@@ -127,6 +127,20 @@ public:
         bool overtaking;
     };
 
+    /// @brief collision tracking
+    struct Collision {
+        std::string victim;
+        std::string colliderType;
+        std::string victimType;
+        double colliderSpeed;
+        double victimSpeed;
+        std::string type;
+        const MSLane* lane;
+        double pos;
+    };
+
+    typedef std::map<std::string, std::vector<Collision> > CollisionMap;
+
 public:
     /** @brief Returns the pointer to the unique instance of MSNet (singleton).
      * @return Pointer to the unique MSNet-instance
@@ -656,7 +670,12 @@ public:
     void informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to, const std::string& info = "");
     /// @}
 
+    /// @brief register collision and return whether it was the first one involving these vehicles
+    bool registerCollision(const SUMOVehicle* collider, const SUMOVehicle* victim, const std::string& collisionType, const MSLane* lane, double pos);
 
+    const CollisionMap& getCollisions() const {
+        return myCollisions;
+    }
 
     /** @brief Returns the travel time to pass an edge
      * @param[in] e The edge for which the travel time to be passed shall be returned
@@ -872,6 +891,9 @@ protected:
 
     /// @brief Container for vehicle state listener
     std::vector<VehicleStateListener*> myVehicleStateListeners;
+
+    /// @brief collisions in the current time step
+    CollisionMap myCollisions;
 
 #ifdef HAVE_FOX
     /// @brief to avoid concurrent access to the state update function

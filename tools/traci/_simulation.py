@@ -109,7 +109,67 @@ def _writeStage(stage):
     return format, values
 
 
-_RETURN_VALUE_FUNC = {tc.FIND_ROUTE: _readStage}
+class Collision(object):
+
+    def __init__(self, collider, victim, colliderType, victimType,
+            colliderSpeed, victimSpeed, collisionType, lane, pos):
+        self.collider = collider
+        self.victim = victim
+        self.colliderType = colliderType
+        self.victimType = victimType
+        self.colliderSpeed = colliderSpeed
+        self.victimSpeed = victimSpeed
+        self.collisionType = collisionType
+        self.lane = lane
+        self.pos = pos
+
+    def __attr_repr__(self, attrname, default=""):
+        if getattr(self, attrname) == default:
+            return ""
+        else:
+            val = getattr(self, attrname)
+            if val == tc.INVALID_DOUBLE_VALUE:
+                val = "INVALID"
+            return "%s=%s" % (attrname, val)
+
+    def __repr__(self):
+        return "Collision(%s)" % ', '.join([v for v in [
+            self.__attr_repr__("collider"),
+            self.__attr_repr__("victim"),
+            self.__attr_repr__("colliderType"),
+            self.__attr_repr__("victimType"),
+            self.__attr_repr__("colliderSpeed"),
+            self.__attr_repr__("victimSpeed"),
+            self.__attr_repr__("collisionType"),
+            self.__attr_repr__("lane"),
+            self.__attr_repr__("pos"),
+        ] if v != ""])
+
+
+def _readCollisions(result):
+    result.read("!iB")  # numCompounds, TYPE_INT
+    n = result.read("!i")[0]
+    values = []
+    for _ in range(n):
+        collider = result.readTypedString();
+        victim = result.readTypedString();
+        colliderType = result.readTypedString();
+        victimType = result.readTypedString();
+        colliderSpeed = result.readTypedDouble()
+        victimSpeed = result.readTypedDouble()
+        collisionType = result.readTypedString()
+        lane = result.readTypedString()
+        pos = result.readTypedDouble()
+        values.append(Collision(collider, victim, colliderType, victimType,
+            colliderSpeed, victimSpeed, collisionType, lane, pos))
+
+    return tuple(values)
+
+
+_RETURN_VALUE_FUNC = {
+    tc.FIND_ROUTE: _readStage,
+    tc.VAR_COLLISIONS: _readCollisions
+    }
 
 
 class SimulationDomain(Domain):
@@ -332,6 +392,13 @@ class SimulationDomain(Domain):
         Returns a list of ids of vehicles which ended to be teleported in this time step.
         """
         return self._getUniversal(tc.VAR_TELEPORT_ENDING_VEHICLES_IDS)
+
+    def getCollisions(self):
+        """getCollisions() -> list(Collision)
+        Returns a list of collision objects 
+        """
+        return self._getUniversal(tc.VAR_COLLISIONS)
+
 
     def getDeltaT(self):
         """getDeltaT() -> double
