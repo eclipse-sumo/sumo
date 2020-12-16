@@ -1,0 +1,2 @@
+ Retrying in 1 seconds
+5.0 (Collision(collider=c0, victim=v0, colliderType=reckless, victimType=slow, colliderSpeed=15.0, victimSpeed=5.0, collisionType=collision, lane=SC_3, pos=20.1), Collision(collider=c1, victim=v1, colliderType=reckless, victimType=slow, colliderSpeed=15.0, victimSpeed=5.0, collisionType=collision, lane=SC_4, pos=20.1))
