@@ -266,8 +266,8 @@ MSDevice_Taxi::dispatchShared(const std::vector<const Reservation*>& reservation
             }
             if (isPickup) {
                 prepareStop(tmpEdges, stops, lastPos, res->from, res->fromPos, "pickup " + toString(res->persons));
-                for (MSTransportable* t : res->persons) {
-                    if (t->isPerson()) {
+                for (const MSTransportable* const transportable : res->persons) {
+                    if (transportable->isPerson()) {
                         stops.back().triggered = true;
                     } else {
                         stops.back().containerTriggered = true;

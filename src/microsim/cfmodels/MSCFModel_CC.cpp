@@ -233,7 +233,7 @@ MSCFModel_CC::stopSpeed(const MSVehicle* const veh, double speed, double gap2pre
 
     CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
     if (vars->activeController != Plexe::DRIVER) {
-        double gap2pred, relSpeed;
+        double relSpeed;
         getRadarMeasurements(veh, gap2pred, relSpeed);
         if (gap2pred == -1) {
             gap2pred = std::numeric_limits<double>().max();

@@ -2019,11 +2019,10 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
                 double foeRight, foeLeft;
                 ahead.getSublaneBorders(sublane, 0, foeRight, foeLeft);
                 // get all leaders ahead or overlapping
-                PersonDist leader = lane->nextBlocking(myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getLength(), foeRight, foeLeft);
-                if (leader.first != 0) {
-                    const double gap = leader.second - myVehicle.getVehicleType().getMinGap() - myVehicle.getVehicleType().getLength();
-                    const double vSafePed = myCarFollowModel.stopSpeed(&myVehicle, vMax, gap);
-                    vSafe = MIN2(vSafe, vSafePed);
+                const PersonDist pedLeader = lane->nextBlocking(myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getLength(), foeRight, foeLeft);
+                if (pedLeader.first != 0) {
+                    const double pedGap = pedLeader.second - myVehicle.getVehicleType().getMinGap() - myVehicle.getVehicleType().getLength();
+                    vSafe = MIN2(vSafe, myCarFollowModel.stopSpeed(&myVehicle, vMax, pedGap));
                 }
             }
             vSafe = MIN2(vMax, vSafe);

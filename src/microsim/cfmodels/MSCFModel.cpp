@@ -302,20 +302,19 @@ MSCFModel::followSpeedTransient(double duration, const MSVehicle* const /*veh*/,
     // due to potentential ego braking it can safely drive faster
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         // number of potential braking steps
-        int a = (int)ceil(duration / TS - TS);
+        const int a = (int)ceil(duration / TS - TS);
         // can we brake for the whole time?
-        const double bg = brakeGap(a * myDecel, myDecel, 0);
-        if (bg <= leaderMinDist) {
+        if (brakeGap(a * myDecel, myDecel, 0) <= leaderMinDist) {
             // braking continuously for duration
             // distance reduction due to braking
-            double b = TS * getMaxDecel() * 0.5 * (a * a - a);
+            const double b = TS * getMaxDecel() * 0.5 * (a * a - a);
             if (gDebugFlag2) std::cout << "    followSpeedTransient"
                                            << " duration=" << duration
                                            << " gap=" << gap2pred
                                            << " leaderMinDist=" << leaderMinDist
                                            << " decel=" << getMaxDecel()
                                            << " a=" << a
-                                           << " bg=" << bg
+                                           << " bg=" << brakeGap(a * myDecel, myDecel, 0)
                                            << " b=" << b
                                            << " x=" << (b + leaderMinDist) / duration
                                            << "\n";

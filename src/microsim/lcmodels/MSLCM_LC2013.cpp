@@ -960,19 +960,18 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             }
 #endif
         }
-    } else if (neighFollow.first != 0 && (blocked & LCA_BLOCKED_BY_LEADER)) {
+    } else if (neighFollow.first != nullptr && (blocked & LCA_BLOCKED_BY_LEADER)) {
         // we are not blocked by the follower now, make sure it remains that way
         // XXX: Does the below code for the euler case really assure that? Refs. #2578
         double vsafe, vsafe1;
         if (MSGlobals::gSemiImplicitEulerUpdate) {
             // euler
-            MSVehicle* nv = neighFollow.first;
-            vsafe1 = nv->getCarFollowModel().followSpeed(
-                         nv, nv->getSpeed(), neighFollow.second + SPEED2DIST(plannedSpeed), plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
-            vsafe = nv->getCarFollowModel().followSpeed(
-                        nv, nv->getSpeed(), neighFollow.second + SPEED2DIST(plannedSpeed - vsafe1), plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
-            // NOTE: since vsafe1 > nv->getSpeed() is possible, we don't have vsafe1 < vsafe < nv->getSpeed here (similar pattern above works differently)
-
+            MSVehicle* const nfv = neighFollow.first;
+            vsafe1 = nfv->getCarFollowModel().followSpeed(nfv, nfv->getSpeed(), neighFollow.second + SPEED2DIST(plannedSpeed),
+                                                          plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
+            vsafe = nfv->getCarFollowModel().followSpeed(nfv, nfv->getSpeed(), neighFollow.second + SPEED2DIST(plannedSpeed - vsafe1),
+                                                         plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
+            // NOTE: since vsafe1 > nfv->getSpeed() is possible, we don't have vsafe1 < vsafe < nfv->getSpeed here (similar pattern above works differently)
         } else {
             // ballistic
             // XXX This should actually do for euler and ballistic cases (TODO: test!) Refs. #2575
@@ -1626,10 +1625,10 @@ MSLCM_LC2013::_wantsChange(
                     && leader.first->getLane()->getVehicleMaxSpeed(leader.first) < vMax) {
                 fullSpeedGap = MIN2(fullSpeedGap, leader.second);
                 fullSpeedDrivingSeconds = MIN2(fullSpeedDrivingSeconds, fullSpeedGap / (vMax - leader.first->getSpeed()));
-                const double relativeGain = (vMax - leader.first->getLane()->getVehicleMaxSpeed(leader.first)) / MAX2(vMax,
+                const double relGain = (vMax - leader.first->getLane()->getVehicleMaxSpeed(leader.first)) / MAX2(vMax,
                                             RELGAIN_NORMALIZATION_MIN_SPEED);
                 // tiebraker to avoid buridans paradox see #1312
-                mySpeedGainProbability += myVehicle.getActionStepLengthSecs() * relativeGain;
+                mySpeedGainProbability += myVehicle.getActionStepLengthSecs() * relGain;
             }
 
             const double deltaProb = (myChangeProbThresholdRight * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
