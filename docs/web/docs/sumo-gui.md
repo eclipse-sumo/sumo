@@ -470,15 +470,17 @@ most) of these objects:
   - *Draw with constant size when zoomed out*: Automatically
     increase the drawing size when zooming out to keep the visual
     size constant.
-- Name options
-  - *Show name*: Disable drawing of object IDs
-  - *Size*: Size of the drawn ID (visual size will stay constant
-    when zooming)
+- id options
+  - *Show id*: Enable drawing of object IDs
+  - *constant text size*: toggle whether the visual text size will stay constant when zooming
+  - *Size*: Size of the drawn ID  
   - *Color*: Color of drawn ID
+  - *Background*: Background color of drawn ID
+  - *Show name*: Show optional name (either using the 'name' attribute or 'name' `<param>`)  
 - Coloring options: Color by some attribute and change the color
 value/range
   - Show color value: show the numerical value that is used for
-    coloring
+    coloring (text configuration obtions as for the id)
 
 ## Vehicle Visualisation Settings
 
