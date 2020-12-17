@@ -79,6 +79,18 @@ GUIMEVehicleControl::insertVehicleIDs(std::vector<GUIGlID>& into) {
     }
 }
 
+std::pair<double, double>
+GUIMEVehicleControl::getVehicleMeanSpeeds() const {
+    FXMutexLock locker(myLock);
+    return MSVehicleControl::getVehicleMeanSpeeds();
+}
+
+
+int
+GUIMEVehicleControl::getHaltingVehicleNo() const {
+    FXMutexLock locker(myLock);
+    return MSVehicleControl::getHaltingVehicleNo();
+}
 
 
 void
