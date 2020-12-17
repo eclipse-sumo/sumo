@@ -854,6 +854,27 @@ When defining a color scheme, a dedicated color for missing data ('No Data') can
 see [Using additional Polygons and POIs within the
 Simulation](Simulation/Shapes.md)
 
+## Display Arbitrary Text in the Simulation View
+To display arbitrary text in the simulation view, the easiest way is to place a poi element with alpha channel 0 (invisible),
+set it's type attribute to the text you wish to show and load gui settings that show poi types in the desired color and size.
+```
+<poi id="textPlacement0" type="my custom text" x="myX" y="myY" color="0,0,0,0"/>
+```
+
+To use another text size or color, you can use a poi parameter and pick that parameter next to the "show poi text param" checkbox:
+```
+<poi id="textPlacement2" x="myX2" y="myY2" color="0,0,0,0">
+   <param key="anykey" value="my custom text in another size or color"/>
+<poi>
+```
+
+The same trick can be repeated for Polygons.
+
+You can also use `traci.simulation.writeMessage` to put custom messages into the bottom message window.
+
+## Display a custom Logo in the simulation View
+The [background immages (decals)](#showing_background_images) support attribute `screenRelative` to place an object relative to the screen rather than the network. This allows to place a logo in a fixed position.
+
 ## Showing routes and route-related information
 
 - To show the route(s) of a vehicle in the simulation, right-click and
