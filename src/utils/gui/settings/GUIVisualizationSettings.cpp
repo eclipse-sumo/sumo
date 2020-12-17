@@ -1138,7 +1138,8 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 1, "even");
     edgeColorer.addScheme(scheme);
     scheme = GUIColorScheme("by jammed state (segmentwise)", RGBColor::GREEN, "free", true, 0, COL_SCHEME_DYNAMIC);
-    scheme.addColor(RGBColor::RED, 1, "jammed");
+    scheme.addColor(RGBColor::YELLOW, 1, "limitedControl");
+    scheme.addColor(RGBColor::RED, 2, "jammed");
     edgeColorer.addScheme(scheme);
     scheme = GUIColorScheme("by current occupancy (segmentwise, brutto)", RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::RED, 0.95);
