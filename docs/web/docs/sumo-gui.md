@@ -873,7 +873,7 @@ The same trick can be repeated for Polygons.
 You can also use `traci.simulation.writeMessage` to put custom messages into the bottom message window.
 
 ## Display a custom Logo in the simulation View
-The [background immages (decals)](#showing_background_images) support attribute `screenRelative` to place an object relative to the screen rather than the network. This allows to place a logo in a fixed position.
+The [background images (decals)](#showing_background_images) support attribute `screenRelative` to place an object relative to the screen rather than the network. This allows to place a logo in a fixed position.
 
 ## Showing routes and route-related information
 
