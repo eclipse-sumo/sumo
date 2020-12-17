@@ -28,3 +28,6 @@ oneway_no
 
 # line with 4 stops on a single way
 single_way
+
+# superfluous rail edges when importing PT
+superfluous_edges

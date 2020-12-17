@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Dec 17 16:34:38 2020 by Eclipse SUMO netconvert Version v1_8_0+0037-0604ec044a
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <ptstop-output value="stops.add.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+        <railway.topology.repair.stop-turn value="true"/>
+    </railway>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-2161757200" name="Leisewitzstraße" lane="-25290479#2_0" startPos="0.00" endPos="19.44" friendlyPos="true">
+        <access lane="29332604#6_0" pos="0.20" length="14.36" friendlyPos="1"/>
+        <access lane="29332604#7_0" pos="0.00" length="14.69" friendlyPos="1"/>
+        <access lane="29332604#8_0" pos="0.00" length="14.55" friendlyPos="1"/>
+        <access lane="29332604#9_0" pos="0.00" length="14.66" friendlyPos="1"/>
+        <access lane="316779267#0_0" pos="64.55" length="12.57" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-3156641197" name="Bürgerpark" lane="-310264604_0" startPos="19.27" endPos="44.27" friendlyPos="true">
+        <access lane="27496695#1_0" pos="17.18" length="27.57" friendlyPos="1"/>
+        <access lane="27496695#2_0" pos="0.00" length="28.84" friendlyPos="1"/>
+        <access lane="316779260_0" pos="38.41" length="26.34" friendlyPos="1"/>
+        <access lane="33289080#2_0" pos="42.68" length="17.06" friendlyPos="1"/>
+        <access lane="590795737_0" pos="0.00" length="24.57" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-3156641198" name="Jahnplatz" lane="-393236369_0" startPos="40.92" endPos="65.92" friendlyPos="true">
+        <access lane="-24772643#2_0" pos="0.00" length="147.80" friendlyPos="1"/>
+        <access lane="24772643#2_0" pos="272.51" length="146.36" friendlyPos="1"/>
+        <access lane="393236440#0_0" pos="47.49" length="21.64" friendlyPos="1"/>
+        <access lane="61793945_0" pos="394.19" length="51.88" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-3372476419" name="Jahnplatz" lane="-393236370_0" startPos="367.90" endPos="392.90" friendlyPos="true">
+        <access lane="-24772643#2_0" pos="0.00" length="96.29" friendlyPos="1"/>
+        <access lane="24772643#2_0" pos="272.51" length="95.16" friendlyPos="1"/>
+        <access lane="393236440#0_0" pos="82.14" length="17.61" friendlyPos="1"/>
+        <access lane="61793945_0" pos="392.38" length="16.32" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-51519930" name="Bürgerpark" lane="-26811659_0" startPos="0.00" endPos="22.31" friendlyPos="true">
+        <access lane="330285618_0" pos="11.91" length="9.11" friendlyPos="1"/>
+        <access lane="330285619_0" pos="12.08" length="4.34" friendlyPos="1"/>
+        <access lane="33289080#2_0" pos="14.10" length="24.75" friendlyPos="1"/>
+        <access lane="562995002#6_0" pos="0.20" length="24.82" friendlyPos="1"/>
+        <access lane="562995002#7_0" pos="0.20" length="24.71" friendlyPos="1"/>
+    </busStop>
+    <busStop id="1582162304" name="Bürgerpark" lane="23208747#2_0" startPos="9.66" endPos="24.66" friendlyPos="true"/>
+    <busStop id="2161757200" name="Leisewitzstraße" lane="25290479#2_0" startPos="71.17" endPos="93.16" friendlyPos="true" lines="2">
+        <access lane="29332604#6_0" pos="0.20" length="14.36" friendlyPos="1"/>
+        <access lane="29332604#7_0" pos="0.00" length="14.69" friendlyPos="1"/>
+        <access lane="29332604#8_0" pos="0.00" length="14.55" friendlyPos="1"/>
+        <access lane="29332604#9_0" pos="0.00" length="14.66" friendlyPos="1"/>
+        <access lane="316779267#0_0" pos="64.55" length="12.57" friendlyPos="1"/>
+    </busStop>
+    <busStop id="302112841" name="Bürgerpark" lane="33289080#2_0" startPos="47.13" endPos="62.07" friendlyPos="true" lines="420"/>
+    <busStop id="309922823" name="Bürgerpark" lane="320432219#0_0" startPos="22.49" endPos="37.49" friendlyPos="true" lines="420"/>
+    <busStop id="3153581347" name="Heinrich-Büssing-Ring" lane="310144574#5_0" startPos="205.80" endPos="230.80" friendlyPos="true" lines="2 1">
+        <access lane="-562722113#0_0" pos="209.37" length="41.94" friendlyPos="1"/>
+        <access lane="-562722126#1_0" pos="41.12" length="32.34" friendlyPos="1"/>
+        <access lane="562722113#0_0" pos="43.72" length="44.94" friendlyPos="1"/>
+        <access lane="562722126#1_0" pos="216.21" length="35.34" friendlyPos="1"/>
+        <access lane="61793942#2_0" pos="188.71" length="44.09" friendlyPos="1"/>
+    </busStop>
+    <busStop id="3153581348" name="Heinrich-Büssing-Ring" lane="310003023#0_0" startPos="124.90" endPos="149.90" friendlyPos="true" lines="2 1">
+        <access lane="-562722113#0_0" pos="183.86" length="29.54" friendlyPos="1"/>
+        <access lane="-562722126#1_0" pos="71.26" length="33.62" friendlyPos="1"/>
+        <access lane="562722113#0_0" pos="69.12" length="32.54" friendlyPos="1"/>
+        <access lane="562722126#1_0" pos="185.89" length="36.62" friendlyPos="1"/>
+        <access lane="61793942#2_0" pos="187.73" length="20.34" friendlyPos="1"/>
+    </busStop>
+    <busStop id="3155095015" name="Leisewitzstraße" lane="310143559#4_0" startPos="36.29" endPos="61.29" friendlyPos="true" lines="2">
+        <access lane="206855775_0" pos="0.00" length="10.97" friendlyPos="1"/>
+        <access lane="316779267#0_0" pos="25.21" length="17.99" friendlyPos="1"/>
+        <access lane="32875565#3_0" pos="46.09" length="11.92" friendlyPos="1"/>
+        <access lane="562994998#2_0" pos="45.97" length="23.02" friendlyPos="1"/>
+        <access lane="61794146_0" pos="37.10" length="7.72" friendlyPos="1"/>
+    </busStop>
+    <busStop id="3156641197" name="Bürgerpark" lane="310264604_0" startPos="30.44" endPos="55.44" friendlyPos="true" lines="2 1">
+        <access lane="27496695#1_0" pos="17.18" length="27.57" friendlyPos="1"/>
+        <access lane="27496695#2_0" pos="0.00" length="28.84" friendlyPos="1"/>
+        <access lane="316779260_0" pos="38.41" length="26.34" friendlyPos="1"/>
+        <access lane="33289080#2_0" pos="42.68" length="17.06" friendlyPos="1"/>
+        <access lane="590795737_0" pos="0.00" length="24.57" friendlyPos="1"/>
+    </busStop>
+    <busStop id="3156641198" name="Jahnplatz" lane="393236369_0" startPos="402.35" endPos="427.35" friendlyPos="true" lines="2 1">
+        <access lane="-24772643#2_0" pos="0.00" length="147.80" friendlyPos="1"/>
+        <access lane="24772643#2_0" pos="272.51" length="146.36" friendlyPos="1"/>
+        <access lane="393236440#0_0" pos="47.49" length="21.64" friendlyPos="1"/>
+        <access lane="61793945_0" pos="394.19" length="51.88" friendlyPos="1"/>
+    </busStop>
+    <busStop id="3372476419" name="Jahnplatz" lane="393236370_0" startPos="74.57" endPos="99.57" friendlyPos="true" lines="2 1">
+        <access lane="-24772643#2_0" pos="0.00" length="96.29" friendlyPos="1"/>
+        <access lane="24772643#2_0" pos="272.51" length="95.16" friendlyPos="1"/>
+        <access lane="393236440#0_0" pos="82.14" length="17.61" friendlyPos="1"/>
+        <access lane="61793945_0" pos="392.38" length="16.32" friendlyPos="1"/>
+    </busStop>
+    <busStop id="51519930" name="Bürgerpark" lane="26811659_0" startPos="48.24" endPos="71.84" friendlyPos="true" lines="2 1">
+        <access lane="330285618_0" pos="11.91" length="9.11" friendlyPos="1"/>
+        <access lane="330285619_0" pos="12.08" length="4.34" friendlyPos="1"/>
+        <access lane="33289080#2_0" pos="14.10" length="24.75" friendlyPos="1"/>
+        <access lane="562995002#6_0" pos="0.20" length="24.82" friendlyPos="1"/>
+        <access lane="562995002#7_0" pos="0.20" length="24.71" friendlyPos="1"/>
+    </busStop>
+</additional>
