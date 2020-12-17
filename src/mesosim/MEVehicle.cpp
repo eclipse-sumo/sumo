@@ -115,7 +115,7 @@ MEVehicle::getSpeed() const {
 
 double
 MEVehicle::getAverageSpeed() const {
-    return mySegment->getLength() / STEPS2TIME(myEventTime - myLastEntryTime);
+    return mySegment != nullptr ? mySegment->getLength() / STEPS2TIME(myEventTime - myLastEntryTime) : 0;
 }
 
 
