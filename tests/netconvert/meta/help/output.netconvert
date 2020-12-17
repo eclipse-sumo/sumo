@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_8_0+0261-d8d0c429ef
+Eclipse SUMO netconvert Version v1_8_0+0261-fc7be816ae
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -350,7 +350,7 @@ Edge Removal Options:
                                         <lon-min,lat-min,lon-max,lat-max> or as
                                         polygon <lon0,lat0,lon1,lat1,...>)
   --keep-edges.by-vclass STR[]         Only keep edges which allow one of the
-                                        vclasss in STR[]
+                                        vclasses in STR[]
   --remove-edges.by-vclass STR[]       Remove edges which allow only vclasses
                                         from STR[]
   --keep-edges.by-type STR[]           Only keep edges where type is in STR[]
