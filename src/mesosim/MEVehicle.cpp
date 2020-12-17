@@ -211,6 +211,7 @@ MEVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info,  bool 
 
 SUMOTime
 MEVehicle::checkStop(SUMOTime time) {
+    bool hadStop = false;
     for (MSStop& stop : myStops) {
         if (stop.edge != myCurrEdge || stop.segment != mySegment) {
             return time;
@@ -223,9 +224,16 @@ MEVehicle::checkStop(SUMOTime time) {
         }
         stop.reached = true;
         stop.pars.actualArrival = myLastEntryTime;
+
         if (MSStopOut::active()) {
-            MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
+            if (!hadStop) {
+                MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
+            } else {
+                WRITE_WARNING("Vehicle '" + getID() + "' has multiple stops on segment '" + mySegment->getID()
+                        + "', time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " (stop-output will be merged)");
+            }
         }
+        hadStop = true;
     }
     return time;
 }
@@ -255,6 +263,7 @@ MEVehicle::processStop() {
     assert(isStopped());
     MSEdge* edge = const_cast<MSEdge*>(getEdge());
     double lastPos = 0;
+    bool hadStop = false;
     for (auto it = myStops.begin(); it != myStops.end();) {
         MSStop& stop = *it;
         if (stop.edge != myCurrEdge || stop.segment != mySegment || stop.pars.endPos <= lastPos) {
@@ -274,12 +283,16 @@ MEVehicle::processStop() {
             vehroutes->stopEnded(stop.pars);
         }
         if (MSStopOut::active()) {
+            if (hadStop) {
+                MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
+            }
             MSStopOut::getInstance()->stopEnded(this, stop.pars, mySegment->getEdge().getID());
         }
         SUMOVehicleParameter::Stop pars = stop.pars;
         pars.depart = MSNet::getInstance()->getCurrentTimeStep();
         myPastStops.emplace_back(pars);
         it = myStops.erase(it);
+        hadStop = true;
     }
     mySegment->getEdge().removeWaiting(this);
 }
