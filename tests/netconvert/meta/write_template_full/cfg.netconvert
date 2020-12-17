@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 16 09:34:36 2020 by Eclipse SUMO netconvert Version v1_8_0+0261-d8d0c429ef
+<!-- generated on Thu Dec 17 10:46:25 2020 by Eclipse SUMO netconvert Version v1_8_0+0261-fc7be816ae
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -200,7 +200,7 @@
         <keep-edges.postload value="false" type="BOOL" help="Remove edges after joining"/>
         <keep-edges.in-boundary value="" type="STR[]" help="Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates &lt;xmin,ymin,xmax,ymax&gt; or as polygon &lt;x0,y0,x1,y1,...&gt;)"/>
         <keep-edges.in-geo-boundary value="" type="STR[]" help="Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates &lt;lon-min,lat-min,lon-max,lat-max&gt; or as polygon &lt;lon0,lat0,lon1,lat1,...&gt;)"/>
-        <keep-edges.by-vclass value="" type="STR[]" help="Only keep edges which allow one of the vclasss in STR[]"/>
+        <keep-edges.by-vclass value="" type="STR[]" help="Only keep edges which allow one of the vclasses in STR[]"/>
         <remove-edges.by-vclass value="" type="STR[]" help="Remove edges which allow only vclasses from STR[]"/>
         <keep-edges.by-type value="" type="STR[]" help="Only keep edges where type is in STR[]"/>
         <keep-edges.components value="0" type="INT" help="Only keep the INT largest weakly connected components"/>
