@@ -778,13 +778,12 @@ NBNodeCont::joinSameJunctions(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLight
 #ifdef DEBUG_JOINJUNCTIONS
     std::cout << "joinSameJunctions...\n";
 #endif
-    std::map<Position, NodeSet> positions;
+    std::map<std::string, NodeSet> positions;
     for (auto& item : myNodes) {
         Position pos = item.second->getPosition();
-        Position rounded(
-                StringUtils::toDouble(OutputDevice::realString(pos.x(), gPrecision)),
-                StringUtils::toDouble(OutputDevice::realString(pos.y(), gPrecision)),
-                StringUtils::toDouble(OutputDevice::realString(pos.z(), gPrecision)));
+        std::string rounded = (OutputDevice::realString(pos.x(), gPrecision)
+                + "_" + OutputDevice::realString(pos.y(), gPrecision)
+                + "_" + OutputDevice::realString(pos.z(), gPrecision));
         positions[rounded].insert(item.second);
     }
     NodeClusters clusters;
