@@ -186,7 +186,7 @@ public:
      * @param[in, opt. changed] tc The traffic lights container to update
      * @post No two edges with same geometry connecting same nodes exist
      */
-    void joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
+    void joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, bool removeDuplicates);
 
     /// @brief fix overlap
     void avoidOverlap();

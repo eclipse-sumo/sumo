@@ -263,7 +263,8 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     // @note: likewise splitting can destroy similarities so joinSimilarEdges must come before
     if (mayAddOrRemove && oc.getBool("edges.join")) {
         before = PROGRESS_BEGIN_TIME_MESSAGE("Joining similar edges");
-        myNodeCont.joinSimilarEdges(myDistrictCont, myEdgeCont, myTLLCont);
+        const bool removeDuplicates = oc.exists("junctions.join-same") && oc.getBool("junctions.join-same");
+        myNodeCont.joinSimilarEdges(myDistrictCont, myEdgeCont, myTLLCont, removeDuplicates);
         PROGRESS_TIME_MESSAGE(before);
     }
     if (oc.getBool("opposites.guess")) {

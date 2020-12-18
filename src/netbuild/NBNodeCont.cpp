@@ -187,7 +187,7 @@ NBNodeCont::removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLo
 
 
 void
-NBNodeCont::joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
+NBNodeCont::joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, bool removeDuplicates) {
     // magic values
     const double distanceThreshold = 7.; // don't merge edges further apart
     const double lengthThreshold = 0.10; // don't merge edges with higher relative length-difference
@@ -224,7 +224,13 @@ NBNodeCont::joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightL
             // @bug If there are 3 edges of which 2 can be joined, no joining will
             //   take place with the current implementation
             if (jci == ev.end()) {
-                ec.joinSameNodeConnectingEdges(dc, tlc, ev);
+                if (removeDuplicates) {
+                    for (int i = 1; i < (int)ev.size(); i++) {
+                        ec.extract(dc, ev[i], true);
+                    }
+                } else {
+                    ec.joinSameNodeConnectingEdges(dc, tlc, ev);
+                }
             }
         }
     }
