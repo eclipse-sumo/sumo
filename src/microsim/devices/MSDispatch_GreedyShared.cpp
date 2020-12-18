@@ -120,7 +120,6 @@ MSDispatch_GreedyShared::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation*>
     }
     if (shareCase != 0) {
         if (myOutput != nullptr) {
-            myOutput->writeXMLHeader("DispatchInfo_GreedyShared", "");
             myOutput->openTag("dispatchShared");
             myOutput->writeAttr("time", time2string(now));
             myOutput->writeAttr("id", taxi->getHolder().getID());

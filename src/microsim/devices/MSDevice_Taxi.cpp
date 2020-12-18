@@ -74,7 +74,7 @@ MSDevice_Taxi::insertOptions(OptionsCont& oc) {
     oc.doRegister("device.taxi.dispatch-algorithm", new Option_String("greedy"));
     oc.addDescription("device.taxi.dispatch-algorithm", "Taxi Device", "The dispatch algorithm [greedy|greedyClosest|greedyShared|routeExtension|traci]");
 
-    oc.doRegister("device.taxi.dispatch-algorithm.output", new Option_String(""));
+    oc.doRegister("device.taxi.dispatch-algorithm.output", new Option_FileName());
     oc.addDescription("device.taxi.dispatch-algorithm.output", "Taxi Device", "Write information from the dispatch algorithm to FILE");
 
     oc.doRegister("device.taxi.dispatch-algorithm.params", new Option_String(""));
@@ -86,7 +86,7 @@ MSDevice_Taxi::insertOptions(OptionsCont& oc) {
     oc.doRegister("device.taxi.idle-algorithm", new Option_String("stop"));
     oc.addDescription("device.taxi.idle-algorithm", "Taxi Device", "The behavior of idle taxis [stop|randomCircling]");
 
-    oc.doRegister("device.taxi.idle-algorithm.output", new Option_String(""));
+    oc.doRegister("device.taxi.idle-algorithm.output", new Option_FileName());
     oc.addDescription("device.taxi.idle-algorithm.output", "Taxi Device", "Write information from the idling algorithm to FILE");
 }
 

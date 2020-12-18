@@ -50,11 +50,12 @@ Reservation::getID() const {
 
 MSDispatch::MSDispatch(const std::map<std::string, std::string>& params) :
     Parameterised(params),
-    myOutput(nullptr) {
-    const std::string outFile = OptionsCont::getOptions().getString("device.taxi.dispatch-algorithm.output");
-    if (outFile != "") {
-        myOutput = &OutputDevice::getDevice(outFile);
-        myOutput->writeXMLHeader("DispatchInfo", "");
+    myOutput(nullptr)
+{
+    const std::string opt = "device.taxi.dispatch-algorithm.output";
+    if (OptionsCont::getOptions().isSet(opt)) {
+        OutputDevice::createDeviceByOption(opt, "DispatchInfo");
+        myOutput = &OutputDevice::getDeviceByOption(opt);
     }
 }
 
