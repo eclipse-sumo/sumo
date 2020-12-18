@@ -31,8 +31,7 @@ else:
 import traci  # noqa
 import sumolib  # noqa
 
-sumoBinary = os.environ["SUMO_BINARY"]
-PORT = sumolib.miscutils.getFreeSocketPort()
+sumoBinary = sumolib.checkBinary("sumo")
 cmd = [sumoBinary,
        '-n', 'input_net2.net.xml',
        '--no-step-log',
