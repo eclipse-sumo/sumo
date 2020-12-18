@@ -31,6 +31,7 @@ Warning: Found sharp turn with radius 7.62 at the start of edge '-341606891#1'.
 Warning: Found sharp turn with radius 3.73 at the end of edge '-341606891#1'.
 Warning: Found sharp turn with radius 7.53 at the start of edge '-341606891#2'.
 Warning: Found sharp turn with radius 7.57 at the end of edge '-341606891#2'.
+Warning: Lane '310143561#0_0' is not connected from any incoming edge at junction '1582162279'.
 Warning: The rail crossing '3155095022' does not have any roads.
 Warning: The rail crossing '3155095023' does not have any roads.
 Warning: The rail crossing '3155104153' does not have any roads.
