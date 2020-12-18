@@ -104,11 +104,11 @@ Error: Unknown edge '2' given in connection.
 Error: Unknown edge '2' given in connection.
 Quitting (on error).
 ------------------ net/edge[0]:<duplicate>
-Error: Edge '1' occurred at least twice in the input.
-Quitting (on error).
+Warning: Edge '1' occurred at least twice in the input.
+ Wrong error code returned (0)!
 ------------------ net/edge[1]:<duplicate>
-Error: Edge '2' occurred at least twice in the input.
-Quitting (on error).
+Warning: Edge '2' occurred at least twice in the input.
+ Wrong error code returned (0)!
 ------------------ net/edge[0]/lane[0]@index:
 Error: value '' does not match regular expression facet '[+\-]?[0-9]+'
  In file 'mod.net.xml'
@@ -755,14 +755,14 @@ Quitting (on error).
 Error: Edge's '2' to-node '3' is not known.
 Quitting (on error).
 ------------------ net/junction[0]:<duplicate>
-Error: Problems on adding junction '1'.
-Quitting (on error).
+Warning: Junction '1' occurred at least twice in the input.
+ Wrong error code returned (0)!
 ------------------ net/junction[1]:<duplicate>
-Error: Problems on adding junction '2'.
-Quitting (on error).
+Warning: Junction '2' occurred at least twice in the input.
+ Wrong error code returned (0)!
 ------------------ net/junction[2]:<duplicate>
-Error: Problems on adding junction '3'.
-Quitting (on error).
+Warning: Junction '3' occurred at least twice in the input.
+ Wrong error code returned (0)!
 ------------------ net/connection[0]@from:
 Error: Attribute 'from' in definition of a connection is empty.
 Error: Unknown edge '' given in connection.
@@ -816,8 +816,6 @@ Error: missing required attribute 'to'
 
 Quitting (on error).
 ------------------ net/connection[0]:<duplicate>
-Warning: Target lane '2_0' has multiple connections from '1'.
  Wrong error code returned (0)!
 ------------------ net/connection[1]:<duplicate>
-Warning: Target lane '2_1' has multiple connections from '1'.
  Wrong error code returned (0)!
