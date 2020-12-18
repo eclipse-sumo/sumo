@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_8_0+0261-fc7be816ae
+Eclipse SUMO netconvert Version v1_8_0+0329-9bb9fd2d5d
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -474,6 +474,11 @@ Railway Options:
   --railway.signals.discard            Discard all railway signal information
                                         loaded from other formats than plain-xml
   --railway.topology.repair            Repair topology of the railway network
+                                        just enough to let loaded public
+                                        transport lines to work
+  --railway.topology.repair            Repair topology of the railway network
+                                        just enough to let loaded public
+                                        transport lines to work
   --railway.topology.repair.connect-straight  Allow bidiretional rail use
                                         wherever rails with opposite directions
                                         meet at a straight angle
