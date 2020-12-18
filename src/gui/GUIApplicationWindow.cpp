@@ -1467,7 +1467,9 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                     if (view == nullptr) {
                         break;
                     }
-                    std::string settingsName = settings.addSettings(view);
+                    if (settings.getSettingName() != "") {
+                        view->setColorScheme(settings.getSettingName());
+                    }
                     view->addDecals(settings.getDecals());
                     settings.applyViewport(view);
                     settings.setSnapshots(view);

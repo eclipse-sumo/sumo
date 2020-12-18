@@ -345,6 +345,18 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
     }
 }
 
+void
+GUISettingsHandler::myEndElement(int element) {
+    switch (element) {
+        case SUMO_TAG_VIEWSETTINGS_SCHEME: {
+            if (mySettings.name != "") {
+                gSchemeStorage.add(mySettings);
+                myLoadedSettingNames.push_back(mySettings.name);
+            }
+        }
+    }
+}
+
 
 GUIVisualizationTextSettings
 GUISettingsHandler::parseTextSettings(
@@ -372,17 +384,16 @@ GUISettingsHandler::parseSizeSettings(
 }
 
 
-std::string
+const std::vector<std::string>&
 GUISettingsHandler::addSettings(GUISUMOAbstractView* view) const {
-    if (mySettings.name != "") {
-        gSchemeStorage.add(mySettings);
-        if (view) {
-            FXint index = view->getColoringSchemesCombo()->appendItem(mySettings.name.c_str());
+    if (view) {
+        for (std::string name : myLoadedSettingNames) {
+            FXint index = view->getColoringSchemesCombo()->appendItem(name.c_str());
             view->getColoringSchemesCombo()->setCurrentItem(index);
-            view->setColorScheme(mySettings.name);
+            view->setColorScheme(name);
         }
     }
-    return mySettings.name;
+    return myLoadedSettingNames;
 }
 
 

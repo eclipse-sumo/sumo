@@ -1157,8 +1157,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
 void
 GUIDialog_ViewSettings::loadSettings(const std::string& file) {
     GUISettingsHandler handler(file, true, mySettings->netedit);
-    std::string settingsName = handler.addSettings(myParent);
-    if (settingsName != "") {
+    for (std::string settingsName : handler.addSettings(myParent)) {
         FXint index = mySchemeName->appendItem(settingsName.c_str());
         mySchemeName->setCurrentItem(index);
         mySettings = &gSchemeStorage.get(settingsName);

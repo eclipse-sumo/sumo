@@ -62,14 +62,22 @@ public:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element, const SUMOSAXAttributes& attrs);
+
+    /** @brief Called when a closing tag occurs
+     *
+     * @param[in] element ID of the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myEndElement
+     */
+    void myEndElement(int element);
     //@}
 
 
 
     /** @brief Adds the parsed settings to the global list of settings
-     * @return the name of the parsed settings
+     * @return the names of the parsed settings
      */
-    std::string addSettings(GUISUMOAbstractView* view = 0) const;
+    const std::vector<std::string>& addSettings(GUISUMOAbstractView* view = 0) const;
 
 
     /** @brief Sets the viewport which has been parsed
@@ -127,9 +135,16 @@ public:
         return myJamSoundTime;
     }
 
+    const std::string& getSettingName() const {
+        return mySettings.name;
+    }
+
 private:
     /// @brief The settings to fill
     GUIVisualizationSettings mySettings;
+
+    /// @brief names of all loaded settings
+    std::vector<std::string> myLoadedSettingNames;
 
     /// @brief The view type (osg, opengl, default) loaded
     std::string myViewType;

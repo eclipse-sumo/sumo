@@ -971,7 +971,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // set settings in view
         if (viewParent->getView() && ec->mySettingsFile != "") {
             GUISettingsHandler settings(ec->mySettingsFile, true, true);
-            std::string settingsName = settings.addSettings(viewParent->getView());
+            settings.addSettings(viewParent->getView());
             viewParent->getView()->addDecals(settings.getDecals());
             settings.applyViewport(viewParent->getView());
             settings.setSnapshots(viewParent->getView());
