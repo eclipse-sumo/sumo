@@ -205,7 +205,7 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addDescription("railway.topology.repair", "Railway", "Repair topology of the railway network");
 
         oc.doRegister("railway.topology.repair.minimal", new Option_Bool(false));
-        oc.addDescription("railway.topology.repair", "Railway", "Repair topology of the railway network just enough to let loaded public transport lines to work");
+        oc.addDescription("railway.topology.repair.minimal", "Railway", "Repair topology of the railway network just enough to let loaded public transport lines to work");
 
         oc.doRegister("railway.topology.repair.connect-straight", new Option_Bool(false));
         oc.addDescription("railway.topology.repair.connect-straight", "Railway", "Allow bidiretional rail use wherever rails with opposite directions meet at a straight angle");
