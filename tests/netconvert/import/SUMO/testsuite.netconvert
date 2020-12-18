@@ -92,6 +92,7 @@ merge
 
 # merge 2 geo-referenced networks
 merge_geo
+merge_geo_overlap
 
 # re-import limited speed on junctions based on radius
 limit-turn-speed
