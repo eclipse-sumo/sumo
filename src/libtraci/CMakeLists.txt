@@ -76,7 +76,7 @@ if(SWIG_FOUND)
 				COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/LICENSE java/META-INF
 				COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/NOTICE.md classes/META-INF
 				COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/LICENSE classes/META-INF
-                COMMAND "${Java_JAVAC_EXECUTABLE}" -d classes java/*.java
+                COMMAND "${Java_JAVAC_EXECUTABLE}" -source 1.7 -target 1.7 -d classes java/*.java
                 COMMAND "${Java_JAR_EXECUTABLE}" -cfM ${CMAKE_SOURCE_DIR}/bin/libtracijni.jar -C classes .
                 COMMAND "${Java_JAR_EXECUTABLE}" -cfM ${CMAKE_SOURCE_DIR}/bin/libtracijni_src.jar -C java .
             )
