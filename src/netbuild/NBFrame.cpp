@@ -204,6 +204,9 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("railway.topology.repair", new Option_Bool(false));
         oc.addDescription("railway.topology.repair", "Railway", "Repair topology of the railway network");
 
+        oc.doRegister("railway.topology.repair.minimal", new Option_Bool(false));
+        oc.addDescription("railway.topology.repair", "Railway", "Repair topology of the railway network just enough to let loaded public transport lines to work");
+
         oc.doRegister("railway.topology.repair.connect-straight", new Option_Bool(false));
         oc.addDescription("railway.topology.repair.connect-straight", "Railway", "Allow bidiretional rail use wherever rails with opposite directions meet at a straight angle");
 
@@ -706,6 +709,9 @@ NBFrame::checkOptions() {
         ok = false;
     }
     if (oc.isDefault("railway.topology.repair") && oc.getBool("railway.topology.repair.connect-straight")) {
+        oc.set("railway.topology.repair", "true");
+    }
+    if (oc.isDefault("railway.topology.repair") && oc.getBool("railway.topology.repair.minimal")) {
         oc.set("railway.topology.repair", "true");
     }
     if (oc.isDefault("railway.topology.all-bidi") && !oc.isDefault("railway.topology.all-bidi.input-file")) {
