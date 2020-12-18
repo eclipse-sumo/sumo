@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 16 20:13:05 2020 by Eclipse SUMO sumo Version v1_8_0+0279-2946cbf903
+<!-- generated on Fri Dec 18 16:35:18 2020 by Eclipse SUMO sumo Version v1_8_0+0332-d62ab2d821
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -838,7 +838,7 @@
         <device.taxi.dispatch-algorithm value="greedy" type="STR"/>
 
         <!-- Write information from the dispatch algorithm to FILE -->
-        <device.taxi.dispatch-algorithm.output value="" type="STR"/>
+        <device.taxi.dispatch-algorithm.output value="" type="FILE"/>
 
         <!-- Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE] -->
         <device.taxi.dispatch-algorithm.params value="" type="STR"/>
@@ -850,7 +850,7 @@
         <device.taxi.idle-algorithm value="stop" type="STR"/>
 
         <!-- Write information from the idling algorithm to FILE -->
-        <device.taxi.idle-algorithm.output value="" type="STR"/>
+        <device.taxi.idle-algorithm.output value="" type="FILE"/>
 
     </taxi_device>
 

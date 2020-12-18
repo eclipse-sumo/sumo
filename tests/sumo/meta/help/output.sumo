@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_8_0+0279-2946cbf903
+Eclipse SUMO sumo Version v1_8_0+0332-d62ab2d821
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -586,7 +586,7 @@ Taxi Device Options:
                                         using a fraction of 1000
   --device.taxi.dispatch-algorithm STR  The dispatch algorithm
                                         [greedy|greedyClosest|greedyShared|routeExtension|traci]
-  --device.taxi.dispatch-algorithm.output STR  Write information from the
+  --device.taxi.dispatch-algorithm.output FILE  Write information from the
                                         dispatch algorithm to FILE
   --device.taxi.dispatch-algorithm.params STR  Load dispatch algorithm
                                         parameters in format
@@ -595,7 +595,7 @@ Taxi Device Options:
                                         the dispatcher
   --device.taxi.idle-algorithm STR     The behavior of idle taxis
                                         [stop|randomCircling]
-  --device.taxi.idle-algorithm.output STR  Write information from the idling
+  --device.taxi.idle-algorithm.output FILE  Write information from the idling
                                         algorithm to FILE
 
 Tripinfo Device Options:

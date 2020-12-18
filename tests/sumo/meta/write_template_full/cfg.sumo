@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 16 20:13:04 2020 by Eclipse SUMO sumo Version v1_8_0+0279-2946cbf903
+<!-- generated on Fri Dec 18 16:35:18 2020 by Eclipse SUMO sumo Version v1_8_0+0332-d62ab2d821
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -317,11 +317,11 @@
         <device.taxi.explicit value="" synonymes="device.taxi.knownveh" type="STR[]" help="Assign a &apos;taxi&apos; device to named vehicles"/>
         <device.taxi.deterministic value="false" type="BOOL" help="The &apos;taxi&apos; devices are set deterministic using a fraction of 1000"/>
         <device.taxi.dispatch-algorithm value="greedy" type="STR" help="The dispatch algorithm [greedy|greedyClosest|greedyShared|routeExtension|traci]"/>
-        <device.taxi.dispatch-algorithm.output value="" type="STR" help="Write information from the dispatch algorithm to FILE"/>
+        <device.taxi.dispatch-algorithm.output value="" type="FILE" help="Write information from the dispatch algorithm to FILE"/>
         <device.taxi.dispatch-algorithm.params value="" type="STR" help="Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE]"/>
         <device.taxi.dispatch-period value="60" type="TIME" help="The period between successive calls to the dispatcher"/>
         <device.taxi.idle-algorithm value="stop" type="STR" help="The behavior of idle taxis [stop|randomCircling]"/>
-        <device.taxi.idle-algorithm.output value="" type="STR" help="Write information from the idling algorithm to FILE"/>
+        <device.taxi.idle-algorithm.output value="" type="FILE" help="Write information from the idling algorithm to FILE"/>
     </taxi_device>
 
     <tripinfo_device>
