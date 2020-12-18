@@ -71,7 +71,7 @@ def writeLeg(outf, options, idveh, leg, startLink, endLink):
     if leg.route is None or leg.route[0].distance == "NaN" or leg.mode == "bicycle":
         outf.write('    <trip id="%s" depart="%s" from="%s" to="%s"%s/>\n'
                    % (idveh, depart, startLink, endLink, mode))
-    elif not leg.mode.endswith("_walk"):
+    elif not leg.mode.endswith("walk") and leg.mode != "pt":
         outf.write('    <vehicle id="%s" depart="%s"%s>\n' % (idveh, depart, mode))
         outf.write('        <route edges="%s"/>\n' % (leg.route[0].getText()))
         outf.write('    </vehicle>\n')
@@ -131,7 +131,7 @@ def main(options):
                         if lastLeg.mode == "non_network_walk":
                             pass
                             # outf.write('        <transship to="%s"/>\n' % item.link)
-                        elif lastLeg.mode == "transit_walk":
+                        elif lastLeg.mode in ("walk", "transit_walk"):
                             outf.write('        <walk to="%s"/>\n' % item.link)
                         else:
                             outf.write('        <ride lines="%s" to="%s"/>\n' % (vehicleslist[vehIndex], item.link))

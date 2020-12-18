@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-12-10 15:37:28.464125 by matsim_importPlans.py v1_8_0+0144-36c9cb9b80
+<!-- generated on 2020-12-18 11:05:57.106861 by matsim_importPlans.py v1_8_0+0276-b302fbb2a7
   options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -30,6 +30,22 @@
         <stop lane="12958_0" until="16:06:37" actType="shopping_600.0"/>
         <ride lines="100004901_2" to="139046"/>
         <stop lane="139046_0" until="24:0:0" actType="home_54600.0"/>
+    </person>
+    <trip id="100029801_0" depart="triggered" from="12466" to="93716" type="bicycle"/>
+    <trip id="100029801_2" depart="triggered" from="93716" to="135726" type="bicycle"/>
+    <trip id="100029801_3" depart="triggered" from="135726" to="12466" type="bicycle"/>
+    <person id="100029801" depart="0:0:0">
+        <param key="home-activity-zone" value="brandenburg"/>
+        <param key="subpopulation" value="person"/>
+        <stop lane="12466_0" until="07:11:00" actType="home_67800.0"/>
+        <ride lines="100029801_0" to="93716"/>
+        <stop lane="93716_0" until="13:00:00" actType="work_20400.0"/>
+        <walk to="93716"/>
+        <stop lane="93716_0" until="14:01:22" actType="leisure_3600.0"/>
+        <ride lines="100029801_2" to="135726"/>
+        <stop lane="135726_0" until="15:34:52" actType="shopping_3000.0"/>
+        <ride lines="100029801_3" to="12466"/>
+        <stop lane="12466_0" until="24:0:0" actType="home_67800.0"/>
     </person>
     <vehicle id="10000001_1" depart="triggered" type="car">
         <route edges="144395 13185 110920 110771 110773 13324 110367 110369 143404 98098 143528 111248 111278 111280 143420 143410 131204 133161 13679 93161 26733 26730 46537 41913 134075"/>

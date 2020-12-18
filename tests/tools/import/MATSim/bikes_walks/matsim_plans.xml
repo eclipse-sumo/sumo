@@ -917,4 +917,57 @@
 
 	</person>
 
+<!-- ====================================================================== -->
+
+	<person id="100029801">
+		<attributes>
+			<attribute name="home-activity-zone" class="java.lang.String" >brandenburg</attribute>
+			<attribute name="subpopulation" class="java.lang.String" >person</attribute>
+		</attributes>
+		<plan score="124.523315422507" selected="yes">
+			<activity type="home_67800.0" link="12466" x="4628809.596422834" y="5831070.588165781" end_time="07:11:00" >
+				<attributes>
+					<attribute name="zoneId" class="java.lang.String" >12064472</attribute>
+				</attributes>
+			</activity>
+			<leg mode="bicycle" dep_time="07:11:00">
+				<route type="generic" start_link="12466" end_link="93716" trav_time="00:08:18" distance="1566.1886076302112"></route>
+			</leg>
+			<activity type="work_20400.0" link="93716" x="4629426.757745488" y="5830035.909623601" end_time="13:00:00" >
+				<attributes>
+					<attribute name="cemdapStopDuration_s" class="java.lang.Integer" >20580</attribute>
+					<attribute name="zoneId" class="java.lang.String" >12064472</attribute>
+				</attributes>
+			</activity>
+			<leg mode="walk" dep_time="13:00:00">
+				<route type="generic" start_link="93716" end_link="93716" trav_time="00:03:22" distance="213.65557974867443"></route>
+			</leg>
+			<activity type="leisure_3600.0" link="93716" x="4629262.790644002" y="5830024.690946411" max_dur="00:58:00" >
+				<attributes>
+					<attribute name="cemdapStopDuration_s" class="java.lang.Integer" >3480</attribute>
+					<attribute name="zoneId" class="java.lang.String" >12064472</attribute>
+				</attributes>
+			</activity>
+			<leg mode="bicycle" dep_time="14:01:22">
+				<route type="generic" start_link="93716" end_link="135726" trav_time="00:43:30" distance="8192.535787266823"></route>
+			</leg>
+			<activity type="shopping_3000.0" link="135726" x="4631969.067489301" y="5824333.412788397" max_dur="00:50:00" >
+				<attributes>
+					<attribute name="cemdapStopDuration_s" class="java.lang.Integer" >3000</attribute>
+					<attribute name="zoneId" class="java.lang.String" >12064153</attribute>
+				</attributes>
+			</activity>
+			<leg mode="bicycle" dep_time="15:34:52">
+				<route type="generic" start_link="135726" end_link="12466" trav_time="00:51:21" distance="9673.589004627956"></route>
+			</leg>
+			<activity type="home_67800.0" link="12466" x="4628809.596422834" y="5831070.588165781" >
+				<attributes>
+					<attribute name="cemdapStopDuration_s" class="java.lang.Integer" >41940</attribute>
+					<attribute name="zoneId" class="java.lang.String" >12064472</attribute>
+				</attributes>
+			</activity>
+		</plan>
+
+	</person>
+
 </population>
