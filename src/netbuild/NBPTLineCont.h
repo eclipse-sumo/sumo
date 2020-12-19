@@ -42,7 +42,7 @@ public:
         return myPTLines;
     }
 
-    void process(NBEdgeCont& ec, NBPTStopCont& sc);
+    void process(NBEdgeCont& ec, NBPTStopCont& sc, bool routeOnly = false);
 
     /// @brief add edges that must be kept
     void addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into);
@@ -71,7 +71,7 @@ private:
      * @note: if the edge id is updated, the stop extent is recomputed */
     NBPTStop* findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPTStopCont& sc) const;
 
-    void constructRoute(NBPTLine* myPTLine, NBEdgeCont& cont);
+    void constructRoute(NBPTLine* myPTLine, const NBEdgeCont& cont, bool silent = false);
 
     std::set<std::string> myServedPTStops;
 
