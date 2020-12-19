@@ -49,8 +49,8 @@ public:
      * @param[in] oc The options container
      */
     static void analyzeTopology(NBNetBuilder& nb);
-    static void repairTopology(NBNetBuilder& nb);
-    static void makeAllBidi(NBNetBuilder& nb);
+    static int repairTopology(NBNetBuilder& nb);
+    static int makeAllBidi(NBNetBuilder& nb);
     static void assignDirectionPriority(NBNetBuilder& nb);
 
     /// routing edge
@@ -126,19 +126,19 @@ private:
     static int extendBidiEdges(NBNetBuilder& nb, NBNode* node, NBEdge* bidiIn);
 
     /// @brief reverse edges sequences that are to broken nodes on both sides
-    static void reverseEdges(NBNetBuilder& nb);
+    static int reverseEdges(NBNetBuilder& nb);
 
     /// @brief add bidi-edges to connect buffers stops in both directions
-    static void addBidiEdgesForBufferStops(NBNetBuilder& nb);
+    static int addBidiEdgesForBufferStops(NBNetBuilder& nb);
 
     /// @brief add bidi-edges to connect switches that are approached in both directions
-    static void addBidiEdgesBetweenSwitches(NBNetBuilder& nb);
+    static int addBidiEdgesBetweenSwitches(NBNetBuilder& nb);
 
     /// @brief add bidi-edges to connect successive public transport stops
-    static void addBidiEdgesForStops(NBNetBuilder& nb);
+    static int addBidiEdgesForStops(NBNetBuilder& nb);
 
     /// @brief add bidi-edges to connect straight tracks
-    static void addBidiEdgesForStraightConnectivity(NBNetBuilder& nb, bool geometryLike);
+    static int addBidiEdgesForStraightConnectivity(NBNetBuilder& nb, bool geometryLike);
 
     /// recompute turning directions for both nodes of the given edge
     static void updateTurns(NBEdge* edge);

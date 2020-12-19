@@ -107,24 +107,26 @@ NBRailwayTopologyAnalyzer::analyzeTopology(NBNetBuilder& nb) {
 }
 
 
-void
+int
 NBRailwayTopologyAnalyzer::repairTopology(NBNetBuilder& nb) {
-    extendBidiEdges(nb);
-    reverseEdges(nb);
-    addBidiEdgesForBufferStops(nb);
-    addBidiEdgesBetweenSwitches(nb);
+    int addedBidi = 0;
+    addedBidi += extendBidiEdges(nb);
+    addedBidi += reverseEdges(nb); // technically not bidi but new edges nevertheless
+    addedBidi += addBidiEdgesForBufferStops(nb);
+    addedBidi += addBidiEdgesBetweenSwitches(nb);
     if (nb.getPTLineCont().getLines().size() > 0) {
-        addBidiEdgesForStops(nb);
+        addedBidi += addBidiEdgesForStops(nb);
     }
     if (OptionsCont::getOptions().getBool("railway.topology.repair.connect-straight")) {
-        addBidiEdgesForStraightConnectivity(nb, true);
-        addBidiEdgesForStraightConnectivity(nb, false);
-        extendBidiEdges(nb);
+        addedBidi += addBidiEdgesForStraightConnectivity(nb, true);
+        addedBidi += addBidiEdgesForStraightConnectivity(nb, false);
+        addedBidi += extendBidiEdges(nb);
     }
+    return addedBidi;
 }
 
 
-void
+int
 NBRailwayTopologyAnalyzer::makeAllBidi(NBNetBuilder& nb) {
     int numRailEdges = 0;
     int numBidiEdges = 0;
@@ -169,6 +171,7 @@ NBRailwayTopologyAnalyzer::makeAllBidi(NBNetBuilder& nb) {
     if (numNotCenterEdges) {
         WRITE_WARNING("Ignore " + toString(numNotCenterEdges) + " edges because they have the wrong spreadType");
     }
+    return numAddedBidiEdges;
 }
 
 NBEdge*
@@ -552,7 +555,7 @@ NBRailwayTopologyAnalyzer::extendBidiEdges(NBNetBuilder& nb, NBNode* node, NBEdg
 }
 
 
-void
+int
 NBRailwayTopologyAnalyzer::reverseEdges(NBNetBuilder& nb) {
     std::set<NBNode*> brokenNodes = getBrokenRailNodes(nb);
     // find reversible edge sequences between broken nodes
@@ -657,10 +660,11 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBNetBuilder& nb) {
             }
         }
     }
+    return numReversed;
 }
 
 
-void
+int
 NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBNetBuilder& nb) {
     std::set<NBNode*> brokenNodes = getBrokenRailNodes(nb);
     std::set<NBNode*> railNodes = getRailNodes(nb);
@@ -729,6 +733,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBNetBuilder& nb) {
     if (numAddedBidiTotal > 0) {
         WRITE_MESSAGE("Added " + toString(numAddedBidiTotal) + " edges to connect " + toString(numBufferStops) + " buffer stops in both directions.");
     }
+    return numAddedBidiTotal;
 }
 
 NBEdge*
@@ -753,7 +758,7 @@ NBRailwayTopologyAnalyzer::isBidiSwitch(const NBNode* n) {
 }
 
 
-void
+int
 NBRailwayTopologyAnalyzer::addBidiEdgesBetweenSwitches(NBNetBuilder& nb) {
     std::set<NBNode*> brokenNodes = getBrokenRailNodes(nb);
     std::map<int, int> seqLengths;
@@ -809,10 +814,11 @@ NBRailwayTopologyAnalyzer::addBidiEdgesBetweenSwitches(NBNetBuilder& nb) {
     if (seqLengths.size() > 0) {
         WRITE_MESSAGE("Added " + toString(numAdded) + " bidi-edges between " + toString(numSeqs) + " pairs of railway switches (count by length: " + joinToString(seqLengths, " ", ":") + ")");
     }
+    return numAdded;
 }
 
 
-void
+int
 NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
     const bool minimal = OptionsCont::getOptions().getBool("railway.topology.repair.minimal");
     // generate bidirectional routing graph
@@ -985,10 +991,11 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
         delete t;
     }
     delete router;
+    return addBidiEdges.size();
 }
 
 
-void
+int
 NBRailwayTopologyAnalyzer::addBidiEdgesForStraightConnectivity(NBNetBuilder& nb, bool geometryLike) {
     int added = 0;
     std::set<NBNode*> brokenNodes = getBrokenRailNodes(nb);
@@ -1069,6 +1076,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStraightConnectivity(NBNetBuilder& nb,
             WRITE_MESSAGE("Added " + toString(added) + " bidi-edges to ensure connectivity of straight tracks at switches.");
         }
     }
+    return added;
 }
 
 
