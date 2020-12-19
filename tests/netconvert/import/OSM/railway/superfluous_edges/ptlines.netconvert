@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 18 15:38:02 2020 by Eclipse SUMO netconvert Version v1_8_0+0332-d62ab2d821
+<!-- generated on Fri Dec 18 18:15:40 2020 by Eclipse SUMO netconvert Version v1_8_0+0336-8a5f057eb2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,7 +24,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <railway>
         <railway.topology.repair value="true"/>
-        <railway.topology.repair value="true"/>
+        <railway.topology.repair.minimal value="true"/>
         <railway.topology.repair.stop-turn value="true"/>
     </railway>
 
@@ -48,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0
         <busStop id="3156641198" name="Jahnplatz"/>
     </ptLine>
     <ptLine id="2770412" name="Tram 2: Heidberg =&gt; Leisewitzstraße =&gt; Siegfriedviertel" line="2" type="tram" vClass="tram" period="900" completeness="0.14">
-        <route edges="393236370 26811659 25290479 25290481"/>
+        <route edges="393236370 26811659 -310143561#3 -310143561#2 -310143561#1 -310143561#0 25290479 25290481"/>
         <busStop id="3372476419" name="Jahnplatz"/>
         <busStop id="51519930" name="Bürgerpark"/>
         <busStop id="2161757200" name="Leisewitzstraße"/>
