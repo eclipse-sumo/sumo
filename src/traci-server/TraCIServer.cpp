@@ -162,6 +162,13 @@ TraCIServer::wrapPosition(const std::string& /* objID */, const int variable, co
 
 
 bool
+TraCIServer::wrapPositionVector(const std::string& objID, const int variable, const libsumo::TraCIPositionVector& value) {
+    // TODO
+    return true;
+}
+
+
+bool
 TraCIServer::wrapColor(const std::string& /* objID */, const int /* variable */, const libsumo::TraCIColor& value) {
     myWrapperStorage.writeUnsignedByte(libsumo::TYPE_COLOR);
     myWrapperStorage.writeUnsignedByte(value.r);
@@ -173,13 +180,13 @@ TraCIServer::wrapColor(const std::string& /* objID */, const int /* variable */,
 
 
 bool
-TraCIServer::wrapStringDoubleCompound(const std::string& /* objID */, const int /* variable */, const std::string& stringValue, const double doubleValue) {
+TraCIServer::wrapStringDoublePair(const std::string& /* objID */, const int /* variable */, const std::pair<std::string, double>& value) {
     myWrapperStorage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
     myWrapperStorage.writeInt(2);
     myWrapperStorage.writeUnsignedByte(libsumo::TYPE_STRING);
-    myWrapperStorage.writeString(stringValue);
+    myWrapperStorage.writeString(value.first);
     myWrapperStorage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    myWrapperStorage.writeDouble(doubleValue);
+    myWrapperStorage.writeDouble(value.second);
     return true;
 }
 

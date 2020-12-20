@@ -255,8 +255,9 @@ public:
     bool wrapString(const std::string& objID, const int variable, const std::string& value);
     bool wrapStringList(const std::string& objID, const int variable, const std::vector<std::string>& value);
     bool wrapPosition(const std::string& objID, const int variable, const libsumo::TraCIPosition& value);
+    bool wrapPositionVector(const std::string& objID, const int variable, const libsumo::TraCIPositionVector& value);
     bool wrapColor(const std::string& objID, const int variable, const libsumo::TraCIColor& value);
-    bool wrapStringDoubleCompound(const std::string& objID, const int variable, const std::string& stringValue, const double doubleValue);
+    bool wrapStringDoublePair(const std::string& objID, const int variable, const std::pair<std::string, double>& value);
     bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value);
     tcpip::Storage& getWrapperStorage();
     /// @}

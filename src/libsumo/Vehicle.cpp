@@ -2229,14 +2229,12 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
         case VAR_LEADER: {
             paramData->readUnsignedByte();
             const double dist = paramData->readDouble();
-            const auto& lead = getLeader(objID, dist);
-            return wrapper->wrapStringDoubleCompound(objID, variable, lead.first, lead.second);
+            return wrapper->wrapStringDoublePair(objID, variable, getLeader(objID, dist));
         }
         case VAR_FOLLOWER: {
             paramData->readUnsignedByte();
             const double dist = paramData->readDouble();
-            const auto& follower = getFollower(objID, dist);
-            return wrapper->wrapStringDoubleCompound(objID, variable, follower.first, follower.second);
+            return wrapper->wrapStringDoublePair(objID, variable, getFollower(objID, dist));
         }
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();

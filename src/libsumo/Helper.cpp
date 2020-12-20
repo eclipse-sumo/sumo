@@ -35,7 +35,7 @@
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSPerson.h>
-#include <libsumo/ToStorage.h>
+#include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/Edge.h>
 #include <libsumo/InductionLoop.h>
@@ -156,7 +156,7 @@ Helper::subscribe(const int commandId, const std::string& id, const std::vector<
         if (p == params.end()) {
             parameters.push_back(std::make_shared<tcpip::Storage>());
         } else {
-            parameters.push_back(toStorage(*p->second));
+            parameters.push_back(libsumo::StorageHelper::toStorage(*p->second));
         }
     }
     const SUMOTime begin = beginTime == INVALID_DOUBLE_VALUE ? 0 : TIME2STEPS(beginTime);
@@ -1563,6 +1563,14 @@ Helper::SubscriptionWrapper::wrapPosition(const std::string& objID, const int va
 
 
 bool
+Helper::SubscriptionWrapper::wrapPositionVector(const std::string& objID, const int variable, const TraCIPositionVector& value) {
+    // TODO
+//    (*myActiveResults)[objID][variable] = std::make_shared<TraCIPositionVector>(value);
+    return true;
+}
+
+
+bool
 Helper::SubscriptionWrapper::wrapColor(const std::string& objID, const int variable, const TraCIColor& value) {
     (*myActiveResults)[objID][variable] = std::make_shared<TraCIColor>(value);
     return true;
@@ -1570,8 +1578,8 @@ Helper::SubscriptionWrapper::wrapColor(const std::string& objID, const int varia
 
 
 bool
-Helper::SubscriptionWrapper::wrapStringDoubleCompound(const std::string& objID, const int variable, const std::string& stringValue, const double doubleValue) {
-    (*myActiveResults)[objID][variable] = std::make_shared<TraCIRoadPosition>(stringValue, doubleValue);
+Helper::SubscriptionWrapper::wrapStringDoublePair(const std::string& objID, const int variable, const std::pair<std::string, double>& value) {
+    (*myActiveResults)[objID][variable] = std::make_shared<TraCIRoadPosition>(value.first, value.second);
     return true;
 }
 

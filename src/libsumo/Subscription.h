@@ -155,8 +155,9 @@ public:
     virtual bool wrapString(const std::string& objID, const int variable, const std::string& value) = 0;
     virtual bool wrapStringList(const std::string& objID, const int variable, const std::vector<std::string>& value) = 0;
     virtual bool wrapPosition(const std::string& objID, const int variable, const TraCIPosition& value) = 0;
+    virtual bool wrapPositionVector(const std::string& objID, const int variable, const TraCIPositionVector& value) = 0;
     virtual bool wrapColor(const std::string& objID, const int variable, const TraCIColor& value) = 0;
-    virtual bool wrapStringDoubleCompound(const std::string& objID, const int variable, const std::string& stringValue, const double doubleValue) = 0;
+    virtual bool wrapStringDoublePair(const std::string& objID, const int variable, const std::pair<std::string, double>& value) = 0;
     virtual bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value) = 0;
 };
 

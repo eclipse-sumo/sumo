@@ -50,7 +50,7 @@ set(libsumostatic_STAT_SRCS
     Simulation.cpp
     Simulation.h
     Subscription.h
-    ToStorage.h
+    StorageHelper.h
     TraCIConstants.h
     TraCIDefs.h
     TrafficLight.cpp
