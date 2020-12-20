@@ -25,16 +25,6 @@
 
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-#ifndef LIBTRACI
-namespace libsumo {
-class VariableWrapper;
-}
-#endif
-
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 namespace LIBSUMO_NAMESPACE {
@@ -118,8 +108,6 @@ public:
 
     static int getMinExpectedNumber();
 
-// the following functions are not implemented in libtraci, yet
-
     static libsumo::TraCIPosition convert2D(const std::string& edgeID, double pos, int laneIndex = 0, bool toGeo = false);
 
     static libsumo::TraCIPosition convert3D(const std::string& edgeID, double pos, int laneIndex = 0, bool toGeo = false);
@@ -142,6 +130,8 @@ public:
             const std::string& pType = "", const std::string& vType = "", const std::string& destStop = "");
 
     static std::string getParameter(const std::string& objectID, const std::string& key);
+    static const std::pair<std::string, std::string> getParameterWithKey(const std::string& objectID, const std::string& key);
+    static void setParameter(const std::string& objectID, const std::string& param, const std::string& value);
 
     static void clearPending(const std::string& routeID = "");
     static void saveState(const std::string& fileName);
@@ -157,7 +147,7 @@ public:
 #ifndef LIBTRACI
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
-    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 #endif
 
 private:

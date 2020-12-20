@@ -75,6 +75,7 @@ public:
 	virtual unsigned int position() const;
 
 	void reset();
+	void resetPos();
 	/// Dump storage content as series of hex values
 	std::string hexDump() const;
 

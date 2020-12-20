@@ -363,13 +363,13 @@ VehicleType::makeWrapper() {
 
 
 bool
-VehicleType::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
-    return handleVariableWithID(objID, objID, variable, wrapper);
+VehicleType::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData) {
+    return handleVariableWithID(objID, objID, variable, wrapper, paramData);
 }
 
 
 bool
-VehicleType::handleVariableWithID(const std::string& objID, const std::string& typeID, const int variable, VariableWrapper* wrapper) {
+VehicleType::handleVariableWithID(const std::string& objID, const std::string& typeID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData) {
     switch (variable) {
         case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
@@ -419,6 +419,12 @@ VehicleType::handleVariableWithID(const std::string& objID, const std::string& t
             return wrapper->wrapString(objID, variable, getLateralAlignment(typeID));
         case VAR_PERSON_CAPACITY:
             return wrapper->wrapInt(objID, variable, getPersonCapacity(typeID));
+        case libsumo::VAR_PARAMETER:
+            paramData->readUnsignedByte();
+            return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
+        case libsumo::VAR_PARAMETER_WITH_KEY:
+            paramData->readUnsignedByte();
+            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
         default:
             return false;
     }

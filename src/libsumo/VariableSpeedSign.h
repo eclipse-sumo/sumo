@@ -29,9 +29,6 @@
 // ===========================================================================
 #ifndef LIBTRACI
 class MSLaneSpeedTrigger;
-namespace libsumo {
-class VariableWrapper;
-}
 #endif
 
 
@@ -59,7 +56,7 @@ public:
 #ifndef LIBTRACI
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
-    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
     static MSLaneSpeedTrigger* getVariableSpeedSign(const std::string& vssID);

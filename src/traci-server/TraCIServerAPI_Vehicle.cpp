@@ -60,36 +60,8 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
     const std::string id = inputStorage.readString();
     server.initWrapper(libsumo::RESPONSE_GET_VEHICLE_VARIABLE, variable, id);
     try {
-        if (!libsumo::Vehicle::handleVariable(id, variable, &server)) {
+        if (!libsumo::Vehicle::handleVariable(id, variable, &server, &inputStorage)) {
             switch (variable) {
-                case libsumo::VAR_LEADER: {
-                    double dist = 0;
-                    if (!server.readTypeCheckingDouble(inputStorage, dist)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Leader retrieval requires a double.", outputStorage);
-                    }
-                    std::pair<std::string, double> leaderInfo = libsumo::Vehicle::getLeader(id, dist);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    server.getWrapperStorage().writeInt(2);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                    server.getWrapperStorage().writeString(leaderInfo.first);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                    server.getWrapperStorage().writeDouble(leaderInfo.second);
-                    break;
-                }
-                case libsumo::VAR_FOLLOWER: {
-                    double dist = 0;
-                    if (!server.readTypeCheckingDouble(inputStorage, dist)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Follower retrieval requires a double.", outputStorage);
-                    }
-                    std::pair<std::string, double> followerInfo = libsumo::Vehicle::getFollower(id, dist);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    server.getWrapperStorage().writeInt(2);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                    server.getWrapperStorage().writeString(followerInfo.first);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                    server.getWrapperStorage().writeDouble(followerInfo.second);
-                    break;
-                }
                 case libsumo::VAR_EDGE_TRAVELTIME: {
                     if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                         return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires a compound object.", outputStorage);
@@ -260,28 +232,6 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     }
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRINGLIST);
                     server.getWrapperStorage().writeStringList(libsumo::Vehicle::getTaxiFleet(flag));
-                    break;
-                }
-                case libsumo::VAR_PARAMETER: {
-                    std::string paramName = "";
-                    if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
-                    }
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                    server.getWrapperStorage().writeString(libsumo::Vehicle::getParameter(id, paramName));
-                    break;
-                }
-                case libsumo::VAR_PARAMETER_WITH_KEY: {
-                    std::string paramName = "";
-                    if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
-                    }
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    server.getWrapperStorage().writeInt(2);  /// length
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                    server.getWrapperStorage().writeString(paramName);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                    server.getWrapperStorage().writeString(libsumo::Vehicle::getParameter(id, paramName));
                     break;
                 }
                 case libsumo::VAR_NEIGHBORS: {

@@ -23,6 +23,7 @@
 #include <thread>
 #include <chrono>
 #include <array>
+#include <libsumo/ToStorage.h>
 #include <libsumo/TraCIDefs.h>
 #include "Connection.h"
 
@@ -240,8 +241,7 @@ Connection::subscribeObjectVariable(int domID, const std::string& objID, double 
             outMsg.writeUnsignedByte(vars[i]);
             const auto& paramEntry = params.find(vars[i]);
             if (paramEntry != params.end()) {
-                // TODO implement toPacket and adapt the message length above
-                outMsg.writePacket(paramEntry->second->toPacket());
+                outMsg.writeStorage(*toStorage(*paramEntry->second));
             }
         }
     }
@@ -288,8 +288,7 @@ Connection::subscribeObjectContext(int domID, const std::string& objID, double b
         outMsg.writeUnsignedByte(vars[i]);
         const auto& paramEntry = params.find(vars[i]);
         if (paramEntry != params.end()) {
-            // TODO implement toPacket and adapt the message length above
-            outMsg.writePacket(paramEntry->second->toPacket());
+            outMsg.writeStorage(*toStorage(*paramEntry->second));
         }
     }
     // send message

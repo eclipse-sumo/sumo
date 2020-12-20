@@ -327,8 +327,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %pythonprepend libsumo::Vehicle::add(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&,
                                      const std::string&, const std::string&, const std::string&, const std::string&, const std::string&,
                                      const std::string&, const std::string&, const std::string&, int, int) %{
-    for i, a in enumerate(args[:13]):
-        args[i] = str(a)
+    args = [str(a) for a in args[:13]] + list(args[13:])
     for key, val in kwargs.items():
         if key not in ("personCapacity", "personNumber"):
             kwargs[key] = str(val)
@@ -343,9 +342,11 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 
 %begin %{
 #ifdef _MSC_VER
-// ignore constant conditional expression and unreachable code warnings
-#pragma warning(disable:4127 4702)
+// ignore constant conditional expression and unreachable/unsafe code warnings
+#pragma warning(disable:4127 4702 4996)
 #endif
+
+#include <iostream>
 %}
 
 

@@ -184,7 +184,7 @@ InductionLoop::makeWrapper() {
 
 
 bool
-InductionLoop::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+InductionLoop::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData) {
     switch (variable) {
         case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
@@ -206,6 +206,12 @@ InductionLoop::handleVariable(const std::string& objID, const int variable, Vari
             return wrapper->wrapDouble(objID, variable, getLastStepMeanLength(objID));
         case LAST_STEP_TIME_SINCE_DETECTION:
             return wrapper->wrapDouble(objID, variable, getTimeSinceDetection(objID));
+        case libsumo::VAR_PARAMETER:
+            paramData->readUnsignedByte();
+            return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
+        case libsumo::VAR_PARAMETER_WITH_KEY:
+            paramData->readUnsignedByte();
+            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
         default:
             return false;
     }

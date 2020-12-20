@@ -29,9 +29,6 @@
 // ===========================================================================
 #ifndef LIBTRACI
 class MSChargingStation;
-namespace libsumo {
-class VariableWrapper;
-}
 #endif
 
 
@@ -58,7 +55,7 @@ public:
 #ifndef LIBTRACI
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
-    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
     static MSStoppingPlace* getChargingStation(const std::string& id);

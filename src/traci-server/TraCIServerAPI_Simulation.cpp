@@ -49,15 +49,8 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
     const std::string id = inputStorage.readString();
     server.initWrapper(libsumo::RESPONSE_GET_SIM_VARIABLE, variable, id);
     try {
+        // unlike the other domains we cannot check here first whether libsumo::Simulation can handle it because the implementations for the state variables differ
         switch (variable) {
-            case libsumo::VAR_TIME:
-                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                server.getWrapperStorage().writeDouble(SIMTIME);
-                break;
-            case libsumo::VAR_TIME_STEP:
-                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                server.getWrapperStorage().writeInt((int)libsumo::Simulation::getCurrentTime());
-                break;
             case libsumo::VAR_LOADED_VEHICLES_NUMBER:
                 writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_BUILT);
                 break;
@@ -159,24 +152,6 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 }
                 break;
             }
-            case libsumo::VAR_DELTA_T:
-                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                server.getWrapperStorage().writeDouble(libsumo::Simulation::getDeltaT());
-                break;
-            case libsumo::VAR_MIN_EXPECTED_VEHICLES:
-                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                server.getWrapperStorage().writeInt(libsumo::Simulation::getMinExpectedNumber());
-                break;
-            case libsumo::VAR_BUS_STOP_ID_LIST:
-                server.wrapStringList(id, variable, libsumo::Simulation::getBusStopIDList());
-                break;
-            case libsumo::VAR_BUS_STOP_WAITING:
-                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                server.getWrapperStorage().writeInt(libsumo::Simulation::getBusStopWaiting(id));
-                break;
-            case libsumo::VAR_BUS_STOP_WAITING_IDS:
-                server.wrapStringList(id, variable, libsumo::Simulation::getBusStopWaitingIDList(id));
-                break;
             case libsumo::VAR_NET_BOUNDING_BOX: {
                 server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_POLYGON);
                 libsumo::TraCIPositionVector tb = libsumo::Simulation::getNetBoundary();
@@ -296,30 +271,10 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 }
                 break;
             }
-            case libsumo::VAR_PARAMETER: {
-                std::string paramName = "";
-                if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
-                }
-                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                server.getWrapperStorage().writeString(libsumo::Simulation::getParameter(id, paramName));
-                break;
-            }
-            case libsumo::VAR_PARAMETER_WITH_KEY: {
-                std::string paramName = "";
-                if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
-                }
-                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                server.getWrapperStorage().writeInt(2);  /// length
-                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                server.getWrapperStorage().writeString(paramName);
-                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                server.getWrapperStorage().writeString(libsumo::Simulation::getParameter(id, paramName));
-                break;
-            }
             default:
-                return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Get Simulation Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
+                if (!libsumo::Simulation::handleVariable(id, variable, &server, &inputStorage)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Get Simulation Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
+                }
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, e.what(), outputStorage);

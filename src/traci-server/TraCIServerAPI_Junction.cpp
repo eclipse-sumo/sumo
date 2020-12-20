@@ -39,7 +39,7 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
     const std::string id = inputStorage.readString();
     server.initWrapper(libsumo::RESPONSE_GET_JUNCTION_VARIABLE, variable, id);
     try {
-        if (!libsumo::Junction::handleVariable(id, variable, &server)) {
+        if (!libsumo::Junction::handleVariable(id, variable, &server, &inputStorage)) {
             switch (variable) {
                 case libsumo::VAR_SHAPE:
                     server.writePositionVector(server.getWrapperStorage(), libsumo::Junction::getShape(id));

@@ -60,7 +60,7 @@ public:
 #ifndef LIBTRACI
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
-    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
     static MSE2Collector* getDetector(const std::string& detID);

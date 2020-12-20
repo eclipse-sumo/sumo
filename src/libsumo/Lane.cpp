@@ -384,7 +384,7 @@ Lane::makeWrapper() {
 
 
 bool
-Lane::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+Lane::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData) {
     switch (variable) {
         case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
@@ -436,6 +436,12 @@ Lane::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapDouble(objID, variable, getTraveltime(objID));
         case VAR_WIDTH:
             return wrapper->wrapDouble(objID, variable, getWidth(objID));
+        case libsumo::VAR_PARAMETER:
+            paramData->readUnsignedByte();
+            return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
+        case libsumo::VAR_PARAMETER_WITH_KEY:
+            paramData->readUnsignedByte();
+            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
         default:
             return false;
     }

@@ -109,10 +109,6 @@ public:
                           const double beginTime, const double endTime, const libsumo::TraCIResults& params,
                           const int contextDomain = 0, const double range = 0.);
 
-    static void addSubscriptionParam(double param);
-
-    static void addSubscriptionParam(const std::string& param);
-
     static void handleSubscriptions(const SUMOTime t);
 
     static bool needNewSubscription(libsumo::Subscription& s, std::vector<Subscription>& subscriptions, libsumo::Subscription*& modifiedSubscription);
@@ -217,10 +213,6 @@ public:
     public:
         SubscriptionWrapper(VariableWrapper::SubscriptionHandler handler, SubscriptionResults& into, ContextSubscriptionResults& context);
         void setContext(const std::string& refID);
-        void setParams(const std::vector<unsigned char>* params);
-        const std::vector<unsigned char>* getParams() const {
-            return myParams;
-        }
         void clear();
         bool wrapDouble(const std::string& objID, const int variable, const double value);
         bool wrapInt(const std::string& objID, const int variable, const int value);
@@ -228,12 +220,12 @@ public:
         bool wrapStringList(const std::string& objID, const int variable, const std::vector<std::string>& value);
         bool wrapPosition(const std::string& objID, const int variable, const TraCIPosition& value);
         bool wrapColor(const std::string& objID, const int variable, const TraCIColor& value);
-        bool wrapRoadPosition(const std::string& objID, const int variable, const TraCIRoadPosition& value);
+        bool wrapStringDoubleCompound(const std::string& objID, const int variable, const std::string& stringValue, const double doubleValue);
+        bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value);
     private:
         SubscriptionResults& myResults;
         ContextSubscriptionResults& myContextResults;
         SubscriptionResults* myActiveResults;
-        const std::vector<unsigned char>* myParams = nullptr;
     private:
         /// @brief Invalidated assignment operator
         SubscriptionWrapper& operator=(const SubscriptionWrapper& s) = delete;

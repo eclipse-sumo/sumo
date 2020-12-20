@@ -41,7 +41,7 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
     const std::string id = inputStorage.readString();
     server.initWrapper(libsumo::RESPONSE_GET_TL_VARIABLE, variable, id);
     try {
-        if (!libsumo::TrafficLight::handleVariable(id, variable, &server)) {
+        if (!libsumo::TrafficLight::handleVariable(id, variable, &server, &inputStorage)) {
             switch (variable) {
                 case libsumo::TL_COMPLETE_DEFINITION_RYG: {
                     std::vector<libsumo::TraCILogic> logics = libsumo::TrafficLight::getCompleteRedYellowGreenDefinition(id);
@@ -149,28 +149,6 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     }
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRINGLIST);
                     server.getWrapperStorage().writeStringList(libsumo::TrafficLight::getPriorityVehicles(id, index));
-                    break;
-                }
-                case libsumo::VAR_PARAMETER: {
-                    std::string paramName = "";
-                    if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_TL_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
-                    }
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                    server.getWrapperStorage().writeString(libsumo::TrafficLight::getParameter(id, paramName));
-                    break;
-                }
-                case libsumo::VAR_PARAMETER_WITH_KEY: {
-                    std::string paramName = "";
-                    if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_TL_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
-                    }
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    server.getWrapperStorage().writeInt(2);  /// length
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                    server.getWrapperStorage().writeString(paramName);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                    server.getWrapperStorage().writeString(libsumo::TrafficLight::getParameter(id, paramName));
                     break;
                 }
                 case libsumo::TL_EXTERNAL_STATE: {

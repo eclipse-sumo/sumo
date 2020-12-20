@@ -37,33 +37,8 @@ TraCIServerAPI_OverheadWire::processGet(TraCIServer& server, tcpip::Storage& inp
     const std::string id = inputStorage.readString();
     server.initWrapper(libsumo::RESPONSE_GET_OVERHEADWIRE_VARIABLE, variable, id);
     try {
-        if (!libsumo::OverheadWire::handleVariable(id, variable, &server)) {
-            switch (variable) {
-                case libsumo::VAR_PARAMETER: {
-                    std::string paramName = "";
-                    if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_OVERHEADWIRE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
-                    }
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                    server.getWrapperStorage().writeString(libsumo::OverheadWire::getParameter(id, paramName));
-                    break;
-                }
-                case libsumo::VAR_PARAMETER_WITH_KEY: {
-                    std::string paramName = "";
-                    if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_OVERHEADWIRE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
-                    }
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    server.getWrapperStorage().writeInt(2);  /// length
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                    server.getWrapperStorage().writeString(paramName);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                    server.getWrapperStorage().writeString(libsumo::OverheadWire::getParameter(id, paramName));
-                    break;
-                }
-                default:
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_OVERHEADWIRE_VARIABLE, "Get OverheadWire Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-            }
+        if (!libsumo::OverheadWire::handleVariable(id, variable, &server, &inputStorage)) {
+            return server.writeErrorStatusCmd(libsumo::CMD_GET_OVERHEADWIRE_VARIABLE, "Get OverheadWire Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(libsumo::CMD_GET_OVERHEADWIRE_VARIABLE, e.what(), outputStorage);

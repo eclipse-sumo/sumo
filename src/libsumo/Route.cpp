@@ -123,7 +123,7 @@ Route::makeWrapper() {
 
 
 bool
-Route::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+Route::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData) {
     switch (variable) {
         case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
@@ -131,6 +131,12 @@ Route::handleVariable(const std::string& objID, const int variable, VariableWrap
             return wrapper->wrapInt(objID, variable, getIDCount());
         case VAR_EDGES:
             return wrapper->wrapStringList(objID, variable, getEdges(objID));
+        case libsumo::VAR_PARAMETER:
+            paramData->readUnsignedByte();
+            return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
+        case libsumo::VAR_PARAMETER_WITH_KEY:
+            paramData->readUnsignedByte();
+            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
         default:
             return false;
     }

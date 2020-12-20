@@ -256,7 +256,8 @@ public:
     bool wrapStringList(const std::string& objID, const int variable, const std::vector<std::string>& value);
     bool wrapPosition(const std::string& objID, const int variable, const libsumo::TraCIPosition& value);
     bool wrapColor(const std::string& objID, const int variable, const libsumo::TraCIColor& value);
-    bool wrapRoadPosition(const std::string& objID, const int variable, const libsumo::TraCIRoadPosition& value);
+    bool wrapStringDoubleCompound(const std::string& objID, const int variable, const std::string& stringValue, const double doubleValue);
+    bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value);
     tcpip::Storage& getWrapperStorage();
     /// @}
 
@@ -370,8 +371,8 @@ private:
     /// @brief Map of commandIds -> their executors; applicable if the executor applies to the method footprint
     std::map<int, CmdExecutor> myExecutors;
 
-    /// @brief Map of variable ids to the size of the parameter in bytes
-    std::map<int, int> myParameterSizes;
+    /// @brief Set of variables which have parameters
+    std::set<int> myParameterized;
 
     std::vector<std::string> myLoadArgs;
 

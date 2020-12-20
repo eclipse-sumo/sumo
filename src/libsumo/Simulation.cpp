@@ -711,6 +711,12 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
     }
 }
 
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Simulation)
+
+void
+Simulation::setParameter(const std::string& objectID, const std::string& param, const std::string& value) {
+    // TODO
+}
 
 void
 Simulation::clearPending(const std::string& routeID) {
@@ -757,7 +763,7 @@ Simulation::makeWrapper() {
 
 
 bool
-Simulation::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+Simulation::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData) {
     switch (variable) {
         case VAR_TIME:
             return wrapper->wrapDouble(objID, variable, getTime());
@@ -811,8 +817,18 @@ Simulation::handleVariable(const std::string& objID, const int variable, Variabl
             return wrapper->wrapDouble(objID, variable, getDeltaT());
         case VAR_MIN_EXPECTED_VEHICLES:
             return wrapper->wrapInt(objID, variable, getMinExpectedNumber());
+        case VAR_BUS_STOP_ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getBusStopIDList());
         case VAR_BUS_STOP_WAITING:
             return wrapper->wrapInt(objID, variable, getBusStopWaiting(objID));
+        case VAR_BUS_STOP_WAITING_IDS:
+            return wrapper->wrapStringList(objID, variable, getBusStopWaitingIDList(objID));
+        case libsumo::VAR_PARAMETER:
+            paramData->readUnsignedByte();
+            return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
+        case libsumo::VAR_PARAMETER_WITH_KEY:
+            paramData->readUnsignedByte();
+            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
         default:
             return false;
     }

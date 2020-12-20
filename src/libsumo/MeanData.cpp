@@ -93,12 +93,18 @@ MeanData::makeWrapper() {
 
 
 bool
-MeanData::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+MeanData::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData) {
     switch (variable) {
         case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
         case ID_COUNT:
             return wrapper->wrapInt(objID, variable, getIDCount());
+        case libsumo::VAR_PARAMETER:
+            paramData->readUnsignedByte();
+            return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
+        case libsumo::VAR_PARAMETER_WITH_KEY:
+            paramData->readUnsignedByte();
+            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
         default:
             return false;
     }

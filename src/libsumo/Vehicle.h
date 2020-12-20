@@ -35,9 +35,6 @@
 // class declarations
 // ===========================================================================
 #ifndef LIBTRACI
-namespace libsumo {
-class VariableWrapper;
-}
 class SUMOVehicle;
 #endif
 
@@ -54,63 +51,63 @@ class Vehicle {
 public:
     /// @name Value retrieval
     /// @{
-    static double getSpeed(const std::string& vehicleID);
-    static double getLateralSpeed(const std::string& vehicleID);
-    static double getAcceleration(const std::string& vehicleID);
-    static double getSpeedWithoutTraCI(const std::string& vehicleID);
-    static libsumo::TraCIPosition getPosition(const std::string& vehicleID, const bool includeZ = false);
-    static libsumo::TraCIPosition getPosition3D(const std::string& vehicleID);
-    static double getAngle(const std::string& vehicleID);
-    static double getSlope(const std::string& vehicleID);
-    static std::string getRoadID(const std::string& vehicleID);
-    static std::string getLaneID(const std::string& vehicleID);
-    static int getLaneIndex(const std::string& vehicleID);
-    static std::string getTypeID(const std::string& vehicleID);
-    static std::string getRouteID(const std::string& vehicleID);
-    static int getRouteIndex(const std::string& vehicleID);
-    static double getLanePosition(const std::string& vehicleID);
-    static double getLateralLanePosition(const std::string& vehicleID);
-    static double getCO2Emission(const std::string& vehicleID);
-    static double getCOEmission(const std::string& vehicleID);
-    static double getHCEmission(const std::string& vehicleID);
-    static double getPMxEmission(const std::string& vehicleID);
-    static double getNOxEmission(const std::string& vehicleID);
-    static double getFuelConsumption(const std::string& vehicleID);
-    static double getNoiseEmission(const std::string& vehicleID);
-    static double getElectricityConsumption(const std::string& vehicleID);
-    static int getPersonNumber(const std::string& vehicleID);
-    static std::vector<std::string> getPersonIDList(const std::string& vehicleID);
-    static std::pair<std::string, double> getLeader(const std::string& vehicleID, double dist = 0.);
-    static std::pair<std::string, double> getFollower(const std::string& vehicleID, double dist = 0.);
-    static double getWaitingTime(const std::string& vehicleID);
-    static double getAccumulatedWaitingTime(const std::string& vehicleID);
-    static double getAdaptedTraveltime(const std::string& vehicleID, double time, const std::string& edgeID);
-    static double getEffort(const std::string& vehicleID, double time, const std::string& edgeID);
-    static bool isRouteValid(const std::string& vehicleID);
-    static std::vector<std::string> getRoute(const std::string& vehicleID);
-    static int getSignals(const std::string& vehicleID);
-    static std::vector<libsumo::TraCIBestLanesData> getBestLanes(const std::string& vehicleID);
-    static std::vector<libsumo::TraCINextTLSData> getNextTLS(const std::string& vehicleID);
-    static std::vector<libsumo::TraCINextStopData> getNextStops(const std::string& vehicleID);
-    static std::vector<libsumo::TraCINextStopData> getStops(const std::string& vehicleID, int limit = 0);
-    static int getStopState(const std::string& vehicleID);
-    static double getDistance(const std::string& vehicleID);
-    static double getDrivingDistance(const std::string& vehicleID, const std::string& edgeID, double position, int laneIndex = 0);
-    static double getDrivingDistance2D(const std::string& vehicleID, double x, double y);
-    static double getAllowedSpeed(const std::string& vehicleID);
-    static int getSpeedMode(const std::string& vehicleID);
-    static int getLaneChangeMode(const std::string& vehicleID);
-    static int getRoutingMode(const std::string& vehicleID);
-    static std::string getLine(const std::string& vehicleID);
-    static std::vector<std::string> getVia(const std::string& vehicleID);
-    static std::pair<int, int> getLaneChangeState(const std::string& vehicleID, int direction);
-    static double getLastActionTime(const std::string& vehicleID);
-    static std::vector<std::pair<std::string, double> > getNeighbors(const std::string& vehicleID, const int mode);
-    static double getFollowSpeed(const std::string& vehicleID, double speed, double gap, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID = "");
-    static double getSecureGap(const std::string& vehicleID, double speed, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID = "");
-    static double getStopSpeed(const std::string& vehicleID, double speed, double gap);
-    static double getStopDelay(const std::string& vehicleID);
-    static double getStopArrivalDelay(const std::string& vehicleID);
+    static double getSpeed(const std::string& vehID);
+    static double getLateralSpeed(const std::string& vehID);
+    static double getAcceleration(const std::string& vehID);
+    static double getSpeedWithoutTraCI(const std::string& vehID);
+    static libsumo::TraCIPosition getPosition(const std::string& vehID, const bool includeZ = false);
+    static libsumo::TraCIPosition getPosition3D(const std::string& vehID);
+    static double getAngle(const std::string& vehID);
+    static double getSlope(const std::string& vehID);
+    static std::string getRoadID(const std::string& vehID);
+    static std::string getLaneID(const std::string& vehID);
+    static int getLaneIndex(const std::string& vehID);
+    static std::string getTypeID(const std::string& vehID);
+    static std::string getRouteID(const std::string& vehID);
+    static int getRouteIndex(const std::string& vehID);
+    static double getLanePosition(const std::string& vehID);
+    static double getLateralLanePosition(const std::string& vehID);
+    static double getCO2Emission(const std::string& vehID);
+    static double getCOEmission(const std::string& vehID);
+    static double getHCEmission(const std::string& vehID);
+    static double getPMxEmission(const std::string& vehID);
+    static double getNOxEmission(const std::string& vehID);
+    static double getFuelConsumption(const std::string& vehID);
+    static double getNoiseEmission(const std::string& vehID);
+    static double getElectricityConsumption(const std::string& vehID);
+    static int getPersonNumber(const std::string& vehID);
+    static std::vector<std::string> getPersonIDList(const std::string& vehID);
+    static std::pair<std::string, double> getLeader(const std::string& vehID, double dist = 0.);
+    static std::pair<std::string, double> getFollower(const std::string& vehID, double dist = 0.);
+    static double getWaitingTime(const std::string& vehID);
+    static double getAccumulatedWaitingTime(const std::string& vehID);
+    static double getAdaptedTraveltime(const std::string& vehID, double time, const std::string& edgeID);
+    static double getEffort(const std::string& vehID, double time, const std::string& edgeID);
+    static bool isRouteValid(const std::string& vehID);
+    static std::vector<std::string> getRoute(const std::string& vehID);
+    static int getSignals(const std::string& vehID);
+    static std::vector<libsumo::TraCIBestLanesData> getBestLanes(const std::string& vehID);
+    static std::vector<libsumo::TraCINextTLSData> getNextTLS(const std::string& vehID);
+    static std::vector<libsumo::TraCINextStopData> getNextStops(const std::string& vehID);
+    static std::vector<libsumo::TraCINextStopData> getStops(const std::string& vehID, int limit = 0);
+    static int getStopState(const std::string& vehID);
+    static double getDistance(const std::string& vehID);
+    static double getDrivingDistance(const std::string& vehID, const std::string& edgeID, double position, int laneIndex = 0);
+    static double getDrivingDistance2D(const std::string& vehID, double x, double y);
+    static double getAllowedSpeed(const std::string& vehID);
+    static int getSpeedMode(const std::string& vehID);
+    static int getLaneChangeMode(const std::string& vehID);
+    static int getRoutingMode(const std::string& vehID);
+    static std::string getLine(const std::string& vehID);
+    static std::vector<std::string> getVia(const std::string& vehID);
+    static std::pair<int, int> getLaneChangeState(const std::string& vehID, int direction);
+    static double getLastActionTime(const std::string& vehID);
+    static std::vector<std::pair<std::string, double> > getNeighbors(const std::string& vehID, const int mode);
+    static double getFollowSpeed(const std::string& vehID, double speed, double gap, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID = "");
+    static double getSecureGap(const std::string& vehID, double speed, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID = "");
+    static double getStopSpeed(const std::string& vehID, double speed, double gap);
+    static double getStopDelay(const std::string& vehID);
+    static double getStopArrivalDelay(const std::string& vehID);
     static std::vector<std::string> getTaxiFleet(int taxiState = 0);
     /// @}
 
@@ -120,7 +117,7 @@ public:
     /// @name State Changing
     /// @{
 
-    static void setStop(const std::string& vehicleID,
+    static void setStop(const std::string& vehID,
                         const std::string& edgeID,
                         double pos = 1.,
                         int laneIndex = 0,
@@ -129,7 +126,7 @@ public:
                         double startPos = libsumo::INVALID_DOUBLE_VALUE,
                         double until = libsumo::INVALID_DOUBLE_VALUE);
 
-    static void replaceStop(const std::string& vehicleID,
+    static void replaceStop(const std::string& vehID,
                             int nextStopIndex,
                             const std::string& edgeID,
                             double pos = 1.,
@@ -139,10 +136,10 @@ public:
                             double startPos = libsumo::INVALID_DOUBLE_VALUE,
                             double until = libsumo::INVALID_DOUBLE_VALUE);
 
-    static void rerouteParkingArea(const std::string& vehicleID,
+    static void rerouteParkingArea(const std::string& vehID,
                                    const std::string& parkingAreaID);
 
-    static void resume(const std::string& vehicleID);
+    static void resume(const std::string& vehID);
 
     static void add(const std::string& vehID,
                     const std::string& routeID,
@@ -160,46 +157,46 @@ public:
                     int personCapacity = 4,
                     int personNumber = 0);
 
-    static void changeTarget(const std::string& vehicleID, const std::string& edgeID);
-    static void changeLane(const std::string& vehicleID, int laneIndex, double duration);
-    static void changeLaneRelative(const std::string& vehicleID, int indexOffset, double duration);
-    static void changeSublane(const std::string& vehicleID, double latDist);
+    static void changeTarget(const std::string& vehID, const std::string& edgeID);
+    static void changeLane(const std::string& vehID, int laneIndex, double duration);
+    static void changeLaneRelative(const std::string& vehID, int indexOffset, double duration);
+    static void changeSublane(const std::string& vehID, double latDist);
 
-    static void slowDown(const std::string& vehicleID, double speed, double duration);
-    static void openGap(const std::string& vehicleID, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel = libsumo::INVALID_DOUBLE_VALUE, const std::string& referenceVehID = "");
-    static void deactivateGapControl(const std::string& vehicleID);
+    static void slowDown(const std::string& vehID, double speed, double duration);
+    static void openGap(const std::string& vehID, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel = libsumo::INVALID_DOUBLE_VALUE, const std::string& referenceVehID = "");
+    static void deactivateGapControl(const std::string& vehID);
     static void requestToC(const std::string& vehID, double leadTime);
-    static void setSpeed(const std::string& vehicleID, double speed);
-    static void setPreviousSpeed(const std::string& vehicleID, double prevspeed);
-    static void setSpeedMode(const std::string& vehicleID, int speedMode);
-    static void setLaneChangeMode(const std::string& vehicleID, int laneChangeMode);
-    static void setRoutingMode(const std::string& vehicleID, int routingMode);
-    static void setType(const std::string& vehicleID, const std::string& typeID);
-    static void setRouteID(const std::string& vehicleID, const std::string& routeID);
-    static void setRoute(const std::string& vehicleID, const std::string& edgeID);
-    static void setRoute(const std::string& vehicleID, const std::vector<std::string>& edgeIDs);
-    static void updateBestLanes(const std::string& vehicleID);
-    static void setAdaptedTraveltime(const std::string& vehicleID, const std::string& edgeID,
+    static void setSpeed(const std::string& vehID, double speed);
+    static void setPreviousSpeed(const std::string& vehID, double prevspeed);
+    static void setSpeedMode(const std::string& vehID, int speedMode);
+    static void setLaneChangeMode(const std::string& vehID, int laneChangeMode);
+    static void setRoutingMode(const std::string& vehID, int routingMode);
+    static void setType(const std::string& vehID, const std::string& typeID);
+    static void setRouteID(const std::string& vehID, const std::string& routeID);
+    static void setRoute(const std::string& vehID, const std::string& edgeID);
+    static void setRoute(const std::string& vehID, const std::vector<std::string>& edgeIDs);
+    static void updateBestLanes(const std::string& vehID);
+    static void setAdaptedTraveltime(const std::string& vehID, const std::string& edgeID,
                                      double time = libsumo::INVALID_DOUBLE_VALUE, double begSeconds = 0, double endSeconds = std::numeric_limits<double>::max());
-    static void setEffort(const std::string& vehicleID, const std::string& edgeID,
+    static void setEffort(const std::string& vehID, const std::string& edgeID,
                           double effort = libsumo::INVALID_DOUBLE_VALUE, double begSeconds = 0, double endSeconds = std::numeric_limits<double>::max());
-    static void rerouteTraveltime(const std::string& vehicleID, const bool currentTravelTimes = true);
-    static void rerouteEffort(const std::string& vehicleID);
-    static void setSignals(const std::string& vehicleID, int signals);
-    static void moveTo(const std::string& vehicleID, const std::string& laneID, double position, int reason = libsumo::MOVE_AUTOMATIC);
-    static void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle = libsumo::INVALID_DOUBLE_VALUE, const int keepRoute = 1);
-    static void remove(const std::string& vehicleID, char reason = libsumo::REMOVE_VAPORIZED);
-    static void setLine(const std::string& vehicleID, const std::string& line);
-    static void setVia(const std::string& vehicleID, const std::vector<std::string>& via);
-    static void highlight(const std::string& vehicleID, const libsumo::TraCIColor& col = libsumo::TraCIColor(255, 0, 0, 255), double size = -1, const int alphaMax = -1, const double duration = -1, const int type = 0);
-    static void dispatchTaxi(const std::string& vehicleID,  const std::vector<std::string>& reservations);
+    static void rerouteTraveltime(const std::string& vehID, const bool currentTravelTimes = true);
+    static void rerouteEffort(const std::string& vehID);
+    static void setSignals(const std::string& vehID, int signals);
+    static void moveTo(const std::string& vehID, const std::string& laneID, double position, int reason = libsumo::MOVE_AUTOMATIC);
+    static void moveToXY(const std::string& vehID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle = libsumo::INVALID_DOUBLE_VALUE, const int keepRoute = 1);
+    static void remove(const std::string& vehID, char reason = libsumo::REMOVE_VAPORIZED);
+    static void setLine(const std::string& vehID, const std::string& line);
+    static void setVia(const std::string& vehID, const std::vector<std::string>& via);
+    static void highlight(const std::string& vehID, const libsumo::TraCIColor& col = libsumo::TraCIColor(255, 0, 0, 255), double size = -1, const int alphaMax = -1, const double duration = -1, const int type = 0);
+    static void dispatchTaxi(const std::string& vehID,  const std::vector<std::string>& reservations);
     /// @}
 
     LIBSUMO_VEHICLE_TYPE_SETTER
 
     LIBSUMO_SUBSCRIPTION_API
 
-    static void subscribeLeader(const std::string& vehicleID, double dist = 0., double begin = libsumo::INVALID_DOUBLE_VALUE, double end = libsumo::INVALID_DOUBLE_VALUE);
+    static void subscribeLeader(const std::string& vehID, double dist = 0., double begin = libsumo::INVALID_DOUBLE_VALUE, double end = libsumo::INVALID_DOUBLE_VALUE);
 
     static void addSubscriptionFilterLanes(const std::vector<int>& lanes, bool noOpposite = false, double downstreamDist = libsumo::INVALID_DOUBLE_VALUE, double upstreamDist = libsumo::INVALID_DOUBLE_VALUE);
 
@@ -234,13 +231,13 @@ public:
 
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
-    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 
 private:
     static bool isVisible(const SUMOVehicle* veh);
 
-    static bool isOnInit(const std::string& vehicleID);
+    static bool isOnInit(const std::string& vehID);
 
     static SUMOVehicleParameter::Stop buildStopParameters(const std::string& edgeOrStoppingPlaceID,
             double pos, int laneIndex, double startPos, int flags, double duration, double until);

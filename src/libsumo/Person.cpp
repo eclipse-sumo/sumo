@@ -1087,7 +1087,7 @@ Person::makeWrapper() {
 
 
 bool
-Person::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+Person::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData) {
     switch (variable) {
         case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
@@ -1121,10 +1121,17 @@ Person::handleVariable(const std::string& objID, const int variable, VariableWra
             return wrapper->wrapInt(objID, variable, getRemainingStages(objID));
         case VAR_VEHICLE:
             return wrapper->wrapString(objID, variable, getVehicle(objID));
+        case libsumo::VAR_PARAMETER:
+            paramData->readUnsignedByte();
+            return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
+        case libsumo::VAR_PARAMETER_WITH_KEY:
+            paramData->readUnsignedByte();
+            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
         case VAR_TAXI_RESERVATIONS:
+            // we cannot use the general fall through here because we do not have an object id
             return false;
         default:
-            return libsumo::VehicleType::handleVariable(getTypeID(objID), variable, wrapper);
+            return libsumo::VehicleType::handleVariable(getTypeID(objID), variable, wrapper, paramData);
     }
 }
 

@@ -29,10 +29,9 @@
 // ===========================================================================
 #ifndef LIBTRACI
 class MSTriggeredRerouter;
-namespace libsumo {
-class VariableWrapper;
-}
 #endif
+
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -51,7 +50,7 @@ public:
 #ifndef LIBTRACI
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
-    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
     static MSTriggeredRerouter* getRerouter(const std::string& id);

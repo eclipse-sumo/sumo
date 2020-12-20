@@ -39,7 +39,7 @@ TraCIServerAPI_LaneArea::processGet(TraCIServer& server, tcpip::Storage& inputSt
     const std::string id = inputStorage.readString();
     server.initWrapper(libsumo::RESPONSE_GET_LANEAREA_VARIABLE, variable, id);
     try {
-        if (!libsumo::LaneArea::handleVariable(id, variable, &server)) {
+        if (!libsumo::LaneArea::handleVariable(id, variable, &server, &inputStorage)) {
             return server.writeErrorStatusCmd(libsumo::CMD_GET_LANEAREA_VARIABLE, "Get Lane Area Detector Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
         }
     } catch (libsumo::TraCIException& e) {

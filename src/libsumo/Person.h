@@ -31,16 +31,9 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-#ifdef LIBTRACI
-namespace tcpip {
-class Storage;
-}
-#else
+#ifndef LIBTRACI
 class MSPerson;
 class PositionVector;
-namespace libsumo {
-class VariableWrapper;
-}
 #endif
 
 
@@ -103,7 +96,7 @@ public:
 
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
-    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
     static MSPerson* getPerson(const std::string& id);

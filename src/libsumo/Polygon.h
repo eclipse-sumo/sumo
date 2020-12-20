@@ -33,10 +33,6 @@
 class NamedRTree;
 class SUMOPolygon;
 class SUMOTrafficObject;
-class NamedRTree;
-namespace libsumo {
-class VariableWrapper;
-}
 #endif
 
 
@@ -84,7 +80,7 @@ public:
 
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
-    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
     /// Checks if a polygon of the given name exists already in the simulation
     static bool exists(std::string polyID);

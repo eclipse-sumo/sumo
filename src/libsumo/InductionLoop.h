@@ -32,9 +32,6 @@
 class NamedRTree;
 class MSInductLoop;
 class PositionVector;
-namespace libsumo {
-class VariableWrapper;
-}
 #endif
 
 
@@ -76,7 +73,7 @@ public:
 
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
-    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
     static MSInductLoop* getDetector(const std::string& detID);

@@ -20,6 +20,7 @@
 #pragma once
 #include <vector>
 #include <set>
+#include <foreign/tcpip/storage.h>
 #include <libsumo/TraCIDefs.h>
 #include <utils/common/SUMOTime.h>
 
@@ -78,7 +79,7 @@ public:
     */
     Subscription(int commandIdArg, const std::string& idArg,
                  const std::vector<int>& variablesArg,
-                 const std::vector<std::vector<unsigned char>>& paramsArg,
+                 const std::vector<std::shared_ptr<tcpip::Storage> >& paramsArg,
                  SUMOTime beginTimeArg, SUMOTime endTimeArg,
                  int contextDomainArg, double rangeArg)
         : commandId(commandIdArg),
@@ -113,7 +114,7 @@ public:
     /// @brief The subscribed variables
     std::vector<int> variables;
     /// @brief The parameters for the subscribed variables
-    std::vector<std::vector<unsigned char> > parameters;
+    std::vector<std::shared_ptr<tcpip::Storage> > parameters;
     /// @brief The begin time of the subscription
     SUMOTime beginTime;
     /// @brief The end time of the subscription
@@ -144,14 +145,10 @@ public:
 class VariableWrapper {
 public:
     /// @brief Definition of a method to be called for serving an associated commandID
-    typedef bool(*SubscriptionHandler)(const std::string& objID, const int variable, VariableWrapper* wrapper);
+    typedef bool(*SubscriptionHandler)(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
     VariableWrapper(SubscriptionHandler handler = nullptr) : handle(handler) {}
     SubscriptionHandler handle;
     virtual void setContext(const std::string& /* refID */) {}
-    virtual void setParams(const std::vector<unsigned char>* /* params */) {}
-    virtual const std::vector<unsigned char>* getParams() const {
-        return nullptr;
-    }
     virtual void clear() {}
     virtual bool wrapDouble(const std::string& objID, const int variable, const double value) = 0;
     virtual bool wrapInt(const std::string& objID, const int variable, const int value) = 0;
@@ -159,8 +156,11 @@ public:
     virtual bool wrapStringList(const std::string& objID, const int variable, const std::vector<std::string>& value) = 0;
     virtual bool wrapPosition(const std::string& objID, const int variable, const TraCIPosition& value) = 0;
     virtual bool wrapColor(const std::string& objID, const int variable, const TraCIColor& value) = 0;
-    virtual bool wrapRoadPosition(const std::string& objID, const int variable, const TraCIRoadPosition& value) = 0;
+    virtual bool wrapStringDoubleCompound(const std::string& objID, const int variable, const std::string& stringValue, const double doubleValue) = 0;
+    virtual bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value) = 0;
 };
+
+
 }
 
 

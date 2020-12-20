@@ -29,9 +29,6 @@
 // ===========================================================================
 #ifndef LIBTRACI
 class MSMeanData;
-namespace libsumo {
-class VariableWrapper;
-}
 #endif
 
 
@@ -53,7 +50,7 @@ public:
 #ifndef LIBTRACI
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
-    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
     static MSMeanData* getMeanData(const std::string& id);

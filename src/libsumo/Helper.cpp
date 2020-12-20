@@ -26,7 +26,6 @@
 #include <utils/geom/GeoConvHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleControl.h>
-#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSEdge.h>
@@ -34,7 +33,9 @@
 #include <microsim/MSLink.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/transportables/MSTransportable.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSPerson.h>
+#include <libsumo/ToStorage.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/Edge.h>
 #include <libsumo/InductionLoop.h>
@@ -136,7 +137,7 @@ Helper::debugPrint(const SUMOTrafficObject* veh) {
 
 void
 Helper::subscribe(const int commandId, const std::string& id, const std::vector<int>& variables,
-                  const double beginTime, const double endTime, const libsumo::TraCIResults& /* params */,
+                  const double beginTime, const double endTime, const libsumo::TraCIResults& params,
                   const int contextDomain, const double range) {
     myLastContextSubscription = nullptr;
     if (variables.empty()) {
@@ -149,7 +150,15 @@ Helper::subscribe(const int commandId, const std::string& id, const std::vector<
         }
         return;
     }
-    std::vector<std::vector<unsigned char> > parameters(variables.size());
+    std::vector<std::shared_ptr<tcpip::Storage> > parameters;
+    for (const int var : variables) {
+        const auto& p = params.find(var);
+        if (p == params.end()) {
+            parameters.push_back(std::make_shared<tcpip::Storage>());
+        } else {
+            parameters.push_back(toStorage(*p->second));
+        }
+    }
     const SUMOTime begin = beginTime == INVALID_DOUBLE_VALUE ? 0 : TIME2STEPS(beginTime);
     const SUMOTime end = endTime == INVALID_DOUBLE_VALUE || endTime > STEPS2TIME(SUMOTime_MAX) ? SUMOTime_MAX : TIME2STEPS(endTime);
     libsumo::Subscription s(commandId, id, variables, parameters, begin, end, contextDomain, range);
@@ -164,24 +173,6 @@ Helper::subscribe(const int commandId, const std::string& id, const std::vector<
         // Set last modified vehicle context subscription active for filter modifications
         myLastContextSubscription = modifiedSubscription;
     }
-}
-
-
-void
-Helper::addSubscriptionParam(double param) {
-    std::vector<unsigned char> dest(sizeof(param));
-    std::memcpy(dest.data(), &param, sizeof(param));
-    mySubscriptions.back().parameters.pop_back();
-    mySubscriptions.back().parameters.emplace_back(dest);
-}
-
-
-void
-Helper::addSubscriptionParam(const std::string& param) {
-    std::vector<unsigned char> dest(param.size());
-    std::memcpy(dest.data(), &param, param.size());
-    mySubscriptions.back().parameters.pop_back();
-    mySubscriptions.back().parameters.emplace_back(dest);
 }
 
 
@@ -216,10 +207,10 @@ Helper::needNewSubscription(libsumo::Subscription& s, std::vector<Subscription>&
         if (s.commandId == o.commandId && s.id == o.id &&
                 s.beginTime == o.beginTime && s.endTime == o.endTime &&
                 s.contextDomain == o.contextDomain && s.range == o.range) {
-            std::vector<std::vector<unsigned char> >::const_iterator k = s.parameters.begin();
+            std::vector<std::shared_ptr<tcpip::Storage> >::const_iterator k = s.parameters.begin();
             for (const int v : s.variables) {
                 const int offset = (int)(std::find(o.variables.begin(), o.variables.end(), v) - o.variables.begin());
-                if (offset == (int)o.variables.size() || o.parameters[offset] != *k) {
+                if (offset == (int)o.variables.size() || o.parameters[offset]->size() != (*k)->size() || !std::equal((*k)->begin(), (*k)->end(), o.parameters[offset]->begin())) {
                     o.variables.push_back(v);
                     o.parameters.push_back(*k);
                 }
@@ -301,25 +292,20 @@ Helper::handleSingleSubscription(const Subscription& s) {
     }
     for (const std::string& objID : objIDs) {
         if (!s.variables.empty()) {
-            std::vector<std::vector<unsigned char> >::const_iterator k = s.parameters.begin();
+            std::vector<std::shared_ptr<tcpip::Storage> >::const_iterator k = s.parameters.begin();
             for (const int variable : s.variables) {
-                if (!k->empty()) {
-                    container->setParams(&*k);
-                }
-                handler->handle(objID, variable, container);
-                if (!k->empty()) {
-                    container->setParams(nullptr);
-                }
+                (*k)->resetPos();
+                handler->handle(objID, variable, container, k->get());
                 ++k;
             }
         } else {
             if (s.contextDomain == 0 && getCommandId == libsumo::CMD_GET_VEHICLE_VARIABLE) {
                 // default for vehicles is edge id and lane position
-                handler->handle(objID, VAR_ROAD_ID, container);
-                handler->handle(objID, VAR_LANEPOSITION, container);
-            } else if (s.contextDomain > 0 || !handler->handle(objID, libsumo::LAST_STEP_VEHICLE_NUMBER, container)) {
+                handler->handle(objID, VAR_ROAD_ID, container, nullptr);
+                handler->handle(objID, VAR_LANEPOSITION, container, nullptr);
+            } else if (s.contextDomain > 0 || !handler->handle(objID, libsumo::LAST_STEP_VEHICLE_NUMBER, container, nullptr)) {
                 // default for detectors is vehicle number, for all others (and contexts) id list
-                handler->handle(objID, libsumo::TRACI_ID_LIST, container);
+                handler->handle(objID, libsumo::TRACI_ID_LIST, container, nullptr);
             }
         }
     }
@@ -1532,12 +1518,6 @@ Helper::SubscriptionWrapper::setContext(const std::string& refID) {
 
 
 void
-Helper::SubscriptionWrapper::setParams(const std::vector<unsigned char>* params) {
-    myParams = params;
-}
-
-
-void
 Helper::SubscriptionWrapper::clear() {
     myActiveResults = &myResults;
     myResults.clear();
@@ -1590,8 +1570,18 @@ Helper::SubscriptionWrapper::wrapColor(const std::string& objID, const int varia
 
 
 bool
-Helper::SubscriptionWrapper::wrapRoadPosition(const std::string& objID, const int variable, const TraCIRoadPosition& value) {
-    (*myActiveResults)[objID][variable] = std::make_shared<TraCIRoadPosition>(value);
+Helper::SubscriptionWrapper::wrapStringDoubleCompound(const std::string& objID, const int variable, const std::string& stringValue, const double doubleValue) {
+    (*myActiveResults)[objID][variable] = std::make_shared<TraCIRoadPosition>(stringValue, doubleValue);
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value) {
+    auto sl = std::make_shared<TraCIStringList>();
+    sl->value.push_back(value.first);
+    sl->value.push_back(value.second);
+    (*myActiveResults)[objID][variable] = sl;
     return true;
 }
 

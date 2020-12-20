@@ -98,7 +98,7 @@ VariableSpeedSign::makeWrapper() {
 
 
 bool
-VariableSpeedSign::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+VariableSpeedSign::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData) {
     switch (variable) {
         case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());

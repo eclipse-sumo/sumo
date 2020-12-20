@@ -36,7 +36,7 @@ TraCIServerAPI_MultiEntryExit::processGet(TraCIServer& server, tcpip::Storage& i
     const std::string id = inputStorage.readString();
     server.initWrapper(libsumo::RESPONSE_GET_MULTIENTRYEXIT_VARIABLE, variable, id);
     try {
-        if (!libsumo::MultiEntryExit::handleVariable(id, variable, &server)) {
+        if (!libsumo::MultiEntryExit::handleVariable(id, variable, &server, &inputStorage)) {
             return server.writeErrorStatusCmd(libsumo::CMD_GET_MULTIENTRYEXIT_VARIABLE, "Get Multi Entry Exit Detector Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
         }
     } catch (libsumo::TraCIException& e) {

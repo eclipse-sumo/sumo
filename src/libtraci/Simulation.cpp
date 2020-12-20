@@ -470,14 +470,7 @@ Simulation::findIntermodalRoute(const std::string& fromEdge, const std::string& 
     return ret;
 }
 
-
-std::string
-Simulation::getParameter(const std::string& objectID, const std::string& key) {
-    tcpip::Storage content;
-    Dom::writeTypedString(content, key);
-    return Dom::getString(libsumo::VAR_PARAMETER, objectID, &content);
-}
-
+LIBTRACI_PARAMETER_IMPLEMENTATION(Simulation, SIM)
 
 void
 Simulation::clearPending(const std::string& routeID) {

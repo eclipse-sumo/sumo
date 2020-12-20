@@ -344,7 +344,7 @@ Edge::makeWrapper() {
 
 
 bool
-Edge::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+Edge::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData) {
     switch (variable) {
         case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
@@ -388,6 +388,12 @@ Edge::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapInt(objID, variable, getLaneNumber(objID));
         case VAR_NAME:
             return wrapper->wrapString(objID, variable, getStreetName(objID));
+        case libsumo::VAR_PARAMETER:
+            paramData->readUnsignedByte();
+            return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
+        case libsumo::VAR_PARAMETER_WITH_KEY:
+            paramData->readUnsignedByte();
+            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
         default:
             return false;
     }

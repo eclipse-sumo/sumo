@@ -131,7 +131,7 @@ Junction::makeWrapper() {
 
 
 bool
-Junction::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+Junction::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData) {
     switch (variable) {
         case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
@@ -140,6 +140,12 @@ Junction::handleVariable(const std::string& objID, const int variable, VariableW
         case VAR_POSITION:
         case VAR_POSITION3D:
             return wrapper->wrapPosition(objID, variable, getPosition(objID, variable == VAR_POSITION3D));
+        case libsumo::VAR_PARAMETER:
+            paramData->readUnsignedByte();
+            return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
+        case libsumo::VAR_PARAMETER_WITH_KEY:
+            paramData->readUnsignedByte();
+            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
         default:
             return false;
     }

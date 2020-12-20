@@ -113,7 +113,7 @@ RouteProbe::makeWrapper() {
 
 
 bool
-RouteProbe::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+RouteProbe::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData) {
     switch (variable) {
         case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
@@ -125,6 +125,12 @@ RouteProbe::handleVariable(const std::string& objID, const int variable, Variabl
             return wrapper->wrapString(objID, variable, sampleLastRouteID(objID));
         case VAR_SAMPLE_CURRENT:
             return wrapper->wrapString(objID, variable, sampleCurrentRouteID(objID));
+        case libsumo::VAR_PARAMETER:
+            paramData->readUnsignedByte();
+            return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
+        case libsumo::VAR_PARAMETER_WITH_KEY:
+            paramData->readUnsignedByte();
+            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
         default:
             return false;
     }

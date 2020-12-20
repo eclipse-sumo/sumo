@@ -34,6 +34,17 @@
 
 
 // ===========================================================================
+// common declarations
+// ===========================================================================
+namespace libsumo {
+class VariableWrapper;
+}
+namespace tcpip {
+class Storage;
+}
+
+
+// ===========================================================================
 // global definitions
 // ===========================================================================
 #ifdef LIBTRACI
@@ -139,11 +150,11 @@ public:
 
 struct TraCIResult {
     virtual ~TraCIResult() {}
-    virtual std::string getString() {
+    virtual std::string getString() const {
         return "";
     }
-    virtual const std::vector<unsigned char> toPacket() const {
-        return std::vector<unsigned char>();
+    virtual int getType() const {
+        return -1;
     }
 };
 
@@ -151,7 +162,7 @@ struct TraCIResult {
  * @brief A 3D-position
  */
 struct TraCIPosition : TraCIResult {
-    std::string getString() {
+    std::string getString() const {
         std::ostringstream os;
         os << "TraCIPosition(" << x << "," << y << "," << z << ")";
         return os.str();
@@ -163,13 +174,15 @@ struct TraCIPosition : TraCIResult {
  * @brief An edgeId, position and laneIndex
  */
 struct TraCIRoadPosition : TraCIResult {
-    std::string getString() {
+    TraCIRoadPosition() {}
+    TraCIRoadPosition(const std::string e, const double p) : edgeID(e), pos(p) {}
+    std::string getString() const {
         std::ostringstream os;
         os << "TraCIRoadPosition(" << edgeID << "_" << laneIndex << "," << pos << ")";
         return os.str();
     }
-    std::string edgeID;
-    double pos;
+    std::string edgeID = "";
+    double pos = INVALID_DOUBLE_VALUE;
     int laneIndex = INVALID_INT_VALUE;
 };
 
@@ -179,7 +192,7 @@ struct TraCIRoadPosition : TraCIResult {
 struct TraCIColor : TraCIResult {
     TraCIColor() : r(0), g(0), b(0), a(255) {}
     TraCIColor(int r, int g, int b, int a = 255) : r(r), g(g), b(b), a(a) {}
-    std::string getString() {
+    std::string getString() const {
         std::ostringstream os;
         os << "TraCIColor(" << r << "," << g << "," << b << "," << a << ")";
         return os.str();
@@ -192,7 +205,7 @@ struct TraCIColor : TraCIResult {
  * @brief A leaderId and distance to leader
  */
 struct TraCILeaderDistance : TraCIResult {
-    std::string getString() {
+    std::string getString() const {
         std::ostringstream os;
         os << "TraCILeaderDistance(" << leaderID << "," << dist << ")";
         return os.str();
@@ -211,7 +224,7 @@ typedef std::vector<TraCIPosition> TraCIPositionVector;
 struct TraCIInt : TraCIResult {
     TraCIInt() : value(0) {}
     TraCIInt(int v) : value(v) {}
-    std::string getString() {
+    std::string getString() const {
         std::ostringstream os;
         os << value;
         return os.str();
@@ -223,17 +236,14 @@ struct TraCIInt : TraCIResult {
 struct TraCIDouble : TraCIResult {
     TraCIDouble() : value(0.) {}
     TraCIDouble(double v) : value(v) {}
-    std::string getString() {
+    std::string getString() const {
         std::ostringstream os;
         os << value;
         return os.str();
     }
-/*    const std::vector<unsigned char> toPacket() const {
-        std::vector<unsigned char> dest(sizeof(value) + 1);
-        dest[0] = (unsigned char)libsumo::TYPE_DOUBLE;
-        std::memcpy(dest.data() + 1, &value, sizeof(value));
-        return dest;
-    }*/
+    int getType() const {
+        return libsumo::TYPE_DOUBLE;
+    }
     double value;
 };
 
@@ -241,23 +251,18 @@ struct TraCIDouble : TraCIResult {
 struct TraCIString : TraCIResult {
     TraCIString() : value("") {}
     TraCIString(std::string v) : value(v) {}
-    std::string getString() {
+    std::string getString() const {
         return value;
     }
-/*    const std::vector<unsigned char> toPacket() const {
-        std::vector<unsigned char> dest(sizeof(value) + 5);
-        dest[0] = (unsigned char)libsumo::TYPE_STRING;
-        const int size = (int)value.size();
-        std::memcpy(dest.data() + 1, &size, sizeof(size));
-        std::memcpy(dest.data() + 5, &value, sizeof(value));
-        return dest;
-    }*/
+    int getType() const {
+        return libsumo::TYPE_STRING;
+    }
     std::string value;
 };
 
 
 struct TraCIStringList : TraCIResult {
-    std::string getString() {
+    std::string getString() const {
         std::ostringstream os;
         os << "[";
         for (std::string v : value) {

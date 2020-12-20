@@ -22,17 +22,10 @@
 
 #include <vector>
 #include <libsumo/TraCIDefs.h>
-#include <microsim/trigger/MSCalibrator.h>
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
 #ifndef LIBTRACI
-namespace libsumo {
-class VariableWrapper;
-}
+#include <microsim/trigger/MSCalibrator.h>
 #endif
+
 
 // ===========================================================================
 // class definitions
@@ -70,7 +63,7 @@ public:
 #ifndef LIBTRACI
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
-    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
     static MSCalibrator* getCalibrator(const std::string& id);

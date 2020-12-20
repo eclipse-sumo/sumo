@@ -75,9 +75,6 @@ static void setActionStepLength(const std::string& typeID, double actionStepLeng
 // ===========================================================================
 #ifndef LIBTRACI
 class MSVehicleType;
-namespace libsumo {
-class VariableWrapper;
-}
 #endif
 
 
@@ -106,9 +103,9 @@ public:
 
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
-    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
-    static bool handleVariableWithID(const std::string& objID, const std::string& typeID, const int variable, VariableWrapper* wrapper);
+    static bool handleVariableWithID(const std::string& objID, const std::string& typeID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
     static SubscriptionResults mySubscriptionResults;

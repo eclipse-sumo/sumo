@@ -39,7 +39,7 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
     const std::string id = inputStorage.readString();
     server.initWrapper(libsumo::RESPONSE_GET_INDUCTIONLOOP_VARIABLE, variable, id);
     try {
-        if (!libsumo::InductionLoop::handleVariable(id, variable, &server)) {
+        if (!libsumo::InductionLoop::handleVariable(id, variable, &server, &inputStorage)) {
             switch (variable) {
                 case libsumo::LAST_STEP_VEHICLE_DATA: {
                     std::vector<libsumo::TraCIVehicleData> vd = libsumo::InductionLoop::getVehicleData(id);
