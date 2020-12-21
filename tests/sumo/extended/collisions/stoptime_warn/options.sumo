@@ -3,3 +3,4 @@ input_additional.add.xml --route-files input_routes.rou.xml --end 200
 --collision.action warn
 --collision.stoptime 10
 --vehroute-output vehroutes.xml
+--precision 3
