@@ -2332,16 +2332,13 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // - even if red, if we cannot break we should issue a request
         bool setRequest = (v > NUMERICAL_EPS_SPEED && !abortRequestAfterMinor) || (leavingCurrentIntersection);
 
-        double stopSpeed = cfModel.stopSpeed(this, getSpeed(), stopDist);
-        if ((*link)->haveYellow() && canBrakeBeforeLaneEnd) {
-            // prevent overshooting deceleration after overriding with MSGlobals::gTLSYellowMinDecel
-            stopSpeed = MAX2(stopSpeed, getSpeed() - ACCEL2SPEED(stopDecel));
-        }
+        double stopSpeed = cfModel.stopSpeed(this, getSpeed(), stopDist, stopDecel);
         double vLinkWait = MIN2(v, stopSpeed);
 #ifdef DEBUG_PLAN_MOVE
         if (DEBUG_COND) {
             std::cout
                     << " stopDist=" << stopDist
+                    << " stopDecel=" << stopDecel
                     << " vLinkWait=" << vLinkWait
                     << " brakeDist=" << brakeDist
                     << " seen=" << seen
