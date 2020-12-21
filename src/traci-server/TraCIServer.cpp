@@ -162,8 +162,18 @@ TraCIServer::wrapPosition(const std::string& /* objID */, const int variable, co
 
 
 bool
-TraCIServer::wrapPositionVector(const std::string& objID, const int variable, const libsumo::TraCIPositionVector& value) {
-    // TODO
+TraCIServer::wrapPositionVector(const std::string& /* objID */, const int /* variable */, const libsumo::TraCIPositionVector& shape) {
+    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_POLYGON);
+    if (shape.value.size() < 256) {
+        myWrapperStorage.writeUnsignedByte((int)shape.value.size());
+    } else {
+        myWrapperStorage.writeUnsignedByte(0);
+        myWrapperStorage.writeInt((int)shape.value.size());
+    }
+    for (const libsumo::TraCIPosition& pos : shape.value) {
+        myWrapperStorage.writeDouble(pos.x);
+        myWrapperStorage.writeDouble(pos.y);
+    }
     return true;
 }
 
@@ -192,7 +202,7 @@ TraCIServer::wrapStringDoublePair(const std::string& /* objID */, const int /* v
 
 
 bool
-TraCIServer::wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value) {
+TraCIServer::wrapStringPair(const std::string& /* objID */, const int /* variable */, const std::pair<std::string, std::string>& value) {
     myWrapperStorage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
     myWrapperStorage.writeInt(2);
     myWrapperStorage.writeUnsignedByte(libsumo::TYPE_STRING);
@@ -1450,13 +1460,13 @@ TraCIServer::writeResponseWithLength(tcpip::Storage& outputStorage, tcpip::Stora
 void
 TraCIServer::writePositionVector(tcpip::Storage& outputStorage, const libsumo::TraCIPositionVector& shape) {
     outputStorage.writeUnsignedByte(libsumo::TYPE_POLYGON);
-    if (shape.size() < 256) {
-        outputStorage.writeUnsignedByte((int)shape.size());
+    if (shape.value.size() < 256) {
+        outputStorage.writeUnsignedByte((int)shape.value.size());
     } else {
         outputStorage.writeUnsignedByte(0);
-        outputStorage.writeInt((int)shape.size());
+        outputStorage.writeInt((int)shape.value.size());
     }
-    for (const libsumo::TraCIPosition& pos : shape) {
+    for (const libsumo::TraCIPosition& pos : shape.value) {
         outputStorage.writeDouble(pos.x);
         outputStorage.writeDouble(pos.y);
     }

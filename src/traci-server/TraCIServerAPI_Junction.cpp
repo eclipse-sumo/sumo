@@ -40,13 +40,7 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
     server.initWrapper(libsumo::RESPONSE_GET_JUNCTION_VARIABLE, variable, id);
     try {
         if (!libsumo::Junction::handleVariable(id, variable, &server, &inputStorage)) {
-            switch (variable) {
-                case libsumo::VAR_SHAPE:
-                    server.writePositionVector(server.getWrapperStorage(), libsumo::Junction::getShape(id));
-                    break;
-                default:
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_JUNCTION_VARIABLE, "Get Junction Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-            }
+            return server.writeErrorStatusCmd(libsumo::CMD_GET_JUNCTION_VARIABLE, "Get Junction Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(libsumo::CMD_GET_JUNCTION_VARIABLE, e.what(), outputStorage);

@@ -129,7 +129,7 @@ Lane::getShape(std::string laneID) {
         p.x = pi->x();
         p.y = pi->y();
         p.z = pi->z();
-        pv.push_back(p);
+        pv.value.push_back(p);
     }
     return pv;
 }
@@ -436,6 +436,8 @@ Lane::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapDouble(objID, variable, getTraveltime(objID));
         case VAR_WIDTH:
             return wrapper->wrapDouble(objID, variable, getWidth(objID));
+        case VAR_SHAPE:
+            return wrapper->wrapPositionVector(objID, variable, getShape(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

@@ -201,24 +201,21 @@ struct TraCIColor : TraCIResult {
 };
 
 
-/** @struct TraCILeaderDistance
- * @brief A leaderId and distance to leader
- */
-struct TraCILeaderDistance : TraCIResult {
-    std::string getString() const {
-        std::ostringstream os;
-        os << "TraCILeaderDistance(" << leaderID << "," << dist << ")";
-        return os.str();
-    }
-    std::string leaderID;
-    double dist;
-};
-
-
 /** @struct TraCIPositionVector
  * @brief A list of positions
  */
-typedef std::vector<TraCIPosition> TraCIPositionVector;
+struct TraCIPositionVector : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "[";
+        for (const TraCIPosition& v : value) {
+            os << "(" << v.x << "," << v.y << "," << v.z << ")";
+        }
+        os << "]";
+        return os.str();
+    }
+    std::vector<TraCIPosition> value;
+};
 
 
 struct TraCIInt : TraCIResult {

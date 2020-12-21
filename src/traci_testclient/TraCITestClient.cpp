@@ -711,33 +711,20 @@ TraCITestClient::testAPI() {
     answerLog << "  polygon:\n";
     answerLog << "    getIDList: " << joinToString(polygon.getIDList(), " ") << "\n";
     answerLog << "    getIDCount: " << polygon.getIDCount() << "\n";
-    std::vector<libsumo::TraCIPosition> shape = polygon.getShape("poly0");
-    std::string shapeStr;
-    for (auto pos : shape) {
-        shapeStr += pos.getString() + " ";
-    }
+    libsumo::TraCIPositionVector shape = polygon.getShape("poly0");
     polygon.setLineWidth("poly0", 0.6);
     answerLog << "    getLineWidth: " << polygon.getLineWidth("poly0") << "\n";
-    answerLog << "    getShape: " << shapeStr << "\n";
+    answerLog << "    getShape: " << shape.getString() << "\n";
     answerLog << "    getColor: " << polygon.getColor("poly0").getString() << "\n";
-    shape[0].x = 42;
+    shape.value[0].x = 42;
     polygon.setShape("poly0", shape);
-    std::string shapeStr2;
-    for (auto pos : polygon.getShape("poly0")) {
-        shapeStr2 += pos.getString() + " ";
-    }
-    answerLog << "    getShape after modification: " << shapeStr2 << "\n";
+    answerLog << "    getShape after modification: " << polygon.getShape("poly0").getString() << "\n";
 
     // junction
     answerLog << "  junction:\n";
     answerLog << "    getIDList: " << joinToString(junction.getIDList(), " ") << "\n";
     answerLog << "    getIDCount: " << junction.getIDCount() << "\n";
-    std::vector<libsumo::TraCIPosition> junctionShape = junction.getShape("n_m4");
-    std::string junctionShapeStr;
-    for (auto pos : junctionShape) {
-        junctionShapeStr += pos.getString() + " ";
-    }
-    answerLog << "    getShape: " << junctionShapeStr << "\n";
+    answerLog << "    getShape: " << junction.getShape("n_m4").getString() << "\n";
 
     // route
     answerLog << "  route:\n";

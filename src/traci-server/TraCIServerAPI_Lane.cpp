@@ -107,9 +107,6 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     }
                     break;
                 }
-                case libsumo::VAR_SHAPE:
-                    server.writePositionVector(server.getWrapperStorage(), libsumo::Lane::getShape(id));
-                    break;
                 default:
                     return server.writeErrorStatusCmd(libsumo::CMD_GET_LANE_VARIABLE, "Get Lane Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
             }

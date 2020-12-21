@@ -1241,13 +1241,13 @@ void
 TraCIAPI::PolygonScope::setShape(const std::string& polygonID, const libsumo::TraCIPositionVector& shape) const {
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_POLYGON);
-    if (shape.size() < 256) {
-        content.writeUnsignedByte((int)shape.size());
+    if (shape.value.size() < 256) {
+        content.writeUnsignedByte((int)shape.value.size());
     } else {
         content.writeUnsignedByte(0);
-        content.writeInt((int)shape.size());
+        content.writeInt((int)shape.value.size());
     }
-    for (const libsumo::TraCIPosition& pos : shape) {
+    for (const libsumo::TraCIPosition& pos : shape.value) {
         content.writeDouble(pos.x);
         content.writeDouble(pos.y);
     }
@@ -1286,10 +1286,10 @@ TraCIAPI::PolygonScope::add(const std::string& polygonID, const libsumo::TraCIPo
     content.writeUnsignedByte(libsumo::TYPE_INTEGER);
     content.writeInt(layer);
     content.writeUnsignedByte(libsumo::TYPE_POLYGON);
-    content.writeUnsignedByte((int)shape.size());
-    for (int i = 0; i < (int)shape.size(); ++i) {
-        content.writeDouble(shape[i].x);
-        content.writeDouble(shape[i].y);
+    content.writeUnsignedByte((int)shape.value.size());
+    for (int i = 0; i < (int)shape.value.size(); ++i) {
+        content.writeDouble(shape.value[i].x);
+        content.writeDouble(shape.value[i].y);
     }
     myParent.createCommand(libsumo::CMD_SET_POLYGON_VARIABLE, libsumo::ADD, polygonID, &content);
     myParent.processSet(libsumo::CMD_SET_POLYGON_VARIABLE);
@@ -3484,7 +3484,7 @@ TraCIAPI::TraCIScopeWrapper::getPolygon(int var, const std::string& id, tcpip::S
             p.x = myParent.myInput.readDouble();
             p.y = myParent.myInput.readDouble();
             p.z = 0.;
-            ret.push_back(p);
+            ret.value.push_back(p);
         }
     }
     return ret;

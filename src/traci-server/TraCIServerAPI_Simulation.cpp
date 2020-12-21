@@ -156,10 +156,10 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_POLYGON);
                 libsumo::TraCIPositionVector tb = libsumo::Simulation::getNetBoundary();
                 server.getWrapperStorage().writeByte(2);
-                server.getWrapperStorage().writeDouble(tb[0].x);
-                server.getWrapperStorage().writeDouble(tb[0].y);
-                server.getWrapperStorage().writeDouble(tb[1].x);
-                server.getWrapperStorage().writeDouble(tb[1].y);
+                server.getWrapperStorage().writeDouble(tb.value[0].x);
+                server.getWrapperStorage().writeDouble(tb.value[0].y);
+                server.getWrapperStorage().writeDouble(tb.value[1].x);
+                server.getWrapperStorage().writeDouble(tb.value[1].y);
                 break;
             }
             case libsumo::POSITION_CONVERSION: {

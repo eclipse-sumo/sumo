@@ -353,13 +353,17 @@ Simulation::getDeltaT() {
 TraCIPositionVector
 Simulation::getNetBoundary() {
     Boundary b = GeoConvHelper::getFinal().getConvBoundary();
-    TraCIPositionVector tb({ TraCIPosition(), TraCIPosition() });
-    tb[0].x = b.xmin();
-    tb[1].x = b.xmax();
-    tb[0].y = b.ymin();
-    tb[1].y = b.ymax();
-    tb[0].z = b.zmin();
-    tb[1].z = b.zmax();
+    TraCIPositionVector tb;
+    TraCIPosition minV;
+    TraCIPosition maxV;
+    minV.x = b.xmin();
+    maxV.x = b.xmax();
+    minV.y = b.ymin();
+    maxV.y = b.ymax();
+    minV.z = b.zmin();
+    maxV.z = b.zmax();
+    tb.value.push_back(minV);
+    tb.value.push_back(maxV);
     return tb;
 }
 
@@ -714,8 +718,8 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
 LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Simulation)
 
 void
-Simulation::setParameter(const std::string& objectID, const std::string& param, const std::string& value) {
-    // TODO
+Simulation::setParameter(const std::string& /* objectID */, const std::string& param, const std::string& /* value */) {
+    throw TraCIException("Setting parameter '" + param + "' is not supported.");
 }
 
 void

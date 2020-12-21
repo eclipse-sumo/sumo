@@ -140,6 +140,8 @@ Junction::handleVariable(const std::string& objID, const int variable, VariableW
         case VAR_POSITION:
         case VAR_POSITION3D:
             return wrapper->wrapPosition(objID, variable, getPosition(objID, variable == VAR_POSITION3D));
+        case VAR_SHAPE:
+            return wrapper->wrapPositionVector(objID, variable, getShape(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

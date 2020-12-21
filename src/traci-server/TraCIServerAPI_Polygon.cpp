@@ -44,13 +44,7 @@ TraCIServerAPI_Polygon::processGet(TraCIServer& server, tcpip::Storage& inputSto
     server.initWrapper(libsumo::RESPONSE_GET_POLYGON_VARIABLE, variable, id);
     try {
         if (!libsumo::Polygon::handleVariable(id, variable, &server, &inputStorage)) {
-            switch (variable) {
-                case libsumo::VAR_SHAPE:
-                    server.writePositionVector(server.getWrapperStorage(), libsumo::Polygon::getShape(id));
-                    break;
-                default:
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_POLYGON_VARIABLE, "Get Polygon Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-            }
+            return server.writeErrorStatusCmd(libsumo::CMD_GET_POLYGON_VARIABLE, "Get Polygon Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(libsumo::CMD_GET_POLYGON_VARIABLE, e.what(), outputStorage);

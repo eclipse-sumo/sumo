@@ -335,7 +335,7 @@ TraCIPositionVector
 Helper::makeTraCIPositionVector(const PositionVector& positionVector) {
     TraCIPositionVector tp;
     for (int i = 0; i < (int)positionVector.size(); ++i) {
-        tp.push_back(makeTraCIPosition(positionVector[i]));
+        tp.value.push_back(makeTraCIPosition(positionVector[i]));
     }
     return tp;
 }
@@ -344,7 +344,7 @@ Helper::makeTraCIPositionVector(const PositionVector& positionVector) {
 PositionVector
 Helper::makePositionVector(const TraCIPositionVector& vector) {
     PositionVector pv;
-    for (const TraCIPosition& pos : vector) {
+    for (const TraCIPosition& pos : vector.value) {
         if (std::isnan(pos.x) || std::isnan(pos.y)) {
             throw libsumo::TraCIException("NaN-Value in shape.");
         }
@@ -1564,8 +1564,7 @@ Helper::SubscriptionWrapper::wrapPosition(const std::string& objID, const int va
 
 bool
 Helper::SubscriptionWrapper::wrapPositionVector(const std::string& objID, const int variable, const TraCIPositionVector& value) {
-    // TODO
-//    (*myActiveResults)[objID][variable] = std::make_shared<TraCIPositionVector>(value);
+    (*myActiveResults)[objID][variable] = std::make_shared<TraCIPositionVector>(value);
     return true;
 }
 

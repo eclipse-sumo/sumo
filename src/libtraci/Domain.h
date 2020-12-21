@@ -171,13 +171,13 @@ public:
 
     static void writePolygon(tcpip::Storage& content, const libsumo::TraCIPositionVector& shape) {
         content.writeUnsignedByte(libsumo::TYPE_POLYGON);
-        if (shape.size() <= 255) {
-            content.writeUnsignedByte((int)shape.size());
+        if (shape.value.size() <= 255) {
+            content.writeUnsignedByte((int)shape.value.size());
         } else {
             content.writeUnsignedByte(0);
-            content.writeInt((int)shape.size());
+            content.writeInt((int)shape.value.size());
         }
-        for (const libsumo::TraCIPosition& pos : shape) {
+        for (const libsumo::TraCIPosition& pos : shape.value) {
             content.writeDouble(pos.x);
             content.writeDouble(pos.y);
         }
@@ -218,7 +218,7 @@ public:
             p.x = result.readDouble();
             p.y = result.readDouble();
             p.z = 0.;
-            ret.push_back(p);
+            ret.value.push_back(p);
         }
         return ret;
     }

@@ -64,7 +64,7 @@
         } else {
         // TODO error handling
         }
-        shape.push_back(pos);
+        shape.value.push_back(pos);
     }
     $1 = &shape;
 }
@@ -211,9 +211,9 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 };
 
 %typemap(out) libsumo::TraCIPositionVector {
-    $result = PyTuple_New($1.size());
+    $result = PyTuple_New($1.value.size());
     int index = 0;
-    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
+    for (auto iter = $1.value.begin(); iter != $1.value.end(); ++iter) {
         PyTuple_SetItem($result, index++, Py_BuildValue("(dd)", iter->x, iter->y));
     }
 };

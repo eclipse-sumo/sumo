@@ -310,6 +310,8 @@ Polygon::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapInt(objID, variable, getFilled(objID));
         case VAR_WIDTH:
             return wrapper->wrapDouble(objID, variable, getLineWidth(objID));
+        case VAR_SHAPE:
+            return wrapper->wrapPositionVector(objID, variable, getShape(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
