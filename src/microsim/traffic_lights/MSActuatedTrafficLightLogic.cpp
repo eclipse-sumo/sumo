@@ -166,7 +166,8 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             }
             laneInductLoopMap[lane] = loop;
             inductLoopLaneMap[loop] = lane;
-            myInductLoops.push_back(InductLoopInfo(loop, (int)myPhases.size()));
+            const double maxGap = getDouble("max-gap:" + lane->getID(), myMaxGap);
+            myInductLoops.push_back(InductLoopInfo(loop, (int)myPhases.size(), maxGap));
             maxDetectorGap = MAX2(maxDetectorGap, length - ilpos);
 
             if (warn && floor(floor(inductLoopPosition / DEFAULT_LENGTH_WITH_GAP) * myPassingTime) > STEPS2TIME(minDur)) {
@@ -576,7 +577,7 @@ MSActuatedTrafficLightLogic::gapControl() {
         MSInductLoop* loop = loopInfo->loop;
         loop->setSpecialColor(&RGBColor::GREEN);
         const double actualGap = loop->getTimeSinceLastDetection();
-        if (actualGap < myMaxGap) {
+        if (actualGap < loopInfo->maxGap) {
             result = MIN2(result, actualGap);
         }
     }
@@ -667,7 +668,7 @@ int
 MSActuatedTrafficLightLogic::getDetectorPriority(const InductLoopInfo& loopInfo) const {
     MSInductLoop* loop = loopInfo.loop;
     const double actualGap = loop->getTimeSinceLastDetection();
-    if (actualGap < myMaxGap || loopInfo.lastGreenTime < loop->getLastDetectionTime()) {
+    if (actualGap < loopInfo.maxGap || loopInfo.lastGreenTime < loop->getLastDetectionTime()) {
         SUMOTime inactiveTime = MSNet::getInstance()->getCurrentTimeStep() - loopInfo.lastGreenTime;
         // @note. Inactive time could also be tracked regardless of current activity (to increase robustness in case of detection failure
         if (inactiveTime > myInactiveThreshold) {
