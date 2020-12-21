@@ -418,7 +418,7 @@ struct TraCINextStopData : TraCIResult {
         speed(speed)
     {}
 
-    std::string getString() {
+    std::string getString() const {
         std::ostringstream os;
         os << "TraCINextStopData(" << lane << "," << endPos << "," << stoppingPlaceID
            << "," << stopFlags << "," << duration << "," << until
@@ -466,7 +466,7 @@ struct TraCINextStopData : TraCIResult {
  * @see TraCINextStopData
  */
 struct TraCINextStopDataVector : TraCIResult {
-    std::string getString() {
+    std::string getString() const {
         std::ostringstream os;
         os << "TraCINextStopDataVector[";
         for (TraCINextStopData v : value) {
