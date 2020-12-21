@@ -41,6 +41,8 @@ class ExampleListener(traci.StepListener):
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "--ignore-route-errors"])
 listener = ExampleListener()
 traci.addStepListener(listener)
-for i in range(10):
+for i in range(5):
     traci.simulationStep(i)
+for i in range(5):
+    traci.simulation.step(i + 5)
 traci.close()
