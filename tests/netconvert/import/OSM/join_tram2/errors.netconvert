@@ -1,0 +1,13 @@
+Warning: Ignoring track count 2 for edge '42821103'.
+Warning: Ignoring track count 2 for edge '309119321'.
+Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '18961778').
+Warning: Discarding unusable type 'highway.bus_stop' (first occurence for edge '51353825').
+Warning: Discarding unusable type 'railway.platform' (first occurence for edge '51353828').
+Warning: Discarding unusable type 'railway.abandoned' (first occurence for edge '579326821').
+Warning: Discarding unusable type 'highway.proposed' (first occurence for edge '743594483').
+Warning: Removing pt stop:272856305 on non existing edge: 122119622#1
+Warning: Removing pt stop:272856917 on non existing edge: 43328051#2
+Warning: Removing pt stop:655312126 on non existing edge: 51353826#2
+Warning: Found sharp turn with radius 3.86 at the end of edge '18963300#1'.
+Warning: The traffic light '29326590' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '29326590'

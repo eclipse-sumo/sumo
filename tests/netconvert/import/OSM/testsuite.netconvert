@@ -126,4 +126,7 @@ maxspeed_directional
 
 # test option edges.join-tram-dist
 join_tram
+
+# test option edges.join-tram-dist (no tram lines in input)
+join_tram2
 bugs
