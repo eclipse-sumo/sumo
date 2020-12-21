@@ -127,14 +127,16 @@ def isLoaded():
     return simulation.isLoaded()
 
 
+_libsumo_step = simulation.step
 def simulationStep(step=0):
-    simulation.step(step)
+    _libsumo_step(step)
     result = []
     for domain in _DOMAINS:
         result += [(k, v) for k, v in domain.getAllSubscriptionResults().items()]
         result += [(k, v) for k, v in domain.getAllContextSubscriptionResults().items()]
     _manageStepListeners(step)
     return result
+simulation.step = simulationStep
 
 
 def getVersion():
@@ -148,10 +150,11 @@ def close():
 
 
 def start(args, traceFile=None, traceGetters=True):
+    simulation.load(args[1:])
+    version = simulation.getVersion()
     if traceFile is not None:
         _startTracing(traceFile, args, traceGetters)
-    simulation.load(args[1:])
-    return simulation.getVersion()
+    return version
 
 
 def setLegacyGetLeader(enabled):
@@ -161,10 +164,6 @@ def setLegacyGetLeader(enabled):
 def _startTracing(traceFile, cmd, traceGetters):
     _traceFile[0] = open(traceFile, 'w')
     _traceFile[0].write("traci.start(%s)\n" % repr(cmd))
-    self = sys.modules[__name__]
-    # simulationStep shows up as simulation.step
-    for m in ["close", "load"]:
-        setattr(self, m, self._addTracing(getattr(self, m)))
     for domain in _DOMAINS:
         for attrName in dir(domain):
             if not attrName.startswith("_"):
@@ -174,13 +173,13 @@ def _startTracing(traceFile, cmd, traceGetters):
                             "wrapper",
                             "getAllSubscriptionResults",
                             "getAllContextSubscriptionResults",
-                            "close",
-                            "load",
-                            "getVersion",
                 ]
                         and not attrName.endswith('makeWrapper')
                         and (traceGetters or not attrName.startswith("get"))):
                     setattr(domain, attrName, _addTracing(attr, domain.__name__))
+    # simulationStep shows up as simulation.step
+    global _libsumo_step
+    _libsumo_step = _addTracing(_libsumo_step, "simulation")
 
 
 def _addTracing(method, domain=None):

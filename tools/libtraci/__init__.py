@@ -29,6 +29,7 @@ isLoaded = simulation.isLoaded
 getVersion = simulation.getVersion
 close = simulation.close
 start = simulation.start
+setOrder = simulation.setOrder
 _stepListeners = {}
 _nextStepListenerID = 0
 
