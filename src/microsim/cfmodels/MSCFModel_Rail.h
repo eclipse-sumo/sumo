@@ -79,7 +79,7 @@ private:
 
 
 public:
-    double stopSpeed(const MSVehicle* const veh, const double speed, double gap) const;
+    double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const;
 
 //    class VehicleVariables : public MSCFModel::VehicleVariables {
 //

@@ -76,7 +76,7 @@ public:
     * @see MSCFModel::ffeS
     * @todo generic Interface, models can call for the values they need
     */
-    double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred) const;
+    double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred, double decel) const;
 
     /** @brief Returns the a gap such that the gap mode acceleration of the follower is zero
      * @param[in] veh The vehicle itself, for obtaining other values

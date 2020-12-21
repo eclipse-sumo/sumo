@@ -57,7 +57,7 @@ public:
      * @return EGO's safe speed for approaching a non-moving obstacle
      * @todo generic Interface, models can call for the values they need
      */
-    double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred) const;
+    double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred, double decel) const;
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)

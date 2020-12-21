@@ -229,7 +229,7 @@ MSCFModel_CC::insertionFollowSpeed(const MSVehicle* const veh, double speed, dou
 }
 
 double
-MSCFModel_CC::stopSpeed(const MSVehicle* const veh, double speed, double gap2pred) const {
+MSCFModel_CC::stopSpeed(const MSVehicle* const veh, double speed, double gap2pred, double decel) const {
 
     CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
     if (vars->activeController != Plexe::DRIVER) {
@@ -240,7 +240,7 @@ MSCFModel_CC::stopSpeed(const MSVehicle* const veh, double speed, double gap2pre
         }
         return _v(veh, gap2pred, speed, speed + relSpeed);
     } else {
-        return myHumanDriver->stopSpeed(veh, speed, gap2pred);
+        return myHumanDriver->stopSpeed(veh, speed, gap2pred, decel);
     }
 }
 

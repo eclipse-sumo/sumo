@@ -107,7 +107,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    double stopSpeed(const MSVehicle* const veh, const double speed, double gap) const;
+    double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const;
 
 
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs

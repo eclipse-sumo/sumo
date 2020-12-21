@@ -74,7 +74,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    virtual double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred) const;
+    virtual double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred, double decel) const;
 
 
     /** @brief Returns the model's name

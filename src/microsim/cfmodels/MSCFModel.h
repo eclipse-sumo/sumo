@@ -143,7 +143,21 @@ public:
      * @return EGO's safe speed for approaching a non-moving obstacle
      * @todo generic Interface, models can call for the values they need
      */
-    virtual double stopSpeed(const MSVehicle* const veh, const double speed, double gap) const = 0;
+    inline double stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
+        return stopSpeed(veh, speed, gap, myDecel);
+    }
+    
+    /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
+     *
+     * Returns the velocity of the vehicle when approaching a static object (such as the end of a lane) assuming no reaction time is needed.
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] speed The vehicle's speed
+     * @param[in] gap The (netto) distance to the the obstacle
+     * @param[in] decel The desired deceleration rate
+     * @return EGO's safe speed for approaching a non-moving obstacle
+     * @todo generic Interface, models can call for the values they need
+     */
+    virtual double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const = 0;
 
 
     /** @brief Computes the vehicle's safe speed for approaching an obstacle at insertion without constraints
@@ -536,17 +550,19 @@ public:
     /** @brief Returns the maximum next velocity for stopping within gap
      * @param[in] gap The (netto) distance to the desired stopping point
      * @param[in] currentSpeed The current speed of the ego vehicle
+     * @param[in] decel The desired deceleration rate
      * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
      * @param[in] headway The desired time headway to be included in the calculations (default argument -1 induces the use of myHeadway)
      */
-    double maximumSafeStopSpeed(double gap, double currentSpeed, bool onInsertion = false, double headway = -1) const;
+    double maximumSafeStopSpeed(double gap, double decel, double currentSpeed, bool onInsertion = false, double headway = -1) const;
 
 
     /** @brief Returns the maximum next velocity for stopping within gap
      * when using the semi-implicit Euler update
      * @param[in] gap The (netto) distance to the LEADER
+     * @param[in] decel The desired deceleration rate
      */
-    double maximumSafeStopSpeedEuler(double gap, double headway = -1) const;
+    double maximumSafeStopSpeedEuler(double gap, double decel, double headway = -1) const;
 
 
     /** @brief Returns the maximum next velocity for stopping within gap
@@ -554,13 +570,14 @@ public:
      * @note This takes into account the driver's reaction time tau (i.e. the desired headway) and the car's current speed.
      * (The latter is required to calculate the distance covered in the following timestep.)
      * @param[in] gap The (netto) distance to the desired stopping point
+     * @param[in] decel The desired deceleration rate
      * @param[in] currentSpeed The current speed of the ego vehicle
      * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
      * @param[in] headway The desired time headway to be included in the calculations (default argument -1 induces the use of myHeadway)
      * @return the safe velocity (to be attained at the end of the following time step) that assures the possibility of stopping within gap.
      * If a negative value is returned, the required stop has to take place before the end of the time step.
      */
-    double maximumSafeStopSpeedBallistic(double gap, double currentSpeed, bool onInsertion = false, double headway = -1) const;
+    double maximumSafeStopSpeedBallistic(double gap, double decel, double currentSpeed, bool onInsertion = false, double headway = -1) const;
 
     /**
      * @brief try to get the given parameter for this carFollowingModel

@@ -289,7 +289,7 @@ MSCFModel::insertionStopSpeed(const MSVehicle* const veh, double speed, double g
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         return stopSpeed(veh, speed, gap);
     } else {
-        return MIN2(maximumSafeStopSpeed(gap, 0., true, 0.), myType->getMaxSpeed());
+        return MIN2(maximumSafeStopSpeed(gap, myDecel, 0., true, 0.), myType->getMaxSpeed());
     }
 }
 
@@ -706,12 +706,12 @@ MSCFModel::estimateSpeedAfterDistance(const double dist, const double v, const d
 
 
 double
-MSCFModel::maximumSafeStopSpeed(double g /*gap*/, double v /*currentSpeed*/, bool onInsertion, double headway) const {
+MSCFModel::maximumSafeStopSpeed(double g /*gap*/, double decel, double v /*currentSpeed*/, bool onInsertion, double headway) const {
     double vsafe;
     if (MSGlobals::gSemiImplicitEulerUpdate) {
-        vsafe = maximumSafeStopSpeedEuler(g, headway);
+        vsafe = maximumSafeStopSpeedEuler(g, decel, headway);
     } else {
-        vsafe = maximumSafeStopSpeedBallistic(g, v, onInsertion, headway);
+        vsafe = maximumSafeStopSpeedBallistic(g, decel, v, onInsertion, headway);
     }
 
 //    if (myDecel != myEmergencyDecel) {
@@ -756,13 +756,13 @@ MSCFModel::maximumSafeStopSpeed(double g /*gap*/, double v /*currentSpeed*/, boo
 
 
 double
-MSCFModel::maximumSafeStopSpeedEuler(double gap, double headway) const {
+MSCFModel::maximumSafeStopSpeedEuler(double gap, double decel, double headway) const {
     gap -= NUMERICAL_EPS; // lots of code relies on some slack XXX: it shouldn't...
     if (gap <= 0) {
         return 0;
     }
     const double g = gap;
-    const double b = ACCEL2SPEED(myDecel);
+    const double b = ACCEL2SPEED(decel);
     const double t = headway >= 0 ? headway : myHeadwayTime;
     const double s = TS;
 
@@ -784,7 +784,7 @@ MSCFModel::maximumSafeStopSpeedEuler(double gap, double headway) const {
 
 
 double
-MSCFModel::maximumSafeStopSpeedBallistic(double g /*gap*/, double v /*currentSpeed*/, bool onInsertion, double headway) const {
+MSCFModel::maximumSafeStopSpeedBallistic(double g /*gap*/, double decel, double v /*currentSpeed*/, bool onInsertion, double headway) const {
     // decrease gap slightly (to avoid passing end of lane by values of magnitude ~1e-12, when exact stop is required)
     g = MAX2(0., g - NUMERICAL_EPS);
     headway = headway >= 0 ? headway : myHeadwayTime;
@@ -800,10 +800,10 @@ MSCFModel::maximumSafeStopSpeedBallistic(double g /*gap*/, double v /*currentSpe
         // G1 = tau*v0
         // The distance covered between time tau and the stopping moment at time tau+v0/b is
         // G2 = v0^2/(2b),
-        // where b is an assumed constant deceleration (= myDecel)
+        // where b is an assumed constant deceleration (= decel)
         // We solve g = G1 + G2 for v0:
-        const double btau = myDecel * headway;
-        const double v0 = -btau + sqrt(btau * btau + 2 * myDecel * g);
+        const double btau = decel * headway;
+        const double v0 = -btau + sqrt(btau * btau + 2 * decel * g);
         return v0;
     }
 
@@ -837,13 +837,13 @@ MSCFModel::maximumSafeStopSpeedBallistic(double g /*gap*/, double v /*currentSpe
     // G1 = tau*(v0+v1)/2
     // The distance covered between time tau and the stopping moment at time tau+v1/b is
     // G2 = v1^2/(2b),
-    // where b is an assumed constant deceleration (= myDecel)
+    // where b is an assumed constant deceleration (= decel)
     // We solve g = G1 + G2 for v1>0:
     // <=> 0 = v1^2 + b*tau*v1 + b*tau*v0 - 2bg
     //  => v1 = -b*tau/2 + sqrt( (b*tau)^2/4 + b(2g - tau*v0) )
 
-    const double btau2 = myDecel * tau / 2;
-    const double v1 = -btau2 + sqrt(btau2 * btau2 + myDecel * (2 * g - tau * v0));
+    const double btau2 = decel * tau / 2;
+    const double v1 = -btau2 + sqrt(btau2 * btau2 + decel * (2 * g - tau * v0));
     const double a = (v1 - v0) / tau;
     return v0 + a * TS;
 }
@@ -879,7 +879,7 @@ MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed,
     //    const double headway = predSpeed > 0. ? myHeadwayTime : 0.;
 
     const double headway = myHeadwayTime;
-    double x = maximumSafeStopSpeed(gap + brakeGap(predSpeed, MAX2(myDecel, predMaxDecel), 0), egoSpeed, onInsertion, headway);
+    double x = maximumSafeStopSpeed(gap + brakeGap(predSpeed, MAX2(myDecel, predMaxDecel), 0), myDecel, egoSpeed, onInsertion, headway);
 
     if (myDecel != myEmergencyDecel && !onInsertion && !MSGlobals::gComputeLC) {
         double origSafeDecel = SPEED2ACCEL(egoSpeed - x);

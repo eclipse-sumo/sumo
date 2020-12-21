@@ -66,13 +66,13 @@ MSCFModel_KraussOrig1::followSpeed(const MSVehicle* const veh, double speed, dou
 
 
 double
-MSCFModel_KraussOrig1::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
+MSCFModel_KraussOrig1::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         return MIN2(vsafe(gap, 0., 0.), maxNextSpeed(speed, veh));
     } else {
         // XXX: using this here is probably in the spirit of Krauss, but we should consider,
         // if the original vsafe should be kept instead (Leo), refs. #2575
-        return MIN2(maximumSafeStopSpeedBallistic(gap, speed), maxNextSpeed(speed, veh));
+        return MIN2(maximumSafeStopSpeedBallistic(gap, decel, speed), maxNextSpeed(speed, veh));
     }
 }
 

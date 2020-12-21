@@ -138,12 +138,12 @@ MSCFModel_CACC::followSpeed(const MSVehicle* const veh, double speed, double gap
 }
 
 double
-MSCFModel_CACC::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
+MSCFModel_CACC::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
 
     // NOTE: This allows return of smaller values than minNextSpeed().
     // Only relevant for the ballistic update: We give the argument headway=TS, to assure that
     // the stopping position is approached with a uniform deceleration also for tau!=TS.
-    return MIN2(maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
+    return MIN2(maximumSafeStopSpeed(gap, decel, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
 }
 
 double

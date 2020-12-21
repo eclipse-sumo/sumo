@@ -90,7 +90,7 @@ MSCFModel_PWag2009::followSpeed(const MSVehicle* const veh, double speed, double
 
 // uses the safe speed and preferred acceleration with the same NORMAL tau to compute stopSpeed
 double
-MSCFModel_PWag2009::stopSpeed(const MSVehicle* const /* veh */, const double speed, double gap) const {
+MSCFModel_PWag2009::stopSpeed(const MSVehicle* const /* veh */, const double speed, double gap, double /*decel*/) const {
     if (gap < 0.01) {
         return 0.;
     }

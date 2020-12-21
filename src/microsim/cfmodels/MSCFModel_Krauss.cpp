@@ -62,12 +62,12 @@ MSCFModel_Krauss::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double v
 
 
 double
-MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
+MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
     // NOTE: This allows return of smaller values than minNextSpeed().
     // Only relevant for the ballistic update: We give the argument headway=veh->getActionStepLengthSecs(), to assure that
     // the stopping position is approached with a uniform deceleration also for tau!=veh->getActionStepLengthSecs().
     applyHeadwayPerceptionError(veh, speed, gap);
-    return MIN2(maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
+    return MIN2(maximumSafeStopSpeed(gap, decel, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
 }
 
 

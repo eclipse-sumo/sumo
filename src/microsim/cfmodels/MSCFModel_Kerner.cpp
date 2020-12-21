@@ -59,7 +59,7 @@ MSCFModel_Kerner::followSpeed(const MSVehicle* const veh, double speed, double g
 
 
 double
-MSCFModel_Kerner::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
+MSCFModel_Kerner::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double /*decel*/) const {
     return MIN2(_v(veh, speed, maxNextSpeed(speed, veh), gap, 0), maxNextSpeed(speed, veh));
 }
 

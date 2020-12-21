@@ -72,7 +72,7 @@ MSCFModel_Daniel1::followSpeed(const MSVehicle* const veh, double speed, double 
 
 
 double
-MSCFModel_Daniel1::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
+MSCFModel_Daniel1::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double /*decel*/) const {
     return MIN2(_vsafe(gap, 0), maxNextSpeed(speed, veh));
 }
 

@@ -1772,7 +1772,7 @@ MSLCM_LC2013::anticipateFollowSpeed(const std::pair<MSVehicle*, double>& leaderD
     } else {
         // onInsertion = true because the vehicle has already moved
         if (leader == nullptr) {
-            futureSpeed = myCarFollowModel.maximumSafeStopSpeed(dist, myVehicle.getSpeed(), true);
+            futureSpeed = myCarFollowModel.maximumSafeStopSpeed(dist, myCarFollowModel.getMaxDecel(), myVehicle.getSpeed(), true);
         } else {
             futureSpeed = myCarFollowModel.maximumSafeFollowSpeed(gap, myVehicle.getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), true);
         }
