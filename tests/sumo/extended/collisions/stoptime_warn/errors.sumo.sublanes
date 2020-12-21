@@ -1,0 +1,22 @@
+Warning: Missing yellow phase in tlLogic '0', program 'freaky' for tl-index 0 when switching to phase 1
+Warning: Vehicle 'always_right.0'; collision with vehicle 'horizontal.0', lane='2o_0', gap=-5.00', latGap=-1.80, time=27.00 stage=move.
+Warning: Vehicle 'always_right.1'; collision with vehicle 'horizontal.1', lane='2o_0', gap=-5.00', latGap=-1.80, time=31.00 stage=move.
+Warning: Vehicle 'always_right.2'; collision with vehicle 'horizontal.2', lane='2o_0', gap=-5.00', latGap=-1.80, time=35.00 stage=move.
+Warning: Removing vehicle 'horizontal.0' after earlier collision, lane='2o_0, time=40.00.
+Warning: Removing vehicle 'horizontal.1' after earlier collision, lane='2o_0, time=43.00.
+Warning: Removing vehicle 'always_right.1' after earlier collision, lane='2o_0, time=43.00.
+Warning: Removing vehicle 'always_right.2' after earlier collision, lane='2o_0, time=46.00.
+Warning: Removing vehicle 'horizontal.2' after earlier collision, lane='2o_0, time=47.00.
+Warning: Vehicle 'always_right.3'; collision with vehicle 'horizontal.3', lane='2o_0', gap=-5.00', latGap=-1.80, time=48.00 stage=move.
+Warning: Removing vehicle 'always_right.0' after earlier collision, lane='2o_0, time=52.00.
+Warning: Removing vehicle 'horizontal.3' after earlier collision, lane='2o_0, time=59.00.
+Warning: Removing vehicle 'always_right.3' after earlier collision, lane='2o_0, time=59.00.
+Warning: Vehicle 'always_right.4'; collision with vehicle 'horizontal.4', lane='2o_0', gap=-5.00', latGap=-1.80, time=63.00 stage=move.
+Warning: Removing vehicle 'horizontal.4' after earlier collision, lane='2o_0, time=74.00.
+Warning: Removing vehicle 'always_right.4' after earlier collision, lane='2o_0, time=74.00.
+Warning: Vehicle 'always_right.5'; collision with vehicle 'horizontal.5', lane='2o_0', gap=-5.00', latGap=-1.80, time=77.00 stage=move.
+Warning: Removing vehicle 'horizontal.5' after earlier collision, lane='2o_0, time=88.00.
+Warning: Removing vehicle 'always_right.5' after earlier collision, lane='2o_0, time=88.00.
+Warning: Vehicle 'always_right.6'; collision with vehicle 'horizontal.6', lane='2o_0', gap=-5.00', latGap=-1.80, time=92.00 stage=move.
+Warning: Removing vehicle 'horizontal.6' after earlier collision, lane='2o_0, time=103.00.
+Warning: Removing vehicle 'always_right.6' after earlier collision, lane='2o_0, time=103.00.

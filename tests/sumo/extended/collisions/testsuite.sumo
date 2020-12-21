@@ -16,6 +16,9 @@ remove
 # remove participants of a collision after some time
 stoptime_remove
 
+# let collision participants continue after stopping
+stoptime_warn
+
 # remove participants of a collision after some time
 stoptime_remove_highspeed
 check_junctions
