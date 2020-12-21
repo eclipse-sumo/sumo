@@ -116,10 +116,10 @@ Polygon::add(const std::string& polygonID, const libsumo::TraCIPositionVector& s
 
 
 void
-Polygon::addDynamics(const std::string& polygonID, const std::string& trackedID, const std::vector<double>& timeSpan, const std::vector<double>& alphaSpan, bool looped, bool rotate) {
+Polygon::addDynamics(const std::string& polygonID, const std::string& trackedObjectID, const std::vector<double>& timeSpan, const std::vector<double>& alphaSpan, bool looped, bool rotate) {
     tcpip::Storage content;
     Dom::writeCompound(content, 5);
-    Dom::writeTypedString(content, trackedID);
+    Dom::writeTypedString(content, trackedObjectID);
     content.writeUnsignedByte(libsumo::TYPE_DOUBLELIST);
     content.writeInt((int)timeSpan.size());
     for (const double d : timeSpan) {
