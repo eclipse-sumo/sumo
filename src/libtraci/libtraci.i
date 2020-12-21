@@ -3,6 +3,9 @@
 %{
 #define LIBTRACI 1
 %}
+#ifdef SWIGPYTHON
+%rename(stdout) _stdout;
+#endif
 
 %include "../libsumo/libsumo_typemap.i"
 
