@@ -9,6 +9,9 @@ parameters
 # test using custom detectors
 custom_detector
 
+# set custom max-gap value for a single detector
+custom_detector_maxGap
+
 # check that the initialization can handle different begin times
 simstart_at_100
 minDur_too_short
