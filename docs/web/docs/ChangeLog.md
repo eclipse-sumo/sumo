@@ -10,14 +10,20 @@ permalink: /ChangeLog/
   - Fixed disappearing vehicle when transporting containers with taxi. Issue #7893
   - Fixed collisions between pedestrians and vehicles on shared space #7960
   - Vehicles with low (desired) decel value will no longer perform an emergency stop on after being when caught in the "Yellow Light Dilemma Zone". Instead they will brake with decel **--tls.yellow.min-decel** (default: 3) as long as they have a sufficiently high emergencyDecel value. Issue #7956
+  - Fixed invalid output directory for **--device.taxi.dispatch-algorithm.outout**. Issue #8013
   - Sublane model fixes
     - Fixed deadlock in roundabout. Issue #7935
     - Fixed invalid deceleration at intersection due to misinterpreting lateral position of approaching foes #7925
     - Fixed collision in sublane model after parallel internal edges (requries rebuilding the network) #3619
+
+- meso
+  - Fixed invalid jam-front back-propagation speed. Issue #8000 (Regression in 1.7.0)
+  - Fixed invalid warning when using stop-output with multiple stops on the same segment. Issue #8001
   
 - sumo-gui
   - Fixed long pause on right-click in large networks. Issue #7927 (Regression in 1.4.0)
-  - Routes for vehicles with dark color are no longer colored black #7934
+  - Routes for vehicles with dark color are no longer colored black. Issue #7934
+  - Fixed crash when using network property dialog in meso. Issue #7998
   
 - netedit
   - Fixed invalid E2 detector shape #7895 (Regression in 1.7.0)
@@ -28,6 +34,8 @@ permalink: /ChangeLog/
 
 - netconvert
   - Fixed invalid signal plans in network with unusual geometry. Issue #7915
+  - Option **--junctions.join-same** no longer fails due to numerical errors when comparing positions. Issue #8019
+  - Fixed missing edges in ptline-output when those edges were created by option **--railway.topology.repair**. Issue #8024
 
 - od2trips
   - Fixed invalid begin and end times when writting personFlows. Issue #7885
@@ -49,14 +57,19 @@ permalink: /ChangeLog/
   - Detectors for actuated traffic lights can now be selectively disabled by setting the special id 'NO_DETECTOR' for a lane. #7919
   - Setting vehicle attribute `arrivalLane="random"` and `"first"` is now supported. Issue #7932
   - Added new option **--collision-output** to write information on collisions to an XML file. Issue #7990.
+  - Actuated traffic lights based on detector gaps now support [custom detection gaps per lane](Simulation/Traffic_Lights.md#lane-specific_max-gap). Issue #7997
   
 - sumo-gui
   - Random color for containers is now supported. Issue #7941
   - Added 'Update' button to object selection dialogs to refresh the object list. Issue #7942
+  - Multiple gui setting schemes can now be loaded from the same input file. Issue #8012
   
 - Netconvert
   - Added option **--tls.no-mixed** which prevents building phases where different connections from the same lane have green and red signals. Issue #7821
   - Element `<laneType>` is now supported in an edge `<type>` to pre-configure speed, width and permissions for individual lanes. Issue #7791
+  - Merging of overlapping geo-referenced networks with re-occuring ids now works without setting option **--ignore-errors**. Issue #8019
+  - When using option **--junctions.join-turns** to merge overlapping networks with diffent junction ids, the option **--edges.join** can now be used to automatically remove duplicate edges. Issue #8019
+  - Added option **--railway.topology.repair.minimal**. This works similar to **--railway.topology.repair** but avoids creating bidirectional tracks that are not needed for public transport routes (only applies when using option **--ptline-outut**). Issue #7982
   
 - TraCI
   - Added function 'traci.simulation.getCollisions' to retrieve a list of collision objects for the current time step. This also includes collisions between vehicles and pedestrians. Issue #7728
