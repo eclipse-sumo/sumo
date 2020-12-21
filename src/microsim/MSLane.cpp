@@ -1706,6 +1706,7 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
             // @todo: push victim forward?
             stop.startPos = victimStopPos;
             stop.endPos = stop.startPos;
+            stop.parametersSet |= STOP_START_SET | STOP_END_SET;
             victim->addStop(stop, dummyError, 0, true);
         }
         if (collider->collisionStopTime() < 0) {
@@ -1713,6 +1714,7 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
             stop.startPos = MIN2(collider->getPositionOnLane() + collider->getCarFollowModel().brakeGap(colliderSpeed, collider->getCarFollowModel().getEmergencyDecel(), 0),
                                  MAX2(0.0, victimStopPos - 0.75 * victim->getVehicleType().getLength()));
             stop.endPos = stop.startPos;
+            stop.parametersSet |= STOP_START_SET | STOP_END_SET;
             collider->addStop(stop, dummyError, 0, true);
         }
         //std::cout << " collisionAngle=" << collisionAngle
