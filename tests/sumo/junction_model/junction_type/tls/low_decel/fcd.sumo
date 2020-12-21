@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 21 19:31:30 2020 by Eclipse SUMO sumo Version v1_8_0+0317-7604123
+<!-- generated on Mon Dec 21 19:43:38 2020 by Eclipse SUMO sumo Version v1_8_0+0325-aba2f5d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -60,16 +60,16 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="ego" x="104.95" y="83.25" angle="0.00" type="t0" speed="8.35" pos="83.25" lane="SC_0" slope="0.00" acceleration="-3.00"/>
     </timestep>
     <timestep time="36.00">
-        <vehicle id="ego" x="104.95" y="87.62" angle="0.00" type="t0" speed="4.36" pos="87.62" lane="SC_0" slope="0.00" acceleration="-3.98"/>
+        <vehicle id="ego" x="104.95" y="88.60" angle="0.00" type="t0" speed="5.35" pos="88.60" lane="SC_0" slope="0.00" acceleration="-3.00"/>
     </timestep>
     <timestep time="37.00">
-        <vehicle id="ego" x="104.95" y="90.18" angle="0.00" type="t0" speed="2.56" pos="90.18" lane="SC_0" slope="0.00" acceleration="-1.80"/>
+        <vehicle id="ego" x="104.95" y="90.95" angle="0.00" type="t0" speed="2.35" pos="90.95" lane="SC_0" slope="0.00" acceleration="-3.00"/>
     </timestep>
     <timestep time="38.00">
-        <vehicle id="ego" x="104.95" y="90.95" angle="0.00" type="t0" speed="0.76" pos="90.95" lane="SC_0" slope="0.00" acceleration="-1.80"/>
+        <vehicle id="ego" x="104.95" y="90.95" angle="0.00" type="t0" speed="0.00" pos="90.95" lane="SC_0" slope="0.00" acceleration="-2.35"/>
     </timestep>
     <timestep time="39.00">
-        <vehicle id="ego" x="104.95" y="90.95" angle="0.00" type="t0" speed="0.00" pos="90.95" lane="SC_0" slope="0.00" acceleration="-0.76"/>
+        <vehicle id="ego" x="104.95" y="90.95" angle="0.00" type="t0" speed="0.00" pos="90.95" lane="SC_0" slope="0.00" acceleration="0.00"/>
     </timestep>
     <timestep time="40.00">
         <vehicle id="ego" x="104.95" y="90.95" angle="0.00" type="t0" speed="0.00" pos="90.95" lane="SC_0" slope="0.00" acceleration="0.00"/>
