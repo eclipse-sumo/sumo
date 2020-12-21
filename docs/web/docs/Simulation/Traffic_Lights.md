@@ -315,6 +315,12 @@ By assigning the special value `NO_DETECTOR`, the detector for a given lane key 
 
 !!! caution
     Custom detectors only work when the 'tlLogic' is loaded from an additional file.
+    
+#### Lane-specific max-gap
+To define a max-gap value that differs from the default you can use a param with `key="max-gap:<LANE_ID>"` where LANE_ID is a lane incoming to the traffic light (the detector might lie further upstream).
+```
+   <param key="max-gap:gneE42_2" value="2"/>
+```
 
 #### Dynamic Phase Selection (Phase Skipping)
 When a phase uses attribute 'next' with a list of indices. The next phase is chosen dynamically based on the detector status of all candidate phases according to the following algorithm:
