@@ -774,6 +774,10 @@ MSActuatedTrafficLightLogic::setParameter(const std::string& key, const std::str
         throw InvalidArgument(key + " cannot be changed dynamically for actuated traffic light '" + getID() + "'");
     } else if (key == "max-gap") {
         myMaxGap = StringUtils::toDouble(value);
+        // overwrite custom values
+        for (InductLoopInfo& loopInfo : myInductLoops) {
+            loopInfo.maxGap = myMaxGap;
+        }
     } else if (key == "show-detectors") {
         myShowDetectors = StringUtils::toBool(value);
     } else if (key == "inactive-threshold") {
