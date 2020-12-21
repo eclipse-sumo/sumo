@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 21 19:20:47 2020 by Eclipse SUMO sumo Version v1_8_0+0314-47f1976
+<!-- generated on Mon Dec 21 19:31:30 2020 by Eclipse SUMO sumo Version v1_8_0+0317-7604123
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,28 +51,28 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="ego" x="104.95" y="49.67" angle="0.00" type="t0" speed="13.89" pos="49.67" lane="SC_0" slope="0.00" acceleration="0.00"/>
     </timestep>
     <timestep time="33.00">
-        <vehicle id="ego" x="104.95" y="60.97" angle="0.00" type="t0" speed="11.30" pos="60.97" lane="SC_0" slope="0.00" acceleration="-2.59"/>
+        <vehicle id="ego" x="104.95" y="63.56" angle="0.00" type="t0" speed="13.89" pos="63.56" lane="SC_0" slope="0.00" acceleration="0.00"/>
     </timestep>
     <timestep time="34.00">
-        <vehicle id="ego" x="104.95" y="70.46" angle="0.00" type="t0" speed="9.50" pos="70.46" lane="SC_0" slope="0.00" acceleration="-1.80"/>
+        <vehicle id="ego" x="104.95" y="74.91" angle="0.00" type="t0" speed="11.35" pos="74.91" lane="SC_0" slope="0.00" acceleration="-2.54"/>
     </timestep>
     <timestep time="35.00">
-        <vehicle id="ego" x="104.95" y="78.16" angle="0.00" type="t0" speed="7.70" pos="78.16" lane="SC_0" slope="0.00" acceleration="-1.80"/>
+        <vehicle id="ego" x="104.95" y="83.25" angle="0.00" type="t0" speed="8.35" pos="83.25" lane="SC_0" slope="0.00" acceleration="-3.00"/>
     </timestep>
     <timestep time="36.00">
-        <vehicle id="ego" x="104.95" y="84.06" angle="0.00" type="t0" speed="5.90" pos="84.06" lane="SC_0" slope="0.00" acceleration="-1.80"/>
+        <vehicle id="ego" x="104.95" y="87.62" angle="0.00" type="t0" speed="4.36" pos="87.62" lane="SC_0" slope="0.00" acceleration="-3.98"/>
     </timestep>
     <timestep time="37.00">
-        <vehicle id="ego" x="104.95" y="88.16" angle="0.00" type="t0" speed="4.10" pos="88.16" lane="SC_0" slope="0.00" acceleration="-1.80"/>
+        <vehicle id="ego" x="104.95" y="90.18" angle="0.00" type="t0" speed="2.56" pos="90.18" lane="SC_0" slope="0.00" acceleration="-1.80"/>
     </timestep>
     <timestep time="38.00">
-        <vehicle id="ego" x="104.95" y="90.45" angle="0.00" type="t0" speed="2.30" pos="90.45" lane="SC_0" slope="0.00" acceleration="-1.80"/>
+        <vehicle id="ego" x="104.95" y="90.95" angle="0.00" type="t0" speed="0.76" pos="90.95" lane="SC_0" slope="0.00" acceleration="-1.80"/>
     </timestep>
     <timestep time="39.00">
-        <vehicle id="ego" x="104.95" y="90.95" angle="0.00" type="t0" speed="0.50" pos="90.95" lane="SC_0" slope="0.00" acceleration="-1.80"/>
+        <vehicle id="ego" x="104.95" y="90.95" angle="0.00" type="t0" speed="0.00" pos="90.95" lane="SC_0" slope="0.00" acceleration="-0.76"/>
     </timestep>
     <timestep time="40.00">
-        <vehicle id="ego" x="104.95" y="90.95" angle="0.00" type="t0" speed="0.00" pos="90.95" lane="SC_0" slope="0.00" acceleration="-0.50"/>
+        <vehicle id="ego" x="104.95" y="90.95" angle="0.00" type="t0" speed="0.00" pos="90.95" lane="SC_0" slope="0.00" acceleration="0.00"/>
     </timestep>
     <timestep time="41.00">
         <vehicle id="ego" x="104.95" y="90.95" angle="0.00" type="t0" speed="0.00" pos="90.95" lane="SC_0" slope="0.00" acceleration="0.00"/>
