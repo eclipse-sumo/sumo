@@ -86,7 +86,10 @@ MSStopOut::unloadedPersons(const SUMOVehicle* veh, int n) {
 
 void
 MSStopOut::loadedContainers(const SUMOVehicle* veh, int n) {
-    myStopped.find(veh)->second.loadedContainers += n;
+    // ignore triggered vehicles
+    if (veh->hasDeparted()) {
+        myStopped.find(veh)->second.loadedContainers += n;
+    }
 }
 
 void
