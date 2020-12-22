@@ -141,6 +141,8 @@ NBEdge::Lane::Lane(NBEdge* e, const std::string& origID_) :
     speed(e->getSpeed()),
     permissions(SVCAll),
     preferred(0),
+    changeLeft(SVCAll),
+    changeRight(SVCAll),
     endOffset(e->getEndOffset()),
     stopOffsets(e->getStopOffsets()),
     width(e->getLaneWidth()),
@@ -2288,6 +2290,16 @@ NBEdge::hasLaneParams() const {
 }
 
 bool
+NBEdge::prohibitsChanging() const {
+    for (const Lane& lane : myLanes) {
+        if (lane.changeLeft != SVCAll || lane.changeRight != SVCAll) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool
 NBEdge::needsLaneSpecificOutput() const {
     return (hasLaneSpecificPermissions()
             || hasLaneSpecificSpeed()
@@ -2298,6 +2310,7 @@ NBEdge::needsLaneSpecificOutput() const {
             || hasAccelLane()
             || hasCustomLaneShape()
             || hasLaneParams()
+            || prohibitsChanging()
             || (!myLanes.empty() && myLanes.back().oppositeID != ""));
 }
 
@@ -3653,6 +3666,15 @@ NBEdge::setPreferredVehicleClass(SVCPermissions permissions, int lane) {
         assert(lane < (int)myLanes.size());
         myLanes[lane].preferred = permissions;
     }
+}
+
+
+void
+NBEdge::setPermittedChanging(int lane, SVCPermissions changeLeft, SVCPermissions changeRight) {
+    assert(lane >= 0);
+    assert(lane < (int)myLanes.size());
+    myLanes[lane].changeLeft = changeLeft;
+    myLanes[lane].changeRight = changeRight;
 }
 
 

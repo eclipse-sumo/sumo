@@ -667,6 +667,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "allow",                  SUMO_ATTR_ALLOW },
     { "disallow",               SUMO_ATTR_DISALLOW },
     { "prefer",                 SUMO_ATTR_PREFER },
+    { "changeLeft",             SUMO_ATTR_CHANGE_LEFT },
+    { "changeRight",            SUMO_ATTR_CHANGE_RIGHT },
     { "controlledInner",        SUMO_ATTR_CONTROLLED_INNER },
     { "vehsPerHour",            SUMO_ATTR_VEHSPERHOUR },
     { "personsPerHour",         SUMO_ATTR_PERSONSPERHOUR },

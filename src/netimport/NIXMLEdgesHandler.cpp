@@ -388,6 +388,11 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
         const std::string preferred  = attrs.get<std::string>(SUMO_ATTR_PREFER, nullptr, ok);
         myCurrentEdge->setPreferredVehicleClass(parseVehicleClasses(preferred), lane);
     }
+    if (attrs.hasAttribute(SUMO_ATTR_CHANGE_LEFT) || attrs.hasAttribute(SUMO_ATTR_CHANGE_RIGHT)) {
+        const std::string changeLeft = attrs.getOpt<std::string>(SUMO_ATTR_CHANGE_LEFT, nullptr, ok, "");
+        const std::string changeRight = attrs.getOpt<std::string>(SUMO_ATTR_CHANGE_RIGHT, nullptr, ok, "");
+        myCurrentEdge->setPermittedChanging(lane, parseVehicleClasses(changeLeft, ""), parseVehicleClasses(changeRight, ""));
+    }
     // try to get the width
     if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
         myCurrentEdge->setLaneWidth(lane, attrs.get<double>(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok));

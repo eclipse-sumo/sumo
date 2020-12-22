@@ -265,6 +265,12 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
                 if (lane.type != "") {
                     edevice.writeAttr(SUMO_ATTR_TYPE, lane.type);
                 }
+                if (lane.changeLeft != SVCAll) {
+                    edevice.writeAttr(SUMO_ATTR_CHANGE_LEFT, getVehicleClassNames(lane.changeLeft));
+                }
+                if (lane.changeRight != SVCAll) {
+                    edevice.writeAttr(SUMO_ATTR_CHANGE_RIGHT, getVehicleClassNames(lane.changeRight));
+                }
                 if (lane.oppositeID != "") {
                     edevice.openTag(SUMO_TAG_NEIGH);
                     edevice.writeAttr(SUMO_ATTR_LANE, lane.oppositeID);

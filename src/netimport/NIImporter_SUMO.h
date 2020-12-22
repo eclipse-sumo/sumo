@@ -220,6 +220,10 @@ private:
         std::string allow;
         /// @brief This lane's disallowed vehicle classes
         std::string disallow;
+        /// @brief This lane's vehicle classes allowed to change left
+        std::string changeLeft;
+        /// @brief This lane's vehicle classes allowed to change right
+        std::string changeRight;
         /// @brief The width of this lane
         double width;
         /// @brief This lane's offset from the intersection

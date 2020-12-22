@@ -352,6 +352,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                 const double width = n.isConstantWidthTransition() && e->getNumLanes() > k.toEdge->getNumLanes() ? e->getLaneWidth(k.fromLane) : successor.width;
                 writeLane(into, k.getInternalLaneID(), k.vmax,
                           permissions, successor.preferred,
+                          SVCAll, SVCAll, // #XXX todo
                           NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
                           std::map<int, double>(), width, k.shape, &k,
                           k.length, k.internalLaneIndex, oppositeLaneID[k.getInternalLaneID()], "");
@@ -376,6 +377,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     SVCPermissions permissions = (k.permissions != SVC_UNSPECIFIED) ? k.permissions : (
                                                      successor.permissions & e->getPermissions(k.fromLane));
                     writeLane(into, k.viaID + "_0", k.vmax, permissions, successor.preferred,
+                              SVCAll, SVCAll, // #XXX todo
                               NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
                               std::map<int, double>(), successor.width, k.viaShape, &k,
                               MAX2(k.viaLength, POSITION_EPS), // microsim needs positive length
@@ -391,7 +393,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         into.writeAttr(SUMO_ATTR_ID, c->id);
         into.writeAttr(SUMO_ATTR_FUNCTION, SumoXMLEdgeFunc::CROSSING);
         into.writeAttr(SUMO_ATTR_CROSSING_EDGES, c->edges);
-        writeLane(into, c->id + "_0", 1, SVC_PEDESTRIAN, 0,
+        writeLane(into, c->id + "_0", 1, SVC_PEDESTRIAN, 0, SVCAll, SVCAll,
                   NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
                   std::map<int, double>(), c->width, c->shape, nullptr,
                   MAX2(c->shape.length(), POSITION_EPS), 0, "", "", false, c->customShape.size() != 0);
@@ -404,7 +406,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         into.openTag(SUMO_TAG_EDGE);
         into.writeAttr(SUMO_ATTR_ID, wa.id);
         into.writeAttr(SUMO_ATTR_FUNCTION, SumoXMLEdgeFunc::WALKINGAREA);
-        writeLane(into, wa.id + "_0", 1, SVC_PEDESTRIAN, 0,
+        writeLane(into, wa.id + "_0", 1, SVC_PEDESTRIAN, 0, SVCAll, SVCAll,
                   NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
                   std::map<int, double>(), wa.width, wa.shape, nullptr, wa.length, 0, "", "", false, wa.hasCustomShape);
         into.closeTag();
@@ -462,6 +464,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
         }
         writeLane(into, e.getLaneID(i), l.speed,
                   l.permissions, l.preferred,
+                  l.changeLeft, l.changeRight,
                   startOffset, l.endOffset,
                   stopOffsets, l.width, l.shape, &l,
                   length, i, l.oppositeID, l.type, l.accelRamp, l.customShape.size() > 0);
@@ -475,6 +478,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
 void
 NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
                          double speed, SVCPermissions permissions, SVCPermissions preferred,
+                         SVCPermissions changeLeft, SVCPermissions changeRight,
                          double startOffset, double endOffset,
                          std::map<SVCPermissions, double> stopOffsets, double width, PositionVector shape,
                          const Parameterised* params, double length, int index,
@@ -525,7 +529,12 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
     if (type != "") {
         into.writeAttr(SUMO_ATTR_TYPE, type);
     }
-
+    if (changeLeft != SVCAll) {
+        into.writeAttr(SUMO_ATTR_CHANGE_LEFT, getVehicleClassNames(changeLeft));
+    }
+    if (changeRight != SVCAll) {
+        into.writeAttr(SUMO_ATTR_CHANGE_RIGHT, getVehicleClassNames(changeRight));
+    }
     if (stopOffsets.size() != 0) {
         writeStopOffsets(into, stopOffsets);
     }

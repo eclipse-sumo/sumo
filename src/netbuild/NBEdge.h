@@ -155,6 +155,12 @@ public:
         /// @brief List of vehicle types that are preferred on this lane
         SVCPermissions preferred;
 
+        /// @brief List of vehicle types that are allowed to change Left from this lane
+        SVCPermissions changeLeft;
+
+        /// @brief List of vehicle types that are allowed to change right from this lane
+        SVCPermissions changeRight;
+
         /// @brief This lane's offset to the intersection begin
         double endOffset;
 
@@ -1138,6 +1144,9 @@ public:
     /// @brief whether one of the lanes has parameters set
     bool hasLaneParams() const;
 
+    /// @brief whether one of the lanes prohibits lane changing
+    bool prohibitsChanging() const;
+
     /// @brief computes the edge (step1: computation of approached edges)
     bool computeEdge2Edges(bool noLeftMovers);
 
@@ -1267,6 +1276,9 @@ public:
 
     /// @brief set preferred Vehicle Class
     void setPreferredVehicleClass(SVCPermissions permissions, int lane = -1);
+
+    /// @brief set allowed classes for changing to the left and right from the given lane
+    void setPermittedChanging(int lane, SVCPermissions changeLeft, SVCPermissions changeRight);
 
     /// @brief set allowed class for the given lane or for all lanes if -1 is given
     void allowVehicleClass(int lane, SUMOVehicleClass vclass);

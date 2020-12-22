@@ -141,6 +141,7 @@ private:
      */
     static void writeLane(OutputDevice& into, const std::string& lID,
                           double speed, SVCPermissions permissions, SVCPermissions preferred,
+                          SVCPermissions changeLeft, SVCPermissions changeRight,
                           double startOffset, double endOffset,
                           std::map<SVCPermissions, double> stopOffsets, double width, PositionVector shape,
                           const Parameterised* params, double length, int index,
