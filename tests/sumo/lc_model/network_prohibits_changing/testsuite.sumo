@@ -1,0 +1,11 @@
+# no prohibitions
+default
+
+# changing prohibited on the middle edge
+nochange
+
+# changing to the left prohibited on the middle edge
+noleft
+
+# changing to the right prohibited on the middle edge
+noright

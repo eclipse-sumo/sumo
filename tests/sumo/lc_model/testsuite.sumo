@@ -32,6 +32,7 @@ continuous_lanechange
 
 # tests for behavior at a 2-lane roundabout
 roundabout
+network_prohibits_changing
 
 # test effects of apparentDecel on lane changing
 #apparentDecel
