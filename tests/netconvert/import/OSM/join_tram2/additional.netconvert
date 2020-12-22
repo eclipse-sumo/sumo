@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 21 21:05:34 2020 by Eclipse SUMO netconvert Version v1_8_0+0325-aba2f5d
+<!-- generated on Tue Dec 22 08:33:34 2020 by Eclipse SUMO netconvert Version v1_8_0+0330-56970ea
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -61,7 +61,7 @@ SPDX-License-Identifier: EPL-2.0
         <access lane="32055586#0_0" pos="21.32" length="19.31" friendlyPos="1"/>
         <access lane="588927595_0" pos="7.59" length="40.12" friendlyPos="1"/>
     </busStop>
-    <busStop id="3144381698" name="Friedrich-Wilhelm-Platz" lane="309119319#8_0" startPos="52.97" endPos="77.97" friendlyPos="true"/>
+    <busStop id="3144381698" name="Friedrich-Wilhelm-Platz" lane="19044896#0_0" startPos="53.07" endPos="78.07" friendlyPos="true"/>
     <busStop id="3144398475" name="Friedrich-Wilhelm-Platz" lane="833551067_0" startPos="18.26" endPos="41.96" friendlyPos="true">
         <access lane="-23209152#1_0" pos="0.00" length="53.66" friendlyPos="1"/>
         <access lane="-23209152#4_0" pos="25.43" length="5.22" friendlyPos="1"/>
