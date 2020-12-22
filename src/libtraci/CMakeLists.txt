@@ -8,8 +8,8 @@ if (${CMAKE_VERSION} VERSION_GREATER 3.14.0)
 endif()
 set(libtracistatic_STAT_SRCS
     Connection.cpp
-	Connection.h
-	Domain.h
+    Connection.h
+    Domain.h
     Edge.cpp
     InductionLoop.cpp
     Junction.cpp
@@ -70,13 +70,13 @@ if(SWIG_FOUND)
                 swig_link_libraries(libtracijni -Wl,--whole-archive libtracistatic ${libtcpip} -Wl,--no-whole-archive)
             endif()
             ADD_CUSTOM_COMMAND(TARGET libtracijni POST_BUILD
-				COMMAND ${CMAKE_COMMAND} -E make_directory java/META-INF
-				COMMAND ${CMAKE_COMMAND} -E make_directory classes/META-INF
-				COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/NOTICE.md java/META-INF
-				COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/LICENSE java/META-INF
-				COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/NOTICE.md classes/META-INF
-				COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/LICENSE classes/META-INF
-                COMMAND "${Java_JAVAC_EXECUTABLE}" -source 1.7 -target 1.7 -d classes java/*.java
+                COMMAND ${CMAKE_COMMAND} -E make_directory java/META-INF
+                COMMAND ${CMAKE_COMMAND} -E make_directory classes/META-INF
+                COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/NOTICE.md java/META-INF
+                COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/LICENSE java/META-INF
+                COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/NOTICE.md classes/META-INF
+                COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/LICENSE classes/META-INF
+                COMMAND "${Java_JAVAC_EXECUTABLE}" -source 1.8 -target 1.8 -d classes java/*.java
                 COMMAND "${Java_JAR_EXECUTABLE}" -cfM ${CMAKE_SOURCE_DIR}/bin/libtracijni.jar -C classes .
                 COMMAND "${Java_JAR_EXECUTABLE}" -cfM ${CMAKE_SOURCE_DIR}/bin/libtracijni_src.jar -C java .
             )
