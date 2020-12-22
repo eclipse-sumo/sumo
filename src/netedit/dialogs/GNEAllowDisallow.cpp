@@ -50,10 +50,11 @@ FXIMPLEMENT(GNEAllowDisallow, FXDialogBox, GNEAllowDisallowMap, ARRAYNUMBER(GNEA
 // member method definitions
 // ===========================================================================
 
-GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC) :
-    FXDialogBox(viewNet->getApp(), ("Edit " + toString(SUMO_ATTR_ALLOW) + " " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox),
+GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC, SumoXMLAttr attr) :
+    FXDialogBox(viewNet->getApp(), ("Edit " + toString(attr) + " " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox),
     myViewNet(viewNet),
     myAC(AC),
+    myEditedAttr(attr),
     myAllow(nullptr),
     myDisAllow(nullptr) {
     // call constructor
@@ -65,6 +66,7 @@ GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, std::string* allow, std:
     FXDialogBox(viewNet->getApp(), ("Edit " + toString(SUMO_ATTR_ALLOW) + " " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox),
     myViewNet(viewNet),
     myAC(nullptr),
+    myEditedAttr(SUMO_ATTR_ALLOW),
     myAllow(allow),
     myDisAllow(disallow) {
     // call constructor
@@ -142,7 +144,7 @@ GNEAllowDisallow::onCmdAccept(FXObject*, FXSelector, void*) {
     }
     // chek if all vehicles are enabled and set new allowed vehicles
     if (myAC) {
-        myAC->setAttribute(SUMO_ATTR_ALLOW, joinToString(allowedVehicles, " "), myViewNet->getUndoList());
+        myAC->setAttribute(myEditedAttr, joinToString(allowedVehicles, " "), myViewNet->getUndoList());
     } else {
         // update strings
         *myAllow = joinToString(allowedVehicles, " ");
@@ -167,7 +169,7 @@ GNEAllowDisallow::onCmdReset(FXObject*, FXSelector, void*) {
     std::string allow;
     // set allow depending of myAC
     if (myAC) {
-        allow = myAC->getAttribute(SUMO_ATTR_ALLOW);
+        allow = myAC->getAttribute(myEditedAttr);
     } else {
         allow = *myAllow;
     }

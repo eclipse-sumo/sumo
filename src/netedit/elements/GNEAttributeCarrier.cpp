@@ -1129,6 +1129,21 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::UNIQUE,
                                               "If given, this defines the opposite direction lane");
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_CHANGE_LEFT,
+                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::VCLASSES,
+                                              "Permit changing left only for to the given vehicle classes",
+                                              "all");
+        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings());
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_CHANGE_RIGHT,
+                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::VCLASSES,
+                                              "Permit changing right only for to the given vehicle classes",
+                                              "all");
+        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings());
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
     }
     currentTag = SUMO_TAG_CROSSING;
     {

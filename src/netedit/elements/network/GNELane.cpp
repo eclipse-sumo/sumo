@@ -794,6 +794,10 @@ GNELane::getAttribute(SumoXMLAttr key) const {
             return getVehicleClassNames(edge->getPermissions(myIndex));
         case SUMO_ATTR_DISALLOW:
             return getVehicleClassNames(invertPermissions(edge->getPermissions(myIndex)));
+        case SUMO_ATTR_CHANGE_LEFT:
+            return getVehicleClassNames(edge->getLaneStruct(myIndex).changeLeft);
+        case SUMO_ATTR_CHANGE_RIGHT:
+            return getVehicleClassNames(edge->getLaneStruct(myIndex).changeRight);
         case SUMO_ATTR_WIDTH:
             return toString(edge->getLaneStruct(myIndex).width);
         case SUMO_ATTR_ENDOFFSET:
@@ -835,6 +839,8 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_SPEED:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
+        case SUMO_ATTR_CHANGE_LEFT:
+        case SUMO_ATTR_CHANGE_RIGHT:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_ENDOFFSET:
         case SUMO_ATTR_ACCELERATION:
@@ -862,6 +868,8 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
+        case SUMO_ATTR_CHANGE_LEFT:
+        case SUMO_ATTR_CHANGE_RIGHT:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value) && ((parse<double>(value) > 0) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
@@ -1044,6 +1052,12 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_DISALLOW:
             edge->setPermissions(invertPermissions(parseVehicleClasses(value)), myIndex);
+            break;
+        case SUMO_ATTR_CHANGE_LEFT:
+            edge->setPermittedChanging(myIndex, parseVehicleClasses(value), edge->getLaneStruct(myIndex).changeRight);
+            break;
+        case SUMO_ATTR_CHANGE_RIGHT:
+            edge->setPermittedChanging(myIndex, edge->getLaneStruct(myIndex).changeLeft, parseVehicleClasses(value));
             break;
         case SUMO_ATTR_WIDTH:
             edge->setLaneWidth(myIndex, parse<double>(value));
