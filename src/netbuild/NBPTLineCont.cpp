@@ -64,15 +64,17 @@ NBPTLineCont::insert(NBPTLine* ptLine) {
 void NBPTLineCont::process(NBEdgeCont& ec, NBPTStopCont& sc, bool routeOnly) {
     const bool silent = routeOnly;
     for (auto& item : myPTLines) {
+        NBPTLine* line = item.second;
         if (item.second->getMyWays().size() > 0) {
             // loaded from OSM rather than ptline input. We can use extra
             // information to reconstruct route and stops
-            constructRoute(item.second, ec, silent);
+            constructRoute(line, ec, silent);
             if (!routeOnly) {
                 // map stops to ways, using the constructed route for loose stops
-                reviseStops(item.second, ec, sc);
+                reviseStops(line, ec, sc);
             }
         }
+        line->deleteInvalidStops(ec, sc);
     }
 }
 
@@ -95,6 +97,10 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
     for (NBPTStop* stop : stops) {
         //get the corresponding and one of the two adjacent ways
         stop = findWay(line, stop, ec, sc);
+        if (stop == nullptr) {
+            // warning already given
+            continue;
+        }
         auto waysIdsIt = std::find(waysIds.begin(), waysIds.end(), stop->getOrigEdgeId());
         if (waysIdsIt == waysIds.end()) {
             // warning already given
@@ -166,6 +172,10 @@ void NBPTLineCont::reviseSingleWayStops(NBPTLine* line, const NBEdgeCont& ec, NB
     for (NBPTStop* stop : line->getStops()) {
         //get the corresponding and one of the two adjacent ways
         stop = findWay(line, stop, ec, sc);
+        if (stop == nullptr) {
+            // warning already given
+            continue;
+        }
         auto waysIdsIt = std::find(waysIds.begin(), waysIds.end(), stop->getOrigEdgeId());
         if (waysIdsIt == waysIds.end()) {
             // warning already given
@@ -223,6 +233,7 @@ NBPTLineCont::findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPT
         } else {
             WRITE_WARNING("Could not assign stop '" + stop->getID() + "' to pt line '" + line->getLineID()
                           + "' (closest edge '" + Named::getIDSecure(best) + "', distance " + toString(minDist) + "). Ignoring!");
+            return nullptr;
         }
     } else {
         // if the stop is part of an edge, find that edge among the line edges

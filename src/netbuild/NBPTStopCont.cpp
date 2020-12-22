@@ -51,7 +51,7 @@ NBPTStopCont::insert(NBPTStop* ptStop) {
 
 
 NBPTStop*
-NBPTStopCont::get(std::string id) {
+NBPTStopCont::get(std::string id) const {
     if (myPTStops.find(id) != myPTStops.end()) {
         return myPTStops.find(id)->second;
     }

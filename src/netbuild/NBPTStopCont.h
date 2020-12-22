@@ -40,7 +40,7 @@ public:
     bool insert(NBPTStop* ptStop);
 
     /// @brief Retrieve a previously inserted pt stop
-    NBPTStop* get(std::string id);
+    NBPTStop* get(std::string id) const;
 
     /// @brief Returns the number of pt stops stored in this container
     int size() const {

@@ -32,6 +32,7 @@
 class OutputDevice;
 class NBPTStop;
 class NBEdgeCont;
+class NBPTStopCont;
 
 class NBPTLine {
 
@@ -82,6 +83,9 @@ public:
 
     /// @brief replace the edge with the given edge list
     void replaceEdge(const std::string& edgeID, const EdgeVector& replacement);
+
+    /// @brief remove invalid stops from the line
+    void deleteInvalidStops(const NBEdgeCont& ec, const NBPTStopCont& sc);
 
     void setName(const std::string& name) {
         myName = name;

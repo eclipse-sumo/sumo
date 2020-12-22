@@ -25,6 +25,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include "NBEdgeCont.h"
+#include "NBPTStopCont.h"
 #include "NBPTLine.h"
 #include "NBPTStop.h"
 
@@ -230,5 +231,20 @@ NBPTLine::replaceEdge(const std::string& edgeID, const EdgeVector& replacement) 
         } else {
             myRoute.push_back(e);
         }
+    }
+}
+
+void
+NBPTLine::deleteInvalidStops(const NBEdgeCont& ec, const NBPTStopCont& sc) {
+    for (auto it = myPTStops.begin(); it != myPTStops.end();) {
+        NBPTStop* stop = *it;
+        if (sc.get(stop->getID()) == nullptr || 
+                ec.getByID(stop->getEdgeId()) == nullptr) {
+            WRITE_WARNING("Removed invalid stop '" + stop->getID() + "' from line '" + getLineID() + "'.");
+            it = myPTStops.erase(it);
+        } else {
+            it++;
+        }
+
     }
 }
