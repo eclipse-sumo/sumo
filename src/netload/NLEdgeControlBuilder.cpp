@@ -78,9 +78,11 @@ MSLane*
 NLEdgeControlBuilder::addLane(const std::string& id,
                               double maxSpeed, double length,
                               const PositionVector& shape, double width,
-                              SVCPermissions permissions, int index, bool isRampAccel,
+                              SVCPermissions permissions,
+                              SVCPermissions changeLeft, SVCPermissions changeRight,
+                              int index, bool isRampAccel,
                               const std::string& type) {
-    MSLane* lane = new MSLane(id, maxSpeed, length, myActiveEdge, myCurrentNumericalLaneID++, shape, width, permissions, index, isRampAccel, type);
+    MSLane* lane = new MSLane(id, maxSpeed, length, myActiveEdge, myCurrentNumericalLaneID++, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type);
     myLaneStorage->push_back(lane);
     myCurrentLaneIndex = index;
     return lane;

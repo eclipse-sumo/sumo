@@ -81,9 +81,11 @@ const RGBColor GUILane::MESO_USE_LANE_COLOR(0, 0, 0, 0);
 GUILane::GUILane(const std::string& id, double maxSpeed, double length,
                  MSEdge* const edge, int numericalID,
                  const PositionVector& shape, double width,
-                 SVCPermissions permissions, int index, bool isRampAccel,
+                 SVCPermissions permissions,
+                 SVCPermissions changeLeft, SVCPermissions changeRight,
+                 int index, bool isRampAccel,
                  const std::string& type) :
-    MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions, index, isRampAccel, type),
+    MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type),
     GUIGlObject(GLO_LANE, id),
 #ifdef HAVE_OSG
     myGeom(0),

@@ -74,7 +74,9 @@ public:
     GUILane(const std::string& id, double maxSpeed,
             double length, MSEdge* const edge, int numericalID,
             const PositionVector& shape, double width,
-            SVCPermissions permissions, int index, bool isRampAccel,
+            SVCPermissions permissions,
+            SVCPermissions changeLeft, SVCPermissions changeRight,
+            int index, bool isRampAccel,
             const std::string& type);
 
 

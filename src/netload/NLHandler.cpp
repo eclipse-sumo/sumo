@@ -483,6 +483,8 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
     const double length = attrs.get<double>(SUMO_ATTR_LENGTH, id.c_str(), ok);
     const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id.c_str(), ok, "", false);
     const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
+    const std::string changeLeftS = attrs.getOpt<std::string>(SUMO_ATTR_CHANGE_LEFT, id.c_str(), ok, "");
+    const std::string changeRightS = attrs.getOpt<std::string>(SUMO_ATTR_CHANGE_RIGHT, id.c_str(), ok, "");
     const double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, id.c_str(), ok, SUMO_const_laneWidth);
     const PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
     const int index = attrs.get<int>(SUMO_ATTR_INDEX, id.c_str(), ok);
@@ -494,13 +496,15 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
         return;
     }
     const SVCPermissions permissions = parseVehicleClasses(allow, disallow, myNetworkVersion);
-    if (permissions != SVCAll) {
+    const SVCPermissions changeLeft = parseVehicleClasses(changeLeftS, "", myNetworkVersion);
+    const SVCPermissions changeRight = parseVehicleClasses(changeRightS, "", myNetworkVersion);
+    if (permissions != SVCAll || changeLeft != SVCAll || changeRight != SVCAll) {
         myNet.setPermissionsFound();
     }
     myCurrentIsBroken |= !ok;
     if (!myCurrentIsBroken) {
         try {
-            MSLane* lane = myEdgeControlBuilder.addLane(id, maxSpeed, length, shape, width, permissions, index, isRampAccel, type);
+            MSLane* lane = myEdgeControlBuilder.addLane(id, maxSpeed, length, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type);
             // insert the lane into the lane-dictionary, checking
             if (!MSLane::dictionary(id, lane)) {
                 delete lane;

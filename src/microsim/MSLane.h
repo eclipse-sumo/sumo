@@ -194,7 +194,9 @@ public:
      */
     MSLane(const std::string& id, double maxSpeed, double length, MSEdge* const edge,
            int numericalID, const PositionVector& shape, double width,
-           SVCPermissions permissions, int index, bool isRampAccel,
+           SVCPermissions permissions,
+           SVCPermissions changeLeft, SVCPermissions changeRight,
+           int index, bool isRampAccel,
            const std::string& type);
 
 
@@ -548,7 +550,6 @@ public:
         return myPermissions;
     }
 
-
     /** @brief Returns the lane's width
      * @return This lane's width
      */
@@ -811,6 +812,16 @@ public:
 
     inline bool allowsVehicleClass(SUMOVehicleClass vclass) const {
         return (myPermissions & vclass) == vclass;
+    }
+
+    /** @brief Returns whether the given vehicle class may change left from this lane */
+    inline bool allowsChangingLeft(SUMOVehicleClass vclass) const {
+        return (myChangeLeft & vclass) == vclass;
+    }
+
+    /** @brief Returns whether the given vehicle class may change left from this lane */
+    inline bool allowsChangingRight(SUMOVehicleClass vclass) const {
+        return (myChangeRight & vclass) == vclass;
     }
 
     void addIncomingLane(MSLane* lane, MSLink* viaLink);
@@ -1373,6 +1384,10 @@ protected:
 
     /// The vClass permissions for this lane
     SVCPermissions myPermissions;
+
+    /// The vClass permissions for changing from this lane
+    SVCPermissions myChangeLeft;
+    SVCPermissions myChangeRight;
 
     /// The original vClass permissions for this lane (before temporary modifications)
     SVCPermissions myOriginalPermissions;

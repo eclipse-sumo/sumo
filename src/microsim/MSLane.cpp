@@ -179,13 +179,17 @@ MSLane::AnyVehicleIterator::nextIsMyVehicles() const {
 // ===========================================================================
 MSLane::MSLane(const std::string& id, double maxSpeed, double length, MSEdge* const edge,
                int numericalID, const PositionVector& shape, double width,
-               SVCPermissions permissions, int index, bool isRampAccel,
+               SVCPermissions permissions,
+               SVCPermissions changeLeft, SVCPermissions changeRight,
+               int index, bool isRampAccel,
                const std::string& type) :
     Named(id),
     myNumericalID(numericalID), myShape(shape), myIndex(index),
     myVehicles(), myLength(length), myWidth(width), myStopOffsets(),
     myEdge(edge), myMaxSpeed(maxSpeed),
     myPermissions(permissions),
+    myChangeLeft(changeLeft),
+    myChangeRight(changeRight),
     myOriginalPermissions(permissions),
     myLogicalPredecessorLane(nullptr),
     myCanonicalPredecessorLane(nullptr),
