@@ -86,6 +86,10 @@ public:
     /// @brief add edges that must be kept
     void addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into);
 
+    /// @brief replace the edge with the closes edge on the given edge list in all stops
+    void replaceEdge(const std::string& edgeID, const EdgeVector& replacement);
+
+
     NBPTStop* findStop(const std::string& origEdgeID, Position pos, double threshold = 1) const;
 
 private:

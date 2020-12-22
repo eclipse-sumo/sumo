@@ -324,6 +324,14 @@ NBPTStopCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) 
     }
 }
 
+void
+NBPTStopCont::replaceEdge(const std::string& edgeID, const EdgeVector& replacement) {
+    for (auto& item : myPTStops) {
+        if (!item.second->replaceEdge(edgeID, replacement)) {
+            WRITE_WARNING("Could not re-assign ptstop '" + item.first + "' after replacing edge '" + edgeID + "'");
+        }
+    }
+}
 
 void
 NBPTStopCont::postprocess(std::set<std::string>& usedStops) {

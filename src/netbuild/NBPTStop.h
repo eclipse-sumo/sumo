@@ -23,6 +23,7 @@
 #include <string>
 #include <utils/geom/Position.h>
 #include "utils/common/SUMOVehicleClass.h"
+#include "NBCont.h"
 #include "NBPTPlatform.h"
 
 
@@ -100,6 +101,10 @@ public:
 
     /// @brief mirror coordinates along the x-axis
     void mirrorX();
+
+    /// @brief replace the stop edge with the closest edge on the given edge list in all stops
+    bool replaceEdge(const std::string& edgeID, const EdgeVector& replacement);
+
 
 private:
     void computeExtent(double center, double d);

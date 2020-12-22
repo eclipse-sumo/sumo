@@ -601,7 +601,7 @@ public:
     int joinLanes(SVCPermissions perms);
 
     /// @brief join tram edges into adjacent lanes
-    int joinTramEdges(NBDistrictCont& dc, NBPTLineCont& lc, double maxDist);
+    int joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc, double maxDist);
 
     /// @brief return all edges
     EdgeVector getAllEdges() const;

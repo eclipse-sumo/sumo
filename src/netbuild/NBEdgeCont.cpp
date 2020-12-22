@@ -1671,7 +1671,7 @@ NBEdgeCont::joinLanes(SVCPermissions perms) {
 
 
 int
-NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTLineCont& lc, double maxDist) {
+NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc, double maxDist) {
     // this is different from joinSimilarEdges because there don't need to be
     // shared nodes and tram edges may be split
     std::set<NBEdge*> tramEdges;
@@ -1872,7 +1872,8 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTLineCont& lc, double maxDist) 
             } else {
                 replacement.push_back(tramEdge);
             }
-            // update ptlines
+            // update ptstops and ptlines
+            sc.replaceEdge(tramEdgeID, replacement);
             lc.replaceEdge(tramEdgeID, replacement);
         }
     }

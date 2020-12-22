@@ -258,4 +258,30 @@ NBPTStop::addAccess(std::string laneID, double offset, double length) {
 }
 
 
+bool
+NBPTStop::replaceEdge(const std::string& edgeID, const EdgeVector& replacement) {
+    if (myEdgeId == edgeID) {
+        // find best edge among replacement edges
+        double bestDist = std::numeric_limits<double>::max();
+        NBEdge* bestEdge = nullptr;
+        for (NBEdge* cand : replacement) {
+            double dist = cand->getGeometry().distance2D(myPosition);
+            if (dist < bestDist) {
+                bestDist = dist;
+                bestEdge = cand;
+            }
+        }
+        if (bestDist != std::numeric_limits<double>::max()) {
+            if ((bestEdge->getPermissions() & SVC_PEDESTRIAN) != 0) {
+                // no need for access
+                clearAccess();
+            }
+            return findLaneAndComputeBusStopExtent(bestEdge);
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
+
 /****************************************************************************/
