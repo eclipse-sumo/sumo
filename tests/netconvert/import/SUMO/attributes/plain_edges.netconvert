@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:33 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on Tue Dec 22 14:13:17 2020 by Eclipse SUMO netconvert Version v1_8_0+0335-f0ce6b1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,9 +46,9 @@ SPDX-License-Identifier: EPL-2.0
 
 <edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="edge_with_shape" from="node_right" to="node_left" priority="-1" type="testType" numLanes="3" speed="13.90" shape="40.00,0.00 20.00,20.00 0.00,0.00">
-        <lane index="0" allow="bus"/>
-        <lane index="1" disallow="bicycle rail_fast"/>
-        <lane index="2"/>
+        <lane index="0" allow="bus" changeLeft="authority"/>
+        <lane index="1" disallow="bicycle rail_fast" changeLeft="emergency authority" changeRight="authority bicycle"/>
+        <lane index="2" changeRight="authority"/>
     </edge>
     <edge id="reverse_edge" from="node_left" to="node_right" priority="-1" numLanes="3" speed="13.90" distance="42.00">
         <lane index="0"/>

@@ -61,6 +61,9 @@ lane_based_speed
 # lane type information should appear in xml and net.xml output
 lane_type
 
+# test lane attributes changeLeft, changeRight
+lane_prohibit_changing
+
 # Load a tls.xml along with a sumo net to modify the program. 
 # This also demonstrates how identical phases are joined.
 alter_tls_program
