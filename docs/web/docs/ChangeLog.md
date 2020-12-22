@@ -80,7 +80,7 @@ permalink: /ChangeLog/
 ### Other
 
 - Netconvert
-  - Parallel turn lanes are no longer written as distinct edges but are instead written as multi-lane edge with different lane lenghts. As before, lane-changing on an intersection is not permitted on a turn lane.
+  - Parallel turn lanes are no longer written as distinct edges but are instead written as multi-lane edge with different lane lenghts. As before, lane-changing on an intersection is not permitted on a turn lane. Issue #7954
   - Written network version is now 1.9.0
   
 
