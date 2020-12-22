@@ -194,7 +194,7 @@ can be imported.
 
 The help script *osmGet.py* allows downloading a large area. The
 resulting file called "<PREFIX\>.osm.xml" can then be imported using the
-script *osmBuild.Py*. Both scripts are located in {{SUMO}}/tools/import/osm.
+script *osmBuild.Py*. Both scripts are located in {{SUMO}}/tools.
 
 The call is:
 
