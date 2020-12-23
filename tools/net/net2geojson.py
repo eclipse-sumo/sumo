@@ -66,6 +66,15 @@ def getGeometries(options, net):
             yield edge.getID(), edge.getShape(options.junctionCoords), sum([l.getWidth() for l in edge.getLanes()])
 
 
+def shape2json(net, geometry):
+    lonLatGeometry = [net.convertXY2LonLat(x, y) for x, y in geometry]
+    return {
+        "type": "LineString",
+        "coordinates": [[round(x, 6), round(y, 6)] for x, y in lonLatGeometry]
+    }
+
+
+
 if __name__ == "__main__":
     options = parse_args()
     net = sumolib.net.readNet(options.netFile, withInternal=options.internal)
@@ -93,9 +102,7 @@ if __name__ == "__main__":
 
     geomType = 'lane' if options.lanes else 'edge'
     for id, geometry, width in getGeometries(options, net):
-        lonLatGeometry = [net.convertXY2LonLat(x, y) for x, y in geometry]
-        feature = {}
-        feature["type"] = "Feature"
+        feature = {"type": "Feature"}
         feature["properties"] = {
             "element": geomType,
             "id": id,
@@ -112,29 +119,17 @@ if __name__ == "__main__":
                 feature["properties"][ptType] = " ".join(sorted(lines))
 
         feature["properties"]["name"] = net.getEdge(edgeID).getName()
-
-        feature["geometry"] = {
-            "type": "LineString",
-            "coordinates": [[x, y] for x, y in lonLatGeometry]
-        }
-
+        feature["geometry"] = shape2json(net, geometry)
         features.append(feature)
 
     if options.junctions:
         for junction in net.getNodes():
-            lonLatGeometry = [net.convertXY2LonLat(x, y) for x, y in junction.getShape()]
-            feature = {}
-            feature["type"] = "Feature"
+            feature = {"type": "Feature"}
             feature["properties"] = {
                 "element": 'junction',
                 "id": junction.getID(),
             }
-            feature["properties"]["name"] = net.getEdge(edgeID).getName()
-
-            feature["geometry"] = {
-                "type": "LineString",
-                "coordinates": [[x, y] for x, y in lonLatGeometry]
-            }
+            feature["geometry"] = shape2json(net, junction.getShape())
             features.append(feature)
 
     geojson = {}
