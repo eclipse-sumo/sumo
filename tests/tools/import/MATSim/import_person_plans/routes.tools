@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-12-10 15:23:02.980380 by matsim_importPlans.py v1_8_0+0144-36c9cb9b80
+<!-- generated on 2020-12-23 17:53:38.658384 by matsim_importPlans.py v1_8_0+0388-c510291fe6
   options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -73,7 +73,7 @@
         <stop lane="15445_0" until="08:00:00" actType="home"/>
         <ride lines="100311_0" to="800"/>
         <stop lane="800_0" until="16:42:00" actType="work"/>
-        <ride lines="100311_1" to="15445"/>
+        <walk to="15445"/>
         <stop lane="15445_0" until="24:00:00" actType="home"/>
     </person>
     <vehicle id="100009_0" depart="triggered" type="car">
