@@ -159,6 +159,7 @@ jobs:
       with:
         password: ${{ secrets.TEST_PYPI_TOKEN }}
         repository_url: https://test.pypi.org/legacy/
+        skip_existing: true
 
     - name: Publish to PyPI
       if: startsWith(github.ref, 'refs/tags')
