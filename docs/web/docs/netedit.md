@@ -177,20 +177,20 @@ loaded at the start of the simulation. In SUMO the terms **node** and **junction
 
 # Netedit usage
 
-- [Edit Modes](netedit/editModes.md)
-  - [Common modes](netedit/editModesCommon.md)
-  - [Network specific modes](netedit/editModesNetwork.md)
-  - [Demand specific modes](netedit/editModesDemand.md)
-  - [Data specific modes](netedit/editModesData.md)
-- [Elements](netedit/elements.md)
-  - [Network elements](netedit/elementsNetwork.md)
-  - [Additional elements](netedit/elementsAdditional.md)
-  - [Shape Elements](netedit/elementsShape.md)
-  - [TAZ elements](netedit/elementsTAZ.md)
-  - [Demand elements](netedit/elementsDemand.md)
-  - [Data elements](netedit/elementsData.md)
-- [Popup-Menu functions](netedit/neteditPopupFunctions.md)
-- [Usage examples](netedit/neteditUsageExamples.md)
+- [Edit Modes](Netedit/editModes.md)
+  - [Common modes](Netedit/editModesCommon.md)
+  - [Network specific modes](Netedit/editModesNetwork.md)
+  - [Demand specific modes](Netedit/editModesDemand.md)
+  - [Data specific modes](Netedit/editModesData.md)
+- [Elements](Netedit/elements.md)
+  - [Network elements](Netedit/elementsNetwork.md)
+  - [Additional elements](Netedit/elementsAdditional.md)
+  - [Shape Elements](Netedit/elementsShape.md)
+  - [TAZ elements](Netedit/elementsTAZ.md)
+  - [Demand elements](Netedit/elementsDemand.md)
+  - [Data elements](Netedit/elementsData.md)
+- [Popup-Menu functions](Netedit/neteditPopupFunctions.md)
+- [Usage examples](Netedit/neteditUsageExamples.md)
 
 # Planned Features
 
