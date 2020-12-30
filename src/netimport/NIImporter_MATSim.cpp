@@ -159,7 +159,7 @@ NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttrib
 // ---------------------------------------------------------------------------
 // definitions of NIImporter_MATSim::EdgesHandler-methods
 // ---------------------------------------------------------------------------
-NIImporter_MATSim::EdgesHandler::EdgesHandler(const NBNodeCont& nc, NBEdgeCont& toFill,
+NIImporter_MATSim::EdgesHandler::EdgesHandler(NBNodeCont& nc, NBEdgeCont& toFill,
         bool keepEdgeLengths, bool lanesFromCapacity,
         NBCapacity2Lanes capacity2Lanes)
     : GenericSAXHandler(matsimTags, MATSIM_TAG_NOTHING,
@@ -171,6 +171,20 @@ NIImporter_MATSim::EdgesHandler::EdgesHandler(const NBNodeCont& nc, NBEdgeCont& 
 
 
 NIImporter_MATSim::EdgesHandler::~EdgesHandler() {
+}
+
+
+void
+NIImporter_MATSim::EdgesHandler::insertEdge(const std::string& id, NBNode* fromNode, NBNode* toNode, double freeSpeed, int numLanes, double capacity, double length) {
+    NBEdge* edge = new NBEdge(id, fromNode, toNode, "", freeSpeed, numLanes, -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET);
+    edge->setParameter("capacity", toString(capacity));
+    if (myKeepEdgeLengths) {
+        edge->setLoadedLength(length);
+    }
+    if (!myEdgeCont.insert(edge)) {
+        delete edge;
+        WRITE_ERROR("Could not add edge '" + id + "'. Probably declared twice.");
+    }
 }
 
 
@@ -234,15 +248,18 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     if (myLanesFromCapacity) {
         permLanes = myCapacity2Lanes.get(capacity);
     }
-    NBEdge* edge = new NBEdge(id, fromNode, toNode, "", freeSpeed, (int) (permLanes + 0.5), -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET);
-    edge->setParameter("capacity", toString(capacity));
-    if (myKeepEdgeLengths) {
-        edge->setLoadedLength(length);
+    if (fromNode == toNode) {
+        // adding node and edge with a different naming scheme to keep the original edge id for easier route repair
+        NBNode* intermediate = new NBNode(id + ".0", toNode->getPosition() + Position(POSITION_EPS, POSITION_EPS));
+        if (myNodeCont.insert(intermediate)) {
+            insertEdge(id + ".0", intermediate, toNode, freeSpeed, (int) (permLanes + 0.5), capacity, length);
+            toNode = intermediate;
+        } else {
+            delete intermediate;
+            WRITE_ERROR("Could not add intermediate node to split loop edge '" + id + "'.");
+        }
     }
-    if (!myEdgeCont.insert(edge)) {
-        delete edge;
-        WRITE_ERROR("Could not add edge '" + id + "'. Probably declared twice.");
-    }
+    insertEdge(id, fromNode, toNode, freeSpeed, (int) (permLanes + 0.5), capacity, length);
 }
 
 
