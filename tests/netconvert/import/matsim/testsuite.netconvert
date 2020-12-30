@@ -10,5 +10,8 @@
 # Reading and writing the network
 0_3_0_equil_roundtrip
 
-# The network from the "equil" example from MATSIM 0.3.0
+# The network from the "equil" example with 0.5 lanes
 0_3_0_equil_halflanes
+
+# The network from the "equil" example with an additional self loop
+0_3_0_equil_selfloop
