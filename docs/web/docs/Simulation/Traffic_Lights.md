@@ -47,9 +47,11 @@ visually in [netedit](../netedit.md#traffic_lights).
   option **--tls.allred.time** can be used.
 - It is also possible to generate
   [\#Actuated_Traffic_Lights](#actuated_traffic_lights)
-  by setting the option **--tls.default-type actuated**. This will generated the same signal plans as
+  by setting the option **--tls.default-type**. This will generated the same signal plans as
   above but with green phases that have a variable length of 5s-50s
   (both values can be set using the options **--tls.min-dur, --tls.max-dur**).
+    - default type **actuated**: traffic light actuation is based on gaps measured by automatically generated induction loops
+    - default ypte **delay_based**: actuation is based on vehicle delays
 - The generated phase layout can be selected setting option **--tls.layout** to
   *opposites* (default) or *incoming*.
 - The generated phase layout is also influenced by the [node
