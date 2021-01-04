@@ -246,7 +246,6 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
                      std::vector<SUMOTime> stateDumpTimes,
                      std::vector<std::string> stateDumpFiles,
                      bool hasInternalLinks,
-                     bool hasNeighs,
                      double version) {
     myEdges = edges;
     myJunctions = junctions;
@@ -262,9 +261,6 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
     // initialise performance computation
     mySimBeginMillis = SysUtils::getCurrentMillis();
     myHasInternalLinks = hasInternalLinks;
-    if (hasNeighs && MSGlobals::gLateralResolution > 0) {
-        throw ProcessError("Opposite direction driving does not work together with the sublane model.");
-    }
     myHasElevation = checkElevation();
     myHasPedestrianNetwork = checkWalkingarea();
     myHasBidiEdges = checkBidiEdges();

@@ -212,7 +212,7 @@ public:
     void closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionControl* junctions,
                        SUMORouteLoaderControl* routeLoaders, MSTLLogicControl* tlc,
                        std::vector<SUMOTime> stateDumpTimes, std::vector<std::string> stateDumpFiles,
-                       bool hasInternalLinks, bool hasNeighs,
+                       bool hasInternalLinks,
                        double version);
 
 
