@@ -487,6 +487,7 @@ example for using types is described in the chapter [Type Descriptions](#type_de
 ## SpreadType
 Each edge has a geometry definition (which defaults to the straight-line between from-junction and to-junction position).
 The spreadType defines how to compute the lane geometry from the edge geometry:
+
 - **right** (default): The edge geometry is interpreted as the left side of the edge and lanes flare out to the right. This works well if edges in opposite directions have the same (or rather reversed) geometry.
 - **center**: The edge geometry is interpreted as the middle of the directional edge and lanes flare out symmetrically to both sides. This is appropriate for one-way edges
 - **roadCenter**: The edge geometry is interpreted as the middle of a bi-directional road. This works well when both directional edges have a different lane number.
