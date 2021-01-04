@@ -1048,6 +1048,16 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         }
         oppositeChangeByTraci = true;
     }
+    if (!isOpposite && !oppositeChangeByTraci && !source->allowsChangingLeft(vehicle->getVClass())) {
+        // lane changing explicitly forbidden from this lane
+#ifdef DEBUG_CHANGE_OPPOSITE
+            if (DEBUG_COND) {
+                std::cout << "   not overtaking due to changeLeft restriction\n";
+            }
+#endif
+        return false;
+    }
+
     if (!isOpposite && leader.first == 0 && !oppositeChangeByTraci) {
         // no reason to change unless there is a leader
         // or we are changing back to the propper direction
