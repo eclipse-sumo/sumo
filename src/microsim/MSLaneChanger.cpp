@@ -1104,7 +1104,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
 
     // we need to find two vehicles:
     // 1) the leader that shall be overtaken (not necessarily the current leader but one of its leaders that has enough space in front)
-    // 2) the oncoming vehicle (we need to look past vehicles that are currentlyovertaking through the opposite direction themselves)
+    // 2) the oncoming vehicle (we need to look past vehicles that are currently overtaking through the opposite direction themselves)
     //
     // if the vehicle is driving normally, then the search for 1) starts on the current lane and 2) on the opposite lane
     // if the vehicle is driving on the opposite side then 1) is found on the neighboring lane and 2) on the current lane
