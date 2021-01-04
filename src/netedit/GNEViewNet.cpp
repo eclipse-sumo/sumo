@@ -3047,6 +3047,9 @@ GNEViewNet::buildEditModeControls() {
 
     // Create Vertical separator
     new FXVerticalSeparator(myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, GUIDesignVerticalSeparator);
+    // XXX for some reason the vertial groove is not visible. adding more spacing to emphasize the separation
+    new FXVerticalSeparator(myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, GUIDesignVerticalSeparator);
+    new FXVerticalSeparator(myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, GUIDesignVerticalSeparator);
 
     // build menu checks of view options Network
     myNetworkViewOptions.buildNetworkViewOptionsMenuChecks();
