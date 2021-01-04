@@ -347,7 +347,7 @@ even if overriding TraCI request
 - bit3, bit2: 00 = do no cooperative changes; 01 = do cooperative
 changes if not in conflict with a TraCI request; 10 = do cooperative
 change even if overriding TraCI request
-- bit5, bit4: 00 = do no changes; 01 = do speed gain changes if not in
+- bit5, bit4: 00 = do no speed gain changes; 01 = do speed gain changes if not in
 conflict with a TraCI request; 10 = do speed gain change even if
 overriding TraCI request
 - bit7, bit6: 00 = do no right drive changes; 01 = do right drive
