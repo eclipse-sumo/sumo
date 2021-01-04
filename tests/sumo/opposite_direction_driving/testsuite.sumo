@@ -4,6 +4,9 @@ overtaking_noconflict
 # a stopped vehicle cannot be overtaken because the neighboring lanes does not allow the vehicle in question
 overtaking_noconflict_forbidden
 
+# overtaking through the opposite direction is only permitted in one direction
+overtaking_noconflict_changeForbidden
+
 # overtaking by non-emergency vehicle on a multi-lane road if only 1 lane is usable in the forward direction
 overtaking_multilane_unusable
 
