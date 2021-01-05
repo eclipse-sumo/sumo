@@ -1651,6 +1651,7 @@ GNEViewNetHelper::TestingMode::isTestingEnabled() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::SaveElements::SaveElements(GNEViewNet* viewNet) :
+    saveAll(nullptr),
     saveNetwork(nullptr),
     saveAdditionalElements(nullptr),
     saveDemandElements(nullptr),
@@ -1661,6 +1662,11 @@ GNEViewNetHelper::SaveElements::SaveElements(GNEViewNet* viewNet) :
 
 void
 GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
+    // create save network button
+    saveAll = new FXButton(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
+                           "\tSave all\tSave all elements.", GUIIconSubSys::getIcon(GUIIcon::SAVEALLELEMENTS),
+                           myViewNet->getViewParent()->getGNEAppWindows(), MID_GNE_SAVEALLELEMENTS, GUIDesignButtonToolbar);
+    saveAll->create();
     // create save network button
     saveNetwork = new FXButton(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
                                "\tSave network\tSave network. (Ctrl+S)", GUIIconSubSys::getIcon(GUIIcon::SAVENETWORKELEMENTS),

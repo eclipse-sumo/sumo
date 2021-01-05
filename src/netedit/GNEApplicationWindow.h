@@ -145,6 +145,9 @@ public:
     /// @brief called when the command/FXCall locate is executed
     long onCmdLocate(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall save all elements is executed
+    long onCmdSaveAllElements(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall save network is executed
     long onCmdSaveNetwork(FXObject*, FXSelector, void*);
 
@@ -189,6 +192,9 @@ public:
 
     /// @brief called when the update/FXCall reload is executed
     long onUpdReload(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall save all elements is executed
+    long onUpdSaveAllElements(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall save network is executed
     long onUpdSaveNetwork(FXObject*, FXSelector, void*);

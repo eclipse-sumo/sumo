@@ -92,6 +92,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_R_RELOAD,                           GNEApplicationWindow::onCmdReload),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_R_RELOAD,                           GNEApplicationWindow::onUpdReload),
     // network
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVEALLELEMENTS,                            GNEApplicationWindow::onCmdSaveAllElements),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVEALLELEMENTS,                            GNEApplicationWindow::onUpdSaveNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,       GNEApplicationWindow::onCmdSaveNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,       GNEApplicationWindow::onUpdSaveNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS,             GNEApplicationWindow::onCmdSaveAsNetwork),
@@ -2190,6 +2192,28 @@ GNEApplicationWindow::onUpdReload(FXObject* sender, FXSelector, void*) {
 }
 
 
+long 
+GNEApplicationWindow::onUpdSaveAllElements(FXObject* sender, FXSelector, void*) {
+    bool enable = false;
+    if (myNet) {
+        if (!myNet->isNetSaved()) {
+            enable = true;
+        }
+        if (!myNet->isAdditionalsSaved()) {
+            enable = true;
+        }
+        if (!myNet->isDemandElementsSaved()) {
+            enable = true;
+        }
+        if (!myNet->isDataElementsSaved()) {
+            enable = true;
+        }
+    }
+    sender->handle(this, enable ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    return 1;
+}
+
+
 long
 GNEApplicationWindow::onUpdSaveNetwork(FXObject* sender, FXSelector, void*) {
     sender->handle(this, ((myNet == nullptr) || myNet->isNetSaved()) ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -2227,6 +2251,25 @@ GNEApplicationWindow::onUpdUndo(FXObject* obj, FXSelector sel, void* ptr) {
 long
 GNEApplicationWindow::onUpdRedo(FXObject* obj, FXSelector sel, void* ptr) {
     return myUndoList->p_onUpdRedo(obj, sel, ptr);
+}
+
+
+long 
+GNEApplicationWindow::onCmdSaveAllElements(FXObject*, FXSelector, void*) {
+    // save all elements
+    if (!myNet->isNetSaved()) {
+        onCmdSaveNetwork(nullptr, 0, nullptr);
+    }
+    if (!myNet->isAdditionalsSaved()) {
+        onCmdSaveAdditionals(nullptr, 0, nullptr);
+    }
+    if (!myNet->isDemandElementsSaved()) {
+        onCmdSaveDemandElements(nullptr, 0, nullptr);
+    }
+    if (!myNet->isDataElementsSaved()) {
+        onCmdSaveDataElements(nullptr, 0, nullptr);
+    }
+    return 1;
 }
 
 

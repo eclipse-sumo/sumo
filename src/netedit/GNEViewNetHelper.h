@@ -421,6 +421,9 @@ struct GNEViewNetHelper {
         /// @brief build save buttons
         void buildSaveElementsButtons();
 
+        /// @brief chekable button for save all
+        FXButton* saveAll;
+
         /// @brief chekable button for save network
         FXButton* saveNetwork;
 
