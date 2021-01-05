@@ -242,6 +242,7 @@ enum class GUIIcon {
 
     /// @name netedit save elements
     /// @{
+    SAVEALLELEMENTS,
     SAVENETWORKELEMENTS,
     SAVEADDITIONALELEMENTS,
     SAVEDEMANDELEMENTS,

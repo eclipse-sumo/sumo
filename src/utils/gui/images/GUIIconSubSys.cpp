@@ -162,6 +162,7 @@
 #include "tracker.xpm"
 #include "hall_of_fame.xpm"
 
+#include "saveallelements.xpm"
 #include "savenetworkelements.xpm"
 #include "saveaditionalelements.xpm"
 #include "savedemandelements.xpm"
@@ -489,6 +490,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::CUT_SWELL] = new FXXPMIcon(a, cut_xpm);
     myIcons[GUIIcon::TRACKER] = new FXXPMIcon(a, tracker_xpm);
 
+    myIcons[GUIIcon::SAVEALLELEMENTS] = new FXXPMIcon(a, saveallelements_xpm);
     myIcons[GUIIcon::SAVENETWORKELEMENTS] = new FXXPMIcon(a, savenetworkelements_xpm);
     myIcons[GUIIcon::SAVEADDITIONALELEMENTS] = new FXXPMIcon(a, saveadditionalelements_xpm);
     myIcons[GUIIcon::SAVEDEMANDELEMENTS] = new FXXPMIcon(a, savedemandelements_xpm);
