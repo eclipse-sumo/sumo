@@ -119,6 +119,13 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
         // Energy lost/gained from vehicle movement (via vehicle energy model) [Wh]
         setActualBatteryCapacity(getActualBatteryCapacity() - myConsum);
 
+        // Track total energy consumption and regeneration
+        if (myConsum > 0.0) {
+            myTotalConsumption += myConsum;
+        } else {
+            myTotalRegenerated -= myConsum;
+        }
+
         // saturate between 0 and myMaximumBatteryCapacity [Wh]
         if (getActualBatteryCapacity() < 0) {
             setActualBatteryCapacity(0);
@@ -237,6 +244,8 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     myChargingInTransit(false),         // Initially vehicle don't charge in transit
     myChargingStartTime(0),             // Initially charging start time (must be if the vehicle was launched at the charging station)
     myConsum(0),                        // Initially the vehicle is stopped and therefore the consum is zero.
+    myTotalConsumption(0.0),
+    myTotalRegenerated(0.0),
     myActChargingStation(nullptr),         // Initially the vehicle isn't over a Charging Station
     myPreviousNeighbouringChargingStation(nullptr),    // Initially the vehicle wasn't over a Charging Station
     myEnergyCharged(0),                 // Initially the energy charged is zero
@@ -382,6 +391,17 @@ MSDevice_Battery::getConsum() const {
     return myConsum;
 }
 
+double
+MSDevice_Battery::getTotalConsumption() const {
+    return myTotalConsumption;
+}
+
+
+double
+MSDevice_Battery::getTotalRegenerated() const {
+    return myTotalRegenerated;
+}
+
 
 bool
 MSDevice_Battery::isChargingStopped() const {
@@ -434,6 +454,10 @@ MSDevice_Battery::getParameter(const std::string& key) const {
         return toString(getActualBatteryCapacity());
     } else if (key == toString(SUMO_ATTR_ENERGYCONSUMED)) {
         return toString(getConsum());
+    } else if (key == toString(SUMO_ATTR_TOTALENERGYCONSUMED)) {
+        return toString(getTotalConsumption());
+    } else if (key == toString(SUMO_ATTR_TOTALENERGYREGENERATED)) {
+        return toString(getTotalRegenerated());
     } else if (key == toString(SUMO_ATTR_ENERGYCHARGED)) {
         return toString(getEnergyCharged());
     } else if (key == toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY)) {

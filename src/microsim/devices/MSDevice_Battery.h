@@ -126,6 +126,12 @@ public:
     /// @brief Get consum
     double getConsum() const;
 
+    /// @brief Get total consumption
+    double getTotalConsumption() const;
+
+    /// @brief Get total regenerated
+    double getTotalRegenerated() const;
+
     /// @brief Get current Charging Station ID
     std::string getChargingStationID() const;
 
@@ -197,6 +203,12 @@ protected:
 
     /// @brief Parameter, Vehicle consum during a time step (by default is 0.)
     double myConsum;
+
+    /// @brief Parameter, total vehicle energy consumption
+    double myTotalConsumption;
+
+    /// @brief Parameter, total vehicle energy regeneration
+    double myTotalRegenerated;
 
     /// @brief Parameter, Pointer to current charging station in which vehicle is placed (by default is NULL)
     MSChargingStation* myActChargingStation;

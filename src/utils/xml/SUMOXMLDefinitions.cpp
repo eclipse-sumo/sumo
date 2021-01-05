@@ -462,6 +462,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "alphaCircuitSolver",     SUMO_ATTR_ALPHACIRCUITSOLVER },
     // MSBatteryExport
     { "energyConsumed",         SUMO_ATTR_ENERGYCONSUMED },
+    { "totalEnergyConsumed",    SUMO_ATTR_TOTALENERGYCONSUMED },
+    { "totalEnergyRegenerated", SUMO_ATTR_TOTALENERGYREGENERATED },
     { "chargingStationId",      SUMO_ATTR_CHARGINGSTATIONID },
     { "energyCharged",          SUMO_ATTR_ENERGYCHARGED },
     { "energyChargedInTransit", SUMO_ATTR_ENERGYCHARGEDINTRANSIT },

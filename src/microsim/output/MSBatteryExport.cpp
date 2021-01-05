@@ -63,6 +63,10 @@ MSBatteryExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
                 of.writeAttr(SUMO_ATTR_ID, veh->getID());
                 // Write consum
                 of.writeAttr(SUMO_ATTR_ENERGYCONSUMED, batteryToExport->getConsum());
+                // Write total consumption
+                of.writeAttr(SUMO_ATTR_TOTALENERGYCONSUMED, batteryToExport->getTotalConsumption());
+                // Write total regeneration
+                of.writeAttr(SUMO_ATTR_TOTALENERGYREGENERATED, batteryToExport->getTotalRegenerated());
                 // Write Actual battery capacity
                 of.writeAttr(SUMO_ATTR_ACTUALBATTERYCAPACITY, batteryToExport->getActualBatteryCapacity());
                 // Write Maximum battery capacity

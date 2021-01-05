@@ -698,6 +698,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_CHARGING_STATUS,
     /// @brief Energy consumed
     SUMO_ATTR_ENERGYCONSUMED,
+    /// @brief Total energy consumed
+    SUMO_ATTR_TOTALENERGYCONSUMED,
+    /// @brief Total energy regenerated
+    SUMO_ATTR_TOTALENERGYREGENERATED,
     /// @brief Charging Station ID
     SUMO_ATTR_CHARGINGSTATIONID,
     /// @brief tgotal of Energy charged
