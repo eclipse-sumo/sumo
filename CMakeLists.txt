@@ -211,11 +211,16 @@ if (SUMO_LIBRARIES AND WIN32)
         file(GLOB PROJ_PATH "${SUMO_LIBRARIES}/msvc12${LIB_VERSION}/proj_gdal-1911")
         file(GLOB GDAL_PATH "${SUMO_LIBRARIES}/msvc12${LIB_VERSION}/proj_gdal-1911")
         set(PROJ_6 0)
-    else()
-        # use proj 6 and gdal 3
-        file(GLOB PROJ_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/proj-?.?.?")
+    elseif (EXISTS "${SUMO_LIBRARIES}${LIB_VERSION}/proj-6.1.1")
+        # use proj 6 and gdal 3 (for old SUMOLibraries)
+        file(GLOB PROJ_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/proj-6.1.1")
         file(GLOB GDAL_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/gdal-?.?.?")
         set(PROJ_6 1)
+	else()
+        # use proj 7 and gdal 3
+        file(GLOB PROJ_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/proj-?.?.?")
+        file(GLOB GDAL_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/gdal-?.?.?")
+        set(PROJ_7 1)
     endif ()
     # set fox
     file(GLOB FOX_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/fox-?.?.??")
@@ -463,6 +468,13 @@ if (SUMO_LIBRARIES AND WIN32)
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/data/proj
                            DEPENDS ${PROJ_PATH})
     endif (PROJ_6)
+    # proj 7 needs to copy "data/proj" folder in SUMO_HOME/share
+    if (PROJ_7)
+        set(PROJ_DATA ${CMAKE_SOURCE_DIR}/data/proj/proj.db)
+        add_custom_command(OUTPUT ${PROJ_DATA}
+                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/share/proj
+                           DEPENDS ${PROJ_PATH})
+    endif (PROJ_7)
     # set install_dll target
     add_custom_target(install_dll ALL DEPENDS ${TARGET_DLLS} ${OSG_TARGET} ${PROJ_DATA})
     set_property(TARGET install_dll PROPERTY FOLDER "CMake")
