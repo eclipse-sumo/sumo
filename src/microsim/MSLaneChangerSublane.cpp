@@ -587,16 +587,23 @@ MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* vehic
             result.addLeader(veh, gap, 0, i);
         }
     }
+    addLeaders(target->lane, vehicle, vehicle->getPositionOnLane(), result);
+    return result;
+}
+
+
+void
+MSLaneChangerSublane::addLeaders(const MSLane* targetLane, const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo& result) const {
     // if there are vehicles on the target lane with the same position as ego,
     // they may not have been added to 'ahead' yet
-    const MSLeaderInfo& aheadSamePos = target->lane->getLastVehicleInformation(nullptr, 0, vehicle->getPositionOnLane(), false);
+    const MSLeaderInfo& aheadSamePos = targetLane->getLastVehicleInformation(nullptr, 0, vehPos, false);
     for (int i = 0; i < aheadSamePos.numSublanes(); ++i) {
         const MSVehicle* veh = aheadSamePos[i];
         if (veh != nullptr && veh != vehicle) {
-            const double gap = veh->getBackPositionOnLane(target->lane) - vehicle->getPositionOnLane() - vehicle->getVehicleType().getMinGap();
+            const double gap = veh->getBackPositionOnLane(targetLane) - vehPos - vehicle->getVehicleType().getMinGap();
 #ifdef DEBUG_SURROUNDING
             if (DEBUG_COND) {
-                std::cout << " further lead=" << veh->getID() << " leadBack=" << veh->getBackPositionOnLane(target->lane) << " gap=" << gap << "\n";
+                std::cout << " further lead=" << veh->getID() << " leadBack=" << veh->getBackPositionOnLane(targetLane) << " gap=" << gap << "\n";
             }
 #endif
             result.addLeader(veh, gap, 0, i);
@@ -604,9 +611,7 @@ MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* vehic
     }
 
     if (result.numFreeSublanes() > 0) {
-        MSLane* targetLane = target->lane;
-
-        double seen = vehicle->getLane()->getLength() - vehicle->getPositionOnLane();
+        double seen = vehicle->getLane()->getLength() - vehPos;
         double speed = vehicle->getSpeed();
         // leader vehicle could be link leader on the next junction
         double dist = MAX2(vehicle->getCarFollowModel().brakeGap(speed), 10.0) + vehicle->getVehicleType().getMinGap();
@@ -616,7 +621,7 @@ MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* vehic
                 std::cout << " aborting forward search. dist=" << dist << " seen=" << seen << "\n";
             }
 #endif
-            return result;
+            return;
         }
         const std::vector<MSLane*>& bestLaneConts = veh(myCandi)->getBestLanesContinuation(targetLane);
 #ifdef DEBUG_SURROUNDING
@@ -624,14 +629,13 @@ MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* vehic
             std::cout << " add consecutive before=" << result.toString() << " dist=" << dist;
         }
 #endif
-        target->lane->getLeadersOnConsecutive(dist, seen, speed, vehicle, bestLaneConts, result);
+        targetLane->getLeadersOnConsecutive(dist, seen, speed, vehicle, bestLaneConts, result);
 #ifdef DEBUG_SURROUNDING
         if (DEBUG_COND) {
             std::cout << " after=" << result.toString() << "\n";
         }
 #endif
     }
-    return result;
 }
 
 
@@ -718,6 +722,13 @@ MSLaneChangerSublane::checkChangeOpposite(
     MSLeaderDistanceInfo leaders = myCandi->aheadNext;
     MSLeaderDistanceInfo followers = myCandi->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
     MSLeaderDistanceInfo blockers(vehicle->getLane(), nullptr, 0);
+
+    if (vehicle->getLaneChangeModel().isOpposite()) {
+        const double posOnTarget = vehicle->getLane()->getOppositePos(vehicle->getBackPositionOnLane());
+        MSLeaderDistanceInfo neighFollowers = targetLane->getFollowersOnConsecutive(vehicle, posOnTarget, true);
+        addLeaders(targetLane, vehicle, posOnTarget, neighLeaders);
+    }
+
 
 #ifdef DEBUG_SURROUNDING
     if (DEBUG_COND) std::cout << SIMTIME
