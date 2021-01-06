@@ -625,7 +625,8 @@ happy to integrate if possible).
 
 The default windows release is currently provided without GDAL support
 due to EPL2 Licensing issues. If you need to import shapefiles, either
-use the Linux version or download the [nightly-extra version](http://sumo.dlr.de/daily/sumo-msvc12extrax64-git.zip)
+use the Linux version or download the [nightly-extra version](https://sumo.dlr.de/daily/sumo-win64extra-git.zip)
+
 
 ## netedit
 
