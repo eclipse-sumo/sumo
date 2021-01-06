@@ -586,7 +586,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, "Open Additionals file");
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("Additional files (*.add.xml)\nAll files (*)");
+    opendialog.setPatternList("XML files (*.xml)\nAdditional files (*.add.xml)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -707,7 +707,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, "Open demand element file");
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("Demand element files (*.rou.xml)\nAll files (*)");
+    opendialog.setPatternList("XML files (*.xml)\nDemand files (*rou.xml)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -748,7 +748,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, "Open data element file");
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("Data element files (*.xml)\nAll files (*)");
+    opendialog.setPatternList("XML files (*.xml)\nData files (*dat.xml)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
