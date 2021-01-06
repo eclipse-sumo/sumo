@@ -180,6 +180,15 @@ MSEdge::closeBuilding() {
     if (MSGlobals::gUseMesoSim && !myLanes->empty()) {
         MSGlobals::gMesoNet->buildSegmentsFor(*this, OptionsCont::getOptions());
     }
+
+    // extend lookup table for sublane model after all edges are read
+    if (myLanes->back()->getOpposite() != nullptr) {
+        MSLane* opposite = myLanes->back()->getOpposite();
+        MSLeaderInfo ahead(opposite);
+        for (int j = 0; j < ahead.numSublanes(); ++j) {
+            mySublaneSides.push_back(myWidth + j * MSGlobals::gLateralResolution);
+        }
+    }
 }
 
 
@@ -1082,7 +1091,7 @@ MSEdge::setJunctions(MSJunction* from, MSJunction* to) {
 
 
 bool
-MSEdge::canChangeToOpposite() {
+MSEdge::canChangeToOpposite() const {
     return (!myLanes->empty() && myLanes->back()->getOpposite() != nullptr &&
             // do not change on curved internal lanes
             (!isInternal() || myLanes->back()->getIncomingLanes()[0].viaLink->getDirection() == LinkDirection::STRAIGHT));

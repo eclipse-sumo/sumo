@@ -195,6 +195,7 @@ MSLCM_SL2015::wantsChangeSublane(
                   << std::setprecision(gPrecision)
                   << " veh=" << myVehicle.getID()
                   << " lane=" << myVehicle.getLane()->getID()
+                  << " neigh=" << neighLane.getID()
                   << " pos=" << myVehicle.getPositionOnLane()
                   << " posLat=" << myVehicle.getLateralPositionOnLane()
                   << " posLatError=" << mySigmaState
@@ -872,7 +873,7 @@ MSLCM_SL2015::prepareStep() {
     const double halfWidth = getWidth() * 0.5;
     const double center = myVehicle.getCenterOnEdge();
     mySafeLatDistRight = center - halfWidth;
-    mySafeLatDistLeft = myVehicle.getLane()->getEdge().getWidth() - center - halfWidth;
+    mySafeLatDistLeft = getLeftBorder() - center - halfWidth;
     // truncate to work around numerical instability between different builds
     mySpeedGainProbabilityRight = ceil(mySpeedGainProbabilityRight * 100000.0) * 0.00001;
     mySpeedGainProbabilityLeft = ceil(mySpeedGainProbabilityLeft * 100000.0) * 0.00001;
@@ -893,6 +894,13 @@ MSLCM_SL2015::prepareStep() {
             const int subLanes = MAX2(1, int(ceil((*it_lane)->getWidth() / MSGlobals::gLateralResolution)));
             for (int i = 0; i < subLanes; ++i) {
                 newExpectedSpeeds.push_back((*it_lane)->getVehicleMaxSpeed(&myVehicle));
+            }
+        }
+        if (currEdge->canChangeToOpposite()) {
+            MSLane* opposite = lanes.back()->getOpposite();
+            const int subLanes = MAX2(1, int(ceil(opposite->getWidth() / MSGlobals::gLateralResolution)));
+            for (int i = 0; i < subLanes; ++i) {
+                newExpectedSpeeds.push_back(lanes.back()->getVehicleMaxSpeed(&myVehicle));
             }
         }
         if (myExpectedSublaneSpeeds.size() > 0) {
@@ -1018,7 +1026,6 @@ MSLCM_SL2015::_wantsChangeSublane(
     int bestLaneOffset = 0;
     double currentDist = 0;
     double neighDist = 0;
-    int currIdx = 0;
     const MSLane* prebLane = myVehicle.getLane();
     if (prebLane->getEdge().isInternal()) {
         // internal edges are not kept inside the bestLanes structure
@@ -1049,7 +1056,6 @@ MSLCM_SL2015::_wantsChangeSublane(
                 bestLaneOffset = laneOffset;
             }
             best = preb[p + bestLaneOffset];
-            currIdx = p;
             break;
         }
     }
@@ -1075,6 +1081,15 @@ MSLCM_SL2015::_wantsChangeSublane(
 #endif
         currentDist = MAX2(currentDist, stopPos);
         neighDist = MAX2(neighDist, stopPos);
+    }
+    if (isOpposite()) {
+        neigh = preb[preb.size() - 1];
+        curr = neigh;
+        best = neigh;
+        bestLaneOffset = -1;
+        curr.bestLaneOffset = -1;
+        neighDist = neigh.length;
+        currentDist = curr.length;
     }
     // direction specific constants
     const bool right = (laneOffset == -1);
@@ -1196,10 +1211,9 @@ MSLCM_SL2015::_wantsChangeSublane(
     if (laneOffset != 0) {
         ret = checkStrategicChange(ret,
                                    laneOffset,
-                                   preb,
                                    leaders,
                                    neighLeaders,
-                                   currIdx,
+                                   curr, neigh, best,
                                    bestLaneOffset,
                                    changeToBest,
                                    currentDist,
@@ -1418,22 +1432,17 @@ MSLCM_SL2015::_wantsChangeSublane(
     double latDistNice = std::numeric_limits<double>::max();
 
     const int iMin = MIN2(myVehicle.getLane()->getRightmostSublane(), neighLane.getRightmostSublane());
-    const double leftMax = MAX2(
+    double leftMax = MAX2(
                                myVehicle.getLane()->getRightSideOnEdge() + myVehicle.getLane()->getWidth(),
                                neighLane.getRightSideOnEdge() + neighLane.getWidth());
-    const double rightMin = MIN2(myVehicle.getLane()->getRightSideOnEdge(), neighLane.getRightSideOnEdge());
-    assert(leftMax <= edge.getWidth());
+    double rightMin = MIN2(myVehicle.getLane()->getRightSideOnEdge(), neighLane.getRightSideOnEdge());
+    if (checkOpposite) {
+        leftMax = getLeftBorder();
+    } else {
+        assert(leftMax <= edge.getWidth());
+    }
     int sublaneCompact = MAX2(iMin, rightmostOnEdge - 1); // try to compactify to the right by default
 
-#ifdef DEBUG_WANTSCHANGE
-    if (gDebugFlag2) std::cout
-                << "  checking sublanes rightmostOnEdge=" << rightmostOnEdge
-                << " leftmostOnEdge=" << leftmostOnEdge
-                << " iMin=" << iMin
-                << " leftMax=" << leftMax
-                << " sublaneCompact=" << sublaneCompact
-                << "\n";
-#endif
     const double laneBoundary = laneOffset < 0 ? myVehicle.getLane()->getRightSideOnEdge() : neighLane.getRightSideOnEdge();
     // if there is a neighboring lane we could change to, check sublanes on all lanes of the edge
     // but restrict maneuver to the currently visible lanes (current, neigh) to ensure safety
@@ -1441,7 +1450,21 @@ MSLCM_SL2015::_wantsChangeSublane(
     const double maxLatDist = leftMax - leftVehSide;
     const double minLatDist = rightMin - rightVehSide;
     const int iStart = laneOffset == 0 ? iMin : 0;
-    const double rightEnd = laneOffset == 0 ? leftMax : edge.getWidth();
+    const double rightEnd = laneOffset == 0 ? leftMax : (checkOpposite ? getLeftBorder() : edge.getWidth());
+#ifdef DEBUG_WANTSCHANGE
+    if (gDebugFlag2) std::cout
+                << "  checking sublanes rightmostOnEdge=" << rightmostOnEdge
+                << " rightEnd=" << rightEnd
+                << " leftmostOnEdge=" << leftmostOnEdge
+                << " iStart=" << iStart
+                << " iMin=" << iMin
+                << " sublaneSides=" << sublaneSides.size()
+                << " leftMax=" << leftMax
+                << " minLatDist=" << minLatDist
+                << " maxLatDist=" << maxLatDist
+                << " sublaneCompact=" << sublaneCompact
+                << "\n";
+#endif
     for (int i = iStart; i < (int)sublaneSides.size(); ++i) {
         if (sublaneSides[i] + vehWidth < rightEnd) {
             // i is the rightmost sublane and the left side of vehicles still fits on the edge,
@@ -2045,7 +2068,7 @@ MSLCM_SL2015::computeSpeedGain(double latDistSublane, double defaultNextSpeed) c
     const double rightVehSide = myVehicle.getCenterOnEdge() - vehWidth * 0.5 + latDistSublane;
     const double leftVehSide = rightVehSide + vehWidth;
     for (int i = 0; i < (int)sublaneSides.size(); ++i) {
-        const double leftSide = i + 1 < (int)sublaneSides.size() ? sublaneSides[i + 1] : myVehicle.getLane()->getEdge().getWidth();
+        const double leftSide = i + 1 < (int)sublaneSides.size() ? sublaneSides[i + 1] : MAX2(myVehicle.getLane()->getEdge().getWidth(), sublaneSides[i] + POSITION_EPS);
         if (overlap(rightVehSide, leftVehSide, sublaneSides[i], leftSide)) {
             result = MIN2(result, myExpectedSublaneSpeeds[i]);
         }
@@ -2542,10 +2565,11 @@ MSLCM_SL2015::getLCA(int state, double latDist) {
 int
 MSLCM_SL2015::checkStrategicChange(int ret,
                                    int laneOffset,
-                                   const std::vector<MSVehicle::LaneQ>& preb,
                                    const MSLeaderDistanceInfo& leaders,
                                    const MSLeaderDistanceInfo& neighLeaders,
-                                   int currIdx,
+                                   const MSVehicle::LaneQ& curr,
+                                   const MSVehicle::LaneQ& neigh,
+                                   const MSVehicle::LaneQ& best,
                                    int bestLaneOffset,
                                    bool changeToBest,
                                    double currentDist,
@@ -2557,9 +2581,6 @@ MSLCM_SL2015::checkStrategicChange(int ret,
                                   ) {
     const bool right = (laneOffset == -1);
     const bool left = (laneOffset == 1);
-    const MSVehicle::LaneQ& curr = preb[currIdx];
-    const MSVehicle::LaneQ& neigh = preb[currIdx + laneOffset];
-    const MSVehicle::LaneQ& best = preb[currIdx + bestLaneOffset];
 
     myLeftSpace = currentDist - myVehicle.getPositionOnLane();
     const double usableDist = (currentDist - myVehicle.getPositionOnLane() - best.occupation *  JAM_FACTOR);
@@ -2801,7 +2822,7 @@ MSLCM_SL2015::keepLatGap(int state,
     // if they do not permit the desired maneuvre, should override it to better maintain distance
     // stay within the current edge
     double surplusGapRight = oldCenter - halfWidth;
-    double surplusGapLeft = myVehicle.getLane()->getEdge().getWidth() - oldCenter - halfWidth;
+    double surplusGapLeft = getLeftBorder() - oldCenter - halfWidth;
 #ifdef DEBUG_KEEP_LATGAP
     if (gDebugFlag2) {
         std::cout << "\n  " << SIMTIME << " keepLatGap() laneOffset=" << laneOffset
@@ -3470,6 +3491,7 @@ MSLCM_SL2015::wantsChange(
                   //<< std::setprecision(10)
                   << " veh=" << myVehicle.getID()
                   << " lane=" << myVehicle.getLane()->getID()
+                  << " neigh=" << neighLane.getID()
                   << " pos=" << myVehicle.getPositionOnLane()
                   << " posLat=" << myVehicle.getLateralPositionOnLane()
                   << " speed=" << myVehicle.getSpeed()
@@ -3523,5 +3545,11 @@ MSLCM_SL2015::wantsChange(
     return result;
 }
 
+
+double
+MSLCM_SL2015::getLeftBorder() const {
+    return (myVehicle.getLane()->getEdge().getWidth()
+            + (myVehicle.getLane()->getOpposite() != nullptr ? myVehicle.getLane()->getOpposite()->getWidth() : 0));
+}
 
 /****************************************************************************/

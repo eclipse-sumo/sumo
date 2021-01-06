@@ -72,6 +72,18 @@ protected:
         double& latDist,
         double& maneuverDist) const;
 
+    /* @brief call lanechange model to check the merits of an opposite-direction
+     * change and update state accordingly */
+    bool checkChangeOpposite(
+        MSVehicle* vehicle,
+        int laneOffset,
+        MSLane* targetLane,
+        const std::pair<MSVehicle* const, double>& leader,
+        const std::pair<MSVehicle* const, double>& neighLead,
+        const std::pair<MSVehicle* const, double>& neighFollow,
+        const std::vector<MSVehicle::LaneQ>& preb);
+
+
     ///  @brief Continue a sublane-lane change maneuver and return whether the midpoint was passed in this step
     //          (used to continue sublane changing in non-action steps).
     bool continueChangeSublane(MSVehicle* vehicle, ChangerIt& from);

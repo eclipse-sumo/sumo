@@ -5647,7 +5647,7 @@ MSVehicle::lateralDistanceToLane(const int offset) const {
     // (ensure we do not lap into the line behind neighLane since there might be unseen blockers)
     assert(offset == 0 || offset == 1 || offset == -1);
     assert(myLane != nullptr);
-    assert(myLane->getParallelLane(offset) != nullptr);
+    assert(myLane->getParallelLane(offset) != nullptr || myLane->getOpposite() != nullptr);
     const double halfCurrentLaneWidth = 0.5 * myLane->getWidth();
     const double halfVehWidth = 0.5 * (getWidth() + NUMERICAL_EPS);
     const double latPos = getLateralPositionOnLane();

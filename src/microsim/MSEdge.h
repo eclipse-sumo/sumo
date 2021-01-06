@@ -84,6 +84,8 @@ private:
 
 
 public:
+    friend class MSLaneChangerSublane; // needs access to myLaneChanger
+
     /** @brief Constructor.
      *
      * After calling this constructor, the edge is not yet initialised
@@ -693,7 +695,7 @@ public:
     }
 
     /// @brief whether this edge allows changing to the opposite direction edge
-    bool canChangeToOpposite();
+    bool canChangeToOpposite() const;
 
     /// @brief Returns the opposite direction edge if on exists else a nullptr
     const MSEdge* getOppositeEdge() const;

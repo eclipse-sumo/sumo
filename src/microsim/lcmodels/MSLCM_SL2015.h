@@ -273,10 +273,11 @@ protected:
     /// TODO: Better documentation, refs #2
     int checkStrategicChange(int ret,
                              int laneOffset,
-                             const std::vector<MSVehicle::LaneQ>& preb,
                              const MSLeaderDistanceInfo& leaders,
                              const MSLeaderDistanceInfo& neighLeaders,
-                             int currIdx,
+                             const MSVehicle::LaneQ& curr,
+                             const MSVehicle::LaneQ& neigh,
+                             const MSVehicle::LaneQ& best,
                              int bestLaneOffset,
                              bool changeToBest,
                              double currentDist,
@@ -341,6 +342,9 @@ protected:
 
     /// @brief get lateral drift for the current step
     double getLateralDrift();
+
+    /// @brief return current edge with optionally extended by opposite direction lane width
+    double getLeftBorder() const;
 
 protected:
     /// @brief a value for tracking the probability that a change to the right is beneficial

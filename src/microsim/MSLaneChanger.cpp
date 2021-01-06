@@ -1027,10 +1027,6 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
     myCandi = findCandidate();
     MSVehicle* vehicle = veh(myCandi);
     MSLane* source = vehicle->getMutableLane();
-    if (vehicle->getLaneChangeModel().getModelID() == LCM_SL2015) {
-        // we have warned before but people may still try
-        return false;
-    }
     if (vehicle->isStopped()) {
         // stopped vehicles obviously should not change lanes. Usually this is
         // prevent by appropriate bestLane distances
@@ -1273,7 +1269,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
     // Does "preb" mean "previousBestLanes" ??? If so *rename*
     std::vector<MSVehicle::LaneQ> preb = vehicle->getBestLanes();
     if (isOpposite) {
-        // compute the remaining distance that can be drive on the opposite side
+        // compute the remaining distance that can be driven on the opposite side
         // this value will put into LaneQ.length of the leftmost lane
         // @note: length counts from the start of the current lane
         // @note: see MSLCM_LC2013::_wantsChange @1092 (isOpposite()
@@ -1339,18 +1335,39 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
 #endif
     }
     std::pair<MSVehicle* const, double> neighFollow = opposite->getOppositeFollower(vehicle);
-    int state = checkChange(direction, opposite, leader, neighLead, neighFollow, preb);
-    vehicle->getLaneChangeModel().setOwnState(state);
+    const bool changed = checkChangeOpposite(vehicle, direction, opposite, leader, neighLead, neighFollow, preb);
+#ifdef DEBUG_CHANGE_OPPOSITE
+    if (DEBUG_COND && !changed) {
+        std::cout << SIMTIME << " not changing to opposite veh=" << vehicle->getID() << " dir=" << direction
+            << " opposite=" << Named::getIDSecure(opposite) << " state=" << toString((LaneChangeAction)vehicle->getLaneChangeModel().getOwnState()) << "\n";
+    }
+#endif
+    return changed;
+}
 
+
+bool
+MSLaneChanger::checkChangeOpposite(
+        MSVehicle* vehicle,
+        int laneOffset,
+        MSLane* targetLane,
+        const std::pair<MSVehicle* const, double>& leader,
+        const std::pair<MSVehicle* const, double>& neighLead,
+        const std::pair<MSVehicle* const, double>& neighFollow,
+        const std::vector<MSVehicle::LaneQ>& preb) {
+    const bool isOpposite = vehicle->getLaneChangeModel().isOpposite();
+    MSLane* source = vehicle->getMutableLane();
+    int state = checkChange(laneOffset, targetLane, leader, neighLead, neighFollow, preb);
+    vehicle->getLaneChangeModel().setOwnState(state);
     bool changingAllowed = (state & LCA_BLOCKED) == 0;
     // change if the vehicle wants to and is allowed to change
     if ((state & LCA_WANTS_LANECHANGE) != 0 && changingAllowed
             // do not change to the opposite direction for cooperative reasons
             && (isOpposite || (state & LCA_COOPERATIVE) == 0)) {
-        const bool continuous = vehicle->getLaneChangeModel().startLaneChangeManeuver(source, opposite, direction);
+        const bool continuous = vehicle->getLaneChangeModel().startLaneChangeManeuver(source, targetLane, laneOffset);
 #ifdef DEBUG_CHANGE_OPPOSITE
         if (DEBUG_COND) {
-            std::cout << SIMTIME << " changing to opposite veh=" << vehicle->getID() << " dir=" << direction << " opposite=" << Named::getIDSecure(opposite) << " state=" << state << "\n";
+            std::cout << SIMTIME << " changing to opposite veh=" << vehicle->getID() << " dir=" << laneOffset << " opposite=" << Named::getIDSecure(targetLane) << " state=" << state << "\n";
         }
 #endif
         if (continuous) {
@@ -1358,12 +1375,6 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         }
         return true;
     }
-#ifdef DEBUG_CHANGE_OPPOSITE
-    if (DEBUG_COND) {
-        std::cout << SIMTIME << " not changing to opposite veh=" << vehicle->getID() << " dir=" << direction
-                  << " opposite=" << Named::getIDSecure(opposite) << " state=" << toString((LaneChangeAction)state) << "\n";
-    }
-#endif
     return false;
 }
 
