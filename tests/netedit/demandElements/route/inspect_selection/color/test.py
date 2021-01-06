@@ -41,8 +41,8 @@ netedit.leftClick(referencePosition, 570, 250)
 # press enter to create route
 netedit.typeEnter()
 
-# create route using three edges
-netedit.leftClick(referencePosition, 274, 388)
+# create route using a single edge edges
+netedit.leftClick(referencePosition, 274, 368)
 
 # press enter to create route
 netedit.typeEnter()
@@ -52,7 +52,7 @@ netedit.selectMode()
 
 # select both routes
 netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 274, 388)
+netedit.leftClick(referencePosition, 274, 368)
 
 # go to inspect mode
 netedit.inspectMode()
