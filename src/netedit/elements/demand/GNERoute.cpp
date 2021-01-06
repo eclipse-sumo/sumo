@@ -72,10 +72,12 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 
 GNERoute::GNERoute(GNENet* net) :
     GNEDemandElement(net->generateDemandElementID(SUMO_TAG_ROUTE), net, GLO_ROUTE, SUMO_TAG_ROUTE,
-{}, {}, {}, {}, {}, {}, {}, {}),
-Parameterised(),
-myColor(RGBColor::YELLOW),
-myVClass(SVC_PASSENGER) {
+        {}, {}, {}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myColor(RGBColor::YELLOW),
+    myRepeat(0),
+    myClycleTime(0),
+    myVClass(SVC_PASSENGER) {
     // compute route
     computePath();
 }
@@ -83,10 +85,12 @@ myVClass(SVC_PASSENGER) {
 
 GNERoute::GNERoute(GNENet* net, const GNERouteHandler::RouteParameter& routeParameters) :
     GNEDemandElement(routeParameters.routeID, net, GLO_ROUTE, SUMO_TAG_ROUTE,
-{}, routeParameters.edges, {}, {}, {}, {}, {}, {}),
-Parameterised(routeParameters.parameters),
-myColor(routeParameters.color),
-myVClass(routeParameters.vClass) {
+        {}, routeParameters.edges, {}, {}, {}, {}, {}, {}),
+    Parameterised(routeParameters.parameters),
+    myColor(routeParameters.color),
+    myRepeat(routeParameters.repeat),
+    myClycleTime(routeParameters.clycleTime),
+    myVClass(routeParameters.vClass) {
     // compute route
     computePath();
 }
@@ -94,10 +98,12 @@ myVClass(routeParameters.vClass) {
 
 GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter& routeParameters) :
     GNEDemandElement(vehicleParent, net, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED,
-{}, routeParameters.edges, {}, {}, {}, {}, {vehicleParent}, {}),
-Parameterised(routeParameters.parameters),
-myColor(routeParameters.color),
-myVClass(routeParameters.vClass) {
+        {}, routeParameters.edges, {}, {}, {}, {}, {vehicleParent}, {}),
+    Parameterised(routeParameters.parameters),
+    myColor(routeParameters.color),
+    myRepeat(routeParameters.repeat),
+    myClycleTime(routeParameters.clycleTime),
+    myVClass(routeParameters.vClass) {
     // compute route
     computePath();
 }
@@ -105,10 +111,12 @@ myVClass(routeParameters.vClass) {
 
 GNERoute::GNERoute(GNEDemandElement* route) :
     GNEDemandElement(route, route->getNet(), GLO_ROUTE, SUMO_TAG_ROUTE,
-{}, route->getParentEdges(), {}, {}, {}, {}, {}, {}),
-Parameterised(),
-myColor(route->getColor()),
-myVClass(route->getVClass()) {
+    {}, route->getParentEdges(), {}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myColor(route->getColor()),
+    myRepeat(parse<int>(route->getAttribute(SUMO_ATTR_REPEAT))),
+    myClycleTime(parse<SUMOTime>(route->getAttribute(SUMO_ATTR_CYCLETIME))),
+    myVClass(route->getVClass()) {
     // compute route
     computePath();
 }
@@ -414,6 +422,10 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
             return parseIDs(getParentEdges());
         case SUMO_ATTR_COLOR:
             return toString(myColor);
+        case SUMO_ATTR_REPEAT:
+            return toString(myRepeat);
+        case SUMO_ATTR_CYCLETIME:
+            return time2string(myClycleTime);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -439,6 +451,8 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGES:
         case SUMO_ATTR_COLOR:
+        case SUMO_ATTR_REPEAT:
+        case SUMO_ATTR_CYCLETIME:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -463,6 +477,14 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
+        case SUMO_ATTR_REPEAT:
+            return canParse<int>(value);
+        case SUMO_ATTR_CYCLETIME:
+            if (canParse<double>(value)) {
+                return (parse<double>(value) >= 0);
+            } else {
+                return false;
+            }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -557,6 +579,12 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);
+            break;
+        case SUMO_ATTR_REPEAT:
+            myRepeat = parse<int>(value);
+            break;
+        case SUMO_ATTR_CYCLETIME:
+            myClycleTime = string2time(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
