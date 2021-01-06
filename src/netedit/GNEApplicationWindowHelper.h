@@ -141,6 +141,9 @@ struct GNEApplicationWindowHelper {
         /// @brief FXMenuCommand for enable or disable save additionals As
         FXMenuCommand* saveAdditionalsAs;
 
+        /// @brief FXMenuCommand for reload additionals
+        FXMenuCommand* reloadAdditionals;
+
         /// @brief FXMenuCommand for enable or disable save additionals
         FXMenuCommand* saveTLSPrograms;
 
@@ -153,11 +156,17 @@ struct GNEApplicationWindowHelper {
         /// @brief FXMenuCommand for enable or disable save demand elements as
         FXMenuCommand* saveDemandElementsAs;
 
+        /// @brief FXMenuCommand for reload demand elements
+        FXMenuCommand* reloadDemandElements;
+
         /// @brief FXMenuCommand for enable or disable save data elements
         FXMenuCommand* saveDataElements;
 
         /// @brief FXMenuCommand for enable or disable save data elements as
         FXMenuCommand* saveDataElementsAs;
+
+        /// @brief FXMenuCommand for reload data elements
+        FXMenuCommand* reloadDataElements;
 
     private:
         /// @brief pointer to current GNEApplicationWindows
