@@ -600,14 +600,20 @@ enum {
     MID_GNE_SAVEALLELEMENTS,
     /// @brief save additionals as
     MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
+    /// @brief reload additionals
+    MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALS,
     /// @brief save TLS Programs as
     MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,
     /// @brief save edgeTypes as
     MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS,
     /// @brief save demand elements as
     MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,
+    /// @brief reload demand elements
+    MID_GNE_TOOLBARFILE_RELOAD_DEMANDELEMENTS,
     /// @brief save data elements as
     MID_GNE_TOOLBARFILE_SAVEDATA_AS,
+    /// @brief reload data elements
+    MID_GNE_TOOLBARFILE_RELOAD_DATAELEMENTS,
 
     /// @}
 
