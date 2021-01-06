@@ -76,7 +76,7 @@ GNERoute::GNERoute(GNENet* net) :
     Parameterised(),
     myColor(RGBColor::YELLOW),
     myRepeat(0),
-    myClycleTime(0),
+    myCycleTime(0),
     myVClass(SVC_PASSENGER) {
     // compute route
     computePath();
@@ -89,7 +89,7 @@ GNERoute::GNERoute(GNENet* net, const GNERouteHandler::RouteParameter& routePara
     Parameterised(routeParameters.parameters),
     myColor(routeParameters.color),
     myRepeat(routeParameters.repeat),
-    myClycleTime(routeParameters.clycleTime),
+    myCycleTime(routeParameters.cycleTime),
     myVClass(routeParameters.vClass) {
     // compute route
     computePath();
@@ -102,7 +102,7 @@ GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const GNERouteH
     Parameterised(routeParameters.parameters),
     myColor(routeParameters.color),
     myRepeat(routeParameters.repeat),
-    myClycleTime(routeParameters.clycleTime),
+    myCycleTime(routeParameters.cycleTime),
     myVClass(routeParameters.vClass) {
     // compute route
     computePath();
@@ -115,7 +115,7 @@ GNERoute::GNERoute(GNEDemandElement* route) :
     Parameterised(),
     myColor(route->getColor()),
     myRepeat(parse<int>(route->getAttribute(SUMO_ATTR_REPEAT))),
-    myClycleTime(parse<SUMOTime>(route->getAttribute(SUMO_ATTR_CYCLETIME))),
+    myCycleTime(parse<SUMOTime>(route->getAttribute(SUMO_ATTR_CYCLETIME))),
     myVClass(route->getVClass()) {
     // compute route
     computePath();
@@ -157,6 +157,12 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_ROUTE);
     device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getParentEdges()));
     device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
+    if (myRepeat != 0) {
+        device.writeAttr(SUMO_ATTR_REPEAT, toString(myRepeat));
+    }
+    if (myCycleTime != 0) {
+        device.writeAttr(SUMO_ATTR_CYCLETIME, toString(myCycleTime));
+    }
     // write extra attributes depending if is an embedded route
     if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
         device.writeAttr(SUMO_ATTR_ID, getID());
@@ -425,7 +431,7 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_REPEAT:
             return toString(myRepeat);
         case SUMO_ATTR_CYCLETIME:
-            return time2string(myClycleTime);
+            return time2string(myCycleTime);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -584,7 +590,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             myRepeat = parse<int>(value);
             break;
         case SUMO_ATTR_CYCLETIME:
-            myClycleTime = string2time(value);
+            myCycleTime = string2time(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

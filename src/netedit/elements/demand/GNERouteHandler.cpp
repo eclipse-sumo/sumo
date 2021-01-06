@@ -46,7 +46,9 @@
 GNERouteHandler::RouteParameter::RouteParameter() :
     loadedID(false),
     vClass(SVC_PASSENGER),
-    color(RGBColor::BLACK) {
+    color(RGBColor::BLACK),
+    repeat(0),
+    cycleTime(0) {
 }
 
 
@@ -57,7 +59,9 @@ GNERouteHandler::RouteParameter::RouteParameter(GNEDemandElement* originalDemand
     loadedID(false),
     edges(originalDemandElement->getParentEdges()),
     vClass(originalDemandElement->getVClass()),
-    color(originalDemandElement->getColor()) {
+    color(originalDemandElement->getColor()),
+    repeat(0),
+    cycleTime(0) {
 }
 
 
@@ -1532,6 +1536,8 @@ GNERouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     // parse other attributes
     myRouteParameter.setEdges(myNet, GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myRouteParameter.routeID, SUMO_TAG_ROUTE, SUMO_ATTR_EDGES, myAbort));
     myRouteParameter.color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, myRouteParameter.routeID, SUMO_TAG_ROUTE, SUMO_ATTR_COLOR, myAbort);
+    myRouteParameter.repeat = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, myRouteParameter.routeID, SUMO_TAG_ROUTE, SUMO_ATTR_REPEAT, myAbort);
+    myRouteParameter.cycleTime = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, myRouteParameter.routeID, SUMO_TAG_ROUTE, SUMO_ATTR_CYCLETIME, myAbort);
 }
 
 

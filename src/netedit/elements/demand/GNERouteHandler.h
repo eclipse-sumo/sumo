@@ -82,6 +82,12 @@ public:
         /// @brief string for saving parsed route colors
         RGBColor color;
 
+        /// @brief repeat
+        int repeat;
+
+        /// @brief cycleTime
+        SUMOTime cycleTime;
+
         /// @brief parameters
         Parameterised parameters;
     };

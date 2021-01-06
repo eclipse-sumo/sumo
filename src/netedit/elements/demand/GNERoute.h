@@ -261,7 +261,7 @@ protected:
     int myRepeat;
 
     /// @brief cycleTime
-    SUMOTime myClycleTime;
+    SUMOTime myCycleTime;
 
     /// @brief SUMOVehicleClass (Only used for drawing)
     SUMOVehicleClass myVClass;
