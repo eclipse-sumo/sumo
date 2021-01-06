@@ -272,6 +272,8 @@ GNERouteFrame::createPath() {
         }
         // fill rest of elements
         routeParameters.color = GNEAttributeCarrier::parse<RGBColor>(valuesMap.at(SUMO_ATTR_COLOR));
+        routeParameters.repeat = GNEAttributeCarrier::parse<int>(valuesMap.at(SUMO_ATTR_REPEAT));
+        routeParameters.cycleTime = GNEAttributeCarrier::parse<SUMOTime>(valuesMap.at(SUMO_ATTR_CYCLETIME));
         routeParameters.vClass = myPathCreator->getVClass();
         // create route
         GNERoute* route = new GNERoute(myViewNet->getNet(), routeParameters);
