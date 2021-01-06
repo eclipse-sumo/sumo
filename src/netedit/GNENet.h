@@ -489,6 +489,15 @@ public:
     /// @brief reset junction's connections
     void resetJunctionConnections(GNEJunction* junction, GNEUndoList* undoList);
 
+    /// @brief clear additionals
+    void clearAdditionalElements(GNEUndoList* undoList);
+
+    /// @brief clear demand elements
+    void clearDemandElements(GNEUndoList* undoList);
+
+    /// @brief clear data elements
+    void clearDataElements(GNEUndoList* undoList);
+
     /**@brief trigger recomputation of junction shape and logic
      * param[in] window The window to inform about delay
      */

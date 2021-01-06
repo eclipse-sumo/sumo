@@ -251,6 +251,10 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuAdditionals,
         "Load Additionals...", "Ctrl+A", "Load additionals and shapes.",
         GUIIconSubSys::getIcon(GUIIcon::OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
+    reloadAdditionals = GUIDesigns::buildFXMenuCommandShortcut(fileMenuAdditionals,
+        "Reload Additionals", "", "Reload additionals",
+        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALS);
+    reloadAdditionals->disable();
     saveAdditionals = GUIDesigns::buildFXMenuCommandShortcut(fileMenuAdditionals,
         "Save Additionals", "Ctrl+Shift+A", "Save additionals and shapes.",
         GUIIconSubSys::getIcon(GUIIcon::SAVEADDITIONALELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS);
@@ -258,15 +262,16 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     saveAdditionalsAs = GUIDesigns::buildFXMenuCommandShortcut(fileMenuAdditionals,
         "Save Additionals As...", "", "Save additional elements to another file.",
         GUIIconSubSys::getIcon(GUIIcon::SAVEADDITIONALELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
-    reloadAdditionals = GUIDesigns::buildFXMenuCommandShortcut(fileMenuAdditionals,
-        "Reload Additionals", "", "Reload additionals",
-        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALS);
-    reloadAdditionals->disable();
+    saveAdditionalsAs->disable();
     new FXMenuCascade(fileMenu, "Additionals and Shapes", GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), fileMenuAdditionals);
     // create DemandElements menu options
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuDemandElements,
         "Load Demand Elements...", "Ctrl+D", "Load demand elements.",
         GUIIconSubSys::getIcon(GUIIcon::OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS);
+    reloadDemandElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDemandElements,
+        "Reload Demand Elements", "", "Reload demand elements",
+        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_DEMANDELEMENTS);
+    reloadDemandElements->disable();
     saveDemandElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDemandElements,
         "Save Demand Elements", "Ctrl+Shift+D", "Save demand elements.",
         GUIIconSubSys::getIcon(GUIIcon::SAVEDEMANDELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS);
@@ -275,15 +280,15 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
         "Save Demand Elements As...", "", "Save demand elements to another file.",
         GUIIconSubSys::getIcon(GUIIcon::SAVEDEMANDELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDEMAND_AS);
     saveDemandElementsAs->disable();
-    reloadDemandElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDemandElements,
-        "Reload Demand Elements", "", "Reload demand elements",
-        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_DEMANDELEMENTS);
-    reloadDemandElements->disable();
     new FXMenuCascade(fileMenu, "Demand Elements", GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), fileMenuDemandElements);
     // create DataElements menu options
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
         "Load Data Elements...", "Ctrl+B", "Load data elements.",
         GUIIconSubSys::getIcon(GUIIcon::OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS);
+    reloadDataElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
+        "Reload Data Elements", "", "Reload data elements",
+        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_DATAELEMENTS);
+    reloadDataElements->disable();
     saveDataElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
         "Save Data Elements", "Ctrl+Shift+B", "Save data elements.",
         GUIIconSubSys::getIcon(GUIIcon::SAVEDATAELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS);
@@ -292,10 +297,6 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
         "Save Data Elements As...", "", "Save data elements to another file.",
         GUIIconSubSys::getIcon(GUIIcon::SAVEDATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDATA_AS);
     saveDataElementsAs->disable();
-    reloadDataElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
-        "Reload Data Elements", "", "Reload data elements",
-        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_DATAELEMENTS);
-    reloadDataElements->disable();
     new FXMenuCascade(fileMenu, "Data Elements", GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), fileMenuDataElements);
     // close network
     new FXMenuSeparator(fileMenu);

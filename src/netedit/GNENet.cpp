@@ -2232,6 +2232,55 @@ GNENet::resetJunctionConnections(GNEJunction* junction, GNEUndoList* undoList) {
 }
 
 
+void 
+GNENet::clearAdditionalElements(GNEUndoList* undoList) {
+    undoList->p_begin("clear additional elements");
+    // clear additionals
+    for (const auto &additionalMap : myAttributeCarriers->getAdditionals()) {
+        while (additionalMap.second.size() > 0) {
+            deleteAdditional(additionalMap.second.begin()->second, undoList);
+        }
+    }
+    // clear shapes
+    for (const auto& shapeMap : myAttributeCarriers->getShapes()) {
+        while (shapeMap.second.size() > 0) {
+            deleteShape(shapeMap.second.begin()->second, undoList);
+        }
+    }
+    // clear TAZs
+    for (const auto& TAZMap : myAttributeCarriers->getTAZElements()) {
+        while (TAZMap.second.size() > 0) {
+            deleteTAZElement(TAZMap.second.begin()->second, undoList);
+        }
+    }
+    undoList->p_end();
+}
+
+
+void 
+GNENet::clearDemandElements(GNEUndoList* undoList) {
+    undoList->p_begin("clear demand elements");
+    // clear demand elements
+    for (const auto& demandElementsMap : myAttributeCarriers->getDemandElements()) {
+        while (demandElementsMap.second.size() > 0) {
+            deleteDemandElement(demandElementsMap.second.begin()->second, undoList);
+        }
+    }
+    undoList->p_end();
+}
+
+
+void 
+GNENet::clearDataElements(GNEUndoList* undoList) {
+    undoList->p_begin("clear data elements");
+    // clear data sets
+    for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
+        deleteDataSet(dataSet.second, undoList);
+    }
+    undoList->p_end();
+}
+
+
 void
 GNENet::changeEdgeEndpoints(GNEEdge* edge, const std::string& newSource, const std::string& newDest) {
     NBNode* from = retrieveJunction(newSource)->getNBNode();
