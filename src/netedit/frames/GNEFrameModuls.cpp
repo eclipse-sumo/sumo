@@ -1126,8 +1126,8 @@ GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
             return root;
         }
     } else if (myHE->getTagProperty().isDemandElement()) {
-        // Obtain DemandElement
-        GNEDemandElement* demandElement = myFrameParent->myViewNet->getNet()->retrieveDemandElement(myHE->getTagProperty().getTag(), myHE->getID(), false);
+        // Obtain DemandElement (dynamic cast neede due embedded routes)
+        GNEDemandElement* demandElement = dynamic_cast<GNEDemandElement*>(myHE);
         if (demandElement) {
             // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
             FXTreeItem* root = nullptr;
@@ -1190,7 +1190,6 @@ GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
             // return last inserted list item
             return root;
         }
-
     } else if (myHE->getTagProperty().isDataElement()) {
         // check if is a GNEDataInterval or a GNEGenericData
         if (myHE->getTagProperty().getTag() == SUMO_TAG_DATASET) {
