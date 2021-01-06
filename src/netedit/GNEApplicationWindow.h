@@ -169,17 +169,35 @@ public:
     /// @brief called when the command/FXCall save additionals as is executed
     long onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall reload additionals is executed
+    long onCmdReloadAdditionals(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload additionals is updated
+    long onUpdReloadAdditionals(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall save demand elements is executed
     long onCmdSaveDemandElements(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save demand elements as is executed
     long onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall reload demand elements is executed
+    long onCmdReloadDemandElements(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload demand elements is updated
+    long onUpdReloadDemandElements(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall save data elements is executed
     long onCmdSaveDataElements(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save data elements as is executed
     long onCmdSaveDataElementsAs(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload data elements is executed
+    long onCmdReloadDataElements(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload data elements is updated
+    long onUpdReloadDataElements(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save network as is executed
     long onCmdSaveAsNetwork(FXObject*, FXSelector, void*);
