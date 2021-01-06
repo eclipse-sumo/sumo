@@ -3144,8 +3144,6 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myViewParent->getConnectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getConnectorFrame();
             myNetworkCheckableButtons.connectionButton->setChecked(true);
-            // show view options
-            myNetworkViewOptions.menuCheckHideConnections->show();
             break;
         case NetworkEditMode::NETWORK_TLS:
             myViewParent->getTLSEditorFrame()->show();
