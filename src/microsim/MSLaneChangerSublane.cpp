@@ -138,6 +138,9 @@ MSLaneChangerSublane::change() {
                       << " lcm->speedLat=" << vehicle->getLaneChangeModel().getSpeedLat() << std::endl;
         }
 #endif
+        if (!changed) {
+            registerUnchanged(vehicle);
+        }
         return changed;
     }
 
@@ -295,7 +298,6 @@ MSLaneChangerSublane::continueChangeSublane(MSVehicle* vehicle, ChangerIt& from)
     // lateral distance to complete maneuver
     double remLatDist = vehicle->getLaneChangeModel().getManeuverDist();
     if (remLatDist == 0) {
-        registerUnchanged(vehicle);
         return false;
     }
     const double nextLatDist = SPEED2DIST(vehicle->getLaneChangeModel().computeSpeedLat(remLatDist, remLatDist));
