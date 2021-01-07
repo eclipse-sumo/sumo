@@ -492,7 +492,7 @@ def focusOnFrame():
     time.sleep(1)
 
 
-def undo(referencePosition, number):
+def undo(referencePosition, number, posX=0, posY=0):
     """
     @brief undo last operation
     """
@@ -501,13 +501,13 @@ def undo(referencePosition, number):
     # needed to avoid errors with undo/redo (Provisionally)
     typeKey('i')
     # click over referencePosition
-    leftClick(referencePosition, 0, 0)
+    leftClick(referencePosition, posX, posY)
     for _ in range(number):
         typeTwoKeys('ctrl', 'z')
         time.sleep(DELAY_UNDOREDO)
 
 
-def redo(referencePosition, number):
+def redo(referencePosition, number, posX=0, posY=0):
     """
     @brief undo last operation
     """
@@ -516,7 +516,7 @@ def redo(referencePosition, number):
     # needed to avoid errors with undo/redo (Provisionally)
     typeKey('i')
     # click over referencePosition
-    leftClick(referencePosition, 0, 0)
+    leftClick(referencePosition, posX, posY)
     for _ in range(number):
         typeTwoKeys('ctrl', 'y')
         time.sleep(DELAY_UNDOREDO)
@@ -690,14 +690,14 @@ def openNetworkAs(waitTime=2):
     time.sleep(waitTime)
 
 
-def saveNetwork(referencePosition, clickOverReference=False):
+def saveNetwork(referencePosition, clickOverReference=False, posX=0, posY=0):
     """
     @brief save network
     """
     # check if clickOverReference is enabled
     if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
-        leftClick(referencePosition, 0, 0)
+        leftClick(referencePosition, posX, posY)
     # save network using hotkey
     typeTwoKeys('ctrl', 's')
     # wait for debug (due recomputing)
@@ -778,16 +778,14 @@ def saveRoutes(referencePosition, clickOverReference=True):
     typeThreeKeys('ctrl', 'shift', 'd')
 
 
-def saveDatas(referencePosition, clickOverReference=True):
+def saveDatas(referencePosition, clickOverReference=True, posX=0, posY=0):
     """
     @brief save datas
     """
     # check if clickOverReference is enabled
     if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
-        leftClick(referencePosition, 0, 0)
-    # force flag for demand elements saving using hotkey
-    typeTwoKeys('ctrl', 'F4')
+        leftClick(referencePosition, posX, posY)
     # save datas using hotkey
     typeThreeKeys('ctrl', 'shift', 'b')
 

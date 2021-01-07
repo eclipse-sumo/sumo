@@ -40,6 +40,15 @@ netedit.createDataSet()
 # create data interval
 netedit.createDataInterval()
 
+# set invalid parameters
+netedit.changeDefaultValue(7, "dummyValues")
+
+# create edgeData
+netedit.leftClick(referencePosition, 350, 120)
+
+# set valid parameters
+netedit.changeDefaultValue(7, "param1=value2|param3=value4")
+
 # create edgeData
 netedit.leftClick(referencePosition, 350, 120)
 
