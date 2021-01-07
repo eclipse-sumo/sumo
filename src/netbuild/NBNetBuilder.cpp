@@ -94,7 +94,8 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     }
     if (mayAddOrRemove && oc.exists("keep-edges.components") && oc.getInt("keep-edges.components") > 0) {
         before = PROGRESS_BEGIN_TIME_MESSAGE("Finding largest components");
-        myNodeCont.removeComponents(myDistrictCont, myEdgeCont, oc.getInt("keep-edges.components"));
+        const bool hasStops = myPTStopCont.size() > 0 && oc.exists("ptstop-output") && oc.isSet("ptstop-output");
+        myNodeCont.removeComponents(myDistrictCont, myEdgeCont, oc.getInt("keep-edges.components"), hasStops);
         PROGRESS_TIME_MESSAGE(before);
     }
     if (mayAddOrRemove && oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload")) {
@@ -113,6 +114,10 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         }
         myPTStopCont.assignLanes(myEdgeCont);
         PROGRESS_TIME_MESSAGE(before);
+        if (mayAddOrRemove && oc.exists("keep-edges.components") && oc.getInt("keep-edges.components") > 0) {
+            // post process rail components unless they have stops
+            myNodeCont.removeRailComponents(myDistrictCont, myEdgeCont, myPTStopCont);
+        }
     }
 
     if (oc.exists("ptline-output") && oc.isSet("ptline-output")) {
