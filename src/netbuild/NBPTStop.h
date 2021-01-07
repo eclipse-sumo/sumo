@@ -60,12 +60,17 @@ public:
     const std::string getName() const;
     const Position& getPosition() const;
     SVCPermissions getPermissions() const;
+    long long int getAreaID() const {
+        return myAreaID;
+    }
+
     void write(OutputDevice& device);
     void reshiftPosition(const double offsetX, const double offsetY);
 
     const std::vector<NBPTPlatform>& getPlatformCands();
+
     bool getIsMultipleStopPositions() const;
-    void setIsMultipleStopPositions(bool multipleStopPositions);
+    void setIsMultipleStopPositions(bool multipleStopPositions, long long int areaID);
     double getLength() const;
     bool setEdgeId(std::string edgeId, const NBEdgeCont& ec);
     void registerAdditionalEdge(std::string wayId, std::string edgeId);
@@ -151,5 +156,6 @@ private:
 
     std::vector<NBPTPlatform> myPlatformCands;
     bool myIsMultipleStopPositions;
+    long long int myAreaID;
 };
 

@@ -75,6 +75,7 @@ void NBPTLineCont::process(NBEdgeCont& ec, NBPTStopCont& sc, bool routeOnly) {
             }
         }
         line->deleteInvalidStops(ec, sc);
+        line->deleteDuplicateStops();
     }
 }
 

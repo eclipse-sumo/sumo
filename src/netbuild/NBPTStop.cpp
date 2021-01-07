@@ -43,7 +43,8 @@ NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, 
     myEndPos(0),
     myBidiStop(nullptr),
     myIsLoose(origEdgeId == ""),
-    myIsMultipleStopPositions(false) {
+    myIsMultipleStopPositions(false),
+    myAreaID(-1) {
 }
 
 std::string
@@ -161,8 +162,9 @@ NBPTStop::getIsMultipleStopPositions() const {
 
 
 void
-NBPTStop::setIsMultipleStopPositions(bool multipleStopPositions) {
+NBPTStop::setIsMultipleStopPositions(bool multipleStopPositions, long long int areaID) {
     myIsMultipleStopPositions = multipleStopPositions;
+    myAreaID = areaID;
 }
 
 

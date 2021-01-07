@@ -86,6 +86,7 @@ public:
 
     /// @brief remove invalid stops from the line
     void deleteInvalidStops(const NBEdgeCont& ec, const NBPTStopCont& sc);
+    void deleteDuplicateStops();
 
     void setName(const std::string& name) {
         myName = name;

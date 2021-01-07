@@ -236,6 +236,7 @@ NBPTLine::replaceEdge(const std::string& edgeID, const EdgeVector& replacement) 
 
 void
 NBPTLine::deleteInvalidStops(const NBEdgeCont& ec, const NBPTStopCont& sc) {
+    // delete stops that are missing or have no edge
     for (auto it = myPTStops.begin(); it != myPTStops.end();) {
         NBPTStop* stop = *it;
         if (sc.get(stop->getID()) == nullptr || 
@@ -246,5 +247,21 @@ NBPTLine::deleteInvalidStops(const NBEdgeCont& ec, const NBPTStopCont& sc) {
             it++;
         }
 
+    }
+}
+
+void
+NBPTLine::deleteDuplicateStops() {
+    // delete subsequent stops that belong to the same stopArea
+    long long int lastAreaID = -1;
+    for (auto it = myPTStops.begin(); it != myPTStops.end();) {
+        NBPTStop* stop = *it;
+        if (lastAreaID != -1 && stop->getAreaID() == lastAreaID) {
+            WRITE_WARNINGF("Removed duplicate stop '%' at area '%' from line '%'.", stop->getID(), toString(lastAreaID), getLineID());
+            it = myPTStops.erase(it);
+        } else {
+            it++;
+        }
+        lastAreaID = stop->getAreaID();
     }
 }
