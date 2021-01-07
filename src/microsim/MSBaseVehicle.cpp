@@ -967,6 +967,8 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     }
     const bool sameEdgeAsLastStop = prevStopEdge == stop.edge && prevEdge == &stop.lane->getEdge();
     if (stop.edge == myRoute->end() || prevStopEdge > stop.edge ||
+            // a collision-stop happens after vehicle movement and may move the
+            // vehicle backwards on it's lane (prevStopPos is the vehicle position)
             (sameEdgeAsLastStop && prevStopPos > stop.pars.endPos && !collision)
             || (stop.lane->getEdge().isInternal() && stop.lane->getNextNormal() != *(stop.edge + 1))) {
         if (stop.edge != myRoute->end()) {
