@@ -2067,9 +2067,26 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // XXX efficiently adapt to shadow leaders using neighAhead by iteration over the whole edge in parallel (lanechanger-style)
         if (myLaneChangeModel->getShadowLane() != nullptr) {
             // also slow down for leaders on the shadowLane relative to the current lane
-            const MSLane* shadowLane = myLaneChangeModel->getShadowLane(lane);
-            if (shadowLane != nullptr) {
-                const double latOffset = getLane()->getRightSideOnEdge() - myLaneChangeModel->getShadowLane()->getRightSideOnEdge();
+            const MSLane* shadowLane = myLaneChangeModel->getShadowLane(leaderLane);
+            if (shadowLane != nullptr &&
+                    (MSGlobals::gLateralResolution > 0 || getLateralOverlap() > POSITION_EPS)) {
+                double latOffset = getLane()->getRightSideOnEdge() - myLaneChangeModel->getShadowLane()->getRightSideOnEdge();
+                if (myLaneChangeModel->isOpposite()) {
+                    // ego posLat is added when retrieving sublanes but it
+                    // should be negated (subtract twice to compensate)
+                    latOffset = ((myLane->getWidth() + shadowLane->getWidth()) * 0.5
+                            - 2 * getLateralPositionOnLane());
+
+
+
+#ifdef DEBUG_PLAN_MOVE
+                    if (DEBUG_COND) {
+                        std::cout << SIMTIME << " opposite veh=" << getID() << " shadowLane=" << shadowLane->getID() << " latOffset=" << latOffset
+                            << " shadowLeaders=" << shadowLane->getLastVehicleInformation(this, latOffset, lane->getLength() - seen).toString()
+                            << "\n";
+                    }
+#endif
+                }
                 adaptToLeaders(shadowLane->getLastVehicleInformation(this, latOffset, lane->getLength() - seen),
                                latOffset,
                                seen, lastLink, shadowLane, v, vLinkPass);
@@ -2584,7 +2601,11 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
                           ? predBack - myState.myPos - getVehicleType().getMinGap()
                           : predBack + seen - lane->getLength() - getVehicleType().getMinGap());
             if (myLaneChangeModel->isOpposite()) {
-                gap *= -1;
+                if (pred->getLaneChangeModel().isOpposite()) {
+                    gap *= -1;
+                } else if (lastLink == nullptr) {
+                    gap = predBack - (myLane->getLength() - myState.myPos) - getVehicleType().getMinGap();
+                }
             }
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
