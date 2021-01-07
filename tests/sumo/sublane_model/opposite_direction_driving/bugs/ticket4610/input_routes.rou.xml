@@ -1,0 +1,16 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+
+    <route id="r0" edges="1 2"/>
+    <route id="r1" edges="-2 -1"/>
+
+    <vehicle id="stopped"  route="r0" depart="0">
+        <stop lane="2_0" endPos="15.9" duration="400"/>
+    </vehicle>
+    <vehicle id="overtaking" route="r0" departPos="0"  depart="0"/>
+
+    <vehicle id="oncoming1" route="r1" departPos="100"  depart="0">
+        <stop lane="-1_0" endPos="4" duration="400"/>
+    </vehicle>
+
+</routes>

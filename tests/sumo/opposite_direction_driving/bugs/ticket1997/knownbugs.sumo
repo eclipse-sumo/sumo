@@ -1,7 +1,0 @@
-
-[Reported by kobo at 20Sep21:23:19]
-search_string:Opposite direction driving does not work together with the sublane model
-search_file:errors
-ignore_other_errors:1
-full_description:incompat
-brief_description:see #1997

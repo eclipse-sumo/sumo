@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<nodes version="0.25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <node id="E" x="200.00" y="0.00" type="dead_end"/>
+    <node id="W" x="0.00" y="0.00" type="dead_end"/>
+	<node id="gneJ0" type="dead_end" x="0.00" y="-30.00"/> 
+    <node id="gneJ1" type="dead_end" x="200.00" y="-30.00"/> 
+</nodes>

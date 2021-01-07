@@ -1,0 +1,6 @@
+
+[Reported by Windows at 15Dec10:19:35]
+search_string:collision
+search_file:errors
+full_description:vehicle collides on opposite direction overtaking
+brief_description:see #3718

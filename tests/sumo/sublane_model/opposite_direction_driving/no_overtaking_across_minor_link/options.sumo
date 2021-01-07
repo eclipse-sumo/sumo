@@ -1,0 +1,1 @@
+--no-step-log --net-file=net2.net.xml --routes=input_routes.rou.xml --tripinfo-output tripinfos.xml --fcd-output fcd.xml
