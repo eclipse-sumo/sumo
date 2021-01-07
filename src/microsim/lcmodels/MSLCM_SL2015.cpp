@@ -1043,7 +1043,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             neighDist = neigh.length;
             bestLaneOffset = curr.bestLaneOffset;
             // VARIANT_13 (equalBest)
-            if (bestLaneOffset == 0 && preb[p + laneOffset].bestLaneOffset == 0) {
+            if (bestLaneOffset == 0 && preb[p + prebOffset].bestLaneOffset == 0) {
 #ifdef DEBUG_WANTSCHANGE
                 if (gDebugFlag2) {
                     std::cout << STEPS2TIME(currentTime)
@@ -1053,7 +1053,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                               << "\n";
                 }
 #endif
-                bestLaneOffset = laneOffset;
+                bestLaneOffset = prebOffset;
             }
             best = preb[p + bestLaneOffset];
             break;
