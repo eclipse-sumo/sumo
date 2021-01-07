@@ -1415,6 +1415,12 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
     }
 #endif
     assert(t >= 0);
+    if (vMax <= u) {
+        // do not try to overtake faster leader
+        timeToOvertake = std::numeric_limits<double>::max();
+        spaceToOvertake = std::numeric_limits<double>::max();
+        return;
+    }
 
     // allow for a safety time gap
     t += OPPOSITE_OVERTAKING_SAFE_TIMEGAP;
@@ -1453,6 +1459,7 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
 #endif
             timeToOvertake = std::numeric_limits<double>::max();
             spaceToOvertake = std::numeric_limits<double>::max();
+            return;
         } else {
             // allow for a safety time gap
             t += OPPOSITE_OVERTAKING_SAFE_TIMEGAP;
