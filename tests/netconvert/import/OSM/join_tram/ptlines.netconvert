@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon May 11 17:06:55 2020 by Eclipse SUMO netconvert Version v1_6_0+0177-a73435a41c
+<!-- generated on Thu Jan  7 14:42:44 2021 by Eclipse SUMO netconvert Version v1_8_0+0458-ac1c067b57
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -80,22 +80,20 @@ SPDX-License-Identifier: EPL-2.0
         <busStop id="1830281726" name="Roederplatz"/>
         <busStop id="30695393" name="Möllendorffstraße/Storkower Straße"/>
     </ptLine>
-    <ptLine id="2077769" name="Tram 21: S Schöneweide =&gt; S+U Lichtenberg/Gudrunstraße" line="21" type="tram" vClass="tram" period="1200" completeness="0.18">
+    <ptLine id="2077769" name="Tram 21: S Schöneweide =&gt; S+U Lichtenberg/Gudrunstraße" line="21" type="tram" vClass="tram" period="1200" completeness="0.15">
         <route edges="171184262 155531552 6181948#0#0 415222813#0 6181948#1 170782997#0#0 -43115510#2 -43115510#1 -43115510#0 -415222793#2 -415222793#1 -415222793#0 -106838214#2 -106838214#1 -106838214#0 -10864676#23 -10864676#22 -10864676#21 -10864676#20 -10864676#19 -10864676#18 -10864676#17 -10864676#16 -10864676#15 -10864676#14 -10864676#13 -10864676#12 -10864676#11 -10864676#10 -10864676#9 -10864676#8 -10864676#7 -10864676#6 -10864676#5 -10864676#4 -10864676#3 -10864676#2 -10864676#1 170782997#1 175857473 175859960#0 -432427280#0 -32035133 175859960"/>
         <busStop id="1679204628" name="Möllendorffstraße/Storkower Straße"/>
         <busStop id="2480027318" name="Bernhard-Bästlein-Straße"/>
         <busStop id="1895220895" name="Herzbergstraße/Industriegebiet"/>
         <busStop id="3708887804" name="Herzbergstraße/Siegfriedstraße"/>
-        <busStop id="1864168565" name="Herzbergstraße/Siegfriedstraße"/>
         <busStop id="3901927140" name="Siegfriedstraße/Josef-Orlopp-Straße"/>
         <busStop id="1868463702" name="Betriebshof Lichtenberg"/>
     </ptLine>
-    <ptLine id="2077770" name="Tram 21: S+U Lichtenberg/Gudrunstraße =&gt; S Schöneweide" line="21" type="tram" vClass="tram" period="1200" completeness="0.17">
+    <ptLine id="2077770" name="Tram 21: S+U Lichtenberg/Gudrunstraße =&gt; S Schöneweide" line="21" type="tram" vClass="tram" period="1200" completeness="0.15">
         <route edges="175857462#0 32035133 432427280#0 175857462 175857470#0 175857470#1 175857470#2 175857460#0#0 10864676#1 10864676#2 10864676#3 10864676#4 10864676#5 10864676#6 10864676#7 10864676#8 10864676#9 10864676#10 10864676#11 10864676#12 10864676#13 10864676#14 10864676#15 10864676#16 10864676#17 10864676#18 10864676#19 10864676#20 10864676#21 10864676#22 10864676#23 106838214#0 175857460#1 106838214#2 415222793#0 415222793#1 415222793#2 43115510#0 43115510#1 43115510#2 175777883 170782998 155531553#0 155531553#1 4789146 99729384#0 99729384#1 99729384#2"/>
         <busStop id="1864168419" name="Betriebshof Lichtenberg"/>
         <busStop id="1864168424" name="Siegfriedstraße/Josef-Orlopp-Straße"/>
         <busStop id="1819268905" name="Herzbergstraße/Siegfriedstraße"/>
-        <busStop id="3901927131" name="Herzbergstraße/Siegfriedstraße"/>
         <busStop id="1830277393" name="Herzbergstraße/Industriegebiet"/>
         <busStop id="276002421" name="Bernhard-Bästlein-Straße"/>
         <busStop id="30695393" name="Möllendorffstraße/Storkower Straße"/>

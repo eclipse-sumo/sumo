@@ -21,6 +21,8 @@ Warning: No way found for reference '4687123' in relation '8665161'
 Warning: No way found for reference '624023269' in relation '8665161'
 Warning: Ignoring restriction relation '8665161' with unknown from-way.
 Warning: Ignoring restriction relation '8665161' with unknown to-way.
+Warning: Removed duplicate stop '1864168565' at area '5757985' from line '2077769'.
+Warning: Removed duplicate stop '3901927131' at area '5757985' from line '2077770'.
 Warning: Incomplete route for ptline '2341762' (Bus N56: U Magdalenenstraße → Wartenberg, Hagenower Ring → U Magdalenenstraße)
 Warning: PT stop: 3901927130 has been moved to edge: -32035133
 Warning: Ambiguity in turnarounds computation at junction '2526575765'.
