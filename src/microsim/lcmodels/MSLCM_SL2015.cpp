@@ -871,7 +871,12 @@ MSLCM_SL2015::prepareStep() {
     myCFRelated.clear();
     myCFRelatedReady = false;
     const double halfWidth = getWidth() * 0.5;
-    const double center = myVehicle.getCenterOnEdge();
+    double center;
+    if (isOpposite()) {
+        center = myVehicle.getEdge()->getWidth() + myVehicle.getLane()->getWidth() * 0.5 - myVehicle.getLateralPositionOnLane();
+    } else {
+        center = myVehicle.getCenterOnEdge();
+    }
     mySafeLatDistRight = center - halfWidth;
     mySafeLatDistLeft = getLeftBorder() - center - halfWidth;
     // truncate to work around numerical instability between different builds
@@ -1187,7 +1192,8 @@ MSLCM_SL2015::_wantsChangeSublane(
     */
 
     // react to a stopped leader on the current lane
-    if (bestLaneOffset == 0 && leaders.hasStoppedVehicle()) {
+    if ((bestLaneOffset == 0 && leaders.hasStoppedVehicle())
+            || (checkOpposite && neighLeaders.hasStoppedVehicle())) {
         // value is doubled for the check since we change back and forth
         // laDist = 0.5 * (myVehicle.getVehicleType().getLengthWithGap() + leader.first->getVehicleType().getLengthWithGap());
         // XXX determine length of longest stopped vehicle
@@ -1395,7 +1401,7 @@ MSLCM_SL2015::_wantsChangeSublane(
     //}
 
     // iterate over all possible combinations of sublanes this vehicle might cover and check the potential speed
-    const MSEdge& edge = myVehicle.getLane()->getEdge();
+    const MSEdge& edge = (isOpposite() ? myVehicle.getLane()->getOpposite() : myVehicle.getLane())->getEdge();
     const std::vector<double>& sublaneSides = edge.getSubLaneSides();
     assert(sublaneSides.size() == myExpectedSublaneSpeeds.size());
     const double vehWidth = getWidth();
@@ -1436,7 +1442,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                                myVehicle.getLane()->getRightSideOnEdge() + myVehicle.getLane()->getWidth(),
                                neighLane.getRightSideOnEdge() + neighLane.getWidth());
     double rightMin = MIN2(myVehicle.getLane()->getRightSideOnEdge(), neighLane.getRightSideOnEdge());
-    if (checkOpposite) {
+    if (checkOpposite || isOpposite()) {
         leftMax = getLeftBorder();
     } else {
         assert(leftMax <= edge.getWidth());
@@ -1673,7 +1679,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             }
         }
     }
-    if (!right) {
+    if (!right || isOpposite()) {
 
         const bool stayInLane = myVehicle.getLateralPositionOnLane() + latDist < 0.5 * myVehicle.getLane()->getWidth();
 #ifdef DEBUG_WANTSCHANGE
@@ -1830,7 +1836,7 @@ MSLCM_SL2015::_wantsChangeSublane(
 #endif
             latDistSublane = 0;
         }
-        latDist = latDistSublane;
+        latDist = latDistSublane * (isOpposite() ? -1 : 1);
         // XXX first compute preferred adaptation and then override with speed
         // (this way adaptation is still done if changing for speedgain is
         // blocked)
@@ -1989,9 +1995,9 @@ void
 MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int sublaneOffset, int laneIndex) {
     const std::vector<MSLane*>& lanes = myVehicle.getLane()->getEdge().getLanes();
     const std::vector<MSVehicle::LaneQ>& preb = myVehicle.getBestLanes();
-    const MSLane* lane = lanes[laneIndex];
+    const MSLane* lane = isOpposite() ? myVehicle.getLane()->getOpposite() : lanes[laneIndex];
     const double vMax = lane->getVehicleMaxSpeed(&myVehicle);
-    assert(preb.size() == lanes.size());
+    assert(preb.size() == lanes.size() || isOpposite());
 
     for (int sublane = 0; sublane < (int)ahead.numSublanes(); ++sublane) {
         const int edgeSublane = sublane + sublaneOffset;
@@ -2049,7 +2055,8 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
                 }
             }
             vSafe = MIN2(vMax, vSafe);
-            const double memoryFactor = pow(SPEEDGAIN_MEMORY_FACTOR, myVehicle.getActionStepLengthSecs());
+            // forget old data when on the opposite side
+            const double memoryFactor = isOpposite() ? 0 : pow(SPEEDGAIN_MEMORY_FACTOR, myVehicle.getActionStepLengthSecs());
             myExpectedSublaneSpeeds[edgeSublane] = memoryFactor * myExpectedSublaneSpeeds[edgeSublane] + (1 - memoryFactor) * vSafe;
         } else {
             // lane forbidden
@@ -2823,6 +2830,9 @@ MSLCM_SL2015::keepLatGap(int state,
     // stay within the current edge
     double surplusGapRight = oldCenter - halfWidth;
     double surplusGapLeft = getLeftBorder() - oldCenter - halfWidth;
+    if (isOpposite()) {
+        std::swap(surplusGapLeft, surplusGapRight);
+    }
 #ifdef DEBUG_KEEP_LATGAP
     if (gDebugFlag2) {
         std::cout << "\n  " << SIMTIME << " keepLatGap() laneOffset=" << laneOffset
@@ -2862,17 +2872,18 @@ MSLCM_SL2015::keepLatGap(int state,
     double physicalGapRight = myLastLateralGapRight == NO_NEIGHBOR ? surplusGapRight : myLastLateralGapRight;
 
     const double halfLaneWidth = myVehicle.getLane()->getWidth() * 0.5;
+    const double posLat = myVehicle.getLateralPositionOnLane() * (isOpposite() ? -1 : 1);
     if (stayInLane || laneOffset == 1) {
         // do not move past the right boundary of the current lane (traffic wasn't checked there)
         // but assume it's ok to be where we are in case we are already beyond
-        surplusGapRight  = MIN2(surplusGapRight,  MAX2(0.0, halfLaneWidth + myVehicle.getLateralPositionOnLane() - halfWidth));
-        physicalGapRight = MIN2(physicalGapRight, MAX2(0.0, halfLaneWidth + myVehicle.getLateralPositionOnLane() - halfWidth));
+        surplusGapRight  = MIN2(surplusGapRight,  MAX2(0.0, halfLaneWidth + posLat - halfWidth));
+        physicalGapRight = MIN2(physicalGapRight, MAX2(0.0, halfLaneWidth + posLat - halfWidth));
     }
     if (stayInLane || laneOffset == -1) {
         // do not move past the left boundary of the current lane (traffic wasn't checked there)
         // but assume it's ok to be where we are in case we are already beyond
-        surplusGapLeft  = MIN2(surplusGapLeft,  MAX2(0.0, halfLaneWidth - myVehicle.getLateralPositionOnLane() - halfWidth));
-        physicalGapLeft = MIN2(physicalGapLeft, MAX2(0.0, halfLaneWidth - myVehicle.getLateralPositionOnLane() - halfWidth));
+        surplusGapLeft  = MIN2(surplusGapLeft,  MAX2(0.0, halfLaneWidth - posLat - halfWidth));
+        physicalGapLeft = MIN2(physicalGapLeft, MAX2(0.0, halfLaneWidth - posLat - halfWidth));
     }
 #ifdef DEBUG_KEEP_LATGAP
     if (gDebugFlag2) {

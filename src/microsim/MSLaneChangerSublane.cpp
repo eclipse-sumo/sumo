@@ -199,7 +199,6 @@ MSLaneChangerSublane::change() {
                     && changeOpposite(leader)) {
                 return true;
             } else {
-                // XXX do we need to check for change within lane separately afterwards?
                 registerUnchanged(vehicle);
                 return false;
             }
@@ -715,6 +714,9 @@ MSLaneChangerSublane::checkChangeOpposite(
         const std::pair<MSVehicle* const, double>& neighFollow,
         const std::vector<MSVehicle::LaneQ>& preb) {
 
+    UNUSED_PARAMETER(leader);
+    UNUSED_PARAMETER(neighLead);
+    UNUSED_PARAMETER(neighFollow);
 
     const MSLane& neighLane = *targetLane;
 
@@ -729,6 +731,11 @@ MSLaneChangerSublane::checkChangeOpposite(
         const double posOnTarget = vehicle->getLane()->getOppositePos(vehicle->getBackPositionOnLane());
         MSLeaderDistanceInfo neighFollowers = targetLane->getFollowersOnConsecutive(vehicle, posOnTarget, true);
         addLeaders(targetLane, vehicle, posOnTarget, neighLeaders);
+        int sublaneIndex = 0;
+        for (int i = 0; i < targetLane->getIndex(); i++) {
+            sublaneIndex += MSLeaderInfo(targetLane->getEdge().getLanes()[i]).numSublanes();
+        }
+        vehicle->getLaneChangeModel().updateExpectedSublaneSpeeds(neighLeaders, sublaneIndex, targetLane->getIndex());
     }
 
 
