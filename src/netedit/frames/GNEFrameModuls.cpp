@@ -1743,7 +1743,12 @@ GNEFrameModuls::OverlappedInspection::showOverlappedInspection(const GNEViewNetH
     // iterate over objects under cursor
     for (const auto& AC : objectsUnderCursor.getClickedAttributeCarriers()) {
         bool insert = true;
-        // special case for supermode data
+        // check supermode demand
+        if (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
+            !AC->getTagProperty().isDemandElement()) {
+            insert = false;
+        }
+        // check supermode data
         if (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData() &&
                 !AC->getTagProperty().isGenericData()) {
             insert = false;
@@ -1756,34 +1761,41 @@ GNEFrameModuls::OverlappedInspection::showOverlappedInspection(const GNEViewNetH
             myOverlappedACs.push_back(AC);
         }
     }
-    mySavedClickedPosition = clickedPosition;
-    // by default we inspect first element
-    myItemIndex = 0;
-    // update text of current index button
-    myCurrentIndexButton->setText(("1 / " + toString(myOverlappedACs.size())).c_str());
-    // clear and fill list again
-    myOverlappedElementList->clearItems();
-    for (int i = 0; i < (int)myOverlappedACs.size(); i++) {
-        myOverlappedElementList->insertItem(i, myOverlappedACs.at(i)->getID().c_str(), myOverlappedACs.at(i)->getIcon());
+    // continue depending of number of myOverlappedACs
+    if (myOverlappedACs.size() > 1) {
+        mySavedClickedPosition = clickedPosition;
+        // by default we inspect first element
+        myItemIndex = 0;
+        // update text of current index button
+        myCurrentIndexButton->setText(("1 / " + toString(myOverlappedACs.size())).c_str());
+        // clear and fill list again
+        myOverlappedElementList->clearItems();
+        for (int i = 0; i < (int)myOverlappedACs.size(); i++) {
+            myOverlappedElementList->insertItem(i, myOverlappedACs.at(i)->getID().c_str(), myOverlappedACs.at(i)->getIcon());
+        }
+        // set first element as selected element
+        myOverlappedElementList->getItem(0)->setSelected(TRUE);
+        // by default list hidden
+        myOverlappedElementList->hide();
+        // show OverlappedInspection modul
+        show();
+    } else {
+        // hide OverlappedInspection modul
+        hide();
     }
-    // set first element as selected element
-    myOverlappedElementList->getItem(0)->setSelected(TRUE);
-    // by default list hidden
-    myOverlappedElementList->hide();
-    // show template editor
-    show();
 }
 
 
 void
 GNEFrameModuls::OverlappedInspection::hideOverlappedInspection() {
-    // hide modul
+    // hide OverlappedInspection modul
     hide();
 }
 
 
 bool
 GNEFrameModuls::OverlappedInspection::overlappedInspectionShown() const {
+    // show OverlappedInspection modul
     return shown();
 }
 

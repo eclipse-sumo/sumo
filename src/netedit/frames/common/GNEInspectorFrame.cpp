@@ -452,12 +452,8 @@ GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCur
     if (objectsUnderCursor.getAttributeCarrierFront()) {
         // inspect front element
         inspectSingleElement(objectsUnderCursor.getAttributeCarrierFront());
-        // if element has overlapped elements, show Overlapped Inspection modul
-        if (objectsUnderCursor.getClickedAttributeCarriers().size() > 1) {
-            myOverlappedInspection->showOverlappedInspection(objectsUnderCursor, clickedPosition);
-        } else {
-            myOverlappedInspection->hideOverlappedInspection();
-        }
+        // show Overlapped Inspection modul
+        myOverlappedInspection->showOverlappedInspection(objectsUnderCursor, clickedPosition);
     }
 }
 
