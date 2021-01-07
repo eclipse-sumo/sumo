@@ -557,7 +557,8 @@ def waitQuestion(answer):
 
 def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
            openAdditionalsNonSavedDialog=False, saveAdditionals=False,
-           openDemandNonSavedDialog=False, saveDemandElements=False):
+           openDemandNonSavedDialog=False, saveDemandElements=False,
+           openDataNonSavedDialog=False, saveDataElements=False):
     """
     @brief reload Netedit
     """
@@ -591,6 +592,14 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             waitQuestion('s')
         else:
             waitQuestion('q')
+    # Check if data elements must be saved
+    if openDataNonSavedDialog:
+        # Wait some seconds
+        time.sleep(DELAY_QUESTION)
+        if saveDataElements:
+            waitQuestion('s')
+        else:
+            waitQuestion('q')
     # Wait some seconds
     time.sleep(DELAY_RELOAD)
     # check if Netedit was crashed during reloading
@@ -600,7 +609,8 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
 
 def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
          openAdditionalsNonSavedDialog=False, saveAdditionals=False,
-         openDemandNonSavedDialog=False, saveDemandElements=False):
+         openDemandNonSavedDialog=False, saveDemandElements=False,
+         openDataNonSavedDialog=False, saveDataElements=False):
     """
     @brief quit Netedit
     """
@@ -636,6 +646,14 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             # Wait some seconds
             time.sleep(DELAY_QUESTION)
             if saveDemandElements:
+                waitQuestion('s')
+            else:
+                waitQuestion('q')  
+        # Check if data elements must be saved
+        if openDataNonSavedDialog:
+            # Wait some seconds
+            time.sleep(DELAY_QUESTION)
+            if saveDataElements:
                 waitQuestion('s')
             else:
                 waitQuestion('q')
@@ -2043,6 +2061,69 @@ def createLineTAZ(referencePosition, positionx, positiony, sizex, sizey, close):
     # finish draw
     typeEnter()
 
+#################################################
+# datas
+#################################################
+
+def edgeData():
+    """
+    @brief change to edgeData mode
+    """
+    typeKey('e')
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
+
+def edgeRelData():
+    """
+    @brief change to edgeRelData mode
+    """
+    typeKey('r')
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
+
+def createDataSet(dataSetID="newDataSet"):
+    """
+    @brief create dataSet
+    """
+    # focus current frame
+    focusOnFrame()
+    # go to create new dataSet
+    typeTab()
+    # enable create dataSet
+    typeSpace()
+    # go to create new dataSet
+    typeTab()
+    # create new ID
+    pasteIntoTextField(dataSetID)
+    # go to create new dataSet button
+    typeTab()
+    # create dataSet
+    typeSpace()
+    
+def createDataInterval(begin="0", end="3600"):
+    """
+    @brief create dataInterval
+    """
+    # focus current frame
+    focusOnFrame()
+    # go to create new dataInterval
+    for _ in range(3):
+        typeTab()
+    typeTab()
+    # enable create dataInterval
+    typeSpace()
+    # go to create new dataInterval begin
+    typeTab()
+    # set begin
+    pasteIntoTextField(begin)
+    # go to end
+    typeTab()
+    # set end
+    pasteIntoTextField(end)
+    # go to create new dataSet button
+    typeTab()
+    # create dataSet
+    typeSpace()
 
 #################################################
 # Contextual menu

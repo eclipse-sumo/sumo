@@ -46,6 +46,9 @@ additionals:\\{REPLACE /}
 routes:<!--{[->]}-->
 routes:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 routes:\\{REPLACE /}
+datas:<!--{[->]}-->
+datas:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+datas:\\{REPLACE /}
 netcon:<!--{[->]}-->
 netedg:<!--{[->]}-->
 netnod:<!--{[->]}-->
