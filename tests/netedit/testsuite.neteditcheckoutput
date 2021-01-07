@@ -16,6 +16,9 @@ TAZElements
 # test for demand elements (Routes, Vehicles, etc.)
 demandElements
 
+# test for data elements (edgeData, edgeRelData, etc...)
+dataElements
+
 # test for select elements 
 selection
 
