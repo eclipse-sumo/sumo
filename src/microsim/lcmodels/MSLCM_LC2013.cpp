@@ -1147,7 +1147,7 @@ MSLCM_LC2013::_wantsChange(
         currentDist = MAX2(currentDist, stopPos);
         neighDist = MAX2(neighDist, stopPos);
     }
-    const double posOnLane = isOpposite() ? myVehicle.getLane()->getOppositePos(myVehicle.getPositionOnLane()) : myVehicle.getPositionOnLane();
+    const double posOnLane = getForwardPos();
     const int lca = (right ? LCA_RIGHT : LCA_LEFT);
     const int myLca = (right ? LCA_MRIGHT : LCA_MLEFT);
     const int lcaCounter = (right ? LCA_LEFT : LCA_RIGHT);
