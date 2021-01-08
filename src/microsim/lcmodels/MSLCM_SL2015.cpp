@@ -1234,8 +1234,9 @@ MSLCM_SL2015::_wantsChangeSublane(
         // ensure that mySafeLatDistLeft / mySafeLatDistRight are up to date for the
         // subsquent check with laneOffset = 0
         const double center = myVehicle.getCenterOnEdge();
-        updateGaps(neighLeaders, neighLane.getRightSideOnEdge(), center, 1.0, mySafeLatDistRight, mySafeLatDistLeft);
-        updateGaps(neighFollowers, neighLane.getRightSideOnEdge(), center, 1.0, mySafeLatDistRight, mySafeLatDistLeft);
+        const double neighRight = isOpposite() ? myVehicle.getLane()->getRightSideOnEdge() - neighLane.getWidth() : neighLane.getRightSideOnEdge();
+        updateGaps(neighLeaders, neighRight, center, 1.0, mySafeLatDistRight, mySafeLatDistLeft);
+        updateGaps(neighFollowers, neighRight, center, 1.0, mySafeLatDistRight, mySafeLatDistLeft);
         return ret;
     }
     if ((ret & LCA_URGENT) != 0) {
@@ -2139,12 +2140,13 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double man
         return 0;
     }
 
+    const double neighRight = isOpposite() ? myVehicle.getLane()->getRightSideOnEdge() - neighLane.getWidth() : neighLane.getRightSideOnEdge();
     if (!myCFRelatedReady) {
         updateCFRelated(leaders, myVehicle.getLane()->getRightSideOnEdge(), true);
         updateCFRelated(followers, myVehicle.getLane()->getRightSideOnEdge(), false);
         if (laneOffset != 0) {
-            updateCFRelated(neighLeaders, neighLane.getRightSideOnEdge(), true);
-            updateCFRelated(neighFollowers, neighLane.getRightSideOnEdge(), false);
+            updateCFRelated(neighLeaders, neighRight, true);
+            updateCFRelated(neighFollowers, neighRight, false);
         }
         myCFRelatedReady = true;
     }
@@ -2154,8 +2156,8 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double man
     updateGaps(leaders, myVehicle.getLane()->getRightSideOnEdge(), center, gapFactor, mySafeLatDistRight, mySafeLatDistLeft, false, 0, latDist, collectLeadBlockers);
     updateGaps(followers, myVehicle.getLane()->getRightSideOnEdge(), center, gapFactor, mySafeLatDistRight, mySafeLatDistLeft, false, 0, latDist, collectFollowBlockers);
     if (laneOffset != 0) {
-        updateGaps(neighLeaders, neighLane.getRightSideOnEdge(), center, gapFactor, mySafeLatDistRight, mySafeLatDistLeft, false, 0, latDist, collectLeadBlockers);
-        updateGaps(neighFollowers, neighLane.getRightSideOnEdge(), center, gapFactor, mySafeLatDistRight, mySafeLatDistLeft, false, 0, latDist, collectFollowBlockers);
+        updateGaps(neighLeaders, neighRight, center, gapFactor, mySafeLatDistRight, mySafeLatDistLeft, false, 0, latDist, collectLeadBlockers);
+        updateGaps(neighFollowers, neighRight, center, gapFactor, mySafeLatDistRight, mySafeLatDistLeft, false, 0, latDist, collectFollowBlockers);
     }
 #ifdef DEBUG_BLOCKING
     if (gDebugFlag2) {
@@ -2198,10 +2200,10 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double man
     blocked |= checkBlockingVehicles(&myVehicle, followers, latDist, myVehicle.getLane()->getRightSideOnEdge(), false, LCA_BLOCKED_BY_FOLLOWER,
                                      mySafeLatDistRight, mySafeLatDistLeft, collectFollowBlockers);
     if (laneOffset != 0) {
-        blocked |= checkBlockingVehicles(&myVehicle, neighLeaders, latDist, neighLane.getRightSideOnEdge(), true,
+        blocked |= checkBlockingVehicles(&myVehicle, neighLeaders, latDist, neighRight, true,
                                          (laneOffset == -1 ? LCA_BLOCKED_BY_RIGHT_LEADER : LCA_BLOCKED_BY_LEFT_LEADER),
                                          mySafeLatDistRight, mySafeLatDistLeft, collectLeadBlockers);
-        blocked |= checkBlockingVehicles(&myVehicle, neighFollowers, latDist, neighLane.getRightSideOnEdge(), false,
+        blocked |= checkBlockingVehicles(&myVehicle, neighFollowers, latDist, neighRight, false,
                                          (laneOffset == -1 ? LCA_BLOCKED_BY_RIGHT_FOLLOWER : LCA_BLOCKED_BY_LEFT_FOLLOWER),
                                          mySafeLatDistRight, mySafeLatDistLeft, collectFollowBlockers);
     }
@@ -2212,10 +2214,10 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double man
     blockedFully |= checkBlockingVehicles(&myVehicle, followers, maneuverDist, myVehicle.getLane()->getRightSideOnEdge(), false, LCA_BLOCKED_BY_FOLLOWER,
                                           mySafeLatDistRight, mySafeLatDistLeft, collectFollowBlockers);
     if (laneOffset != 0) {
-        blockedFully |= checkBlockingVehicles(&myVehicle, neighLeaders, maneuverDist, neighLane.getRightSideOnEdge(), true,
+        blockedFully |= checkBlockingVehicles(&myVehicle, neighLeaders, maneuverDist, neighRight, true,
                                               (laneOffset == -1 ? LCA_BLOCKED_BY_RIGHT_LEADER : LCA_BLOCKED_BY_LEFT_LEADER),
                                               mySafeLatDistRight, mySafeLatDistLeft, collectLeadBlockers);
-        blockedFully |= checkBlockingVehicles(&myVehicle, neighFollowers, maneuverDist, neighLane.getRightSideOnEdge(), false,
+        blockedFully |= checkBlockingVehicles(&myVehicle, neighFollowers, maneuverDist, neighRight, false,
                                               (laneOffset == -1 ? LCA_BLOCKED_BY_RIGHT_FOLLOWER : LCA_BLOCKED_BY_LEFT_FOLLOWER),
                                               mySafeLatDistRight, mySafeLatDistLeft, collectFollowBlockers);
     }
@@ -2859,8 +2861,9 @@ MSLCM_SL2015::keepLatGap(int state,
 
     if (laneOffset != 0) {
         // maintain gaps to vehicles on the target lane
-        updateGaps(neighLeaders, neighLane.getRightSideOnEdge(), oldCenter, gapFactor, surplusGapRight, surplusGapLeft, true);
-        updateGaps(neighFollowers, neighLane.getRightSideOnEdge(), oldCenter, gapFactor, surplusGapRight, surplusGapLeft, true, netOverlap);
+        const double neighRight = isOpposite() ? myVehicle.getLane()->getRightSideOnEdge() - neighLane.getWidth() : neighLane.getRightSideOnEdge();
+        updateGaps(neighLeaders, neighRight, oldCenter, gapFactor, surplusGapRight, surplusGapLeft, true);
+        updateGaps(neighFollowers, neighRight, oldCenter, gapFactor, surplusGapRight, surplusGapLeft, true, netOverlap);
     }
 #ifdef DEBUG_KEEP_LATGAP
     if (gDebugFlag2) {
