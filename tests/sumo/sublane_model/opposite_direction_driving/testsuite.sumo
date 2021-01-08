@@ -22,21 +22,21 @@ overtaking_2stopped
 # two stopped vehicles are overtake but there is a collision because the overaken vehicles prevent return to the forward laneas soon as there is a safe gap in the oncoming traffic
 overtaking_2stopped_collision
 
-## same as overtaking_stopped but with step-length 0.2
-#overtaking_stopped_subsecond
-#
-## a stopped vehicle is overtaken but currently collides with its back on the opposite lane
-#overtaking_stopped_collision
-#
-## a slow vehicle is overtake as soon as there is a safe gap in the oncoming traffic
-#overtaking_slow
-#
-## old vs new behavior with forklifters
-#forklifter_demo
-#
-## a stopped vehicle is overtaken ahead of a geometry node
-#overtaking_noconflict_2edges
-#
+# same as overtaking_stopped but with step-length 0.2
+overtaking_stopped_subsecond
+
+# a stopped vehicle is overtaken but currently collides with its back on the opposite lane
+overtaking_stopped_collision
+
+# a slow vehicle is overtake as soon as there is a safe gap in the oncoming traffic
+overtaking_slow
+
+# old vs new behavior with forklifters
+forklifter_demo
+
+# a stopped vehicle is overtaken ahead of a geometry node
+overtaking_noconflict_2edges
+
 ## a stopped vehicle is overtaken ahead of a geometry node with subsecond resolution
 #overtaking_noconflict_2edges_subsec
 #
