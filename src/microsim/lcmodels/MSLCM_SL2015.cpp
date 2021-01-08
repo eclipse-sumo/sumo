@@ -871,12 +871,7 @@ MSLCM_SL2015::prepareStep() {
     myCFRelated.clear();
     myCFRelatedReady = false;
     const double halfWidth = getWidth() * 0.5;
-    double center;
-    if (isOpposite()) {
-        center = myVehicle.getEdge()->getWidth() + myVehicle.getLane()->getWidth() * 0.5 - myVehicle.getLateralPositionOnLane();
-    } else {
-        center = myVehicle.getCenterOnEdge();
-    }
+    double center = getVehicleCenter();
     mySafeLatDistRight = center - halfWidth;
     mySafeLatDistLeft = getLeftBorder() - center - halfWidth;
     // truncate to work around numerical instability between different builds
@@ -1406,7 +1401,7 @@ MSLCM_SL2015::_wantsChangeSublane(
     const std::vector<double>& sublaneSides = edge.getSubLaneSides();
     assert(sublaneSides.size() == myExpectedSublaneSpeeds.size());
     const double vehWidth = getWidth();
-    const double rightVehSide = myVehicle.getCenterOnEdge() - 0.5 * vehWidth;
+    const double rightVehSide = getVehicleCenter() - 0.5 * vehWidth;
     const double leftVehSide = rightVehSide + vehWidth;
     // figure out next speed when staying where we are
     double defaultNextSpeed = std::numeric_limits<double>::max();
@@ -3565,6 +3560,15 @@ double
 MSLCM_SL2015::getLeftBorder() const {
     return (myVehicle.getLane()->getEdge().getWidth()
             + (myVehicle.getLane()->getOpposite() != nullptr ? myVehicle.getLane()->getOpposite()->getWidth() : 0));
+}
+
+double
+MSLCM_SL2015::getVehicleCenter() const {
+    if (isOpposite()) {
+        return myVehicle.getEdge()->getWidth() + myVehicle.getLane()->getWidth() * 0.5 - myVehicle.getLateralPositionOnLane();
+    } else {
+        return myVehicle.getCenterOnEdge();
+    }
 }
 
 /****************************************************************************/
