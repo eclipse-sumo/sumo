@@ -531,7 +531,7 @@ struct GNEGeometry {
                                  const std::vector<double>& lengths, const std::vector<RGBColor>& colors, double width, const bool onlyContour = false);
 
     /// @brief draw geometry
-    static void drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width);
+    static void drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width, const bool onlyContour = false, const bool drawExtremes = false);
 
     /// @brief draw geometry points
     static void drawGeometryPoints(const GUIVisualizationSettings& s, const GNEViewNet* viewNet, const PositionVector& shape,

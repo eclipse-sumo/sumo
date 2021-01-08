@@ -153,7 +153,7 @@ GNEPathElements::drawJunctionPathChildren(const GUIVisualizationSettings& s, con
         }
     }
     // generic datas
-    if (myGenericData && myGenericData->isGenericDataVisible()) {
+    if (myGenericData) {
         for (const auto& pathElement : myPathElements) {
             if (pathElement.getJunction() == junction) {
                 myGenericData->drawPartialGL(s, pathElement.getLane(), pathElement.getNextLane(), offset);

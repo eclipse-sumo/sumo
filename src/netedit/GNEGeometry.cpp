@@ -1200,9 +1200,32 @@ GNEGeometry::updateGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, 
 
 
 void
-GNEGeometry::drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width) {
-    // first check if we're in draw for selecting cliking mode
-    if (viewNet->getVisualisationSettings().drawForPositionSelection) {
+GNEGeometry::drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width, const bool onlyContour,  const bool drawExtremes) {
+    // first check if we're in draw contour or for selecting cliking mode
+    if (onlyContour) {
+        // get shapes
+        PositionVector shapeA = geometry.getShape();
+        PositionVector shapeB = geometry.getShape();
+        // move both shapes
+        shapeA.move2side((width - 0.1));
+        shapeB.move2side((width - 0.1) * -1);
+        // check if we have to drawn extremes
+        if (drawExtremes) {
+            // reverse shape B
+            shapeB = shapeB.reverse();
+            // append shape B to shape A
+            shapeA.append(shapeB, 0);
+            // close shape A
+            shapeA.closePolygon();
+            // draw box lines using shapeA
+            GLHelper::drawBoxLines(shapeA, 0.1);
+        } else {
+            // draw box lines using shapeA
+            GLHelper::drawBoxLines(shapeA, 0.1);
+            // draw box lines using shapeA
+            GLHelper::drawBoxLines(shapeB, 0.1);
+        }
+    } else if (viewNet->getVisualisationSettings().drawForPositionSelection) {
         // obtain mouse Position
         const Position mousePosition = viewNet->getPositionInformation();
         // obtain position over lane relative to mouse position

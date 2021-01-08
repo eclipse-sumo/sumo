@@ -121,46 +121,48 @@ GNEEdgeRelData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 void
 GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const {
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
-        // get visible bool
-        const bool visible = isGenericDataVisible();
-        if (visible) {
-            // get lane width
-            const double laneWidth = s.addSize.getExaggeration(s, lane) * (lane->getParentEdge()->getNBEdge()->getLaneWidth(lane->getIndex()) * 0.5);
-            // Start drawing adding an gl identificator
+        // get flag for only draw contour
+        const bool onlyDrawContour = !isGenericDataVisible();
+        // get lane width
+        const double laneWidth = s.addSize.getExaggeration(s, lane) * (lane->getParentEdge()->getNBEdge()->getLaneWidth(lane->getIndex()) * 0.5);
+        // Start drawing adding an gl identificator
+        if (!onlyDrawContour) {
             glPushName(getGlID());
-            // Add a draw matrix
-            glPushMatrix();
-            // Start with the drawing of the area traslating matrix to origin
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_EDGERELDATA, offsetFront);
-            // Set orange color
-            GLHelper::setColor(RGBColor::BLACK);
-            // draw box lines
-            GNEGeometry::drawLaneGeometry(myNet->getViewNet(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth);
-            // translate to top
-            glTranslated(0, 0, 0.01);
-            // Set color
-            if (isAttributeCarrierSelected()) {
-                GLHelper::setColor(s.colorSettings.selectedEdgeDataColor);
-            } else {
-                GLHelper::setColor(getColor());
-            }
-            // draw interne box lines
-            GNEGeometry::drawLaneGeometry(myNet->getViewNet(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth - 0.1);
-            // Pop last matrix
-            glPopMatrix();
-            // Pop name
+        }
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_EDGERELDATA, offsetFront);
+        // Set orange color
+        GLHelper::setColor(RGBColor::BLACK);
+        // draw box lines
+        GNEGeometry::drawLaneGeometry(myNet->getViewNet(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth, onlyDrawContour);
+        // translate to top
+        glTranslated(0, 0, 0.01);
+        // Set color
+        if (isAttributeCarrierSelected()) {
+            GLHelper::setColor(s.colorSettings.selectedEdgeDataColor);
+        } else {
+            GLHelper::setColor(getColor());
+        }
+        // draw interne box lines
+        GNEGeometry::drawLaneGeometry(myNet->getViewNet(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth - 0.1, onlyDrawContour);
+        // Pop last matrix
+        glPopMatrix();
+        // Pop name
+        if (!onlyDrawContour) {
             glPopName();
-            // draw filtered attribute
-            if (getParentEdges().front()->getLanes().front() == lane) {
-                drawFilteredAttribute(s, lane->getLaneShape(), myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getAttributeSelector()->getFilteredAttribute());
-            }
-            // draw dotted contour
-            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                if (getParentEdges().front() == lane->getParentEdge()) {
-                    GNEGeometry::drawDottedContourEdge(GNEGeometry::DottedContourType::INSPECT, s, getParentEdges().front(), true, false);
-                } else {
-                    GNEGeometry::drawDottedContourEdge(GNEGeometry::DottedContourType::INSPECT, s, getParentEdges().back(), false, true);
-                }
+        }
+        // draw filtered attribute
+        if (getParentEdges().front()->getLanes().front() == lane) {
+            drawFilteredAttribute(s, lane->getLaneShape(), myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getAttributeSelector()->getFilteredAttribute());
+        }
+        // draw dotted contour
+        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+            if (getParentEdges().front() == lane->getParentEdge()) {
+                GNEGeometry::drawDottedContourEdge(GNEGeometry::DottedContourType::INSPECT, s, getParentEdges().front(), true, false);
+            } else {
+                GNEGeometry::drawDottedContourEdge(GNEGeometry::DottedContourType::INSPECT, s, getParentEdges().back(), false, true);
             }
         }
     }
@@ -170,128 +172,130 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
 void
 GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const {
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
-        // get visible bool
-        const bool visible = isGenericDataVisible();
-        if (visible) {
-            if ((fromLane->getParentEdge() == getParentEdges().front()) && (toLane->getParentEdge() == getParentEdges().back()) &&
-                    (getParentEdges().front() != getParentEdges().back())) {
-                // Start drawing adding an gl identificator
+        // get flag for only draw contour
+        const bool onlyDrawContour = !isGenericDataVisible();
+        if ((fromLane->getParentEdge() == getParentEdges().front()) && (toLane->getParentEdge() == getParentEdges().back()) &&
+                (getParentEdges().front() != getParentEdges().back())) {
+            // Start drawing adding an gl identificator
+            if (!onlyDrawContour) {
                 glPushName(getGlID());
-                // draw lanes
-                const auto fromLanes = fromLane->getParentEdge()->getLanes();
-                const auto toLanes = toLane->getParentEdge()->getLanes();
-                size_t index = 0;
-                while ((index < fromLanes.size()) || (index < toLanes.size())) {
-                    // get lanes
-                    const GNELane* from = (index < fromLanes.size()) ? fromLanes.at(index) : fromLanes.back();
-                    const GNELane* to = (index < toLanes.size()) ? toLanes.at(index) : toLanes.back();
-                    // get lane widths
-                    const double laneWidthFrom = s.addSize.getExaggeration(s, from) * (from->getParentEdge()->getNBEdge()->getLaneWidth(from->getIndex()) * 0.5);
-                    const double laneWidthTo = s.addSize.getExaggeration(s, to) * (to->getParentEdge()->getNBEdge()->getLaneWidth(to->getIndex()) * 0.5);
-                    const double laneWidth = laneWidthFrom < laneWidthTo ? laneWidthFrom : laneWidthTo;
-                    // Add a draw matrix
-                    glPushMatrix();
-                    // translate to GLO
-                    glTranslated(0, 0, getType() + offsetFront);
+            }
+            // draw lanes
+            const auto fromLanes = fromLane->getParentEdge()->getLanes();
+            const auto toLanes = toLane->getParentEdge()->getLanes();
+            size_t index = 0;
+            while ((index < fromLanes.size()) || (index < toLanes.size())) {
+                // get lanes
+                const GNELane* from = (index < fromLanes.size()) ? fromLanes.at(index) : fromLanes.back();
+                const GNELane* to = (index < toLanes.size()) ? toLanes.at(index) : toLanes.back();
+                // get lane widths
+                const double laneWidthFrom = s.addSize.getExaggeration(s, from) * (from->getParentEdge()->getNBEdge()->getLaneWidth(from->getIndex()) * 0.5);
+                const double laneWidthTo = s.addSize.getExaggeration(s, to) * (to->getParentEdge()->getNBEdge()->getLaneWidth(to->getIndex()) * 0.5);
+                const double laneWidth = laneWidthFrom < laneWidthTo ? laneWidthFrom : laneWidthTo;
+                // Add a draw matrix
+                glPushMatrix();
+                // translate to GLO
+                glTranslated(0, 0, getType() + offsetFront);
+                // Set color
+                GLHelper::setColor(RGBColor::BLACK);
+                if (from->getLane2laneConnections().exist(to)) {
+                    // draw box lines
+                    GNEGeometry::drawGeometry(myNet->getViewNet(), from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth, onlyDrawContour, false);
+                    // translate to top
+                    glTranslated(0, 0, 0.01);
                     // Set color
-                    GLHelper::setColor(RGBColor::BLACK);
-                    if (from->getLane2laneConnections().exist(to)) {
-                        // draw box lines
-                        GNEGeometry::drawGeometry(myNet->getViewNet(), from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth);
-                        // translate to top
-                        glTranslated(0, 0, 0.01);
-                        // Set color
-                        if (isAttributeCarrierSelected()) {
-                            GLHelper::setColor(s.colorSettings.selectedEdgeDataColor);
-                        } else {
-                            GLHelper::setColor(getColor());
-                        }
-                        // draw interne box lines
-                        GNEGeometry::drawGeometry(myNet->getViewNet(), from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth - 0.1);
+                    if (isAttributeCarrierSelected()) {
+                        GLHelper::setColor(s.colorSettings.selectedEdgeDataColor);
                     } else {
-                        // draw line between end of first shape and first position of second shape
-                        GLHelper::drawBoxLines({from->getLaneShape().back(), to->getLaneShape().front()}, laneWidth);
-                        // translate to top
-                        glTranslated(0, 0, 0.01);
-                        // Set color
-                        if (isAttributeCarrierSelected()) {
-                            GLHelper::setColor(s.colorSettings.selectedEdgeDataColor);
-                        } else {
-                            GLHelper::setColor(getColor());
-                        }
-                        // draw interne line between end of first shape and first position of second shape
-                        GLHelper::drawBoxLines({from->getLaneShape().back(), to->getLaneShape().front()}, laneWidth - 0.1);
+                        GLHelper::setColor(getColor());
                     }
-                    // Pop last matrix
-                    glPopMatrix();
-                    // update index
-                    index++;
+                    // draw interne box lines
+                    GNEGeometry::drawGeometry(myNet->getViewNet(), from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth - 0.1, onlyDrawContour, false);
+                } else {
+                    // draw line between end of first shape and first position of second shape
+                    GLHelper::drawBoxLines({from->getLaneShape().back(), to->getLaneShape().front()}, laneWidth);
+                    // translate to top
+                    glTranslated(0, 0, 0.01);
+                    // Set color
+                    if (isAttributeCarrierSelected()) {
+                        GLHelper::setColor(s.colorSettings.selectedEdgeDataColor);
+                    } else {
+                        GLHelper::setColor(getColor());
+                    }
+                    // draw interne line between end of first shape and first position of second shape
+                    GLHelper::drawBoxLines({from->getLaneShape().back(), to->getLaneShape().front()}, laneWidth - 0.1);
                 }
-                // Pop name
+                // Pop last matrix
+                glPopMatrix();
+                // update index
+                index++;
+            }
+            // Pop name
+            if (!onlyDrawContour) {
                 glPopName();
-                // draw dotted contour
-                if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                    // declare lanes
-                    const GNELane* laneTopA = getParentEdges().front()->getLanes().front();
-                    const GNELane* laneTopB = getParentEdges().back()->getLanes().front();
-                    const GNELane* laneBotA = getParentEdges().front()->getLanes().back();
-                    const GNELane* laneBotB = getParentEdges().back()->getLanes().back();
-                    // declare LaneDrawingConstants
-                    GNELane::LaneDrawingConstants laneDrawingConstantsTop(s, laneTopA);
-                    GNELane::LaneDrawingConstants laneDrawingConstantsBot(s, laneBotA);
-                    // declare DottedGeometryColor
-                    GNEGeometry::DottedGeometryColor dottedGeometryColor(s);
-                    // Push draw matrix
-                    glPushMatrix();
-                    // translate to front
-                    glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
-                    // check if lane2lane connection exist
-                    if (laneTopA->getLane2laneConnections().exist(laneTopB)) {
-                        // obtain lane2lane top dotted geometry
-                        GNEGeometry::DottedGeometry lane2lane = laneTopA->getLane2laneConnections().getLane2laneDottedGeometry(laneTopB);
-                        // move shape to side
-                        lane2lane.moveShapeToSide(laneDrawingConstantsTop.halfWidth);
-                        // invert offset
-                        lane2lane.invertOffset();
-                        // reset dottedGeometryColor
-                        dottedGeometryColor.reset();
-                        // draw top dotted geometry
-                        lane2lane.drawInspectedDottedGeometry(dottedGeometryColor);
-                    } else {
-                        // create dotted geometry using lane extremes
-                        GNEGeometry::DottedGeometry dottedGeometry(s, {laneTopA->getLaneShape().back(), laneTopB->getLaneShape().front()}, false);
-                        // move shape to side
-                        dottedGeometry.moveShapeToSide(laneDrawingConstantsTop.halfWidth);
-                        // invert offset
-                        dottedGeometry.invertOffset();
-                        // reset dottedGeometryColor
-                        dottedGeometryColor.reset();
-                        // draw top dotted geometry
-                        dottedGeometry.drawInspectedDottedGeometry(dottedGeometryColor);
-                    }
-                    // check if lane2lane bot connection exist
-                    if (laneBotA->getLane2laneConnections().exist(laneBotB)) {
-                        // obtain lane2lane dotted geometry
-                        GNEGeometry::DottedGeometry lane2lane = laneBotA->getLane2laneConnections().getLane2laneDottedGeometry(laneBotB);
-                        // move shape to side
-                        lane2lane.moveShapeToSide(laneDrawingConstantsBot.halfWidth * -1);
-                        // reset dottedGeometryColor
-                        dottedGeometryColor.reset();
-                        // draw top dotted geometry
-                        lane2lane.drawInspectedDottedGeometry(dottedGeometryColor);
-                    } else {
-                        // create dotted geometry using lane extremes
-                        GNEGeometry::DottedGeometry dottedGeometry(s, {laneBotA->getLaneShape().back(), laneBotB->getLaneShape().front()}, false);
-                        // move shape to side
-                        dottedGeometry.moveShapeToSide(laneDrawingConstantsBot.halfWidth * -1);
-                        // reset dottedGeometryColor
-                        dottedGeometryColor.reset();
-                        // draw top dotted geometry
-                        dottedGeometry.drawInspectedDottedGeometry(dottedGeometryColor);
-                    }
-                    // pop matrix
-                    glPopMatrix();
+            }
+            // draw dotted contour
+            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+                // declare lanes
+                const GNELane* laneTopA = getParentEdges().front()->getLanes().front();
+                const GNELane* laneTopB = getParentEdges().back()->getLanes().front();
+                const GNELane* laneBotA = getParentEdges().front()->getLanes().back();
+                const GNELane* laneBotB = getParentEdges().back()->getLanes().back();
+                // declare LaneDrawingConstants
+                GNELane::LaneDrawingConstants laneDrawingConstantsTop(s, laneTopA);
+                GNELane::LaneDrawingConstants laneDrawingConstantsBot(s, laneBotA);
+                // declare DottedGeometryColor
+                GNEGeometry::DottedGeometryColor dottedGeometryColor(s);
+                // Push draw matrix
+                glPushMatrix();
+                // translate to front
+                glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
+                // check if lane2lane connection exist
+                if (laneTopA->getLane2laneConnections().exist(laneTopB)) {
+                    // obtain lane2lane top dotted geometry
+                    GNEGeometry::DottedGeometry lane2lane = laneTopA->getLane2laneConnections().getLane2laneDottedGeometry(laneTopB);
+                    // move shape to side
+                    lane2lane.moveShapeToSide(laneDrawingConstantsTop.halfWidth);
+                    // invert offset
+                    lane2lane.invertOffset();
+                    // reset dottedGeometryColor
+                    dottedGeometryColor.reset();
+                    // draw top dotted geometry
+                    lane2lane.drawInspectedDottedGeometry(dottedGeometryColor);
+                } else {
+                    // create dotted geometry using lane extremes
+                    GNEGeometry::DottedGeometry dottedGeometry(s, {laneTopA->getLaneShape().back(), laneTopB->getLaneShape().front()}, false);
+                    // move shape to side
+                    dottedGeometry.moveShapeToSide(laneDrawingConstantsTop.halfWidth);
+                    // invert offset
+                    dottedGeometry.invertOffset();
+                    // reset dottedGeometryColor
+                    dottedGeometryColor.reset();
+                    // draw top dotted geometry
+                    dottedGeometry.drawInspectedDottedGeometry(dottedGeometryColor);
                 }
+                // check if lane2lane bot connection exist
+                if (laneBotA->getLane2laneConnections().exist(laneBotB)) {
+                    // obtain lane2lane dotted geometry
+                    GNEGeometry::DottedGeometry lane2lane = laneBotA->getLane2laneConnections().getLane2laneDottedGeometry(laneBotB);
+                    // move shape to side
+                    lane2lane.moveShapeToSide(laneDrawingConstantsBot.halfWidth * -1);
+                    // reset dottedGeometryColor
+                    dottedGeometryColor.reset();
+                    // draw top dotted geometry
+                    lane2lane.drawInspectedDottedGeometry(dottedGeometryColor);
+                } else {
+                    // create dotted geometry using lane extremes
+                    GNEGeometry::DottedGeometry dottedGeometry(s, {laneBotA->getLaneShape().back(), laneBotB->getLaneShape().front()}, false);
+                    // move shape to side
+                    dottedGeometry.moveShapeToSide(laneDrawingConstantsBot.halfWidth * -1);
+                    // reset dottedGeometryColor
+                    dottedGeometryColor.reset();
+                    // draw top dotted geometry
+                    dottedGeometry.drawInspectedDottedGeometry(dottedGeometryColor);
+                }
+                // pop matrix
+                glPopMatrix();
             }
         }
     }
