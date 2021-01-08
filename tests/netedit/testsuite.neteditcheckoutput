@@ -17,7 +17,7 @@ TAZElements
 demandElements
 
 # test for data elements (edgeData, edgeRelData, etc...)
-dataElements
+# dataElements
 
 # test for select elements 
 selection
