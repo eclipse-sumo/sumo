@@ -250,6 +250,10 @@ Parameterised::isParameterValid(const std::string& value, ParameterisedAttrType 
         if (SUMOXMLDefinitions::isValidParameterKey(keyValueStr.front()) == false) {
             return false;
         } else if (attrType == ParameterisedAttrType::DOUBLE) {
+            // first check if value is empty
+            if (keyValueStr.back().empty()) {
+                return false;
+            }
             // check if can be parsed to double
             try {
                 StringUtils::toDouble(keyValueStr.back());
