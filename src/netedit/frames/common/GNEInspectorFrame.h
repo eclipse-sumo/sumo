@@ -198,7 +198,7 @@ public:
             EdgeTemplate();
 
             /// @brief constructor
-            EdgeTemplate(GNEEdge* edge);
+            EdgeTemplate(const GNEEdge* edge);
 
             /// @brief edge parameters
             std::map<SumoXMLAttr, std::string> edgeParameters;
@@ -224,6 +224,9 @@ public:
 
         /// @brief get the template edge (to copy attributes from)
         const TemplateEditor::EdgeTemplate& getEdgeTemplate() const;
+
+        /// @brief update edge template
+        void updateEdgeTemplate(const GNEEdge *edge);
 
         /// @brief set template (used by shortcut)
         void setTemplate();
