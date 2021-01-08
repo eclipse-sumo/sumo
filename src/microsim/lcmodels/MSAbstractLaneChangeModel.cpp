@@ -593,9 +593,11 @@ MSAbstractLaneChangeModel::getShadowDirection() const {
     } else if (myAmOpposite) {
         // return neigh-lane in forward direction
         return 1;
-    } else {
-        assert(&myShadowLane->getEdge() == &myVehicle.getLane()->getEdge());
+    } else if (&myShadowLane->getEdge() == &myVehicle.getLane()->getEdge()) {
         return myShadowLane->getIndex() - myVehicle.getLane()->getIndex();
+    } else {
+        // overlap with opposite direction lane
+        return 1;
     }
 }
 

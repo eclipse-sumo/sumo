@@ -4120,6 +4120,8 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane) const {
             || lane == myLaneChangeModel->getTargetLane()) {
         if (myLaneChangeModel->isOpposite()) {
             return myState.myPos + myType->getLength();
+        } else if (&lane->getEdge() != &myLane->getEdge()) {
+            return lane->getLength() - myState.myPos;
         } else {
             return myState.myPos - myType->getLength();
         }

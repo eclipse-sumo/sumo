@@ -1361,7 +1361,7 @@ MSLink::getParallelLink(int direction) const {
     } else if (direction == 1) {
         return myParallelLeft;
     } else {
-        assert(false);
+        assert(false || myLane->getOpposite() != nullptr);
         return nullptr;
     }
 }
