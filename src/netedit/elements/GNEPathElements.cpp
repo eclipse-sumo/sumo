@@ -124,7 +124,7 @@ GNEPathElements::drawLanePathChildren(const GUIVisualizationSettings& s, const G
         }
     }
     // generic datas (only in supermode Data)
-    if (myGenericData && myGenericData->isGenericDataVisible()) {
+    if (myGenericData) {
         for (const auto& pathElement : myPathElements) {
             if (pathElement.getLane() == lane) {
                 myGenericData->drawPartialGL(s, lane, offset);
