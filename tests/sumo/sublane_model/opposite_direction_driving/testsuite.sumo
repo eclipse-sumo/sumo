@@ -67,8 +67,8 @@ return_no_opposite_leader
 long_queue
 
 # emergency vehicle may overtake long queue
-#long_queue_emergency
-#
+long_queue_emergency
+
 ## emergency vehicle may overtake queue before red light
 #emergency_redlight
 #
