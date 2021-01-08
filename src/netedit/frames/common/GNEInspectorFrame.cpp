@@ -1013,7 +1013,7 @@ GNEInspectorFrame::TemplateEditor::EdgeTemplate::EdgeTemplate() {
 }
 
 
-GNEInspectorFrame::TemplateEditor::EdgeTemplate::EdgeTemplate(GNEEdge* edge) {
+GNEInspectorFrame::TemplateEditor::EdgeTemplate::EdgeTemplate(const GNEEdge* edge) {
     // copy ID
     edgeParameters[SUMO_ATTR_ID] = edge->getAttribute(SUMO_ATTR_ID);
     // copy edge-specific attributes
@@ -1096,6 +1096,13 @@ GNEInspectorFrame::TemplateEditor::hasTemplate() const {
 const GNEInspectorFrame::TemplateEditor::EdgeTemplate&
 GNEInspectorFrame::TemplateEditor::getEdgeTemplate() const {
     return myEdgeTemplate;
+}
+
+
+void
+GNEInspectorFrame::TemplateEditor::updateEdgeTemplate(const GNEEdge* edge) {
+    // update edge template
+    myEdgeTemplate = TemplateEditor::EdgeTemplate(edge);
 }
 
 

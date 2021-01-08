@@ -195,13 +195,15 @@ MSLaneChangerSublane::change() {
                     }
                 }
             }
+            myCheckedChangeOpposite = false;
             if ((leader.first != nullptr || vehicle->getLaneChangeModel().isOpposite())
                     && changeOpposite(leader)) {
                 return true;
-            } else {
+            } else if (myCheckedChangeOpposite) {
                 registerUnchanged(vehicle);
                 return false;
             }
+            // try sublane change within current lane otherwise
         }
     }
 
@@ -411,7 +413,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     vehicle->getLaneChangeModel().updateShadowLane();
     MSLane* shadowLane = vehicle->getLaneChangeModel().getShadowLane();
     if (shadowLane != nullptr && shadowLane != oldShadowLane) {
-        assert(to != from || oldShadowLane == 0);
+        assert(to != from || oldShadowLane == 0 || vehicle->getLaneChangeModel().isOpposite());
         const double latOffset = vehicle->getLane()->getRightSideOnEdge() - shadowLane->getRightSideOnEdge();
         (myChanger.begin() + shadowLane->getIndex())->ahead.addLeader(vehicle, false, latOffset);
     }
@@ -713,6 +715,7 @@ MSLaneChangerSublane::checkChangeOpposite(
         const std::pair<MSVehicle* const, double>& neighLead,
         const std::pair<MSVehicle* const, double>& neighFollow,
         const std::vector<MSVehicle::LaneQ>& preb) {
+    myCheckedChangeOpposite = true;
 
     UNUSED_PARAMETER(leader);
     UNUSED_PARAMETER(neighLead);

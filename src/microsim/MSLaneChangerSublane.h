@@ -112,6 +112,9 @@ protected:
     /// @brief optional output for end of lane-change maneuvre
     void outputLCEnded(MSVehicle* vehicle, ChangerIt& from, ChangerIt& to, int direction);
 
+    /// @brief whether checkChangeOpposite was called for the current vehicle
+    bool myCheckedChangeOpposite;
+
 private:
     /// Default constructor.
     MSLaneChangerSublane();

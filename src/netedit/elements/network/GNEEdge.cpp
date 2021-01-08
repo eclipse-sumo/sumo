@@ -1304,6 +1304,10 @@ GNEEdge::StackDemandElements::getDemandElements() const {
 
 void
 GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
+    // get template editor
+    GNEInspectorFrame::TemplateEditor* templateEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
+    // check if we have to update template
+    const bool updateTemplate = (templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_ID) == getID());
     switch (key) {
         case SUMO_ATTR_ID:
             myNet->getAttributeCarriers()->updateID(this, value);
@@ -1423,6 +1427,10 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+    // update template
+    if (updateTemplate) {
+        templateEditor->updateEdgeTemplate(this);
     }
 }
 

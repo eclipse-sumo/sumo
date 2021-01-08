@@ -1629,7 +1629,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             if (myKeepRightProbability * myKeepRightParam > MAX2(myChangeProbThresholdRight, mySpeedGainProbabilityLeft)
                     /*&& latLaneDist <= -NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()*/) {
                 ret |= LCA_KEEPRIGHT;
-                assert(myVehicle.getLane()->getIndex() > neighLane.getIndex());
+                assert(myVehicle.getLane()->getIndex() > neighLane.getIndex() || isOpposite());
                 if (!cancelRequest(ret | LCA_RIGHT, laneOffset)) {
                     latDist = latLaneDist;
                     maneuverDist = latLaneDist;
