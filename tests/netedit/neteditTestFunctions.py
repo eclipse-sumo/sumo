@@ -332,9 +332,9 @@ def Popen(extraParameters, debugInformation):
                         os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")]
 
     # Check if datas must be loaded
-    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_datas.rou.xml")):
+    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_datas.dat.xml")):
         neteditCall += ['-d',
-                        os.path.join(_TEXTTEST_SANDBOX, "input_datas.rou.xml")]
+                        os.path.join(_TEXTTEST_SANDBOX, "input_datas.dat.xml")]
 
     # check if a gui settings file has to be load
     if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "gui-settings.xml")):
@@ -971,6 +971,36 @@ def checkParameters(referencePosition, attributeNumber, overlapped):
     modifyAttribute(attributeNumber, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", overlapped)
     # Change generic parameters with a valid value
     modifyAttribute(attributeNumber, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", overlapped)
+    # Check undo (including load/creation)
+    undo(referencePosition, 8)
+    # Check redo
+    redo(referencePosition, 8)
+
+
+def checkDoubleParameters(referencePosition, attributeNumber, overlapped, posX=0, posY=0):
+    """
+    @brief Check generic parameters
+    """
+    # Change generic parameters with an invalid value (dummy)
+    modifyAttribute(attributeNumber, "dummyGenericParameters", overlapped)
+    # Change generic parameters with an invalid value (invalid format)
+    modifyAttribute(attributeNumber, "key1|key2|key3", overlapped)
+    # Change generic parameters with a valid value
+    modifyAttribute(attributeNumber, "key1=1|key2=2|key3=3", overlapped)
+    # Change generic parameters with a valid value (empty values)
+    modifyAttribute(attributeNumber, "key1=|key2=|key3=", overlapped)
+    # Change generic parameters with a valid value (clear parameters)
+    modifyAttribute(attributeNumber, "", overlapped)
+    # Change generic parameters with an valid value (duplicated keys)
+    modifyAttribute(attributeNumber, "key1duplicated=1|key1duplicated=2|key3=3", overlapped)
+    # Change generic parameters with a valid value (duplicated values)
+    modifyAttribute(attributeNumber, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated", overlapped)
+    # Change generic parameters with an invalid value (invalid key characters)
+    modifyAttribute(attributeNumber, "keyInvalid.;%>%$$=1|key2=2|key3=3", overlapped)
+    # Change generic parameters with a invalid value (invalid value characters)
+    modifyAttribute(attributeNumber, "key1=valueInvalid%;%$<>$$%|key2=2|key3=3", overlapped)
+    # Change generic parameters with a valid value
+    modifyAttribute(attributeNumber, "keyFinal1=1|keyFinal2=2|keyFinal3=3", overlapped)
     # Check undo (including load/creation)
     undo(referencePosition, 8)
     # Check redo
@@ -1824,6 +1854,34 @@ def selectionInvertDemand():
     # focus current frame
     focusOnFrame()
     for _ in range(26):
+        typeTab()
+    # type space to select invert operation
+    typeSpace()
+    # wait for gl debug
+    time.sleep(DELAY_SELECT)
+    
+    
+def selectionClearData():
+    """
+    @brief clear selection
+    """
+    # focus current frame
+    focusOnFrame()
+    for _ in range(19):
+        typeTab()
+    # type space to select clear option
+    typeSpace()
+    # wait for gl debug
+    time.sleep(DELAY_SELECT)
+
+
+def selectionInvertData():
+    """
+    @brief invert selection (demand mode)
+    """
+    # focus current frame
+    focusOnFrame()
+    for _ in range(20):
         typeTab()
     # type space to select invert operation
     typeSpace()
