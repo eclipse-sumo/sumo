@@ -1474,19 +1474,6 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                     break;
                 }
             }
-            if (follow->getLaneChangeModel().getShadowLane() != nullptr && follow->getLane() == this) {
-                // check whether follow collides on the shadow lane
-                const MSLane* shadowLane = follow->getLaneChangeModel().getShadowLane();
-                const MSLeaderInfo& ahead = shadowLane->getLastVehicleInformation(follow,
-                                            getRightSideOnEdge() - shadowLane->getRightSideOnEdge(),
-                                            follow->getPositionOnLane());
-                for (int i = 0; i < ahead.numSublanes(); ++i) {
-                    MSVehicle* lead = const_cast<MSVehicle*>(ahead[i]);
-                    if (lead != nullptr && lead != follow && shadowLane->detectCollisionBetween(timestep, stage, follow, lead, toRemove, toTeleport)) {
-                        break;
-                    }
-                }
-            }
         }
     }
 
