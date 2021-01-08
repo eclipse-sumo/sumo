@@ -2665,18 +2665,37 @@ GNEViewNet::onCmdToogleDrawSpreadVehicles(FXObject*, FXSelector sel, void*) {
     }
     myNetworkViewOptions.menuCheckDrawSpreadVehicles->update();
     myDemandViewOptions.menuCheckDrawSpreadVehicles->update();
+    // declare edge set
+    std::set<GNEEdge*> edgesToUpdate;
     // compute vehicle geometry
     for (const auto& vehicle : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VEHICLE)) {
-        vehicle.second->updateGeometry();
+        if (vehicle.second->getParentEdges().size() > 0) {
+            edgesToUpdate.insert(vehicle.second->getParentEdges().front());
+        } else if (vehicle.second->getChildDemandElements().size() > 0 && (vehicle.second->getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) ){
+            edgesToUpdate.insert(vehicle.second->getChildDemandElements().front()->getParentEdges().front());
+        }
     }
     for (const auto& routeFlow : myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_ROUTE)) {
-        routeFlow.second->updateGeometry();
+        if (routeFlow.second->getParentEdges().size() > 0) {
+            edgesToUpdate.insert(routeFlow.second->getParentEdges().front());
+        }
+        else if (routeFlow.second->getChildDemandElements().size() > 0 && (routeFlow.second->getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
+            edgesToUpdate.insert(routeFlow.second->getChildDemandElements().front()->getParentEdges().front());
+        }
     }
     for (const auto& trip : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_TRIP)) {
-        trip.second->updateGeometry();
+        if (trip.second->getParentEdges().size() > 0) {
+            edgesToUpdate.insert(trip.second->getParentEdges().front());
+        }
     }
     for (const auto& flow : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_FLOW)) {
-        flow.second->updateGeometry();
+        if (flow.second->getParentEdges().size() > 0) {
+            edgesToUpdate.insert(flow.second->getParentEdges().front());
+        }
+    }
+    // update spread geometries of all edges
+    for (const auto &edge : edgesToUpdate) {
+        edge->updateVehicleSpreadGeometries();
     }
     // update view to show new vehicles positions
     updateViewNet();
