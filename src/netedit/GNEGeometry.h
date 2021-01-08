@@ -528,7 +528,7 @@ struct GNEGeometry {
 
     /// @brief draw lane geometry (use their own function due colors)
     static void drawLaneGeometry(const GNEViewNet* viewNet, const PositionVector& shape, const std::vector<double>& rotations,
-                                 const std::vector<double>& lengths, const std::vector<RGBColor>& colors, double width);
+                                 const std::vector<double>& lengths, const std::vector<RGBColor>& colors, double width, const bool onlyContour = false);
 
     /// @brief draw geometry
     static void drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width);
