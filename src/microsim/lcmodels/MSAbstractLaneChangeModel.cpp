@@ -1013,3 +1013,8 @@ MSAbstractLaneChangeModel::isStrategicBlocked() const {
     }
     return false;
 }
+
+double
+MSAbstractLaneChangeModel::getForwardPos() const {
+    return myAmOpposite ? myVehicle.getLane()->getLength() - myVehicle.getPositionOnLane() : myVehicle.getPositionOnLane();
+}

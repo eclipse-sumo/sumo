@@ -1072,7 +1072,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         // @note this information is dynamic and thus not available in updateBestLanes()
         // @note: nextStopDist was compute before the vehicle moved
         driveToNextStop = myVehicle.nextStopDist();
-        const double stopPos = myVehicle.getPositionOnLane() + myVehicle.nextStopDist() - myVehicle.getLastStepDist();
+        const double stopPos = getForwardPos() + myVehicle.nextStopDist() - myVehicle.getLastStepDist();
 #ifdef DEBUG_WANTS_CHANGE
         if (DEBUG_COND) {
             std::cout << SIMTIME << std::setprecision(gPrecision) << " veh=" << myVehicle.getID()
@@ -1723,7 +1723,7 @@ MSLCM_SL2015::_wantsChangeSublane(
     if (myVehicle.getParameter().arrivalPosLatProcedure != ArrivalPosLatDefinition::DEFAULT
             && myVehicle.getRoute().getLastEdge() == &myVehicle.getLane()->getEdge()
             && bestLaneOffset == 0
-            && (myVehicle.getArrivalPos() - myVehicle.getPositionOnLane()) < ARRIVALPOS_LAT_THRESHOLD) {
+            && (myVehicle.getArrivalPos() - getForwardPos()) < ARRIVALPOS_LAT_THRESHOLD) {
         // vehicle is on its final edge, on the correct lane and close to
         // its arrival position. Change to the desired lateral position
         switch (myVehicle.getParameter().arrivalPosLatProcedure) {
@@ -2589,11 +2589,12 @@ MSLCM_SL2015::checkStrategicChange(int ret,
     const bool right = (laneOffset == -1);
     const bool left = (laneOffset == 1);
 
-    myLeftSpace = currentDist - myVehicle.getPositionOnLane();
-    const double usableDist = (currentDist - myVehicle.getPositionOnLane() - best.occupation *  JAM_FACTOR);
+    const double forwardPos = getForwardPos();
+    myLeftSpace = currentDist - forwardPos;
+    const double usableDist = (currentDist - forwardPos - best.occupation *  JAM_FACTOR);
     //- (best.lane->getVehicleNumber() * neighSpeed)); // VARIANT 9 jfSpeed
     const double maxJam = MAX2(neigh.occupation, curr.occupation);
-    const double neighLeftPlace = MAX2(0., neighDist - myVehicle.getPositionOnLane() - maxJam);
+    const double neighLeftPlace = MAX2(0., neighDist - forwardPos - maxJam);
     // save the left space
 
 #ifdef DEBUG_STRATEGIC_CHANGE

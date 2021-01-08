@@ -573,6 +573,9 @@ public:
     ///        For the sublane case, this includes setting a new maneuver distance if appropriate.
     void checkTraCICommands();
 
+    /// @brief get vehicle position relative to the forward direction lane
+    double getForwardPos() const;
+
     static const double NO_NEIGHBOR;
 
 protected:
