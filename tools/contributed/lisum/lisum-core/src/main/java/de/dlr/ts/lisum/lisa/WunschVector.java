@@ -48,6 +48,10 @@ class WunschVector {
         StringBuilder sb = new StringBuilder();
         //sb.append("{");
         sb.append(ebene).append(";");
+        
+        //to be compatible with LISA 7.2 and higher
+        sb.append("0;0;0;");
+        
         sb.append(betriebsArt).append(";");
         sb.append(signalProg).append(";");
         sb.append(knotenEinAus).append(";");
