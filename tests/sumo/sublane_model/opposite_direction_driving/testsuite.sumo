@@ -13,12 +13,12 @@ overtaking_multilane_unusable
 # a stopped vehicle is overtaken
 overtaking_noconflict_subsecond
 
-## a stopped vehicle is overtake as soon as there is a safe gap in the oncoming traffic
-#overtaking_stopped
-#
-## two stopped vehicles are overtake as soon as there is a safe gap in the oncoming traffic
-#overtaking_2stopped
-#
+# a stopped vehicle is overtake as soon as there is a safe gap in the oncoming traffic
+overtaking_stopped
+
+# two stopped vehicles are overtake as soon as there is a safe gap in the oncoming traffic
+overtaking_2stopped
+
 ## two stopped vehicles are overtake but there is a collision because the overaken vehicles prevent return to the forward laneas soon as there is a safe gap in the oncoming traffic
 #overtaking_2stopped_collision
 #
