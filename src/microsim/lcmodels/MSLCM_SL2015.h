@@ -285,6 +285,7 @@ protected:
                              double laDist,
                              double roundaboutBonus,
                              double latLaneDist,
+                             bool checkOpposite,
                              double& latDist
                             );
 

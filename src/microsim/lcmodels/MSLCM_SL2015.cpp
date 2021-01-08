@@ -1222,6 +1222,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                                    laDist,
                                    roundaboutBonus,
                                    latLaneDist,
+                                   checkOpposite,
                                    latDist);
     }
 
@@ -2581,6 +2582,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
                                    double laDist,
                                    double roundaboutBonus,
                                    double latLaneDist,
+                                   bool checkOpposite,
                                    double& latDist
                                   ) {
     const bool right = (laneOffset == -1);
@@ -2663,6 +2665,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
             && !leaders.hasStoppedVehicle()
             && neigh.bestContinuations.back()->getLinkCont().size() != 0
             && roundaboutBonus == 0
+            && !checkOpposite
             && neighDist < TURN_LANE_DIST
             && myStrategicParam >= 0) {
             // VARIANT_21 (stayOnBest)
