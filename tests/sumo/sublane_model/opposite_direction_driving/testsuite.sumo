@@ -19,9 +19,9 @@ overtaking_stopped
 # two stopped vehicles are overtake as soon as there is a safe gap in the oncoming traffic
 overtaking_2stopped
 
-## two stopped vehicles are overtake but there is a collision because the overaken vehicles prevent return to the forward laneas soon as there is a safe gap in the oncoming traffic
-#overtaking_2stopped_collision
-#
+# two stopped vehicles are overtake but there is a collision because the overaken vehicles prevent return to the forward laneas soon as there is a safe gap in the oncoming traffic
+overtaking_2stopped_collision
+
 ## same as overtaking_stopped but with step-length 0.2
 #overtaking_stopped_subsecond
 #
