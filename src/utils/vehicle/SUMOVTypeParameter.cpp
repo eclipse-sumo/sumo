@@ -75,7 +75,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             break;
         case SVC_MOPED:
             maxSpeed = 60. / 3.6;
-            width = 0.8;
+            width = 0.78;
             height = 1.7;
             shape = SVS_MOPED;
             personCapacity = 1;
