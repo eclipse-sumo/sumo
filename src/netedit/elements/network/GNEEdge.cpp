@@ -1306,8 +1306,10 @@ void
 GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
     // get template editor
     GNEInspectorFrame::TemplateEditor* templateEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
+    // get edge parameters
+    const auto edgeParameters = templateEditor->getEdgeTemplate().edgeParameters;
     // check if we have to update template
-    const bool updateTemplate = (templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_ID) == getID());
+    const bool updateTemplate = edgeParameters.empty()? false : (edgeParameters.at(SUMO_ATTR_ID) == getID());
     switch (key) {
         case SUMO_ATTR_ID:
             myNet->getAttributeCarriers()->updateID(this, value);
