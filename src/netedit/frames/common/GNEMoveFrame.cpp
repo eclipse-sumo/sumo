@@ -20,6 +20,9 @@
 #include <config.h>
 
 #include <netedit/frames/common/GNEMoveFrame.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNENet.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 
 // ===========================================================================
@@ -31,6 +34,7 @@
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::ChangeJunctionsZ::ChangeJunctionsZ(GNEMoveFrame* moveFrameParent) :
+    FXGroupBox(moveFrameParent->myContentFrame, "Change junctions Z", GUIDesignGroupBoxFrame),
     myMoveFrameParent(moveFrameParent) {
 
 }
@@ -38,12 +42,29 @@ GNEMoveFrame::ChangeJunctionsZ::ChangeJunctionsZ(GNEMoveFrame* moveFrameParent) 
 
 GNEMoveFrame::ChangeJunctionsZ::~ChangeJunctionsZ() {}
 
+
+void 
+GNEMoveFrame::ChangeJunctionsZ::showChangeJunctionsZ() {
+    // show modul
+    show();
+}
+
+
+void
+GNEMoveFrame::ChangeJunctionsZ::hideChangeJunctionsZ() {
+    // hide modul
+    hide();
+}
+
 // ---------------------------------------------------------------------------
 // GNEMoveFrame - methods
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::GNEMoveFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Move") {
+    GNEFrame(horizontalFrameParent, viewNet, "Move"),
+    myChangeJunctionsZ(nullptr) {
+    // create change junctions z
+    myChangeJunctionsZ = new ChangeJunctionsZ(this);
 }
 
 
@@ -60,6 +81,12 @@ GNEMoveFrame::processClick(const Position& /*clickedPosition*/,
 
 void
 GNEMoveFrame::show() {
+    // check if there are junctions selected
+    if (myViewNet->getNet()->retrieveJunctions(true).size() > 0) {
+        myChangeJunctionsZ->showChangeJunctionsZ();
+    } else {
+        myChangeJunctionsZ->hideChangeJunctionsZ();
+    }
     GNEFrame::show();
 }
 

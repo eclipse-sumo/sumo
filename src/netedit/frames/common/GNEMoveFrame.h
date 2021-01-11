@@ -32,7 +32,6 @@
 class GNEMoveFrame : public GNEFrame {
 
 public:
-
     // ===========================================================================
     // class ChangeJunctionsZ
     // ===========================================================================
@@ -45,6 +44,12 @@ public:
 
         /// @brief destructor
         ~ChangeJunctionsZ();
+
+        /// @brief show change junctions Z
+        void showChangeJunctionsZ();
+
+        /// @brief hide change junctions Z
+        void hideChangeJunctionsZ();
 
     private:
         /// @brief pointer to move frame parent
@@ -93,4 +98,8 @@ public:
 
     /// @brief hide prohibition frame
     void hide();
+
+private:
+    /// @brief modul for cange junctions Z
+    ChangeJunctionsZ* myChangeJunctionsZ;
 };
