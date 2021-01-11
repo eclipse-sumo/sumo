@@ -1995,6 +1995,12 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
     const MSLane* lane = isOpposite() ? myVehicle.getLane()->getOpposite() : lanes[laneIndex];
     const double vMax = lane->getVehicleMaxSpeed(&myVehicle);
     assert(preb.size() == lanes.size() || isOpposite());
+#ifdef DEBUG_EXPECTED_SLSPEED
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " veh=" << myVehicle.getID() << " updateExpectedSublaneSpeeds opposite=" << isOpposite()
+            << " sublaneOffset=" << sublaneOffset << " laneIndex=" << laneIndex << " lane=" << lane->getID() << " ahead=" << ahead.toString() << "\n";
+    }
+#endif
 
     for (int sublane = 0; sublane < (int)ahead.numSublanes(); ++sublane) {
         const int edgeSublane = sublane + sublaneOffset;
@@ -2020,7 +2026,7 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
                                 &myVehicle, vMax, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
 #ifdef DEBUG_EXPECTED_SLSPEED
                     if (DEBUG_COND) {
-                        std::cout << SIMTIME << " veh=" << myVehicle.getID() << " updateExpectedSublaneSpeeds edgeSublane=" << edgeSublane << " leader=" << leader->getID() << " gap=" << gap << " vSafe=" << vSafe << "\n";
+                        std::cout << "   updateExpectedSublaneSpeeds edgeSublane=" << edgeSublane << " leader=" << leader->getID() << " gap=" << gap << " vSafe=" << vSafe << "\n";
                     }
 #endif
                     const double deltaV = vMax - leader->getSpeed();
@@ -2032,7 +2038,7 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
                         const double vSafe2 = (gapClosingTime * vSafe + (foreCastTime - gapClosingTime) * leader->getSpeed()) / foreCastTime;
 #ifdef DEBUG_EXPECTED_SLSPEED
                         if (DEBUG_COND && vSafe2 != vSafe) {
-                            std::cout << "   foreCastTime=" << foreCastTime << " gapClosingTime=" << gapClosingTime << " extrapolated vSafe=" << vSafe2 << "\n";
+                            std::cout << "     foreCastTime=" << foreCastTime << " gapClosingTime=" << gapClosingTime << " extrapolated vSafe=" << vSafe2 << "\n";
                         }
 #endif
                         vSafe = vSafe2;

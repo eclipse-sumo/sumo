@@ -1027,6 +1027,11 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
     myCandi = findCandidate();
     MSVehicle* vehicle = veh(myCandi);
     MSLane* source = vehicle->getMutableLane();
+#ifdef DEBUG_CHANGE_OPPOSITE
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " veh=" << vehicle->getID() << " considerChangeOpposite source=" << source->getID() << " opposite=" << Named::getIDSecure(source->getOpposite()) << " lead=" << Named::getIDSecure(leader.first) << "\n";
+        }
+#endif
     if (vehicle->isStopped()) {
         // stopped vehicles obviously should not change lanes. Usually this is
         // prevent by appropriate bestLane distances
