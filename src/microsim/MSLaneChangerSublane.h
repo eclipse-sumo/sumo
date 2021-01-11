@@ -107,6 +107,9 @@ protected:
     /// @brief helper function that calls checkChangeSublane and sets blocker information
     StateAndDist checkChangeHelper(MSVehicle* vehicle, int laneOffset, LaneChangeAction alternatives);
 
+    /// @brief  find the closest leader that prevents ego vehicle from passing on the current lane
+    static std::pair<MSVehicle*, double> findClosestLeader(const MSLeaderDistanceInfo& leaders, const MSVehicle* vehicle);
+
     /// @brief optional output for start of lane-change maneuvre
     void outputLCStarted(MSVehicle* vehicle, ChangerIt& from, ChangerIt& to, int direction, double maneuverDist);
     /// @brief optional output for end of lane-change maneuvre

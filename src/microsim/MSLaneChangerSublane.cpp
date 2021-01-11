@@ -180,21 +180,7 @@ MSLaneChangerSublane::change() {
                 myChanger.size() == 1 || vehicle->getLaneChangeModel().isOpposite() || (!mayChange(-1) && !mayChange(1)))) {
         const MSLeaderDistanceInfo& leaders = myCandi->aheadNext;
         if (leaders.hasVehicles() || vehicle->getLaneChangeModel().isOpposite()) {
-            // find the closest leader that prevents ego vehicle from passing on the current lane
-            const double egoWidth = vehicle->getVehicleType().getWidth() + vehicle->getVehicleType().getMinGapLat();
-            std::pair<MSVehicle*, double> leader(nullptr, std::numeric_limits<double>::max());
-            for (int i = 0; i < leaders.numSublanes(); ++i) {
-                CLeaderDist cand = leaders[i];
-                if (cand.first != nullptr) {
-                    const double rightSide = cand.first->getRightSideOnLane();
-                    if (cand.second < leader.second
-                            && rightSide < egoWidth
-                            && vehicle->getLane()->getWidth() - rightSide - cand.first->getVehicleType().getWidth() < egoWidth) {
-                        leader.first = const_cast<MSVehicle*>(cand.first);
-                        leader.second = cand.second;
-                    }
-                }
-            }
+            std::pair<MSVehicle*, double> leader = findClosestLeader(leaders, vehicle);
             myCheckedChangeOpposite = false;
             if ((leader.first != nullptr || vehicle->getLaneChangeModel().isOpposite())
                     && changeOpposite(leader)) {
@@ -790,6 +776,25 @@ MSLaneChangerSublane::checkChangeOpposite(
     } else {
         return false;
     }
+}
+
+std::pair<MSVehicle*, double>
+MSLaneChangerSublane::findClosestLeader(const MSLeaderDistanceInfo& leaders, const MSVehicle* vehicle) {
+    const double egoWidth = vehicle->getVehicleType().getWidth() + vehicle->getVehicleType().getMinGapLat();
+    std::pair<MSVehicle*, double> leader(nullptr, std::numeric_limits<double>::max());
+    for (int i = 0; i < leaders.numSublanes(); ++i) {
+        CLeaderDist cand = leaders[i];
+        if (cand.first != nullptr) {
+            const double rightSide = cand.first->getRightSideOnLane();
+            if (cand.second < leader.second
+                    && rightSide < egoWidth
+                    && vehicle->getLane()->getWidth() - rightSide - cand.first->getVehicleType().getWidth() < egoWidth) {
+                leader.first = const_cast<MSVehicle*>(cand.first);
+                leader.second = cand.second;
+            }
+        }
+    }
+    return leader;
 }
 
 
