@@ -67,6 +67,8 @@ GNEMoveFrame::ChangeJunctionsZ::ChangeJunctionsZ(GNEMoveFrame* moveFrameParent) 
         GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_APPLY, GUIDesignButton);
     // set absolute value as default
     myAbsoluteValue->setCheck(true);
+    // set info label
+    myInfoLabel = new FXLabel(this, "", nullptr, GUIDesignLabelFrameInformation);
 }
 
 
@@ -75,6 +77,8 @@ GNEMoveFrame::ChangeJunctionsZ::~ChangeJunctionsZ() {}
 
 void 
 GNEMoveFrame::ChangeJunctionsZ::showChangeJunctionsZ() {
+    // update info label
+    updateInfoLabel();
     // show modul
     show();
 }
@@ -114,7 +118,7 @@ GNEMoveFrame::ChangeJunctionsZ::onCmdApplyZ(FXObject*, FXSelector, void*) {
     // get junctions
     const auto junctions = myMoveFrameParent->getViewNet()->getNet()->retrieveJunctions(true);
     // begin undo-redo 
-    myMoveFrameParent->getViewNet()->getUndoList()->p_begin("Change junctions z values");
+    myMoveFrameParent->getViewNet()->getUndoList()->p_begin("Change junction Z values");
     // iterate over junctions
     for (const auto& junction : junctions) {
         if (junction->getNBNode()->hasCustomShape()) {
@@ -144,7 +148,48 @@ GNEMoveFrame::ChangeJunctionsZ::onCmdApplyZ(FXObject*, FXSelector, void*) {
     }
     // end undo-redo
     myMoveFrameParent->getViewNet()->getUndoList()->p_end();
+    // update info label
+    updateInfoLabel();
     return 1;
+}
+
+
+void 
+GNEMoveFrame::ChangeJunctionsZ::updateInfoLabel() {
+    // get junctions
+    const auto junctions = myMoveFrameParent->getViewNet()->getNet()->retrieveJunctions(true);
+    if (junctions.size() > 0) {
+        // declare minimum, maximun and average
+        double minimum = junctions.front()->getNBNode()->getPosition().z();
+        double maximun = junctions.front()->getNBNode()->getPosition().z();
+        double average = 0;
+        // iterate over junctions
+        for (const auto& junction : junctions) {
+            // get z
+            const double z = junction->getNBNode()->getPosition().z();
+            // check min
+            if (z < minimum) {
+                minimum = z;
+            }
+            // check max
+            if (z > maximun) {
+                maximun = z;
+            }
+            // update average
+            average += z;
+        }
+        // update average
+        average = 100 * average / (double)junctions.size();
+        average = floor(average);
+        average = average * 0.01;
+        // set label string
+        const std::string labelStr = 
+            "- Minimum: " + toString(minimum) + "\n" +
+            "- Maximum: " + toString(maximun) + "\n" +
+            "- Average: " + toString(average);
+        // update info label
+        myInfoLabel->setText(labelStr.c_str());
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -178,11 +223,10 @@ GNEMoveFrame::show() {
     } else {
         myChangeJunctionsZ->hideChangeJunctionsZ();
     }
-    // recalc and update
-    recalc();
-    update();
     // show
     GNEFrame::show();
+    // recalc and update
+    update();
 }
 
 

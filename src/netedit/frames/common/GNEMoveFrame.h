@@ -70,18 +70,24 @@ public:
         /// @brief FPX need this
         FOX_CONSTRUCTOR(ChangeJunctionsZ)
 
+        /// @brief update label
+        void updateInfoLabel();
+
     private:
         /// @brief pointer to move frame parent
         GNEMoveFrame *myMoveFrameParent;
 
         /// @brief textField for Z value
-        FXTextField* myZValueTextField;
+        FXTextField* myZValueTextField = nullptr;
         
         /// @brief radio button for absolute value
-        FXRadioButton* myAbsoluteValue;
+        FXRadioButton* myAbsoluteValue = nullptr;
 
         /// @brief radio button for relative value
-        FXRadioButton* myRelativeValue;
+        FXRadioButton* myRelativeValue = nullptr;
+
+        /// @brief info label
+        FXLabel *myInfoLabel = nullptr;
     };
 
     /**@brief Constructor
