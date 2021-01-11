@@ -733,6 +733,8 @@ enum {
     MID_GNE_INSPECT,
     /// @brief reset element
     MID_GNE_RESET,
+    /// @brief aply element
+    MID_GNE_APPLY,
     /// @brief center element
     MID_GNE_CENTER,
     /// @brief copy element

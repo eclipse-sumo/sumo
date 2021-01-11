@@ -23,7 +23,20 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+
+FXDEFMAP(GNEMoveFrame::ChangeJunctionsZ) ChangeJunctionsZMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEMoveFrame::ChangeJunctionsZ::onCmdChangeZValue),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_APPLY,          GNEMoveFrame::ChangeJunctionsZ::onCmdApplyZ),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_RESET,          GNEMoveFrame::ChangeJunctionsZ::onCmdResetZ),
+};
+
+// Object implementation
+FXIMPLEMENT(GNEMoveFrame::ChangeJunctionsZ, FXGroupBox, ChangeJunctionsZMap, ARRAYNUMBER(ChangeJunctionsZMap))
 
 // ===========================================================================
 // method definitions
@@ -36,7 +49,20 @@
 GNEMoveFrame::ChangeJunctionsZ::ChangeJunctionsZ(GNEMoveFrame* moveFrameParent) :
     FXGroupBox(moveFrameParent->myContentFrame, "Change junctions Z", GUIDesignGroupBoxFrame),
     myMoveFrameParent(moveFrameParent) {
-
+    // create horizontal frame
+    FXHorizontalFrame* myZValueFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    // create elements for Z value
+    new FXLabel(myZValueFrame, "Z value", 0, GUIDesignLabelAttribute);
+    myZValueTextField = new FXTextField(myZValueFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
+    myZValueTextField->setText("0");
+    // create apply button
+    new FXButton(moveFrameParent->myContentFrame, 
+        "Apply\t\tApply Z value to all selected junctions", 
+        GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_APPLY, GUIDesignButtonOK);
+    // create reset button
+    new FXButton(moveFrameParent->myContentFrame, 
+        "Reset\t\tReset Z value in all selected junctions", 
+        GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonOK);
 }
 
 
@@ -54,6 +80,27 @@ void
 GNEMoveFrame::ChangeJunctionsZ::hideChangeJunctionsZ() {
     // hide modul
     hide();
+}
+
+
+long 
+GNEMoveFrame::ChangeJunctionsZ::onCmdChangeZValue(FXObject*, FXSelector, void*) {
+    // currently nothing to do
+    return 1;
+}
+
+
+long
+GNEMoveFrame::ChangeJunctionsZ::onCmdApplyZ(FXObject*, FXSelector, void*) {
+
+    return 1;
+}
+
+
+long
+GNEMoveFrame::ChangeJunctionsZ::onCmdResetZ(FXObject*, FXSelector, void*) {
+
+    return 1;
 }
 
 // ---------------------------------------------------------------------------
@@ -87,12 +134,16 @@ GNEMoveFrame::show() {
     } else {
         myChangeJunctionsZ->hideChangeJunctionsZ();
     }
+    // update
+    recalc();
+    // show
     GNEFrame::show();
 }
 
 
 void
 GNEMoveFrame::hide() {
+    // hide frame
     GNEFrame::hide();
 }
 

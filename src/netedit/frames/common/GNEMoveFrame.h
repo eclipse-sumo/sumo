@@ -37,6 +37,8 @@ public:
     // ===========================================================================
 
     class ChangeJunctionsZ : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEMoveFrame::ChangeJunctionsZ)
 
     public:
         /// @brief constructor
@@ -51,9 +53,29 @@ public:
         /// @brief hide change junctions Z
         void hideChangeJunctionsZ();
 
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when user changes Z value
+        long onCmdChangeZValue(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press the apply Z button
+        long onCmdApplyZ(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press the reset Z button
+        long onCmdResetZ(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FPX need this
+        FOX_CONSTRUCTOR(ChangeJunctionsZ)
+
     private:
         /// @brief pointer to move frame parent
         GNEMoveFrame *myMoveFrameParent;
+
+        /// @brief textField for Z value
+        FXTextField* myZValueTextField;
+
         /*
         /// @brief checkbox for enable/disable delete only geometry points
         FXCheckButton* myDeleteOnlyGeometryPoints;
