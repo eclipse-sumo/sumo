@@ -58,11 +58,12 @@ public:
         /// @brief Called when user changes Z value
         long onCmdChangeZValue(FXObject*, FXSelector, void*);
 
+        /// @brief Called when user changes Z mode
+        long onCmdChangeZMode(FXObject*, FXSelector, void*);
+
         /// @brief Called when user press the apply Z button
         long onCmdApplyZ(FXObject*, FXSelector, void*);
 
-        /// @brief Called when user press the reset Z button
-        long onCmdResetZ(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -75,26 +76,12 @@ public:
 
         /// @brief textField for Z value
         FXTextField* myZValueTextField;
+        
+        /// @brief radio button for absolute value
+        FXRadioButton* myAbsoluteValue;
 
-        /*
-        /// @brief checkbox for enable/disable delete only geometry points
-        FXCheckButton* myDeleteOnlyGeometryPoints;
-
-        /// @brief checkbox for enable/disable protect additionals
-        FXCheckButton* myProtectAdditionals;
-
-        /// @brief checkbox for enable/disable protect TAZs
-        FXCheckButton* myProtectTAZs;
-
-        /// @brief checkbox for enable/disable protect shapes
-        FXCheckButton* myProtectShapes;
-
-        /// @brief checkbox for enable/disable protect demand elements
-        FXCheckButton* myProtectDemandElements;
-
-        /// @brief checkbox for enable/disable protect generic datas
-        FXCheckButton* myProtectGenericDatas;
-        */
+        /// @brief radio button for relative value
+        FXRadioButton* myRelativeValue;
     };
 
     /**@brief Constructor

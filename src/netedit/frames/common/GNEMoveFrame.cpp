@@ -21,6 +21,7 @@
 
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -31,8 +32,8 @@
 
 FXDEFMAP(GNEMoveFrame::ChangeJunctionsZ) ChangeJunctionsZMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEMoveFrame::ChangeJunctionsZ::onCmdChangeZValue),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEMoveFrame::ChangeJunctionsZ::onCmdChangeZMode),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_APPLY,          GNEMoveFrame::ChangeJunctionsZ::onCmdApplyZ),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_RESET,          GNEMoveFrame::ChangeJunctionsZ::onCmdResetZ),
 };
 
 // Object implementation
@@ -55,14 +56,17 @@ GNEMoveFrame::ChangeJunctionsZ::ChangeJunctionsZ(GNEMoveFrame* moveFrameParent) 
     new FXLabel(myZValueFrame, "Z value", 0, GUIDesignLabelAttribute);
     myZValueTextField = new FXTextField(myZValueFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
     myZValueTextField->setText("0");
+    // Create all options buttons
+    myAbsoluteValue = new FXRadioButton(this, "Absolute value\t\tSet Z value as absolute",
+        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myRelativeValue = new FXRadioButton(this, "Relative value\t\tSet Z value as relative",
+        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create apply button
-    new FXButton(moveFrameParent->myContentFrame, 
-        "Apply\t\tApply Z value to all selected junctions", 
-        GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_APPLY, GUIDesignButtonOK);
-    // create reset button
-    new FXButton(moveFrameParent->myContentFrame, 
-        "Reset\t\tReset Z value in all selected junctions", 
-        GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonOK);
+    new FXButton(this,
+        "Apply Z value\t\tApply Z value to all selected junctions",
+        GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_APPLY, GUIDesignButton);
+    // set absolute value as default
+    myAbsoluteValue->setCheck(true);
 }
 
 
@@ -85,21 +89,61 @@ GNEMoveFrame::ChangeJunctionsZ::hideChangeJunctionsZ() {
 
 long 
 GNEMoveFrame::ChangeJunctionsZ::onCmdChangeZValue(FXObject*, FXSelector, void*) {
-    // currently nothing to do
+    // nothing to do
+    return 1;
+}
+
+
+long 
+GNEMoveFrame::ChangeJunctionsZ::onCmdChangeZMode(FXObject* obj, FXSelector, void*) {
+    if (obj == myAbsoluteValue) {
+        myAbsoluteValue->setCheck(true);
+        myRelativeValue->setCheck(false);
+    } else {
+        myAbsoluteValue->setCheck(false);
+        myRelativeValue->setCheck(true);
+    }
     return 1;
 }
 
 
 long
 GNEMoveFrame::ChangeJunctionsZ::onCmdApplyZ(FXObject*, FXSelector, void*) {
-
-    return 1;
-}
-
-
-long
-GNEMoveFrame::ChangeJunctionsZ::onCmdResetZ(FXObject*, FXSelector, void*) {
-
+    // get value
+    const double zValue = GNEAttributeCarrier::parse<double>(myZValueTextField->getText().text());
+    // get junctions
+    const auto junctions = myMoveFrameParent->getViewNet()->getNet()->retrieveJunctions(true);
+    // begin undo-redo 
+    myMoveFrameParent->getViewNet()->getUndoList()->p_begin("Change junctions z values");
+    // iterate over junctions
+    for (const auto& junction : junctions) {
+        if (junction->getNBNode()->hasCustomShape()) {
+            // get junction position
+            PositionVector junctionShape = junction->getNBNode()->getShape();
+            // modify z Value depending of absolute/relative
+            for (auto &shapePos : junctionShape) {
+                if (myAbsoluteValue->getCheck() == TRUE) {
+                    shapePos.setz(zValue);
+                } else {
+                    shapePos.add(Position(0, 0, zValue));
+                }
+            }
+            // set new position again
+            junction->setAttribute(SUMO_ATTR_SHAPE, toString(junctionShape), myMoveFrameParent->getViewNet()->getUndoList());
+        }
+        // get junction position
+        Position junctionPos = junction->getNBNode()->getPosition();
+        // modify z Value depending of absolute/relative
+        if (myAbsoluteValue->getCheck() == TRUE) {
+            junctionPos.setz(zValue);
+        } else {
+            junctionPos.add(Position(0, 0, zValue));
+        }
+        // set new position again
+        junction->setAttribute(SUMO_ATTR_POSITION, toString(junctionPos), myMoveFrameParent->getViewNet()->getUndoList());
+    }
+    // end undo-redo
+    myMoveFrameParent->getViewNet()->getUndoList()->p_end();
     return 1;
 }
 
@@ -134,8 +178,9 @@ GNEMoveFrame::show() {
     } else {
         myChangeJunctionsZ->hideChangeJunctionsZ();
     }
-    // update
+    // recalc and update
     recalc();
+    update();
     // show
     GNEFrame::show();
 }
