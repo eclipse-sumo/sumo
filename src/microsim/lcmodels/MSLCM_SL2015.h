@@ -109,6 +109,8 @@ public:
 
     double getSafetyFactor() const;
 
+    double getOppositeSafetyFactor() const;
+
     void prepareStep();
 
     /// @brief whether the current vehicles shall be debugged
@@ -398,6 +400,7 @@ protected:
     double myCooperativeParam;
     double mySpeedGainParam;
     double myKeepRightParam;
+    double myOppositeParam;
     double mySublaneParam;
     // @brief willingness to encroach on other vehicles laterally (pushing them around)
     double myPushy;

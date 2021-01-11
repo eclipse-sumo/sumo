@@ -129,6 +129,7 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myCooperativeParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_PARAM, 1)),
     mySpeedGainParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, 1)),
     myKeepRightParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 1)),
+    myOppositeParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_OPPOSITE_PARAM, 1)),
     mySublaneParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SUBLANE_PARAM, 1)),
     // by default use SUMO_ATTR_LCA_PUSHY. If that is not set, try SUMO_ATTR_LCA_PUSHYGAP
     myPushy(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_PUSHY,
@@ -3396,6 +3397,11 @@ MSLCM_SL2015::getSafetyFactor() const {
     return 1 / ((1 + 0.5 * myImpatience) * myAssertive);
 }
 
+double
+MSLCM_SL2015::getOppositeSafetyFactor() const {
+    return myOppositeParam <= 0 ? std::numeric_limits<double>::max() : 1 / myOppositeParam;
+}
+
 
 std::string
 MSLCM_SL2015::getParameter(const std::string& key) const {
@@ -3407,6 +3413,8 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(mySpeedGainParam);
     } else if (key == toString(SUMO_ATTR_LCA_KEEPRIGHT_PARAM)) {
         return toString(myKeepRightParam);
+    } else if (key == toString(SUMO_ATTR_LCA_OPPOSITE_PARAM)) {
+        return toString(myOppositeParam);
     } else if (key == toString(SUMO_ATTR_LCA_SUBLANE_PARAM)) {
         return toString(mySublaneParam);
     } else if (key == toString(SUMO_ATTR_LCA_PUSHY)) {
@@ -3453,6 +3461,8 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
         mySpeedGainParam = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_KEEPRIGHT_PARAM)) {
         myKeepRightParam = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_OPPOSITE_PARAM)) {
+        myOppositeParam = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SUBLANE_PARAM)) {
         mySublaneParam = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_PUSHY)) {
