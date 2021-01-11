@@ -1787,7 +1787,7 @@ MSLCM_LC2013::anticipateFollowSpeed(const std::pair<MSVehicle*, double>& leaderD
             if (fullSpeedGap / deltaV < mySpeedGainLookahead) {
                 // anticipate future braking by computing the average
                 // speed over the next few seconds
-                const double gapClosingTime = fullSpeedGap / deltaV;
+                const double gapClosingTime = MAX2(0.0, fullSpeedGap / deltaV);
                 const double foreCastTime = mySpeedGainLookahead * 2;
                 //if (DEBUG_COND) std::cout << SIMTIME << " veh=" << myVehicle.getID() << " leader=" << leader->getID() << " gap=" << gap << " deltaV=" << deltaV << " futureSpeed=" << futureSpeed << " futureLeaderSpeed=" << futureLeaderSpeed;
                 futureSpeed = MIN2(futureSpeed, (gapClosingTime * futureSpeed + (foreCastTime - gapClosingTime) * futureLeaderSpeed) / foreCastTime);
