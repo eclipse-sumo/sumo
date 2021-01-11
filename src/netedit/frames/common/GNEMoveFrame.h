@@ -32,6 +32,44 @@
 class GNEMoveFrame : public GNEFrame {
 
 public:
+
+    // ===========================================================================
+    // class ChangeJunctionsZ
+    // ===========================================================================
+
+    class ChangeJunctionsZ : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        ChangeJunctionsZ(GNEMoveFrame* moveFrameParent);
+
+        /// @brief destructor
+        ~ChangeJunctionsZ();
+
+    private:
+        /// @brief pointer to move frame parent
+        GNEMoveFrame *myMoveFrameParent;
+        /*
+        /// @brief checkbox for enable/disable delete only geometry points
+        FXCheckButton* myDeleteOnlyGeometryPoints;
+
+        /// @brief checkbox for enable/disable protect additionals
+        FXCheckButton* myProtectAdditionals;
+
+        /// @brief checkbox for enable/disable protect TAZs
+        FXCheckButton* myProtectTAZs;
+
+        /// @brief checkbox for enable/disable protect shapes
+        FXCheckButton* myProtectShapes;
+
+        /// @brief checkbox for enable/disable protect demand elements
+        FXCheckButton* myProtectDemandElements;
+
+        /// @brief checkbox for enable/disable protect generic datas
+        FXCheckButton* myProtectGenericDatas;
+        */
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame

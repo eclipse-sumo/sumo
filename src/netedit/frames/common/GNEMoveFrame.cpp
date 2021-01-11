@@ -26,6 +26,22 @@
 // method definitions
 // ===========================================================================
 
+// ---------------------------------------------------------------------------
+// GNEMoveFrame::ChangeJunctionsZ - methods
+// ---------------------------------------------------------------------------
+
+GNEMoveFrame::ChangeJunctionsZ::ChangeJunctionsZ(GNEMoveFrame* moveFrameParent) :
+    myMoveFrameParent(moveFrameParent) {
+
+}
+
+
+GNEMoveFrame::ChangeJunctionsZ::~ChangeJunctionsZ() {}
+
+// ---------------------------------------------------------------------------
+// GNEMoveFrame - methods
+// ---------------------------------------------------------------------------
+
 GNEMoveFrame::GNEMoveFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Move") {
 }
