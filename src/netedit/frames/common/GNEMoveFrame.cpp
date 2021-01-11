@@ -36,8 +36,15 @@ FXDEFMAP(GNEMoveFrame::ChangeJunctionsZ) ChangeJunctionsZMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_APPLY,          GNEMoveFrame::ChangeJunctionsZ::onCmdApplyZ),
 };
 
+FXDEFMAP(GNEMoveFrame::ChangeEdgesZ) ChangeEdgesZMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEMoveFrame::ChangeEdgesZ::onCmdChangeZValue),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEMoveFrame::ChangeEdgesZ::onCmdChangeZMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_APPLY,          GNEMoveFrame::ChangeEdgesZ::onCmdApplyZ),
+};
+
 // Object implementation
-FXIMPLEMENT(GNEMoveFrame::ChangeJunctionsZ, FXGroupBox, ChangeJunctionsZMap, ARRAYNUMBER(ChangeJunctionsZMap))
+FXIMPLEMENT(GNEMoveFrame::ChangeJunctionsZ, FXGroupBox, ChangeJunctionsZMap,    ARRAYNUMBER(ChangeJunctionsZMap))
+FXIMPLEMENT(GNEMoveFrame::ChangeEdgesZ,     FXGroupBox, ChangeEdgesZMap,        ARRAYNUMBER(ChangeEdgesZMap))
 
 // ===========================================================================
 // method definitions
@@ -184,6 +191,158 @@ GNEMoveFrame::ChangeJunctionsZ::updateInfoLabel() {
         average = average * 0.01;
         // set label string
         const std::string labelStr = 
+            "- Minimum: " + toString(minimum) + "\n" +
+            "- Maximum: " + toString(maximun) + "\n" +
+            "- Average: " + toString(average);
+        // update info label
+        myInfoLabel->setText(labelStr.c_str());
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNEMoveFrame::ChangeEdgesZ - methods
+// ---------------------------------------------------------------------------
+
+GNEMoveFrame::ChangeEdgesZ::ChangeEdgesZ(GNEMoveFrame* moveFrameParent) :
+    FXGroupBox(moveFrameParent->myContentFrame, "Change edges Z", GUIDesignGroupBoxFrame),
+    myMoveFrameParent(moveFrameParent) {
+    // create horizontal frame
+    FXHorizontalFrame* myZValueFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    // create elements for Z value
+    new FXLabel(myZValueFrame, "Z value", 0, GUIDesignLabelAttribute);
+    myZValueTextField = new FXTextField(myZValueFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
+    myZValueTextField->setText("0");
+    // Create all options buttons
+    myAbsoluteValue = new FXRadioButton(this, "Absolute value\t\tSet Z value as absolute",
+        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myRelativeValue = new FXRadioButton(this, "Relative value\t\tSet Z value as relative",
+        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // create apply button
+    new FXButton(this,
+        "Apply Z value\t\tApply Z value to all selected edges",
+        GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_APPLY, GUIDesignButton);
+    // set absolute value as default
+    myAbsoluteValue->setCheck(true);
+    // set info label
+    myInfoLabel = new FXLabel(this, "", nullptr, GUIDesignLabelFrameInformation);
+}
+
+
+GNEMoveFrame::ChangeEdgesZ::~ChangeEdgesZ() {}
+
+
+void
+GNEMoveFrame::ChangeEdgesZ::showChangeEdgesZ() {
+    // update info label
+    updateInfoLabel();
+    // show modul
+    show();
+}
+
+
+void
+GNEMoveFrame::ChangeEdgesZ::hideChangeEdgesZ() {
+    // hide modul
+    hide();
+}
+
+
+long
+GNEMoveFrame::ChangeEdgesZ::onCmdChangeZValue(FXObject*, FXSelector, void*) {
+    // nothing to do
+    return 1;
+}
+
+
+long
+GNEMoveFrame::ChangeEdgesZ::onCmdChangeZMode(FXObject* obj, FXSelector, void*) {
+    if (obj == myAbsoluteValue) {
+        myAbsoluteValue->setCheck(true);
+        myRelativeValue->setCheck(false);
+    }
+    else {
+        myAbsoluteValue->setCheck(false);
+        myRelativeValue->setCheck(true);
+    }
+    return 1;
+}
+
+
+long
+GNEMoveFrame::ChangeEdgesZ::onCmdApplyZ(FXObject*, FXSelector, void*) {
+    // get value
+    const double zValue = GNEAttributeCarrier::parse<double>(myZValueTextField->getText().text());
+    // get edges
+    const auto edges = myMoveFrameParent->getViewNet()->getNet()->retrieveEdges(true);
+    // begin undo-redo 
+    myMoveFrameParent->getViewNet()->getUndoList()->p_begin("Change edge Z values");
+    // iterate over edges
+    for (const auto& edge : edges) {
+        if (edge->getNBNode()->hasCustomShape()) {
+            // get edge position
+            PositionVector edgeShape = edge->getNBNode()->getShape();
+            // modify z Value depending of absolute/relative
+            for (auto& shapePos : edgeShape) {
+                if (myAbsoluteValue->getCheck() == TRUE) {
+                    shapePos.setz(zValue);
+                }
+                else {
+                    shapePos.add(Position(0, 0, zValue));
+                }
+            }
+            // set new position again
+            edge->setAttribute(SUMO_ATTR_SHAPE, toString(edgeShape), myMoveFrameParent->getViewNet()->getUndoList());
+        }
+        // get edge position
+        Position edgePos = edge->getNBNode()->getPosition();
+        // modify z Value depending of absolute/relative
+        if (myAbsoluteValue->getCheck() == TRUE) {
+            edgePos.setz(zValue);
+        }
+        else {
+            edgePos.add(Position(0, 0, zValue));
+        }
+        // set new position again
+        edge->setAttribute(SUMO_ATTR_POSITION, toString(edgePos), myMoveFrameParent->getViewNet()->getUndoList());
+    }
+    // end undo-redo
+    myMoveFrameParent->getViewNet()->getUndoList()->p_end();
+    // update info label
+    updateInfoLabel();
+    return 1;
+}
+
+
+void
+GNEMoveFrame::ChangeEdgesZ::updateInfoLabel() {
+    // get edges
+    const auto edges = myMoveFrameParent->getViewNet()->getNet()->retrieveEdges(true);
+    if (edges.size() > 0) {
+        // declare minimum, maximun and average
+        double minimum = edges.front()->getNBNode()->getPosition().z();
+        double maximun = edges.front()->getNBNode()->getPosition().z();
+        double average = 0;
+        // iterate over edges
+        for (const auto& edge : edges) {
+            // get z
+            const double z = edge->getNBNode()->getPosition().z();
+            // check min
+            if (z < minimum) {
+                minimum = z;
+            }
+            // check max
+            if (z > maximun) {
+                maximun = z;
+            }
+            // update average
+            average += z;
+        }
+        // update average
+        average = 100 * average / (double)edges.size();
+        average = floor(average);
+        average = average * 0.01;
+        // set label string
+        const std::string labelStr =
             "- Minimum: " + toString(minimum) + "\n" +
             "- Maximum: " + toString(maximun) + "\n" +
             "- Average: " + toString(average);

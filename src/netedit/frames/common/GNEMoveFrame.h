@@ -90,6 +90,65 @@ public:
         FXLabel *myInfoLabel = nullptr;
     };
 
+
+    // ===========================================================================
+    // class ChangeEdgesZ
+    // ===========================================================================
+
+    class ChangeEdgesZ : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEMoveFrame::ChangeEdgesZ)
+
+    public:
+        /// @brief constructor
+        ChangeEdgesZ(GNEMoveFrame* moveFrameParent);
+
+        /// @brief destructor
+        ~ChangeEdgesZ();
+
+        /// @brief show change edges Z
+        void showChangeEdgesZ();
+
+        /// @brief hide change edges Z
+        void hideChangeEdgesZ();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when user changes Z value
+        long onCmdChangeZValue(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user changes Z mode
+        long onCmdChangeZMode(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press the apply Z button
+        long onCmdApplyZ(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FPX need this
+        FOX_CONSTRUCTOR(ChangeEdgesZ)
+
+        /// @brief update label
+        void updateInfoLabel();
+
+    private:
+        /// @brief pointer to move frame parent
+        GNEMoveFrame* myMoveFrameParent;
+
+        /// @brief textField for Z value
+        FXTextField* myZValueTextField = nullptr;
+
+        /// @brief radio button for absolute value
+        FXRadioButton* myAbsoluteValue = nullptr;
+
+        /// @brief radio button for relative value
+        FXRadioButton* myRelativeValue = nullptr;
+
+        /// @brief info label
+        FXLabel* myInfoLabel = nullptr;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
