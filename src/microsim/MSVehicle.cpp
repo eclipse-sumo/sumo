@@ -3896,6 +3896,7 @@ MSVehicle::executeMove() {
             myState.myPos = myLane->getOppositePos(myState.myPos);
             myLane = myLane->getOpposite();
             myCachedPosition = Position::INVALID;
+            myLaneChangeModel->updateShadowLane();
         }
     }
     workOnMoveReminders(myState.myPos - myState.myLastCoveredDist, myState.myPos, myState.mySpeed);
@@ -4119,7 +4120,11 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane) const {
             || lane == myLaneChangeModel->getShadowLane()
             || lane == myLaneChangeModel->getTargetLane()) {
         if (myLaneChangeModel->isOpposite()) {
-            return myState.myPos + myType->getLength();
+            if (lane == myLaneChangeModel->getShadowLane()) {
+                return lane->getLength() - myState.myPos - myType->getLength();
+            } else {
+                return myState.myPos + myType->getLength();
+            }
         } else if (&lane->getEdge() != &myLane->getEdge()) {
             return lane->getLength() - myState.myPos;
         } else {
