@@ -974,10 +974,14 @@ MSLCM_SL2015::computeSublaneShift(const MSEdge* prevEdge, const MSEdge* curEdge)
 void
 MSLCM_SL2015::changed() {
     if (!myCanChangeFully) {
-        // do not reset state yet
+        // do not reset state yet so we can continue our maneuver but acknowledge
+        // a change to the right (movement should continue due to lane alignment desire)
+        if (getManeuverDist() < 0) {
+            myKeepRightProbability = 0;
+        }
 #ifdef DEBUG_STATE
         if (DEBUG_COND) {
-            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " state not reset\n";
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " state not reset. maneuverDist=" << getManeuverDist() << "\n";
         }
 #endif
         return;
