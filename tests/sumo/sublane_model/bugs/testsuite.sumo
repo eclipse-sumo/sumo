@@ -58,3 +58,6 @@ ticket7134
 
 # invalid braking at junction
 ticket7925
+
+# cars block the rescue lane
+ticket8071
