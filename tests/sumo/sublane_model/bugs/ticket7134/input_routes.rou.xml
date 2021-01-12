@@ -1,6 +1,6 @@
 <routes>
     <vTypeDistribution id="mixed">
-      <vType id="car" vClass="passenger" guishape="passenger" color="yellow" speedDev="0.2" probability="0.95">
+      <vType id="car" vClass="passenger" guishape="passenger" color="yellow" speedDev="0.2" probability="0.95" lcLaneDiscipline="1">
         <param key="has.tripinfo.device" value="false"/>
       </vType>
       <vType id="emg" vClass="emergency" guishape="emergency" color="red" speedDev="0.2" probability="0.05" minGapLat="0">
