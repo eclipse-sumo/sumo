@@ -181,7 +181,7 @@ MSLeaderInfo::hasStoppedVehicle() const {
         return false;
     }
     for (int i = 0; i < (int)myVehicles.size(); ++i) {
-        if (myVehicles[0] != 0 && myVehicles[0]->isStopped()) {
+        if (myVehicles[i] != 0 && myVehicles[i]->isStopped()) {
             return true;
         }
     }
