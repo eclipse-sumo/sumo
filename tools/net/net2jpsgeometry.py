@@ -23,7 +23,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
-# import ezdxf
+import ezdxf
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -33,6 +33,8 @@ import sumolib  # noqa
 # defines
 JPS_POLYGON_TYPE_NAME = "jps-boundary"
 JPS_POLYGON_COLOR = sumolib.color.RGBAColor(255, 0, 0)
+DXF_LAYER_NAME = "SUMONetPolygons"
+DEBUG = True
 
 
 def parse_args():
@@ -46,6 +48,9 @@ def parse_args():
                            help="The JuPedSim dxf output file name")
     argParser.add_argument("-d", "--debug", action="store_true", default=True,
                            help="Export outer borders and handoff lines to debug file")
+    # see https://sumo.dlr.de/docs/Simulation/Pedestrians.html#non-exclusive_sidewalks
+    argParser.add_argument("-x", "--exclusive-sidewalks", action="store_true", default=True,
+                           help="Choose exclusive sidewalk lane in case of ambiguities")
 
     options = argParser.parse_args()
     if not options.netFile or not options.selectedObjectsFile:
@@ -76,9 +81,8 @@ def calculateBoundingPolygon(shape, width):
 
 def addLaneToPolygons(lane, polygons):
     if not lane.allows("pedestrian"):
-        print("INFO: lane \'%s\' does not allow pedestrians, skipping..." % (lane.getID()))
+        print("WARNING: lane \'%s\' does not allow pedestrians, skipping..." % (lane.getID()))
         return
-
     polyShape = calculateBoundingPolygon(lane.getShape(includeJunctions=False), lane.getWidth())
     polygon = sumolib.shapes.polygon.Polygon(id=lane.getID(), type=JPS_POLYGON_TYPE_NAME,
                                              color=JPS_POLYGON_COLOR, shape=polyShape)
@@ -97,6 +101,27 @@ def addNodeToPolygons(node, polygons):
     return
 
 
+def getExclusiveSidewalkLane(edge):
+    for i in range(edge.getLaneNumber()):
+        lane = edge.getLanes()[i]
+        if lane.allows("pedestrian"):
+            if DEBUG:
+                print("DEBUG: exclusive sidewalk of edge \'%s\' is lane \'%s\'..." % (edge.getID(), lane.getID()))
+            return lane
+    print("WARNING: edge \'%s\' has no exclusive sidewalk lane..." % (edge.getID()))
+    return None
+
+
+def writeToDxf(polygons, options):
+    # write DXF file
+    doc = ezdxf.new(dxfversion='R2000')
+    msp = doc.modelspace()  # add new entities to the modelspace
+    doc.layers.new(name=DXF_LAYER_NAME, dxfattribs={'linetype': 'SOLID', 'color': 7})
+    for p in polygons:
+        msp.add_lwpolyline(p.shape, dxfattribs={'layer': DXF_LAYER_NAME})
+    doc.saveas(options.outFile)
+
+
 if __name__ == "__main__":
     options = parse_args()
     net = sumolib.net.readNet(options.netFile, withInternal=True, withPedestrianConnections=True)
@@ -113,8 +138,11 @@ if __name__ == "__main__":
             if not edge.allows("pedestrian"):
                 print("WARNING: edge \'%s\' does not allow pedestrians, skipping..." % (edgeId))
                 continue
-            for lane in edge.getLanes():
-                addLaneToPolygons(lane, polygons)
+            if options.exclusive_sidewalks:
+                addLaneToPolygons(getExclusiveSidewalkLane(edge), polygons)
+            else:
+                for lane in edge.getLanes():
+                    addLaneToPolygons(lane, polygons)
     if "lane" in selectedObjects.keys():
         for laneId in selectedObjects["lane"]:
             try:
@@ -122,6 +150,14 @@ if __name__ == "__main__":
             except KeyError:
                 print("WARNING: lane \'%s\' does not exist in the network, skipping..." % (laneId))
                 continue
+            except IndexError:
+                print("WARNING: lane \'%s\' does not exist in the network (please check lane index), skipping..." % (laneId))
+                continue
+            if options.exclusive_sidewalks:
+                sidewalkLane = getExclusiveSidewalkLane(lane.getEdge())
+                if laneId != sidewalkLane.getID():
+                    print("WARNING: lane \'%s\' is not the exclusive sidewalk lane, skipping..." % (laneId))
+                    continue
             addLaneToPolygons(lane, polygons)
     if "junction" in selectedObjects.keys():
         for nodeId in selectedObjects["junction"]:
@@ -137,3 +173,5 @@ if __name__ == "__main__":
     if options.debug:
         debugOutFile = options.outFile[:options.outFile.rfind(".dxf")] + ".poly.xml"
         sumolib.files.additional.write(debugOutFile, polygons)
+
+    writeToDxf(polygons, options)
