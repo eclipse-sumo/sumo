@@ -2031,7 +2031,7 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
                     }
 #endif
                     const double deltaV = vMax - leader->getSpeed();
-                    if (deltaV > 0 && gap / deltaV < mySpeedGainLookahead) {
+                    if (deltaV > 0 && gap / deltaV < mySpeedGainLookahead && mySpeedGainLookahead > 0) {
                         // anticipate future braking by computing the average
                         // speed over the next few seconds
                         const double foreCastTime = mySpeedGainLookahead * 2;
