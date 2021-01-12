@@ -278,9 +278,9 @@ GNEMoveFrame::ChangeEdgesZ::onCmdApplyZ(FXObject*, FXSelector, void*) {
     myMoveFrameParent->getViewNet()->getUndoList()->p_begin("Change edge Z values");
     // iterate over edges
     for (const auto& edge : edges) {
-        if (edge->getNBNode()->hasCustomShape()) {
+        if (edge->getParentJunctions().front()->getNBNode()->hasCustomShape()) {
             // get edge position
-            PositionVector edgeShape = edge->getNBNode()->getShape();
+            PositionVector edgeShape = edge->getParentJunctions().front()->getNBNode()->getShape();
             // modify z Value depending of absolute/relative
             for (auto& shapePos : edgeShape) {
                 if (myAbsoluteValue->getCheck() == TRUE) {
@@ -294,7 +294,7 @@ GNEMoveFrame::ChangeEdgesZ::onCmdApplyZ(FXObject*, FXSelector, void*) {
             edge->setAttribute(SUMO_ATTR_SHAPE, toString(edgeShape), myMoveFrameParent->getViewNet()->getUndoList());
         }
         // get edge position
-        Position edgePos = edge->getNBNode()->getPosition();
+        Position edgePos = edge->getParentJunctions().front()->getNBNode()->getPosition();
         // modify z Value depending of absolute/relative
         if (myAbsoluteValue->getCheck() == TRUE) {
             edgePos.setz(zValue);
@@ -319,13 +319,13 @@ GNEMoveFrame::ChangeEdgesZ::updateInfoLabel() {
     const auto edges = myMoveFrameParent->getViewNet()->getNet()->retrieveEdges(true);
     if (edges.size() > 0) {
         // declare minimum, maximun and average
-        double minimum = edges.front()->getNBNode()->getPosition().z();
-        double maximun = edges.front()->getNBNode()->getPosition().z();
+        double minimum = edges.front()->getParentJunctions().front()->getNBNode()->getPosition().z();
+        double maximun = edges.front()->getParentJunctions().front()->getNBNode()->getPosition().z();
         double average = 0;
         // iterate over edges
         for (const auto& edge : edges) {
             // get z
-            const double z = edge->getNBNode()->getPosition().z();
+            const double z = edge->getParentJunctions().front()->getNBNode()->getPosition().z();
             // check min
             if (z < minimum) {
                 minimum = z;
