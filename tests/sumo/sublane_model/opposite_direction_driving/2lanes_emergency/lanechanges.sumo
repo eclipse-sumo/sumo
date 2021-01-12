@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 11 14:42:59 2021 by Eclipse SUMO sumo Version v1_8_0+0462-2d872ea
+<!-- generated on Tue Jan 12 12:37:49 2021 by Eclipse SUMO sumo Version v1_8_0+0478-5c54bf9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,5 +35,5 @@ SPDX-License-Identifier: EPL-2.0
 <lanechanges>
     <change id="overtaking1" type="emergency" time="71.00" from="WE_1" to="EW_1" dir="1" speed="13.89" pos="941.85" reason="" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="53.15" origLeaderSecureGap="28.56" origLeaderSpeed="0.00" latGap="None"/>
     <change id="overtaking1" type="emergency" time="81.00" from="EW_1" to="WE_1" dir="-1" speed="13.89" pos="919.25" reason="" leaderGap="2.50" leaderSecureGap="28.56" leaderSpeed="0.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
-    <change id="overtaking1" type="emergency" time="85.00" from="WE_1" to="WE_0" dir="-1" speed="13.89" pos="1136.31" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="129.81" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="overtaking1" type="emergency" time="87.00" from="WE_1" to="WE_0" dir="-1" speed="13.89" pos="1164.09" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="157.59" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
 </lanechanges>
