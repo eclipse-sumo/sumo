@@ -223,8 +223,6 @@ GNEMoveFrame::ChangeEdgesZ::ChangeEdgesZ(GNEMoveFrame* moveFrameParent) :
         GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_APPLY, GUIDesignButton);
     // set absolute value as default
     myAbsoluteValue->setCheck(true);
-    // set info label
-    myInfoLabel = new FXLabel(this, "", nullptr, GUIDesignLabelFrameInformation);
 }
 
 
@@ -233,8 +231,6 @@ GNEMoveFrame::ChangeEdgesZ::~ChangeEdgesZ() {}
 
 void
 GNEMoveFrame::ChangeEdgesZ::showChangeEdgesZ() {
-    // update info label
-    updateInfoLabel();
     // show modul
     show();
 }
@@ -272,83 +268,48 @@ long
 GNEMoveFrame::ChangeEdgesZ::onCmdApplyZ(FXObject*, FXSelector, void*) {
     // get value
     const double zValue = GNEAttributeCarrier::parse<double>(myZValueTextField->getText().text());
-    // get edges
+    // get selected edges
     const auto edges = myMoveFrameParent->getViewNet()->getNet()->retrieveEdges(true);
     // begin undo-redo 
     myMoveFrameParent->getViewNet()->getUndoList()->p_begin("Change edge Z values");
     // iterate over edges
     for (const auto& edge : edges) {
-        if (edge->getParentJunctions().front()->getNBNode()->hasCustomShape()) {
-            // get edge position
-            PositionVector edgeShape = edge->getParentJunctions().front()->getNBNode()->getShape();
-            // modify z Value depending of absolute/relative
-            for (auto& shapePos : edgeShape) {
-                if (myAbsoluteValue->getCheck() == TRUE) {
-                    shapePos.setz(zValue);
-                }
-                else {
-                    shapePos.add(Position(0, 0, zValue));
-                }
-            }
-            // set new position again
-            edge->setAttribute(SUMO_ATTR_SHAPE, toString(edgeShape), myMoveFrameParent->getViewNet()->getUndoList());
-        }
-        // get edge position
-        Position edgePos = edge->getParentJunctions().front()->getNBNode()->getPosition();
+        // get edge geometry
+        PositionVector edgeShape = edge->getNBEdge()->getInnerGeometry();
+        // get first and last position
+        Position shapeStart = edge->getNBEdge()->getGeometry().front();
+        Position shapeEnd = edge->getNBEdge()->getGeometry().back();
         // modify z Value depending of absolute/relative
+        for (auto& shapePos : edgeShape) {
+            if (myAbsoluteValue->getCheck() == TRUE) {
+                shapePos.setz(zValue);
+            }
+            else {
+                shapePos.add(Position(0, 0, zValue));
+            }
+        }
+        // modify begin an end positions
         if (myAbsoluteValue->getCheck() == TRUE) {
-            edgePos.setz(zValue);
+            shapeStart.setz(zValue);
+            shapeEnd.setz(zValue);
         }
         else {
-            edgePos.add(Position(0, 0, zValue));
+            shapeStart.add(Position(0, 0, zValue));
+            shapeEnd.add(Position(0, 0, zValue));
         }
-        // set new position again
-        edge->setAttribute(SUMO_ATTR_POSITION, toString(edgePos), myMoveFrameParent->getViewNet()->getUndoList());
+        // set new shape again
+        edge->setAttribute(SUMO_ATTR_SHAPE, toString(edgeShape), myMoveFrameParent->getViewNet()->getUndoList());
+        // set new start and end positions
+        if (shapeStart.distanceSquaredTo2D(edge->getParentJunctions().front()->getNBNode()->getPosition()) < 2) {
+            edge->setAttribute(GNE_ATTR_SHAPE_START, toString(shapeStart), myMoveFrameParent->getViewNet()->getUndoList());
+        }
+        if (shapeEnd.distanceSquaredTo2D(edge->getParentJunctions().back()->getNBNode()->getPosition()) < 2) {
+            edge->setAttribute(GNE_ATTR_SHAPE_END, toString(shapeEnd), myMoveFrameParent->getViewNet()->getUndoList());
+        }
     }
     // end undo-redo
     myMoveFrameParent->getViewNet()->getUndoList()->p_end();
-    // update info label
-    updateInfoLabel();
     return 1;
-}
-
-
-void
-GNEMoveFrame::ChangeEdgesZ::updateInfoLabel() {
-    // get edges
-    const auto edges = myMoveFrameParent->getViewNet()->getNet()->retrieveEdges(true);
-    if (edges.size() > 0) {
-        // declare minimum, maximun and average
-        double minimum = edges.front()->getParentJunctions().front()->getNBNode()->getPosition().z();
-        double maximun = edges.front()->getParentJunctions().front()->getNBNode()->getPosition().z();
-        double average = 0;
-        // iterate over edges
-        for (const auto& edge : edges) {
-            // get z
-            const double z = edge->getParentJunctions().front()->getNBNode()->getPosition().z();
-            // check min
-            if (z < minimum) {
-                minimum = z;
-            }
-            // check max
-            if (z > maximun) {
-                maximun = z;
-            }
-            // update average
-            average += z;
-        }
-        // update average
-        average = 100 * average / (double)edges.size();
-        average = floor(average);
-        average = average * 0.01;
-        // set label string
-        const std::string labelStr =
-            "- Minimum: " + toString(minimum) + "\n" +
-            "- Maximum: " + toString(maximun) + "\n" +
-            "- Average: " + toString(average);
-        // update info label
-        myInfoLabel->setText(labelStr.c_str());
-    }
 }
 
 // ---------------------------------------------------------------------------
@@ -356,10 +317,11 @@ GNEMoveFrame::ChangeEdgesZ::updateInfoLabel() {
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::GNEMoveFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Move"),
-    myChangeJunctionsZ(nullptr) {
+    GNEFrame(horizontalFrameParent, viewNet, "Move") {
     // create change junctions z
     myChangeJunctionsZ = new ChangeJunctionsZ(this);
+    // create change edges z
+    myChangeEdgesZ = new ChangeEdgesZ(this);
 }
 
 
@@ -381,6 +343,12 @@ GNEMoveFrame::show() {
         myChangeJunctionsZ->showChangeJunctionsZ();
     } else {
         myChangeJunctionsZ->hideChangeJunctionsZ();
+    }
+    // check if there are edges selected
+    if (myViewNet->getNet()->retrieveEdges(true).size() > 0) {
+        myChangeEdgesZ->showChangeEdgesZ();
+    } else {
+        myChangeEdgesZ->hideChangeEdgesZ();
     }
     // show
     GNEFrame::show();

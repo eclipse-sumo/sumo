@@ -129,9 +129,6 @@ public:
         /// @brief FPX need this
         FOX_CONSTRUCTOR(ChangeEdgesZ)
 
-        /// @brief update label
-        void updateInfoLabel();
-
     private:
         /// @brief pointer to move frame parent
         GNEMoveFrame* myMoveFrameParent;
@@ -144,9 +141,6 @@ public:
 
         /// @brief radio button for relative value
         FXRadioButton* myRelativeValue = nullptr;
-
-        /// @brief info label
-        FXLabel* myInfoLabel = nullptr;
     };
 
     /**@brief Constructor
@@ -174,6 +168,9 @@ public:
     void hide();
 
 private:
-    /// @brief modul for cange junctions Z
-    ChangeJunctionsZ* myChangeJunctionsZ;
+    /// @brief modul for change junctions Z
+    ChangeJunctionsZ* myChangeJunctionsZ = nullptr;
+
+    /// @brief modul for change edges Z
+    ChangeEdgesZ* myChangeEdgesZ = nullptr;
 };
