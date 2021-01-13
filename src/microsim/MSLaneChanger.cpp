@@ -1405,7 +1405,9 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
                               // drive past the leader
                               + vehicle->getVehicleType().getLength()
                               // allow for safe gap between leader and vehicle
-                              + leader->getCarFollowModel().getSecureGap(leader, vehicle, u, vMax, d)));
+                              + leader->getCarFollowModel().getSecureGap(leader, vehicle, u, vMax, d))
+                              // time to move between lanes
+                              + (MSGlobals::gSublane ? vMax * vehicle->getLane()->getWidth() / vehicle->getVehicleType().getMaxSpeedLat() : 0));
     const double sign = -1; // XXX recheck
     // v*t + t*t*a*0.5 = g + u*t
     // solve t
