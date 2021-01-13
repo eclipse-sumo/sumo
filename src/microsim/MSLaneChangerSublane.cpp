@@ -722,7 +722,7 @@ MSLaneChangerSublane::checkChangeOpposite(
     if (vehicle->getLaneChangeModel().isOpposite()) {
         const double backPosOnTarget = vehicle->getLane()->getOppositePos(vehicle->getBackPositionOnLane());
         const double posOnTarget = backPosOnTarget + vehicle->getVehicleType().getLength();
-        neighFollowers = targetLane->getFollowersOnConsecutive(vehicle, posOnTarget, true);
+        neighFollowers = targetLane->getFollowersOnConsecutive(vehicle, backPosOnTarget, true);
         addLeaders(targetLane, vehicle, posOnTarget, neighLeaders);
         int sublaneIndex = 0;
         for (int i = 0; i < targetLane->getIndex(); i++) {
