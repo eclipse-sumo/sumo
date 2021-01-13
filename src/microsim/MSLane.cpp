@@ -1585,7 +1585,8 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
     }
 
     const bool colliderOpposite = collider->getLaneChangeModel().isOpposite();
-    const bool bothOpposite = victim->getLaneChangeModel().isOpposite() && colliderOpposite;
+    const bool victimOpposite = victim->getLaneChangeModel().isOpposite();
+    const bool bothOpposite = victimOpposite && colliderOpposite;
     if (bothOpposite) {
         std::swap(victim, collider);
     }
@@ -1608,12 +1609,14 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                   << " thisLane=" << getID()
                   << " collider=" << collider->getID()
                   << " victim=" << victim->getID()
-                  << " colliderLane=" << collider->getLane()->getID()
-                  << " victimLane=" << victim->getLane()->getID()
-                  << " colliderPos=" << colliderPos
-                  << " victimBackPos=" << victim->getBackPositionOnLane(this)
-                  << " colliderLat=" << collider->getCenterOnEdge(this)
-                  << " victimLat=" << victim->getCenterOnEdge(this)
+                  << " colOpposite=" << colliderOpposite
+                  << " vicOpposite=" << victimOpposite
+                  << " colLane=" << collider->getLane()->getID()
+                  << " vicLane=" << victim->getLane()->getID()
+                  << " colPos=" << colliderPos
+                  << " vicBack=" << victimBack
+                  << " colLat=" << collider->getCenterOnEdge(this)
+                  << " vicLat=" << victim->getCenterOnEdge(this)
                   << " minGap=" << collider->getVehicleType().getMinGap()
                   << " minGapFactor=" << minGapFactor
                   << " gap=" << gap
