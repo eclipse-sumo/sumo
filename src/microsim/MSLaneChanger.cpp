@@ -1340,14 +1340,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
 #endif
     }
     std::pair<MSVehicle* const, double> neighFollow = opposite->getOppositeFollower(vehicle);
-    const bool changed = checkChangeOpposite(vehicle, direction, opposite, leader, neighLead, neighFollow, preb);
-#ifdef DEBUG_CHANGE_OPPOSITE
-    if (DEBUG_COND && !changed) {
-        std::cout << SIMTIME << " not changing to opposite veh=" << vehicle->getID() << " dir=" << direction
-            << " opposite=" << Named::getIDSecure(opposite) << " state=" << toString((LaneChangeAction)vehicle->getLaneChangeModel().getOwnState()) << "\n";
-    }
-#endif
-    return changed;
+    return checkChangeOpposite(vehicle, direction, opposite, leader, neighLead, neighFollow, preb);
 }
 
 
@@ -1380,6 +1373,12 @@ MSLaneChanger::checkChangeOpposite(
         }
         return true;
     }
+#ifdef DEBUG_CHANGE_OPPOSITE
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " not changing to opposite veh=" << vehicle->getID() << " dir=" << laneOffset
+            << " opposite=" << Named::getIDSecure(targetLane) << " state=" << toString((LaneChangeAction)state) << "\n";
+    }
+#endif
     return false;
 }
 
