@@ -87,7 +87,7 @@ GNEMoveFrame::ShiftEdgeGeometry::ShiftEdgeGeometry(GNEMoveFrame* moveFrameParent
     // create elements for Z value
     new FXLabel(myZValueFrame, "Shift value", 0, GUIDesignLabelAttribute);
     myShiftValueTextField = new FXTextField(myZValueFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
-    myShiftValueTextField->setText("0,0");
+    myShiftValueTextField->setText("0");
     // create apply button
     new FXButton(this,
         "Shift edge geometry\t\Shift edge geometry to all selected edges",
@@ -114,8 +114,8 @@ GNEMoveFrame::ShiftEdgeGeometry::hideShiftEdgeGeometry() {
 
 long
 GNEMoveFrame::ShiftEdgeGeometry::onCmdChangeShiftValue(FXObject*, FXSelector, void*) {
-    // nothing to do
-    return 1;
+    // just call onCmdShiftEdgeGeometry
+    return onCmdShiftEdgeGeometry(nullptr, 0, nullptr);
 }
 
 
@@ -204,8 +204,8 @@ GNEMoveFrame::ChangeZInSelection::hideChangeZInSelection() {
 
 long 
 GNEMoveFrame::ChangeZInSelection::onCmdChangeZValue(FXObject*, FXSelector, void*) {
-    // nothing to do
-    return 1;
+    // just call onCmdApplyZ
+    return onCmdApplyZ(nullptr, 0, nullptr);
 }
 
 
