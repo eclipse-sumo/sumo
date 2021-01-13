@@ -392,7 +392,9 @@ public:
      *       lanes surface (regular or partial vehicle for the lane), or (for the sublane
      *       model) it issued a maneuver reservation for a lane change.
      */
-    double getBackPositionOnLane(const MSLane* lane) const;
+    inline double getBackPositionOnLane(const MSLane* lane) const {
+        return getBackPositionOnLane(lane, false);
+    }
 
     /** @brief Get the vehicle's position relative to its current lane
      * @return The back position of the vehicle (in m from the current lane's begin)
@@ -2034,6 +2036,11 @@ protected:
     bool ignoreRed(const MSLink* link, bool canBrake) const;
 
     double estimateTimeToNextStop() const;
+
+    /* @brief special considerations for opposite direction driving so that the
+     * result can be used directly by getPositionOnLane(...) */
+    double getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) const;
+
 
 private:
     /// @brief The per vehicle variables of the car following model

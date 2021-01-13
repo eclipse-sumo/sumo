@@ -4101,7 +4101,7 @@ MSVehicle::updateFurtherLanes(std::vector<MSLane*>& furtherLanes, std::vector<do
 
 
 double
-MSVehicle::getBackPositionOnLane(const MSLane* lane) const {
+MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) const {
 #ifdef DEBUG_FURTHER
     if (DEBUG_COND) {
         std::cout << SIMTIME
@@ -4125,7 +4125,7 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane) const {
             if (lane == myLaneChangeModel->getShadowLane()) {
                 return lane->getLength() - myState.myPos - myType->getLength();
             } else {
-                return myState.myPos + myType->getLength();
+                return myState.myPos + (calledByGetPosition ? 0 : 1) * myType->getLength();
             }
         } else if (&lane->getEdge() != &myLane->getEdge()) {
             return lane->getLength() - myState.myPos;
@@ -4204,7 +4204,7 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane) const {
 
 double
 MSVehicle::getPositionOnLane(const MSLane* lane) const {
-    return getBackPositionOnLane(lane) + myType->getLength();
+    return getBackPositionOnLane(lane, true) + myType->getLength();
 }
 
 
