@@ -2068,8 +2068,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         if (myLaneChangeModel->getShadowLane() != nullptr) {
             // also slow down for leaders on the shadowLane relative to the current lane
             const MSLane* shadowLane = myLaneChangeModel->getShadowLane(leaderLane);
-            if (shadowLane != nullptr &&
-                    (MSGlobals::gLateralResolution > 0 || getLateralOverlap() > POSITION_EPS)) {
+            if (shadowLane != nullptr
+                    && (MSGlobals::gLateralResolution > 0 || getLateralOverlap() > POSITION_EPS)
+                    // ignore oncoming vehicles while on the forward lane (finish changing instead)
+                    && (&shadowLane->getEdge() == &leaderLane->getEdge() || myLaneChangeModel->isOpposite())) {
                 double latOffset = getLane()->getRightSideOnEdge() - myLaneChangeModel->getShadowLane()->getRightSideOnEdge();
                 if (myLaneChangeModel->isOpposite()) {
                     // ego posLat is added when retrieving sublanes but it
