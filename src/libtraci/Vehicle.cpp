@@ -937,8 +937,7 @@ Vehicle::setEffort(const std::string& vehID, const std::string& edgeID,
 
 
 void
-Vehicle::rerouteTraveltime(const std::string& vehID, const bool currentTravelTimes) {
-    // UNUSED_PARAMETER(currentTravelTimes); // !!! see #5943
+Vehicle::rerouteTraveltime(const std::string& vehID, const bool /* currentTravelTimes */) {
     tcpip::Storage content;
     Dom::writeCompound(content, 0);
     Dom::set(libsumo::CMD_REROUTE_TRAVELTIME, vehID, &content);
@@ -1153,7 +1152,12 @@ Vehicle::subscribeLeader(const std::string& vehID, double dist, double begin, do
 
 void
 Vehicle::addSubscriptionFilterLanes(const std::vector<int>& lanes, bool noOpposite, double downstreamDist, double upstreamDist) {
-    libtraci::Connection::getActive().createFilterCommand(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::FILTER_TYPE_LANES);
+    tcpip::Storage content;
+    content.writeUnsignedByte((int)lanes.size());
+    for (int lane : lanes) {
+        content.writeUnsignedByte(lane);
+    }
+    libtraci::Connection::getActive().createFilterCommand(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::FILTER_TYPE_LANES, &content);
     if (noOpposite) {
         addSubscriptionFilterNoOpposite();
     }
@@ -1225,7 +1229,7 @@ Vehicle::addSubscriptionFilterLCManeuver(int direction, bool noOpposite, double 
 void
 Vehicle::addSubscriptionFilterLeadFollow(const std::vector<int>& lanes) {
     libtraci::Connection::getActive().createFilterCommand(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::FILTER_TYPE_LEAD_FOLLOW);
-    // TODO lanes
+    addSubscriptionFilterLanes(lanes);
 }
 
 
