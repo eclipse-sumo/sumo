@@ -38,7 +38,6 @@ FXDEFMAP(GNEMoveFrame::ChangeZInSelection) ChangeZInSelectionMap[] = {
 
 FXDEFMAP(GNEMoveFrame::ShiftEdgeGeometry) ShiftEdgeGeometryMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEMoveFrame::ShiftEdgeGeometry::onCmdChangeShiftValue),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEMoveFrame::ShiftEdgeGeometry::onCmdChangeShiftMode),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_APPLY,          GNEMoveFrame::ShiftEdgeGeometry::onCmdShiftEdgeGeometry),
 };
 
@@ -88,18 +87,11 @@ GNEMoveFrame::ShiftEdgeGeometry::ShiftEdgeGeometry(GNEMoveFrame* moveFrameParent
     // create elements for Z value
     new FXLabel(myZValueFrame, "Shift value", 0, GUIDesignLabelAttribute);
     myShiftValueTextField = new FXTextField(myZValueFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
-    myShiftValueTextField->setText("0");
-    // Create all options buttons
-    myAbsoluteValue = new FXRadioButton(this, "Absolute value\t\tSet shift value as absolute",
-        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myRelativeValue = new FXRadioButton(this, "Relative value\t\tSet shift value as relative",
-        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myShiftValueTextField->setText("0,0");
     // create apply button
     new FXButton(this,
         "Shift edge geometry\t\Shift edge geometry to all selected edges",
-        GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_APPLY, GUIDesignButton);
-    // set absolute value as default
-    myAbsoluteValue->setCheck(true);
+        GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), this, MID_GNE_APPLY, GUIDesignButton);
 }
 
 
@@ -128,20 +120,6 @@ GNEMoveFrame::ShiftEdgeGeometry::onCmdChangeShiftValue(FXObject*, FXSelector, vo
 
 
 long
-GNEMoveFrame::ShiftEdgeGeometry::onCmdChangeShiftMode(FXObject* obj, FXSelector, void*) {
-    if (obj == myAbsoluteValue) {
-        myAbsoluteValue->setCheck(true);
-        myRelativeValue->setCheck(false);
-    }
-    else {
-        myAbsoluteValue->setCheck(false);
-        myRelativeValue->setCheck(true);
-    }
-    return 1;
-}
-
-
-long
 GNEMoveFrame::ShiftEdgeGeometry::onCmdShiftEdgeGeometry(FXObject*, FXSelector, void*) {
     // get undo-list
     auto undoList = myMoveFrameParent->getViewNet()->getUndoList();
@@ -154,13 +132,22 @@ GNEMoveFrame::ShiftEdgeGeometry::onCmdShiftEdgeGeometry(FXObject*, FXSelector, v
     // iterate over edges
     for (const auto& edge : edges) {
         // get edge geometry
-        PositionVector edgeShape = edge->getNBEdge()->getInnerGeometry();
+        PositionVector edgeShape = edge->getNBEdge()->getGeometry();
         // shift edge geometry
         edgeShape.move2side(shiftValue);
+        // get first and last position
+        const Position shapeStart = edgeShape.front();
+        const Position shapeEnd = edgeShape.back();
+        // set innen geometry
+        edgeShape.pop_front();
+        edgeShape.pop_back();
         // set new shape again
         if (edgeShape.size() > 0) {
             edge->setAttribute(SUMO_ATTR_SHAPE, toString(edgeShape), undoList);
         }
+        // set new start and end positions
+        edge->setAttribute(GNE_ATTR_SHAPE_START, toString(shapeStart), undoList);
+        edge->setAttribute(GNE_ATTR_SHAPE_END, toString(shapeEnd), undoList);
     }
     // end undo-redo
     myMoveFrameParent->getViewNet()->getUndoList()->p_end();

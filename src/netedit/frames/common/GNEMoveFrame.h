@@ -83,9 +83,6 @@ public:
         /// @brief Called when user changes Z value
         long onCmdChangeShiftValue(FXObject*, FXSelector, void*);
 
-        /// @brief Called when user changes shift mode
-        long onCmdChangeShiftMode(FXObject*, FXSelector, void*);
-
         /// @brief Called when user press the apply Z value button
         long onCmdShiftEdgeGeometry(FXObject*, FXSelector, void*);
 
@@ -101,12 +98,6 @@ public:
 
         /// @brief textField for shift value
         FXTextField* myShiftValueTextField = nullptr;
-
-        /// @brief radio button for absolute value
-        FXRadioButton* myAbsoluteValue = nullptr;
-
-        /// @brief radio button for relative value
-        FXRadioButton* myRelativeValue = nullptr;
     };
 
     // ===========================================================================
