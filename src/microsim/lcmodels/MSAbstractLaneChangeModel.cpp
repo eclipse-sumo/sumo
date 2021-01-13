@@ -641,7 +641,7 @@ MSAbstractLaneChangeModel::updateTargetLane() {
     }
 #ifdef DEBUG_TARGET_LANE
     if (debugVehicle()) {
-        std::cout << "\n   newTarget (offset=" << targetDir << "): " << (myTargetLane == nullptr ? "NULL" : myTargetLane->getID())
+        std::cout << "\n   newTarget (maneuverDist=" << myManeuverDist << " offset=" << targetDir << "): " << (myTargetLane == nullptr ? "NULL" : myTargetLane->getID())
                   << " newFurtherTargets: " << toString(myFurtherTargetLanes)
                   << std::endl;
     }
