@@ -428,7 +428,7 @@ NBNodeCont::removeRailComponents(NBDistrictCont& dc, NBEdgeCont& ec, NBPTStopCon
         }
         if (!keep) {
             numRemoved++;
-            numRemovedEdges += component.size();
+            numRemovedEdges += (int)component.size();
             for (std::string edgeID : component) {
                 NBEdge* e = ec.retrieve(edgeID);
                 if (e != nullptr) {

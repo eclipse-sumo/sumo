@@ -124,27 +124,24 @@ MSDelayBasedTrafficLightLogic::proposeProlongation(const SUMOTime actDuration, c
     for (int i = 0; i < (int) state.size(); i++)  {
         // this lane index corresponds to a non-green time
         bool igreen = state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR;
-        const std::vector<MSLane*>& lanes = getLanesAt(i);
-        for (LaneVector::const_iterator j = lanes.begin(); j != lanes.end(); j++) {
-            LaneDetectorMap::iterator i = myLaneDetectors.find(*j);
-            if (i == myLaneDetectors.end()) {
+        for (const MSLane* const lane : getLanesAt(i)) {
+            std::map<const MSLane*, MSE2Collector*>::iterator it = myLaneDetectors.find(lane);
+            if (it == myLaneDetectors.end()) {
 #ifdef DEBUG_TIMELOSS_CONTROL
                 // no detector for this lane!? maybe noVehicles allowed
-                std::cout << "no detector on lane '" << (*j)->getID() << std::endl;
+                std::cout << "no detector on lane '" << lane->getID() << std::endl;
 #endif
                 continue;
             }
-            MSE2Collector* detector = static_cast<MSE2Collector* >(i->second);
-            const std::vector<MSE2Collector::VehicleInfo*> vehInfos = detector->getCurrentVehicles();
+            const std::vector<MSE2Collector::VehicleInfo*> vehInfos = it->second->getCurrentVehicles();
 #ifdef DEBUG_TIMELOSS_CONTROL
             int nrVehs = 0; // count vehicles on detector
 #endif
             if (igreen) {
                 // green phase
-                for (std::vector<MSE2Collector::VehicleInfo*>::const_iterator ivp = vehInfos.begin(); ivp != vehInfos.end(); ++ivp) {
-                    MSE2Collector::VehicleInfo* iv = *ivp;
+                for (const MSE2Collector::VehicleInfo* const iv : vehInfos) {
                     if (iv->accumulatedTimeLoss > myTimeLossThreshold && iv->distToDetectorEnd > 0) {
-                        const SUMOTime estimatedTimeToJunction = TIME2STEPS((iv->distToDetectorEnd) / (*j)->getSpeedLimit());
+                        const SUMOTime estimatedTimeToJunction = TIME2STEPS((iv->distToDetectorEnd) / lane->getSpeedLimit());
                         if (actDuration + estimatedTimeToJunction  <= maxDuration) {
                             // only prolong if vehicle has a chance to pass until max duration is reached
                             prolongation = MAX2(prolongation, estimatedTimeToJunction);

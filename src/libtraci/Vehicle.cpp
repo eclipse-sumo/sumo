@@ -304,8 +304,8 @@ Vehicle::getBestLanes(const std::string& vehID) {
         info.allowsContinuation = (ret.readUnsignedByte() == 1);
 
         ret.readUnsignedByte();
-        const int m = ret.readInt();
-        for (int i = 0; i < m; ++i) {
+        int m = ret.readInt();
+        while (m-- > 0) {
             info.continuationLanes.push_back(ret.readString());
         }
         result.push_back(info);

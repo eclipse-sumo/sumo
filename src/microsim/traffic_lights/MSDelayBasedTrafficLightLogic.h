@@ -44,11 +44,6 @@ class MSE2Collector;
  */
 class MSDelayBasedTrafficLightLogic : public MSSimpleTrafficLightLogic {
 public:
-    /// @brief Definition of a map from lanes to corresponding areal detectors
-//    typedef std::map<MSLane*, MSE2Collector*> LaneDetectorMap;
-    typedef std::map<MSLane*, MSE2Collector*> LaneDetectorMap;
-
-public:
     /** @brief Constructor
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
@@ -120,7 +115,7 @@ protected:
 
 protected:
     /// A map from lanes to the corresponding lane detectors
-    LaneDetectorMap myLaneDetectors;
+    std::map<const MSLane*, MSE2Collector*> myLaneDetectors;
 
     /// Range of the connected detector, which provides the information on approaching vehicles
     double myDetectionRange;

@@ -991,7 +991,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
         delete t;
     }
     delete router;
-    return addBidiEdges.size();
+    return (int)addBidiEdges.size();
 }
 
 
