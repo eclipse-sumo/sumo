@@ -201,35 +201,105 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
     const auto junctions = myMoveFrameParent->getViewNet()->getNet()->retrieveJunctions(true);
     // get selected edges
     const auto edges = myMoveFrameParent->getViewNet()->getNet()->retrieveEdges(true);
-    if (junctions.size() > 0) {
-        // declare minimum, maximun and average
-        double junctionMinimum = junctions.front()->getNBNode()->getPosition().z();
-        double junctionMaximun = junctions.front()->getNBNode()->getPosition().z();
-        double junctionAverage = 0;
+    // check if there is edges or junctions
+    if ((junctions.size() > 0) || (edges.size() > 0)) {
+        // declare minimum and maximun
+        double selectionMinimum = 0;
+        double selectionMaximun = 0;
+        // set first values
+        if (junctions.size() > 0) {
+            selectionMinimum = junctions.front()->getNBNode()->getPosition().z();
+            selectionMaximun = junctions.front()->getNBNode()->getPosition().z();
+        } else {
+            selectionMinimum = edges.front()->getNBEdge()->getGeometry().front().z();
+            selectionMaximun = edges.front()->getNBEdge()->getGeometry().front().z();
+        }
+        // declare average
+        double selectionAverage = 0;
+        // declare numPoints
+        int numPoints = 0;
         // iterate over junctions
         for (const auto& junction : junctions) {
             // get z
             const double z = junction->getNBNode()->getPosition().z();
             // check min
-            if (z < junctionMinimum) {
-                junctionMinimum = z;
+            if (z < selectionMinimum) {
+                selectionMinimum = z;
             }
             // check max
-            if (z > junctionMaximun) {
-                junctionMaximun = z;
+            if (z > selectionMaximun) {
+                selectionMaximun = z;
             }
             // update average
-            junctionAverage += z;
+            selectionAverage += z;
+            // update numPoints
+            numPoints++;
+        }
+        // iterate over edges
+        for (const auto& edge : edges) {
+            // get innnen geometry
+            const PositionVector innenGeometry = edge->getNBEdge()->getInnerGeometry();
+            // iterate over innenGeometry
+            for (const auto &geometryPoint : innenGeometry) {
+                // check min
+                if (geometryPoint.z() < selectionMinimum) {
+                    selectionMinimum = geometryPoint.z();
+                }
+                // check max
+                if (geometryPoint.z() > selectionMaximun) {
+                    selectionMaximun = geometryPoint.z();
+                }
+                // update average
+                selectionAverage += geometryPoint.z();
+                // update numPoints
+                numPoints++;
+            }
+            // check shape start
+            if (edge->getAttribute(GNE_ATTR_SHAPE_START).size() > 0) {
+                // get z
+                const double z = edge->getNBEdge()->getGeometry().front().z();
+                // check min
+                if (z < selectionMinimum) {
+                    selectionMinimum = z;
+                }
+                // check max
+                if (z > selectionMaximun) {
+                    selectionMaximun = z;
+                }
+                // update average
+                selectionAverage += z;
+                // update numPoints
+                numPoints++;
+            }
+            // check shape end
+            if (edge->getAttribute(GNE_ATTR_SHAPE_END).size() > 0) {
+                // get z
+                const double z = edge->getNBEdge()->getGeometry().back().z();
+                // check min
+                if (z < selectionMinimum) {
+                    selectionMinimum = z;
+                }
+                // check max
+                if (z > selectionMaximun) {
+                    selectionMaximun = z;
+                }
+                // update average
+                selectionAverage += z;
+                // update numPoints
+                numPoints++;
+            }
         }
         // update average
-        junctionAverage = 100 * junctionAverage / (double)junctions.size();
-        junctionAverage = floor(junctionAverage);
-        junctionAverage *= 0.01;
+        selectionAverage = (100 * selectionAverage) / (double)numPoints;
+        // floor average
+        selectionAverage = floor(selectionAverage);
+        selectionAverage *= 0.01;
         // set label string
         const std::string labelStr = 
-            "- Junction minimum Z: " + toString(junctionMinimum) + "\n" +
-            "- Junction maximum Z: " + toString(junctionMaximun) + "\n" +
-            "- Junction average Z: " + toString(junctionAverage);
+            "- Num geometry points: " + toString(numPoints) + "\n" +
+            "- Selection minimum Z: " + toString(selectionMinimum) + "\n" +
+            "- Selection maximum Z: " + toString(selectionMaximun) + "\n" +
+            "- Selection average Z: " + toString(selectionAverage);
         // update info label
         myInfoLabel->setText(labelStr.c_str());
     }
