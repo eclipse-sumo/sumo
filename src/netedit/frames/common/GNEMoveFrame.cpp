@@ -90,7 +90,7 @@ GNEMoveFrame::ShiftEdgeGeometry::ShiftEdgeGeometry(GNEMoveFrame* moveFrameParent
     myShiftValueTextField->setText("0");
     // create apply button
     new FXButton(this,
-        "Shift edge geometry\t\Shift edge geometry to all selected edges",
+        "Shift edge geometry\t\tShift edge geometry orthogonally to driving direction for all selected edges",
         GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), this, MID_GNE_APPLY, GUIDesignButton);
 }
 
