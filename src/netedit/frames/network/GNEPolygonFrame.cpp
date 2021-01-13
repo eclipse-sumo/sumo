@@ -439,7 +439,6 @@ GNEPolygonFrame::addPolygon(const std::map<SumoXMLAttr, std::string>& polyValues
         // set manually attributes use GEO, block movement and block shape
         GNEShape* poly = myViewNet->getNet()->retrieveShape(SUMO_TAG_POLY, id);
         poly->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, polyValues.at(GNE_ATTR_BLOCK_MOVEMENT), myViewNet->getUndoList());
-        poly->setAttribute(GNE_ATTR_BLOCK_SHAPE, polyValues.at(GNE_ATTR_BLOCK_SHAPE), myViewNet->getUndoList());
         myViewNet->getUndoList()->p_end();
         return true;
     } else {

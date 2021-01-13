@@ -764,12 +764,6 @@ public:
         /// @brief checkBox for block movement
         FXCheckButton* myBlockMovementCheckButton;
 
-        /// @brief horizontal frame for block shape
-        FXHorizontalFrame* myBlockShapeFrame;
-
-        /// @brief checkBox for block shape
-        FXCheckButton* myBlockShapeCheckButton;
-
         /// @brief horizontal frame for close polygon
         FXHorizontalFrame* myCloseShapeFrame;
 

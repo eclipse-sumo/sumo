@@ -95,15 +95,6 @@ public:
         /// @brief pointer to check box "Block movement"
         FXCheckButton* myCheckBoxBlockMovement;
 
-        /// @frame horizontal frame for block shape
-        FXHorizontalFrame* myHorizontalFrameBlockShape;
-
-        /// @brief Label for Check blocked shape
-        FXLabel* myLabelBlockShape;
-
-        /// @brief pointer to check box "Block Shape"
-        FXCheckButton* myCheckBoxBlockShape;
-
         /// @frame horizontal frame for close shape
         FXHorizontalFrame* myHorizontalFrameCloseShape;
 

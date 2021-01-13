@@ -175,9 +175,6 @@ public:
     /// @brief delete the geometry point closest to the given pos
     void deleteGeometryPoint(const Position& pos, bool allowUndo = true);
 
-    /// @brief return true if polygon is blocked
-    bool isPolygonBlocked() const;
-
     /// @brief check if polygon is closed
     bool isPolygonClosed() const;
 
@@ -196,9 +193,6 @@ public:
 protected:
     /// @brief Latitude of Polygon
     PositionVector myGeoShape;
-
-    /// @brief flag for block shape
-    bool myBlockShape;
 
     /// @brief flag to indicate if polygon is simplified
     bool mySimplifiedShape;

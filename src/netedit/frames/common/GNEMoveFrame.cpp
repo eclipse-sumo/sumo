@@ -61,7 +61,12 @@ GNEMoveFrame::NetworkModeOptions::~NetworkModeOptions() {}
 
 bool 
 GNEMoveFrame::NetworkModeOptions::getMoveWholePolygons() const {
-    return (myMoveWholePolygons->getCheck() == TRUE);
+    if (myMoveFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+        (myMoveFrameParent->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
+        return (myMoveWholePolygons->getCheck() == TRUE);
+    } else {
+        return false;
+    }
 }
 
 // ---------------------------------------------------------------------------

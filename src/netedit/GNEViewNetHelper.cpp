@@ -29,6 +29,7 @@
 #include <netedit/elements/network/GNEInternalLane.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -957,7 +958,7 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
         // get snap radius
         const double snap_radius = myViewNet->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
         // check if we clicked over shape
-        if (distanceToShape <= snap_radius) {
+        if ((distanceToShape <= snap_radius) || myViewNet->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
             // get move operation
             GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getPolyFront()->getMoveOperation(polygonShapeOffset);
             // continue if move operation is valid

@@ -22,7 +22,9 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/gui/div/GLHelper.h>
 
@@ -42,15 +44,14 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 
 GNETAZ::GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, bool blockMovement) :
     GNETAZElement(id, net, GLO_TAZ, SUMO_TAG_TAZ, blockMovement,
-{}, {}, {}, {}, {}, {}, {}, {}),
-SUMOPolygon(id, "", color, shape, false, false, 1),
-myBlockShape(false),
-myMaxWeightSource(0),
-myMinWeightSource(0),
-myAverageWeightSource(0),
-myMaxWeightSink(0),
-myMinWeightSink(0),
-myAverageWeightSink(0) {
+        {}, {}, {}, {}, {}, {}, {}, {}),
+    SUMOPolygon(id, "", color, shape, false, false, 1),
+    myMaxWeightSource(0),
+    myMinWeightSource(0),
+    myAverageWeightSource(0),
+    myMaxWeightSink(0),
+    myMinWeightSink(0),
+    myAverageWeightSink(0) {
     // update geometry
     updateGeometry();
 }
@@ -65,7 +66,7 @@ GNETAZ::getMoveOperation(const double shapeOffset) {
     if (myBlockMovement) {
         // nothing to move
         return nullptr;
-    } else if (myBlockShape) {
+    } else if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
         // move entire shape
         return new GNEMoveOperation(this, myShape);
     } else {
@@ -187,12 +188,6 @@ GNETAZ::getCenteringBoundary() const {
 }
 
 
-bool
-GNETAZ::isShapeBlocked() const {
-    return myBlockShape;
-}
-
-
 std::string
 GNETAZ::getParentName() const {
     return myNet->getMicrosimID();
@@ -258,7 +253,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
         }
         // draw contour if shape isn't blocked
-        if (!myBlockShape) {
+        if (!myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
             // push contour matrix
             glPushMatrix();
             // translate to front
@@ -339,8 +334,6 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
         }
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
-        case GNE_ATTR_BLOCK_SHAPE:
-            return toString(myBlockShape);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -396,7 +389,6 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_FILL:
         case SUMO_ATTR_EDGES:
         case GNE_ATTR_BLOCK_MOVEMENT:
-        case GNE_ATTR_BLOCK_SHAPE:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -425,8 +417,6 @@ GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
         case GNE_ATTR_BLOCK_MOVEMENT:
-            return canParse<bool>(value);
-        case GNE_ATTR_BLOCK_SHAPE:
             return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
@@ -534,9 +524,6 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);
-            break;
-        case GNE_ATTR_BLOCK_SHAPE:
-            myBlockShape = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

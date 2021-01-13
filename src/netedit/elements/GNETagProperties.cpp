@@ -376,12 +376,6 @@ GNETagProperties::canBlockMovement() const {
 
 
 bool
-GNETagProperties::canBlockShape() const {
-    return (myTagProperty & BLOCKSHAPE) != 0;
-}
-
-
-bool
 GNETagProperties::canCloseShape() const {
     return (myTagProperty & CLOSESHAPE) != 0;
 }

@@ -2412,15 +2412,10 @@ GNEFrameAttributesModuls::NeteditAttributes::NeteditAttributes(GNEFrame* framePa
     new FXLabel(myBlockMovementFrame, "block move", 0, GUIDesignLabelAttribute);
     myBlockMovementCheckButton = new FXCheckButton(myBlockMovementFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myBlockMovementCheckButton->setCheck(false);
-    // Create Frame for block shape label and checkBox (By default disabled)
-    myBlockShapeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(myBlockShapeFrame, "block shape", 0, GUIDesignLabelAttribute);
-    myBlockShapeCheckButton = new FXCheckButton(myBlockShapeFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // Create Frame for block close polygon and checkBox (By default disabled)
     myCloseShapeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myCloseShapeFrame, "Close shape", 0, GUIDesignLabelAttribute);
     myCloseShapeCheckButton = new FXCheckButton(myCloseShapeFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
-    myBlockShapeCheckButton->setCheck(false);
     // Create Frame for center element after creation (By default enabled)
     myCenterViewAfterCreationFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myCenterViewAfterCreationFrame, "Center view", 0, GUIDesignLabelAttribute);
@@ -2455,13 +2450,6 @@ GNEFrameAttributesModuls::NeteditAttributes::showNeteditAttributesModul(const GN
         showFrame = true;
     } else {
         myBlockMovementFrame->hide();
-    }
-    // check if block shape check button has to be show
-    if (tagProperty.canBlockShape()) {
-        myBlockShapeFrame->show();
-        showFrame = true;
-    } else {
-        myBlockShapeFrame->hide();
     }
     // check if close shape check button has to be show
     if (tagProperty.canCloseShape()) {
@@ -2529,14 +2517,6 @@ GNEFrameAttributesModuls::NeteditAttributes::getNeteditAttributesAndValues(std::
             valuesMap[GNE_ATTR_BLOCK_MOVEMENT] = "0";
         }
     }
-    // Save block shape value if shape's element can be blocked
-    if (myBlockShapeCheckButton->shown()) {
-        if (myBlockShapeCheckButton->getCheck() == 1) {
-            valuesMap[GNE_ATTR_BLOCK_SHAPE] = "1";
-        } else {
-            valuesMap[GNE_ATTR_BLOCK_SHAPE] = "0";
-        }
-    }
     // Save close shape value if shape's element can be closed
     if (myCloseShapeCheckButton->shown()) {
         if (myCloseShapeCheckButton->getCheck() == 1) {
@@ -2561,12 +2541,6 @@ GNEFrameAttributesModuls::NeteditAttributes::onCmdSetNeteditAttribute(FXObject* 
             myBlockMovementCheckButton->setText("true");
         } else {
             myBlockMovementCheckButton->setText("false");
-        }
-    } else if (obj == myBlockShapeCheckButton) {
-        if (myBlockShapeCheckButton->getCheck()) {
-            myBlockShapeCheckButton->setText("true");
-        } else {
-            myBlockShapeCheckButton->setText("false");
         }
     } else if (obj == myCloseShapeCheckButton) {
         if (myCloseShapeCheckButton->getCheck()) {

@@ -2447,7 +2447,7 @@ GNEAttributeCarrier::fillShapes() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::SHAPE,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::BLOCKSHAPE | GNETagProperties::CLOSESHAPE | GNETagProperties::GEOSHAPE,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::CLOSESHAPE | GNETagProperties::GEOSHAPE,
                                       GUIIcon::LOCATEPOLY /* temporal */);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -2664,7 +2664,7 @@ GNEAttributeCarrier::fillTAZElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TAZELEMENT,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::BLOCKSHAPE,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT,
                                       GUIIcon::TAZ);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,

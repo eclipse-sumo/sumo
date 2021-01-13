@@ -486,11 +486,6 @@ GNEInspectorFrame::NeteditAttributesEditor::NeteditAttributesEditor(GNEInspector
     myLabelBlockMovement = new FXLabel(myHorizontalFrameBlockMovement, "Block move", nullptr, GUIDesignLabelAttribute);
     myCheckBoxBlockMovement = new FXCheckButton(myHorizontalFrameBlockMovement, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
 
-    // Create elements for block shape
-    myHorizontalFrameBlockShape = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myLabelBlockShape = new FXLabel(myHorizontalFrameBlockShape, "Block shape", nullptr, GUIDesignLabelAttribute);
-    myCheckBoxBlockShape = new FXCheckButton(myHorizontalFrameBlockShape, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
-
     // Create elements for close shape
     myHorizontalFrameCloseShape = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myLabelCloseShape = new FXLabel(myHorizontalFrameCloseShape, "Close shape", nullptr, GUIDesignLabelAttribute);
@@ -511,7 +506,6 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
         // enable all editable elements
         myTextFieldParentAdditional->enable();
         myCheckBoxBlockMovement->enable();
-        myCheckBoxBlockShape->enable();
         myCheckBoxCloseShape->enable();
         // obtain tag property (only for improve code legibility)
         const auto& tagValue = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty();
@@ -548,28 +542,6 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             } else {
                 myCheckBoxBlockMovement->setCheck(false);
                 myCheckBoxBlockMovement->setText("false");
-            }
-        }
-        // check if item can block their shape
-        if (tagValue.canBlockShape()) {
-            // show NeteditAttributesEditor
-            show();
-            // Iterate over AC to obtain values
-            bool value = true;
-            for (const auto& i : myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
-                value &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_SHAPE));
-            }
-            // show block shape frame
-            myHorizontalFrameBlockShape->show();
-            // show help button
-            myHelpButton->show();
-            // set check box value and update label
-            if (value) {
-                myCheckBoxBlockShape->setCheck(true);
-                myCheckBoxBlockShape->setText("true");
-            } else {
-                myCheckBoxBlockShape->setCheck(false);
-                myCheckBoxBlockShape->setText("false");
             }
         }
         // check if item can block their shape
@@ -615,7 +587,6 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
         if (GNEFrameAttributesModuls::isSupermodeValid(myInspectorFrameParent->getViewNet(), myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front()) == false) {
             myTextFieldParentAdditional->disable();
             myCheckBoxBlockMovement->disable();
-            myCheckBoxBlockShape->disable();
             myCheckBoxCloseShape->disable();
         }
     }
@@ -627,7 +598,6 @@ GNEInspectorFrame::NeteditAttributesEditor::hideNeteditAttributesEditor() {
     // hide all elements of GroupBox
     myHorizontalFrameParentAdditional->hide();
     myHorizontalFrameBlockMovement->hide();
-    myHorizontalFrameBlockShape->hide();
     myHorizontalFrameCloseShape->hide();
     myMarkFrontElementButton->hide();
     myHelpButton->hide();
@@ -659,22 +629,6 @@ GNEInspectorFrame::NeteditAttributesEditor::refreshNeteditAttributesEditor(bool 
             } else {
                 myCheckBoxBlockMovement->setCheck(false);
                 myCheckBoxBlockMovement->setText("false");
-            }
-        }
-        // refresh block shape
-        if (myHorizontalFrameBlockShape->shown()) {
-            // Iterate over AC to obtain values
-            bool value = true;
-            for (const auto& i : myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-                value &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_SHAPE));
-            }
-            // set check box value and update label
-            if (value) {
-                myCheckBoxBlockShape->setCheck(true);
-                myCheckBoxBlockShape->setText("true");
-            } else {
-                myCheckBoxBlockShape->setCheck(false);
-                myCheckBoxBlockShape->setText("false");
             }
         }
         // refresh close shape
@@ -720,17 +674,6 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
                 } else {
                     i->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, "false", myInspectorFrameParent->myViewNet->getUndoList());
                     myCheckBoxBlockMovement->setText("false");
-                }
-            }
-        } else if (obj == myCheckBoxBlockShape) {
-            // set new values in all inspected Attribute Carriers
-            for (const auto& i : myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-                if (myCheckBoxBlockShape->getCheck() == 1) {
-                    i->setAttribute(GNE_ATTR_BLOCK_SHAPE, "true", myInspectorFrameParent->myViewNet->getUndoList());
-                    myCheckBoxBlockShape->setText("true");
-                } else {
-                    i->setAttribute(GNE_ATTR_BLOCK_SHAPE, "false", myInspectorFrameParent->myViewNet->getUndoList());
-                    myCheckBoxBlockShape->setText("false");
                 }
             }
         } else if (obj == myCheckBoxCloseShape) {

@@ -75,9 +75,6 @@ public:
 
     /// @}
 
-    /// @brief return true if Shape TAZ is blocked
-    bool isShapeBlocked() const;
-
     /// @name inherited from GUIGlObject
     /// @{
     /// @brief Returns the name of the parent object
@@ -137,9 +134,6 @@ public:
 protected:
     /// @brief boundary used during moving of elements
     Boundary myMovingGeometryBoundary;
-
-    /// @brief flag for block shape
-    bool myBlockShape;
 
     /// @brief geometry for lenghts/rotations
     GNEGeometry::Geometry myTAZGeometry;
