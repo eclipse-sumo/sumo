@@ -1192,12 +1192,21 @@ MSLCM_SL2015::_wantsChangeSublane(
     */
 
     // react to a stopped leader on the current lane
-    if ((bestLaneOffset == 0 && leaders.hasStoppedVehicle())
-            || (checkOpposite && neighLeaders.hasStoppedVehicle())) {
+    if (bestLaneOffset == 0 && leaders.hasStoppedVehicle()) {
         // value is doubled for the check since we change back and forth
         // laDist = 0.5 * (myVehicle.getVehicleType().getLengthWithGap() + leader.first->getVehicleType().getLengthWithGap());
         // XXX determine length of longest stopped vehicle
         laDist = myVehicle.getVehicleType().getLengthWithGap();
+    } else if (checkOpposite && isOpposite() && neighLeaders.hasStoppedVehicle()) {
+        // compute exact distance to overtake stopped vehicle
+        laDist = 0;
+        for (int i = 0; i < neighLeaders.numSublanes(); ++i) {
+            CLeaderDist vehDist = neighLeaders[i];
+            if (vehDist.first != nullptr && vehDist.first->isStopped()) {
+                laDist = MAX2(laDist, myVehicle.getVehicleType().getMinGap() + vehDist.second + vehDist.first->getVehicleType().getLengthWithGap());
+            }
+        }
+        laDist += myVehicle.getVehicleType().getLength();
     }
     if (myStrategicParam < 0) {
         laDist = -1e3; // never perform strategic change
