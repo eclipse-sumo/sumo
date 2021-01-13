@@ -4125,7 +4125,7 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
             if (lane == myLaneChangeModel->getShadowLane()) {
                 return lane->getLength() - myState.myPos - myType->getLength();
             } else {
-                return myState.myPos + (calledByGetPosition ? 0 : 1) * myType->getLength();
+                return myState.myPos + (calledByGetPosition ? -1 : 1) * myType->getLength();
             }
         } else if (&lane->getEdge() != &myLane->getEdge()) {
             return lane->getLength() - myState.myPos;
