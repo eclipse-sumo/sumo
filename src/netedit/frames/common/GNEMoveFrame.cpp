@@ -44,6 +44,27 @@ FXIMPLEMENT(GNEMoveFrame::ChangeZInSelection,   FXGroupBox, ChangeZInSelectionMa
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
+// GNEMoveFrame::NetworkModeOptions - methods
+// ---------------------------------------------------------------------------
+
+GNEMoveFrame::NetworkModeOptions::NetworkModeOptions(GNEMoveFrame* moveFrameParent) :
+    FXGroupBox(moveFrameParent->myContentFrame, "Network move options", GUIDesignGroupBoxFrame),
+    myMoveFrameParent(moveFrameParent) {
+    // Create checkbox for enable/disable move whole polygons
+    myMoveWholePolygons = new FXCheckButton(this, "Move whole polygons", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myMoveWholePolygons->setCheck(FALSE);
+}
+
+
+GNEMoveFrame::NetworkModeOptions::~NetworkModeOptions() {}
+
+
+bool 
+GNEMoveFrame::NetworkModeOptions::getMoveWholePolygons() const {
+    return (myMoveWholePolygons->getCheck() == TRUE);
+}
+
+// ---------------------------------------------------------------------------
 // GNEMoveFrame::ChangeZInSelection - methods
 // ---------------------------------------------------------------------------
 
@@ -311,6 +332,8 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
 
 GNEMoveFrame::GNEMoveFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Move") {
+    // create network mode options
+    myNetworkModeOptions = new NetworkModeOptions(this);
     // create change z selection
     myChangeZInSelection = new ChangeZInSelection(this);
 }
@@ -347,6 +370,12 @@ void
 GNEMoveFrame::hide() {
     // hide frame
     GNEFrame::hide();
+}
+
+
+GNEMoveFrame::NetworkModeOptions*
+GNEMoveFrame::getNetworkModeOptions() const {
+    return myNetworkModeOptions;
 }
 
 /****************************************************************************/

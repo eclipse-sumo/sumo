@@ -33,6 +33,29 @@ class GNEMoveFrame : public GNEFrame {
 
 public:
     // ===========================================================================
+    // class NetworkModeOptions
+    // ===========================================================================
+    class NetworkModeOptions : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        NetworkModeOptions(GNEMoveFrame* moveFrameParent);
+
+        /// @brief destructor
+        ~NetworkModeOptions();
+
+        /// @brief move whole polygons
+        bool getMoveWholePolygons() const;
+
+    private:
+        /// @brief pointer to move frame parent
+        GNEMoveFrame* myMoveFrameParent;
+
+        /// @brief checkbox for enable/disable move whole polygons
+        FXCheckButton* myMoveWholePolygons;
+    };
+
+    // ===========================================================================
     // class ChangeZInSelection
     // ===========================================================================
 
@@ -114,7 +137,13 @@ public:
     /// @brief hide prohibition frame
     void hide();
 
+    /// @brief get network mode options
+    NetworkModeOptions* getNetworkModeOptions() const;
+
 private:
+    /// @brief modul for NetworkMode Options
+    NetworkModeOptions *myNetworkModeOptions = nullptr;
+
     /// @brief modul for change Z in selection
     ChangeZInSelection* myChangeZInSelection = nullptr;
 };
