@@ -72,22 +72,22 @@ public:
         /// @brief destructor
         ~ShiftEdgeGeometry();
 
-        /// @brief show change Z in selection
-        void showChangeZInSelection();
+        /// @brief show shift edge geometry
+        void showShiftEdgeGeometry();
 
         /// @brief hide change Z in selection
-        void hideChangeZInSelection();
+        void hideShiftEdgeGeometry();
 
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when user changes Z value
-        long onCmdChangeZValue(FXObject*, FXSelector, void*);
+        long onCmdChangeShiftValue(FXObject*, FXSelector, void*);
 
-        /// @brief Called when user changes Z mode
-        long onCmdChangeZMode(FXObject*, FXSelector, void*);
+        /// @brief Called when user changes shift mode
+        long onCmdChangeShiftMode(FXObject*, FXSelector, void*);
 
         /// @brief Called when user press the apply Z value button
-        long onCmdApplyZ(FXObject*, FXSelector, void*);
+        long onCmdShiftEdgeGeometry(FXObject*, FXSelector, void*);
 
         /// @}
 
@@ -99,8 +99,8 @@ public:
         /// @brief pointer to move frame parent
         GNEMoveFrame* myMoveFrameParent;
 
-        /// @brief textField for Z value
-        FXTextField* myZValueTextField = nullptr;
+        /// @brief textField for shift value
+        FXTextField* myShiftValueTextField = nullptr;
 
         /// @brief radio button for absolute value
         FXRadioButton* myAbsoluteValue = nullptr;
@@ -197,6 +197,9 @@ public:
 private:
     /// @brief modul for NetworkMode Options
     NetworkModeOptions *myNetworkModeOptions = nullptr;
+
+    /// @brief modul for shift edge geometry
+    ShiftEdgeGeometry *myShiftEdgeGeometry = nullptr;
 
     /// @brief modul for change Z in selection
     ChangeZInSelection* myChangeZInSelection = nullptr;
