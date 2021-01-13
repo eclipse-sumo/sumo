@@ -33,25 +33,25 @@ class GNEMoveFrame : public GNEFrame {
 
 public:
     // ===========================================================================
-    // class ChangeJunctionsZ
+    // class ChangeZInSelection
     // ===========================================================================
 
-    class ChangeJunctionsZ : protected FXGroupBox {
+    class ChangeZInSelection : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEMoveFrame::ChangeJunctionsZ)
+        FXDECLARE(GNEMoveFrame::ChangeZInSelection)
 
     public:
         /// @brief constructor
-        ChangeJunctionsZ(GNEMoveFrame* moveFrameParent);
+        ChangeZInSelection(GNEMoveFrame* moveFrameParent);
 
         /// @brief destructor
-        ~ChangeJunctionsZ();
+        ~ChangeZInSelection();
 
-        /// @brief show change junctions Z
-        void showChangeJunctionsZ();
+        /// @brief show change Z in selection
+        void showChangeZInSelection();
 
-        /// @brief hide change junctions Z
-        void hideChangeJunctionsZ();
+        /// @brief hide change Z in selection
+        void hideChangeZInSelection();
 
         /// @name FOX-callbacks
         /// @{
@@ -61,14 +61,14 @@ public:
         /// @brief Called when user changes Z mode
         long onCmdChangeZMode(FXObject*, FXSelector, void*);
 
-        /// @brief Called when user press the apply Z button
+        /// @brief Called when user press the apply Z value button
         long onCmdApplyZ(FXObject*, FXSelector, void*);
 
         /// @}
 
     protected:
         /// @brief FPX need this
-        FOX_CONSTRUCTOR(ChangeJunctionsZ)
+        FOX_CONSTRUCTOR(ChangeZInSelection)
 
         /// @brief update label
         void updateInfoLabel();
@@ -88,59 +88,6 @@ public:
 
         /// @brief info label
         FXLabel *myInfoLabel = nullptr;
-    };
-
-
-    // ===========================================================================
-    // class ChangeEdgesZ
-    // ===========================================================================
-
-    class ChangeEdgesZ : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEMoveFrame::ChangeEdgesZ)
-
-    public:
-        /// @brief constructor
-        ChangeEdgesZ(GNEMoveFrame* moveFrameParent);
-
-        /// @brief destructor
-        ~ChangeEdgesZ();
-
-        /// @brief show change edges Z
-        void showChangeEdgesZ();
-
-        /// @brief hide change edges Z
-        void hideChangeEdgesZ();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when user changes Z value
-        long onCmdChangeZValue(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user changes Z mode
-        long onCmdChangeZMode(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user press the apply Z button
-        long onCmdApplyZ(FXObject*, FXSelector, void*);
-
-        /// @}
-
-    protected:
-        /// @brief FPX need this
-        FOX_CONSTRUCTOR(ChangeEdgesZ)
-
-    private:
-        /// @brief pointer to move frame parent
-        GNEMoveFrame* myMoveFrameParent;
-
-        /// @brief textField for Z value
-        FXTextField* myZValueTextField = nullptr;
-
-        /// @brief radio button for absolute value
-        FXRadioButton* myAbsoluteValue = nullptr;
-
-        /// @brief radio button for relative value
-        FXRadioButton* myRelativeValue = nullptr;
     };
 
     /**@brief Constructor
@@ -168,9 +115,6 @@ public:
     void hide();
 
 private:
-    /// @brief modul for change junctions Z
-    ChangeJunctionsZ* myChangeJunctionsZ = nullptr;
-
-    /// @brief modul for change edges Z
-    ChangeEdgesZ* myChangeEdgesZ = nullptr;
+    /// @brief modul for change Z in selection
+    ChangeZInSelection* myChangeZInSelection = nullptr;
 };
