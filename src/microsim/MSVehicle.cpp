@@ -5641,7 +5641,6 @@ MSVehicle::getLatOffset(const MSLane* lane) const {
             }
         }
         // Check whether the vehicle issued a maneuverReservation on the lane.
-        assert(&myLaneChangeModel->getTargetLane()->getEdge() == &myLane->getEdge()); // should have been handled in (&lane->getEdge() == &myLane->getEdge())-block
         const std::vector<MSLane*>& furtherTargets = myLaneChangeModel->getFurtherTargetLanes();
         for (int i = 0; i < (int)myFurtherLanes.size(); ++i) {
             // Further target lanes are just neighboring lanes of the vehicle's further lanes, @see MSAbstractLaneChangeModel::updateTargetLane()
