@@ -25,6 +25,7 @@
 // this is how fox does it in xincs.h
 #include <io.h>
 #define access _access
+#define stat _stat64
 #define R_OK    4       /* Test for read permission.  */
 #else
 #include <unistd.h>
