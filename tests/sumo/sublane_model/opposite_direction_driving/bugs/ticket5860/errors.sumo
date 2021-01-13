@@ -1,36 +1,18 @@
-Warning: Vehicle 'flow_1.3' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=100.00.
-Warning: Vehicle 'flow_0.2' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=102.00.
-Warning: Vehicle 'flow_1.12' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=119.00.
-Warning: Vehicle 'flow_0.23' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=137.00.
-Warning: Vehicle 'flow_0.20' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=137.00.
-Warning: Vehicle 'flow_1.20' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=137.00.
-Warning: Vehicle 'flow_0.0' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=138.00.
-Warning: Teleporting vehicle 'flow_1.20'; frontal collision with vehicle 'flow_0.0', lane='Link3_0', gap=-1.84', latGap=-0.45, time=138.00 stage=move.
-Warning: Vehicle 'flow_1.20' ends teleporting on edge 'Link43', time 138.00.
-Warning: Teleporting vehicle 'flow_1.24'; frontal collision with vehicle 'flow_0.1', lane='Link3_0', gap=-1.17', latGap=-0.10, time=147.00 stage=move.
-Warning: Vehicle 'flow_1.24' ends teleporting on edge 'Link43', time 147.00.
-Warning: Teleporting vehicle 'flow_1.2'; frontal collision with vehicle 'flow_0.29', lane='Link3_0', gap=-1.65', latGap=-0.15, time=161.00 stage=laneChange.
-Warning: Vehicle 'flow_1.2' ends teleporting on edge 'Link43', time 161.00.
-Warning: Teleporting vehicle 'flow_0.40'; frontal collision with vehicle 'flow_1.4', lane='Link43_0', gap=-0.22', latGap=-1.15, time=190.00 stage=move.
-Warning: Vehicle 'flow_0.40' ends teleporting on edge 'Link3', time 190.00.
-Warning: Vehicle 'flow_0.7' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=191.00.
-Warning: Teleporting vehicle 'flow_1.39'; frontal collision with vehicle 'flow_0.7', lane='Link3_0', gap=-2.39', latGap=-1.15, time=191.00 stage=move.
-Warning: Vehicle 'flow_1.39' ends teleporting on edge 'Link43', time 191.00.
-Warning: Teleporting vehicle 'flow_1.7'; frontal collision with vehicle 'flow_0.41', lane='Link2_0', gap=-5.05', latGap=-1.15, time=193.00 stage=move.
-Warning: Teleporting vehicle 'flow_1.6'; frontal collision with vehicle 'flow_0.41', lane='Link2_0', gap=-0.01', latGap=-1.80, time=193.00 stage=move.
-Warning: Vehicle 'flow_1.6' teleports beyond arrival edge 'Link43', time 193.00.
-Warning: Vehicle 'flow_1.7' teleports beyond arrival edge 'Link43', time 193.00.
-Warning: Teleporting vehicle 'flow_0.11'; frontal collision with vehicle 'flow_1.40', lane='Link24_0', gap=-2.43', latGap=-0.15, time=194.00 stage=move.
-Warning: Vehicle 'flow_0.11' teleports beyond arrival edge 'Link4', time 194.00.
-Warning: Teleporting vehicle 'flow_0.15'; frontal collision with vehicle 'flow_1.42', lane='Link24_0', gap=-3.58', latGap=-1.15, time=209.00 stage=move.
-Warning: Vehicle 'flow_0.15' teleports beyond arrival edge 'Link4', time 209.00.
-Warning: Teleporting vehicle 'flow_0.16'; frontal collision with vehicle 'flow_1.44', lane='Link24_0', gap=-0.62', latGap=-1.15, time=213.00 stage=move.
-Warning: Vehicle 'flow_0.16' teleports beyond arrival edge 'Link4', time 213.00.
-Warning: Teleporting vehicle 'flow_1.43'; frontal collision with vehicle 'flow_0.18', lane='Link3_0', gap=-2.00', latGap=-0.15, time=218.00 stage=move.
-Warning: Vehicle 'flow_1.43' ends teleporting on edge 'Link43', time 218.00.
-Warning: Teleporting vehicle 'flow_1.46'; frontal collision with vehicle 'flow_0.18', lane='Link4_0', gap=-0.98', latGap=-0.15, time=220.00 stage=move.
-Warning: Vehicle 'flow_1.46' ends teleporting on edge 'Link25', time 220.00.
-Warning: Vehicle 'flow_1.39' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=224.00.
-Warning: Teleporting vehicle 'flow_1.51'; frontal collision with vehicle 'flow_0.21', lane='Link3_0', gap=-4.83', latGap=-1.77, time=235.00 stage=move.
-Warning: Vehicle 'flow_1.51' ends teleporting on edge 'Link43', time 235.00.
-Warning: Vehicle 'flow_1.30' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=257.00.
+Warning: Teleporting vehicle 'flow_1.20'; frontal collision with vehicle 'flow_0.0', lane='Link4_0', gap=-2.62', latGap=-1.15, time=140.00 stage=move.
+Warning: Vehicle 'flow_1.20' ends teleporting on edge 'Link25', time 140.00.
+Warning: Teleporting vehicle 'flow_1.2'; frontal collision with vehicle 'flow_0.30', lane='Link2_0', gap=-7.09', latGap=-1.15, time=167.00 stage=move.
+Warning: Vehicle 'flow_1.2' teleports beyond arrival edge 'Link43', time 167.00.
+Warning: Vehicle 'flow_1.30' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=173.00.
+Warning: Teleporting vehicle 'flow_0.39'; frontal collision with vehicle 'flow_1.4', lane='Link43_0', gap=-2.07', latGap=-1.15, time=188.00 stage=move.
+Warning: Vehicle 'flow_0.39' ends teleporting on edge 'Link3', time 188.00.
+Warning: Teleporting vehicle 'flow_1.3'; frontal collision with vehicle 'flow_0.38', lane='Link2_0', gap=-1.81', latGap=-1.45, time=189.00 stage=move.
+Warning: Vehicle 'flow_1.3' teleports beyond arrival edge 'Link43', time 189.00.
+Warning: Teleporting vehicle 'flow_0.40'; frontal collision with vehicle 'flow_1.7', lane='Link43_0', gap=-6.45', latGap=-0.15, time=191.00 stage=laneChange.
+Warning: Vehicle 'flow_0.40' ends teleporting on edge 'Link3', time 191.00.
+Warning: Teleporting vehicle 'flow_1.44'; frontal collision with vehicle 'flow_0.18', lane='Link3_0', gap=-1.84', latGap=-0.15, time=218.00 stage=move.
+Warning: Vehicle 'flow_1.44' ends teleporting on edge 'Link43', time 218.00.
+Warning: Vehicle 'flow_1.8' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=224.00.
+Warning: Teleporting vehicle 'flow_1.51'; frontal collision with vehicle 'flow_0.19', lane='Link3_0', gap=-4.96', latGap=-0.15, time=233.00 stage=move.
+Warning: Vehicle 'flow_1.51' ends teleporting on edge 'Link43', time 233.00.
+Warning: Vehicle 'flow_0.10' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=240.00.
+Warning: Vehicle 'flow_0.31' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=289.00.
