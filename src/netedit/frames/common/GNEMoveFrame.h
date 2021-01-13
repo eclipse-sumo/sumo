@@ -32,9 +32,11 @@
 class GNEMoveFrame : public GNEFrame {
 
 public:
+
     // ===========================================================================
     // class NetworkModeOptions
     // ===========================================================================
+
     class NetworkModeOptions : protected FXGroupBox {
 
     public:
@@ -53,6 +55,58 @@ public:
 
         /// @brief checkbox for enable/disable move whole polygons
         FXCheckButton* myMoveWholePolygons;
+    };
+
+    // ===========================================================================
+    // class ShiftEdgeGeometry
+    // ===========================================================================
+
+    class ShiftEdgeGeometry : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEMoveFrame::ShiftEdgeGeometry)
+
+    public:
+        /// @brief constructor
+        ShiftEdgeGeometry(GNEMoveFrame* moveFrameParent);
+
+        /// @brief destructor
+        ~ShiftEdgeGeometry();
+
+        /// @brief show change Z in selection
+        void showChangeZInSelection();
+
+        /// @brief hide change Z in selection
+        void hideChangeZInSelection();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when user changes Z value
+        long onCmdChangeZValue(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user changes Z mode
+        long onCmdChangeZMode(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press the apply Z value button
+        long onCmdApplyZ(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(ShiftEdgeGeometry)
+
+    private:
+        /// @brief pointer to move frame parent
+        GNEMoveFrame* myMoveFrameParent;
+
+        /// @brief textField for Z value
+        FXTextField* myZValueTextField = nullptr;
+
+        /// @brief radio button for absolute value
+        FXRadioButton* myAbsoluteValue = nullptr;
+
+        /// @brief radio button for relative value
+        FXRadioButton* myRelativeValue = nullptr;
     };
 
     // ===========================================================================
@@ -90,7 +144,7 @@ public:
         /// @}
 
     protected:
-        /// @brief FPX need this
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(ChangeZInSelection)
 
         /// @brief update label
