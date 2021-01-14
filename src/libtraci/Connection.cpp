@@ -124,7 +124,7 @@ Connection::simulationStep(double time) {
     mySubscriptionResults.clear();
     myContextSubscriptionResults.clear();
     int numSubs = inMsg.readInt();
-    while (numSubs > 0) {
+    while (numSubs-- > 0) {
         const int responseID = check_commandGetResult(inMsg, 0, -1, true);
         if ((responseID >= libsumo::RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE && responseID <= libsumo::RESPONSE_SUBSCRIBE_BUSSTOP_VARIABLE) ||
                 (responseID >= libsumo::RESPONSE_SUBSCRIBE_PARKINGAREA_VARIABLE && responseID <= libsumo::RESPONSE_SUBSCRIBE_OVERHEADWIRE_VARIABLE)) {
@@ -132,7 +132,6 @@ Connection::simulationStep(double time) {
         } else {
             readContextSubscription(responseID, inMsg);
         }
-        numSubs--;
     }
 }
 
@@ -208,17 +207,18 @@ Connection::subscribe(int domID, const std::string& objID, double beginTime, dou
     if (!mySocket.has_client_connection()) {
         throw tcpip::SocketException("Socket is not initialised");
     }
+    const bool isContext = domain != -1;
     tcpip::Storage outMsg;
     outMsg.writeUnsignedByte(domID); // command id
     outMsg.writeDouble(beginTime);
     outMsg.writeDouble(endTime);
     outMsg.writeString(objID);
-    if (domain > -1) {
+    if (isContext) {
         outMsg.writeUnsignedByte(domain);
         outMsg.writeDouble(range);
     }
     if (vars.size() == 1 && vars.front() == -1) {
-        if (domID == libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE) {
+        if (domID == libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE && !isContext) {
             // default for vehicles is edge id and lane position
             outMsg.writeUnsignedByte(2);
             outMsg.writeUnsignedByte(libsumo::VAR_ROAD_ID);
@@ -254,7 +254,7 @@ Connection::subscribe(int domID, const std::string& objID, double beginTime, dou
     check_resultState(inMsg, domID);
     if (!vars.empty()) {
         const int responseID = check_commandGetResult(inMsg, domID);
-        if (domain > -1) {
+        if (isContext) {
             readContextSubscription(responseID, inMsg);
         } else {
             readVariableSubscription(responseID, inMsg);
@@ -441,11 +441,12 @@ Connection::readContextSubscription(int responseID, tcpip::Storage& inMsg) {
     inMsg.readUnsignedByte(); // context domain
     const int variableCount = inMsg.readUnsignedByte();
     int numObjects = inMsg.readInt();
-
-    while (numObjects > 0) {
+    // the following also instantiates the empty map to get comparable results with libsumo
+    // see also https://github.com/eclipse/sumo/issues/7288
+    libsumo::SubscriptionResults& results = myContextSubscriptionResults[responseID][contextID];
+    while (numObjects-- > 0) {
         std::string objectID = inMsg.readString();
-        readVariables(inMsg, objectID, variableCount, myContextSubscriptionResults[responseID][contextID]);
-        numObjects--;
+        readVariables(inMsg, objectID, variableCount, results);
     }
 }
 
