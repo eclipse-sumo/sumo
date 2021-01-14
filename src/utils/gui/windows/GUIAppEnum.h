@@ -805,6 +805,9 @@ enum {
     MID_GNE_OVERLAPPED_ITEMSELECTED,
     /// @brief mark item as front element
     MID_GNE_MARKFRONTELEMENT,
+    /// @brief set custom geometry point
+    MID_GNE_CUSTOM_GEOMETRYPOINT,
+
     /// @}
 
     /// @name GNESelectorFrame messages

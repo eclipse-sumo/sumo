@@ -267,7 +267,7 @@ GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
 
 
 bool
-GNEEdge::clickedOverShapeStart(const Position& pos) {
+GNEEdge::clickedOverShapeStart(const Position& pos) const {
     if (myNBEdge->getGeometry().front() != getParentJunctions().front()->getNBNode()->getPosition()) {
         return (myNBEdge->getGeometry().front().distanceTo2D(pos) < SNAP_RADIUS);
     } else {
@@ -277,9 +277,28 @@ GNEEdge::clickedOverShapeStart(const Position& pos) {
 
 
 bool
-GNEEdge::clickedOverShapeEnd(const Position& pos) {
+GNEEdge::clickedOverShapeEnd(const Position& pos) const {
     if (myNBEdge->getGeometry().back() != getParentJunctions().back()->getNBNode()->getPosition()) {
         return (myNBEdge->getGeometry().back().distanceTo2D(pos) < SNAP_RADIUS);
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNEEdge::clickedOverGeometryPoint(const Position& pos) const {
+    // first check inner geometry
+    const PositionVector innenShape = myNBEdge->getInnerGeometry();
+    // iterate over geometry point
+    for (const auto &geometryPoint : innenShape) {
+        if (geometryPoint.distanceTo2D(pos) < SNAP_RADIUS) {
+            return true;
+        }
+    }
+    // check start and end shapes
+    if (clickedOverShapeStart(pos) || clickedOverShapeEnd(pos)) {
+        return true;
     } else {
         return false;
     }

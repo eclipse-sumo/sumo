@@ -205,8 +205,11 @@ public:
     /// @brief set as first geometry point the closes geometry point
     long onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*);
 
-    /// @brief Transform POI to POILane, and viceversa
+    /// @brief transform POI to POILane, and viceversa
     long onCmdTransformPOI(FXObject*, FXSelector, void*);
+
+    /// @brief set custom geometry point
+    long onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*);
 
     /// @brief duplicate selected lane
     long onCmdDuplicateLane(FXObject*, FXSelector, void*);

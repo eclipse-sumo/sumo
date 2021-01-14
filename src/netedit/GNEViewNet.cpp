@@ -171,6 +171,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,           GNEViewNet::onCmdDeleteGeometryPoint),
     // POIs
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POI_TRANSFORM,                           GNEViewNet::onCmdTransformPOI),
+    // Geometry Points
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CUSTOM_GEOMETRYPOINT,                    GNEViewNet::onCmdSetCustomGeometryPoint),
     // IntervalBar
     FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_GENERICDATATYPE,             GNEViewNet::onCmdIntervalBarGenericDataType),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_DATASET,                     GNEViewNet::onCmdIntervalBarDataSet),
@@ -1905,6 +1907,13 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
         // update view after transform
         updateViewNet();
     }
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
+    //
     return 1;
 }
 

@@ -87,13 +87,16 @@ public:
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
     /// @}
 
-    /// @name functions for edit start and end shape positions
+    /// @name functions for geometry points
     /// @{
     /// @brief return true if user clicked over ShapeStart
-    bool clickedOverShapeStart(const Position& pos);
+    bool clickedOverShapeStart(const Position& pos) const;
 
     /// @brief return true if user clicked over ShapeEnd
-    bool clickedOverShapeEnd(const Position& pos);
+    bool clickedOverShapeEnd(const Position& pos) const;
+
+    /// @brief return true if user clicked over a Geometry Point
+    bool clickedOverGeometryPoint(const Position& pos) const;
     /// @}
 
     /// @brief update edge geometry after junction move
