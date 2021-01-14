@@ -703,8 +703,12 @@ Vehicle::replaceStop(const std::string& vehID,
 
 void
 Vehicle::rerouteParkingArea(const std::string& vehID, const std::string& parkingAreaID) {
-    Dom::setString(libsumo::CMD_REROUTE_TO_PARKING, vehID, parkingAreaID);
+    tcpip::Storage content;
+    Dom::writeCompound(content, 1);
+    Dom::writeTypedString(content, parkingAreaID);
+    Dom::set(libsumo::CMD_REROUTE_TO_PARKING, vehID, &content);
 }
+
 
 void
 Vehicle::resume(const std::string& vehID) {
