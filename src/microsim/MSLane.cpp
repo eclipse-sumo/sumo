@@ -3699,7 +3699,12 @@ MSLane::getOppositeLeader(const MSVehicle* ego, double dist, bool oppositeDir) c
         const double egoLength = ego->getVehicleType().getLength();
         const double egoPos = ego->getLaneChangeModel().isOpposite() ? ego->getPositionOnLane() : getOppositePos(ego->getPositionOnLane());
         std::pair<MSVehicle* const, double> result = getFollower(ego, egoPos + egoLength, dist, true);
-        result.second -= ego->getVehicleType().getMinGap();
+        if (result.first != nullptr) {
+            result.second -= ego->getVehicleType().getMinGap();
+            if (result.first->getLaneChangeModel().isOpposite()) {
+                result.second -= result.first->getVehicleType().getLength();
+            }
+        }
         return result;
     }
 }
