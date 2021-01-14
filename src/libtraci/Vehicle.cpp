@@ -1159,7 +1159,7 @@ Vehicle::addSubscriptionFilterLanes(const std::vector<int>& lanes, bool noOpposi
     tcpip::Storage content;
     content.writeUnsignedByte((int)lanes.size());
     for (int lane : lanes) {
-        content.writeUnsignedByte(lane);
+        content.writeUnsignedByte(lane < 0 ? lane + 256 : lane);
     }
     libtraci::Connection::getActive().addFilter(libsumo::FILTER_TYPE_LANES, &content);
     if (noOpposite) {
