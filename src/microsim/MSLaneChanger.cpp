@@ -48,6 +48,8 @@
 #define OPPOSITE_OVERTAKING_MAX_LOOKAHEAD_EMERGENCY 1000.0 // just a guess
 // this is used for finding oncoming vehicles while driving in the opposite direction
 #define OPPOSITE_OVERTAKING_ONCOMING_LOOKAHEAD 200.0 // just a guess
+// do not attempt overtaking maneuvers that would exceed this distance
+#define OPPOSITE_OVERTAKING_MAX_SPACE_TO_OVERTAKE 1000.0 // just a guess
 
 // ===========================================================================
 // debug defines
@@ -63,6 +65,7 @@
 //#define DEBUG_CANDIDATE
 //#define DEBUG_COND (vehicle->getLaneChangeModel().debugVehicle())
 #define DEBUG_COND (vehicle->isSelected())
+//#define DEBUG_COND (true)
 
 
 
@@ -1123,17 +1126,6 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         }
 #endif
         computeOvertakingTime(vehicle, overtaken.first, overtaken.second, timeToOvertake, spaceToOvertake);
-        // check for upcoming stops
-        if (vehicle->nextStopDist() < spaceToOvertake) {
-#ifdef DEBUG_CHANGE_OPPOSITE
-            if (DEBUG_COND) {
-                std::cout << "   cannot changeOpposite due to upcoming stop (dist=" << vehicle->nextStopDist() << " spaceToOvertake=" << spaceToOvertake << ")\n";
-            }
-#endif
-            return false;
-        }
-        neighLead = opposite->getOppositeLeader(vehicle, timeToOvertake * opposite->getSpeedLimit() * 2 + spaceToOvertake, true);
-
 #ifdef DEBUG_CHANGE_OPPOSITE
         if (DEBUG_COND) {
             std::cout << SIMTIME
@@ -1145,8 +1137,45 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
                       << "\n";
         }
 #endif
+
+        if (spaceToOvertake > OPPOSITE_OVERTAKING_MAX_SPACE_TO_OVERTAKE) {
+#ifdef DEBUG_CHANGE_OPPOSITE
+            if (DEBUG_COND) {
+                std::cout << "   cannot changeOpposite (cannot overtake fast leader " << Named::getIDSecure(overtaken.first) << " v=" << overtaken.first->getSpeed() << ")\n";
+            }
+#endif
+            return false;
+        }
+        assert(timeToOvertake != std::numeric_limits<double>::max());
+        assert(spaceToOvertake != std::numeric_limits<double>::max());
+        // check for upcoming stops
+        if (vehicle->nextStopDist() < spaceToOvertake) {
+#ifdef DEBUG_CHANGE_OPPOSITE
+            if (DEBUG_COND) {
+                std::cout << "   cannot changeOpposite due to upcoming stop (dist=" << vehicle->nextStopDist() << " spaceToOvertake=" << spaceToOvertake << ")\n";
+            }
+#endif
+            return false;
+        }
+        double searchDist = timeToOvertake * opposite->getSpeedLimit() * 2 + spaceToOvertake;
+        neighLead = opposite->getOppositeLeader(vehicle, searchDist, true);
+        while (neighLead.first != nullptr && neighLead.first->getLaneChangeModel().isOpposite()) {
+            searchDist -= (neighLead.first->getVehicleType().getLengthWithGap() + MAX2(0.0, neighLead.second));
+            if (searchDist < 0) {
+                break;
+            }
+            // leader is itself overtaking through the opposite side. find real oncoming vehicle
+#ifdef DEBUG_CHANGE_OPPOSITE
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " neighLead=" << neighLead.first->getID() << " isOpposite gap=" << neighLead.second << " searchDist=" << searchDist << "\n";
+            }
+#endif
+            // getOppositeLeader resets the search postion by ego length and may thus create cycles
+            neighLead = neighLead.first->getLane()->getFollower(neighLead.first, neighLead.first->getPositionOnLane(), searchDist, true);
+        }
+
         // check for dangerous oncoming leader
-        if (neighLead.first != 0) {
+        if (neighLead.first != 0 && !neighLead.first->getLaneChangeModel().isOpposite()) {
             const MSVehicle* oncoming = neighLead.first;
             // conservative: assume that the oncoming vehicle accelerates to its maximum speed
             const double oncomingSpeed = oncoming->isStopped() ? 0 : oncoming->getLane()->getVehicleMaxSpeed(oncoming);
@@ -1492,7 +1521,6 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
         }
     }
 #endif
-
 }
 
 
