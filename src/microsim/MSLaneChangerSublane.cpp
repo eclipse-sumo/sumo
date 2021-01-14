@@ -720,8 +720,8 @@ MSLaneChangerSublane::checkChangeOpposite(
     MSLeaderDistanceInfo blockers(vehicle->getLane(), nullptr, 0);
 
     const double backPosOnTarget = vehicle->getLane()->getOppositePos(vehicle->getBackPositionOnLane());
-    const double posOnTarget = backPosOnTarget + vehicle->getVehicleType().getLength();
     if (vehicle->getLaneChangeModel().isOpposite()) {
+        const double posOnTarget = backPosOnTarget + vehicle->getVehicleType().getLength();
         neighFollowers = targetLane->getFollowersOnConsecutive(vehicle, backPosOnTarget, true);
         addLeaders(targetLane, vehicle, posOnTarget, neighLeaders);
         int sublaneIndex = 0;
@@ -730,8 +730,10 @@ MSLaneChangerSublane::checkChangeOpposite(
         }
         vehicle->getLaneChangeModel().updateExpectedSublaneSpeeds(neighLeaders, sublaneIndex, targetLane->getIndex());
     } else {
+        const double posOnTarget = backPosOnTarget - vehicle->getVehicleType().getLength();
         addLeaders(targetLane, vehicle, backPosOnTarget, neighFollowers);
-        neighLeaders = targetLane->getFollowersOnConsecutive(vehicle, backPosOnTarget, true);
+        neighFollowers.fixOppositeGaps();
+        neighLeaders = targetLane->getFollowersOnConsecutive(vehicle, posOnTarget, true);
         neighLeaders.fixOppositeGaps();
     }
 
