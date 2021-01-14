@@ -414,7 +414,7 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
     // save information that the vehicle was rerouted
     myNumberReroutes++;
     myStopUntilOffset += myRoute->getPeriod();
-    MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_NEWROUTE, info);
+    MSNet::getInstance()->informVehicleStateListener(this, MSNet::VehicleState::NEWROUTE, info);
     // if we did not drive yet it may be best to simply reassign the stops from scratch
     if (stopsFromScratch) {
         myStops.clear();

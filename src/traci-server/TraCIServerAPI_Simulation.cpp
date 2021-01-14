@@ -52,76 +52,76 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
         // unlike the other domains we cannot check here first whether libsumo::Simulation can handle it because the implementations for the state variables differ
         switch (variable) {
             case libsumo::VAR_LOADED_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_BUILT);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VehicleState::BUILT);
                 break;
             case libsumo::VAR_LOADED_VEHICLES_IDS:
-                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_BUILT);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VehicleState::BUILT);
                 break;
             case libsumo::VAR_DEPARTED_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_DEPARTED);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VehicleState::DEPARTED);
                 break;
             case libsumo::VAR_DEPARTED_VEHICLES_IDS:
-                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_DEPARTED);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VehicleState::DEPARTED);
                 break;
             case libsumo::VAR_TELEPORT_STARTING_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_STARTING_TELEPORT);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VehicleState::STARTING_TELEPORT);
                 break;
             case libsumo::VAR_TELEPORT_STARTING_VEHICLES_IDS:
-                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_STARTING_TELEPORT);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VehicleState::STARTING_TELEPORT);
                 break;
             case libsumo::VAR_TELEPORT_ENDING_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_ENDING_TELEPORT);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VehicleState::ENDING_TELEPORT);
                 break;
             case libsumo::VAR_TELEPORT_ENDING_VEHICLES_IDS:
-                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_ENDING_TELEPORT);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VehicleState::ENDING_TELEPORT);
                 break;
             case libsumo::VAR_ARRIVED_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_ARRIVED);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VehicleState::ARRIVED);
                 break;
             case libsumo::VAR_ARRIVED_VEHICLES_IDS:
-                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_ARRIVED);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VehicleState::ARRIVED);
                 break;
             case libsumo::VAR_PARKING_STARTING_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_STARTING_PARKING);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VehicleState::STARTING_PARKING);
                 break;
             case libsumo::VAR_PARKING_STARTING_VEHICLES_IDS:
-                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_STARTING_PARKING);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VehicleState::STARTING_PARKING);
                 break;
             case libsumo::VAR_PARKING_MANEUVERING_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_MANEUVERING);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VehicleState::MANEUVERING);
                 break;
             case libsumo::VAR_PARKING_MANEUVERING_VEHICLES_IDS:
-                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_MANEUVERING);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VehicleState::MANEUVERING);
                 break;
             case libsumo::VAR_PARKING_ENDING_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_ENDING_PARKING);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VehicleState::ENDING_PARKING);
                 break;
             case libsumo::VAR_PARKING_ENDING_VEHICLES_IDS:
-                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_ENDING_PARKING);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VehicleState::ENDING_PARKING);
                 break;
             case libsumo::VAR_STOP_STARTING_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_STARTING_STOP);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VehicleState::STARTING_STOP);
                 break;
             case libsumo::VAR_STOP_STARTING_VEHICLES_IDS:
-                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_STARTING_STOP);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VehicleState::STARTING_STOP);
                 break;
             case libsumo::VAR_STOP_ENDING_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_ENDING_STOP);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VehicleState::ENDING_STOP);
                 break;
             case libsumo::VAR_STOP_ENDING_VEHICLES_IDS:
-                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_ENDING_STOP);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VehicleState::ENDING_STOP);
                 break;
             case libsumo::VAR_COLLIDING_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_COLLISION);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VehicleState::COLLISION);
                 break;
             case libsumo::VAR_COLLIDING_VEHICLES_IDS:
-                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_COLLISION);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VehicleState::COLLISION);
                 break;
             case libsumo::VAR_EMERGENCYSTOPPING_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_EMERGENCYSTOP);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VehicleState::EMERGENCYSTOP);
                 break;
             case libsumo::VAR_EMERGENCYSTOPPING_VEHICLES_IDS:
-                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_EMERGENCYSTOP);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VehicleState::EMERGENCYSTOP);
                 break;
             case libsumo::VAR_COLLISIONS: {
                 std::vector<libsumo::TraCICollision> collisions = libsumo::Simulation::getCollisions();

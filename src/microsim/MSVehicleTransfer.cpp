@@ -55,11 +55,11 @@ void
 MSVehicleTransfer::add(const SUMOTime t, MSVehicle* veh) {
     if (veh->isParking()) {
         veh->getLaneChangeModel().endLaneChangeManeuver(MSMoveReminder::NOTIFICATION_PARKING);
-        MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_STARTING_PARKING);
+        MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VehicleState::STARTING_PARKING);
         veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_PARKING);
     } else {
         veh->getLaneChangeModel().endLaneChangeManeuver(MSMoveReminder::NOTIFICATION_TELEPORT);
-        MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_STARTING_TELEPORT);
+        MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VehicleState::STARTING_TELEPORT);
         if (veh->succEdge(1) == nullptr) {
             WRITE_WARNINGF("Vehicle '%' teleports beyond arrival edge '%', time %.", veh->getID(), veh->getEdge()->getID(), time2string(t));
             veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
@@ -123,11 +123,11 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
             desc.myVeh->setIdling(true);
             if (desc.myVeh->getMutableLane()->isInsertionSuccess(desc.myVeh, 0, departPos, desc.myVeh->getLateralPositionOnLane(),
                     false, MSMoveReminder::NOTIFICATION_PARKING)) {
-                MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_PARKING);
+                MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VehicleState::ENDING_PARKING);
                 desc.myVeh->getMutableLane()->removeParking(desc.myVeh);
                 // at this point we are in the lane, blocking traffic & if required we configure the exit manoeuvre
                 if (MSGlobals::gModelParkingManoeuver && desc.myVeh->setExitManoeuvre()) {
-                    MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_MANEUVERING);
+                    MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VehicleState::MANEUVERING);
                 }
                 desc.myVeh->setIdling(false);
                 i = vehInfos.erase(i);
@@ -154,7 +154,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
             // handle teleporting vehicles, lane may be 0 because permissions were modified by a closing rerouter or TraCI
             if (l != nullptr && l->freeInsertion(*(desc.myVeh), MIN2(l->getSpeedLimit(), desc.myVeh->getMaxSpeed()), 0, MSMoveReminder::NOTIFICATION_TELEPORT)) {
                 WRITE_WARNINGF("Vehicle '%' ends teleporting on edge '%', time %.", desc.myVeh->getID(), e->getID(), time2string(time));
-                MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_TELEPORT);
+                MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VehicleState::ENDING_TELEPORT);
                 i = vehInfos.erase(i);
             } else {
                 // could not insert. maybe we should proceed in virtual space

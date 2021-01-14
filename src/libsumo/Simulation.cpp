@@ -162,133 +162,133 @@ Simulation::getTime() {
 
 int
 Simulation::getLoadedNumber() {
-    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_BUILT).size();
+    return (int)Helper::getVehicleStateChanges(MSNet::VehicleState::BUILT).size();
 }
 
 
 std::vector<std::string>
 Simulation::getLoadedIDList() {
-    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_BUILT);
+    return Helper::getVehicleStateChanges(MSNet::VehicleState::BUILT);
 }
 
 
 int
 Simulation::getDepartedNumber() {
-    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_DEPARTED).size();
+    return (int)Helper::getVehicleStateChanges(MSNet::VehicleState::DEPARTED).size();
 }
 
 
 std::vector<std::string>
 Simulation::getDepartedIDList() {
-    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_DEPARTED);
+    return Helper::getVehicleStateChanges(MSNet::VehicleState::DEPARTED);
 }
 
 
 int
 Simulation::getArrivedNumber() {
-    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ARRIVED).size();
+    return (int)Helper::getVehicleStateChanges(MSNet::VehicleState::ARRIVED).size();
 }
 
 
 std::vector<std::string>
 Simulation::getArrivedIDList() {
-    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ARRIVED);
+    return Helper::getVehicleStateChanges(MSNet::VehicleState::ARRIVED);
 }
 
 
 int
 Simulation::getParkingStartingVehiclesNumber() {
-    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_STARTING_PARKING).size();
+    return (int)Helper::getVehicleStateChanges(MSNet::VehicleState::STARTING_PARKING).size();
 }
 
 
 std::vector<std::string>
 Simulation::getParkingStartingVehiclesIDList() {
-    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_STARTING_PARKING);
+    return Helper::getVehicleStateChanges(MSNet::VehicleState::STARTING_PARKING);
 }
 
 
 int
 Simulation::getParkingEndingVehiclesNumber() {
-    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ENDING_PARKING).size();
+    return (int)Helper::getVehicleStateChanges(MSNet::VehicleState::ENDING_PARKING).size();
 }
 
 
 std::vector<std::string>
 Simulation::getParkingEndingVehiclesIDList() {
-    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ENDING_PARKING);
+    return Helper::getVehicleStateChanges(MSNet::VehicleState::ENDING_PARKING);
 }
 
 
 int
 Simulation::getStopStartingVehiclesNumber() {
-    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_STARTING_STOP).size();
+    return (int)Helper::getVehicleStateChanges(MSNet::VehicleState::STARTING_STOP).size();
 }
 
 
 std::vector<std::string>
 Simulation::getStopStartingVehiclesIDList() {
-    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_STARTING_STOP);
+    return Helper::getVehicleStateChanges(MSNet::VehicleState::STARTING_STOP);
 }
 
 
 int
 Simulation::getStopEndingVehiclesNumber() {
-    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ENDING_STOP).size();
+    return (int)Helper::getVehicleStateChanges(MSNet::VehicleState::ENDING_STOP).size();
 }
 
 
 std::vector<std::string>
 Simulation::getStopEndingVehiclesIDList() {
-    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ENDING_STOP);
+    return Helper::getVehicleStateChanges(MSNet::VehicleState::ENDING_STOP);
 }
 
 
 int
 Simulation::getCollidingVehiclesNumber() {
-    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_COLLISION).size();
+    return (int)Helper::getVehicleStateChanges(MSNet::VehicleState::COLLISION).size();
 }
 
 
 std::vector<std::string>
 Simulation::getCollidingVehiclesIDList() {
-    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_COLLISION);
+    return Helper::getVehicleStateChanges(MSNet::VehicleState::COLLISION);
 }
 
 
 int
 Simulation::getEmergencyStoppingVehiclesNumber() {
-    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_EMERGENCYSTOP).size();
+    return (int)Helper::getVehicleStateChanges(MSNet::VehicleState::EMERGENCYSTOP).size();
 }
 
 
 std::vector<std::string>
 Simulation::getEmergencyStoppingVehiclesIDList() {
-    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_EMERGENCYSTOP);
+    return Helper::getVehicleStateChanges(MSNet::VehicleState::EMERGENCYSTOP);
 }
 
 
 int
 Simulation::getStartingTeleportNumber() {
-    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_STARTING_TELEPORT).size();
+    return (int)Helper::getVehicleStateChanges(MSNet::VehicleState::STARTING_TELEPORT).size();
 }
 
 
 std::vector<std::string>
 Simulation::getStartingTeleportIDList() {
-    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_STARTING_TELEPORT);
+    return Helper::getVehicleStateChanges(MSNet::VehicleState::STARTING_TELEPORT);
 }
 
 
 int
 Simulation::getEndingTeleportNumber() {
-    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ENDING_TELEPORT).size();
+    return (int)Helper::getVehicleStateChanges(MSNet::VehicleState::ENDING_TELEPORT).size();
 }
 
 
 std::vector<std::string>
 Simulation::getEndingTeleportIDList() {
-    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ENDING_TELEPORT);
+    return Helper::getVehicleStateChanges(MSNet::VehicleState::ENDING_TELEPORT);
 }
 
 std::vector<std::string>

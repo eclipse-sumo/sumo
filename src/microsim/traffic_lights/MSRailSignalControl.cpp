@@ -63,7 +63,7 @@ MSRailSignalControl::~MSRailSignalControl() {
 
 void
 MSRailSignalControl::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& /*info*/) {
-    if (to == MSNet::VEHICLE_STATE_NEWROUTE || to == MSNet::VEHICLE_STATE_DEPARTED) {
+    if (to == MSNet::VehicleState::NEWROUTE || to == MSNet::VehicleState::DEPARTED) {
         if (isRailway(vehicle->getVClass())) {
             for (const MSEdge* edge : vehicle->getRoute().getEdges()) {
                 myUsedEdges.insert(edge);

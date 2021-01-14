@@ -165,7 +165,7 @@ GUILoadThread::run() {
             new GUIEventControl(),
             new GUIEventControl(),
             new GUIEventControl());
-        // need to init TraCI-Server before loading routes to catch VEHICLE_STATE_BUILT
+        // need to init TraCI-Server before loading routes to catch VehicleState::BUILT
         std::map<int, TraCIServer::CmdExecutor> execs;
         execs[libsumo::CMD_GET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processGet;
         execs[libsumo::CMD_SET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processSet;

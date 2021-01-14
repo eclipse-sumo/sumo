@@ -114,7 +114,7 @@ MSDevice_Vehroutes::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
 // ---------------------------------------------------------------------------
 void
 MSDevice_Vehroutes::StateListener::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& info) {
-    if (to == MSNet::VEHICLE_STATE_NEWROUTE) {
+    if (to == MSNet::VehicleState::NEWROUTE) {
         const auto& deviceEntry = myDevices.find(vehicle);
         if (deviceEntry != myDevices.end()) {
             deviceEntry->second->addRoute(info);

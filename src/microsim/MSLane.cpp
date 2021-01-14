@@ -1764,8 +1764,8 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                 + (MSGlobals::gSublane ? "', latGap=" + toString(latGap) : "")
                 + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
                 + " stage=" + stage + ".");
-        MSNet::getInstance()->informVehicleStateListener(victim, MSNet::VEHICLE_STATE_COLLISION);
-        MSNet::getInstance()->informVehicleStateListener(collider, MSNet::VEHICLE_STATE_COLLISION);
+        MSNet::getInstance()->informVehicleStateListener(victim, MSNet::VehicleState::COLLISION);
+        MSNet::getInstance()->informVehicleStateListener(collider, MSNet::VehicleState::COLLISION);
         MSNet::getInstance()->getVehicleControl().registerCollision();
     }
 #ifdef DEBUG_COLLISIONS

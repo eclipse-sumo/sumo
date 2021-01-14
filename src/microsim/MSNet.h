@@ -602,33 +602,33 @@ public:
     /// @{
 
     /// @brief Definition of a vehicle state
-    enum VehicleState {
+    enum class VehicleState {
         /// @brief The vehicle was built, but has not yet departed
-        VEHICLE_STATE_BUILT,
+        BUILT,
         /// @brief The vehicle has departed (was inserted into the network)
-        VEHICLE_STATE_DEPARTED,
+        DEPARTED,
         /// @brief The vehicle started to teleport
-        VEHICLE_STATE_STARTING_TELEPORT,
+        STARTING_TELEPORT,
         /// @brief The vehicle ended being teleported
-        VEHICLE_STATE_ENDING_TELEPORT,
+        ENDING_TELEPORT,
         /// @brief The vehicle arrived at his destination (is deleted)
-        VEHICLE_STATE_ARRIVED,
+        ARRIVED,
         /// @brief The vehicle got a new route
-        VEHICLE_STATE_NEWROUTE,
+        NEWROUTE,
         /// @brief The vehicles starts to park
-        VEHICLE_STATE_STARTING_PARKING,
+        STARTING_PARKING,
         /// @brief The vehicle ends to park
-        VEHICLE_STATE_ENDING_PARKING,
+        ENDING_PARKING,
         /// @brief The vehicles starts to stop
-        VEHICLE_STATE_STARTING_STOP,
+        STARTING_STOP,
         /// @brief The vehicle ends to stop
-        VEHICLE_STATE_ENDING_STOP,
+        ENDING_STOP,
         /// @brief The vehicle is involved in a collision
-        VEHICLE_STATE_COLLISION,
+        COLLISION,
         /// @brief The vehicle had to brake harder than permitted
-        VEHICLE_STATE_EMERGENCYSTOP,
+        EMERGENCYSTOP,
         /// @brief Vehicle maneuvering either entering or exiting a parking space
-        VEHICLE_STATE_MANEUVERING
+        MANEUVERING
     };
 
 

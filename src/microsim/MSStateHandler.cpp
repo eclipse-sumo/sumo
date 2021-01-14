@@ -362,7 +362,7 @@ MSStateHandler::closeVehicle() {
             MSNet::getInstance()->getInsertionControl().alreadyDeparted(v);
             if (MSRailSignalControl::hasInstance()) {
                 // register route for deadlock prevention (vehicleStateChanged would not be called otherwise)
-                MSRailSignalControl::getInstance().vehicleStateChanged(v, MSNet::VEHICLE_STATE_NEWROUTE, "loadState");
+                MSRailSignalControl::getInstance().vehicleStateChanged(v, MSNet::VehicleState::NEWROUTE, "loadState");
             }
         }
         while (!myDeviceAttrs.empty()) {

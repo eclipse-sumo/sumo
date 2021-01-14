@@ -225,19 +225,19 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
 #ifdef DEBUG_MULTI_CLIENTS
     std::cout << "Creating new TraCIServer for " << numClients << " clients on port " << port << "." << std::endl;
 #endif
-    myVehicleStateChanges[MSNet::VEHICLE_STATE_BUILT] = std::vector<std::string>();
-    myVehicleStateChanges[MSNet::VEHICLE_STATE_DEPARTED] = std::vector<std::string>();
-    myVehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_TELEPORT] = std::vector<std::string>();
-    myVehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_TELEPORT] = std::vector<std::string>();
-    myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED] = std::vector<std::string>();
-    myVehicleStateChanges[MSNet::VEHICLE_STATE_NEWROUTE] = std::vector<std::string>();
-    myVehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_PARKING] = std::vector<std::string>();
-    myVehicleStateChanges[MSNet::VEHICLE_STATE_MANEUVERING] = std::vector<std::string>();
-    myVehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_PARKING] = std::vector<std::string>();
-    myVehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_STOP] = std::vector<std::string>();
-    myVehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_STOP] = std::vector<std::string>();
-    myVehicleStateChanges[MSNet::VEHICLE_STATE_COLLISION] = std::vector<std::string>();
-    myVehicleStateChanges[MSNet::VEHICLE_STATE_EMERGENCYSTOP] = std::vector<std::string>();
+    myVehicleStateChanges[MSNet::VehicleState::BUILT] = std::vector<std::string>();
+    myVehicleStateChanges[MSNet::VehicleState::DEPARTED] = std::vector<std::string>();
+    myVehicleStateChanges[MSNet::VehicleState::STARTING_TELEPORT] = std::vector<std::string>();
+    myVehicleStateChanges[MSNet::VehicleState::ENDING_TELEPORT] = std::vector<std::string>();
+    myVehicleStateChanges[MSNet::VehicleState::ARRIVED] = std::vector<std::string>();
+    myVehicleStateChanges[MSNet::VehicleState::NEWROUTE] = std::vector<std::string>();
+    myVehicleStateChanges[MSNet::VehicleState::STARTING_PARKING] = std::vector<std::string>();
+    myVehicleStateChanges[MSNet::VehicleState::MANEUVERING] = std::vector<std::string>();
+    myVehicleStateChanges[MSNet::VehicleState::ENDING_PARKING] = std::vector<std::string>();
+    myVehicleStateChanges[MSNet::VehicleState::STARTING_STOP] = std::vector<std::string>();
+    myVehicleStateChanges[MSNet::VehicleState::ENDING_STOP] = std::vector<std::string>();
+    myVehicleStateChanges[MSNet::VehicleState::COLLISION] = std::vector<std::string>();
+    myVehicleStateChanges[MSNet::VehicleState::EMERGENCYSTOP] = std::vector<std::string>();
 
     myExecutors[libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE] = &TraCIServerAPI_InductionLoop::processGet;
     myExecutors[libsumo::CMD_GET_LANEAREA_VARIABLE] = &TraCIServerAPI_LaneArea::processGet;
@@ -306,19 +306,19 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
         while ((int)mySockets.size() < numClients) {
             int index = (int)mySockets.size() + libsumo::MAX_ORDER + 1;
             mySockets[index] = new SocketInfo(serverSocket.accept(true), begin);
-            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_BUILT] = std::vector<std::string>();
-            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_DEPARTED] = std::vector<std::string>();
-            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_TELEPORT] = std::vector<std::string>();
-            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_TELEPORT] = std::vector<std::string>();
-            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED] = std::vector<std::string>();
-            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_NEWROUTE] = std::vector<std::string>();
-            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_PARKING] = std::vector<std::string>();
-            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_MANEUVERING] = std::vector<std::string>();
-            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_PARKING] = std::vector<std::string>();
-            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_STOP] = std::vector<std::string>();
-            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_STOP] = std::vector<std::string>();
-            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_COLLISION] = std::vector<std::string>();
-            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_EMERGENCYSTOP] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VehicleState::BUILT] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VehicleState::DEPARTED] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VehicleState::STARTING_TELEPORT] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VehicleState::ENDING_TELEPORT] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VehicleState::ARRIVED] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VehicleState::NEWROUTE] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VehicleState::STARTING_PARKING] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VehicleState::MANEUVERING] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VehicleState::ENDING_PARKING] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VehicleState::STARTING_STOP] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VehicleState::ENDING_STOP] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VehicleState::COLLISION] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VehicleState::EMERGENCYSTOP] = std::vector<std::string>();
             if (numClients > 1) {
                 WRITE_MESSAGE("  client connected");
             }
@@ -951,7 +951,7 @@ TraCIServer::postProcessSimulationStep() {
     for (std::vector<libsumo::Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end();) {
         const libsumo::Subscription& s = *i;
         bool isArrivedVehicle = (s.commandId == libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE || s.commandId == libsumo::CMD_SUBSCRIBE_VEHICLE_CONTEXT)
-                                && (find(myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].begin(), myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end(), s.id) != myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end());
+                                && (find(myVehicleStateChanges[MSNet::VehicleState::ARRIVED].begin(), myVehicleStateChanges[MSNet::VehicleState::ARRIVED].end(), s.id) != myVehicleStateChanges[MSNet::VehicleState::ARRIVED].end());
         bool isArrivedPerson = (s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE || s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_CONTEXT) && MSNet::getInstance()->getPersonControl().get(s.id) == nullptr;
         if ((s.endTime < t) || isArrivedVehicle || isArrivedPerson) {
             i = mySubscriptions.erase(i);

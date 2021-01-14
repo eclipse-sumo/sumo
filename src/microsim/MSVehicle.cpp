@@ -258,9 +258,9 @@ void
 MSVehicle::Influencer::GapControlVehStateListener::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& /*info*/) {
 //    std::cout << "GapControlVehStateListener::vehicleStateChanged() vehicle=" << vehicle->getID() << ", to=" << to << std::endl;
     switch (to) {
-        case MSNet::VEHICLE_STATE_STARTING_TELEPORT:
-        case MSNet::VEHICLE_STATE_ARRIVED:
-        case MSNet::VEHICLE_STATE_STARTING_PARKING: {
+        case MSNet::VehicleState::STARTING_TELEPORT:
+        case MSNet::VehicleState::ARRIVED:
+        case MSNet::VehicleState::STARTING_PARKING: {
             // Vehicle left road
 //         Look up reference vehicle in refVehMap and in case deactivate corresponding gap control
             const MSVehicle* msVeh = static_cast<const MSVehicle*>(vehicle);
@@ -1653,7 +1653,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                     MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), time);
                 }
                 myLane->getEdge().addWaiting(this);
-                MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_STARTING_STOP);
+                MSNet::getInstance()->informVehicleStateListener(this, MSNet::VehicleState::STARTING_STOP);
                 MSNet::getInstance()->getVehicleControl().registerStopStarted();
                 // compute stopping time
                 if (stop.pars.until >= 0) {
@@ -3835,7 +3835,7 @@ MSVehicle::executeMove() {
                           + ", offset=" + toString(myState.myPos - myLane->getLength())
                           + "), time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             MSNet::getInstance()->getVehicleControl().registerEmergencyStop();
-            MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_EMERGENCYSTOP);
+            MSNet::getInstance()->informVehicleStateListener(this, MSNet::VehicleState::EMERGENCYSTOP);
             myState.myPos = myLane->getLength();
             myState.mySpeed = 0;
             myAcceleration = 0;
@@ -6113,7 +6113,7 @@ MSVehicle::resumeFromStopping() {
         // maybe the next stop is on the same edge; let's rebuild best lanes
         updateBestLanes(true);
         // continue as wished...
-        MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_ENDING_STOP);
+        MSNet::getInstance()->informVehicleStateListener(this, MSNet::VehicleState::ENDING_STOP);
         MSNet::getInstance()->getVehicleControl().registerStopEnded();
         return true;
     }
@@ -6651,7 +6651,7 @@ MSVehicle::Manoeuvre::entryManoeuvreIsComplete(MSVehicle* veh) {
         return true;
     } else if (currentStop->parkingarea->getID() != myManoeuvreStop || MSVehicle::MANOEUVRE_ENTRY != myManoeuvreType) {
         if (configureEntryManoeuvre(veh)) {
-            MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_MANEUVERING);
+            MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VehicleState::MANEUVERING);
             return (false);
         } else { // cannot configure entry so stop trying
             return true;

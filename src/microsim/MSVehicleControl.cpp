@@ -119,7 +119,7 @@ MSVehicleControl::initVehicle(MSBaseVehicle* built, const bool ignoreStopErrors)
         delete built;
         throw;
     }
-    MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);
+    MSNet::getInstance()->informVehicleStateListener(built, MSNet::VehicleState::BUILT);
 }
 
 
@@ -153,7 +153,7 @@ MSVehicleControl::removePending() {
     for (SUMOVehicle* const veh : vehs) {
         myTotalTravelTime += STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - veh->getDeparture());
         myRunningVehNo--;
-        MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_ARRIVED);
+        MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VehicleState::ARRIVED);
         // vehicle is equipped with tripinfo device (not all vehicles are)
         const bool hasTripinfo = veh->getDevice(typeid(MSDevice_Tripinfo)) != nullptr;
         for (MSVehicleDevice* const dev : veh->getDevices()) {
@@ -180,7 +180,7 @@ void
 MSVehicleControl::vehicleDeparted(const SUMOVehicle& v) {
     ++myRunningVehNo;
     myTotalDepartureDelay += STEPS2TIME(v.getDeparture() - STEPFLOOR(v.getParameter().depart));
-    MSNet::getInstance()->informVehicleStateListener(&v, MSNet::VEHICLE_STATE_DEPARTED);
+    MSNet::getInstance()->informVehicleStateListener(&v, MSNet::VehicleState::DEPARTED);
     myMaxSpeedFactor = MAX2(myMaxSpeedFactor, v.getChosenSpeedFactor());
     if ((v.getVClass() & (SVC_PEDESTRIAN | SVC_NON_ROAD)) == 0) {
         // only  worry about deceleration of road users
