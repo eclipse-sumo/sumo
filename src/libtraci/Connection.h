@@ -97,8 +97,7 @@ public:
      * @param[in] objID The object to retrieve the variable from
      * @param[in] add Optional additional parameter
      */
-    void createCommand(int cmdID, int varID, const std::string& objID, tcpip::Storage* add = nullptr) const;
-    void createFilterCommand(int cmdID, int varID, tcpip::Storage* add = nullptr) const;
+    void createCommand(int cmdID, int varID, const std::string* const objID, tcpip::Storage* add = nullptr) const;
 
 
     /** @brief Sends a SubscribeContext or a SubscribeVariable request
@@ -134,6 +133,7 @@ public:
     /// @}
 
     tcpip::Storage& doCommand(int command, int var, const std::string& id, tcpip::Storage* add = nullptr);
+    void addFilter(int var, tcpip::Storage* add = nullptr);
 
     void readVariableSubscription(int responseID, tcpip::Storage& inMsg);
     void readContextSubscription(int responseID, tcpip::Storage& inMsg);

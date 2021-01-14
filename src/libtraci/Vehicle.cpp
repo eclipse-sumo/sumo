@@ -1161,7 +1161,7 @@ Vehicle::addSubscriptionFilterLanes(const std::vector<int>& lanes, bool noOpposi
     for (int lane : lanes) {
         content.writeUnsignedByte(lane);
     }
-    libtraci::Connection::getActive().createFilterCommand(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::FILTER_TYPE_LANES, &content);
+    libtraci::Connection::getActive().addFilter(libsumo::FILTER_TYPE_LANES, &content);
     if (noOpposite) {
         addSubscriptionFilterNoOpposite();
     }
@@ -1176,7 +1176,7 @@ Vehicle::addSubscriptionFilterLanes(const std::vector<int>& lanes, bool noOpposi
 
 void
 Vehicle::addSubscriptionFilterNoOpposite() {
-    libtraci::Connection::getActive().createFilterCommand(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::FILTER_TYPE_NOOPPOSITE);
+    libtraci::Connection::getActive().addFilter(libsumo::FILTER_TYPE_NOOPPOSITE);
 }
 
 
@@ -1184,7 +1184,7 @@ void
 Vehicle::addSubscriptionFilterDownstreamDistance(double dist) {
     tcpip::Storage content;
     Dom::writeTypedDouble(content, dist);
-    libtraci::Connection::getActive().createFilterCommand(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::FILTER_TYPE_DOWNSTREAM_DIST, &content);
+    libtraci::Connection::getActive().addFilter(libsumo::FILTER_TYPE_DOWNSTREAM_DIST, &content);
 }
 
 
@@ -1192,7 +1192,7 @@ void
 Vehicle::addSubscriptionFilterUpstreamDistance(double dist) {
     tcpip::Storage content;
     Dom::writeTypedDouble(content, dist);
-    libtraci::Connection::getActive().createFilterCommand(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::FILTER_TYPE_DOWNSTREAM_DIST, &content);
+    libtraci::Connection::getActive().addFilter(libsumo::FILTER_TYPE_UPSTREAM_DIST, &content);
 }
 
 
@@ -1232,14 +1232,14 @@ Vehicle::addSubscriptionFilterLCManeuver(int direction, bool noOpposite, double 
 
 void
 Vehicle::addSubscriptionFilterLeadFollow(const std::vector<int>& lanes) {
-    libtraci::Connection::getActive().createFilterCommand(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::FILTER_TYPE_LEAD_FOLLOW);
+    libtraci::Connection::getActive().addFilter(libsumo::FILTER_TYPE_LEAD_FOLLOW);
     addSubscriptionFilterLanes(lanes);
 }
 
 
 void
 Vehicle::addSubscriptionFilterTurn(double downstreamDist, double upstreamDist) {
-    libtraci::Connection::getActive().createFilterCommand(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::FILTER_TYPE_TURN);
+    libtraci::Connection::getActive().addFilter(libsumo::FILTER_TYPE_TURN);
     if (downstreamDist != libsumo::INVALID_DOUBLE_VALUE) {
         addSubscriptionFilterDownstreamDistance(downstreamDist);
     }
@@ -1253,7 +1253,7 @@ void
 Vehicle::addSubscriptionFilterVClass(const std::vector<std::string>& vClasses) {
     tcpip::Storage content;
     Dom::writeTypedStringList(content, vClasses);
-    libtraci::Connection::getActive().createFilterCommand(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::FILTER_TYPE_VCLASS, &content);
+    libtraci::Connection::getActive().addFilter(libsumo::FILTER_TYPE_VCLASS, &content);
 }
 
 
@@ -1261,7 +1261,7 @@ void
 Vehicle::addSubscriptionFilterVType(const std::vector<std::string>& vTypes) {
     tcpip::Storage content;
     Dom::writeTypedStringList(content, vTypes);
-    libtraci::Connection::getActive().createFilterCommand(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::FILTER_TYPE_VTYPE, &content);
+    libtraci::Connection::getActive().addFilter(libsumo::FILTER_TYPE_VTYPE, &content);
 }
 
 
@@ -1269,7 +1269,7 @@ void
 Vehicle::addSubscriptionFilterFieldOfVision(double openingAngle) {
     tcpip::Storage content;
     Dom::writeTypedDouble(content, openingAngle);
-    libtraci::Connection::getActive().createFilterCommand(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::FILTER_TYPE_FIELD_OF_VISION, &content);
+    libtraci::Connection::getActive().addFilter(libsumo::FILTER_TYPE_FIELD_OF_VISION, &content);
 }
 
 
@@ -1277,7 +1277,7 @@ void
 Vehicle::addSubscriptionFilterLateralDistance(double lateralDist, double downstreamDist, double upstreamDist) {
     tcpip::Storage content;
     Dom::writeTypedDouble(content, lateralDist);
-    libtraci::Connection::getActive().createFilterCommand(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::FILTER_TYPE_LATERAL_DIST, &content);
+    libtraci::Connection::getActive().addFilter(libsumo::FILTER_TYPE_LATERAL_DIST, &content);
     if (downstreamDist != libsumo::INVALID_DOUBLE_VALUE) {
         addSubscriptionFilterDownstreamDistance(downstreamDist);
     }

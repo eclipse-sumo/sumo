@@ -150,12 +150,18 @@ Connection::send_commandSetOrder(int order) {
 
 
 void
-Connection::createCommand(int cmdID, int varID, const std::string& objID, tcpip::Storage* add) const {
+Connection::createCommand(int cmdID, int varID, const std::string* const objID, tcpip::Storage* add) const {
+    if (!mySocket.has_client_connection()) {
+        throw libsumo::FatalTraCIError("Not connected.");
+    }
     myOutput.reset();
     // command length
     int length = 1 + 1;
     if (varID >= 0) {
-        length += 1 + 4 + (int) objID.length();
+        length += 1;
+        if (objID != nullptr) {
+            length += 4 + (int)objID->length();
+        }
     }
     if (add != nullptr) {
         length += (int)add->size();
@@ -169,31 +175,10 @@ Connection::createCommand(int cmdID, int varID, const std::string& objID, tcpip:
     myOutput.writeUnsignedByte(cmdID);
     if (varID >= 0) {
         myOutput.writeUnsignedByte(varID);
-        myOutput.writeString(objID);
+        if (objID != nullptr) {
+            myOutput.writeString(*objID);
+        }
     }
-    // additional values
-    if (add != nullptr) {
-        myOutput.writeStorage(*add);
-    }
-}
-
-
-void
-Connection::createFilterCommand(int cmdID, int varID, tcpip::Storage* add) const {
-    myOutput.reset();
-    // command length
-    int length = 1 + 1 + 1;
-    if (add != nullptr) {
-        length += (int)add->size();
-    }
-    if (length <= 255) {
-        myOutput.writeUnsignedByte(length);
-    } else {
-        myOutput.writeUnsignedByte(0);
-        myOutput.writeInt(length + 4);
-    }
-    myOutput.writeUnsignedByte(cmdID);
-    myOutput.writeUnsignedByte(varID);
     // additional values
     if (add != nullptr) {
         myOutput.writeStorage(*add);
@@ -328,14 +313,20 @@ Connection::check_commandGetResult(tcpip::Storage& inMsg, int command, int expec
 
 tcpip::Storage&
 Connection::doCommand(int command, int var, const std::string& id, tcpip::Storage* add) {
-    if (!mySocket.has_client_connection()) {
-        throw libsumo::FatalTraCIError("Not connected.");
-    }
-    createCommand(command, var, id, add);
+    createCommand(command, var, &id, add);
     mySocket.sendExact(myOutput);
     myInput.reset();
     check_resultState(myInput, command);
     return myInput;
+}
+
+
+void
+Connection::addFilter(int var, tcpip::Storage* add) {
+    createCommand(libsumo::CMD_ADD_SUBSCRIPTION_FILTER, var, nullptr, add);
+    mySocket.sendExact(myOutput);
+    myInput.reset();
+    check_resultState(myInput, libsumo::CMD_ADD_SUBSCRIPTION_FILTER);
 }
 
 
