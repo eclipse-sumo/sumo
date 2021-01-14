@@ -433,12 +433,20 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                 case libsumo::TYPE_COMPOUND: {
                     int n = inMsg.readInt();
                     if (n == 2) {
-                        auto r = std::make_shared <libsumo::TraCIRoadPosition>();
                         inMsg.readUnsignedByte();
-                        r->edgeID = inMsg.readString();
-                        inMsg.readUnsignedByte();
-                        r->pos = inMsg.readDouble();
-                        into[objectID][variableID] = r;
+                        const std::string s = inMsg.readString();
+                        const int secondType = inMsg.readUnsignedByte();
+                        if (secondType == libsumo::TYPE_DOUBLE) {
+                            auto r = std::make_shared<libsumo::TraCIRoadPosition>();
+                            r->edgeID = s;
+                            r->pos = inMsg.readDouble();
+                            into[objectID][variableID] = r;
+                        } else if (secondType == libsumo::TYPE_STRING) {
+                            auto sl = std::make_shared<libsumo::TraCIStringList>();
+                            sl->value.push_back(s);
+                            sl->value.push_back(inMsg.readString());
+                            into[objectID][variableID] = sl;
+                        }
                     }
                 }
                 break;
