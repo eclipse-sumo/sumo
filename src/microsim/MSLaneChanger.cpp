@@ -1175,6 +1175,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
 #endif
             // getOppositeLeader resets the search postion by ego length and may thus create cycles
             neighOncoming = neighOncoming.first->getLane()->getFollower(neighOncoming.first, neighOncoming.first->getPositionOnLane(), searchDist, true);
+            /// XXX add gap between skipped vehicles
         }
 
         // check for dangerous oncoming leader
@@ -1235,9 +1236,10 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
                 return false;
             }
             dist -= gapToLeaderFront;
+            gap += leader.first->getVehicleType().getLengthWithGap();
             leader = source->getOppositeLeader(leader.first, dist, true);
             if (leader.first != 0) {
-                gap += gapToLeaderFront;
+                gap += leader.second;
             }
         }
         leader.second = gap;
