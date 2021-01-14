@@ -731,6 +731,8 @@ MSLaneChangerSublane::checkChangeOpposite(
         vehicle->getLaneChangeModel().updateExpectedSublaneSpeeds(neighLeaders, sublaneIndex, targetLane->getIndex());
     } else {
         addLeaders(targetLane, vehicle, backPosOnTarget, neighFollowers);
+        neighLeaders = targetLane->getFollowersOnConsecutive(vehicle, backPosOnTarget, true);
+        neighLeaders.fixOppositeGaps();
     }
 
 

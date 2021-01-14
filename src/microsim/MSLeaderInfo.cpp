@@ -286,6 +286,14 @@ MSLeaderDistanceInfo::toString() const {
     return oss.str();
 }
 
+void
+MSLeaderDistanceInfo::fixOppositeGaps() {
+    for (int i = 0; i < (int)myVehicles.size(); ++i) {
+        if (myVehicles[i] != nullptr && myVehicles[i]->getLaneChangeModel().isOpposite()) {
+            myDistances[i] -= myVehicles[i]->getVehicleType().getLength();
+        }
+    }
+}
 
 // ===========================================================================
 // MSCriticalFollowerDistanceInfo member method definitions
