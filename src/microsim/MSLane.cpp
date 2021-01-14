@@ -2211,6 +2211,9 @@ MSLane::swapAfterLaneChange(SUMOTime) {
     // this needs to be done after finishing lane-changing for all lanes on the
     // current edge (MSLaneChanger::updateLanes())
     sortPartialVehicles();
+    if (MSGlobals::gSublane && getOpposite() != nullptr) {
+        getOpposite()->sortPartialVehicles();
+    }
 }
 
 
