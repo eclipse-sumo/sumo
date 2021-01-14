@@ -667,7 +667,7 @@ GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdOpenRecent(FXObject* /*sender*/, FXSelector, void* fileData) {
+GNEApplicationWindow::onCmdOpenRecent(FXObject*, FXSelector, void* fileData) {
     // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
     if (myViewNet && !onCmdClose(0, 0, 0)) {
         return 1;
