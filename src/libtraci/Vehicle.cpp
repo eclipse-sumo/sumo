@@ -816,19 +816,21 @@ Vehicle::slowDown(const std::string& vehID, double speed, double duration) {
 void
 Vehicle::openGap(const std::string& vehID, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel, const std::string& referenceVehID) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 6);
+    Dom::writeCompound(content, referenceVehID != "" ? 6 : 5);
     Dom::writeTypedDouble(content, newTimeHeadway);
     Dom::writeTypedDouble(content, newSpaceHeadway);
     Dom::writeTypedDouble(content, duration);
     Dom::writeTypedDouble(content, changeRate);
     Dom::writeTypedDouble(content, maxDecel);
-    Dom::writeTypedString(content, referenceVehID);
+    if (referenceVehID != "") {
+        Dom::writeTypedString(content, referenceVehID);
+    }
     Dom::set(libsumo::CMD_OPENGAP, vehID, &content);
 }
 
 void
 Vehicle::deactivateGapControl(const std::string& vehID) {
-    openGap(vehID, -1, -1, -1, -1, -1, "");
+    openGap(vehID, -1, -1, -1, -1);
 }
 
 void
