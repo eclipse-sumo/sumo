@@ -89,7 +89,9 @@ vehicle._legacyGetLeader = True
 def setLegacyGetLeader(enabled):
     _vehicle._legacyGetLeader = enabled
 
+_libtraci_step = simulation.step
 def simulationStep(step=0):
-    result = simulation.step(step)
+    result = _libtraci_step(step)
     _manageStepListeners(step)
     return result
+simulation.step = simulationStep
