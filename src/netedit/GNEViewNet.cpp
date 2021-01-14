@@ -117,6 +117,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     // Select elements
     FXMAPFUNC(SEL_COMMAND, MID_ADDSELECT,                                   GNEViewNet::onCmdAddSelected),
     FXMAPFUNC(SEL_COMMAND, MID_REMOVESELECT,                                GNEViewNet::onCmdRemoveSelected),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADDSELECT_EDGE,                          GNEViewNet::onCmdAddEdgeSelected),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVESELECT_EDGE,                       GNEViewNet::onCmdRemoveEdgeSelected),
     // Junctions
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_EDIT_SHAPE,                     GNEViewNet::onCmdEditJunctionShape),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_SHAPE,                    GNEViewNet::onCmdResetJunctionShape),
@@ -3033,6 +3035,44 @@ GNEViewNet::onCmdRemoveSelected(FXObject*, FXSelector, void*) {
         // make sure that AC is selected before unselecting
         if (ACToselect && ACToselect->isAttributeCarrierSelected()) {
             ACToselect->unselectAttributeCarrier();
+        }
+        // make non current
+        makeNonCurrent();
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdAddEdgeSelected(FXObject*, FXSelector, void*) {
+    // make GL current (To allow take objects in popup position)
+    if (makeCurrent()) {
+        int id = getObjectAtPosition(getPopupPosition());
+        // get lane
+        GNELane* lane = dynamic_cast <GNELane*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(id));
+        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        // make sure that AC is selected before selecting
+        if (lane && !lane->getParentEdge()->isAttributeCarrierSelected()) {
+            lane->getParentEdge()->selectAttributeCarrier();
+        }
+        // make non current
+        makeNonCurrent();
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdRemoveEdgeSelected(FXObject*, FXSelector, void*) {
+    // make GL current (To allow take objects in popup position)
+    if (makeCurrent()) {
+        int id = getObjectAtPosition(getPopupPosition());
+        // get lane
+        GNELane* lane = dynamic_cast <GNELane*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(id));
+        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        // make sure that AC is selected before unselecting
+        if (lane && lane->getParentEdge()->isAttributeCarrierSelected()) {
+            lane->getParentEdge()->unselectAttributeCarrier();
         }
         // make non current
         makeNonCurrent();

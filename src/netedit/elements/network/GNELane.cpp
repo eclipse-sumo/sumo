@@ -677,8 +677,20 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         GUIDesigns::buildFXMenuCommand(ret, "Copy parent edge name to clipboard", nullptr, ret, MID_COPY_EDGE_NAME);
         buildNameCopyPopupEntry(ret);
     }
-    // build selection
-    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
+    // build lane selection
+    if (isAttributeCarrierSelected()) {
+        GUIDesigns::buildFXMenuCommand(ret, "Remove Lane From Selected", GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), myNet->getViewNet(), MID_REMOVESELECT);
+    } else {
+        GUIDesigns::buildFXMenuCommand(ret, "Add Lane To Selected", GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), myNet->getViewNet(), MID_ADDSELECT);
+    }
+    // build edge selection
+    if (myParentEdge->isAttributeCarrierSelected()) {
+        GUIDesigns::buildFXMenuCommand(ret, "Remove Edge From Selected", GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), myNet->getViewNet(), MID_GNE_REMOVESELECT_EDGE);
+    } else {
+        GUIDesigns::buildFXMenuCommand(ret, "Add Edge To Selected", GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), myNet->getViewNet(), MID_GNE_ADDSELECT_EDGE);
+    }
+    // add separator
+    new FXMenuSeparator(ret);
     if (editMode != NetworkEditMode::NETWORK_TLS) {
         // build show parameters menu
         buildShowParamsPopupEntry(ret);

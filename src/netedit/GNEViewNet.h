@@ -347,6 +347,12 @@ public:
     /// @brief unselect AC under cursor
     long onCmdRemoveSelected(FXObject*, FXSelector, void*);
 
+    /// @brief select Edge under cursor
+    long onCmdAddEdgeSelected(FXObject*, FXSelector, void*);
+
+    /// @brief unselect Edge under cursor
+    long onCmdRemoveEdgeSelected(FXObject*, FXSelector, void*);
+
     /// @brief abort current edition operation
     void abortOperation(bool clearSelection = true);
 

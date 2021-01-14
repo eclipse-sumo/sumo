@@ -664,6 +664,10 @@ enum {
     MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES,
     /// @brief automatically create opposite edge
     MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES,
+    /// @brief Add edge to selected items - menu entry
+    MID_GNE_ADDSELECT_EDGE,
+    /// @brief Remove edge from selected items - Menu Etry
+    MID_GNE_REMOVESELECT_EDGE,
 
     /// @}
 
