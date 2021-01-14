@@ -54,16 +54,16 @@
 //#define DEBUG_SSM_DRAC
 //#define DEBUG_SSM_NOTIFICATIONS
 //#define DEBUG_COND(ego) MSNet::getInstance()->getCurrentTimeStep() > 308000
-//#define DEBUG_COND(ego) (ego!=nullptr && ego->isSelected())
-//#define DEBUG_COND_FIND(ego) (ego.isSelected())
-#define DEBUG_COND_FIND(ego) (ego.getID() == DEBUG_EGO_ID)
-#define DEBUG_EGO_ID "286"
-#define DEBUG_FOE_ID "205"
+//
+//#define DEBUG_EGO_ID "286"
+//#define DEBUG_FOE_ID "205"
+//#define DEBUG_COND_FIND(ego) (ego.getID() == DEBUG_EGO_ID)
+//#define DEBUG_COND(ego) ((ego)!=nullptr && (ego)->getID() == DEBUG_EGO_ID)
+//#define DEBUG_COND_ENCOUNTER(e) ((DEBUG_EGO_ID == std::string("") || e->egoID == DEBUG_EGO_ID) && (DEBUG_FOE_ID == std::string("") || e->foeID == DEBUG_FOE_ID))
 
-#define DEBUG_COND(ego) ((ego)!=nullptr && (ego)->getID() == DEBUG_EGO_ID)
-
-#define DEBUG_COND_ENCOUNTER(e) ((DEBUG_EGO_ID == std::string("") || e->egoID == DEBUG_EGO_ID) && (DEBUG_FOE_ID == std::string("") || e->foeID == DEBUG_FOE_ID))
-//#define DEBUG_COND_ENCOUNTER(e) (e->ego != nullptr && e->ego->isSelected() && e->foe != nullptr && e->foe->isSelected())
+#define DEBUG_COND(ego) (ego!=nullptr && ego->isSelected())
+#define DEBUG_COND_FIND(ego) (ego.isSelected())
+#define DEBUG_COND_ENCOUNTER(e) (e->ego != nullptr && e->ego->isSelected() && e->foe != nullptr && e->foe->isSelected())
 
 // ===========================================================================
 // Constants
@@ -2440,6 +2440,10 @@ MSDevice_SSM::findFoeConflictLane(const MSVehicle* foe, const MSLane* egoConflic
         if (egoIt != myHolder.getRoute().end()) {
             // same direction, foe is leader
             if (myHolderMS->getLaneChangeModel().isOpposite()) {
+                if (egoConflictLane->isInternal() && !foe->getLane()->isInternal()) {
+                    // lead/follow situation resolved elsewhere
+                    return nullptr;
+                }
                 return foe->getLane();
             } else {
                 // adjacent
@@ -3075,6 +3079,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
 
                     // Collect vehicles on incoming edges (except the last edge, where we already collected). Use full range.
                     if (isOpposite) {
+                        // look for vehicles that are also driving on the opposite side behind ego
                         const ConstMSEdgeVector& outgoing = junction->getOutgoing();
                         for (ConstMSEdgeVector::const_iterator ei = outgoing.begin(); ei != outgoing.end(); ++ei) {
                             if (*ei == edge || (*ei)->isInternal()) {
