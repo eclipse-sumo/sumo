@@ -130,7 +130,7 @@ if(SWIG_FOUND)
                     set_property(TARGET ${SWIG_MODULE_libtraci_REAL_NAME} PROPERTY FOLDER "libtraci")
                     swig_link_libraries(libtraci libtracistatic ${libtcpip} ${PYTHON_LIBRARIES})
                 else()
-                    swig_link_libraries(libtraci -Wl,--whole-archive libtracistatic ${commonlibs} -Wl,--no-whole-archive)
+                    swig_link_libraries(libtraci -Wl,--whole-archive libtracistatic -Wl,--no-whole-archive)
                 endif()
                 if (NOT ${SETUPTOOLS_MISSING})
                     install(
