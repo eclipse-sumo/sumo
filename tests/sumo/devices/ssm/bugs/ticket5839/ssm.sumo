@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug 10 13:28:42 2020 by Eclipse SUMO sumo Version v1_6_0+1483-68e8a4f3b7
+<!-- generated on Thu Jan 14 08:02:58 2021 by Eclipse SUMO sumo Version v1_8_0+0520-0da4d98
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,1204 +31,1284 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <SSMLog>
-    <conflict begin="74.00" end="105.00" ego="flow_1.1" foe="flow_1.3">
+    <conflict begin="74.00" end="106.00" ego="flow_1.1" foe="flow_1.3">
         <minTTC time="81.00" position="879.149448,1511.069714" type="3" value="2.27"/>
         <maxDRAC time="81.00" position="879.149448,1511.069714" type="3" value="1.53"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="74.00" end="105.00" ego="flow_1.3" foe="flow_1.1">
+    <conflict begin="74.00" end="106.00" ego="flow_1.3" foe="flow_1.1">
         <minTTC time="81.00" position="879.149448,1511.069714" type="2" value="2.27"/>
         <maxDRAC time="81.00" position="879.149448,1511.069714" type="2" value="1.53"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="141.00" end="175.00" ego="flow_1.27" foe="flow_1.28">
-        <minTTC time="163.00" position="873.921058,1514.026505" type="3" value="2.40"/>
-        <maxDRAC time="163.00" position="873.921058,1514.026505" type="3" value="1.97"/>
+    <conflict begin="136.00" end="138.00" ego="flow_0.0" foe="flow_1.20">
+        <minTTC time="136.00" position="847.484290,1510.590000" type="20" value="1.34"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="113.00" end="190.00" ego="flow_1.33" foe="flow_1.34">
-        <minTTC time="179.00" position="873.245192,1514.191750" type="3" value="2.40"/>
-        <maxDRAC time="179.00" position="873.245192,1514.191750" type="3" value="1.48"/>
+    <conflict begin="136.00" end="139.00" ego="flow_1.20" foe="flow_0.0">
+        <minTTC time="136.00" position="847.484290,1510.590000" type="20" value="1.34"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="113.00" end="190.00" ego="flow_1.34" foe="flow_1.33">
-        <minTTC time="179.00" position="873.245192,1514.191750" type="2" value="2.40"/>
-        <maxDRAC time="179.00" position="873.245192,1514.191750" type="2" value="1.48"/>
+    <conflict begin="156.00" end="175.00" ego="flow_1.27" foe="flow_1.28">
+        <minTTC time="163.00" position="874.120229,1513.950458" type="3" value="2.62"/>
+        <maxDRAC time="162.00" position="879.813332,1510.686426" type="3" value="1.60"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="177.00" end="198.00" ego="flow_1.37" foe="flow_1.36">
-        <minTTC time="183.00" position="894.378551,1502.277330" type="2" value="2.93"/>
-        <maxDRAC time="183.00" position="894.378551,1502.277330" type="2" value="1.19"/>
+    <conflict begin="100.00" end="225.00" ego="flow_1.0" foe="flow_1.2">
+        <minTTC time="161.00" position="-870.793659,1514.240000" type="3" value="2.53"/>
+        <maxDRAC time="161.00" position="-870.793659,1514.240000" type="3" value="0.97"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="216.00" end="235.00" ego="flow_1.48" foe="flow_1.47">
-        <minTTC time="220.00" position="903.618687,1496.942622" type="2" value="2.95"/>
-        <maxDRAC time="220.00" position="903.618687,1496.942622" type="2" value="1.17"/>
+    <conflict begin="100.00" end="225.00" ego="flow_1.2" foe="flow_1.0">
+        <minTTC time="161.00" position="-870.793659,1514.240000" type="2" value="2.53"/>
+        <maxDRAC time="161.00" position="-870.793659,1514.240000" type="2" value="0.97"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="95.00" end="264.00" ego="flow_1.5" foe="flow_1.8">
-        <minTTC time="98.00" position="878.405827,1511.499036" type="3" value="2.90"/>
-        <maxDRAC time="98.00" position="878.405827,1511.499036" type="3" value="1.38"/>
+    <conflict begin="97.00" end="265.00" ego="flow_1.5" foe="flow_1.8">
+        <minTTC time="98.00" position="879.054331,1511.124628" type="3" value="2.63"/>
+        <maxDRAC time="98.00" position="879.054331,1511.124628" type="3" value="2.13"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="95.00" end="264.00" ego="flow_1.8" foe="flow_1.5">
-        <minTTC time="98.00" position="878.405827,1511.499036" type="2" value="2.90"/>
-        <maxDRAC time="98.00" position="878.405827,1511.499036" type="2" value="1.38"/>
+    <conflict begin="91.00" end="267.00" ego="flow_1.8" foe="flow_1.9">
+        <minTTC time="196.00" position="-857.266400,1514.240000" type="3" value="2.76"/>
+        <maxDRAC time="196.00" position="-857.266400,1514.240000" type="3" value="0.88"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="79.00" end="267.00" ego="flow_1.9" foe="flow_1.10">
-        <minTTC time="104.00" position="871.834733,1514.240000" type="3" value="2.67"/>
-        <maxDRAC time="104.00" position="871.834733,1514.240000" type="3" value="1.03"/>
+    <conflict begin="97.00" end="265.00" ego="flow_1.8" foe="flow_1.5">
+        <minTTC time="98.00" position="879.054331,1511.124628" type="2" value="2.63"/>
+        <maxDRAC time="98.00" position="879.054331,1511.124628" type="2" value="2.13"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="79.00" end="267.00" ego="flow_1.10" foe="flow_1.9">
-        <minTTC time="104.00" position="871.834733,1514.240000" type="2" value="2.67"/>
-        <maxDRAC time="104.00" position="871.834733,1514.240000" type="2" value="1.03"/>
+    <conflict begin="91.00" end="267.00" ego="flow_1.9" foe="flow_1.8">
+        <minTTC time="196.00" position="-857.266400,1514.240000" type="2" value="2.76"/>
+        <maxDRAC time="196.00" position="-857.266400,1514.240000" type="2" value="0.88"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="125.00" end="283.00" ego="flow_1.14" foe="flow_1.16">
-        <minTTC time="216.00" position="-874.336493,1513.843564" type="3" value="2.78"/>
-        <maxDRAC time="216.00" position="-874.336493,1513.843564" type="3" value="0.83"/>
+    <conflict begin="123.00" end="285.00" ego="flow_1.16" foe="flow_1.17">
+        <minTTC time="124.00" position="875.636584,1513.097834" type="3" value="2.95"/>
+        <maxDRAC time="124.00" position="875.636584,1513.097834" type="3" value="1.84"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="87.00" end="283.00" ego="flow_1.16" foe="flow_1.14">
-        <minTTC time="216.00" position="-874.336493,1513.843564" type="2" value="2.78"/>
-        <maxDRAC time="216.00" position="-874.336493,1513.843564" type="2" value="0.83"/>
+    <conflict begin="123.00" end="285.00" ego="flow_1.17" foe="flow_1.16">
+        <minTTC time="124.00" position="875.636584,1513.097834" type="2" value="2.95"/>
+        <maxDRAC time="124.00" position="875.636584,1513.097834" type="2" value="1.84"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="125.00" end="284.00" ego="flow_1.16" foe="flow_1.17">
-        <minTTC time="217.00" position="-864.021749,1514.240000" type="3" value="2.88"/>
-        <maxDRAC time="125.00" position="868.147481,1514.240000" type="3" value="0.94"/>
+    <conflict begin="165.00" end="291.00" ego="flow_1.37" foe="flow_1.36">
+        <minTTC time="183.00" position="895.113249,1501.853158" type="2" value="2.52"/>
+        <maxDRAC time="183.00" position="895.113249,1501.853158" type="2" value="1.09"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="125.00" end="284.00" ego="flow_1.17" foe="flow_1.16">
-        <minTTC time="217.00" position="-864.021749,1514.240000" type="2" value="2.88"/>
-        <maxDRAC time="125.00" position="868.147481,1514.240000" type="2" value="0.94"/>
+    <conflict begin="283.00" end="293.00" ego="flow_1.69" foe="flow_1.70">
+        <minTTC time="284.00" position="875.383977,1513.243674" type="3" value="2.99"/>
+        <maxDRAC time="284.00" position="875.383977,1513.243674" type="3" value="2.00"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="130.00" end="298.00" ego="flow_1.18" foe="flow_1.20">
-        <minTTC time="230.00" position="-867.798473,1514.240000" type="3" value="2.30"/>
-        <maxDRAC time="230.00" position="-867.798473,1514.240000" type="3" value="1.06"/>
+    <conflict begin="283.00" end="293.00" ego="flow_1.70" foe="flow_1.69">
+        <minTTC time="284.00" position="875.383977,1513.243674" type="2" value="2.99"/>
+        <maxDRAC time="284.00" position="875.383977,1513.243674" type="2" value="2.00"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="130.00" end="298.00" ego="flow_1.20" foe="flow_1.18">
-        <minTTC time="230.00" position="-867.798473,1514.240000" type="2" value="2.30"/>
-        <maxDRAC time="230.00" position="-867.798473,1514.240000" type="2" value="1.06"/>
+    <conflict begin="114.00" end="311.00" ego="flow_1.19" foe="flow_1.21">
+        <minTTC time="241.00" position="-870.370006,1514.240000" type="3" value="2.31"/>
+        <maxDRAC time="241.00" position="-870.370006,1514.240000" type="3" value="1.10"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="115.00" end="312.00" ego="flow_1.19" foe="flow_1.21">
-        <minTTC time="241.00" position="-873.978509,1514.004569" type="3" value="2.28"/>
-        <maxDRAC time="241.00" position="-873.978509,1514.004569" type="3" value="0.98"/>
+    <conflict begin="114.00" end="311.00" ego="flow_1.21" foe="flow_1.19">
+        <minTTC time="241.00" position="-870.370006,1514.240000" type="2" value="2.31"/>
+        <maxDRAC time="241.00" position="-870.370006,1514.240000" type="2" value="1.10"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="115.00" end="312.00" ego="flow_1.21" foe="flow_1.19">
-        <minTTC time="241.00" position="-873.978509,1514.004569" type="2" value="2.28"/>
-        <maxDRAC time="241.00" position="-873.978509,1514.004569" type="2" value="0.98"/>
+    <conflict begin="139.00" end="313.00" ego="flow_1.21" foe="flow_1.24">
+        <minTTC time="242.00" position="-860.991803,1514.240000" type="3" value="2.60"/>
+        <maxDRAC time="242.00" position="-860.991803,1514.240000" type="3" value="0.94"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="136.00" end="313.00" ego="flow_1.21" foe="flow_1.24">
-        <minTTC time="242.00" position="-864.678855,1514.240000" type="3" value="2.74"/>
-        <maxDRAC time="242.00" position="-864.678855,1514.240000" type="3" value="0.77"/>
+    <conflict begin="139.00" end="313.00" ego="flow_1.24" foe="flow_1.21">
+        <minTTC time="242.00" position="-860.991803,1514.240000" type="2" value="2.60"/>
+        <maxDRAC time="242.00" position="-860.991803,1514.240000" type="2" value="0.94"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="136.00" end="313.00" ego="flow_1.24" foe="flow_1.21">
-        <minTTC time="242.00" position="-864.678855,1514.240000" type="2" value="2.74"/>
-        <maxDRAC time="242.00" position="-864.678855,1514.240000" type="2" value="0.77"/>
+    <conflict begin="156.00" end="175.00" ego="flow_1.28" foe="flow_1.27">
+        <minTTC time="163.00" position="874.120229,1513.950458" type="2" value="2.62"/>
+        <maxDRAC time="162.00" position="879.813332,1510.686426" type="2" value="1.60"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="301.00" end="313.00" ego="flow_1.75" foe="flow_1.76">
-        <minTTC time="303.00" position="875.741803,1513.037086" type="3" value="2.70"/>
-        <maxDRAC time="303.00" position="875.741803,1513.037086" type="3" value="2.03"/>
+    <conflict begin="130.00" end="327.00" ego="flow_1.29" foe="flow_1.30">
+        <minTTC time="260.00" position="-859.573919,1514.240000" type="3" value="2.61"/>
+        <maxDRAC time="260.00" position="-859.573919,1514.240000" type="3" value="0.67"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="301.00" end="313.00" ego="flow_1.76" foe="flow_1.75">
-        <minTTC time="303.00" position="875.741803,1513.037086" type="2" value="2.70"/>
-        <maxDRAC time="303.00" position="875.741803,1513.037086" type="2" value="2.03"/>
-        <PET time="NA" position="NA" type="NA" value="NA"/>
-    </conflict>
-    <conflict begin="125.00" end="318.00" ego="flow_1.23" foe="flow_1.25">
-        <minTTC time="152.00" position="874.493600,1513.753362" type="3" value="2.73"/>
-        <maxDRAC time="152.00" position="874.493600,1513.753362" type="3" value="0.87"/>
-        <PET time="NA" position="NA" type="NA" value="NA"/>
-    </conflict>
-    <conflict begin="125.00" end="318.00" ego="flow_1.25" foe="flow_1.23">
-        <minTTC time="152.00" position="874.493600,1513.753362" type="2" value="2.73"/>
-        <maxDRAC time="152.00" position="874.493600,1513.753362" type="2" value="0.87"/>
-        <PET time="NA" position="NA" type="NA" value="NA"/>
-    </conflict>
-    <conflict begin="141.00" end="175.00" ego="flow_1.28" foe="flow_1.27">
-        <minTTC time="163.00" position="873.921058,1514.026505" type="2" value="2.40"/>
-        <maxDRAC time="163.00" position="873.921058,1514.026505" type="2" value="1.97"/>
+    <conflict begin="130.00" end="327.00" ego="flow_1.30" foe="flow_1.29">
+        <minTTC time="260.00" position="-859.573919,1514.240000" type="2" value="2.61"/>
+        <maxDRAC time="260.00" position="-859.573919,1514.240000" type="2" value="0.67"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
     <conflict begin="116.00" end="337.00" ego="flow_1.34" foe="flow_1.35">
-        <minTTC time="181.00" position="878.177691,1511.630749" type="3" value="2.86"/>
-        <maxDRAC time="181.00" position="878.177691,1511.630749" type="3" value="0.74"/>
+        <minTTC time="181.00" position="879.951129,1510.606870" type="3" value="2.32"/>
+        <maxDRAC time="181.00" position="879.951129,1510.606870" type="3" value="1.01"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
     <conflict begin="116.00" end="337.00" ego="flow_1.35" foe="flow_1.34">
-        <minTTC time="181.00" position="878.177691,1511.630749" type="2" value="2.86"/>
-        <maxDRAC time="181.00" position="878.177691,1511.630749" type="2" value="0.74"/>
+        <minTTC time="181.00" position="879.951129,1510.606870" type="2" value="2.32"/>
+        <maxDRAC time="181.00" position="879.951129,1510.606870" type="2" value="1.01"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="119.00" end="338.00" ego="flow_1.35" foe="flow_1.36">
-        <minTTC time="182.00" position="886.544281,1506.800374" type="3" value="2.67"/>
-        <maxDRAC time="182.00" position="886.544281,1506.800374" type="3" value="0.82"/>
+    <conflict begin="144.00" end="338.00" ego="flow_1.35" foe="flow_1.36">
+        <minTTC time="182.00" position="887.581532,1506.201527" type="3" value="2.15"/>
+        <maxDRAC time="182.00" position="887.581532,1506.201527" type="3" value="1.27"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="119.00" end="338.00" ego="flow_1.36" foe="flow_1.35">
-        <minTTC time="182.00" position="886.544281,1506.800374" type="2" value="2.67"/>
-        <maxDRAC time="182.00" position="886.544281,1506.800374" type="2" value="0.82"/>
+    <conflict begin="144.00" end="338.00" ego="flow_1.36" foe="flow_1.35">
+        <minTTC time="182.00" position="887.581532,1506.201527" type="2" value="2.15"/>
+        <maxDRAC time="182.00" position="887.581532,1506.201527" type="2" value="1.27"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="177.00" end="198.00" ego="flow_1.36" foe="flow_1.37">
-        <minTTC time="183.00" position="894.378551,1502.277330" type="3" value="2.93"/>
-        <maxDRAC time="183.00" position="894.378551,1502.277330" type="3" value="1.19"/>
+    <conflict begin="165.00" end="291.00" ego="flow_1.36" foe="flow_1.37">
+        <minTTC time="183.00" position="895.113249,1501.853158" type="3" value="2.52"/>
+        <maxDRAC time="183.00" position="895.113249,1501.853158" type="3" value="1.09"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="236.00" end="370.00" ego="flow_1.62" foe="flow_1.61">
-        <minTTC time="254.00" position="933.423598,1479.735028" type="2" value="2.97"/>
-        <maxDRAC time="254.00" position="933.423598,1479.735028" type="2" value="0.87"/>
+    <conflict begin="268.00" end="348.00" ego="flow_1.53" foe="flow_1.52">
+        <minTTC time="330.00" position="-826.452961,1514.240000" type="2" value="2.59"/>
+        <maxDRAC time="330.00" position="-826.452961,1514.240000" type="2" value="0.68"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
     <conflict begin="140.00" end="386.00" ego="flow_1.42" foe="flow_1.43">
-        <minTTC time="213.00" position="876.531030,1512.581434" type="3" value="2.34"/>
-        <maxDRAC time="213.00" position="876.531030,1512.581434" type="3" value="1.02"/>
+        <minTTC time="213.00" position="877.478110,1512.034645" type="3" value="2.31"/>
+        <maxDRAC time="213.00" position="877.478110,1512.034645" type="3" value="1.13"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
     <conflict begin="140.00" end="386.00" ego="flow_1.43" foe="flow_1.42">
-        <minTTC time="213.00" position="876.531030,1512.581434" type="2" value="2.34"/>
-        <maxDRAC time="213.00" position="876.531030,1512.581434" type="2" value="1.02"/>
+        <minTTC time="213.00" position="877.478110,1512.034645" type="2" value="2.31"/>
+        <maxDRAC time="213.00" position="877.478110,1512.034645" type="2" value="1.13"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="143.00" end="388.00" ego="flow_1.43" foe="flow_1.44">
-        <minTTC time="314.00" position="-858.226895,1514.240000" type="3" value="2.70"/>
-        <maxDRAC time="314.00" position="-858.226895,1514.240000" type="3" value="0.93"/>
+    <conflict begin="163.00" end="388.00" ego="flow_1.43" foe="flow_1.44">
+        <minTTC time="314.00" position="-856.565764,1514.240000" type="3" value="2.49"/>
+        <maxDRAC time="314.00" position="-856.565764,1514.240000" type="3" value="1.05"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="143.00" end="388.00" ego="flow_1.44" foe="flow_1.43">
-        <minTTC time="314.00" position="-858.226895,1514.240000" type="2" value="2.70"/>
-        <maxDRAC time="314.00" position="-858.226895,1514.240000" type="2" value="0.93"/>
+    <conflict begin="163.00" end="388.00" ego="flow_1.44" foe="flow_1.43">
+        <minTTC time="314.00" position="-856.565764,1514.240000" type="2" value="2.49"/>
+        <maxDRAC time="314.00" position="-856.565764,1514.240000" type="2" value="1.05"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
     <conflict begin="163.00" end="389.00" ego="flow_1.44" foe="flow_1.45">
-        <minTTC time="315.00" position="-848.098089,1514.240000" type="3" value="2.91"/>
-        <maxDRAC time="315.00" position="-848.098089,1514.240000" type="3" value="0.87"/>
+        <minTTC time="315.00" position="-847.470668,1514.240000" type="3" value="2.63"/>
+        <maxDRAC time="315.00" position="-847.470668,1514.240000" type="3" value="0.95"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
     <conflict begin="163.00" end="389.00" ego="flow_1.45" foe="flow_1.44">
-        <minTTC time="315.00" position="-848.098089,1514.240000" type="2" value="2.91"/>
-        <maxDRAC time="315.00" position="-848.098089,1514.240000" type="2" value="0.87"/>
+        <minTTC time="315.00" position="-847.470668,1514.240000" type="2" value="2.63"/>
+        <maxDRAC time="315.00" position="-847.470668,1514.240000" type="2" value="0.95"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="198.00" end="392.00" ego="flow_1.46" foe="flow_1.47">
-        <minTTC time="219.00" position="896.064397,1501.304022" type="3" value="2.90"/>
-        <maxDRAC time="317.00" position="-826.458902,1514.240000" type="3" value="0.74"/>
+    <conflict begin="351.00" end="394.00" ego="flow_1.100" foe="flow_1.99">
+        <minTTC time="375.00" position="928.230551,1482.733186" type="2" value="2.62"/>
+        <maxDRAC time="375.00" position="928.230551,1482.733186" type="2" value="0.98"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="198.00" end="392.00" ego="flow_1.47" foe="flow_1.46">
-        <minTTC time="219.00" position="896.064397,1501.304022" type="2" value="2.90"/>
-        <maxDRAC time="317.00" position="-826.458902,1514.240000" type="2" value="0.74"/>
+    <conflict begin="328.00" end="398.00" ego="flow_1.74" foe="flow_1.73">
+        <minTTC time="384.00" position="-853.605459,1514.240000" type="2" value="2.78"/>
+        <maxDRAC time="384.00" position="-853.605459,1514.240000" type="2" value="0.90"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="216.00" end="235.00" ego="flow_1.47" foe="flow_1.48">
-        <minTTC time="220.00" position="903.618687,1496.942622" type="3" value="2.95"/>
-        <maxDRAC time="220.00" position="903.618687,1496.942622" type="3" value="1.17"/>
+    <conflict begin="268.00" end="348.00" ego="flow_1.52" foe="flow_1.53">
+        <minTTC time="330.00" position="-826.452961,1514.240000" type="3" value="2.59"/>
+        <maxDRAC time="330.00" position="-826.452961,1514.240000" type="3" value="0.68"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="251.00" end="394.00" ego="flow_1.47" foe="flow_1.48">
-        <minTTC time="318.00" position="-816.741064,1514.240000" type="3" value="2.86"/>
-        <maxDRAC time="318.00" position="-816.741064,1514.240000" type="3" value="0.88"/>
+    <conflict begin="391.00" end="404.00" ego="flow_1.105" foe="flow_1.104">
+        <minTTC time="392.00" position="889.983509,1504.814767" type="2" value="2.99"/>
+        <maxDRAC time="392.00" position="889.983509,1504.814767" type="2" value="1.80"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="251.00" end="394.00" ego="flow_1.48" foe="flow_1.47">
-        <minTTC time="318.00" position="-816.741064,1514.240000" type="2" value="2.86"/>
-        <maxDRAC time="318.00" position="-816.741064,1514.240000" type="2" value="0.88"/>
+    <conflict begin="177.00" end="414.00" ego="flow_1.54" foe="flow_1.55">
+        <minTTC time="248.00" position="877.090790,1512.258261" type="3" value="2.42"/>
+        <maxDRAC time="248.00" position="877.090790,1512.258261" type="3" value="1.02"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="161.00" end="397.00" ego="flow_1.49" foe="flow_1.50">
-        <minTTC time="230.00" position="876.995487,1512.313283" type="3" value="2.97"/>
-        <maxDRAC time="230.00" position="876.995487,1512.313283" type="3" value="0.72"/>
+    <conflict begin="177.00" end="414.00" ego="flow_1.55" foe="flow_1.54">
+        <minTTC time="248.00" position="877.090790,1512.258261" type="2" value="2.42"/>
+        <maxDRAC time="248.00" position="877.090790,1512.258261" type="2" value="1.02"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="161.00" end="397.00" ego="flow_1.50" foe="flow_1.49">
-        <minTTC time="230.00" position="876.995487,1512.313283" type="2" value="2.97"/>
-        <maxDRAC time="230.00" position="876.995487,1512.313283" type="2" value="0.72"/>
+    <conflict begin="196.00" end="415.00" ego="flow_1.55" foe="flow_1.56">
+        <minTTC time="249.00" position="885.121630,1507.621729" type="3" value="2.79"/>
+        <maxDRAC time="249.00" position="885.121630,1507.621729" type="3" value="0.82"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="176.00" end="414.00" ego="flow_1.54" foe="flow_1.55">
-        <minTTC time="247.00" position="873.592905,1514.138709" type="3" value="2.02"/>
-        <maxDRAC time="247.00" position="873.592905,1514.138709" type="3" value="1.23"/>
+    <conflict begin="196.00" end="415.00" ego="flow_1.56" foe="flow_1.55">
+        <minTTC time="249.00" position="885.121630,1507.621729" type="2" value="2.79"/>
+        <maxDRAC time="249.00" position="885.121630,1507.621729" type="2" value="0.82"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="176.00" end="414.00" ego="flow_1.55" foe="flow_1.54">
-        <minTTC time="247.00" position="873.592905,1514.138709" type="2" value="2.02"/>
-        <maxDRAC time="247.00" position="873.592905,1514.138709" type="2" value="1.23"/>
+    <conflict begin="393.00" end="415.00" ego="flow_1.105" foe="flow_1.106">
+        <minTTC time="397.00" position="872.985989,1514.221741" type="3" value="2.60"/>
+        <maxDRAC time="397.00" position="872.985989,1514.221741" type="3" value="1.40"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="179.00" end="416.00" ego="flow_1.55" foe="flow_1.56">
-        <minTTC time="345.00" position="-858.471760,1514.240000" type="3" value="2.33"/>
-        <maxDRAC time="345.00" position="-858.471760,1514.240000" type="3" value="1.12"/>
+    <conflict begin="393.00" end="415.00" ego="flow_1.106" foe="flow_1.105">
+        <minTTC time="397.00" position="872.985989,1514.221741" type="2" value="2.60"/>
+        <maxDRAC time="397.00" position="872.985989,1514.221741" type="2" value="1.40"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="179.00" end="416.00" ego="flow_1.56" foe="flow_1.55">
-        <minTTC time="345.00" position="-858.471760,1514.240000" type="2" value="2.33"/>
-        <maxDRAC time="345.00" position="-858.471760,1514.240000" type="2" value="1.12"/>
+    <conflict begin="198.00" end="417.00" ego="flow_1.56" foe="flow_1.57">
+        <minTTC time="250.00" position="893.580483,1502.738087" type="3" value="2.72"/>
+        <maxDRAC time="250.00" position="893.580483,1502.738087" type="3" value="0.94"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="202.00" end="417.00" ego="flow_1.56" foe="flow_1.57">
-        <minTTC time="249.00" position="890.616967,1504.449046" type="3" value="2.69"/>
-        <maxDRAC time="249.00" position="890.616967,1504.449046" type="3" value="0.85"/>
+    <conflict begin="198.00" end="417.00" ego="flow_1.57" foe="flow_1.56">
+        <minTTC time="250.00" position="893.580483,1502.738087" type="2" value="2.72"/>
+        <maxDRAC time="250.00" position="893.580483,1502.738087" type="2" value="0.94"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="185.00" end="419.00" ego="flow_1.57" foe="flow_1.58">
-        <minTTC time="250.00" position="899.018053,1499.598756" type="3" value="2.64"/>
-        <maxDRAC time="250.00" position="899.018053,1499.598756" type="3" value="0.91"/>
+    <conflict begin="212.00" end="418.00" ego="flow_1.57" foe="flow_1.58">
+        <minTTC time="251.00" position="902.326556,1497.688622" type="3" value="2.74"/>
+        <maxDRAC time="251.00" position="902.326556,1497.688622" type="3" value="0.89"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="202.00" end="417.00" ego="flow_1.57" foe="flow_1.56">
-        <minTTC time="249.00" position="890.616967,1504.449046" type="2" value="2.69"/>
-        <maxDRAC time="249.00" position="890.616967,1504.449046" type="2" value="0.85"/>
+    <conflict begin="189.00" end="420.00" ego="flow_1.58" foe="flow_1.59">
+        <minTTC time="252.00" position="910.251798,1493.113055" type="3" value="2.80"/>
+        <maxDRAC time="252.00" position="910.251798,1493.113055" type="3" value="0.90"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="185.00" end="419.00" ego="flow_1.58" foe="flow_1.57">
-        <minTTC time="250.00" position="899.018053,1499.598756" type="2" value="2.64"/>
-        <maxDRAC time="250.00" position="899.018053,1499.598756" type="2" value="0.91"/>
+    <conflict begin="212.00" end="418.00" ego="flow_1.58" foe="flow_1.57">
+        <minTTC time="251.00" position="902.326556,1497.688622" type="2" value="2.74"/>
+        <maxDRAC time="251.00" position="902.326556,1497.688622" type="2" value="0.89"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="214.00" end="420.00" ego="flow_1.58" foe="flow_1.59">
-        <minTTC time="349.00" position="-837.162174,1514.240000" type="3" value="2.44"/>
-        <maxDRAC time="348.00" position="-831.284386,1514.240000" type="3" value="0.98"/>
+    <conflict begin="189.00" end="420.00" ego="flow_1.59" foe="flow_1.58">
+        <minTTC time="252.00" position="910.251798,1493.113055" type="2" value="2.80"/>
+        <maxDRAC time="252.00" position="910.251798,1493.113055" type="2" value="0.90"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="214.00" end="420.00" ego="flow_1.59" foe="flow_1.58">
-        <minTTC time="349.00" position="-837.162174,1514.240000" type="2" value="2.44"/>
-        <maxDRAC time="348.00" position="-831.284386,1514.240000" type="2" value="0.98"/>
+    <conflict begin="354.00" end="377.00" ego="flow_1.64" foe="flow_1.65">
+        <minTTC time="361.00" position="-833.047648,1514.240000" type="3" value="2.94"/>
+        <maxDRAC time="355.00" position="-774.788951,1514.240000" type="3" value="1.30"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="274.00" end="422.00" ego="flow_1.59" foe="flow_1.60">
-        <minTTC time="350.00" position="-828.342003,1514.240000" type="3" value="2.45"/>
-        <maxDRAC time="350.00" position="-828.342003,1514.240000" type="3" value="0.89"/>
+    <conflict begin="210.00" end="431.00" ego="flow_1.65" foe="flow_1.66">
+        <minTTC time="275.00" position="872.529317,1514.232487" type="3" value="2.87"/>
+        <maxDRAC time="275.00" position="872.529317,1514.232487" type="3" value="0.75"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="215.00" end="423.00" ego="flow_1.60" foe="flow_1.61">
-        <minTTC time="253.00" position="925.259814,1484.448314" type="3" value="2.85"/>
-        <maxDRAC time="253.00" position="925.259814,1484.448314" type="3" value="0.83"/>
+    <conflict begin="354.00" end="377.00" ego="flow_1.65" foe="flow_1.64">
+        <minTTC time="361.00" position="-833.047648,1514.240000" type="2" value="2.94"/>
+        <maxDRAC time="355.00" position="-774.788951,1514.240000" type="2" value="1.30"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="274.00" end="422.00" ego="flow_1.60" foe="flow_1.59">
-        <minTTC time="350.00" position="-828.342003,1514.240000" type="2" value="2.45"/>
-        <maxDRAC time="350.00" position="-828.342003,1514.240000" type="2" value="0.89"/>
+    <conflict begin="210.00" end="431.00" ego="flow_1.66" foe="flow_1.65">
+        <minTTC time="275.00" position="872.529317,1514.232487" type="2" value="2.87"/>
+        <maxDRAC time="275.00" position="872.529317,1514.232487" type="2" value="0.75"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="215.00" end="423.00" ego="flow_1.61" foe="flow_1.60">
-        <minTTC time="253.00" position="925.259814,1484.448314" type="2" value="2.85"/>
-        <maxDRAC time="253.00" position="925.259814,1484.448314" type="2" value="0.83"/>
+    <conflict begin="244.00" end="446.00" ego="flow_1.71" foe="flow_1.72">
+        <minTTC time="382.00" position="-871.330908,1514.240000" type="3" value="2.14"/>
+        <maxDRAC time="382.00" position="-871.330908,1514.240000" type="3" value="1.30"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="236.00" end="370.00" ego="flow_1.61" foe="flow_1.62">
-        <minTTC time="254.00" position="933.423598,1479.735028" type="3" value="2.97"/>
-        <maxDRAC time="254.00" position="933.423598,1479.735028" type="3" value="0.87"/>
+    <conflict begin="244.00" end="446.00" ego="flow_1.72" foe="flow_1.71">
+        <minTTC time="382.00" position="-871.330908,1514.240000" type="2" value="2.14"/>
+        <maxDRAC time="382.00" position="-871.330908,1514.240000" type="2" value="1.30"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="224.00" end="431.00" ego="flow_1.65" foe="flow_1.66">
-        <minTTC time="273.00" position="879.273643,1510.998011" type="3" value="2.98"/>
-        <maxDRAC time="273.00" position="879.273643,1510.998011" type="3" value="0.81"/>
+    <conflict begin="251.00" end="447.00" ego="flow_1.72" foe="flow_1.73">
+        <minTTC time="383.00" position="-862.236691,1514.240000" type="3" value="2.40"/>
+        <maxDRAC time="383.00" position="-862.236691,1514.240000" type="3" value="1.06"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="224.00" end="431.00" ego="flow_1.66" foe="flow_1.65">
-        <minTTC time="273.00" position="879.273643,1510.998011" type="2" value="2.98"/>
-        <maxDRAC time="273.00" position="879.273643,1510.998011" type="2" value="0.81"/>
+    <conflict begin="251.00" end="447.00" ego="flow_1.73" foe="flow_1.72">
+        <minTTC time="383.00" position="-862.236691,1514.240000" type="2" value="2.40"/>
+        <maxDRAC time="383.00" position="-862.236691,1514.240000" type="2" value="1.06"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="227.00" end="445.00" ego="flow_1.71" foe="flow_1.72">
-        <minTTC time="292.00" position="876.259503,1512.738197" type="3" value="2.78"/>
-        <maxDRAC time="292.00" position="876.259503,1512.738197" type="3" value="0.84"/>
+    <conflict begin="328.00" end="398.00" ego="flow_1.73" foe="flow_1.74">
+        <minTTC time="384.00" position="-853.605459,1514.240000" type="3" value="2.78"/>
+        <maxDRAC time="384.00" position="-853.605459,1514.240000" type="3" value="0.90"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="227.00" end="445.00" ego="flow_1.72" foe="flow_1.71">
-        <minTTC time="292.00" position="876.259503,1512.738197" type="2" value="2.78"/>
-        <maxDRAC time="292.00" position="876.259503,1512.738197" type="2" value="0.84"/>
+    <conflict begin="276.00" end="480.00" ego="flow_1.80" foe="flow_1.81">
+        <minTTC time="322.00" position="875.460519,1513.199483" type="3" value="2.74"/>
+        <maxDRAC time="322.00" position="875.460519,1513.199483" type="3" value="0.83"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="252.00" end="447.00" ego="flow_1.72" foe="flow_1.73">
-        <minTTC time="293.00" position="884.402935,1508.036661" type="3" value="2.82"/>
-        <maxDRAC time="293.00" position="884.402935,1508.036661" type="3" value="0.84"/>
+    <conflict begin="276.00" end="480.00" ego="flow_1.81" foe="flow_1.80">
+        <minTTC time="322.00" position="875.460519,1513.199483" type="2" value="2.74"/>
+        <maxDRAC time="322.00" position="875.460519,1513.199483" type="2" value="0.83"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="252.00" end="447.00" ego="flow_1.73" foe="flow_1.72">
-        <minTTC time="293.00" position="884.402935,1508.036661" type="2" value="2.82"/>
-        <maxDRAC time="293.00" position="884.402935,1508.036661" type="2" value="0.84"/>
+    <conflict begin="295.00" end="482.00" ego="flow_1.93" foe="flow_1.94">
+        <minTTC time="369.00" position="879.132624,1511.079427" type="3" value="2.20"/>
+        <maxDRAC time="369.00" position="879.132624,1511.079427" type="3" value="1.06"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="245.00" end="473.00" ego="flow_1.77" foe="flow_1.78">
-        <minTTC time="314.00" position="874.407223,1513.802387" type="3" value="2.79"/>
-        <maxDRAC time="314.00" position="874.407223,1513.802387" type="3" value="0.73"/>
+    <conflict begin="295.00" end="482.00" ego="flow_1.94" foe="flow_1.93">
+        <minTTC time="369.00" position="879.132624,1511.079427" type="2" value="2.20"/>
+        <maxDRAC time="369.00" position="879.132624,1511.079427" type="2" value="1.06"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="245.00" end="473.00" ego="flow_1.78" foe="flow_1.77">
-        <minTTC time="314.00" position="874.407223,1513.802387" type="2" value="2.79"/>
-        <maxDRAC time="314.00" position="874.407223,1513.802387" type="2" value="0.73"/>
+    <conflict begin="261.00" end="483.00" ego="flow_1.82" foe="flow_1.83">
+        <minTTC time="328.00" position="873.596134,1514.138217" type="3" value="2.59"/>
+        <maxDRAC time="328.00" position="873.596134,1514.138217" type="3" value="0.88"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="274.00" end="474.00" ego="flow_1.78" foe="flow_1.79">
-        <minTTC time="315.00" position="883.085306,1508.797382" type="3" value="2.78"/>
-        <maxDRAC time="315.00" position="883.085306,1508.797382" type="3" value="0.77"/>
+    <conflict begin="261.00" end="483.00" ego="flow_1.83" foe="flow_1.82">
+        <minTTC time="328.00" position="873.596134,1514.138217" type="2" value="2.59"/>
+        <maxDRAC time="328.00" position="873.596134,1514.138217" type="2" value="0.88"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="274.00" end="474.00" ego="flow_1.79" foe="flow_1.78">
-        <minTTC time="315.00" position="883.085306,1508.797382" type="2" value="2.78"/>
-        <maxDRAC time="315.00" position="883.085306,1508.797382" type="2" value="0.77"/>
+    <conflict begin="458.00" end="484.00" ego="flow_1.128" foe="flow_1.129">
+        <minTTC time="473.00" position="873.705497,1514.108810" type="3" value="2.87"/>
+        <maxDRAC time="472.00" position="879.658759,1510.775668" type="3" value="1.42"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="254.00" end="481.00" ego="flow_1.80" foe="flow_1.81">
-        <minTTC time="414.00" position="-867.252546,1514.240000" type="3" value="2.53"/>
-        <maxDRAC time="414.00" position="-867.252546,1514.240000" type="3" value="0.92"/>
+    <conflict begin="268.00" end="497.00" ego="flow_1.84" foe="flow_1.85">
+        <minTTC time="337.00" position="872.614943,1514.230472" type="3" value="2.32"/>
+        <maxDRAC time="337.00" position="872.614943,1514.230472" type="3" value="1.08"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="254.00" end="481.00" ego="flow_1.81" foe="flow_1.80">
-        <minTTC time="414.00" position="-867.252546,1514.240000" type="2" value="2.53"/>
-        <maxDRAC time="414.00" position="-867.252546,1514.240000" type="2" value="0.92"/>
+    <conflict begin="268.00" end="497.00" ego="flow_1.85" foe="flow_1.84">
+        <minTTC time="337.00" position="872.614943,1514.230472" type="2" value="2.32"/>
+        <maxDRAC time="337.00" position="872.614943,1514.230472" type="2" value="1.08"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="320.00" end="335.00" ego="flow_1.81" foe="flow_1.82">
-        <minTTC time="323.00" position="882.484434,1509.144290" type="3" value="2.98"/>
-        <maxDRAC time="322.00" position="888.067574,1505.920915" type="3" value="1.36"/>
+    <conflict begin="320.00" end="498.00" ego="flow_1.94" foe="flow_1.95">
+        <minTTC time="370.00" position="886.636414,1506.747182" type="3" value="2.36"/>
+        <maxDRAC time="370.00" position="886.636414,1506.747182" type="3" value="0.99"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="349.00" end="482.00" ego="flow_1.81" foe="flow_1.82">
-        <minTTC time="415.00" position="-857.861313,1514.240000" type="3" value="2.67"/>
-        <maxDRAC time="415.00" position="-857.861313,1514.240000" type="3" value="0.88"/>
+    <conflict begin="285.00" end="499.00" ego="flow_1.85" foe="flow_1.86">
+        <minTTC time="338.00" position="881.512852,1509.705224" type="3" value="2.69"/>
+        <maxDRAC time="338.00" position="881.512852,1509.705224" type="3" value="0.89"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="320.00" end="335.00" ego="flow_1.82" foe="flow_1.81">
-        <minTTC time="323.00" position="882.484434,1509.144290" type="2" value="2.98"/>
-        <maxDRAC time="322.00" position="888.067574,1505.920915" type="2" value="1.36"/>
+    <conflict begin="285.00" end="499.00" ego="flow_1.86" foe="flow_1.85">
+        <minTTC time="338.00" position="881.512852,1509.705224" type="2" value="2.69"/>
+        <maxDRAC time="338.00" position="881.512852,1509.705224" type="2" value="0.89"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="349.00" end="482.00" ego="flow_1.82" foe="flow_1.81">
-        <minTTC time="415.00" position="-857.861313,1514.240000" type="2" value="2.67"/>
-        <maxDRAC time="415.00" position="-857.861313,1514.240000" type="2" value="0.88"/>
+    <conflict begin="439.00" end="509.00" ego="flow_1.105" foe="flow_1.104">
+        <minTTC time="488.00" position="-803.952304,1514.240000" type="2" value="2.12"/>
+        <maxDRAC time="485.00" position="-792.037569,1514.240000" type="2" value="0.63"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="266.00" end="495.00" ego="flow_1.84" foe="flow_1.85">
-        <minTTC time="428.00" position="-871.364987,1514.240000" type="3" value="2.44"/>
-        <maxDRAC time="428.00" position="-871.364987,1514.240000" type="3" value="1.01"/>
+    <conflict begin="283.00" end="514.00" ego="flow_1.89" foe="flow_1.90">
+        <minTTC time="352.00" position="876.224651,1512.758319" type="3" value="2.46"/>
+        <maxDRAC time="352.00" position="876.224651,1512.758319" type="3" value="0.96"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="266.00" end="495.00" ego="flow_1.85" foe="flow_1.84">
-        <minTTC time="428.00" position="-871.364987,1514.240000" type="2" value="2.44"/>
-        <maxDRAC time="428.00" position="-871.364987,1514.240000" type="2" value="1.01"/>
+    <conflict begin="283.00" end="514.00" ego="flow_1.90" foe="flow_1.89">
+        <minTTC time="352.00" position="876.224651,1512.758319" type="2" value="2.46"/>
+        <maxDRAC time="352.00" position="876.224651,1512.758319" type="2" value="0.96"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="285.00" end="496.00" ego="flow_1.85" foe="flow_1.86">
-        <minTTC time="429.00" position="-861.904931,1514.240000" type="3" value="2.82"/>
-        <maxDRAC time="429.00" position="-861.904931,1514.240000" type="3" value="0.78"/>
+    <conflict begin="418.00" end="529.00" ego="flow_1.123" foe="flow_1.124">
+        <minTTC time="458.00" position="888.093097,1505.906180" type="3" value="2.91"/>
+        <maxDRAC time="458.00" position="888.093097,1505.906180" type="3" value="0.72"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="285.00" end="496.00" ego="flow_1.86" foe="flow_1.85">
-        <minTTC time="429.00" position="-861.904931,1514.240000" type="2" value="2.82"/>
-        <maxDRAC time="429.00" position="-861.904931,1514.240000" type="2" value="0.78"/>
+    <conflict begin="462.00" end="539.00" ego="flow_1.148" foe="flow_1.149">
+        <minTTC time="526.00" position="873.644029,1514.130911" type="3" value="2.76"/>
+        <maxDRAC time="526.00" position="873.644029,1514.130911" type="3" value="1.13"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="374.00" end="497.00" ego="flow_1.102" foe="flow_1.101">
-        <minTTC time="479.00" position="-818.680799,1514.240000" type="2" value="2.32"/>
-        <maxDRAC time="374.00" position="944.917073,1473.099375" type="2" value="1.20"/>
+    <conflict begin="520.00" end="533.00" ego="flow_1.148" foe="flow_1.147">
+        <minTTC time="522.00" position="882.336292,1509.229818" type="2" value="2.69"/>
+        <maxDRAC time="522.00" position="882.336292,1509.229818" type="2" value="1.84"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="281.00" end="511.00" ego="flow_1.89" foe="flow_1.90">
-        <minTTC time="350.00" position="876.263647,1512.735805" type="3" value="2.66"/>
-        <maxDRAC time="350.00" position="876.263647,1512.735805" type="3" value="0.84"/>
+    <conflict begin="462.00" end="539.00" ego="flow_1.149" foe="flow_1.148">
+        <minTTC time="526.00" position="873.644029,1514.130911" type="2" value="2.76"/>
+        <maxDRAC time="526.00" position="873.644029,1514.130911" type="2" value="1.13"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="281.00" end="511.00" ego="flow_1.90" foe="flow_1.89">
-        <minTTC time="350.00" position="876.263647,1512.735805" type="2" value="2.66"/>
-        <maxDRAC time="350.00" position="876.263647,1512.735805" type="2" value="0.84"/>
+    <conflict begin="316.00" end="548.00" ego="flow_1.95" foe="flow_1.96">
+        <minTTC time="477.00" position="-875.047839,1513.443513" type="3" value="0.66"/>
+        <maxDRAC time="477.00" position="-875.047839,1513.443513" type="3" value="3.80"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="350.00" end="363.00" ego="flow_1.90" foe="flow_1.91">
-        <minTTC time="351.00" position="884.238421,1508.131641" type="3" value="2.98"/>
-        <maxDRAC time="351.00" position="884.238421,1508.131641" type="3" value="1.89"/>
+    <conflict begin="320.00" end="498.00" ego="flow_1.95" foe="flow_1.94">
+        <minTTC time="370.00" position="886.636414,1506.747182" type="2" value="2.36"/>
+        <maxDRAC time="370.00" position="886.636414,1506.747182" type="2" value="0.99"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="420.00" end="513.00" ego="flow_1.102" foe="flow_1.103">
-        <minTTC time="480.00" position="-809.411525,1514.240000" type="3" value="2.40"/>
-        <maxDRAC time="480.00" position="-809.411525,1514.240000" type="3" value="0.78"/>
+    <conflict begin="471.00" end="490.00" ego="flow_1.95" foe="flow_1.97">
+        <minTTC time="477.00" position="-875.047839,1513.443513" type="3" value="2.00"/>
+        <maxDRAC time="477.00" position="-875.047839,1513.443513" type="3" value="2.13"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="287.00" end="517.00" ego="flow_1.91" foe="flow_1.92">
-        <minTTC time="449.00" position="-866.099923,1514.240000" type="3" value="2.23"/>
-        <maxDRAC time="449.00" position="-866.099923,1514.240000" type="3" value="1.17"/>
+    <conflict begin="476.00" end="488.00" ego="flow_1.95" foe="flow_1.98">
+        <minTTC time="477.00" position="-875.047839,1513.443513" type="3" value="2.74"/>
+        <maxDRAC time="477.00" position="-875.047839,1513.443513" type="3" value="2.33"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="350.00" end="363.00" ego="flow_1.91" foe="flow_1.90">
-        <minTTC time="351.00" position="884.238421,1508.131641" type="2" value="2.98"/>
-        <maxDRAC time="351.00" position="884.238421,1508.131641" type="2" value="1.89"/>
+    <conflict begin="316.00" end="548.00" ego="flow_1.96" foe="flow_1.95">
+        <minTTC time="477.00" position="-875.047839,1513.443513" type="2" value="0.66"/>
+        <maxDRAC time="477.00" position="-875.047839,1513.443513" type="2" value="3.80"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="287.00" end="517.00" ego="flow_1.92" foe="flow_1.91">
-        <minTTC time="449.00" position="-866.099923,1514.240000" type="2" value="2.23"/>
-        <maxDRAC time="449.00" position="-866.099923,1514.240000" type="2" value="1.17"/>
+    <conflict begin="331.00" end="550.00" ego="flow_1.96" foe="flow_1.97">
+        <minTTC time="478.00" position="-866.467481,1514.240000" type="3" value="0.81"/>
+        <maxDRAC time="478.00" position="-866.467481,1514.240000" type="3" value="2.95"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="306.00" end="540.00" ego="flow_1.93" foe="flow_1.94">
-        <minTTC time="366.00" position="877.747529,1511.879099" type="3" value="2.10"/>
-        <maxDRAC time="366.00" position="877.747529,1511.879099" type="3" value="1.20"/>
+    <conflict begin="473.00" end="491.00" ego="flow_1.96" foe="flow_1.98">
+        <minTTC time="478.00" position="-866.467481,1514.240000" type="3" value="2.20"/>
+        <maxDRAC time="478.00" position="-866.467481,1514.240000" type="3" value="1.90"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="306.00" end="540.00" ego="flow_1.94" foe="flow_1.93">
-        <minTTC time="366.00" position="877.747529,1511.879099" type="2" value="2.10"/>
-        <maxDRAC time="366.00" position="877.747529,1511.879099" type="2" value="1.20"/>
+    <conflict begin="477.00" end="489.00" ego="flow_1.96" foe="flow_1.99">
+        <minTTC time="478.00" position="-866.467481,1514.240000" type="3" value="2.99"/>
+        <maxDRAC time="478.00" position="-866.467481,1514.240000" type="3" value="2.05"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="330.00" end="481.00" ego="flow_1.94" foe="flow_1.95">
-        <minTTC time="469.00" position="-862.552020,1514.240000" type="3" value="2.26"/>
-        <maxDRAC time="367.00" position="885.250844,1507.547129" type="3" value="1.10"/>
+    <conflict begin="322.00" end="551.00" ego="flow_1.97" foe="flow_1.98">
+        <minTTC time="479.00" position="-858.822447,1514.240000" type="3" value="1.35"/>
+        <maxDRAC time="479.00" position="-858.822447,1514.240000" type="3" value="1.49"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="299.00" end="543.00" ego="flow_1.95" foe="flow_1.96">
-        <minTTC time="470.00" position="-854.204497,1514.240000" type="3" value="2.25"/>
-        <maxDRAC time="470.00" position="-854.204497,1514.240000" type="3" value="1.01"/>
+    <conflict begin="331.00" end="550.00" ego="flow_1.97" foe="flow_1.96">
+        <minTTC time="478.00" position="-866.467481,1514.240000" type="2" value="0.81"/>
+        <maxDRAC time="478.00" position="-866.467481,1514.240000" type="2" value="2.95"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="330.00" end="481.00" ego="flow_1.95" foe="flow_1.94">
-        <minTTC time="469.00" position="-862.552020,1514.240000" type="2" value="2.26"/>
-        <maxDRAC time="367.00" position="885.250844,1507.547129" type="2" value="1.10"/>
+    <conflict begin="471.00" end="490.00" ego="flow_1.97" foe="flow_1.95">
+        <minTTC time="477.00" position="-875.047839,1513.443513" type="2" value="2.00"/>
+        <maxDRAC time="477.00" position="-875.047839,1513.443513" type="2" value="2.13"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="299.00" end="543.00" ego="flow_1.96" foe="flow_1.95">
-        <minTTC time="470.00" position="-854.204497,1514.240000" type="2" value="2.25"/>
-        <maxDRAC time="470.00" position="-854.204497,1514.240000" type="2" value="1.01"/>
+    <conflict begin="474.00" end="492.00" ego="flow_1.97" foe="flow_1.99">
+        <minTTC time="479.00" position="-858.822447,1514.240000" type="3" value="2.47"/>
+        <maxDRAC time="479.00" position="-858.822447,1514.240000" type="3" value="1.62"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="320.00" end="545.00" ego="flow_1.96" foe="flow_1.97">
-        <minTTC time="370.00" position="896.490838,1501.057820" type="3" value="2.66"/>
-        <maxDRAC time="369.00" position="901.074011,1498.411767" type="3" value="0.75"/>
+    <conflict begin="322.00" end="551.00" ego="flow_1.98" foe="flow_1.97">
+        <minTTC time="479.00" position="-858.822447,1514.240000" type="2" value="1.35"/>
+        <maxDRAC time="479.00" position="-858.822447,1514.240000" type="2" value="1.49"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="320.00" end="545.00" ego="flow_1.97" foe="flow_1.96">
-        <minTTC time="370.00" position="896.490838,1501.057820" type="2" value="2.66"/>
-        <maxDRAC time="369.00" position="901.074011,1498.411767" type="2" value="0.75"/>
+    <conflict begin="342.00" end="553.00" ego="flow_1.98" foe="flow_1.99">
+        <minTTC time="481.00" position="-851.951250,1514.240000" type="3" value="1.42"/>
+        <maxDRAC time="481.00" position="-851.951250,1514.240000" type="3" value="0.96"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="344.00" end="549.00" ego="flow_1.99" foe="flow_1.100">
-        <minTTC time="477.00" position="-835.660284,1514.240000" type="3" value="2.52"/>
-        <maxDRAC time="477.00" position="-835.660284,1514.240000" type="3" value="0.67"/>
+    <conflict begin="473.00" end="491.00" ego="flow_1.98" foe="flow_1.96">
+        <minTTC time="478.00" position="-866.467481,1514.240000" type="2" value="2.20"/>
+        <maxDRAC time="478.00" position="-866.467481,1514.240000" type="2" value="1.90"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="344.00" end="549.00" ego="flow_1.100" foe="flow_1.99">
-        <minTTC time="477.00" position="-835.660284,1514.240000" type="2" value="2.52"/>
-        <maxDRAC time="477.00" position="-835.660284,1514.240000" type="2" value="0.67"/>
+    <conflict begin="476.00" end="488.00" ego="flow_1.98" foe="flow_1.95">
+        <minTTC time="477.00" position="-875.047839,1513.443513" type="2" value="2.74"/>
+        <maxDRAC time="477.00" position="-875.047839,1513.443513" type="2" value="2.33"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="357.00" end="551.00" ego="flow_1.100" foe="flow_1.101">
-        <minTTC time="478.00" position="-826.742342,1514.240000" type="3" value="1.98"/>
-        <maxDRAC time="478.00" position="-826.742342,1514.240000" type="3" value="0.99"/>
+    <conflict begin="342.00" end="553.00" ego="flow_1.99" foe="flow_1.98">
+        <minTTC time="481.00" position="-851.951250,1514.240000" type="2" value="1.42"/>
+        <maxDRAC time="481.00" position="-851.951250,1514.240000" type="2" value="0.96"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="357.00" end="551.00" ego="flow_1.101" foe="flow_1.100">
-        <minTTC time="478.00" position="-826.742342,1514.240000" type="2" value="1.98"/>
-        <maxDRAC time="478.00" position="-826.742342,1514.240000" type="2" value="0.99"/>
+    <conflict begin="351.00" end="394.00" ego="flow_1.99" foe="flow_1.100">
+        <minTTC time="375.00" position="928.230551,1482.733186" type="3" value="2.62"/>
+        <maxDRAC time="375.00" position="928.230551,1482.733186" type="3" value="0.98"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="374.00" end="497.00" ego="flow_1.101" foe="flow_1.102">
-        <minTTC time="479.00" position="-818.680799,1514.240000" type="3" value="2.32"/>
-        <maxDRAC time="374.00" position="944.917073,1473.099375" type="3" value="1.20"/>
+    <conflict begin="399.00" end="554.00" ego="flow_1.99" foe="flow_1.100">
+        <minTTC time="482.00" position="-843.959371,1514.240000" type="3" value="1.28"/>
+        <maxDRAC time="482.00" position="-843.959371,1514.240000" type="3" value="1.39"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="323.00" end="555.00" ego="flow_1.103" foe="flow_1.104">
-        <minTTC time="481.00" position="-801.105922,1514.240000" type="3" value="2.88"/>
-        <maxDRAC time="481.00" position="-801.105922,1514.240000" type="3" value="0.60"/>
+    <conflict begin="474.00" end="492.00" ego="flow_1.99" foe="flow_1.97">
+        <minTTC time="479.00" position="-858.822447,1514.240000" type="2" value="2.47"/>
+        <maxDRAC time="479.00" position="-858.822447,1514.240000" type="2" value="1.62"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="420.00" end="513.00" ego="flow_1.103" foe="flow_1.102">
-        <minTTC time="480.00" position="-809.411525,1514.240000" type="2" value="2.40"/>
-        <maxDRAC time="480.00" position="-809.411525,1514.240000" type="2" value="0.78"/>
+    <conflict begin="477.00" end="489.00" ego="flow_1.99" foe="flow_1.96">
+        <minTTC time="478.00" position="-866.467481,1514.240000" type="2" value="2.99"/>
+        <maxDRAC time="478.00" position="-866.467481,1514.240000" type="2" value="2.05"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="323.00" end="555.00" ego="flow_1.104" foe="flow_1.103">
-        <minTTC time="481.00" position="-801.105922,1514.240000" type="2" value="2.88"/>
-        <maxDRAC time="481.00" position="-801.105922,1514.240000" type="2" value="0.60"/>
+    <conflict begin="354.00" end="556.00" ego="flow_1.100" foe="flow_1.101">
+        <minTTC time="483.00" position="-835.670586,1514.240000" type="3" value="1.75"/>
+        <maxDRAC time="483.00" position="-835.670586,1514.240000" type="3" value="0.90"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="416.00" end="560.00" ego="flow_1.106" foe="flow_1.108">
-        <minTTC time="481.00" position="-748.624216,1514.240000" type="3" value="2.93"/>
-        <maxDRAC time="481.00" position="-748.624216,1514.240000" type="3" value="0.79"/>
+    <conflict begin="399.00" end="554.00" ego="flow_1.100" foe="flow_1.99">
+        <minTTC time="482.00" position="-843.959371,1514.240000" type="2" value="1.28"/>
+        <maxDRAC time="482.00" position="-843.959371,1514.240000" type="2" value="1.39"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="416.00" end="560.00" ego="flow_1.108" foe="flow_1.106">
-        <minTTC time="481.00" position="-748.624216,1514.240000" type="2" value="2.93"/>
-        <maxDRAC time="481.00" position="-748.624216,1514.240000" type="2" value="0.79"/>
+    <conflict begin="354.00" end="556.00" ego="flow_1.101" foe="flow_1.100">
+        <minTTC time="483.00" position="-835.670586,1514.240000" type="2" value="1.75"/>
+        <maxDRAC time="483.00" position="-835.670586,1514.240000" type="2" value="0.90"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="377.00" end="569.00" ego="flow_1.107" foe="flow_1.109">
-        <minTTC time="404.00" position="879.280170,1510.994242" type="3" value="2.18"/>
-        <maxDRAC time="404.00" position="879.280170,1510.994242" type="3" value="1.21"/>
+    <conflict begin="411.00" end="505.00" ego="flow_1.101" foe="flow_1.102">
+        <minTTC time="482.00" position="-820.765493,1514.240000" type="3" value="2.26"/>
+        <maxDRAC time="482.00" position="-820.765493,1514.240000" type="3" value="0.98"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="377.00" end="569.00" ego="flow_1.109" foe="flow_1.107">
-        <minTTC time="404.00" position="879.280170,1510.994242" type="2" value="2.18"/>
-        <maxDRAC time="404.00" position="879.280170,1510.994242" type="2" value="1.21"/>
+    <conflict begin="383.00" end="559.00" ego="flow_1.102" foe="flow_1.103">
+        <minTTC time="485.00" position="-818.819020,1514.240000" type="3" value="2.09"/>
+        <maxDRAC time="383.00" position="920.683927,1487.090161" type="3" value="1.79"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="404.00" end="571.00" ego="flow_1.109" foe="flow_1.110">
-        <minTTC time="405.00" position="887.550298,1506.219560" type="3" value="2.74"/>
-        <maxDRAC time="405.00" position="887.550298,1506.219560" type="3" value="2.39"/>
+    <conflict begin="411.00" end="505.00" ego="flow_1.102" foe="flow_1.101">
+        <minTTC time="482.00" position="-820.765493,1514.240000" type="2" value="2.26"/>
+        <maxDRAC time="482.00" position="-820.765493,1514.240000" type="2" value="0.98"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="404.00" end="571.00" ego="flow_1.110" foe="flow_1.109">
-        <minTTC time="405.00" position="887.550298,1506.219560" type="2" value="2.74"/>
-        <maxDRAC time="405.00" position="887.550298,1506.219560" type="2" value="2.39"/>
+    <conflict begin="325.00" end="560.00" ego="flow_1.103" foe="flow_1.104">
+        <minTTC time="487.00" position="-812.607781,1514.240000" type="3" value="1.81"/>
+        <maxDRAC time="487.00" position="-812.607781,1514.240000" type="3" value="0.80"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="356.00" end="579.00" ego="flow_1.114" foe="flow_1.115">
-        <minTTC time="422.00" position="880.248214,1510.435351" type="3" value="2.85"/>
-        <maxDRAC time="422.00" position="880.248214,1510.435351" type="3" value="0.80"/>
+    <conflict begin="383.00" end="559.00" ego="flow_1.103" foe="flow_1.102">
+        <minTTC time="485.00" position="-818.819020,1514.240000" type="2" value="2.09"/>
+        <maxDRAC time="383.00" position="920.683927,1487.090161" type="2" value="1.79"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="356.00" end="579.00" ego="flow_1.115" foe="flow_1.114">
-        <minTTC time="422.00" position="880.248214,1510.435351" type="2" value="2.85"/>
-        <maxDRAC time="422.00" position="880.248214,1510.435351" type="2" value="0.80"/>
+    <conflict begin="325.00" end="560.00" ego="flow_1.104" foe="flow_1.103">
+        <minTTC time="487.00" position="-812.607781,1514.240000" type="2" value="1.81"/>
+        <maxDRAC time="487.00" position="-812.607781,1514.240000" type="2" value="0.80"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="404.00" end="581.00" ego="flow_1.115" foe="flow_1.117">
-        <minTTC time="423.00" position="888.637594,1505.591819" type="3" value="2.54"/>
-        <maxDRAC time="423.00" position="888.637594,1505.591819" type="3" value="1.01"/>
+    <conflict begin="391.00" end="404.00" ego="flow_1.104" foe="flow_1.105">
+        <minTTC time="392.00" position="889.983509,1504.814767" type="3" value="2.99"/>
+        <maxDRAC time="392.00" position="889.983509,1504.814767" type="3" value="1.80"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="404.00" end="581.00" ego="flow_1.117" foe="flow_1.115">
-        <minTTC time="423.00" position="888.637594,1505.591819" type="2" value="2.54"/>
-        <maxDRAC time="423.00" position="888.637594,1505.591819" type="2" value="1.01"/>
+    <conflict begin="439.00" end="509.00" ego="flow_1.104" foe="flow_1.105">
+        <minTTC time="488.00" position="-803.952304,1514.240000" type="3" value="2.12"/>
+        <maxDRAC time="485.00" position="-792.037569,1514.240000" type="3" value="0.63"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="511.00" end="586.00" ego="flow_1.166" foe="flow_1.165">
-        <minTTC time="581.00" position="879.875319,1510.650639" type="2" value="2.99"/>
-        <maxDRAC time="581.00" position="879.875319,1510.650639" type="2" value="0.83"/>
+    <conflict begin="449.00" end="563.00" ego="flow_1.105" foe="flow_1.106">
+        <minTTC time="488.00" position="-793.675555,1514.240000" type="3" value="2.69"/>
+        <maxDRAC time="485.00" position="-775.644285,1514.240000" type="3" value="0.56"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="511.00" end="590.00" ego="flow_1.165" foe="flow_1.166">
-        <minTTC time="581.00" position="879.875319,1510.650639" type="3" value="2.99"/>
-        <maxDRAC time="581.00" position="879.875319,1510.650639" type="3" value="0.83"/>
+    <conflict begin="399.00" end="565.00" ego="flow_1.106" foe="flow_1.108">
+        <minTTC time="490.00" position="-787.432527,1514.240000" type="3" value="1.98"/>
+        <maxDRAC time="399.00" position="879.451447,1510.895357" type="3" value="2.23"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="394.00" end="596.00" ego="flow_1.116" foe="flow_1.118">
-        <minTTC time="432.00" position="873.558980,1514.143884" type="3" value="2.43"/>
-        <maxDRAC time="432.00" position="873.558980,1514.143884" type="3" value="1.00"/>
+    <conflict begin="449.00" end="563.00" ego="flow_1.106" foe="flow_1.105">
+        <minTTC time="488.00" position="-793.675555,1514.240000" type="2" value="2.69"/>
+        <maxDRAC time="485.00" position="-775.644285,1514.240000" type="2" value="0.56"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="394.00" end="596.00" ego="flow_1.118" foe="flow_1.116">
-        <minTTC time="432.00" position="873.558980,1514.143884" type="2" value="2.43"/>
-        <maxDRAC time="432.00" position="873.558980,1514.143884" type="2" value="1.00"/>
+    <conflict begin="399.00" end="565.00" ego="flow_1.108" foe="flow_1.106">
+        <minTTC time="490.00" position="-787.432527,1514.240000" type="2" value="1.98"/>
+        <maxDRAC time="399.00" position="879.451447,1510.895357" type="2" value="2.23"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="430.00" end="618.00" ego="flow_1.121" foe="flow_1.122">
-        <minTTC time="545.00" position="-856.791094,1514.240000" type="3" value="2.63"/>
-        <maxDRAC time="444.00" position="887.563870,1506.211724" type="3" value="0.84"/>
+    <conflict begin="494.00" end="519.00" ego="flow_1.108" foe="flow_1.107">
+        <minTTC time="494.00" position="-792.009471,1514.240000" type="3" value="2.90"/>
+        <maxDRAC time="494.00" position="-792.009471,1514.240000" type="3" value="2.29"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="430.00" end="618.00" ego="flow_1.122" foe="flow_1.121">
-        <minTTC time="545.00" position="-856.791094,1514.240000" type="2" value="2.63"/>
-        <maxDRAC time="444.00" position="887.563870,1506.211724" type="2" value="0.84"/>
+    <conflict begin="555.00" end="566.00" ego="flow_1.156" foe="flow_1.157">
+        <minTTC time="556.00" position="873.183448,1514.201169" type="3" value="2.92"/>
+        <maxDRAC time="556.00" position="873.183448,1514.201169" type="3" value="1.96"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="462.00" end="621.00" ego="flow_1.142" foe="flow_1.141">
-        <minTTC time="588.00" position="-714.684879,1514.240000" type="2" value="2.33"/>
-        <maxDRAC time="588.00" position="-714.684879,1514.240000" type="2" value="1.15"/>
+    <conflict begin="376.00" end="574.00" ego="flow_1.107" foe="flow_1.109">
+        <minTTC time="407.00" position="875.040147,1513.442181" type="3" value="2.27"/>
+        <maxDRAC time="407.00" position="875.040147,1513.442181" type="3" value="1.20"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="587.00" end="630.00" ego="flow_1.142" foe="flow_1.143">
-        <minTTC time="589.00" position="-706.129587,1514.240000" type="3" value="2.96"/>
-        <maxDRAC time="589.00" position="-706.129587,1514.240000" type="3" value="1.63"/>
+    <conflict begin="494.00" end="519.00" ego="flow_1.107" foe="flow_1.108">
+        <minTTC time="494.00" position="-792.009471,1514.240000" type="2" value="2.90"/>
+        <maxDRAC time="494.00" position="-792.009471,1514.240000" type="2" value="2.29"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="471.00" end="577.00" ego="flow_1.120" foe="flow_1.124">
-        <minTTC time="567.00" position="-871.881906,1514.240000" type="3" value="2.48"/>
-        <maxDRAC time="567.00" position="-871.881906,1514.240000" type="3" value="1.73"/>
+    <conflict begin="376.00" end="574.00" ego="flow_1.109" foe="flow_1.107">
+        <minTTC time="407.00" position="875.040147,1513.442181" type="2" value="2.27"/>
+        <maxDRAC time="407.00" position="875.040147,1513.442181" type="2" value="1.20"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="424.00" end="648.00" ego="flow_1.123" foe="flow_1.124">
-        <minTTC time="455.00" position="888.086924,1505.909744" type="3" value="2.63"/>
-        <maxDRAC time="455.00" position="888.086924,1505.909744" type="3" value="0.91"/>
+    <conflict begin="507.00" end="527.00" ego="flow_1.113" foe="flow_1.114">
+        <minTTC time="511.00" position="-824.094017,1514.240000" type="3" value="2.86"/>
+        <maxDRAC time="508.00" position="-799.526679,1514.240000" type="3" value="1.50"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="386.00" end="649.00" ego="flow_1.124" foe="flow_1.125">
-        <minTTC time="571.00" position="-872.136218,1514.240000" type="3" value="1.01"/>
-        <maxDRAC time="571.00" position="-872.136218,1514.240000" type="3" value="2.56"/>
+    <conflict begin="401.00" end="584.00" ego="flow_1.114" foe="flow_1.115">
+        <minTTC time="424.00" position="879.680299,1510.763232" type="3" value="2.93"/>
+        <maxDRAC time="424.00" position="879.680299,1510.763232" type="3" value="0.85"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="424.00" end="648.00" ego="flow_1.124" foe="flow_1.123">
-        <minTTC time="455.00" position="888.086924,1505.909744" type="2" value="2.63"/>
-        <maxDRAC time="455.00" position="888.086924,1505.909744" type="2" value="0.91"/>
+    <conflict begin="507.00" end="527.00" ego="flow_1.114" foe="flow_1.113">
+        <minTTC time="511.00" position="-824.094017,1514.240000" type="2" value="2.86"/>
+        <maxDRAC time="508.00" position="-799.526679,1514.240000" type="2" value="1.50"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="471.00" end="577.00" ego="flow_1.124" foe="flow_1.120">
-        <minTTC time="567.00" position="-871.881906,1514.240000" type="2" value="2.48"/>
-        <maxDRAC time="567.00" position="-871.881906,1514.240000" type="2" value="1.73"/>
+    <conflict begin="401.00" end="584.00" ego="flow_1.115" foe="flow_1.114">
+        <minTTC time="424.00" position="879.680299,1510.763232" type="2" value="2.93"/>
+        <maxDRAC time="424.00" position="879.680299,1510.763232" type="2" value="0.85"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="478.00" end="583.00" ego="flow_1.124" foe="flow_1.126">
-        <minTTC time="571.00" position="-872.136218,1514.240000" type="3" value="2.58"/>
-        <maxDRAC time="571.00" position="-872.136218,1514.240000" type="3" value="1.63"/>
+    <conflict begin="412.00" end="599.00" ego="flow_1.116" foe="flow_1.118">
+        <minTTC time="530.00" position="-865.936506,1514.240000" type="3" value="2.60"/>
+        <maxDRAC time="530.00" position="-865.936506,1514.240000" type="3" value="0.92"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="386.00" end="649.00" ego="flow_1.125" foe="flow_1.124">
-        <minTTC time="571.00" position="-872.136218,1514.240000" type="2" value="1.01"/>
-        <maxDRAC time="571.00" position="-872.136218,1514.240000" type="2" value="2.56"/>
+    <conflict begin="412.00" end="599.00" ego="flow_1.118" foe="flow_1.116">
+        <minTTC time="530.00" position="-865.936506,1514.240000" type="2" value="2.60"/>
+        <maxDRAC time="530.00" position="-865.936506,1514.240000" type="2" value="0.92"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="389.00" end="651.00" ego="flow_1.125" foe="flow_1.126">
-        <minTTC time="572.00" position="-864.278653,1514.240000" type="3" value="1.92"/>
-        <maxDRAC time="572.00" position="-864.278653,1514.240000" type="3" value="1.03"/>
+    <conflict begin="407.00" end="619.00" ego="flow_1.119" foe="flow_1.121">
+        <minTTC time="447.00" position="873.928462,1514.023678" type="3" value="2.05"/>
+        <maxDRAC time="447.00" position="873.928462,1514.023678" type="3" value="1.33"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="389.00" end="651.00" ego="flow_1.126" foe="flow_1.125">
-        <minTTC time="572.00" position="-864.278653,1514.240000" type="2" value="1.92"/>
-        <maxDRAC time="572.00" position="-864.278653,1514.240000" type="2" value="1.03"/>
+    <conflict begin="407.00" end="619.00" ego="flow_1.121" foe="flow_1.119">
+        <minTTC time="447.00" position="873.928462,1514.023678" type="2" value="2.05"/>
+        <maxDRAC time="447.00" position="873.928462,1514.023678" type="2" value="1.33"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="419.00" end="653.00" ego="flow_1.126" foe="flow_1.127">
-        <minTTC time="574.00" position="-857.700500,1514.240000" type="3" value="2.56"/>
-        <maxDRAC time="458.00" position="913.875635,1491.020866" type="3" value="0.68"/>
+    <conflict begin="432.00" end="620.00" ego="flow_1.121" foe="flow_1.122">
+        <minTTC time="548.00" position="-862.876037,1514.240000" type="3" value="2.25"/>
+        <maxDRAC time="448.00" position="882.035813,1509.403297" type="3" value="1.11"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="478.00" end="583.00" ego="flow_1.126" foe="flow_1.124">
-        <minTTC time="571.00" position="-872.136218,1514.240000" type="2" value="2.58"/>
-        <maxDRAC time="571.00" position="-872.136218,1514.240000" type="2" value="1.63"/>
+    <conflict begin="432.00" end="620.00" ego="flow_1.122" foe="flow_1.121">
+        <minTTC time="548.00" position="-862.876037,1514.240000" type="2" value="2.25"/>
+        <maxDRAC time="448.00" position="882.035813,1509.403297" type="2" value="1.11"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="419.00" end="653.00" ego="flow_1.127" foe="flow_1.126">
-        <minTTC time="574.00" position="-857.700500,1514.240000" type="2" value="2.56"/>
-        <maxDRAC time="458.00" position="913.875635,1491.020866" type="2" value="0.68"/>
+    <conflict begin="474.00" end="650.00" ego="flow_1.120" foe="flow_1.124">
+        <minTTC time="569.00" position="-866.146097,1514.240000" type="3" value="2.59"/>
+        <maxDRAC time="569.00" position="-866.146097,1514.240000" type="3" value="0.84"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="438.00" end="659.00" ego="flow_1.130" foe="flow_1.131">
-        <minTTC time="576.00" position="-814.019758,1514.240000" type="3" value="2.74"/>
-        <maxDRAC time="576.00" position="-814.019758,1514.240000" type="3" value="0.81"/>
+    <conflict begin="389.00" end="651.00" ego="flow_1.124" foe="flow_1.125">
+        <minTTC time="459.00" position="895.949762,1501.370206" type="3" value="2.73"/>
+        <maxDRAC time="459.00" position="895.949762,1501.370206" type="3" value="0.86"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="408.00" end="660.00" ego="flow_1.131" foe="flow_1.132">
-        <minTTC time="577.00" position="-804.031712,1514.240000" type="3" value="2.19"/>
-        <maxDRAC time="577.00" position="-804.031712,1514.240000" type="3" value="1.24"/>
+    <conflict begin="418.00" end="529.00" ego="flow_1.124" foe="flow_1.123">
+        <minTTC time="458.00" position="888.093097,1505.906180" type="2" value="2.91"/>
+        <maxDRAC time="458.00" position="888.093097,1505.906180" type="2" value="0.72"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="438.00" end="659.00" ego="flow_1.131" foe="flow_1.130">
-        <minTTC time="576.00" position="-814.019758,1514.240000" type="2" value="2.74"/>
-        <maxDRAC time="576.00" position="-814.019758,1514.240000" type="2" value="0.81"/>
+    <conflict begin="474.00" end="650.00" ego="flow_1.124" foe="flow_1.120">
+        <minTTC time="569.00" position="-866.146097,1514.240000" type="2" value="2.59"/>
+        <maxDRAC time="569.00" position="-866.146097,1514.240000" type="2" value="0.84"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="408.00" end="660.00" ego="flow_1.132" foe="flow_1.131">
-        <minTTC time="577.00" position="-804.031712,1514.240000" type="2" value="2.19"/>
-        <maxDRAC time="577.00" position="-804.031712,1514.240000" type="2" value="1.24"/>
+    <conflict begin="389.00" end="651.00" ego="flow_1.125" foe="flow_1.124">
+        <minTTC time="459.00" position="895.949762,1501.370206" type="2" value="2.73"/>
+        <maxDRAC time="459.00" position="895.949762,1501.370206" type="2" value="0.86"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="426.00" end="662.00" ego="flow_1.132" foe="flow_1.133">
-        <minTTC time="579.00" position="-800.416667,1514.240000" type="3" value="2.31"/>
-        <maxDRAC time="579.00" position="-800.416667,1514.240000" type="3" value="0.88"/>
+    <conflict begin="561.00" end="651.00" ego="flow_1.155" foe="flow_1.154">
+        <minTTC time="626.00" position="-780.307218,1514.240000" type="2" value="2.43"/>
+        <maxDRAC time="626.00" position="-780.307218,1514.240000" type="2" value="0.87"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="426.00" end="662.00" ego="flow_1.133" foe="flow_1.132">
-        <minTTC time="579.00" position="-800.416667,1514.240000" type="2" value="2.31"/>
-        <maxDRAC time="579.00" position="-800.416667,1514.240000" type="2" value="0.88"/>
+    <conflict begin="458.00" end="484.00" ego="flow_1.129" foe="flow_1.128">
+        <minTTC time="473.00" position="873.705497,1514.108810" type="2" value="2.87"/>
+        <maxDRAC time="472.00" position="879.658759,1510.775668" type="2" value="1.42"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="420.00" end="667.00" ego="flow_1.135" foe="flow_1.136">
-        <minTTC time="590.00" position="-820.356471,1514.240000" type="3" value="2.76"/>
-        <maxDRAC time="489.00" position="875.693801,1513.064800" type="3" value="0.76"/>
+    <conflict begin="599.00" end="668.00" ego="flow_1.176" foe="flow_1.178">
+        <minTTC time="621.00" position="879.447455,1510.897662" type="3" value="2.79"/>
+        <maxDRAC time="621.00" position="879.447455,1510.897662" type="3" value="0.81"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="420.00" end="667.00" ego="flow_1.136" foe="flow_1.135">
-        <minTTC time="590.00" position="-820.356471,1514.240000" type="2" value="2.76"/>
-        <maxDRAC time="489.00" position="875.693801,1513.064800" type="2" value="0.76"/>
+    <conflict begin="584.00" end="668.00" ego="flow_1.178" foe="flow_1.179">
+        <minTTC time="622.00" position="888.494325,1505.674534" type="3" value="2.70"/>
+        <maxDRAC time="622.00" position="888.494325,1505.674534" type="3" value="0.83"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="452.00" end="668.00" ego="flow_1.136" foe="flow_1.137">
-        <minTTC time="591.00" position="-811.458057,1514.240000" type="3" value="2.44"/>
-        <maxDRAC time="583.00" position="-763.249631,1514.240000" type="3" value="0.68"/>
+    <conflict begin="599.00" end="668.00" ego="flow_1.178" foe="flow_1.176">
+        <minTTC time="621.00" position="879.447455,1510.897662" type="2" value="2.79"/>
+        <maxDRAC time="621.00" position="879.447455,1510.897662" type="2" value="0.81"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="441.00" end="670.00" ego="flow_1.137" foe="flow_1.138">
-        <minTTC time="584.00" position="-753.209372,1514.240000" type="3" value="2.34"/>
-        <maxDRAC time="584.00" position="-753.209372,1514.240000" type="3" value="1.08"/>
+    <conflict begin="584.00" end="668.00" ego="flow_1.179" foe="flow_1.178">
+        <minTTC time="622.00" position="888.494325,1505.674534" type="2" value="2.70"/>
+        <maxDRAC time="622.00" position="888.494325,1505.674534" type="2" value="0.83"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="452.00" end="668.00" ego="flow_1.137" foe="flow_1.136">
-        <minTTC time="591.00" position="-811.458057,1514.240000" type="2" value="2.44"/>
-        <maxDRAC time="583.00" position="-763.249631,1514.240000" type="2" value="0.68"/>
+    <conflict begin="447.00" end="669.00" ego="flow_1.135" foe="flow_1.136">
+        <minTTC time="491.00" position="877.607053,1511.960201" type="3" value="2.14"/>
+        <maxDRAC time="491.00" position="877.607053,1511.960201" type="3" value="1.22"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="441.00" end="670.00" ego="flow_1.138" foe="flow_1.137">
-        <minTTC time="584.00" position="-753.209372,1514.240000" type="2" value="2.34"/>
-        <maxDRAC time="584.00" position="-753.209372,1514.240000" type="2" value="1.08"/>
+    <conflict begin="425.00" end="670.00" ego="flow_1.136" foe="flow_1.137">
+        <minTTC time="492.00" position="884.954924,1507.717975" type="3" value="2.49"/>
+        <maxDRAC time="492.00" position="884.954924,1507.717975" type="3" value="1.01"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="461.00" end="671.00" ego="flow_1.138" foe="flow_1.139">
-        <minTTC time="492.00" position="901.736548,1498.029258" type="3" value="2.61"/>
-        <maxDRAC time="492.00" position="901.736548,1498.029258" type="3" value="0.88"/>
+    <conflict begin="447.00" end="669.00" ego="flow_1.136" foe="flow_1.135">
+        <minTTC time="491.00" position="877.607053,1511.960201" type="2" value="2.14"/>
+        <maxDRAC time="491.00" position="877.607053,1511.960201" type="2" value="1.22"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="461.00" end="671.00" ego="flow_1.139" foe="flow_1.138">
-        <minTTC time="492.00" position="901.736548,1498.029258" type="2" value="2.61"/>
-        <maxDRAC time="492.00" position="901.736548,1498.029258" type="2" value="0.88"/>
+    <conflict begin="425.00" end="670.00" ego="flow_1.137" foe="flow_1.136">
+        <minTTC time="492.00" position="884.954924,1507.717975" type="2" value="2.49"/>
+        <maxDRAC time="492.00" position="884.954924,1507.717975" type="2" value="1.01"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="495.00" end="511.00" ego="flow_1.139" foe="flow_1.140">
-        <minTTC time="496.00" position="890.492240,1504.521056" type="3" value="2.67"/>
-        <maxDRAC time="496.00" position="890.492240,1504.521056" type="3" value="2.02"/>
+    <conflict begin="444.00" end="672.00" ego="flow_1.137" foe="flow_1.138">
+        <minTTC time="493.00" position="892.974056,1503.088202" type="3" value="2.67"/>
+        <maxDRAC time="493.00" position="892.974056,1503.088202" type="3" value="0.92"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="449.00" end="674.00" ego="flow_1.140" foe="flow_1.141">
-        <minTTC time="587.00" position="-724.474876,1514.240000" type="3" value="2.77"/>
-        <maxDRAC time="587.00" position="-724.474876,1514.240000" type="3" value="0.84"/>
+    <conflict begin="444.00" end="672.00" ego="flow_1.138" foe="flow_1.137">
+        <minTTC time="493.00" position="892.974056,1503.088202" type="2" value="2.67"/>
+        <maxDRAC time="493.00" position="892.974056,1503.088202" type="2" value="0.92"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="495.00" end="511.00" ego="flow_1.140" foe="flow_1.139">
-        <minTTC time="496.00" position="890.492240,1504.521056" type="2" value="2.67"/>
-        <maxDRAC time="496.00" position="890.492240,1504.521056" type="2" value="2.02"/>
+    <conflict begin="455.00" end="676.00" ego="flow_1.140" foe="flow_1.141">
+        <minTTC time="503.00" position="876.494685,1512.602417" type="3" value="2.71"/>
+        <maxDRAC time="503.00" position="876.494685,1512.602417" type="3" value="0.88"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="449.00" end="674.00" ego="flow_1.141" foe="flow_1.140">
-        <minTTC time="587.00" position="-724.474876,1514.240000" type="2" value="2.77"/>
-        <maxDRAC time="587.00" position="-724.474876,1514.240000" type="2" value="0.84"/>
+    <conflict begin="455.00" end="676.00" ego="flow_1.141" foe="flow_1.140">
+        <minTTC time="503.00" position="876.494685,1512.602417" type="2" value="2.71"/>
+        <maxDRAC time="503.00" position="876.494685,1512.602417" type="2" value="0.88"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="462.00" end="621.00" ego="flow_1.141" foe="flow_1.142">
-        <minTTC time="588.00" position="-714.684879,1514.240000" type="3" value="2.33"/>
-        <maxDRAC time="588.00" position="-714.684879,1514.240000" type="3" value="1.15"/>
+    <conflict begin="591.00" end="627.00" ego="flow_1.142" foe="flow_1.143">
+        <minTTC time="598.00" position="-764.582214,1514.240000" type="3" value="3.00"/>
+        <maxDRAC time="591.00" position="-711.064816,1514.240000" type="3" value="1.39"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="662.00" end="674.00" ego="flow_1.194" foe="flow_1.195">
-        <minTTC time="664.00" position="876.203767,1512.770376" type="3" value="2.94"/>
-        <maxDRAC time="664.00" position="876.203767,1512.770376" type="3" value="1.78"/>
+    <conflict begin="591.00" end="627.00" ego="flow_1.143" foe="flow_1.142">
+        <minTTC time="598.00" position="-764.582214,1514.240000" type="2" value="3.00"/>
+        <maxDRAC time="591.00" position="-711.064816,1514.240000" type="2" value="1.39"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="587.00" end="630.00" ego="flow_1.143" foe="flow_1.142">
-        <minTTC time="589.00" position="-706.129587,1514.240000" type="2" value="2.96"/>
-        <maxDRAC time="589.00" position="-706.129587,1514.240000" type="2" value="1.63"/>
+    <conflict begin="478.00" end="683.00" ego="flow_1.144" foe="flow_1.145">
+        <minTTC time="606.00" position="-792.639911,1514.240000" type="3" value="2.93"/>
+        <maxDRAC time="512.00" position="895.189313,1501.809244" type="3" value="0.59"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="544.00" end="680.00" ego="flow_1.164" foe="flow_1.163">
-        <minTTC time="667.00" position="-862.645066,1514.240000" type="2" value="2.67"/>
-        <maxDRAC time="667.00" position="-862.645066,1514.240000" type="2" value="0.91"/>
+    <conflict begin="478.00" end="683.00" ego="flow_1.145" foe="flow_1.144">
+        <minTTC time="606.00" position="-792.639911,1514.240000" type="2" value="2.93"/>
+        <maxDRAC time="512.00" position="895.189313,1501.809244" type="2" value="0.59"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="447.00" end="681.00" ego="flow_1.144" foe="flow_1.145">
-        <minTTC time="596.00" position="-721.340768,1514.240000" type="3" value="2.82"/>
-        <maxDRAC time="596.00" position="-721.340768,1514.240000" type="3" value="0.64"/>
+    <conflict begin="596.00" end="641.00" ego="flow_1.145" foe="flow_1.146">
+        <minTTC time="607.00" position="-783.674560,1514.240000" type="3" value="2.54"/>
+        <maxDRAC time="599.00" position="-718.562666,1514.240000" type="3" value="1.00"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="447.00" end="681.00" ego="flow_1.145" foe="flow_1.144">
-        <minTTC time="596.00" position="-721.340768,1514.240000" type="2" value="2.82"/>
-        <maxDRAC time="596.00" position="-721.340768,1514.240000" type="2" value="0.64"/>
+    <conflict begin="590.00" end="684.00" ego="flow_1.164" foe="flow_1.163">
+        <minTTC time="669.00" position="-861.233442,1514.240000" type="2" value="2.98"/>
+        <maxDRAC time="669.00" position="-861.233442,1514.240000" type="2" value="0.71"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="593.00" end="634.00" ego="flow_1.145" foe="flow_1.146">
-        <minTTC time="608.00" position="-789.568780,1514.240000" type="3" value="2.57"/>
-        <maxDRAC time="597.00" position="-712.358381,1514.240000" type="3" value="1.34"/>
+    <conflict begin="476.00" end="686.00" ego="flow_1.146" foe="flow_1.147">
+        <minTTC time="608.00" position="-774.961733,1514.240000" type="3" value="2.52"/>
+        <maxDRAC time="608.00" position="-774.961733,1514.240000" type="3" value="0.68"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="453.00" end="684.00" ego="flow_1.146" foe="flow_1.147">
-        <minTTC time="518.00" position="876.703118,1512.482080" type="3" value="2.14"/>
-        <maxDRAC time="518.00" position="876.703118,1512.482080" type="3" value="1.28"/>
+    <conflict begin="596.00" end="641.00" ego="flow_1.146" foe="flow_1.145">
+        <minTTC time="607.00" position="-783.674560,1514.240000" type="2" value="2.54"/>
+        <maxDRAC time="599.00" position="-718.562666,1514.240000" type="2" value="1.00"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="593.00" end="634.00" ego="flow_1.146" foe="flow_1.145">
-        <minTTC time="608.00" position="-789.568780,1514.240000" type="2" value="2.57"/>
-        <maxDRAC time="597.00" position="-712.358381,1514.240000" type="2" value="1.34"/>
+    <conflict begin="476.00" end="686.00" ego="flow_1.147" foe="flow_1.146">
+        <minTTC time="608.00" position="-774.961733,1514.240000" type="2" value="2.52"/>
+        <maxDRAC time="608.00" position="-774.961733,1514.240000" type="2" value="0.68"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="453.00" end="684.00" ego="flow_1.147" foe="flow_1.146">
-        <minTTC time="518.00" position="876.703118,1512.482080" type="2" value="2.14"/>
-        <maxDRAC time="518.00" position="876.703118,1512.482080" type="2" value="1.28"/>
+    <conflict begin="520.00" end="533.00" ego="flow_1.147" foe="flow_1.148">
+        <minTTC time="522.00" position="882.336292,1509.229818" type="3" value="2.69"/>
+        <maxDRAC time="522.00" position="882.336292,1509.229818" type="3" value="1.84"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="490.00" end="686.00" ego="flow_1.147" foe="flow_1.148">
-        <minTTC time="615.00" position="-807.550983,1514.240000" type="3" value="2.45"/>
-        <maxDRAC time="519.00" position="884.578700,1507.935184" type="3" value="0.88"/>
+    <conflict begin="559.00" end="689.00" ego="flow_1.148" foe="flow_1.149">
+        <minTTC time="620.00" position="-834.084812,1514.240000" type="3" value="2.91"/>
+        <maxDRAC time="604.00" position="-703.157834,1514.240000" type="3" value="0.73"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="490.00" end="686.00" ego="flow_1.148" foe="flow_1.147">
-        <minTTC time="615.00" position="-807.550983,1514.240000" type="2" value="2.45"/>
-        <maxDRAC time="519.00" position="884.578700,1507.935184" type="2" value="0.88"/>
+    <conflict begin="496.00" end="690.00" ego="flow_1.149" foe="flow_1.150">
+        <minTTC time="615.00" position="-776.500170,1514.240000" type="3" value="2.01"/>
+        <maxDRAC time="615.00" position="-776.500170,1514.240000" type="3" value="1.13"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="585.00" end="638.00" ego="flow_1.148" foe="flow_1.149">
-        <minTTC time="616.00" position="-798.630190,1514.240000" type="3" value="2.22"/>
-        <maxDRAC time="616.00" position="-798.630190,1514.240000" type="3" value="0.92"/>
+    <conflict begin="559.00" end="689.00" ego="flow_1.149" foe="flow_1.148">
+        <minTTC time="620.00" position="-834.084812,1514.240000" type="2" value="2.91"/>
+        <maxDRAC time="604.00" position="-703.157834,1514.240000" type="2" value="0.73"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="478.00" end="689.00" ego="flow_1.149" foe="flow_1.150">
-        <minTTC time="525.00" position="879.792737,1510.698317" type="3" value="2.65"/>
-        <maxDRAC time="525.00" position="879.792737,1510.698317" type="3" value="0.93"/>
+    <conflict begin="496.00" end="690.00" ego="flow_1.150" foe="flow_1.149">
+        <minTTC time="615.00" position="-776.500170,1514.240000" type="2" value="2.01"/>
+        <maxDRAC time="615.00" position="-776.500170,1514.240000" type="2" value="1.13"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="585.00" end="638.00" ego="flow_1.149" foe="flow_1.148">
-        <minTTC time="616.00" position="-798.630190,1514.240000" type="2" value="2.22"/>
-        <maxDRAC time="616.00" position="-798.630190,1514.240000" type="2" value="0.92"/>
+    <conflict begin="511.00" end="692.00" ego="flow_1.150" foe="flow_1.151">
+        <minTTC time="616.00" position="-767.705869,1514.240000" type="3" value="2.32"/>
+        <maxDRAC time="616.00" position="-767.705869,1514.240000" type="3" value="0.90"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="478.00" end="689.00" ego="flow_1.150" foe="flow_1.149">
-        <minTTC time="525.00" position="879.792737,1510.698317" type="2" value="2.65"/>
-        <maxDRAC time="525.00" position="879.792737,1510.698317" type="2" value="0.93"/>
+    <conflict begin="471.00" end="693.00" ego="flow_1.151" foe="flow_1.152">
+        <minTTC time="617.00" position="-758.373077,1514.240000" type="3" value="2.34"/>
+        <maxDRAC time="623.00" position="-807.640332,1514.240000" type="3" value="0.89"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="508.00" end="693.00" ego="flow_1.152" foe="flow_1.153">
-        <minTTC time="615.00" position="-726.392712,1514.240000" type="3" value="2.39"/>
-        <maxDRAC time="615.00" position="-726.392712,1514.240000" type="3" value="0.71"/>
+    <conflict begin="511.00" end="692.00" ego="flow_1.151" foe="flow_1.150">
+        <minTTC time="616.00" position="-767.705869,1514.240000" type="2" value="2.32"/>
+        <maxDRAC time="616.00" position="-767.705869,1514.240000" type="2" value="0.90"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="508.00" end="693.00" ego="flow_1.153" foe="flow_1.152">
-        <minTTC time="615.00" position="-726.392712,1514.240000" type="2" value="2.39"/>
-        <maxDRAC time="615.00" position="-726.392712,1514.240000" type="2" value="0.71"/>
+    <conflict begin="471.00" end="693.00" ego="flow_1.152" foe="flow_1.151">
+        <minTTC time="617.00" position="-758.373077,1514.240000" type="2" value="2.34"/>
+        <maxDRAC time="623.00" position="-807.640332,1514.240000" type="2" value="0.89"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="510.00" end="695.00" ego="flow_1.153" foe="flow_1.154">
-        <minTTC time="616.00" position="-717.276811,1514.240000" type="3" value="1.74"/>
-        <maxDRAC time="616.00" position="-717.276811,1514.240000" type="3" value="1.25"/>
+    <conflict begin="525.00" end="695.00" ego="flow_1.152" foe="flow_1.153">
+        <minTTC time="618.00" position="-749.535909,1514.240000" type="3" value="2.09"/>
+        <maxDRAC time="618.00" position="-749.535909,1514.240000" type="3" value="1.08"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="510.00" end="695.00" ego="flow_1.154" foe="flow_1.153">
-        <minTTC time="616.00" position="-717.276811,1514.240000" type="2" value="1.74"/>
-        <maxDRAC time="616.00" position="-717.276811,1514.240000" type="2" value="1.25"/>
+    <conflict begin="477.00" end="696.00" ego="flow_1.153" foe="flow_1.154">
+        <minTTC time="625.00" position="-789.517186,1514.240000" type="3" value="2.82"/>
+        <maxDRAC time="625.00" position="-789.517186,1514.240000" type="3" value="0.64"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="558.00" end="696.00" ego="flow_1.154" foe="flow_1.155">
-        <minTTC time="617.00" position="-708.491035,1514.240000" type="3" value="1.68"/>
-        <maxDRAC time="617.00" position="-708.491035,1514.240000" type="3" value="1.37"/>
+    <conflict begin="525.00" end="695.00" ego="flow_1.153" foe="flow_1.152">
+        <minTTC time="618.00" position="-749.535909,1514.240000" type="2" value="2.09"/>
+        <maxDRAC time="618.00" position="-749.535909,1514.240000" type="2" value="1.08"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="558.00" end="696.00" ego="flow_1.155" foe="flow_1.154">
-        <minTTC time="617.00" position="-708.491035,1514.240000" type="2" value="1.68"/>
-        <maxDRAC time="617.00" position="-708.491035,1514.240000" type="2" value="1.37"/>
+    <conflict begin="477.00" end="696.00" ego="flow_1.154" foe="flow_1.153">
+        <minTTC time="625.00" position="-789.517186,1514.240000" type="2" value="2.82"/>
+        <maxDRAC time="625.00" position="-789.517186,1514.240000" type="2" value="0.64"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="503.00" end="723.00" ego="flow_1.157" foe="flow_1.158">
-        <minTTC time="654.00" position="-873.588386,1514.139399" type="3" value="2.41"/>
-        <maxDRAC time="557.00" position="875.473682,1513.191883" type="3" value="1.04"/>
+    <conflict begin="561.00" end="651.00" ego="flow_1.154" foe="flow_1.155">
+        <minTTC time="626.00" position="-780.307218,1514.240000" type="3" value="2.43"/>
+        <maxDRAC time="626.00" position="-780.307218,1514.240000" type="3" value="0.87"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="503.00" end="723.00" ego="flow_1.158" foe="flow_1.157">
-        <minTTC time="654.00" position="-873.588386,1514.139399" type="2" value="2.41"/>
-        <maxDRAC time="557.00" position="875.473682,1513.191883" type="2" value="1.04"/>
+    <conflict begin="645.00" end="725.00" ego="flow_1.209" foe="flow_1.210">
+        <minTTC time="714.00" position="880.166439,1510.482563" type="3" value="2.96"/>
+        <maxDRAC time="714.00" position="880.166439,1510.482563" type="3" value="0.84"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="639.00" end="724.00" ego="flow_1.174" foe="flow_1.175">
-        <minTTC time="701.00" position="-804.712621,1514.240000" type="3" value="2.72"/>
-        <maxDRAC time="701.00" position="-804.712621,1514.240000" type="3" value="0.93"/>
+    <conflict begin="645.00" end="725.00" ego="flow_1.210" foe="flow_1.209">
+        <minTTC time="714.00" position="880.166439,1510.482563" type="2" value="2.96"/>
+        <maxDRAC time="714.00" position="880.166439,1510.482563" type="2" value="0.84"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="639.00" end="724.00" ego="flow_1.175" foe="flow_1.174">
-        <minTTC time="701.00" position="-804.712621,1514.240000" type="2" value="2.72"/>
-        <maxDRAC time="701.00" position="-804.712621,1514.240000" type="2" value="0.93"/>
+    <conflict begin="505.00" end="726.00" ego="flow_1.157" foe="flow_1.158">
+        <minTTC time="559.00" position="878.797227,1511.273065" type="3" value="2.07"/>
+        <maxDRAC time="559.00" position="878.797227,1511.273065" type="3" value="1.30"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="508.00" end="725.00" ego="flow_1.158" foe="flow_1.159">
-        <minTTC time="655.00" position="-864.022943,1514.240000" type="3" value="2.82"/>
-        <maxDRAC time="558.00" position="884.231666,1508.135541" type="3" value="0.77"/>
+    <conflict begin="555.00" end="566.00" ego="flow_1.157" foe="flow_1.156">
+        <minTTC time="556.00" position="873.183448,1514.201169" type="2" value="2.92"/>
+        <maxDRAC time="556.00" position="873.183448,1514.201169" type="2" value="1.96"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="508.00" end="725.00" ego="flow_1.159" foe="flow_1.158">
-        <minTTC time="655.00" position="-864.022943,1514.240000" type="2" value="2.82"/>
-        <maxDRAC time="558.00" position="884.231666,1508.135541" type="2" value="0.77"/>
+    <conflict begin="505.00" end="726.00" ego="flow_1.158" foe="flow_1.157">
+        <minTTC time="559.00" position="878.797227,1511.273065" type="2" value="2.07"/>
+        <maxDRAC time="559.00" position="878.797227,1511.273065" type="2" value="1.30"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="581.00" end="670.00" ego="flow_1.159" foe="flow_1.160">
-        <minTTC time="656.00" position="-853.723247,1514.240000" type="3" value="2.58"/>
-        <maxDRAC time="656.00" position="-853.723247,1514.240000" type="3" value="0.86"/>
+    <conflict begin="515.00" end="727.00" ego="flow_1.158" foe="flow_1.159">
+        <minTTC time="560.00" position="886.177171,1507.012322" type="3" value="2.82"/>
+        <maxDRAC time="560.00" position="886.177171,1507.012322" type="3" value="0.80"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="581.00" end="670.00" ego="flow_1.160" foe="flow_1.159">
-        <minTTC time="656.00" position="-853.723247,1514.240000" type="2" value="2.58"/>
-        <maxDRAC time="656.00" position="-853.723247,1514.240000" type="2" value="0.86"/>
+    <conflict begin="515.00" end="727.00" ego="flow_1.159" foe="flow_1.158">
+        <minTTC time="560.00" position="886.177171,1507.012322" type="2" value="2.82"/>
+        <maxDRAC time="560.00" position="886.177171,1507.012322" type="2" value="0.80"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="519.00" end="733.00" ego="flow_1.162" foe="flow_1.163">
-        <minTTC time="666.00" position="-872.132762,1514.240000" type="3" value="2.64"/>
-        <maxDRAC time="666.00" position="-872.132762,1514.240000" type="3" value="0.90"/>
+    <conflict begin="498.00" end="730.00" ego="flow_1.160" foe="flow_1.161">
+        <minTTC time="660.00" position="-846.841676,1514.240000" type="3" value="2.64"/>
+        <maxDRAC time="660.00" position="-846.841676,1514.240000" type="3" value="0.94"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="519.00" end="733.00" ego="flow_1.163" foe="flow_1.162">
-        <minTTC time="666.00" position="-872.132762,1514.240000" type="2" value="2.64"/>
-        <maxDRAC time="666.00" position="-872.132762,1514.240000" type="2" value="0.90"/>
+    <conflict begin="498.00" end="730.00" ego="flow_1.161" foe="flow_1.160">
+        <minTTC time="660.00" position="-846.841676,1514.240000" type="2" value="2.64"/>
+        <maxDRAC time="660.00" position="-846.841676,1514.240000" type="2" value="0.94"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="544.00" end="680.00" ego="flow_1.163" foe="flow_1.164">
-        <minTTC time="667.00" position="-862.645066,1514.240000" type="3" value="2.67"/>
-        <maxDRAC time="667.00" position="-862.645066,1514.240000" type="3" value="0.91"/>
+    <conflict begin="663.00" end="676.00" ego="flow_1.161" foe="flow_1.162">
+        <minTTC time="664.00" position="-861.521823,1514.240000" type="3" value="2.92"/>
+        <maxDRAC time="664.00" position="-861.521823,1514.240000" type="3" value="1.80"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="624.00" end="764.00" ego="flow_1.190" foe="flow_1.191">
-        <minTTC time="651.00" position="877.282742,1512.147439" type="3" value="2.62"/>
-        <maxDRAC time="651.00" position="877.282742,1512.147439" type="3" value="0.99"/>
+    <conflict begin="504.00" end="735.00" ego="flow_1.162" foe="flow_1.163">
+        <minTTC time="573.00" position="875.947734,1512.918194" type="3" value="2.43"/>
+        <maxDRAC time="573.00" position="875.947734,1512.918194" type="3" value="1.04"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="702.00" end="764.00" ego="flow_1.190" foe="flow_1.189">
-        <minTTC time="739.00" position="-786.335721,1514.240000" type="2" value="2.73"/>
-        <maxDRAC time="739.00" position="-786.335721,1514.240000" type="2" value="0.67"/>
+    <conflict begin="663.00" end="676.00" ego="flow_1.162" foe="flow_1.161">
+        <minTTC time="664.00" position="-861.521823,1514.240000" type="2" value="2.92"/>
+        <maxDRAC time="664.00" position="-861.521823,1514.240000" type="2" value="1.80"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="532.00" end="767.00" ego="flow_1.167" foe="flow_1.168">
-        <minTTC time="694.00" position="-871.051379,1514.240000" type="3" value="2.25"/>
-        <maxDRAC time="694.00" position="-871.051379,1514.240000" type="3" value="1.05"/>
+    <conflict begin="504.00" end="735.00" ego="flow_1.163" foe="flow_1.162">
+        <minTTC time="573.00" position="875.947734,1512.918194" type="2" value="2.43"/>
+        <maxDRAC time="573.00" position="875.947734,1512.918194" type="2" value="1.04"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="520.00" end="768.00" ego="flow_1.168" foe="flow_1.169">
-        <minTTC time="695.00" position="-862.258294,1514.240000" type="3" value="2.23"/>
-        <maxDRAC time="695.00" position="-862.258294,1514.240000" type="3" value="1.19"/>
+    <conflict begin="590.00" end="684.00" ego="flow_1.163" foe="flow_1.164">
+        <minTTC time="669.00" position="-861.233442,1514.240000" type="3" value="2.98"/>
+        <maxDRAC time="669.00" position="-861.233442,1514.240000" type="3" value="0.71"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="532.00" end="767.00" ego="flow_1.168" foe="flow_1.167">
-        <minTTC time="694.00" position="-871.051379,1514.240000" type="2" value="2.25"/>
-        <maxDRAC time="694.00" position="-871.051379,1514.240000" type="2" value="1.05"/>
+    <conflict begin="513.00" end="751.00" ego="flow_1.165" foe="flow_1.166">
+        <minTTC time="584.00" position="876.248623,1512.744478" type="3" value="2.52"/>
+        <maxDRAC time="584.00" position="876.248623,1512.744478" type="3" value="0.97"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="520.00" end="768.00" ego="flow_1.169" foe="flow_1.168">
-        <minTTC time="695.00" position="-862.258294,1514.240000" type="2" value="2.23"/>
-        <maxDRAC time="695.00" position="-862.258294,1514.240000" type="2" value="1.19"/>
+    <conflict begin="513.00" end="751.00" ego="flow_1.166" foe="flow_1.165">
+        <minTTC time="584.00" position="876.248623,1512.744478" type="2" value="2.52"/>
+        <maxDRAC time="584.00" position="876.248623,1512.744478" type="2" value="0.97"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="547.00" end="770.00" ego="flow_1.169" foe="flow_1.170">
-        <minTTC time="696.00" position="-853.093004,1514.240000" type="3" value="2.28"/>
-        <maxDRAC time="696.00" position="-853.093004,1514.240000" type="3" value="1.21"/>
+    <conflict begin="592.00" end="603.00" ego="flow_1.167" foe="flow_1.169">
+        <minTTC time="593.00" position="873.846990,1514.054786" type="3" value="2.69"/>
+        <maxDRAC time="593.00" position="873.846990,1514.054786" type="3" value="2.08"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="547.00" end="770.00" ego="flow_1.170" foe="flow_1.169">
-        <minTTC time="696.00" position="-853.093004,1514.240000" type="2" value="2.28"/>
-        <maxDRAC time="696.00" position="-853.093004,1514.240000" type="2" value="1.21"/>
+    <conflict begin="592.00" end="603.00" ego="flow_1.169" foe="flow_1.167">
+        <minTTC time="593.00" position="873.846990,1514.054786" type="2" value="2.69"/>
+        <maxDRAC time="593.00" position="873.846990,1514.054786" type="2" value="2.08"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="550.00" end="773.00" ego="flow_1.171" foe="flow_1.172">
-        <minTTC time="698.00" position="-834.230683,1514.240000" type="3" value="2.73"/>
-        <maxDRAC time="698.00" position="-834.230683,1514.240000" type="3" value="0.92"/>
+    <conflict begin="528.00" end="772.00" ego="flow_1.170" foe="flow_1.171">
+        <minTTC time="598.00" position="880.023477,1510.565101" type="3" value="2.77"/>
+        <maxDRAC time="697.00" position="-835.963321,1514.240000" type="3" value="0.75"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="550.00" end="773.00" ego="flow_1.172" foe="flow_1.171">
-        <minTTC time="698.00" position="-834.230683,1514.240000" type="2" value="2.73"/>
-        <maxDRAC time="698.00" position="-834.230683,1514.240000" type="2" value="0.92"/>
+    <conflict begin="528.00" end="772.00" ego="flow_1.171" foe="flow_1.170">
+        <minTTC time="598.00" position="880.023477,1510.565101" type="2" value="2.77"/>
+        <maxDRAC time="697.00" position="-835.963321,1514.240000" type="2" value="0.75"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="593.00" end="798.00" ego="flow_1.176" foe="flow_1.178">
-        <minTTC time="620.00" position="875.494117,1513.180086" type="3" value="1.96"/>
-        <maxDRAC time="620.00" position="875.494117,1513.180086" type="3" value="1.32"/>
+    <conflict begin="552.00" end="774.00" ego="flow_1.171" foe="flow_1.172">
+        <minTTC time="599.00" position="887.771925,1506.091605" type="3" value="2.44"/>
+        <maxDRAC time="599.00" position="887.771925,1506.091605" type="3" value="0.80"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="573.00" end="799.00" ego="flow_1.178" foe="flow_1.179">
-        <minTTC time="621.00" position="883.393176,1508.619636" type="3" value="2.10"/>
-        <maxDRAC time="621.00" position="883.393176,1508.619636" type="3" value="1.25"/>
+    <conflict begin="552.00" end="774.00" ego="flow_1.172" foe="flow_1.171">
+        <minTTC time="599.00" position="887.771925,1506.091605" type="2" value="2.44"/>
+        <maxDRAC time="599.00" position="887.771925,1506.091605" type="2" value="0.80"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="593.00" end="798.00" ego="flow_1.178" foe="flow_1.176">
-        <minTTC time="620.00" position="875.494117,1513.180086" type="2" value="1.96"/>
-        <maxDRAC time="620.00" position="875.494117,1513.180086" type="2" value="1.32"/>
+    <conflict begin="656.00" end="800.00" ego="flow_1.176" foe="flow_1.179">
+        <minTTC time="726.00" position="-873.103806,1514.213318" type="3" value="2.25"/>
+        <maxDRAC time="726.00" position="-873.103806,1514.213318" type="3" value="1.09"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="573.00" end="799.00" ego="flow_1.179" foe="flow_1.178">
-        <minTTC time="621.00" position="883.393176,1508.619636" type="2" value="2.10"/>
-        <maxDRAC time="621.00" position="883.393176,1508.619636" type="2" value="1.25"/>
+    <conflict begin="656.00" end="800.00" ego="flow_1.179" foe="flow_1.176">
+        <minTTC time="726.00" position="-873.103806,1514.213318" type="2" value="2.25"/>
+        <maxDRAC time="726.00" position="-873.103806,1514.213318" type="2" value="1.09"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="623.00" end="635.00" ego="flow_1.179" foe="flow_1.180">
-        <minTTC time="624.00" position="879.317487,1510.972698" type="3" value="2.96"/>
-        <maxDRAC time="624.00" position="879.317487,1510.972698" type="3" value="1.82"/>
+    <conflict begin="695.00" end="802.00" ego="flow_1.179" foe="flow_1.180">
+        <minTTC time="727.00" position="-863.976721,1514.240000" type="3" value="2.54"/>
+        <maxDRAC time="727.00" position="-863.976721,1514.240000" type="3" value="0.93"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="569.00" end="803.00" ego="flow_1.180" foe="flow_1.181">
-        <minTTC time="726.00" position="-837.971808,1514.240000" type="3" value="2.95"/>
-        <maxDRAC time="726.00" position="-837.971808,1514.240000" type="3" value="0.74"/>
+    <conflict begin="558.00" end="803.00" ego="flow_1.180" foe="flow_1.181">
+        <minTTC time="630.00" position="876.675256,1512.498166" type="3" value="2.45"/>
+        <maxDRAC time="630.00" position="876.675256,1512.498166" type="3" value="0.97"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="623.00" end="635.00" ego="flow_1.180" foe="flow_1.179">
-        <minTTC time="624.00" position="879.317487,1510.972698" type="2" value="2.96"/>
-        <maxDRAC time="624.00" position="879.317487,1510.972698" type="2" value="1.82"/>
+    <conflict begin="695.00" end="802.00" ego="flow_1.180" foe="flow_1.179">
+        <minTTC time="727.00" position="-863.976721,1514.240000" type="2" value="2.54"/>
+        <maxDRAC time="727.00" position="-863.976721,1514.240000" type="2" value="0.93"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="569.00" end="803.00" ego="flow_1.181" foe="flow_1.180">
-        <minTTC time="726.00" position="-837.971808,1514.240000" type="2" value="2.95"/>
-        <maxDRAC time="726.00" position="-837.971808,1514.240000" type="2" value="0.74"/>
+    <conflict begin="558.00" end="803.00" ego="flow_1.181" foe="flow_1.180">
+        <minTTC time="630.00" position="876.675256,1512.498166" type="2" value="2.45"/>
+        <maxDRAC time="630.00" position="876.675256,1512.498166" type="2" value="0.97"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="730.00" end="809.00" ego="flow_1.238" foe="flow_1.239">
-        <minTTC time="798.00" position="872.491729,1514.233371" type="3" value="2.74"/>
-        <maxDRAC time="798.00" position="872.491729,1514.233371" type="3" value="1.63"/>
+    <conflict begin="575.00" end="805.00" ego="flow_1.181" foe="flow_1.182">
+        <minTTC time="631.00" position="884.953266,1507.718932" type="3" value="2.66"/>
+        <maxDRAC time="631.00" position="884.953266,1507.718932" type="3" value="0.90"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="730.00" end="809.00" ego="flow_1.239" foe="flow_1.238">
-        <minTTC time="798.00" position="872.491729,1514.233371" type="2" value="2.74"/>
-        <maxDRAC time="798.00" position="872.491729,1514.233371" type="2" value="1.63"/>
+    <conflict begin="575.00" end="805.00" ego="flow_1.182" foe="flow_1.181">
+        <minTTC time="631.00" position="884.953266,1507.718932" type="2" value="2.66"/>
+        <maxDRAC time="631.00" position="884.953266,1507.718932" type="2" value="0.90"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="798.00" end="812.00" ego="flow_1.239" foe="flow_1.240">
-        <minTTC time="801.00" position="873.936501,1514.020609" type="3" value="2.74"/>
-        <maxDRAC time="801.00" position="873.936501,1514.020609" type="3" value="1.58"/>
+    <conflict begin="586.00" end="806.00" ego="flow_1.182" foe="flow_1.183">
+        <minTTC time="632.00" position="893.512869,1502.777123" type="3" value="2.94"/>
+        <maxDRAC time="632.00" position="893.512869,1502.777123" type="3" value="0.79"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="591.00" end="813.00" ego="flow_1.187" foe="flow_1.188">
-        <minTTC time="737.00" position="-804.379652,1514.240000" type="3" value="2.74"/>
-        <maxDRAC time="737.00" position="-804.379652,1514.240000" type="3" value="0.66"/>
+    <conflict begin="586.00" end="806.00" ego="flow_1.183" foe="flow_1.182">
+        <minTTC time="632.00" position="893.512869,1502.777123" type="2" value="2.94"/>
+        <maxDRAC time="632.00" position="893.512869,1502.777123" type="2" value="0.79"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="591.00" end="813.00" ego="flow_1.188" foe="flow_1.187">
-        <minTTC time="737.00" position="-804.379652,1514.240000" type="2" value="2.74"/>
-        <maxDRAC time="737.00" position="-804.379652,1514.240000" type="2" value="0.66"/>
+    <conflict begin="714.00" end="767.00" ego="flow_1.189" foe="flow_1.190">
+        <minTTC time="737.00" position="-764.005030,1514.240000" type="3" value="2.74"/>
+        <maxDRAC time="737.00" position="-764.005030,1514.240000" type="3" value="0.95"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="702.00" end="764.00" ego="flow_1.189" foe="flow_1.190">
-        <minTTC time="739.00" position="-786.335721,1514.240000" type="3" value="2.73"/>
-        <maxDRAC time="739.00" position="-786.335721,1514.240000" type="3" value="0.67"/>
+    <conflict begin="627.00" end="818.00" ego="flow_1.190" foe="flow_1.191">
+        <minTTC time="653.00" position="878.607216,1511.382766" type="3" value="2.91"/>
+        <maxDRAC time="653.00" position="878.607216,1511.382766" type="3" value="0.83"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="624.00" end="764.00" ego="flow_1.191" foe="flow_1.190">
-        <minTTC time="651.00" position="877.282742,1512.147439" type="2" value="2.62"/>
-        <maxDRAC time="651.00" position="877.282742,1512.147439" type="2" value="0.99"/>
+    <conflict begin="714.00" end="767.00" ego="flow_1.190" foe="flow_1.189">
+        <minTTC time="737.00" position="-764.005030,1514.240000" type="2" value="2.74"/>
+        <maxDRAC time="737.00" position="-764.005030,1514.240000" type="2" value="0.95"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="716.00" end="826.00" ego="flow_1.194" foe="flow_1.195">
-        <minTTC time="756.00" position="-832.599333,1514.240000" type="3" value="2.87"/>
-        <maxDRAC time="756.00" position="-832.599333,1514.240000" type="3" value="0.69"/>
+    <conflict begin="627.00" end="818.00" ego="flow_1.191" foe="flow_1.190">
+        <minTTC time="653.00" position="878.607216,1511.382766" type="2" value="2.91"/>
+        <maxDRAC time="653.00" position="878.607216,1511.382766" type="2" value="0.83"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="601.00" end="828.00" ego="flow_1.195" foe="flow_1.196">
-        <minTTC time="667.00" position="879.066195,1511.117779" type="3" value="2.27"/>
-        <maxDRAC time="667.00" position="879.066195,1511.117779" type="3" value="1.20"/>
+    <conflict begin="626.00" end="826.00" ego="flow_1.194" foe="flow_1.195">
+        <minTTC time="667.00" position="873.885152,1514.040215" type="3" value="2.80"/>
+        <maxDRAC time="666.00" position="879.810875,1510.687845" type="3" value="1.17"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="662.00" end="674.00" ego="flow_1.195" foe="flow_1.194">
-        <minTTC time="664.00" position="876.203767,1512.770376" type="2" value="2.94"/>
-        <maxDRAC time="664.00" position="876.203767,1512.770376" type="2" value="1.78"/>
+    <conflict begin="626.00" end="826.00" ego="flow_1.195" foe="flow_1.194">
+        <minTTC time="667.00" position="873.885152,1514.040215" type="2" value="2.80"/>
+        <maxDRAC time="666.00" position="879.810875,1510.687845" type="2" value="1.17"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="716.00" end="826.00" ego="flow_1.195" foe="flow_1.194">
-        <minTTC time="756.00" position="-832.599333,1514.240000" type="2" value="2.87"/>
-        <maxDRAC time="756.00" position="-832.599333,1514.240000" type="2" value="0.69"/>
+    <conflict begin="650.00" end="828.00" ego="flow_1.195" foe="flow_1.196">
+        <minTTC time="669.00" position="877.966204,1511.752849" type="3" value="2.77"/>
+        <maxDRAC time="669.00" position="877.966204,1511.752849" type="3" value="1.21"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="601.00" end="828.00" ego="flow_1.196" foe="flow_1.195">
-        <minTTC time="667.00" position="879.066195,1511.117779" type="2" value="2.27"/>
-        <maxDRAC time="667.00" position="879.066195,1511.117779" type="2" value="1.20"/>
+    <conflict begin="650.00" end="828.00" ego="flow_1.196" foe="flow_1.195">
+        <minTTC time="669.00" position="877.966204,1511.752849" type="2" value="2.77"/>
+        <maxDRAC time="669.00" position="877.966204,1511.752849" type="2" value="1.21"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="607.00" end="842.00" ego="flow_1.197" foe="flow_1.198">
-        <minTTC time="677.00" position="879.501912,1510.866221" type="3" value="2.18"/>
-        <maxDRAC time="677.00" position="879.501912,1510.866221" type="3" value="1.20"/>
+    <conflict begin="769.00" end="857.00" ego="flow_1.222" foe="flow_1.221">
+        <minTTC time="841.00" position="-840.558640,1514.240000" type="2" value="2.91"/>
+        <maxDRAC time="841.00" position="-840.558640,1514.240000" type="2" value="0.79"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="607.00" end="842.00" ego="flow_1.198" foe="flow_1.197">
-        <minTTC time="677.00" position="879.501912,1510.866221" type="2" value="2.18"/>
-        <maxDRAC time="677.00" position="879.501912,1510.866221" type="2" value="1.20"/>
+    <conflict begin="654.00" end="861.00" ego="flow_1.199" foe="flow_1.201">
+        <minTTC time="688.00" position="873.857232,1514.050875" type="3" value="2.51"/>
+        <maxDRAC time="688.00" position="873.857232,1514.050875" type="3" value="0.91"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="613.00" end="860.00" ego="flow_1.199" foe="flow_1.200">
-        <minTTC time="686.00" position="877.467696,1512.040658" type="3" value="2.36"/>
-        <maxDRAC time="686.00" position="877.467696,1512.040658" type="3" value="1.08"/>
+    <conflict begin="654.00" end="861.00" ego="flow_1.201" foe="flow_1.199">
+        <minTTC time="688.00" position="873.857232,1514.050875" type="2" value="2.51"/>
+        <maxDRAC time="688.00" position="873.857232,1514.050875" type="2" value="0.91"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="613.00" end="860.00" ego="flow_1.200" foe="flow_1.199">
-        <minTTC time="686.00" position="877.467696,1512.040658" type="2" value="2.36"/>
-        <maxDRAC time="686.00" position="877.467696,1512.040658" type="2" value="1.08"/>
+    <conflict begin="624.00" end="864.00" ego="flow_1.202" foe="flow_1.203">
+        <minTTC time="693.00" position="876.826225,1512.411005" type="3" value="2.81"/>
+        <maxDRAC time="693.00" position="876.826225,1512.411005" type="3" value="0.76"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="622.00" end="864.00" ego="flow_1.202" foe="flow_1.203">
-        <minTTC time="689.00" position="902.817816,1497.404997" type="3" value="2.69"/>
-        <maxDRAC time="689.00" position="902.817816,1497.404997" type="3" value="0.88"/>
+    <conflict begin="624.00" end="864.00" ego="flow_1.203" foe="flow_1.202">
+        <minTTC time="693.00" position="876.826225,1512.411005" type="2" value="2.81"/>
+        <maxDRAC time="693.00" position="876.826225,1512.411005" type="2" value="0.76"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="622.00" end="864.00" ego="flow_1.203" foe="flow_1.202">
-        <minTTC time="689.00" position="902.817816,1497.404997" type="2" value="2.69"/>
-        <maxDRAC time="689.00" position="902.817816,1497.404997" type="2" value="0.88"/>
+    <conflict begin="633.00" end="869.00" ego="flow_1.205" foe="flow_1.206">
+        <minTTC time="702.00" position="879.679696,1510.763580" type="3" value="2.95"/>
+        <maxDRAC time="702.00" position="879.679696,1510.763580" type="3" value="0.79"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="646.00" end="869.00" ego="flow_1.205" foe="flow_1.206">
-        <minTTC time="701.00" position="873.414949,1514.165855" type="3" value="2.41"/>
-        <maxDRAC time="701.00" position="873.414949,1514.165855" type="3" value="1.02"/>
+    <conflict begin="633.00" end="869.00" ego="flow_1.206" foe="flow_1.205">
+        <minTTC time="702.00" position="879.679696,1510.763580" type="2" value="2.95"/>
+        <maxDRAC time="702.00" position="879.679696,1510.763580" type="2" value="0.79"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="646.00" end="869.00" ego="flow_1.206" foe="flow_1.205">
-        <minTTC time="701.00" position="873.414949,1514.165855" type="2" value="2.41"/>
-        <maxDRAC time="701.00" position="873.414949,1514.165855" type="2" value="1.02"/>
+    <conflict begin="738.00" end="879.00" ego="flow_1.209" foe="flow_1.210">
+        <minTTC time="810.00" position="-868.913215,1514.240000" type="3" value="2.47"/>
+        <maxDRAC time="810.00" position="-868.913215,1514.240000" type="3" value="0.93"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="643.00" end="878.00" ego="flow_1.209" foe="flow_1.210">
-        <minTTC time="712.00" position="879.320367,1510.971035" type="3" value="2.69"/>
-        <maxDRAC time="712.00" position="879.320367,1510.971035" type="3" value="0.93"/>
+    <conflict begin="738.00" end="879.00" ego="flow_1.210" foe="flow_1.209">
+        <minTTC time="810.00" position="-868.913215,1514.240000" type="2" value="2.47"/>
+        <maxDRAC time="810.00" position="-868.913215,1514.240000" type="2" value="0.93"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="643.00" end="878.00" ego="flow_1.210" foe="flow_1.209">
-        <minTTC time="712.00" position="879.320367,1510.971035" type="2" value="2.69"/>
-        <maxDRAC time="712.00" position="879.320367,1510.971035" type="2" value="0.93"/>
+    <conflict begin="716.00" end="740.00" ego="flow_1.211" foe="flow_1.212">
+        <minTTC time="720.00" position="871.303319,1514.240000" type="3" value="1.10"/>
+        <maxDRAC time="720.00" position="871.303319,1514.240000" type="3" value="4.33"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="662.00" end="879.00" ego="flow_1.210" foe="flow_1.211">
-        <minTTC time="810.00" position="-858.927790,1514.240000" type="3" value="2.92"/>
-        <maxDRAC time="810.00" position="-858.927790,1514.240000" type="3" value="0.64"/>
+    <conflict begin="719.00" end="733.00" ego="flow_1.211" foe="flow_1.213">
+        <minTTC time="720.00" position="871.303319,1514.240000" type="3" value="2.50"/>
+        <maxDRAC time="720.00" position="871.303319,1514.240000" type="3" value="2.52"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="662.00" end="879.00" ego="flow_1.211" foe="flow_1.210">
-        <minTTC time="810.00" position="-858.927790,1514.240000" type="2" value="2.92"/>
-        <maxDRAC time="810.00" position="-858.927790,1514.240000" type="2" value="0.64"/>
+    <conflict begin="668.00" end="883.00" ego="flow_1.212" foe="flow_1.213">
+        <minTTC time="722.00" position="877.423544,1512.066149" type="3" value="2.14"/>
+        <maxDRAC time="722.00" position="877.423544,1512.066149" type="3" value="0.90"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="716.00" end="728.00" ego="flow_1.211" foe="flow_1.212">
-        <minTTC time="717.00" position="866.378786,1514.240000" type="3" value="2.80"/>
-        <maxDRAC time="717.00" position="866.378786,1514.240000" type="3" value="2.06"/>
+    <conflict begin="716.00" end="740.00" ego="flow_1.212" foe="flow_1.211">
+        <minTTC time="720.00" position="871.303319,1514.240000" type="2" value="1.10"/>
+        <maxDRAC time="720.00" position="871.303319,1514.240000" type="2" value="4.33"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="749.00" end="881.00" ego="flow_1.211" foe="flow_1.212">
-        <minTTC time="811.00" position="-849.160732,1514.240000" type="3" value="2.85"/>
-        <maxDRAC time="811.00" position="-849.160732,1514.240000" type="3" value="0.68"/>
+    <conflict begin="668.00" end="883.00" ego="flow_1.213" foe="flow_1.212">
+        <minTTC time="722.00" position="877.423544,1512.066149" type="2" value="2.14"/>
+        <maxDRAC time="722.00" position="877.423544,1512.066149" type="2" value="0.90"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="716.00" end="728.00" ego="flow_1.212" foe="flow_1.211">
-        <minTTC time="717.00" position="866.378786,1514.240000" type="2" value="2.80"/>
-        <maxDRAC time="717.00" position="866.378786,1514.240000" type="2" value="2.06"/>
+    <conflict begin="678.00" end="885.00" ego="flow_1.213" foe="flow_1.214">
+        <minTTC time="723.00" position="884.725455,1507.850457" type="3" value="2.26"/>
+        <maxDRAC time="723.00" position="884.725455,1507.850457" type="3" value="0.87"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="749.00" end="881.00" ego="flow_1.212" foe="flow_1.211">
-        <minTTC time="811.00" position="-849.160732,1514.240000" type="2" value="2.85"/>
-        <maxDRAC time="811.00" position="-849.160732,1514.240000" type="2" value="0.68"/>
+    <conflict begin="719.00" end="733.00" ego="flow_1.213" foe="flow_1.211">
+        <minTTC time="720.00" position="871.303319,1514.240000" type="2" value="2.50"/>
+        <maxDRAC time="720.00" position="871.303319,1514.240000" type="2" value="2.52"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="661.00" end="897.00" ego="flow_1.215" foe="flow_1.216">
-        <minTTC time="828.00" position="-870.531059,1514.240000" type="3" value="2.31"/>
-        <maxDRAC time="828.00" position="-870.531059,1514.240000" type="3" value="1.06"/>
+    <conflict begin="678.00" end="885.00" ego="flow_1.214" foe="flow_1.213">
+        <minTTC time="723.00" position="884.725455,1507.850457" type="2" value="2.26"/>
+        <maxDRAC time="723.00" position="884.725455,1507.850457" type="2" value="0.87"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="661.00" end="897.00" ego="flow_1.216" foe="flow_1.215">
-        <minTTC time="828.00" position="-870.531059,1514.240000" type="2" value="2.31"/>
-        <maxDRAC time="828.00" position="-870.531059,1514.240000" type="2" value="1.06"/>
+    <conflict begin="681.00" end="898.00" ego="flow_1.215" foe="flow_1.216">
+        <minTTC time="829.00" position="-874.453828,1513.777857" type="3" value="2.12"/>
+        <maxDRAC time="829.00" position="-874.453828,1513.777857" type="3" value="1.32"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="700.00" end="901.00" ego="flow_1.228" foe="flow_1.229">
-        <minTTC time="772.00" position="872.620248,1514.230347" type="3" value="2.15"/>
-        <maxDRAC time="772.00" position="872.620248,1514.230347" type="3" value="1.21"/>
+    <conflict begin="666.00" end="899.00" ego="flow_1.216" foe="flow_1.217">
+        <minTTC time="830.00" position="-864.845933,1514.240000" type="3" value="2.32"/>
+        <maxDRAC time="830.00" position="-864.845933,1514.240000" type="3" value="1.09"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="700.00" end="901.00" ego="flow_1.229" foe="flow_1.228">
-        <minTTC time="772.00" position="872.620248,1514.230347" type="2" value="2.15"/>
-        <maxDRAC time="772.00" position="872.620248,1514.230347" type="2" value="1.21"/>
+    <conflict begin="681.00" end="898.00" ego="flow_1.216" foe="flow_1.215">
+        <minTTC time="829.00" position="-874.453828,1513.777857" type="2" value="2.12"/>
+        <maxDRAC time="829.00" position="-874.453828,1513.777857" type="2" value="1.32"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="729.00" end="901.00" ego="flow_1.229" foe="flow_1.230">
-        <minTTC time="871.00" position="-856.810274,1514.240000" type="3" value="2.88"/>
-        <maxDRAC time="871.00" position="-856.810274,1514.240000" type="3" value="0.80"/>
+    <conflict begin="666.00" end="899.00" ego="flow_1.217" foe="flow_1.216">
+        <minTTC time="830.00" position="-864.845933,1514.240000" type="2" value="2.32"/>
+        <maxDRAC time="830.00" position="-864.845933,1514.240000" type="2" value="1.09"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="729.00" end="901.00" ego="flow_1.230" foe="flow_1.229">
-        <minTTC time="871.00" position="-856.810274,1514.240000" type="2" value="2.88"/>
-        <maxDRAC time="871.00" position="-856.810274,1514.240000" type="2" value="0.80"/>
+    <conflict begin="715.00" end="901.00" ego="flow_1.228" foe="flow_1.229">
+        <minTTC time="774.00" position="875.427504,1513.218544" type="3" value="2.42"/>
+        <maxDRAC time="774.00" position="875.427504,1513.218544" type="3" value="0.98"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="715.00" end="947.00" ego="flow_1.233" foe="flow_1.234">
-        <minTTC time="777.00" position="915.079022,1490.326102" type="3" value="2.98"/>
-        <maxDRAC time="777.00" position="915.079022,1490.326102" type="3" value="0.75"/>
+    <conflict begin="715.00" end="901.00" ego="flow_1.229" foe="flow_1.228">
+        <minTTC time="774.00" position="875.427504,1513.218544" type="2" value="2.42"/>
+        <maxDRAC time="774.00" position="875.427504,1513.218544" type="2" value="0.98"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="715.00" end="947.00" ego="flow_1.234" foe="flow_1.233">
-        <minTTC time="777.00" position="915.079022,1490.326102" type="2" value="2.98"/>
-        <maxDRAC time="777.00" position="915.079022,1490.326102" type="2" value="0.75"/>
+    <conflict begin="736.00" end="901.00" ego="flow_1.229" foe="flow_1.230">
+        <minTTC time="775.00" position="883.367944,1508.634203" type="3" value="2.31"/>
+        <maxDRAC time="775.00" position="883.367944,1508.634203" type="3" value="1.11"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
-    <conflict begin="798.00" end="812.00" ego="flow_1.240" foe="flow_1.239">
-        <minTTC time="801.00" position="873.936501,1514.020609" type="2" value="2.74"/>
-        <maxDRAC time="801.00" position="873.936501,1514.020609" type="2" value="1.58"/>
+    <conflict begin="736.00" end="901.00" ego="flow_1.230" foe="flow_1.229">
+        <minTTC time="775.00" position="883.367944,1508.634203" type="2" value="2.31"/>
+        <maxDRAC time="775.00" position="883.367944,1508.634203" type="2" value="1.11"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="672.00" end="907.00" ego="flow_1.218" foe="flow_1.219">
+        <minTTC time="838.00" position="-868.936376,1514.240000" type="3" value="2.26"/>
+        <maxDRAC time="838.00" position="-868.936376,1514.240000" type="3" value="1.04"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="672.00" end="907.00" ego="flow_1.219" foe="flow_1.218">
+        <minTTC time="838.00" position="-868.936376,1514.240000" type="2" value="2.26"/>
+        <maxDRAC time="838.00" position="-868.936376,1514.240000" type="2" value="1.04"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="675.00" end="909.00" ego="flow_1.219" foe="flow_1.220">
+        <minTTC time="839.00" position="-860.129407,1514.240000" type="3" value="2.39"/>
+        <maxDRAC time="839.00" position="-860.129407,1514.240000" type="3" value="1.11"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="675.00" end="909.00" ego="flow_1.220" foe="flow_1.219">
+        <minTTC time="839.00" position="-860.129407,1514.240000" type="2" value="2.39"/>
+        <maxDRAC time="839.00" position="-860.129407,1514.240000" type="2" value="1.11"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="700.00" end="910.00" ego="flow_1.220" foe="flow_1.221">
+        <minTTC time="840.00" position="-850.073019,1514.240000" type="3" value="2.58"/>
+        <maxDRAC time="840.00" position="-850.073019,1514.240000" type="3" value="0.95"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="700.00" end="910.00" ego="flow_1.221" foe="flow_1.220">
+        <minTTC time="840.00" position="-850.073019,1514.240000" type="2" value="2.58"/>
+        <maxDRAC time="840.00" position="-850.073019,1514.240000" type="2" value="0.95"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="769.00" end="857.00" ego="flow_1.221" foe="flow_1.222">
+        <minTTC time="841.00" position="-840.558640,1514.240000" type="3" value="2.91"/>
+        <maxDRAC time="841.00" position="-840.558640,1514.240000" type="3" value="0.79"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="687.00" end="915.00" ego="flow_1.223" foe="flow_1.224">
+        <minTTC time="843.00" position="-820.086690,1514.240000" type="3" value="2.80"/>
+        <maxDRAC time="843.00" position="-820.086690,1514.240000" type="3" value="0.85"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="687.00" end="915.00" ego="flow_1.224" foe="flow_1.223">
+        <minTTC time="843.00" position="-820.086690,1514.240000" type="2" value="2.80"/>
+        <maxDRAC time="843.00" position="-820.086690,1514.240000" type="2" value="0.85"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="772.00" end="916.00" ego="flow_1.224" foe="flow_1.225">
+        <minTTC time="844.00" position="-810.454468,1514.240000" type="3" value="2.62"/>
+        <maxDRAC time="844.00" position="-810.454468,1514.240000" type="3" value="0.94"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="713.00" end="918.00" ego="flow_1.225" foe="flow_1.226">
+        <minTTC time="845.00" position="-801.745422,1514.240000" type="3" value="2.72"/>
+        <maxDRAC time="845.00" position="-801.745422,1514.240000" type="3" value="0.93"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="772.00" end="916.00" ego="flow_1.225" foe="flow_1.224">
+        <minTTC time="844.00" position="-810.454468,1514.240000" type="2" value="2.62"/>
+        <maxDRAC time="844.00" position="-810.454468,1514.240000" type="2" value="0.94"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="713.00" end="918.00" ego="flow_1.226" foe="flow_1.225">
+        <minTTC time="845.00" position="-801.745422,1514.240000" type="2" value="2.72"/>
+        <maxDRAC time="845.00" position="-801.745422,1514.240000" type="2" value="0.93"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="736.00" end="919.00" ego="flow_1.226" foe="flow_1.227">
+        <minTTC time="846.00" position="-792.751242,1514.240000" type="3" value="2.91"/>
+        <maxDRAC time="846.00" position="-792.751242,1514.240000" type="3" value="0.86"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="736.00" end="919.00" ego="flow_1.227" foe="flow_1.226">
+        <minTTC time="846.00" position="-792.751242,1514.240000" type="2" value="2.91"/>
+        <maxDRAC time="846.00" position="-792.751242,1514.240000" type="2" value="0.86"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="761.00" end="945.00" ego="flow_1.230" foe="flow_1.231">
+        <minTTC time="776.00" position="891.082355,1504.180359" type="3" value="2.76"/>
+        <maxDRAC time="776.00" position="891.082355,1504.180359" type="3" value="1.06"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="761.00" end="945.00" ego="flow_1.231" foe="flow_1.230">
+        <minTTC time="776.00" position="891.082355,1504.180359" type="2" value="2.76"/>
+        <maxDRAC time="776.00" position="891.082355,1504.180359" type="2" value="1.06"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="754.00" end="966.00" ego="flow_1.240" foe="flow_1.241">
+        <minTTC time="805.00" position="885.350949,1507.489333" type="3" value="2.90"/>
+        <maxDRAC time="805.00" position="885.350949,1507.489333" type="3" value="0.83"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="754.00" end="966.00" ego="flow_1.241" foe="flow_1.240">
+        <minTTC time="805.00" position="885.350949,1507.489333" type="2" value="2.90"/>
+        <maxDRAC time="805.00" position="885.350949,1507.489333" type="2" value="0.83"/>
         <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
 </SSMLog>
