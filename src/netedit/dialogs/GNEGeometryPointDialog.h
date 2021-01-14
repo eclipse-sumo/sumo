@@ -28,8 +28,7 @@
 // class declarations
 // ===========================================================================
 
-class GNEAdditional;
-class GNEUndoList;
+class GNEViewNet;
 
 // ===========================================================================
 // class definitions
@@ -81,9 +80,6 @@ protected:
 
     /// @brief original position (used for reset)
     const Position myOriginalPos;
-
-    /// @brief execute dialog as modal
-    FXint openAsModalDialog(FXuint placement = PLACEMENT_CURSOR);
 
 private:
     /// @brief accept button

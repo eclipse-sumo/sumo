@@ -63,6 +63,12 @@ GNEGeometryPointDialog::GNEGeometryPointDialog(GNEViewNet* viewNet, Position* po
     myCancelButton = new FXButton(buttonsFrame, "cancel\t\tclose discarding changes", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
     myResetButton = new FXButton(buttonsFrame,  "reset\t\treset to previous values",  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    // create
+    create();
+    // show in the given position
+    show(PLACEMENT_SCREEN);
+    // open as modal dialog (will block all windows until stop() or stopModal() is called)
+    getApp()->runModalFor(this);
 }
 
 
@@ -73,13 +79,13 @@ GNEGeometryPointDialog::~GNEGeometryPointDialog() {
 
 
 long 
-GNEGeometryPointDialog::onCmdAccept(FXObject* sender, FXSelector sel, void* ptr) {
+GNEGeometryPointDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     return 1;
 }
 
 
 long 
-GNEGeometryPointDialog::onCmdCancel(FXObject* sender, FXSelector sel, void* ptr) {
+GNEGeometryPointDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     return 1;
 }
 
@@ -99,19 +105,6 @@ GNEGeometryPointDialog::onKeyPress(FXObject* sender, FXSelector sel, void* ptr) 
 long
 GNEGeometryPointDialog::onKeyRelease(FXObject* sender, FXSelector sel, void* ptr) {
     return FXTopWindow::onKeyRelease(sender, sel, ptr);
-}
-
-
-FXint
-GNEGeometryPointDialog::openAsModalDialog(FXuint placement) {
-    // create Dialog
-    create();
-    // show in the given position
-    show(placement);
-    // refresh APP
-    getApp()->refresh();
-    // open as modal dialog (will block all windows until stop() or stopModal() is called)
-    return getApp()->runModalFor(this);
 }
 
 /****************************************************************************/

@@ -19,6 +19,7 @@
 // A view on the network being edited (adapted from GUIViewTraffic)
 /****************************************************************************/
 #include <netbuild/NBEdgeCont.h>
+#include <netedit/dialogs/GNEGeometryPointDialog.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/network/GNEConnection.h>
@@ -1913,6 +1914,18 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
 
 long 
 GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
+    // get lane at popup position
+    GNELane* lane = getLaneAtPopupPosition();
+    // check if lane exist
+    if (lane == nullptr) {
+        return 0;
+    }
+    // get index position
+    const int index = lane->getParentEdge()->getNBEdge()->getGeometry().indexOfClosest(getPositionInformation());
+    // get new position
+    Position newPosition = lane->getParentEdge()->getNBEdge()->getGeometry()[index];
+    // edit using GNEGeometryPointDialog
+    GNEGeometryPointDialog(this, &newPosition);
     //
     return 1;
 }
