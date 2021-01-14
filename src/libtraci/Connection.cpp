@@ -203,23 +203,21 @@ Connection::createFilterCommand(int cmdID, int varID, tcpip::Storage* add) const
 
 
 void
-Connection::subscribeObjectVariable(int domID, const std::string& objID, double beginTime, double endTime,
-                                    const std::vector<int>& vars, const libsumo::TraCIResults& params) {
+Connection::subscribe(int domID, const std::string& objID, double beginTime, double endTime,
+    int domain, double range, const std::vector<int>& vars, const libsumo::TraCIResults& params) {
     if (!mySocket.has_client_connection()) {
         throw tcpip::SocketException("Socket is not initialised");
     }
     tcpip::Storage outMsg;
-    // command length (domID, objID, beginTime, endTime, length, vars)
-    const int numVars = (int) vars.size();
-    // command id
-    outMsg.writeUnsignedByte(domID);
-    // time
+    outMsg.writeUnsignedByte(domID); // command id
     outMsg.writeDouble(beginTime);
     outMsg.writeDouble(endTime);
-    // object id
     outMsg.writeString(objID);
-    // command id
-    if (numVars == 1 && vars.front() == -1) {
+    if (domain > -1) {
+        outMsg.writeUnsignedByte(domain);
+        outMsg.writeDouble(range);
+    }
+    if (vars.size() == 1 && vars.front() == -1) {
         if (domID == libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE) {
             // default for vehicles is edge id and lane position
             outMsg.writeUnsignedByte(2);
@@ -236,10 +234,10 @@ Connection::subscribeObjectVariable(int domID, const std::string& objID, double 
             outMsg.writeUnsignedByte(isDetector ? libsumo::LAST_STEP_VEHICLE_NUMBER : libsumo::TRACI_ID_LIST);
         }
     } else {
-        outMsg.writeUnsignedByte(numVars);
-        for (int i = 0; i < numVars; ++i) {
-            outMsg.writeUnsignedByte(vars[i]);
-            const auto& paramEntry = params.find(vars[i]);
+        outMsg.writeUnsignedByte((int)vars.size());
+        for (const int v : vars) {
+            outMsg.writeUnsignedByte(v);
+            const auto& paramEntry = params.find(v);
             if (paramEntry != params.end()) {
                 outMsg.writeStorage(*libsumo::StorageHelper::toStorage(*paramEntry->second));
             }
@@ -254,50 +252,14 @@ Connection::subscribeObjectVariable(int domID, const std::string& objID, double 
 
     tcpip::Storage inMsg;
     check_resultState(inMsg, domID);
-    if (numVars > 0) {
+    if (!vars.empty()) {
         const int responseID = check_commandGetResult(inMsg, domID);
-        readVariableSubscription(responseID, inMsg);
-    }
-}
-
-
-void
-Connection::subscribeObjectContext(int domID, const std::string& objID, double beginTime, double endTime,
-                                   int domain, double range, const std::vector<int>& vars, const libsumo::TraCIResults& params) {
-    if (!mySocket.has_client_connection()) {
-        throw tcpip::SocketException("Socket is not initialised");
-    }
-    tcpip::Storage outMsg;
-    // command length (domID, objID, beginTime, endTime, length, vars)
-    int varNo = (int) vars.size();
-    outMsg.writeUnsignedByte(0);
-    outMsg.writeInt(5 + 1 + 8 + 8 + 4 + (int) objID.length() + 1 + 8 + 1 + varNo);
-    // command id
-    outMsg.writeUnsignedByte(domID);
-    // time
-    outMsg.writeDouble(beginTime);
-    outMsg.writeDouble(endTime);
-    // object id
-    outMsg.writeString(objID);
-    // domain and range
-    outMsg.writeUnsignedByte(domain);
-    outMsg.writeDouble(range);
-    // command id
-    outMsg.writeUnsignedByte((int)vars.size());
-    for (int i = 0; i < varNo; ++i) {
-        outMsg.writeUnsignedByte(vars[i]);
-        const auto& paramEntry = params.find(vars[i]);
-        if (paramEntry != params.end()) {
-            outMsg.writeStorage(*libsumo::StorageHelper::toStorage(*paramEntry->second));
+        if (domain > -1) {
+            readContextSubscription(responseID, inMsg);
+        } else {
+            readVariableSubscription(responseID, inMsg);
         }
     }
-    // send message
-    mySocket.sendExact(outMsg);
-
-    tcpip::Storage inMsg;
-    check_resultState(inMsg, domID);
-    check_commandGetResult(inMsg, domID);
-    readContextSubscription(domID, inMsg);
 }
 
 

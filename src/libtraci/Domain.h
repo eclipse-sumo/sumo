@@ -36,7 +36,7 @@
 
 #define LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(CLASS, DOMAIN) \
 void CLASS::subscribe(const std::string& objectID, const std::vector<int>& varIDs, double begin, double end, const libsumo::TraCIResults& params) { \
-    libtraci::Connection::getActive().subscribeObjectVariable(libsumo::CMD_SUBSCRIBE_##DOMAIN##_VARIABLE, objectID, begin, end, varIDs, params); \
+    libtraci::Connection::getActive().subscribe(libsumo::CMD_SUBSCRIBE_##DOMAIN##_VARIABLE, objectID, begin, end, -1, -1, varIDs, params); \
 } \
 \
 void CLASS::unsubscribe(const std::string& objectID) { \
@@ -44,7 +44,7 @@ void CLASS::unsubscribe(const std::string& objectID) { \
 } \
 \
 void CLASS::subscribeContext(const std::string& objectID, int domain, double dist, const std::vector<int>& varIDs, double begin, double end, const libsumo::TraCIResults& params) { \
-    libtraci::Connection::getActive().subscribeObjectContext(libsumo::CMD_SUBSCRIBE_##DOMAIN##_CONTEXT, objectID, begin, end, domain, dist, varIDs, params); \
+    libtraci::Connection::getActive().subscribe(libsumo::CMD_SUBSCRIBE_##DOMAIN##_CONTEXT, objectID, begin, end, domain, dist, varIDs, params); \
 } \
 \
 void CLASS::unsubscribeContext(const std::string& objectID, int domain, double dist) { \
@@ -64,7 +64,7 @@ const libsumo::ContextSubscriptionResults CLASS::getAllContextSubscriptionResult
 } \
 \
 const libsumo::SubscriptionResults CLASS::getContextSubscriptionResults(const std::string& objectID) { \
-    return libtraci::Connection::getActive().getAllContextSubscriptionResults(libsumo::RESPONSE_SUBSCRIBE_##DOMAIN##_VARIABLE)[objectID]; \
+    return libtraci::Connection::getActive().getAllContextSubscriptionResults(libsumo::RESPONSE_SUBSCRIBE_##DOMAIN##_CONTEXT)[objectID]; \
 } \
 \
 void CLASS::subscribeParameterWithKey(const std::string& objectID, const std::string& key, double beginTime, double endTime) { \

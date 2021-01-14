@@ -498,7 +498,7 @@ Simulation::writeMessage(const std::string& msg) {
 
 void
 Simulation::subscribe(const std::vector<int>& varIDs, double begin, double end, const libsumo::TraCIResults& params) {
-    libtraci::Connection::getActive().subscribeObjectVariable(libsumo::CMD_SUBSCRIBE_SIM_VARIABLE, "", begin, end, varIDs, params);
+    libtraci::Connection::getActive().subscribe(libsumo::CMD_SUBSCRIBE_SIM_VARIABLE, "", begin, end, -1, -1, varIDs, params);
 }
 
 

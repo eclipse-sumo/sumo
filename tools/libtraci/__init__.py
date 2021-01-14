@@ -14,13 +14,40 @@
 # @author  Michael Behrisch
 # @date    2020-10-08
 
+import sys
 from functools import wraps
 from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation  # noqa
 from traci.connection import StepListener  # noqa
 from .libtraci import vehicle, simulation, person, trafficlight
 from .libtraci import *  # noqa
 from .libtraci import TraCIStage, TraCINextStopData, TraCIReservation, TraCILogic, TraCIPhase, TraCIException
-import sys
+
+_DOMAINS = [
+    busstop,  # noqa
+    calibrator,  # noqa
+    chargingstation,  # noqa
+    edge,  # noqa
+    # gui,  # noqa
+    inductionloop,  # noqa
+    junction,  # noqa
+    lanearea,  # noqa
+    lane,  # noqa
+    meandata,  # noqa
+    multientryexit,  # noqa
+    overheadwire,  # noqa
+    parkingarea,  # noqa
+    person,
+    poi,  # noqa
+    polygon,  # noqa
+    rerouter,  # noqa
+    route,  # noqa
+    routeprobe,  # noqa
+    simulation,
+    trafficlight,
+    variablespeedsign,  # noqa
+    vehicle,
+    vehicletype,  # noqa
+]
 
 hasGUI = simulation.hasGUI
 init = simulation.init
@@ -91,7 +118,11 @@ def setLegacyGetLeader(enabled):
 
 _libtraci_step = simulation.step
 def simulationStep(step=0):
-    result = _libtraci_step(step)
+    _libtraci_step(step)
+    result = []
+    for domain in _DOMAINS:
+        result += [(k, v) for k, v in domain.getAllSubscriptionResults().items()]
+        result += [(k, v) for k, v in domain.getAllContextSubscriptionResults().items()]
     _manageStepListeners(step)
     return result
 simulation.step = simulationStep

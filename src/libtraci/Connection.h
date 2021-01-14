@@ -101,27 +101,18 @@ public:
     void createFilterCommand(int cmdID, int varID, tcpip::Storage* add = nullptr) const;
 
 
-    /** @brief Sends a SubscribeVariable request
+    /** @brief Sends a SubscribeContext or a SubscribeVariable request
      * @param[in] domID The domain of the variable
      * @param[in] objID The object to subscribe the variables from
      * @param[in] beginTime The begin time step of subscriptions
      * @param[in] endTime The end time step of subscriptions
+     * @param[in] domain The domain of the objects which values shall be returned (-1 means variable subscription)
+     * @param[in] range The range around the obj to investigate (only meaningful for context subscription)
      * @param[in] vars The variables to subscribe
+     * @param[in] params map of variable ids to parameters if needed
      */
-    void subscribeObjectVariable(int domID, const std::string& objID, double beginTime, double endTime, const std::vector<int>& vars, const libsumo::TraCIResults& params);
-
-
-    /** @brief Sends a SubscribeContext request
-     * @param[in] domID The domain of the variable
-     * @param[in] objID The object to subscribe the variables from
-     * @param[in] beginTime The begin time step of subscriptions
-     * @param[in] endTime The end time step of subscriptions
-     * @param[in] domain The domain of the objects which values shall be returned
-     * @param[in] range The range around the obj to investigate
-     * @param[in] vars The variables to subscribe
-     */
-    void subscribeObjectContext(int domID, const std::string& objID, double beginTime, double endTime,
-                                int domain, double range, const std::vector<int>& vars, const libsumo::TraCIResults& params);
+    void subscribe(int domID, const std::string& objID, double beginTime, double endTime,
+                   int domain, double range, const std::vector<int>& vars, const libsumo::TraCIResults& params);
     /// @}
 
 
