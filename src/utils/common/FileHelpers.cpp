@@ -25,7 +25,6 @@
 // this is how fox does it in xincs.h
 #include <io.h>
 #define access _access
-#define stat _stat64
 #define R_OK    4       /* Test for read permission.  */
 #else
 #include <unistd.h>
@@ -61,8 +60,13 @@ FileHelpers::isReadable(std::string path) {
 
 bool
 FileHelpers::isDirectory(std::string path) {
+#ifdef _MSC_VER
+    struct _stat64 fileInfo;
+    if (_stat64(path.c_str(), &fileInfo) != 0) {
+#else
     struct stat fileInfo;
     if (stat(path.c_str(), &fileInfo) != 0) {
+#endif
         throw ProcessError("Cannot get file attributes for file '" + path + "'!");
     }
     return (fileInfo.st_mode & S_IFMT) == S_IFDIR;
