@@ -1142,9 +1142,9 @@ PositionVector::move2side(double amount, double maxExtension) {
                 shape.push_back(me - sideOffset(from, to, amount));
             } else if (fabs(extrapolateDev - 2 * me.distanceTo2D(to)) < POSITION_EPS) {
                 // counterparallel case, just shift the middle point
-                PositionVector fromMe(from, me);
-                fromMe.extrapolate2D(amount);
-                shape.push_back(fromMe[1]);
+                PositionVector fromMe2(from, me);
+                fromMe2.extrapolate2D(amount);
+                shape.push_back(fromMe2[1]);
             } else {
                 Position offsets = sideOffset(from, me, amount);
                 Position offsets2 = sideOffset(me, to, amount);
