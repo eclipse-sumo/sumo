@@ -132,7 +132,7 @@ GNEApplicationWindowHelper::ToolbarsGrip::destroyParentToolbarsGrips() {
 // ===========================================================================
 
 GNEApplicationWindowHelper::MenuBarFile::MenuBarFile(GNEApplicationWindow* GNEApp) :
-    myRecentNets(GNEApp->getApp(), "nets"),
+    myRecentNetsAndConfigs(GNEApp->getApp(), "nets"),
     myGNEApp(GNEApp)
 { }
 
@@ -140,37 +140,20 @@ GNEApplicationWindowHelper::MenuBarFile::MenuBarFile(GNEApplicationWindow* GNEAp
 void
 GNEApplicationWindowHelper::MenuBarFile::buildRecentFiles(FXMenuPane* fileMenu) {
     FXMenuSeparator* sep1 = new FXMenuSeparator(fileMenu);
-    sep1->setTarget(&myRecentConfigs);
     sep1->setSelector(FXRecentFiles::ID_ANYFILES);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentConfigs, FXRecentFiles::ID_FILE_1);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentConfigs, FXRecentFiles::ID_FILE_2);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentConfigs, FXRecentFiles::ID_FILE_3);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentConfigs, FXRecentFiles::ID_FILE_4);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentConfigs, FXRecentFiles::ID_FILE_5);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentConfigs, FXRecentFiles::ID_FILE_6);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentConfigs, FXRecentFiles::ID_FILE_7);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentConfigs, FXRecentFiles::ID_FILE_8);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentConfigs, FXRecentFiles::ID_FILE_9);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentConfigs, FXRecentFiles::ID_FILE_10);
-    GUIDesigns::buildFXMenuCommand(fileMenu, "Clear Recent Configurat&ions", nullptr, &myRecentConfigs, FXRecentFiles::ID_CLEAR);
-    myRecentConfigs.setTarget(myGNEApp);
-    myRecentConfigs.setSelector(MID_RECENTFILE);
-    FXMenuSeparator* sep2 = new FXMenuSeparator(fileMenu);
-    sep2->setTarget(&myRecentNets);
-    sep2->setSelector(FXRecentFiles::ID_ANYFILES);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNets, FXRecentFiles::ID_FILE_1);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNets, FXRecentFiles::ID_FILE_2);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNets, FXRecentFiles::ID_FILE_3);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNets, FXRecentFiles::ID_FILE_4);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNets, FXRecentFiles::ID_FILE_5);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNets, FXRecentFiles::ID_FILE_6);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNets, FXRecentFiles::ID_FILE_7);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNets, FXRecentFiles::ID_FILE_8);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNets, FXRecentFiles::ID_FILE_9);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNets, FXRecentFiles::ID_FILE_10);
-    GUIDesigns::buildFXMenuCommand(fileMenu, "Cl&ear Recent Networks", nullptr, &myRecentNets, FXRecentFiles::ID_CLEAR);
-    myRecentNets.setTarget(myGNEApp);
-    myRecentNets.setSelector(MID_RECENTFILE);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_1);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_2);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_3);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_4);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_5);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_6);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_7);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_8);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_9);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_10);
+    GUIDesigns::buildFXMenuCommand(fileMenu, "Cl&ear Recent Networks and Configurations", nullptr, &myRecentNetsAndConfigs, FXRecentFiles::ID_CLEAR);
+    myRecentNetsAndConfigs.setTarget(myGNEApp);
+    myRecentNetsAndConfigs.setSelector(MID_RECENTFILE);
 }
 
 // ---------------------------------------------------------------------------

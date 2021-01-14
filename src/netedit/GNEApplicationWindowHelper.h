@@ -114,11 +114,8 @@ struct GNEApplicationWindowHelper {
         /// @brief build recent files
         void buildRecentFiles(FXMenuPane* fileMenu);
 
-        /// @brief List of recent config files
-        FXRecentFiles myRecentConfigs;
-
-        /// @brief List of recent nets
-        FXRecentFiles myRecentNets;
+        /// @brief List of recent nets and config files
+        FXRecentFiles myRecentNetsAndConfigs;
 
     private:
         /// @brief pointer to current GNEApplicationWindow

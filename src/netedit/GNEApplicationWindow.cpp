@@ -499,9 +499,10 @@ GNEApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
         if (opendialog.execute()) {
             gCurrentFolder = opendialog.getDirectory();
             std::string file = opendialog.getFilename().text();
+            // load config
             loadConfigOrNet(file, false);
             // add it into recent configs
-            myMenuBarFile.myRecentConfigs.appendFile(file.c_str());
+            myMenuBarFile.myRecentNetsAndConfigs.appendFile(file.c_str());
         }
         return 1;
     }
@@ -525,9 +526,10 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
         if (opendialog.execute()) {
             gCurrentFolder = opendialog.getDirectory();
             std::string file = opendialog.getFilename().text();
+            // load network
             loadConfigOrNet(file, true);
             // add it into recent nets
-            myMenuBarFile.myRecentNets.appendFile(file.c_str());
+            myMenuBarFile.myRecentNetsAndConfigs.appendFile(file.c_str());
             // when a net is loaded, save additionals and TLSPrograms are disabled
             disableSaveAdditionalsMenu();
             myFileMenuCommands.saveTLSPrograms->disable();
@@ -673,8 +675,16 @@ GNEApplicationWindow::onCmdOpenRecent(FXObject* sender, FXSelector, void* fileDa
         myStatusbar->getStatusLine()->setText("Already loading!");
         return 1;
     } else {
+        // get filedata
         std::string file((const char*)fileData);
-        loadConfigOrNet(file, sender == &myMenuBarFile.myRecentNets);
+        // check if we're loading a network or a config (.netccfg for configs)
+        if (file.find(".netccfg") != std::string::npos) {
+            // load config
+            loadConfigOrNet(file, false);
+        } else {
+            // load network
+            loadConfigOrNet(file, true);
+        }
         return 1;
     }
 }
@@ -2169,7 +2179,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
         }
         myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Network saved in " + oc.getString("output-file") + ".\n");
         // After saveing a net sucesfully, add it into Recent Nets list.
-        myMenuBarFile.myRecentNets.appendFile(oc.getString("output-file").c_str());
+        myMenuBarFile.myRecentNetsAndConfigs.appendFile(oc.getString("output-file").c_str());
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
         return 1;
