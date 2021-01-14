@@ -1159,35 +1159,38 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         }
         double searchDist = timeToOvertake * opposite->getSpeedLimit() * 2 + spaceToOvertake;
         neighLead = opposite->getOppositeLeader(vehicle, searchDist, true);
-        while (neighLead.first != nullptr && neighLead.first->getLaneChangeModel().isOpposite()) {
-            searchDist -= (neighLead.first->getVehicleType().getLengthWithGap() + MAX2(0.0, neighLead.second));
+        // we keep neighLead (because it determines blocking on the neigh lane
+        // but also look for an oncoming leader to compute safety constraints
+        std::pair<MSVehicle*, double> neighOncoming = neighLead;
+        while (neighOncoming.first != nullptr && neighOncoming.first->getLaneChangeModel().isOpposite()) {
+            searchDist -= (neighOncoming.first->getVehicleType().getLengthWithGap() + MAX2(0.0, neighOncoming.second));
             if (searchDist < 0) {
                 break;
             }
             // leader is itself overtaking through the opposite side. find real oncoming vehicle
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
-                std::cout << SIMTIME << " neighLead=" << neighLead.first->getID() << " isOpposite gap=" << neighLead.second << " searchDist=" << searchDist << "\n";
+                std::cout << SIMTIME << " neighOncoming=" << neighOncoming.first->getID() << " isOpposite gap=" << neighOncoming.second << " searchDist=" << searchDist << "\n";
             }
 #endif
             // getOppositeLeader resets the search postion by ego length and may thus create cycles
-            neighLead = neighLead.first->getLane()->getFollower(neighLead.first, neighLead.first->getPositionOnLane(), searchDist, true);
+            neighOncoming = neighOncoming.first->getLane()->getFollower(neighOncoming.first, neighOncoming.first->getPositionOnLane(), searchDist, true);
         }
 
         // check for dangerous oncoming leader
-        if (neighLead.first != 0 && !neighLead.first->getLaneChangeModel().isOpposite()) {
-            const MSVehicle* oncoming = neighLead.first;
+        if (neighOncoming.first != 0 && !neighOncoming.first->getLaneChangeModel().isOpposite()) {
+            const MSVehicle* oncoming = neighOncoming.first;
             // conservative: assume that the oncoming vehicle accelerates to its maximum speed
             const double oncomingSpeed = oncoming->isStopped() ? 0 : oncoming->getLane()->getVehicleMaxSpeed(oncoming);
             const double safetyGap = ((oncomingSpeed + vehicle->getLane()->getVehicleMaxSpeed(vehicle))
                                       * vehicle->getCarFollowModel().getHeadwayTime()
                                       * OPPOSITE_OVERTAKING_SAFETYGAP_HEADWAY_FACTOR);
-            const double surplusGap = neighLead.second - spaceToOvertake - timeToOvertake * oncomingSpeed - safetyGap;
+            const double surplusGap = neighOncoming.second - spaceToOvertake - timeToOvertake * oncomingSpeed - safetyGap;
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
                 std::cout << SIMTIME
                           << " oncoming=" << oncoming->getID()
-                          << " oncomingGap=" << neighLead.second
+                          << " oncomingGap=" << neighOncoming.second
                           << " leaderGap=" << leader.second
                           << " safetyGap=" << safetyGap
                           << " surplusGap=" << surplusGap
