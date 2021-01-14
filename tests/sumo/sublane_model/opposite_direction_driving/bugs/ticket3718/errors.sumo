@@ -1,26 +1,17 @@
 Warning: Vehicle 'EW.15' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=240.80.
-Warning: Teleporting vehicle 'EW.18'; collision with vehicle 'EW.17', lane='center_0', gap=-3.06', latGap=-1.00, time=257.00 stage=laneChange.
+Warning: Teleporting vehicle 'EW.18'; collision with vehicle 'EW.17', lane='center_0', gap=-3.07', latGap=-1.00, time=257.00 stage=laneChange.
 Warning: Vehicle 'EW.18' ends teleporting on edge '-west', time 257.00.
-Warning: Teleporting vehicle 'EW.26'; collision with vehicle 'EW.27', lane='center_0', gap=-6.18', latGap=-1.00, time=304.20 stage=laneChange.
-Warning: Vehicle 'EW.26' ends teleporting on edge '-west', time 304.20.
-Warning: Vehicle 'EW.16' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=343.40.
-Warning: Teleporting vehicle 'EW.27'; frontal collision with vehicle 'WE.3', lane='center_0', gap=-12.42', latGap=-0.20, time=346.80 stage=move.
-Warning: Vehicle 'EW.27' ends teleporting on edge '-west', time 346.80.
-Warning: Vehicle 'EW.25' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=349.80.
-Warning: Teleporting vehicle 'EW.22'; collision with vehicle 'EW.25', lane='center_0', gap=-0.81', latGap=-1.04, time=361.40 stage=laneChange.
-Warning: Vehicle 'EW.22' ends teleporting on edge '-west', time 361.40.
-Warning: Vehicle 'EW.24' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=389.00.
-Warning: Teleporting vehicle 'EW.24'; collision with vehicle 'EW.20', lane='center_0', gap=-0.79', latGap=-0.92, time=389.00 stage=move.
-Warning: Vehicle 'EW.24' ends teleporting on edge '-west', time 389.00.
-Warning: Teleporting vehicle 'WE.6'; collision with vehicle 'EW.31', lane='center_0', gap=-1.14', latGap=-0.10, time=442.00 stage=move.
-Warning: Vehicle 'WE.6' ends teleporting on edge 'east', time 442.00.
-Warning: Vehicle 'EW.45' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=535.20.
-Warning: Teleporting vehicle 'EW.45'; collision with vehicle 'EW.39', lane='center_0', gap=-0.06', latGap=-0.96, time=535.20 stage=move.
-Warning: Vehicle 'EW.45' ends teleporting on edge '-west', time 535.20.
-Warning: Teleporting vehicle 'EW.33'; collision with vehicle 'EW.29', lane='center_0', gap=-3.38', latGap=-1.00, time=551.40 stage=laneChange.
-Warning: Vehicle 'EW.33' ends teleporting on edge '-west', time 551.40.
-Warning: Teleporting vehicle 'EW.35'; collision with vehicle 'EW.31', lane='center_0', gap=-2.01', latGap=-0.90, time=555.00 stage=laneChange.
-Warning: Vehicle 'EW.35' ends teleporting on edge '-west', time 555.00.
-Warning: Teleporting vehicle 'EW.36'; collision with vehicle 'EW.30', lane='center_0', gap=-0.84', latGap=-0.92, time=558.80 stage=laneChange.
-Warning: Vehicle 'EW.36' ends teleporting on edge '-west', time 558.80.
-Warning: Vehicle 'EW.44' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=575.20.
+Warning: Vehicle 'EW.16' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=343.80.
+Warning: Teleporting vehicle 'EW.36'; collision with vehicle 'EW.32', lane='center_0', gap=-1.92', latGap=-0.88, time=479.20 stage=laneChange.
+Warning: Vehicle 'EW.36' ends teleporting on edge '-west', time 479.20.
+Warning: Teleporting vehicle 'EW.43'; frontal collision with vehicle 'WE.7', lane='center_0', gap=-12.47', latGap=-1.80, time=532.00 stage=move.
+Warning: Vehicle 'EW.43' ends teleporting on edge '-west', time 532.00.
+Warning: Teleporting vehicle 'EW.45'; collision with vehicle 'EW.44', lane='center_0', gap=-0.64', latGap=-1.06, time=542.20 stage=laneChange.
+Warning: Vehicle 'EW.45' ends teleporting on edge '-west', time 542.20.
+Warning: Teleporting vehicle 'EW.31'; collision with vehicle 'EW.33', lane='center_0', gap=-1.97', latGap=-0.88, time=557.40 stage=laneChange.
+Warning: Vehicle 'EW.31' ends teleporting on edge '-west', time 557.40.
+Warning: Teleporting vehicle 'EW.35'; collision with vehicle 'EW.30', lane='center_0', gap=-0.61', latGap=-0.84, time=562.00 stage=laneChange.
+Warning: Vehicle 'EW.35' ends teleporting on edge '-west', time 562.00.
+Warning: Teleporting vehicle 'EW.30'; collision with vehicle 'EW.19', lane='center_0', gap=-1.73', latGap=-0.80, time=568.80 stage=laneChange.
+Warning: Vehicle 'EW.30' ends teleporting on edge '-west', time 568.80.
+Warning: Vehicle 'WE.8' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=667.40.
