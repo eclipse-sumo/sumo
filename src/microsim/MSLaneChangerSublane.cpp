@@ -732,9 +732,9 @@ MSLaneChangerSublane::checkChangeOpposite(
     } else {
         const double posOnTarget = backPosOnTarget - vehicle->getVehicleType().getLength();
         addLeaders(targetLane, vehicle, backPosOnTarget, neighFollowers);
-        neighFollowers.fixOppositeGaps();
+        neighFollowers.fixOppositeGaps(true);
         neighLeaders = targetLane->getFollowersOnConsecutive(vehicle, posOnTarget, true);
-        neighLeaders.fixOppositeGaps();
+        neighLeaders.fixOppositeGaps(false);
     }
 
 

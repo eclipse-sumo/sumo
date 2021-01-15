@@ -287,10 +287,16 @@ MSLeaderDistanceInfo::toString() const {
 }
 
 void
-MSLeaderDistanceInfo::fixOppositeGaps() {
+MSLeaderDistanceInfo::fixOppositeGaps(bool isFollower) {
     for (int i = 0; i < (int)myVehicles.size(); ++i) {
-        if (myVehicles[i] != nullptr && myVehicles[i]->getLaneChangeModel().isOpposite()) {
-            myDistances[i] -= myVehicles[i]->getVehicleType().getLength();
+        if (myVehicles[i] != nullptr) {
+            if (myVehicles[i]->getLaneChangeModel().isOpposite()) {
+                myDistances[i] -= myVehicles[i]->getVehicleType().getLength();
+            } else if (isFollower && myDistances[i] > POSITION_EPS) {
+                // can ignore oncoming followers once they are past
+                myVehicles[i] = nullptr;
+                myDistances[i] = -1;
+            }
         }
     }
 }

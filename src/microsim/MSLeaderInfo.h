@@ -169,7 +169,7 @@ public:
     }
 
     /// @brief subtract vehicle length from all gaps if the leader vehicle is driving in the opposite direction
-    void fixOppositeGaps();
+    void fixOppositeGaps(bool isFollower);
 
 protected:
 
