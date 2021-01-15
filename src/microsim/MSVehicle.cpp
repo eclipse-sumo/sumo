@@ -598,7 +598,7 @@ MSVehicle::Influencer::gapControlSpeed(SUMOTime currentTime, const SUMOVehicle* 
 #endif
             if (myGapControlState->tauCurrent == myGapControlState->tauTarget && myGapControlState->addGapCurrent == myGapControlState->addGapTarget) {
                 if (!myGapControlState->gapAttained) {
-                    // Check if the desired gap was established (add the POSITIONAL_EPS to avoid infinite asymptotic behavior without having established the gap)
+                    // Check if the desired gap was established (add the POSITION_EPS to avoid infinite asymptotic behavior without having established the gap)
                     myGapControlState->gapAttained = leaderInfo.first == nullptr ||  leaderInfo.second > MAX2(desiredTargetTimeSpacing, myGapControlState->addGapTarget) - POSITION_EPS;
 #ifdef DEBUG_TRACI
                     if DEBUG_COND2(veh) {
