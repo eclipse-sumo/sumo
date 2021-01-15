@@ -23,7 +23,6 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
 
 #include "GNEGeometryPointDialog.h"
 
@@ -182,6 +181,7 @@ GNEGeometryPointDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 
 GNEGeometryPointDialog::GNEGeometryPointDialog() :
+    myViewNet(nullptr),
     myOriginalPos(),
     myGeo(false) {
 }

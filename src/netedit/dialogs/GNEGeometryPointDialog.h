@@ -73,13 +73,13 @@ protected:
     GNEViewNet* myViewNet;
 
     /// @brief text field for X, Y
-    FXTextField* myTextFieldXY;
+    FXTextField* myTextFieldXY = nullptr;
 
     /// @brief text field for lon, Lat
-    FXTextField* myTextFieldLonLat;
+    FXTextField* myTextFieldLonLat = nullptr;
 
     /// @brief position to be edited
-    Position* myPos;
+    Position* myPos = nullptr;
 
     /// @brief original position (used for reset)
     const Position myOriginalPos;
@@ -89,13 +89,13 @@ protected:
 
 private:
     /// @brief accept button
-    FXButton* myAcceptButton;
+    FXButton* myAcceptButton = nullptr;
 
     /// @brief cancel button
-    FXButton* myCancelButton;
+    FXButton* myCancelButton = nullptr;
 
     /// @brief cancel button
-    FXButton* myResetButton;
+    FXButton* myResetButton = nullptr;
 
     /// @brief Invalidated copy constructor
     GNEGeometryPointDialog(const GNEGeometryPointDialog&) = delete;

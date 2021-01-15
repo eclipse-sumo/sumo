@@ -24,7 +24,6 @@
 #include <utils/xml/XMLSubSys.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/frames/GNEFrame.h>
 
 #include "GNEMultipleParametersDialog.h"
 
