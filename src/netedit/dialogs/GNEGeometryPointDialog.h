@@ -84,6 +84,9 @@ protected:
     /// @brief original position (used for reset)
     const Position myOriginalPos;
 
+    /// @brief flag for geo
+    const bool myGeo;
+
 private:
     /// @brief accept button
     FXButton* myAcceptButton;
