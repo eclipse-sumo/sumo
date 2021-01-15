@@ -2088,17 +2088,18 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 
 
 
-#ifdef DEBUG_PLAN_MOVE
-                    if (DEBUG_COND) {
-                        std::cout << SIMTIME << " opposite veh=" << getID() << " shadowLane=" << shadowLane->getID() << " latOffset=" << latOffset
-                            << " shadowLeaders=" << shadowLane->getLastVehicleInformation(this, latOffset, lane->getLength() - seen).toString()
-                            << "\n";
-                    }
-#endif
                 }
-                adaptToLeaders(shadowLane->getLastVehicleInformation(this, latOffset, lane->getLength() - seen),
-                               latOffset,
-                               seen, lastLink, shadowLane, v, vLinkPass);
+                MSLeaderInfo shadowLeaders = shadowLane->getLastVehicleInformation(this, latOffset, lane->getLength() - seen);
+#ifdef DEBUG_PLAN_MOVE
+                if (DEBUG_COND && myLaneChangeModel->isOpposite()) {
+                    std::cout << SIMTIME << " opposite veh=" << getID() << " shadowLane=" << shadowLane->getID() << " latOffset=" << latOffset << " shadowLeaders=" << shadowLeaders.toString() << "\n";
+                }
+#endif
+                if (myLaneChangeModel->isOpposite()) {
+                    // ignore oncoming vehicles on the shadow lane
+                    shadowLeaders.removeOpposite();
+                }
+                adaptToLeaders(shadowLeaders, latOffset, seen, lastLink, shadowLane, v, vLinkPass);
             }
         }
         // adapt to pedestrians on the same lane

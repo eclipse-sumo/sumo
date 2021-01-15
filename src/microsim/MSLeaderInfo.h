@@ -101,6 +101,9 @@ public:
     /// @brief whether a stopped vehicle is leader
     bool hasStoppedVehicle() const;
 
+    /// @brief remove vehicles that are driving in the opposite direction
+    void removeOpposite();
+
     /// @brief print a debugging representation
     virtual std::string toString() const;
 

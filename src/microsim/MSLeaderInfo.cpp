@@ -188,6 +188,15 @@ MSLeaderInfo::hasStoppedVehicle() const {
     return false;
 }
 
+void
+MSLeaderInfo::removeOpposite() {
+    for (int i = 0; i < (int)myVehicles.size(); ++i) {
+        if (myVehicles[i] != 0 && myVehicles[i]->getLaneChangeModel().isOpposite()) {
+            myVehicles[i] = nullptr;
+        }
+    }
+}
+
 // ===========================================================================
 // MSLeaderDistanceInfo member method definitions
 // ===========================================================================
