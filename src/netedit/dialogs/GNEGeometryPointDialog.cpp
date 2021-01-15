@@ -32,12 +32,11 @@
 // ===========================================================================
 
 FXDEFMAP(GNEGeometryPointDialog) GNEGeometryPointDialogMap[] = {
-    FXMAPFUNC(SEL_KEYPRESS,     0,                      GNEGeometryPointDialog::onKeyPress),
-    FXMAPFUNC(SEL_KEYRELEASE,   0,                      GNEGeometryPointDialog::onKeyRelease),
-    FXMAPFUNC(SEL_CLOSE,        0,                      GNEGeometryPointDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,      MID_GNE_SET_ATTRIBUTE,  GNEGeometryPointDialog::onCmdChangeGeometryPoint),
     FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_ACCEPT,  GNEGeometryPointDialog::onCmdAccept),
     FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_CANCEL,  GNEGeometryPointDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_RESET,   GNEGeometryPointDialog::onCmdReset),
+    FXMAPFUNC(SEL_CLOSE,        0,                      GNEGeometryPointDialog::onCmdCancel),
 };
 
 // Object abstract implementation
@@ -48,20 +47,28 @@ FXIMPLEMENT_ABSTRACT(GNEGeometryPointDialog, FXTopWindow, GNEGeometryPointDialog
 // ===========================================================================
 
 GNEGeometryPointDialog::GNEGeometryPointDialog(GNEViewNet* viewNet, Position* pos) :
-    FXTopWindow(viewNet, "Edit Geometry Point", GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), GUIDesignDialogBoxExplicit(100, 100)),
+    FXTopWindow(viewNet, "Geom. Point", GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), GUIDesignDialogBoxExplicit(100, 80)),
     myViewNet(viewNet),
     myPos(pos),
     myOriginalPos(*pos) {
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
+    // create frame for X,Y
+    FXHorizontalFrame* XYFrame = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(XYFrame, "X,Y", nullptr, GUIDesignLabelThick50);
+    myTextFieldXY = new FXTextField(XYFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create frame for lon,lat
+    FXHorizontalFrame* lonLatFrame = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(lonLatFrame, "lon,lat", nullptr, GUIDesignLabelThick50);
+    myTextFieldLonLat = new FXTextField(lonLatFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // Create frame for contents
     // myContentFrame = new FXVerticalFrame(mainFrame, GUIDesignContentsFrame);
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = new FXButton(buttonsFrame, "accept\t\tclose accepting changes",  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    myCancelButton = new FXButton(buttonsFrame, "cancel\t\tclose discarding changes", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    myResetButton = new FXButton(buttonsFrame,  "reset\t\treset to previous values",  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
+    myAcceptButton = new FXButton(buttonsFrame, "\t\tclose accepting changes",  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonCustomWidth(35));
+    myCancelButton = new FXButton(buttonsFrame, "\t\tclose discarding changes", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCustomWidth(35));
+    myResetButton = new FXButton(buttonsFrame,  "\t\treset to previous values",  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET, GUIDesignButtonCustomWidth(35));
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // create
     create();
@@ -79,32 +86,38 @@ GNEGeometryPointDialog::~GNEGeometryPointDialog() {
 
 
 long 
+GNEGeometryPointDialog::onCmdChangeGeometryPoint(FXObject* sender, FXSelector sel, void* ptr) {
+    //
+    return 1;
+}
+
+
+long 
 GNEGeometryPointDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+    // stop modal
+    getApp()->stopModal(this);
     return 1;
 }
 
 
 long 
 GNEGeometryPointDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+    // set original positions
+    myPos->setx(myOriginalPos.x());
+    myPos->sety(myOriginalPos.y());
+    // stop modal
+    getApp()->stopModal(this);
     return 1;
 }
 
 
 long
 GNEGeometryPointDialog::onCmdReset(FXObject*, FXSelector, void*) {
+    // set original positions
+    myPos->setx(myOriginalPos.x());
+    myPos->sety(myOriginalPos.y());
+
     return 1;
-}
-
-
-long
-GNEGeometryPointDialog::onKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
-    return FXTopWindow::onKeyPress(sender, sel, ptr);
-}
-
-
-long
-GNEGeometryPointDialog::onKeyRelease(FXObject* sender, FXSelector sel, void* ptr) {
-    return FXTopWindow::onKeyRelease(sender, sel, ptr);
 }
 
 /****************************************************************************/

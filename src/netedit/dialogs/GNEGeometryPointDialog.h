@@ -51,6 +51,9 @@ public:
 
     /// @name FOX-callbacks
     /// @{
+    /// @brief event after change position in TextFields
+    long onCmdChangeGeometryPoint(FXObject* sender, FXSelector sel, void* ptr);
+
     /// @brief event after press accept button
     long onCmdAccept(FXObject* sender, FXSelector sel, void* ptr);
 
@@ -60,12 +63,6 @@ public:
     /// @brief event after press cancel button
     long onCmdReset(FXObject*, FXSelector, void*);
 
-    /// @brief event after press a key
-    long onKeyPress(FXObject* sender, FXSelector sel, void* ptr);
-
-    /// @brief event after release a key
-    long onKeyRelease(FXObject* sender, FXSelector sel, void* ptr);
-
     /// @}
 
 protected:
@@ -74,6 +71,12 @@ protected:
 
     /// @brief viewNet
     GNEViewNet* myViewNet;
+
+    /// @brief text field for X, Y
+    FXTextField* myTextFieldXY;
+
+    /// @brief text field for lon, Lat
+    FXTextField* myTextFieldLonLat;
 
     /// @brief position to be edited
     Position* myPos;
