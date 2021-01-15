@@ -73,11 +73,10 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
         const bool hasNumber = attrs.hasAttribute(SUMO_ATTR_NUMBER);
         const bool hasBegin = attrs.hasAttribute(SUMO_ATTR_BEGIN);
         const bool hasEnd = attrs.hasAttribute(SUMO_ATTR_END);
-		SumoXMLAttr PERHOUR;
+		SumoXMLAttr PERHOUR = SUMO_ATTR_PERHOUR;
 		if (hasVPH) PERHOUR = SUMO_ATTR_VEHSPERHOUR;
 		if (hasPPH) PERHOUR = SUMO_ATTR_PERSONSPERHOUR;
 		if (hasCPH) PERHOUR = SUMO_ATTR_CONTAINERSPERHOUR;
-		if (hasPH) PERHOUR = SUMO_ATTR_PERHOUR;
 		if (hasXPH && !(hasVPH ^ hasPPH ^ hasCPH ^ hasPH)) {
 			return handleError(hardFail, abortCreation,
 							   "At most one of '" + attrs.getName(SUMO_ATTR_PERHOUR) + 
