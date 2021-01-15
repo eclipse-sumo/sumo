@@ -47,7 +47,7 @@ FXIMPLEMENT_ABSTRACT(GNEGeometryPointDialog, FXTopWindow, GNEGeometryPointDialog
 // ===========================================================================
 
 GNEGeometryPointDialog::GNEGeometryPointDialog(GNEViewNet* viewNet, Position* pos) :
-    FXTopWindow(viewNet, "Geom. Point", GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), GUIDesignDialogBoxExplicit(100, 80)),
+    FXTopWindow(viewNet, "Geometry Point", GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), GUIDesignDialogBoxExplicit(150, 80)),
     myViewNet(viewNet),
     myPos(pos),
     myOriginalPos(*pos) {
@@ -57,18 +57,25 @@ GNEGeometryPointDialog::GNEGeometryPointDialog(GNEViewNet* viewNet, Position* po
     FXHorizontalFrame* XYFrame = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(XYFrame, "X,Y", nullptr, GUIDesignLabelThick50);
     myTextFieldXY = new FXTextField(XYFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myTextFieldXY->setText(toString(*pos).c_str());
     // create frame for lon,lat
     FXHorizontalFrame* lonLatFrame = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(lonLatFrame, "lon,lat", nullptr, GUIDesignLabelThick50);
     myTextFieldLonLat = new FXTextField(lonLatFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // Create frame for contents
-    // myContentFrame = new FXVerticalFrame(mainFrame, GUIDesignContentsFrame);
+    // check if enable geo coordinates
+    if (GeoConvHelper::getFinal().getProjString() != "!") {
+        Position geoPos = *pos;
+        GeoConvHelper::getFinal().cartesian2geo(geoPos);
+        myTextFieldLonLat->setText(toString(geoPos).c_str());
+    } else {
+        myTextFieldLonLat->disable();
+    }
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = new FXButton(buttonsFrame, "\t\tclose accepting changes",  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonCustomWidth(35));
-    myCancelButton = new FXButton(buttonsFrame, "\t\tclose discarding changes", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCustomWidth(35));
-    myResetButton = new FXButton(buttonsFrame,  "\t\treset to previous values",  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET, GUIDesignButtonCustomWidth(35));
+    myAcceptButton = new FXButton(buttonsFrame, "\t\tclose accepting changes",  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonCustomWidth(43));
+    myCancelButton = new FXButton(buttonsFrame, "\t\tclose discarding changes", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCustomWidth(43));
+    myResetButton = new FXButton(buttonsFrame,  "\t\treset to previous values",  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET, GUIDesignButtonCustomWidth(43));
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // create
     create();
@@ -86,8 +93,45 @@ GNEGeometryPointDialog::~GNEGeometryPointDialog() {
 
 
 long 
-GNEGeometryPointDialog::onCmdChangeGeometryPoint(FXObject* sender, FXSelector sel, void* ptr) {
-    //
+GNEGeometryPointDialog::onCmdChangeGeometryPoint(FXObject* sender, FXSelector, void*) {
+    // check text field
+    if (sender == myTextFieldXY) {
+        // check if position can be parsed
+        if (GNEAttributeCarrier::canParse<Position>(myTextFieldXY->getText().text())) {
+            // set valid color and kill focus
+            myTextFieldXY->setTextColor(FXRGB(0, 0, 0));
+            myTextFieldXY->killFocus();
+            // obtain position
+            *myPos = GNEAttributeCarrier::parse<Position>(myTextFieldXY->getText().text());
+            // calculate geo position
+            Position geoPos = *myPos;
+            GeoConvHelper::getFinal().cartesian2geo(geoPos);
+            // set geo position in myTextFieldLonLat
+            myTextFieldLonLat->setText(toString(geoPos).c_str(), FALSE);
+            myTextFieldLonLat->setTextColor(FXRGB(0, 0, 0));
+        } else {
+            // set invalid color
+            myTextFieldXY->setTextColor(FXRGB(255, 0, 0));
+        }
+    } else {
+        // check if position can be parsed
+        if (GNEAttributeCarrier::canParse<Position>(myTextFieldLonLat->getText().text())) {
+            // set valid color and kill focus
+            myTextFieldLonLat->setTextColor(FXRGB(0, 0, 0));
+            myTextFieldLonLat->killFocus();
+            // obtain geo position
+            Position geoPo = GNEAttributeCarrier::parse<Position>(myTextFieldLonLat->getText().text());
+            // calculate cartesian position
+            *myPos = geoPo;
+            GeoConvHelper::getFinal().x2cartesian_const(*myPos);
+            // set geo position in myTextFieldXY
+            myTextFieldXY->setText(toString(*myPos).c_str(), FALSE);
+            myTextFieldXY->setTextColor(FXRGB(0, 0, 0));
+        } else {
+            // set invalid color
+            myTextFieldLonLat->setTextColor(FXRGB(255, 0, 0));
+        }
+    }
     return 1;
 }
 
@@ -102,9 +146,8 @@ GNEGeometryPointDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long 
 GNEGeometryPointDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // set original positions
-    myPos->setx(myOriginalPos.x());
-    myPos->sety(myOriginalPos.y());
+    // set original position
+    *myPos = myOriginalPos;
     // stop modal
     getApp()->stopModal(this);
     return 1;
@@ -113,10 +156,17 @@ GNEGeometryPointDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNEGeometryPointDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // set original positions
-    myPos->setx(myOriginalPos.x());
-    myPos->sety(myOriginalPos.y());
-
+    // set original position
+    *myPos = myOriginalPos;
+    // calculate geo position
+    Position geoPos = *myPos;
+    GeoConvHelper::getFinal().cartesian2geo(geoPos);
+    // set valid colors
+    myTextFieldXY->setTextColor(FXRGB(0, 0, 0));
+    myTextFieldLonLat->setTextColor(FXRGB(0, 0, 0));
+    // set text field
+    myTextFieldXY->setText(toString(*myPos).c_str(), FALSE);
+    myTextFieldLonLat->setText(toString(geoPos).c_str(), FALSE);
     return 1;
 }
 
