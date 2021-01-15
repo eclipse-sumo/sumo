@@ -19,6 +19,7 @@
 // A view on the network being edited (adapted from GUIViewTraffic)
 /****************************************************************************/
 #include <netbuild/NBEdgeCont.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNEGeometryPointDialog.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
@@ -1920,13 +1921,37 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
     if (lane == nullptr) {
         return 0;
     }
+    // make a copy of edge geometry
+    PositionVector edgeGeometry = lane->getParentEdge()->getNBEdge()->getGeometry();
     // get index position
-    const int index = lane->getParentEdge()->getNBEdge()->getGeometry().indexOfClosest(getPositionInformation());
+    const int index = edgeGeometry.indexOfClosest(getPositionInformation());
     // get new position
-    Position newPosition = lane->getParentEdge()->getNBEdge()->getGeometry()[index];
+    Position newPosition = edgeGeometry[index];
     // edit using GNEGeometryPointDialog
     GNEGeometryPointDialog(this, &newPosition);
-    //
+    // now check position
+    if (newPosition != edgeGeometry[index]) {
+        // update new position
+        edgeGeometry[index] = newPosition;
+        // begin undo list
+        myUndoList->p_begin("change Geometry Point position");
+        // continue depending of index
+        if (index == 0) {
+            // change shape start
+            myUndoList->p_add(new GNEChange_Attribute(lane->getParentEdge(), GNE_ATTR_SHAPE_START, toString(edgeGeometry.front())));
+        } else if (index == ((int)edgeGeometry.size() - 1)) {
+            // change shape end
+            myUndoList->p_add(new GNEChange_Attribute(lane->getParentEdge(), GNE_ATTR_SHAPE_END, toString(edgeGeometry.back())));
+        } else {
+            // remove front and back geometry points
+            edgeGeometry.pop_front();
+            edgeGeometry.pop_back();
+            // change shape
+            myUndoList->p_add(new GNEChange_Attribute(lane->getParentEdge(), SUMO_ATTR_SHAPE, toString(edgeGeometry)));
+        }
+        myUndoList->p_end();
+
+    }
     return 1;
 }
 
