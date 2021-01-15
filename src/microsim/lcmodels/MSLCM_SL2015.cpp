@@ -1244,11 +1244,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         // ensure that mySafeLatDistLeft / mySafeLatDistRight are up to date for the
         // subsquent check with laneOffset = 0
         const double center = myVehicle.getCenterOnEdge();
-        const double neighRight = (isOpposite()
-                ? myVehicle.getLane()->getRightSideOnEdge() - neighLane.getWidth()
-                : ((&myVehicle.getLane()->getEdge() == &neighLane.getEdge())
-                    ? neighLane.getRightSideOnEdge()
-                    : myVehicle.getLane()->getRightSideOnEdge() + myVehicle.getLane()->getWidth()));
+        const double neighRight = getNeighRight(neighLane);
         updateGaps(neighLeaders, neighRight, center, 1.0, mySafeLatDistRight, mySafeLatDistLeft);
         updateGaps(neighFollowers, neighRight, center, 1.0, mySafeLatDistRight, mySafeLatDistLeft);
         return ret;
@@ -2160,11 +2156,7 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double man
         return 0;
     }
 
-    const double neighRight = (isOpposite()
-        ? myVehicle.getLane()->getRightSideOnEdge() - neighLane.getWidth()
-        : ((&myVehicle.getLane()->getEdge() == &neighLane.getEdge())
-                ? neighLane.getRightSideOnEdge()
-                : myVehicle.getLane()->getRightSideOnEdge() + myVehicle.getLane()->getWidth()));
+    const double neighRight = getNeighRight(neighLane);
     if (!myCFRelatedReady) {
         updateCFRelated(leaders, myVehicle.getLane()->getRightSideOnEdge(), true);
         updateCFRelated(followers, myVehicle.getLane()->getRightSideOnEdge(), false);
@@ -2887,11 +2879,7 @@ MSLCM_SL2015::keepLatGap(int state,
 
     if (laneOffset != 0) {
         // maintain gaps to vehicles on the target lane
-        const double neighRight = (isOpposite()
-                ? myVehicle.getLane()->getRightSideOnEdge() - neighLane.getWidth()
-                : ((&myVehicle.getLane()->getEdge() == &neighLane.getEdge())
-                    ? neighLane.getRightSideOnEdge()
-                    : myVehicle.getLane()->getRightSideOnEdge() + myVehicle.getLane()->getWidth()));
+        const double neighRight = getNeighRight(neighLane);
         updateGaps(neighLeaders, neighRight, oldCenter, gapFactor, surplusGapRight, surplusGapLeft, true);
         updateGaps(neighFollowers, neighRight, oldCenter, gapFactor, surplusGapRight, surplusGapLeft, true, netOverlap);
     }
@@ -3612,6 +3600,18 @@ MSLCM_SL2015::getVehicleCenter() const {
         return myVehicle.getEdge()->getWidth() + myVehicle.getLane()->getWidth() * 0.5 - myVehicle.getLateralPositionOnLane();
     } else {
         return myVehicle.getCenterOnEdge();
+    }
+}
+
+double
+MSLCM_SL2015::getNeighRight(const MSLane& neighLane) const {
+    if (isOpposite()) {
+        return myVehicle.getLane()->getRightSideOnEdge() - neighLane.getWidth();
+    } else if ((&myVehicle.getLane()->getEdge() != &neighLane.getEdge())) {
+        return myVehicle.getLane()->getRightSideOnEdge() + myVehicle.getLane()->getWidth();
+    } else {
+        // the normal case
+        return neighLane.getRightSideOnEdge();
     }
 }
 

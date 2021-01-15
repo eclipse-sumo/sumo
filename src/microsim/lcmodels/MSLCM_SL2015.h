@@ -352,6 +352,9 @@ protected:
     /// @brief return vehicle position relative to the current edge (extend by another virtual lane for opposite-direction driving)
     double getVehicleCenter() const;
 
+    /// @brief return the right offset of the neighboring lane relative to the current edge
+    double getNeighRight(const MSLane& neighLane) const;
+
 protected:
     /// @brief a value for tracking the probability that a change to the right is beneficial
     double mySpeedGainProbabilityRight;
