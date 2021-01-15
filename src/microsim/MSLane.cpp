@@ -71,8 +71,8 @@
 //#define DEBUG_INSERTION
 //#define DEBUG_PLAN_MOVE
 //#define DEBUG_EXEC_MOVE
-//#define DEBUG_CONTEXT
-//#define DEBUG_OPPOSITE
+#define DEBUG_CONTEXT
+#define DEBUG_OPPOSITE
 //#define DEBUG_VEHICLE_CONTAINER
 //#define DEBUG_COLLISIONS
 //#define DEBUG_JUNCTION_COLLISIONS
@@ -3678,8 +3678,9 @@ MSLane::getFollower(const MSVehicle* ego, double egoPos, double dist, bool ignor
     if (dist > 0 && backOffset > dist) {
         return std::make_pair(nullptr, -1);
     }
-    CLeaderDist result = getFollowersOnConsecutive(ego, backOffset, true,  dist, ignoreMinorLinks)[0];
-    return std::make_pair(const_cast<MSVehicle*>(result.first), result.first == nullptr ? -1 : result.second);
+    const MSLeaderDistanceInfo followers = getFollowersOnConsecutive(ego, backOffset, true,  dist, ignoreMinorLinks);
+    CLeaderDist result = followers.getClosest();
+    return std::make_pair(const_cast<MSVehicle*>(result.first), result.second);
 }
 
 std::pair<MSVehicle* const, double>

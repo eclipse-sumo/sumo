@@ -1277,6 +1277,12 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         leader.second = gap;
         // -1 will use getMaximumBrakeDist() as look-ahead distance
         neighLead = opposite->getOppositeLeader(vehicle, -1, false);
+#ifdef DEBUG_CHANGE_OPPOSITE
+        if (DEBUG_COND) {
+            std::cout << "    leaderOnSource=" << Named::getIDSecure(leader.first) << " gap=" << leader.second << "\n";
+            std::cout << "    leaderOnTarget=" << Named::getIDSecure(neighLead.first) << " gap=" << neighLead.second << "\n";
+        }
+#endif
     } else {
         timeToOvertake = STEPS2TIME(vehicle->getInfluencer().getLaneTimeLineDuration());//todo discuss concept
         spaceToOvertake =  timeToOvertake * vehicle->getLane()->getVehicleMaxSpeed(vehicle);
