@@ -180,4 +180,10 @@ GNEGeometryPointDialog::onCmdReset(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+
+GNEGeometryPointDialog::GNEGeometryPointDialog() :
+    myOriginalPos(),
+    myGeo(false) {
+}
+
 /****************************************************************************/

@@ -67,7 +67,7 @@ public:
 
 protected:
     /// @brief FOX need this
-    FOX_CONSTRUCTOR(GNEGeometryPointDialog)
+    GNEGeometryPointDialog();
 
     /// @brief viewNet
     GNEViewNet* myViewNet;
