@@ -3359,7 +3359,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                 if ((*it).length < searchDist) {
                     const std::vector<MSLane::IncomingLaneInfo>& followers = next->getIncomingLanes();
                     for (std::vector<MSLane::IncomingLaneInfo>::const_iterator j = followers.begin(); j != followers.end(); ++j) {
-                        if (visited.find((*j).lane) == visited.end() && ((*j).viaLink->havePriority() || !ignoreMinorLinks)) {
+                        if (visited.find((*j).lane) == visited.end() && (((*j).viaLink->havePriority() && !(*j).viaLink->isTurnaround()) || !ignoreMinorLinks)) {
                             visited.insert((*j).lane);
                             MSLane::IncomingLaneInfo ili;
                             ili.lane = (*j).lane;
