@@ -2049,8 +2049,15 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             // find opposite-driving leader that must be respected on the currently looked at lane
             // XXX make sure to look no further than leaderLane
             CLeaderDist leader = leaderLane->getOppositeLeader(this, getPositionOnLane(), true);
+#ifdef DEBUG_PLAN_MOVE
+            if (DEBUG_COND) {
+                std::cout << "   oppositeLeader=" << Named::getIDSecure(leader.first) << " gap=" << leader.second << "\n";
+            }
+#endif
             ahead.clear();
-            if (leader.first != 0 && leader.first->getLane() == leaderLane && leader.first->myLaneChangeModel->isOpposite()) {
+            if (leader.first != 0
+                    && ((leader.first->myLaneChangeModel->isOpposite() && leader.first->getLane() == leaderLane)
+                        || (!leader.first->myLaneChangeModel->isOpposite() && leader.first->getLaneChangeModel().getShadowLane() == leaderLane))) {
                 ahead.addLeader(leader.first, true);
             }
         }
@@ -2603,9 +2610,11 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
                           ? predBack - myState.myPos - getVehicleType().getMinGap()
                           : predBack + seen - lane->getLength() - getVehicleType().getMinGap());
             if (myLaneChangeModel->isOpposite()) {
-                if (pred->getLaneChangeModel().isOpposite()) {
+                if (pred->getLaneChangeModel().isOpposite() || lane == pred->getLaneChangeModel().getShadowLane()) {
+                    // ego might and leader are driving against lane
                     gap = myState.myPos - predBack - getVehicleType().getMinGap();
-                } else if (lastLink == nullptr) {
+                } else {
+                    // ego and leader are driving in the same direction as lane (shadowlane for ego)
                     gap = predBack - (myLane->getLength() - myState.myPos) - getVehicleType().getMinGap();
                 }
             }
