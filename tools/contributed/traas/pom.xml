@@ -96,6 +96,7 @@
                     <include>LICENSE</include>
                     <include>NOTICE.md</include>
                 </includes>
+                <targetPath>META-INF</targetPath>
             </resource>
         </resources>
     </build>
