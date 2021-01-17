@@ -1,0 +1,3 @@
+[run_dependent_text]
+errors:UserWarning{LINES 2}
+output:legacy getNextStops

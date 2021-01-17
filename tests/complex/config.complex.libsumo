@@ -5,6 +5,7 @@ errors:Requested command not implemented
 output:***Starting server on port
 output:TraCI {REPLACE Libsumo }
 output:via Libsumo {REPLACE }
+output:legacy getNextStops
 log:Error: Answered with error to command 0x[0-9a-f]*:
 log:***Starting server on port
 log:TraCI {REPLACE Libsumo }
