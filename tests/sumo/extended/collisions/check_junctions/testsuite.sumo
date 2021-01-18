@@ -2,3 +2,6 @@ basic
 
 # stop after collision
 stoptime
+
+# collider stop position should not be moved back too far
+slow_collider
