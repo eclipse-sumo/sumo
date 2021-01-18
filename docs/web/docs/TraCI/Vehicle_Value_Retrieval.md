@@ -689,6 +689,8 @@ call](../TraCI/GenericParameters.md#get_parameter).
 - device.battery.maximumBatteryCapacity
 - device.battery.chargingStationId
 - device.battery.vehicleMass
+- device.battery.totalEnergyConsumed
+- device.battery.totalEnergyRegenerated
 - device.person.IDList
 - device.container.IDList
 - device.rerouting.period (returns individual rerouting period in
