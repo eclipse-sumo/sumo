@@ -22,26 +22,9 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <string>
-#include <iostream>
-#include <xercesc/sax/HandlerBase.hpp>
-#include <xercesc/sax/AttributeList.hpp>
-#include <xercesc/sax/SAXParseException.hpp>
-#include <xercesc/sax/SAXException.hpp>
 #include "NIXMLConnectionsHandler.h"
-#include <netbuild/NBEdge.h>
-#include <netbuild/NBEdgeCont.h>
-#include <netbuild/NBNodeCont.h>
-#include <netbuild/NBTrafficLightLogicCont.h>
-#include <netbuild/NBNode.h>
 #include <netbuild/NBNetBuilder.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/common/ToString.h>
-#include <utils/common/StringUtils.h>
-#include <utils/common/UtilExceptions.h>
-#include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 
 

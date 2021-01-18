@@ -22,15 +22,10 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <cstdlib>
 #include <fstream>
 #include <sstream>
-#include <string>
-#include <vector>
 #include "PHEMCEPHandler.h"
-#include "PHEMConstants.h"
 #include <utils/options/OptionsCont.h>
-#include <utils/common/UtilExceptions.h>
 
 // ===========================================================================
 // method definitions

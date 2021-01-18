@@ -21,23 +21,9 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <string>
-#include <iterator>
-#include <algorithm>
-#include <utils/common/StringUtils.h>
-#include <utils/common/ToString.h>
-#include <utils/common/Named.h>
-#include <utils/common/StringUtils.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/RandHelper.h>
-#include <utils/iodevices/OutputDevice.h>
-#include <utils/options/OptionsCont.h>
 #include "ROEdge.h"
-#include "RORoute.h"
-#include <utils/router/SUMOAbstractRouter.h>
 #include <utils/router/RouteCostCalculator.h>
 #include "RORouteDef.h"
-#include "ROVehicle.h"
 
 // ===========================================================================
 // static members

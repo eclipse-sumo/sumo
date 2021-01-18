@@ -20,14 +20,8 @@
 /****************************************************************************/
 #include <config.h>
 #include "NWWriter_MATSim.h"
-#include <utils/common/MsgHandler.h>
-#include <netbuild/NBEdge.h>
-#include <netbuild/NBEdgeCont.h>
-#include <netbuild/NBNode.h>
-#include <netbuild/NBNodeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/iodevices/OutputDevice.h>
 
 
 

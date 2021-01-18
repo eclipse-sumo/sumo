@@ -22,21 +22,11 @@
 #include <config.h>
 
 
-#include <map>
-#include <string>
-#include <cassert>
-#include <utils/geom/GeomHelper.h>
-#include <utils/geom/Boundary.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/ToString.h>
 #include "NIVissimConnection.h"
-#include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBLoadedTLDef.h>
-#include "NIVissimDisturbance.h"
-#include "NIVissimNodeDef.h"
-#include "NIVissimEdge.h"
 #include "NIVissimTL.h"
 
 

@@ -20,8 +20,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <iostream>
-#include "../NIImporter_Vissim.h"
 #include "NIVissimSingleTypeParser_Fahrverhaltendefinition.h"
 
 

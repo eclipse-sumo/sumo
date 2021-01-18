@@ -20,7 +20,6 @@
 /// @note    based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 /****************************************************************************/
 #include <cfloat>
-#include <cmath>
 #include "Element.h"
 #include "Node.h"
 

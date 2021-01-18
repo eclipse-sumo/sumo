@@ -22,22 +22,9 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <fstream>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/foxtools/MFXUtils.h>
-#include <utils/foxtools/MFXIconComboBox.h>
-#include <utils/foxtools/MFXAddEditTypedTable.h>
-#include <utils/common/RGBColor.h>
-#include <utils/common/ToString.h>
-#include <utils/common/StringUtils.h>
-#include <utils/common/StringUtils.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/importio/LineReader.h>
-#include <utils/iodevices/OutputDevice.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include "GUIDialog_EditViewport.h"
 #include "GUIDialog_ViewSettings.h"

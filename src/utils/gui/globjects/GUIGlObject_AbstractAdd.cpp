@@ -22,10 +22,6 @@
 #include <config.h>
 
 #include "GUIGlObject_AbstractAdd.h"
-#include <cassert>
-#include <iostream>
-#include <algorithm>
-#include <utils/gui/div/GLHelper.h>
 
 
 // ===========================================================================

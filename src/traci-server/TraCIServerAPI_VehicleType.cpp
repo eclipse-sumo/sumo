@@ -24,11 +24,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <limits>
-#include <utils/emissions/PollutantsInterface.h>
-#include <microsim/MSNet.h>
-#include <microsim/MSVehicleType.h>
-#include <libsumo/TraCIConstants.h>
 #include <libsumo/VehicleType.h>
 #include "TraCIServerAPI_VehicleType.h"
 

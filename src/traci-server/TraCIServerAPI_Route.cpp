@@ -21,11 +21,7 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <microsim/MSNet.h>
-#include <microsim/MSRoute.h>
-#include <microsim/MSEdge.h>
 #include <libsumo/Route.h>
-#include <libsumo/TraCIConstants.h>
 #include "TraCIServerAPI_Route.h"
 
 

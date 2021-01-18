@@ -19,11 +19,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <fx.h>
-#include <cassert>
-#include <utils/options/OptionsCont.h>
-#include <utils/common/ToString.h>
-#include <utils/common/MsgHandler.h>
 
 #include "GUITextureSubSys.h"
 

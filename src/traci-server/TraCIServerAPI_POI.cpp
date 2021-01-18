@@ -23,11 +23,7 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <microsim/MSNet.h>
-#include <utils/shapes/PointOfInterest.h>
-#include <utils/shapes/ShapeContainer.h>
 #include <libsumo/POI.h>
-#include <libsumo/TraCIConstants.h>
 #include "TraCIServerAPI_POI.h"
 
 

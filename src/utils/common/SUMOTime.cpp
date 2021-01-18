@@ -21,13 +21,9 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <sstream>
-#include <iostream>
-#include <iomanip>
 #include "SUMOTime.h"
 #include "StringTokenizer.h"
 #include "StringUtils.h"
-#include "StdDefs.h"
 #include "MsgHandler.h"
 
 

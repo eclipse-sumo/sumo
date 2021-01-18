@@ -21,9 +21,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <string>
-#include <vector>
-#include <iostream> // !!! debug only
 
 #include "UtilExceptions.h"
 #include "StringTokenizer.h"

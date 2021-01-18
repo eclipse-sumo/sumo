@@ -21,13 +21,7 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <string>
-#include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/SystemFrame.h>
-#include <utils/common/SysUtils.h>
-#include <utils/iodevices/OutputDevice.h>
 #include <netbuild/NBNetBuilder.h>
 #include "NWFrame.h"
 #include "NWWriter_SUMO.h"

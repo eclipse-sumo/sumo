@@ -22,12 +22,6 @@
 #include <config.h>
 
 
-#include <map>
-#include <cassert>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/ToString.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/geom/GeoConvHelper.h>
 #include <netbuild/NBNetBuilder.h>
 #include "NIVissimAbstractEdge.h"
 

@@ -22,22 +22,8 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <string>
-#include <iostream>
-#include <xercesc/sax/HandlerBase.hpp>
-#include <xercesc/sax/AttributeList.hpp>
-#include <xercesc/sax/SAXParseException.hpp>
-#include <xercesc/sax/SAXException.hpp>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/StringUtils.h>
-#include <utils/common/ToString.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/geom/GeoConvHelper.h>
-#include <netbuild/NBNodeCont.h>
-#include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBOwnTLDef.h>
 #include <netbuild/NBNetBuilder.h>
 #include "NIXMLNodesHandler.h"

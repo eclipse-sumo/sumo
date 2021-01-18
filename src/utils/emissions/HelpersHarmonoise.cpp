@@ -23,8 +23,6 @@
 
 #include "PollutantsInterface.h"
 #include "HelpersHarmonoise.h"
-#include <limits>
-#include <cmath>
 
 
 // ===========================================================================

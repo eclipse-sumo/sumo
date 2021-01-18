@@ -23,8 +23,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
-#include <utils/common/ToString.h>
-#include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
 
 #include "SUMOVehicleParameter.h"

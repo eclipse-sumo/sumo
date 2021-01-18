@@ -23,22 +23,12 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <iostream>
-#include <utility>
-#include <cmath>
-#include <cassert>
-#include <limits>
 #include <fxkeys.h>
 #ifdef HAVE_GL2PS
 #include <gl2ps.h>
 #endif
 #include <utils/foxtools/FXSingleEventThread.h>
-#include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/foxtools/MFXImageHelper.h>
-#include <utils/common/RGBColor.h>
-#include <utils/common/ToString.h>
-#include <utils/common/StringUtils.h>
-#include <utils/common/MsgHandler.h>
 #include <utils/common/SysUtils.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -46,16 +36,10 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/shapes/PointOfInterest.h>
-#include <utils/gui/globjects/GUIPointOfInterest.h>
-#include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
-#include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <foreign/fontstash/fontstash.h>
 
 #include "GUISUMOAbstractView.h"

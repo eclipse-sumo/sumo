@@ -30,7 +30,6 @@
 #include <utils/common/StdDefs.h>
 #include "MFXInterThreadEventClient.h"
 #include "FXSingleEventThread.h"
-#include "fxexdefs.h"
 #ifndef WIN32
 #include <pthread.h>
 #include <stdlib.h>
@@ -38,7 +37,6 @@
 #else
 #include <process.h>
 #endif
-#include <chrono>
 #include <thread>
 
 #ifndef WIN32

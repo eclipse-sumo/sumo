@@ -21,8 +21,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <limits>
-#include <cmath>
 #ifdef INTERNAL_PHEM
 #include "PHEMCEPHandler.h"
 #include "PHEMConstants.h"

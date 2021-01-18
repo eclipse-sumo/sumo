@@ -22,16 +22,9 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <vector>
-#include <utils/common/StringUtils.h>
-#include <utils/common/ToString.h>
-#include <utils/common/RGBColor.h>
-#include <utils/common/MsgHandler.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
-#include <utils/foxtools/MFXImageHelper.h>
 #include <utils/xml/SUMOSAXReader.h>
 #include <utils/xml/XMLSubSys.h>
 #include "GUISettingsHandler.h"

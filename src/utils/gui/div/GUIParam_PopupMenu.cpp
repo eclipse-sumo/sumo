@@ -20,14 +20,9 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <iostream>
-#include <string>
 #include "GUIParameterTableWindow.h"
-#include <utils/gui/globjects/GUIGlObject.h>
 #include "GUIParam_PopupMenu.h"
 #include <utils/gui/tracker/GUIParameterTracker.h>
-#include <utils/gui/tracker/TrackerValueDesc.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 
 

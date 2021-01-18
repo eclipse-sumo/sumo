@@ -20,11 +20,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <iostream>
-#include <utils/common/StringUtils.h>
-#include <utils/common/ToString.h>
-#include <utils/common/VectorHelper.h>
-#include "../NIImporter_Vissim.h"
 #include "../tempstructs/NIVissimVehTypeClass.h"
 #include "NIVissimSingleTypeParser_Fahrzeugklassendefinition.h"
 

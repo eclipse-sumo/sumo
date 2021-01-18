@@ -20,9 +20,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <limits>
-#include <cmath>
-#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/ToString.h>
 #include "HelpersHBEFA.h"
 #include "HelpersHBEFA3.h"

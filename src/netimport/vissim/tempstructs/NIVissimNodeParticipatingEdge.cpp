@@ -20,8 +20,6 @@
 #include <config.h>
 
 
-#include "NIVissimEdge.h"
-#include "NIVissimConnection.h"
 #include "NIVissimNodeParticipatingEdge.h"
 
 

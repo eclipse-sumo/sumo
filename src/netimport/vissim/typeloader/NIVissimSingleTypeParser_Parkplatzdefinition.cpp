@@ -20,17 +20,8 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <iostream>
 #include <vector>
-#include <utility>
-#include <utils/common/StringUtils.h>
-#include <utils/common/ToString.h>
-#include <utils/common/VectorHelper.h>
 #include <netbuild/NBDistrictCont.h>
-#include <netbuild/NBDistrict.h>
-#include <netbuild/NBNode.h>
-#include <netbuild/NBNodeCont.h>
-#include "../NIImporter_Vissim.h"
 #include "../tempstructs/NIVissimDistrictConnection.h"
 #include "NIVissimSingleTypeParser_Parkplatzdefinition.h"
 

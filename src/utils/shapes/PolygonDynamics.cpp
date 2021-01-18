@@ -22,8 +22,6 @@
 #include "PolygonDynamics.h"
 
 #include <assert.h>
-#include "utils/common/StdDefs.h"
-#include "utils/common/SUMOTime.h"
 #include "utils/vehicle/SUMOTrafficObject.h"
 
 

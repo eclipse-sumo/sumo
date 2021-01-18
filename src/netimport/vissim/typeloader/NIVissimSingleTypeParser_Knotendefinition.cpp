@@ -20,16 +20,7 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <iostream>
-#include <utils/common/StringUtils.h>
-#include <utils/geom/Position.h>
-#include <utils/geom/PositionVector.h>
-#include "../NIImporter_Vissim.h"
-#include "../tempstructs/NIVissimNodeParticipatingEdge.h"
-#include "../tempstructs/NIVissimNodeParticipatingEdgeVector.h"
-#include "../tempstructs/NIVissimNodeDef_Edges.h"
 #include "../tempstructs/NIVissimNodeDef_Poly.h"
-#include "../tempstructs/NIVissimNodeDef.h"
 #include "NIVissimSingleTypeParser_Knotendefinition.h"
 
 

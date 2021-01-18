@@ -21,9 +21,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <string>
-#include <iostream>
-#include <sstream>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/StringTokenizer.h>

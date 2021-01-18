@@ -19,21 +19,9 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <string>
-#include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/StringUtils.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/common/RGBColor.h>
-#include <utils/geom/GeomConvHelper.h>
-#include <utils/iodevices/OutputDevice.h>
-#include <utils/common/UtilExceptions.h>
-#include <utils/geom/GeoConvHelper.h>
-#include <utils/gui/globjects/GUIGlObjectTypes.h>
 
-#include "Shape.h"
 #include "ShapeContainer.h"
 #include "ShapeHandler.h"
 

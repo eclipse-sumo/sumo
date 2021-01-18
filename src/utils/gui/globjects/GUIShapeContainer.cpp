@@ -22,7 +22,6 @@
 #include <config.h>
 
 #include "GUIShapeContainer.h"
-#include <utils/common/MsgHandler.h>
 #include <utils/shapes/PolygonDynamics.h>
 #include <foreign/rtree/SUMORTree.h>
 #include <utils/gui/globjects/GUIPolygon.h>

@@ -20,14 +20,8 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <iostream>
-#include <utils/geom/Position.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/common/StringUtils.h>
-#include <utils/common/ToString.h>
 #include <utils/distribution/Distribution_Points.h>
 #include <utils/distribution/DistributionCont.h>
-#include "../NIImporter_Vissim.h"
 #include "NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition.h"
 
 

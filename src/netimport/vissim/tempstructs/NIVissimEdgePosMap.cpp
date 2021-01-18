@@ -20,7 +20,6 @@
 #include <config.h>
 
 
-#include <map>
 #include "NIVissimEdgePosMap.h"
 
 

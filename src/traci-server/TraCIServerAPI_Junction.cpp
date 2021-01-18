@@ -23,7 +23,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <microsim/MSJunctionControl.h>
 #include "TraCIServer.h"
 #include <libsumo/Junction.h>
 #include "TraCIServerAPI_Junction.h"

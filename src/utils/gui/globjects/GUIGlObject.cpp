@@ -22,16 +22,10 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <string>
-#include <stack>
-#include <utils/common/ToString.h>
 #include <utils/geom/GeoConvHelper.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/foxtools/MFXMenuHeader.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>

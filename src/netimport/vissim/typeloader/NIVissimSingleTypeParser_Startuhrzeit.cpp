@@ -20,9 +20,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <iostream>
-#include <utils/common/StringUtils.h>
-#include "../NIImporter_Vissim.h"
 #include "NIVissimSingleTypeParser_Startuhrzeit.h"
 
 

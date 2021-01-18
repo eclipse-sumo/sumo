@@ -24,12 +24,9 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <utils/common/StdDefs.h>
 #include <microsim/MSNet.h>
-#include <utils/shapes/ShapeContainer.h>
 #include <libsumo/Polygon.h>
 #include <libsumo/Helper.h>
-#include <libsumo/TraCIConstants.h>
 #include "TraCIServerAPI_Polygon.h"
 
 

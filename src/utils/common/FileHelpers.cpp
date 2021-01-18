@@ -20,7 +20,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <string>
 #ifdef WIN32
 // this is how fox does it in xincs.h
 #include <io.h>
@@ -29,11 +28,7 @@
 #else
 #include <unistd.h>
 #endif
-#include <fstream>
-#include <sys/stat.h>
 #include "FileHelpers.h"
-#include "StringTokenizer.h"
-#include "MsgHandler.h"
 
 
 // ===========================================================================

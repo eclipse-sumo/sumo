@@ -20,11 +20,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <iostream>
-#include <utils/geom/PositionVector.h>
-#include <utils/common/StringUtils.h>
-#include "../NIImporter_Vissim.h"
-#include "../tempstructs/NIVissimConnection.h"
 #include "NIVissimSingleTypeParser_Verbindungsdefinition.h"
 
 

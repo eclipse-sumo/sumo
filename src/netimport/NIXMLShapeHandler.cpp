@@ -19,7 +19,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <utils/geom/Position.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <netbuild/NBEdgeCont.h>

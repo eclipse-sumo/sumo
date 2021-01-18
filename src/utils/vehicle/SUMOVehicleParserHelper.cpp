@@ -28,8 +28,6 @@
 #include <utils/common/RandHelper.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
-#include <utils/common/ToString.h>
-#include <utils/common/UtilExceptions.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>

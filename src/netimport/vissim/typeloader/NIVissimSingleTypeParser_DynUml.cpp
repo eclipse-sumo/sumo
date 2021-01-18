@@ -20,10 +20,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <iostream>
-#include <vector>
-#include <utils/common/StringUtils.h>
-#include "../NIImporter_Vissim.h"
 #include "NIVissimSingleTypeParser_DynUml.h"
 
 

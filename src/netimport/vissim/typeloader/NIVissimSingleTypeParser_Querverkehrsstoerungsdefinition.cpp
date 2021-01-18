@@ -21,11 +21,7 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <iostream>
-#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
-#include "../NIImporter_Vissim.h"
-#include "../tempstructs/NIVissimExtendedEdgePoint.h"
 #include "../tempstructs/NIVissimDisturbance.h"
 #include "NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition.h"
 

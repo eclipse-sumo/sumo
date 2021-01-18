@@ -19,16 +19,8 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <utils/common/StringTokenizer.h>
 #include <microsim/transportables/MSTransportableControl.h>
-#include <microsim/MSVehicleControl.h>
-#include <microsim/transportables/MSPerson.h>
-#include <microsim/MSNet.h>
-#include <microsim/MSEdge.h>
 #include <libsumo/Person.h>
-#include <libsumo/TraCIConstants.h>
-#include <libsumo/VehicleType.h>
-#include "TraCIServer.h"
 #include "TraCIServerAPI_VehicleType.h"
 #include "TraCIServerAPI_Person.h"
 #include "TraCIServerAPI_Simulation.h"

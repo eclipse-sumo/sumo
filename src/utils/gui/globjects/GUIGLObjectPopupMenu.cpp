@@ -21,16 +21,11 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <iostream>
-#include <cassert>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIUserIO.h>
-#include <utils/common/ToString.h>
 #include "GUIGLObjectPopupMenu.h"
 
 // ===========================================================================

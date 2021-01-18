@@ -21,21 +21,10 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <iostream>
-#include <vector>
-#include <string>
-#include <map>
 
-#include <utils/common/MsgHandler.h>
-#include <utils/common/StringTokenizer.h>
 #include <utils/common/SystemFrame.h>
-#include <utils/options/Option.h>
-#include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/common/StringUtils.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/common/SysUtils.h>
-#include <utils/common/ToString.h>
 #include <utils/vehicle/SUMORouteLoaderControl.h>
 #include <utils/vehicle/SUMORouteLoader.h>
 #include <utils/xml/XMLSubSys.h>
@@ -43,14 +32,8 @@
 #include <utils/foxtools/MsgHandlerSynchronized.h>
 #endif
 #include <mesosim/MEVehicleControl.h>
-#include <microsim/MSVehicleControl.h>
-#include <microsim/MSVehicleTransfer.h>
-#include <microsim/MSNet.h>
-#include <microsim/devices/MSDevice.h>
 #include <microsim/devices/MSDevice_ToC.h>
 #include <microsim/MSEdgeControl.h>
-#include <microsim/MSGlobals.h>
-#include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSFrame.h>
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/MSStateHandler.h>

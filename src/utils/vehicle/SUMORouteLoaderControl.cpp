@@ -21,7 +21,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <vector>
 #include <utils/common/StdDefs.h>
 #include "SUMORouteLoader.h"
 #include "SUMORouteLoaderControl.h"

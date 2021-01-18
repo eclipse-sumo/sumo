@@ -27,11 +27,7 @@
 #include <config.h>
 
 #include <thread>
-#include <chrono>
-#include <vector>
 #include "OutputDevice_Network.h"
-#include "foreign/tcpip/socket.h"
-#include "utils/common/ToString.h"
 
 
 // ==========================================================================

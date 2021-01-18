@@ -21,10 +21,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <string>
-#include <iostream>
-#include <utils/xml/GenericSAXHandler.h>
-#include "SUMOXMLDefinitions.h"
 #include "SUMOSAXHandler.h"
 
 

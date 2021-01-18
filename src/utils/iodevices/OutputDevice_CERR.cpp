@@ -20,7 +20,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <iostream>
 #include "OutputDevice_CERR.h"
 
 

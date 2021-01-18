@@ -25,7 +25,6 @@
 #include <config.h>
 
 #include <cassert>
-#include <utils/common/StringBijection.h>
 #include <utils/common/StringTokenizer.h>
 
 #include "SUMOXMLDefinitions.h"

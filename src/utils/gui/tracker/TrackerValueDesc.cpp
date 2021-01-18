@@ -22,9 +22,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <string>
-#include <vector>
-#include <utils/common/RGBColor.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include "TrackerValueDesc.h"
 

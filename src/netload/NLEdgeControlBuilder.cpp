@@ -22,20 +22,9 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <vector>
-#include <string>
-#include <map>
-#include <algorithm>
-#include <iterator>
-#include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
-#include <microsim/MSEdge.h>
 #include <microsim/MSEdgeControl.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/common/UtilExceptions.h>
-#include "NLBuilder.h"
 #include "NLEdgeControlBuilder.h"
-#include <utils/iodevices/OutputDevice.h>
 
 
 // ===========================================================================
