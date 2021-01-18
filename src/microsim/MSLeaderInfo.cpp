@@ -188,6 +188,15 @@ MSLeaderInfo::hasStoppedVehicle() const {
     return false;
 }
 
+void
+MSLeaderInfo::removeOpposite() {
+    for (int i = 0; i < (int)myVehicles.size(); ++i) {
+        if (myVehicles[i] != 0 && myVehicles[i]->getLaneChangeModel().isOpposite()) {
+            myVehicles[i] = nullptr;
+        }
+    }
+}
+
 // ===========================================================================
 // MSLeaderDistanceInfo member method definitions
 // ===========================================================================
@@ -299,6 +308,22 @@ MSLeaderDistanceInfo::fixOppositeGaps(bool isFollower) {
             }
         }
     }
+}
+
+CLeaderDist
+MSLeaderDistanceInfo::getClosest() const {
+    double minGap = -1;
+    const MSVehicle* veh = nullptr;
+    if (hasVehicles()) {
+        minGap = std::numeric_limits<double>::max();
+        for (int i = 0; i < (int)myVehicles.size(); ++i) {
+            if (myVehicles[i] != nullptr && myDistances[i] < minGap) {
+                minGap = myDistances[i];
+                veh = myVehicles[i];
+            }
+        }
+    }
+    return std::make_pair(veh, minGap);
 }
 
 // ===========================================================================

@@ -229,7 +229,8 @@ for i in range(6):
     if traci.vehicle.getSpeed("1") == 0:
         traci.vehicle.resume("1")
     print(traci.vehicle.getSubscriptionResults(vehID))
-    print(traci.vehicle.getNextStops(vehID))
+    print(traci.vehicle.getStops(vehID))
+    print("legacy getNextStops", traci.vehicle.getNextStops(vehID))
 check("2")
 print("nextTLS", traci.vehicle.getNextTLS("2"))
 traci.vehicle.setSpeedMode(vehID, 0)  # disable all checks
@@ -262,7 +263,8 @@ for i in range(6):
     print("step", step())
     print(traci.vehicle.getSubscriptionResults("2"))
     print(traci.vehicle.getSubscriptionResults(vehID))
-    print(traci.vehicle.getNextStops(vehID))
+    print(traci.vehicle.getStops(vehID))
+    print("legacy getNextStops", traci.vehicle.getNextStops(vehID))
 traci.vehicle.remove("1")
 try:
     traci.vehicle.addLegacy("anotherOne", "horizontal", pos=-1)
@@ -345,7 +347,8 @@ parkingVeh = "parking"
 traci.vehicle.addLegacy(parkingVeh, "horizontal")
 traci.vehicle.setStop(parkingVeh, "2fi", pos=20.0, laneIndex=0, duration=10,
                       flags=traci.constants.STOP_PARKING)
-print("nextStop:", traci.vehicle.getNextStops(parkingVeh))
+print("nextStop:", traci.vehicle.getStops(parkingVeh))
+print("legacy getNextStops", traci.vehicle.getNextStops(parkingVeh))
 for i in range(20):
     print("step", step())
     checkOffRoad(parkingVeh)

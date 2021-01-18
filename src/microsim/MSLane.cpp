@@ -3359,7 +3359,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                 if ((*it).length < searchDist) {
                     const std::vector<MSLane::IncomingLaneInfo>& followers = next->getIncomingLanes();
                     for (std::vector<MSLane::IncomingLaneInfo>::const_iterator j = followers.begin(); j != followers.end(); ++j) {
-                        if (visited.find((*j).lane) == visited.end() && ((*j).viaLink->havePriority() || !ignoreMinorLinks)) {
+                        if (visited.find((*j).lane) == visited.end() && (((*j).viaLink->havePriority() && !(*j).viaLink->isTurnaround()) || !ignoreMinorLinks)) {
                             visited.insert((*j).lane);
                             MSLane::IncomingLaneInfo ili;
                             ili.lane = (*j).lane;
@@ -3678,8 +3678,9 @@ MSLane::getFollower(const MSVehicle* ego, double egoPos, double dist, bool ignor
     if (dist > 0 && backOffset > dist) {
         return std::make_pair(nullptr, -1);
     }
-    CLeaderDist result = getFollowersOnConsecutive(ego, backOffset, true,  dist, ignoreMinorLinks)[0];
-    return std::make_pair(const_cast<MSVehicle*>(result.first), result.first == nullptr ? -1 : result.second);
+    const MSLeaderDistanceInfo followers = getFollowersOnConsecutive(ego, backOffset, true,  dist, ignoreMinorLinks);
+    CLeaderDist result = followers.getClosest();
+    return std::make_pair(const_cast<MSVehicle*>(result.first), result.second);
 }
 
 std::pair<MSVehicle* const, double>

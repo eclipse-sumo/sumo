@@ -2620,6 +2620,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
     if (gDebugFlag2) {
         std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
+                  << " forwardPos=" << forwardPos
                   << " laSpeed=" << myLookAheadSpeed
                   << " laDist=" << laDist
                   << " currentDist=" << currentDist

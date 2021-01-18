@@ -69,17 +69,16 @@ if(SWIG_FOUND)
                 set_source_files_properties(${swig_generated_file_fullname} PROPERTIES COMPILE_FLAGS "-Wno-strict-aliasing")
                 swig_link_libraries(libtracijni -Wl,--whole-archive libtracistatic ${libtcpip} -Wl,--no-whole-archive)
             endif()
-            ADD_CUSTOM_COMMAND(TARGET libtracijni POST_BUILD
-                COMMAND ${CMAKE_COMMAND} -E make_directory java/META-INF
-                COMMAND ${CMAKE_COMMAND} -E make_directory classes/META-INF
-                COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/NOTICE.md java/META-INF
-                COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/LICENSE java/META-INF
-                COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/NOTICE.md classes/META-INF
-                COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/LICENSE classes/META-INF
-                COMMAND "${Java_JAVAC_EXECUTABLE}" -source 1.8 -target 1.8 -d classes java/*.java
-                COMMAND "${Java_JAR_EXECUTABLE}" -cfM ${CMAKE_SOURCE_DIR}/bin/libtracijni.jar -C classes .
-                COMMAND "${Java_JAR_EXECUTABLE}" -cfM ${CMAKE_SOURCE_DIR}/bin/libtracijni_src.jar -C java .
-            )
+            if (MVN_EXECUTABLE)
+                ADD_CUSTOM_COMMAND(TARGET libtracijni POST_BUILD
+                    COMMAND ${CMAKE_COMMAND} -E make_directory src/main/java/org/eclipse/sumo/libtraci
+                    COMMAND ${CMAKE_COMMAND} -E copy_directory java src/main/java/org/eclipse/sumo/libtraci
+                    COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build/pom.py libtraci
+                    COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} --batch-mode clean install source:jar
+                )
+            else()
+                message(WARNING "Could not build libtraci jar, maven was not found.")
+            endif()
             set_property(TARGET libtracijni PROPERTY FOLDER "libtraci")
         else()
             message(WARNING "ENABLE_JAVA_BINDINGS is set but Java or JNI was not found.")
@@ -130,7 +129,7 @@ if(SWIG_FOUND)
                     set_property(TARGET ${SWIG_MODULE_libtraci_REAL_NAME} PROPERTY FOLDER "libtraci")
                     swig_link_libraries(libtraci libtracistatic ${libtcpip} ${PYTHON_LIBRARIES})
                 else()
-                    swig_link_libraries(libtraci -Wl,--whole-archive libtracistatic -Wl,--no-whole-archive)
+                    swig_link_libraries(libtraci -Wl,--whole-archive libtracistatic ${libtcpip} -Wl,--no-whole-archive)
                 endif()
                 if (NOT ${SETUPTOOLS_MISSING})
                     install(
