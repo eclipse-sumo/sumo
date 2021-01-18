@@ -1386,7 +1386,13 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                     if (colliderBoundary.overlapsWith(victim->getBoundingBox())) {
                         // make a detailed check
                         if (collider->getBoundingPoly().overlapsWith(victim->getBoundingPoly())) {
-                            handleCollisionBetween(timestep, stage, collider, victim, -1, 0, toRemove, toTeleport);
+                            // junction leader is the victim
+                            assert(isInternal());
+                            if (victim->isLeader(myLinks.front(), collider)) {
+                                foeLane->handleCollisionBetween(timestep, stage, victim, collider, -1, 0, toRemove, toTeleport);
+                            } else {
+                                handleCollisionBetween(timestep, stage, collider, victim, -1, 0, toRemove, toTeleport);
+                            }
                         }
                     }
                 }
