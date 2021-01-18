@@ -22,8 +22,10 @@
 /****************************************************************************/
 #include <config.h>
 
-#include "NINavTeqHelper.h"
+#include <utils/common/StringUtils.h>
 #include <netbuild/NBEdge.h>
+
+#include "NINavTeqHelper.h"
 
 
 // ===========================================================================
