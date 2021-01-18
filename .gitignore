@@ -115,8 +115,9 @@
 /tools/game/racing/log
 /tools/game/racing/tripinfos.xml
 /tools/game/A10KW/*
-/tools/contributed/lisum-core/target
-/tools/contributed/lisum-gui/target
+/tools/contributed/lisum/lisum-core/target/
+/tools/contributed/lisum/lisum-gui/target/
+/tools/contributed/lisum/lisumgui/target/
 /tools/contributed/traas/dist
 /tools/contributed/traas/javadoc
 /tools/contributed/traas/release
@@ -171,7 +172,4 @@ lib*.a
 *.aps
 .gdb_history
 
-/tools/contributed/lisum/lisum-core/target/
-/tools/contributed/lisum/lisum-gui/target/
-/tools/contributed/lisum/lisumgui/target/
 /share
