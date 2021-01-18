@@ -135,4 +135,4 @@ if __name__ == "__main__":
     geojson["type"] = "FeatureCollection"
     geojson["features"] = features
     with open(options.outFile, 'w') as outf:
-        outf.write(json.dumps(geojson, sort_keys=True, indent=4))
+        outf.write(json.dumps(geojson, sort_keys=True, indent=4, separators=(',', ': ')))
