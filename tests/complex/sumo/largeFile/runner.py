@@ -24,5 +24,5 @@ import sumolib  # noqa
 
 subprocess.call([sumolib.checkBinary("netgenerate"), "--grid", "-o", "test.net.xml"])
 with open("test.net.xml", "a") as net:
-	net.write((4 * 2**30) * " ")
+    net.write((4 * 2**30) * " ")
 subprocess.call([sumolib.checkBinary('sumo'), "-n", "test.net.xml", "--no-step-log"])

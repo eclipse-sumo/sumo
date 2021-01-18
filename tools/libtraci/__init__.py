@@ -15,7 +15,7 @@
 # @date    2020-10-08
 
 import sys
-from functools import wraps
+
 from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation  # noqa
 from traci.connection import StepListener  # noqa
 from .libtraci import vehicle, simulation, person, trafficlight
@@ -60,10 +60,12 @@ setOrder = simulation.setOrder
 _stepListeners = {}
 _nextStepListenerID = 0
 
+
 def wrapAsClassMethod(func, module):
     def wrapper(*args, **kwargs):
         return func(module, *args, **kwargs)
     return wrapper
+
 
 TraCIStage.__attr_repr__ = _simulation.Stage.__attr_repr__
 TraCIStage.__repr__ = _simulation.Stage.__repr__
@@ -112,11 +114,17 @@ def isLibsumo():
 def isLibtraci():
     return True
 
+
 vehicle._legacyGetLeader = True
+
+
 def setLegacyGetLeader(enabled):
     _vehicle._legacyGetLeader = enabled
 
+
 _libtraci_step = simulation.step
+
+
 def simulationStep(step=0):
     _libtraci_step(step)
     result = []
@@ -125,4 +133,6 @@ def simulationStep(step=0):
         result += [(k, v) for k, v in domain.getAllContextSubscriptionResults().items()]
     _manageStepListeners(step)
     return result
+
+
 simulation.step = simulationStep

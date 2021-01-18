@@ -648,7 +648,7 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             if saveDemandElements:
                 waitQuestion('s')
             else:
-                waitQuestion('q')  
+                waitQuestion('q')
         # Check if data elements must be saved
         if openDataNonSavedDialog:
             # Wait some seconds
@@ -1859,8 +1859,8 @@ def selectionInvertDemand():
     typeSpace()
     # wait for gl debug
     time.sleep(DELAY_SELECT)
-    
-    
+
+
 def selectionClearData():
     """
     @brief clear selection
@@ -2121,6 +2121,7 @@ def createLineTAZ(referencePosition, positionx, positiony, sizex, sizey, close):
 # datas
 #################################################
 
+
 def edgeData():
     """
     @brief change to edgeData mode
@@ -2129,6 +2130,7 @@ def edgeData():
     # wait for gl debug
     time.sleep(DELAY_CHANGEMODE)
 
+
 def edgeRelData():
     """
     @brief change to edgeRelData mode
@@ -2136,6 +2138,7 @@ def edgeRelData():
     typeKey('r')
     # wait for gl debug
     time.sleep(DELAY_CHANGEMODE)
+
 
 def createDataSet(dataSetID="newDataSet"):
     """
@@ -2155,7 +2158,8 @@ def createDataSet(dataSetID="newDataSet"):
     typeTab()
     # create dataSet
     typeSpace()
-    
+
+
 def createDataInterval(begin="0", end="3600"):
     """
     @brief create dataInterval

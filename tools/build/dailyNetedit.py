@@ -61,7 +61,8 @@ def runTests(options, env, gitrev, debugSuffix=""):
     taskID = os.path.basename(tasks[today.toordinal() % len(tasks)])[10:]
     cmd = [ttBin, "-b", prefix, "-a", taskID, "-name", "%sr%s" % (today.strftime("%d%b%y"), gitrev)]
     for call in (cmd, [ttBin, "-b", env["FILEPREFIX"], "-coll"]):
-        status.log_subprocess_output(subprocess.Popen(call, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True))
+        status.log_subprocess_output(subprocess.Popen(
+            call, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True))
     status.killall(debugSuffix, BINARIES)
 
 

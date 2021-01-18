@@ -128,6 +128,8 @@ def isLoaded():
 
 
 _libsumo_step = simulation.step
+
+
 def simulationStep(step=0):
     _libsumo_step(step)
     result = []
@@ -136,6 +138,8 @@ def simulationStep(step=0):
         result += [(k, v) for k, v in domain.getAllContextSubscriptionResults().items()]
     _manageStepListeners(step)
     return result
+
+
 simulation.step = simulationStep
 
 

@@ -112,7 +112,7 @@ def _writeStage(stage):
 class Collision(object):
 
     def __init__(self, collider, victim, colliderType, victimType,
-            colliderSpeed, victimSpeed, collisionType, lane, pos):
+                 colliderSpeed, victimSpeed, collisionType, lane, pos):
         self.collider = collider
         self.victim = victim
         self.colliderType = colliderType
@@ -151,17 +151,17 @@ def _readCollisions(result):
     n = result.read("!i")[0]
     values = []
     for _ in range(n):
-        collider = result.readTypedString();
-        victim = result.readTypedString();
-        colliderType = result.readTypedString();
-        victimType = result.readTypedString();
+        collider = result.readTypedString()
+        victim = result.readTypedString()
+        colliderType = result.readTypedString()
+        victimType = result.readTypedString()
         colliderSpeed = result.readTypedDouble()
         victimSpeed = result.readTypedDouble()
         collisionType = result.readTypedString()
         lane = result.readTypedString()
         pos = result.readTypedDouble()
         values.append(Collision(collider, victim, colliderType, victimType,
-            colliderSpeed, victimSpeed, collisionType, lane, pos))
+                                colliderSpeed, victimSpeed, collisionType, lane, pos))
 
     return tuple(values)
 
@@ -169,7 +169,7 @@ def _readCollisions(result):
 _RETURN_VALUE_FUNC = {
     tc.FIND_ROUTE: _readStage,
     tc.VAR_COLLISIONS: _readCollisions
-    }
+}
 
 
 class SimulationDomain(Domain):
@@ -395,10 +395,9 @@ class SimulationDomain(Domain):
 
     def getCollisions(self):
         """getCollisions() -> list(Collision)
-        Returns a list of collision objects 
+        Returns a list of collision objects
         """
         return self._getUniversal(tc.VAR_COLLISIONS)
-
 
     def getDeltaT(self):
         """getDeltaT() -> double

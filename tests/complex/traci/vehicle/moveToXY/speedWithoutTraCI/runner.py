@@ -69,8 +69,8 @@ for i in range(10):
     t = traci.simulation.getTime()
     x2, y2 = traci.vehicle.getPosition(vehID)
     print("%s x=%s v=%s vOrig=%s" % (t, x2,
-        traci.vehicle.getSpeed(vehID),
-        traci.vehicle.getSpeedWithoutTraCI(vehID)))
+                                     traci.vehicle.getSpeed(vehID),
+                                     traci.vehicle.getSpeedWithoutTraCI(vehID)))
     x += i
 
 traci.close()
