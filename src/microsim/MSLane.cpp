@@ -1706,7 +1706,8 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
         if (collider->collisionStopTime() < 0) {
             stop.lane = collider->getLane()->getID();
             stop.startPos = MIN2(collider->getPositionOnLane() + collider->getCarFollowModel().brakeGap(colliderSpeed, collider->getCarFollowModel().getEmergencyDecel(), 0),
-                                 MAX2(0.0, victimStopPos - 0.75 * victim->getVehicleType().getLength()));
+                                 MAX3(0.0, victimStopPos - 0.75 * victim->getVehicleType().getLength(),
+                                     collider->getPositionOnLane() - SPEED2DIST(collider->getSpeed())));
             stop.endPos = stop.startPos;
             stop.parametersSet |= STOP_START_SET | STOP_END_SET;
             collider->addStop(stop, dummyError, 0, true);
