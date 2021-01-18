@@ -226,8 +226,8 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB FOX_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/fox-?.?.??")
     # set freetype
     file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/freetype-2.??.?")
-    # set eigen (no version in directory name as it is a submodule)
-    file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen")
+    # set eigen3
+    file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen-3.?.?")
     # set all paths in prefix
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${ZLIB_PATH}/Release;${ZLIB_PATH}/Debug;${ZLIB_PATH}/bin;${ZLIB_PATH}/lib;${PROJ_PATH};${GDAL_PATH};${FOX_PATH};${FREETYPE_PATH}")
     # save in variable SUMO_LIBRARIES_DLL all paths to dll files
@@ -278,11 +278,11 @@ if (SUMO_LIBRARIES AND WIN32)
     # set SWIG
     set(SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-3.0.12/swig.exe")
     # set protobuf
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.9.1")
-    set(Protobuf_PROTOC_EXECUTABLE "${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.9.1/bin/protoc.exe")
-    set(Protobuf_INCLUDE_DIR "${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.9.1/include")
-    set(Protobuf_LIBRARY_DEBUG "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/protobuf-3.9.1/lib/libprotobufd.lib")
-    set(Protobuf_LIBRARY "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/protobuf-3.9.1/lib/libprotobuf.lib")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.?.?")
+    set(Protobuf_PROTOC_EXECUTABLE "${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.?.?/bin/protoc.exe")
+    set(Protobuf_INCLUDE_DIR "${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.?.?/include")
+    set(Protobuf_LIBRARY_DEBUG "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/protobuf-3.?.?/lib/libprotobufd.lib")
+    set(Protobuf_LIBRARY "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/protobuf-3.?.?/lib/libprotobuf.lib")
     # set apache maven
     file(GLOB MVN_EXECUTABLE "${SUMO_LIBRARIES}/apache-maven-*/bin/mvn.cmd")
     file(GLOB TEXTTEST_EXECUTABLE "${SUMO_LIBRARIES}/TextTest-*/texttest.exe")
@@ -346,6 +346,7 @@ if (TCMALLOC)
 endif ()
 
 if (CHECK_OPTIONAL_LIBS)
+    # GDAL (for geopositioning)
     find_package(GDAL)
     if (GDAL_FOUND)
         include_directories(SYSTEM ${GDAL_INCLUDE_DIR})
@@ -355,6 +356,7 @@ if (CHECK_OPTIONAL_LIBS)
         set(GDAL_LIBRARY "")
     endif (GDAL_FOUND)
 
+    # FFMPEG (for recording videos)
     find_package(FFMPEG)
     if (FFMPEG_FOUND)
         include_directories(SYSTEM ${FFMPEG_INCLUDE_DIR})
@@ -362,6 +364,7 @@ if (CHECK_OPTIONAL_LIBS)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} FFmpeg")
     endif ()
 
+    # OSG (For 3D view)
     find_package(OpenSceneGraph 3.4.0 COMPONENTS osgGA osgViewer osgUtil osgDB osgText)
     if (OPENSCENEGRAPH_FOUND)
         include_directories(SYSTEM ${OPENSCENEGRAPH_INCLUDE_DIRS})
@@ -369,6 +372,7 @@ if (CHECK_OPTIONAL_LIBS)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} OSG")
     endif ()
 
+    # GL2PS (deprecated, will be changed by FreeType
     find_package(GL2PS)
     if (GL2PS_FOUND)
         include_directories(SYSTEM ${GL2PS_INCLUDE_DIR})
@@ -377,15 +381,14 @@ if (CHECK_OPTIONAL_LIBS)
     endif (GL2PS_FOUND)
 
     # Eigen (for overhead wire / electric circuit simulation)
-    # TODO: Probably may be used in 32bit build as well.
-    find_package(Eigen3 3.2 MODULE)
+    find_package(Eigen3 3.2)
     if (EIGEN3_FOUND)
         include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
         set(HAVE_EIGEN 1)  # see config.h.cmake for #cmakedefine
         set(ENABLED_FEATURES "${ENABLED_FEATURES} Eigen")
     endif (EIGEN3_FOUND)
 
-#    set(JPS_FOUND 1)
+    # set(JPS_FOUND 1)
     if (JPS_FOUND)
         add_library(jps SHARED IMPORTED) # or STATIC instead of SHARED
         set_target_properties(jps PROPERTIES IMPORTED_LOCATION "/tmp/libjps.so")
@@ -393,6 +396,7 @@ if (CHECK_OPTIONAL_LIBS)
         set(HAVE_JPS 1)
     endif (JPS_FOUND)
 
+    # add optional libraries
     list(APPEND SUMO_LIBRARIES_DLL ${SUMO_OPTIONAL_LIBRARIES_DLL})
 endif (CHECK_OPTIONAL_LIBS)
 
