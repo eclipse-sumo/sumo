@@ -25,8 +25,11 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
-#include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/globjects/GUIPolygon.h>
 
 #include "GNETAZ.h"
 
@@ -98,6 +101,22 @@ GNETAZ::getMoveOperation(const double shapeOffset) {
             }
         }
     }
+}
+
+
+int
+GNETAZ::getVertexIndex(Position pos, bool snapToGrid) {
+    // check if position has to be snapped to grid
+    if (snapToGrid) {
+        pos = myNet->getViewNet()->snapToActiveGrid(pos);
+    }
+    // first check if vertex already exists
+    for (const auto& shapePosition : myShape) {
+        if (shapePosition.distanceTo2D(pos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius) {
+            return myShape.indexOfClosest(shapePosition);
+        }
+    }
+    return -1;
 }
 
 
@@ -191,6 +210,27 @@ GNETAZ::getCenteringBoundary() const {
 std::string
 GNETAZ::getParentName() const {
     return myNet->getMicrosimID();
+}
+
+
+GUIGLObjectPopupMenu*
+GNETAZ::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    buildPopupHeader(ret, app);
+    buildCenterPopupEntry(ret);
+    buildNameCopyPopupEntry(ret);
+    // build selection and show parameters menu
+    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
+    buildShowParamsPopupEntry(ret);
+    // create a extra FXMenuCommand if mouse is over a vertex
+    const int index = getVertexIndex(myNet->getViewNet()->getPositionInformation(), false);
+    if (index != -1) {
+        // check if we're in network mode
+        if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+            GUIDesigns::buildFXMenuCommand(ret, "Set custom Geometry Point", nullptr, &parent, MID_GNE_CUSTOM_GEOMETRYPOINT);
+        }
+    }
+    return ret;
 }
 
 

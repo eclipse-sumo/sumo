@@ -75,6 +75,15 @@ public:
      */
     std::string getParentName() const;
 
+    /**@brief Returns an own popup-menu
+     *
+     * @param[in] app The application needed to build the popup-menu
+     * @param[in] parent The parent window needed to build the popup-menu
+     * @return The built popup-menu
+     * @see GUIGlObject::getPopUpMenu
+     */
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
+
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL

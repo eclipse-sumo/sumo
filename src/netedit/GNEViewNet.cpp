@@ -23,6 +23,7 @@
 #include <netedit/dialogs/GNEGeometryPointDialog.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
+#include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEJunction.h>
@@ -1445,6 +1446,21 @@ GNEViewNet::getPOIAtPopupPosition() {
     return nullptr;
 }
 
+
+GNETAZ*
+GNEViewNet::getTAZAtPopupPosition() {
+    if (makeCurrent()) {
+        int id = getObjectAtPosition(getPopupPosition());
+        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        if (pointed) {
+            return dynamic_cast<GNETAZ*>(pointed);
+        }
+    }
+    return nullptr;
+}
+
+
 long
 GNEViewNet::onCmdSetSupermode(FXObject*, FXSelector sel, void*) {
     // check what network mode will be set
@@ -1915,42 +1931,83 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
 
 long 
 GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
-    // get lane at popup position
+    // get element at popup position
     GNELane* lane = getLaneAtPopupPosition();
-    // check if lane exist
-    if (lane == nullptr) {
-        return 0;
-    }
-    // make a copy of edge geometry
-    PositionVector edgeGeometry = lane->getParentEdge()->getNBEdge()->getGeometry();
-    // get index position
-    const int index = edgeGeometry.indexOfClosest(getPositionInformation());
-    // get new position
-    Position newPosition = edgeGeometry[index];
-    // edit using GNEGeometryPointDialog
-    GNEGeometryPointDialog(this, &newPosition);
-    // now check position
-    if (newPosition != edgeGeometry[index]) {
-        // update new position
-        edgeGeometry[index] = newPosition;
-        // begin undo list
-        myUndoList->p_begin("change Geometry Point position");
-        // continue depending of index
-        if (index == 0) {
-            // change shape start
-            myUndoList->p_add(new GNEChange_Attribute(lane->getParentEdge(), GNE_ATTR_SHAPE_START, toString(edgeGeometry.front())));
-        } else if (index == ((int)edgeGeometry.size() - 1)) {
-            // change shape end
-            myUndoList->p_add(new GNEChange_Attribute(lane->getParentEdge(), GNE_ATTR_SHAPE_END, toString(edgeGeometry.back())));
-        } else {
-            // remove front and back geometry points
-            edgeGeometry.pop_front();
-            edgeGeometry.pop_back();
-            // change shape
-            myUndoList->p_add(new GNEChange_Attribute(lane->getParentEdge(), SUMO_ATTR_SHAPE, toString(edgeGeometry)));
+    GNEPoly* poly = getPolygonAtPopupPosition();
+    GNETAZ* TAZ = getTAZAtPopupPosition();
+    // check element
+    if (lane != nullptr) {
+        // make a copy of edge geometry
+        PositionVector edgeGeometry = lane->getParentEdge()->getNBEdge()->getGeometry();
+        // get index position
+        const int index = edgeGeometry.indexOfClosest(getPositionInformation());
+        // get new position
+        Position newPosition = edgeGeometry[index];
+        // edit using GNEGeometryPointDialog
+        GNEGeometryPointDialog(this, &newPosition);
+        // now check position
+        if (newPosition != edgeGeometry[index]) {
+            // update new position
+            edgeGeometry[index] = newPosition;
+            // begin undo list
+            myUndoList->p_begin("change edge Geometry Point position");
+            // continue depending of index
+            if (index == 0) {
+                // change shape start
+                myUndoList->p_add(new GNEChange_Attribute(lane->getParentEdge(), GNE_ATTR_SHAPE_START, toString(edgeGeometry.front())));
+            } else if (index == ((int)edgeGeometry.size() - 1)) {
+                // change shape end
+                myUndoList->p_add(new GNEChange_Attribute(lane->getParentEdge(), GNE_ATTR_SHAPE_END, toString(edgeGeometry.back())));
+            } else {
+                // remove front and back geometry points
+                edgeGeometry.pop_front();
+                edgeGeometry.pop_back();
+                // change shape
+                myUndoList->p_add(new GNEChange_Attribute(lane->getParentEdge(), SUMO_ATTR_SHAPE, toString(edgeGeometry)));
+            }
+            // end undo list
+            myUndoList->p_end();
         }
-        myUndoList->p_end();
-
+    } else if (poly != nullptr) {
+        // make a copy of polygon geometry
+        PositionVector polygonGeometry = poly->getShape();
+        // get index position
+        const int index = polygonGeometry.indexOfClosest(getPositionInformation());
+        // get new position
+        Position newPosition = polygonGeometry[index];
+        // edit using GNEGeometryPointDialog
+        GNEGeometryPointDialog(this, &newPosition);
+        // now check position
+        if (newPosition != polygonGeometry[index]) {
+            // update new position
+            polygonGeometry[index] = newPosition;
+            // begin undo list
+            myUndoList->p_begin("change polygon Geometry Point position");
+            // change shape
+            myUndoList->p_add(new GNEChange_Attribute(poly, SUMO_ATTR_SHAPE, toString(polygonGeometry)));
+            // end undo list
+            myUndoList->p_end();
+        }
+    } else if (TAZ != nullptr) {
+        // make a copy of TAZ geometry
+        PositionVector TAZGeometry = TAZ->getTAZElementShape();
+        // get index position
+        const int index = TAZGeometry.indexOfClosest(getPositionInformation());
+        // get new position
+        Position newPosition = TAZGeometry[index];
+        // edit using GNEGeometryPointDialog
+        GNEGeometryPointDialog(this, &newPosition);
+        // now check position
+        if (newPosition != TAZGeometry[index]) {
+            // update new position
+            TAZGeometry[index] = newPosition;
+            // begin undo list
+            myUndoList->p_begin("change TAZ Geometry Point position");
+            // change shape
+            myUndoList->p_add(new GNEChange_Attribute(TAZ, SUMO_ATTR_SHAPE, toString(TAZGeometry)));
+            // end undo list
+            myUndoList->p_end();
+        }
     }
     return 1;
 }

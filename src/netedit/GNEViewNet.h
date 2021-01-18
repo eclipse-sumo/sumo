@@ -603,6 +603,9 @@ private:
     /// @brief try to retrieve a POILane at popup position
     GNEPOI* getPOIAtPopupPosition();
 
+    /// @brief try to retrieve a TAZ at popup position
+    GNETAZ* getTAZAtPopupPosition();
+
     /// @brief restrict lane
     bool restrictLane(SUMOVehicleClass vclass);
 

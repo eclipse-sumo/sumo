@@ -203,9 +203,15 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     } else {
         GUIDesigns::buildFXMenuCommand(ret, "Close shape\t\tClose polygon's shape", nullptr, &parent, MID_GNE_POLYGON_CLOSE);
     }
+    // add separator
+    new FXMenuSeparator(ret);
     // create a extra FXMenuCommand if mouse is over a vertex
-    int index = getVertexIndex(myNet->getViewNet()->getPositionInformation(), false);
+    const int index = getVertexIndex(myNet->getViewNet()->getPositionInformation(), false);
     if (index != -1) {
+        // check if we're in network mode
+        if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+            GUIDesigns::buildFXMenuCommand(ret, "Set custom Geometry Point", nullptr, &parent, MID_GNE_CUSTOM_GEOMETRYPOINT);
+        }
         FXMenuCommand* removeGeometryPoint = GUIDesigns::buildFXMenuCommand(ret, "Remove geometry point\t\tRemove geometry point under mouse", nullptr, &parent, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT);
         FXMenuCommand* setFirstPoint = GUIDesigns::buildFXMenuCommand(ret, "Set first geometry point\t\tSet", nullptr, &parent, MID_GNE_POLYGON_SET_FIRST_POINT);
         // disable setFirstPoint if shape only have three points
