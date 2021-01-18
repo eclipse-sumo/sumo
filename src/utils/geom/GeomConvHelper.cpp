@@ -21,6 +21,9 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <sstream>
+#include <utils/geom/PositionVector.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>

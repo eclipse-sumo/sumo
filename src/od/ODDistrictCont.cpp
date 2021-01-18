@@ -21,9 +21,15 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/NamedObjectCont.h>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/common/RandHelper.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/options/OptionsCont.h>
+#include "ODDistrict.h"
 #include "ODDistrictHandler.h"
 #include "ODDistrictCont.h"
 

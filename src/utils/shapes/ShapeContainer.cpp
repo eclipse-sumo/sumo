@@ -22,6 +22,17 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <fstream>
+#include <stdlib.h>
+#include <iostream>
+#include <utility>
+#include <string>
+#include <cmath>
+#include <utils/common/NamedObjectCont.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/ToString.h>
+#include <utils/common/StdDefs.h>
 #include <utils/common/ParametrisedWrappingCommand.h>
 #include "PolygonDynamics.h"
 #include "ShapeContainer.h"

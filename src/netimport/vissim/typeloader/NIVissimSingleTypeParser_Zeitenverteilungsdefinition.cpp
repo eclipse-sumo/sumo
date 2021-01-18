@@ -20,6 +20,12 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <iostream>
+#include <utils/geom/Position.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/common/StringUtils.h>
+#include "../NIImporter_Vissim.h"
+#include <utils/distribution/Distribution_Parameterized.h>
 #include <utils/distribution/Distribution_Points.h>
 #include <utils/distribution/DistributionCont.h>
 #include "NIVissimSingleTypeParser_Zeitenverteilungsdefinition.h"

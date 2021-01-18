@@ -22,10 +22,20 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/StdDefs.h>
 #include <utils/geom/GeoConvHelper.h>
+#include <microsim/MSNet.h>
+#include <microsim/MSEdgeControl.h>
+#include <microsim/MSInsertionControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSVehicle.h>
+#include <microsim/MSVehicleControl.h>
+#include <microsim/MSStateHandler.h>
+#include <microsim/MSStoppingPlace.h>
+#include <libsumo/Helper.h>
 #include <libsumo/Simulation.h>
+#include <libsumo/TraCIConstants.h>
 #include "TraCIServerAPI_Simulation.h"
 
 

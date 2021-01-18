@@ -21,8 +21,15 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <iostream>
+#include <ctime>
+#include <stdlib.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/options/Option.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/RandHelper.h>
+#include <utils/common/ToString.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SystemFrame.h>
 #include "ROFrame.h"

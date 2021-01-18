@@ -19,9 +19,12 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <fx.h>
+#include <fxkeys.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include "MFXAddEditTypedTable.h"
+#include <iostream>
 
 
 // Map

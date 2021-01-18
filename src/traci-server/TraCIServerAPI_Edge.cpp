@@ -25,9 +25,17 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/StdDefs.h>
+#include <microsim/MSNet.h>
+#include <microsim/MSEdgeControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSVehicle.h>
+#include <microsim/transportables/MSPerson.h>
+#include <libsumo/TraCIConstants.h>
 #include "TraCIServerAPI_Edge.h"
+#include <microsim/MSEdgeWeightsStorage.h>
+#include <utils/emissions/HelpersHarmonoise.h>
 #include <libsumo/Edge.h>
 
 

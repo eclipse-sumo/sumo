@@ -20,6 +20,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <iostream>
 #include "OutputDevice_COUT.h"
 
 

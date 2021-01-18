@@ -24,6 +24,11 @@
 #include <config.h>
 
 
+#include <string>
+#include <fstream>
+#include <utils/common/StringUtils.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include "NIImporter_Vissim.h"
@@ -39,6 +44,7 @@
 #include "typeloader/NIVissimSingleTypeParser_Zuflussdefinition.h"
 #include "typeloader/NIVissimSingleTypeParser_Fahrzeugtypdefinition.h"
 #include "typeloader/NIVissimSingleTypeParser_Fahrzeugklassendefinition.h"
+#include "typeloader/NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition.h"
 #include "typeloader/NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition.h"
 #include "typeloader/NIVissimSingleTypeParser_Laengenverteilungsdefinition.h"
 #include "typeloader/NIVissimSingleTypeParser_Zeitenverteilungsdefinition.h"
@@ -88,15 +94,23 @@
 #include "tempstructs/NIVissimSource.h"
 #include "tempstructs/NIVissimTrafficDescription.h"
 #include "tempstructs/NIVissimVehTypeClass.h"
+#include "tempstructs/NIVissimConnection.h"
 #include "tempstructs/NIVissimDisturbance.h"
+#include "tempstructs/NIVissimConnectionCluster.h"
 #include "tempstructs/NIVissimNodeDef.h"
+#include "tempstructs/NIVissimEdge.h"
+#include "tempstructs/NIVissimConflictArea.h"
 #include "tempstructs/NIVissimDistrictConnection.h"
 #include "tempstructs/NIVissimVehicleType.h"
 
+#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/common/FileHelpers.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/distribution/Distribution_Points.h>
 #include <utils/distribution/DistributionCont.h>
 
+#include <netbuild/NBEdgeCont.h> // !!! only for debugging purposes
 
 
 // ===========================================================================

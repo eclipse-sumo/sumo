@@ -22,11 +22,27 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <map>
+#include <string>
+#include <exception>
+#include <algorithm>
+#include <vector>
+#include <iostream>
+#include <cstdlib>
+#include <cassert>
+#include <ctime>
+#include <cstring>
+#include <cerrno>
+#include <iterator>
+#include "Option.h"
 #include "OptionsCont.h"
+#include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 #include <utils/xml/SUMOSAXAttributes.h>
+#include <sstream>
 
 
 // ===========================================================================

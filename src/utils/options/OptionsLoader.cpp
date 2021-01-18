@@ -21,10 +21,21 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <algorithm>
+#include <string>
+#include <vector>
+#include <xercesc/sax/HandlerBase.hpp>
+#include <xercesc/sax/AttributeList.hpp>
+#include <xercesc/sax/SAXParseException.hpp>
+#include <xercesc/sax/SAXException.hpp>
 #include <utils/common/StringUtils.h>
+#include <utils/common/StringTokenizer.h>
 #include "OptionsLoader.h"
 #include "OptionsCont.h"
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
 
 
 // ===========================================================================

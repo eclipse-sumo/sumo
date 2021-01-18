@@ -21,10 +21,27 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <algorithm>
+#include <map>
+#include <cassert>
+#include <iomanip>
+#include <cmath>
+#include <iostream>
+#include <sstream>
+#include <iterator>
+#include <utils/common/ToString.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/distribution/DistributionCont.h>
+#include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
 #include <utils/options/OptionsCont.h>
+#include "NIVissimNodeCluster.h"
 #include "NIVissimDistrictConnection.h"
+#include "NIVissimClosedLanesVector.h"
+#include "NIVissimConnection.h"
+#include "NIVissimDisturbance.h"
 #include "NIVissimEdge.h"
 #include <utils/common/MsgHandler.h>
 

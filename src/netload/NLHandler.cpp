@@ -24,14 +24,34 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
 #include "NLHandler.h"
 #include "NLEdgeControlBuilder.h"
 #include "NLJunctionControlBuilder.h"
 #include "NLDetectorBuilder.h"
 #include "NLTriggerBuilder.h"
+#include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/SUMOTime.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/RGBColor.h>
+#include <utils/geom/GeomConvHelper.h>
+#include <microsim/MSGlobals.h>
+#include <microsim/MSLane.h>
+#include <microsim/MSJunction.h>
+#include <microsim/MSJunctionLogic.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/traffic_lights/MSRailSignalConstraint.h>
+#include <utils/iodevices/OutputDevice.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <utils/shapes/ShapeContainer.h>
+#include <utils/shapes/Shape.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 
 
 // ===========================================================================

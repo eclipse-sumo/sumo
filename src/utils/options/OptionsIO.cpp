@@ -20,8 +20,17 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <iostream>
+#include <cstdlib>
+#include <cstring>
 #include <xercesc/framework/XMLPScanToken.hpp>
 #include <xercesc/parsers/SAXParser.hpp>
+#include <xercesc/sax/HandlerBase.hpp>
+#include <xercesc/sax/AttributeList.hpp>
+#include <xercesc/util/PlatformUtils.hpp>
+#include <xercesc/sax/SAXParseException.hpp>
+#include <xercesc/sax/SAXException.hpp>
 #include "OptionsIO.h"
 #include "OptionsCont.h"
 #include "OptionsLoader.h"

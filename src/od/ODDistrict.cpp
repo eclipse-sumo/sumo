@@ -21,6 +21,12 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <vector>
+#include <string>
+#include <utility>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/Named.h>
+#include <utils/common/MsgHandler.h>
 #include "ODDistrict.h"
 
 

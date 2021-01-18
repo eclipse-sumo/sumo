@@ -21,6 +21,11 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <map>
+#include <iostream>
+#include <cassert>
+#include <fx.h>
+#include "GUIGlObject.h"
 #include "GUIGlObjectStorage.h"
 
 

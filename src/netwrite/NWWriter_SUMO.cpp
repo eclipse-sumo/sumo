@@ -21,10 +21,24 @@
 // Exporter writing networks using the SUMO format
 /****************************************************************************/
 #include <config.h>
+#include <cmath>
+#include <algorithm>
 #include <utils/options/OptionsCont.h>
+#include <utils/iodevices/OutputDevice.h>
+#include <utils/geom/GeoConvHelper.h>
+#include <utils/common/ToString.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/SUMOVehicleClass.h>
+#include <utils/geom/GeomConvHelper.h>
+#include <netbuild/NBEdge.h>
+#include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBTrafficLightLogic.h>
 #include <netbuild/NBDistrict.h>
+#include <netbuild/NBHelpers.h>
 #include "NWFrame.h"
 #include "NWWriter_SUMO.h"
 

@@ -20,7 +20,14 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <cassert>
+#include <vector>
+#include <algorithm>
+#include <iostream>
 #include <utils/options/OptionsCont.h>
+#include <utils/iodevices/OutputDevice.h>
+#include <utils/common/UtilExceptions.h>
 #include "MsgHandler.h"
 
 

@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
 #include <fx.h>
 #include <FXPNGImage.h>
 #include <FXJPGImage.h>
@@ -33,6 +34,7 @@
 #include <utils/common/ToString.h>
 #include "MFXImageHelper.h"
 
+#include <cassert>
 
 void
 MFXImageHelper::checkSupported(FXString ext) {

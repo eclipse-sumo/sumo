@@ -19,8 +19,14 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/MsgHandler.h>
+#include <netbuild/NBEdge.h>
+#include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "NWWriter_DlrNavteq.h"
 #include "NWWriter_Amitran.h"
 

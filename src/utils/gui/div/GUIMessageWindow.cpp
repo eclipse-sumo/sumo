@@ -21,6 +21,8 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <cassert>
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/windows/GUIGlChildWindow.h>
 #include <utils/gui/windows/GUIMainWindow.h>

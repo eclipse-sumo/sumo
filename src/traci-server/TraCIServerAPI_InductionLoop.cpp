@@ -22,7 +22,10 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <microsim/MSNet.h>
+#include <microsim/output/MSDetectorControl.h>
 #include <libsumo/InductionLoop.h>
+#include <libsumo/TraCIConstants.h>
 #include "TraCIServerAPI_InductionLoop.h"
 
 

@@ -21,10 +21,12 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include <netbuild/NBLoadedTLDef.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
+#include <netbuild/NBEdgeCont.h>
 #include "NIVisumTL.h"
 
 

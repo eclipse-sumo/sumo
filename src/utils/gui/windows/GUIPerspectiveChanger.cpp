@@ -21,6 +21,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include "GUISUMOAbstractView.h"
 #include "GUIPerspectiveChanger.h"
 
 

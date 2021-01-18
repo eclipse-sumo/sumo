@@ -22,10 +22,18 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <fx.h>
 #include "GUIParameterTableWindow.h"
+#include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/common/ToString.h>
 #include <utils/common/Parameterised.h>
+#include <utils/gui/div/GUIParam_PopupMenu.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/tracker/GUIParameterTracker.h>
+#include <utils/gui/div/GUIParameterTableItem.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 

@@ -20,6 +20,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <iostream>
 #include <utils/common/StdDefs.h>
 #include "Bresenham.h"
 

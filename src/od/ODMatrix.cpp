@@ -22,12 +22,25 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <iostream>
+#include <algorithm>
+#include <list>
+#include <iterator>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/common/StdDefs.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
+#include <utils/common/RandHelper.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/SUMOTime.h>
+#include <utils/iodevices/OutputDevice.h>
+#include <utils/importio/LineReader.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/XMLSubSys.h>
+#include <router/RORoute.h>
 #include "ODAmitranHandler.h"
 #include "ODMatrix.h"
 

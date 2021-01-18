@@ -20,7 +20,10 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <cassert>
+#include <sstream>
 #include <iomanip>
+#include <utils/common/StdDefs.h>
 #include "Distribution_Points.h"
 
 

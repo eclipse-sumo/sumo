@@ -22,12 +22,18 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include <microsim/MSNet.h>
 #include <microsim/actions/Command_SaveTLSState.h>
 #include <microsim/actions/Command_SaveTLSSwitches.h>
 #include <microsim/actions/Command_SaveTLSSwitchStates.h>
 #include <microsim/actions/Command_SaveTLSProgram.h>
+#include <microsim/MSEventControl.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
+#include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "NLDiscreteEventBuilder.h"
 
 

@@ -28,10 +28,24 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <microsim/MSNet.h>
+#include <microsim/MSInsertionControl.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSGlobals.h>
+#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/router/DijkstraRouter.h>
+#include <utils/router/DijkstraRouter.h>
+#include <utils/emissions/PollutantsInterface.h>
+#include <utils/emissions/HelpersHarmonoise.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
+#include <libsumo/TraCIConstants.h>
 #include <libsumo/Vehicle.h>
+#include <libsumo/VehicleType.h>
+#include "TraCIServerAPI_Simulation.h"
 #include "TraCIServerAPI_Vehicle.h"
 #include "TraCIServerAPI_VehicleType.h"
 

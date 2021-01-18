@@ -21,12 +21,28 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <sstream>
+#include <limits>
+#include <utils/importio/LineHandler.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/importio/LineReader.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <netbuild/NBNetBuilder.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
+#include <netbuild/NBEdge.h>
+#include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBTypeCont.h>
 #include <netbuild/NBOwnTLDef.h>
 #include <netimport/NINavTeqHelper.h>
+#include "NILoader.h"
 #include "NIImporter_DlrNavteq.h"
 
 

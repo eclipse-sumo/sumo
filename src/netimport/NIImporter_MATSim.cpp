@@ -20,10 +20,24 @@
 // Importer for networks stored in MATSim format
 /****************************************************************************/
 #include <config.h>
+#include <set>
+#include <functional>
+#include <sstream>
+#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/common/ToString.h>
+#include <utils/common/MsgHandler.h>
+#include <netbuild/NBEdge.h>
+#include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
 #include <netbuild/NBNetBuilder.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/common/FileHelpers.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/StringUtils.h>
 #include <utils/xml/XMLSubSys.h>
+#include "NILoader.h"
 #include "NIImporter_MATSim.h"
 
 

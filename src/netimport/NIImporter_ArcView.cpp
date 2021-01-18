@@ -23,9 +23,24 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/geom/GeomHelper.h>
 #include <netbuild/NBNetBuilder.h>
+#include <netbuild/NBHelpers.h>
+#include <netbuild/NBEdge.h>
+#include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBTypeCont.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
 #include <netimport/NINavTeqHelper.h>
+#include <utils/geom/GeoConvHelper.h>
+#include <utils/common/FileHelpers.h>
+#include "NILoader.h"
 #include "NIImporter_ArcView.h"
 
 #ifdef HAVE_GDAL

@@ -20,6 +20,10 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <functional>
+#include <vector>
+#include "ROEdge.h"
+#include "ROVehicle.h"
 #include "ROHelper.h"
 
 

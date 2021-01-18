@@ -18,9 +18,12 @@
 // Functions used in GUIBaseVehicleHelper and GNEVehicle
 /****************************************************************************/
 #include <config.h>
+#include <fx.h>
 
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/images/GUITexturesHelper.h>
+#include <utils/common/SUMOVehicleClass.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
 #include "GLHelper.h"
 #include "GUIBaseVehicleHelper.h"
 

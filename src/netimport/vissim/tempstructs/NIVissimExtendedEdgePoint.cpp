@@ -20,6 +20,8 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/VectorHelper.h>
+#include <netbuild/NBEdge.h>
 #include "NIVissimExtendedEdgePoint.h"
 #include "NIVissimEdge.h"
 

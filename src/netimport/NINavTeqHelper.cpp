@@ -23,6 +23,9 @@
 #include <config.h>
 
 #include <utils/common/StringUtils.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/UtilExceptions.h>
 #include <netbuild/NBEdge.h>
 
 #include "NINavTeqHelper.h"

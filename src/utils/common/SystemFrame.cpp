@@ -22,9 +22,13 @@
 #include <config.h>
 
 #include "SystemFrame.h"
+#include <string>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/common/StdDefs.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/iodevices/OutputDevice.h>
+#include "RandHelper.h"
 
 
 // ===========================================================================

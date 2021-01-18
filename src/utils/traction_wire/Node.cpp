@@ -20,7 +20,9 @@
 /// @note    based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 /****************************************************************************/
 #include <string>
+#include <algorithm>
 #include "Node.h"
+#include "Element.h"
 
 using namespace std;
 

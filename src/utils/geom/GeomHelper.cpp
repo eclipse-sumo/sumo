@@ -22,6 +22,12 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <cmath>
+#include <limits>
+#include <algorithm>
+#include <iostream>
+#include <utils/common/StdDefs.h>
+#include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include "Boundary.h"
 #include "GeomHelper.h"

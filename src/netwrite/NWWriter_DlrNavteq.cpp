@@ -19,10 +19,23 @@
 // Exporter writing networks using DlrNavteq (Elmar) format
 /****************************************************************************/
 #include <config.h>
+#include <algorithm>
+#include <ctime>
+#include <cmath>
+#include <utils/common/MsgHandler.h>
+#include <netbuild/NBEdge.h>
+#include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
 #include <netbuild/NBNetBuilder.h>
+#include <utils/common/ToString.h>
 #include <utils/common/IDSupplier.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/iodevices/OutputDevice.h>
+#include <utils/geom/GeoConvHelper.h>
+#include "NWFrame.h"
 #include "NWWriter_DlrNavteq.h"
 
 

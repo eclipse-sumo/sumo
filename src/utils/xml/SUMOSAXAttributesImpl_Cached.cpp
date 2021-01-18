@@ -19,8 +19,16 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <cassert>
+#include <xercesc/sax2/Attributes.hpp>
+#include <xercesc/sax2/DefaultHandler.hpp>
+#include <xercesc/util/XercesVersion.hpp>
+#include <xercesc/util/TransService.hpp>
+#include <xercesc/util/TranscodingException.hpp>
 #include <utils/common/RGBColor.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/StringBijection.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/PositionVector.h>
 #include "SUMOSAXAttributesImpl_Cached.h"

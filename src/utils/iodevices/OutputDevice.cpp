@@ -21,13 +21,21 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <map>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <iomanip>
 #include "OutputDevice.h"
 #include "OutputDevice_File.h"
 #include "OutputDevice_COUT.h"
 #include "OutputDevice_CERR.h"
 #include "OutputDevice_Network.h"
+#include "PlainXMLFormatter.h"
 #include <utils/common/StringUtils.h>
+#include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 

@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <fx.h>
 #include <fxkeys.h>
 #include "MFXEditableTable.h"
 

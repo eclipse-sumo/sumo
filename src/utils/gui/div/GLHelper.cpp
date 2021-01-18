@@ -21,7 +21,12 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <cassert>
 #include <utils/geom/GeomHelper.h>
+#include <utils/common/StdDefs.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
+#include <utils/options/OptionsCont.h>
 #define FONTSTASH_IMPLEMENTATION // Expands implementation
 #ifdef _MSC_VER
 #pragma warning(disable: 4505) // do not warn about unused functions

@@ -22,10 +22,17 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <netbuild/NBDistrict.h>
 
 #include <netbuild/NBNetBuilder.h>
+#include "NILoader.h"
 #include "NIImporter_VISUM.h"
 
 

@@ -22,11 +22,33 @@
 // Importer for networks stored in OpenStreetMap format
 /****************************************************************************/
 #include <config.h>
+#include <algorithm>
+#include <set>
+#include <functional>
+#include <sstream>
+#include <limits>
+#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/ToString.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
+#include <netbuild/NBEdge.h>
+#include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBOwnTLDef.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/geom/GeoConvHelper.h>
+#include <utils/geom/GeomConvHelper.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/common/FileHelpers.h>
 #include <utils/xml/XMLSubSys.h>
+#include <netbuild/NBPTLine.h>
+#include <netbuild/NBPTLineCont.h>
+#include "NILoader.h"
 #include "NIImporter_OpenStreetMap.h"
 
 #define KM_PER_MILE 1.609344

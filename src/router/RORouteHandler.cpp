@@ -22,13 +22,27 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <map>
+#include <vector>
+#include <iostream>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/geom/GeoConvHelper.h>
+#include <utils/common/FileHelpers.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/UtilExceptions.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
+#include <utils/xml/SUMOSAXReader.h>
+#include <utils/xml/XMLSubSys.h>
 #include <utils/iodevices/OutputDevice_String.h>
 #include "RONet.h"
 #include "ROEdge.h"
+#include "ROLane.h"
+#include "RORouteDef.h"
 #include "RORouteHandler.h"
 
 #define JUNCTION_TAZ_MISSING_HELP "\nSet option '--junction-taz' or load a TAZ-file"

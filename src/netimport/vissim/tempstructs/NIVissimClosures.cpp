@@ -20,6 +20,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
 #include <utils/common/VectorHelper.h>
 #include "NIVissimClosures.h"
 

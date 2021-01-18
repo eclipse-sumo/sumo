@@ -20,6 +20,9 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <map>
+#include <string>
+#include <utils/common/UtilExceptions.h>
 #include <utils/common/StringUtils.h>
 #include "NamedColumnsParser.h"
 

@@ -21,8 +21,17 @@
 #include <config.h>
 
 
+#include <string>
+#include <map>
 #include <cassert>
+#include <algorithm>
+#include <utils/geom/PositionVector.h>
+#include "NIVissimEdge.h"
+#include "NIVissimNodeDef.h"
 #include "NIVissimNodeDef_Poly.h"
+#include "NIVissimConnection.h"
+#include "NIVissimAbstractEdge.h"
+#include <utils/geom/Boundary.h>
 
 
 // ===========================================================================

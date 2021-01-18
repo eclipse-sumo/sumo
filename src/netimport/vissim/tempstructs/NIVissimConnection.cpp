@@ -23,11 +23,25 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <map>
+#include <iostream>
+#include <cassert>
+#include <utils/common/VectorHelper.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
+#include "NIVissimExtendedEdgePoint.h"
+#include <utils/geom/PositionVector.h>
+#include <utils/geom/Boundary.h>
+#include <utils/geom/GeomHelper.h>
+#include <netbuild/NBEdge.h>
+#include <netbuild/NBNode.h>
 #include <netbuild/NBEdgeCont.h>
 #include "NIVissimEdge.h"
+#include "NIVissimClosedLanesVector.h"
 #include "NIVissimNodeDef.h"
 #include "NIVissimConnection.h"
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================

@@ -21,9 +21,13 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <iostream>
+#include <cstring>
+#include <cerrno>
 #ifdef HAVE_ZLIB
 #include <foreign/zstr/zstr.hpp>
 #endif
+#include <utils/common/UtilExceptions.h>
 #include "OutputDevice_File.h"
 
 

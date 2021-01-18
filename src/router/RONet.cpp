@@ -21,9 +21,23 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <algorithm>
 #include <utils/router/RouteCostCalculator.h>
+#include <utils/vehicle/SUMOVTypeParameter.h>
+#include <utils/router/SUMOAbstractRouter.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/ToString.h>
+#include <utils/common/RandHelper.h>
+#include <utils/common/SUMOVehicleClass.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "ROEdge.h"
+#include "ROLane.h"
+#include "RONode.h"
 #include "ROPerson.h"
+#include "RORoute.h"
+#include "RORouteDef.h"
+#include "ROVehicle.h"
 #include "ROAbstractEdgeBuilder.h"
 #include "RONet.h"
 

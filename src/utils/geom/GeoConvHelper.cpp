@@ -21,9 +21,15 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <map>
+#include <cmath>
+#include <cassert>
+#include <climits>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "GeoConvHelper.h"
 
 

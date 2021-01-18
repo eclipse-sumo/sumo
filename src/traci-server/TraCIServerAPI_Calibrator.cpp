@@ -19,7 +19,11 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <microsim/MSNet.h>
+#include <microsim/MSEdge.h>
+#include <microsim/trigger/MSCalibrator.h>
 #include <libsumo/Calibrator.h>
+#include <libsumo/TraCIConstants.h>
 #include "TraCIServerAPI_Calibrator.h"
 
 

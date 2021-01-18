@@ -21,11 +21,18 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/MsgHandler.h>
+#include <utils/geom/Position.h>
+#include <utils/foxtools/MFXUtils.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/options/OptionsCont.h>
 
+#include "GUISUMOAbstractView.h"
 #include "GUIDialog_EditViewport.h"
 
 

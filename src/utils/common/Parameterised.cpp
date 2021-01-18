@@ -21,6 +21,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #include "Parameterised.h"
 

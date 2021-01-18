@@ -26,6 +26,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
+#include <utils/xml/XMLSubSys.h>
 
 #include "SUMORouteHandler.h"
 

@@ -19,7 +19,10 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <map>
 #include <cassert>
+#include "NIVissimVehicleClassVector.h"
 #include "NIVissimTrafficDescription.h"
 
 

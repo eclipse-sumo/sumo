@@ -20,11 +20,21 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <ctime>
 #include "NWWriter_OpenDrive.h"
 #include <utils/iodevices/OutputDevice_String.h>
+#include <utils/common/MsgHandler.h>
+#include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/iodevices/OutputDevice.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/StdDefs.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/geom/GeoConvHelper.h>
 
 #define INVALID_ID -1
 

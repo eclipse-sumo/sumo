@@ -24,8 +24,17 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
+#include <algorithm>
+#include <cassert>
+#include <iostream>
+#include <utils/vehicle/SUMOVTypeParameter.h>
+#include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersHarmonoise.h>
+#include "ROLane.h"
 #include "RONet.h"
+#include "ROVehicle.h"
 #include "ROEdge.h"
 
 

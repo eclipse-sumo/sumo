@@ -19,8 +19,16 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <iterator>
+#include <map>
+#include <string>
 #include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
 #include "NIVissimConflictArea.h"
+#include "NIVissimConnection.h"
+#include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBEdge.h>
+#include <netbuild/NBNode.h>
 
 
 // ===========================================================================

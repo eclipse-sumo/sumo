@@ -22,6 +22,7 @@
 #include <config.h>
 
 #include <utils/common/SUMOTime.h>
+#include <utils/common/ToString.h>
 #include <utils/common/PolySolver.h>
 #include "HelpersEnergy.h"
 
@@ -29,6 +30,7 @@
 #include <utils/common/MsgHandler.h>
 
 //due to sqrt of complex
+#include <complex>
 
 
 // ===========================================================================

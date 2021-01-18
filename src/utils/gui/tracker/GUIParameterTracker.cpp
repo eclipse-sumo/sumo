@@ -21,11 +21,20 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <fstream>
+#include <utils/foxtools/MFXUtils.h>
+#include <utils/iodevices/OutputDevice.h>
+#include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/SUMOTime.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 #include <foreign/fontstash/fontstash.h>
 #include "GUIParameterTracker.h"
 #include <utils/gui/globjects/GLIncludes.h>

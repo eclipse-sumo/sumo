@@ -20,7 +20,10 @@
 #include <config.h>
 
 #include "GUIGlobalSelection.h"
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/div/GUISelectedStorage.h>
 
+#include <algorithm>
 
 
 // ===========================================================================

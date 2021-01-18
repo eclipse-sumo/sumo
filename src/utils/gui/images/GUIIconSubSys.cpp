@@ -23,6 +23,7 @@
 
 #include <utils/common/UtilExceptions.h>
 
+#include "GUIIcons.h"
 #include "GUIIconSubSys.h"
 
 #include "sumo_icon64.xpm"

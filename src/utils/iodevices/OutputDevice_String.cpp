@@ -19,6 +19,8 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <sstream>
+#include <string>
 #include "OutputDevice_String.h"
 
 

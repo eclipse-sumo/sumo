@@ -23,9 +23,20 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/vehicle/SUMORouteHandler.h>
+#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include "ROEdge.h"
+#include "ROLane.h"
+#include "RONode.h"
 #include "RONet.h"
 #include "RONetHandler.h"
 #include "ROAbstractEdgeBuilder.h"

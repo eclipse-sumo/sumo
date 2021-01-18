@@ -24,17 +24,28 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
 #include <microsim/MSEventControl.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSGlobals.h>
 #include <microsim/MSParkingArea.h>
 #include <microsim/output/MSDetectorControl.h>
+#include <microsim/output/MSRouteProbe.h>
 #include <microsim/trigger/MSLaneSpeedTrigger.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
+#include <microsim/trigger/MSCalibrator.h>
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSOverheadWire.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/FileHelpers.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/WrappingCommand.h>
 #include <utils/options/OptionsCont.h>
 #include "NLHandler.h"
 #include "NLTriggerBuilder.h"
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/xml/XMLSubSys.h>
 
 

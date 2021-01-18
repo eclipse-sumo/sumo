@@ -21,10 +21,14 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <algorithm>
 #include <utils/vehicle/SUMOVTypeParameter.h>
+#include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/emissions/PollutantsInterface.h>
 
 #define EMPREFIX std::string("HBEFA3/")

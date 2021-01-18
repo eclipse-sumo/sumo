@@ -21,7 +21,12 @@
 #include <config.h>
 
 
+#include <iostream> // !!! debug
+#include <cassert>
 #include "NIVissimNodeDef.h"
+#include "NIVissimConnection.h"
+#include "NIVissimDisturbance.h"
+#include "NIVissimTL.h"
 
 
 // ===========================================================================

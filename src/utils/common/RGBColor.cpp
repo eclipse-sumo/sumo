@@ -22,10 +22,16 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <cmath>
+#include <cassert>
+#include <string>
+#include <sstream>
 #include <utils/common/RandHelper.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StdDefs.h>
 #include "RGBColor.h"
 
 

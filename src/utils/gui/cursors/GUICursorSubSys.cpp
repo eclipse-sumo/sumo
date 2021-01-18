@@ -19,7 +19,9 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <fx.h>
 #include <cassert>
+#include "GUICursors.h"
 #include "GUICursorSubSys.h"
 
 /** includes **/

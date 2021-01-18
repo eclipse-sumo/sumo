@@ -19,6 +19,8 @@
 //
 /****************************************************************************/
 #include <math.h>
+#include <cmath>
+#include <limits>
 #include <utils/geom/GeomHelper.h>  // defines M_PI
 #include "PolySolver.h"
 

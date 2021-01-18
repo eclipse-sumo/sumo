@@ -23,13 +23,27 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include <xercesc/parsers/SAXParser.hpp>
+#include <xercesc/util/PlatformUtils.hpp>
+#include <xercesc/util/TransService.hpp>
+#include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <utils/options/OptionsCont.h>
+#include <utils/common/ToString.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/xml/SAXWeightsHandler.h>
 #include <utils/vehicle/SUMORouteLoader.h>
+#include <utils/vehicle/SUMORouteLoaderControl.h>
 #include "RONet.h"
 #include "RONetHandler.h"
 #include "ROLoader.h"
+#include "ROLane.h"
 #include "ROEdge.h"
 #include "RORouteHandler.h"
 

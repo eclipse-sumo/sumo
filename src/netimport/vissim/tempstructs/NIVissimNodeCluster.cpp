@@ -22,8 +22,15 @@
 #include <config.h>
 
 
+#include <map>
+#include <algorithm>
+#include <cassert>
+#include <utils/common/VectorHelper.h>
 #include <utils/common/ToString.h>
+#include <utils/geom/PositionVector.h>
+#include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
+#include "NIVissimTL.h"
 #include "NIVissimDisturbance.h"
 #include "NIVissimConnection.h"
 #include "NIVissimNodeCluster.h"

@@ -22,9 +22,14 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <iostream>
+#include <cstdio>
+#include <cstring>
 #include <regex>
 #include <xercesc/util/TransService.hpp>
 #include <xercesc/util/TranscodingException.hpp>
+#include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
 #include "StringUtils.h"
 

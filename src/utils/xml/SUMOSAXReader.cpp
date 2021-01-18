@@ -21,12 +21,16 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <memory>
+#include <iostream>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
 #include <xercesc/framework/LocalFileInputSource.hpp>
 #include <xercesc/framework/MemBufInputSource.hpp>
 
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include "GenericSAXHandler.h"
 #ifdef HAVE_ZLIB

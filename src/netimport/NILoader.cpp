@@ -23,12 +23,25 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/options/Option.h>
+#include <utils/common/FileHelpers.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
+#include <utils/geom/GeoConvHelper.h>
+#include <netbuild/NBTypeCont.h>
+#include <netbuild/NBNodeCont.h>
+#include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBHeightMapper.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netimport/NIXMLEdgesHandler.h>
 #include <netimport/NIXMLNodesHandler.h>
 #include <netimport/NIXMLTrafficLightsHandler.h>
+#include <netimport/NIXMLTypesHandler.h>
 #include <netimport/NIXMLPTHandler.h>
 #include <netimport/NIXMLShapeHandler.h>
 #include <netimport/NIXMLConnectionsHandler.h>

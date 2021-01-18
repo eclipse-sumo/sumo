@@ -20,9 +20,12 @@
 // A class that stores the 2D geometrical boundary
 /****************************************************************************/
 #include <config.h>
+#include <utility>
 
 #include "GeomHelper.h"
 #include "Boundary.h"
+#include "PositionVector.h"
+#include "Position.h"
 
 
 // ===========================================================================

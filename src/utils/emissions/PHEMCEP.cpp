@@ -23,6 +23,11 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <cmath>
+#include <string>
+#include <utils/common/StdDefs.h>
+#include <utils/common/StringBijection.h>
+#include <utils/common/UtilExceptions.h>
 #include "PHEMCEP.h"
 
 

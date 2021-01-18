@@ -21,8 +21,21 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <map>
+#include <string>
+#include <algorithm>
+#include <cassert>
+#include <utils/common/VectorHelper.h>
+#include <utils/common/ToString.h>
+#include <utils/geom/Position.h>
+#include <utils/geom/GeomHelper.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/options/OptionsCont.h>
+#include "NIVissimAbstractEdge.h"
 #include "NIVissimEdge.h"
+#include <netbuild/NBEdge.h>
+#include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBDistrict.h>
 #include <netbuild/NBDistrictCont.h>

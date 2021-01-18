@@ -20,6 +20,8 @@
 #include <config.h>
 
 
+#include <string>
+#include <map>
 #include "NIVissimSource.h"
 
 NIVissimSource::DictType NIVissimSource::myDict;

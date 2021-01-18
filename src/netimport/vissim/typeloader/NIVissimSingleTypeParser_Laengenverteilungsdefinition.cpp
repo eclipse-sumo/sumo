@@ -20,6 +20,10 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <iostream>
+#include <utils/common/StringUtils.h>
+#include <utils/geom/PositionVector.h>
+#include "../NIImporter_Vissim.h"
 #include <utils/distribution/Distribution_Points.h>
 #include <utils/distribution/DistributionCont.h>
 #include "NIVissimSingleTypeParser_Laengenverteilungsdefinition.h"

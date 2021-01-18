@@ -21,13 +21,19 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <vector>
+#include <iostream>
+#include <fstream>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/foxtools/MFXUtils.h>
 #include "GUIDialog_GLChosenEditor.h"
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 
 

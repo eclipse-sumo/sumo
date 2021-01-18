@@ -21,6 +21,8 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <cstdint>
+#include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
 #include <xercesc/framework/XMLGrammarPoolImpl.hpp>
 #include <utils/common/MsgHandler.h>

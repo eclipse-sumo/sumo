@@ -21,7 +21,15 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <utility>
+#include <iostream>
+#include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
+#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
+#include "ODDistrict.h"
 #include "ODDistrictCont.h"
 #include "ODDistrictHandler.h"
 

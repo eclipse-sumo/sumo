@@ -21,8 +21,15 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <iostream>
+#include <utils/common/Named.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/StdDefs.h>
+#include "ROEdge.h"
 #include "RORoute.h"
 #include "ROHelper.h"
+#include <utils/iodevices/OutputDevice.h>
 
 
 // ===========================================================================

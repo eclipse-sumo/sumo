@@ -21,8 +21,12 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <iostream>
+#include <cstring>
+#include "Option.h"
 #include "OptionsCont.h"
 #include "OptionsParser.h"
+#include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 
 

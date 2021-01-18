@@ -22,7 +22,17 @@
 
 
 
+#include <string>
+#include <map>
+#include <algorithm>
+#include <cassert>
+#include <utils/geom/Boundary.h>
+#include "NIVissimNodeParticipatingEdgeVector.h"
+#include "NIVissimNodeDef.h"
+#include "NIVissimEdge.h"
 #include "NIVissimNodeDef_Edges.h"
+#include "NIVissimDisturbance.h"
+#include "NIVissimConnection.h"
 
 
 // ===========================================================================

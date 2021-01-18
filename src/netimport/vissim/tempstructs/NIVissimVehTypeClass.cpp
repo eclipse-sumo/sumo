@@ -20,6 +20,9 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <utils/common/RGBColor.h>
+#include <utils/common/VectorHelper.h>
 #include "NIVissimVehTypeClass.h"
 
 

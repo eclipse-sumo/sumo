@@ -20,7 +20,10 @@
 #include <config.h>
 
 #include <microsim/MSNet.h>
+#include <microsim/MSEdge.h>
+#include <microsim/MSStoppingPlace.h>
 #include <libsumo/ParkingArea.h>
+#include <libsumo/TraCIConstants.h>
 #include "TraCIServerAPI_ParkingArea.h"
 
 

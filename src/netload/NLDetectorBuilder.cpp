@@ -24,19 +24,35 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <iostream>
+#include <microsim/MSNet.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
+#include <microsim/output/MSInductLoop.h>
+#include <microsim/output/MSE2Collector.h>
 // #include <microsim/output/MSMultiLaneE2Collector.h>
 #include <microsim/output/MSVTypeProbe.h>
+#include <microsim/output/MSRouteProbe.h>
+#include <microsim/output/MSMeanData_Net.h>
 #include <microsim/output/MSMeanData_Emissions.h>
 #include <microsim/output/MSMeanData_Harmonoise.h>
 #include <microsim/output/MSMeanData_Amitran.h>
 #include <microsim/output/MSInstantInductLoop.h>
+#include <microsim/MSGlobals.h>
+#include <microsim/actions/Command_SaveTLCoupledDet.h>
 #include <microsim/actions/Command_SaveTLCoupledLaneDet.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/FileHelpers.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/StringUtils.h>
 #include "NLDetectorBuilder.h"
 #include <microsim/output/MSDetectorControl.h>
 
 #include <mesosim/MEInductLoop.h>
 #include <mesosim/MELoop.h>
+#include <mesosim/MESegment.h>
 
 
 // ===========================================================================

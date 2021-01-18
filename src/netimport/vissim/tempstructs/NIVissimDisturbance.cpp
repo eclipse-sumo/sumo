@@ -21,10 +21,23 @@
 #include <config.h>
 
 
+#include <map>
+#include <string>
+#include <iostream>
+#include <cassert>
+#include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/geom/GeomHelper.h>
+#include <utils/geom/Boundary.h>
+#include <netbuild/NBEdge.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNodeCont.h>
 #include "NIVissimEdge.h"
+#include "NIVissimConnection.h"
+#include "NIVissimNodeDef.h"
 #include "NIVissimDisturbance.h"
+#include "NIVissimNodeParticipatingEdgeVector.h"
 
 
 // ===========================================================================

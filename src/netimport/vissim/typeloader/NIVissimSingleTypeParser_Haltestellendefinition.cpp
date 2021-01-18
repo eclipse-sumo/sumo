@@ -20,6 +20,10 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <iostream>
+#include <utils/common/StringUtils.h>
+#include "../NIImporter_Vissim.h"
+#include "../tempstructs/NIVissimClosures.h"
 #include "NIVissimSingleTypeParser_Haltestellendefinition.h"
 
 

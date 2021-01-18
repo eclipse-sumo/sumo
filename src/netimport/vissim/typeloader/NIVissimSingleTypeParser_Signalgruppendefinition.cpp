@@ -21,7 +21,13 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <cassert>
+#include <iostream>
+#include <utils/common/StringUtils.h>
+#include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/VectorHelper.h>
+#include "../NIImporter_Vissim.h"
 #include "../tempstructs/NIVissimTL.h"
 #include "NIVissimSingleTypeParser_Signalgruppendefinition.h"
 

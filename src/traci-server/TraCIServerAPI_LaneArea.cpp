@@ -22,7 +22,9 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <microsim/output/MSDetectorControl.h>
 #include <libsumo/LaneArea.h>
+#include <libsumo/TraCIConstants.h>
 #include "TraCIServer.h"
 #include "TraCIServerAPI_LaneArea.h"
 

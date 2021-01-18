@@ -21,9 +21,13 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <iostream>
+#include <fx.h>
 #include <utils/foxtools/MFXImageHelper.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIMainWindow.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include "GUITexturesHelper.h"
 

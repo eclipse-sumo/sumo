@@ -23,6 +23,10 @@
 #include <config.h>
 
 #include "GUICompleteSchemeStorage.h"
+#include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/RGBColor.h>
+#include <utils/foxtools/MFXUtils.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/iodevices/OutputDevice_String.h>
 

@@ -21,6 +21,9 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <limits>
+#include <cmath>
+#include <algorithm>
 #include "HelpersHBEFA3.h"
 
 

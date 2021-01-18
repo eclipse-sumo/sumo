@@ -22,7 +22,18 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <queue>
+#include <cmath>
+#include <iostream>
+#include <algorithm>
+#include <cassert>
+#include <iterator>
+#include <limits>
+#include <utils/common/StdDefs.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
+#include "AbstractPoly.h"
+#include "Position.h"
 #include "PositionVector.h"
 #include "GeomHelper.h"
 #include "Boundary.h"

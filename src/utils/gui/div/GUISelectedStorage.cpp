@@ -21,9 +21,13 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <algorithm>
+#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include "GUISelectedStorage.h"
+#include "GUIDialog_GLChosenEditor.h"
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/common/ToString.h>
 
 
 // ===========================================================================

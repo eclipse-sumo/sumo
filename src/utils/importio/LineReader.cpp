@@ -21,6 +21,12 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <fstream>
+#include <iostream>
+#include <algorithm>
+#include <sstream>
+#include <utils/common/UtilExceptions.h>
 #include "LineHandler.h"
 #include "LineReader.h"
 

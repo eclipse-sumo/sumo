@@ -23,9 +23,14 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <map>
 #include "SUMOVehicleClass.h"
+#include <utils/common/StringUtils.h>
+#include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 
 

@@ -20,7 +20,9 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <microsim/output/MSDetectorControl.h>
 #include <libsumo/MultiEntryExit.h>
+#include <libsumo/TraCIConstants.h>
 #include "TraCIServerAPI_MultiEntryExit.h"
 
 

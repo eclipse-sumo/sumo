@@ -21,10 +21,16 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string>
+#include <exception>
+#include <sstream>
 #include "Option.h"
 #include <utils/common/StringUtils.h>
+#include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
 
 
 // ===========================================================================

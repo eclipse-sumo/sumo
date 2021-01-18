@@ -21,7 +21,10 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <iostream>
+#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
+#include "../NIImporter_Vissim.h"
 #include "NIVissimSingleTypeParser_Simdauer.h"
 
 

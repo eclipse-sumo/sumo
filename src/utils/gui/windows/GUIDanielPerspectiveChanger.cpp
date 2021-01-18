@@ -26,6 +26,7 @@
 #include <utils/geom/Position.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
+#include "GUIPerspectiveChanger.h"
 #include "GUIDanielPerspectiveChanger.h"
 
 

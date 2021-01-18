@@ -21,10 +21,21 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <algorithm>
+#include <iostream>
+#include <cassert>
+#include <iterator>
+#include <utils/geom/Boundary.h>
+#include <utils/geom/GeomHelper.h>
+#include <utils/common/VectorHelper.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
+#include "NIVissimConnection.h"
 #include "NIVissimDisturbance.h"
+#include "NIVissimNodeCluster.h"
 #include "NIVissimNodeDef.h"
 #include "NIVissimEdge.h"
+#include "NIVissimTL.h"
 #include "NIVissimConnectionCluster.h"
 
 

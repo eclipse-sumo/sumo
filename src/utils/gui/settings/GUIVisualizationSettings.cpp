@@ -21,9 +21,12 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <map>
+#include <vector>
 #include <utils/gui/div/GUIGlobalSelection.h>
 
 #include "GUIVisualizationSettings.h"
+#include "GUIPropertyScheme.h"
 
 // ===========================================================================
 // static members
