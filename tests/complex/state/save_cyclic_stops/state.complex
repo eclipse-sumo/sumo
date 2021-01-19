@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec  1 10:42:08 2020 by Eclipse SUMO sumo Version 1.8.0
+<!-- generated on Tue Jan 19 21:47:51 2021 by Eclipse SUMO sumo Version v1_8_0+0590-bd7c637efe
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -26,15 +26,15 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="1.8.0" time="350.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_8_0+0590-bd7c637efe" time="350.00" type="micro">
     <route id="!v0!var#1" state="0" edges="SC CN NC CS SC CN NC CS SC CN NC CS SC CN"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
-    <vType id="DEFAULT_VEHTYPE"/>
-    <vehicle id="v0" type="DEFAULT_VEHTYPE" depart="0.00" route="!v0!var#1" distance="614.46 1" speedFactor="1.00" reroute="1" state="131072 0 6 5.10 35000 181.59 349000 0 4" pos="90.95 85.95 0.00" speed="0.00 0.00" posLat="0.00" waitingTime="100000 3 0 35000 49000 50000 80000 110000">
-        <stop lane="SC_0" until="60.00" actualArrival="12.00" depart="60.00"/>
-        <stop lane="CN_0" until="120.00" actualArrival="105.00" depart="120.00"/>
-        <stop lane="SC_0" until="240.00" actualArrival="201.00" depart="240.00"/>
-        <stop lane="CN_0" until="300.00" actualArrival="285.00" depart="300.00"/>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vehicle id="v0" type="DEFAULT_VEHTYPE" depart="0.00" route="!v0!var#1" distance="614.46 1" speedFactor="1.00" reroute="1" state="131072 0 6 5.10 38000 170.60 349000 0 4" pos="90.95 85.95 0.00" speed="0.00 0.00" posLat="0.00" waitingTime="100000 3 0 38000 49000 50000 80000 110000">
+        <stop lane="SC_0" until="60.00" actualArrival="11.00" depart="60.00"/>
+        <stop lane="CN_0" until="120.00" actualArrival="101.00" depart="120.00"/>
+        <stop lane="SC_0" until="240.00" actualArrival="199.00" depart="240.00"/>
+        <stop lane="CN_0" until="300.00" actualArrival="281.00" depart="300.00"/>
         <stop lane="SC_0" startPos="91.75" endPos="91.95" until="360.00"/>
         <stop lane="CN_0" startPos="91.75" endPos="91.95" until="420.00"/>
         <stop lane="SC_0" startPos="91.75" endPos="91.95" until="480.00"/>
