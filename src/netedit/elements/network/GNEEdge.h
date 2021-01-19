@@ -89,6 +89,9 @@ public:
 
     /// @name functions for geometry points
     /// @{
+    /// @brief check if current edge has custom end points
+    bool hasCustomEndPoints() const;
+
     /// @brief return true if user clicked over ShapeStart
     bool clickedOverShapeStart(const Position& pos) const;
 

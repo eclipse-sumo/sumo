@@ -807,6 +807,8 @@ enum {
     MID_GNE_MARKFRONTELEMENT,
     /// @brief set custom geometry point
     MID_GNE_CUSTOM_GEOMETRYPOINT,
+    /// @brief reset geometry point
+    MID_GNE_RESET_GEOMETRYPOINT,
 
     /// @}
 

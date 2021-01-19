@@ -699,10 +699,21 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     }
     // check if we're in supermode network
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+        // create end point
+        FXMenuCommand* resetEndPoints = GUIDesigns::buildFXMenuCommand(ret, "Reset edge end points", nullptr, &parent, MID_GNE_RESET_GEOMETRYPOINT);
+        // enable or disable reset end points
+        if (myParentEdge->hasCustomEndPoints()) {
+            resetEndPoints->enable();
+        } else {
+            resetEndPoints->disable();
+        }
         // check if we clicked over a geometry point
         if ((editMode == NetworkEditMode::NETWORK_MOVE) && myParentEdge->clickedOverGeometryPoint(myNet->getViewNet()->getPositionInformation() )) {
             GUIDesigns::buildFXMenuCommand(ret, "Set custom Geometry Point", nullptr, &parent, MID_GNE_CUSTOM_GEOMETRYPOINT);
         }
+        // add separator
+        new FXMenuSeparator(ret);
+
         if (editMode != NetworkEditMode::NETWORK_CONNECT && editMode != NetworkEditMode::NETWORK_TLS && editMode != NetworkEditMode::NETWORK_CREATE_EDGE) {
             // build edge oeprations
             buildEdgeOperations(parent, ret);

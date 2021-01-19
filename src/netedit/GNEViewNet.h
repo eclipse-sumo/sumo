@@ -211,6 +211,9 @@ public:
     /// @brief set custom geometry point
     long onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*);
 
+    /// @brief reset edge end points
+    long onCmdResetEndPoints(FXObject*, FXSelector, void*);
+
     /// @brief duplicate selected lane
     long onCmdDuplicateLane(FXObject*, FXSelector, void*);
 

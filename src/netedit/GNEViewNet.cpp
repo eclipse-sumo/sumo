@@ -176,6 +176,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POI_TRANSFORM,                           GNEViewNet::onCmdTransformPOI),
     // Geometry Points
     FXMAPFUNC(SEL_COMMAND, MID_GNE_CUSTOM_GEOMETRYPOINT,                    GNEViewNet::onCmdSetCustomGeometryPoint),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_RESET_GEOMETRYPOINT,                     GNEViewNet::onCmdResetEndPoints),
     // IntervalBar
     FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_GENERICDATATYPE,             GNEViewNet::onCmdIntervalBarGenericDataType),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_DATASET,                     GNEViewNet::onCmdIntervalBarDataSet),
@@ -2005,6 +2006,42 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
             myUndoList->p_begin("change TAZ Geometry Point position");
             // change shape
             myUndoList->p_add(new GNEChange_Attribute(TAZ, SUMO_ATTR_SHAPE, toString(TAZGeometry)));
+            // end undo list
+            myUndoList->p_end();
+        }
+    }
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdResetEndPoints(FXObject*, FXSelector, void*) {
+    // get lane at popup position
+    GNELane* lane = getLaneAtPopupPosition();
+    // check element
+    if (lane != nullptr) {
+        // get parent edge
+        GNEEdge* edge = lane->getParentEdge();
+        // check if edge is selected
+        if (edge->isAttributeCarrierSelected()) {
+            // get selected edges
+            auto selectedEdges = myNet->retrieveEdges(true);
+            // begin undo list
+            myUndoList->p_begin("reset end points of selected edges");
+            // iterate over edges
+            for (const auto &selectedEdge : selectedEdges) {
+                // reset both end points
+                selectedEdge->setAttribute(GNE_ATTR_SHAPE_START, "", myUndoList);
+                selectedEdge->setAttribute(GNE_ATTR_SHAPE_END, "", myUndoList);
+            }
+            // end undo list
+            myUndoList->p_end();
+        } else {
+            // begin undo list
+            myUndoList->p_begin("reset end points of " + edge->getID());
+            // reset both end points
+            edge->setAttribute(GNE_ATTR_SHAPE_START, "", myUndoList);
+            edge->setAttribute(GNE_ATTR_SHAPE_END, "", myUndoList);
             // end undo list
             myUndoList->p_end();
         }
