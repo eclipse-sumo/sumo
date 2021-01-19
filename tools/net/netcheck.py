@@ -53,6 +53,9 @@ def parse_args():
     optParser.add_option("-r", "--results-output",
                          default=None, help="Write results summary of disconnected network to file - not compatible " +
                          "with --source or --destination options")
+    optParser.add_option("-t", "--print-types", action="store_true",
+                         default=False,
+                         help="Print edge types used in the component")
 
     options, args = optParser.parse_args()
     if len(args) != 1:
@@ -169,6 +172,12 @@ if __name__ == "__main__":
                 with open("{}comp{}.txt".format(options.selection_output, idx), 'w') as f:
                     for e in comp:
                         f.write("edge:{}\n".format(e))
+            types = set()
+            if options.print_types:
+                for e in comp:
+                    types.add(net.getEdge(e).getType())
+                    if len(types) > 10:
+                        break
 
             edge_count = len(comp)
             total += edge_count
@@ -181,6 +190,8 @@ if __name__ == "__main__":
             edge_count_dist[edge_count] += 1
             output_str = "Component: #{} Edge Count: {}\n {}\n".format(
                 idx, edge_count, " ".join(comp))
+            if types:
+                output_str += "Types: {}\n".format(sorted(types))
             print(output_str)
             output_str_list.append(output_str)
 
