@@ -27,6 +27,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/network/GNEConnection.h>
+#include <netedit/elements/network/GNELane.h>
 #include <netedit/frames/network/GNEConnectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 
@@ -377,8 +378,17 @@ GNEConnectorFrame::~GNEConnectorFrame() {}
 
 void
 GNEConnectorFrame::handleLaneClick(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+    // get lane front
+    GNELane* clickedLane = objectsUnderCursor.getLaneFront();
+    // iterate over lanes
+    for (const auto &lane : objectsUnderCursor.getLanes()) {
+        // if parent edge of lane is front element, update clickedLane
+        if (lane->getParentEdge() == myViewNet->getFrontAttributeCarrier()) {
+            clickedLane = lane;
+        }
+    }
     // build connection
-    buildConnection(objectsUnderCursor.getLaneFront(), myViewNet->getMouseButtonKeyPressed().shiftKeyPressed(), myViewNet->getMouseButtonKeyPressed().controlKeyPressed(), true);
+    buildConnection(clickedLane, myViewNet->getMouseButtonKeyPressed().shiftKeyPressed(), myViewNet->getMouseButtonKeyPressed().controlKeyPressed(), true);
 }
 
 

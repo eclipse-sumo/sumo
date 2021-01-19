@@ -363,6 +363,16 @@ GNEViewNetHelper::ObjectsUnderCursor::getLaneFront() const {
 }
 
 
+const std::vector<GNELane*>& 
+GNEViewNetHelper::ObjectsUnderCursor::getLanes() const {
+    if (mySwapLane2edge) {
+        return myEdgeObjects.lanes;
+    } else {
+        return myLaneObjects.lanes;
+    }
+}
+
+
 GNECrossing*
 GNEViewNetHelper::ObjectsUnderCursor::getCrossingFront() const {
     if (mySwapLane2edge) {
