@@ -1800,9 +1800,29 @@ GNEViewNet::onCmdResetLength(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
+    // get polygon under mouse
     GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
+    // check polygon
     if (polygonUnderMouse) {
-        polygonUnderMouse->simplifyShape();
+        // check if shape is selected
+        if (polygonUnderMouse->isAttributeCarrierSelected()) {
+            // get shapes
+            const auto selectedShapes = myNet->retrieveShapes(true);
+            // begin undo-list
+            myNet->getViewNet()->getUndoList()->p_begin("simplify shapes");
+            // iterate over shapes
+            for (const auto &selectedShape : selectedShapes) {
+                // check if shape is a poly
+                if (selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) {
+                    // simplify shape
+                    dynamic_cast<GNEPoly*>(selectedShape)->simplifyShape();
+                }
+            }
+            // end undo-list
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            polygonUnderMouse->simplifyShape();
+        }
     }
     updateViewNet();
     return 1;
@@ -1822,22 +1842,64 @@ GNEViewNet::onCmdDeleteGeometryPoint(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
+    // get polygon under mouse
     GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
+    // check polygon
     if (polygonUnderMouse) {
-        polygonUnderMouse->closePolygon();
-        updateViewNet();
+        // check if shape is selected
+        if (polygonUnderMouse->isAttributeCarrierSelected()) {
+            // get shapes
+            const auto selectedShapes = myNet->retrieveShapes(true);
+            // begin undo-list
+            myNet->getViewNet()->getUndoList()->p_begin("close polygon shapes");
+            // iterate over shapes
+            for (const auto& selectedShape : selectedShapes) {
+                // check if shape is a poly
+                if (selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) {
+                    // close polygon
+                    dynamic_cast<GNEPoly*>(selectedShape)->closePolygon();
+                }
+            }
+            // end undo-list
+            myNet->getViewNet()->getUndoList()->p_end();
+        }
+        else {
+            polygonUnderMouse->simplifyShape();
+        }
     }
+    updateViewNet();
     return 1;
 }
 
 
 long
 GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
+    // get polygon under mouse
     GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
+    // check polygon
     if (polygonUnderMouse) {
-        polygonUnderMouse->openPolygon();
-        updateViewNet();
+        // check if shape is selected
+        if (polygonUnderMouse->isAttributeCarrierSelected()) {
+            // get shapes
+            const auto selectedShapes = myNet->retrieveShapes(true);
+            // begin undo-list
+            myNet->getViewNet()->getUndoList()->p_begin("open polygon shapes");
+            // iterate over shapes
+            for (const auto& selectedShape : selectedShapes) {
+                // check if shape is a poly
+                if (selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) {
+                    // open polygon
+                    dynamic_cast<GNEPoly*>(selectedShape)->openPolygon();
+                }
+            }
+            // end undo-list
+            myNet->getViewNet()->getUndoList()->p_end();
+        }
+        else {
+            polygonUnderMouse->openPolygon();
+        }
     }
+    updateViewNet();
     return 1;
 }
 
