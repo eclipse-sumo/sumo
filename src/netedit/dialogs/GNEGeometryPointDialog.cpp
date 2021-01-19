@@ -55,7 +55,7 @@ GNEGeometryPointDialog::GNEGeometryPointDialog(GNEViewNet* viewNet, Position* po
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create frame for X,Y
     FXHorizontalFrame* XYFrame = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(XYFrame, "X,Y", nullptr, GUIDesignLabelThick50);
+    new FXLabel(XYFrame, "X,Y,[,Z]", nullptr, GUIDesignLabelThick50);
     myTextFieldXY = new FXTextField(XYFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldXY->setText(toString(*pos).c_str());
     // create frame for lon,lat
