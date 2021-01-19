@@ -204,7 +204,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
         "Save &Joined Junctions...", "Ctrl+J", "Save log of joined junctions (allows reproduction of joins).",
         GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_J_SAVEJOINEDJUNCTIONS);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-        "save all elements", "", "Save all elements (network, additional, demand and data)",
+        "Save All Elements", "", "Save all elements (network, additional, demand and data)",
         GUIIconSubSys::getIcon(GUIIcon::SAVEALLELEMENTS), myGNEApp, MID_GNE_SAVEALLELEMENTS);
     // create TLS menu options
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuTLS,
