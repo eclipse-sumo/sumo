@@ -27,7 +27,7 @@ jobs:
 
     - name: Preparing Build System
       run: |
-        brew cask install xquartz
+        brew install --cask xquartz
         brew install xerces-c fox proj gdal gl2ps  
 
     - name: Installing Google Test
