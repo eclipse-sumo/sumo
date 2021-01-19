@@ -313,7 +313,7 @@ MSLaneChanger::change() {
     // Check for changes to the opposite lane if vehicle is active
     std::pair<MSVehicle* const, double> leader = getRealLeader(myCandi);
     if (myChanger.size() == 1 || vehicle->getLaneChangeModel().isOpposite() || (!mayChange(-1) && !mayChange(1))) {
-        if (changeOpposite(leader)) {
+        if (changeOpposite(vehicle, leader)) {
             return true;
         }
         registerUnchanged(vehicle);
@@ -370,7 +370,7 @@ MSLaneChanger::change() {
     // only emergency vehicles should change to the opposite side on a
     // multi-lane road
     if (vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY
-            && changeOpposite(leader)) {
+            && changeOpposite(vehicle, leader)) {
         return true;
     }
 
@@ -1023,12 +1023,10 @@ MSLaneChanger::checkChange(
 
 
 bool
-MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
+MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader) {
     if (!myChangeToOpposite) {
         return false;
     }
-    myCandi = findCandidate();
-    MSVehicle* vehicle = veh(myCandi);
     MSLane* source = vehicle->getMutableLane();
 #ifdef DEBUG_CHANGE_OPPOSITE
         if (DEBUG_COND) {

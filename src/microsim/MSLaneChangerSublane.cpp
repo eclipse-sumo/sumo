@@ -186,7 +186,7 @@ MSLaneChangerSublane::change() {
             std::pair<MSVehicle*, double> leader = findClosestLeader(leaders, vehicle);
             myCheckedChangeOpposite = false;
             if ((leader.first != nullptr || vehicle->getLaneChangeModel().isOpposite())
-                    && changeOpposite(leader)) {
+                    && changeOpposite(vehicle, leader)) {
                 return true;
             } else if (myCheckedChangeOpposite) {
                 registerUnchanged(vehicle);

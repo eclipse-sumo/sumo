@@ -148,7 +148,7 @@ protected:
 
 
     /** try changing to the opposite direction edge. */
-    virtual bool changeOpposite(std::pair<MSVehicle*, double> leader);
+    virtual bool changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader);
 
     /** Update changer for vehicles that did not change */
     void registerUnchanged(MSVehicle* vehicle);
