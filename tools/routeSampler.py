@@ -748,7 +748,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
             ' '.join(cd.edgeTuple), int(origHourly), int(localHourly)))
 
     outputIntervalPrefix = "" if intervalPrefix == "" else "%s: " % int(begin)
-    countPercentage = gehOK = "%.2f%%" % (100 * totalCount / float(totalOrigCount)) if totalOrigCount else "-"
+    countPercentage = "%.2f%%" % (100 * totalCount / float(totalOrigCount)) if totalOrigCount else "-"
     gehOKNum = 100 * numGehOK / float(len(countData)) if countData else 100
     gehOK = "%.2f%%" % gehOKNum if countData else "-"
     print("%sWrote %s routes (%s distinct) achieving total count %s (%s) at %s locations. GEH<%s for %s" % (
