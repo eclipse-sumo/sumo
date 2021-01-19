@@ -19,8 +19,11 @@ source_vclass_pedestrian
 # find edges that can reach the given destination
 destination
 
-# write weakly connectec components to an edge selection
+# write weakly connected components to an edge selection
 components
+
+# write weakly connected components with edge types (network from netconvert/import/OSM/adlershof_dlr)
+types
 
 # get very weakly connected components (node graph)
 ignore_connections
