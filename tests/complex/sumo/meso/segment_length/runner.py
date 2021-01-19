@@ -56,5 +56,5 @@ for net in ("int.net.xml", "noint.net.xml"):
                                 "--meso-edgelength", str(segLength)]), label=segLength)
     print(stats)
     print(statsJC)
-    print("Deviation %s meso vs. micro:" % net, (duration - stats.mean()) / duration)
-    print("Deviation %s meso jc vs. micro:" % net, (duration - statsJC.mean()) / duration)
+    print("Deviation %s meso vs. micro:" % net, (duration - stats.avg()) / duration)
+    print("Deviation %s meso jc vs. micro:" % net, (duration - statsJC.avg()) / duration)
