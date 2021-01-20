@@ -42,6 +42,7 @@
 //#define DEBUG_SMOOTH_GEOM
 //#define DEBUGCOND(obj) (true)
 #define VEHICLE_GAP 1
+#define ENDPOINT_TOLERANCE 2
 
 // ===========================================================================
 // static
@@ -212,8 +213,8 @@ GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
     // declare shape to move
     PositionVector shape = myNBEdge->getGeometry();
     // obtain flags for start and end positions
-    const bool customStartPosition = (myNBEdge->getGeometry().front() != getParentJunctions().front()->getNBNode()->getPosition());
-    const bool customEndPosition = (myNBEdge->getGeometry().back() != getParentJunctions().back()->getNBNode()->getPosition());
+    const bool customStartPosition = (myNBEdge->getGeometry().front().distanceSquaredTo2D(getParentJunctions().front()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE);
+    const bool customEndPosition = (myNBEdge->getGeometry().back().distanceSquaredTo2D(getParentJunctions().back()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE);
     // get variable for last index
     const int lastIndex = (int)myNBEdge->getGeometry().size() - 1;
     // flag to enable/disable remove geometry point
@@ -268,9 +269,9 @@ GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
 
 bool
 GNEEdge::hasCustomEndPoints() const {
-    if (myNBEdge->getGeometry().front() != getParentJunctions().front()->getNBNode()->getPosition()) {
+    if (myNBEdge->getGeometry().front().distanceSquaredTo2D(getParentJunctions().front()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) {
         return true;
-    } else if (myNBEdge->getGeometry().back() != getParentJunctions().back()->getNBNode()->getPosition()) {
+    } else if (myNBEdge->getGeometry().back().distanceSquaredTo2D(getParentJunctions().back()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) {
         return true;
     } else {
         return false;
@@ -280,7 +281,7 @@ GNEEdge::hasCustomEndPoints() const {
 
 bool
 GNEEdge::clickedOverShapeStart(const Position& pos) const {
-    if (myNBEdge->getGeometry().front() != getParentJunctions().front()->getNBNode()->getPosition()) {
+    if (myNBEdge->getGeometry().front().distanceSquaredTo2D(getParentJunctions().front()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) {
         return (myNBEdge->getGeometry().front().distanceTo2D(pos) < SNAP_RADIUS);
     } else {
         return false;
@@ -290,7 +291,7 @@ GNEEdge::clickedOverShapeStart(const Position& pos) const {
 
 bool
 GNEEdge::clickedOverShapeEnd(const Position& pos) const {
-    if (myNBEdge->getGeometry().back() != getParentJunctions().back()->getNBNode()->getPosition()) {
+    if (myNBEdge->getGeometry().back().distanceSquaredTo2D(getParentJunctions().back()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) {
         return (myNBEdge->getGeometry().back().distanceTo2D(pos) < SNAP_RADIUS);
     } else {
         return false;
@@ -448,11 +449,11 @@ GNEEdge::getSplitPos(const Position& clickPos) {
 
 void
 GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
-    if ((myNBEdge->getGeometry().front() != getParentJunctions().front()->getNBNode()->getPosition()) && (myNBEdge->getGeometry().front().distanceTo2D(pos) < SNAP_RADIUS)) {
+    if ((myNBEdge->getGeometry().front().distanceSquaredTo2D(getParentJunctions().front()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) && (myNBEdge->getGeometry().front().distanceTo2D(pos) < SNAP_RADIUS)) {
         undoList->p_begin("remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_START, "", undoList);
         undoList->p_end();
-    } else if ((myNBEdge->getGeometry().back() != getParentJunctions().back()->getNBNode()->getPosition()) && (myNBEdge->getGeometry().back().distanceTo2D(pos) < SNAP_RADIUS)) {
+    } else if ((myNBEdge->getGeometry().back().distanceSquaredTo2D(getParentJunctions().back()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) && (myNBEdge->getGeometry().back().distanceTo2D(pos) < SNAP_RADIUS)) {
         undoList->p_begin("remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
         undoList->p_end();
@@ -819,13 +820,13 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_MODIFICATION_STATUS:
             return myConnectionStatus;
         case GNE_ATTR_SHAPE_START:
-            if (myNBEdge->getGeometry().front().distanceSquaredTo2D(getParentJunctions().front()->getNBNode()->getPosition()) < 2) {
+            if (myNBEdge->getGeometry().front().distanceSquaredTo2D(getParentJunctions().front()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) {
                 return "";
             } else {
                 return toString(myNBEdge->getGeometry().front());
             }
         case GNE_ATTR_SHAPE_END:
-            if (myNBEdge->getGeometry().back().distanceSquaredTo2D(getParentJunctions().back()->getNBNode()->getPosition()) < 2) {
+            if (myNBEdge->getGeometry().back().distanceSquaredTo2D(getParentJunctions().back()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) {
                 return "";
             } else {
                 return toString(myNBEdge->getGeometry().back());
@@ -1234,7 +1235,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
             }
             // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForRectangleSelection
             if (drawBigGeometryPoints) {
-                if ((myNBEdge->getGeometry().front() != getParentJunctions().front()->getNBNode()->getPosition()) &&
+                if ((myNBEdge->getGeometry().front().distanceSquaredTo2D(getParentJunctions().front()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
                         (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().front()) <= (circleWidthSquared + 2)))) {
                     glPushMatrix();
                     glTranslated(myNBEdge->getGeometry().front().x(), myNBEdge->getGeometry().front().y(), 0.1);
@@ -1257,7 +1258,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
                         glPopMatrix();
                     }
                 }
-                if ((myNBEdge->getGeometry().back() != getParentJunctions().back()->getNBNode()->getPosition()) &&
+                if ((myNBEdge->getGeometry().back().distanceSquaredTo2D(getParentJunctions().back()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
                         (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().back()) <= (circleWidthSquared + 2)))) {
                     glPushMatrix();
                     glTranslated(myNBEdge->getGeometry().back().x(), myNBEdge->getGeometry().back().y(), 0.1);
