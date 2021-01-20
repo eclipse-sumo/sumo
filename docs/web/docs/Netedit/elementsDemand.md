@@ -9,7 +9,7 @@ permalink: /netedit/elementsDemand/
 
 ## Route
 
-dfdfd
+![](../images/GNERoute.png)
 
 ## Vehicles
 
@@ -17,44 +17,63 @@ Vehicles are the representation in NETEDIT of any mobile element that runs throu
 
 ### Trip
 
-dfdf
+A trip is defined clicking over a start and a end edge. NETEDIT automatically calculate the shorted minimum path between clicked edges. If user defines a list of "via" edges, then the path is calculated using also the via edges. The path is drawn while trip is inspected.
+
+![](../images/GNETrip.png)
 
 ### Vehicle over route
 
-dfdf
+A vehicle defined over a route follow the path defined by the give route. To create it, just click over the route.
+
+![](../images/GNEVehicle.png)
 
 ### Vehicle with embedded route
 
-dfdf
+A vehicle with embedded route is defined clicking over a list of edges in the network. NETEDIT automatically calculate the shorted minimum path between clicked edges.
+
+![](../images/GNEVehicleEmbeddedRoute.png)
 
 ### Flow
 
-dfdf
+A flow is defined clicking over a start and a end edge. NETEDIT automatically calculate the shorted minimum path between clicked edges. If user defines a list of "via" edges, then the path is calculated using also the via edges. The path is drawn while flow is inspected.
+
+![](../images/GNEFlow.png)
 
 ### Flow over route
 
-dfdf
+A flow defined over a route follow the path defined by the give route.  To create it, just click over the route.
+
+![](../images/GNEFlowRoute.png)
 
 ### Flow over embedded route
 
-dfdf
+A flow with embedded route is defined clicking over a list of edges in the network. NETEDIT automatically calculate the shorted minimum path between clicked edges.
 
-[Bus stops](Simulation/Public_Transport.md) are positions of a lane in which vehicles ("busses") stop for a pre-given time. Every Bus stop has an unique ID assigned automatically by
-**netedit**, a length and a list of bus lines defined by the user.
+![](../images/GNEFlowEmbeddedRoute.png)
 
 
 
 ## Vehicle Types
 
-dfdf
+A vehicle is defined using the Vehicle Type element as parent. There is two way to edit vehicles. The first one is the frame, in which can be created and edited their basic attributes, and the second one is the "Attribute editor", in which all attributes can be edited.
+
+![](../images/GNEVehicleType.png)
+
+
+
+![](../images/GNEVehicleTypeDialog.png)
 
 ## Stops
 
-dfd
+A stop pauses the vehicle in a given position of the lane's stop. A Stop can be defined either over a Lane or over a Stopping Place (BusStop, ContainerStop, ChargingStation or Parking Area), and is always defined within a parent element (Either a Route or a vehicle)
+
+![](../images/GNEStops.png)
 
 ## Persons
 
+Persons represent pedestrians in NETEDIT networks. All persons need a person plan, and this person plan can be either a Walk, a person trip, a ride or a stop. A  person plan can start or end from an edge or a busStop.
 
+![](../images/GNEPedestrian.png)
 
 
 
