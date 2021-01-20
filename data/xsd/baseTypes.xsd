@@ -261,7 +261,7 @@
 
     <xsd:complexType name="paramType">
         <xsd:attribute name="key" type="xsd:string" use="required"/>
-        <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="value" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="laneTypeType">
