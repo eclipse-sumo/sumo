@@ -864,8 +864,8 @@ GNEApplicationWindowHelper::toogleEditOptionsNetwork(GNEViewNet* viewNet, const 
             // show extra information for tests
             WRITE_DEBUG("Enabled show demand elements throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleShowDemandElements
-        viewNet->onCmdToogleShowDemandElements(obj, sel, nullptr);
+        // Call manually onCmdToogleShowDemandElementsNetwork
+        viewNet->onCmdToogleShowDemandElementsNetwork(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckSelectEdges) {
         // Toogle menuCheckSelectEdges
         if (viewNet->getNetworkViewOptions().menuCheckSelectEdges->amChecked() == TRUE) {
@@ -1091,8 +1091,8 @@ GNEApplicationWindowHelper::toogleEditOptionsData(GNEViewNet* viewNet, const MFX
             // show extra information for tests
             WRITE_DEBUG("Enabled show demand elements throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleShowDemandElements
-        viewNet->onCmdToogleShowDemandElements(obj, sel, nullptr);
+        // Call manually onCmdToogleShowDemandElementsData
+        viewNet->onCmdToogleShowDemandElementsData(obj, sel, nullptr);
     } else {
         return false;
     }

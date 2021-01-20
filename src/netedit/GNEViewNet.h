@@ -319,8 +319,11 @@ public:
     /// @brief toogle show shapes in super mode data
     long onCmdToogleShowShapes(FXObject*, FXSelector, void*);
 
-    /// @brief toogle show demand elements
-    long onCmdToogleShowDemandElements(FXObject*, FXSelector, void*);
+    /// @brief toogle show demand elements (network)
+    long onCmdToogleShowDemandElementsNetwork(FXObject*, FXSelector, void*);
+
+    /// @brief toogle show demand elements (data)
+    long onCmdToogleShowDemandElementsData(FXObject*, FXSelector, void*);
 
     /// @}
 

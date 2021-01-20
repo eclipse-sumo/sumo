@@ -95,7 +95,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     // Network view options
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID,             GNEViewNet::onCmdToogleShowGrid),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES,   GNEViewNet::onCmdToogleDrawSpreadVehicles),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS,   GNEViewNet::onCmdToogleShowDemandElements),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS,   GNEViewNet::onCmdToogleShowDemandElementsNetwork),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES,          GNEViewNet::onCmdToogleSelectEdges),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS,      GNEViewNet::onCmdToogleShowConnections),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS,      GNEViewNet::onCmdToogleHideConnections),
@@ -116,7 +116,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     // Data view options
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,         GNEViewNet::onCmdToogleShowAdditionals),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES,              GNEViewNet::onCmdToogleShowShapes),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,      GNEViewNet::onCmdToogleShowDemandElements),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,      GNEViewNet::onCmdToogleShowDemandElementsData),
     // Select elements
     FXMAPFUNC(SEL_COMMAND, MID_ADDSELECT,                                   GNEViewNet::onCmdAddSelected),
     FXMAPFUNC(SEL_COMMAND, MID_REMOVESELECT,                                GNEViewNet::onCmdRemoveSelected),
@@ -3146,7 +3146,7 @@ GNEViewNet::onCmdToogleShowShapes(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEViewNet::onCmdToogleShowDemandElements(FXObject*, FXSelector sel, void*) {
+GNEViewNet::onCmdToogleShowDemandElementsNetwork(FXObject*, FXSelector sel, void*) {
     // Toogle menuCheckShowDemandElements
     if (myNetworkViewOptions.menuCheckShowDemandElements->amChecked() == TRUE) {
         myNetworkViewOptions.menuCheckShowDemandElements->setChecked(FALSE);
@@ -3161,7 +3161,27 @@ GNEViewNet::onCmdToogleShowDemandElements(FXObject*, FXSelector sel, void*) {
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS)) {
         myNetworkViewOptions.menuCheckShowDemandElements->setFocus();
-    } else if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS)) {
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdToogleShowDemandElementsData(FXObject*, FXSelector sel, void*) {
+    // Toogle menuCheckShowDemandElements
+    if (myDataViewOptions.menuCheckShowDemandElements->amChecked() == TRUE) {
+        myDataViewOptions.menuCheckShowDemandElements->setChecked(FALSE);
+    }
+    else {
+        myDataViewOptions.menuCheckShowDemandElements->setChecked(TRUE);
+    }
+    myDataViewOptions.menuCheckShowDemandElements->update();
+    // compute demand elements
+    myNet->computeDemandElements(myViewParent->getGNEAppWindows());
+    // update view to show demand elements
+    updateViewNet();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS)) {
         myDataViewOptions.menuCheckShowDemandElements->setFocus();
     }
     return 1;
