@@ -5,4 +5,10 @@
 
     <xsd:element name="tazs" type="tazsType"/>
 
+    <xsd:complexType name="tazsType">
+        <xsd:sequence>
+            <xsd:element name="taz" type="tazType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
 </xsd:schema>

@@ -2,7 +2,7 @@
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:include schemaLocation="routeTypes.xsd" />
-    <xsd:include schemaLocation="taz_file.xsd"/>
+    <xsd:include schemaLocation="tazTypes.xsd"/>
 
     <xsd:element name="additional" type="additionalType"/>
     <xsd:element name="rerouterValue" type="rerouterValuesType"/>
