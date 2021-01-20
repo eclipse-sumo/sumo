@@ -83,7 +83,7 @@
 #include "MSLeaderInfo.h"
 #include "MSDriverState.h"
 
-//#define DEBUG_PLAN_MOVE
+#define DEBUG_PLAN_MOVE
 //#define DEBUG_PLAN_MOVE_LEADERINFO
 //#define DEBUG_CHECKREWINDLINKLANES
 //#define DEBUG_EXEC_MOVE
@@ -4139,7 +4139,7 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
                 return myState.myPos + (calledByGetPosition ? -1 : 1) * myType->getLength();
             }
         } else if (&lane->getEdge() != &myLane->getEdge()) {
-            return lane->getLength() - myState.myPos;
+            return lane->getLength() - myState.myPos + myType->getLength();
         } else {
             return myState.myPos - myType->getLength();
         }
