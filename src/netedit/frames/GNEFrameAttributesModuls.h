@@ -330,14 +330,18 @@ public:
         /// @}
 
     protected:
+        /// @brief default constructor
         AttributesEditorRow();
 
         /// @brief removed invalid spaces of Positions and shapes
         std::string stripWhitespaceAfterComma(const std::string& stringValue);
 
+        /// @brief check junction merging
+        bool mergeJunction(SumoXMLAttr attr, const std::vector<GNEAttributeCarrier*>& inspectedACs, const std::string & newVal) const;
+
     private:
         /// @brief pointer to AttributesEditor parent
-        AttributesEditor* myAttributesEditorParent = nullptr;
+        AttributesEditor* myAttributesEditorParent;
 
         /// @brief current AC Attribute
         const GNEAttributeProperties myACAttr;
@@ -398,11 +402,12 @@ public:
         /// @}
 
     protected:
+        /// @brief fox need this
         FOX_CONSTRUCTOR(AttributesEditor)
 
     private:
         /// @brief pointer to GNEFrame parent
-        GNEFrame* myFrameParent = nullptr;
+        GNEFrame* myFrameParent;
 
         /// @brief pointer to attributesEditorFlow
         AttributesEditorFlow* myAttributesEditorFlow = nullptr;
