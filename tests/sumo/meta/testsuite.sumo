@@ -25,6 +25,9 @@ xml_validation
 # Tests xml validation with root element check
 xml_validation_root
 
+# Tests xml validation for the net
+xml_validation_net
+
 # Tests xml validation with invalid schema
 xml_invalid_schema
 
