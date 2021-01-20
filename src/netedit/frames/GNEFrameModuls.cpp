@@ -2793,7 +2793,7 @@ GNEFrameModuls::PathLegend::PathLegend(GNEFrame* frameParent) :
     legendLabel = new FXLabel(this, " edge selected", 0, GUIDesignLabelLeft);
     legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.source));
     // edge conflict (vClass)
-    legendLabel = new FXLabel(this, " edge conflic (vClass)", 0, GUIDesignLabelLeft);
+    legendLabel = new FXLabel(this, " edge conflict (vClass)", 0, GUIDesignLabelLeft);
     legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.special));
     // edge disconnected
     legendLabel = new FXLabel(this, " edge disconnected", 0, GUIDesignLabelLeft);
