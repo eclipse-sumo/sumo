@@ -130,6 +130,7 @@ extern bool gDebugFlag1;
 extern bool gDebugFlag2;
 extern bool gDebugFlag3;
 extern bool gDebugFlag4;
+extern bool gDebugFlag5;
 
 // synchronized output to stdout with << (i.e. DEBUGOUT(SIMTIME << " var=" << var << "\n")
 #define DEBUGOUT(msg) {std::ostringstream oss; oss << msg; std::cout << oss.str();}
