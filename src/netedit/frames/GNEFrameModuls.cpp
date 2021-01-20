@@ -1492,7 +1492,9 @@ GNEFrameModuls::DrawingShape::DrawingShape(GNEFrame* frameParent) :
     information
             << "- 'Start drawing' or ENTER\n"
             << "  to create shape.\n"
-            << "- 'Stop drawing' or ESC to\n"
+            << "- 'Stop drawing' or ENTER to\n"
+            << "  finish shape creation.\n"
+            << "- 'Abort drawing' or ESC to\n"
             << "  abort shape creation.\n"
             << "- 'Shift + Click' to remove\n"
             << "  last inserted point.";
