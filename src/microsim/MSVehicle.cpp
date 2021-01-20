@@ -2010,7 +2010,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation();
 #ifdef DEBUG_PLAN_MOVE
     if (DEBUG_COND) {
-        std::cout << "   dist=" << dist << " bestLaneConts=" << toString(bestLaneConts) << "\n";
+        std::cout << "   dist=" << dist << " bestLaneConts=" << toString(bestLaneConts)
+            << "\n   maxV=" << maxV << " laneMaxV=" << laneMaxV << " v=" << v << "\n";
     }
 #endif
     assert(bestLaneConts.size() > 0);

@@ -45,6 +45,7 @@
 //#define DEBUG_STATE
 //#define DEBUG_MANEUVER
 //#define DEBUG_SURROUNDING
+//#define DEBUG_CHANGE_OPPOSITE
 
 // ===========================================================================
 // member method definitions
@@ -738,7 +739,7 @@ MSLaneChangerSublane::checkChangeOpposite(
     }
 
 
-#ifdef DEBUG_SURROUNDING
+#ifdef DEBUG_CHANGE_OPPOSITE
     if (DEBUG_COND) std::cout << SIMTIME
         << " checkChangeOppositeSublane: veh=" << vehicle->getID()
             << " laneOffset=" << laneOffset
@@ -765,7 +766,7 @@ MSLaneChangerSublane::checkChangeOpposite(
 
     const int oldstate = state;
     state = vehicle->influenceChangeDecision(state);
-#ifdef DEBUG_STATE
+#ifdef DEBUG_CHANGE_OPPOSITE
     if (DEBUG_COND && state != oldstate) {
         std::cout << SIMTIME << " veh=" << vehicle->getID() << " stateAfterTraCI=" << toString((LaneChangeAction)state) << " original=" << toString((LaneChangeAction)oldstate) << "\n";
     }
@@ -777,9 +778,9 @@ MSLaneChangerSublane::checkChangeOpposite(
 
     if ((state & LCA_WANTS_LANECHANGE) != 0 && (state & LCA_BLOCKED) == 0) {
         // change if the vehicle wants to and is allowed to change
-#ifdef DEBUG_MANEUVER
+#ifdef DEBUG_CHANGE_OPPOSITE
         if (DEBUG_COND) {
-            std::cout << SIMTIME << " veh '" << vehicle->getID() << "' performing sublane change..." << std::endl;
+            std::cout << SIMTIME << " veh '" << vehicle->getID() << "' performing sublane change latDist=" << latDist << " maneuverDist=" << maneuverDist << "\n";
         }
 #endif
         return startChangeSublane(vehicle, myCandi, latDist, maneuverDist);
