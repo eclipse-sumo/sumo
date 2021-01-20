@@ -78,7 +78,8 @@ def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT,
     for wxs in glob.glob(wxsPattern):
         with open(os.path.join(tmpDir, os.path.basename(wxs)), "w") as wxsOut:
             dataDir = os.path.dirname(license)
-            wxsOut.write(open(wxs).read().format(version=SUMO_VERSION, license=license, bindir=os.path.join(sumoRoot, "bin"),
+            wxsOut.write(open(wxs).read().format(version=SUMO_VERSION, license=license,
+                                                 bindir=os.path.join(sumoRoot, "bin"),
                                                  banner=os.path.join(dataDir, "bannrbmp.bmp"),
                                                  dialogbg=os.path.join(dataDir, "dlgbmp.bmp"),
                                                  webwizico=os.path.join(dataDir, "webWizard.ico")))
