@@ -1,8 +1,8 @@
-Eclipse SUMO netconvert Version v1_4_0+1029-d1b8be6105
- Build features: Linux-4.12.14-lp150.12.58-default x86_64 GNU 7.4.0 Release Proj GUI SWIG GDAL GL2PS Eigen
- Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+Eclipse SUMO netconvert Version v1_8_0+0635-4f1a99aa91
+ Build features: Windows-10.0.17763 AMD64 MSVC 19.28.29336.0 Release Proj GUI SWIG GDAL FFmpeg OSG GL2PS
+ Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 
-Eclipse SUMO netconvert Version v1_4_0+1029-d1b8be6105 is part of SUMO.
+Eclipse SUMO netconvert Version v1_8_0+0635-4f1a99aa91 is part of SUMO.
 This program and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
