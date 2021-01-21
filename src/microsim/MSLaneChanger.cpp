@@ -1381,9 +1381,12 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
                         // overtaking (otherwise the lane change model might abort prematurely)
                         laneQ.length += 1000;
                     } else {
-                        // return from the opposite ahead of the unpassable column leader (don't set the distance so low as to imply emergency braking)
-                        laneQ.length = MAX2(forwardPos + vehicle->getCarFollowModel().brakeGap(vehicle->getSpeed()),
-                                MIN2(laneQ.length, forwardPos + overtaken.second));
+                        // return from the opposite ahead of the unpassable column leader (unless overlapping)
+                        if (overtaken.second > 0) {
+                            laneQ.length = MIN2(laneQ.length, forwardPos + overtaken.second);
+                        }
+                        // (don't set the distance so low as to imply emergency braking)
+                        laneQ.length = MAX2(laneQ.length, forwardPos + vehicle->getCarFollowModel().brakeGap(vehicle->getSpeed()));
                     }
 #ifdef DEBUG_CHANGE_OPPOSITE
                     if (DEBUG_COND) {
