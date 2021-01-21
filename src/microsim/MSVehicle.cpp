@@ -2047,22 +2047,30 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         if (opposite &&
                 (leaderLane->getVehicleNumberWithPartials() > 1
                  || (leaderLane != myLane && leaderLane->getVehicleNumber() > 0))) {
+            ahead.clear();
             // find opposite-driving leader that must be respected on the currently looked at lane
-            // XXX make sure to look no further than leaderLane
-            CLeaderDist leader = leaderLane->getOppositeLeader(this, getPositionOnLane(), true);
+            // (only looking at one lane at a time)
+            const double backOffset = leaderLane == myLane ? getPositionOnLane() : leaderLane->getLength();
+            const double gapOffset = leaderLane == myLane ? 0 : seen - leaderLane->getLength();
+            const MSLeaderDistanceInfo cands = leaderLane->getFollowersOnConsecutive(this, backOffset, true, backOffset, true);
+            MSLeaderDistanceInfo oppositeLeaders(leaderLane, this, 0);
+            for (int i = 0; i < cands.numSublanes(); i++) {
+                CLeaderDist cand = cands[i];
+                if (cand.first != 0
+                        && ((cand.first->myLaneChangeModel->isOpposite() && cand.first->getLane() == leaderLane)
+                            || (!cand.first->myLaneChangeModel->isOpposite() && cand.first->getLaneChangeModel().getShadowLane() == leaderLane))) {
+                    oppositeLeaders.addLeader(cand.first, cand.second + gapOffset - getVehicleType().getMinGap() + cand.first->getVehicleType().getMinGap() - cand.first->getVehicleType().getLength());
+                }
+            }
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
-                std::cout << "   oppositeLeader=" << Named::getIDSecure(leader.first) << " gap=" << leader.second << "\n";
+                std::cout <<  " leaderLane=" << leaderLane->getID() << " gapOffset=" << gapOffset << " cands=" << cands.toString() << " oppositeLeaders=" <<  oppositeLeaders.toString() << "\n";
             }
 #endif
-            ahead.clear();
-            if (leader.first != 0
-                    && ((leader.first->myLaneChangeModel->isOpposite() && leader.first->getLane() == leaderLane)
-                        || (!leader.first->myLaneChangeModel->isOpposite() && leader.first->getLaneChangeModel().getShadowLane() == leaderLane))) {
-                ahead.addLeader(leader.first, true);
-            }
+            adaptToLeaderDistance(oppositeLeaders, 0, seen, lastLink, myLane, v, vLinkPass);
+        } else {
+            adaptToLeaders(ahead, lateralShift, seen, lastLink, leaderLane, v, vLinkPass);
         }
-        adaptToLeaders(ahead, lateralShift, seen, lastLink, leaderLane, v, vLinkPass);
         if (lastLink != nullptr) {
             lastLink->myVLinkWait = MIN2(lastLink->myVLinkWait, v);
         }
