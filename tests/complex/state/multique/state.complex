@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 23 17:25:06 2020 by Eclipse SUMO sumo Version v1_7_0+1213-669ca66b46
+<!-- generated on Thu Jan 21 17:25:19 2021 by Eclipse SUMO sumo Version v1_8_0+0648-16ba97d7de
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -23,16 +23,16 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_7_0+1213-669ca66b46" time="00:00:25" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_8_0+0648-16ba97d7de" time="00:00:25" type="micro">
     <route id="!0" state="1" edges="SC CW"/>
     <flowState id="0" index="3" reroute="1"/>
     <delay number="2" begin="3" end="1" depart="0.00" time="17.00"/>
     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
-    <vehicle id="0.1" type="DEFAULT_VEHTYPE" depart="00:00:10" route="!0" distance="108.96 0" speedFactor="0.94" reroute="1" state="131232 10000 1 5.10 0 3.13 24000 0 0" pos="27.61 22.61 13.03" speed="13.03 11.29" posLat="0.00" waitingTime="100000 0">
+    <vehicle id="0.1" type="DEFAULT_VEHTYPE" depart="00:00:10" route="!0" distance="108.96 0" speedFactor="0.94" reroute="1" state="131232 10000 1 5.10 0 3.13 24000 0 0" pos="27.61 22.61 13.03" speed="13.03 11.29" angle="270.00" posLat="0.00" waitingTime="100000 0">
         <device id="vehroute_0.1" state="0 0.00 0.00 5.10 0"/>
         <device id="routing_0.1" state="0"/>
     </vehicle>
-    <vehicle id="0.2" type="DEFAULT_VEHTYPE" depart="00:00:20" route="!0" distance="0 0" speedFactor="1.01" reroute="1" state="131232 20000 0 5.10 0 2.15 24000 0 0" pos="31.10 26.10 10.40" speed="10.40 7.80" posLat="0.00" waitingTime="100000 0">
+    <vehicle id="0.2" type="DEFAULT_VEHTYPE" depart="00:00:20" route="!0" distance="0 0" speedFactor="1.01" reroute="1" state="131232 20000 0 5.10 0 2.15 24000 0 0" pos="31.10 26.10 10.40" speed="10.40 7.80" angle="0.00" posLat="0.00" waitingTime="100000 0">
         <device id="vehroute_0.2" state="0 0.00 0.00 5.10 0"/>
         <device id="routing_0.2" state="0"/>
     </vehicle>
