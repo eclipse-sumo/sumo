@@ -1744,8 +1744,8 @@ NBNode::removeEdge(NBEdge* edge, bool removeFromConnections) {
         }
         // invalidate controlled connections for loaded traffic light plans
         const bool incoming = edge->getToNode() == this;
-        for (std::set<NBTrafficLightDefinition*>::iterator i = myTrafficLights.begin(); i != myTrafficLights.end(); ++i) {
-            (*i)->replaceRemoved(edge, -1, nullptr, -1, incoming);
+        for (NBTrafficLightDefinition* const tld : myTrafficLights) {
+            tld->replaceRemoved(edge, -1, nullptr, -1, incoming);
         }
     }
 }

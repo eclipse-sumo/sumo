@@ -343,15 +343,11 @@ NBEdgeCont::retrievePossiblySplit(const std::string& id, const std::string& hint
         hints.push_back(hintedge);
     }
     EdgeVector candidates = getGeneratedFrom(id);
-    for (EdgeVector::iterator i = hints.begin(); i != hints.end(); i++) {
-        NBEdge* hintedge = (*i);
-        for (EdgeVector::iterator j = candidates.begin(); j != candidates.end(); j++) {
-            NBEdge* poss_searched = (*j);
-            NBNode* node = incoming
-                           ? poss_searched->myTo : poss_searched->myFrom;
-            const EdgeVector& cont = incoming
-                                     ? node->getOutgoingEdges() : node->getIncomingEdges();
-            if (find(cont.begin(), cont.end(), hintedge) != cont.end()) {
+    for (const NBEdge* const currHint : hints) {
+        for (NBEdge* const poss_searched : candidates) {
+            const NBNode* const node = incoming ? poss_searched->myTo : poss_searched->myFrom;
+            const EdgeVector& cont = incoming ? node->getOutgoingEdges() : node->getIncomingEdges();
+            if (find(cont.begin(), cont.end(), currHint) != cont.end()) {
                 return poss_searched;
             }
         }
@@ -826,12 +822,12 @@ NBEdgeCont::computeLanes2Edges() {
 void
 NBEdgeCont::recheckLanes() {
     const bool fixOppositeLengths = OptionsCont::getOptions().getBool("opposites.guess.fix-lengths");
-    for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-        NBEdge* edge = i->second;
+    for (const auto& edgeIt : myEdges) {
+        NBEdge* const edge = edgeIt.second;
         edge->recheckLanes();
         // check opposites
         if (edge->getNumLanes() > 0) {
-            int leftmostLane = edge->getNumLanes() - 1;
+            const int leftmostLane = edge->getNumLanes() - 1;
             // check oppositeID stored in other lanes
             for (int i = 0; i < leftmostLane; i++) {
                 const std::string& oppositeID = edge->getLanes()[i].oppositeID;
