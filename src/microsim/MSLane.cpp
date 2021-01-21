@@ -3179,7 +3179,7 @@ MSLane::loadState(const std::vector<std::string>& vehIds, MSVehicleControl& vc) 
         if (v != nullptr) {
             v->updateBestLanes(false, this);
             incorporateVehicle(v, v->getPositionOnLane(), v->getSpeed(), v->getLateralPositionOnLane(), myVehicles.end(),
-                               MSMoveReminder::NOTIFICATION_JUNCTION);
+                               MSMoveReminder::NOTIFICATION_LOAD_STATE);
             v->processNextStop(v->getSpeed());
         }
     }

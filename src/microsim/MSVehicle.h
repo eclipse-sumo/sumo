@@ -1783,6 +1783,9 @@ protected:
      */
     void setEmergencyBlueLight(SUMOTime currentTime);
 
+    /// updates myFurtherLanes on lane insertion or after collision
+    void computeFurtherLanes(MSLane* enteredLane, double pos);
+        
     /// updates LaneQ::nextOccupation and myCurrentLaneInBestLanes
     void updateOccupancyAndCurrentBestLane(const MSLane* startLane);
 

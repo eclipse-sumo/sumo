@@ -95,6 +95,8 @@ public:
         NOTIFICATION_SEGMENT,
         /// @brief The vehicle changes lanes (micro only)
         NOTIFICATION_LANE_CHANGE,
+        /// @brief The vehicle has been loaded from a state file
+        NOTIFICATION_LOAD_STATE,
         /* All notifications below must result in the vehicle not being on the net
          * (onLeaveLane sets amOnNet=false if reason>=NOTIFICATION_TELEPORT) */
         /// @brief The vehicle is being teleported

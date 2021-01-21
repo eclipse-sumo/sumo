@@ -4700,25 +4700,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
 
 
 void
-MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, double posLat, MSMoveReminder::Notification notification) {
-    myState = State(pos, speed, posLat, pos - getVehicleType().getLength());
-    if (myDeparture == NOT_YET_DEPARTED) {
-        onDepart();
-    }
-    myCachedPosition = Position::INVALID;
-    assert(myState.myPos >= 0);
-    assert(myState.mySpeed >= 0);
-    myLane = enteredLane;
-    myAmOnNet = true;
-    // schedule action for the next timestep
-    myLastActionTime = MSNet::getInstance()->getCurrentTimeStep() + DELTA_T;
-    if (notification != MSMoveReminder::NOTIFICATION_TELEPORT) {
-        // set and activate the new lane's reminders, teleports already did that at enterLaneAtMove
-        for (std::vector< MSMoveReminder* >::const_iterator rem = enteredLane->getMoveReminders().begin(); rem != enteredLane->getMoveReminders().end(); ++rem) {
-            addReminder(*rem);
-        }
-        activateReminders(notification, enteredLane);
-    }
+MSVehicle::computeFurtherLanes(MSLane* enteredLane, double pos) {
     // build the list of lanes the vehicle is lapping into
     if (!myLaneChangeModel->isOpposite()) {
         double leftLength = myType->getLength() - pos;
@@ -4741,9 +4723,9 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
                 clane = clane->getLogicalPredecessorLane();
             }
             if (clane == nullptr || clane == myLane || clane == myLane->getBidiLane()
-                    || (clane->isInternal() && (
-                            clane->getLinkCont()[0]->getDirection() == LinkDirection::TURN
-                            || clane->getLinkCont()[0]->getDirection() == LinkDirection::TURN_LEFTHAND))) {
+                || (clane->isInternal() && (
+                    clane->getLinkCont()[0]->getDirection() == LinkDirection::TURN
+                    || clane->getLinkCont()[0]->getDirection() == LinkDirection::TURN_LEFTHAND))) {
                 break;
             }
             myFurtherLanes.push_back(clane);
@@ -4764,15 +4746,41 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
         myFurtherLanes.clear();
         myFurtherLanesPosLat.clear();
     }
+}
+
+
+void
+MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, double posLat, MSMoveReminder::Notification notification) {
+    myState = State(pos, speed, posLat, pos - getVehicleType().getLength());
+    if (myDeparture == NOT_YET_DEPARTED) {
+        onDepart();
+    }
+    myCachedPosition = Position::INVALID;
+    assert(myState.myPos >= 0);
+    assert(myState.mySpeed >= 0);
+    myLane = enteredLane;
+    myAmOnNet = true;
+    // schedule action for the next timestep
+    myLastActionTime = MSNet::getInstance()->getCurrentTimeStep() + DELTA_T;
+    if (notification != MSMoveReminder::NOTIFICATION_TELEPORT) {
+        // set and activate the new lane's reminders, teleports already did that at enterLaneAtMove
+        for (std::vector< MSMoveReminder* >::const_iterator rem = enteredLane->getMoveReminders().begin(); rem != enteredLane->getMoveReminders().end(); ++rem) {
+            addReminder(*rem);
+        }
+        activateReminders(notification, enteredLane);
+    }
+    computeFurtherLanes(enteredLane, pos);
     if (MSGlobals::gLateralResolution > 0) {
         myLaneChangeModel->updateShadowLane();
         myLaneChangeModel->updateTargetLane();
     } else if (MSGlobals::gLaneChangeDuration > 0) {
         myLaneChangeModel->updateShadowLane();
     }
-    myAngle = computeAngle();
-    if (myLaneChangeModel->isOpposite()) {
-        myAngle += M_PI;
+    if (notification != MSMoveReminder::NOTIFICATION_LOAD_STATE) {
+        myAngle = computeAngle();
+        if (myLaneChangeModel->isOpposite()) {
+            myAngle += M_PI;
+        }
     }
 }
 
@@ -6119,6 +6127,13 @@ MSVehicle::handleCollisionStop(MSStop& stop, const bool collision, const double 
                 myState.mySpeed = MIN2(myState.mySpeed, vNew + ACCEL2SPEED(getCarFollowModel().getEmergencyDecel()));
                 myState.myPos = MIN2(myState.myPos, stop.pars.endPos);
                 myCachedPosition = Position::INVALID;
+                if (myState.myPos < myType->getLength()) {
+                    computeFurtherLanes(myLane, myState.myPos);
+                    myAngle = computeAngle();
+                    if (myLaneChangeModel->isOpposite()) {
+                        myAngle += M_PI;
+                    }
+                }
             }
         } else {
             errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.pars.lane + "' is too close to brake.";
@@ -6468,6 +6483,7 @@ MSVehicle::saveState(OutputDevice& out) {
     out.writeAttr(SUMO_ATTR_STATE, internals);
     out.writeAttr(SUMO_ATTR_POSITION, std::vector<double> { myState.myPos, myState.myBackPos, myState.myLastCoveredDist });
     out.writeAttr(SUMO_ATTR_SPEED, std::vector<double> { myState.mySpeed, myState.myPreviousSpeed });
+    out.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(myAngle));
     out.writeAttr(SUMO_ATTR_POSITION_LAT, myState.myPosLat);
     out.writeAttr(SUMO_ATTR_WAITINGTIME, myWaitingTimeCollector.getState());
     // save past stops
@@ -6526,6 +6542,8 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     std::istringstream sis(attrs.getString(SUMO_ATTR_SPEED));
     sis >> myState.mySpeed >> myState.myPreviousSpeed;
     myAcceleration = SPEED2ACCEL(myState.mySpeed - myState.myPreviousSpeed);
+    myAngle = GeomHelper::fromNaviDegree(attrs.getFloat(SUMO_ATTR_ANGLE));
+    myState.myPosLat = attrs.getFloat(SUMO_ATTR_POSITION_LAT);
     std::istringstream dis(attrs.getString(SUMO_ATTR_DISTANCE));
     dis >> myOdometer >> myNumberReroutes;
     myWaitingTimeCollector.setState(attrs.getString(SUMO_ATTR_WAITINGTIME));
