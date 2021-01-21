@@ -4197,7 +4197,7 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
                 return myState.myPos + (calledByGetPosition ? -1 : 1) * myType->getLength();
             }
         } else if (&lane->getEdge() != &myLane->getEdge()) {
-            return lane->getLength() - myState.myPos + myType->getLength();
+            return lane->getLength() - myState.myPos + (calledByGetPosition ? -1 : 1) * myType->getLength();
         } else {
             return myState.myPos - myType->getLength();
         }
@@ -5682,7 +5682,7 @@ MSVehicle::getLatOffset(const MSLane* lane) const {
     if (&lane->getEdge() == &myLane->getEdge()) {
         return myLane->getRightSideOnEdge() - lane->getRightSideOnEdge();
     } else if (myLane->getOpposite() == lane) {
-        return (myLane->getWidth() + lane->getWidth()) * 0.5 * (myLaneChangeModel->isOpposite() ? -1 : 1);
+        return (myLane->getWidth() + lane->getWidth()) * 0.5 - 2 * getLateralPositionOnLane();
     } else {
         // Check whether the lane is a further lane for the vehicle
         for (int i = 0; i < (int)myFurtherLanes.size(); ++i) {
