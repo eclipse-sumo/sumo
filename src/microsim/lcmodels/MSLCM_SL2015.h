@@ -347,7 +347,7 @@ protected:
     double getLateralDrift();
 
     /// @brief return current edge width optionally extended by opposite direction lane width
-    double getLeftBorder() const;
+    double getLeftBorder(bool checkOpposite = true) const;
 
     /// @brief return vehicle position relative to the current edge (extend by another virtual lane for opposite-direction driving)
     double getVehicleCenter() const;

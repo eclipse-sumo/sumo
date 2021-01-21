@@ -2851,7 +2851,7 @@ MSLCM_SL2015::keepLatGap(int state,
     // if they do not permit the desired maneuvre, should override it to better maintain distance
     // stay within the current edge
     double surplusGapRight = oldCenter - halfWidth;
-    double surplusGapLeft = getLeftBorder() - oldCenter - halfWidth;
+    double surplusGapLeft = getLeftBorder(laneOffset != 0) - oldCenter - halfWidth;
     if (isOpposite()) {
         std::swap(surplusGapLeft, surplusGapRight);
     }
@@ -3590,9 +3590,9 @@ MSLCM_SL2015::wantsChange(
 
 
 double
-MSLCM_SL2015::getLeftBorder() const {
+MSLCM_SL2015::getLeftBorder(bool checkOpposite) const {
     return (myVehicle.getLane()->getEdge().getWidth()
-            + (myVehicle.getLane()->getOpposite() != nullptr ? myVehicle.getLane()->getOpposite()->getWidth() : 0));
+            + ((myVehicle.getLane()->getOpposite() != nullptr && checkOpposite) ? myVehicle.getLane()->getOpposite()->getWidth() : 0));
 }
 
 double
