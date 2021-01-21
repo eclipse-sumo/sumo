@@ -83,7 +83,7 @@
 #include "MSLeaderInfo.h"
 #include "MSDriverState.h"
 
-#define DEBUG_PLAN_MOVE
+//#define DEBUG_PLAN_MOVE
 //#define DEBUG_PLAN_MOVE_LEADERINFO
 //#define DEBUG_CHECKREWINDLINKLANES
 //#define DEBUG_EXEC_MOVE
@@ -2077,30 +2077,46 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             // also slow down for leaders on the shadowLane relative to the current lane
             const MSLane* shadowLane = myLaneChangeModel->getShadowLane(leaderLane);
             if (shadowLane != nullptr
-                    && (MSGlobals::gLateralResolution > 0 || getLateralOverlap() > POSITION_EPS)
-                    // ignore oncoming vehicles while on the forward lane (finish changing instead)
-                    && (&shadowLane->getEdge() == &leaderLane->getEdge() || myLaneChangeModel->isOpposite())) {
-                double latOffset = getLane()->getRightSideOnEdge() - myLaneChangeModel->getShadowLane()->getRightSideOnEdge();
-                if (myLaneChangeModel->isOpposite()) {
-                    // ego posLat is added when retrieving sublanes but it
-                    // should be negated (subtract twice to compensate)
-                    latOffset = ((myLane->getWidth() + shadowLane->getWidth()) * 0.5
-                            - 2 * getLateralPositionOnLane());
+                    && (MSGlobals::gLateralResolution > 0 || getLateralOverlap() > POSITION_EPS)) {
+                if ((&shadowLane->getEdge() == &leaderLane->getEdge() || myLaneChangeModel->isOpposite())) {
+                    double latOffset = getLane()->getRightSideOnEdge() - myLaneChangeModel->getShadowLane()->getRightSideOnEdge();
+                    if (myLaneChangeModel->isOpposite()) {
+                        // ego posLat is added when retrieving sublanes but it
+                        // should be negated (subtract twice to compensate)
+                        latOffset = ((myLane->getWidth() + shadowLane->getWidth()) * 0.5
+                                - 2 * getLateralPositionOnLane());
 
-
-
-                }
-                MSLeaderInfo shadowLeaders = shadowLane->getLastVehicleInformation(this, latOffset, lane->getLength() - seen);
+                    }
+                    MSLeaderInfo shadowLeaders = shadowLane->getLastVehicleInformation(this, latOffset, lane->getLength() - seen);
 #ifdef DEBUG_PLAN_MOVE
-                if (DEBUG_COND && myLaneChangeModel->isOpposite()) {
-                    std::cout << SIMTIME << " opposite veh=" << getID() << " shadowLane=" << shadowLane->getID() << " latOffset=" << latOffset << " shadowLeaders=" << shadowLeaders.toString() << "\n";
-                }
+                    if (DEBUG_COND && myLaneChangeModel->isOpposite()) {
+                        std::cout << SIMTIME << " opposite veh=" << getID() << " shadowLane=" << shadowLane->getID() << " latOffset=" << latOffset << " shadowLeaders=" << shadowLeaders.toString() << "\n";
+                    }
 #endif
-                if (myLaneChangeModel->isOpposite()) {
-                    // ignore oncoming vehicles on the shadow lane
-                    shadowLeaders.removeOpposite();
+                    if (myLaneChangeModel->isOpposite()) {
+                        // ignore oncoming vehicles on the shadow lane
+                        shadowLeaders.removeOpposite();
+                    }
+                    adaptToLeaders(shadowLeaders, latOffset, seen, lastLink, shadowLane, v, vLinkPass);
+                } else if (shadowLane == myLaneChangeModel->getShadowLane()) {
+                    // check for leader vehicles driving in the opposite direction on the opposite-direction shadow lane
+                    // (and thus in the same direction as ego)
+                    MSLeaderDistanceInfo shadowLeaders = shadowLane->getFollowersOnConsecutive(this, myLane->getOppositePos(getPositionOnLane()), true);
+                    const double latOffset = 0;
+#ifdef DEBUG_PLAN_MOVE
+                    if (DEBUG_COND) {
+                        std::cout << SIMTIME << " opposite shadows veh=" << getID() << " shadowLane=" << shadowLane->getID() 
+                            << " latOffset=" << latOffset << " shadowLeaders=" << shadowLeaders.toString() << "\n";
+                    }
+#endif
+                    shadowLeaders.fixOppositeGaps(true);
+#ifdef DEBUG_PLAN_MOVE
+                    if (DEBUG_COND) {
+                        std::cout << "   shadowLeadersFixed=" << shadowLeaders.toString() << "\n";
+                    }
+#endif
+                    adaptToLeaderDistance(shadowLeaders, latOffset, seen, lastLink, myLane, v, vLinkPass);
                 }
-                adaptToLeaders(shadowLeaders, latOffset, seen, lastLink, shadowLane, v, vLinkPass);
             }
         }
         // adapt to pedestrians on the same lane
@@ -2626,6 +2642,37 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
             }
 #endif
             adaptToLeader(std::make_pair(pred, gap), seen, lastLink, lane, v, vLinkPass);
+        }
+    }
+}
+
+void
+MSVehicle::adaptToLeaderDistance(const MSLeaderDistanceInfo& ahead, double latOffset,
+                          const double seen, DriveProcessItem* const lastLink,
+                          const MSLane* const lane, double& v, double& vLinkPass) const {
+    int rightmost;
+    int leftmost;
+    ahead.getSubLanes(this, latOffset, rightmost, leftmost);
+#ifdef DEBUG_PLAN_MOVE
+    if (DEBUG_COND) std::cout << SIMTIME
+                                  << "\nADAPT_TO_LEADERS_DISTANCE\nveh=" << getID()
+                                  << " lane=" << lane->getID()
+                                  << " latOffset=" << latOffset
+                                  << " rm=" << rightmost
+                                  << " lm=" << leftmost
+                                  << " ahead=" << ahead.toString()
+                                  << "\n";
+#endif
+    for (int sublane = rightmost; sublane <= leftmost; ++sublane) {
+        CLeaderDist predDist = ahead[sublane];
+        const MSVehicle* pred = predDist.first;
+        if (pred != nullptr && pred != this) {
+#ifdef DEBUG_PLAN_MOVE
+            if (DEBUG_COND) {
+                std::cout << "     pred=" << pred->getID() << " predLane=" << pred->getLane()->getID() << " predPos=" << pred->getPositionOnLane() << " gap=" << predDist.second << "\n";
+            }
+#endif
+            adaptToLeader(predDist, seen, lastLink, lane, v, vLinkPass);
         }
     }
 }
