@@ -281,12 +281,14 @@ MSFrame::fillOptions() {
     oc.addDescription("save-state.prefix", "Output", "Prefix for network states");
     oc.doRegister("save-state.suffix", new Option_String(".xml.gz"));
     oc.addDescription("save-state.suffix", "Output", "Suffix for network states (.xml.gz or .xml)");
-    oc.doRegister("save-state.files", new Option_FileName());//
+    oc.doRegister("save-state.files", new Option_FileName());
     oc.addDescription("save-state.files", "Output", "Files for network states");
     oc.doRegister("save-state.rng", new Option_Bool(false));
     oc.addDescription("save-state.rng", "Output", "Save random number generator states");
     oc.doRegister("save-state.transportables", new Option_Bool(false));
     oc.addDescription("save-state.transportables", "Output", "Save person and container states (experimental)");
+    oc.doRegister("save-state.precision", new Option_Integer(2));
+    oc.addDescription("save-state.precision", "Output", "Write internal state values with the given precision (default 2)");
 
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
