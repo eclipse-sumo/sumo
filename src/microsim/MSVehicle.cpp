@@ -1643,7 +1643,9 @@ MSVehicle::processNextStop(double currentVelocity) {
                     && (!MSGlobals::gModelParkingManoeuver || myManoeuvre.entryManoeuvreIsComplete(this))) {
                 // ok, we may stop (have reached the stop)  and either we are not modelling manoeuvering or have completed entry
                 stop.reached = true;
-                stop.pars.actualArrival = time;
+                if (stop.pars.actualArrival == -1) { // if not we are probably loading a state
+                    stop.pars.actualArrival = time;
+                }
 #ifdef DEBUG_STOPS
                 if (DEBUG_COND) {
                     std::cout << SIMTIME << " vehicle '" << getID() << "' reached next stop." << std::endl;
