@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 23 17:31:33 2020 by Eclipse SUMO sumo Version v1_7_0+1213-669ca66b46
+<!-- generated on Thu Jan 21 17:45:20 2021 by Eclipse SUMO sumo Version v1_8_0+0648-16ba97d7de
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="../../../input_net2.net.xml"/>
-        <route-files value="input_routes.rou.xml"/>
+        <net-file value="detectors/../../../input_net2.net.xml"/>
+        <route-files value="detectors/input_routes.rou.xml"/>
     </input>
 
     <output>
         <save-state.times value="1"/>
-        <save-state.files value="input_state.xml"/>
+        <save-state.files value="detectors/input_state.xml"/>
     </output>
 
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_7_0+1213-669ca66b46" time="1.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_8_0+0648-16ba97d7de" time="1.00" type="micro">
     <route id="!0" state="0" edges="WC CE"/>
     <route id="!1" state="0" edges="WC CE"/>
     <delay number="2" begin="2" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_VEHTYPE"/>
-    <vehicle id="0" type="DEFAULT_VEHTYPE" depart="0.00" departLane="0" route="!0" distance="0 0" speedFactor="1.06" reroute="1" state="131076 0 0 5.10 0 0.00 1000 0 0" pos="5.10 0.10 0.00" speed="0.00 0.00" posLat="0.00" waitingTime="100000 0">
+    <vehicle id="0" type="DEFAULT_VEHTYPE" depart="0.00" departLane="0" route="!0" distance="0 0" speedFactor="1.06" reroute="1" state="131076 0 0 5.10 0 0.00 1000 0 0" pos="5.10 0.10 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
         <device id="routing_0" state="0"/>
     </vehicle>
-    <vehicle id="1" type="DEFAULT_VEHTYPE" depart="0.00" departLane="1" route="!1" distance="0 0" speedFactor="0.94" reroute="1" state="131076 0 0 5.10 0 0.00 1000 0 0" pos="5.10 0.10 0.00" speed="0.00 0.00" posLat="0.00" waitingTime="100000 0">
+    <vehicle id="1" type="DEFAULT_VEHTYPE" depart="0.00" departLane="1" route="!1" distance="0 0" speedFactor="0.94" reroute="1" state="131076 0 0 5.10 0 0.00 1000 0 0" pos="5.10 0.10 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
         <device id="routing_1" state="0"/>
     </vehicle>
     <lane id="WC_0">
