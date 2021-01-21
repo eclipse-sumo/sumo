@@ -35,6 +35,15 @@ enum GUICursor {
     /// @brief move cursor
     SUMOCURSOR_MOVE,
 
+    /// @brief select cursor
+    SUMOCURSOR_SELECT,
+
+    /// @brief inspect cursor
+    SUMOCURSOR_INSPECT,
+
+    /// @brief move element cursor
+    SUMOCURSOR_MOVE_ELEMENT,
+
     /// @brief max number of cursors
     CURSOR_MAX
 };
