@@ -1,11 +1,3 @@
-Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-Copyright (C) 2008-2018 German Aerospace Center (DLR) and others.
-This program and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-
 The files in this and all subdirectories are test suites together with 
 input and output files for use with texttest (http://www.texttest.org).
 To keep the tests as close to the real input and output as possible,
