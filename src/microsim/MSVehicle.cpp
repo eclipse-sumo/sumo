@@ -2105,7 +2105,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     const double latOffset = 0;
 #ifdef DEBUG_PLAN_MOVE
                     if (DEBUG_COND) {
-                        std::cout << SIMTIME << " opposite shadows veh=" << getID() << " shadowLane=" << shadowLane->getID() 
+                        std::cout << SIMTIME << " opposite shadows veh=" << getID() << " shadowLane=" << shadowLane->getID()
                             << " latOffset=" << latOffset << " shadowLeaders=" << shadowLeaders.toString() << "\n";
                     }
 #endif
@@ -2244,8 +2244,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             break;
         }
         // check whether the lane or the shadowLane is a dead end (allow some leeway on intersections)
-        if (lane->isLinkEnd(link) ||
-                ((*link)->getViaLane() == nullptr
+        if (lane->isLinkEnd(link)
+                || ((*link)->getViaLane() == nullptr
                  && getLateralOverlap() > POSITION_EPS
                  // do not get stuck on narrow edges
                  && getVehicleType().getWidth() <= lane->getEdge().getWidth()
@@ -2256,8 +2256,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                  // ignore situations where the shadow lane is part of a double-connection with the current lane
                  && (myLaneChangeModel->getShadowLane() == nullptr
                      || myLaneChangeModel->getShadowLane()->getLinkCont().size() == 0
-                     || myLaneChangeModel->getShadowLane()->getLinkCont().front()->getLane() != (*link)->getLane())
-                )) {
+                     || myLaneChangeModel->getShadowLane()->getLinkCont().front()->getLane() != (*link)->getLane()))
+                || (opposite && (*link)->getViaLaneOrLane()->getOpposite() == nullptr)) {
             double va = cfModel.stopSpeed(this, getSpeed(), seen);
             if (lastLink != nullptr) {
                 lastLink->adaptLeaveSpeed(va);
@@ -2572,6 +2572,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // do not restrict results to the current vehicle to allow caching for the current time step
         leaderLane = opposite ? lane->getOpposite() : lane;
         if (leaderLane == nullptr) {
+
             break;
         }
         ahead = opposite ? MSLeaderInfo(leaderLane) : leaderLane->getLastVehicleInformation(nullptr, 0);
