@@ -1598,7 +1598,7 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
     }
     const double colliderPos = colliderOpposite && !bothOpposite ? collider->getBackPositionOnLane(this) : collider->getPositionOnLane(this);
     const double minGapFactor = myCollisionMinGapFactor >= 0 ? myCollisionMinGapFactor : collider->getCarFollowModel().getCollisionMinGapFactor();
-    double victimBack = victim->getBackPositionOnLane(this);
+    double victimBack = victimOpposite && !bothOpposite ? victim->getPositionOnLane(this) : victim->getBackPositionOnLane(this);
     if (victim->getLateralOverlap() > 0 || collider->getLateralOverlap() > 0) {
         if (&collider->getLane()->getEdge() == myEdge && collider->getLane()->getLength() > getLength()) {
             // interpret victim position on the longer lane
