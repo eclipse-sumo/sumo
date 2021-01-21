@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 18 16:35:18 2020 by Eclipse SUMO sumo Version v1_8_0+0332-d62ab2d821
+<!-- generated on Thu Jan 21 18:46:47 2021 by Eclipse SUMO sumo Version v1_8_0+0661-870f796b06
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -242,6 +242,9 @@
 
         <!-- Save person and container states (experimental) -->
         <save-state.transportables value="false" type="BOOL"/>
+
+        <!-- Write internal state values with the given precision (default 2) -->
+        <save-state.precision value="2" type="INT"/>
 
     </output>
 
@@ -992,6 +995,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="FLOAT"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

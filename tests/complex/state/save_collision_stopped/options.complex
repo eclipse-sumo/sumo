@@ -1,7 +1,7 @@
 --no-step-log -v --net-file=net.net.xml --additional-files
 input_additional.add.xml --route-files input_routes.rou.xml --end 500
 --collision.stoptime 50 --default.emergencydecel decel
---save-state.times 50 --save-state.files state.xml
+--save-state.times 50 --save-state.files state.xml --save-state.precision 3
 --stop-output stopinfos.xml
 --default.speeddev 0
 :
@@ -11,5 +11,5 @@ input_additional.add.xml --route-files input_routes.rou.xml --end 500
 --load-state state.xml
 --stop-output stopinfos2.xml
 --default.speeddev 0
---compare stdout:0,stopinfos:0
+--compare stopinfos
 tests/complex/state/runner.py

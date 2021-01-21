@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_8_0+0635-4f1a99aa91
+Eclipse SUMO sumo Version v1_8_0+0661-870f796b06
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -137,6 +137,8 @@ Output Options:
   --save-state.rng                     Save random number generator states
   --save-state.transportables          Save person and container states
                                         (experimental)
+  --save-state.precision INT           Write internal state values with the
+                                        given precision (default 2)
 
 Time Options:
   -b, --begin TIME                     Defines the begin time in seconds;

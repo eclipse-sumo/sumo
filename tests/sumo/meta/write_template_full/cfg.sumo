@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 18 16:35:18 2020 by Eclipse SUMO sumo Version v1_8_0+0332-d62ab2d821
+<!-- generated on Thu Jan 21 18:46:47 2021 by Eclipse SUMO sumo Version v1_8_0+0661-870f796b06
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -89,6 +89,7 @@
         <save-state.files value="" type="FILE" help="Files for network states"/>
         <save-state.rng value="false" type="BOOL" help="Save random number generator states"/>
         <save-state.transportables value="false" type="BOOL" help="Save person and container states (experimental)"/>
+        <save-state.precision value="2" type="INT" help="Write internal state values with the given precision (default 2)"/>
     </output>
 
     <time>
@@ -381,6 +382,7 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="FLOAT" help="The aggregation period for value tracker windows"/>
+        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable overlay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settings output file"/>
