@@ -101,6 +101,7 @@
         <xsd:attribute name="pos" type="xsd:string"/>
         <xsd:attribute name="posLat" type="xsd:float"/>
         <xsd:attribute name="speed" type="xsd:string"/>
+        <xsd:attribute name="angle" type="xsd:float"/>
         <xsd:attribute name="speedFactor" type="nonNegativeFloatType"/>
         <xsd:attribute name="waitingTime" type="xsd:string"/>
         <xsd:attribute name="distance" type="xsd:string" use="required"/>
