@@ -90,7 +90,8 @@ MSLaneChangerSublane::updateChanger(bool vehHasChanged) {
         //std::cout << SIMTIME << " updateChanger lane=" << myCandi->lane->getID() << " lead=" << Named::getIDSecure(lead) << "\n";
         myCandi->ahead.addLeader(lead, false, 0);
         MSLane* shadowLane = lead->getLaneChangeModel().getShadowLane();
-        if (shadowLane != nullptr) {
+        if (shadowLane != nullptr && &shadowLane->getEdge() == &lead->getLane()->getEdge()) {
+            assert(shadowLane->getIndex() < (int)myChanger.size());
             const double latOffset = lead->getLane()->getRightSideOnEdge() - shadowLane->getRightSideOnEdge();
             //std::cout << SIMTIME << " updateChanger shadowLane=" << shadowLane->getID() << " lead=" << Named::getIDSecure(lead) << "\n";
             (myChanger.begin() + shadowLane->getIndex())->ahead.addLeader(lead, false, latOffset);
@@ -403,7 +404,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     vehicle->getLaneChangeModel().updateShadowLane();
     MSLane* shadowLane = vehicle->getLaneChangeModel().getShadowLane();
     if (shadowLane != nullptr && shadowLane != oldShadowLane) {
-        assert(to != from || oldShadowLane == 0 || vehicle->getLaneChangeModel().isOpposite());
+        assert(oldShadowLane == 0 || vehicle->getLaneChangeModel().isOpposite() || to != from);
         const double latOffset = vehicle->getLane()->getRightSideOnEdge() - shadowLane->getRightSideOnEdge();
         (myChanger.begin() + shadowLane->getIndex())->ahead.addLeader(vehicle, false, latOffset);
     }
