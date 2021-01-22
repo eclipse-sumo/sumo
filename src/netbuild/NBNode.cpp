@@ -2924,7 +2924,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
         // build shape and connections
         std::set<NBEdge*, ComparatorIdLess> connected;
         for (int j = 0; j < count; ++j) {
-            const int nlI = (start + j) % normalizedLanes.size();
+            const int nlI = (startIdx + j) % normalizedLanes.size();
             NBEdge* edge = normalizedLanes[nlI].first;
             NBEdge::Lane l = normalizedLanes[nlI].second;
             wa.width = MAX2(wa.width, l.width);
