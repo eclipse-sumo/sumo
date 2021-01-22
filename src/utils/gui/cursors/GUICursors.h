@@ -38,11 +38,11 @@ enum class GUICursor {
     /// @brief select cursor
     SUMOCURSOR_SELECT,
 
-    /// @brief select cursor
-    SUMOCURSOR_SELECT_LANE,
-
     /// @brief inspect cursor
     SUMOCURSOR_INSPECT,
+
+    /// @brief inspect lane cursor
+    SUMOCURSOR_INSPECT_LANE,
 
     /// @brief move element cursor
     SUMOCURSOR_MOVEELEMENT,

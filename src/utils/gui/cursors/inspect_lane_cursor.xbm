@@ -1,8 +1,8 @@
-#define select_lane_cursor_width 32
-#define select_lane_cursor_height 32
-#define select_lane_cursor_x_hot 9
-#define select_lane_cursor_y_hot 9
-static unsigned char select_lane_cursor_bits[] = {
+#define inspect_lane_cursor_width 32
+#define inspect_lane_cursor_height 32
+#define inspect_lane_cursor_x_hot 9
+#define inspect_lane_cursor_y_hot 9
+static unsigned char inspect_lane_cursor_bits[] = {
   0x00, 0x00, 0x00, 0x00, 
   0x66, 0x66, 0x06, 0x00, 
   0x66, 0x66, 0x06, 0x00, 

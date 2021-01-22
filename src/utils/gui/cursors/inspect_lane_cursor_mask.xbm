@@ -1,8 +1,8 @@
-#define select_lane_cursor_mask_width 32
-#define select_lane_cursor_mask_height 32
-#define select_lane_cursor_mask_x_hot 9
-#define select_lane_cursor_mask_y_hot 9
-static unsigned char select_lane_cursor_mask_bits[] = {
+#define inspect_lane_cursor_mask_width 32
+#define inspect_lane_cursor_mask_height 32
+#define inspect_lane_cursor_mask_x_hot 9
+#define inspect_lane_cursor_mask_y_hot 9
+static unsigned char inspect_lane_cursor_mask_bits[] = {
   0xFF, 0xFF, 0x0F, 0x00, 
   0xFF, 0xFF, 0x0F, 0x00, 
   0xFF, 0xFF, 0x0F, 0x00, 
