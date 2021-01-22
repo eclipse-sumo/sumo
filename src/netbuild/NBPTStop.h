@@ -79,7 +79,9 @@ public:
 
     bool findLaneAndComputeBusStopExtent(const NBEdge* edge);
 
-    void setMyPTStopId(std::string id);
+    void setPTStopId(std::string id) {
+        myPTStopId = id;
+    }
     void addAccess(std::string laneID, double offset, double length);
 
     /// @brief remove all access definitions
@@ -110,6 +112,15 @@ public:
     /// @brief replace the stop edge with the closest edge on the given edge list in all stops
     bool replaceEdge(const std::string& edgeID, const EdgeVector& replacement);
 
+    const std::map<std::string, std::string>& getAdditionalEdgeCandidates() const {
+        return myAdditionalEdgeCandidates;
+    }
+    void setOrigEdgeId(const std::string& origEdgeId) {
+        myOrigEdgeId = origEdgeId;
+    }
+    void setPTStopLength(double ptStopLength) {
+        myPTStopLength = ptStopLength;
+    }
 
 private:
     void computeExtent(double center, double d);
@@ -119,17 +130,8 @@ private:
     Position myPosition;
     std::string myEdgeId;
     std::map<std::string, std::string> myAdditionalEdgeCandidates;
-public:
-    const std::map<std::string, std::string>& getMyAdditionalEdgeCandidates() const;
-private:
     std::string myOrigEdgeId;
-public:
-    void setMyOrigEdgeId(const std::string& myOrigEdgeId);
-private:
     double myPTStopLength;
-public:
-    void setMyPTStopLength(double myPTStopLength);
-private:
     const std::string myName;
     const double myParkingLength;
     std::string myLaneId;
@@ -149,13 +151,13 @@ private:
     /// @brief whether the stop was not part of the road network and must be mapped
     bool myIsLoose;
 
+    std::vector<NBPTPlatform> myPlatformCands;
+    bool myIsMultipleStopPositions;
+    long long int myAreaID;
+
 private:
     /// @brief Invalidated assignment operator.
     NBPTStop& operator=(const NBPTStop&);
 
-
-    std::vector<NBPTPlatform> myPlatformCands;
-    bool myIsMultipleStopPositions;
-    long long int myAreaID;
 };
 

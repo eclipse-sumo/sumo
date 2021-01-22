@@ -1976,7 +1976,6 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
                     currentFolder);
     // check that file is valid (note: in this case we don't need to use function FileHelpers::addExtension)
     if (file != "") {
-        OptionsCont& oc = OptionsCont::getOptions();
         bool wasSet = oc.isSet("plain-output-prefix");
         std::string oldPrefix = oc.getString("plain-output-prefix");
         std::string prefix = file.text();
@@ -2036,7 +2035,6 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
     std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
     // check that file with extension is valid
     if (fileWithExtension != "") {
-        OptionsCont& oc = OptionsCont::getOptions();
         bool wasSet = oc.isSet("junctions.join-output");
         std::string oldFile = oc.getString("junctions.join-output");
         oc.resetWritable();
@@ -3057,7 +3055,7 @@ GNEApplicationWindow::getFolder(const std::string& folder) const {
     // declare stop flag
     bool stop = false;
     // continue while stop is false 
-    while (!abort) {
+    while (!stop) {
         if (newFolder.empty()) {
             // new folder empty, then stop
             stop = true;
@@ -3071,9 +3069,8 @@ GNEApplicationWindow::getFolder(const std::string& folder) const {
     // if is empty, return gCurrentFolder
     if (newFolder.empty()) {
         return gCurrentFolder;
-    } else {
-        FXString(newFolder);
     }
+    return FXString(newFolder.c_str());
 }
 
 

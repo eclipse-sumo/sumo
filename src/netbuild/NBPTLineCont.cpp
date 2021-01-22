@@ -218,7 +218,7 @@ NBPTLineCont::findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPT
             const std::string wayID = getWayID(best->getID());
             if (stop->getEdgeId() == "") {
                 stop->setEdgeId(best->getID(), ec);
-                stop->setMyOrigEdgeId(wayID);
+                stop->setOrigEdgeId(wayID);
             } else if (stop->getEdgeId() != best->getID()) {
                 // stop is used by multiple lines and mapped to different edges.
                 // check if an alterantive stop already exists
@@ -247,13 +247,13 @@ NBPTLineCont::findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPT
 
         if (waysIdsIt == waysIds.end()) {
             // stop edge not found, try additional edges
-            for (auto& edgeCand : stop->getMyAdditionalEdgeCandidates()) {
+            for (auto& edgeCand : stop->getAdditionalEdgeCandidates()) {
                 bool found = false;
                 waysIdsIt =  waysIds.begin();
                 for (; waysIdsIt != waysIds.end(); waysIdsIt++) {
                     if ((*waysIdsIt) == edgeCand.first) {
                         if (stop->setEdgeId(edgeCand.second, ec)) {
-                            stop->setMyOrigEdgeId(edgeCand.first);
+                            stop->setOrigEdgeId(edgeCand.first);
                             found = true;
                             break;
                         }

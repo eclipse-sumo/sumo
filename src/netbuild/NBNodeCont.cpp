@@ -225,8 +225,8 @@ NBNodeCont::joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightL
             //   take place with the current implementation
             if (jci == ev.end()) {
                 if (removeDuplicates) {
-                    for (int i = 1; i < (int)ev.size(); i++) {
-                        ec.extract(dc, ev[i], true);
+                    for (int ei = 1; ei < (int)ev.size(); i++) {
+                        ec.extract(dc, ev[ei], true);
                     }
                 } else {
                     ec.joinSameNodeConnectingEdges(dc, tlc, ev);
@@ -580,8 +580,8 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
 #endif
                 if (railAndPeds && n->getType() != SumoXMLNodeType::RAIL_CROSSING) {
                     bool railAndPeds2 = true;
-                    for (NBEdge* e : n->getEdges()) {
-                        if ((e->getPermissions() & ~(SVC_RAIL_CLASSES | SVC_PEDESTRIAN)) != 0) {
+                    for (NBEdge* e2 : n->getEdges()) {
+                        if ((e2->getPermissions() & ~(SVC_RAIL_CLASSES | SVC_PEDESTRIAN)) != 0) {
                             railAndPeds2 = false;
                             break;
                         }
@@ -674,8 +674,7 @@ NBNodeCont::addCluster2Join(std::set<std::string> cluster, NBNode* node) {
             WRITE_WARNINGF("Ignoring join-cluster because junction '%' already occurred in another join-cluster.", nodeID);
             return;
         } else {
-            NBNode* const node = retrieve(nodeID);
-            if (node != nullptr) {
+            if (retrieve(nodeID) != nullptr) {
                 validCluster.insert(nodeID);
             } else {
                 if (StringUtils::startsWith(nodeID, "cluster_")) {
@@ -1089,14 +1088,11 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
                         // slip lanes are for turning so there needs to be a sufficient angle
                         abs(NBHelpers::relAngle(inAngle, cont->getOutgoingEdges().front()->getAngleAtNode(cont))) > 45) {
                     // check whether the other continuation at n is also connected to the sliplane end
-                    NBEdge* otherEdge = (contEdge == outgoing.front() ? outgoing.back() : outgoing.front());
-                    double otherLength = otherEdge->getLength();
-                    NBNode* cont2 = otherEdge->getToNode();
-
+                    const NBEdge* const otherEdge = (contEdge == outgoing.front() ? outgoing.back() : outgoing.front());
                     NodeSet visited;
                     visited.insert(n);
                     std::vector<NodeAndDist> toProc;
-                    toProc.push_back(std::make_pair(cont2, otherLength));
+                    toProc.push_back(std::make_pair(otherEdge->getToNode(), otherEdge->getLength()));
                     bool found = false;
                     while (!toProc.empty()) {
                         NodeAndDist nodeAndDist = toProc.back();
@@ -1178,14 +1174,11 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
                         // slip lanes are for turning so there needs to be a sufficient angle
                         abs(NBHelpers::relAngle(outAngle, cont->getIncomingEdges().front()->getAngleAtNode(cont))) > 45) {
                     // check whether the other continuation at n is also connected to the sliplane end
-                    NBEdge* otherEdge = (contEdge == incoming.front() ? incoming.back() : incoming.front());
-                    double otherLength = otherEdge->getLength();
-                    NBNode* cont2 = otherEdge->getFromNode();
-
+                    const NBEdge* const otherEdge = (contEdge == incoming.front() ? incoming.back() : incoming.front());
                     NodeSet visited;
                     visited.insert(n);
                     std::vector<NodeAndDist> toProc;
-                    toProc.push_back(std::make_pair(cont2, otherLength));
+                    toProc.push_back(std::make_pair(otherEdge->getFromNode(), otherEdge->getLength()));
                     bool found = false;
                     while (!toProc.empty()) {
                         NodeAndDist nodeAndDist = toProc.back();

@@ -192,19 +192,19 @@ NBPTStopCont::assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeCont& cont)
             left = &platform;
         } else {
             rightOfEdge = true;
-            pStop->setMyPTStopLength(platform.getLength());
+            pStop->setPTStopLength(platform.getLength());
         }
     }
 
     if (leftOfEdge && rightOfEdge) {
         NBPTStop* leftStop = getReverseStop(pStop, cont);
-        leftStop->setMyPTStopLength(left->getLength());
+        leftStop->setPTStopLength(left->getLength());
         return leftStop;
     } else if (leftOfEdge) {
         NBEdge* reverse = getReverseEdge(edge);
         if (reverse != nullptr) {
             pStop->setEdgeId(reverse->getID(), cont);
-            pStop->setMyPTStopLength(left->getLength());
+            pStop->setPTStopLength(left->getLength());
         }
     }
 
@@ -218,7 +218,7 @@ NBPTStopCont::assignPTStopToEdgeOfClosestPlatform(NBPTStop* pStop, NBEdgeCont& c
     NBEdge* edge = cont.getByID(edgeId);
     NBEdge* reverse = NBPTStopCont::getReverseEdge(edge);
     const NBPTPlatform* closestPlatform = getClosestPlatformToPTStopPosition(pStop);
-    pStop->setMyPTStopLength(closestPlatform->getLength());
+    pStop->setPTStopLength(closestPlatform->getLength());
     if (reverse != nullptr) {
 
         //TODO make isLeft in PositionVector static [GL May '17]
@@ -360,7 +360,7 @@ NBPTStopCont::alignIdSigns() {
         const char edgeSign = i.second->getEdgeId().at(0);
         const char stopSign = stopId.at(0);
         if (edgeSign != stopSign && (edgeSign == '-' || stopSign == '-')) {
-            i.second->setMyPTStopId(getReverseID(stopId));
+            i.second->setPTStopId(getReverseID(stopId));
             myPTStops.erase(stopId);
             myPTStops[i.second->getID()] = i.second;
         }

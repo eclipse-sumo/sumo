@@ -589,8 +589,8 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     shape.append(centerLine.reverse(), POSITION_EPS);
                     if (writeGeo) {
                         // GeoConvHelper::getFinal is not ready yet
-                        for (int i = 0; i < (int) shape.size(); i++) {
-                            GeoConvHelper::getLoaded().cartesian2geo(shape[i]);
+                        for (Position& p : shape) {
+                            GeoConvHelper::getLoaded().cartesian2geo(p);
                         }
                     }
                     SUMOPolygon poly(o.id, o.type, RGBColor::YELLOW, shape, true, true, 1);
@@ -742,14 +742,14 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                             if (fromID != "") {
                                 WRITE_WARNING("Ambiguous start of connection.");
                             }
-                            OpenDriveEdge* e = edges[(*l).elementID];
+                            const OpenDriveEdge* const ode = edges[(*l).elementID];
                             if ((*l).contactPoint == OPENDRIVE_CP_START) {
-                                fromID = e->laneSections[0].sumoID;
+                                fromID = ode->laneSections[0].sumoID;
                                 if (signal.orientation < 0) {
                                     fromID = "-" + fromID;
                                 }
                             } else {
-                                fromID = e->laneSections.back().sumoID;
+                                fromID = ode->laneSections.back().sumoID;
                                 if (signal.orientation > 0) {
                                     fromID = "-" + fromID;
                                 }
@@ -759,8 +759,8 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                             if (toID != "") {
                                 WRITE_WARNING("Ambiguous end of connection.");
                             }
-                            OpenDriveEdge* e = edges[(*l).elementID];
-                            toID = (*l).contactPoint == OPENDRIVE_CP_START ? e->laneSections[0].sumoID : e->laneSections.back().sumoID;
+                            const OpenDriveEdge* const ode = edges[(*l).elementID];
+                            toID = (*l).contactPoint == OPENDRIVE_CP_START ? ode->laneSections[0].sumoID : ode->laneSections.back().sumoID;
                         }
                     }
                     // figure out the correct combination of directions
@@ -781,9 +781,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         if (fromForward != lanesForward) {
                             std::swap(fromID, toID);
 
-                            auto fromTo = retrieveSignalEdges(nb, fromID, toID, e->junction);
-                            from = fromTo.first;
-                            to = fromTo.second;
+                            const auto& signalFromTo = retrieveSignalEdges(nb, fromID, toID, e->junction);
+                            from = signalFromTo.first;
+                            to = signalFromTo.second;
                             if (from == nullptr) {
                                 WRITE_WARNINGF("Could not find edge '%' for signal '%'.", fromID, signal.id);
                                 continue;
@@ -930,9 +930,8 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
         return;
     }
     seen.insert(c);
-    const std::set<Connection>& conts = dest->connections;
-    for (std::set<Connection>::const_iterator i = conts.begin(); i != conts.end(); ++i) {
-        auto innerEdgesIt = innerEdges.find((*i).toEdge);
+    for (const Connection& destCon : dest->connections) {
+        auto innerEdgesIt = innerEdges.find(destCon.toEdge);
 #ifdef DEBUG_CONNECTIONS
         if (DEBUG_COND3(c.fromEdge)) {
             std::cout << "      toInner=" << (innerEdgesIt != innerEdges.end()) << " destCon " << (*i).getDescription() << "\n";
@@ -940,8 +939,8 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
 #endif
         if (innerEdgesIt != innerEdges.end()) {
             std::vector<Connection> t;
-            if (seen.count(*i) == 0) {
-                buildConnectionsToOuter(*i, innerEdges, t, seen);
+            if (seen.count(destCon) == 0) {
+                buildConnectionsToOuter(destCon, innerEdges, t, seen);
                 for (std::vector<Connection>::const_iterator j = t.begin(); j != t.end(); ++j) {
                     // @todo this section is unverified
                     Connection cn = (*j);
@@ -959,7 +958,7 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
             }
         } else {
             int in = c.toLane;
-            int out = (*i).fromLane;
+            int out = destCon.fromLane;
             if (c.toCP == OPENDRIVE_CP_END) {
                 // inner edge runs in reverse direction
                 std::swap(in, out);
@@ -972,7 +971,7 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
 #endif
 
             if (laneSectionsConnected(dest, in, out)) {
-                Connection cn = (*i);
+                Connection cn = destCon;
                 cn.fromEdge = c.fromEdge;
                 cn.fromLane = c.fromLane;
                 cn.fromCP = c.fromCP;
@@ -1019,14 +1018,13 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                     for (int laneSectionIndex = 0; laneSectionIndex < (int)dest->laneSections.size(); laneSectionIndex++) {
                         auto& laneSection = dest->laneSections[laneSectionIndex];
                         const double nextS = laneSectionIndex + 1 < (int)dest->laneSections.size() ? dest->laneSections[laneSectionIndex + 1].s : std::numeric_limits<double>::max();
-                        int i = iShape; // shape index at the start of the current lane section
                         double sStart = s; // distance offset a the start of the current lane section
                         double finalS = s; // final distance value after processing this segment
-                        int finalI = i;
+                        int finalI = iShape;
                         for (const OpenDriveLane& destLane : laneSection.lanesByDir[lanesDir]) {
                             // each lane of the current segment repeats the same section of shape points and distance offsets
                             double sectionS = 0;
-                            i = iShape;
+                            int i = iShape; // shape index at the start of the current lane section
                             s = sStart;
 #ifdef DEBUG_INTERNALSHAPES
                             destPred += "  lane=" + toString(destLane.id)
@@ -1407,19 +1405,19 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
             }
             // XXX add further points for sections with non-constant offset
             // shift each point orthogonally by the specified offset
-            int k = 0;
-            double pos = 0;
+            int kk = 0;
+            double ppos = 0;
             for (std::vector<OpenDriveLaneOffset>::iterator j = e.offsets.begin(); j != e.offsets.end(); ++j) {
                 const OpenDriveLaneOffset& el = *j;
                 const double sNext = (j + 1) == e.offsets.end() ? std::numeric_limits<double>::max() : (*(j + 1)).s;
-                while (k < (int)e.geom.size() && pos < sNext) {
-                    const double offset = el.computeAt(pos);
+                while (kk < (int)e.geom.size() && ppos < sNext) {
+                    const double offset = el.computeAt(ppos);
                     e.laneOffsets.push_back(fabs(offset) > POSITION_EPS ? -offset : 0);
-                    k++;
-                    if (k < (int)e.geom.size()) {
+                    kk++;
+                    if (kk < (int)e.geom.size()) {
                         // XXX pos understimates the actual position since the
                         // actual geometry between k-1 and k could be curved
-                        pos += e.geom[k - 1].distanceTo2D(e.geom[k]);
+                        ppos += e.geom[kk - 1].distanceTo2D(e.geom[kk]);
                     }
                 }
             }
@@ -1868,17 +1866,14 @@ NIImporter_OpenDrive::OpenDriveLaneSection::buildSpeedChanges(const NBTypeCont& 
     }
     // propagate speeds
     for (int i = 0; i != (int)newSections.size(); ++i) {
-        OpenDriveLaneSection& ls = newSections[i];
-        std::map<OpenDriveXMLTag, std::vector<OpenDriveLane> >& lanesByDir = ls.lanesByDir;
-        for (std::map<OpenDriveXMLTag, std::vector<OpenDriveLane> >::iterator k = lanesByDir.begin(); k != lanesByDir.end(); ++k) {
-            std::vector<OpenDriveLane>& lanes = (*k).second;
-            for (int j = 0; j != (int)lanes.size(); ++j) {
-                OpenDriveLane& l = lanes[j];
+        for (auto& k : newSections[i].lanesByDir) {
+            for (int j = 0; j != (int)k.second.size(); ++j) {
+                OpenDriveLane& l = k.second[j];
                 if (l.speed != 0) {
                     continue;
                 }
                 if (i > 0) {
-                    l.speed = newSections[i - 1].lanesByDir[(*k).first][j].speed;
+                    l.speed = newSections[i - 1].lanesByDir[k.first][j].speed;
                 } else {
                     tc.getEdgeTypeSpeed(l.type);
                 }
