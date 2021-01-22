@@ -191,10 +191,8 @@ errors:Execution of .*duarouter.*'{REPLACE Execution of <path-to>duarouter'}
 errors:Leaked object at 
 errors:*** 9 leaks found
 errors:delete: freed
-errors:Traceback{->}XMLSyntaxError
 errors:lxml.etree.XMLSyntaxError{REPLACE XMLSyntaxError}
-errors:Traceback{->}IOError
-errors:Traceback{->}OSError
+errors:File .* lxml.etree.
 errors:OSError: Error reading file{REPLACE IOError: Error reading file}
 errors:.*RuntimeWarning: divide{REPLACE RuntimeWarning: divide}
 errors:Ran [0-9]+ tests in [0-9]+\.[0-9]+s{REPLACE Ran <COUNT> tests in <TIME>}
