@@ -22,8 +22,6 @@
 #include <config.h>
 
 #include "MSSOTLPolicy.h"
-#define SWARM_DEBUG
-#include <utils/common/SwarmDebug.h>
 /**
  * @class MSSOTLPhasePolicy
  * @brief Class for low-level phase policy.

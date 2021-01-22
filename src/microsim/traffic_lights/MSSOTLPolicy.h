@@ -24,8 +24,6 @@
 #pragma once
 #include <config.h>
 
-//#define SWARM_DEBUG
-#include <utils/common/SwarmDebug.h>
 #include <sstream>
 #include <cmath>
 #include <utility>

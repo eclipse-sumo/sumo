@@ -20,7 +20,6 @@
 #pragma once
 #include <config.h>
 
-#include <utils/common/SwarmDebug.h>
 #include <sstream>
 #include <utils/common/Parameterised.h>
 #include <utils/common/StringUtils.h>

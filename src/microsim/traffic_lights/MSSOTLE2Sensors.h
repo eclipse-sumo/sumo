@@ -23,14 +23,12 @@
 #pragma once
 
 
-#define SWARM_DEBUG
-#include <utils/common/SwarmDebug.h>
-#include "MSSOTLSensors.h"
-#include "MSSOTLDefinitions.h"
 #include <cmath>
 #include <map>
 #include <utility>
 #include <microsim/output/MSE2Collector.h>
+#include "MSSOTLSensors.h"
+#include "MSSOTLDefinitions.h"
 
 class MSSOTLE2Sensors :	public MSSOTLSensors {
 protected :

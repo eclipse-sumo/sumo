@@ -19,15 +19,14 @@
 // The class for Swarm-based logics
 /****************************************************************************/
 
+#include <microsim/MSEdge.h>
 #include "MSSwarmTrafficLightLogic.h"
-#include "../MSEdge.h"
+//#define SWARM_DEBUG
+//#define ANALYSIS_DEBUG
 
-#if 1
-#define ANALYSIS_DBG(X) {X}
-#else
-#define ANALYSIS_DBG(X) DBG(X)
-#endif
-
+// ===========================================================================
+// method definitions
+// ===========================================================================
 MSSwarmTrafficLightLogic::MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
         const std::string& programID, const Phases& phases, int step, SUMOTime delay,
         const std::map<std::string, std::string>& parameters) :
@@ -35,7 +34,9 @@ MSSwarmTrafficLightLogic::MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, 
 
     std::string pols = getPoliciesParam();
     std::transform(pols.begin(), pols.end(), pols.begin(), ::tolower);
-    DBG(std::ostringstream str; str << "policies: " << pols; WRITE_MESSAGE(str.str());)
+#ifdef SWARM_DEBUG
+    std::ostringstream str; str << "policies: " << pols; WRITE_MESSAGE(str.str());
+#endif
 
     if (pols.find("platoon") != std::string::npos) {
         addPolicy(new MSSOTLPlatoonPolicy(new MSSOTLPolicy5DFamilyStimulus("PLATOON", parameters), parameters));
@@ -58,16 +59,18 @@ MSSwarmTrafficLightLogic::MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, 
     skipEta = false;
     gotTargetLane = false;
 
-    DBG(
-        std::ostringstream d_str; d_str << getMaxCongestionDuration(); vector<MSSOTLPolicy*> policies = getPolicies();
+#ifdef SWARM_DEBUG
+    std::ostringstream d_str; d_str << getMaxCongestionDuration(); vector<MSSOTLPolicy*> policies = getPolicies();
 
-    WRITE_MESSAGE("getMaxCongestionDuration " + d_str.str()); for (int i = 0; i < policies.size(); i++) {
-    MSSOTLPolicy* policy = policies[i];
+    WRITE_MESSAGE("getMaxCongestionDuration " + d_str.str());
+    for (int i = 0; i < policies.size(); i++) {
+        MSSOTLPolicy* policy = policies[i];
         MSSOTLPolicyDesirability* stim = policy->getDesirabilityAlgorithm();
         std::ostringstream _str;
         _str << policy->getName() << stim->getMessage() << " getThetaSensitivity " << policy->getThetaSensitivity() << " .";
         WRITE_MESSAGE(_str.str());
-    })
+    }
+#endif
     congestion_steps = 0;
     m_useVehicleTypesWeights = getParameter("USE_VEHICLE_TYPES_WEIGHTS", "0") == "1";
     if (m_useVehicleTypesWeights && pols.find("phase") == std::string::npos) {
@@ -145,11 +148,13 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) {
 //					Consider the derivative only for the input lane
                     m_meanSpeedHistory.insert(std::make_pair(currentLane->getID(), new CircularBuffer<double>(meanSpeedHistorySize)));
                     m_derivativeHistory.insert(std::make_pair(currentLane->getID(), new CircularBuffer<double>(derivativeHistorySize)));
-                    ANALYSIS_DBG(
-                        WRITE_MESSAGE("MSSwarmTrafficLightLogic::init Intersection " + getID() + " pheromoneInputLanes adding " + currentLane->getID());)
+#ifdef ANALYSIS_DEBUG
+                    WRITE_MESSAGE("MSSwarmTrafficLightLogic::init Intersection " + getID() + " pheromoneInputLanes adding " + currentLane->getID());
+#endif
                 } else {
-                    ANALYSIS_DBG(
-                        WRITE_MESSAGE("MSSwarmTrafficLightLogic::init Intersection " + getID() + " pheromoneInputLanes: lane " + currentLane->getID() + " not allowed");)
+#ifdef ANALYSIS_DEBUG
+                    WRITE_MESSAGE("MSSwarmTrafficLightLogic::init Intersection " + getID() + " pheromoneInputLanes: lane " + currentLane->getID() + " not allowed");
+#endif
                 }
             }
             m_laneIndexMap[currentLane->getID()].push_back(index++);
@@ -165,11 +170,13 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 laneCheck[currentLane] = false;
                 if (allowLine(currentLane)) {
                     pheromoneOutputLanes.insert(MSLaneId_Pheromone(currentLane->getID(), 0.0));
-                    ANALYSIS_DBG(
-                        WRITE_MESSAGE("MSSwarmTrafficLightLogic::init Intersection " + getID() + " pheromoneOutputLanes adding " + currentLane->getID());)
+#ifdef ANALYSIS_DEBUG
+                    WRITE_MESSAGE("MSSwarmTrafficLightLogic::init Intersection " + getID() + " pheromoneOutputLanes adding " + currentLane->getID());
+#endif
                 } else {
-                    ANALYSIS_DBG(
-                        WRITE_MESSAGE("MSSwarmTrafficLightLogic::init Intersection " + getID() + " pheromoneOutputLanes lane " + currentLane->getID() + " not allowed");)
+#ifdef ANALYSIS_DEBUG
+                    WRITE_MESSAGE("MSSwarmTrafficLightLogic::init Intersection " + getID() + " pheromoneOutputLanes lane " + currentLane->getID() + " not allowed");
+#endif
                 }
             }
         }
@@ -187,7 +194,7 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) {
         swarmLogFile.open(logFileName.c_str(), std::ios::out | std::ios::binary);
     }
 //	Log the initial state
-    ANALYSIS_DBG(
+#ifdef ANALYSIS_DEBUG
         WRITE_MESSAGE("TL " + getID() + " time 0 Policy: " + getCurrentPolicy()->getName() + " (pheroIn= 0 ,pheroOut= 0 ) OldPolicy: " + getCurrentPolicy()->getName() + " .");
 //	ostringstream maplog;
 //	for(map<string, vector<int> >::const_iterator mIt = m_laneIndexMap.begin();mIt != m_laneIndexMap.end();++mIt)
@@ -198,7 +205,7 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) {
 //		maplog << "] ";
 //	}
 //	WRITE_MESSAGE("Map content " + maplog.str());
-    );
+#endif
 }
 
 void MSSwarmTrafficLightLogic::resetPheromone() {
@@ -218,8 +225,9 @@ void MSSwarmTrafficLightLogic::resetPheromone() {
 
 int MSSwarmTrafficLightLogic::decideNextPhase() {
 
-    DBG(
-        MsgHandler::getMessageInstance()->inform("\n" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic decideNextPhase()"); std::ostringstream dnp; dnp << (MSNet::getInstance()->getCurrentTimeStep()) << " MSSwarmTrafficLightLogic::decideNextPhase:: " << "tlsid=" << getID() << " getCurrentPhaseDef().getState()=" << getCurrentPhaseDef().getState() << " is commit?" << getCurrentPhaseDef().isCommit(); MsgHandler::getMessageInstance()->inform(dnp.str());)
+#ifdef SWARM_DEBUG
+    MsgHandler::getMessageInstance()->inform("\n" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic decideNextPhase()"); std::ostringstream dnp; dnp << (MSNet::getInstance()->getCurrentTimeStep()) << " MSSwarmTrafficLightLogic::decideNextPhase:: " << "tlsid=" << getID() << " getCurrentPhaseDef().getState()=" << getCurrentPhaseDef().getState() << " is commit?" << getCurrentPhaseDef().isCommit(); MsgHandler::getMessageInstance()->inform(dnp.str());
+#endif
     // if we're congested, it should be wise to reset and recalculate the pheromone levels after X steps
 
     if (getCurrentPhaseDef().isTarget()) {
@@ -228,8 +236,9 @@ int MSSwarmTrafficLightLogic::decideNextPhase() {
 
     if (getCurrentPolicy()->getName().compare("Congestion") == 0 && getCurrentPhaseDef().isCommit()) {
         congestion_steps += 1;	//STEPS2TIME(getCurrentPhaseDef().duration);
-        DBG(
-            WRITE_MESSAGE("\n" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic decideNextPhase()"); std: ostringstream dnp; dnp << (MSNet::getInstance()->getCurrentTimeStep()) << " MSSwarmTrafficLightLogic::decideNextPhase:: " << "tlsid=" << getID() << " congestion_steps=" << congestion_steps; WRITE_MESSAGE(dnp.str());)
+#ifdef SWARM_DEBUG
+        WRITE_MESSAGE("\n" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic decideNextPhase()"); std: ostringstream dnp; dnp << (MSNet::getInstance()->getCurrentTimeStep()) << " MSSwarmTrafficLightLogic::decideNextPhase:: " << "tlsid=" << getID() << " congestion_steps=" << congestion_steps; WRITE_MESSAGE(dnp.str());
+#endif
         if (congestion_steps >= getMaxCongestionDuration()) {
             resetPheromone();
             congestion_steps = 0;
@@ -237,8 +246,9 @@ int MSSwarmTrafficLightLogic::decideNextPhase() {
             if (getReinforcementMode() != 0) {
                 skipEta = true;
             }
-            DBG(
-                WRITE_MESSAGE("\n" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic decideNextPhase()"); std::ostringstream dnp; dnp << (MSNet::getInstance()->getCurrentTimeStep()) << " MSSwarmTrafficLightLogic::decideNextPhase:: " << "tlsid=" << getID() << " max congestion reached, congestion_steps=" << congestion_steps; WRITE_MESSAGE(dnp.str());)
+#ifdef SWARM_DEBUG
+            WRITE_MESSAGE("\n" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic decideNextPhase()"); std::ostringstream dnp; dnp << (MSNet::getInstance()->getCurrentTimeStep()) << " MSSwarmTrafficLightLogic::decideNextPhase:: " << "tlsid=" << getID() << " max congestion reached, congestion_steps=" << congestion_steps; WRITE_MESSAGE(dnp.str());
+#endif
         }
     }
 
@@ -272,8 +282,9 @@ int MSSwarmTrafficLightLogic::decideNextPhase() {
 //      if(abs(phero-pheroBegin) <= 2)
 //        return getCurrentPhaseIndex() + 1;
 //	}
-    DBG(
-        std::ostringstream str; str << "tlsID=" << getID() << " currentPolicyname=" + getCurrentPolicy()->getName(); WRITE_MESSAGE(str.str());)
+#ifdef SWARM_DEBUG
+        std::ostringstream str; str << "tlsID=" << getID() << " currentPolicyname=" + getCurrentPolicy()->getName(); WRITE_MESSAGE(str.str());
+#endif
 
     //Execute current policy. congestion "policy" must maintain the commit phase, and that must be an all-red one
     return getCurrentPolicy()->decideNextPhase(getCurrentPhaseElapsed(), &getCurrentPhaseDef(), getCurrentPhaseIndex(),
@@ -300,9 +311,9 @@ void MSSwarmTrafficLightLogic::updatePheromoneLevels() {
 void MSSwarmTrafficLightLogic::updatePheromoneLevels(MSLaneId_PheromoneMap& pheroMap, std::string logString,
         const double beta, const double gamma) {
     //	ANALYSIS_DBG(
-    DBG(
-        std::ostringstream _str; _str << logString << " Lanes " << pheroMap.size() << " TL " << getID() << " ."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::updatePheromoneLevels:: " + _str.str());)
-
+#ifdef SWARM_DEBUG
+        std::ostringstream _str; _str << logString << " Lanes " << pheroMap.size() << " TL " << getID() << " ."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::updatePheromoneLevels:: " + _str.str());
+#endif
     for (MSLaneId_PheromoneMap::iterator laneIterator = pheroMap.begin(); laneIterator != pheroMap.end();
             ++laneIterator) {
         std::string laneId = laneIterator->first;
@@ -360,27 +371,27 @@ void MSSwarmTrafficLightLogic::updatePheromoneLevels(MSLaneId_PheromoneMap& pher
             pheroAdd /= MAX2(derivative, m_derivativeAlpha);
         }
 //    pheroAdd /= max(derivative, 1.0);
-        ANALYSIS_DBG(
+#ifdef ANALYSIS_DEBUG
         if (updatePheromone) {
-        std::ostringstream oss;
-        oss << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " l " << laneId;
+            std::ostringstream oss;
+            oss << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " l " << laneId;
             oss << " der " << derivative << " phero " << pheroAdd << " maxS " << maxSpeed << " meanS " << meanVehiclesSpeed;
             WRITE_MESSAGE(oss.str())
         }
-        )
+#endif
 
         // Evaporation + current contribute
         double phero = beta * oldPhero + gamma * pheroAdd * updatePheromone;
-        ANALYSIS_DBG(
+#ifdef ANALYSIS_DEBUG
         if (phero > 10) {
-        std::ostringstream i_str;
-        i_str << "MSSwarmTrafficLightLogic::updatePheromoneLevels " << logString << " > 10. Value: " << phero;
-        WRITE_MESSAGE(i_str.str())
-        });
-
+            std::ostringstream i_str;
+            i_str << "MSSwarmTrafficLightLogic::updatePheromoneLevels " << logString << " > 10. Value: " << phero;
+            WRITE_MESSAGE(i_str.str())
+        }
+#endif
         phero = MIN2(MAX2(phero, 0.0), getPheroMaxVal());
         pheroMap[laneId] = phero;
-        ANALYSIS_DBG(
+#ifdef ANALYSIS_DEBUG
             //		DBG(
             std::ostringstream i_str;
             //					i_str << " oldPheroIn " << oldPheroIn
@@ -395,11 +406,11 @@ void MSSwarmTrafficLightLogic::updatePheromoneLevels(MSLaneId_PheromoneMap& pher
         pheroMap[laneId] << " l " << laneId << " ID " << getID() << " c " << getSensors()->countVehicles(laneId) << " s " << getLaneLightState(laneId) << " ."; if (m_pheroLevelLog[laneId] != i_str.str()) {
         m_pheroLevelLog[laneId] = i_str.str();
             WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::updatePheromoneLevels:: " + logString + i_str.str());
-        })
-
-        DBG(
-            std::ostringstream str; str << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " MSSwarmTrafficLightLogic::countSensors:: lane " << laneId << " passedVeh " << getCountSensors()->getPassedVeh(laneId, false); WRITE_MESSAGE(str.str());)
-
+        }
+#endif
+#ifdef SWARM_DEBUG
+            std::ostringstream str; str << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " MSSwarmTrafficLightLogic::countSensors:: lane " << laneId << " passedVeh " << getCountSensors()->getPassedVeh(laneId, false); WRITE_MESSAGE(str.str());
+#endif
 //		int vehicles = getSensors()->countVehicles(laneId);
 //		double pheroIn = getBetaNo() * oldPheroIn + // Evaporation
 //		getGammaNo() * vehicles;
@@ -425,8 +436,9 @@ void MSSwarmTrafficLightLogic::updateSensitivities() {
         for (int i = 0; i < (int)policies.size(); i++) {
             policies[i]->setThetaSensitivity(getThetaInit());
 //			ANALYSIS_DBG(
-            DBG(
-                std::ostringstream phero_str; phero_str << "Policy " << policies[i]->getName() << " sensitivity reset to " << policies[i]->getThetaSensitivity() << " due to evaporated input pheromone."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::updateSensitivities::" + phero_str.str());)
+#ifdef SWARM_DEBUG
+            std::ostringstream phero_str; phero_str << "Policy " << policies[i]->getName() << " sensitivity reset to " << policies[i]->getThetaSensitivity() << " due to evaporated input pheromone."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::updateSensitivities::" + phero_str.str());
+#endif
         }
         return;
     }
@@ -470,7 +482,7 @@ void MSSwarmTrafficLightLogic::updateSensitivities() {
             }
         }
 //			ANALYSIS_DBG(
-        DBG(
+#ifdef SWARM_DEBUG
         std::ostringstream lf; std::ostringstream phero_str; if (getReinforcementMode() == 0) {
         if (policy == currentPolicy) {
                 lf << " ,LearningCox " << getLearningCox() << " ,LCox*Time " << getLearningCox() * elapsedTime;
@@ -491,8 +503,8 @@ void MSSwarmTrafficLightLogic::updateSensitivities() {
             }
             phero_str << " policy " << policy->getName() << " newSensitivity " << newSensitivity << " ,pol.Sensitivity " << policy->getThetaSensitivity() << " ,eta " << eta << " ,carsIn " << carsIn << " ,inTarget " << inTarget << " ,notTarget " << notTarget << " ,carsOut " << carsOut << lf.str() << " NEWERSensitivity= " << max(min(newSensitivity, getThetaMax()), getThetaMin()) << " ID " << getID() << " .";
         }
-        WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::updateSensitivities::" + phero_str.str());)
-
+        WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::updateSensitivities::" + phero_str.str());
+#endif
         newSensitivity = MAX2(MIN2(newSensitivity, getThetaMax()), getThetaMin());
         policy->setThetaSensitivity(newSensitivity);
     }
@@ -507,12 +519,14 @@ double MSSwarmTrafficLightLogic::getPheromoneForInputLanes() {
             iterator != pheromoneInputLanes.end(); iterator++) {
         std::string laneId = iterator->first;
         pheroIn += iterator->second;
-        DBG(
-            std::ostringstream phero_str; phero_str << " lane " << iterator->first << " pheromoneIN  " << iterator->second << " id " << getID() << " ."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::getPheromoneForInputLanes::" + phero_str.str());)
+#ifdef SWARM_DEBUG
+            std::ostringstream phero_str; phero_str << " lane " << iterator->first << " pheromoneIN  " << iterator->second << " id " << getID() << " ."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::getPheromoneForInputLanes::" + phero_str.str());
+#endif
     }
 
-    DBG(
-        std::ostringstream o_str; o_str << " TOTpheromoneIN  " << pheroIn << " return  " << pheroIn / pheromoneInputLanes.size() << getID() << " ."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::getPheromoneForInputLanes::" + o_str.str());)
+#ifdef SWARM_DEBUG
+        std::ostringstream o_str; o_str << " TOTpheromoneIN  " << pheroIn << " return  " << pheroIn / pheromoneInputLanes.size() << getID() << " ."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::getPheromoneForInputLanes::" + o_str.str());
+#endif
     return pheroIn / pheromoneInputLanes.size();
 }
 
@@ -523,12 +537,14 @@ double MSSwarmTrafficLightLogic::getPheromoneForOutputLanes() {
     double pheroOut = 0;
     for (MSLaneId_PheromoneMap::const_iterator iterator = pheromoneOutputLanes.begin();
             iterator != pheromoneOutputLanes.end(); iterator++) {
-        DBG(
-            std::ostringstream phero_str; phero_str << " lane " << iterator->first << " pheromoneOUT  " << iterator->second << " id " << getID() << " ."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::getPheromoneForOutputLanes::" + phero_str.str());)
+#ifdef SWARM_DEBUG
+        std::ostringstream phero_str; phero_str << " lane " << iterator->first << " pheromoneOUT  " << iterator->second << " id " << getID() << " ."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::getPheromoneForOutputLanes::" + phero_str.str());
+#endif
         pheroOut += iterator->second;
     }
-    DBG(
-        std::ostringstream o_str; o_str << " TOTpheromoneOUT  " << pheroOut << " return  " << pheroOut / pheromoneOutputLanes.size() << " id " << getID() << " ."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::getPheromoneForOutputLanes::" + o_str.str());)
+#ifdef SWARM_DEBUG
+    std::ostringstream o_str; o_str << " TOTpheromoneOUT  " << pheroOut << " return  " << pheroOut / pheromoneOutputLanes.size() << " id " << getID() << " ."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::getPheromoneForOutputLanes::" + o_str.str());
+#endif
     return pheroOut / pheromoneOutputLanes.size();
 }
 
@@ -544,8 +560,9 @@ double MSSwarmTrafficLightLogic::getDispersionForInputLanes(double average_phero
     }
 
     double result = sqrt(sum / pheromoneInputLanes.size()) * getScaleFactorDispersionIn();
-    DBG(
-        ostringstream so_str; so_str << " dispersionIn " << result; WRITE_MESSAGE("MSSwarmTrafficLightLogic::getDispersionForInputLanes::" + so_str.str());)
+#ifdef SWARM_DEBUG
+        ostringstream so_str; so_str << " dispersionIn " << result; WRITE_MESSAGE("MSSwarmTrafficLightLogic::getDispersionForInputLanes::" + so_str.str());
+#endif
     return result;
 }
 
@@ -560,8 +577,9 @@ double MSSwarmTrafficLightLogic::getDispersionForOutputLanes(double average_pher
     }
 
     double result = sqrt(sum / pheromoneOutputLanes.size()) * getScaleFactorDispersionOut();
-    DBG(
-        ostringstream so_str; so_str << " dispersionOut " << result; WRITE_MESSAGE("MSSwarmTrafficLightLogic::getDispersionForOutputLanes::" + so_str.str());)
+#ifdef SWARM_DEBUG
+    ostringstream so_str; so_str << " dispersionOut " << result; WRITE_MESSAGE("MSSwarmTrafficLightLogic::getDispersionForOutputLanes::" + so_str.str());
+#endif
     return result;
 }
 double MSSwarmTrafficLightLogic::getDistanceOfMaxPheroForInputLanes() {
@@ -594,8 +612,9 @@ double MSSwarmTrafficLightLogic::getDistanceOfMaxPheroForInputLanes() {
     }
 
     double result = max_phero_val_current - temp_avg_other_lanes;
-    DBG(
-        ostringstream so_str; so_str << " currentMaxPhero " << max_phero_val_current << " lane " << laneId_max << " avgOtherLanes " << temp_avg_other_lanes << " distance " << result; WRITE_MESSAGE("MSSwarmTrafficLightLogic::getDistanceOfMaxPheroForInputLanes::" + so_str.str());)
+#ifdef SWARM_DEBUG
+    ostringstream so_str; so_str << " currentMaxPhero " << max_phero_val_current << " lane " << laneId_max << " avgOtherLanes " << temp_avg_other_lanes << " distance " << result; WRITE_MESSAGE("MSSwarmTrafficLightLogic::getDistanceOfMaxPheroForInputLanes::" + so_str.str());
+#endif
     return result;
 }
 
@@ -629,8 +648,9 @@ double MSSwarmTrafficLightLogic::getDistanceOfMaxPheroForOutputLanes() {
     }
 
     double result = max_phero_val_current - temp_avg_other_lanes;
-    DBG(
-        ostringstream so_str; so_str << " currentMaxPhero " << max_phero_val_current << " lane " << laneId_max << " avgOtherLanes " << temp_avg_other_lanes << " distance " << result; WRITE_MESSAGE("MSSwarmTrafficLightLogic::getDistanceOfMaxPheroForOutputLanes::" + so_str.str());)
+#ifdef SWARM_DEBUG
+    ostringstream so_str; so_str << " currentMaxPhero " << max_phero_val_current << " lane " << laneId_max << " avgOtherLanes " << temp_avg_other_lanes << " distance " << result; WRITE_MESSAGE("MSSwarmTrafficLightLogic::getDistanceOfMaxPheroForOutputLanes::" + so_str.str());
+#endif
     return result;
 }
 void MSSwarmTrafficLightLogic::decidePolicy() {
@@ -654,14 +674,16 @@ void MSSwarmTrafficLightLogic::decidePolicy() {
         MSSOTLPolicy* newPolicy = getCurrentPolicy();
 
         if (newPolicy != oldPolicy) {
-            ANALYSIS_DBG(
-                SUMOTime step = MSNet::getInstance()->getCurrentTimeStep(); std::ostringstream phero_str; phero_str << " (pheroIn= " << pheroIn << " ,pheroOut= " << pheroOut << " )"; WRITE_MESSAGE("TL " + getID() + " time " + time2string(step) + " Policy: " + newPolicy->getName() + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");)
+#ifdef ANALYSIS_DEBUG
+            SUMOTime step = MSNet::getInstance()->getCurrentTimeStep(); std::ostringstream phero_str; phero_str << " (pheroIn= " << pheroIn << " ,pheroOut= " << pheroOut << " )"; WRITE_MESSAGE("TL " + getID() + " time " + time2string(step) + " Policy: " + newPolicy->getName() + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");
+#endif
             if (oldPolicy->getName().compare("Congestion") == 0) {
                 congestion_steps = 0;
             }
         } else { //debug purpose only
-            ANALYSIS_DBG(
-                std::ostringstream phero_str; phero_str << " (pheroIn= " << pheroIn << " ,pheroOut= " << pheroOut << " )"; SUMOTime step = MSNet::getInstance()->getCurrentTimeStep(); WRITE_MESSAGE("TL " + getID() + " time " + time2string(step) + " Policy: Nochanges" + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");)
+#ifdef ANALYSIS_DEBUG
+            std::ostringstream phero_str; phero_str << " (pheroIn= " << pheroIn << " ,pheroOut= " << pheroOut << " )"; SUMOTime step = MSNet::getInstance()->getCurrentTimeStep(); WRITE_MESSAGE("TL " + getID() + " time " + time2string(step) + " Policy: Nochanges" + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");
+#endif
         }
 
         mustChange = false;
@@ -707,8 +729,9 @@ double MSSwarmTrafficLightLogic::calculateEtaDiff() {
                 // Get the vehicles passed from this lane.
                 count = sensors->getPassedVeh(currentLane->getID(), false);
 
-                DBG(
-                    std::ostringstream cars_str; cars_str << "Lane " << currentLane->getID() << ": vehicles entered - " << count; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + cars_str.str());)
+#ifdef SWARM_DEBUG
+                std::ostringstream cars_str; cars_str << "Lane " << currentLane->getID() << ": vehicles entered - " << count; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + cars_str.str());
+#endif
 
                 // Increment the global count of the cars passed through the tl
                 carsIn += count;
@@ -731,8 +754,9 @@ double MSSwarmTrafficLightLogic::calculateEtaDiff() {
                 // Get the vehicles passed from this lane.
                 count = sensors->getPassedVeh(currentLane->getID(), true);
 
-                DBG(
-                    std::ostringstream cars_str; cars_str << "Lane " << currentLane->getID() << ": vehicles gone out- " << count; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + cars_str.str());)
+#ifdef SWARM_DEBUG
+                std::ostringstream cars_str; cars_str << "Lane " << currentLane->getID() << ": vehicles gone out- " << count; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + cars_str.str());
+#endif
 
                 // Increment the global count of the cars passed through the tl
                 carsOut += count;
@@ -773,8 +797,9 @@ double MSSwarmTrafficLightLogic::calculateEtaDiff() {
         if (tmp != 0) {
             toReset.push_back(lane);
         }
-        DBG(
-            std::ostringstream cars_str; cars_str << "Lane " << lane << " passed: " << tmp; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + cars_str.str());)
+#ifdef SWARM_DEBUG
+        std::ostringstream cars_str; cars_str << "Lane " << lane << " passed: " << tmp; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + cars_str.str());
+#endif
     }
 
     // The cars not on a target lane counted as in.
@@ -797,13 +822,11 @@ double MSSwarmTrafficLightLogic::calculateEtaDiff() {
 
     // Analize difference to return an appropriate eta to reinforce/forget the policies.
 
-    DBG(
-        std::ostringstream final_str; final_str << "Total cars in lanes: " << carsIn << " Total cars out: " << carsOut << " Difference: " << diff << " Pure eta: " << normalized; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + final_str.str());)
-    DBG(
-        std::ostringstream eta_str; eta_str << "IN:" << inTarget << " OUT:" << carsOut << " R:" << notTarget; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + eta_str.str());)
-    DBG(
-        std::ostringstream eta_str; eta_str << "Min found:" << toSub << " MinIn:" << minIn << " MinOut:" << minOut; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + eta_str.str());)
-
+#ifdef SWARM_DEBUG
+        std::ostringstream final_str; final_str << "Total cars in lanes: " << carsIn << " Total cars out: " << carsOut << " Difference: " << diff << " Pure eta: " << normalized; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + final_str.str());
+        std::ostringstream eta_str; eta_str << "IN:" << inTarget << " OUT:" << carsOut << " R:" << notTarget; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + eta_str.str());
+        std::ostringstream eta_str; eta_str << "Min found:" << toSub << " MinIn:" << minIn << " MinOut:" << minOut; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + eta_str.str());
+#endif
     // IN > OUT
     if (inTarget > carsOut) {
         if (carsOut == 0) {
@@ -865,8 +888,9 @@ double MSSwarmTrafficLightLogic::calculateEtaDiff() {
         }
     }
 
-    DBG(
-        std::ostringstream eta_str; eta_str << "Eta Normalized: " << eta; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + eta_str.str());)
+#ifdef SWARM_DEBUG
+    std::ostringstream eta_str; eta_str << "Eta Normalized: " << eta; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + eta_str.str());
+#endif
     return eta;
 }
 
@@ -896,8 +920,9 @@ double MSSwarmTrafficLightLogic::calculateEtaRatio() {
                 // Get the vehicles passed from this lane.
                 count = sensors->getPassedVeh(currentLane->getID(), false);
 
-                DBG(
-                    std::ostringstream cars_str; cars_str << "Lane " << currentLane->getID() << ": vehicles entered - " << count; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + cars_str.str());)
+#ifdef SWARM_DEBUG
+                std::ostringstream cars_str; cars_str << "Lane " << currentLane->getID() << ": vehicles entered - " << count; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + cars_str.str());
+#endif
 
                 // Increment the global count of the cars passed through the tl
                 carsIn += count;
@@ -920,9 +945,9 @@ double MSSwarmTrafficLightLogic::calculateEtaRatio() {
                 // Get the vehicles passed from this lane.
                 count = sensors->getPassedVeh(currentLane->getID(), true);
 
-                DBG(
-                    std::ostringstream cars_str; cars_str << "Lane " << currentLane->getID() << ": vehicles gone out- " << count; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + cars_str.str());)
-
+#ifdef SWARM_DEBUG
+                std::ostringstream cars_str; cars_str << "Lane " << currentLane->getID() << ": vehicles gone out- " << count; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + cars_str.str());
+#endif
                 // Increment the global count of the cars passed through the tl
                 carsOut += count;
 
@@ -963,8 +988,9 @@ double MSSwarmTrafficLightLogic::calculateEtaRatio() {
         if (tmp != 0) {
             toReset.push_back(lane);
         }
-        DBG(
-            std::ostringstream cars_str; cars_str << "Lane " << lane << " passed: " << tmp; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + cars_str.str());)
+#ifdef SWARM_DEBUG
+        std::ostringstream cars_str; cars_str << "Lane " << lane << " passed: " << tmp; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + cars_str.str());
+#endif
     }
 
     // The cars not on a target lane counted as in.
@@ -990,12 +1016,11 @@ double MSSwarmTrafficLightLogic::calculateEtaRatio() {
         normalized = std::numeric_limits<double>::infinity();
     }
 
-    DBG(
-        std::ostringstream final_str; final_str << "Total cars in lanes: " << carsIn << " Total cars out: " << carsOut << " Ratio: " << ratio << " Pure eta: " << normalized; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + final_str.str());)
-    DBG(
-        std::ostringstream eta_str; eta_str << "IN:" << inTarget << ". OUT:" << carsOut << " R:" << notTarget; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + eta_str.str());)
-    DBG(
-        std::ostringstream eta_str; eta_str << "Min found:" << toSub << ". MinIn:" << minIn << " MinOut:" << minOut; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + eta_str.str());)
+#ifdef SWARM_DEBUG
+    std::ostringstream final_str; final_str << "Total cars in lanes: " << carsIn << " Total cars out: " << carsOut << " Ratio: " << ratio << " Pure eta: " << normalized; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + final_str.str());
+    std::ostringstream eta_str; eta_str << "IN:" << inTarget << ". OUT:" << carsOut << " R:" << notTarget; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + eta_str.str());
+    std::ostringstream eta_str; eta_str << "Min found:" << toSub << ". MinIn:" << minIn << " MinOut:" << minOut; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + eta_str.str());
+#endif
     // Analize ratio to return an appropriate eta to reinforce/forget the policies.
 
     // IN > OUT
@@ -1057,8 +1082,9 @@ double MSSwarmTrafficLightLogic::calculateEtaRatio() {
         }
     }
 
-    DBG(
-        std::ostringstream eta_str; eta_str << "Eta Normalized: " << eta << "."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + eta_str.str());)
+#ifdef SWARM_DEBUG
+    std::ostringstream eta_str; eta_str << "Eta Normalized: " << eta << "."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::calculateEta::" + eta_str.str());
+#endif
     return eta;
 
 }
@@ -1109,9 +1135,9 @@ void MSSwarmTrafficLightLogic::choosePolicy(double phero_in, double phero_out, d
         thetaSum += thetaStimulus;
 
 //		ANALYSIS_DBG(
-        DBG(
-            ostringstream so_str; so_str << " policy " << getPolicies()[i]->getName() << " stimulus " << stimulus << " pow(stimulus,2) " << pow(stimulus, 2) << " pow(Threshold,2) " << pow(getPolicies()[i]->getThetaSensitivity(), 2) << " thetaStimulus " << thetaStimulus << " thetaSum " << thetaSum << " TL " << getID(); WRITE_MESSAGE("MSSwarmTrafficLightLogic::choosePolicy::" + so_str.str());)
-
+#ifdef SWARM_DEBUG
+        ostringstream so_str; so_str << " policy " << getPolicies()[i]->getName() << " stimulus " << stimulus << " pow(stimulus,2) " << pow(stimulus, 2) << " pow(Threshold,2) " << pow(getPolicies()[i]->getThetaSensitivity(), 2) << " thetaStimulus " << thetaStimulus << " thetaSum " << thetaSum << " TL " << getID(); WRITE_MESSAGE("MSSwarmTrafficLightLogic::choosePolicy::" + so_str.str());
+#endif
     }
 
     // Compute a random value between 0 and the sum of the thetaSum
@@ -1124,9 +1150,9 @@ void MSSwarmTrafficLightLogic::choosePolicy(double phero_in, double phero_out, d
         partialSum += thetaStimuli[i];
 
 //		ANALYSIS_DBG(
-        DBG(
-            ostringstream aao_str; aao_str << " policy " << getPolicies()[i]->getName() << " partialSum " << partialSum << " thetaStimuls " << thetaStimuli[i] << " r " << r << " TL " << getID(); WRITE_MESSAGE("MSSwarmTrafficLightLogic::choosePolicy::" + aao_str.str());)
-
+#ifdef SWARM_DEBUG
+        ostringstream aao_str; aao_str << " policy " << getPolicies()[i]->getName() << " partialSum " << partialSum << " thetaStimuls " << thetaStimuli[i] << " r " << r << " TL " << getID(); WRITE_MESSAGE("MSSwarmTrafficLightLogic::choosePolicy::" + aao_str.str());
+#endif
         if (partialSum >= r) {
             activate(getPolicies()[i]);
             break;
@@ -1140,8 +1166,9 @@ void MSSwarmTrafficLightLogic::choosePolicy(double phero_in, double phero_out) {
 
 //never called...
 bool MSSwarmTrafficLightLogic::canRelease() {
-    DBG(
-        std::ostringstream phero_str; phero_str << "getCurrentPhaseElapsed()=" << time2string(getCurrentPhaseElapsed()) << " isThresholdPassed()=" << isThresholdPassed() << " currentPhase=" << (&getCurrentPhaseDef())->getState() << " countVehicles()=" << countVehicles(getCurrentPhaseDef()); WRITE_MESSAGE("MSSwamTrafficLightLogic::canRelease(): " + phero_str.str());)
+#ifdef SWARM_DEBUG
+    std::ostringstream phero_str; phero_str << "getCurrentPhaseElapsed()=" << time2string(getCurrentPhaseElapsed()) << " isThresholdPassed()=" << isThresholdPassed() << " currentPhase=" << (&getCurrentPhaseDef())->getState() << " countVehicles()=" << countVehicles(getCurrentPhaseDef()); WRITE_MESSAGE("MSSwamTrafficLightLogic::canRelease(): " + phero_str.str());
+#endif
     return getCurrentPolicy()->canRelease(getCurrentPhaseElapsed(), isThresholdPassed(), isPushButtonPressed(), &getCurrentPhaseDef(),
                                           countVehicles(getCurrentPhaseDef()));
 }

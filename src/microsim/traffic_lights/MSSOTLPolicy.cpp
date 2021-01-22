@@ -20,11 +20,16 @@
 // The class for low-level policy
 /****************************************************************************/
 
-#include "MSSOTLPolicy.h"
 #include <cmath>
 #include <typeinfo>
 #include "utils/common/RandHelper.h"
+#include "MSSOTLPolicy.h"
+//#define SWARM_DEBUG
 
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 void PushButtonLogic::init(std::string prefix, const Parameterised* parameterised) {
     m_prefix = prefix;
     m_pushButtonScaleFactor = StringUtils::toDouble(parameterised->getParameter("PUSH_BUTTON_SCALE_FACTOR", "1"));
@@ -35,11 +40,11 @@ bool PushButtonLogic::pushButtonLogic(SUMOTime elapsed, bool pushButtonPressed, 
     //pushbutton logic
     if (pushButtonPressed && elapsed >= (stage->duration * m_pushButtonScaleFactor)) {
         //If the stage duration has been passed
-//    DBG(
+#ifdef SWARM_DEBUG
         std::ostringstream oss;
         oss << m_prefix << "::pushButtonLogic pushButtonPressed elapsed " << elapsed << " stage duration " << (stage->duration * m_pushButtonScaleFactor);
         WRITE_MESSAGE(oss.str());
-//    );
+#endif
         return true;
     }
     return false;
@@ -104,21 +109,17 @@ MSSOTLPolicy::~MSSOTLPolicy(void) {
 }
 
 double MSSOTLPolicy::computeDesirability(double vehInMeasure, double vehOutMeasure, double vehInDispersionMeasure,	double vehOutDispersionMeasure) {
-
-    DBG(
-        std::ostringstream str; str << "\nMSSOTLPolicy::computeStimulus\n" << getName(); WRITE_MESSAGE(str.str());)
-
+#ifdef SWARM_DEBUG
+    std::ostringstream str; str << "\nMSSOTLPolicy::computeStimulus\n" << getName(); WRITE_MESSAGE(str.str());
+#endif
     return myDesirabilityAlgorithm->computeDesirability(vehInMeasure, vehOutMeasure, vehInDispersionMeasure, vehOutDispersionMeasure);
-
 }
 
 double MSSOTLPolicy::computeDesirability(double vehInMeasure, double vehOutMeasure) {
-
-    DBG(
-        std::ostringstream str; str << "\nMSSOTLPolicy::computeStimulus\n" << getName(); WRITE_MESSAGE(str.str());)
-
+#ifdef SWARM_DEBUG
+    std::ostringstream str; str << "\nMSSOTLPolicy::computeStimulus\n" << getName(); WRITE_MESSAGE(str.str());
+#endif
     return myDesirabilityAlgorithm->computeDesirability(vehInMeasure, vehOutMeasure, 0, 0);
-
 }
 
 int MSSOTLPolicy::decideNextPhase(SUMOTime elapsed,
@@ -139,11 +140,11 @@ int MSSOTLPolicy::decideNextPhase(SUMOTime elapsed,
     }
 
     if (stage->isDecisional()) {
-        DBG(
-            std::ostringstream phero_str;
-            phero_str << "getCurrentPhaseElapsed()=" << time2string(elapsed) << " isThresholdPassed()=" << thresholdPassed << " countVehicles()=" << vehicleCount;
-            WRITE_MESSAGE("MSSOTLPolicy::decideNextPhase: " + phero_str.str());
-        )
+#ifdef SWARM_DEBUG
+        std::ostringstream phero_str;
+        phero_str << "getCurrentPhaseElapsed()=" << time2string(elapsed) << " isThresholdPassed()=" << thresholdPassed << " countVehicles()=" << vehicleCount;
+        WRITE_MESSAGE("MSSOTLPolicy::decideNextPhase: " + phero_str.str());
+#endif
         if (canRelease(elapsed, thresholdPassed, pushButtonPressed, stage, vehicleCount)) {
             return currentPhaseIndex + 1;
         }

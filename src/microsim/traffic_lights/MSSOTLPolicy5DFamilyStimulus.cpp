@@ -22,6 +22,7 @@
 
 #include <utils/common/StringTokenizer.h>
 #include "MSSOTLPolicy5DFamilyStimulus.h"
+//#define SWARM_DEBUG
 
 
 // ===========================================================================
@@ -61,12 +62,11 @@ MSSOTLPolicy5DFamilyStimulus::MSSOTLPolicy5DFamilyStimulus(std::string keyPrefix
 
 
     int size_family = int(getDouble(keyPrefix + "_SIZE_FAMILY", 1));
-    DBG(
-
-        std::ostringstream str;
-        str << keyPrefix << "\n" << "size fam" << size_family;
-        WRITE_MESSAGE(str.str());
-    )
+#ifdef SWARM_DEBUG
+    std::ostringstream str;
+    str << keyPrefix << "\n" << "size fam" << size_family;
+    WRITE_MESSAGE(str.str());
+#endif
 
     std::vector< std::map <std::string, std::string > > sliced_maps;
 
@@ -87,11 +87,11 @@ MSSOTLPolicy5DFamilyStimulus::MSSOTLPolicy5DFamilyStimulus(std::string keyPrefix
                 WRITE_ERROR(errorMessage.str());
                 assert(-1);
             }
-            DBG(
-                std::ostringstream str;
-                str << "found token " << tokens[token_counter] << " position " << token_counter;
-                WRITE_MESSAGE(str.str());
-            )
+#ifdef SWARM_DEBUG
+            std::ostringstream str;
+            str << "found token " << tokens[token_counter] << " position " << token_counter;
+            WRITE_MESSAGE(str.str());
+#endif
             sliced_maps[token_counter][key] = tokens[token_counter];
         }
     }
@@ -116,21 +116,21 @@ double MSSOTLPolicy5DFamilyStimulus::computeDesirability(double vehInMeasure, do
     double best_stimulus = -1;
     for (std::vector<MSSOTLPolicy5DStimulus*>::const_iterator it  = family.begin(); it != family.end(); it++) {
         double temp_stimulus = (*it)->computeDesirability(vehInMeasure, vehOutMeasure, vehInDispersionMeasure, vehOutDispersionMeasure);
-        DBG(
-            std::ostringstream str;
-            str << "STIMULUS: " << temp_stimulus;
-            WRITE_MESSAGE(str.str());
-        )
+#ifdef SWARM_DEBUG
+        std::ostringstream str;
+        str << "STIMULUS: " << temp_stimulus;
+        WRITE_MESSAGE(str.str());
+#endif
         if (temp_stimulus > best_stimulus) {
             best_stimulus = temp_stimulus;
         }
     }
 
-    DBG(
-        std::ostringstream str;
-        str << "BEST STIMULUS: " << best_stimulus;
-        WRITE_MESSAGE(str.str());
-    )
+#ifdef SWARM_DEBUG
+    std::ostringstream str;
+    str << "BEST STIMULUS: " << best_stimulus;
+    WRITE_MESSAGE(str.str());
+#endif
     return best_stimulus;
 }
 

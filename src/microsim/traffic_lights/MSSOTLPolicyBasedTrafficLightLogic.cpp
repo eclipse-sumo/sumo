@@ -20,7 +20,12 @@
 /****************************************************************************/
 
 #include "MSSOTLPolicyBasedTrafficLightLogic.h"
+//#define SWARM_DEBUG
 
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 MSSOTLPolicyBasedTrafficLightLogic::MSSOTLPolicyBasedTrafficLightLogic(
     MSTLLogicControl& tlcontrol, const std::string& id,
     const std::string& programID, const TrafficLightType logicType, const Phases& phases, int step,
@@ -49,10 +54,9 @@ MSSOTLPolicyBasedTrafficLightLogic::~MSSOTLPolicyBasedTrafficLightLogic(void) {
 }
 
 int MSSOTLPolicyBasedTrafficLightLogic::decideNextPhase() {
-
-    DBG(
-        std::ostringstream str; str << "\n" << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << getID() << "invoked MSSOTLPolicyBasedTrafficLightLogic::decideNextPhase()"; WRITE_MESSAGE(str.str());)
-
+#ifdef SWARM_DEBUG
+    std::ostringstream str; str << "\n" << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << getID() << "invoked MSSOTLPolicyBasedTrafficLightLogic::decideNextPhase()"; WRITE_MESSAGE(str.str());
+#endif
     return myPolicy->decideNextPhase(getCurrentPhaseElapsed(),
                                      &getCurrentPhaseDef(), getCurrentPhaseIndex(),
                                      getPhaseIndexWithMaxCTS(), isThresholdPassed(), isPushButtonPressed(),
@@ -60,10 +64,9 @@ int MSSOTLPolicyBasedTrafficLightLogic::decideNextPhase() {
 }
 
 bool MSSOTLPolicyBasedTrafficLightLogic::canRelease() {
-
-    DBG(
-        std::ostringstream str; str << "\n" << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << getID() << "invoked MSSOTLPolicyBasedTrafficLightLogic::canRelease()"; WRITE_MESSAGE(str.str());)
-
+#ifdef SWARM_DEBUG
+    std::ostringstream str; str << "\n" << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << getID() << "invoked MSSOTLPolicyBasedTrafficLightLogic::canRelease()"; WRITE_MESSAGE(str.str());
+#endif
     return myPolicy->canRelease(getCurrentPhaseElapsed(), isThresholdPassed(), isPushButtonPressed(),
                                 &getCurrentPhaseDef(), countVehicles(getCurrentPhaseDef()));
 }

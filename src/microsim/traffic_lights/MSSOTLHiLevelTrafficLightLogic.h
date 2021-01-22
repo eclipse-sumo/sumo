@@ -22,13 +22,11 @@
 #pragma once
 #include <config.h>
 
-//#define SWARM_DEBUG
-#include <utils/common/SwarmDebug.h>
 #include <vector>
-#include "MSSOTLPolicy.h"
 #include <stdlib.h>
 #include <sstream>
 
+#include "MSSOTLPolicy.h"
 #include "MSSOTLTrafficLightLogic.h"
 
 /**

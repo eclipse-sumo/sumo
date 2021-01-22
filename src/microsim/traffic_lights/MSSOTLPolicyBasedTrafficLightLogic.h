@@ -22,8 +22,6 @@
 #pragma once
 #include <config.h>
 
-//#define SWARM_DEBUG
-#include <utils/common/SwarmDebug.h>
 #include "MSSOTLPolicy.h"
 #include "MSSOTLTrafficLightLogic.h"
 

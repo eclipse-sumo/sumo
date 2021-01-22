@@ -288,10 +288,10 @@ void MSSOTLE2Sensors::buildSensorForLane(MSLane* lane, NLDetectorBuilder& nb, do
             std::ostringstream oss;
             oss << "Sensor on lane " << lane->getID() << " is long " << lensorLength << ", while it should be " << sensorLength << ". Continuing it on the other lanes if possible";
             WRITE_MESSAGE(oss.str())
-            for (std::vector<MSLane::IncomingLaneInfo>::const_iterator it = lane->getIncomingLanes().begin(); it != lane->getIncomingLanes().end(); ++it) {
-                const MSEdge* edge = &it->lane->getEdge();
-                if (!edge->isInternal() && !edge->isWalkingArea() && !edge->isCrossing()) {
-                    buildContinueSensior(lane, nb, sensorLength, it->lane, lensorLength);
+            for (const MSLane::IncomingLaneInfo& it : lane->getIncomingLanes()) {
+                const MSEdge& inEdge = it.lane->getEdge();
+                if (!inEdge.isInternal() && !inEdge.isWalkingArea() && !inEdge.isCrossing()) {
+                    buildContinueSensior(lane, nb, sensorLength, it.lane, lensorLength);
                 }
             }
         }
