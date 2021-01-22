@@ -204,8 +204,8 @@ GUICompleteSchemeStorage::writeSettings(FXApp* app) {
     const std::vector<std::string>& names = getNames();
     app->reg().writeIntEntry("VisualizationSettings", "settingNo", (FXint) names.size() - myNumInitialSettings);
     int gidx = 0;
-    for (std::vector<std::string>::const_iterator i = names.begin() + myNumInitialSettings; i != names.end(); ++i, ++gidx) {
-        const GUIVisualizationSettings& item = mySettings.find(*i)->second;
+    for (std::vector<std::string>::const_iterator it = names.begin() + myNumInitialSettings; it != names.end(); ++it, ++gidx) {
+        const GUIVisualizationSettings& item = mySettings.find(*it)->second;
         std::string sname = "visset#" + toString(gidx);
 
         app->reg().writeStringEntry("VisualizationSettings", sname.c_str(), item.name.c_str());

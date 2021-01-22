@@ -74,15 +74,6 @@ public:
     virtual double getRealAcceleration(double speed_mps, double accel_mps2, double reqAccel_mps2, SUMOTime timeStep = 0) = 0;
 
     /**
-     * Load model parameters. This method requires a map of strings to be as
-     * flexible as possible, independently from the actual model implementation
-     *
-     * @param[in] parameters a map of strings (from parameter name to parameter
-     * value) including configuration parameters
-     */
-    virtual void loadParameters(const ParMap& parameters) = 0;
-
-    /**
      * Sets a single parameter value
      *
      * @param[in] parameter the name of the parameter
@@ -97,27 +88,13 @@ public:
      *
      * @param[in] maximum acceleration in meters per second squared
      */
-    void setMaximumAcceleration(double maxAcceleration_mpsps);
+    void setMaximumAcceleration(double maxAcc);
     /**
      * Sets maximum deceleration value
      *
      * @param[in] maximum deceleration (positive value) in meters per second
      * squared
      */
-    void setMaximumDeceleration(double maxAcceleration_mpsps);
-    /**
-     * Returns the maximum acceleration value
-     *
-     * @return maximum acceleration in meters per second squared
-     */
-    double setMaximumAcceleration();
-    /**
-     * Returns the maximum deceleration value
-     *
-     * @return maximum deceleration (positive value) in meters per second
-     * squared
-     */
-    double setMaximumDeceleration();
+    void setMaximumDeceleration(double maxDec);
 
 };
-

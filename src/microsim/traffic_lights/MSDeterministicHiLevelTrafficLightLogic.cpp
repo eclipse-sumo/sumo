@@ -143,11 +143,13 @@ void MSDeterministicHiLevelTrafficLightLogic::decidePolicy() {
     // Decide if it is the case to check for another plan
     double mean_vSpeed_in = getMeanSpeedForInputLanes();
     double mean_vSpeed_out = getMeanSpeedForOutputLanes();
+#ifdef SWARM_DEBUG
     MSSOTLPolicy* oldPolicy = getCurrentPolicy();
+#endif
     choosePolicy(mean_vSpeed_in, mean_vSpeed_out);
-    MSSOTLPolicy* newPolicy = getCurrentPolicy();
 
 #ifdef SWARM_DEBUG
+    MSSOTLPolicy* newPolicy = getCurrentPolicy();
     if (newPolicy != oldPolicy) {
         SUMOTime step = MSNet::getInstance()->getCurrentTimeStep();
         std::ostringstream phero_str; phero_str << " (mean_vSpeed_in= " << mean_vSpeed_in << " ,mean_vSpeed_out= " << mean_vSpeed_out << " )"; WRITE_MESSAGE("TL " + getID() + " time " + time2string(step) + " Policy: " + newPolicy->getName() + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");

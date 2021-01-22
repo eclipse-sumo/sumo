@@ -56,11 +56,11 @@ MSTLLogicControl::TLSLogicVariants::TLSLogicVariants() :
 
 MSTLLogicControl::TLSLogicVariants::~TLSLogicVariants() {
     std::map<std::string, MSTrafficLightLogic*>::const_iterator j;
-    for (std::map<std::string, MSTrafficLightLogic*>::iterator j = myVariants.begin(); j != myVariants.end(); ++j) {
-        delete (*j).second;
+    for (const auto& var : myVariants) {
+        delete var.second;
     }
-    for (std::vector<OnSwitchAction*>::iterator i = mySwitchActions.begin(); i != mySwitchActions.end(); ++i) {
-        delete *i;
+    for (OnSwitchAction* osa : mySwitchActions) {
+        delete osa;
     }
 }
 
@@ -89,6 +89,11 @@ MSTLLogicControl::TLSLogicVariants::checkOriginalTLS() const {
 void
 MSTLLogicControl::TLSLogicVariants::saveInitialStates() {
     myOriginalLinkStates = myCurrentProgram->collectLinkStates();
+}
+
+
+void
+MSTLLogicControl::TLSLogicVariants::saveState(OutputDevice& out) {
 }
 
 
@@ -812,19 +817,25 @@ MSTLLogicControl::getPhaseDef(const std::string& tlid) const {
 
 void
 MSTLLogicControl::switchOffAll() {
-    for (std::map<std::string, TLSLogicVariants*>::const_iterator i = myLogics.begin(); i != myLogics.end(); ++i) {
-        (*i).second->addLogic("off",  new MSOffTrafficLightLogic(*this, (*i).first), true, true);
+    for (const auto& logic : myLogics) {
+        logic.second->addLogic("off",  new MSOffTrafficLightLogic(*this, logic.first), true, true);
     }
 }
+
 
 void
 MSTLLogicControl::saveState(OutputDevice& out) {
     MSRailSignalConstraint::saveState(out);
+    for (const auto& logic : myLogics) {
+        logic.second->saveState(out);
+    }
 }
+
 
 void
 MSTLLogicControl::clearState() {
     MSRailSignalConstraint::clearState();
 }
+
 
 /****************************************************************************/

@@ -447,7 +447,9 @@ MSSOTLTrafficLightLogic::trySwitch() {
         WRITE_MESSAGE("MSSOTLTrafficLightLogic::trySwitch()")
         // To check if decideNextPhase changes the step
         int previousStep = getCurrentPhaseIndex() ;
+#ifdef ANALYSIS_DEBUG
         SUMOTime elapsed = getCurrentPhaseElapsed();
+#endif
         // Update CTS according to sensors
         updateCTS();
 

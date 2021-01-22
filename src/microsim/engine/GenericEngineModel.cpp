@@ -55,15 +55,9 @@ void GenericEngineModel::parseParameter(const ParMap& parameters, std::string pa
         value = par->second;
     }
 }
-void GenericEngineModel::setMaximumAcceleration(double maxAcceleration_mpsps) {
-    this->maxAcceleration_mpsps = maxAcceleration_mpsps;
+void GenericEngineModel::setMaximumAcceleration(double maxAcc) {
+    maxAcceleration_mpsps = maxAcc;
 }
-void GenericEngineModel::setMaximumDeceleration(double maxDeceleration_mpsps) {
-    this->maxDeceleration_mpsps = maxDeceleration_mpsps;
-}
-double GenericEngineModel::setMaximumAcceleration() {
-    return maxAcceleration_mpsps;
-}
-double GenericEngineModel::setMaximumDeceleration() {
-    return maxDeceleration_mpsps;
+void GenericEngineModel::setMaximumDeceleration(double maxDec) {
+    maxDeceleration_mpsps = maxDec;
 }

@@ -338,15 +338,6 @@ public:
     virtual double getRealAcceleration(double speed_mps, double accel_mps2, double reqAccel_mps2, SUMOTime timeStep = 0);
 
     /**
-     * Load model parameters. This method requires a map of strings to be as
-     * flexible as possible, independently from the actual model implementation
-     *
-     * @param[in] parameters a map of strings (from parameter name to parameter
-     * value) including configuration parameters
-     */
-    virtual void loadParameters(const ParMap& parameters);
-
-    /**
      * Load parameters from xml file
      */
     void loadParameters();
@@ -369,14 +360,5 @@ public:
      * @param[out] rpm engine's rpm
      */
     void getEngineData(double speed_mps, int& gear, double& rpm);
-
-#ifdef EE
-private:
-    //some things for the easter egg :)
-    bool               initee;
-    int                lastTimeStep;
-    struct sockaddr_in serv_addr;
-    int                socketfd;
-#endif
 };
 

@@ -52,8 +52,8 @@ double Node::getVoltage() {
     return this->voltage;
 }
 
-void  Node::setVoltage(double voltage) {
-    this->voltage = voltage;
+void Node::setVoltage(double volt) {
+    this->voltage = volt;
 }
 
 int Node::getNumOfElements() {

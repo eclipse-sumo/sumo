@@ -75,7 +75,6 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
     try {
         TraCIAPI::connect(host, port);
     } catch (tcpip::SocketException& e) {
-        std::stringstream msg;
         msg << "#Error while connecting: " << e.what();
         errorMsg(msg);
         return 2;
@@ -123,7 +122,6 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             int domID, varID;
             std::string objID;
             defFile >> domID >> varID >> objID;
-            std::stringstream msg;
             tcpip::Storage tmp;
             setValueTypeDependant(tmp, defFile, msg);
             std::string msgS = msg.str();

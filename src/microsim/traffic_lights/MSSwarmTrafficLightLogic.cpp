@@ -161,8 +161,8 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) {
         }
     }
 
-    LinkVectorVector myLinks = getLinks();
-    for (int i = 0; i < (int)myLinks.size(); i++) {
+    LinkVectorVector links = getLinks();
+    for (int i = 0; i < (int)links.size(); i++) {
         LinkVector oneLink = getLinksAt(i);
         for (int j = 0; j < (int)oneLink.size(); j++) {
             currentLane = oneLink[j]->getLane();

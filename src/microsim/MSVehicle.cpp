@@ -1951,9 +1951,9 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
 }
 
 void
-MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist, std::pair<double, LinkDirection>& myNextTurn) const {
+MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& newStopDist, std::pair<double, LinkDirection>& nextTurn) const {
     lfLinks.clear();
-    myStopDist = std::numeric_limits<double>::max();
+    newStopDist = std::numeric_limits<double>::max();
     //
     const MSCFModel& cfModel = getCarFollowModel();
     const double vehicleLength = getVehicleType().getLength();
@@ -2020,8 +2020,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     bool hadNonInternal = false;
     // the distance already "seen"; in the following always up to the end of the current "lane"
     double seen = opposite ? myState.myPos : myLane->getLength() - myState.myPos;
-    myNextTurn.first = seen;
-    myNextTurn.second = LinkDirection::NODIR;
+    nextTurn.first = seen;
+    nextTurn.second = LinkDirection::NODIR;
     bool encounteredTurn = (MSGlobals::gLateralResolution <= 0); // next turn is only needed for sublane
     double seenNonInternal = 0;
     double seenInternal = myLane->isInternal() ? seen : 0;
@@ -2165,10 +2165,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             } else if (isWaypoint && !stop.reached) {
                 endPos = stop.pars.startPos;
             }
-            myStopDist = seen + endPos - lane->getLength();
+            newStopDist = seen + endPos - lane->getLength();
 #ifdef DEBUG_STOPS
             if (DEBUG_COND) {
-                std::cout << SIMTIME << " veh=" << getID() <<  " myStopDist=" << myStopDist << " stopLane=" << stop.lane->getID() << " stopEndPos=" << endPos << "\n";
+                std::cout << SIMTIME << " veh=" << getID() <<  " newStopDist=" << newStopDist << " stopLane=" << stop.lane->getID() << " stopEndPos=" << endPos << "\n";
             }
 #endif
             // regular stops are not emergencies
@@ -2177,16 +2177,16 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 if (stop.reached) {
                     stopSpeed = stop.pars.speed;
                     if (myState.myPos >= stop.pars.endPos) {
-                        myStopDist = std::numeric_limits<double>::max();
+                        newStopDist = std::numeric_limits<double>::max();
                     }
                 } else {
-                    stopSpeed = MAX2(cfModel.freeSpeed(this, getSpeed(), myStopDist, stop.pars.speed), vMinComfortable);
+                    stopSpeed = MAX2(cfModel.freeSpeed(this, getSpeed(), newStopDist, stop.pars.speed), vMinComfortable);
                     if (lastLink != nullptr) {
                         lastLink->adaptLeaveSpeed(cfModel.freeSpeed(this, vLinkPass, endPos, stop.pars.speed));
                     }
                 }
             } else {
-                stopSpeed = MAX2(cfModel.stopSpeed(this, getSpeed(), myStopDist), vMinComfortable);
+                stopSpeed = MAX2(cfModel.stopSpeed(this, getSpeed(), newStopDist), vMinComfortable);
                 if (lastLink != nullptr) {
                     lastLink->adaptLeaveSpeed(cfModel.stopSpeed(this, vLinkPass, endPos));
                 }
@@ -2202,12 +2202,12 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
-                std::cout << "\n" << SIMTIME << " next stop: distance = " << myStopDist << " requires stopSpeed = " << stopSpeed << "\n";
+                std::cout << "\n" << SIMTIME << " next stop: distance = " << newStopDist << " requires stopSpeed = " << stopSpeed << "\n";
 
             }
 #endif
             if (!isWaypoint && !isRailway(getVClass())) {
-                lfLinks.emplace_back(v, myStopDist);
+                lfLinks.emplace_back(v, newStopDist);
                 break;
             }
         }
@@ -2225,13 +2225,13 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     case LinkDirection::NODIR:
                         break;
                     default:
-                        myNextTurn.first = seen;
-                        myNextTurn.second = linkDir;
+                        nextTurn.first = seen;
+                        nextTurn.second = linkDir;
                         encounteredTurn = true;
 #ifdef DEBUG_NEXT_TURN
                         if (DEBUG_COND) {
-                            std::cout << SIMTIME << " veh '" << getID() << "' nextTurn: " << toString(myNextTurn.second)
-                                      << " at " << myNextTurn.first << "m." << std::endl;
+                            std::cout << SIMTIME << " veh '" << getID() << "' nextTurn: " << toString(nextTurn.second)
+                                      << " at " << nextTurn.first << "m." << std::endl;
                         }
 #endif
                 }
@@ -2325,8 +2325,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
         laneStopOffset = MAX2(POSITION_EPS, laneStopOffset);
         double stopDist = MAX2(0., seen - laneStopOffset);
-        if (myStopDist != std::numeric_limits<double>::max()) {
-            stopDist = MAX2(stopDist, myStopDist);
+        if (newStopDist != std::numeric_limits<double>::max()) {
+            stopDist = MAX2(stopDist, newStopDist);
         }
 #ifdef DEBUG_PLAN_MOVE
         if (DEBUG_COND) {

@@ -242,16 +242,6 @@ double RealisticEngineModel::getRealBrakingAcceleration(double speed_mps, double
 
 }
 
-void RealisticEngineModel::loadParameters(const ParMap& parameters) {
-
-    std::string xmlFile, vehicleType;
-
-    parseParameter(parameters, ENGINE_PAR_VEHICLE, vehicleType);
-    parseParameter(parameters, ENGINE_PAR_XMLFILE, xmlFile);
-
-    loadParameters();
-
-}
 
 void RealisticEngineModel::loadParameters() {
     //initialize xerces library

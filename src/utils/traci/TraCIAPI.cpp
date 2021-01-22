@@ -2386,7 +2386,7 @@ TraCIAPI::VehicleScope::getBestLanes(const std::string& vehicleID) const {
 
             myParent.myInput.readUnsignedByte();
             const int m = myParent.myInput.readInt();
-            for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < m; ++j) {
                 info.continuationLanes.push_back(myParent.myInput.readString());
             }
 

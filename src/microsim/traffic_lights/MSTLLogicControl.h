@@ -117,6 +117,7 @@ public:
         void addSwitchCommand(OnSwitchAction* c);
         std::vector<MSTrafficLightLogic*> getAllLogics() const;
         void saveInitialStates();
+        void saveState(OutputDevice& out);
         bool isActive(const MSTrafficLightLogic* tl) const;
         MSTrafficLightLogic* getActive() const;
 

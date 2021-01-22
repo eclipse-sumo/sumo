@@ -51,7 +51,7 @@ public:
     void eraseElement(Element* element);
     // getters and setters
     double getVoltage();
-    void setVoltage(double voltage);
+    void setVoltage(double volt);
     int getNumOfElements();
     // iterates through the vector of the node's elements and returns the first, which is not equal to "element" in the argument of the function
     Element* getAnOtherElement(Element* element);
