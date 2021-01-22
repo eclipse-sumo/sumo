@@ -1939,6 +1939,7 @@ GNEApplicationWindow::onCmdClearTemplate(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveAsNetwork(FXObject*, FXSelector, void*) {
+    // open dialog
     FXString file = MFXUtils::getFilename2Write(this,
                     "Save Network as", ".net.xml",
                     GUIIconSubSys::getIcon(GUIIcon::SAVENETWORKELEMENTS),
@@ -1959,10 +1960,20 @@ GNEApplicationWindow::onCmdSaveAsNetwork(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // declare current folder
+    FXString currentFolder = gCurrentFolder;
+    // check if there is a saved network
+    if (oc.getString("output-file").size() > 0) {
+        // extract folder
+        currentFolder = getFolder(oc.getString("output-file"));
+    }
+    // open dialog
     FXString file = MFXUtils::getFilename2Write(this,
                     "Select name of the plain-xml edge-file (other names will be deduced from this)", "",
                     GUIIconSubSys::getIcon(GUIIcon::SAVE),
-                    gCurrentFolder);
+                    currentFolder);
     // check that file is valid (note: in this case we don't need to use function FileHelpers::addExtension)
     if (file != "") {
         OptionsCont& oc = OptionsCont::getOptions();
@@ -2007,10 +2018,20 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // declare current folder
+    FXString currentFolder = gCurrentFolder;
+    // check if there is a saved network
+    if (oc.getString("output-file").size() > 0) {
+        // extract folder
+        currentFolder = getFolder(oc.getString("output-file"));
+    }
+    // open dialog
     FXString file = MFXUtils::getFilename2Write(this,
                     "Select name of the joined-junctions file", ".nod.xml",
                     GUIIconSubSys::getIcon(GUIIcon::SAVE),
-                    gCurrentFolder);
+                    currentFolder);
     // add xml extension
     std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
     // check that file with extension is valid
@@ -2195,10 +2216,18 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
     if (myFileMenuCommands.saveTLSPrograms->isEnabled()) {
         // Check if TLS Programs file was already set at start of netedit or with a previous save
         if (oc.getString("TLSPrograms-output").empty()) {
+            // declare current folder
+            FXString currentFolder = gCurrentFolder;
+            // check if there is a saved network
+            if (oc.getString("output-file").size() > 0) {
+                // extract folder
+                currentFolder = getFolder(oc.getString("output-file"));
+            }
+            // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
                             "Select name of the TLS file", ".xml",
                             GUIIconSubSys::getIcon(GUIIcon::MODETLS),
-                            gCurrentFolder);
+                            currentFolder);
             // add xml extension
             std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
             // check tat file is valid
@@ -2243,10 +2272,18 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject*, FXSelector, void*) {
     if (myFileMenuCommands.saveEdgeTypes->isEnabled()) {
         // Check if edgeType file was already set at start of netedit or with a previous save
         if (oc.getString("edgeTypes-output").empty()) {
+            // declare current folder
+            FXString currentFolder = gCurrentFolder;
+            // check if there is a saved network
+            if (oc.getString("output-file").size() > 0) {
+                // extract folder
+                currentFolder = getFolder(oc.getString("output-file"));
+            }
+            // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
                 "Select name of the edgeType file", ".xml",
                 GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE),
-                gCurrentFolder);
+                currentFolder);
             // add xml extension
             std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
             // check tat file is valid
@@ -2284,11 +2321,20 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // declare current folder
+    FXString currentFolder = gCurrentFolder;
+    // check if there is a saved network
+    if (oc.getString("output-file").size() > 0) {
+        // extract folder
+        currentFolder = getFolder(oc.getString("output-file"));
+    }
     // Open window to select TLS Programs file
     FXString file = MFXUtils::getFilename2Write(this,
                     "Select name of the TLS Program file", ".xml",
                     GUIIconSubSys::getIcon(GUIIcon::MODETLS),
-                    gCurrentFolder);
+                    currentFolder);
     // add xml extension
     std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
     // check tat file is valid
@@ -2306,11 +2352,20 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*) {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // declare current folder
+    FXString currentFolder = gCurrentFolder;
+    // check if there is a saved network
+    if (oc.getString("output-file").size() > 0) {
+        // extract folder
+        currentFolder = getFolder(oc.getString("output-file"));
+    }
     // Open window to select edgeType file
     FXString file = MFXUtils::getFilename2Write(this,
         "Select name of the edgeType file", ".xml",
         GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE),
-        gCurrentFolder);
+        currentFolder);
     // add xml extension
     std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
     // check tat file is valid
@@ -2397,8 +2452,7 @@ GNEApplicationWindow::onUpdReloadAdditionals(FXObject*, FXSelector, void*) {
     // check if file exist
     if (OptionsCont::getOptions().getString("additional-files").empty()) {
         myFileMenuCommands.reloadAdditionals->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    }
-    else {
+    } else {
         myFileMenuCommands.reloadAdditionals->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
     return 1;
@@ -2413,10 +2467,18 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
     if (myFileMenuCommands.saveAdditionals->isEnabled()) {
         // Check if additionals file was already set at start of netedit or with a previous save
         if (oc.getString("additional-files").empty()) {
+            // declare current folder
+            FXString currentFolder = gCurrentFolder;
+            // check if there is a saved network
+            if (oc.getString("output-file").size() > 0) {
+                // extract folder
+                currentFolder = getFolder(oc.getString("output-file"));
+            }
+            // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
                             "Select name of the additional file", ".add.xml",
                             GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL),
-                            gCurrentFolder);
+                            currentFolder);
             // add xml extension
             std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".add.xml");
             // check tat file is valid
@@ -2454,11 +2516,20 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // declare current folder
+    FXString currentFolder = gCurrentFolder;
+    // check if there is a saved network
+    if (oc.getString("output-file").size() > 0) {
+        // extract folder
+        currentFolder = getFolder(oc.getString("output-file"));
+    }
     // Open window to select additional file
     FXString file = MFXUtils::getFilename2Write(this,
                     "Select name of the additional file", ".add.xml",
                     GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL),
-                    gCurrentFolder);
+                    currentFolder);
     // add xml extension
     std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".add.xml");
     // check tat file is valid
@@ -2565,10 +2636,18 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject*, FXSelector, void*) {
     if (myFileMenuCommands.saveDemandElements->isEnabled()) {
         // Check if demand elements file was already set at start of netedit or with a previous save
         if (oc.getString("route-files").empty()) {
+            // declare current folder
+            FXString currentFolder = gCurrentFolder;
+            // check if there is a saved network
+            if (oc.getString("output-file").size() > 0) {
+                // extract folder
+                currentFolder = getFolder(oc.getString("output-file"));
+            }
+            // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
                             "Select name of the demand element file", ".rou.xml",
-                            GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL),
-                            gCurrentFolder);
+                            GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND),
+                            currentFolder);
             // add xml extension
             std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
             // check tat file is valid
@@ -2606,11 +2685,20 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*) {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // declare current folder
+    FXString currentFolder = gCurrentFolder;
+    // check if there is a saved network
+    if (oc.getString("output-file").size() > 0) {
+        // extract folder
+        currentFolder = getFolder(oc.getString("output-file"));
+    }
     // Open window to select additionasl file
     FXString file = MFXUtils::getFilename2Write(this,
                     "Select name of the demand element file", ".rou.xml",
                     GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND),
-                    gCurrentFolder);
+                    currentFolder);
     // add xml extension
     std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
     // check that file is correct
@@ -2735,10 +2823,18 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject*, FXSelector, void*) {
     if (myFileMenuCommands.saveDataElements->isEnabled()) {
         // Check if data elements file was already set at start of netedit or with a previous save
         if (oc.getString("data-files").empty()) {
+            // declare current folder
+            FXString currentFolder = gCurrentFolder;
+            // check if there is a saved network
+            if (oc.getString("output-file").size() > 0) {
+                // extract folder
+                currentFolder = getFolder(oc.getString("output-file"));
+            }
+            // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
                             "Select name of the data element file", ".xml",
-                            GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL),
-                            gCurrentFolder);
+                            GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA),
+                            currentFolder);
             // add xml extension
             std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
             // check tat file is valid
@@ -2776,11 +2872,20 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject*, FXSelector, void*) {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // declare current folder
+    FXString currentFolder = gCurrentFolder;
+    // check if there is a saved network
+    if (oc.getString("output-file").size() > 0) {
+        // extract folder
+        currentFolder = getFolder(oc.getString("output-file"));
+    }
     // Open window to select additionasl file
     FXString file = MFXUtils::getFilename2Write(this,
                     "Select name of the data element file", ".xml",
                     GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA),
-                    gCurrentFolder);
+                    currentFolder);
     // add xml extension
     std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
     // check that file is correct
@@ -2945,6 +3050,33 @@ GNEApplicationWindow::continueWithUnsavedDemandElementChanges(const std::string&
 }
 
 
+FXString
+GNEApplicationWindow::getFolder(const std::string& folder) const {
+    // declare folder
+    std::string newFolder = folder;
+    // declare stop flag
+    bool stop = false;
+    // continue while stop is false 
+    while (!abort) {
+        if (newFolder.empty()) {
+            // new folder empty, then stop
+            stop = true;
+        } else if ((newFolder.back() == '\'') || (newFolder.back() == '/')) {
+            // removed file, then stop
+            stop = true;
+        } else {
+            newFolder.pop_back();
+        }
+    }
+    // if is empty, return gCurrentFolder
+    if (newFolder.empty()) {
+        return gCurrentFolder;
+    } else {
+        FXString(newFolder);
+    }
+}
+
+
 void
 GNEApplicationWindow::updateControls() {
     // check that view exists
@@ -3022,6 +3154,7 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myAmLoading(false),
     myFileMenu(nullptr),
     myFileMenuTLS(nullptr),
+    myFileMenuEdgeTypes(nullptr),
     myFileMenuAdditionals(nullptr),
     myFileMenuDemandElements(nullptr),
     myFileMenuDataElements(nullptr),

@@ -493,4 +493,13 @@ private:
 
     /// @brief warns about unsaved changes in demand elements and gives the user the option to abort
     bool continueWithUnsavedDemandElementChanges(const std::string& operation);
+
+    /// @brief extract folder
+    FXString getFolder(const std::string &folder) const;
+
+    /// @brief Invalidated copy constructor.
+    GNEApplicationWindow(const GNEApplicationWindow&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNEApplicationWindow& operator=(const GNEApplicationWindow&) = delete;
 };
