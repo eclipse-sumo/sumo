@@ -26,6 +26,8 @@
 
 #include "select_cursor.xbm"
 #include "select_cursor_mask.xbm"
+#include "select_lane_cursor.xbm"
+#include "select_lane_cursor_mask.xbm"
 #include "inspect_cursor.xbm"
 #include "inspect_cursor_mask.xbm"
 #include "move_element_cursor.xbm"
@@ -42,12 +44,13 @@ GUICursorSubSys* GUICursorSubSys::myInstance = nullptr;
 // ===========================================================================
 
 GUICursorSubSys::GUICursorSubSys(FXApp* a) {
-    // already created cursor
+    // default cursors (already created)
     myCursors[GUICursor::SUMOCURSOR_DEFAULT] = a->getDefaultCursor(DEF_ARROW_CURSOR);
     myCursors[GUICursor::SUMOCURSOR_MOVEVIEW] = a->getDefaultCursor(DEF_MOVE_CURSOR);
 
-    // custom cursors
+    // custom cursors (must be created)
     myCursors[GUICursor::SUMOCURSOR_SELECT] = new FXCursor(a, select_cursor_bits, select_cursor_mask_bits, select_cursor_width, select_cursor_height, select_cursor_x_hot, select_cursor_y_hot);
+    myCursors[GUICursor::SUMOCURSOR_SELECT_LANE] = new FXCursor(a, select_lane_cursor_bits, select_lane_cursor_mask_bits, select_lane_cursor_width, select_lane_cursor_height, select_lane_cursor_x_hot, select_lane_cursor_y_hot);
     myCursors[GUICursor::SUMOCURSOR_INSPECT] = new FXCursor(a, inspect_cursor_bits, inspect_cursor_mask_bits, inspect_cursor_width, inspect_cursor_height, inspect_cursor_x_hot, inspect_cursor_y_hot);
     myCursors[GUICursor::SUMOCURSOR_MOVEELEMENT] = new FXCursor(a, move_element_cursor_bits, move_element_cursor_mask_bits, move_element_cursor_width, move_element_cursor_height, move_element_cursor_x_hot, move_element_cursor_y_hot);
 
@@ -62,7 +65,7 @@ GUICursorSubSys::GUICursorSubSys(FXApp* a) {
 
 
 GUICursorSubSys::~GUICursorSubSys() {
-    // delete cursors
+    // delete all cursors
     for (const auto& cursor : myCursors) {
         delete cursor.second;
     }
