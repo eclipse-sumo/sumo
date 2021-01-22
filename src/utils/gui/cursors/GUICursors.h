@@ -28,7 +28,7 @@
  * @enum GUICursor
  * @brief An enumeration of cursors used by the gui applications
  */
-enum GUICursor {
+enum class GUICursor {
     /// @brief default cursor
     SUMOCURSOR_DEFAULT,
 
@@ -43,7 +43,4 @@ enum GUICursor {
 
     /// @brief move element cursor
     SUMOCURSOR_MOVEELEMENT,
-
-    /// @brief max number of cursors
-    CURSOR_MAX
 };

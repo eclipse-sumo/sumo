@@ -21,6 +21,8 @@
 #include <config.h>
 
 #include <fx.h>
+#include <map>
+
 #include "GUICursors.h"
 
 
@@ -53,5 +55,5 @@ private:
     static GUICursorSubSys* myInstance;
 
     /// @brief vector with the icons
-    FXCursor* myCursors[CURSOR_MAX];
+    std::map<enum class GUICursor, FXCursor*> myCursors;
 };

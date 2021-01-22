@@ -19,18 +19,17 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <fx.h>
-#include <cassert>
+#include <utils/common/UtilExceptions.h>
+
 #include "GUICursors.h"
 #include "GUICursorSubSys.h"
+
 #include "select_cursor.xbm"
 #include "select_cursor_mask.xbm"
 #include "inspect_cursor.xbm"
 #include "inspect_cursor_mask.xbm"
 #include "move_element_cursor.xbm"
 #include "move_element_cursor_mask.xbm"
-
-/** includes **/
 
 // ===========================================================================
 // static member variable definitions
@@ -44,18 +43,18 @@ GUICursorSubSys* GUICursorSubSys::myInstance = nullptr;
 
 GUICursorSubSys::GUICursorSubSys(FXApp* a) {
     // already created cursor
-    myCursors[SUMOCURSOR_DEFAULT] = a->getDefaultCursor(DEF_ARROW_CURSOR);
-    myCursors[SUMOCURSOR_MOVEVIEW] = a->getDefaultCursor(DEF_MOVE_CURSOR);
+    myCursors[GUICursor::SUMOCURSOR_DEFAULT] = a->getDefaultCursor(DEF_ARROW_CURSOR);
+    myCursors[GUICursor::SUMOCURSOR_MOVEVIEW] = a->getDefaultCursor(DEF_MOVE_CURSOR);
 
     // custom cursors
-    myCursors[SUMOCURSOR_SELECT] = new FXCursor(a, select_cursor_bits, select_cursor_mask_bits, select_cursor_width, select_cursor_height, select_cursor_x_hot, select_cursor_y_hot);
-    myCursors[SUMOCURSOR_INSPECT] = new FXCursor(a, inspect_cursor_bits, inspect_cursor_mask_bits, inspect_cursor_width, inspect_cursor_height, inspect_cursor_x_hot, inspect_cursor_y_hot);
-    myCursors[SUMOCURSOR_MOVEELEMENT] = new FXCursor(a, move_element_cursor_bits, move_element_cursor_mask_bits, move_element_cursor_width, move_element_cursor_height, move_element_cursor_x_hot, move_element_cursor_y_hot);
+    myCursors[GUICursor::SUMOCURSOR_SELECT] = new FXCursor(a, select_cursor_bits, select_cursor_mask_bits, select_cursor_width, select_cursor_height, select_cursor_x_hot, select_cursor_y_hot);
+    myCursors[GUICursor::SUMOCURSOR_INSPECT] = new FXCursor(a, inspect_cursor_bits, inspect_cursor_mask_bits, inspect_cursor_width, inspect_cursor_height, inspect_cursor_x_hot, inspect_cursor_y_hot);
+    myCursors[GUICursor::SUMOCURSOR_MOVEELEMENT] = new FXCursor(a, move_element_cursor_bits, move_element_cursor_mask_bits, move_element_cursor_width, move_element_cursor_height, move_element_cursor_x_hot, move_element_cursor_y_hot);
 
     // ... and create them
-    for (int i = SUMOCURSOR_SELECT; i < CURSOR_MAX; i++) {
-        if (myCursors[i] != nullptr) {
-            myCursors[i]->create();
+    for (const auto &cursor : myCursors) {
+        if (cursor.second != nullptr) {
+            cursor.second->create();
         }
     }
     
@@ -63,16 +62,20 @@ GUICursorSubSys::GUICursorSubSys(FXApp* a) {
 
 
 GUICursorSubSys::~GUICursorSubSys() {
-    for (int i = SUMOCURSOR_SELECT; i < CURSOR_MAX; i++) {
-        delete myCursors[i];
+    // delete cursors
+    for (const auto& cursor : myCursors) {
+        delete cursor.second;
     }
 }
 
 
 void
 GUICursorSubSys::initCursors(FXApp* a) {
-    assert(myInstance == 0);
-    myInstance = new GUICursorSubSys(a);
+    if (myInstance == nullptr) {
+        myInstance = new GUICursorSubSys(a);
+    } else {
+        throw ProcessError("GUICursorSubSys already init");
+    }
 }
 
 
@@ -84,6 +87,7 @@ GUICursorSubSys::getCursor(GUICursor which) {
 
 void
 GUICursorSubSys::close() {
+    // delete and reset instance
     delete myInstance;
     myInstance = nullptr;
 }
