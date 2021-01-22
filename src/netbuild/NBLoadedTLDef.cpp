@@ -268,7 +268,6 @@ NBLoadedTLDef::~NBLoadedTLDef() {
 NBTrafficLightLogic*
 NBLoadedTLDef::myCompute(int brakingTimeSeconds) {
     MsgHandler::getWarningInstance()->clear(); // !!!
-    NBLoadedTLDef::SignalGroupCont::const_iterator i;
     // compute the switching times and count the signals
     std::set<SUMOTime> switchTimes;
     int numSignals = 0;

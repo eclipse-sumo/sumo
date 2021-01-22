@@ -69,8 +69,8 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id,
         i++;
     }
     std::sort(myControlledNodes.begin(), myControlledNodes.end(), NBNode::nodes_by_id_sorter());
-    for (std::vector<NBNode*>::const_iterator i = junctions.begin(); i != junctions.end(); i++) {
-        (*i)->addTrafficLight(this);
+    for (NBNode* const node : junctions) {
+        node->addTrafficLight(this);
     }
 }
 

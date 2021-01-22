@@ -968,8 +968,8 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
     NBEdge::Connection queryCon = from->getConnection(fromLane, to, toLane);
     LinkDirection dir = myJunction->getDirection(from, to);
     if (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT) {
-        for (const NBEdge::Connection& con : from->getConnections()) {
-            if (rightTurnConflict(from, queryCon, from, con)) {
+        for (const NBEdge::Connection& fromCon : from->getConnections()) {
+            if (rightTurnConflict(from, queryCon, from, fromCon)) {
                 return true;
             }
         }

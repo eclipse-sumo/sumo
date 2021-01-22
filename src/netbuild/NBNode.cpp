@@ -2476,7 +2476,7 @@ NBNode::checkCrossing(EdgeVector candidates) {
             return 1;
         } else {
             // check for intermediate walking areas
-            double prevAngle = -100000; // dummy
+            prevAngle = -100000; // dummy
             for (EdgeVector::iterator it = candidates.begin(); it != candidates.end(); ++it) {
                 double angle = (*it)->getCrossingAngle(this);
                 if (it != candidates.begin()) {
@@ -2811,8 +2811,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
         } else {
             if (waIndices.front().first == 0) {
                 NBEdge* edge = normalizedLanes.front().first;
-                NBEdge* prevEdge = normalizedLanes.back().first;
-                if (crossingBetween(edge, prevEdge)) {
+                if (crossingBetween(edge, normalizedLanes.back().first)) {
                     // do not wrap-around if there is a crossing in between
                     waIndices.push_back(std::make_pair(start, waNumLanes));
                     if (gDebugFlag1) {
@@ -2844,14 +2843,14 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
     // build walking areas connected to a sidewalk
     for (int i = 0; i < (int)waIndices.size(); ++i) {
         const bool buildExtensions = waIndices[i].second != (int)normalizedLanes.size();
-        const int start = waIndices[i].first;
-        const int prev = start > 0 ? start - 1 : (int)normalizedLanes.size() - 1;
+        const int startIdx = waIndices[i].first;
+        const int prev = startIdx > 0 ? startIdx - 1 : (int)normalizedLanes.size() - 1;
         const int count = waIndices[i].second;
-        const int end = (start + count) % normalizedLanes.size();
+        const int end = (startIdx + count) % normalizedLanes.size();
 
         WalkingArea wa(":" + getID() + "_w" + toString(index++), 1);
         if (gDebugFlag1) {
-            std::cout << "build walkingArea " << wa.id << " start=" << start << " end=" << end << " count=" << count << " prev=" << prev << ":\n";
+            std::cout << "build walkingArea " << wa.id << " start=" << startIdx << " end=" << end << " count=" << count << " prev=" << prev << ":\n";
         }
         double endCrossingWidth = 0;
         double startCrossingWidth = 0;
@@ -2911,7 +2910,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
             }
             if (gDebugFlag1) std::cout << "  check connections to crossing " << c->id
                                            << " cFront=" << c->edges.front()->getID() << " cBack=" << c->edges.back()->getID()
-                                           << " wEnd=" << normalizedLanes[end].first->getID() << " wStart=" << normalizedLanes[start].first->getID()
+                                           << " wEnd=" << normalizedLanes[end].first->getID() << " wStart=" << normalizedLanes[startIdx].first->getID()
                                            << " wStartPrev=" << normalizedLanes[prev].first->getID()
                                            << "\n";
         }

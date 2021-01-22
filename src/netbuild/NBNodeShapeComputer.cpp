@@ -835,9 +835,9 @@ NBNodeShapeComputer::computeUniqueDirectionList(
         }
         // clean up
         for (NBEdge* e2 : same[e1]) {
-            auto e2NewAll = std::find(newAll.begin(), newAll.end(), e2);
-            if (e2NewAll != newAll.end()) {
-                newAll.erase(e2NewAll);
+            auto e2NewAllIt = std::find(newAll.begin(), newAll.end(), e2);
+            if (e2NewAllIt != newAll.end()) {
+                newAll.erase(e2NewAllIt);
             }
         }
     }

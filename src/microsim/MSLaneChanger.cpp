@@ -1104,8 +1104,8 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
     std::pair<MSVehicle*, double> neighLead((MSVehicle*)nullptr, -1);
 
     // checks for overtaking space
-    double timeToOvertake;
-    double spaceToOvertake;
+    double timeToOvertake = std::numeric_limits<double>::max();
+    double spaceToOvertake = std::numeric_limits<double>::max();
     // distance that can safely be driven on the opposite side
     double surplusGap = std::numeric_limits<double>::max();
 

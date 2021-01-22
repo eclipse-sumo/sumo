@@ -1596,8 +1596,8 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         }
         averageLength = !isTurn || joinTurns; // legacy behavior
         SVCPermissions conPermissions = getPermissions(con.fromLane) & con.toEdge->getPermissions(con.toLane);
-        int shapeFlag = (conPermissions & ~SVC_PEDESTRIAN) != 0 ? 0 : NBNode::SCURVE_IGNORE;
-        PositionVector shape = n.computeInternalLaneShape(this, con, numPoints, myTo, shapeFlag);
+        const int conShapeFlag = (conPermissions & ~SVC_PEDESTRIAN) != 0 ? 0 : NBNode::SCURVE_IGNORE;
+        PositionVector shape = n.computeInternalLaneShape(this, con, numPoints, myTo, conShapeFlag);
         std::vector<int> foeInternalLinks;
 
         if (dir != LinkDirection::STRAIGHT && shape.length() < POSITION_EPS && !(isBidiRail() && getTurnDestination(true) == con.toEdge)) {
@@ -2484,7 +2484,7 @@ NBEdge::recheckLanes() {
                     ++i;
                 } else {
                     // try to find a suitable target lane to the left
-                    int toLane = origToLane;
+                    toLane = origToLane;
                     while (toLane < (int)c.toEdge->getNumLanes() - 1
                             && (getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) == 0
                             && !hasConnectionTo(c.toEdge, toLane)
