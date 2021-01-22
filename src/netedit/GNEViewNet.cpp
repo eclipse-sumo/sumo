@@ -2489,6 +2489,7 @@ GNEViewNet::updateCursor() {
     bool cursorInspect = false;
     bool cursorSelect = false;
     bool cursorMoveElement = false;
+    bool cursorDelete = false;
     // continue depending of supermode
     if (myEditModes.isCurrentSupermodeNetwork()) {
         // move view
@@ -2506,6 +2507,8 @@ GNEViewNet::updateCursor() {
             cursorSelect = true;
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
             cursorMoveElement = true;
+        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_DELETE) {
+            cursorDelete = true;
         }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
         // move view
@@ -2521,6 +2524,8 @@ GNEViewNet::updateCursor() {
             cursorSelect = true;
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_MOVE) {
             cursorMoveElement = true;
+        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_DELETE) {
+            cursorDelete = true;
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
         // move view
@@ -2532,6 +2537,8 @@ GNEViewNet::updateCursor() {
             cursorInspect = true;
         } else if (myEditModes.dataEditMode == DataEditMode::DATA_SELECT) {
             cursorSelect = true;
+        } else if (myEditModes.dataEditMode == DataEditMode::DATA_DELETE) {
+            cursorDelete = true;
         }
     }
     // set cursor
@@ -2567,6 +2574,10 @@ GNEViewNet::updateCursor() {
         // move cursor
         setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::MOVEELEMENT));
         setDragCursor(GUICursorSubSys::getCursor(GUICursor::MOVEELEMENT));
+    } else if (cursorDelete) {
+        // delete cursor
+        setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::DELETE_CURSOR));
+        setDragCursor(GUICursorSubSys::getCursor(GUICursor::DELETE_CURSOR));
     } else {
         // default cursor
         setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::DEFAULT));

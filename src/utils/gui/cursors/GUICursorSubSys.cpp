@@ -24,14 +24,12 @@
 #include "GUICursors.h"
 #include "GUICursorSubSys.h"
 
+#include "Delete_cursor.cpp"
 #include "Select_cursor.cpp"
 #include "SelectLane_cursor.cpp"
-#include "inspect_cursor.xbm"
-#include "inspect_cursor_mask.xbm"
-#include "inspect_lane_cursor.xbm"
-#include "inspect_lane_cursor_mask.xbm"
-#include "move_element_cursor.xbm"
-#include "move_element_cursor_mask.xbm"
+#include "Inspect_cursor.cpp"
+#include "InspectLane_cursor.cpp"
+#include "MoveElement_cursor.cpp"
 
 // ===========================================================================
 // static member variable definitions
@@ -49,11 +47,12 @@ GUICursorSubSys::GUICursorSubSys(FXApp* a) {
     myCursors[GUICursor::MOVEVIEW] = a->getDefaultCursor(DEF_MOVE_CURSOR);
 
     // custom cursors (must be created)
+    myCursors[GUICursor::DELETE_CURSOR] = new FXGIFCursor(a, Delete_cursor, 1, 2);
     myCursors[GUICursor::SELECT] = new FXGIFCursor(a, Select_cursor, 1, 1);
     myCursors[GUICursor::SELECT_LANE] = new FXGIFCursor(a, SelectLane_cursor, 1, 1);
-    myCursors[GUICursor::INSPECT_LANE] = new FXCursor(a, inspect_lane_cursor_bits, inspect_lane_cursor_mask_bits, inspect_lane_cursor_width, inspect_lane_cursor_height, inspect_lane_cursor_x_hot, inspect_lane_cursor_y_hot);
-    myCursors[GUICursor::INSPECT] = new FXCursor(a, inspect_cursor_bits, inspect_cursor_mask_bits, inspect_cursor_width, inspect_cursor_height, inspect_cursor_x_hot, inspect_cursor_y_hot);
-    myCursors[GUICursor::MOVEELEMENT] = new FXCursor(a, move_element_cursor_bits, move_element_cursor_mask_bits, move_element_cursor_width, move_element_cursor_height, move_element_cursor_x_hot, move_element_cursor_y_hot);
+    myCursors[GUICursor::INSPECT] = new FXGIFCursor(a, Inspect_cursor, 7, 7);
+    myCursors[GUICursor::INSPECT_LANE] = new FXGIFCursor(a, InspectLane_cursor, 7, 7);
+    myCursors[GUICursor::MOVEELEMENT] = new FXGIFCursor(a, MoveElement_cursor, 1, 2);
 
     // ... and create them
     for (const auto &cursor : myCursors) {

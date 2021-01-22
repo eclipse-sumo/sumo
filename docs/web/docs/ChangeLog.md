@@ -91,6 +91,7 @@ permalink: /ChangeLog/
   - Selected edges and junctions can now be moved in z-direction (absolutely or relatively) via move mode frame controls. Issue #2499
   - Shapes of selected edges can now be shifted orthogonally to their driving direction via move mode frame controls. Issue #2456
   - Polygons can now be moved without changing their shape (with new move mode checkbox). Issue #5268
+  - New custom cursors added to the **Inspect**, **Delete**, **Select** and **Move** modes. Issue #4818
 
 - netconvert
   - Added option **--tls.no-mixed** which prevents building phases where different connections from the same lane have green and red signals. Issue #7821
@@ -111,9 +112,9 @@ permalink: /ChangeLog/
 ### Other
 
 - Miscellaneous
-  - Fixed "Error: Cannot get file attributes" when loading large files on Windows and MacOS. Issue #6620
+  - Fixed "Error: Cannot get file attributes" when loading large files on Windows and macOS. Issue #6620
 
-- Netconvert
+- netconvert
   - Parallel turn lanes are no longer written as distinct edges but are instead written as multi-lane edge with different lane lenghts. As before, lane-changing on an intersection is not permitted on a turn lane. Issue #7954
   - Written network version is now 1.9.0
   

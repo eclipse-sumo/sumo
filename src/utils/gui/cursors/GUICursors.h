@@ -38,6 +38,9 @@ enum class GUICursor {
     /// @brief select cursor
     SELECT,
 
+    /// @brief delete cursor
+    DELETE_CURSOR,
+
     /// @brief select lanecursor
     SELECT_LANE,
 
