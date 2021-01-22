@@ -23,6 +23,9 @@ import sumolib  # noqa
 
 
 subprocess.call([sumolib.checkBinary("netgenerate"), "--grid", "-o", "test.net.xml"])
+large = 2**20 * " "
 with open("test.net.xml", "a") as net:
-    net.write((4 * 2**30) * " ")
+    for _ in range(4 * 2**10):
+        net.write(large)
 subprocess.call([sumolib.checkBinary('sumo'), "-n", "test.net.xml", "--no-step-log"])
+os.remove("test.net.xml")
