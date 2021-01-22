@@ -225,7 +225,7 @@ NBNodeCont::joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightL
             //   take place with the current implementation
             if (jci == ev.end()) {
                 if (removeDuplicates) {
-                    for (int ei = 1; ei < (int)ev.size(); i++) {
+                    for (int ei = 1; ei < (int)ev.size(); ei++) {
                         ec.extract(dc, ev[ei], true);
                     }
                 } else {
