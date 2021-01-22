@@ -2537,32 +2537,32 @@ GNEViewNet::updateCursor() {
     // set cursor
     if (myMouseButtonKeyPressed.controlKeyPressed() && cursorMoveView) {
         // move view cursor if control key is pressed
-        setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::SUMOCURSOR_MOVEVIEW));
-        setDragCursor(GUICursorSubSys::getCursor(GUICursor::SUMOCURSOR_MOVEVIEW));
+        setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::MOVEVIEW));
+        setDragCursor(GUICursorSubSys::getCursor(GUICursor::MOVEVIEW));
     } else if (cursorInspect) {
         // special case for inspect in network mode (lanes)
         if (myMouseButtonKeyPressed.controlKeyPressed() && 
             myEditModes.isCurrentSupermodeNetwork() && 
             (myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT)) {
             // select cursor
-            setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::SUMOCURSOR_SELECT));
-            setDragCursor(GUICursorSubSys::getCursor(GUICursor::SUMOCURSOR_SELECT));
+            setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::SELECT));
+            setDragCursor(GUICursorSubSys::getCursor(GUICursor::SELECT));
         } else {
             // inspect cursor
-            setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::SUMOCURSOR_INSPECT));
-            setDragCursor(GUICursorSubSys::getCursor(GUICursor::SUMOCURSOR_INSPECT));
+            setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::INSPECT));
+            setDragCursor(GUICursorSubSys::getCursor(GUICursor::INSPECT));
         }
     } else if (cursorSelect) {
         // select cursor
-        setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::SUMOCURSOR_SELECT));
-        setDragCursor(GUICursorSubSys::getCursor(GUICursor::SUMOCURSOR_SELECT));
+        setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::SELECT));
+        setDragCursor(GUICursorSubSys::getCursor(GUICursor::SELECT));
     } else if (cursorMoveElement) {
         // move cursor
-        setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::SUMOCURSOR_MOVEELEMENT));
-        setDragCursor(GUICursorSubSys::getCursor(GUICursor::SUMOCURSOR_MOVEELEMENT));
+        setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::MOVEELEMENT));
+        setDragCursor(GUICursorSubSys::getCursor(GUICursor::MOVEELEMENT));
     } else {
-        setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::SUMOCURSOR_DEFAULT));
-        setDragCursor(GUICursorSubSys::getCursor(GUICursor::SUMOCURSOR_DEFAULT));
+        setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::DEFAULT));
+        setDragCursor(GUICursorSubSys::getCursor(GUICursor::DEFAULT));
     }
 }
 

@@ -30,20 +30,20 @@
  */
 enum class GUICursor {
     /// @brief default cursor
-    SUMOCURSOR_DEFAULT,
+    DEFAULT,
 
     /// @brief move view cursor
-    SUMOCURSOR_MOVEVIEW,
+    MOVEVIEW,
 
     /// @brief select cursor
-    SUMOCURSOR_SELECT,
+    SELECT,
 
     /// @brief inspect cursor
-    SUMOCURSOR_INSPECT,
+    INSPECT,
 
     /// @brief inspect lane cursor
-    SUMOCURSOR_INSPECT_LANE,
+    INSPECT_LANE,
 
     /// @brief move element cursor
-    SUMOCURSOR_MOVEELEMENT,
+    MOVEELEMENT,
 };

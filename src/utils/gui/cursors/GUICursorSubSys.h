@@ -55,5 +55,5 @@ private:
     static GUICursorSubSys* myInstance;
 
     /// @brief vector with the icons
-    std::map<enum class GUICursor, FXCursor*> myCursors;
+    std::map<GUICursor, FXCursor*> myCursors;
 };
