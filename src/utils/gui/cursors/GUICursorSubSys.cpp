@@ -26,6 +26,8 @@
 
 #include "select_cursor.xbm"
 #include "select_cursor_mask.xbm"
+#include "select_lane_cursor.xbm"
+#include "select_lane_cursor_mask.xbm"
 #include "inspect_cursor.xbm"
 #include "inspect_cursor_mask.xbm"
 #include "inspect_lane_cursor.xbm"
@@ -50,6 +52,7 @@ GUICursorSubSys::GUICursorSubSys(FXApp* a) {
 
     // custom cursors (must be created)
     myCursors[GUICursor::SELECT] = new FXCursor(a, select_cursor_bits, select_cursor_mask_bits, select_cursor_width, select_cursor_height, select_cursor_x_hot, select_cursor_y_hot);
+    myCursors[GUICursor::SELECT_LANE] = new FXCursor(a, select_lane_cursor_bits, select_lane_cursor_mask_bits, select_lane_cursor_width, select_lane_cursor_height, select_lane_cursor_x_hot, select_lane_cursor_y_hot);
     myCursors[GUICursor::INSPECT_LANE] = new FXCursor(a, inspect_lane_cursor_bits, inspect_lane_cursor_mask_bits, inspect_lane_cursor_width, inspect_lane_cursor_height, inspect_lane_cursor_x_hot, inspect_lane_cursor_y_hot);
     myCursors[GUICursor::INSPECT] = new FXCursor(a, inspect_cursor_bits, inspect_cursor_mask_bits, inspect_cursor_width, inspect_cursor_height, inspect_cursor_x_hot, inspect_cursor_y_hot);
     myCursors[GUICursor::MOVEELEMENT] = new FXCursor(a, move_element_cursor_bits, move_element_cursor_mask_bits, move_element_cursor_width, move_element_cursor_height, move_element_cursor_x_hot, move_element_cursor_y_hot);
