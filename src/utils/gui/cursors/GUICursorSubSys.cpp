@@ -45,15 +45,15 @@ GUICursorSubSys* GUICursorSubSys::myInstance = nullptr;
 GUICursorSubSys::GUICursorSubSys(FXApp* a) {
     // already created cursor
     myCursors[SUMOCURSOR_DEFAULT] = a->getDefaultCursor(DEF_ARROW_CURSOR);
-    myCursors[SUMOCURSOR_MOVE] = a->getDefaultCursor(DEF_MOVE_CURSOR);
+    myCursors[SUMOCURSOR_MOVEVIEW] = a->getDefaultCursor(DEF_MOVE_CURSOR);
 
     // custom cursors
     myCursors[SUMOCURSOR_SELECT] = new FXCursor(a, select_cursor_bits, select_cursor_mask_bits, select_cursor_width, select_cursor_height, select_cursor_x_hot, select_cursor_y_hot);
     myCursors[SUMOCURSOR_INSPECT] = new FXCursor(a, inspect_cursor_bits, inspect_cursor_mask_bits, inspect_cursor_width, inspect_cursor_height, inspect_cursor_x_hot, inspect_cursor_y_hot);
-    myCursors[SUMOCURSOR_MOVE_ELEMENT] = new FXCursor(a, move_element_cursor_bits, move_element_cursor_mask_bits, move_element_cursor_width, move_element_cursor_height, move_element_cursor_x_hot, move_element_cursor_y_hot);
+    myCursors[SUMOCURSOR_MOVEELEMENT] = new FXCursor(a, move_element_cursor_bits, move_element_cursor_mask_bits, move_element_cursor_width, move_element_cursor_height, move_element_cursor_x_hot, move_element_cursor_y_hot);
 
     // ... and create them
-    for (int i = 0; i < CURSOR_MAX; i++) {
+    for (int i = SUMOCURSOR_SELECT; i < CURSOR_MAX; i++) {
         if (myCursors[i] != nullptr) {
             myCursors[i]->create();
         }
@@ -63,7 +63,7 @@ GUICursorSubSys::GUICursorSubSys(FXApp* a) {
 
 
 GUICursorSubSys::~GUICursorSubSys() {
-    for (int i = 0; i < CURSOR_MAX; i++) {
+    for (int i = SUMOCURSOR_SELECT; i < CURSOR_MAX; i++) {
         delete myCursors[i];
     }
 }

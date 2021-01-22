@@ -32,8 +32,8 @@ enum GUICursor {
     /// @brief default cursor
     SUMOCURSOR_DEFAULT,
 
-    /// @brief move cursor
-    SUMOCURSOR_MOVE,
+    /// @brief move view cursor
+    SUMOCURSOR_MOVEVIEW,
 
     /// @brief select cursor
     SUMOCURSOR_SELECT,
@@ -42,7 +42,7 @@ enum GUICursor {
     SUMOCURSOR_INSPECT,
 
     /// @brief move element cursor
-    SUMOCURSOR_MOVE_ELEMENT,
+    SUMOCURSOR_MOVEELEMENT,
 
     /// @brief max number of cursors
     CURSOR_MAX

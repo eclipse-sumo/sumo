@@ -2484,31 +2484,82 @@ GNEViewNet::processClick(void* eventData) {
 
 void
 GNEViewNet::updateCursor() {
-    // declare a flag for cursor move
-    bool cursorMove = false;
-    // check if in current mode/supermode cursor move can be shown
+    // declare flags
+    bool cursorMoveView = false;
+    bool cursorInspect = false;
+    bool cursorSelect = false;
+    bool cursorMoveElement = false;
+    // continue depending of supermode
     if (myEditModes.isCurrentSupermodeNetwork()) {
+        // move view
         if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT) ||
-                (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) ||
-                (myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) ||
-                (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ)) {
-            cursorMove = true;
+            (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) ||
+            (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) ||
+            (myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) ||
+            (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ)) {
+            cursorMoveView = true;
+        }
+        // specific mode
+        if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT) {
+            cursorInspect = true;
+        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT) {
+            cursorSelect = true;
+        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+            cursorMoveElement = true;
         }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
+        // move view
         if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_SELECT) ||
-                (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) ||
-                (myEditModes.demandEditMode == DemandEditMode::DEMAND_STOP)) {
-            cursorMove = true;
+            (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) ||
+            (myEditModes.demandEditMode == DemandEditMode::DEMAND_STOP)) {
+            cursorMoveView = true;
+        }
+        // specific mode
+        if (myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) {
+            cursorInspect = true;
+        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_SELECT) {
+            cursorSelect = true;
+        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_MOVE) {
+            cursorMoveElement = true;
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
+        // move view
         if (myEditModes.dataEditMode == DataEditMode::DATA_SELECT) {
-            cursorMove = true;
+            cursorMoveView = true;
+        }
+        // specific mode
+        if (myEditModes.dataEditMode == DataEditMode::DATA_INSPECT) {
+            cursorInspect = true;
+        } else if (myEditModes.dataEditMode == DataEditMode::DATA_SELECT) {
+            cursorSelect = true;
         }
     }
-    // update cursor if control key is pressed
-    if (myMouseButtonKeyPressed.controlKeyPressed() && cursorMove) {
-        setDefaultCursor(GUICursorSubSys::getCursor(SUMOCURSOR_MOVE));
-        setDragCursor(GUICursorSubSys::getCursor(SUMOCURSOR_MOVE));
+    // set cursor
+    if (myMouseButtonKeyPressed.controlKeyPressed() && cursorMoveView) {
+        // move view cursor if control key is pressed
+        setDefaultCursor(GUICursorSubSys::getCursor(SUMOCURSOR_MOVEVIEW));
+        setDragCursor(GUICursorSubSys::getCursor(SUMOCURSOR_MOVEVIEW));
+    } else if (cursorInspect) {
+        // special case for inspect in network mode (lanes)
+        if (myMouseButtonKeyPressed.controlKeyPressed() && 
+            myEditModes.isCurrentSupermodeNetwork() && 
+            (myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT)) {
+            // select cursor
+            setDefaultCursor(GUICursorSubSys::getCursor(SUMOCURSOR_SELECT));
+            setDragCursor(GUICursorSubSys::getCursor(SUMOCURSOR_SELECT));
+        } else {
+            // inspect cursor
+            setDefaultCursor(GUICursorSubSys::getCursor(SUMOCURSOR_INSPECT));
+            setDragCursor(GUICursorSubSys::getCursor(SUMOCURSOR_INSPECT));
+        }
+    } else if (cursorSelect) {
+        // select cursor
+        setDefaultCursor(GUICursorSubSys::getCursor(SUMOCURSOR_SELECT));
+        setDragCursor(GUICursorSubSys::getCursor(SUMOCURSOR_SELECT));
+    } else if (cursorMoveElement) {
+        // move cursor
+        setDefaultCursor(GUICursorSubSys::getCursor(SUMOCURSOR_MOVEELEMENT));
+        setDragCursor(GUICursorSubSys::getCursor(SUMOCURSOR_MOVEELEMENT));
     } else {
         setDefaultCursor(GUICursorSubSys::getCursor(SUMOCURSOR_DEFAULT));
         setDragCursor(GUICursorSubSys::getCursor(SUMOCURSOR_DEFAULT));
