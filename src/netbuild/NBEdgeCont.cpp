@@ -1852,7 +1852,9 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
             }
             NBEdge* lastRoad = roads.back().second.first;
             if (erasedLast) {
-                for (NBEdge* out : tramEdge->getToNode()->getOutgoingEdges()) {
+                // copy to avoid concurrent modification
+                auto outEdges = tramEdge->getToNode()->getOutgoingEdges();
+                for (NBEdge* out : outEdges) {
                     if (out->getPermissions() == SVC_TRAM && !lastRoad->isConnectedTo(out)) {
                         if (lastRoad->getToNode() != out->getToNode()) {
                             out->reinitNodes(lastRoad->getToNode(), out->getToNode());
