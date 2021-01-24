@@ -29,7 +29,7 @@ jobs:
       run: |
         brew install --cask xquartz
         brew install xerces-c fox proj gdal gl2ps
-        python3 -m pip install texttest
+#        python3 -m pip install texttest
 
     - name: Installing Google Test
       run: |
