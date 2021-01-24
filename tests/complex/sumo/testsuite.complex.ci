@@ -5,7 +5,7 @@ collision
 ringNoBrake
 
 # Lane change checks
-lane_change
+#lane_change
 
 # detector comparisons
 output
@@ -17,13 +17,13 @@ b50
 socketout
 
 # testing protobuf conversion and roundtrip
-protobuf
+#protobuf
 
 # chaining amitran output and emission calculation
 emission
 
 # in SUMO configuration files, it is now possible to add enviromment variables with the syntax ${VAR_NAME} and have it replaced with values from the environment. This test checks the proper behavior
-envVarSubstitution
+#envVarSubstitution
 
 # testing 'extended' sumo features
 extended
@@ -32,7 +32,7 @@ extended
 binary
 
 # letting 25 vehicles drive in a circle and plot their speeds
-speedMap
+#speedMap
 
 # Tests scheduling of Takeover-of-Control events via the ToC-Device (MSDevice_ToC).
 #ToCDevice
