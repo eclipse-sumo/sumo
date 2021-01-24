@@ -136,7 +136,7 @@ jobs:
     - name: Examples and tests
       if: matrix.build-type != 'wheel'
       run: |
-        python -m pip install pyproj
+        python -m pip install pyproj Rtree
         cd sumo/build_msvc
         cmake --build . --config Release --target examples
         ctest --verbose
