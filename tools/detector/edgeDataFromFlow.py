@@ -88,7 +88,7 @@ def main(options):
     endM = min(int(sumolib.miscutils.parseTime(options.end, 60) / 60), tMax)
 
     with open(options.output, "w") as outf:
-        sumolib.writeXMLHeader(outf, "$Id$")  # noqa
+        sumolib.xml.writeHeader(outf)
         outf.write('<data>\n')
         while beginM <= endM:
             iEndM = beginM + intervalM
@@ -113,7 +113,7 @@ def main(options):
 
             outf.write('    <interval id="flowdata" begin="%s" end="%s">\n' % (beginM * 60, iEndM * 60))
             for edge in sorted(edges.keys()):
-                attrs = ' '.join(['%s="%s"' % (k, v) for k, v in edges[edge].items()])
+                attrs = ' '.join(['%s="%s"' % (k, v) for k, v in sorted(edges[edge].items())])
                 outf.write('        <edge id="%s" %s groups="%s"/>\n' % (edge, attrs, nGroups))
             outf.write('    </interval>\n')
             beginM += intervalM

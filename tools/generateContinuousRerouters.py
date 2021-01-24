@@ -82,7 +82,7 @@ def getTurnIndex(fromEdge, toEdge):
         return 3
 
 
-def getNumAlterantives(edge, routes):
+def getNumAlternatives(edge, routes):
     numAlternatives = 0
     for edges in routes:
         if edges[0] in edge.getOutgoing().keys():
@@ -117,7 +117,7 @@ def main(options):
                         incomingRoutes[edges[-1]].add(edgeIDs)
 
     with open(options.outfile, 'w') as outf:
-        sumolib.writeXMLHeader(outf, "$Id$", "additional")  # noqa
+        sumolib.xml.writeHeader(outf, root="additional")
         for junction in net.getNodes():
             if len(junction.getOutgoing()) > 1:
                 routes = []
@@ -129,8 +129,8 @@ def main(options):
                         # overlapping routes: start behind an intersection and
                         # route across the next intersection to the entry of the
                         # 2nd intersetion (more rerouters and overlapping routes)
-                        if getNumAlterantives(edge, routes) > 1:
-                            for incomingRoute in incomingRoutes[edge]:
+                        if getNumAlternatives(edge, routes) > 1:
+                            for incomingRoute in sorted(incomingRoutes[edge]):
                                 assert(incomingRoute[-1] == edge.getID())
                                 firstEdgeID = incomingRoute[0]
                                 routeIDs = []
