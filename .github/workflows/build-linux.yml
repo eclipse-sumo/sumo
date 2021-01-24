@@ -77,7 +77,7 @@ jobs:
 
     - name: Building Examples and Tests
       run: |
-        sudo apt-get install python3-pyproj python3-rtree
+        sudo apt-get install python-pyproj python-rtree python3-pyproj python3-rtree
         cd sumo/cmake-build
         if [[ "${{ matrix.build_type }}" == "full" ]]; then make CTEST_OUTPUT_ON_FAILURE=1 examples test; fi
 
