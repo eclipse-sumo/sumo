@@ -191,7 +191,7 @@ if __name__ == "__main__":
             output_str = "Component: #{} Edge Count: {}\n {}\n".format(
                 idx, edge_count, " ".join(comp))
             if types:
-                output_str += "Types: {}\n".format(sorted(types))
+                output_str += "Type(s): {}\n".format(" ".join(sorted(types)))
             print(output_str)
             output_str_list.append(output_str)
 
