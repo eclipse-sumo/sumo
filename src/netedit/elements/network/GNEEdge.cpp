@@ -1293,44 +1293,42 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
 // ===========================================================================
 
 GNEEdge::StackPosition::StackPosition(const double departPos, const double length) :
-    tuple(departPos, departPos + length) {
+    pair(departPos, departPos + length) {
 }
 
 
 double
 GNEEdge::StackPosition::beginPosition() const {
-    return std::get<0>(*this);
+    return first;
 }
 
 
 double
 GNEEdge::StackPosition::endPosition() const {
-    return std::get<1>(*this);
+    return second;
 }
 
 
 GNEEdge::StackDemandElements::StackDemandElements(const StackPosition stackedPosition, GNEDemandElement* demandElement) :
-    tuple(stackedPosition, {
-    demandElement
-}) {
+    pair(stackedPosition, {demandElement}) {
 }
 
 
 void
 GNEEdge::StackDemandElements::addDemandElements(GNEDemandElement* demandElement) {
-    std::get<1>(*this).push_back(demandElement);
+    second.push_back(demandElement);
 }
 
 
 const GNEEdge::StackPosition&
 GNEEdge::StackDemandElements::getStackPosition() const {
-    return std::get<0>(*this);
+    return first;
 }
 
 
 const std::vector<GNEDemandElement*>&
 GNEEdge::StackDemandElements::getDemandElements() const {
-    return std::get<1>(*this);
+    return second;
 }
 
 

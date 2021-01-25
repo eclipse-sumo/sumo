@@ -294,7 +294,7 @@ protected:
 
 private:
     /// @brief Stack position (used to stack demand elements over edges)
-    class StackPosition : public std::tuple<double, double> {
+    class StackPosition : public std::pair<double, double> {
 
     public:
         /// @brief constructor
@@ -308,7 +308,7 @@ private:
     };
 
     /// @brief Stack demand elements
-    class StackDemandElements : public std::tuple<StackPosition, std::vector<GNEDemandElement*> > {
+    class StackDemandElements : public std::pair<StackPosition, std::vector<GNEDemandElement*> > {
 
     public:
         /// @brief constructor
