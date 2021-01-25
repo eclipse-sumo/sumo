@@ -296,6 +296,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myFileMenuAdditionals(nullptr),
     myFileMenuDemandElements(nullptr),
     myFileMenuDataElements(nullptr),
+    myModesMenu(nullptr),
     myEditMenu(nullptr),
     myProcessingMenu(nullptr),
     myLocatorMenu(nullptr),
@@ -310,6 +311,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myToolbarsGrip(this),
     myMenuBarFile(this),
     myFileMenuCommands(this),
+    myModesMenuCommands(this),
     myEditMenuCommands(this),
     myProcessingMenuCommands(this),
     myLocateMenuCommands(this),
@@ -317,9 +319,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     mySupermodeCommands(this),
     myViewNet(nullptr),
     myTitlePrefix("NETEDIT " VERSION_STRING),
-    myMDIMenu(nullptr)
-
-{
+    myMDIMenu(nullptr) {
     // init icons
     GUIIconSubSys::initIcons(a);
     // init Textures
@@ -382,6 +382,7 @@ GNEApplicationWindow::create() {
     gCurrentFolder = getApp()->reg().readStringEntry("SETTINGS", "basedir", "");
     FXMainWindow::create();
     myFileMenu->create();
+    myModesMenu->create();
     myEditMenu->create();
     myFileMenuTLS->create();
     myFileMenuEdgeTypes->create();
@@ -422,6 +423,7 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myFileMenuDemandElements;
     delete myFileMenuDataElements;
     delete myFileMenu;
+    delete myModesMenu;
     delete myEditMenu;
     delete myLocatorMenu;
     delete myProcessingMenu;
@@ -702,9 +704,9 @@ GNEApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
             myFileMenuCommands.saveTLSPrograms->disable();
             // hide all Supermode, Network and demand commands
             mySupermodeCommands.hideSupermodeCommands();
-            myEditMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
-            myEditMenuCommands.demandMenuCommands.hideDemandMenuCommands();
-            myEditMenuCommands.dataMenuCommands.hideDataMenuCommands();
+            myModesMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
+            myModesMenuCommands.demandMenuCommands.hideDemandMenuCommands();
+            myModesMenuCommands.dataMenuCommands.hideDataMenuCommands();
         } else {
             // abort reloading (because "cancel button" was pressed)
             return 1;
@@ -725,9 +727,9 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
         myFileMenuCommands.saveTLSPrograms->disable();
         // hide all Supermode, Network and demand commands
         mySupermodeCommands.hideSupermodeCommands();
-        myEditMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
-        myEditMenuCommands.demandMenuCommands.hideDemandMenuCommands();
-        myEditMenuCommands.dataMenuCommands.hideDataMenuCommands();
+        myModesMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
+        myModesMenuCommands.demandMenuCommands.hideDemandMenuCommands();
+        myModesMenuCommands.dataMenuCommands.hideDataMenuCommands();
     }
     return 1;
 }
@@ -1009,6 +1011,16 @@ GNEApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
                                            "&Quit", "Ctrl+Q", "Quit the Application.",
                                            nullptr, this, MID_HOTKEY_CTRL_Q_CLOSE);
+    // build modes menu
+    myModesMenu = new FXMenuPane(this);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Modes", nullptr, myModesMenu);
+    // build Supermode commands and hide it
+    mySupermodeCommands.buildSupermodeCommands(myModesMenu);
+    mySupermodeCommands.hideSupermodeCommands();
+    // build separator between supermodes y modes
+    new FXMenuSeparator(myModesMenu);
+    // build modes menu commands
+    myModesMenuCommands.buildModesMenuCommands(myModesMenu);
     // build edit menu
     myEditMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Edit", nullptr, myEditMenu);
@@ -1021,9 +1033,7 @@ GNEApplicationWindow::fillMenuBar() {
                                         GUIIconSubSys::getIcon(GUIIcon::REDO), this, MID_HOTKEY_CTRL_Y_REDO);
     // build separator
     new FXMenuSeparator(myEditMenu);
-    // build Supermode commands and hide it
-    mySupermodeCommands.buildSupermodeCommands(myEditMenu);
-    mySupermodeCommands.hideSupermodeCommands();
+    // build edit menu commands
     myEditMenuCommands.buildEditMenuCommands(myEditMenu);
     // build processing menu (trigger netbuild computations)
     myProcessingMenu = new FXMenuPane(this);
@@ -1067,7 +1077,7 @@ GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool i
     // show supermode commands menu
     mySupermodeCommands.showSupermodeCommands();
     // show Network command menus (because Network is the default supermode)
-    myEditMenuCommands.networkMenuCommands.showNetworkMenuCommands();
+    myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
     // update window
     update();
 }
@@ -3087,36 +3097,36 @@ void
 GNEApplicationWindow::updateSuperModeMenuCommands(const Supermode supermode) {
     if (supermode == Supermode::NETWORK) {
         // menu commands
-        myEditMenuCommands.networkMenuCommands.showNetworkMenuCommands();
-        myEditMenuCommands.demandMenuCommands.hideDemandMenuCommands();
-        myEditMenuCommands.dataMenuCommands.hideDataMenuCommands();
+        myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
+        myModesMenuCommands.demandMenuCommands.hideDemandMenuCommands();
+        myModesMenuCommands.dataMenuCommands.hideDataMenuCommands();
         // processing
         myProcessingMenuCommands.showNetworkProcessingMenuCommands();
         myProcessingMenuCommands.hideDemandProcessingMenuCommands();
         myProcessingMenuCommands.hideDataProcessingMenuCommands();
     } else if (supermode == Supermode::DEMAND) {
         // menu commands
-        myEditMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
-        myEditMenuCommands.demandMenuCommands.showDemandMenuCommands();
-        myEditMenuCommands.dataMenuCommands.hideDataMenuCommands();
+        myModesMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
+        myModesMenuCommands.demandMenuCommands.showDemandMenuCommands();
+        myModesMenuCommands.dataMenuCommands.hideDataMenuCommands();
         // processing
         myProcessingMenuCommands.hideNetworkProcessingMenuCommands();
         myProcessingMenuCommands.showDemandProcessingMenuCommands();
         myProcessingMenuCommands.hideDataProcessingMenuCommands();
     } else if (supermode == Supermode::DATA) {
         // menu commands
-        myEditMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
-        myEditMenuCommands.demandMenuCommands.hideDemandMenuCommands();
-        myEditMenuCommands.dataMenuCommands.showDataMenuCommands();
+        myModesMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
+        myModesMenuCommands.demandMenuCommands.hideDemandMenuCommands();
+        myModesMenuCommands.dataMenuCommands.showDataMenuCommands();
         // processing
         myProcessingMenuCommands.hideNetworkProcessingMenuCommands();
         myProcessingMenuCommands.hideDemandProcessingMenuCommands();
         myProcessingMenuCommands.showDataProcessingMenuCommands();
     } else {
         // menu commands
-        myEditMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
-        myEditMenuCommands.demandMenuCommands.hideDemandMenuCommands();
-        myEditMenuCommands.dataMenuCommands.hideDataMenuCommands();
+        myModesMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
+        myModesMenuCommands.demandMenuCommands.hideDemandMenuCommands();
+        myModesMenuCommands.dataMenuCommands.hideDataMenuCommands();
         // processing
         myProcessingMenuCommands.hideNetworkProcessingMenuCommands();
         myProcessingMenuCommands.hideDemandProcessingMenuCommands();
@@ -3155,6 +3165,7 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myFileMenuAdditionals(nullptr),
     myFileMenuDemandElements(nullptr),
     myFileMenuDataElements(nullptr),
+    myModesMenu(nullptr),
     myEditMenu(nullptr),
     myProcessingMenu(nullptr),
     myLocatorMenu(nullptr),
@@ -3168,14 +3179,15 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myToolbarsGrip(this),
     myMenuBarFile(this),
     myFileMenuCommands(this),
+    myModesMenuCommands(this),
     myEditMenuCommands(this),
     myProcessingMenuCommands(this),
     myLocateMenuCommands(this),
     myWindowsMenuCommands(this),
     mySupermodeCommands(this),
     myViewNet(nullptr),
-    myMDIMenu(nullptr)
-{ }
+    myMDIMenu(nullptr) { 
+}
 
 
 long

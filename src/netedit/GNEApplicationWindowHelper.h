@@ -170,17 +170,17 @@ struct GNEApplicationWindowHelper {
         GNEApplicationWindow* myGNEApp;
     };
 
-    /// @brief struct for edit menu commands
-    struct EditMenuCommands {
+    /// @brief struct for modes menu commands
+    struct ModesMenuCommands {
 
         /// @brief struct for network menu commands
         struct NetworkMenuCommands {
 
             /// @brief constructor
-            NetworkMenuCommands(const EditMenuCommands* editMenuCommandsParent);
+            NetworkMenuCommands(const ModesMenuCommands* modesMenuCommandsParent);
 
             /// @brief build menu commands
-            void buildNetworkMenuCommands(FXMenuPane* editMenu);
+            void buildNetworkMenuCommands(FXMenuPane* modesMenu);
 
             /// @brief show all menu commands
             void showNetworkMenuCommands();
@@ -225,21 +225,18 @@ struct GNEApplicationWindowHelper {
             FXMenuCommand* shapeMode;
 
         private:
-            /// @brief reference to EditMenuCommands
-            const EditMenuCommands* myEditMenuCommandsParent;
-
-            /// @brief separator between sets of FXMenuCommand
-            FXMenuSeparator* myHorizontalSeparator;
+            /// @brief reference to ModesMenuCommands
+            const ModesMenuCommands* myModesMenuCommandsParent;
         };
 
         /// @brief struct for Demand menu commands
         struct DemandMenuCommands {
 
             /// @brief constructor
-            DemandMenuCommands(const EditMenuCommands* editMenuCommandsParent);
+            DemandMenuCommands(const ModesMenuCommands* modesMenuCommandsParent);
 
             /// @brief build menu commands
-            void buildDemandMenuCommands(FXMenuPane* editMenu);
+            void buildDemandMenuCommands(FXMenuPane* modesMenu);
 
             /// @brief show all menu commands
             void showDemandMenuCommands();
@@ -269,22 +266,18 @@ struct GNEApplicationWindowHelper {
             FXMenuCommand* personPlanMode;
 
         private:
-            /// @brief reference to EditMenuCommands
-            const EditMenuCommands* myEditMenuCommandsParent;
-
-            /// @brief separator between sets of FXMenuCommand
-            FXMenuSeparator* myHorizontalSeparator;
+            /// @brief reference to ModesMenuCommands
+            const ModesMenuCommands* myModesMenuCommandsParent;
         };
-
 
         /// @brief struct for Data menu commands
         struct DataMenuCommands {
 
             /// @brief constructor
-            DataMenuCommands(const EditMenuCommands* editMenuCommandsParent);
+            DataMenuCommands(const ModesMenuCommands* modesMenuCommandsParent);
 
             /// @brief build menu commands
-            void buildDataMenuCommands(FXMenuPane* editMenu);
+            void buildDataMenuCommands(FXMenuPane* modesMenu);
 
             /// @brief show all menu commands
             void showDataMenuCommands();
@@ -302,24 +295,16 @@ struct GNEApplicationWindowHelper {
             FXMenuCommand* TAZRelData;
 
         private:
-            /// @brief reference to EditMenuCommands
-            const EditMenuCommands* myEditMenuCommandsParent;
-
-            /// @brief separator between sets of FXMenuCommand
-            FXMenuSeparator* myHorizontalSeparator;
+            /// @brief reference to ModesMenuCommands
+            const ModesMenuCommands* myModesMenuCommandsParent;
         };
 
         /// @brief constructor
-        EditMenuCommands(GNEApplicationWindow* GNEApp);
+        ModesMenuCommands(GNEApplicationWindow* GNEApp);
 
-        /// @brief build edit menu commands
-        void buildEditMenuCommands(FXMenuPane* editMenu);
+        /// @brief build modes menu commands
+        void buildModesMenuCommands(FXMenuPane* modesMenu);
 
-    private:
-        /// @brief pointer to current GNEApplicationWindows
-        GNEApplicationWindow* myGNEApp;
-
-    public:
         /// @brief Network Menu Commands
         NetworkMenuCommands networkMenuCommands;
 
@@ -328,6 +313,20 @@ struct GNEApplicationWindowHelper {
 
         /// @brief Data Menu Commands
         DataMenuCommands dataMenuCommands;
+
+    private:
+        /// @brief pointer to current GNEApplicationWindows
+        GNEApplicationWindow* myGNEApp;
+    };
+
+    /// @brief struct for edit menu commands
+    struct EditMenuCommands {
+
+        /// @brief constructor
+        EditMenuCommands(GNEApplicationWindow* GNEApp);
+
+        /// @brief build edit menu commands
+        void buildEditMenuCommands(FXMenuPane* editMenu);
 
         /// @brief FXMenuCommand for undo last change
         FXMenuCommand* undoLastChange;
@@ -355,6 +354,10 @@ struct GNEApplicationWindowHelper {
 
         /// @brief FXMenuCommand for open in SUMO GUI
         FXMenuCommand* openInSUMOGUI;
+
+    private:
+        /// @brief pointer to current GNEApplicationWindows
+        GNEApplicationWindow* myGNEApp;
     };
 
     /// @brief struct for processing menu commands
@@ -485,9 +488,6 @@ struct GNEApplicationWindowHelper {
     private:
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow* myGNEApp;
-
-        /// @brief separator between sets of FXMenuCommand
-        FXMenuSeparator* myHorizontalSeparator;
     };
 
     /// @brief toogle edit options Network menu commands (called in GNEApplicationWindow::onCmdToogleEditOptions)

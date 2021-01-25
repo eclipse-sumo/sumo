@@ -410,6 +410,7 @@ protected:
                 *myFileMenuAdditionals,
                 *myFileMenuDemandElements,
                 *myFileMenuDataElements,
+                *myModesMenu,
                 *myEditMenu,
                 *myProcessingMenu,
                 *myLocatorMenu,
@@ -452,6 +453,9 @@ private:
 
     /// @brief File Menu Commands
     GNEApplicationWindowHelper::FileMenuCommands myFileMenuCommands;
+
+    /// @brief Modes Menu Commands
+    GNEApplicationWindowHelper::ModesMenuCommands myModesMenuCommands;
 
     /// @brief Edit Menu Commands
     GNEApplicationWindowHelper::EditMenuCommands myEditMenuCommands;
