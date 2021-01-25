@@ -1,4 +1,4 @@
-Warning: Value of tau=0.9649490355799297 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
+Warning: Value of tau=0.96494903558 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
 Warning: Teleporting vehicle '752'; collision with vehicle '751', lane='1to7_0', gap=-0.01, time=26611.00 stage=move.
 Warning: Vehicle '752' teleports beyond arrival edge '7to8', time 26717.00.
 Warning: Teleporting vehicle '786'; collision with vehicle '785', lane='1to7_0', gap=-0.01, time=26755.00 stage=move.
@@ -167,4 +167,4 @@ Warning: Vehicle '1454' ends teleporting on edge '7to8', time 28939.00.
 Warning: Vehicle '1479' ends teleporting on edge '7to8', time 28943.00.
 Warning: Teleporting vehicle '1544'; collision with vehicle '1543', lane='1to7_0', gap=-0.03, time=29223.00 stage=move.
 Warning: Vehicle '1544' ends teleporting on edge '7to8', time 29253.00.
-Warning: Value of tau=0.9931354115970644 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
+Warning: Value of tau=0.993135411597 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
