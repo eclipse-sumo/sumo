@@ -228,7 +228,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                 for f in (glob.glob(os.path.join(srcDir, "libsumo", "*.h")) +
                           glob.glob(os.path.join(srcDir, "utils", "traci", "TraCIAPI.*")) +
                           glob.glob(os.path.join(srcDir, "foreign", "tcpip", "s*.*"))):
-                    if os.path.basename(f) != "Helper.h":
+                    if not f.endswith("Helper.h"):
                         zipf.write(f, includeDir + f[len(srcDir):])
                 zipf.write(os.path.join(buildDir, "src", "version.h"), os.path.join(includeDir, "version.h"))
                 for f in glob.glob(os.path.join(toolsDir, "lib*", "*lib*.py*")):
