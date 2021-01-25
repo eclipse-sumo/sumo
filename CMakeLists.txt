@@ -46,10 +46,24 @@ if (COMPILE_DEFINITIONS)
     add_compile_definitions(${COMPILE_DEFINITIONS})
 endif ()
 
+# declare flags for compilers
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    set (GNU_COMPILER True)
+endif ()
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    set (CLANG_COMPILER True)
+endif ()
+
 # compiler specific flags
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
-    "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread -Wall -pedantic -Wextra")
+if (GNU_COMPILER OR CLANG_COMPILER)
+    # set flags for clang in windows
+    if (CLANG_COMPILER AND WIN32)
+        # flags for clang in windows
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Wextra")
+    else ()
+        #flags for clang and gcc in linux
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread -Wall -pedantic -Wextra")
+    endif ()
     if (PROFILING)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg")
         set(ENABLED_FEATURES "${ENABLED_FEATURES} Profiling")
@@ -85,7 +99,7 @@ endif ()
 
 # special debug flags
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+if (CLANG_COMPILER)
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=undefined,address,integer,unsigned-integer-overflow -fno-omit-frame-pointer -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build/clang_sanitize_blacklist.txt")
 endif ()
 
@@ -153,7 +167,7 @@ if (APPLE)
 endif (APPLE)
 
 #  Specifically define variable WIN32 for compilations under windows (due an error in Shawn)
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32)
+if (GNU_COMPILER AND WIN32)
     option(USE_MINGW_64BITS "Use 64 bits libraries for the compilation with MinGW" true)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWIN32 -D_WIN32_WINNT=0x0501")
     set(MINGW32 1)
@@ -172,7 +186,7 @@ if (SUMO_LIBRARIES AND WIN32)
     # set option for install debug and release runtime dlls
     option(INSTALL_DLL_RUNTIMES "Copy debug and release runtimes for MSVC" true)
     # Special option for MinGW32
-    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32)
+    if (GNU_COMPILER AND WIN32)
         if (USE_MINGW_64BITS)
             message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES} " for MinGW compilation")
         else()
@@ -255,10 +269,22 @@ if (SUMO_LIBRARIES AND WIN32)
     endif ()
     # set google test root
     file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-?.?.?/googletest")
+    # declare flag for use google test
+    set(USE_GOOGLETEST true)
+    # check if use google test
+    if (WIN32)
+        if (GNU_COMPILER AND NOT USE_MINGW_64BITS)
+            # disable GoogleTest only if compiler isn't mingw32
+            message(STATUS "Disabled Google Test in Mingw32")
+            set(USE_GOOGLETEST false)
+        elseif(CLANG_COMPILER)
+            # disable google test in clang for windows
+            message(STATUS "Disabled Google Test in Clang (Windows)")
+            set(USE_GOOGLETEST false)
+        endif ()
+    endif()
     # set GoogleTest only if compiler isn't mingw32
-    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32 AND NOT USE_MINGW_64BITS)
-        message(STATUS "Disabled Google Test in Mingw32")
-    else()
+    if (USE_GOOGLETEST)
         # Prevent GoogleTest from overriding our compiler/linker options
         set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
         add_subdirectory("${GTEST_ROOT}" "${CMAKE_BINARY_DIR}/googletest-build")
