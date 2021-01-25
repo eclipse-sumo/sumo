@@ -1,0 +1,1579 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Jan 25 12:05:11 2021 by Eclipse SUMO sumo Version v1_8_0+0716-8e52078
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.acceleration value="true"/>
+    </output>
+
+    <time>
+        <step-length value="0.2"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <tracker-interval value="0.2"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="flow_0.0" x="101.60" y="5.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="5.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="0.20">
+        <vehicle id="flow_0.0" x="101.60" y="7.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="7.88" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="0.40">
+        <vehicle id="flow_0.0" x="101.60" y="10.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="10.66" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="0.60">
+        <vehicle id="flow_0.0" x="101.60" y="13.43" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="13.43" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="0.80">
+        <vehicle id="flow_0.0" x="101.60" y="16.21" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="16.21" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="flow_0.0" x="101.60" y="18.99" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="18.99" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="1.20">
+        <vehicle id="flow_0.0" x="101.60" y="21.77" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="21.77" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="1.40">
+        <vehicle id="flow_0.0" x="101.60" y="24.55" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="24.55" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="1.60">
+        <vehicle id="flow_0.0" x="101.60" y="27.32" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="27.32" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="1.80">
+        <vehicle id="flow_0.0" x="101.60" y="30.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="30.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="flow_0.0" x="101.60" y="32.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="32.88" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="5.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="5.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="2.20">
+        <vehicle id="flow_0.0" x="101.60" y="35.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="35.66" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="7.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="7.88" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="2.40">
+        <vehicle id="flow_0.0" x="101.60" y="38.44" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="38.44" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="10.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="10.66" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="2.60">
+        <vehicle id="flow_0.0" x="101.60" y="41.21" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="41.21" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="13.43" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="13.43" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="2.80">
+        <vehicle id="flow_0.0" x="101.60" y="43.99" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="43.99" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="16.21" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="16.21" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="flow_0.0" x="101.60" y="46.77" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="46.77" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="18.99" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="18.99" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="3.20">
+        <vehicle id="flow_0.0" x="101.60" y="49.55" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="49.55" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="21.77" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="21.77" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="3.40">
+        <vehicle id="flow_0.0" x="101.60" y="52.33" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="52.33" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="24.55" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="24.55" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="3.60">
+        <vehicle id="flow_0.0" x="101.60" y="55.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="55.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="27.32" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="27.32" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="3.80">
+        <vehicle id="flow_0.0" x="101.60" y="57.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="57.88" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="30.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="30.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="flow_0.0" x="101.60" y="60.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="60.66" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="32.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="32.88" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="5.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="5.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="4.20">
+        <vehicle id="flow_0.0" x="101.60" y="63.44" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="63.44" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="35.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="35.66" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="7.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="7.88" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="4.40">
+        <vehicle id="flow_0.0" x="101.60" y="66.22" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="66.22" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="38.44" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="38.44" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="10.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="10.66" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="4.60">
+        <vehicle id="flow_0.0" x="101.60" y="68.99" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="68.99" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="41.21" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="41.21" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="13.43" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="13.43" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="4.80">
+        <vehicle id="flow_0.0" x="101.60" y="71.77" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="71.77" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="43.99" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="43.99" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="16.21" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="16.21" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="flow_0.0" x="101.71" y="74.39" angle="1.29" type="DEFAULT_VEHTYPE" speed="13.13" pos="0.80" lane=":gneJ1_6_0" slope="0.00" acceleration="-3.80"/>
+        <vehicle id="flow_0.1" x="101.60" y="46.77" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="46.77" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="18.99" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="18.99" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="5.20">
+        <vehicle id="flow_0.0" x="102.08" y="76.99" angle="5.57" type="DEFAULT_VEHTYPE" speed="13.13" pos="3.42" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="49.55" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="49.55" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="21.77" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="21.77" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="5.40">
+        <vehicle id="flow_0.0" x="102.46" y="79.59" angle="8.13" type="DEFAULT_VEHTYPE" speed="13.13" pos="6.05" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="52.33" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="52.33" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="24.55" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="24.55" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="5.60">
+        <vehicle id="flow_0.0" x="102.83" y="82.19" angle="8.13" type="DEFAULT_VEHTYPE" speed="13.13" pos="8.68" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="55.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="55.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="27.32" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="27.32" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="5.80">
+        <vehicle id="flow_0.0" x="103.33" y="84.74" angle="9.65" type="DEFAULT_VEHTYPE" speed="13.13" pos="11.30" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="57.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="57.88" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="30.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="30.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="flow_0.0" x="104.68" y="86.99" angle="21.71" type="DEFAULT_VEHTYPE" speed="13.13" pos="13.93" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="60.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="60.66" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="32.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="32.88" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="5.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="5.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="6.20">
+        <vehicle id="flow_0.0" x="106.03" y="89.25" angle="30.96" type="DEFAULT_VEHTYPE" speed="13.13" pos="16.55" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="63.44" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="63.44" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="35.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="35.66" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="7.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="7.88" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="6.40">
+        <vehicle id="flow_0.0" x="107.38" y="91.50" angle="30.96" type="DEFAULT_VEHTYPE" speed="13.13" pos="19.18" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="66.22" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="66.22" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="38.44" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="38.44" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="10.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="10.66" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="6.60">
+        <vehicle id="flow_0.0" x="109.35" y="93.13" angle="41.03" type="DEFAULT_VEHTYPE" speed="13.13" pos="21.81" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="68.99" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="68.99" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="41.21" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="41.21" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="13.43" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="13.43" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="6.80">
+        <vehicle id="flow_0.0" x="111.60" y="94.48" angle="55.93" type="DEFAULT_VEHTYPE" speed="13.13" pos="24.43" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.60" y="71.77" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="71.77" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="43.99" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="43.99" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="16.21" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="16.21" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="flow_0.0" x="113.85" y="95.83" angle="59.04" type="DEFAULT_VEHTYPE" speed="13.13" pos="27.06" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="101.71" y="74.39" angle="1.29" type="DEFAULT_VEHTYPE" speed="13.13" pos="0.80" lane=":gneJ1_6_0" slope="0.00" acceleration="-3.80"/>
+        <vehicle id="flow_0.2" x="101.60" y="46.77" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="46.77" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="18.99" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="18.99" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="7.20">
+        <vehicle id="flow_0.0" x="116.19" y="96.94" angle="61.93" type="DEFAULT_VEHTYPE" speed="13.13" pos="29.68" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="102.08" y="76.99" angle="5.57" type="DEFAULT_VEHTYPE" speed="13.13" pos="3.42" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="49.55" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="49.55" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="21.77" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="21.77" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="7.40">
+        <vehicle id="flow_0.0" x="118.79" y="97.31" angle="74.01" type="DEFAULT_VEHTYPE" speed="13.13" pos="32.31" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="102.46" y="79.59" angle="8.13" type="DEFAULT_VEHTYPE" speed="13.13" pos="6.05" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="52.33" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="52.33" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="24.55" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="24.55" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="7.60">
+        <vehicle id="flow_0.0" x="121.39" y="97.68" angle="81.86" type="DEFAULT_VEHTYPE" speed="13.13" pos="34.94" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="102.83" y="82.19" angle="8.13" type="DEFAULT_VEHTYPE" speed="13.13" pos="8.68" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="55.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="55.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="27.32" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="27.32" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="7.80">
+        <vehicle id="flow_0.0" x="123.99" y="98.06" angle="81.87" type="DEFAULT_VEHTYPE" speed="13.13" pos="1.60" lane=":gneJ1_16_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="103.33" y="84.74" angle="9.65" type="DEFAULT_VEHTYPE" speed="13.13" pos="11.30" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="57.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="57.88" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="30.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="30.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="flow_0.0" x="126.59" y="98.40" angle="82.19" type="DEFAULT_VEHTYPE" speed="13.13" pos="0.19" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="104.68" y="86.99" angle="21.71" type="DEFAULT_VEHTYPE" speed="13.13" pos="13.93" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="60.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="60.66" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="32.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="32.88" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="5.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="5.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="8.20">
+        <vehicle id="flow_0.0" x="129.32" y="98.40" angle="86.62" type="DEFAULT_VEHTYPE" speed="13.65" pos="2.92" lane="gneE2_1" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.1" x="106.03" y="89.25" angle="30.96" type="DEFAULT_VEHTYPE" speed="13.13" pos="16.55" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="63.44" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="63.44" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="35.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="35.66" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="7.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="7.88" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="8.40">
+        <vehicle id="flow_0.0" x="132.10" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="5.70" lane="gneE2_1" slope="0.00" acceleration="1.20"/>
+        <vehicle id="flow_0.1" x="107.38" y="91.50" angle="30.96" type="DEFAULT_VEHTYPE" speed="13.13" pos="19.18" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="66.22" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="66.22" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="38.44" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="38.44" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="10.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="10.66" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="8.60">
+        <vehicle id="flow_0.0" x="134.87" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="8.47" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="109.35" y="93.13" angle="41.03" type="DEFAULT_VEHTYPE" speed="13.13" pos="21.81" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="68.99" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="68.99" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="41.21" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="41.21" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="13.43" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="13.43" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="8.80">
+        <vehicle id="flow_0.0" x="137.65" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="11.25" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="111.60" y="94.48" angle="55.93" type="DEFAULT_VEHTYPE" speed="13.13" pos="24.43" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.60" y="71.77" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="71.77" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="43.99" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="43.99" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="16.21" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="16.21" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="flow_0.0" x="140.43" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="14.03" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="113.85" y="95.83" angle="59.04" type="DEFAULT_VEHTYPE" speed="13.13" pos="27.06" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="101.71" y="74.39" angle="1.29" type="DEFAULT_VEHTYPE" speed="13.13" pos="0.80" lane=":gneJ1_6_0" slope="0.00" acceleration="-3.80"/>
+        <vehicle id="flow_0.3" x="101.60" y="46.77" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="46.77" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="18.99" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="18.99" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="9.20">
+        <vehicle id="flow_0.0" x="143.21" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="16.81" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="116.19" y="96.94" angle="61.93" type="DEFAULT_VEHTYPE" speed="13.13" pos="29.68" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="102.08" y="76.99" angle="5.57" type="DEFAULT_VEHTYPE" speed="13.13" pos="3.42" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="49.55" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="49.55" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="21.77" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="21.77" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="9.40">
+        <vehicle id="flow_0.0" x="145.99" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="19.59" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="118.79" y="97.31" angle="74.01" type="DEFAULT_VEHTYPE" speed="13.13" pos="32.31" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="102.46" y="79.59" angle="8.13" type="DEFAULT_VEHTYPE" speed="13.13" pos="6.05" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="52.33" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="52.33" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="24.55" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="24.55" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="9.60">
+        <vehicle id="flow_0.0" x="148.76" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="22.36" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="121.39" y="97.68" angle="81.86" type="DEFAULT_VEHTYPE" speed="13.13" pos="34.94" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="102.83" y="82.19" angle="8.13" type="DEFAULT_VEHTYPE" speed="13.13" pos="8.68" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="55.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="55.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="27.32" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="27.32" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="9.80">
+        <vehicle id="flow_0.0" x="151.54" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="25.14" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="123.99" y="98.06" angle="81.87" type="DEFAULT_VEHTYPE" speed="13.13" pos="1.60" lane=":gneJ1_16_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="103.33" y="84.74" angle="9.65" type="DEFAULT_VEHTYPE" speed="13.13" pos="11.30" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="57.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="57.88" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="30.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="30.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="flow_0.0" x="154.32" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="27.92" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="126.59" y="98.40" angle="82.19" type="DEFAULT_VEHTYPE" speed="13.13" pos="0.19" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="104.68" y="86.99" angle="21.71" type="DEFAULT_VEHTYPE" speed="13.13" pos="13.93" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="60.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="60.66" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="32.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="32.88" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="5.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="5.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="10.20">
+        <vehicle id="flow_0.0" x="157.10" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="30.70" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="129.32" y="98.40" angle="86.62" type="DEFAULT_VEHTYPE" speed="13.65" pos="2.92" lane="gneE2_1" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.2" x="106.03" y="89.25" angle="30.96" type="DEFAULT_VEHTYPE" speed="13.13" pos="16.55" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="63.44" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="63.44" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="35.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="35.66" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="7.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="7.88" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="10.40">
+        <vehicle id="flow_0.0" x="159.88" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="33.48" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="132.10" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="5.70" lane="gneE2_1" slope="0.00" acceleration="1.20"/>
+        <vehicle id="flow_0.2" x="107.38" y="91.50" angle="30.96" type="DEFAULT_VEHTYPE" speed="13.13" pos="19.18" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="66.22" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="66.22" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="38.44" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="38.44" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="10.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="10.66" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="10.60">
+        <vehicle id="flow_0.0" x="162.65" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="36.25" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="134.87" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="8.47" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="109.35" y="93.13" angle="41.03" type="DEFAULT_VEHTYPE" speed="13.13" pos="21.81" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="68.99" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="68.99" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="41.21" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="41.21" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="13.43" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="13.43" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="10.80">
+        <vehicle id="flow_0.0" x="165.43" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="39.03" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="137.65" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="11.25" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="111.60" y="94.48" angle="55.93" type="DEFAULT_VEHTYPE" speed="13.13" pos="24.43" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.60" y="71.77" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="71.77" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="43.99" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="43.99" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="16.21" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="16.21" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="flow_0.0" x="168.21" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="41.81" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="140.43" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="14.03" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="113.85" y="95.83" angle="59.04" type="DEFAULT_VEHTYPE" speed="13.13" pos="27.06" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="101.71" y="74.39" angle="1.29" type="DEFAULT_VEHTYPE" speed="13.13" pos="0.80" lane=":gneJ1_6_0" slope="0.00" acceleration="-3.80"/>
+        <vehicle id="flow_0.4" x="101.60" y="46.77" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="46.77" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="18.99" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="18.99" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="11.20">
+        <vehicle id="flow_0.0" x="170.99" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="44.59" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="143.21" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="16.81" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="116.19" y="96.94" angle="61.93" type="DEFAULT_VEHTYPE" speed="13.13" pos="29.68" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="102.08" y="76.99" angle="5.57" type="DEFAULT_VEHTYPE" speed="13.13" pos="3.42" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="49.55" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="49.55" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="21.77" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="21.77" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="11.40">
+        <vehicle id="flow_0.0" x="173.77" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="47.37" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="145.99" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="19.59" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="118.79" y="97.31" angle="74.01" type="DEFAULT_VEHTYPE" speed="13.13" pos="32.31" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="102.46" y="79.59" angle="8.13" type="DEFAULT_VEHTYPE" speed="13.13" pos="6.05" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="52.33" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="52.33" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="24.55" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="24.55" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="11.60">
+        <vehicle id="flow_0.0" x="176.54" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="50.14" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="148.76" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="22.36" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="121.39" y="97.68" angle="81.86" type="DEFAULT_VEHTYPE" speed="13.13" pos="34.94" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="102.83" y="82.19" angle="8.13" type="DEFAULT_VEHTYPE" speed="13.13" pos="8.68" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="55.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="55.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="27.32" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="27.32" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="11.80">
+        <vehicle id="flow_0.0" x="179.32" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="52.92" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="151.54" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="25.14" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="123.99" y="98.06" angle="81.87" type="DEFAULT_VEHTYPE" speed="13.13" pos="1.60" lane=":gneJ1_16_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="103.33" y="84.74" angle="9.65" type="DEFAULT_VEHTYPE" speed="13.13" pos="11.30" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="57.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="57.88" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="30.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="30.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="flow_0.0" x="182.10" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="55.70" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="154.32" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="27.92" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="126.59" y="98.40" angle="82.19" type="DEFAULT_VEHTYPE" speed="13.13" pos="0.19" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="104.68" y="86.99" angle="21.71" type="DEFAULT_VEHTYPE" speed="13.13" pos="13.93" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="60.42" angle="0.00" type="DEFAULT_VEHTYPE" speed="12.69" pos="60.42" lane="gneE0_1" slope="0.00" acceleration="-6.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="32.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="32.88" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="5.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="5.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="12.20">
+        <vehicle id="flow_0.0" x="184.88" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="58.48" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="157.10" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="30.70" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="129.32" y="98.40" angle="86.62" type="DEFAULT_VEHTYPE" speed="13.65" pos="2.92" lane="gneE2_1" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.3" x="106.03" y="89.25" angle="30.96" type="DEFAULT_VEHTYPE" speed="13.13" pos="16.55" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="62.72" angle="0.00" type="DEFAULT_VEHTYPE" speed="11.49" pos="62.72" lane="gneE0_1" slope="0.00" acceleration="-6.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="35.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="35.66" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="7.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="7.88" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="12.40">
+        <vehicle id="flow_0.0" x="187.66" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="61.26" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="159.88" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="33.48" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="132.10" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="5.70" lane="gneE2_1" slope="0.00" acceleration="1.20"/>
+        <vehicle id="flow_0.3" x="107.38" y="91.50" angle="30.96" type="DEFAULT_VEHTYPE" speed="13.13" pos="19.18" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="64.78" angle="0.00" type="DEFAULT_VEHTYPE" speed="10.29" pos="64.78" lane="gneE0_1" slope="0.00" acceleration="-6.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="38.44" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="38.44" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="10.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="10.66" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="12.60">
+        <vehicle id="flow_0.0" x="190.43" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="64.03" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="162.65" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="36.25" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="134.87" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="8.47" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="109.35" y="93.13" angle="41.03" type="DEFAULT_VEHTYPE" speed="13.13" pos="21.81" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="66.59" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.09" pos="66.59" lane="gneE0_1" slope="0.00" acceleration="-6.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="41.09" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.28" pos="41.09" lane="gneE0_1" slope="0.00" acceleration="-3.04"/>
+        <vehicle id="flow_0.6" x="101.60" y="13.43" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="13.43" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="12.80">
+        <vehicle id="flow_0.0" x="193.21" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="66.81" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="165.43" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="39.03" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="137.65" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="11.25" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="111.60" y="94.48" angle="55.93" type="DEFAULT_VEHTYPE" speed="13.13" pos="24.43" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="68.17" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.89" pos="68.17" lane="gneE0_1" slope="0.00" acceleration="-6.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="43.57" angle="0.00" type="DEFAULT_VEHTYPE" speed="12.40" pos="43.57" lane="gneE0_1" slope="0.00" acceleration="-4.40"/>
+        <vehicle id="flow_0.6" x="101.60" y="16.21" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="16.21" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="flow_0.0" x="195.99" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="69.59" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="168.21" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="41.81" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="140.43" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="14.03" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="113.85" y="95.83" angle="59.04" type="DEFAULT_VEHTYPE" speed="13.13" pos="27.06" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="69.51" angle="0.00" type="DEFAULT_VEHTYPE" speed="6.69" pos="69.51" lane="gneE0_1" slope="0.00" acceleration="-6.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="45.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="11.54" pos="45.88" lane="gneE0_1" slope="0.00" acceleration="-4.29"/>
+        <vehicle id="flow_0.6" x="101.60" y="18.99" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="18.99" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="13.20">
+        <vehicle id="flow_0.0" x="198.77" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="72.37" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.1" x="170.99" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="44.59" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="143.21" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="16.81" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="116.19" y="96.94" angle="61.93" type="DEFAULT_VEHTYPE" speed="13.13" pos="29.68" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="70.61" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.49" pos="70.61" lane="gneE0_1" slope="0.00" acceleration="-6.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="48.02" angle="0.00" type="DEFAULT_VEHTYPE" speed="10.71" pos="48.02" lane="gneE0_1" slope="0.00" acceleration="-4.15"/>
+        <vehicle id="flow_0.6" x="101.60" y="21.77" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="21.77" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="13.40">
+        <vehicle id="flow_0.1" x="173.77" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="47.37" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="145.99" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="19.59" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="118.79" y="97.31" angle="74.01" type="DEFAULT_VEHTYPE" speed="13.13" pos="32.31" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="71.47" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.29" pos="71.47" lane="gneE0_1" slope="0.00" acceleration="-6.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="50.00" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.89" pos="50.00" lane="gneE0_1" slope="0.00" acceleration="-4.12"/>
+        <vehicle id="flow_0.6" x="101.60" y="24.46" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.47" pos="24.46" lane="gneE0_1" slope="0.00" acceleration="-2.11"/>
+    </timestep>
+    <timestep time="13.60">
+        <vehicle id="flow_0.1" x="176.54" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="50.14" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="148.76" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="22.36" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="121.39" y="97.68" angle="81.86" type="DEFAULT_VEHTYPE" speed="13.13" pos="34.94" lane=":gneJ1_6_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.08" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.09" pos="72.08" lane="gneE0_1" slope="0.00" acceleration="-6.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="51.82" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.09" pos="51.82" lane="gneE0_1" slope="0.00" acceleration="-4.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="27.02" angle="0.00" type="DEFAULT_VEHTYPE" speed="12.81" pos="27.02" lane="gneE0_1" slope="0.00" acceleration="-3.30"/>
+    </timestep>
+    <timestep time="13.80">
+        <vehicle id="flow_0.1" x="179.32" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="52.92" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="151.54" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="25.14" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="123.99" y="98.06" angle="81.87" type="DEFAULT_VEHTYPE" speed="13.13" pos="1.60" lane=":gneJ1_16_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.46" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.89" pos="72.46" lane="gneE0_1" slope="0.00" acceleration="-6.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="53.49" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.33" pos="53.49" lane="gneE0_1" slope="0.00" acceleration="-3.82"/>
+        <vehicle id="flow_0.6" x="101.60" y="29.46" angle="0.00" type="DEFAULT_VEHTYPE" speed="12.17" pos="29.46" lane="gneE0_1" slope="0.00" acceleration="-3.20"/>
+    </timestep>
+    <timestep time="14.00">
+        <vehicle id="flow_0.1" x="182.10" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="55.70" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="154.32" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="27.92" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="126.59" y="98.40" angle="82.19" type="DEFAULT_VEHTYPE" speed="13.13" pos="0.19" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.69" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="-6.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="55.00" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.57" pos="55.00" lane="gneE0_1" slope="0.00" acceleration="-3.78"/>
+        <vehicle id="flow_0.6" x="101.60" y="31.76" angle="0.00" type="DEFAULT_VEHTYPE" speed="11.53" pos="31.76" lane="gneE0_1" slope="0.00" acceleration="-3.19"/>
+        <vehicle id="flow_0.7" x="101.60" y="5.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="5.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="14.20">
+        <vehicle id="flow_0.1" x="184.88" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="58.48" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="157.10" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="30.70" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="129.32" y="98.40" angle="86.62" type="DEFAULT_VEHTYPE" speed="13.65" pos="2.92" lane="gneE2_1" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="-3.45"/>
+        <vehicle id="flow_0.5" x="101.60" y="56.37" angle="0.00" type="DEFAULT_VEHTYPE" speed="6.85" pos="56.37" lane="gneE0_1" slope="0.00" acceleration="-3.60"/>
+        <vehicle id="flow_0.6" x="101.60" y="33.95" angle="0.00" type="DEFAULT_VEHTYPE" speed="10.92" pos="33.95" lane="gneE0_1" slope="0.00" acceleration="-3.04"/>
+        <vehicle id="flow_0.7" x="101.60" y="7.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="7.88" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="14.40">
+        <vehicle id="flow_0.1" x="187.66" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="61.26" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="159.88" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="33.48" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="132.10" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="5.70" lane="gneE2_1" slope="0.00" acceleration="1.20"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="57.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="6.16" pos="57.60" lane="gneE0_1" slope="0.00" acceleration="-3.42"/>
+        <vehicle id="flow_0.6" x="101.60" y="36.01" angle="0.00" type="DEFAULT_VEHTYPE" speed="10.31" pos="36.01" lane="gneE0_1" slope="0.00" acceleration="-3.05"/>
+        <vehicle id="flow_0.7" x="101.60" y="10.58" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.52" pos="10.58" lane="gneE0_1" slope="0.00" acceleration="-1.85"/>
+    </timestep>
+    <timestep time="14.60">
+        <vehicle id="flow_0.1" x="190.43" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="64.03" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="162.65" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="36.25" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="134.87" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="8.47" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="58.70" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.50" pos="58.70" lane="gneE0_1" slope="0.00" acceleration="-3.33"/>
+        <vehicle id="flow_0.6" x="101.60" y="37.95" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.73" pos="37.95" lane="gneE0_1" slope="0.00" acceleration="-2.91"/>
+        <vehicle id="flow_0.7" x="101.60" y="13.18" angle="0.00" type="DEFAULT_VEHTYPE" speed="12.99" pos="13.18" lane="gneE0_1" slope="0.00" acceleration="-2.63"/>
+    </timestep>
+    <timestep time="14.80">
+        <vehicle id="flow_0.1" x="193.21" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="66.81" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="165.43" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="39.03" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="137.65" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="11.25" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="59.68" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.89" pos="59.68" lane="gneE0_1" slope="0.00" acceleration="-3.05"/>
+        <vehicle id="flow_0.6" x="101.60" y="39.79" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.15" pos="39.79" lane="gneE0_1" slope="0.00" acceleration="-2.89"/>
+        <vehicle id="flow_0.7" x="101.60" y="15.67" angle="0.00" type="DEFAULT_VEHTYPE" speed="12.47" pos="15.67" lane="gneE0_1" slope="0.00" acceleration="-2.64"/>
+    </timestep>
+    <timestep time="15.00">
+        <vehicle id="flow_0.1" x="195.99" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="69.59" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="168.21" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="41.81" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="140.43" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="14.03" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="60.54" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.29" pos="60.54" lane="gneE0_1" slope="0.00" acceleration="-3.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="41.50" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.59" pos="41.50" lane="gneE0_1" slope="0.00" acceleration="-2.80"/>
+        <vehicle id="flow_0.7" x="101.60" y="18.07" angle="0.00" type="DEFAULT_VEHTYPE" speed="11.97" pos="18.07" lane="gneE0_1" slope="0.00" acceleration="-2.51"/>
+    </timestep>
+    <timestep time="15.20">
+        <vehicle id="flow_0.1" x="198.77" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="72.37" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.2" x="170.99" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="44.59" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="143.21" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="16.81" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="61.29" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.75" pos="61.29" lane="gneE0_1" slope="0.00" acceleration="-2.68"/>
+        <vehicle id="flow_0.6" x="101.60" y="43.11" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.05" pos="43.11" lane="gneE0_1" slope="0.00" acceleration="-2.73"/>
+        <vehicle id="flow_0.7" x="101.60" y="20.36" angle="0.00" type="DEFAULT_VEHTYPE" speed="11.44" pos="20.36" lane="gneE0_1" slope="0.00" acceleration="-2.60"/>
+    </timestep>
+    <timestep time="15.40">
+        <vehicle id="flow_0.2" x="173.77" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="47.37" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="145.99" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="19.59" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="61.93" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.24" pos="61.93" lane="gneE0_1" slope="0.00" acceleration="-2.57"/>
+        <vehicle id="flow_0.6" x="101.60" y="44.62" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.51" pos="44.62" lane="gneE0_1" slope="0.00" acceleration="-2.68"/>
+        <vehicle id="flow_0.7" x="101.60" y="22.55" angle="0.00" type="DEFAULT_VEHTYPE" speed="10.95" pos="22.55" lane="gneE0_1" slope="0.00" acceleration="-2.45"/>
+    </timestep>
+    <timestep time="15.60">
+        <vehicle id="flow_0.2" x="176.54" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="50.14" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="148.76" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="22.36" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="62.49" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.77" pos="62.49" lane="gneE0_1" slope="0.00" acceleration="-2.31"/>
+        <vehicle id="flow_0.6" x="101.60" y="46.01" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.00" pos="46.01" lane="gneE0_1" slope="0.00" acceleration="-2.57"/>
+        <vehicle id="flow_0.7" x="101.60" y="24.64" angle="0.00" type="DEFAULT_VEHTYPE" speed="10.45" pos="24.64" lane="gneE0_1" slope="0.00" acceleration="-2.50"/>
+    </timestep>
+    <timestep time="15.80">
+        <vehicle id="flow_0.2" x="179.32" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="52.92" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="151.54" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="25.14" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="62.96" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.37" pos="62.96" lane="gneE0_1" slope="0.00" acceleration="-2.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="47.31" angle="0.00" type="DEFAULT_VEHTYPE" speed="6.48" pos="47.31" lane="gneE0_1" slope="0.00" acceleration="-2.57"/>
+        <vehicle id="flow_0.7" x="101.60" y="26.63" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.97" pos="26.63" lane="gneE0_1" slope="0.00" acceleration="-2.44"/>
+    </timestep>
+    <timestep time="16.00">
+        <vehicle id="flow_0.2" x="182.10" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="55.70" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="154.32" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="27.92" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="63.36" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.98" pos="63.36" lane="gneE0_1" slope="0.00" acceleration="-1.98"/>
+        <vehicle id="flow_0.6" x="101.60" y="48.51" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.99" pos="48.51" lane="gneE0_1" slope="0.00" acceleration="-2.44"/>
+        <vehicle id="flow_0.7" x="101.60" y="28.53" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.49" pos="28.53" lane="gneE0_1" slope="0.00" acceleration="-2.37"/>
+        <vehicle id="flow_0.8" x="101.60" y="5.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="11.89" pos="5.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="16.20">
+        <vehicle id="flow_0.2" x="184.88" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="58.48" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="157.10" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="30.70" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="63.69" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.65" pos="63.69" lane="gneE0_1" slope="0.00" acceleration="-1.65"/>
+        <vehicle id="flow_0.6" x="101.60" y="49.61" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.50" pos="49.61" lane="gneE0_1" slope="0.00" acceleration="-2.45"/>
+        <vehicle id="flow_0.7" x="101.60" y="30.33" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.00" pos="30.33" lane="gneE0_1" slope="0.00" acceleration="-2.47"/>
+        <vehicle id="flow_0.8" x="101.60" y="7.48" angle="0.00" type="DEFAULT_VEHTYPE" speed="11.89" pos="7.48" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="16.40">
+        <vehicle id="flow_0.2" x="187.66" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="61.26" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="159.88" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="33.48" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="63.96" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.37" pos="63.96" lane="gneE0_1" slope="0.00" acceleration="-1.37"/>
+        <vehicle id="flow_0.6" x="101.60" y="50.62" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.04" pos="50.62" lane="gneE0_1" slope="0.00" acceleration="-2.32"/>
+        <vehicle id="flow_0.7" x="101.60" y="32.04" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.54" pos="32.04" lane="gneE0_1" slope="0.00" acceleration="-2.27"/>
+        <vehicle id="flow_0.8" x="101.60" y="9.77" angle="0.00" type="DEFAULT_VEHTYPE" speed="11.44" pos="9.77" lane="gneE0_1" slope="0.00" acceleration="-2.27"/>
+    </timestep>
+    <timestep time="16.60">
+        <vehicle id="flow_0.2" x="190.43" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="64.03" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="162.65" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="36.25" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="64.19" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.13" pos="64.19" lane="gneE0_1" slope="0.00" acceleration="-1.20"/>
+        <vehicle id="flow_0.6" x="101.60" y="51.53" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.58" pos="51.53" lane="gneE0_1" slope="0.00" acceleration="-2.31"/>
+        <vehicle id="flow_0.7" x="101.60" y="33.65" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.07" pos="33.65" lane="gneE0_1" slope="0.00" acceleration="-2.37"/>
+        <vehicle id="flow_0.8" x="101.60" y="11.97" angle="0.00" type="DEFAULT_VEHTYPE" speed="11.00" pos="11.97" lane="gneE0_1" slope="0.00" acceleration="-2.17"/>
+    </timestep>
+    <timestep time="16.80">
+        <vehicle id="flow_0.2" x="193.21" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="66.81" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="165.43" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="39.03" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="64.37" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.91" pos="64.37" lane="gneE0_1" slope="0.00" acceleration="-1.13"/>
+        <vehicle id="flow_0.6" x="101.60" y="52.36" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.12" pos="52.36" lane="gneE0_1" slope="0.00" acceleration="-2.26"/>
+        <vehicle id="flow_0.7" x="101.60" y="35.17" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.60" pos="35.17" lane="gneE0_1" slope="0.00" acceleration="-2.33"/>
+        <vehicle id="flow_0.8" x="101.60" y="14.08" angle="0.00" type="DEFAULT_VEHTYPE" speed="10.56" pos="14.08" lane="gneE0_1" slope="0.00" acceleration="-2.20"/>
+    </timestep>
+    <timestep time="17.00">
+        <vehicle id="flow_0.2" x="195.99" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="69.59" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="168.21" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="41.81" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="64.52" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.73" pos="64.52" lane="gneE0_1" slope="0.00" acceleration="-0.91"/>
+        <vehicle id="flow_0.6" x="101.60" y="53.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.72" pos="53.10" lane="gneE0_1" slope="0.00" acceleration="-2.01"/>
+        <vehicle id="flow_0.7" x="101.60" y="36.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.16" pos="36.60" lane="gneE0_1" slope="0.00" acceleration="-2.22"/>
+        <vehicle id="flow_0.8" x="101.60" y="16.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="10.12" pos="16.10" lane="gneE0_1" slope="0.00" acceleration="-2.21"/>
+    </timestep>
+    <timestep time="17.20">
+        <vehicle id="flow_0.2" x="198.77" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="72.37" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.3" x="170.99" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="44.59" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="64.63" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.58" pos="64.63" lane="gneE0_1" slope="0.00" acceleration="-0.73"/>
+        <vehicle id="flow_0.6" x="101.60" y="53.76" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.31" pos="53.76" lane="gneE0_1" slope="0.00" acceleration="-2.05"/>
+        <vehicle id="flow_0.7" x="101.60" y="37.94" angle="0.00" type="DEFAULT_VEHTYPE" speed="6.69" pos="37.94" lane="gneE0_1" slope="0.00" acceleration="-2.32"/>
+        <vehicle id="flow_0.8" x="101.60" y="18.04" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.69" pos="18.04" lane="gneE0_1" slope="0.00" acceleration="-2.15"/>
+    </timestep>
+    <timestep time="17.40">
+        <vehicle id="flow_0.3" x="173.77" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="47.37" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="64.73" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.46" pos="64.73" lane="gneE0_1" slope="0.00" acceleration="-0.58"/>
+        <vehicle id="flow_0.6" x="101.60" y="54.35" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.92" pos="54.35" lane="gneE0_1" slope="0.00" acceleration="-1.95"/>
+        <vehicle id="flow_0.7" x="101.60" y="39.19" angle="0.00" type="DEFAULT_VEHTYPE" speed="6.26" pos="39.19" lane="gneE0_1" slope="0.00" acceleration="-2.16"/>
+        <vehicle id="flow_0.8" x="101.60" y="19.89" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.26" pos="19.89" lane="gneE0_1" slope="0.00" acceleration="-2.18"/>
+    </timestep>
+    <timestep time="17.60">
+        <vehicle id="flow_0.3" x="176.54" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="50.14" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="64.80" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.37" pos="64.80" lane="gneE0_1" slope="0.00" acceleration="-0.46"/>
+        <vehicle id="flow_0.6" x="101.60" y="54.86" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.57" pos="54.86" lane="gneE0_1" slope="0.00" acceleration="-1.75"/>
+        <vehicle id="flow_0.7" x="101.60" y="40.36" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.83" pos="40.36" lane="gneE0_1" slope="0.00" acceleration="-2.14"/>
+        <vehicle id="flow_0.8" x="101.60" y="21.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.83" pos="21.66" lane="gneE0_1" slope="0.00" acceleration="-2.15"/>
+    </timestep>
+    <timestep time="17.80">
+        <vehicle id="flow_0.3" x="179.32" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="52.92" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="64.86" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.30" pos="64.86" lane="gneE0_1" slope="0.00" acceleration="-0.37"/>
+        <vehicle id="flow_0.6" x="101.60" y="55.31" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.23" pos="55.31" lane="gneE0_1" slope="0.00" acceleration="-1.69"/>
+        <vehicle id="flow_0.7" x="101.60" y="41.44" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.39" pos="41.44" lane="gneE0_1" slope="0.00" acceleration="-2.20"/>
+        <vehicle id="flow_0.8" x="101.60" y="23.34" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.41" pos="23.34" lane="gneE0_1" slope="0.00" acceleration="-2.07"/>
+    </timestep>
+    <timestep time="18.00">
+        <vehicle id="flow_0.3" x="182.10" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="55.70" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="64.91" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.24" pos="64.91" lane="gneE0_1" slope="0.00" acceleration="-0.30"/>
+        <vehicle id="flow_0.6" x="101.60" y="55.69" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.91" pos="55.69" lane="gneE0_1" slope="0.00" acceleration="-1.61"/>
+        <vehicle id="flow_0.7" x="101.60" y="42.44" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.99" pos="42.44" lane="gneE0_1" slope="0.00" acceleration="-2.04"/>
+        <vehicle id="flow_0.8" x="101.60" y="24.94" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.98" pos="24.94" lane="gneE0_1" slope="0.00" acceleration="-2.17"/>
+        <vehicle id="flow_0.9" x="101.60" y="5.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.81" pos="5.10" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="18.20">
+        <vehicle id="flow_0.3" x="184.88" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="58.48" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="64.95" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.19" pos="64.95" lane="gneE0_1" slope="0.00" acceleration="-0.24"/>
+        <vehicle id="flow_0.6" x="101.60" y="56.02" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.63" pos="56.02" lane="gneE0_1" slope="0.00" acceleration="-1.39"/>
+        <vehicle id="flow_0.7" x="101.60" y="43.35" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.58" pos="43.35" lane="gneE0_1" slope="0.00" acceleration="-2.01"/>
+        <vehicle id="flow_0.8" x="101.60" y="26.45" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.56" pos="26.45" lane="gneE0_1" slope="0.00" acceleration="-2.10"/>
+        <vehicle id="flow_0.9" x="101.60" y="7.06" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.81" pos="7.06" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="18.40">
+        <vehicle id="flow_0.3" x="187.66" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="61.26" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="64.98" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.15" pos="64.98" lane="gneE0_1" slope="0.00" acceleration="-0.19"/>
+        <vehicle id="flow_0.6" x="101.60" y="56.29" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.39" pos="56.29" lane="gneE0_1" slope="0.00" acceleration="-1.20"/>
+        <vehicle id="flow_0.7" x="101.60" y="44.19" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.18" pos="44.19" lane="gneE0_1" slope="0.00" acceleration="-2.02"/>
+        <vehicle id="flow_0.8" x="101.60" y="27.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.16" pos="27.88" lane="gneE0_1" slope="0.00" acceleration="-2.00"/>
+        <vehicle id="flow_0.9" x="101.60" y="8.95" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.43" pos="8.95" lane="gneE0_1" slope="0.00" acceleration="-1.90"/>
+    </timestep>
+    <timestep time="18.60">
+        <vehicle id="flow_0.3" x="190.43" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="64.03" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.00" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.12" pos="65.00" lane="gneE0_1" slope="0.00" acceleration="-0.15"/>
+        <vehicle id="flow_0.6" x="101.60" y="56.53" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.18" pos="56.53" lane="gneE0_1" slope="0.00" acceleration="-1.05"/>
+        <vehicle id="flow_0.7" x="101.60" y="44.95" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.80" pos="44.95" lane="gneE0_1" slope="0.00" acceleration="-1.89"/>
+        <vehicle id="flow_0.8" x="101.60" y="29.23" angle="0.00" type="DEFAULT_VEHTYPE" speed="6.74" pos="29.23" lane="gneE0_1" slope="0.00" acceleration="-2.09"/>
+        <vehicle id="flow_0.9" x="101.60" y="10.76" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.04" pos="10.76" lane="gneE0_1" slope="0.00" acceleration="-1.93"/>
+    </timestep>
+    <timestep time="18.80">
+        <vehicle id="flow_0.3" x="193.21" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="66.81" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.02" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.10" pos="65.02" lane="gneE0_1" slope="0.00" acceleration="-0.12"/>
+        <vehicle id="flow_0.6" x="101.60" y="56.72" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.97" pos="56.72" lane="gneE0_1" slope="0.00" acceleration="-1.06"/>
+        <vehicle id="flow_0.7" x="101.60" y="45.64" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.43" pos="45.64" lane="gneE0_1" slope="0.00" acceleration="-1.86"/>
+        <vehicle id="flow_0.8" x="101.60" y="30.49" angle="0.00" type="DEFAULT_VEHTYPE" speed="6.33" pos="30.49" lane="gneE0_1" slope="0.00" acceleration="-2.04"/>
+        <vehicle id="flow_0.9" x="101.60" y="12.49" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.68" pos="12.49" lane="gneE0_1" slope="0.00" acceleration="-1.83"/>
+    </timestep>
+    <timestep time="19.00">
+        <vehicle id="flow_0.3" x="195.99" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="69.59" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.04" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.08" pos="65.04" lane="gneE0_1" slope="0.00" acceleration="-0.10"/>
+        <vehicle id="flow_0.6" x="101.60" y="56.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.79" pos="56.88" lane="gneE0_1" slope="0.00" acceleration="-0.87"/>
+        <vehicle id="flow_0.7" x="101.60" y="46.25" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.08" pos="46.25" lane="gneE0_1" slope="0.00" acceleration="-1.76"/>
+        <vehicle id="flow_0.8" x="101.60" y="31.68" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.94" pos="31.68" lane="gneE0_1" slope="0.00" acceleration="-1.95"/>
+        <vehicle id="flow_0.9" x="101.60" y="14.15" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.30" pos="14.15" lane="gneE0_1" slope="0.00" acceleration="-1.87"/>
+    </timestep>
+    <timestep time="19.20">
+        <vehicle id="flow_0.3" x="198.77" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="72.37" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.05" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.06" pos="65.05" lane="gneE0_1" slope="0.00" acceleration="-0.08"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.01" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.65" pos="57.01" lane="gneE0_1" slope="0.00" acceleration="-0.72"/>
+        <vehicle id="flow_0.7" x="101.60" y="46.80" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.75" pos="46.80" lane="gneE0_1" slope="0.00" acceleration="-1.63"/>
+        <vehicle id="flow_0.8" x="101.60" y="32.79" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.54" pos="32.79" lane="gneE0_1" slope="0.00" acceleration="-1.98"/>
+        <vehicle id="flow_0.9" x="101.60" y="15.74" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.92" pos="15.74" lane="gneE0_1" slope="0.00" acceleration="-1.94"/>
+    </timestep>
+    <timestep time="19.40">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.06" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.05" pos="65.06" lane="gneE0_1" slope="0.00" acceleration="-0.06"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.12" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.53" pos="57.12" lane="gneE0_1" slope="0.00" acceleration="-0.59"/>
+        <vehicle id="flow_0.7" x="101.60" y="47.29" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.45" pos="47.29" lane="gneE0_1" slope="0.00" acceleration="-1.50"/>
+        <vehicle id="flow_0.8" x="101.60" y="33.82" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.16" pos="33.82" lane="gneE0_1" slope="0.00" acceleration="-1.91"/>
+        <vehicle id="flow_0.9" x="101.60" y="17.25" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.56" pos="17.25" lane="gneE0_1" slope="0.00" acceleration="-1.80"/>
+    </timestep>
+    <timestep time="19.60">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.07" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.04" pos="65.07" lane="gneE0_1" slope="0.00" acceleration="-0.05"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.21" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.44" pos="57.21" lane="gneE0_1" slope="0.00" acceleration="-0.48"/>
+        <vehicle id="flow_0.7" x="101.60" y="47.72" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.14" pos="47.72" lane="gneE0_1" slope="0.00" acceleration="-1.56"/>
+        <vehicle id="flow_0.8" x="101.60" y="34.78" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.79" pos="34.78" lane="gneE0_1" slope="0.00" acceleration="-1.84"/>
+        <vehicle id="flow_0.9" x="101.60" y="18.69" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.20" pos="18.69" lane="gneE0_1" slope="0.00" acceleration="-1.79"/>
+    </timestep>
+    <timestep time="19.80">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.07" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.03" pos="65.07" lane="gneE0_1" slope="0.00" acceleration="-0.04"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.28" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.36" pos="57.28" lane="gneE0_1" slope="0.00" acceleration="-0.40"/>
+        <vehicle id="flow_0.7" x="101.60" y="48.09" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.86" pos="48.09" lane="gneE0_1" slope="0.00" acceleration="-1.42"/>
+        <vehicle id="flow_0.8" x="101.60" y="35.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.42" pos="35.66" lane="gneE0_1" slope="0.00" acceleration="-1.88"/>
+        <vehicle id="flow_0.9" x="101.60" y="20.05" angle="0.00" type="DEFAULT_VEHTYPE" speed="6.81" pos="20.05" lane="gneE0_1" slope="0.00" acceleration="-1.94"/>
+    </timestep>
+    <timestep time="20.00">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.08" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.03" pos="65.08" lane="gneE0_1" slope="0.00" acceleration="-0.03"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.34" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.29" pos="57.34" lane="gneE0_1" slope="0.00" acceleration="-0.33"/>
+        <vehicle id="flow_0.7" x="101.60" y="48.41" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.61" pos="48.41" lane="gneE0_1" slope="0.00" acceleration="-1.25"/>
+        <vehicle id="flow_0.8" x="101.60" y="36.48" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.06" pos="36.48" lane="gneE0_1" slope="0.00" acceleration="-1.78"/>
+        <vehicle id="flow_0.9" x="101.60" y="21.34" angle="0.00" type="DEFAULT_VEHTYPE" speed="6.46" pos="21.34" lane="gneE0_1" slope="0.00" acceleration="-1.76"/>
+    </timestep>
+    <timestep time="20.20">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.08" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.02" pos="65.08" lane="gneE0_1" slope="0.00" acceleration="-0.03"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.39" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.24" pos="57.39" lane="gneE0_1" slope="0.00" acceleration="-0.27"/>
+        <vehicle id="flow_0.7" x="101.60" y="48.69" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.39" pos="48.69" lane="gneE0_1" slope="0.00" acceleration="-1.09"/>
+        <vehicle id="flow_0.8" x="101.60" y="37.22" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.72" pos="37.22" lane="gneE0_1" slope="0.00" acceleration="-1.69"/>
+        <vehicle id="flow_0.9" x="101.60" y="22.57" angle="0.00" type="DEFAULT_VEHTYPE" speed="6.11" pos="22.57" lane="gneE0_1" slope="0.00" acceleration="-1.73"/>
+    </timestep>
+    <timestep time="20.40">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.08" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.02" pos="65.08" lane="gneE0_1" slope="0.00" acceleration="-0.02"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.42" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.20" pos="57.42" lane="gneE0_1" slope="0.00" acceleration="-0.22"/>
+        <vehicle id="flow_0.7" x="101.60" y="48.93" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.20" pos="48.93" lane="gneE0_1" slope="0.00" acceleration="-0.96"/>
+        <vehicle id="flow_0.8" x="101.60" y="37.90" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.37" pos="37.90" lane="gneE0_1" slope="0.00" acceleration="-1.74"/>
+        <vehicle id="flow_0.9" x="101.60" y="23.72" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.75" pos="23.72" lane="gneE0_1" slope="0.00" acceleration="-1.83"/>
+    </timestep>
+    <timestep time="20.60">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.09" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.01" pos="65.09" lane="gneE0_1" slope="0.00" acceleration="-0.02"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.46" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.16" pos="57.46" lane="gneE0_1" slope="0.00" acceleration="-0.18"/>
+        <vehicle id="flow_0.7" x="101.60" y="49.13" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.00" pos="49.13" lane="gneE0_1" slope="0.00" acceleration="-1.00"/>
+        <vehicle id="flow_0.8" x="101.60" y="38.50" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.04" pos="38.50" lane="gneE0_1" slope="0.00" acceleration="-1.69"/>
+        <vehicle id="flow_0.9" x="101.60" y="24.79" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.39" pos="24.79" lane="gneE0_1" slope="0.00" acceleration="-1.77"/>
+    </timestep>
+    <timestep time="20.80">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.09" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.01" pos="65.09" lane="gneE0_1" slope="0.00" acceleration="-0.01"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.48" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.13" pos="57.48" lane="gneE0_1" slope="0.00" acceleration="-0.15"/>
+        <vehicle id="flow_0.7" x="101.60" y="49.29" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.83" pos="49.29" lane="gneE0_1" slope="0.00" acceleration="-0.84"/>
+        <vehicle id="flow_0.8" x="101.60" y="39.05" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.75" pos="39.05" lane="gneE0_1" slope="0.00" acceleration="-1.46"/>
+        <vehicle id="flow_0.9" x="101.60" y="25.81" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.06" pos="25.81" lane="gneE0_1" slope="0.00" acceleration="-1.69"/>
+    </timestep>
+    <timestep time="21.00">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.09" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.01" pos="65.09" lane="gneE0_1" slope="0.00" acceleration="-0.01"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.50" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.11" pos="57.50" lane="gneE0_1" slope="0.00" acceleration="-0.12"/>
+        <vehicle id="flow_0.7" x="101.60" y="49.43" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.69" pos="49.43" lane="gneE0_1" slope="0.00" acceleration="-0.70"/>
+        <vehicle id="flow_0.8" x="101.60" y="39.55" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.47" pos="39.55" lane="gneE0_1" slope="0.00" acceleration="-1.37"/>
+        <vehicle id="flow_0.9" x="101.60" y="26.75" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.73" pos="26.75" lane="gneE0_1" slope="0.00" acceleration="-1.65"/>
+    </timestep>
+    <timestep time="21.20">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.09" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.01" pos="65.09" lane="gneE0_1" slope="0.00" acceleration="-0.01"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.52" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.09" pos="57.52" lane="gneE0_1" slope="0.00" acceleration="-0.10"/>
+        <vehicle id="flow_0.7" x="101.60" y="49.54" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.57" pos="49.54" lane="gneE0_1" slope="0.00" acceleration="-0.58"/>
+        <vehicle id="flow_0.8" x="101.60" y="39.98" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.19" pos="39.98" lane="gneE0_1" slope="0.00" acceleration="-1.43"/>
+        <vehicle id="flow_0.9" x="101.60" y="27.63" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.38" pos="27.63" lane="gneE0_1" slope="0.00" acceleration="-1.75"/>
+    </timestep>
+    <timestep time="21.40">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.09" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.01" pos="65.09" lane="gneE0_1" slope="0.00" acceleration="-0.01"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.54" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.07" pos="57.54" lane="gneE0_1" slope="0.00" acceleration="-0.08"/>
+        <vehicle id="flow_0.7" x="101.60" y="49.64" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.47" pos="49.64" lane="gneE0_1" slope="0.00" acceleration="-0.49"/>
+        <vehicle id="flow_0.8" x="101.60" y="40.37" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.92" pos="40.37" lane="gneE0_1" slope="0.00" acceleration="-1.34"/>
+        <vehicle id="flow_0.9" x="101.60" y="28.44" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.06" pos="28.44" lane="gneE0_1" slope="0.00" acceleration="-1.59"/>
+    </timestep>
+    <timestep time="21.60">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.09" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.09" lane="gneE0_1" slope="0.00" acceleration="-0.01"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.55" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.06" pos="57.55" lane="gneE0_1" slope="0.00" acceleration="-0.07"/>
+        <vehicle id="flow_0.7" x="101.60" y="49.72" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.39" pos="49.72" lane="gneE0_1" slope="0.00" acceleration="-0.40"/>
+        <vehicle id="flow_0.8" x="101.60" y="40.70" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.68" pos="40.70" lane="gneE0_1" slope="0.00" acceleration="-1.20"/>
+        <vehicle id="flow_0.9" x="101.60" y="29.19" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.76" pos="29.19" lane="gneE0_1" slope="0.00" acceleration="-1.51"/>
+    </timestep>
+    <timestep time="21.80">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.56" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.05" pos="57.56" lane="gneE0_1" slope="0.00" acceleration="-0.05"/>
+        <vehicle id="flow_0.7" x="101.60" y="49.78" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.33" pos="49.78" lane="gneE0_1" slope="0.00" acceleration="-0.34"/>
+        <vehicle id="flow_0.8" x="101.60" y="40.99" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.46" pos="40.99" lane="gneE0_1" slope="0.00" acceleration="-1.07"/>
+        <vehicle id="flow_0.9" x="101.60" y="29.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.45" pos="29.88" lane="gneE0_1" slope="0.00" acceleration="-1.55"/>
+    </timestep>
+    <timestep time="22.00">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.56" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.04" pos="57.56" lane="gneE0_1" slope="0.00" acceleration="-0.04"/>
+        <vehicle id="flow_0.7" x="101.60" y="49.84" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.27" pos="49.84" lane="gneE0_1" slope="0.00" acceleration="-0.28"/>
+        <vehicle id="flow_0.8" x="101.60" y="41.25" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.27" pos="41.25" lane="gneE0_1" slope="0.00" acceleration="-0.95"/>
+        <vehicle id="flow_0.9" x="101.60" y="30.51" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.13" pos="30.51" lane="gneE0_1" slope="0.00" acceleration="-1.57"/>
+    </timestep>
+    <timestep time="22.20">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.57" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.03" pos="57.57" lane="gneE0_1" slope="0.00" acceleration="-0.04"/>
+        <vehicle id="flow_0.7" x="101.60" y="49.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.22" pos="49.88" lane="gneE0_1" slope="0.00" acceleration="-0.23"/>
+        <vehicle id="flow_0.8" x="101.60" y="41.47" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.09" pos="41.47" lane="gneE0_1" slope="0.00" acceleration="-0.93"/>
+        <vehicle id="flow_0.9" x="101.60" y="31.07" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.84" pos="31.07" lane="gneE0_1" slope="0.00" acceleration="-1.46"/>
+    </timestep>
+    <timestep time="22.40">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.57" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.03" pos="57.57" lane="gneE0_1" slope="0.00" acceleration="-0.03"/>
+        <vehicle id="flow_0.7" x="101.60" y="49.92" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.19" pos="49.92" lane="gneE0_1" slope="0.00" acceleration="-0.19"/>
+        <vehicle id="flow_0.8" x="101.60" y="41.65" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.92" pos="41.65" lane="gneE0_1" slope="0.00" acceleration="-0.86"/>
+        <vehicle id="flow_0.9" x="101.60" y="31.59" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.58" pos="31.59" lane="gneE0_1" slope="0.00" acceleration="-1.30"/>
+    </timestep>
+    <timestep time="22.60">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.58" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.02" pos="57.58" lane="gneE0_1" slope="0.00" acceleration="-0.02"/>
+        <vehicle id="flow_0.7" x="101.60" y="49.95" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.15" pos="49.95" lane="gneE0_1" slope="0.00" acceleration="-0.16"/>
+        <vehicle id="flow_0.8" x="101.60" y="41.80" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.77" pos="41.80" lane="gneE0_1" slope="0.00" acceleration="-0.73"/>
+        <vehicle id="flow_0.9" x="101.60" y="32.06" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.33" pos="32.06" lane="gneE0_1" slope="0.00" acceleration="-1.24"/>
+    </timestep>
+    <timestep time="22.80">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.58" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.02" pos="57.58" lane="gneE0_1" slope="0.00" acceleration="-0.02"/>
+        <vehicle id="flow_0.7" x="101.60" y="49.98" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.13" pos="49.98" lane="gneE0_1" slope="0.00" acceleration="-0.13"/>
+        <vehicle id="flow_0.8" x="101.60" y="41.93" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.65" pos="41.93" lane="gneE0_1" slope="0.00" acceleration="-0.62"/>
+        <vehicle id="flow_0.9" x="101.60" y="32.47" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.07" pos="32.47" lane="gneE0_1" slope="0.00" acceleration="-1.30"/>
+    </timestep>
+    <timestep time="23.00">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.59" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.01" pos="57.59" lane="gneE0_1" slope="0.00" acceleration="-0.02"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.00" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.10" pos="50.00" lane="gneE0_1" slope="0.00" acceleration="-0.11"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.04" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.54" pos="42.04" lane="gneE0_1" slope="0.00" acceleration="-0.52"/>
+        <vehicle id="flow_0.9" x="101.60" y="32.84" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.83" pos="32.84" lane="gneE0_1" slope="0.00" acceleration="-1.19"/>
+    </timestep>
+    <timestep time="23.20">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.59" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.01" pos="57.59" lane="gneE0_1" slope="0.00" acceleration="-0.01"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.01" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.09" pos="50.01" lane="gneE0_1" slope="0.00" acceleration="-0.09"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.13" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.45" pos="42.13" lane="gneE0_1" slope="0.00" acceleration="-0.44"/>
+        <vehicle id="flow_0.9" x="101.60" y="33.16" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.62" pos="33.16" lane="gneE0_1" slope="0.00" acceleration="-1.08"/>
+    </timestep>
+    <timestep time="23.40">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.59" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.01" pos="57.59" lane="gneE0_1" slope="0.00" acceleration="-0.01"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.03" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.07" pos="50.03" lane="gneE0_1" slope="0.00" acceleration="-0.08"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.21" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.38" pos="42.21" lane="gneE0_1" slope="0.00" acceleration="-0.37"/>
+        <vehicle id="flow_0.9" x="101.60" y="33.45" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.42" pos="33.45" lane="gneE0_1" slope="0.00" acceleration="-0.97"/>
+    </timestep>
+    <timestep time="23.60">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.59" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.01" pos="57.59" lane="gneE0_1" slope="0.00" acceleration="-0.01"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.04" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.06" pos="50.04" lane="gneE0_1" slope="0.00" acceleration="-0.06"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.27" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.32" pos="42.27" lane="gneE0_1" slope="0.00" acceleration="-0.31"/>
+        <vehicle id="flow_0.9" x="101.60" y="33.70" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.25" pos="33.70" lane="gneE0_1" slope="0.00" acceleration="-0.87"/>
+    </timestep>
+    <timestep time="23.80">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.59" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.01" pos="57.59" lane="gneE0_1" slope="0.00" acceleration="-0.01"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.05" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.05" pos="50.05" lane="gneE0_1" slope="0.00" acceleration="-0.05"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.33" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.27" pos="42.33" lane="gneE0_1" slope="0.00" acceleration="-0.26"/>
+        <vehicle id="flow_0.9" x="101.60" y="33.91" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.07" pos="33.91" lane="gneE0_1" slope="0.00" acceleration="-0.88"/>
+    </timestep>
+    <timestep time="24.00">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.59" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="57.59" lane="gneE0_1" slope="0.00" acceleration="-0.01"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.06" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.04" pos="50.06" lane="gneE0_1" slope="0.00" acceleration="-0.04"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.37" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.22" pos="42.37" lane="gneE0_1" slope="0.00" acceleration="-0.22"/>
+        <vehicle id="flow_0.9" x="101.60" y="34.09" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.91" pos="34.09" lane="gneE0_1" slope="0.00" acceleration="-0.81"/>
+    </timestep>
+    <timestep time="24.20">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.59" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="57.59" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.07" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.03" pos="50.07" lane="gneE0_1" slope="0.00" acceleration="-0.04"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.41" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.19" pos="42.41" lane="gneE0_1" slope="0.00" acceleration="-0.18"/>
+        <vehicle id="flow_0.9" x="101.60" y="34.25" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.78" pos="34.25" lane="gneE0_1" slope="0.00" acceleration="-0.69"/>
+    </timestep>
+    <timestep time="24.40">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.59" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="57.59" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.07" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.03" pos="50.07" lane="gneE0_1" slope="0.00" acceleration="-0.03"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.44" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.16" pos="42.44" lane="gneE0_1" slope="0.00" acceleration="-0.15"/>
+        <vehicle id="flow_0.9" x="101.60" y="34.38" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.66" pos="34.38" lane="gneE0_1" slope="0.00" acceleration="-0.59"/>
+    </timestep>
+    <timestep time="24.60">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.59" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="57.59" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.08" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.02" pos="50.08" lane="gneE0_1" slope="0.00" acceleration="-0.02"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.47" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.13" pos="42.47" lane="gneE0_1" slope="0.00" acceleration="-0.13"/>
+        <vehicle id="flow_0.9" x="101.60" y="34.49" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.56" pos="34.49" lane="gneE0_1" slope="0.00" acceleration="-0.50"/>
+    </timestep>
+    <timestep time="24.80">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="57.60" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.08" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.02" pos="50.08" lane="gneE0_1" slope="0.00" acceleration="-0.02"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.49" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.11" pos="42.49" lane="gneE0_1" slope="0.00" acceleration="-0.11"/>
+        <vehicle id="flow_0.9" x="101.60" y="34.59" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.47" pos="34.59" lane="gneE0_1" slope="0.00" acceleration="-0.43"/>
+    </timestep>
+    <timestep time="25.00">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="57.60" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.08" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.02" pos="50.08" lane="gneE0_1" slope="0.00" acceleration="-0.02"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.51" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.09" pos="42.51" lane="gneE0_1" slope="0.00" acceleration="-0.09"/>
+        <vehicle id="flow_0.9" x="101.60" y="34.67" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.40" pos="34.67" lane="gneE0_1" slope="0.00" acceleration="-0.36"/>
+    </timestep>
+    <timestep time="25.20">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="57.60" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.08" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.01" pos="50.08" lane="gneE0_1" slope="0.00" acceleration="-0.01"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.52" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.08" pos="42.52" lane="gneE0_1" slope="0.00" acceleration="-0.08"/>
+        <vehicle id="flow_0.9" x="101.60" y="34.73" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.34" pos="34.73" lane="gneE0_1" slope="0.00" acceleration="-0.31"/>
+    </timestep>
+    <timestep time="25.40">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="57.60" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.09" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.01" pos="50.09" lane="gneE0_1" slope="0.00" acceleration="-0.01"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.53" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.06" pos="42.53" lane="gneE0_1" slope="0.00" acceleration="-0.06"/>
+        <vehicle id="flow_0.9" x="101.60" y="34.79" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.29" pos="34.79" lane="gneE0_1" slope="0.00" acceleration="-0.26"/>
+    </timestep>
+    <timestep time="25.60">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="57.60" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.09" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.01" pos="50.09" lane="gneE0_1" slope="0.00" acceleration="-0.01"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.54" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.05" pos="42.54" lane="gneE0_1" slope="0.00" acceleration="-0.05"/>
+        <vehicle id="flow_0.9" x="101.60" y="34.84" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.24" pos="34.84" lane="gneE0_1" slope="0.00" acceleration="-0.22"/>
+    </timestep>
+    <timestep time="25.80">
+        <vehicle id="flow_0.4" x="101.60" y="72.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="72.60" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="57.60" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.09" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.01" pos="50.09" lane="gneE0_1" slope="0.00" acceleration="-0.01"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.55" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.04" pos="42.55" lane="gneE0_1" slope="0.00" acceleration="-0.04"/>
+        <vehicle id="flow_0.9" x="101.60" y="34.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.20" pos="34.88" lane="gneE0_1" slope="0.00" acceleration="-0.19"/>
+    </timestep>
+    <timestep time="26.00">
+        <vehicle id="flow_0.4" x="101.60" y="72.70" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.52" pos="72.70" lane="gneE0_1" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="65.10" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="57.60" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.09" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.01" pos="50.09" lane="gneE0_1" slope="0.00" acceleration="-0.01"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.56" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.04" pos="42.56" lane="gneE0_1" slope="0.00" acceleration="-0.04"/>
+        <vehicle id="flow_0.9" x="101.60" y="34.91" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.17" pos="34.91" lane="gneE0_1" slope="0.00" acceleration="-0.16"/>
+    </timestep>
+    <timestep time="26.20">
+        <vehicle id="flow_0.4" x="101.60" y="72.91" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.04" pos="72.91" lane="gneE0_1" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.12" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.10" pos="65.12" lane="gneE0_1" slope="0.00" acceleration="0.52"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="57.60" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.09" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="50.09" lane="gneE0_1" slope="0.00" acceleration="-0.01"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.57" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.03" pos="42.57" lane="gneE0_1" slope="0.00" acceleration="-0.03"/>
+        <vehicle id="flow_0.9" x="101.60" y="34.94" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.14" pos="34.94" lane="gneE0_1" slope="0.00" acceleration="-0.13"/>
+    </timestep>
+    <timestep time="26.40">
+        <vehicle id="flow_0.4" x="101.60" y="73.22" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.56" pos="73.22" lane="gneE0_1" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.18" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.29" pos="65.18" lane="gneE0_1" slope="0.00" acceleration="0.94"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.02" pos="57.60" lane="gneE0_1" slope="0.00" acceleration="0.10"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.09" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="50.09" lane="gneE0_1" slope="0.00" acceleration="-0.00"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.57" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.03" pos="42.57" lane="gneE0_1" slope="0.00" acceleration="-0.03"/>
+        <vehicle id="flow_0.9" x="101.60" y="34.97" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.12" pos="34.97" lane="gneE0_1" slope="0.00" acceleration="-0.11"/>
+    </timestep>
+    <timestep time="26.60">
+        <vehicle id="flow_0.4" x="101.61" y="73.64" angle="0.06" type="DEFAULT_VEHTYPE" speed="2.08" pos="0.04" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.30" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.62" pos="65.30" lane="gneE0_1" slope="0.00" acceleration="1.63"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.62" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.08" pos="57.62" lane="gneE0_1" slope="0.00" acceleration="0.27"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.09" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.01" pos="50.09" lane="gneE0_1" slope="0.00" acceleration="0.02"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.57" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.02" pos="42.57" lane="gneE0_1" slope="0.00" acceleration="-0.02"/>
+        <vehicle id="flow_0.9" x="101.60" y="34.99" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.10" pos="34.99" lane="gneE0_1" slope="0.00" acceleration="-0.10"/>
+    </timestep>
+    <timestep time="26.80">
+        <vehicle id="flow_0.4" x="101.68" y="74.15" angle="0.91" type="DEFAULT_VEHTYPE" speed="2.60" pos="0.56" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.50" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.01" pos="65.50" lane="gneE0_1" slope="0.00" acceleration="1.98"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.65" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.18" pos="57.65" lane="gneE0_1" slope="0.00" acceleration="0.54"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.02" pos="50.10" lane="gneE0_1" slope="0.00" acceleration="0.07"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.58" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.02" pos="42.58" lane="gneE0_1" slope="0.00" acceleration="-0.01"/>
+        <vehicle id="flow_0.9" x="101.60" y="35.01" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.09" pos="35.01" lane="gneE0_1" slope="0.00" acceleration="-0.08"/>
+    </timestep>
+    <timestep time="27.00">
+        <vehicle id="flow_0.4" x="101.77" y="74.77" angle="1.92" type="DEFAULT_VEHTYPE" speed="3.12" pos="1.18" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="101.60" y="65.79" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.43" pos="65.79" lane="gneE0_1" slope="0.00" acceleration="2.08"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.72" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.35" pos="57.72" lane="gneE0_1" slope="0.00" acceleration="0.83"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.11" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.05" pos="50.11" lane="gneE0_1" slope="0.00" acceleration="0.16"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.58" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.02" pos="42.58" lane="gneE0_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.9" x="101.60" y="35.02" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.07" pos="35.02" lane="gneE0_1" slope="0.00" acceleration="-0.07"/>
+    </timestep>
+    <timestep time="27.20">
+        <vehicle id="flow_0.4" x="101.87" y="75.49" angle="3.11" type="DEFAULT_VEHTYPE" speed="3.64" pos="1.91" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="101.60" y="66.17" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.88" pos="66.17" lane="gneE0_1" slope="0.00" acceleration="2.28"/>
+        <vehicle id="flow_0.6" x="101.60" y="57.84" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.61" pos="57.84" lane="gneE0_1" slope="0.00" acceleration="1.31"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.13" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.11" pos="50.13" lane="gneE0_1" slope="0.00" acceleration="0.30"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.59" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.03" pos="42.59" lane="gneE0_1" slope="0.00" acceleration="0.03"/>
+        <vehicle id="flow_0.9" x="101.60" y="35.03" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.06" pos="35.03" lane="gneE0_1" slope="0.00" acceleration="-0.05"/>
+    </timestep>
+    <timestep time="27.40">
+        <vehicle id="flow_0.4" x="101.99" y="76.32" angle="4.46" type="DEFAULT_VEHTYPE" speed="4.16" pos="2.74" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="101.60" y="66.64" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.36" pos="66.64" lane="gneE0_1" slope="0.00" acceleration="2.36"/>
+        <vehicle id="flow_0.6" x="101.60" y="58.04" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.96" pos="58.04" lane="gneE0_1" slope="0.00" acceleration="1.73"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.17" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.21" pos="50.17" lane="gneE0_1" slope="0.00" acceleration="0.50"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.04" pos="42.60" lane="gneE0_1" slope="0.00" acceleration="0.09"/>
+        <vehicle id="flow_0.9" x="101.60" y="35.04" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.05" pos="35.04" lane="gneE0_1" slope="0.00" acceleration="-0.04"/>
+    </timestep>
+    <timestep time="27.60">
+        <vehicle id="flow_0.4" x="102.12" y="77.24" angle="5.98" type="DEFAULT_VEHTYPE" speed="4.68" pos="3.68" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="101.60" y="67.21" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.84" pos="67.21" lane="gneE0_1" slope="0.00" acceleration="2.43"/>
+        <vehicle id="flow_0.6" x="101.60" y="58.30" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.31" pos="58.30" lane="gneE0_1" slope="0.00" acceleration="1.76"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.25" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.36" pos="50.25" lane="gneE0_1" slope="0.00" acceleration="0.74"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.61" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.08" pos="42.61" lane="gneE0_1" slope="0.00" acceleration="0.17"/>
+        <vehicle id="flow_0.9" x="101.60" y="35.05" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.05" pos="35.05" lane="gneE0_1" slope="0.00" acceleration="-0.01"/>
+    </timestep>
+    <timestep time="27.80">
+        <vehicle id="flow_0.4" x="102.27" y="78.27" angle="7.67" type="DEFAULT_VEHTYPE" speed="5.20" pos="4.72" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="101.60" y="67.87" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.33" pos="67.87" lane="gneE0_1" slope="0.00" acceleration="2.43"/>
+        <vehicle id="flow_0.6" x="101.60" y="58.64" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.72" pos="58.64" lane="gneE0_1" slope="0.00" acceleration="2.05"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.36" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.57" pos="50.36" lane="gneE0_1" slope="0.00" acceleration="1.06"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.64" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.13" pos="42.64" lane="gneE0_1" slope="0.00" acceleration="0.28"/>
+        <vehicle id="flow_0.9" x="101.60" y="35.06" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.06" pos="35.06" lane="gneE0_1" slope="0.00" acceleration="0.02"/>
+    </timestep>
+    <timestep time="28.00">
+        <vehicle id="flow_0.4" x="102.43" y="79.40" angle="8.13" type="DEFAULT_VEHTYPE" speed="5.72" pos="5.86" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="101.60" y="68.64" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.84" pos="68.64" lane="gneE0_1" slope="0.00" acceleration="2.56"/>
+        <vehicle id="flow_0.6" x="101.60" y="59.07" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.15" pos="59.07" lane="gneE0_1" slope="0.00" acceleration="2.15"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.54" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.88" pos="50.54" lane="gneE0_1" slope="0.00" acceleration="1.56"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.68" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.22" pos="42.68" lane="gneE0_1" slope="0.00" acceleration="0.44"/>
+        <vehicle id="flow_0.9" x="101.60" y="35.08" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.07" pos="35.08" lane="gneE0_1" slope="0.00" acceleration="0.08"/>
+    </timestep>
+    <timestep time="28.20">
+        <vehicle id="flow_0.4" x="102.61" y="80.64" angle="8.13" type="DEFAULT_VEHTYPE" speed="6.24" pos="7.11" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="101.60" y="69.51" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.34" pos="69.51" lane="gneE0_1" slope="0.00" acceleration="2.47"/>
+        <vehicle id="flow_0.6" x="101.60" y="59.59" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.61" pos="59.59" lane="gneE0_1" slope="0.00" acceleration="2.29"/>
+        <vehicle id="flow_0.7" x="101.60" y="50.78" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.22" pos="50.78" lane="gneE0_1" slope="0.00" acceleration="1.68"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.75" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.35" pos="42.75" lane="gneE0_1" slope="0.00" acceleration="0.66"/>
+        <vehicle id="flow_0.9" x="101.60" y="35.10" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.10" pos="35.10" lane="gneE0_1" slope="0.00" acceleration="0.15"/>
+    </timestep>
+    <timestep time="28.40">
+        <vehicle id="flow_0.4" x="102.80" y="81.98" angle="8.13" type="DEFAULT_VEHTYPE" speed="6.76" pos="8.46" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="101.60" y="70.48" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.86" pos="70.48" lane="gneE0_1" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.6" x="101.60" y="60.21" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.07" pos="60.21" lane="gneE0_1" slope="0.00" acceleration="2.29"/>
+        <vehicle id="flow_0.7" x="101.60" y="51.09" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.56" pos="51.09" lane="gneE0_1" slope="0.00" acceleration="1.71"/>
+        <vehicle id="flow_0.8" x="101.60" y="42.86" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.53" pos="42.86" lane="gneE0_1" slope="0.00" acceleration="0.89"/>
+        <vehicle id="flow_0.9" x="101.60" y="35.13" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.15" pos="35.13" lane="gneE0_1" slope="0.00" acceleration="0.25"/>
+    </timestep>
+    <timestep time="28.60">
+        <vehicle id="flow_0.4" x="103.00" y="83.42" angle="8.13" type="DEFAULT_VEHTYPE" speed="7.28" pos="9.92" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="101.60" y="71.55" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.36" pos="71.55" lane="gneE0_1" slope="0.00" acceleration="2.51"/>
+        <vehicle id="flow_0.6" x="101.60" y="60.92" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.55" pos="60.92" lane="gneE0_1" slope="0.00" acceleration="2.43"/>
+        <vehicle id="flow_0.7" x="101.60" y="51.49" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.97" pos="51.49" lane="gneE0_1" slope="0.00" acceleration="2.02"/>
+        <vehicle id="flow_0.8" x="101.60" y="43.02" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.81" pos="43.02" lane="gneE0_1" slope="0.00" acceleration="1.37"/>
+        <vehicle id="flow_0.9" x="101.60" y="35.18" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.23" pos="35.18" lane="gneE0_1" slope="0.00" acceleration="0.38"/>
+    </timestep>
+    <timestep time="28.80">
+        <vehicle id="flow_0.4" x="103.42" y="84.89" angle="10.45" type="DEFAULT_VEHTYPE" speed="7.80" pos="11.48" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="101.60" y="72.72" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.87" pos="72.72" lane="gneE0_1" slope="0.00" acceleration="2.56"/>
+        <vehicle id="flow_0.6" x="101.60" y="61.73" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.04" pos="61.73" lane="gneE0_1" slope="0.00" acceleration="2.41"/>
+        <vehicle id="flow_0.7" x="101.60" y="51.97" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.39" pos="51.97" lane="gneE0_1" slope="0.00" acceleration="2.13"/>
+        <vehicle id="flow_0.8" x="101.60" y="43.24" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.12" pos="43.24" lane="gneE0_1" slope="0.00" acceleration="1.56"/>
+        <vehicle id="flow_0.9" x="101.60" y="35.24" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.34" pos="35.24" lane="gneE0_1" slope="0.00" acceleration="0.58"/>
+    </timestep>
+    <timestep time="29.00">
+        <vehicle id="flow_0.4" x="104.27" y="86.32" angle="18.07" type="DEFAULT_VEHTYPE" speed="8.32" pos="13.14" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="101.66" y="74.00" angle="0.65" type="DEFAULT_VEHTYPE" speed="6.39" pos="0.40" lane=":gneJ1_6_0" slope="0.00" acceleration="2.59"/>
+        <vehicle id="flow_0.6" x="101.60" y="62.63" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.52" pos="62.63" lane="gneE0_1" slope="0.00" acceleration="2.42"/>
+        <vehicle id="flow_0.7" x="101.60" y="52.53" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.83" pos="52.53" lane="gneE0_1" slope="0.00" acceleration="2.18"/>
+        <vehicle id="flow_0.8" x="101.60" y="43.53" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.42" pos="43.53" lane="gneE0_1" slope="0.00" acceleration="1.49"/>
+        <vehicle id="flow_0.9" x="101.60" y="35.34" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.50" pos="35.34" lane="gneE0_1" slope="0.00" acceleration="0.77"/>
+    </timestep>
+    <timestep time="29.20">
+        <vehicle id="flow_0.4" x="105.18" y="87.84" angle="26.23" type="DEFAULT_VEHTYPE" speed="8.84" pos="14.91" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="101.85" y="75.36" angle="2.89" type="DEFAULT_VEHTYPE" speed="6.89" pos="1.78" lane=":gneJ1_6_0" slope="0.00" acceleration="2.53"/>
+        <vehicle id="flow_0.6" x="101.60" y="63.64" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.03" pos="63.64" lane="gneE0_1" slope="0.00" acceleration="2.56"/>
+        <vehicle id="flow_0.7" x="101.60" y="53.19" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.28" pos="53.19" lane="gneE0_1" slope="0.00" acceleration="2.25"/>
+        <vehicle id="flow_0.8" x="101.60" y="43.89" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.80" pos="43.89" lane="gneE0_1" slope="0.00" acceleration="1.90"/>
+        <vehicle id="flow_0.9" x="101.60" y="35.49" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.73" pos="35.49" lane="gneE0_1" slope="0.00" acceleration="1.13"/>
+    </timestep>
+    <timestep time="29.40">
+        <vehicle id="flow_0.4" x="106.14" y="89.44" angle="30.96" type="DEFAULT_VEHTYPE" speed="9.36" pos="16.78" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="102.06" y="76.83" angle="5.31" type="DEFAULT_VEHTYPE" speed="7.41" pos="3.26" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.6" x="101.60" y="64.74" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.52" pos="64.74" lane="gneE0_1" slope="0.00" acceleration="2.44"/>
+        <vehicle id="flow_0.7" x="101.60" y="53.94" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.76" pos="53.94" lane="gneE0_1" slope="0.00" acceleration="2.40"/>
+        <vehicle id="flow_0.8" x="101.60" y="44.32" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.19" pos="44.32" lane="gneE0_1" slope="0.00" acceleration="1.98"/>
+        <vehicle id="flow_0.9" x="101.60" y="35.69" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.02" pos="35.69" lane="gneE0_1" slope="0.00" acceleration="1.45"/>
+    </timestep>
+    <timestep time="29.60">
+        <vehicle id="flow_0.4" x="107.16" y="91.14" angle="30.96" type="DEFAULT_VEHTYPE" speed="9.88" pos="18.76" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="102.29" y="78.40" angle="7.88" type="DEFAULT_VEHTYPE" speed="7.93" pos="4.85" lane=":gneJ1_6_0" slope="0.00" acceleration="2.58"/>
+        <vehicle id="flow_0.6" x="101.60" y="65.95" angle="0.00" type="DEFAULT_VEHTYPE" speed="6.04" pos="65.95" lane="gneE0_1" slope="0.00" acceleration="2.59"/>
+        <vehicle id="flow_0.7" x="101.60" y="54.78" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.22" pos="54.78" lane="gneE0_1" slope="0.00" acceleration="2.32"/>
+        <vehicle id="flow_0.8" x="101.60" y="44.85" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.61" pos="44.85" lane="gneE0_1" slope="0.00" acceleration="2.07"/>
+        <vehicle id="flow_0.9" x="101.60" y="35.95" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.31" pos="35.95" lane="gneE0_1" slope="0.00" acceleration="1.47"/>
+    </timestep>
+    <timestep time="29.80">
+        <vehicle id="flow_0.4" x="108.52" y="92.63" angle="35.57" type="DEFAULT_VEHTYPE" speed="10.40" pos="20.84" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="102.52" y="80.07" angle="8.13" type="DEFAULT_VEHTYPE" speed="8.45" pos="6.54" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.6" x="101.60" y="67.25" angle="0.00" type="DEFAULT_VEHTYPE" speed="6.54" pos="67.25" lane="gneE0_1" slope="0.00" acceleration="2.50"/>
+        <vehicle id="flow_0.7" x="101.60" y="55.73" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.71" pos="55.73" lane="gneE0_1" slope="0.00" acceleration="2.46"/>
+        <vehicle id="flow_0.8" x="101.60" y="45.45" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.04" pos="45.45" lane="gneE0_1" slope="0.00" acceleration="2.15"/>
+        <vehicle id="flow_0.9" x="101.60" y="36.28" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.63" pos="36.28" lane="gneE0_1" slope="0.00" acceleration="1.60"/>
+    </timestep>
+    <timestep time="30.00">
+        <vehicle id="flow_0.4" x="110.39" y="93.75" angle="47.99" type="DEFAULT_VEHTYPE" speed="10.92" pos="23.02" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="102.78" y="81.85" angle="8.13" type="DEFAULT_VEHTYPE" speed="8.97" pos="8.33" lane=":gneJ1_6_0" slope="0.00" acceleration="2.59"/>
+        <vehicle id="flow_0.6" x="101.60" y="68.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.05" pos="68.66" lane="gneE0_1" slope="0.00" acceleration="2.54"/>
+        <vehicle id="flow_0.7" x="101.60" y="56.77" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.20" pos="56.77" lane="gneE0_1" slope="0.00" acceleration="2.45"/>
+        <vehicle id="flow_0.8" x="101.60" y="46.15" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.49" pos="46.15" lane="gneE0_1" slope="0.00" acceleration="2.25"/>
+        <vehicle id="flow_0.9" x="101.60" y="36.68" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.01" pos="36.68" lane="gneE0_1" slope="0.00" acceleration="1.89"/>
+    </timestep>
+    <timestep time="30.20">
+        <vehicle id="flow_0.4" x="112.35" y="94.93" angle="59.04" type="DEFAULT_VEHTYPE" speed="11.44" pos="25.31" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="103.05" y="83.72" angle="8.13" type="DEFAULT_VEHTYPE" speed="9.49" pos="10.23" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.6" x="101.60" y="70.18" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.56" pos="70.18" lane="gneE0_1" slope="0.00" acceleration="2.59"/>
+        <vehicle id="flow_0.7" x="101.60" y="57.90" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.69" pos="57.90" lane="gneE0_1" slope="0.00" acceleration="2.43"/>
+        <vehicle id="flow_0.8" x="101.60" y="46.94" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.95" pos="46.94" lane="gneE0_1" slope="0.00" acceleration="2.31"/>
+        <vehicle id="flow_0.9" x="101.60" y="37.16" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.40" pos="37.16" lane="gneE0_1" slope="0.00" acceleration="1.98"/>
+    </timestep>
+    <timestep time="30.40">
+        <vehicle id="flow_0.4" x="114.40" y="96.16" angle="59.04" type="DEFAULT_VEHTYPE" speed="11.96" pos="27.70" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="103.80" y="85.54" angle="13.86" type="DEFAULT_VEHTYPE" speed="10.01" pos="12.23" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.6" x="101.60" y="71.79" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.07" pos="71.79" lane="gneE0_1" slope="0.00" acceleration="2.53"/>
+        <vehicle id="flow_0.7" x="101.60" y="59.15" angle="0.00" type="DEFAULT_VEHTYPE" speed="6.20" pos="59.15" lane="gneE0_1" slope="0.00" acceleration="2.57"/>
+        <vehicle id="flow_0.8" x="101.60" y="47.82" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.41" pos="47.82" lane="gneE0_1" slope="0.00" acceleration="2.31"/>
+        <vehicle id="flow_0.9" x="101.60" y="37.72" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.80" pos="37.72" lane="gneE0_1" slope="0.00" acceleration="2.01"/>
+    </timestep>
+    <timestep time="30.60">
+        <vehicle id="flow_0.4" x="116.70" y="97.01" angle="64.27" type="DEFAULT_VEHTYPE" speed="12.48" pos="30.20" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="104.88" y="87.34" angle="23.57" type="DEFAULT_VEHTYPE" speed="10.52" pos="14.33" lane=":gneJ1_6_0" slope="0.00" acceleration="2.55"/>
+        <vehicle id="flow_0.6" x="101.60" y="73.51" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.59" pos="73.51" lane="gneE0_1" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.7" x="101.60" y="60.48" angle="0.00" type="DEFAULT_VEHTYPE" speed="6.69" pos="60.48" lane="gneE0_1" slope="0.00" acceleration="2.45"/>
+        <vehicle id="flow_0.8" x="101.60" y="48.80" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.90" pos="48.80" lane="gneE0_1" slope="0.00" acceleration="2.47"/>
+        <vehicle id="flow_0.9" x="101.60" y="38.37" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.23" pos="38.37" lane="gneE0_1" slope="0.00" acceleration="2.13"/>
+    </timestep>
+    <timestep time="30.80">
+        <vehicle id="flow_0.4" x="119.27" y="97.38" angle="76.25" type="DEFAULT_VEHTYPE" speed="13.00" pos="32.80" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="106.02" y="89.23" angle="30.96" type="DEFAULT_VEHTYPE" speed="11.04" pos="16.54" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.6" x="101.84" y="75.31" angle="2.81" type="DEFAULT_VEHTYPE" speed="9.10" pos="1.73" lane=":gneJ1_6_0" slope="0.00" acceleration="2.53"/>
+        <vehicle id="flow_0.7" x="101.60" y="61.93" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.21" pos="61.93" lane="gneE0_1" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.8" x="101.60" y="49.88" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.37" pos="49.88" lane="gneE0_1" slope="0.00" acceleration="2.35"/>
+        <vehicle id="flow_0.9" x="101.60" y="39.11" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.68" pos="39.11" lane="gneE0_1" slope="0.00" acceleration="2.27"/>
+    </timestep>
+    <timestep time="31.00">
+        <vehicle id="flow_0.4" x="121.87" y="97.75" angle="81.86" type="DEFAULT_VEHTYPE" speed="13.13" pos="35.42" lane=":gneJ1_6_0" slope="0.00" acceleration="0.65"/>
+        <vehicle id="flow_0.5" x="107.21" y="91.21" angle="30.96" type="DEFAULT_VEHTYPE" speed="11.56" pos="18.85" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.6" x="102.12" y="77.21" angle="5.94" type="DEFAULT_VEHTYPE" speed="9.62" pos="3.65" lane=":gneJ1_6_0" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.7" x="101.60" y="63.47" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.71" pos="63.47" lane="gneE0_1" slope="0.00" acceleration="2.47"/>
+        <vehicle id="flow_0.8" x="101.60" y="51.05" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.87" pos="51.05" lane="gneE0_1" slope="0.00" acceleration="2.47"/>
+        <vehicle id="flow_0.9" x="101.60" y="39.93" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.13" pos="39.93" lane="gneE0_1" slope="0.00" acceleration="2.23"/>
+    </timestep>
+    <timestep time="31.20">
+        <vehicle id="flow_0.4" x="124.47" y="98.13" angle="81.87" type="DEFAULT_VEHTYPE" speed="13.13" pos="2.09" lane=":gneJ1_16_0" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="108.83" y="92.82" angle="37.61" type="DEFAULT_VEHTYPE" speed="11.76" pos="21.20" lane=":gneJ1_6_0" slope="0.00" acceleration="1.03"/>
+        <vehicle id="flow_0.6" x="102.40" y="79.22" angle="8.13" type="DEFAULT_VEHTYPE" speed="10.13" pos="5.68" lane=":gneJ1_6_0" slope="0.00" acceleration="2.58"/>
+        <vehicle id="flow_0.7" x="101.60" y="65.11" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.21" pos="65.11" lane="gneE0_1" slope="0.00" acceleration="2.53"/>
+        <vehicle id="flow_0.8" x="101.60" y="52.32" angle="0.00" type="DEFAULT_VEHTYPE" speed="6.36" pos="52.32" lane="gneE0_1" slope="0.00" acceleration="2.46"/>
+        <vehicle id="flow_0.9" x="101.60" y="40.85" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.60" pos="40.85" lane="gneE0_1" slope="0.00" acceleration="2.32"/>
+    </timestep>
+    <timestep time="31.40">
+        <vehicle id="flow_0.4" x="127.08" y="98.40" angle="82.98" type="DEFAULT_VEHTYPE" speed="13.13" pos="0.68" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="110.86" y="94.04" angle="51.13" type="DEFAULT_VEHTYPE" speed="11.86" pos="23.58" lane=":gneJ1_6_0" slope="0.00" acceleration="0.49"/>
+        <vehicle id="flow_0.6" x="102.70" y="81.28" angle="8.13" type="DEFAULT_VEHTYPE" speed="10.40" pos="7.76" lane=":gneJ1_6_0" slope="0.00" acceleration="1.34"/>
+        <vehicle id="flow_0.7" x="101.60" y="66.86" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.73" pos="66.86" lane="gneE0_1" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.8" x="101.60" y="53.69" angle="0.00" type="DEFAULT_VEHTYPE" speed="6.85" pos="53.69" lane="gneE0_1" slope="0.00" acceleration="2.44"/>
+        <vehicle id="flow_0.9" x="101.60" y="41.87" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.07" pos="41.87" lane="gneE0_1" slope="0.00" acceleration="2.39"/>
+    </timestep>
+    <timestep time="31.60">
+        <vehicle id="flow_0.4" x="129.81" y="98.40" angle="87.42" type="DEFAULT_VEHTYPE" speed="13.65" pos="3.41" lane="gneE2_1" slope="0.00" acceleration="2.60"/>
+        <vehicle id="flow_0.5" x="112.91" y="95.27" angle="59.04" type="DEFAULT_VEHTYPE" speed="11.95" pos="25.97" lane=":gneJ1_6_0" slope="0.00" acceleration="0.45"/>
+        <vehicle id="flow_0.6" x="103.00" y="83.37" angle="8.13" type="DEFAULT_VEHTYPE" speed="10.58" pos="9.87" lane=":gneJ1_6_0" slope="0.00" acceleration="0.90"/>
+        <vehicle id="flow_0.7" x="101.60" y="68.67" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.05" pos="68.67" lane="gneE0_1" slope="0.00" acceleration="1.59"/>
+        <vehicle id="flow_0.8" x="101.60" y="55.17" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.37" pos="55.17" lane="gneE0_1" slope="0.00" acceleration="2.58"/>
+        <vehicle id="flow_0.9" x="101.60" y="42.97" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.54" pos="42.97" lane="gneE0_1" slope="0.00" acceleration="2.34"/>
+    </timestep>
+    <timestep time="31.80">
+        <vehicle id="flow_0.4" x="132.58" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="6.18" lane="gneE2_1" slope="0.00" acceleration="1.20"/>
+        <vehicle id="flow_0.5" x="115.05" y="96.55" angle="59.04" type="DEFAULT_VEHTYPE" speed="12.44" pos="28.45" lane=":gneJ1_6_0" slope="0.00" acceleration="2.47"/>
+        <vehicle id="flow_0.6" x="103.70" y="85.36" angle="12.91" type="DEFAULT_VEHTYPE" speed="10.75" pos="12.02" lane=":gneJ1_6_0" slope="0.00" acceleration="0.84"/>
+        <vehicle id="flow_0.7" x="101.60" y="70.53" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.30" pos="70.53" lane="gneE0_1" slope="0.00" acceleration="1.24"/>
+        <vehicle id="flow_0.8" x="101.60" y="56.71" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.72" pos="56.71" lane="gneE0_1" slope="0.00" acceleration="1.78"/>
+        <vehicle id="flow_0.9" x="101.60" y="44.18" angle="0.00" type="DEFAULT_VEHTYPE" speed="6.05" pos="44.18" lane="gneE0_1" slope="0.00" acceleration="2.51"/>
+    </timestep>
+    <timestep time="32.00">
+        <vehicle id="flow_0.4" x="135.36" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="8.96" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="117.49" y="97.13" angle="67.94" type="DEFAULT_VEHTYPE" speed="12.72" pos="31.00" lane=":gneJ1_6_0" slope="0.00" acceleration="1.36"/>
+        <vehicle id="flow_0.6" x="104.85" y="87.28" angle="23.26" type="DEFAULT_VEHTYPE" speed="11.22" pos="14.27" lane=":gneJ1_6_0" slope="0.00" acceleration="2.37"/>
+        <vehicle id="flow_0.7" x="101.60" y="72.43" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.53" pos="72.43" lane="gneE0_1" slope="0.00" acceleration="1.17"/>
+        <vehicle id="flow_0.8" x="101.60" y="58.32" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.02" pos="58.32" lane="gneE0_1" slope="0.00" acceleration="1.50"/>
+        <vehicle id="flow_0.9" x="101.60" y="45.47" angle="0.00" type="DEFAULT_VEHTYPE" speed="6.43" pos="45.47" lane="gneE0_1" slope="0.00" acceleration="1.90"/>
+    </timestep>
+    <timestep time="32.20">
+        <vehicle id="flow_0.4" x="138.14" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="11.74" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="120.02" y="97.49" angle="79.69" type="DEFAULT_VEHTYPE" speed="12.79" pos="33.56" lane=":gneJ1_6_0" slope="0.00" acceleration="0.39"/>
+        <vehicle id="flow_0.6" x="106.04" y="89.26" angle="30.96" type="DEFAULT_VEHTYPE" speed="11.52" pos="16.57" lane=":gneJ1_6_0" slope="0.00" acceleration="1.51"/>
+        <vehicle id="flow_0.7" x="101.72" y="74.42" angle="1.34" type="DEFAULT_VEHTYPE" speed="9.99" pos="0.83" lane=":gneJ1_6_0" slope="0.00" acceleration="2.30"/>
+        <vehicle id="flow_0.8" x="101.60" y="59.98" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.31" pos="59.98" lane="gneE0_1" slope="0.00" acceleration="1.43"/>
+        <vehicle id="flow_0.9" x="101.60" y="46.82" angle="0.00" type="DEFAULT_VEHTYPE" speed="6.77" pos="46.82" lane="gneE0_1" slope="0.00" acceleration="1.70"/>
+    </timestep>
+    <timestep time="32.40">
+        <vehicle id="flow_0.4" x="140.92" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="14.52" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="122.57" y="97.85" angle="81.86" type="DEFAULT_VEHTYPE" speed="12.87" pos="0.17" lane=":gneJ1_16_0" slope="0.00" acceleration="0.37"/>
+        <vehicle id="flow_0.6" x="107.24" y="91.26" angle="30.96" type="DEFAULT_VEHTYPE" speed="11.67" pos="18.90" lane=":gneJ1_6_0" slope="0.00" acceleration="0.73"/>
+        <vehicle id="flow_0.7" x="102.01" y="76.46" angle="4.70" type="DEFAULT_VEHTYPE" speed="10.32" pos="2.89" lane=":gneJ1_6_0" slope="0.00" acceleration="1.63"/>
+        <vehicle id="flow_0.8" x="101.60" y="61.73" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.76" pos="61.73" lane="gneE0_1" slope="0.00" acceleration="2.24"/>
+        <vehicle id="flow_0.9" x="101.60" y="48.24" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.09" pos="48.24" lane="gneE0_1" slope="0.00" acceleration="1.63"/>
+    </timestep>
+    <timestep time="32.60">
+        <vehicle id="flow_0.4" x="143.70" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="17.30" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="125.13" y="98.22" angle="81.88" type="DEFAULT_VEHTYPE" speed="12.94" pos="2.76" lane=":gneJ1_16_0" slope="0.00" acceleration="0.34"/>
+        <vehicle id="flow_0.6" x="108.88" y="92.85" angle="37.96" type="DEFAULT_VEHTYPE" speed="11.81" pos="21.27" lane=":gneJ1_6_0" slope="0.00" acceleration="0.69"/>
+        <vehicle id="flow_0.7" x="102.31" y="78.55" angle="8.12" type="DEFAULT_VEHTYPE" speed="10.52" pos="5.00" lane=":gneJ1_6_0" slope="0.00" acceleration="1.03"/>
+        <vehicle id="flow_0.8" x="101.60" y="63.55" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.10" pos="63.55" lane="gneE0_1" slope="0.00" acceleration="1.74"/>
+        <vehicle id="flow_0.9" x="101.60" y="49.75" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.53" pos="49.75" lane="gneE0_1" slope="0.00" acceleration="2.19"/>
+    </timestep>
+    <timestep time="32.80">
+        <vehicle id="flow_0.4" x="146.47" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="20.07" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="127.72" y="98.40" angle="84.02" type="DEFAULT_VEHTYPE" speed="13.00" pos="1.32" lane="gneE2_1" slope="0.00" acceleration="0.32"/>
+        <vehicle id="flow_0.6" x="110.93" y="94.08" angle="51.57" type="DEFAULT_VEHTYPE" speed="11.94" pos="23.65" lane=":gneJ1_6_0" slope="0.00" acceleration="0.65"/>
+        <vehicle id="flow_0.7" x="102.61" y="80.67" angle="8.13" type="DEFAULT_VEHTYPE" speed="10.72" pos="7.14" lane=":gneJ1_6_0" slope="0.00" acceleration="0.97"/>
+        <vehicle id="flow_0.8" x="101.60" y="65.42" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.36" pos="65.42" lane="gneE0_1" slope="0.00" acceleration="1.28"/>
+        <vehicle id="flow_0.9" x="101.60" y="51.32" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.89" pos="51.32" lane="gneE0_1" slope="0.00" acceleration="1.82"/>
+    </timestep>
+    <timestep time="33.00">
+        <vehicle id="flow_0.4" x="149.25" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="22.85" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="130.33" y="98.40" angle="88.26" type="DEFAULT_VEHTYPE" speed="13.06" pos="3.93" lane="gneE2_1" slope="0.00" acceleration="0.30"/>
+        <vehicle id="flow_0.6" x="113.00" y="95.32" angle="59.04" type="DEFAULT_VEHTYPE" speed="12.05" pos="26.06" lane=":gneJ1_6_0" slope="0.00" acceleration="0.59"/>
+        <vehicle id="flow_0.7" x="102.92" y="82.82" angle="8.13" type="DEFAULT_VEHTYPE" speed="10.89" pos="9.32" lane=":gneJ1_6_0" slope="0.00" acceleration="0.88"/>
+        <vehicle id="flow_0.8" x="101.60" y="67.34" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.60" pos="67.34" lane="gneE0_1" slope="0.00" acceleration="1.21"/>
+        <vehicle id="flow_0.9" x="101.60" y="52.96" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.19" pos="52.96" lane="gneE0_1" slope="0.00" acceleration="1.48"/>
+    </timestep>
+    <timestep time="33.20">
+        <vehicle id="flow_0.4" x="152.03" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="25.63" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="132.95" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.11" pos="6.55" lane="gneE2_1" slope="0.00" acceleration="0.28"/>
+        <vehicle id="flow_0.6" x="115.08" y="96.57" angle="59.04" type="DEFAULT_VEHTYPE" speed="12.16" pos="28.50" lane=":gneJ1_6_0" slope="0.00" acceleration="0.53"/>
+        <vehicle id="flow_0.7" x="103.44" y="84.94" angle="10.67" type="DEFAULT_VEHTYPE" speed="11.05" pos="11.53" lane=":gneJ1_6_0" slope="0.00" acceleration="0.81"/>
+        <vehicle id="flow_0.8" x="101.60" y="69.30" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.82" pos="69.30" lane="gneE0_1" slope="0.00" acceleration="1.07"/>
+        <vehicle id="flow_0.9" x="101.60" y="54.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.47" pos="54.66" lane="gneE0_1" slope="0.00" acceleration="1.38"/>
+    </timestep>
+    <timestep time="33.40">
+        <vehicle id="flow_0.4" x="154.81" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="28.41" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="135.58" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.17" pos="9.18" lane="gneE2_1" slope="0.00" acceleration="0.26"/>
+        <vehicle id="flow_0.6" x="117.44" y="97.12" angle="67.71" type="DEFAULT_VEHTYPE" speed="12.26" pos="30.95" lane=":gneJ1_6_0" slope="0.00" acceleration="0.50"/>
+        <vehicle id="flow_0.7" x="104.60" y="86.86" angle="20.98" type="DEFAULT_VEHTYPE" speed="11.21" pos="13.77" lane=":gneJ1_6_0" slope="0.00" acceleration="0.78"/>
+        <vehicle id="flow_0.8" x="101.60" y="71.31" angle="0.00" type="DEFAULT_VEHTYPE" speed="10.02" pos="71.31" lane="gneE0_1" slope="0.00" acceleration="1.04"/>
+        <vehicle id="flow_0.9" x="101.60" y="56.40" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.72" pos="56.40" lane="gneE0_1" slope="0.00" acceleration="1.28"/>
+    </timestep>
+    <timestep time="33.60">
+        <vehicle id="flow_0.4" x="157.59" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="31.19" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="138.23" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.21" pos="11.83" lane="gneE2_1" slope="0.00" acceleration="0.24"/>
+        <vehicle id="flow_0.6" x="119.88" y="97.47" angle="79.07" type="DEFAULT_VEHTYPE" speed="12.36" pos="33.42" lane=":gneJ1_6_0" slope="0.00" acceleration="0.47"/>
+        <vehicle id="flow_0.7" x="105.76" y="88.81" angle="30.96" type="DEFAULT_VEHTYPE" speed="11.36" pos="16.04" lane=":gneJ1_6_0" slope="0.00" acceleration="0.73"/>
+        <vehicle id="flow_0.8" x="101.60" y="73.35" angle="0.00" type="DEFAULT_VEHTYPE" speed="10.22" pos="73.35" lane="gneE0_1" slope="0.00" acceleration="0.99"/>
+        <vehicle id="flow_0.9" x="101.60" y="58.19" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.97" pos="58.19" lane="gneE0_1" slope="0.00" acceleration="1.23"/>
+    </timestep>
+    <timestep time="33.80">
+        <vehicle id="flow_0.4" x="160.36" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="33.96" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="140.88" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.26" pos="14.48" lane="gneE2_1" slope="0.00" acceleration="0.21"/>
+        <vehicle id="flow_0.6" x="122.35" y="97.82" angle="81.86" type="DEFAULT_VEHTYPE" speed="12.45" pos="35.91" lane=":gneJ1_6_0" slope="0.00" acceleration="0.45"/>
+        <vehicle id="flow_0.7" x="106.95" y="90.78" angle="30.96" type="DEFAULT_VEHTYPE" speed="11.50" pos="18.34" lane=":gneJ1_6_0" slope="0.00" acceleration="0.70"/>
+        <vehicle id="flow_0.8" x="101.86" y="75.42" angle="2.98" type="DEFAULT_VEHTYPE" speed="10.41" pos="1.84" lane=":gneJ1_6_0" slope="0.00" acceleration="0.94"/>
+        <vehicle id="flow_0.9" x="101.60" y="60.03" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.21" pos="60.03" lane="gneE0_1" slope="0.00" acceleration="1.18"/>
+    </timestep>
+    <timestep time="34.00">
+        <vehicle id="flow_0.4" x="163.14" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="36.74" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="143.54" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.30" pos="17.14" lane="gneE2_1" slope="0.00" acceleration="0.20"/>
+        <vehicle id="flow_0.6" x="124.83" y="98.18" angle="81.87" type="DEFAULT_VEHTYPE" speed="12.53" pos="2.45" lane=":gneJ1_16_0" slope="0.00" acceleration="0.43"/>
+        <vehicle id="flow_0.7" x="108.37" y="92.54" angle="34.61" type="DEFAULT_VEHTYPE" speed="11.63" pos="20.67" lane=":gneJ1_6_0" slope="0.00" acceleration="0.66"/>
+        <vehicle id="flow_0.8" x="102.16" y="77.51" angle="6.43" type="DEFAULT_VEHTYPE" speed="10.59" pos="3.95" lane=":gneJ1_6_0" slope="0.00" acceleration="0.90"/>
+        <vehicle id="flow_0.9" x="101.60" y="61.92" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.43" pos="61.92" lane="gneE0_1" slope="0.00" acceleration="1.13"/>
+    </timestep>
+    <timestep time="34.20">
+        <vehicle id="flow_0.4" x="165.92" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="39.52" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="146.20" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.33" pos="19.80" lane="gneE2_1" slope="0.00" acceleration="0.19"/>
+        <vehicle id="flow_0.6" x="127.34" y="98.40" angle="83.40" type="DEFAULT_VEHTYPE" speed="12.61" pos="0.94" lane="gneE2_1" slope="0.00" acceleration="0.40"/>
+        <vehicle id="flow_0.7" x="110.39" y="93.75" angle="47.96" type="DEFAULT_VEHTYPE" speed="11.75" pos="23.02" lane=":gneJ1_6_0" slope="0.00" acceleration="0.63"/>
+        <vehicle id="flow_0.8" x="102.46" y="79.64" angle="8.13" type="DEFAULT_VEHTYPE" speed="10.76" pos="6.11" lane=":gneJ1_6_0" slope="0.00" acceleration="0.86"/>
+        <vehicle id="flow_0.9" x="101.60" y="63.85" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.64" pos="63.85" lane="gneE0_1" slope="0.00" acceleration="1.06"/>
+    </timestep>
+    <timestep time="34.40">
+        <vehicle id="flow_0.4" x="168.70" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="42.30" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="148.88" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.37" pos="22.48" lane="gneE2_1" slope="0.00" acceleration="0.17"/>
+        <vehicle id="flow_0.6" x="129.87" y="98.40" angle="87.53" type="DEFAULT_VEHTYPE" speed="12.69" pos="3.47" lane="gneE2_1" slope="0.00" acceleration="0.38"/>
+        <vehicle id="flow_0.7" x="112.42" y="94.97" angle="59.04" type="DEFAULT_VEHTYPE" speed="11.87" pos="25.39" lane=":gneJ1_6_0" slope="0.00" acceleration="0.59"/>
+        <vehicle id="flow_0.8" x="102.77" y="81.80" angle="8.13" type="DEFAULT_VEHTYPE" speed="10.92" pos="8.29" lane=":gneJ1_6_0" slope="0.00" acceleration="0.77"/>
+        <vehicle id="flow_0.9" x="101.60" y="65.82" angle="0.00" type="DEFAULT_VEHTYPE" speed="9.84" pos="65.82" lane="gneE0_1" slope="0.00" acceleration="0.96"/>
+    </timestep>
+    <timestep time="34.60">
+        <vehicle id="flow_0.4" x="171.48" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="45.08" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="151.56" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.40" pos="25.16" lane="gneE2_1" slope="0.00" acceleration="0.16"/>
+        <vehicle id="flow_0.6" x="132.42" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.76" pos="6.02" lane="gneE2_1" slope="0.00" acceleration="0.35"/>
+        <vehicle id="flow_0.7" x="114.48" y="96.21" angle="59.04" type="DEFAULT_VEHTYPE" speed="11.98" pos="27.79" lane=":gneJ1_6_0" slope="0.00" acceleration="0.56"/>
+        <vehicle id="flow_0.8" x="103.08" y="83.99" angle="8.13" type="DEFAULT_VEHTYPE" speed="11.06" pos="10.50" lane=":gneJ1_6_0" slope="0.00" acceleration="0.72"/>
+        <vehicle id="flow_0.9" x="101.60" y="67.82" angle="0.00" type="DEFAULT_VEHTYPE" speed="10.02" pos="67.82" lane="gneE0_1" slope="0.00" acceleration="0.93"/>
+    </timestep>
+    <timestep time="34.80">
+        <vehicle id="flow_0.4" x="174.25" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="47.85" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="154.24" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.43" pos="27.84" lane="gneE2_1" slope="0.00" acceleration="0.15"/>
+        <vehicle id="flow_0.6" x="134.99" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.82" pos="8.59" lane="gneE2_1" slope="0.00" acceleration="0.33"/>
+        <vehicle id="flow_0.7" x="116.70" y="97.01" angle="64.29" type="DEFAULT_VEHTYPE" speed="12.08" pos="30.20" lane=":gneJ1_6_0" slope="0.00" acceleration="0.50"/>
+        <vehicle id="flow_0.8" x="104.07" y="85.98" angle="16.21" type="DEFAULT_VEHTYPE" speed="11.20" pos="12.74" lane=":gneJ1_6_0" slope="0.00" acceleration="0.69"/>
+        <vehicle id="flow_0.9" x="101.60" y="69.86" angle="0.00" type="DEFAULT_VEHTYPE" speed="10.20" pos="69.86" lane="gneE0_1" slope="0.00" acceleration="0.90"/>
+    </timestep>
+    <timestep time="35.00">
+        <vehicle id="flow_0.4" x="177.03" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="50.63" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="156.93" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.46" pos="30.53" lane="gneE2_1" slope="0.00" acceleration="0.14"/>
+        <vehicle id="flow_0.6" x="137.57" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.89" pos="11.17" lane="gneE2_1" slope="0.00" acceleration="0.31"/>
+        <vehicle id="flow_0.7" x="119.11" y="97.36" angle="75.52" type="DEFAULT_VEHTYPE" speed="12.18" pos="32.64" lane=":gneJ1_6_0" slope="0.00" acceleration="0.47"/>
+        <vehicle id="flow_0.8" x="105.23" y="87.92" angle="26.66" type="DEFAULT_VEHTYPE" speed="11.33" pos="15.01" lane=":gneJ1_6_0" slope="0.00" acceleration="0.67"/>
+        <vehicle id="flow_0.9" x="101.60" y="71.94" angle="0.00" type="DEFAULT_VEHTYPE" speed="10.37" pos="71.94" lane="gneE0_1" slope="0.00" acceleration="0.86"/>
+    </timestep>
+    <timestep time="35.20">
+        <vehicle id="flow_0.4" x="179.81" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="53.41" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="159.63" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.49" pos="33.23" lane="gneE2_1" slope="0.00" acceleration="0.13"/>
+        <vehicle id="flow_0.6" x="140.16" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.95" pos="13.76" lane="gneE2_1" slope="0.00" acceleration="0.30"/>
+        <vehicle id="flow_0.7" x="121.54" y="97.71" angle="81.86" type="DEFAULT_VEHTYPE" speed="12.27" pos="35.09" lane=":gneJ1_6_0" slope="0.00" acceleration="0.45"/>
+        <vehicle id="flow_0.8" x="106.41" y="89.88" angle="30.96" type="DEFAULT_VEHTYPE" speed="11.46" pos="17.30" lane=":gneJ1_6_0" slope="0.00" acceleration="0.64"/>
+        <vehicle id="flow_0.9" x="101.66" y="74.04" angle="0.72" type="DEFAULT_VEHTYPE" speed="10.54" pos="0.45" lane=":gneJ1_6_0" slope="0.00" acceleration="0.83"/>
+    </timestep>
+    <timestep time="35.40">
+        <vehicle id="flow_0.4" x="182.59" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="56.19" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="162.33" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.51" pos="35.93" lane="gneE2_1" slope="0.00" acceleration="0.13"/>
+        <vehicle id="flow_0.6" x="142.76" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.00" pos="16.36" lane="gneE2_1" slope="0.00" acceleration="0.28"/>
+        <vehicle id="flow_0.7" x="123.99" y="98.06" angle="81.87" type="DEFAULT_VEHTYPE" speed="12.35" pos="1.60" lane=":gneJ1_16_0" slope="0.00" acceleration="0.42"/>
+        <vehicle id="flow_0.8" x="107.60" y="91.87" angle="30.96" type="DEFAULT_VEHTYPE" speed="11.58" pos="19.61" lane=":gneJ1_6_0" slope="0.00" acceleration="0.61"/>
+        <vehicle id="flow_0.9" x="101.97" y="76.16" angle="4.20" type="DEFAULT_VEHTYPE" speed="10.70" pos="2.59" lane=":gneJ1_6_0" slope="0.00" acceleration="0.79"/>
+    </timestep>
+    <timestep time="35.60">
+        <vehicle id="flow_0.4" x="185.37" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="58.97" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="165.04" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.54" pos="38.64" lane="gneE2_1" slope="0.00" acceleration="0.12"/>
+        <vehicle id="flow_0.6" x="145.37" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.05" pos="18.97" lane="gneE2_1" slope="0.00" acceleration="0.26"/>
+        <vehicle id="flow_0.7" x="126.45" y="98.40" angle="81.96" type="DEFAULT_VEHTYPE" speed="12.43" pos="0.05" lane="gneE2_1" slope="0.00" acceleration="0.40"/>
+        <vehicle id="flow_0.8" x="109.48" y="93.21" angle="41.87" type="DEFAULT_VEHTYPE" speed="11.70" pos="21.95" lane=":gneJ1_6_0" slope="0.00" acceleration="0.58"/>
+        <vehicle id="flow_0.9" x="102.27" y="78.31" angle="7.73" type="DEFAULT_VEHTYPE" speed="10.85" pos="4.75" lane=":gneJ1_6_0" slope="0.00" acceleration="0.74"/>
+    </timestep>
+    <timestep time="35.80">
+        <vehicle id="flow_0.4" x="188.14" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="61.74" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="167.75" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.56" pos="41.35" lane="gneE2_1" slope="0.00" acceleration="0.11"/>
+        <vehicle id="flow_0.6" x="147.99" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.10" pos="21.59" lane="gneE2_1" slope="0.00" acceleration="0.25"/>
+        <vehicle id="flow_0.7" x="128.95" y="98.40" angle="86.03" type="DEFAULT_VEHTYPE" speed="12.51" pos="2.55" lane="gneE2_1" slope="0.00" acceleration="0.38"/>
+        <vehicle id="flow_0.8" x="111.50" y="94.42" angle="55.29" type="DEFAULT_VEHTYPE" speed="11.81" pos="24.32" lane=":gneJ1_6_0" slope="0.00" acceleration="0.55"/>
+        <vehicle id="flow_0.9" x="102.58" y="80.48" angle="8.13" type="DEFAULT_VEHTYPE" speed="10.98" pos="6.95" lane=":gneJ1_6_0" slope="0.00" acceleration="0.67"/>
+    </timestep>
+    <timestep time="36.00">
+        <vehicle id="flow_0.4" x="190.92" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="64.52" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="170.47" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.58" pos="44.07" lane="gneE2_1" slope="0.00" acceleration="0.10"/>
+        <vehicle id="flow_0.6" x="150.62" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.15" pos="24.22" lane="gneE2_1" slope="0.00" acceleration="0.23"/>
+        <vehicle id="flow_0.7" x="131.47" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.58" pos="5.07" lane="gneE2_1" slope="0.00" acceleration="0.36"/>
+        <vehicle id="flow_0.8" x="113.54" y="95.65" angle="59.04" type="DEFAULT_VEHTYPE" speed="11.91" pos="26.70" lane=":gneJ1_6_0" slope="0.00" acceleration="0.52"/>
+        <vehicle id="flow_0.9" x="102.90" y="82.68" angle="8.13" type="DEFAULT_VEHTYPE" speed="11.11" pos="9.17" lane=":gneJ1_6_0" slope="0.00" acceleration="0.65"/>
+    </timestep>
+    <timestep time="36.20">
+        <vehicle id="flow_0.4" x="193.70" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="67.30" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="173.19" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.60" pos="46.79" lane="gneE2_1" slope="0.00" acceleration="0.10"/>
+        <vehicle id="flow_0.6" x="153.26" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.19" pos="26.86" lane="gneE2_1" slope="0.00" acceleration="0.22"/>
+        <vehicle id="flow_0.7" x="134.00" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.65" pos="7.60" lane="gneE2_1" slope="0.00" acceleration="0.34"/>
+        <vehicle id="flow_0.8" x="115.61" y="96.86" angle="59.30" type="DEFAULT_VEHTYPE" speed="12.01" pos="29.10" lane=":gneJ1_6_0" slope="0.00" acceleration="0.50"/>
+        <vehicle id="flow_0.9" x="103.39" y="84.84" angle="10.19" type="DEFAULT_VEHTYPE" speed="11.24" pos="11.42" lane=":gneJ1_6_0" slope="0.00" acceleration="0.62"/>
+    </timestep>
+    <timestep time="36.40">
+        <vehicle id="flow_0.4" x="196.48" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="70.08" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="175.91" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.62" pos="49.51" lane="gneE2_1" slope="0.00" acceleration="0.09"/>
+        <vehicle id="flow_0.6" x="155.90" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.23" pos="29.50" lane="gneE2_1" slope="0.00" acceleration="0.20"/>
+        <vehicle id="flow_0.7" x="136.54" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.72" pos="10.14" lane="gneE2_1" slope="0.00" acceleration="0.33"/>
+        <vehicle id="flow_0.8" x="118.00" y="97.20" angle="70.35" type="DEFAULT_VEHTYPE" speed="12.10" pos="31.52" lane=":gneJ1_6_0" slope="0.00" acceleration="0.44"/>
+        <vehicle id="flow_0.9" x="104.55" y="86.79" angle="20.62" type="DEFAULT_VEHTYPE" speed="11.36" pos="13.69" lane=":gneJ1_6_0" slope="0.00" acceleration="0.60"/>
+    </timestep>
+    <timestep time="36.60">
+        <vehicle id="flow_0.4" x="199.26" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="72.86" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.5" x="178.64" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.63" pos="52.24" lane="gneE2_1" slope="0.00" acceleration="0.09"/>
+        <vehicle id="flow_0.6" x="158.56" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.27" pos="32.16" lane="gneE2_1" slope="0.00" acceleration="0.18"/>
+        <vehicle id="flow_0.7" x="139.10" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.78" pos="12.70" lane="gneE2_1" slope="0.00" acceleration="0.31"/>
+        <vehicle id="flow_0.8" x="120.42" y="97.55" angle="81.49" type="DEFAULT_VEHTYPE" speed="12.18" pos="33.96" lane=":gneJ1_6_0" slope="0.00" acceleration="0.42"/>
+        <vehicle id="flow_0.9" x="105.74" y="88.76" angle="30.96" type="DEFAULT_VEHTYPE" speed="11.47" pos="15.99" lane=":gneJ1_6_0" slope="0.00" acceleration="0.58"/>
+    </timestep>
+    <timestep time="36.80">
+        <vehicle id="flow_0.5" x="181.37" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.65" pos="54.97" lane="gneE2_1" slope="0.00" acceleration="0.08"/>
+        <vehicle id="flow_0.6" x="161.22" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.30" pos="34.82" lane="gneE2_1" slope="0.00" acceleration="0.17"/>
+        <vehicle id="flow_0.7" x="141.66" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.84" pos="15.26" lane="gneE2_1" slope="0.00" acceleration="0.30"/>
+        <vehicle id="flow_0.8" x="122.84" y="97.89" angle="81.86" type="DEFAULT_VEHTYPE" speed="12.26" pos="0.45" lane=":gneJ1_16_0" slope="0.00" acceleration="0.41"/>
+        <vehicle id="flow_0.9" x="106.93" y="90.75" angle="30.96" type="DEFAULT_VEHTYPE" speed="11.58" pos="18.30" lane=":gneJ1_6_0" slope="0.00" acceleration="0.56"/>
+    </timestep>
+    <timestep time="37.00">
+        <vehicle id="flow_0.5" x="184.15" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="57.75" lane="gneE2_1" slope="0.00" acceleration="1.21"/>
+        <vehicle id="flow_0.6" x="163.88" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.34" pos="37.48" lane="gneE2_1" slope="0.00" acceleration="0.16"/>
+        <vehicle id="flow_0.7" x="144.24" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.89" pos="17.84" lane="gneE2_1" slope="0.00" acceleration="0.28"/>
+        <vehicle id="flow_0.8" x="125.29" y="98.24" angle="81.88" type="DEFAULT_VEHTYPE" speed="12.34" pos="2.92" lane=":gneJ1_16_0" slope="0.00" acceleration="0.39"/>
+        <vehicle id="flow_0.9" x="108.35" y="92.53" angle="34.47" type="DEFAULT_VEHTYPE" speed="11.69" pos="20.64" lane=":gneJ1_6_0" slope="0.00" acceleration="0.53"/>
+    </timestep>
+    <timestep time="37.20">
+        <vehicle id="flow_0.5" x="186.92" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="60.52" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.6" x="166.59" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.54" pos="40.19" lane="gneE2_1" slope="0.00" acceleration="1.00"/>
+        <vehicle id="flow_0.7" x="146.83" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.95" pos="20.43" lane="gneE2_1" slope="0.00" acceleration="0.27"/>
+        <vehicle id="flow_0.8" x="127.76" y="98.40" angle="84.09" type="DEFAULT_VEHTYPE" speed="12.42" pos="1.36" lane="gneE2_1" slope="0.00" acceleration="0.37"/>
+        <vehicle id="flow_0.9" x="110.37" y="93.74" angle="47.86" type="DEFAULT_VEHTYPE" speed="11.79" pos="23.00" lane=":gneJ1_6_0" slope="0.00" acceleration="0.51"/>
+    </timestep>
+    <timestep time="37.40">
+        <vehicle id="flow_0.5" x="189.70" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="63.30" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.6" x="169.30" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.56" pos="42.90" lane="gneE2_1" slope="0.00" acceleration="0.11"/>
+        <vehicle id="flow_0.7" x="149.46" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.13" pos="23.06" lane="gneE2_1" slope="0.00" acceleration="0.93"/>
+        <vehicle id="flow_0.8" x="130.26" y="98.40" angle="88.15" type="DEFAULT_VEHTYPE" speed="12.49" pos="3.86" lane="gneE2_1" slope="0.00" acceleration="0.35"/>
+        <vehicle id="flow_0.9" x="112.41" y="94.97" angle="59.04" type="DEFAULT_VEHTYPE" speed="11.89" pos="25.38" lane=":gneJ1_6_0" slope="0.00" acceleration="0.49"/>
+    </timestep>
+    <timestep time="37.60">
+        <vehicle id="flow_0.5" x="192.48" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="66.08" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.6" x="172.02" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.58" pos="45.62" lane="gneE2_1" slope="0.00" acceleration="0.10"/>
+        <vehicle id="flow_0.7" x="152.09" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.18" pos="25.69" lane="gneE2_1" slope="0.00" acceleration="0.22"/>
+        <vehicle id="flow_0.8" x="132.79" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.66" pos="6.39" lane="gneE2_1" slope="0.00" acceleration="0.84"/>
+        <vehicle id="flow_0.9" x="114.47" y="96.20" angle="59.04" type="DEFAULT_VEHTYPE" speed="11.98" pos="27.78" lane=":gneJ1_6_0" slope="0.00" acceleration="0.47"/>
+    </timestep>
+    <timestep time="37.80">
+        <vehicle id="flow_0.5" x="195.26" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="68.86" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.6" x="174.74" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.60" pos="48.34" lane="gneE2_1" slope="0.00" acceleration="0.10"/>
+        <vehicle id="flow_0.7" x="154.74" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.22" pos="28.34" lane="gneE2_1" slope="0.00" acceleration="0.20"/>
+        <vehicle id="flow_0.8" x="135.33" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.72" pos="8.93" lane="gneE2_1" slope="0.00" acceleration="0.32"/>
+        <vehicle id="flow_0.9" x="116.70" y="97.01" angle="64.29" type="DEFAULT_VEHTYPE" speed="12.14" pos="30.20" lane=":gneJ1_6_0" slope="0.00" acceleration="0.79"/>
+    </timestep>
+    <timestep time="38.00">
+        <vehicle id="flow_0.5" x="198.04" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="71.64" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.6" x="177.46" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.62" pos="51.06" lane="gneE2_1" slope="0.00" acceleration="0.09"/>
+        <vehicle id="flow_0.7" x="157.39" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.26" pos="30.99" lane="gneE2_1" slope="0.00" acceleration="0.19"/>
+        <vehicle id="flow_0.8" x="137.89" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.78" pos="11.49" lane="gneE2_1" slope="0.00" acceleration="0.31"/>
+        <vehicle id="flow_0.9" x="119.12" y="97.36" angle="75.56" type="DEFAULT_VEHTYPE" speed="12.22" pos="32.65" lane=":gneJ1_6_0" slope="0.00" acceleration="0.41"/>
+    </timestep>
+    <timestep time="38.20">
+        <vehicle id="flow_0.6" x="180.19" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.63" pos="53.79" lane="gneE2_1" slope="0.00" acceleration="0.09"/>
+        <vehicle id="flow_0.7" x="160.05" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.29" pos="33.65" lane="gneE2_1" slope="0.00" acceleration="0.18"/>
+        <vehicle id="flow_0.8" x="140.46" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.84" pos="14.06" lane="gneE2_1" slope="0.00" acceleration="0.29"/>
+        <vehicle id="flow_0.9" x="121.56" y="97.71" angle="81.86" type="DEFAULT_VEHTYPE" speed="12.30" pos="35.11" lane=":gneJ1_6_0" slope="0.00" acceleration="0.39"/>
+    </timestep>
+    <timestep time="38.40">
+        <vehicle id="flow_0.6" x="182.97" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="56.57" lane="gneE2_1" slope="0.00" acceleration="1.28"/>
+        <vehicle id="flow_0.7" x="162.71" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.32" pos="36.31" lane="gneE2_1" slope="0.00" acceleration="0.17"/>
+        <vehicle id="flow_0.8" x="143.04" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.90" pos="16.64" lane="gneE2_1" slope="0.00" acceleration="0.28"/>
+        <vehicle id="flow_0.9" x="124.01" y="98.06" angle="81.87" type="DEFAULT_VEHTYPE" speed="12.38" pos="1.62" lane=":gneJ1_16_0" slope="0.00" acceleration="0.38"/>
+    </timestep>
+    <timestep time="38.60">
+        <vehicle id="flow_0.6" x="185.75" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="59.35" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.7" x="165.42" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.54" pos="39.02" lane="gneE2_1" slope="0.00" acceleration="1.06"/>
+        <vehicle id="flow_0.8" x="145.63" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.95" pos="19.23" lane="gneE2_1" slope="0.00" acceleration="0.26"/>
+        <vehicle id="flow_0.9" x="126.47" y="98.40" angle="82.00" type="DEFAULT_VEHTYPE" speed="12.45" pos="0.07" lane="gneE2_1" slope="0.00" acceleration="0.36"/>
+    </timestep>
+    <timestep time="38.80">
+        <vehicle id="flow_0.6" x="188.52" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="62.12" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.7" x="168.13" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.56" pos="41.73" lane="gneE2_1" slope="0.00" acceleration="0.11"/>
+        <vehicle id="flow_0.8" x="148.26" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.14" pos="21.86" lane="gneE2_1" slope="0.00" acceleration="0.97"/>
+        <vehicle id="flow_0.9" x="128.98" y="98.40" angle="86.07" type="DEFAULT_VEHTYPE" speed="12.52" pos="2.58" lane="gneE2_1" slope="0.00" acceleration="0.34"/>
+    </timestep>
+    <timestep time="39.00">
+        <vehicle id="flow_0.6" x="191.30" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="64.90" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.7" x="170.85" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.58" pos="44.45" lane="gneE2_1" slope="0.00" acceleration="0.10"/>
+        <vehicle id="flow_0.8" x="150.89" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.19" pos="24.49" lane="gneE2_1" slope="0.00" acceleration="0.22"/>
+        <vehicle id="flow_0.9" x="131.51" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.69" pos="5.11" lane="gneE2_1" slope="0.00" acceleration="0.86"/>
+    </timestep>
+    <timestep time="39.20">
+        <vehicle id="flow_0.6" x="194.08" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="67.68" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.7" x="173.57" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.60" pos="47.17" lane="gneE2_1" slope="0.00" acceleration="0.10"/>
+        <vehicle id="flow_0.8" x="153.54" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.23" pos="27.14" lane="gneE2_1" slope="0.00" acceleration="0.20"/>
+        <vehicle id="flow_0.9" x="134.06" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.75" pos="7.66" lane="gneE2_1" slope="0.00" acceleration="0.31"/>
+    </timestep>
+    <timestep time="39.40">
+        <vehicle id="flow_0.6" x="196.86" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="70.46" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.7" x="176.29" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.62" pos="49.89" lane="gneE2_1" slope="0.00" acceleration="0.09"/>
+        <vehicle id="flow_0.8" x="156.19" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.26" pos="29.79" lane="gneE2_1" slope="0.00" acceleration="0.18"/>
+        <vehicle id="flow_0.9" x="136.63" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.81" pos="10.23" lane="gneE2_1" slope="0.00" acceleration="0.30"/>
+    </timestep>
+    <timestep time="39.60">
+        <vehicle id="flow_0.6" x="199.64" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="73.24" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.7" x="179.02" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.63" pos="52.62" lane="gneE2_1" slope="0.00" acceleration="0.09"/>
+        <vehicle id="flow_0.8" x="158.85" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.30" pos="32.45" lane="gneE2_1" slope="0.00" acceleration="0.17"/>
+        <vehicle id="flow_0.9" x="139.20" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.87" pos="12.80" lane="gneE2_1" slope="0.00" acceleration="0.29"/>
+    </timestep>
+    <timestep time="39.80">
+        <vehicle id="flow_0.7" x="181.74" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.65" pos="55.34" lane="gneE2_1" slope="0.00" acceleration="0.08"/>
+        <vehicle id="flow_0.8" x="161.52" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.33" pos="35.12" lane="gneE2_1" slope="0.00" acceleration="0.16"/>
+        <vehicle id="flow_0.9" x="141.78" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.92" pos="15.38" lane="gneE2_1" slope="0.00" acceleration="0.27"/>
+    </timestep>
+    <timestep time="40.00">
+        <vehicle id="flow_0.7" x="184.52" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="58.12" lane="gneE2_1" slope="0.00" acceleration="1.20"/>
+        <vehicle id="flow_0.8" x="164.19" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.36" pos="37.79" lane="gneE2_1" slope="0.00" acceleration="0.15"/>
+        <vehicle id="flow_0.9" x="144.38" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.97" pos="17.98" lane="gneE2_1" slope="0.00" acceleration="0.26"/>
+    </timestep>
+    <timestep time="40.20">
+        <vehicle id="flow_0.7" x="187.30" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="60.90" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.8" x="166.90" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.56" pos="40.50" lane="gneE2_1" slope="0.00" acceleration="0.99"/>
+        <vehicle id="flow_0.9" x="146.98" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.02" pos="20.58" lane="gneE2_1" slope="0.00" acceleration="0.24"/>
+    </timestep>
+    <timestep time="40.40">
+        <vehicle id="flow_0.7" x="190.08" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="63.68" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.8" x="169.62" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.58" pos="43.22" lane="gneE2_1" slope="0.00" acceleration="0.10"/>
+        <vehicle id="flow_0.9" x="149.62" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.20" pos="23.22" lane="gneE2_1" slope="0.00" acceleration="0.91"/>
+    </timestep>
+    <timestep time="40.60">
+        <vehicle id="flow_0.7" x="192.86" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="66.46" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.8" x="172.34" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.60" pos="45.94" lane="gneE2_1" slope="0.00" acceleration="0.10"/>
+        <vehicle id="flow_0.9" x="152.27" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.24" pos="25.87" lane="gneE2_1" slope="0.00" acceleration="0.19"/>
+    </timestep>
+    <timestep time="40.80">
+        <vehicle id="flow_0.7" x="195.63" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="69.23" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.8" x="175.06" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.62" pos="48.66" lane="gneE2_1" slope="0.00" acceleration="0.09"/>
+        <vehicle id="flow_0.9" x="154.93" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.28" pos="28.53" lane="gneE2_1" slope="0.00" acceleration="0.18"/>
+    </timestep>
+    <timestep time="41.00">
+        <vehicle id="flow_0.7" x="198.41" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="72.01" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.8" x="177.79" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.63" pos="51.39" lane="gneE2_1" slope="0.00" acceleration="0.09"/>
+        <vehicle id="flow_0.9" x="157.59" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.31" pos="31.19" lane="gneE2_1" slope="0.00" acceleration="0.17"/>
+    </timestep>
+    <timestep time="41.20">
+        <vehicle id="flow_0.8" x="180.52" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.65" pos="54.12" lane="gneE2_1" slope="0.00" acceleration="0.08"/>
+        <vehicle id="flow_0.9" x="160.26" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.34" pos="33.86" lane="gneE2_1" slope="0.00" acceleration="0.16"/>
+    </timestep>
+    <timestep time="41.40">
+        <vehicle id="flow_0.8" x="183.30" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="56.90" lane="gneE2_1" slope="0.00" acceleration="1.20"/>
+        <vehicle id="flow_0.9" x="162.93" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.37" pos="36.53" lane="gneE2_1" slope="0.00" acceleration="0.15"/>
+    </timestep>
+    <timestep time="41.60">
+        <vehicle id="flow_0.8" x="186.07" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="59.67" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.9" x="165.65" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.57" pos="39.25" lane="gneE2_1" slope="0.00" acceleration="0.98"/>
+    </timestep>
+    <timestep time="41.80">
+        <vehicle id="flow_0.8" x="188.85" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="62.45" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.9" x="168.36" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.59" pos="41.96" lane="gneE2_1" slope="0.00" acceleration="0.10"/>
+    </timestep>
+    <timestep time="42.00">
+        <vehicle id="flow_0.8" x="191.63" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="65.23" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.9" x="171.08" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.61" pos="44.68" lane="gneE2_1" slope="0.00" acceleration="0.09"/>
+    </timestep>
+    <timestep time="42.20">
+        <vehicle id="flow_0.8" x="194.41" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="68.01" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.9" x="173.81" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.63" pos="47.41" lane="gneE2_1" slope="0.00" acceleration="0.09"/>
+    </timestep>
+    <timestep time="42.40">
+        <vehicle id="flow_0.8" x="197.19" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="70.79" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+        <vehicle id="flow_0.9" x="176.54" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.64" pos="50.14" lane="gneE2_1" slope="0.00" acceleration="0.08"/>
+    </timestep>
+    <timestep time="42.60">
+        <vehicle id="flow_0.9" x="179.27" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.66" pos="52.87" lane="gneE2_1" slope="0.00" acceleration="0.08"/>
+    </timestep>
+    <timestep time="42.80">
+        <vehicle id="flow_0.9" x="182.05" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="55.65" lane="gneE2_1" slope="0.00" acceleration="1.16"/>
+    </timestep>
+    <timestep time="43.00">
+        <vehicle id="flow_0.9" x="184.83" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="58.43" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="43.20">
+        <vehicle id="flow_0.9" x="187.60" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="61.20" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="43.40">
+        <vehicle id="flow_0.9" x="190.38" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="63.98" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="43.60">
+        <vehicle id="flow_0.9" x="193.16" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="66.76" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="43.80">
+        <vehicle id="flow_0.9" x="195.94" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="69.54" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="44.00">
+        <vehicle id="flow_0.9" x="198.72" y="98.40" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="72.32" lane="gneE2_1" slope="0.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="44.20"/>
+</fcd-export>
