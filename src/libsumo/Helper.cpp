@@ -1312,7 +1312,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
         double angleDiffN = 1. - (u.angleDiff / 180.);
         double idN = u.ID ? 1 : 0;
         double onRouteN = u.onRoute ? 1 : 0;
-        double sameEdgeN = u.sameEdge ? MIN2(currentRouteEdge->getLength() / speed, (double)1.) : 0;
+        double sameEdgeN = u.sameEdge ? MIN2(currentRouteEdge->getLength() / MAX2(NUMERICAL_EPS, speed), (double)1.) : 0;
         double value = (distN * .5 // distance is more important than angle because the vehicle might be driving in the opposite direction
                         + angleDiffN * 0.35 /*.5 */
                         + idN * 1
