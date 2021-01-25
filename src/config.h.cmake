@@ -1,3 +1,83 @@
+/* Macros for CLANG*/
+#ifdef __clang__
+    /* Macros for CLANG in Windows*/
+    #ifdef WIN32
+
+    #pragma clang diagnostic ignored "-Wzero-as-null-pointer-constant"
+
+    #pragma clang diagnostic ignored "-Wc++98-compat"
+
+    #pragma clang diagnostic ignored "-Wold-style-cast"
+
+    #pragma clang diagnostic ignored "-Wdocumentation"
+
+    #pragma clang diagnostic ignored "-Wdocumentation-pedantic"
+
+    #pragma clang diagnostic ignored "-Wreserved-id-macro"
+
+    #pragma clang diagnostic ignored "-Wextra-semi"
+
+    #pragma clang diagnostic ignored "-Wc++98-compat-pedantic"
+
+    #pragma clang diagnostic ignored "-Wexit-time-destructors"
+
+    #pragma clang diagnostic ignored "-Wfloat-equal"
+
+    #pragma clang diagnostic ignored "-Wglobal-constructors"
+
+    #pragma clang diagnostic ignored "-Wsign-conversion"
+
+    #pragma clang diagnostic ignored "-Wundef"
+
+    #pragma clang diagnostic ignored "-Wextra-semi-stmt"
+
+    #pragma clang diagnostic ignored "-Wmicrosoft-enum-value"
+
+    #pragma clang diagnostic ignored "-Wdeprecated-copy-dtor"
+
+    #pragma clang diagnostic ignored "-Wcovered-switch-default"
+
+    #pragma clang diagnostic ignored "-Wimplicit-int-float-conversion"
+
+    #pragma clang diagnostic ignored "-Wunknown-argument"
+
+    #pragma clang diagnostic ignored "-Wcast-qual"
+
+    #pragma clang diagnostic ignored "-Wsign-compare"
+
+    #pragma clang diagnostic ignored "-Wundefined-func-template"
+
+    #pragma clang diagnostic ignored "-Wheader-hygiene"
+
+    #pragma clang diagnostic ignored "-Wanon-enum-enum-conversion"
+
+    #pragma clang diagnostic ignored "-Wlanguage-extension-token"
+
+    #pragma clang diagnostic ignored "-Wlanguage-extension-token"
+
+    #pragma clang diagnostic ignored "-Wshadow"
+
+    #pragma clang diagnostic ignored "-Wundefined-reinterpret-cast"
+
+    #pragma clang diagnostic ignored "-Wcast-align"
+
+    #pragma clang diagnostic ignored "-Wshadow-field"
+
+    #pragma clang diagnostic ignored "-Wnon-virtual-dtor"
+
+    #pragma clang diagnostic ignored "-Wdouble-promotion"
+
+    #pragma clang diagnostic ignored "-Wnonportable-system-include-path"
+
+    #pragma clang diagnostic ignored "-Winconsistent-missing-destructor-override"
+
+    /* CLANG in Windows */
+    #endif
+
+/* CLANG */
+#endif
+
+
 /* Macros for Microsoft Visual Studio */
 #ifdef _MSC_VER
 
