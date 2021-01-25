@@ -383,42 +383,6 @@ def filterTripinfo(step, attrs):
         os.rename(out.name, inFile)
 
 
-def assign_remaining_args(application, prefix, args):
-    # assign remaining args [ prefix--o1 a1 prefix--o2 prefix--o3 a3  ...]
-    # only handles long options!
-    assigned = []
-    # split into options and arguments
-    items = []
-    item = None
-    for arg in args:
-        if "--" in arg:
-            if item is not None:
-                items.append(item)
-            item = [arg]
-        else:
-            if item is None:
-                sys.exit(
-                    'Encounted argument "%s" without a preceeding option' % arg)
-            item.append(arg)
-    if item is not None:
-        items.append(item)
-
-    # assign to programs
-    valid_options = set(get_long_option_names(application))
-    for item in items:
-        prefixed = item[0]
-        if prefixed[0:len(prefix)] == prefix:
-            option = prefixed[len(prefix):]
-            if option in valid_options:
-                assigned.append(option)
-                assigned += item[1:]
-            else:
-                sys.exit('"%s" is not a valid option for "%s"' %
-                         (option, application))
-
-    return assigned
-
-
 def get_basename(demand_file):
     basename = os.path.basename(demand_file)
     if 'alt' in basename:
