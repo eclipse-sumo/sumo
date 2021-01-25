@@ -14,7 +14,7 @@ output
 b50
 
 # testing socket output
-socketout
+#socketout
 
 # testing protobuf conversion and roundtrip
 #protobuf
