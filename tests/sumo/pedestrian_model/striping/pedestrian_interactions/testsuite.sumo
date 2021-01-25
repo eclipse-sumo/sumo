@@ -25,3 +25,6 @@ walkingarea_jam_4m_crossing
 
 # dense traffic in opposite directions on walkingarea
 walkingarea_jam_reserve_oncoming
+
+# busStop is at capacity and persons jam the sidewalk
+jam_busStop

@@ -1,0 +1,7 @@
+<!-- generated on 2015-12-01 08:08:28.189000 by "pedestrianFlow.py flow.xml -r AB BC CD DE -p 1 -e 300 -s -1.1" -->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <personFlow id="pflow" begin="0" end="10" number="10">
+        <walk from="SC" busStop="stop"/>
+        <ride to="CN" lines="ANY"/>
+    </personFlow>
+</routes>
