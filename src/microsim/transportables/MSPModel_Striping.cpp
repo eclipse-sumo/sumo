@@ -32,6 +32,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSJunction.h>
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/transportables/MSStage.h>
 #include <microsim/transportables/MSTransportableControl.h>
@@ -1167,7 +1168,12 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
             gDebugFlag1 = false;
         }
         if (&lane->getEdge() == p.myStage->getDestination() && p.myStage->getDestinationStop() != nullptr) {
-            Obstacles arrival(stripes, Obstacle(p.myStage->getArrivalPos() + dir * p.getMinGap(), 0, OBSTACLE_ARRIVALPOS, "arrival", 0));
+            Obstacles arrival;
+            if (p.myStage->getDestinationStop()->getWaitingCapacity() > p.myStage->getDestinationStop()->getNumWaitingPersons()) {
+                arrival = Obstacles(stripes, Obstacle(p.myStage->getArrivalPos() + dir * p.getMinGap(), 0, OBSTACLE_ARRIVALPOS, "arrival", 0));
+            } else {
+                arrival = Obstacles(stripes, Obstacle(p.myStage->getArrivalPos() - dir * p.getMinGap(), 0, OBSTACLE_ARRIVALPOS, "arrival_blocked", 0));
+            }
             p.mergeObstacles(currentObs, arrival);
         }
 

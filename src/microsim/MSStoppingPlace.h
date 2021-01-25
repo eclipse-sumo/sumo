@@ -207,6 +207,11 @@ public:
         return (int)myWaitingTransportables.size();
     }
 
+    /// @brief get number of persons that can wait at this stop
+    inline int getWaitingCapacity() const {
+        return myTransportableCapacity;
+    }
+
     /// @brief get IDs of persons waiting at this stop
     void getWaitingPersonIDs(std::vector<std::string>& into) const;
 
