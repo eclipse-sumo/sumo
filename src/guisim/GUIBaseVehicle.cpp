@@ -441,8 +441,10 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
             }
             break;
         case 3:
-        default:
             drawCarriages = drawAction_drawVehicleAsPolyWithCarriagges(s, true);
+        case 4:
+            GUIBaseVehicleHelper::drawAction_drawVehicleAsCircle(getVType().getWidth(), getVType().getLength(), s.scale * upscale);
+        default:
             break;
     }
     if (s.drawMinGap) {

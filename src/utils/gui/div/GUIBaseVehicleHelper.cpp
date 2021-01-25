@@ -139,6 +139,13 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(const double width, c
 
 
 void
+GUIBaseVehicleHelper::drawAction_drawVehicleAsCircle(const double length, const double width, double detail) {
+    const double maxDim = MAX2(length, width);
+    const int steps = MIN2(MAX2(16, int(detail / 5)), 64);
+    GLHelper::drawFilledCircle(maxDim / 5, steps);
+}
+
+void
 GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s, const SUMOVehicleShape shape, const double width, const double length,
         int carriageIndex) {
     UNUSED_PARAMETER(s);
