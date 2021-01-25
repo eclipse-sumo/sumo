@@ -18,6 +18,7 @@
 // A class for visualizing routes in Netedit
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEDemandElement.h"

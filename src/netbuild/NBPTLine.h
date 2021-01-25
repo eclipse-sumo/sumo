@@ -19,6 +19,7 @@
 // The representation of one direction of a single pt line
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 
 #include <string>

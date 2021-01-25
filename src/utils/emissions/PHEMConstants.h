@@ -20,6 +20,7 @@
 /****************************************************************************/
 
 #pragma once
+#include <config.h>
 
 const double GRAVITY_CONST = 9.81;
 const double AIR_DENSITY_CONST = 1.182;

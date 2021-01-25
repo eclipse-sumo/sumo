@@ -18,6 +18,7 @@
 // A network change in which a generic data set is created or deleted
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 // ===========================================================================
 // included modules

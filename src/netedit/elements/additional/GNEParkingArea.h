@@ -18,6 +18,7 @@
 // A class for visualizing ParkingArea geometry (adapted from GUILaneWrapper)
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include "GNEStoppingPlace.h"
 
 

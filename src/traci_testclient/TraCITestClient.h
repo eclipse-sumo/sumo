@@ -21,6 +21,7 @@
 // A test execution class
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <string>
 #include <sstream>
 #include <vector>

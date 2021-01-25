@@ -18,6 +18,7 @@
 //
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <netedit/GNEMoveElement.h>
 #include <utils/shapes/SUMOPolygon.h>
 

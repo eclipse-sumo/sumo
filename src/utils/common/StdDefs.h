@@ -21,6 +21,7 @@
 //
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <string>
 #include <cmath>
 #include <limits>

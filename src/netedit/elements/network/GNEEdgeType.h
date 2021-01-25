@@ -18,6 +18,7 @@
 /// A SUMO edge type file assigns default values for certain attributes to types of roads.
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include "GNENetworkElement.h"
 
 #include <netbuild/NBTypeCont.h>

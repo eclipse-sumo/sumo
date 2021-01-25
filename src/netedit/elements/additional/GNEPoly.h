@@ -19,6 +19,7 @@
 // GUIPolygon and NLHandler)
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <utils/shapes/SUMOPolygon.h>
 
 #include "GNEShape.h"

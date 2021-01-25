@@ -18,6 +18,7 @@
 // Representation of Stops in NETEDIT
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 
 #include "GNEDemandElement.h"

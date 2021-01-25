@@ -18,6 +18,7 @@
 // A view on the network being edited (adapted from GUIViewTraffic)
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include "GNEViewNetHelper.h"
 
 #include <utils/common/SUMOVehicleClass.h>

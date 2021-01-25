@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #pragma once
+#include <config.h>
 
 ///For MSSOTLSensors
 //SENSOR_START in meters, counting from the traffic light and moving backward with respect to traffic direction

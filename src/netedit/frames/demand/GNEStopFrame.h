@@ -18,6 +18,7 @@
 // The Widget for add Stops elements
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>

@@ -18,6 +18,7 @@
 // A popup-menu for dynamic patameter table entries
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <string>
 
 #include <config.h>

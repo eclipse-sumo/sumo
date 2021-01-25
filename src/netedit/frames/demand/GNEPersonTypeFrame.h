@@ -18,6 +18,7 @@
 // The Widget for edit person type (VTypes with vclass='pedestrian) elements
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
 

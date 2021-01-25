@@ -21,6 +21,7 @@
 // A position in the 2D- or 3D-world
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <iostream>
 #include <cmath>
 

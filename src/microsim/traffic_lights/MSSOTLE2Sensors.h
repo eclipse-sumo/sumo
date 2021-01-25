@@ -21,6 +21,7 @@
 //      start taking a look at the getEstimateQueueLength() method of the collector.
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 
 #include <cmath>

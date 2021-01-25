@@ -18,6 +18,7 @@
 // Importer for static public transport information
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 #include <config.h>
 

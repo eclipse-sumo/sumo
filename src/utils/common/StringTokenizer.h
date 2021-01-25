@@ -20,6 +20,7 @@
 // A java-style StringTokenizer for c++ (stl)
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <string>
 #include <vector>
 

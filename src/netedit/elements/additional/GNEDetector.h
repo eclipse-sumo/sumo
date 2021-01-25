@@ -18,6 +18,7 @@
 // A abstract class to define common parameters of detectors placed over lanes
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include "GNEAdditional.h"
 
 // ===========================================================================

@@ -18,6 +18,7 @@
 // The Widget for modifying lane-to-lane connections
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 #include <config.h>
 #include <netbuild/NBEdge.h>

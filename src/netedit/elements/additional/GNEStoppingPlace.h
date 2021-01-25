@@ -18,6 +18,7 @@
 // A abstract class to define common parameters of lane area in which vehicles can halt (GNE version)
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include "GNEAdditional.h"
 
 // ===========================================================================

@@ -19,6 +19,7 @@
 // Basically a container for an NBEdge with drawing and editing capabilities
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include "GNENetworkElement.h"
 
 #include <netbuild/NBEdge.h>

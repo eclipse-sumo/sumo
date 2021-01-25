@@ -18,6 +18,7 @@
 // The main window of Netedit (adapted from GUIApplicationWindow)
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 #include "GNEApplicationWindowHelper.h"
 

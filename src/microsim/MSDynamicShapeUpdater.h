@@ -18,6 +18,7 @@
 //
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 #include "MSNet.h"
 #include "utils/shapes/ShapeContainer.h"

@@ -18,6 +18,7 @@
 // <description missing>
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 
 #include "MSCFModel.h"

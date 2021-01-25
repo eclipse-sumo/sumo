@@ -20,6 +20,7 @@
 // A map of named object pointers
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <map>
 #include <string>
 #include <vector>

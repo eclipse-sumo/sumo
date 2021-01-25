@@ -21,6 +21,7 @@
 // A super class for objects with additional parameters
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <map>
 #include <string>
 

@@ -19,6 +19,7 @@
 // A class that generates enumerated and prefixed string-ids
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <string>
 #include <vector>
 

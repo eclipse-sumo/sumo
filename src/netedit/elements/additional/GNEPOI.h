@@ -19,6 +19,7 @@
 // GUIPointOfInterest and NLHandler)
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <utils/shapes/PointOfInterest.h>
 
 #include "GNEShape.h"

@@ -21,6 +21,7 @@
 // Exceptions for used by some utility classes
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <string>
 #include <stdexcept>
 

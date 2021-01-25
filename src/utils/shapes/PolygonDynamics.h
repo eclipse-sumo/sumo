@@ -20,6 +20,7 @@
 
 
 #pragma once
+#include <config.h>
 
 #include <memory>
 #include "SUMOPolygon.h"

@@ -18,6 +18,7 @@
 // A class for visualizing rides in Netedit
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include "GNEDemandElement.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 

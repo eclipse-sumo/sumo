@@ -21,6 +21,7 @@
 // Some static methods for string processing
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <string>
 #include <xercesc/util/XMLString.hpp>
 #include <utils/common/UtilExceptions.h>

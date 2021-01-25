@@ -19,6 +19,7 @@
 // Encapsulates an object's method for using it as a message retriever
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <string>
 #include <sstream>
 #include <utils/iodevices/OutputDevice.h>

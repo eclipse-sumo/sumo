@@ -18,6 +18,7 @@
 // A abstract class for representation of hierarchical elements
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 #include <netedit/GNEGeometry.h>
 #include <netedit/elements/GNEAttributeCarrier.h>

@@ -20,6 +20,7 @@
 // Variables, methods, and tools for internal time representation
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <limits>
 #include <string>
 #include "UtilExceptions.h"

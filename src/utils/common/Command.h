@@ -19,6 +19,7 @@
 // Base (microsim) event class
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/UtilExceptions.h>
 

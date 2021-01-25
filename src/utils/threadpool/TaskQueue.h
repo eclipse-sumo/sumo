@@ -19,6 +19,7 @@
 // based on https://github.com/vukis/Cpp-Utilities/tree/master/ThreadPool
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 #include <condition_variable>
 #include <functional>

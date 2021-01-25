@@ -19,6 +19,7 @@
 // A wrapper for a Command function
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include "Command.h"
 
 

@@ -22,6 +22,7 @@
 // The definition of a single phase of a tls logic
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 #define TARGET_BIT 0
 #define TRANSIENT_NOTDECISIONAL_BIT 1

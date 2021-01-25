@@ -18,6 +18,7 @@
 // Definition of Vehicle Types in NETEDIT
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 
 #include "GNEDemandElement.h"

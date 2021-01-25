@@ -20,6 +20,7 @@
 // A list of time ranges with assigned values
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <map>
 #include <cassert>
 #include <utility>

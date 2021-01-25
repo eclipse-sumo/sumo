@@ -18,6 +18,7 @@
 // The Widget for add Crossing elements
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
 

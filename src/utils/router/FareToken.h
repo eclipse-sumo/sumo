@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #pragma once
+#include <config.h>
 enum class FareToken : int {
     None =  0,
     Free =  1, // walking and other things can be free

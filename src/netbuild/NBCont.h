@@ -19,6 +19,7 @@
 // Some typedef definitions fir containers
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <vector>
 #include <set>
 #include <utils/common/Named.h>

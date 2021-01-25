@@ -20,6 +20,7 @@
 // C++ TraCI client API implementation
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <vector>
 #include <map>
 #include <limits>

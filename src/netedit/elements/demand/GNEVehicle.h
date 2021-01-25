@@ -18,6 +18,7 @@
 // Representation of vehicles in NETEDIT
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 

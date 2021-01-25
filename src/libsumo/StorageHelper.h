@@ -18,6 +18,7 @@
 // Functions for reading, writing and converting TraCIResults to tcpip::Storage
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <foreign/tcpip/storage.h>
 #include <libsumo/TraCIDefs.h>
 

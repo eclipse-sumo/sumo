@@ -20,6 +20,7 @@
 // Retrieves messages about the process and gives them further to output
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <string>
 #include <vector>
 #include <map>

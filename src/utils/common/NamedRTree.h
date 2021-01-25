@@ -20,6 +20,7 @@
 // A RT-tree for efficient storing of SUMO's Named objects
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <set>
 #include <foreign/rtree/RTree.h>
 #include <utils/common/Named.h>

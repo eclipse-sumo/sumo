@@ -18,6 +18,7 @@
 // Abstract class for lateral frames in NetEdit
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include "GNEFrameModuls.h"
 #include "GNEFrameAttributesModuls.h"
 

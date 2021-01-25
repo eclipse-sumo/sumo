@@ -18,6 +18,7 @@
 // The Widget for add Vehicles/Flows/Trips/etc. elements
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
 

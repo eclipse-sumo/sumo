@@ -19,6 +19,7 @@
 // Base class for objects which have an id.
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <iostream>
 #include <string>
 #include <set>

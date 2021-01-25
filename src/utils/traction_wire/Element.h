@@ -20,6 +20,7 @@
 /// @note    based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 #include <string>
 #include <iostream>

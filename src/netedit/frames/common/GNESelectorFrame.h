@@ -19,6 +19,7 @@
 // (some elements adapted from GUIDialog_GLChosenEditor)
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/GNEViewNetHelper.h>

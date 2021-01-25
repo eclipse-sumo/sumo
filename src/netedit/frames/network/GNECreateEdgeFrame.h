@@ -18,6 +18,7 @@
 // The Widget for create edges (and junctions)
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
 

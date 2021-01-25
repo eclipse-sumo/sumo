@@ -18,6 +18,7 @@
 // Abstract Base class for attribute properties used in GNEAttributeCarrier
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 
 // ===========================================================================

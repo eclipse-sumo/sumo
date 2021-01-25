@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #pragma once
+#include <config.h>
 #include <string>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/TraCIConstants.h>

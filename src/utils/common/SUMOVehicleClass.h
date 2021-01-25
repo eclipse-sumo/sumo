@@ -22,6 +22,7 @@
 // Definitions of SUMO vehicle classes and helper functions
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <string>
 #include <set>
 #include <limits>

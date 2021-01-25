@@ -20,6 +20,7 @@
 // A RGB-color definition
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <iostream>
 #include <random>
 #include <utils/common/UtilExceptions.h>

@@ -18,6 +18,7 @@
 // A pool of resuable instances
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <vector>
 #include <algorithm>
 

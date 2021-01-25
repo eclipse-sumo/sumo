@@ -20,6 +20,7 @@
 // reimplementation inspired by https://marc.info/?l=xerces-dev&m=86952133511623
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <iostream>
 #include <xercesc/util/BinInputStream.hpp>
 #include <xercesc/sax/InputSource.hpp>

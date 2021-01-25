@@ -18,6 +18,7 @@
 // File defining constants, structs, and enums for cruise controllers
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 #include <string>
 #include <sstream>

@@ -21,6 +21,7 @@
 // -------------------
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <sstream>
 #include <string>
 #include <iomanip>

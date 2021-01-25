@@ -20,6 +20,7 @@
 // Bidirectional map between string and something else
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <iostream>
 #include <map>
 #include <vector>

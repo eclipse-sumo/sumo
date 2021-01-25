@@ -18,6 +18,7 @@
 // The pedestrian following model for remote controlled pedestrian movement
 /****************************************************************************/
 #pragma once
+#include <config.h>
 
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSNet.h>

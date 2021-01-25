@@ -18,6 +18,7 @@
 // A class for visualizing Inner Lanes (used when editing traffic lights)
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include "GNENetworkElement.h"
 #include <netbuild/NBNode.h>
 

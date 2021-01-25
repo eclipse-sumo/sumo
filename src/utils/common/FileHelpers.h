@@ -20,6 +20,7 @@
 // Functions for an easier usage of files
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <cassert>
 #include <fstream>
 #include <string>

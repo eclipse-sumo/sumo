@@ -20,6 +20,7 @@
 // A simple vector of doubles
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <vector>
 #include <limits>
 #include <algorithm>

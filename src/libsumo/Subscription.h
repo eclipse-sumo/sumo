@@ -18,6 +18,7 @@
 // Subscription representation for libsumo and TraCI
 /****************************************************************************/
 #pragma once
+#include <config.h>
 #include <vector>
 #include <set>
 #include <foreign/tcpip/storage.h>
