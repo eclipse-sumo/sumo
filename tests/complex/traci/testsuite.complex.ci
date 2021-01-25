@@ -12,7 +12,7 @@ lane
 edge
 vehicle
 vehicletype
-#person
+person
 junction
 trafficlight
 route
