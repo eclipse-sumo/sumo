@@ -36,7 +36,7 @@ from costMemory import CostMemory
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
-from sumolib.options import get_long_option_names  # noqa
+from sumolib.options import get_long_option_names, assign_remaining_args  # noqa
 
 
 def addGenericOptions(argParser):
