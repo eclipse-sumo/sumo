@@ -1367,7 +1367,9 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
 
 bool
 Helper::findCloserLane(const MSEdge* edge, const Position& pos, SUMOVehicleClass vClass, double& bestDistance, MSLane** lane) {
-    if (edge == nullptr || bestDistance < POSITION_EPS) {
+    // TODO maybe there is a way to abort this early if the lane already found is good enough but simply
+    // checking for bestDistance < POSITON_EPS gives ugly order dependencies (#7933), so think twice and profile first
+    if (edge == nullptr) {
         return false;
     }
     bool newBest = false;
