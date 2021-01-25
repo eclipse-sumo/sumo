@@ -83,6 +83,7 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myTLIndex(tlIndex),
     myLogic(logic),
     myState(state),
+    myLastGreenState(LINKSTATE_TL_GREEN_MINOR),
     myOffState(state),
     myLastStateChange(SUMOTime_MIN / 2), // a large negative value, but avoid overflows when subtracting
     myDirection(dir),
@@ -767,6 +768,9 @@ MSLink::setTLState(LinkState state, SUMOTime t) {
         myLastStateChange = t;
     }
     myState = state;
+    if (haveGreen()) {
+        myLastGreenState = myState;
+    }
 }
 
 
@@ -779,7 +783,7 @@ MSLink::isCont() const {
 
 bool
 MSLink::lastWasContMajor() const {
-    if (myInternalLane == nullptr || myAmCont || myHavePedestrianCrossingFoe) {
+    if (myInternalLane == nullptr || myAmCont) {
         return false;
     } else {
         MSLane* pred = myInternalLane->getLogicalPredecessorLane();
@@ -790,7 +794,14 @@ MSLink::lastWasContMajor() const {
             assert(pred2 != nullptr);
             const MSLink* const predLink = pred2->getLinkTo(pred);
             assert(predLink != nullptr);
-            return predLink->havePriority() || predLink->haveYellow();
+            if (predLink->havePriority()) {
+                return true;
+            }
+            if (myHavePedestrianCrossingFoe) {
+                return predLink->getLastGreenState() == LINKSTATE_TL_GREEN_MAJOR;
+            } else {
+                return predLink->haveYellow();
+            }
         }
     }
 }

@@ -303,6 +303,14 @@ public:
         return myOffState;
     }
 
+    /** @brief Returns the last green state of the link
+     *
+     * @return The last green state of this link
+     */
+    LinkState getLastGreenState() const {
+        return myLastGreenState;
+    }
+
 
     //@brief Returns the time of the last state change
     inline SUMOTime getLastStateChange() const {
@@ -630,6 +638,8 @@ private:
 
     /// @brief The state of the link
     LinkState myState;
+    /// @brief The last green state of the link (minor or major)
+    LinkState myLastGreenState;
     /// @brief The state of the link when switching of traffic light control
     const LinkState myOffState;
 
