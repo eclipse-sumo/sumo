@@ -164,10 +164,10 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
     binDir = "sumo-git/bin/"
 
     toClean = [makeLog, makeAllLog]
-    toolsLibsumoDir = os.path.join(options.rootDir, options.binDir.replace("bin", "tools"), "libsumo")
+    toolsDir = os.path.join(options.rootDir, options.binDir.replace("bin", "tools"))
     for ext in ("*.exe", "*.ilk", "*.pdb", "*.py", "*.pyd", "*.dll", "*.lib", "*.exp", "*.jar"):
         toClean += glob.glob(os.path.join(options.rootDir, options.binDir, ext))
-    toClean += glob.glob(os.path.join(toolsLibsumoDir, "libsumo*"))
+    toClean += glob.glob(os.path.join(toolsDir, "lib*", "*lib*"))
     for f in toClean:
         try:
             os.remove(f)
@@ -212,7 +212,9 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                         base = os.path.basename(f)
                         nameInZip = os.path.join(binDir, base)
                         # filter debug dlls
-                        if nameInZip[-5:] in ("d.dll", "D.dll") and nameInZip[:-5] + ".dll" in zipf.namelist():
+                        if ((nameInZip[-5:] in ("d.dll", "D.dll") and nameInZip[:-5] + ".dll" in zipf.namelist()) or
+                            (nameInZip[-6:] in ("-d.dll", "-D.dll", "_d.dll", "_D.dll") and nameInZip[:-6] + ".dll" in zipf.namelist()) or
+                            base == "FOXDLLD-1.6.dll"):
                             write = False
                         elif ext == "*.exe":
                             write = any([base.startswith(b) for b in BINARIES])
@@ -229,10 +231,9 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                     if os.path.basename(f) != "Helper.h":
                         zipf.write(f, includeDir + f[len(srcDir):])
                 zipf.write(os.path.join(buildDir, "src", "version.h"), os.path.join(includeDir, "version.h"))
-                for f in (glob.glob(os.path.join(toolsLibsumoDir, "*.py")) +
-                          glob.glob(os.path.join(toolsLibsumoDir, "*.pyd"))):
+                for f in glob.glob(os.path.join(toolsDir, "lib*", "*lib*.py*")):
                     # no os.path.join here, since the namelist uses only "/"
-                    nameInZip = binDir.replace("bin", "tools") + "libsumo/" + os.path.basename(f)
+                    nameInZip = "tools/" + f[len(toolsDir) + 1].replace("\\", "/")
                     if nameInZip not in zipf.namelist():
                         zipf.write(f, nameInZip)
                 zipf.close()
