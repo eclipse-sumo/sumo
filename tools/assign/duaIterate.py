@@ -23,8 +23,7 @@
 Run duarouter and sumo alternating to perform a dynamic user assignment.
 Based on the Perl script dua_iterate.pl.
 """
-from __future__ import print_function
-from __future__ import absolute_import
+from __future__ import print_function, absolute_import
 import os
 import sys
 import subprocess
