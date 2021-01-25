@@ -18,9 +18,3 @@ tracing_noGetters
 
 # test various functions and options for influencing the behavior of rerouting functions
 rerouting
-
-# Tests for lateral collisions
-lateralCollision
-
-# test accessing the ssm device
-ssm
