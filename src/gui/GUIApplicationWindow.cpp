@@ -439,13 +439,13 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuSeparator(myEditMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
                                            "Edit Breakpoints", "Ctrl+B", "Opens a dialog for editing breakpoints.",
-                                           nullptr, this, MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS);
+                                           GUIIconSubSys::getIcon(GUIIcon::APP_BREAKPOINTS), this, MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS);
     GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
                                            "Edit Visualisation", "F9", "Opens a dialog for editing visualization settings.",
-                                           nullptr, this, MID_HOTKEY_F9_EDIT_VIEWSCHEME);
+                                           GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL), this, MID_HOTKEY_F9_EDIT_VIEWSCHEME);
     GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
                                            "Edit Viewport", "Ctrl+I", "Opens a dialog for editing viewing area, zoom and rotation.",
-                                           nullptr, this, MID_HOTKEY_CTRL_I_EDITVIEWPORT);
+                                           GUIIconSubSys::getIcon(GUIIcon::EDITVIEWPORT), this, MID_HOTKEY_CTRL_I_EDITVIEWPORT);
     new FXMenuSeparator(myEditMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
                                            "Open in netedit", "Ctrl+T", "Opens the netedit application with the current network.",
