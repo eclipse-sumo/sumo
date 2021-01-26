@@ -518,6 +518,214 @@ GNEApplicationWindowHelper::ModesMenuCommands::buildModesMenuCommands(FXMenuPane
 }
 
 // ---------------------------------------------------------------------------
+// GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::NetworkViewOptions(GNEApplicationWindow* GNEApp) :
+    menuCheckShowGrid(nullptr),
+    menuCheckDrawSpreadVehicles(nullptr),
+    menuCheckShowDemandElements(nullptr),
+    menuCheckSelectEdges(nullptr),
+    menuCheckShowConnections(nullptr),
+    menuCheckHideConnections(nullptr),
+    menuCheckExtendSelection(nullptr),
+    menuCheckChangeAllPhases(nullptr),
+    menuCheckWarnAboutMerge(nullptr),
+    menuCheckShowJunctionBubble(nullptr),
+    menuCheckMoveElevation(nullptr),
+    menuCheckChainEdges(nullptr),
+    menuCheckAutoOppositeEdge(nullptr),
+    myGNEApp(GNEApp) {
+}
+
+
+void
+GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::buildNetworkViewOptionsMenuChecks(FXMenuPane* editMenu) {
+    // create menu checks
+    menuCheckShowGrid = new MFXCheckableButton(false, editMenu,
+        ("\t\tShow grid and restrict movement to the grid - define grid size in visualization options (Ctrl+G)"),
+        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_GRID),
+        myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID, GUIDesignMFXCheckableButton);
+
+    menuCheckDrawSpreadVehicles = new MFXCheckableButton(false, editMenu,
+        ("\t\tDraw vehicles spread in lane or in depart position"),
+        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SPREADVEHICLE),
+        myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES, GUIDesignMFXCheckableButton);
+
+    menuCheckShowDemandElements = new MFXCheckableButton(false, editMenu,
+        ("\t\tToggle show demand elements"),
+        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SHOWDEMANDELEMENTS),
+        myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS, GUIDesignMFXCheckableButton);
+
+    menuCheckSelectEdges = new MFXCheckableButton(false, editMenu,
+        ("\t\tToggle whether clicking should select edges or lanes"),
+        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_SELECTEDGES),
+        myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES, GUIDesignMFXCheckableButton);
+
+    menuCheckShowConnections = new MFXCheckableButton(false, editMenu,
+        ("\t\tToggle show connections over junctions"),
+        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_SHOWCONNECTIONS),
+        myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS, GUIDesignMFXCheckableButton);
+
+    menuCheckHideConnections = new MFXCheckableButton(false, editMenu,
+        ("\t\tHide connections"),
+        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_HIDECONNECTIONS),
+        myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS, GUIDesignMFXCheckableButton);
+
+    menuCheckExtendSelection = new MFXCheckableButton(false, editMenu,
+        ("\t\tToggle whether selecting multiple edges should automatically select their junctions"),
+        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_AUTOSELECTJUNCTIONS),
+        myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION, GUIDesignMFXCheckableButton);
+
+    menuCheckChangeAllPhases = new MFXCheckableButton(false, editMenu,
+        ("\t\tToggle whether clicking should apply state changes to all phases of the current TLS plan"),
+        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_APPLYTOALLPHASES),
+        myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES, GUIDesignMFXCheckableButton);
+
+    menuCheckWarnAboutMerge = new MFXCheckableButton(false, editMenu,
+        ("\t\tAsk for confirmation before merging junction."),
+        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_ASKFORMERGE),
+        myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE, GUIDesignMFXCheckableButton);
+
+    menuCheckShowJunctionBubble = new MFXCheckableButton(false, editMenu,
+        ("\t\tShow bubbles over junction's shapes."),
+        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_BUBBLES),
+        myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES, GUIDesignMFXCheckableButton);
+
+    menuCheckMoveElevation = new MFXCheckableButton(false, editMenu,
+        ("\t\tApply mouse movement to elevation instead of x,y position"),
+        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_ELEVATION),
+        myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION, GUIDesignMFXCheckableButton);
+
+    menuCheckChainEdges = new MFXCheckableButton(false, editMenu,
+        ("\t\tCreate consecutive edges with a single click (hit ESC to cancel chain)."),
+        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_CHAIN),
+        myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES, GUIDesignMFXCheckableButton);
+
+    menuCheckAutoOppositeEdge = new MFXCheckableButton(false, editMenu,
+        ("\t\tAutomatically create an edge in the opposite direction"),
+        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_TWOWAY),
+        myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES, GUIDesignMFXCheckableButton);
+}
+
+
+void
+GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::hideNetworkViewOptionsMenuChecks() {
+    menuCheckShowGrid->hide();
+    menuCheckDrawSpreadVehicles->hide();
+    menuCheckShowDemandElements->hide();
+    menuCheckSelectEdges->hide();
+    menuCheckShowConnections->hide();
+    menuCheckHideConnections->hide();
+    menuCheckExtendSelection->hide();
+    menuCheckChangeAllPhases->hide();
+    menuCheckWarnAboutMerge->hide();
+    menuCheckShowJunctionBubble->hide();
+    menuCheckMoveElevation->hide();
+    menuCheckChainEdges->hide();
+    menuCheckAutoOppositeEdge->hide();
+}
+
+// ---------------------------------------------------------------------------
+// GNEApplicationWindowHelper::DemandViewOptions - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::DemandViewOptions(GNEApplicationWindow* GNEApp) :
+    menuCheckShowGrid(nullptr),
+    menuCheckDrawSpreadVehicles(nullptr),
+    menuCheckHideShapes(nullptr),
+    menuCheckHideNonInspectedDemandElements(nullptr),
+    menuCheckShowAllPersonPlans(nullptr),
+    menuCheckLockPerson(nullptr),
+    myGNEApp(GNEApp) {
+}
+
+
+void
+GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::buildDemandViewOptionsMenuChecks(FXMenuPane* editMenu) {
+    // create menu checks
+    menuCheckShowGrid = new MFXCheckableButton(false, editMenu,
+        ("\t\tShow grid and restrict movement to the grid - define grid size in visualization options (Ctrl+G)"),
+        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_GRID),
+        myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID, GUIDesignMFXCheckableButton);
+
+    menuCheckDrawSpreadVehicles = new MFXCheckableButton(false, editMenu,
+        ("\t\tDraw vehicles spread in lane or in depart position"),
+        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SPREADVEHICLE),
+        myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES, GUIDesignMFXCheckableButton);
+
+    menuCheckHideShapes = new MFXCheckableButton(false, editMenu,
+        ("\t\tToggle show shapes (Polygons and POIs)"),
+        GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDESHAPES),
+        myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES, GUIDesignMFXCheckableButton);
+
+    menuCheckHideNonInspectedDemandElements = new MFXCheckableButton(false, editMenu,
+        ("\t\tToggle show non-inspected demand elements"),
+        GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS),
+        myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED, GUIDesignMFXCheckableButton);
+
+    menuCheckShowAllPersonPlans = new MFXCheckableButton(false, editMenu,
+        ("\t\tShow all person plans"),
+        GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWPERSONPLANS),
+        myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS, GUIDesignMFXCheckableButton);
+
+    menuCheckLockPerson = new MFXCheckableButton(false, editMenu,
+        ("\t\tLock selected person"),
+        GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_LOCKPERSON),
+        myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON, GUIDesignMFXCheckableButton);
+}
+
+
+void
+GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::hideDemandViewOptionsMenuChecks() {
+    menuCheckShowGrid->hide();
+    menuCheckDrawSpreadVehicles->hide();
+    menuCheckHideShapes->hide();
+    menuCheckHideNonInspectedDemandElements->hide();
+    menuCheckShowAllPersonPlans->hide();
+    menuCheckLockPerson->hide();
+}
+
+// ---------------------------------------------------------------------------
+// GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::DataViewOptions(GNEApplicationWindow* GNEApp) :
+    menuCheckShowAdditionals(nullptr),
+    menuCheckShowShapes(nullptr),
+    menuCheckShowDemandElements(nullptr),
+    myGNEApp(GNEApp) {
+}
+
+
+void
+GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::buildDataViewOptionsMenuChecks(FXMenuPane* editMenu) {
+    // create menu checks
+    menuCheckShowAdditionals = new MFXCheckableButton(false, editMenu,
+        ("\t\tToggle show additionals"),
+        GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_SHOWADDITIONALS),
+        myGNEApp, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS, GUIDesignMFXCheckableButton);
+
+    menuCheckShowShapes = new MFXCheckableButton(false, editMenu,
+        ("\t\tToggle show shapes (Polygons and POIs)"),
+        GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_SHOWSHAPES),
+        myGNEApp, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES, GUIDesignMFXCheckableButton);
+
+    menuCheckShowDemandElements = new MFXCheckableButton(false, editMenu,
+        ("\t\tToggle show demand elements"),
+        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SHOWDEMANDELEMENTS),
+        myGNEApp, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS, GUIDesignMFXCheckableButton);
+}
+
+
+void
+GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::hideDataViewOptionsMenuChecks() {
+    menuCheckShowAdditionals->hide();
+    menuCheckShowShapes->hide();
+    menuCheckShowDemandElements->hide();
+}
+
+// ---------------------------------------------------------------------------
 // GNEApplicationWindowHelper::EditMenuCommands - methods
 // ---------------------------------------------------------------------------
 
@@ -560,13 +768,6 @@ GNEApplicationWindowHelper::EditMenuCommands::buildViewMenuCommands(FXMenuPane* 
         "Toggle Grid", "Ctrl+G", "Toggles background grid (and snap-to-grid functionality).",
         GUIIconSubSys::getIcon(GUIIcon::GRID), myGNEApp, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID);
 }
-
-
-
-
-
-
-
 
 
 void 
