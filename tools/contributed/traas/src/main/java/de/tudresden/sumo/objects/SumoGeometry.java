@@ -13,49 +13,57 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    SubscriptionObject.java
+/// @file    SumoGeometry.java
 /// @author  Mario Krumnow
 /// @author  Evamarie Wiessner
 /// @date    2016
 ///
 //
 /****************************************************************************/
-package de.tudresden.sumo.subscription;
+package de.tudresden.sumo.objects;
 
-import de.tudresden.sumo.objects.SumoObject;
+import java.util.LinkedList;
 
-public class SubscriptionObject {
+/**
+ *
+ * @author Mario Krumnow
+ *
+ */
 
-    public String id;
-    public ResponseType response;
-    public int domain;
-    public String name;
-    public int variable;
-    public int status;
-    public int return_type;
-    public SumoObject object;
+public class SumoGeometry implements SumoObject {
 
+    public LinkedList<SumoPosition2D> coords;
 
-    //context
-    public SubscriptionObject(String id, ResponseType response, int domain, String name, int variable, int status, int return_type, SumoObject object) {
-        this.id = id;
-        this.response = response;
-        this.domain = domain;
-        this.name = name;
-        this.variable = variable;
-        this.status = status;
-        this.return_type = return_type;
-        this.object = object;
+    public SumoGeometry() {
+        this.coords = new LinkedList<SumoPosition2D>();
     }
 
-    //variable
-    public SubscriptionObject(String id, ResponseType response, int variable, int status, int return_type, SumoObject object) {
-        this.id = id;
-        this.response = response;
-        this.variable = variable;
-        this.status = status;
-        this.return_type = return_type;
-        this.object = object;
+    public void add(SumoPosition2D pos) {
+        this.coords.add(pos);
+    }
+
+    public String toString() {
+
+        StringBuilder sb = new StringBuilder();
+        for (SumoPosition2D pos : coords) {
+            sb.append(pos.x + ",");
+            sb.append(pos.y + " ");
+        }
+
+        return sb.toString().trim();
+
+    }
+
+    public void fromString(String shape) {
+
+        String[] arr = shape.split(" ");
+        for (String s : arr) {
+            String[] tmp = s.split(",");
+            double x = Double.valueOf(tmp[0]);
+            double y = Double.valueOf(tmp[1]);
+            this.add(new SumoPosition2D(x, y));
+        }
+
     }
 
 }

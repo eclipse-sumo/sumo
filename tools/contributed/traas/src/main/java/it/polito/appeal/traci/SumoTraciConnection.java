@@ -58,18 +58,36 @@ public class SumoTraciConnection {
      */
 
     static boolean stdout = false;
+    
+    /** The stderr. */
     static boolean stderr = true;
 
+    /**
+     * The Class StreamLogger.
+     */
     private static class StreamLogger implements Runnable {
+        
+        /** The stream. */
         final InputStream stream;
+        
+        /** The prefix. */
         @SuppressWarnings("unused")
         final String prefix;
 
+        /**
+         * Instantiates a new stream logger.
+         *
+         * @param stream the stream
+         * @param prefix the prefix
+         */
         public StreamLogger(InputStream stream, String prefix) {
             this.stream = stream;
             this.prefix = prefix;
         }
 
+        /**
+         * Run.
+         */
         public void run() {
 
             BufferedReader br = new BufferedReader(new InputStreamReader(stream));
@@ -96,38 +114,83 @@ public class SumoTraciConnection {
         }
     }
 
+    /** The config file. */
     private String configFile;
+    
+    /** The random seed. */
     private int randomSeed = -1;
+    
+    /** The remote port. */
     private int remotePort;
+    
+    /** The socket. */
     private Socket socket;
 
+    /** The net file. */
     //new
     private String net_file;
+    
+    /** The route file. */
     private String route_file;
+    
+    /** The additional file. */
     private String additional_file;
+    
+    /** The gui settings. */
     private String gui_settings;
 
+    /** The sumo EXE. */
     String sumoEXE = "/opt/sumo/sumo-1.1.0/bin/sumo";
+    
+    /** The cp. */
     private CommandProcessor cp;
 
+    /** The sumo process. */
     private Process sumoProcess;
+    
+    /** The Constant CONNECT_RETRIES. */
     private static final int CONNECT_RETRIES = 3;
+    
+    /** The close query. */
     @SuppressWarnings("unused")
     private CloseQuery closeQuery;
+    
+    /** The args. */
     private List<String> args = new ArrayList<String>();
 
+    /** The remote. */
     private boolean remote = false;
 
+    /**
+     * Instantiates a new sumo traci connection.
+     *
+     * @param sumo_bin the sumo bin
+     */
     public SumoTraciConnection(String sumo_bin) {
         this.sumoEXE = sumo_bin;
     }
 
+    /**
+     * Instantiates a new sumo traci connection.
+     *
+     * @param sumo_bin the sumo bin
+     * @param net_file the net file
+     * @param route_file the route file
+     */
     public SumoTraciConnection(String sumo_bin, String net_file, String route_file) {
         this.sumoEXE = sumo_bin;
         this.net_file = net_file;
         this.route_file = route_file;
     }
 
+    /**
+     * Instantiates a new sumo traci connection.
+     *
+     * @param sumo_bin the sumo bin
+     * @param net_file the net file
+     * @param route_file the route file
+     * @param additional_file the additional file
+     */
     public SumoTraciConnection(String sumo_bin, String net_file, String route_file, String additional_file) {
         this.sumoEXE = sumo_bin;
         this.net_file = net_file;
@@ -135,6 +198,15 @@ public class SumoTraciConnection {
         this.additional_file = additional_file;
     }
 
+    /**
+     * Instantiates a new sumo traci connection.
+     *
+     * @param sumo_bin the sumo bin
+     * @param net_file the net file
+     * @param route_file the route file
+     * @param additional_file the additional file
+     * @param gui_settings the gui settings
+     */
     public SumoTraciConnection(String sumo_bin, String net_file, String route_file, String additional_file, String gui_settings) {
         this.sumoEXE = sumo_bin;
         this.net_file = net_file;
@@ -143,20 +215,47 @@ public class SumoTraciConnection {
         this.gui_settings = gui_settings;
     }
 
+    /**
+     * Instantiates a new sumo traci connection.
+     *
+     * @param sumo_bin the sumo bin
+     * @param configFile the config file
+     */
     public SumoTraciConnection(String sumo_bin, String configFile) {
         this.sumoEXE = sumo_bin;
         this.configFile = configFile;
     }
 
+    /**
+     * Instantiates a new sumo traci connection.
+     *
+     * @param configFile the config file
+     * @param randomSeed the random seed
+     * @param useGeoOffset the use geo offset
+     */
     public SumoTraciConnection(String configFile, int randomSeed, boolean useGeoOffset) {
         this.randomSeed = randomSeed;
         this.configFile = configFile;
     }
 
+    /**
+     * Instantiates a new sumo traci connection.
+     *
+     * @param remotePort the remote port
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws InterruptedException the interrupted exception
+     */
     public SumoTraciConnection(int remotePort) throws IOException, InterruptedException {
         this(new InetSocketAddress("127.0.0.1", remotePort));
     }
 
+    /**
+     * Instantiates a new sumo traci connection.
+     *
+     * @param sockAddr the sock addr
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws InterruptedException the interrupted exception
+     */
     public SumoTraciConnection(SocketAddress sockAddr) throws IOException,
         InterruptedException {
 
@@ -215,8 +314,8 @@ public class SumoTraciConnection {
     /**
      * Runs a SUMO instance and tries to connect at it.
      *
-     * @throws IOException
-     *             if something wrong occurs while starting SUMO or connecting
+     * @param _remotePort the remote port
+     * @throws IOException             if something wrong occurs while starting SUMO or connecting
      *             at it.
      */
     public void runServer(int _remotePort) throws IOException {
@@ -269,6 +368,11 @@ public class SumoTraciConnection {
 
     }
 
+    /**
+     * Run SUMO.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     private void runSUMO() throws IOException {
 
         args.add(0, sumoEXE);
@@ -320,6 +424,11 @@ public class SumoTraciConnection {
         new Thread(outStreamLogger, "StreamLogger-SUMO-out").start();
     }
 
+    /**
+     * Find available port.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     private void findAvailablePort() throws IOException {
         ServerSocket testSock = new ServerSocket(0);
         remotePort = testSock.getLocalPort();
@@ -329,7 +438,7 @@ public class SumoTraciConnection {
 
     /**
      * Closes the connection, quits the simulator, frees any stale
-     * resource and makes all {@link Vehicle} instances inactive.
+     * resource and makes all Vehicle instances inactive.
      *
      */
 
@@ -346,7 +455,7 @@ public class SumoTraciConnection {
     }
 
     /**
-     * Closes the connection, eating the {@link InterruptedException} it may
+     * Closes the connection, eating the InterruptedException it may
      * throw, hoping that Murphy's Law doesn't notice all this ugly thing.
      */
     private void closeAndDontCareAboutInterruptedException() {
@@ -356,14 +465,21 @@ public class SumoTraciConnection {
     /**
      * Returns <code>true</code> if the connection was closed by the user, or if
      * an {@link IOException} was thrown after the connection was made.
-     * @see #close()
+     *
      * @return boolean
+     * @see #close()
      */
     public boolean isClosed() {
         return socket == null || socket.isClosed();
     }
 
 
+    /**
+     * Do job set.
+     *
+     * @param cmd the cmd
+     * @throws Exception the exception
+     */
     public synchronized void do_job_set(SumoCommand cmd) throws Exception {
 
         if (isClosed()) {
@@ -379,6 +495,13 @@ public class SumoTraciConnection {
 
     }
 
+    /**
+     * Do job get.
+     *
+     * @param cmd the cmd
+     * @return the object
+     * @throws Exception the exception
+     */
     public synchronized Object do_job_get(SumoCommand cmd) throws Exception {
 
         Object output = null;
@@ -397,6 +520,12 @@ public class SumoTraciConnection {
     }
 
 
+    /**
+     * Sets the order.
+     *
+     * @param index the new order
+     * @throws Exception the exception
+     */
     public synchronized void setOrder(int index) throws Exception {
 
         if (isClosed()) {
@@ -412,10 +541,21 @@ public class SumoTraciConnection {
 
     }
 
+    /**
+     * Do timestep.
+     *
+     * @throws Exception the exception
+     */
     public synchronized void do_timestep() throws Exception {
         this.do_timestep(0);
     }
 
+    /**
+     * Do timestep.
+     *
+     * @param targetTime the target time
+     * @throws Exception the exception
+     */
     public synchronized void do_timestep(double targetTime) throws Exception {
 
         if (isClosed()) {
@@ -431,10 +571,21 @@ public class SumoTraciConnection {
 
     }
 
+    /**
+     * Adds the observer.
+     *
+     * @param o the o
+     */
     public synchronized void addObserver(Observer o) {
         this.cp.addObserver(o);
     }
 
+    /**
+     * Do subscription.
+     *
+     * @param cs the cs
+     * @throws Exception the exception
+     */
     public synchronized void do_subscription(Subscription cs) throws Exception {
 
         if (isClosed()) {
@@ -450,10 +601,20 @@ public class SumoTraciConnection {
 
     }
 
+    /**
+     * Prints the sumo output.
+     *
+     * @param b the b
+     */
     public void printSumoOutput(boolean b) {
         stdout = b;
     }
 
+    /**
+     * Prints the sumo error.
+     *
+     * @param b the b
+     */
     public void printSumoError(boolean b) {
         stderr = b;
     }

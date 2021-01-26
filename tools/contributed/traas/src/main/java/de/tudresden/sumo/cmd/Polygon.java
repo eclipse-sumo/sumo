@@ -22,16 +22,17 @@
 /****************************************************************************/
 package de.tudresden.sumo.cmd;
 import de.tudresden.sumo.config.Constants;
+import de.tudresden.sumo.objects.SumoColor;
+import de.tudresden.sumo.objects.SumoGeometry;
+import de.tudresden.sumo.objects.SumoStringList;
 import de.tudresden.sumo.util.SumoCommand;
-import de.tudresden.ws.container.SumoColor;
-import de.tudresden.ws.container.SumoGeometry;
-import de.tudresden.ws.container.SumoStringList;
+
 
 /**
+ * The Class Polygon.
  *
  * @author Mario Krumnow
  * @author Evamarie Wiessner
- *
  */
 
 public class Polygon {
@@ -71,11 +72,10 @@ public class Polygon {
     }
 
     /**
-     * Returns the chosen parameter
+     * Returns the chosen parameter.
      *
-     *  @param polygonID a string identifying the polygon
-     *  @param param a string identifying the parameter
-     *
+     * @param polygonID a string identifying the polygon
+     * @param param a string identifying the parameter
      * @return the specific parameter
      */
 
@@ -86,12 +86,11 @@ public class Polygon {
 
 
     /**
-     * Sets the chosen parameter
+     * Sets the chosen parameter.
      *
-     *  @param vehID a string identifying the vehicle
-     *  @param param a string identifying the parameter
-     *  @param value a string identifying the new value
-     *
+     * @param polygonID the polygon ID
+     * @param param a string identifying the parameter
+     * @param value a string identifying the new value
      * @return SumoCommand
      */
 

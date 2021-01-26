@@ -29,9 +29,9 @@ import java.net.Socket;
 import java.util.List;
 
 import de.tudresden.sumo.config.Constants;
+import de.tudresden.sumo.objects.SumoObject;
 import de.tudresden.sumo.subscription.ResponseType;
 import de.tudresden.sumo.subscription.SubscriptionObject;
-import de.tudresden.ws.container.SumoObject;
 import de.uniluebeck.itm.tcpip.Storage;
 import it.polito.appeal.traci.TraCIException;
 import it.polito.appeal.traci.TraCIException.UnexpectedData;
@@ -41,11 +41,24 @@ import it.polito.appeal.traci.protocol.ResponseContainer;
 import it.polito.appeal.traci.protocol.ResponseMessage;
 import it.polito.appeal.traci.protocol.StatusResponse;
 
+
+/**
+ * The Class Query.
+ */
 public abstract class Query extends Observable {
 
+    /** The out stream. */
     private final DataOutputStream outStream;
+    
+    /** The in stream. */
     private final DataInputStream inStream;
 
+    /**
+     * Instantiates a new query.
+     *
+     * @param sock the sock
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     public Query(Socket sock) throws IOException {
         outStream = new DataOutputStream(sock.getOutputStream());
         inStream = new DataInputStream(sock.getInputStream());
@@ -53,8 +66,10 @@ public abstract class Query extends Observable {
 
     /**
      * Sends a request message to SUMO and returns a response message.
-     * @param msg
-     * @throws IOException
+     *
+     * @param msg the msg
+     * @return the response message
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     protected ResponseMessage doQuery(RequestMessage msg) throws IOException {
         msg.writeTo(getOutStream());
@@ -64,9 +79,10 @@ public abstract class Query extends Observable {
     /**
      * Like {@link #doQuery(RequestMessage)}; in addition, verifies that all
      * responses are successful and and the statuses match the requests.
-     * @param reqMsg
+     *
+     * @param reqMsg the req msg
      * @return the verified response message
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception has occurred.
      * @see #doQuery(RequestMessage)
      */
     protected ResponseMessage queryAndVerify(RequestMessage reqMsg) throws IOException {
@@ -98,8 +114,9 @@ public abstract class Query extends Observable {
      * Like {@link #doQuery(RequestMessage)}, but good for one-command/
      * one-response queries.
      *
-     * @param request
-     * @throws IOException
+     * @param request the request
+     * @return the response container
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     protected ResponseContainer doQuerySingle(Command request) throws IOException {
         RequestMessage msg = new RequestMessage();
@@ -109,10 +126,10 @@ public abstract class Query extends Observable {
     }
 
     /**
-     * Set multi-client ordering index
+     * Set multi-client ordering index.
      *
-     * @param index
-     * @throws IOException
+     * @param index the index
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     protected void doSetOrder(int index) throws IOException {
         Command cmd = new Command(Constants.CMD_SETORDER);
@@ -121,9 +138,9 @@ public abstract class Query extends Observable {
     }
 
     /**
-     * Disconnect client from the sumo server
+     * Disconnect client from the sumo server.
      *
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     protected void doClose() throws IOException {
         Command cmd = new Command(Constants.CMD_CLOSE);
@@ -131,10 +148,10 @@ public abstract class Query extends Observable {
     }
 
     /**
-     * Do next time step and update subscription results
+     * Do next time step and update subscription results.
      *
-     * @param targetTime
-     * @throws IOException
+     * @param targetTime the target time
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     protected void doSimulationStep(double targetTime) throws IOException {
 
@@ -221,9 +238,9 @@ public abstract class Query extends Observable {
      * Like {@link #queryAndVerify(RequestMessage)}, but good for one-command/
      * one-response queries.
      *
-     * @param request
+     * @param request the request
      * @return the response container for the specified request
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     protected ResponseContainer queryAndVerifySingle(Command request) throws IOException {
 
@@ -235,10 +252,9 @@ public abstract class Query extends Observable {
     }
 
     /**
-     * fireAndForget function
+     * fireAndForget function.
      *
-     * @param request
-     * @throws IOException
+     * @param request the request
      */
     protected void fireAndForget(Command request) {
 
@@ -259,6 +275,16 @@ public abstract class Query extends Observable {
 
     }
 
+    /**
+     * Verify get var response.
+     *
+     * @param resp the resp
+     * @param commandID the command ID
+     * @param variable the variable
+     * @param objectID the object ID
+     * @return the string
+     * @throws UnexpectedData the unexpected data
+     */
     protected static String verifyGetVarResponse(Command resp, int commandID, int variable, String objectID) throws UnexpectedData {
         verify("response code", commandID, resp.id());
         verify("variable ID", variable, (int)resp.content().readUnsignedByte());
@@ -269,20 +295,49 @@ public abstract class Query extends Observable {
         return respObjectID;
     }
 
+    /**
+     * Verify.
+     *
+     * @param description the description
+     * @param expected the expected
+     * @param actual the actual
+     * @throws UnexpectedData the unexpected data
+     */
     protected static void verify(String description, Object expected, Object actual) throws UnexpectedData {
         if (!actual.equals(expected)) {
             throw new UnexpectedData(description, expected, actual);
         }
     }
 
+    /**
+     * Verify.
+     *
+     * @param description the description
+     * @param expected the expected
+     * @param actual the actual
+     * @throws UnexpectedData the unexpected data
+     */
     protected static void verify(String description, int expected, short actual) throws UnexpectedData {
         verify(description, expected, (int)actual);
     }
 
+    /**
+     * Verify.
+     *
+     * @param description the description
+     * @param expected the expected
+     * @param actual the actual
+     * @throws UnexpectedData the unexpected data
+     */
     protected static void verify(String description, int expected, byte actual) throws UnexpectedData {
         verify(description, expected, (int)actual);
     }
 
+    /**
+     * Gets the out stream.
+     *
+     * @return the out stream
+     */
     public DataOutputStream getOutStream() {
         return outStream;
     }

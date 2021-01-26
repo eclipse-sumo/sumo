@@ -22,14 +22,14 @@
 /****************************************************************************/
 package de.tudresden.sumo.cmd;
 import de.tudresden.sumo.config.Constants;
+import de.tudresden.sumo.objects.SumoStringList;
 import de.tudresden.sumo.util.SumoCommand;
-import de.tudresden.ws.container.SumoStringList;
 
 /**
+ * The Class Route.
  *
  * @author Mario Krumnow
  * @author Evamarie Wiessner
- *
  */
 
 public class Route {
@@ -68,11 +68,10 @@ public class Route {
     }
 
     /**
-     * Returns the chosen parameter
+     * Returns the chosen parameter.
      *
-     *  @param routeID a string identifying the route
-     *  @param param a string identifying the parameter
-     *
+     * @param routeID a string identifying the route
+     * @param param a string identifying the parameter
      * @return the specific parameter
      */
 
@@ -83,12 +82,11 @@ public class Route {
 
 
     /**
-     * Sets the chosen parameter
+     * Sets the chosen parameter.
      *
-     *  @param vehID a string identifying the vehicle
-     *  @param param a string identifying the parameter
-     *  @param value a string identifying the new value
-     *
+     * @param routeID the route ID
+     * @param param a string identifying the parameter
+     * @param value a string identifying the new value
      * @return SumoCommand
      */
 

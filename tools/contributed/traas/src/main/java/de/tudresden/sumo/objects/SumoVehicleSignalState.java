@@ -13,49 +13,47 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    SubscriptionObject.java
+/// @file    SumoVehicleSignalState.java
 /// @author  Mario Krumnow
 /// @author  Evamarie Wiessner
 /// @date    2016
 ///
 //
 /****************************************************************************/
-package de.tudresden.sumo.subscription;
+package de.tudresden.sumo.objects;
 
-import de.tudresden.sumo.objects.SumoObject;
+/**
+ *
+ * @author Mario Krumnow
+ * @author Anja Liebscher
+ *
+ */
 
-public class SubscriptionObject {
+public enum SumoVehicleSignalState implements SumoObject {
 
-    public String id;
-    public ResponseType response;
-    public int domain;
-    public String name;
-    public int variable;
-    public int status;
-    public int return_type;
-    public SumoObject object;
+    VEH_SIGNAL_BLINKER_RIGHT(0),
+    VEH_SIGNAL_BLINKER_LEFT(1),
+    VEH_SIGNAL_BLINKER_EMERGENCY(2),
+    VEH_SIGNAL_BRAKELIGHT(3),
+    VEH_SIGNAL_FRONTLIGHT(4),
+    VEH_SIGNAL_FOGLIGHT(5),
+    VEH_SIGNAL_HIGHBEAM(6),
+    VEH_SIGNAL_BACKDRIVE(7),
+    VEH_SIGNAL_WIPER(8),
+    VEH_SIGNAL_DOOR_OPEN_LEFT(9),
+    VEH_SIGNAL_DOOR_OPEN_RIGHT(10),
+    VEH_SIGNAL_EMERGENCY_BLUE(11),
+    VEH_SIGNAL_EMERGENCY_RED(12),
+    VEH_SIGNAL_EMERGENCY_YELLOW(13);
 
+    private final int pos;
 
-    //context
-    public SubscriptionObject(String id, ResponseType response, int domain, String name, int variable, int status, int return_type, SumoObject object) {
-        this.id = id;
-        this.response = response;
-        this.domain = domain;
-        this.name = name;
-        this.variable = variable;
-        this.status = status;
-        this.return_type = return_type;
-        this.object = object;
+    SumoVehicleSignalState(int pos) {
+        this.pos = pos;
     }
 
-    //variable
-    public SubscriptionObject(String id, ResponseType response, int variable, int status, int return_type, SumoObject object) {
-        this.id = id;
-        this.response = response;
-        this.variable = variable;
-        this.status = status;
-        this.return_type = return_type;
-        this.object = object;
+    public int getPos() {
+        return this.pos;
     }
 
 }

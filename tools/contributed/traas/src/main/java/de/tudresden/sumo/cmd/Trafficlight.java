@@ -22,14 +22,15 @@
 /****************************************************************************/
 package de.tudresden.sumo.cmd;
 import de.tudresden.sumo.config.Constants;
+import de.tudresden.sumo.objects.SumoTLSProgram;
 import de.tudresden.sumo.util.SumoCommand;
-import de.tudresden.ws.container.SumoTLSProgram;
+
 
 /**
+ * The Class Trafficlight.
  *
  * @author Mario Krumnow
  * @author Evamarie Wiessner
- *
  */
 
 
@@ -59,7 +60,8 @@ public class Trafficlight {
     }
 
     /**
-     * getPhaseDuration
+     * getPhaseDuration.
+     *
      * @param tlsID a string identifying the traffic light
      * @return phase duration
      */
@@ -92,7 +94,7 @@ public class Trafficlight {
     }
 
     /**
-     * Returns the junctions controlled by the traffic light
+     * Returns the junctions controlled by the traffic light.
      *
      * @param tlsID a string identifying the traffic light
      * @return list of controlled junctions
@@ -103,7 +105,7 @@ public class Trafficlight {
     }
 
     /**
-     * Returns the external state
+     * Returns the external state.
      *
      * @param tlsID a string identifying the traffic light
      * @return compound of the external state
@@ -135,11 +137,10 @@ public class Trafficlight {
     }
 
     /**
-     * Returns the chosen parameter
+     * Returns the chosen parameter.
      *
-     *  @param tlsID a string identifying the traffic light
-     *  @param param a string identifying the parameter
-     *
+     * @param tlsID a string identifying the traffic light
+     * @param param a string identifying the parameter
      * @return the specific parameter
      */
 
@@ -150,12 +151,11 @@ public class Trafficlight {
 
 
     /**
-     * Sets the chosen parameter
+     * Sets the chosen parameter.
      *
-     *  @param vehID a string identifying the vehicle
-     *  @param param a string identifying the parameter
-     *  @param value a string identifying the new value
-     *
+     * @param tlsID the tls ID
+     * @param param a string identifying the parameter
+     * @param value a string identifying the new value
      * @return SumoCommand
      */
 

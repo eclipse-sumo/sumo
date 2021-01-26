@@ -26,14 +26,14 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import de.tudresden.sumo.config.Constants;
-import de.tudresden.ws.container.SumoColor;
-import de.tudresden.ws.container.SumoGeometry;
-import de.tudresden.ws.container.SumoPosition2D;
-import de.tudresden.ws.container.SumoPosition3D;
-import de.tudresden.ws.container.SumoStopFlags;
-import de.tudresden.ws.container.SumoStringList;
-import de.tudresden.ws.container.SumoTLSProgram;
-import de.tudresden.ws.container.SumoTLSPhase;
+import de.tudresden.sumo.objects.SumoColor;
+import de.tudresden.sumo.objects.SumoGeometry;
+import de.tudresden.sumo.objects.SumoPosition2D;
+import de.tudresden.sumo.objects.SumoPosition3D;
+import de.tudresden.sumo.objects.SumoStopFlags;
+import de.tudresden.sumo.objects.SumoStringList;
+import de.tudresden.sumo.objects.SumoTLSPhase;
+import de.tudresden.sumo.objects.SumoTLSProgram;
 import it.polito.appeal.traci.protocol.Command;
 
 /**
@@ -262,25 +262,44 @@ public class SumoCommand {
 
         } else if (input1 == Constants.CMD_SET_POI_VARIABLE && input2 == Constants.ADD) {
 
-            cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
-            cmd.content().writeInt(4);
+        	 cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
+             cmd.content().writeInt(8);
 
-            //add name
-            add_type(array[3]);
-            add_variable(array[3]);
+             
+             //x, y, color, poiType, layer, imgFile, width, height, angle
+             
+             //add type
+             add_type(array[3]);
+             add_variable(array[3]);
 
-            //color
-            add_type(array[2]);
-            add_variable(array[2]);
+             //color
+             add_type(array[2]);
+             add_variable(array[2]);
 
-            //layer
-            add_type(array[4]);
-            add_variable(array[4]);
+             //layer
+             add_type(array[4]);
+             add_variable(array[4]);
 
+             cmd.content().writeUnsignedByte(Constants.POSITION_2D);
+             add_variable(array[0]);
+             add_variable(array[1]);
 
-            cmd.content().writeUnsignedByte(Constants.POSITION_2D);
-            add_variable(array[0]);
-            add_variable(array[1]);
+             
+             //imgfile
+             add_type(array[5]);
+             add_variable(array[5]);
+
+             //width
+             add_type(array[6]);
+             add_variable(array[6]);
+
+             //height
+             add_type(array[7]);
+             add_variable(array[7]);
+
+             //angle
+             add_type(array[8]);
+             add_variable(array[8]);
 
 
         } else {

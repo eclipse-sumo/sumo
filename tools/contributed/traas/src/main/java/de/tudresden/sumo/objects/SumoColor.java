@@ -13,49 +13,45 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    SubscriptionObject.java
+/// @file    SumoColor.java
 /// @author  Mario Krumnow
 /// @author  Evamarie Wiessner
 /// @date    2016
 ///
 //
 /****************************************************************************/
-package de.tudresden.sumo.subscription;
+package de.tudresden.sumo.objects;
 
-import de.tudresden.sumo.objects.SumoObject;
+/**
+ *
+ * @author Mario Krumnow
+ *
+ */
 
-public class SubscriptionObject {
+public class SumoColor implements SumoObject {
 
-    public String id;
-    public ResponseType response;
-    public int domain;
-    public String name;
-    public int variable;
-    public int status;
-    public int return_type;
-    public SumoObject object;
+    public byte r;
+    public byte g;
+    public byte b;
+    public byte a;
 
-
-    //context
-    public SubscriptionObject(String id, ResponseType response, int domain, String name, int variable, int status, int return_type, SumoObject object) {
-        this.id = id;
-        this.response = response;
-        this.domain = domain;
-        this.name = name;
-        this.variable = variable;
-        this.status = status;
-        this.return_type = return_type;
-        this.object = object;
+    public SumoColor() {
+        this.r = (byte) 100;
+        this.g = (byte) 100;
+        this.b = (byte) 100;
+        this.a = (byte) 100;
     }
 
-    //variable
-    public SubscriptionObject(String id, ResponseType response, int variable, int status, int return_type, SumoObject object) {
-        this.id = id;
-        this.response = response;
-        this.variable = variable;
-        this.status = status;
-        this.return_type = return_type;
-        this.object = object;
+    public SumoColor(int r, int g, int b, int a) {
+        this.r = (byte) r;
+        this.g = (byte) g;
+        this.b = (byte) b;
+        this.a = (byte) a;
     }
+
+    public String toString() {
+        return r + "#" + g + "#" + b + "#" + a;
+    }
+
 
 }

@@ -13,49 +13,46 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    SubscriptionObject.java
+/// @file    SumoVehicleData.java
 /// @author  Mario Krumnow
 /// @author  Evamarie Wiessner
 /// @date    2016
 ///
 //
 /****************************************************************************/
-package de.tudresden.sumo.subscription;
+package de.tudresden.sumo.objects;
 
-import de.tudresden.sumo.objects.SumoObject;
+import java.util.LinkedList;
 
-public class SubscriptionObject {
+public class SumoVehicleData implements SumoObject {
 
-    public String id;
-    public ResponseType response;
-    public int domain;
-    public String name;
-    public int variable;
-    public int status;
-    public int return_type;
-    public SumoObject object;
+    public LinkedList<VehicleData> ll;
 
-
-    //context
-    public SubscriptionObject(String id, ResponseType response, int domain, String name, int variable, int status, int return_type, SumoObject object) {
-        this.id = id;
-        this.response = response;
-        this.domain = domain;
-        this.name = name;
-        this.variable = variable;
-        this.status = status;
-        this.return_type = return_type;
-        this.object = object;
+    public SumoVehicleData() {
+        this.ll = new LinkedList<VehicleData>();
     }
 
-    //variable
-    public SubscriptionObject(String id, ResponseType response, int variable, int status, int return_type, SumoObject object) {
-        this.id = id;
-        this.response = response;
-        this.variable = variable;
-        this.status = status;
-        this.return_type = return_type;
-        this.object = object;
+    public void add(String vehID, double length, double entry_time, double leave_time, String typeID) {
+        this.ll.add(new VehicleData(vehID, length, entry_time, leave_time, typeID));
+    }
+
+    public static class VehicleData {
+
+        public String vehID;
+        public double length;
+        public double entry_time;
+        public double leave_time;
+        public String typeID;
+
+        public VehicleData(String vehID, double length, double entry_time, double leave_time, String typeID) {
+            this.vehID = vehID;
+            this.length = length;
+            this.entry_time = entry_time;
+            this.leave_time = leave_time;
+            this.typeID = typeID;
+        }
+
+
     }
 
 }

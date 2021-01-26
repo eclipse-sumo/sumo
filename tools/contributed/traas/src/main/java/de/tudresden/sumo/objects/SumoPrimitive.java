@@ -13,49 +13,33 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    SubscriptionObject.java
+/// @file    SumoPrimitive.java
 /// @author  Mario Krumnow
 /// @author  Evamarie Wiessner
 /// @date    2016
 ///
 //
 /****************************************************************************/
-package de.tudresden.sumo.subscription;
+package de.tudresden.sumo.objects;
 
-import de.tudresden.sumo.objects.SumoObject;
+public class SumoPrimitive implements SumoObject {
 
-public class SubscriptionObject {
+    public Object val;
+    public String type;
 
-    public String id;
-    public ResponseType response;
-    public int domain;
-    public String name;
-    public int variable;
-    public int status;
-    public int return_type;
-    public SumoObject object;
+    public SumoPrimitive(Object o) {
 
+        this.val = o;
+        if (o.getClass().equals(Integer.class)) {
+            type = "integer";
+        } else if (o.getClass().equals(Double.class)) {
+            type = "double";
+        } else if (o.getClass().equals(String.class)) {
+            type = "string";
+        } else {
+            System.err.println("unsupported format " + o.getClass());
+        }
 
-    //context
-    public SubscriptionObject(String id, ResponseType response, int domain, String name, int variable, int status, int return_type, SumoObject object) {
-        this.id = id;
-        this.response = response;
-        this.domain = domain;
-        this.name = name;
-        this.variable = variable;
-        this.status = status;
-        this.return_type = return_type;
-        this.object = object;
-    }
-
-    //variable
-    public SubscriptionObject(String id, ResponseType response, int variable, int status, int return_type, SumoObject object) {
-        this.id = id;
-        this.response = response;
-        this.variable = variable;
-        this.status = status;
-        this.return_type = return_type;
-        this.object = object;
     }
 
 }

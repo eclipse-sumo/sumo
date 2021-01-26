@@ -22,30 +22,31 @@
 /****************************************************************************/
 package de.tudresden.sumo.cmd;
 import de.tudresden.sumo.config.Constants;
+import de.tudresden.sumo.objects.SumoColor;
+import de.tudresden.sumo.objects.SumoStringList;
 import de.tudresden.sumo.util.SumoCommand;
-import de.tudresden.ws.container.SumoColor;
-import de.tudresden.ws.container.SumoStringList;
 
 /**
+ * The Class Person.
  *
  * @author Mario Krumnow
- *
  */
 
 public class Person {
 
     //setter methods
     /**
-      Inserts a new person to the simulation at the given edge, position and
-      time (in s). This function should be followed by appending Stages or the person
-       will immediatly vanish on departure.
+     *       Inserts a new person to the simulation at the given edge, position and
+     *       time (in s). This function should be followed by appending Stages or the person
+     *        will immediatly vanish on departure.
+     *
      * @param personID a string personIDentifying the person
      * @param edgeID edgeID
      * @param pos pos
      * @param depart depart
      * @param typeID typeID
-
-    */
+     * @return the sumo command
+     */
 
     public static SumoCommand add(String personID, String edgeID, double pos, double depart, String typeID) {
         Object[] array = new Object[] {typeID, edgeID, depart, pos};
@@ -54,12 +55,14 @@ public class Person {
 
 
     /**
-      	Appends a waiting stage with duration in s to the plan of the given person
+     *       	Appends a waiting stage with duration in s to the plan of the given person.
+     *
      * @param personID a string personIDentifying the person
      * @param duration duration
      * @param description description
      * @param stopID stopID
-    */
+     * @return the sumo command
+     */
 
     public static SumoCommand appendWaitingStage(String personID, double duration, String description, String stopID) {
         Object[] array = new Object[] {Constants.STAGE_WAITING, duration, description, stopID};
@@ -68,15 +71,16 @@ public class Person {
 
 
     /**
-    	Appends a walking stage to the plan of the given person
-        The walking speed can either be specified, computed from the duration parameter (in s) or taken from the type of the person
-
+     *     	Appends a walking stage to the plan of the given person
+     *         The walking speed can either be specified, computed from the duration parameter (in s) or taken from the type of the person.
+     *
      * @param personID a string personIDentifying the person
      * @param edges edges
      * @param arrivalPos arrivalPos
      * @param duration duration
      * @param speed speed
      * @param stopID stopID
+     * @return the sumo command
      */
 
     public static SumoCommand appendWalkingStage(String personID, SumoStringList edges, double arrivalPos, double duration, double speed, String stopID) {
@@ -85,13 +89,14 @@ public class Person {
     }
 
     /**
-    	Appends a driving stage to the plan of the given person
-        The lines parameter should be a space-separated list of line ids
-
+     *     	Appends a driving stage to the plan of the given person
+     *         The lines parameter should be a space-separated list of line ids.
+     *
      * @param personID a string personIDentifying the person
      * @param toEdge toEdge
      * @param lines lines
      * @param stopID stopID
+     * @return the sumo command
      */
 
     public static SumoCommand appendDrivingStage(String personID, String toEdge, String lines, String stopID) {
@@ -100,11 +105,13 @@ public class Person {
     }
 
     /**
-    	Removes the nth next stage
-        nextStageIndex must be lower then value of getRemainingStages(personID)
-        nextStageIndex 0 immediately aborts the current stage and proceeds to the next stage
+     *     	Removes the nth next stage
+     *         nextStageIndex must be lower then value of getRemainingStages(personID)
+     *         nextStageIndex 0 immediately aborts the current stage and proceeds to the next stage.
+     *
      * @param personID a string personIDentifying the person
      * @param nextStageIndex nextStageIndex
+     * @return the sumo command
      */
 
     public static SumoCommand removeStage(String personID, int nextStageIndex) {
@@ -112,29 +119,35 @@ public class Person {
     }
 
     /**
-    Sets the maximum speed in m/s for the named person for subsequent step.
+     *     Sets the maximum speed in m/s for the named person for subsequent step.
+     *
      * @param personID a string personIDentifying the person
      * @param speed speed
-    */
+     * @return the sumo command
+     */
 
     public static SumoCommand setSpeed(String personID, double speed) {
         return new SumoCommand(Constants.CMD_SET_PERSON_VARIABLE, Constants.VAR_SPEED, personID, speed);
     }
 
     /**
-    	Sets the id of the type for the named person.
+     *     	Sets the id of the type for the named person.
+     *
      * @param personID a string personIDentifying the person
      * @param typeID typeID
-    */
+     * @return the sumo command
+     */
 
     public static SumoCommand setType(String personID, String typeID) {
         return new SumoCommand(Constants.CMD_SET_PERSON_VARIABLE, Constants.VAR_TYPE, personID, typeID);
     }
 
     /**
-    	Sets the width in m for this person.
+     *     	Sets the width in m for this person.
+     *
      * @param personID a string personIDentifying the person
      * @param width width
+     * @return the sumo command
      */
 
     public static SumoCommand setWidth(String personID, double width) {
@@ -143,9 +156,11 @@ public class Person {
 
 
     /**
-    Sets the height in m for this person.
+     *     Sets the height in m for this person.
+     *
      * @param personID a string personIDentifying the person
      * @param height height
+     * @return the sumo command
      */
 
     public static SumoCommand setHeight(String personID, double height) {
@@ -153,9 +168,11 @@ public class Person {
     }
 
     /**
-    	Sets the length in m for the given person.
+     *     	Sets the length in m for the given person.
+     *
      * @param personID a string personIDentifying the person
      * @param length length
+     * @return the sumo command
      */
 
     public static SumoCommand setLength(String personID, double length) {
@@ -163,10 +180,11 @@ public class Person {
     }
 
     /**
-     Sets the offset (gap to front person if halting) for this vehicle.
-
+     *      Sets the offset (gap to front person if halting) for this vehicle.
+     *
      * @param personID a string personIDentifying the person
      * @param minGap minGap
+     * @return the sumo command
      */
 
     public static SumoCommand setMinGap(String personID, double minGap) {
@@ -174,11 +192,13 @@ public class Person {
     }
 
     /**
-    	sets color for person with the given ID.
-        i.e. (255,0,0,0) for the color red.
-        The fourth integer (alpha) is only used when drawing persons with raster images
-      * @param personID a string personIDentifying the person
-      * @param color color
+     *     	sets color for person with the given ID.
+     *         i.e. (255,0,0,0) for the color red.
+     *         The fourth integer (alpha) is only used when drawing persons with raster images
+     *
+     * @param personID a string personIDentifying the person
+     * @param color color
+     * @return the sumo command
      */
 
     public static SumoCommand setColor(String personID, SumoColor color) {
@@ -188,7 +208,8 @@ public class Person {
     //getter methods
 
     /**
-     * get lane position
+     * get lane position.
+     *
      * @param personID a string personIDentifying the person
      * @return The position of the person along the lane measured in m.
      */
@@ -199,7 +220,8 @@ public class Person {
 
 
     /**
-     * get length
+     * get length.
+     *
      * @param personID a string personIDentifying the person
      * @return Returns the length in m of the given person.
      */
@@ -209,12 +231,12 @@ public class Person {
     }
 
     /**
-     * get waiting time
+     * get waiting time.
      *
      * @param personID a string personIDentifying the person
      * @return The waiting time of a person is defined as the time (in seconds) spent with a
-        speed below 0.1m/s since the last time it was faster than 0.1m/s.
-        (basically, the waiting time of a person is reset to 0 every time it moves).
+     *         speed below 0.1m/s since the last time it was faster than 0.1m/s.
+     *         (basically, the waiting time of a person is reset to 0 every time it moves).
      */
 
     public static SumoCommand getWaitingTime(String personID) {
@@ -223,7 +245,7 @@ public class Person {
 
 
     /**
-     * get width
+     * get width.
      *
      * @param personID a string personIDentifying the person
      * @return Returns the width in m of this person.
@@ -235,12 +257,12 @@ public class Person {
 
 
     /**
-     * get next edge
+     * get next edge.
      *
      * @param personID a string personIDentifying the person
      * @return If the person is walking, returns the next edge on the persons route
-        (including crossing and walkingareas). If there is no further edge or the
-        person is in another stage, returns the empty string.
+     *         (including crossing and walkingareas). If there is no further edge or the
+     *         person is in another stage, returns the empty string.
      */
 
     public static SumoCommand getNextEdge(String personID) {
@@ -248,12 +270,12 @@ public class Person {
     }
 
     /**
-     * get edges
+     * get edges.
      *
      * @param personID a string personIDentifying the person
      * @return If the person is walking, returns the next edge on the persons route
-        (including crossing and walkingareas). If there is no further edge or the
-        person is in another stage, returns the empty string.
+     *         (including crossing and walkingareas). If there is no further edge or the
+     *         person is in another stage, returns the empty string.
      */
 
     public static SumoCommand getEdges(String personID) {
@@ -261,17 +283,17 @@ public class Person {
     }
 
     /**
-     * get edges
+     * get edges.
      *
      * @param personID a string personIDentifying the person
-     * @param nextStageIndex
+     * @param nextStageIndex the next stage index
      * @return Returns a list of all edges in the next stage.
-        For waiting stages this is a single edge
-        For walking stages this is the complete route
-        For driving stages this is [origin, destination]
-
-        nextStageIndex 0 retrieves value for the current stage.
-        nextStageIndex must be lower then value of getRemainingStages(personID)
+     *         For waiting stages this is a single edge
+     *         For walking stages this is the complete route
+     *         For driving stages this is [origin, destination]
+     * 
+     *         nextStageIndex 0 retrieves value for the current stage.
+     *         nextStageIndex must be lower then value of getRemainingStages(personID)
      */
 
     public static SumoCommand getEdges(String personID, int nextStageIndex) {
@@ -281,17 +303,17 @@ public class Person {
 
 
     /**
-     * get stage
+     * get stage.
      *
      * @param personID a string personIDentifying the person
-     * @param nextStageIndex
+     * @param nextStageIndex the next stage index
      * @return Returns the type of the nth next stage
-          0 for not-yet-departed
-          1 for waiting
-          2 for walking
-          3 for driving
-        nextStageIndex 0 retrieves value for the current stage.
-        nextStageIndex must be lower then value of getRemainingStages(personID)
+     *           0 for not-yet-departed
+     *           1 for waiting
+     *           2 for walking
+     *           3 for driving
+     *         nextStageIndex 0 retrieves value for the current stage.
+     *         nextStageIndex must be lower then value of getRemainingStages(personID)
      */
 
     public static SumoCommand getStage(String personID, int nextStageIndex) {
@@ -300,7 +322,7 @@ public class Person {
     }
 
     /**
-     * get remaining stages
+     * get remaining stages.
      *
      * @param personID a string personIDentifying the person
      * @return Returns the number of remaining stages (at least 1)
@@ -311,12 +333,12 @@ public class Person {
     }
 
     /**
-     * get vehicle
+     * get vehicle.
      *
      * @param personID a string personIDentifying the person
      * @return Returns the id of the current vehicle if the person is in stage driving
-        and has entered a vehicle.
-        Return the empty string otherwise
+     *         and has entered a vehicle.
+     *         Return the empty string otherwise
      */
 
     public static SumoCommand getVehicle(String personID) {
@@ -324,7 +346,8 @@ public class Person {
     }
 
     /**
-     * get lane position
+     * get lane position.
+     *
      * @param personID a string personIDentifying the person
      * @return The position of the person along the lane measured in m.
      */
@@ -346,7 +369,8 @@ public class Person {
 
 
     /**
-     * Returns a list of personIDs of all persons
+     * Returns a list of personIDs of all persons.
+     *
      * @return list of IDs of all persons
      */
 
@@ -356,11 +380,10 @@ public class Person {
 
 
     /**
-     * Returns the chosen parameter
+     * Returns the chosen parameter.
      *
      * @param personID a string personIDentifying the person
-     *  @param param a string personIDentifying the parameter
-     *
+     * @param param a string personIDentifying the parameter
      * @return the specific parameter
      */
 
@@ -371,12 +394,11 @@ public class Person {
 
 
     /**
-     * Sets the chosen parameter
+     * Sets the chosen parameter.
      *
-     *  @param vehID a string identifying the vehicle
-     *  @param param a string identifying the parameter
-     *  @param value a string identifying the new value
-     *
+     * @param personID the person ID
+     * @param param a string identifying the parameter
+     * @param value a string identifying the new value
      * @return SumoCommand
      */
 
@@ -386,7 +408,7 @@ public class Person {
     }
 
     /**
-     * get speed
+     * get speed.
      *
      * @param personID a string personIDentifying the person
      * @return the speed in m/s
@@ -397,7 +419,7 @@ public class Person {
     }
 
     /**
-     * get position
+     * get position.
      *
      * @param personID a string personIDentifying the person
      * @return the position 2D
@@ -408,7 +430,7 @@ public class Person {
     }
 
     /**
-     * get position3D
+     * get position3D.
      *
      * @param personID a string personIDentifying the person
      * @return the position 3D
@@ -419,7 +441,7 @@ public class Person {
     }
 
     /**
-     * get angle
+     * get angle.
      *
      * @param personID a string personIDentifying the person
      * @return the angle
@@ -430,7 +452,7 @@ public class Person {
     }
 
     /**
-     * get road ID
+     * get road ID.
      *
      * @param personID a string personIDentifying the person
      * @return the personID of the road
@@ -441,7 +463,7 @@ public class Person {
     }
 
     /**
-     * get type ID
+     * get type ID.
      *
      * @param personID a string personIDentifying the person
      * @return the type ID of the person
@@ -455,7 +477,7 @@ public class Person {
 
 
     /**
-     * get person number
+     * get person number.
      *
      * @param personID a string personIDentifying the person
      * @return the person number
@@ -467,7 +489,7 @@ public class Person {
 
 
     /**
-     * get minGap
+     * get minGap.
      *
      * @param personID a string personIDentifying the person
      * @return the value for the minimum Ggap of the person
@@ -494,22 +516,22 @@ public class Person {
 
     /**
      * Place person at the given x,y coordinates and force it's angle to
-        the given value (for drawing).
-        If the angle is set to INVALID_DOUBLE_VALUE, the vehicle assumes the
-        natural angle of the edge on which it is driving.
-        If keepRoute is set to 1, the closest position
-        within the existing route is taken. If keepRoute is set to 0, the vehicle may move to
-        any edge in the network but it's route then only consists of that edge.
-        If keepRoute is set to 2 the person has all the freedom of keepRoute=0
-        but in addition to that may even move outside the road network.
-        edgeID is an optional placement hint to resolve ambiguities
-
+     *         the given value (for drawing).
+     *         If the angle is set to INVALID_DOUBLE_VALUE, the vehicle assumes the
+     *         natural angle of the edge on which it is driving.
+     *         If keepRoute is set to 1, the closest position
+     *         within the existing route is taken. If keepRoute is set to 0, the vehicle may move to
+     *         any edge in the network but it's route then only consists of that edge.
+     *         If keepRoute is set to 2 the person has all the freedom of keepRoute=0
+     *         but in addition to that may even move outside the road network.
+     *         edgeID is an optional placement hint to resolve ambiguities
+     *
      * @param personID person id
      * @param edgeID edge id
      * @param x x
      * @param y y
      * @param angle angle
-     * @param  keepRoute keepRoute
+     * @param keepRoute the keep route
      * @return SumoCommand
      */
     public static SumoCommand moveToXY(String personID, String edgeID, double x, double y, double angle, byte keepRoute) {

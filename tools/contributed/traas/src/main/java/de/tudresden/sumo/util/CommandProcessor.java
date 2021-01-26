@@ -33,27 +33,27 @@ import java.util.LinkedList;
 import java.util.ArrayList;
 
 import de.tudresden.sumo.config.Constants;
+import de.tudresden.sumo.objects.SumoBestLanes;
+import de.tudresden.sumo.objects.SumoColor;
+import de.tudresden.sumo.objects.SumoGeometry;
+import de.tudresden.sumo.objects.SumoLeader;
+import de.tudresden.sumo.objects.SumoLink;
+import de.tudresden.sumo.objects.SumoLinkList;
+import de.tudresden.sumo.objects.SumoNextTLS;
+import de.tudresden.sumo.objects.SumoObject;
+import de.tudresden.sumo.objects.SumoPosition2D;
+import de.tudresden.sumo.objects.SumoPosition3D;
+import de.tudresden.sumo.objects.SumoPrimitive;
+import de.tudresden.sumo.objects.SumoRoadPosition;
+import de.tudresden.sumo.objects.SumoStage;
+import de.tudresden.sumo.objects.SumoStopFlags;
+import de.tudresden.sumo.objects.SumoStringList;
+import de.tudresden.sumo.objects.SumoTLSController;
+import de.tudresden.sumo.objects.SumoTLSPhase;
+import de.tudresden.sumo.objects.SumoTLSProgram;
+import de.tudresden.sumo.objects.SumoVehicleData;
 import de.tudresden.sumo.subscription.Subscription;
-import de.tudresden.ws.container.SumoBestLanes;
-import de.tudresden.ws.container.SumoColor;
-import de.tudresden.ws.container.SumoGeometry;
-import de.tudresden.ws.container.SumoLeader;
-import de.tudresden.ws.container.SumoLink;
-import de.tudresden.ws.container.SumoLinkList;
-import de.tudresden.ws.container.SumoNextTLS;
-import de.tudresden.ws.container.SumoObject;
-import de.tudresden.ws.container.SumoPosition2D;
-import de.tudresden.ws.container.SumoPosition3D;
-import de.tudresden.ws.container.SumoPrimitive;
-import de.tudresden.ws.container.SumoStopFlags;
-import de.tudresden.ws.container.SumoStringList;
-import de.tudresden.ws.container.SumoTLSProgram;
-import de.tudresden.ws.container.SumoVehicleData;
 import de.uniluebeck.itm.tcpip.Storage;
-import de.tudresden.ws.container.SumoTLSPhase;
-import de.tudresden.ws.container.SumoTLSController;
-import de.tudresden.ws.container.SumoStage;
-import de.tudresden.ws.container.SumoRoadPosition;
 
 /**
  *

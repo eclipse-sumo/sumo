@@ -22,21 +22,22 @@
 /****************************************************************************/
 package de.tudresden.sumo.cmd;
 import de.tudresden.sumo.config.Constants;
+import de.tudresden.sumo.objects.SumoColor;
 import de.tudresden.sumo.util.SumoCommand;
-import de.tudresden.ws.container.SumoColor;
+
 
 /**
+ * The Class Poi.
  *
  * @author Mario Krumnow
  * @author Evamarie Wiessner
- *
  */
 
 public class Poi {
 
     //getter methods
 
-    /**
+	 /**
      * Add a new point-of-interest.
      *
      * @param poiID
@@ -51,14 +52,22 @@ public class Poi {
      *            a string identifying the type of a poi
      * @param layer
      *            an integer identifying the layer
-     *
+     * @param imgFile
+     *			  image file
+     * @param width
+     *			width of the poi
+     * @param height
+     *			height of the poi
+     * @param angle
+     *			angle of the poi
      * @return SumoCommand
      */
 
-    public static SumoCommand add(String poiID, double x, double y, SumoColor color, String poiType, int layer) {
-        Object[] array = new Object[] {x, y, color, poiType, layer};
-        return new SumoCommand(Constants.CMD_SET_POI_VARIABLE, Constants.ADD, poiID, array);
+    public static SumoCommand add(String poiID, double x, double y, SumoColor color, String poiType, int layer, String imgFile, double width, double height, double angle) {
+        Object[] array = new Object[] {x, y, color, poiType, layer, imgFile, width, height, angle};
+    	return new SumoCommand(Constants.CMD_SET_POI_VARIABLE, Constants.ADD, poiID, array);
     }
+
 
     /**
      * Returns the number of all Poi's in the network.
@@ -92,11 +101,10 @@ public class Poi {
     }
 
     /**
-     * Returns the chosen parameter
+     * Returns the chosen parameter.
      *
-     *  @param poiID a string identifying the poi
-     *  @param param a string identifying the parameter
-     *
+     * @param poiID a string identifying the poi
+     * @param param a string identifying the parameter
      * @return the specific parameter
      */
 
@@ -107,12 +115,11 @@ public class Poi {
 
 
     /**
-     * Sets the chosen parameter
+     * Sets the chosen parameter.
      *
-     *  @param vehID a string identifying the vehicle
-     *  @param param a string identifying the parameter
-     *  @param value a string identifying the new value
-     *
+     * @param poiID the poi ID
+     * @param param a string identifying the parameter
+     * @param value a string identifying the new value
      * @return SumoCommand
      */
 

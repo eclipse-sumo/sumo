@@ -22,14 +22,14 @@
 /****************************************************************************/
 package de.tudresden.sumo.cmd;
 import de.tudresden.sumo.config.Constants;
+import de.tudresden.sumo.objects.SumoColor;
 import de.tudresden.sumo.util.SumoCommand;
-import de.tudresden.ws.container.SumoColor;
 
 /**
+ * The Class Vehicletype.
  *
  * @author Mario Krumnow
  * @author Evamarie Wiessner
- *
  */
 
 public class Vehicletype {
@@ -84,7 +84,8 @@ public class Vehicletype {
     }
 
     /**
-     * Returns The preferred lateral alignment of the type
+     * Returns The preferred lateral alignment of the type.
+     *
      * @param typeID  type id
      * @return deceleration
      */
@@ -105,7 +106,8 @@ public class Vehicletype {
 
 
     /**
-     * Returns The preferred lateral alignment of the type
+     * Returns The preferred lateral alignment of the type.
+     *
      * @param typeID  type id
      * @return deceleration
      */
@@ -116,7 +118,8 @@ public class Vehicletype {
 
 
     /**
-     *  Returns The desired lateral gap of this type at 50km/h in m
+     *  Returns The desired lateral gap of this type at 50km/h in m.
+     *
      * @param typeID  type id
      * @return deceleration
      */
@@ -156,7 +159,8 @@ public class Vehicletype {
     }
 
     /**
-     * getImperfection
+     * getImperfection.
+     *
      * @param typeID type id
      * @return imperfection
      */
@@ -196,11 +200,10 @@ public class Vehicletype {
     }
 
     /**
-     * Returns the chosen parameter
+     * Returns the chosen parameter.
      *
-     *  @param typeID a string identifying the vehicle type
-     *  @param param a string identifying the parameter
-     *
+     * @param typeID a string identifying the vehicle type
+     * @param param a string identifying the parameter
      * @return the specific parameter
      */
 
@@ -210,12 +213,11 @@ public class Vehicletype {
     }
 
     /**
-     * Sets the chosen parameter
+     * Sets the chosen parameter.
      *
-     *  @param vehID a string identifying the vehicle
-     *  @param param a string identifying the parameter
-     *  @param value a string identifying the new value
-     *
+     * @param typeID the type ID
+     * @param param a string identifying the parameter
+     * @param value a string identifying the new value
      * @return SumoCommand
      */
 
@@ -225,7 +227,8 @@ public class Vehicletype {
     }
 
     /**
-     * getShapeClass
+     * getShapeClass.
+     *
      * @param typeID type id
      * @return shape class
      */
@@ -255,7 +258,8 @@ public class Vehicletype {
     }
 
     /**
-     * getTau
+     * getTau.
+     *
      * @param typeID type id
      * @return tau
      */
@@ -333,7 +337,8 @@ public class Vehicletype {
     }
 
     /**
-     * setImperfection
+     * setImperfection.
+     *
      * @param typeID type id
      * @param minGapLat minGapLat
      * @return SumoCommand
@@ -364,7 +369,8 @@ public class Vehicletype {
     }
 
     /**
-     * setImperfection
+     * setImperfection.
+     *
      * @param typeID type id
      * @param imperfection imperfection
      * @return SumoCommand
@@ -441,7 +447,8 @@ public class Vehicletype {
     }
 
     /**
-     * setShapeClass
+     * setShapeClass.
+     *
      * @param typeID type id
      * @param clazz shape class
      * @return SumoCommand
@@ -471,7 +478,8 @@ public class Vehicletype {
     }
 
     /**
-     * setTau
+     * setTau.
+     *
      * @param typeID type id
      * @param tau tau
      * @return SumoCommand

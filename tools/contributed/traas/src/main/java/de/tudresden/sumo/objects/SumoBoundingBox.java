@@ -13,49 +13,48 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    SubscriptionObject.java
+/// @file    SumoBoundingBox.java
 /// @author  Mario Krumnow
 /// @author  Evamarie Wiessner
 /// @date    2016
 ///
 //
 /****************************************************************************/
-package de.tudresden.sumo.subscription;
+package de.tudresden.sumo.objects;
 
-import de.tudresden.sumo.objects.SumoObject;
+/**
+ *
+ * @author Mario Krumnow
+ *
+ */
 
-public class SubscriptionObject {
+public class SumoBoundingBox implements SumoObject {
 
-    public String id;
-    public ResponseType response;
-    public int domain;
-    public String name;
-    public int variable;
-    public int status;
-    public int return_type;
-    public SumoObject object;
+    public double x_min;
+    public double y_min;
+    public double x_max;
+    public double y_max;
 
 
-    //context
-    public SubscriptionObject(String id, ResponseType response, int domain, String name, int variable, int status, int return_type, SumoObject object) {
-        this.id = id;
-        this.response = response;
-        this.domain = domain;
-        this.name = name;
-        this.variable = variable;
-        this.status = status;
-        this.return_type = return_type;
-        this.object = object;
+    public SumoBoundingBox() {
+        this.x_min = 0;
+        this.y_min = 0;
+        this.x_max = 0;
+        this.y_max = 0;
     }
 
-    //variable
-    public SubscriptionObject(String id, ResponseType response, int variable, int status, int return_type, SumoObject object) {
-        this.id = id;
-        this.response = response;
-        this.variable = variable;
-        this.status = status;
-        this.return_type = return_type;
-        this.object = object;
+    public SumoBoundingBox(double x_min, double y_min, double x_max, double y_max) {
+
+        this.x_min = x_min;
+        this.y_min = y_min;
+        this.x_max = x_max;
+        this.y_max = y_max;
+
     }
+
+    public String toString() {
+        return this.x_min + "#" + this.y_min + "#" + this.x_max + "#" + this.y_max;
+    }
+
 
 }

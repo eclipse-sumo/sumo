@@ -13,49 +13,64 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    SubscriptionObject.java
+/// @file    SumoVehicleSignal.java
 /// @author  Mario Krumnow
 /// @author  Evamarie Wiessner
 /// @date    2016
 ///
 //
 /****************************************************************************/
-package de.tudresden.sumo.subscription;
+package de.tudresden.sumo.objects;
 
-import de.tudresden.sumo.objects.SumoObject;
+import java.util.LinkedList;
 
-public class SubscriptionObject {
+/**
+ *
+ * @author Mario Krumnow
+ * @author Anja Liebscher
+ *
+ */
 
-    public String id;
-    public ResponseType response;
-    public int domain;
-    public String name;
-    public int variable;
-    public int status;
-    public int return_type;
-    public SumoObject object;
+public class SumoVehicleSignal implements SumoObject {
 
+    LinkedList<Integer> ll_states;
 
-    //context
-    public SubscriptionObject(String id, ResponseType response, int domain, String name, int variable, int status, int return_type, SumoObject object) {
-        this.id = id;
-        this.response = response;
-        this.domain = domain;
-        this.name = name;
-        this.variable = variable;
-        this.status = status;
-        this.return_type = return_type;
-        this.object = object;
+    public SumoVehicleSignal(int code) {
+
+        String s1 = this.getDual(code);
+        String[] tmp = s1.split("");
+
+        //init
+        this.ll_states = new LinkedList<Integer>();
+        for (int i = 0; i < 14; i++) {
+            this.ll_states.add(0);
+        }
+
+        for (int i = tmp.length - 1; i > 0; i--) {
+            int pos = tmp.length - i - 1;
+            this.ll_states.set(pos, Integer.valueOf(tmp[i]));
+        }
+
     }
 
-    //variable
-    public SubscriptionObject(String id, ResponseType response, int variable, int status, int return_type, SumoObject object) {
-        this.id = id;
-        this.response = response;
-        this.variable = variable;
-        this.status = status;
-        this.return_type = return_type;
-        this.object = object;
+    public boolean getState(SumoVehicleSignalState s) {
+
+        boolean out = false;
+        if (this.ll_states.get(s.getPos()) == 1) {
+            out = true;
+        }
+        return out;
+
+    }
+
+
+    private String getDual(int code) {
+        if (code < 2) {
+            return "" + code;
+        } else {
+            return getDual(code / 2) + code % 2;
+
+        }
     }
 
 }

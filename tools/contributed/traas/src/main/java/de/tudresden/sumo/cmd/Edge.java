@@ -25,10 +25,10 @@ import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.util.SumoCommand;
 
 /**
+ * The Class Edge.
  *
  * @author Mario Krumnow
  * @author Evamarie Wiessner
- *
  */
 
 public class Edge {
@@ -153,9 +153,9 @@ public class Edge {
     }
 
     /**
+     * Gets the lane number.
      *
-     * @param edgeID
-     *            a string identifying the edge
+     * @param edgeID            a string identifying the edge
      * @return Returns the number of lanes of this edge
      */
 
@@ -320,11 +320,10 @@ public class Edge {
     }
 
     /**
-     * Returns the chosen parameter
+     * Returns the chosen parameter.
      *
-     *  @param edgeID a string identifying the edge
-     *  @param param a string identifying the parameter
-     *
+     * @param edgeID a string identifying the edge
+     * @param param a string identifying the parameter
      * @return the specific parameter
      */
 
@@ -334,12 +333,11 @@ public class Edge {
     }
 
     /**
-     * Sets the chosen parameter
+     * Sets the chosen parameter.
      *
-     *  @param vehID a string identifying the vehicle
-     *  @param param a string identifying the parameter
-     *  @param value a string identifying the new value
-     *
+     * @param edgeID the edge ID
+     * @param param a string identifying the parameter
+     * @param value a string identifying the new value
      * @return SumoCommand
      */
 

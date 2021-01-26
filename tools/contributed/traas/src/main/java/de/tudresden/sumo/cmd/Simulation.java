@@ -22,14 +22,15 @@
 /****************************************************************************/
 package de.tudresden.sumo.cmd;
 import de.tudresden.sumo.config.Constants;
+import de.tudresden.sumo.objects.SumoPosition2D;
 import de.tudresden.sumo.util.SumoCommand;
-import de.tudresden.ws.container.SumoPosition2D;
+
 
 /**
+ * The Class Simulation.
  *
  * @author Mario Krumnow
  * @author Evamarie Wiessner
- *
  */
 
 public class Simulation {
@@ -37,7 +38,8 @@ public class Simulation {
     //getter methods
 
     /**
-     * convert2D
+     * convert2D.
+     *
      * @param edgeID edge id
      * @param pos pos
      * @param laneIndex index
@@ -50,12 +52,13 @@ public class Simulation {
     }
 
     /**
-     * convert3D
-     * @return SumoCommand
+     * convert3D.
+     *
      * @param edgeID edge id
      * @param pos pos
      * @param laneIndex index
      * @param toGeo geo
+     * @return SumoCommand
      */
     public static SumoCommand convert3D(String edgeID, double pos, byte laneIndex, String toGeo) {
         Object[] array = new Object[] {pos, laneIndex, toGeo};
@@ -64,11 +67,12 @@ public class Simulation {
 
 
     /**
-     * convertGeo
-     * @return SumoCommand
+     * convertGeo.
+     *
      * @param x x
      * @param y y
      * @param fromGeo geo
+     * @return SumoCommand
      */
     public static SumoCommand convertGeo(double x, double y, boolean fromGeo) {
 
@@ -85,11 +89,13 @@ public class Simulation {
     }
 
     /**
-     * convertRoad
-     * @return SumoCommand
+     * convertRoad.
+     *
      * @param x x
      * @param y y
      * @param isGeo geo
+     * @param vClass the v class
+     * @return SumoCommand
      */
     public static SumoCommand convertRoad(double x, double y, boolean isGeo, String vClass) {
         byte fromType = Constants.POSITION_2D;
@@ -128,7 +134,8 @@ public class Simulation {
     }
 
     /**
-     * getParkingEndingVehiclesIDList()
+     * getParkingEndingVehiclesIDList().
+     *
      * @return number of vehicles
      */
 
@@ -138,7 +145,8 @@ public class Simulation {
 
 
     /**
-     * getParkingEndingVehiclesNumber()
+     * getParkingEndingVehiclesNumber().
+     *
      * @return number of vehicles
      */
 
@@ -147,7 +155,8 @@ public class Simulation {
     }
 
     /**
-     * getParkingStartingVehiclesIDList()
+     * getParkingStartingVehiclesIDList().
+     *
      * @return number of vehicles
      */
 
@@ -157,7 +166,8 @@ public class Simulation {
 
 
     /**
-     * getParkingStartingVehiclesNumber()
+     * getParkingStartingVehiclesNumber().
+     *
      * @return number of vehicles
      */
 
@@ -167,7 +177,8 @@ public class Simulation {
 
 
     /**
-     * getStopEndingVehiclesIDList()
+     * getStopEndingVehiclesIDList().
+     *
      * @return number of vehicles
      */
 
@@ -177,7 +188,8 @@ public class Simulation {
 
 
     /**
-     * getCollidingVehiclesNumber()
+     * getCollidingVehiclesNumber().
+     *
      * @return Return number of vehicles involved in a collision (typically 2 per collision).
      */
 
@@ -186,7 +198,8 @@ public class Simulation {
     }
 
     /**
-     * getCollidingVehiclesNumber()
+     * getCollidingVehiclesNumber().
+     *
      * @return Return Ids of vehicles involved in a collision (typically 2 per collision)
      */
 
@@ -195,7 +208,8 @@ public class Simulation {
     }
 
     /**
-     * getEmergencyStoppingVehiclesNumber()
+     * getEmergencyStoppingVehiclesNumber().
+     *
      * @return Return number of vehicles that performed an emergency stop in the last step
      */
 
@@ -204,7 +218,8 @@ public class Simulation {
     }
 
     /**
-     * getEmergencyStoppingVehiclesIDList()
+     * getEmergencyStoppingVehiclesIDList().
+     *
      * @return Return Ids of vehicles that peformed an emergency stop in the last step
      */
 
@@ -214,7 +229,8 @@ public class Simulation {
 
 
     /**
-     * getStopEndingVehiclesNumber()
+     * getStopEndingVehiclesNumber().
+     *
      * @return number of vehicles
      */
 
@@ -225,7 +241,8 @@ public class Simulation {
 
 
     /**
-     * getStopStartingVehiclesIDList()
+     * getStopStartingVehiclesIDList().
+     *
      * @return list of vehicles
      */
 
@@ -235,7 +252,8 @@ public class Simulation {
 
 
     /**
-     * getStopStartingVehiclesIDList()
+     * getStopStartingVehiclesIDList().
+     *
      * @return list of vehicles
      */
 
@@ -245,7 +263,8 @@ public class Simulation {
 
 
     /**
-     * getCurrentTime
+     * getCurrentTime.
+     *
      * @return current time in ms (integer). Note: this method only supports a simulation time up to 24 days and is only kept for legacy reasons
      */
 
@@ -254,7 +273,8 @@ public class Simulation {
     }
 
     /**
-     * getTime
+     * getTime.
+     *
      * @return current time in s (double)
      */
 
@@ -263,7 +283,8 @@ public class Simulation {
     }
 
     /**
-     * getDeltaT
+     * getDeltaT.
+     *
      * @return delat time
      */
 
@@ -291,6 +312,14 @@ public class Simulation {
 
     /**
      * Reads two coordinate pairs and an indicator whether the air or the driving distance shall be computed. Returns the according distance.
+     *
+     * @param x1 the x 1
+     * @param y1 the y 1
+     * @param x2 the x 2
+     * @param y2 the y 2
+     * @param isGeo the is geo
+     * @param isDriving the is driving
+     * @return the distance 2 D
      */
 
     /**
@@ -308,7 +337,14 @@ public class Simulation {
     }
 
     /**
-     * getDistanceRoad
+     * getDistanceRoad.
+     *
+     * @param edgeID1 the edge ID 1
+     * @param pos1 the pos 1
+     * @param edgeID2 the edge ID 2
+     * @param pos2 the pos 2
+     * @param isDriving the is driving
+     * @return the distance road
      */
 
     /**
@@ -398,7 +434,8 @@ public class Simulation {
     //setter methods
 
     /**
-     * Clear pending
+     * Clear pending.
+     *
      * @param routeID route id
      * @return SumoCommand
      */
@@ -408,8 +445,9 @@ public class Simulation {
     }
 
     /**
-     * save state
-     * @param filename
+     * save state.
+     *
+     * @param filename the filename
      * @return SumoCommand
      */
 
@@ -418,7 +456,8 @@ public class Simulation {
     }
 
     /**
-     * findRoute
+     * findRoute.
+     *
      * @param fromEdge first edge
      * @param toEdge second edge
      * @param vType vehicle type
@@ -432,7 +471,8 @@ public class Simulation {
     }
 
     /**
-     * findIntermodalRoute
+     * findIntermodalRoute.
+     *
      * @param fromEdge first edge
      * @param toEdge second edge
      * @param modes modes
