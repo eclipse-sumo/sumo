@@ -766,7 +766,7 @@ MSFrame::checkOptions() {
     if (oc.getBool("duration-log.statistics") && oc.isDefault("verbose")) {
         oc.set("verbose", "true");
     }
-    if (oc.isDefault("precision") && string2time(oc.getString("step-length")) < 10) {
+    if (oc.isDefault("precision") && string2time(oc.getString("step-length")) % 10 != 0) {
         oc.set("precision", "3");
     }
     if (oc.isDefault("tracker-interval") && !oc.isDefault("step-length")) {
