@@ -97,9 +97,6 @@ protected:
     /// @brief get leaders for ego on the given lane
     MSLeaderDistanceInfo getLeaders(const ChangerIt& target, const MSVehicle* ego) const;
 
-    /// @brief get leaders for ego on the given lane
-    void addLeaders(const MSLane* targetLane, const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo& result) const;
-
     /// @brief immediately stop lane-changing and register vehicle as unchanged
     void abortLCManeuver(MSVehicle* vehicle);
 

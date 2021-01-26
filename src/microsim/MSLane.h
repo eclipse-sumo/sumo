@@ -907,6 +907,11 @@ public:
     void getLeadersOnConsecutive(double dist, double seen, double speed, const MSVehicle* ego,
                                  const std::vector<MSLane*>& bestLaneConts, MSLeaderDistanceInfo& result) const;
 
+
+    /// @brief get leaders for ego on the given lane
+    void addLeaders(const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo& result);
+
+
     /** @brief Returns the most dangerous leader and the distance to him
      *
      * Goes along the vehicle's estimated used lanes (bestLaneConts). For each link,

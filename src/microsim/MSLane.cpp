@@ -3476,6 +3476,52 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
 }
 
 
+void
+MSLane::addLeaders(const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo& result) {
+    // if there are vehicles on the target lane with the same position as ego,
+    // they may not have been added to 'ahead' yet
+    const MSLeaderInfo& aheadSamePos = getLastVehicleInformation(nullptr, 0, vehPos, false);
+    for (int i = 0; i < aheadSamePos.numSublanes(); ++i) {
+        const MSVehicle* veh = aheadSamePos[i];
+        if (veh != nullptr && veh != vehicle) {
+            const double gap = veh->getBackPositionOnLane(this) - vehPos - vehicle->getVehicleType().getMinGap();
+#ifdef DEBUG_SURROUNDING
+            if (DEBUG_COND) {
+                std::cout << " further lead=" << veh->getID() << " leadBack=" << veh->getBackPositionOnLane(this) << " gap=" << gap << "\n";
+            }
+#endif
+            result.addLeader(veh, gap, 0, i);
+        }
+    }
+
+    if (result.numFreeSublanes() > 0) {
+        double seen = vehicle->getLane()->getLength() - vehPos;
+        double speed = vehicle->getSpeed();
+        // leader vehicle could be link leader on the next junction
+        double dist = MAX2(vehicle->getCarFollowModel().brakeGap(speed), 10.0) + vehicle->getVehicleType().getMinGap();
+        if (seen > dist) {
+#ifdef DEBUG_SURROUNDING
+            if (DEBUG_COND) {
+                std::cout << " aborting forward search. dist=" << dist << " seen=" << seen << "\n";
+            }
+#endif
+            return;
+        }
+        const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation(this);
+#ifdef DEBUG_SURROUNDING
+        if (DEBUG_COND) {
+            std::cout << " add consecutive before=" << result.toString() << " dist=" << dist;
+        }
+#endif
+        getLeadersOnConsecutive(dist, seen, speed, vehicle, bestLaneConts, result);
+#ifdef DEBUG_SURROUNDING
+        if (DEBUG_COND) {
+            std::cout << " after=" << result.toString() << "\n";
+        }
+#endif
+    }
+}
+
 
 MSVehicle*
 MSLane::getPartialBehind(const MSVehicle* ego) const {
