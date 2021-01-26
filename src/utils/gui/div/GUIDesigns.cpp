@@ -59,6 +59,17 @@ GUIDesigns::buildFXMenuCommandShortcut(FXComposite* p, const std::string& text, 
 
 
 FXMenuCommand*
+GUIDesigns::buildFXMenuCheckbox(FXComposite* p, const std::string& text, const std::string& info, FXObject* tgt, FXSelector sel) {
+    // build menu checkbox
+    FXMenuCommand* menuCommand = new FXMenuCheck(p, (text + "\t" + "\t" + info).c_str(), tgt, sel, LAYOUT_FIX_HEIGHT);
+    // set width and height (to avoid problems between Windows und Linux)
+    menuCommand->setHeight(GUIDesignHeight);
+    // return menuCommand
+    return menuCommand;
+}
+
+
+FXMenuCommand*
 GUIDesigns::buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text, FXObject* tgt, FXSelector sel) {
     // build rest of menu commands
     FXMenuCommand* menuCommand = new FXMenuCommand(p, text.c_str(), nullptr, tgt, sel, LAYOUT_FIX_HEIGHT);

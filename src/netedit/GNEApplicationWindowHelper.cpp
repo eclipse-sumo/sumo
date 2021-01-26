@@ -985,12 +985,12 @@ GNEApplicationWindowHelper::WindowsMenuCommands::WindowsMenuCommands(GNEApplicat
 void
 GNEApplicationWindowHelper::WindowsMenuCommands::buildWindowsMenuCommands(FXMenuPane* windowsMenu, FXStatusBar* statusbar, GUIMessageWindow* messageWindow) {
     // build windows menu commands
-    GUIDesigns::buildFXMenuCommandShortcut(windowsMenu,
-                                           "&Show Status Line", "", "Toggle this Status Bar on/off.",
-                                           nullptr, statusbar, FXWindow::ID_TOGGLESHOWN);
-    GUIDesigns::buildFXMenuCommandShortcut(windowsMenu,
-                                           "Show &Message Window", "", "Toggle the Message Window on/off.",
-                                           nullptr, messageWindow, FXWindow::ID_TOGGLESHOWN);
+    GUIDesigns::buildFXMenuCheckbox(windowsMenu,
+                                           "&Show Status Line", "Toggle this Status Bar on/off.",
+                                           statusbar, FXWindow::ID_TOGGLESHOWN);
+    GUIDesigns::buildFXMenuCheckbox(windowsMenu,
+                                           "Show &Message Window", "Toggle the Message Window on/off.",
+                                           messageWindow, FXWindow::ID_TOGGLESHOWN);
     GUIDesigns::buildFXMenuCommandShortcut(windowsMenu,
                                            "&Clear Message Window", "", "Clear the Message Window.",
                                            nullptr, myGNEApp, MID_CLEARMESSAGEWINDOW);
