@@ -78,8 +78,6 @@ algorithms are available
     User-contributed dispatch algorithms are welcome.
 
 # Taxi Behavior
-To make a taxi stay in the simulation it receives a stop with attribute ```triggered="person"``` after servicing a customer.
-It is recommended to also define such a stop in the xml input so that the taxi can wait for the first customer.
 
 By default, taxis will remain in the simulation until all persons have left. To make them leave the simulation at an earlier time, the end time can be defined using a generic parameter in their ```vType``` or ```vehicle```-definition:
 
@@ -89,6 +87,13 @@ By default, taxis will remain in the simulation until all persons have left. To 
         <param key="device.taxi.end" value="3600"/>
     </vType>
 ```
+
+## Idle Behavior
+By default, vehicles will leave the simulation after reaching the end of their final edge. To avoid this, taxis have an idling behavior configurable with option **--device.taxi.idle-algorithm**:
+
+- "stop" (default): stop at the current location (off-road) after delivering the last customer of the current service request.
+- "randomCircling": continue driving to random edges until the next request is received. (caution: taxi might get stuck in a cul-de-sac if the network has those)
+
 
 # TraCI
 To couple an external dispatch algorithm to SUMO, the following [TraCI](../TraCI.md) functions are provided:
