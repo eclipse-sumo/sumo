@@ -151,7 +151,8 @@ if __name__ == "__main__":
                 print("WARNING: lane \'%s\' does not exist in the network, skipping..." % (laneId))
                 continue
             except IndexError:
-                print("WARNING: lane \'%s\' does not exist in the network (please check lane index), skipping..." % (laneId))
+                print("WARNING: lane \'%s\' does not exist in the network (please check lane index), skipping..." % (
+                    laneId))
                 continue
             if options.exclusive_sidewalks:
                 sidewalkLane = getExclusiveSidewalkLane(lane.getEdge())

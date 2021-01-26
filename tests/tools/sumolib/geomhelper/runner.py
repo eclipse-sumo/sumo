@@ -25,7 +25,7 @@ import unittest
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'tools'))
 import sumolib  # noqa
-from sumolib.shapes.polygon import Polygon
+from sumolib.shapes.polygon import Polygon #noqa
 
 
 class TestGeomhelper(unittest.TestCase):
