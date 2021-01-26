@@ -513,6 +513,10 @@ MSAbstractLaneChangeModel::cancelRequest(int state, int laneOffset) {
     return ret != state;
 }
 
+double
+MSAbstractLaneChangeModel::getMaxSpeedLat2() const {
+    return MAX2(myVehicle.getVehicleType().getMaxSpeedLat(), myMaxSpeedLatStanding);
+}
 
 void
 MSAbstractLaneChangeModel::initLastLaneChangeOffset(int dir) {

@@ -2150,7 +2150,7 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double man
                             double gapFactor,
                             int* retBlockedFully) {
     // truncate latDist according to maxSpeedLat
-    const double maxDist = SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat());
+    const double maxDist = SPEED2DIST(getMaxSpeedLat2());
     latDist = MAX2(MIN2(latDist, maxDist), -maxDist);
     if (myVehicle.hasInfluencer() && myVehicle.getInfluencer().getLatDist() != 0 && myVehicle.getInfluencer().ignoreOverlap()) {
         return 0;
@@ -3130,9 +3130,19 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist) const {
     int currentDirection = mySpeedLat >= 0 ? 1 : -1;
     int directionWish = latDist >= 0 ? 1 : -1;
     double maxSpeedLat = myVehicle.getVehicleType().getMaxSpeedLat();
-    if (myLeftSpace > POSITION_EPS) {
+    double accelLat = myAccelLat;
+    if (myLeftSpace > POSITION_EPS || myMaxSpeedLatFactor < 0) {
         double speedBound = myMaxSpeedLatStanding + myMaxSpeedLatFactor * myVehicle.getSpeed();
-        maxSpeedLat = MIN2(maxSpeedLat, speedBound);
+        if (myMaxSpeedLatFactor > 0) {
+            // speedbound increases with speed and needs an upper bound
+            maxSpeedLat = MIN2(maxSpeedLat, speedBound);
+        } else {
+            // speedbound decreases with speed and needs a lower bound
+            // (only useful if myMaxSpeedLatStanding > maxSpeedLat)
+            maxSpeedLat = MAX2(maxSpeedLat, speedBound);
+            // scale lateral acceleration in proportion
+            accelLat *= MAX2(1.0, speedBound / myVehicle.getVehicleType().getMaxSpeedLat());
+        }
     }
 
 #ifdef DEBUG_MANEUVER
@@ -3148,15 +3158,15 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist) const {
     // reduced lateral speed (in the desired direction). Don't change direction against desired.
     double speedDecel;
     if (directionWish == 1) {
-        speedDecel = MAX2(mySpeedLat - ACCEL2SPEED(myAccelLat), 0.);
+        speedDecel = MAX2(mySpeedLat - ACCEL2SPEED(accelLat), 0.);
     } else {
-        speedDecel = MIN2(mySpeedLat + ACCEL2SPEED(myAccelLat), 0.);
+        speedDecel = MIN2(mySpeedLat + ACCEL2SPEED(accelLat), 0.);
     }
     // Eventually reduce lateral speed even more to ensure safety
     double speedDecelSafe = MAX2(MIN2(speedDecel, DIST2SPEED(mySafeLatDistLeft)), DIST2SPEED(-mySafeLatDistRight));
 
     // increased lateral speed (in the desired direction)
-    double speedAccel = MAX2(MIN2(mySpeedLat + directionWish * ACCEL2SPEED(myAccelLat), maxSpeedLat), -maxSpeedLat);
+    double speedAccel = MAX2(MIN2(mySpeedLat + directionWish * ACCEL2SPEED(accelLat), maxSpeedLat), -maxSpeedLat);
     // increase lateral speed more strongly to ensure safety (when moving in the wrong direction)
     double speedAccelSafe = latDist * speedAccel >= 0 ? speedAccel : 0;
 
@@ -3209,7 +3219,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist) const {
         return speedAccelSafe;
     }
     // check if the remaining distance allows to accelerate laterally
-    double minDistAccel = SPEED2DIST(speedAccel) + currentDirection * MSCFModel::brakeGapEuler(fabs(speedAccel), myAccelLat, 0); // most we can move in the target direction
+    double minDistAccel = SPEED2DIST(speedAccel) + currentDirection * MSCFModel::brakeGapEuler(fabs(speedAccel), accelLat, 0); // most we can move in the target direction
     if ((fabs(minDistAccel) < fabs(fullLatDist)) || (fabs(minDistAccel - fullLatDist) < NUMERICAL_EPS)) {
 #ifdef DEBUG_MANEUVER
         if (debugVehicle()) {
@@ -3224,7 +3234,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist) const {
         }
 #endif
         // check if the remaining distance allows to maintain current lateral speed
-        double minDistCurrent = SPEED2DIST(mySpeedLat) + currentDirection * MSCFModel::brakeGapEuler(fabs(mySpeedLat), myAccelLat, 0);
+        double minDistCurrent = SPEED2DIST(mySpeedLat) + currentDirection * MSCFModel::brakeGapEuler(fabs(mySpeedLat), accelLat, 0);
         if ((fabs(minDistCurrent) < fabs(fullLatDist)) || (fabs(minDistCurrent - fullLatDist) < NUMERICAL_EPS)) {
 #ifdef DEBUG_MANEUVER
             if (debugVehicle()) {

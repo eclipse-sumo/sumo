@@ -581,6 +581,8 @@ protected:
     /// @brief whether the influencer cancels the given request
     bool cancelRequest(int state, int laneOffset);
 
+    /// @brief return the max of maxSpeedLat and lcMaxSpeedLatStanding
+    double getMaxSpeedLat2() const;
 
 protected:
     /// @brief The vehicle this lane-changer belongs to

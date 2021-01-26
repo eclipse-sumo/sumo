@@ -1338,7 +1338,6 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
                 // check attributes of type "positiveFloatType" (> 0)
                 switch (it) {
                     case SUMO_ATTR_LCA_ACCEL_LAT:
-                    case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
                         if (LCMAttribute <= 0) {
                             ok = false;
                             if (hardFail) {
