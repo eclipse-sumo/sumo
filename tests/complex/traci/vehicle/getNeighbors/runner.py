@@ -73,6 +73,12 @@ for i in range(2):
     print("step", step())
 
 while egoID in traci.vehicle.getIDList():
+    if traci.simulation.getTime() == 15:
+        print("vehicle changes after ego")
+        traci.vehicle.changeLaneRelative("r0", 1, 999)
+    elif traci.simulation.getTime() == 18:
+        print("vehicle changes after ego")
+        traci.vehicle.changeLaneRelative("r0", -1, 999)
     printNeighInfo()
     print("step", step())
 step()
