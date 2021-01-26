@@ -635,15 +635,10 @@ Vehicle::getNeighbors(const std::string& vehID, const int mode) {
     int dir = (1 & mode) != 0 ? -1 : 1;
     bool queryLeaders = (2 & mode) != 0;
     bool blockersOnly = (4 & mode) != 0;
-
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     std::vector<std::pair<std::string, double> > result;
     if (veh == nullptr) {
-        return result;
-    }
-    MSLane* targetLane = veh->getLane()->getParallelLane(dir);
-    if (targetLane == nullptr) {
         return result;
     }
 #ifdef DEBUG_NEIGHBORS
@@ -653,6 +648,15 @@ Vehicle::getNeighbors(const std::string& vehID, const int mode) {
                   << ", blockersOnly=" << blockersOnly << std::endl;
     }
 #endif
+    if (veh->getLaneChangeModel().isOpposite()) {
+        // getParallelLane works relative to lane forward direction
+        dir *= -1;
+    }
+
+    MSLane* targetLane = veh->getLane()->getParallelLane(dir);
+    if (targetLane == nullptr) {
+        return result;
+    }
     // need to recompute leaders and followers (#8119)
     const bool opposite = &veh->getLane()->getEdge() != &targetLane->getEdge();
     MSLeaderDistanceInfo neighbors(targetLane, nullptr, 0);
