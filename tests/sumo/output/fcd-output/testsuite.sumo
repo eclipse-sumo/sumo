@@ -57,3 +57,6 @@ edge_filter
 
 # output vehicle leader information
 leader
+
+# automatically set precision on long step length
+precision
