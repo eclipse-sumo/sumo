@@ -325,8 +325,20 @@ struct GNEApplicationWindowHelper {
         /// @brief constructor
         EditMenuCommands(GNEApplicationWindow* GNEApp);
 
-        /// @brief build edit menu commands
-        void buildEditMenuCommands(FXMenuPane* editMenu);
+        /// @brief build undo-redo menu commands
+        void buildUndoRedoMenuCommands(FXMenuPane* editMenu);
+
+        /// @brief build view menu commands
+        void buildViewMenuCommands(FXMenuPane* editMenu);
+
+
+
+
+        /// @brief build front element commands
+        void buildFrontElementMenuCommand(FXMenuPane* editMenu);
+
+        /// @brief build open sumo menu commands
+        void buildOpenSUMOMenuCommands(FXMenuPane* editMenu);
 
         /// @brief FXMenuCommand for undo last change
         FXMenuCommand* undoLastChange;

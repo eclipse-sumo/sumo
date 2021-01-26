@@ -535,38 +535,64 @@ GNEApplicationWindowHelper::EditMenuCommands::EditMenuCommands(GNEApplicationWin
 }
 
 
+void 
+GNEApplicationWindowHelper::EditMenuCommands::buildUndoRedoMenuCommands(FXMenuPane* editMenu) {
+    // build undo/redo command
+    undoLastChange = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
+        "&Undo", "Ctrl+Z", "Undo the last change.",
+        GUIIconSubSys::getIcon(GUIIcon::UNDO), myGNEApp, MID_HOTKEY_CTRL_Z_UNDO);
+    redoLastChange = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
+        "&Redo", "Ctrl+Y", "Redo the last change.",
+        GUIIconSubSys::getIcon(GUIIcon::REDO), myGNEApp, MID_HOTKEY_CTRL_Y_REDO);
+}
+
+
 void
-GNEApplicationWindowHelper::EditMenuCommands::buildEditMenuCommands(FXMenuPane* editMenu) {
+GNEApplicationWindowHelper::EditMenuCommands::buildViewMenuCommands(FXMenuPane* editMenu) {
     // build rest of menu commands
     editViewScheme = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
-                     "Edit Visualisation", "F9", "Opens a dialog for editing visualization settings.",
-                     GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL), myGNEApp, MID_HOTKEY_F9_EDIT_VIEWSCHEME);
+        "Edit Visualisation", "F9", "Opens a dialog for editing visualization settings.",
+        GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL), myGNEApp, MID_HOTKEY_F9_EDIT_VIEWSCHEME);
     editViewPort = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
-                   "Edit Viewport", "Ctrl+I", "Opens a dialog for editing viewing are, zoom and rotation.",
-                   GUIIconSubSys::getIcon(GUIIcon::EDITVIEWPORT), myGNEApp, MID_HOTKEY_CTRL_I_EDITVIEWPORT);
+        "Edit Viewport", "Ctrl+I", "Opens a dialog for editing viewing are, zoom and rotation.",
+        GUIIconSubSys::getIcon(GUIIcon::EDITVIEWPORT), myGNEApp, MID_HOTKEY_CTRL_I_EDITVIEWPORT);
     toogleGrid = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
-                 "Toggle Grid", "Ctrl+G", "Toggles background grid (and snap-to-grid functionality).",
-                 GUIIconSubSys::getIcon(GUIIcon::GRID), myGNEApp, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID);
-    // add separator
-    new FXMenuSeparator(editMenu);
+        "Toggle Grid", "Ctrl+G", "Toggles background grid (and snap-to-grid functionality).",
+        GUIIconSubSys::getIcon(GUIIcon::GRID), myGNEApp, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID);
+}
+
+
+
+
+
+
+
+
+
+void 
+GNEApplicationWindowHelper::EditMenuCommands::buildFrontElementMenuCommand(FXMenuPane* editMenu) {
     // add clear front element
     clearFrontElement = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
-                        "Clear front element", "F11", "Clear current front element",
-                        GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), myGNEApp, MID_HOTKEY_F11_FRONTELEMENT);
-    // add separator
-    new FXMenuSeparator(editMenu);
+        "Clear front element", "F11", "Clear current front element",
+        GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), myGNEApp, MID_HOTKEY_F11_FRONTELEMENT);
+
+}
+
+
+void 
+GNEApplicationWindowHelper::EditMenuCommands::buildOpenSUMOMenuCommands(FXMenuPane* editMenu) {
     // add open in sumo options
     loadAdditionalsInSUMOGUI = new FXMenuCheck(editMenu,
-            "Load additionals in sumo-gui\t\tLoad additionals in sumo-gui.",
-            myGNEApp, MID_GNE_TOOLBAREDIT_LOADADDITIONALS);
+        "Load additionals in sumo-gui\t\tLoad additionals in sumo-gui.",
+        myGNEApp, MID_GNE_TOOLBAREDIT_LOADADDITIONALS);
     loadAdditionalsInSUMOGUI->setCheck(TRUE);
     loadDemandInSUMOGUI = new FXMenuCheck(editMenu,
-                                          "Load demand in sumo-gui\t\tLoad demand in sumo-gui.",
-                                          myGNEApp, MID_GNE_TOOLBAREDIT_LOADDEMAND);
+        "Load demand in sumo-gui\t\tLoad demand in sumo-gui.",
+        myGNEApp, MID_GNE_TOOLBAREDIT_LOADDEMAND);
     loadDemandInSUMOGUI->setCheck(TRUE);
     openInSUMOGUI = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
-                    "Open in sumo-gui", "Ctrl+T", "Opens the sumo-gui application with the current network.",
-                    GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), myGNEApp, MID_HOTKEY_CTRL_T_OPENSUMONETEDIT);
+        "Open in sumo-gui", "Ctrl+T", "Opens the sumo-gui application with the current network.",
+        GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), myGNEApp, MID_HOTKEY_CTRL_T_OPENSUMONETEDIT);
 }
 
 // ---------------------------------------------------------------------------
