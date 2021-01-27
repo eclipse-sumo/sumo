@@ -273,11 +273,11 @@ Neigh infos for ego:
 step 15.0
 Neigh infos for ego:
   rightFollowers:
-  ()
+  (('stopped', 0.0010000000000047748),)
   rightLeaders:
   ()
   leftFollowers:
-  (('stopped', 0.0010000000000047748),)
+  ()
   leftLeaders:
   ()
   rightFollowers (only blocking):
@@ -291,75 +291,75 @@ Neigh infos for ego:
 step 16.0
 Neigh infos for ego:
   rightFollowers:
-  ()
+  (('stopped', -2.5989999999999895),)
   rightLeaders:
-  ()
+  (('stopped', -7.4010000000000105),)
   leftFollowers:
-  (('stopped', -2.5989999999999895),)
+  ()
   leftLeaders:
-  (('stopped', -7.4010000000000105),)
+  ()
   rightFollowers (only blocking):
-  ()
-  rightLeaders (only blocking):
-  ()
-  leftFollowers (only blocking):
   (('stopped', -2.5989999999999895),)
-  leftLeaders (only blocking):
+  rightLeaders (only blocking):
   (('stopped', -7.4010000000000105),)
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  ()
 step 17.0
 Neigh infos for ego:
   rightFollowers:
   ()
   rightLeaders:
-  ()
+  (('stopped', -2.201000000000022),)
   leftFollowers:
   ()
   leftLeaders:
-  (('stopped', -2.201000000000022),)
+  ()
   rightFollowers (only blocking):
   ()
   rightLeaders (only blocking):
-  ()
+  (('stopped', -2.201000000000022),)
   leftFollowers (only blocking):
   ()
   leftLeaders (only blocking):
-  (('stopped', -2.201000000000022),)
+  ()
 step 18.0
 Neigh infos for ego:
   rightFollowers:
   ()
   rightLeaders:
-  ()
+  (('stopped', 5.5989999999999895),)
   leftFollowers:
   ()
   leftLeaders:
-  (('stopped', 5.5989999999999895),)
+  ()
   rightFollowers (only blocking):
   ()
   rightLeaders (only blocking):
-  ()
+  (('stopped', 5.5989999999999895),)
   leftFollowers (only blocking):
   ()
   leftLeaders (only blocking):
-  (('stopped', 5.5989999999999895),)
+  ()
 step 19.0
 Neigh infos for ego:
   rightFollowers:
   ()
   rightLeaders:
-  ()
+  (('stopped', 15.998999999999995),)
   leftFollowers:
   ()
   leftLeaders:
-  (('stopped', 15.998999999999995),)
+  ()
   rightFollowers (only blocking):
   ()
   rightLeaders (only blocking):
-  ()
+  (('stopped', 15.998999999999995),)
   leftFollowers (only blocking):
   ()
   leftLeaders (only blocking):
-  (('stopped', 15.998999999999995),)
+  ()
 step 20.0
 Neigh infos for ego:
   rightFollowers:
