@@ -2287,7 +2287,7 @@ GNEApplicationWindow::onCmdToogleViewOption(FXObject* obj, FXSelector sel, void*
 
 
 long
-GNEApplicationWindow::onUpdToogleViewOption(FXObject* obj, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onUpdToogleViewOption(FXObject* obj, FXSelector sel, void* /*ptr*/) {
     // get menuCheck
     FXMenuCheckIcon* menuCheck = dynamic_cast<FXMenuCheckIcon*>(obj);
     // check viewNet
