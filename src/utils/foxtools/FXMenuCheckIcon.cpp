@@ -1,26 +1,22 @@
-/********************************************************************************
-*                                                                               *
-*                          M e n u C h e c k   W i d g e t                      *
-*                                                                               *
-*********************************************************************************
-* Copyright (C) 2002, 2006 by Jeroen van der Zijp.   All Rights Reserved.       *
-*********************************************************************************
-* This library is free software; you can redistribute it and/or                 *
-* modify it under the terms of the GNU Lesser General Public                    *
-* License as published by the Free Software Foundation; either                  *
-* version 2.1 of the License, or (at your option) any later version.            *
-*                                                                               *
-* This library is distributed in the hope that it will be useful,               *
-* but WITHOUT ANY WARRANTY; without even the implied warranty of                *
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU             *
-* Lesser General Public License for more details.                               *
-*                                                                               *
-* You should have received a copy of the GNU Lesser General Public              *
-* License along with this library; if not, write to the Free Software           *
-* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.    *
-*********************************************************************************
-* $Id: FXMenuCheckIcon.cpp, v 1.30 2006/01/22 17:58:36 fox Exp $                *
-********************************************************************************/
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2004-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+/****************************************************************************/
+/// @file    FXMenuCheckIcon.cpp
+/// @author  Pablo Alvarez Lopez
+/// @date    Jan 2021
+///
+//
+/****************************************************************************/
 
 #include <fxkeys.h>
 
