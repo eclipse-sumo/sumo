@@ -582,6 +582,10 @@ Caution: If the data volume is too large, the overpass API aborts.
 More information about the query syntax and a GUI for testing the querys
 can be found on the website <https://overpass-turbo.eu/>.
 
+# Importing other formats (pbf, o5m)
+
+To use a [pbf](https://wiki.openstreetmap.org/wiki/PBF_Format) or [o5m](https://wiki.openstreetmap.org/wiki/O5m) network in SUMO, you first need to convert it to the OSM format. This can be done using [Osmconvert](https://wiki.openstreetmap.org/wiki/Osmconvert).
+
 # Missing Descriptions
 
 - TLS computation
@@ -592,7 +596,6 @@ can be found on the website <https://overpass-turbo.eu/>.
 
 # References
 
-- <http://www.openstreetmap.org/> - the home site
-- <http://www.openstreetmap.de/> - the German home site
-- <http://wiki.openstreetmap.org/index.php/Map_Features> - information
-  about database attributes
+- <https://www.openstreetmap.org/> - the home site
+- <https://www.openstreetmap.de/> - the German home site
+- <https://wiki.openstreetmap.org/wiki/Map_features> - information about database attributes
