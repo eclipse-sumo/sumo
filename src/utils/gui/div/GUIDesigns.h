@@ -24,6 +24,12 @@
 #include <fx.h>
 
 // ===========================================================================
+// Class declaration
+// ===========================================================================
+
+class FXMenuCheckIcon;
+
+// ===========================================================================
 // Definitions
 // ===========================================================================
 
@@ -601,7 +607,7 @@ public:
     static FXMenuCheck* buildFXMenuCheckbox(FXComposite* p, const std::string& text, const std::string& info, FXObject* tgt, FXSelector sel);
 
     /// @brief build menu checkbox with icon
-    static FXMenuCheck* buildFXMenuCheckboxIcon(FXComposite* p, const std::string& text, const std::string& info, FXIcon* icon, FXObject* tgt, FXSelector sel);
+    static FXMenuCheckIcon* buildFXMenuCheckboxIcon(FXComposite* p, const std::string& text, const std::string& info, FXIcon* icon, FXObject* tgt, FXSelector sel);
 
     /// @brief build menu command
     static FXMenuCommand* buildFXMenuCommand(FXComposite* p, const std::string& text, FXIcon* icon, FXObject* tgt, FXSelector sel);
