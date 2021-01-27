@@ -377,43 +377,43 @@ struct GNEApplicationWindowHelper {
             void hideNetworkViewOptionsMenuChecks();
 
             /// @brief menu check to show grid button
-            MFXCheckableButton* menuCheckShowGrid;
+            FXMenuCommand* menuCheckShowGrid;
 
             /// @brief menu check to draw vehicles in begin position or spread in lane
-            MFXCheckableButton* menuCheckDrawSpreadVehicles;
+            FXMenuCommand* menuCheckDrawSpreadVehicles;
 
             /// @brief menu check to show Demand Elements
-            MFXCheckableButton* menuCheckShowDemandElements;
+            FXMenuCommand* menuCheckShowDemandElements;
 
             /// @brief menu check to select only edges
-            MFXCheckableButton* menuCheckSelectEdges;
+            FXMenuCommand* menuCheckSelectEdges;
 
             /// @brief menu check to show connections
-            MFXCheckableButton* menuCheckShowConnections;
+            FXMenuCommand* menuCheckShowConnections;
 
             /// @brief menu check to hide connections in connect mode
-            MFXCheckableButton* menuCheckHideConnections;
+            FXMenuCommand* menuCheckHideConnections;
 
             /// @brief menu check to extend to edge nodes
-            MFXCheckableButton* menuCheckExtendSelection;
+            FXMenuCommand* menuCheckExtendSelection;
 
             /// @brief menu check to set change all phases
-            MFXCheckableButton* menuCheckChangeAllPhases;
+            FXMenuCommand* menuCheckChangeAllPhases;
 
             /// @brief menu check to we should warn about merging junctions
-            MFXCheckableButton* menuCheckWarnAboutMerge;
+            FXMenuCommand* menuCheckWarnAboutMerge;
 
             /// @brief menu check to show connection as buuble in "Move" mode.
-            MFXCheckableButton* menuCheckShowJunctionBubble;
+            FXMenuCommand* menuCheckShowJunctionBubble;
 
             /// @brief menu check to apply movement to elevation
-            MFXCheckableButton* menuCheckMoveElevation;
+            FXMenuCommand* menuCheckMoveElevation;
 
             /// @brief menu check to the endpoint for a created edge should be set as the new source
-            MFXCheckableButton* menuCheckChainEdges;
+            FXMenuCommand* menuCheckChainEdges;
 
             /// @brief check checkable to create auto create opposite edge
-            MFXCheckableButton* menuCheckAutoOppositeEdge;
+            FXMenuCommand* menuCheckAutoOppositeEdge;
 
         private:
             /// @brief pointer to current GNEApplicationWindows
@@ -439,22 +439,22 @@ struct GNEApplicationWindowHelper {
             void hideDemandViewOptionsMenuChecks();
 
             /// @brief menu check to show grid button
-            MFXCheckableButton* menuCheckShowGrid;
+            FXMenuCommand* menuCheckShowGrid;
 
             /// @brief menu check to draw vehicles in begin position or spread in lane
-            MFXCheckableButton* menuCheckDrawSpreadVehicles;
+            FXMenuCommand* menuCheckDrawSpreadVehicles;
 
             /// @brief menu check for hide shapes (Polygons and POIs)
-            MFXCheckableButton* menuCheckHideShapes;
+            FXMenuCommand* menuCheckHideShapes;
 
             /// @brief menu check for hide non inspected demand elements
-            MFXCheckableButton* menuCheckHideNonInspectedDemandElements;
+            FXMenuCommand* menuCheckHideNonInspectedDemandElements;
 
             /// @brief menu check for show all person plans
-            MFXCheckableButton* menuCheckShowAllPersonPlans;
+            FXMenuCommand* menuCheckShowAllPersonPlans;
 
             /// @brief menu check for lock Person
-            MFXCheckableButton* menuCheckLockPerson;
+            FXMenuCommand* menuCheckLockPerson;
 
         private:
             /// @brief pointer to current GNEApplicationWindows
@@ -480,13 +480,13 @@ struct GNEApplicationWindowHelper {
             void hideDataViewOptionsMenuChecks();
 
             /// @brief menu check to show Additionals
-            MFXCheckableButton* menuCheckShowAdditionals;
+            FXMenuCommand* menuCheckShowAdditionals;
 
             /// @brief menu check to show Shapes
-            MFXCheckableButton* menuCheckShowShapes;
+            FXMenuCommand* menuCheckShowShapes;
 
             /// @brief menu check to show Demand Elements
-            MFXCheckableButton* menuCheckShowDemandElements;
+            FXMenuCommand* menuCheckShowDemandElements;
 
         private:
             /// @brief pointer to current GNEApplicationWindows
@@ -519,6 +519,15 @@ struct GNEApplicationWindowHelper {
 
         /// @brief FXMenuCommand for redo last change
         FXMenuCommand* redoLastChange;
+
+        /// @brief network view options
+        NetworkViewOptions networkViewOptions;
+
+        /// @brief demand view options
+        DemandViewOptions demandViewOptions;
+
+        /// @brief data view options
+        DataViewOptions dataViewOptions;
 
         /// @brief FXMenuCommand for edit view scheme
         FXMenuCommand* editViewScheme;
