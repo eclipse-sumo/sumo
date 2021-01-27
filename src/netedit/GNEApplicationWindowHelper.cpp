@@ -497,11 +497,11 @@ GNEApplicationWindowHelper::ModesMenuCommands::DataMenuCommands::buildDataMenuCo
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindowHelper::ModesMenuCommands::ModesMenuCommands(GNEApplicationWindow* GNEApp) :
-    myGNEApp(GNEApp),
     networkMenuCommands(this),
     demandMenuCommands(this),
-    dataMenuCommands(this) {
-}
+    dataMenuCommands(this),
+    myGNEApp(GNEApp)
+{ }
 
 
 void
@@ -730,7 +730,6 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::hideDataViewOptio
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindowHelper::EditMenuCommands::EditMenuCommands(GNEApplicationWindow* GNEApp) :
-    myGNEApp(GNEApp),
     undoLastChange(nullptr),
     redoLastChange(nullptr),
     editViewScheme(nullptr),
@@ -739,7 +738,8 @@ GNEApplicationWindowHelper::EditMenuCommands::EditMenuCommands(GNEApplicationWin
     clearFrontElement(nullptr),
     loadAdditionalsInSUMOGUI(nullptr),
     loadDemandInSUMOGUI(nullptr),
-    openInSUMOGUI(nullptr) {
+    openInSUMOGUI(nullptr),
+    myGNEApp(GNEApp) {
 }
 
 
