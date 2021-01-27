@@ -58,14 +58,35 @@ GUIDesigns::buildFXMenuCommandShortcut(FXComposite* p, const std::string& text, 
 }
 
 
-FXMenuCommand*
+FXMenuCheck*
 GUIDesigns::buildFXMenuCheckbox(FXComposite* p, const std::string& text, const std::string& info, FXObject* tgt, FXSelector sel) {
+    // create horizontal frame
+    FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(p, GUIDesignHorizontalFrame);
     // build menu checkbox
-    FXMenuCommand* menuCommand = new FXMenuCheck(p, (text + "\t" + "\t" + info).c_str(), tgt, sel, LAYOUT_FIX_HEIGHT);
+    FXMenuCheck* menuCheck = new FXMenuCheck(horizontalFrame, (text + "\t" + "\t" + info).c_str(), tgt, sel, LAYOUT_FIX_HEIGHT);
     // set width and height (to avoid problems between Windows und Linux)
-    menuCommand->setHeight(GUIDesignHeight);
+    menuCheck->setWidth(GUIDesignHeight);
+    menuCheck->setHeight(GUIDesignHeight);
+    // build label
+    new FXLabel(horizontalFrame, text.c_str(), nullptr, GUIDesignLabelLeft);
     // return menuCommand
-    return menuCommand;
+    return menuCheck;
+}
+
+
+FXMenuCheck*
+GUIDesigns::buildFXMenuCheckboxIcon(FXComposite* p, const std::string& text, const std::string& info, FXIcon* icon, FXObject* tgt, FXSelector sel) {
+    // create horizontal frame
+    FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(p, GUIDesignHorizontalFrame);
+    // build menu checkbox
+    FXMenuCheck* menuCheck = new FXMenuCheck(horizontalFrame, "", tgt, sel, LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT);
+    // set width and height (to avoid problems between Windows und Linux)
+    menuCheck->setWidth(GUIDesignHeight);
+    menuCheck->setHeight(GUIDesignHeight);
+    // build label
+    new FXLabel(horizontalFrame, text.c_str(), icon, GUIDesignLabelLeft);
+    // return menuCommand
+    return menuCheck;
 }
 
 
