@@ -30,6 +30,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
+#include <microsim/transportables/MSStageDriving.h>
 #include "GUINet.h"
 #include "GUIEdge.h"
 #include "GUIPerson.h"
@@ -125,6 +126,25 @@ GUIBusStop::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("person number [#]", true, new FunctionBinding<GUIBusStop, int>(this, &MSStoppingPlace::getTransportableNumber));
     ret->mkItem("stopped vehicles[#]", true, new FunctionBinding<GUIBusStop, int>(this, &MSStoppingPlace::getStoppedVehicleNumber));
     ret->mkItem("last free pos[m]", true, new FunctionBinding<GUIBusStop, double>(this, &MSStoppingPlace::getLastFreePos));
+    // rides-being-waited-on statistic
+    std::map<std::string, int> stats;
+    for (const MSTransportable* t : getTransportables()) {
+        MSStageDriving* s = dynamic_cast<MSStageDriving*>(t->getCurrentStage());
+        if (s != nullptr) {
+            if (s->getIntendedVehicleID() != "") {
+                stats[s->getIntendedVehicleID()] += 1;
+            } else {
+                stats[joinToString(s->getLines(), " ")] += 1;
+            }
+        }
+    }
+    if (stats.size() > 0) {
+        ret->mkItem("waiting for:", false, "[#]");
+        for (auto item : stats) {
+            ret->mkItem(item.first.c_str(), false, toString(item.second));
+        }
+    }
+
     // close building
     ret->closeBuilding();
     return ret;
