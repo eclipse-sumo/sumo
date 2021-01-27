@@ -53,6 +53,7 @@
 #include <utils/gui/windows/GUIDialog_Options.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/foxtools/FXMenuCheckIcon.h>
 #include <utils/xml/XMLSubSys.h>
 
 #include "GNEApplicationWindow.h"
@@ -172,10 +173,52 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_Z_UNDO,                         GNEApplicationWindow::onUpdUndo),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Y_REDO,                         GNEApplicationWindow::onCmdRedo),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_Y_REDO,                         GNEApplicationWindow::onUpdRedo),
-
-
-
-
+    // Network view options
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID,             GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID,             GNEApplicationWindow::onUpdToogleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES,   GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES,   GNEApplicationWindow::onUpdToogleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS,   GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS,   GNEApplicationWindow::onUpdToogleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES,          GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES,          GNEApplicationWindow::onUpdToogleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS,      GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS,      GNEApplicationWindow::onUpdToogleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION,      GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION,      GNEApplicationWindow::onUpdToogleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES,      GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES,      GNEApplicationWindow::onUpdToogleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE,          GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE,          GNEApplicationWindow::onUpdToogleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES,          GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES,          GNEApplicationWindow::onUpdToogleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION,        GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION,        GNEApplicationWindow::onUpdToogleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES,           GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES,           GNEApplicationWindow::onUpdToogleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES,    GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES,    GNEApplicationWindow::onUpdToogleViewOption),
+    // Demand view options
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID,              GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID,              GNEApplicationWindow::onUpdToogleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES,    GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES,    GNEApplicationWindow::onUpdToogleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED,      GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED,      GNEApplicationWindow::onUpdToogleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES,            GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES,            GNEApplicationWindow::onUpdToogleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,    GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,    GNEApplicationWindow::onUpdToogleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON,            GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON,            GNEApplicationWindow::onUpdToogleViewOption),
+    // Data view options
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,         GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,         GNEApplicationWindow::onUpdToogleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES,              GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES,              GNEApplicationWindow::onUpdToogleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,      GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,      GNEApplicationWindow::onUpdToogleViewOption),
+    // view
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F9_EDIT_VIEWSCHEME,                  GNEApplicationWindow::onCmdEditViewScheme),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F9_EDIT_VIEWSCHEME,                  GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_I_EDITVIEWPORT,                 GNEApplicationWindow::onCmdEditViewport),
@@ -2183,6 +2226,227 @@ GNEApplicationWindow::onUpdUndo(FXObject* obj, FXSelector sel, void* ptr) {
 long
 GNEApplicationWindow::onUpdRedo(FXObject* obj, FXSelector sel, void* ptr) {
     return myUndoList->p_onUpdRedo(obj, sel, ptr);
+}
+
+
+long 
+GNEApplicationWindow::onCmdToogleViewOption(FXObject* obj, FXSelector sel, void* ptr) {
+    // check viewNet
+    if (myViewNet) {
+        // continue depending of selector
+        switch (FXSELID(sel)) {
+            case MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID:
+                return myViewNet->onCmdToogleShowGrid(obj, sel, ptr);
+            case MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES:
+                return myViewNet->onCmdToogleDrawSpreadVehicles(obj, sel, ptr);
+            case MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS:
+                return myViewNet->onCmdToogleShowDemandElementsNetwork(obj, sel, ptr);
+            case MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES:
+                return myViewNet->onCmdToogleSelectEdges(obj, sel, ptr);
+            case MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS:
+                return myViewNet->onCmdToogleShowConnections(obj, sel, ptr);
+            case MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION:
+                return myViewNet->onCmdToogleExtendSelection(obj, sel, ptr);
+            case MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES:
+                return myViewNet->onCmdToogleChangeAllPhases(obj, sel, ptr);
+            case MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE:
+                return myViewNet->onCmdToogleWarnAboutMerge(obj, sel, ptr);
+            case MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES:
+                return myViewNet->onCmdToogleShowJunctionBubbles(obj, sel, ptr);
+            case MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION:
+                return myViewNet->onCmdToogleMoveElevation(obj, sel, ptr);
+            case MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES:
+                return myViewNet->onCmdToogleChainEdges(obj, sel, ptr);
+            case MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES:
+                return myViewNet->onCmdToogleAutoOppositeEdge(obj, sel, ptr);
+            case MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID:
+                return myViewNet->onCmdToogleShowGrid(obj, sel, ptr);
+            case MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES:
+                return myViewNet->onCmdToogleDrawSpreadVehicles(obj, sel, ptr);
+            case MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED:
+                return myViewNet->onCmdToogleHideNonInspecteDemandElements(obj, sel, ptr);
+            case MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES:
+                return myViewNet->onCmdToogleHideShapes(obj, sel, ptr);
+            case MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS:
+                return myViewNet->onCmdToogleShowAllPersonPlans(obj, sel, ptr);
+            case MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON:
+                return myViewNet->onCmdToogleLockPerson(obj, sel, ptr);
+            case MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS:
+                return myViewNet->onCmdToogleShowAdditionals(obj, sel, ptr);
+            case MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES:
+                return myViewNet->onCmdToogleShowShapes(obj, sel, ptr);
+            case MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS:
+                return myViewNet->onCmdToogleShowDemandElementsData(obj, sel, ptr);
+            default:
+                return 0;
+        }
+    } else {
+        return 0;
+    }
+}
+
+
+long
+GNEApplicationWindow::onUpdToogleViewOption(FXObject* obj, FXSelector sel, void* ptr) {
+    // get menuCheck
+    FXMenuCheckIcon* menuCheck = dynamic_cast<FXMenuCheckIcon*>(obj);
+    // check viewNet
+    if (myViewNet && menuCheck) {
+        // continue depending of selector
+        switch (FXSELID(sel)) {
+            case MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID:
+                if (myViewNet->getNetworkViewOptions().menuCheckShowGrid->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES:
+                if (myViewNet->getNetworkViewOptions().menuCheckDrawSpreadVehicles->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS:
+                if (myViewNet->getNetworkViewOptions().menuCheckShowDemandElements->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES:
+                if (myViewNet->getNetworkViewOptions().menuCheckSelectEdges->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS:
+                if (myViewNet->getNetworkViewOptions().menuCheckShowConnections->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION:
+                if (myViewNet->getNetworkViewOptions().menuCheckExtendSelection->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES:
+                if (myViewNet->getNetworkViewOptions().menuCheckChangeAllPhases->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE:
+                if (myViewNet->getNetworkViewOptions().menuCheckWarnAboutMerge->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES:
+                if (myViewNet->getNetworkViewOptions().menuCheckShowJunctionBubble->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION:
+                if (myViewNet->getNetworkViewOptions().menuCheckMoveElevation->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES:
+                if (myViewNet->getNetworkViewOptions().menuCheckChainEdges->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES:
+                if (myViewNet->getNetworkViewOptions().menuCheckAutoOppositeEdge->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                }
+                else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID:
+                if (myViewNet->getDemandViewOptions().menuCheckShowGrid->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES:
+                if (myViewNet->getDemandViewOptions().menuCheckDrawSpreadVehicles->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED:
+                if (myViewNet->getDemandViewOptions().menuCheckHideNonInspectedDemandElements->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES:
+                if (myViewNet->getDemandViewOptions().menuCheckHideShapes->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS:
+                if (myViewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON:
+                if (myViewNet->getDemandViewOptions().menuCheckLockPerson->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS:
+                if (myViewNet->getDataViewOptions().menuCheckShowAdditionals->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES:
+                if (myViewNet->getDataViewOptions().menuCheckShowShapes->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS:
+                if (myViewNet->getDataViewOptions().menuCheckShowDemandElements->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    return 0;
 }
 
 

@@ -233,6 +233,12 @@ public:
     /// @brief called when the update/FXCall redo is executed
     long onUpdRedo(FXObject* obj, FXSelector sel, void* ptr);
 
+    /// @brief toogle viewOption
+    long onCmdToogleViewOption(FXObject*, FXSelector, void*);
+
+    /// @brief update viewOption
+    long onUpdToogleViewOption(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall save as plain xml is executed
     long onCmdSaveAsPlainXML(FXObject*, FXSelector, void*);
 
