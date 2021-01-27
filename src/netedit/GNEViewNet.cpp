@@ -3419,6 +3419,8 @@ GNEViewNet::buildEditModeControls() {
 
 void
 GNEViewNet::updateNetworkModeSpecificControls() {
+    // get menu checks
+    const auto &menuChecks = myViewParent->getGNEAppWindows()->getEditMenuCommands().networkViewOptions;
     // hide all checkbox of view options Network
     myNetworkViewOptions.hideNetworkViewOptionsMenuChecks();
     // hide all checkbox of view options Demand
@@ -3435,10 +3437,17 @@ GNEViewNet::updateNetworkModeSpecificControls() {
     myIntervalBar.hideIntervalBar();
     // hide all frames
     myViewParent->hideAllFrames();
+    // hide all menuchecks
+    myViewParent->getGNEAppWindows()->getEditMenuCommands().networkViewOptions.hideNetworkViewOptionsMenuChecks();
+    myViewParent->getGNEAppWindows()->getEditMenuCommands().demandViewOptions.hideDemandViewOptionsMenuChecks();
+    myViewParent->getGNEAppWindows()->getEditMenuCommands().dataViewOptions.hideDataViewOptionsMenuChecks();
     // In network mode, always show option "show grid", "draw spread vehicles" and "show demand elements"
     myNetworkViewOptions.menuCheckShowGrid->show();
     myNetworkViewOptions.menuCheckDrawSpreadVehicles->show();
     myNetworkViewOptions.menuCheckShowDemandElements->show();
+    menuChecks.menuCheckShowGrid->show();
+    menuChecks.menuCheckDrawSpreadVehicles->show();
+    menuChecks.menuCheckShowDemandElements->show();
     // enable selected controls
     switch (myEditModes.networkEditMode) {
         // common modes
@@ -3450,6 +3459,10 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             // show view options
             myNetworkViewOptions.menuCheckSelectEdges->show();
             myNetworkViewOptions.menuCheckShowConnections->show();
+            // show menu checks
+            menuChecks.menuCheckSelectEdges->show();
+            menuChecks.menuCheckShowConnections->show();
+            // show 
             break;
         case NetworkEditMode::NETWORK_DELETE:
             myViewParent->getDeleteFrame()->show();
@@ -3459,6 +3472,8 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkViewOptions.menuCheckShowConnections->show();
             // show view options
             myNetworkViewOptions.menuCheckSelectEdges->show();
+            // show menu checks
+            menuChecks.menuCheckSelectEdges->show();
             break;
         case NetworkEditMode::NETWORK_SELECT:
             myViewParent->getSelectorFrame()->show();
@@ -3469,6 +3484,10 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkViewOptions.menuCheckSelectEdges->show();
             myNetworkViewOptions.menuCheckShowConnections->show();
             myNetworkViewOptions.menuCheckExtendSelection->show();
+            // show menu checks
+            menuChecks.menuCheckSelectEdges->show();
+            menuChecks.menuCheckShowConnections->show();
+            menuChecks.menuCheckExtendSelection->show();
             break;
         // specific modes
         case NetworkEditMode::NETWORK_CREATE_EDGE:
@@ -3479,6 +3498,9 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             // show view options
             myNetworkViewOptions.menuCheckChainEdges->show();
             myNetworkViewOptions.menuCheckAutoOppositeEdge->show();
+            // show menu checks
+            menuChecks.menuCheckChainEdges->show();
+            menuChecks.menuCheckAutoOppositeEdge->show();
             break;
         case NetworkEditMode::NETWORK_MOVE:
             myViewParent->getMoveFrame()->show();
@@ -3489,7 +3511,10 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkViewOptions.menuCheckWarnAboutMerge->show();
             myNetworkViewOptions.menuCheckShowJunctionBubble->show();
             myNetworkViewOptions.menuCheckMoveElevation->show();
-            myNetworkCheckableButtons.moveNetworkElementsButton->setChecked(true);
+            // show menu checks
+            menuChecks.menuCheckWarnAboutMerge->show();
+            menuChecks.menuCheckShowJunctionBubble->show();
+            menuChecks.menuCheckMoveElevation->show();
             break;
         case NetworkEditMode::NETWORK_CONNECT:
             myViewParent->getConnectorFrame()->show();
@@ -3504,6 +3529,8 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkCheckableButtons.trafficLightButton->setChecked(true);
             // show view options
             myNetworkViewOptions.menuCheckChangeAllPhases->show();
+            // show menu checks
+            menuChecks.menuCheckChangeAllPhases->show();
             break;
         case NetworkEditMode::NETWORK_ADDITIONAL:
             myViewParent->getAdditionalFrame()->show();
@@ -3554,6 +3581,8 @@ GNEViewNet::updateNetworkModeSpecificControls() {
 
 void
 GNEViewNet::updateDemandModeSpecificControls() {
+    // get menu checks
+    const auto& menuChecks = myViewParent->getGNEAppWindows()->getEditMenuCommands().demandViewOptions;
     // hide all checkbox of view options Network
     myNetworkViewOptions.hideNetworkViewOptionsMenuChecks();
     // hide all checkbox of view options Demand
@@ -3570,10 +3599,17 @@ GNEViewNet::updateDemandModeSpecificControls() {
     myIntervalBar.hideIntervalBar();
     // hide all frames
     myViewParent->hideAllFrames();
+    // hide all menuchecks
+    myViewParent->getGNEAppWindows()->getEditMenuCommands().networkViewOptions.hideNetworkViewOptionsMenuChecks();
+    myViewParent->getGNEAppWindows()->getEditMenuCommands().demandViewOptions.hideDemandViewOptionsMenuChecks();
+    myViewParent->getGNEAppWindows()->getEditMenuCommands().dataViewOptions.hideDataViewOptionsMenuChecks();
     // always show "hide shapes", "show grid" and "draw spread vehicles"
     myDemandViewOptions.menuCheckShowGrid->show();
     myDemandViewOptions.menuCheckDrawSpreadVehicles->show();
     myDemandViewOptions.menuCheckHideShapes->show();
+    menuChecks.menuCheckShowGrid->show();
+    menuChecks.menuCheckDrawSpreadVehicles->show();
+    menuChecks.menuCheckHideShapes->show();
     // enable selected controls
     switch (myEditModes.demandEditMode) {
         // common modes
@@ -3587,6 +3623,10 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myDemandViewOptions.menuCheckHideNonInspectedDemandElements->show();
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
+            // show menu checks
+            menuChecks.menuCheckHideNonInspectedDemandElements->show();
+            menuChecks.menuCheckShowAllPersonPlans->show();
+            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_DELETE:
             myViewParent->getDeleteFrame()->show();
@@ -3597,6 +3637,9 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
+            // show menu checks
+            menuChecks.menuCheckShowAllPersonPlans->show();
+            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_SELECT:
             myViewParent->getSelectorFrame()->show();
@@ -3607,6 +3650,9 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
+            // show menu checks
+            menuChecks.menuCheckShowAllPersonPlans->show();
+            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_MOVE:
             myViewParent->getMoveFrame()->show();
@@ -3617,6 +3663,9 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
+            // show menu checks
+            menuChecks.menuCheckShowAllPersonPlans->show();
+            menuChecks.menuCheckLockPerson->show();
             break;
         // specific modes
         case DemandEditMode::DEMAND_ROUTE:
@@ -3628,6 +3677,9 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
+            // show menu checks
+            menuChecks.menuCheckShowAllPersonPlans->show();
+            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_VEHICLE:
             myViewParent->getVehicleFrame()->show();
@@ -3638,6 +3690,9 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
+            // show menu checks
+            menuChecks.menuCheckShowAllPersonPlans->show();
+            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_VEHICLETYPES:
             myViewParent->getVehicleTypeFrame()->show();
@@ -3648,6 +3703,9 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
+            // show menu checks
+            menuChecks.menuCheckShowAllPersonPlans->show();
+            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_STOP:
             myViewParent->getStopFrame()->show();
@@ -3658,6 +3716,9 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
+            // show menu checks
+            menuChecks.menuCheckShowAllPersonPlans->show();
+            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_PERSONTYPES:
             myViewParent->getPersonTypeFrame()->show();
@@ -3668,6 +3729,9 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
+            // show menu checks
+            menuChecks.menuCheckShowAllPersonPlans->show();
+            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_PERSON:
             myViewParent->getPersonFrame()->show();
@@ -3678,6 +3742,9 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
+            // show menu checks
+            menuChecks.menuCheckShowAllPersonPlans->show();
+            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_PERSONPLAN:
             myViewParent->getPersonPlanFrame()->show();
@@ -3688,6 +3755,9 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
+            // show menu checks
+            menuChecks.menuCheckShowAllPersonPlans->show();
+            menuChecks.menuCheckLockPerson->show();
             break;
         default:
             break;
@@ -3708,6 +3778,8 @@ GNEViewNet::updateDemandModeSpecificControls() {
 
 void
 GNEViewNet::updateDataModeSpecificControls() {
+    // get menu checks
+    const auto& menuChecks = myViewParent->getGNEAppWindows()->getEditMenuCommands().dataViewOptions;
     // hide all checkbox of view options Network
     myNetworkViewOptions.hideNetworkViewOptionsMenuChecks();
     // hide all checkbox of view options Demand
@@ -3722,10 +3794,17 @@ GNEViewNet::updateDataModeSpecificControls() {
     myIntervalBar.showIntervalBar();
     // hide all frames
     myViewParent->hideAllFrames();
+    // hide all menuchecks
+    myViewParent->getGNEAppWindows()->getEditMenuCommands().networkViewOptions.hideNetworkViewOptionsMenuChecks();
+    myViewParent->getGNEAppWindows()->getEditMenuCommands().demandViewOptions.hideDemandViewOptionsMenuChecks();
+    myViewParent->getGNEAppWindows()->getEditMenuCommands().dataViewOptions.hideDataViewOptionsMenuChecks();
     // In data mode, always show option "show demand elements" and "hide shapes"
     myDataViewOptions.menuCheckShowAdditionals->show();
     myDataViewOptions.menuCheckShowShapes->show();
     myDataViewOptions.menuCheckShowDemandElements->show();
+    menuChecks.menuCheckShowAdditionals->show();
+    menuChecks.menuCheckShowShapes->show();
+    menuChecks.menuCheckShowDemandElements->show();
     // enable selected controls
     switch (myEditModes.dataEditMode) {
         // common modes
