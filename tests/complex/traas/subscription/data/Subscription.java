@@ -32,10 +32,10 @@ import de.tudresden.sumo.subscription.VariableSubscription;
 import de.tudresden.sumo.subscription.SubscribtionVariable;
 import de.tudresden.sumo.subscription.SubscriptionObject;
 import de.tudresden.sumo.subscription.ResponseType;
-import de.tudresden.ws.container.SumoVehicleData;
-import de.tudresden.ws.container.SumoStringList;
-import de.tudresden.ws.container.SumoPrimitive;
-import de.tudresden.ws.container.SumoPosition2D;
+import de.tudresden.sumo.objects.SumoVehicleData;
+import de.tudresden.sumo.objects.SumoStringList;
+import de.tudresden.sumo.objects.SumoPrimitive;
+import de.tudresden.sumo.objects.SumoPosition2D;
 
 public class Subscription implements Observer {
 

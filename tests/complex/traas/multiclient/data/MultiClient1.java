@@ -24,7 +24,7 @@ import de.tudresden.sumo.cmd.Simulation;
 import de.tudresden.sumo.cmd.Vehicle;
 import de.tudresden.sumo.cmd.Inductionloop;
 import de.tudresden.sumo.cmd.Trafficlight;
-import de.tudresden.ws.container.SumoVehicleData;
+import de.tudresden.sumo.objects.SumoVehicleData;
 
 public class MultiClient1 {
     public static void main(String[] args) {
