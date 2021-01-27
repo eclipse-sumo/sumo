@@ -4533,7 +4533,11 @@ MSVehicle::setApproachingForAllLinks(const SUMOTime t) {
         // register on all shadow links
         for (const DriveProcessItem& dpi : myLFLinkLanes) {
             if (dpi.myLink != nullptr) {
-                MSLink* const parallelLink = dpi.myLink->getParallelLink(myLaneChangeModel->getShadowDirection());
+                MSLink* parallelLink = dpi.myLink->getParallelLink(myLaneChangeModel->getShadowDirection());
+                if (parallelLink == nullptr && getLaneChangeModel().isOpposite() && dpi.myLink->isEntryLink()) {
+                    // register on opposite direction entry link to warn foes at minor side road
+                    parallelLink = dpi.myLink->getOppositeDirectionLink();
+                }
                 if (parallelLink != nullptr) {
                     const double latOffset = getLane()->getRightSideOnEdge() - myLaneChangeModel->getShadowLane()->getRightSideOnEdge();
                     parallelLink->setApproaching(this, dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),

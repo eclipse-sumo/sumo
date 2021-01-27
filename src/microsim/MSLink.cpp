@@ -1377,6 +1377,18 @@ MSLink::getParallelLink(int direction) const {
     }
 }
 
+MSLink*
+MSLink::getOppositeDirectionLink() const {
+    if (myLane->getOpposite() != nullptr && myLaneBefore->getOpposite() != nullptr) {
+        for (MSLink* cand : myLane->getOpposite()->getLinkCont()) {
+            if (cand->getLane() == myLaneBefore->getOpposite()) {
+                return cand;
+            }
+        }
+    }
+    return nullptr;
+}
+
 
 MSLink*
 MSLink::computeParallelLink(int direction) {

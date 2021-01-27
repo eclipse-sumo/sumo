@@ -511,6 +511,9 @@ public:
     /// @brief return the link that is parallel to this lane or 0
     MSLink* getParallelLink(int direction) const;
 
+    /// @brief return the link that is the opposite entry link to this one
+    MSLink* getOppositeDirectionLink() const;
+
     /// @brief return whether the fromLane of this link is an internal lane
     inline bool fromInternalLane() const {
         return myInternalLaneBefore != nullptr;
