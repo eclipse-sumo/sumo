@@ -23,7 +23,7 @@ When inspecting an element that is [selected](#select) along with multiple eleme
 ![](../images/InspectMode4.png)Width of lane changed (gaps will disappear upon triggering recomputation with **F5**)
 
 ### Generic Parameters
-Most simulation objects support [Generic Parameters](Simulation/GenericParameters.md) to express custom user data and supplemental configurations. They can be edited with the 'Edit parameters' dialog which is accessible with the 'Edit parameters' button. 
+Most simulation objects support [Generic Parameters](../Simulation/GenericParameters.md) to express custom user data and supplemental configurations. They can be edited with the 'Edit parameters' dialog which is accessible with the 'Edit parameters' button. 
 
 In inspect mode, a serialized form of the parameters is also given. In this form, all parameters are concatenated using the '=' sign between key and value and by using the '|' sign between parameters. Serialization of key value pars that use these separating characters in their key or value is currently not supported by netedit (though permitted by SUMO). 
 The serialized form is useful in select mode when selecting objects with a particular parameter.
@@ -159,7 +159,7 @@ final shape after saving or activating full recomputation (F5) may be slightly d
 ![](../images/CreateEdge7.png)By setting the option "show junctions as bubbles", circles are drawn instead of detailed junction shapes which can improve visibility.
 
 ### Changing Elevation ###
-When checking the 'Elevation' checkbox, elevation of junctions and existing geometry points can be modified by dragging the with the mouse (with their x,y coordinates remaining unchanged).  At the same time, the numerical elevation value will be displayed for every junction and geometry point.  It is useful to combine this with [elevation or sloope coloring](Networks/Elevation.md#visualizing_elevation_data).
+When checking the 'Elevation' checkbox, elevation of junctions and existing geometry points can be modified by dragging the with the mouse (with their x,y coordinates remaining unchanged).  At the same time, the numerical elevation value will be displayed for every junction and geometry point.  It is useful to combine this with [elevation or sloope coloring](../Networks/Elevation.md#visualizing_elevation_data).
 
 ### Moving Object Selections
 

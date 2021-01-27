@@ -57,7 +57,7 @@ Afterwards, you will have to recompute the junction shape to see how it looks (F
 
 1.  create new junctions where the endpoints of the edge should be
   - Either split an existing edge (right-click and select *Split edge here*)
-  - Or [create a new edge with new junctions in create-edge mode](netedit.md#create_edges)
+  - Or [create a new edge with new junctions in create-edge mode](../netedit.md#create_edges)
 2.  switch to [select mode](#select)
 3.  select the original junction and the new junction near it
 4.  Menu *Processing-\>Join Selected Junctions (F7)*
@@ -100,9 +100,9 @@ Assuming you have a regular intersection
 
 ![](../images/RoundAbout7.png)Roundabout in Simulator.
 
-## Correcting [road access permissions](Simulation/VehiclePermissions.md)
+## Correcting [road access permissions](../Simulation/VehiclePermissions.md)
 
-In this example we wish to modify a multi-modal road network (i.e. imported from [OpenStreetMap](Networks/Import/OpenStreetMap.md)) in the following way: **All dedicated bus lanes should allow bicycle access**.
+In this example we wish to modify a multi-modal road network (i.e. imported from [OpenStreetMap](../Networks/Import/OpenStreetMap.md)) in the following way: **All dedicated bus lanes should allow bicycle access**.
 
 1.  in *select-mode*, use the Match Attribute panel to select all **Lanes** with attribute **allow** that match the string **=bus** (the '=' forces exact matches). All dedicated bus lanes are now selected
 2.  in *inspect-mode*, click on one of the selected lanes and modify the allow attribute from *bus* to *bus bicycle*
@@ -134,17 +134,17 @@ settings may help
 
 When setting coloring to *by selection* it may also help to modify transparency for selected or unselected edges.
 
-## Defining a linear referencing scheme [(kilometrage / mileage/ chainage)](Simulation/Railways.md#kilometrage_mileage_chainage)
+## Defining a linear referencing scheme [(kilometrage / mileage/ chainage)](../Simulation/Railways.md#kilometrage_mileage_chainage)
 
 1. [Define a route](#route_mode) through your network along which you want to define kilometrage (in forward direction)
 2. (optional) Use inspect mode to et the initial distance value of the first edge of the route (default 0)
 3) Right click the route element (in demand mode) and select 'Apply distance along route'
 
-## Creating [bidirectional railway tracks](Simulation/Railways.md)
+## Creating [bidirectional railway tracks](../Simulation/Railways.md)
 
 ### Make an existing track bidirectional
 
-Using [visualization options or attribute selection](Simulation/Railways.md#working_with_bidirectional_tracks_in_netedit) you can check whether an existing railway track can be used in both
+Using [visualization options or attribute selection](../Simulation/Railways.md#working_with_bidirectional_tracks_in_netedit) you can check whether an existing railway track can be used in both
 directions. To make a unidirectional track usable in both directions,
 
 1.  set the edge attribute *spreadType* to the value *center* (in many cases this value is already set as it is the default value when

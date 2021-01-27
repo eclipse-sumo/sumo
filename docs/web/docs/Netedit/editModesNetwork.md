@@ -37,7 +37,7 @@ Connections establish the possible directions that can be taken by a vehicle whe
 
 ### Inspecting connections
 
-As the rest of elements of netedit, connections can be inspected and modified using inspected mode. Note that the option *show connections* must be enabled. All parameters can be modified excepting *From*, *To*, *fromLane* and *toLane*. The connection coloring is done as [in sumo-gui](sumo-gui.md#right_of_way) with the exception of traffic-light connections which are brown in inspect-mode.
+As the rest of elements of netedit, connections can be inspected and modified using inspected mode. Note that the option *show connections* must be enabled. All parameters can be modified excepting *From*, *To*, *fromLane* and *toLane*. The connection coloring is done as [in sumo-gui](../sumo-gui.md#right_of_way) with the exception of traffic-light connections which are brown in inspect-mode.
 
 ![](../images/GNEConnections4.png)Inspecting a connection. Note that check box "Show connections" is enabled. 
 
@@ -59,10 +59,10 @@ To deselect the source edge or cancel the declared connections press **<ESC\>** 
 
 #### Conflict reasons
 
-- [double connection](Networks/PlainXML.md#multiple_connections_from_the_same_edge_to_the_same_target_lane). Usually each lane only has one predecessor from the same edge. A counter-example would be a [zipper
-  node](Networks/PlainXML.md#node_types). May also be useful to model bus bays.
-- Incompatible permissions: The source and target lanes have no [allowed vehicle class](Simulation/VehiclePermissions.md) in common
-- Connection from sidewalk: Lane-to-lane connections for pedestrians are usually not defined by the user. Instead, the connectivity is modeled with [pedestrian crossings](Simulation/Pedestrians.md#generating_a_network_with_crossings_and_walkingareas).
+- [double connection](../Networks/PlainXML.md#multiple_connections_from_the_same_edge_to_the_same_target_lane). Usually each lane only has one predecessor from the same edge. A counter-example would be a [zipper
+  node](../Networks/PlainXML.md#node_types). May also be useful to model bus bays.
+- Incompatible permissions: The source and target lanes have no [allowed vehicle class](../Simulation/VehiclePermissions.md) in common
+- Connection from sidewalk: Lane-to-lane connections for pedestrians are usually not defined by the user. Instead, the connectivity is modeled with [pedestrian crossings](../Simulation/Pedestrians.md#generating_a_network_with_crossings_and_walkingareas).
 
 ![](../images/GNEConnections5.png)Colors of the possible objective lanes change. In this example, the objective lanes are divided into **Target Connected**, **Possible Target** and **Target Conflicted**.
 
@@ -105,7 +105,7 @@ Add additional elements to the net. Additionals can be placed over a lane or in 
 
 ## Crossings
 
-Add [pedestrian crossings](Networks/PlainXML.md#pedestrian_crossings) for use with [pedestrian simulation](Simulation/Pedestrians.md). Crossings are define relative a junction and edges at this junction.
+Add [pedestrian crossings](../Networks/PlainXML.md#pedestrian_crossings) for use with [pedestrian simulation](../Simulation/Pedestrians.md). Crossings are define relative a junction and edges at this junction.
 Their width can be customized and they can either be configured as priotized (zebra stripes) or unprioritzed (vehicles have right of way). Crossings are added using the following steps:
 
 1.  activate crossing mode (R)
@@ -142,7 +142,7 @@ Internally, crossing works as edges, and therefore they appear in the *net.xml* 
 
 ## TAZ (Traffic Analysis Zones)
 
-This mode allows creating and editing [TAZ](Demand/Importing_O/D_Matrices.md#describing_the_taz). (Shortcut Z). TAZs are composed of a closed polygon and a list of edges associated with certain weights for the inputs (Sources) and outputs (Sinks) (Similar to a [Flow Network](https://en.wikipedia.org/wiki/Flow_network)).
+This mode allows creating and editing [TAZ](../Demand/Importing_O/D_Matrices.md#describing_the_taz). (Shortcut Z). TAZs are composed of a closed polygon and a list of edges associated with certain weights for the inputs (Sources) and outputs (Sinks) (Similar to a [Flow Network](https://en.wikipedia.org/wiki/Flow_network)).
 
 The creation of TAZs require two steps:
 
@@ -168,7 +168,7 @@ TAZEdges in side menu. If the checkbox *Membership* is enabled (Toogle) box, a c
 
 ## Shapes
 
-This mode allows the creation of [Polygons](Simulation/Shapes.md#polygon_definitions) and [POIs (Points of Interest)](Simulation/Shapes.md#poi_point_of_interest_definitions) through Polygon mode (hotkey ‘P’). These objects are used for visualization and can also be accessed via TraCI. In the polygon frame you can select the type of shape to edit (Polygons or Point Of Interest), and the corresponding parameters for each one.
+This mode allows the creation of [Polygons](../Simulation/Shapes.md#polygon_definitions) and [POIs (Points of Interest)](../Simulation/Shapes.md#poi_point_of_interest_definitions) through Polygon mode (hotkey ‘P’). These objects are used for visualization and can also be accessed via TraCI. In the polygon frame you can select the type of shape to edit (Polygons or Point Of Interest), and the corresponding parameters for each one.
 
 ![](../images/ModePolygon1GeneralView.png)General view of the shape frame.
 ![](../images/ModePolygon2SelectingColor.png)Color can be edited clicking over button "color".

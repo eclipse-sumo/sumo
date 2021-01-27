@@ -225,4 +225,4 @@ behavior. For a description see
   model](../Simulation/SublaneModel.md), the attribute *latGap*
   records the lateral gap to the neighboring vehicle in the direction
   of the change if such a vehicle exists.
-- The [collision output](../Output/Collisions.md) holds an xml record of each vehicle/vehicle and vehicle/person collision.
+- The [collision output](Output/Collisions.md) holds an xml record of each vehicle/vehicle and vehicle/person collision.
