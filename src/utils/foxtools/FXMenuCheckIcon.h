@@ -1,26 +1,23 @@
-/********************************************************************************
-*                                                                               *
-*                          M e n u C h e c k   W i d g e t                      *
-*                                                                               *
-*********************************************************************************
-* Copyright (C) 2002,2006 by Jeroen van der Zijp.   All Rights Reserved.        *
-*********************************************************************************
-* This library is free software; you can redistribute it and/or                 *
-* modify it under the terms of the GNU Lesser General Public                    *
-* License as published by the Free Software Foundation; either                  *
-* version 2.1 of the License, or (at your option) any later version.            *
-*                                                                               *
-* This library is distributed in the hope that it will be useful,               *
-* but WITHOUT ANY WARRANTY; without even the implied warranty of                *
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU             *
-* Lesser General Public License for more details.                               *
-*                                                                               *
-* You should have received a copy of the GNU Lesser General Public              *
-* License along with this library; if not, write to the Free Software           *
-* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.    *
-*********************************************************************************
-* $Id: FXMenuCheckIcon.h,v 1.13 2006/01/22 17:58:06 fox Exp $                       *
-********************************************************************************/
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2004-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+/****************************************************************************/
+/// @file    FXMenuCheckIcon.h
+/// @author  Pablo Alvarez Lopez
+/// @date    Jan 2021
+///
+//
+/****************************************************************************/
+
 #pragma once
 #include <config.h>
 
@@ -36,66 +33,72 @@
 * the void* argument of the message contains the new state.
 */
 class FXMenuCheckIcon : public FXMenuCommand {
-	/// @brief FOX-declaration
-	FXDECLARE(FXMenuCheckIcon)
+    /// @brief FOX-declaration
+    FXDECLARE(FXMenuCheckIcon)
 
 public:
-	/// @brief Construct a menu check
-	FXMenuCheckIcon(FXComposite* p,const FXString& text,FXObject* tgt=NULL,FXSelector sel=0,FXuint opts=0);
+    /// @brief Construct a menu check
+    FXMenuCheckIcon(FXComposite* p, const FXString& text, const FXIcon* icon, FXObject* tgt=NULL, FXSelector sel=0, FXuint opts=0);
 
-	/// @brief Return default width
-	virtual FXint getDefaultWidth();
+    /// @brief Return default width
+    virtual FXint getDefaultWidth();
 
-	/// @brief Return default height
-	virtual FXint getDefaultHeight();
+    /// @brief Return default height
+    virtual FXint getDefaultHeight();
 
-	/// @brief Set check state (TRUE, FALSE or MAYBE)
-	void setCheck(FXbool s=TRUE);
+    /// @brief Set check state (TRUE, FALSE or MAYBE)
+    void setCheck(FXbool s=TRUE);
 
-	/// @brief Get check state (TRUE, FALSE or MAYBE)
-	FXbool getCheck() const;
+    /// @brief Get check state (TRUE, FALSE or MAYBE)
+    FXbool getCheck() const;
 
-	/// @brief Get the box background color
-	FXColor getBoxColor() const;
+    /// @brief Get the box background color
+    FXColor getBoxColor() const;
 
-	/// @brief Set the box background color
-	void setBoxColor(FXColor clr);
+    /// @brief Set the box background color
+    void setBoxColor(FXColor clr);
 
-	/// @brief Save menu to a stream
-	virtual void save(FXStream& store) const;
+    /// @brief Save menu to a stream
+    virtual void save(FXStream& store) const;
 
-	/// @brief Load menu from a stream
-	virtual void load(FXStream& store);
+    /// @brief Load menu from a stream
+    virtual void load(FXStream& store);
 
-	long onPaint(FXObject*, FXSelector, void*);
-	long onButtonPress(FXObject*, FXSelector, void*);
-	long onButtonRelease(FXObject*, FXSelector, void*);
-	long onKeyPress(FXObject*, FXSelector, void*);
-	long onKeyRelease(FXObject*, FXSelector, void*);
-	long onHotKeyPress(FXObject*, FXSelector, void*);
-	long onHotKeyRelease(FXObject*, FXSelector, void*);
-	long onCheck(FXObject*, FXSelector, void*);
-	long onUncheck(FXObject*, FXSelector, void*);
-	long onUnknown(FXObject*, FXSelector, void*);
-	long onCmdSetValue(FXObject*, FXSelector, void*);
-	long onCmdSetIntValue(FXObject*, FXSelector, void*);
-	long onCmdGetIntValue(FXObject*, FXSelector, void*);
-	long onCmdAccel(FXObject*, FXSelector, void*);
+    /// @name FOX calls
+    /// @{
+    long onPaint(FXObject*, FXSelector, void*);
+    long onButtonPress(FXObject*, FXSelector, void*);
+    long onButtonRelease(FXObject*, FXSelector, void*);
+    long onKeyPress(FXObject*, FXSelector, void*);
+    long onKeyRelease(FXObject*, FXSelector, void*);
+    long onHotKeyPress(FXObject*, FXSelector, void*);
+    long onHotKeyRelease(FXObject*, FXSelector, void*);
+    long onCheck(FXObject*, FXSelector, void*);
+    long onUncheck(FXObject*, FXSelector, void*);
+    long onUnknown(FXObject*, FXSelector, void*);
+    long onCmdSetValue(FXObject*, FXSelector, void*);
+    long onCmdSetIntValue(FXObject*, FXSelector, void*);
+    long onCmdGetIntValue(FXObject*, FXSelector, void*);
+    long onCmdAccel(FXObject*, FXSelector, void*);
+    /// @}
 
 protected:
-	/// @brief default constructor
-	FXMenuCheckIcon();
+    /// @brief default constructor
+    FXMenuCheckIcon();
 
-	/// @brief State of menu
-	FXuchar check;
+    /// @brief State of menu
+    FXuchar myCheck;
 
-	/// @brief Box color
-	FXColor boxColor;
+    /// @brief Box color
+    FXColor myBoxColor;
+
+    /// @brief Iocn
+    const FXIcon* myIcon;
 
 private:
-	/// @brief Invalidated copy constructor.
-	FXMenuCheckIcon(const FXMenuCheckIcon&) = delete;
+    /// @brief Invalidated copy constructor.
+    FXMenuCheckIcon(const FXMenuCheckIcon&) = delete;
 
-	/// @brief Invalidated assignment operator.
-	FXMenuCheckIcon& operator=(const FXMenuCheckIcon&) = delete;
+    /// @brief Invalidated assignment operator.
+    FXMenuCheckIcon& operator=(const FXMenuCheckIcon&) = delete;
 };
