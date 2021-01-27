@@ -3,7 +3,7 @@
 *                          M e n u C h e c k   W i d g e t                      *
 *                                                                               *
 *********************************************************************************
-* Copyright (C) 2002,2006 by Jeroen van der Zijp.   All Rights Reserved.        *
+* Copyright (C) 2002, 2006 by Jeroen van der Zijp.   All Rights Reserved.       *
 *********************************************************************************
 * This library is free software; you can redistribute it and/or                 *
 * modify it under the terms of the GNU Lesser General Public                    *
@@ -19,10 +19,13 @@
 * License along with this library; if not, write to the Free Software           *
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.    *
 *********************************************************************************
-* $Id: FXMenuCheckIcon.cpp,v 1.30 2006/01/22 17:58:36 fox Exp $                     *
+* $Id: FXMenuCheckIcon.cpp, v 1.30 2006/01/22 17:58:36 fox Exp $                *
 ********************************************************************************/
 
+#include <fxkeys.h>
+
 #include "FXMenuCheckIcon.h"
+
 
 #define LEADSPACE   22
 #define TRAILSPACE  16
@@ -32,72 +35,77 @@
 // ===========================================================================
 
 FXDEFMAP(FXMenuCheckIcon) FXMenuCheckIconMap[]={
-    FXMAPFUNC(SEL_PAINT,                0,                          FXMenuCheckIcon::onPaint),
-    FXMAPFUNC(SEL_LEFTBUTTONPRESS,      0,                          FXMenuCheckIcon::onButtonPress),
-    FXMAPFUNC(SEL_LEFTBUTTONRELEASE,    0,                          FXMenuCheckIcon::onButtonRelease),
-    FXMAPFUNC(SEL_MIDDLEBUTTONPRESS,    0,                          FXMenuCheckIcon::onButtonPress),
-    FXMAPFUNC(SEL_MIDDLEBUTTONRELEASE,  0,                          FXMenuCheckIcon::onButtonRelease),
-    FXMAPFUNC(SEL_RIGHTBUTTONPRESS,     0,                          FXMenuCheckIcon::onButtonPress),
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   0,                          FXMenuCheckIcon::onButtonRelease),
-    FXMAPFUNC(SEL_KEYPRESS,             0,                          FXMenuCheckIcon::onKeyPress),
-    FXMAPFUNC(SEL_KEYRELEASE,           0,                          FXMenuCheckIcon::onKeyRelease),
-    FXMAPFUNC(SEL_KEYPRESS,             FXWindow::ID_HOTKEY,        FXMenuCheckIcon::onHotKeyPress),
-    FXMAPFUNC(SEL_KEYRELEASE,           FXWindow::ID_HOTKEY,        FXMenuCheckIcon::onHotKeyRelease),
-    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_CHECK,         FXMenuCheckIcon::onCheck),
-    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_UNCHECK,       FXMenuCheckIcon::onUncheck),
-    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_UNKNOWN,       FXMenuCheckIcon::onUnknown),
-    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_SETVALUE,      FXMenuCheckIcon::onCmdSetValue),
-    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_SETINTVALUE,   FXMenuCheckIcon::onCmdSetIntValue),
-    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_GETINTVALUE,   FXMenuCheckIcon::onCmdGetIntValue),
-    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_ACCEL,         FXMenuCheckIcon::onCmdAccel),
+    FXMAPFUNC(SEL_PAINT,                0,                          FXMenuCheckIcon::onPaint), 
+    FXMAPFUNC(SEL_LEFTBUTTONPRESS,      0,                          FXMenuCheckIcon::onButtonPress), 
+    FXMAPFUNC(SEL_LEFTBUTTONRELEASE,    0,                          FXMenuCheckIcon::onButtonRelease), 
+    FXMAPFUNC(SEL_MIDDLEBUTTONPRESS,    0,                          FXMenuCheckIcon::onButtonPress), 
+    FXMAPFUNC(SEL_MIDDLEBUTTONRELEASE,  0,                          FXMenuCheckIcon::onButtonRelease), 
+    FXMAPFUNC(SEL_RIGHTBUTTONPRESS,     0,                          FXMenuCheckIcon::onButtonPress), 
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   0,                          FXMenuCheckIcon::onButtonRelease), 
+    FXMAPFUNC(SEL_KEYPRESS,             0,                          FXMenuCheckIcon::onKeyPress), 
+    FXMAPFUNC(SEL_KEYRELEASE,           0,                          FXMenuCheckIcon::onKeyRelease), 
+    FXMAPFUNC(SEL_KEYPRESS,             FXWindow::ID_HOTKEY,        FXMenuCheckIcon::onHotKeyPress), 
+    FXMAPFUNC(SEL_KEYRELEASE,           FXWindow::ID_HOTKEY,        FXMenuCheckIcon::onHotKeyRelease), 
+    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_CHECK,         FXMenuCheckIcon::onCheck), 
+    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_UNCHECK,       FXMenuCheckIcon::onUncheck), 
+    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_UNKNOWN,       FXMenuCheckIcon::onUnknown), 
+    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_SETVALUE,      FXMenuCheckIcon::onCmdSetValue), 
+    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_SETINTVALUE,   FXMenuCheckIcon::onCmdSetIntValue), 
+    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_GETINTVALUE,   FXMenuCheckIcon::onCmdGetIntValue), 
+    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_ACCEL,         FXMenuCheckIcon::onCmdAccel), 
 };
 
 // Object implementation
-FXIMPLEMENT(FXMenuCheckIcon,    FXMenuCommand,  FXMenuCheckIconMap, ARRAYNUMBER(FXMenuCheckIconMap))
-
+FXIMPLEMENT(FXMenuCheckIcon, FXMenuCommand, FXMenuCheckIconMap, ARRAYNUMBER(FXMenuCheckIconMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 FXMenuCheckIcon::FXMenuCheckIcon() :
-    boxColor(0),
+    boxColor(0), 
     check(FALSE) {
 }
 
 
-FXMenuCheckIcon::FXMenuCheckIcon(FXComposite* p,const FXString& text,FXObject* tgt,FXSelector sel,FXuint opts) :
-    FXMenuCommand(p,text,NULL,tgt,sel,opts) {
-    boxColor=getApp()->getBackColor();
-    check=FALSE;
+FXMenuCheckIcon::FXMenuCheckIcon(FXComposite* p, const FXString& text, FXObject* tgt, FXSelector sel, FXuint opts) :
+    FXMenuCommand(p, text, NULL, tgt, sel, opts), 
+    boxColor(getApp()->getBackColor()), 
+    check(FALSE) {
 }
 
 
 FXint 
 FXMenuCheckIcon::getDefaultWidth() {
-    FXint tw,aw;
-    tw=aw=0;
-    if (!label.empty()) tw=font->getTextWidth(label.text(),label.length());
-    if (!accel.empty()) aw=font->getTextWidth(accel.text(),accel.length());
-    if (aw && tw) aw+=5;
-    return LEADSPACE+tw+aw+TRAILSPACE;
+    FXint tw, aw;
+    tw = aw = 0;
+    if (!label.empty()) {
+        tw = font->getTextWidth(label.text(), label.length());
+    }
+    if (!accel.empty()) {
+        aw = font->getTextWidth(accel.text(), accel.length());
+    }
+    if (aw && tw) {
+        aw += 5;
+    }
+    return LEADSPACE + tw + aw + TRAILSPACE;
 }
 
 
 FXint 
 FXMenuCheckIcon::getDefaultHeight() {
-    FXint th=0;
+    FXint th = 0;
     if (!label.empty() || !accel.empty()) {
-        th=font->getFontHeight()+5;
+        th = font->getFontHeight() + 5;
     }
-    return FXMAX(th,20);
+    return FXMAX(th, 20);
 }
 
 
 void 
 FXMenuCheckIcon::setCheck(FXbool s) {
-    if (check!=s) {
-        check=s;
+    if (check != s) {
+        check = s;
         update();
     }
 }
@@ -116,49 +124,49 @@ FXMenuCheckIcon::getBoxColor() const {
 
 
 long 
-FXMenuCheckIcon::onCheck(FXObject*,FXSelector,void*) {
+FXMenuCheckIcon::onCheck(FXObject*, FXSelector, void*) {
     setCheck(TRUE);
     return 1;
 }
 
 
 long 
-FXMenuCheckIcon::onUncheck(FXObject*,FXSelector,void*) {
+FXMenuCheckIcon::onUncheck(FXObject*, FXSelector, void*) {
     setCheck(FALSE);
     return 1;
 }
 
 
 long 
-FXMenuCheckIcon::onUnknown(FXObject*,FXSelector,void*) {
+FXMenuCheckIcon::onUnknown(FXObject*, FXSelector, void*) {
     setCheck(MAYBE);
     return 1;
 }
 
 
 long 
-FXMenuCheckIcon::onCmdSetValue(FXObject*,FXSelector,void* ptr) {
+FXMenuCheckIcon::onCmdSetValue(FXObject*, FXSelector, void* ptr) {
     setCheck((FXbool)(FXuval)ptr);
     return 1;
 }
 
 
 long 
-FXMenuCheckIcon::onCmdSetIntValue(FXObject*,FXSelector,void* ptr) {
+FXMenuCheckIcon::onCmdSetIntValue(FXObject*, FXSelector, void* ptr) {
     setCheck((FXbool)*((FXint*)ptr));
     return 1;
 }
 
 
 long 
-FXMenuCheckIcon::onCmdGetIntValue(FXObject*,FXSelector,void* ptr) {
-    *((FXint*)ptr)=getCheck();
+FXMenuCheckIcon::onCmdGetIntValue(FXObject*, FXSelector, void* ptr) {
+    *((FXint*)ptr) = getCheck();
     return 1;
 }
 
 
 long 
-FXMenuCheckIcon::onButtonPress(FXObject*,FXSelector,void*) {
+FXMenuCheckIcon::onButtonPress(FXObject*, FXSelector, void*) {
     if (!isEnabled()) {
         return 0;
     }
@@ -167,16 +175,16 @@ FXMenuCheckIcon::onButtonPress(FXObject*,FXSelector,void*) {
 
 
 long
-FXMenuCheckIcon::onButtonRelease(FXObject*,FXSelector,void*) {
-    FXbool active=isActive();
+FXMenuCheckIcon::onButtonRelease(FXObject*, FXSelector, void*) {
+    FXbool active = isActive();
     if (!isEnabled()) {
         return 0;
     }
-    getParent()->handle(this,FXSEL(SEL_COMMAND,ID_UNPOST),NULL);
+    getParent()->handle(this, FXSEL(SEL_COMMAND, ID_UNPOST), NULL);
     if (active) {
         setCheck(!check);
         if (target) { 
-            target->tryHandle(this,FXSEL(SEL_COMMAND,message),(void*)(FXuval)check); 
+            target->tryHandle(this, FXSEL(SEL_COMMAND, message), (void*)(FXuval)check); 
         }
     }
     return 1;
@@ -184,12 +192,12 @@ FXMenuCheckIcon::onButtonRelease(FXObject*,FXSelector,void*) {
 
 
 long 
-FXMenuCheckIcon::onKeyPress(FXObject*,FXSelector,void* ptr) {
-    FXEvent* event=(FXEvent*)ptr;
+FXMenuCheckIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
+    FXEvent* event = (FXEvent*)ptr;
     if (isEnabled() && !(flags&FLAG_PRESSED)) {
-        FXTRACE((200,"%s::onKeyPress %p keysym=0x%04x state=%04x\n",getClassName(),this,event->code,event->state));
-        if (event->code==KEY_space || event->code==KEY_KP_Space || event->code==KEY_Return || event->code==KEY_KP_Enter) {
-            flags|=FLAG_PRESSED;
+        FXTRACE((200, "%s::onKeyPress %p keysym = 0x%04x state = %04x\n", getClassName(), this, event->code, event->state));
+        if (event->code == FX::KEY_space || event->code == FX::KEY_KP_Space || event->code == FX::KEY_Return || event->code == FX::KEY_KP_Enter) {
+            flags |= FLAG_PRESSED;
             return 1;
         }
     }
@@ -198,16 +206,16 @@ FXMenuCheckIcon::onKeyPress(FXObject*,FXSelector,void* ptr) {
 
 
 long 
-FXMenuCheckIcon::onKeyRelease(FXObject*,FXSelector,void* ptr) {
-    FXEvent* event=(FXEvent*)ptr;
+FXMenuCheckIcon::onKeyRelease(FXObject*, FXSelector, void* ptr) {
+    FXEvent* event = (FXEvent*)ptr;
     if (isEnabled() && (flags&FLAG_PRESSED)) {
-        FXTRACE((200,"%s::onKeyRelease %p keysym=0x%04x state=%04x\n",getClassName(),this,event->code,event->state));
-        if (event->code==KEY_space || event->code==KEY_KP_Space || event->code==KEY_Return || event->code==KEY_KP_Enter) {
-            flags&=~FLAG_PRESSED;
+        FXTRACE((200, "%s::onKeyRelease %p keysym = 0x%04x state = %04x\n", getClassName(), this, event->code, event->state));
+        if (event->code == FX::KEY_space || event->code == FX::KEY_KP_Space || event->code == FX::KEY_Return || event->code == FX::KEY_KP_Enter) {
+            flags &= ~FLAG_PRESSED;
             setCheck(!check);
-            getParent()->handle(this,FXSEL(SEL_COMMAND,ID_UNPOST),NULL);
+            getParent()->handle(this, FXSEL(SEL_COMMAND, ID_UNPOST), NULL);
             if (target) {
-                target->tryHandle(this,FXSEL(SEL_COMMAND,message),(void*)(FXuval)check);
+                target->tryHandle(this, FXSEL(SEL_COMMAND, message), (void*)(FXuval)check);
             }
             return 1;
         }
@@ -217,25 +225,25 @@ FXMenuCheckIcon::onKeyRelease(FXObject*,FXSelector,void* ptr) {
 
 
 long 
-FXMenuCheckIcon::onHotKeyPress(FXObject*,FXSelector,void* ptr) {
-    FXTRACE((200,"%s::onHotKeyPress %p\n",getClassName(),this));
-    handle(this,FXSEL(SEL_FOCUS_SELF,0),ptr);
+FXMenuCheckIcon::onHotKeyPress(FXObject*, FXSelector, void* ptr) {
+    FXTRACE((200, "%s::onHotKeyPress %p\n", getClassName(), this));
+    handle(this, FXSEL(SEL_FOCUS_SELF, 0), ptr);
     if (isEnabled() && !(flags&FLAG_PRESSED)) {
-        flags|=FLAG_PRESSED;
+        flags |= FLAG_PRESSED;
     }
     return 1;
 }
 
 
 long 
-FXMenuCheckIcon::onHotKeyRelease(FXObject*,FXSelector,void*) {
-    FXTRACE((200,"%s::onHotKeyRelease %p\n",getClassName(),this));
+FXMenuCheckIcon::onHotKeyRelease(FXObject*, FXSelector, void*) {
+    FXTRACE((200, "%s::onHotKeyRelease %p\n", getClassName(), this));
     if (isEnabled() && (flags&FLAG_PRESSED)) {
-        flags&=~FLAG_PRESSED;
+        flags &= ~FLAG_PRESSED;
         setCheck(!check);
-        getParent()->handle(this,FXSEL(SEL_COMMAND,ID_UNPOST),NULL);
+        getParent()->handle(this, FXSEL(SEL_COMMAND, ID_UNPOST), NULL);
         if (target) { 
-            target->tryHandle(this,FXSEL(SEL_COMMAND,message),(void*)(FXuval)check);
+            target->tryHandle(this, FXSEL(SEL_COMMAND, message), (void*)(FXuval)check);
         }
     }
     return 1;
@@ -243,11 +251,11 @@ FXMenuCheckIcon::onHotKeyRelease(FXObject*,FXSelector,void*) {
 
 
 long 
-FXMenuCheckIcon::onCmdAccel(FXObject* ,FXSelector, void*) {
+FXMenuCheckIcon::onCmdAccel(FXObject* , FXSelector, void*) {
     if (isEnabled()) {
         setCheck(!check);
         if (target) {
-            target->tryHandle(this,FXSEL(SEL_COMMAND,message),(void*)(FXuval)check);
+            target->tryHandle(this, FXSEL(SEL_COMMAND, message), (void*)(FXuval)check);
         }
         return 1;
     }
@@ -256,33 +264,33 @@ FXMenuCheckIcon::onCmdAccel(FXObject* ,FXSelector, void*) {
 
 
 long
-FXMenuCheckIcon::onPaint(FXObject*,FXSelector,void* ptr) {
-    FXEvent *ev=(FXEvent*)ptr;
-    FXDCWindow dc(this,ev);
-    FXint xx,yy;
-    xx=LEADSPACE;
+FXMenuCheckIcon::onPaint(FXObject*, FXSelector, void* ptr) {
+    FXEvent *ev = (FXEvent*)ptr;
+    FXDCWindow dc(this, ev);
+    FXint xx, yy;
+    xx = LEADSPACE;
     // Grayed out
     if (!isEnabled()) {
         dc.setForeground(backColor);
-        dc.fillRectangle(0,0,width,height);
+        dc.fillRectangle(0, 0, width, height);
         if (!label.empty()) {
-            yy=font->getFontAscent()+(height-font->getFontHeight())/2;
+            yy = font->getFontAscent() + (height-font->getFontHeight())/2;
             dc.setFont(font);
             dc.setForeground(hiliteColor);
-            dc.drawText(xx+1,yy+1,label);
+            dc.drawText(xx + 1, yy + 1, label);
             if (!accel.empty()) {
-                dc.drawText(width-TRAILSPACE-font->getTextWidth(accel)+1,yy+1,accel);
+                dc.drawText(width-TRAILSPACE-font->getTextWidth(accel) + 1, yy + 1, accel);
             }
-            if (0<=hotoff) {
-                dc.fillRectangle(xx+font->getTextWidth(&label[0],hotoff)+1,yy+2,font->getTextWidth(&label[hotoff],wclen(&label[hotoff])),1);
+            if (0 <= hotoff) {
+                dc.fillRectangle(xx + font->getTextWidth(&label[0], hotoff) + 1, yy + 2, font->getTextWidth(&label[hotoff], wclen(&label[hotoff])), 1);
             }
             dc.setForeground(shadowColor);
-            dc.drawText(xx,yy,label);
+            dc.drawText(xx, yy, label);
             if (!accel.empty()) {
-                dc.drawText(width-TRAILSPACE-font->getTextWidth(accel),yy,accel);
+                dc.drawText(width-TRAILSPACE-font->getTextWidth(accel), yy, accel);
             }
-            if (0<=hotoff) {
-                dc.fillRectangle(xx+font->getTextWidth(&label[0],hotoff),yy+1,font->getTextWidth(&label[hotoff],wclen(&label[hotoff])),1);
+            if (0 <= hotoff) {
+                dc.fillRectangle(xx + font->getTextWidth(&label[0], hotoff), yy + 1, font->getTextWidth(&label[hotoff], wclen(&label[hotoff])), 1);
             }
         }
     }
@@ -290,17 +298,17 @@ FXMenuCheckIcon::onPaint(FXObject*,FXSelector,void* ptr) {
     // Active
     else if (isActive()) {
         dc.setForeground(selbackColor);
-        dc.fillRectangle(0,0,width,height);
+        dc.fillRectangle(0, 0, width, height);
         if (!label.empty()) {
-            yy=font->getFontAscent()+(height-font->getFontHeight())/2;
+            yy = font->getFontAscent() + (height-font->getFontHeight())/2;
             dc.setFont(font);
             dc.setForeground(isEnabled() ? seltextColor : shadowColor);
-            dc.drawText(xx,yy,label);
+            dc.drawText(xx, yy, label);
             if (!accel.empty()) {
-                dc.drawText(width-TRAILSPACE-font->getTextWidth(accel),yy,accel);
+                dc.drawText(width-TRAILSPACE-font->getTextWidth(accel), yy, accel);
             }
-            if (0<=hotoff) {
-                dc.fillRectangle(xx+font->getTextWidth(&label[0],hotoff),yy+1,font->getTextWidth(&label[hotoff],wclen(&label[hotoff])),1);
+            if (0 <= hotoff) {
+                dc.fillRectangle(xx + font->getTextWidth(&label[0], hotoff), yy + 1, font->getTextWidth(&label[hotoff], wclen(&label[hotoff])), 1);
             }
         }
     }
@@ -308,44 +316,44 @@ FXMenuCheckIcon::onPaint(FXObject*,FXSelector,void* ptr) {
     // Normal
     else {
         dc.setForeground(backColor);
-        dc.fillRectangle(0,0,width,height);
+        dc.fillRectangle(0, 0, width, height);
         if (!label.empty()) {
-            yy=font->getFontAscent()+(height-font->getFontHeight())/2;
+            yy = font->getFontAscent() + (height-font->getFontHeight())/2;
             dc.setFont(font);
             dc.setForeground(textColor);
-            dc.drawText(xx,yy,label);
+            dc.drawText(xx, yy, label);
             if (!accel.empty()) {
-                dc.drawText(width-TRAILSPACE-font->getTextWidth(accel),yy,accel);
+                dc.drawText(width-TRAILSPACE-font->getTextWidth(accel), yy, accel);
             }
-            if (0<=hotoff) {
-                dc.fillRectangle(xx+font->getTextWidth(&label[0],hotoff),yy+1,font->getTextWidth(&label[hotoff],wclen(&label[hotoff])),1);
+            if (0 <= hotoff) {
+                dc.fillRectangle(xx + font->getTextWidth(&label[0], hotoff), yy + 1, font->getTextWidth(&label[hotoff], wclen(&label[hotoff])), 1);
             }
         }
     }
 
     // Draw the box
-    xx=5;
-    yy=(height-9)/2;
+    xx = 5;
+    yy = (height-9)/2;
     if (!isEnabled()) {
         dc.setForeground(backColor);
     } else {
         dc.setForeground(boxColor);
-        dc.fillRectangle(xx+1,yy+1,8,8);
+        dc.fillRectangle(xx + 1, yy + 1, 8, 8);
         dc.setForeground(shadowColor);
-        dc.drawRectangle(xx,yy,9,9);
+        dc.drawRectangle(xx, yy, 9, 9);
     }
 
     // Draw the check
-    if (check!=FALSE) {
+    if (check != FALSE) {
         FXSegment seg[6];
-        seg[0].x1=2+xx; seg[0].y1=4+yy; seg[0].x2=4+xx; seg[0].y2=6+yy;
-        seg[1].x1=2+xx; seg[1].y1=5+yy; seg[1].x2=4+xx; seg[1].y2=7+yy;
-        seg[2].x1=2+xx; seg[2].y1=6+yy; seg[2].x2=4+xx; seg[2].y2=8+yy;
-        seg[3].x1=4+xx; seg[3].y1=6+yy; seg[3].x2=8+xx; seg[3].y2=2+yy;
-        seg[4].x1=4+xx; seg[4].y1=7+yy; seg[4].x2=8+xx; seg[4].y2=3+yy;
-        seg[5].x1=4+xx; seg[5].y1=8+yy; seg[5].x2=8+xx; seg[5].y2=4+yy;
+        seg[0].x1 = 2 + (FXshort)xx; seg[0].y1 = 4 + (FXshort)yy; seg[0].x2 = 4 + (FXshort)xx; seg[0].y2 = 6 + (FXshort)yy;
+        seg[1].x1 = 2 + (FXshort)xx; seg[1].y1 = 5 + (FXshort)yy; seg[1].x2 = 4 + (FXshort)xx; seg[1].y2 = 7 + (FXshort)yy;
+        seg[2].x1 = 2 + (FXshort)xx; seg[2].y1 = 6 + (FXshort)yy; seg[2].x2 = 4 + (FXshort)xx; seg[2].y2 = 8 + (FXshort)yy;
+        seg[3].x1 = 4 + (FXshort)xx; seg[3].y1 = 6 + (FXshort)yy; seg[3].x2 = 8 + (FXshort)xx; seg[3].y2 = 2 + (FXshort)yy;
+        seg[4].x1 = 4 + (FXshort)xx; seg[4].y1 = 7 + (FXshort)yy; seg[4].x2 = 8 + (FXshort)xx; seg[4].y2 = 3 + (FXshort)yy;
+        seg[5].x1 = 4 + (FXshort)xx; seg[5].y1 = 8 + (FXshort)yy; seg[5].x2 = 8 + (FXshort)xx; seg[5].y2 = 4 + (FXshort)yy;
         if (isEnabled()) {
-            if (check==MAYBE) {
+            if (check == MAYBE) {
                 dc.setForeground(shadowColor);
             } else {
                 dc.setForeground(textColor);
@@ -353,7 +361,7 @@ FXMenuCheckIcon::onPaint(FXObject*,FXSelector,void* ptr) {
         } else {
             dc.setForeground(shadowColor);
         }
-        dc.drawLineSegments(seg,6);
+        dc.drawLineSegments(seg, 6);
     }
     return 1;
 }
@@ -361,8 +369,8 @@ FXMenuCheckIcon::onPaint(FXObject*,FXSelector,void* ptr) {
 
 void 
 FXMenuCheckIcon::setBoxColor(FXColor clr) {
-    if (clr!=boxColor) {
-        boxColor=clr;
+    if (clr != boxColor) {
+        boxColor = clr;
         update();
     }
 }
