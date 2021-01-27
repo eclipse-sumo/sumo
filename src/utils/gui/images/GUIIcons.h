@@ -103,6 +103,7 @@ enum class GUIIcon {
     SHOWTOOLTIPS,
     EDITVIEWPORT,
     ZOOMSTYLE,
+    FULL_SCREEN,
     /// @}
 
     /// @name app icons
