@@ -33,7 +33,7 @@ import ctypes
 from xml.sax import make_parser, handler
 from collections import defaultdict
 from optparse import OptionParser
-
+import gzip
 
 def getFreeSpace(folder):
     """ Return folder/drive free space (in bytes)
@@ -168,7 +168,10 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID,
     for routesIn in routeFiles:
         if verbose:
             print("Reading routes from", routesIn)
-        f = open(routesIn, 'rb')
+        if '.gz' in routesIn:
+            f = gzip.open(routesIn, 'rb')
+        else:
+            f = open(routesIn, 'rb')
         while True:
             pos = f.tell()
             line = f.readline()
@@ -334,5 +337,5 @@ def main(args=None):
 
 if __name__ == '__main__':
     sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "..", "loop"))
-    from detector import DetectorReader
+    #from detector import DetectorReader
     main()
