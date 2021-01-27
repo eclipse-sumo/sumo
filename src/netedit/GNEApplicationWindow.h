@@ -393,6 +393,9 @@ public:
     /// @brief check if undo-redo is enabled
     const std::string& isUndoRedoEnabled() const;
 
+    /// @brief getEdit Menu Commands (needed for show/hide menu commands)
+    GNEApplicationWindowHelper::EditMenuCommands &getEditMenuCommands();
+
 protected:
     /// @brief FOX needs this for static members
     GNEApplicationWindow();

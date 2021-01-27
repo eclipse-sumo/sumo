@@ -1038,9 +1038,10 @@ GNEApplicationWindow::fillMenuBar() {
     myEditMenuCommands.buildUndoRedoMenuCommands(myEditMenu);
     // build separator
     new FXMenuSeparator(myEditMenu);
-
-    /* */
-
+    // build view options
+    myEditMenuCommands.networkViewOptions.buildNetworkViewOptionsMenuChecks(myEditMenu);
+    myEditMenuCommands.demandViewOptions.buildDemandViewOptionsMenuChecks(myEditMenu);
+    myEditMenuCommands.dataViewOptions.buildDataViewOptionsMenuChecks(myEditMenu);
     // build separator
     new FXMenuSeparator(myEditMenu);
     // build view menu commands
@@ -3168,6 +3169,12 @@ GNEApplicationWindow::enableUndoRedo() {
 const std::string&
 GNEApplicationWindow::isUndoRedoEnabled() const {
     return myUndoRedoListEnabled;
+}
+
+
+GNEApplicationWindowHelper::EditMenuCommands& 
+GNEApplicationWindow::getEditMenuCommands() {
+    return myEditMenuCommands;
 }
 
 // ---------------------------------------------------------------------------
