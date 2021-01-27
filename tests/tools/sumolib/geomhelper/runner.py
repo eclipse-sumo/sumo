@@ -10,7 +10,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    testGeomhelper.py
+# @file    runner.py
 # @author  Daniel Krajzewicz
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
@@ -25,7 +25,7 @@ import unittest
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'tools'))
 import sumolib  # noqa
-from sumolib.shapes.polygon import Polygon #noqa
+from sumolib.shapes.polygon import Polygon  # noqa
 
 
 class TestGeomhelper(unittest.TestCase):
