@@ -420,6 +420,9 @@ protected:
     /// @brief the semaphore when waiting for event completion
     FXCondition myEventCondition;
 
+    /// @brief menu checkbox to activate game mode
+    FXMenuCheck* myGamingModeCheckbox;
+
     /// @name game related things
     /// {
     RandomDistributor<std::string> myJamSounds;
