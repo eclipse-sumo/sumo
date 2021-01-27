@@ -314,20 +314,27 @@ def intersectsAtLengths2D(polygon1, polygon2):
     Returns the 2D-length from polygon1's start to all intersections between polygon1 and polygon2.
     """
     ret = []
-    if (len(polygon1.shape) == 0 or len(polygon2.shape) == 0):
+    if (len(polygon1) == 0 or len(polygon2) == 0):
         return ret
-    for j in range(len(polygon2.shape) - 1):
-        p21 = polygon2.shape[j]
-        p22 = polygon2.shape[j + 1]
+    for j in range(len(polygon2) - 1):
+        p21 = polygon2[j]
+        p22 = polygon2[j + 1]
         pos = 0.0
-        for i in range(len(polygon1.shape) - 1):
-            p11 = polygon1.shape[i]
-            p12 = polygon1.shape[i + 1]
+        for i in range(len(polygon1) - 1):
+            p11 = polygon1[i]
+            p12 = polygon1[i + 1]
             pIntersection = [0.0, 0.0]
             if (intersectsLineSegment(p11, p12, p21, p22, 0.0, pIntersection, True)):
-                ret.append(pos + distance(p11, (pIntersection[0], pIntersection[1])))
-                if (len(pIntersection) > 2):
-                    ret.append(pos + distance(p11, (pIntersection[2], pIntersection[3])))
+                for k in range(0, len(pIntersection), 2):
+                    length = pos + distance(p11, (pIntersection[k], pIntersection[k + 1]))
+                    # check for duplicate
+                    isDuplicate = False
+                    for result in ret:
+                        if isclose(length, result):
+                            isDuplicate = True
+                            break
+                    if not isDuplicate:
+                        ret.append(length)
             pos += distance(p11, p12)
     return ret
 
@@ -336,14 +343,14 @@ def intersectsPolygon(polygon1, polygon2):
     """
     Returns whether the polygons intersect on at least one of their segments.
     """
-    if (len(polygon1.shape) < 2 or len(polygon2.shape) < 2):
+    if (len(polygon1) < 2 or len(polygon2) < 2):
         return False
-    for i in range(len(polygon1.shape) - 1):
-        p11 = polygon1.shape[i]
-        p12 = polygon1.shape[i + 1]
-        for j in range(len(polygon2.shape) - 1):
-            p21 = polygon2.shape[j]
-            p22 = polygon2.shape[j + 1]
+    for i in range(len(polygon1) - 1):
+        p11 = polygon1[i]
+        p12 = polygon1[i + 1]
+        for j in range(len(polygon2) - 1):
+            p21 = polygon2[j]
+            p22 = polygon2[j + 1]
             if (intersectsLineSegment(p11, p12, p21, p22)):
                 return True
     return False

@@ -25,7 +25,6 @@ import unittest
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'tools'))
 import sumolib  # noqa
-from sumolib.shapes.polygon import Polygon  # noqa
 
 
 class TestGeomhelper(unittest.TestCase):
@@ -75,19 +74,19 @@ class TestGeomhelper(unittest.TestCase):
             sumolib.geomhelper.isWithin((1.5, 1.5), concave), False)
 
     def testIntersectsAtLengths2D(self):
-        polygon1 = Polygon(id="p1", shape=[(0, 0), (3, 0)])
-        polygon2 = Polygon(id="p2", shape=[(1, 0), (2, 0)])
+        polygon1 = [(0, 0), (3, 0)]
+        polygon2 = [(1, 0), (2, 0)]
         self.assertTrue(sumolib.geomhelper.intersectsPolygon(polygon1, polygon2), True)
         self.assertEqual(sumolib.geomhelper.intersectsAtLengths2D(polygon1, polygon2), [1.0, 2.0])
-        polygon3 = Polygon(id="p3", shape=[(0, 0), (2, 0)])
+        polygon3 = [(0, 0), (2, 0)]
         self.assertEqual(sumolib.geomhelper.intersectsAtLengths2D(polygon1, polygon3), [0.0, 2.0])
-        polygon4 = Polygon(id="p4", shape=[(1, 0), (3, 0)])
+        polygon4 = [(1, 0), (3, 0)]
         self.assertEqual(sumolib.geomhelper.intersectsAtLengths2D(polygon1, polygon4), [1.0, 3.0])
-        polygon5 = Polygon(id="p5", shape=[(-1, 0), (2, 0)])
+        polygon5 = [(-1, 0), (2, 0)]
         self.assertEqual(sumolib.geomhelper.intersectsAtLengths2D(polygon1, polygon5), [0.0, 2.0])
-        polygon6 = Polygon(id="p6", shape=[(1, 0), (4, 0)])
+        polygon6 = [(1, 0), (4, 0)]
         self.assertEqual(sumolib.geomhelper.intersectsAtLengths2D(polygon1, polygon6), [1.0, 3.0])
-        polygon7 = Polygon(id="p7", shape=[(-1, 0), (4, 0)])
+        polygon7 = [(-1, 0), (4, 0)]
         self.assertEqual(sumolib.geomhelper.intersectsAtLengths2D(polygon1, polygon7), [0.0, 3.0])
 
 
