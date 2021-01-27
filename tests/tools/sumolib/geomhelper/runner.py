@@ -76,7 +76,7 @@ class TestGeomhelper(unittest.TestCase):
     def testIntersectsAtLengths2D(self):
         polygon1 = [(0, 0), (3, 0)]
         polygon2 = [(1, 0), (2, 0)]
-        self.assertTrue(sumolib.geomhelper.intersectsPolygon(polygon1, polygon2), True)
+        self.assertEqual(sumolib.geomhelper.intersectsPolygon(polygon1, polygon2), True)
         self.assertEqual(sumolib.geomhelper.intersectsAtLengths2D(polygon1, polygon2), [1.0, 2.0])
         polygon3 = [(0, 0), (2, 0)]
         self.assertEqual(sumolib.geomhelper.intersectsAtLengths2D(polygon1, polygon3), [0.0, 2.0])
@@ -88,6 +88,12 @@ class TestGeomhelper(unittest.TestCase):
         self.assertEqual(sumolib.geomhelper.intersectsAtLengths2D(polygon1, polygon6), [1.0, 3.0])
         polygon7 = [(-1, 0), (4, 0)]
         self.assertEqual(sumolib.geomhelper.intersectsAtLengths2D(polygon1, polygon7), [0.0, 3.0])
+
+    def testIsClosedPolygon(self):
+        polygon1 = [(0, 0), (1, 0), (1, 1), (0, 1), (0, 0)]
+        polygon2 = [(0, 0), (1, 0), (1, 1), (0, 1)]
+        self.assertEqual(sumolib.geomhelper.isClosedPolygon(polygon1), True)
+        self.assertEqual(sumolib.geomhelper.isClosedPolygon(polygon2), False)
 
 
 if __name__ == '__main__':

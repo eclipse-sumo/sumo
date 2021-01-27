@@ -309,6 +309,10 @@ def move2side(shape, amount):
     return result
 
 
+def isClosedPolygon(polygon):
+    return (len(polygon) >= 2) and (polygon[0] == polygon[-1])
+
+
 def intersectsAtLengths2D(polygon1, polygon2):
     """
     Returns the 2D-length from polygon1's start to all intersections between polygon1 and polygon2.
@@ -316,6 +320,7 @@ def intersectsAtLengths2D(polygon1, polygon2):
     ret = []
     if (len(polygon1) == 0 or len(polygon2) == 0):
         return ret
+    polygon1Length = polyLength(polygon1)
     for j in range(len(polygon2) - 1):
         p21 = polygon2[j]
         p22 = polygon2[j + 1]
@@ -327,6 +332,9 @@ def intersectsAtLengths2D(polygon1, polygon2):
             if (intersectsLineSegment(p11, p12, p21, p22, 0.0, pIntersection, True)):
                 for k in range(0, len(pIntersection), 2):
                     length = pos + distance(p11, (pIntersection[k], pIntersection[k + 1]))
+                    # special case for closed polygons
+                    if isClosedPolygon(polygon1) and isclose(length, polygon1Length):
+                        length = 0.0
                     # check for duplicate
                     isDuplicate = False
                     for result in ret:
