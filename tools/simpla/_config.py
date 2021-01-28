@@ -207,7 +207,7 @@ def load(filename):
         elif e.tag == "catchupDist":
             if hasAttributes(e):
                 dist = float(list(e.attrib.values())[0])
-                if maxgap <= 0:
+                if dist <= 0:
                     if rp.VERBOSITY >= 1:
                         warn("Parameter catchupDist must be positive. Ignoring given value: %s" % (dist), True)
                 else:
