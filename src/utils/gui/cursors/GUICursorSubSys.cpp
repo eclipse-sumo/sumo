@@ -50,8 +50,8 @@ GUICursorSubSys::GUICursorSubSys(FXApp* a) {
     myCursors[GUICursor::DELETE_CURSOR] = new FXGIFCursor(a, Delete_cursor, 1, 2);
     myCursors[GUICursor::SELECT] = new FXGIFCursor(a, Select_cursor, 1, 1);
     myCursors[GUICursor::SELECT_LANE] = new FXGIFCursor(a, SelectLane_cursor, 1, 1);
-    myCursors[GUICursor::INSPECT] = new FXGIFCursor(a, Inspect_cursor, 7, 7);
-    myCursors[GUICursor::INSPECT_LANE] = new FXGIFCursor(a, InspectLane_cursor, 7, 7);
+    myCursors[GUICursor::INSPECT] = new FXGIFCursor(a, Inspect_cursor, 1, 2);
+    myCursors[GUICursor::INSPECT_LANE] = new FXGIFCursor(a, InspectLane_cursor, 1, 2);
     myCursors[GUICursor::MOVEELEMENT] = new FXGIFCursor(a, MoveElement_cursor, 1, 2);
 
     // ... and create them
