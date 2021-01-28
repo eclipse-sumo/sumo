@@ -15,3 +15,9 @@ case2_redispatch_before_pickup
 
 # dispatch taxi to pick up person and then redispatch during 'occupied' state to pick someone else before first delivery. (existing customers all mentioned twice)
 case2_redispatch_after_pickup
+
+# dispatch taxi to pick up person and then redispatch during 'pickup' state to pick someone else first. (existing customers mentioned only once)
+case3_redispatch_before_pickup
+
+# dispatch taxi to pick up person and then redispatch during 'occupied' state to pick someone else before first delivery. (existing customers mentioned only once)
+case3_redispatch_after_pickup
