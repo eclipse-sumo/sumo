@@ -27,7 +27,7 @@ import de.dlr.ts.lisum.simulation.VehicleTypes;
 import de.tudresden.sumo.cmd.Inductionloop;
 import de.tudresden.sumo.cmd.Simulation;
 import de.tudresden.sumo.cmd.Trafficlight;
-import de.tudresden.ws.container.SumoStringList;
+import de.tudresden.sumo.objects.SumoStringList;
 import it.polito.appeal.traci.SumoTraciConnection;
 import java.io.IOException;
 import java.net.UnknownHostException;

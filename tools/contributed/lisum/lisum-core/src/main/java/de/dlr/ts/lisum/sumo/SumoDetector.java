@@ -22,7 +22,7 @@ package de.dlr.ts.lisum.sumo;
 import de.dlr.ts.commons.logger.DLRLogger;
 import de.dlr.ts.lisum.interfaces.DetectorInterface;
 import de.tudresden.sumo.cmd.Inductionloop;
-import de.tudresden.ws.container.SumoVehicleData;
+import de.tudresden.sumo.objects.SumoVehicleData;
 import it.polito.appeal.traci.SumoTraciConnection;
 
 /**
