@@ -13,7 +13,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    Main.java
+/// @file    SimpleTest.java
 /// @author  Mario Krumnow
 /// @date    2021
 ///
