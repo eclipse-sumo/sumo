@@ -367,6 +367,10 @@ NBTypeCont::writeEdgeTypes(OutputDevice& into) const {
         if ((edgeType.second->attrs.count(SUMO_ATTR_DISALLOW) > 0) || (edgeType.second->attrs.count(SUMO_ATTR_ALLOW) > 0)) {
             writePermissions(into, edgeType.second->permissions);
         }
+        // write spreadType
+        if ((edgeType.second->attrs.count(SUMO_ATTR_SPREADTYPE) > 0)) {
+            into.writeAttr(SUMO_ATTR_SPREADTYPE, SUMOXMLDefinitions::LaneSpreadFunctions.getString(edgeType.second->spreadType));
+        }
         // write oneWay
         if (edgeType.second->attrs.count(SUMO_ATTR_ONEWAY) > 0) {
             into.writeAttr(SUMO_ATTR_ONEWAY, edgeType.second->oneWay);
