@@ -33,7 +33,12 @@ import sumolib  # noqa
 # defines
 JPS_POLYGON_TYPE_NAME = "jps-boundary"
 JPS_POLYGON_COLOR = sumolib.color.RGBAColor(255, 0, 0)
-DXF_LAYER_NAME = "SUMONetPolygons"
+JPS_POLYGON_LAYER = 10
+JPS_DOOR_TYPE_NAME = "jps-door"
+JPS_DOOR_COLOR = sumolib.color.RGBAColor(0, 0, 255)
+JPS_DOOR_LAYER = 11
+DXF_LAYER_NAME_POLYGON = "SUMONetPolygons"
+DXF_LAYER_NAME_DOOR = "SUMONetDoors"
 DEBUG = True
 
 
@@ -79,13 +84,79 @@ def calculateBoundingPolygon(shape, width):
     return polyShape
 
 
+def addIncidentEdgeToDoorList(polygon, edge, net, doorPositions, doorIDs):
+    assert net.hasEdge(edge.getID())
+    # print("DEBUG: incident edge \'%s\' for node \'%s\'" % (edge.getID(), polygon.id))
+    lane = getExclusiveSidewalkLane(edge)
+    if lane is None:
+        return
+    shape = calculateBoundingPolygon(lane.getShape(includeJunctions=False), lane.getWidth())
+    lengths = sumolib.geomhelper.intersectsAtLengths2D(polygon.shape, shape)
+    for offset in lengths:
+        doorPositions.append(sumolib.geomhelper.positionAtShapeOffset(polygon.shape, offset))
+    doorIDs.append(polygon.id + '_door_' + lane.getID())
+
+
+def calculateDoors(polygons, net):
+    result = []
+    for p in polygons:
+        isLane = net.hasEdge(p.id[:-2])
+        isNode = net.hasNode(p.id)
+        if not isLane and not isNode:
+            print("ERROR: objID \'%s\' not found as lane or node in network, aborting..." % p.id)
+            sys.exit(1)
+        doorPositions = []
+        doorIDs = []
+        if isLane:
+            lane = net.getLane(p.id)
+            print("DEBUG: calculateDoors() lane \'%s\'" % lane.getID())
+            for inc in lane.getIncoming(onlyDirect=True):
+                # print("DEBUG: incoming lane \'%s\' for lane \'%s\'" % (inc.getID(), lane.getID()))
+                shape = inc.getShape()
+                if inc.getID()[0] == ":":
+                    shape = inc.getConnection(lane).getJunction().getShape()
+                lengths = sumolib.geomhelper.intersectsAtLengths2D(p.shape, shape)
+                for offset in lengths:
+                    doorPositions.append(sumolib.geomhelper.positionAtShapeOffset(p.shape, offset))
+                doorIDs.append(p.id + '_door_' + inc.getID())
+                # print("DEBUG: calculateDoors() p.shape: \'%s\'" % p.shape)
+                # print("DEBUG: calculateDoors() shape: \'%s\'" % shape)
+                # print("DEBUG: calculateDoors() lengths: \'%s\'" % lengths)
+                # print("DEBUG: calculateDoors() doorPositions: \'%s\'" % doorPositions)
+            for out in lane.getOutgoing():
+                # print("DEBUG: outgoing node \'%s\' for lane \'%s\'" % (out.getJunction().getID(), lane.getID()))
+                shape = out.getJunction().getShape()
+                lengths = sumolib.geomhelper.intersectsAtLengths2D(p.shape, shape)
+                for offset in lengths:
+                    doorPositions.append(sumolib.geomhelper.positionAtShapeOffset(p.shape, offset))
+                doorIDs.append(p.id + '_door_' + out.getViaLaneID())
+        elif isNode:
+            node = net.getNode(p.id)
+            print("DEBUG: calculateDoors() node \'%s\'" % node.getID())
+            for inc in node.getIncoming():
+                if inc.getID()[0] == ":":
+                    continue
+                addIncidentEdgeToDoorList(p, inc, net, doorPositions, doorIDs)
+            for out in node.getOutgoing():
+                if out.getID()[0] == ":":
+                    continue
+                addIncidentEdgeToDoorList(p, out, net, doorPositions, doorIDs)
+        # sanity check
+        assert (len(doorPositions) % 2 == 0), "ERROR: len(doorPositions) is not even (%d), aborting..." % len(doorPositions)
+        for i in range(0, len(doorPositions), 2):
+            door = sumolib.shapes.polygon.Polygon(id=doorIDs[int(i / 2)], type=JPS_DOOR_TYPE_NAME, color=JPS_DOOR_COLOR, layer=JPS_DOOR_LAYER, shape=[doorPositions[i], doorPositions[i + 1]])
+            if not isDuplicate(door, result):
+                result.append(door)
+    return result
+
+
 def addLaneToPolygons(lane, polygons):
     if not lane.allows("pedestrian"):
         print("WARNING: lane \'%s\' does not allow pedestrians, skipping..." % (lane.getID()))
         return
     polyShape = calculateBoundingPolygon(lane.getShape(includeJunctions=False), lane.getWidth())
     polygon = sumolib.shapes.polygon.Polygon(id=lane.getID(), type=JPS_POLYGON_TYPE_NAME,
-                                             color=JPS_POLYGON_COLOR, shape=polyShape)
+                                             color=JPS_POLYGON_COLOR, layer=JPS_POLYGON_LAYER, shape=polyShape)
     if not isDuplicate(polygon, polygons):
         polygons.append(polygon)
     return
@@ -95,7 +166,7 @@ def addNodeToPolygons(node, polygons):
     polyShape = node.getShape()
     polyShape.append(polyShape[0])
     polygon = sumolib.shapes.polygon.Polygon(id=node.getID(), type=JPS_POLYGON_TYPE_NAME,
-                                             color=JPS_POLYGON_COLOR, shape=polyShape)
+                                             color=JPS_POLYGON_COLOR, layer=JPS_POLYGON_LAYER, shape=polyShape)
     if not isDuplicate(polygon, polygons):
         polygons.append(polygon)
     return
@@ -112,13 +183,16 @@ def getExclusiveSidewalkLane(edge):
     return None
 
 
-def writeToDxf(polygons, options):
+def writeToDxf(polygons, doors, options):
     # write DXF file
     doc = ezdxf.new(dxfversion='R2000')
     msp = doc.modelspace()  # add new entities to the modelspace
-    doc.layers.new(name=DXF_LAYER_NAME, dxfattribs={'linetype': 'SOLID', 'color': 7})
+    doc.layers.new(name=DXF_LAYER_NAME_POLYGON, dxfattribs={'linetype': 'SOLID', 'color': 7})
     for p in polygons:
-        msp.add_lwpolyline(p.shape, dxfattribs={'layer': DXF_LAYER_NAME})
+        msp.add_lwpolyline(p.shape, dxfattribs={'layer': DXF_LAYER_NAME_POLYGON})
+    doc.layers.new(name=DXF_LAYER_NAME_DOOR, dxfattribs={'linetype': 'DASHED', 'color': 9})
+    for d in doors:
+        msp.add_lwpolyline(d.shape, dxfattribs={'layer': DXF_LAYER_NAME_DOOR})
     doc.saveas(options.outFile)
 
 
@@ -169,10 +243,10 @@ if __name__ == "__main__":
                 continue
             addNodeToPolygons(node, polygons)
 
+    doors = calculateDoors(polygons, net)
     if not options.outFile:
         options.outFile = options.netFile[:options.netFile.rfind(".net.xml")] + ".dxf"
     if options.debug:
         debugOutFile = options.outFile[:options.outFile.rfind(".dxf")] + ".poly.xml"
-        sumolib.files.additional.write(debugOutFile, polygons)
-
-    writeToDxf(polygons, options)
+        sumolib.files.additional.write(debugOutFile, doors + polygons)
+    writeToDxf(polygons, doors, options)
