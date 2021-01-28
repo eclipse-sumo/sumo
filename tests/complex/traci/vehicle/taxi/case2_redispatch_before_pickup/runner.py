@@ -56,12 +56,13 @@ a, b, c = reservation_ids
 # plan the following stops
 # pickup a
 # dropoff a
-# redispatch to extend the route with
+# redispatch to replace with the following stops
+# pickup a
 # pickup b
 # pickup c, dropoff b
-# dropoff c
+# dropoff a, c
 traci.vehicle.dispatchTaxi(fleet[0], [a])
-traci.vehicle.dispatchTaxi(fleet[0], [b, c, b, c])
+traci.vehicle.dispatchTaxi(fleet[0], [a, b, c, b, a, c])
 
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()

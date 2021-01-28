@@ -61,8 +61,9 @@ a, b, c = reservation_ids
 # pickup c, dropoff b
 # dropoff c
 traci.vehicle.dispatchTaxi(fleet[0], [a])
-traci.vehicle.dispatchTaxi(fleet[0], [b, c, b, c])
 
 while traci.simulation.getMinExpectedNumber() > 0:
+    if traci.simulation.getTime() == 20:
+        traci.vehicle.dispatchTaxi(fleet[0], [a, b, c, b, a, c])
     traci.simulationStep()
 traci.close()

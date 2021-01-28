@@ -55,9 +55,11 @@ reservation_ids = [r.id for r in reservations]
 a, b, c = reservation_ids
 # plan the following stops
 # pickup a
+# dropoff a
+# redispatch to extend the route with
 # pickup b
 # pickup c, dropoff b
-# dropoff a, c
+# dropoff c
 traci.vehicle.dispatchTaxi(fleet[0], [a])
 
 while traci.simulation.getMinExpectedNumber() > 0:
