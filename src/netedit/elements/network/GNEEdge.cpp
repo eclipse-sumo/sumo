@@ -48,6 +48,7 @@
 // static
 // ===========================================================================
 const double GNEEdge::SNAP_RADIUS = SUMO_const_halfLaneWidth;
+const double GNEEdge::SNAP_RADIUS_SQUARED = (SUMO_const_halfLaneWidth * SUMO_const_halfLaneWidth);
 
 // ===========================================================================
 // members methods
@@ -174,7 +175,7 @@ GNEEdge::getMoveOperation(const double shapeOffset) {
             // declare new index
             int newIndex = index;
             // check if we have to create a new index
-            if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (SNAP_RADIUS * SNAP_RADIUS)) {
+            if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > SNAP_RADIUS_SQUARED) {
                 newIndex = shapeToMove.insertAtClosest(positionAtOffset, true);
             }
             // check if attribute carrier is selected
@@ -226,7 +227,7 @@ GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
         removeGeometryPoint = false;
     }
     // check distance
-    if (shape[index].distanceSquaredTo2D(clickedPosition) > (SNAP_RADIUS * SNAP_RADIUS)) {
+    if (shape[index].distanceSquaredTo2D(clickedPosition) > SNAP_RADIUS_SQUARED) {
         removeGeometryPoint = false;
     }
     // check custom start position
@@ -282,7 +283,7 @@ GNEEdge::hasCustomEndPoints() const {
 bool
 GNEEdge::clickedOverShapeStart(const Position& pos) const {
     if (myNBEdge->getGeometry().front().distanceSquaredTo2D(getParentJunctions().front()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) {
-        return (myNBEdge->getGeometry().front().distanceTo2D(pos) < SNAP_RADIUS);
+        return (myNBEdge->getGeometry().front().distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED);
     } else {
         return false;
     }
@@ -292,7 +293,7 @@ GNEEdge::clickedOverShapeStart(const Position& pos) const {
 bool
 GNEEdge::clickedOverShapeEnd(const Position& pos) const {
     if (myNBEdge->getGeometry().back().distanceSquaredTo2D(getParentJunctions().back()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) {
-        return (myNBEdge->getGeometry().back().distanceTo2D(pos) < SNAP_RADIUS);
+        return (myNBEdge->getGeometry().back().distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED);
     } else {
         return false;
     }
@@ -305,7 +306,7 @@ GNEEdge::clickedOverGeometryPoint(const Position& pos) const {
     const PositionVector innenShape = myNBEdge->getInnerGeometry();
     // iterate over geometry point
     for (const auto &geometryPoint : innenShape) {
-        if (geometryPoint.distanceTo2D(pos) < SNAP_RADIUS) {
+        if (geometryPoint.distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED) {
             return true;
         }
     }
@@ -437,7 +438,7 @@ Position
 GNEEdge::getSplitPos(const Position& clickPos) {
     const PositionVector& geom = myNBEdge->getGeometry();
     int index = geom.indexOfClosest(clickPos);
-    if (geom[index].distanceTo2D(clickPos) < SNAP_RADIUS) {
+    if (geom[index].distanceSquaredTo2D(clickPos) < SNAP_RADIUS_SQUARED) {
         // split at existing geometry point
         return geom[index];
     } else {
@@ -449,11 +450,13 @@ GNEEdge::getSplitPos(const Position& clickPos) {
 
 void
 GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
-    if ((myNBEdge->getGeometry().front().distanceSquaredTo2D(getParentJunctions().front()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) && (myNBEdge->getGeometry().front().distanceTo2D(pos) < SNAP_RADIUS)) {
+    if ((myNBEdge->getGeometry().front().distanceSquaredTo2D(getParentJunctions().front()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
+        (myNBEdge->getGeometry().front().distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED)) {
         undoList->p_begin("remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_START, "", undoList);
         undoList->p_end();
-    } else if ((myNBEdge->getGeometry().back().distanceSquaredTo2D(getParentJunctions().back()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) && (myNBEdge->getGeometry().back().distanceTo2D(pos) < SNAP_RADIUS)) {
+    } else if ((myNBEdge->getGeometry().back().distanceSquaredTo2D(getParentJunctions().back()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) && 
+        (myNBEdge->getGeometry().back().distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED)) {
         undoList->p_begin("remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
         undoList->p_end();
@@ -469,7 +472,7 @@ GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
             undoList->p_begin("set endpoint");
             int index = geom.indexOfClosest(pos);
             // check if snap to existing geometry
-            if (geom[index].distanceTo2D(pos) < SNAP_RADIUS) {
+            if (geom[index].distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED) {
                 pos = geom[index];
             }
             Position destPos = getParentJunctions().back()->getNBNode()->getPosition();

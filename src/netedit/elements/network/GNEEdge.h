@@ -232,8 +232,11 @@ public:
     /// @brief check if edge has a restricted lane
     bool hasRestrictedLane(SUMOVehicleClass vclass) const;
 
-    // the radius in which to register clicks for geometry nodes
+    // @brief the radius in which to register clicks for geometry nodes
     static const double SNAP_RADIUS;
+
+    // @brief the radius in which to register clicks for geometry nodes (Squared)
+    static const double SNAP_RADIUS_SQUARED;
 
     /// @brief clear current connections
     void clearGNEConnections();
