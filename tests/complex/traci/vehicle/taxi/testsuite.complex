@@ -3,3 +3,6 @@ basic
 
 # dispatch a taxi to pick up 3 customers in sequence
 shared_3
+
+# dispatch taxi to pick up person and then redispatch during 'pickup' state to pick someone else first 
+redispatch_before_pickup
