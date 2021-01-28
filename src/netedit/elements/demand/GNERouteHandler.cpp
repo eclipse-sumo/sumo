@@ -181,6 +181,7 @@ GNERouteHandler::buildRoute(GNENet* net, bool undoDemandElements, const RoutePar
     }
 }
 
+
 void
 GNERouteHandler::buildVehicleOverRoute(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters) {
     // first check if ID is duplicated
@@ -217,6 +218,10 @@ GNERouteHandler::buildVehicleOverRoute(GNENet* net, bool undoDemandElements, con
                 for (const auto& i : vehicleParameters.stops) {
                     buildStop(net, false, i, vehicle);
                 }
+            }
+            // center view after creation
+            if (!net->getViewNet()->getVisibleBoundary().around(vehicle->getPositionInView())) {
+                net->getViewNet()->centerTo(vehicle->getPositionInView(), false);
             }
         }
     }
@@ -259,6 +264,10 @@ GNERouteHandler::buildFlowOverRoute(GNENet* net, bool undoDemandElements, const 
                 for (const auto& i : vehicleParameters.stops) {
                     buildStop(net, false, i, flow);
                 }
+            }
+            // center view after creation
+            if (!net->getViewNet()->getVisibleBoundary().around(flow->getPositionInView())) {
+                net->getViewNet()->centerTo(flow->getPositionInView(), false);
             }
         }
     }
@@ -314,6 +323,10 @@ GNERouteHandler::buildVehicleEmbeddedRoute(GNENet* net, bool undoDemandElements,
                 vehicle->addChildElement(embeddedRoute);
                 embeddedRoute->incRef("buildVehicleWithEmbeddedRoute");
             }
+            // center view after creation
+            if (!net->getViewNet()->getVisibleBoundary().around(vehicle->getPositionInView())) {
+                net->getViewNet()->centerTo(vehicle->getPositionInView(), false);
+            }
         }
     }
 }
@@ -368,6 +381,10 @@ GNERouteHandler::buildFlowEmbeddedRoute(GNENet* net, bool undoDemandElements, SU
                 flow->addChildElement(embeddedRoute);
                 embeddedRoute->incRef("buildFlowWithEmbeddedRoute");
             }
+            // center view after creation
+            if (!net->getViewNet()->getVisibleBoundary().around(flow->getPositionInView())) {
+                net->getViewNet()->centerTo(flow->getPositionInView(), false);
+            }
         }
     }
 }
@@ -396,8 +413,8 @@ GNERouteHandler::buildTrip(GNENet* net, bool undoDemandElements, const SUMOVehic
                 net->getViewNet()->getUndoList()->p_begin("add " + trip->getTagStr());
                 net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(trip, true), true);
                 // iterate over stops of vehicleParameters and create stops associated with it
-                for (const auto& i : vehicleParameters.stops) {
-                    buildStop(net, true, i, trip);
+                for (const auto& stop : vehicleParameters.stops) {
+                    buildStop(net, true, stop, trip);
                 }
                 net->getViewNet()->getUndoList()->p_end();
             } else {
@@ -412,9 +429,13 @@ GNERouteHandler::buildTrip(GNENet* net, bool undoDemandElements, const SUMOVehic
                     viaEdge->addChildElement(trip);
                 }
                 // iterate over stops of vehicleParameters and create stops associated with it
-                for (const auto& i : vehicleParameters.stops) {
-                    buildStop(net, false, i, trip);
+                for (const auto& stop : vehicleParameters.stops) {
+                    buildStop(net, false, stop, trip);
                 }
+            }
+            // center view after creation
+            if (!net->getViewNet()->getVisibleBoundary().around(trip->getPositionInView())) {
+                net->getViewNet()->centerTo(trip->getPositionInView(), false);
             }
         }
     }
@@ -446,8 +467,8 @@ GNERouteHandler::buildFlow(GNENet* net, bool undoDemandElements, const SUMOVehic
                 net->getViewNet()->getUndoList()->p_begin("add " + flow->getTagStr());
                 net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
                 // iterate over stops of vehicleParameters and create stops associated with it
-                for (const auto& i : vehicleParameters.stops) {
-                    buildStop(net, true, i, flow);
+                for (const auto& stop : vehicleParameters.stops) {
+                    buildStop(net, true, stop, flow);
                 }
                 net->getViewNet()->getUndoList()->p_end();
             } else {
@@ -462,9 +483,13 @@ GNERouteHandler::buildFlow(GNENet* net, bool undoDemandElements, const SUMOVehic
                     viaEdge->addChildElement(flow);
                 }
                 // iterate over stops of vehicleParameters and create stops associated with it
-                for (const auto& i : vehicleParameters.stops) {
-                    buildStop(net, false, i, flow);
+                for (const auto& stop : vehicleParameters.stops) {
+                    buildStop(net, false, stop, flow);
                 }
+            }
+            // center view after creation
+            if (!net->getViewNet()->getVisibleBoundary().around(flow->getPositionInView())) {
+                net->getViewNet()->centerTo(flow->getPositionInView(), false);
             }
         }
     }
