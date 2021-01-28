@@ -78,6 +78,12 @@ catchupFollower="catchupFollowerVTypeID" /><verbosity value="200" ></verbosity>
         self.cfg_body4 = '<vTypeMapFile file="FileThatDoesntExist"></vTypeMapFile>'
         self.cfg_body5 = '<vTypeMap original="original_type1" leader="leader_type1" follower="follower_type1" ' + \
                          'catchup ="catchup_type1" catchupFollower ="catchupFollower_type1"/>'
+        self.cfg_body6 =\
+            """
+                <catchupDist value="50.0" />
+                <vTypeMap original="origVTypeID" leader="leaderVTypeID" follower="followerVTypeID" \
+catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
+            """
 
         # start a sumo instance
         self.sumocfg = os.path.join(self.testDir, "sumo.sumocfg")
@@ -148,6 +154,12 @@ catchupFollower="catchupFollowerVTypeID" /><verbosity value="200" ></verbosity>
             for mode in PlatoonMode:
                 self.assertTrue(mode in cfg.PLATOON_VTYPES[tp])
         self.assertListEqual(list(rp.WARNING_LOG), [])
+
+    def test_partial_config(self):
+        print("Testing partial config...")
+        self.patchConfigFile(self.cfg_body6)
+        cfg.load(self.CFG1)
+        self.assertEqual(cfg.CATCHUP_DIST, 50.)
 
     def test_config_warnings(self):
         print("Testing config warnings...")
