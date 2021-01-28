@@ -3205,7 +3205,7 @@ GNENet::initJunctionsAndEdges() {
     // init edge types
     for (const auto &edgeType : myNetBuilder->getTypeCont()) {
         // register edge type
-        myAttributeCarriers->registerEdgeType(new GNEEdgeType(this, edgeType.first, edgeType.second, "right"));
+        myAttributeCarriers->registerEdgeType(new GNEEdgeType(this, edgeType.first, edgeType.second));
     }
     // init junctions (by default Crossing and walking areas aren't created)
     for (const auto &nodeName : myNetBuilder->getNodeCont().getAllNames()) {

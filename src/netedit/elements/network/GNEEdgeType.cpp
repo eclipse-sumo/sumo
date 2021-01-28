@@ -37,8 +37,7 @@
 // ===========================================================================
 
 GNEEdgeType::GNEEdgeType(GNECreateEdgeFrame *createEdgeFrame) :
-    GNENetworkElement(createEdgeFrame->getViewNet()->getNet(), "", GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-    mySpreadType("right") {
+    GNENetworkElement(createEdgeFrame->getViewNet()->getNet(), "", GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
     // create laneType
     GNELaneType* laneType = new GNELaneType(this);
     laneType->incRef("GNEEdgeType::GNEEdgeType(Default)");
@@ -47,8 +46,7 @@ GNEEdgeType::GNEEdgeType(GNECreateEdgeFrame *createEdgeFrame) :
 
 
 GNEEdgeType::GNEEdgeType(GNENet* net) :
-    GNENetworkElement(net, net->generateEdgeTypeID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-    mySpreadType("right") {
+    GNENetworkElement(net, net->generateEdgeTypeID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
     // create laneType
     GNELaneType* laneType = new GNELaneType(this);
     laneType->incRef("GNEEdgeType::GNEEdgeType");
@@ -56,9 +54,8 @@ GNEEdgeType::GNEEdgeType(GNENet* net) :
 }
 
 
-GNEEdgeType::GNEEdgeType(GNENet* net, const std::string &ID, const NBTypeCont::EdgeTypeDefinition *edgeType, const std::string spreadType) :
-    GNENetworkElement(net, ID, GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-    mySpreadType(spreadType) {
+GNEEdgeType::GNEEdgeType(GNENet* net, const std::string &ID, const NBTypeCont::EdgeTypeDefinition *edgeType) :
+    GNENetworkElement(net, ID, GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
     // create  laneTypes
     for (const auto &laneTypeDef : edgeType->laneTypeDefinitions) {
         GNELaneType* laneType = new GNELaneType(this, laneTypeDef);
@@ -69,6 +66,7 @@ GNEEdgeType::GNEEdgeType(GNENet* net, const std::string &ID, const NBTypeCont::E
     speed = edgeType->speed;
     priority = edgeType->priority;
     permissions = edgeType->permissions;
+    spreadType = edgeType->spreadType;
     width = edgeType->width;
     attrs = edgeType->attrs;
     laneTypeDefinitions = edgeType->laneTypeDefinitions;
@@ -238,7 +236,7 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
                 return getVehicleClassNames(invertPermissions(permissions));
             }
         case SUMO_ATTR_SPREADTYPE:
-            return mySpreadType;
+            return SUMOXMLDefinitions::LaneSpreadFunctions.getString(spreadType);
         case SUMO_ATTR_WIDTH:
             if (attrs.count(key) == 0) {
                 return toString(NBEdge::UNSPECIFIED_WIDTH);
@@ -301,7 +299,7 @@ GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
                 return canParseVehicleClasses(value);
             }
         case SUMO_ATTR_SPREADTYPE:
-            return ((value == "right") || (value == "center") || (value == "roadCenter"));
+            return SUMOXMLDefinitions::LaneSpreadFunctions.hasString(value);
         case SUMO_ATTR_WIDTH:
             if (value.empty() || (value == "-1")) {
                 return true;
@@ -367,7 +365,7 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_SPREADTYPE:
-            mySpreadType = value;
+            spreadType = SUMOXMLDefinitions::LaneSpreadFunctions.get(value);
             break;
         case SUMO_ATTR_DISCARD:
             if (value.empty()) {

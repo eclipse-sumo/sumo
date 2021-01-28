@@ -1812,6 +1812,7 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
         double bikelaneWidth = NBEdge::UNSPECIFIED_WIDTH;
         bool defaultIsOneWay = true;
         SVCPermissions permissions = 0;
+        LaneSpreadFunction spreadType = LaneSpreadFunction::RIGHT;
         bool discard = true;
         for (auto& type2 : types) {
             if (!tc.getEdgeTypeShallBeDiscarded(type2)) {
@@ -1821,6 +1822,7 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
                 defaultIsOneWay &= tc.getEdgeTypeIsOneWay(type2);
                 //std::cout << "merging component " << type2 << " into type " << newType << " allows=" << getVehicleClassNames(tc.getPermissions(type2)) << " oneway=" << defaultIsOneWay << "\n";
                 permissions |= tc.getEdgeTypePermissions(type2);
+                spreadType = tc.getEdgeTypeSpreadType(type2);
                 width = MAX2(width, tc.getEdgeTypeWidth(type2));
                 sidewalkWidth = MAX2(sidewalkWidth, tc.getEdgeTypeSidewalkWidth(type2));
                 bikelaneWidth = MAX2(bikelaneWidth, tc.getEdgeTypeBikeLaneWidth(type2));
@@ -1845,8 +1847,8 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
         }
 
         WRITE_MESSAGE("Adding new type '" + type + "' (first occurence for edge '" + id + "').");
-        tc.insertEdgeType(newType, numLanes, maxSpeed, prio, permissions, width, defaultIsOneWay,
-                          sidewalkWidth, bikelaneWidth, 0, 0, 0);
+        tc.insertEdgeType(newType, numLanes, maxSpeed, prio, permissions, spreadType, width, 
+                          defaultIsOneWay, sidewalkWidth, bikelaneWidth, 0, 0, 0);
         for (auto& type3 : types) {
             if (!tc.getEdgeTypeShallBeDiscarded(type3)) {
                 tc.copyEdgeTypeRestrictionsAndAttrs(type3, newType);

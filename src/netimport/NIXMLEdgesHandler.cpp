@@ -176,14 +176,16 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         myPermissions = SVC_UNSPECIFIED;
         myCurrentWidth = NBEdge::UNSPECIFIED_WIDTH;
         myCurrentType = myCurrentEdge->getTypeID();
+        myLanesSpread = SUMOXMLDefinitions::LaneSpreadFunctions.get(myOptions.getString("default.spreadtype"));
+
     } else {
         // this is a completely new edge. get the type specific defaults
         myCurrentSpeed = myTypeCont.getEdgeTypeSpeed(myCurrentType);
         myPermissions = myTypeCont.getEdgeTypePermissions(myCurrentType);
         myCurrentWidth = myTypeCont.getEdgeTypeWidth(myCurrentType);
+        myLanesSpread = myTypeCont.getEdgeTypeSpreadType(myCurrentType);
     }
     myShape = PositionVector();
-    myLanesSpread = SUMOXMLDefinitions::LaneSpreadFunctions.get(myOptions.getString("default.spreadtype"));
     myLength = NBEdge::UNSPECIFIED_LOADED_LENGTH;
     myCurrentStreetName = "";
     myReinitKeepEdgeShape = false;

@@ -71,7 +71,7 @@ NGEdge::buildNBEdge(NBNetBuilder& nb, const std::string& type) const {
     }
 
     SVCPermissions permissions = nb.getTypeCont().getEdgeTypePermissions(type);
-    LaneSpreadFunction lsf = LaneSpreadFunction::RIGHT;
+    LaneSpreadFunction lsf = nb.getTypeCont().getEdgeTypeSpreadType(type);
     if (isRailway(permissions) &&  nb.getTypeCont().getEdgeTypeIsOneWay(type)) {
         lsf = LaneSpreadFunction::CENTER;
     }

@@ -87,8 +87,8 @@ public:
 
         /// @brief parameter Constructor
         EdgeTypeDefinition(int numLanes, double speed, int priority,
-            double width, SVCPermissions permissions, bool oneWay,
-            double sideWalkWidth, double bikeLaneWidth,
+            double width, SVCPermissions permissions, LaneSpreadFunction spreadType,
+            bool oneWay, double sideWalkWidth, double bikeLaneWidth,
             double widthResolution, double maxWidth, double minWidth);
 
         /// @brief whether any lane attributes deviate from the edge attributes
@@ -102,6 +102,9 @@ public:
 
         /// @brief List of vehicle edgeTypes that are allowed on this edge
         SVCPermissions permissions;
+
+        /// @brief lane spread type
+        LaneSpreadFunction spreadType;
 
         /// @brief Whether one-way traffic is mostly common for this edgeType (mostly unused)
         bool oneWay;
@@ -157,10 +160,12 @@ public:
      * @param[in] defaultSpeed The default speed allowed on an edge
      * @param[in] defaultPriority The default priority of an edge
      * @param[in] defaultPermissions The default permissions of an edge
+     * @param[in] defaultSpreadType The default lane spread type of an edge
      */
     void setEdgeTypeDefaults(int defaultNumLanes, double defaultLaneWidth,
                              double defaultSpeed, int defaultPriority,
-                             SVCPermissions defaultPermissions);
+                             SVCPermissions defaultPermissions,
+                             LaneSpreadFunction defaultSpreadType);
 
     /**@brief Adds a edgeType into the list
      * @param[in] id The id of the edgeType
@@ -168,6 +173,7 @@ public:
      * @param[in] maxSpeed The speed allowed on an edge of this edgeType
      * @param[in] prio The priority of an edge of this edgeType
      * @param[in] permissions The encoding of vehicle classes allowed on an edge of this edgeType
+     * @param[in] spreadType Defines how to compute the lane geometry from the edge geometry (right, center or roadCenter)
      * @param[in] width The width of lanes of edgesof this edgeType
      * @param[in] oneWayIsDefault Whether edges of this edgeType are one-way per default
      * @return Whether the edgeType could be added (no edgeType with the same id existed)
@@ -175,7 +181,9 @@ public:
     void insertEdgeType(const std::string& id, int numLanes,
                         double maxSpeed, int prio,
                         SVCPermissions permissions,
-                        double width, bool oneWayIsDefault,
+                        LaneSpreadFunction spreadType,
+                        double width, 
+                        bool oneWayIsDefault,
                         double sidewalkWidth,
                         double bikeLaneWidth,
                         double widthResolution,
@@ -364,6 +372,14 @@ public:
      * @return List of vehicles class which may use edges of the given edgeType
      */
     SVCPermissions getEdgeTypePermissions(const std::string& edgeType) const;
+
+    /**@brief Returns spreadType for the given edgeType
+     *
+     * If the named edgeType is not known, the default is returned
+     * @param[in] edgeType The name of the edgeType to return the spread type
+     * @return spread type which may use edges of the given edgeType
+     */
+    LaneSpreadFunction getEdgeTypeSpreadType(const std::string& edgeType) const;
 
     /**@brief Returns the lane width for the given edgeType [m]
      *

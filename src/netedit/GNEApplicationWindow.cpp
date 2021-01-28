@@ -699,7 +699,7 @@ GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
         // iterate over typeContainerAux
         for (const auto &auxEdgeType : typeContainerAux) {
             // create new edge type
-            GNEEdgeType* edgeType = new GNEEdgeType(myNet, auxEdgeType.first, auxEdgeType.second, "right");
+            GNEEdgeType* edgeType = new GNEEdgeType(myNet, auxEdgeType.first, auxEdgeType.second);
             // add it using undoList
             myViewNet->getUndoList()->add(new GNEChange_EdgeType(edgeType, true), true);
             // iterate over lanes auxType
