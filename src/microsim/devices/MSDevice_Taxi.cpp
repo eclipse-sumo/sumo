@@ -241,7 +241,7 @@ MSDevice_Taxi::dispatch(const Reservation& res) {
 
 
 void
-MSDevice_Taxi::dispatchShared(const std::vector<const Reservation*>& reservations) {
+MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
 #ifdef DEBUG_DISPATCH
     if (true) {
         std::cout << SIMTIME << " taxi=" << myHolder.getID() << " dispatch:\n";
@@ -268,6 +268,9 @@ MSDevice_Taxi::dispatchShared(const std::vector<const Reservation*>& reservation
             for (MSTransportable* person : res->persons) {
                 if (myCustomers.count(person) != 0) {
                     nOccur[person] += 1;
+                    if (myCurrentReservations.count(res) == 0) {
+                        throw ProcessError("Invalid Re-dispatch for existing customer '" + person->getID() + "' with a new reservation");
+                    }
                 }
             }
         }
@@ -275,13 +278,71 @@ MSDevice_Taxi::dispatchShared(const std::vector<const Reservation*>& reservation
             // no overlap with existing customers - extend route
             tmpEdges = myHolder.getRoute().getEdges();
             lastPos = veh->getStops().back().pars.endPos;
+
+        } else if (nOccur.size() == myCustomers.size()) {
+            // redefine route (verify correct number of mentions)
+            std::set<const MSTransportable*> onBoard;
+            const std::vector<MSTransportable*>& onBoardP = myHolder.getPersons();
+            const std::vector<MSTransportable*>& onBoardC = myHolder.getContainers();
+            onBoard.insert(onBoardP.begin(), onBoardP.end());
+            onBoard.insert(onBoardC.begin(), onBoardC.end());
+            std::set<const MSTransportable*> redundantPickup;
+            for (auto item : nOccur) {
+                if (item.second == 1) {
+                    // customers must already be on board
+                    if (onBoard.count(item.first) == 0) {
+                        throw ProcessError("Re-dispatch did not mention pickup for existing customer '" + item.first->getID() + "'");
+                    }
+                } else if (item.second == 2) {
+                    if (onBoard.count(item.first) == 0) {
+                        // treat like a new customer
+                        myCustomers.erase(item.first);
+                    } else {
+                        redundantPickup.insert(item.first);
+                    }
+                } else {
+                    throw ProcessError("Re-dispatch mentions existing customer '" + item.first->getID() + "' " + toString(item.second) + " times");
+                }
+            }
+            // remove redundancy
+            if (!redundantPickup.empty()) {
+                for (auto it = reservations.begin(); it != reservations.end();) {
+                    bool isRedundant = false;
+                    for (const MSTransportable* person : (*it)->persons) {
+                        if (redundantPickup.count(person) != 0) {
+                            isRedundant = true;
+                            break;
+                        }
+                    }
+                    if (isRedundant) {
+                        for (const MSTransportable* person : (*it)->persons) {
+                            redundantPickup.erase(person);
+                        }
+                        it = reservations.erase(it);
+                    } else {
+                        it++;
+                    }
+                }
+            }
+            while (veh->hasStops()) {
+                myHolder.abortNextStop();
+            }
+            tmpEdges.push_back(myHolder.getEdge());
         } else {
-            throw ProcessError("Dispatch case for busy taxis not yet implemented");
+            // inconsistent re-dispatch
+            std::vector<std::string> missing;
+            for (const MSTransportable* c : myCustomers) {
+                if (nOccur.count(c) == 0) {
+                    missing.push_back(c->getID());
+                }
+            }
+            throw ProcessError("Re-dispatch did mention some customers but failed to mention " + joinToStringSorting(missing, " "));
         }
     }
 
     const SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
     for (const Reservation* res : reservations) {
+        myCurrentReservations.insert(res);
         bool isPickup = false;
         for (MSTransportable* person : res->persons) {
             if (myCustomers.count(person) == 0) {
@@ -432,6 +493,13 @@ MSDevice_Taxi::customerArrived(const MSTransportable* person) {
                 veh->abortNextStop(1);
             }
         }
+    }
+    if (isEmpty()) {
+        // cleanup
+        for (const Reservation* res : myCurrentReservations) {
+            myDispatcher->fulfilledReservation(res);
+        }
+        myCurrentReservations.clear();
     }
 }
 

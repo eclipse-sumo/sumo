@@ -165,7 +165,7 @@ public:
     void dispatch(const Reservation& res);
 
     /// @brief service the given reservations
-    void dispatchShared(const std::vector<const Reservation*>& reservations);
+    void dispatchShared(std::vector<const Reservation*> reservations);
 
     /// @brief whether the given person is allowed to board this taxi
     bool allowsBoarding(MSTransportable* t) const;
@@ -233,6 +233,9 @@ private:
 
     /// @brief algorithm for controlling idle behavior
     MSIdling* myIdleAlgorithm;
+
+    /// @brief reservations currently being served
+    std::set<const Reservation*> myCurrentReservations;
 
     /// @brief the time between successive calls to the dispatcher
     static SUMOTime myDispatchPeriod;

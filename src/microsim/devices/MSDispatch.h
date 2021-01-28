@@ -112,6 +112,9 @@ public:
                                         const std::string& group,
                                         int maxCapacity);
 
+    /// @brief erase reservation from storage
+    void fulfilledReservation(const Reservation* res);
+
     /// @brief computes dispatch and updates reservations
     virtual void computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi*>& fleet) = 0;
 
@@ -146,5 +149,7 @@ protected:
 
 private:
     std::map<std::string, std::vector<Reservation*> > myGroupReservations;
+    // reservations that are currently being served (could still be used during re-dispatch)
+    std::set<const Reservation*> myRunningReservations;
 
 };

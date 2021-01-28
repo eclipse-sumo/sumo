@@ -120,6 +120,9 @@ MSDispatch::getReservations() {
 
 void
 MSDispatch::servedReservation(const Reservation* res) {
+    if (myRunningReservations.count(res)) {
+        return; // was redispatch
+    }
     auto it = myGroupReservations.find(res->group);
     if (it == myGroupReservations.end()) {
         throw ProcessError("Inconsistent group reservations.");
@@ -128,11 +131,18 @@ MSDispatch::servedReservation(const Reservation* res) {
     if (it2 == it->second.end()) {
         throw ProcessError("Inconsistent group reservations (2).");
     }
-    delete *it2;
+    myRunningReservations.insert(*it2);
     it->second.erase(it2);
     if (it->second.empty()) {
         myGroupReservations.erase(it);
     }
+}
+
+
+void
+MSDispatch::fulfilledReservation(const Reservation* res) {
+    myRunningReservations.erase(res);
+    delete res;
 }
 
 
