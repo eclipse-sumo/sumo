@@ -318,6 +318,9 @@ public:
         /// @brief textField for disallow vehicles
         FXTextField* myDisallow = nullptr;
 
+        /// @brief comboBox for spreadType
+        FXComboBox* mySpreadType = nullptr;
+
         /// @brief textField for width
         FXTextField* myWidth = nullptr;
 

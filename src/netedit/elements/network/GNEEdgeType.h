@@ -55,8 +55,9 @@ public:
      * @param[in] net The net to inform about gui updates
      * @param[in] ID edge type ID
      * @param[in] edgeType original NBTypeCont::EdgeTypeDefinition
+     * @param[in] spreadType original spreadType
      */
-    GNEEdgeType(GNENet* net, const std::string &ID, const NBTypeCont::EdgeTypeDefinition *edgeType);
+    GNEEdgeType(GNENet* net, const std::string &ID, const NBTypeCont::EdgeTypeDefinition *edgeType, const std::string spreadType);
 
     /// @brief Destructor.
     ~GNEEdgeType();
@@ -150,6 +151,9 @@ public:
     const std::map<std::string, std::string>& getACParametersMap() const;
 
 protected:
+    /// @brief spreadType
+    std::string mySpreadType;
+
     /// @brief vector with laneTypes
     std::vector<GNELaneType*> myLaneTypes;
 

@@ -37,7 +37,8 @@
 // ===========================================================================
 
 GNEEdgeType::GNEEdgeType(GNECreateEdgeFrame *createEdgeFrame) :
-    GNENetworkElement(createEdgeFrame->getViewNet()->getNet(), "", GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
+    GNENetworkElement(createEdgeFrame->getViewNet()->getNet(), "", GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}),
+    mySpreadType("right") {
     // create laneType
     GNELaneType* laneType = new GNELaneType(this);
     laneType->incRef("GNEEdgeType::GNEEdgeType(Default)");
@@ -46,7 +47,8 @@ GNEEdgeType::GNEEdgeType(GNECreateEdgeFrame *createEdgeFrame) :
 
 
 GNEEdgeType::GNEEdgeType(GNENet* net) :
-    GNENetworkElement(net, net->generateEdgeTypeID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
+    GNENetworkElement(net, net->generateEdgeTypeID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}),
+    mySpreadType("right") {
     // create laneType
     GNELaneType* laneType = new GNELaneType(this);
     laneType->incRef("GNEEdgeType::GNEEdgeType");
@@ -54,8 +56,9 @@ GNEEdgeType::GNEEdgeType(GNENet* net) :
 }
 
 
-GNEEdgeType::GNEEdgeType(GNENet* net, const std::string &ID, const NBTypeCont::EdgeTypeDefinition *edgeType) :
-    GNENetworkElement(net, ID, GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
+GNEEdgeType::GNEEdgeType(GNENet* net, const std::string &ID, const NBTypeCont::EdgeTypeDefinition *edgeType, const std::string spreadType) :
+    GNENetworkElement(net, ID, GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}),
+    mySpreadType(spreadType) {
     // create  laneTypes
     for (const auto &laneTypeDef : edgeType->laneTypeDefinitions) {
         GNELaneType* laneType = new GNELaneType(this, laneTypeDef);
@@ -234,6 +237,8 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return getVehicleClassNames(invertPermissions(permissions));
             }
+        case SUMO_ATTR_SPREADTYPE:
+            return mySpreadType;
         case SUMO_ATTR_WIDTH:
             if (attrs.count(key) == 0) {
                 return toString(NBEdge::UNSPECIFIED_WIDTH);
@@ -262,6 +267,7 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_SPEED:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
+        case SUMO_ATTR_SPREADTYPE:
         case SUMO_ATTR_DISCARD:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_PRIORITY:
@@ -294,6 +300,8 @@ GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParseVehicleClasses(value);
             }
+        case SUMO_ATTR_SPREADTYPE:
+            return ((value == "right") || (value == "center") || (value == "roadCenter"));
         case SUMO_ATTR_WIDTH:
             if (value.empty() || (value == "-1")) {
                 return true;
@@ -344,9 +352,9 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ALLOW:
             if (value.empty()) {
-                attrs.erase(SUMO_ATTR_DISALLOW);
+                attrs.erase(SUMO_ATTR_ALLOW);
             } else {
-                attrs.insert(SUMO_ATTR_DISALLOW);
+                attrs.insert(SUMO_ATTR_ALLOW);
                 permissions = parseVehicleClasses(value);
             }
             break;
@@ -357,6 +365,9 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 attrs.insert(SUMO_ATTR_DISALLOW);
                 permissions = invertPermissions(parseVehicleClasses(value));
             }
+            break;
+        case SUMO_ATTR_SPREADTYPE:
+            mySpreadType = value;
             break;
         case SUMO_ATTR_DISCARD:
             if (value.empty()) {

@@ -717,6 +717,8 @@ GNEEdge::copyEdgeType(const GNEEdgeType *edgeType, GNEUndoList* undoList) {
     setAttribute(SUMO_ATTR_SPEED, edgeType->getAttribute(SUMO_ATTR_SPEED), undoList);
     // set allow (no disallow)
     setAttribute(SUMO_ATTR_ALLOW, edgeType->getAttribute(SUMO_ATTR_ALLOW), undoList);
+    // set spreadType
+    setAttribute(SUMO_ATTR_SPREADTYPE, edgeType->getAttribute(SUMO_ATTR_SPREADTYPE), undoList);
     // set width
     setAttribute(SUMO_ATTR_WIDTH, edgeType->getAttribute(SUMO_ATTR_WIDTH), undoList);
     // set priority

@@ -905,6 +905,14 @@ GNEAttributeCarrier::fillNetworkElements() {
         attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_SPREADTYPE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUESTATIC,
+                                              "The spreadType defines how to compute the lane geometry from the edge geometry (used for visualization)",
+                                              "right");
+        attrProperty.setDiscreteValues(SUMOXMLDefinitions::LaneSpreadFunctions.getStrings());
+
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = GNEAttributeProperties(SUMO_ATTR_PRIORITY,
                                               GNEAttributeProperties::INT | GNEAttributeProperties::DEFAULTVALUESTATIC,
                                               "The priority of the edge",
@@ -1021,7 +1029,7 @@ GNEAttributeCarrier::fillNetworkElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SPREADTYPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUESTATIC,
-                                              "Lane width for all lanes of this edge in meters (used for visualization)",
+                                              "The spreadType defines how to compute the lane geometry from the edge geometry (used for visualization)",
                                               "right");
         attrProperty.setDiscreteValues(SUMOXMLDefinitions::LaneSpreadFunctions.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);

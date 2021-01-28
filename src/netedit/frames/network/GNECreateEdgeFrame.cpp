@@ -305,6 +305,8 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdResetEdgeType(FXObject*, FXSelector, 
         }
         // reset disallow (and allow)
         myDefaultEdgeType->setAttribute(SUMO_ATTR_DISALLOW, oc.getString("default.disallow"));
+        // reset spreadType
+        myDefaultEdgeType->setAttribute(SUMO_ATTR_SPREADTYPE, "right");
         // reset width
         myDefaultEdgeType->setAttribute(SUMO_ATTR_WIDTH, toString(NBEdge::UNSPECIFIED_WIDTH));
         // reset parameters
@@ -320,6 +322,8 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdResetEdgeType(FXObject*, FXSelector, 
         myEdgeTypeSelected->setAttribute(SUMO_ATTR_SPEED, toString(oc.getFloat("default.speed")), undoList);
         // reset disallow (and allow)
         myEdgeTypeSelected->setAttribute(SUMO_ATTR_DISALLOW, oc.getString("default.disallow"));
+        // reset spreadType
+        myEdgeTypeSelected->setAttribute(SUMO_ATTR_SPREADTYPE, "right");
         // reset width
         myEdgeTypeSelected->setAttribute(SUMO_ATTR_WIDTH, toString(NBEdge::UNSPECIFIED_WIDTH), undoList);
         // reset parameters
@@ -415,6 +419,8 @@ GNECreateEdgeFrame::EdgeTypeSelector::fillDefaultParameters() {
     myDefaultEdgeType->setAttribute(SUMO_ATTR_ALLOW, "all");
     // set disallow
     myDefaultEdgeType->setAttribute(SUMO_ATTR_DISALLOW, "");
+    // set spreadType
+    myDefaultEdgeType->setAttribute(SUMO_ATTR_SPREADTYPE, "");
     // set width
     myDefaultEdgeType->setAttribute(SUMO_ATTR_WIDTH, "-1.00");
     // set parameters
@@ -846,6 +852,15 @@ GNECreateEdgeFrame::EdgeTypeParameters::EdgeTypeParameters(GNECreateEdgeFrame* c
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myDisallowButton = new FXButton(horizontalFrameAttribute, toString(SUMO_ATTR_DISALLOW).c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myDisallow = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create combo box for spread type
+    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_SPREADTYPE).c_str(), nullptr, GUIDesignLabelAttribute);
+    mySpreadType = new FXComboBox(horizontalFrameAttribute, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+    // fill spreadType
+    mySpreadType->appendItem("right");
+    mySpreadType->appendItem("center");
+    mySpreadType->appendItem("roadCenter");
+    mySpreadType->setNumVisible(3);
     // create textField for width
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_WIDTH).c_str(), nullptr, GUIDesignLabelAttribute);
@@ -894,6 +909,7 @@ GNECreateEdgeFrame::EdgeTypeParameters::enableEdgeTypeParameters() {
     myAllow->enable();
     myDisallowButton->enable();
     myDisallow->enable();
+    mySpreadType->enable();
     myWidth->enable();
     myPriority->enable();
     myParameters->enable();
@@ -912,6 +928,7 @@ GNECreateEdgeFrame::EdgeTypeParameters::disableEdgeTypeParameters() {
     myAllow->disable();
     myDisallowButton->disable();
     myDisallow->disable();
+    mySpreadType->disable();
     myWidth->disable();
     myPriority->disable();
     myParameters->disable();
@@ -943,6 +960,15 @@ GNECreateEdgeFrame::EdgeTypeParameters::setEdgeType(GNEEdgeType* edgeType, bool 
     // set disallow
     myDisallow->setText(edgeType->getAttribute(SUMO_ATTR_DISALLOW).c_str(), FALSE);
     myDisallow->setTextColor(FXRGB(0, 0, 0));
+    // set spreadType
+    if (edgeType->getAttribute(SUMO_ATTR_SPREADTYPE) == "right") {
+        mySpreadType->setCurrentItem(0);
+    } else if (edgeType->getAttribute(SUMO_ATTR_SPREADTYPE) == "center") {
+        mySpreadType->setCurrentItem(1);
+    } else {
+        mySpreadType->setCurrentItem(2);
+    }
+    mySpreadType->setTextColor(FXRGB(0, 0, 0));
     // set width
     myWidth->setText(edgeType->getAttribute(SUMO_ATTR_WIDTH).c_str(), FALSE);
     myWidth->setTextColor(FXRGB(0, 0, 0));
@@ -971,18 +997,34 @@ GNECreateEdgeFrame::EdgeTypeParameters::setTemplateValues() {
         myHorizontalFrameID->show();
         // set numLanes
         myNumLanes->setText(templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_NUMLANES).c_str(), FALSE);
+        myNumLanes->setTextColor(FXRGB(0, 0, 0));
         // set speed
         mySpeed->setText(templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_SPEED).c_str(), FALSE);
+        mySpeed->setTextColor(FXRGB(0, 0, 0));
         // set allow
         myAllow->setText(templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_ALLOW).c_str(), FALSE);
+        myAllow->setTextColor(FXRGB(0, 0, 0));
         // set disallow
         myDisallow->setText(templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_DISALLOW).c_str(), FALSE);
+        myDisallow->setTextColor(FXRGB(0, 0, 0));
+        // set spreadType
+        if (templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_SPREADTYPE) == "right") {
+            mySpreadType->setCurrentItem(0);
+        } else if (templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_SPREADTYPE) == "center") {
+            mySpreadType->setCurrentItem(1);
+        } else {
+            mySpreadType->setCurrentItem(2);
+        }
+        mySpreadType->setTextColor(FXRGB(0, 0, 0));
         // set width
         myWidth->setText(templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_WIDTH).c_str(), FALSE);
+        myWidth->setTextColor(FXRGB(0, 0, 0));
         // set priority
         myPriority->setText(templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_PRIORITY).c_str(), FALSE);
+        myPriority->setTextColor(FXRGB(0, 0, 0));
         // set parameters
         myParameters->setText(templateEditor->getEdgeTemplate().edgeParameters.at(GNE_ATTR_PARAMETERS).c_str(), FALSE);
+        myParameters->setTextColor(FXRGB(0, 0, 0));
         // recalc frame
         recalc();
     } else {
@@ -1116,6 +1158,17 @@ GNECreateEdgeFrame::EdgeTypeParameters::setAttributeDefaultParameters(FXObject* 
         } else {
             myDisallow->setTextColor(FXRGB(255, 0, 0));
         }
+    } else if (obj == mySpreadType) {
+        // check if is valid
+        if (defaultEdgeType->isValid(SUMO_ATTR_SPREADTYPE, mySpreadType->getText().text())) {
+            // set attribute (Without undoList)
+            defaultEdgeType->setAttribute(SUMO_ATTR_SPREADTYPE, mySpreadType->getText().text());
+            // reset color
+            mySpreadType->setTextColor(FXRGB(0, 0, 0));
+            mySpreadType->killFocus();
+        } else {
+            mySpreadType->setTextColor(FXRGB(255, 0, 0));
+        }
     } else if (obj == myWidth) {
         // check if is valid
         if (defaultEdgeType->isValid(SUMO_ATTR_WIDTH, myWidth->getText().text())) {
@@ -1218,6 +1271,17 @@ GNECreateEdgeFrame::EdgeTypeParameters::setAttributeExistentEdgeType(FXObject* o
             myAllow->setText(edgeType->getAttribute(SUMO_ATTR_ALLOW).c_str(), FALSE);
         } else {
             myDisallow->setTextColor(FXRGB(255, 0, 0));
+        }
+    } else if (obj == mySpreadType) {
+        // check if is valid
+        if (edgeType->isValid(SUMO_ATTR_SPREADTYPE, mySpreadType->getText().text())) {
+            // set attribute
+            edgeType->setAttribute(SUMO_ATTR_SPREADTYPE, mySpreadType->getText().text(), undoList);
+            // reset color
+            mySpreadType->setTextColor(FXRGB(0, 0, 0));
+            mySpreadType->killFocus();
+        } else {
+            mySpreadType->setTextColor(FXRGB(255, 0, 0));
         }
     } else if (obj == myWidth) {
         // check if is valid
