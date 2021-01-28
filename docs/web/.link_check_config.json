@@ -1,0 +1,18 @@
+{
+  "replacementPatterns": [
+    {
+      "pattern": "{{Source}}",
+      "replacement": "https://github.com/eclipse/sumo/blob/master/"
+    }
+  ],
+  "ignorePatterns": [
+    {
+      "pattern": "{{Version}}"
+    }
+  ],
+  "timeout": "10s",
+  "retryOn429": true,
+  "retryCount": 3,
+  "fallbackRetryDelay": "30s",
+  "aliveStatusCodes": [200, 206]
+}

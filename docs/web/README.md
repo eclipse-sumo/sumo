@@ -23,6 +23,8 @@ Install MkDocs and some MkDocs plugins as well as plantuml:
 pip install -r requirements.txt
 ```
 
+On Linux, install **plantuml** via `sudo apt-get install plantuml`.
+
 To run the built-in development server, use:
 ```
 mkdocs serve

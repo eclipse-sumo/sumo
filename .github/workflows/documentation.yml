@@ -1,0 +1,56 @@
+name: documentation
+
+on:
+  schedule:
+  - cron: '0 0 * * *' # daily at 00:00 UTC
+
+jobs:
+  ############################
+  # BUILDING THE DOCUMENTATION
+  ############################
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Cloning repository
+        uses: actions/checkout@v2
+
+      - name: Installing plantuml
+        run: |
+          sudo apt-get install plantuml
+
+      - name: Configuring Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Installing pip packages
+        run: |
+          cd docs/web/
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Building documentation
+        run: |
+          cd docs/web/
+          mkdocs build
+
+
+  ############################
+  # CHECKING LINKS
+  ############################
+  link-check:
+     runs-on: ubuntu-latest
+     
+     steps:
+       - name: Cloning repository
+         uses: actions/checkout@v2
+
+       - name: Checking links in markdown files
+         uses: gaurav-nelson/github-action-markdown-link-check@v1
+         with:
+          config-file: 'docs/web/.link_check_config.json'
+          use-quiet-mode: 'yes'
+          use-verbose-mode: 'no'
+          folder-path: 'docs/web/docs/'
+         continue-on-error: true # prevent Action from failing due to dead links - disable when all links have been repaired
