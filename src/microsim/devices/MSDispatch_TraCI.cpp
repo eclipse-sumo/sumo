@@ -69,10 +69,14 @@ MSDispatch_TraCI::interpretDispatch(MSDevice_Taxi* taxi, const std::vector<std::
             throw InvalidArgument("Reservation id '" + resID + "' is not known");
         }
     }
-    if (reservations.size() == 1) {
-        taxi->dispatch(*reservations.front());
-    } else {
-        taxi->dispatchShared(reservations);
+    try {
+        if (reservations.size() == 1) {
+            taxi->dispatch(*reservations.front());
+        } else {
+            taxi->dispatchShared(reservations);
+        }
+    } catch (ProcessError& e) {
+        throw InvalidArgument(e.what());
     }
     // in case of ride sharing the same reservation may occur multiple times
     std::set<const Reservation*> unique(reservations.begin(), reservations.end());
