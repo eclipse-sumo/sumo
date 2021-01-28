@@ -1041,8 +1041,17 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
             // edge values wasn't calculated, then return false
             return false;
         } else {
-            // calculate shape offset
-            const double shapeOffset = myViewNet->myObjectsUnderCursor.getEdgeFront()->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation());
+            double shapeOffset = -1;
+            if (myViewNet->myObjectsUnderCursor.getEdgeFront()->clickedOverShapeStart(myViewNet->getPositionInformation())) {
+                // move shape start
+                shapeOffset = 0;
+            } else if (myViewNet->myObjectsUnderCursor.getEdgeFront()->clickedOverShapeEnd(myViewNet->getPositionInformation())) {
+                // move shape end
+                shapeOffset = myViewNet->myObjectsUnderCursor.getEdgeFront()->getNBEdge()->getGeometry().length2D();
+            } else {
+                // calculate shape offset
+                shapeOffset = myViewNet->myObjectsUnderCursor.getEdgeFront()->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation());
+            }
             // get move operation
             GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getEdgeFront()->getMoveOperation(shapeOffset);
             // continue if move operation is valid
