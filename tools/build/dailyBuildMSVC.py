@@ -208,20 +208,23 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                         zipf.writestr(f, srcZip.read(f))
                 srcZip.close()
                 for ext in ("*.exe", "*.dll", "*.lib", "*.exp", "*.jar"):
-                    for f in sorted(glob.glob(os.path.join(options.rootDir, options.binDir, ext))):
-                        base = os.path.basename(f)
-                        nameInZip = os.path.join(binDir, base)
+                    filelist = glob.glob(os.path.join(options.rootDir, options.binDir, ext))
+                    if ext == "*.dll":
                         # filter debug dlls
-                        if ((nameInZip[-5:] in ("d.dll", "D.dll") and nameInZip[:-5] + ".dll" in zipf.namelist()) or
-                            (nameInZip[-6:] in ("-d.dll", "-D.dll", "_d.dll", "_D.dll") and nameInZip[:-6] + ".dll" in zipf.namelist()) or
-                            base == "FOXDLLD-1.6.dll"):
-                            write = False
-                        elif ext == "*.exe":
-                            write = any([base.startswith(b) for b in BINARIES])
-                        else:
-                            write = True
-                        if write:
-                            zipf.write(f, nameInZip)
+                        baselist = [os.path.basename(d) for d in filelist]
+                        filtered = []
+                        for idx, dll in enumerate(baselist):
+                            keep = dll != "FOXDLLD-1.6.dll"
+                            for suffix in ("d.dll", "D.dll", "-d.dll", "-D.dll", "_d.dll", "_D.dll"):
+                                if dll.endswith(suffix) and dll[:-len(suffix)] + ".dll" in baselist:
+                                    keep = False
+                                    break
+                            if keep:
+                                filtered.append(filelist[idx])
+                        filelist = filtered
+                    for f in filelist:
+                        if ext != "*.exe" or any([os.path.basename(f).startswith(b) for b in BINARIES]):
+                            zipf.write(f, os.path.join(binDir, os.path.basename(f)))
                 srcDir = os.path.join(options.rootDir, options.binDir.replace("bin", "src"))
                 includeDir = binDir.replace("bin", "include")
                 status.printLog("Creating sumo.zip.", log)
