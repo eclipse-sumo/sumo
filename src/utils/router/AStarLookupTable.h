@@ -22,6 +22,9 @@
 
 #include <iostream>
 #include <fstream>
+#ifdef HAVE_ZLIB
+#include <foreign/zstr/zstr.hpp>
+#endif
 #ifdef HAVE_FOX
 #include <utils/foxtools/FXWorkerThread.h>
 #endif
@@ -110,7 +113,11 @@ public:
                 numericID[e->getID()] = e->getNumericalID() - myFirstNonInternal;
             }
         }
+#ifdef HAVE_ZLIB
+        zstr::ifstream strm(filename.c_str(), std::fstream::in | std::fstream::binary);
+#else
         std::ifstream strm(filename.c_str());
+#endif
         if (!strm.good()) {
             throw ProcessError("Could not load landmark-lookup-table from '" + filename + "'.");
         }
