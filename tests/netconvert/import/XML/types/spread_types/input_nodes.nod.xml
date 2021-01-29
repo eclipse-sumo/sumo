@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 29.01.2021 08:48:17 by Eclipse SUMO netedit Version v1_8_0+0812-2cfa058279
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <output>
+        <plain-output-prefix value="D:\DirectoryName\test"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="-10.00,40.00,60.00,80.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <node id="gneJ0" x="0.00" y="60.00" type="priority"/>
+    <node id="gneJ1" x="50.00" y="60.00" type="priority"/>
+    <node id="gneJ2" x="0.00" y="40.00" type="priority"/>
+    <node id="gneJ3" x="50.00" y="40.00" type="priority"/>
+    <node id="gneJ4" x="0.00" y="80.00" type="priority"/>
+    <node id="gneJ5" x="50.00" y="80.00" type="priority"/>
+    <node id="gneJ6" x="-10.00" y="70.00" type="priority"/>
+    <node id="gneJ7" x="-10.00" y="50.00" type="priority"/>
+    <node id="gneJ8" x="60.00" y="70.00" type="priority"/>
+    <node id="gneJ9" x="60.00" y="50.00" type="priority"/>
+</nodes>
