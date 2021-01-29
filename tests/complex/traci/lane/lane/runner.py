@@ -83,6 +83,7 @@ traci.lane.subscribe(laneID)
 print(traci.lane.getSubscriptionResults(laneID))
 for step in range(3, 6):
     print("step", step)
+    print("pending 2fi_0:", traci.lane.getPendingVehicles("2fi_0"))
     traci.simulationStep()
     print(traci.lane.getSubscriptionResults(laneID))
 traci.close()

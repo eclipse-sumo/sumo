@@ -39,8 +39,11 @@ after setLength 123.0
 foes ('4si_1',)
 {16: 1}
 step 3
-{16: 1}
+pending 2fi_0: ('horiz2',)
+{16: 2}
 step 4
-{16: 1}
+pending 2fi_0: ()
+{16: 2}
 step 5
-{16: 1}
+pending 2fi_0: ()
+{16: 2}
