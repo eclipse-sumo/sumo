@@ -24,6 +24,9 @@ distance (referred to as a **length-geometry-mismtach**) are there are several r
 
 [sumo-gui](../sumo-gui.md/#edgelane_visualisation_settings) and [netedit](../netedit.md) can be configured to color lanes by ''by given length/geometrical length'' which highlights the mismatch between both distance values.
 
+## Short Lanes
+Lanes with a geometrical length of 0 have an assigned minimum length of 0.1m.
+
 ## Lane curvature
 By design, all lanes of an edge are assigned the same length value (corresponding to driving distance and maximum lanePosition).
 For curved edges, this introduces a mismatch between geometrical length and driving distance because outer
