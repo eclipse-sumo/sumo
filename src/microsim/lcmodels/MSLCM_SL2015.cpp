@@ -1802,7 +1802,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                 latDistSublane = sublaneSides[sublaneCompact] - rightVehSide;
                 break;
             case LATALIGN_ARBITRARY:
-                latDistSublane = getLateralDrift();
+                latDistSublane = myVehicle.getLateralPositionOnLane() - getPosLat();
                 break;
         }
     }
