@@ -264,6 +264,7 @@ Edge::getStreetName(const std::string& edgeID) {
 
 const std::vector<std::string>
 Edge::getPendingVehicles(const std::string& edgeID) {
+    getEdge(edgeID); // validate edgeID
     std::vector<std::string> vehIDs;
     for (const SUMOVehicle* veh : MSNet::getInstance()->getInsertionControl().getPendingVehicles()) {
         if (veh->getEdge()->getID() == edgeID) {

@@ -29,6 +29,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLink.h>
+#include <microsim/MSInsertionControl.h>
 #include <libsumo/TraCIConstants.h>
 #include "Lane.h"
 
@@ -300,6 +301,18 @@ Lane::getInternalFoes(const std::string& laneID) {
 }
 
 
+const std::vector<std::string>
+Lane::getPendingVehicles(const std::string& laneID) {
+    getLane(laneID); // validate laneID
+    std::vector<std::string> vehIDs;
+    for (const SUMOVehicle* veh : MSNet::getInstance()->getInsertionControl().getPendingVehicles()) {
+        if (veh->getLane() != nullptr && veh->getLane()->getID() == laneID) {
+            vehIDs.push_back(veh->getID());
+        }
+    }
+    return vehIDs;
+}
+
 void
 Lane::setAllowed(std::string laneID, std::string allowedClass) {
     setAllowed(laneID, std::vector<std::string>({allowedClass}));
@@ -438,6 +451,8 @@ Lane::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapDouble(objID, variable, getWidth(objID));
         case VAR_SHAPE:
             return wrapper->wrapPositionVector(objID, variable, getShape(objID));
+        case VAR_PENDING_VEHICLES:
+            return wrapper->wrapStringList(objID, variable, getPendingVehicles(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

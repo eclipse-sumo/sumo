@@ -256,6 +256,13 @@ class LaneDomain(Domain):
         """
         return self.getFoes(laneID, "")
 
+    def getPendingVehicles(self, laneID):
+        """getPendingVehicles(string) -> list(string)
+        Returns a list of all vehicle ids waiting for insertion on this lane (with depart delay)
+        """
+        return self._getUniversal(tc.VAR_PENDING_VEHICLES, laneID)
+
+
     def setAllowed(self, laneID, allowedClasses):
         """setAllowed(string, list) -> None
 

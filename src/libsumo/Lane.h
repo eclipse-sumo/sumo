@@ -73,6 +73,7 @@ public:
     static std::vector<std::string> getLastStepVehicleIDs(std::string laneID);
     static std::vector<std::string> getFoes(const std::string& laneID, const std::string& toLaneID);
     static std::vector<std::string> getInternalFoes(const std::string& laneID);
+    static const std::vector<std::string> getPendingVehicles(const std::string& laneID);
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
