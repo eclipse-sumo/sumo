@@ -37,16 +37,15 @@ class OptionsCont;
 // ===========================================================================
 /**
 * @class NBParking
-* @brief The representation of a single pt stop
+* @brief The representation of an imported parking area
 */
 class NBParking : public Named {
 
 public:
     /**@brief Constructor
-    * @param[in] id The id of the pt stop
-    * @param[in] position The position of the pt stop
-    * @param[in] edgeId The edge id of the pt stop
-    * @param[in] length The length of the pt stop
+    * @param[in] id The id of the parking area
+    * @param[in] edgeId The edge id of the parking area
+    * @param[in] name The optional verbose description of the parking area
     */
     NBParking(const std::string& id, const std::string& edgeID, const std::string& name = "");
 
