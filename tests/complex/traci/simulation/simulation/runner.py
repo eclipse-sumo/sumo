@@ -75,6 +75,7 @@ print(traci.simulation.getSubscriptionResults())
 for step in range(6):
     print("step", step)
     traci.simulationStep()
+    print("pendingVehicles", traci.simulation.getPendingVehicles())
     print(traci.simulation.getSubscriptionResults())
 checkVehicleStates()
 print("deltaT", traci.simulation.getDeltaT())
