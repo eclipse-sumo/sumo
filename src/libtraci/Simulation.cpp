@@ -297,6 +297,11 @@ Simulation::getBusStopWaitingIDList(const std::string& stopID) {
 }
 
 
+std::vector<std::string>
+Simulation::getPendingVehicles() {
+    return Dom::getStringVector(libsumo::VAR_PENDING_VEHICLES, "");
+}
+
 std::vector<libsumo::TraCICollision>
 Simulation::getCollisions() {
     std::vector<libsumo::TraCICollision> result;

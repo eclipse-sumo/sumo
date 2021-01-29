@@ -1181,6 +1181,9 @@ TRACI_CONST int VAR_EMERGENCYSTOPPING_VEHICLES_IDS = 0x8a;
 // clears the simulation of all not inserted vehicles (set: simulation)
 TRACI_CONST int CMD_CLEAR_PENDING_VEHICLES = 0x94;
 
+// retrieve number of not inserted  vehicles (get: simulation, edge, lane)
+TRACI_CONST int VAR_PENDING_VEHICLES = 0x94;
+
 // triggers saving simulation state (set: simulation)
 TRACI_CONST int CMD_SAVE_SIMSTATE = 0x95;
 

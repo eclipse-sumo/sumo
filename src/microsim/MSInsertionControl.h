@@ -118,6 +118,10 @@ public:
      */
     int getWaitingVehicleNo() const;
 
+    /// @brief retrieve vehicles waiting for insertion
+    const MSVehicleContainer::VehicleVector& getPendingVehicles() const {
+        return myPendingEmits;
+    }
 
     /** @brief Returns the number of flows that are still active
      *

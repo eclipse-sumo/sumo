@@ -323,6 +323,17 @@ Simulation::getBusStopWaitingIDList(const std::string& stopID) {
     return result;
 }
 
+
+std::vector<std::string>
+Simulation::getPendingVehicles() {
+    std::vector<std::string> result;
+    for (const SUMOVehicle* veh : MSNet::getInstance()->getInsertionControl().getPendingVehicles()) {
+        result.push_back(veh->getID());
+    }
+    return result;
+}
+
+
 std::vector<libsumo::TraCICollision>
 Simulation::getCollisions() {
     std::vector<libsumo::TraCICollision> result;
@@ -827,6 +838,8 @@ Simulation::handleVariable(const std::string& objID, const int variable, Variabl
             return wrapper->wrapInt(objID, variable, getBusStopWaiting(objID));
         case VAR_BUS_STOP_WAITING_IDS:
             return wrapper->wrapStringList(objID, variable, getBusStopWaitingIDList(objID));
+        case VAR_PENDING_VEHICLES:
+            return wrapper->wrapStringList(objID, variable, getPendingVehicles());
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

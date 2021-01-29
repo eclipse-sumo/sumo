@@ -100,6 +100,7 @@ public:
     /** @brief Returns the IDs of the transportables on a given bus stop.
      */
     static std::vector<std::string> getBusStopWaitingIDList(const std::string& stopID);
+    static std::vector<std::string> getPendingVehicles();
 
     static std::vector<libsumo::TraCICollision> getCollisions();
 

@@ -399,6 +399,12 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_COLLISIONS)
 
+    def getPendingVehicles(self):
+        """getPendingVehicles() -> list(string)
+        Returns a list of all vehicle ids waiting for insertion (with depart delay)
+        """
+        return self._getUniversal(tc.VAR_PENDING_VEHICLES)
+
     def getDeltaT(self):
         """getDeltaT() -> double
         Returns the length of one simulation step in seconds
