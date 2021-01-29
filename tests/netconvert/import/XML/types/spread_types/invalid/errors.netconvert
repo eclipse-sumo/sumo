@@ -1,0 +1,9 @@
+Error: Attribute 'spreadType' in definition of type 'a' is empty.
+Error: Invalid lane spread type 'dummy'.
+Error: Type 'a' used by edge 'A1' was not defined (ignore with option --ignore-errors.edge-type).
+Error: Type 'a' used by edge 'A2' was not defined (ignore with option --ignore-errors.edge-type).
+Error: Type 'b' used by edge 'B1' was not defined (ignore with option --ignore-errors.edge-type).
+Error: Type 'b' used by edge 'B2' was not defined (ignore with option --ignore-errors.edge-type).
+Error: Type 'c' used by edge 'C1' was not defined (ignore with option --ignore-errors.edge-type).
+Error: 6 total messages of type: Type '%' used by edge '%' was not defined (ignore with option --ignore-errors.edge-type).
+Quitting (on error).
