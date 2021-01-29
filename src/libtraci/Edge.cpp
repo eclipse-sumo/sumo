@@ -176,6 +176,10 @@ Edge::getStreetName(const std::string& edgeID) {
     return Dom::getString(libsumo::VAR_NAME, edgeID);
 }
 
+const std::vector<std::string>
+Edge::getPendingVehicles(const std::string& edgeID) {
+    return Dom::getStringVector(libsumo::VAR_PENDING_VEHICLES, edgeID);
+}
 
 LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(Edge, EDGE)
 LIBTRACI_PARAMETER_IMPLEMENTATION(Edge, EDGE)

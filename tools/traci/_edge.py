@@ -180,6 +180,12 @@ class EdgeDomain(Domain):
         """
         return self._getUniversal(tc.LAST_STEP_PERSON_ID_LIST, edgeID)
 
+    def getPendingVehicles(self, edgeID):
+        """getPendingVehicles(string) -> list(string)
+        Returns a list of all vehicle ids waiting for insertion on this edge (with depart delay)
+        """
+        return self._getUniversal(tc.VAR_PENDING_VEHICLES, edgeID)
+
     def adaptTraveltime(self, edgeID, time, begin=None, end=None):
         """adaptTraveltime(string, double, double, double) -> None
 

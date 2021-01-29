@@ -24,6 +24,7 @@
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSInsertionControl.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/TraCIConstants.h>
 #include <utils/emissions/HelpersHarmonoise.h>
@@ -261,6 +262,17 @@ Edge::getStreetName(const std::string& edgeID) {
 }
 
 
+const std::vector<std::string>
+Edge::getPendingVehicles(const std::string& edgeID) {
+    std::vector<std::string> vehIDs;
+    for (const SUMOVehicle* veh : MSNet::getInstance()->getInsertionControl().getPendingVehicles()) {
+        if (veh->getEdge()->getID() == edgeID) {
+            vehIDs.push_back(veh->getID());
+        }
+    }
+    return vehIDs;
+}
+
 std::string
 Edge::getParameter(const std::string& edgeID, const std::string& param) {
     return getEdge(edgeID)->getParameter(param, "");
@@ -388,6 +400,8 @@ Edge::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapInt(objID, variable, getLaneNumber(objID));
         case VAR_NAME:
             return wrapper->wrapString(objID, variable, getStreetName(objID));
+        case VAR_PENDING_VEHICLES:
+            return wrapper->wrapStringList(objID, variable, getPendingVehicles(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

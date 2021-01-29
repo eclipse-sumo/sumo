@@ -68,6 +68,7 @@ public:
     static double getLastStepLength(const std::string& edgeID);
     static int getLaneNumber(const std::string& edgeID);
     static std::string getStreetName(const std::string& edgeID);
+    static const std::vector<std::string> getPendingVehicles(const std::string& edgeID);
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
