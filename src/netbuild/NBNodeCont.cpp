@@ -453,7 +453,7 @@ NBNodeCont::removeRailComponents(NBDistrictCont& dc, NBEdgeCont& ec, NBPTStopCon
 
 int
 NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
-                                NBTrafficLightLogicCont& tlc, NBPTStopCont& sc, NBPTLineCont& lc,
+                                NBTrafficLightLogicCont& tlc, NBPTStopCont& sc,
                                 NBParkingCont& pc,
                                 bool removeGeometryNodes) {
     // load edges that shall not be modified
@@ -467,8 +467,8 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
             const std::vector<std::string> edges = oc.getStringVector("geometry.remove.keep-edges.explicit");
             edges2keep.insert(edges.begin(), edges.end());
         }
-        sc.addEdges2Keep(oc, edges2keep);
-        UNUSED_PARAMETER(lc); // no need to keep all route edges. They are validated again before writing
+        // no need to keep pt stop edges, they are remapped later
+        // no need to keep all pt route edges. They are validated again before writing
         pc.addEdges2Keep(oc, edges2keep);
     }
     int no = 0;
@@ -512,6 +512,7 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
             begin->append(continuation);
             continuation->getToNode()->replaceIncoming(continuation, begin, 0);
             tlc.replaceRemoved(continuation, -1, begin, -1, true);
+            sc.replaceEdge(continuation->getID(), { begin });
             ec.extract(dc, continuation, true);
         }
         toRemove.push_back(current);

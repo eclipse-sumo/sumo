@@ -223,12 +223,13 @@ public:
      * @param[in, opt. changed] dc The district container needed if a node shall be removed
      * @param[in, opt. changed] ec The edge container needed for joining edges
      * @param[in, opt. changed] tlc The traffic lights container to remove nodes from
+     * @param[in, opt. changed] sc The pt stops container to update stop edges
+     * @param[in, opt. changed] pc The pt stops container to update stop edges
      * @param[in] removeGeometryNodes Whether geometry nodes shall also be removed
      * @return The number of removed nodes
      */
     int removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc,
-                            NBPTStopCont& sc, NBPTLineCont& lc,
-                            NBParkingCont& pc,
+                            NBPTStopCont& sc, NBParkingCont& pc,
                             bool removeGeometryNodes);
     /// @}
 
