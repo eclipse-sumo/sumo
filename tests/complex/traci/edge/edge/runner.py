@@ -103,5 +103,6 @@ for step in range(10):
         traci.edge.getLastStepVehicleNumber("3si"),
         traci.edge.getLastStepMeanSpeed("3si"),
         traci.edge.getTraveltime("3si")))
+    print("pending", traci.edge.getPendingVehicles("3si"))
 
 traci.close()
