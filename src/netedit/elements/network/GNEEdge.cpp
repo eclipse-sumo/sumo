@@ -794,7 +794,7 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_SHAPE:
             return toString(myNBEdge->getInnerGeometry());
         case SUMO_ATTR_SPREADTYPE:
-            return toString(myNBEdge->getLaneSpreadFunction());
+            return SUMOXMLDefinitions::LaneSpreadFunctions.getString(myNBEdge->getLaneSpreadFunction());
         case SUMO_ATTR_NAME:
             return myNBEdge->getStreetName();
         case SUMO_ATTR_ALLOW:
