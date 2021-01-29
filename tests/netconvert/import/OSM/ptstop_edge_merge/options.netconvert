@@ -1,0 +1,3 @@
+--osm-files osm.xml.gz
+--geometry.remove --geometry.remove.min-length 50
+--ptstop-output additional.xml

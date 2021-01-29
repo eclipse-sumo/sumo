@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Jan 29 10:49:11 2021 by Eclipse SUMO netconvert Version v1_8_0+0817-ed835c6cb1
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <geometry.remove value="true"/>
+        <geometry.remove.min-length value="50"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-1234643950" name="Friedrich-Engels-Straße" lane="-111677669#1_0" startPos="1.96" endPos="26.96" friendlyPos="true"/>
+    <busStop id="-1242393624" name="Gesundheitszentrum" lane="-24337240#0_0" startPos="71.39" endPos="86.39" friendlyPos="true"/>
+    <busStop id="-1242393807" name="Gesundheitszentrum" lane="-24337240#0_0" startPos="54.74" endPos="69.74" friendlyPos="true"/>
+    <busStop id="-1242393953" name="Volkshaus" lane="-803012921#4_0" startPos="8.02" endPos="33.02" friendlyPos="true"/>
+    <busStop id="-3822420839" name="S Wildau" lane="-814303496#0_0" startPos="14.36" endPos="32.72" friendlyPos="true"/>
+    <busStop id="-429939397" name="Wildau, Eichstraße" lane="-835443464_0" startPos="20.55" endPos="35.55" friendlyPos="true"/>
+    <busStop id="-7797286570" name="Hochschulring" lane="-240042195#2_0" startPos="15.91" endPos="30.84" friendlyPos="true"/>
+    <busStop id="-7797294953" name="Wildau, Schmiedestraße" lane="-4929432#0_0" startPos="74.73" endPos="82.23" friendlyPos="true"/>
+    <busStop id="1234643898" name="Friedrich-Engels-Straße" lane="111677669#1_0" startPos="2.37" endPos="27.37" friendlyPos="true"/>
+    <busStop id="1242393624" name="Gesundheitszentrum" lane="24337240#0_0" startPos="96.74" endPos="111.74" friendlyPos="true"/>
+    <busStop id="1242393807" name="Gesundheitszentrum" lane="24337240#0_0" startPos="113.51" endPos="128.51" friendlyPos="true"/>
+    <busStop id="2609440759" name="S Wildau" lane="255228348_0" startPos="150.24" endPos="169.16" friendlyPos="true">
+        <access lane="-96687079#0_0" pos="30.98" length="32.76" friendlyPos="1"/>
+        <access lane="61902759#0_0" pos="4.31" length="47.37" friendlyPos="1"/>
+        <access lane="61902759#1_0" pos="6.23" length="42.32" friendlyPos="1"/>
+        <access lane="61902797#0_0" pos="0.00" length="49.23" friendlyPos="1"/>
+        <access lane="96687079#0_0" pos="33.97" length="37.56" friendlyPos="1"/>
+    </busStop>
+    <busStop id="295276561" name="Volkshaus" lane="803012921#4_0" startPos="0.95" endPos="25.95" friendlyPos="true"/>
+    <busStop id="3822420838" name="S Wildau" lane="814303496#7_0" startPos="0.00" endPos="6.67" friendlyPos="true"/>
+    <busStop id="3822425187" name="S Wildau" lane="61902797#1_0" startPos="0.70" endPos="18.79" friendlyPos="true"/>
+    <busStop id="428356215" name="S Wildau" lane="255228348_0" startPos="295.93" endPos="314.30" friendlyPos="true">
+        <access lane="-36269567_0" pos="50.55" length="58.30" friendlyPos="1"/>
+        <access lane="36269567_0" pos="32.68" length="53.50" friendlyPos="1"/>
+        <access lane="69421989_0" pos="4.54" length="55.76" friendlyPos="1"/>
+        <access lane="69421990#1_0" pos="7.68" length="65.13" friendlyPos="1"/>
+        <access lane="69421990#2_0" pos="15.68" length="46.14" friendlyPos="1"/>
+    </busStop>
+    <busStop id="429939397" name="Wildau, Eichstraße" lane="835443464_0" startPos="19.07" endPos="34.07" friendlyPos="true"/>
+    <busStop id="7797286567" name="Hochschulring" lane="240042195#2_0" startPos="127.64" endPos="142.56" friendlyPos="true"/>
+    <busStop id="7797294953" name="Wildau, Schmiedestraße" lane="4929432#0_0" startPos="0.00" endPos="7.50" friendlyPos="true"/>
+</additional>

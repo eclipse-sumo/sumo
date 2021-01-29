@@ -13,6 +13,9 @@ duplicate_lines
 # mport ptlines and handle network modification options
 ptline_network_modification
 
+# import ptstops and map them to a merged edge
+ptstop_edge_merge
+
 # direction of bus stops imported (guessed) correctly
 bus_stop_direction_no_platforms
 
