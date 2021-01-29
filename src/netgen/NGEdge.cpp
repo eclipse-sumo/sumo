@@ -81,7 +81,7 @@ NGEdge::buildNBEdge(NBNetBuilder& nb, const std::string& type) const {
         nb.getNodeCont().retrieve(myEndNode->getID()), // to
         type, nb.getTypeCont().getEdgeTypeSpeed(type), lanenumber,
         priority, nb.getTypeCont().getEdgeTypeWidth(type), NBEdge::UNSPECIFIED_OFFSET,
-        "", lsf);
+        lsf, "");
     result->setPermissions(permissions);
     return result;
 }

@@ -155,7 +155,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                                ed->type, ed->maxSpeed,
                                (int) ed->lanes.size(),
                                ed->priority, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
-                               ed->shape, ed->streetName, "", ed->lsf, true); // always use tryIgnoreNodePositions to keep original shape
+                               ed->shape, ed->lsf, ed->streetName, "", true); // always use tryIgnoreNodePositions to keep original shape
         e->setLoadedLength(ed->length);
         e->updateParameters(ed->getParametersMap());
         e->setDistance(ed->distance);

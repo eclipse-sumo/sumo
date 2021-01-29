@@ -527,8 +527,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         if (addForward) {
             assert(numLanesForward > 0);
             NBEdge* nbe = new NBEdge(id, from, to, type, speed, numLanesForward, tc.getEdgeTypePriority(type),
-                                     forwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape,
-                                     StringUtils::escapeXML(streetName), origID, lsf, true);
+                                     forwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape, lsf,
+                                     StringUtils::escapeXML(streetName), origID, true);
             nbe->setPermissions(forwardPermissions);
             if ((e->myBuswayType & WAY_FORWARD) != 0) {
                 nbe->setPermissions(SVC_BUS, 0);
@@ -552,8 +552,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         if (addBackward) {
             assert(numLanesBackward > 0);
             NBEdge* nbe = new NBEdge(reverseID, to, from, type, speedBackward, numLanesBackward, tc.getEdgeTypePriority(type),
-                                     backwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(),
-                                     StringUtils::escapeXML(streetName), origID, lsf, true);
+                                     backwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), lsf,
+                                     StringUtils::escapeXML(streetName), origID, true);
             nbe->setPermissions(backwardPermissions);
             if ((e->myBuswayType & WAY_BACKWARD) != 0) {
                 nbe->setPermissions(SVC_BUS, 0);

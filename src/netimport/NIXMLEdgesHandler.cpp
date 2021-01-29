@@ -311,11 +311,11 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         if (myShape.size() == 0) {
             myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
                                        myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentEndOffset,
-                                       myCurrentStreetName, myLanesSpread);
+                                       myLanesSpread, myCurrentStreetName);
         } else {
             myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
                                        myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentEndOffset,
-                                       myShape, myCurrentStreetName, "", myLanesSpread,
+                                       myShape, myLanesSpread, myCurrentStreetName, "",
                                        myKeepEdgeShape);
         }
     }

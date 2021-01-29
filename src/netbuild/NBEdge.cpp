@@ -275,8 +275,7 @@ NBEdge::connections_relative_edgelane_sorter::operator()(const Connection& c1, c
 NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
                std::string type, double speed, int nolanes,
                int priority, double laneWidth, double endOffset,
-               const std::string& streetName,
-               LaneSpreadFunction spread) :
+               LaneSpreadFunction spread, const std::string& streetName) :
     Named(StringUtils::convertUmlaute(id)),
     myStep(EdgeBuildingStep::INIT),
     myType(StringUtils::convertUmlaute(type)),
@@ -305,9 +304,10 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
                std::string type, double speed, int nolanes,
                int priority, double laneWidth, double endOffset,
                PositionVector geom,
+               LaneSpreadFunction spread,
                const std::string& streetName,
                const std::string& origID,
-               LaneSpreadFunction spread, bool tryIgnoreNodePositions) :
+               bool tryIgnoreNodePositions) :
     Named(StringUtils::convertUmlaute(id)),
     myStep(EdgeBuildingStep::INIT),
     myType(StringUtils::convertUmlaute(type)),
@@ -908,6 +908,12 @@ NBEdge::getLaneShape(int i) const {
 void
 NBEdge::setLaneSpreadFunction(LaneSpreadFunction spread) {
     myLaneSpreadFunction = spread;
+}
+
+
+LaneSpreadFunction 
+NBEdge::getLaneSpreadFunction() const {
+    return myLaneSpreadFunction;
 }
 
 

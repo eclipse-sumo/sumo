@@ -228,7 +228,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
                 NBEdge* source =
                     new NBEdge(id, districtNode, parkingPlace,
                                "Connection", c->getMeanSpeed(/*distc*/) / (double) 3.6, 3, -1,
-                               NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET);
+                               NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, LaneSpreadFunction::RIGHT);
                 if (!ec.insert(source)) { // !!! in den Konstruktor
                     throw 1; // !!!
                 }
@@ -245,7 +245,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
                 NBEdge* destination =
                     new NBEdge(id, parkingPlace, districtNode,
                                "Connection", (double) 100 / (double) 3.6, 2, -1,
-                               NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET);
+                               NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, LaneSpreadFunction::RIGHT);
                 if (!ec.insert(destination)) { // !!! (in den Konstruktor)
                     throw 1; // !!!
                 }

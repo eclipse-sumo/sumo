@@ -381,8 +381,8 @@ public:
      * @param[in] priority This edge's priority
      * @param[in] width This edge's lane width
      * @param[in] endOffset Additional offset to the destination node
-     * @param[in] streetName The street name (need not be unique)
      * @param[in] spread How the lateral offset of the lanes shall be computed
+     * @param[in] streetName The street name (need not be unique)
      * @see init
      * @see LaneSpreadFunction
      */
@@ -390,8 +390,8 @@ public:
            NBNode* from, NBNode* to, std::string type,
            double speed, int nolanes, int priority,
            double width, double endOffset,
-           const std::string& streetName = "",
-           LaneSpreadFunction spread = LaneSpreadFunction::RIGHT);
+           LaneSpreadFunction spread,
+           const std::string& streetName = "");
 
 
     /** @brief Constructor
@@ -408,21 +408,21 @@ public:
      * @param[in] width This edge's lane width
      * @param[in] endOffset Additional offset to the destination node
      * @param[in] geom The edge's geomatry
+     * @param[in] spread How the lateral offset of the lanes shall be computed
      * @param[in] streetName The street name (need not be unique)
      * @param[in] origID The original ID in the source network (need not be unique)
      * @param[in] spread How the lateral offset of the lanes shall be computed
      * @param[in] tryIgnoreNodePositions Does not add node geometries if geom.size()>=2
      * @see init
-     * @see LaneSpreadFunction
      */
     NBEdge(const std::string& id,
            NBNode* from, NBNode* to, std::string type,
            double speed, int nolanes, int priority,
            double width, double endOffset,
            PositionVector geom,
+           LaneSpreadFunction spread,
            const std::string& streetName = "",
            const std::string& origID = "",
-           LaneSpreadFunction spread = LaneSpreadFunction::RIGHT,
            bool tryIgnoreNodePositions = false);
 
     /** @brief Constructor
@@ -466,7 +466,7 @@ public:
                 double speed, int nolanes, int priority,
                 PositionVector geom, double width, double endOffset,
                 const std::string& streetName,
-                LaneSpreadFunction spread = LaneSpreadFunction::RIGHT,
+                LaneSpreadFunction spread,
                 bool tryIgnoreNodePositions = false);
 
     /** @brief Resets nodes but keeps all other values the same (used when joining)
@@ -806,9 +806,7 @@ public:
      * @return The type of lateral offset that is applied on this edge
      * @see LaneSpreadFunction
      */
-    LaneSpreadFunction getLaneSpreadFunction() const {
-        return myLaneSpreadFunction;
-    }
+    LaneSpreadFunction getLaneSpreadFunction() const;
 
     /** @brief Removes points with a distance lesser than the given
      * @param[in] minDist The minimum distance between two position to keep the second
@@ -1186,9 +1184,6 @@ public:
     /// @brief clears tlID for all connections
     void clearControllingTLInformation();
 
-    /// @brief add crossing points as incoming with given outgoing
-    void addCrossingPointsAsIncomingWithGivenOutgoing(NBEdge* o, PositionVector& into);
-
     /// @brief get the outer boundary of this edge when going clock-wise around the given node
     PositionVector getCWBoundaryLine(const NBNode& n) const;
 
@@ -1330,9 +1325,6 @@ public:
     void setDistance(double distance) {
         myDistance = distance;
     }
-
-    /// @brief disable connections for TLS
-    void disableConnection4TLS(int fromLane, NBEdge* toEdge, int toLane);
 
     // @brief returns a reference to the internal structure for the convenience of NETEDIT
     Lane& getLaneStruct(int lane) {
@@ -1483,10 +1475,10 @@ private:
 
     private:
         /// @brief Invalidated copy constructor.
-        ToEdgeConnectionsAdder(const ToEdgeConnectionsAdder&);
+        ToEdgeConnectionsAdder(const ToEdgeConnectionsAdder&) = delete;
 
         /// @brief Invalidated assignment operator.
-        ToEdgeConnectionsAdder& operator=(const ToEdgeConnectionsAdder&);
+        ToEdgeConnectionsAdder& operator=(const ToEdgeConnectionsAdder&) = delete;
     };
 
 
@@ -1532,10 +1524,10 @@ private:
         std::vector<Direction> myDirs;
 
         /// @brief Invalidated copy constructor.
-        MainDirections(const MainDirections&);
+        MainDirections(const MainDirections&) = delete;
 
         /// @brief Invalidated assignment operator.
-        MainDirections& operator=(const MainDirections&);
+        MainDirections& operator=(const MainDirections&) = delete;
     };
 
     /// @brief Computes the shape for the given lane
@@ -1746,7 +1738,7 @@ public:
 
     private:
         /// @brief invalidated assignment operator
-        connections_toedge_finder& operator=(const connections_toedge_finder& s);
+        connections_toedge_finder& operator=(const connections_toedge_finder& s) = delete;
     };
 
     /// @class connections_toedgelane_finder
@@ -1775,8 +1767,7 @@ public:
 
     private:
         /// @brief invalidated assignment operator
-        connections_toedgelane_finder& operator=(const connections_toedgelane_finder& s);
-
+        connections_toedgelane_finder& operator=(const connections_toedgelane_finder& s) = delete;
     };
 
     /// @class connections_finder
@@ -1808,8 +1799,7 @@ public:
 
     private:
         /// @brief invalidated assignment operator
-        connections_finder& operator=(const connections_finder& s);
-
+        connections_finder& operator=(const connections_finder& s) = delete;
     };
 
     /// @class connections_conflict_finder
@@ -1838,8 +1828,7 @@ public:
 
     private:
         /// @brief invalidated assignment operator
-        connections_conflict_finder& operator=(const connections_conflict_finder& s);
-
+        connections_conflict_finder& operator=(const connections_conflict_finder& s) = delete;
     };
 
     /// @class connections_fromlane_finder
@@ -1859,8 +1848,7 @@ public:
 
     private:
         /// @brief invalidated assignment operator
-        connections_fromlane_finder& operator=(const connections_fromlane_finder& s);
-
+        connections_fromlane_finder& operator=(const connections_fromlane_finder& s) = delete;
     };
 
     /// @brief connections_sorter sort by fromLane, toEdge and toLane
@@ -1886,12 +1874,11 @@ public:
 
 private:
     /// @brief invalidated copy constructor
-    NBEdge(const NBEdge& s);
+    NBEdge(const NBEdge& s) = delete;
 
     /// @brief invalidated assignment operator
-    NBEdge& operator=(const NBEdge& s);
+    NBEdge& operator=(const NBEdge& s) = delete;
 
     /// @brief constructor for dummy edge
     NBEdge();
-
 };
