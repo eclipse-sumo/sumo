@@ -172,6 +172,8 @@ Other useful cmake options:
   debugging the release build or using a different profiler
 - `-D PROJ_LIBRARY=` disable PROJ
 - `-D FOX_CONFIG=` disable FOX toolkit (GUI and multithreading)
+- `-D PYTHON_EXECUTABLE=/usr/bin/python3` select a different python version (also for libsumo / libtraci)
+
 
 ## Building with clang
 
