@@ -3,4 +3,5 @@
     <route id="vertical" edges="3fi 3si 4o"/>
     <route id="withTaz2" edges="taz34-source taz12-sink"/>
     <vehicle id="horiz" route="horizontal" depart="0"/>
+    <vehicle id="horiz2" route="horizontal" depart="0"/>
 </routes>
