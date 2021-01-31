@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec 22 11:21:50 2020 by Eclipse SUMO netconvert Version v1_8_0+0332-cf8f3be
+<!-- generated on Sun Jan 31 11:57:00 2021 by Eclipse SUMO netconvert Version v1_8_0+0889-6060b87cd3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -68,7 +68,7 @@ SPDX-License-Identifier: EPL-2.0
         <access lane="388933682#1_0" pos="57.35" length="18.47" friendlyPos="1"/>
         <access lane="388933682#3_0" pos="0.00" length="20.52" friendlyPos="1"/>
     </busStop>
-    <busStop id="5672130288" name="Heideblick" lane="40020450#1_0" startPos="73.11" endPos="98.11" friendlyPos="true">
+    <busStop id="5672130288" name="Heideblick" lane="40020450#0_0" startPos="11.98" endPos="36.98" friendlyPos="true">
         <access lane="172186756#0_0" pos="0.00" length="25.10" friendlyPos="1"/>
         <access lane="177846735#0_0" pos="1.99" length="20.18" friendlyPos="1"/>
         <access lane="177846735#1_0" pos="3.33" length="18.75" friendlyPos="1"/>

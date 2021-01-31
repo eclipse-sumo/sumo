@@ -46,5 +46,5 @@ ticket6585
 # signal position for guess-signals should not be broken by --junctions.join
 ticket6977
 
-# invalid ptline if stop edge removed
+# invalid ptline if stop edge removed, also tests #8155
 ticket8039

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec 22 12:12:51 2020 by Eclipse SUMO netconvert Version v1_8_0+0332-cf8f3be
+<!-- generated on Sun Jan 31 11:57:00 2021 by Eclipse SUMO netconvert Version v1_8_0+0889-6060b87cd3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ SPDX-License-Identifier: EPL-2.0
     <ptLine id="2656639" name="Linie 113 via Rothemühle" line="113" type="bus" vClass="bus" completeness="0.00"/>
     <ptLine id="2657421" name="Linie 112" line="112" type="bus" vClass="bus" completeness="0.00"/>
     <ptLine id="2777015" name="Tram 1: Wenden =&gt; Stöckheim" line="1" type="tram" vClass="tram" period="600" completeness="0.06">
-        <route edges="859066433#0 859066433#1 859066433#2 859066431#1 859066431#2 859066427#1 859066427#2"/>
+        <route edges="859066433#1 859066433#2 859066431#1 859066431#2 859066427#1 859066427#2"/>
         <busStop id="54142977" name="Heideblick"/>
         <busStop id="54143009" name="Veltenhöfer Straße"/>
     </ptLine>
@@ -64,7 +64,7 @@ SPDX-License-Identifier: EPL-2.0
         <busStop id="54142977" name="Heideblick"/>
     </ptLine>
     <ptLine id="4599999" name="Tram 1: Wenden =&gt; Anklamstraße =&gt; Stöckheim" line="1" type="tram" vClass="tram" completeness="0.05">
-        <route edges="859066433#0 859066433#1 859066433#2 859066431#1 859066431#2 859066427#1 859066427#2"/>
+        <route edges="859066433#1 859066433#2 859066431#1 859066431#2 859066427#1 859066427#2"/>
         <busStop id="54142977" name="Heideblick"/>
         <busStop id="54143009" name="Veltenhöfer Straße"/>
     </ptLine>
@@ -82,7 +82,7 @@ SPDX-License-Identifier: EPL-2.0
         <busStop id="54142977" name="Heideblick"/>
     </ptLine>
     <ptLine id="7090406" name="Tram 1: Wenden =&gt; Rathaus" line="1" type="tram" vClass="tram" completeness="0.12">
-        <route edges="859066433#0 859066433#1 859066433#2 859066431#1 859066431#2 859066427#1 859066427#2"/>
+        <route edges="859066433#1 859066433#2 859066431#1 859066431#2 859066427#1 859066427#2"/>
         <busStop id="54142977" name="Heideblick"/>
         <busStop id="54143009" name="Veltenhöfer Straße"/>
     </ptLine>
