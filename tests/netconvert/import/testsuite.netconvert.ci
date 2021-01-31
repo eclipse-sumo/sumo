@@ -17,7 +17,7 @@ SUMO
 matsim
 
 # Tests for openDRIVE networks 
-openDRIVE
+#openDRIVE
 
 # import OpenStreetMap networks
-OSM
+#OSM
