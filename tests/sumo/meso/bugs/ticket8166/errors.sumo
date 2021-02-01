@@ -1,2 +1,1 @@
 Warning: Traffic light type 'actuated' cannot be used in mesoscopic simulation. Using 'static' as fallback
-sumo: /home/erdm_ja/scr1/sumoD/src/mesosim/MESegment.cpp:519: void MESegment::send(MEVehicle*, MESegment*, int, SUMOTime, MSMoveReminder::Notification): Assertion `myLastHeadway > 0' failed.
