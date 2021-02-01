@@ -107,6 +107,13 @@ MSIdling_RandomCircling::idle(MSDevice_Taxi* taxi) {
         remainingDist += lastEdge->getLength();
         remainingEdges++;
         MSEdgeVector successors = lastEdge->getSuccessors(veh.getVClass());
+        for (auto it = successors.begin(); it != successors.end();) {
+            if ((*it)->getFunction() == SumoXMLEdgeFunc::CONNECTOR) {
+                it = successors.erase(it);
+            } else {
+                it++;
+            }
+        }
         if (successors.size() == 0) {
             WRITE_WARNING("Vehicle '" + veh.getID() + "' ends idling in a cul-de-sac");
             break;
