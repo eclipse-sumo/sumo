@@ -8,8 +8,8 @@ Warning: Discarding unusable type 'railway.abandoned|usage.industrial' (first oc
 Warning: Discarding unusable type 'railway.abandoned' (first occurence for edge '326192135').
 Warning: Discarding unusable type 'railway.razed|usage.industrial' (first occurence for edge '326192141').
 Warning: Discarding unusable type 'railway.razed' (first occurence for edge '485690627').
-Warning: Removing pt stop:491471505 on non existing edge: 386836729
-Warning: Removing pt stop:491471506 on non existing edge: 386836732
+Warning: Removing pt stop '491471505' on non existing edge '386836729'.
+Warning: Removing pt stop '491471506' on non existing edge '386836732'.
 Warning: Done reading first coherent chunk of pt stops. Further stops in relation 1991333 are ignored
 Warning: Done reading first coherent chunk of pt stops. Further stops in relation 1991334 are ignored
 Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2015440 are ignored
@@ -23,8 +23,8 @@ Warning: Ignoring restriction relation '8665161' with unknown from-way.
 Warning: Ignoring restriction relation '8665161' with unknown to-way.
 Warning: Removed duplicate stop '1864168565' at area '5757985' from line '2077769'.
 Warning: Removed duplicate stop '3901927131' at area '5757985' from line '2077770'.
-Warning: Incomplete route for ptline '2341762' (Bus N56: U Magdalenenstraße → Wartenberg, Hagenower Ring → U Magdalenenstraße)
-Warning: PT stop: 3901927130 has been moved to edge: -32035133
+Warning: Incomplete route for pt line '2341762' (Bus N56: U Magdalenenstraße → Wartenberg, Hagenower Ring → U Magdalenenstraße).
+Warning: PT stop '3901927130' has been moved to edge '-32035133'.
 Warning: Ambiguity in turnarounds computation at junction '2526575765'.
 Warning: Ambiguity in turnarounds computation at junction '632909234'.
 Warning: Ambiguity in turnarounds computation at junction '768038181'.
