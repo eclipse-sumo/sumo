@@ -65,7 +65,7 @@ FXDEFMAP(GUIDialog_ViewSettings) GUIDialog_ViewSettingsMap[] = {
 
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_LOAD_DECALS,    GUIDialog_ViewSettings::onCmdLoadDecals),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_SAVE_DECALS,    GUIDialog_ViewSettings::onCmdSaveDecals),
-
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_CLEAR_DECALS,   GUIDialog_ViewSettings::onCmdClearDecals),
 };
 
 
@@ -125,12 +125,13 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
 
         new FXHorizontalSeparator(frame1, GUIDesignHorizontalSeparator);
 
-        FXVerticalFrame* frame11 = new FXVerticalFrame(frame1, GUIDesignViewSettingsVerticalFrame3);
-        new FXLabel(frame11, "Decals:");
-        myDecalsFrame = new FXVerticalFrame(frame11);
-        FXHorizontalFrame* frame111 = new FXHorizontalFrame(frame11, GUIDesignViewSettingsHorizontalFrame2);
-        new FXButton(frame111, "&Load Decals", nullptr, this, MID_SIMPLE_VIEW_LOAD_DECALS, GUIDesignViewSettingsButton1);
-        new FXButton(frame111, "&Save Decals", nullptr, this, MID_SIMPLE_VIEW_SAVE_DECALS, GUIDesignViewSettingsButton1);
+        FXVerticalFrame* verticalFrameDecals = new FXVerticalFrame(frame1, GUIDesignViewSettingsVerticalFrame3);
+        new FXLabel(verticalFrameDecals, "Decals:");
+        myDecalsFrame = new FXVerticalFrame(verticalFrameDecals);
+        FXHorizontalFrame* horizontalFrameButtonsDecals = new FXHorizontalFrame(verticalFrameDecals, GUIDesignViewSettingsHorizontalFrame2);
+        new FXButton(horizontalFrameButtonsDecals, "&Load Decals", nullptr, this, MID_SIMPLE_VIEW_LOAD_DECALS, GUIDesignViewSettingsButton1);
+        new FXButton(horizontalFrameButtonsDecals, "&Save Decals", nullptr, this, MID_SIMPLE_VIEW_SAVE_DECALS, GUIDesignViewSettingsButton1);
+        new FXButton(horizontalFrameButtonsDecals, "&Clear Decals", nullptr, this, MID_SIMPLE_VIEW_CLEAR_DECALS, GUIDesignViewSettingsButton1);
 
         new FXHorizontalSeparator(frame1, GUIDesignHorizontalSeparator);
 
@@ -1166,7 +1167,7 @@ GUIDialog_ViewSettings::loadSettings(const std::string& file) {
     if (handler.hasDecals()) {
         myDecalsLock->lock();
         (*myDecals) = handler.getDecals();
-        rebuildList();
+        rebuildDecalsTable();
         myParent->update();
         myDecalsLock->unlock();
     }
@@ -1211,7 +1212,7 @@ GUIDialog_ViewSettings::loadDecals(const std::string& file) {
     if (handler.hasDecals()) {
         (*myDecals) = handler.getDecals();
     }
-    rebuildList();
+    rebuildDecalsTable();
     myParent->update();
     myDecalsLock->unlock();
 }
@@ -1397,6 +1398,20 @@ GUIDialog_ViewSettings::onCmdSaveDecals(FXObject*, FXSelector, void* /*data*/) {
 }
 
 
+long 
+GUIDialog_ViewSettings::onCmdClearDecals(FXObject*, FXSelector, void* data) {
+    // lock decals mutex
+    myDecalsLock->lock();
+    // clear decals
+    myDecals->clear();
+    // rebuild list
+    rebuildDecalsTable();
+    // update view
+    myParent->update();
+    // unlock decals mutex
+    myDecalsLock->unlock();
+    return 1;
+}
 
 
 long
@@ -1407,7 +1422,7 @@ GUIDialog_ViewSettings::onUpdImportSetting(FXObject* sender, FXSelector, void* p
 
 
 void
-GUIDialog_ViewSettings::rebuildList() {
+GUIDialog_ViewSettings::rebuildDecalsTable() {
     myDecalsTable->clearItems();
     const int cols = 8;
     // set table attributes
@@ -1584,7 +1599,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         myDecalsTable->setCellType(i, CT_REAL);
         myDecalsTable->setNumberCellParams(i, -10000000, 10000000, 1, 10, 100, "%.2f");
     }
-    rebuildList();
+    rebuildDecalsTable();
     if (doCreate) {
         myDecalsTable->create();
     }
@@ -1811,7 +1826,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
     }
     (*myDecals)[row] = d;
     if (!i->updateOnly) {
-        rebuildList();
+        rebuildDecalsTable();
     }
     myParent->update();
     return 1;

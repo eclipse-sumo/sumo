@@ -573,6 +573,8 @@ enum {
     MID_SIMPLE_VIEW_LOAD_DECALS,
     /// @brief For the save-decals - button
     MID_SIMPLE_VIEW_SAVE_DECALS,
+    /// @brief For the clear-decals - button
+    MID_SIMPLE_VIEW_CLEAR_DECALS,
 
     /// @}
 
