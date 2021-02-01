@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="passenger" vClass="passenger" length="3.5" speedDev="0.2" minGap="1.5"/>
+    <flow id="flow_0" type="passenger" begin="0.00" from="4619363#3"   to="329869880#0" end="300" period="1"/>
+    <flow id="flow_1" type="passenger" begin="0.00" from="146008738#0" to="329869880#0" end="300" period="1"/>
+</routes>

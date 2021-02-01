@@ -29,3 +29,6 @@ ticket7491
 
 # tau and vehicle length for long vehicles on short segments
 ticket8156
+
+# negative tau
+ticket8166
