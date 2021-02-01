@@ -188,36 +188,6 @@ MESegment::recomputeJamThreshold(double jamThresh) {
         // compute based on specified percentage
         myJamThreshold = jamThresh * myCapacity;
     }
-
-    // update coefficients for the jam-jam headway function
-    // this function models the effect that "empty space" needs to move
-    // backwards through the downstream segment before the upstream segment may
-    // send annother vehicle.
-    // this allows jams to clear and move upstream.
-    // the headway function f(x) depends on the number of vehicles in the
-    // downstream segment x
-    // f is a linear function that passes through the following fixed points:
-    // f(n_jam_threshold) = tau_jf_withLength (for continuity)
-    // f(myHeadwayCapacity) = myTau_jj * myHeadwayCapacity
-
-    const SUMOTime tau_jf_withLength = tauWithVehLength(myTau_jf, DEFAULT_VEH_LENGTH_WITH_GAP);
-    if (myJamThreshold < myCapacity) {
-        // jamming is possible
-        const double n_jam_threshold = myHeadwayCapacity * myJamThreshold / myCapacity; // number of vehicles above which the segment is jammed
-        // solving f(x) = a * x + b
-        myA = (STEPS2TIME(myTau_jj) * myHeadwayCapacity - STEPS2TIME(tau_jf_withLength)) / (myHeadwayCapacity - n_jam_threshold);
-        myB = myHeadwayCapacity * (STEPS2TIME(myTau_jj) - myA);
-
-        // note that the original Eissfeldt model (p. 69) used different fixed points
-        // f(n_jam_threshold) = n_jam_threshold * myTau_jj
-        // f(myHeadwayCapacity) = myTau_jf * myHeadwayCapacity
-        //
-        // However, this systematically underestimates the backpropagation speed of the jam front (see #2244)
-    } else {
-        // dummy values. Should not be used
-        myA = 0;
-        myB = STEPS2TIME(tau_jf_withLength);
-    }
 }
 
 
@@ -507,7 +477,7 @@ MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOT
         const bool nextFree = next->myQueues[nextQIdx].getOccupancy() <= next->myJamThreshold;
         const SUMOTime tau = (q.getOccupancy() <= myJamThreshold
                               ? (nextFree ? myTau_ff : myTau_fj)
-                              : (nextFree ? myTau_jf : TIME2STEPS(myA * next->myQueues[nextQIdx].size() + myB)));
+                              : (nextFree ? myTau_jf : getTauJJ(next->myQueues[nextQIdx].size(), next->getLength())));
         myLastHeadway = tauWithVehLength(tau, veh->getVehicleType().getLengthWithGap());
         if (myTLSPenalty) {
             const MSLink* const tllink = getLink(veh, true);
@@ -525,6 +495,33 @@ MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOT
     if (veh->isStopped()) {
         veh->processStop();
     }
+}
+
+SUMOTime
+MESegment::getTauJJ(int nextQueueSize, double nextQueueCapacity) const {
+    // compute coefficients for the jam-jam headway function
+    // this function models the effect that "empty space" needs to move
+    // backwards through the downstream segment before the upstream segment may
+    // send annother vehicle.
+    // this allows jams to clear and move upstream.
+    // the headway function f(x) depends on the number of vehicles in the
+    // downstream segment x
+    // f is a linear function that passes through the following fixed points:
+    // f(n_jam_threshold) = tau_jf_withLength (for continuity)
+    // f(myHeadwayCapacity) = myTau_jj * myHeadwayCapacity
+
+    const SUMOTime tau_jf_withLength = tauWithVehLength(myTau_jf, DEFAULT_VEH_LENGTH_WITH_GAP);
+
+    // number of vehicles above which the segment is jammed
+    const double n_jam_threshold = myHeadwayCapacity * myJamThreshold / myCapacity;
+    /// @brief slope and axis offset for the jam-jam headway function
+    double a,b;
+
+    // solving f(x) = a * x + b
+    a = (STEPS2TIME(myTau_jj) * myHeadwayCapacity - STEPS2TIME(tau_jf_withLength)) / (myHeadwayCapacity - n_jam_threshold);
+    b = myHeadwayCapacity * (STEPS2TIME(myTau_jj) - a);
+
+    return TIME2STEPS(a * nextQueueSize + b);
 }
 
 

@@ -473,6 +473,8 @@ private:
         return tau + (SUMOTime)(lengthWithGap * myTau_length);
     }
 
+    SUMOTime getTauJJ(int nextQueueSize, double nextQueueCapacity) const;
+
 private:
     /// @brief The microsim edge this segment belongs to
     const MSEdge& myEdge;
@@ -491,9 +493,6 @@ private:
 
     /// @brief The time headway parameters, see the Eissfeldt thesis
     SUMOTime myTau_ff, myTau_fj, myTau_jf, myTau_jj;
-
-    /// @brief slope and axis offset for the jam-jam headway function
-    double myA, myB;
 
     /// @brief Whether tls penalty is enabled
     bool myTLSPenalty;
