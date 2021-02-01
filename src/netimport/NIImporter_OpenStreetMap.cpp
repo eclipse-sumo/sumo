@@ -1182,7 +1182,7 @@ NIImporter_OpenStreetMap::RelationHandler::resetValues() {
     myToWay = INVALID_ID;
     myViaNode = INVALID_ID;
     myViaWay = INVALID_ID;
-    myRestrictionType = RESTRICTION_UNKNOWN;
+    myRestrictionType = RestrictionType::UNKNOWN;
     myPlatforms.clear();
     myStops.clear();
     myWays.clear();
@@ -1289,9 +1289,9 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
                 // @note: the 'right/left/straight' part is ignored since the information is
                 // redundantly encoded in the 'from', 'to' and 'via' members
                 if (value.substr(0, 5) == "only_") {
-                    myRestrictionType = RESTRICTION_ONLY;
+                    myRestrictionType = RestrictionType::ONLY;
                 } else if (value.substr(0, 3) == "no_") {
-                    myRestrictionType = RESTRICTION_NO;
+                    myRestrictionType = RestrictionType::NO;
                 } else {
                     WRITE_WARNINGF("Found unknown restriction type '%' in relation '%'", value, toString(myCurrentRelation));
                 }
@@ -1339,7 +1339,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
         if (myIsRestriction) {
             assert(myCurrentRelation != INVALID_ID);
             bool ok = true;
-            if (myRestrictionType == RESTRICTION_UNKNOWN) {
+            if (myRestrictionType == RestrictionType::UNKNOWN) {
                 WRITE_WARNINGF("Ignoring restriction relation '%' with unknown type.", toString(myCurrentRelation));
                 ok = false;
             }
@@ -1502,7 +1502,7 @@ NIImporter_OpenStreetMap::RelationHandler::applyRestriction() const {
             WRITE_WARNINGF("to-edge '%' of restriction relation could not be determined", toString(myToWay));
             return false;
         }
-        if (myRestrictionType == RESTRICTION_ONLY) {
+        if (myRestrictionType == RestrictionType::ONLY) {
             from->addEdge2EdgeConnection(to, true);
             // make sure that these connections remain disabled even if network
             // modifications (ramps.guess) reset existing connections

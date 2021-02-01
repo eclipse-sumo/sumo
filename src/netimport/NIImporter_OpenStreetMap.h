@@ -564,13 +564,13 @@ protected:
         /** @enum RestrictionType
          * @brief whether the only allowed or the only forbidden connection is defined
          */
-        enum RestrictionType {
+        enum class RestrictionType {
             /// @brief The only valid connection is declared
-            RESTRICTION_ONLY,
+            ONLY,
             /// @brief The only invalid connection is declared
-            RESTRICTION_NO,
+            NO,
             /// @brief The relation tag was missing
-            RESTRICTION_UNKNOWN
+            UNKNOWN
         };
         RestrictionType myRestrictionType;
 

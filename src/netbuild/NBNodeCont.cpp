@@ -471,34 +471,18 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
         // no need to keep all pt route edges. They are validated again before writing
         pc.addEdges2Keep(oc, edges2keep);
     }
-    int no = 0;
     std::vector<NBNode*> toRemove;
-    for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
-        NBNode* current = (*i).second;
+    for (const auto& i : myNodes) {
+        NBNode* const current = i.second;
         bool remove = false;
-        std::vector<std::pair<NBEdge*, NBEdge*> > toJoin;
-        // check for completely empty nodes
-        if (current->getOutgoingEdges().size() == 0 && current->getIncomingEdges().size() == 0) {
-            // remove if empty
+        // check for completely empty nodes and check for nodes which are only geometry nodes and ask the node whether to join
+        if (current->getEdges().empty() || (removeGeometryNodes && mySplit.count(current) == 0 && current->checkIsRemovable())) {
             remove = true;
-        }
-        // check for nodes which are only geometry nodes
-        if (removeGeometryNodes && mySplit.count(current) == 0) {
-            if ((current->getOutgoingEdges().size() == 1 && current->getIncomingEdges().size() == 1)
-                    ||
-                    (current->getOutgoingEdges().size() == 2 && current->getIncomingEdges().size() == 2)) {
-                // ok, one in, one out or two in, two out
-                //  -> ask the node whether to join
-                remove = current->checkIsRemovable();
-                // check whether any of the edges must be kept
-                for (EdgeVector::const_iterator it_edge = current->getEdges().begin(); it_edge != current->getEdges().end(); ++it_edge) {
-                    if (edges2keep.find((*it_edge)->getID()) != edges2keep.end()) {
-                        remove = false;
-                        break;
-                    }
-                }
-                if (remove) {
-                    toJoin = current->getEdgesToJoin();
+            // check whether any of the edges must be kept
+            for (NBEdge* const it_edge : current->getEdges()) {
+                if (edges2keep.find(it_edge->getID()) != edges2keep.end()) {
+                    remove = false;
+                    break;
                 }
             }
         }
@@ -506,9 +490,9 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
         if (!remove) {
             continue;
         }
-        for (std::vector<std::pair<NBEdge*, NBEdge*> >::iterator j = toJoin.begin(); j != toJoin.end(); j++) {
-            NBEdge* begin = (*j).first;
-            NBEdge* continuation = (*j).second;
+        for (const std::pair<NBEdge*, NBEdge*>& j : current->getEdgesToJoin()) {
+            NBEdge* const begin = j.first;
+            NBEdge* const continuation = j.second;
             begin->append(continuation);
             continuation->getToNode()->replaceIncoming(continuation, begin, 0);
             tlc.replaceRemoved(continuation, -1, begin, -1, true);
@@ -516,13 +500,12 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
             ec.extract(dc, continuation, true);
         }
         toRemove.push_back(current);
-        no++;
     }
     // erase all
-    for (std::vector<NBNode*>::iterator j = toRemove.begin(); j != toRemove.end(); ++j) {
-        extract(*j, true);
+    for (NBNode* n : toRemove) {
+        extract(n, true);
     }
-    return no;
+    return (int)toRemove.size();
 }
 
 

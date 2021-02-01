@@ -87,11 +87,11 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
         return;
     }
     if (waysIds.size() <= 1) {
-        WRITE_WARNING("Cannot revise pt stop localization for pt line: " + line->getLineID() + ", which consist of one way only. Ignoring!");
+        WRITE_WARNINGF("Cannot revise pt stop localization for pt line '%', which consist of one way only. Ignoring!", line->getLineID());
         return;
     }
     if (line->getRoute().size() == 0) {
-        WRITE_WARNING("Cannot revise pt stop localization for pt line: " + line->getLineID() + ", which has no route edges. Ignoring!");
+        WRITE_WARNINGF("Cannot revise pt stop localization for pt line '%', which has no route edges. Ignoring!", line->getLineID());
         return;
     }
     std::vector<NBPTStop*> stops = line->getStops();
@@ -110,7 +110,8 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
         // find directional edge (OSM ways are bidirectional)
         std::vector<long long int>* way = line->getWaysNodes(stop->getOrigEdgeId());
         if (way == nullptr) {
-            WRITE_WARNING("Cannot assign stop '" + stop->getID() + "' on edge '" + stop->getOrigEdgeId() + "' to pt line '" + line->getLineID() + "' (wayNodes not found). Ignoring!");
+            WRITE_WARNINGF("Cannot assign stop '%' on edge '%' to pt line '%' (wayNodes not found). Ignoring!",
+                           stop->getID(), stop->getOrigEdgeId(), line->getLineID());
             continue;
         }
 
@@ -127,8 +128,7 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
         std::vector<long long int>* wayPrev = line->getWaysNodes(adjIdPrev);
         std::vector<long long int>* wayNext = line->getWaysNodes(adjIdNext);
         if (wayPrev == nullptr && wayNext == nullptr) {
-            WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + line->getLineID()
-                          + ". Ignoring!");
+            WRITE_WARNINGF("Cannot revise pt stop localization for incomplete pt line '%'. Ignoring!", line->getLineID());
             continue;
         }
         long long int wayEnds = *(way->end() - 1);
@@ -144,8 +144,7 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
                    || wayBegins == wayNextBegins) {
             dir = BWD;
         } else {
-            WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + line->getLineID()
-                          + ". Ignoring!");
+            WRITE_WARNINGF("Cannot revise pt stop localization for incomplete pt line '%'. Ignoring!", line->getLineID());
             continue;
         }
 
@@ -156,11 +155,11 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
         if (dir != assignedTo) {
             NBEdge* reverse = NBPTStopCont::getReverseEdge(current);
             if (reverse == nullptr) {
-                WRITE_WARNING("Could not re-assign PT stop: " + stop->getID() + " probably broken osm file");
+                WRITE_WARNINGF("Could not re-assign PT stop '%', probably broken osm file.", stop->getID());
                 continue;
             }
             stop->setEdgeId(reverse->getID(), ec);
-            WRITE_WARNING("PT stop: " + stop->getID() + " has been moved to edge: " + reverse->getID());
+            WRITE_WARNINGF("PT stop '%' has been moved to edge '%'.", stop->getID(), reverse->getID());
         }
         myServedPTStops.insert(stop->getID());
         stop->addLine(line->getRef());
@@ -232,8 +231,8 @@ NBPTLineCont::findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPT
                 stop = newStop;
             }
         } else {
-            WRITE_WARNING("Could not assign stop '" + stop->getID() + "' to pt line '" + line->getLineID()
-                          + "' (closest edge '" + Named::getIDSecure(best) + "', distance " + toString(minDist) + "). Ignoring!");
+            WRITE_WARNINGF("Could not assign stop '%' to pt line '%' (closest edge '%', distance %). Ignoring!",
+                           stop->getID(), line->getLineID(), Named::getIDSecure(best), minDist);
             return nullptr;
         }
     } else {
@@ -264,7 +263,7 @@ NBPTLineCont::findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPT
                 }
             }
             if (waysIdsIt == waysIds.end()) {
-                WRITE_WARNING("Cannot assign stop '" + stop->getID() + "' on edge '" + stop->getOrigEdgeId() + "' to pt line '" + line->getLineID() + "'. Ignoring!");
+                WRITE_WARNINGF("Cannot assign stop % on edge '%' to pt line '%'. Ignoring!", stop->getID(), stop->getOrigEdgeId(), line->getLineID());
             }
         }
     }
@@ -393,8 +392,8 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont, bool
 #endif
             if (it3 != pTLine->getMyWays().begin()) {
                 if (!silent) {
-                    WRITE_WARNING("Incomplete route for ptline '" + toString(pTLine->getLineID()) +
-                            (pTLine->getName() != "" ? "' (" + pTLine->getName() + ")" : ""));
+                    WRITE_WARNINGF("Incomplete route for pt line '%'%.", pTLine->getLineID(),
+                                   (pTLine->getName() != "" ? " (" + pTLine->getName() + ")" : ""));
                 }
             } else if (pTLine->getMyWays().size() == 1) {
                 if (currentWayEdges.size() > 0) {
@@ -467,8 +466,7 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
             continue;
         }
         if (types.count(line->getType()) == 0) {
-            WRITE_WARNING("Could not determine vehicle class for public transport line of type '"
-                          + line->getType() + "'.");
+            WRITE_WARNINGF("Could not determine vehicle class for public transport line of type '%'.", line->getType());
             continue;
         }
         NBVehicle veh(line->getRef(), types[line->getType()]);
@@ -533,8 +531,8 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
                 if (best < std::numeric_limits<double>::max()) {
                     from = used;
                 } else {
-                    WRITE_WARNING("Could not determine direction for line '" + toString(line->getLineID()) + "' at stop '" + used->getID() + "'");
-                };
+                    WRITE_WARNINGF("Could not determine direction for line '%' at stop '%'.", line->getLineID(), used->getID());
+                }
             }
             from = used;
             newStops.push_back(used);
