@@ -194,6 +194,9 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
         if (myOriginStop != nullptr) {
             myOriginStop->removeTransportable(transportable);
         }
+        myWaitingEdge = previous->getEdge();
+        myStopWaitPos = Position::INVALID;
+        myWaitingPos = previous->getEdgePos(now);
         myVehicle->addTransportable(transportable);
         return;
     }
