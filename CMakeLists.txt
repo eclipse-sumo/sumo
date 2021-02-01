@@ -453,7 +453,10 @@ set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 # installation
 include(GNUInstallDirs)
-install(DIRECTORY bin/ DESTINATION bin FILES_MATCHING PATTERN "*.dll")
+install(DIRECTORY bin/ DESTINATION bin
+        FILES_MATCHING PATTERN "*.dll"
+        PATTERN "*d.dll" EXCLUDE
+        PATTERN "FOXDLLD-1.6.dll" EXCLUDE)
 install(DIRECTORY data/ DESTINATION share/sumo/data)
 install(DIRECTORY tools/ DESTINATION share/sumo/tools
         USE_SOURCE_PERMISSIONS
