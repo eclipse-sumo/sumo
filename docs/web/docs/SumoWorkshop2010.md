@@ -19,45 +19,45 @@ for the emerged issues.
 
 ### Day 1
 
-- [Welcome](http://sumo.sourceforge.net/docs/SUMOWorkshop2010/1_1_Agenda.pdf)
+- [Welcome](https://sumo.dlr.de/pdf/SUMOWorkshop2010/1_1_Agenda.pdf)
 - [DLR: SUMO past and
-future](http://sumo.sourceforge.net/docs/SUMOWorkshop2010/1_2_IntroSUMO.pdf)
-- [Contributions](http://sumo.sourceforge.net/docs/SUMOWorkshop2010/1_3_WorkParticipants.pdf)
+future](https://sumo.dlr.de/pdf/SUMOWorkshop2010/1_2_IntroSUMO.pdf)
+- [Contributions](https://sumo.dlr.de/pdf/SUMOWorkshop2010/1_3_WorkParticipants.pdf)
 and
-[Projects](http://sumo.sourceforge.net/docs/SUMOWorkshop2010/1_4_CurrentProjects.pdf)
+[Projects](https://sumo.dlr.de/pdf/SUMOWorkshop2010/1_4_CurrentProjects.pdf)
   - Björn Schünemann
-    [VSimRTI](http://sumo.sourceforge.net/docs/SUMOWorkshop2010/BjoernSchuenemannVSimRTI.pdf)
+    [VSimRTI](https://sumo.dlr.de/pdf/SUMOWorkshop2010/BjoernSchuenemannVSimRTI.pdf)
   - Christoph Sommer
-    [Veins](http://sumo.sourceforge.net/docs/SUMOWorkshop2010/ChristophSommerVeins.pdf)
+    [Veins](https://sumo.dlr.de/pdf/SUMOWorkshop2010/ChristophSommerVeins.pdf)
   - Matthew Fullerton
-    [SUMO@TUM](http://sumo.sourceforge.net/docs/SUMOWorkshop2010/MatthewFullertonTUM.pdf)
+    [SUMO@TUM](https://sumo.dlr.de/pdf/SUMOWorkshop2010/MatthewFullertonTUM.pdf)
   - Gernot Schröder
-    [SUMO@Bosch](http://sumo.sourceforge.net/docs/SUMOWorkshop2010/GernotSchroederBosch.pdf)
+    [SUMO@Bosch](https://sumo.dlr.de/pdf/SUMOWorkshop2010/GernotSchroederBosch.pdf)
   - Gunnar Flötteröd
-    [Cadyts](http://sumo.sourceforge.net/docs/SUMOWorkshop2010/GunnarFloetteroedCadyts.pdf)
+    [Cadyts](https://sumo.dlr.de/pdf/SUMOWorkshop2010/GunnarFloetteroedCadyts.pdf)
   - Björn Hendriks
-    [AutoNomos](http://sumo.sourceforge.net/docs/SUMOWorkshop2010/BjoernHendriksTUBS.pdf)
+    [AutoNomos](https://sumo.dlr.de/pdf/SUMOWorkshop2010/BjoernHendriksTUBS.pdf)
   - Jakob Erdmann
-    [TAPAS](http://sumo.sourceforge.net/docs/SUMOWorkshop2010/JakobErdmannTAPAS.pdf)
+    [TAPAS](https://sumo.dlr.de/pdf/SUMOWorkshop2010/JakobErdmannTAPAS.pdf)
   - Andreas Richter
-    [Dominion](http://sumo.sourceforge.net/docs/SUMOWorkshop2010/AndreasRichterDominion.pdf)
+    [Dominion](https://sumo.dlr.de/pdf/SUMOWorkshop2010/AndreasRichterDominion.pdf)
   - Michael Behrisch
-    [VABENE](http://sumo.sourceforge.net/docs/SUMOWorkshop2010/MichaelBehrischVABENE.pdf)
+    [VABENE](https://sumo.dlr.de/pdf/SUMOWorkshop2010/MichaelBehrischVABENE.pdf)
 
 ### Day 2
 
 - [Agenda
-Day 2](http://sumo.sourceforge.net/docs/SUMOWorkshop2010/2_1_Workshop.pdf)
+Day 2](https://sumo.dlr.de/pdf/SUMOWorkshop2010/2_1_Workshop.pdf)
 - [Open
-Issues](http://sumo.sourceforge.net/docs/SUMOWorkshop2010/2_2_Issues.pdf)
+Issues](https://sumo.dlr.de/pdf/SUMOWorkshop2010/2_2_Issues.pdf)
 - [Public Relations /
-Documentation](http://sumo.sourceforge.net/docs/SUMOWorkshop2010/2_3_MarketingPublicity.pdf)
+Documentation](https://sumo.dlr.de/pdf/SUMOWorkshop2010/2_3_MarketingPublicity.pdf)
 - [Change
-Management](http://sumo.sourceforge.net/docs/SUMOWorkshop2010/2_4_ChangeManagement.pdf)
+Management](https://sumo.dlr.de/pdf/SUMOWorkshop2010/2_4_ChangeManagement.pdf)
 - [Simulation
-Requirements](http://sumo.sourceforge.net/docs/SUMOWorkshop2010/2_5_Simulation.pdf)
+Requirements](https://sumo.dlr.de/pdf/SUMOWorkshop2010/2_5_Simulation.pdf)
 - [Closing / Next
-Meeting](http://sumo.sourceforge.net/docs/SUMOWorkshop2010/2_6_End.pdf)
+Meeting](https://sumo.dlr.de/pdf/SUMOWorkshop2010/2_6_End.pdf)
 
 ## Attendants
 
