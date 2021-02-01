@@ -17,8 +17,8 @@ Warning: Ambiguous railway kilometrage direction for way '32590429' (assuming fo
 Warning: Ambiguous railway kilometrage direction for way '32590435' (assuming forward)
 Warning: Discarding unusable type 'railway.platform' (first occurence for edge '43185748').
 Warning: Discarding unusable type 'railway.construction' (first occurence for edge '71326270').
-Warning: Removing pt stop:1257007152 on non existing edge: 71326270
-Warning: Removing pt stop:587624704 on non existing edge: 71326270
+Warning: Removing pt stop '1257007152' on non existing edge '71326270'.
+Warning: Removing pt stop '587624704' on non existing edge '71326270'.
 Warning: Done reading first coherent chunk of pt stops. Further stops in relation 28270 are ignored
 Warning: Done reading first coherent chunk of pt stops. Further stops in relation 28286 are ignored
 Warning: PT line in relation 114255 with no stops ignored. Probably OSM file is incomplete.
@@ -43,60 +43,34 @@ Warning: Ignoring restriction relation '4806373' with unknown to-way.
 Warning: Platform '383505801' in relation: '5707635' is given as polygon, which currently is not supported.
 Warning: Platform '383505801' in relation: '5707635' is given as polygon, which currently is not supported.
 Warning: Ignoring restriction relation '7778535' with unknown to-way.
-Warning: Could not re-assign PT stop: 1615531689 probably broken osm file
-Warning: PT stop: 4692172068 has been moved to edge: -326116285#2
-Warning: Incomplete route for ptline '2014286' (Straßenbahnlinie 12: Weißensee, Pasedagplatz => Mitte, Am Kupfergraben)
-Warning: Incomplete route for ptline '2014286' (Straßenbahnlinie 12: Weißensee, Pasedagplatz => Mitte, Am Kupfergraben)
-Warning: Could not re-assign PT stop: 247600965 probably broken osm file
-Warning: Incomplete route for ptline '2014287' (Straßenbahnlinie 12: Mitte, Am Kupfergraben => Weißensee, Pasedagplatz)
-Warning: Incomplete route for ptline '2014287' (Straßenbahnlinie 12: Mitte, Am Kupfergraben => Weißensee, Pasedagplatz)
-Warning: Could not re-assign PT stop: 1823298700 probably broken osm file
-Warning: Incomplete route for ptline '2076228' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Niederschönhausen, Schillerstraße)
-Warning: Incomplete route for ptline '2076228' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Niederschönhausen, Schillerstraße)
-Warning: Incomplete route for ptline '2076228' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Niederschönhausen, Schillerstraße)
-Warning: Could not re-assign PT stop: 1823298700 probably broken osm file
-Warning: Incomplete route for ptline '2076230' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Rosenthal Nord)
-Warning: Incomplete route for ptline '2076230' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Rosenthal Nord)
-Warning: Incomplete route for ptline '2076230' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Rosenthal Nord)
-Warning: Could not re-assign PT stop: 1823298700 probably broken osm file
-Warning: Incomplete route for ptline '2076231' (Straßenbahnlinie M1: Niederschönhausen, Schillerstraße => Mitte, Am Kupfergraben)
-Warning: Incomplete route for ptline '2076231' (Straßenbahnlinie M1: Niederschönhausen, Schillerstraße => Mitte, Am Kupfergraben)
-Warning: Could not re-assign PT stop: 247600965 probably broken osm file
-Warning: Cannot assign stop '247603398' on edge '207364191' to pt line '2076231'. Ignoring!
-Warning: Incomplete route for ptline '2076232' (Straßenbahnlinie M1: Rosenthal Nord => Mitte, Am Kupfergraben)
-Warning: Incomplete route for ptline '2076232' (Straßenbahnlinie M1: Rosenthal Nord => Mitte, Am Kupfergraben)
-Warning: Could not re-assign PT stop: 247600965 probably broken osm file
-Warning: Cannot assign stop '247603398' on edge '207364191' to pt line '2076232'. Ignoring!
-Warning: Incomplete route for ptline '2194813' (Buslinie N65: Köpenick, Müggelschlößchenweg => S Hackescher Markt)
-Warning: PT stop: 3869306765 has been moved to edge: -4402228
-Warning: PT stop: 3869306770 has been moved to edge: -194069450#1
-Warning: PT stop: 3869306773 has been moved to edge: -66071366#1
-Warning: PT stop: 3869306766 has been moved to edge: -35557143#1
-Warning: PT stop: 3869306760 has been moved to edge: -176043807#2
-Warning: PT stop: 3869306761 has been moved to edge: -437325051#0
-Warning: PT stop: 3867910422 has been moved to edge: -43156728#0
-Warning: PT stop: 3867910429 has been moved to edge: -478396988
-Warning: Cannot assign stop '3867910429' on edge '478396988' to pt line '2211985'. Ignoring!
-Warning: PT stop: 2915579613 has been moved to edge: -275177453
-Warning: PT stop: 2915545317 has been moved to edge: -36892597#1
-Warning: Could not re-assign PT stop: 1615531689 probably broken osm file
-Warning: Incomplete route for ptline '300432' (RB21: Wustermark => Berlin Friedrichstraße)
-Warning: Could not re-assign PT stop: 366500582 probably broken osm file
-Warning: PT stop: 4015961303 has been moved to edge: -196850606#4
-Warning: PT stop: 3867910426 has been moved to edge: -275177453
-Warning: Incomplete route for ptline '6593455' (RB22: Königs Wusterhausen => Berlin Friedrichstraße)
-Warning: Could not re-assign PT stop: 366500582 probably broken osm file
-Warning: First stop edge '148458500#1' is not part of the route of line '1981933'
-Warning: Last stop edge '207364192#0' is not part of the route of line '2014286'
-Warning: Last stop edge '207364191#0' is not part of the route of line '2076231'
-Warning: Last stop edge '207364191#0' is not part of the route of line '2076232'
-Warning: Last stop edge '387892378' is not part of the route of line '2194813'
-Warning: First stop edge '-478396988' is not part of the route of line '2211985'
-Warning: First stop edge '148458500#1' is not part of the route of line '28270'
-Warning: First stop edge '25946670' is not part of the route of line '300432'
-Warning: Last stop edge '25946670' is not part of the route of line '300432'
-Warning: First stop edge '25946670' is not part of the route of line '6593455'
-Warning: Last stop edge '25946670' is not part of the route of line '6593455'
+Warning: Could not re-assign PT stop '1615531689', probably broken osm file.
+Warning: PT stop '4692172068' has been moved to edge '-326116285#2'.
+Warning: Incomplete route for pt line '2014286' (Straßenbahnlinie 12: Weißensee, Pasedagplatz => Mitte, Am Kupfergraben).
+Warning: Incomplete route for pt line '2014286' (Straßenbahnlinie 12: Weißensee, Pasedagplatz => Mitte, Am Kupfergraben).
+Warning: Could not re-assign PT stop '247600965', probably broken osm file.
+Warning: Incomplete route for pt line '2014287' (Straßenbahnlinie 12: Mitte, Am Kupfergraben => Weißensee, Pasedagplatz).
+Warning: Incomplete route for pt line '2014287' (Straßenbahnlinie 12: Mitte, Am Kupfergraben => Weißensee, Pasedagplatz).
+Warning: Could not re-assign PT stop '1823298700', probably broken osm file.
+Warning: Incomplete route for pt line '2076228' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Niederschönhausen, Schillerstraße).
+Warning: Could not re-assign PT stop '1823298700', probably broken osm file.
+Warning: Could not re-assign PT stop '1823298700', probably broken osm file.
+Warning: Cannot assign stop 247603398 on edge '207364191' to pt line '2076231'. Ignoring!
+Warning: Cannot assign stop 247603398 on edge '207364191' to pt line '2076232'. Ignoring!
+Warning: PT stop '3869306765' has been moved to edge '-4402228'.
+Warning: PT stop '3869306770' has been moved to edge '-194069450#1'.
+Warning: PT stop '3869306773' has been moved to edge '-66071366#1'.
+Warning: PT stop '3869306766' has been moved to edge '-35557143#1'.
+Warning: Cannot assign stop 3867910429 on edge '478396988' to pt line '2211985'. Ignoring!
+Warning: First stop edge '148458500#1' is not part of the route of line '1981933'.
+Warning: Last stop edge '207364192#0' is not part of the route of line '2014286'.
+Warning: Last stop edge '207364191#0' is not part of the route of line '2076231'.
+Warning: Last stop edge '207364191#0' is not part of the route of line '2076232'.
+Warning: Last stop edge '387892378' is not part of the route of line '2194813'.
+Warning: First stop edge '-478396988' is not part of the route of line '2211985'.
+Warning: First stop edge '148458500#1' is not part of the route of line '28270'.
+Warning: First stop edge '25946670' is not part of the route of line '300432'.
+Warning: Last stop edge '25946670' is not part of the route of line '300432'.
+Warning: First stop edge '25946670' is not part of the route of line '6593455'.
 Warning: Not joining junctions 160503259,171440823,4237827432 (only 1 exit node).
 Warning: Not joining junctions 28373970,540698421 (only 1 edge within and no cross-traffic).
 Warning: Not joining junctions 28373972,3513423889,3513425993 (not compact (maxEdge=4612964#0 length=8.21)).
@@ -122,12 +96,16 @@ Warning: The traffic light '4363312288' does not control any links; it will not 
 Warning: Could not build program '0' for traffic light '4363312288'
 Warning: Intersecting left turns at junction 'cluster_196741367_29221514_3837048403_3837048405_3837048407_3837048408_3837048410_5097270924' from lane '523630412_0' and lane '523630409_3' (increase junction radius to avoid this).
 Warning: 17 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
+Warning: 10 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
 Warning: 15 total messages of type: Discarding unusable type '%' (first occurence for edge '%').
 Warning: 69 total messages of type: Done reading first coherent chunk of pt stops. Further stops in relation % are ignored
 Warning: 7 total messages of type: Found sharp turn with radius % at the start of edge '%'.
+Warning: 17 total messages of type: Incomplete route for pt line '%'%.
+Warning: 6 total messages of type: Last stop edge '%' is not part of the route of line '%'.
 Warning: 15 total messages of type: No way found for reference '%' in relation '%'
 Warning: 17 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
+Warning: 13 total messages of type: PT stop '%' has been moved to edge '%'.
 Warning: 22 total messages of type: Platform '%' in relation: '%' is given as polygon, which currently is not supported.
 Warning: 29 total messages of type: The rail crossing '%' does not have any roads.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 12 has no controlling detector
@@ -143,17 +121,12 @@ Warning: At actuated tlLogic 'cluster_1828018077_1828018093_1828018094_182801809
 Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', actuated phase 5 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 16 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 24 has no controlling detector
-Warning: busStop '1827996414' on lane '72157174#1_1' is too short for vehicle '3_bus_TXL:0'.
 Warning: busStop '1827996417' on lane '24914992#1_1' is too short for vehicle '4_bus_TXL:1'.
-Warning: busStop '1633759766' on lane '421641064_0' is too short for vehicle '14_tram_M4:0'.
-Warning: busStop '1661927028' on lane '101699679#3_0' is too short for vehicle '18_tram_M5:0'.
-Warning: busStop '2175753204' on lane '207364192#0_0' is too short for vehicle '20_tram_12:0'.
 Warning: busStop '1673526976' on lane '167272512#2_0' is too short for vehicle '21_tram_12:1'.
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle '21_tram_12:1'.
 Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle '28_tram_M1:2'.
 Warning: busStop '3918673888' on lane '388702039#10_0' is too short for vehicle '36_bus_N6:0'.
 Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle '37_bus_147:0'.
-Warning: busStop '2071423352' on lane '295250361_0' is too short for vehicle '62_subway_U6:0'.
 Warning: busStop '3928759794' on lane '388702041#11_0' is too short for vehicle '70_bus_N6:1'.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 12 has no controlling detector
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 13 has no controlling detector
@@ -168,25 +141,15 @@ Warning: At actuated tlLogic 'cluster_1828018077_1828018093_1828018094_182801809
 Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', actuated phase 5 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 16 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 24 has no controlling detector
-Warning: busStop '1827996414' on lane '72157174#1_1' is too short for vehicle 'pt_bus_TXL:0.0'.
 Warning: busStop '1827996417' on lane '24914992#1_1' is too short for vehicle 'pt_bus_TXL:1.0'.
-Warning: busStop '1633759766' on lane '421641064_0' is too short for vehicle 'pt_tram_M4:0.0'.
-Warning: busStop '2175753204' on lane '207364192#0_0' is too short for vehicle 'pt_tram_12:0.0'.
-Warning: busStop '1661927028' on lane '101699679#3_0' is too short for vehicle 'pt_tram_M5:0.0'.
 Warning: busStop '1673526976' on lane '167272512#2_0' is too short for vehicle 'pt_tram_12:1.0'.
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt_tram_12:1.0'.
 Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle 'pt_tram_M1:2.0'.
 Warning: busStop '3918673888' on lane '388702039#10_0' is too short for vehicle 'pt_bus_N6:0.0'.
 Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle 'pt_bus_147:0.0'.
-Warning: busStop '2071423352' on lane '295250361_0' is too short for vehicle 'pt_subway_U6:0.0'.
 Warning: Teleporting vehicle 'pt_tram_M2:3.0'; frontal collision with vehicle 'pt_tram_M2:0.1', lane='-148458500#1_0', gap=-1.00, time=481.00 stage=move.
 Warning: busStop '3928759794' on lane '388702041#11_0' is too short for vehicle 'pt_bus_N6:1.0'.
 Warning: Vehicle 'pt_tram_M2:3.0' ends teleporting on edge '-148458500#0', time 485.00.
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; collision with vehicle 'pt_tram_M2:3.0', lane='148458500#1_0', gap=-1.00, time=486.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', time 486.00.
 Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=486.00.
-Warning: Person 'ped57' aborted waiting for M5:2 at busStop '1633759766'.
-Warning: Person 'ped180' aborted waiting for TXL:1 at busStop '272408975'.
-Warning: Person 'ped45' aborted waiting for S7:0 at busStop '2603331695'.
-Warning: Person 'ped162' aborted waiting for 147:0 at busStop '3869306762'.
-Warning: Person 'ped149' aborted waiting for M48:0 at busStop '1827996414'.
