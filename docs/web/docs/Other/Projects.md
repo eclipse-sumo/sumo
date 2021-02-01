@@ -94,7 +94,7 @@ permalink: /Other/Projects/
   publications: [Piorkowski, Raya, Lugo, Papadimitratos, Grossglauser,
   Hubaux
   2007](../Publications.md#piorkowskirayalugopapadimitratosgrossglauserhubaux2007)
-- [Veins - "Vehicles in Network Simulation"](http://www7.informatik.uni-erlangen.de/veins/)
+- [Veins - "Vehicles in Network Simulation"](https://veins.car2x.org/)
   by Christoph Sommer from the Department of Computer Science,
   University of Erlangen, Germany
   publications: [Sommer, Yao, German, Dressler, 2008](../Publications.md#sommeryaogermandressler2008), [Sommer,

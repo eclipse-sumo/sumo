@@ -75,7 +75,7 @@ permalink: /Z/Changes_from_Version_0.17.1_to_Version_0.18.0/
     leave the stop. Should be used with "triggered='true'" (would
     not work otherwise). Thanks to Shubham Jain for pointing out the
     wrong description of the possibilities in
-    [\[1\]](http://sumo.sourceforge.net/cite.bib).
+    [\[1\]](https://sumo.dlr.de/cite.bib).
   - added options for saving and loading simulation states.
     Simulation states can be saved at predetermined times and then loaded to initialize a new
     simulation (this also requires loading the network and routes of the

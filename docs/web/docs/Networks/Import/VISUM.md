@@ -4,14 +4,14 @@ permalink: /Networks/Import/VISUM/
 ---
 
 [netconvert](../../netconvert.md) can import native
-[VISUM](http://www.ptvag.com/traffic/software/visum/)-network files.
+[VISUM](https://www.ptvgroup.com/en/solutions/products/ptv-visum/)-network files.
 Their extension is ".net". If you do not have a file with this
 extension, but a ".ver"-file only, you have to generate the ".net"-file
-using [VISUM](http://www.ptvag.com/traffic/software/visum/) by exporting
+using [VISUM](https://www.ptvgroup.com/en/solutions/products/ptv-visum/) by exporting
 it from the loaded version description (".ver"-file).
 
 The option to load a
-[VISUM](http://www.ptvag.com/traffic/software/visum/) ".net"-file into
+[VISUM](https://www.ptvgroup.com/en/solutions/products/ptv-visum/) ".net"-file into
 [netconvert](../../netconvert.md) in order to convert it into a
 SUMO-network is named **--visum-file** {{DT_FILE}} or **--visum** {{DT_FILE}} for short. So, the following call to
 [netconvert](../../netconvert.md) imports the road network stored in
@@ -65,7 +65,7 @@ tricks for working with these is described.
 
 ## Lane Number
 
-[VISUM](http://www.ptvag.com/traffic/software/visum/) does not work with
+[VISUM](https://www.ptvgroup.com/en/solutions/products/ptv-visum/) does not work with
 the lane numbers of streets, instead, the streets' capacities are used.
 This means that under circumstances the information about the edges' lane
 numbers are missing. Still, one can try to obtain the lane number from
@@ -82,7 +82,7 @@ In the case the "*ANZFAHRSTREIFEN*" (lane numbers) field within the
 net's "*STRECKEN*" (edges)-table is empty, and also the types do not
 hold any information about the according edges' lane numbers, this
 conversion is done automatically. Still, we also had
-[VISUM](http://www.ptvag.com/traffic/software/visum/) nets in our hands,
+[VISUM](https://www.ptvgroup.com/en/solutions/products/ptv-visum/) nets in our hands,
 where a capacity was given, but the lane number field was set to 1 for
 all edges. In this case, one has to force
 [netconvert](../../netconvert.md) to ignore the lane number attribute
@@ -91,9 +91,9 @@ and use the capacity. This is done by using the option
 
 ## Dealing with Connectors
 
-[VISUM](http://www.ptvag.com/traffic/software/visum/) as a macroscopic
+[VISUM](https://www.ptvgroup.com/en/solutions/products/ptv-visum/) as a macroscopic
 tool, does not regard single vehicles. As one consequence,
-[VISUM](http://www.ptvag.com/traffic/software/visum/) uses "connections"
+[VISUM](https://www.ptvgroup.com/en/solutions/products/ptv-visum/) uses "connections"
 through which traffic is fed from the districts into the network.
 
 The effects on using such connectors within a microscopic simulations
@@ -108,13 +108,13 @@ possibilities to change the connector attributes using
 which is sometimes missing in imported networks. Below, you may find
 links to further information of interest.
 
-- Most [VISUM](http://www.ptvag.com/traffic/software/visum/) networks
+- Most [VISUM](https://www.ptvgroup.com/en/solutions/products/ptv-visum/) networks
   do not contain definitions of traffic lights positions; Still,
   [netconvert](../../netconvert.md) is able to [guess tls
   positions](../../netconvert.md#guessingtlspositions) and to [guess
   tls programs](../../netconvert.md#guessingtlsprograms).
 - Also, we have not seen a
-  [VISUM](http://www.ptvag.com/traffic/software/visum/) network where
+  [VISUM](https://www.ptvgroup.com/en/solutions/products/ptv-visum/) network where
   on- and off-ramps where available for highways.
   [netconvert](../../netconvert.md) is able to [guess on- and
   off-ramps](../../netconvert.md#guessingramps).
@@ -124,11 +124,11 @@ links to further information of interest.
 
 Other possibilities of [netconvert](../../netconvert.md), such as
 projection of geo-coordinates, should not apply when working with
-[VISUM](http://www.ptvag.com/traffic/software/visum/) networks.
+[VISUM](https://www.ptvgroup.com/en/solutions/products/ptv-visum/) networks.
 
 ## Importing other data from VISUM
 
-[VISUM](http://www.ptvag.com/traffic/software/visum/) uses O/D-matrices
+[VISUM](https://www.ptvgroup.com/en/solutions/products/ptv-visum/) uses O/D-matrices
 as a demand descriptions. There is some further information on
 [Demand/Importing O/D
 Matrices](../../Demand/Importing_O/D_Matrices.md).

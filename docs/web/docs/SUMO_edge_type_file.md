@@ -9,7 +9,7 @@ permalink: /SUMO_edge_type_file/
 | Type of content    | Road type description |
 | Open format?       | Yes                   |
 | SUMO specific?     | Yes                   |
-| XML Schema         | [types_file.xsd](http://sumo.sourceforge.net/xsd/types_file.xsd)        |
+| XML Schema         | [types_file.xsd](https://sumo.dlr.de/xsd/types_file.xsd)        |
 
 A **SUMO edge type file** assigns default values for certain attributes
 to types of roads. It configures [netconvert](netconvert.md)
@@ -177,7 +177,7 @@ special railways with some comments below:
 
 - [{{SUMO}}/data/typemap/osmNetconvertPedestrians.typ.xml]({{Source}}data/typemap/osmNetconvertPedestrians.typ.xml)
 - [{{SUMO}}/data/typemap/osmNetconvertBicycle.typ.xml]({{Source}}data/typemap/osmNetconvertBicycle.typ.xml)
-- [{{SUMO}}/data/typemap/osmNetconvertShip.typ.xml]({{Source}}data/typemap/osmNetconvertShip.typ.xml)
+- [{{SUMO}}/data/typemap/osmNetconvertShips.typ.xml]({{Source}}data/typemap/osmNetconvertShips.typ.xml)
 - [{{SUMO}}/data/typemap/osmNetconvertExtraRail.typ.xml]({{Source}}data/typemap/osmNetconvertExtraRail.typ.xml)
 
 If your railways have two tracks but are mapped with a single way in
@@ -199,10 +199,10 @@ very welcome.
 
 ## Templates for OpenDrive
 
-The default type map is [{{SUMO}}/data/typemap/opendrivenetconvert.typ.xml]({{Source}}data/typemap/opendrivenetconvert.typ.xml).
+The default type map is [{{SUMO}}/data/typemap/opendriveNetconvert.typ.xml]({{Source}}data/typemap/opendriveNetconvert.typ.xml).
 
 There are additional templates which should be loaded when importing
 pedestrian infrastructure (sidewalks) and/or bike lanes:
 
-- [{{SUMO}}/data/typemap/opendrivenetconvertPedestrians.typ.xml]({{Source}}data/typemap/opendrivenetconvertPedestrians.typ.xml)
-- [{{SUMO}}/data/typemap/opendrivenetconvertBicycle.typ.xml]({{Source}}data/typemap/opendrivenetconvertBicycle.typ.xml)
+- [{{SUMO}}/data/typemap/opendriveNetconvertPedestrians.typ.xml]({{Source}}data/typemap/opendriveNetconvertPedestrians.typ.xml)
+- [{{SUMO}}/data/typemap/opendriveNetconvertBicycle.typ.xml]({{Source}}data/typemap/opendriveNetconvertBicycle.typ.xml)
