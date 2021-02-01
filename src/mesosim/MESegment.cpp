@@ -95,7 +95,6 @@ MESegment::MESegment(const std::string& id,
     Named(id), myEdge(parent), myNextSegment(next),
     myLength(length), myIndex(idx),
     myTau_length(SCALED_TAU(TIME2STEPS(1)) / MAX2(MESO_MIN_SPEED, speed)),
-    myHeadwayCapacity(length / DEFAULT_VEH_LENGTH_WITH_GAP * parent.getLanes().size())/* Eissfeldt p. 69 */,
     myCapacity(length * parent.getLanes().size()),
     myQueueCapacity(multiQueue ? length : length * parent.getLanes().size()),
     myNumVehicles(0),
@@ -171,7 +170,7 @@ MESegment::MESegment(const std::string& id):
     myJunctionControl(false),
     myOvertaking(false),
     myTau_length(1),
-    myHeadwayCapacity(0), myCapacity(0), myQueueCapacity(0) {
+    myCapacity(0), myQueueCapacity(0) {
 }
 
 
@@ -477,7 +476,8 @@ MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOT
         const bool nextFree = next->myQueues[nextQIdx].getOccupancy() <= next->myJamThreshold;
         const SUMOTime tau = (q.getOccupancy() <= myJamThreshold
                               ? (nextFree ? myTau_ff : myTau_fj)
-                              : (nextFree ? myTau_jf : getTauJJ(next->myQueues[nextQIdx].size(), next->getLength())));
+                              : (nextFree ? myTau_jf : getTauJJ(next->myQueues[nextQIdx].size(), next->myQueueCapacity, next->myJamThreshold)));
+        assert(tau >= 0);
         myLastHeadway = tauWithVehLength(tau, veh->getVehicleType().getLengthWithGap());
         if (myTLSPenalty) {
             const MSLink* const tllink = getLink(veh, true);
@@ -498,7 +498,7 @@ MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOT
 }
 
 SUMOTime
-MESegment::getTauJJ(int nextQueueSize, double nextQueueCapacity) const {
+MESegment::getTauJJ(int nextQueueSize, double nextQueueCapacity, double nextJamThreshold) const {
     // compute coefficients for the jam-jam headway function
     // this function models the effect that "empty space" needs to move
     // backwards through the downstream segment before the upstream segment may
@@ -508,18 +508,19 @@ MESegment::getTauJJ(int nextQueueSize, double nextQueueCapacity) const {
     // downstream segment x
     // f is a linear function that passes through the following fixed points:
     // f(n_jam_threshold) = tau_jf_withLength (for continuity)
-    // f(myHeadwayCapacity) = myTau_jj * myHeadwayCapacity
+    // f(headwayCapacity) = myTau_jj * headwayCapacity
 
     const SUMOTime tau_jf_withLength = tauWithVehLength(myTau_jf, DEFAULT_VEH_LENGTH_WITH_GAP);
+    // number of vehicles that fit into the NEXT queue (could be larger than expected with DEFAULT_VEH_LENGTH_WITH_GAP!)
+    const double headwayCapacity = MAX2(nextQueueSize * 1.0, nextQueueCapacity / DEFAULT_VEH_LENGTH_WITH_GAP);
+    // number of vehicles above which the NEXT queue is jammed
+    const double n_jam_threshold = headwayCapacity * nextJamThreshold / nextQueueCapacity;
 
-    // number of vehicles above which the segment is jammed
-    const double n_jam_threshold = myHeadwayCapacity * myJamThreshold / myCapacity;
     /// @brief slope and axis offset for the jam-jam headway function
     double a,b;
-
     // solving f(x) = a * x + b
-    a = (STEPS2TIME(myTau_jj) * myHeadwayCapacity - STEPS2TIME(tau_jf_withLength)) / (myHeadwayCapacity - n_jam_threshold);
-    b = myHeadwayCapacity * (STEPS2TIME(myTau_jj) - a);
+    a = (STEPS2TIME(myTau_jj) * headwayCapacity - STEPS2TIME(tau_jf_withLength)) / (headwayCapacity - n_jam_threshold);
+    b = headwayCapacity * (STEPS2TIME(myTau_jj) - a);
 
     return TIME2STEPS(a * nextQueueSize + b);
 }
