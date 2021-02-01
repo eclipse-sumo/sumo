@@ -78,33 +78,33 @@ the following attributes:
 
 - **allow/disallow**
 
-  [Map features](http://wiki.openstreetmap.org/wiki/Map_Features), [OSM tags for routing/Access restrictions](http://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions).
+  [Map features](https://wiki.openstreetmap.org/wiki/Map_Features), [OSM tags for routing/Access restrictions](https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions).
   
 - **numLanes**
 
-  [Map features](http://wiki.openstreetmap.org/wiki/Map_Features), [Editing standards and
-  conventions](http://wiki.openstreetmap.org/wiki/Editing_Standards_and_Conventions),
-  [Key:lanes](http://wiki.openstreetmap.org/wiki/Key:lanes),
-  [Key:highway](http://wiki.openstreetmap.org/wiki/Key:highway) and
+  [Map features](https://wiki.openstreetmap.org/wiki/Map_Features), [Editing standards and
+  conventions](https://wiki.openstreetmap.org/wiki/Editing_Standards_and_Conventions),
+  [Key:lanes](https://wiki.openstreetmap.org/wiki/Key:lanes),
+  [Key:highway](https://wiki.openstreetmap.org/wiki/Key:highway) and
   [Tagging scheme by
-  country](http://wiki.openstreetmap.org/wiki/Tagging).
+  country](https://wiki.openstreetmap.org/wiki/Tagging).
   
 - **priority**
 
-  [Map features](http://wiki.openstreetmap.org/wiki/Map_Features).
+  [Map features](https://wiki.openstreetmap.org/wiki/Map_Features).
   
 - **oneway**
 
-  [Key:oneway](http://wiki.openstreetmap.org/wiki/Key:oneway).
+  [Key:oneway](https://wiki.openstreetmap.org/wiki/Key:oneway).
   
 - **speed**
 
-  [Key:maxspeed](http://wiki.openstreetmap.org/wiki/Key:maxspeed),
+  [Key:maxspeed](https://wiki.openstreetmap.org/wiki/Key:maxspeed),
   [OSM tags for
   routing/Maxspeed](https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing#Max_speed),
-  [Key:source:maxspeed](http://wiki.openstreetmap.org/wiki/Key:source:maxspeed)
+  [Key:source:maxspeed](https://wiki.openstreetmap.org/wiki/Key:source:maxspeed)
   and
-  [Key:traffic_sign](http://wiki.openstreetmap.org/wiki/Key:traffic_sign).
+  [Key:traffic_sign](https://wiki.openstreetmap.org/wiki/Key:traffic_sign).
   Wikipedia lists the [Speed limits by
   country](https://en.wikipedia.org/wiki/Speed_limits_by_country).
 
@@ -127,7 +127,7 @@ separation from those without, and special road like living streets and
 pedestrian areas. There is no direct connection to the importance of a
 road. However in OpenStreetMap, a motorway is supposed to have such a
 central barrier separation per default
-[\[1\]]()(http://wiki.openstreetmap.org/wiki/Tag:highway%3Dmotorway). As a
+[\[1\]]()(https://wiki.openstreetmap.org/wiki/Tag:highway%3Dmotorway). As a
 consequence, the speed value only varies between rural and urban
 contexts but not between road types, except for motorways, living
 streets and pedestrian areas. The two SUMO edge type files are given
@@ -140,34 +140,34 @@ when converting OpenStreetMap networks without an explicit typemap.
 
 | id                     | Comments                                                                                                                                                                       |
 |------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| highway.motorway       | Autobahn. No legislative speed limit: 44.4 is just a reasonable default. [\[2\]](http://wiki.openstreetmap.org/wiki/Tag:highway%3Dmotorway) is a bit opposite to [\[3\]](http://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dmotorway) regarding oneway tagging.                                                |
+| highway.motorway       | Autobahn. No legislative speed limit: 44.4 is just a reasonable default. [\[2\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dmotorway) is a bit opposite to [\[3\]](https://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dmotorway) regarding oneway tagging.                                                |
 | highway.motorway_link  | Links are usually subordinate to the road that leads to the trunk (e.g. a secondary or tertiary road)                                                                          |
-| highway.trunk          | Similar to Autobahn [\[4\]](http://wiki.openstreetmap.org/wiki/Tag:highway%3Dtrunk) [\[5\]](http://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dtrunk). Lanes, maxspeed and oneway should be tagged explicitely.                                                                                          |
+| highway.trunk          | Similar to Autobahn [\[4\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dtrunk) [\[5\]](https://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dtrunk). Lanes, maxspeed and oneway should be tagged explicitely.                                                                                          |
 | highway.trunk_link     | Links are usually subordinate to the road that leads to the trunk (e.g. a secondary or tertiary road)                                                                          |
-| highway.primary        | Bundesstraße [\[6\]](http://wiki.openstreetmap.org/wiki/Tag:highway%3Dprimary) [\[7\]](http://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dprimary)                                                                                                                                                           |
+| highway.primary        | Bundesstraße [\[6\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dprimary) [\[7\]](https://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dprimary)                                                                                                                                                           |
 | highway.primary_link   | Links are usually subordinate to the road that leads to the trunk (e.g. a secondary or tertiary road)                                                                          |
-| highway.secondary      | Land-, Staats-, or a major Kreisstraße [\[8\]](http://wiki.openstreetmap.org/wiki/Tag:highway%3Dsecondary) [\[9\]](http://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dsecondary)                                                                                                                                 |
+| highway.secondary      | Land-, Staats-, or a major Kreisstraße [\[8\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dsecondary) [\[9\]](https://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dsecondary)                                                                                                                                 |
 | highway.secondary_link | Links are usually subordinate to the road that leads to the trunk (e.g. a tertiary road)                                                                                       |
-| highway.tertiary       | Kreisstraße, major Gemeindeverbindungsstraße or minor Staats-/Landesstraße [\[10\]](http://wiki.openstreetmap.org/wiki/Tag:highway%3Dtertiary) [\[11\]](http://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dtertiary)                                                                                           |
+| highway.tertiary       | Kreisstraße, major Gemeindeverbindungsstraße or minor Staats-/Landesstraße [\[10\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dtertiary) [\[11\]](https://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dtertiary)                                                                                           |
 | highway.tertiary_link  | Links are usually subordinate to the road that leads to the trunk (e.g. a tertiary road).                                                                                      |
-| highway.unclassified   | Below tertiary, still interconnecting, not in a residential area [\[12\]](http://wiki.openstreetmap.org/wiki/Tag:highway%3Dunclassified) [\[13\]](http://wiki.openstreetmap.org/wiki/Tag:highway%3Dresidential) [\[14\]](http://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dunclassified) [\[15\]](http://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dresidential)                                                                            |
-| highway.residential    | Accessing a residential area, should probably not be outside a town [\[16\]](http://wiki.openstreetmap.org/wiki/Tag:highway%3Dresidential) [\[17\]](http://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dresidential)                                                                                                  |
-| highway.living_street  | Verkehrsberuhigter Bereich (walking speed). If you leave that street, you have to give way [\[18\]](http://wiki.openstreetmap.org/wiki/Tag:highway%3Dliving_street)                                                                                |
-| highway.pedestrian     | Fußgängerzone. Pedestrians only. (Bicycles should be pushed.) [\[19\]](http://wiki.openstreetmap.org/wiki/Tag:highway%3Dtrack) [\[20\]](http://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dpedestrian)                                                                                                        |
-| highway.service        | No explicit regulatory speed limit. Usually you have to give way when leaving such a street as it is not part of the road network with moving traffic. [\[21\]](http://wiki.openstreetmap.org/wiki/Tag:highway%3Dservice)                    |
-| highway.services       | Rest area with additional services like a gas station. Usually you have to give way when leaving such a street as it is not part of the road network with moving traffic. [\[22\]](http://wiki.openstreetmap.org/wiki/Tag:highway%3Dservices) |
-| highway.bus_guideway   | For busses only. [\[23\]](http://wiki.openstreetmap.org/wiki/Tag:highway%3Dbus_guideway)                                                                                                                                                          |
-| highway.track          | For agricultural traffic, usually not used by normal vehicles. [\[24\]](http://wiki.openstreetmap.org/wiki/Tag:highway%3Dtrack)                                                                                                            |
-| highway.path           | Usually “not intended for motor vehicles”. [\[25\]](http://wiki.openstreetmap.org/wiki/Tag:highway%3Dpath)                                                                                                                                |
-| highway.cycleway       | “Access is only allowed for bikes” in Germany. [\[26\]](http://wiki.openstreetmap.org/wiki/Tag:highway%3Dcycleway)                                                                                                                            |
-| highway.footway        | For designated footpaths in Germany. (Bicycles must be tagged explicitely.) [\[27\]](http://wiki.openstreetmap.org/wiki/Tag:highway%3Dfootway) [\[28\]](http://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dfootway)                                                                                          |
-| highway.bridleway      | For pedestrians, horses and sometimes bicycles. [\[29\]](http://wiki.openstreetmap.org/wiki/Tag:highway%3Dbridleway)                                                                                                                           |
-| highway.steps<br>highway.step<br>highway.stairs         | Steps are usually for pedestrians. [\[30\]](http://wiki.openstreetmap.org/wiki/Tag:highway%3Dsteps)                                                                                                        |
+| highway.unclassified   | Below tertiary, still interconnecting, not in a residential area [\[12\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dunclassified) [\[13\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dresidential) [\[14\]](https://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dunclassified) [\[15\]](https://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dresidential)                                                                            |
+| highway.residential    | Accessing a residential area, should probably not be outside a town [\[16\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dresidential) [\[17\]](https://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dresidential)                                                                                                  |
+| highway.living_street  | Verkehrsberuhigter Bereich (walking speed). If you leave that street, you have to give way [\[18\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dliving_street)                                                                                |
+| highway.pedestrian     | Fußgängerzone. Pedestrians only. (Bicycles should be pushed.) [\[19\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dtrack) [\[20\]](https://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dpedestrian)                                                                                                        |
+| highway.service        | No explicit regulatory speed limit. Usually you have to give way when leaving such a street as it is not part of the road network with moving traffic. [\[21\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dservice)                    |
+| highway.services       | Rest area with additional services like a gas station. Usually you have to give way when leaving such a street as it is not part of the road network with moving traffic. [\[22\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dservices) |
+| highway.bus_guideway   | For busses only. [\[23\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dbus_guideway)                                                                                                                                                          |
+| highway.track          | For agricultural traffic, usually not used by normal vehicles. [\[24\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dtrack)                                                                                                            |
+| highway.path           | Usually “not intended for motor vehicles”. [\[25\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dpath)                                                                                                                                |
+| highway.cycleway       | “Access is only allowed for bikes” in Germany. [\[26\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dcycleway)                                                                                                                            |
+| highway.footway        | For designated footpaths in Germany. (Bicycles must be tagged explicitely.) [\[27\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dfootway) [\[28\]](https://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dfootway)                                                                                          |
+| highway.bridleway      | For pedestrians, horses and sometimes bicycles. [\[29\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dbridleway)                                                                                                                           |
+| highway.steps<br>highway.step<br>highway.stairs         | Steps are usually for pedestrians. [\[30\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dsteps)                                                                                                        |
 | railway.rail           | Typical full sized trains                                                                                                                                                      |
 | railway.tram           | Trams                                                                                                                                                                          |
-| railway.light_rail     | S-Bahn [\[31\]](http://wiki.openstreetmap.org/wiki/Tag:railway%3Dlight_rail)                                                                                                                                                                    |
-| railway.subway         | U-Bahn [\[32\]](http://wiki.openstreetmap.org/wiki/Tag:railway%3Dsubway)                                                                                                                                                                    |
-| railway.preserved      | Historic trains [\[33\]](http://wiki.openstreetmap.org/wiki/Map_Features) [\[34\]](http://wiki.openstreetmap.org/wiki/Tag:railway%3Dpreserved)                                                                                                                                                      |
+| railway.light_rail     | S-Bahn [\[31\]](https://wiki.openstreetmap.org/wiki/Tag:railway%3Dlight_rail)                                                                                                                                                                    |
+| railway.subway         | U-Bahn [\[32\]](https://wiki.openstreetmap.org/wiki/Tag:railway%3Dsubway)                                                                                                                                                                    |
+| railway.preserved      | Historic trains [\[33\]](https://wiki.openstreetmap.org/wiki/Map_Features) [\[34\]](https://wiki.openstreetmap.org/wiki/Tag:railway%3Dpreserved)                                                                                                                                                      |
 
 ### Templates for additional traffic modes in OpenStreetMap
 
@@ -186,9 +186,9 @@ OSM, you may wish to load:
 
 | id                    | Comments                                                                                                             |
 | --------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| railway.narrow_gauge | Smaller gauge. Assigned it to the SUMO class lightrail. [\[35\]](http://wiki.openstreetmap.org/wiki/Tag:railway%3Dnarrow_gauge)   |
-| railway.monorail      | “Trains run on one single rail”. Assigned it to the SUMO class lightrail. [\[36\]](http://wiki.openstreetmap.org/wiki/Tag:railway%3Dmonorail)       |
-| railway.funicular     | “Cable driven inclined railways”. Assigned it to the SUMO class cityrail. [\[37\]](http://wiki.openstreetmap.org/wiki/Map_Features) [\[38\]](http://wiki.openstreetmap.org/wiki/Tag:railway%3Dfunicular) |
+| railway.narrow_gauge | Smaller gauge. Assigned it to the SUMO class lightrail. [\[35\]](https://wiki.openstreetmap.org/wiki/Tag:railway%3Dnarrow_gauge)   |
+| railway.monorail      | “Trains run on one single rail”. Assigned it to the SUMO class lightrail. [\[36\]](https://wiki.openstreetmap.org/wiki/Tag:railway%3Dmonorail)       |
+| railway.funicular     | “Cable driven inclined railways”. Assigned it to the SUMO class cityrail. [\[37\]](https://wiki.openstreetmap.org/wiki/Map_Features) [\[38\]](https://wiki.openstreetmap.org/wiki/Tag:railway%3Dfunicular) |
 
 Only few data is available about the railway types. The most important
 document might be the [Eisenbahn-Bau- und Betriebsordnung
