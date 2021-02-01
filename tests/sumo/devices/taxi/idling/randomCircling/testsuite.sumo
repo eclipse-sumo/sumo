@@ -3,3 +3,6 @@
 
 # test taxi device attribute end
 end_of_work
+
+# handle taz while random circling
+taz
