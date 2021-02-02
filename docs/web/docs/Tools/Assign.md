@@ -35,14 +35,32 @@ For further options to the script look either at the source code or
 start it with the "--help" option.
 
 ```
-duaIterate.py -n <PATH_TO_SUMO_NET> -t <PATH_TO_TRIPS>
+python tools/assign/duaIterate.py -n <PATH_TO_SUMO_NET> -t <PATH_TO_TRIPS>
 ```
 
-Furthermore a calibrator option is available in the script to call the
+## duaIterate_analysis.py
+
+To check the evolution of different simulation parameters during the dua
+estimation an additional script is provided which analyses teleport counts
+and how they evolve over the iterations.
+
+```
+python tools/assign/duaIterate_analysis.py dualog.txt
+```
+
+## cadytsIterate.py
+
+This script is a variant of duaIterate.py which uses the
 Cadyts calibration tool, developed by Gunnar Flötteröd at EPFL,
-Switzerland. With this option, route choices will be adjusted according
+Switzerland. With this script, route choices will be adjusted according
 to given link counts. The validation work of the calibration between
-SUMO and Cadyts is work in progress.
+SUMO and Cadyts is work in progress. You will need to download
+[Cadyts](https://github.com/gunnarfloetteroed/java) separately and add a 
+reference to the jar file to the call.
+
+```
+python tools/assign/cadytsIterate.py -n input_net.net.xml -r routes.rou.xml -d input_measurements.xml --classpath cadyts.jar
+```
 
 ## one-shot.py
 
