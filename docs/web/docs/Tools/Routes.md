@@ -121,6 +121,19 @@ Output for plotting may also be generated (see **--help**).
 When setting option **--attribute depart** a histogram on departure times (or departure time
 differences) is generated instead.
 
+# routecompare.py
+
+This script compares two route sets by calculating
+a similarity for any two routes based on the number of common edges
+and determining a maximum weighted matching between the route sets.
+It needs at least two parameters, which are the route sets to compare.
+Optionally a district file may be given, then only routes with
+the same origin and destination district are matched.
+
+```
+<SUMO_HOME>/tools/route/routecompare.py routes.rou.xml routes2.rou.xml
+```
+
 # route2poly.py
 
 Transform routes into polygons for visualization in
