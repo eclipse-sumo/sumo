@@ -110,9 +110,8 @@ by giving a value in seconds between \[0.001 and 1.0\].
 
 Example: **--step-length 0.01** will run the simulation using time steps of 10ms.
 
-caution !!!
-        Technically, larger values can be used but many car-following models are not tested with values above 1 and may fail to work as expected.
-        The step-length also sets a lower bound on driver reaction times which increases the likelyhood of collisions.
+!!! caution
+    Technically, larger values can be used but many car-following models are not tested with values above 1 and may fail to work as expected.The step-length also sets a lower bound on driver reaction times which increases the likelyhood of collisions when using values above 1 without adapting other mdel parameters (tau).
 
 Setting a lower step-length has many consequences:
 
