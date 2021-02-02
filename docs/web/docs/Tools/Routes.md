@@ -164,6 +164,13 @@ interval \[c,d\[.
 <SUMO_HOME>/tools/route/route_departOffset.py --input-file myRoutes.rou.xml --output-file shifted.rou.xml --depart-interval 3600,7200,0,500
 ```
 
+# route_1htoDay
+Uses "route_departOffset.py" for building 24 route files which describe a whole day assuming the given route files describes an hour.
+
+```
+<SUMO_HOME>/tools/route/route_1htoDay.py myRoutes.rou.xml
+```
+
 # showDepartsAndArrivalsPerEdge
 
 Generates a visualization file for investigating traffic patterns in a
