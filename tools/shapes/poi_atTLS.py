@@ -34,8 +34,11 @@ if len(sys.argv) < 2:
     sys.exit()
 
 print("Reading net...")
-net1 = sumolib.net.readNet(sys.argv[1], withPrograms=True)
-
+try:
+    net1 = sumolib.net.readNet(sys.argv[1], withPrograms=True)
+except IOError as e:
+    print(e, file=sys.stderr)
+    sys.exit()
 
 print("Writing output...")
 fdo = open('pois.add.xml', 'w')

@@ -7,9 +7,6 @@ CSV2polyconvertXML
 # test for debug2shapes
 debug2shapes
 
-# test for pois2inductionLoops
-pois2inductionLoops
-
 # Tests for Point of Interest along Roads
 poi_alongRoads
 

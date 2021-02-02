@@ -28,12 +28,16 @@ import sumolib.net  # noqa
 from sumolib.xml import parse  # noqa
 
 
-if len(sys.argv) < 2:
+if len(sys.argv) < 3:
     print("Usage: " + sys.argv[0] + " <NET> <STOPS>", file=sys.stderr)
     sys.exit()
 
 print("Reading net...")
-net = sumolib.net.readNet(sys.argv[1])
+try:
+    net = sumolib.net.readNet(sys.argv[1])
+except IOError as e:
+    print(e, file=sys.stderr)
+    sys.exit()
 stops = sys.argv[2]
 
 
