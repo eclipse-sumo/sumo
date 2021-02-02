@@ -42,5 +42,5 @@ projects
 # test functions that aren't yet used by a tested tool
 sumolib
 public_transport
-
 misc
+devel
