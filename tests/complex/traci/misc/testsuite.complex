@@ -16,5 +16,8 @@ tracing
 # test client-side command tracing (including getters)
 tracing_noGetters
 
+# test client-side command tracing
+tracing_close_start
+
 # test various functions and options for influencing the behavior of rerouting functions
 rerouting
