@@ -19,7 +19,7 @@
 
 """
 This script is to
-- extract the popoulation data from a given Open Street Map (OSM).
+- extract the population data from a given Open Street Map (OSM).
 - match the population data from OSM and BSA (with csv format)
 The redundant information is removed and saved in the output file *_redundantOSMData.txt.
 If there are data entries without names, they will be saved in *_nameNone.txt.
