@@ -114,20 +114,3 @@ poi_atTLS.py <NET> [nojoin]
 PoIs are stored with type="default", color="1,0,0", and layer="0".
 
 The tool uses the <SUMO\>/tools/lib/sumonet.py library.
-
-# pois2inductionLoops.py
-
-Converts a given pois located on lanes into induction loop detectors
-Each poi is replicated to cover all lanes of the road.
-
-```
-pois2inductionLoops.py <NET> <POIS> <OUTPUT>
-```
-
-- <NET\>: The network
-- <POIS\>: The POIs to read induction loos positions from
-- <OUTPUT\>: output file
-
-The detectors are named <POINAME>__l<LANE_INDEX>
-
-The tool uses the <SUMO\>/tools/lib/sumonet.py library.
