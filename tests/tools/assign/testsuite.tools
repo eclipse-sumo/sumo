@@ -7,9 +7,3 @@ costFunctionChecker
 
 # in simulation rerouting tests
 one-shot
-
-# Assignment test
-Assignment
-
-# Networkstatistics test
-networkStatistics

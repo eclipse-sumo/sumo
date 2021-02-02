@@ -204,6 +204,7 @@ errors:Scipy version [0-9]+\.[0-9]+\.[0-9]+{REPLACE Scipy}
 errors:OptimizeWarning
 errors:/home/
 errors:C:
+errors:D:
 omnet:<!-- generated on
 shawn:<!-- generated on
 gpsdat:r[0-9]

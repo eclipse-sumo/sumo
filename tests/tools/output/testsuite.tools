@@ -25,3 +25,5 @@ attributeStats
 
 # tests for evaluating the coordination factor along a corridor
 computeCoordination
+
+tripStatistics
