@@ -1,4 +1,5 @@
-...Warning: Value of 'emergencyDecel' (0.50) should be higher than 'decel' (1.70) for vType 'connected_pCatchup'.
+...WARNING: No typeSubstring given. Managing all vehicles. (PlatoonManager)
+.Warning: Value of 'emergencyDecel' (0.50) should be higher than 'decel' (1.70) for vType 'connected_pCatchup'.
 Warning: Value of 'emergencyDecel' (0.50) is lower than 'apparentDecel' (1.70) for vType 'connected_pCatchup' may cause collisions.
 WARNING: Restricting given control rate (= 1000 per sec.) to 1 per timestep (= 10 per sec.) (PlatoonManager)
 WARNING: emergencyDecel of mapped vType 'connected_pCatchup' (0.5m.) does not equal emergencyDecel of original vType 'connected' (4.5m.) (PlatoonManager)
@@ -15,6 +16,6 @@ Warning: Value of 'emergencyDecel' (0.50) is lower than 'apparentDecel' (1.70) f
 WARNING: No typeSubstring given. Managing all vehicles. (PlatoonManager)
 .
 ----------------------------------------------------------------------
-Ran 6 tests in 7.033s
+Ran 7 tests in 7.861s
 
 OK

@@ -101,6 +101,11 @@ catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
                 <vTypeMap original="connected" leader="connected_pLeader" follower="connected_pFollower" \
 catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
             """
+
+        self.cfg_body4 =\
+            """
+                <vTypeMap original="connected" leader="connected_pLeader" follower="connected_pFollower"/>
+            """
         # template still needs to insert definite values for placeholders
         self.SUMO_CFG_TEMPLATE = os.path.join(testDir, "sumo.sumocfg")
         self.SUMO_CFG = os.path.join(testDir, "test.sumocfg")
@@ -170,6 +175,13 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
         expectedVTypes.sort()
         registeredPlatoonVTypes.sort()
         self.assertListEqual(expectedVTypes, registeredPlatoonVTypes)
+
+    def test_init_vtypemap_fallback(self):
+        print("Testing specification per vtypemap xml-element with missing modes...")
+        self.patchSumoConfig()
+        self.connectToSumo(self.SUMO_CFG)
+        self.patchConfigFile(self.cfg_body4)
+        simpla.load(self.CFG1)
 
     def test_init_warn(self):
         print("Testing Warnings...")
