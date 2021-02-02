@@ -16,7 +16,7 @@ positions on the given network. The tool is named
 The call is:
 
 ```
-visum_parseZaehlstelle.py <SUMO-net> <VISUM-net> <output>
+python visum_parseZaehlstelle.py <SUMO-net> <VISUM-net> <output>
 ```
 
 This means that you have to give both, the converted, and the

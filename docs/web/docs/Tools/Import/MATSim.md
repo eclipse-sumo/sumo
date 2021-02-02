@@ -15,7 +15,7 @@ This tool allows to import person plans from MATSim output.
 The call is:
 
 ```
-tools/import/matsim/matsim_importPlans.py --plan-file matsim_plans.xml -o out.rou.xml
+python tools/import/matsim/matsim_importPlans.py --plan-file matsim_plans.xml -o out.rou.xml
 ```
 
 The option **--vehicles-only** allows to import only the passenger traffic rather than intermodal trip chains.

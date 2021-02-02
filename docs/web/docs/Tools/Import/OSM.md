@@ -16,13 +16,13 @@ generated and [sumo-gui](../../sumo-gui.md) is started.
 
 All files that make up the scenario are created in a subfolder of the
 working directory with the current timestamp (i.e.
-{{SUMO}}/tools/2016-09-30-10-00-00/). If you edit the network, you can use the
+{{SUMO}}/tools/2021-02-22-10-00-00/). If you edit the network, you can use the
 script *build.bat* to rebuild the random demand.
 
 Call:
 
 ```
-python <SUMO_HOME>/tools/osmWebWizard.py
+python tools/osmWebWizard.py
 ```
 
 The script will keep running so you can build multiple scenarios in your
