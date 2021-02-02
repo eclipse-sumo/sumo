@@ -19,7 +19,7 @@
 
 """
 This script is to generate hourly matrices from a VISUM daily matrix.
-The taffic demand of the traffic zones, which have the same connection links, will be integrated.
+The traffic demand of the traffic zones, which have the same connection links, will be integrated.
 """
 from __future__ import absolute_import
 from __future__ import print_function

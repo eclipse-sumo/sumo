@@ -16,7 +16,7 @@
 # @date    2019-11-23
 
 """
-This script generates rerrouters ahead of every intersection with routes to each of
+This script generates rerouters ahead of every intersection with routes to each of
 the downstream intersections.
 """
 from __future__ import print_function
