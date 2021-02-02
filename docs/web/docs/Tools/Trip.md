@@ -256,13 +256,3 @@ and define only the file *example.src.xml* as follows:
 </edgedata>
 ```
 
-# route2trips.py
-
-This script generates a trip file from a route file by stripping all
-route information except for start and end edge. It has a single
-parameter which is the route file and prints the trip file to stdout.
-Example:
-
-```
-<SUMO_HOME>/tools/route2trips.py input_routes.rou.xml
-```
