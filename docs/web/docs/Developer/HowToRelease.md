@@ -52,7 +52,7 @@ software (Veins, VSimRTI, flow etc.) at this stage.
   - generate options documentation from configuration templates
     using `tools/build/configTemplateToWiki.py`
   - recheck/rebuild the configuration xsd schemata (if options were
-    added) using `tools/xml/rebuildSchemata.py` 
+    added) using `tools/build/rebuildSchemata.py` 
 - check the internal tests (same procedure as above), especially the
   (to be) published scenarios
 - GitHub
