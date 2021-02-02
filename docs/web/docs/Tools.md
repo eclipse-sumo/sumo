@@ -54,6 +54,7 @@ sumo output files
 visualizing emissions
 - *[xml](Tools/Xml.md)* - python tools for converting xml and
 xml schema related utilities
+- *[devel](Tools/devel.md)* - tools for developers
 - *[miscellaneous](Tools/Misc.md)* - tools that do not fit the
 above categories
 
