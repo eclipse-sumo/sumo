@@ -21,6 +21,11 @@ sort
 
 # Cut down routes from a large scenario to a sub-scenario
 cut_routes
+
+# Cut down trips from a large scenario to a sub-scenario
+cutTrips
+
+# test route statistics
 routeStats
 
 # tests for modifying departure times

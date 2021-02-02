@@ -18,7 +18,7 @@
 """
 Cut down trips from a large scenario to a sub-scenario.
 Only trips that start and end in the sub-scenario network are kept
-(This differs from cutRoutes.py which also keeps routes passing throu the
+(This differs from cutRoutes.py which also keeps routes passing through the
 sub-scenario network)
 """
 from __future__ import absolute_import
