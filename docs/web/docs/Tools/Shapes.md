@@ -3,19 +3,6 @@ title: Tools/Shapes
 permalink: /Tools/Shapes/
 ---
 
-# circlePolygon.py
-
-Generate circular polygons with custom radius, and number of vertices.
-
-```
-<SUMO\>/tools/shape/ciclePolygon.py X,Y,RADIUS,NUMVERTICES [x2,y2,radius2,points2] ....
-```
-
-- <X\>: Polygon center X
-- <Y\>: Polygon center Y
-- <RADIUS\>: Polygon radius
-- <NUMVERTICES\>: number of vertices
-
 # CSV2polyconvertXML.py
 
 Converts a given CSV-file that contains a list of pois to an XML-file that may be read by POLYCONVERT
