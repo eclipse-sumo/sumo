@@ -72,45 +72,6 @@ Additional setting, such as outputs of summary and trip-information as
 well as begin time, could be made by adding respective options which can
 be found in the script.
 
-## networkStatistics.py
-
-This script is to calculate the global performance indices according to
-**SUMO-based** simulation results. The calculation functions are
-directly defined in this script. Basic statistics are delivered, such
-as:
-
-- average travel time (s)
-- average travel length (m)
-- average travel speed (m/s)
-- average departure delay (s)
-- average waiting time (s)
-
-Besides, this script is also to execute a significance test for
-evaluating the results from different assignment methods. The t test and
-the Kruskal-Wallis test are available in this script. If not specified,
-the Kruskal-Wallis test will be applied with the assumption that data
-are not normally distributed.
-
-In order to execute this script, the other two scripts, i.e.
-statisticsElements.py and tables.py, are required. They all should be in
-the same directory.
-
-In the statisticsElements.py, classes regarding vehicles, their
-performance measures, t values, H values as well as functions for
-outputs are defined. The chi-square table and the t table are defined in
-the tables.py.
-
-An exemplary command is shown below.
-
-```
-networkStatistics.py -t <tripinfo files> -o <output file> -e
-
-where -t: name of output files containing vehicle information, generated by SUMO
-      -o: define the output file name
-      -e: set true for applying the t test (default: false)
-      -k: set true for applying the Kruskal-Wallis test (default: false)
-```
-
 ## matrixDailyToHourly.py
 
 This script is to generate hourly matrices from a VISUM daily matrix.
