@@ -84,7 +84,6 @@ Generates a PoI-file containing a PoI for each Stop from the given net.
 ```
 poi_at_stops.py <NET> <STOPS>
 ```
-X
 
 - <NET\>: The network
 - <STOPS\>: The stops to read stop positions from
