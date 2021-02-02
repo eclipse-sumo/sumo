@@ -90,16 +90,16 @@ class PlatoonManager(traci.StepListener):
 
         # Check for undefined vtypes and fill with defaults
         for origType, specialTypes in cfg.PLATOON_VTYPES.items():
-            if specialTypes[PlatoonMode.FOLLOWER] is None:
+            if specialTypes.get(PlatoonMode.FOLLOWER) is None:
                 if rp.VERBOSITY >= 2:
                     report("Setting unspecified follower vtype for '%s' to '%s'" %
                            (origType, specialTypes[PlatoonMode.LEADER]), True)
                 specialTypes[PlatoonMode.FOLLOWER] = specialTypes[PlatoonMode.LEADER]
-            if specialTypes[PlatoonMode.CATCHUP] is None:
+            if specialTypes.get(PlatoonMode.CATCHUP) is None:
                 if rp.VERBOSITY >= 2:
                     report("Setting unspecified catchup vtype for '%s' to '%s'" % (origType, origType), True)
                 specialTypes[PlatoonMode.CATCHUP] = origType
-            if specialTypes[PlatoonMode.CATCHUP_FOLLOWER] is None:
+            if specialTypes.get(PlatoonMode.CATCHUP_FOLLOWER) is None:
                 if rp.VERBOSITY >= 2:
                     report("Setting unspecified catchup-follower vtype for '%s' to '%s'" %
                            (origType, specialTypes[PlatoonMode.FOLLOWER]), True)
