@@ -1,0 +1,33 @@
+Traceback (most recent call last):
+  File "D:\SUMO\tools\sumolib\net\__init__.py", line 794, in readNet
+    parse(gzip.open(filename), netreader)
+  File "C:\Python38\lib\gzip.py", line 58, in open
+    binary_file = GzipFile(filename, gz_mode, compresslevel)
+  File "C:\Python38\lib\gzip.py", line 173, in __init__
+    fileobj = self.myfileobj = builtins.open(filename, mode or 'rb')
+FileNotFoundError: [Errno 2] No such file or directory: 'dummyParameters'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\SUMO\tests\..\tools/shapes/poi_at_stops.py", line 36, in <module>
+    net = sumolib.net.readNet(sys.argv[1])
+  File "D:\SUMO\tools\sumolib\net\__init__.py", line 796, in readNet
+    parse(filename, netreader)
+  File "C:\Python38\lib\xml\sax\__init__.py", line 33, in parse
+    parser.parse(source)
+  File "C:\Python38\lib\xml\sax\expatreader.py", line 105, in parse
+    source = saxutils.prepare_input_source(source)
+  File "C:\Python38\lib\xml\sax\saxutils.py", line 365, in prepare_input_source
+    f = urllib.request.urlopen(source.getSystemId())
+  File "C:\Python38\lib\urllib\request.py", line 222, in urlopen
+    return opener.open(url, data, timeout)
+  File "C:\Python38\lib\urllib\request.py", line 509, in open
+    req = Request(fullurl, data)
+  File "C:\Python38\lib\urllib\request.py", line 328, in __init__
+    self.full_url = url
+  File "C:\Python38\lib\urllib\request.py", line 354, in full_url
+    self._parse()
+  File "C:\Python38\lib\urllib\request.py", line 383, in _parse
+    raise ValueError("unknown url type: %r" % self.full_url)
+ValueError: unknown url type: 'dummyParameters'

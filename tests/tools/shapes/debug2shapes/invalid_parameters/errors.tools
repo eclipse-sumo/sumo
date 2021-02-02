@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "D:\SUMO\tests\..\tools/shapes/debug2shapes.py", line 28, in <module>
+    shapesParts = sys.argv[2].split()
+IndexError: list index out of range

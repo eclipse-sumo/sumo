@@ -18,6 +18,3 @@ poi_at_stops
 
 # Tests for Point of Interest at Trafic light signals
 poi_atTLS
-
-# Tests for pois2inductionLoops
-pois2inductionLoops
