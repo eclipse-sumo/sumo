@@ -196,7 +196,7 @@ def load(args):
     """
     if "" not in _connections:
         raise FatalTraCIError("Not connected.")
-    if _traceFile:
+    if _currentLabel[0] in _traceFile:
         # cannot wrap because the method is import from __init__
         _traceFile[_currentLabel[0]].write("traci.load(%s)\n" % repr(args))
     return _connections[""].load(args)
@@ -214,7 +214,7 @@ def simulationStep(step=0):
     """
     if "" not in _connections:
         raise FatalTraCIError("Not connected.")
-    if _traceFile:
+    if _currentLabel[0] in _traceFile:
         # cannot wrap because the method is import from __init__
         args = "" if step == 0 else str(step)
         _traceFile[_currentLabel[0]].write("traci.simulationStep(%s)\n" % args)
@@ -263,10 +263,13 @@ def close(wait=True):
     _connections[""].simulation._setConnection(None)
     del _connections[_currentLabel[0]]
     del _connections[""]
-    if _traceFile:
+    if _currentLabel[0] in _traceFile:
         # cannot wrap because the method is import from __init__
         _traceFile[_currentLabel[0]].write("traci.close()\n")
         _traceFile[_currentLabel[0]].close()
+        del _traceFile[_currentLabel[0]]
+        for domain in _defaultDomains:
+            domain._setTraceFile(None, False)
 
 
 def switch(label):
