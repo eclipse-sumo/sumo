@@ -106,8 +106,23 @@ The simulation ends in the following cases:
 
 [sumo](../sumo.md)/[sumo-gui](../sumo-gui.md) use a time step
 of one second per default. You may override this using the **--step-length** {{DT_TIME}} option. {{DT_TIME}} is
-here given in seconds, but you may enter a real number. In conclusion
-giving **--step-length 0.01** will run the simulation using time steps of 10ms.
+by giving a value in seconds between \[0.001 and 1.0\]. 
+
+Example: **--step-length 0.01** will run the simulation using time steps of 10ms.
+
+caution !!!
+        Technically, larger values can be used but many car-following models are not tested with values above 1 and may fail to work as expected.
+        The step-length also sets a lower bound on driver reaction times which increases the likelyhood of collisions.
+
+Setting a lower step-length has many consequences:
+
+- the simulation takes longer to simulate a given amount of time (because it needs more steps to do so)
+- the generated movements are generally smoother
+- vehicle insertion and lane changing succeed more often in a given amount of time since the conditions are checked more often
+- the frequence of vehicle speed adaptation increases unless prevented by setting action-step-length (see below)
+
+
+# Defining the Action Step Length
 
 Specifying the option **--default.action-step-length** {{DT_TIME}} implies that vehicles perform calculations for
 the adaption of accelerations or lane-change maneuvers only at intervals
@@ -125,8 +140,6 @@ and
 [car-following](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#car-following_models)
 parameters for details.
 
-!!! note
-    Please note that the simulation step-length sets a lower bound on driver reaction times. Thus using values > 1 is generally discouraged.
 
 # Defining the Integration Method
 
