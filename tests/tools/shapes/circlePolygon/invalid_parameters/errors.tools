@@ -1,0 +1,3 @@
+Usage: circlePolygon.py [options]
+
+circlePolygon.py: error: option --radius: invalid floating-point value: 'dummy'
