@@ -171,6 +171,16 @@ Uses "route_departOffset.py" for building 24 route files which describe a whole 
 <SUMO_HOME>/tools/route/route_1htoDay.py myRoutes.rou.xml
 ```
 
+# route2alts.py
+
+Counts possible routes for all depart/arrival edges.
+Builds route alternatives assigning the so determined probabilities to use a route.
+Please note that the cost of the route is not computed!
+
+```
+<SUMO_HOME>/tools/route/route2alts.py myRoutes.rou.xml
+```
+
 # showDepartsAndArrivalsPerEdge
 
 Generates a visualization file for investigating traffic patterns in a
