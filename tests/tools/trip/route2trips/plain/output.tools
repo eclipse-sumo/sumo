@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-03-21 09:58:47.716591 by $Id: route2trips.py c5dbb96e4f michael.behrisch@dlr.de 2018-04-10 12:10:26 +0200 $
-  options: routes.rou.xml
--->
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType accel="0.8" decel="4.5" id="DEFAULT_VEHTYPE" length="3" maxSpeed="10" minGap="2" sigma="0">
-    </vType>
-    <trip id="0" depart="0" departPos="100" departSpeed="10" from="4/1to3/1" to="1/1to0/1"/>
-</routes>
