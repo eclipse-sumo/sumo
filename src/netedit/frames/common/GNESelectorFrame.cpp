@@ -496,8 +496,12 @@ GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*
 GNESelectorFrame::MatchAttribute::MatchAttribute(GNESelectorFrame* selectorFrameParent) :
     FXGroupBox(selectorFrameParent->myContentFrame, "Match Attribute", GUIDesignGroupBoxFrame),
     mySelectorFrameParent(selectorFrameParent),
-    myCurrentTag(SUMO_TAG_EDGE),
-    myCurrentAttribute(SUMO_ATTR_ID) {
+    myNetworkCurrentTag(SUMO_TAG_EDGE),
+    myNetworkCurrentAttribute(SUMO_ATTR_ID),
+    myDemandCurrentTag(SUMO_TAG_VEHICLE),
+    myDemandCurrentAttribute(SUMO_ATTR_ID),
+    myDataCurrentTag(SUMO_TAG_MEANDATA_EDGE),
+    myDataCurrentAttribute(SUMO_ATTR_ID) {
     // Create MatchTagBox for tags
     myMatchTagComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
     // Create listBox for Attributes
@@ -512,7 +516,7 @@ GNESelectorFrame::MatchAttribute::MatchAttribute(GNESelectorFrame* selectorFrame
     enableMatchAttribute();
     // Set speed of edge as default attribute
     myMatchAttrComboBox->setText("speed");
-    myCurrentAttribute = SUMO_ATTR_SPEED;
+    myNetworkCurrentAttribute = SUMO_ATTR_SPEED;
     // Set default value for Match string
     myMatchString->setText(">10.0");
 }
@@ -559,8 +563,8 @@ GNESelectorFrame::MatchAttribute::enableMatchAttribute() {
     // set first item as current item
     myMatchTagComboBox->setCurrentItem(0);
     myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
-    // Fill attributes with the current element type
-    onCmdSelMBTag(nullptr, 0, nullptr);
+    // refresh tag
+    refreshTag();
 }
 
 
@@ -590,10 +594,81 @@ GNESelectorFrame::MatchAttribute::hideMatchAttribute() {
 }
 
 
+void 
+GNESelectorFrame::MatchAttribute::refreshTag() {
+    // get supermodes
+    const bool supermodeNetwork = mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork();
+    const bool supermodeDemand = mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand();
+    const bool supermodeData = mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData();
+    // check that typed-by-user value is correct
+    if (supermodeNetwork && (myNetworkCurrentTag != SUMO_TAG_NOTHING) ||
+        supermodeDemand && (myDemandCurrentTag != SUMO_TAG_NOTHING) ||
+        supermodeData && (myDataCurrentTag != SUMO_TAG_NOTHING)) {
+        // obtain tag property (only for improve code legibility)
+        GNETagProperties tagProperties;
+        // get tag properties depending of supermode
+        if (supermodeNetwork) {
+            tagProperties = GNEAttributeCarrier::getTagProperties(myNetworkCurrentTag);
+        }
+        else if (supermodeDemand) {
+            tagProperties = GNEAttributeCarrier::getTagProperties(myDemandCurrentTag);
+        }
+        else if (supermodeData) {
+            tagProperties = GNEAttributeCarrier::getTagProperties(myDataCurrentTag);
+        }
+        // set color and enable items
+        myMatchTagComboBox->setTextColor(FXRGB(0, 0, 0));
+        myMatchAttrComboBox->enable();
+        myMatchString->enable();
+        myMatchStringButton->enable();
+        myMatchAttrComboBox->clearItems();
+        // fill attribute combo box
+        for (const auto& attribute : tagProperties) {
+            myMatchAttrComboBox->appendItem(attribute.getAttrStr().c_str());
+        }
+        // Add extra attribute "Parameter"
+        myMatchAttrComboBox->appendItem(toString(GNE_ATTR_PARAMETERS).c_str());
+        // check if item can block movement
+        if (tagProperties.canBlockMovement()) {
+            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_BLOCK_MOVEMENT).c_str());
+        }
+        // check if item can close shape
+        if (tagProperties.canCloseShape()) {
+            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_CLOSE_SHAPE).c_str());
+        }
+        // check if item can have parent
+        if (tagProperties.isSlave()) {
+            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_PARENT).c_str());
+        }
+        // @ToDo: Here can be placed a button to set the default value
+        myMatchAttrComboBox->setNumVisible(myMatchAttrComboBox->getNumItems());
+        // check if we have to update attribute
+        if (supermodeNetwork && tagProperties.hasAttribute(myNetworkCurrentAttribute)) {
+            myMatchAttrComboBox->setText(toString(myNetworkCurrentAttribute).c_str());
+        }
+        else if (supermodeDemand && tagProperties.hasAttribute(myDemandCurrentAttribute)) {
+            myMatchAttrComboBox->setText(toString(myDemandCurrentAttribute).c_str());
+        }
+        else if (supermodeData && tagProperties.hasAttribute(myDataCurrentAttribute)) {
+            myMatchAttrComboBox->setText(toString(myDataCurrentAttribute).c_str());
+        }
+        else {
+            onCmdSelMBAttribute(nullptr, 0, nullptr);
+        }
+    }
+    else {
+        // change color to red and disable items
+        myMatchTagComboBox->setTextColor(FXRGB(255, 0, 0));
+        myMatchAttrComboBox->disable();
+        myMatchString->disable();
+        myMatchStringButton->disable();
+    }
+    update();
+}
+
+
 long
 GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
-    // First check what type of elementes is being selected
-    myCurrentTag = SUMO_TAG_NOTHING;
     // find current element tag
     std::vector<std::pair<SumoXMLTag, const std::string> > ACTags;
     // get supermodes
@@ -603,120 +678,108 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     // continue depending of elementSet
     if (supermodeNetwork && (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::NETWORKELEMENT)) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
-    } else if (supermodeNetwork && (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::ADDITIONALELEMENT)) {
+    }
+    else if (supermodeNetwork && (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::ADDITIONALELEMENT)) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, true);
-    } else if (supermodeNetwork && (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::SHAPE)) {
+    }
+    else if (supermodeNetwork && (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::SHAPE)) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
-    } else if (supermodeNetwork && (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::TAZELEMENT)) {
+    }
+    else if (supermodeNetwork && (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::TAZELEMENT)) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::TAZELEMENT, true);
-    } else if (supermodeDemand && (mySelectorFrameParent->myElementSet->getDemandElementSet() == ElementSet::DemandElementSet::DEMANDELEMENT)) {
+    }
+    else if (supermodeDemand && (mySelectorFrameParent->myElementSet->getDemandElementSet() == ElementSet::DemandElementSet::DEMANDELEMENT)) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
-    } else if (supermodeData && (mySelectorFrameParent->myElementSet->getDataElementSet() == ElementSet::DataElementSet::DATA)) {
+    }
+    else if (supermodeData && (mySelectorFrameParent->myElementSet->getDataElementSet() == ElementSet::DataElementSet::DATA)) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::DATAELEMENT, true);
-    } else {
+    }
+    else {
         throw ProcessError("Unkown set");
     }
     // fill myMatchTagComboBox
-    for (const auto& ACTag : ACTags) {
-        if (ACTag.second == myMatchTagComboBox->getText().text()) {
-            myCurrentTag = ACTag.first;
-        }
+    if (supermodeNetwork) {
+        myNetworkCurrentTag = parseTag(myMatchTagComboBox->getText().text(), ACTags);
     }
-    // check that typed-by-user value is correct
-    if (myCurrentTag != SUMO_TAG_NOTHING) {
-        // obtain tag property (only for improve code legibility)
-        const auto& tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTag);
-        // set color and enable items
-        myMatchTagComboBox->setTextColor(FXRGB(0, 0, 0));
-        myMatchAttrComboBox->enable();
-        myMatchString->enable();
-        myMatchStringButton->enable();
-        myMatchAttrComboBox->clearItems();
-        // fill attribute combo box
-        for (const auto& attribute : tagValue) {
-            myMatchAttrComboBox->appendItem(attribute.getAttrStr().c_str());
-        }
-        // Add extra attribute "Parameter"
-        myMatchAttrComboBox->appendItem(toString(GNE_ATTR_PARAMETERS).c_str());
-        // check if item can block movement
-        if (tagValue.canBlockMovement()) {
-            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_BLOCK_MOVEMENT).c_str());
-        }
-        // check if item can close shape
-        if (tagValue.canCloseShape()) {
-            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_CLOSE_SHAPE).c_str());
-        }
-        // check if item can have parent
-        if (tagValue.isSlave()) {
-            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_PARENT).c_str());
-        }
-        // @ToDo: Here can be placed a button to set the default value
-        myMatchAttrComboBox->setNumVisible(myMatchAttrComboBox->getNumItems());
-        // check if we have to update attribute
-        if (tagValue.hasAttribute(myCurrentAttribute)) {
-            myMatchAttrComboBox->setText(toString(myCurrentAttribute).c_str());
-        } else {
-            onCmdSelMBAttribute(nullptr, 0, nullptr);
-        }
-    } else {
-        // change color to red and disable items
-        myMatchTagComboBox->setTextColor(FXRGB(255, 0, 0));
-        myMatchAttrComboBox->disable();
-        myMatchString->disable();
-        myMatchStringButton->disable();
+    if (supermodeDemand) {
+        myDemandCurrentTag = parseTag(myMatchTagComboBox->getText().text(), ACTags);
     }
-    update();
+    if (supermodeData) {
+        myDataCurrentTag = parseTag(myMatchTagComboBox->getText().text(), ACTags);
+    }
+    // refresh tag
+    refreshTag();
     return 1;
 }
 
 
 long
 GNESelectorFrame::MatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
+    // get supermodes
+    const bool supermodeNetwork = mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork();
+    const bool supermodeDemand = mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand();
+    const bool supermodeData = mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData();
     // first obtain a copy of item attributes vinculated with current tag
-    auto tagPropertiesCopy = GNEAttributeCarrier::getTagProperties(myCurrentTag);
-    // obtain tag property (only for improve code legibility)
-    const auto& tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTag);
+    GNETagProperties tagProperties;
+    // get tag properties depending of supermode
+    if (supermodeNetwork) {
+        tagProperties = GNEAttributeCarrier::getTagProperties(myNetworkCurrentTag);
+    } else if (supermodeDemand) {
+        tagProperties = GNEAttributeCarrier::getTagProperties(myDemandCurrentTag);
+    } else if (supermodeData) {
+        tagProperties = GNEAttributeCarrier::getTagProperties(myDataCurrentTag);
+    }
     // add an extra AttributeValues to allow select ACs using as criterium "parameters"
     GNEAttributeProperties extraAttrProperty;
     extraAttrProperty = GNEAttributeProperties(GNE_ATTR_PARAMETERS,
                         GNEAttributeProperties::AttrProperty::STRING,
                         "Parameters");
-    tagPropertiesCopy.addAttribute(extraAttrProperty);
+    tagProperties.addAttribute(extraAttrProperty);
     // add extra attribute if item can block movement
-    if (tagValue.canBlockMovement()) {
+    if (tagProperties.canBlockMovement()) {
         // add an extra AttributeValues to allow select ACs using as criterium "block movement"
         extraAttrProperty = GNEAttributeProperties(GNE_ATTR_BLOCK_MOVEMENT,
                             GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUESTATIC,
                             "Block movement",
                             "false");
-        tagPropertiesCopy.addAttribute(extraAttrProperty);
+        tagProperties.addAttribute(extraAttrProperty);
     }
     // add extra attribute if item can close shape
-    if (tagValue.canCloseShape()) {
+    if (tagProperties.canCloseShape()) {
         // add an extra AttributeValues to allow select ACs using as criterium "close shape"
         extraAttrProperty = GNEAttributeProperties(GNE_ATTR_CLOSE_SHAPE,
                             GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUESTATIC,
                             "Close shape",
                             "true");
-        tagPropertiesCopy.addAttribute(extraAttrProperty);
+        tagProperties.addAttribute(extraAttrProperty);
     }
     // add extra attribute if item can have parent
-    if (tagValue.isSlave()) {
+    if (tagProperties.isSlave()) {
         // add an extra AttributeValues to allow select ACs using as criterium "parent"
         extraAttrProperty = GNEAttributeProperties(GNE_ATTR_PARENT,
                             GNEAttributeProperties::AttrProperty::STRING,
                             "Parent element");
-        tagPropertiesCopy.addAttribute(extraAttrProperty);
+        tagProperties.addAttribute(extraAttrProperty);
     }
-    // set current selected attribute
-    myCurrentAttribute = SUMO_ATTR_NOTHING;
-    for (const auto& attribute : tagPropertiesCopy) {
-        if (attribute.getAttrStr() == myMatchAttrComboBox->getText().text()) {
-            myCurrentAttribute = attribute.getAttr();
+    // continue depending of supermode
+
+    if (supermodeNetwork) {
+        if (!tagProperties.hasAttribute(myNetworkCurrentAttribute)) {
+            myNetworkCurrentAttribute = tagProperties.begin()->getAttr();
+        }
+    } else if (supermodeDemand) {
+        if (!tagProperties.hasAttribute(myDemandCurrentAttribute)) {
+            myDemandCurrentAttribute = tagProperties.begin()->getAttr();
+        }
+    } else if (supermodeData) {
+        if (!tagProperties.hasAttribute(myDataCurrentAttribute)) {
+            myDataCurrentAttribute = tagProperties.begin()->getAttr();
         }
     }
     // check if selected attribute is valid
-    if (myCurrentAttribute != SUMO_ATTR_NOTHING) {
+    if ((supermodeNetwork && (myNetworkCurrentAttribute != SUMO_ATTR_NOTHING)) || 
+        (supermodeDemand && (myDemandCurrentAttribute != SUMO_ATTR_NOTHING)) ||
+        (supermodeData && (myDataCurrentAttribute != SUMO_ATTR_NOTHING))) {
         myMatchAttrComboBox->setTextColor(FXRGB(0, 0, 0));
         myMatchString->enable();
         myMatchStringButton->enable();
@@ -733,12 +796,28 @@ long
 GNESelectorFrame::MatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*) {
     // obtain expresion
     std::string expr(myMatchString->getText().text());
-    const auto& tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTag);
+    // get supermodes
+    const bool supermodeNetwork = mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork();
+    const bool supermodeDemand = mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand();
+    const bool supermodeData = mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData();
+    // get Tag and attribute properties
+    GNETagProperties tagProperty;
+    GNEAttributeProperties attributeProperty;
+    if (supermodeNetwork) {
+        tagProperty = GNEAttributeCarrier::getTagProperties(myNetworkCurrentTag);
+        attributeProperty = tagProperty.getAttributeProperties(myNetworkCurrentAttribute);
+    } else if (supermodeDemand) {
+        tagProperty = GNEAttributeCarrier::getTagProperties(myDemandCurrentTag);
+        attributeProperty = tagProperty.getAttributeProperties(myDemandCurrentAttribute);
+    } else if (supermodeData) {
+        tagProperty = GNEAttributeCarrier::getTagProperties(myDataCurrentTag);
+        attributeProperty = tagProperty.getAttributeProperties(myDataCurrentAttribute);
+    }
     bool valid = true;
     if (expr == "") {
         // the empty expression matches all objects
-        mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, '@', 0, expr));
-    } else if (tagValue.hasAttribute(myCurrentAttribute) && tagValue.getAttributeProperties(myCurrentAttribute).isNumerical()) {
+        mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(tagProperty.getTag(), attributeProperty.getAttr(), '@', 0, expr));
+    } else if (tagProperty.hasAttribute(attributeProperty.getAttr()) && tagProperty.getAttributeProperties(attributeProperty.getAttr()).isNumerical()) {
         // The expression must have the form
         //  <val matches if attr < val
         //  >val matches if attr > val
@@ -752,7 +831,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*)
         }
         // check if value can be parsed to double
         if (GNEAttributeCarrier::canParse<double>(expr.c_str())) {
-            mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, compOp, GNEAttributeCarrier::parse<double>(expr.c_str()), expr));
+            mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(tagProperty.getTag(), attributeProperty.getAttr(), compOp, GNEAttributeCarrier::parse<double>(expr.c_str()), expr));
         } else {
             valid = false;
         }
@@ -769,7 +848,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*)
         } else {
             compOp = '@';
         }
-        mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, compOp, 0, expr));
+        mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(tagProperty.getTag(), attributeProperty.getAttr(), compOp, 0, expr));
     }
     if (valid) {
         myMatchString->setTextColor(FXRGB(0, 0, 0));
@@ -834,6 +913,17 @@ GNESelectorFrame::MatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Close help dialog of selector frame");
     return 1;
+}
+
+
+SumoXMLTag
+GNESelectorFrame::MatchAttribute::parseTag(const std::string str, const std::vector<std::pair<SumoXMLTag, const std::string> > &ACTags) const {
+    for (const auto &i : ACTags) {
+        if (i.second == str) {
+            return i.first;
+        }
+    }
+    return SUMO_TAG_NOTHING;
 }
 
 // ---------------------------------------------------------------------------

@@ -307,6 +307,9 @@ public:
         /// @brief hide match attributes
         void hideMatchAttribute();
 
+        /// @brief refresh Tag
+        void refreshTag();
+
         /// @name FOX-callbacks
         /// @{
 
@@ -336,6 +339,9 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(MatchAttribute)
 
+        /// @brief find tag in given vector of pairs
+        SumoXMLTag parseTag(const std::string str, const std::vector<std::pair<SumoXMLTag, const std::string> > &ACTags) const;
+
     private:
         /// @brief pointer to Selector Frame Parent
         GNESelectorFrame* mySelectorFrameParent;
@@ -346,11 +352,23 @@ public:
         /// @brief attributes of the match box
         FXComboBox* myMatchAttrComboBox;
 
-        /// @brief current SumoXMLTag tag
-        SumoXMLTag myCurrentTag;
+        /// @brief current SumoXMLTag network tag
+        SumoXMLTag myNetworkCurrentTag;
 
-        /// @brief current SumoXMLTag Attribute
-        SumoXMLAttr myCurrentAttribute;
+        /// @brief current SumoXMLTag network Attribute
+        SumoXMLAttr myNetworkCurrentAttribute;
+
+        /// @brief current SumoXMLTag demand tag
+        SumoXMLTag myDemandCurrentTag;
+
+        /// @brief current SumoXMLTag demand Attribute
+        SumoXMLAttr myDemandCurrentAttribute;
+
+        /// @brief current SumoXMLTag data tag
+        SumoXMLTag myDataCurrentTag;
+
+        /// @brief current SumoXMLTag data Attribute
+        SumoXMLAttr myDataCurrentAttribute;
 
         /// @brief string of the match
         FXTextField* myMatchString;
