@@ -532,16 +532,23 @@ GNESelectorFrame::MatchAttribute::enableMatchAttribute() {
     myMatchTagComboBox->clearItems();
     // Set items depending of current item set
     std::vector<std::pair<SumoXMLTag, const std::string> > ACTags;
-    if (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::NETWORKELEMENT) {
+    // get supermodes
+    const bool supermodeNetwork = mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork();
+    const bool supermodeDemand = mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand();
+    const bool supermodeData = mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData();
+    // continue depending of ElmenetSet
+    if (supermodeNetwork && (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::NETWORKELEMENT)) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
-    } else if (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::ADDITIONALELEMENT) {
+    } else if (supermodeNetwork && (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::ADDITIONALELEMENT)) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, true);
-    } else if (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::SHAPE) {
+    } else if (supermodeNetwork && (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::SHAPE)) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
-    } else if (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::TAZELEMENT) {
+    } else if (supermodeNetwork && (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::TAZELEMENT)) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::TAZELEMENT, true);
-    } else if (mySelectorFrameParent->myElementSet->getDemandElementSet() == ElementSet::DemandElementSet::DEMANDELEMENT) {
+    } else if (supermodeDemand && (mySelectorFrameParent->myElementSet->getDemandElementSet() == ElementSet::DemandElementSet::DEMANDELEMENT)) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
+    } else if (supermodeData && (mySelectorFrameParent->myElementSet->getDataElementSet() == ElementSet::DataElementSet::DATA)) {
+        ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::DATAELEMENT, true);
     } else {
         throw ProcessError("Invalid element set");
     }
