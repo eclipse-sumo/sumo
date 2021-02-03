@@ -340,7 +340,7 @@ GNESelectorFrame::ElementSet::ElementSet(GNESelectorFrame* selectorFrameParent) 
 GNESelectorFrame::ElementSet::~ElementSet() {}
 
 
-GNESelectorFrame::ElementSet::Type
+const std::map<Supermode, GNESelectorFrame::ElementSet::Type>&
 GNESelectorFrame::ElementSet::getElementSet() const {
     return myCurrentElementSet;
 }

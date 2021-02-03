@@ -126,6 +126,12 @@ public:
 
         /// @brief check boxes for type-based selection locking and selected object counts
         std::map<GUIGlObjectType, ObjectTypeEntry*> myTypeEntries;
+
+        /// @brief Invalidated copy constructor.
+        LockGLObjectTypes(const LockGLObjectTypes&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        LockGLObjectTypes& operator=(const LockGLObjectTypes&) = delete;
     };
 
     // ===========================================================================
@@ -163,6 +169,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(ModificationMode)
 
     private:
@@ -180,6 +187,12 @@ public:
 
         /// @brief how to modify selection
         Operation myModificationModeType;
+
+        /// @brief Invalidated copy constructor.
+        ModificationMode(const ModificationMode&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        ModificationMode& operator=(const ModificationMode&) = delete;
     };
 
     // ===========================================================================
@@ -225,6 +238,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(ElementSet)
 
     private:
@@ -236,6 +250,12 @@ public:
 
         /// @brief current element set selected
         Type myCurrentElementSet;
+
+        /// @brief Invalidated copy constructor.
+        ElementSet(const ElementSet&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        ElementSet& operator=(const ElementSet&) = delete;
     };
 
     // ===========================================================================
@@ -291,6 +311,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(MatchAttribute)
 
     private:
@@ -314,6 +335,12 @@ public:
 
         /// @brief match string button
         FXButton* myMatchStringButton;
+
+        /// @brief Invalidated copy constructor.
+        MatchAttribute(const MatchAttribute&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        MatchAttribute& operator=(const MatchAttribute&) = delete;
     };
 
     // ===========================================================================
@@ -370,6 +397,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(MatchGenericDataAttribute)
 
     private:
@@ -402,6 +430,12 @@ public:
 
         // declare a set and fill it with all intervals
         std::map<std::pair<double, double>, int> myIntervals;
+
+        /// @brief Invalidated copy constructor.
+        MatchGenericDataAttribute(const MatchGenericDataAttribute&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        MatchGenericDataAttribute& operator=(const MatchGenericDataAttribute&) = delete;
     };
 
     // ===========================================================================
@@ -428,6 +462,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(VisualScaling)
 
     private:
@@ -436,6 +471,12 @@ public:
 
         /// @brief Spinner for selection scaling
         FXRealSpinner* mySelectionScaling;
+
+        /// @brief Invalidated copy constructor.
+        VisualScaling(const VisualScaling&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        VisualScaling& operator=(const VisualScaling&) = delete;
     };
 
     // ===========================================================================
@@ -481,11 +522,18 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(SelectionOperation)
 
     private:
         /// @brief pointer to Selector Frame Parent
         GNESelectorFrame* mySelectorFrameParent;
+
+        /// @brief Invalidated copy constructor.
+        SelectionOperation(const SelectionOperation&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        SelectionOperation& operator=(const SelectionOperation&) = delete;
     };
 
     /**@brief Constructor
@@ -555,4 +603,10 @@ private:
      * @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
      */
     std::vector<GNEAttributeCarrier*> getGenericMatches(const std::vector<GNEGenericData*>& genericDatas, const std::string& attr, const char compOp, const double val, const std::string& expr);
+
+    /// @brief Invalidated copy constructor.
+    GNESelectorFrame(const GNESelectorFrame&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNESelectorFrame& operator=(const GNESelectorFrame&) = delete;
 };
