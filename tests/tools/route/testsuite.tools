@@ -46,7 +46,6 @@ implausibleRoutes
 # test generating polygons from route input
 route2poly
 analyzePersonPlans
-addStops2Routes
 
 # add delay to stops (increase duration)
 addStopDelay
@@ -56,3 +55,9 @@ checkStopOrder
 
 # transform vehicles to flow definitions
 vehicle2flow
+
+# tests for adding stops at parking areas
+addStops2Routes
+
+# tests for stopping vehicle at end of the route
+addParkingAreaStops2Routes
