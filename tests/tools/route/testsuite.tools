@@ -34,6 +34,9 @@ departOffset
 # test for generating edge traffic counts
 showDepartsAndArrivalsPerEdge
 
+# generated traces for use with tracemapper
+tracegenerator
+
 # simple route reconstruction from gps trace
 tracemapper
 
