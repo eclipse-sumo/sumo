@@ -36,7 +36,7 @@ if len(sys.argv) < 2:
 print("Reading net...")
 try:
     net1 = sumolib.net.readNet(sys.argv[1], withPrograms=True)
-except IOError as e:
+except Exception as e:
     print(e, file=sys.stderr)
     sys.exit()
 
