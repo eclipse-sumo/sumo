@@ -74,6 +74,10 @@ Please make sure your homebrew installation is up-to-date:
 ```
 brew update
 ```
+If you want to use sumo-gui and/or netedit, you need to install XQuartz as a requirement:
+```
+brew install --cask xquartz
+```
 You can then install the latest stable release of SUMO with the following commands:
 ```
 brew tap dlr-ts/sumo
