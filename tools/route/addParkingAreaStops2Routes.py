@@ -16,7 +16,7 @@
 # @date    2017-01-09
 
 """
-add stops to vehicle routes
+add stops at parkingAreas to vehicle routes
 """
 
 from __future__ import print_function

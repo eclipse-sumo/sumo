@@ -11,12 +11,12 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    tls_buildTransitions.py
+# @file    buildTransitions.py
 # @author  Jakob Erdmann
 # @date    2019-11-09
 
 """
-Create tlLogiic definitions with branching signal plans based on a simplified
+Create tlLogic definitions with branching signal plans based on a simplified
 input: named green phases and list of successor green phases names
 The corresponding yellow and red phases will be build and the 'next' attribute
 will be set to the appropriate transition phase.

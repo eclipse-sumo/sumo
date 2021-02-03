@@ -16,11 +16,7 @@
 # @date    2019-04-25
 
 """
-- calculate the turn ratios or turn movements at each node
-  with a given route file
-
-- The output can be directly used as input in jtrrouter,
-  where the time interval will be set for one day
+add stops to vehicle routes
 """
 from __future__ import absolute_import
 from __future__ import print_function
