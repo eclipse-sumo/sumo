@@ -257,6 +257,14 @@ vehicles route, if they are part of the vehicles id. Example:
 Note, that the lane of that parking area must belong to one of the edges
 "e1, e2, e3" of the vehicles route.
 
+# tracegenerator.py
+
+This creates a list of (geo) coordinates from an input route file and and a network.
+
+```
+<SUMO_HOME>/tools/route/tracegenerator.py -n <net-file> -r <route-file> -o <output-trace-file>
+```
+
 # tracemapper.py
 
 This script maps a list of (geo) coordinates to a consecutive list of
