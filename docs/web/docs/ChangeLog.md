@@ -131,7 +131,17 @@ permalink: /ChangeLog/
 
 - netconvert
   - Parallel turn lanes are no longer written as distinct edges but are instead written as multi-lane edge with different lane lenghts. As before, lane-changing on an intersection is not permitted on a turn lane. Issue #7954
-  - Written network version is now 1.9.0  
+  - Written network version is now 1.9.0
+  
+- Tools
+  - Some obsolete tools were moved to tools/purgatory (let us know if you were using them). Issue #1425
+  - The following tools were renamed/relocated: (issue #1425)
+    - tools/shapes/debug2shapes.py -> tools/devel/debug2shapes.py
+    - tools/build/timing.py -> tools/devel/timing.py
+    - tools/build/rebuild_cscope.sh -> tools/devel/rebuild_cscope.sh
+    - tools/xml/schemaCheck.py -> tools/build/schemaCheck.py
+    - tools/xml/rebuildSchemata.py -> tools/build/rebuildSchemata.py
+    - tools/assign/networkStatistics.py -> tools/output/tripStatistics.py
 
 ## Version 1.8.0 (02.12.2020)
 
