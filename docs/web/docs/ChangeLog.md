@@ -11,9 +11,13 @@ permalink: /ChangeLog/
   - Fixed collisions between pedestrians and vehicles on shared space #7960
   - Vehicles with low (desired) decel value will no longer perform an emergency stop on after being when caught in the "Yellow Light Dilemma Zone". Instead they will brake with decel **--tls.yellow.min-decel** (default: 3) as long as they have a sufficiently high emergencyDecel value. Issue #7956
   - Fixed invalid output directory for **--device.taxi.dispatch-algorithm.outout**. Issue #8013
-  - Fixed error when loading saved state with vehicles that stopped due to collision. Issue #8030, #8063  
+  - Fixed error when loading saved state with vehicles that stopped due to collision. Issue #8030, #8063 , #7696
   - Fixed bug where an emergency vehicle does not advance in the rescue lane. Issue #8072
   - When a junction collision is detected, the vehicle with right of way is now classified as the victim. Issue #8094
+  - Fixed inconsistent vehicle positioning after collision stop #8109
+  - Fixed slow initialization of railway router. Issue #8120
+  - Fixed invalid braking of vehicles at traffic light junctions with crossings. Issue #8116
+  - Fixed insufficent precision of timestamps when using low step-length (i.e. 0.025). Issue #8129
   - Sublane model fixes
     - Fixed deadlock in roundabout. Issue #7935
     - Fixed invalid deceleration at intersection due to misinterpreting lateral position of approaching foes #7925
@@ -21,9 +25,9 @@ permalink: /ChangeLog/
     - Fixed invalid collision warning. Issue #8068
     - Fixed invalid vehicle angle in subsecond simulation. Issue #8070
   - Opposite direction driving fixes
-    - Fixed undetected collisions. Issue #8082
+    - Fixed undetected collisions. Issue #8082, #8111
     - Fixed invalid collision warning. Issue #8079
-    - Fixed unsafe driving. Issue #8082, #8084
+    - Fixed unsafe driving. Issue #8082, #8084, #8112, #8141
     - Fixed late change to the opposite side due to misidentification of oncoming vehicle #8080
 
 - meso
@@ -34,6 +38,7 @@ permalink: /ChangeLog/
   - Fixed long pause on right-click in large networks. Issue #7927 (Regression in 1.4.0)
   - Routes for vehicles with dark color are no longer colored black. Issue #7934
   - Fixed crash when using network property dialog in meso. Issue #7998
+  - Person drawing style "as circles" is now drawing circles as intended. Issue #8130
   
 - netedit
   - Fixed invalid E2 detector shape #7895 (Regression in 1.7.0)
@@ -60,6 +65,8 @@ permalink: /ChangeLog/
   - Fixed issues with mapping location and speed for funnction 'person.moveToXY' . Issue #7907, #7908
   - Fixed crash when switching to carFollowModel that requries vehicle variables. Issue #7949
   - Fixed crash when using traci.simulation.getDistanceRoad. Issue #5114
+  - Fixed non-deterministic behavior for person.moveToXY. Issue #7933
+  - Function vehicle.getNeighbors now correctly handles neighbors that changed lane after the ego vehicle in the same simulation step. #8119
   
 - Tools
   - Fixed error in xml2csv.py when loading files names consists only of numbers. Issue #7910
@@ -76,11 +83,18 @@ permalink: /ChangeLog/
   - Added new option **--collision-output** to write information on collisions to an XML file. Issue #7990.
   - Actuated traffic lights based on detector gaps now support [custom detection gaps per lane](Simulation/Traffic_Lights.md#lane-specific_max-gap). Issue #7997
   - Improved computational efficiency of bluelight device. Issue #7206
+  - Added option **--save-state.precision** to configure the numerical precision when saving simulation state. Issue #8115
+  - busStop attribute personCapacity can now cause pedestrian jams when the busStop is filled to capacity. Issue #3706
+  - Taxi device now supports option **--device.taxi.idle-algorithm** [stop|randomCircling] to control the behavior of idle taxis. #8132
+  - The sublane model now supports modeling an inverse relation between longitudinal and lateral speed (higher lateral speed while stopped and lower while driving fast). This is achieved by setting a negative values for attribute 'lcMaxSpeedLatFactor' and by setting 'lcMaxSpeedLatStanding' > 'maxSpeedLat'. #8064
   
 - sumo-gui
   - Random color for containers is now supported. Issue #7941
   - Added 'Update' button to object selection dialogs to refresh the object list. Issue #7942
   - Multiple gui setting schemes can now be loaded from the same input file. Issue #8012
+  - Add vehicle drawing style 'draw as circles'. Issue #5947
+  - BusStop parameter dialog now includes a summary of lines which are being waited for. Issue #8138
+  
 
 - netedit
   - Added file menu options 'reload additionals' and 'reload demand'. Issue #6099
@@ -108,6 +122,7 @@ permalink: /ChangeLog/
 
 - Tools
   - The tool [gridDistricts.py](Tools/District.md#griddistrictspy) can be used to generated a grid of districts (TAZs) for a given network. #7946
+  - [netcheck.py](Tools/Net.md#netcheckpy) now supports option **--print-types** to analyze the edge types of the different network components. Issue #8097
 
 ### Other
 
@@ -116,8 +131,7 @@ permalink: /ChangeLog/
 
 - netconvert
   - Parallel turn lanes are no longer written as distinct edges but are instead written as multi-lane edge with different lane lenghts. As before, lane-changing on an intersection is not permitted on a turn lane. Issue #7954
-  - Written network version is now 1.9.0
-  
+  - Written network version is now 1.9.0  
 
 ## Version 1.8.0 (02.12.2020)
 
