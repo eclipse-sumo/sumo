@@ -60,7 +60,7 @@ permalink: /Developer/Main/
 - [GitHub project](https://github.com/eclipse/sumo)
 - [SourceForge project](https://sourceforge.net/projects/sumo/)
 - [Packages on the open build service](https://software.opensuse.org/package/sumo)
-- [Nightly builds on the open build service](https://build.opensuse.org/package/show/home%3Abehrisch/sumo_nightly)
+- [Nightly builds on the open build service](https://build.opensuse.org/package/show/home:behrisch/sumo_nightly)
 - [SUMO on Travis](https://travis-ci.org/eclipse/sumo) (legacy)
 - [SUMO brew formula on Travis](https://travis-ci.org/dlr-ts/homebrew-sumo)
 - [SUMO on OpenHub](https://www.openhub.net/p/sumo/)

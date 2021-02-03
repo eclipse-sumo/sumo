@@ -45,14 +45,14 @@ permalink: /Z/Changes_from_Version_0.10.1_to_Version_0.10.2/
 - netconvert / Netgen
   - trying to deal with problems on network building; networks are
     more correct for most cases, but may look weird sometimes
-  - solved [defect 38: speed instead of length while importing XML](http://apps.sourceforge.net/trac/sumo/ticket/38)
+  - solved [defect 38: speed instead of length while importing XML](https://github.com/eclipse/sumo/issues/38)
   - changed the tls-guessing procedure (unverified, yet); tls which
     span over multiple junctions can now been "guessed" if both,
     nodes are marked as being controlled by traffic lights or not
-    within the imported data; see also: [task 42: (TAPAS) add possibility to generate joined tls if tls are given](http://apps.sourceforge.net/trac/sumo/ticket/42)
+    within the imported data; see also: [task 42: (TAPAS) add possibility to generate joined tls if tls are given](https://github.com/eclipse/sumo/issues/42)
 
 - polyconvert
-  - solved [defect 14: polyconvert does not report about double ids](http://apps.sourceforge.net/trac/sumo/ticket/14)
+  - solved [defect 14: polyconvert does not report about double ids](https://github.com/eclipse/sumo/issues/14)
   - renamed option **--xml-points** to **--xml**
   - renamed option **--shape-files** to **--shape-file**
 

@@ -90,7 +90,7 @@ There is further information about
 
 - [Bologna Ringway](http://www.cs.unibo.it/projects/bolognaringway/).
     Scenario built within the [COLOMBO R&D
-    project](http://www.colombo-fp7.eu).
+    project](https://web.archive.org/web/20170716120720/http://www.colombo-fp7.eu/).
 
 !!! caution
     The scenario is known to have lots of collisions due to unsafe traffic lights and some invalid junction definitions. Furthermore it is quite jammed
@@ -100,10 +100,10 @@ There is further information about
 Synthetic - or abstract - scenarios only resemble typical layouts of
 real-world junctions and arterials without mapping a very specific one.
 Some synthetic scenarios of the [COLOMBO R&D
-project](http://www.colombo-fp7.eu) are examples of the German guideline
+project](https://web.archive.org/web/20170716120720/http://www.colombo-fp7.eu/) are examples of the German guideline
 RiLSA. They are described in [D1.1 "Scenario Specifications and Required
 Modifications to Simulation
-Tools"](http://www.colombo-fp7.eu/deliverables/COLOMBO_D1.1_ScenariosExtensions_v2.4.pdf)(chapter
+Tools"](https://web.archive.org/web/20170808122505/http://elib.dlr.de/98046/1/COLOMBO_D1.1_ScenariosExtensions_v2.4.pdf)(chapter
 4).
 
 Download: [4 RiLSA \*.zip

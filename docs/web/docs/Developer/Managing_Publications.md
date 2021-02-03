@@ -5,11 +5,11 @@ permalink: /Developer/Managing_Publications/
 
 Publications are stored in an extended
 [bibtex-file](http://sourceforge.net/apps/trac/sumo/browser/trunk/sumo/docs/sumo.bib)
-generated using [JabRef](http://jabref.sourceforge.net/).
+generated using [JabRef](https://www.jabref.org/).
 
 # Organising
 
-[JabRef](http://jabref.sourceforge.net/) allows not only to enter your
+[JabRef](https://www.jabref.org/) allows not only to enter your
 references, but also to group them. We use the following way to organise
 the references:
 

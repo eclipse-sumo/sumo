@@ -61,5 +61,5 @@ permalink: /Z/Changes_from_Version_0.11.0_to_Version_0.11.1/
 
 - od2trips
   - debugged problems with O/D matrices that have no comments, was:
-    [defect 148: od2trips breaks on matrices without comments](http://apps.sourceforge.net/trac/sumo/ticket/148);
+    [defect 148: od2trips breaks on matrices without comments](https://github.com/eclipse/sumo/issues/148);
     thanks to Wilson Wong for pointing us to it

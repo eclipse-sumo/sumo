@@ -12,9 +12,9 @@ permalink: /Other/Projects/
 - [TransAID](https://ec.europa.eu/inea/en/horizon-2020/projects/H2020-Transport/Automated-Road-Transport/TransAID)
   new hierarchical traffic management procedures to allow the smooth
   integration of automated vehicles in traffic systems
-- [VITAL](http://www.dlr.de/fs/en/desktopdefault.aspx/tabid-10496/18188_read-42579/):
+- [VITAL](https://www.dlr.de/fs/en/desktopdefault.aspx/tabid-10704/20365_read-42579/):
   innovative traffic light control with V2X Communication.
-- [VABENE](http://www.dlr.de/vabene/en/). SUMO simulates and predicts
+- [VABENE](https://verkehrsforschung.dlr.de/en/projects/vabene). SUMO simulates and predicts
   large-scale traffic for disaster and public event management
 - [I.MoVe](http://verkehrsforschung.dlr.de/de/projekte/imove)
   developing additional car following models
@@ -29,31 +29,31 @@ permalink: /Other/Projects/
 
 ### Past Projects
 
-- [VEU](http://www.dlr.de/VEU/en/). In this project, SUMO is used to
+- [VEU](https://www.dlr.de/VEU/). In this project, SUMO is used to
   simulated the traffic of Berlin
-- [COLOMBO](http://www.colombo-fp7.eu/) Cooperative Self-Organizing
+- [COLOMBO](https://verkehrsforschung.dlr.de/en/projects/colombo) Cooperative Self-Organizing
   System for low Carbon Mobility at low Penetration Rates
-- [AMITRAN](http://www.amitran.eu/)
-- [MODUM](http://modum-project.eu/)
+- [AMITRAN](https://web.archive.org/web/20180815190303/http://www.amitran.eu/)
+- [MODUM](https://web.archive.org/web/20180831121624/http://modum-project.eu/)
 - [iTetris](http://www.ict-itetris.eu/) An Integrated Wireless and
   Traffic Platform for Real-Time Road Traffic Management Solutions
 - Delphi: country-wide traffic analysis and prognosis for Germany
-- [ORINOKO](http://www.orinoko.info/): improvements on mobility in the
+- [ORINOKO](https://www.dlr.de/vf/en/desktopdefault.aspx/tabid-958/4508_read-2854/4508_page-17/): improvements on mobility in the
   city of Nürnberg
 - TrafficOnline: traffic flow estimation using cellular phones
-- [Soccer2006](http://www.dlr.de/desktopdefault.aspx/tabid-1296/):
+- [Soccer2006](https://web.archive.org/web/20150705081516/http://www.dlr.de/desktopdefault.aspx/tabid-1296):
   Traffic prognosis during the FIFA-WorldCup 2006
 - Weltjugendtag2005: Traffic prognosis during the world youth day 2005
-- [TrafficTower](http://www.traffic-tower.de/vf/forschung/leitprojekte/traffic_tower):
+- [TrafficTower](https://www.dlr.de/fs/desktopdefault.aspx/tabid-1237/5441_read-12154/):
   A virtual traffic management centre
 - [INVENT](http://www.invent-online.de/): Evaluation of modern traffic
   management approaches
-- [OIS](http://www.dlr.de/vf/forschung/projekte/ois): Verification of
+- [OIS](https://web.archive.org/web/20040826034935/http://www.dlr.de/vf/forschung/projekte/ois): Verification of
   using optical sensors for optimization of traffic lights
 - [CityMobil](http://www.citymobil.org/) Automatic urban
   transportation. A [simulation for a parking lot](../Tutorials/CityMobil.md) inspired by the Rome
   demonstrator is included with SUMO.
-- [DRIVE C2X](http://www.drive-c2x.eu/project) Driving implementation
+- [DRIVE C2X](https://web.archive.org/web/20170311043037/http://www.drive-c2x.eu/project) Driving implementation
   and evaluation of C2X communication technology
 
 ## At other Institutions
@@ -66,20 +66,18 @@ permalink: /Other/Projects/
   Simulator
 - [Webots](https://www.cyberbotics.com/) a 3D physics robot simulator
   connected to SUMO
-- [eWorld](http://eworld.sourceforge.net/) - an application that
+- [eWorld](https://web.archive.org/web/20161205050209/http://eworld.sourceforge.net/) - an application that
   allows to convert and enrich roads networks; interaction is done via
   the [TraCI](../TraCI.md)-protocol
 - [Environmental Monitoring in/of Metropolitan Areas](http://www.ibr.cs.tu-bs.de/projects/emma/index.xml?lang=en)
   by Sven Lahde, Michael Doering, Wolf-Bastian Pöttner, Moritz Rosin,
   Gerrit Lammert and Lars Wolf from the University of Braunschweig,
   Germany
-- [AutoNomos - A Distributed and Self-Regulating Approach for Organizing a Large System of Mobile Objects.](http://www.auto-nomos.de) Axel Wegener, Horst Hellbrück
+- [AutoNomos - A Distributed and Self-Regulating Approach for Organizing a Large System of Mobile Objects.](https://web.archive.org/web/20180307071524/http://auto-nomos.de/) Axel Wegener, Horst Hellbrück
   and Stefan Fischer from the University of Luebeck, Germany in
   cooperation with Sándor Fekete from Braunschweig Technical
   University, Germany
-- [<font color="#0174DF">Tra</font><font color="#FF0000">NS</font> -
-  <strong>Tra</strong>ffic and <strong>N</strong>etwork
-  <strong>S</strong>imulation environment for design, implementation
+- [TraNS - Traffic and Network Simulation environment for design, implementation
   and realistic evaluation of VANET
   applications](http://trans.epfl.ch)
   by Michal Piorkowski, Maxim Raya, Ada Lezama Lugo and Jean-Pierre
@@ -111,13 +109,13 @@ permalink: /Other/Projects/
   hypothesize an online regulation system with a network of sensors
   that is used to recognize the current traffic situations and deploy
   the optimal traffic regulation policies.
-- [Fidens – Trust between Cooperative Systems in Application to VANETs](http://www.ldv.ei.tum.de/fidens/)
+- [Fidens – Trust between Cooperative Systems in Application to VANETs](https://web.archive.org/web/20120313075112/http://www.ldv.ei.tum.de/en/research/fidens/)
   This project investigates trust in vehicular networks (VANETs).
   Besides the trust research, it features a simulation environment for
   large scale vehicular network applications. Our typical scenario
   involves about 13000 vehicles per day over 26 weeks. We build on top
   of SUMO and the network simulator Shawn.
-  [Shawn](http://shawn.sourceforge.net) aims on investigating an
+  [Shawn](https://github.com/itm/shawn) aims on investigating an
   algorithm in a network while the underlying layers are kept well
   controlled. To do so, it simulates the effects of the underlying
   layers, not their protocols in detail. This makes it especially fast
@@ -125,13 +123,12 @@ permalink: /Other/Projects/
 
 ### Past Projects
 
-- [Congestion-Aware Vehicular Traffic Routing Using WiFi Hotspots](http://www.cl.cam.ac.uk/Research/DTG/research/sentient/vehicles.php)
+- [Congestion-Aware Vehicular Traffic Routing Using WiFi Hotspots](https://www.cl.cam.ac.uk/research/dtg/www/publications/public/jjd27/ciiHandout.pdf)
   by David N. Cottingham, Jonathan J. Davies, & Alastair R. Beresford
   from the University of Cambridge, UK
   publications: [Cottingham, Davies, Beresford,
   2005](../Publications.md#cottinghamdaviesberesford2005)
-- [GPS-Route](http://ls5-www.cs.uni-dortmund.de/~edelkamp/gpsroute/)
-  by Stefan Edelkamp, Shahidd Jabar and Tilman Mehrer (supervisors)
+- GPS-Route by Stefan Edelkamp, Shahidd Jabar and Tilman Mehrer (supervisors)
   from the University of Dortmund, Germany
   many thanks go to students who have extendended SUMO: Maik
   Drozdzynski, Andreas Gaubatz and Miguel Liebe
@@ -145,18 +142,17 @@ permalink: /Other/Projects/
 - ["iTranSIM - Simulation-based Vehicle
   Location"](https://www.cs.tcd.ie/publications/tech-reports/reports.07/TCD-CS-2007-56.pdf)
   by Tino Morenz; Master thesis; 2008
-- ["Analyse und Simulation von Verkettbarkeitsmaßen in pseudonymer,
+- "Analyse und Simulation von Verkettbarkeitsmaßen in pseudonymer,
   mobiler
-  Kommunikation"](http://sumo.sf.net/docs/Analyse_Verkettbarkeit.pdf)
-  by Clemens Honomichl; Diploma thesis; 2008
-- [emil - Elektrobusse mit induktiver Ladetechnik (german only)](http://www.verkehr-bs.de/unternehmen/forschungsprojekt-emil.html)
+  Kommunikation" by Clemens Honomichl; Diploma thesis; 2008
+- [emil - Elektrobusse mit induktiver Ladetechnik (german only)](https://web.archive.org/web/20150722031908/http://www.verkehr-bs.de/unternehmen/forschungsprojekt-emil.html)
 - [Metro Traffic Simulator](https://tech.d-itlab.co.jp/author/osamumasutani/)
 
 ## Code repositories with SUMO related stuff
 
 - [NetPopulate](https://github.com/maslab-ufrgs/net-populate) Demand generation for SUMO
 - [C\# and ANSI C TraCI interface](https://github.com/CodingConnected/CodingConnected.Traci)
-- [Integrated Framework for Mathematical Simulations (IFMS)](https://github.com/nitindesh/IFMS)
+- [Integrated Framework for Mathematical Simulations (IFMS)](https://web.archive.org/web/20180611001733/https://github.com/nitindesh/IFMS)
 - [Veins](https://github.com/sommer/veins)
 - [Secure Cycle project established during the BCX 2018](https://github.com/kratz00/bcx18_secureCycle)
 - [An open source traffic light control program](https://github.com/MartijnHarmenzon/openTLC)

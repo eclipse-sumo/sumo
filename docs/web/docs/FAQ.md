@@ -389,7 +389,7 @@ and simply type `git pull`.
 ### How to get an older version of SUMO?
 
   see
-  [Downloads\#SUMO_-_older_releases](Downloads.md#sumo_-_older_releases).
+  [Alternative download and older releases](Downloads.md#sumo_-_alternative_download_and_older_releases).
   On Linux, older versions [must be built from source](Installing/Linux_Build.md).
 
 ### How to check out revision 5499 (or any other outdated sumo)?
@@ -403,14 +403,8 @@ and simply type `git pull`.
 
 ### Which platforms are supported?
 
-  We compile regularly under Windows 7 and Windows Server 2012 R2
-  using Visual Studio 2013 (32bit and 64bit) and have daily builds on
-  Linux (openSUSE Leap 42.1 (64bit) and openSUSE 13.1 (32bit)).
-  Furthermore there are nightly builds on the [open build service](https://build.opensuse.org/package/show?package=sumo_nightly&project=home%3Abehrisch).
-  SUMO can be installed on macOS via Homebrew (or built from source).
-  We would be happy to hear about successful builds on other
-  platforms. We already heard about successful builds on Solaris and
-  Cygwin.
+  We compile regularly under Windows 10 using Visual Studio 2019 and have daily builds on
+  Linux. SUMO can also be installed on macOS via Homebrew (or built from source).
 
 ### Can I run multiple versions of SUMO alongside each other?
 
@@ -427,7 +421,7 @@ and simply type `git pull`.
 
 ### Troubleshooting
 
-  See [Installing/Linux Build](Installing/Linux_Build.md) or
+  See [Installing/Linux Build](Installing/Linux_Build.md), [Installing/macOS Build](Installing/MacOS_Build.md) or
   [Installing/Windows Build](Installing/Windows_Build.md).
 
 ### Uninstalling

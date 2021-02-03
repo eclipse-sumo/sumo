@@ -619,7 +619,7 @@ take the bus. Public transport travel times are not considered.-
 
 ActivityGen was developed as a tool for the evaluation of trust
 scenarios in VANETs. The work was part of the project [Fidens: Trust
-between Cooperative Systems](http://www.ldv.ei.tum.de/fidens/) featuring
+between Cooperative Systems](https://web.archive.org/web/20120313075112/http://www.ldv.ei.tum.de/en/research/fidens/) featuring
 trusted probabilistic knowledge processing in vehicular networks. For
 further documentation on the internals of the model, refer to the source
 code in [{{SUMO}}/src/activitygen]({{Source}}src/activitygen) or ask the [original

@@ -36,7 +36,7 @@ Tuesday, November 18 and again on Thursday, November 20, 1997"
 or [here
 (GoogleMaps)](http://maps.google.de/maps?q=San+Pablo+Reservoir,+Contra+Costa,+Kalifornien,+Vereinigte+Staaten&hl=de&ll=37.923482,-122.244015&spn=0.097632,0.118618&sll=51.151786,10.415039&sspn=19.919551,30.366211&vpsrc=6&geocode=FZu4QgId6rO2-A&t=m&z=13)
 for the location. The data set's pages are
-[here](http://www.ce.berkeley.edu/~daganzo/spdr.html). It was also used
+[here](https://web.archive.org/web/20140724080358/http://www.ce.berkeley.edu/~daganzo/spdr.html). It was also used
 for benchmarking car-following models, see \[Brockfeld2003a\]. The data
 set consists of times at which vehicles pass count points and is assumed
 to be quite clean.
@@ -185,7 +185,7 @@ iteration the parameter and the error, line by line.
 \[Smilowitz1999\] K. Smilowitz, C. Daganzo, M.J. Cassidy and R.L.
 Bertini. 1999. Some observations of highway traffic in long queues.
 Transportation Research Records, 1678, pp. 225-233; available at
-[\[1\]](http://www.its.berkeley.edu/publications/UCB/98/RR/UCB-ITS-RR-98-6.pdf)
+[\[1\]](https://web.archive.org/web/20140724065055/http://www.its.berkeley.edu/publications/UCB/98/RR/UCB-ITS-RR-98-6.pdf)
 
 \[Brockfeld2003a\] E. Brockfeld, R. Kühne, A. Skabardonis, P. Wagner.
 2003 Towards a benchmarking of Microscopic Traffic Flow Models.

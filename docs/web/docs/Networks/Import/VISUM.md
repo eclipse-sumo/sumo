@@ -136,7 +136,7 @@ Matrices](../../Demand/Importing_O/D_Matrices.md).
 # References
 
 - [PTV AG's
-  VISUM-page](http://www.ptvag.com/software/transportation-planning-traffic-engineering/software-system-solutions/visum/visum/)
+  VISUM-page](https://www.ptvgroup.com/en/solutions/products/ptv-visum/)
   (06.09.2011)
 
 # Missing

@@ -43,7 +43,7 @@ and the additional info here.
 You will need the following software (at least for a setup with GUI)
 
 - [Python 2.7](http://www.python.org/download/)
-- [GTK and PyGTK for Windows](http://www.gtk.org/download/)
+- [GTK and PyGTK for Windows](https://www.gtk.org/docs/installations/)
   - If you are using the 32 bit version of Python you can use [the
     all in one
     installer](http://ftp.gnome.org/pub/GNOME/binaries/win32/pygtk/2.24/pygtk-all-in-one-2.24.0.win32-py2.7.msi)
@@ -51,7 +51,7 @@ You will need the following software (at least for a setup with GUI)
     <http://stackoverflow.com/questions/14567921/python-pygtk-windows-7-64-bit>
     answer still applies except that the unofficial python packages
     now need pip to be installed
-- [TKDiff](http://tkdiff.sourceforge.net/) (you can choose another
+- [TKDiff](https://sourceforge.net/projects/tkdiff/) (you can choose another
 compatible diff tool if you like)
 - python and diff should also appear in your PATH.
 
@@ -108,7 +108,7 @@ You can easily install all TextTest 4.x and all of its dependencies on a recent 
 3. Install TextTest via pip:
    `pip3 install texttest`
 
-You can find more information about the general installation process and the system requirements of TextTest [here](https://texttest.readthedocs.io/en/latest/installation.html#mac). 
+You can find more information about the general installation process and the system requirements of TextTest [here](http://texttest.sourceforge.net/index.php?page=documentation_4_0&n=install_texttest). 
 
 ## Customize configuration
 
@@ -178,7 +178,7 @@ set POLYCONVERT_BINARY=%~dp0\..\bin\polyconvert%1.exe
 - build a configuration file; its name is "config", the extension is
   the application's to test name, so in our case it's
   **config.polyconvert**. Please consult
-  [TextTest](https://texttest.org/) documentation about the content,
+  [TextTest](http://texttest.org/) documentation about the content,
   nonetheless, here are some notes
   - do not forget the import of the main config file (config_all)
   - name the binary correct

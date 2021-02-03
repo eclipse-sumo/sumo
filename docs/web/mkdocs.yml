@@ -1,6 +1,5 @@
 site_name: SUMO Documentation
 site_url: https://sumo.dlr.de/docs/
-site_favicon: favicon.ico
 repo_url: https://github.com/eclipse/sumo/
 edit_uri: edit/master/docs/web/docs/
 site_description: SUMO Documentation

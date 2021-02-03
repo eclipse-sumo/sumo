@@ -51,13 +51,13 @@ The following extensions are managed and supported by other parties.
 
 ## Demand Generators
 
-- [Citymob for Roadmaps](http://www.grc.upv.es/Software/c4r.html)
+- [Citymob for Roadmaps](https://web.archive.org/web/20190910115452/http://www.grc.upv.es/Software/c4r.html)
 
     mobility pattern generator for vehicular networks (VANet focus)
 
 ## Scenario and Network Editors
 
-- [eWorld](http://eworld.sourceforge.net/)
+- [eWorld](https://web.archive.org/web/20161205050209/http://eworld.sourceforge.net/)
 
     an application that allows to convert and enrich roads networks
 
@@ -76,11 +76,11 @@ The following extensions are managed and supported by other parties.
 
     connects SUMO to ns-3
 
-- [<font color="#0174DF">Tra</font><font color="#FF0000">NS</font>](http://trans.epfl.ch/)
+- [TraNS](http://trans.epfl.ch/)
 
     connects SUMO to ns-2
 
-- [MOVE](http://lens1.csie.ncku.edu.tw/wiki/doku.php?id=%E2%80%A7realistic_mobility_generator_for_vehicular_networks)
+- [MOVE](https://web.archive.org/web/20111210235800/http://lens1.csie.ncku.edu.tw/wiki/doku.php?id=%E2%80%A7realistic_mobility_generator_for_vehicular_networks)
 
     connects SUMO to ns-2
 
