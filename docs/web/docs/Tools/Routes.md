@@ -257,6 +257,14 @@ vehicles route, if they are part of the vehicles id. Example:
 Note, that the lane of that parking area must belong to one of the edges
 "e1, e2, e3" of the vehicles route.
 
+# vehicle2flow.py
+
+This tool transforms every vehicle definition to a flow definition with the configured end time and period (depart is used as begin time).
+
+```
+<SUMO_HOME>/tools/route/tracegenerator.py <route-file> -o <output-route-file> -e <end-time> -r <repeat-period>
+```
+
 # tracegenerator.py
 
 This creates a list of (geo) coordinates from an input route file and and a network.
