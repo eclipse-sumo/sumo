@@ -13,9 +13,9 @@ In summary, the documentation works as follows:
 - The static HTML sites are being generated using MkDocs and certain MkDocs-plugins
 
 # Requirements
-Building the documentation requires the python3-version of mkdocs along with several plugins. These can be installed with pip in the following manner:
+Building the documentation requires the python3-version of mkdocs along with several plugins. The complete plugins list is contained in the `requirements.txt` file in the `docs/web/` directory. These can be installed with pip using:
 ```
- pip3 install mkdocs mkdocs-macros-plugin mkdocs-git-revision-date-plugin pymdown-extensions mdx_truly_sane_lists mdx_gh_links plantuml_markdown
+ pip install -r requirements.txt
 ```
 You also need to install the plantuml package
 ```
