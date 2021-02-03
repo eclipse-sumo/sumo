@@ -111,6 +111,52 @@ This set of API calls can be used to simplify writing custom dispatch algorithms
 - manage the taxi fleet
 - dispatch a taxi to service one or more reservations by giving a list of reservation ids (vehicle routing and stopping is then automatic).
 
+## getTaxiReservations
+
+Returns a list of of Reservation objects that have the following attributes 
+
+- id
+- persons
+- group
+- fromEdge
+- toEdge
+- arrivalPos
+- departPos
+- depart
+- reservationTime
+
+## getTaxiFleet
+
+A taxi can be in any of the following states:
+
+- 0 (emtpy) : taxi is idle
+- 1 (pickup):  taxi is en-route to pick up a customer
+- 2 (occupied): taxi has customer on board and is driving to drop-off
+- 3 (pickup + occupied): taxi has customer on board but will pick up more customers
+
+when calling `traci.vehicle.getTaxiFleet(taxiState)` the following arguments for taxiState are supported:
+
+- -1: (return all taxis regardless of state)
+- 0: return only empty taxis
+- 1: return taxis in state 1 and 3
+- 2: return taxis in state 2 and 3
+- 3: return taxis in state 3
+
+## dispatchTaxi
+
+If a taxi is empty, the following dispatch calls are supported
+
+- dispatchTaxi(vehID, [reservationID]): pickup and drop-off a persons belonging to the given reservation ID
+- C with 2\*n IDs and each individual reservation ID occurs exactly twice in the list: pickup and drop-off all the given reservation ids where the first occurence of an ID denotes pick-up and the second occurence denotes drop-off:
+
+Example:  dispatchTaxi(vehID, [a, b, c, b, a, c]) means: pickup a,b,c then drop-off b, a and c.
+
+If a taxi is not in state empty the following re-dispatch calls are supported
+
+- new reservations have no overlap with previous reservation: append new reservations to the previous reservations
+- new reservations include all previous unique reservation ids exactly twice: reset current route and stops and treat as complete new dispatch. If one of the persons of the earlier reservation is already picked up, ignore the first occurrence of the reservation in the reservation list
+- new reservations mentions include all previous unique reservation ids once or twice, all customers that are mentioned once are already picked up: reset current route and stops, use the single-occurence ids as as drop-of
+
 # Outputs
 
 The Taxi device generates output within a tripinfo-output file in the following
