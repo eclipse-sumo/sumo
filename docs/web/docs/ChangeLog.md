@@ -18,12 +18,14 @@ permalink: /ChangeLog/
   - Fixed slow initialization of railway router. Issue #8120
   - Fixed invalid braking of vehicles at traffic light junctions with crossings. Issue #8116
   - Fixed insufficent precision of timestamps when using low step-length (i.e. 0.025). Issue #8129
+  - Fixed crash when using junction-taz in combination with taxi device. Issue #8152
   - Sublane model fixes
     - Fixed deadlock in roundabout. Issue #7935
     - Fixed invalid deceleration at intersection due to misinterpreting lateral position of approaching foes #7925
     - Fixed collision in sublane model after parallel internal edges (requries rebuilding the network) #3619
     - Fixed invalid collision warning. Issue #8068
     - Fixed invalid vehicle angle in subsecond simulation. Issue #8070
+    - Lateral deviation due to lcSigma > 0 is now independent of step-length when using `latAlignment="arbitrary"`. Issue #8154
   - Opposite direction driving fixes
     - Fixed undetected collisions. Issue #8082, #8111
     - Fixed invalid collision warning. Issue #8079
@@ -32,13 +34,14 @@ permalink: /ChangeLog/
 
 - meso
   - Fixed invalid jam-front back-propagation speed. Issue #8000 (Regression in 1.7.0)
-  - Fixed invalid warning when using stop-output with multiple stops on the same segment. Issue #8001
+  - Fixed invalid warning when using stop-output with multiple stops on the same segment. Issue #8001  
   
 - sumo-gui
   - Fixed long pause on right-click in large networks. Issue #7927 (Regression in 1.4.0)
   - Routes for vehicles with dark color are no longer colored black. Issue #7934
   - Fixed crash when using network property dialog in meso. Issue #7998
   - Person drawing style "as circles" is now drawing circles as intended. Issue #8130
+  - Fixed crash when opening person parameter dialog for a person with depart="triggered". Issue #8164
   
 - netedit
   - Fixed invalid E2 detector shape #7895 (Regression in 1.7.0)
@@ -67,6 +70,8 @@ permalink: /ChangeLog/
   - Fixed crash when using traci.simulation.getDistanceRoad. Issue #5114
   - Fixed non-deterministic behavior for person.moveToXY. Issue #7933
   - Function vehicle.getNeighbors now correctly handles neighbors that changed lane after the ego vehicle in the same simulation step. #8119
+  - Fixed [simpla](Simpla.md) crashes. Issue #8151, #8179
+  - Fixed crash when starting traci with option traceFile, closing and starting again without traceFile. Issue #8177
   
 - Tools
   - Fixed error in xml2csv.py when loading files names consists only of numbers. Issue #7910
@@ -94,6 +99,7 @@ permalink: /ChangeLog/
   - Multiple gui setting schemes can now be loaded from the same input file. Issue #8012
   - Add vehicle drawing style 'draw as circles'. Issue #5947
   - BusStop parameter dialog now includes a summary of lines which are being waited for. Issue #8138
+  - Background images can now be removed using the 'Clear Decals' button. Issue #8144
   
 
 - netedit
@@ -106,6 +112,7 @@ permalink: /ChangeLog/
   - Shapes of selected edges can now be shifted orthogonally to their driving direction via move mode frame controls. Issue #2456
   - Polygons can now be moved without changing their shape (with new move mode checkbox). Issue #5268
   - New custom cursors added to the **Inspect**, **Delete**, **Select** and **Move** modes. Issue #4818
+  - Added new top-level 'Modes' menu for selecting edit mode. All mode-specific toggle options are now included in the 'Edit'-menu  #8059
 
 - netconvert
   - Added option **--tls.no-mixed** which prevents building phases where different connections from the same lane have green and red signals. Issue #7821
@@ -114,11 +121,15 @@ permalink: /ChangeLog/
   - When using option **--junctions.join-turns** to merge overlapping networks with diffent junction ids, the option **--edges.join** can now be used to automatically remove duplicate edges. Issue #8019
   - Added option **--railway.topology.repair.minimal**. This works similar to **--railway.topology.repair** but avoids creating bidirectional tracks that are not needed for public transport routes (only applies when using option **--ptline-outut**). Issue #7982
   - Public transport edges that are disconnected from the main road network (in particular railways) are now included in the output when using option **--keep.edges.components 1** as long as they have public transport stops that are written via option **--ptstop-output**. Issue #8061
+  - Edge types now support attribute 'spreadType'. Issue #7897
+  - The behavior of option **--geometry.remove** (merging subsequent edges with common attributes) no longer depends on written **--ptstop-output** (stops will be remapped onto merged edges). Issue #8155
 
 
 - TraCI
   - Added function 'traci.simulation.getCollisions' to retrieve a list of collision objects for the current time step. This also includes collisions between vehicles and pedestrians. Issue #7728
   - Can now retrieve vehicle parameters 'device.battery.totalEnergyConsumed' and 'device.battery.totalEnergyRegenerated' when a vehicle has the battery device. Issue #6507
+  - vehicle.dispatchTaxi now supports re-dispatching a taxi that is already in pickup or occupied mode. Issue #8148
+  - Vehicles that are accumlating insertion delay (because they cannot safely enter the network as schedule) can now be retrieved using the functions 'traci.simulation.getPendingVehicles', 'traci.edge.getPendingVehicles' and 'traci.lane.getPendingVehicles. Issue #8157
 
 - Tools
   - The tool [gridDistricts.py](Tools/District.md#griddistrictspy) can be used to generated a grid of districts (TAZs) for a given network. #7946
