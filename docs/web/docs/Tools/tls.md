@@ -9,7 +9,7 @@ This script modifies the traffic-light offsets to coordinate them for a
 given traffic demand. Example call:
 
 ```
-<SUMO_HOME>/tools/tlsCoordinator.py -n net.net.xml -r routes.rou.xml -o tlsOffsets.add.xml
+python tools/tlsCoordinator.py -n net.net.xml -r routes.rou.xml -o tlsOffsets.add.xml
 ```
 
 This would generate the file *tlsOffsets.add.xml* which can be loaded
@@ -31,7 +31,7 @@ This script modifies the duration of green phases according to Websters
 formula to best accomodate a given traffic demand. Example call:
 
 ```
-<SUMO_HOME>/tools/tlsCycleAdaptation.py -n net.net.xml -r routes.rou.xml -o newTLS.add.xml
+python tools/tlsCycleAdaptation.py -n net.net.xml -r routes.rou.xml -o newTLS.add.xml
 ```
 
 This would generate the file *newTLS.add.xml* which can be loaded into
@@ -50,7 +50,7 @@ This tool requires the program definition and the SUMO-network it shall
 be converted to:
 
 ```
-tls_csv2SUMO.py <TLS_CSV> <NET>
+python tools/tls/tls_csv2SUMO.py <TLS_CSV> <NET>
 ```
 
 It prints the generated TLS definition on stdout (you can pipe it to a
@@ -215,7 +215,7 @@ time;31;16;6;16;31;16;6;16
 We convert those program definitions using
 
 ```
-tools/tls/tls_csv2SUMO.py lsa_def.csv,lsa_def2.csv input_net.net.xml
+python tools/tls/tls_csv2SUMO.py lsa_def.csv,lsa_def2.csv input_net.net.xml
 ```
 
 And obtain the following programs after loading them into
@@ -237,7 +237,7 @@ the . Example call to convert two csv-tls-descriptions into the
 additional file *tls.add.xml*:
 
 ```
-<SUMO_HOME>/tools/tls/tls_csvSignalgroups.py -n net.net.xml -i tl1.csv,tl2.csv -o tls.add.xml
+python tools/tls/tls_csvSignalgroups.py -n net.net.xml -i tl1.csv,tl2.csv -o tls.add.xml
 ```
 
 In the opposite direction, templates for csv-tls-descriptions of all tls
@@ -245,7 +245,7 @@ in a [sumo](../sumo.md) network can be written to a given directory
 and completed by hand:
 
 ```
-<SUMO_HOME>/tools/tls/tls_csvSignalgroups.py -n net.net.xml -m .
+python tools/tls/tls_csvSignalgroups.py -n net.net.xml -m .
 ```
 
 The input csv file contains input blocks divided by titles in brackets.
@@ -324,3 +324,16 @@ FZ31;0;25;1;3;;
 FZ32;0;15;1;3;40;55
 FZ41;25;35;1;3;;
 ```
+
+
+# buildTransitions.py
+
+This tool creates tlLogic definitions with branching signal plans based on a simplified
+input: named green phases and list of successor green phases names.
+The corresponding yellow and red phases will be build and the 'next' attribute
+will be set to the appropriate transition phase.
+
+```
+python tools/tls/buildTransitions.py -d <tlLogic-file> -o <output-file>
+```
+
