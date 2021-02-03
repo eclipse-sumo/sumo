@@ -11,11 +11,11 @@ Allows to verify whether routes within the given route-file(s) are valid
 for the given network. Call(s):
 
 ```
-routecheck.py <net> <vehicletypes> [-f|--fix] <routes>+
+python tools\route\routecheck.py <net> <vehicletypes> [-f|--fix] <routes>+
 ```
 
 ```
-routecheck.py <net> <vehicletypes+routes>
+python tools\route\routecheck.py <net> <vehicletypes+routes>
 ```
 
 If a route is broken (or disconnected), the tool writes something like the
@@ -37,7 +37,7 @@ vehicle.
 # analyzePersonPlans.py
 Count the different types of person plans according to the sequence of used modes. Private rides are distinguished from public transport rides using the assumption that the name of the private vehicle will start with the name of the person (as happens for [duarouter](../duarouter.md)-generated person plans).
 ```
-tools\route\analyzePersonPlans.py -r routes.xml
+python tools\route\analyzePersonPlans.py -r routes.xml
 ```
 example output:
 ```
@@ -64,7 +64,7 @@ route from the list of previously discarded ones which start at the
 corresponding edge.
 
 ```
-routes_Join.py <prefix#1> <routes#1> <prefix#2> <routes#2> <mapfile>
+python tools\route\routes_Join.py <prefix#1> <routes#1> <prefix#2> <routes#2> <mapfile>
 ```
 
 - <prefix\#1\>: The prefix to use for vehicles from the first routes
@@ -84,7 +84,7 @@ time. If the option **--big** is supplied, a slow but memory efficient algorithm
 is used.
 
 ```
-<SUMO_HOME>/tools/route/sort_routes.py input.rou.xml -o output.rou.xml
+python tools/route/sort_routes.py input.rou.xml -o output.rou.xml
 ```
 
 # cutRoutes.py
@@ -101,7 +101,7 @@ If the option **--big** is supplied, a slow but memory efficient algorithm is us
 for sorting the output by departure time. Example usage
 
 ```
-<SUMO_HOME>/tools/route/cutRoutes.py reduced.net.xml orig.rou.xml 
+python tools/route/cutRoutes.py reduced.net.xml orig.rou.xml 
   --routes-output output.rou.xml --orig-net orig.net.xml
 ```
 
@@ -115,7 +115,7 @@ with the same vehicles. Routes must be child elements of `<vehicle>`-elements.
 Output for plotting may also be generated (see **--help**).
 
 ```
-<SUMO_HOME>/tools/route/routeStats.py myNet.net.xml myRoutes.rou.xml
+python tools/route/routeStats.py myNet.net.xml myRoutes.rou.xml
 ```
 
 When setting option **--attribute depart** a histogram on departure times (or departure time
@@ -131,7 +131,7 @@ Optionally a district file may be given, then only routes with
 the same origin and destination district are matched.
 
 ```
-<SUMO_HOME>/tools/route/routecompare.py routes.rou.xml routes2.rou.xml
+python tools/route/routecompare.py routes.rou.xml routes2.rou.xml
 ```
 
 # route2poly.py
@@ -142,7 +142,7 @@ controlled. Each of these options supports values from \[0, 1\] as well
 as the special value *random*.
 
 ```
-<SUMO_HOME>/tools/route/route2poly.py myNet.net.xml myRoutes.rou.xml
+python tools/route/route2poly.py myNet.net.xml myRoutes.rou.xml
 ```
 
 # route2sel.py
@@ -153,7 +153,7 @@ for visualization in [sumo-gui](../sumo-gui.md) or pruning a
 network via [netconvert](../netconvert.md).
 
 ```
-<SUMO_HOME>/tools/route2sel.py myRoutes.rou.xml -o usedEdges.txt
+python tools/route2sel.py myRoutes.rou.xml -o usedEdges.txt
 ```
 
 ```
@@ -167,21 +167,21 @@ When setting the option **--depart-edges Edge1,Edge2,...**, only vehicles that d
 edges are affected.
 
 ```
-<SUMO_HOME>/tools/route/route_departOffset.py --input-file myRoutes.rou.xml --output-file shifted.rou.xml --depart-offset 900
+python tools/route/route_departOffset.py --input-file myRoutes.rou.xml --output-file shifted.rou.xml --depart-offset 900
 ```
 
 The option **--depart-interval a,b,c,d** shifts all departures within the interval \[a,b\[ to the
 interval \[c,d\[.
 
 ```
-<SUMO_HOME>/tools/route/route_departOffset.py --input-file myRoutes.rou.xml --output-file shifted.rou.xml --depart-interval 3600,7200,0,500
+python tools/route/route_departOffset.py --input-file myRoutes.rou.xml --output-file shifted.rou.xml --depart-interval 3600,7200,0,500
 ```
 
 # route_1htoDay
 Uses "route_departOffset.py" for building 24 route files which describe a whole day assuming the given route files describes an hour.
 
 ```
-<SUMO_HOME>/tools/route/route_1htoDay.py myRoutes.rou.xml
+python tools/route/route_1htoDay.py myRoutes.rou.xml
 ```
 
 # route2alts.py
@@ -191,7 +191,7 @@ Builds route alternatives assigning the so determined probabilities to use a rou
 Please note that the cost of the route is not computed!
 
 ```
-<SUMO_HOME>/tools/route/route2alts.py myRoutes.rou.xml
+python tools/route/route2alts.py myRoutes.rou.xml
 ```
 
 # showDepartsAndArrivalsPerEdge
@@ -200,7 +200,7 @@ Generates a visualization file for investigating traffic patterns in a
 route file.
 
 ```
-<SUMO_HOME>/tools/showDepartsAndArrivalsPerEdge.py myRoutes.rou.xml --output-file results.xml
+python tools/showDepartsAndArrivalsPerEdge.py myRoutes.rou.xml --output-file results.xml
 ```
 
 The option **--intermediate** may be used to include the total number of passing vehicles
@@ -214,35 +214,35 @@ When investigating routes that pass a particular edge or intersection,
 the input routes may be filtered using the option **--subpart** {{DT_STR}}:
 
 ```
-<SUMO_HOME>/tools/showDepartsAndArrivalsPerEdge.py myRoutes.rou.xml --output-file results.xml --subpart edge3,edge4,edge5
+python tools/showDepartsAndArrivalsPerEdge.py myRoutes.rou.xml --output-file results.xml --subpart edge3,edge4,edge5
 ```
 
 This will only generate results for routes that contain the edge
 sequence *edge3 edge4 edge5*.
 
-# addStops2Routes.py
+# addParkingAreaStops2Routes.py
 
-To declare a vehicle that stops in a parkingArea, a <stop\>-definition
-must be part of the vehicle or it's route. This script adds stops to
-routes.
+Declares a vehicle to stop in one or more parking areas (separated by comma).
 
 ```
-<SUMO_HOME>/tools/addStops2Routes.py -r <route-file> -p <parking-areas> -d <duration in seconds> [-o <output-file>]
+python tools/addParkingAreaStops2Routes.py -r <route-file> -p <parking-areas> -d <duration in seconds> [-o <output-file>]
 ```
 
-Stops in one or more parking areas (separated by comma) are added to the
-vehicles route, if they are part of the vehicles id. Example:
+The stop will be added to the vehicles route, if the id of the given parking area is part of the vehicle id. Example:
 
 ```
 <routes>
     <vehicle id="0_parkingAreaA" depart="0">
       <route edges="e1 e2 e3"/>
     </vehicle>
+    <vehicle id="1" depart="0">
+      <route edges="e1 e2 e3"/>
+    </vehicle>
 </routes>
 ```
 
 ```
-<SUMO_HOME>/tools/route/addStops2Routes.py -r <route-file> -p ParkingAreaA -d 3600 [-o <output-file>]
+python tools/route/addParkingAreaStops2Routes.py -r <route-file> -p ParkingAreaA -d 3600 [-o <output-file>]
 ```
 
 ```
@@ -251,18 +251,54 @@ vehicles route, if they are part of the vehicles id. Example:
       <route edges="e1 e2 e3"/>
       <stop parkingArea="parkingAreaA" duration="3600">
     </vehicle>
+    <vehicle id="1" depart="0">
+      <route edges="e1 e2 e3"/>
+    </vehicle>
 </routes>
 ```
 
+This only adds a stop at **parkingAreaA** to the vehicle with id **0_parkingAreaA**.
 Note, that the lane of that parking area must belong to one of the edges
 "e1, e2, e3" of the vehicles route.
+
+# addStops2Routes.py
+
+Declares vehicles to stop at the end of their route.
+
+```
+python tools/addStops2Routes.py -n <net-file> -r <route-file> -t <vType-file> -o <output-file> -d <stop duration in seconds> -u <stop until time>
+```
+
+Either the "duration" or "until" for stop must be given. Using the option **-p**, the vehicle stops besides the road without blocking other vehicles. Example:
+
+```
+<routes>
+    <vehicle id="0" depart="0">
+      <route edges="e1 e2 e3"/>
+    </vehicle>
+</routes>
+```
+
+```
+python tools/route/addStops2Routes.py -n <net-file> -r <route-file> -t <vType-file> -o <output-file> -p --duration 1800 --until 12:0:0
+```
+
+```
+<routes>
+    <vehicle depart="0" id="0" type="type1">
+        <route edges="SC CN"/>
+        <stop lane="CN_2" parking="true" duration="1800" until="12:0:0"/>
+    </vehicle>
+</routes>
+```
+
 
 # vehicle2flow.py
 
 This tool transforms every vehicle definition to a flow definition with the configured end time and period (depart is used as begin time).
 
 ```
-<SUMO_HOME>/tools/route/tracegenerator.py <route-file> -o <output-route-file> -e <end-time> -r <repeat-period>
+python tools/route/tracegenerator.py <route-file> -o <output-route-file> -e <end-time> -r <repeat-period>
 ```
 
 # tracegenerator.py
@@ -270,7 +306,7 @@ This tool transforms every vehicle definition to a flow definition with the conf
 This creates a list of (geo) coordinates from an input route file and and a network.
 
 ```
-<SUMO_HOME>/tools/route/tracegenerator.py -n <net-file> -r <route-file> -o <output-trace-file>
+python tools/route/tracegenerator.py -n <net-file> -r <route-file> -o <output-trace-file>
 ```
 
 # tracemapper.py
@@ -279,7 +315,7 @@ This script maps a list of (geo) coordinates to a consecutive list of
 edges in a given network (a route)
 
 ```
-<SUMO_HOME>/tools/route/tracemapper.py -n <net-file> -t <trace-file> -o <route-output-file>
+python tools/route/tracemapper.py -n <net-file> -t <trace-file> -o <route-output-file>
 ```
 
 The input contains the coordinates for every vehicle in a single line.
@@ -314,7 +350,7 @@ The output will be saved in a xml-file and can be directly used as
 additional file in SUMO. The call is
 
 ```
-<SUMO_HOME>/tools/tlsCycleAdaptation.py -n <net-file> -r <route-file> -b <begin>
+python tools/tlsCycleAdaptation.py -n <net-file> -r <route-file> -b <begin>
 ```
 
 The signalization parameters, such as minimal green time, lost time,
@@ -329,7 +365,7 @@ splits will be adapted.
 
 This tool analyzes a give route file and computes a implausibility score for each route.
 ```
-<SUMO_HOME>/tools/route/implausibleRoutes.py <net-file> <route-file>
+python tools/route/implausibleRoutes.py <net-file> <route-file>
 ```
 
 The implausibility score is a weighted sum of individual measures of implausibility (with configurable weights):
@@ -347,7 +383,7 @@ It can also be used to generated restrictions for [flowrouter](Detector.md#flowr
 
 This tool adds a random delay to some or all stops that have a 'duration' value by increasing the duration
 ```
-<SUMO_HOME>/tools/route/addStopDelay.py -r <route-file> -o <output-route-file>
+python tools/route/addStopDelay.py -r <route-file> -o <output-route-file>
 ```
 
 The delays are sampled from a [truncated Normal distribution](https://en.wikipedia.org/wiki/Truncated_normal_distribution) with parameters set via options
@@ -360,7 +396,7 @@ By setting option **--probability FLOAT**, stops only receive a delay with the g
 
 This tool reads a [public transport schedule for vehicles or trips](../Simulation/Public_Transport.md#single_vehicles_and_trips) and checks whether the time spent at the same stop by different vehicles is overlapping. This occurence may be expected for bus lines but typically indicates a data error for a railway schedule (unless [portion working](../Simulation/Railways.md#portion_working) takes place).
 ```
-<SUMO_HOME>/tools/route/checkStopOrder.py -r <route-file>
+python tools/route/checkStopOrder.py -r <route-file>
 ```
 
 When setting option **--stop-table STOP_ID** a time table for all vehicles that service the given `<busStop>`-id is written to standard output.
