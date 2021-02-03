@@ -402,57 +402,41 @@ vehicle types).
 </table>
 
 
-- (1):
-  <http://www.baua.de/de/Publikationen/AWE/Band3/AWE108.pdf?__blob=publicationFile&v=4>;
-- (2): <http://www.motorrad-leuschner-d.de/motorraeder.html>
-- (3): www.bvg.de/index.php/de/binaries/asset/download/470184/file/1-1
-- (4): <http://de.wikipedia.org/wiki/S-Bahn_Berlin> und folgende
-- (5): <http://de.wikipedia.org/wiki/Schieneng%C3%BCterverkehr>
-- (6): <http://de.wikipedia.org/wiki/Bombardier_Traxx>
-- (7): <http://de.wikipedia.org/wiki/GTxN/M/S>
-- (8): <http://de.wikipedia.org/wiki/Flachwagen>
-- (9): <http://de.wikipedia.org/wiki/Reisebus>
-- (10):
-  <http://www.neoplan-bus.com/cms/media/de/content/downloads/skyliner/NEOPLAN_SKYLINER.pdf>
-- (11): <http://de.wikipedia.org/wiki/DBAG-Baureihe_425>
-- (12): <http://de.wikipedia.org/wiki/ICE_3>
-- (14):
-  <http://www.mantruckandbus.com/man/media/migrated/doc/master_1/Transportloesungen__de_.pdf>
-- (15): <http://de.wikipedia.org/wiki/Opel_Vivaro>
-- (16): <http://de.wikipedia.org/wiki/Renault_Espace>
-- (17): Fußgeher- und Fahrradverkehr: Planungsprinzipien; Hermann
-  Knoflacher; Böhlau Verlag Wien, 1995
+- (1): <https://www.baua.de/DE/Angebote/Publikationen/AWE/AWE108.pdf?__blob=publicationFile>
+- (2): <https://web.archive.org/web/20100531025842/http://www.motorrad-leuschner-d.de/motorraeder.html>
+- (3): <https://web.archive.org/web/20110313224137/www.bvg.de/index.php/de/binaries/asset/download/470184/file/1-1>
+- (4): <https://de.wikipedia.org/wiki/S-Bahn_Berlin>
+- (5): <https://de.wikipedia.org/wiki/Schieneng%C3%BCterverkehr>
+- (6): <https://de.wikipedia.org/wiki/Bombardier_Traxx>
+- (7): <https://de.wikipedia.org/wiki/GTxN/M/S>
+- (8): <https://de.wikipedia.org/wiki/Flachwagen>
+- (9): <https://de.wikipedia.org/wiki/Reisebus>
+- (10): <http://www.neoplan-bus.com/cms/media/de/content/downloads/skyliner/NEOPLAN_SKYLINER.pdf>
+- (11): <https://de.wikipedia.org/wiki/DBAG-Baureihe_425>
+- (12): <https://de.wikipedia.org/wiki/ICE_3>
+- (14): <http://www.mantruckandbus.com/man/media/migrated/doc/master_1/Transportloesungen__de_.pdf>
+- (15): <https://de.wikipedia.org/wiki/Opel_Vivaro>
+- (16): <https://de.wikipedia.org/wiki/Renault_Espace>
+- (17): Fußgeher- und Fahrradverkehr: Planungsprinzipien; Hermann Knoflacher; Böhlau Verlag Wien, 1995
 - (18): RiLSA 2010
 - (19): <http://www.gutax.de/Diplomarbeit_Manfred_Bulla.pdf>
-- (20):
-  <http://tuprints.ulb.tu-darmstadt.de/905/1/Schroeder_Frank_FZD_Diss.pdf>
+- (20): <http://tuprints.ulb.tu-darmstadt.de/905/1/Schroeder_Frank_FZD_Diss.pdf>
 - (21): <http://www.unfallrekonstruktion.de/pdf/nickel.pdf>
-- (22): <http://www.trb.org/publications/nchrp/nchrp_rpt_505.pdf>
-  (p48)
-- (23): <http://jml2012.indexcopernicus.com/fulltxt.php?ICID=1022800>
-  (pdf p.229-230)
-- (24): <http://de.wikipedia.org/wiki/Kleinkraftrad>
-- (25): <http://de.wikipedia.org/wiki/Vespa_LX>
-- (26):
-  <http://www.colliseum.net/wiki/Bremsversuche_mit_dem_Kleinkraftrad_S_50_/_S_51>
-- (27):
-  <http://www.unfallaufnahme.info/uebersichten-listen-und-tabellen/geschwindigkeiten-und-bremswege/index.html>
-- (28): <http://www.bmw-motorrad.de/>
-- (29):
-  <http://www.volkswagen.de/de/models/golf_7/trimlevel_overview.s9_trimlevel_detail.suffix.html/der-golf-cup~2Fcup.html#/tab=2cf06ac5c643bf892618c835c90c32ac>
-- (30): <https://www.buchbinder.de/de/fahrzeuge.html>
-- (31):
-  <http://www.colliseum.net/wiki/Lkw-Anfahrbeschleunigungswerte_f%C3%BCr_die_Praxis>
-- (32):
-  <http://de.wikipedia.org/wiki/Zul%C3%A4ssige_H%C3%B6chstgeschwindigkeit_im_Stra%C3%9Fenverkehr_(Deutschland)>
-- (33):
-  <http://www.ice-fansite.com/index.php?option=com_content&view=article&id=195:ice1-techdat&catid=50:icet&Itemid=69>
-- (34):
-  <http://en.wikipedia.org/wiki/Orders_of_magnitude_(acceleration)>
-- (35):
-  <https://de.answers.yahoo.com/question/index?qid=20061122162708AAtzoPP>
+- (22): <http://www.trb.org/publications/nchrp/nchrp_rpt_505.pdf> (p48)
+- (23): `http://jml2012.indexcopernicus.com/fulltxt.php?ICID=1022800` (dead link) (pdf p.229-230)
+- (24): <https://de.wikipedia.org/wiki/Kleinkraftrad>
+- (25): <https://de.wikipedia.org/wiki/Vespa_LX>
+- (26): <http://www.colliseum.net/wiki/Bremsversuche_mit_dem_Kleinkraftrad_S_50_/_S_51>
+- (27): <https://web.archive.org/web/20120622045505/http://www.unfallaufnahme.info/uebersichten-listen-und-tabellen/geschwindigkeiten-und-bremswege/index.html>
+- (28): <https://www.bmw-motorrad.de/>
+- (29): <https://web.archive.org/web/20140227232934/http://www.volkswagen.de/de/models/golf_7/trimlevel_overview.s9_trimlevel_detail.suffix.html/der-golf-cup~2Fcup.html>
+- (30): <https://web.archive.org/web/20160320031009/https://www.buchbinder.de/de/fahrzeuge.html>
+- (31): <http://www.colliseum.net/wiki/Lkw-Anfahrbeschleunigungswerte_f%C3%BCr_die_Praxis>
+- (32): <https://de.wikipedia.org/wiki/Zul%C3%A4ssige_H%C3%B6chstgeschwindigkeit_im_Stra%C3%9Fenverkehr_(Deutschland)>
+- (33): `http://www.ice-fansite.com/index.php?option=com_content&view=article&id=195:ice1-techdat&catid=50:icet&Itemid=69` (dead link)
+- (34): <https://en.wikipedia.org/wiki/Orders_of_magnitude_(acceleration)>
+- (35): <https://de.answers.yahoo.com/question/index?qid=20061122162708AAtzoPP>
 - (36): <http://ka.stadtwiki.net/H%C3%B6chstgeschwindigkeit_(Bahn)>
-- (37):
-  <http://www.rettungsdienst.brk.de/technik/rtw/rtw_by_2010/daten>
+- (37): <http://www.rettungsdienst.brk.de/technik/rtw/rtw_by_2010/daten>
 - (\*): estimated
 - (\*\*): need to be revisited to fit to model behavior

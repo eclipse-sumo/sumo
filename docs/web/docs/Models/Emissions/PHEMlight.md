@@ -16,7 +16,7 @@ Within [COLOMBO](https://verkehrsforschung.dlr.de/en/projects/colombo), a simpli
 embedded into SUMO, was developed. The PHEMlight model is the result of
 this work. An in-depth description can be found in
 [COLOMBO](https://verkehrsforschung.dlr.de/en/projects/colombo)'s deliverable
-[D4.2](https://verkehrsforschung.dlr.de/en/projects/colomboresults_deliverables.php). The model
+[D4.2](https://web.archive.org/web/20170808122505/http://www.colombo-fp7.eu/results_deliverables.php). The model
 received a major update to version 2.0.0.0 in the beginning of 2016
 which also used new names for all vehicle classes, most notably all
 classes now have an english prefix distinguishing passenger cars (PC_),
@@ -224,7 +224,7 @@ The special class `zero` may be used to specify a vehicle without emissions.
 
 - [COLOMBO: Deliverable 4.2; Extended Simulation Tool PHEM coupled to
   SUMO with User
-  Guide](https://verkehrsforschung.dlr.de/en/projects/colomboresults_deliverables.php); February,
+  Guide](https://web.archive.org/web/20170808122505/http://www.colombo-fp7.eu/results_deliverables.php); February,
   2014
 
  <div style="border:1px solid #909090; min-height: 35px;" align="right">

@@ -23,8 +23,8 @@ permalink: /Z/Changes_from_Version_0.11.1_to_Version_0.12.0/
 
 - sumo-gui
   - Improved layering (correct order of element drawing)
-  - solved [bug 2872900: same title/naming for different dialog boxes](http://sourceforge.net/tracker/?func=detail&aid=2872900&group_id=45607&atid=443424)
-  - solved [bug 2872824: fox related sumo crash](http://sourceforge.net/tracker/?func=detail&aid=2872824&group_id=45607&atid=443424)
+  - solved bug 2872900: same title/naming for different dialog boxes
+  - solved bug 2872824: fox related sumo crash
   - Viewport settings can now be saved/loaded
   - Added new visualisation options
     - lanes: by vclass

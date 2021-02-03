@@ -1225,7 +1225,7 @@ permalink: /ChangeLog/
   - Function *vehicle.moveTo* can now be used to move the vehicle to any lane on its route including those that were already passed.
 
 - Tools
-  - Added new toolbox [{{SUMO}}/tools/contributed/saga]({{Source}}tools/contributed/saga) (SUMO Activity Generation) to create intermodal scenarios from OSM data. This includes building a virtual population and generating mobility plans for a while day.
+  - Added new toolbox [{{SUMO}}/tools/contributed/saga]({{Source}}tools/contributed/) (SUMO Activity Generation) to create intermodal scenarios from OSM data. This includes building a virtual population and generating mobility plans for a while day.
   - [Public transport import from
     OSM](Tutorials/PT_from_OpenStreetMap.md) (also used by
     [osmWebWizard](Tools/Import/OSM.md#osmwebwizardpy) now

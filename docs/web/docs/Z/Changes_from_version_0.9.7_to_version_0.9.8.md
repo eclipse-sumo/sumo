@@ -129,5 +129,4 @@ lanes](http://sourceforge.net/tracker/index.php?func=detail&aid=1840944&group_id
     state](http://sourceforge.net/tracker/index.php?func=detail&aid=1840950&group_id=45607&atid=443421)
 - speeding up simulation by not touching empty lanes
 - C2C was made optional (using defines) in order to reduce memory
-  footprint; was: [feature 1843267: make extensions
-  optional](http://sourceforge.net/tracker/index.php?func=detail&aid=1843267&group_id=45607&atid=443421)
+  footprint; was: feature 1843267: make extensions optional
