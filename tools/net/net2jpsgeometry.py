@@ -142,9 +142,14 @@ def calculateDoors(polygons, net):
                     continue
                 addIncidentEdgeToDoorList(p, out, net, doorPositions, doorIDs)
         # sanity check
-        assert (len(doorPositions) % 2 == 0), "ERROR: len(doorPositions) is not even (%d), aborting..." % len(doorPositions)
+        assert (len(doorPositions) % 2 == 0), "ERROR: len(doorPositions) is not even (%d), aborting..." % len(doorPositions)  # noqa
         for i in range(0, len(doorPositions), 2):
-            door = sumolib.shapes.polygon.Polygon(id=doorIDs[int(i / 2)], type=JPS_DOOR_TYPE_NAME, color=JPS_DOOR_COLOR, layer=JPS_DOOR_LAYER, shape=[doorPositions[i], doorPositions[i + 1]])
+            door = sumolib.shapes.polygon.Polygon(
+                    id=doorIDs[int(i / 2)],
+                    type=JPS_DOOR_TYPE_NAME,
+                    color=JPS_DOOR_COLOR,
+                    layer=JPS_DOOR_LAYER,
+                    shape=[doorPositions[i], doorPositions[i + 1]])
             if not isDuplicate(door, result):
                 result.append(door)
     return result

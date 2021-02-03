@@ -11,7 +11,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    networkStatistics.py
+# @file    tripStatistics.py
 # @author  Yun-Pang Floetteroed
 # @author  Michael Behrisch
 # @date    2007-02-27
