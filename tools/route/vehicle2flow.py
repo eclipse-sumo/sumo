@@ -17,7 +17,7 @@
 
 """
 This script replaces all vehicle definitions in a route file by
-flow definitions, adding an XML ntity for the repeat interval for
+flow definitions, adding an XML entity for the repeat interval for
 easy later modification.
 """
 from __future__ import absolute_import

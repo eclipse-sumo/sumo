@@ -53,3 +53,6 @@ addStopDelay
 
 # test tool for validation public transport schedule in route file 
 checkStopOrder
+
+# transform vehicles to flow definitions
+vehicle2flow
