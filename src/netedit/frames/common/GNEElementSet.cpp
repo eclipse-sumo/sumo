@@ -46,6 +46,7 @@ FXIMPLEMENT(GNEElementSet, FXGroupBox, GNEElementSetMap, ARRAYNUMBER(GNEElementS
 GNEElementSet::GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode supermode) :
     FXGroupBox(selectorFrameParent->myContentFrame, "Element Set", GUIDesignGroupBoxFrame),
     mySelectorFrameParent(selectorFrameParent),
+    myMatchAttribute(nullptr),
     myCurrentSet(Type::INVALID) {
     // Create MatchTagBox for tags and fill it
     mySetComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_CHOOSEN_ELEMENTS, GUIDesignComboBox);
@@ -73,10 +74,18 @@ GNEElementSet::GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode su
     }
     // set visible items
     mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
+    // build MatchAttribute
+    myMatchAttribute = new GNEMatchAttribute(this);
 }
 
 
 GNEElementSet::~GNEElementSet() {}
+
+
+GNESelectorFrame* 
+GNEElementSet::getSelectorFrameParent() const {
+    return mySelectorFrameParent;
+}
 
 
 GNEElementSet::Type
@@ -89,12 +98,13 @@ void
 GNEElementSet::refreshElementSet() {
     // first check if myCurrentSet is invalid
     if (myCurrentSet == Type::INVALID) {
-        ; // hide
+        myMatchAttribute->disableMatchAttribute();
+        myMatchAttribute->hideMatchAttribute();
     } else {
         // enable match attribute
-        mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
+        myMatchAttribute->enableMatchAttribute();
         // enable moduls
-        mySelectorFrameParent->myMatchAttribute->showMatchAttribute();
+        myMatchAttribute->showMatchAttribute();
         mySelectorFrameParent->myMatchGenericDataAttribute->hideMatchGenericDataAttribute();
     }
 

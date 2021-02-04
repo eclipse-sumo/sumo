@@ -24,6 +24,12 @@
 #include "GNESelectorFrame.h"
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEMatchAttribute;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -49,6 +55,9 @@ public:
     /// @brief destructor
     ~GNEElementSet();
 
+    /// @brief get Selector Frame Parent
+    GNESelectorFrame* getSelectorFrameParent() const;
+
     /// @brief get current selected element set
     Type getElementSet() const;
 
@@ -70,6 +79,9 @@ protected:
 private:
     /// @brief pointer to Selector Frame Parent
     GNESelectorFrame* mySelectorFrameParent;
+
+    /// @brief modul for match attribute
+    GNEMatchAttribute* myMatchAttribute;
 
     /// @brief Combo Box with the element sets
     FXComboBox* mySetComboBox;

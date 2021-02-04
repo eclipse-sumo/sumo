@@ -33,7 +33,7 @@ class GNEMatchAttribute : protected FXGroupBox {
 
 public:
     /// @brief constructor
-    GNEMatchAttribute(GNESelectorFrame* selectorFrameParent);
+    GNEMatchAttribute(GNEElementSet* elementSet);
 
     /// @brief destructor
     ~GNEMatchAttribute();
@@ -80,8 +80,8 @@ protected:
     FOX_CONSTRUCTOR(GNEMatchAttribute)
 
 private:
-    /// @brief pointer to Selector Frame Parent
-    GNESelectorFrame* mySelectorFrameParent;
+    /// @brief pointer to element set Parent
+    GNEElementSet* myElementSet;
 
     /// @brief tag of the match box
     FXComboBox* myMatchTagComboBox;

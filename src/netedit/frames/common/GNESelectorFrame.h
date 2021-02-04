@@ -346,9 +346,6 @@ private:
     /// @brief moduls for select element set
     GNEElementSet* myNetworkElementSet, *myDemandElementSet, *myDataElementSet;
 
-    /// @brief modul for match attribute
-    GNEMatchAttribute* myMatchAttribute;
-
     /// @brief modul for match generic data attribute
     GNEMatchGenericDataAttribute* myMatchGenericDataAttribute;
 

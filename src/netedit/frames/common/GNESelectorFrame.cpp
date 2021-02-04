@@ -797,8 +797,6 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     myNetworkElementSet = new GNEElementSet(this, Supermode::NETWORK);
     myDemandElementSet = new GNEElementSet(this, Supermode::DEMAND);
     myDataElementSet = new GNEElementSet(this, Supermode::DATA);
-    // create MatchAttribute modul
-    myMatchAttribute = new GNEMatchAttribute(this);
     // create MatchGenericDataAttribute modul
     myMatchGenericDataAttribute = new GNEMatchGenericDataAttribute(this);
     // create VisualScaling modul

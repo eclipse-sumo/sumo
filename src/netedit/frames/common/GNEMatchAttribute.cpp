@@ -43,9 +43,9 @@ FXIMPLEMENT(GNEMatchAttribute, FXGroupBox, GNEMatchAttributeMap, ARRAYNUMBER(GNE
 // method definitions
 // ===========================================================================
 
-GNEMatchAttribute::GNEMatchAttribute(GNESelectorFrame* selectorFrameParent) :
-    FXGroupBox(selectorFrameParent->myContentFrame, "Match Attribute", GUIDesignGroupBoxFrame),
-    mySelectorFrameParent(selectorFrameParent),
+GNEMatchAttribute::GNEMatchAttribute(GNEElementSet* elementSet) :
+    FXGroupBox(elementSet->getSelectorFrameParent()->myContentFrame, "Match Attribute", GUIDesignGroupBoxFrame),
+    myElementSet(elementSet),
     myCurrentTag(SUMO_TAG_EDGE),
     myCurrentAttribute(SUMO_ATTR_ID) {
     // Create MatchTagBox for tags
@@ -82,16 +82,18 @@ GNEMatchAttribute::enableMatchAttribute() {
     myMatchTagComboBox->clearItems();
     // Set items depending of current item set
     std::vector<std::pair<SumoXMLTag, const std::string> > ACTags;
-    if (mySelectorFrameParent->myNetworkElementSet->getElementSet() == GNEElementSet::Type::NETWORK) {
+    if (myElementSet->getElementSet() == GNEElementSet::Type::NETWORK) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
-    } else if (mySelectorFrameParent->myNetworkElementSet->getElementSet() == GNEElementSet::Type::ADDITIONAL) {
+    } else if (myElementSet->getElementSet() == GNEElementSet::Type::ADDITIONAL) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, true);
-    } else if (mySelectorFrameParent->myNetworkElementSet->getElementSet() == GNEElementSet::Type::SHAPE) {
+    } else if (myElementSet->getElementSet() == GNEElementSet::Type::SHAPE) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
-    } else if (mySelectorFrameParent->myNetworkElementSet->getElementSet() == GNEElementSet::Type::TAZ) {
+    } else if (myElementSet->getElementSet() == GNEElementSet::Type::TAZ) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::TAZELEMENT, true);
-    } else if (mySelectorFrameParent->myNetworkElementSet->getElementSet() == GNEElementSet::Type::DEMAND) {
+    } else if (myElementSet->getElementSet() == GNEElementSet::Type::DEMAND) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
+    } else if (myElementSet->getElementSet() == GNEElementSet::Type::DATA) {
+        ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::DATAELEMENT, true);
     } else {
         throw ProcessError("Invalid element set");
     }
@@ -99,9 +101,11 @@ GNEMatchAttribute::enableMatchAttribute() {
     for (const auto& ACTag : ACTags) {
         myMatchTagComboBox->appendItem(ACTag.second.c_str());
     }
+/*
     // set first item as current item
     myMatchTagComboBox->setCurrentItem(0);
     myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
+*/
     // Fill attributes with the current element type
     onCmdSelMBTag(nullptr, 0, nullptr);
 }
@@ -139,16 +143,18 @@ GNEMatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     myCurrentTag = SUMO_TAG_NOTHING;
     // find current element tag
     std::vector<std::pair<SumoXMLTag, const std::string> > ACTags;
-    if (mySelectorFrameParent->myNetworkElementSet->getElementSet() == (GNEElementSet::Type::NETWORK)) {
+    if (myElementSet->getElementSet() == (GNEElementSet::Type::NETWORK)) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
-    } else if (mySelectorFrameParent->myNetworkElementSet->getElementSet() == GNEElementSet::Type::ADDITIONAL) {
+    } else if (myElementSet->getElementSet() == GNEElementSet::Type::ADDITIONAL) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, true);
-    } else if (mySelectorFrameParent->myNetworkElementSet->getElementSet() == GNEElementSet::Type::SHAPE) {
+    } else if (myElementSet->getElementSet() == GNEElementSet::Type::SHAPE) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
-    } else if (mySelectorFrameParent->myNetworkElementSet->getElementSet() == GNEElementSet::Type::TAZ) {
+    } else if (myElementSet->getElementSet() == GNEElementSet::Type::TAZ) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::TAZELEMENT, true);
-    } else if (mySelectorFrameParent->myNetworkElementSet->getElementSet() == GNEElementSet::Type::DEMAND) {
+    } else if (myElementSet->getElementSet() == GNEElementSet::Type::DEMAND) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
+    } else if (myElementSet->getElementSet() == GNEElementSet::Type::DATA) {
+        ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::GENERICDATA, true);
     } else {
         throw ProcessError("Unkown set");
     }
@@ -273,7 +279,7 @@ GNEMatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*) {
     bool valid = true;
     if (expr == "") {
         // the empty expression matches all objects
-        mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, '@', 0, expr));
+        myElementSet->getSelectorFrameParent()->handleIDs(myElementSet->getSelectorFrameParent()->getMatches(myCurrentTag, myCurrentAttribute, '@', 0, expr));
     } else if (tagValue.hasAttribute(myCurrentAttribute) && tagValue.getAttributeProperties(myCurrentAttribute).isNumerical()) {
         // The expression must have the form
         //  <val matches if attr < val
@@ -288,7 +294,7 @@ GNEMatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*) {
         }
         // check if value can be parsed to double
         if (GNEAttributeCarrier::canParse<double>(expr.c_str())) {
-            mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, compOp, GNEAttributeCarrier::parse<double>(expr.c_str()), expr));
+            myElementSet->getSelectorFrameParent()->handleIDs(myElementSet->getSelectorFrameParent()->getMatches(myCurrentTag, myCurrentAttribute, compOp, GNEAttributeCarrier::parse<double>(expr.c_str()), expr));
         } else {
             valid = false;
         }
@@ -305,7 +311,7 @@ GNEMatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*) {
         } else {
             compOp = '@';
         }
-        mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, compOp, 0, expr));
+        myElementSet->getSelectorFrameParent()->handleIDs(myElementSet->getSelectorFrameParent()->getMatches(myCurrentTag, myCurrentAttribute, compOp, 0, expr));
     }
     if (valid) {
         myMatchString->setTextColor(FXRGB(0, 0, 0));
