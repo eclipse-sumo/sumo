@@ -139,7 +139,7 @@ Person::getTaxiReservations(int stateFilter) {
             throw TraCIException("device.taxi.dispatch-algorithm 'traci' has not been loaded");
         }
         for (Reservation* res : dispatcher->getReservations()) {
-            if (filterReservation(stateFilter, res, traciDispatcher->getReservationID(res), result)) {
+            if (filterReservation(stateFilter, res, result)) {
                 if (res->state == Reservation::NEW) {
                     res->state = Reservation::RETRIEVED;
                 }
@@ -148,7 +148,7 @@ Person::getTaxiReservations(int stateFilter) {
         const bool includeRunning = stateFilter == 0 || (stateFilter & (Reservation::ASSIGNED | Reservation::ONBOARD)) != 0;
         if (includeRunning) {
             for (const Reservation* res : dispatcher->getRunningReservations()) {
-                filterReservation(stateFilter, res, traciDispatcher->getReservationID(res), result);
+                filterReservation(stateFilter, res, result);
             }
         }
     }
@@ -157,7 +157,7 @@ Person::getTaxiReservations(int stateFilter) {
 
 
 bool
-Person::filterReservation(int stateFilter, const Reservation* res, const std::string& resID, std::vector<libsumo::TraCIReservation>& reservations) {
+Person::filterReservation(int stateFilter, const Reservation* res, std::vector<libsumo::TraCIReservation>& reservations) {
     if (stateFilter != 0 && stateFilter != res->state) {
         return false;
     }
@@ -165,7 +165,7 @@ Person::filterReservation(int stateFilter, const Reservation* res, const std::st
     for (MSTransportable* p : res->persons) {
         personIDs.push_back(p->getID());
     }
-    reservations.push_back(TraCIReservation(resID,
+    reservations.push_back(TraCIReservation(res->id,
                 personIDs,
                 res->group,
                 res->from->getID(),

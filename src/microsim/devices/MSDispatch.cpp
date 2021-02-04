@@ -50,7 +50,8 @@ Reservation::getID() const {
 
 MSDispatch::MSDispatch(const std::map<std::string, std::string>& params) :
     Parameterised(params),
-    myOutput(nullptr)
+    myOutput(nullptr),
+    myReservationCount(0)
 {
     const std::string opt = "device.taxi.dispatch-algorithm.output";
     if (OptionsCont::getOptions().isSet(opt)) {
@@ -89,7 +90,7 @@ MSDispatch::addReservation(MSTransportable* person,
         }
     }
     if (!added) {
-        Reservation* newRes = new Reservation({person}, reservationTime, pickupTime, from, fromPos, to, toPos, group);
+        Reservation* newRes = new Reservation(toString(myReservationCount++), {person}, reservationTime, pickupTime, from, fromPos, to, toPos, group);
         myGroupReservations[group].push_back(newRes);
         result = newRes;
     }

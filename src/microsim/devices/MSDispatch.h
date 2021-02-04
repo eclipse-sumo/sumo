@@ -44,12 +44,14 @@ struct Reservation {
         FULFILLED = 16, // the persons belonging to this reservation have been dropped off
     };
 
-    Reservation(const std::vector<MSTransportable*>& _persons,
+    Reservation(const std::string& _id,
+                const std::vector<MSTransportable*>& _persons,
                 SUMOTime _reservationTime,
                 SUMOTime _pickupTime,
                 const MSEdge* _from, double _fromPos,
                 const MSEdge* _to, double _toPos,
                 const std::string& _group) :
+        id(_id),
         persons(_persons.begin(), _persons.end()),
         reservationTime(_reservationTime),
         pickupTime(_pickupTime),
@@ -62,6 +64,7 @@ struct Reservation {
         state(NEW)
     {}
 
+    std::string id;
     std::set<MSTransportable*> persons;
     SUMOTime reservationTime;
     SUMOTime pickupTime;
@@ -161,6 +164,7 @@ protected:
     OutputDevice* myOutput;
 
 private:
+    int myReservationCount;
     std::map<std::string, std::vector<Reservation*> > myGroupReservations;
     // reservations that are currently being served (could still be used during re-dispatch)
     std::set<const Reservation*> myRunningReservations;

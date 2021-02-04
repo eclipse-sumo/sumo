@@ -102,7 +102,7 @@ public:
 private:
     static MSPerson* getPerson(const std::string& id);
     static MSStage* convertTraCIStage(const TraCIStage& stage, const std::string personID);
-    static bool filterReservation(int stateFilter, const Reservation* res, const std::string& resID, std::vector<libsumo::TraCIReservation>& reservations);
+    static bool filterReservation(int stateFilter, const Reservation* res, std::vector<libsumo::TraCIReservation>& reservations);
 
 private:
     static SubscriptionResults mySubscriptionResults;

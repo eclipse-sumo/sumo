@@ -44,20 +44,11 @@ MSDispatch_TraCI::addReservation(MSTransportable* person,
                                  int maxCapacity) {
     Reservation* res = MSDispatch::addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group, maxCapacity);
     if (!myReservationLookup.has(res)) {
-        myReservationLookup.insert(toString(myReservationCount), res);
-        myReservationCount++;
+        myReservationLookup.insert(res->id, res);
     }
     return res;
 }
 
-std::string
-MSDispatch_TraCI::getReservationID(const Reservation* res) {
-    if (myReservationLookup.has(res)) {
-        return myReservationLookup.getString(res);
-    } else {
-        throw InvalidArgument("Reservation is not known");
-    }
-}
 
 void
 MSDispatch_TraCI::interpretDispatch(MSDevice_Taxi* taxi, const std::vector<std::string>& reservationsIDs) {
