@@ -1785,7 +1785,7 @@ GNEViewNet::onCmdResetLength(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != nullptr) {
         if (edge->isAttributeCarrierSelected()) {
-            myUndoList->p_begin("reset edge lengthss");
+            myUndoList->p_begin("reset edge lengths");
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
             for (auto it : edges) {
                 it->setAttribute(SUMO_ATTR_LENGTH, "-1", myUndoList);
