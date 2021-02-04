@@ -14,7 +14,7 @@ page](https://sumo.dlr.de/daily/gcc4_64report/tools/test_default.html)).
 - This script uses
 lxml (if
 available) or
-[Sax2Count](http://xerces.apache.org/xerces-c/sax2count-3.html) (on
+[Sax2Count](https://xerces.apache.org/xerces-c/sax2count-3.html) (on
 windows only). The latter comes together with the binary xerces
 windows distribution.
 - Only files which have a schema declaration in the root element and

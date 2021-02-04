@@ -33,7 +33,7 @@ jobs:
       - name: Building documentation
         run: |
           cd docs/web/
-          mkdocs build
+          mkdocs build --strict
 
 
   ############################
@@ -53,4 +53,4 @@ jobs:
           use-quiet-mode: 'yes'
           use-verbose-mode: 'no'
           folder-path: 'docs/web/docs/'
-         continue-on-error: true # prevent Action from failing due to dead links - disable when all links have been repaired
+         continue-on-error: false # "true" prevents this Action from failing due to dead links

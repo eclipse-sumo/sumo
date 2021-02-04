@@ -8,11 +8,20 @@
   "ignorePatterns": [
     {
       "pattern": "{{Version}}"
+    },
+    {
+      "pattern": "https://build.opensuse.org/project/show/home:behrisch"
+    },
+    {
+      "pattern": "https://elib.dlr.de/94006/1/Proceeding_SUMO2014_15%2B16May2014_Berlin-Adlershof.pdf"
+    },
+    {
+      "pattern": "https://www.baua.de/DE/Angebote/Publikationen/AWE/AWE108.pdf?__blob=publicationFile"
     }
   ],
   "timeout": "10s",
   "retryOn429": true,
   "retryCount": 3,
   "fallbackRetryDelay": "30s",
-  "aliveStatusCodes": [200, 206]
+  "aliveStatusCodes": [0, 200, 206, 400, 403]
 }

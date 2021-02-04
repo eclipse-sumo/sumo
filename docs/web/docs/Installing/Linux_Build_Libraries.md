@@ -90,14 +90,14 @@ cd proj-4.6.0
   --with-opengl=yes --prefix=$HOME && make install"; Still, this is
   the default normally.
 
-<!-- end list -->
+
 
 - In contrast to the other libraries, it is very likely that Xerces-C
   also comes with your Linux distribution (at least it does with a
   recent SuSE). If so, please first try to install it from there and
   do not forget to install the developer package as well.
 - The [Xerces
-  build](http://xerces.apache.org/xerces-c/build-3.html) is
+  build](https://xerces.apache.org/xerces-c/build-3.html) is
   somewhat more involved:
 
 ```
