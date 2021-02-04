@@ -153,6 +153,15 @@ permalink: /ChangeLog/
     - tools/xml/schemaCheck.py -> tools/build/schemaCheck.py
     - tools/xml/rebuildSchemata.py -> tools/build/rebuildSchemata.py
     - tools/assign/networkStatistics.py -> tools/output/tripStatistics.py
+    - tools/osmTaxiStop.py -> tools/import/osm/osmTaxiStop.py
+    - tools/addParkingAreaStops2Routes.py -> tools/route/addParkingAreaStops2Routes.py
+    - tools/addStops2Routes.py -> tools/route/addStops2Routes.py
+    - tools/route2sel.py -> tools/route/route2sel.py
+    - tools/splitRouteFiles.py -> tools/route/splitRouteFiles.py
+    - tools/tls_buildTransitions.py → tools/tls/buildTransitions.py
+    - tools/generateTurnRatios.py -> tools/turn-defs/generateTurnRatios.py
+    - tools/assign/matrixDailyToHourly.py -> tools/district/aggregateAndSplitMatrices.py
+    
 
 ## Version 1.8.0 (02.12.2020)
 
