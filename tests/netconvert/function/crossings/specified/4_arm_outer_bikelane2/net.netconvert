@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:55 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on Thu Feb  4 11:14:33 2021 by Eclipse SUMO netconvert Version v1_8_0+0939-df8646d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -301,10 +301,10 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0 CS_1 CS_2 CS_3" intLanes="" shape="100.00,0.00 89.10,0.00 100.00,0.00"/>
     <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="CW_0 CW_1 CW_2 CW_3" intLanes="" shape="0.00,100.00 0.00,110.90 0.00,100.00"/>
 
-    <junction id=":C_32_0" type="internal" x="90.11" y="110.53" incLanes=":C_2_0 :C_18_0 :C_19_0 :C_23_0 SC_0 SC_2 SC_3" intLanes=":C_40_0 :C_43_0 :C_5_0 :C_5_1 :C_9_0 :C_10_0 :C_10_1 :C_13_0 :C_13_1 :C_15_0 :C_16_0 :C_17_0 :C_18_0 :C_18_1 :C_20_0 :C_21_0 :C_21_1 :C_23_0 :C_25_0 :C_26_0 :C_26_1 :C_29_0 :C_29_1 :C_31_0 :C_c0_0 :C_c1_0"/>
-    <junction id=":C_33_0" type="internal" x="90.19" y="111.37" incLanes=":C_2_1 :C_18_0 :C_19_0 SC_0 SC_2 SC_3" intLanes=":C_40_0 :C_5_0 :C_5_1 :C_9_0 :C_10_0 :C_10_1 :C_13_0 :C_13_1 :C_15_0 :C_16_0 :C_17_0 :C_18_0 :C_18_1 :C_20_0 :C_21_0 :C_21_1 :C_25_0 :C_26_0 :C_26_1 :C_29_0 :C_29_1 :C_31_0 :C_c0_0 :C_c1_0"/>
+    <junction id=":C_32_0" type="internal" x="90.11" y="110.53" incLanes=":C_2_0 :C_18_0 :C_18_1 :C_23_0 SC_0 SC_2 SC_3" intLanes=":C_40_0 :C_41_0 :C_43_0 :C_5_0 :C_5_1 :C_9_0 :C_10_0 :C_10_1 :C_13_0 :C_13_1 :C_15_0 :C_16_0 :C_17_0 :C_18_0 :C_18_1 :C_20_0 :C_21_0 :C_21_1 :C_23_0 :C_25_0 :C_26_0 :C_26_1 :C_29_0 :C_29_1 :C_31_0 :C_c0_0 :C_c1_0"/>
+    <junction id=":C_33_0" type="internal" x="90.19" y="111.37" incLanes=":C_2_1 :C_18_0 :C_18_1 SC_0 SC_2 SC_3" intLanes=":C_40_0 :C_41_0 :C_5_0 :C_5_1 :C_9_0 :C_10_0 :C_10_1 :C_13_0 :C_13_1 :C_15_0 :C_16_0 :C_17_0 :C_18_0 :C_18_1 :C_20_0 :C_21_0 :C_21_1 :C_25_0 :C_26_0 :C_26_1 :C_29_0 :C_29_1 :C_31_0 :C_c0_0 :C_c1_0"/>
     <junction id=":C_34_0" type="internal" x="92.10" y="105.98" incLanes=":C_4_0 NC_0" intLanes=":C_1_0 :C_2_0 :C_2_1 :C_9_0 :C_13_0 :C_13_1 :C_18_0 :C_18_1 :C_23_0 :C_c0_0 :C_c3_0"/>
-    <junction id=":C_35_0" type="internal" x="99.14" y="109.47" incLanes=":C_7_0 :C_18_0 :C_19_0 SC_0 SC_2 SC_3" intLanes=":C_40_0 :C_9_0 :C_10_0 :C_10_1 :C_13_0 :C_13_1 :C_15_0 :C_16_0 :C_17_0 :C_18_0 :C_18_1 :C_20_0 :C_21_0 :C_21_1 :C_25_0 :C_26_0 :C_26_1 :C_29_0 :C_29_1 :C_31_0 :C_c0_0 :C_c1_0"/>
+    <junction id=":C_35_0" type="internal" x="99.14" y="109.47" incLanes=":C_7_0 :C_18_0 :C_18_1 SC_0 SC_2 SC_3" intLanes=":C_40_0 :C_41_0 :C_9_0 :C_10_0 :C_10_1 :C_13_0 :C_13_1 :C_15_0 :C_16_0 :C_17_0 :C_18_0 :C_18_1 :C_20_0 :C_21_0 :C_21_1 :C_25_0 :C_26_0 :C_26_1 :C_29_0 :C_29_1 :C_31_0 :C_c0_0 :C_c1_0"/>
     <junction id=":C_36_0" type="internal" x="93.16" y="100.00" incLanes=":C_10_0 WC_0 WC_2 WC_3" intLanes=":C_1_0 :C_2_0 :C_2_1 :C_5_0 :C_5_1 :C_7_0 :C_13_0 :C_13_1 :C_17_0 :C_18_0 :C_18_1 :C_21_0 :C_21_1 :C_23_0 :C_24_0 :C_25_0 :C_26_0 :C_26_1 :C_28_0 :C_29_0 :C_29_1 :C_31_0 :C_c1_0 :C_c2_0"/>
     <junction id=":C_37_0" type="internal" x="98.10" y="100.00" incLanes=":C_10_1 WC_0 WC_2 WC_3" intLanes=":C_1_0 :C_2_0 :C_2_1 :C_5_0 :C_5_1 :C_7_0 :C_13_0 :C_13_1 :C_17_0 :C_18_0 :C_18_1 :C_21_0 :C_21_1 :C_23_0 :C_24_0 :C_25_0 :C_26_0 :C_26_1 :C_28_0 :C_29_0 :C_29_1 :C_c1_0 :C_c2_0"/>
     <junction id=":C_38_0" type="internal" x="105.98" y="107.90" incLanes=":C_12_0 EC_0" intLanes=":C_9_0 :C_10_0 :C_10_1 :C_17_0 :C_21_0 :C_21_1 :C_26_0 :C_26_1 :C_31_0 :C_c0_0 :C_c1_0"/>
