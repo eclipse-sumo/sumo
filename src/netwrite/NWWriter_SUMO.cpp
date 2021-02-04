@@ -662,11 +662,15 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
             std::string incLanes = (*k).getInternalLaneID();
             std::vector<std::string> foeIDs;
             for (std::string incLane : (*k).foeIncomingLanes) {
-                incLanes += " " + incLane;
-                if (incLane[0] == ':' && viaIDs[incLane] != "") {
+                if (incLane[0] == ':') {
                     // intersecting left turns
-                    foeIDs.push_back(viaIDs[incLane] + "_0");
+                    const int index = StringUtils::toInt(incLane.substr(1));
+                    incLane = internalLaneIDs[index];
+                    if (viaIDs[incLane] != "") {
+                        foeIDs.push_back(viaIDs[incLane] + "_0");
+                    }
                 }
+                incLanes += " " + incLane;
             }
             into.writeAttr(SUMO_ATTR_INCLANES, incLanes);
             const std::vector<int>& foes = (*k).foeInternalLinks;
