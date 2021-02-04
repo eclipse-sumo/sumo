@@ -794,9 +794,9 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     // create Modification Mode modul
     myModificationMode = new ModificationMode(this);
     // create ElementSet modul
-    myNetworkElementSet = new GNEElementSet(this, Supermode::NETWORK);
-    myDemandElementSet = new GNEElementSet(this, Supermode::DEMAND);
-    myDataElementSet = new GNEElementSet(this, Supermode::DATA);
+    myNetworkElementSet = new GNEElementSet(this, Supermode::NETWORK, SUMO_TAG_EDGE, SUMO_ATTR_SPEED, ">10.0");
+    myDemandElementSet = new GNEElementSet(this, Supermode::DEMAND, SUMO_TAG_VEHICLE, SUMO_ATTR_ID, "");
+    myDataElementSet = new GNEElementSet(this, Supermode::DATA, SUMO_TAG_MEANDATA_EDGE, GNE_ATTR_PARAMETERS, "key=value");
     // create MatchGenericDataAttribute modul
     myMatchGenericDataAttribute = new GNEMatchGenericDataAttribute(this);
     // create VisualScaling modul
@@ -820,11 +820,20 @@ GNESelectorFrame::show() {
     myLockGLObjectTypes->showTypeEntries();
     // refresh element set
     if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
-        myNetworkElementSet->refreshElementSet();
+        // only show network element set
+        myNetworkElementSet->showElementSet();
+        myDemandElementSet->hideElementSet();
+        myDataElementSet->hideElementSet();
     } else if(myViewNet->getEditModes().isCurrentSupermodeDemand()) {
-        myDemandElementSet->refreshElementSet();
+        // only show demand element set
+        myNetworkElementSet->hideElementSet();
+        myDemandElementSet->showElementSet();
+        myDataElementSet->hideElementSet();
     } else if(myViewNet->getEditModes().isCurrentSupermodeData()) {
-        myDataElementSet->refreshElementSet();
+        // only show data element set
+        myNetworkElementSet->hideElementSet();
+        myDemandElementSet->hideElementSet();
+        myDataElementSet->showElementSet();
     }
     // Show frame
     GNEFrame::show();
