@@ -59,5 +59,6 @@ while traci.simulation.getMinExpectedNumber() > 0:
         traci.vehicle.getTaxiFleet(1),
         traci.vehicle.getTaxiFleet(2),
         traci.vehicle.getTaxiFleet(3),))
+    print("   res=%s" % str(traci.person.getTaxiReservations()))
     traci.simulationStep()
 traci.close()
