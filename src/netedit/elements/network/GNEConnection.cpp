@@ -148,7 +148,7 @@ GNEConnection::getMoveOperation(const double shapeOffset) {
         // get connection
         const auto& connection = getNBEdgeConnection();
         // get original shape
-        const PositionVector originalShape = connection.customShape.size() > 0 ? connection.customShape : connection.shape;
+        const PositionVector originalShape = connection.customShape.size() > 0 ? connection.customShape : myConnectionGeometry.getShape();
         // declare shape to move
         PositionVector shapeToMove = originalShape;
         // first check if in the given shapeOffset there is a geometry point
