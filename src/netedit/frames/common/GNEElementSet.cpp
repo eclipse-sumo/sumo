@@ -43,7 +43,8 @@ FXIMPLEMENT(GNEElementSet, FXGroupBox, GNEElementSetMap, ARRAYNUMBER(GNEElementS
 // method definitions
 // ===========================================================================
 
-GNEElementSet::GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode supermode) :
+GNEElementSet::GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode supermode, 
+    SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string &defaultValue) :
     FXGroupBox(selectorFrameParent->myContentFrame, "Element Set", GUIDesignGroupBoxFrame),
     mySelectorFrameParent(selectorFrameParent),
     myMatchAttribute(nullptr),
@@ -75,7 +76,7 @@ GNEElementSet::GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode su
     // set visible items
     mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
     // build MatchAttribute
-    myMatchAttribute = new GNEMatchAttribute(this);
+    myMatchAttribute = new GNEMatchAttribute(this, defaultTag, defaultAttr, defaultValue);
 }
 
 
@@ -95,19 +96,29 @@ GNEElementSet::getElementSet() const {
 
 
 void
-GNEElementSet::refreshElementSet() {
+GNEElementSet::showElementSet() {
+    // first show group box
+    show();
+    // show myMatchAttribute
+    myMatchAttribute->showMatchAttribute(myCurrentSet);
     // first check if myCurrentSet is invalid
     if (myCurrentSet == Type::INVALID) {
+        // disable macht attribute
         myMatchAttribute->disableMatchAttribute();
-        myMatchAttribute->hideMatchAttribute();
     } else {
         // enable match attribute
         myMatchAttribute->enableMatchAttribute();
-        // enable moduls
-        myMatchAttribute->showMatchAttribute();
         mySelectorFrameParent->myMatchGenericDataAttribute->hideMatchGenericDataAttribute();
     }
+}
 
+
+void
+GNEElementSet::hideElementSet() {
+    // hide match attribute
+    myMatchAttribute->hideMatchAttribute();
+    // hide group box
+    hide();
 }
 
 

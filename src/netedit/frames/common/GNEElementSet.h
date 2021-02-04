@@ -50,7 +50,9 @@ public:
     };
 
     /// @brief constructor
-    GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode supermode);
+    GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode supermode, 
+                  SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, 
+                  const std::string &defaultValue);
 
     /// @brief destructor
     ~GNEElementSet();
@@ -61,8 +63,11 @@ public:
     /// @brief get current selected element set
     Type getElementSet() const;
 
-    /// @brief refresh element set
-    void refreshElementSet();
+    /// @brief show element set
+    void showElementSet();
+
+    /// @brief hide element set
+    void hideElementSet();
 
     /// @name FOX-callbacks
     /// @{
