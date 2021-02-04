@@ -17,9 +17,11 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
-import sys
+import os,sys
 from optparse import OptionParser
-from sumolib.output import parse, parse_fast
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from sumolib.output import parse, parse_fast  # noqa
 
 
 def parse_args():
