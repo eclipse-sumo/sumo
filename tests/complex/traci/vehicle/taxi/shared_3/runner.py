@@ -47,6 +47,7 @@ traci.start([sumoBinary,
 
 traci.simulationStep()
 fleet = traci.vehicle.getTaxiFleet(0)
+taxiID = fleet[0]
 print("taxiFleet", fleet)
 reservations = traci.person.getTaxiReservations(0)
 print("reservations", reservations)
@@ -58,7 +59,8 @@ a, b, c = reservation_ids
 # pickup b
 # pickup c, dropoff b
 # dropoff a, c
-traci.vehicle.dispatchTaxi(fleet[0], [a, b, c, b, a, c])
+traci.vehicle.dispatchTaxi(taxiID, [a, b, c, b, a, c])
+print("currentCustomers", traci.vehicle.getParameter(taxiID, "device.taxi.currentCustomers"))
 
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
