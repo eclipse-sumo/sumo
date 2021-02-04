@@ -204,23 +204,13 @@ public:
         FXDECLARE(GNESelectorFrame::ElementSet)
 
     public:
-        /// @brief Network element Set
-        enum class NetworkElementSet {
+        /// @brief Element Set Type
+        enum class Type {
             NETWORKELEMENT,
             ADDITIONALELEMENT,
             SHAPE,
             TAZELEMENT,
-            INVALID,
-        };
-
-        /// @brief Demand element Set
-        enum class DemandElementSet {
             DEMANDELEMENT,
-            INVALID,
-        };
-
-        /// @brief Data element Set
-        enum class DataElementSet {
             DATA,
             INVALID,
         };
@@ -231,14 +221,8 @@ public:
         /// @brief destructor
         ~ElementSet();
 
-        /// @brief get current selected network element set
-        NetworkElementSet getNetworkElementSet() const;
-
-        /// @brief get current selected demand element set
-        DemandElementSet getDemandElementSet() const;
-
-        /// @brief get current selected data element set
-        DataElementSet getDataElementSet() const;
+        /// @brief get current selected element set
+        Type getElementSet() const;
 
         /// @brief refresh element set
         void refreshElementSet();
@@ -262,16 +246,10 @@ public:
         GNESelectorFrame* mySelectorFrameParent;
 
         /// @brief Combo Box with the element sets
-        FXComboBox* myElementSetComboBox;
+        FXComboBox* mySetComboBox;
 
-        /// @brief current network element set selected
-        NetworkElementSet myCurrentNetworkElementSet;
-
-        /// @brief current network element set selected
-        DemandElementSet myCurrentDemandElementSet;
-
-        /// @brief current network element set selected
-        DataElementSet myCurrentDataElementSet;
+        /// @brief current element set selected
+        Type myCurrentElementSet;
 
         /// @brief Invalidated copy constructor.
         ElementSet(const ElementSet&) = delete;

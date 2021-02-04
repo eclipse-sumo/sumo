@@ -331,90 +331,41 @@ GNESelectorFrame::ModificationMode::onCmdSelectModificationMode(FXObject* obj, F
 GNESelectorFrame::ElementSet::ElementSet(GNESelectorFrame* selectorFrameParent) :
     FXGroupBox(selectorFrameParent->myContentFrame, "Element Set", GUIDesignGroupBoxFrame),
     mySelectorFrameParent(selectorFrameParent),
-    myCurrentNetworkElementSet(NetworkElementSet::NETWORKELEMENT),
-    myCurrentDemandElementSet(DemandElementSet::DEMANDELEMENT),
-    myCurrentDataElementSet(DataElementSet::DATA) {
+    myCurrentElementSet(Type::NETWORKELEMENT) {
     // Create MatchTagBox for tags and fill it
-    myElementSetComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_CHOOSEN_ELEMENTS, GUIDesignComboBox);
+    mySetComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_CHOOSEN_ELEMENTS, GUIDesignComboBox);
 }
 
 
 GNESelectorFrame::ElementSet::~ElementSet() {}
 
 
-GNESelectorFrame::ElementSet::NetworkElementSet
-GNESelectorFrame::ElementSet::getNetworkElementSet() const {
-    return myCurrentNetworkElementSet;
-}
-
-
-GNESelectorFrame::ElementSet::DemandElementSet
-GNESelectorFrame::ElementSet::getDemandElementSet() const {
-    return myCurrentDemandElementSet;
-}
-
-
-GNESelectorFrame::ElementSet::DataElementSet
-GNESelectorFrame::ElementSet::getDataElementSet() const {
-    return myCurrentDataElementSet;
+const std::map<Supermode, GNESelectorFrame::ElementSet::Type>&
+GNESelectorFrame::ElementSet::getElementSet() const {
+    return myCurrentElementSet;
 }
 
 
 void
 GNESelectorFrame::ElementSet::refreshElementSet() {
-    // first clear combo box
-    myElementSetComboBox->clearItems();
+    // first clear item
+    mySetComboBox->clearItems();
     // now fill elements depending of supermode
     if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
-        // append network items
-        myElementSetComboBox->appendItem("Network Element");
-        myElementSetComboBox->appendItem("Additional");
-        myElementSetComboBox->appendItem("Shape");
-        myElementSetComboBox->appendItem("TAZ");
-        // set num items
-        myElementSetComboBox->setNumVisible(myElementSetComboBox->getNumItems());
-        // set current type
-        if (myCurrentNetworkElementSet == NetworkElementSet::NETWORKELEMENT) {
-            myElementSetComboBox->setCurrentItem(0);
-        } else if (myCurrentNetworkElementSet == NetworkElementSet::ADDITIONALELEMENT) {
-            myElementSetComboBox->setCurrentItem(1);
-        } else if(myCurrentNetworkElementSet == NetworkElementSet::SHAPE) {
-            myElementSetComboBox->setCurrentItem(2);
-        } else if(myCurrentNetworkElementSet == NetworkElementSet::TAZELEMENT) {
-            myElementSetComboBox->setCurrentItem(3);
-        } else {
-            // use "Network Element" as default type
-            myElementSetComboBox->setCurrentItem(0);
-        }
+        mySetComboBox->appendItem("network element");
+        mySetComboBox->appendItem("Additional");
+        mySetComboBox->appendItem("Shape");
         // show Modul
         show();
-    } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) {
-        // append demand items
-        myElementSetComboBox->appendItem("Demand Element");
         // set num items
-        myElementSetComboBox->setNumVisible(myElementSetComboBox->getNumItems());
-        // set current type
-        if (myCurrentDemandElementSet == DemandElementSet::DEMANDELEMENT) {
-            myElementSetComboBox->setCurrentItem(0);
-        } else {
-            // use "Demand Element" as default type
-            myElementSetComboBox->setCurrentItem(0);
-        }
-        // hide Modul (because currently there is only an element)
+        mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
+    } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) {
+        mySetComboBox->appendItem("Demand Element");
+        // hide Modul (because there is only an element)
         hide();
     } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) {
-        // append data items
-        myElementSetComboBox->appendItem("Data Element");
-        // set num items
-        myElementSetComboBox->setNumVisible(myElementSetComboBox->getNumItems());
-        // set current type
-        if (myCurrentDataElementSet == DataElementSet::DATA) {
-            myElementSetComboBox->setCurrentItem(0);
-        } else {
-            // use "Demand Element" as default type
-            myElementSetComboBox->setCurrentItem(0);
-        }
-        // hide Modul (because currently there is only an element)
+        mySetComboBox->appendItem("Data Element");
+        // hide Modul (because there is only an element)
         hide();
     }
     // update rest of elements
@@ -429,29 +380,29 @@ GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*
         // enable moduls
         mySelectorFrameParent->myMatchAttribute->showMatchAttribute();
         mySelectorFrameParent->myMatchGenericDataAttribute->hideMatchGenericDataAttribute();
-        if (myElementSetComboBox->getText() == "Network Element") {
-            myCurrentNetworkElementSet = NetworkElementSet::NETWORKELEMENT;
-            myElementSetComboBox->setTextColor(FXRGB(0, 0, 0));
+        if (mySetComboBox->getText() == "network element") {
+            myCurrentElementSet = Type::NETWORKELEMENT;
+            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
             // enable match attribute
             mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
-        } else if (myElementSetComboBox->getText() == "Additional") {
-            myCurrentNetworkElementSet = NetworkElementSet::ADDITIONALELEMENT;
-            myElementSetComboBox->setTextColor(FXRGB(0, 0, 0));
+        } else if (mySetComboBox->getText() == "Additional") {
+            myCurrentElementSet = Type::ADDITIONALELEMENT;
+            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
             // enable match attribute
             mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
-        } else if (myElementSetComboBox->getText() == "Shape") {
-            myCurrentNetworkElementSet = NetworkElementSet::SHAPE;
-            myElementSetComboBox->setTextColor(FXRGB(0, 0, 0));
+        } else if (mySetComboBox->getText() == "TAZ") {
+            myCurrentElementSet = Type::TAZELEMENT;
+            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
             // enable match attribute
             mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
-        } else if (myElementSetComboBox->getText() == "TAZ") {
-            myCurrentNetworkElementSet = NetworkElementSet::TAZELEMENT;
-            myElementSetComboBox->setTextColor(FXRGB(0, 0, 0));
+        } else if (mySetComboBox->getText() == "Shape") {
+            myCurrentElementSet = Type::SHAPE;
+            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
             // enable match attribute
             mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
         } else {
-            myCurrentNetworkElementSet = NetworkElementSet::INVALID;
-            myElementSetComboBox->setTextColor(FXRGB(255, 0, 0));
+            myCurrentElementSet = Type::INVALID;
+            mySetComboBox->setTextColor(FXRGB(255, 0, 0));
             // disable match attribute
             mySelectorFrameParent->myMatchAttribute->disableMatchAttribute();
         }
@@ -459,14 +410,14 @@ GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*
         // enable moduls
         mySelectorFrameParent->myMatchAttribute->showMatchAttribute();
         mySelectorFrameParent->myMatchGenericDataAttribute->hideMatchGenericDataAttribute();
-        if (myElementSetComboBox->getText() == "Demand Element") {
-            myCurrentDemandElementSet = DemandElementSet::DEMANDELEMENT;
-            myElementSetComboBox->setTextColor(FXRGB(0, 0, 0));
+        if (mySetComboBox->getText() == "Demand Element") {
+            myCurrentElementSet = Type::DEMANDELEMENT;
+            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
             // enable match attribute
             mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
         } else {
-            myCurrentDemandElementSet = DemandElementSet::INVALID;
-            myElementSetComboBox->setTextColor(FXRGB(255, 0, 0));
+            myCurrentElementSet = Type::INVALID;
+            mySetComboBox->setTextColor(FXRGB(255, 0, 0));
             // disable match attribute
             mySelectorFrameParent->myMatchAttribute->disableMatchAttribute();
         }
@@ -474,14 +425,14 @@ GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*
         // enable moduls
         mySelectorFrameParent->myMatchAttribute->hideMatchAttribute();
         mySelectorFrameParent->myMatchGenericDataAttribute->showMatchGenericDataAttribute();
-        if (myElementSetComboBox->getText() == "Data Element") {
-            myCurrentDataElementSet = DataElementSet::DATA;
-            myElementSetComboBox->setTextColor(FXRGB(0, 0, 0));
+        if (mySetComboBox->getText() == "Data Element") {
+            myCurrentElementSet = Type::DATA;
+            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
             // enable match attribute
             mySelectorFrameParent->myMatchGenericDataAttribute->enableMatchGenericDataAttribute();
         } else {
-            myCurrentDataElementSet = DataElementSet::INVALID;
-            myElementSetComboBox->setTextColor(FXRGB(255, 0, 0));
+            myCurrentElementSet = Type::INVALID;
+            mySetComboBox->setTextColor(FXRGB(255, 0, 0));
             // disable match attribute
             mySelectorFrameParent->myMatchGenericDataAttribute->enableMatchGenericDataAttribute();
         }
@@ -532,15 +483,15 @@ GNESelectorFrame::MatchAttribute::enableMatchAttribute() {
     myMatchTagComboBox->clearItems();
     // Set items depending of current item set
     std::vector<std::pair<SumoXMLTag, const std::string> > ACTags;
-    if (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::NETWORKELEMENT) {
+    if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::NETWORKELEMENT) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
-    } else if (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::ADDITIONALELEMENT) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::ADDITIONALELEMENT) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, true);
-    } else if (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::SHAPE) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::SHAPE) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
-    } else if (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::TAZELEMENT) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::TAZELEMENT) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::TAZELEMENT, true);
-    } else if (mySelectorFrameParent->myElementSet->getDemandElementSet() == ElementSet::DemandElementSet::DEMANDELEMENT) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DEMANDELEMENT) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
     } else {
         throw ProcessError("Invalid element set");
@@ -589,23 +540,16 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     myCurrentTag = SUMO_TAG_NOTHING;
     // find current element tag
     std::vector<std::pair<SumoXMLTag, const std::string> > ACTags;
-    // get supermodes
-    const bool supermodeNetwork = mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork();
-    const bool supermodeDemand = mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand();
-    const bool supermodeData = mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData();
-    // continue depending of elementSet
-    if (supermodeNetwork && (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::NETWORKELEMENT)) {
+    if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::NETWORKELEMENT) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
-    } else if (supermodeNetwork && (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::ADDITIONALELEMENT)) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::ADDITIONALELEMENT) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, true);
-    } else if (supermodeNetwork && (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::SHAPE)) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::SHAPE) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
-    } else if (supermodeNetwork && (mySelectorFrameParent->myElementSet->getNetworkElementSet() == ElementSet::NetworkElementSet::TAZELEMENT)) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::TAZELEMENT) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::TAZELEMENT, true);
-    } else if (supermodeDemand && (mySelectorFrameParent->myElementSet->getDemandElementSet() == ElementSet::DemandElementSet::DEMANDELEMENT)) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DEMANDELEMENT) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
-    } else if (supermodeData && (mySelectorFrameParent->myElementSet->getDataElementSet() == ElementSet::DataElementSet::DATA)) {
-        ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::DATAELEMENT, true);
     } else {
         throw ProcessError("Unkown set");
     }
