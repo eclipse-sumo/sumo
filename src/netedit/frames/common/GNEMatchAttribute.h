@@ -21,7 +21,7 @@
 #pragma once
 #include <config.h>
 
-#include "GNESelectorFrame.h"
+#include "GNEElementSet.h"
 
 // ===========================================================================
 // class definitions
@@ -33,7 +33,7 @@ class GNEMatchAttribute : protected FXGroupBox {
 
 public:
     /// @brief constructor
-    GNEMatchAttribute(GNEElementSet* elementSet);
+    GNEMatchAttribute(GNEElementSet* elementSet, SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string &defaultValue);
 
     /// @brief destructor
     ~GNEMatchAttribute();
@@ -45,7 +45,7 @@ public:
     void disableMatchAttribute();
 
     /// @brief show match attributes
-    void showMatchAttribute();
+    void showMatchAttribute(const GNEElementSet::Type type);
 
     /// @brief hide match attributes
     void hideMatchAttribute();
@@ -79,6 +79,12 @@ protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEMatchAttribute)
 
+    /// @brief update tag
+    void updateTag();
+
+    /// @brief update attribute
+    void updateAttribute();
+
 private:
     /// @brief pointer to element set Parent
     GNEElementSet* myElementSet;
@@ -100,6 +106,9 @@ private:
 
     /// @brief match string button
     FXButton* myMatchStringButton;
+
+    /// @brief vector with pairs of tags and strings
+    std::vector<std::pair<SumoXMLTag, const std::string> > myTagStringVector;
 
     /// @brief Invalidated copy constructor.
     GNEMatchAttribute(const GNEMatchAttribute&) = delete;
