@@ -343,8 +343,8 @@ private:
     /// @brief modul for change modification mode
     ModificationMode* myModificationMode;
 
-    /// @brief modul for select element set
-    GNEElementSet* myElementSet;
+    /// @brief moduls for select element set
+    GNEElementSet* myNetworkElementSet, *myDemandElementSet, *myDataElementSet;
 
     /// @brief modul for match attribute
     GNEMatchAttribute* myMatchAttribute;

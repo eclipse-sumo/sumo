@@ -794,7 +794,9 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     // create Modification Mode modul
     myModificationMode = new ModificationMode(this);
     // create ElementSet modul
-    myElementSet = new GNEElementSet(this);
+    myNetworkElementSet = new GNEElementSet(this, Supermode::NETWORK);
+    myDemandElementSet = new GNEElementSet(this, Supermode::DEMAND);
+    myDataElementSet = new GNEElementSet(this, Supermode::DATA);
     // create MatchAttribute modul
     myMatchAttribute = new GNEMatchAttribute(this);
     // create MatchGenericDataAttribute modul
@@ -819,7 +821,13 @@ GNESelectorFrame::show() {
     // show Type Entries depending of current supermode
     myLockGLObjectTypes->showTypeEntries();
     // refresh element set
-    myElementSet->refreshElementSet();
+    if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
+        myNetworkElementSet->refreshElementSet();
+    } else if(myViewNet->getEditModes().isCurrentSupermodeDemand()) {
+        myDemandElementSet->refreshElementSet();
+    } else if(myViewNet->getEditModes().isCurrentSupermodeData()) {
+        myDataElementSet->refreshElementSet();
+    }
     // Show frame
     GNEFrame::show();
 }

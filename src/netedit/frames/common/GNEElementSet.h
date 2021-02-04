@@ -34,17 +34,17 @@ class GNEElementSet : protected FXGroupBox {
 public:
     /// @brief Element Set Type
     enum class Type {
-        NETWORKELEMENT,
-        ADDITIONALELEMENT,
+        NETWORK,
+        ADDITIONAL,
         SHAPE,
-        TAZELEMENT,
-        DEMANDELEMENT,
+        TAZ,
+        DEMAND,
         DATA,
         INVALID,
     };
 
     /// @brief constructor
-    GNEElementSet(GNESelectorFrame* selectorFrameParent);
+    GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode supermode);
 
     /// @brief destructor
     ~GNEElementSet();
@@ -54,8 +54,6 @@ public:
 
     /// @brief refresh element set
     void refreshElementSet();
-
-    /// @brief update current element set (called after
 
     /// @name FOX-callbacks
     /// @{
@@ -77,7 +75,7 @@ private:
     FXComboBox* mySetComboBox;
 
     /// @brief current element set selected
-    Type myCurrentGNEElementSet;
+    Type myCurrentSet;
 
     /// @brief Invalidated copy constructor.
     GNEElementSet(const GNEElementSet&) = delete;
