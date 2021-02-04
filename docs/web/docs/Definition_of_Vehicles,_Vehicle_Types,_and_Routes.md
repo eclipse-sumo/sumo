@@ -29,7 +29,7 @@ For the simulation of [persons which walk around or ride in vehicles, additional
 
 Initially, we will define a vehicle with a route owned by him only:
 
-```
+```xml
 <routes>
     <vType id="type1" accel="0.8" decel="4.5" sigma="0.5" length="5" maxSpeed="70"/>
 
@@ -54,7 +54,7 @@ being referenced by the vehicles. Also, the route must be named by
 giving it an id. The vehicles using the route refer it using the
 "route"-attribute. The complete change looks like this:
 
-```
+```xml
 <routes>
     <vType id="type1" accel="0.8" decel="4.5" sigma="0.5" length="5" maxSpeed="70"/>
 
@@ -110,7 +110,7 @@ following additional parameters are known:
 | probability    | float(\[0,1\]) | probability for emitting a vehicle each second (not together with vehsPerHour or period), see also [Simulation/Randomness](Simulation/Randomness.md#flows_with_a_random_number_of_vehicles) |
 | number         | int(\#)        | total number of vehicles, equally spaced                                                                                                                                                            |
 
-```
+```xml
 <flow id="type1" color="1,1,0"  begin="0" end= "7200" period="900" type="BUS">
     <route edges="beg middle end rend"/>
     <stop busStop="station1" duration="30"/>
@@ -176,7 +176,7 @@ Optionally, a list of intermediate edges can be specified with the `via`
 attribute. The input format is exactly the same as that for the
 [duarouter](duarouter.md) application [and can be found here](Demand/Shortest_or_Optimal_Path_Routing.md).
 
-```
+```xml
 <routes>
   <trip id="t" depart="0" from="beg" to="end"/>
   <flow id="f" begin="0" end="100" number="23" from="beg" to="end"/>
@@ -208,7 +208,7 @@ device](Demand/Automatic_Routing.md).
 </routes>
 ```
 
-```
+```xml
 <additional>
   <taz id="<TAZ_ID>" edges="<EDGE_ID> <EDGE_ID> ..."/>
   ...
@@ -390,7 +390,7 @@ models can be selected as well. Model selection and parameterization is
 done by setting further `vType`-attributes as shown below. The models and their
 parameters are described in the following.
 
-```
+```xml
 <routes>
     <vType id="type1" length="5" maxSpeed="70" carFollowModel="Krauss" accel="2.6" decel="4.5" sigma="0.5"/>
 </routes>
@@ -477,7 +477,7 @@ the speed limit by 20%. By setting attributes **speedFactor** and
 **speedDev** as show below this individual speed factor for all vehicles
 of a type can be set to a fixed value.
 
-```
+```xml
 <vType id="example" speedFactor="1.2" speedDev="0"
 ```
 
@@ -517,7 +517,7 @@ The center of the speed distribution is defined relative to the road speed limit
 To model this, [vClass-specific speed limits may be defined either in the network](Networks/PlainXML.md#vehicle-class_specific_speed_limits) or directly in an additional file:
 
 Note, that the given type id refers to an edge type rather than a vehicle type. The edge type may be [set to an arbitrary value in the network file](netedit.md#inspect).
-```
+```xml
 <type id="a" priority="3" numLanes="3" speed="38.89"/>
    <restriction vClass="truck" speed="27.89"/>
 </type>
@@ -675,7 +675,7 @@ length look quite odd, buses with 2m length, too.
     Not all of these named shapes are implemented.
     
 Further parameters can be used to achieve visualization of individual rail carriages
-```
+```xml
 <vType id="rail">
     <param key="carriageLength" value="20"/>
     <param key="carriageGap" value="1"/>
@@ -754,7 +754,7 @@ lists which parameter are used by which model(s). [Details on car-following mode
 
 To select a car following model the following syntax should be used:
 
-```
+```xml
 <vType id="idmAlternative" length="5" minGap="2" carFollowModel="IDM" tau="1.0" .../>
 ```
 
@@ -821,7 +821,7 @@ lists which parameter are used by which model(s).
 
 The parameters are set within the `<vType>`:
 
-```
+```xml
 <vType id="myType" lcStrategic="0.5" lcCooperative="0.0"/>
 ```
 
@@ -850,7 +850,7 @@ listed below.
 
 The parameters are set within the `<vType>`:
 
-```
+```xml
 <vType id="ambulance" jmDriveAfterRedTime="300" jmDriveAfterRedSpeed="5.56"/>
 ```
 
@@ -860,7 +860,7 @@ The impatience of a driver is value between 0 and 1 that grows whenever
 the driver has to stop unintentionally (i.e. due to a jam or waiting at
 an intersection). The impatience value is computed as
 
-```
+```xml
 MAX(0, MIN(1.0, baseImpatience + waitingTime / timeToMaxImpatience))
 ```
 
@@ -897,7 +897,7 @@ following:
 
 ## Vehicle Type Distributions
 
-```
+```xml
 <routes>
     <vTypeDistribution id="typedist1">
         <vType id="type1" accel="0.8" length="5" maxSpeed="70" probability="0.9"/>
@@ -911,7 +911,7 @@ following:
 
 ### Using existing types
 
-```
+```xml
 <routes>
     <vType id="type1" accel="0.8" length="5" maxSpeed="70" probability="0.9"/>
     <vType id="type2" accel="1.8" length="15" maxSpeed="50" probability="0.1"/>
@@ -921,7 +921,7 @@ following:
 
 ## Route Distributions
 
-```
+```xml
 <routes>
     <routeDistribution id="routedist1">
         <route id="route0" color="1,1,0" edges="beg middle end rend" probability="0.9"/>
@@ -939,7 +939,7 @@ versions.
 
 A distribution can be used just as using individual types and routes:
 
-```
+```xml
 <routes>
     <vehicle id="0" type="typedist1" route="routedist1" depart="0" color="1,0,0"/>
 </routes>
@@ -954,7 +954,7 @@ Vehicles may be forced to stop for a defined time span or wait for
 persons by using the stop element either as part of a route or a vehicle
 definition as following:
 
-```
+```xml
 <routes>
     <route id="route0" edges="beg middle end rend">
         <stop lane="middle_0" endPos="50" duration="20"/>
@@ -979,7 +979,8 @@ Stops can be childs of vehicles, routes, persons or containers.
 | busStop            | string            | valid busStop ids                                                                            | \-                 | if given, containerStop, chargingStation, edge, lane, startPos and endPos are not allowed                              |
 | containerStop      | string            | valid containerStop ids                                                                      | \-                 | if given, busStop, chargingStation, edge, lane, startPos and endPos are not allowed                                    |
 | chargingStation    | string            | valid chargingStation ids                                                                    | \-                 | if given, busStop, containerStop, edge, lane, startPos and endPos are not allowed                                      |
-| lane               | string            | lane id                                                                                      | \-                 | the lane id takes the form <edge_id\>_<lane_index\>. the edge has to be part of the corresponding route                 |
+| parkingArea        | string            | valid parkingArea ids                                                                        | \-                 | for more info see [parkingArea](Simulation/ParkingArea.md#letting_vehicles_stop_at_a_parking_area) |
+| lane               | string            | lane id                                                                                      | \-                 | the lane id takes the form <edge_id\>\_<lane_index\>. the edge has to be part of the corresponding route                 |
 | endPos             | float(m)          | \-lane.length < x < lane.length (negative values count backwards from the end of the lane) | lane.length        |                                                                                                                        |
 | startPos           | float(m)          | \-lane.length < x < lane.length (negative values count backwards from the end of the lane) | endPos-0.2m        | there must be a difference of more than 0.1m between *startPos* and *endPos*                                           |
 | friendlyPos        | bool              | true,false                                                                                   | false              | whether invalid stop positions should be corrected automatically                                                       |
@@ -1027,7 +1028,7 @@ By defining attribute 'speed' with a positive value, the stop definition is turn
 A color is defined as *red,green,blue* or *red,green,blue,alpha* either
 in a vehicle, route or vType.
 
-```
+```xml
 <route id="r0" color="0,255,255"/>
 <type id="t0" color="0,0,255"/>
 <vehicle id="v0" color="255,0,0,0"/>
@@ -1039,7 +1040,7 @@ define, otherwise the type and finally the route color. [These settings can be c
 By default color components should be given as integers in the range of
 (0,255) but other definitions are also supported:
 
-```
+```xml
 color="0.5, 0.5, 1.0"
 color="#FF0000"
 color="red"
@@ -1099,7 +1100,7 @@ Another option for assigning devices for vehicle types or individual
 vehicles is by using [generic parameters](Simulation/GenericParameters.md). This is done by
 defining them for the vehicle or the vehicle type in the following way:
 
-```
+```xml
 <routes>
     <vehicle id="v0" route="route0" depart="0">
         <param key="has.<DEVICENAME>.device" value="true"/>
