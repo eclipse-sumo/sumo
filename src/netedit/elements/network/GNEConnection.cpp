@@ -340,8 +340,11 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         drawConnection = false;
     }
+    // get edited network element
+    GNENetworkElement *editedNetworkElement = myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement();
     // check if we're editing this connection
-    if (myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() == this) {
+    if (editedNetworkElement && (editedNetworkElement->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
+        (editedNetworkElement->getAttribute(GNE_ATTR_PARENT) == getAttribute(GNE_ATTR_PARENT))) {
         drawConnection = true;
     }
     // Check if connection must be drawed
@@ -505,6 +508,8 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return nbCon.getParametersStr();
+        case GNE_ATTR_PARENT:
+            return getEdgeFrom()->getParentJunctions().back()->getID();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
