@@ -1314,10 +1314,10 @@ GNEAttributeCarrier::fillNetworkElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::NETWORKELEMENT,
+                                      GNETagProperties::INTERNALLANE,
                                       GNETagProperties::DRAWABLE,
                                       GUIIcon::JUNCTION);
-        //  internal lanes don't have attributes
+        //  internal lanes does't have attributes
     }
 }
 

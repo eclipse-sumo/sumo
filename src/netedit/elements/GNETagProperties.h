@@ -64,6 +64,7 @@ public:
         GENERICDATA =       1 << 18, // Generic data (GNEEdgeData, GNELaneData...)
         // other
         SYMBOL =            1 << 19, // Symbol elements (VSSSymbols, RerouterSymbols...)
+        INTERNALLANE =      1 << 20, // Internal Lane
     };
 
     enum TagProperty {
@@ -126,6 +127,9 @@ public:
 
     /// @brief get end of attribute values (used for iterate)
     std::vector<GNEAttributeProperties>::const_iterator end() const;
+
+    /// @brief get attribute value
+    const GNEAttributeProperties& at(int index) const;
 
     /// @brief get number of attributes
     int getNumberOfAttributes() const;
@@ -207,6 +211,9 @@ public:
 
     /// @brief return true if tag correspond to a symbol element
     bool isSymbol() const;
+
+    /// @brief return true if tag correspond to a internal lane
+    bool isInternalLane() const;
 
     /// @brief return true if tag correspond to a drawable element
     bool isDrawable() const;
