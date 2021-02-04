@@ -23,7 +23,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEMatchAttribute.h"
-
+#include "GNEElementSet.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -82,15 +82,15 @@ GNEMatchAttribute::enableMatchAttribute() {
     myMatchTagComboBox->clearItems();
     // Set items depending of current item set
     std::vector<std::pair<SumoXMLTag, const std::string> > ACTags;
-    if (mySelectorFrameParent->myElementSet->getElementSet() == GNESelectorFrame::ElementSet::Type::NETWORKELEMENT) {
+    if (mySelectorFrameParent->myElementSet->getElementSet() == GNEElementSet::Type::NETWORKELEMENT) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
-    } else if (mySelectorFrameParent->myElementSet->getElementSet() == GNESelectorFrame::ElementSet::Type::ADDITIONALELEMENT) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == GNEElementSet::Type::ADDITIONALELEMENT) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, true);
-    } else if (mySelectorFrameParent->myElementSet->getElementSet() == GNESelectorFrame::ElementSet::Type::SHAPE) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == GNEElementSet::Type::SHAPE) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
-    } else if (mySelectorFrameParent->myElementSet->getElementSet() == GNESelectorFrame::ElementSet::Type::TAZELEMENT) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == GNEElementSet::Type::TAZELEMENT) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::TAZELEMENT, true);
-    } else if (mySelectorFrameParent->myElementSet->getElementSet() == GNESelectorFrame::ElementSet::Type::DEMANDELEMENT) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == GNEElementSet::Type::DEMANDELEMENT) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
     } else {
         throw ProcessError("Invalid element set");
@@ -139,15 +139,15 @@ GNEMatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     myCurrentTag = SUMO_TAG_NOTHING;
     // find current element tag
     std::vector<std::pair<SumoXMLTag, const std::string> > ACTags;
-    if (mySelectorFrameParent->myElementSet->getElementSet() == GNESelectorFrame::ElementSet::Type::NETWORKELEMENT) {
+    if (mySelectorFrameParent->myElementSet->getElementSet() == (GNEElementSet::Type::NETWORKELEMENT)) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
-    } else if (mySelectorFrameParent->myElementSet->getElementSet() == GNESelectorFrame::ElementSet::Type::ADDITIONALELEMENT) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == GNEElementSet::Type::ADDITIONALELEMENT) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, true);
-    } else if (mySelectorFrameParent->myElementSet->getElementSet() == GNESelectorFrame::ElementSet::Type::SHAPE) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == GNEElementSet::Type::SHAPE) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
-    } else if (mySelectorFrameParent->myElementSet->getElementSet() == GNESelectorFrame::ElementSet::Type::TAZELEMENT) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == GNEElementSet::Type::TAZELEMENT) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::TAZELEMENT, true);
-    } else if (mySelectorFrameParent->myElementSet->getElementSet() == GNESelectorFrame::ElementSet::Type::DEMANDELEMENT) {
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == GNEElementSet::Type::DEMANDELEMENT) {
         ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
     } else {
         throw ProcessError("Unkown set");

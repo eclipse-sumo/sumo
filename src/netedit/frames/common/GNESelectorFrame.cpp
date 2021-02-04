@@ -30,6 +30,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNESelectorFrame.h"
+#include "GNEElementSet.h"
 #include "GNEMatchAttribute.h"
 #include "GNEMatchGenericDataAttribute.h"
 
@@ -43,10 +44,6 @@ FXDEFMAP(GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry) ObjectTypeEntryMa
 
 FXDEFMAP(GNESelectorFrame::ModificationMode) ModificationModeMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNESelectorFrame::ModificationMode::onCmdSelectModificationMode)
-};
-
-FXDEFMAP(GNESelectorFrame::ElementSet) ElementSetMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_ELEMENTS,   GNESelectorFrame::ElementSet::onCmdSelectElementSet)
 };
 
 FXDEFMAP(GNESelectorFrame::VisualScaling) VisualScalingMap[] = {
@@ -63,7 +60,6 @@ FXDEFMAP(GNESelectorFrame::SelectionOperation) SelectionOperationMap[] = {
 // Object implementation
 FXIMPLEMENT(GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry,   FXObject,       ObjectTypeEntryMap,             ARRAYNUMBER(ObjectTypeEntryMap))
 FXIMPLEMENT(GNESelectorFrame::ModificationMode,                     FXGroupBox,     ModificationModeMap,            ARRAYNUMBER(ModificationModeMap))
-FXIMPLEMENT(GNESelectorFrame::ElementSet,                           FXGroupBox,     ElementSetMap,                  ARRAYNUMBER(ElementSetMap))
 FXIMPLEMENT(GNESelectorFrame::VisualScaling,                        FXGroupBox,     VisualScalingMap,               ARRAYNUMBER(VisualScalingMap))
 FXIMPLEMENT(GNESelectorFrame::SelectionOperation,                   FXGroupBox,     SelectionOperationMap,          ARRAYNUMBER(SelectionOperationMap))
 
@@ -305,122 +301,6 @@ GNESelectorFrame::ModificationMode::onCmdSelectModificationMode(FXObject* obj, F
     } else {
         return 0;
     }
-}
-
-// ---------------------------------------------------------------------------
-// ModificationMode::ElementSet - methods
-// ---------------------------------------------------------------------------
-
-GNESelectorFrame::ElementSet::ElementSet(GNESelectorFrame* selectorFrameParent) :
-    FXGroupBox(selectorFrameParent->myContentFrame, "Element Set", GUIDesignGroupBoxFrame),
-    mySelectorFrameParent(selectorFrameParent),
-    myCurrentElementSet(Type::NETWORKELEMENT) {
-    // Create MatchTagBox for tags and fill it
-    mySetComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_CHOOSEN_ELEMENTS, GUIDesignComboBox);
-}
-
-
-GNESelectorFrame::ElementSet::~ElementSet() {}
-
-
-GNESelectorFrame::ElementSet::Type
-GNESelectorFrame::ElementSet::getElementSet() const {
-    return myCurrentElementSet;
-}
-
-
-void
-GNESelectorFrame::ElementSet::refreshElementSet() {
-    // first clear item
-    mySetComboBox->clearItems();
-    // now fill elements depending of supermode
-    if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
-        mySetComboBox->appendItem("network element");
-        mySetComboBox->appendItem("Additional");
-        mySetComboBox->appendItem("Shape");
-        // show Modul
-        show();
-        // set num items
-        mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
-    } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) {
-        mySetComboBox->appendItem("Demand Element");
-        // hide Modul (because there is only an element)
-        hide();
-    } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) {
-        mySetComboBox->appendItem("Data Element");
-        // hide Modul (because there is only an element)
-        hide();
-    }
-    // update rest of elements
-    onCmdSelectElementSet(0, 0, 0);
-}
-
-
-long
-GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*) {
-    // check depending of current supermode
-    if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
-        // enable moduls
-        mySelectorFrameParent->myMatchAttribute->showMatchAttribute();
-        mySelectorFrameParent->myMatchGenericDataAttribute->hideMatchGenericDataAttribute();
-        if (mySetComboBox->getText() == "network element") {
-            myCurrentElementSet = Type::NETWORKELEMENT;
-            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
-            // enable match attribute
-            mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
-        } else if (mySetComboBox->getText() == "Additional") {
-            myCurrentElementSet = Type::ADDITIONALELEMENT;
-            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
-            // enable match attribute
-            mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
-        } else if (mySetComboBox->getText() == "TAZ") {
-            myCurrentElementSet = Type::TAZELEMENT;
-            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
-            // enable match attribute
-            mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
-        } else if (mySetComboBox->getText() == "Shape") {
-            myCurrentElementSet = Type::SHAPE;
-            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
-            // enable match attribute
-            mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
-        } else {
-            myCurrentElementSet = Type::INVALID;
-            mySetComboBox->setTextColor(FXRGB(255, 0, 0));
-            // disable match attribute
-            mySelectorFrameParent->myMatchAttribute->disableMatchAttribute();
-        }
-    } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) {
-        // enable moduls
-        mySelectorFrameParent->myMatchAttribute->showMatchAttribute();
-        mySelectorFrameParent->myMatchGenericDataAttribute->hideMatchGenericDataAttribute();
-        if (mySetComboBox->getText() == "Demand Element") {
-            myCurrentElementSet = Type::DEMANDELEMENT;
-            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
-            // enable match attribute
-            mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
-        } else {
-            myCurrentElementSet = Type::INVALID;
-            mySetComboBox->setTextColor(FXRGB(255, 0, 0));
-            // disable match attribute
-            mySelectorFrameParent->myMatchAttribute->disableMatchAttribute();
-        }
-    } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) {
-        // enable moduls
-        mySelectorFrameParent->myMatchAttribute->hideMatchAttribute();
-        mySelectorFrameParent->myMatchGenericDataAttribute->showMatchGenericDataAttribute();
-        if (mySetComboBox->getText() == "Data Element") {
-            myCurrentElementSet = Type::DATA;
-            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
-            // enable match attribute
-            mySelectorFrameParent->myMatchGenericDataAttribute->enableMatchGenericDataAttribute();
-        } else {
-            myCurrentElementSet = Type::INVALID;
-            mySetComboBox->setTextColor(FXRGB(255, 0, 0));
-            // disable match attribute
-            mySelectorFrameParent->myMatchGenericDataAttribute->enableMatchGenericDataAttribute();
-        }
-    }
-    return 1;
 }
 
 // ---------------------------------------------------------------------------
@@ -914,7 +794,7 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     // create Modification Mode modul
     myModificationMode = new ModificationMode(this);
     // create ElementSet modul
-    myElementSet = new ElementSet(this);
+    myElementSet = new GNEElementSet(this);
     // create MatchAttribute modul
     myMatchAttribute = new GNEMatchAttribute(this);
     // create MatchGenericDataAttribute modul

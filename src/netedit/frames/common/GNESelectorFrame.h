@@ -28,6 +28,7 @@
 // class declaration
 // ===========================================================================
 
+class GNEElementSet;
 class GNEMatchAttribute;
 class GNEMatchGenericDataAttribute;
 
@@ -43,6 +44,7 @@ class GNESelectorFrame : public GNEFrame {
 public:
     
     // @brief friend class
+    friend class GNEElementSet;
     friend class GNEMatchAttribute;
     friend class GNEMatchGenericDataAttribute;
 
@@ -208,69 +210,6 @@ public:
     };
 
     // ===========================================================================
-    // class ElementSet
-    // ===========================================================================
-
-    class ElementSet : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNESelectorFrame::ElementSet)
-
-    public:
-        /// @brief Element Set Type
-        enum class Type {
-            NETWORKELEMENT,
-            ADDITIONALELEMENT,
-            SHAPE,
-            TAZELEMENT,
-            DEMANDELEMENT,
-            DATA,
-            INVALID,
-        };
-
-        /// @brief constructor
-        ElementSet(GNESelectorFrame* selectorFrameParent);
-
-        /// @brief destructor
-        ~ElementSet();
-
-        /// @brief get current selected element set
-        Type getElementSet() const;
-
-        /// @brief refresh element set
-        void refreshElementSet();
-
-        /// @brief update current element set (called after
-
-        /// @name FOX-callbacks
-        /// @{
-
-        /// @brief Called when the user change the set of element to search (networkElement, Additional or shape)
-        long onCmdSelectElementSet(FXObject*, FXSelector, void*);
-
-        /// @}
-
-    protected:
-        /// @brief FOX need this
-        FOX_CONSTRUCTOR(ElementSet)
-
-    private:
-        /// @brief pointer to Selector Frame Parent
-        GNESelectorFrame* mySelectorFrameParent;
-
-        /// @brief Combo Box with the element sets
-        FXComboBox* mySetComboBox;
-
-        /// @brief current element set selected
-        Type myCurrentElementSet;
-
-        /// @brief Invalidated copy constructor.
-        ElementSet(const ElementSet&) = delete;
-
-        /// @brief Invalidated assignment operator.
-        ElementSet& operator=(const ElementSet&) = delete;
-    };
-
-    // ===========================================================================
     // class VisualScaling
     // ===========================================================================
 
@@ -405,7 +344,7 @@ private:
     ModificationMode* myModificationMode;
 
     /// @brief modul for select element set
-    ElementSet* myElementSet;
+    GNEElementSet* myElementSet;
 
     /// @brief modul for match attribute
     GNEMatchAttribute* myMatchAttribute;
