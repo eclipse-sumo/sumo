@@ -9,7 +9,7 @@ permalink: /ChangeLog/
 - Simulation
   - Fixed disappearing vehicle when transporting containers with taxi. Issue #7893
   - Fixed collisions between pedestrians and vehicles on shared space #7960
-  - Vehicles with low (desired) decel value will no longer perform an emergency stop on after being when caught in the "Yellow Light Dilemma Zone". Instead they will brake with decel **--tls.yellow.min-decel** (default: 3) as long as they have a sufficiently high emergencyDecel value. Issue #7956
+  - Vehicles with low (desired) decel value will no longer perform an emergency stop when caught in the "Yellow Light Dilemma Zone". Instead they will brake with decel **--tls.yellow.min-decel** (default: 3) as long as they have a sufficiently high emergencyDecel value. Issue #7956
   - Fixed invalid output directory for **--device.taxi.dispatch-algorithm.outout**. Issue #8013
   - Fixed error when loading saved state with vehicles that stopped due to collision. Issue #8030, #8063 , #7696
   - Fixed bug where an emergency vehicle does not advance in the rescue lane. Issue #8072
