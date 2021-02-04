@@ -51,7 +51,7 @@ MSDispatch_TraCI::addReservation(MSTransportable* person,
 }
 
 std::string
-MSDispatch_TraCI::getReservationID(Reservation* res) {
+MSDispatch_TraCI::getReservationID(const Reservation* res) {
     if (myReservationLookup.has(res)) {
         return myReservationLookup.getString(res);
     } else {

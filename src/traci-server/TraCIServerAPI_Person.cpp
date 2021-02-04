@@ -73,7 +73,7 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                     server.getWrapperStorage().writeInt((int)result.size());
                     for (const libsumo::TraCIReservation& r : result) {
                         server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                        server.getWrapperStorage().writeInt(9);
+                        server.getWrapperStorage().writeInt(10);
                         server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
                         server.getWrapperStorage().writeString(r.id);
                         server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRINGLIST);
@@ -92,6 +92,8 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                         server.getWrapperStorage().writeDouble(r.depart);
                         server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
                         server.getWrapperStorage().writeDouble(r.reservationTime);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
+                        server.getWrapperStorage().writeInt(r.state);
                     }
                     break;
                 }

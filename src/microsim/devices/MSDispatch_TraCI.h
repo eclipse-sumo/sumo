@@ -56,14 +56,14 @@ public:
     /// @brief do nothing (dispatch happens via TraCI calls)
     virtual void computeDispatch(SUMOTime /*now*/, const std::vector<MSDevice_Taxi*>& /*fleet*/) {}
 
-    std::string getReservationID(Reservation* res);
+    std::string getReservationID(const Reservation* res);
 
     /// @brief trigger taxi dispatch. @note: method exists so subclasses can inject code at this point (ride sharing)
     void interpretDispatch(MSDevice_Taxi* taxi, const std::vector<std::string>& reservationsIDs);
 
 private:
     int myReservationCount;
-    StringBijection<Reservation*> myReservationLookup;
+    StringBijection<const Reservation*> myReservationLookup;
 
 private:
     /// @brief Invalidated assignment operator.

@@ -544,9 +544,10 @@ public:
                      double departPos,
                      double arrivalPos,
                      double depart,
-                     double reservationTime) :
+                     double reservationTime,
+                     int state) :
         id(id), persons(persons), group(group), fromEdge(fromEdge), toEdge(toEdge), departPos(departPos), arrivalPos(arrivalPos),
-        depart(depart), reservationTime(reservationTime) {}
+        depart(depart), reservationTime(reservationTime), state(state) {}
     /// @brief The id of the taxi reservation (usable for traci.vehicle.dispatchTaxi)
     std::string id;
     /// @brief The persons ids that are part of this reservation
@@ -565,6 +566,8 @@ public:
     double depart;
     /// @brief time when the reservation was made
     double reservationTime;
+    /// @brief the state of this reservation
+    int state;
 };
 
 struct TraCICollision {

@@ -33,6 +33,7 @@
 // ===========================================================================
 #ifndef LIBTRACI
 class MSPerson;
+class Reservation;
 class PositionVector;
 #endif
 
@@ -63,7 +64,7 @@ public:
     static double getSlope(const std::string& personID);
     static double getLanePosition(const std::string& personID);
 
-    static std::vector<libsumo::TraCIReservation> getTaxiReservations(int onlyNew = false);
+    static std::vector<libsumo::TraCIReservation> getTaxiReservations(int stateFilter = 0);
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_VEHICLE_TYPE_GETTER
@@ -101,6 +102,7 @@ public:
 private:
     static MSPerson* getPerson(const std::string& id);
     static MSStage* convertTraCIStage(const TraCIStage& stage, const std::string personID);
+    static bool filterReservation(int stateFilter, const Reservation* res, const std::string& resID, std::vector<libsumo::TraCIReservation>& reservations);
 
 private:
     static SubscriptionResults mySubscriptionResults;

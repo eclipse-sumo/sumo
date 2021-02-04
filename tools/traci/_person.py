@@ -24,7 +24,7 @@ from . import _simulation as simulation
 class Reservation(object):
 
     def __init__(self, id, persons, group, fromEdge, toEdge, departPos, arrivalPos,
-                 depart, reservationTime):
+                 depart, reservationTime, state):
         self.id = id
         self.persons = persons
         self.group = group
@@ -34,6 +34,7 @@ class Reservation(object):
         self.departPos = departPos
         self.depart = depart
         self.reservationTime = reservationTime
+        self.state = state
 
     def __attr_repr__(self, attrname, default=""):
         if getattr(self, attrname) == default:
@@ -55,12 +56,13 @@ class Reservation(object):
             self.__attr_repr__("arrivalPos"),
             self.__attr_repr__("depart"),
             self.__attr_repr__("reservationTime"),
+            self.__attr_repr__("state"),
         ] if v != ""])
 
 
 def _readReservation(result):
     # compound size and type
-    assert(result.read("!i")[0] == 9)
+    assert(result.read("!i")[0] == 10)
     id = result.readTypedString()
     persons = result.readTypedStringList()
     group = result.readTypedString()
@@ -70,7 +72,9 @@ def _readReservation(result):
     arrivalPos = result.readTypedDouble()
     depart = result.readTypedDouble()
     reservationTime = result.readTypedDouble()
-    return Reservation(id, persons, group, fromEdge, toEdge, departPos, arrivalPos, depart, reservationTime)
+    state = result.readTypedInt()
+    return Reservation(id, persons, group, fromEdge, toEdge, departPos,
+            arrivalPos, depart, reservationTime, state)
 
 
 _RETURN_VALUE_FUNC = {tc.VAR_STAGE: simulation._readStage,
@@ -233,7 +237,7 @@ class PersonDomain(Domain):
         """
         return self._getUniversal(tc.VAR_VEHICLE, personID)
 
-    def getTaxiReservations(self, onlyNew):
+    def getTaxiReservations(self, onlyNew = 0):
         """getTaxiReservations(int) -> list(Stage)
         Returns all reservations. If onlyNew is 1, each reservation is returned
         only once

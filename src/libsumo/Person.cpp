@@ -130,7 +130,7 @@ Person::getLanePosition(const std::string& personID) {
 }
 
 std::vector<TraCIReservation>
-Person::getTaxiReservations(int onlyNew) {
+Person::getTaxiReservations(int stateFilter) {
     std::vector<TraCIReservation> result;
     MSDispatch* dispatcher = MSDevice_Taxi::getDispatchAlgorithm();
     if (dispatcher != nullptr) {
@@ -139,30 +139,44 @@ Person::getTaxiReservations(int onlyNew) {
             throw TraCIException("device.taxi.dispatch-algorithm 'traci' has not been loaded");
         }
         for (Reservation* res : dispatcher->getReservations()) {
-            if (onlyNew != 0) {
-                if (res->recheck != SUMOTime_MAX) {
-                    continue;
+            if (filterReservation(stateFilter, res, traciDispatcher->getReservationID(res), result)) {
+                if (res->state == Reservation::NEW) {
+                    res->state = Reservation::RETRIEVED;
                 }
-                // reservations become the responsibility of the traci client
-                res->recheck = SUMOTime_MAX;
             }
-            std::vector<std::string> personIDs;
-            for (MSTransportable* p : res->persons) {
-                personIDs.push_back(p->getID());
+        }
+        const bool includeRunning = stateFilter == 0 || (stateFilter & (Reservation::ASSIGNED | Reservation::ONBOARD)) != 0;
+        if (includeRunning) {
+            for (const Reservation* res : dispatcher->getRunningReservations()) {
+                filterReservation(stateFilter, res, traciDispatcher->getReservationID(res), result);
             }
-            result.push_back(TraCIReservation(traciDispatcher->getReservationID(res),
-                                              personIDs,
-                                              res->group,
-                                              res->from->getID(),
-                                              res->to->getID(),
-                                              res->fromPos,
-                                              res->toPos,
-                                              STEPS2TIME(res->pickupTime),
-                                              STEPS2TIME(res->reservationTime)
-                                             ));
         }
     }
     return result;
+}
+
+
+bool
+Person::filterReservation(int stateFilter, const Reservation* res, const std::string& resID, std::vector<libsumo::TraCIReservation>& reservations) {
+    if (stateFilter != 0 && stateFilter != res->state) {
+        return false;
+    }
+    std::vector<std::string> personIDs;
+    for (MSTransportable* p : res->persons) {
+        personIDs.push_back(p->getID());
+    }
+    reservations.push_back(TraCIReservation(resID,
+                personIDs,
+                res->group,
+                res->from->getID(),
+                res->to->getID(),
+                res->fromPos,
+                res->toPos,
+                STEPS2TIME(res->pickupTime),
+                STEPS2TIME(res->reservationTime),
+                res->state
+                ));
+    return true;
 }
 
 

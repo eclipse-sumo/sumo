@@ -36,6 +36,14 @@ class MSTransportable;
 // class definitions
 // ===========================================================================
 struct Reservation {
+    enum ReservationState {
+        NEW = 1, // new reservation (not yet retrieved)
+        RETRIEVED = 2, // retrieved at least once via MSDispatch_TraCI
+        ASSIGNED = 4, // a taxi was dispatched to service this reservation
+        ONBOARD = 8, // a taxi has picked up the persons belonging to this reservation
+        FULFILLED = 16, // the persons belonging to this reservation have been dropped off
+    };
+
     Reservation(const std::vector<MSTransportable*>& _persons,
                 SUMOTime _reservationTime,
                 SUMOTime _pickupTime,
@@ -50,7 +58,8 @@ struct Reservation {
         to(_to),
         toPos(_toPos),
         group(_group),
-        recheck(_reservationTime)
+        recheck(_reservationTime),
+        state(NEW)
     {}
 
     std::set<MSTransportable*> persons;
@@ -62,6 +71,7 @@ struct Reservation {
     double toPos;
     std::string group;
     SUMOTime recheck;
+    ReservationState state;
 
     bool operator==(const Reservation& other) const {
         return persons == other.persons
@@ -120,6 +130,9 @@ public:
 
     /// @brief retrieve all reservations
     std::vector<Reservation*> getReservations();
+
+    /// @brief retrieve all reservations that were already dispatched and are still active
+    virtual std::vector<const Reservation*> getRunningReservations();
 
     /// @brief check whether there are still (servable) reservations in the system
     bool hasServableReservations() {

@@ -118,6 +118,12 @@ MSDispatch::getReservations() {
 }
 
 
+std::vector<const Reservation*>
+MSDispatch::getRunningReservations() {
+    return std::vector<const Reservation*>(myRunningReservations.begin(), myRunningReservations.end());
+}
+
+
 void
 MSDispatch::servedReservation(const Reservation* res) {
     if (myRunningReservations.count(res)) {
@@ -132,6 +138,7 @@ MSDispatch::servedReservation(const Reservation* res) {
         throw ProcessError("Inconsistent group reservations (2).");
     }
     myRunningReservations.insert(*it2);
+    const_cast<Reservation*>(*it2)->state = Reservation::ASSIGNED;
     it->second.erase(it2);
     if (it->second.empty()) {
         myGroupReservations.erase(it);
