@@ -224,6 +224,9 @@ private:
 	/// @brief ends the flow of a transportable
 	void closeTransportableFlow();
 
+	/// @brief ends the processing of a transportable (as person or container)
+	void closeTransportable();
+
     /// @brief delete already created MSTransportablePlans if error occurs before handing over responsibility to a MSTransportable.
     void addFlowTransportable(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i);
 
@@ -243,6 +246,6 @@ private:
 	void checkTransportableType();
 
 	/// @brief Processing of a transport
-	void addRideOrTransport(const SUMOSAXAttributes& attrs);
+	void addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXMLTag MODE);
 
 };

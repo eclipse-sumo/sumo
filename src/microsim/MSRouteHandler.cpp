@@ -671,6 +671,34 @@ MSRouteHandler::addVehicleStopsToImplicitRoute(const MSRoute* route, bool isPerm
 
 
 void
+MSRouteHandler::closeTransportable() {
+	if (myActiveTransportablePlan->size() == 0) {
+		const std::string error = "Person '" + myVehicleParameter->id + "' has no plan.";
+		delete myVehicleParameter;
+		myVehicleParameter = nullptr;
+		deleteActivePlans();
+		throw ProcessError(error);
+	}
+	// let's check whether this person had to depart before the simulation starts
+	if (!(myAddVehiclesDirectly || checkLastDepart())
+		|| (myVehicleParameter->depart < string2time(OptionsCont::getOptions().getString("begin")) && !myAmLoadingState)) {
+		delete myVehicleParameter;
+		myVehicleParameter = nullptr;
+		deleteActivePlans();
+		return;
+	}
+	// type existence has been checked on opening
+	MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
+	addFlowTransportable(myVehicleParameter->depart, type, myVehicleParameter->id, -1);
+	registerLastDepart();
+	myVehicleParameter = nullptr;
+	myActiveTransportablePlan = nullptr;
+	myActiveType = ObjectTypeEnum::UNDEFINED;
+	myActiveTypeName = "";
+}
+
+
+void
 MSRouteHandler::closePerson() {
     if (myActiveTransportablePlan->size() == 0) {
         const std::string error = "Person '" + myVehicleParameter->id + "' has no plan.";
@@ -935,16 +963,16 @@ MSRouteHandler::closeTrip() {
 
 void
 MSRouteHandler::addRide(const SUMOSAXAttributes& attrs) {
-	addRideOrTransport(attrs);
+	addRideOrTransport(attrs, SUMO_TAG_RIDE);
 }
 
 void
 MSRouteHandler::addTransport(const SUMOSAXAttributes& attrs) {
-	addRideOrTransport(attrs);
+	addRideOrTransport(attrs, SUMO_TAG_TRANSPORT);
 }
 
 void
-MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs) {
+MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXMLTag MODE) {
 	std::string mode;
 	std::string agent;
 	std::string stop;
@@ -952,23 +980,30 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs) {
 	SumoXMLTag SUMO_TAG_AGENT_STOP;
 	switch (myActiveType) {
 	case ObjectTypeEnum::PERSON:
-		mode = "ride";
 		agent = "person";
 		stop = "bus stop";
 		SUMO_ATTR_STOP = SUMO_ATTR_BUS_STOP;
 		SUMO_TAG_AGENT_STOP = SUMO_TAG_BUS_STOP;
 		break;
 	case ObjectTypeEnum::CONTAINER:
-		mode = "transport";
 		agent = "container";
 		stop = "container stop";
 		SUMO_ATTR_STOP = SUMO_ATTR_CONTAINER_STOP;
 		SUMO_TAG_AGENT_STOP = SUMO_TAG_CONTAINER_STOP;
 		break;
 	}
+	switch (MODE) {
+	case SUMO_TAG_RIDE:
+		mode = "ride";
+		break;
+	case SUMO_TAG_TRANSPORT:
+		mode = "transport";
+		break;
+	}
 	
-	if (myActiveTransportablePlan == nullptr) {
-		throw ProcessError("Found " + mode + " outside " + agent + " element");
+	if (!((myActiveType == ObjectTypeEnum::PERSON && MODE == SUMO_TAG_RIDE) ||
+		  (myActiveType == ObjectTypeEnum::CONTAINER && MODE == SUMO_TAG_TRANSPORT))) {
+		throw ProcessError("Found " + mode + " inside " + agent + " element");
 	}
 	const std::string aid = myVehicleParameter->id;
 	bool ok = true;
