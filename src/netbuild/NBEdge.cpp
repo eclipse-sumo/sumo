@@ -1713,7 +1713,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                             tmpFoeIncomingLanes.insert(i2->getID() + "_" + toString(k2.fromLane));
                         }
                         if (bothPrio && oppositeLeftIntersect && getID() < i2->getID()) {
-                            //std::cout << " c1=" << con.getDescription(this) << " c2=" << k2.getDescriptioni2 << " bothPrio=" << bothPrio << " oppositeLeftIntersect=" << oppositeLeftIntersect << "\n";
+                            //std::cout << " c1=" << con.getDescription(this) << " c2=" << k2.getDescription(i2) << " bothPrio=" << bothPrio << " oppositeLeftIntersect=" << oppositeLeftIntersect << "\n";
                             // break symmetry using edge id
                             tmpFoeIncomingLanes.insert(innerID + "_" + toString(index) + "_0");
                         }
