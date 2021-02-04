@@ -194,10 +194,10 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             break;
         }
 		case SUMO_TAG_RIDE:
-			addRideOrTransport(attrs, true);
+			addRide(attrs);
 			break;
 		case SUMO_TAG_TRANSPORT:
-			addRideOrTransport(attrs, false);
+			addTransport(attrs);
 			break;
         case SUMO_TAG_TRANSHIP:
             addTranship(attrs);

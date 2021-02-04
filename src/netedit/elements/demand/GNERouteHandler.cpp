@@ -2183,10 +2183,8 @@ GNERouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
 }
 
 
-void GNERouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, bool isRide) {
-	if (isRide) {
-		myPersonValues.addPersonValue(myNet, SUMO_TAG_RIDE, attrs);
-	}
+void GNERouteHandler::addRide(const SUMOSAXAttributes& attrs) {
+	myPersonValues.addPersonValue(myNet, SUMO_TAG_RIDE, attrs);
 }
 
 
@@ -2205,6 +2203,10 @@ GNERouteHandler::addContainer(const SUMOSAXAttributes& /*attrs*/) {
 void
 GNERouteHandler::addTranship(const SUMOSAXAttributes& /*attrs*/) {
     // currently unused
+}
+
+void GNERouteHandler::addTransport(const SUMOSAXAttributes& attrs) {
+	// currently unused
 }
 
 // ===========================================================================
@@ -2477,13 +2479,6 @@ GNERouteHandler::PersonValue::addPersonValue(GNENet* net, SumoXMLTag tag, const 
             if (personPlansValuesLoaded.route == nullptr) {
                 return false;
             }
-        }
-    }
-    // get vTypes
-    if (attrs.hasAttribute(SUMO_ATTR_VTYPES)) {
-        const std::string vTypes = attrs.get<std::string>(SUMO_ATTR_VTYPES, "", abort, false);
-        if (!abort) {
-            personPlansValuesLoaded.vTypes = GNEAttributeCarrier::parse<std::vector<std::string> >(vTypes);
         }
     }
     // get vTypes

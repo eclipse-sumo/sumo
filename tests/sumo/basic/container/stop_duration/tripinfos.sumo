@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 18 09:59:59 2019 by Eclipse SUMO Version v1_4_0+0173-908b4d0
+<!-- generated on Wed Feb  3 15:46:49 2021 by Eclipse SUMO sumo Version v1_8_0+0747-cad642a019
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -34,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <containerinfo id="c1" depart="0.00" type="DEFAULT_CONTAINERTYPE">
         <tranship depart="0.00" departPos="0.00" arrival="1076.00" arrivalPos="1000.00" duration="1076.00" routeLength="1494.44" maxSpeed="1.39"/>
-        <stop duration="20.00" arrival="1096.00" arrivalPos="999.80" actType="waiting"/>
-        <tranship depart="1096.00" departPos="999.80" arrival="1459.00" arrivalPos="500.00" duration="363.00" routeLength="504.17" maxSpeed="1.39"/>
+        <stop duration="20.00" arrival="1096.00" arrivalPos="1000.00" actType="waiting"/>
+        <tranship depart="1096.00" departPos="1000.00" arrival="1459.00" arrivalPos="500.00" duration="363.00" routeLength="504.17" maxSpeed="1.39"/>
     </containerinfo>
 </tripinfos>
