@@ -25,6 +25,13 @@
 #include <netedit/GNEViewNetHelper.h>
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEMatchAttribute;
+class GNEMatchGenericDataAttribute;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -34,6 +41,11 @@
 class GNESelectorFrame : public GNEFrame {
 
 public:
+    
+    // @brief friend class
+    friend class GNEMatchAttribute;
+    friend class GNEMatchGenericDataAttribute;
+
 
     // ===========================================================================
     // class LockGLObjectTypes
@@ -259,186 +271,6 @@ public:
     };
 
     // ===========================================================================
-    // class MatchAttribute
-    // ===========================================================================
-
-    class MatchAttribute : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNESelectorFrame::MatchAttribute)
-
-    public:
-        /// @brief constructor
-        MatchAttribute(GNESelectorFrame* selectorFrameParent);
-
-        /// @brief destructor
-        ~MatchAttribute();
-
-        /// @brief enable match attributes
-        void enableMatchAttribute();
-
-        /// @brief disable match attributes
-        void disableMatchAttribute();
-
-        /// @brief show match attributes
-        void showMatchAttribute();
-
-        /// @brief hide match attributes
-        void hideMatchAttribute();
-
-        /// @name FOX-callbacks
-        /// @{
-
-        /**@brief Called when the user selectes a tag in the match box
-         * @note updates the attr listbox and repaints itself
-         */
-        long onCmdSelMBTag(FXObject*, FXSelector, void*);
-
-        /**@brief Called when the user selectes a tag in the match box
-         * @note updates the attr listbox and repaints itself
-         */
-        long onCmdSelMBAttribute(FXObject*, FXSelector, void*);
-
-        /**@brief Called when the user enters a new selection expression
-         * @note validates expression and modifies current selection
-         */
-        long onCmdSelMBString(FXObject*, FXSelector, void*);
-
-        /**@brief Called when the user clicks the help button
-         * @note pop up help window
-         */
-        long onCmdHelp(FXObject*, FXSelector, void*);
-
-        /// @}
-
-    protected:
-        /// @brief FOX need this
-        FOX_CONSTRUCTOR(MatchAttribute)
-
-    private:
-        /// @brief pointer to Selector Frame Parent
-        GNESelectorFrame* mySelectorFrameParent;
-
-        /// @brief tag of the match box
-        FXComboBox* myMatchTagComboBox;
-
-        /// @brief attributes of the match box
-        FXComboBox* myMatchAttrComboBox;
-
-        /// @brief current SumoXMLTag tag
-        SumoXMLTag myCurrentTag;
-
-        /// @brief current SumoXMLTag Attribute
-        SumoXMLAttr myCurrentAttribute;
-
-        /// @brief string of the match
-        FXTextField* myMatchString;
-
-        /// @brief match string button
-        FXButton* myMatchStringButton;
-
-        /// @brief Invalidated copy constructor.
-        MatchAttribute(const MatchAttribute&) = delete;
-
-        /// @brief Invalidated assignment operator.
-        MatchAttribute& operator=(const MatchAttribute&) = delete;
-    };
-
-    // ===========================================================================
-    // class MatchGenericDataAttribute
-    // ===========================================================================
-
-    class MatchGenericDataAttribute : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNESelectorFrame::MatchGenericDataAttribute)
-
-    public:
-        /// @brief constructor
-        MatchGenericDataAttribute(GNESelectorFrame* selectorFrameParent);
-
-        /// @brief destructor
-        ~MatchGenericDataAttribute();
-
-        /// @brief enable match attributes
-        void enableMatchGenericDataAttribute();
-
-        /// @brief disable match attributes
-        void disableMatchGenericDataAttribute();
-
-        /// @brief show match attributes
-        void showMatchGenericDataAttribute();
-
-        /// @brief hide match attributes
-        void hideMatchGenericDataAttribute();
-
-        /// @name FOX-callbacks
-        /// @{
-
-        /// @brief Called when the user selects an interval
-        long onCmdSetInterval(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user change begin text field
-        long onCmdSetBegin(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user change end text field
-        long onCmdSetEnd(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user selects a tag in the match box
-        long onCmdSelectTag(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user selects an attribute in the match box
-        long onCmdSelectAttribute(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user enters a new selection expression
-        long onCmdProcessString(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user clicks the help button
-        long onCmdHelp(FXObject*, FXSelector, void*);
-
-        /// @}
-
-    protected:
-        /// @brief FOX need this
-        FOX_CONSTRUCTOR(MatchGenericDataAttribute)
-
-    private:
-        /// @brief pointer to Selector Frame Parent
-        GNESelectorFrame* mySelectorFrameParent;
-
-        /// @brief tag of the match box
-        FXComboBox* myIntervalSelector;
-
-        /// @brief TextField for begin
-        FXTextField* myBegin;
-
-        /// @brief TextField for end
-        FXTextField* myEnd;
-
-        /// @brief tag of the match box
-        FXComboBox* myMatchGenericDataTagComboBox;
-
-        /// @brief attributes of the match box
-        FXComboBox* myMatchGenericDataAttrComboBox;
-
-        /// @brief current SumoXMLTag tag
-        SumoXMLTag myCurrentTag;
-
-        /// @brief current string Attribute
-        std::string myCurrentAttribute;
-
-        /// @brief string of the match
-        FXTextField* myMatchGenericDataString;
-
-        // declare a set and fill it with all intervals
-        std::map<std::pair<double, double>, int> myIntervals;
-
-        /// @brief Invalidated copy constructor.
-        MatchGenericDataAttribute(const MatchGenericDataAttribute&) = delete;
-
-        /// @brief Invalidated assignment operator.
-        MatchGenericDataAttribute& operator=(const MatchGenericDataAttribute&) = delete;
-    };
-
-    // ===========================================================================
     // class VisualScaling
     // ===========================================================================
 
@@ -576,10 +408,10 @@ private:
     ElementSet* myElementSet;
 
     /// @brief modul for match attribute
-    MatchAttribute* myMatchAttribute;
+    GNEMatchAttribute* myMatchAttribute;
 
     /// @brief modul for match generic data attribute
-    MatchGenericDataAttribute* myMatchGenericDataAttribute;
+    GNEMatchGenericDataAttribute* myMatchGenericDataAttribute;
 
     /// @brief modul for visual scaling
     VisualScaling* myVisualScaling;
