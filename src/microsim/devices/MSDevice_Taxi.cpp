@@ -538,6 +538,8 @@ MSDevice_Taxi::getParameter(const std::string& key) const {
         return toString(STEPS2TIME(myOccupiedTime));
     } else if (key == "state") {
         return toString(myState);
+    } else if (key == "currentCustomers") {
+        return joinNamedToStringSorting(myCustomers, " ");
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
