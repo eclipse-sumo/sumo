@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Feb  5 11:40:09 2021 by Eclipse SUMO sumo Version v1_8_0+0976-499cc34
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <time>
+        <end value="75"/>
+        <step-length value="0.1"/>
+    </time>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+        <lanechange.duration value="3"/>
+        <default.action-step-length value="1"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <tracker-interval value="0.1"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<lanechanges>
+    <change id="B" type="type1" time="62.60" from="2_0" to="2_1" dir="1" speed="0.00" pos="71.00" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.50" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
+</lanechanges>

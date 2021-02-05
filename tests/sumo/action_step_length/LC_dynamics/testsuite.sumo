@@ -1,3 +1,6 @@
+# test continuous lane change maneuvers
+continuous_lanechange
+
 # tests for changing to gain speed.
 # In case of increased actionStepLength the accumulated motivation to change lanes must grow at approximately the same rate as for the usual case (so changing is not delayed.
 speedGain
