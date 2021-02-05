@@ -45,9 +45,10 @@ FXIMPLEMENT(GNEElementSet, FXGroupBox, GNEElementSetMap, ARRAYNUMBER(GNEElementS
 
 GNEElementSet::GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode supermode, 
     SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string &defaultValue) :
-    FXGroupBox(selectorFrameParent->myContentFrame, "Element Set", GUIDesignGroupBoxFrame),
+    FXGroupBox(selectorFrameParent->getContentFrame(), "Element Set", GUIDesignGroupBoxFrame),
     mySelectorFrameParent(selectorFrameParent),
     myMatchAttribute(nullptr),
+    myMatchGenericDataAttribute(nullptr),
     myCurrentSet(Type::INVALID) {
     // Create MatchTagBox for tags and fill it
     mySetComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_CHOOSEN_ELEMENTS, GUIDesignComboBox);
@@ -60,23 +61,27 @@ GNEElementSet::GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode su
         mySetComboBox->appendItem("TAZ");
         // set default set
         myCurrentSet = Type::NETWORK;
+        // build MatchAttribute
+        myMatchAttribute = new GNEMatchAttribute(this, defaultTag, defaultAttr, defaultValue);
     } else if (supermode == Supermode::DEMAND) {
         // append elements
         mySetComboBox->appendItem("Demand");
         // set default set
         myCurrentSet = Type::DEMAND;
+        // build MatchAttribute
+        myMatchAttribute = new GNEMatchAttribute(this, defaultTag, defaultAttr, defaultValue);
     } else if (supermode == Supermode::DATA) {
         // append elements
         mySetComboBox->appendItem("Data");
         // set default set
         myCurrentSet = Type::DATA;
+        /// build MatchGenericAttribute
+        myMatchGenericDataAttribute = new GNEMatchGenericDataAttribute(this, defaultTag, defaultAttr, defaultValue);
     } else {
         throw ProcessError("Invalid supermode");
     }
     // set visible items
     mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
-    // build MatchAttribute
-    myMatchAttribute = new GNEMatchAttribute(this, defaultTag, defaultAttr, defaultValue);
 }
 
 
@@ -99,24 +104,44 @@ void
 GNEElementSet::showElementSet() {
     // first show group box
     show();
-    // show myMatchAttribute
-    myMatchAttribute->showMatchAttribute(myCurrentSet);
-    // first check if myCurrentSet is invalid
-    if (myCurrentSet == Type::INVALID) {
-        // disable macht attribute
-        myMatchAttribute->disableMatchAttribute();
-    } else {
-        // enable match attribute
-        myMatchAttribute->enableMatchAttribute();
-        mySelectorFrameParent->myMatchGenericDataAttribute->hideMatchGenericDataAttribute();
+    // show myMatchAttribute (if exist)
+    if (myMatchAttribute) {
+        myMatchAttribute->showMatchAttribute(myCurrentSet);
+        // first check if myCurrentSet is invalid
+        if (myCurrentSet == Type::INVALID) {
+            // disable macht attribute
+            myMatchAttribute->disableMatchAttribute();
+        } else {
+            // enable match attribute
+            myMatchAttribute->enableMatchAttribute();
+        }
+    }
+    // show myMatchGenericDataAttribute (if exist)
+    if (myMatchGenericDataAttribute) {
+        myMatchGenericDataAttribute->showMatchGenericDataAttribute();
+        // first check if myCurrentSet is invalid
+        if (myCurrentSet == Type::INVALID) {
+            // disable macht attribute
+            myMatchGenericDataAttribute->disableMatchGenericDataAttribute();
+        }
+        else {
+            // enable match attribute
+            myMatchGenericDataAttribute->enableMatchGenericDataAttribute();
+        }
     }
 }
 
 
 void
 GNEElementSet::hideElementSet() {
-    // hide match attribute
-    myMatchAttribute->hideMatchAttribute();
+    // hide match attribute (if exist)
+    if (myMatchAttribute) {
+        myMatchAttribute->hideMatchAttribute();
+    }
+    // hide match generic data attribute (if exist)
+    if (myMatchGenericDataAttribute) {
+        myMatchGenericDataAttribute->hideMatchGenericDataAttribute();
+    }
     // hide group box
     hide();
 }
@@ -125,7 +150,7 @@ GNEElementSet::hideElementSet() {
 long
 GNEElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*) {
     // check depending of current supermode
-    if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
+    if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
         if (mySetComboBox->getText() == "Network") {
             myCurrentSet = Type::NETWORK;
         } else if (mySetComboBox->getText() == "Additional") {
@@ -138,13 +163,13 @@ GNEElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*) {
         } else {
             myCurrentSet = Type::INVALID;
         }
-    } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) {
+    } else if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         if (mySetComboBox->getText() == "Demand") {
             myCurrentSet = Type::DEMAND;
         } else {
             myCurrentSet = Type::INVALID;
         }
-    } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) {
+    } else if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         if (mySetComboBox->getText() == "Data") {
             myCurrentSet = Type::DATA;
         } else {

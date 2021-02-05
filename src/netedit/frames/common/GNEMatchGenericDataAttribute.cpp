@@ -26,6 +26,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEMatchGenericDataAttribute.h"
+#include "GNEElementSet.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -48,15 +49,16 @@ FXIMPLEMENT(GNEMatchGenericDataAttribute, FXGroupBox, GNEMatchGenericDataAttribu
 // method definitions
 // ===========================================================================
 
-GNEMatchGenericDataAttribute::GNEMatchGenericDataAttribute(GNESelectorFrame* selectorFrameParent) :
-    FXGroupBox(selectorFrameParent->myContentFrame, "Match GenericData Attribute", GUIDesignGroupBoxFrame),
-    mySelectorFrameParent(selectorFrameParent),
+GNEMatchGenericDataAttribute::GNEMatchGenericDataAttribute(GNEElementSet* elementSet, SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string& defaultValue) :
+    FXGroupBox(elementSet->getSelectorFrameParent()->getContentFrame(), "Match GenericData Attribute", GUIDesignGroupBoxFrame),
+    myElementSet(elementSet),
     myIntervalSelector(nullptr),
     myBegin(nullptr),
     myEnd(nullptr),
     myMatchGenericDataTagComboBox(nullptr),
     myMatchGenericDataAttrComboBox(nullptr),
-    myCurrentTag(SUMO_TAG_EDGE),
+    myCurrentTag(defaultTag),
+    myCurrentAttribute(toString(defaultAttr)),
     myMatchGenericDataString(nullptr) {
     // Create MatchGenericDataTagBox for tags
     new FXLabel(this, "Interval [begin, end]", nullptr, GUIDesignLabelThick);
@@ -79,7 +81,7 @@ GNEMatchGenericDataAttribute::GNEMatchGenericDataAttribute(GNESelectorFrame* sel
     myMatchGenericDataAttrComboBox->setText("speed");
     myCurrentAttribute = SUMO_ATTR_SPEED;
     // Set default value for MatchGenericData string
-    myMatchGenericDataString->setText(">10.0");
+    myMatchGenericDataString->setText(defaultValue.c_str());
 }
 
 
@@ -91,7 +93,7 @@ GNEMatchGenericDataAttribute::enableMatchGenericDataAttribute() {
     // first drop intervals
     myIntervals.clear();
     // iterate over all data sets
-    for (const auto& dataSet : mySelectorFrameParent->getViewNet()->getNet()->retrieveDataSets()) {
+    for (const auto& dataSet : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->retrieveDataSets()) {
         for (const auto& dataInterval : dataSet->getDataIntervalChildren()) {
             myIntervals[std::make_pair(dataInterval.second->getAttributeDouble(SUMO_ATTR_BEGIN), dataInterval.second->getAttributeDouble(SUMO_ATTR_END))] = -1;
         }
@@ -260,7 +262,7 @@ GNEMatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelector, void*) {
         const double begin = GNEAttributeCarrier::parse<double>(myBegin->getText().text());
         const double end = GNEAttributeCarrier::parse<double>(myEnd->getText().text());
         // obtain all Generic Data attributes for current generic tag
-        auto attributes = mySelectorFrameParent->getViewNet()->getNet()->retrieveGenericDataParameters(toString(myCurrentTag), begin, end);
+        auto attributes = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->retrieveGenericDataParameters(toString(myCurrentTag), begin, end);
         // set color and enable items
         myMatchGenericDataTagComboBox->setTextColor(FXRGB(0, 0, 0));
         myMatchGenericDataAttrComboBox->enable();
@@ -288,7 +290,7 @@ GNEMatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelector, void*) {
 long
 GNEMatchGenericDataAttribute::onCmdSelectAttribute(FXObject*, FXSelector, void*) {
     // obtain all Generic Data attributes for current generic tag
-    std::set<std::string> attributes = mySelectorFrameParent->getViewNet()->getNet()->retrieveGenericDataParameters(
+    std::set<std::string> attributes = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->retrieveGenericDataParameters(
                                            toString(myCurrentTag),
                                            GNEAttributeCarrier::parse<double>(myBegin->getText().text()),
                                            GNEAttributeCarrier::parse<double>(myEnd->getText().text()));
@@ -320,12 +322,12 @@ GNEMatchGenericDataAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
     std::string expression = myMatchGenericDataString->getText().text();
     bool valid = true;
     // get all Generic datas
-    const auto genericDatas = mySelectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveGenericDatas(myCurrentTag,
+    const auto genericDatas = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveGenericDatas(myCurrentTag,
                               GNEAttributeCarrier::parse<double>(myBegin->getText().text()),
                               GNEAttributeCarrier::parse<double>(myEnd->getText().text()));
     if (expression == "") {
         // the empty expression matches all objects
-        mySelectorFrameParent->handleIDs(mySelectorFrameParent->getGenericMatches(genericDatas, myCurrentAttribute, '@', 0, expression));
+        myElementSet->getSelectorFrameParent()->handleIDs(myElementSet->getSelectorFrameParent()->getGenericMatches(genericDatas, myCurrentAttribute, '@', 0, expression));
     } else if (myCurrentAttribute != toString(GNE_ATTR_DATASET)) {
         // The expression must have the form
         //  <val matches if attr < val
@@ -340,7 +342,7 @@ GNEMatchGenericDataAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
         }
         // check if value can be parsed to double
         if (GNEAttributeCarrier::canParse<double>(expression.c_str())) {
-            mySelectorFrameParent->handleIDs(mySelectorFrameParent->getGenericMatches(genericDatas, myCurrentAttribute, compOp, GNEAttributeCarrier::parse<double>(expression.c_str()), expression));
+            myElementSet->getSelectorFrameParent()->handleIDs(myElementSet->getSelectorFrameParent()->getGenericMatches(genericDatas, myCurrentAttribute, compOp, GNEAttributeCarrier::parse<double>(expression.c_str()), expression));
         } else {
             valid = false;
         }
@@ -357,7 +359,7 @@ GNEMatchGenericDataAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
         } else {
             compOp = '@';
         }
-        mySelectorFrameParent->handleIDs(mySelectorFrameParent->getGenericMatches(genericDatas, myCurrentAttribute, compOp, 0, expression));
+        myElementSet->getSelectorFrameParent()->handleIDs(myElementSet->getSelectorFrameParent()->getGenericMatches(genericDatas, myCurrentAttribute, compOp, 0, expression));
     }
     // change color depending of flag "valid"
     if (valid) {

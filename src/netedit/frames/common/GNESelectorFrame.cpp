@@ -797,8 +797,6 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     myNetworkElementSet = new GNEElementSet(this, Supermode::NETWORK, SUMO_TAG_EDGE, SUMO_ATTR_SPEED, ">10.0");
     myDemandElementSet = new GNEElementSet(this, Supermode::DEMAND, SUMO_TAG_VEHICLE, SUMO_ATTR_ID, "");
     myDataElementSet = new GNEElementSet(this, Supermode::DATA, SUMO_TAG_MEANDATA_EDGE, GNE_ATTR_PARAMETERS, "key=value");
-    // create MatchGenericDataAttribute modul
-    myMatchGenericDataAttribute = new GNEMatchGenericDataAttribute(this);
     // create VisualScaling modul
     myVisualScaling = new VisualScaling(this);
     // create SelectionOperation modul
@@ -1192,9 +1190,141 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const 
 }
 
 
+std::vector<GNEAttributeCarrier*>
+GNESelectorFrame::getMatches(const SumoXMLTag ACTag, const SumoXMLAttr ACAttr, const char compOp, const double val, const std::string& expr) {
+    std::vector<GNEAttributeCarrier*> result;
+    // first retrieve all ACs using ACTag
+    std::vector<GNEAttributeCarrier*> allACbyTag = myViewNet->getNet()->retrieveAttributeCarriers(ACTag);
+    // get Tag value
+    const auto& tagValue = GNEAttributeCarrier::getTagProperties(ACTag);
+    // iterate over all ACs
+    for (const auto& AC : allACbyTag) {
+        if (expr == "") {
+            result.push_back(AC);
+        }
+        else if (tagValue.hasAttribute(ACAttr) && tagValue.getAttributeProperties(ACAttr).isNumerical()) {
+            double acVal;
+            std::istringstream buf(AC->getAttribute(ACAttr));
+            buf >> acVal;
+            switch (compOp) {
+            case '<':
+                if (acVal < val) {
+                    result.push_back(AC);
+                }
+                break;
+            case '>':
+                if (acVal > val) {
+                    result.push_back(AC);
+                }
+                break;
+            case '=':
+                if (acVal == val) {
+                    result.push_back(AC);
+                }
+                break;
+            }
+        }
+        else {
+            // string match
+            std::string acVal = AC->getAttributeForSelection(ACAttr);
+            switch (compOp) {
+            case '@':
+                if (acVal.find(expr) != std::string::npos) {
+                    result.push_back(AC);
+                }
+                break;
+            case '!':
+                if (acVal.find(expr) == std::string::npos) {
+                    result.push_back(AC);
+                }
+                break;
+            case '=':
+                if (acVal == expr) {
+                    result.push_back(AC);
+                }
+                break;
+            case '^':
+                if (acVal != expr) {
+                    result.push_back(AC);
+                }
+                break;
+            }
+        }
+    }
+    return result;
+}
+
+
+std::vector<GNEAttributeCarrier*>
+GNESelectorFrame::getGenericMatches(const std::vector<GNEGenericData*>& genericDatas, const std::string& attr, const char compOp, const double val, const std::string& expr) {
+    std::vector<GNEAttributeCarrier*> result;
+    // iterate over generic datas
+    for (const auto& genericData : genericDatas) {
+        if (expr == "") {
+            result.push_back(genericData);
+        }
+        else if (attr != toString(GNE_ATTR_PARENT)) {
+            double acVal;
+            std::istringstream buf(genericData->getParameter(attr, "0"));
+            buf >> acVal;
+            switch (compOp) {
+            case '<':
+                if (acVal < val) {
+                    result.push_back(genericData);
+                }
+                break;
+            case '>':
+                if (acVal > val) {
+                    result.push_back(genericData);
+                }
+                break;
+            case '=':
+                if (acVal == val) {
+                    result.push_back(genericData);
+                }
+                break;
+            }
+        }
+        else {
+            // string match
+            std::string acVal = genericData->getAttributeForSelection(GNE_ATTR_PARENT);
+            switch (compOp) {
+            case '@':
+                if (acVal.find(expr) != std::string::npos) {
+                    result.push_back(genericData);
+                }
+                break;
+            case '!':
+                if (acVal.find(expr) == std::string::npos) {
+                    result.push_back(genericData);
+                }
+                break;
+            case '=':
+                if (acVal == expr) {
+                    result.push_back(genericData);
+                }
+                break;
+            case '^':
+                if (acVal != expr) {
+                    result.push_back(genericData);
+                }
+                break;
+            }
+        }
+    }
+    return result;
+}
+
+
 GNESelectorFrame::ModificationMode*
 GNESelectorFrame::getModificationModeModul() const {
     return myModificationMode;
+}
+
+
+FXVerticalFrame* 
+GNESelectorFrame::getContentFrame() const {
+    return myContentFrame;
 }
 
 
@@ -1339,128 +1469,5 @@ GNESelectorFrame::ACsToSelected() const {
     // nothing to select
     return false;
 }
-
-
-std::vector<GNEAttributeCarrier*>
-GNESelectorFrame::getMatches(const SumoXMLTag ACTag, const SumoXMLAttr ACAttr, const char compOp, const double val, const std::string& expr) {
-    std::vector<GNEAttributeCarrier*> result;
-    // first retrieve all ACs using ACTag
-    std::vector<GNEAttributeCarrier*> allACbyTag = myViewNet->getNet()->retrieveAttributeCarriers(ACTag);
-    // get Tag value
-    const auto& tagValue = GNEAttributeCarrier::getTagProperties(ACTag);
-    // iterate over all ACs
-    for (const auto& AC : allACbyTag) {
-        if (expr == "") {
-            result.push_back(AC);
-        } else if (tagValue.hasAttribute(ACAttr) && tagValue.getAttributeProperties(ACAttr).isNumerical()) {
-            double acVal;
-            std::istringstream buf(AC->getAttribute(ACAttr));
-            buf >> acVal;
-            switch (compOp) {
-                case '<':
-                    if (acVal < val) {
-                        result.push_back(AC);
-                    }
-                    break;
-                case '>':
-                    if (acVal > val) {
-                        result.push_back(AC);
-                    }
-                    break;
-                case '=':
-                    if (acVal == val) {
-                        result.push_back(AC);
-                    }
-                    break;
-            }
-        } else {
-            // string match
-            std::string acVal = AC->getAttributeForSelection(ACAttr);
-            switch (compOp) {
-                case '@':
-                    if (acVal.find(expr) != std::string::npos) {
-                        result.push_back(AC);
-                    }
-                    break;
-                case '!':
-                    if (acVal.find(expr) == std::string::npos) {
-                        result.push_back(AC);
-                    }
-                    break;
-                case '=':
-                    if (acVal == expr) {
-                        result.push_back(AC);
-                    }
-                    break;
-                case '^':
-                    if (acVal != expr) {
-                        result.push_back(AC);
-                    }
-                    break;
-            }
-        }
-    }
-    return result;
-}
-
-
-std::vector<GNEAttributeCarrier*>
-GNESelectorFrame::getGenericMatches(const std::vector<GNEGenericData*>& genericDatas, const std::string& attr, const char compOp, const double val, const std::string& expr) {
-    std::vector<GNEAttributeCarrier*> result;
-    // iterate over generic datas
-    for (const auto& genericData : genericDatas) {
-        if (expr == "") {
-            result.push_back(genericData);
-        } else if (attr != toString(GNE_ATTR_PARENT)) {
-            double acVal;
-            std::istringstream buf(genericData->getParameter(attr, "0"));
-            buf >> acVal;
-            switch (compOp) {
-                case '<':
-                    if (acVal < val) {
-                        result.push_back(genericData);
-                    }
-                    break;
-                case '>':
-                    if (acVal > val) {
-                        result.push_back(genericData);
-                    }
-                    break;
-                case '=':
-                    if (acVal == val) {
-                        result.push_back(genericData);
-                    }
-                    break;
-            }
-        } else {
-            // string match
-            std::string acVal = genericData->getAttributeForSelection(GNE_ATTR_PARENT);
-            switch (compOp) {
-                case '@':
-                    if (acVal.find(expr) != std::string::npos) {
-                        result.push_back(genericData);
-                    }
-                    break;
-                case '!':
-                    if (acVal.find(expr) == std::string::npos) {
-                        result.push_back(genericData);
-                    }
-                    break;
-                case '=':
-                    if (acVal == expr) {
-                        result.push_back(genericData);
-                    }
-                    break;
-                case '^':
-                    if (acVal != expr) {
-                        result.push_back(genericData);
-                    }
-                    break;
-            }
-        }
-    }
-    return result;
-}
-
 
 /****************************************************************************/

@@ -44,7 +44,7 @@ FXIMPLEMENT(GNEMatchAttribute, FXGroupBox, GNEMatchAttributeMap, ARRAYNUMBER(GNE
 // ===========================================================================
 
 GNEMatchAttribute::GNEMatchAttribute(GNEElementSet* elementSet, SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string &defaultValue) :
-    FXGroupBox(elementSet->getSelectorFrameParent()->myContentFrame, "Match Attribute", GUIDesignGroupBoxFrame),
+    FXGroupBox(elementSet->getSelectorFrameParent()->getContentFrame(), "Match Attribute", GUIDesignGroupBoxFrame),
     myElementSet(elementSet),
     myCurrentTag(defaultTag),
     myCurrentAttribute(defaultAttr) {

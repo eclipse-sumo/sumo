@@ -33,7 +33,7 @@ class GNEMatchGenericDataAttribute : protected FXGroupBox {
 
 public:
     /// @brief constructor
-    GNEMatchGenericDataAttribute(GNESelectorFrame* selectorFrameParent);
+    GNEMatchGenericDataAttribute(GNEElementSet* elementSet, SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string& defaultValue);
 
     /// @brief destructor
     ~GNEMatchGenericDataAttribute();
@@ -81,8 +81,8 @@ protected:
     FOX_CONSTRUCTOR(GNEMatchGenericDataAttribute)
 
 private:
-    /// @brief pointer to Selector Frame Parent
-    GNESelectorFrame* mySelectorFrameParent;
+    /// @brief pointer to element set Parent
+    GNEElementSet* myElementSet;
 
     /// @brief tag of the match box
     FXComboBox* myIntervalSelector;

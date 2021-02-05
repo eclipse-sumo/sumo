@@ -42,12 +42,6 @@ class GNEMatchGenericDataAttribute;
 class GNESelectorFrame : public GNEFrame {
 
 public:
-    
-    // @brief friend class
-    friend class GNEElementSet;
-    friend class GNEMatchAttribute;
-    friend class GNEMatchGenericDataAttribute;
-
 
     // ===========================================================================
     // class LockGLObjectTypes
@@ -330,34 +324,6 @@ public:
      */
     void handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const ModificationMode::Operation setop = ModificationMode::Operation::DEFAULT);
 
-    /// @brief get selected items Modul
-    LockGLObjectTypes* getLockGLObjectTypes() const;
-
-    /// @brief get modification mode modul
-    ModificationMode* getModificationModeModul() const;
-
-private:
-    /// @brief modul for lock selected items
-    LockGLObjectTypes* myLockGLObjectTypes;
-
-    /// @brief modul for change modification mode
-    ModificationMode* myModificationMode;
-
-    /// @brief moduls for select element set
-    GNEElementSet* myNetworkElementSet, *myDemandElementSet, *myDataElementSet;
-
-    /// @brief modul for match generic data attribute
-    GNEMatchGenericDataAttribute* myMatchGenericDataAttribute;
-
-    /// @brief modul for visual scaling
-    VisualScaling* myVisualScaling;
-
-    /// @brief modul for selection operations
-    SelectionOperation* mySelectionOperation;
-
-    /// @brief check if there is ACs to select/unselect
-    bool ACsToSelected() const;
-
     /**@brief return ACs of the given type with matching attrs
      * @param[in] ACTag XML Tag of AttributeCarrier
      * @param[in] ACAttr XML Attribute of AttributeCarrier
@@ -371,6 +337,40 @@ private:
      * @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
      */
     std::vector<GNEAttributeCarrier*> getGenericMatches(const std::vector<GNEGenericData*>& genericDatas, const std::string& attr, const char compOp, const double val, const std::string& expr);
+
+    /// @brief get vertical frame that holds all widgets of frame
+    FXVerticalFrame* getContentFrame() const;
+
+    /// @brief get selected items Modul
+    LockGLObjectTypes* getLockGLObjectTypes() const;
+
+    /// @brief get modification mode modul
+    ModificationMode* getModificationModeModul() const;
+
+private:
+    /// @brief modul for lock selected items
+    LockGLObjectTypes* myLockGLObjectTypes;
+
+    /// @brief modul for change modification mode
+    ModificationMode* myModificationMode;
+
+    /// @brief moduls for select network element set
+    GNEElementSet* myNetworkElementSet;
+
+    /// @brief moduls for select demand element set
+    GNEElementSet* myDemandElementSet;
+
+    /// @brief moduls for select data element set
+    GNEElementSet*myDataElementSet;
+
+    /// @brief modul for visual scaling
+    VisualScaling* myVisualScaling;
+
+    /// @brief modul for selection operations
+    SelectionOperation* mySelectionOperation;
+
+    /// @brief check if there is ACs to select/unselect
+    bool ACsToSelected() const;
 
     /// @brief Invalidated copy constructor.
     GNESelectorFrame(const GNESelectorFrame&) = delete;

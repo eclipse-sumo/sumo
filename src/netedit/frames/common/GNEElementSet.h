@@ -88,6 +88,9 @@ private:
     /// @brief modul for match attribute
     GNEMatchAttribute* myMatchAttribute;
 
+    /// @brief Match generic data attribute
+    GNEMatchGenericDataAttribute* myMatchGenericDataAttribute;
+
     /// @brief Combo Box with the element sets
     FXComboBox* mySetComboBox;
 
