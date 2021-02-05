@@ -190,7 +190,7 @@ protected:
 class MSCriticalFollowerDistanceInfo : public MSLeaderDistanceInfo {
 public:
     /// Constructor
-    MSCriticalFollowerDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset);
+    MSCriticalFollowerDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset, bool haveOppositeLeaders=false);
 
     /// Destructor
     virtual ~MSCriticalFollowerDistanceInfo();
@@ -230,5 +230,8 @@ protected:
 
     // @brief the differences between requriedGap and actual gap for each of the followers
     std::vector<double> myMissingGaps;
+
+    // @brief whether this Info objects tracks leaders instead of followers
+    bool myHaveOppositeLeaders;
 
 };

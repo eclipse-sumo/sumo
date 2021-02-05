@@ -331,10 +331,11 @@ MSLeaderDistanceInfo::getClosest() const {
 // ===========================================================================
 
 
-MSCriticalFollowerDistanceInfo::MSCriticalFollowerDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset) :
+MSCriticalFollowerDistanceInfo::MSCriticalFollowerDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset, bool haveOppositeLeaders) :
     MSLeaderDistanceInfo(lane, ego, latOffset),
-    myMissingGaps(myVehicles.size(), -std::numeric_limits<double>::max()) {
-}
+    myMissingGaps(myVehicles.size(), -std::numeric_limits<double>::max()),
+    myHaveOppositeLeaders(haveOppositeLeaders)
+{ }
 
 
 MSCriticalFollowerDistanceInfo::~MSCriticalFollowerDistanceInfo() { }
@@ -345,7 +346,8 @@ MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicl
     if (veh == nullptr) {
         return myFreeSublanes;
     }
-    const double requiredGap = veh->getCarFollowModel().getSecureGap(veh, ego, veh->getSpeed(), ego->getSpeed(), ego->getCarFollowModel().getMaxDecel());
+    const double requiredGap = (myHaveOppositeLeaders ? 0
+        : veh->getCarFollowModel().getSecureGap(veh, ego, veh->getSpeed(), ego->getSpeed(), ego->getCarFollowModel().getMaxDecel()));
     const double missingGap = requiredGap - gap;
     /*
     if (ego->getID() == "disabled" || gDebugFlag1) {
