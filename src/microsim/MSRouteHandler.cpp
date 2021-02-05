@@ -820,6 +820,7 @@ MSRouteHandler::closeTransportableFlow() {
 
 	myVehicleParameter = nullptr;
 	myActiveTransportablePlan = nullptr;
+    myActiveType = ObjectTypeEnum::UNDEFINED;
 }
 
 
