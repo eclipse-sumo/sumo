@@ -3167,8 +3167,6 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist) const {
 
     // increased lateral speed (in the desired direction)
     double speedAccel = MAX2(MIN2(mySpeedLat + directionWish * ACCEL2SPEED(accelLat), maxSpeedLat), -maxSpeedLat);
-    // increase lateral speed more strongly to ensure safety (when moving in the wrong direction)
-    double speedAccelSafe = latDist * speedAccel >= 0 ? speedAccel : 0;
 
     // can we reach the target distance in a single step? (XXX: assumes "Euler" update)
     double speedBound = DIST2SPEED(latDist);
@@ -3216,7 +3214,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist) const {
             std::cout << "   computeSpeedLat b)\n";
         }
 #endif
-        return speedAccelSafe;
+        return speedAccel;
     }
     // check if the remaining distance allows to accelerate laterally
     double minDistAccel = SPEED2DIST(speedAccel) + currentDirection * MSCFModel::brakeGapEuler(fabs(speedAccel), accelLat, 0); // most we can move in the target direction
