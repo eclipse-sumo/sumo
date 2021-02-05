@@ -249,10 +249,10 @@ protected:
     /// @brief Ends the processing of a container
     void closeContainer();
 
-	/// @brief Ends the processing of a containerFlow
-	void closeContainerFlow();
-	
-	/// @brief Ends the processing of a routeFlow
+    /// @brief Ends the processing of a containerFlow
+    void closeContainerFlow();
+    
+    /// @brief Ends the processing of a routeFlow
     void closeFlow();
 
     /// @brief Ends the processing of a trip
@@ -270,17 +270,17 @@ protected:
     /// @brief Processing of a person
     void addPerson(const SUMOSAXAttributes& attrs);
 
-	/// @brief Processing of a ride
-	void addRide(const SUMOSAXAttributes& attrs);
+    /// @brief Processing of a ride
+    void addRide(const SUMOSAXAttributes& attrs);
 
-	/// @brief Processing of a container
+    /// @brief Processing of a container
     void addContainer(const SUMOSAXAttributes& attrs);
 
     /// @brief Processing of a tranship
     void addTranship(const SUMOSAXAttributes& attrs);
 
-	/// @brief Processing of a transport
-	void addTransport(const SUMOSAXAttributes& attrs);
+    /// @brief Processing of a transport
+    void addTransport(const SUMOSAXAttributes& attrs);
 
 private:
     /// @brief struct used for load person plans (Rides, Walks, etc.)

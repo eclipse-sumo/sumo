@@ -1963,7 +1963,7 @@ GNERouteHandler::closeContainer() {
 
 void
 GNERouteHandler::closeContainerFlow() {
-	// currently unused
+    // currently unused
 }
 
 
@@ -2184,7 +2184,7 @@ GNERouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
 
 
 void GNERouteHandler::addRide(const SUMOSAXAttributes& attrs) {
-	myPersonValues.addPersonValue(myNet, SUMO_TAG_RIDE, attrs);
+    myPersonValues.addPersonValue(myNet, SUMO_TAG_RIDE, attrs);
 }
 
 
@@ -2206,7 +2206,7 @@ GNERouteHandler::addTranship(const SUMOSAXAttributes& /*attrs*/) {
 }
 
 void GNERouteHandler::addTransport(const SUMOSAXAttributes& attrs) {
-	// currently unused
+    // currently unused
 }
 
 // ===========================================================================
