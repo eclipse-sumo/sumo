@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 11 16:31:59 2021 by Eclipse SUMO sumo Version v1_8_0+0466-6abc29f
+<!-- generated on Fri Feb  5 13:24:25 2021 by Eclipse SUMO sumo Version v1_8_0+0985-bcbf706
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -68,31 +68,31 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="ego" x="13.99" y="-4.20" angle="86.97" type="tEgo" speed="13.89" pos="13.99" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="1.20">
-        <vehicle id="B" x="16.67" y="-1.32" angle="90.00" type="tB" speed="13.89" pos="16.67" lane="beg_1" slope="0.00"/>
+        <vehicle id="B" x="16.67" y="-1.24" angle="88.79" type="tB" speed="13.89" pos="16.67" lane="beg_1" slope="0.00"/>
         <vehicle id="ego" x="16.77" y="-4.00" angle="86.97" type="tEgo" speed="13.89" pos="16.77" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="1.40">
-        <vehicle id="B" x="19.45" y="-1.28" angle="89.39" type="tB" speed="13.89" pos="19.45" lane="beg_1" slope="0.00"/>
-        <vehicle id="ego" x="19.55" y="-3.84" angle="87.57" type="tEgo" speed="13.89" pos="19.55" lane="beg_0" slope="0.00"/>
+        <vehicle id="B" x="19.45" y="-1.20" angle="89.39" type="tB" speed="13.89" pos="19.45" lane="beg_1" slope="0.00"/>
+        <vehicle id="ego" x="19.55" y="-3.80" angle="86.97" type="tEgo" speed="13.89" pos="19.55" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="1.60">
-        <vehicle id="B" x="22.22" y="-1.20" angle="88.79" type="tB" speed="13.89" pos="22.22" lane="beg_1" slope="0.00"/>
-        <vehicle id="ego" x="22.32" y="-3.72" angle="88.18" type="tEgo" speed="13.89" pos="22.32" lane="beg_0" slope="0.00"/>
+        <vehicle id="B" x="22.22" y="-1.16" angle="89.39" type="tB" speed="13.89" pos="22.22" lane="beg_1" slope="0.00"/>
+        <vehicle id="ego" x="22.32" y="-3.64" angle="87.57" type="tEgo" speed="13.89" pos="22.32" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="1.80">
-        <vehicle id="B" x="25.00" y="-1.20" angle="90.00" type="tB" speed="13.89" pos="25.00" lane="beg_1" slope="0.00"/>
-        <vehicle id="ego" x="25.10" y="-3.56" angle="87.57" type="tEgo" speed="13.89" pos="25.10" lane="beg_0" slope="0.00"/>
+        <vehicle id="B" x="25.00" y="-1.16" angle="90.00" type="tB" speed="13.89" pos="25.00" lane="beg_1" slope="0.00"/>
+        <vehicle id="ego" x="25.10" y="-3.52" angle="88.18" type="tEgo" speed="13.89" pos="25.10" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="2.00">
-        <vehicle id="B" x="27.78" y="-1.16" angle="89.39" type="tB" speed="13.89" pos="27.78" lane="beg_1" slope="0.00"/>
-        <vehicle id="ego" x="27.88" y="-3.44" angle="88.18" type="tEgo" speed="13.89" pos="27.88" lane="beg_0" slope="0.00"/>
+        <vehicle id="B" x="27.78" y="-1.15" angle="89.86" type="tB" speed="13.89" pos="27.78" lane="beg_1" slope="0.00"/>
+        <vehicle id="ego" x="27.88" y="-3.44" angle="88.79" type="tEgo" speed="13.89" pos="27.88" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="2.20">
-        <vehicle id="B" x="30.56" y="-1.16" angle="90.00" type="tB" speed="13.89" pos="30.56" lane="beg_1" slope="0.00"/>
+        <vehicle id="B" x="30.56" y="-1.15" angle="90.00" type="tB" speed="13.89" pos="30.56" lane="beg_1" slope="0.00"/>
         <vehicle id="ego" x="30.66" y="-3.36" angle="88.79" type="tEgo" speed="13.89" pos="30.66" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="2.40">
-        <vehicle id="B" x="33.34" y="-1.15" angle="89.86" type="tB" speed="13.89" pos="33.34" lane="beg_1" slope="0.00"/>
+        <vehicle id="B" x="33.34" y="-1.15" angle="90.00" type="tB" speed="13.89" pos="33.34" lane="beg_1" slope="0.00"/>
         <vehicle id="ego" x="33.44" y="-3.32" angle="89.39" type="tEgo" speed="13.89" pos="33.44" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="2.60">
