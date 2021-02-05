@@ -1024,7 +1024,7 @@ bool
 MSVehicle::hasArrived() const {
     return (myCurrEdge == myRoute->end() - 1
             && (myStops.empty() || myStops.front().edge != myCurrEdge)
-            && myState.myPos > myArrivalPos - POSITION_EPS
+            && (myLaneChangeModel->isOpposite() ? myLane->getLength() - myState.myPos : myState.myPos) > myArrivalPos - POSITION_EPS
             && !isRemoteControlled());
 }
 
