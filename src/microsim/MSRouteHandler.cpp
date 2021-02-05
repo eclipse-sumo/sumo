@@ -712,6 +712,7 @@ MSRouteHandler::closePerson() {
             || (myVehicleParameter->depart < string2time(OptionsCont::getOptions().getString("begin")) && !myAmLoadingState)) {
         delete myVehicleParameter;
         myVehicleParameter = nullptr;
+        myActiveType = ObjectTypeEnum::UNDEFINED;
         deleteActivePlans();
         return;
     }
