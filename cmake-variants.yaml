@@ -31,20 +31,26 @@ useFMI:
         FMI: 'no'
 
 pythonBindings:
-  default: 'yes'
-  description: Enable python Bindings?
+  default: 'default'
+  description: Enable Python bindings?
   choices:
-    'yes':
+    'default':
       short: Python (def.)
-      long: Python (def.)
+      long: Python (default)
       settings:
         ENABLE_PYTHON_BINDINGS: 'yes'
-    'yes-3.8':
-      short: Python (brew 3.8)
-      long: Python (brew 3.8)
+    'brew-3.8':
+      short: Python 3.8 (brew)
+      long: macOS homebrew Python 3.8
       settings:
         ENABLE_PYTHON_BINDINGS: 'yes'
         PYTHON_EXECUTABLE: "/usr/local/bin/python3.8"
+    'brew-3.9':
+      short: Python 3.9 (brew)
+      long: macOS homebrew Python 3.9
+      settings:
+        ENABLE_PYTHON_BINDINGS: 'yes'
+        PYTHON_EXECUTABLE: "/usr/local/bin/python3.9"
     'no':
       short: 'noPython'
       long: noPython
@@ -60,9 +66,8 @@ javaBindings:
       long: noJava
       settings:
         ENABLE_JAVA_BINDINGS: 0
-
-    'yes':
-      short: Java
-      long: Java
+    'default':
+      short: Java (def.)
+      long: Java default installation 
       settings:
         ENABLE_JAVA_BINDINGS: 'yes'
