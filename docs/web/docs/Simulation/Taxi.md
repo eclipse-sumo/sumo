@@ -101,7 +101,7 @@ To couple an external dispatch algorithm to SUMO, the following [TraCI](../TraCI
 !!! note
     To make use of these functions, the option **--device.taxi.dispatch-algorithm traci** must be set
 
-- traci.person.getTaxiReservations(onlyNew)
+- traci.person.getTaxiReservations(reservationState)
 - traci.vehicle.getTaxiFleet(taxiState)
 - traci.vehicle.dispatchTaxi(vehID, reservations)
 
@@ -113,17 +113,26 @@ This set of API calls can be used to simplify writing custom dispatch algorithms
 
 ## getTaxiReservations
 
-Returns a list of of Reservation objects that have the following attributes 
+Returns a list of of Reservation objects that have the following attributes
 
 - id
 - persons
 - group
+- state
 - fromEdge
 - toEdge
 - arrivalPos
 - departPos
 - depart
 - reservationTime
+
+When calling `traci.person.getTaxiReservations(reservationState)` the following arguments for reservationState are supported:
+
+- 0: return all reservations regardless of state
+- 1: return only new reservations
+- 2: return reservations already retrieved
+- 4: return reservations that have been assigned to a taxi
+- 8: return reservations that have been picked up
 
 ## getTaxiFleet
 
@@ -146,10 +155,12 @@ when calling `traci.vehicle.getTaxiFleet(taxiState)` the following arguments for
 
 If a taxi is empty, the following dispatch calls are supported
 
-- dispatchTaxi(vehID, [reservationID]): pickup and drop-off a persons belonging to the given reservation ID
-- C with 2\*n IDs and each individual reservation ID occurs exactly twice in the list: pickup and drop-off all the given reservation ids where the first occurence of an ID denotes pick-up and the second occurence denotes drop-off:
+- dispatchTaxi(vehID, [reservationID]): pickup and drop-off persons belonging to the given reservation ID
+- If more than one reservation ID is given, each individual reservation ID must occur exactly twice in the list for complete pickup and drop-off. The first occurence of an ID denotes pick-up and the second occurence denotes drop-off.
 
-Example:  dispatchTaxi(vehID, [a, b, c, b, a, c]) means: pickup a,b,c then drop-off b, a and c.
+Example 1:  dispatchTaxi(vehID, [a]) means: pick up and drop off a.
+
+Example 2:  dispatchTaxi(vehID, [a, a, b, c, b, c]) means: pick up and drop off a, then pick up b and c and then drop off b and c.
 
 If a taxi is not in state empty the following re-dispatch calls are supported
 
