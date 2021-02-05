@@ -40,3 +40,6 @@ ticket7959
 
 # emergency braking (suddenly beyond jmCrossingGap)
 ticket7959b
+
+# crash after invalid refactoring
+ticket7965
