@@ -329,8 +329,12 @@ GNEConnection::updateCenteringBoundary(const bool /*updateGrid*/) {
 
 void
 GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
+    // get edited network element
+    const GNENetworkElement* editedNetworkElement = myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement();
     // declare a flag to check if shape has to be draw
     bool drawConnection = true;
+    // declare flag to check if push glID
+    bool pushGLID = true;
     if ((myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) &&
             s.drawDetail(s.detailSettings.connectionsDemandMode, s.addSize.getExaggeration(s, this))) {
         drawConnection = !myShapeDeprecated;
@@ -340,12 +344,14 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         drawConnection = false;
     }
-    // get edited network element
-    GNENetworkElement *editedNetworkElement = myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement();
     // check if we're editing this connection
-    if (editedNetworkElement && (editedNetworkElement->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
-        (editedNetworkElement->getAttribute(GNE_ATTR_PARENT) == getAttribute(GNE_ATTR_PARENT))) {
-        drawConnection = true;
+    if (editedNetworkElement && (editedNetworkElement->getTagProperty().getTag() == SUMO_TAG_CONNECTION)) {
+        if (editedNetworkElement->getAttribute(GNE_ATTR_PARENT) == getAttribute(GNE_ATTR_PARENT)) {
+            drawConnection = true;
+        }
+        if (editedNetworkElement != this) {
+            pushGLID = false;
+        }
     }
     // Check if connection must be drawed
     if (drawConnection) {
@@ -373,11 +379,13 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawBoundary(getCenteringBoundary());
         }
         // Push name
-        glPushName(getGlID());
+        if (pushGLID) {
+            glPushName(getGlID());
+        }
         // Push layer matrix
         glPushMatrix();
         // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CONNECTION);
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CONNECTION, (editedNetworkElement == this)? 1 : 0);
         // Set color
         GLHelper::setColor(connectionColor);
         if ((s.scale * selectionScale < 5.) && !s.drawForRectangleSelection) {
@@ -421,7 +429,9 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
             // Pop name
-            glPopName();
+            if (pushGLID) {
+                glPopName();
+            }
             // check if dotted contour has to be drawn (not useful at high zoom)
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // calculate dotted geometry
