@@ -8,7 +8,7 @@ permalink: /Tools/Net/
 This script compares two *.net.xml* files. The call
 
 ```
-<SUMO_HOME>/tools/net/netdiff.py A.net.xml B.net.xml diff
+python tools/net/netdiff.py A.net.xml B.net.xml diff
 ```
 
 will produce 4 [plain-XML network](../Networks/PlainXML.md) files
@@ -78,7 +78,7 @@ Additionally you may run this script to discover which edges are
 reachable from a particular edge
 
 ```
-<SUMO_HOME>/tools/net/netcheck.py <your.net.xml> --source <edge_id> --selection-output selection.txt
+python tools/net/netcheck.py <your.net.xml> --source <edge_id> --selection-output selection.txt
 ```
 
 This will create a file called *selection.txt* which can be loaded in
@@ -156,7 +156,7 @@ xmlconnections_mapEdges.py <CONNECTIONS>
 converts '.net.xml' road geometries to [KML](https://en.wikipedia.org/wiki/Keyhole_Markup_Language) format.
 
 ```
-<SUMO_HOME>/tools/net/net2kml.py -n your.net.xml -o output.kml
+python tools/net/net2kml.py -n your.net.xml -o output.kml
 ```
 
 By default, normal edge geometries will be exported. This can be changed with options
@@ -168,7 +168,7 @@ By default, normal edge geometries will be exported. This can be changed with op
 converts '.net.xml' road geometries to [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) format.
 
 ```
-<SUMO_HOME>/tools/net/net2geojson.py -n your.net.xml -o output.geojson
+python tools/net/net2geojson.py -n your.net.xml -o output.geojson
 ```
 
 By default, normal edge geometries will be exported. This can be changed with options
