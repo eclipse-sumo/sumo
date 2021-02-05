@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan 29 13:27:40 2021 by Eclipse SUMO sumo Version v1_8_0+0840-50b8c7a
+<!-- generated on Fri Feb  5 12:50:51 2021 by Eclipse SUMO sumo Version v1_8_0+0983-5fffc34
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -294,7 +294,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="car2" pos="0.15" speed="0.74" posLat="-0.70" speedLat="0.00"/>
                 <vehicle id="car" pos="9.57" speed="5.82" posLat="0.66" speedLat="-0.20"/>
-                <vehicle id="bike" pos="24.73" speed="2.96" posLat="-1.25" speedLat="0.00"/>
+                <vehicle id="bike" pos="24.73" speed="2.96" posLat="-1.25" speedLat="0.02"/>
             </lane>
         </edge>
     </timestep>
@@ -303,7 +303,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="car2" pos="0.25" speed="0.98" posLat="-0.70" speedLat="0.00"/>
                 <vehicle id="car" pos="10.16" speed="5.96" posLat="0.65" speedLat="-0.10"/>
-                <vehicle id="bike" pos="25.04" speed="3.04" posLat="-1.25" speedLat="0.02"/>
+                <vehicle id="bike" pos="25.04" speed="3.04" posLat="-1.25" speedLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -636,7 +636,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="car2" pos="18.39" speed="8.26" posLat="0.10" speedLat="0.00"/>
                 <vehicle id="bike" pos="42.22" speed="5.50" posLat="-1.27" speedLat="0.00"/>
-                <vehicle id="car" pos="46.18" speed="13.22" posLat="0.67" speedLat="0.00"/>
+                <vehicle id="car" pos="46.18" speed="13.22" posLat="0.68" speedLat="0.10"/>
             </lane>
         </edge>
     </timestep>
@@ -645,7 +645,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="car2" pos="19.24" speed="8.51" posLat="0.10" speedLat="0.00"/>
                 <vehicle id="bike" pos="42.77" speed="5.52" posLat="-1.27" speedLat="0.00"/>
-                <vehicle id="car" pos="47.52" speed="13.41" posLat="0.66" speedLat="-0.10"/>
+                <vehicle id="car" pos="47.52" speed="13.41" posLat="0.68" speedLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -654,7 +654,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="car2" pos="20.11" speed="8.64" posLat="0.10" speedLat="0.00"/>
                 <vehicle id="bike" pos="43.32" speed="5.51" posLat="-1.27" speedLat="0.01"/>
-                <vehicle id="car" pos="48.89" speed="13.66" posLat="0.64" speedLat="-0.20"/>
+                <vehicle id="car" pos="48.89" speed="13.66" posLat="0.67" speedLat="-0.10"/>
             </lane>
         </edge>
     </timestep>
@@ -663,7 +663,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="car2" pos="20.99" speed="8.86" posLat="0.10" speedLat="0.00"/>
                 <vehicle id="bike" pos="43.88" speed="5.53" posLat="-1.27" speedLat="-0.01"/>
-                <vehicle id="car" pos="50.28" speed="13.88" posLat="0.61" speedLat="-0.30"/>
+                <vehicle id="car" pos="50.28" speed="13.88" posLat="0.65" speedLat="-0.20"/>
             </lane>
         </edge>
     </timestep>
@@ -672,7 +672,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="car2" pos="21.90" speed="9.06" posLat="0.10" speedLat="0.00"/>
                 <vehicle id="bike" pos="44.43" speed="5.50" posLat="-1.27" speedLat="0.00"/>
-                <vehicle id="car" pos="51.66" speed="13.81" posLat="0.57" speedLat="-0.40"/>
+                <vehicle id="car" pos="51.66" speed="13.81" posLat="0.62" speedLat="-0.30"/>
             </lane>
         </edge>
     </timestep>
@@ -681,7 +681,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="car2" pos="22.82" speed="9.23" posLat="0.10" speedLat="0.00"/>
                 <vehicle id="bike" pos="44.98" speed="5.54" posLat="-1.27" speedLat="0.00"/>
-                <vehicle id="car" pos="53.04" speed="13.84" posLat="0.52" speedLat="-0.50"/>
+                <vehicle id="car" pos="53.04" speed="13.84" posLat="0.58" speedLat="-0.40"/>
             </lane>
         </edge>
     </timestep>
@@ -690,7 +690,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="car2" pos="23.76" speed="9.41" posLat="0.10" speedLat="0.00"/>
                 <vehicle id="bike" pos="45.53" speed="5.51" posLat="-1.27" speedLat="0.00"/>
-                <vehicle id="car" pos="54.42" speed="13.77" posLat="0.46" speedLat="-0.60"/>
+                <vehicle id="car" pos="54.42" speed="13.77" posLat="0.53" speedLat="-0.50"/>
             </lane>
         </edge>
     </timestep>
@@ -699,7 +699,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="car2" pos="24.72" speed="9.57" posLat="0.10" speedLat="0.00"/>
                 <vehicle id="bike" pos="46.09" speed="5.56" posLat="-1.27" speedLat="0.00"/>
-                <vehicle id="car" pos="55.81" speed="13.85" posLat="0.46" speedLat="0.00"/>
+                <vehicle id="car" pos="55.81" speed="13.85" posLat="0.47" speedLat="-0.60"/>
             </lane>
         </edge>
     </timestep>
@@ -708,7 +708,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="car2" pos="25.70" speed="9.79" posLat="0.10" speedLat="0.00"/>
                 <vehicle id="bike" pos="46.64" speed="5.55" posLat="-1.27" speedLat="0.00"/>
-                <vehicle id="car" pos="57.19" speed="13.81" posLat="0.46" speedLat="0.00"/>
+                <vehicle id="car" pos="57.19" speed="13.81" posLat="0.40" speedLat="-0.70"/>
             </lane>
         </edge>
     </timestep>
@@ -717,7 +717,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="car2" pos="26.71" speed="10.05" posLat="0.10" speedLat="0.00"/>
                 <vehicle id="bike" pos="47.19" speed="5.52" posLat="-1.27" speedLat="0.00"/>
-                <vehicle id="car" pos="58.57" speed="13.81" posLat="0.45" speedLat="-0.10"/>
+                <vehicle id="car" pos="58.57" speed="13.81" posLat="0.40" speedLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -726,7 +726,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="car2" pos="27.73" speed="10.26" posLat="0.10" speedLat="0.00"/>
                 <vehicle id="bike" pos="47.74" speed="5.51" posLat="-1.27" speedLat="0.00"/>
-                <vehicle id="car" pos="59.95" speed="13.77" posLat="0.43" speedLat="-0.20"/>
+                <vehicle id="car" pos="59.95" speed="13.77" posLat="0.40" speedLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -735,7 +735,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="car2" pos="28.77" speed="10.42" posLat="0.10" speedLat="0.00"/>
                 <vehicle id="bike" pos="48.29" speed="5.50" posLat="-1.27" speedLat="0.00"/>
-                <vehicle id="car" pos="61.33" speed="13.83" posLat="0.40" speedLat="-0.30"/>
+                <vehicle id="car" pos="61.33" speed="13.83" posLat="0.40" speedLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -1131,7 +1131,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="72.62" speed="5.52" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="86.71" speed="13.85" posLat="0.51" speedLat="0.00"/>
-                <vehicle id="car" pos="122.22" speed="13.83" posLat="-0.55" speedLat="0.00"/>
+                <vehicle id="car" pos="122.22" speed="13.83" posLat="-0.55" speedLat="-0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -1347,7 +1347,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="85.89" speed="5.55" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="119.89" speed="13.81" posLat="0.51" speedLat="0.00"/>
-                <vehicle id="car" pos="155.40" speed="13.87" posLat="-0.24" speedLat="0.00"/>
+                <vehicle id="car" pos="155.40" speed="13.87" posLat="-0.24" speedLat="-0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -1518,7 +1518,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="96.39" speed="5.52" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="146.16" speed="13.77" posLat="-0.33" speedLat="-0.90"/>
-                <vehicle id="car" pos="181.67" speed="13.83" posLat="-0.45" speedLat="0.00"/>
+                <vehicle id="car" pos="181.67" speed="13.83" posLat="-0.47" speedLat="-0.16"/>
             </lane>
         </edge>
     </timestep>
@@ -1527,7 +1527,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="96.94" speed="5.50" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="147.55" speed="13.89" posLat="-0.41" speedLat="-0.80"/>
-                <vehicle id="car" pos="183.05" speed="13.85" posLat="-0.44" speedLat="0.07"/>
+                <vehicle id="car" pos="183.05" speed="13.85" posLat="-0.47" speedLat="-0.06"/>
             </lane>
         </edge>
     </timestep>
@@ -1536,7 +1536,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="97.49" speed="5.53" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="148.93" speed="13.86" posLat="-0.48" speedLat="-0.70"/>
-                <vehicle id="car" pos="184.44" speed="13.81" posLat="-0.43" speedLat="0.17"/>
+                <vehicle id="car" pos="184.44" speed="13.81" posLat="-0.47" speedLat="0.04"/>
             </lane>
         </edge>
     </timestep>
@@ -1545,7 +1545,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="98.04" speed="5.50" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="150.31" speed="13.79" posLat="-0.54" speedLat="-0.60"/>
-                <vehicle id="car" pos="185.82" speed="13.86" posLat="-0.41" speedLat="0.17"/>
+                <vehicle id="car" pos="185.82" speed="13.86" posLat="-0.45" speedLat="0.14"/>
             </lane>
         </edge>
     </timestep>
@@ -1554,7 +1554,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="98.59" speed="5.50" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="151.70" speed="13.86" posLat="-0.59" speedLat="-0.50"/>
-                <vehicle id="car" pos="187.21" speed="13.85" posLat="-0.38" speedLat="0.27"/>
+                <vehicle id="car" pos="187.21" speed="13.85" posLat="-0.43" speedLat="0.24"/>
             </lane>
         </edge>
     </timestep>
@@ -1563,7 +1563,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="99.14" speed="5.52" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="153.08" speed="13.81" posLat="-0.63" speedLat="-0.40"/>
-                <vehicle id="car" pos="188.58" speed="13.78" posLat="-0.37" speedLat="0.17"/>
+                <vehicle id="car" pos="188.58" speed="13.78" posLat="-0.41" speedLat="0.24"/>
             </lane>
         </edge>
     </timestep>
@@ -1572,7 +1572,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="99.69" speed="5.51" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="154.47" speed="13.87" posLat="-0.66" speedLat="-0.30"/>
-                <vehicle id="car" pos="189.97" speed="13.87" posLat="-0.34" speedLat="0.27"/>
+                <vehicle id="car" pos="189.97" speed="13.87" posLat="-0.38" speedLat="0.24"/>
             </lane>
         </edge>
     </timestep>
@@ -1581,7 +1581,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="100.25" speed="5.55" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="155.85" speed="13.81" posLat="-0.68" speedLat="-0.20"/>
-                <vehicle id="car" pos="191.35" speed="13.81" posLat="-0.30" speedLat="0.37"/>
+                <vehicle id="car" pos="191.35" speed="13.81" posLat="-0.35" speedLat="0.34"/>
             </lane>
         </edge>
     </timestep>
@@ -1590,7 +1590,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="100.80" speed="5.53" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="157.24" speed="13.89" posLat="-0.69" speedLat="-0.10"/>
-                <vehicle id="car" pos="192.74" speed="13.88" posLat="-0.26" speedLat="0.37"/>
+                <vehicle id="car" pos="192.74" speed="13.88" posLat="-0.30" speedLat="0.44"/>
             </lane>
         </edge>
     </timestep>
@@ -1599,7 +1599,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="101.35" speed="5.53" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="158.62" speed="13.80" posLat="-0.70" speedLat="-0.10"/>
-                <vehicle id="car" pos="194.13" speed="13.88" posLat="-0.23" speedLat="0.37"/>
+                <vehicle id="car" pos="194.13" speed="13.88" posLat="-0.26" speedLat="0.44"/>
             </lane>
         </edge>
     </timestep>
@@ -1608,7 +1608,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="101.91" speed="5.56" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="160.00" speed="13.82" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="195.51" speed="13.77" posLat="-0.18" speedLat="0.47"/>
+                <vehicle id="car" pos="195.51" speed="13.77" posLat="-0.20" speedLat="0.54"/>
             </lane>
         </edge>
     </timestep>
@@ -1617,7 +1617,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="102.46" speed="5.51" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="161.37" speed="13.76" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="196.88" speed="13.78" posLat="-0.13" speedLat="0.47"/>
+                <vehicle id="car" pos="196.88" speed="13.78" posLat="-0.15" speedLat="0.54"/>
             </lane>
         </edge>
     </timestep>
@@ -1626,7 +1626,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="103.01" speed="5.50" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="162.76" speed="13.86" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="198.27" speed="13.84" posLat="-0.09" speedLat="0.47"/>
+                <vehicle id="car" pos="198.27" speed="13.84" posLat="-0.11" speedLat="0.44"/>
             </lane>
         </edge>
     </timestep>
@@ -1635,7 +1635,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="103.56" speed="5.55" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="164.14" speed="13.81" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="199.66" speed="13.88" posLat="-0.05" speedLat="0.37"/>
+                <vehicle id="car" pos="199.66" speed="13.88" posLat="-0.07" speedLat="0.34"/>
             </lane>
         </edge>
     </timestep>
@@ -1644,7 +1644,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="104.12" speed="5.52" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="165.53" speed="13.86" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="201.03" speed="13.78" posLat="-0.02" speedLat="0.27"/>
+                <vehicle id="car" pos="201.03" speed="13.78" posLat="-0.04" speedLat="0.34"/>
             </lane>
         </edge>
     </timestep>
@@ -1653,7 +1653,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="104.67" speed="5.53" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="166.91" speed="13.81" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="202.42" speed="13.84" posLat="0.00" speedLat="0.27"/>
+                <vehicle id="car" pos="202.42" speed="13.84" posLat="-0.01" speedLat="0.24"/>
             </lane>
         </edge>
     </timestep>
@@ -1662,7 +1662,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="105.22" speed="5.52" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="168.29" speed="13.80" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="203.80" speed="13.85" posLat="0.02" speedLat="0.17"/>
+                <vehicle id="car" pos="203.80" speed="13.85" posLat="0.00" speedLat="0.14"/>
             </lane>
         </edge>
     </timestep>
@@ -1671,7 +1671,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="105.78" speed="5.55" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="169.67" speed="13.79" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="205.18" speed="13.80" posLat="0.03" speedLat="0.07"/>
+                <vehicle id="car" pos="205.18" speed="13.80" posLat="0.01" speedLat="0.14"/>
             </lane>
         </edge>
     </timestep>
@@ -1680,7 +1680,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="106.33" speed="5.51" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="171.06" speed="13.89" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="206.56" speed="13.78" posLat="0.02" speedLat="-0.03"/>
+                <vehicle id="car" pos="206.56" speed="13.78" posLat="0.02" speedLat="0.04"/>
             </lane>
         </edge>
     </timestep>
@@ -1689,7 +1689,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="106.88" speed="5.50" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="172.44" speed="13.80" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="207.94" speed="13.79" posLat="0.01" speedLat="-0.13"/>
+                <vehicle id="car" pos="207.94" speed="13.79" posLat="0.01" speedLat="-0.06"/>
             </lane>
         </edge>
     </timestep>
@@ -1698,7 +1698,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="107.43" speed="5.54" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="173.83" speed="13.89" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="209.32" speed="13.78" posLat="-0.01" speedLat="-0.23"/>
+                <vehicle id="car" pos="209.32" speed="13.78" posLat="-0.00" speedLat="-0.16"/>
             </lane>
         </edge>
     </timestep>
@@ -1707,7 +1707,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="107.98" speed="5.53" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="175.21" speed="13.80" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="210.70" speed="13.86" posLat="-0.01" speedLat="0.00"/>
+                <vehicle id="car" pos="210.70" speed="13.86" posLat="-0.01" speedLat="-0.06"/>
             </lane>
         </edge>
     </timestep>
@@ -1716,7 +1716,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="108.54" speed="5.53" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="176.59" speed="13.84" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="212.09" speed="13.83" posLat="-0.00" speedLat="0.07"/>
+                <vehicle id="car" pos="212.09" speed="13.83" posLat="-0.00" speedLat="0.04"/>
             </lane>
         </edge>
     </timestep>
@@ -1725,7 +1725,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="109.09" speed="5.55" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="177.97" speed="13.84" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="213.47" speed="13.86" posLat="0.01" speedLat="0.17"/>
+                <vehicle id="car" pos="213.47" speed="13.86" posLat="0.01" speedLat="0.14"/>
             </lane>
         </edge>
     </timestep>
@@ -1734,7 +1734,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="109.65" speed="5.54" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="179.36" speed="13.82" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="214.86" speed="13.84" posLat="0.04" speedLat="0.27"/>
+                <vehicle id="car" pos="214.86" speed="13.84" posLat="0.03" speedLat="0.24"/>
             </lane>
         </edge>
     </timestep>
@@ -1743,7 +1743,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="110.20" speed="5.52" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="180.74" speed="13.81" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="216.24" speed="13.87" posLat="0.08" speedLat="0.37"/>
+                <vehicle id="car" pos="216.24" speed="13.87" posLat="0.07" speedLat="0.34"/>
             </lane>
         </edge>
     </timestep>
@@ -1752,7 +1752,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="110.75" speed="5.50" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="182.12" speed="13.87" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="217.63" speed="13.83" posLat="0.12" speedLat="0.47"/>
+                <vehicle id="car" pos="217.63" speed="13.83" posLat="0.11" speedLat="0.44"/>
             </lane>
         </edge>
     </timestep>
@@ -1761,7 +1761,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="111.30" speed="5.51" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="183.50" speed="13.80" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="219.01" speed="13.84" posLat="0.17" speedLat="0.47"/>
+                <vehicle id="car" pos="219.01" speed="13.84" posLat="0.16" speedLat="0.44"/>
             </lane>
         </edge>
     </timestep>
@@ -1770,7 +1770,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="111.85" speed="5.53" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="184.89" speed="13.85" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="220.40" speed="13.86" posLat="0.21" speedLat="0.37"/>
+                <vehicle id="car" pos="220.40" speed="13.86" posLat="0.20" speedLat="0.44"/>
             </lane>
         </edge>
     </timestep>
@@ -1779,7 +1779,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="112.41" speed="5.54" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="186.27" speed="13.85" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="221.79" speed="13.89" posLat="0.24" speedLat="0.37"/>
+                <vehicle id="car" pos="221.79" speed="13.89" posLat="0.24" speedLat="0.44"/>
             </lane>
         </edge>
     </timestep>
@@ -1788,7 +1788,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="112.96" speed="5.50" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="187.66" speed="13.89" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="223.16" speed="13.79" posLat="0.28" speedLat="0.37"/>
+                <vehicle id="car" pos="223.16" speed="13.79" posLat="0.29" speedLat="0.44"/>
             </lane>
         </edge>
     </timestep>
@@ -1797,7 +1797,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="113.51" speed="5.51" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="189.04" speed="13.77" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="224.54" speed="13.77" posLat="0.32" speedLat="0.37"/>
+                <vehicle id="car" pos="224.54" speed="13.77" posLat="0.33" speedLat="0.44"/>
             </lane>
         </edge>
     </timestep>
@@ -1806,7 +1806,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="114.06" speed="5.54" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="190.42" speed="13.82" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="225.92" speed="13.80" posLat="0.35" speedLat="0.37"/>
+                <vehicle id="car" pos="225.92" speed="13.80" posLat="0.37" speedLat="0.34"/>
             </lane>
         </edge>
     </timestep>
@@ -1815,7 +1815,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="114.62" speed="5.54" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="191.81" speed="13.86" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="227.31" speed="13.89" posLat="0.38" speedLat="0.27"/>
+                <vehicle id="car" pos="227.31" speed="13.89" posLat="0.39" speedLat="0.24"/>
             </lane>
         </edge>
     </timestep>
@@ -1824,7 +1824,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="115.17" speed="5.52" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="193.19" speed="13.82" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="228.69" speed="13.78" posLat="0.42" speedLat="0.37"/>
+                <vehicle id="car" pos="228.69" speed="13.78" posLat="0.43" speedLat="0.34"/>
             </lane>
         </edge>
     </timestep>
@@ -1833,7 +1833,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="115.72" speed="5.54" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="194.57" speed="13.79" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="230.07" speed="13.78" posLat="0.46" speedLat="0.47"/>
+                <vehicle id="car" pos="230.07" speed="13.78" posLat="0.47" speedLat="0.44"/>
             </lane>
         </edge>
     </timestep>
@@ -1842,7 +1842,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="116.27" speed="5.51" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="195.96" speed="13.88" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="231.45" speed="13.82" posLat="0.51" speedLat="0.47"/>
+                <vehicle id="car" pos="231.45" speed="13.82" posLat="0.51" speedLat="0.44"/>
             </lane>
         </edge>
     </timestep>
@@ -1851,7 +1851,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="116.83" speed="5.53" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="197.34" speed="13.82" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="232.84" speed="13.88" posLat="0.56" speedLat="0.47"/>
+                <vehicle id="car" pos="232.84" speed="13.88" posLat="0.56" speedLat="0.44"/>
             </lane>
         </edge>
     </timestep>
@@ -1860,7 +1860,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="117.38" speed="5.52" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="198.73" speed="13.89" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="234.21" speed="13.79" posLat="0.61" speedLat="0.47"/>
+                <vehicle id="car" pos="234.21" speed="13.79" posLat="0.60" speedLat="0.44"/>
             </lane>
         </edge>
     </timestep>
@@ -1869,7 +1869,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="117.93" speed="5.51" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="200.11" speed="13.83" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="235.60" speed="13.88" posLat="0.64" speedLat="0.37"/>
+                <vehicle id="car" pos="235.60" speed="13.88" posLat="0.64" speedLat="0.34"/>
             </lane>
         </edge>
     </timestep>
@@ -1878,7 +1878,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="118.49" speed="5.55" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="201.49" speed="13.81" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="236.99" speed="13.85" posLat="0.67" speedLat="0.27"/>
+                <vehicle id="car" pos="236.99" speed="13.85" posLat="0.66" speedLat="0.24"/>
             </lane>
         </edge>
     </timestep>
@@ -1887,7 +1887,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="119.04" speed="5.51" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="202.87" speed="13.84" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="238.37" speed="13.79" posLat="0.69" speedLat="0.17"/>
+                <vehicle id="car" pos="238.37" speed="13.79" posLat="0.67" speedLat="0.14"/>
             </lane>
         </edge>
     </timestep>
@@ -1896,7 +1896,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="119.59" speed="5.50" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="204.26" speed="13.86" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="239.75" speed="13.88" posLat="0.69" speedLat="0.07"/>
+                <vehicle id="car" pos="239.75" speed="13.88" posLat="0.69" speedLat="0.14"/>
             </lane>
         </edge>
     </timestep>
@@ -1905,7 +1905,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="120.14" speed="5.54" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="205.65" speed="13.87" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="241.14" speed="13.88" posLat="0.70" speedLat="0.07"/>
+                <vehicle id="car" pos="241.14" speed="13.88" posLat="0.69" speedLat="0.04"/>
             </lane>
         </edge>
     </timestep>
@@ -1914,7 +1914,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="120.69" speed="5.50" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="207.02" speed="13.78" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="242.52" speed="13.78" posLat="0.70" speedLat="0.00"/>
+                <vehicle id="car" pos="242.52" speed="13.78" posLat="0.70" speedLat="0.07"/>
             </lane>
         </edge>
     </timestep>
@@ -1995,7 +1995,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="125.66" speed="5.53" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="219.48" speed="13.86" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="254.97" speed="13.83" posLat="0.69" speedLat="0.00"/>
+                <vehicle id="car" pos="254.97" speed="13.83" posLat="0.69" speedLat="-0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -2103,7 +2103,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="132.29" speed="5.55" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="236.07" speed="13.86" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="271.59" speed="13.87" posLat="0.69" speedLat="0.00"/>
+                <vehicle id="car" pos="271.59" speed="13.87" posLat="0.69" speedLat="-0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -2121,7 +2121,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="beg_0">
                 <vehicle id="bike" pos="133.40" speed="5.54" posLat="-1.27" speedLat="0.00"/>
                 <vehicle id="car2" pos="238.83" speed="13.89" posLat="-0.70" speedLat="0.00"/>
-                <vehicle id="car" pos="274.36" speed="13.80" posLat="0.70" speedLat="0.00"/>
+                <vehicle id="car" pos="274.36" speed="13.80" posLat="0.70" speedLat="-0.00"/>
             </lane>
         </edge>
     </timestep>
