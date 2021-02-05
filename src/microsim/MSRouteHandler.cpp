@@ -75,6 +75,8 @@ MSRouteHandler::deleteActivePlans() {
         delete myActiveTransportablePlan;
         myActiveTransportablePlan = nullptr;
     }
+    myActiveType = ObjectTypeEnum::UNDEFINED;
+    myActiveTypeName = "";
 }
 
 
@@ -692,9 +694,7 @@ MSRouteHandler::closeTransportable() {
     addFlowTransportable(myVehicleParameter->depart, type, myVehicleParameter->id, -1);
     registerLastDepart();
     myVehicleParameter = nullptr;
-    myActiveTransportablePlan = nullptr;
-    myActiveType = ObjectTypeEnum::UNDEFINED;
-    myActiveTypeName = "";
+    deleteActivePlans();
 }
 
 
@@ -720,9 +720,7 @@ MSRouteHandler::closePerson() {
     addFlowTransportable(myVehicleParameter->depart, type, myVehicleParameter->id, -1);
     registerLastDepart();
     myVehicleParameter = nullptr;
-    myActiveTransportablePlan = nullptr;
-    myActiveType = ObjectTypeEnum::UNDEFINED;
-    myActiveTypeName = "";
+    deleteActivePlans();
 }
 
 
@@ -756,9 +754,7 @@ MSRouteHandler::closeContainer() {
         delete container;
     }
     myVehicleParameter = nullptr;
-    myActiveTransportablePlan = nullptr;
-    myActiveType = ObjectTypeEnum::UNDEFINED;
-    myActiveTypeName = "";
+    deleteActivePlans();
 }
 
 
@@ -819,8 +815,7 @@ MSRouteHandler::closeTransportableFlow() {
     }
 
     myVehicleParameter = nullptr;
-    myActiveTransportablePlan = nullptr;
-    myActiveType = ObjectTypeEnum::UNDEFINED;
+    deleteActivePlans();
 }
 
 
