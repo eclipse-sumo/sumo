@@ -432,7 +432,7 @@ value is also shown in the table.
 <tr class="odd">
 <td><p>parameter (0x7e)</p></td>
 <td><p>string</p></td>
-<td><p><a href="#Device_and_LaneChangeModel_Parameter_Retrieval_0x7e" title="wikilink">Returns the value for the given string parameter</a></p></td>
+<td><p>Returns the value for the given string parameter</a></p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getParameter">getParameter</a></p></td>
 </tr>
 <tr class="even">
