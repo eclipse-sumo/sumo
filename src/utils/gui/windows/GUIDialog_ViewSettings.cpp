@@ -288,7 +288,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         myShowBTRange->setCheck(mySettings->showBTRange);
         myShowRouteIndex = new FXCheckButton(m33, "Show route index", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowRouteIndex->setCheck(mySettings->showRouteIndex);
-        new FXLabel(m33, " ", nullptr, GUIDesignViewSettingsLabel1);
+        myScaleLength = new FXCheckButton(m33, "Scale length with geometry", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myScaleLength->setCheck(mySettings->scaleLength);
+        //new FXLabel(m33, " ", nullptr, GUIDesignViewSettingsLabel1);
         //myShowLaneChangePreference = new FXCheckButton(m33, "Show lane change preference", this, MID_SIMPLE_VIEW_COLORCHANGE);
         //myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
         //tmpc = new FXCheckButton(m33, "Show needed headway", 0 ,0);
@@ -699,6 +701,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myShowBrakeGap->setCheck(mySettings->drawBrakeGap);
     myShowBTRange->setCheck(mySettings->showBTRange);
     myShowRouteIndex->setCheck(mySettings->showRouteIndex);
+    myScaleLength->setCheck(mySettings->scaleLength);
     /*
     myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
     */
@@ -942,6 +945,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.drawBrakeGap = (myShowBrakeGap->getCheck() != FALSE);
     tmpSettings.showBTRange = (myShowBTRange->getCheck() != FALSE);
     tmpSettings.showRouteIndex = (myShowRouteIndex->getCheck() != FALSE);
+    tmpSettings.scaleLength = (myScaleLength->getCheck() != FALSE);
     /*
     tmpSettings.drawLaneChangePreference = (myShowLaneChangePreference->getCheck() != FALSE);
     */
@@ -1399,7 +1403,7 @@ GUIDialog_ViewSettings::onCmdSaveDecals(FXObject*, FXSelector, void* /*data*/) {
 
 
 long 
-GUIDialog_ViewSettings::onCmdClearDecals(FXObject*, FXSelector, void* data) {
+GUIDialog_ViewSettings::onCmdClearDecals(FXObject*, FXSelector, void* /*data*/) {
     // lock decals mutex
     myDecalsLock->lock();
     // clear decals
