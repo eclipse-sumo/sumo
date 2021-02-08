@@ -219,8 +219,11 @@ protected:
 
 private:
     /// @brief delete already created MSTransportablePlans if error occurs before handing over responsibility to a MSTransportable.
-    void deleteActivePlans();
+    void deleteActivePlanAndVehicleParameter();
 
+    /// @brief reset MSTransportablePlans after transportable tag closes
+    void resetActivePlan();
+    
     /// @brief ends the flow of a transportable
     void closeTransportableFlow();
 
