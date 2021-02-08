@@ -49,7 +49,7 @@ simulation (network and routes import, DUA, simulation)
   - Only standard C++ and portable libraries are used
   - Packages for Windows main Linux distributions exist
 - High interoperability through usage of XML-data only
-- Open source ([EPL](https://eclipse.org/legal/epl-v20.html))
+- Open source ([EPL 2.0](https://eclipse.org/legal/epl-v20.html))
 
 ## Usage Examples
 

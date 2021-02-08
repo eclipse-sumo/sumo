@@ -10,8 +10,8 @@ If You use SUMO, please tell us about your
 !!! note
     When citing SUMO in general please use our current reference publication: ["Microscopic Traffic Simulation using SUMO"](https://elib.dlr.de/127994/); Pablo Alvarez Lopez, Michael Behrisch, Laura Bieker-Walz, Jakob Erdmann, Yun-Pang Flötteröd, Robert Hilbrich, Leonhard Lücken, Johannes Rummel, Peter Wagner, and Evamarie Wießner. IEEE Intelligent Transportation Systems Conference (ITSC), 2018.
 
-The content of this Documentation is freely editable according to the [wiki style](https://en.wikipedia.org/wiki/Wiki). In order to edit this Documentation, click on the "Edit on GitHub" button on the upper right corner and submit a Pull Request.
-Here is a short help on [editing articles](Editing_Articles.md).
+The content of this Documentation is freely editable. In order to edit a certain page, click on the "Edit on GitHub" button on the upper right corner and submit a Pull Request.
+Here is a short help on [editing articles](Editing_Articles.md). You can also [Build](Developer/Documentation_Build.md) the documentation locally, or [Download](https://sumo.dlr.de/sumo_documentation.zip) a copy.
 
 This Documentation is continuously updated and always refers to the latest development version. Documentation for a specific release version of SUMO is included in the download of that version.
 
@@ -99,6 +99,7 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Vaporizer](Simulation/Vaporizer.md) (deprecated, use Calibrator instead)
 - [Dynamic calibration of flow and speed and type](Simulation/Calibrator.md)
 - [Parking areas](Simulation/ParkingArea.md)
+- [Turnarounds](Simulation/Turnarounds.md)
 
 ## Traffic Modes
 
@@ -118,7 +119,7 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Wireless Device Detection](Simulation/Bluetooth.md)
 - [Emergency Vehicles](Simulation/Emergency.md)
 - [Simple Platooning (Simpla)](Simpla.md)
-- [Demand Responsive Transport (Taxis)](Simulation/Taxi.md)
+- [Demand Responsive Transport (DRT) / Taxis](Simulation/Taxi.md)
 
 ## Model details
 
@@ -144,25 +145,25 @@ This Documentation is continuously updated and always refers to the latest devel
 
 # Additional Tools
 
-For an index of all tools see
-
-- [Tool index](Tools.md)
-
 In addition to the [main applications (sumo, sumo-gui, netedit, netconvert, etc.)](SUMO_at_a_Glance.md#included_applications), there are
 over 150 additional tools. They cover topics from traffic network
 analysis, demand generation, demand modification to output analysis.
 Most of them are written in [python](https://www.python.org/). All tools
 can be found in the SUMO-distribution under {{SUMO}}/tools.
 
-Below are links to some of the most important tools:
+For an index of all tools see:
 
-- [osmWebWizard](Tools/Import/OSM.md#osmwebwizardpy)
-- [TraCI/Interfacing TraCI from Python](TraCI/Interfacing_TraCI_from_Python.md)
-- [Reading SUMO networks and outputs with Python (sumolib)](Tools/Sumolib.md)
-- [Tools for converting SUMO outputs to CSV/Spreadsheet](Tools/Xml.md)
-- [Exporting mobility Traces (traceExporter)](Tools/TraceExporter.md)
-- [Determining the differences between two networks](Tools/Net.md#netdiffpy)
-- [Tools/Visualization](Tools/Visualization.md)
+- [Tool index](Tools.md)
+
+Below are links to some of the most important/used tools:
+
+- [osmWebWizard](Tools/Import/OSM.md#osmwebwizardpy) - create a simple scenario, in just a few clicks and using your web browser
+- [Interfacing TraCI from Python](TraCI/Interfacing_TraCI_from_Python.md) - access a running SUMO simulation using Python
+- [sumolib](Tools/Sumolib.md) - Python modules for working with SUMO networks
+- [Xml Tools](Tools/Xml.md) - tools for converting SUMO outputs to CSV/Spreadsheet, and vice versa
+- [traceExporter.py](Tools/TraceExporter.md) - export mobility traces (FCD output) into different "trace file" formats
+- [netdiff.py](Tools/Net.md#netdiffpy) - determine the differences between two networks
+- [Visualization Tools](Tools/Visualization.md) - visualize a wide range of simulation outputs in a graphical and friendly way
 
 # Theory
 
