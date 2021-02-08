@@ -197,6 +197,7 @@ public:
     struct WalkingAreaCustomShape {
         std::set<const NBEdge*, ComparatorIdLess> edges;
         PositionVector shape;
+        double width;
     };
 
     /// @brief edge directions (for pedestrian related stuff)
@@ -681,7 +682,7 @@ public:
                                   const PositionVector& customShape = PositionVector::EMPTY, bool fromSumoNet = false);
 
     /// @brief add custom shape for walkingArea
-    void addWalkingAreaShape(EdgeVector edges, const PositionVector& shape);
+    void addWalkingAreaShape(EdgeVector edges, const PositionVector& shape, double width);
 
     /// @brief remove a pedestrian crossing from this node (identified by its edges)
     void removeCrossing(const EdgeVector& edges);

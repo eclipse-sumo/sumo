@@ -81,6 +81,7 @@
         <xsd:attribute name="node" type="xsd:string" use="required"/>
         <xsd:attribute name="edges" type="xsd:string" use="optional"/>
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
+        <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
     </xsd:complexType>
 
 </xsd:schema>
