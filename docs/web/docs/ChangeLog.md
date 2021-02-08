@@ -26,11 +26,13 @@ permalink: /ChangeLog/
     - Fixed invalid collision warning. Issue #8068
     - Fixed invalid vehicle angle in subsecond simulation. Issue #8070
     - Lateral deviation due to lcSigma > 0 is now independent of step-length when using `latAlignment="arbitrary"`. Issue #8154
+    - Lateral no longer exceeds lcAccelLat. Issue #8195
   - Opposite direction driving fixes
     - Fixed undetected collisions. Issue #8082, #8111
     - Fixed invalid collision warning. Issue #8079
     - Fixed unsafe driving. Issue #8082, #8084, #8112, #8141
     - Fixed late change to the opposite side due to misidentification of oncoming vehicle #8080
+    - Fixed premature arrival while on the opposite side. Issue #8199
 
 - meso
   - Fixed invalid jam-front back-propagation speed. Issue #8000 (Regression in 1.7.0)
@@ -92,6 +94,7 @@ permalink: /ChangeLog/
   - busStop attribute personCapacity can now cause pedestrian jams when the busStop is filled to capacity. Issue #3706
   - Taxi device now supports option **--device.taxi.idle-algorithm** [stop|randomCircling] to control the behavior of idle taxis. #8132
   - The sublane model now supports modeling an inverse relation between longitudinal and lateral speed (higher lateral speed while stopped and lower while driving fast). This is achieved by setting a negative values for attribute 'lcMaxSpeedLatFactor' and by setting 'lcMaxSpeedLatStanding' > 'maxSpeedLat'. #8064
+  - Added new vType attribute 'jmIgnoreJunctionFoeProb' to allow ignoring foes (vehicles and pedestrians) that are already on the junction. Issue #8078
   
 - sumo-gui
   - Random color for containers is now supported. Issue #7941
@@ -100,6 +103,7 @@ permalink: /ChangeLog/
   - Add vehicle drawing style 'draw as circles'. Issue #5947
   - BusStop parameter dialog now includes a summary of lines which are being waited for. Issue #8138
   - Background images can now be removed using the 'Clear Decals' button. Issue #8144
+  - Vehicle lengths will now be scaled according to [custom edge lengths](Simulation/Distances.md) to avoid confusing visual overlap. A new vehicle visualization setting checkbox 'scale length with geometry' is provided to disable scaling. Issue #6920
   
 
 - netedit
@@ -122,7 +126,7 @@ permalink: /ChangeLog/
   - Added option **--railway.topology.repair.minimal**. This works similar to **--railway.topology.repair** but avoids creating bidirectional tracks that are not needed for public transport routes (only applies when using option **--ptline-outut**). Issue #7982
   - Public transport edges that are disconnected from the main road network (in particular railways) are now included in the output when using option **--keep.edges.components 1** as long as they have public transport stops that are written via option **--ptstop-output**. Issue #8061
   - Edge types now support attribute 'spreadType'. Issue #7897
-  - The behavior of option **--geometry.remove** (merging subsequent edges with common attributes) no longer depends on written **--ptstop-output** (stops will be remapped onto merged edges). Issue #8155
+  - The behavior of option **--geometry.remove** (merging subsequent edges with common attributes) no longer depends on written **--ptstop-output** (stops will be remapped onto merged edges). To enable legacy behavior, the option **--geometry.remove.keep-ptstops** may be set. Issue #8155
 
 
 - TraCI
@@ -130,6 +134,8 @@ permalink: /ChangeLog/
   - Can now retrieve vehicle parameters 'device.battery.totalEnergyConsumed' and 'device.battery.totalEnergyRegenerated' when a vehicle has the battery device. Issue #6507
   - vehicle.dispatchTaxi now supports re-dispatching a taxi that is already in pickup or occupied mode. Issue #8148
   - Vehicles that are accumlating insertion delay (because they cannot safely enter the network as schedule) can now be retrieved using the functions 'traci.simulation.getPendingVehicles', 'traci.edge.getPendingVehicles' and 'traci.lane.getPendingVehicles. Issue #8157
+  - Taxi customers (including those that shall be picked up but are not yet on board) can now be trieved using `traci.vehicle.getParameter(vehID, "device.taxi.currentCustomers")`. Issue #8189
+  - The reservation objects returnd by [traci.person.getTaxiReservations](Simulation/Taxi.md#gettaxireservations) now includes persons that are eligible for re-dispatch and includes the state of the reservation (new, assigned, on board). Issue #8168
 
 - Tools
   - The tool [gridDistricts.py](Tools/District.md#griddistrictspy) can be used to generated a grid of districts (TAZs) for a given network. #7946
