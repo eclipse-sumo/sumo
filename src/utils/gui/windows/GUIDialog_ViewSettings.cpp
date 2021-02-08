@@ -1432,9 +1432,9 @@ GUIDialog_ViewSettings::rebuildDecalsTable() {
     // set table attributes
     const int numRows = MAX2((int)10, (int)myDecals->size() + 1);
     myDecalsTable->setTableSize(numRows, cols);
-    myDecalsTable->setColumnText(0, "picture file");
-    myDecalsTable->setColumnText(1, "center x");
-    myDecalsTable->setColumnText(2, "center y");
+    myDecalsTable->setColumnText(0, "file");
+    myDecalsTable->setColumnText(1, "centerX");
+    myDecalsTable->setColumnText(2, "centerY");
     myDecalsTable->setColumnText(3, "width");
     myDecalsTable->setColumnText(4, "height");
     myDecalsTable->setColumnText(5, "rotation");

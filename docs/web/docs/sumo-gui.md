@@ -625,31 +625,30 @@ also load additional background images ("decals") into
 **sumo-gui**. For this, open the visualisation
 settings using ![Image:colorwheel.gif](images/Colorwheel.gif
 "Image:colorwheel.gif") and - if you are not yet here - choose the
-"Background" panel (figure 1.1). You will see a table with following
-columns: **picture file**, **center x**, **center y**, **width**,
-**height**, and **rotation**.
+"Background" panel (see Figure below). You will see a table with the following
+columns: **file**, **centerX**, **centerY**, **width**,
+**height**, **rotation**, **layer** and **relative**.
 
-![decals_gui.gif](images/Decals_gui.png "decals_gui.png")
+![](images/Decals_gui.png "The decals GUI")
 
-**Fig. 1.1: The decals GUI.**
+**The decals GUI.**
 
 Now, if you click into the first row of the "picture file" column, you
 should be able to enter the complete path of an image file. Confirming
 the path by pressing RETURN should force **sumo-gui**
-to load and display the file below the road network, as shown in figure
-1.2.
+to load and display the file below the road network, as shown in the figure:
 
-![Background_example.png](images/Background_example.png
-"Background_example.png")
+![](images/Background_example.png
+"Background example")
 
-**Fig. 1.2: Example of a background image (decal).**
+**Example of a background image (decal).**
 
-Currently, **sumo-gui** may load .gif, .png and .bmp
+Currently, **sumo-gui** may load .gif, .png, .jpeg and .bmp
 files. If built with gdal-support further formats such as .tif are also
 usable.
 
 Now, you may position/stretch/rotate the image using the columns
-**center x**, **center y**, **width**, **height**, and **rotation**.
+**centerX**, **centerY**, **width**, **height**, and **rotation**.
 
 When setting the column **relative** to *1*, position and size values
 will be taken as screen-relative pixel values instead of
@@ -688,7 +687,7 @@ The following attributes are supported
     When loading an image file with an embedded geo-reference (i.e. [GeoTIFF](https://en.wikipedia.org/wiki/GeoTIFF)) and the simulation network also has a geo-reference, then the image will be positioned automatically.
     
 !!! note
-    Background images for a network can be downloaded with the [tileGet tool](Tools/Misc.md#tilegetpy).
+    Background images for a network can be downloaded with the [tileGet tool](Tools/Misc.md#tilegetpy) or by using the [osmWebWizard](Tools/Import/OSM.md#osmwebwizardpy).
 
 ## Transparency
 
