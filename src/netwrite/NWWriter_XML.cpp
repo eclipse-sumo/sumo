@@ -352,7 +352,12 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
             cdevice.openTag(SUMO_TAG_WALKINGAREA);
             cdevice.writeAttr(SUMO_ATTR_NODE, it_node->first);
             cdevice.writeAttr(SUMO_ATTR_EDGES, joinNamedToString(wacs.edges, " "));
-            writeShape(cdevice, gch, wacs.shape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy);
+            if (wacs.shape.size() != 0) {
+                writeShape(cdevice, gch, wacs.shape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy);
+            }
+            if (wacs.width != NBEdge::UNSPECIFIED_WIDTH) {
+                cdevice.writeAttr(SUMO_ATTR_WIDTH, wacs.width);
+            }
             cdevice.closeTag();
         }
     }

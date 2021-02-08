@@ -381,7 +381,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 }
             }
             if (edges.size() > 0) {
-                node->addWalkingAreaShape(edges, item.second.shape);
+                node->addWalkingAreaShape(edges, item.second.shape, item.second.width);
             }
         }
     }
@@ -618,6 +618,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     myLastParameterised.push_back(myCurrentLane);
     myCurrentLane->customShape = attrs.getOpt<bool>(SUMO_ATTR_CUSTOMSHAPE, nullptr, ok, false);
     myCurrentLane->shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
+    myCurrentLane->width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, id.c_str(), ok, (double) NBEdge::UNSPECIFIED_WIDTH);
     myCurrentLane->type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     if (myCurrentEdge->func == SumoXMLEdgeFunc::CROSSING) {
         // save the width and the lane id of the crossing but don't do anything else
@@ -633,6 +634,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         if (myCurrentLane->customShape) {
             WalkingAreaParsedCustomShape wacs;
             wacs.shape = myCurrentLane->shape;
+            wacs.width = myCurrentLane->width;
             NBNetBuilder::transformCoordinates(wacs.shape, true, myLocation);
             myWACustomShapes[myCurrentEdge->id] = wacs;
         }
@@ -653,7 +655,6 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         myCurrentLane->allow = "";
     }
     myCurrentLane->disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
-    myCurrentLane->width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, id.c_str(), ok, (double) NBEdge::UNSPECIFIED_WIDTH);
     myCurrentLane->endOffset = attrs.getOpt<double>(SUMO_ATTR_ENDOFFSET, id.c_str(), ok, (double) NBEdge::UNSPECIFIED_OFFSET);
     myCurrentLane->accelRamp = attrs.getOpt<bool>(SUMO_ATTR_ACCELERATION, id.c_str(), ok, false);
     myCurrentLane->changeLeft = attrs.getOpt<std::string>(SUMO_ATTR_CHANGE_LEFT, id.c_str(), ok, "");

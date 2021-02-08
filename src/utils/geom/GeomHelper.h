@@ -155,4 +155,10 @@ public:
      */
     static PositionVector makeRing(const double radius1, const double radius2, const Position& center, unsigned int nPoints);
 
+    /// @brief calculate lotSpace position
+    static const Position calculateLotSpacePosition(const PositionVector& shape, const int index, 
+        const double spaceDim, const double angle, const double width, const double length);
+
+    /// @brief calculate lotSpace angle
+    static double calculateLotSpaceAngle(const PositionVector& shape, const int index, const double spaceDim, const double angle);
 };

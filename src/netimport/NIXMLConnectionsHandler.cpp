@@ -465,10 +465,11 @@ NIXMLConnectionsHandler::addWalkingArea(const SUMOSAXAttributes& attrs) {
         return;
     }
     PositionVector customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nullptr, ok, PositionVector::EMPTY);
+    double customWidth = attrs.getOpt<double>(SUMO_ATTR_WIDTH, nullptr, ok, NBEdge::UNSPECIFIED_WIDTH);
     if (!NBNetBuilder::transformCoordinates(customShape)) {
         WRITE_ERROR("Unable to project shape for walkingArea at node '" + node->getID() + "'.");
     }
-    node->addWalkingAreaShape(edges, customShape);
+    node->addWalkingAreaShape(edges, customShape, customWidth);
 }
 
 

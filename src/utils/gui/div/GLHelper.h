@@ -328,9 +328,12 @@ public:
     /// @brief to be called when the font context is invalidated
     static void resetFont();
 
-    static void setGL2PS(bool active = true) {
-        myGL2PSActive = active;
-    }
+    /// @brief set GL2PS
+    static void setGL2PS(bool active = true);
+
+    /// @brief darw
+    static void drawSpaceOccupancies(const double exaggeration, const Position& pos, const double rotation,
+        const double width, const double length, const bool vehicle);
 
 private:
     /// @brief normalize angle for lookup in myCircleCoords

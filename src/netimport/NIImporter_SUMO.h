@@ -314,6 +314,7 @@ private:
         std::vector<std::string> toEdges;
         std::vector<std::string> fromCrossed;
         std::vector<std::string> toCrossed;
+        double width;
     };
 
     /** @struct JunctionAttrs
