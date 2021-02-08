@@ -133,12 +133,12 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, .1);
         for (const auto& lsd : mySpaceOccupancies) {
             glPushMatrix();
-            glTranslated(lsd.myPosition.x(), lsd.myPosition.y(), lsd.myPosition.z());
-            glRotated(lsd.myRotation, 0, 0, 1);
-            Position pos = lsd.myPosition;
+            glTranslated(lsd.position.x(), lsd.position.y(), lsd.position.z());
+            glRotated(lsd.rotation, 0, 0, 1);
+            Position pos = lsd.position;
             PositionVector geom;
-            double w = lsd.myWidth / 2. - 0.1 * exaggeration;
-            double h = lsd.myLength;
+            double w = lsd.width / 2. - 0.1 * exaggeration;
+            double h = lsd.length;
             geom.push_back(Position(- w, + 0, 0.));
             geom.push_back(Position(+ w, + 0, 0.));
             geom.push_back(Position(+ w, + h, 0.));

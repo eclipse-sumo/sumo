@@ -41,13 +41,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSParkingArea::MSParkingArea(const std::string& id,
-                             const std::vector<std::string>& lines,
-                             MSLane& lane,
-                             double begPos, double endPos,
-                             int capacity,
-                             double width, double length, double angle, const std::string& name,
-                             bool onRoad) :
+MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::string>& lines,
+    MSLane& lane, double begPos, double endPos, int capacity, double width, double length, 
+    double angle, const std::string& name, bool onRoad) :
     MSStoppingPlace(id, lines, lane, begPos, endPos, name),
     myCapacity(0),
     myOnRoad(onRoad),
@@ -114,7 +110,7 @@ MSParkingArea::MSParkingArea(const std::string& id,
         addLotEntry(pos.x(), pos.y(), pos.z(),
                     myWidth, myLength,
                     ((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) M_PI) + myAngle);
-        mySpaceOccupancies.back().myEndPos = myBegPos + MAX2(POSITION_EPS, spaceDim * (i + 1));
+        mySpaceOccupancies.back().endPos = myBegPos + MAX2(POSITION_EPS, spaceDim * (i + 1));
     }
     computeLastFreePos();
 }
@@ -122,52 +118,49 @@ MSParkingArea::MSParkingArea(const std::string& id,
 MSParkingArea::~MSParkingArea() {}
 
 void
-MSParkingArea::addLotEntry(double x, double y, double z,
-                           double width, double length, double angle) {
+MSParkingArea::addLotEntry(double x, double y, double z, double width, double length, double angle) {
     LotSpaceDefinition lsd;
     lsd.index = (int)mySpaceOccupancies.size();
     lsd.vehicle = nullptr;
-    lsd.myPosition = Position(x, y, z);
-    lsd.myWidth = width;
-    lsd.myLength = length;
-    lsd.myRotation = angle;
+    lsd.position = Position(x, y, z);
+    lsd.width = width;
+    lsd.length = length;
+    lsd.rotation = angle;
     // If we are modelling parking set the end position to the lot position relative to the lane
-    //   rather than the end of the parking area - this results in vehicles stopping nearer the space
-    //   and re-entering the lane nearer the space. (If we are not modelling parking the vehicle will usually
-    //    enter the space and re-enter at the end of the parking area.)
+    // rather than the end of the parking area - this results in vehicles stopping nearer the space
+    // and re-entering the lane nearer the space. (If we are not modelling parking the vehicle will usually
+    // enter the space and re-enter at the end of the parking area.)
     if (MSGlobals::gModelParkingManoeuver) {
-        const double offset = this->getLane().getShape().nearest_offset_to_point2D(lsd.myPosition);
+        const double offset = this->getLane().getShape().nearest_offset_to_point2D(lsd.position);
         if (offset <  getBeginLanePosition()) {
-            lsd.myEndPos =  getBeginLanePosition() + POSITION_EPS;
+            lsd.endPos =  getBeginLanePosition() + POSITION_EPS;
         } else {
             if (this->getLane().getLength() > offset) {
-                lsd.myEndPos = offset;
+                lsd.endPos = offset;
             } else {
-                lsd.myEndPos = this->getLane().getLength() - POSITION_EPS;
+                lsd.endPos = this->getLane().getLength() - POSITION_EPS;
             }
         }
         // Work out the angle of the lot relative to the lane  (-90 adjusts for the way the bay is drawn )
-        double relativeAngle = fmod(lsd.myRotation - 90., 360) - fmod(RAD2DEG(this->getLane().getShape().rotationAtOffset(lsd.myEndPos)), 360) + 0.5;
+        double relativeAngle = fmod(lsd.rotation - 90., 360) - fmod(RAD2DEG(this->getLane().getShape().rotationAtOffset(lsd.endPos)), 360) + 0.5;
         if (relativeAngle < 0.) {
             relativeAngle += 360.;
         }
-        lsd.myManoeuverAngle = relativeAngle;
+        lsd.manoeuverAngle = relativeAngle;
 
-        //   if p2.y is -ve the lot is on LHS of lane relative to lane direction
-        //    we need to know this because it inverts the complexity of the parking manoeuver
-        Position p2 = this->getLane().getShape().transformToVectorCoordinates(lsd.myPosition);
+        // if p2.y is -ve the lot is on LHS of lane relative to lane direction
+        // we need to know this because it inverts the complexity of the parking manoeuver
+        Position p2 = this->getLane().getShape().transformToVectorCoordinates(lsd.position);
         if (p2.y() < (0. + POSITION_EPS)) {
-            lsd.mySideIsLHS = true;
+            lsd.sideIsLHS = true;
         } else {
-            lsd.mySideIsLHS = false;
+            lsd.sideIsLHS = false;
         }
     } else {
-        lsd.myEndPos = myEndPos;
-        lsd.myManoeuverAngle = int(angle); // unused unless gModelParkingManoeuver is true
-        lsd.mySideIsLHS = true;
+        lsd.endPos = myEndPos;
+        lsd.manoeuverAngle = int(angle); // unused unless gModelParkingManoeuver is true
+        lsd.sideIsLHS = true;
     }
-
-
     mySpaceOccupancies.push_back(lsd);
     myCapacity++;
     computeLastFreePos();
@@ -179,10 +172,10 @@ MSParkingArea::getLastFreeLotAngle() const {
     assert(myLastFreeLot < (int)mySpaceOccupancies.size());
 
     const LotSpaceDefinition& lsd = mySpaceOccupancies[myLastFreeLot];
-    if (lsd.mySideIsLHS) {
-        return abs(int(lsd.myManoeuverAngle)) % 180;
+    if (lsd.sideIsLHS) {
+        return abs(int(lsd.manoeuverAngle)) % 180;
     } else {
-        return abs(abs(int(lsd.myManoeuverAngle)) % 180 - 180) % 180;
+        return abs(abs(int(lsd.manoeuverAngle)) % 180 - 180) % 180;
     }
 }
 
@@ -192,10 +185,10 @@ MSParkingArea::getLastFreeLotGUIAngle() const {
     assert(myLastFreeLot < (int)mySpaceOccupancies.size());
 
     const LotSpaceDefinition& lsd = mySpaceOccupancies[myLastFreeLot];
-    if (lsd.myManoeuverAngle > 180.) {
-        return DEG2RAD(lsd.myManoeuverAngle - 360.);
+    if (lsd.manoeuverAngle > 180.) {
+        return DEG2RAD(lsd.manoeuverAngle - 360.);
     } else {
-        return DEG2RAD(lsd.myManoeuverAngle);
+        return DEG2RAD(lsd.manoeuverAngle);
     }
 }
 
@@ -216,7 +209,7 @@ Position
 MSParkingArea::getVehiclePosition(const SUMOVehicle& forVehicle) const {
     for (const auto& lsd : mySpaceOccupancies) {
         if (lsd.vehicle == &forVehicle) {
-            return lsd.myPosition;
+            return lsd.position;
         }
     }
     return Position::INVALID;
@@ -227,7 +220,7 @@ double
 MSParkingArea::getInsertionPosition(const SUMOVehicle& forVehicle) const {
     for (const auto& lsd : mySpaceOccupancies) {
         if (lsd.vehicle == &forVehicle) {
-            return lsd.myEndPos;
+            return lsd.endPos;
         }
     }
     return -1;
@@ -238,7 +231,7 @@ double
 MSParkingArea::getVehicleAngle(const SUMOVehicle& forVehicle) const {
     for (const auto& lsd : mySpaceOccupancies) {
         if (lsd.vehicle == &forVehicle) {
-            return (lsd.myRotation - 90.) * (double) M_PI / (double) 180.0;
+            return (lsd.rotation - 90.) * (double) M_PI / (double) 180.0;
         }
     }
     return 0;
@@ -248,10 +241,10 @@ double
 MSParkingArea::getGUIAngle(const SUMOVehicle& forVehicle) const {
     for (const auto& lsd : mySpaceOccupancies) {
         if (lsd.vehicle == &forVehicle) {
-            if (lsd.myManoeuverAngle > 180.) {
-                return DEG2RAD(lsd.myManoeuverAngle - 360.);
+            if (lsd.manoeuverAngle > 180.) {
+                return DEG2RAD(lsd.manoeuverAngle - 360.);
             } else {
-                return DEG2RAD(lsd.myManoeuverAngle);
+                return DEG2RAD(lsd.manoeuverAngle);
             }
         }
     }
@@ -262,10 +255,10 @@ int
 MSParkingArea::getManoeuverAngle(const SUMOVehicle& forVehicle) const {
     for (const auto& lsd : mySpaceOccupancies) {
         if (lsd.vehicle == &forVehicle) {
-            if (lsd.mySideIsLHS) {
-                return abs(int(lsd.myManoeuverAngle)) % 180;
+            if (lsd.sideIsLHS) {
+                return abs(int(lsd.manoeuverAngle)) % 180;
             } else {
-                return abs(abs(int(lsd.myManoeuverAngle)) % 180 - 180) % 180;
+                return abs(abs(int(lsd.manoeuverAngle)) % 180 - 180) % 180;
             }
         }
     }
@@ -327,17 +320,17 @@ MSParkingArea::computeLastFreePos() {
                     && !lsd.vehicle->isStoppedTriggered())) {
             if (lsd.vehicle == nullptr) {
                 myLastFreeLot = lsd.index;
-                myLastFreePos = lsd.myEndPos;
+                myLastFreePos = lsd.endPos;
             } else {
                 // vehicle wants to exit the parking area
                 myLastFreeLot = lsd.index;
-                myLastFreePos = lsd.myEndPos - lsd.vehicle->getVehicleType().getLength() - POSITION_EPS;
+                myLastFreePos = lsd.endPos - lsd.vehicle->getVehicleType().getLength() - POSITION_EPS;
                 myEgressBlocked = true;
             }
             break;
         } else {
             myLastFreePos = MIN2(myLastFreePos,
-                                 lsd.myEndPos - lsd.vehicle->getVehicleType().getLength() - NUMERICAL_EPS);
+                                 lsd.endPos - lsd.vehicle->getVehicleType().getLength() - NUMERICAL_EPS);
         }
     }
 }
@@ -393,7 +386,7 @@ MSParkingArea::getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forV
                 if (DEBUG_COND2(forVehicle)) std::cout << SIMTIME << " pa=" << getID() << " freePosRes veh=" << forVehicle.getID()
                                                            << " res=" << myReservations << " resTime=" << myReservationTime << " reserved full, maxLen=" << myReservationMaxLength << " endPos=" << mySpaceOccupancies[0].myEndPos << "\n";
 #endif
-                return (mySpaceOccupancies[0].myEndPos
+                return (mySpaceOccupancies[0].endPos
                         - myReservationMaxLength
                         - forVehicle.getVehicleType().getMinGap()
                         - NUMERICAL_EPS);
@@ -427,6 +420,12 @@ MSParkingArea::getCapacity() const {
 }
 
 
+bool 
+MSParkingArea::parkOnRoad() const {
+    return myOnRoad;
+}
+
+
 int
 MSParkingArea::getOccupancy() const {
     return (int)myEndPositions.size() - (myEgressBlocked ? 1 : 0);
@@ -438,10 +437,27 @@ MSParkingArea::getOccupancyIncludingBlocked() const {
     return (int)myEndPositions.size();
 }
 
+
+int 
+MSParkingArea::getLastStepOccupancy() const {
+    return myLastStepOccupancy;
+}
+
 void
 MSParkingArea::notifyEgressBlocked() {
     computeLastFreePos();
 }
 
+
+int 
+MSParkingArea::getNumAlternatives() const {
+    return myNumAlternatives;
+}
+
+
+void 
+MSParkingArea::setNumAlternatives(int alternatives) {
+    myNumAlternatives = MAX2(myNumAlternatives, alternatives);
+}
 
 /****************************************************************************/
