@@ -2766,8 +2766,26 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
                 std::cout << SIMTIME << " veh=" << getID() << " is blocked on link to " << link->getViaLaneOrLane()->getID() << " by pedestrian. dist=" << it->distToCrossing << "\n";
             }
 #endif
+            if (getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB, 0) > 0
+                    && getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB, 0) >= RandHelper::rand(getRNG())) {
+#ifdef DEBUG_PLAN_MOVE
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " veh=" << getID() << " is ignoring pedestrian (jmIgnoreJunctionFoeProb)\n";
+                }
+#endif
+                continue;
+            }
             adaptToLeader(std::make_pair(this, -1), seen, lastLink, lane, v, vLinkPass, it->distToCrossing);
         } else if (isLeader(link, leader) || (*it).inTheWay) {
+            if (getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB, 0) > 0
+                    && getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB, 0) >= RandHelper::rand(getRNG())) {
+#ifdef DEBUG_PLAN_MOVE
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " veh=" << getID() << " is ignoring linkLeader=" << leader->getID() << " (jmIgnoreJunctionFoeProb)\n";
+                }
+#endif
+                continue;
+            }
             if (MSGlobals::gLateralResolution > 0 &&
                     // sibling link (XXX: could also be partial occupator where this check fails)
                     &leader->getLane()->getEdge() == &lane->getEdge()) {
