@@ -78,6 +78,9 @@ sumonet_customshape
 # custom walking area shapes, shifter by user defined offset
 4_arm_3_neighboring_split_customshape_shifted2
 
+# custom walking area width
+4_arm_3_neighboring_split_customsWidth
+
 # reimport .net.xml and keep the crossings and walkingareas with custom shape
 sumonet_custom_washape
 
