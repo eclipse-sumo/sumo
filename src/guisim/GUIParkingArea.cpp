@@ -21,30 +21,31 @@
 #include <config.h>
 
 #include <string>
-#include <utils/common/MsgHandler.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/geom/Boundary.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/common/ToString.h>
-#include <microsim/MSNet.h>
-#include <microsim/MSLane.h>
+#include <foreign/fontstash/fontstash.h>
+#include <gui/GUIApplicationWindow.h>
+#include <gui/GUIGlobals.h>
+#include <guisim/GUIParkingArea.h>
+#include <guisim/GUIVehicle.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSLane.h>
+#include <microsim/MSNet.h>
+#include <microsim/logging/FunctionBinding.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
+#include <utils/geom/Boundary.h>
+#include <utils/geom/GeomHelper.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+
 #include "GUINet.h"
 #include "GUIEdge.h"
 #include "GUIContainer.h"
 #include "GUIParkingArea.h"
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <gui/GUIGlobals.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <gui/GUIApplicationWindow.h>
-#include <microsim/logging/FunctionBinding.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/geom/GeomHelper.h>
-#include <guisim/GUIParkingArea.h>
-#include <guisim/GUIVehicle.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <foreign/fontstash/fontstash.h>
 
 
 
@@ -132,28 +133,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // draw the lots
         glTranslated(0, 0, .1);
         for (const auto& lsd : mySpaceOccupancies) {
-            glPushMatrix();
-            glTranslated(lsd.myPosition.x(), lsd.myPosition.y(), lsd.myPosition.z());
-            glRotated(lsd.myRotation, 0, 0, 1);
-            Position pos = lsd.myPosition;
-            PositionVector geom;
-            double w = lsd.myWidth / 2. - 0.1 * exaggeration;
-            double h = lsd.myLength;
-            geom.push_back(Position(- w, + 0, 0.));
-            geom.push_back(Position(+ w, + 0, 0.));
-            geom.push_back(Position(+ w, + h, 0.));
-            geom.push_back(Position(- w, + h, 0.));
-            geom.push_back(Position(- w, + 0, 0.));
-            /*
-            geom.push_back(Position(pos.x(), pos.y(), pos.z()));
-            geom.push_back(Position(pos.x() + (*l).second.myWidth, pos.y(), pos.z()));
-            geom.push_back(Position(pos.x() + (*l).second.myWidth, pos.y() - (*l).second.myLength, pos.z()));
-            geom.push_back(Position(pos.x(), pos.y() - (*l).second.myLength, pos.z()));
-            geom.push_back(Position(pos.x(), pos.y(), pos.z()));
-            */
-            GLHelper::setColor(lsd.vehicle == nullptr ? green : red);
-            GLHelper::drawBoxLines(geom, 0.1 * exaggeration);
-            glPopMatrix();
+            drawLotSpaceDefinition(exaggeration, lsd);
         }
         GLHelper::setColor(blue);
         // draw the lines
@@ -199,6 +179,45 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     myLane.releaseVehicles();
 
 }
+
+
+void 
+GUIParkingArea::drawLotSpaceDefinition(const double exaggeration, const LotSpaceDefinition& Lot) {
+    // declare color
+    const RGBColor red(255, 0, 0, 255);
+    const RGBColor green(0, 255, 0, 255);
+    // set width
+    const double w = Lot.width / 2. - 0.1 * exaggeration;
+    // set length
+    const double h = Lot.length;
+    // declare geometry
+    PositionVector geom;
+    geom.push_back(Position(-w, +0, 0.));
+    geom.push_back(Position(+w, +0, 0.));
+    geom.push_back(Position(+w, +h, 0.));
+    geom.push_back(Position(-w, +h, 0.));
+    geom.push_back(Position(-w, +0, 0.));
+    // push matrix
+    glPushMatrix();
+    // translate to position
+    glTranslated(Lot.position.x(), Lot.position.y(), Lot.position.z());
+    // rotate
+    glRotated(Lot.rotation, 0, 0, 1);
+    /*
+    geom.push_back(Position(pos.x(), pos.y(), pos.z()));
+    geom.push_back(Position(pos.x() + (*l).second.myWidth, pos.y(), pos.z()));
+    geom.push_back(Position(pos.x() + (*l).second.myWidth, pos.y() - (*l).second.myLength, pos.z()));
+    geom.push_back(Position(pos.x(), pos.y() - (*l).second.myLength, pos.z()));
+    geom.push_back(Position(pos.x(), pos.y(), pos.z()));
+    */
+    // set color
+    GLHelper::setColor(Lot.vehicle == nullptr ? green : red);
+    // draw box lines
+    GLHelper::drawBoxLines(geom, 0.1 * exaggeration);
+    // pop matrix
+    glPopMatrix();
+}
+
 
 void
 GUIParkingArea::addLotEntry(double x, double y, double z,
