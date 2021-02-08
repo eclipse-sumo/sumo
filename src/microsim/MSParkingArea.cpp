@@ -76,40 +76,13 @@ MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::strin
     // Initialize space occupancies if there is a road-side capacity
     // The overall number of lots is fixed and each lot accepts one vehicle regardless of size
     for (int i = 0; i < capacity; ++i) {
-        const Position f = myShape.positionAtOffset(spaceDim * (i));
-        const Position s = myShape.positionAtOffset(spaceDim * (i + 1));
-
-        Position pos;
-        if (myAngle == 0) {
-            // parking parallel to the road
-            pos = s;
-        } else {
-            // angled parking
-            double hlp_angle = fabs(((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI) - 180);
-            if (myAngle >= 0 && myAngle <= 90) {
-                pos.setx((f.x() + s.x()) / 2 - (myWidth / 2) * (1 - cos(myAngle / 180 * M_PI))*cos(hlp_angle / 180 * M_PI));
-                pos.sety((f.y() + s.y()) / 2 + (myWidth / 2) * (1 - cos(myAngle / 180 * M_PI))*sin(hlp_angle / 180 * M_PI));
-                pos.setz((f.z() + s.z()) / 2);
-            } else if (myAngle > 90 && myAngle <= 180) {
-                pos.setx((f.x() + s.x()) / 2 - (myWidth / 2) * (1 + cos(myAngle / 180 * M_PI))*cos(hlp_angle / 180 * M_PI));
-                pos.sety((f.y() + s.y()) / 2 + (myWidth / 2) * (1 + cos(myAngle / 180 * M_PI))*sin(hlp_angle / 180 * M_PI));
-                pos.setz((f.z() + s.z()) / 2);
-            } else if (myAngle > 180 && myAngle <= 270) {
-                pos.setx((f.x() + s.x()) / 2 - (myLength)*sin((myAngle - hlp_angle) / 180 * M_PI) - (myWidth / 2) * (1 + cos(myAngle / 180 * M_PI))*cos(hlp_angle / 180 * M_PI));
-                pos.sety((f.y() + s.y()) / 2 + (myLength)*cos((myAngle - hlp_angle) / 180 * M_PI) + (myWidth / 2) * (1 + cos(myAngle / 180 * M_PI))*sin(hlp_angle / 180 * M_PI));
-                pos.setz((f.z() + s.z()) / 2);
-            } else if (myAngle > 270 && myAngle < 360) {
-                pos.setx((f.x() + s.x()) / 2 - (myLength)*sin((myAngle - hlp_angle) / 180 * M_PI) - (myWidth / 2) * (1 - cos(myAngle / 180 * M_PI))*cos(hlp_angle / 180 * M_PI));
-                pos.sety((f.y() + s.y()) / 2 + (myLength)*cos((myAngle - hlp_angle) / 180 * M_PI) + (myWidth / 2) * (1 - cos(myAngle / 180 * M_PI))*sin(hlp_angle / 180 * M_PI));
-                pos.setz((f.z() + s.z()) / 2);
-            } else {
-                pos = (f + s) * 0.5;
-            }
-        }
-
-        addLotEntry(pos.x(), pos.y(), pos.z(),
-                    myWidth, myLength,
-                    ((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) M_PI) + myAngle);
+        // calculate pos
+        const Position pos = GeomHelper::calculateLotSpacePosition(myShape, i, spaceDim, myAngle, myWidth, myLength);
+        // calculate angel
+        const double angle = GeomHelper::calculateLotSpaceAngle(myShape, i, spaceDim, myAngle);
+        // add lotEntry
+        addLotEntry(pos.x(), pos.y(), pos.z(), myWidth, myLength, angle);
+        // update endPos
         mySpaceOccupancies.back().endPos = myBegPos + MAX2(POSITION_EPS, spaceDim * (i + 1));
     }
     computeLastFreePos();
