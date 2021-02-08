@@ -438,12 +438,10 @@ GNESingleParametersDialog::ParametersOperations::GNEParameterHandler::~GNEParame
 
 void
 GNESingleParametersDialog::ParametersOperations::GNEParameterHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
-    // Obtain tag of element
-    SumoXMLTag tag = static_cast<SumoXMLTag>(element);
     // only continue if tag is valid
-    if (tag != SUMO_TAG_NOTHING) {
+    if (element != SUMO_TAG_NOTHING) {
         // Call parse and build depending of tag
-        switch (tag) {
+        switch (element) {
             case SUMO_TAG_PARAM:
                 // Check that format of Parameter is correct
                 if (!attrs.hasAttribute(SUMO_ATTR_KEY)) {

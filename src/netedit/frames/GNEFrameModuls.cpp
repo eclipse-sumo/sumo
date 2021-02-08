@@ -169,8 +169,8 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
         myListOfTags = GNEAttributeCarrier::getAllowedTagsByCategory(type, onlyDrawables);
     }
     // fill myTypeMatchBox with list of tags
-    for (const auto& tag : myListOfTags) {
-        myTagsMatchBox->appendItem(tag.second.c_str());
+    for (const auto& tagIt : myListOfTags) {
+        myTagsMatchBox->appendItem(tagIt.second.c_str());
     }
     // Set visible items
     myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
@@ -213,8 +213,8 @@ GNEFrameModuls::TagSelector::setCurrentTagType(GNETagProperties::TagType tagType
             // clear myTagsMatchBox
             myTagsMatchBox->clearItems();
             // fill myTypeMatchBox with list of tags
-            for (const auto& tag : myListOfTags) {
-                myTagsMatchBox->appendItem(tag.second.c_str());
+            for (const auto& tagIt : myListOfTags) {
+                myTagsMatchBox->appendItem(tagIt.second.c_str());
             }
             // Set visible items
             myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
@@ -261,8 +261,8 @@ long GNEFrameModuls::TagSelector::onCmdSelectTagType(FXObject*, FXSelector, void
             myTagsMatchBox->show();
             myTagsMatchBox->clearItems();
             // fill myTypeMatchBox with list of tags
-            for (const auto& tag : myListOfTags) {
-                myTagsMatchBox->appendItem(tag.second.c_str());
+            for (const auto& tagIt : myListOfTags) {
+                myTagsMatchBox->appendItem(tagIt.second.c_str());
             }
             // Set visible items
             myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
@@ -289,12 +289,12 @@ long GNEFrameModuls::TagSelector::onCmdSelectTagType(FXObject*, FXSelector, void
 long
 GNEFrameModuls::TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    for (const auto& tag : myListOfTags) {
-        if (tag.second == myTagsMatchBox->getText().text()) {
+    for (const auto& tagIt : myListOfTags) {
+        if (tagIt.second == myTagsMatchBox->getText().text()) {
             // set color of myTypeMatchBox to black (valid)
             myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
             // Set new current type
-            myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(tag.first);
+            myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(tagIt.first);
             // call tag selected function
             myFrameParent->tagSelected();
             // Write Warning in console if we're in testing mode
@@ -1678,10 +1678,10 @@ bool
 GNEFrameModuls::SelectorParent::showSelectorParentModul(SumoXMLTag additionalType) {
     // make sure that we're editing an additional tag
     const auto listOfTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, false);
-    for (const auto& tag : listOfTags) {
-        if (tag.first == additionalType) {
+    for (const auto& tagIt : listOfTags) {
+        if (tagIt.first == additionalType) {
             myParentTag = additionalType;
-            myParentsLabel->setText(("Parent type: " + tag.second).c_str());
+            myParentsLabel->setText(("Parent type: " + tagIt.second).c_str());
             refreshSelectorParentModul();
             show();
             return true;
@@ -2097,7 +2097,7 @@ GNEFrameModuls::PathCreator::~PathCreator() {}
 
 
 void
-GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool firstElement, const bool consecutives) {
+GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag element, const bool firstElement, const bool consecutives) {
     // declare flag
     bool showPathCreator = true;
     // first abort creation
@@ -2119,7 +2119,7 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool fir
         myCreationMode |= NONCONSECUTIVE_EDGES;
     }
     // set specific mode depending of tag
-    switch (tag) {
+    switch (element) {
         // routes
         case SUMO_TAG_ROUTE:
         case GNE_TAG_ROUTE_EMBEDDED:

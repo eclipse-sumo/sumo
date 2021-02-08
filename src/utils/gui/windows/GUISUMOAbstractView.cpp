@@ -521,38 +521,38 @@ GUISUMOAbstractView::showToolTipFor(const GUIGlID id) {
 void
 GUISUMOAbstractView::paintGLGrid() {
     // obtain minimum grid
-    double minimumSizeGrid = (myVisualizationSettings->gridXSize < myVisualizationSettings->gridYSize) ? myVisualizationSettings->gridXSize : myVisualizationSettings->gridYSize;
+    const double minimumSizeGrid = (myVisualizationSettings->gridXSize < myVisualizationSettings->gridYSize) ? myVisualizationSettings->gridXSize : myVisualizationSettings->gridYSize;
     // Check if the distance is enought to draw grid
     if (myVisualizationSettings->scale * myVisualizationSettings->addSize.getExaggeration(*myVisualizationSettings, nullptr) >= (25 / minimumSizeGrid)) {
         glEnable(GL_DEPTH_TEST);
         glLineWidth(1);
         // get multiplication values (2 is the marging)
-        int multXmin = (int)(myChanger->getViewport().xmin() / myVisualizationSettings->gridXSize) - 2;
-        int multYmin = (int)(myChanger->getViewport().ymin() / myVisualizationSettings->gridYSize) - 2;
-        int multXmax = (int)(myChanger->getViewport().xmax() / myVisualizationSettings->gridXSize) + 2;
-        int multYmax = (int)(myChanger->getViewport().ymax() / myVisualizationSettings->gridYSize) + 2;
+        const int multXmin = (int)(myChanger->getViewport().xmin() / myVisualizationSettings->gridXSize) - 2;
+        const int multYmin = (int)(myChanger->getViewport().ymin() / myVisualizationSettings->gridYSize) - 2;
+        const int multXmax = (int)(myChanger->getViewport().xmax() / myVisualizationSettings->gridXSize) + 2;
+        const int multYmax = (int)(myChanger->getViewport().ymax() / myVisualizationSettings->gridYSize) + 2;
         // obtain references
-        double xmin = myVisualizationSettings->gridXSize * multXmin;
-        double ymin = myVisualizationSettings->gridYSize * multYmin;
-        double xmax = myVisualizationSettings->gridXSize * multXmax;
-        double ymax = myVisualizationSettings->gridYSize * multYmax;
-        double xpos = xmin;
-        double ypos = ymin;
+        const double xmin = myVisualizationSettings->gridXSize * multXmin;
+        const double ymin = myVisualizationSettings->gridYSize * multYmin;
+        const double xmax = myVisualizationSettings->gridXSize * multXmax;
+        const double ymax = myVisualizationSettings->gridYSize * multYmax;
+        double xp = xmin;
+        double yp = ymin;
         // move drawing matrix
         glTranslated(0, 0, .55);
         glColor3d(0.5, 0.5, 0.5);
         // draw horizontal lines
         glBegin(GL_LINES);
-        while (ypos <= ymax) {
-            glVertex2d(xmin, ypos);
-            glVertex2d(xmax, ypos);
-            ypos += myVisualizationSettings->gridYSize;
+        while (yp <= ymax) {
+            glVertex2d(xmin, yp);
+            glVertex2d(xmax, yp);
+            yp += myVisualizationSettings->gridYSize;
         }
         // draw vertical lines
-        while (xpos <= xmax) {
-            glVertex2d(xpos, ymin);
-            glVertex2d(xpos, ymax);
-            xpos += myVisualizationSettings->gridXSize;
+        while (xp <= xmax) {
+            glVertex2d(xp, ymin);
+            glVertex2d(xp, ymax);
+            xp += myVisualizationSettings->gridXSize;
         }
         glEnd();
         glTranslated(0, 0, -.55);
@@ -897,10 +897,10 @@ GUISUMOAbstractView::destroyPopup() {
 
 
 long
-GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector, void* data) {
+GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
     setFocus();
-    FXEvent* e = (FXEvent*) data;
+    FXEvent* e = (FXEvent*) ptr;
     // check whether the selection-mode is activated
     if ((e->state & CONTROLMASK) != 0) {
         // toggle selection of object under cursor
@@ -927,7 +927,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                     if (o->getType() == GLO_VEHICLE || o->getType() == GLO_PERSON) {
                         startTrack(id);
                     } else if (o->getType() == GLO_REROUTER_EDGE) {
-                        o->onLeftBtnPress(data);
+                        o->onLeftBtnPress(ptr);
                         update();
                     }
                 }
@@ -935,20 +935,20 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector, void* data) {
             makeNonCurrent();
         }
     }
-    myChanger->onLeftBtnPress(data);
+    myChanger->onLeftBtnPress(ptr);
     grab();
     // Check there are double click
     if (e->click_count == 2) {
-        handle(this, FXSEL(SEL_DOUBLECLICKED, 0), data);
+        handle(this, FXSEL(SEL_DOUBLECLICKED, 0), ptr);
     }
     return 1;
 }
 
 
 long
-GUISUMOAbstractView::onLeftBtnRelease(FXObject*, FXSelector, void* data) {
+GUISUMOAbstractView::onLeftBtnRelease(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
-    myChanger->onLeftBtnRelease(data);
+    myChanger->onLeftBtnRelease(ptr);
     if (myApp->isGaming()) {
         onGamingClick(getPositionInformation());
     }
@@ -970,19 +970,19 @@ GUISUMOAbstractView::onMiddleBtnRelease(FXObject*, FXSelector, void*) {
 
 
 long
-GUISUMOAbstractView::onRightBtnPress(FXObject*, FXSelector, void* data) {
+GUISUMOAbstractView::onRightBtnPress(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
-    myChanger->onRightBtnPress(data);
+    myChanger->onRightBtnPress(ptr);
     grab();
     return 1;
 }
 
 
 long
-GUISUMOAbstractView::onRightBtnRelease(FXObject* o, FXSelector sel, void* data) {
+GUISUMOAbstractView::onRightBtnRelease(FXObject* o, FXSelector sel, void* ptr) {
     destroyPopup();
-    onMouseMove(o, sel, data);
-    if (!myChanger->onRightBtnRelease(data) && !myApp->isGaming()) {
+    onMouseMove(o, sel, ptr);
+    if (!myChanger->onRightBtnRelease(ptr) && !myApp->isGaming()) {
         openObjectDialog();
     }
     if (myApp->isGaming()) {
@@ -1000,9 +1000,9 @@ GUISUMOAbstractView::onDoubleClicked(FXObject*, FXSelector, void*) {
 
 
 long
-GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector, void* data) {
+GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector, void* ptr) {
     if (!myApp->isGaming()) {
-        myChanger->onMouseWheel(data);
+        myChanger->onMouseWheel(ptr);
         // upddate viewport
         if (myViewportChooser != nullptr) {
             myViewportChooser->setValues(myChanger->getZoom(),
@@ -1016,14 +1016,14 @@ GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector, void* data) {
 
 
 long
-GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector, void* data) {
+GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector, void* ptr) {
     // if popup exist but isn't shown, destroy it first
     if (myPopup && (myPopup->shown() == false)) {
         destroyPopup();
     }
     if (myPopup == nullptr) {
         if (myViewportChooser == nullptr || !myViewportChooser->haveGrabbed()) {
-            myChanger->onMouseMove(data);
+            myChanger->onMouseMove(ptr);
         }
         if (myViewportChooser != nullptr) {
             myViewportChooser->setValues(myChanger->getZoom(),
@@ -1077,11 +1077,11 @@ GUISUMOAbstractView::openObjectDialog() {
 
 
 long
-GUISUMOAbstractView::onKeyPress(FXObject* o, FXSelector sel, void* data) {
+GUISUMOAbstractView::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
     if (myPopup != nullptr) {
-        return myPopup->onKeyPress(o, sel, data);
+        return myPopup->onKeyPress(o, sel, ptr);
     } else {
-        FXEvent* e = (FXEvent*) data;
+        FXEvent* e = (FXEvent*) ptr;
         if (e->state & CONTROLMASK) {
             if (e->code == FX::KEY_Page_Up) {
                 myVisualizationSettings->gridXSize *= 2;
@@ -1095,19 +1095,19 @@ GUISUMOAbstractView::onKeyPress(FXObject* o, FXSelector sel, void* data) {
                 return 1;
             }
         }
-        FXGLCanvas::onKeyPress(o, sel, data);
-        return myChanger->onKeyPress(data);
+        FXGLCanvas::onKeyPress(o, sel, ptr);
+        return myChanger->onKeyPress(ptr);
     }
 }
 
 
 long
-GUISUMOAbstractView::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
+GUISUMOAbstractView::onKeyRelease(FXObject* o, FXSelector sel, void* ptr) {
     if (myPopup != nullptr) {
-        return myPopup->onKeyRelease(o, sel, data);
+        return myPopup->onKeyRelease(o, sel, ptr);
     } else {
-        FXGLCanvas::onKeyRelease(o, sel, data);
-        return myChanger->onKeyRelease(data);
+        FXGLCanvas::onKeyRelease(o, sel, ptr);
+        return myChanger->onKeyRelease(ptr);
     }
 }
 

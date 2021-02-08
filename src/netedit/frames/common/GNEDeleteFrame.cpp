@@ -436,21 +436,21 @@ GNEDeleteFrame::SubordinatedElements::openWarningDialog(const std::string& type,
     // declare header
     const std::string header = "Problem deleting " + myAttributeCarrier->getTagProperty().getTagStr() + " '" + myAttributeCarrier->getID() + "'";
     // declare message
-    std::string message;
+    std::string msg;
     // set message depending of isChild
     if (isChild) {
-        message = myAttributeCarrier->getTagProperty().getTagStr() + " '" + myAttributeCarrier->getID() +
+        msg = myAttributeCarrier->getTagProperty().getTagStr() + " '" + myAttributeCarrier->getID() +
                   "' cannot be deleted because it has " + toString(number) + " " + type + " element" + plural + ".\n" +
                   "To delete it, uncheck 'protect " + type + " elements'.";
     } else {
-        message = myAttributeCarrier->getTagProperty().getTagStr() + " '" + myAttributeCarrier->getID() +
+        msg = myAttributeCarrier->getTagProperty().getTagStr() + " '" + myAttributeCarrier->getID() +
                   "' cannot be deleted because it is part of " + toString(number) + " " + type + " element" + plural + ".\n" +
                   "To delete it, uncheck 'protect " + type + " elements'.";
     }
     // write warning
     WRITE_DEBUG("Opened FXMessageBox " + header);
     // open message box
-    FXMessageBox::warning(myViewNet->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
+    FXMessageBox::warning(myViewNet->getApp(), MBOX_OK, header.c_str(), "%s", msg.c_str());
     // write warning if netedit is running in testing mode
     WRITE_DEBUG("Closed FXMessageBox " + header);
 }

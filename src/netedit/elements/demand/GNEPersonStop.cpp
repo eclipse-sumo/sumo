@@ -243,11 +243,11 @@ GNEPersonStop::commitGeometryMoving(GNEUndoList* undoList) {
 void
 GNEPersonStop::updateGeometry() {
     // get lane
-    const GNELane *lane = getFirstAllowedLane();
+    const GNELane* firstLane = getFirstAllowedLane();
     // only update Stops over lanes, because other uses the geometry of stopping place parent
-    if (lane) {
+    if (firstLane != nullptr) {
         // Cut shape using as delimitators fixed start position and fixed end position
-        myDemandElementGeometry.updateGeometry(lane->getLaneShape(), 0, 2);
+        myDemandElementGeometry.updateGeometry(firstLane->getLaneShape(), 0, 2);
     } else if (getParentAdditionals().size() > 0) {
         // use geometry of additional (busStop)
         myDemandElementGeometry.updateGeometry(getParentAdditionals().at(0));
