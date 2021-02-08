@@ -22,7 +22,8 @@ analysis zones (TAZ) aka districts
 - *import* - additional tools to import data from a variety of formats
   - *[MATSim](Tools/Import/MATSim.md)* - some helpers for
     using MATSim data
-  - *[OpenDRIVE](Tools/Import/OpenDRIVE.md)*
+  - *[OpenDRIVE](Tools/Import/OpenDRIVE.md)* - some helpers for
+    using OpenDRIVE data
   - *[OSM](Tools/Import/OSM.md)* - some helpers for
     accessing/using OpenStreetMap data
   - *[Vissim](Tools/Import/VISSIM.md)* - some helpers for
