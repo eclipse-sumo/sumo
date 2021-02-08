@@ -156,6 +156,9 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addDescription("geometry.remove.keep-edges.input-file", "Processing",
                           "Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported)");
 
+        oc.doRegister("geometry.remove.keep-ptstops", new Option_Bool(false));
+        oc.addDescription("geometry.remove.keep-ptstops", "Processing", "Ensure that edges with public transport stops are not modified");
+
         oc.doRegister("geometry.remove.min-length", new Option_Float(0));
         oc.addDescription("geometry.remove.min-length", "Processing",
                           "Allow merging edges with differing attributes when their length is below min-length");
