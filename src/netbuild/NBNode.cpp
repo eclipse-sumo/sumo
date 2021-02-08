@@ -2193,6 +2193,9 @@ NBNode::checkIsRemovable() const {
 
 bool
 NBNode::checkIsRemovableReporting(std::string& reason) const {
+    if (getEdges().empty()) {
+        return true;
+    }
     // check whether this node is included in a traffic light or crossing
     if (myTrafficLights.size() != 0) {
         reason = "TLS";
