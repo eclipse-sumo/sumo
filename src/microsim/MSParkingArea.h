@@ -55,8 +55,8 @@ class Command;
  *  free space in between other vehicles.
  */
 class MSParkingArea : public MSStoppingPlace {
-
 public:
+
     /** @brief Constructor
      *
      * @param[in] id The id of the stop
@@ -79,11 +79,18 @@ public:
     /// @brief Destructor
     virtual ~MSParkingArea();
 
-    /// @brief Returns the area capacity
+
+    /** @brief Returns the area capacity
+     *
+     * @return The capacity
+     */
     int getCapacity() const;
 
     /// @brief whether vehicles park on the road
-    bool parkOnRoad() const;
+    bool parkOnRoad() const {
+        return myOnRoad;
+    }
+
 
     /** @brief Returns the area occupancy
      *
@@ -93,11 +100,20 @@ public:
      */
     int getOccupancy() const;
 
-    /// @brief Returns the area occupancy
+    /** @brief Returns the area occupancy
+     *
+     * @return The occupancy computed as number of vehicles in myEndPositions
+     */
     int getOccupancyIncludingBlocked() const;
 
-    /// @brief Returns the area occupancy at the end of the last simulation step
-    int getLastStepOccupancy() const;
+    /** @brief Returns the area occupancy at the end of the last simulation step
+     *
+     * @return The occupancy computed as number of vehicles in myEndPositions
+     */
+    int getLastStepOccupancy() const {
+        return myLastStepOccupancy;
+    }
+
 
     /** @brief Called if a vehicle enters this stop
      *
@@ -110,6 +126,7 @@ public:
      */
     void enter(SUMOVehicle* veh);
 
+
     /** @brief Called if a vehicle leaves this stop
      *
      * Removes the position of the vehicle from myEndPositions.
@@ -121,6 +138,7 @@ public:
      */
     void leaveFrom(SUMOVehicle* what);
 
+
     /** @brief Called at the end of the time step
      *
      * Stores the current occupancy.
@@ -130,11 +148,13 @@ public:
      */
     SUMOTime updateOccupancy(SUMOTime currentTime);
 
+
     /** @brief Returns the last free position on this stop
      *
      * @return The last free position of this bus stop
      */
     double getLastFreePos(const SUMOVehicle& forVehicle) const;
+
 
     /** @brief Returns the last free position on this stop including
      * reservatiosn from the current lane and time step
@@ -142,6 +162,7 @@ public:
      * @return The last free position of this bus stop
      */
     double getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forVehicle);
+
 
     /** @brief Returns the position of parked vehicle
      *
@@ -154,6 +175,7 @@ public:
      * @return The nsertion position of a parked vehicle along the lane
      */
     double getInsertionPosition(const SUMOVehicle& forVehicle) const;
+
 
     /** @brief Returns the angle of parked vehicle
      *
@@ -200,70 +222,65 @@ public:
     virtual void addLotEntry(double x, double y, double z,
                              double width, double length, double angle);
 
-    /// @brief Returns the lot rectangle width
+
+    /** @brief Returns the lot rectangle width
+     *
+     * @return The width
+     */
     double getWidth() const;
 
-    /// @brief Returns the lot rectangle length
+
+    /** @brief Returns the lot rectangle length
+     *
+     * @return The length
+     */
     double getLength() const;
 
-    /// @brief Returns the lot rectangle angle
+
+    /** @brief Returns the lot rectangle angle
+     *
+     * @return The angle
+     */
     double getAngle() const;
+
 
     /// @brief update state so that vehicles wishing to enter cooperate with exiting vehicles
     void notifyEgressBlocked();
 
-    /// @brief get num alternatives
-    int getNumAlternatives() const;
+    void setNumAlternatives(int alternatives) {
+        myNumAlternatives = MAX2(myNumAlternatives, alternatives);
+    }
 
-    /// @brief set num of alternatives
-    void setNumAlternatives(int alternatives);
-
-    /// @brief calculate road-side position
-    static const Position calculateRoadSidePosition(const Position& startPos, const Position& endPos, 
-        const double PAWidth, const double PALength, const double PAAngle);
-
-    /// @brief calculate road-side angle
-    static const double calculateRoadSideAngle(const Position& startPos, const Position& endPos, const double PAAngle);
+    int getNumAlternatives() const {
+        return myNumAlternatives;
+    }
 
 protected:
 
     /** @struct LotSpaceDefinition
-     * @brief Representation of a single lot space
-     */
+    * @brief Representation of a single lot space
+    */
     struct LotSpaceDefinition {
-        /// constructor
-        LotSpaceDefinition();
-
-        /// constructor
-        LotSpaceDefinition(int index, SUMOVehicle* vehicle, double x, double y, double z, double rotation, double width, double length);
-
         /// @brief the running index
         int index;
-
         /// @brief The last parked vehicle or 0
         SUMOVehicle* vehicle;
-
         /// @brief The position of the vehicle when parking in this space
-        Position position;
-
+        Position myPosition;
         /// @brief The rotation
-        double rotation;
-
+        double myRotation;
         /// @brief The width
-        double width;
-
+        double myWidth;
         /// @brief The length
-        double length;
-
+        double myLength;
         /// @brief The position along the lane that the vehicle needs to reach for entering this lot
-        double endPos;
-
-        /// @brief The angle between lane and lot through which a vehicle must manoeuver to enter the lot
-        double manoeuverAngle;
-
-        /// @brief Whether the lot is on the LHS of the lane relative to the lane direction
-        bool sideIsLHS;
+        double myEndPos;
+        ///@brief The angle between lane and lot through which a vehicle must manoeuver to enter the lot
+        double myManoeuverAngle;
+        ///@brief Whether the lot is on the LHS of the lane relative to the lane direction
+        bool mySideIsLHS;
     };
+
 
     /** @brief Computes the last free position on this stop
      *
@@ -291,6 +308,7 @@ protected:
     /// @brief The default angle of each parking space
     double myAngle;
 
+
     /// @brief All the spaces in this parking area
     std::vector<LotSpaceDefinition> mySpaceOccupancies;
 
@@ -315,9 +333,11 @@ protected:
     Command* myUpdateEvent;
 
 private:
+
     /// @brief Invalidated copy constructor.
-    MSParkingArea(const MSParkingArea&) = delete;
+    MSParkingArea(const MSParkingArea&);
 
     /// @brief Invalidated assignment operator.
-    MSParkingArea& operator=(const MSParkingArea&) = delete;
+    MSParkingArea& operator=(const MSParkingArea&);
+
 };
