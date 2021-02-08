@@ -26,7 +26,7 @@ click. After this, an empty window should show up, similar to the one
 shown in the image.
 
 Using either the "File-\>Open Simulation..." menu entry or by using the
-"open"-icon (![Image:open_sim.gif](images/Open_sim.gif)),
+"open"-icon (![Image:open_sim.gif](images/Open_sim.png)),
 you should be able to load an existing [sumo](sumo.md)
 [configuration
 file](Basics/Using_the_Command_Line_Applications.md#configuration_files),
@@ -59,7 +59,7 @@ between simulation steps.
 
 Besides loading simulation configurations, it is also possible to load
 networks by using either the "File-\>Open Network..." menu entry or by
-using the "open network"-icon (![Image:open_net.gif](images/Open_net.gif
+using the "open network"-icon (![Image:open_net.gif](images/Open_net.png
 "Image:open_net.gif")). Please note, that normally
 **sumo-gui** assumes networks have the
 [extension](Other/File_Extensions.md) *".net.xml"*, but also
@@ -102,7 +102,7 @@ viewport editor using the
 "Image:open_viewport_editor.gif") button. From this editor, it is
 possible to save the current settings (![Image:save.gif](images/Save.gif
 "Image:save.gif")) or load previously saved ones
-(![Image:open_sim.gif](images/Open_sim.gif) within the
+(![Image:open_sim.gif](images/Open_sim.png) within the
 viewport editor).
 
 The viewport is defined as following:
@@ -452,7 +452,7 @@ visualization of POIs. Furthermore one can save
 "Image:Delete_from_registry.gif")‎) settings to the registry or export
 (![Image:Save.gif](images/Save.gif "Image:Save.gif")) custom made settings
 files and load previews settings again
-![Image:Open_sim.gif](images/Open_sim.gif). So one can
+![Image:Open_sim.png](images/Open_sim.png). So one can
 use different favorite settings files for any simulation.
 
 The current settings file is shown in a drop down menu in the top bar of
