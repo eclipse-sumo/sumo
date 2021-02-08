@@ -316,7 +316,7 @@ GeomHelper::calculateLotSpacePosition(const PositionVector &shape, const int ind
 }
 
 
-const double 
+double 
 GeomHelper::calculateLotSpaceAngle(const PositionVector& shape, const int index, const double spaceDim, const double angle) {
     // declare shape offsets
     const Position startOffset = shape.positionAtOffset(spaceDim * (index));

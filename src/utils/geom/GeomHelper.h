@@ -160,5 +160,5 @@ public:
         const double spaceDim, const double angle, const double width, const double length);
 
     /// @brief calculate lotSpace angle
-    static const double calculateLotSpaceAngle(const PositionVector& shape, const int index, const double spaceDim, const double angle);
+    static double calculateLotSpaceAngle(const PositionVector& shape, const int index, const double spaceDim, const double angle);
 };
