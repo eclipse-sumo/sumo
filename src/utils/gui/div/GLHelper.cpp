@@ -466,6 +466,50 @@ GLHelper::resetFont() {
 }
 
 
+void 
+GLHelper::setGL2PS(bool active) {
+    myGL2PSActive = active;
+}
+
+
+void 
+GLHelper::drawSpaceOccupancies(const double exaggeration, const Position &pos, const double rotation, 
+    const double width, const double length, const bool vehicle) {
+    // declare colors
+    const RGBColor red(255, 0, 0, 255);
+    const RGBColor green(0, 255, 0, 255);
+    // declare geometry
+    PositionVector geom;
+    const double w = width / 2. - 0.1 * exaggeration;
+    const double h = length;
+    // set geometry
+    geom.push_back(Position(-w, +0, 0.));
+    geom.push_back(Position(+w, +0, 0.));
+    geom.push_back(Position(+w, +h, 0.));
+    geom.push_back(Position(-w, +h, 0.));
+    geom.push_back(Position(-w, +0, 0.));
+    /*
+    geom.push_back(Position(pos.x(), pos.y(), pos.z()));
+    geom.push_back(Position(pos.x() + (*l).second.myWidth, pos.y(), pos.z()));
+    geom.push_back(Position(pos.x() + (*l).second.myWidth, pos.y() - (*l).second.myLength, pos.z()));
+    geom.push_back(Position(pos.x(), pos.y() - (*l).second.myLength, pos.z()));
+    geom.push_back(Position(pos.x(), pos.y(), pos.z()));
+    */
+    // push matrix
+    glPushMatrix();
+    // translate
+    glTranslated(pos.x(), pos.y(), pos.z());
+    // rotate
+    glRotated(rotation, 0, 0, 1);
+    // set color
+    GLHelper::setColor(vehicle? green : red);
+    // draw box lines
+    GLHelper::drawBoxLines(geom, 0.1 * exaggeration);
+    // pop matrix
+    glPopMatrix();
+}
+
+
 bool
 GLHelper::initFont() {
     if (myFont == nullptr) {
