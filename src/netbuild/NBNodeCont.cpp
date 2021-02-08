@@ -470,6 +470,9 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
         // no need to keep pt stop edges, they are remapped later
         // no need to keep all pt route edges. They are validated again before writing
         pc.addEdges2Keep(oc, edges2keep);
+        if (oc.getBool("geometry.remove.keep-ptstops")) {
+            sc.addEdges2Keep(oc, edges2keep);
+        }
     }
     std::vector<NBNode*> toRemove;
     for (const auto& i : myNodes) {

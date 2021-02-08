@@ -125,6 +125,7 @@ Returns a list of of Reservation objects that have the following attributes
 - departPos
 - depart
 - reservationTime
+- state (positive value, see below)
 
 When calling `traci.person.getTaxiReservations(reservationState)` the following arguments for reservationState are supported:
 

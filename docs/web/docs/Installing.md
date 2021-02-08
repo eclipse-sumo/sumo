@@ -106,9 +106,9 @@ In case this process fails, it can also be manually achieved by copying these ap
 
 These application bundles determine the location of your SUMO installation by evaluating your `$SUMO_HOME` variable setting and start the programs accordingly. Multiple SUMO installations may be used by changing the `$SUMO_HOME` variable.
 
-## MacOS Troubleshooting
+## macOS Troubleshooting
 
-If you encounter segmentation faults on MacOS Catalina, please follow the following steps (see [Issue 6242](https://github.com/eclipse/sumo/issues/6242#issuecomment-553458710)).
+If you encounter segmentation faults on macOS Catalina, please follow the following steps (see [Issue 6242](https://github.com/eclipse/sumo/issues/6242#issuecomment-553458710)).
 
 1. Uninstall Catalina bottle of fox:
 ```$ brew uninstall --ignore-dependencies fox```

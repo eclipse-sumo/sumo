@@ -683,6 +683,9 @@ public:
     /// @brief Information whether the route index should be shown
     bool showRouteIndex;
 
+    /// @brief Whether vehicle length shall be scaled with length/geometry factor
+    bool scaleLength;
+
     // Setting bundles for controling the size of the drawn vehicles
     GUIVisualizationSizeSettings vehicleSize;
 

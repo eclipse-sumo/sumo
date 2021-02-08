@@ -238,49 +238,49 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     int messageId = FXSELID(sel);
     if (myGLObjChooser.count(messageId) == 0 || myGLObjChooser[messageId] == nullptr) {
         FXIcon* icon = nullptr;
-        std::string title = "";
+        std::string titleString = "";
         switch (messageId) {
             case MID_LOCATEJUNCTION:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION);
-                title = "Junction Chooser";
+                titleString = "Junction Chooser";
                 break;
             case MID_LOCATEEDGE:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE);
-                title = "Edge Chooser";
+                titleString = "Edge Chooser";
                 break;
             case MID_LOCATEVEHICLE:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE);
-                title = "Vehicle Chooser";
+                titleString = "Vehicle Chooser";
                 break;
             case MID_LOCATEPERSON:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON);
-                title = "Person Chooser";
+                titleString = "Person Chooser";
                 break;
             case MID_LOCATECONTAINER:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER);
-                title = "Container Chooser";
+                titleString = "Container Chooser";
                 break;
             case MID_LOCATETLS:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATETLS);
-                title = "Traffic Lights Chooser";
+                titleString = "Traffic Lights Chooser";
                 break;
             case MID_LOCATEADD:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEADD);
-                title = "Additional Objects Chooser";
+                titleString = "Additional Objects Chooser";
                 break;
             case MID_LOCATEPOI:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI);
-                title = "POI Chooser";
+                titleString = "POI Chooser";
                 break;
             case MID_LOCATEPOLY:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY);
-                title = "Polygon Chooser";
+                titleString = "Polygon Chooser";
                 break;
             default:
                 throw ProcessError("Unknown Message ID in onCmdLocate");
         }
 
-        myGLObjChooser[messageId] = new GUIDialog_GLObjChooser(this, messageId, icon, title.c_str(), getObjectIDs(messageId), GUIGlObjectStorage::gIDStorage);
+        myGLObjChooser[messageId] = new GUIDialog_GLObjChooser(this, messageId, icon, titleString.c_str(), getObjectIDs(messageId), GUIGlObjectStorage::gIDStorage);
 
     } else {
         myGLObjChooser[messageId]->restore();

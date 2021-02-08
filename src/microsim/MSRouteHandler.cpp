@@ -73,7 +73,6 @@ MSRouteHandler::deleteActivePlanAndVehicleParameter() {
             delete *i;
         }
         delete myActiveTransportablePlan;
-        myActiveTransportablePlan = nullptr;
     }
     resetActivePlan();
 

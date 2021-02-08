@@ -739,6 +739,7 @@ MSLaneChangerSublane::checkChangeOpposite(
 #endif
         return startChangeSublane(vehicle, myCandi, latDist, maneuverDist);
     } else {
+        vehicle->getLaneChangeModel().setSpeedLat(0);
         return false;
     }
 }

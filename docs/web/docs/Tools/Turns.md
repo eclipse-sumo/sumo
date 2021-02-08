@@ -32,7 +32,7 @@ The turn-count data must be provided in the format:
 ```
 
 # routeSampler.py
-The script generates routes from turn-count data, edge-count and even origin-destination-count data. It requires a route file as input that defines possible routes. Routes are sampled (heuristically) from the input so that
+The script generates routes from *any combination* of turn-count data, edge-count and even origin-destination-count data. It requires a route file as input that defines possible routes. Routes are sampled (heuristically) from the input so that
 the resulting routes fulfill the counting data
 
 ## turn counts

@@ -3203,19 +3203,22 @@ MSLane::getStopOffset(const MSVehicle* veh) const {
 MSLeaderDistanceInfo
 MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                                   bool allSublanes, double searchDist, bool ignoreMinorLinks) const {
+    assert(ego != 0);
     // get the follower vehicle on the lane to change to
     const double egoPos = backOffset + ego->getVehicleType().getLength();
+    const double egoLatDist = ego->getLane()->getRightSideOnEdge() - getRightSideOnEdge();
+    const bool getOppositeLeaders = ego->getLaneChangeModel().isOpposite() && ego->getLane() == this;
 #ifdef DEBUG_CONTEXT
     if (DEBUG_COND2(ego)) {
         std::cout << SIMTIME << " getFollowers lane=" << getID() << " ego=" << ego->getID()
                   << " backOffset=" << backOffset << " pos=" << egoPos
                   << " allSub=" << allSublanes << " searchDist=" << searchDist << " ignoreMinor=" << ignoreMinorLinks
+                  << " egoLatDist=" << egoLatDist
+                  << " getOppositeLeaders=" << getOppositeLeaders
                   << "\n";
     }
 #endif
-    assert(ego != 0);
-    const double egoLatDist = ego->getLane()->getRightSideOnEdge() - getRightSideOnEdge();
-    MSCriticalFollowerDistanceInfo result(this, allSublanes ? nullptr : ego, allSublanes ? 0 : egoLatDist);
+    MSCriticalFollowerDistanceInfo result(this, allSublanes ? nullptr : ego, allSublanes ? 0 : egoLatDist, getOppositeLeaders);
     /// XXX iterate in reverse and abort when there are no more freeSublanes
     for (AnyVehicleIterator last = anyVehiclesBegin(); last != anyVehiclesEnd(); ++last) {
         const MSVehicle* veh = *last;

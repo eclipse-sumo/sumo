@@ -3,7 +3,7 @@ title: Specification/Containers
 permalink: /Specification/Containers/
 ---
 
-Containers can be used to simulated freight and goods. A container can
+Containers can be used to simulate freight and goods. A container can
 represent, for example, an ISO container, a tank container, an arbitrary
 amount of bulk material, an arbitrary amount of animals etc.
 

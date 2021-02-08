@@ -337,7 +337,7 @@ protected:
     std::vector<FXRealSpinner*> myVehicleThresholds;
     std::vector<FXButton*> myVehicleButtons;
     FXCheckButton* myVehicleColorInterpolation;
-    FXCheckButton* myShowBlinker, *myShowMinGap, *myShowBrakeGap, *myShowBTRange, *myShowRouteIndex; /* *myShowLaneChangePreference,*/
+    FXCheckButton* myShowBlinker, *myShowMinGap, *myShowBrakeGap, *myShowBTRange, *myShowRouteIndex, *myScaleLength; /* *myShowLaneChangePreference,*/
     FXComboBox* myVehicleParamKey;
     FXComboBox* myVehicleTextParamKey;
 

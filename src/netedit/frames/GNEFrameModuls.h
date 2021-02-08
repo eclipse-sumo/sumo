@@ -583,7 +583,7 @@ public:
         ~PathCreator();
 
         /// @brief show PathCreator for the given tag
-        void showPathCreatorModul(SumoXMLTag tag, const bool firstElement, const bool consecutives);
+        void showPathCreatorModul(SumoXMLTag element, const bool firstElement, const bool consecutives);
 
         /// @brief show PathCreator
         void hidePathCreatorModul();

@@ -129,4 +129,5 @@ join_tram
 
 # test option edges.join-tram-dist (no tram lines in input)
 join_tram2
+ticket8155_orig
 bugs

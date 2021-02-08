@@ -265,10 +265,10 @@ GUIDialog_ChooserAbstract::refreshList(const std::vector<GUIGlID>& ids) {
             continue;
         }
         const std::string& name = getObjectName(o);
-        bool selected = myWindowsParent->isSelected(o);
-        FXIcon* icon = selected ? GUIIconSubSys::getIcon(GUIIcon::FLAG) : nullptr;
+        const bool selected = myWindowsParent->isSelected(o);
+        FXIcon* const ico = selected ? GUIIconSubSys::getIcon(GUIIcon::FLAG) : nullptr;
         myIDs.insert(o->getGlID());
-        myList->appendItem(name.c_str(), icon, (void*) & (*myIDs.find(o->getGlID())));
+        myList->appendItem(name.c_str(), ico, (void*) & (*myIDs.find(o->getGlID())));
         GUIGlObjectStorage::gIDStorage.unblockObject(i);
     }
     myList->update();

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 14 13:52:18 2021 by Eclipse SUMO sumo Version v1_8_0+0533-3a7fa4a
+<!-- generated on Fri Feb  5 16:29:18 2021 by Eclipse SUMO sumo Version v1_8_0+0996-4068e1e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,6 +34,6 @@ SPDX-License-Identifier: EPL-2.0
 
 <lanechanges>
     <change id="overtaking1" type="emergency" time="71.00" from="WE_1" to="EW_1" dir="1" speed="13.89" pos="941.85" reason="" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="53.15" origLeaderSecureGap="28.56" origLeaderSpeed="0.00" latGap="None"/>
-    <change id="overtaking1" type="emergency" time="83.00" from="EW_1" to="WE_1" dir="-1" speed="13.89" pos="954.61" reason="" leaderGap="2.50" leaderSecureGap="28.56" leaderSpeed="0.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
-    <change id="overtaking1" type="emergency" time="89.00" from="WE_1" to="WE_0" dir="-1" speed="13.89" pos="1128.73" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="122.23" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="overtaking1" type="emergency" time="82.00" from="EW_1" to="WE_1" dir="-1" speed="13.00" pos="968.50" reason="" leaderGap="2.50" leaderSecureGap="25.50" leaderSpeed="0.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="overtaking1" type="emergency" time="88.00" from="WE_1" to="WE_0" dir="-1" speed="13.89" pos="1114.84" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="108.34" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
 </lanechanges>

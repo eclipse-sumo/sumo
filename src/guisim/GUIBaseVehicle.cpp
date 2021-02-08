@@ -406,7 +406,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     // scale
     const double upscale = s.vehicleSize.getExaggeration(s, this);
     double upscaleLength = upscale;
-    if (upscale > 1 && length > 5) {
+    if (upscale > 1 && length > 5 && s.vehicleQuality != 4) {
         // reduce the length/width ratio because this is not usefull at high zoom
         const double widthLengthFactor = length / getVType().getWidth();
         const double shrinkFactor = MIN2(widthLengthFactor, sqrt(upscaleLength));
@@ -425,15 +425,21 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         */
     // draw the vehicle
     bool drawCarriages = false;
+    const double geometryFactor = (s.scaleLength ?
+            ((myVehicle.getLane() != nullptr
+              ? myVehicle.getLane()->getLengthGeometryFactor()
+              : (myVehicle.getEdge()->getLanes().size() > 0 ? myVehicle.getEdge()->getLanes()[0]->getLengthGeometryFactor() : 1)))
+            : 1);
+    const double scaledLength = length * geometryFactor;
     switch (s.vehicleQuality) {
         case 0:
-            GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(getVType().getWidth(), getVType().getLength());
+            GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(getVType().getWidth(), scaledLength);
             break;
         case 1:
-            GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(getVType().getWidth(), getVType().getLength());
+            GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(getVType().getWidth(), scaledLength);
             break;
         case 2:
-            drawCarriages = drawAction_drawVehicleAsPolyWithCarriagges(s);
+            drawCarriages = drawAction_drawVehicleAsPolyWithCarriagges(s, scaledLength);
             // draw flashing blue light for emergency vehicles
             if (getVType().getGuiShape() == SVS_EMERGENCY) {
                 glTranslated(0, 0, .1);
@@ -441,9 +447,12 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
             }
             break;
         case 3:
-            drawCarriages = drawAction_drawVehicleAsPolyWithCarriagges(s, true);
+            drawCarriages = drawAction_drawVehicleAsPolyWithCarriagges(s, scaledLength, true);
+            break;
         case 4:
-            GUIBaseVehicleHelper::drawAction_drawVehicleAsCircle(getVType().getWidth(), getVType().getLength(), s.scale * upscale);
+            // do not scale circle radius by lengthGeometryFactor
+            GUIBaseVehicleHelper::drawAction_drawVehicleAsCircle(getVType().getWidth(), length, s.scale * upscale);
+            break;
         default:
             break;
     }
@@ -486,14 +495,14 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
                 break;
             case SVS_MOTORCYCLE:
             case SVS_MOPED:
-                drawAction_drawVehicleBlinker(length);
-                drawAction_drawVehicleBrakeLight(length, true);
+                drawAction_drawVehicleBlinker(scaledLength);
+                drawAction_drawVehicleBrakeLight(scaledLength, true);
                 break;
             default:
                 // only SVS_RAIL_CAR has blinkers and brake lights but they are drawn along with the carriages
                 if (!drawCarriages) {
-                    drawAction_drawVehicleBlinker(length);
-                    drawAction_drawVehicleBrakeLight(length);
+                    drawAction_drawVehicleBlinker(scaledLength);
+                    drawAction_drawVehicleBrakeLight(scaledLength);
                 }
                 break;
         }
@@ -545,7 +554,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         glEnd();
     }
     */
-    glTranslated(0, MIN2(length / 2, double(5)), -getType()); // drawing name at GLO_MAX fails unless translating z
+    glTranslated(0, MIN2(scaledLength / 2, double(5)), -getType()); // drawing name at GLO_MAX fails unless translating z
     glScaled(1 / upscale, 1 / upscaleLength, 1);
     glRotated(-degAngle, 0, 0, 1);
     drawName(Position(0, 0), s.scale, s.vehicleName, s.angle);
@@ -584,7 +593,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         myContainerPositions.clear();
         int requiredSeats = getNumPassengers();
         int requiredContainerPositions = getNumContainers();
-        const Position back = (p1 + Position(-length * upscaleLength, 0)).rotateAround2D(angle, p1);
+        const Position back = (p1 + Position(-scaledLength * upscaleLength, 0)).rotateAround2D(angle, p1);
         computeSeats(p1, back, SUMO_const_waitingPersonWidth, getVType().getPersonCapacity(), upscale, requiredSeats, mySeatPositions);
         computeSeats(p1, back, SUMO_const_waitingContainerWidth, getVType().getContainerCapacity(), upscale, requiredContainerPositions, myContainerPositions);
     }
@@ -860,16 +869,16 @@ GUIBaseVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettin
 
 
 bool
-GUIBaseVehicle::drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizationSettings& s, bool asImage) const {
+GUIBaseVehicle::drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizationSettings& s, double scaledLength, bool asImage) const {
     if (getVType().getParameter().carriageLength > 0) {
         drawAction_drawCarriageClass(s, asImage);
         return true;
     } else {
         if (asImage && GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(
-                    s, getVType().getImgFile(), this, getVType().getWidth(), getVType().getLength())) {
+                    s, getVType().getImgFile(), this, getVType().getWidth(), scaledLength)) {
             return false;
         }
-        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth(), getVType().getLength());
+        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth(), scaledLength);
         return false;
     }
 }
