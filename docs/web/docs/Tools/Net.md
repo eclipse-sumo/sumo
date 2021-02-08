@@ -83,29 +83,28 @@ This tool checks the network (first parameter) for weak connectivity
 regardless of edge direction) and prints the connected components if
 not.
 
-Additionally you may run this script to discover which edges are
-reachable from a particular edge
+Additionally, you may run this script to discover which edges are
+reachable from a particular edge.
 
 ```
 python tools/net/netcheck.py <your.net.xml> --source <edge_id> --selection-output selection.txt
 ```
 
-This will create a file called *selection.txt* which can be loaded in
+This will create a file called ```selection.txt``` which can be loaded in
 [sumo-gui](../sumo-gui.md) to visualize the portion of the network
-reachable from <edge_id\>. To visualize the selection you must load the
-file using the menus **Edit-\>Edit chosen**. Then you need to enable
+reachable from ***<edge_id\>***. To visualize the selection, you must load the
+file via **Edit-\>Edit chosen**. Then, you need to enable
 edge coloring by selection status in the view settings dialog
 **Street-\>Color by: selection**. The reachable portion of the network
 will be colored differently from the unreachable portion which is
-usually sufficient to figure out network modelling errors.
+usually sufficient to figure out network modeling errors.
 
 The options can be shortened to **-s <edge_id\>** for source edges and **-o <filename\>** for selection
 output.
 
 Using option **--destination <edge_id\>**, or **-d <edge_id\>**, lists edges which can reach the given edge. By
 adding the option **--vclass <vClass\>**, or **-l <vClass\>**, the check becomes
-[vClass](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class)
-aware.
+[vClass](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class)-aware.
 
 The option **--component-output <filename\>**, or **-c <filename\>**, writes all the identified components and their
 constituent edges to the specified file. The option **--results-output <filename\>**, or **-r <filename\>**, writes the
