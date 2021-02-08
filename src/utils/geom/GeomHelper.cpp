@@ -322,7 +322,7 @@ GeomHelper::calculateLotSpaceAngle(const PositionVector& shape, const int index,
     const Position startOffset = shape.positionAtOffset(spaceDim * (index));
     const Position endOffset = shape.positionAtOffset(spaceDim * (index + 1));
     // return angle
-    return ((double)atan2((startOffset.x() - endOffset.x()), (endOffset.y() - startOffset.y())) * (double)180.0 / (double)M_PI) + angle;
+    return ((double)atan2((endOffset.x() - startOffset.x()), (startOffset.y() - endOffset.y())) * (double)180.0 / (double)M_PI) + angle;
 }
 
 /****************************************************************************/
