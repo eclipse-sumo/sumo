@@ -115,17 +115,14 @@ MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::strin
     computeLastFreePos();
 }
 
+
 MSParkingArea::~MSParkingArea() {}
+
 
 void
 MSParkingArea::addLotEntry(double x, double y, double z, double width, double length, double angle) {
-    LotSpaceDefinition lsd;
-    lsd.index = (int)mySpaceOccupancies.size();
-    lsd.vehicle = nullptr;
-    lsd.position = Position(x, y, z);
-    lsd.width = width;
-    lsd.length = length;
-    lsd.rotation = angle;
+    // create LotSpaceDefinition
+    LotSpaceDefinition lsd((int)mySpaceOccupancies.size(), nullptr, x, y, z, angle, width, length);
     // If we are modelling parking set the end position to the lot position relative to the lane
     // rather than the end of the parking area - this results in vehicles stopping nearer the space
     // and re-entering the lane nearer the space. (If we are not modelling parking the vehicle will usually
@@ -305,6 +302,31 @@ MSParkingArea::updateOccupancy(SUMOTime /* currentTime */) {
     myLastStepOccupancy = getOccupancy();
     myUpdateEvent = nullptr;
     return 0;
+}
+
+
+MSParkingArea::LotSpaceDefinition::LotSpaceDefinition() :
+    index(-1),
+    vehicle(nullptr),
+    rotation(0),
+    width(0),
+    length(0),
+    endPos(0),
+    manoeuverAngle(0),
+    sideIsLHS(false) {
+}
+
+
+MSParkingArea::LotSpaceDefinition::LotSpaceDefinition(int index_, SUMOVehicle* vehicle_, double x, double y, double z, double rotation_, double width_, double length_) :
+    index(index_),
+    vehicle(vehicle_),
+    position(Position(x, y, z)),
+    rotation(rotation_),
+    width(width_),
+    length(length_),
+    endPos(0),
+    manoeuverAngle(0),
+    sideIsLHS(false) {
 }
 
 

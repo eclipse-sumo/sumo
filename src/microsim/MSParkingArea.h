@@ -202,26 +202,32 @@ public:
 
 protected:
     /** @struct LotSpaceDefinition
-    * @brief Representation of a single lot space
-    */
+     * @brief Representation of a single lot space
+     */
     struct LotSpaceDefinition {
+        /// @brief default constructor
+        LotSpaceDefinition();
+
+        /// @brief parameter constructor
+        LotSpaceDefinition(int index, SUMOVehicle* vehicle, double x, double y, double z, double rotation, double width, double length);
+
         /// @brief the running index
-        int index;
+        const int index;
 
         /// @brief The last parked vehicle or 0
-        SUMOVehicle* vehicle;
+        const SUMOVehicle* vehicle;
 
         /// @brief The position of the vehicle when parking in this space
-        Position position;
+        const Position position;
 
         /// @brief The rotation
-        double rotation;
+        const double rotation;
 
         /// @brief The width
-        double width;
+        const double width;
 
         /// @brief The length
-        double length;
+        const double length;
 
         /// @brief The position along the lane that the vehicle needs to reach for entering this lot
         double endPos;
