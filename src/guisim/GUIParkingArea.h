@@ -130,8 +130,6 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     //@}
 
-    /// @brief draw lotSpaceDefinition
-    static void drawLotSpaceDefinition(const double exaggeration, const LotSpaceDefinition &Lot);
 
 private:
     /// @brief The rotations of the shape parts
