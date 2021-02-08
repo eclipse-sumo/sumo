@@ -11,7 +11,7 @@ This script compares two *.net.xml* files. The call
 python tools/net/netdiff.py A.net.xml B.net.xml diff
 ```
 
-will produce 4 [plain-XML network](../Networks/PlainXML.md) files
+will produce 4 [plain-XML network](../Networks/PlainXML.md) files:
 
 - diff.nod.xml
 - diff.edg.xml
@@ -19,31 +19,31 @@ will produce 4 [plain-XML network](../Networks/PlainXML.md) files
 - diff.tll.xml
 
 These files contain groups of xml elements (i.e. nodes) that have been
-delete, created or modified and can be used to investigate differences
-between the two networks *A* and *B*. Furthermore these files be used to
+deleted, created, or modified and can be used to investigate differences
+between the two networks ***A*** and ***B***. Furthermore, these files can be used to
 maintain change-sets for making repeatable modifications:
 
 ```
 netconvert --sumo-net-file A.net.xml -n diff.nod.xml -e diff.edg.xml -x diff.con.xml -i diff.tll.xml -o B.net.xml
 ```
 
-The above call can be used to recreate network *B* based on *A* and the
+The above call can be used to recreate network ***B*** based on ***A*** and the
 recorded change-set. Note, that for any modified elements (i.e. modified
-speed limit for an edge) the file *diff.edg.xml* only contains to
+speed limit for an edge), the file ***diff.edg.xml*** only contains to
 modified attributes.
 
-A typical use case for *netdiff.py* is this:
+A typical use case for ```netdiff.py``` is this:
 
 1.  [Import a network from
     OSM](../Networks/Import/OpenStreetMap.md) (call this
-    *A.net.xml*)
-2.  make some modifications with [netedit](../netedit.md) (save
-    this under the new name *B.net.xml*)
-3.  use *netdiff.py* to create the *diff*-files
+    ***A.net.xml***)
+2.  Make some modifications with [netedit](../netedit.md) (save
+    this under the new name ***B.net.xml***)
+3.  Use ```netdiff.py``` to create the *diff*-files
 4.  At a later date, re-import the OSM network (with a newer OSM file, a
     new version of [netconvert](../netconvert.md) or different
     options)
-5.  re-apply the *diff*-files to avoid repeating manual corrections with
+5.  Re-apply the *diff*-files to avoid repeating manual corrections with
     [netedit](../netedit.md)
 
 ![](../images/mergeA.png)
@@ -55,7 +55,7 @@ A typical use case for *netdiff.py* is this:
 If the patch file is to be applied during the initial network import
 (e.g. from OSM), the netdiff option **-i** must be set. Due to the way
 connections are guessed during network import, all connections for an
-edge must be included in the patch file if any of them was changed. This
+edge must be included in the patch file if any of them were changed. This
 is accomplished by setting **-i** (**--patch-on-import**).
 
 # createRoundaboutConnections.py
