@@ -25,6 +25,7 @@ driveAfterRedTime
 
 # tests for ignoring right of way
 ignoreRightOfWay
+ignoreFoeOnJunction
 
 # configure timegap to observe when passing a minor link
 timegapMinor
