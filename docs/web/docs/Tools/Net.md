@@ -169,6 +169,7 @@ python tools/net/net2kml.py -n your.net.xml -o output.kml
 ```
 
 By default, normal edge geometries will be exported. This can be changed with options
+
 - **--lanes**: write lane geometries
 - **--internal**: write junction-internal edges or lanes
 
@@ -181,5 +182,6 @@ python tools/net/net2geojson.py -n your.net.xml -o output.geojson
 ```
 
 By default, normal edge geometries will be exported. This can be changed with options
+
 - **--lanes**: write lane geometries
 - **--internal**: write junction-internal edges or lanes
