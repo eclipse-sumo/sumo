@@ -73,7 +73,7 @@ Usage:
 python tools/net/createRoundaboutConnections.py <net>
 ```
 
-This creates the output file ```roundabout-connection.con.xml```, where the input network is ```<net>```.
+This creates the output file ```roundabout-connection.con.xml```, where the input network is ***<net\>***.
 
 
 # netcheck.py
