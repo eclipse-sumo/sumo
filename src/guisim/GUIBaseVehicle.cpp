@@ -466,7 +466,8 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         glVertex2d(.5, minGap);
         glEnd();
     }
-    if (s.drawBrakeGap && !MSGlobals::gUseMesoSim) {
+    if (s.drawBrakeGap && !MSGlobals::gUseMesoSim
+            && (!s.vehicleSize.constantSizeSelected || myVehicle.isSelected())) {
         const double brakeGap = -static_cast<MSVehicle&>(myVehicle).getCarFollowModel().brakeGap(myVehicle.getSpeed());
         glColor3d(1., 0., 0.);
         glBegin(GL_LINES);
