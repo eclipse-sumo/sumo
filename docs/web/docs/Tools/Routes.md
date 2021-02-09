@@ -200,7 +200,7 @@ Generates a visualization file for investigating traffic patterns in a
 route file.
 
 ```
-python tools/showDepartsAndArrivalsPerEdge.py myRoutes.rou.xml --output-file results.xml
+python tools/showDepartsAndArrivalsPerEdge.py <route-file> --output-file <output-file>
 ```
 
 The option **--intermediate** may be used to include the total number of passing vehicles
@@ -214,7 +214,7 @@ When investigating routes that pass a particular edge or intersection,
 the input routes may be filtered using the option **--subpart** {{DT_STR}}:
 
 ```
-python tools/showDepartsAndArrivalsPerEdge.py myRoutes.rou.xml --output-file results.xml --subpart edge3,edge4,edge5
+python tools/showDepartsAndArrivalsPerEdge.py <route-file> --output-file <output-file> --subpart edge3,edge4,edge5
 ```
 
 This will only generate results for routes that contain the edge
