@@ -123,8 +123,6 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         new FXLabel(m11, "Color", nullptr, GUIDesignViewSettingsLabel1);
         myBackgroundColor = new FXColorWell(m11, MFXUtils::getFXColor(settings->backgroundColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
 
-        new FXHorizontalSeparator(frame1, GUIDesignHorizontalSeparator);
-
         FXVerticalFrame* verticalFrameDecals = new FXVerticalFrame(frame1, GUIDesignViewSettingsVerticalFrame3);
         new FXLabel(verticalFrameDecals, "Decals:");
         myDecalsFrame = new FXVerticalFrame(verticalFrameDecals);
