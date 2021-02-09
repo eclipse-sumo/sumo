@@ -6,12 +6,10 @@ permalink: /Tools/Misc/
 # createVehTypeDistribution.py
 
 Creates a vehicle type distribution by sampling from configurable value
-distributions for the [desired `vType`-parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types).
-
-Example use
+distributions for the [desired `vType`-parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types). Example:
 
 ```
-<SUMO_HOME>/tools/createVehTypeDistribution.py config.txt
+python tools/createVehTypeDistribution.py config.txt
 ```
 
 The only required parameter is the configuration file in the format
@@ -68,30 +66,33 @@ the data set. The following is recommenced:
 
 # extractTest.py
 
-This scripts extracts test scenarios if you like to run a simulation scenario which is included in the test folder <SUMO_HOME>/tests. In order to do so you can either download the complete sumo package or use the online test extraction. I In order to do so you can either [download the complete sumo package](../Downloads.md#all-inclusive-tarball) or use the [online test extraction](https://sumo.dlr.de/extractTest.php). In the online tool you enter the path to the test you like (e.g. [{{SUMO}}/tests/sumo/extended/rerouter/use_routing_device](https://github.com/eclipse/sumo/blob/master/tests/sumo/extended/rerouter/use_routing_device) into the form and get a zip containing all the files.
+This scripts extracts test scenarios if you like to run a simulation scenario which is included in the test folder <SUMO_HOME>/tests. In order to do so, you can either:
+- [download the complete sumo package](../Downloads.md#all-inclusive-tarball) and call:
+```
+python tools/extractTest.py <path to test directory>
+```
+- or use the [online test extraction](https://sumo.dlr.de/extractTest.php). In the online tool you enter the path to the test you like (e.g. [{{SUMO}}/tests/sumo/extended/rerouter/use_routing_device](https://github.com/eclipse/sumo/blob/master/tests/sumo/extended/rerouter/use_routing_device) into the form and get a zip containing all the files.
 
 # generateParkingLots.py
 
-This script generates parking lots.
-
-Example use
+This script generates parking lots. Example:
 
 ```
-<SUMO_HOME>/tools/generateParkingLots.py -b <xmin, ymin, xmax, ymax> -c <connecting edge>
+python tools/generateParkingLots.py -b <xmin, ymin, xmax, ymax> -c <connecting edge>
  [-i <parking-id> -n <number of parking spaces> -l <space-length> -a <space-angle> ...]
 ```
 
 or
 
 ```
-<SUMO_HOME>/tools/generateParkingLots.py -x <x-pos> -y <y-pos> -c <connecting edge>
+python tools/generateParkingLots.py -x <x-pos> -y <y-pos> -c <connecting edge>
  [-i <parking-id> -n <number of parking spaces> -l <space-length> -a <space-angle> ...]
 ```
 
 The required parameter are the shape (--bounding-box) or the position
 (--x-axis and --y-axis) of the parking lot and the connecting edge
 (--connecting-edge). More options can be obtained by calling
-<SUMO_HOME\>/tools/generateParkingLots.py --help.
+python tools/generateParkingLots.py --help.
 
 Additional options:
 
@@ -117,52 +118,61 @@ Additional options:
 This script generates a pedestrian edge for each public transport stop
 (in the form of *.nod.xml* and *.edg.xml* files. The output is suitable
 for extending rail-only networks with the bare minimum of pedestrian
-infrastructure for departing, changing trains and arriving.
-
-Example use
+infrastructure for departing, changing trains and arriving. Example:
 
 ```
-python <SUMO_HOME>/tools/generateStationEdges.py rail.net.xml stops.xml
+python tools/generateStationEdges.py rail.net.xml stops.xml
  netconvert -s rail.net.xml -e stops.access.edg.xml -n stops.access.nod.xml --ptstop-files stops.xml -o railForPersons.net.xml --ptstop-output stopsWithAccess.xml
 ```
 
 # generateContinuousRerouters.py
 
-This script generates rerouter definitions for a continuously running simulation. Rerouters are placed ahead of each intersection with routes leading up to the next intersection and configurable turning ratios. Vehicles that enter the simulation will circulate continuously (unless hitting a dead-end).
+This script generates rerouter definitions for a continuously running simulation. Rerouters are placed ahead of each intersection with routes leading up to the next intersection and configurable turning ratios. Vehicles that enter the simulation will circulate continuously (unless hitting a dead-end). Example:
 
-Example use
 ```
-python <SUMO_HOME>/tools/generateContinuousRerouters.py -n net.net.xml -o rerouter.add.xml
+python tools/generateContinuousRerouters.py -n <net-file> -o <output-file> 
+```
+
+# generateParkingAreaRerouters.py
+
+This script generates parking area rerouters from a parking area definition. Example:
+
+```
+python tools/generateParkingAreaRerouters.py -n <net-file> -a <parkingArea-file> -o <output-file> 
 ```
 
 # averageRuns.py
 
 This script runs a given sumo configuration multiple times with
-different random seeds and averages [trip statistics](../Simulation/Output.md#aggregated_traffic_measures).
+different random seeds and averages the trip statistics output (see [trip statistics](../Simulation/Output.md#aggregated_traffic_measures).)
 
-Example use
+Example:
 
 ```
-python <SUMO_HOME>/tools/averageRuns.py example.sumocfg -n 100
+python tools/averageRuns.py <sumocfg-file> -n 100
 ```
 
 # tileGet.py
 
 This script retrieves background images from ESRI ArcGIS tile servers and other imaging APIs
 such as Google Maps and MapQuest. The simplest usage is to call it with a SUMO
-network file only. It will generate a settings file containing the coordinates which
+network file only. It will generate a visualisation settings file containing the coordinates which
 can be loaded with sumo-gui or netedit. The most useful options are -t for the
 (maximum) number of tiles to retrieve and -u to give the URL of the tile server.
 
-Example use (retrieving data from the public ArcGIS online instance)
-
+Examples: 
+- Retrieving data from the public ArcGIS online instance:
 ```
-python <SUMO_HOME>/tools/tileGet.py -n test.net.xml -t 10
+python tools/tileGet.py -n test.net.xml -t 10
+```
+
+- Retrieving satellite data from Google or MapQuest (Requires obtaining an API-key first):
+```
+python tools/tileGet.py -n test.net.xml -t 10 --url maps.googleapis.com/maps/api/staticmap --key YOURKEY
+python tools/tileGet.py -n test.net.xml -t 10 --url open.mapquestapi.com/staticmap/v4/getmap --key YOURKEY
+```
+
+The generated setting file can be loaded in sumo-gui with:
+```
 sumo-gui -n test.net.xml -g settings.xml
-```
-
-Retrieving satellite data from Google or MapQuest (Requires obtaining an API-key first):
-```
-python <SUMO_HOME>/tools/tileGet.py -n test.net.xml -t 10 --url maps.googleapis.com/maps/api/staticmap --key YOURKEY
-python <SUMO_HOME>/tools/tileGet.py -n test.net.xml -t 10 --url open.mapquestapi.com/staticmap/v4/getmap --key YOURKEY
 ```
