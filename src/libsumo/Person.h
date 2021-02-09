@@ -33,7 +33,7 @@
 // ===========================================================================
 #ifndef LIBTRACI
 class MSPerson;
-class Reservation;
+struct Reservation;
 class PositionVector;
 #endif
 

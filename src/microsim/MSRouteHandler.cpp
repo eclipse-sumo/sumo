@@ -684,7 +684,7 @@ MSRouteHandler::closeTransportable() {
     try {
         if (myActiveTransportablePlan->size() == 0) {
             std::string error = myActiveTypeName + " '" + myVehicleParameter->id + "' has no plan.";
-            error[0] = std::toupper(error[0]);
+            error[0] = (char)::toupper((char)error[0]);
             throw ProcessError(error);
         }
         // let's check whether this transportable had to depart before the simulation starts
