@@ -18,7 +18,7 @@ defined by begin (option **-b**, default 0) and end time (option **-e**, default
 prefix (option **--prefix**, default "") and a running number. Example call:
 
 ```
-<SUMO_HOME>/tools/randomTrips.py -n input_net.net.xml -e 50
+python tools/randomTrips.py -n <net-file> -e 50
 ```
 
 The script does not check whether the chosen destination may be reached
@@ -55,7 +55,7 @@ The probabilities for selecting an edge may also be weighted by
 For additional ways to influence edge probabilities call
 
 ```
-<SUMO_HOME>/tools/randomTrips.py --help
+python tools/randomTrips.py --help
 ```
 
 ## Arrival rate
@@ -106,7 +106,7 @@ With the option **--trip-attributes** {{DT_STR}}, additional parameters can be g
 vehicles (note, usage of the quoting characters).
 
 ```
-<SUMO_HOME>/tools/randomTrips.py -n input_net.net.xml 
+python tools/randomTrips.py -n <net-file> 
   --trip-attributes="departLane=\"best\" departSpeed=\"max\" departPos=\"random\""
 ```
 
@@ -131,7 +131,7 @@ Then load this file (assume it was saved as *type.add.xml*) with the
 option --additional-file
 
 ```
-<SUMO_HOME>/tools/randomTrips.py -n input_net.net.xml --trip-attributes="type=\"myType\"" --additional-file type.add.xml
+python tools/randomTrips.py -n <net-file> --trip-attributes="type=\"myType\"" --additional-file <add-file>
    --edge-permission passenger
 ```
 
@@ -154,7 +154,7 @@ By setting the option **--vehicle-class** a vehicle type definition that specifi
 class will be added to the output files. I.e.
 
 ```
-randomTrips.py --vehicle-class bus ...
+python tools/randomTrips.py --vehicle-class bus ...
 ```
 
 will add
@@ -167,7 +167,7 @@ Any **--trip-attributes** that are applicable to a vehicle type rather than a ve
 placed in the generated `vType` definition automatically:
 
 ```
-randomTrips.py --vehicle-class bus --trip-attributes="maxSpeed=\"27.8\""
+python tools/randomTrips.py --vehicle-class bus --trip-attributes="maxSpeed=\"27.8\""
 ```
 
 will add
@@ -242,7 +242,7 @@ To obtain trips from two specific locations (edges *a*, and *b*) to
 random destinations, use
 
 ```
-randomTrips.py --weights-prefix example  ...<other options>...
+python tools/randomTrips.py --weights-prefix example  ...<other options>...
 ```
 
 and define only the file *example.src.xml* as follows:
