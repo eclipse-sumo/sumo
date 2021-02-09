@@ -52,8 +52,8 @@ MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly
     SUMORouteHandler(file, addVehiclesDirectly ? "" : "routes", true),
     myActiveRouteRepeat(0),
     myActiveRoutePeriod(0),
-    myActiveTransportablePlan(nullptr),
     myActiveType(ObjectTypeEnum::UNDEFINED),
+    myActiveTransportablePlan(nullptr),
     myAddVehiclesDirectly(addVehiclesDirectly),
     myCurrentVTypeDistribution(nullptr),
     myCurrentRouteDistribution(nullptr),
@@ -173,15 +173,7 @@ MSRouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     try {
         if (myActiveTransportablePlan != nullptr && myActiveTransportablePlan->empty() && myVehicleParameter->departProcedure == DEPART_TRIGGERED
                 && (element == SUMO_TAG_WALK || element == SUMO_TAG_PERSONTRIP || element == SUMO_TAG_STOP || element == SUMO_TAG_TRANSHIP)) {
-            std::string mode;
-            switch (myActiveType) {
-                case ObjectTypeEnum::PERSON:
-                    mode = "ride";
-                    break;
-                case ObjectTypeEnum::CONTAINER:
-                    mode = "transport";
-                    break;
-            }
+            const std::string mode = myActiveType == ObjectTypeEnum::PERSON ? "ride" : "transport";
             throw ProcessError("Triggered departure for " + myActiveTypeName + " '" + myVehicleParameter->id + "' requires starting with a " + mode + ".");
         }
         SUMORouteHandler::myStartElement(element, attrs);
@@ -784,19 +776,11 @@ void
 MSRouteHandler::addFlowTransportable(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i) {
     try {
         MSNet* const net = MSNet::getInstance();
-        MSTransportableControl* tc = nullptr;
-        switch (myActiveType) {
-        case ObjectTypeEnum::PERSON:
-            tc = &(net->getPersonControl());
-            break;
-        case ObjectTypeEnum::CONTAINER:
-            tc = &(net->getContainerControl());
-            break;
-        }
+        MSTransportableControl& tc = myActiveType == ObjectTypeEnum::PERSON ? net->getPersonControl() : net->getContainerControl();
         //MSTransportableControl& pc = net->getPersonControl();
-        const int quota = MSNet::getInstance()->getVehicleControl().getQuota(-1, tc->getLoadedNumber());
+        const int quota = MSNet::getInstance()->getVehicleControl().getQuota(-1, tc.getLoadedNumber());
         if (quota == 0) {
-            tc->addDiscarded();
+            tc.addDiscarded();
         }
         for (int j = 0; j < quota; j++) {
             if (i > 0 || j > 0) {
@@ -818,29 +802,21 @@ MSRouteHandler::addFlowTransportable(SUMOTime depart, MSVehicleType* type, const
                 + (i >= 0 ? "." + toString(i) : "")
                 + (j > 0 ? "." + toString(j) : ""));
             myVehicleParameter->depart = depart += net->getInsertionControl().computeRandomDepartOffset();
-            MSTransportable* transportable = nullptr;
-            switch (myActiveType) {
-            case ObjectTypeEnum::PERSON:
-                transportable = tc->buildPerson(myVehicleParameter, type, myActiveTransportablePlan, &myParsingRNG);
-                break;
-            case ObjectTypeEnum::CONTAINER:
-                transportable = tc->buildContainer(myVehicleParameter, type, myActiveTransportablePlan);
-                break;
-            }
-            if (!tc->add(transportable)) {
+            MSTransportable* transportable = myActiveType == ObjectTypeEnum::PERSON ?
+                tc.buildPerson(myVehicleParameter, type, myActiveTransportablePlan, &myParsingRNG) :
+                tc.buildContainer(myVehicleParameter, type, myActiveTransportablePlan);
+            if (!tc.add(transportable)) {
                 std::string error = "Another " + myActiveTypeName + " with the id '" + myVehicleParameter->id + "' exists.";
                 //delete transportable;
                 if (!MSGlobals::gStateLoaded) {
                     throw ProcessError(error);
                 }
-            }
-            else if ((net->hasPersons() && net->getPersonControl().get(myVehicleParameter->id) != nullptr)
+            } else if ((net->hasPersons() && net->getPersonControl().get(myVehicleParameter->id) != nullptr)
                 && (net->hasContainers() && net->getContainerControl().get(myVehicleParameter->id) != nullptr)) {
                 WRITE_WARNINGF("There exists a person and a container with the same id '%'. Starting with SUMO 1.9.0 this will be an error.", myVehicleParameter->id);
             }
         }
-    }
-    catch (ProcessError&) {
+    } catch (ProcessError&) {
         deleteActivePlanAndVehicleParameter();
         throw;
     }
