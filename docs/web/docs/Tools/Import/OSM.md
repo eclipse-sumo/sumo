@@ -32,7 +32,7 @@ web-browser. Stop the script when you're done to free up the port again.
     The script requires the environment variable *SUMO_HOME* to be set [as explained here](../../Basics/Basic_Computer_Skills.md#additional_environment_variables).
 
 
-## osmTaxiStop.py
+# osmTaxiStop.py
 
 This script import taxi stands from OSM data. Using the option **--type** you can choose which type of element to add in the SUMO network. For example:
 
