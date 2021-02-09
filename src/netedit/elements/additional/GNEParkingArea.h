@@ -94,6 +94,29 @@ public:
     /// @}
 
 protected:
+    /** @struct GNELotSpaceDefinition
+     * @brief Representation of a single lot space in Netedit
+     */
+    struct GNELotSpaceDefinition {
+        /// @brief default constructor
+        GNELotSpaceDefinition();
+
+        /// @brief parameter constructor
+        GNELotSpaceDefinition(double x, double y, double z, double rotation, double width, double length);
+
+        /// @brief The position of the vehicle when parking in this space
+        const Position position;
+
+        /// @brief The rotation
+        const double rotation;
+
+        /// @brief The width
+        const double width;
+
+        /// @brief The length
+        const double length;
+    };
+
     /// @brief roadside capacity of Parking Area
     int myRoadSideCapacity;
 
@@ -108,6 +131,9 @@ protected:
 
     /// @brief Angle of Parking Area
     double myAngle;
+
+    /// @brief vector with GNELotSpaceDefinition
+    std::vector<GNELotSpaceDefinition> myLotSpaceDefinitions;
 
 private:
     /// @brief set attribute after validation
