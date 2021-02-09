@@ -688,7 +688,6 @@ MSRouteHandler::closeTransportable() {
         MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
         addFlowTransportable(myVehicleParameter->depart, type, myVehicleParameter->id, -1);
         registerLastDepart();
-        myVehicleParameter = nullptr;
         resetActivePlanAndVehicleParameter();
     }
     catch (ProcessError&) {
@@ -760,8 +759,6 @@ MSRouteHandler::closeTransportableFlow() {
                 depart += myVehicleParameter->repetitionOffset;
             }
         }
-
-        myVehicleParameter = nullptr;
         resetActivePlanAndVehicleParameter();
     }
     catch (ProcessError&) {
