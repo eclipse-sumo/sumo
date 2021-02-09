@@ -39,7 +39,7 @@ from collections import defaultdict
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
-from OrderedMultiSet import OrderedMultiSet  # noqa
+from sumolib.datastructures.OrderedMultiSet import OrderedMultiSet  # noqa
 
 INDENT = 4
 
