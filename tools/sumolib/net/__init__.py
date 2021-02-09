@@ -35,7 +35,7 @@ from copy import copy
 from collections import defaultdict
 
 import sumolib
-from . import lane, edge, node, connection, roundabout
+from . import lane, edge, netshiftadaptor, node, connection, roundabout  # noqa
 from .connection import Connection
 
 
