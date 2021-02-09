@@ -249,6 +249,6 @@ private:
     void checkTransportableType();
 
     /// @brief Processing of a transport
-    void addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXMLTag MODE);
+    void addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXMLTag modeTag);
 
 };

@@ -641,9 +641,9 @@ GUIDialog_ViewSettings::onCmdCancel(FXObject*, FXSelector, void*) {
 
 
 long
-GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
-    if (data != nullptr) {
-        FXString dataS = (char*) data; // !!!unicode
+GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
+    if (ptr != nullptr) {
+        FXString dataS = (char*) ptr; // !!!unicode
         // check whether this item has been added twice
         if (dataS == mySchemeName->getItemText(mySchemeName->getNumItems() - 1)) {
             for (int i = 0; i < mySchemeName->getNumItems() - 1; ++i) {
@@ -1732,8 +1732,8 @@ GUIDialog_ViewSettings::updatePOIParams() {
 }
 
 long
-GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
-    MFXEditedTableItem* i = (MFXEditedTableItem*) data;
+GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* ptr) {
+    MFXEditedTableItem* i = (MFXEditedTableItem*) ptr;
     std::string value = i->item->getText().text();
     // check whether the inserted value is empty
     if (value.find_first_not_of(" ") == std::string::npos) {

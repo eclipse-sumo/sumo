@@ -59,10 +59,10 @@ FXIMPLEMENT(FXMenuCheckIcon, FXMenuCommand, FXMenuCheckIconMap, ARRAYNUMBER(FXMe
 // ===========================================================================
 
 FXMenuCheckIcon::FXMenuCheckIcon(FXComposite* p, const FXString& text, const FXIcon* icon, FXObject* tgt, FXSelector sel, FXuint opts) :
-    FXMenuCommand(p, text, NULL, tgt, sel, opts), 
-    myBoxColor(getApp()->getBackColor()), 
+    FXMenuCommand(p, text, NULL, tgt, sel, opts),
+    myIcon(icon),
     myCheck(FALSE),
-    myIcon(icon) {
+    myBoxColor(getApp()->getBackColor()) {
 }
 
 

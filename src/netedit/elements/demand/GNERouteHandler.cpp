@@ -2205,7 +2205,7 @@ GNERouteHandler::addTranship(const SUMOSAXAttributes& /*attrs*/) {
     // currently unused
 }
 
-void GNERouteHandler::addTransport(const SUMOSAXAttributes& attrs) {
+void GNERouteHandler::addTransport(const SUMOSAXAttributes& /*attrs*/) {
     // currently unused
 }
 

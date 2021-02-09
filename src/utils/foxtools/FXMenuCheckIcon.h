@@ -86,14 +86,14 @@ protected:
     /// @brief default constructor
     FXMenuCheckIcon();
 
+    /// @brief Icon
+    const FXIcon* myIcon;
+
     /// @brief State of menu
     FXuchar myCheck;
 
     /// @brief Box color
     FXColor myBoxColor;
-
-    /// @brief Iocn
-    const FXIcon* myIcon;
 
 private:
     /// @brief Invalidated copy constructor.

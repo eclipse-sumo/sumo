@@ -235,8 +235,8 @@ GUIGlChildWindow::onCmdZoomStyle(FXObject* sender, FXSelector, void*) {
 
 
 long
-GUIGlChildWindow::onCmdChangeColorScheme(FXObject*, FXSelector, void* data) {
-    myView->setColorScheme((char*) data);
+GUIGlChildWindow::onCmdChangeColorScheme(FXObject*, FXSelector, void* ptr) {
+    myView->setColorScheme((char*) ptr);
     return 1;
 }
 

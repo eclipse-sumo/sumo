@@ -59,22 +59,22 @@ MFXCheckableButton::setChecked(bool val) {
 
 
 long
-MFXCheckableButton::onPaint(FXObject* sender, FXSelector sel, void* data) {
+MFXCheckableButton::onPaint(FXObject* sender, FXSelector sel, void* ptr) {
     if (!myAmInitialised) {
         buildColors();
     }
     setColors();
-    return FXButton::onPaint(sender, sel, data);
+    return FXButton::onPaint(sender, sel, ptr);
 }
 
 
 long
-MFXCheckableButton::onUpdate(FXObject* sender, FXSelector sel, void* data) {
+MFXCheckableButton::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
     if (!myAmInitialised) {
         buildColors();
     }
     setColors();
-    long ret = FXButton::onUpdate(sender, sel, data);
+    long ret = FXButton::onUpdate(sender, sel, ptr);
     return ret;
 }
 

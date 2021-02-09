@@ -936,38 +936,22 @@ MSRouteHandler::addTransport(const SUMOSAXAttributes& attrs) {
 }
 
 void
-MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXMLTag MODE) {
+MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXMLTag modeTag) {
     try {
-        std::string mode;
-        std::string agent;
-        std::string stop;
-        SumoXMLAttr SUMO_ATTR_STOP;
-        SumoXMLTag SUMO_TAG_AGENT_STOP;
-        switch (myActiveType) {
-        case ObjectTypeEnum::PERSON:
-            agent = "person";
-            stop = "bus stop";
-            SUMO_ATTR_STOP = SUMO_ATTR_BUS_STOP;
-            SUMO_TAG_AGENT_STOP = SUMO_TAG_BUS_STOP;
-            break;
-        case ObjectTypeEnum::CONTAINER:
+        const std::string mode = modeTag == SUMO_TAG_RIDE ? "ride" : "transport";
+        std::string agent = "person";
+        std::string stop = "bus stop";
+        SumoXMLAttr stopAttr = SUMO_ATTR_BUS_STOP;
+        SumoXMLTag agentStopTag = SUMO_TAG_BUS_STOP;
+        if (myActiveType == ObjectTypeEnum::CONTAINER) {
             agent = "container";
             stop = "container stop";
-            SUMO_ATTR_STOP = SUMO_ATTR_CONTAINER_STOP;
-            SUMO_TAG_AGENT_STOP = SUMO_TAG_CONTAINER_STOP;
-            break;
-        }
-        switch (MODE) {
-        case SUMO_TAG_RIDE:
-            mode = "ride";
-            break;
-        case SUMO_TAG_TRANSPORT:
-            mode = "transport";
-            break;
+            stopAttr = SUMO_ATTR_CONTAINER_STOP;
+            agentStopTag = SUMO_TAG_CONTAINER_STOP;
         }
 
-        if (!((myActiveType == ObjectTypeEnum::PERSON && MODE == SUMO_TAG_RIDE) ||
-              (myActiveType == ObjectTypeEnum::CONTAINER && MODE == SUMO_TAG_TRANSPORT))) {
+        if (!((myActiveType == ObjectTypeEnum::PERSON && modeTag == SUMO_TAG_RIDE) ||
+              (myActiveType == ObjectTypeEnum::CONTAINER && modeTag == SUMO_TAG_TRANSPORT))) {
             throw ProcessError("Found " + mode + " inside " + agent + " element");
         }
         const std::string aid = myVehicleParameter->id;
@@ -975,11 +959,11 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXML
         MSEdge* from = nullptr;
         const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, aid.c_str(), ok);
         StringTokenizer st(desc);
-        std::string sID = attrs.getOpt<std::string>(SUMO_ATTR_STOP, nullptr, ok, "");
+        std::string sID = attrs.getOpt<std::string>(stopAttr, nullptr, ok, "");
         MSStoppingPlace* s = nullptr;
         MSEdge* to = nullptr;
         if (sID != "") {
-            s = MSNet::getInstance()->getStoppingPlace(sID, SUMO_TAG_AGENT_STOP);
+            s = MSNet::getInstance()->getStoppingPlace(sID, agentStopTag);
             if (s == nullptr) {
                 throw ProcessError("Unknown " + stop + " '" + sID + "' for " + agent + " '" + aid + "'.");
             }
