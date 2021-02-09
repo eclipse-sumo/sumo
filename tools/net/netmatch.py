@@ -97,5 +97,5 @@ if options.edges2:
     print("\n".join(["edge:%s" % e.getID()
                      for e in matchedEdges2]), file=open(options.edges2, "w"))
 
-# adaptor = netshiftadaptor.NetShiftAdaptor(net1, net2, options.nodes1.split(","), options.nodes2.split(","))
+# adaptor = sumolib.net.netshiftadaptor.NetShiftAdaptor(net1, net2, options.nodes1.split(","), options.nodes2.split(","))
 # adaptor.reproject(options.verbose)

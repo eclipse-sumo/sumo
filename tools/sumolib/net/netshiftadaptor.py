@@ -18,14 +18,14 @@
 """
 
 This class performs a network reprojection
- using barycentric cordinates of two triangles
+ using barycentric coordinates of two triangles
  which share the same nodes of two networks.
 
-This means: the class is initialised with two
+This means: the class is initialized with two
  networks and two lists of node ids (should be
  exactly three). The according nodes should be
  the "same" nodes in both networks.
-When "reproject" is called, all nodes' position
+When "reproject" is called, all nodes' positions
  of the second network are reprojected so that
  they match positions within the first network.
 """

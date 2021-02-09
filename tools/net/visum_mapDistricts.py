@@ -77,7 +77,7 @@ if options.verbose:
 net2 = sumolib.net.readNet(options.net2)
 
 # reproject the visum net onto the navteq net
-adaptor = netshiftadaptor.NetShiftAdaptor(
+adaptor = sumolib.net.netshiftadaptor.NetShiftAdaptor(
     net1, net2, options.nodes1.split(","), options.nodes2.split(","))
 adaptor.reproject(options.verbose)
 
