@@ -40,12 +40,12 @@ may not work for certain scripts.
 
 ## plot_trajectories.py
 
-Show plots for all trajectories in a given **--fcd-output** file.
+Show plots for all trajectories in a given **--fcd-output** file. This tool in particular is located in {{SUMO}}/tools.
 
 Example use:
 
 ```
-python plot_trajectories.py fcd.xml -t td -o plot.png -s
+python tools/plot_trajectories.py fcd.xml -t td -o plot.png -s
 ```
 
 The option **-t (--trajectory-type)** supports different plot styles:
