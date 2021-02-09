@@ -222,7 +222,7 @@ private:
     void deleteActivePlanAndVehicleParameter();
 
     /// @brief reset MSTransportablePlans after transportable tag closes
-    void resetActivePlan();
+    void resetActivePlanAndVehicleParameter();
     
     /// @brief ends the flow of a transportable
     void closeTransportableFlow();

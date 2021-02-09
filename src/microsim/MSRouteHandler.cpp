@@ -74,15 +74,14 @@ MSRouteHandler::deleteActivePlanAndVehicleParameter() {
         }
         delete myActiveTransportablePlan;
     }
-    resetActivePlan();
-
     delete myVehicleParameter;
-    myVehicleParameter = nullptr;
+    resetActivePlanAndVehicleParameter();
 }
 
 
 void
-MSRouteHandler::resetActivePlan() {
+MSRouteHandler::resetActivePlanAndVehicleParameter() {
+    myVehicleParameter = nullptr;
     myActiveTransportablePlan = nullptr;
     myActiveType = ObjectTypeEnum::UNDEFINED;
     myActiveTypeName = "";
@@ -690,7 +689,7 @@ MSRouteHandler::closeTransportable() {
         addFlowTransportable(myVehicleParameter->depart, type, myVehicleParameter->id, -1);
         registerLastDepart();
         myVehicleParameter = nullptr;
-        resetActivePlan();
+        resetActivePlanAndVehicleParameter();
     }
     catch (ProcessError&) {
         deleteActivePlanAndVehicleParameter();
@@ -763,7 +762,7 @@ MSRouteHandler::closeTransportableFlow() {
         }
 
         myVehicleParameter = nullptr;
-        resetActivePlan();
+        resetActivePlanAndVehicleParameter();
     }
     catch (ProcessError&) {
         deleteActivePlanAndVehicleParameter();
@@ -807,7 +806,8 @@ MSRouteHandler::addFlowTransportable(SUMOTime depart, MSVehicleType* type, const
                 tc.buildContainer(myVehicleParameter, type, myActiveTransportablePlan);
             if (!tc.add(transportable)) {
                 std::string error = "Another " + myActiveTypeName + " with the id '" + myVehicleParameter->id + "' exists.";
-                //delete transportable;
+                delete transportable;
+                resetActivePlanAndVehicleParameter();
                 if (!MSGlobals::gStateLoaded) {
                     throw ProcessError(error);
                 }
