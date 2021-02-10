@@ -22,8 +22,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-// we do not include config.h here, since we should be independent of a special sumo build
-#include <cassert>
+
 #include <vector>
 #include <limits>
 #include <map>
@@ -33,6 +32,7 @@
 #include <memory>
 #include <foreign/tcpip/storage.h>
 #include <libtraci/Connection.h>
+#include <libsumo/StorageHelper.h>
 
 
 #define LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(CLASS, DOMAIN) \
@@ -107,84 +107,6 @@ namespace libtraci {
 template<int GET, int SET>
 class Domain {
 public:
-    static int readTypedInt(tcpip::Storage& ret) {
-        const int type = ret.readUnsignedByte();
-        assert(type == libsumo::TYPE_INTEGER);
-        return ret.readInt();
-    }
-
-    static double readTypedDouble(tcpip::Storage& ret) {
-        const int type = ret.readUnsignedByte();
-        assert(type == libsumo::TYPE_DOUBLE);
-        return ret.readDouble();
-    }
-
-    static std::string readTypedString(tcpip::Storage& ret) {
-        const int type = ret.readUnsignedByte();
-        assert(type == libsumo::TYPE_STRING);
-        return ret.readString();
-    }
-
-    static std::vector<std::string> readTypedStringList(tcpip::Storage& ret) {
-        const int type = ret.readUnsignedByte();
-        assert(type == libsumo::TYPE_STRINGLIST);
-        return ret.readStringList();
-    }
-
-    static int readCompound(tcpip::Storage& ret, int expectedSize = -1) {
-        const int type = ret.readUnsignedByte();
-        assert(type == libsumo::TYPE_COMPOUND);
-        const int size = ret.readInt();
-        assert(expectedSize == -1 || size == expectedSize);
-        return size;
-    }
-
-
-    static void writeTypedByte(tcpip::Storage& content, int value) {
-        content.writeUnsignedByte(libsumo::TYPE_BYTE);
-        content.writeByte(value);
-    }
-
-    static void writeTypedInt(tcpip::Storage& content, int value) {
-        content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-        content.writeInt(value);
-    }
-
-    static void writeTypedDouble(tcpip::Storage& content, double value) {
-        content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-        content.writeDouble(value);
-    }
-
-    static void writeTypedString(tcpip::Storage& content, const std::string& value) {
-        content.writeUnsignedByte(libsumo::TYPE_STRING);
-        content.writeString(value);
-    }
-
-    static void writeTypedStringList(tcpip::Storage& content, const std::vector<std::string>& value) {
-        content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-        content.writeStringList(value);
-    }
-
-    static void writeCompound(tcpip::Storage& content, int size) {
-        content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-        content.writeInt(size);
-    }
-
-    static void writePolygon(tcpip::Storage& content, const libsumo::TraCIPositionVector& shape) {
-        content.writeUnsignedByte(libsumo::TYPE_POLYGON);
-        if (shape.value.size() <= 255) {
-            content.writeUnsignedByte((int)shape.value.size());
-        } else {
-            content.writeUnsignedByte(0);
-            content.writeInt((int)shape.value.size());
-        }
-        for (const libsumo::TraCIPosition& pos : shape.value) {
-            content.writeDouble(pos.x);
-            content.writeDouble(pos.y);
-        }
-    }
-
-
     static tcpip::Storage& get(int var, const std::string& id, tcpip::Storage* add = nullptr, int expectedType = libsumo::TYPE_COMPOUND) {
         tcpip::Storage& result = libtraci::Connection::getActive().doCommand(GET, var, id, add);
         libtraci::Connection::getActive().check_commandGetResult(result, GET, expectedType);
@@ -263,19 +185,19 @@ public:
         tcpip::Storage& result = get(var, id, add);
         libsumo::TraCIStage s;
         result.readInt(); // components
-        s.type = readTypedInt(result);
-        s.vType = readTypedString(result);
-        s.line = readTypedString(result);
-        s.destStop = readTypedString(result);
-        s.edges = readTypedStringList(result);
-        s.travelTime = readTypedDouble(result);
-        s.cost = readTypedDouble(result);
-        s.length = readTypedDouble(result);
-        s.intended = readTypedString(result);
-        s.depart = readTypedDouble(result);
-        s.departPos = readTypedDouble(result);
-        s.arrivalPos = readTypedDouble(result);
-        s.description = readTypedString(result);
+        s.type = StoHelp::readTypedInt(result);
+        s.vType = StoHelp::readTypedString(result);
+        s.line = StoHelp::readTypedString(result);
+        s.destStop = StoHelp::readTypedString(result);
+        s.edges = StoHelp::readTypedStringList(result);
+        s.travelTime = StoHelp::readTypedDouble(result);
+        s.cost = StoHelp::readTypedDouble(result);
+        s.length = StoHelp::readTypedDouble(result);
+        s.intended = StoHelp::readTypedString(result);
+        s.depart = StoHelp::readTypedDouble(result);
+        s.departPos = StoHelp::readTypedDouble(result);
+        s.arrivalPos = StoHelp::readTypedDouble(result);
+        s.description = StoHelp::readTypedString(result);
         return s;
     }
 

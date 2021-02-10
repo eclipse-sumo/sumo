@@ -22,6 +22,7 @@
 #define LIBTRACI 1
 #include "Domain.h"
 #include <libsumo/Person.h>
+#include <libsumo/StorageHelper.h>
 
 namespace libtraci {
 
@@ -100,16 +101,16 @@ Person::getTaxiReservations(int onlyNew) {
     int numReservations = ret.readInt();
     while (numReservations-- > 0) {
         libsumo::TraCIReservation r;
-        Dom::readCompound(ret, 9);
-        r.id = Dom::readTypedString(ret);
-        r.persons = Dom::readTypedStringList(ret);
-        r.group = Dom::readTypedString(ret);
-        r.fromEdge = Dom::readTypedString(ret);
-        r.toEdge = Dom::readTypedString(ret);
-        r.departPos = Dom::readTypedDouble(ret);
-        r.arrivalPos = Dom::readTypedDouble(ret);
-        r.depart = Dom::readTypedDouble(ret);
-        r.reservationTime = Dom::readTypedDouble(ret);
+        StoHelp::readCompound(ret, 9);
+        r.id = StoHelp::readTypedString(ret);
+        r.persons = StoHelp::readTypedStringList(ret);
+        r.group = StoHelp::readTypedString(ret);
+        r.fromEdge = StoHelp::readTypedString(ret);
+        r.toEdge = StoHelp::readTypedString(ret);
+        r.departPos = StoHelp::readTypedDouble(ret);
+        r.arrivalPos = StoHelp::readTypedDouble(ret);
+        r.depart = StoHelp::readTypedDouble(ret);
+        r.reservationTime = StoHelp::readTypedDouble(ret);
         result.emplace_back(r);
     }
     return result;

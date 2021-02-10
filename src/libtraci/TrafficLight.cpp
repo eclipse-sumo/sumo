@@ -24,6 +24,7 @@
 
 #define LIBTRACI 1
 #include <netload/NLDetectorBuilder.h>
+#include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIConstants.h>
 #include <libsumo/TrafficLight.h>
 #include "Domain.h"
@@ -66,29 +67,29 @@ TrafficLight::getAllProgramLogics(const std::string& tlsID) {
     std::vector<libsumo::TraCILogic> result;
     int numLogics = ret.readInt();
     while (numLogics-- > 0) {
-        Dom::readCompound(ret, 5);
+        StoHelp::readCompound(ret, 5);
         libsumo::TraCILogic logic;
-        logic.programID = Dom::readTypedString(ret);
-        logic.type = Dom::readTypedInt(ret);
-        logic.currentPhaseIndex = Dom::readTypedInt(ret);
-        int numPhases = Dom::readCompound(ret);
+        logic.programID = StoHelp::readTypedString(ret);
+        logic.type = StoHelp::readTypedInt(ret);
+        logic.currentPhaseIndex = StoHelp::readTypedInt(ret);
+        int numPhases = StoHelp::readCompound(ret);
         while (numPhases-- > 0) {
-            Dom::readCompound(ret, 6);
+            StoHelp::readCompound(ret, 6);
             libsumo::TraCIPhase* phase = new libsumo::TraCIPhase();
-            phase->duration = Dom::readTypedDouble(ret);
-            phase->state = Dom::readTypedString(ret);
-            phase->minDur = Dom::readTypedDouble(ret);
-            phase->maxDur = Dom::readTypedDouble(ret);
-            int numNext = Dom::readCompound(ret);
+            phase->duration = StoHelp::readTypedDouble(ret);
+            phase->state = StoHelp::readTypedString(ret);
+            phase->minDur = StoHelp::readTypedDouble(ret);
+            phase->maxDur = StoHelp::readTypedDouble(ret);
+            int numNext = StoHelp::readCompound(ret);
             while (numNext-- > 0) {
-                phase->next.push_back(Dom::readTypedInt(ret));
+                phase->next.push_back(StoHelp::readTypedInt(ret));
             }
-            phase->name = Dom::readTypedString(ret);
+            phase->name = StoHelp::readTypedString(ret);
             logic.phases.emplace_back(phase);
         }
-        int numParams = Dom::readCompound(ret);
+        int numParams = StoHelp::readCompound(ret);
         while (numParams-- > 0) {
-            const std::vector<std::string> key_value = Dom::readTypedStringList(ret);
+            const std::vector<std::string> key_value = StoHelp::readTypedStringList(ret);
             logic.subParameter[key_value[0]] = key_value[1];
         }
         result.emplace_back(logic);
@@ -114,12 +115,12 @@ TrafficLight::getControlledLinks(const std::string& tlsID) {
     tcpip::Storage& ret = Dom::get(libsumo::TL_CONTROLLED_LINKS, tlsID);
     std::vector< std::vector<libsumo::TraCILink> > result;
     ret.readInt();
-    int numSignals = Dom::readTypedInt(ret);
+    int numSignals = StoHelp::readTypedInt(ret);
     while (numSignals-- > 0) {
         std::vector<libsumo::TraCILink> controlledLinks;
-        int numLinks = Dom::readTypedInt(ret);
+        int numLinks = StoHelp::readTypedInt(ret);
         while (numLinks-- > 0) {
-            std::vector<std::string> link = Dom::readTypedStringList(ret);
+            std::vector<std::string> link = StoHelp::readTypedStringList(ret);
             controlledLinks.emplace_back(link[0], link[2], link[1]);
         }
         result.emplace_back(controlledLinks);
@@ -224,26 +225,26 @@ TrafficLight::setPhaseDuration(const std::string& tlsID, const double phaseDurat
 void
 TrafficLight::setProgramLogic(const std::string& tlsID, const libsumo::TraCILogic& logic) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 5);
-    Dom::writeTypedString(content, logic.programID);
-    Dom::writeTypedInt(content, logic.type);
-    Dom::writeTypedInt(content, logic.currentPhaseIndex);
-    Dom::writeCompound(content, (int)logic.phases.size());
+    StoHelp::writeCompound(content, 5);
+    StoHelp::writeTypedString(content, logic.programID);
+    StoHelp::writeTypedInt(content, logic.type);
+    StoHelp::writeTypedInt(content, logic.currentPhaseIndex);
+    StoHelp::writeCompound(content, (int)logic.phases.size());
     for (const libsumo::TraCIPhase* const phase : logic.phases) {
-        Dom::writeCompound(content, 6);
-        Dom::writeTypedDouble(content, phase->duration);
-        Dom::writeTypedString(content, phase->state);
-        Dom::writeTypedDouble(content, phase->minDur);
-        Dom::writeTypedDouble(content, phase->maxDur);
-        Dom::writeCompound(content, (int)phase->next.size());
+        StoHelp::writeCompound(content, 6);
+        StoHelp::writeTypedDouble(content, phase->duration);
+        StoHelp::writeTypedString(content, phase->state);
+        StoHelp::writeTypedDouble(content, phase->minDur);
+        StoHelp::writeTypedDouble(content, phase->maxDur);
+        StoHelp::writeCompound(content, (int)phase->next.size());
         for (int n : phase->next) {
-            Dom::writeTypedInt(content, n);
+            StoHelp::writeTypedInt(content, n);
         }
-        Dom::writeTypedString(content, phase->name);
+        StoHelp::writeTypedString(content, phase->name);
     }
-    Dom::writeCompound(content, (int)logic.subParameter.size());
+    StoHelp::writeCompound(content, (int)logic.subParameter.size());
     for (const auto& key_value : logic.subParameter) {
-        Dom::writeTypedStringList(content, std::vector<std::string>{key_value.first, key_value.second});
+        StoHelp::writeTypedStringList(content, std::vector<std::string>{key_value.first, key_value.second});
     }
     Dom::set(libsumo::TL_COMPLETE_PROGRAM_RYG, tlsID, &content);
 }

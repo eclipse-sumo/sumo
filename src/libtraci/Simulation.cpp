@@ -25,6 +25,7 @@
 #define LIBTRACI 1
 #include "Connection.h"
 #include "Domain.h"
+#include <libsumo/StorageHelper.h>
 #include <libsumo/Simulation.h>
 
 
@@ -331,7 +332,7 @@ Simulation::getMinExpectedNumber() {
 libsumo::TraCIPosition
 Simulation::convert2D(const std::string& edgeID, double pos, int laneIndex, bool toGeo) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 2);
+    StoHelp::writeCompound(content, 2);
     content.writeUnsignedByte(libsumo::POSITION_ROADMAP);
     content.writeString(edgeID);
     content.writeDouble(pos);
@@ -345,7 +346,7 @@ Simulation::convert2D(const std::string& edgeID, double pos, int laneIndex, bool
 libsumo::TraCIPosition
 Simulation::convert3D(const std::string& edgeID, double pos, int laneIndex, bool toGeo) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 2);
+    StoHelp::writeCompound(content, 2);
     content.writeUnsignedByte(libsumo::POSITION_ROADMAP);
     content.writeString(edgeID);
     content.writeDouble(pos);
@@ -359,13 +360,13 @@ Simulation::convert3D(const std::string& edgeID, double pos, int laneIndex, bool
 libsumo::TraCIRoadPosition
 Simulation::convertRoad(double x, double y, bool isGeo, const std::string& vClass) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 3);
+    StoHelp::writeCompound(content, 3);
     content.writeUnsignedByte(isGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D);
     content.writeDouble(x);
     content.writeDouble(y);
     content.writeUnsignedByte(libsumo::TYPE_UBYTE);
     content.writeUnsignedByte(libsumo::POSITION_ROADMAP);
-    Dom::writeTypedString(content, vClass);
+    StoHelp::writeTypedString(content, vClass);
     tcpip::Storage& ret = Dom::get(libsumo::POSITION_CONVERSION, "", &content, libsumo::POSITION_ROADMAP);
     libsumo::TraCIRoadPosition result;
     result.edgeID = ret.readString();
@@ -378,7 +379,7 @@ Simulation::convertRoad(double x, double y, bool isGeo, const std::string& vClas
 libsumo::TraCIPosition
 Simulation::convertGeo(double x, double y, bool fromGeo) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 2);
+    StoHelp::writeCompound(content, 2);
     content.writeUnsignedByte(fromGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D);
     content.writeDouble(x);
     content.writeDouble(y);
@@ -391,7 +392,7 @@ Simulation::convertGeo(double x, double y, bool fromGeo) {
 double
 Simulation::getDistance2D(double x1, double y1, double x2, double y2, bool isGeo, bool isDriving) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 3);
+    StoHelp::writeCompound(content, 3);
     content.writeUnsignedByte(isGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D);
     content.writeDouble(x1);
     content.writeDouble(y1);
@@ -406,7 +407,7 @@ Simulation::getDistance2D(double x1, double y1, double x2, double y2, bool isGeo
 double
 Simulation::getDistanceRoad(const std::string& edgeID1, double pos1, const std::string& edgeID2, double pos2, bool isDriving) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 3);
+    StoHelp::writeCompound(content, 3);
     content.writeUnsignedByte(libsumo::POSITION_ROADMAP);
     content.writeString(edgeID1);
     content.writeDouble(pos1);
@@ -423,12 +424,12 @@ Simulation::getDistanceRoad(const std::string& edgeID1, double pos1, const std::
 libsumo::TraCIStage
 Simulation::findRoute(const std::string& fromEdge, const std::string& toEdge, const std::string& vType, const double depart, const int routingMode) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 5);
-    Dom::writeTypedString(content, fromEdge);
-    Dom::writeTypedString(content, toEdge);
-    Dom::writeTypedString(content, vType);
-    Dom::writeTypedDouble(content, depart);
-    Dom::writeTypedInt(content, routingMode);
+    StoHelp::writeCompound(content, 5);
+    StoHelp::writeTypedString(content, fromEdge);
+    StoHelp::writeTypedString(content, toEdge);
+    StoHelp::writeTypedString(content, vType);
+    StoHelp::writeTypedDouble(content, depart);
+    StoHelp::writeTypedInt(content, routingMode);
     return Dom::getTraCIStage(libsumo::FIND_ROUTE, "", &content);
 }
 
@@ -439,39 +440,39 @@ Simulation::findIntermodalRoute(const std::string& fromEdge, const std::string& 
                                 double departPos, double arrivalPos, const double departPosLat,
                                 const std::string& pType, const std::string& vType, const std::string& destStop) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 13);
-    Dom::writeTypedString(content, fromEdge);
-    Dom::writeTypedString(content, toEdge);
-    Dom::writeTypedString(content, modes);
-    Dom::writeTypedDouble(content, depart);
-    Dom::writeTypedInt(content, routingMode);
-    Dom::writeTypedDouble(content, speed);
-    Dom::writeTypedDouble(content, walkFactor);
-    Dom::writeTypedDouble(content, departPos);
-    Dom::writeTypedDouble(content, arrivalPos);
-    Dom::writeTypedDouble(content, departPosLat);
-    Dom::writeTypedString(content, pType);
-    Dom::writeTypedString(content, vType);
-    Dom::writeTypedString(content, destStop);
+    StoHelp::writeCompound(content, 13);
+    StoHelp::writeTypedString(content, fromEdge);
+    StoHelp::writeTypedString(content, toEdge);
+    StoHelp::writeTypedString(content, modes);
+    StoHelp::writeTypedDouble(content, depart);
+    StoHelp::writeTypedInt(content, routingMode);
+    StoHelp::writeTypedDouble(content, speed);
+    StoHelp::writeTypedDouble(content, walkFactor);
+    StoHelp::writeTypedDouble(content, departPos);
+    StoHelp::writeTypedDouble(content, arrivalPos);
+    StoHelp::writeTypedDouble(content, departPosLat);
+    StoHelp::writeTypedString(content, pType);
+    StoHelp::writeTypedString(content, vType);
+    StoHelp::writeTypedString(content, destStop);
     tcpip::Storage result = Dom::get(libsumo::FIND_INTERMODAL_ROUTE, "", &content);
-    int numStages = Dom::readCompound(result);
+    int numStages = StoHelp::readCompound(result);
     std::vector<libsumo::TraCIStage> ret;
     while (numStages-- > 0) {
         libsumo::TraCIStage s;
-        Dom::readCompound(result, 13);
-        s.type = Dom::readTypedInt(result);
-        s.vType = Dom::readTypedString(result);
-        s.line = Dom::readTypedString(result);
-        s.destStop = Dom::readTypedString(result);
-        s.edges = Dom::readTypedStringList(result);
-        s.travelTime = Dom::readTypedDouble(result);
-        s.cost = Dom::readTypedDouble(result);
-        s.length = Dom::readTypedDouble(result);
-        s.intended = Dom::readTypedString(result);
-        s.depart = Dom::readTypedDouble(result);
-        s.departPos = Dom::readTypedDouble(result);
-        s.arrivalPos = Dom::readTypedDouble(result);
-        s.description = Dom::readTypedString(result);
+        StoHelp::readCompound(result, 13);
+        s.type = StoHelp::readTypedInt(result);
+        s.vType = StoHelp::readTypedString(result);
+        s.line = StoHelp::readTypedString(result);
+        s.destStop = StoHelp::readTypedString(result);
+        s.edges = StoHelp::readTypedStringList(result);
+        s.travelTime = StoHelp::readTypedDouble(result);
+        s.cost = StoHelp::readTypedDouble(result);
+        s.length = StoHelp::readTypedDouble(result);
+        s.intended = StoHelp::readTypedString(result);
+        s.depart = StoHelp::readTypedDouble(result);
+        s.departPos = StoHelp::readTypedDouble(result);
+        s.arrivalPos = StoHelp::readTypedDouble(result);
+        s.description = StoHelp::readTypedString(result);
     }
     return ret;
 }

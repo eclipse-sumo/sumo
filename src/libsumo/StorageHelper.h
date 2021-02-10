@@ -47,7 +47,94 @@ public:
         return result;
     }
 
+    static int readTypedInt(tcpip::Storage& ret, const std::string& error="") {
+        if (ret.readUnsignedByte() != libsumo::TYPE_INTEGER && error != "") {
+            throw TraCIException(error);
+        }
+        return ret.readInt();
+    }
+
+    static double readTypedDouble(tcpip::Storage& ret, const std::string& error = "") {
+        if (ret.readUnsignedByte() != libsumo::TYPE_DOUBLE && error != "") {
+            throw TraCIException(error);
+        }
+        return ret.readDouble();
+    }
+
+    static std::string readTypedString(tcpip::Storage& ret, const std::string& error = "") {
+        if (ret.readUnsignedByte() != libsumo::TYPE_STRING && error != "") {
+            throw TraCIException(error);
+        }
+        return ret.readString();
+    }
+
+    static std::vector<std::string> readTypedStringList(tcpip::Storage& ret, const std::string& error = "") {
+        if (ret.readUnsignedByte() != libsumo::TYPE_STRINGLIST && error != "") {
+            throw TraCIException(error);
+        }
+        return ret.readStringList();
+    }
+
+    static int readCompound(tcpip::Storage& ret, int expectedSize = -1, const std::string& error = "") {
+        const int type = ret.readUnsignedByte();
+        const int size = ret.readInt();
+        if (error != "") {
+            if (type != libsumo::TYPE_COMPOUND || expectedSize != -1 && size != expectedSize) {
+                throw TraCIException(error);
+            }
+        }
+        return size;
+    }
+
+
+    static void writeTypedByte(tcpip::Storage& content, int value) {
+        content.writeUnsignedByte(libsumo::TYPE_BYTE);
+        content.writeByte(value);
+    }
+
+    static void writeTypedInt(tcpip::Storage& content, int value) {
+        content.writeUnsignedByte(libsumo::TYPE_INTEGER);
+        content.writeInt(value);
+    }
+
+    static void writeTypedDouble(tcpip::Storage& content, double value) {
+        content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+        content.writeDouble(value);
+    }
+
+    static void writeTypedString(tcpip::Storage& content, const std::string& value) {
+        content.writeUnsignedByte(libsumo::TYPE_STRING);
+        content.writeString(value);
+    }
+
+    static void writeTypedStringList(tcpip::Storage& content, const std::vector<std::string>& value) {
+        content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
+        content.writeStringList(value);
+    }
+
+    static void writeCompound(tcpip::Storage& content, int size) {
+        content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
+        content.writeInt(size);
+    }
+
+    static void writePolygon(tcpip::Storage& content, const libsumo::TraCIPositionVector& shape) {
+        content.writeUnsignedByte(libsumo::TYPE_POLYGON);
+        if (shape.value.size() <= 255) {
+            content.writeUnsignedByte((int)shape.value.size());
+        } else {
+            content.writeUnsignedByte(0);
+            content.writeInt((int)shape.value.size());
+        }
+        for (const libsumo::TraCIPosition& pos : shape.value) {
+            content.writeDouble(pos.x);
+            content.writeDouble(pos.y);
+        }
+    }
+
+
 };
 
 
 }
+
+typedef libsumo::StorageHelper StoHelp;

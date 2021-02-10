@@ -26,6 +26,7 @@
 #define LIBTRACI 1
 #include "Domain.h"
 #include <libsumo/POI.h>
+#include <libsumo/StorageHelper.h>
 
 
 namespace libtraci {
@@ -141,21 +142,21 @@ POI::setImageFile(const std::string& poiID, const std::string& imageFile) {
 bool
 POI::add(const std::string& poiID, double x, double y, const libsumo::TraCIColor& color, const std::string& poiType, int layer, const std::string& imgFile, double width, double height, double angle) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 8);
-    Dom::writeTypedString(content, poiType);
+    StoHelp::writeCompound(content, 8);
+    StoHelp::writeTypedString(content, poiType);
     content.writeUnsignedByte(libsumo::TYPE_COLOR);
     content.writeUnsignedByte(color.r);
     content.writeUnsignedByte(color.g);
     content.writeUnsignedByte(color.b);
     content.writeUnsignedByte(color.a);
-    Dom::writeTypedInt(content, layer);
+    StoHelp::writeTypedInt(content, layer);
     content.writeUnsignedByte(libsumo::POSITION_2D);
     content.writeDouble(x);
     content.writeDouble(y);
-    Dom::writeTypedString(content, imgFile);
-    Dom::writeTypedDouble(content, width);
-    Dom::writeTypedDouble(content, height);
-    Dom::writeTypedDouble(content, angle);
+    StoHelp::writeTypedString(content, imgFile);
+    StoHelp::writeTypedDouble(content, width);
+    StoHelp::writeTypedDouble(content, height);
+    StoHelp::writeTypedDouble(content, angle);
     Dom::set(libsumo::ADD, poiID, &content);
     return true;
 }
@@ -171,17 +172,17 @@ POI::remove(const std::string& poiID, int layer) {
 void
 POI::highlight(const std::string& poiID, const libsumo::TraCIColor& col, double size, const int alphaMax, const double duration, const int type) {
     tcpip::Storage content;
-    Dom::writeCompound(content, alphaMax > 0 ? 5 : 2);
+    StoHelp::writeCompound(content, alphaMax > 0 ? 5 : 2);
     content.writeUnsignedByte(libsumo::TYPE_COLOR);
     content.writeUnsignedByte(col.r);
     content.writeUnsignedByte(col.g);
     content.writeUnsignedByte(col.b);
     content.writeUnsignedByte(col.a);
-    Dom::writeTypedDouble(content, size);
+    StoHelp::writeTypedDouble(content, size);
     if (alphaMax > 0) {
         content.writeUnsignedByte(libsumo::TYPE_UBYTE);
         content.writeUnsignedByte(alphaMax);
-        Dom::writeTypedDouble(content, duration);
+        StoHelp::writeTypedDouble(content, duration);
         content.writeUnsignedByte(libsumo::TYPE_UBYTE);
         content.writeUnsignedByte(type);
     }

@@ -22,6 +22,7 @@
 #include <sstream>
 
 #define LIBTRACI 1
+#include <libsumo/StorageHelper.h>
 #include <libsumo/Vehicle.h>
 #include "Domain.h"
 
@@ -203,7 +204,7 @@ Vehicle::getPersonIDList(const std::string& vehID) {
 std::pair<std::string, double>
 Vehicle::getLeader(const std::string& vehID, double dist) {
     tcpip::Storage content;
-    Dom::writeTypedDouble(content, dist);
+    StoHelp::writeTypedDouble(content, dist);
     tcpip::Storage& ret = Dom::get(libsumo::VAR_LEADER, vehID, &content);
     ret.readInt(); // components
     ret.readUnsignedByte();
@@ -217,7 +218,7 @@ Vehicle::getLeader(const std::string& vehID, double dist) {
 std::pair<std::string, double>
 Vehicle::getFollower(const std::string& vehID, double dist) {
     tcpip::Storage content;
-    Dom::writeTypedDouble(content, dist);
+    StoHelp::writeTypedDouble(content, dist);
     tcpip::Storage& ret = Dom::get(libsumo::VAR_FOLLOWER, vehID, &content);
     ret.readInt(); // components
     ret.readUnsignedByte();
@@ -243,9 +244,9 @@ Vehicle::getAccumulatedWaitingTime(const std::string& vehID) {
 double
 Vehicle::getAdaptedTraveltime(const std::string& vehID, double time, const std::string& edgeID) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 2);
-    Dom::writeTypedDouble(content, time);
-    Dom::writeTypedString(content, edgeID);
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedDouble(content, time);
+    StoHelp::writeTypedString(content, edgeID);
     return Dom::getDouble(libsumo::VAR_EDGE_TRAVELTIME, vehID, &content);
 }
 
@@ -253,9 +254,9 @@ Vehicle::getAdaptedTraveltime(const std::string& vehID, double time, const std::
 double
 Vehicle::getEffort(const std::string& vehID, double time, const std::string& edgeID) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 2);
-    Dom::writeTypedDouble(content, time);
-    Dom::writeTypedString(content, edgeID);
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedDouble(content, time);
+    StoHelp::writeTypedString(content, edgeID);
     return Dom::getDouble(libsumo::VAR_EDGE_EFFORT, vehID, &content);
 }
 
@@ -350,29 +351,29 @@ std::vector<libsumo::TraCINextStopData>
 Vehicle::getStops(const std::string& vehID, int limit) {
     std::vector<libsumo::TraCINextStopData> result;
     tcpip::Storage content;
-    Dom::writeTypedInt(content, limit);
+    StoHelp::writeTypedInt(content, limit);
     tcpip::Storage& ret = Dom::get(libsumo::VAR_NEXT_STOPS2, vehID, &content);
     ret.readInt(); // components
     // number of items
-    const int n = Dom::readCompound(ret);
+    const int n = StoHelp::readCompound(ret);
     for (int i = 0; i < n; ++i) {
         libsumo::TraCINextStopData s;
-        s.lane = Dom::readTypedString(ret);
-        s.endPos = Dom::readTypedDouble(ret);
-        s.stoppingPlaceID = Dom::readTypedString(ret);
-        s.stopFlags = Dom::readTypedInt(ret);
-        s.duration = Dom::readTypedDouble(ret);
-        s.until = Dom::readTypedDouble(ret);
-        s.startPos = Dom::readTypedDouble(ret);
-        s.intendedArrival = Dom::readTypedDouble(ret);
-        s.arrival = Dom::readTypedDouble(ret);
-        s.depart = Dom::readTypedDouble(ret);
-        s.split = Dom::readTypedString(ret);
-        s.join = Dom::readTypedString(ret);
-        s.actType = Dom::readTypedString(ret);
-        s.tripId = Dom::readTypedString(ret);
-        s.line = Dom::readTypedString(ret);
-        s.speed = Dom::readTypedDouble(ret);
+        s.lane = StoHelp::readTypedString(ret);
+        s.endPos = StoHelp::readTypedDouble(ret);
+        s.stoppingPlaceID = StoHelp::readTypedString(ret);
+        s.stopFlags = StoHelp::readTypedInt(ret);
+        s.duration = StoHelp::readTypedDouble(ret);
+        s.until = StoHelp::readTypedDouble(ret);
+        s.startPos = StoHelp::readTypedDouble(ret);
+        s.intendedArrival = StoHelp::readTypedDouble(ret);
+        s.arrival = StoHelp::readTypedDouble(ret);
+        s.depart = StoHelp::readTypedDouble(ret);
+        s.split = StoHelp::readTypedString(ret);
+        s.join = StoHelp::readTypedString(ret);
+        s.actType = StoHelp::readTypedString(ret);
+        s.tripId = StoHelp::readTypedString(ret);
+        s.line = StoHelp::readTypedString(ret);
+        s.speed = StoHelp::readTypedDouble(ret);
         result.emplace_back(s);
     }
     return result;
@@ -394,7 +395,7 @@ Vehicle::getDistance(const std::string& vehID) {
 double
 Vehicle::getDrivingDistance(const std::string& vehID, const std::string& edgeID, double position, int laneIndex) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 2);
+    StoHelp::writeCompound(content, 2);
     content.writeUnsignedByte(libsumo::POSITION_ROADMAP);
     content.writeString(edgeID);
     content.writeDouble(position);
@@ -407,7 +408,7 @@ Vehicle::getDrivingDistance(const std::string& vehID, const std::string& edgeID,
 double
 Vehicle::getDrivingDistance2D(const std::string& vehID, double x, double y) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 2);
+    StoHelp::writeCompound(content, 2);
     content.writeUnsignedByte(libsumo::POSITION_2D);
     content.writeDouble(x);
     content.writeDouble(y);
@@ -462,7 +463,7 @@ Vehicle::getVia(const std::string& vehID) {
 std::pair<int, int>
 Vehicle::getLaneChangeState(const std::string& vehID, int direction) {
     tcpip::Storage content;
-    Dom::writeTypedInt(content, direction);
+    StoHelp::writeTypedInt(content, direction);
     tcpip::Storage& ret = Dom::get(libsumo::CMD_CHANGELANE, vehID, &content);
     ret.readInt(); // components
     ret.readUnsignedByte();
@@ -492,12 +493,12 @@ Vehicle::getNeighbors(const std::string& vehID, const int mode) {
 double
 Vehicle::getFollowSpeed(const std::string& vehID, double speed, double gap, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 5);
-    Dom::writeTypedDouble(content, speed);
-    Dom::writeTypedDouble(content, gap);
-    Dom::writeTypedDouble(content, leaderSpeed);
-    Dom::writeTypedDouble(content, leaderMaxDecel);
-    Dom::writeTypedString(content, leaderID);
+    StoHelp::writeCompound(content, 5);
+    StoHelp::writeTypedDouble(content, speed);
+    StoHelp::writeTypedDouble(content, gap);
+    StoHelp::writeTypedDouble(content, leaderSpeed);
+    StoHelp::writeTypedDouble(content, leaderMaxDecel);
+    StoHelp::writeTypedString(content, leaderID);
     return Dom::getDouble(libsumo::VAR_FOLLOW_SPEED, vehID, &content);
 }
 
@@ -505,11 +506,11 @@ Vehicle::getFollowSpeed(const std::string& vehID, double speed, double gap, doub
 double
 Vehicle::getSecureGap(const std::string& vehID, double speed, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 4);
-    Dom::writeTypedDouble(content, speed);
-    Dom::writeTypedDouble(content, leaderSpeed);
-    Dom::writeTypedDouble(content, leaderMaxDecel);
-    Dom::writeTypedString(content, leaderID);
+    StoHelp::writeCompound(content, 4);
+    StoHelp::writeTypedDouble(content, speed);
+    StoHelp::writeTypedDouble(content, leaderSpeed);
+    StoHelp::writeTypedDouble(content, leaderMaxDecel);
+    StoHelp::writeTypedString(content, leaderID);
     return Dom::getDouble(libsumo::VAR_SECURE_GAP, vehID, &content);
 }
 
@@ -517,9 +518,9 @@ Vehicle::getSecureGap(const std::string& vehID, double speed, double leaderSpeed
 double
 Vehicle::getStopSpeed(const std::string& vehID, const double speed, double gap) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 2);
-    Dom::writeTypedDouble(content, speed);
-    Dom::writeTypedDouble(content, gap);
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedDouble(content, speed);
+    StoHelp::writeTypedDouble(content, gap);
     return Dom::getDouble(libsumo::VAR_STOP_SPEED, vehID, &content);
 }
 
@@ -536,7 +537,7 @@ Vehicle::getStopArrivalDelay(const std::string& vehID) {
 std::vector<std::string>
 Vehicle::getTaxiFleet(int taxiState) {
     tcpip::Storage content;
-    Dom::writeTypedInt(content, taxiState);
+    StoHelp::writeTypedInt(content, taxiState);
     return Dom::getStringVector(libsumo::VAR_TAXI_FLEET, "", &content);
 }
 
@@ -665,14 +666,14 @@ Vehicle::setStop(const std::string& vehID,
                  double startPos,
                  double until) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 7);
-    Dom::writeTypedString(content, edgeID);
-    Dom::writeTypedDouble(content, pos);
-    Dom::writeTypedByte(content, laneIndex);
-    Dom::writeTypedDouble(content, duration);
-    Dom::writeTypedByte(content, flags);
-    Dom::writeTypedDouble(content, startPos);
-    Dom::writeTypedDouble(content, until);
+    StoHelp::writeCompound(content, 7);
+    StoHelp::writeTypedString(content, edgeID);
+    StoHelp::writeTypedDouble(content, pos);
+    StoHelp::writeTypedByte(content, laneIndex);
+    StoHelp::writeTypedDouble(content, duration);
+    StoHelp::writeTypedByte(content, flags);
+    StoHelp::writeTypedDouble(content, startPos);
+    StoHelp::writeTypedDouble(content, until);
     Dom::set(libsumo::CMD_STOP, vehID, &content);
 }
 
@@ -688,15 +689,15 @@ Vehicle::replaceStop(const std::string& vehID,
                      double startPos,
                      double until) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 8);
-    Dom::writeTypedString(content, edgeID);
-    Dom::writeTypedDouble(content, pos);
-    Dom::writeTypedByte(content, laneIndex);
-    Dom::writeTypedDouble(content, duration);
-    Dom::writeTypedInt(content, flags);
-    Dom::writeTypedDouble(content, startPos);
-    Dom::writeTypedDouble(content, until);
-    Dom::writeTypedInt(content, nextStopIndex);
+    StoHelp::writeCompound(content, 8);
+    StoHelp::writeTypedString(content, edgeID);
+    StoHelp::writeTypedDouble(content, pos);
+    StoHelp::writeTypedByte(content, laneIndex);
+    StoHelp::writeTypedDouble(content, duration);
+    StoHelp::writeTypedInt(content, flags);
+    StoHelp::writeTypedDouble(content, startPos);
+    StoHelp::writeTypedDouble(content, until);
+    StoHelp::writeTypedInt(content, nextStopIndex);
     Dom::set(libsumo::CMD_REPLACE_STOP, vehID, &content);
 }
 
@@ -704,8 +705,8 @@ Vehicle::replaceStop(const std::string& vehID,
 void
 Vehicle::rerouteParkingArea(const std::string& vehID, const std::string& parkingAreaID) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 1);
-    Dom::writeTypedString(content, parkingAreaID);
+    StoHelp::writeCompound(content, 1);
+    StoHelp::writeTypedString(content, parkingAreaID);
     Dom::set(libsumo::CMD_REROUTE_TO_PARKING, vehID, &content);
 }
 
@@ -713,7 +714,7 @@ Vehicle::rerouteParkingArea(const std::string& vehID, const std::string& parking
 void
 Vehicle::resume(const std::string& vehID) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 0);
+    StoHelp::writeCompound(content, 0);
     Dom::set(libsumo::CMD_RESUME, vehID, &content);
 }
 
@@ -727,19 +728,19 @@ Vehicle::changeTarget(const std::string& vehID, const std::string& edgeID) {
 void
 Vehicle::changeLane(const std::string& vehID, int laneIndex, double duration) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 2);
-    Dom::writeTypedByte(content, laneIndex);
-    Dom::writeTypedDouble(content, duration);
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedByte(content, laneIndex);
+    StoHelp::writeTypedDouble(content, duration);
     Dom::set(libsumo::CMD_CHANGELANE, vehID, &content);
 }
 
 void
 Vehicle::changeLaneRelative(const std::string& vehID, int indexOffset, double duration) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 3);
-    Dom::writeTypedByte(content, indexOffset);
-    Dom::writeTypedDouble(content, duration);
-    Dom::writeTypedByte(content, 1);
+    StoHelp::writeCompound(content, 3);
+    StoHelp::writeTypedByte(content, indexOffset);
+    StoHelp::writeTypedDouble(content, duration);
+    StoHelp::writeTypedByte(content, 1);
     Dom::set(libsumo::CMD_CHANGELANE, vehID, &content);
 }
 
@@ -767,24 +768,24 @@ Vehicle::add(const std::string& vehID,
              int personCapacity,
              int personNumber) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 14);
-    Dom::writeTypedString(content, routeID);
-    Dom::writeTypedString(content, typeID);
-    Dom::writeTypedString(content, depart);
-    Dom::writeTypedString(content, departLane);
-    Dom::writeTypedString(content, departPos);
-    Dom::writeTypedString(content, departSpeed);
+    StoHelp::writeCompound(content, 14);
+    StoHelp::writeTypedString(content, routeID);
+    StoHelp::writeTypedString(content, typeID);
+    StoHelp::writeTypedString(content, depart);
+    StoHelp::writeTypedString(content, departLane);
+    StoHelp::writeTypedString(content, departPos);
+    StoHelp::writeTypedString(content, departSpeed);
 
-    Dom::writeTypedString(content, arrivalLane);
-    Dom::writeTypedString(content, arrivalPos);
-    Dom::writeTypedString(content, arrivalSpeed);
+    StoHelp::writeTypedString(content, arrivalLane);
+    StoHelp::writeTypedString(content, arrivalPos);
+    StoHelp::writeTypedString(content, arrivalSpeed);
 
-    Dom::writeTypedString(content, fromTaz);
-    Dom::writeTypedString(content, toTaz);
-    Dom::writeTypedString(content, line);
+    StoHelp::writeTypedString(content, fromTaz);
+    StoHelp::writeTypedString(content, toTaz);
+    StoHelp::writeTypedString(content, line);
 
-    Dom::writeTypedInt(content, personCapacity);
-    Dom::writeTypedInt(content, personNumber);
+    StoHelp::writeTypedInt(content, personCapacity);
+    StoHelp::writeTypedInt(content, personNumber);
 
     Dom::set(libsumo::ADD_FULL, vehID, &content);
 }
@@ -794,36 +795,36 @@ void
 Vehicle::moveToXY(const std::string& vehID, const std::string& edgeID, const int laneIndex,
                   const double x, const double y, double angle, const int keepRoute) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 6);
-    Dom::writeTypedString(content, edgeID);
-    Dom::writeTypedInt(content, laneIndex);
-    Dom::writeTypedDouble(content, x);
-    Dom::writeTypedDouble(content, y);
-    Dom::writeTypedDouble(content, angle);
-    Dom::writeTypedByte(content, keepRoute);
+    StoHelp::writeCompound(content, 6);
+    StoHelp::writeTypedString(content, edgeID);
+    StoHelp::writeTypedInt(content, laneIndex);
+    StoHelp::writeTypedDouble(content, x);
+    StoHelp::writeTypedDouble(content, y);
+    StoHelp::writeTypedDouble(content, angle);
+    StoHelp::writeTypedByte(content, keepRoute);
     Dom::set(libsumo::MOVE_TO_XY, vehID, &content);
 }
 
 void
 Vehicle::slowDown(const std::string& vehID, double speed, double duration) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 2);
-    Dom::writeTypedDouble(content, speed);
-    Dom::writeTypedDouble(content, duration);
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedDouble(content, speed);
+    StoHelp::writeTypedDouble(content, duration);
     Dom::set(libsumo::CMD_SLOWDOWN, vehID, &content);
 }
 
 void
 Vehicle::openGap(const std::string& vehID, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel, const std::string& referenceVehID) {
     tcpip::Storage content;
-    Dom::writeCompound(content, referenceVehID != "" ? 6 : 5);
-    Dom::writeTypedDouble(content, newTimeHeadway);
-    Dom::writeTypedDouble(content, newSpaceHeadway);
-    Dom::writeTypedDouble(content, duration);
-    Dom::writeTypedDouble(content, changeRate);
-    Dom::writeTypedDouble(content, maxDecel);
+    StoHelp::writeCompound(content, referenceVehID != "" ? 6 : 5);
+    StoHelp::writeTypedDouble(content, newTimeHeadway);
+    StoHelp::writeTypedDouble(content, newSpaceHeadway);
+    StoHelp::writeTypedDouble(content, duration);
+    StoHelp::writeTypedDouble(content, changeRate);
+    StoHelp::writeTypedDouble(content, maxDecel);
     if (referenceVehID != "") {
-        Dom::writeTypedString(content, referenceVehID);
+        StoHelp::writeTypedString(content, referenceVehID);
     }
     Dom::set(libsumo::CMD_OPENGAP, vehID, &content);
 }
@@ -900,19 +901,19 @@ Vehicle::setAdaptedTraveltime(const std::string& vehID, const std::string& edgeI
     tcpip::Storage content;
     if (time == libsumo::INVALID_DOUBLE_VALUE) {
         // reset
-        Dom::writeCompound(content, 1);
-        Dom::writeTypedString(content, edgeID);
+        StoHelp::writeCompound(content, 1);
+        StoHelp::writeTypedString(content, edgeID);
     } else if (begSeconds == libsumo::INVALID_DOUBLE_VALUE) {
         // set value for the whole simulation
-        Dom::writeCompound(content, 2);
-        Dom::writeTypedString(content, edgeID);
-        Dom::writeTypedDouble(content, time);
+        StoHelp::writeCompound(content, 2);
+        StoHelp::writeTypedString(content, edgeID);
+        StoHelp::writeTypedDouble(content, time);
     } else {
-        Dom::writeCompound(content, 4);
-        Dom::writeTypedDouble(content, begSeconds);
-        Dom::writeTypedDouble(content, endSeconds);
-        Dom::writeTypedString(content, edgeID);
-        Dom::writeTypedDouble(content, time);
+        StoHelp::writeCompound(content, 4);
+        StoHelp::writeTypedDouble(content, begSeconds);
+        StoHelp::writeTypedDouble(content, endSeconds);
+        StoHelp::writeTypedString(content, edgeID);
+        StoHelp::writeTypedDouble(content, time);
     }
     Dom::set(libsumo::VAR_EDGE_TRAVELTIME, vehID, &content);
 }
@@ -924,19 +925,19 @@ Vehicle::setEffort(const std::string& vehID, const std::string& edgeID,
     tcpip::Storage content;
     if (effort == libsumo::INVALID_DOUBLE_VALUE) {
         // reset
-        Dom::writeCompound(content, 1);
-        Dom::writeTypedString(content, edgeID);
+        StoHelp::writeCompound(content, 1);
+        StoHelp::writeTypedString(content, edgeID);
     } else if (begSeconds == libsumo::INVALID_DOUBLE_VALUE) {
         // set value for the whole simulation
-        Dom::writeCompound(content, 2);
-        Dom::writeTypedString(content, edgeID);
-        Dom::writeTypedDouble(content, effort);
+        StoHelp::writeCompound(content, 2);
+        StoHelp::writeTypedString(content, edgeID);
+        StoHelp::writeTypedDouble(content, effort);
     } else {
-        Dom::writeCompound(content, 4);
-        Dom::writeTypedDouble(content, begSeconds);
-        Dom::writeTypedDouble(content, endSeconds);
-        Dom::writeTypedString(content, edgeID);
-        Dom::writeTypedDouble(content, effort);
+        StoHelp::writeCompound(content, 4);
+        StoHelp::writeTypedDouble(content, begSeconds);
+        StoHelp::writeTypedDouble(content, endSeconds);
+        StoHelp::writeTypedString(content, edgeID);
+        StoHelp::writeTypedDouble(content, effort);
     }
     Dom::set(libsumo::VAR_EDGE_EFFORT, vehID, &content);
 }
@@ -945,7 +946,7 @@ Vehicle::setEffort(const std::string& vehID, const std::string& edgeID,
 void
 Vehicle::rerouteTraveltime(const std::string& vehID, const bool /* currentTravelTimes */) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 0);
+    StoHelp::writeCompound(content, 0);
     Dom::set(libsumo::CMD_REROUTE_TRAVELTIME, vehID, &content);
 }
 
@@ -953,7 +954,7 @@ Vehicle::rerouteTraveltime(const std::string& vehID, const bool /* currentTravel
 void
 Vehicle::rerouteEffort(const std::string& vehID) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 0);
+    StoHelp::writeCompound(content, 0);
     Dom::set(libsumo::CMD_REROUTE_EFFORT, vehID, &content);
 }
 
@@ -967,10 +968,10 @@ Vehicle::setSignals(const std::string& vehID, int signals) {
 void
 Vehicle::moveTo(const std::string& vehID, const std::string& laneID, double position, int reason) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 3);
-    Dom::writeTypedString(content, laneID);
-    Dom::writeTypedDouble(content, position);
-    Dom::writeTypedInt(content, reason);
+    StoHelp::writeCompound(content, 3);
+    StoHelp::writeTypedString(content, laneID);
+    StoHelp::writeTypedDouble(content, position);
+    StoHelp::writeTypedInt(content, reason);
     Dom::set(libsumo::VAR_MOVE_TO, vehID, &content);
 }
 
@@ -1126,17 +1127,17 @@ Vehicle::setLateralAlignment(const std::string& vehID, const std::string& latAli
 void
 Vehicle::highlight(const std::string& vehID, const libsumo::TraCIColor& col, double size, const int alphaMax, const double duration, const int type) {
     tcpip::Storage content;
-    Dom::writeCompound(content, alphaMax > 0 ? 5 : 2);
+    StoHelp::writeCompound(content, alphaMax > 0 ? 5 : 2);
     content.writeUnsignedByte(libsumo::TYPE_COLOR);
     content.writeUnsignedByte(col.r);
     content.writeUnsignedByte(col.g);
     content.writeUnsignedByte(col.b);
     content.writeUnsignedByte(col.a);
-    Dom::writeTypedDouble(content, size);
+    StoHelp::writeTypedDouble(content, size);
     if (alphaMax > 0) {
         content.writeUnsignedByte(libsumo::TYPE_UBYTE);
         content.writeUnsignedByte(alphaMax);
-        Dom::writeTypedDouble(content, duration);
+        StoHelp::writeTypedDouble(content, duration);
         content.writeUnsignedByte(libsumo::TYPE_UBYTE);
         content.writeUnsignedByte(type);
     }
@@ -1185,7 +1186,7 @@ Vehicle::addSubscriptionFilterNoOpposite() {
 void
 Vehicle::addSubscriptionFilterDownstreamDistance(double dist) {
     tcpip::Storage content;
-    Dom::writeTypedDouble(content, dist);
+    StoHelp::writeTypedDouble(content, dist);
     libtraci::Connection::getActive().addFilter(libsumo::FILTER_TYPE_DOWNSTREAM_DIST, &content);
 }
 
@@ -1193,7 +1194,7 @@ Vehicle::addSubscriptionFilterDownstreamDistance(double dist) {
 void
 Vehicle::addSubscriptionFilterUpstreamDistance(double dist) {
     tcpip::Storage content;
-    Dom::writeTypedDouble(content, dist);
+    StoHelp::writeTypedDouble(content, dist);
     libtraci::Connection::getActive().addFilter(libsumo::FILTER_TYPE_UPSTREAM_DIST, &content);
 }
 
@@ -1254,7 +1255,7 @@ Vehicle::addSubscriptionFilterTurn(double downstreamDist, double upstreamDist) {
 void
 Vehicle::addSubscriptionFilterVClass(const std::vector<std::string>& vClasses) {
     tcpip::Storage content;
-    Dom::writeTypedStringList(content, vClasses);
+    StoHelp::writeTypedStringList(content, vClasses);
     libtraci::Connection::getActive().addFilter(libsumo::FILTER_TYPE_VCLASS, &content);
 }
 
@@ -1262,7 +1263,7 @@ Vehicle::addSubscriptionFilterVClass(const std::vector<std::string>& vClasses) {
 void
 Vehicle::addSubscriptionFilterVType(const std::vector<std::string>& vTypes) {
     tcpip::Storage content;
-    Dom::writeTypedStringList(content, vTypes);
+    StoHelp::writeTypedStringList(content, vTypes);
     libtraci::Connection::getActive().addFilter(libsumo::FILTER_TYPE_VTYPE, &content);
 }
 
@@ -1270,7 +1271,7 @@ Vehicle::addSubscriptionFilterVType(const std::vector<std::string>& vTypes) {
 void
 Vehicle::addSubscriptionFilterFieldOfVision(double openingAngle) {
     tcpip::Storage content;
-    Dom::writeTypedDouble(content, openingAngle);
+    StoHelp::writeTypedDouble(content, openingAngle);
     libtraci::Connection::getActive().addFilter(libsumo::FILTER_TYPE_FIELD_OF_VISION, &content);
 }
 
@@ -1278,7 +1279,7 @@ Vehicle::addSubscriptionFilterFieldOfVision(double openingAngle) {
 void
 Vehicle::addSubscriptionFilterLateralDistance(double lateralDist, double downstreamDist, double upstreamDist) {
     tcpip::Storage content;
-    Dom::writeTypedDouble(content, lateralDist);
+    StoHelp::writeTypedDouble(content, lateralDist);
     libtraci::Connection::getActive().addFilter(libsumo::FILTER_TYPE_LATERAL_DIST, &content);
     if (downstreamDist != libsumo::INVALID_DOUBLE_VALUE) {
         addSubscriptionFilterDownstreamDistance(downstreamDist);

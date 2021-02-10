@@ -22,6 +22,7 @@
 #define LIBTRACI 1
 #include "Domain.h"
 #include <libsumo/Polygon.h>
+#include <libsumo/StorageHelper.h>
 
 
 namespace libtraci {
@@ -85,7 +86,7 @@ Polygon::setType(const std::string& polygonID, const std::string& setType) {
 void
 Polygon::setShape(const std::string& polygonID, const libsumo::TraCIPositionVector& shape) {
     tcpip::Storage content;
-    Dom::writePolygon(content, shape);
+    StoHelp::writePolygon(content, shape);
     return Dom::set(libsumo::VAR_SHAPE, polygonID, &content);
 }
 
@@ -99,8 +100,8 @@ Polygon::setColor(const std::string& polygonID, const libsumo::TraCIColor& c) {
 void
 Polygon::add(const std::string& polygonID, const libsumo::TraCIPositionVector& shape, const libsumo::TraCIColor& color, bool fill, const std::string& polygonType, int layer, double lineWidth) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 6);
-    Dom::writeTypedString(content, polygonType);
+    StoHelp::writeCompound(content, 6);
+    StoHelp::writeTypedString(content, polygonType);
     content.writeUnsignedByte(libsumo::TYPE_COLOR);
     content.writeUnsignedByte(color.r);
     content.writeUnsignedByte(color.g);
@@ -108,9 +109,9 @@ Polygon::add(const std::string& polygonID, const libsumo::TraCIPositionVector& s
     content.writeUnsignedByte(color.a);
     content.writeUnsignedByte(libsumo::TYPE_UBYTE);
     content.writeUnsignedByte(fill);
-    Dom::writeTypedInt(content, layer);
-    Dom::writePolygon(content, shape);
-    Dom::writeTypedDouble(content, lineWidth);
+    StoHelp::writeTypedInt(content, layer);
+    StoHelp::writePolygon(content, shape);
+    StoHelp::writeTypedDouble(content, lineWidth);
     Dom::set(libsumo::ADD, polygonID, &content);
 }
 
@@ -118,8 +119,8 @@ Polygon::add(const std::string& polygonID, const libsumo::TraCIPositionVector& s
 void
 Polygon::addDynamics(const std::string& polygonID, const std::string& trackedObjectID, const std::vector<double>& timeSpan, const std::vector<double>& alphaSpan, bool looped, bool rotate) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 5);
-    Dom::writeTypedString(content, trackedObjectID);
+    StoHelp::writeCompound(content, 5);
+    StoHelp::writeTypedString(content, trackedObjectID);
     content.writeUnsignedByte(libsumo::TYPE_DOUBLELIST);
     content.writeInt((int)timeSpan.size());
     for (const double d : timeSpan) {
