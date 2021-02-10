@@ -219,6 +219,9 @@ public:
     /// @brief bike lane markings on top of an intersection
     void drawBikeMarkings() const;
 
+    /// @brief bike lane markings on top of an intersection
+    void drawJunctionChangeProhibitions() const;
+
     /// @brief direction indicators for lanes
     void drawDirectionIndicators(double exaggeration, bool spreadSuperposed) const;
 

@@ -689,6 +689,11 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         if (drawDetails && isInternal && s.showBikeMarkings && myPermissions == SVC_BICYCLE && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders && !hiddenBidi) {
             drawBikeMarkings();
         }
+        if (drawDetails && isInternal && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders && !hiddenBidi && myIndex > 0
+                && !(myEdge->getLanes()[myIndex - 1]->allowsChangingLeft(SVC_PASSENGER) && allowsChangingRight(SVC_PASSENGER))) {
+            // draw lane changing prohibitions on junction
+            drawJunctionChangeProhibitions();
+        }
     } else {
         glPopMatrix();
     }
@@ -790,6 +795,70 @@ GUILane::drawBikeMarkings() const {
             }
         }
         glPopMatrix();
+    }
+}
+
+
+void
+GUILane::drawJunctionChangeProhibitions() const {
+    // draw white markings
+    if (myIndex > 0 && (myEdge->getLanes()[myIndex - 1]->getPermissions() & myPermissions) != 0) {
+        glColor3d(1, 1, 1);
+        const bool cl = myEdge->getLanes()[myIndex - 1]->allowsChangingLeft(SVC_PASSENGER);
+        const bool cr = allowsChangingRight(SVC_PASSENGER);
+        // solid line marking
+        double mw,mw2;
+        // optional broken line marking
+        double mw3,mw4;
+        if (!cl && !cr) {
+            // draw a single solid line
+            mw = myHalfLaneWidth + SUMO_const_laneMarkWidth * 0.4;
+            mw2 = myHalfLaneWidth - SUMO_const_laneMarkWidth * 0.4;
+            mw3 = myHalfLaneWidth;
+            mw4 = myHalfLaneWidth;
+        } else {
+            // draw one solid and one broken line
+            if (cl) {
+                mw = myHalfLaneWidth - SUMO_const_laneMarkWidth * 0.2;
+                mw2 = myHalfLaneWidth - SUMO_const_laneMarkWidth * 0.6;
+                mw3 = myHalfLaneWidth + SUMO_const_laneMarkWidth * 0.2;
+                mw4 = myHalfLaneWidth + SUMO_const_laneMarkWidth * 0.6;
+            } else {
+                mw = myHalfLaneWidth + SUMO_const_laneMarkWidth * 0.2;
+                mw2 = myHalfLaneWidth + SUMO_const_laneMarkWidth * 0.6;
+                mw3 = myHalfLaneWidth - SUMO_const_laneMarkWidth * 0.2;
+                mw4 = myHalfLaneWidth - SUMO_const_laneMarkWidth * 0.6;
+            }
+        }
+        if (MSGlobals::gLefthand) {
+            mw *= -1;
+            mw2 *= -1;
+        }
+        int e = (int) getShape().size() - 1;
+        for (int i = 0; i < e; ++i) {
+            glPushMatrix();
+            glTranslated(getShape()[i].x(), getShape()[i].y(), GLO_JUNCTION + 0.4);
+            glRotated(myShapeRotations[i], 0, 0, 1);
+            for (double t = 0; t < myShapeLengths[i]; t += 6) {
+                const double lengthSolid = MIN2(6.0, myShapeLengths[i] - t);
+                glBegin(GL_QUADS);
+                glVertex2d(-mw, -t);
+                glVertex2d(-mw, -t - lengthSolid);
+                glVertex2d(-mw2, -t - lengthSolid);
+                glVertex2d(-mw2, -t);
+                glEnd();
+                if (cl || cr) {
+                    const double lengthBroken = MIN2(3.0, myShapeLengths[i] - t);
+                    glBegin(GL_QUADS);
+                    glVertex2d(-mw3, -t);
+                    glVertex2d(-mw3, -t - lengthBroken);
+                    glVertex2d(-mw4, -t - lengthBroken);
+                    glVertex2d(-mw4, -t);
+                    glEnd();
+                }
+            }
+            glPopMatrix();
+        }
     }
 }
 
