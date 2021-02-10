@@ -164,12 +164,15 @@ GNEApplicationWindowHelper::MenuBarFile::buildRecentFiles(FXMenuPane* fileMenu) 
 GNEApplicationWindowHelper::FileMenuCommands::FileMenuCommands(GNEApplicationWindow* GNEApp) :
     saveAdditionals(nullptr),
     saveAdditionalsAs(nullptr),
+    reloadAdditionals(nullptr),
     saveTLSPrograms(nullptr),
     saveEdgeTypes(nullptr),
     saveDemandElements(nullptr),
     saveDemandElementsAs(nullptr),
+    reloadDemandElements(nullptr),
     saveDataElements(nullptr),
     saveDataElementsAs(nullptr),
+    reloadDataElements(nullptr),
     myGNEApp(GNEApp) {
 }
 
