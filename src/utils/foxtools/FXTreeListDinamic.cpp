@@ -41,6 +41,15 @@ FXTreeListDinamic::FXTreeListDinamic(FXComposite* p, FXObject* tgt, FXSelector s
 }
 
 
+void 
+FXTreeListDinamic::show() {
+    // update height
+    setHeight(getContentHeight() + 20);
+    // show
+    FXTreeList::show();
+}
+
+
 long
 FXTreeListDinamic::onLeftBtnPress(FXObject* obj, FXSelector sel, void* ptr) {
     FXTreeList::onLeftBtnPress(obj, sel, ptr);

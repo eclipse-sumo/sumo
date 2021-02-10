@@ -33,6 +33,9 @@ public:
     /// @brief Construct a menu check
     FXTreeListDinamic(FXComposite* p, FXObject* tgt, FXSelector sel);
 
+    /// @brief Show FXTreeListDinamic
+    void show();
+
     /// @name FOX calls
     /// @{
     long onLeftBtnPress(FXObject*, FXSelector, void*);
