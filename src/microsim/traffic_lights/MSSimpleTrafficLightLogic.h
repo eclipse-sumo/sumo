@@ -182,7 +182,7 @@ public:
      * @param[in] stepDuration The left duration of the phase
      * @see MSTrafficLightLogic::changeStepAndDuration
      */
-    void changeStepAndDuration(MSTLLogicControl& tlcontrol, SUMOTime simStep,
+    virtual void changeStepAndDuration(MSTLLogicControl& tlcontrol, SUMOTime simStep,
                                int step, SUMOTime stepDuration);
 
     /** @brief Replaces the phases and set the phase index

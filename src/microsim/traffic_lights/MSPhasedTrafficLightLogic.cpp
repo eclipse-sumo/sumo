@@ -183,7 +183,9 @@ MSPhasedTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
     mySwitchCommand->deschedule(this);
     //delete mySwitchCommand;Consider this operation!!!
     mySwitchCommand = new SwitchCommand(tlcontrol, this, stepDuration + simStep);
-    myStep = step;
+    if (step >= 0) {
+        myStep = step;
+    }
     MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
         mySwitchCommand, stepDuration + simStep);
 }

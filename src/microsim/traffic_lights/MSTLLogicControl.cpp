@@ -93,7 +93,7 @@ MSTLLogicControl::TLSLogicVariants::saveInitialStates() {
 
 
 void
-MSTLLogicControl::TLSLogicVariants::saveState(OutputDevice& out) {
+MSTLLogicControl::TLSLogicVariants::saveState(OutputDevice& /*out*/) {
 }
 
 

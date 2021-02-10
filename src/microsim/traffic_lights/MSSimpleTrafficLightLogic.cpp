@@ -187,7 +187,7 @@ MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
         SUMOTime simStep, int step, SUMOTime stepDuration) {
     mySwitchCommand->deschedule(this);
     mySwitchCommand = new SwitchCommand(tlcontrol, this, stepDuration + simStep);
-    if (step != myStep) {
+    if (step >= 0 && step != myStep) {
         myStep = step;
         myPhases[myStep]->myLastSwitch = MSNet::getInstance()->getCurrentTimeStep();
         setTrafficLightSignals(simStep);

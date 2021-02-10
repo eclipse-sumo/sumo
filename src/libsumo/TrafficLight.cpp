@@ -293,8 +293,7 @@ void
 TrafficLight::setPhaseDuration(const std::string& tlsID, const double phaseDuration) {
     MSTrafficLightLogic* const active = getTLS(tlsID).getActive();
     const SUMOTime cTime = MSNet::getInstance()->getCurrentTimeStep();
-    const int index = active->getCurrentPhaseIndex();
-    active->changeStepAndDuration(MSNet::getInstance()->getTLSControl(), cTime, index, TIME2STEPS(phaseDuration));
+    active->changeStepAndDuration(MSNet::getInstance()->getTLSControl(), cTime, -1, TIME2STEPS(phaseDuration));
 }
 
 

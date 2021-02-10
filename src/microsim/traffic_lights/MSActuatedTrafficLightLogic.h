@@ -86,6 +86,19 @@ public:
     SUMOTime trySwitch();
     /// @}
 
+    /// @name Changing phases and phase durations
+    /// @{
+
+    /** @brief Changes the current phase and her duration
+     * @param[in] tlcontrol The responsible traffic lights control
+     * @param[in] simStep The current simulation step
+     * @param[in] step Index of the phase to use
+     * @param[in] stepDuration The left duration of the phase
+     * @see MSTrafficLightLogic::changeStepAndDuration
+     */
+    void changeStepAndDuration(MSTLLogicControl& tlcontrol, SUMOTime simStep,
+                               int step, SUMOTime stepDuration);
+
     /// @brief called when switching programs
     void activateProgram();
     void deactivateProgram();

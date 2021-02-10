@@ -450,6 +450,23 @@ MSActuatedTrafficLightLogic::deactivateProgram() {
     }
 }
 
+void
+MSActuatedTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
+        SUMOTime simStep, int step, SUMOTime stepDuration) {
+    // do not change timing if the phase changes
+    if (step >= 0 && step != myStep) {
+        myStep = step;
+        myPhases[myStep]->myLastSwitch = MSNet::getInstance()->getCurrentTimeStep();
+        setTrafficLightSignals(simStep);
+        tlcontrol.get(getID()).executeOnSwitchActions();
+    } else if (step < 0) {
+        mySwitchCommand->deschedule(this);
+        mySwitchCommand = new SwitchCommand(tlcontrol, this, stepDuration + simStep);
+        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
+                mySwitchCommand, stepDuration + simStep);
+    }
+}
+
 SUMOTime
 MSActuatedTrafficLightLogic::trySwitch() {
     // checks if the actual phase should be continued
