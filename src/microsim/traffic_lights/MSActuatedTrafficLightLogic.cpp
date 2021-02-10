@@ -66,7 +66,9 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
         const std::map<std::string, std::string>& parameter,
         const std::string& basePath) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::ACTUATED, phases, step, delay, parameter),
-    myLastTrySwitchTime(0) {
+    myLastTrySwitchTime(0),
+    myTraCISwitch(false)
+{
     myMaxGap = StringUtils::toDouble(getParameter("max-gap", DEFAULT_MAX_GAP));
     myPassingTime = StringUtils::toDouble(getParameter("passing-time", DEFAULT_PASSING_TIME));
     myDetectorGap = StringUtils::toDouble(getParameter("detector-gap", DEFAULT_DETECTOR_GAP));
@@ -460,10 +462,12 @@ MSActuatedTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
         setTrafficLightSignals(simStep);
         tlcontrol.get(getID()).executeOnSwitchActions();
     } else if (step < 0) {
+        // TraCI requested new timing
         mySwitchCommand->deschedule(this);
         mySwitchCommand = new SwitchCommand(tlcontrol, this, stepDuration + simStep);
         MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
                 mySwitchCommand, stepDuration + simStep);
+        myTraCISwitch = true;
     }
 }
 
@@ -494,9 +498,10 @@ MSActuatedTrafficLightLogic::trySwitch() {
         std::cout << SIMTIME << " p=" << myStep << " trySwitch dGap=" << detectionGap << " multi=" << multiTarget << "\n";
     }
 #endif
-    if (detectionGap < std::numeric_limits<double>::max() && !multiTarget) {
+    if (detectionGap < std::numeric_limits<double>::max() && !multiTarget && !myTraCISwitch) {
         return duration(detectionGap);
     }
+    myTraCISwitch = false;
     // decide the next phase
     const int origStep = myStep;
     int nextStep = myStep;

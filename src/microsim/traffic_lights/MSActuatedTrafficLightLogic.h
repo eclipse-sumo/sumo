@@ -208,4 +208,7 @@ protected:
     std::vector<SUMOTime> myLinkMaxGreenTimes;
     /// @brief minimum consecutive time that the given link must remain green
     std::vector<SUMOTime> myLinkMinGreenTimes;
+
+    /// @brief whether the next switch time was requested via TraCI
+    bool myTraCISwitch;
 };
