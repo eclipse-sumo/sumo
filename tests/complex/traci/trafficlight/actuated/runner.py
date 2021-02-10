@@ -50,6 +50,9 @@ def check():
 
 # default actuated
 print("max-gap:", traci.trafficlight.getParameter(tlsID, "max-gap"))
+# make the first actuated phase 2 seconds longer
+traci.trafficlight.setPhaseDuration(tlsID, 7)
+traci.trafficlight.setPhase(tlsID, 0)
 for i in range(180):
     check()
     if i == 50:
@@ -63,7 +66,12 @@ for i in range(180):
 # change parameter
 traci.trafficlight.setParameter(tlsID, "max-gap", "10")
 print("max-gap:", traci.trafficlight.getParameter(tlsID, "max-gap"))
+prolonged = False
 for i in range(180):
+    if not prolonged and traci.trafficlight.getPhase(tlsID) == 0:
+        # make the first actuated phase shorter once
+        traci.trafficlight.setPhaseDuration(tlsID, 30)
+        prolonged = True
     traci.simulationStep()
 
 traci.close()
