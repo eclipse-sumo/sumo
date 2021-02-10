@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/22/17 15:56:28 by SUMO Version dev-SVN-r23592
+<!-- generated on Wed Feb 10 18:12:52 2021 by Eclipse SUMO sumo Version v1_8_0+1107-797d2fd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,6 +13,10 @@ SPDX-License-Identifier: EPL-2.0
         <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
     </input>
 
+    <output>
+        <write-license value="true"/>
+    </output>
+
     <time>
         <begin value="0"/>
         <end value="200"/>
@@ -20,12 +24,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
     <traci_server>
-        <remote-port value="53899"/>
+        <remote-port value="40689"/>
     </traci_server>
 
 </configuration>
@@ -63,25 +68,25 @@ SPDX-License-Identifier: EPL-2.0
     <tlsState time="28.00" id="1/1" programID="t1" phase="1" state="yyyyyyyyyyyyyyyy"/>
     <tlsState time="29.00" id="1/1" programID="t1" phase="1" state="yyyyyyyyyyyyyyyy"/>
     <tlsState time="30.00" id="1/1" programID="t1" phase="0" state="rrrrrrrrrrrrrrrr"/>
-    <tlsState time="31.00" id="1/1" programID="t2" phase="1" state="yyyyyyyyyyyyyyyy"/>
-    <tlsState time="32.00" id="1/1" programID="t2" phase="1" state="yyyyyyyyyyyyyyyy"/>
-    <tlsState time="33.00" id="1/1" programID="t2" phase="1" state="yyyyyyyyyyyyyyyy"/>
-    <tlsState time="34.00" id="1/1" programID="t2" phase="1" state="yyyyyyyyyyyyyyyy"/>
+    <tlsState time="31.00" id="1/1" programID="t2" phase="0" state="rrrrrrrrrrrrrrrr"/>
+    <tlsState time="32.00" id="1/1" programID="t2" phase="0" state="rrrrrrrrrrrrrrrr"/>
+    <tlsState time="33.00" id="1/1" programID="t2" phase="0" state="rrrrrrrrrrrrrrrr"/>
+    <tlsState time="34.00" id="1/1" programID="t2" phase="0" state="rrrrrrrrrrrrrrrr"/>
     <tlsState time="35.00" id="1/1" programID="t2" phase="0" state="rrrrrrrrrrrrrrrr"/>
-    <tlsState time="36.00" id="1/1" programID="t2" phase="0" state="rrrrrrrrrrrrrrrr"/>
-    <tlsState time="37.00" id="1/1" programID="t2" phase="0" state="rrrrrrrrrrrrrrrr"/>
-    <tlsState time="38.00" id="1/1" programID="t2" phase="0" state="rrrrrrrrrrrrrrrr"/>
-    <tlsState time="39.00" id="1/1" programID="t2" phase="0" state="rrrrrrrrrrrrrrrr"/>
+    <tlsState time="36.00" id="1/1" programID="t2" phase="1" state="yyyyyyyyyyyyyyyy"/>
+    <tlsState time="37.00" id="1/1" programID="t2" phase="1" state="yyyyyyyyyyyyyyyy"/>
+    <tlsState time="38.00" id="1/1" programID="t2" phase="1" state="yyyyyyyyyyyyyyyy"/>
+    <tlsState time="39.00" id="1/1" programID="t2" phase="1" state="yyyyyyyyyyyyyyyy"/>
     <tlsState time="40.00" id="1/1" programID="t2" phase="1" state="yyyyyyyyyyyyyyyy"/>
-    <tlsState time="41.00" id="1/1" programID="t2" phase="1" state="yyyyyyyyyyyyyyyy"/>
-    <tlsState time="42.00" id="1/1" programID="t2" phase="1" state="yyyyyyyyyyyyyyyy"/>
-    <tlsState time="43.00" id="1/1" programID="t2" phase="1" state="yyyyyyyyyyyyyyyy"/>
-    <tlsState time="44.00" id="1/1" programID="t2" phase="1" state="yyyyyyyyyyyyyyyy"/>
+    <tlsState time="41.00" id="1/1" programID="t2" phase="0" state="rrrrrrrrrrrrrrrr"/>
+    <tlsState time="42.00" id="1/1" programID="t2" phase="0" state="rrrrrrrrrrrrrrrr"/>
+    <tlsState time="43.00" id="1/1" programID="t2" phase="0" state="rrrrrrrrrrrrrrrr"/>
+    <tlsState time="44.00" id="1/1" programID="t2" phase="0" state="rrrrrrrrrrrrrrrr"/>
     <tlsState time="45.00" id="1/1" programID="t2" phase="0" state="rrrrrrrrrrrrrrrr"/>
-    <tlsState time="46.00" id="1/1" programID="t2" phase="0" state="rrrrrrrrrrrrrrrr"/>
-    <tlsState time="47.00" id="1/1" programID="t2" phase="0" state="rrrrrrrrrrrrrrrr"/>
-    <tlsState time="48.00" id="1/1" programID="t2" phase="0" state="rrrrrrrrrrrrrrrr"/>
-    <tlsState time="49.00" id="1/1" programID="t2" phase="0" state="rrrrrrrrrrrrrrrr"/>
+    <tlsState time="46.00" id="1/1" programID="t2" phase="1" state="yyyyyyyyyyyyyyyy"/>
+    <tlsState time="47.00" id="1/1" programID="t2" phase="1" state="yyyyyyyyyyyyyyyy"/>
+    <tlsState time="48.00" id="1/1" programID="t2" phase="1" state="yyyyyyyyyyyyyyyy"/>
+    <tlsState time="49.00" id="1/1" programID="t2" phase="1" state="yyyyyyyyyyyyyyyy"/>
     <tlsState time="50.00" id="1/1" programID="t2" phase="1" state="yyyyyyyyyyyyyyyy"/>
-    <tlsState time="51.00" id="1/1" programID="t2" phase="1" state="yyyyyyyyyyyyyyyy"/>
+    <tlsState time="51.00" id="1/1" programID="t2" phase="0" state="rrrrrrrrrrrrrrrr"/>
 </tlsStates>
