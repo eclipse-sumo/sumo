@@ -54,14 +54,12 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             switch (variable) {
                 case libsumo::VAR_EDGE_TRAVELTIME: {
                     const double time = StoHelp::readTypedDouble(inputStorage, "The message must contain the time definition.");
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                    server.getWrapperStorage().writeDouble(libsumo::Edge::getAdaptedTraveltime(id, time));
+                    StoHelp::writeTypedDouble(server.getWrapperStorage(), libsumo::Edge::getAdaptedTraveltime(id, time));
                     break;
                 }
                 case libsumo::VAR_EDGE_EFFORT: {
                     const double time = StoHelp::readTypedDouble(inputStorage, "The message must contain the time definition.");
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                    server.getWrapperStorage().writeDouble(libsumo::Edge::getEffort(id, time));
+                    StoHelp::writeTypedDouble(server.getWrapperStorage(), libsumo::Edge::getEffort(id, time));
                     break;
                 }
                 default:
@@ -150,34 +148,15 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             }
             case libsumo::VAR_MAXSPEED: {
                 // read and set max. speed
-                double value = 0.;
-                if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_EDGE_VARIABLE, "The speed must be given as a double.",
-                                                      outputStorage);
-                }
+                const double value = StoHelp::readTypedDouble(inputStorage, "The speed must be given as a double.");
                 libsumo::Edge::setMaxSpeed(id, value);
                 break;
             }
             case libsumo::VAR_PARAMETER: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_EDGE_VARIABLE,
-                                                      "A compound object is needed for setting a parameter.",
-                                                      outputStorage);
-                }
-                //readt itemNo
-                inputStorage.readInt();
-                std::string name;
-                if (!server.readTypeCheckingString(inputStorage, name)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_EDGE_VARIABLE,
-                                                      "The name of the parameter must be given as a string.",
-                                                      outputStorage);
-                }
-                std::string value;
-                if (!server.readTypeCheckingString(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_EDGE_VARIABLE,
-                                                      "The value of the parameter must be given as a string.",
-                                                      outputStorage);
-                }
+                // read and check item number
+                StoHelp::readCompound(inputStorage, 2, "A compound object of size 2 is needed for setting a parameter.");
+                const std::string name = StoHelp::readTypedString(inputStorage, "The name of the parameter must be given as a string.");
+                const std::string value = StoHelp::readTypedString(inputStorage, "The value of the parameter must be given as a string.");
                 libsumo::Edge::setParameter(id, name, value);
                 break;
             }

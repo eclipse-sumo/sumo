@@ -24,6 +24,7 @@
 #include <microsim/trigger/MSCalibrator.h>
 #include <libsumo/Calibrator.h>
 #include <libsumo/TraCIConstants.h>
+#include <libsumo/StorageHelper.h>
 #include "TraCIServerAPI_Calibrator.h"
 
 
@@ -65,66 +66,25 @@ TraCIServerAPI_Calibrator::processSet(TraCIServer& server, tcpip::Storage& input
         // process
         switch (variable) {
             case libsumo::CMD_SET_FLOW: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_CALIBRATOR_VARIABLE, "A compound object is needed for setting calibrator flow.", outputStorage);
-                }
-                int parameterCount = inputStorage.readInt();
-                double begin;
-                double end;
-                double vehsPerHour;
-                double speed;
-                std::string typeID;
-                std::string routeID;
-                std::string departLane;
-                std::string departSpeed;
-                if (parameterCount == 8) {
-                    if (!server.readTypeCheckingDouble(inputStorage, begin)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_CALIBRATOR_VARIABLE, "Setting flow requires the begin time as the first value.", outputStorage);
-                    }
-                    if (!server.readTypeCheckingDouble(inputStorage, end)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_CALIBRATOR_VARIABLE, "Setting flow requires the end time as the second value.", outputStorage);
-                    }
-                    if (!server.readTypeCheckingDouble(inputStorage, vehsPerHour)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_CALIBRATOR_VARIABLE, "Setting flow requires the number of vehicles per hour as the third value.", outputStorage);
-                    }
-                    if (!server.readTypeCheckingDouble(inputStorage, speed)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_CALIBRATOR_VARIABLE, "Setting flow requires the speed as the fourth value.", outputStorage);
-                    }
-                    if (!server.readTypeCheckingString(inputStorage, typeID)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_CALIBRATOR_VARIABLE, "Setting flow requires the type id as the fifth value.", outputStorage);
-                    }
-                    if (!server.readTypeCheckingString(inputStorage, routeID)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_CALIBRATOR_VARIABLE, "Setting flow requires the route id as the sixth value.", outputStorage);
-                    }
-                    if (!server.readTypeCheckingString(inputStorage, departLane)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_CALIBRATOR_VARIABLE, "Setting flow requires the departLane as the seventh value.", outputStorage);
-                    }
-                    if (!server.readTypeCheckingString(inputStorage, departSpeed)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_CALIBRATOR_VARIABLE, "Setting flow requires the departSpeed as the eigth value.", outputStorage);
-                    }
-                } else {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Setting calibrator flow requires 8 parameters.", outputStorage);
-                }
+                StoHelp::readCompound(inputStorage, 8, "A compound object of size 8 is needed for setting calibrator flow.");
+                const double begin = StoHelp::readTypedDouble(inputStorage, "Setting flow requires the begin time as the first (double) value.");
+                const double end = StoHelp::readTypedDouble(inputStorage, "Setting flow requires the end time as the second (double) value.");
+                const double vehsPerHour = StoHelp::readTypedDouble(inputStorage, "Setting flow requires the number of vehicles per hour as the third (double) value.");
+                const double speed = StoHelp::readTypedDouble(inputStorage, "Setting flow requires the speed as the fourth (double) value.");
+                const std::string typeID = StoHelp::readTypedString(inputStorage, "Setting flow requires the type id as the fifth (string) value.");
+                const std::string routeID = StoHelp::readTypedString(inputStorage, "Setting flow requires the route id as the sixth (string) value.");
+                const std::string departLane = StoHelp::readTypedString(inputStorage, "Setting flow requires the departLane as the seventh (string) value.");
+                const std::string departSpeed = StoHelp::readTypedString(inputStorage, "Setting flow requires the departSpeed as the eigth (string) value.");
                 libsumo::Calibrator::setFlow(id, begin, end, vehsPerHour, speed, typeID, routeID, departLane, departSpeed);
+                break;
             }
-            break;
             case libsumo::VAR_PARAMETER: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_CALIBRATOR_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
-                }
-                //read itemNo
-                inputStorage.readInt();
-                std::string name;
-                if (!server.readTypeCheckingString(inputStorage, name)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_CALIBRATOR_VARIABLE, "The name of the parameter must be given as a string.", outputStorage);
-                }
-                std::string value;
-                if (!server.readTypeCheckingString(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_CALIBRATOR_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
-                }
+                StoHelp::readCompound(inputStorage, 2, "A compound object of size 2 is needed for setting a parameter.");
+                const std::string name = StoHelp::readTypedString(inputStorage, "The name of the parameter must be given as a string.");
+                const std::string value = StoHelp::readTypedString(inputStorage, "The value of the parameter must be given as a string.");
                 libsumo::Calibrator::setParameter(id, name, value);
+                break;
             }
-            break;
             default:
                 break;
         }
