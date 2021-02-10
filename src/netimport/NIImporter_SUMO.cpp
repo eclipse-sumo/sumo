@@ -75,6 +75,7 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myNetworkVersion(0),
       myHaveSeenInternalEdge(false),
       myAmLefthand(false),
+      myChangeLefthand(false),
       myCornerDetail(0),
       myLinkDetail(-1),
       myRectLaneCut(false),
@@ -436,6 +437,9 @@ NIImporter_SUMO::myStartElement(int element,
             myTlsIgnoreInternalJunctionJam = attrs.getOpt<bool>(SUMO_ATTR_TLS_IGNORE_INTERNAL_JUNCTION_JAM, nullptr, ok, false);
             myDefaultSpreadType = attrs.getOpt<std::string>(SUMO_ATTR_SPREADTYPE, nullptr, ok, myDefaultSpreadType);
             myGeomAvoidOverlap = attrs.getOpt<bool>(SUMO_ATTR_AVOID_OVERLAP, nullptr, ok, myGeomAvoidOverlap);
+            // derived
+            const OptionsCont& oc = OptionsCont::getOptions();
+            myChangeLefthand = !oc.isDefault("lefthand") && (oc.getBool("lefthand") != myAmLefthand);
 
             break;
         }
@@ -659,6 +663,9 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     myCurrentLane->accelRamp = attrs.getOpt<bool>(SUMO_ATTR_ACCELERATION, id.c_str(), ok, false);
     myCurrentLane->changeLeft = attrs.getOpt<std::string>(SUMO_ATTR_CHANGE_LEFT, id.c_str(), ok, "");
     myCurrentLane->changeRight = attrs.getOpt<std::string>(SUMO_ATTR_CHANGE_RIGHT, id.c_str(), ok, "");
+    if (myChangeLefthand) {
+        std::swap(myCurrentLane->changeLeft, myCurrentLane->changeRight);
+    }
 
     // lane coordinates are derived (via lane spread) do not include them in convex boundary
     NBNetBuilder::transformCoordinates(myCurrentLane->shape, false, myLocation);
@@ -799,6 +806,9 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
         conn.changeRight = parseVehicleClasses(attrs.get<std::string>(SUMO_ATTR_CHANGE_RIGHT, nullptr, ok), "");
     } else {
         conn.changeRight = SVC_UNSPECIFIED;
+    }
+    if (myChangeLefthand) {
+        std::swap(conn.changeLeft, conn.changeRight);
     }
     conn.speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, nullptr, ok, NBEdge::UNSPECIFIED_SPEED);
     conn.customLength = attrs.getOpt<double>(SUMO_ATTR_LENGTH, nullptr, ok, NBEdge::UNSPECIFIED_LOADED_LENGTH);

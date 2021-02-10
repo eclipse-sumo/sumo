@@ -383,6 +383,9 @@ private:
     /// @brief whether the loaded network was built for lefthand traffic
     bool myAmLefthand;
 
+    /// @brief whether the the written network should have a different "handedness" (LHT/RHT) than the loaded network
+    bool myChangeLefthand;
+
     /// @brief the level of corner detail in the loaded network
     int myCornerDetail;
 
