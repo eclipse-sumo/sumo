@@ -24,3 +24,6 @@ connection_noleft
 
 # changing right prohibited on the large junction
 connection_noright
+
+# prohibitions on changing should be taken into account for strategic lane changing
+strategic_change_before_prohibition
