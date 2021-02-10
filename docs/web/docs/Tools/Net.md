@@ -130,12 +130,12 @@ edges or nodes given in the input file. The results are written into
 <XMLEDGES\>.mod.xml or <XMLNODES\>.mod.xml, respectively.
 
 ```
-xmledges_applyOffset.py <XMLEDGES> <X-OFFSET> <Y-OFFSET>
-xmlnodes_applyOffset.py <XMLNODES> <X-OFFSET> <Y-OFFSET>
+python tools/net/xmledges_applyOffset.py <XMLEDGES> <X-OFFSET> <Y-OFFSET>
+python tools/net/xmlnodes_applyOffset.py <XMLNODES> <X-OFFSET> <Y-OFFSET>
 ```
 
-- <XMLEDGES\>/<XMLNODES\>: The edges/nodes file which content shall be
-  shited
+- <XMLEDGES\>/<XMLNODES\>: The edges/nodes file whose content shall be
+  shifted
 - <X-OFFSET\>: The x-offset to apply
 - <Y-OFFSET\>: The x-offset to apply
 
