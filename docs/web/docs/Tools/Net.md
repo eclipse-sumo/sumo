@@ -70,10 +70,10 @@ given network. The following connections are added:
 Usage:
 
 ```
-python tools/net/createRoundaboutConnections.py <net>
+python tools/net/createRoundaboutConnections.py <net-file>
 ```
 
-This creates the output file ```roundabout-connection.con.xml```, where the input network is ***<net\>***.
+This creates the output file ```roundabout-connection.con.xml```, where the input network is ***<net-file\>***.
 
 
 # netcheck.py
@@ -87,7 +87,7 @@ Additionally, you may run this script to discover which edges are
 reachable from a particular edge.
 
 ```
-python tools/net/netcheck.py <your.net.xml> --source <edge_id> --selection-output selection.txt
+python tools/net/netcheck.py <net-file> --source <edge_id> --selection-output selection.txt
 ```
 
 This will create a file called ```selection.txt``` which can be loaded in
@@ -130,14 +130,14 @@ edges or nodes given in the input file. The results are written into
 <XMLEDGES\>.mod.xml or <XMLNODES\>.mod.xml, respectively.
 
 ```
-python tools/net/xmledges_applyOffset.py <XMLEDGES> <X-OFFSET> <Y-OFFSET>
-python tools/net/xmlnodes_applyOffset.py <XMLNODES> <X-OFFSET> <Y-OFFSET>
+python tools/net/xmledges_applyOffset.py <XMLEDGES-FILE> <X-OFFSET> <Y-OFFSET>
+python tools/net/xmlnodes_applyOffset.py <XMLNODES-FILE> <X-OFFSET> <Y-OFFSET>
 ```
 
-- <XMLEDGES\>/<XMLNODES\>: The edges/nodes file whose content shall be
+- <XMLEDGES-FILE\>/<XMLNODES-FILE\>: The edges/nodes file whose content shall be
   shifted
 - <X-OFFSET\>: The x-offset to apply
-- <Y-OFFSET\>: The x-offset to apply
+- <Y-OFFSET\>: The y-offset to apply
 
 # xmlconnections_mapEdges.py
 
@@ -148,23 +148,23 @@ is:
 <OLD_EDGE_ID>-><NEW_EDGE_ID>
 ```
 
-Reads the given connections file <CONNECTIONS\> and replaces old edge
-names by the new ones. The result is written to <CONNECTIONS\>.mod.xml
+Reads the given connections file <CONNECTIONS-FILE\> and replaces old edge
+names by the new ones. The result is written to <CONNECTIONS-FILE\>.mod.xml
 
 ```
-python tools/net/xmlconnections_mapEdges.py <CONNECTIONS>
+python tools/net/xmlconnections_mapEdges.py <CONNECTIONS-FILE>
 ```
 
-- <OLD_EDGE_ID\>: Id of an edge as used within <CONNECTIONS\>
+- <OLD_EDGE_ID\>: Id of an edge as used within <CONNECTIONS-FILE\>
 - <NEW_EDGE_ID\>: Id of the edge to use instead
-- <CONNECTIONS\>: The connections file to change
+- <CONNECTIONS-FILE\>: The connections file to change
 
 # net2kml.py
 
 converts '.net.xml' road geometries to [KML](https://en.wikipedia.org/wiki/Keyhole_Markup_Language) format.
 
 ```
-python tools/net/net2kml.py -n your.net.xml -o output.kml
+python tools/net/net2kml.py -n <net-file> -o output.kml
 ```
 
 By default, normal edge geometries will be exported. This can be changed with options
@@ -177,7 +177,7 @@ By default, normal edge geometries will be exported. This can be changed with op
 converts '.net.xml' road geometries to [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) format.
 
 ```
-python tools/net/net2geojson.py -n your.net.xml -o output.geojson
+python tools/net/net2geojson.py -n <net-file> -o output.geojson
 ```
 
 By default, normal edge geometries will be exported. This can be changed with options
