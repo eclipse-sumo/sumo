@@ -186,7 +186,7 @@ long
 FXMenuCheckIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     if (isEnabled() && !(flags&FLAG_PRESSED)) {
-        FXTRACE((200, "%s::onKeyPress %p keysym = 0x%04x state = %04x\n", getClassName(), this, event->code, event->state));
+        FXTRACE((200, "%s::onKeyPress %p keysym = 0x%04x state = %04x\n", getClassName(), (void*)this, event->code, event->state));
         if (event->code == FX::KEY_space || event->code == FX::KEY_KP_Space || event->code == FX::KEY_Return || event->code == FX::KEY_KP_Enter) {
             flags |= FLAG_PRESSED;
             return 1;
@@ -200,7 +200,7 @@ long
 FXMenuCheckIcon::onKeyRelease(FXObject*, FXSelector, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     if (isEnabled() && (flags&FLAG_PRESSED)) {
-        FXTRACE((200, "%s::onKeyRelease %p keysym = 0x%04x state = %04x\n", getClassName(), this, event->code, event->state));
+        FXTRACE((200, "%s::onKeyRelease %p keysym = 0x%04x state = %04x\n", getClassName(), (void*)this, event->code, event->state));
         if (event->code == FX::KEY_space || event->code == FX::KEY_KP_Space || event->code == FX::KEY_Return || event->code == FX::KEY_KP_Enter) {
             flags &= ~FLAG_PRESSED;
             setCheck(!myCheck);
@@ -217,7 +217,7 @@ FXMenuCheckIcon::onKeyRelease(FXObject*, FXSelector, void* ptr) {
 
 long 
 FXMenuCheckIcon::onHotKeyPress(FXObject*, FXSelector, void* ptr) {
-    FXTRACE((200, "%s::onHotKeyPress %p\n", getClassName(), this));
+    FXTRACE((200, "%s::onHotKeyPress %p\n", getClassName(), (void*)this));
     handle(this, FXSEL(SEL_FOCUS_SELF, 0), ptr);
     if (isEnabled() && !(flags&FLAG_PRESSED)) {
         flags |= FLAG_PRESSED;
@@ -228,7 +228,7 @@ FXMenuCheckIcon::onHotKeyPress(FXObject*, FXSelector, void* ptr) {
 
 long 
 FXMenuCheckIcon::onHotKeyRelease(FXObject*, FXSelector, void*) {
-    FXTRACE((200, "%s::onHotKeyRelease %p\n", getClassName(), this));
+    FXTRACE((200, "%s::onHotKeyRelease %p\n", getClassName(), (void*)this));
     if (isEnabled() && (flags&FLAG_PRESSED)) {
         flags &= ~FLAG_PRESSED;
         setCheck(!myCheck);
@@ -393,7 +393,7 @@ void FXMenuCheckIcon::load(FXStream& store) {
 
 
 FXMenuCheckIcon::FXMenuCheckIcon() :
-    myBoxColor(0),
+    myIcon(nullptr),
     myCheck(FALSE),
-    myIcon(nullptr) {
+    myBoxColor(0) {
 }
