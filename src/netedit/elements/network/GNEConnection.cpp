@@ -502,6 +502,18 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
             } else {
                 return getVehicleClassNames(invertPermissions(nbCon.permissions));
             }
+        case SUMO_ATTR_CHANGE_LEFT:
+            if (nbCon.changeLeft == SVC_UNSPECIFIED) {
+                return "all";
+            } else {
+                return getVehicleClassNames(nbCon.changeLeft);
+            }
+        case SUMO_ATTR_CHANGE_RIGHT:
+            if (nbCon.changeRight == SVC_UNSPECIFIED) {
+                return "all";
+            } else {
+                return getVehicleClassNames(nbCon.changeRight);
+            }
         case SUMO_ATTR_SPEED:
             return toString(nbCon.speed);
         case SUMO_ATTR_LENGTH:
@@ -541,6 +553,8 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_VISIBILITY_DISTANCE:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
+        case SUMO_ATTR_CHANGE_LEFT:
+        case SUMO_ATTR_CHANGE_RIGHT:
         case SUMO_ATTR_SPEED:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_CUSTOMSHAPE:
@@ -630,6 +644,8 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
+        case SUMO_ATTR_CHANGE_LEFT:
+        case SUMO_ATTR_CHANGE_RIGHT:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_SPEED:
             return canParse<double>(value) && (parse<double>(value) >= -1);
@@ -732,6 +748,14 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
             if (successorDisallows != customPermissions) {
                 nbCon.permissions = customPermissions;
             }
+            break;
+        }
+        case SUMO_ATTR_CHANGE_LEFT: {
+            nbCon.changeLeft = value == "" ? SVC_UNSPECIFIED : parseVehicleClasses(value);
+            break;
+        }
+        case SUMO_ATTR_CHANGE_RIGHT: {
+            nbCon.changeRight = value == "" ? SVC_UNSPECIFIED : parseVehicleClasses(value);
             break;
         }
         case SUMO_ATTR_STATE:

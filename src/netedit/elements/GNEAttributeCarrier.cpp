@@ -1300,6 +1300,21 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               "sets custom shape for the connection");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_CHANGE_LEFT,
+                GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::VCLASSES,
+                "Permit changing left only for to the given vehicle classes",
+                "all");
+        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings());
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_CHANGE_RIGHT,
+                GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::VCLASSES,
+                "Permit changing right only for to the given vehicle classes",
+                "all");
+        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings());
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+
         attrProperty = GNEAttributeProperties(SUMO_ATTR_DIR,
                                               GNEAttributeProperties::STRING,
                                               "turning direction for this connection (computed)");
