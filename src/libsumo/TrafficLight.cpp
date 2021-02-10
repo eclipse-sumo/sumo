@@ -314,7 +314,7 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic)
         int step = logic.currentPhaseIndex;
         const std::string basePath = "";
         MSTrafficLightLogic* tlLogic = nullptr;
-        SUMOTime nextSwitch = 0; //MSNet::getInstance()->getCurrentTimeStep();
+        SUMOTime nextSwitch = MSNet::getInstance()->getCurrentTimeStep() + phases[0]->duration;
         switch ((TrafficLightType)logic.type) {
             case TrafficLightType::ACTUATED:
                 tlLogic = new MSActuatedTrafficLightLogic(tlc,
