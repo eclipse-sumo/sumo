@@ -19,10 +19,10 @@ permalink: /netedit/
 
 **netedit** can also be used to define and edit
 
-- [additional simulation infrastructure](elementsAdditional.md)
-- [traffic (vehicles, persons, vTypes, routes)](elementsDemand.md)
-- [network related data](elementsData.md)
-- [shape data](elementsShape.md)
+- [additional simulation infrastructure](Netedit/elementsAdditional.md)
+- [traffic (vehicles, persons, vTypes, routes)](Netedit/elementsDemand.md)
+- [network related data](Netedit/elementsData.md)
+- [shape data](Netedit/elementsShape.md)
 
 ## Input
 
