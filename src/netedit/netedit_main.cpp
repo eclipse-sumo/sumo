@@ -64,7 +64,7 @@ main(int argc, char** argv) {
             return 0;
         }
         // Make application
-        FXApp application("SUMO netedit", "Eclipse");
+        FXApp application("SUMO netedit", "netedit");
         // Open display
         application.init(argc, argv);
         int minor, major;

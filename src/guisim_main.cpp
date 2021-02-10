@@ -71,7 +71,7 @@ main(int argc, char** argv) {
             return 0;
         }
         // Make application
-        FXApp application("SUMO GUI", "Eclipse");
+        FXApp application("SUMO GUI", "sumo-gui");
         // Open display
         application.init(argc, argv);
         int minor, major;
