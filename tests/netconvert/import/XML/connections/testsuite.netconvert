@@ -89,6 +89,9 @@ shape
 # custom connection permissions
 permissions
 
+# test connection attributes changeLeft, changeRight
+prohibit_changing
+
 # some edges are disconnected explicitly
 unconnected
 

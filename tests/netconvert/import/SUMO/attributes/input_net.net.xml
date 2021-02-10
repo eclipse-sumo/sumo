@@ -68,7 +68,7 @@
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
 
-    <connection from="edge_with_shape" to="reverse_edge" fromLane="0" toLane="0" via=":node_left_0_0" dir="t" state="M"/>
+    <connection from="edge_with_shape" to="reverse_edge" fromLane="0" toLane="0" via=":node_left_0_0" dir="t" state="M" changeLeft="authority"/>
     <connection from="edge_with_shape" to="reverse_edge" fromLane="1" toLane="1" via=":node_left_0_1" dir="t" state="M"/>
     <connection from="edge_with_shape" to="reverse_edge" fromLane="2" toLane="2" via=":node_left_0_2" dir="t" state="M"/>
     <connection from="reverse_edge" to="edge_with_shape" fromLane="0" toLane="0" via=":node_right_0_0" dir="t" state="M"/>
