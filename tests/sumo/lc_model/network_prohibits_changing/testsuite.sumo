@@ -9,3 +9,15 @@ noleft
 
 # changing to the right prohibited on the middle edge
 noright
+
+# no prohibitions
+connection_default
+
+# changing prohibited on the large junction
+connection_nochange
+
+# changing left prohibited on the large junction
+connection_noleft
+
+# changing right prohibited on the large junction
+connection_noright
