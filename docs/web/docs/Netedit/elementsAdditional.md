@@ -135,7 +135,7 @@ A [E1 detector](../Simulation/Output/Induction_Loops_Detectors_(E1).md) owns a I
 
 ### Calibrator
 
-A [calibrator](../Simulation/Calibrator.md) generates a flow of vehicles during a certain time, and allows dynamic adaption of traffic flows and speeds. A calibrator can be used to modify a simulation scenario based on induction loop measurements. It will remove vehicles in excess of the specified flow and will insert new vehicles if the normal traffic demand of the simulation does not reach the specified number of vehsPerHour. Furthermore, the defined edge speed will be adjusted to the specified speed similar of the operation of a variable speed sign. Calibrators will also remove vehicles if the traffic on their lane is jammed beyond the specified flow and speed. This ensures that invalid jams do not grow upstream past a calibrator. A double click over the calibrator icon opens the values editor.
+A [calibrator](../Simulation/Calibrator.md) generates a flow of vehicles during a certain time, and allows dynamic adaption of traffic flows and speeds. A calibrator can be used to modify a simulation scenario based on induction loop measurements. It will remove vehicles in excess of the specified flow and will insert new vehicles if the normal traffic demand of the simulation does not reach the specified number of vehsPerHour. Furthermore, the defined edge speed will be adjusted to the specified speed similar of the operation of a variable speed sign. Calibrators will also remove vehicles if the traffic on their lane is jammed beyond the specified flow and speed. This ensures that invalid jams do not grow upstream past a calibrator. A right-click over the calibrator icon allows openening the values editor with the menu option 'Open calibrator Dialog'.
 
 ![](../images/GNECalibrator.png)Calibrator 
 
@@ -148,9 +148,9 @@ A [rerouter](../Simulation/Rerouter.md) changes the route of a vehicle as soon a
 
 ![](../images/GNERerouter.png)Rerouter is placed off the net.
 
-A double click over the rerouter icon opens the values editor. Rerouter's values are divided in intervals, and every interval contains a list of [closing streets](../Simulation/Rerouter.md#closing_a_street), [closing lanes](../Simulation/Rerouter.md#closing_a_lane), [assignations of new destinations](../Simulation/Rerouter.md#assigning_a_new_destination) and [assignations of new routes](../Simulation/Rerouter.md#assigning_a_new_route):
+A right-click over the rerouter icon allows openening the values editor with the menu option 'Open rerouter Dialog'. Rerouter's values are divided in intervals, and every interval contains a list of [closing streets](../Simulation/Rerouter.md#closing_a_street), [closing lanes](../Simulation/Rerouter.md#closing_a_lane), [assignations of new destinations](../Simulation/Rerouter.md#assigning_a_new_destination) and [assignations of new routes](../Simulation/Rerouter.md#assigning_a_new_route):
 
-![](../images/GNERerouterDialog1.png)Double click open rerouter dialog. One click over '+' button open a dialog for adding a new interval.
+![](../images/GNERerouterDialog1.png)open rerouter dialog. One click over '+' button open a dialog for adding a new interval.
 ![](../images/GNERerouterDialog2.png)In interval dialog can be specified the four types of actions, as well as the begin and end of interval.
 
 ![](../images/GNERerouterDialog3.png)If values of actions are invalid, a warning icon appears in every row. This can be applicable in begin and end of interval. ![](../images/GNERerouterDialog4.png)A click over begin or end of interval opens the Rerouter interval dialog. In the same way, a click over "x" button removes the interval.
@@ -166,7 +166,7 @@ A double click over the rerouter icon opens the values editor. Rerouter's values
 
 ### Variable Speed Signs
 
-A [Variable Speed Signal](../Simulation/Variable_Speed_Signs.md) modifies the speed of a set of lanes during a certain time defined by user. A double click over the Variable Speed Signal icon opens the values editor.
+A [Variable Speed Signal](../Simulation/Variable_Speed_Signs.md) modifies the speed of a set of lanes during a certain time defined by user. A right-click over the Variable Speed Signal icon allows opening the values editor with the menu option 'Open variableSpeedSign Dialog'.
 
 ![](../images/GNEVariableSpeedSignal.png)Variable Speed Sign
 ![](../images/GNEVariableSpeedSignalDialog.png)Variable Speed Signal Sign
