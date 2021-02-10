@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <utils/foxtools/FXTreeListDinamic.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/GNEViewNetHelper.h>
 
@@ -281,8 +282,8 @@ public:
         /// @brief generic data element (casted from myClickedAC)
         GNEGenericData* myClickedGenericData;
 
-        /// @brief tree list to show the children of the element to erase
-        FXTreeList* myTreelist;
+        /// @brief tree list dinamic to show the children of the element to erase
+        FXTreeListDinamic* myTreeListDinamic = nullptr;
 
         /// @brief map used to save the FXTreeItems items with their vinculated AC
         std::map<FXTreeItem*, GNEAttributeCarrier*> myTreeItemToACMap;
