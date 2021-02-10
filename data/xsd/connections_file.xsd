@@ -40,6 +40,8 @@
         <xsd:attribute name="speed" type="xsd:float" use="optional"/>
         <xsd:attribute name="length" type="xsd:float" use="optional"/>
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
+        <xsd:attribute name="changeRight" type="xsd:string" use="optional"/>
+        <xsd:attribute name="changeLeft" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="prohibitionType">

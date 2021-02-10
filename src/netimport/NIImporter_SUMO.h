@@ -194,6 +194,10 @@ private:
         double visibility;
         /// @brief custom permissions for connection
         SVCPermissions permissions;
+        /// @brief custom lane changing permissions for connection
+        SVCPermissions changeLeft;
+        /// @brief custom lane changing permissions for connection
+        SVCPermissions changeRight;
         /// @brief custom speed for connection
         double speed;
         /// @brief custom length for connection

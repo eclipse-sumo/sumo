@@ -208,7 +208,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 nbe->addLane2LaneConnection(
                     fromLaneIndex, toEdge, c.toLaneIdx, NBEdge::Lane2LaneInfoType::VALIDATED,
                     true, c.mayDefinitelyPass, c.keepClear ? KEEPCLEAR_TRUE : KEEPCLEAR_FALSE,
-                    c.contPos, c.visibility, c.speed, c.customLength, c.customShape, uncontrolled, c.permissions);
+                    c.contPos, c.visibility, c.speed, c.customLength, c.customShape, uncontrolled, c.permissions, c.changeLeft, c.changeRight);
                 if (c.getParametersMap().size() > 0) {
                     nbe->getConnectionRef(fromLaneIndex, toEdge, c.toLaneIdx).updateParameters(c.getParametersMap());
                 }
@@ -789,6 +789,16 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
         conn.permissions = SVC_UNSPECIFIED;
     } else {
         conn.permissions = parseVehicleClasses(allow, disallow, myNetworkVersion);
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_CHANGE_LEFT)) {
+        conn.changeLeft = parseVehicleClasses(attrs.get<std::string>(SUMO_ATTR_CHANGE_LEFT, nullptr, ok), "");
+    } else {
+        conn.changeLeft = SVC_UNSPECIFIED;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_CHANGE_RIGHT)) {
+        conn.changeRight = parseVehicleClasses(attrs.get<std::string>(SUMO_ATTR_CHANGE_RIGHT, nullptr, ok), "");
+    } else {
+        conn.changeRight = SVC_UNSPECIFIED;
     }
     conn.speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, nullptr, ok, NBEdge::UNSPECIFIED_SPEED);
     conn.customLength = attrs.getOpt<double>(SUMO_ATTR_LENGTH, nullptr, ok, NBEdge::UNSPECIFIED_LOADED_LENGTH);

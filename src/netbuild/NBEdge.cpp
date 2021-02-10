@@ -107,6 +107,8 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
     speed(UNSPECIFIED_SPEED),
     customLength(myDefaultConnectionLength),
     permissions(SVC_UNSPECIFIED),
+    changeLeft(SVC_UNSPECIFIED),
+    changeRight(SVC_UNSPECIFIED),
     id(toEdge_ == nullptr ? "" : toEdge->getFromNode()->getID()),
     haveVia(false),
     internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX),
@@ -115,7 +117,8 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
 
 
 NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, KeepClear keepClear_, double contPos_,
-                               double visibility_, double speed_, double length_, bool haveVia_, bool uncontrolled_, const PositionVector& customShape_, SVCPermissions permissions_) :
+                               double visibility_, double speed_, double length_, bool haveVia_, bool uncontrolled_, const PositionVector& customShape_,
+                               SVCPermissions permissions_, SVCPermissions changeLeft_, SVCPermissions changeRight_) :
     fromLane(fromLane_),
     toEdge(toEdge_),
     toLane(toLane_),
@@ -129,6 +132,8 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool
     customLength(length_),
     customShape(customShape_),
     permissions(permissions_),
+    changeLeft(changeLeft_),
+    changeRight(changeRight_),
     id(toEdge_ == nullptr ? "" : toEdge->getFromNode()->getID()),
     vmax(UNSPECIFIED_SPEED),
     haveVia(haveVia_),
@@ -1036,6 +1041,8 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
                                const PositionVector& customShape,
                                bool uncontrolled,
                                SVCPermissions permissions,
+                               SVCPermissions changeLeft,
+                               SVCPermissions changeRight,
                                bool postProcess) {
     if (myStep == EdgeBuildingStep::INIT_REJECT_CONNECTIONS) {
         return true;
@@ -1049,7 +1056,8 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
     if (!addEdge2EdgeConnection(dest)) {
         return false;
     }
-    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed, length, customShape, uncontrolled, permissions, postProcess);
+    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed, length,
+            customShape, uncontrolled, permissions, changeLeft, changeRight, postProcess);
 }
 
 
@@ -1083,6 +1091,8 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
                       const PositionVector& customShape,
                       bool uncontrolled,
                       SVCPermissions permissions,
+                      SVCPermissions changeLeft,
+                      SVCPermissions changeRight,
                       bool postProcess) {
     if (myStep == EdgeBuildingStep::INIT_REJECT_CONNECTIONS) {
         return false;
@@ -1122,6 +1132,8 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
     myConnections.back().contPos = contPos;
     myConnections.back().visibility = visibility;
     myConnections.back().permissions = permissions;
+    myConnections.back().changeLeft = changeLeft;
+    myConnections.back().changeRight = changeRight;
     myConnections.back().speed = speed;
     myConnections.back().customLength = length;
     myConnections.back().customShape = customShape;

@@ -209,7 +209,9 @@ public:
                    bool haveVia_ = false,
                    bool uncontrolled_ = false,
                    const PositionVector& customShape_ = PositionVector::EMPTY,
-                   SVCPermissions permissions = SVC_UNSPECIFIED);
+                   SVCPermissions permissions = SVC_UNSPECIFIED,
+                   SVCPermissions changeLeft_ = SVC_UNSPECIFIED,
+                   SVCPermissions changeRight_ = SVC_UNSPECIFIED);
 
         /// @brief The lane the connections starts at
         int fromLane;
@@ -252,6 +254,12 @@ public:
 
         /// @brief List of vehicle types that are allowed on this connection
         SVCPermissions permissions;
+
+        /// @brief List of vehicle types that are allowed to change Left from this connections internal lane(s)
+        SVCPermissions changeLeft;
+
+        /// @brief List of vehicle types that are allowed to change right from this connections internal lane(s)
+        SVCPermissions changeRight;
 
         /// @brief id of Connection
         std::string id;
@@ -870,7 +878,9 @@ public:
                                 double length = myDefaultConnectionLength,
                                 const PositionVector& customShape = PositionVector::EMPTY,
                                 const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED,
-                                SVCPermissions = SVC_UNSPECIFIED,
+                                SVCPermissions permissions = SVC_UNSPECIFIED,
+                                SVCPermissions changeLeft = SVC_UNSPECIFIED,
+                                SVCPermissions changeRight = SVC_UNSPECIFIED,
                                 bool postProcess = false);
 
     /** @brief Builds no connections starting at the given lanes
@@ -918,6 +928,8 @@ public:
                        const PositionVector& customShape = PositionVector::EMPTY,
                        const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED,
                        SVCPermissions permissions = SVC_UNSPECIFIED,
+                       SVCPermissions changeLeft = SVC_UNSPECIFIED,
+                       SVCPermissions changeRight = SVC_UNSPECIFIED,
                        bool postProcess = false);
 
     /** @brief Returns connections from a given lane

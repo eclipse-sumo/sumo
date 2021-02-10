@@ -266,6 +266,14 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
         } else {
             permissions = parseVehicleClasses(attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, nullptr, ok, ""), attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, nullptr, ok, ""));
         }
+        SVCPermissions changeLeft = SVC_UNSPECIFIED;
+        SVCPermissions changeRight = SVC_UNSPECIFIED;
+        if (attrs.hasAttribute(SUMO_ATTR_CHANGE_LEFT)) {
+            changeLeft = parseVehicleClasses(attrs.get<std::string>(SUMO_ATTR_CHANGE_LEFT, nullptr, ok), "");
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_CHANGE_RIGHT)) {
+            changeRight = parseVehicleClasses(attrs.get<std::string>(SUMO_ATTR_CHANGE_RIGHT, nullptr, ok), "");
+        }
 
         if (attrs.hasAttribute(SUMO_ATTR_SHAPE) && !NBNetBuilder::transformCoordinates(customShape)) {
             WRITE_ERROR("Unable to project shape for connection from edge '" + from->getID() + "' to edge '" + to->getID() + "'.");
@@ -274,12 +282,13 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
             return;
         }
         if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::Lane2LaneInfoType::USER, true, mayDefinitelyPass,
-                                          keepClear, contPos, visibility, speed, length, customShape, uncontrolled, permissions)) {
+                                          keepClear, contPos, visibility, speed, length, customShape, uncontrolled, permissions, changeLeft, changeRight)) {
             if (OptionsCont::getOptions().getBool("show-errors.connections-first-try")) {
                 WRITE_WARNINGF("Could not set loaded connection from lane '%' to lane '%'.", from->getLaneID(fromLane), to->getLaneID(toLane));
             }
             // set as to be re-applied after network processing
-            myEdgeCont.addPostProcessConnection(from->getID(), fromLane, to->getID(), toLane, mayDefinitelyPass, keepClear, contPos, visibility, speed, length, customShape, uncontrolled, false, permissions);
+            myEdgeCont.addPostProcessConnection(from->getID(), fromLane, to->getID(), toLane, mayDefinitelyPass, keepClear, contPos, visibility,
+                    speed, length, customShape, uncontrolled, false, permissions, changeLeft, changeRight);
         }
     } catch (NumberFormatException&) {
         myErrorMsgHandler->inform("At least one of the defined lanes was not numeric");
