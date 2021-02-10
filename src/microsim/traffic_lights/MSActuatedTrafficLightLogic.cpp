@@ -607,7 +607,7 @@ MSActuatedTrafficLightLogic::decideNextPhase() {
     const auto& cands = myPhases[myStep]->nextPhases;
     // decide by priority
     // first target is the default when thre is no traffic
-    // @note: the keep the current phase, even when there is no traffic, it must be added to 'next' explicitly
+    // @note: to keep the current phase, even when there is no traffic, it must be added to 'next' explicitly
     int result = cands.front();
     int maxPrio = 0;
     SUMOTime actDuration = MSNet::getInstance()->getCurrentTimeStep() - myPhases[myStep]->myLastSwitch;
