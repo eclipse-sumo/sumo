@@ -108,6 +108,7 @@ These application bundles determine the location of your SUMO installation by ev
 
 ## macOS Troubleshooting
 
+### Segmentation faults on macOS Catalina
 If you encounter segmentation faults on macOS Catalina, please follow the following steps (see [Issue 6242](https://github.com/eclipse/sumo/issues/6242#issuecomment-553458710)).
 
 1. Uninstall Catalina bottle of fox:
@@ -121,6 +122,11 @@ If you encounter segmentation faults on macOS Catalina, please follow the follow
 
 4. Install Mojave bottle of fox:
 ```$ brew install fox```
+
+### Blank screen after update to XQuartz 2.8.0_beta3
+If you encounter a blank screen after opening sumo-gui (cf. https://github.com/eclipse/sumo/issues/8208), try resetting your DISPLAY environment variable:
+
+```% export DISPLAY=:0.0```
 
 
 # via Docker
