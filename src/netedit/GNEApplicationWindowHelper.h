@@ -22,6 +22,7 @@
 
 #include <utils/common/SUMOTime.h>
 #include <utils/foxtools/FXSynchQue.h>
+#include <utils/foxtools/FXRecentNetworks.h>
 #include <utils/foxtools/FXThreadEvent.h>
 #include <utils/foxtools/MFXInterThreadEventClient.h>
 #include <utils/geom/Position.h>
@@ -122,7 +123,7 @@ struct GNEApplicationWindowHelper {
         void buildRecentFiles(FXMenuPane* fileMenu);
 
         /// @brief List of recent nets and config files
-        FXRecentFiles myRecentNetsAndConfigs;
+        FXRecentNetworks myRecentNetsAndConfigs;
 
     private:
         /// @brief pointer to current GNEApplicationWindow
