@@ -48,6 +48,7 @@ enum class GUIIcon {
     CLOSE,
     HELP,
     HALL_OF_FAME,
+    CLEARMESSAGEWINDOW,
     /// @}
 
     /// @name simulation control icons

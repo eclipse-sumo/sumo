@@ -162,6 +162,7 @@
 #include "ext.xpm"
 #include "tracker.xpm"
 #include "hall_of_fame.xpm"
+#include "clear_message_window.xpm"
 
 #include "saveallelements.xpm"
 #include "savenetworkelements.xpm"
@@ -376,6 +377,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::ZOOMSTYLE] = new FXXPMIcon(a, zoomstyle_xpm);
     myIcons[GUIIcon::FULL_SCREEN] = new FXXPMIcon(a, full_screen_xpm);
     myIcons[GUIIcon::HALL_OF_FAME] = new FXXPMIcon(a, hall_of_fame_xpm);   /** temporal? **/
+    myIcons[GUIIcon::CLEARMESSAGEWINDOW] = new FXXPMIcon(a, clear_message_window_xpm);
 
     myIcons[GUIIcon::APP_TRACKER] = new FXXPMIcon(a, app_tracker_xpm);
     myIcons[GUIIcon::APP_FINDER] = new FXXPMIcon(a, app_finder_xpm);
