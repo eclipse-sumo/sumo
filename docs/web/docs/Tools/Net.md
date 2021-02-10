@@ -142,21 +142,21 @@ xmlnodes_applyOffset.py <XMLNODES> <X-OFFSET> <Y-OFFSET>
 # xmlconnections_mapEdges.py
 
 Reads edge id replacements from "edgemap.txt"; the format of this file
-is
+is:
 
 ```
 <OLD_EDGE_ID>-><NEW_EDGE_ID>
 ```
 
 Reads the given connections file <CONNECTIONS\> and replaces old edge
-names by new. The result is written to <CONNECTIONS\>.mod.xml
+names by the new ones. The result is written to <CONNECTIONS\>.mod.xml
 
 ```
-xmlconnections_mapEdges.py <CONNECTIONS>
+python tools/net/xmlconnections_mapEdges.py <CONNECTIONS>
 ```
 
 - <OLD_EDGE_ID\>: Id of an edge as used within <CONNECTIONS\>
-- <NEW_EDGE_ID\>: Id of the edge as to use instead
+- <NEW_EDGE_ID\>: Id of the edge to use instead
 - <CONNECTIONS\>: The connections file to change
 
 # net2kml.py
