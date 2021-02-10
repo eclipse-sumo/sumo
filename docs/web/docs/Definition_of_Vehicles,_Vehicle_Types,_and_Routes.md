@@ -11,8 +11,11 @@ permalink: /Definition_of_Vehicles,_Vehicle_Types,_and_Routes/
 | XML Schema         | [routes_file.xsd](http://sumo.dlr.de/xsd/routes_file.xsd) |
 
 There are [various applications](index.md#data_sources_for_demand_generation)
-that can be used to define vehicular demand for SUMO. Of course it is
-also possible to define the demand file manually or to edit generated
+that can be used to define vehicular demand for SUMO from existing input data.
+Traffic demand can also be created and edited visually with [netedit](Netedit/elementsDemand.md).
+All these applications eventualy create XML definitions.
+
+Of course it is also possible to define the demand file manually or to edit generated
 files with a text editor. Before starting, it is important to know that
 a vehicle in SUMO consists of three parts:
 
