@@ -327,6 +327,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_CTRL_SHIFT_V_FORCESAVEDEMANDELEMENTS,    GNEApplicationWindow::onCmdForceSaveDemandElements),
     FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_CTRL_SHIFT_W_FORCESAVEDATAELEMENTS,      GNEApplicationWindow::onCmdForceSaveDataElements),
     FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,             GNEApplicationWindow::onCmdFocusFrame),
+    FXMAPFUNC(SEL_UPDATE,               MID_GNE_MODESMENUTITLE,                             GNEApplicationWindow::onUpdRequiereViewNet),
 };
 
 // Object implementation
@@ -353,6 +354,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myLocatorMenu(nullptr),
     myWindowsMenu(nullptr),
     myHelpMenu(nullptr),
+    myModesMenuTitle(nullptr),
     myMessageWindow(nullptr),
     myMainSplitter(nullptr),
     hadDependentBuild(false),
@@ -1066,7 +1068,9 @@ GNEApplicationWindow::fillMenuBar() {
         nullptr, this, MID_HOTKEY_CTRL_Q_CLOSE);
     // build modes menu
     myModesMenu = new FXMenuPane(this);
-    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Modes", nullptr, myModesMenu);
+    myModesMenuTitle = GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Modes", nullptr, myModesMenu);
+    myModesMenuTitle->setTarget(this);
+    myModesMenuTitle->setSelector(MID_GNE_MODESMENUTITLE);
     // build Supermode commands and hide it
     mySupermodeCommands.buildSupermodeCommands(myModesMenu);
     mySupermodeCommands.hideSupermodeCommands();
@@ -1786,6 +1790,14 @@ GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
     if (myViewNet) {
         myViewNet->hotkeyFocusFrame();
     }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onUpdRequiereViewNet(FXObject* sender, FXSelector, void*) {
+    // enable or disable sender element depending of viewNet
+    sender->handle(this, myViewNet ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     return 1;
 }
 
@@ -3460,6 +3472,7 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myLocatorMenu(nullptr),
     myWindowsMenu(nullptr),
     myHelpMenu(nullptr),
+    myModesMenuTitle(nullptr),
     myMessageWindow(nullptr),
     myMainSplitter(nullptr),
     hadDependentBuild(false),

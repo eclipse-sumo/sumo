@@ -1213,6 +1213,14 @@ enum {
 
     /// @}
 
+    /// @name other
+    /// @{
+
+    /// @brief selector for ModesMenuTitle
+    MID_GNE_MODESMENUTITLE,
+
+    /// @}
+
     /// @brief last element of enum (not used)
     MID_LAST
 };
