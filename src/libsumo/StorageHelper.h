@@ -79,7 +79,7 @@ public:
         const int type = ret.readUnsignedByte();
         const int size = ret.readInt();
         if (error != "") {
-            if (type != libsumo::TYPE_COMPOUND || expectedSize != -1 && size != expectedSize) {
+            if (type != libsumo::TYPE_COMPOUND || (expectedSize != -1 && size != expectedSize)) {
                 throw TraCIException(error);
             }
         }
