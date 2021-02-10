@@ -25,8 +25,9 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(FXRecentNetworks) FXRecentNetworksMap[]={
-    FXMAPFUNC(SEL_LEFTBUTTONPRESS, 0, FXRecentNetworks::onLeftBtnPress),
+FXDEFMAP(FXRecentNetworks) FXRecentNetworksMap[] = {
+    FXMAPFUNC(SEL_UPDATE,   FXRecentNetworks::ID_NOFILES,   FXRecentNetworks::onUpdNoFiles),
+    FXMAPFUNCS(SEL_UPDATE,  FXRecentFiles::ID_FILE_1,       FXRecentFiles::ID_FILE_10,  FXRecentNetworks::onUpdFile),
 };
 
 // Object implementation
@@ -46,14 +47,48 @@ FXRecentNetworks::FXRecentNetworks(FXApp* a, const FXString& gp) :
 }
 
 
-long
-FXRecentNetworks::onLeftBtnPress(FXObject* obj, FXSelector sel, void* ptr) {
-/*
-    FXTreeList::onLeftBtnPress(obj, sel, ptr);
-    // update height
-    setHeight(getContentHeight() + 20);
-*/
+long 
+FXRecentNetworks::onUpdFile(FXObject* obj, FXSelector sel, void* ptr) {
+    // get filename index
+    const FXint which = FXSELID(sel) - ID_FILE_1 + 1;
+    // get filename
+    const FXchar* filename;
+    FXString string;
+    FXchar key[20];
+    sprintf(key, "FILE%d", which);
+    filename = getApp()->reg().readStringEntry(getGroupName().text(), key, NULL);
+    // update myIndexFilenames
+    myIndexFilenames[which] = filename;
+    // check filename
+    if (filename) {
+        FXString string;
+        if (which < 10) {
+            string.format("&%d %s", which, filename);
+        } else {
+            string.format("1&0 %s", filename);
+        }
+        obj->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_SETSTRINGVALUE), (void*)&string);
+        obj->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_SHOW), NULL);
+    } else {
+        obj->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_HIDE), NULL);
+    }
     return 1;
 }
 
 
+long 
+FXRecentNetworks::onUpdNoFiles(FXObject* obj, FXSelector sel, void* ptr) {
+    // first disable object
+    obj->handle(obj, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), NULL);
+    // iterate over myIndexFilenames
+    for (const auto & indexFilename : myIndexFilenames) {
+        // if filename isn't empty, then hide object and stop
+        if (!indexFilename.second.empty()) {
+            obj->handle(obj, FXSEL(SEL_COMMAND, FXWindow::ID_HIDE), NULL);
+            return 1;
+        }
+    }
+    //show object
+    obj->handle(obj, FXSEL(SEL_COMMAND, FXWindow::ID_SHOW), NULL);
+    return 1;
+}

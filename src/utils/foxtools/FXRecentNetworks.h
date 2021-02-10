@@ -21,7 +21,7 @@
 #pragma once
 #include <config.h>
 
-
+#include <map>
 #include <fx.h>
 
 /// @brief FXRecentNetworks
@@ -30,6 +30,11 @@ class FXRecentNetworks : public FXRecentFiles {
     FXDECLARE(FXRecentNetworks)
 
 public:
+    /// @brief enum for nofiles
+    enum {
+        ID_NOFILES = 100,
+    };
+
     /// @brief default constructor
     FXRecentNetworks();
 
@@ -38,6 +43,12 @@ public:
 
     /// @name FOX calls
     /// @{
-    long onLeftBtnPress(FXObject*, FXSelector, void*);
+    long onUpdFile(FXObject*, FXSelector, void*);
+
+    long onUpdNoFiles(FXObject*, FXSelector, void*);
     /// @}
+
+private:
+    /// @brief map with index and strings
+    std::map<FXint, FXString> myIndexFilenames;
 };
