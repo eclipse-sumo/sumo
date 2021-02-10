@@ -496,8 +496,13 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
         return;
     }
     const SVCPermissions permissions = parseVehicleClasses(allow, disallow, myNetworkVersion);
-    const SVCPermissions changeLeft = parseVehicleClasses(changeLeftS, "", myNetworkVersion);
-    const SVCPermissions changeRight = parseVehicleClasses(changeRightS, "", myNetworkVersion);
+    SVCPermissions changeLeft = parseVehicleClasses(changeLeftS, "", myNetworkVersion);
+    SVCPermissions changeRight = parseVehicleClasses(changeRightS, "", myNetworkVersion);
+    if (MSGlobals::gLefthand) {
+        // internally, changeLeft always checks for the higher lane index
+        // even though the higher lane index is to the right in a left-hand network
+        std::swap(changeLeft, changeRight);
+    }
     if (permissions != SVCAll || changeLeft != SVCAll || changeRight != SVCAll) {
         myNet.setPermissionsFound();
     }
