@@ -17,6 +17,13 @@ permalink: /netedit/
 
 **netedit** is a visual network editor. It can be used to create networks from scratch and to modify all aspects of existing networks. With a powerful selection and highlighting interface it can also be used to debug network attributes. **netedit** is built on top of [netconvert](netconvert.md). As a general rule of thumb, anything [netconvert](netconvert.md) can do, **netedit** can do as well. **netedit** has unlimited undo/redo capabilities and thus allows editing mistakes to be quickly corrected. Editing commands are generally issued with a left-click (according to the current [edit mode](#edit_modes)). The user interface closely follows that of [sumo-gui](sumo-gui.md#interaction_with_the_view). Additional keyboard hotkeys are documented in the *Help* menu.
 
+**netedit** can also be used to define and edit
+
+- [additional simulation infrastructure](elementsAdditional.md)
+- [traffic (vehicles, persons, vTypes, routes)](elementsDemand.md)
+- [network related data](elementsData.md)
+- [shape data](elementsShape.md)
+
 ## Input
 
 **netedit** is a GUI-Application and inputs are chosen via menus. The following input formats are supported:
