@@ -10,6 +10,9 @@ noleft
 # changing to the right prohibited on the middle edge
 noright
 
+# changing to the right prohibited on the middle edge
+noright_lefthand
+
 # no prohibitions
 connection_default
 
