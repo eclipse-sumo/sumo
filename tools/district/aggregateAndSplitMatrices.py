@@ -18,7 +18,7 @@
 # @date    2008-08-20
 
 """
-This script is to 
+This script is to
 (1) aggregate the demands of the traffic zones in a given VISUM daily matrix, where
     traffic zones have the same connection links, and then
 (2) generate hourly matrices in VISUM format with an time series pattern (unified or user-defined).

@@ -17,7 +17,8 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
-import os,sys
+import os
+import sys
 from optparse import OptionParser
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))

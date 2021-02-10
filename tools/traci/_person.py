@@ -74,7 +74,7 @@ def _readReservation(result):
     reservationTime = result.readTypedDouble()
     state = result.readTypedInt()
     return Reservation(id, persons, group, fromEdge, toEdge, departPos,
-            arrivalPos, depart, reservationTime, state)
+                       arrivalPos, depart, reservationTime, state)
 
 
 _RETURN_VALUE_FUNC = {tc.VAR_STAGE: simulation._readStage,
@@ -237,7 +237,7 @@ class PersonDomain(Domain):
         """
         return self._getUniversal(tc.VAR_VEHICLE, personID)
 
-    def getTaxiReservations(self, onlyNew = 0):
+    def getTaxiReservations(self, onlyNew=0):
         """getTaxiReservations(int) -> list(Stage)
         Returns all reservations. If onlyNew is 1, each reservation is returned
         only once

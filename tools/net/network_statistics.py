@@ -126,10 +126,10 @@ if __name__ == "__main__":
             lane_4 = lane_4 + 1
     if lengthOfEdgeSum < 10000:
         print("total length of all edges:\t" +
-            str(round(lengthOfEdgeSum, 2)) + " m" + "\n")
+              str(round(lengthOfEdgeSum, 2)) + " m" + "\n")
     else:
         print("total length of all edges:\t" +
-            str(round(lengthOfEdgeSum / 1000, 2)) + " km" + "\n")
+              str(round(lengthOfEdgeSum / 1000, 2)) + " km" + "\n")
     print("number of edges with 1 lane:\t" + str(lane_1) + "\n")
     print("number of edges with 2 lanes:\t" + str(lane_2) + "\n")
     print("number of edges with 3 lanes:\t" + str(lane_3) + "\n")
