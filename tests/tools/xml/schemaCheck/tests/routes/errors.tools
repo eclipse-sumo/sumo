@@ -937,7 +937,6 @@ sumo/lc_model/errors/lcm_unknown/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV
 sumo/lc_model/errors/lcm_unknown/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'laneChangeModel': 'foo' is not a valid value of the local atomic type.
 Error on parsing 'sumo/meta/xml_invalid_schema/input_routes.rou.xml'!
 Traceback (most recent call last):
-  File "/scr1/sumo/tests/../tools/build/schemaCheck.py", line 62, in validate
     schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
   File "lxml.etree.pyx", line 3197, in lxml.etree.parse (src/lxml/lxml.etree.c:64816)
   File "parser.pxi", line 1571, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:92729)

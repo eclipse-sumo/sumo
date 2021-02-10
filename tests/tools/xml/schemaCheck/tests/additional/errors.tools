@@ -488,7 +488,6 @@ sumo/basic/tls/errors/invalid_state/input_additional.add.xml:3:0:ERROR:SCHEMASV:
 sumo/devices/rerouting/personTrip/errors/access_invalid/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'access': This element is not expected.
 Error on parsing 'sumo/extended/calibrator/errors/invalid_flow/input_additional.add.xml'!
 Traceback (most recent call last):
-  File "/scr1/sumo/tests/../tools/build/schemaCheck.py", line 52, in validate
     doc = etree.parse(f)
   File "lxml.etree.pyx", line 3197, in lxml.etree.parse (src/lxml/lxml.etree.c:64816)
   File "parser.pxi", line 1571, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:92729)
