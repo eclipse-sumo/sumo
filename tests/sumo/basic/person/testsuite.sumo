@@ -33,6 +33,9 @@ ride_and_stop_tolerance
 # person ride triggers a vehicle scaled with 3
 ride_triggered_scale
 
+# the ride ends before delivering passenger
+ride_premature_end
+
 # busses have a large boarding duration such that the stop duration will be extended by the boarding of the passengers
 boarding_duration_extension
 
