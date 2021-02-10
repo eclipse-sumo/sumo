@@ -32,6 +32,7 @@
 #include <microsim/transportables/MSTransportable.h>
 #include <libsumo/Lane.h>
 #include <libsumo/TraCIConstants.h>
+#include <libsumo/StorageHelper.h>
 #include "TraCIServer.h"
 #include "TraCIServerAPI_Lane.h"
 
@@ -95,16 +96,8 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     break;
                 }
                 case libsumo::VAR_FOES: {
-                    std::string toLane;
-                    if (!server.readTypeCheckingString(inputStorage, toLane)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_LANE_VARIABLE, "foe retrieval requires a string.", outputStorage);
-                    }
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-                    if (toLane == "") {
-                        server.getWrapperStorage().writeStringList(libsumo::Lane::getInternalFoes(id));
-                    } else {
-                        server.getWrapperStorage().writeStringList(libsumo::Lane::getFoes(id, toLane));
-                    }
+                    const std::string toLane = StoHelp::readTypedString(inputStorage, "Foe retrieval requires a string.");
+                    StoHelp::writeTypedStringList(server.getWrapperStorage(), toLane == "" ? libsumo::Lane::getInternalFoes(id) : libsumo::Lane::getFoes(id, toLane));
                     break;
                 }
                 default:
@@ -139,54 +132,32 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
     // process
     switch (variable) {
         case libsumo::VAR_MAXSPEED: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(libsumo::CMD_SET_LANE_VARIABLE, "The speed must be given as a double.", outputStorage);
-            }
+            const double value = StoHelp::readTypedDouble(inputStorage, "The speed must be given as a double.");
             libsumo::Lane::setMaxSpeed(id, value);
+            break;
         }
-        break;
         case libsumo::VAR_LENGTH: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(libsumo::CMD_SET_LANE_VARIABLE, "The length must be given as a double.", outputStorage);
-            }
+            const double value = StoHelp::readTypedDouble(inputStorage, "The length must be given as a double.");
             libsumo::Lane::setLength(id, value);
+            break;
         }
-        break;
         case libsumo::LANE_ALLOWED: {
-            std::vector<std::string> classes;
-            if (!server.readTypeCheckingStringList(inputStorage, classes)) {
-                return server.writeErrorStatusCmd(libsumo::CMD_SET_LANE_VARIABLE, "Allowed classes must be given as a list of strings.", outputStorage);
-            }
+            const std::vector<std::string> classes = StoHelp::readTypedStringList(inputStorage, "Allowed vehicle classes must be given as a list of strings.");
             libsumo::Lane::setAllowed(id, classes);
+            break;
         }
-        break;
         case libsumo::LANE_DISALLOWED: {
-            std::vector<std::string> classes;
-            if (!server.readTypeCheckingStringList(inputStorage, classes)) {
-                return server.writeErrorStatusCmd(libsumo::CMD_SET_LANE_VARIABLE, "Not allowed classes must be given as a list of strings.", outputStorage);
-            }
+            const std::vector<std::string> classes = StoHelp::readTypedStringList(inputStorage, "Not allowed vehicle classes must be given as a list of strings.");
             libsumo::Lane::setDisallowed(id, classes);
+            break;
         }
-        break;
         case libsumo::VAR_PARAMETER: {
-            if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                return server.writeErrorStatusCmd(libsumo::CMD_SET_LANE_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
-            }
-            //readt itemNo
-            inputStorage.readInt();
-            std::string name;
-            if (!server.readTypeCheckingString(inputStorage, name)) {
-                return server.writeErrorStatusCmd(libsumo::CMD_SET_LANE_VARIABLE, "The name of the parameter must be given as a string.", outputStorage);
-            }
-            std::string value;
-            if (!server.readTypeCheckingString(inputStorage, value)) {
-                return server.writeErrorStatusCmd(libsumo::CMD_SET_LANE_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
-            }
+            StoHelp::readCompound(inputStorage, 2, "A compound object of size 2 is needed for setting a parameter.");
+            const std::string name = StoHelp::readTypedString(inputStorage, "The name of the parameter must be given as a string.");
+            const std::string value = StoHelp::readTypedString(inputStorage, "The value of the parameter must be given as a string.");
             libsumo::Lane::setParameter(id, name, value);
+            break;
         }
-        break;
         default:
             break;
     }

@@ -26,6 +26,7 @@
 #include <microsim/output/MSDetectorControl.h>
 #include <libsumo/InductionLoop.h>
 #include <libsumo/TraCIConstants.h>
+#include <libsumo/StorageHelper.h>
 #include "TraCIServerAPI_InductionLoop.h"
 
 
@@ -43,30 +44,23 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
             switch (variable) {
                 case libsumo::LAST_STEP_VEHICLE_DATA: {
                     std::vector<libsumo::TraCIVehicleData> vd = libsumo::InductionLoop::getVehicleData(id);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
                     tcpip::Storage tempContent;
                     int cnt = 0;
-                    tempContent.writeUnsignedByte(libsumo::TYPE_INTEGER);
-                    tempContent.writeInt((int)vd.size());
+                    StoHelp::writeTypedInt(tempContent, (int)vd.size());
                     ++cnt;
                     for (const libsumo::TraCIVehicleData& svd : vd) {
-                        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
-                        tempContent.writeString(svd.id);
+                        StoHelp::writeTypedString(tempContent, svd.id);
                         ++cnt;
-                        tempContent.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        tempContent.writeDouble(svd.length);
+                        StoHelp::writeTypedDouble(tempContent, svd.length);
                         ++cnt;
-                        tempContent.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        tempContent.writeDouble(svd.entryTime);
+                        StoHelp::writeTypedDouble(tempContent, svd.entryTime);
                         ++cnt;
-                        tempContent.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        tempContent.writeDouble(svd.leaveTime);
+                        StoHelp::writeTypedDouble(tempContent, svd.leaveTime);
                         ++cnt;
-                        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
-                        tempContent.writeString(svd.typeID);
+                        StoHelp::writeTypedString(tempContent, svd.typeID);
                         ++cnt;
                     }
-                    server.getWrapperStorage().writeInt((int)cnt);
+                    StoHelp::writeCompound(server.getWrapperStorage(), cnt);
                     server.getWrapperStorage().writeStorage(tempContent);
                     break;
                 }
