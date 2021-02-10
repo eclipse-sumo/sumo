@@ -36,6 +36,8 @@ set(utils_foxtools_STAT_SRCS
    MFXUtils.h
    FXTreeListDinamic.h
    FXTreeListDinamic.cpp
+   FXRecentNetworks.h
+   FXRecentNetworks.cpp
 )
 
 add_library(utils_foxtools STATIC ${utils_foxtools_STAT_SRCS})
