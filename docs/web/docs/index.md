@@ -58,6 +58,7 @@ This Documentation is continuously updated and always refers to the latest devel
 
 - [Introduction to SUMO Demand Modelling](Demand/Introduction_to_demand_modelling_in_SUMO.md)
 - [Definition of Vehicles, Vehicle Types, and Routes](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
+- [Defining Traffic Demand with netedit](Netedit/elementsDemand.md)
 - [Simulation of public transport](Simulation/Public_Transport.md)
 - [Simulation of individual persons and trip chains](Specification/Persons.md)
 - [Simulation of logistics](Specification/Logistics.md)
