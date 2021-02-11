@@ -299,7 +299,7 @@ def main(args=None):
             print("Reading detectors")
         reader = RouteReader(options.collectfile, options.edgecount, options.pickleedge)
         detReader = DetectorReader(options.detfile)
-        for edge, group in detReader.getEdgeDataIterator():
+        for edge, group in detReader.getGroups():
             reader.addEdge(edge)
     elif options.collectfile:
         reader = RouteReader(options.collectfile, options.edgecount, options.pickleedge, True)
