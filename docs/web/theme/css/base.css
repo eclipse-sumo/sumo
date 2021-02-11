@@ -118,7 +118,7 @@ background-color: var(--toc-bg-color) !important;
 background: #fff; /* for incompatible Browsers  */
 background: var(--main-area-bg-color) !important;
 padding:20px;
-border-radius:8px;
+border-radius:8px 0 0 8px;
 margin-top:5px;
 }
 
@@ -639,6 +639,9 @@ color: var(--a-color);
 @media (max-width: 768px) {
 .col-md-3 {
 max-width: 800px;
+}
+.main-area {
+border-radius:0;
 }
 }
 
