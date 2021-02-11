@@ -297,7 +297,7 @@ def main(args=None):
             options.collectfile = "calibrator_routes.rou.xml",
         if options.verbose:
             print("Reading detectors")
-        reader = RouteReader(options.collectfile, options.edgecount, options.pythonedge)
+        reader = RouteReader(options.collectfile, options.edgecount, options.pickleedge)
         detReader = DetectorReader(options.detfile)
         for edge, group in detReader.getEdgeDataIterator():
             reader.addEdge(edge)
