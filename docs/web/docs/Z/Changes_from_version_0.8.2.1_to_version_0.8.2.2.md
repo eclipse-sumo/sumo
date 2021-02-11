@@ -2,6 +2,8 @@
 title: Changes from version 0.8.2.1 to version 0.8.2.2
 ---
 
+**Release date: 09.09.2005**
+
 User-relevant changes:
 
 - Simulation

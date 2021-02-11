@@ -2,6 +2,8 @@
 title: Changes from Version 0.9.10 to Version 0.10.0
 ---
 
+**Release date: 09.01.2009**
+
 - Build
   - removed obsolete configuration option **--enable-speedcheck**
 

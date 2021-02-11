@@ -2,7 +2,7 @@
 title: Changes from Version 0.25.0 to Version 0.26.0
 ---
 
-## Version 0.26.0 (19.04.2016)
+**Release date: 19.04.2016**
 
 ### Bugfixes
 

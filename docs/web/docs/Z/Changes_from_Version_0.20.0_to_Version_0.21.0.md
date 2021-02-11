@@ -2,7 +2,7 @@
 title: Changes from Version 0.20.0 to Version 0.21.0
 ---
 
-## Version 0.21.0 (11.06.2014)
+**Release date: 11.06.2014**
 
 ### Bugfixes
 

@@ -2,6 +2,8 @@
 title: Changes from Version 0.10.2 to Version 0.10.3
 ---
 
+**Release date: 30.03.2009**
+
 - All
   - A daily build for windows is available at:
     <https://sumo.dlr.de/docs/Downloads.php#nightly_snapshots>

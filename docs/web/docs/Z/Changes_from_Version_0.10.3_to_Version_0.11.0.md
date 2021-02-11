@@ -2,6 +2,8 @@
 title: Changes from Version 0.10.3 to Version 0.11.0
 ---
 
+**Release date: 29.07.2009**
+
 - All
   - moved to xerces 3.0
   - moved to FOX1.6

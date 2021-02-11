@@ -2,7 +2,7 @@
 title: Changes from Version 0.27.1 to Version 0.28.0
 ---
 
-## Version 0.28.0 (01.11.2016)
+**Release date: 01.11.2016**
 
 ### Bugfixes
 

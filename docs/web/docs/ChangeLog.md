@@ -2328,101 +2328,52 @@ title: ChangeLog
 
 ## Older Versions
 
-- [Changes from Version 0.31.0 to Version
-  0.32.0](Z/Changes_from_Version_0.31.0_to_Version_0.32.0.md)
-- [Changes from Version 0.30.0 to Version
-  0.31.0](Z/Changes_from_Version_0.30.0_to_Version_0.31.0.md)
-- [Changes from Version 0.29.0 to Version
-  0.30.0](Z/Changes_from_Version_0.29.0_to_Version_0.30.0.md)
-- [Changes from Version 0.28.0 to Version
-  0.29.0](Z/Changes_from_Version_0.28.0_to_Version_0.29.0.md)
-- [Changes from Version 0.27.1 to Version
-  0.28.0](Z/Changes_from_Version_0.27.1_to_Version_0.28.0.md)
-- [Changes from Version 0.27.0 to Version
-  0.27.1](Z/Changes_from_Version_0.27.0_to_Version_0.27.1.md)
-- [Changes from Version 0.26.0 to Version
-  0.27.0](Z/Changes_from_Version_0.26.0_to_Version_0.27.0.md)
-- [Changes from Version 0.25.0 to Version
-  0.26.0](Z/Changes_from_Version_0.25.0_to_Version_0.26.0.md)
-- [Changes from Version 0.24.0 to Version
-  0.25.0](Z/Changes_from_Version_0.24.0_to_Version_0.25.0.md)
-- [Changes from Version 0.23.0 to Version
-  0.24.0](Z/Changes_from_Version_0.23.0_to_Version_0.24.0.md)
-- [Changes from Version 0.22.0 to Version
-  0.23.0](Z/Changes_from_Version_0.22.0_to_Version_0.23.0.md)
-- [Changes from Version 0.21.0 to Version
-  0.22.0](Z/Changes_from_Version_0.21.0_to_Version_0.22.0.md)
-- [Changes from Version 0.20.0 to Version
-  0.21.0](Z/Changes_from_Version_0.20.0_to_Version_0.21.0.md)
-- [Changes from Version 0.19.0 to Version
-  0.20.0](Z/Changes_from_Version_0.19.0_to_Version_0.20.0.md)
-- [Changes from Version 0.18.0 to Version
-  0.19.0](Z/Changes_from_Version_0.18.0_to_Version_0.19.0.md)
-- [Changes from Version 0.17.1 to Version
-  0.18.0](Z/Changes_from_Version_0.17.1_to_Version_0.18.0.md)
-- [Changes from Version 0.17.0 to Version
-  0.17.1](Z/Changes_from_Version_0.17.0_to_Version_0.17.1.md)
-- [Changes from Version 0.16.0 to Version
-  0.17.0](Z/Changes_from_Version_0.16.0_to_Version_0.17.0.md)
-- [Changes from Version 0.15.0 to Version
-  0.16.0](Z/Changes_from_Version_0.15.0_to_Version_0.16.0.md)
-- [Changes from Version 0.14.0 to Version
-  0.15.0](Z/Changes_from_Version_0.14.0_to_Version_0.15.0.md)
-- [Changes from Version 0.13.1 to Version
-  0.14.0](Z/Changes_from_Version_0.13.1_to_Version_0.14.0.md)
-- [Changes from Version 0.13.0 to Version
-  0.13.1](Z/Changes_from_Version_0.13.0_to_Version_0.13.1.md)
-- [Changes from Version 0.12.3 to Version
-  0.13.0](Z/Changes_from_Version_0.12.3_to_Version_0.13.0.md)
-- [Changes from Version 0.12.2 to Version
-  0.12.3](Z/Changes_from_Version_0.12.2_to_Version_0.12.3.md)
-- [Changes from Version 0.12.1 to Version
-  0.12.2](Z/Changes_from_Version_0.12.1_to_Version_0.12.2.md)
-- [Changes from Version 0.12.0 to Version
-  0.12.1](Z/Changes_from_Version_0.12.0_to_Version_0.12.1.md)
-- [Changes from Version 0.11.1 to Version
-  0.12.0](Z/Changes_from_Version_0.11.1_to_Version_0.12.0.md)
-- [Changes from Version 0.11.0 to Version
-  0.11.1](Z/Changes_from_Version_0.11.0_to_Version_0.11.1.md)
-- [Changes from Version 0.10.3 to Version
-  0.11.0](Z/Changes_from_Version_0.10.3_to_Version_0.11.0.md)
-- [Changes from Version 0.10.2 to Version
-  0.10.3](Z/Changes_from_Version_0.10.2_to_Version_0.10.3.md)
-- [Changes from Version 0.10.1 to Version
-  0.10.2](Z/Changes_from_Version_0.10.1_to_Version_0.10.2.md)
-- [Changes from Version 0.10.0 to Version
-  0.10.1](Z/Changes_from_Version_0.10.0_to_Version_0.10.1.md)
-- [Changes from Version 0.9.10 to Version
-  0.10.0](Z/Changes_from_Version_0.9.10_to_Version_0.10.0.md)
-- [Changes from version 0.9.9 to version
-  0.9.10](Z/Changes_from_version_0.9.9_to_version_0.9.10.md)
-- [Changes from version 0.9.8 to version
-  0.9.9](Z/Changes_from_version_0.9.8_to_version_0.9.9.md)
-- [Changes from version 0.9.7 to version
-  0.9.8](Z/Changes_from_version_0.9.7_to_version_0.9.8.md)
-- [Changes from version 0.9.6 to version
-  0.9.7](Z/Changes_from_version_0.9.6_to_version_0.9.7.md)
-- [Changes from version 0.9.5 to version
-  0.9.6](Z/Changes_from_version_0.9.5_to_version_0.9.6.md)
-- [Changes from version 0.9.3 to version
-  0.9.4](Z/Changes_from_version_0.9.3_to_version_0.9.4.md)
-- [Changes from version 0.9.2 to version
-  0.9.3](Z/Changes_from_version_0.9.2_to_version_0.9.3.md)
-- [Changes from version 0.9.1 to version
-  0.9.2](Z/Changes_from_version_0.9.1_to_version_0.9.2.md)
-- [Changes from version 0.9.0 to version
-  0.9.1](Z/Changes_from_version_0.9.0_to_version_0.9.1.md)
-- [Changes from version 0.8.x to version
-  0.9.0](Z/Changes_from_version_0.8.x_to_version_0.9.0.md)
-- [Changes from version 0.8.2.2 to version
-  0.8.3](Z/Changes_from_version_0.8.2.2_to_version_0.8.3.md)
-- [Changes from version 0.8.2.1 to version
-  0.8.2.2](Z/Changes_from_version_0.8.2.1_to_version_0.8.2.2.md)
-- [Changes from version 0.8.0.2 to version
-  0.8.2.1](Z/Changes_from_version_0.8.0.2_to_version_0.8.2.1.md)
-- [Changes from version 0.8.0.1 to version
-  0.8.0.2](Z/Changes_from_version_0.8.0.1_to_version_0.8.0.2.md)
-- [Changes from version 0.8.0 to version
-  0.8.0.1](Z/Changes_from_version_0.8.0_to_version_0.8.0.1.md)
-- [Changes from version 0.7.0 to version
-  pre0.8](Z/Changes_from_version_0.7.0_to_version_pre0.8.md)
+- [Changes to Version 0.32.0](Z/Changes_from_Version_0.31.0_to_Version_0.32.0.md)
+- [Changes to Version 0.31.0](Z/Changes_from_Version_0.30.0_to_Version_0.31.0.md)
+- [Changes to Version 0.30.0](Z/Changes_from_Version_0.29.0_to_Version_0.30.0.md)
+- [Changes to Version 0.29.0](Z/Changes_from_Version_0.28.0_to_Version_0.29.0.md)
+- [Changes to Version 0.28.0](Z/Changes_from_Version_0.27.1_to_Version_0.28.0.md)
+- [Changes to Version 0.27.1](Z/Changes_from_Version_0.27.0_to_Version_0.27.1.md)
+- [Changes to Version 0.27.0](Z/Changes_from_Version_0.26.0_to_Version_0.27.0.md)
+- [Changes to Version 0.26.0](Z/Changes_from_Version_0.25.0_to_Version_0.26.0.md)
+- [Changes to Version 0.25.0](Z/Changes_from_Version_0.24.0_to_Version_0.25.0.md)
+- [Changes to Version 0.24.0](Z/Changes_from_Version_0.23.0_to_Version_0.24.0.md)
+- [Changes to Version 0.23.0](Z/Changes_from_Version_0.22.0_to_Version_0.23.0.md)
+- [Changes to Version 0.22.0](Z/Changes_from_Version_0.21.0_to_Version_0.22.0.md)
+- [Changes to Version 0.21.0](Z/Changes_from_Version_0.20.0_to_Version_0.21.0.md)
+- [Changes to Version 0.20.0](Z/Changes_from_Version_0.19.0_to_Version_0.20.0.md)
+- [Changes to Version 0.19.0](Z/Changes_from_Version_0.18.0_to_Version_0.19.0.md)
+- [Changes to Version 0.18.0](Z/Changes_from_Version_0.17.1_to_Version_0.18.0.md)
+- [Changes to Version 0.17.1](Z/Changes_from_Version_0.17.0_to_Version_0.17.1.md)
+- [Changes to Version 0.17.0](Z/Changes_from_Version_0.16.0_to_Version_0.17.0.md)
+- [Changes to Version 0.16.0](Z/Changes_from_Version_0.15.0_to_Version_0.16.0.md)
+- [Changes to Version 0.15.0](Z/Changes_from_Version_0.14.0_to_Version_0.15.0.md)
+- [Changes to Version 0.14.0](Z/Changes_from_Version_0.13.1_to_Version_0.14.0.md)
+- [Changes to Version 0.13.1](Z/Changes_from_Version_0.13.0_to_Version_0.13.1.md)
+- [Changes to Version 0.13.0](Z/Changes_from_Version_0.12.3_to_Version_0.13.0.md)
+- [Changes to Version 0.12.3](Z/Changes_from_Version_0.12.2_to_Version_0.12.3.md)
+- [Changes to Version 0.12.2](Z/Changes_from_Version_0.12.1_to_Version_0.12.2.md)
+- [Changes to Version 0.12.1](Z/Changes_from_Version_0.12.0_to_Version_0.12.1.md)
+- [Changes to Version 0.12.0](Z/Changes_from_Version_0.11.1_to_Version_0.12.0.md)
+- [Changes to Version 0.11.1](Z/Changes_from_Version_0.11.0_to_Version_0.11.1.md)
+- [Changes to Version 0.11.0](Z/Changes_from_Version_0.10.3_to_Version_0.11.0.md)
+- [Changes to Version 0.10.3](Z/Changes_from_Version_0.10.2_to_Version_0.10.3.md)
+- [Changes to Version 0.10.2](Z/Changes_from_Version_0.10.1_to_Version_0.10.2.md)
+- [Changes to Version 0.10.1](Z/Changes_from_Version_0.10.0_to_Version_0.10.1.md)
+- [Changes to Version 0.10.0](Z/Changes_from_Version_0.9.10_to_Version_0.10.0.md)
+- [Changes to Version 0.9.10](Z/Changes_from_version_0.9.9_to_version_0.9.10.md)
+- [Changes to Version 0.9.9](Z/Changes_from_version_0.9.8_to_version_0.9.9.md)
+- [Changes to Version 0.9.8](Z/Changes_from_version_0.9.7_to_version_0.9.8.md)
+- [Changes to Version 0.9.7](Z/Changes_from_version_0.9.6_to_version_0.9.7.md)
+- [Changes to Version 0.9.6](Z/Changes_from_version_0.9.5_to_version_0.9.6.md)
+- [Changes to Version 0.9.4](Z/Changes_from_version_0.9.3_to_version_0.9.4.md)
+- [Changes to Version 0.9.3](Z/Changes_from_version_0.9.2_to_version_0.9.3.md)
+- [Changes to Version 0.9.2](Z/Changes_from_version_0.9.1_to_version_0.9.2.md)
+- [Changes to Version 0.9.1](Z/Changes_from_version_0.9.0_to_version_0.9.1.md)
+- [Changes to Version 0.9.0](Z/Changes_from_version_0.8.x_to_version_0.9.0.md)
+- [Changes to Version 0.8.3](Z/Changes_from_version_0.8.2.2_to_version_0.8.3.md)
+- [Changes to Version 0.8.2.2](Z/Changes_from_version_0.8.2.1_to_version_0.8.2.2.md)
+- [Changes to Version 0.8.2.1](Z/Changes_from_version_0.8.0.2_to_version_0.8.2.1.md)
+- [Changes to Version 0.8.0.2](Z/Changes_from_version_0.8.0.1_to_version_0.8.0.2.md)
+- [Changes to Version 0.8.0.1](Z/Changes_from_version_0.8.0_to_version_0.8.0.1.md)
+- [Changes to Version pre0.8](Z/Changes_from_version_0.7.0_to_version_pre0.8.md)

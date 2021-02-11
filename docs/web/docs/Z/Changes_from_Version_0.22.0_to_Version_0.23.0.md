@@ -2,7 +2,7 @@
 title: Changes from Version 0.22.0 to Version 0.23.0
 ---
 
-## Version 0.23.0 (31.03.2015)
+**Release date: 31.03.2015**
 
 ### Bugfixes
 

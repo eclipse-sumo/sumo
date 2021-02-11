@@ -2,7 +2,7 @@
 title: Changes from Version 0.16.0 to Version 0.17.0
 ---
 
-## Version 0.17.0 (03.05.2013)
+**Release date: 03.05.2013**
 
 ### Bugfixes
 

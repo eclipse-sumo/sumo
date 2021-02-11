@@ -2,6 +2,8 @@
 title: Changes from version 0.9.9 to version 0.9.10
 ---
 
+**Release date: 16.09.2008**
+
 - Building
   - debugged [bug 2042630 --enable-traci disables traci?](http://sourceforge.net/tracker/index.php?func=detail&aid=2050900&group_id=45607&atid=443421)
 

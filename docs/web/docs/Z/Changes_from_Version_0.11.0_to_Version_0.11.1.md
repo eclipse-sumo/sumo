@@ -2,6 +2,8 @@
 title: Changes from Version 0.11.0 to Version 0.11.1
 ---
 
+**Release date: 23.11.2009**
+
 - All
   - configuration xml format changed again to `<section><key value="val"/></section>` (use {{SUMO}}/tools/10to11.py to convert from old to new
     representation)

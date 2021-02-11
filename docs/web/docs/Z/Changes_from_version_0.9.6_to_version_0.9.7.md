@@ -2,6 +2,8 @@
 title: Changes from version 0.9.6 to version 0.9.7
 ---
 
+**Release date: 14.11.2007**
+
 - 23.05.07: sumo-gui now contains storages for recent configs AND
   networks, usage of "RecentFiles" reworked
 - 23.05.07: DOCS: generated pdfs are copied to <SUMO_DIST\>/docs

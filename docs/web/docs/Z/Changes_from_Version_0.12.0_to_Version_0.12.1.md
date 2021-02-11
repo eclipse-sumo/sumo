@@ -2,7 +2,7 @@
 title: Changes from Version 0.12.0 to Version 0.12.1
 ---
 
-**Release Date: 7.10.2010**
+**Release Date: 07.10.2010**
 
 - TraCI
   - added a possibility to access a vehicle's signals, wipers, and

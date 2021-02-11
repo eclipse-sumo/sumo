@@ -2,6 +2,8 @@
 title: Changes from version 0.9.5 to version 0.9.6
 ---
 
+**Release date: 23.05.2007**
+
 - polyconvert: possibility to prune the polygons to import on a
   bounding box added
 - DUA: Simulation may now load only a part of defined vehicles

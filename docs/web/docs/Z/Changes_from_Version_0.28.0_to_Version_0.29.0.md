@@ -2,7 +2,7 @@
 title: Changes from Version 0.28.0 to Version 0.29.0
 ---
 
-## Version 0.29.0 (16.02.2017)
+**Release date: 16.02.2017**
 
 ### Bugfixes
 

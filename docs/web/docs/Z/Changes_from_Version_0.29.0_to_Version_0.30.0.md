@@ -2,7 +2,7 @@
 title: Changes from Version 0.29.0 to Version 0.30.0
 ---
 
-## Version 0.30.0 (02.05.2017)
+**Release date: 02.05.2017**
 
 ### Bugfixes
 

@@ -2,6 +2,8 @@
 title: Changes from version 0.9.8 to version 0.9.9
 ---
 
+**Release date: 05.08.2008**
+
 - All
   - debugged [bug 1976405 Saving invalid dump
     configuration](http://sourceforge.net/tracker/index.php?func=detail&aid=1976405&group_id=45607&atid=443421);

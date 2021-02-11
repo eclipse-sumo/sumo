@@ -2,7 +2,7 @@
 title: Changes from Version 0.13.1 to Version 0.14.0
 ---
 
-## Version 0.14.0 (11.1.2012)
+**Release date: 11.01.2012**
 
 - **config file extensions renamed**, see [Other/File Extensions](../Other/File_Extensions.md)
 

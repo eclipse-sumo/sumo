@@ -2,6 +2,8 @@
 title: Changes from Version 0.10.1 to Version 0.10.2
 ---
 
+**Release date: 16.03.2009**
+
 - All
   - If configuration is written using **--write-config**, the
     application stops after this step

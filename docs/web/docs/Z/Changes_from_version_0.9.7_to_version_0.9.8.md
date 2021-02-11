@@ -2,6 +2,8 @@
 title: Changes from version 0.9.7 to version 0.9.8
 ---
 
+**Release date: 07.02.2008**
+
 - Building
   - MSVC8: extracted properties for build configurations into
     separate property files.
@@ -13,7 +15,7 @@ title: Changes from version 0.9.7 to version 0.9.8
   - microsim/traffic_lights - project was named properly
   - netbuild/nodes, microsim/lanechanging, and all netimport classes
     but vissim import were moved one folder up
-  - SUMOFrame was moved to microsim (renamed to MSFrame\!)
+  - SUMOFrame was moved to microsim (renamed to MSFrame!)
   - utils/helpers and utils/router were moved to utils/common
 
 - all
@@ -26,8 +28,7 @@ title: Changes from version 0.9.7 to version 0.9.8
     see comment; thanks to Helcio Bezerra de Mello for the bug
     report
   - further work on detectors
-    - values revalidated and described <font color="orange">output
-      has changed</font>
+    - values revalidated and described output has changed
     - marked "measures" and "style" as deprecated
   - while looking for next links to use, the vehicle is now aware of
     his best lanes
@@ -86,7 +87,7 @@ title: Changes from version 0.9.7 to version 0.9.8
   - false left closure of leftmost lane shown in "real world" scheme
     debugged
 - removed utils/importio/CSVHelpers (was used once and contained a
-  two-lines-method (sic\!))
+  two-lines-method (sic!))
 - working on doxygen documentation (and adding throw-declarations)
   - utils/options
   - utils/iodevices
@@ -108,7 +109,7 @@ title: Changes from version 0.9.7 to version 0.9.8
 - consolidated XML-definitions
   - vehicle type is now called "type" in all cases
   - removed unneeded elements and attributes
-- (almost complete) rework of the microsimulation loop<br>
+- (almost complete) rework of the microsimulation loop   
 What was done, basically is to change the way vehicles move over
 junctions and how other vehicles get informed about vehicles
 approaching on incoming lanes. Quite heavy changes, in fact, I hope
