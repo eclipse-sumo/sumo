@@ -11,7 +11,7 @@ copyright: "Copyright &copy; 2001-2021 German Aerospace Center (DLR) and others.
 
 nav:
   - Documentation: index.md
-  - Tutorials: Tutorials.md
+  - Tutorials: Tutorials/index.md
   - FAQ: FAQ.md
   - Downloads: Downloads.md
   - Publications: Publications.md

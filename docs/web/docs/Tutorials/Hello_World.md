@@ -134,6 +134,6 @@ That's it! You have your first simulation scenario in SUMO :)
 
 ## Further Reading
 
-Do you want to do this exercise again, but using a text editor instead of the netedit graphic interface? Visit [this tutorial](../Tutorials/Hello_SUMO.md).
+Do you want to do this exercise again, but using a text editor instead of the netedit graphic interface? Visit [this tutorial](Hello_SUMO.md).
 
-More [Tutorials](../Tutorials.md).
+More [Tutorials](index.md).

@@ -165,4 +165,4 @@ More information on defining vehicles can be found here: [Definition of
 Vehicles, Vehicle Types, and
 Routes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md).
 
-More [Tutorials](../Tutorials.md).
+More [Tutorials](index.md).

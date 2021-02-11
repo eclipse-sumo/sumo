@@ -40,7 +40,7 @@ title: FAQ
 
 ### Are there any tutorials or ready to use scenarios?
 
-  The main page for [tutorials](Tutorials.md) lists several for beginners and advanced topics, there 
+  The main page for [tutorials](Tutorials/index.md) lists several for beginners and advanced topics, there 
   are also some [videos on YouTube](https://www.youtube.com/results?search_query=sumo+simulation+tutorial).
   For scenarios have a look at our [scenario page](Data/Scenarios.md).
 
@@ -206,7 +206,7 @@ in your domain).
 you may appear to be lazy).
   - read the FAQ
   - read the documentation
-  - check out the [Tutorials](Tutorials.md)
+  - check out the [Tutorials](Tutorials/index.md)
   - do a web search (past questions and answers from the mailing
     list can be found by google)
 - Do not ask the same thing twice in a short span of time. If you are

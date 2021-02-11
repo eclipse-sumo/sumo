@@ -149,8 +149,8 @@ basic consistency and missing yellow phases may lead to crashes if you
 have intersecting flows. However, this is a special situation and we
 don't need to care about this, obviously. If you want to learn more
 about traffic light control, see the TraCI-Tutorials
-[TraCIPedCrossing](../Tutorials/TraCIPedCrossing.md) and
-[TraCI4Traffic_Lights](../Tutorials/TraCI4Traffic_Lights.md) or
+[TraCIPedCrossing](TraCIPedCrossing.md) and
+[TraCI4Traffic_Lights](TraCI4Traffic_Lights.md) or
 the main section on [traffic
 lights](../Simulation/Traffic_Lights.md).
 
@@ -210,4 +210,4 @@ Get the popcorn and start the simulation\!
 
 1.  <https://www.forschungsinformationssystem.de/servlet/is/79638/>
 
-Back to [Tutorials](../Tutorials.md).
+Back to [Tutorials](index.md).

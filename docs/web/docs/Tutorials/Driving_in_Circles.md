@@ -202,4 +202,4 @@ A net with two loops
 
 If you create solutions for the exercises post them on this page\!
 
-Back to [Tutorials](../Tutorials.md)
+Back to [Tutorials](index.md)

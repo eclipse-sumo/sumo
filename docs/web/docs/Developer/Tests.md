@@ -313,4 +313,4 @@ directory) and adding that directory to the end of your PATH (if it is
 not already there).
 
 # Running tests outside TextTest
-Different methods to extract TextTest tests (offline and online) are explained [here](../Tutorials.md#using_examples_from_the_test_suite).
+Different methods to extract TextTest tests (offline and online) are explained [here](../Tutorials/index.md#using_examples_from_the_test_suite).

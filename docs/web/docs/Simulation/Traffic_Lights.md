@@ -689,7 +689,7 @@ program and the optional phase attribute "next" can be used to indicated the
 next phase after the transition ends.
 
 Tutorials for controlling traffic lights in this way can be found at
-[Tutorials\#TraCI_Tutorials](../Tutorials.md#traci_tutorials).
+[Tutorials\#TraCI_Tutorials](../Tutorials/index.md#traci_tutorials).
 
 ## Setting the duration
 

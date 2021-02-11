@@ -26,7 +26,7 @@ This Documentation is continuously updated and always refers to the latest devel
   Skills](Basics/Basic_Computer_Skills.md)
 - [Installing SUMO](Installing.md)
 - [Using SUMO Command Line Applications](Basics/Using_the_Command_Line_Applications.md)
-- [Tutorials](Tutorials.md)
+- [Tutorials](Tutorials/index.md)
 - [Validating application inputs](XMLValidation.md)
 
 # Network Building
