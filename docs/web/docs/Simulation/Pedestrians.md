@@ -221,7 +221,7 @@ a high degree of freedom when implementing new models. It is planned to
 implement models with a higher level of interaction detail in the
 future.
 
-## Model *nonInteraction*
+## Model *nonInteracting*
 
 This is a very basic walking model. Pedestrians walk bidirectionally
 along normal edges and “jump” across intersections. They maybe either be
