@@ -35,6 +35,9 @@ from collections import defaultdict
 from optparse import OptionParser
 import gzip
 
+sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools', 'detector'))
+from detector import DetectorReader
+
 
 def getFreeSpace(folder):
     """ Return folder/drive free space (in bytes)
@@ -255,9 +258,6 @@ def main(args=None):
     optParser = OptionParser(usage="usage: %prog [options] <routefiles>")
     optParser.add_option("-f", "--detector-file", dest="detfile",
                          help="read detectors from FILE", metavar="FILE")
-    optParser.add_option("-d", "--detector-db", dest="detconn",
-                         help="read detectors from database connection",
-                         metavar="user:passwd:host:db")
     optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                          default=False, help="tell me what you are doing")
     optParser.add_option("-s", "--step", dest="step", type="int", default=900,
@@ -292,25 +292,15 @@ def main(args=None):
             expandedArgs += glob.glob(arg)
     tempPrefix = options.routesprefix
     reader = None
-    if options.detfile or options.detconn:
+    if options.detfile:
         if not options.collectfile:
             options.collectfile = "calibrator_routes.rou.xml",
         if options.verbose:
             print("Reading detectors")
         reader = RouteReader(options.collectfile, options.edgecount, options.pythonedge)
-#        conn = None
-#        if options.detconn:
-#            import MySQLdb
-#            from detector import readDetectorDB
-#            dbargs = options.detconn.split(":")
-#            conn = MySQLdb.connect(host=dbargs[2], user=dbargs[0],
-#                                   passwd=dbargs[1], db=dbargs[3])
-#            detReader = readDetectorDB(conn)
-#            conn.close()
-#        else:
-#            detReader = DetectorReader(options.detfile)
-#        for edge, group in detReader.getEdgeDataIterator():
-#            reader.addEdge(edge)
+        detReader = DetectorReader(options.detfile)
+        for edge, group in detReader.getEdgeDataIterator():
+            reader.addEdge(edge)
     elif options.collectfile:
         reader = RouteReader(options.collectfile, options.edgecount, options.pickleedge, True)
     splitFiles(expandedArgs, options.typesfile, tempPrefix, options.step,
