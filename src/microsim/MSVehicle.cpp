@@ -5097,10 +5097,24 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             }
         }
         index = 0;
+        bool requiredChangeRightForbidden = false;
+        int requireChangeToLeftForbidden = -1;
         for (std::vector<LaneQ>::iterator j = last.begin(); j != last.end(); ++j, ++index) {
             if ((*j).length < bestLength) {
                 (*j).bestLaneOffset = bestThisIndex - index;
+
+                if ((*j).bestLaneOffset < 0 && (!(*j).lane->allowsChangingRight(getVClass()) || requiredChangeRightForbidden)) {
+                    // this lane and all further lanes to the left cannot be used
+                    requiredChangeRightForbidden = true;
+                    (*j).length -= (*j).currentLength;
+                } else if ((*j).bestLaneOffset > 0 && !(*j).lane->allowsChangingLeft(getVClass())) {
+                    // this lane and all previous lanes to the right cannot be used
+                    requireChangeToLeftForbidden = (*j).lane->getIndex();
+                }
             }
+        }
+        for (int i = requireChangeToLeftForbidden; i >= 0; i--) {
+            last[i].length -= last[i].currentLength;
         }
     }
 #ifdef DEBUG_BESTLANES
@@ -5172,16 +5186,6 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                 }
             }
 
-#ifdef DEBUG_BESTLANES
-            if (DEBUG_COND) {
-                std::cout << "   edge=" << cE.getID() << "\n";
-                std::vector<LaneQ>& laneQs = clanes;
-                for (std::vector<LaneQ>::iterator j = laneQs.begin(); j != laneQs.end(); ++j) {
-                    std::cout << "     lane=" << (*j).lane->getID() << " length=" << (*j).length << " bestOffset=" << (*j).bestLaneOffset << "\n";
-                }
-            }
-#endif
-
         } else {
             // only needed in case of disconnected routes
             int bestNextIndex = 0;
@@ -5207,6 +5211,8 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         }
         // set bestLaneOffset for all lanes
         index = 0;
+        bool requiredChangeRightForbidden = false;
+        int requireChangeToLeftForbidden = -1;
         for (std::vector<LaneQ>::iterator j = clanes.begin(); j != clanes.end(); ++j, ++index) {
             if ((*j).length < clanes[bestThisIndex].length
                     || ((*j).length == clanes[bestThisIndex].length && abs((*j).bestLaneOffset) > abs(clanes[bestThisIndex].bestLaneOffset))
@@ -5217,9 +5223,20 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                     // try to move away from the lower-priority lane before it ends
                     (*j).length = (*j).currentLength;
                 }
+                if ((*j).bestLaneOffset < 0 && (!(*j).lane->allowsChangingRight(getVClass()) || requiredChangeRightForbidden)) {
+                    // this lane and all further lanes to the left cannot be used
+                    requiredChangeRightForbidden = true;
+                    (*j).length -= (*j).currentLength;
+                } else if ((*j).bestLaneOffset > 0 && !(*j).lane->allowsChangingLeft(getVClass())) {
+                    // this lane and all previous lanes to the right cannot be used
+                    requireChangeToLeftForbidden = (*j).lane->getIndex();
+                }
             } else {
                 (*j).bestLaneOffset = 0;
             }
+        }
+        for (int i = requireChangeToLeftForbidden; i >= 0; i--) {
+            clanes[i].length -= clanes[i].currentLength;
         }
 
         //vehicle with elecHybrid device prefers running under an overhead wire
@@ -5232,6 +5249,17 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                 }
             }
         }
+
+#ifdef DEBUG_BESTLANES
+        if (DEBUG_COND) {
+            std::cout << "   edge=" << cE.getID() << "\n";
+            std::vector<LaneQ>& laneQs = clanes;
+            for (std::vector<LaneQ>::iterator j = laneQs.begin(); j != laneQs.end(); ++j) {
+                std::cout << "     lane=" << (*j).lane->getID() << " length=" << (*j).length << " bestOffset=" << (*j).bestLaneOffset << "\n";
+            }
+        }
+#endif
+
     }
     updateOccupancyAndCurrentBestLane(startLane);
 #ifdef DEBUG_BESTLANES
