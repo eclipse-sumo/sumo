@@ -634,7 +634,8 @@ GNEAttributeCarrier::getAllowedTagsByCategory(const int tagPropertyCategory, con
     if (tagPropertyCategory & GNETagProperties::ADDITIONALELEMENT) {
         // fill additional tags
         for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isAdditionalElement() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+            // avoid symbols (It will be implemented in #7355)
+            if (!tagProperty.second.isSymbol() && tagProperty.second.isAdditionalElement() && (!onlyDrawables || tagProperty.second.isDrawable())) {
                 allowedTags.push_back(std::make_pair(tagProperty.first, toString(tagProperty.first)));
             }
         }

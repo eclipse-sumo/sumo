@@ -156,8 +156,8 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
     // Fill comboBox depending of TagTypes
     if (myListOfTagTypes.size() > 0) {
         // fill myTypeMatchBox with list of tags
-        for (const auto& i : myListOfTagTypes) {
-            myTagTypesMatchBox->appendItem(i.first.c_str());
+        for (const auto& tagType : myListOfTagTypes) {
+            myTagTypesMatchBox->appendItem(tagType.first.c_str());
         }
         // Set visible items
         myTagTypesMatchBox->setNumVisible((int)myTagTypesMatchBox->getNumItems());
