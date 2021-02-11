@@ -96,6 +96,14 @@ font-weight: 700;
 float: right;
 }
 
+.breadcrumbs li {
+display: inline-block;
+}
+
+ul.breadcrumbs {
+padding-left: 0 !important;
+}
+
 .table-striped tbody tr:nth-of-type(2n+1) {
 background-color: rgba(0,0,0,.05) !important; /* for incompatible Browsers  */
 background-color: var(--table-stripe-color) !important;

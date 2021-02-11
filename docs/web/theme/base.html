@@ -201,6 +201,7 @@
                 </div>
                 <div class="col-md-9 main-area" role="main">
                   {% if page and not page.is_homepage %}
+                  {% include "breadcrumbs.html" %}
                   <hTitles>{{page.title}}<hr style="border: 0.5px solid #338033; margin-top: 5px !important;"></hTitles>
                   {% endif %}
                   {% include "content.html" %}
