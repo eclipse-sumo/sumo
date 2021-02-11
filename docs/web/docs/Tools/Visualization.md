@@ -145,7 +145,7 @@ selection (all edge with at least one lane in the selection).
 <tr class="odd">
 <td><figure>
 <img src="../images/Plot_net_selection.png" title="plot_net_selection.png" width="500" alt="" /></figure></td>
-<td><p><code>python plot_selection.py -n bs.net.xml \</code><br />
+<td><p><code>python plot_net_selection.py -n bs.net.xml \</code><br />
 <code> --xlim 7000,14000 --ylim 9000,16000 \</code><br />
 <code> -i selection_environmental_zone.txt \</code><br />
 <code> --xlabel [m] --ylabel [m] \</code><br />
