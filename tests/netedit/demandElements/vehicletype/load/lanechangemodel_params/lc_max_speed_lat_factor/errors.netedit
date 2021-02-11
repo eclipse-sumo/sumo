@@ -19,15 +19,11 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Error: Invalid Lane-Change-Model Attribute lcMaxSpeedLatFactor. Cannot be parsed to float
 Error: Invalid Lane Change Model Parameters
 Debug: Adding vType 'vType0' in GNEChange_DemandElement
-Error: Invalid Lane-Change-Model Attribute lcMaxSpeedLatFactor. Must be greater than 0
-Error: Invalid Lane Change Model Parameters
 Debug: Adding vType 'vType1' in GNEChange_DemandElement
-Error: Invalid Lane-Change-Model Attribute lcMaxSpeedLatFactor. Must be greater than 0
-Error: Invalid Lane Change Model Parameters
 Debug: Adding vType 'vType2' in GNEChange_DemandElement
 Debug: Adding vType 'vType3' in GNEChange_DemandElement
 Debug: Adding vType 'vType4' in GNEChange_DemandElement
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.29Sep153816.12104\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_factor\input_routes.rou.xml failed.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_11Feb150136.26084\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_factor\input_routes.rou.xml failed.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing vType 'vType4' in GNEChange_DemandElement
