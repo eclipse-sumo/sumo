@@ -1,6 +1,5 @@
 ---
 title: Developer/Implementation Notes/Sumo Modules
-permalink: /Developer/Implementation_Notes/Sumo_Modules/
 ---
 
 ## Module Purposes

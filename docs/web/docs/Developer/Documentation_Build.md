@@ -1,6 +1,5 @@
 ---
 title: Developer/Documentation Build
-permalink: /Developer/Documentation_Build/
 ---
 
 You can read the SUMO Documentation online at: <https://sumo.dlr.de/docs/>

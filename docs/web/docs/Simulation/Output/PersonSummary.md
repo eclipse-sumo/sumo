@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output/PersonSummary
-permalink: /Simulation/Output/PersonSummary/
 ---
 
 This output contains the simulation-wide number of person that are
@@ -16,7 +15,7 @@ You can force the simulation to generate this output using **--person-summary-ou
 The information containing all those values is computed for each time
 step and the output file looks like following:
 
-```
+```xml
 <summary>
     <step time="<SIMULATION_TIME>" \
             loaded="<LOADED_PERSON_NUMBER>" \

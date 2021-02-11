@@ -1,6 +1,5 @@
 ---
 title: XMLValidation
-permalink: /XMLValidation/
 ---
 
 # Validation of XML inputs

@@ -1,6 +1,5 @@
 ---
 title: netedit/neteditUsageExamples
-permalink: /netedit/neteditUsageExamples/
 ---
 
 # Usage Examples

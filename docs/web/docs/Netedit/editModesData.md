@@ -1,6 +1,5 @@
 ---
 title: netedit/editModesData
-permalink: /netedit/editModesData/
 ---
 
 # Data specific modes

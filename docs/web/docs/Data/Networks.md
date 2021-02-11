@@ -1,6 +1,5 @@
 ---
 title: Data/Networks
-permalink: /Data/Networks/
 ---
 
 You should read the main page on [netconvert](../netconvert.md)

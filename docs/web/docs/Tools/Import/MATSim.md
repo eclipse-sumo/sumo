@@ -1,6 +1,5 @@
 ---
 title: Tools/Import/MATSim
-permalink: /Tools/Import/MATSim/
 ---
 
 # Introduction

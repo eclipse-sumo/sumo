@@ -1,6 +1,5 @@
 ---
 title: Networks/Further Options
-permalink: /Networks/Further_Options/
 ---
 
 [netconvert](../netconvert.md),

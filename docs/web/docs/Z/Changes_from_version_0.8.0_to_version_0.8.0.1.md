@@ -1,6 +1,5 @@
 ---
 title: Z/Changes from version 0.8.0 to version 0.8.0.1
-permalink: /Z/Changes_from_version_0.8.0_to_version_0.8.0.1/
 ---
 
 - GUI

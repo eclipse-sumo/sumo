@@ -1,6 +1,5 @@
 ---
 title: TraCI/Rerouter
-permalink: /TraCI/Rerouter/
 ---
 
 ## Command 0x28: Get Rerouter Variable

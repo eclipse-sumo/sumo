@@ -1,6 +1,5 @@
 ---
 title: Z/Changes from version 0.9.7 to version 0.9.8
-permalink: /Z/Changes_from_version_0.9.7_to_version_0.9.8/
 ---
 
 - Building

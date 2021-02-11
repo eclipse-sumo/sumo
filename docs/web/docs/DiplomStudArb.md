@@ -1,6 +1,5 @@
 ---
 title: DiplomStudArb
-permalink: /DiplomStudArb/
 ---
 
 In the following, you may find ideas for student work - Bachelor,

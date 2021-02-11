@@ -1,6 +1,5 @@
 ---
 title: Developer/XML Validation
-permalink: /Developer/XML_Validation/
 ---
 
 # Status Quo (2018-10-12)

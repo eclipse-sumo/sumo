@@ -1,6 +1,5 @@
 ---
 title: Installing/Windows Build
-permalink: /Installing/Windows_Build/
 ---
 
 This document describes how to build SUMO under MS-Windows using only

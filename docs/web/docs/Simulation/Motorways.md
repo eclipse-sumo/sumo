@@ -1,6 +1,5 @@
 ---
 title: Simulation/Motorways
-permalink: /Simulation/Motorways/
 ---
 
 # Motorway Simulation

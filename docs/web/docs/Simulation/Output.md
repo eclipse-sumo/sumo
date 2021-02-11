@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output
-permalink: /Simulation/Output/
 ---
 
 # Introduction

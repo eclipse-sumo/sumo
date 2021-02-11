@@ -1,6 +1,5 @@
 ---
 title: Versioning
-permalink: /Versioning/
 ---
 
 # SUMO version numbers and their meaning

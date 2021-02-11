@@ -1,6 +1,5 @@
 ---
 title: SUMO edge type file
-permalink: /SUMO_edge_type_file/
 ---
 
 | SUMO edge type file |                      |

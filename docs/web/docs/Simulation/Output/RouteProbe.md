@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output/RouteProbe
-permalink: /Simulation/Output/RouteProbe/
 ---
 
 RouteProbe detectors are meant to determine the route distribution for
@@ -14,7 +13,7 @@ database of navigation providers such as
 RouteProbe Detectors have to be defined within an {{AdditionalFile}} which has to be
 loaded by the simulation.
 
-```
+```xml
 <additional>
   <routeProbe id="<ROUTEPROBE_ID>" edge="<EDGE_ID>" freq="<FREQUENCY>" file="<OUTPUT_XMLFILE>"/>
 </additional>
@@ -36,7 +35,7 @@ The output takes the form of a [route alternative
 file](../../duarouter.md#outputs) which can be loaded directly in
 [sumo](../../sumo.md)
 
-```
+```xml
 <route-probes>
    <routeDistribution id="r3/1to2/1_80.00">
       <route id="r1_80.00" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" probability="1.00"/>

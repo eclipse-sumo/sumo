@@ -1,6 +1,5 @@
 ---
 title: Contributed
-permalink: /Contributed/
 ---
 
 Some people extended SUMO or built tools to make it more usable. Not all

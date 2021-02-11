@@ -1,6 +1,5 @@
 ---
 title: TraCI/Vehicle Signalling
-permalink: /TraCI/Vehicle_Signalling/
 ---
 
 # Signaling

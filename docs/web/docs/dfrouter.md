@@ -1,6 +1,5 @@
 ---
 title: dfrouter
-permalink: /dfrouter/
 ---
 
 # From 30.000 feet

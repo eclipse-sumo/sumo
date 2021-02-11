@@ -1,6 +1,5 @@
 ---
 title: Publications
-permalink: /Publications/
 ---
 
 If your publication mentions SUMO please let us know!

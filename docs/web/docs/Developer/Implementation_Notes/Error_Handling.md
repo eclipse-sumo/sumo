@@ -1,6 +1,5 @@
 ---
 title: Developer/Implementation Notes/Error Handling
-permalink: /Developer/Implementation_Notes/Error_Handling/
 ---
 
 <center>

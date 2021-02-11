@@ -1,6 +1,5 @@
 ---
 title: Screenshots
-permalink: /Screenshots/
 ---
 
 # Screenshots from Versions 0.9

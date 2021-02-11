@@ -1,6 +1,5 @@
 ---
 title: TraCI/Change Simulation State
-permalink: /TraCI/Change_Simulation_State/
 ---
 
 # Command 0xcc: Change Simulation State

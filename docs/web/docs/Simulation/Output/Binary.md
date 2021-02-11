@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output/Binary
-permalink: /Simulation/Output/Binary/
 ---
 
 All [SUMO Applications](../../index.md#application_manuals)

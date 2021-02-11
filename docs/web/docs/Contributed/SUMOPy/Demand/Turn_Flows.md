@@ -1,6 +1,5 @@
 ---
 title: Contributed/SUMOPy/Demand/Turn Flows
-permalink: /Contributed/SUMOPy/Demand/Turn_Flows/
 ---
 
 Trip generation with turnflows allows to model traffic flows in a

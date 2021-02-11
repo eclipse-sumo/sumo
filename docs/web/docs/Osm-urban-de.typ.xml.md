@@ -1,6 +1,5 @@
 ---
 title: Osm-urban-de.typ.xml
-permalink: /Osm-urban-de.typ.xml/
 ---
 
 [{{SUMO}}/data/typemap/osmNetconvertUrbanDe.typ.xml]({{Source}}data/typemap/osmNetconvertUrbanDe.typ.xml)

@@ -1,6 +1,5 @@
 ---
 title: Developer/How To/Device
-permalink: /Developer/How_To/Device/
 ---
 
 This Page describes how to implement a new device.

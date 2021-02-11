@@ -1,9 +1,8 @@
 ---
 title: Developer/HFileTemplate
-permalink: /Developer/HFileTemplate/
 ---
 
-```
+```cpp
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see <https://eclipse.org/sumo>
 // Copyright (C) <YEAR OF CREATION>-<CURRENT YEAR> German Aerospace Center (DLR) and others.

@@ -1,6 +1,5 @@
 ---
 title: GSoC
-permalink: /GSoC/
 ---
 
 # GSoC 2015

@@ -1,6 +1,5 @@
 ---
 title: TraCI/Multi-Entry-Exit Detectors Value Retrieval
-permalink: /TraCI/Multi-Entry-Exit_Detectors_Value_Retrieval/
 ---
 
 ## Command 0xa1: Get MeMeDetector Variable

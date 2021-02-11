@@ -1,6 +1,5 @@
 ---
 title: Basics/Notation
-permalink: /Basics/Notation/
 ---
 
 This documentation uses coloring to differ between

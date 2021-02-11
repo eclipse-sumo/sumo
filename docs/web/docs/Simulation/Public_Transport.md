@@ -1,7 +1,7 @@
 ---
 title: Simulation/Public Transport
-permalink: /Simulation/Public_Transport/
 ---
+
 # Introduction
 Most public transport uses fixed routes (busses, trams and trains) and this page describes how to model this type of transport. For demand responsive transport that is more flexible see [Taxi](Taxi.md).
 
@@ -12,6 +12,7 @@ The descriptions below describe how to model busses but the same rules apply for
 It is possible to define positions of bus stops and let vehicles
 ("busses") stop at these positions for a pre-given time. Definitions of
 bus stop locations in SUMO have the following format:
+
 ```xml
 <busStop id="<BUS_STOP_ID>" lane="<LANE_ID>" startPos="<STARTING_POSITION>" endPos="<ENDING_POSITION>" [lines="<LINE_ID>[ <LINE_ID>]*"]/>
 ```

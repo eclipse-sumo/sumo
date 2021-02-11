@@ -1,6 +1,5 @@
 ---
 title: Tools/Trip
-permalink: /Tools/Trip/
 ---
 
 # randomTrips.py

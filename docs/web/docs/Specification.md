@@ -1,6 +1,5 @@
 ---
 title: Specification
-permalink: /Specification/
 ---
 
 This document focuses on the main parts of a traffic simulation, that is

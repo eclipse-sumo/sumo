@@ -1,6 +1,5 @@
 ---
 title: TraCI/Add Vehicle
-permalink: /TraCI/Add_Vehicle/
 ---
 
 ## Command 0x74: Add Vehicle

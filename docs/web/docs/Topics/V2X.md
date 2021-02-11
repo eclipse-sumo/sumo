@@ -1,6 +1,5 @@
 ---
 title: Topics/V2X
-permalink: /Topics/V2X/
 ---
 
 # V2X simulations in SUMO

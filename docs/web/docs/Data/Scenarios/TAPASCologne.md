@@ -1,6 +1,5 @@
 ---
 title: Data/Scenarios/TAPASCologne
-permalink: /Data/Scenarios/TAPASCologne/
 ---
 
 # "TAPAS Cologne" Scenario

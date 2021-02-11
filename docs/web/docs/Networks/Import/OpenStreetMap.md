@@ -1,6 +1,5 @@
 ---
 title: Networks/Import/OpenStreetMap
-permalink: /Networks/Import/OpenStreetMap/
 ---
 
 *"[OpenStreetMap](http://www.openstreetmap.org/) is a free editable map

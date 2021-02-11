@@ -1,6 +1,5 @@
 ---
 title: Data/Scenarios
-permalink: /Data/Scenarios/
 ---
 
 # We need your Help\!

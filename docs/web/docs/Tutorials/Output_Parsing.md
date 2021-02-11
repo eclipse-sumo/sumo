@@ -1,6 +1,5 @@
 ---
 title: Tutorials/Output Parsing
-permalink: /Tutorials/Output_Parsing/
 ---
 
 In this tutorial you will learn how to
@@ -24,7 +23,7 @@ The goal is to build a simple network where the vehicles drive in
 circles so we setup four nodes for the corners as follows
 (circular.nod.xml):
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
 <nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
@@ -39,7 +38,7 @@ All edges connecting the nodes should have the same number of lanes and
 the same maximum speed. In order to save on typing we define the edge
 type in a separate file (circular.typ.xml):
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
 <types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/types_file.xsd">
@@ -49,7 +48,7 @@ type in a separate file (circular.typ.xml):
 
 Finally we define the edges connecting the nodes (circular.edg.xml):
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
 <edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
@@ -71,7 +70,7 @@ the simulation) we omit turnarounds and simplify the movement over
 junctions by removing the junction internal lanes. The complete
 netconvert configuration file (circular.netccfg):
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
@@ -105,7 +104,7 @@ for a look at the final network.
 
 ## Route and flow setup
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
@@ -129,7 +128,7 @@ for a look at the final network.
 
 ## Rerouters
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/additional_file.xsd">
@@ -152,7 +151,7 @@ for a look at the final network.
 
 ## Putting it all together
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">

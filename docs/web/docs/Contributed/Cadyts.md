@@ -1,6 +1,5 @@
 ---
 title: Contributed/Cadyts
-permalink: /Contributed/Cadyts/
 ---
 
 ## Introduction

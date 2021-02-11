@@ -1,6 +1,5 @@
 ---
 title: Installing/Windows CMake
-permalink: /Installing/Windows_CMake/
 ---
 
 ## Prerequisites

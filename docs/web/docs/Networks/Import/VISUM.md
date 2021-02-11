@@ -1,6 +1,5 @@
 ---
 title: Networks/Import/VISUM
-permalink: /Networks/Import/VISUM/
 ---
 
 [netconvert](../../netconvert.md) can import native

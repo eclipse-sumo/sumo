@@ -1,6 +1,5 @@
 ---
 title: Developer/Managing Publications
-permalink: /Developer/Managing_Publications/
 ---
 
 Publications are stored in an extended

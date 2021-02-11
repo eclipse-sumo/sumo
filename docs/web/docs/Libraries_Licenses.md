@@ -1,6 +1,5 @@
 ---
 title: Libraries Licenses
-permalink: /Libraries_Licenses/
 ---
 
 This page lists all licenses of code SUMO depends on directly for

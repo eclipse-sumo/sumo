@@ -1,6 +1,5 @@
 ---
 title: GitStuff
-permalink: /GitStuff/
 ---
 
 # Miscellaneous Git Topics

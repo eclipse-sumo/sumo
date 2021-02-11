@@ -1,6 +1,5 @@
 ---
 title: Tutorials/Hello World
-permalink: /Tutorials/Hello_World/
 ---
 
 !!! caution

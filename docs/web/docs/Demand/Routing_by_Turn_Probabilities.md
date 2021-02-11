@@ -1,6 +1,5 @@
 ---
 title: Demand/Routing by Turn Probabilities
-permalink: /Demand/Routing_by_Turn_Probabilities/
 ---
 
 The [jtrrouter](../jtrrouter.md) is a routing applications which

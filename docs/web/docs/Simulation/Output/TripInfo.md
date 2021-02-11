@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output/TripInfo
-permalink: /Simulation/Output/TripInfo/
 ---
 
 ## Instantiating within the Simulation
@@ -17,7 +16,7 @@ from the network.
 
 The format is as following:
 
-```
+```xml
 <tripinfos>
     <tripinfo id="<VEHICLE_ID>" \
             depart="<DEPARTURE_TIME>" departLane="<DEPARTURE_LANE_ID>" \
@@ -78,7 +77,7 @@ vehicle during its journey.
 
 This adds the following line:
 
-```
+```xml
 <tripinfos>
     <tripinfo id="<VEHICLE_ID>" ... vtype="<VEHICLE_TYPE_ID>">
         <emissions CO_abs="..." CO2_abs="..." HC_abs="..." PMx_abs="..." NOx_abs="..." fuel_abs="..."/>
@@ -109,7 +108,8 @@ By default all vehicles will generated tripinfo-output. By [assigning a tripinfo
 Example:
 Setting SUMO-option **--device.tripinfo.probability false** will disable the device for all vehicles by default.
 The following definition overrides this default end enables the device for busses:
-```
+
+```xml
 <vType id="bus">
   <param key="has.tripinfo.device" value="true"/>
 </vType>
@@ -120,7 +120,7 @@ The following definition overrides this default end enables the device for busse
 If the simulation contains persons or containers, the following elements
 will be added to the output:
 
-```
+```xml
 <personinfo id="person0" depart="0.00">
  <walk depart="0.00" arrival="47.00" arrivalPos="55.00"/>
  <ride waitingTime="74.00" vehicle="train0" depart="121.00" arrival="140.00" arrivalPos="92.00"/>
@@ -128,7 +128,7 @@ will be added to the output:
 </personinfo>
 ```
 
-```
+```xml
 <containerinfo id="container0" depart="0.00">
   <tranship depart="0.00" arrival="54.00" arrivalPos="55.00"/>
   <transport waitingTime="103.00" vehicle="train0" depart="157.00" arrival="176.00" arrivalPos="92.00"/>

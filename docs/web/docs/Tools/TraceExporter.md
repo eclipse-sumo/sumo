@@ -1,6 +1,5 @@
 ---
 title: Tools/TraceExporter
-permalink: /Tools/TraceExporter/
 ---
 
 # From 30.000 feet

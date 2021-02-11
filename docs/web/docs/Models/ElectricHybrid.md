@@ -1,6 +1,5 @@
 ---
 title: Models/ElectricHybrid
-permalink: /Models/ElectricHybrid/
 ---
 
 # Overview

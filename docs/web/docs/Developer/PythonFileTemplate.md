@@ -1,6 +1,5 @@
 ---
 title: Developer/PythonFileTemplate
-permalink: /Developer/PythonFileTemplate/
 ---
 
 ```py

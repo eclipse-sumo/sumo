@@ -1,6 +1,5 @@
 ---
 title: Z/Changes from Version 0.31.0 to Version 0.32.0
-permalink: /Z/Changes_from_Version_0.31.0_to_Version_0.32.0/
 ---
 
 ## Version 0.32.0 (19.12.2017)

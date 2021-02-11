@@ -1,6 +1,5 @@
 ---
 title: Simulation/Pedestrians
-permalink: /Simulation/Pedestrians/
 ---
 
 # Pedestrian Simulation

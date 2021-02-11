@@ -1,6 +1,5 @@
 ---
 title: netgenerate
-permalink: /netgenerate/
 ---
 
 # From 30.000 feet

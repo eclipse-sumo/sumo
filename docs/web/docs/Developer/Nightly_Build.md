@@ -1,6 +1,5 @@
 ---
 title: Developer/Nightly Build
-permalink: /Developer/Nightly_Build/
 ---
 
 There are two main scripts responsible for the nightly build process

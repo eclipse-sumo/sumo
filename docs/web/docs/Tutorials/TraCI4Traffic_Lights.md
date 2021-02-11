@@ -1,6 +1,5 @@
 ---
 title: Tutorials/TraCI4Traffic Lights
-permalink: /Tutorials/TraCI4Traffic_Lights/
 ---
 
 This shows how to use the [Traffic Control Interface (in short

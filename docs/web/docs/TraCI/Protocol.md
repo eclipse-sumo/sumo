@@ -1,6 +1,5 @@
 ---
 title: TraCI/Protocol
-permalink: /TraCI/Protocol/
 ---
 
 This page details the [TraCI](../TraCI.md) protocol. Please see

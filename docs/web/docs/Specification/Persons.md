@@ -1,6 +1,5 @@
 ---
 title: Specification/Persons
-permalink: /Specification/Persons/
 ---
 
 # Persons

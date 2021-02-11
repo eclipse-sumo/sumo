@@ -1,6 +1,5 @@
 ---
 title: TraCI/Change GUI State
-permalink: /TraCI/Change_GUI_State/
 ---
 
 # Command 0xcc: Change GUI State

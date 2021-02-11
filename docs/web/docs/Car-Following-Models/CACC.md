@@ -1,6 +1,5 @@
 ---
 title: Car-Following-Models/CACC
-permalink: /Car-Following-Models/CACC/
 ---
 
 ## Overview

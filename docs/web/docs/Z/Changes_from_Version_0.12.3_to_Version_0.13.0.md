@@ -1,6 +1,5 @@
 ---
 title: Z/Changes from Version 0.12.3 to Version 0.13.0
-permalink: /Z/Changes_from_Version_0.12.3_to_Version_0.13.0/
 ---
 
 **Release Date: 13.07.2011**

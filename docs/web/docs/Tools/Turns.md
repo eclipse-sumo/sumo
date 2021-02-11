@@ -1,6 +1,5 @@
 ---
 title: Tools/Turns
-permalink: /Tools/Turns/
 ---
 
 # jtcrouter.py

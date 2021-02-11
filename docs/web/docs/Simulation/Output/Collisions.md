@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output/Collisions
-permalink: /Simulation/Output/Collisions/
 ---
 
 ## Instantiating within the Simulation

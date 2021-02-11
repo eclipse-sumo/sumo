@@ -1,6 +1,5 @@
 ---
 title: Simulation/Turnarounds
-permalink: /Simulation/Turnarounds/
 ---
 
 # Introduction

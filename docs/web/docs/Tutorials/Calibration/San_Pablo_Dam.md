@@ -1,6 +1,5 @@
 ---
 title: Tutorials/Calibration/San Pablo Dam
-permalink: /Tutorials/Calibration/San_Pablo_Dam/
 ---
 
 This tutorial describes the execution of the simulation in a loop using
@@ -88,7 +87,7 @@ performing the calibration (see the end of runner.py).
 
 Our configuration looks like this:
 
-```
+```xml
 <configuration>
     <input>
         <net-file value="spd-road.net.xml"/>

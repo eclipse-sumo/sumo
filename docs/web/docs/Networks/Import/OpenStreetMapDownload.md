@@ -1,6 +1,5 @@
 ---
 title: Networks/Import/OpenStreetMapDownload
-permalink: /Networks/Import/OpenStreetMapDownload/
 ---
 
 From <http://www.openstreetmap.org/>:

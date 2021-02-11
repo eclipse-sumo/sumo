@@ -1,6 +1,5 @@
 ---
 title: Simulation/GenericParameters
-permalink: /Simulation/GenericParameters/
 ---
 
 Generic parameters allow an arbitrary mapping of string keys to string

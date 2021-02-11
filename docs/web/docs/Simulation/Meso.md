@@ -1,6 +1,5 @@
 ---
 title: Simulation/Meso
-permalink: /Simulation/Meso/
 ---
 
 # From 30.000 feet

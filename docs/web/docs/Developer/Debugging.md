@@ -1,6 +1,5 @@
 ---
 title: Developer/Debugging
-permalink: /Developer/Debugging/
 ---
 
 Besides using a debugger (e.g. [gdb](https://www.gnu.org/s/gdb/)) with

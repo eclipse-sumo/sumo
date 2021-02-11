@@ -1,6 +1,5 @@
 ---
 title: Demand/Automatic Routing
-permalink: /Demand/Automatic_Routing/
 ---
 
 # Introduction

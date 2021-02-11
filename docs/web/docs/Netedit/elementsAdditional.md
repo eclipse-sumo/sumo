@@ -1,6 +1,5 @@
 ---
 title: netedit/elementsAdditional
-permalink: /netedit/elementsAdditional/
 ---
 
 # Additional elements

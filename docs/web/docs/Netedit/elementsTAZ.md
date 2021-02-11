@@ -1,6 +1,5 @@
 ---
 title: netedit/elementsTAZ
-permalink: /netedit/elementsTAZ/
 ---
 
 # TAZ elements

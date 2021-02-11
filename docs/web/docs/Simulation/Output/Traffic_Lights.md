@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output/Traffic Lights
-permalink: /Simulation/Output/Traffic_Lights/
 ---
 
 SUMO offers some possibilities to save states of traffic lights during
@@ -28,7 +27,7 @@ The attributes have herein the following meanings:
 
 The output looks like this:
 
-```
+```xml
 <tlsStates>
    <tlsState time="<SIM_STEP>" id="<TLS_ID>" programID="<TLS_SUBID>" phase="<PHASE_INDEX>" state="<STATE>"/>
    ... further states ...
@@ -75,7 +74,7 @@ The attributes have herein the following meanings:
 
 The output looks like this:
 
-```
+```xml
 <tlsSwitches>
    <tlsSwitch tls="<TLS_ID>" programID="<TLS_SUB_ID>" \
       fromLane="<LINKS_SOURCE_LANE>" toLane="<LINK_DESTINATION_LANE>" \
@@ -153,7 +152,7 @@ The attributes have herein the following meanings:
 
 The output is a loadable tlLogic element that records the complete state sequence of a traffic light:
 
-```
+```xml
 <tlsStates>
    <tlLogic id="<TLS_ID>" programID="<TLS_SUBID>" type="static/>
       <phase state="..." duration="..."

@@ -1,6 +1,5 @@
 ---
 title: TraCI/VariableSpeedSign
-permalink: /TraCI/VariableSpeedSign/
 ---
 
 ## Command 0x30: Get VariableSpeedSign Variable

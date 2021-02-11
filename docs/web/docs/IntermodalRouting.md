@@ -1,6 +1,5 @@
 ---
 title: IntermodalRouting
-permalink: /IntermodalRouting/
 ---
 
 # Basic Concepts

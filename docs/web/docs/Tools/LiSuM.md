@@ -1,6 +1,5 @@
 ---
 title: Tools/LiSuM
-permalink: /Tools/LiSuM/
 ---
 
 # Introduction

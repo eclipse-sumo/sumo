@@ -1,6 +1,5 @@
 ---
 title: Developer/Implementation Notes/Simulation Loop
-permalink: /Developer/Implementation_Notes/Simulation_Loop/
 ---
 
 # Main Vehicle Update Loop

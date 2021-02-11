@@ -1,6 +1,5 @@
 ---
 title: TraCI/Junction Value Retrieval
-permalink: /TraCI/Junction_Value_Retrieval/
 ---
 
 ## Command 0xa9: Get Junction Variable

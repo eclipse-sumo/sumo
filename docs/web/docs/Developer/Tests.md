@@ -1,6 +1,5 @@
 ---
 title: Developer/Tests
-permalink: /Developer/Tests/
 ---
 
 # Introduction

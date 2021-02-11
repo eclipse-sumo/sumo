@@ -1,6 +1,5 @@
 ---
 title: Networks/Further Outputs
-permalink: /Networks/Further_Outputs/
 ---
 
 [netconvert](../netconvert.md),

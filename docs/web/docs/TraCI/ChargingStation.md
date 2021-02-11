@@ -1,7 +1,7 @@
 ---
 title: TraCI/ChargingStation
-permalink: /TraCI/ChargingStation/
 ---
+
 Asks for the value of a certain variable of the named ChargingStation.
 The value returned is the state of the asked variable/value within the
 last simulation step. Please note that for asking values from your

@@ -1,6 +1,5 @@
 ---
 title: Students And Support
-permalink: /Students_And_Support/
 ---
 
 Please find below a list of possible work items. It includes both,

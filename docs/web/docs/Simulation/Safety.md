@@ -1,6 +1,5 @@
 ---
 title: Simulation/Safety
-permalink: /Simulation/Safety/
 ---
 
 # Collisions

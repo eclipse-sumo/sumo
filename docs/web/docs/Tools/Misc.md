@@ -1,6 +1,5 @@
 ---
 title: Tools/Misc
-permalink: /Tools/Misc/
 ---
 
 # createVehTypeDistribution.py

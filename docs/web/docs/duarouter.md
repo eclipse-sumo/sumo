@@ -1,6 +1,5 @@
 ---
 title: duarouter
-permalink: /duarouter/
 ---
 
 # From 30.000 feet

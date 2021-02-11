@@ -1,6 +1,5 @@
 ---
 title: Geo-Coordinates
-permalink: /Geo-Coordinates/
 ---
 
 # Geo-Referenced Networks

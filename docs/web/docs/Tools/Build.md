@@ -1,6 +1,5 @@
 ---
 title: Tools/Build
-permalink: /Tools/Build/
 ---
 
 # Build Tools

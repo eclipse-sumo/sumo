@@ -1,6 +1,5 @@
 ---
 title: Tools/Sumolib
-permalink: /Tools/Sumolib/
 ---
 
 **sumolib** is a set of python modules for working with sumo networks,

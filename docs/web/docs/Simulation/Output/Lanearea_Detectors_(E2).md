@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output/Lanearea Detectors (E2)
-permalink: /Simulation/Output/Lanearea_Detectors_(E2)/
 ---
 
 # Introduction
@@ -27,7 +26,7 @@ on which the detector resides and, optionally, a start position on the
 first lane and an end position on the last lane (these may be negative
 values to indicate a distance from the lane's end).
 
-```
+```xml
 <additional>
    <laneAreaDetector id="<ID>" lanes="<LANE_ID1> <LANE_ID2> ... <LANE_IDN>" 
    pos="<START_POSITION_ON_FIRST_LANE>" endPos="<END_POSITION_ON_LAST_LANE>" 
@@ -45,7 +44,7 @@ values to indicate a distance from the lane's end).
 Another possible specification allows to give a single anchoring lane
 plus two of the attributes `pos`, `endPos`, and `length` like this:
 
-```
+```xml
 <additional>
    <laneAreaDetector id="<ID>" lane="<LANE_ID>" 
    pos="<START_POSITION_ON_LANE>" endPos="<END_POSITION_ON_LANE>" length="<DETECTOR_LENGTH>"  // <- only two of those
@@ -91,7 +90,7 @@ The complete list of attributes is:
 A single data line within the output of a simulated lane area detector
 looks as following (the line is not broken within the output):
 
-```
+```xml
  <interval begin="<BEGIN_TIME>" end="<END_TIME>" id="<DETECTOR_ID>" sampledSeconds="<DATA_SAMPLES>" \
     nVehEntered="<VAL>" nVehLeft="<VAL>" nVehSeen="<VAL>" meanSpeed="<MEAN_SPEED>"  meanTimeLoss="<MEAN_TIMELOSS>" \
     meanOccupancy="<MEAN_OCCUPANCY>" maxOccupancy="<MAX_OCCUPANCY>" meanMaxJamLengthInVehicles="<VAL>" meanMaxJamLengthInMeters="<VAL>" \

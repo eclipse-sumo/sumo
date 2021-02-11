@@ -1,6 +1,5 @@
 ---
 title: od2trips
-permalink: /od2trips/
 ---
 
 # From 30.000 feet

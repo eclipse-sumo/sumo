@@ -1,6 +1,5 @@
 ---
 title: Installing/Linux Build Libraries
-permalink: /Installing/Linux_Build_Libraries/
 ---
 
 !!! note

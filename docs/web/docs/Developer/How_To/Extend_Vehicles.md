@@ -1,6 +1,5 @@
 ---
 title: Developer/How To/Extend Vehicles
-permalink: /Developer/How_To/Extend_Vehicles/
 ---
 
 This brief document describes how the vehicle class can be extended. We

@@ -1,6 +1,5 @@
 ---
 title: TraCI/TraaS
-permalink: /TraCI/TraaS/
 ---
 
 # TraaS

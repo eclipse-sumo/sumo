@@ -1,6 +1,5 @@
 ---
 title: Models/Emissions/PHEMlight
-permalink: /Models/Emissions/PHEMlight/
 ---
 
 # PHEM (Passenger Car and Heavy Duty Emission Model)

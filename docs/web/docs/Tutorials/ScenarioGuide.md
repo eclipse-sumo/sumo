@@ -1,6 +1,5 @@
 ---
 title: Tutorials/ScenarioGuide
-permalink: /Tutorials/ScenarioGuide/
 ---
 
 # Introduction

@@ -1,6 +1,5 @@
 ---
 title: Z/Changes from Version 0.10.3 to Version 0.11.0
-permalink: /Z/Changes_from_Version_0.10.3_to_Version_0.11.0/
 ---
 
 - All

@@ -1,6 +1,5 @@
 ---
 title: Driver State
-permalink: /Driver_State/
 ---
 
 ## Overview

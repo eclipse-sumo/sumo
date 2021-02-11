@@ -1,6 +1,5 @@
 ---
 title: TraCI/Change VehicleType State
-permalink: /TraCI/Change_VehicleType_State/
 ---
 
 # Command 0xc5: Change Vehicle Type State

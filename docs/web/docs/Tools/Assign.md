@@ -1,6 +1,5 @@
 ---
 title: Tools/Assign
-permalink: /Tools/Assign/
 ---
 
 # Assignment Tools

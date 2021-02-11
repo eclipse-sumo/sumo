@@ -1,6 +1,5 @@
 ---
 title: netedit/editModesCommon
-permalink: /netedit/editModesCommon/
 ---
 
 # Netedit common edit modes

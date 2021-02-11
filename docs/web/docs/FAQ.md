@@ -1,7 +1,7 @@
 ---
 title: FAQ
-permalink: /FAQ/
 ---
+
 ## General
 
 ### What is SUMO?

@@ -1,6 +1,5 @@
 ---
 title: Other/Links
-permalink: /Other/Links/
 ---
 
 ## Open Source Development

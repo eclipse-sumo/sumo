@@ -1,6 +1,5 @@
 ---
 title: Z/Changes from Version 0.24.0 to Version 0.25.0
-permalink: /Z/Changes_from_Version_0.24.0_to_Version_0.25.0/
 ---
 
 ## Version 0.25.0 (07.12.2015)

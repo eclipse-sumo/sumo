@@ -1,6 +1,5 @@
 ---
 title: Simulation/VehiclePermissions
-permalink: /Simulation/VehiclePermissions/
 ---
 
 # Introduction

@@ -1,6 +1,5 @@
 ---
 title: Developer/CodeStyle
-permalink: /Developer/CodeStyle/
 ---
 
 # C++ Code

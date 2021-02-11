@@ -1,6 +1,5 @@
 ---
 title: jtrrouter
-permalink: /jtrrouter/
 ---
 
 # From 30.000 feet

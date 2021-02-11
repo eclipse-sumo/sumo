@@ -1,6 +1,5 @@
 ---
 title: Other/Glossary
-permalink: /Other/Glossary/
 ---
 
 ## A

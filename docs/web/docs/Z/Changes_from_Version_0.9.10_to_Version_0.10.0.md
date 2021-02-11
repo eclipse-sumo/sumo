@@ -1,6 +1,5 @@
 ---
 title: Z/Changes from Version 0.9.10 to Version 0.10.0
-permalink: /Z/Changes_from_Version_0.9.10_to_Version_0.10.0/
 ---
 
 - Build

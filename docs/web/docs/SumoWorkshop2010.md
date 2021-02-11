@@ -1,6 +1,5 @@
 ---
 title: SumoWorkshop2010
-permalink: /SumoWorkshop2010/
 ---
 
 On 2010-11-11 and 2010-11-12, a first workshop on SUMO was held. Please

@@ -1,6 +1,5 @@
 ---
 title: Tutorials/FundamentalDiagram
-permalink: /Tutorials/FundamentalDiagram/
 ---
 
 # Introduction

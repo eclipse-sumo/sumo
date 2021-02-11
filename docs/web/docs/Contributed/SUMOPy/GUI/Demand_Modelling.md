@@ -1,6 +1,5 @@
 ---
 title: Contributed/SUMOPy/GUI/Demand Modelling
-permalink: /Contributed/SUMOPy/GUI/Demand_Modelling/
 ---
 
 In the framework of SUMO, demand generation means essentially the

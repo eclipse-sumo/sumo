@@ -1,6 +1,5 @@
 ---
 title: Tools/devel
-permalink: /Tools/devel/
 ---
 
 

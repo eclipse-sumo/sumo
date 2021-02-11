@@ -1,6 +1,5 @@
 ---
 title: OpenStreetMap file
-permalink: /OpenStreetMap_file/
 ---
 
 | **OpenStreetMap file**           |                   |

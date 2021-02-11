@@ -1,6 +1,5 @@
 ---
 title: OsmNetconvert.typ.xml
-permalink: /OsmNetconvert.typ.xml/
 ---
 
 [{{SUMO}}/data/typemap/osmNetconvert.typ.xml]({{Source}}data/typemap/osmNetconvert.typ.xml)

@@ -1,6 +1,5 @@
 ---
 title: Installing/macOS Build
-permalink: /Installing/MacOS_Build/
 ---
 
 This document describes how to install and build SUMO on macOS from its source code. If you don't want to **extend** SUMO, but just **use** it, you may want to simply follow the [installation instructions for macOS](../Installing.md#macos) instead.

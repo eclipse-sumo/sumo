@@ -1,6 +1,5 @@
 ---
 title: TraCI/C++TraCIAPI
-permalink: /TraCI/C++TraCIAPI/
 ---
 
 # C++ TraCIAPI client library

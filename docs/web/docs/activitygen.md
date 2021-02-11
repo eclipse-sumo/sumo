@@ -1,6 +1,5 @@
 ---
 title: activitygen
-permalink: /activitygen/
 ---
 
 # From 30.000 feet

@@ -1,6 +1,5 @@
 ---
 title: Specification/Containers
-permalink: /Specification/Containers/
 ---
 
 Containers can be used to simulate freight and goods. A container can

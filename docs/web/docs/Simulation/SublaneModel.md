@@ -1,6 +1,5 @@
 ---
 title: Simulation/SublaneModel
-permalink: /Simulation/SublaneModel/
 ---
 
 # Introduction

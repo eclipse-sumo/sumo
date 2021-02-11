@@ -1,6 +1,5 @@
 ---
 title: Car-Following-Models/ACC
-permalink: /Car-Following-Models/ACC/
 ---
 
 ## Overview

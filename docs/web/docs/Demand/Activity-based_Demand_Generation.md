@@ -1,6 +1,5 @@
 ---
 title: Demand/Activity-based Demand Generation
-permalink: /Demand/Activity-based_Demand_Generation/
 ---
 
 [activitygen](../activitygen.md) generates demand from a

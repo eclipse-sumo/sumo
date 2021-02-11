@@ -1,6 +1,5 @@
 ---
 title: Developer/HowToRelease
-permalink: /Developer/HowToRelease/
 ---
 
 ## Packages

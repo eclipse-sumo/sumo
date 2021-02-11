@@ -1,6 +1,5 @@
 ---
 title: Simulation/VehicleSpeed
-permalink: /Simulation/VehicleSpeed/
 ---
 
 There are a wide range of influences on vehicle speed. They are

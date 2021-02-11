@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output/SSM Device
-permalink: /Simulation/Output/SSM_Device/
 ---
 
 ## Equipping vehicles
@@ -8,7 +7,7 @@ A vehicle can be equipped with an SSM Device which logs the conflicts of the veh
 
 For instance, a single vehicle can be equipped (with a device parametrized by default values) as in the following minimal example
 
-```
+```xml
 <routes>
     ...
     <vehicle id="v0" route="route0" depart="0">
@@ -24,7 +23,7 @@ The SSM device generates an output file (one for each vehicle named `ssm_<vehicl
 
 The detail of information given for each conflict and the criteria to qualify an encounter as a conflict (i.e., produce a corresponding `conflict` element in the output) can be customized by a number of generic parameters to the vehicle or device, resp.. A full parametrization (redundantly assigning the default values, here) could look as follows:
 
-```
+```xml
 <routes>
     ...
     <vehicle id="v0" route="route0" depart="0">
@@ -201,7 +200,7 @@ The resulting file contains a root element `<SSMLog>`, which contains several `<
 
 An example for the contents of an output file:
 
-```
+```xml
 <SSMLog>
      <conflict begin="6.50" end="13.90" ego="ego1" foe="foe1">
          <timeSpan values="6.50 6.60 6.70 6.80 6.90 7.00 7.10 ..."/>

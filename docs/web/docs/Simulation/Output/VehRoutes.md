@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output/VehRoutes
-permalink: /Simulation/Output/VehRoutes/
 ---
 
 The vehicle routes output contains information about which route a
@@ -25,7 +24,7 @@ options affecting this output are listed at
 
 The generated file look like this:
 
-```
+```xml
 <routes>
     <vehicle id="<VEHICLE_ID>" [type="<TYPE_ID>"] depart="<INSERTION_TIME>" arrival="<ARRIVAL_TIME>" [routeLength="<LENGTH>"]>
         <routeDistribution>
@@ -75,7 +74,8 @@ time. This can be accomplished by also setting option **--vehroute-output.sorted
 ## Output only for selected vehicles or vehicle types
 By default all vehicles will generate vehroute-output. By [assigning a vehroute device](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#assignment_by_generic_parameters) to selected vehicles or vehicle types, this can be changed.
 As an example, the following definition enables the device for the vehicle type **t1**:
-```
+
+```xml
 <vType id="t1">
   <param key="has.vehroute.device" value="true"/>
 </vType>

@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output/Lane- or Edge-based Traffic Measures
-permalink: /Simulation/Output/Lane-_or_Edge-based_Traffic_Measures/
 ---
 
 Values within this output describe the situation within the network in
@@ -62,7 +61,7 @@ For additional attributes see the table below.
 For edge-based state dumps, the output file will look like the
 following:
 
-```
+```xml
 <meandata>
     <interval begin="<INTERVAL_BEGIN>" end="<INTERVAL_END>" id="<DETECTOR_ID>">
       <edge id="<EDGE_ID>" sampledSeconds="<COLLECTED_VEHICLE_SECONDS>" \
@@ -89,7 +88,7 @@ values are reported in one line.
 
 The generated output looks like the following:
 
-```
+```xml
 <meandata>
     <interval begin="<INTERVAL_BEGIN>" end="<INTERVAL_END>" id="<DETECTOR_ID>">
       <edge id="<EDGE_ID>">

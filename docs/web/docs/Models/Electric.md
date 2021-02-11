@@ -1,6 +1,5 @@
 ---
 title: Models/Electric
-permalink: /Models/Electric/
 ---
 
 # Overview

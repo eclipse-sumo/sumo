@@ -1,6 +1,5 @@
 ---
 title: Developer/How To/Net Importer
-permalink: /Developer/How_To/Net_Importer/
 ---
 
 In the following, advices on implementing a new network importer are

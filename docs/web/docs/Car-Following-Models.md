@@ -1,6 +1,5 @@
 ---
 title: Car-Following-Models
-permalink: /Car-Following-Models/
 ---
 
 # Car-Following Models

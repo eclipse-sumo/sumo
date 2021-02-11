@@ -1,6 +1,5 @@
 ---
 title: Demand/Introduction to demand modelling in SUMO
-permalink: /Demand/Introduction_to_demand_modelling_in_SUMO/
 ---
 
 After having generated a network, one could take a look at it using

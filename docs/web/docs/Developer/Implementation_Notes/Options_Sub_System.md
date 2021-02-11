@@ -1,6 +1,5 @@
 ---
 title: Developer/Implementation Notes/Options Sub System
-permalink: /Developer/Implementation_Notes/Options_Sub_System/
 ---
 
 ## Introduction

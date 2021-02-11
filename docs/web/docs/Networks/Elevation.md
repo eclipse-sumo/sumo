@@ -1,6 +1,5 @@
 ---
 title: Networks/Elevation
-permalink: /Networks/Elevation/
 ---
 
 # Including Elevation Data in a Network

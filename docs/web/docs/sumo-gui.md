@@ -1,6 +1,5 @@
 ---
 title: sumo-gui
-permalink: /sumo-gui/
 ---
 
 # From 30.000 feet

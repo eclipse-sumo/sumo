@@ -1,6 +1,5 @@
 ---
 title: Simulation/Distances
-permalink: /Simulation/Distances/
 ---
 
 # Introduction

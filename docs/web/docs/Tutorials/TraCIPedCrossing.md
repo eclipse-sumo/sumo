@@ -1,6 +1,5 @@
 ---
 title: Tutorials/TraCIPedCrossing
-permalink: /Tutorials/TraCIPedCrossing/
 ---
 
 This tutorial shows how to use the Traffic Control Interface (in short

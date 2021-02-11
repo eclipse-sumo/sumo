@@ -1,6 +1,5 @@
 ---
 title: TraCI/Induction Loop Value Retrieval
-permalink: /TraCI/Induction_Loop_Value_Retrieval/
 ---
 
 ## Command 0xa0: Get Induction Loop Variable

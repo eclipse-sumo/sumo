@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output/FCDOutput
-permalink: /Simulation/Output/FCDOutput/
 ---
 
 The FCD (floating car data) export contains location and speed along

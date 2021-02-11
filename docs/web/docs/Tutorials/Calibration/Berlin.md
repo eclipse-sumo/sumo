@@ -1,6 +1,5 @@
 ---
 title: Tutorials/Calibration/Berlin
-permalink: /Tutorials/Calibration/Berlin/
 ---
 
 ## Validation of a small inner-urban scenario simulated within the SUMO-package

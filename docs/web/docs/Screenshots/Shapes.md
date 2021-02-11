@@ -1,6 +1,5 @@
 ---
 title: Screenshots/Shapes
-permalink: /Screenshots/Shapes/
 ---
 
 # Using points of interest and polygons

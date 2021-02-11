@@ -1,6 +1,5 @@
 ---
 title: Contributed/SUMOPy/Tutorials/Open and Simulate
-permalink: /Contributed/SUMOPy/Tutorials/Open_and_Simulate/
 ---
 
 # Things to know first

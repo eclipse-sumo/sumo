@@ -1,6 +1,5 @@
 ---
 title: TraCI/Simulation Value Retrieval
-permalink: /TraCI/Simulation_Value_Retrieval/
 ---
 
 ## Command 0xab: Get Simulation Variable

@@ -1,6 +1,5 @@
 ---
 title: TraCI
-permalink: /TraCI/
 ---
 
 ## Introduction to TraCI

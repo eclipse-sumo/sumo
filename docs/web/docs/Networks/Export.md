@@ -1,6 +1,5 @@
 ---
 title: Networks/Export
-permalink: /Networks/Export/
 ---
 
 # Supported export formats

@@ -1,6 +1,5 @@
 ---
 title: Tools/Shapes
-permalink: /Tools/Shapes/
 ---
 
 # circlePolygon.py

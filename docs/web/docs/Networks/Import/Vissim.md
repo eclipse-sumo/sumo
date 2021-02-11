@@ -1,6 +1,5 @@
 ---
 title: Networks/Import/Vissim
-permalink: /Networks/Import/Vissim/
 ---
 
 Although Vissim is a microscopic simulation as SUMO is, it follows a

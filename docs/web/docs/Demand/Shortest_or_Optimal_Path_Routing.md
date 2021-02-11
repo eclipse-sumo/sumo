@@ -1,6 +1,5 @@
 ---
 title: Demand/Shortest or Optimal Path Routing
-permalink: /Demand/Shortest_or_Optimal_Path_Routing/
 ---
 
 # Introduction

@@ -1,6 +1,5 @@
 ---
 title: sumo
-permalink: /sumo/
 ---
 
 # From 30.000 feet

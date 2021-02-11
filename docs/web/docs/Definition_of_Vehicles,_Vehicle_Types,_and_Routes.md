@@ -1,6 +1,5 @@
 ---
 title: Definition of Vehicles, Vehicle Types, and Routes
-permalink: /Definition_of_Vehicles,_Vehicle_Types,_and_Routes/
 ---
 
 | Filename extension | .rou.xml                            |

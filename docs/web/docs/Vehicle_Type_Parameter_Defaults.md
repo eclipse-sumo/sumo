@@ -1,6 +1,5 @@
 ---
 title: Vehicle Type Parameter Defaults
-permalink: /Vehicle_Type_Parameter_Defaults/
 ---
 
 This page describes the vehicle parameter defaults depending on the

@@ -1,6 +1,5 @@
 ---
 title: Developer/How To/Car-Following Model
-permalink: /Developer/How_To/Car-Following_Model/
 ---
 
 This short document describes how a new car-following model can be added

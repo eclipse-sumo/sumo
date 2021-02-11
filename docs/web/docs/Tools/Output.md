@@ -1,6 +1,5 @@
 ---
 title: Tools/Output
-permalink: /Tools/Output/
 ---
 
 All of the tools described below exist in *tools/output* directory.

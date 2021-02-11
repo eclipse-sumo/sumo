@@ -1,6 +1,5 @@
 ---
 title: TraCI/Change Route State
-permalink: /TraCI/Change_Route_State/
 ---
 
 # Command 0xc6: Change Route State

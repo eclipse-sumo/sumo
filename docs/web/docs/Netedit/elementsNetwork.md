@@ -1,6 +1,5 @@
 ---
 title: netedit
-permalink: /netedit/
 ---
 
 # Network Elements

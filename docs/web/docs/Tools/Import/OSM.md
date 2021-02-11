@@ -1,6 +1,5 @@
 ---
 title: Tools/Import/OSM
-permalink: /Tools/Import/OSM/
 ---
 
 # osmWebWizard.py

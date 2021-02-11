@@ -1,6 +1,5 @@
 ---
 title: Simulation/Basic Definition
-permalink: /Simulation/Basic_Definition/
 ---
 
 In the following, the inputs needed by the simulation modules

@@ -1,6 +1,5 @@
 ---
 title: Tools/Routes
-permalink: /Tools/Routes/
 ---
 
 The tools' names accord to their function.

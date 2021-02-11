@@ -1,6 +1,5 @@
 ---
 title: Simulation/Emergency
-permalink: /Simulation/Emergency/
 ---
 
 # Emergency Vehicle simulation

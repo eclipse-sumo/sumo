@@ -1,6 +1,5 @@
 ---
 title: Developer/Implementation Notes/Vehicle Models
-permalink: /Developer/Implementation_Notes/Vehicle_Models/
 ---
 
 !!! caution

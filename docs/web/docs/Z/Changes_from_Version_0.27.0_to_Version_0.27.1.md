@@ -1,6 +1,5 @@
 ---
 title: Z/Changes from Version 0.27.0 to Version 0.27.1
-permalink: /Z/Changes_from_Version_0.27.0_to_Version_0.27.1/
 ---
 
 ## Version 0.27.1 (27.07.2016)

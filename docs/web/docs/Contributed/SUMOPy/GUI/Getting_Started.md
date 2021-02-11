@@ -1,6 +1,5 @@
 ---
 title: Contributed/SUMOPy/GUI/Getting Started
-permalink: /Contributed/SUMOPy/GUI/Getting_Started/
 ---
 
 ### Running SUMOPy

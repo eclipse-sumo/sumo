@@ -1,6 +1,5 @@
 ---
 title: Developer/FMI
-permalink: /Developer/FMI/
 ---
 
 # FMI

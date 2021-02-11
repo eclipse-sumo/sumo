@@ -1,6 +1,5 @@
 ---
 title: Installing
-permalink: /Installing/
 ---
 
 # Windows

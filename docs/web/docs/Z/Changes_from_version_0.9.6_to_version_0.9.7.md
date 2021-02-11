@@ -1,6 +1,5 @@
 ---
 title: Z/Changes from version 0.9.6 to version 0.9.7
-permalink: /Z/Changes_from_version_0.9.6_to_version_0.9.7/
 ---
 
 - 23.05.07: sumo-gui now contains storages for recent configs AND

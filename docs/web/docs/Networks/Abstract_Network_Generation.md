@@ -1,6 +1,5 @@
 ---
 title: Networks/Abstract Network Generation
-permalink: /Networks/Abstract_Network_Generation/
 ---
 
 [netgenerate](../netgenerate.md) allows the generation of three

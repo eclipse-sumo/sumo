@@ -1,6 +1,5 @@
 ---
 title: Networks/Import/OpenDRIVE
-permalink: /Networks/Import/OpenDRIVE/
 ---
 
 For reading [OpenDRIVE networks](http://www.opendrive.org/), give

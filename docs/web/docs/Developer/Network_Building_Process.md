@@ -1,6 +1,5 @@
 ---
 title: Developer/Network Building Process
-permalink: /Developer/Network_Building_Process/
 ---
 
 [netconvert](../netconvert.md),

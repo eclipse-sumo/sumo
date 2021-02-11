@@ -1,6 +1,5 @@
 ---
 title: Developer/Implementation Notes
-permalink: /Developer/Implementation_Notes/
 ---
   
 - [Developer/Implementation Notes/Sumo Modules](

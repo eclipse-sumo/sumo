@@ -1,6 +1,5 @@
 ---
 title: Libsumo
-permalink: /Libsumo/
 ---
 
 # Libsumo

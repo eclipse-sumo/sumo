@@ -1,6 +1,5 @@
 ---
 title: Installing/Linux Build
-permalink: /Installing/Linux_Build/
 ---
 
 This document describes how to install SUMO on Linux from sources. If

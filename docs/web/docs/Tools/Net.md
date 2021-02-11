@@ -1,6 +1,5 @@
 ---
 title: Tools/Net
-permalink: /Tools/Net/
 ---
 
 # netdiff.py

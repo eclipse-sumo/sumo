@@ -1,6 +1,5 @@
 ---
 title: Simulation/Traffic Lights
-permalink: /Simulation/Traffic_Lights/
 ---
 
 Normally, [netconvert](../netconvert.md) and

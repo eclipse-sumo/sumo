@@ -1,6 +1,5 @@
 ---
 title: polyconvert
-permalink: /polyconvert/
 ---
 
 # From 30.000 feet

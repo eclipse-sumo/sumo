@@ -1,6 +1,5 @@
 ---
 title: ChangeLog
-permalink: /ChangeLog/
 ---
 
 ## Git Master

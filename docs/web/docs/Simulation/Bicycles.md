@@ -1,6 +1,5 @@
 ---
 title: Simulation/Bicycles
-permalink: /Simulation/Bicycles/
 ---
 
 # Bicycle Simulation
@@ -22,7 +21,7 @@ Existing models need to be re-purposed
 In this case, vehicles are specified as vehicles with the appropriate
 type:
 
-```
+```xml
 <vType id="bike" vClass="bicycle"/>
 <vehicle type="bike" .../>
 ```
@@ -92,7 +91,7 @@ Alternatively to the above method, the `<edge>`-attribute [`bikeLanWidth` may be
 
 When importing edges with defined types, it is also possible to declare that certain types should receive a sidewalk. This can be used to automatically generate bike lanes for residential streets while omitting them for motorways when importing OSM data. 
 
-```
+```xml
 <types>
    <type id="highway.motorway" numLanes="3" speed="44.44" priority="13" oneway="true" disallow="pedestrian bicycle"/>
    <type id="highway.unclassified"   numLanes="1" speed="13.89" priority="5" bikeLaneWidth="1" disallow="bicycle"/>

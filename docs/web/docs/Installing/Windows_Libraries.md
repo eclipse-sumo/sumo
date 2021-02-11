@@ -1,6 +1,5 @@
 ---
 title: Installing/Windows Libraries
-permalink: /Installing/Windows_Libraries/
 ---
 
 !!! note

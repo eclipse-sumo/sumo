@@ -1,6 +1,5 @@
 ---
 title: Theory/Traffic Simulations
-permalink: /Theory/Traffic_Simulations/
 ---
 
 ## Traffic Simulation Classes

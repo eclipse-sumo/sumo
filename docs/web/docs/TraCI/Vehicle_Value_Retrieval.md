@@ -1,6 +1,5 @@
 ---
 title: TraCI/Vehicle Value Retrieval
-permalink: /TraCI/Vehicle_Value_Retrieval/
 ---
 
 ## Command 0xa4: Get Vehicle Variable

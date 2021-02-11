@@ -1,6 +1,5 @@
 ---
 title: Tools/Import/OpenDRIVE
-permalink: /Tools/Import/OpenDRIVE/
 ---
 
 # signal_POIs_from_xodr.py

@@ -1,6 +1,5 @@
 ---
 title: Tools/Import/VISUM
-permalink: /Tools/Import/VISUM/
 ---
 
 ### Importing "Zaehlstellen"

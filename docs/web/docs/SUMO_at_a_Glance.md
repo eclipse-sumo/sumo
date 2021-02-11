@@ -1,6 +1,5 @@
 ---
 title: SUMO at a Glance
-permalink: /SUMO_at_a_Glance/
 ---
 
 ## About

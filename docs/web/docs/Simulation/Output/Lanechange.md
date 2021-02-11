@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output/Lanechange
-permalink: /Simulation/Output/Lanechange/
 ---
 
 The lanechange-output tracks all events where a vehicle changes
@@ -18,7 +17,7 @@ this name will be overwritten, the destination folder must exist.
 
 The generated XML file looks like this:
 
-```
+```xml
 <lanechanges>
   <change id="<VEHICLE_ID>" time="<TIME_STAMP>" from="<SOURCE_LANE>" to="<DESTINATION_LANE>" reason="<CHANGE_REASON>" ... />
   ...
@@ -65,7 +64,7 @@ If the simulation is performed with the
 [sublane-model](../../Simulation/SublaneModel.md), the options **--lanechange-output.ended** and **--lanechange-output.started**
 can be used to obtain additional output elements:
 
-```
+```xml
 <lanechanges>
   <changeStarted id="<VEHICLE_ID>" time="<TIME_STAMP>" from="<SOURCE_LANE>" to="<DESTINATION_LANE>" reason="<CHANGE_REASON>" ... />
   <change id="<VEHICLE_ID>" time="<TIME_STAMP>" from="<SOURCE_LANE>" to="<DESTINATION_LANE>" reason="<CHANGE_REASON>" ... />

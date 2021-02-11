@@ -1,6 +1,5 @@
 ---
 title: Tools/tls
-permalink: /Tools/tls/
 ---
 
 # tlsCoordinator.py

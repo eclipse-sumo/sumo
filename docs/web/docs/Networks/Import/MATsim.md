@@ -1,6 +1,5 @@
 ---
 title: Networks/Import/MATsim
-permalink: /Networks/Import/MATsim/
 ---
 
 For reading MATsim networks, give [netconvert](../../netconvert.md)

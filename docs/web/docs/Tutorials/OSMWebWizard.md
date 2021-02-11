@@ -1,6 +1,5 @@
 ---
 title: Tutorials/OSMWebWizard
-permalink: /Tutorials/OSMWebWizard/
 ---
 
 # About

@@ -1,6 +1,5 @@
 ---
 title: Developer/Exploring the structure
-permalink: /Developer/Exploring the structure/
 ---
 
 # Introduction

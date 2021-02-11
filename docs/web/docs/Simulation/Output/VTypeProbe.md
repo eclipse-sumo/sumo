@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output/VTypeProbe
-permalink: /Simulation/Output/VTypeProbe/
 ---
 
 ## Instantiating within the Simulation
@@ -27,7 +26,7 @@ The following table shows the attributes:
 
 Example:
 
-```
+```xml
 <additional>
     <vTypeProbe id="probe1" type="DEFAULT_VEHTYPE" freq="10" file="output.xml"/>
 </additional>
@@ -39,7 +38,7 @@ This file is then loaded in [sumo](../../sumo.md) using the option **--additiona
 
 The output is divided into timestep-sections:
 
-```
+```xml
 <timestep time="<COLLECTION_TIME>" id="<DETECTOR_ID>" vtype="<OBSERVED_TYPE>">
     <vehicle id="<VEHICLE_ID>" lane="<LANE_ID>" pos="<POSITION_ON_LANE>" \
         x="<X-COORDINATE>" y="<Y-COORDINATE>" \

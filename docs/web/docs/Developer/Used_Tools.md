@@ -1,6 +1,5 @@
 ---
 title: Developer/Used Tools
-permalink: /Developer/Used_Tools/
 ---
 
 - [TextTest](http://texttest.sourceforge.net/) An acceptance test framework.

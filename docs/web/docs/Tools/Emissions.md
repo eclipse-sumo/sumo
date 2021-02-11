@@ -1,6 +1,5 @@
 ---
 title: Tools/Emissions
-permalink: /Tools/Emissions/
 ---
 
 SUMO includes some small-sized tools and tests that help to develop and

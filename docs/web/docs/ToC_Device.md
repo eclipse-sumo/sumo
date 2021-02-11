@@ -1,6 +1,5 @@
 ---
 title: ToC Device
-permalink: /ToC_Device/
 ---
 
 ## Overview

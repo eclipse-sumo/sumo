@@ -1,6 +1,5 @@
 ---
 title: Tools/District
-permalink: /Tools/District/
 ---
 
 ## districts2poly.py

@@ -1,6 +1,5 @@
 ---
 title: Simulation/VehicleInsertion
-permalink: /Simulation/VehicleInsertion/
 ---
 
 # Loading

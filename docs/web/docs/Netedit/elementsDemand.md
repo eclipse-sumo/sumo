@@ -1,6 +1,5 @@
 ---
 title: netedit/elementsDemand
-permalink: /netedit/elementsDemand/
 ---
 
 # Demand elements

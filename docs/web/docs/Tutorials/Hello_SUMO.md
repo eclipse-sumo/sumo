@@ -1,6 +1,5 @@
 ---
 title: Tutorials/Hello SUMO
-permalink: /Tutorials/Hello_SUMO/
 ---
 
 !!! note
@@ -26,7 +25,7 @@ All nodes have a location (x- and y-coordinate, describing distance to
 the origin in meters) and an id for future reference. Thus our simple
 node file looks as follows
 
-```
+```xml
 <nodes>
     <node id="1" x="-250.0" y="0.0" />
     <node id="2" x="+250.0" y="0.0" />
@@ -46,7 +45,7 @@ future reference. Edges are directed, thus every vehicle travelling this
 edge will start at the node given in `from`
 and end at the node given in `to`.
 
-```
+```xml
 <edges>
     <edge from="1" id="1to2" to="2" />
     <edge from="2" id="out" to="3" />
@@ -83,7 +82,7 @@ vehicle and its type. See "[Definition of Vehicles, Vehicle Types, and
 Routes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)"
 for further information.
 
-```
+```xml
 <routes>
     <vType accel="1.0" decel="5.0" id="Car" length="2.0" maxSpeed="100.0" sigma="0.0" />
     <route id="route0" edges="1to2 out"/>
@@ -95,7 +94,7 @@ for further information.
 
 Now we glue everything together into a configuration file
 
-```
+```xml
 <configuration>
     <input>
         <net-file value="hello.net.xml"/>
@@ -124,7 +123,7 @@ When simulating with GUI it's useful to add a gui-settings file, so you
 don't have to change the settings after starting the program. To do so,
 alter `hello.sumocfg` to look like this
 
-```
+```xml
 <configuration>
     <input>
         <net-file value="hello.net.xml"/>
@@ -140,7 +139,7 @@ alter `hello.sumocfg` to look like this
 
 After that create a file with the viewsettings
 
-```
+```xml
 <viewsettings>
     <viewport y="0" x="250" zoom="100"/>
     <delay value="100"/>

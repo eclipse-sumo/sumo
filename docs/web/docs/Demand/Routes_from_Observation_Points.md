@@ -1,7 +1,7 @@
 ---
 title: Demand/Routes from Observation Points
-permalink: /Demand/Routes_from_Observation_Points/
 ---
+
 # Introduction
 Traffic counts are a common form of traffic data. This data may be available from automated counting devices such as induction loops or radar detectors or it may be obtained from manual counts. The counts apply to a specific time range and the data may cover multiple time slices. It is also possible to distinguish counts for different types of vehicles.
 

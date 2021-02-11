@@ -1,6 +1,5 @@
 ---
 title: Simulation/Why Vehicles are teleporting
-permalink: /Simulation/Why_Vehicles_are_teleporting/
 ---
 
 When running a simulation, one may encounter the following warning:

@@ -1,6 +1,5 @@
 ---
 title: Tutorials/SUMOlympics
-permalink: /Tutorials/SUMOlympics/
 ---
 
 This tutorial sets up a competition (a collective 100 meter sprint) for

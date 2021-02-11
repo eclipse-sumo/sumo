@@ -1,6 +1,5 @@
 ---
 title: Other/Projects
-permalink: /Other/Projects/
 ---
 
 ## At the DLR

@@ -1,6 +1,5 @@
 ---
 title: Networks/Import/ArcView
-permalink: /Networks/Import/ArcView/
 ---
 
 [netconvert](../../netconvert.md) is able to directly read binary

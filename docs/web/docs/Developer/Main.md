@@ -1,6 +1,5 @@
 ---
 title: Developer/Main
-permalink: /Developer/Main/
 ---
 
 # Developer Documentation

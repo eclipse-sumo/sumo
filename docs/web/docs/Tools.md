@@ -1,6 +1,5 @@
 ---
 title: Tools
-permalink: /Tools/
 ---
 
 Tools can be found in the SUMO-distribution under {{SUMO}}/tools. Most of

@@ -1,6 +1,5 @@
 ---
 title: Tutorials/Manhattan
-permalink: /Tutorials/Manhattan/
 ---
 
 # Introduction

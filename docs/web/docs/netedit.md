@@ -1,6 +1,5 @@
 ---
 title: netedit
-permalink: /netedit/
 ---
 
 # From 30.000 feet

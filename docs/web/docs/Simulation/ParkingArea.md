@@ -1,6 +1,5 @@
 ---
 title: Simulation/ParkingArea
-permalink: /Simulation/ParkingArea/
 ---
 
 # Parking Areas

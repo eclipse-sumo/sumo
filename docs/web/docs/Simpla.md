@@ -1,6 +1,5 @@
 ---
 title: Simpla
-permalink: /Simpla/
 ---
 
 !!! note

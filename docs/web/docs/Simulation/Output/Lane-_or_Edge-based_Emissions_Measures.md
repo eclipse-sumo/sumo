@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output/Lane- or Edge-based Emissions Measures
-permalink: /Simulation/Output/Lane-_or_Edge-based_Emissions_Measures/
 ---
 
 The edge/lane based vehicular emission output writes absolute and normed
@@ -22,7 +21,7 @@ population in the means of vehicle emission class distribution.
 
 An edge-based emissions output is defined way within an {{AdditionalFile}} as following:
 
-```
+```xml
 <edgeData id="<DETECTOR_ID>" type="emissions" freq="<FREQUENCY>" file="<OUTPUT_FILE>" [excludeEmpty="true"]/>
 ```
 
@@ -30,7 +29,7 @@ An edge-based emissions output is defined way within an {{AdditionalFile}} as fo
 
 A lane-based emissions output is defined way within an {{AdditionalFile}} as following:
 
-```
+```xml
 <laneData id="<DETECTOR_ID>" type="emissions" freq="<FREQUENCY>" file="<OUTPUT_FILE>" [excludeEmpty="true"]/>
 ```
 

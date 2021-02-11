@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output/RawDump
-permalink: /Simulation/Output/RawDump/
 ---
 
 The network dump (also called *netstate output* or *netstate dump*) was
@@ -22,7 +21,7 @@ your command line (or configuration) parameter by **--netstate-dump** {{DT_FILE}
 file](../../Basics/Using_the_Command_Line_Applications.md#configuration_files),
 e.g.:
 
-```
+```xml
 <output>
    <netstate-dump value="<FILE>" />
 </output>
@@ -38,7 +37,7 @@ of the network with every lane of this edge with all vehicles on this
 lane. For each vehicle, its name, speed and position on its respective
 lane are written. A raw dump-file looks like this:
 
-```
+```xml
 <netstate>
    <timestep time="<TIME_STEP>">
       <edge id="<EDGE_ID>">

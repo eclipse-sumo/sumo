@@ -1,6 +1,5 @@
 ---
 title: Tutorials/Plotting Cookbook
-permalink: /Tutorials/Plotting_Cookbook/
 ---
 
 In the following, You will find some examples for plotting results

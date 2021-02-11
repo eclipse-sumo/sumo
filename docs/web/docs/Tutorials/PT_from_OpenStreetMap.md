@@ -1,6 +1,5 @@
 ---
 title: Tutorials/PT from OpenStreetMap
-permalink: /Tutorials/PT_from_OpenStreetMap/
 ---
 
 # Introduction

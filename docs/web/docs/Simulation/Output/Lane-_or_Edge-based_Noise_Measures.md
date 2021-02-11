@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output/Lane- or Edge-based Noise Measures
-permalink: /Simulation/Output/Lane-_or_Edge-based_Noise_Measures/
 ---
 
 The edge/lane based noise output based on Harmonoise writes information
@@ -23,7 +22,7 @@ model](http://www.imagine-project.org/bestanden/D18_WP3_HAR32TR-040922-DGMR20.pd
 An edge-based noise emissions output is defined way within an additional
 file as following:
 
-```
+```xml
 <edgeData id="<DETECTOR_ID>" type="harmonoise" freq="<FREQUENCY>" file="<OUTPUT_FILE>" [excludeEmpty="true"]/>
 ```
 
@@ -32,7 +31,7 @@ file as following:
 An edge-based noise emissions output is defined way within an additional
 file as following:
 
-```
+```xml
 <laneData id="<DETECTOR_ID>" type="harmonoise" freq="<FREQUENCY>" file="<OUTPUT_FILE>" [excludeEmpty="true"]/>
 ```
 

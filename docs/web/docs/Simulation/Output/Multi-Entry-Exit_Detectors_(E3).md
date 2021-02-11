@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output/Multi-Entry-Exit Detectors (E3)
-permalink: /Simulation/Output/Multi-Entry-Exit_Detectors_(E3)/
 ---
 
 ## Instantiating within the Simulation
@@ -25,7 +24,7 @@ description consists of the following parts:
 
 The definition:
 
-```
+```xml
 <additional>
    <entryExitDetector id="<ID>" freq="<AGGREGATION_TIME>" file="<OUTPUT_XMLFILE>" 
    timeThreshold="<FLOAT>" speedThreshold="<FLOAT>">

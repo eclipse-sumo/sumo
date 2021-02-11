@@ -1,6 +1,5 @@
 ---
 title: Z/Changes from version 0.8.0.1 to version 0.8.0.2
-permalink: /Z/Changes_from_version_0.8.0.1_to_version_0.8.0.2/
 ---
 
 User-relevant changes:

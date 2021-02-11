@@ -1,6 +1,5 @@
 ---
 title: Other/File Extensions
-permalink: /Other/File_Extensions/
 ---
 
 ## Native SUMO Files

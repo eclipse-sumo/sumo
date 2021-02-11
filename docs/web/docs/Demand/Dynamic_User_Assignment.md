@@ -1,6 +1,5 @@
 ---
 title: Demand/Dynamic User Assignment
-permalink: /Demand/Dynamic_User_Assignment/
 ---
 
 # Introduction

@@ -1,6 +1,5 @@
 ---
 title: Tutorials/Autobahn
-permalink: /Tutorials/Autobahn/
 ---
 
 This tutorial covers the very basic elements for creating heterogeneous

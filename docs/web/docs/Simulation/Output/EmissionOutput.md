@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output/EmissionOutput
-permalink: /Simulation/Output/EmissionOutput/
 ---
 
 The reason for this output option is the possibility of SUMO to

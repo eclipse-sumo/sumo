@@ -1,6 +1,5 @@
 ---
 title: Developer/Docker
-permalink: /Developer/Docker/
 ---
 
 ## Dockerised SUMO

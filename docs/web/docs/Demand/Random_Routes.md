@@ -1,6 +1,5 @@
 ---
 title: Demand/Random Routes
-permalink: /Demand/Random_Routes/
 ---
 
 [duarouter](../duarouter.md) and [jtrrouter](../jtrrouter.md)

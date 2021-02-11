@@ -1,6 +1,5 @@
 ---
 title: Z/Changes from version 0.9.5 to version 0.9.6
-permalink: /Z/Changes_from_version_0.9.5_to_version_0.9.6/
 ---
 
 - polyconvert: possibility to prune the polygons to import on a

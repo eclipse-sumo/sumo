@@ -1,6 +1,5 @@
 ---
 title: Contributed/iTranSIM
-permalink: /Contributed/iTranSIM/
 ---
 
 ## Summary

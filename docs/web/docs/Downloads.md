@@ -1,6 +1,5 @@
 ---
 title: Downloads
-permalink: /Downloads/
 ---
 
 ## SUMO - Latest Release (Version {{Version}})

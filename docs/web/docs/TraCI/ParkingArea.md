@@ -1,7 +1,7 @@
 ---
 title: TraCI/ParkingArea
-permalink: /TraCI/ParkingArea/
 ---
+
 Asks for the value of a certain variable of the named ParkingArea.
 The value returned is the state of the asked variable/value within the
 last simulation step. Please note that for asking values from your

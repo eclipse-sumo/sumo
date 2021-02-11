@@ -1,6 +1,5 @@
 ---
 title: Basics/Computer Skills
-permalink: /Basics/Basic_Computer_Skills/
 ---
 
 # Introduction

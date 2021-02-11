@@ -1,6 +1,5 @@
 ---
 title: Simulation/Randomness
-permalink: /Simulation/Randomness/
 ---
 
 Stochasticity is an important aspect of reproducing reality in a

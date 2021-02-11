@@ -1,6 +1,5 @@
 ---
 title: Developer/Implementation Notes/Drawing in sumo-gui
-permalink: /Developer/Implementation_Notes/Drawing_in_sumo-gui/
 ---
 
 # Basic

@@ -1,6 +1,5 @@
 ---
 title: Simulation/Routing
-permalink: /Simulation/Routing/
 ---
 
 # Features that cause rerouting

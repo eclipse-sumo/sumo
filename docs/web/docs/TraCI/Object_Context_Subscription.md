@@ -1,6 +1,5 @@
 ---
 title: TraCI/Object Context Subscription
-permalink: /TraCI/Object_Context_Subscription/
 ---
 
 # Introduction

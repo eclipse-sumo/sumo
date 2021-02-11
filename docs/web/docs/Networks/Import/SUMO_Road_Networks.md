@@ -1,6 +1,5 @@
 ---
 title: Networks/Import/SUMO Road Networks
-permalink: /Networks/Import/SUMO_Road_Networks/
 ---
 
 [netconvert](../../netconvert.md) allows a round-trip reimport of

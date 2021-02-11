@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output/AmitranOutput
-permalink: /Simulation/Output/AmitranOutput/
 ---
 
 The Amitran trajectories output contains information about type, current

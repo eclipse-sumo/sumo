@@ -1,6 +1,5 @@
 ---
 title: TraCI/Object Variable Subscription
-permalink: /TraCI/Object_Variable_Subscription/
 ---
 
 # Introduction

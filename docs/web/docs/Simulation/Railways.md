@@ -1,6 +1,5 @@
 ---
 title: Simulation/Railways
-permalink: /Simulation/Railways/
 ---
 
 # Train Simulation

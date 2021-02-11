@@ -1,6 +1,5 @@
 ---
 title: TraCI/Control-related commands
-permalink: /TraCI/Control-related_commands/
 ---
 
 # Control-related commands

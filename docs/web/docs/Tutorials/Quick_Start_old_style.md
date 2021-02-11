@@ -1,6 +1,5 @@
 ---
 title: Tutorials/Quick Start old style
-permalink: /Tutorials/Quick_Start_old_style/
 ---
 
 This tutorial covers a basic application and essential functions of SUMO

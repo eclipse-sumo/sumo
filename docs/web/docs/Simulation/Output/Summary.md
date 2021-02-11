@@ -1,6 +1,5 @@
 ---
 title: Simulation/Output/Summary
-permalink: /Simulation/Output/Summary/
 ---
 
 This output contains the simulation-wide number of vehicles that are
@@ -18,7 +17,7 @@ You can force the simulation to generate this output using **--summary** {{DT_FI
 The information containing all those values is computed for each time
 step and the output file looks like following:
 
-```
+```xml
 <summary>
     <step time="<SIMULATION_TIME>" \
             loaded="<LOADED_VEHICLE_NUMBER>" \

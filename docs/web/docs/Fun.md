@@ -1,6 +1,5 @@
 ---
 title: Fun
-permalink: /Fun/
 ---
 
 # SUMO Song (German)

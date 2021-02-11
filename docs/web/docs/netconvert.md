@@ -1,6 +1,5 @@
 ---
 title: netconvert
-permalink: /netconvert/
 ---
 
 # From 30.000 feet
