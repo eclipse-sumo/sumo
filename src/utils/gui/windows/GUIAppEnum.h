@@ -641,7 +641,7 @@ enum {
     /// @{
 
     /// @brief show grid
-    MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID,
+    MID_GNE_NETWORKVIEWOPTIONS_TOOGLEGRID,
     /// @brief Draw vehicles in begin position or spread in lane
     MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES,
     /// @brief show demand elements

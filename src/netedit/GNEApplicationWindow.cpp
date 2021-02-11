@@ -174,8 +174,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Y_REDO,                         GNEApplicationWindow::onCmdRedo),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_Y_REDO,                         GNEApplicationWindow::onUpdRedo),
     // Network view options
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID,             GNEApplicationWindow::onCmdToogleViewOption),
-    FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID,             GNEApplicationWindow::onUpdToogleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_TOOGLEGRID,           GNEApplicationWindow::onCmdToogleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_TOOGLEGRID,           GNEApplicationWindow::onUpdToogleViewOption),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES,   GNEApplicationWindow::onCmdToogleViewOption),
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES,   GNEApplicationWindow::onUpdToogleViewOption),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS,   GNEApplicationWindow::onCmdToogleViewOption),
@@ -2257,7 +2257,7 @@ GNEApplicationWindow::onCmdToogleViewOption(FXObject* obj, FXSelector sel, void*
     if (myViewNet) {
         // continue depending of selector
         switch (FXSELID(sel)) {
-            case MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID:
+            case MID_GNE_NETWORKVIEWOPTIONS_TOOGLEGRID:
                 return myViewNet->onCmdToogleShowGrid(obj, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES:
                 return myViewNet->onCmdToogleDrawSpreadVehicles(obj, sel, ptr);
@@ -2316,8 +2316,8 @@ GNEApplicationWindow::onUpdToogleViewOption(FXObject* obj, FXSelector sel, void*
     if (myViewNet && menuCheck) {
         // continue depending of selector
         switch (FXSELID(sel)) {
-            case MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID:
-                if (myViewNet->getNetworkViewOptions().menuCheckShowGrid->amChecked()) {
+            case MID_GNE_NETWORKVIEWOPTIONS_TOOGLEGRID:
+                if (myViewNet->getNetworkViewOptions().menuCheckToogleGrid->amChecked()) {
                     menuCheck->setCheck(TRUE);
                 } else {
                     menuCheck->setCheck(FALSE);
@@ -2402,7 +2402,7 @@ GNEApplicationWindow::onUpdToogleViewOption(FXObject* obj, FXSelector sel, void*
                 }
                 break;
             case MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID:
-                if (myViewNet->getDemandViewOptions().menuCheckShowGrid->amChecked()) {
+                if (myViewNet->getDemandViewOptions().menuCheckToogleGrid->amChecked()) {
                     menuCheck->setCheck(TRUE);
                 } else {
                     menuCheck->setCheck(FALSE);

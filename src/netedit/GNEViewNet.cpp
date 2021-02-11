@@ -94,7 +94,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_V_MODES_VEHICLE,                      GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_MODES_PROHIBITION_PERSONTYPE,       GNEViewNet::onCmdSetMode),
     // Network view options
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID,             GNEViewNet::onCmdToogleShowGrid),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_TOOGLEGRID,           GNEViewNet::onCmdToogleShowGrid),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES,   GNEViewNet::onCmdToogleDrawSpreadVehicles),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS,   GNEViewNet::onCmdToogleShowDemandElementsNetwork),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES,          GNEViewNet::onCmdToogleSelectEdges),
@@ -755,14 +755,14 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         // depending of the visualizationSettings, enable or disable check box show grid
         if (myVisualizationSettings->showGrid) {
             // change show grid
-            if (!myNetworkViewOptions.menuCheckShowGrid->amChecked() ||
-                    !myDemandViewOptions.menuCheckShowGrid->amChecked()) {
+            if (!myNetworkViewOptions.menuCheckToogleGrid->amChecked() ||
+                    !myDemandViewOptions.menuCheckToogleGrid->amChecked()) {
                 // change to true
-                myNetworkViewOptions.menuCheckShowGrid->setChecked(true);
-                myDemandViewOptions.menuCheckShowGrid->setChecked(true);
+                myNetworkViewOptions.menuCheckToogleGrid->setChecked(true);
+                myDemandViewOptions.menuCheckToogleGrid->setChecked(true);
                 // update show grid buttons
-                myNetworkViewOptions.menuCheckShowGrid->update();
-                myNetworkViewOptions.menuCheckShowGrid->update();
+                myNetworkViewOptions.menuCheckToogleGrid->update();
+                myNetworkViewOptions.menuCheckToogleGrid->update();
             }
             // draw grid only in network and demand mode
             if (myEditModes.isCurrentSupermodeNetwork() || myEditModes.isCurrentSupermodeDemand()) {
@@ -770,14 +770,14 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             }
         } else {
             // change show grid
-            if (myNetworkViewOptions.menuCheckShowGrid->amChecked() ||
-                    myDemandViewOptions.menuCheckShowGrid->amChecked()) {
+            if (myNetworkViewOptions.menuCheckToogleGrid->amChecked() ||
+                    myDemandViewOptions.menuCheckToogleGrid->amChecked()) {
                 // change to false
-                myNetworkViewOptions.menuCheckShowGrid->setChecked(false);
-                myDemandViewOptions.menuCheckShowGrid->setChecked(false);
+                myNetworkViewOptions.menuCheckToogleGrid->setChecked(false);
+                myDemandViewOptions.menuCheckToogleGrid->setChecked(false);
                 // update show grid buttons
-                myNetworkViewOptions.menuCheckShowGrid->update();
-                myNetworkViewOptions.menuCheckShowGrid->update();
+                myNetworkViewOptions.menuCheckToogleGrid->update();
+                myNetworkViewOptions.menuCheckToogleGrid->update();
             }
         }
         // update show connections
@@ -2904,25 +2904,25 @@ GNEViewNet::onCmdToogleChangeAllPhases(FXObject*, FXSelector sel, void*) {
 
 long
 GNEViewNet::onCmdToogleShowGrid(FXObject*, FXSelector sel, void*) {
-    // show or hidde grid depending of myNetworkViewOptions.menuCheckShowGrid
+    // show or hidde grid depending of myNetworkViewOptions.menuCheckToogleGrid
     if (myVisualizationSettings->showGrid) {
         myVisualizationSettings->showGrid = false;
-        myNetworkViewOptions.menuCheckShowGrid->setChecked(false);
-        myDemandViewOptions.menuCheckShowGrid->setChecked(false);
+        myNetworkViewOptions.menuCheckToogleGrid->setChecked(false);
+        myDemandViewOptions.menuCheckToogleGrid->setChecked(false);
     } else {
         myVisualizationSettings->showGrid = true;
-        myNetworkViewOptions.menuCheckShowGrid->setChecked(true);
-        myDemandViewOptions.menuCheckShowGrid->setChecked(true);
+        myNetworkViewOptions.menuCheckToogleGrid->setChecked(true);
+        myDemandViewOptions.menuCheckToogleGrid->setChecked(true);
     }
-    myNetworkViewOptions.menuCheckShowGrid->update();
-    myDemandViewOptions.menuCheckShowGrid->update();
+    myNetworkViewOptions.menuCheckToogleGrid->update();
+    myDemandViewOptions.menuCheckToogleGrid->update();
     // update view to show grid
     updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
-    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID)) {
-        myNetworkViewOptions.menuCheckShowGrid->setFocus();
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_TOOGLEGRID)) {
+        myNetworkViewOptions.menuCheckToogleGrid->setFocus();
     } else if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID)) {
-        myDemandViewOptions.menuCheckShowGrid->setFocus();
+        myDemandViewOptions.menuCheckToogleGrid->setFocus();
     }
     return 1;
 }
@@ -3443,10 +3443,10 @@ GNEViewNet::updateNetworkModeSpecificControls() {
     myViewParent->getGNEAppWindows()->getEditMenuCommands().demandViewOptions.hideDemandViewOptionsMenuChecks();
     myViewParent->getGNEAppWindows()->getEditMenuCommands().dataViewOptions.hideDataViewOptionsMenuChecks();
     // In network mode, always show option "show grid", "draw spread vehicles" and "show demand elements"
-    myNetworkViewOptions.menuCheckShowGrid->show();
+    myNetworkViewOptions.menuCheckToogleGrid->show();
     myNetworkViewOptions.menuCheckDrawSpreadVehicles->show();
     myNetworkViewOptions.menuCheckShowDemandElements->show();
-    menuChecks.menuCheckShowGrid->show();
+    menuChecks.menuCheckToogleGrid->show();
     menuChecks.menuCheckDrawSpreadVehicles->show();
     menuChecks.menuCheckShowDemandElements->show();
     // show separator
@@ -3607,10 +3607,10 @@ GNEViewNet::updateDemandModeSpecificControls() {
     myViewParent->getGNEAppWindows()->getEditMenuCommands().demandViewOptions.hideDemandViewOptionsMenuChecks();
     myViewParent->getGNEAppWindows()->getEditMenuCommands().dataViewOptions.hideDataViewOptionsMenuChecks();
     // always show "hide shapes", "show grid" and "draw spread vehicles"
-    myDemandViewOptions.menuCheckShowGrid->show();
+    myDemandViewOptions.menuCheckToogleGrid->show();
     myDemandViewOptions.menuCheckDrawSpreadVehicles->show();
     myDemandViewOptions.menuCheckHideShapes->show();
-    menuChecks.menuCheckShowGrid->show();
+    menuChecks.menuCheckToogleGrid->show();
     menuChecks.menuCheckDrawSpreadVehicles->show();
     menuChecks.menuCheckHideShapes->show();
     // show separator

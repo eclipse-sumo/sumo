@@ -527,7 +527,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::buildModesMenuCommands(FXMenuPane
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::NetworkViewOptions(GNEApplicationWindow* GNEApp) :
-    menuCheckShowGrid(nullptr),
+    menuCheckToogleGrid(nullptr),
     menuCheckDrawSpreadVehicles(nullptr),
     menuCheckShowDemandElements(nullptr),
     menuCheckSelectEdges(nullptr),
@@ -548,68 +548,68 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::NetworkViewOpt
 void
 GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::buildNetworkViewOptionsMenuChecks(FXMenuPane* editMenu) {
     // create menu checks
-    menuCheckShowGrid = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Show grid", "",
-        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_GRID),
-        myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID);
+    menuCheckToogleGrid = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+        "Toogle grid", "Ctrl+G", "",
+        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOOGLEGRID),
+        myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_TOOGLEGRID);
 
     menuCheckDrawSpreadVehicles = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Draw vehicles spread in lane or in depart position", "",
+        "Draw vehicles spread in lane or in depart position", "", "",
         GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SPREADVEHICLE),
         myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES);
 
     menuCheckShowDemandElements = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Toggle show demand elements", "",
+        "Toggle show demand elements", "", "",
         GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SHOWDEMANDELEMENTS),
         myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS);
 
     menuCheckSelectEdges = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Clicking should select edges or lanes", "",
+        "Clicking should select edges or lanes", "", "",
         GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_SELECTEDGES),
         myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES);
 
     menuCheckShowConnections = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Toggle show connections over junctions", "",
+        "Toggle show connections over junctions", "", "",
         GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_SHOWCONNECTIONS),
         myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS);
 
     menuCheckHideConnections = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Hide connections", "",
+        "Hide connections", "", "",
         GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_HIDECONNECTIONS),
         myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS);
 
     menuCheckExtendSelection = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Selecting multiple edges automatically select their junctions", "",
+        "Selecting multiple edges automatically select their junctions", "", "",
         GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_AUTOSELECTJUNCTIONS),
         myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION);
 
     menuCheckChangeAllPhases = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Clicking should apply state changes to all phases of TLS plan", "",
+        "Clicking should apply state changes to all phases of TLS plan", "", "",
         GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_APPLYTOALLPHASES),
         myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES);
 
     menuCheckWarnAboutMerge = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Ask for confirmation before merging junction.", "",
+        "Ask for confirmation before merging junction.", "", "",
         GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_ASKFORMERGE),
         myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE);
 
     menuCheckShowJunctionBubble = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Show bubbles over junction's shapes.", "",
+        "Show bubbles over junction's shapes.", "", "",
         GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_BUBBLES),
         myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES);
 
     menuCheckMoveElevation = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Apply mouse movement to elevation", "",
+        "Apply mouse movement to elevation", "", "",
         GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_ELEVATION),
         myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION);
 
     menuCheckChainEdges = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Create consecutive edges", "",
+        "Create consecutive edges", "", "",
         GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_CHAIN),
         myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES);
 
     menuCheckAutoOppositeEdge = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Create an edge in the opposite direction", "",
+        "Create an edge in the opposite direction", "", "",
         GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_TWOWAY),
         myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES);
 
@@ -620,7 +620,7 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::buildNetworkVi
 
 void
 GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::hideNetworkViewOptionsMenuChecks() {
-    menuCheckShowGrid->hide();
+    menuCheckToogleGrid->hide();
     menuCheckDrawSpreadVehicles->hide();
     menuCheckShowDemandElements->hide();
     menuCheckSelectEdges->hide();
@@ -641,7 +641,7 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::hideNetworkVie
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::DemandViewOptions(GNEApplicationWindow* GNEApp) :
-    menuCheckShowGrid(nullptr),
+    menuCheckToogleGrid(nullptr),
     menuCheckDrawSpreadVehicles(nullptr),
     menuCheckHideShapes(nullptr),
     menuCheckHideNonInspectedDemandElements(nullptr),
@@ -655,33 +655,33 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::DemandViewOptio
 void
 GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::buildDemandViewOptionsMenuChecks(FXMenuPane* editMenu) {
     // create menu checks
-    menuCheckShowGrid = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Show grid", "",
-        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_GRID),
+    menuCheckToogleGrid = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+        "Toogle grid", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOOGLEGRID),
         myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID);
 
     menuCheckDrawSpreadVehicles = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Draw vehicles spread/depart position", "",
+        "Draw vehicles spread/depart position", "", "",
         GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SPREADVEHICLE),
         myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES);
 
     menuCheckHideShapes = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Toggle show shapes", "",
+        "Toggle show shapes", "", "",
         GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDESHAPES),
         myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES);
 
     menuCheckHideNonInspectedDemandElements = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Toggle show non-inspected demand elements", "",
+        "Toggle show non-inspected demand elements", "", "",
         GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS),
         myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED);
 
     menuCheckShowAllPersonPlans = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Show all person plans", "",
+        "Show all person plans", "", "",
         GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWPERSONPLANS),
         myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS);
 
     menuCheckLockPerson = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Lock selected person", "",
+        "Lock selected person", "", "",
         GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_LOCKPERSON),
         myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON);
 
@@ -692,7 +692,7 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::buildDemandView
 
 void
 GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::hideDemandViewOptionsMenuChecks() {
-    menuCheckShowGrid->hide();
+    menuCheckToogleGrid->hide();
     menuCheckDrawSpreadVehicles->hide();
     menuCheckHideShapes->hide();
     menuCheckHideNonInspectedDemandElements->hide();
@@ -718,17 +718,17 @@ void
 GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::buildDataViewOptionsMenuChecks(FXMenuPane* editMenu) {
     // create menu checks
     menuCheckShowAdditionals = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Toggle show additionals", "",
+        "Toggle show additionals", "", "",
         GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_SHOWADDITIONALS),
         myGNEApp, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS);
 
     menuCheckShowShapes = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Toggle show shapes", "",
+        "Toggle show shapes", "", "",
         GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_SHOWSHAPES),
         myGNEApp, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES);
 
     menuCheckShowDemandElements = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Toggle show demand elements", "",
+        "Toggle show demand elements", "", "",
         GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SHOWDEMANDELEMENTS),
         myGNEApp, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS);
 
@@ -757,7 +757,6 @@ GNEApplicationWindowHelper::EditMenuCommands::EditMenuCommands(GNEApplicationWin
     dataViewOptions(GNEApp),
     editViewScheme(nullptr),
     editViewPort(nullptr),
-    toogleGrid(nullptr),
     clearFrontElement(nullptr),
     loadAdditionalsInSUMOGUI(nullptr),
     loadDemandInSUMOGUI(nullptr),
@@ -787,9 +786,6 @@ GNEApplicationWindowHelper::EditMenuCommands::buildViewMenuCommands(FXMenuPane* 
     editViewPort = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
         "Edit Viewport", "Ctrl+I", "Opens a dialog for editing viewing are, zoom and rotation.",
         GUIIconSubSys::getIcon(GUIIcon::EDITVIEWPORT), myGNEApp, MID_HOTKEY_CTRL_I_EDITVIEWPORT);
-    toogleGrid = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
-        "Toggle Grid", "Ctrl+G", "Toggles background grid (and snap-to-grid functionality).",
-        GUIIconSubSys::getIcon(GUIIcon::GRID), myGNEApp, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID);
 }
 
 
@@ -1068,9 +1064,9 @@ GNEApplicationWindowHelper::SupermodeCommands::buildSupermodeCommands(FXMenuPane
 bool
 GNEApplicationWindowHelper::toogleEditOptionsNetwork(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck, const int numericalKeyPressed, FXObject* obj, FXSelector sel) {
     // finally function correspond to visibleMenuCommands[numericalKeyPressed]
-    if (menuCheck == viewNet->getNetworkViewOptions().menuCheckShowGrid) {
-        // Toogle menuCheckShowGrid
-        if (viewNet->getNetworkViewOptions().menuCheckShowGrid->amChecked() == TRUE) {
+    if (menuCheck == viewNet->getNetworkViewOptions().menuCheckToogleGrid) {
+        // Toogle menuCheckToogleGrid
+        if (viewNet->getNetworkViewOptions().menuCheckToogleGrid->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled toogle show grid throught alt + " + toString(numericalKeyPressed + 1));
         } else {
@@ -1220,9 +1216,9 @@ GNEApplicationWindowHelper::toogleEditOptionsNetwork(GNEViewNet* viewNet, const 
 
 bool
 GNEApplicationWindowHelper::toogleEditOptionsDemand(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck, const int numericalKeyPressed, FXObject* obj, FXSelector sel) {
-    if (menuCheck == viewNet->getDemandViewOptions().menuCheckShowGrid) {
-        // Toogle menuCheckShowGrid
-        if (viewNet->getDemandViewOptions().menuCheckShowGrid->amChecked() == TRUE) {
+    if (menuCheck == viewNet->getDemandViewOptions().menuCheckToogleGrid) {
+        // Toogle menuCheckToogleGrid
+        if (viewNet->getDemandViewOptions().menuCheckToogleGrid->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled toogle show grid throught alt + " + toString(numericalKeyPressed + 1));
         } else {

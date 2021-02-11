@@ -72,9 +72,9 @@ GUIDesigns::buildFXMenuCheckbox(FXComposite* p, const std::string& text, const s
 
 
 FXMenuCheckIcon*
-GUIDesigns::buildFXMenuCheckboxIcon(FXComposite* p, const std::string& text, const std::string& info, FXIcon* icon, FXObject* tgt, FXSelector sel) {
+GUIDesigns::buildFXMenuCheckboxIcon(FXComposite* p, const std::string& text, const std::string& shortcut, const std::string& info, FXIcon* icon, FXObject* tgt, FXSelector sel) {
     // build menu checkbox
-    FXMenuCheckIcon* menuCheck = new FXMenuCheckIcon(p, (text + "\t\t" + info).c_str(), icon, tgt, sel, LAYOUT_FIX_HEIGHT);
+    FXMenuCheckIcon* menuCheck = new FXMenuCheckIcon(p, (text + "\t" + shortcut + "\t" + info).c_str(), icon, tgt, sel, LAYOUT_FIX_HEIGHT);
     // set height (to avoid problems between Windows und Linux)
     menuCheck->setHeight(GUIDesignHeight);
     // return menuCommand

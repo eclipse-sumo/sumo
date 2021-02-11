@@ -1968,7 +1968,7 @@ GNEViewNetHelper::EditModes::isCurrentSupermodeData() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::NetworkViewOptions::NetworkViewOptions(GNEViewNet* viewNet) :
-    menuCheckShowGrid(nullptr),
+    menuCheckToogleGrid(nullptr),
     menuCheckDrawSpreadVehicles(nullptr),
     menuCheckShowDemandElements(nullptr),
     menuCheckSelectEdges(nullptr),
@@ -1988,12 +1988,12 @@ GNEViewNetHelper::NetworkViewOptions::NetworkViewOptions(GNEViewNet* viewNet) :
 void
 GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
     // create menu checks
-    menuCheckShowGrid = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+    menuCheckToogleGrid = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             ("\t\tShow grid and restrict movement to the grid - define grid size in visualization options (Ctrl+G)"),
-            GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_GRID),
-            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID, GUIDesignMFXCheckableButton);
-    menuCheckShowGrid->setChecked(false);
-    menuCheckShowGrid->create();
+            GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOOGLEGRID),
+            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_TOOGLEGRID, GUIDesignMFXCheckableButton);
+    menuCheckToogleGrid->setChecked(false);
+    menuCheckToogleGrid->create();
 
     menuCheckDrawSpreadVehicles = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             ("\t\tDraw vehicles spread in lane or in depart position"),
@@ -2086,7 +2086,7 @@ GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
 
 void
 GNEViewNetHelper::NetworkViewOptions::hideNetworkViewOptionsMenuChecks() {
-    menuCheckShowGrid->hide();
+    menuCheckToogleGrid->hide();
     menuCheckDrawSpreadVehicles->hide();
     menuCheckShowDemandElements->hide();
     menuCheckSelectEdges->hide();
@@ -2107,8 +2107,8 @@ GNEViewNetHelper::NetworkViewOptions::hideNetworkViewOptionsMenuChecks() {
 void
 GNEViewNetHelper::NetworkViewOptions::getVisibleNetworkMenuCommands(std::vector<MFXCheckableButton*>& commands) const {
     // save visible menu commands in commands vector
-    if (menuCheckShowGrid->shown()) {
-        commands.push_back(menuCheckShowGrid);
+    if (menuCheckToogleGrid->shown()) {
+        commands.push_back(menuCheckToogleGrid);
     }
     if (menuCheckDrawSpreadVehicles->shown()) {
         commands.push_back(menuCheckDrawSpreadVehicles);
@@ -2206,7 +2206,7 @@ GNEViewNetHelper::NetworkViewOptions::editingElevation() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::DemandViewOptions::DemandViewOptions(GNEViewNet* viewNet) :
-    menuCheckShowGrid(nullptr),
+    menuCheckToogleGrid(nullptr),
     menuCheckDrawSpreadVehicles(nullptr),
     menuCheckHideShapes(nullptr),
     menuCheckHideNonInspectedDemandElements(nullptr),
@@ -2220,12 +2220,12 @@ GNEViewNetHelper::DemandViewOptions::DemandViewOptions(GNEViewNet* viewNet) :
 void
 GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
     // create menu checks
-    menuCheckShowGrid = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+    menuCheckToogleGrid = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             ("\t\tShow grid and restrict movement to the grid - define grid size in visualization options (Ctrl+G)"),
-            GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_GRID),
+            GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOOGLEGRID),
             myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID, GUIDesignMFXCheckableButton);
-    menuCheckShowGrid->setChecked(false);
-    menuCheckShowGrid->create();
+    menuCheckToogleGrid->setChecked(false);
+    menuCheckToogleGrid->create();
 
     menuCheckDrawSpreadVehicles = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             ("\t\tDraw vehicles spread in lane or in depart position"),
@@ -2269,7 +2269,7 @@ GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
 
 void
 GNEViewNetHelper::DemandViewOptions::hideDemandViewOptionsMenuChecks() {
-    menuCheckShowGrid->hide();
+    menuCheckToogleGrid->hide();
     menuCheckDrawSpreadVehicles->hide();
     menuCheckHideShapes->hide();
     menuCheckHideNonInspectedDemandElements->hide();
@@ -2283,8 +2283,8 @@ GNEViewNetHelper::DemandViewOptions::hideDemandViewOptionsMenuChecks() {
 void
 GNEViewNetHelper::DemandViewOptions::getVisibleDemandMenuCommands(std::vector<MFXCheckableButton*>& commands) const {
     // save visible menu commands in commands vector
-    if (menuCheckShowGrid->shown()) {
-        commands.push_back(menuCheckShowGrid);
+    if (menuCheckToogleGrid->shown()) {
+        commands.push_back(menuCheckToogleGrid);
     }
     if (menuCheckDrawSpreadVehicles->shown()) {
         commands.push_back(menuCheckDrawSpreadVehicles);

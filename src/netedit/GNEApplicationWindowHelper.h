@@ -379,7 +379,7 @@ struct GNEApplicationWindowHelper {
             void hideNetworkViewOptionsMenuChecks();
 
             /// @brief menu check to show grid button
-            FXMenuCheckIcon* menuCheckShowGrid;
+            FXMenuCheckIcon* menuCheckToogleGrid;
 
             /// @brief menu check to draw vehicles in begin position or spread in lane
             FXMenuCheckIcon* menuCheckDrawSpreadVehicles;
@@ -444,7 +444,7 @@ struct GNEApplicationWindowHelper {
             void hideDemandViewOptionsMenuChecks();
 
             /// @brief menu check to show grid button
-            FXMenuCheckIcon* menuCheckShowGrid;
+            FXMenuCheckIcon* menuCheckToogleGrid;
 
             /// @brief menu check to draw vehicles in begin position or spread in lane
             FXMenuCheckIcon* menuCheckDrawSpreadVehicles;
@@ -545,9 +545,6 @@ struct GNEApplicationWindowHelper {
 
         /// @brief FXMenuCommand for edit view port
         FXMenuCommand* editViewPort;
-
-        /// @brief FXMenuCommand for toogle grid
-        FXMenuCommand* toogleGrid;
 
         /// @brief FXMenuCommand for clear Front element
         FXMenuCommand* clearFrontElement;
