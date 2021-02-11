@@ -640,6 +640,14 @@ GNEAttributeCarrier::getAllowedTagsByCategory(const int tagPropertyCategory, con
             }
         }
     }
+    if (tagPropertyCategory & GNETagProperties::SYMBOL) {
+        // fill symbol tags
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isSymbol()) {
+                allowedTags.push_back(std::make_pair(tagProperty.first, toString(tagProperty.first)));
+            }
+        }
+    }
     if (tagPropertyCategory & GNETagProperties::SHAPE) {
         // fill shape tags
         for (const auto& tagProperty : myTagProperties) {
