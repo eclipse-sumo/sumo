@@ -3449,6 +3449,8 @@ GNEViewNet::updateNetworkModeSpecificControls() {
     menuChecks.menuCheckShowGrid->show();
     menuChecks.menuCheckDrawSpreadVehicles->show();
     menuChecks.menuCheckShowDemandElements->show();
+    // show separator
+    menuChecks.separator->show();
     // enable selected controls
     switch (myEditModes.networkEditMode) {
         // common modes
@@ -3611,6 +3613,8 @@ GNEViewNet::updateDemandModeSpecificControls() {
     menuChecks.menuCheckShowGrid->show();
     menuChecks.menuCheckDrawSpreadVehicles->show();
     menuChecks.menuCheckHideShapes->show();
+    // show separator
+    menuChecks.separator->show();
     // enable selected controls
     switch (myEditModes.demandEditMode) {
         // common modes
@@ -3806,6 +3810,8 @@ GNEViewNet::updateDataModeSpecificControls() {
     menuChecks.menuCheckShowAdditionals->show();
     menuChecks.menuCheckShowShapes->show();
     menuChecks.menuCheckShowDemandElements->show();
+    // show separator
+    menuChecks.separator->show();
     // enable selected controls
     switch (myEditModes.dataEditMode) {
         // common modes

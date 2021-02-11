@@ -540,6 +540,7 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::NetworkViewOpt
     menuCheckMoveElevation(nullptr),
     menuCheckChainEdges(nullptr),
     menuCheckAutoOppositeEdge(nullptr),
+    separator(nullptr),
     myGNEApp(GNEApp) {
 }
 
@@ -611,6 +612,9 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::buildNetworkVi
         "Create an edge in the opposite direction", "",
         GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_TWOWAY),
         myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES);
+
+    // build separator
+    separator = new FXMenuSeparator(editMenu);
 }
 
 
@@ -629,6 +633,7 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::hideNetworkVie
     menuCheckMoveElevation->hide();
     menuCheckChainEdges->hide();
     menuCheckAutoOppositeEdge->hide();
+    separator->hide();
 }
 
 // ---------------------------------------------------------------------------
@@ -642,6 +647,7 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::DemandViewOptio
     menuCheckHideNonInspectedDemandElements(nullptr),
     menuCheckShowAllPersonPlans(nullptr),
     menuCheckLockPerson(nullptr),
+    separator(nullptr),
     myGNEApp(GNEApp) {
 }
 
@@ -678,6 +684,9 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::buildDemandView
         "Lock selected person", "",
         GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_LOCKPERSON),
         myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON);
+
+    // build separator
+    separator = new FXMenuSeparator(editMenu);
 }
 
 
@@ -689,6 +698,7 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::hideDemandViewO
     menuCheckHideNonInspectedDemandElements->hide();
     menuCheckShowAllPersonPlans->hide();
     menuCheckLockPerson->hide();
+    separator->hide();
 }
 
 // ---------------------------------------------------------------------------
@@ -699,6 +709,7 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::DataViewOptions(G
     menuCheckShowAdditionals(nullptr),
     menuCheckShowShapes(nullptr),
     menuCheckShowDemandElements(nullptr),
+    separator(nullptr),
     myGNEApp(GNEApp) {
 }
 
@@ -720,6 +731,9 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::buildDataViewOpti
         "Toggle show demand elements", "",
         GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SHOWDEMANDELEMENTS),
         myGNEApp, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS);
+
+    // build separator
+    separator = new FXMenuSeparator(editMenu);
 }
 
 
@@ -728,6 +742,7 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::hideDataViewOptio
     menuCheckShowAdditionals->hide();
     menuCheckShowShapes->hide();
     menuCheckShowDemandElements->hide();
+    separator->hide();
 }
 
 // ---------------------------------------------------------------------------

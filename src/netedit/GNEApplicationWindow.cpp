@@ -762,6 +762,10 @@ GNEApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
             myModesMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
             myModesMenuCommands.demandMenuCommands.hideDemandMenuCommands();
             myModesMenuCommands.dataMenuCommands.hideDataMenuCommands();
+            // hide view options
+            myEditMenuCommands.networkViewOptions.hideNetworkViewOptionsMenuChecks();
+            myEditMenuCommands.demandViewOptions.hideDemandViewOptionsMenuChecks();
+            myEditMenuCommands.dataViewOptions.hideDataViewOptionsMenuChecks();
         } else {
             // abort reloading (because "cancel button" was pressed)
             return 1;
@@ -785,6 +789,10 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
         myModesMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
         myModesMenuCommands.demandMenuCommands.hideDemandMenuCommands();
         myModesMenuCommands.dataMenuCommands.hideDataMenuCommands();
+        // hide view options
+        myEditMenuCommands.networkViewOptions.hideNetworkViewOptionsMenuChecks();
+        myEditMenuCommands.demandViewOptions.hideDemandViewOptionsMenuChecks();
+        myEditMenuCommands.dataViewOptions.hideDataViewOptionsMenuChecks();
     }
     return 1;
 }
@@ -1089,8 +1097,10 @@ GNEApplicationWindow::fillMenuBar() {
     myEditMenuCommands.networkViewOptions.buildNetworkViewOptionsMenuChecks(myEditMenu);
     myEditMenuCommands.demandViewOptions.buildDemandViewOptionsMenuChecks(myEditMenu);
     myEditMenuCommands.dataViewOptions.buildDataViewOptionsMenuChecks(myEditMenu);
-    // build separator
-    new FXMenuSeparator(myEditMenu);
+    // hide view options
+    myEditMenuCommands.networkViewOptions.hideNetworkViewOptionsMenuChecks();
+    myEditMenuCommands.demandViewOptions.hideDemandViewOptionsMenuChecks();
+    myEditMenuCommands.dataViewOptions.hideDataViewOptionsMenuChecks();
     // build view menu commands
     myEditMenuCommands.buildViewMenuCommands(myEditMenu);
     // build separator

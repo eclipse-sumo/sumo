@@ -417,6 +417,9 @@ struct GNEApplicationWindowHelper {
             /// @brief check checkable to create auto create opposite edge
             FXMenuCheckIcon* menuCheckAutoOppositeEdge;
 
+            /// @brief separator
+            FXMenuSeparator* separator;
+
         private:
             /// @brief pointer to current GNEApplicationWindows
             GNEApplicationWindow* myGNEApp;
@@ -458,6 +461,9 @@ struct GNEApplicationWindowHelper {
             /// @brief menu check for lock Person
             FXMenuCheckIcon* menuCheckLockPerson;
 
+            /// @brief separator
+            FXMenuSeparator* separator;
+
         private:
             /// @brief pointer to current GNEApplicationWindows
             GNEApplicationWindow* myGNEApp;
@@ -489,6 +495,9 @@ struct GNEApplicationWindowHelper {
 
             /// @brief menu check to show Demand Elements
             FXMenuCheckIcon* menuCheckShowDemandElements;
+
+            /// @brief separator
+            FXMenuSeparator* separator;
 
         private:
             /// @brief pointer to current GNEApplicationWindows
