@@ -44,19 +44,19 @@ netedit.changeDefaultBoolValue(5)
 netedit.changeDefaultValue(9, "%%$%$&$%$%$")
 
 # try to create polygon
-netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
+netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
 
 # change imgfile (inexistent)
 netedit.changeDefaultValue(9, "paris.ico")
 
 # try to create polygon
-netedit.createSquaredPoly(referencePosition, 200, 50, 100, True)
+netedit.createSquaredPoly(referencePosition, 282, 130, 200, True)
 
 # change imgfile (valid)
 netedit.changeDefaultValue(9, "berlin_icon.ico")
 
 # create polygon
-netedit.createSquaredPoly(referencePosition, 300, 50, 100, True)
+netedit.createSquaredPoly(referencePosition, 382, 130, 200, True)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

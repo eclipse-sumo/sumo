@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 16.10.2020 12:35:03 by Eclipse SUMO netedit Version v1_7_0+0629-16c73f8974
+<!-- generated on 11.02.2021 14:22:24 by Eclipse SUMO netedit Version v1_8_0+1126-1b9d3d35b1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\inspect\linewidth\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb141627.25860\netedit.gui\shapeElements\poly\inspect\linewidth\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\inspect\linewidth\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb141627.25860\netedit.gui\shapeElements\poly\inspect\linewidth\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,33 +30,33 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\inspect\linewidth\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\inspect\linewidth\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\inspect\linewidth\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\inspect\linewidth\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\inspect\linewidth\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\inspect\linewidth\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb141627.25860\netedit.gui\shapeElements\poly\inspect\linewidth\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb141627.25860\netedit.gui\shapeElements\poly\inspect\linewidth\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb141627.25860\netedit.gui\shapeElements\poly\inspect\linewidth\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb141627.25860\netedit.gui\shapeElements\poly\inspect\linewidth\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb141627.25860\netedit.gui\shapeElements\poly\inspect\linewidth\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb141627.25860\netedit.gui\shapeElements\poly\inspect\linewidth\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\inspect\linewidth\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb141627.25860\netedit.gui\shapeElements\poly\inspect\linewidth\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\inspect\linewidth\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb141627.25860\netedit.gui\shapeElements\poly\inspect\linewidth\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\inspect\linewidth\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb141627.25860\netedit.gui\shapeElements\poly\inspect\linewidth\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poly id="poly_0" color="red" fill="0" lineWidth="2.50" layer="128.00" shape="12.000000,8.000000 12.000000,18.000000 2.000000,18.000000 2.000000,8.000000 12.000000,8.000000"/>
+    <poly id="poly_0" color="red" fill="0" lineWidth="2.50" layer="128.00" shape="10.000000,10.000000 10.000000,20.000000 0.000000,20.000000 0.000000,10.000000 10.000000,10.000000"/>
 </additional>

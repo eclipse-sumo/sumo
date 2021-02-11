@@ -35,7 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # create close line polygon (area 0)
-netedit.createLinePoly(referencePosition, 500, 50, 100, 100, True)
+netedit.createLinePoly(referencePosition, 182, 130, 200, 200, True)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

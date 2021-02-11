@@ -35,13 +35,12 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # create first polygon
-netedit.createSquaredPoly(referencePosition, 200, 150, 200, True)
-
+netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first polygon
-netedit.leftClick(referencePosition, 108, 60)
+netedit.leftClick(referencePosition, 182, 130)
 
 # Change parameter 12 with a valid value
 netedit.modifyAttribute(12, "-13.00,8.00 -8.00,13.00 -13.00,18.00 -18.00,23.00 -23.00,18.00 " +

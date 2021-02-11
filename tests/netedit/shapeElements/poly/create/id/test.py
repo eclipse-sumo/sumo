@@ -35,31 +35,31 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # create polygon
-netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
+netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
 
 # enable ID
 netedit.changeDefaultBoolValue(2)
 
 # try to create polygon
-netedit.createSquaredPoly(referencePosition, 200, 50, 100, True)
+netedit.createSquaredPoly(referencePosition, 282, 130, 200, True)
 
 # set invalid ID
 netedit.changeDefaultValue(3, ";;;;;;")
 
 # try to create polygon
-netedit.createSquaredPoly(referencePosition, 300, 50, 100, True)
+netedit.createSquaredPoly(referencePosition, 382, 130, 200, True)
 
 # set invalid ID
 netedit.changeDefaultValue(3, "poly_0")
 
 # try to create polygon
-netedit.createSquaredPoly(referencePosition, 300, 50, 100, True)
+netedit.createSquaredPoly(referencePosition, 382, 130, 200, True)
 
 # set invalid ID
 netedit.changeDefaultValue(3, "custom_ID")
 
 # try to create polygon
-netedit.createSquaredPoly(referencePosition, 300, 50, 100, True)
+netedit.createSquaredPoly(referencePosition, 382, 130, 200, True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

@@ -9,12 +9,12 @@ Debug: Selected item 'poly' in TagSelector
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding poly 'poly_0' into viewNet
-GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -8.00,-2.00,22.00,28.00
+GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -10.00,0.00,20.00,30.00
 Error: Shape of a(n) user-supplied shape is broken: the position is neither x,y nor x,y,z.
 Debug: Value 'dummyShape' for attribute shape of poly isn't valid
 Debug: Value '' for attribute shape of poly isn't valid
 Debug: Setting new attribute shape '12.00,8.00' into poly 'poly_0'
-GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -8.00,-2.00,22.00,28.00
+GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -10.00,0.00,20.00,30.00
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 2.00,-2.00,22.00,18.00
 Debug: Setting new attribute shape '12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00 2.00,18.00 5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00' into poly 'poly_0'
 GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 2.00,-2.00,22.00,18.00
@@ -26,21 +26,21 @@ GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -8.00,-2.00
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 2.00,-2.00,22.00,18.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute shape '12.00,8.00 12.00,18.00 2.00,18.00 2.00,8.00 12.00,8.00' into poly 'poly_0'
+Debug: Setting previous attribute shape '10.00,10.00 10.00,20.00 0.00,20.00 0.00,10.00 10.00,10.00' into poly 'poly_0'
 GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 2.00,-2.00,22.00,18.00
-GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -8.00,-2.00,22.00,28.00
+GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -10.00,0.00,20.00,30.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poly 'poly_0' from viewNet
-GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -8.00,-2.00,22.00,28.00
+GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -10.00,0.00,20.00,30.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding poly 'poly_0' into viewNet
-GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -8.00,-2.00,22.00,28.00
+GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -10.00,0.00,20.00,30.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute shape '12.00,8.00' into poly 'poly_0'
-GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -8.00,-2.00,22.00,28.00
+GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -10.00,0.00,20.00,30.00
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 2.00,-2.00,22.00,18.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()

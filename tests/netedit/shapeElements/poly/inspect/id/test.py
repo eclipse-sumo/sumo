@@ -35,16 +35,16 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # create first polygon
-netedit.createSquaredPoly(referencePosition, 200, 150, 200, True)
+netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
 
 # create second polygon
-netedit.createSquaredPoly(referencePosition, 400, 150, 200, True)
+netedit.createSquaredTAZ(referencePosition, 382, 130, 200, True)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first polygon
-netedit.leftClick(referencePosition, 108, 60)
+netedit.leftClick(referencePosition, 182, 130)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
 netedit.modifyAttribute(0, "poly_1", False)

@@ -35,16 +35,16 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # create polygon
-netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
+netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete created polygon
-netedit.leftClick(referencePosition, 100, 50)
+netedit.leftClick(referencePosition, 182, 130)
 
 # try to delete second polygon (not possible due isn't fill)
-netedit.leftClick(referencePosition, 177, 45)
+netedit.leftClick(referencePosition, 177, 25)
 
 # delete loaded filled polygon
 netedit.leftClick(referencePosition, 275, 25)

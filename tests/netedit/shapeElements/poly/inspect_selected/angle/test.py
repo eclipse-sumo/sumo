@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.selectMode()
 
 # select first polygon
-netedit.leftClick(referencePosition, 100, 53)
+netedit.leftClick(referencePosition, 105, 53)
 
 # select second polygon
 netedit.leftClick(referencePosition, 300, 53)

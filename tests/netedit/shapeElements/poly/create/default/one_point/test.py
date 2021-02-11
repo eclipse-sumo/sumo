@@ -35,7 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # create one-point polygon (area 0)
-netedit.createRectangledPoly(referencePosition, 300, 50, 0, 0, True)
+netedit.createRectangledPoly(referencePosition, 182, 130, 0, 0, True)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)
