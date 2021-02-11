@@ -7,11 +7,11 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding taz 'taz_0' into viewNet
-GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -18.00,-12.00,32.00,38.00
+GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -20.00,-10.00,30.00,40.00
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding taz 'taz_1' into viewNet
-GLDebug: 	Inserted taz:taz_1 into SUMORTree with boundary 2.00,-12.00,52.00,38.00
+GLDebug: 	Inserted taz:taz_1 into SUMORTree with boundary 0.00,-10.00,50.00,40.00
 Debug: Value 'taz_1' for attribute id of taz isn't valid
 Debug: Value '' for attribute id of taz isn't valid
 Debug: Value 'ID with spaces' for attribute id of taz isn't valid
@@ -22,19 +22,19 @@ Debug: Setting previous attribute id 'taz_0' into taz 'newID'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing taz 'taz_1' from viewNet
-GLDebug: 	Removed object taz:taz_1 from SUMORTree with boundary 2.00,-12.00,52.00,38.00
+GLDebug: 	Removed object taz:taz_1 from SUMORTree with boundary 0.00,-10.00,50.00,40.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing taz 'taz_0' from viewNet
-GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -18.00,-12.00,32.00,38.00
+GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -20.00,-10.00,30.00,40.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding taz 'taz_0' into viewNet
-GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -18.00,-12.00,32.00,38.00
+GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -20.00,-10.00,30.00,40.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding taz 'taz_1' into viewNet
-GLDebug: 	Inserted taz:taz_1 into SUMORTree with boundary 2.00,-12.00,52.00,38.00
+GLDebug: 	Inserted taz:taz_1 into SUMORTree with boundary 0.00,-10.00,50.00,40.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute id 'newID' into taz 'taz_0'
@@ -54,10 +54,10 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing taz 'taz_1' from net in ~GNEChange_TAZElement()
-GLDebug: 	Removed object taz:taz_1 from SUMORTree with boundary 2.00,-12.00,52.00,38.00
+GLDebug: 	Removed object taz:taz_1 from SUMORTree with boundary 0.00,-10.00,50.00,40.00
 Debug: delete taz 'taz_1' in ~GNEChange_TAZElement()
 Debug: Removing taz 'newID' from net in ~GNEChange_TAZElement()
-GLDebug: 	Removed object taz:newID from SUMORTree with boundary -18.00,-12.00,32.00,38.00
+GLDebug: 	Removed object taz:newID from SUMORTree with boundary -20.00,-10.00,30.00,40.00
 Debug: delete taz 'newID' in ~GNEChange_TAZElement()
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

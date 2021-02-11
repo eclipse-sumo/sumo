@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 16.10.2020 12:59:03 by Eclipse SUMO netedit Version v1_7_0+0629-16c73f8974
+<!-- generated on 11.02.2021 13:21:09 by Eclipse SUMO netedit Version v1_8_0+1126-1b9d3d35b1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\TAZElements\TAZ\inspect\color\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb131731.15428\netedit.gui\TAZElements\TAZ\inspect\color\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\TAZElements\TAZ\inspect\color\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb131731.15428\netedit.gui\TAZElements\TAZ\inspect\color\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,33 +30,33 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\TAZElements\TAZ\inspect\color\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\TAZElements\TAZ\inspect\color\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\TAZElements\TAZ\inspect\color\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\TAZElements\TAZ\inspect\color\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\TAZElements\TAZ\inspect\color\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\TAZElements\TAZ\inspect\color\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb131731.15428\netedit.gui\TAZElements\TAZ\inspect\color\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb131731.15428\netedit.gui\TAZElements\TAZ\inspect\color\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb131731.15428\netedit.gui\TAZElements\TAZ\inspect\color\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb131731.15428\netedit.gui\TAZElements\TAZ\inspect\color\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb131731.15428\netedit.gui\TAZElements\TAZ\inspect\color\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb131731.15428\netedit.gui\TAZElements\TAZ\inspect\color\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\TAZElements\TAZ\inspect\color\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb131731.15428\netedit.gui\TAZElements\TAZ\inspect\color\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\TAZElements\TAZ\inspect\color\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb131731.15428\netedit.gui\TAZElements\TAZ\inspect\color\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\TAZElements\TAZ\inspect\color\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb131731.15428\netedit.gui\TAZElements\TAZ\inspect\color\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <taz id="taz_0" shape="12.00,8.00 12.00,18.00 2.00,18.00 2.00,8.00 12.00,8.00" color="125,60,200"/>
+    <taz id="taz_0" shape="10.00,10.00 10.00,20.00 0.00,20.00 0.00,10.00 10.00,10.00" color="125,60,200"/>
 </additional>

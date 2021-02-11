@@ -8,13 +8,18 @@ Debug: Adding taz 'TAZ_0' into viewNet
 GLDebug: 	Inserted taz:TAZ_0 into SUMORTree with boundary -18.00,-12.00,32.00,38.00
 Debug: Adding taz 'TAZ_1' into viewNet
 GLDebug: 	Inserted taz:TAZ_1 into SUMORTree with boundary 2.00,-12.00,52.00,38.00
+Debug: Setting new attribute fill 'true' into taz 'TAZ_0'
+Debug: Setting new attribute fill 'true' into taz 'TAZ_1'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute fill '0' into taz 'TAZ_1'
+Debug: Setting previous attribute fill '0' into taz 'TAZ_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing taz 'TAZ_1' from viewNet
 GLDebug: 	Removed object taz:TAZ_1 from SUMORTree with boundary 2.00,-12.00,52.00,38.00
 Debug: Removing taz 'TAZ_0' from viewNet
 GLDebug: 	Removed object taz:TAZ_0 from SUMORTree with boundary -18.00,-12.00,32.00,38.00
-Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding taz 'TAZ_0' into viewNet
@@ -22,6 +27,9 @@ GLDebug: 	Inserted taz:TAZ_0 into SUMORTree with boundary -18.00,-12.00,32.00,38
 Debug: Adding taz 'TAZ_1' into viewNet
 GLDebug: 	Inserted taz:TAZ_1 into SUMORTree with boundary 2.00,-12.00,52.00,38.00
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute fill 'true' into taz 'TAZ_0'
+Debug: Setting new attribute fill 'true' into taz 'TAZ_1'
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

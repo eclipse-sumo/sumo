@@ -7,15 +7,27 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding taz 'taz_0' into viewNet
-GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary 2.00,-2.00,42.00,38.00
+GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -10.00,-10.00,30.00,30.00
+Debug: Adding tazSource 'taz_0tazSource0' into viewNet
+Debug: Adding tazSink 'taz_0tazSink1' into viewNet
+Debug: Adding tazSource 'taz_0tazSource2' into viewNet
+Debug: Adding tazSink 'taz_0tazSink3' into viewNet
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
+Debug: Removing tazSink 'taz_0tazSink3' from viewNet
+Debug: Removing tazSource 'taz_0tazSource2' from viewNet
+Debug: Removing tazSink 'taz_0tazSink1' from viewNet
+Debug: Removing tazSource 'taz_0tazSource0' from viewNet
 Debug: Removing taz 'taz_0' from viewNet
-GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary 2.00,-2.00,42.00,38.00
+GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -10.00,-10.00,30.00,30.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding taz 'taz_0' into viewNet
-GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary 2.00,-2.00,42.00,38.00
+GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -10.00,-10.00,30.00,30.00
+Debug: Adding tazSource 'taz_0tazSource0' into viewNet
+Debug: Adding tazSink 'taz_0tazSink1' into viewNet
+Debug: Adding tazSource 'taz_0tazSource2' into viewNet
+Debug: Adding tazSink 'taz_0tazSink3' into viewNet
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -31,8 +43,16 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Removing tazSink 'taz_0tazSink3' from net in ~GNEChange_TAZElement()
+Debug: delete tazSink 'taz_0tazSink3' in ~GNEChange_TAZElement()
+Debug: Removing tazSource 'taz_0tazSource2' from net in ~GNEChange_TAZElement()
+Debug: delete tazSource 'taz_0tazSource2' in ~GNEChange_TAZElement()
+Debug: Removing tazSink 'taz_0tazSink1' from net in ~GNEChange_TAZElement()
+Debug: delete tazSink 'taz_0tazSink1' in ~GNEChange_TAZElement()
+Debug: Removing tazSource 'taz_0tazSource0' from net in ~GNEChange_TAZElement()
+Debug: delete tazSource 'taz_0tazSource0' in ~GNEChange_TAZElement()
 Debug: Removing taz 'taz_0' from net in ~GNEChange_TAZElement()
-GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary 2.00,-2.00,42.00,38.00
+GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -10.00,-10.00,30.00,30.00
 Debug: delete taz 'taz_0' in ~GNEChange_TAZElement()
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

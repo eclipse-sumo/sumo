@@ -32,10 +32,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.TAZMode()
 
 # create TAZ with default values
-netedit.createSquaredTAZ(referencePosition, 100, 50, 100, True)
+netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
 
 # create TAZ clicking in the same points
-netedit.createSquaredTAZ(referencePosition, 100, 50, 100, True)
+netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

@@ -35,7 +35,7 @@ netedit.selectMode()
 netedit.leftClick(referencePosition, 105, 70)
 
 # select second TAZ
-netedit.leftClick(referencePosition, 305, 70)
+netedit.leftClick(referencePosition, 300, 70)
 
 # go to inspect mode
 netedit.inspectMode()

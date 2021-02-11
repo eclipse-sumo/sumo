@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.TAZMode()
 
 # create open line TAZ (area 0)
-netedit.createLineTAZ(referencePosition, 400, 50, 100, 100, False)
+netedit.createLineTAZ(referencePosition, 182, 130, 200, 200, False)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

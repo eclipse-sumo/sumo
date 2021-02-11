@@ -35,19 +35,19 @@ netedit.TAZMode()
 netedit.changeColorUsingDialog(0, 5)
 
 # create TAZ
-netedit.createSquaredTAZ(referencePosition, 100, 50, 100, True)
+netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
 
 # change color manually (invalid)
 netedit.changeDefaultValue(1, "Vlue")
 
 # try to create TAZ
-netedit.createSquaredTAZ(referencePosition, 200, 50, 100, True)
+netedit.createSquaredTAZ(referencePosition, 282, 130, 200, True)
 
 # change color manually (valid)
 netedit.changeDefaultValue(1, "red")
 
 # create TAZ
-netedit.createSquaredTAZ(referencePosition, 300, 50, 100, True)
+netedit.createSquaredTAZ(referencePosition, 382, 130, 200, True)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

@@ -35,7 +35,7 @@ netedit.selectMode()
 netedit.leftClick(referencePosition, 105, 70)
 
 # select second TAZ
-netedit.leftClick(referencePosition, 305, 70)
+netedit.leftClick(referencePosition, 300, 70)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -44,7 +44,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 105, 70)
 
 # Change boolean parameter 2
-netedit.modifyBoolAttribute(4, False)
+netedit.modifyBoolAttribute(2, False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

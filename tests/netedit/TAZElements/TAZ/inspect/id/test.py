@@ -32,16 +32,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.TAZMode()
 
 # create first TAZ
-netedit.createSquaredTAZ(referencePosition, 200, 150, 200, True)
+netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
 
 # create second TAZ
-netedit.createSquaredTAZ(referencePosition, 400, 150, 200, True)
+netedit.createSquaredTAZ(referencePosition, 380, 130, 200, True)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first TAZ
-netedit.leftClick(referencePosition, 108, 60)
+netedit.leftClick(referencePosition, 182, 130)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
 netedit.modifyAttribute(0, "taz_1", False)
