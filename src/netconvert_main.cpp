@@ -138,6 +138,7 @@ main(int argc, char** argv) {
         }
         NWFrame::writeNetwork(oc, nb);
     } catch (const ProcessError& e) {
+        MsgHandler::getWarningInstance()->clear(false);
         MsgHandler::getErrorInstance()->clear(false);
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
@@ -146,6 +147,7 @@ main(int argc, char** argv) {
         ret = 1;
 #ifndef _DEBUG
     } catch (const std::exception& e) {
+        MsgHandler::getWarningInstance()->clear(false);
         MsgHandler::getErrorInstance()->clear(false);
         if (std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
@@ -153,6 +155,7 @@ main(int argc, char** argv) {
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;
     } catch (...) {
+        MsgHandler::getWarningInstance()->clear(false);
         MsgHandler::getErrorInstance()->clear(false);
         MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
         ret = 1;

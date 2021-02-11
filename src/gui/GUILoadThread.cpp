@@ -66,9 +66,9 @@ GUILoadThread::GUILoadThread(FXApp* app, GUIApplicationWindow* mw,
                              FXSynchQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev)
     : FXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
       myEventThrow(ev) {
-    myErrorRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MT_ERROR);
-    myMessageRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MT_MESSAGE);
-    myWarningRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MT_WARNING);
+    myErrorRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MsgType::MT_ERROR);
+    myMessageRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MsgType::MT_MESSAGE);
+    myWarningRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MsgType::MT_WARNING);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
 }
 

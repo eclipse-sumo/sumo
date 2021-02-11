@@ -54,9 +54,9 @@ MsgHandler*
 MsgHandler::getMessageInstance() {
     if (myMessageInstance == nullptr) {
         if (myFactory == nullptr) {
-            myMessageInstance = new MsgHandler(MT_MESSAGE);
+            myMessageInstance = new MsgHandler(MsgType::MT_MESSAGE);
         } else {
-            myMessageInstance = myFactory(MT_MESSAGE);
+            myMessageInstance = myFactory(MsgType::MT_MESSAGE);
         }
     }
     return myMessageInstance;
@@ -67,9 +67,9 @@ MsgHandler*
 MsgHandler::getWarningInstance() {
     if (myWarningInstance == nullptr) {
         if (myFactory == nullptr) {
-            myWarningInstance = new MsgHandler(MT_WARNING);
+            myWarningInstance = new MsgHandler(MsgType::MT_WARNING);
         } else {
-            myWarningInstance = myFactory(MT_WARNING);
+            myWarningInstance = myFactory(MsgType::MT_WARNING);
         }
     }
     return myWarningInstance;
@@ -79,7 +79,7 @@ MsgHandler::getWarningInstance() {
 MsgHandler*
 MsgHandler::getErrorInstance() {
     if (myErrorInstance == nullptr) {
-        myErrorInstance = new MsgHandler(MT_ERROR);
+        myErrorInstance = new MsgHandler(MsgType::MT_ERROR);
     }
     return myErrorInstance;
 }
@@ -88,7 +88,7 @@ MsgHandler::getErrorInstance() {
 MsgHandler*
 MsgHandler::getDebugInstance() {
     if (myDebugInstance == nullptr) {
-        myDebugInstance = new MsgHandler(MT_DEBUG);
+        myDebugInstance = new MsgHandler(MsgType::MT_DEBUG);
     }
     return myDebugInstance;
 }
@@ -97,7 +97,7 @@ MsgHandler::getDebugInstance() {
 MsgHandler*
 MsgHandler::getGLDebugInstance() {
     if (myGLDebugInstance == nullptr) {
-        myGLDebugInstance = new MsgHandler(MT_GLDEBUG);
+        myGLDebugInstance = new MsgHandler(MsgType::MT_GLDEBUG);
     }
     return myGLDebugInstance;
 }
@@ -121,6 +121,9 @@ MsgHandler::inform(std::string msg, bool addType) {
         MsgHandler::getMessageInstance()->inform("");
     }
     msg = build(msg, addType);
+    if (!myInitialMessages.empty() && myInitialMessages.size() < 5) {
+        myInitialMessages.push_back(msg);
+    }
     // inform all receivers
     for (auto i : myRetrievers) {
         i->inform(msg);
@@ -168,6 +171,12 @@ MsgHandler::clear(bool resetInformed) {
         }
     }
     myAggregationCount.clear();
+    if (myInitialMessages.size() > 1) {
+        for (const std::string& msg : myInitialMessages) {
+            inform(msg);
+        }
+        myInitialMessages.clear();
+    }
 }
 
 
@@ -265,10 +274,13 @@ MsgHandler::cleanupOnEnd() {
 
 MsgHandler::MsgHandler(MsgType type) :
     myType(type), myWasInformed(false), myAggregationThreshold(-1) {
-    if (type == MT_MESSAGE) {
+    if (type == MsgType::MT_MESSAGE) {
         addRetriever(&OutputDevice::getDevice("stdout"));
     } else {
         addRetriever(&OutputDevice::getDevice("stderr"));
+    }
+    if (type == MsgType::MT_ERROR) {
+//        myInitialMessages.push_back("Repeating initial messages ...");
     }
 }
 
