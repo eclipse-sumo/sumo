@@ -72,6 +72,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(NeteditAttributesEditor)
 
     private:
@@ -147,6 +148,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(GEOAttributesEditor)
 
     private:
@@ -308,6 +310,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(ParametersEditorInspector)
 
     private:
@@ -319,6 +322,45 @@ public:
 
         /// @brief button for edit parameters using specific dialog
         FXButton* myButtonEditParameters;
+    };
+
+    // ===========================================================================
+    // class AdditionalDialog
+    // ===========================================================================
+
+    class AdditionalDialog : private FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEInspectorFrame::AdditionalDialog)
+
+    public:
+        /// @brief constructor
+        AdditionalDialog(GNEInspectorFrame* inspectorFrameParent);
+
+        /// @brief destructor
+        ~AdditionalDialog();
+
+        /// @brief show netedit attributes editor
+        void showAdditionalDialog();
+
+        /// @brief hide netedit attributes editor
+        void hideAdditionalDialog();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when user click over open additional dialog
+        long onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(AdditionalDialog)
+
+    private:
+        /// @brief pointer to inspector frame parent
+        GNEInspectorFrame* myInspectorFrameParent;
+
+        /// @brief button for open additional dialog
+        FXButton* myOpenAdditionalDialog;
     };
 
     /**@brief Constructor
@@ -401,6 +443,7 @@ public:
     void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
 protected:
+    /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEInspectorFrame)
 
     /// @brief Inspect a singe element (the front of AC AttributeCarriers of ObjectUnderCursor

@@ -64,405 +64,22 @@ FXDEFMAP(GNEInspectorFrame::ParametersEditorInspector) ParametersEditorInspector
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEInspectorFrame::ParametersEditorInspector::onCmdSetParameters)
 };
 
+FXDEFMAP(GNEInspectorFrame::AdditionalDialog) AdditionalDialogMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_ADDITIONAL_DIALOG, GNEInspectorFrame::AdditionalDialog::onCmdOpenAdditionalDialog),
+};
+
 // Object implementation
 FXIMPLEMENT(GNEInspectorFrame,                              FXVerticalFrame,    GNEInspectorFrameMap,           ARRAYNUMBER(GNEInspectorFrameMap))
 FXIMPLEMENT(GNEInspectorFrame::NeteditAttributesEditor,     FXGroupBox,         NeteditAttributesEditorMap,     ARRAYNUMBER(NeteditAttributesEditorMap))
 FXIMPLEMENT(GNEInspectorFrame::GEOAttributesEditor,         FXGroupBox,         GEOAttributesEditorMap,         ARRAYNUMBER(GEOAttributesEditorMap))
 FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,              FXGroupBox,         TemplateEditorMap,              ARRAYNUMBER(TemplateEditorMap))
 FXIMPLEMENT(GNEInspectorFrame::ParametersEditorInspector,   FXGroupBox,         ParametersEditorInspectorMap,   ARRAYNUMBER(ParametersEditorInspectorMap))
+FXIMPLEMENT(GNEInspectorFrame::AdditionalDialog,            FXGroupBox,         AdditionalDialogMap,            ARRAYNUMBER(AdditionalDialogMap))
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
-GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet):
-    GNEFrame(horizontalFrameParent, viewNet, "Inspector"),
-    myPreviousElementInspect(nullptr),
-    myPreviousElementDelete(nullptr),
-    myPreviousElementDeleteWasMarked(false) {
-
-    // Create back button
-    myBackButton = new FXButton(myHeaderLeftFrame, "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWLEFT), this, MID_GNE_INSPECTORFRAME_GOBACK, GUIDesignButtonIconRectangular);
-    myHeaderLeftFrame->hide();
-    myBackButton->hide();
-
-    // Create Overlapped Inspection modul
-    myOverlappedInspection = new GNEFrameModuls::OverlappedInspection(this);
-
-    // Create Attributes Editor modul
-    myAttributesEditor = new GNEFrameAttributesModuls::AttributesEditor(this);
-
-    // Create GEO Parameters Editor modul
-    myGEOAttributesEditor = new GEOAttributesEditor(this);
-
-    // create parameters Editor modul
-    myParametersEditorInspector = new ParametersEditorInspector(this);
-
-    // Create Netedit Attributes Editor modul
-    myNeteditAttributesEditor = new NeteditAttributesEditor(this);
-
-    // Create Template editor modul
-    myTemplateEditor = new TemplateEditor(this);
-
-    // Create HierarchicalElementTree modul
-    myHierarchicalElementTree = new GNEFrameModuls::HierarchicalElementTree(this);
-}
-
-
-GNEInspectorFrame::~GNEInspectorFrame() {}
-
-
-void
-GNEInspectorFrame::show() {
-    // inspect a null element to reset inspector frame
-    inspectSingleElement(nullptr);
-    GNEFrame::show();
-}
-
-
-void
-GNEInspectorFrame::hide() {
-    myViewNet->setInspectedAttributeCarriers({});
-    GNEFrame::hide();
-}
-
-
-bool
-GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
-    // first check if we have clicked over an Attribute Carrier
-    if (objectsUnderCursor.getAttributeCarrierFront()) {
-        // if Control key is Pressed, select instead inspect element
-        if (myViewNet->getMouseButtonKeyPressed().controlKeyPressed()) {
-            // Check if this GLobject type is locked
-            if (!myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(objectsUnderCursor.getGlTypeFront())) {
-                // toogle networkElement selection
-                if (objectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
-                    objectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
-                } else {
-                    objectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
-                }
-            }
-        } else {
-            // first check if we clicked over a OverlappedInspection point
-            if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
-                if (!myOverlappedInspection->previousElement(clickedPosition)) {
-                    // inspect attribute carrier, (or multiselection if AC is selected)
-                    inspectClickedElement(objectsUnderCursor, clickedPosition);
-                }
-            } else  if (!myOverlappedInspection->nextElement(clickedPosition)) {
-                // inspect attribute carrier, (or multiselection if AC is selected)
-                inspectClickedElement(objectsUnderCursor, clickedPosition);
-            }
-            // focus upper element of inspector frame
-            focusUpperElement();
-        }
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
-    // first check if we have clicked over a demand element
-    if (objectsUnderCursor.getDemandElementFront()) {
-        // if Control key is Pressed, select instead inspect element
-        if (myViewNet->getMouseButtonKeyPressed().controlKeyPressed()) {
-            // Check if this GLobject type is locked
-            if (!myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(objectsUnderCursor.getGlTypeFront())) {
-                // toogle networkElement selection
-                if (objectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
-                    objectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
-                } else {
-                    objectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
-                }
-            }
-        } else {
-            // first check if we clicked over a OverlappedInspection point
-            if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
-                if (!myOverlappedInspection->previousElement(clickedPosition)) {
-                    // inspect attribute carrier, (or multiselection if AC is selected)
-                    inspectClickedElement(objectsUnderCursor, clickedPosition);
-                }
-            } else  if (!myOverlappedInspection->nextElement(clickedPosition)) {
-                // inspect attribute carrier, (or multiselection if AC is selected)
-                inspectClickedElement(objectsUnderCursor, clickedPosition);
-            }
-            // focus upper element of inspector frame
-            focusUpperElement();
-        }
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEInspectorFrame::processDataSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
-    // first check if we have clicked over a data element
-    if (objectsUnderCursor.getGenericDataElementFront()) {
-        // if Control key is Pressed, select instead inspect element
-        if (myViewNet->getMouseButtonKeyPressed().controlKeyPressed()) {
-            // Check if this GLobject type is locked
-            if (!myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(objectsUnderCursor.getGlTypeFront())) {
-                // toogle networkElement selection
-                if (objectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
-                    objectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
-                } else {
-                    objectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
-                }
-            }
-        } else {
-            // first check if we clicked over a OverlappedInspection point
-            if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
-                if (!myOverlappedInspection->previousElement(clickedPosition)) {
-                    // inspect attribute carrier, (or multiselection if AC is selected)
-                    inspectClickedElement(objectsUnderCursor, clickedPosition);
-                }
-            } else  if (!myOverlappedInspection->nextElement(clickedPosition)) {
-                // inspect attribute carrier, (or multiselection if AC is selected)
-                inspectClickedElement(objectsUnderCursor, clickedPosition);
-            }
-            // focus upper element of inspector frame
-            focusUpperElement();
-        }
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-void
-GNEInspectorFrame::inspectSingleElement(GNEAttributeCarrier* AC) {
-    // Use the implementation of inspect for multiple AttributeCarriers to avoid repetition of code
-    std::vector<GNEAttributeCarrier*> itemsToInspect;
-    if (AC != nullptr) {
-        myViewNet->setInspectedAttributeCarriers({AC});
-        if (AC->isAttributeCarrierSelected()) {
-            // obtain selected ACs depending of current supermode
-            std::vector<GNEAttributeCarrier*> selectedACs = myViewNet->getNet()->getSelectedAttributeCarriers(false);
-            // iterate over selected ACs
-            for (const auto& i : selectedACs) {
-                // filter ACs to inspect using Tag as criterium
-                if (i->getTagProperty().getTag() == AC->getTagProperty().getTag()) {
-                    itemsToInspect.push_back(i);
-                }
-            }
-        } else {
-            itemsToInspect.push_back(AC);
-        }
-    }
-    inspectMultisection(itemsToInspect);
-}
-
-
-void
-GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& ACs) {
-    // update inspected ACs in viewNet
-    myViewNet->setInspectedAttributeCarriers(ACs);
-    // hide back button
-    myHeaderLeftFrame->hide();
-    myBackButton->hide();
-    // Hide all elements
-    myAttributesEditor->hideAttributesEditorModul();
-    myNeteditAttributesEditor->hideNeteditAttributesEditor();
-    myGEOAttributesEditor->hideGEOAttributesEditor();
-    myParametersEditorInspector->hideParametersEditorInspector();
-    myTemplateEditor->hideTemplateEditor();
-    myHierarchicalElementTree->hideHierarchicalElementTree();
-    myOverlappedInspection->hideOverlappedInspection();
-    // If vector of attribute Carriers contain data
-    if (ACs.size() > 0) {
-        // Set header
-        std::string headerString;
-        if (ACs.front()->getTagProperty().isNetworkElement()) {
-            headerString = "Net: ";
-        } else if (ACs.front()->getTagProperty().isAdditionalElement()) {
-            headerString = "Additional: ";
-        } else if (ACs.front()->getTagProperty().isShape()) {
-            headerString = "Shape: ";
-        } else if (ACs.front()->getTagProperty().isTAZElement()) {
-            headerString = "TAZ: ";
-        } else if (ACs.front()->getTagProperty().isVehicle()) {
-            headerString = "Vehicle: ";
-        } else if (ACs.front()->getTagProperty().isRoute()) {
-            headerString = "Route: ";
-        } else if (ACs.front()->getTagProperty().isPerson()) {
-            headerString = "Person: ";
-        } else if (ACs.front()->getTagProperty().isPersonPlan()) {
-            headerString = "PersonPlan: ";
-        } else if (ACs.front()->getTagProperty().isStop()) {
-            headerString = "Stop: ";
-        } else if (ACs.front()->getTagProperty().isDataElement()) {
-            headerString = "Data: ";
-        }
-        if (ACs.size() > 1) {
-            headerString += toString(ACs.size()) + " ";
-        }
-        headerString += ACs.front()->getTagStr();
-        if (ACs.size() > 1) {
-            headerString += "s";
-        }
-        // Set headerString into header label
-        getFrameHeaderLabel()->setText(headerString.c_str());
-
-        // Show attributes editor
-        myAttributesEditor->showAttributeEditorModul(true, false);
-
-        // show netedit attributes editor if  we're inspecting elements with Netedit Attributes
-        myNeteditAttributesEditor->showNeteditAttributesEditor();
-
-        // Show GEO Attributes Editor if we're inspecting elements with GEO Attributes
-        myGEOAttributesEditor->showGEOAttributesEditor();
-
-        // show parameters editor
-        myParametersEditorInspector->showParametersEditorInspector();
-
-        // If attributes correspond to an Edge and we aren't in demand mode, show template editor
-        myTemplateEditor->showTemplateEditor();
-
-        // if we inspect a single Attribute carrier vector, show their children
-        if (ACs.size() == 1) {
-            myHierarchicalElementTree->showHierarchicalElementTree(ACs.front());
-        }
-    } else {
-        getFrameHeaderLabel()->setText("Inspect");
-        myContentFrame->recalc();
-    }
-}
-
-
-void
-GNEInspectorFrame::inspectChild(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement) {
-    // Show back button if myPreviousElementInspect was defined
-    myPreviousElementInspect = previousElement;
-    if (myPreviousElementInspect != nullptr) {
-        // disable myPreviousElementDelete to avoid inconsistences
-        myPreviousElementDelete = nullptr;
-        inspectSingleElement(AC);
-        myHeaderLeftFrame->show();
-        myBackButton->show();
-    }
-}
-
-
-void
-GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement, bool previousElementWasMarked) {
-    myPreviousElementDelete = previousElement;
-    myPreviousElementDeleteWasMarked = previousElementWasMarked;
-    // Show back button if myPreviousElementDelete is valid
-    if (myPreviousElementDelete != nullptr) {
-        // disable myPreviousElementInspect to avoid inconsistences
-        myPreviousElementInspect = nullptr;
-        inspectSingleElement(AC);
-        myHeaderLeftFrame->show();
-        myBackButton->show();
-    }
-}
-
-
-void
-GNEInspectorFrame::clearInspectedAC() {
-    // Only remove if there is inspected ACs
-    if (myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
-        myViewNet->setInspectedAttributeCarriers({nullptr});
-        // Inspect empty selection (to hide all Editors)
-        inspectMultisection({});
-    }
-}
-
-
-GNEFrameAttributesModuls::AttributesEditor*
-GNEInspectorFrame::getAttributesEditor() const {
-    return myAttributesEditor;
-}
-
-
-GNEInspectorFrame::NeteditAttributesEditor*
-GNEInspectorFrame::getNeteditAttributesEditor() const {
-    return myNeteditAttributesEditor;
-}
-
-
-GNEInspectorFrame::TemplateEditor*
-GNEInspectorFrame::getTemplateEditor() const {
-    return myTemplateEditor;
-}
-
-
-GNEFrameModuls::OverlappedInspection*
-GNEInspectorFrame::getOverlappedInspection() const {
-    return myOverlappedInspection;
-}
-
-
-GNEFrameModuls::HierarchicalElementTree*
-GNEInspectorFrame::getHierarchicalElementTree() const {
-    return myHierarchicalElementTree;
-}
-
-
-long
-GNEInspectorFrame::onCmdGoBack(FXObject*, FXSelector, void*) {
-    // Inspect previous element or go back to Delete Frame
-    if (myPreviousElementInspect) {
-        inspectSingleElement(myPreviousElementInspect);
-        myPreviousElementInspect = nullptr;
-    } else if (myPreviousElementDelete != nullptr) {
-        myPreviousElementDelete = nullptr;
-        // Hide inspect frame and show delete frame
-        hide();
-        myViewNet->getViewParent()->getDeleteFrame()->show();
-    }
-    return 1;
-}
-
-
-void
-GNEInspectorFrame::updateFrameAfterUndoRedo() {
-    // refresh Attribute Editor
-    myAttributesEditor->refreshAttributeEditor(false, false);
-    // refresh parametersEditor
-    myParametersEditorInspector->refreshParametersEditorInspector();
-    // refresh AC Hierarchy
-    myHierarchicalElementTree->refreshHierarchicalElementTree();
-}
-
-
-void
-GNEInspectorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
-    // if AC is a lane but selectEdges checkBox is enabled, then inspect their parent edge
-    if (AC->getTagProperty().getTag() == SUMO_TAG_LANE && myViewNet->getNetworkViewOptions().selectEdges()) {
-        inspectSingleElement(dynamic_cast<GNELane*>(AC)->getParentEdge());
-    } else {
-        inspectSingleElement(AC);
-    }
-    // update view (due dotted contour)
-    myViewNet->updateViewNet();
-}
-
-
-void
-GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
-    if (objectsUnderCursor.getAttributeCarrierFront()) {
-        // inspect front element
-        inspectSingleElement(objectsUnderCursor.getAttributeCarrierFront());
-        // show Overlapped Inspection modul
-        myOverlappedInspection->showOverlappedInspection(objectsUnderCursor, clickedPosition);
-    }
-}
-
-
-void
-GNEInspectorFrame::attributeUpdated() {
-    myAttributesEditor->refreshAttributeEditor(false, false);
-    myNeteditAttributesEditor->refreshNeteditAttributesEditor(true);
-    myGEOAttributesEditor->refreshGEOAttributesEditor(true);
-}
 
 // ---------------------------------------------------------------------------
 // GNEInspectorFrame::NeteditAttributesEditor - methods
@@ -1318,5 +935,468 @@ GNEInspectorFrame::ParametersEditorInspector::onCmdSetParameters(FXObject*, FXSe
     }
     return 1;
 }
+
+// ---------------------------------------------------------------------------
+// GNEInspectorFrame::AdditionalDialog - methods
+// ---------------------------------------------------------------------------
+
+GNEInspectorFrame::AdditionalDialog::AdditionalDialog(GNEInspectorFrame* inspectorFrameParent) :
+    FXGroupBox(inspectorFrameParent->myContentFrame, "Additional dialog", GUIDesignGroupBoxFrame),
+    myInspectorFrameParent(inspectorFrameParent) {
+    // Create mark as front element button
+    myOpenAdditionalDialog = new FXButton(this, "Additional dialog", nullptr, this, MID_OPEN_ADDITIONAL_DIALOG, GUIDesignButton);
+}
+
+
+GNEInspectorFrame::AdditionalDialog::~AdditionalDialog() {}
+
+
+void
+GNEInspectorFrame::AdditionalDialog::showAdditionalDialog() {
+
+    //GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT)
+    //
+}
+
+
+void
+GNEInspectorFrame::AdditionalDialog::hideAdditionalDialog() {
+    // hide button
+    myOpenAdditionalDialog->hide();
+    // hide groupbox
+    hide();
+}
+
+
+long
+GNEInspectorFrame::AdditionalDialog::onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*) {
+    // check number of elements
+    if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+        // mark AC as front elemnet
+        myInspectorFrameParent->getViewNet()->setFrontAttributeCarrier(myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front());
+        // disable button
+        myOpenAdditionalDialog->disable();
+    }
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// GNEInspectorFrame - methods
+// ---------------------------------------------------------------------------
+
+GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
+    GNEFrame(horizontalFrameParent, viewNet, "Inspector"),
+    myPreviousElementInspect(nullptr),
+    myPreviousElementDelete(nullptr),
+    myPreviousElementDeleteWasMarked(false) {
+
+    // Create back button
+    myBackButton = new FXButton(myHeaderLeftFrame, "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWLEFT), this, MID_GNE_INSPECTORFRAME_GOBACK, GUIDesignButtonIconRectangular);
+    myHeaderLeftFrame->hide();
+    myBackButton->hide();
+
+    // Create Overlapped Inspection modul
+    myOverlappedInspection = new GNEFrameModuls::OverlappedInspection(this);
+
+    // Create Attributes Editor modul
+    myAttributesEditor = new GNEFrameAttributesModuls::AttributesEditor(this);
+
+    // Create GEO Parameters Editor modul
+    myGEOAttributesEditor = new GEOAttributesEditor(this);
+
+    // create parameters Editor modul
+    myParametersEditorInspector = new ParametersEditorInspector(this);
+
+    // Create Netedit Attributes Editor modul
+    myNeteditAttributesEditor = new NeteditAttributesEditor(this);
+
+    // Create Template editor modul
+    myTemplateEditor = new TemplateEditor(this);
+
+    // Create HierarchicalElementTree modul
+    myHierarchicalElementTree = new GNEFrameModuls::HierarchicalElementTree(this);
+}
+
+
+GNEInspectorFrame::~GNEInspectorFrame() {}
+
+
+void
+GNEInspectorFrame::show() {
+    // inspect a null element to reset inspector frame
+    inspectSingleElement(nullptr);
+    GNEFrame::show();
+}
+
+
+void
+GNEInspectorFrame::hide() {
+    myViewNet->setInspectedAttributeCarriers({});
+    GNEFrame::hide();
+}
+
+
+bool
+GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+    // first check if we have clicked over an Attribute Carrier
+    if (objectsUnderCursor.getAttributeCarrierFront()) {
+        // if Control key is Pressed, select instead inspect element
+        if (myViewNet->getMouseButtonKeyPressed().controlKeyPressed()) {
+            // Check if this GLobject type is locked
+            if (!myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(objectsUnderCursor.getGlTypeFront())) {
+                // toogle networkElement selection
+                if (objectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                    objectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
+                }
+                else {
+                    objectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
+                }
+            }
+        }
+        else {
+            // first check if we clicked over a OverlappedInspection point
+            if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
+                if (!myOverlappedInspection->previousElement(clickedPosition)) {
+                    // inspect attribute carrier, (or multiselection if AC is selected)
+                    inspectClickedElement(objectsUnderCursor, clickedPosition);
+                }
+            }
+            else  if (!myOverlappedInspection->nextElement(clickedPosition)) {
+                // inspect attribute carrier, (or multiselection if AC is selected)
+                inspectClickedElement(objectsUnderCursor, clickedPosition);
+            }
+            // focus upper element of inspector frame
+            focusUpperElement();
+        }
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+
+bool
+GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+    // first check if we have clicked over a demand element
+    if (objectsUnderCursor.getDemandElementFront()) {
+        // if Control key is Pressed, select instead inspect element
+        if (myViewNet->getMouseButtonKeyPressed().controlKeyPressed()) {
+            // Check if this GLobject type is locked
+            if (!myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(objectsUnderCursor.getGlTypeFront())) {
+                // toogle networkElement selection
+                if (objectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                    objectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
+                }
+                else {
+                    objectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
+                }
+            }
+        }
+        else {
+            // first check if we clicked over a OverlappedInspection point
+            if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
+                if (!myOverlappedInspection->previousElement(clickedPosition)) {
+                    // inspect attribute carrier, (or multiselection if AC is selected)
+                    inspectClickedElement(objectsUnderCursor, clickedPosition);
+                }
+            }
+            else  if (!myOverlappedInspection->nextElement(clickedPosition)) {
+                // inspect attribute carrier, (or multiselection if AC is selected)
+                inspectClickedElement(objectsUnderCursor, clickedPosition);
+            }
+            // focus upper element of inspector frame
+            focusUpperElement();
+        }
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+
+bool
+GNEInspectorFrame::processDataSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+    // first check if we have clicked over a data element
+    if (objectsUnderCursor.getGenericDataElementFront()) {
+        // if Control key is Pressed, select instead inspect element
+        if (myViewNet->getMouseButtonKeyPressed().controlKeyPressed()) {
+            // Check if this GLobject type is locked
+            if (!myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(objectsUnderCursor.getGlTypeFront())) {
+                // toogle networkElement selection
+                if (objectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                    objectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
+                }
+                else {
+                    objectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
+                }
+            }
+        }
+        else {
+            // first check if we clicked over a OverlappedInspection point
+            if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
+                if (!myOverlappedInspection->previousElement(clickedPosition)) {
+                    // inspect attribute carrier, (or multiselection if AC is selected)
+                    inspectClickedElement(objectsUnderCursor, clickedPosition);
+                }
+            }
+            else  if (!myOverlappedInspection->nextElement(clickedPosition)) {
+                // inspect attribute carrier, (or multiselection if AC is selected)
+                inspectClickedElement(objectsUnderCursor, clickedPosition);
+            }
+            // focus upper element of inspector frame
+            focusUpperElement();
+        }
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+
+void
+GNEInspectorFrame::inspectSingleElement(GNEAttributeCarrier* AC) {
+    // Use the implementation of inspect for multiple AttributeCarriers to avoid repetition of code
+    std::vector<GNEAttributeCarrier*> itemsToInspect;
+    if (AC != nullptr) {
+        myViewNet->setInspectedAttributeCarriers({ AC });
+        if (AC->isAttributeCarrierSelected()) {
+            // obtain selected ACs depending of current supermode
+            std::vector<GNEAttributeCarrier*> selectedACs = myViewNet->getNet()->getSelectedAttributeCarriers(false);
+            // iterate over selected ACs
+            for (const auto& i : selectedACs) {
+                // filter ACs to inspect using Tag as criterium
+                if (i->getTagProperty().getTag() == AC->getTagProperty().getTag()) {
+                    itemsToInspect.push_back(i);
+                }
+            }
+        }
+        else {
+            itemsToInspect.push_back(AC);
+        }
+    }
+    inspectMultisection(itemsToInspect);
+}
+
+
+void
+GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& ACs) {
+    // update inspected ACs in viewNet
+    myViewNet->setInspectedAttributeCarriers(ACs);
+    // hide back button
+    myHeaderLeftFrame->hide();
+    myBackButton->hide();
+    // Hide all elements
+    myAttributesEditor->hideAttributesEditorModul();
+    myNeteditAttributesEditor->hideNeteditAttributesEditor();
+    myGEOAttributesEditor->hideGEOAttributesEditor();
+    myParametersEditorInspector->hideParametersEditorInspector();
+    myTemplateEditor->hideTemplateEditor();
+    myHierarchicalElementTree->hideHierarchicalElementTree();
+    myOverlappedInspection->hideOverlappedInspection();
+    // If vector of attribute Carriers contain data
+    if (ACs.size() > 0) {
+        // Set header
+        std::string headerString;
+        if (ACs.front()->getTagProperty().isNetworkElement()) {
+            headerString = "Net: ";
+        }
+        else if (ACs.front()->getTagProperty().isAdditionalElement()) {
+            headerString = "Additional: ";
+        }
+        else if (ACs.front()->getTagProperty().isShape()) {
+            headerString = "Shape: ";
+        }
+        else if (ACs.front()->getTagProperty().isTAZElement()) {
+            headerString = "TAZ: ";
+        }
+        else if (ACs.front()->getTagProperty().isVehicle()) {
+            headerString = "Vehicle: ";
+        }
+        else if (ACs.front()->getTagProperty().isRoute()) {
+            headerString = "Route: ";
+        }
+        else if (ACs.front()->getTagProperty().isPerson()) {
+            headerString = "Person: ";
+        }
+        else if (ACs.front()->getTagProperty().isPersonPlan()) {
+            headerString = "PersonPlan: ";
+        }
+        else if (ACs.front()->getTagProperty().isStop()) {
+            headerString = "Stop: ";
+        }
+        else if (ACs.front()->getTagProperty().isDataElement()) {
+            headerString = "Data: ";
+        }
+        if (ACs.size() > 1) {
+            headerString += toString(ACs.size()) + " ";
+        }
+        headerString += ACs.front()->getTagStr();
+        if (ACs.size() > 1) {
+            headerString += "s";
+        }
+        // Set headerString into header label
+        getFrameHeaderLabel()->setText(headerString.c_str());
+
+        // Show attributes editor
+        myAttributesEditor->showAttributeEditorModul(true, false);
+
+        // show netedit attributes editor if  we're inspecting elements with Netedit Attributes
+        myNeteditAttributesEditor->showNeteditAttributesEditor();
+
+        // Show GEO Attributes Editor if we're inspecting elements with GEO Attributes
+        myGEOAttributesEditor->showGEOAttributesEditor();
+
+        // show parameters editor
+        myParametersEditorInspector->showParametersEditorInspector();
+
+        // If attributes correspond to an Edge and we aren't in demand mode, show template editor
+        myTemplateEditor->showTemplateEditor();
+
+        // if we inspect a single Attribute carrier vector, show their children
+        if (ACs.size() == 1) {
+            myHierarchicalElementTree->showHierarchicalElementTree(ACs.front());
+        }
+    }
+    else {
+        getFrameHeaderLabel()->setText("Inspect");
+        myContentFrame->recalc();
+    }
+}
+
+
+void
+GNEInspectorFrame::inspectChild(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement) {
+    // Show back button if myPreviousElementInspect was defined
+    myPreviousElementInspect = previousElement;
+    if (myPreviousElementInspect != nullptr) {
+        // disable myPreviousElementDelete to avoid inconsistences
+        myPreviousElementDelete = nullptr;
+        inspectSingleElement(AC);
+        myHeaderLeftFrame->show();
+        myBackButton->show();
+    }
+}
+
+
+void
+GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement, bool previousElementWasMarked) {
+    myPreviousElementDelete = previousElement;
+    myPreviousElementDeleteWasMarked = previousElementWasMarked;
+    // Show back button if myPreviousElementDelete is valid
+    if (myPreviousElementDelete != nullptr) {
+        // disable myPreviousElementInspect to avoid inconsistences
+        myPreviousElementInspect = nullptr;
+        inspectSingleElement(AC);
+        myHeaderLeftFrame->show();
+        myBackButton->show();
+    }
+}
+
+
+void
+GNEInspectorFrame::clearInspectedAC() {
+    // Only remove if there is inspected ACs
+    if (myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
+        myViewNet->setInspectedAttributeCarriers({ nullptr });
+        // Inspect empty selection (to hide all Editors)
+        inspectMultisection({});
+    }
+}
+
+
+GNEFrameAttributesModuls::AttributesEditor*
+GNEInspectorFrame::getAttributesEditor() const {
+    return myAttributesEditor;
+}
+
+
+GNEInspectorFrame::NeteditAttributesEditor*
+GNEInspectorFrame::getNeteditAttributesEditor() const {
+    return myNeteditAttributesEditor;
+}
+
+
+GNEInspectorFrame::TemplateEditor*
+GNEInspectorFrame::getTemplateEditor() const {
+    return myTemplateEditor;
+}
+
+
+GNEFrameModuls::OverlappedInspection*
+GNEInspectorFrame::getOverlappedInspection() const {
+    return myOverlappedInspection;
+}
+
+
+GNEFrameModuls::HierarchicalElementTree*
+GNEInspectorFrame::getHierarchicalElementTree() const {
+    return myHierarchicalElementTree;
+}
+
+
+long
+GNEInspectorFrame::onCmdGoBack(FXObject*, FXSelector, void*) {
+    // Inspect previous element or go back to Delete Frame
+    if (myPreviousElementInspect) {
+        inspectSingleElement(myPreviousElementInspect);
+        myPreviousElementInspect = nullptr;
+    }
+    else if (myPreviousElementDelete != nullptr) {
+        myPreviousElementDelete = nullptr;
+        // Hide inspect frame and show delete frame
+        hide();
+        myViewNet->getViewParent()->getDeleteFrame()->show();
+    }
+    return 1;
+}
+
+
+void
+GNEInspectorFrame::updateFrameAfterUndoRedo() {
+    // refresh Attribute Editor
+    myAttributesEditor->refreshAttributeEditor(false, false);
+    // refresh parametersEditor
+    myParametersEditorInspector->refreshParametersEditorInspector();
+    // refresh AC Hierarchy
+    myHierarchicalElementTree->refreshHierarchicalElementTree();
+}
+
+
+void
+GNEInspectorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
+    // if AC is a lane but selectEdges checkBox is enabled, then inspect their parent edge
+    if (AC->getTagProperty().getTag() == SUMO_TAG_LANE && myViewNet->getNetworkViewOptions().selectEdges()) {
+        inspectSingleElement(dynamic_cast<GNELane*>(AC)->getParentEdge());
+    }
+    else {
+        inspectSingleElement(AC);
+    }
+    // update view (due dotted contour)
+    myViewNet->updateViewNet();
+}
+
+
+void
+GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
+    if (objectsUnderCursor.getAttributeCarrierFront()) {
+        // inspect front element
+        inspectSingleElement(objectsUnderCursor.getAttributeCarrierFront());
+        // show Overlapped Inspection modul
+        myOverlappedInspection->showOverlappedInspection(objectsUnderCursor, clickedPosition);
+    }
+}
+
+
+void
+GNEInspectorFrame::attributeUpdated() {
+    myAttributesEditor->refreshAttributeEditor(false, false);
+    myNeteditAttributesEditor->refreshNeteditAttributesEditor(true);
+    myGEOAttributesEditor->refreshGEOAttributesEditor(true);
+}
+
+
 
 /****************************************************************************/
