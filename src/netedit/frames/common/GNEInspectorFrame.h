@@ -465,8 +465,11 @@ private:
     /// @brief GEO Attributes editor
     GEOAttributesEditor* myGEOAttributesEditor;
 
-    /// @brief parameters editor inspector
+    /// @brief Parameters editor inspector
     ParametersEditorInspector* myParametersEditorInspector;
+
+    /// @brief Additional dialog
+    AdditionalDialog* myAdditionalDialog;
 
     /// @brief Template editor
     TemplateEditor* myTemplateEditor;
@@ -474,10 +477,10 @@ private:
     /// @brief Attribute Carrier Hierarchy
     GNEFrameModuls::HierarchicalElementTree* myHierarchicalElementTree;
 
-    /// @brief back Button
+    /// @brief Back Button
     FXButton* myBackButton;
 
-    /// @brief pointer to previous element called by Inspector Frame
+    /// @brief Pointer to previous element called by Inspector Frame
     GNEAttributeCarrier* myPreviousElementInspect;
 
     /// @brief pointer to previous element called by Delete Frame

@@ -21,12 +21,18 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
-#include <netedit/dialogs/GNESingleParametersDialog.h>
+#include <netedit/elements/additional/GNERerouter.h>
+#include <netedit/elements/additional/GNECalibrator.h>
+#include <netedit/elements/additional/GNEVariableSpeedSign.h>
 #include <netedit/dialogs/GNEMultipleParametersDialog.h>
+#include <netedit/dialogs/GNERerouterDialog.h>
+#include <netedit/dialogs/GNECalibratorDialog.h>
+#include <netedit/dialogs/GNEVariableSpeedSignDialog.h>
+#include <netedit/dialogs/GNESingleParametersDialog.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -953,16 +959,45 @@ GNEInspectorFrame::AdditionalDialog::~AdditionalDialog() {}
 
 void
 GNEInspectorFrame::AdditionalDialog::showAdditionalDialog() {
-
-    //GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT)
-    //
+    // check number of inspected elements
+    if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+        // get AC
+        const GNEAttributeCarrier* AC = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
+        // check AC
+        if (AC->getTagProperty().getTag() == SUMO_TAG_REROUTER) {
+            // update button 
+            myOpenAdditionalDialog->setText("Open Rerouter dialog");
+            myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::REROUTER));
+            // show modul
+            show();
+        } else if (AC->getTagProperty().getTag() == SUMO_TAG_CALIBRATOR) {
+            // update button 
+            myOpenAdditionalDialog->setText("Open Calibrator dialog");
+            myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR));
+            // show modul
+            show();
+        } else if (AC->getTagProperty().getTag() == SUMO_TAG_LANECALIBRATOR) {
+            // update button 
+            myOpenAdditionalDialog->setText("Open Lane Calibrator dialog");
+            myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR));
+            // show modul
+            show();
+        } else if (AC->getTagProperty().getTag() == SUMO_TAG_VSS) {
+            // update button 
+            myOpenAdditionalDialog->setText("Open VSS dialog");
+            myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::VARIABLESPEEDSIGN));
+            // show modul
+            show();
+        }
+    } else {
+        // hide modul
+        hide();
+    }
 }
 
 
 void
 GNEInspectorFrame::AdditionalDialog::hideAdditionalDialog() {
-    // hide button
-    myOpenAdditionalDialog->hide();
     // hide groupbox
     hide();
 }
@@ -970,12 +1005,21 @@ GNEInspectorFrame::AdditionalDialog::hideAdditionalDialog() {
 
 long
 GNEInspectorFrame::AdditionalDialog::onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*) {
-    // check number of elements
+    // check number of inspected elements
     if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-        // mark AC as front elemnet
-        myInspectorFrameParent->getViewNet()->setFrontAttributeCarrier(myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front());
-        // disable button
-        myOpenAdditionalDialog->disable();
+        // get AC
+        GNEAttributeCarrier* AC = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
+        // check AC
+        if (AC->getTagProperty().getTag() == SUMO_TAG_REROUTER) {
+            // Open rerouter dialog
+            GNERerouterDialog(dynamic_cast<GNERerouter*>(AC));
+        } else if ((AC->getTagProperty().getTag() == SUMO_TAG_CALIBRATOR) || (AC->getTagProperty().getTag() == SUMO_TAG_LANECALIBRATOR)) {
+            // Open calibrator dialog
+            GNECalibratorDialog(dynamic_cast<GNECalibrator*>(AC));
+        } else if (AC->getTagProperty().getTag() == SUMO_TAG_VSS) {
+            // Open VSS dialog
+            GNEVariableSpeedSignDialog(dynamic_cast<GNEVariableSpeedSign*>(AC));
+        }
     }
     return 1;
 }
@@ -1006,6 +1050,9 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
 
     // create parameters Editor modul
     myParametersEditorInspector = new ParametersEditorInspector(this);
+
+    // create additional dialog
+    myAdditionalDialog = new AdditionalDialog(this);
 
     // Create Netedit Attributes Editor modul
     myNeteditAttributesEditor = new NeteditAttributesEditor(this);
@@ -1193,6 +1240,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     myNeteditAttributesEditor->hideNeteditAttributesEditor();
     myGEOAttributesEditor->hideGEOAttributesEditor();
     myParametersEditorInspector->hideParametersEditorInspector();
+    myAdditionalDialog->hideAdditionalDialog();
     myTemplateEditor->hideTemplateEditor();
     myHierarchicalElementTree->hideHierarchicalElementTree();
     myOverlappedInspection->hideOverlappedInspection();
@@ -1251,6 +1299,9 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
 
         // show parameters editor
         myParametersEditorInspector->showParametersEditorInspector();
+
+        // show additional dialog
+        myAdditionalDialog->showAdditionalDialog();
 
         // If attributes correspond to an Edge and we aren't in demand mode, show template editor
         myTemplateEditor->showTemplateEditor();
