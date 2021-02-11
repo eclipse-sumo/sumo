@@ -1,5 +1,5 @@
 ---
-title: TraCI/Route Value Retrieval
+title: Route Value Retrieval
 ---
 
 ## Command 0xa6: Get Route Variable

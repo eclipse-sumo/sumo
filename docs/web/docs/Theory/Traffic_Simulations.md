@@ -1,5 +1,5 @@
 ---
-title: Theory/Traffic Simulations
+title: Traffic Simulations
 ---
 
 ## Traffic Simulation Classes

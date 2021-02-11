@@ -1,5 +1,5 @@
 ---
-title: Contributed/SUMO Traffic Modeler
+title: SUMO Traffic Modeler
 ---
 
 !!! caution

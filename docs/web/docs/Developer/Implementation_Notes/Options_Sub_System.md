@@ -1,5 +1,5 @@
 ---
-title: Developer/Implementation Notes/Options Sub System
+title: Options Sub System
 ---
 
 ## Introduction

@@ -1,5 +1,5 @@
 ---
-title: Z/Changes from version 0.9.2 to version 0.9.3
+title: Changes from version 0.9.2 to version 0.9.3
 ---
 
 User-relevant changes

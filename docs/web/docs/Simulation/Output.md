@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output
+title: Output
 ---
 
 # Introduction

@@ -1,5 +1,5 @@
 ---
-title: Developer/Main
+title: Developer
 ---
 
 # Developer Documentation

@@ -1,5 +1,5 @@
 ---
-title: Contributed/SUMOPy/Demand/Turn Flows
+title: Turn Flows
 ---
 
 Trip generation with turnflows allows to model traffic flows in a

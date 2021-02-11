@@ -1,5 +1,5 @@
 ---
-title: Simulation/VehicleInsertion
+title: VehicleInsertion
 ---
 
 # Loading

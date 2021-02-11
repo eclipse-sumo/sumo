@@ -1,5 +1,5 @@
 ---
-title: TraCI/Change Simulation State
+title: Change Simulation State
 ---
 
 # Command 0xcc: Change Simulation State

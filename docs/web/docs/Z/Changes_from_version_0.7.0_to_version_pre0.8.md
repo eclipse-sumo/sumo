@@ -1,5 +1,5 @@
 ---
-title: Z/Changes from version 0.7.0 to version pre0.8
+title: Changes from version 0.7.0 to version pre0.8
 ---
 
 - Further applications added: router, od2trips-converter, tagreader

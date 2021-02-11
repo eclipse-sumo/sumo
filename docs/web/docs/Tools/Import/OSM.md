@@ -1,5 +1,5 @@
 ---
-title: Tools/Import/OSM
+title: OSM
 ---
 
 # osmWebWizard.py

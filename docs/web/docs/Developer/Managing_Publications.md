@@ -1,5 +1,5 @@
 ---
-title: Developer/Managing Publications
+title: Managing Publications
 ---
 
 Publications are stored in an extended

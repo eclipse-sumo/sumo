@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/VTKOutput
+title: VTKOutput
 ---
 
 This output option offers you the possibility to visualise/analyse your

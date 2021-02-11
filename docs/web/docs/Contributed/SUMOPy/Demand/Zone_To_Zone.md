@@ -1,5 +1,5 @@
 ---
-title: Contributed/SUMOPy/Demand/Zone To Zone
+title: Zone To Zone
 ---
 
 We first explain the general concept of Zone to zone demand generation

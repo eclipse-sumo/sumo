@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/VTypeProbe
+title: VTypeProbe
 ---
 
 ## Instantiating within the Simulation

@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/Amitran Traffic Measures
+title: Amitran Traffic Measures
 ---
 
 The edge based Amitran output writes aggregated speed and flow values

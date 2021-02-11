@@ -1,5 +1,5 @@
 ---
-title: Tutorials/PT from OpenStreetMap
+title: PT from OpenStreetMap
 ---
 
 # Introduction

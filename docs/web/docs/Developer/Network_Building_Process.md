@@ -1,5 +1,5 @@
 ---
-title: Developer/Network Building Process
+title: Network Building Process
 ---
 
 [netconvert](../netconvert.md),
@@ -29,23 +29,23 @@ network. Optional steps are in *italics*.
   8.  *Guessing and setting on-/off-ramps*
 2.  *Moving network to origin*
 3.  TLS position computation
-  1.  *Assigning nodes to traffic lights*
-  2.  *Joining traffic light nodes*
+  9.  *Assigning nodes to traffic lights*
+  10. *Joining traffic light nodes*
 4.  Computing connections between lanes
-  1.  Computing turning directions
-  2.  Sorting nodes' edges
-  3.  Computing Approached Edges
-  4.  Computing Approaching Lanes
-  5.  Dividing of Lanes on Approached Lanes
-  6.  *Appending Turnarounds*
-  7.  Rechecking of lane endings
+  11. Computing turning directions
+  12. Sorting nodes' edges
+  13. Computing Approached Edges
+  14. Computing Approaching Lanes
+  15. Dividing of Lanes on Approached Lanes
+  16. *Appending Turnarounds*
+  17. Rechecking of lane endings
 5.  Geometry computation
-  1.  Computing node shapes
-  2.  Computing edge shapes
+  18. Computing node shapes
+  19. Computing edge shapes
 6.  Computing right-of-way and traffic light programs
-  1.  Computing tls logics
-  2.  Computing node logics
-  3.  Computing traffic light logics
+  20. Computing tls logics
+  21. Computing node logics
+  22. Computing traffic light logics
 7.  Finishing inner edges
 
 These computation steps are performed within void

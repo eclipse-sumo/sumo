@@ -1,5 +1,5 @@
 ---
-title: Developer/HFileTemplate
+title: HFileTemplate
 ---
 
 ```cpp

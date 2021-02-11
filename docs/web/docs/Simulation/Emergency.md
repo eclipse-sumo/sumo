@@ -1,5 +1,5 @@
 ---
-title: Simulation/Emergency
+title: Emergency
 ---
 
 # Emergency Vehicle simulation

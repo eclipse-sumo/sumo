@@ -1,5 +1,5 @@
 ---
-title: Tutorials/Plotting Cookbook
+title: Plotting Cookbook
 ---
 
 In the following, You will find some examples for plotting results

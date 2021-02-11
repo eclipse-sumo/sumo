@@ -1,5 +1,5 @@
 ---
-title: TraCI/Add Vehicle
+title: Add Vehicle
 ---
 
 ## Command 0x74: Add Vehicle

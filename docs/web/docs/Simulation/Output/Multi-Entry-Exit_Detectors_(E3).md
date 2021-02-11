@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/Multi-Entry-Exit Detectors (E3)
+title: Multi-Entry-Exit Detectors (E3)
 ---
 
 ## Instantiating within the Simulation

@@ -1,5 +1,5 @@
 ---
-title: netedit/editModesData
+title: editModesData
 ---
 
 # Data specific modes

@@ -1,5 +1,5 @@
 ---
-title: Tools/District
+title: District
 ---
 
 ## districts2poly.py

@@ -1,5 +1,5 @@
 ---
-title: Data/Scenarios/TAPASCologne
+title: TAPASCologne
 ---
 
 # "TAPAS Cologne" Scenario

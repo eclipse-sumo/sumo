@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/Summary
+title: Summary
 ---
 
 This output contains the simulation-wide number of vehicles that are

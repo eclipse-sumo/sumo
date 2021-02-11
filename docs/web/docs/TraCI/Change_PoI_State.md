@@ -1,5 +1,5 @@
 ---
-title: TraCI/Change PoI State
+title: Change PoI State
 ---
 
 # Command 0xc7: Change PoI State

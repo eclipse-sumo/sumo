@@ -1,5 +1,5 @@
 ---
-title: Z/Changes from Version 0.17.1 to Version 0.18.0
+title: Changes from Version 0.17.1 to Version 0.18.0
 ---
 
 ## Version 0.18.0 (28.08.2013)

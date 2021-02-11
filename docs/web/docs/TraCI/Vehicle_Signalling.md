@@ -1,5 +1,5 @@
 ---
-title: TraCI/Vehicle Signalling
+title: Vehicle Signalling
 ---
 
 # Signaling

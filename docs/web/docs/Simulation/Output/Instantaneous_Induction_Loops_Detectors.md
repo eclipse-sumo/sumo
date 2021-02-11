@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/Instantaneous Induction Loops Detectors
+title: Instantaneous Induction Loops Detectors
 ---
 
 ## Instantiating within the Simulation

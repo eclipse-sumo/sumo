@@ -1,5 +1,5 @@
 ---
-title: Z/Changes from version 0.9.7 to version 0.9.8
+title: Changes from version 0.9.7 to version 0.9.8
 ---
 
 - Building

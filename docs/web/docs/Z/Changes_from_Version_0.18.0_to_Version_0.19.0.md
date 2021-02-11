@@ -1,5 +1,5 @@
 ---
-title: Z/Changes from Version 0.18.0 to Version 0.19.0
+title: Changes from Version 0.18.0 to Version 0.19.0
 ---
 
 ## Version 0.19.0 (27.11.2013)

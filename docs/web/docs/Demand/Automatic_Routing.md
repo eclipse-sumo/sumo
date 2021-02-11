@@ -1,5 +1,5 @@
 ---
-title: Demand/Automatic Routing
+title: Automatic Routing
 ---
 
 # Introduction

@@ -1,5 +1,5 @@
 ---
-title: Simulation/Bluetooth
+title: Bluetooth
 ---
 
 # Overview

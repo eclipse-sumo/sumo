@@ -1,5 +1,5 @@
 ---
-title: Z/Changes from version 0.8.0 to version 0.8.0.1
+title: Changes from version 0.8.0 to version 0.8.0.1
 ---
 
 - GUI

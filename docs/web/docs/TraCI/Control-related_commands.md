@@ -1,5 +1,5 @@
 ---
-title: TraCI/Control-related commands
+title: Control-related commands
 ---
 
 # Control-related commands

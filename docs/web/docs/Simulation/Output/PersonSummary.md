@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/PersonSummary
+title: PersonSummary
 ---
 
 This output contains the simulation-wide number of person that are

@@ -1,5 +1,5 @@
 ---
-title: Traci/GenericParameters
+title: GenericParameters
 ---
 
 # Variable 0x7e: Parameter

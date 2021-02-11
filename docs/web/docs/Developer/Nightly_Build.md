@@ -1,5 +1,5 @@
 ---
-title: Developer/Nightly Build
+title: Nightly Build
 ---
 
 There are two main scripts responsible for the nightly build process

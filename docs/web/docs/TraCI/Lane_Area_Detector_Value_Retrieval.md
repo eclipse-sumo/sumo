@@ -1,5 +1,5 @@
 ---
-title: TraCI/Lane Area Detector Value Retrieval
+title: Lane Area Detector Value Retrieval
 ---
 
 ## Command 0xad: Get LaneAreaDetector Variable

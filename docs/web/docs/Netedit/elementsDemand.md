@@ -1,5 +1,5 @@
 ---
-title: netedit/elementsDemand
+title: elementsDemand
 ---
 
 # Demand elements

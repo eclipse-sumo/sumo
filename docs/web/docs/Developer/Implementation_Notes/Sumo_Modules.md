@@ -1,5 +1,5 @@
 ---
-title: Developer/Implementation Notes/Sumo Modules
+title: Sumo Modules
 ---
 
 ## Module Purposes

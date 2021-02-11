@@ -1,5 +1,5 @@
 ---
-title: TraCI/Simulation Value Retrieval
+title: Simulation Value Retrieval
 ---
 
 ## Command 0xab: Get Simulation Variable

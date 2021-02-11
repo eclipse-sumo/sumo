@@ -1,5 +1,5 @@
 ---
-title: Networks/Import/OpenDRIVE
+title: OpenDRIVE
 ---
 
 For reading [OpenDRIVE networks](http://www.opendrive.org/), give

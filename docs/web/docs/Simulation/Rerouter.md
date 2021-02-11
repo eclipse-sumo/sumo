@@ -1,5 +1,5 @@
 ---
-title: Simulation/Rerouter
+title: Rerouter
 ---
 
 # Rerouter

@@ -1,5 +1,5 @@
 ---
-title: TraCI/C++TraCIAPI
+title: C++TraCIAPI
 ---
 
 # C++ TraCIAPI client library

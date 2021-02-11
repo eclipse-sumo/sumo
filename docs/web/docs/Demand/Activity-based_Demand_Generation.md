@@ -1,5 +1,5 @@
 ---
-title: Demand/Activity-based Demand Generation
+title: Activity-based Demand Generation
 ---
 
 [activitygen](../activitygen.md) generates demand from a

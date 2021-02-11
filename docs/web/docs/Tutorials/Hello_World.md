@@ -1,5 +1,5 @@
 ---
-title: Tutorials/Hello World
+title: Hello World
 ---
 
 !!! caution

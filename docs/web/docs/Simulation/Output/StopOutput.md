@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/StopOutput
+title: StopOutput
 ---
 
 ## Instantiating within the Simulation

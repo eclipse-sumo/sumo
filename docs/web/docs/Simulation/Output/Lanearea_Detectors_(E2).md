@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/Lanearea Detectors (E2)
+title: Lanearea Detectors (E2)
 ---
 
 # Introduction

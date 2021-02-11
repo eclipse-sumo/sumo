@@ -1,5 +1,5 @@
 ---
-title: Tools/Net
+title: Net
 ---
 
 # netdiff.py

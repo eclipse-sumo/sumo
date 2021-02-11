@@ -1,5 +1,5 @@
 ---
-title: TraCI/SUMO ID Commands Structure
+title: SUMO ID Commands Structure
 ---
 
 # General Structure of Plain SUMO ID Commands

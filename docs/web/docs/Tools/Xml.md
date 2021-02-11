@@ -1,5 +1,5 @@
 ---
-title: Tools/Xml
+title: Xml
 ---
 
 ## xml2csv.py

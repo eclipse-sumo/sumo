@@ -1,5 +1,5 @@
 ---
-title: Tools/Output
+title: Output
 ---
 
 All of the tools described below exist in *tools/output* directory.

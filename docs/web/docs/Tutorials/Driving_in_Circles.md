@@ -1,5 +1,5 @@
 ---
-title: Tutorials/Driving in Circles
+title: Driving in Circles
 ---
 
 In this tutorial we will build a simple circular net with netedit and

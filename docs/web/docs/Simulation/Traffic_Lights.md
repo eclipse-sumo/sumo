@@ -1,5 +1,5 @@
 ---
-title: Simulation/Traffic Lights
+title: Traffic Lights
 ---
 
 Normally, [netconvert](../netconvert.md) and

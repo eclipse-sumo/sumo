@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/SSM Device
+title: SSM Device
 ---
 
 ## Equipping vehicles

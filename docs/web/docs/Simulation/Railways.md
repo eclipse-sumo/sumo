@@ -1,5 +1,5 @@
 ---
-title: Simulation/Railways
+title: Railways
 ---
 
 # Train Simulation

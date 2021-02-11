@@ -1,5 +1,5 @@
 ---
-title: Other/Glossary
+title: Glossary
 ---
 
 ## A

@@ -1,5 +1,5 @@
 ---
-title: Data/Scenarios
+title: Scenarios
 ---
 
 # We need your Help\!

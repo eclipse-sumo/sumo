@@ -1,5 +1,5 @@
 ---
-title: Other/Projects
+title: Projects
 ---
 
 ## At the DLR

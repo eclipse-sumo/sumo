@@ -1,5 +1,5 @@
 ---
-title: Simulation/OppositeDirectionDriving
+title: Opposite Direction Driving
 ---
 
 # Opposite-Direction-Driving

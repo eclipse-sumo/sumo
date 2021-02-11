@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/RouteProbe
+title: RouteProbe
 ---
 
 RouteProbe detectors are meant to determine the route distribution for

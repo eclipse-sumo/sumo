@@ -1,5 +1,5 @@
 ---
-title: netedit/neteditPopupFunctions
+title: neteditPopupFunctions
 ---
 
 # Popup-Menu Functions

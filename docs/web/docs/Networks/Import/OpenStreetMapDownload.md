@@ -1,5 +1,5 @@
 ---
-title: Networks/Import/OpenStreetMapDownload
+title: OpenStreetMapDownload
 ---
 
 From <http://www.openstreetmap.org/>:

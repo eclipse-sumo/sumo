@@ -1,5 +1,5 @@
 ---
-title: Simulation/SublaneModel
+title: SublaneModel
 ---
 
 # Introduction

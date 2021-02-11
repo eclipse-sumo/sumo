@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/Lane- or Edge-based Traffic Measures
+title: Lane- or Edge-based Traffic Measures
 ---
 
 Values within this output describe the situation within the network in

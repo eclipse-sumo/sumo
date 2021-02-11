@@ -1,5 +1,5 @@
 ---
-title: Developer/HowToRelease
+title: HowToRelease
 ---
 
 ## Packages

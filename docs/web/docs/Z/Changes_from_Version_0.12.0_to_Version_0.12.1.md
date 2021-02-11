@@ -1,5 +1,5 @@
 ---
-title: Z/Changes from Version 0.12.0 to Version 0.12.1
+title: Changes from Version 0.12.0 to Version 0.12.1
 ---
 
 **Release Date: 7.10.2010**

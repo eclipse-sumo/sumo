@@ -1,5 +1,5 @@
 ---
-title: Simulation/Variable Speed Signs
+title: Variable Speed Signs
 ---
 
 One of the trigger objects that may be specified within an {{AdditionalFile}} allows the

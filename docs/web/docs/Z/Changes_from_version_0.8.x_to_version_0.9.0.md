@@ -1,5 +1,5 @@
 ---
-title: Z/Changes from version 0.8.x to version 0.9.0
+title: Changes from version 0.8.x to version 0.9.0
 ---
 
 User-relevant changes:

@@ -1,5 +1,5 @@
 ---
-title: Other/Links
+title: Links
 ---
 
 ## Open Source Development

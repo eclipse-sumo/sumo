@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/Lane- or Edge-based Noise Measures
+title: Lane- or Edge-based Noise Measures
 ---
 
 The edge/lane based noise output based on Harmonoise writes information

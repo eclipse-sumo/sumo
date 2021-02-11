@@ -1,5 +1,5 @@
 ---
-title: Models/Electric
+title: Electric
 ---
 
 # Overview

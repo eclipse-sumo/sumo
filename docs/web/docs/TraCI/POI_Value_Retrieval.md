@@ -1,5 +1,5 @@
 ---
-title: TraCI/POI Value Retrieval
+title: POI Value Retrieval
 ---
 
 ## Command 0xa7: Get PoI Variable

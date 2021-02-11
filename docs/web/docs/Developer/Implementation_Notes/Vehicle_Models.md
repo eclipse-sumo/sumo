@@ -1,5 +1,5 @@
 ---
-title: Developer/Implementation Notes/Vehicle Models
+title: Vehicle Models
 ---
 
 !!! caution

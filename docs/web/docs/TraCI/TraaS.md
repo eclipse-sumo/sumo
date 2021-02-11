@@ -1,5 +1,5 @@
 ---
-title: TraCI/TraaS
+title: TraaS
 ---
 
 # TraaS

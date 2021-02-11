@@ -1,5 +1,5 @@
 ---
-title: Networks/Abstract Network Generation
+title: Abstract Network Generation
 ---
 
 [netgenerate](../netgenerate.md) allows the generation of three

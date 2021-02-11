@@ -1,5 +1,5 @@
 ---
-title: Z/Changes from Version 0.20.0 to Version 0.21.0
+title: Changes from Version 0.20.0 to Version 0.21.0
 ---
 
 ## Version 0.21.0 (11.06.2014)

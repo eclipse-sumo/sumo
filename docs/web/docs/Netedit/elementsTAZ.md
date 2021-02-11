@@ -1,5 +1,5 @@
 ---
-title: netedit/elementsTAZ
+title: elementsTAZ
 ---
 
 # TAZ elements

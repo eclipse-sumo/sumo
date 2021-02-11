@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/Traffic Lights
+title: Traffic Lights
 ---
 
 SUMO offers some possibilities to save states of traffic lights during

@@ -1,5 +1,5 @@
 ---
-title: Tools/Import/VISUM
+title: VISUM
 ---
 
 ### Importing "Zaehlstellen"

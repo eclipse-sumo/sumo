@@ -1,5 +1,5 @@
 ---
-title: Z/Changes from Version 0.10.1 to Version 0.10.2
+title: Changes from Version 0.10.1 to Version 0.10.2
 ---
 
 - All

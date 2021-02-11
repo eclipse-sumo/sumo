@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/Collisions
+title: Collisions
 ---
 
 ## Instantiating within the Simulation

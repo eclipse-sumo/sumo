@@ -1,5 +1,5 @@
 ---
-title: Simulation/Pedestrians
+title: Pedestrians
 ---
 
 # Pedestrian Simulation

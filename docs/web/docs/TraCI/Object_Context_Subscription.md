@@ -1,5 +1,5 @@
 ---
-title: TraCI/Object Context Subscription
+title: Object Context Subscription
 ---
 
 # Introduction

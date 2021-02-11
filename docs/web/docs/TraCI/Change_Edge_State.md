@@ -1,5 +1,5 @@
 ---
-title: TraCI/Change Edge State
+title: Change Edge State
 ---
 
 # Command 0xca: Change Edge State

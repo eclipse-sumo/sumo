@@ -1,5 +1,5 @@
 ---
-title: Tutorials/ScenarioGuide
+title: ScenarioGuide
 ---
 
 # Introduction

@@ -1,5 +1,5 @@
 ---
-title: Developer/Unit Tests
+title: Unit Tests
 ---
 
 # Introduction

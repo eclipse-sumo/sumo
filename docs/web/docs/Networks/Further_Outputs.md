@@ -1,5 +1,5 @@
 ---
-title: Networks/Further Outputs
+title: Further Outputs
 ---
 
 [netconvert](../netconvert.md),

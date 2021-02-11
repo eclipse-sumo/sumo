@@ -1,5 +1,5 @@
 ---
-title: Tutorials/Calibration/San Pablo Dam
+title: San Pablo Dam
 ---
 
 This tutorial describes the execution of the simulation in a loop using

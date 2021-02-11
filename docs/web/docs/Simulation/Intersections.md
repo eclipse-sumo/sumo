@@ -1,5 +1,5 @@
 ---
-title: Simulation/Intersections
+title: Intersections
 ---
 
 The vehicle dynamics at intersection are governed by the intersection

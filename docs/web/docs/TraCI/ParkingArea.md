@@ -1,5 +1,5 @@
 ---
-title: TraCI/ParkingArea
+title: ParkingArea
 ---
 
 Asks for the value of a certain variable of the named ParkingArea.

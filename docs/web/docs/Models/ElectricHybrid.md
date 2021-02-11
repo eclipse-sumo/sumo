@@ -1,5 +1,5 @@
 ---
-title: Models/ElectricHybrid
+title: ElectricHybrid
 ---
 
 # Overview

@@ -1,5 +1,5 @@
 ---
-title: TraCI/Change Route State
+title: Change Route State
 ---
 
 # Command 0xc6: Change Route State

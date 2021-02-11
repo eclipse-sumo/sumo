@@ -1,5 +1,5 @@
 ---
-title: Tools/Misc
+title: Misc
 ---
 
 # createVehTypeDistribution.py

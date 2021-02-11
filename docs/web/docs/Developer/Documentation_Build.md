@@ -1,5 +1,5 @@
 ---
-title: Developer/Documentation Build
+title: Documentation Build
 ---
 
 You can read the SUMO Documentation online at: <https://sumo.dlr.de/docs/>

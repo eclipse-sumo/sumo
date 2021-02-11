@@ -1,5 +1,5 @@
 ---
-title: Tutorials/OSMWebWizard
+title: OSMWebWizard
 ---
 
 # About

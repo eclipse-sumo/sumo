@@ -1,5 +1,5 @@
 ---
-title: Simulation/Public Transport
+title: Public Transport
 ---
 
 # Introduction

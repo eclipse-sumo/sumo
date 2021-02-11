@@ -1,5 +1,5 @@
 ---
-title: TraCI/Change GUI State
+title: Change GUI State
 ---
 
 # Command 0xcc: Change GUI State

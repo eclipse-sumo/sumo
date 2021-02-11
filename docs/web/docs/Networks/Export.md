@@ -1,5 +1,5 @@
 ---
-title: Networks/Export
+title: Export
 ---
 
 # Supported export formats

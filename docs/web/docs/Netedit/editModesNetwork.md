@@ -1,5 +1,5 @@
 ---
-title: netedit
+title: editModesNetwork
 ---
 
 # Network specific modes

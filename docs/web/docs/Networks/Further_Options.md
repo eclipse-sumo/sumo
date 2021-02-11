@@ -1,5 +1,5 @@
 ---
-title: Networks/Further Options
+title: Further Options
 ---
 
 [netconvert](../netconvert.md),

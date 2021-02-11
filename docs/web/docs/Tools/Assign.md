@@ -1,5 +1,5 @@
 ---
-title: Tools/Assign
+title: Assign
 ---
 
 # Assignment Tools

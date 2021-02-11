@@ -1,5 +1,5 @@
 ---
-title: Installing/Linux Build
+title: Linux Build
 ---
 
 This document describes how to install SUMO on Linux from sources. If

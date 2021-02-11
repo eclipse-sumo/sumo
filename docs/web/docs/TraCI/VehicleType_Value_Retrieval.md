@@ -1,5 +1,5 @@
 ---
-title: TraCI/VehicleType Value Retrieval
+title: VehicleType Value Retrieval
 ---
 
 ## Command 0xa5: Get Vehicle Type Variable

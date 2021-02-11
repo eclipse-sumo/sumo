@@ -1,5 +1,5 @@
 ---
-title: Z/Changes from Version 0.9.10 to Version 0.10.0
+title: Changes from Version 0.9.10 to Version 0.10.0
 ---
 
 - Build

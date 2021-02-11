@@ -1,5 +1,5 @@
 ---
-title: Installing/Windows Build
+title: Windows Build
 ---
 
 This document describes how to build SUMO under MS-Windows using only

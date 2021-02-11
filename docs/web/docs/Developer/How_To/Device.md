@@ -1,5 +1,5 @@
 ---
-title: Developer/How To/Device
+title: Device
 ---
 
 This Page describes how to implement a new device.

@@ -1,5 +1,5 @@
 ---
-title: Networks/Import
+title: Import
 ---
 
 [netconvert](../netconvert.md) allows to import road networks from

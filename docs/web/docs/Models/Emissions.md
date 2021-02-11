@@ -1,5 +1,5 @@
 ---
-title: Models/Emissions
+title: Emissions
 ---
 
 # Introduction

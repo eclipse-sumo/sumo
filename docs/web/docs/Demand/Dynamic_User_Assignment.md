@@ -1,5 +1,5 @@
 ---
-title: Demand/Dynamic User Assignment
+title: Dynamic User Assignment
 ---
 
 # Introduction

@@ -1,5 +1,5 @@
 ---
-title: Car-Following-Models/ACC
+title: ACC
 ---
 
 ## Overview

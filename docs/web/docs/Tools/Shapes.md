@@ -1,5 +1,5 @@
 ---
-title: Tools/Shapes
+title: Shapes
 ---
 
 # circlePolygon.py

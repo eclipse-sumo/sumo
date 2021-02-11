@@ -1,5 +1,5 @@
 ---
-title: Networks/PlainXML
+title: PlainXML
 ---
 
 **SUMO**-Networks have two representations:

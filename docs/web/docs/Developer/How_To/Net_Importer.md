@@ -1,5 +1,5 @@
 ---
-title: Developer/How To/Net Importer
+title: Net Importer
 ---
 
 In the following, advices on implementing a new network importer are

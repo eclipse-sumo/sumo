@@ -1,5 +1,5 @@
 ---
-title: Data/Traffic Data
+title: Traffic Data
 ---
 
 # Traffic Data

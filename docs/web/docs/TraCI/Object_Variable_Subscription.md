@@ -1,5 +1,5 @@
 ---
-title: TraCI/Object Variable Subscription
+title: Object Variable Subscription
 ---
 
 # Introduction

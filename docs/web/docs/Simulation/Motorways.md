@@ -1,5 +1,5 @@
 ---
-title: Simulation/Motorways
+title: Motorways
 ---
 
 # Motorway Simulation

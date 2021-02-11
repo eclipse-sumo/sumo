@@ -1,5 +1,5 @@
 ---
-title: netedit/editModesCommon
+title: editModesCommon
 ---
 
 # Netedit common edit modes

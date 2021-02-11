@@ -1,5 +1,5 @@
 ---
-title: Contributed/SUMOPy
+title: SUMOPy
 ---
 
 This document describes the capabilities and basic usage of the software

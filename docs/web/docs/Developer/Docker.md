@@ -1,5 +1,5 @@
 ---
-title: Developer/Docker
+title: Docker
 ---
 
 ## Dockerised SUMO

@@ -1,5 +1,5 @@
 ---
-title: Basics/Notation
+title: Notation
 ---
 
 This documentation uses coloring to differ between

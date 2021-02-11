@@ -1,5 +1,5 @@
 ---
-title: Z/Changes from version 0.9.3 to version 0.9.4
+title: Changes from version 0.9.3 to version 0.9.4
 ---
 
 This release is rather a snapshot. Many things have changed and some

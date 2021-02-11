@@ -1,5 +1,5 @@
 ---
-title: Simulation/VehiclePermissions
+title: VehiclePermissions
 ---
 
 # Introduction

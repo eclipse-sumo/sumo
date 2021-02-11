@@ -1,5 +1,5 @@
 ---
-title: Simulation/Meso
+title: Meso
 ---
 
 # From 30.000 feet

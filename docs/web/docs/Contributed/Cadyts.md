@@ -1,5 +1,5 @@
 ---
-title: Contributed/Cadyts
+title: Cadyts
 ---
 
 ## Introduction

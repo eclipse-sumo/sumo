@@ -1,5 +1,5 @@
 ---
-title: TraCI/RouteProbe
+title: RouteProbe
 ---
 
 ## Command 0x26: Get RouteProbe Variable

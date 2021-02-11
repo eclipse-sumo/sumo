@@ -1,5 +1,5 @@
 ---
-title: netedit/elementsAdditional
+title: elementsAdditional
 ---
 
 # Additional elements

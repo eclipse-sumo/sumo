@@ -1,5 +1,5 @@
 ---
-title: Tools/Trip
+title: Trip
 ---
 
 # randomTrips.py

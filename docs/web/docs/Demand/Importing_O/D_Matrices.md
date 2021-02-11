@@ -1,5 +1,5 @@
 ---
-title: Demand/Importing O/D Matrices
+title: Importing O/D Matrices
 ---
 
 [od2trips](../../od2trips.md) computes trip tables from O/D

@@ -1,5 +1,5 @@
 ---
-title: Developer/CodeStyle
+title: CodeStyle
 ---
 
 # C++ Code

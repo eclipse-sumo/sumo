@@ -1,5 +1,5 @@
 ---
-title: Z/Changes from version 0.8.0.2 to version 0.8.2.1
+title: Changes from version 0.8.0.2 to version 0.8.2.1
 ---
 
 **Please remind that several option names have changed!** The most

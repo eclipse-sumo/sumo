@@ -1,5 +1,5 @@
 ---
-title: Developer/GUI Testing
+title: GUI Testing
 ---
 
 SUMO's netedit tests use

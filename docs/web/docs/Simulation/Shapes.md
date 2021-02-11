@@ -1,5 +1,5 @@
 ---
-title: Simulation/Shapes
+title: Shapes
 ---
 
 # Using additional Polygons and POIs within the Simulation

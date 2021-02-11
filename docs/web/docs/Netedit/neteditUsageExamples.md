@@ -1,5 +1,5 @@
 ---
-title: netedit/neteditUsageExamples
+title: neteditUsageExamples
 ---
 
 # Usage Examples

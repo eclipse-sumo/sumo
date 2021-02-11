@@ -1,5 +1,5 @@
 ---
-title: Simulation/Safety
+title: Safety
 ---
 
 # Collisions

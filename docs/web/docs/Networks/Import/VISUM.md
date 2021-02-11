@@ -1,5 +1,5 @@
 ---
-title: Networks/Import/VISUM
+title: VISUM
 ---
 
 [netconvert](../../netconvert.md) can import native

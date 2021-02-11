@@ -1,5 +1,5 @@
 ---
-title: TraCI/Interfacing TraCI from Python
+title: Interfacing TraCI from Python
 ---
 
 The [TraCI](../TraCI.md#traci_commands) commands are split into the

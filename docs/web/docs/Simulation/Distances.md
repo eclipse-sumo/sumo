@@ -1,5 +1,5 @@
 ---
-title: Simulation/Distances
+title: Distances
 ---
 
 # Introduction

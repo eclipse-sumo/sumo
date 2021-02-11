@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/RawDump
+title: RawDump
 ---
 
 The network dump (also called *netstate output* or *netstate dump*) was

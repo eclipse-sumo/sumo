@@ -1,5 +1,5 @@
 ---
-title: Tutorials/HighwayDetector
+title: HighwayDetector
 ---
 
 This tutorial describes how to set up a traffic scenario using mainly

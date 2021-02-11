@@ -1,5 +1,5 @@
 ---
-title: TraCI/Change Polygon State
+title: Change Polygon State
 ---
 
 # Command 0xc8: Change Polygon State

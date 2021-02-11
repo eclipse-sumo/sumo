@@ -1,5 +1,5 @@
 ---
-title: Networks/Elevation
+title: Elevation
 ---
 
 # Including Elevation Data in a Network

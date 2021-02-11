@@ -1,5 +1,5 @@
 ---
-title: Specification/Persons
+title: Persons
 ---
 
 # Persons

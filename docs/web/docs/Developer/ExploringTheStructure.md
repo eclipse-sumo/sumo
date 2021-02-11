@@ -1,5 +1,5 @@
 ---
-title: Developer/Exploring the structure
+title: Exploring the structure
 ---
 
 # Introduction

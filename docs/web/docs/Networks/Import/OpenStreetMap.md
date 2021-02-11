@@ -1,5 +1,5 @@
 ---
-title: Networks/Import/OpenStreetMap
+title: OpenStreetMap
 ---
 
 *"[OpenStreetMap](http://www.openstreetmap.org/) is a free editable map

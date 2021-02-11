@@ -1,5 +1,5 @@
 ---
-title: Installing/Windows CMake
+title: Windows CMake
 ---
 
 ## Prerequisites

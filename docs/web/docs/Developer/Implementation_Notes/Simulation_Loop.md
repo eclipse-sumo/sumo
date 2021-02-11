@@ -1,5 +1,5 @@
 ---
-title: Developer/Implementation Notes/Simulation Loop
+title: Simulation Loop
 ---
 
 # Main Vehicle Update Loop

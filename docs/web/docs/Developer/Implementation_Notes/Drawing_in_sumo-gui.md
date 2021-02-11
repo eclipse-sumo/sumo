@@ -1,5 +1,5 @@
 ---
-title: Developer/Implementation Notes/Drawing in sumo-gui
+title: Drawing in sumo-gui
 ---
 
 # Basic

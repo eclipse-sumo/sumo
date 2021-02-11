@@ -1,5 +1,5 @@
 ---
-title: Developer/PythonFileTemplate
+title: PythonFileTemplate
 ---
 
 ```py

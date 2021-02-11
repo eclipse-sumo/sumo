@@ -1,5 +1,5 @@
 ---
-title: Simulation/SaveAndLoad
+title: SaveAndLoad
 ---
 
 SUMO allows loading and saving simulation state since version 0.18.0.

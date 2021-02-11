@@ -1,5 +1,5 @@
 ---
-title: Simulation/Vaporizer
+title: Vaporizer
 ---
 
 # Vaporizer

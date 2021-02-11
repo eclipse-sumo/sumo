@@ -1,5 +1,5 @@
 ---
-title: TraCI/Protocol
+title: Protocol
 ---
 
 This page details the [TraCI](../TraCI.md) protocol. Please see

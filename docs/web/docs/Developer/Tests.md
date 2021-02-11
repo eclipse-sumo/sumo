@@ -1,5 +1,5 @@
 ---
-title: Developer/Tests
+title: Tests
 ---
 
 # Introduction

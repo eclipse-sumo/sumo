@@ -1,5 +1,5 @@
 ---
-title: Developer/CppFileTemplate
+title: CppFileTemplate
 ---
 
 ```cpp

@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/Lane- or Edge-based Emissions Measures
+title: Lane- or Edge-based Emissions Measures
 ---
 
 The edge/lane based vehicular emission output writes absolute and normed

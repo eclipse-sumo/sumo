@@ -1,5 +1,5 @@
 ---
-title: TraCI/Induction Loop Value Retrieval
+title: Induction Loop Value Retrieval
 ---
 
 ## Command 0xa0: Get Induction Loop Variable

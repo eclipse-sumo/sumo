@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/FullOutput
+title: FullOutput
 ---
 
 The idea behind this option is to improve the capabilities of the

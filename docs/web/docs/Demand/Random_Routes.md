@@ -1,5 +1,5 @@
 ---
-title: Demand/Random Routes
+title: Random Routes
 ---
 
 [duarouter](../duarouter.md) and [jtrrouter](../jtrrouter.md)

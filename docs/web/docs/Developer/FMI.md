@@ -1,5 +1,5 @@
 ---
-title: Developer/FMI
+title: FMI
 ---
 
 # FMI

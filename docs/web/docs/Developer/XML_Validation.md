@@ -1,5 +1,5 @@
 ---
-title: Developer/XML Validation
+title: XML Validation
 ---
 
 # Status Quo (2018-10-12)

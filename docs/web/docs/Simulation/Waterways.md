@@ -1,5 +1,5 @@
 ---
-title: Simulation/Waterways
+title: Waterways
 ---
 
 # Waterway Simulation

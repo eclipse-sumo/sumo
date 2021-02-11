@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/Binary
+title: Binary
 ---
 
 All [SUMO Applications](../../index.md#application_manuals)

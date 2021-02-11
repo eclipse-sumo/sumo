@@ -1,5 +1,5 @@
 ---
-title: Z/Changes from Version 0.30.0 to Version 0.31.0
+title: Changes from Version 0.30.0 to Version 0.31.0
 ---
 
 ## Version 0.31.0 (14.09.2017)

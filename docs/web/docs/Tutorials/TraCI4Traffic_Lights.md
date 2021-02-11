@@ -1,5 +1,5 @@
 ---
-title: Tutorials/TraCI4Traffic Lights
+title: TraCI4Traffic Lights
 ---
 
 This shows how to use the [Traffic Control Interface (in short

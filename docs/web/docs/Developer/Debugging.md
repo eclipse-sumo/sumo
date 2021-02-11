@@ -1,5 +1,5 @@
 ---
-title: Developer/Debugging
+title: Debugging
 ---
 
 Besides using a debugger (e.g. [gdb](https://www.gnu.org/s/gdb/)) with

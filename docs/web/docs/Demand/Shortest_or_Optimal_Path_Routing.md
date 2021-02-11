@@ -1,5 +1,5 @@
 ---
-title: Demand/Shortest or Optimal Path Routing
+title: Shortest or Optimal Path Routing
 ---
 
 # Introduction

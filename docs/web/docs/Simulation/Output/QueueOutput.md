@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/QueueOutput
+title: QueueOutput
 ---
 
 The idea behind this output option is to detect the queue in front of

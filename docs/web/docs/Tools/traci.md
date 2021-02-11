@@ -1,5 +1,5 @@
 ---
-title: Tools/traci
+title: traci
 ---
 
 # areal.py

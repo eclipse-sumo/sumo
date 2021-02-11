@@ -1,5 +1,5 @@
 ---
-title: TraCI/Change Lane State
+title: Change Lane State
 ---
 
 # Command 0xc3: Change Lanes State

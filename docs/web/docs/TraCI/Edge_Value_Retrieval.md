@@ -1,5 +1,5 @@
 ---
-title: TraCI/Edge Value Retrieval
+title: Edge Value Retrieval
 ---
 
 ## Command 0xaa: Get Edge Variable

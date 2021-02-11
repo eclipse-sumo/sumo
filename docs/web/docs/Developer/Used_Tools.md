@@ -1,5 +1,5 @@
 ---
-title: Developer/Used Tools
+title: Used Tools
 ---
 
 - [TextTest](http://texttest.sourceforge.net/) An acceptance test framework.

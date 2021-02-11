@@ -1,5 +1,5 @@
 ---
-title: Simulation/Taxi
+title: Taxi
 ---
 
 # Introduction

@@ -1,5 +1,5 @@
 ---
-title: Tools/Routes
+title: Routes
 ---
 
 The tools' names accord to their function.

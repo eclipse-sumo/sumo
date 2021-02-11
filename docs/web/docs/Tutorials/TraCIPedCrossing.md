@@ -1,5 +1,5 @@
 ---
-title: Tutorials/TraCIPedCrossing
+title: TraCIPedCrossing
 ---
 
 This tutorial shows how to use the Traffic Control Interface (in short

@@ -1,5 +1,5 @@
 ---
-title: netedit/elementsData
+title: elementsData
 ---
 
 # netedit data elements

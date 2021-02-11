@@ -1,5 +1,5 @@
 ---
-title: Tutorials/Output Parsing
+title: Output Parsing
 ---
 
 In this tutorial you will learn how to

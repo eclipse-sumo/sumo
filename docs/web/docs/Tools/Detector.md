@@ -1,5 +1,5 @@
 ---
-title: Tools/Detector
+title: Detector
 ---
 
 # flowrouter.py

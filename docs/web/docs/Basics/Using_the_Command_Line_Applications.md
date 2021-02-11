@@ -1,5 +1,5 @@
 ---
-title: Basics/Using the Command Line Applications
+title: Using the Command Line Applications
 ---
 
 Most of the applications from the SUMO package are command line tools.

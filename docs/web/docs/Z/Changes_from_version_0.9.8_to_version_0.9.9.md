@@ -1,5 +1,5 @@
 ---
-title: Z/Changes from version 0.9.8 to version 0.9.9
+title: Changes from version 0.9.8 to version 0.9.9
 ---
 
 - All

@@ -1,5 +1,5 @@
 ---
-title: Simulation/Rail signals
+title: Rail signals
 ---
 
 Rail signals are

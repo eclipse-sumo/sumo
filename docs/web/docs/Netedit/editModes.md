@@ -1,5 +1,5 @@
 ---
-title: netedit/editmodes
+title: editmodes
 ---
 
 # Edit modes

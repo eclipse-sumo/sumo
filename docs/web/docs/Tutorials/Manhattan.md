@@ -1,5 +1,5 @@
 ---
-title: Tutorials/Manhattan
+title: Manhattan
 ---
 
 # Introduction

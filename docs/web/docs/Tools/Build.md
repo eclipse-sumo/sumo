@@ -1,5 +1,5 @@
 ---
-title: Tools/Build
+title: Build
 ---
 
 # Build Tools

@@ -1,5 +1,5 @@
 ---
-title: Developer/Implementation Notes
+title: Implementation Notes
 ---
   
 - [Developer/Implementation Notes/Sumo Modules](

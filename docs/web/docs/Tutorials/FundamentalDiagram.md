@@ -1,5 +1,5 @@
 ---
-title: Tutorials/FundamentalDiagram
+title: FundamentalDiagram
 ---
 
 # Introduction

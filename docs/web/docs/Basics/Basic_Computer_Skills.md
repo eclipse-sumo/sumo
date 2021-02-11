@@ -1,5 +1,5 @@
 ---
-title: Basics/Computer Skills
+title: Computer Skills
 ---
 
 # Introduction

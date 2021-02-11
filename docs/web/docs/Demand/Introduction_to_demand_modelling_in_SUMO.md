@@ -1,5 +1,5 @@
 ---
-title: Demand/Introduction to demand modelling in SUMO
+title: Introduction to demand modelling in SUMO
 ---
 
 After having generated a network, one could take a look at it using

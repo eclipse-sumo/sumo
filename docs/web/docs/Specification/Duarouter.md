@@ -1,5 +1,5 @@
 ---
-title: Specification/Duarouter
+title: Duarouter
 ---
 
 # Inputs

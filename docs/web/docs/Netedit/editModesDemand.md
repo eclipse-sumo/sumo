@@ -1,5 +1,5 @@
 ---
-title: netedit/editModesDemand
+title: editModesDemand
 ---
 
 # Demand specific modes

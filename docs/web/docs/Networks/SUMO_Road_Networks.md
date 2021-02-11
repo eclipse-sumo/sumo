@@ -1,5 +1,5 @@
 ---
-title: Networks/SUMO Road Networks
+title: SUMO Road Networks
 ---
 
 ![eichstaett.net.png](../images/Eichstaett.net.png "Screenshot of a SUMO net file opened in sumo-gui. It shows the map of the German city Eichstätt.")

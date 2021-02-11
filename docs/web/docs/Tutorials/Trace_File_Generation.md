@@ -1,5 +1,5 @@
 ---
-title: Tutorials/Trace File Generation
+title: Trace File Generation
 ---
 
 # Introduction

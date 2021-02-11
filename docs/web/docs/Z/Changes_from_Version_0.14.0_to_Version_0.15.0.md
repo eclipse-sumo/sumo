@@ -1,5 +1,5 @@
 ---
-title: Z/Changes from Version 0.14.0 to Version 0.15.0
+title: Changes from Version 0.14.0 to Version 0.15.0
 ---
 
 ## Version 0.15.0 (14.03.2012)

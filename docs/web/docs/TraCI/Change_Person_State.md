@@ -1,5 +1,5 @@
 ---
-title: TraCI/Change Person State
+title: Change Person State
 ---
 
 ## Command 0xce: Change Person State

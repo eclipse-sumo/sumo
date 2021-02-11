@@ -1,5 +1,5 @@
 ---
-title: Specification/Logistics
+title: Logistics
 ---
 
 The concept of logistics is mostly realised by

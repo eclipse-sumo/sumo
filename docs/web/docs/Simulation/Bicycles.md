@@ -1,5 +1,5 @@
 ---
-title: Simulation/Bicycles
+title: Bicycles
 ---
 
 # Bicycle Simulation

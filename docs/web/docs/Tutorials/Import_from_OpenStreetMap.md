@@ -1,5 +1,5 @@
 ---
-title: Tutorials/Import from OpenStreetMap
+title: Import from OpenStreetMap
 ---
 
 ![OpenStreetMapOverview.svg](../images/OpenStreetMapOverview.svg "OpenStreetMapOverview.svg")

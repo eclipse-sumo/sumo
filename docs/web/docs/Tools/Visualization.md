@@ -1,5 +1,5 @@
 ---
-title: Tools/Visualization
+title: Visualization
 ---
 
 [sumo](../sumo.md) offers a wide range of

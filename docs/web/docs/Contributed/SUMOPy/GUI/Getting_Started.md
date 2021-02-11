@@ -1,5 +1,5 @@
 ---
-title: Contributed/SUMOPy/GUI/Getting Started
+title: Getting Started
 ---
 
 ### Running SUMOPy

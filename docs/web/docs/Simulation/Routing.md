@@ -1,5 +1,5 @@
 ---
-title: Simulation/Routing
+title: Routing
 ---
 
 # Features that cause rerouting

@@ -1,5 +1,5 @@
 ---
-title: Installing/Windows Libraries
+title: Windows Libraries
 ---
 
 !!! note

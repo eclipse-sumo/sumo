@@ -1,5 +1,5 @@
 ---
-title: TraCI/Calibrator
+title: Calibrator
 ---
 
 Asks for the value of a certain variable of the named Calibrator.

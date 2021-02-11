@@ -1,5 +1,5 @@
 ---
-title: Simulation/ParkingArea
+title: ParkingArea
 ---
 
 # Parking Areas

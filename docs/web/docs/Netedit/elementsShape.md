@@ -1,5 +1,5 @@
 ---
-title: netedit/elementsShape
+title: elementsShape
 ---
 
 # Shape elements

@@ -1,5 +1,5 @@
 ---
-title: Tools/devel
+title: Devel
 ---
 
 

@@ -1,5 +1,5 @@
 ---
-title: Tutorials/Hello SUMO
+title: Hello SUMO
 ---
 
 !!! note

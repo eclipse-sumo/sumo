@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/VehRoutes
+title: VehRoutes
 ---
 
 The vehicle routes output contains information about which route a

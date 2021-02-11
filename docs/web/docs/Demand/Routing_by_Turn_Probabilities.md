@@ -1,5 +1,5 @@
 ---
-title: Demand/Routing by Turn Probabilities
+title: Routing by Turn Probabilities
 ---
 
 The [jtrrouter](../jtrrouter.md) is a routing applications which

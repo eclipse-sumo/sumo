@@ -1,5 +1,5 @@
 ---
-title: Installing/Linux Build Libraries
+title: Linux Build Libraries
 ---
 
 !!! note

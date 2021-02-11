@@ -1,5 +1,5 @@
 ---
-title: Other/File Extensions
+title: File Extensions
 ---
 
 ## Native SUMO Files

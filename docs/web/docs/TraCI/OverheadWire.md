@@ -1,5 +1,5 @@
 ---
-title: TraCI/OverheadWire
+title: OverheadWire
 ---
 
 Asks for the value of a certain variable of the named OverheadWire.

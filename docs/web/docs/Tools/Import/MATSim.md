@@ -1,5 +1,5 @@
 ---
-title: Tools/Import/MATSim
+title: MATSim
 ---
 
 # Introduction

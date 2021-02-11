@@ -1,5 +1,5 @@
 ---
-title: Topics/Environmental Issues
+title: Environmental Issues
 ---
 
 One of the major burdens traffic poses to society is its impact on the

@@ -1,5 +1,5 @@
 ---
-title: Contributed/SUMOPy/Tutorials/Open and Simulate
+title: Open and Simulate
 ---
 
 # Things to know first

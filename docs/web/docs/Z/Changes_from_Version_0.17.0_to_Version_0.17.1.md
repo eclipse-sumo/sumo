@@ -1,5 +1,5 @@
 ---
-title: Z/Changes from Version 0.17.0 to Version 0.17.1
+title: Changes from Version 0.17.0 to Version 0.17.1
 ---
 
 ## Version 0.17.1 (08.05.2013)

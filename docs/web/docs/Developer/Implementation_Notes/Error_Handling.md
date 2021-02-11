@@ -1,5 +1,5 @@
 ---
-title: Developer/Implementation Notes/Error Handling
+title: Error Handling
 ---
 
 <center>

@@ -1,5 +1,5 @@
 ---
-title: Screenshots/Shapes
+title: Shapes
 ---
 
 # Using points of interest and polygons

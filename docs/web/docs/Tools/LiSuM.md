@@ -1,5 +1,5 @@
 ---
-title: Tools/LiSuM
+title: LiSuM
 ---
 
 # Introduction

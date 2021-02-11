@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/Lanechange
+title: Lanechange
 ---
 
 The lanechange-output tracks all events where a vehicle changes

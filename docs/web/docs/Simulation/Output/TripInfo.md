@@ -1,5 +1,5 @@
 ---
-title: Simulation/Output/TripInfo
+title: TripInfo
 ---
 
 ## Instantiating within the Simulation

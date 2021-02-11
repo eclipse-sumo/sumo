@@ -1,5 +1,5 @@
 ---
-title: Contributed/SUMOPlayer
+title: SUMOPlayer
 ---
 
 !!! note

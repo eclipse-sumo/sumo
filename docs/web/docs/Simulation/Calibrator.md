@@ -1,5 +1,5 @@
 ---
-title: Simulation/Calibrator
+title: Calibrator
 ---
 
 # Calibrators
