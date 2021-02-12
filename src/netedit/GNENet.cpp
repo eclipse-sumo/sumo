@@ -1759,7 +1759,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     // create new junction
     Position pos;
     Position oldPos;
-    bool setTL;
+    bool setTL = false;
     std::string id = "cluster";
     TrafficLightType type;
     SumoXMLNodeType nodeType = SumoXMLNodeType::UNKNOWN;
