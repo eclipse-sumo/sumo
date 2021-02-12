@@ -462,6 +462,13 @@ background-color: #1b6618;
 font-size: 1rem !important;
 }
 
+.navbar-light .navbar-toggler {
+color: #495057; /* for incompatible Browsers  */
+color: var(--body-color);
+border-color: #495057; /* for incompatible Browsers  */
+border-color: var(--body-color);
+}
+
 .dropdown-menu {
 background-color: #abdd8b;
 }
