@@ -633,15 +633,6 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         }
     }
 
-    // report
-    WRITE_MESSAGE("-----------------------------------------------------");
-    WRITE_MESSAGE("Summary:");
-    myNodeCont.printBuiltNodesStatistics();
-    WRITE_MESSAGE(" Network boundaries:");
-    WRITE_MESSAGE("  Original boundary  : " + toString(geoConvHelper.getOrigBoundary()));
-    WRITE_MESSAGE("  Applied offset     : " + toString(geoConvHelper.getOffsetBase()));
-    WRITE_MESSAGE("  Converted boundary : " + toString(geoConvHelper.getConvBoundary()));
-    WRITE_MESSAGE("-----------------------------------------------------");
     NBRequest::reportWarnings();
     // report on very large networks
     if (MAX2(geoConvHelper.getConvBoundary().xmax(), geoConvHelper.getConvBoundary().ymax()) > 1000000 ||

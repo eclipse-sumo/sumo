@@ -115,15 +115,15 @@ MsgHandler::enableDebugGLMessages(bool enable) {
 
 void
 MsgHandler::inform(std::string msg, bool addType) {
+    if (addType && !myInitialMessages.empty() && myInitialMessages.size() < 5) {
+        myInitialMessages.push_back(msg);
+    }
     // beautify progress output
     if (myAmProcessingProcess) {
         myAmProcessingProcess = false;
         MsgHandler::getMessageInstance()->inform("");
     }
     msg = build(msg, addType);
-    if (!myInitialMessages.empty() && myInitialMessages.size() < 5) {
-        myInitialMessages.push_back(msg);
-    }
     // inform all receivers
     for (auto i : myRetrievers) {
         i->inform(msg);
@@ -171,11 +171,13 @@ MsgHandler::clear(bool resetInformed) {
         }
     }
     myAggregationCount.clear();
-    if (myInitialMessages.size() > 1) {
+    if (!resetInformed && myInitialMessages.size() > 1) {
+        const bool wasInformed = myWasInformed;
         for (const std::string& msg : myInitialMessages) {
-            inform(msg);
+            inform(msg, false);
         }
         myInitialMessages.clear();
+        myWasInformed = wasInformed;
     }
 }
 
@@ -251,7 +253,9 @@ MsgHandler::initOutputOptions() {
         getErrorInstance()->addRetriever(logFile);
         getWarningInstance()->addRetriever(logFile);
     }
-    if (!oc.getBool("verbose")) {
+    if (oc.getBool("verbose")) {
+        getErrorInstance()->myInitialMessages.push_back("Repeating initial error messages:");
+    } else {
         getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
     }
 }
@@ -278,9 +282,6 @@ MsgHandler::MsgHandler(MsgType type) :
         addRetriever(&OutputDevice::getDevice("stdout"));
     } else {
         addRetriever(&OutputDevice::getDevice("stderr"));
-    }
-    if (type == MsgType::MT_ERROR) {
-//        myInitialMessages.push_back("Repeating initial messages ...");
     }
 }
 

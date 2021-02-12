@@ -136,6 +136,8 @@ main(int argc, char** argv) {
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             throw ProcessError();
         }
+        // report
+        nb.getNodeCont().printBuiltNodesStatistics();
         NWFrame::writeNetwork(oc, nb);
     } catch (const ProcessError& e) {
         MsgHandler::getWarningInstance()->clear(false);

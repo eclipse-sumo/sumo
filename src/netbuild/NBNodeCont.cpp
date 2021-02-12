@@ -2278,6 +2278,9 @@ NBNodeCont::computeNodeShapes(double mismatchThreshold) {
 
 void
 NBNodeCont::printBuiltNodesStatistics() const {
+    WRITE_MESSAGE("-----------------------------------------------------");
+    WRITE_MESSAGE("Summary:");
+
     int numUnregulatedJunctions = 0;
     int numDeadEndJunctions = 0;
     int numTrafficLightJunctions = 0;
@@ -2355,6 +2358,12 @@ NBNodeCont::printBuiltNodesStatistics() const {
     if (numDistrictJunctions > 0) {
         WRITE_MESSAGE("  District junctions      : " + toString(numDistrictJunctions));
     }
+    const GeoConvHelper& geoConvHelper = GeoConvHelper::getProcessing();
+    WRITE_MESSAGE(" Network boundaries:");
+    WRITE_MESSAGE("  Original boundary  : " + toString(geoConvHelper.getOrigBoundary()));
+    WRITE_MESSAGE("  Applied offset     : " + toString(geoConvHelper.getOffsetBase()));
+    WRITE_MESSAGE("  Converted boundary : " + toString(geoConvHelper.getConvBoundary()));
+    WRITE_MESSAGE("-----------------------------------------------------");
 }
 
 
