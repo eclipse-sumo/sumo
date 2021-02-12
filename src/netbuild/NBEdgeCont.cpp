@@ -1527,6 +1527,14 @@ NBEdgeCont::guessSpecialLanes(SUMOVehicleClass svc, double width, double minSpee
 }
 
 
+void
+NBEdgeCont::updateAllChangeRestrictions(SVCPermissions ignoring) {
+    for (auto item : myEdges) {
+        item.second->updateChangeRestrictions(ignoring);
+    }
+}
+
+
 int
 NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix, NBPTStopCont& sc) {
     bool startGiven = !OptionsCont::getOptions().isDefault("numerical-ids.edge-start");

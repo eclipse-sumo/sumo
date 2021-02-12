@@ -612,6 +612,9 @@ public:
     /// @brief ensure that all edges have valid nodes
     bool checkConsistency(const NBNodeCont& nc);
 
+    /// @brief modify all restrictions on lane changing for edges and connections
+    void updateAllChangeRestrictions(SVCPermissions ignoring);
+
 private:
     /// @brief compute the form factor for a loop of edges
     static double formFactor(const EdgeVector& loopEdges);

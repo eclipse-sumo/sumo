@@ -531,10 +531,10 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
     if (type != "") {
         into.writeAttr(SUMO_ATTR_TYPE, type);
     }
-    if (changeLeft != SVCAll) {
+    if (changeLeft != SVC_UNSPECIFIED && changeLeft != SVCAll) {
         into.writeAttr(SUMO_ATTR_CHANGE_LEFT, getVehicleClassNames(changeLeft));
     }
-    if (changeRight != SVCAll) {
+    if (changeRight != SVC_UNSPECIFIED && changeRight != SVCAll) {
         into.writeAttr(SUMO_ATTR_CHANGE_RIGHT, getVehicleClassNames(changeRight));
     }
     if (stopOffsets.size() != 0) {
@@ -710,10 +710,10 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
         if (c.permissions != SVC_UNSPECIFIED) {
             writePermissions(into, c.permissions);
         }
-        if (c.changeLeft != SVC_UNSPECIFIED) {
+        if (c.changeLeft != SVC_UNSPECIFIED && c.changeLeft != SVCAll) {
             into.writeAttr(SUMO_ATTR_CHANGE_LEFT, getVehicleClassNames(c.changeLeft));
         }
-        if (c.changeRight != SVC_UNSPECIFIED) {
+        if (c.changeRight != SVC_UNSPECIFIED && c.changeRight != SVCAll) {
             into.writeAttr(SUMO_ATTR_CHANGE_RIGHT, getVehicleClassNames(c.changeRight));
         }
         if (c.speed != NBEdge::UNSPECIFIED_SPEED) {

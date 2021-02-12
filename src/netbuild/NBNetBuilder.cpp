@@ -633,6 +633,11 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         }
     }
 
+    if (oc.exists("ignore-change-restrictions") && !oc.isDefault("ignore-change-restrictions")) {
+        SVCPermissions ignoring = parseVehicleClasses(oc.getStringVector("ignore-change-restrictions"));
+        myEdgeCont.updateAllChangeRestrictions(ignoring);
+    }
+
     NBRequest::reportWarnings();
     // report on very large networks
     if (MAX2(geoConvHelper.getConvBoundary().xmax(), geoConvHelper.getConvBoundary().ymax()) > 1000000 ||

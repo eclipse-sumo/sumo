@@ -165,6 +165,9 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.doRegister("discard-params", new Option_StringVector());
     oc.addDescription("discard-params", "Formats", "Remove the list of keys from all params");
 
+    oc.doRegister("ignore-change-restrictions", new Option_StringVector({"authority"}));
+    oc.addDescription("ignore-change-restrictions", "Formats", "List vehicle classes that may ignore lane changing restrictions ('all' discards all restrictions)");
+
     // register xml options
     oc.doRegister("plain.extend-edge-shape", new Option_Bool(false));
     oc.addSynonyme("plain.extend-edge-shape", "xml.keep-shape", true);

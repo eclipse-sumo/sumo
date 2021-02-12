@@ -210,7 +210,7 @@ public:
     void removeComponents(NBDistrictCont& dc, NBEdgeCont& ec, const int numKeep, bool hasPTStops);
 
     /// @brief remove rail components after ptstops are built
-    void removeRailComponents(NBDistrictCont& dc, NBEdgeCont& ec, NBPTStopCont& sc); 
+    void removeRailComponents(NBDistrictCont& dc, NBEdgeCont& ec, NBPTStopCont& sc);
 
     /** @brief Removes "unwished" nodes
      *

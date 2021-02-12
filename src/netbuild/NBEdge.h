@@ -1446,6 +1446,9 @@ public:
     /// @brief reset lane shapes to what they would be before cutting with the junction shapes
     void resetLaneShapes();
 
+    /// @brief modify all existing restrictions on lane changing
+    void updateChangeRestrictions(SVCPermissions ignoring);
+
     /// @brief return the straightest follower edge for the given permissions or nullptr (never returns turn-arounds)
     /// @note: this method is called before connections are built and simply goes by node graph topology
     NBEdge* getStraightContinuation(SVCPermissions permissions) const;

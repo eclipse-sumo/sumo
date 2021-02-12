@@ -2014,6 +2014,28 @@ NBEdge::resetLaneShapes() {
     computeLaneShapes();
 }
 
+
+void
+NBEdge::updateChangeRestrictions(SVCPermissions ignoring) {
+    for (Lane& lane : myLanes) {
+        if (lane.changeLeft != SVCAll) {
+            lane.changeLeft = ignoring;
+        }
+        if (lane.changeRight != SVCAll) {
+            lane.changeRight = ignoring;
+        }
+    }
+    for (Connection& con : myConnections) {
+        if (con.changeLeft != SVC_UNSPECIFIED && con.changeLeft != SVCAll) {
+            con.changeLeft = ignoring;
+        }
+        if (con.changeRight != SVC_UNSPECIFIED && con.changeRight != SVCAll) {
+            con.changeRight = ignoring;
+        }
+    }
+}
+
+
 void
 NBEdge::computeLaneShapes() {
     // vissim needs this
