@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12.12.2018 13:14:50 by Eclipse SUMO netedit Version v1_0_0+1333-2fb8438a8e
+<!-- generated on 12.02.2021 13:19:34 by Eclipse SUMO netedit Version v1_8_0+1126-1b9d3d35b1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/reverse_edge\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.8_from_12Feb104151.8896\netedit.gui\netElements\edges\contextual_menu\reverse_edge\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/reverse_edge\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.8_from_12Feb104151.8896\netedit.gui\netElements\edges\contextual_menu\reverse_edge\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -26,33 +27,38 @@
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="true"/>
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/reverse_edge\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/reverse_edge\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/reverse_edge\shapes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.8_from_12Feb104151.8896\netedit.gui\netElements\edges\contextual_menu\reverse_edge\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.8_from_12Feb104151.8896\netedit.gui\netElements\edges\contextual_menu\reverse_edge\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.8_from_12Feb104151.8896\netedit.gui\netElements\edges\contextual_menu\reverse_edge\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.8_from_12Feb104151.8896\netedit.gui\netElements\edges\contextual_menu\reverse_edge\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.8_from_12Feb104151.8896\netedit.gui\netElements\edges\contextual_menu\reverse_edge\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.8_from_12Feb104151.8896\netedit.gui\netElements\edges\contextual_menu\reverse_edge\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/reverse_edge\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.8_from_12Feb104151.8896\netedit.gui\netElements\edges\contextual_menu\reverse_edge\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.8_from_12Feb104151.8896\netedit.gui\netElements\edges\contextual_menu\reverse_edge\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/reverse_edge\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.8_from_12Feb104151.8896\netedit.gui\netElements\edges\contextual_menu\reverse_edge\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.9" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -66,7 +72,7 @@
         <lane id=":gneJ0_2_0" index="0" speed="3.65" length="2.08" shape="3.20,1.60 2.00,0.80 1.71,0.23"/>
     </edge>
     <edge id=":gneJ0_3" function="internal">
-        <lane id=":gneJ0_3_0" index="0" speed="3.65" length="2.59" shape="1.71,0.23 1.60,-0.00 2.00,-0.80 3.20,-1.60"/>
+        <lane id=":gneJ0_3_0" index="0" speed="3.65" length="2.59" shape="1.71,0.23 1.60,0.00 2.00,-0.80 3.20,-1.60"/>
     </edge>
     <edge id=":gneJ0_w0" function="walkingarea">
         <lane id=":gneJ0_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.26" width="3.20" shape="-3.20,3.20 0.00,3.20 0.00,3.20 3.20,3.20 3.20,3.20 3.20,0.00 3.20,0.00 3.20,-3.20 -3.02,1.24 -2.49,-0.36 -1.60,-1.60 -0.36,-2.49 1.24,-3.02"/>
@@ -131,10 +137,10 @@
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="001" foes="001" cont="1"/>
     </junction>
-    <junction id="gneJ2" type="priority" x="0.00" y="20.00" incLanes="gneE2_0 gneE9_0" intLanes=":gneJ2_0_0" shape="4.70,23.20 4.70,20.00 3.87,19.83 3.58,19.63 3.37,19.33 3.24,18.96 3.20,18.50 -3.20,18.50 -2.32,21.11 -1.23,22.03 0.31,22.68 2.29,23.07">
+    <junction id="gneJ2" type="priority" x="0.00" y="20.00" incLanes="gneE2_0 gneE9_0" intLanes=":gneJ2_0_0" shape="4.70,23.20 4.70,20.00 3.87,19.83 3.57,19.62 3.37,19.33 3.24,18.96 3.20,18.50 -3.20,18.50 -2.32,21.11 -1.23,22.03 0.31,22.68 2.29,23.07">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ3" type="priority" x="50.00" y="20.00" incLanes="gneE5_0" intLanes=":gneJ3_0_0" shape="53.20,18.50 46.80,18.50 46.63,19.33 46.42,19.63 46.13,19.83 45.76,19.96 45.30,20.00 45.30,23.20 47.71,23.07 49.69,22.68 51.23,22.03 52.32,21.11 52.98,19.94">
+    <junction id="gneJ3" type="priority" x="50.00" y="20.00" incLanes="gneE5_0" intLanes=":gneJ3_0_0" shape="53.20,18.50 46.80,18.50 46.63,19.33 46.42,19.62 46.13,19.83 45.76,19.96 45.30,20.00 45.30,23.20 47.71,23.07 49.69,22.68 51.23,22.03 52.32,21.11 52.98,19.94">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 

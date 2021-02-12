@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.inspectMode()
 
 # restore geometry point
-netedit.contextualMenuOperation(referencePosition, 270, 170, 9, 4)
+netedit.contextualMenuOperation(referencePosition, 270, 170, 10, 4)
 
 # recompute
 netedit.rebuildNetwork()
