@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:41 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on Fri Feb 12 14:46:21 2021 by Eclipse SUMO netconvert Version v1_8_0+1146-7b4d661
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2505,7 +2505,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="postal_code" value="12524"/>
     </edge>
     <edge id="-143308570" from="32266938" to="1568241305" name="Wegedornbrücke" priority="10" type="highway.tertiary">
-        <lane id="-143308570_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="45.47" shape="1470.11,286.62 1465.61,241.38">
+        <lane id="-143308570_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="45.47" shape="1470.11,286.62 1465.61,241.38" changeLeft="authority">
             <param key="origId" value="143308570"/>
         </lane>
         <param key="bridge" value="true"/>
@@ -2555,7 +2555,7 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
     </edge>
     <edge id="-206579061" from="2165987550" to="2007005083" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
-        <lane id="-206579061_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="20.26" shape="1007.53,454.05 1011.20,434.12">
+        <lane id="-206579061_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="20.26" shape="1007.53,454.05 1011.20,434.12" changeLeft="authority" changeRight="authority">
             <param key="origId" value="206579061"/>
         </lane>
         <param key="postal_code" value="12489"/>
@@ -2606,7 +2606,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="postal_code" value="12489"/>
     </edge>
     <edge id="-318210395" from="1568241305" to="3246050909" name="Wegedornstraße" priority="10" type="highway.tertiary">
-        <lane id="-318210395_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="42.89" shape="1465.58,241.07 1462.25,198.31">
+        <lane id="-318210395_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="42.89" shape="1465.58,241.07 1462.25,198.31" changeLeft="authority">
             <param key="origId" value="318210395"/>
         </lane>
         <param key="postal_code" value="12524"/>
@@ -2713,7 +2713,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="postal_code" value="12524"/>
     </edge>
     <edge id="143308570" from="1568241305" to="32266938" name="Wegedornbrücke" priority="10" type="highway.tertiary">
-        <lane id="143308570_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="45.47" shape="1468.79,241.06 1473.29,286.31">
+        <lane id="143308570_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="45.47" shape="1468.79,241.06 1473.29,286.31" changeLeft="authority">
             <param key="origId" value="143308570"/>
         </lane>
         <param key="bridge" value="true"/>
@@ -2834,7 +2834,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="ref" value="L 1081"/>
     </edge>
     <edge id="206579061" from="2007005083" to="2165987550" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
-        <lane id="206579061_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="20.26" shape="1014.34,434.70 1010.68,454.62">
+        <lane id="206579061_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="20.26" shape="1014.34,434.70 1010.68,454.62" changeLeft="authority" changeRight="authority">
             <param key="origId" value="206579061"/>
         </lane>
         <param key="postal_code" value="12489"/>
@@ -2993,7 +2993,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="ref" value="A 113"/>
     </edge>
     <edge id="318210395" from="3246050909" to="1568241305" name="Wegedornstraße" priority="10" type="highway.tertiary">
-        <lane id="318210395_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="42.89" shape="1465.44,198.06 1468.77,240.82">
+        <lane id="318210395_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="42.89" shape="1465.44,198.06 1468.77,240.82" changeLeft="authority">
             <param key="origId" value="318210395"/>
         </lane>
         <param key="postal_code" value="12524"/>
@@ -3238,7 +3238,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="postal_code" value="12489"/>
     </edge>
     <edge id="415852848" from="4167993265" to="59992997" name="Wegedornstraße" priority="11" type="highway.secondary" shape="1473.33,313.48 1473.93,324.19 1474.08,329.29 1477.43,375.85">
-        <lane id="415852848_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.03" shape="1475.40,321.84 1475.52,324.12 1475.68,329.20 1478.74,371.76">
+        <lane id="415852848_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.03" shape="1475.40,321.84 1475.52,324.12 1475.68,329.20 1478.74,371.76" changeLeft="authority">
             <param key="origId" value="-190083618#2"/>
         </lane>
         <param key="origFrom" value="3273797701"/>
@@ -3270,13 +3270,13 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
     </edge>
     <edge id="415852854" from="2007005087" to="2165987550" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
-        <lane id="415852854_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.20" shape="1006.31,460.71 1006.35,460.51">
+        <lane id="415852854_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.20" shape="1006.31,460.71 1006.35,460.51" changeLeft="authority">
             <param key="origId" value="-206579062#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
     </edge>
     <edge id="415852855" from="4167993273" to="2007005087" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary" shape="997.39,513.05 999.93,501.36 1007.13,465.15">
-        <lane id="415852855_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="36.62" shape="997.63,504.39 998.36,501.03 1004.84,468.48">
+        <lane id="415852855_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="36.62" shape="997.63,504.39 998.36,501.03 1004.84,468.48" changeLeft="authority">
             <param key="origId" value="-206579062#2"/>
         </lane>
         <param key="origFrom" value="492462300"/>
@@ -3292,7 +3292,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="415852857_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="37.43" shape="1013.65,400.83 1019.33,368.82 1019.38,366.39 1019.57,364.06">
             <param key="origId" value="-206579064#1"/>
         </lane>
-        <lane id="415852857_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="37.43" shape="1016.80,401.39 1022.52,369.14 1022.58,366.56 1022.76,364.32">
+        <lane id="415852857_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="37.43" shape="1016.80,401.39 1022.52,369.14 1022.58,366.56 1022.76,364.32" changeLeft="authority">
             <param key="origId" value="-206579064#1"/>
         </lane>
         <param key="origTo" value="1906766907"/>
@@ -3302,7 +3302,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="415852858_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="15.23" shape="1009.64,424.39 1012.10,409.37">
             <param key="origId" value="-206579064#2"/>
         </lane>
-        <lane id="415852858_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="15.23" shape="1012.79,424.91 1015.26,409.89">
+        <lane id="415852858_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="15.23" shape="1012.79,424.91 1015.26,409.89" changeLeft="authority">
             <param key="origId" value="-206579064#2"/>
         </lane>
         <param key="postal_code" value="12489"/>
@@ -3424,7 +3424,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="origFrom" value="294169342"/>
     </edge>
     <edge id="415852880" from="4167993273" to="1560223789" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary" shape="995.08,526.59 992.89,546.76 991.19,557.28 990.42,562.35">
-        <lane id="415852880_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="22.57" shape="995.72,535.53 994.48,546.97 992.77,557.54 992.72,557.89">
+        <lane id="415852880_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="22.57" shape="995.72,535.53 994.48,546.97 992.77,557.54 992.72,557.89" changeLeft="authority">
             <param key="origId" value="-318210380#1"/>
         </lane>
         <param key="origFrom" value="671564296"/>
@@ -3806,7 +3806,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="415852936_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.14" shape="1472.35,372.22 1469.29,329.53 1469.13,324.40 1469.01,322.20">
             <param key="origId" value="190083618#0"/>
         </lane>
-        <lane id="415852936_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.14" shape="1475.55,371.99 1472.49,329.37 1472.33,324.26 1472.20,322.02">
+        <lane id="415852936_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.14" shape="1475.55,371.99 1472.49,329.37 1472.33,324.26 1472.20,322.02" changeLeft="authority">
             <param key="origId" value="190083618#0"/>
         </lane>
         <param key="origTo" value="3273797701"/>
@@ -3841,7 +3841,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="415852942_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.20" shape="1012.64,461.66 1012.61,461.86">
             <param key="origId" value="206579062#0"/>
         </lane>
-        <lane id="415852942_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.20" shape="1009.50,461.09 1009.46,461.28">
+        <lane id="415852942_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.20" shape="1009.50,461.09 1009.46,461.28" changeLeft="authority">
             <param key="origId" value="206579062#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
@@ -3850,7 +3850,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="415852943_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="36.71" shape="1011.11,469.73 1004.63,502.34 1003.89,505.74">
             <param key="origId" value="206579062#1"/>
         </lane>
-        <lane id="415852943_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="36.71" shape="1007.97,469.11 1001.49,501.69 1000.76,505.07">
+        <lane id="415852943_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="36.71" shape="1007.97,469.11 1001.49,501.69 1000.76,505.07" changeLeft="authority">
             <param key="origId" value="206579062#1"/>
         </lane>
         <param key="origTo" value="492462300"/>
@@ -3876,14 +3876,14 @@ SPDX-License-Identifier: EPL-2.0
         <param key="postal_code" value="12489"/>
     </edge>
     <edge id="415852946" from="4167993266" to="3260077364" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary" shape="1024.90,357.81 1024.18,366.64 1024.12,369.30 1016.46,412.47">
-        <lane id="415852946_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="37.88" shape="1025.95,364.58 1025.78,366.72 1025.71,369.46 1019.95,401.95">
+        <lane id="415852946_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="37.88" shape="1025.95,364.58 1025.78,366.72 1025.71,369.46 1019.95,401.95" changeLeft="authority">
             <param key="origId" value="206579064#0"/>
         </lane>
         <param key="origFrom" value="1906766907"/>
         <param key="postal_code" value="12489"/>
     </edge>
     <edge id="415852947" from="3260077364" to="2007005083" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
-        <lane id="415852947_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="15.23" shape="1018.42,410.40 1015.95,425.43">
+        <lane id="415852947_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="15.23" shape="1018.42,410.40 1015.95,425.43" changeLeft="authority">
             <param key="origId" value="206579064#2"/>
         </lane>
         <param key="postal_code" value="12489"/>
@@ -5166,7 +5166,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="000011000" foes="000011110" cont="0"/>
         <request index="8" response="000010001" foes="000010001" cont="0"/>
     </junction>
-    <junction id="835806371" type="priority" x="0.00" y="805.89" incLanes="-69923147_0" intLanes=":835806371_0_0" shape="-0.00,805.89 2.08,808.33 0.00,805.89">
+    <junction id="835806371" type="priority" x="0.00" y="805.89" incLanes="-69923147_0" intLanes=":835806371_0_0" shape="0.00,805.89 2.08,808.33 0.00,805.89">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="837777441" type="priority" x="1557.80" y="624.50" incLanes="-70139065_0" intLanes=":837777441_0_0" shape="1557.80,624.50 1559.80,624.45 1557.80,624.50">
