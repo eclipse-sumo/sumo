@@ -3,7 +3,7 @@ title: Using the Command Line Applications
 ---
 
 Most of the applications from the SUMO package are command line tools.
-Currently, only [sumo-gui](../sumo-gui.md) and [netedit](../netedit.md) are not. If you do not
+Currently, only [sumo-gui](../sumo-gui.md) and [netedit](../Netedit/index.md) are not. If you do not
 know what a "command line" is, we refer you to the page about [basic computer skills](../Basics/Basic_Computer_Skills.md#running_programs_from_the_command_line).
 
 The following presents some peculiarities of the SUMO-suite

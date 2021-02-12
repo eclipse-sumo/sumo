@@ -15,7 +15,7 @@ by the PTV Group](https://www.youtube.com/watch?v=IpaNLxrtHOs).
 # Building the Net
 
 ![editEdgeAttr.png](../images/EditEdgeAttr.png "Editing the location of the edge's startpoint")Open
-[netedit](../netedit.md) and create a new network and add a single
+[netedit](../Netedit/index.md) and create a new network and add a single
 edge by pressing `e` for entering the edge creation mode and clicking on
 two different locations in the editing area. Change to inspection mode
 (press `i`) and click on the starting point of the edge (at the location

@@ -3,7 +3,7 @@ title: Further Options
 ---
 
 [netconvert](../netconvert.md),
-[netgenerate](../netgenerate.md), and [netedit](../netedit.md)
+[netgenerate](../netgenerate.md), and [netedit](../Netedit/index.md)
 offer some more options to describe how the network shall be imported.
 The scope of some options does not cover all import types.
 

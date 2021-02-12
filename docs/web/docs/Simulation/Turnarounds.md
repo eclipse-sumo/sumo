@@ -40,7 +40,7 @@ If routes between edges already exist, the [duarouter option **--remove-loops**]
 
 # Controlling where turnarounds may happen
 By removing turnaround connections from a network (i.e. with
-[netedit](../netedit.md), turnarounds and unsuitable locations can be prevented.
+[netedit](../Netedit/index.md), turnarounds and unsuitable locations can be prevented.
 
 Often it is easier to control the generation of turnaround connections when
 importing the network. For this purpose [netconvert](../netconvert.md) provides a number of options.

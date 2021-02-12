@@ -185,7 +185,7 @@ title: Changes from Version 0.27.1 to Version 0.28.0
   - Added Tutorial for using [the OSM-Web-Wizard](../Tutorials/OSMWebWizard.md).
   - More details on [loading and inserting vehicles](../Simulation/VehicleInsertion.md)
   - Added new overview page on [vehicle permissions](../Simulation/VehiclePermissions.md)
-  - The [netedit](../netedit.md) documentation on old and novel
+  - The [netedit](../Netedit/index.md) documentation on old and novel
     features has been expanded.
   - The tool
     [showDepartsAndArrivalsPerEdge.py](../Tools/Routes.md#showdepartsandarrivalsperedge)

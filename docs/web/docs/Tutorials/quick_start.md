@@ -180,7 +180,7 @@ on the chosen edge. As you can see on the left side of the following
 picture, the different meanings of the dyed edges are shown in the
 Legend. ![con1.png](../images/Con1.png "con1.png")
 For further information and a deeper sight, please go to
-[netedit](../netedit.md).
+[netedit](../Netedit/index.md).
 
   - Another topic is the priority of each edge. In our example, the
     priority is 1 by default. To change the priority, please select the

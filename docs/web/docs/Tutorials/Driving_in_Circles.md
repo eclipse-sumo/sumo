@@ -9,7 +9,7 @@ in circles. All definition files can also be found in the
 
 # Build a network
 
-First open [netedit](../netedit.md) and create edges to form a
+First open [netedit](../Netedit/index.md) and create edges to form a
 closed loop. To do that press `Ctrl-N` to create a new network and then
 press `e` to enter the edge editing mode. Now create a closed loop of
 edges (you might consider to check 'chain' just right from the edit-mode
@@ -131,7 +131,7 @@ again. To this end we will create a rerouter
 Create a rerouter in netedit (full implementation pending!)
 
 !!! caution
-    Editing rerouters in netedit is not implemented completely currently. Alter the tutorial correspondingly, when this has been done! (See [netedit#Rerouter](../netedit.md#rerouter))
+    Editing rerouters in netedit is not implemented completely currently. Alter the tutorial correspondingly, when this has been done! (See [netedit#Rerouter](../Netedit/index.md#rerouter))
 
 !!! note
     In the future the editing of rerouters will be possible in netedit. Up to now rerouters have to be added manually (see below). Here is what can be done in netedit so far: Open your network `circles.net` and press `a` to enter the additionals edit-mode. From the dropdown menu "Additional element" on the left select `rerouter` and from "Edges" select `edge1` (see figure). Then click somewhere in the editing window to create the rerouter (the rerouter icon is placed at the location where you click, but the location has no further meaning). Repeat the steps to create a rerouter for `edge2`.

@@ -38,7 +38,7 @@ title: Changes from Version 0.29.0 to Version 0.30.0
     roads as motorway ramps.
   - Fixed invalid right-of-way rules at junctions with type
     *traffic_light_right_on_red* when importing a *net.xml* file
-    or editing with [netedit](../netedit.md). #2976
+    or editing with [netedit](../Netedit/index.md). #2976
   - Networks built with option **--junctions.scurve-stretch** now retain their shape when imported
     again. #2877
   - Networks [imported from VISUM](../Networks/Import/VISUM.md)
@@ -161,9 +161,9 @@ title: Changes from Version 0.29.0 to Version 0.30.0
   - The junction visualization options *show link junction index*
     and *show link tls index* are now working #2955
   - When creating or moving edge and junction geometry, positions
-    can now be [restricted to a regular grid](../netedit.md#background_grid) (i.e. multiples of
+    can now be [restricted to a regular grid](../Netedit/index.md#background_grid) (i.e. multiples of
     100). #2776
-  - [Custom edge geometry endpoints](../netedit.md#specifying_the_complete_geometry_of_an_edge_including_endpoints)
+  - [Custom edge geometry endpoints](../Netedit/index.md#specifying_the_complete_geometry_of_an_edge_including_endpoints)
     values can now be entered in inspect mode. #2012
 
 - TraCI
@@ -228,7 +228,7 @@ title: Changes from Version 0.29.0 to Version 0.30.0
   - New [overview page on safety-related behavior](../Simulation/Safety.md)
   - The [Quick Start tutorial](../Tutorials/quick_start.md) now
     describes how to create an network with
-    [netedit](../netedit.md)
+    [netedit](../Netedit/index.md)
 
 - TraCI
   - TraCI version is now 15

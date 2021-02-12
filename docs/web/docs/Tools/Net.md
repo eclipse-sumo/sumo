@@ -36,14 +36,14 @@ A typical use case for ```netdiff.py``` is this:
 1.  [Import a network from
     OSM](../Networks/Import/OpenStreetMap.md) (call this
     ***A.net.xml***)
-2.  Make some modifications with [netedit](../netedit.md) (save
+2.  Make some modifications with [netedit](../Netedit/index.md) (save
     this under the new name ***B.net.xml***)
 3.  Use ```netdiff.py``` to create the *diff*-files
 4.  At a later date, re-import the OSM network (with a newer OSM file, a
     new version of [netconvert](../netconvert.md) or different
     options)
 5.  Re-apply the *diff*-files to avoid repeating manual corrections with
-    [netedit](../netedit.md)
+    [netedit](../Netedit/index.md)
 
 ![](../images/mergeA.png)
 ![](../images/mergeB.png)

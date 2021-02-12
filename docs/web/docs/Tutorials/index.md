@@ -6,10 +6,10 @@ title: Tutorials
     These tutorials assume minor computer skills. If you run into any questions please read the page [Basics/Basic Computer Skills](../Basics/Basic_Computer_Skills.md).
 
 # Beginner Tutorials
-* [Hello World](Hello_World.md) - Creating a simple network and demand scenario with [netedit](../netedit.md) and visualizing it using [sumo-gui](../sumo-gui.md)
+* [Hello World](Hello_World.md) - Creating a simple network and demand scenario with [netedit](../Netedit/index.md) and visualizing it using [sumo-gui](../sumo-gui.md)
 * [OSMWebWizard](OSMWebWizard.md) - Setting up a scenario with just a few clicks using osmWebWizard.py; getting a network from OpenStreetMap
-* [Quick Start](quick_start.md) - A more complex tutorial with [netedit](../netedit.md); first steps in SUMO
-* [Driving in Circles](Driving_in_Circles.md) - Work with [netedit](../netedit.md); define a flow; let vehicles drive in circles using rerouters
+* [Quick Start](quick_start.md) - A more complex tutorial with [netedit](../Netedit/index.md); first steps in SUMO
+* [Driving in Circles](Driving_in_Circles.md) - Work with [netedit](../Netedit/index.md); define a flow; let vehicles drive in circles using rerouters
 * [SUMOlympics](SUMOlympics.md) - Create special lanes and simple traffic lights in netedit, more about flows and vehicle types, working with vehicle 
 * [Autobahn](Autobahn.md) - Build a highway, create a mixed highway flow, visualize vehicle speed, save view settings
 * [Manhattan](Manhattan.md) - Build a [Manhattan mobility model](https://en.wikipedia.org/wiki/Manhattan_mobility_model)
@@ -87,5 +87,5 @@ The following tutorials are not yet completed
 The following tutorials are kept for completeness but are superseded by other tutorials/documentation
 
 * [Import from OpenStreetMap](Import_from_OpenStreetMap.md) - Shows how to prepare a map from [OpenStreetMap](https://www.openstreetmap.org/) for traffic simulation
-* [Quick_Start_old_style](Quick_Start_old_style.md) - Build a scenario by editing the edge and node files in a text editor instead of [netedit](../netedit.md)
+* [Quick_Start_old_style](Quick_Start_old_style.md) - Build a scenario by editing the edge and node files in a text editor instead of [netedit](../Netedit/index.md)
 * [CityMobil](CityMobil.md) - Simulation of a parking lot management using automated buses. This TraCI tutorial was written before the implementation of pedestrians and parkingAreas

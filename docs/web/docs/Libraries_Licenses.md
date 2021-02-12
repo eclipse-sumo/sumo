@@ -70,7 +70,7 @@ license files but we strive to list them here as well:
 ### [FOX toolkit](http://fox-toolkit.org/) - GUI Widget Toolkit
 
 can be omitted, but [sumo-gui](sumo-gui.md),
-[netedit](netedit.md) and multithreading won't work
+[netedit](Netedit/index.md) and multithreading won't work
 
 - [GNU Lesser General Public
   License](https://www.gnu.org/copyleft/lesser.html) with static

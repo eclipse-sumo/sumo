@@ -31,7 +31,7 @@ Some further comments on importing ArcView-files are available [here](../
 It seems to be unmanageable to write a complete developer documentation.
 Due to this, we now offer some additional documentation on certain
 topics. Topics that were previously a part of the developer
-documentation may be now found within the [More Docs](../Developer/Main.md) section.
+documentation may be now found within the [More Docs](../Developer/index.md) section.
 
 
 There are also some further changes which do not yet show their

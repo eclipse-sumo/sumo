@@ -16,7 +16,7 @@ The format is given in
 [\#Describing_the_TAZ](#describing_the_taz) below. You have
 to pass the file containing the TAZ definitions to
 [od2trips](../../od2trips.md) using the **--net-file** {{DT_FILE}} (**--net** {{DT_FILE}} or **-n** {{DT_FILE}} for short) option. TAZ
-can be created by drawing polygons in [netedit](../../netedit.md) and
+can be created by drawing polygons in [netedit](../../Netedit/index.md) and
 processing them with the tool
 [Tools/District\#edgesInDistricts.py](../../Tools/District.md#edgesindistrictspy).
 
@@ -104,9 +104,9 @@ destination lists are normalized after loading.
 ## Creating TAZ files
 
 - TAZ definitions can be created directly in
-  [netedit](../../netedit.md#taz_traffic_analysis_zones)
+  [netedit](../../Netedit/index.md#taz_traffic_analysis_zones)
 - TAZ definitions can be created by drawing polygons in
-  [netedit](../../netedit.md#pois_and_polygons), then using the tool
+  [netedit](../../Netedit/index.md#pois_and_polygons), then using the tool
   [edgesInDistricts.py](../../Tools/District.md#edgesindistrictspy)
   for converting polygons to TAZ.
 

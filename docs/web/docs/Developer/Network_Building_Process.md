@@ -3,7 +3,7 @@ title: Network Building Process
 ---
 
 [netconvert](../netconvert.md),
-[netgenerate](../netgenerate.md), and [netedit](../netedit.md)
+[netgenerate](../netgenerate.md), and [netedit](../Netedit/index.md)
 share the same process of building networks which is started as soon as
 data are read (in [netconvert](../netconvert.md)) or after an
 internal description is generated (in

@@ -18,7 +18,7 @@ Every simulation requires a road network. The application
 [netconvert](../netconvert.md) is used to create a network which
 can be used by the simulation [sumo](../sumo.md). It is also
 possible to build/modify a simulation network by hand with use of
-[netedit](../netedit.md), which provides a graphical user
+[netedit](../Netedit/index.md), which provides a graphical user
 interface.
 
 ## If you already have some network data
@@ -67,7 +67,7 @@ lights. The recommended ways to perform the necessary changes include:
     this during the initial import (i.e. load an OSM-file along with
     your plain-xml files)
 3.  directly adjust your network with GUI: after opening the program
-    [netedit](../netedit.md) you load the network file
+    [netedit](../Netedit/index.md) you load the network file
     (\*.net.xml)that needs to be modified. Then you choose the
     respective functions in netedit to modify e.g. the number of lanes,
     road shapes, traffic signal plans, intersection geometries, and to

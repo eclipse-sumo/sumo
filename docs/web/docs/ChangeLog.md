@@ -1338,7 +1338,7 @@ title: ChangeLog
 
 - netedit
   - *split junction* is now working reliably in intermodal networks. Issue #4999
-  - Fixed crash when [copying edge template](netedit.md#edge_template) with lane-specific attributes. Issue #5005
+  - Fixed crash when [copying edge template](Netedit/index.md#edge_template) with lane-specific attributes. Issue #5005
   - Fixed index of created lanes when adding restricted lanes with context menu. This is partly a regression fix and partly an improvement over the earlier behavior. Issue #5006
   - Inspection contour now works correctly for spread bidirectional rail edges. Issue #5064
   - Now showing correct edge length when using *endOffset*. Issue #5066
@@ -1989,7 +1989,7 @@ title: ChangeLog
     vehicles and the reporting period can be configured. Issue #1910
   - FCD-output can now be restricted to a subset of network edges
     loaded from a file with option **--fcd-output.filter-edges.input-file** {{DT_FILE}}. The file format is that of an
-    edge selection as saved by [netedit](netedit.md).
+    edge selection as saved by [netedit](Netedit/index.md).
   - Intended departure times (attribute *depart*) and intended
     vehicle id (attribute *intended*) are now added to
     vehroute-output of public transport rides. Issue #3948

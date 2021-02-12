@@ -156,7 +156,7 @@ title: Changes from Version 0.24.0 to Version 0.25.0
     *90* pointing due East. #1372
 
 - netedit
-  - [netedit](../netedit.md) is now open. Have fun.
+  - [netedit](../Netedit/index.md) is now open. Have fun.
   - Int and float options can now be set in the
     *Processing-\>Options* dialog.
   - Added many lane- and junction-coloring modes already known from
@@ -172,16 +172,16 @@ title: Changes from Version 0.24.0 to Version 0.25.0
     unchecking *Select edges*. #1895
   - A lane (or a selections of lanes) can now be duplicated by
     selecting *Duplicate lane* from the context menu. #1896
-  - *Selection Mode* now allows [additional operators](../netedit.md#select) when matching against a
+  - *Selection Mode* now allows [additional operators](../Netedit/index.md#select) when matching against a
     non-numerical attribute. #1923
   - Added new option *Copy edge name to clipboard* to the lane
     popup-menu.
   - Junction attribute *keepClear* is now supported.
   - Custom junction shapes can now be drawn by selecting *Set custom
     shape* from the junction popup-menu. This will create a
-    [modifiable shape outline. The popup-menu of this outline allows saving, discarding and simplifying the shape.](../netedit.md#modifiable_poly)
+    [modifiable shape outline. The popup-menu of this outline allows saving, discarding and simplifying the shape.](../Netedit/index.md#modifiable_poly)
   - Added *reload* menu option. #2029
-  - When editing traffic light plans, [states can now be set for multiple links and multiple phases at the same time](../netedit.md#traffic_lights).
+  - When editing traffic light plans, [states can now be set for multiple links and multiple phases at the same time](../Netedit/index.md#traffic_lights).
 
 - sumo-gui
   - Persons can now be tracked by selecting *Start Tracking* from
@@ -193,7 +193,7 @@ title: Changes from Version 0.24.0 to Version 0.25.0
   - Added person statistics to network parameter dialog. #1898
   - Added new menu option *Edit-\>Open in netedit* for opening the
     current network (at the current location) in
-    [netedit](../netedit.md).
+    [netedit](../Netedit/index.md).
   - Added new option *Copy edge name to clipboard* to the lane
     popup-menu.
   - Added new options *Close edge* and *Close lane* to the lane

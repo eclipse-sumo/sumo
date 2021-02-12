@@ -33,7 +33,7 @@ The attributes:
 | vTypes         | string             | space separated list of vehicle type ids to consider, "" means all; default "".                       |
 
 !!! note
-    Instead of manually defining detectors in an xml file, they can also be defined visually with [netedit](../../netedit.md).
+    Instead of manually defining detectors in an xml file, they can also be defined visually with [netedit](../../Netedit/index.md).
 
 ## Generated Output
 

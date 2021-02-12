@@ -82,17 +82,17 @@ drawing of cross-ties. The visualisation option *show lane direction*
 can be used to identify superposed edges. (arrows in both directions
 will be show).
 
-### Working with bidirectional tracks in [netedit](../netedit.md)
+### Working with bidirectional tracks in [netedit](../Netedit/index.md)
 
 - To show both edges that constitute a bidirectional track, activate
   edge visualisation option *spread superposed*. Both edges will be
   drawn narrower and with a side-offset to make them both visible
   without overlap.
 - To find (and highlight) all bidirectional tracks, use [attribute
-  selection](../netedit.md#match_attribute) and search for
+  selection](../Netedit/index.md#match_attribute) and search for
   attribute *bidi* with a value of *1*
 - Create bidirectional tracks [as explained
-  here](../netedit.md#creating_bidirectional_railway_tracks)
+  here](../Netedit/index.md#creating_bidirectional_railway_tracks)
 
 ### Importing bidirectional tracks from OSM
 
@@ -132,7 +132,7 @@ When importing networks from
 crossings will be imported automatically. For other input data sources
 the crossings may have to be specified [via additional xml
 files](../Tutorials/ScenarioGuide.md#modifying_an_imported_network_via_plainxml)
-or set via [netedit](../netedit.md) after importing.
+or set via [netedit](../Netedit/index.md) after importing.
 
 ## Kilometrage (Mileage, Chainage)
 
@@ -146,7 +146,7 @@ The distance value along an edge is computed as:
   |edgeDistance + vehiclePos|
 ```
 
-Edge distance is imported from OSM and can also be be set along a route in [netedit](../netedit.md#route)
+Edge distance is imported from OSM and can also be be set along a route in [netedit](../Netedit/index.md#route)
 
 !!! note
     Negative distance values are not currently supported (pending introduction of another attribute)

@@ -297,7 +297,7 @@ the traci python client (runner.py is a traci script in this case).
 
 ## Interactive GUI Tests
 
-These tests are currently only active for [netedit](../netedit.md)
+These tests are currently only active for [netedit](../Netedit/index.md)
 and are described in more detail on the page
 [Developer/GUI_Testing](../Developer/GUI_Testing.md).
 

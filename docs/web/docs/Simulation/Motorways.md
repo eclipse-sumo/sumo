@@ -10,7 +10,7 @@ best practices when modelling motorway networks and traffic.
 # Building a network for motorway simulation
 
 Networks can be imported from any supported data source or created from
-scratch with [netedit](../netedit.md). Depending on the level of
+scratch with [netedit](../Netedit/index.md). Depending on the level of
 detail special processing may be necessary
 
 ## Motorway ramps
@@ -54,7 +54,7 @@ if possible but can still continue their route if that lane is occupied.
 ![Connectivity at on-off-ramp](../images/OnOffRamp.png)
 Connectivity at on-off-ramp
 
-You can can create this kind of connectivity in [netedit connection mode](../netedit.md#changing_connections]) with Ctrl+Click.
+You can can create this kind of connectivity in [netedit connection mode](../Netedit/index.md#changing_connections]) with Ctrl+Click.
 
 !!! note
     A similar problem can be found in some types of multi-lane roundabouts. The same solution is applicable.

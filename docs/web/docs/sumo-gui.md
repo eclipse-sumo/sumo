@@ -208,7 +208,7 @@ junction:myJunction
 
 Most network objects can be colored according to their selection status
 (*color by selection*) and selected network elements may be manipulated
-as a group in [netedit](netedit.md).
+as a group in [netedit](Netedit/index.md).
 
 ## Locating Objects
 
@@ -817,7 +817,7 @@ time-intervals.
   device.rerouting](Demand/Automatic_Routing.md) when running
   [sumo](sumo.md) with option **--device.rerouting.output**.
 - [showDepartsAndArrivalsPerEdge.py](Tools/Routes.md#showdepartsandarrivalsperedge)
-- [netedit](netedit.md#data_specific_modes) can be used to create and modify edgeData files
+- [netedit](Netedit/index.md#data_specific_modes) can be used to create and modify edgeData files
 
 These files can be used with
 [duarouter](Demand/Shortest_or_Optimal_Path_Routing.md#custom_edge_weights)

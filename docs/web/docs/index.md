@@ -50,7 +50,7 @@ This Documentation is continuously updated and always refers to the latest devel
   - [Building networks for pedestrian simulation](Simulation/Pedestrians.md#building_a_network_for_pedestrian_simulation)
   - [Further netconvert options](Networks/Further_Options.md)
   - [Additional output](Networks/Further_Outputs.md)
-- [Creating and modifying networks with netedit](netedit.md)
+- [Creating and modifying networks with netedit](Netedit/index.md)
 - [Including elevation data](Networks/Elevation.md)
 - [Geo-Coordinates](Geo-Coordinates.md)
 
@@ -175,7 +175,7 @@ Below are links to some of the most important/used tools:
 - [sumo](sumo.md)
 - [sumo-gui](sumo-gui.md)
 - [netconvert](netconvert.md)
-- [netedit](netedit.md)
+- [netedit](Netedit/index.md)
 - [netgenerate](netgenerate.md)
 - [od2trips](od2trips.md)
 - [duarouter](duarouter.md)

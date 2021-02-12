@@ -13,7 +13,7 @@ additional program definitions. Also,
 definitions which describe when and how a set of traffic lights can
 switch from one program to another. Both will be discussed in the
 following subchapters. Another possiblity is to edit traffic light plans
-visually in [netedit](../netedit.md#traffic_lights).
+visually in [netedit](../Netedit/index.md#traffic_lights).
 
 # Automatically Generated TLS-Programs
 
@@ -462,7 +462,7 @@ For an easier import than editing the XML by hand, some tools exists in
   red-yellow) are added automatically. The splitting into smaller
   SUMO-phases is also done automatically.
 
-Alternatively [netedit](../netedit.md) can be used to edit programs
+Alternatively [netedit](../Netedit/index.md) can be used to edit programs
 using a graphical user interface.
 
 # Modifying Existing TLS-Programs
@@ -489,7 +489,7 @@ methods:
   nodes in *.nod.xml* file when building the network with
   [netconvert](../netconvert.md)
 - Setting the same *tl* attribute for multiple nodes in
-  [netedit](../netedit.md)
+  [netedit](../Netedit/index.md)
 - Setting the option **--tls.join** when building the network with
   [netconvert](../netconvert.md). This will automatically join
   the traffic lights of nodes in close proximity within a default
@@ -521,7 +521,7 @@ junctions.
 
 The tls index for each connection can be [freely assigned in a
 *.tll.file*](../Networks/PlainXML.md#controlled_connections)
-or by setting attribute *linkIndex* in [netedit](../netedit.md). By
+or by setting attribute *linkIndex* in [netedit](../Netedit/index.md). By
 assigning the **same** index to multiple connection they form a signal
 group and always show the same state (simply because they reference the
 same state index). This allows shortening and thus simplifying the state

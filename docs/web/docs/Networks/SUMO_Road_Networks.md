@@ -42,7 +42,7 @@ an existing map from various formats using
 abstract road maps with [netgenerate](../netgenerate.md). To modify
 an existing *.net.xml*-file you may [load it with netconvert along with
 patch files](../Networks/Import/SUMO_Road_Networks.md) You may also
-use [netedit](../netedit.md) for building own road networks or for
+use [netedit](../Netedit/index.md) for building own road networks or for
 reworking the ones obtained from [netconvert](../netconvert.md) or
 [netgenerate](../netgenerate.md).
 
@@ -324,7 +324,7 @@ The junction itself is described by the following attributes:
 | **incLanes** | id list           | The ids of the lanes that end at the intersection; sorted by direction, clockwise, with direction up = 0                                                               |
 | **intLanes** | id list           | The IDs of the lanes within the intersection                                                                                                                           |
 | **shape**    | position list     | A polygon describing the road boundaries of the intersection                                                                                                           |
-| customShape  | bool              | Whether the shape was customized by the user (and should thus not be rebuilt by [netconvert](../netconvert.md) or [netedit](../netedit.md)), default *False* |
+| customShape  | bool              | Whether the shape was customized by the user (and should thus not be rebuilt by [netconvert](../netconvert.md) or [netedit](../Netedit/index.md)), default *False* |
 
 Please note, that the x/y-positions of the junction describe the given,
 not the computed center of the junction. It is allowed for two nodes to
@@ -514,7 +514,7 @@ the map of this file. Most other SUMO tools read such files to generate
 or import information that must be the mapped onto a road network.
 
 Networks can be created and edited graphically using
-[netedit](../netedit.md).
+[netedit](../Netedit/index.md).
 
 The SUMO net file is not meant for manual editing. Convert it to the
 [SUMO native XML
@@ -533,7 +533,7 @@ these files by hand and rebuild the network with
   - [Generating abstract networks using
       netgenerate](../Networks/Abstract_Network_Generation.md)
   - [netgenerate](../netgenerate.md) manual
-- [netedit](../netedit.md) manual
+- [netedit](../Netedit/index.md) manual
 - [Developer/Network Building
   Process](../Developer/Network_Building_Process.md)
 

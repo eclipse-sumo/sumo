@@ -108,9 +108,9 @@ Option **--sidewalks.guess.from-permissons** {{DT_BOOL}} is suitable for network
 sidewalk for all edges which allow pedestrians on any of their lanes.
 The option **--sidewalks.guess.exclude** {{DT_IDList}}[,{{DT_IDList}}\]\* applies here as well.
 
-### Adding sidewalks with [netedit](../netedit.md)
+### Adding sidewalks with [netedit](../Netedit/index.md)
 
-To add sidewalks to a set of edges in [netedit](../netedit.md)
+To add sidewalks to a set of edges in [netedit](../Netedit/index.md)
 select these and right click on them. From the context-menu select *lane operations->add restricted lane->Sidewalks*.
 
 ### Non-exclusive sidewalks
@@ -146,7 +146,7 @@ pedestrian traffic.
 
 Crossings may be defined explicitly in plain XML input when describing
 [connections (plain.con.xml) using the XML element `crossings`](../Networks/PlainXML.md#pedestrian_crossings).
-They can also be placed with [netedit](../netedit.md#crossings).
+They can also be placed with [netedit](../Netedit/index.md#crossings).
 
 The second available method for adding crossing information to a network
 is with the [netconvert](../netconvert.md) option **--crossings.guess** {{DT_BOOL}}. This enables a heuristic which adds crossings

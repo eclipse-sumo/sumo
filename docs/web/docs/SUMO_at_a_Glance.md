@@ -71,7 +71,7 @@ The package includes:
 | [sumo](sumo.md)                             | The microscopic simulation with no visualization; command line application                                         |
 | [sumo-gui](sumo-gui.md)                     | The microscopic simulation with a graphical user interface                                                        |
 | [netconvert](netconvert.md)                 | Network importer and generator; reads road networks from different formats and converts them into the SUMO-format   |
-| [netedit](netedit.md)                       | A graphical network editor.                                                                                  |
+| [netedit](Netedit/index.md)                       | A graphical network editor.                                                                                  |
 | [netgenerate](netgenerate.md)               | Generates abstract networks for the SUMO-simulation                    |
 | [duarouter](duarouter.md)                   | Computes the fastest routes through the network, importing different types of demand description. Performs the DUA      |
 | [jtrrouter](jtrrouter.md)                   | Computes routes using junction turning percentages                                                               |

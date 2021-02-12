@@ -15,7 +15,7 @@ Elevation data can be imported from the following sources
   - from a greyscale height-map using [netconvert](../netconvert.md) option **--heightmap.geotiff**.
   - from [*edg.xml files*](../Networks/PlainXML.md#edge_descriptions) as part of the shape specification
 
-- by shifting geometry points and junctions along the z-axis in [netedit move mode](../netedit.md#changing_elevation).
+- by shifting geometry points and junctions along the z-axis in [netedit move mode](../Netedit/index.md#changing_elevation).
 
 # Related Topics
 
@@ -25,7 +25,7 @@ Current 3D-Position can be retrieved for persons and vehicles.
 
 ## Visualizing Elevation data
 
-[sumo-gui](../sumo-gui.md) and [netedit](../netedit.md) allow
+[sumo-gui](../sumo-gui.md) and [netedit](../Netedit/index.md) allow
 coloring edges by:
 
 - elevation at the start of the edge

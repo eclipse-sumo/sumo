@@ -3,7 +3,7 @@ title: Further Outputs
 ---
 
 [netconvert](../netconvert.md),
-[netgenerate](../netgenerate.md), and [netedit](../netedit.md)
+[netgenerate](../netgenerate.md), and [netedit](../Netedit/index.md)
 allow to generate additional output files besides writing a SUMO network
 file. They will be presented in the following.
 
@@ -134,7 +134,7 @@ Conversion of .net.xml file with [python tool net2kml](../Tools/Net.md#net2kmlpy
 The option **--ptstop-output** {{DT_FILE}} causes an {{AdditionalFile}} to be written that contains `<busStop/>` elements for the
 imported network. These can be loaded directly into
 [sumo](../sumo.md) or further modified with
-[netedit](../netedit.md).
+[netedit](../Netedit/index.md).
 
 ## Public Transport Lines
 

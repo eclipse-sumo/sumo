@@ -51,7 +51,7 @@ title: Developer
 - [Progress on implementing an XML validation](XML_Validation.md)
 - [Developer/HowToRelease](HowToRelease.md) - how to build a release
 - [Developer/Docker](Docker.md) - projects using Dockerised SUMO
-- [Git](../GitStuff.md)
+- [Git](GitStuff.md)
 - [Visual Studio Code](VisualStudioCode.md) - how to use Visual Studio Code with the SUMO code base
 
 ## Continuous integration, code analysis and other external references

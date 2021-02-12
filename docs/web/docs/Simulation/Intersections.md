@@ -66,8 +66,8 @@ several factors explained below.
 ## Lane Shape
 
 Usually the lane ends exactly where the intersection shape starts. One
-way to customize the exact position for each lane is to [edit the intersection shape](../netedit.md#junction). An alternative method
-is to [set a custom endpoint for an edge](../netedit.md#specifying_the_complete_geometry_of_an_edge_including_endpoints).
+way to customize the exact position for each lane is to [edit the intersection shape](../Netedit/index.md#junction). An alternative method
+is to [set a custom endpoint for an edge](../Netedit/index.md#specifying_the_complete_geometry_of_an_edge_including_endpoints).
 
 Another possibility is the set the *endOffset* attribute for either the `<edge>`
 or `<lane>` element. This will shorten the edge/lane by a set amount.
@@ -132,7 +132,7 @@ Additionally, the computed speed will never be higher than the average
 speed of source and destination lane for that particular connection.
 
 The speed can be overruled by [setting the connection speed explicitly in the XML input](../Networks/PlainXML.md#explicitly_setting_which_edge_lane_is_connected_to_which)
-or via [netedit](../netedit.md#inspect).
+or via [netedit](../Netedit/index.md#inspect).
 
 # Junction Blocking
 

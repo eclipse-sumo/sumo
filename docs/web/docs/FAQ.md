@@ -533,12 +533,12 @@ At line/column 10/46
 - By having right-of-way rules that work somewhat differently than
   expected (this part of the *.net.xml* file is particularly complex)
 - By losing properties when later being edited with
-  [netedit](netedit.md)
+  [netedit](Netedit/index.md)
 - By failing to work with updated versions of [sumo](sumo.md)
 
 If you need to modify a network there are several possibilities:
 
-1.  Edit the network with [netedit](netedit.md)
+1.  Edit the network with [netedit](Netedit/index.md)
 2.  Modify the original input files and then rebuild the net with
     [netconvert](netconvert.md).
 3.  Patch the network with [netconvert](netconvert.md). You can
@@ -626,7 +626,7 @@ use the Linux version or download the [nightly-extra version](https://sumo.dlr.d
 
 ### How can I obtain netedit?
 
-  [netedit](netedit.md) is available as part of the regular
+  [netedit](Netedit/index.md) is available as part of the regular
   distribution since version 0.25.0.
 
 ## Traffic Demand Generation
@@ -773,7 +773,7 @@ registered
 
 ### How do I change the duration of cycles and phases?
 
-  use [netedit](netedit.md#traffic_lights)
+  use [netedit](Netedit/index.md#traffic_lights)
 
 ### I can not see a vehicle moving in my simulation
 

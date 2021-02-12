@@ -6,7 +6,7 @@ title: editModesNetwork
 
 ## Create Edges
 
-This mode creates edges (lanes) and implicitly junctions. The edge attributes will be taken from the current [\#Edge_template](#edge_template). If no template is set, default options such as **default.lanenumber** will be used.
+This mode creates edges (lanes) and implicitly junctions. The edge attributes will be taken from the current [#Edge_template](#edge_template). If no template is set, default options such as **default.lanenumber** will be used.
 
 ![](../images/CreateEdge1.png)In "Create Edge" mode, click over a empty area of the view to create the junction 
 
@@ -100,7 +100,7 @@ To edit the program of a joined traffic light, any of its junctions can be click
 
 ## Additionals
 
-Add additional elements to the net. Additionals can be placed over a lane or in an empty place of the map. See [\#Additional_elements](#additional_elements) for more information. They are saved to a separate file ({{AdditionalFile}}) and are loaded separately when running the simulation
+Add additional elements to the net. Additionals can be placed over a lane or in an empty place of the map. See [#Additional_elements](#additional_elements) for more information. They are saved to a separate file ({{AdditionalFile}}) and are loaded separately when running the simulation
 
 ## Crossings
 
@@ -125,7 +125,7 @@ Their width can be customized and they can either be configured as priotized (ze
 
 Internally, crossing works as edges, and therefore they appear in the *net.xml* as edges with different functions (crossing or walkingarea)
 
-```
+```xml
 ... previous element of net.xml ...
     <edge id=":0_c0" function="'''crossing'''" crossingEdges="3 7">
         <lane id=":0_c0_0" index="0" allow="pedestrian" speed="1.00" length="13.10" width="3.00"

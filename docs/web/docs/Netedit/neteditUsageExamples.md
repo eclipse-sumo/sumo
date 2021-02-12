@@ -56,7 +56,7 @@ Afterwards, you will have to recompute the junction shape to see how it looks (F
 
 1.  create new junctions where the endpoints of the edge should be
   - Either split an existing edge (right-click and select *Split edge here*)
-  - Or [create a new edge with new junctions in create-edge mode](../netedit.md#create_edges)
+  - Or [create a new edge with new junctions in create-edge mode](index.md#create_edges)
 2.  switch to [select mode](#select)
 3.  select the original junction and the new junction near it
 4.  Menu *Processing-\>Join Selected Junctions (F7)*

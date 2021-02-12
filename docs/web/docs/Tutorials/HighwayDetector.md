@@ -3,7 +3,7 @@ title: HighwayDetector
 ---
 
 This tutorial describes how to set up a traffic scenario using mainly
-[netedit](../netedit.md), [dfrouter](../dfrouter.md) and some
+[netedit](../Netedit/index.md), [dfrouter](../dfrouter.md) and some
 python tools when you already have a fairly good network source for your
 simulation site and also a good coverage of the network with detectors
 giving you aggregated counts (and maybe speeds) of the vehicles in the
@@ -19,7 +19,7 @@ Selected edges (blue) are of minor priority and will be discarded
 
 Assuming you are already familiar with network extraction from your
 favorite mapping source you can open your net with
-[netedit](../netedit.md) and reduce it to your area of interest.
+[netedit](../Netedit/index.md) and reduce it to your area of interest.
 Assume you have a navteq file you can select (and then delete) all edges
 with a priority of less than -1 to reduce it to a highway network.
 Afterwards one can use rectangle selection (hold shift) to further limit
@@ -84,7 +84,7 @@ Depending on the quality of your network and detector location data, you
 should probably not always choose the closest lane but also consider
 whether the number of lanes / the speed limit match your expectations.
 After the initial positioning you can load the file for fine tuning as
-an additional file into [netedit](../netedit.md).
+an additional file into [netedit](../Netedit/index.md).
 
 ### Processing input data
 

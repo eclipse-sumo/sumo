@@ -119,9 +119,9 @@ A third option which can be used if no edge types are available is a heuristic b
 
 Option **--bikelanes.guess.from-permissons** {{DT_BOOL}} is suitable for networks which specify their edge permissions (such as [DlrNavteq](../Networks/Import/DlrNavteq.md)). It adds a bike lane for all edges which allow bicycles on any of their lanes. The option **--bikelanes.guess.exclude** {{DT_IDList}}[,{{DT_IDList}}\]* applies here as well. 
 
-### Adding bike lanes with [netedit](../netedit.md)
+### Adding bike lanes with [netedit](../Netedit/index.md)
 
-To add bike lanes to a set of edges in [netedit](../netedit.md) select these and right click on them. From the context-menu select *lane operations->add restricted lane->Bikelane*. 
+To add bike lanes to a set of edges in [netedit](../Netedit/index.md) select these and right click on them. From the context-menu select *lane operations->add restricted lane->Bikelane*. 
 
 ## Notes on Right-of-Way rules
 
@@ -137,10 +137,10 @@ In reality, left-turning bicycles may move in two stages
 1. move straight across
 2. turn 90° left and then move straight across
 
-By default, [netconvert](../netconvert.md) generates a wide curve rather than going straight twice as above. Currently, this can only be remedied by setting [custom shapes for these internal lanes](../netedit.md#connection). To adjust the waiting position of the bicycle (the point where the first stage ends), [connection attribute 'contPos' must be set](../netedit.md#setting_connection_attributes).
+By default, [netconvert](../netconvert.md) generates a wide curve rather than going straight twice as above. Currently, this can only be remedied by setting [custom shapes for these internal lanes](../Netedit/index.md#connection). To adjust the waiting position of the bicycle (the point where the first stage ends), [connection attribute 'contPos' must be set](../Netedit/index.md#setting_connection_attributes).
 
 To define a controlled in direct turn where both stages respect the traffic light corresponding to the current movement direction another custom setting is needed. The first part of the left-turn connection will be controlled automatically by the traffic ligh according to the 'linkIndex' attribute of the connection.
-The second part can be controlled by [setting the optional attribute 'linkIndex2'](../netedit.md#setting_connection_attributes). The easiest setup is to copy the linkIndex that controlls the movement of vehicles (or pedestrians) going straight from right to left.
+The second part can be controlled by [setting the optional attribute 'linkIndex2'](../Netedit/index.md#setting_connection_attributes). The easiest setup is to copy the linkIndex that controlls the movement of vehicles (or pedestrians) going straight from right to left.
     
 # Bicycle routing
 

@@ -51,7 +51,7 @@ title: Changes from Version 0.28.0 to Version 0.29.0
   - Fixed slow operation when switching between move-mode and other
     modes in a large network.
   - Fixed slow operation when move junctions in large networks. #2699
-  - Selecting objects by [matching against attributes](../netedit.md#match_attribute) now works on
+  - Selecting objects by [matching against attributes](../Netedit/index.md#match_attribute) now works on
     windows. #2675
   - Fixed crash when setting custom geometry endpoints. #2693
   - Fixed shortcuts #2694
@@ -221,7 +221,7 @@ title: Changes from Version 0.28.0 to Version 0.29.0
 
 - netedit
   - Added new option **--window-pos** {{DT_INT}},{{DT_INT}} for specifying the initial window placement.
-  - new [hotkeys](../netedit.md#hotkeys) implemented. #2694
+  - new [hotkeys](../Netedit/index.md#hotkeys) implemented. #2694
   - New icons for edit modes. #2612
   - Added new button to the object locator dialog that allows
     toggling selection status. #2687
@@ -271,7 +271,7 @@ title: Changes from Version 0.28.0 to Version 0.29.0
 - Documentation
   - Added description of the [Object Locator](../sumo-gui.md#selecting_objects)-menu
   - Added documentation of [visualizing road access permissions](../sumo-gui.md#road_access_permissions)
-  - Added documentation of [crossings](../netedit.md#crossings) in netedit
+  - Added documentation of [crossings](../Netedit/index.md#crossings) in netedit
   - Added documentation for the [MESO-model](../Simulation/Meso.md#model_description)
   - Extended documentation of the [sublane-model](../Simulation/SublaneModel.md)
   - Added [TraCI performance information](../TraCI.md#performance)
@@ -293,4 +293,4 @@ title: Changes from Version 0.28.0 to Version 0.29.0
 
 - Miscellaneous
   - [sumo-gui](../sumo-gui.md) and
-    [netedit](../netedit.md) now remember their last window position
+    [netedit](../Netedit/index.md) now remember their last window position

@@ -15,7 +15,7 @@ nav:
   - FAQ: FAQ.md
   - Downloads: Downloads.md
   - Publications: Publications.md
-  - Developer: Developer/Main.md
+  - Developer: Developer/index.md
   - ChangeLog: ChangeLog.md
   - Recent Changes: https://github.com/eclipse/sumo/commits/master/docs/web
   - Contact: https://eclipse.org/sumo/contact/
