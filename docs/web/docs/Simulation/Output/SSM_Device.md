@@ -35,6 +35,7 @@ The detail of information given for each conflict and the criteria to qualify an
         <param key="device.ssm.file" value="ssm_v0.xml" />
         <param key="device.ssm.trajectories" value="false" />
         <param key="device.ssm.geo" value="false" />
+        <param key="device.ssm.filter-edges.input-file" value="input_list.txt" />
     </vehicle>
     ....
 </routes>
@@ -53,6 +54,7 @@ The possible parameters are summarized in the following table
 | file  | string  | "ssm_<equipped_vehicleID\>.xml"  | The filename for storing the conflict information of the equipped vehicle. Several vehicles may write to the same file. Conflicts of a single vehicle are written in the order of the log-begin of the encounter.   |
 | trajectories  | bool  | false  | Whether the full time lines of the different measured values shall be written to the output. This includes logging the time values, encounter types, vehicle positions and velocities, values of the selected SSMs, and associated conflict point locations. If turned off (default) only the extremal values for the selected SSMs are written.  |
 | geo  | bool  | false  | Whether the positions in the output file shall be given in the original coordinate reference system of the network (if available).  |
+| filter-edges.input-file | string | - | If defined, only conflicts occured at the provided edges and junctions are measured. See [Restricting SSM Device to Edges and Junctions](#restricting_ssm_device_to_edges_and_junctions)  |
 
 ## Encounter types
 Different types of encounters, e.g. crossing, merging, or lead/follow situations, may imply different calculation procedures for the safety measures. Therefore the SSM-device keeps track of these classifications and provides them in the output to allow the correct interpretation of the corresponding values.
@@ -277,6 +279,20 @@ The `<globalMeasures>` element has the following structure:
 | minTGAP  | time      | float          | Time at which the minimal time headway was recorded.                      |
 |          | value     | float          | Minimal recorded value for the time headway.                              |
 |          | position  | 2D-coordinate  | Position of the ego vehicle, where the minimal time headway was recorded. |
+
+
+### Restricting SSM Device to Edges and Junctions
+The option `--device.ssm.filter-edges.input-file <input_list>` can be used to specify an input file containing edgeIDs and junctionIDs that are used to restrict the measurement of conflicts.
+The edges and junctions must be defined as following:
+```
+edge:edgeID1
+edge:edgeID2
+...
+junction:junctionID1
+junction:junctionID2
+...
+```
+The edges adjoining the given junctions and the given edges are used to measure the conflicts. Only conflicts occuring at these edges are measured and outputed.
 
 
 ## TraCI
