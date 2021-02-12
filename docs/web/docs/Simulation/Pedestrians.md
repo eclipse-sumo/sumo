@@ -224,7 +224,7 @@ future.
 ## Model *nonInteracting*
 
 This is a very basic walking model. Pedestrians walk bidirectionally
-along normal edges and “jump” across intersections. They maybe either be
+along normal edges and “jump” across intersections. They may either be
 configured to complete a walk in a fixed amount of time or to move along
 the edges with a fixed speed. No interaction between pedestrians and
 vehicles or other pedestrians takes place. This model has a very high
