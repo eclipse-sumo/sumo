@@ -38,15 +38,15 @@ netedit.additionalMode()
 netedit.changeElement("e2MultilaneDetector")
 
 # create E2 with default parameters
-netedit.leftClick(referencePosition, 190, 240)
-netedit.leftClick(referencePosition, 440, 240)
+netedit.leftClick(referencePosition, 190, 250)
+netedit.leftClick(referencePosition, 440, 250)
 netedit.typeEnter()
 
 # go to additional mode
 netedit.inspectMode()
 
 # inspect E2
-netedit.leftClick(referencePosition, 320, 240)
+netedit.leftClick(referencePosition, 320, 250)
 
 # Change parameter JamThreshold with a non valid value
 netedit.modifyAttribute(11, "dummyJamThreshold", True)

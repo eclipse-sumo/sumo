@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect chargingStations
-netedit.leftClick(referencePosition, 150, 240)
+netedit.leftClick(referencePosition, 150, 320)
 
 # Set name
 netedit.modifyAttribute(0, "commonName", True)

@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect chargingStations
-netedit.leftClick(referencePosition, 150, 240)
+netedit.leftClick(referencePosition, 150, 320)
 
 # check parameters
 netedit.checkParameters(referencePosition, 7, True)

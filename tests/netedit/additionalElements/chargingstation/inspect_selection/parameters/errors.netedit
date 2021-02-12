@@ -1,12 +1,12 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding chargingStation 'chargingStationA' in GNEChange_Additional
-Debug: Inserting parameter 'keyA1|valueA1' into additional chargingStation.
-Debug: Inserting parameter 'keyA2|valueA2' into additional chargingStation.
-Debug: Inserting parameter 'keyA3|valueA3' into additional chargingStation.
+Debug: Inserting parameter 'KeyA1|valueA1' into additional chargingStation.
+Debug: Inserting parameter 'KeyA3|valueA2' into additional chargingStation.
+Debug: Inserting parameter 'KeyA2|valueA3' into additional chargingStation.
 Debug: Adding chargingStation 'chargingStationB' in GNEChange_Additional
-Debug: Inserting parameter 'keyB1|valueB1' into additional chargingStation.
-Debug: Inserting parameter 'keyB2|valueB2' into additional chargingStation.
-Debug: Inserting parameter 'keyB3|valueB3' into additional chargingStation.
+Debug: Inserting parameter 'KeyB1|valueB1' into additional chargingStation.
+Debug: Inserting parameter 'KeyB3|valueB2' into additional chargingStation.
+Debug: Inserting parameter 'KeyB2|valueB3' into additional chargingStation.
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
@@ -53,8 +53,8 @@ Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3
 Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into chargingStation 'chargingStationA'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'keyB1=valueB1|keyB2=valueB2|keyB3=valueB3' into chargingStation 'chargingStationB'
-Debug: Setting previous attribute genericParameter 'keyA1=valueA1|keyA2=valueA2|keyA3=valueA3' into chargingStation 'chargingStationA'
+Debug: Setting previous attribute genericParameter 'KeyB1=valueB1|KeyB2=valueB3|KeyB3=valueB2' into chargingStation 'chargingStationB'
+Debug: Setting previous attribute genericParameter 'KeyA1=valueA1|KeyA2=valueA3|KeyA3=valueA2' into chargingStation 'chargingStationA'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into chargingStation 'chargingStationB'

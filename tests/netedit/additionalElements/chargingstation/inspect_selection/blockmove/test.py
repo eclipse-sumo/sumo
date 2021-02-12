@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect chargingStations
-netedit.leftClick(referencePosition, 150, 240)
+netedit.leftClick(referencePosition, 150, 320)
 
 # Set block movement
 netedit.modifyBoolAttribute(9, True)

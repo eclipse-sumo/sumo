@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect chargingStations
-netedit.leftClick(referencePosition, 150, 240)
+netedit.leftClick(referencePosition, 150, 320)
 
 # Try to set invalid efficiency
 netedit.modifyAttribute(3, "dummyEfficiency", True)
