@@ -309,6 +309,7 @@ configuration:
 | **--device.ssm.extratime** {{DT_FLOAT}} | Specifies the time in seconds to be logged after a conflict is over (default is 5.00secs.). Required >0 if PET is to be calculated for crossing conflicts. |
 | **--device.ssm.file** {{DT_STR}} | Give a global default filename for the SSM output. |
 | **--device.ssm.geo** {{DT_BOOL}} | Whether to use coordinates of the original reference system in output (default is false). |
+| **--device.ssm.filter-edges.input-file** {{DT_STR}} | Give a file containing a white list of edgeIDs and junctionIDs, defining where to measure the conflicts.; *default:* all edges are used |
 
 ### Toc Device
 
