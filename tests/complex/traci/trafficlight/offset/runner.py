@@ -43,10 +43,10 @@ for step in range(100):
 
 print("replace logic")
 logic = traci.trafficlight.getAllProgramLogics(tlsID)[0]
-logic.programID = "custom" # replacing existing program id works fine but setting a custom id triggers #2238
+logic.programID = "custom"  # replacing existing program id works fine but setting a custom id triggers #2238
 
 traci.trafficlight.setProgramLogic(tlsID, logic)
-#traci.trafficlight.setPhaseDuration(tlsID, 5) # will work fine
+# traci.trafficlight.setPhaseDuration(tlsID, 5) # will work fine
 
 for step in range(100):
     print(traci.simulation.getTime(), " phase=%s nextSwitch=%s" % (

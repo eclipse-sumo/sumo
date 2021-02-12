@@ -42,6 +42,7 @@ assert(logic)
 numPhases = len(logic.phases)
 print("current program '%s' has %s phases" % (programID, numPhases))
 
+
 def check():
     print("%s phase=%s" % (
         traci.simulation.getTime(),
