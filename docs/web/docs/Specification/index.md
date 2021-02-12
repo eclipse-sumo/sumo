@@ -16,9 +16,9 @@ values of attributes which are ids should consist of letters, numbers,
 and underscores, hyphens, points and colons only, starting with a letter
 or an underscore (this is called "valid XML id" in the following). There
 are "follow-ups" to this document on the [simulation of persons and
-multi-modality](Specification/Persons.md),
-[containers](Specification/Containers.md) and on
-[routing](Specification/Duarouter.md).
+multi-modality](Persons.md),
+[containers](Containers.md) and on
+[routing](Duarouter.md).
 
 ## Vehicles
 
@@ -196,7 +196,7 @@ vehicles of a type.
 <td><p>string</p></td>
 <td></td>
 <td><p>P_7_7</p></td>
-<td><p>the emission class, see <a href="Models/Emissions.html" title="wikilink">Models/Emissions</a>.</p></td>
+<td><p>the emission class, see <a href="../Models/Emissions.html" title="wikilink">Models/Emissions</a>.</p></td>
 </tr>
 <tr class="even">
 <td><p>probability</p></td>
@@ -310,14 +310,14 @@ Strictly speaking, junctions or nodes need a unique id, which makes them
 referenceable by streets which start or end there. Since our network is
 always embedded into the plane, they also need x- and y-coordinates. A
 type may be given if the one determined by
-[netconvert](netconvert.md) is not correct.
+[netconvert](../netconvert.md) is not correct.
 
 | Attribute | Type     | Range                                         | Default | Remark       |
 | --------- | -------- | --------------------------------------------- | ------- | ------------ |
 | id        | string   | valid XML ids                                 | \-      |              |
 | x         | float(m) | \-10^6<x<10^6                               | \-      |              |
 | y         | float(m) | \-10^6<y<10^6                               | \-      |              |
-| type      | string   | priority, right_before_left, traffic_light | \-      | if no value is given, [netconvert](netconvert.md) tries to determine the type heuristically |
+| type      | string   | priority, right_before_left, traffic_light | \-      | if no value is given, [netconvert](../netconvert.md) tries to determine the type heuristically |
 
 ## Streets
 
@@ -394,8 +394,8 @@ Stops can be childs of vehicles, routes or persons.
 
 | Attribute          | Type              | Range                                                                          | Default            | Remark                                                                                                 |
 | ------------------ | ----------------- | ------------------------------------------------------------------------------ | ------------------ | ------------------------------------------------------------------------------------------------------ |
-| busStop            | string            | valid [bus stop](Simulation/Public_Transport.md) ids                   | \-                 | if given, edge, lane, startPos and endPos are not allowed                                              |
-| containerStop      | string            | valid [container stop](Specification/Logistics.md#container_stops) ids | \-                 | if given, edge, lane, startPos and endPos are not allowed                                              |
+| busStop            | string            | valid [bus stop](../Simulation/Public_Transport.md) ids                   | \-                 | if given, edge, lane, startPos and endPos are not allowed                                              |
+| containerStop      | string            | valid [container stop](../Specification/Logistics.md#container_stops) ids | \-                 | if given, edge, lane, startPos and endPos are not allowed                                              |
 | lane               | string            | lane id                                                                        | \-                 | the lane id takes the form <edge_id\>_<lane_index\>. the edge has to be part of the corresponding route |
 | endPos             | float(m)          | ε≤endPos≤edge.length                                                           | edge.length        |                                                                                                        |
 | startPos           | float(m)          | 0≤startPos≤endPos-ε                                                            | endPos-ε           |                                                                                                        |

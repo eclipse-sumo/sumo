@@ -26,10 +26,10 @@ title: Changes from version 0.9.8 to version 0.9.9
   - Hidden state loading/saving completely from the microsim
   - Vehicle may now end their route at a certain position of the
     route's last edge (see
-    [Specification](../Specification.md))
+    [Specification](../Specification/index.md))
   - The route may be now given as an attribute (*route*) within the
     vehicle definition (see
-    [Specification](../Specification.md))
+    [Specification](../Specification/index.md))
   - The vehicle now stores most of its definition parameters in
     *myParameter*, not as atomar values
   - Solved problems with multiple stop on same edge and with stops
@@ -54,7 +54,7 @@ title: Changes from version 0.9.8 to version 0.9.9
   - debugged [bug 1912547 linux 64 bit compile error for sumo svn 5143](http://sourceforge.net/tracker/index.php?func=detail&aid=1912547&group_id=45607&atid=443421)
   - debugged [bug 1913655 command line sumo throws unknown exception](http://sourceforge.net/tracker/index.php?func=detail&aid=1913655&group_id=45607&atid=443421)
   - debugged [bug 1924989 sumo r5186 crashs by pure virtual function call](http://sourceforge.net/tracker/index.php?func=detail&aid=1924989&group_id=45607&atid=443421)
-  - begun work on [Specification](../Specification.md)
+  - begun work on [Specification](../Specification/index.md)
     - all vehicles are emitted at position=0, with speed=0
   - removed usage of NLLoadFilter
   - added an option to quit the simulation if a number of vehicles
@@ -145,7 +145,7 @@ title: Changes from version 0.9.8 to version 0.9.9
   - added the possibility to omit writing the vehicle type
     (**--no-vtype**)
 
-- [Tools/Main](../Tools.md)
+- [Tools](../Tools/index.md)
   - added some tools for output visualization
     (mpl_dump_twoAgainst.py, mpl_tripinfos_twoAgainst.py,
     mpl_dump_timeline.py) (see

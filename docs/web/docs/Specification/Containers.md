@@ -11,9 +11,9 @@ amount of bulk material, an arbitrary amount of animals etc.
 A container moves through the net by being transported by a vehicle or
 being transhiped between two stops. A container element has child
 elements defining stages of its plan. The stages are a connected
-sequence of [transport](../Specification/Containers.md#transports),
-[tranship](../Specification/Containers.md#tranships) and
-[stop](../Specification/Containers.md#stops) elements as described
+sequence of [transport](#transports),
+[tranship](#tranships) and
+[stop](#stops) elements as described
 below. Each container must have at least one stage in its plan.
 
 ```xml
@@ -61,7 +61,7 @@ A given container stop may serve as a replacement for a destination edge and
 arrival position. If an arrival position is given nevertheless it has to
 be inside the range of the stop.
 
-A transport of a container works similar to a [ride](../Specification/Persons.md#rides) of a person.
+A transport of a container works similar to a [ride](Persons.md#rides) of a person.
 
 ## Tranships
 
@@ -93,11 +93,11 @@ edge. In the latter case, the container will from straight from the edge
 Stops define a delay until the next element of a plan is started. They
 can be used to model containers beeing stored in a storage place,
 harbour or anything else. A [container
-stop](../Specification/Logistics.md#container_stops) can be used to
+stop](Logistics.md#container_stops) can be used to
 modal that storage place in the network (similar to a [bus stop for
 public transport](../Simulation/Public_Transport.md). Stops for
 containers follow the specification at
-[Specification\#Stops](../Specification.md#stops). However, only
+[Specification\#Stops](index.md#stops). However, only
 the attributes *containerStop*, *lane*, *duration*, *until* and *startPos* are evaluated.
 *startPos* defines the position on the lane where the container is
 supposed to stop. Using these attributes it is possible to model
@@ -187,7 +187,7 @@ known:
 
 \*: Only one of these attributes is allowed.
 
-See also [personFlows](../Specification/Persons.md#repeated_persons_personflows)
+See also [personFlows](Persons.md#repeated_persons_personflows)
 
 ## Examples
 
@@ -218,7 +218,7 @@ reference a plan or a distribution of plans using the attribute
 <span class="inlxml">plan</span>. Likewise, a container may include a
 plan or a distribution of plans as a child element. A plan is a sequence
 of stages (transports, tranships and
-[stops](../Specification.md#stops)).
+[stops](index.md#stops)).
 
 | Attribute   | Type  | Range | Default | Remark                                                                                                                                                             |
 | ----------- | ----- | ----- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -237,7 +237,7 @@ Trips define the start and end point of a movement with optional changes
 in mode.
 
 In definition they are identical to
-[vehicles](../Specification.md#vehicles) except for the missing
+[vehicles](index.md#vehicles) except for the missing
 route information (no route attribute and no route child is allowed).
 Instead they have the following attributes
 

@@ -5,7 +5,7 @@ title: Linux Build
 This document describes how to install SUMO on Linux from sources. If
 you don't want to **extend** SUMO, but merely **use** it, you might want
 to [download one of our pre-built binary
-packages](../Installing.md) instead.
+packages](index.md) instead.
 
 To be able to run SUMO on Linux, just follow these steps:
 
@@ -42,7 +42,7 @@ alternatives below.
   `sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev`.
   There are some outdated [platform specific
   and manual build instructions for the
-  libraries](../Installing/Linux_Build_Libraries.md)
+  libraries](Linux_Build_Libraries.md)
 - Optionally you may want to add
  - ffmpeg-devel (for video output),
  - libOpenSceneGraph-devel (for the experimental 3D GUI),

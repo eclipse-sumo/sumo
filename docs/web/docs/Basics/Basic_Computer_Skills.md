@@ -102,7 +102,7 @@ and press `enter`
 
 ## SUMO_HOME
 
-Many [tools](../Tools.md) require the environment variable
+Many [tools](../Tools/index.md) require the environment variable
 `SUMO_HOME` to be set to the base directory of the sumo installation.
 This is the directory containing the folders *bin* and *tools*. Setting
 environment variables is explained below.

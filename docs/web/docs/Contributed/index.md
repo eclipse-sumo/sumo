@@ -10,7 +10,7 @@ core".
 
 The following extensions became a core part of the SUMO package.
 
-- [TraCI](TraCI.md)
+- [TraCI](../TraCI.md)
 
     online interaction with the simulation
 
@@ -19,17 +19,17 @@ The following extensions became a core part of the SUMO package.
 The following contributions are included in the package, but are less
 supported.
 
-- [Contributed/Cadyts](Contributed/Cadyts.md)
+- [Cadyts](Cadyts.md)
 
     a tool by Gunnar Flötteröd which adapts the simulate flows to the
     real flows in a known net
 
-- [SUMOPy](Contributed/SUMOPy.md)
+- [SUMOPy](SUMOPy.md)
 
     a tool by Joerg Schweizer supporting the whole SUMO toolchain with a
     GUI especially for demand modelling
 
-- [LiSuM](Tools/LiSuM.md)
+- [LiSuM](../Tools/LiSuM.md)
 
     a middleware that couples [LISA+](https://www.schlothauer.de/en/software-systems/lisa/) and SUMO to simulate real-world
     traffic light controllers and execute real-world traffic control software within SUMO.
@@ -38,11 +38,9 @@ supported.
     
     a scriptable and user-defined activity-based mobility scenario generator for SUMO. [Generate intermodal traffic demand from OSM input](https://github.com/eclipse/sumo/tree/master/tools/contributed) [howto](https://github.com/lcodeca/SUMOActivityGen/blob/master/docs/HOWTO.md)
 
-- ~~[Contributed/SUMO Traffic
-Modeler](Contributed/SUMO_Traffic_Modeler.md)~~
+- ~~[SUMO Traffic Modeler](SUMO_Traffic_Modeler.md)~~
 
-    ~~a graphical user interface for defining high-level traffic for
-    SUMO~~ (obsolete)
+    ~~a graphical user interface for defining high-level traffic for SUMO~~ (obsolete)
 
 # External extensions
 
@@ -91,11 +89,11 @@ The following extensions are managed and supported by other parties.
 
 - [TraCI4Matlab](http://de.mathworks.com/matlabcentral/fileexchange/44805-traci4matlab)
   
-    A Matlab interface for connecting and extending information via [TraCI](TraCI.md)
+    A Matlab interface for connecting and extending information via [TraCI](../TraCI.md)
 
-- [TraaS](TraCI/TraaS.md) 
+- [TraaS](../TraCI/TraaS.md) 
   
-    A SOAP(webservice) interface for connecting and extending information via [TraCI](TraCI.md). Also a Java TraCI client library
+    A SOAP(webservice) interface for connecting and extending information via [TraCI](../TraCI.md). Also a Java TraCI client library
 
 - [ocit2SUMO](https://github.com/DLR-TS/sumo-ocit)
     
@@ -119,16 +117,16 @@ The following extensions are managed and supported by other parties.
 The following extensions exist or have existed, but their state is
 unclear.
 
-- [Contributed/iTranSIM](Contributed/iTranSIM.md)
+- [iTranSIM](iTranSIM.md)
 
     extension by online-calibration using induction loop data by Tino
     Morenz
 
-- [Contributed/SmallMaps](Contributed/SmallMaps.md)
+- [SmallMaps](SmallMaps.md)
 
     prunes road networks to a given boundary; by Andreas Florides
 
-- [Contributed/SUMOPlayer](Contributed/SUMOPlayer.md)
+- [SUMOPlayer](SUMOPlayer.md)
 
 !!! note
-    SUMOPlayer was removed in release 0.24.0. You should be able to use [traceExporter.py](Tools/TraceExporter.md) for the same task.
+    SUMOPlayer was removed in release 0.24.0. You should be able to use [traceExporter.py](../Tools/TraceExporter.md) for the same task.

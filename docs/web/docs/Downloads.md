@@ -91,7 +91,7 @@ Ubuntu, Debian and Arch users please see the community repositories above.
 
 ## macOS
 
-You can read the Homebrew-based installation guide [here](Installing.md#macos) or follow the Build instructions [here](Installing/MacOS_Build.md).
+You can read the Homebrew-based installation guide [here](Installing/index.md#macos) or follow the Build instructions [here](Installing/MacOS_Build.md).
 
 "Bottles" are available for installing with
 [Homebrew](https://brew.sh/). They are built for the two most recent

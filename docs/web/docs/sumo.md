@@ -134,6 +134,7 @@ configuration:
 | **--save-state.files** {{DT_FILE}} | Files for network states |
 | **--save-state.rng** {{DT_BOOL}} | Save random number generator states; *default:* **false** |
 | **--save-state.transportables** {{DT_BOOL}} | Save person and container states (experimental); *default:* **false** |
+| **--save-state.precision** {{DT_INT}} | Write internal state values with the given precision (default 2); *default:* **2** |
 
 ### Time
 
@@ -211,7 +212,7 @@ configuration:
 | **--persontrip.transfer.walk-taxi** {{DT_STR[]}} | Where taxis can pick up customers ('allJunctions, 'ptStops') |
 | **--persontrip.default.group** {{DT_STR}} | When set, trips between the same origin and destination will share a taxi by default |
 | **--persontrip.taxi.waiting-time** {{DT_TIME}} | Estimated time for taxi pickup; *default:* **300** |
-| **--railway.max-train-length** {{DT_FLOAT}} | Use FLOAT as a maximum train length when initializing the railway router; *default:* **5000** |
+| **--railway.max-train-length** {{DT_FLOAT}} | Use FLOAT as a maximum train length when initializing the railway router; *default:* **1000** |
 | **--device.rerouting.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'rerouting' device; *default:* **-1** |
 | **--device.rerouting.explicit** {{DT_STR[]}} | Assign a 'rerouting' device to named vehicles |
 | **--device.rerouting.deterministic** {{DT_BOOL}} | The 'rerouting' devices are set deterministic using a fraction of 1000; *default:* **false** |
@@ -390,11 +391,11 @@ configuration:
 | **--device.taxi.explicit** {{DT_STR[]}} | Assign a 'taxi' device to named vehicles |
 | **--device.taxi.deterministic** {{DT_BOOL}} | The 'taxi' devices are set deterministic using a fraction of 1000; *default:* **false** |
 | **--device.taxi.dispatch-algorithm** {{DT_STR}} | The dispatch algorithm [greedy,greedyClosest,greedyShared,routeExtension,traci]; *default:* **greedy** |
-| **--device.taxi.dispatch-algorithm.output** {{DT_STR}} | Write information from the dispatch algorithm to FILE |
+| **--device.taxi.dispatch-algorithm.output** {{DT_FILE}} | Write information from the dispatch algorithm to FILE |
 | **--device.taxi.dispatch-algorithm.params** {{DT_STR}} | Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE] |
 | **--device.taxi.dispatch-period** {{DT_TIME}} | The period between successive calls to the dispatcher; *default:* **60** |
 | **--device.taxi.idle-algorithm** {{DT_STR}} | The behavior of idle taxis [stop,randomCircling]; *default:* **stop** |
-| **--device.taxi.idle-algorithm.output** {{DT_STR}} | Write information from the idling algorithm to FILE |
+| **--device.taxi.idle-algorithm.output** {{DT_FILE}} | Write information from the idling algorithm to FILE |
 
 ### Tripinfo Device
 | Option | Description |

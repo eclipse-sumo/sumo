@@ -327,7 +327,7 @@ application.
 
 # Using Python tools from the Command Line
 
-Many [tools](../Tools.md) that are distributed by SUMO (in the
+Many [tools](../Tools/index.md) that are distributed by SUMO (in the
 {{SUMO}}/tools folder are written in the [python](https://www.python.org/)
 programming language. To use them, **python 2.7** must be [installed on your computer](https://www.python.org/downloads/).
 

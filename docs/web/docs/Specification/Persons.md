@@ -9,9 +9,9 @@ vehicles](../Simulation/Public_Transport.md). The walking behavior
 is customizable by selecting a [pedestrian
 model](../Simulation/Pedestrians.md#pedestrian_models). A person
 element has child elements defining stages of its plan. The stages are a
-connected sequence of [ride](../Specification/Persons.md#rides),
-[walk](../Specification/Persons.md#walks) and
-[stop](../Specification/Persons.md#stops) elements as described
+connected sequence of [ride](#rides),
+[walk](#walks) and
+[stop](#stops) elements as described
 below. Each person must have at least one stage in its plan.
 
 ```xml
@@ -27,7 +27,7 @@ below. Each person must have at least one stage in its plan.
 | Attribute           | Type      | Range              | Default         | Remark      |
 |---------------------|-----------|--------------------|-----------------|---------------------------|
 | id                  | string    | valid XML ids      | -               |                          |
-| depart              | float(s)  | ≥0 or 'triggered'  | -               | See [ride](Persons.md#rides) for an explanation of 'triggered'|
+| depart              | float(s)  | ≥0 or 'triggered'  | -               | See [ride](#rides) for an explanation of 'triggered'|
 | departPos           | float(s)  | ≥0                 | -               | the distance along the edge that the person is created      |
 | type                | string    | any declared vType | DEFAULT_PEDTYPE | the type should have vClass pedestrian              |
 | width               | float (s) | ≥0                 | 0,48            | The person's width [m]        |
@@ -168,7 +168,7 @@ to be inside the range of the stop.
 Stops define a delay until the next element of a plan is started. They
 can be used to model activities such as working or shopping. Stops for
 persons follow the specification at
-[Specification\#Stops](../Specification.md#stops). However, only
+[Specification\#Stops](index.md#stops). However, only
 the attributes `lane`, `duration` and `until` are evaluated. Using these attributes it is
 possible to model activities with a fixed duration as well as those with
 a fixed end time. If a person needs to be transferred between two
@@ -307,8 +307,7 @@ persons:
 - [vehroute-output](../Simulation/Output/VehRoutes.md)
 - [fcd-output](../Simulation/Output/FCDOutput.md)
 - [netstate-dump](../Simulation/Output/RawDump.md)
-- [aggregated simulation
-  statistics](../Simulation/Output.md#aggregated_traffic_measures)
+- [aggregated simulation statistics](../Simulation/Output.md#aggregated_traffic_measures)
 
 # Planned features
 

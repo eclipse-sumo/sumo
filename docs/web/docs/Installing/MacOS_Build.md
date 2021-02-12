@@ -2,7 +2,7 @@
 title: macOS Build
 ---
 
-This document describes how to install and build SUMO on macOS from its source code. If you don't want to **extend** SUMO, but just **use** it, you may want to simply follow the [installation instructions for macOS](../Installing.md#macos) instead.
+This document describes how to install and build SUMO on macOS from its source code. If you don't want to **extend** SUMO, but just **use** it, you may want to simply follow the [installation instructions for macOS](index.md#macos) instead.
 
 You may use one of two ways to build and install SUMO on macOS: **Homebrew** (recommended) and **MacPorts**.
 
@@ -199,8 +199,8 @@ If you want to build from a repository checkout you should additionally do
 sudo port install automake autoconf
 ```
 
-After obtaining the [required libraries](../Installing/Linux_Build.md#installing_required_tools_and_libraries)
-you can follow the build steps of [building under Linux](../Installing/Linux_Build.md#getting_the_source_code), you
+After obtaining the [required libraries](Linux_Build.md#installing_required_tools_and_libraries)
+you can follow the build steps of [building under Linux](Linux_Build.md#getting_the_source_code), you
 might want to add another --prefix=/opt/sumo to the configure line.
 
 If you wish to use clang rather than gcc for compilation do:

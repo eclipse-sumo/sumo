@@ -79,20 +79,20 @@ title: Changes from Version 0.10.3 to Version 0.11.0
   - The default departure/arrival behavior can be controlled on the
     command line, now. The following options were introduced for
     this purpose: **--departlane**, **--departpos**, **--departspeed**, **--arrivallane**, **--arrivalpos**, **--arrivalspeed**. See also
-    [Specification](../Specification.md)
+    [Specification](../Specification/index.md)
   - solved [defect 67: false interpretation of the second time field (od2trips)](https://github.com/eclipse/sumo/issues/67)
 
 - duarouter
   - The default departure/arrival behavior can be controlled on the
     command line, now. The following options were introduced for
     this purpose: **--departlane**, **--departpos**, **--departspeed**, **--arrivallane**, **--arrivalpos**, **--arrivalspeed**. See also
-    [Specification](../Specification.md)
+    [Specification](../Specification/index.md)
 
 - jtrrouter
   - The default departure/arrival behavior can be controlled on the
     command line, now. The following options were introduced for
     this purpose: **--departlane**, **--departpos**, **--departspeed**, **--arrivallane**, **--arrivalpos**, **--arrivalspeed**. See also
-    [Specification](../Specification.md)
+    [Specification](../Specification/index.md)
 
 - TraCI
   - changed name of "areal detectors" to "multi-entry/multi-exit

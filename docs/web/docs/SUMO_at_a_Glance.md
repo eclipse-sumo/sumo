@@ -82,10 +82,10 @@ The package includes:
 | [activitygen](activitygen.md)               | Generates a demand based on mobility wishes of a modeled population                                |
 | [emissionsMap](Tools/Emissions.md#emissionsmap)          | Generates an emission map                                                                   |
 | [emissionsDrivingCycle](Tools/Emissions.md#emissionsdrivingcycle) | Calculates emission values based on a given driving cycle                           |
-| [Additional Tools](Tools.md)           | There are some tasks for which writing a large application is not necessary. Several solutions for different problems may be covered by these tools.            |
+| [Additional Tools](Tools/index.md)           | There are some tasks for which writing a large application is not necessary. Several solutions for different problems may be covered by these tools.            |
 
 Several parties have extended the SUMO package during their work and
-submitted their code. These contributions are usually not tested and may be outdated. Find a list of all Contributions [here](Contributed.md).
+submitted their code. These contributions are usually not tested and may be outdated. Find a list of all Contributions [here](Contributed/index.md).
 
 ## History
 

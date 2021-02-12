@@ -22,18 +22,18 @@ documentation in HTML format.
 
 Within the installation folder, you will find a folder named "**bin**".
 Here, you can find the executables (programs). You may double click on
-[sumo-gui](sumo-gui.md) and take a look at the examples located
+[sumo-gui](../sumo-gui.md) and take a look at the examples located
 in **docs/examples**. All other applications
-([duarouter](duarouter.md), [dfrouter](dfrouter.md),
+([duarouter](../duarouter.md), [dfrouter](../dfrouter.md),
 etc.) have to be run from the command line. To facilitate this there is
 also a start-commandline.bat which sets up the whole environment for
 you. If you feel unsure about the command line, please read
-[Basics/Basic_Computer_Skills\#Running_Programs_from_the_Command_Line](Basics/Basic_Computer_Skills.md#running_programs_from_the_command_line).
+[Basics/Basic_Computer_Skills\#Running_Programs_from_the_Command_Line](../Basics/Basic_Computer_Skills.md#running_programs_from_the_command_line).
 
 If you want a bleeding edge nightly build or need tests or source files,
-you can download them from the [Download](Downloads.md) page.
+you can download them from the [Download](../Downloads.md) page.
 
-For building SUMO from source see [building SUMO under Windows](Installing/Windows_Build.md).
+For building SUMO from source see [building SUMO under Windows](Windows_Build.md).
 
 # Linux
 
@@ -61,7 +61,7 @@ sudo apt-get install sumo sumo-tools sumo-doc
 Precompiled binaries for different distributions like openSUSE and
 Fedora can be found at these [repositories for binary Linux versions](http://download.opensuse.org/repositories/home:/behrisch/).
 These repositories contain nightly builds as well. In the case your
-system is not listed here or you need to modify the sources, [you have to build SUMO from sources](Installing/Linux_Build.md).
+system is not listed here or you need to modify the sources, [you have to build SUMO from sources](Linux_Build.md).
 
 # macOS
 
