@@ -151,6 +151,13 @@ protected:
         PARKING_DIAGONAL = 32
     };
 
+    enum ChangeType {
+        CHANGE_YES = 0,
+        CHANGE_NO_LEFT = 1,
+        CHANGE_NO_RIGHT = 2,
+        CHANGE_NO = 3
+    };
+
 
     /** @brief An internal definition of a loaded edge
      */
@@ -165,6 +172,8 @@ protected:
             mySidewalkType(WAY_UNKNOWN), // building of extra lanes depends on sidewalkWidth of loaded typemap
             myRailDirection(WAY_UNKNOWN), // store direction(s) of railway usage
             myParkingType(PARKING_NONE), // parking areas exported optionally
+            myChangeForward(CHANGE_YES),
+            myChangeBackward(CHANGE_YES),
             myLayer(0), // layer is non-zero only in conflict areas
             myCurrentIsRoad(false),
             myCurrentIsPlatform(false),
@@ -201,6 +210,10 @@ protected:
         WayType myRailDirection;
         /// @brief Information about road-side parking
         int myParkingType;
+        /// @brief Information about change prohibitions (forward direction
+        int myChangeForward;
+        /// @brief Information about change prohibitions (backward direction
+        int myChangeBackward;
         /// @brief Information about the relative z-ordering of ways
         int myLayer;
         /// @brief The list of nodes this edge is made of
@@ -316,6 +329,8 @@ private:
 protected:
     static const double MAXSPEED_UNGIVEN;
     static const long long int INVALID_ID;
+
+    static void applyChangeProhibition(NBEdge* e, int changeProhibition);
 
     /**
      * @class NodesHandler
@@ -445,6 +460,8 @@ protected:
         //@}
 
         double interpretSpeed(const std::string& key, std::string value);
+
+        int interpretChangeType(const std::string& value) const;
 
     private:
         /// @brief The previously parsed nodes

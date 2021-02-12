@@ -544,6 +544,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             nbe->updateParameters(e->getParametersMap());
             nbe->setDistance(distanceStart);
+            applyChangeProhibition(nbe, e->myChangeForward);
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '" + id + "'.");
@@ -569,6 +570,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             nbe->updateParameters(e->getParametersMap());
             nbe->setDistance(distanceEnd);
+            applyChangeProhibition(nbe, e->myChangeBackward);
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '-" + id + "'.");
@@ -931,6 +933,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 && key != "ref"
                 && key != "highspeed"
                 && !StringUtils::startsWith(key, "parking")
+                && !StringUtils::startsWith(key, "change")
                 && key != "postal_code"
                 && key != "railway:preferred_direction"
                 && key != "railway:bidirectional"
@@ -1110,7 +1113,22 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             myCurrentEdge->myParkingType |= PARKING_LEFT;
         } else if (key == "parking:lane:right" && !StringUtils::startsWith(value, "no")) {
             myCurrentEdge->myParkingType |= PARKING_RIGHT;
+        } else if (key == "change") {
+            myCurrentEdge->myChangeForward = interpretChangeType(value);
+            myCurrentEdge->myChangeBackward = myCurrentEdge->myChangeForward;
+        } else if (key == "change:forward") {
+            myCurrentEdge->myChangeForward = interpretChangeType(value);
+        } else if (key == "change:backward") {
+            myCurrentEdge->myChangeBackward = interpretChangeType(value);
+        } else if (key == "change:lanes") {
+            myCurrentEdge->myChangeForward = interpretChangeType(value);
+        } else if (key == "change:lanes:forward") {
+            myCurrentEdge->myChangeForward = interpretChangeType(value);
+        } else if (key == "change:lanes:backward") {
+            myCurrentEdge->myChangeBackward = interpretChangeType(value);
         }
+
+
     }
 }
 
@@ -1136,6 +1154,32 @@ NIImporter_OpenStreetMap::EdgesHandler::interpretSpeed(const std::string& key, s
         }
     }
 }
+
+int
+NIImporter_OpenStreetMap::EdgesHandler::interpretChangeType(const std::string& value) const {
+    int result = 0;
+    const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
+    for (const std::string val : values) {
+        if (val == "no") {
+            result += CHANGE_NO;
+        } else if (val == "not_left") {
+            result += CHANGE_NO_LEFT;
+        } else if (val == "not_right") {
+            result += CHANGE_NO_RIGHT;
+        }
+        result = result << 2;
+    };
+    // last shift was superfluous
+    result = result >> 2;
+
+    if (values.size() > 1) {
+        result += 2 << 29; // mark multi-value input
+    }
+    //std::cout << " way=" << myCurrentEdge->id << " value=" << value << " result=" << std::bitset<32>(result) << "\n";
+    return result;
+
+}
+
 
 
 void
@@ -1964,5 +2008,19 @@ NIImporter_OpenStreetMap::interpretTransportType(const std::string& type, NIOSMN
     return result;
 }
 
+void
+NIImporter_OpenStreetMap::applyChangeProhibition(NBEdge* e, int changeProhibition) {
+    bool multiLane = changeProhibition > 3;
+    //std::cout << "applyChangeProhibition e=" << e->getID() << " changeProhibition=" << std::bitset<32>(changeProhibition) << " val=" << changeProhibition << "\n";
+    for (int lane = 0; changeProhibition > 0 && lane < e->getNumLanes(); lane++) {
+        int code = changeProhibition % 4; // only look at the last 2 bits
+        SVCPermissions changeLeft = (code & CHANGE_NO_LEFT) == 0 ? SVCAll : SVC_AUTHORITY;
+        SVCPermissions changeRight = (code & CHANGE_NO_RIGHT) == 0 ? SVCAll : SVC_AUTHORITY;
+        e->setPermittedChanging(lane, changeLeft, changeRight);
+        if (multiLane) {
+            changeProhibition = changeProhibition >> 2;
+        }
+    }
+}
 
 /****************************************************************************/
