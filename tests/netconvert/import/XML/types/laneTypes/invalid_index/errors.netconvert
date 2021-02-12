@@ -1,1 +1,3 @@
 Error: Invalid lane index 4 for edge type 'a' with 3 lanes
+Repeating initial error messages:
+Invalid lane index 4 for edge type 'a' with 3 lanes
