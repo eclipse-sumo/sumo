@@ -17,6 +17,7 @@
 /// @author  Jakob Erdmann
 /// @author  Leonhard Luecken
 /// @author  Mirko Barthauer
+/// @author  Johannes Rummel
 /// @date    11.06.2013
 ///
 // An SSM-device logs encounters / conflicts of the carrying vehicle with other surrounding vehicles
@@ -247,22 +248,30 @@ MSDevice_SSM::initEdgeFilter() {
             strm >> line;
             // maybe we're loading an edge-selection
             if (StringUtils::startsWith(line, "edge:")) {
-                myEdgeFilter.insert(MSEdge::dictionary(line.substr(5)));
+                std::string edgeID = line.substr(5);
+                MSEdge* edge = MSEdge::dictionary(edgeID);
+                if (edge != nullptr) {
+                    myEdgeFilter.insert(edge);
+                }
+                else {
+                    WRITE_WARNING("Unknown edge ID '" + edgeID + "' in SSM device edge filter (" + file + "): " + line);
+                }
             }
             else if (StringUtils::startsWith(line, "junction:")) {
                 // get the internal edge(s) of a junction
-                line = line.substr(9);
-                MSJunction* junction = MSNet::getInstance()->getJunctionControl().get(line);
+                std::string junctionID = line.substr(9);
+                MSJunction* junction = MSNet::getInstance()->getJunctionControl().get(junctionID);
                 if (junction != nullptr) {
                     for (MSLane* const internalLane : junction->getInternalLanes()) {
                         myEdgeFilter.insert(&(internalLane->getEdge()));
                     }
                 }
                 else {
-                    std::stringstream ss;
-                    ss << "'" << line << "'";
-                    WRITE_WARNING("Unknown junction in SSM device edge filter: " + ss.str());
+                    WRITE_WARNING("Unknown junction ID '" + junctionID + "' in SSM device edge filter (" + file + "): " + line);
                 }
+            }
+            else {
+                WRITE_WARNING("Cannot interpret line in SSM device edge filter (" + file + "): " + line);
             }
         }
     }
