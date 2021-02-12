@@ -64,6 +64,12 @@ lane_type
 # test lane attributes changeLeft, changeRight
 lane_prohibit_changing
 
+# test lane attributes changeLeft, changeRight
+lane_prohibit_changing_discard
+
+# test updateing lane attributes changeLeft, changeRight
+lane_prohibit_changing_modify
+
 # Load a tls.xml along with a sumo net to modify the program. 
 # This also demonstrates how identical phases are joined.
 alter_tls_program
