@@ -48,3 +48,6 @@ ticket6977
 
 # invalid ptline if stop edge removed, also tests #8155
 ticket8039
+
+# missing tls (signals.guess) when using --join-tram-dist
+ticket8219
