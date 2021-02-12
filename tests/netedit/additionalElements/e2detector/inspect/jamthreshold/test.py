@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("e2Detector")
 
 # create E2
-netedit.leftClick(referencePosition, 250, 160)
+netedit.leftClick(referencePosition, 250, 130)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E2
-netedit.leftClick(referencePosition, 230, 160)
+netedit.leftClick(referencePosition, 350, 130)
 
 # Change parameter JamThreshold with a non valid value
 netedit.modifyAttribute(11, "dummyJamThreshold", True)
