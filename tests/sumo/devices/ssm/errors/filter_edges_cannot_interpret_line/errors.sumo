@@ -1,0 +1,2 @@
+Warning: No measures specified for ssm device of vehicle 'ego'. Registering all available SSMs.
+Warning: Cannot interpret line in SSM device edge filter (input_selection.txt): egde:WC
