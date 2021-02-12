@@ -17,6 +17,7 @@ jobs:
 
       - name: Installing plantuml
         run: |
+          sudo apt-get update
           sudo apt-get install plantuml
 
       - name: Configuring Python
