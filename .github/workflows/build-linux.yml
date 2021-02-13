@@ -120,9 +120,9 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/') && matrix.build_type == 'full' && matrix.compiler == 'gcc'
       run: |
         cd sumo/cmake-build/src/libsumo
-        test -f pom.xml && mvn --batch-mode deploy
+        mvn --batch-mode deploy
         cd sumo/cmake-build/src/libtraci
-        test -f pom.xml && mvn --batch-mode deploy
+        mvn --batch-mode deploy
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
