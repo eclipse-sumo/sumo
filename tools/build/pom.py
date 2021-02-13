@@ -46,6 +46,14 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Eclipse SUMO Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/eclipse/sumo</url>
+        </repository>
+    </distributionManagement>
+
     <build>
         <plugins>
             <plugin>
