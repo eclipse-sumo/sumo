@@ -117,7 +117,8 @@ jobs:
     - name: Uploading jars to GitHub Packages
       # only for tagged commits and for the full build and gcc compiler 
       # (execute this job only once during this matrix build workflow) 
-      if: startsWith(github.ref, 'refs/tags/') && matrix.build_type == 'full' && matrix.compiler == 'gcc'
+      #if: startsWith(github.ref, 'refs/tags/') && matrix.build_type == 'full' && matrix.compiler == 'gcc'
+      if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
       run: |
         cd sumo/cmake-build/src/libsumo
         mvn --batch-mode deploy
