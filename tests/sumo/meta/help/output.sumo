@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_8_0+0661-870f796b06
+Eclipse SUMO sumo Version v1_8_0+1170-71bbe14
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -77,6 +77,8 @@ Output Options:
                                         output
   --fcd-output.filter-edges.input-file FILE  Restrict fcd output to the edge
                                         selection from the given input file
+  --device.ssm.filter-edges.input-file FILE  Restrict SSM device output to the
+                                        edge selection from the given input file
   --full-output FILE                   Save a lot of information for each
                                         timestep (very redundant)
   --queue-output FILE                  Save the vehicle queues at the junctions
@@ -696,8 +698,6 @@ GUI Only Options:
                                         position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                         windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing

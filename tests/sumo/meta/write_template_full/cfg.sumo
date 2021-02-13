@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan 22 15:27:33 2021 by Eclipse SUMO sumo Version v1_8_0+0678-194dd5d
+<!-- generated on Sat Feb 13 12:46:54 2021 by Eclipse SUMO sumo Version v1_8_0+1170-71bbe14
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -52,6 +52,7 @@
         <fcd-output.max-leader-distance value="-1" type="FLOAT" help="Add leader vehicle information to the FCD output (within the given distance)"/>
         <fcd-output.params value="" type="STR[]" help="Add generic parameter values to the FCD output"/>
         <fcd-output.filter-edges.input-file value="" type="FILE" help="Restrict fcd output to the edge selection from the given input file"/>
+        <device.ssm.filter-edges.input-file value="" type="FILE" help="Restrict SSM device output to the edge selection from the given input file"/>
         <full-output value="" type="FILE" help="Save a lot of information for each timestep (very redundant)"/>
         <queue-output value="" type="FILE" help="Save the vehicle queues at the junctions (experimental)"/>
         <vtk-output value="" type="FILE" help="Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files)"/>
