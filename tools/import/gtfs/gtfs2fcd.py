@@ -64,7 +64,7 @@ def time2sec(s):
 def main(options):
     if options.verbose:
         print('Loading GTFS data "%s"' % options.gtfs)
-    gtfsZip = zipfile.ZipFile(options.gtfs)
+    gtfsZip = zipfile.ZipFile(sumolib.open(options.gtfs))
     routes = pd.read_csv(gtfsZip.open('routes.txt'), dtype=str)
     stops = pd.read_csv(gtfsZip.open('stops.txt'), dtype=str)
     stop_times = pd.read_csv(gtfsZip.open('stop_times.txt'),

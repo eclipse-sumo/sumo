@@ -21,8 +21,14 @@ from __future__ import absolute_import
 import os
 import sys
 import subprocess
+import gzip
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib import urlopen
 from xml.sax import parseString, handler
 from optparse import OptionParser, OptionGroup, Option
+from io import BytesIO
 
 from . import files, net, output, sensors, shapes, statistics, fpdiff  # noqa
 from . import color, geomhelper, miscutils, options, route, version  # noqa
@@ -217,3 +223,12 @@ def _intTime(tStr):
 
 def _laneID2edgeID(laneID):
     return laneID[:laneID.rfind("_")]
+
+
+def open(fileOrURL):
+    try:
+        if fileOrURL.startswith("http"):
+            return BytesIO(urlopen(fileOrURL).read())
+        return gzip.open(fileOrURL)
+    except IOError:
+        return open(fileOrURL)
