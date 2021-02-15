@@ -1458,15 +1458,24 @@ void
 Vehicle::setRoute(const std::string& vehID, const std::vector<std::string>& edgeIDs) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
     ConstMSEdgeVector edges;
+    const bool onInit = veh->getLane() == nullptr;
     try {
         MSEdge::parseEdgesList(edgeIDs, edges, "<unknown>");
-        if (edges.size() > 0 && edges.back()->isInternal()) {
-            edges.push_back(edges.back()->getLanes()[0]->getNextNormal());
+        if (edges.size() > 0 && edges.front()->isInternal()) {
+            if (edges.size() == 1) {
+                // avoid crashing due to lack of normal edges in route (#5390)
+                edges.push_back(edges.back()->getLanes()[0]->getNextNormal());
+            } else {
+                // avoid internal edge in final route
+                if (edges.front() == &veh->getLane()->getEdge()) {
+                    edges.erase(edges.begin());
+                }
+            }
         }
     } catch (ProcessError& e) {
         throw TraCIException("Invalid edge list for vehicle '" + veh->getID() + "' (" + e.what() + ")");
     }
-    if (!veh->replaceRouteEdges(edges, -1, 0, "traci:setRoute", veh->getLane() == nullptr, true)) {
+    if (!veh->replaceRouteEdges(edges, -1, 0, "traci:setRoute", onInit, true)) {
         throw TraCIException("Route replacement failed for " + veh->getID());
     }
 }

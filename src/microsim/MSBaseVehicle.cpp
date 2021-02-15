@@ -394,20 +394,10 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
         myCurrEdge = newRoute->begin();
     } else {
         MSRouteIterator newCurrEdge = std::find(edges.begin() + offset, edges.end(), *myCurrEdge);
-        const bool onJunction = getLane() != nullptr && getLane()->getEdge().isInternal();
         if (newCurrEdge == edges.end()) {
-            if (onJunction) {
-                // myCurrEdge still points to the edge before the junction.
-                // Maybe the new route starts on the junction
-                newCurrEdge = std::find(edges.begin() + offset, edges.end(), &getLane()->getEdge());
-                if (newCurrEdge == edges.end()) {
-                    return false;
-                }
-            } else {
-                return false;
-            }
+            return false;
         }
-        if (onJunction && (
+        if (getLane() != nullptr && getLane()->getEdge().isInternal() && (
                     (newCurrEdge + 1) == edges.end() || (*(newCurrEdge + 1)) != &(getLane()->getOutgoingViaLanes().front().first->getEdge()))) {
             return false;
         }
