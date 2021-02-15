@@ -56,12 +56,14 @@ arrival and until times:
   simulation (earlier until time) will not get a constraint to wait for the
   vehicle that goes earlier according to the 'arrival' value. and also will not
   receive any constraints at subsequent signals
+  Also, no further predecessorConstraints are generated for that busStop
 
 - insertionPredecessor constraints (which are based on sorted until times)
   should have the same ordering when looking at arrival times
   If an inconsistent ordering is found, the vehicle that goes second in the
   simulation (later until time) will not get a constraint to wait for the
   vehicle that goes later according to the 'arrival' value.
+  Also, no further insertionPredecessor constraints are generated for that busStop
 
 
 """
