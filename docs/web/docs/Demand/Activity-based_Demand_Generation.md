@@ -18,12 +18,13 @@ activitygen --net-file <NET> --stat-file <STATISTICS> --output-file <TRIPS
 description of the population (described below), and <TRIPS\> is the
 generated SUMO routes file (the demand).
 
-You can give ActivityGen a first try with the following example.
+You can give [activitygen](../activitygen.md) a first try with the following example.
 
 ## Example
 
-![activitygen-example-net.png](../images/Activitygen-example-net.png
-"activitygen-example-net.png") While activitygen has been developed
+![Activitygen-example-net](../images/Activitygen-example-net.png "activitygen example net")
+
+While activitygen has been developed
 mainly to generate traffic demand for larger networks, this example
 features the small network shown in the image on the right. Download the
 files [{{SUMO}}/tests/activitygen/demand_generation/activitygen-example.net.xml]({{Source}}tests/activitygen/demand_generation/activitygen-example.net.xml) and [{{SUMO}}/tests/activitygen/demand_generation/activitygen-example.stat.xml ]({{Source}}tests/activitygen/demand_generation/activitygen-example.stat.xml ) to follow this example.
@@ -78,20 +79,20 @@ sumo --net-file activitygen-example.net.xml \
 
 First of all we need general information over the city.
 
-```
-    <city>
-        <general
-            inhabitants="1000"
-            households="500"
-            childrenAgeLimit="18"
-            retirementAgeLimit="65"
-            carRate="0.58"
-            unemploymentRate="0.05"
-            footDistanceLimit="350"
-            incomingTraffic="200"
-            outgoingTraffic="50"
-        />
-    </city>
+```xml
+<city>
+    <general
+        inhabitants="1000"
+        households="500"
+        childrenAgeLimit="18"
+        retirementAgeLimit="65"
+        carRate="0.58"
+        unemploymentRate="0.05"
+        footDistanceLimit="350"
+        incomingTraffic="200"
+        outgoingTraffic="50"
+    />
+</city>
 ```
 
 The meanings of all these attributes are described in the following
@@ -118,17 +119,17 @@ useful for optimization: the mean speed can be observed afterwards; all
 values can be changed in order to meet validation criteria on the
 traffic.
 
-```
-    <city>
-        <general ... />
-        <parameters
-            carPreference="0.50"
-            meanTimePerKmInCity="360"
-            freeTimeActivityRate="0.15"
-            uniformRandomTraffic="0.20"
-            departureVariation="120"
-        />
-    </city>
+```xml
+<city>
+    <general ... />
+    <parameters
+        carPreference="0.50"
+        meanTimePerKmInCity="360"
+        freeTimeActivityRate="0.15"
+        uniformRandomTraffic="0.20"
+        departureVariation="120"
+    />
+</city>
 ```
 
 The meanings of all these attributes are described in the following
@@ -147,26 +148,26 @@ table:
 In order to distribute the population among households and in the city
 coherently, we need a precise age distribution of this population.
 
-```
-    <city>
-        <general ... />
-        <parameters ... />
+```xml
+<city>
+    <general ... />
+    <parameters ... />
 
-        <population>
-            <bracket beginAge="0" endAge"4" peopleNbr="1745" />
-             ...
-            <bracket beginAge="66" endAge"90" peopleNbr="978" />
-        </population>
+    <population>
+        <bracket beginAge="0" endAge"4" peopleNbr="1745" />
+            ...
+        <bracket beginAge="66" endAge"90" peopleNbr="978" />
+    </population>
 
-    </city>
+</city>
 ```
 
 Follows the description of all bracket attributes.
 
 | Attribute Name | Value Type | Description       |
 | -------------- | ---------- | --------------------------------------------------------------------------------------------------------------- |
-| **beginAge**   | Integer    | Beginning age of the interval (incl.). If this is not the first bracket, this age is greater or equal to the previous bracket's ending age                            |
-| **endAge**     | Integer    | End age of the interval (excl.). This age is greater to the current bracket's Beginning age                                                                           |
+| **beginAge**   | Integer    | Beginning age of the interval (incl.). If this is not the first bracket, this age is greater or equal to the previous bracket's ending age     |
+| **endAge**     | Integer    | End age of the interval (excl.). This age is greater to the current bracket's Beginning age                                                    |
 | **peopleNbr**  | Integer    | Number of people in the interval age of the bracket (\[beginAge,endAge)). This is an relative value, it will be normalized with the number of inhabitants of the city |
 
 ### Work Hours
@@ -174,27 +175,27 @@ Follows the description of all bracket attributes.
 We need to specify the opening and closing hours of all city's work
 positions.
 
-```
-    <city>
-        <general ... />
-        <parameters ... />
-        <population> <bracket ... /> ... </population>
+```xml
+<city>
+    <general ... />
+    <parameters ... />
+    <population> <bracket ... /> ... </population>
 
-        <workHours>
-            <opening hour="30600" proportion="0.30" />
-             ...
-            <closing hour="43200" proportion="0.20" />
-             ...
-        </workHours>
+    <workHours>
+        <opening hour="30600" proportion="0.30" />
+            ...
+        <closing hour="43200" proportion="0.20" />
+            ...
+    </workHours>
 
-    </city>
+</city>
 ```
 
 Here are descriptions of all attributes of opening and closing elements:
 
 | Attribute Name | Value Type   | Description           |
 | -------------- | ------------ | -------------------------------------------------------------------------------------------- |
-| **hour**       | Integer(sec) | Possible beginning or ending time of work.                                                                                                                                                                           |
+| **hour**       | Integer(sec) | Possible beginning or ending time of work.                                                                                                         |
 | **proportion** | Float        | Proportion of work positions having this time as a beginning (resp. end) hour. It's a relative value: the probability of occurrence is computed by normalizing all opening (resp. closing) proportion values by one. |
 
 ### Population and Work Position Distribution
@@ -202,19 +203,19 @@ Here are descriptions of all attributes of opening and closing elements:
 Now, we have to specify the density of people and work in each street of
 the city. (by street I meant edges which are even more precise)
 
-```
-    <city>
-        <general ... />
-        <parameters ... />
-        <population> <bracket ... /> ... </population>
-        <workHours> <opening ... /> ... <closing ... /> ... </workHours>
+```xml
+<city>
+    <general ... />
+    <parameters ... />
+    <population> <bracket ... /> ... </population>
+    <workHours> <opening ... /> ... <closing ... /> ... </workHours>
 
-        <streets>
-            <street edge="abc123" population="2.5" workPosition="10.0" />
-             ...
-        </streets>
+    <streets>
+        <street edge="abc123" population="2.5" workPosition="10.0" />
+            ...
+    </streets>
 
-    </city>
+</city>
 ```
 
 Here are the corresponding attribute descriptions:
@@ -231,21 +232,21 @@ In order to generate incoming and outgoing traffic, we need to specify
 gates to the city. Every gate will generate the same number of incoming
 (resp. outgoing) cars (the total number divided by the number of gates).
 
-```
-    <city>
-        <general ... />
-        <parameters ... />
-        <population> <bracket ... /> ... </population>
-        <workHours> <opening ... /> ... <closing ... /> ... </workHours>
-        <streets> <street ... /> ... </streets>
+```xml
+<city>
+    <general ... />
+    <parameters ... />
+    <population> <bracket ... /> ... </population>
+    <workHours> <opening ... /> ... <closing ... /> ... </workHours>
+    <streets> <street ... /> ... </streets>
 
-        <cityGates>
-            <entrance edge="abc123" pos="243.67" incoming="1.5" outgoing="2.2"/>
-            <entrance edge="abc234" pos="0.00" incoming="1.0" outgoing="0.5"/>
-             ...
-        </cityGates>
+    <cityGates>
+        <entrance edge="abc123" pos="243.67" incoming="1.5" outgoing="2.2"/>
+        <entrance edge="abc234" pos="0.00" incoming="1.0" outgoing="0.5"/>
+            ...
+    </cityGates>
 
-    </city>
+</city>
 ```
 
 The corresponding attribute descriptions:
@@ -262,7 +263,7 @@ The corresponding attribute descriptions:
 Children don't go to work but to school. The particularity of schools is
 that they are exactly positioned and receive many pupils every day.
 
-```
+```xml
 <city>
     <general ... />
     <parameters ... />
@@ -297,212 +298,212 @@ People have a public bus line system to their disposition. This public
 transportation system is described by stations, different bus lines
 having their corresponding station for both directions and schedules.
 
-```
-    <city>
-        <general ... />
-        <parameters ... />
-        <population> <bracket ... /> ... </population>
-        <workHours> <opening ... /> ... <closing ... /> ... </workHours>
-        <streets> <street ... /> ... </streets>
-        <cityGates> <entrance ... /> ... </cityGates>
-        <schools> <school ... /> ... </schools>
+```xml
+<city>
+    <general ... />
+    <parameters ... />
+    <population> <bracket ... /> ... </population>
+    <workHours> <opening ... /> ... <closing ... /> ... </workHours>
+    <streets> <street ... /> ... </streets>
+    <cityGates> <entrance ... /> ... </cityGates>
+    <schools> <school ... /> ... </schools>
 
-        <busStations>
-            <busStation id="1" edge="abc123" pos="456" />
-            <busStation id="2" edge="123cba" pos="324" />
-             ...
-        </busStations>
+    <busStations>
+        <busStation id="1" edge="abc123" pos="456" />
+        <busStation id="2" edge="123cba" pos="324" />
+            ...
+    </busStations>
 
-        <busLines>
-            <busLine id="601" maxTripDuration="3000">
-                <stations>
-                    <station refId="1" />
-                     ...
-                </stations>
-                <revStations>
-                    <station refId="2" />
-                     ...
-                </revStations>
-                <frequencies>
-                    <frequency begin="10000" end="25000" rate="1500" />
-                     ...
-                </frequencies>
-            </busLine>
-        </busLines>
+    <busLines>
+        <busLine id="601" maxTripDuration="3000">
+            <stations>
+                <station refId="1" />
+                    ...
+            </stations>
+            <revStations>
+                <station refId="2" />
+                    ...
+            </revStations>
+            <frequencies>
+                <frequency begin="10000" end="25000" rate="1500" />
+                    ...
+            </frequencies>
+        </busLine>
+    </busLines>
 
-    </city>
+</city>
 ```
 
 The corresponding attribute descriptions of all elements:
 
 | Attribute Name      | Value Type    | Description              |
 | ------------------- | ------------- | -------------------------------------------------------------------------------------------------- |
-| **id**              | String        | Bus line's id                                                                                                                                              |
-| **maxTripDuration** | Integer (sec) | Maximum time needed for a bus to do the end-to-end trip.                                                                                                   |
-| **refId**           | Integer       | Reference to the id of the chosen station (refers to a busStation object's id)                                                                             |
-| **begin**           | Integer (sec) | Time of the beginning of a new frequency                                                                                                                   |
-| **end**             | Integer (sec) | End time of the frequency                                                                                                                                  |
+| **id**              | String        | Bus line's id                                                                                                                             |
+| **maxTripDuration** | Integer (sec) | Maximum time needed for a bus to do the end-to-end trip.                                                                                  |
+| **refId**           | Integer       | Reference to the id of the chosen station (refers to a busStation object's id)                                                            |
+| **begin**           | Integer (sec) | Time of the beginning of a new frequency                                                                                                  |
+| **end**             | Integer (sec) | End time of the frequency                                                                                                                 |
 | **rate**            | Integer (sec) | Time between two buses, this is the inverse of the mathematical frequency. This bus rate is performed between the beginning and end values described above |
 
 ### Final Aspect
 
 Here is a complete example of a stat file:
 
-```
-    <city>
-        <general inhabitants="1000" households="500" childrenAgeLimit="19" retirementAgeLimit="66" carRate="0.58" unemploymentRate="0.05"
-                     footDistanceLimit="250" incomingTraffic="200" outgoingTraffic="50" />
-        <parameters carPreference="0.50" meanTimePerKmInCity="6" freeTimeActivityRate="0.15" uniformRandomTraffic="0.20" departureVariation="300" />
+```xml
+<city>
+    <general inhabitants="1000" households="500" childrenAgeLimit="19" retirementAgeLimit="66" carRate="0.58" unemploymentRate="0.05"
+                    footDistanceLimit="250" incomingTraffic="200" outgoingTraffic="50" />
+    <parameters carPreference="0.50" meanTimePerKmInCity="6" freeTimeActivityRate="0.15" uniformRandomTraffic="0.20" departureVariation="300" />
 
-        <population>
-            <bracket beginAge="0" endAge="30" peopleNbr="30" />
-            <bracket beginAge="30" endAge="60" peopleNbr="40" />
-            <bracket beginAge="60" endAge="90" peopleNbr="30" />
-        </population>
+    <population>
+        <bracket beginAge="0" endAge="30" peopleNbr="30" />
+        <bracket beginAge="30" endAge="60" peopleNbr="40" />
+        <bracket beginAge="60" endAge="90" peopleNbr="30" />
+    </population>
 
-        <workHours>
-            <opening hour="30600" proportion="0.30" />
-            <opening hour="32400" proportion="0.70" />
-            <closing hour="43200" proportion="0.20" />
-            <closing hour="63000" proportion="0.20" />
-            <closing hour="64800" proportion="0.60" />
-        </workHours>
+    <workHours>
+        <opening hour="30600" proportion="0.30" />
+        <opening hour="32400" proportion="0.70" />
+        <closing hour="43200" proportion="0.20" />
+        <closing hour="63000" proportion="0.20" />
+        <closing hour="64800" proportion="0.60" />
+    </workHours>
 
-        <streets>
-            <street edge="e01t11" population="10" workPosition="100" />
-            <street edge="e11t12" population="10" workPosition="100" />
-            <street edge="e12t13" population="10" workPosition="100" />
-            <street edge="e13t14" population="10" workPosition="100" />
-            <street edge="e11t21" population="10" workPosition="100" />
-            <street edge="e12t22" population="10" workPosition="100" />
-            <street edge="e13t23" population="10" workPosition="100" />
-            <street edge="e14t24" population="10" workPosition="100" />
-            <street edge="e21t22" population="10" workPosition="100" />
-            <street edge="e22t23" population="10" workPosition="100" />
-            <street edge="e23t24" population="10" workPosition="100" />
-            <street edge="e21t31" population="10" workPosition="100" />
-            <street edge="e22t32" population="100" workPosition="10" />
-            <street edge="e23t33" population="100" workPosition="10" />
-            <street edge="e24t34" population="100" workPosition="10" />
-            <street edge="e31t32" population="100" workPosition="10" />
-            <street edge="e32t33" population="100" workPosition="10" />
-            <street edge="e33t34" population="100" workPosition="10" />
-            <street edge="e31t41" population="100" workPosition="10" />
-            <street edge="e32t42" population="100" workPosition="10" />
-            <street edge="e33t43" population="100" workPosition="10" />
-            <street edge="e34t44" population="100" workPosition="10" />
-            <street edge="e41t42" population="100" workPosition="10" />
-            <street edge="e42t43" population="100" workPosition="10" />
-            <street edge="e43t44" population="100" workPosition="10" />
-            <street edge="e44t51" population="100" workPosition="10" />
-        </streets>
+    <streets>
+        <street edge="e01t11" population="10" workPosition="100" />
+        <street edge="e11t12" population="10" workPosition="100" />
+        <street edge="e12t13" population="10" workPosition="100" />
+        <street edge="e13t14" population="10" workPosition="100" />
+        <street edge="e11t21" population="10" workPosition="100" />
+        <street edge="e12t22" population="10" workPosition="100" />
+        <street edge="e13t23" population="10" workPosition="100" />
+        <street edge="e14t24" population="10" workPosition="100" />
+        <street edge="e21t22" population="10" workPosition="100" />
+        <street edge="e22t23" population="10" workPosition="100" />
+        <street edge="e23t24" population="10" workPosition="100" />
+        <street edge="e21t31" population="10" workPosition="100" />
+        <street edge="e22t32" population="100" workPosition="10" />
+        <street edge="e23t33" population="100" workPosition="10" />
+        <street edge="e24t34" population="100" workPosition="10" />
+        <street edge="e31t32" population="100" workPosition="10" />
+        <street edge="e32t33" population="100" workPosition="10" />
+        <street edge="e33t34" population="100" workPosition="10" />
+        <street edge="e31t41" population="100" workPosition="10" />
+        <street edge="e32t42" population="100" workPosition="10" />
+        <street edge="e33t43" population="100" workPosition="10" />
+        <street edge="e34t44" population="100" workPosition="10" />
+        <street edge="e41t42" population="100" workPosition="10" />
+        <street edge="e42t43" population="100" workPosition="10" />
+        <street edge="e43t44" population="100" workPosition="10" />
+        <street edge="e44t51" population="100" workPosition="10" />
+    </streets>
 
-        <cityGates>
-            <entrance edge="e01t11" pos="1" incoming="0.5" outgoing="0.5" />
-            <entrance edge="e44t51" pos="280" incoming="0.5" outgoing="0.5" />
-        </cityGates>
+    <cityGates>
+        <entrance edge="e01t11" pos="1" incoming="0.5" outgoing="0.5" />
+        <entrance edge="e44t51" pos="280" incoming="0.5" outgoing="0.5" />
+    </cityGates>
 
-        <schools>
-            <school edge="e11t12" pos="20" beginAge="0" endAge="6" capacity="200" opening="32400" closing="64800" />
-            <school edge="e33t34" pos="100" beginAge="3" endAge="12" capacity="150" opening="30600" closing="64800" />
-            <school edge="e41t42" pos="50" beginAge="10" endAge="20" capacity="300" opening="32400" closing="61200" />
-        </schools>
+    <schools>
+        <school edge="e11t12" pos="20" beginAge="0" endAge="6" capacity="200" opening="32400" closing="64800" />
+        <school edge="e33t34" pos="100" beginAge="3" endAge="12" capacity="150" opening="30600" closing="64800" />
+        <school edge="e41t42" pos="50" beginAge="10" endAge="20" capacity="300" opening="32400" closing="61200" />
+    </schools>
 
-        <busStations>
-            <busStation id="1" edge="e11t12" pos="10" />
-            <busStation id="2" edge="e12t13" pos="10" />
-            <busStation id="3" edge="e13t14" pos="10" />
-            <busStation id="4" edge="e14t24" pos="10" />
-            <busStation id="5" edge="e24t23" pos="10" />
-            <busStation id="6" edge="e23t33" pos="10" />
-            <busStation id="7" edge="e33t32" pos="10" />
-            <busStation id="8" edge="e32t31" pos="10" />
-            <busStation id="9" edge="e31t21" pos="10" />
-            <busStation id="10" edge="e21t11" pos="10" />
+    <busStations>
+        <busStation id="1" edge="e11t12" pos="10" />
+        <busStation id="2" edge="e12t13" pos="10" />
+        <busStation id="3" edge="e13t14" pos="10" />
+        <busStation id="4" edge="e14t24" pos="10" />
+        <busStation id="5" edge="e24t23" pos="10" />
+        <busStation id="6" edge="e23t33" pos="10" />
+        <busStation id="7" edge="e33t32" pos="10" />
+        <busStation id="8" edge="e32t31" pos="10" />
+        <busStation id="9" edge="e31t21" pos="10" />
+        <busStation id="10" edge="e21t11" pos="10" />
 
-            <busStation id="101" edge="e12t11" pos="10" />
-            <busStation id="102" edge="e13t12" pos="10" />
-            <busStation id="103" edge="e14t13" pos="10" />
-            <busStation id="104" edge="e24t14" pos="10" />
-            <busStation id="105" edge="e23t24" pos="10" />
-            <busStation id="106" edge="e33t23" pos="10" />
-            <busStation id="107" edge="e32t33" pos="10" />
-            <busStation id="108" edge="e31t32" pos="10" />
-            <busStation id="109" edge="e21t31" pos="10" />
-            <busStation id="110" edge="e11t21" pos="10" />
+        <busStation id="101" edge="e12t11" pos="10" />
+        <busStation id="102" edge="e13t12" pos="10" />
+        <busStation id="103" edge="e14t13" pos="10" />
+        <busStation id="104" edge="e24t14" pos="10" />
+        <busStation id="105" edge="e23t24" pos="10" />
+        <busStation id="106" edge="e33t23" pos="10" />
+        <busStation id="107" edge="e32t33" pos="10" />
+        <busStation id="108" edge="e31t32" pos="10" />
+        <busStation id="109" edge="e21t31" pos="10" />
+        <busStation id="110" edge="e11t21" pos="10" />
 
-            <busStation id="11" edge="e12t22" pos="10" />
-            <busStation id="12" edge="e22t32" pos="10" />
-            <busStation id="13" edge="e32t42" pos="10" />
-            <busStation id="14" edge="e42t41" pos="10" />
-            <busStation id="15" edge="e41t31" pos="10" />
+        <busStation id="11" edge="e12t22" pos="10" />
+        <busStation id="12" edge="e22t32" pos="10" />
+        <busStation id="13" edge="e32t42" pos="10" />
+        <busStation id="14" edge="e42t41" pos="10" />
+        <busStation id="15" edge="e41t31" pos="10" />
 
-            <busStation id="111" edge="e22t12" pos="10" />
-            <busStation id="112" edge="e32t22" pos="10" />
-            <busStation id="113" edge="e42t32" pos="10" />
-            <busStation id="114" edge="e41t42" pos="10" />
-            <busStation id="115" edge="e31t41" pos="10" />
-        </busStations>
+        <busStation id="111" edge="e22t12" pos="10" />
+        <busStation id="112" edge="e32t22" pos="10" />
+        <busStation id="113" edge="e42t32" pos="10" />
+        <busStation id="114" edge="e41t42" pos="10" />
+        <busStation id="115" edge="e31t41" pos="10" />
+    </busStations>
 
-        <busLines>
-            <busLine id="101" maxTripDuration="10">
-                <stations>
-                    <station refId="1" />
-                    <station refId="3" />
-                    <station refId="4" />
-                    <station refId="5" />
-                    <station refId="6" />
-                    <station refId="7" />
-                    <station refId="8" />
-                    <station refId="9" />
-                </stations>
-                <revStations>
-                    <station refId="109" />
-                    <station refId="108" />
-                    <station refId="107" />
-                    <station refId="106" />
-                    <station refId="105" />
-                    <station refId="104" />
-                    <station refId="103" />
-                    <station refId="102" />
-                </revStations>
-                <frequencies>
-                    <frequency begin="21600" end="36000" rate="300" />
-                    <frequency begin="36000" end="57600" rate="1800" />
-                    <frequency begin="57600" end="68400" rate="300" />
-                    <frequency begin="68400" end="86399" rate="1800" />
-                </frequencies>
-            </busLine>
+    <busLines>
+        <busLine id="101" maxTripDuration="10">
+            <stations>
+                <station refId="1" />
+                <station refId="3" />
+                <station refId="4" />
+                <station refId="5" />
+                <station refId="6" />
+                <station refId="7" />
+                <station refId="8" />
+                <station refId="9" />
+            </stations>
+            <revStations>
+                <station refId="109" />
+                <station refId="108" />
+                <station refId="107" />
+                <station refId="106" />
+                <station refId="105" />
+                <station refId="104" />
+                <station refId="103" />
+                <station refId="102" />
+            </revStations>
+            <frequencies>
+                <frequency begin="21600" end="36000" rate="300" />
+                <frequency begin="36000" end="57600" rate="1800" />
+                <frequency begin="57600" end="68400" rate="300" />
+                <frequency begin="68400" end="86399" rate="1800" />
+            </frequencies>
+        </busLine>
 
-            <busLine id="102" maxTripDuration="7">
-                <stations>
-                    <station refId="15" />
-                    <station refId="9" />
-                    <station refId="10" />
-                    <station refId="1" />
-                    <station refId="11" />
-                    <station refId="12" />
-                    <station refId="13" />
-                    <station refId="14" />
-                </stations>
-                <revStations>
-                    <station refId="114" />
-                    <station refId="113" />
-                    <station refId="112" />
-                    <station refId="111" />
-                    <station refId="101" />
-                    <station refId="110" />
-                    <station refId="109" />
-                    <station refId="115" />
-                </revStations>
-                <frequencies>
-                    <frequency begin="28800" end="32400" rate="600" />
-                    <frequency begin="57600" end="64800" rate="600" />
-                </frequencies>
-            </busLine>
-        </busLines>
+        <busLine id="102" maxTripDuration="7">
+            <stations>
+                <station refId="15" />
+                <station refId="9" />
+                <station refId="10" />
+                <station refId="1" />
+                <station refId="11" />
+                <station refId="12" />
+                <station refId="13" />
+                <station refId="14" />
+            </stations>
+            <revStations>
+                <station refId="114" />
+                <station refId="113" />
+                <station refId="112" />
+                <station refId="111" />
+                <station refId="101" />
+                <station refId="110" />
+                <station refId="109" />
+                <station refId="115" />
+            </revStations>
+            <frequencies>
+                <frequency begin="28800" end="32400" rate="600" />
+                <frequency begin="57600" end="64800" rate="600" />
+            </frequencies>
+        </busLine>
+    </busLines>
 
-    </city>
+</city>
 ```
 
 ## Activities
@@ -556,13 +557,12 @@ The population is distributed according to the statistics into
 households located in streets. People are likely to use different means
 of transportation in relation to their location, the availability of the
 different means and their destination. Three kind of Means are used in
-ActivityGen:<b>
+activitygen:
 
-- Feet or bike
-- Buses
-- Cars
+- **Feet or bike**
+- **Buses**
+- **Cars**
 
-</b>
 
 All of them have their own possibilities and availability
 characteristics:

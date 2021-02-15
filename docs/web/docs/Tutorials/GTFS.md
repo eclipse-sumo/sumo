@@ -1,6 +1,5 @@
 ---
-title: Tutorials/GTFS
-permalink: /Tutorials/GTFS/
+title: GTFS
 ---
 
 # Introduction

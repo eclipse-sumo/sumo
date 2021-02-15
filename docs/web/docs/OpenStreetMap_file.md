@@ -11,7 +11,8 @@ title: OpenStreetMap file
 | XML Schema                       | [XSD of API v0.6](http://wiki.openstreetmap.org/wiki/API_v0.6/XSD)   |
 | [wiki.openstreetmap.org/wiki/.osm](http://wiki.openstreetmap.org/wiki/.osm) |                   |
 
-![eichstaett.osm.png](images/Eichstaett.osm.png "The screenshot of an OpenStreetMap file opened in JOSM. It shows the map of the German city Eichstätt.") 
+![Eichstaett.osm.png](images/Eichstaett.osm.png "The screenshot of an OpenStreetMap file opened in JOSM. It shows the map of the German city Eichstätt.")
+
 The screenshot of an OpenStreetMap file opened in JOSM. It shows the map of the German city Eichstätt.
 
 An **OpenStreetMap file** contains an extract of the OpenStreetMap

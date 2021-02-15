@@ -543,7 +543,7 @@ leading vehicle when standing in a jam.
 
 This is illustrated in the following image:
 
-![length_vs_minGap.svg](images/Length_vs_minGap.svg "length_vs_minGap.svg")
+![Length_vs_minGap](images/Length_vs_minGap.svg "length vs minGap")
 
 Within the simulation, each vehicle needs - when ignoring the safe gap -
 `length`+`minGap`.

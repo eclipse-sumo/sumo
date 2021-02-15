@@ -33,7 +33,7 @@ Further, the device induces a minimum risk maneuver (MRM) if the driver
 does not take back the vehicle control within a specified lead time (see
 figure).
 
-![<File:timelineToC.png>](images/TimelineToC.png "File:timelineToC.png")
+![TimelineToC.png](images/TimelineToC.png "Timeline ToC")
 
 *Figure 1: Timeline of a ToC as modelled by the ToC Device*
 
@@ -46,7 +46,7 @@ procedures](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices)
 (and use `<device name>=toc`). The minimal definition required to equip
 one vehicle with a ToC Device has the following form:
 
-```
+```xml
 <routes>
     ...
     <vehicle id="v0" route="route0" depart="0">
@@ -63,8 +63,8 @@ ToC Device. Each of these parameters must be specified as a child
 element of the form `<param key=<PARAMETER NAME> value=<PARAMETER VALUE>` of the appropriate demand definition element
 (e.g. `<vehicle ... />`, `<vType ... />`, or `<flow ... />`)
 
-| Parameter             | Type             | Default          | Description                                                                                                                                                                                                                                                    |
-| --------------------- | ---------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Parameter             | Type             | Default          | Description                                                                         |
+| --------------------- | ---------------- | ---------------- | ------------------------------------------------------------------------------------------------ |
 | manualType            | vTypeID (string) | none (mandatory) | ID of the vehicle type used to model manual driving.                                                                                                                                                                                                           |
 | automatedType         | vTypeID (string) | none (mandatory) | ID of the vehicle type used to model automated driving.                                                                                                                                                                                                        |
 | responseTime          | float            | 5.0              | The time (in \[s\]) it takes the driver after the TOR ([see TORs below](#take-over_requests)) to take back the control over the vehicle.                                                                                                            |

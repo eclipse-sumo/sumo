@@ -10,7 +10,7 @@ driving process at many stages \[see Figure 1\], SUMO only applies
 errors at the perception stage, see
 [below](#modeling_of_perception_errors) for details.
 
-![](images/DriverErrors.png "File:DriverErrors.png")
+![](images/DriverErrors.png "Driver Errors")
 
 *Figure 1: Errors in the driving process.*
 
@@ -33,21 +33,22 @@ procedures](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices)
 (and use <device name>`=driverstate`). The minimal definition required
 to equip one vehicle with a Driver State has the following form:
 
-    <routes>
-        ...
-        <vehicle id="v0" route="route0" depart="0">
-            <param key="has.driverstate.device" value="true"/>
-        </vehicle>
-        ....
-    </routes>
+```xml
+<routes>
+    ...
+    <vehicle id="v0" route="route0" depart="0">
+        <param key="has.driverstate.device" value="true"/>
+    </vehicle>
+    ....
+</routes>
+```
 
 In this case all parameters ([see below](#modeling_of_perception_errors)) of the driver state
 are set to their default values. The following table gives the full list
 of possible parameters for the Driver State Device. Each of these
 parameters must be specified as a child element of the form
 `<param key=<PARAMETER NAME> value=<PARAMETER VALUE>` of the
-appropriate demand definition element (e.g. `<vehicle ... />`, `<vType
-... />`, or `<flow ... />`). See [Modeling of Perception
+appropriate demand definition element (e.g. `<vehicle ... />`, `<vType ... />`, or `<flow ... />`). See [Modeling of Perception
 Errors](#modeling_of_perception_errors) for details of the
 error dynamics.
 
@@ -74,17 +75,12 @@ state awareness, which is meant to function as an interface between the
 traffic situation and the driver state dynamics. We have
 
 - `errorTimeScale = errorTimeScaleCoefficient*awareness(t)`
-- `errorNoiseIntensity =
-  errorNoiseIntensityCoefficient*(1.-awareness(t))`
-
-\[Figure: Ornstein-Uhlenbeck\]
+- `errorNoiseIntensity = errorNoiseIntensityCoefficient*(1.-awareness(t))`
 
 The error's state error(t) at time t is scaled and added to input
 parameters of the car-following model as follows
 
-- `perceivedSpeedDifference = trueSpeedDifference +
-  speedDifferenceError(t)`, where `speedDifferenceError(t) =
-  speedDifferenceErrorCoefficient*headway(t)*error(t)`
+- `perceivedSpeedDifference = trueSpeedDifference + speedDifferenceError(t)`, where `speedDifferenceError(t) = speedDifferenceErrorCoefficient*headway(t)*error(t)`
 - `perceivedHeadway = trueHeadway + headwayError(t)`, where
   `headwayError(t) = headwayErrorCoefficient*headway(t)*error(t)`
 
@@ -94,21 +90,15 @@ affecting the processes parameters. Further, the scale of the perception
 error is assumed to grow linearly with the distance to the perceived
 object.
 
-\[Figure: Schematic representation\]
-
 Finally, the driver state induces an update of the input to the
 car-following model only if the perceived values have changed to a
 sufficient degree. The conditions for updating the car-following input
 are:
 
-- headway: `|perceivedHeadway - expectedHeadway| >
-  headwayChangePerceptionThreshold*trueGap*(1.0-awareness)`
-- speed difference: `|perceivedSpeedDifference -
-  expectedSpeedDifference| >
-  speedDifferenceChangePerceptionThreshold*trueGap*(1.0-awareness)`
+- headway: `|perceivedHeadway - expectedHeadway| > headwayChangePerceptionThreshold*trueGap*(1.0-awareness)`
+- speed difference: `|perceivedSpeedDifference - expectedSpeedDifference| > speedDifferenceChangePerceptionThreshold*trueGap*(1.0-awareness)`
 
 Here, the expected quantities are
 
-- `expectedHeadway = lastRecognizedHeadway -
-  expectedSpeedDifference*elapsedTimeSinceLastRecognition`
+- `expectedHeadway = lastRecognizedHeadway - expectedSpeedDifference*elapsedTimeSinceLastRecognition`
 - `expectedSpeedDifference = lastRecognizedSpeedDifference`

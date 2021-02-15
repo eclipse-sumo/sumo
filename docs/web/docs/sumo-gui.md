@@ -15,7 +15,7 @@ title: sumo-gui
 
 # Usage Description
 
-![guisim_empty.png](images/Guisim_empty.png)
+![Guisim_empty.png](images/Guisim_empty.png)
 
 *Initial appearance of sumo-gui; may differ from what you see*
 
@@ -25,7 +25,7 @@ click. After this, an empty window should show up, similar to the one
 shown in the image.
 
 Using either the "File-\>Open Simulation..." menu entry or by using the
-"open"-icon (![Image:open_sim.gif](images/Open_sim.png)),
+"open"-icon (![Open_sim.gif](images/Open_sim.png "Open sim")),
 you should be able to load an existing [sumo](sumo.md)
 [configuration
 file](Basics/Using_the_Command_Line_Applications.md#configuration_files),
@@ -34,22 +34,20 @@ if it has the proper [extension](Other/File_Extensions.md)
 file](Basics/Using_the_Command_Line_Applications.md#configuration_files)
 is erroneous, the errors are reported, otherwise your network referenced
 within the configuration file should be shown. Now you can start to
-simulate by pressing the "play" button (![Image:play.gif](images/Play.gif)). The simulation works as if being started on the
+simulate by pressing the "play" button (![Play.gif](images/Play.gif "Play")). The simulation works as if being started on the
 command line. The simulation can be halted using the "stop" button
-(![Image:stop.gif](images/Stop.gif)) and continued by pressing
+(![Stop.gif](images/Stop.gif "Stop")) and continued by pressing
 the "play" button again. When stopped, also single steps may be
 performed by pressing the "single step" button
-(![Image:step.gif](images/Step.gif "Image:step.gif")).
+(![Step.gif](images/Step.gif "Step")).
 
 If the simulation is running, the current simulation second is shown in
 the "digital digits" field, right to "Time:"
-(![Image:Current_step_example.png](images/Current_step_example.png
-"Image:Current_step_example.png")). By clicking on the word "Time:", the
-display can be toggled between showing <seconds\> and
-<hour:minute:seconds\>.
+(![Current_step_example.png](images/Current_step_example.png "Current step")). By clicking on the word "Time:", the
+display can be toggled between showing `<seconds>` and `<hour:minute:seconds>`.
 
 Next to the time display is the delay control
-(![Image:delay.png](images/Delay.png "Image:delay.png")). This allows you to
+(![Delay.png](images/Delay.png "Delay")). This allows you to
 slow down the simulation by waiting for the given number of milliseconds
 between simulation steps.
 
@@ -58,14 +56,13 @@ between simulation steps.
 
 Besides loading simulation configurations, it is also possible to load
 networks by using either the "File-\>Open Network..." menu entry or by
-using the "open network"-icon (![Image:open_net.gif](images/Open_net.png
-"Image:open_net.gif")). Please note, that normally
+using the "open network"-icon (![Open_net.png](images/Open_net.png "Open net")). Please note, that normally
 **sumo-gui** assumes networks have the
 [extension](Other/File_Extensions.md) *".net.xml"*, but also
 accepts other extensions.
 
 Both, the loaded simulation or the loaded network may be reloaded using
-the "reload" button (![Image:reload.gif](images/Reload.gif "Image:reload.gif"))
+the "reload" button (![Reload.gif](images/Reload.gif "Reload"))
 or the menu entry "File-\>Reload".
 
 If a network or a simulation are loaded, the navigation through the
@@ -80,7 +77,7 @@ double speed use "Shift".
 
 ## Basic Navigation
 
-![Viewport_editor.png](images/Viewport_editor.png "Viewport_editor.png")
+![Viewport_editor.png](images/Viewport_editor.png "Viewport editor")
 
 As soon as a network is displayed, one can interact with the view.
 Pressing the left mouse button within the view and moving the mouse with
@@ -90,25 +87,25 @@ It is also possible to change the zoom by using the mouse wheel (holding
 *<SHIFT\>* increases the zooming speed and holding *<CTRL\>* lowers it).
 Zooming is either focused on the center of the screen or on the cursor
 position. The zoom style can be selected with the
-![Image:zoomstyle.png](images/Zoomstyle.png "Image:zoomstyle.png") button.
+![Zoomstyle.png](images/Zoomstyle.png "Zoomstyle") button.
 
 You can also control which part of the network is visible by directly
 setting the network coordinates which shall be at the center of the
 screen along with the zoom (given a value of 100 the whole network will
 fit onto the screen). These settings can be changed by opening the
 viewport editor using the
-![Image:open_viewport_editor.gif](images/Open_viewport_editor.gif
-"Image:open_viewport_editor.gif") button. From this editor, it is
-possible to save the current settings (![Image:save.gif](images/Save.gif
-"Image:save.gif")) or load previously saved ones
-(![Image:open_sim.gif](images/Open_sim.png) within the
+![Open_viewport_editor.gif](images/Open_viewport_editor.gif
+"Open viewport editor") button. From this editor, it is
+possible to save the current settings (![Save.gif](images/Save.gif
+"Save")) or load previously saved ones
+(![Open_sim.png](images/Open_sim.png "Open sim") within the
 viewport editor).
 
 The viewport is defined as following:
 `<viewport zoom="<ZOOM>" x="<X>" y="<Y>"/>`. It can be loaded as a part of viewsettings.
 
-Pressing the center-button (![Image:center.gif](images/Center.gif
-"Image:center.gif")) from the menu bar at the top of the view, will
+Pressing the center-button (![Center.gif](images/Center.gif
+"Center")) from the menu bar at the top of the view, will
 reset the viewport so that the complete network is shown.
 
 ## Breakpoints
@@ -119,7 +116,7 @@ methods:
 
 - via menu *Edit-\>Breakpoints*
 - by setting option **--breakpoints TIME1,TIME2,...**
-- by loading \#Configuration_Files with breakpoint information
+- by loading [Configuration Files](#configuration_files) with breakpoint information
 
 ## Keyboard Shortcuts
 
@@ -166,8 +163,8 @@ The following objects can be accessed by right-click:
 - Polygons
 - Simulation (by clicking the background where there is no other
   object). Also accessible by clicking the
-  ![Image:simulationParameters.png](images/SimulationParameters.png
-  "Image:simulationParameters.png") button.
+  ![SimulationParameters.png](images/SimulationParameters.png
+  "Simulation parameters") button.
 
   !!! note
         Simulation Parameters include all values available via [verbose output](Simulation/Output.md#commandline_output_verbose) such as departed, running and arrived vehicles. It also includes network statistics such as number of edges and nodes.
@@ -213,7 +210,7 @@ as a group in [netedit](Netedit/index.md).
 ## Locating Objects
 
 All simulation objects can be located based on their ID by using the
-locate dialog ![Image:Locate.png](images/Locate.png "Image:Locate.png"). By
+locate dialog ![Locate.png](images/Locate.png "Locate"). By
 clicking this button a sub-menu for selecting the object type is
 opened. The following types are available:
 
@@ -222,12 +219,8 @@ opened. The following types are available:
 - [Vehicle](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
 - [Person](Specification/Persons.md)
 - [Traffic light](Simulation/Traffic_Lights.md)
-- Additional infrastructure for
-  [detecting](Simulation/Output.md#simulated_detectors) or for
-  [influencing
-  traffic](index.md#traffic_management_and_other_structures).
-- [Point of Interest
-  (PoI)](Simulation/Shapes.md#poi_point_of_interest_definitions)
+- Additional infrastructure for [detecting](Simulation/Output.md#simulated_detectors) or for [influencing traffic](index.md#traffic_management_and_other_structures).
+- [Point of Interest (PoI)](Simulation/Shapes.md#poi_point_of_interest_definitions)
 - [Polygon](Simulation/Shapes.md#polygon_definitions)
 
 After selecting the object type, a dialog opens that provides a text box
@@ -406,8 +399,7 @@ connections exist.
 
 - To see all connections, activate the junction visualization option
   *Show lane to lane connections*. The colors of the connection lines
-  correspond to the
-  [\#Right_of_way](#right_of_way)-colors.
+  correspond to the [Right of way](#right_of_way)-colors.
 - Each connection at an intersection has a unique index starting at 0
   and going clockwise around the intersection. These indices can be
   shown using the junction visualization option *Show link junction
@@ -439,19 +431,17 @@ The following coloring options are useful in this regard:
 
 The View Settings menu allows to change and customize the simulations'
 appearance and visualization. To open the visualization settings use
-![Image:colorwheel.gif](images/Colorwheel.gif "Image:colorwheel.gif") in the
+![Colorwheel.gif](images/Colorwheel.gif "Colorwheel") in the
 menu bar at the top of the view.
 
 For customizing the simulation one can make changes e.g. to the
 background coloring, streets and vehicle appearance as well as the
 visualization of POIs. Furthermore one can save
-(![Image:Save_to_registry.gif](images/Save_to_registry.gif
-"Image:Save_to_registry.gif")) and delete
-(![Image:Delete_from_registry.gif](images/Delete_from_registry.gif
-"Image:Delete_from_registry.gif")‎) settings to the registry or export
-(![Image:Save.gif](images/Save.gif "Image:Save.gif")) custom made settings
+(![Save_to_registry.gif](images/Save_to_registry.gif "Save to registry")) and delete
+(![Delete_from_registry.gif](images/Delete_from_registry.gif "Delete from registry")‎) settings to the registry or export
+(![Save.gif](images/Save.gif "Save")) custom made settings
 files and load previews settings again
-![Image:Open_sim.png](images/Open_sim.png). So one can
+![Open_sim.png](images/Open_sim.png "Open sim"). So one can
 use different favorite settings files for any simulation.
 
 The current settings file is shown in a drop down menu in the top bar of
@@ -485,17 +475,17 @@ value/range
 
 **Table 1.1 Vehicle shape schemes**
 
-| Name          | Description                                                                                                             |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| triangle      | All vehicles are shaped triangular                                                                                      |
-| boxes         | All vehicles are shaped square                                                                                          |
-| simple shapes | All vehicles have simple car shape                                                                                      |
+| Name          | Description                                                                                                                      |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| triangle      | All vehicles are shaped triangular                                                                                               |
+| boxes         | All vehicles are shaped square                                                                                                   |
+| simple shapes | All vehicles have simple car shape                                                                                               |
 | raster images | All vehicles are drawn with a loaded bitmap defined for their type using attribute `imgFile` (using *simple shapes* as fallback) |
 
 **Table 1.2 Vehicle coloring schemes and boundaries**
 
-| Name                           | Measure | Description                                                                                                                                                                                                   |
-| ------------------------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name                           | Measure | Description         |
+| ------------------------------ | ------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | given vehicle/type/route color | \-      | The color given within the vehicle definition with fallback to type and then to route color                                                                                                                   |
 | uniform                        | \-      | All vehicles are colored uniformly                                                                                                                                                                            |
 | given/assigned vehicle color   | \-      | The color given within the vehicle definition                                                                                                                                                                 |
@@ -541,8 +531,8 @@ step is chosen.
 
 **Table 2.1 Lane coloring schemes**
 
-| Name                                     | Measure | Description                                                                                                                                                            |
-| ---------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name                                     | Measure | Description                                                                                   |
+| ---------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------- |
 | uniform                                  | \-      | All road edges are drawn using the same color. Bicycle lanes are drawn in brown, sidewalks in grey and prohibited lanes (allowing no vehicle classes) are transparent. |
 | by selection (lane-/streetwise)          | \-      | selected lanes are drawn different than those that are not                                                                                                             |
 | by permission code                       | \-      | all lanes are colored according to the permitted vehicle classes. The code for each lane can be retrieved from the lane parameter dialog (permission code).            |
@@ -622,8 +612,7 @@ well](#changing_the_appearancevisualisation_of_the_simulation).
 In addition to changing the appearance of simulated structures, one may
 also load additional background images ("decals") into
 **sumo-gui**. For this, open the visualisation
-settings using ![Image:colorwheel.gif](images/Colorwheel.gif
-"Image:colorwheel.gif") and - if you are not yet here - choose the
+settings using ![Colorwheel.gif](images/Colorwheel.gif "Colorwheel") and - if you are not yet here - choose the
 "Background" panel (see Figure below). You will see a table with the following
 columns: **file**, **centerX**, **centerY**, **width**,
 **height**, **rotation**, **layer** and **relative**.
@@ -637,8 +626,7 @@ should be able to enter the complete path of an image file. Confirming
 the path by pressing RETURN should force **sumo-gui**
 to load and display the file below the road network, as shown in the figure:
 
-![](images/Background_example.png
-"Background example")
+![](images/Background_example.png "Background example")
 
 **Example of a background image (decal).**
 
@@ -659,7 +647,7 @@ be loaded by pressing the "Load Decals" button.
 
 When defining decals in XML a single line which looks like this:
 
-```
+```xml
 <decal file="background.gif" centerX="550.00" centerY="1530.00" width="64.00" height="64.00" rotation="0.00"/>
 ```
 
@@ -667,7 +655,7 @@ The following attributes are supported
 
 | Attribute Name | Value Type    | Description                                                                                                                     |
 | -------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| **file**   | path (string) | *picture file*, the full name of the background image                                                                           |
+| **file**       | path (string) | *picture file*, the full name of the background image                                                                           |
 | **centerX**    | float         | *center x*, the x-position of the center of the image in network coordinates (in meters)                                        |
 | **centerY**    | float         | *center y*, the y-position of the center of the image in network coordinates (in meters)                                        |
 | **width**      | float         | The width of the image in network coordinates (in meters)                                                                       |
@@ -705,9 +693,9 @@ you save a configuration file with default settings by calling `sumo --save-temp
 to **sumo-gui**. It allows you to load a previously
 saved gui-settings file. The easiest way to obtain a gui-settings file
 is via the *View Settings*-Dialog
-![Image:Open_viewsettings_editor.gif](images/Open_viewsettings_editor.gif
-"Image:Open_viewsettings_editor.gif"). Simply modify the settings and
-save ![Image:save.gif](images/Save.gif "Image:save.gif").
+![Open_viewsettings_editor.gif](images/Open_viewsettings_editor.gif
+"Open viewsettings editor"). Simply modify the settings and
+save ![Save.gif](images/Save.gif "Save").
 
 Note, that the gui-settings-file obtained this way only contain
 information about the viewport (zoom and offset), delay, breakpoints and
@@ -716,7 +704,7 @@ When you are done the configuration files should look like below:
 
 *example.sumocfg*
 
-```
+```xml
     <configuration>
         <net-file value="yournetwork.net.xml"/>
         <gui-settings-file value="gui-settings.cfg"/>
@@ -725,7 +713,7 @@ When you are done the configuration files should look like below:
 
 *gui-settings.cfg*
 
-```
+```xml
     <viewsettings>
         <scheme name="...
            ...
@@ -742,7 +730,7 @@ When you are done the configuration files should look like below:
 Alternatively, you can manually add a breakpoint-file definition to your
 settings
 
-```
+```xml
 <viewsettings>
     ...
     <breakpoints-file value="breakpoints.txt"/>
@@ -762,7 +750,7 @@ configuration:
 
 It is also possible to reference a predefined scheme by it's name alone:
 
-```
+```xml
 <viewsettings>
     <scheme name="real world"/>
 </viewsettings>
@@ -773,7 +761,7 @@ It is also possible to reference a predefined scheme by it's name alone:
 It is possible to take screenshots at predefined times by adding
 elements to the configuration:
 
-```
+```xml
 <viewsettings>
     <snapshot file="myScreenshot.png" time="42"/>
 </viewsettings>
@@ -781,8 +769,8 @@ elements to the configuration:
 
 # Multiple Views
 
-Using the (![Image:NewView.gif](images/NewView.gif
-"Image:newView.gif"))-button, multiple viewing windows can be opened onto the same
+Using the (![NewView.gif](images/NewView.gif
+"New view"))-button, multiple viewing windows can be opened onto the same
 simulation. The visualization settings can be set
 independently for each view. The viewing windows can be managed using
 the *Windows* menu in the main menu bar.
@@ -794,7 +782,7 @@ viewing window is opened for each file at the start of the simulation.
 
 When sumo-gui was compiled with [OSG
 (OpenSceneGraph)](http://www.openscenegraph.org/) support an additional
-(![Image:NewView3D.gif](images/NewView3D.gif))-button is
+(![NewView3D.gif](images/NewView3D.gif "New 3D view"))-button is
 present which can be used to open a 3D-View.
 
 !!! caution
@@ -808,13 +796,11 @@ An pre-compiled windows version for testing is available
 Several applications generated edge-related measures for one or more
 time-intervals.
 
-- [edgeData-output
-  files](Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md)  
+- [edgeData-output files](Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md)  
 - edge-probability files generated by
   [randomTrips.py](Tools/Trip.md#customized_weights)
 - [marouter netload-output](marouter.md#macroscopic_outputs)
-- [Smoothed traveltimes from
-  device.rerouting](Demand/Automatic_Routing.md) when running
+- [Smoothed traveltimes from device.rerouting](Demand/Automatic_Routing.md) when running
   [sumo](sumo.md) with option **--device.rerouting.output**.
 - [showDepartsAndArrivalsPerEdge.py](Tools/Routes.md#showdepartsandarrivalsperedge)
 - [netedit](Netedit/index.md#data_specific_modes) can be used to create and modify edgeData files
@@ -857,12 +843,14 @@ Simulation](Simulation/Shapes.md)
 ## Display Arbitrary Text in the Simulation View
 To display arbitrary text in the simulation view, the easiest way is to place a poi element with alpha channel 0 (invisible),
 set it's type attribute to the text you wish to show and load gui settings that show poi types in the desired color and size.
-```
+
+```xml
 <poi id="textPlacement0" type="my custom text" x="myX" y="myY" color="0,0,0,0"/>
 ```
 
 To use another text size or color, you can use a poi parameter and pick that parameter next to the "show poi text param" checkbox:
-```
+
+```xml
 <poi id="textPlacement2" x="myX2" y="myY2" color="0,0,0,0">
    <param key="anykey" value="my custom text in another size or color"/>
 <poi>
@@ -911,14 +899,10 @@ helpful:
   - disable *draw junction shape*
   - *show internal edge name*
   - *show internal junction name*
-  - *show link junction index* (to see the correspondence between
-    IDs and link indices)
+  - *show link junction index* (to see the correspondence between IDs and link indices)
 - Edge settings:
-  - *Exaggerate width by 0.1* (otherwise the shapes overlap which
-    makes it hard to understand them)
-  - *Color by selection* (coloring individual lanes makes it easier
-    to understand geometry before and after [internal
-    junctions](Networks/SUMO_Road_Networks.md#internal_junctions))
+  - *Exaggerate width by 0.1* (otherwise the shapes overlap which makes it hard to understand them)
+  - *Color by selection* (coloring individual lanes makes it easier to understand geometry before and after [internal junctions](Networks/SUMO_Road_Networks.md#internal_junctions))
 
 -----
 

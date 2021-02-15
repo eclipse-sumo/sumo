@@ -779,7 +779,7 @@ registered
 
   There may be several reasons why you do not see the cars.
 
-- The simulation is not yet running (click the "play" button (![Image:play.gif](images/Play.gif "Image:play.gif")), see [sumo-gui#Usage_Description](sumo-gui.md#usage_description))
+- The simulation is not yet running (click the "play" button (![Play.gif](images/Play.gif "Play")), see [sumo-gui#Usage_Description](sumo-gui.md#usage_description))
 - If your simulation area is too big, cars will not be displayed
   unless you zoom into the net. Cars are simply to small when looking
   from far away. To change this you may also set the option *Draw with
