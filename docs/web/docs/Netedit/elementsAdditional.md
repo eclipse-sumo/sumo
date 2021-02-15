@@ -79,13 +79,7 @@ lane in which vehicles ("busses") stop for a pre-given time. Every Bus stop has 
 
 #### Parking Areas
 
-!!! caution
-    Incomplete.
-
-#### Parking Spaces
-
-!!! caution
-    Incomplete.
+A [ParkingArea](../Simulation/ParkingArea.md)-element describes an area for parking outside the road network (either road-side parking or car parks).
 
 ### Detectors
 
