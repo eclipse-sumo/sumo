@@ -191,7 +191,7 @@ erhaltenen Geschwindigkeitsgewinns.
 
 ### Schwerpunkt Web-Entwicklung
 
-<em>Voraussetzung: Lust auf HTML, JavaScript, .../em>
+<em>Voraussetzung: Lust auf HTML, JavaScript, ...</em>
 
 #### Weiterentwicklung von SUMO für die Verwendung in Cloud Plattformen
 
