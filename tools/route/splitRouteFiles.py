@@ -36,7 +36,7 @@ from optparse import OptionParser
 import gzip
 
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools', 'detector'))
-from detector import DetectorReader
+from detector import DetectorReader  # noqa
 
 
 def getFreeSpace(folder):
