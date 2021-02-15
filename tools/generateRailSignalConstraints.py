@@ -148,6 +148,18 @@ def get_options(args=None):
 
     return options
 
+class Conflict:
+    def __init__(self, tripID, otherSignal, otherTripID, limit, line, otherLine, vehID, otherVehID, conflictTime):
+        self.tripID      = tripID
+        self.otherSignal = otherSignal
+        self.otherTripID = otherTripID
+        self.limit       = limit
+        self.line        = line
+        self.otherLine   = otherLine
+        self.vehID       = vehID
+        self.otherVehID  = otherVehID
+        self.conflictTime = conflictTime
+
 
 def getTravelTime(net, edges):
     result = 0
@@ -350,7 +362,7 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
     numIgnoredConflicts = 0
     # signal -> [(tripID, otherSignal, otherTripID, limit, line, otherLine, vehID, otherVehID), ...]
     conflicts = defaultdict(list)
-    ignoredVehicles = set()
+    ignoredVehicles = dict() # tripId -> earliestConflictTime
     for switch, stopRoutes2 in switchRoutes.items():
         numSwitchConflicts = 0
         numIgnoredSwitchConflicts = 0
@@ -396,7 +408,9 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
                                       humanReadableTime(parseTime(nStop.until))),
                                   file=sys.stderr)
                             # ignoredVehicles.insert(pStop.vehID)
-                            ignoredVehicles.add(nStop.vehID)
+                            if (nStop.vehID not in ignoredVehicles or
+                                    ignoredVehicles[nStop.vehID] > nArrival):
+                                ignoredVehicles[nStop.vehID] = nArrival
                         ignore = True
                         continue
                     if (options.abortUnordered and nStop.vehID in ignoredVehicles):
@@ -435,9 +449,9 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
                             humanReadableTime(end), options.delay, pSignal,
                             pStop, nStop))
                     limit += countPassingTrainsToOtherStops(options, pSignal, busStop, pTimeAtSignal, end, signalTimes)
-                    conflicts[nSignal].append((nStop.prevTripId, pSignal, pStop.prevTripId, limit,
+                    conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, pStop.prevTripId, limit,
                                                # attributes for adding comments
-                                               nStop.prevLine, pStop.prevLine, nStop.vehID, pStop.vehID))
+                                               nStop.prevLine, pStop.prevLine, nStop.vehID, pStop.vehID, nArrival))
         if options.verbose:
             print("Found %s conflicts at switch %s" % (numSwitchConflicts, switch))
             if numIgnoredSwitchConflicts > 0:
@@ -550,9 +564,10 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                             continue
                         # predecessor tripId after stop is needed
                         pTripId = pStop.getAttributeSecure("tripId", pStop.vehID)
-                        conflicts[nSignal].append((nStop.prevTripId, pSignal, pTripId, limit,
+                        conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, pTripId, limit,
                                                    # attributes for adding comments
-                                                   nStop.prevLine, pStop.prevLine, nStop.vehID, pStop.vehID))
+                                                   nStop.prevLine,
+                                                   pStop.prevLine, nStop.vehID, pStop.vehID, nStop.arrival))
                         numConflicts += 1
                         if busStop == options.debugStop:
                             print("   found insertionConflict pSignal=%s nSignal=%s pTripId=%s" % (
@@ -567,20 +582,19 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
     return conflicts
 
 
-def writeConstraint(options, outf, tag, values):
-    tripID, otherSignal, otherTripID, limit, line, otherLine, vehID, otherVehID = values
+def writeConstraint(options, outf, tag, c):
     comment = ""
+    limit = c.limit + options.limit
     if options.commentLine:
-        if line != "":
-            comment += "line=%s " % line
-        if otherLine != "":
-            comment += "foeLine=%s " % otherLine
+        if c.line != "":
+            comment += "line=%s " % c.line
+        if c.otherLine != "":
+            comment += "foeLine=%s " % c.otherLine
     if options.commentId:
-        if vehID != tripID:
-            comment += "vehID=%s " % vehID
-        if otherVehID != otherTripID:
-            comment += "foeID=%s " % otherVehID
-    limit += options.limit
+        if c.vehID != c.tripID:
+            comment += "vehID=%s " % c.vehID
+        if c.otherVehID != c.otherTripID:
+            comment += "foeID=%s " % c.otherVehID
     if comment != "":
         comment = "   <!-- %s -->" % comment
     if limit == 1:
@@ -588,7 +602,7 @@ def writeConstraint(options, outf, tag, values):
     else:
         limit = ' limit="%s"' % limit
     outf.write('        <%s tripId="%s" tl="%s" foes="%s"%s/>%s\n' % (
-        tag, tripID, otherSignal, otherTripID, limit, comment))
+        tag, c.tripID, c.otherSignal, c.otherTripID, limit, comment))
 
 
 def main(options):
@@ -606,10 +620,10 @@ def main(options):
         sumolib.writeXMLHeader(outf, "$Id$", "additional")  # noqa
         for signal in signals:
             outf.write('    <railSignalConstraints id="%s">\n' % signal)
-            for values in conflicts[signal]:
-                writeConstraint(options, outf, "predecessor", values)
-            for values in insertionConflicts[signal]:
-                writeConstraint(options, outf, "insertionPredecessor", values)
+            for conflict in conflicts[signal]:
+                writeConstraint(options, outf, "predecessor", conflict)
+            for conflict in insertionConflicts[signal]:
+                writeConstraint(options, outf, "insertionPredecessor", conflict)
             outf.write('    </railSignalConstraints>\n')
         outf.write('</additional>\n')
 
