@@ -189,6 +189,24 @@ Parallelisierung. Ziel dieser Arbeit ist die Implementierung einer
 Parallelisierung für eine multi-core Architektur und die Messung des so
 erhaltenen Geschwindigkeitsgewinns.
 
+### Schwerpunkt Web-Entwicklung
+
+<em>Voraussetzung: Lust auf HTML, JavaScript, .../em>
+
+#### Weiterentwicklung von SUMO für die Verwendung in Cloud Plattformen
+
+SUMO soll immer stärker in verschiedenen Cloud-basierten Systemen verwendet werden. Wie kann hier die technische Brücke entwickelt werden? Wie kann SUMO an Web Technologien angebunden werden?
+
+### Schwerpunkt Simulator-Kopplung / Co-Simulation von Fahrzeugen
+
+#### Verknüpfung von SUMO mit CARLA
+
+CARLA ist ein sehr mächtiger Fahrzeugsimulator mit einer umfassenden 3D Darstellung. Erste Schritte zur Co-Simulation von SUMO und CARLA sind vorhanden. SUMO übernimmt dabei die Steuerung der Fahrzeuge in CARLA. Wie kann dies verbessert werden? Wie sieht eine optimale Kopplung aus?
+
+#### Ereignisgesteuerte Beschreibung von Szenarien
+
+SUMO ist eine zeitgesteuerte Simulation. Manchmal möchte man die Dynamik einer Simulation auf der Grundlage eines Ereignisses steuern und nicht mit einem konkreten Zeitpunkt verknüpfen. Es stellt sich die Frage, wie man die zeitgesteuerte "Natur" von SUMO mit den ereignisgesteuerten Spezifikationen von openSCENARIO verknüpfen kann.
+
 ### Schwerpunkt XML
 
 <em>Voraussetzung: Erfahrung mit der Parsierung / Erzeugung von XML</em>
