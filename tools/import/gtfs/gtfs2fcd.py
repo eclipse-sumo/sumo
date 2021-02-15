@@ -113,11 +113,10 @@ def main(options):
         '100':  'rail',        # DB
         '109':  'light_rail',  # S-Bahn
         '400':  'subway',      # U-Bahn
-        '700':  'bus',         # Bus
-        '714':  'bus',         # SEV
-        '715':  'bus',         # Rufbus
-        '900':  'tram',        # Tram
         '1000': 'ship',        # Faehre
+        # additional modes used in Hamburg
+        '402':  'subway',      # U-Bahn
+        '1200': 'ship',        # Faehre
         # modes used by hafas
         's': 'light_rail',
         'RE': 'rail',
@@ -140,6 +139,11 @@ def main(options):
         'Str': 'tram',        # tbd
         'DPF': 'rail',        # tbd
     }
+    # bus and tram modes from https://developers.google.com/transit/gtfs/reference/extended-route-types
+    for i in range(700, 717):
+        gtfs_modes[str(i)] = 'bus'
+    for i in range(900, 907):
+        gtfs_modes[str(i)] = 'tram'
     fcdFile = {}
     tripFile = {}
     if not os.path.exists(options.fcd):
