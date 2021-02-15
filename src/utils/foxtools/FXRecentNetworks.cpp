@@ -48,7 +48,7 @@ FXRecentNetworks::FXRecentNetworks(FXApp* a, const FXString& gp) :
 
 
 long 
-FXRecentNetworks::onUpdFile(FXObject* obj, FXSelector sel, void* ptr) {
+FXRecentNetworks::onUpdFile(FXObject* obj, FXSelector sel, void*) {
     // get filename index
     const FXint which = FXSELID(sel) - ID_FILE_1 + 1;
     // get filename
@@ -77,7 +77,7 @@ FXRecentNetworks::onUpdFile(FXObject* obj, FXSelector sel, void* ptr) {
 
 
 long 
-FXRecentNetworks::onUpdNoFiles(FXObject* obj, FXSelector sel, void* ptr) {
+FXRecentNetworks::onUpdNoFiles(FXObject* obj, FXSelector, void*) {
     // first disable object
     obj->handle(obj, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), NULL);
     // iterate over myIndexFilenames

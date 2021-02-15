@@ -312,7 +312,9 @@ void MSSwarmTrafficLightLogic::updatePheromoneLevels(MSLaneId_PheromoneMap& pher
         const double beta, const double gamma) {
     //	ANALYSIS_DBG(
 #ifdef SWARM_DEBUG
-        std::ostringstream _str; _str << logString << " Lanes " << pheroMap.size() << " TL " << getID() << " ."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::updatePheromoneLevels:: " + _str.str());
+    std::ostringstream _str; _str << logString << " Lanes " << pheroMap.size() << " TL " << getID() << " ."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::updatePheromoneLevels:: " + _str.str());
+#else
+    UNUSED_PARAMETER(logString);
 #endif
     for (MSLaneId_PheromoneMap::iterator laneIterator = pheroMap.begin(); laneIterator != pheroMap.end();
             ++laneIterator) {
