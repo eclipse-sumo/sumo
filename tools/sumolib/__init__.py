@@ -232,4 +232,5 @@ def open(fileOrURL, tryGZip=True, mode="rb"):
         if tryGZip:
             return gzip.open(fileOrURL)
     finally:
-        return io.open(fileOrURL, mode=mode)
+        pass
+    return io.open(fileOrURL, mode=mode)
