@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 15 09:52:24 2021 by Eclipse SUMO sumo Version v1_8_0+1183-36cc35d
+<!-- generated on Mon Feb 15 12:15:47 2021 by Eclipse SUMO sumo Version v1_8_0+1184-cf85d2e
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -16,19 +16,18 @@
     </report>
 
     <traci_server>
-        <remote-port value="33639"/>
+        <remote-port value="54297"/>
     </traci_server>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="v_startInternal" depart="0.00" arrival="11.00">
-        <route edges=":C_11 CN"/>
-    </vehicle>
-
-    <vehicle id="v_changeInternal" depart="40.00" arrival="101.00">
-        <route edges="SC CN"/>
+    <vehicle id="ego" depart="0.00" arrival="24.00">
+        <routeDistribution>
+            <route replacedOnEdge=":C_11" reason="traci:setRoute" replacedAtTime="11.00" probability="0" edges="SC CN"/>
+            <route edges="SC CN :C_11 CN NC"/>
+        </routeDistribution>
     </vehicle>
 
 </routes>
