@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Fri Nov 13 10:12:13 2020" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
-    <road name="" length="96.00000000" id="100" junction="-1">
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Feb 15 08:33:13 2021" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
+    <road name="customName" length="96.00000000" id="100" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
         </link>
@@ -30,7 +30,7 @@
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="30.00"/>
                     </lane>
-                    <lane id="-2" type="driving" level="true">
+                    <lane id="-2" type="customLaneType" level="true">
                         <link/>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
