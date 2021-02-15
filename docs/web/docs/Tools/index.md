@@ -19,6 +19,7 @@ with real life induction loop data
 - *[district](District.md)* - tools for handling traffic
 analysis zones (TAZ) aka districts
 - *import* - additional tools to import data from a variety of formats
+  - *[GTFS](Import/GTFS.md)* - some helpers for using GTFS data
   - *[MATSim](Import/MATSim.md)* - some helpers for
     using MATSim data
   - *[OpenDRIVE](Import/OpenDRIVE.md)* - some helpers for
