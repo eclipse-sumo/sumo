@@ -283,7 +283,11 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
     writeEmptyCenterLane(device, centerMark, 0.13);
     device << "                <right>\n";
     for (int j = e->getNumLanes(); --j >= 0;) {
-        device << "                    <lane id=\"-" << e->getNumLanes() - j << "\" type=\"" << getLaneType(e->getPermissions(j)) << "\" level=\"true\">\n";
+        std::string laneType = e->getLaneStruct(j).type;
+        if (laneType == "") {
+            laneType = getLaneType(e->getPermissions(j));
+        }
+        device << "                    <lane id=\"-" << e->getNumLanes() - j << "\" type=\"" << laneType << "\" level=\"true\">\n";
         device << "                        <link/>\n";
         // this could be used for geometry-link junctions without u-turn,
         // predecessor and sucessors would be lane indices,
