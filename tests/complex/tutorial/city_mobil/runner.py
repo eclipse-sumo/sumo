@@ -19,13 +19,12 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
-import vehicleControl
-import simpleManager
-import agentManager
+import os
+import sys
+import subprocess
 
-# build/check network
-import createNet  # noqa
-# perform simple scenario
-vehicleControl.init(simpleManager.SimpleManager(), True)
-# perform agent scenario
-vehicleControl.init(agentManager.AgentManager(), True)
+os.chdir('data')
+subprocess.call(["python", "createNet.py"])
+subprocess.call(["python", "simpleManager.py", "-t"])
+subprocess.call(["python", "agentManager.py", "-t"])
+subprocess.call(["python", "createNetTaxi.py"])

@@ -84,19 +84,21 @@ persons = {}
 waiting = {}
 
 
-def init(manager, forTest=False):
+def init(manager):
     optParser = OptionParser()
-    optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
+    optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="tell me what you are doing")
-    optParser.add_option("-g", "--gui", action="store_true", dest="gui",
+    optParser.add_option("-g", "--gui", action="store_true",
                          default=False, help="run with GUI")
-    optParser.add_option("-c", "--cyber", action="store_true", dest="cyber",
+    optParser.add_option("-c", "--cyber", action="store_true",
                          default=False, help="use small cybercars instead of big busses")
-    optParser.add_option("-d", "--demand", type="int", dest="demand",
+    optParser.add_option("-d", "--demand", type="int",
                          default=15, help="period with which the persons are emitted")
     optParser.add_option("-b", "--break", type="int", dest="breakstep", metavar="TIMESTEP",
                          help="let a vehicle break for %s seconds at TIMESTEP" % BREAK_DELAY)
-    (options, args) = optParser.parse_args()
+    optParser.add_option("-t", "--test", action="store_true",
+                         default=False, help="Run in test mode")
+    options, _ = optParser.parse_args()
     sumoExe = os.environ.get("SUMO_BINARY", os.path.join(os.environ['SUMO_HOME'], 'bin', 'sumo'))
     if options.gui:
         sumoExe = os.environ.get("GUISIM_BINARY", os.path.join(os.environ['SUMO_HOME'], 'bin', 'sumo-gui'))
@@ -114,7 +116,7 @@ def init(manager, forTest=False):
     try:
         while setting.step < 100 or statistics.personsRunning > 0:
             doStep()
-        statistics.evaluate(forTest)
+        statistics.evaluate(options.test)
     finally:
         traci.close()
         sumoProcess.wait()
