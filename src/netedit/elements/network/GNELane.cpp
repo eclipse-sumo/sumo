@@ -835,6 +835,8 @@ GNELane::getAttribute(SumoXMLAttr key) const {
             return toString(edge->getLaneStruct(myIndex).customShape);
         case GNE_ATTR_OPPOSITE:
             return toString(edge->getLaneStruct(myIndex).oppositeID);
+        case SUMO_ATTR_TYPE:
+            return edge->getLaneStruct(myIndex).type;
         case SUMO_ATTR_INDEX:
             return toString(myIndex);
         case GNE_ATTR_PARENT:
@@ -873,6 +875,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_ACCELERATION:
         case SUMO_ATTR_CUSTOMSHAPE:
         case GNE_ATTR_OPPOSITE:
+        case SUMO_ATTR_TYPE:
         case SUMO_ATTR_INDEX:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
@@ -929,6 +932,8 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             }
         }
+        case SUMO_ATTR_TYPE:
+            return true;
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -1119,6 +1124,9 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             myParentEdge->getNBEdge()->getLaneStruct(myIndex).oppositeID = value;
             break;
         }
+        case SUMO_ATTR_TYPE:
+            edge->getLaneStruct(myIndex).type = value;
+            break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();
