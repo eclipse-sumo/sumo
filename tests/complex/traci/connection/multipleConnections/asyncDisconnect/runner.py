@@ -37,8 +37,6 @@ sumoBinary = sumolib.checkBinary(sys.argv[1])
 
 
 def traciLoop(port, traciEndTime, index, steplength=0):
-    orderTime = 0.25
-    time.sleep(orderTime * index)  # assure ordering of outputs
     if steplength == 0:
         steplength = DELTA_T / 1000.
     print("Starting process %s with steplength %s" % (index, steplength))
@@ -63,14 +61,12 @@ def traciLoop(port, traciEndTime, index, steplength=0):
         traci.close()
     except traci.FatalTraCIError as e:
         if str(e) == "connection closed by SUMO":
-            time.sleep(orderTime * index)  # assure ordering of outputs
             sumoStop = True
             print("client %s: " % index, str(e), " (at TraCIStep %s)" % step)
             sys.stdout.flush()
         else:
             raise
     if not sumoStop:
-        time.sleep(orderTime * index)  # assure ordering of outputs
         print("Process %s ended at step %s" % (index, endTime))
         print("Process %s was informed about %s entered vehicles" % (index, nrEnteredVehicles))
         sys.stdout.flush()
