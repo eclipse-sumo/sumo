@@ -95,26 +95,27 @@ def splitNet(options):
         seenTypes.add(e.getType())
     typedNets = {}
     for inp in glob.glob(os.path.join(options.gpsdat, "gpsdat_*.csv")):
-        railType = os.path.basename(inp)[7:-4]
-        netPrefix = os.path.join(options.network_split, railType)
-        edgeTypes = [railType]
-        if "rail" in railType or railType == "subway":
-            edgeTypes = ["railway." + railType]
-        elif railType in ("tram", "bus"):
-            edgeTypes = ["railway.tram"] if railType == "tram" else []
-            for hwType in ("bus_guideway", "living_street", "motorway", "motorway_link", "primary", "primary_link",
-                           "residential", "secondary", "secondary_link", "tertiary", "tertiary_link",
-                           "trunk", "trunk_link", "unclassified", "unsurfaced"):
-                if railType == "tram":
-                    edgeTypes.append("highway.%s|railway.tram" % hwType)
-                else:
-                    edgeTypes.append("highway." + hwType)
-        edgeType = ",".join(filter(lambda t: t in seenTypes, edgeTypes))
-        if edgeType:
-            subprocess.call(netcCall + ["-s", numIdNet, "-o", netPrefix + ".net.xml",
-                                        "--dlr-navteq-output", netPrefix,
-                                        "--dismiss-vclasses", "--keep-edges.by-type", edgeType])
-            typedNets[railType] = (inp, netPrefix)
+        mode = os.path.basename(inp)[7:-4]
+        if not options.modes or mode in options.modes.split():
+            netPrefix = os.path.join(options.network_split, mode)
+            edgeTypes = [mode]
+            if "rail" in mode or mode == "subway":
+                edgeTypes = ["railway." + mode]
+            elif mode in ("tram", "bus"):
+                edgeTypes = ["railway.tram"] if mode == "tram" else []
+                for hwType in ("bus_guideway", "living_street", "motorway", "motorway_link", "primary", "primary_link",
+                            "residential", "secondary", "secondary_link", "tertiary", "tertiary_link",
+                            "trunk", "trunk_link", "unclassified", "unsurfaced"):
+                    if mode == "tram":
+                        edgeTypes.append("highway.%s|railway.tram" % hwType)
+                    else:
+                        edgeTypes.append("highway." + hwType)
+            edgeType = ",".join(filter(lambda t: t in seenTypes, edgeTypes))
+            if edgeType:
+                subprocess.call(netcCall + ["-s", numIdNet, "-o", netPrefix + ".net.xml",
+                                            "--dlr-navteq-output", netPrefix,
+                                            "--dismiss-vclasses", "--keep-edges.by-type", edgeType])
+                typedNets[mode] = (inp, netPrefix)
     return edgeMap, typedNets
 
 

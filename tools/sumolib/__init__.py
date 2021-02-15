@@ -22,13 +22,13 @@ import os
 import sys
 import subprocess
 import gzip
+import io
 try:
     from urllib.request import urlopen
 except ImportError:
     from urllib import urlopen
 from xml.sax import parseString, handler
 from optparse import OptionParser, OptionGroup, Option
-from io import BytesIO
 
 from . import files, net, output, sensors, shapes, statistics, fpdiff  # noqa
 from . import color, geomhelper, miscutils, options, route, version  # noqa
@@ -225,10 +225,11 @@ def _laneID2edgeID(laneID):
     return laneID[:laneID.rfind("_")]
 
 
-def open(fileOrURL):
+def open(fileOrURL, tryGZip=True, mode="rb"):
     try:
         if fileOrURL.startswith("http"):
-            return BytesIO(urlopen(fileOrURL).read())
-        return gzip.open(fileOrURL)
-    except IOError:
-        return open(fileOrURL)
+            return io.BytesIO(urlopen(fileOrURL).read())
+        if tryGZip:
+            return gzip.open(fileOrURL)
+    finally:
+        return io.open(fileOrURL, mode=mode)

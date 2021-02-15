@@ -39,6 +39,7 @@ def add_options():
     argParser.add_argument("--date", help="define the day to import, format: 'YYYYMMDD'")
     argParser.add_argument("--fcd", help="directory to write / read the generated FCD files to / from")
     argParser.add_argument("--gpsdat", help="directory to write / read the generated gpsdat files to / from")
+    argParser.add_argument("--modes", help="comma separated list of modes to import (tram,subway,rail,bus,ship,light_rail,rail_electric)")
     argParser.add_argument("--vtype-output", help="file to write the generated vehicle types to")
     argParser.add_argument("--verbose", action="store_true", default=False, help="tell me what you are doing")
     return argParser
@@ -64,7 +65,7 @@ def time2sec(s):
 def main(options):
     if options.verbose:
         print('Loading GTFS data "%s"' % options.gtfs)
-    gtfsZip = zipfile.ZipFile(sumolib.open(options.gtfs))
+    gtfsZip = zipfile.ZipFile(sumolib.open(options.gtfs, False))
     routes = pd.read_csv(gtfsZip.open('routes.txt'), dtype=str)
     stops = pd.read_csv(gtfsZip.open('stops.txt'), dtype=str)
     stop_times = pd.read_csv(gtfsZip.open('stop_times.txt'),
@@ -144,7 +145,8 @@ def main(options):
     if not os.path.exists(options.fcd):
         os.makedirs(options.fcd)
     seenModes = set()
-    for mode in set(gtfs_modes.values()):
+    modes = set(options.modes.split() if options.modes else gtfs_modes.values())
+    for mode in modes:
         filePrefix = os.path.join(options.fcd, mode)
         fcdFile[mode] = open(filePrefix + '.fcd.xml', 'w', encoding="utf8")
         sumolib.writeXMLHeader(fcdFile[mode], "gtfs2fcd.py")
@@ -174,18 +176,19 @@ def main(options):
                     firstDep = departureSec - timeIndex
                 offset += departureSec - arrivalSec
             mode = gtfs_modes[d.route_type]
-            s = tuple(stopSeq)
-            if s not in seqs:
-                seqs[s] = trip_id
-                fcdFile[mode].write(buf)
-                timeIndex = arrivalSec
-            tripFile[mode].write('    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s_%s"/>\n' %
-                                 (trip_id, seqs[s], mode, firstDep, d.route_short_name, seqs[s]))
-            seenModes.add(mode)
+            if mode in modes:
+                s = tuple(stopSeq)
+                if s not in seqs:
+                    seqs[s] = trip_id
+                    fcdFile[mode].write(buf)
+                    timeIndex = arrivalSec
+                tripFile[mode].write('    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s_%s"/>\n' %
+                                    (trip_id, seqs[s], mode, firstDep, d.route_short_name, seqs[s]))
+                seenModes.add(mode)
     if options.gpsdat:
         if not os.path.exists(options.gpsdat):
             os.makedirs(options.gpsdat)
-        for mode in set(gtfs_modes.values()):
+        for mode in modes:
             fcdFile[mode].write('</fcd-export>\n')
             fcdFile[mode].close()
             tripFile[mode].write("</routes>\n")
@@ -198,7 +201,7 @@ def main(options):
                 os.remove(tripFile[mode].name)
     if options.vtype_output:
         with open(options.vtype_output, 'w', encoding="utf8") as vout:
-            sumolib.xml.writeHeader(vout, os.path.basename(__file__), "additional")
+            sumolib.xml.writeHeader(vout, root="additional")
             for mode in sorted(seenModes):
                 vout.write('    <vType id="%s" vClass="%s"/>\n' %
                            (mode, "rail_urban" if mode in ("light_rail", "subway") else mode))
