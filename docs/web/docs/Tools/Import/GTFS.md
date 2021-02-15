@@ -21,7 +21,7 @@ python tools/import/gtfs/gtfs2pt.py --network my.net.xml --gtfs gtfsdata.zip --d
 It generates as output two files containing the stops and static routes (gtfsdata_public_transport.add.xml) and the
 individual vehicles (gtfsdata_public_transport.rou.xml).
 
-See also the [GTFS tutorial](Tutorials/GTFS.md).
+See also the [GTFS tutorial](../../Tutorials/GTFS.md).
 
 
 # gtfs2fcd.py
