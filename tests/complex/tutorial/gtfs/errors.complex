@@ -1,0 +1,30 @@
+Warning: Ambiguity in turnarounds computation at junction '1644613975'.
+Warning: Found sharp turn with radius 5.47 at the end of edge '-204836052'.
+Warning: Found angle of 124.67 degrees at edge '-26637317', segment 0.
+Warning: Found sharp turn with radius 8.98 at the start of edge '-357562720'.
+Warning: Shape for junction '246767394' has distance 84.10 to its given position.
+Warning: Lane '-22956462_0' is not connected from any incoming edge at junction '247340717'.
+Warning: Edge '461452943' is not connected to outgoing edges at junction '664456709'.
+Warning: The rail crossing '7076971117' does not have any roads.
+Warning: 51 total messages of type: Ambiguity in turnarounds computation at junction '%'.
+Warning: 2 total messages of type: Edge '%' is not connected to outgoing edges at junction '%'.
+Warning: 30 total messages of type: Found angle of % degrees at edge '%', segment %.
+Warning: 34 total messages of type: Found sharp turn with radius % at the end of edge '%'.
+Warning: 51 total messages of type: Found sharp turn with radius % at the start of edge '%'.
+Warning: 3 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
+Warning: 3 total messages of type: Shape for junction '%' has distance % to its given position.
+Warning: 6 total messages of type: The rail crossing '%' does not have any roads.
+Warning: Ambiguity in turnarounds computation at junction '1644613975'.
+Warning: Found sharp turn with radius 7.98 at the end of edge '-35628203'.
+Warning: Found angle of 121.61 degrees at edge '-741297440', segment 0.
+Warning: Found sharp turn with radius 7.98 at the start of edge '35628203'.
+Warning: Shape for junction '27379359' has distance 33.70 to its given position.
+Warning: Lane '4463785_0' is not connected from any incoming edge at junction '7465967671'.
+Warning: 2 total messages of type: Ambiguity in turnarounds computation at junction '%'.
+Warning: 4 total messages of type: Found angle of % degrees at edge '%', segment %.
+Warning: 2 total messages of type: Found sharp turn with radius % at the end of edge '%'.
+Warning: 2 total messages of type: Found sharp turn with radius % at the start of edge '%'.
+Warning: 6 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
+Warning: Shape for junction '246767394' has distance 84.10 to its given position.
+Warning: Lane '-22956462_0' is not connected from any incoming edge at junction '247340717'.
+Warning: 2 total messages of type: Shape for junction '%' has distance % to its given position.
