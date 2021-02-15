@@ -89,3 +89,9 @@ getFollower
 
 # test access to driverstate parameters
 driverstate
+
+# add vehicle with route on internal
+add_internal
+
+# test setRoute with internal edges
+setRoute_internal
