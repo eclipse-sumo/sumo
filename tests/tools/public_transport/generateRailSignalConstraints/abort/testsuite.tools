@@ -1,5 +1,9 @@
 # like 'basic' but repeat the same trains again after 1000s and 2000s
 repeat3
 
+# each train has multiple stops. Constraints should not be written for stops after the first inconsistence.
+# 
+multiStop
+
 # one train passes the stop and the other train is inserted there
 insertion3
