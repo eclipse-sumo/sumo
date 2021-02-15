@@ -458,6 +458,18 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
                 print("Ignored %s conflicts at switch %s" % (numIgnoredSwitchConflicts, switch))
 
     print("Found %s conflicts" % numConflicts)
+
+    if numIgnoredConflicts > 0:
+        # find additonal conflicts to ignore based on timing of other ignored conflicts (#7890)
+        for signal, signalConflicts in conflicts.items():
+            conflicts2 = []
+            for c in signalConflicts:
+                if c.tripID in ignoredVehicles and ignoredVehicles[c.tripID] < c.conflictTime:
+                    numIgnoredConflicts += 1
+                else:
+                    conflicts2.append(c)
+        conflicts[signal] = conflicts2
+
     if numIgnoredConflicts > 0:
         print("Ignored %s conflicts" % numIgnoredConflicts)
     return conflicts
