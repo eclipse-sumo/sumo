@@ -42,6 +42,28 @@ attribute of it's first stop), the prior train A that leaves this stop is
 identified (also based on "until"). Then a constraint is created that prevents
 insertion of B until train A has passed the next signal that lies beyond the
 stop.
+
+
+Inconsistent contraints may arise from inconsistent input and cause simulation
+deadlock. To avoid this, the option --abort-unordered can be used to avoid
+generating constraints that are likely to be inconsistent.
+When the option is set the ordering of vehicles is cross-checked with regard to
+arrival and until times:
+
+- predecessor constraints (which are based on sorted arrival times)
+  should have the same ordering when looking until-times
+  If an inconsistent ordering is found, the vehicle that goes first in the
+  simulation (earlier until time) will not get a constraint to wait for the
+  vehicle that goes earlier according to the 'arrival' value. and also will not
+  receive any constraints at subsequent signals
+
+- insertionPredecessor constraints (which are based on sorted until times)
+  should have the same ordering when looking at arrival times
+  If an inconsistent ordering is found, the vehicle that goes second in the
+  simulation (later until time) will not get a constraint to wait for the
+  vehicle that goes later according to the 'arrival' value.
+
+
 """
 
 from __future__ import absolute_import
