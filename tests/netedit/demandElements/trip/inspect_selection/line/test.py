@@ -44,7 +44,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 586, 303)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(9, "custom Line", True)
+netedit.modifyAttribute(9, "custom Line", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

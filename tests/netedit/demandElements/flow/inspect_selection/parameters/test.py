@@ -44,7 +44,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 586, 303)
 
 # check parameters
-netedit.checkParameters(referencePosition, 23, True)
+netedit.checkParameters(referencePosition, 23, False)
 
 # save routes
 netedit.saveRoutes(referencePosition)

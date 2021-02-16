@@ -51,16 +51,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change from with an invalid value
-netedit.modifyAttribute(2, "", True)
+netedit.modifyAttribute(2, "", False)
 
 # change from with an invalid value
-netedit.modifyAttribute(2, "dummyEdge", True)
+netedit.modifyAttribute(2, "dummyEdge", False)
 
 # change from with an valid value
-netedit.modifyAttribute(2, "gneE5", True)
+netedit.modifyAttribute(2, "gneE5", False)
 
 # change from with an valid value
-netedit.modifyAttribute(2, "gneE8", True)
+netedit.modifyAttribute(2, "gneE8", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
