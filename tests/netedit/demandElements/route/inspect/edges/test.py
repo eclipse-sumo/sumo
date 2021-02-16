@@ -48,19 +48,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 280, 392)
 
 # Change parameter edges with a non valid value (empty)
-netedit.modifyAttribute(1, "", True)
+netedit.modifyAttribute(1, "", False)
 
 # Change parameter edges with a non valid value (dummy)
-netedit.modifyAttribute(1, "dummyEdges", True)
+netedit.modifyAttribute(1, "dummyEdges", False)
 
 # Change parameter edges with a NON consecutive edges
-netedit.modifyAttribute(1, "gneE2 gneE5", True)
+netedit.modifyAttribute(1, "gneE2 gneE5", False)
 
 # Change parameter edges with a consecutive NON connected edges
-netedit.modifyAttribute(1, "gneE7 gneE2", True)
+netedit.modifyAttribute(1, "gneE7 gneE2", False)
 
 # Change parameter edges with valid a single edge
-netedit.modifyAttribute(1, "gneE2", True)
+netedit.modifyAttribute(1, "gneE2", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

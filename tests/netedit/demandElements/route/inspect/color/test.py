@@ -48,16 +48,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 280, 392)
 
 # Change parameter color with a non valid value (empty)
-netedit.modifyAttribute(3, "", True)
+netedit.modifyAttribute(3, "", False)
 
 # Change parameter color with a non valid value (dummy)
-netedit.modifyAttribute(3, "dummyColor", True)
+netedit.modifyAttribute(3, "dummyColor", False)
 
 # Change parameter color with a valid value
-netedit.modifyAttribute(3, "12,15,30", True)
+netedit.modifyAttribute(3, "12,15,30", False)
 
 # Change parameter color with a valid value
-netedit.modifyAttribute(3, "red", True)
+netedit.modifyAttribute(3, "red", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

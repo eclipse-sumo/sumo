@@ -61,16 +61,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 280, 392)
 
 # Change parameter repeat with a non valid value (empty)
-netedit.modifyAttribute(2, "", True)
+netedit.modifyAttribute(2, "", False)
 
 # Change parameter repeat with a non valid value (dummy)
-netedit.modifyAttribute(2, "dummyRepeat", True)
+netedit.modifyAttribute(2, "dummyRepeat", False)
 
 # Change parameter repeat with a valid value
-netedit.modifyAttribute(2, "-13.1", True)
+netedit.modifyAttribute(2, "-13.1", False)
 
 # Change parameter repeat with a valid value
-netedit.modifyAttribute(2, "14", True)
+netedit.modifyAttribute(2, "14", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)
