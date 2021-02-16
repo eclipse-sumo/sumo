@@ -1,2 +1,2 @@
-# Tests the trafficlight API
-railsignal_state
+# Tests the constraint API
+getConstraints
