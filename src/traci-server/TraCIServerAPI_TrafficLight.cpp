@@ -151,6 +151,31 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     server.getWrapperStorage().writeStringList(libsumo::TrafficLight::getPriorityVehicles(id, index));
                     break;
                 }
+                case libsumo::TL_CONSTRAINT: {
+                    std::string tripId;
+                    if (!server.readTypeCheckingString(inputStorage, tripId)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The tripId must be given as a string.", outputStorage);
+                    }
+                    std::vector<libsumo::TraCISignalConstraint> constraints = libsumo::TrafficLight::getConstraints(id, tripId);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
+                    const int cnt = 1 + (int)constraints.size() * 5;
+                    server.getWrapperStorage().writeInt(cnt);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
+                    server.getWrapperStorage().writeInt((int)constraints.size());
+                    for (const auto& c : constraints) {
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                        server.getWrapperStorage().writeString(c.tripId);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                        server.getWrapperStorage().writeString(c.foeId);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                        server.getWrapperStorage().writeString(c.foeSignal);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
+                        server.getWrapperStorage().writeInt(c.limit);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
+                        server.getWrapperStorage().writeInt(c.type);
+                    }
+                    break;
+                }
                 case libsumo::TL_EXTERNAL_STATE: {
                     if (!MSNet::getInstance()->getTLSControl().knows(id)) {
                         throw libsumo::TraCIException("Traffic light '" + id + "' is not known");

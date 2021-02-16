@@ -130,6 +130,9 @@ public:
     /// @brief the number of passed vehicles within which tripId must have occured
     const int myLimit;
 
+    /// @brief store the foe signal (for TraCI access)
+    const MSRailSignal* myFoeSignal;
+
 
     static std::map<const MSLane*, PassedTracker*> myTrackerLookup;
 

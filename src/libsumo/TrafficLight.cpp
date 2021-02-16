@@ -31,6 +31,8 @@
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSActuatedTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSDelayBasedTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSRailSignal.h>
+#include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include <netload/NLDetectorBuilder.h>
 #include <libsumo/TraCIConstants.h>
 #include "TrafficLight.h"
@@ -245,6 +247,34 @@ TrafficLight::getPriorityVehicles(const std::string& tlsID, int linkIndex) {
     return result;
 }
 
+std::vector<TraCISignalConstraint>
+TrafficLight::getConstraints(const std::string& tlsID, const std::string& tripId) {
+    std::vector<TraCISignalConstraint> result;
+    MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
+    MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);
+    if (s == nullptr) {
+        throw TraCIException("'" + tlsID + "' is not a rail signal");
+    }
+    for (auto item : s->getConstraints()) {
+        if (tripId != "" && tripId != item.first) {
+            continue;
+        }
+        for (MSRailSignalConstraint* c : item.second) {
+            result.push_back(buildConstraint(item.first, c, false));
+        }
+    }
+    for (auto item : s->getInsertionConstraints()) {
+        if (tripId != "" && tripId != item.first) {
+            continue;
+        }
+        for (MSRailSignalConstraint* c : item.second) {
+            result.push_back(buildConstraint(item.first, c, true));
+        }
+    }
+    return result;
+}
+
+
 std::string
 TrafficLight::getParameter(const std::string& tlsID, const std::string& paramName) {
     return getTLS(tlsID).getActive()->getParameter(paramName, "");
@@ -361,6 +391,24 @@ TrafficLight::getTLS(const std::string& id) {
         throw TraCIException("Traffic light '" + id + "' is not known");
     }
     return MSNet::getInstance()->getTLSControl().get(id);
+}
+
+
+libsumo::TraCISignalConstraint
+TrafficLight::buildConstraint(const std::string& tripId, MSRailSignalConstraint* constraint, bool insertionConstraint) {
+    TraCISignalConstraint c;
+    c.tripId = tripId;
+    MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(constraint);
+    if (pc == nullptr) {
+        // unsupported constraint
+        c.type = -1;
+    } else {
+        c.foeId = pc->myTripId;
+        c.foeSignal = pc->myFoeSignal->getID();
+        c.limit = pc->myLimit;
+        c.type = insertionConstraint ? 1 : 0;
+    }
+    return c;
 }
 
 

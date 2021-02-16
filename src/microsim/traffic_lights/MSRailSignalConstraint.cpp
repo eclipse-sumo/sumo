@@ -73,7 +73,9 @@ MSRailSignalConstraint::getVehID(const std::string& tripID) {
 // ===========================================================================
 MSRailSignalConstraint_Predecessor::MSRailSignalConstraint_Predecessor(const MSRailSignal* signal, const std::string& tripId, int limit) :
     myTripId(tripId),
-    myLimit(limit) {
+    myLimit(limit),
+    myFoeSignal(signal)
+{
     for (const auto& lv : signal->getLinks()) {
         for (const MSLink* link : lv) {
             MSLane* lane = link->getViaLaneOrLane();

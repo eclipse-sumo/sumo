@@ -224,6 +224,17 @@ public:
     /// @brief register contraint for vehicle insertion
     void addInsertionConstraint(const std::string& tripId, MSRailSignalConstraint* constraint);
 
+    /// @name TraCI access to constraints
+    /// @{
+    const std::map<std::string, std::vector<MSRailSignalConstraint*> >&  getConstraints() const {
+        return myConstraints;
+    }
+
+    const std::map<std::string, std::vector<MSRailSignalConstraint*> >&  getInsertionConstraints() const {
+        return myInsertionConstraints;
+    }
+    /// @}
+
     /// update driveway for extended deadlock protection
     void updateDriveway(int numericalID);
 

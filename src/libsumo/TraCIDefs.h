@@ -586,4 +586,18 @@ struct TraCICollision {
     double pos;
 };
 
+
+struct TraCISignalConstraint {
+    /// @brief the tripId or vehicle id of the train that is constrained
+    std::string tripId;
+    /// @brief the tripId or vehicle id of the train that must pass first
+    std::string foeId;
+    /// @brief the tlsID of the rail signla that the foe must pass first
+    std::string foeSignal;
+    /// @brief the number of trains that must be recorded at the foeSignal
+    int limit;
+    /// @brief the type of constraint (predecessor:0, insertionPredecessor:1)
+    int type;
+};
+
 }

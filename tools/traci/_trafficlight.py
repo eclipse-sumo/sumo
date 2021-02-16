@@ -95,6 +95,19 @@ def _readLogics(result):
     return tuple(logics)
 
 
+class Constraint:
+    def __init__(self, tripId, foeId, foeSignal, limit, type):
+        self.tripId = tripId
+        self.foeId = foeId
+        self.foeSignal = foeSignal
+        self.limit = limit
+        self.type = type
+
+    def __repr__(self):
+        return ("Constraint(tripId=%s, foeId=%s, foeSignal=%s, limit=%s, type=%s)" %
+                (self.tripId, self.foeId, self.foeSignal, self.limit, self.type))
+
+
 def _readLinks(result):
     result.readLength()
     numSignals = result.readInt()  # Length
@@ -112,9 +125,23 @@ def _readLinks(result):
         signals.append(controlledLinks)
     return signals
 
+def _readConstraints(result):
+    result.readLength()
+    num = result.readInt()  # Length
+    constraints = []
+    for _ in range(num):
+        tripId = result.readTypedString()
+        foeId = result.readTypedString()
+        foeSignal = result.readTypedString()
+        limit = result.readTypedInt()
+        type = result.readTypedInt()
+        constraints.append(Constraint(tripId, foeId, foeSignal, limit, type))
+    return constraints
+
 
 _RETURN_VALUE_FUNC = {tc.TL_COMPLETE_DEFINITION_RYG: _readLogics,
-                      tc.TL_CONTROLLED_LINKS: _readLinks}
+                      tc.TL_CONTROLLED_LINKS: _readLinks,
+                      tc.TL_CONSTRAINT: _readConstraints}
 
 
 class TrafficLightDomain(Domain):
@@ -225,6 +252,14 @@ class TrafficLightDomain(Domain):
         the given tls-linkIndex (only those with higher priority)
         """
         return self._getUniversal(tc.TL_PRIORITY_VEHICLES, tlsID, "i", linkIndex)
+
+    def getConstraints(self, tlsID, tripId = ""):
+        """getConstraints(string, string) -> list(Constraint)
+        Returns the list of rail signal constraints for the given rail signal.
+        If tripId is not "", only constraints with the given tripId are
+        returned. Otherwise, all constraints are returned
+        """
+        return self._getUniversal(tc.TL_CONSTRAINT, tlsID, "s", tripId)
 
     def setRedYellowGreenState(self, tlsID, state):
         """setRedYellowGreenState(string, string) -> None
