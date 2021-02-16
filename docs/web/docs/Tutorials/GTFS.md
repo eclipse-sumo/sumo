@@ -60,7 +60,7 @@ For this tutorial we choose 13.07.2016 (a Wednesday).
 If you have downloaded the network and the GTFS data (or have the URL) it is as easy as
 
 ```
-tools/import/gtfs2pt.py -n eichwalde.net.xml.gz --gtfs https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip --date 20160713 --vtype-output pt_vtypes.xml
+tools/import/gtfs/gtfs2pt.py -n eichwalde.net.xml.gz --gtfs https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip --date 20160713 --vtype-output pt_vtypes.xml
 ```
 
 The script runs for about five minutes and generates several subdirectories but in the end it provides three output files:
