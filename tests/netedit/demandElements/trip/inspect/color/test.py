@@ -51,16 +51,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change color with an invalid value
-netedit.modifyAttribute(6, "", True)
+netedit.modifyAttribute(6, "", False)
 
 # change color with an invalid value
-netedit.modifyAttribute(6, "dummyColor", True)
+netedit.modifyAttribute(6, "dummyColor", False)
 
 # change color with an valid value
-netedit.modifyAttribute(6, "cyan", True)
+netedit.modifyAttribute(6, "cyan", False)
 
 # change color with a valid value
-netedit.modifyAttribute(6, "12,13,14", True)
+netedit.modifyAttribute(6, "12,13,14", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)
