@@ -305,7 +305,7 @@ def Popen(extraParameters, debugInformation):
     """
     # set the default parameters of Netedit
     neteditCall = [_NETEDIT_APP, '--gui-testing', '--window-pos', '50,50',
-                   '--window-size', '700,500', '--no-warnings',
+                   '--window-size', '936, 697', '--no-warnings',
                    '--error-log', os.path.join(_TEXTTEST_SANDBOX, 'log.txt')]
 
     # check if debug output information has to be enabled
