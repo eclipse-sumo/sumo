@@ -31,19 +31,21 @@ import sumolib  # noqa
 
 
 # defines
-JPS_POLYGON_TYPE_NAME = "jps-boundary"
-JPS_POLYGON_COLOR = sumolib.color.RGBAColor(255, 0, 0)
-JPS_POLYGON_LAYER = 10
+JPS_BOUNDARY_ID_SUFFIX = "_boundary"
+JPS_BOUNDARY_TYPE_NAME = "jps-boundary"
+JPS_BOUNDARY_COLOR = sumolib.color.RGBAColor(255, 0, 0)
+JPS_BOUNDARY_LAYER = 10
+JPS_DOOR_ID_DELIMITER = "_door_"
 JPS_DOOR_TYPE_NAME = "jps-door"
 JPS_DOOR_COLOR = sumolib.color.RGBAColor(0, 0, 255)
 JPS_DOOR_LAYER = 11
-DXF_LAYER_NAME_POLYGON = "SUMONetPolygons"
+DXF_LAYER_NAME_BOUNDARY = "SUMONetBoundary"
 DXF_LAYER_NAME_DOOR = "SUMONetDoors"
 DEBUG = True
 
 
 def parse_args():
-    USAGE = "Usage: " + sys.argv[0] + " -n <net> -s <selected-objects-file> <options>"
+    USAGE = "Usage: " + sys.argv[0] + " -n <net-file> -s <selected-objects-file> <options>"
     argParser = sumolib.options.ArgumentParser(usage=USAGE)
     argParser.add_argument("-n", "--net-file", dest="netFile", help="The .net.xml file to convert")
     # see https://sumo.dlr.de/docs/sumo-gui.html#selecting_objects
@@ -86,7 +88,7 @@ def calculateBoundingPolygon(shape, width):
 
 def addIncidentEdgeToDoorList(polygon, edge, net, doorPositions, doorIDs):
     assert net.hasEdge(edge.getID())
-    # print("DEBUG: incident edge \'%s\' for node \'%s\'" % (edge.getID(), polygon.id))
+    # print("DEBUG: incident edge \'%s\' for node \'%s\'" % (edge.getID(), polygon.attributes['sumo-object-id']))
     lane = getExclusiveSidewalkLane(edge)
     if lane is None:
         return
@@ -94,21 +96,22 @@ def addIncidentEdgeToDoorList(polygon, edge, net, doorPositions, doorIDs):
     lengths = sumolib.geomhelper.intersectsAtLengths2D(polygon.shape, shape)
     for offset in lengths:
         doorPositions.append(sumolib.geomhelper.positionAtShapeOffset(polygon.shape, offset))
-    doorIDs.append(polygon.id + '_door_' + lane.getID())
+    doorIDs.append(polygon.attributes['sumo-object-id'] + JPS_DOOR_ID_DELIMITER + lane.getID())
 
 
 def calculateDoors(polygons, net):
     result = []
+    myLastTransitionId = 0
     for p in polygons:
-        isLane = net.hasEdge(p.id[:-2])
-        isNode = net.hasNode(p.id)
+        isLane = net.hasEdge(p.attributes['sumo-object-id'][:-2])
+        isNode = net.hasNode(p.attributes['sumo-object-id'])
         if not isLane and not isNode:
-            print("ERROR: objID \'%s\' not found as lane or node in network, aborting..." % p.id)
+            print("ERROR: objID \'%s\' not found as lane or node in network, aborting..." % p.attributes['sumo-object-id'])
             sys.exit(1)
         doorPositions = []
         doorIDs = []
         if isLane:
-            lane = net.getLane(p.id)
+            lane = net.getLane(p.attributes['sumo-object-id'])
             print("DEBUG: calculateDoors() lane \'%s\'" % lane.getID())
             for inc in lane.getIncoming(onlyDirect=True):
                 # print("DEBUG: incoming lane \'%s\' for lane \'%s\'" % (inc.getID(), lane.getID()))
@@ -118,7 +121,7 @@ def calculateDoors(polygons, net):
                 lengths = sumolib.geomhelper.intersectsAtLengths2D(p.shape, shape)
                 for offset in lengths:
                     doorPositions.append(sumolib.geomhelper.positionAtShapeOffset(p.shape, offset))
-                doorIDs.append(p.id + '_door_' + inc.getID())
+                doorIDs.append(p.attributes['sumo-object-id'] + JPS_DOOR_ID_DELIMITER + inc.getID())
                 # print("DEBUG: calculateDoors() p.shape: \'%s\'" % p.shape)
                 # print("DEBUG: calculateDoors() shape: \'%s\'" % shape)
                 # print("DEBUG: calculateDoors() lengths: \'%s\'" % lengths)
@@ -129,9 +132,9 @@ def calculateDoors(polygons, net):
                 lengths = sumolib.geomhelper.intersectsAtLengths2D(p.shape, shape)
                 for offset in lengths:
                     doorPositions.append(sumolib.geomhelper.positionAtShapeOffset(p.shape, offset))
-                doorIDs.append(p.id + '_door_' + out.getViaLaneID())
+                doorIDs.append(p.attributes['sumo-object-id'] + JPS_DOOR_ID_DELIMITER + out.getViaLaneID())
         elif isNode:
-            node = net.getNode(p.id)
+            node = net.getNode(p.attributes['sumo-object-id'])
             print("DEBUG: calculateDoors() node \'%s\'" % node.getID())
             for inc in node.getIncoming():
                 if inc.getID()[0] == ":":
@@ -150,6 +153,10 @@ def calculateDoors(polygons, net):
                     color=JPS_DOOR_COLOR,
                     layer=JPS_DOOR_LAYER,
                     shape=[doorPositions[i], doorPositions[i + 1]])
+            door.attributes['from-object-id'] = door.id.split(JPS_DOOR_ID_DELIMITER)[0]
+            door.attributes['to-object-id'] = door.id.split(JPS_DOOR_ID_DELIMITER)[1]
+            door.attributes['transition-id'] = myLastTransitionId
+            myLastTransitionId += 1
             if not isDuplicate(door, result):
                 result.append(door)
     return result
@@ -160,8 +167,12 @@ def addLaneToPolygons(lane, polygons):
         print("WARNING: lane \'%s\' does not allow pedestrians, skipping..." % (lane.getID()))
         return
     polyShape = calculateBoundingPolygon(lane.getShape(includeJunctions=False), lane.getWidth())
-    polygon = sumolib.shapes.polygon.Polygon(id=lane.getID(), type=JPS_POLYGON_TYPE_NAME,
-                                             color=JPS_POLYGON_COLOR, layer=JPS_POLYGON_LAYER, shape=polyShape)
+    polygon = sumolib.shapes.polygon.Polygon(id=lane.getID() + JPS_BOUNDARY_ID_SUFFIX,
+                                             type=JPS_BOUNDARY_TYPE_NAME,
+                                             color=JPS_BOUNDARY_COLOR,
+                                             layer=JPS_BOUNDARY_LAYER,
+                                             shape=polyShape)
+    polygon.attributes['sumo-object-id'] = lane.getID()
     if not isDuplicate(polygon, polygons):
         polygons.append(polygon)
     return
@@ -170,8 +181,12 @@ def addLaneToPolygons(lane, polygons):
 def addNodeToPolygons(node, polygons):
     polyShape = node.getShape()
     polyShape.append(polyShape[0])
-    polygon = sumolib.shapes.polygon.Polygon(id=node.getID(), type=JPS_POLYGON_TYPE_NAME,
-                                             color=JPS_POLYGON_COLOR, layer=JPS_POLYGON_LAYER, shape=polyShape)
+    polygon = sumolib.shapes.polygon.Polygon(id=node.getID() + JPS_BOUNDARY_ID_SUFFIX,
+                                             type=JPS_BOUNDARY_TYPE_NAME,
+                                             color=JPS_BOUNDARY_COLOR,
+                                             layer=JPS_BOUNDARY_LAYER,
+                                             shape=polyShape)
+    polygon.attributes['sumo-object-id'] = node.getID()
     if not isDuplicate(polygon, polygons):
         polygons.append(polygon)
     return
@@ -192,12 +207,13 @@ def writeToDxf(polygons, doors, options):
     # write DXF file
     doc = ezdxf.new(dxfversion='R2000')
     msp = doc.modelspace()  # add new entities to the modelspace
-    doc.layers.new(name=DXF_LAYER_NAME_POLYGON, dxfattribs={'linetype': 'SOLID', 'color': 7})
+    doc.layers.new(name=DXF_LAYER_NAME_BOUNDARY, dxfattribs={'linetype': 'SOLID', 'color': 7})
     for p in polygons:
-        msp.add_lwpolyline(p.shape, dxfattribs={'layer': DXF_LAYER_NAME_POLYGON})
+        msp.add_lwpolyline(p.shape, dxfattribs={'layer': DXF_LAYER_NAME_BOUNDARY})
     doc.layers.new(name=DXF_LAYER_NAME_DOOR, dxfattribs={'linetype': 'DASHED', 'color': 9})
     for d in doors:
         msp.add_lwpolyline(d.shape, dxfattribs={'layer': DXF_LAYER_NAME_DOOR})
+        # TODO: add transition ID to dxf attributes
     doc.saveas(options.outFile)
 
 
