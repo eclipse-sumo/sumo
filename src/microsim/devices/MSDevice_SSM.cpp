@@ -270,6 +270,8 @@ MSDevice_SSM::initEdgeFilter() {
                     WRITE_WARNING("Unknown junction ID '" + junctionID + "' in SSM device edge filter (" + file + "): " + line);
                 }
             }
+            else if (line == "") { // ignore empty lines (mostly last line)
+            }
             else {
                 WRITE_WARNING("Cannot interpret line in SSM device edge filter (" + file + "): " + line);
             }
