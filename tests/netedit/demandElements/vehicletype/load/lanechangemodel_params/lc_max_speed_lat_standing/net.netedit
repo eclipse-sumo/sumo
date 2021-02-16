@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 15.02.2021 16:14:22 by Eclipse SUMO netedit Version v1_8_0+1182-69d10a2cfe
+<!-- generated on 11.02.2021 15:47:13 by Eclipse SUMO netedit Version v1_8_0+1126-1b9d3d35b1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Feb152724.11004\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb150136.16492\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Feb152724.11004\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb150136.16492\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,28 +30,28 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Feb152724.11004\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Feb152724.11004\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Feb152724.11004\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Feb152724.11004\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Feb152724.11004\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Feb152724.11004\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb150136.16492\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb150136.16492\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb150136.16492\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb150136.16492\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb150136.16492\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb150136.16492\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Feb152724.11004\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb150136.16492\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Feb152724.11004\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb150136.16492\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Feb152724.11004\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb150136.16492\netedit.gui\demandElements\vehicletype\load\lanechangemodel_params\lc_max_speed_lat_standing\log.txt"/>
     </report>
 
 </configuration>
@@ -62,88 +62,88 @@
     <location netOffset="0.00,0.00" convBoundary="10.00,20.00,70.00,60.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ5_0" function="internal">
-        <lane id=":gneJ5_0_0" index="0" speed="7.96" length="14.11" width="10.00" shape="68.50,34.00 67.97,30.06 66.38,27.25 63.72,25.56 60.00,25.00"/>
+        <lane id=":gneJ5_0_0" index="0" speed="7.33" length="11.73" shape="68.40,27.20 67.85,24.75 66.20,23.00 63.45,21.95 59.60,21.60"/>
     </edge>
     <edge id=":gneJ5_1" function="internal">
-        <lane id=":gneJ5_1_0" index="0" speed="11.30" length="27.11" width="3.00" shape="60.00,15.00 66.34,16.19 70.88,19.75 73.59,25.69 74.50,34.00"/>
-        <lane id=":gneJ5_1_1" index="1" speed="10.88" length="24.89" width="3.00" shape="60.00,15.00 65.03,16.19 68.62,19.75 70.78,25.69 71.50,34.00"/>
+        <lane id=":gneJ5_1_0" index="0" speed="9.32" length="19.63" shape="59.60,18.40 66.25,18.95 71.00,20.60 73.85,23.35 74.80,27.20"/>
+        <lane id=":gneJ5_1_1" index="1" speed="8.67" length="16.85" shape="59.60,18.40 64.85,18.95 68.60,20.60 70.85,23.35 71.60,27.20"/>
     </edge>
     <edge id=":gneJ6_0" function="internal">
-        <lane id=":gneJ6_0_0" index="0" speed="10.43" length="24.89" width="10.00" shape="71.50,46.00 70.78,54.31 68.62,60.25 65.03,63.81 60.00,65.00"/>
+        <lane id=":gneJ6_0_0" index="0" speed="8.67" length="16.85" shape="71.60,52.80 70.85,56.65 68.60,59.40 64.85,61.05 59.60,61.60"/>
     </edge>
     <edge id=":gneJ6_1" function="internal">
-        <lane id=":gneJ6_1_0" index="0" speed="7.97" length="11.83" width="3.00" shape="60.00,55.00 62.41,54.44 64.12,52.75 65.16,49.94 65.50,46.00"/>
-        <lane id=":gneJ6_1_1" index="1" speed="8.55" length="14.11" width="3.00" shape="60.00,55.00 63.72,54.44 66.38,52.75 67.97,49.94 68.50,46.00"/>
+        <lane id=":gneJ6_1_0" index="0" speed="6.51" length="9.03" shape="59.60,58.40 62.05,58.05 63.80,57.00 64.85,55.25 65.20,52.80"/>
+        <lane id=":gneJ6_1_1" index="1" speed="7.33" length="11.73" shape="59.60,58.40 63.45,58.05 66.20,57.00 67.85,55.25 68.40,52.80"/>
     </edge>
     <edge id=":gneJ7_0" function="internal">
-        <lane id=":gneJ7_0_0" index="0" allow="bicycle" speed="8.94" length="15.74" width="3.00" shape="14.50,61.50 11.87,60.69 10.00,58.25 8.88,54.19 8.50,48.50"/>
+        <lane id=":gneJ7_0_0" index="0" allow="bicycle" speed="6.25" length="8.25" width="2.00" shape="13.50,61.00 11.53,60.64 10.12,59.58 9.28,57.79 9.00,55.30"/>
     </edge>
     <edge id=":gneJ7_1" function="internal">
-        <lane id=":gneJ7_1_0" index="0" allow="bicycle" speed="4.95" length="4.84" width="10.00" shape="11.50,48.50 11.69,49.81 12.25,50.75 13.19,51.31 14.50,51.50"/>
+        <lane id=":gneJ7_1_0" index="0" allow="bicycle" speed="4.44" length="4.03" shape="11.00,55.30 11.16,56.39 11.62,57.17 12.41,57.64 13.50,57.80"/>
     </edge>
     <edge id=":gneJ8_0" function="internal">
-        <lane id=":gneJ8_0_0" index="0" allow="bicycle" speed="5.88" length="7.26" width="3.00" shape="8.50,43.00 8.78,41.03 9.62,39.62 11.03,38.78 13.00,38.50"/>
+        <lane id=":gneJ8_0_0" index="0" allow="bicycle" speed="6.46" length="9.27" shape="9.00,44.70 9.28,41.68 10.12,39.52 11.53,38.23 13.50,37.80"/>
     </edge>
     <edge id=":gneJ8_1" function="internal">
-        <lane id=":gneJ8_1_0" index="0" allow="bicycle" speed="3.78" length="2.42" width="3.00" shape="13.00,41.50 12.34,41.59 11.88,41.88 11.59,42.34 11.50,43.00"/>
+        <lane id=":gneJ8_1_0" index="0" allow="bicycle" speed="4.62" length="4.03" width="2.00" shape="13.50,42.20 12.41,42.36 11.62,42.83 11.16,43.61 11.00,44.70"/>
     </edge>
     <edge id=":gneJ9_0" function="internal">
-        <lane id=":gneJ9_0_0" index="0" speed="3.53" length="4.38" width="3.00" shape="40.00,38.50 41.12,39.25 41.50,40.00 41.12,40.75 40.00,41.50"/>
+        <lane id=":gneJ9_0_0" index="0" speed="3.65" length="4.67" shape="40.00,38.40 41.20,39.20 41.60,40.00 41.20,40.80 40.00,41.60"/>
     </edge>
 
     <edge id="gneE10" from="gneJ7" to="gneJ8" priority="-1">
-        <lane id="gneE10_0" index="0" allow="bicycle" speed="13.89" length="5.50" width="3.00" shape="8.50,48.50 8.50,43.00"/>
+        <lane id="gneE10_0" index="0" allow="bicycle" speed="13.89" length="10.60" width="2.00" shape="9.00,55.30 9.00,44.70"/>
     </edge>
     <edge id="gneE11" from="gneJ8" to="gneJ7" priority="-1">
-        <lane id="gneE11_0" index="0" allow="bicycle" speed="13.89" length="5.50" width="3.00" shape="11.50,43.00 11.50,48.50"/>
+        <lane id="gneE11_0" index="0" allow="bicycle" speed="13.89" length="10.60" width="2.00" shape="11.00,44.70 11.00,55.30"/>
     </edge>
     <edge id="gneE2" from="gneJ4" to="gneJ5" priority="-1">
-        <lane id="gneE2_0" index="0" speed="13.89" length="50.00" width="10.00" shape="10.00,15.00 60.00,15.00"/>
+        <lane id="gneE2_0" index="0" speed="13.89" length="49.60" shape="10.00,18.40 59.60,18.40"/>
     </edge>
     <edge id="gneE3" from="gneJ6" to="gneJ5" priority="-1">
-        <lane id="gneE3_0" index="0" speed="13.89" length="12.00" width="3.00" shape="65.50,46.00 65.50,34.00"/>
-        <lane id="gneE3_1" index="1" speed="13.89" length="12.00" width="3.00" shape="68.50,46.00 68.50,34.00"/>
+        <lane id="gneE3_0" index="0" speed="13.89" length="25.60" shape="65.20,52.80 65.20,27.20"/>
+        <lane id="gneE3_1" index="1" speed="13.89" length="25.60" shape="68.40,52.80 68.40,27.20"/>
     </edge>
-    <edge id="gneE4" from="gneJ5" to="gneJ6" priority="-1" spreadType="roadCenter">
-        <lane id="gneE4_0" index="0" speed="13.89" length="12.00" width="3.00" shape="74.50,34.00 74.50,46.00"/>
-        <lane id="gneE4_1" index="1" speed="13.89" length="12.00" width="3.00" shape="71.50,34.00 71.50,46.00"/>
+    <edge id="gneE4" from="gneJ5" to="gneJ6" priority="-1">
+        <lane id="gneE4_0" index="0" speed="13.89" length="25.60" shape="74.80,27.20 74.80,52.80"/>
+        <lane id="gneE4_1" index="1" speed="13.89" length="25.60" shape="71.60,27.20 71.60,52.80"/>
     </edge>
     <edge id="gneE5" from="gneJ6" to="gneJ7" priority="-1">
-        <lane id="gneE5_0" index="0" speed="13.89" length="45.50" width="10.00" shape="60.00,65.00 14.50,65.00"/>
+        <lane id="gneE5_0" index="0" speed="13.89" length="46.10" shape="59.60,61.60 13.50,61.60"/>
     </edge>
     <edge id="gneE6" from="gneJ7" to="gneJ6" priority="-1">
-        <lane id="gneE6_0" index="0" speed="13.89" length="45.50" width="10.00" shape="14.50,55.00 60.00,55.00"/>
+        <lane id="gneE6_0" index="0" speed="13.89" length="46.10" shape="13.50,58.40 59.60,58.40"/>
     </edge>
     <edge id="gneE7" from="gneJ5" to="gneJ4" priority="-1">
-        <lane id="gneE7_0" index="0" speed="13.89" length="50.00" width="10.00" shape="60.00,25.00 10.00,25.00"/>
+        <lane id="gneE7_0" index="0" speed="13.89" length="49.60" shape="59.60,21.60 10.00,21.60"/>
     </edge>
     <edge id="gneE8" from="gneJ8" to="gneJ9" priority="-1">
-        <lane id="gneE8_0" index="0" speed="13.89" length="27.00" width="3.00" shape="13.00,38.50 40.00,38.50"/>
+        <lane id="gneE8_0" index="0" speed="13.89" length="26.50" shape="13.50,38.40 40.00,38.40"/>
     </edge>
     <edge id="gneE9" from="gneJ9" to="gneJ8" priority="-1">
-        <lane id="gneE9_0" index="0" speed="13.89" length="27.00" width="3.00" shape="40.00,41.50 13.00,41.50"/>
+        <lane id="gneE9_0" index="0" speed="13.89" length="26.50" shape="40.00,41.60 13.50,41.60"/>
     </edge>
 
-    <junction id="gneJ4" type="dead_end" x="10.00" y="20.00" incLanes="gneE7_0" intLanes="" shape="10.00,20.00 10.00,30.00 10.00,20.00"/>
-    <junction id="gneJ5" type="priority" x="70.00" y="20.00" incLanes="gneE3_0 gneE3_1 gneE2_0" intLanes=":gneJ5_0_0 :gneJ5_1_0 :gneJ5_1_1" shape="64.00,34.00 76.00,34.00 75.56,26.67 74.22,20.67 72.00,16.00 68.89,12.67 64.89,10.67 60.00,10.00 60.00,30.00 62.22,30.44 63.00,31.00 63.56,31.78 63.89,32.78">
+    <junction id="gneJ4" type="dead_end" x="10.00" y="20.00" incLanes="gneE7_0" intLanes="" shape="10.00,20.00 10.00,23.20 10.00,20.00"/>
+    <junction id="gneJ5" type="priority" x="70.00" y="20.00" incLanes="gneE3_0 gneE3_1 gneE2_0" intLanes=":gneJ5_0_0 :gneJ5_1_0 :gneJ5_1_1" shape="63.60,27.20 76.40,27.20 75.93,24.02 74.53,21.42 72.20,19.40 68.93,17.96 64.73,17.09 59.60,16.80 59.60,23.20 61.82,23.64 62.60,24.20 63.16,24.98 63.49,25.98">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="gneJ6" type="priority" x="70.00" y="60.00" incLanes="gneE4_0 gneE4_1 gneE6_0" intLanes=":gneJ6_0_0 :gneJ6_1_0 :gneJ6_1_1" shape="76.00,46.00 64.00,46.00 63.56,48.22 63.00,49.00 62.22,49.56 61.22,49.89 60.00,50.00 60.00,70.00 64.89,69.33 68.89,67.33 72.00,64.00 74.22,59.33 75.56,53.33">
+    <junction id="gneJ6" type="priority" x="70.00" y="60.00" incLanes="gneE4_0 gneE4_1 gneE6_0" intLanes=":gneJ6_0_0 :gneJ6_1_0 :gneJ6_1_1" shape="76.40,52.80 63.60,52.80 63.16,55.02 62.60,55.80 61.82,56.36 60.82,56.69 59.60,56.80 59.60,63.20 64.73,62.91 68.93,62.04 72.20,60.60 74.53,58.58 75.93,55.98">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="gneJ7" type="priority" x="10.00" y="60.00" incLanes="gneE5_0 gneE11_0" intLanes=":gneJ7_0_0 :gneJ7_1_0" shape="14.50,70.00 14.50,50.00 13.67,49.83 13.37,49.62 13.17,49.33 13.04,48.96 13.00,48.50 7.00,48.50 7.21,55.07 7.83,60.44 8.87,64.62 10.33,67.61 12.21,69.40">
+    <junction id="gneJ7" type="priority" x="10.00" y="60.00" incLanes="gneE5_0 gneE11_0" intLanes=":gneJ7_0_0 :gneJ7_1_0" shape="13.50,63.20 13.50,56.80 12.67,56.63 12.38,56.42 12.17,56.13 12.04,55.76 12.00,55.30 8.00,55.30 8.15,57.71 8.61,59.69 9.37,61.22 10.44,62.32 11.82,62.98">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="gneJ8" type="priority" x="10.00" y="40.00" incLanes="gneE10_0 gneE9_0" intLanes=":gneJ8_0_0 :gneJ8_1_0" shape="7.00,43.00 13.00,43.00 13.00,37.00 9.67,37.67 8.50,38.50 7.67,39.67 7.17,41.17">
+    <junction id="gneJ8" type="priority" x="10.00" y="40.00" incLanes="gneE10_0 gneE9_0" intLanes=":gneJ8_0_0 :gneJ8_1_0" shape="8.00,44.70 12.00,44.70 12.17,43.87 12.38,43.58 12.67,43.37 13.04,43.24 13.50,43.20 13.50,36.80 10.44,37.68 9.38,38.77 8.61,40.31 8.15,42.29">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="gneJ9" type="priority" x="40.00" y="40.00" incLanes="gneE8_0" intLanes=":gneJ9_0_0" shape="40.00,40.00 40.00,37.00 40.00,40.00">
+    <junction id="gneJ9" type="priority" x="40.00" y="40.00" incLanes="gneE8_0" intLanes=":gneJ9_0_0" shape="40.00,40.00 40.00,36.80 40.00,40.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 

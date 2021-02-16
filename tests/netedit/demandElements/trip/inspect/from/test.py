@@ -38,8 +38,8 @@ netedit.vehicleMode()
 # netedit.changeElement("trip")
 
 # create trip using two edges
-netedit.leftClick(referencePosition, 274, 420)
-netedit.leftClick(referencePosition, 280, 30)
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 280, 55)
 
 # press enter to create route
 netedit.typeEnter()
@@ -47,23 +47,20 @@ netedit.typeEnter()
 # go to inspect mode
 netedit.inspectMode()
 
-# zoom in central node
-netedit.setZoom("12", "15", "5")
-
 # inspect vehicle
-netedit.leftClick(referencePosition, 340, 220)
+netedit.leftClick(referencePosition, 91, 392)
 
 # change from with an invalid value
-netedit.modifyAttribute(2, "", False)
+netedit.modifyAttribute(2, "", True)
 
 # change from with an invalid value
-netedit.modifyAttribute(2, "dummyEdge", False)
+netedit.modifyAttribute(2, "dummyEdge", True)
 
 # change from with an valid value
-netedit.modifyAttribute(2, "gneE5", False)
+netedit.modifyAttribute(2, "gneE5", True)
 
 # change from with an valid value
-netedit.modifyAttribute(2, "gneE8", False)
+netedit.modifyAttribute(2, "gneE8", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
