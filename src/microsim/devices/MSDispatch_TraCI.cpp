@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <limits>
+#include <microsim/transportables/MSTransportable.h>
 #include "MSDispatch_TraCI.h"
 
 //#define DEBUG_RESERVATION
@@ -49,6 +50,11 @@ MSDispatch_TraCI::addReservation(MSTransportable* person,
     return res;
 }
 
+void
+MSDispatch_TraCI::fulfilledReservation(const Reservation* res) {
+    myReservationLookup.remove(res->id, res);
+    MSDispatch::fulfilledReservation(res);
+}
 
 void
 MSDispatch_TraCI::interpretDispatch(MSDevice_Taxi* taxi, const std::vector<std::string>& reservationsIDs) {
@@ -75,6 +81,48 @@ MSDispatch_TraCI::interpretDispatch(MSDevice_Taxi* taxi, const std::vector<std::
         servedReservation(res);
     }
 }
+
+
+std::string
+MSDispatch_TraCI::splitReservation(std::string resID, std::vector<std::string> personIDs) {
+    if (myReservationLookup.hasString(resID)) {
+        Reservation* res = const_cast<Reservation*>(myReservationLookup.get(resID));
+        if (myRunningReservations.count(res) != 0) {
+            throw InvalidArgument("Cannot split reservation '" + resID + "' after dispatch");
+        }
+        std::set<std::string> allPersons;
+        for (MSTransportable* t : res->persons) {
+            allPersons.insert(t->getID());
+        }
+        for (std::string p : personIDs) {
+            if (allPersons.count(p) == 0) {
+                throw InvalidArgument("Person '" + p + "' is not part of reservation '" + resID + "'");
+            }
+        }
+        if (personIDs.size() == allPersons.size()) {
+            throw InvalidArgument("Cannot remove all person from reservation '" + resID + "'");
+        }
+        std::vector<MSTransportable*> split;
+        for (std::string p : personIDs) {
+            for (MSTransportable* t : res->persons) {
+                if (t->getID() == p) {
+                    res->persons.erase(t);
+                    split.push_back(t);
+                }
+            }
+        }
+        Reservation* newRes = new Reservation(toString(myReservationCount++), split,
+                res->reservationTime, res->pickupTime,
+                res->from, res->fromPos,
+                res->to, res->toPos, res->group);
+        myGroupReservations[res->group].push_back(newRes);
+        myReservationLookup.insert(newRes->id, newRes);
+        return newRes->id;
+    } else {
+        throw InvalidArgument("Reservation id '" + resID + "' is not known");
+    }
+}
+
 
 
 //

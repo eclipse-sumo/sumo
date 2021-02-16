@@ -155,6 +155,17 @@ Person::getTaxiReservations(int stateFilter) {
     return result;
 }
 
+std::string
+Person::splitTaxiReservation(std::string reservationID, const std::vector<std::string>& personIDs) {
+    MSDispatch* dispatcher = MSDevice_Taxi::getDispatchAlgorithm();
+    if (dispatcher != nullptr) {
+        MSDispatch_TraCI* traciDispatcher = dynamic_cast<MSDispatch_TraCI*>(dispatcher);
+        if (traciDispatcher != nullptr) {
+            return traciDispatcher->splitReservation(reservationID, personIDs);
+        }
+    }
+    throw TraCIException("device.taxi.dispatch-algorithm 'traci' has not been loaded");
+}
 
 bool
 Person::filterReservation(int stateFilter, const Reservation* res, std::vector<libsumo::TraCIReservation>& reservations) {

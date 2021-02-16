@@ -98,6 +98,7 @@ Person::getTaxiReservations(int onlyNew) {
     content.writeInt(onlyNew);
     tcpip::Storage ret = Dom::get(libsumo::VAR_TAXI_RESERVATIONS, "", &content);
     std::vector<libsumo::TraCIReservation> result;
+    ret.readUnsignedByte(); // compound type
     int numReservations = ret.readInt();
     while (numReservations-- > 0) {
         libsumo::TraCIReservation r;
@@ -114,6 +115,14 @@ Person::getTaxiReservations(int onlyNew) {
         result.emplace_back(r);
     }
     return result;
+}
+
+
+std::string
+Person::splitTaxiReservation(std::string reservationID, const std::vector<std::string>& personIDs) {
+    tcpip::Storage content;
+    StoHelp::writeTypedStringList(content, personIDs);
+    return Dom::getString(libsumo::SPLIT_TAXI_RESERVATIONS, reservationID, &content);
 }
 
 

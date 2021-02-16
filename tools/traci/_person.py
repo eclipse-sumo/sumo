@@ -250,6 +250,14 @@ class PersonDomain(Domain):
             result.append(_readReservation(answer))
         return tuple(result)
 
+    def splitTaxiReservation(self, reservationID, personIDs):
+        """splitTaxiReservation(string, list(string)) -> string
+        Splits given list of person ids from the reservation with the given id
+        and creates a new reservation for these persons. Returns the new
+        reservation id
+        """
+        return self._getUniversal(tc.SPLIT_TAXI_RESERVATIONS, reservationID, "l", personIDs)
+
     def removeStages(self, personID):
         """remove(string)
         Removes all stages of the person. If no new phases are appended,

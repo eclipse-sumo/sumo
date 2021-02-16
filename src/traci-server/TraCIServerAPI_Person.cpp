@@ -44,7 +44,8 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
     const std::string id = inputStorage.readString();
     server.initWrapper(libsumo::RESPONSE_GET_PERSON_VARIABLE, variable, id);
     try {
-        if (!libsumo::Person::handleVariable(id, variable, &server, &inputStorage)) {
+        // in case of SPLIT_TAXI_RESERVATIONS id is a reservation id and handleVariable would throw an "unknown person" error
+        if (variable == libsumo::SPLIT_TAXI_RESERVATIONS || !libsumo::Person::handleVariable(id, variable, &server, &inputStorage)) {
             switch (variable) {
                 case libsumo::VAR_EDGES: {
                     int nextStageIndex = 0;
@@ -95,6 +96,16 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                         server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
                         server.getWrapperStorage().writeInt(r.state);
                     }
+                    break;
+                }
+                case libsumo::SPLIT_TAXI_RESERVATIONS: {
+                    std::vector<std::string> persons;
+                    if (!server.readTypeCheckingStringList(inputStorage, persons)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "Splitting of reservations requires an string list.", outputStorage);
+                    }
+                    std::string splitID = libsumo::Person::splitTaxiReservation(id, persons);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                    server.getWrapperStorage().writeString(splitID);
                     break;
                 }
                 default:

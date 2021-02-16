@@ -58,6 +58,12 @@ public:
     /// @brief trigger taxi dispatch. @note: method exists so subclasses can inject code at this point (ride sharing)
     void interpretDispatch(MSDevice_Taxi* taxi, const std::vector<std::string>& reservationsIDs);
 
+    /// @brief split existing reservations and return the new reservation id
+    std::string splitReservation(std::string resID, std::vector<std::string> personIDs);
+
+    /// @brief erase reservation from storage
+    void fulfilledReservation(const Reservation* res);
+
 private:
     StringBijection<const Reservation*> myReservationLookup;
 
