@@ -190,6 +190,28 @@ TrafficLight::getPriorityVehicles(const std::string& tlsID, int linkIndex) {
     return Dom::getStringVector(libsumo::TL_PRIORITY_VEHICLES, tlsID, &content);
 }
 
+std::vector<libsumo::TraCISignalConstraint>
+TrafficLight::getConstraints(const std::string& tlsID, const std::string& tripId) {
+    std::vector<libsumo::TraCISignalConstraint> result;
+    tcpip::Storage content;
+    StoHelp::writeTypedString(content, tripId);
+    tcpip::Storage& ret = Dom::get(libsumo::TL_CONSTRAINT, tlsID, &content);
+    ret.readInt(); // components
+    // number of items
+    ret.readUnsignedByte();
+    const int n = ret.readInt();
+    for (int i = 0; i < n; ++i) {
+        libsumo::TraCISignalConstraint c;
+        c.tripId = StoHelp::readTypedString(ret);
+        c.foeId = StoHelp::readTypedString(ret);
+        c.foeSignal = StoHelp::readTypedString(ret);
+        c.limit = StoHelp::readTypedInt(ret);
+        c.type = StoHelp::readTypedInt(ret);
+        result.push_back(c);
+    }
+    return result;
+}
+
 LIBTRACI_PARAMETER_IMPLEMENTATION(TrafficLight, TL)
 
 void

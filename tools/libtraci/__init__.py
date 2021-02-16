@@ -21,6 +21,7 @@ from traci.connection import StepListener  # noqa
 from .libtraci import vehicle, simulation, person, trafficlight
 from .libtraci import *  # noqa
 from .libtraci import TraCIStage, TraCINextStopData, TraCIReservation, TraCILogic, TraCIPhase, TraCIException
+from .libtraci import TraCICollision, TraCISignalConstraint
 
 _DOMAINS = [
     busstop,  # noqa
@@ -69,6 +70,7 @@ def wrapAsClassMethod(func, module):
 
 TraCIStage.__attr_repr__ = _simulation.Stage.__attr_repr__
 TraCIStage.__repr__ = _simulation.Stage.__repr__
+TraCICollision.__repr__ = _simulation.Collision.__repr__
 
 TraCINextStopData.__attr_repr__ = _vehicle.StopData.__attr_repr__
 TraCINextStopData.__repr__ = _vehicle.StopData.__repr__
@@ -78,8 +80,8 @@ TraCIReservation.__repr__ = _person.Reservation.__repr__
 
 TraCILogic.getPhases = _trafficlight.Logic.getPhases
 TraCILogic.__repr__ = _trafficlight.Logic.__repr__
-
 TraCIPhase.__repr__ = _trafficlight.Phase.__repr__
+TraCISignalConstraint.__repr__ = _trafficlight.Constraint.__repr__
 
 exceptions.TraCIException = TraCIException
 simulation.Stage = TraCIStage
