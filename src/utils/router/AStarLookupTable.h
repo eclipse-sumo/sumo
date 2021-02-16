@@ -187,7 +187,11 @@ public:
                 if (!outfile.empty()) {
                     WRITE_WARNING("Not all network edges were found in the lookup table '" + filename + "' for landmark edge '" + landmarkID + "'. Saving new matrix to '" + outfile + "'.");
                 } else {
-                    throw ProcessError("Not all network edges were found in the lookup table '" + filename + "' for landmark edge '" + landmarkID + "'.");
+                    if (myFromLandmarkDists[i].empty()) {
+                        WRITE_WARNING("No lookup table for landmark edge '" + landmarkID + "', recalculating.");
+                    } else {
+                        throw ProcessError("Not all network edges were found in the lookup table '" + filename + "' for landmark edge '" + landmarkID + "'.");
+                    }
                 }
 #ifdef HAVE_FOX
                 if (maxNumThreads > 0) {
