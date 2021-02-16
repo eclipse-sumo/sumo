@@ -299,7 +299,7 @@ def dragDrop(referencePosition, x1, y1, x2, y2):
 #################################################
 
 
-def Popen(extraParameters, extraOutput):
+def Popen(extraParameters, debugInformation):
     """
     @brief open netedit
     """
@@ -309,7 +309,7 @@ def Popen(extraParameters, extraOutput):
                    '--error-log', os.path.join(_TEXTTEST_SANDBOX, 'log.txt')]
 
     # check if debug output information has to be enabled
-    if extraOutput:
+    if debugInformation:
         neteditCall += ['--gui-testing-debug']
 
     # check if an existent net must be loaded
@@ -358,9 +358,8 @@ def Popen(extraParameters, extraOutput):
                     os.path.join(_TEXTTEST_SANDBOX, "datas.xml")]
 
     # set output for gui
-    if extraOutput:
-        neteditCall += ['--gui-testing.setting-output',
-                        os.path.join(_TEXTTEST_SANDBOX, "guisettingsoutput.xml")]
+    neteditCall += ['--gui-testing.setting-output',
+                    os.path.join(_TEXTTEST_SANDBOX, "guisettingsoutput.xml")]
 
     # add extra parameters
     neteditCall += extraParameters
@@ -407,7 +406,7 @@ def getReferenceMatch(neProcess, waitTime):
     sys.exit("TestFunctions: Killed Netedit process. 'reference.png' not found")
 
 
-def setupAndStart(testRoot, extraParameters=[], extraOutput=False, waitTime=DELAY_REFERENCE):
+def setupAndStart(testRoot, extraParameters=[], debugInformation=True, waitTime=DELAY_REFERENCE):
     """
     @brief setup and start netedit
     """
@@ -415,7 +414,7 @@ def setupAndStart(testRoot, extraParameters=[], extraOutput=False, waitTime=DELA
         # to work around non working gtk clipboard
         pyperclip.set_clipboard("xclip")
     # Open Netedit
-    neteditProcess = Popen(extraParameters, extraOutput)
+    neteditProcess = Popen(extraParameters, debugInformation)
     # atexit.register(quit, neteditProcess, False, False)
     # print debug information
     print("TestFunctions: Netedit opened successfully")

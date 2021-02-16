@@ -51,19 +51,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(13, "", False)
+netedit.modifyAttribute(13, "", True)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(13, "dummyNumber", False)
+netedit.modifyAttribute(13, "dummyNumber", True)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(13, "-5", False)
+netedit.modifyAttribute(13, "-5", True)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(13, "2.5", False)
+netedit.modifyAttribute(13, "2.5", True)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(13, "3", False)
+netedit.modifyAttribute(13, "3", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

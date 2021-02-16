@@ -51,19 +51,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(14, "", False)
+netedit.modifyAttribute(14, "", True)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(14, "dummyNumber", False)
+netedit.modifyAttribute(14, "dummyNumber", True)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(14, "-5", False)
+netedit.modifyAttribute(14, "-5", True)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(14, "2.5", False)
+netedit.modifyAttribute(14, "2.5", True)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(14, "3", False)
+netedit.modifyAttribute(14, "3", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

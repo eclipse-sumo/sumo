@@ -51,16 +51,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change vType with an invalid value
-netedit.modifyAttribute(1, "", False)
+netedit.modifyAttribute(1, "", True)
 
 # change vType with an invalid value
-netedit.modifyAttribute(1, ";;;;", False)
+netedit.modifyAttribute(1, ";;;;", True)
 
 # change vType with an invalid value
-netedit.modifyAttribute(1, "dummyVType", False)
+netedit.modifyAttribute(1, "dummyVType", True)
 
 # change vType with a valid value
-netedit.modifyAttribute(1, "custom_vType", False)
+netedit.modifyAttribute(1, "custom_vType", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

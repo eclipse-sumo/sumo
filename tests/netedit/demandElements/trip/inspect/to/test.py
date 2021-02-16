@@ -51,19 +51,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change vType with a valid value
-netedit.modifyAttribute(1, "bicycle", False)
+netedit.modifyAttribute(1, "bicycle", True)
 
 # change from with an invalid value
-netedit.modifyAttribute(3, "", False)
+netedit.modifyAttribute(3, "", True)
 
 # change from with an invalid value
-netedit.modifyAttribute(3, "dummyEdge", False)
+netedit.modifyAttribute(3, "dummyEdge", True)
 
 # change from with an valid value
-netedit.modifyAttribute(3, "gneJ7", False)
+netedit.modifyAttribute(3, "gneJ7", True)
 
 # change from with an valid value
-netedit.modifyAttribute(3, "gneE8", False)
+netedit.modifyAttribute(3, "gneE8", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

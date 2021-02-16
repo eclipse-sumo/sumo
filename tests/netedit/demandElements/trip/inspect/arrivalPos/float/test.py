@@ -51,19 +51,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change arrivalPos with an invalid value
-netedit.modifyAttribute(11, "", False)
+netedit.modifyAttribute(11, "", True)
 
 # change arrivalPos with an invalid value
-netedit.modifyAttribute(11, "dummyPos", False)
+netedit.modifyAttribute(11, "dummyPos", True)
 
 # change departColor with a valid value
-netedit.modifyAttribute(11, "500", False)
+netedit.modifyAttribute(11, "500", True)
 
 # change arrivalPos with an invalid value
-netedit.modifyAttribute(11, "-10", False)
+netedit.modifyAttribute(11, "-10", True)
 
 # change arrivalPos with a valid value
-netedit.modifyAttribute(11, "15.5", False)
+netedit.modifyAttribute(11, "15.5", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
