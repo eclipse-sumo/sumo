@@ -34,6 +34,7 @@
 %template(TraCIStageVector) std::vector<libsumo::TraCIStage>;
 %template(TraCINextStopDataVector2) std::vector<libsumo::TraCINextStopData>;
 %template(TraCIReservationVector) std::vector<libsumo::TraCIReservation>;
+%template(TraCISignalConstraintVector) std::vector<libsumo::TraCISignalConstraint>;
 %include "Edge.h"
 %include "InductionLoop.h"
 %include "Junction.h"
