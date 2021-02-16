@@ -4,6 +4,9 @@ basic
 # dispatch a taxi to pick up 3 customers in sequence
 shared_3
 
+# split a group reservation
+splitReservation
+
 # dispatch taxi to pick up person and then redispatch during 'pickup' state to pick someone else first. (existing customers not mentioned)
 case1_redispatch_before_pickup
 
