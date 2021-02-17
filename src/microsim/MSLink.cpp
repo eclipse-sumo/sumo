@@ -1483,7 +1483,8 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
 
         const double vMax = ego->getLane()->getVehicleMaxSpeed(ego);
         const double vAccel = ego->getCarFollowModel().estimateSpeedAfterDistance(dist, ego->getSpeed(), ego->getCarFollowModel().getMaxAccel());
-        const double vEnd = MIN3(vMax, vAccel, uEnd);
+        const double vDecel = ego->getCarFollowModel().estimateSpeedAfterDistance(dist, ego->getSpeed(), ego->getCarFollowModel().getMaxDecel());
+        const double vEnd = MIN3(vMax, vAccel, MAX2(uEnd, vDecel));
         const double vAvg = (ego->getSpeed() + vEnd) / 2;
         const double te0 = dist / MAX2(NUMERICAL_EPS, vAvg);
         const double te = MAX2(1.0, ceil((te0) / TS) * TS);
@@ -1524,6 +1525,7 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
                                              << " aSafeGap=" << a
                                              << " vMax=" << vMax
                                              << " vAccel=" << vAccel
+                                             << " vDecel=" << vDecel
                                              << " vEnd=" << vEnd
                                              << " vSafeGap=" << vSafeGap
                                              << " vFollow=" << vFollow
