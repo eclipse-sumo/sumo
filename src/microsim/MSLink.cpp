@@ -65,8 +65,6 @@ const double MSLink::ZIPPER_ADAPT_DIST(100);
 
 #define INVALID_TIME -1000
 
-// time to link in seconds below which adaptation should take place
-#define ZIPPER_ADAPT_TIME 10
 // the default safety gap when passing before oncoming pedestrians
 #define JM_CROSSING_GAP_DEFAULT 10
 
@@ -1417,10 +1415,9 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         throw ProcessError("Zipper junctions with more than two conflicting lanes are not supported (at junction '"
                            + myJunction->getID() + "')");
     }
-    const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
-    const double secondsToArrival = STEPS2TIME(arrivalTime - now);
-    if (secondsToArrival > ZIPPER_ADAPT_TIME && dist > ZIPPER_ADAPT_DIST) {
+    if (dist > ZIPPER_ADAPT_DIST) {
 #ifdef DEBUG_ZIPPER
+        const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
         if (DEBUG_COND_ZIPPER) DEBUGOUT(SIMTIME << " getZipperSpeed ego=" << ego->getID()
                                             << " dist=" << dist << " ignoring foes (arrival in " << STEPS2TIME(arrivalTime - now) << ")\n")
 #endif
