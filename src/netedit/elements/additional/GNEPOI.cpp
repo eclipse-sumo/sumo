@@ -163,15 +163,12 @@ GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // build selection and show parameters menu
     myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
+    // continue depending of lane number
     if (getParentLanes().size() > 0) {
-        // build shape header
-        buildShapePopupOptions(app, ret, getShapeType());
         // add option for convert to GNEPOI
         GUIDesigns::buildFXMenuCommand(ret, "Release from " + toString(SUMO_TAG_LANE), GUIIconSubSys::getIcon(GUIIcon::LANE), &parent, MID_GNE_POI_TRANSFORM);
         return ret;
     } else {
-        // build shape header
-        buildShapePopupOptions(app, ret, getShapeType());
         // add option for convert to GNEPOI
         GUIDesigns::buildFXMenuCommand(ret, "Attach to nearest " + toString(SUMO_TAG_LANE), GUIIconSubSys::getIcon(GUIIcon::LANE), &parent, MID_GNE_POI_TRANSFORM);
     }
