@@ -5879,7 +5879,7 @@ MSVehicle::unsafeLinkAhead(const MSLane* lane) const {
         DriveItemVector::const_iterator di = myLFLinkLanes.begin();
         while (!lane->isLinkEnd(link) && seen <= dist) {
             if (!lane->getEdge().isInternal()
-                    && (((*link)->getState() == LINKSTATE_ZIPPER && seen < MSLink::ZIPPER_ADAPT_DIST)
+                    && (((*link)->getState() == LINKSTATE_ZIPPER && seen < (*link)->getFoeVisibilityDistance())
                         || !(*link)->havePriority())) {
                 // find the drive item corresponding to this link
                 bool found = false;

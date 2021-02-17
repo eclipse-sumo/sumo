@@ -67,9 +67,6 @@ class MSTrafficLightLogic;
 class MSLink {
 public:
 
-    // distance to link in m below which adaptation for zipper-merging should take place
-    static const double ZIPPER_ADAPT_DIST;
-
     struct LinkLeader {
         LinkLeader(MSVehicle* _veh, double _gap, double _distToCrossing, bool _fromLeft = true, bool _inTheWay = false) :
             vehAndGap(std::make_pair(_veh, _gap)),
@@ -659,6 +656,7 @@ private:
     /// @brief distance from which an approaching vehicle is able to
     ///        see all relevant foes and may accelerate if the link is minor
     ///        and no foe is approaching. Defaults to 4.5m.
+    ///        For zipper links (major) this is the distance at which zipper merging starts (and foes become "visible")
     double myFoeVisibilityDistance;
 
     /// @brief Whether any foe links exist

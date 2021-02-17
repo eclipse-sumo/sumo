@@ -61,8 +61,6 @@ const SUMOTime MSLink::myLookaheadTime = TIME2STEPS(1);
 // additional caution is needed when approaching a zipper link
 const SUMOTime MSLink::myLookaheadTimeZipper = TIME2STEPS(4);
 
-const double MSLink::ZIPPER_ADAPT_DIST(100);
-
 #define INVALID_TIME -1000
 
 // the default safety gap when passing before oncoming pedestrians
@@ -1415,7 +1413,7 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         throw ProcessError("Zipper junctions with more than two conflicting lanes are not supported (at junction '"
                            + myJunction->getID() + "')");
     }
-    if (dist > ZIPPER_ADAPT_DIST) {
+    if (dist > myFoeVisibilityDistance) {
 #ifdef DEBUG_ZIPPER
         const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
         if (DEBUG_COND_ZIPPER) DEBUGOUT(SIMTIME << " getZipperSpeed ego=" << ego->getID()
