@@ -845,6 +845,8 @@ Here, a connection from the edge's "*<FROM_EDGE_ID\>*" lane with the number *<IN
 | uncontrolled   | bool  | false   | if set to *true*, This connection will not be TLS-controlled despite its node being controlled. |
 | allow     | list of vehicle classes    |    | set custom permissions independent of from-lane and to-lane permissions. |
 | disallow  | list of vehicle classes    |    | set custom permissions independent of from-lane and to-lane permissions. |
+| changeLeft        | list of vehicle classes | List of vehicle classes that may change left from this lane |
+| changeRight       | list of vehicle classes | List of vehicle classes that may change right from this lane |
 
 If you only wish to **remove** a connection it may be convenient to use
 the following xml definition: `<delete from="<FROM_EDGE_ID>" to="<T0_EDGE_ID>"/>`. The attributes are the same as for the
