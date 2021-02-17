@@ -367,9 +367,6 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             connectionColor = s.colorSettings.selectedConnectionColor;
         } else if (mySpecialColor != nullptr) {
             connectionColor = *mySpecialColor;
-        } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
-            (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_CONNECT)) {
-            connectionColor = RGBColor::GREY;
         } else {
             // Set color depending of the link state
             connectionColor = GNEInternalLane::colorForLinksState(getLinkState());
