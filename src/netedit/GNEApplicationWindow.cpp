@@ -3234,10 +3234,8 @@ GNEApplicationWindow::continueWithUnsavedChanges(const std::string& operation) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Confirm " + operation + " network' with 'Quit'");
             if (continueWithUnsavedAdditionalChanges(operation) && continueWithUnsavedDemandElementChanges(operation)) {
-                // destropy Popup
-                myViewNet->destroyPopup();
-                // clear undo list and return true to continue with closing/reload
-                myUndoList->p_clear();
+                // clear undo list
+                clearUndoList();
                 return true;
             } else {
                 return false;
@@ -3250,10 +3248,8 @@ GNEApplicationWindow::continueWithUnsavedChanges(const std::string& operation) {
                 return false;
             }
             if (continueWithUnsavedAdditionalChanges(operation) && continueWithUnsavedDemandElementChanges(operation)) {
-                // destropy Popup
-                myViewNet->destroyPopup();
-                // clear undo list and return true to continue with closing/reload
-                myUndoList->p_clear();
+                // clear undo list
+                clearUndoList();
                 return true;
             } else {
                 return false;
@@ -3270,10 +3266,8 @@ GNEApplicationWindow::continueWithUnsavedChanges(const std::string& operation) {
         }
     } else {
         if (continueWithUnsavedAdditionalChanges(operation) && continueWithUnsavedDemandElementChanges(operation)) {
-            // destropy Popup
-            myViewNet->destroyPopup();
-            // clear undo list and return true to continue with closing/reload
-            myUndoList->p_clear(); //only ask once
+            // clear undo list
+            clearUndoList();
             return true;
         } else {
             // return false to stop closing/reloading
@@ -3467,6 +3461,15 @@ GNEApplicationWindow::isUndoRedoEnabled() const {
 GNEApplicationWindowHelper::EditMenuCommands& 
 GNEApplicationWindow::getEditMenuCommands() {
     return myEditMenuCommands;
+}
+
+
+void 
+GNEApplicationWindow::clearUndoList() {
+    // destropy Popup (to avoid crashes)
+    myViewNet->destroyPopup();
+    // clear undo list and return true to continue with closing/reload
+    myUndoList->p_clear();
 }
 
 // ---------------------------------------------------------------------------

@@ -405,6 +405,9 @@ public:
     /// @brief getEdit Menu Commands (needed for show/hide menu commands)
     GNEApplicationWindowHelper::EditMenuCommands &getEditMenuCommands();
 
+    /// @brief clear undo list
+    void clearUndoList();
+
 protected:
     /// @brief FOX needs this for static members
     GNEApplicationWindow();
