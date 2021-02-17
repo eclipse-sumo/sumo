@@ -40,11 +40,12 @@ SUMOVehicleParameter::SUMOVehicleParameter()
       departPos(0), departPosProcedure(DepartPosDefinition::DEFAULT),
       departPosLat(0), departPosLatProcedure(DepartPosLatDefinition::DEFAULT),
       departSpeed(-1), departSpeedProcedure(DepartSpeedDefinition::DEFAULT),
-      departEdge(0), departEdgeProcedure(DepartEdgeDefinition::DEFAULT),
+      departEdge(0), departEdgeProcedure(RouteIndexDefinition::DEFAULT),
       arrivalLane(0), arrivalLaneProcedure(ArrivalLaneDefinition::DEFAULT),
       arrivalPos(0), arrivalPosProcedure(ArrivalPosDefinition::DEFAULT),
       arrivalPosLat(0), arrivalPosLatProcedure(ArrivalPosLatDefinition::DEFAULT),
       arrivalSpeed(-1), arrivalSpeedProcedure(ArrivalSpeedDefinition::DEFAULT),
+      arrivalEdge(-1), arrivalEdgeProcedure(RouteIndexDefinition::DEFAULT),
       repetitionNumber(-1), repetitionsDone(-1), repetitionOffset(-1), repetitionProbability(-1), repetitionEnd(-1),
       line(), fromTaz(), toTaz(), personNumber(0), containerNumber(0),
       speedFactor(-1),
@@ -129,6 +130,12 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
         dev.writeNonEmptyAttr(SUMO_ATTR_ARRIVALSPEED, getArrivalSpeed());
     } else if (oc.exists("arrivalspeed") && oc.isSet("arrivalspeed")) {
         dev.writeNonEmptyAttr(SUMO_ATTR_ARRIVALSPEED, oc.getString("arrivalspeed"));
+    }
+    //  arrivalEdge
+    if (wasSet(VEHPARS_ARRIVALEDGE_SET) && !defaultOptionOverrides(oc, "arrivaledge") && arrivalEdge >= 0) {
+        dev.writeNonEmptyAttr(SUMO_ATTR_ARRIVALEDGE, getArrivalEdge());
+    } else if (oc.exists("arrivaledge") && oc.isSet("arrivaledge")) {
+        dev.writeNonEmptyAttr(SUMO_ATTR_ARRIVALEDGE, oc.getString("arrivaledge"));
     }
     // color
     if (wasSet(VEHPARS_COLOR_SET)) {
@@ -421,13 +428,13 @@ SUMOVehicleParameter::parseDepartSpeed(const std::string& val, const std::string
 
 
 bool
-SUMOVehicleParameter::parseDepartEdge(const std::string& val, const std::string& element, const std::string& id,
-                                      int& edgeIndex, DepartEdgeDefinition& ded, std::string& error) {
+SUMOVehicleParameter::parseRouteIndex(const std::string& val, const std::string& element, const std::string& id,
+                                      const SumoXMLAttr attr, int& edgeIndex, RouteIndexDefinition& rid, std::string& error) {
     bool ok = true;
     edgeIndex = -1;
-    ded = DepartEdgeDefinition::GIVEN;
+    rid = RouteIndexDefinition::GIVEN;
     if (val == "random") {
-        ded = DepartEdgeDefinition::RANDOM;
+        rid = RouteIndexDefinition::RANDOM;
     } else {
         try {
             edgeIndex = StringUtils::toInt(val);
@@ -440,9 +447,9 @@ SUMOVehicleParameter::parseDepartEdge(const std::string& val, const std::string&
     }
     if (!ok) {
         if (id.empty()) {
-            error = "Invalid departEdge definition for " + element + ". Must be one of (\"random\", \"free\", or an int>=0)";
+            error = "Invalid " + toString(attr) + " definition for " + element + ". Must be one of (\"random\", \"free\", or an int>=0)";
         } else {
-            error = "Invalid departEdge definition for " + element + " '" + id + "';\n must be one of (\"random\", \"free\", or an int>=0)";
+            error = "Invalid " + toString(attr) + " definition for " + element + " '" + id + "';\n must be one of (\"random\", \"free\", or an int>=0)";
         }
     }
     return ok;
@@ -794,18 +801,37 @@ std::string
 SUMOVehicleParameter::getDepartEdge() const {
     std::string val;
     switch (departEdgeProcedure) {
-        case DepartEdgeDefinition::GIVEN:
+        case RouteIndexDefinition::GIVEN:
             val = toString(departEdge);
             break;
-        case DepartEdgeDefinition::RANDOM:
+        case RouteIndexDefinition::RANDOM:
             val = "random";
             break;
-        case DepartEdgeDefinition::DEFAULT:
+        case RouteIndexDefinition::DEFAULT:
         default:
             break;
     }
     return val;
 }
+
+std::string
+SUMOVehicleParameter::getArrivalEdge() const {
+    std::string val;
+    switch (arrivalEdgeProcedure) {
+        case RouteIndexDefinition::GIVEN:
+            val = toString(arrivalEdge);
+            break;
+        case RouteIndexDefinition::RANDOM:
+            val = "random";
+            break;
+        case RouteIndexDefinition::DEFAULT:
+        default:
+            break;
+    }
+    return val;
+}
+
+
 
 
 std::string

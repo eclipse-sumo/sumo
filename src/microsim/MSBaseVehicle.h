@@ -777,7 +777,7 @@ public:
 
     /** @brief (Re-)Calculates the arrival position and lane from the vehicle parameters
      */
-    void calculateArrivalParams();
+    void calculateArrivalParams(const MSEdge* arrivalEdge = nullptr);
 
 protected:
     /// @brief This vehicle's parameter.

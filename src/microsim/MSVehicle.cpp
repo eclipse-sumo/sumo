@@ -1022,7 +1022,7 @@ MSVehicle::hasValidRouteStart(std::string& msg) {
 
 bool
 MSVehicle::hasArrived() const {
-    return (myCurrEdge == myRoute->end() - 1
+    return ((myCurrEdge == myRoute->end() - 1 || (myParameter->arrivalEdge >= 0 && getRoutePosition() >= myParameter->arrivalEdge))
             && (myStops.empty() || myStops.front().edge != myCurrEdge)
             && (myLaneChangeModel->isOpposite() ? myLane->getLength() - myState.myPos : myState.myPos) > myArrivalPos - POSITION_EPS
             && !isRemoteControlled());
@@ -2239,7 +2239,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
 
         //  check whether the vehicle is on its final edge
-        if (myCurrEdge + view + 1 == myRoute->end()) {
+        if (myCurrEdge + view + 1 == myRoute->end()
+                || (myParameter->arrivalEdge >= 0 && getRoutePosition() + view == myParameter->arrivalEdge)) {
             const double arrivalSpeed = (myParameter->arrivalSpeedProcedure == ArrivalSpeedDefinition::GIVEN ?
                                          myParameter->arrivalSpeed : laneMaxV);
             // subtract the arrival speed from the remaining distance so we get one additional driving step with arrival speed

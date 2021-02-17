@@ -66,6 +66,7 @@ const int VEHPARS_ARRIVALPOSLAT_SET = 2 << 21;
 const int VEHPARS_VIA_SET = 2 << 22;
 const int VEHPARS_SPEEDFACTOR_SET = 2 << 23;
 const int VEHPARS_DEPARTEDGE_SET = 2 << 24;
+const int VEHPARS_ARRIVALEDGE_SET = 2 << 25;
 
 const int STOP_INDEX_END = -1;
 const int STOP_INDEX_FIT = -2;
@@ -205,10 +206,10 @@ enum class DepartSpeedDefinition {
 
 
 /**
- * @enum DepartEdgeDefinition
- * @brief Possible ways to choose the departure edge
+ * @enum RouteIndexDefinition
+ * @brief Possible ways to choose the departure and arrival edge
  */
-enum class DepartEdgeDefinition {
+enum class RouteIndexDefinition {
     /// @brief No information given; use default
     DEFAULT,
     /// @brief The edge index is given
@@ -516,7 +517,7 @@ public:
     static bool parseDepartSpeed(const std::string& val, const std::string& element, const std::string& id,
                                  double& speed, DepartSpeedDefinition& dsd, std::string& error);
 
-    /** @brief Validates a given departEdge value
+    /** @brief Validates a given departEdge or arrivalEdge value
      * @param[in] val The departEdge value to parse
      * @param[in] element The name of the type of the parsed element, for building the error message
      * @param[in] id The id of the parsed element, for building the error message
@@ -525,8 +526,9 @@ public:
      * @param[out] error Error message, if an error occures
      * @return Whether the given value is a valid departEdge definition
      */
-    static bool parseDepartEdge(const std::string& val, const std::string& element, const std::string& id,
-                                int& edgeIndex, DepartEdgeDefinition& ded, std::string& error);
+    static bool parseRouteIndex(const std::string& val, const std::string& element, const std::string& id,
+                                const SumoXMLAttr attr,
+                                int& edgeIndex, RouteIndexDefinition& rid, std::string& error);
 
     /** @brief Validates a given arrivalLane value
      * @param[in] val The arrivalLane value to parse
@@ -651,7 +653,7 @@ public:
     int departEdge;
 
     /// @brief Information how the vehicle's initial edge shall be chosen
-    DepartEdgeDefinition departEdgeProcedure;
+    RouteIndexDefinition departEdgeProcedure;
 
     /// @}
 
@@ -680,6 +682,12 @@ public:
 
     /// @brief Information how the vehicle's end speed shall be chosen
     ArrivalSpeedDefinition arrivalSpeedProcedure;
+
+    /// @brief (optional) The final edge within the route of the vehicle
+    int arrivalEdge;
+
+    /// @brief Information how the vehicle's final edge shall be chosen
+    RouteIndexDefinition arrivalEdgeProcedure;
 
     /// @}
 
@@ -759,4 +767,8 @@ protected:
 
     /// @brief obtain arrival speed parameter in string format
     std::string getArrivalSpeed() const;
+
+    /// @brief obtain arrival edge parameter in string format
+    std::string getArrivalEdge() const;
+
 };

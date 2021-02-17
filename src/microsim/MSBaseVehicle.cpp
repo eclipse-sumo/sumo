@@ -125,20 +125,32 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     if ((*myRoute->begin())->isTazConnector() || myRoute->getLastEdge()->isTazConnector()) {
         pars->parametersSet |= VEHPARS_FORCE_REROUTE;
     }
-    if (!pars->wasSet(VEHPARS_FORCE_REROUTE)) {
-        calculateArrivalParams();
-    }
     myRoute->addReference();
-    if ((pars->parametersSet & VEHPARS_FORCE_REROUTE) == 0 && pars->departEdgeProcedure != DepartEdgeDefinition::DEFAULT) {
-        const int routeEdges = (int)myRoute->getEdges().size();
-        if (pars->departEdgeProcedure == DepartEdgeDefinition::RANDOM) {
-            // write specific edge in vehroute output for reproducibility
-            pars->departEdge = RandHelper::rand(0, routeEdges);
-            pars->departEdgeProcedure = DepartEdgeDefinition::GIVEN;
+    if ((pars->parametersSet & VEHPARS_FORCE_REROUTE) == 0) {
+        if (pars->departEdgeProcedure != RouteIndexDefinition::DEFAULT) {
+            const int routeEdges = (int)myRoute->getEdges().size();
+            if (pars->departEdgeProcedure == RouteIndexDefinition::RANDOM) {
+                // write specific edge in vehroute output for reproducibility
+                pars->departEdge = RandHelper::rand(0, routeEdges);
+                pars->departEdgeProcedure = RouteIndexDefinition::GIVEN;
+            }
+            assert(pars->departEdge >= 0);
+            assert(pars->departEdge < routeEdges);
+            myCurrEdge += pars->departEdge;
         }
-        assert(pars->departEdge >= 0);
-        assert(pars->departEdge < routeEdges);
-        myCurrEdge += pars->departEdge;
+        if (pars->arrivalEdgeProcedure == RouteIndexDefinition::RANDOM) {
+            const int routeEdges = (int)myRoute->getEdges().size();
+            const int begin = myCurrEdge - myRoute->begin();
+            // write specific edge in vehroute output for reproducibility
+            pars->arrivalEdge = RandHelper::rand(begin, routeEdges);
+            pars->arrivalEdgeProcedure = RouteIndexDefinition::GIVEN;
+            assert(pars->arrivalEdge >= begin);
+            assert(pars->arrivalEdge < routeEdges);
+        }
+    }
+    if (!pars->wasSet(VEHPARS_FORCE_REROUTE)) {
+        const MSEdge* arrivalEdge = pars->arrivalEdge >= 0 ? myRoute->getEdges()[pars->arrivalEdge] : myRoute->getLastEdge();
+        calculateArrivalParams(arrivalEdge);
     }
 }
 
@@ -689,11 +701,16 @@ MSBaseVehicle::activateReminders(const MSMoveReminder::Notification reason, cons
 
 
 void
-MSBaseVehicle::calculateArrivalParams() {
+MSBaseVehicle::calculateArrivalParams(const MSEdge* arrivalEdge) {
     if (myRoute->getLastEdge()->isTazConnector()) {
         return;
     }
-    const std::vector<MSLane*>& lanes = myRoute->getLastEdge()->getLanes();
+    if (arrivalEdge == nullptr) {
+        arrivalEdge = myRoute->getLastEdge();
+        // ingnore arrivalEdge parameter after rerouting
+        const_cast<SUMOVehicleParameter*>(myParameter)->arrivalEdge = -1;
+    }
+    const std::vector<MSLane*>& lanes = arrivalEdge->getLanes();
     const double lastLaneLength = lanes[0]->getLength();
     switch (myParameter->arrivalPosProcedure) {
         case ArrivalPosDefinition::GIVEN:
@@ -718,7 +735,7 @@ MSBaseVehicle::calculateArrivalParams() {
     }
     if (myParameter->arrivalLaneProcedure == ArrivalLaneDefinition::GIVEN) {
         if (myParameter->arrivalLane >= (int)lanes.size() || !lanes[myParameter->arrivalLane]->allowsVehicleClass(myType->getVehicleClass())) {
-            WRITE_WARNING("Vehicle '" + getID() + "' will not be able to arrive at the given lane '" + myRoute->getLastEdge()->getID() + "_" + toString(myParameter->arrivalLane) + "'!");
+            WRITE_WARNING("Vehicle '" + getID() + "' will not be able to arrive at the given lane '" + arrivalEdge->getID() + "_" + toString(myParameter->arrivalLane) + "'!");
         }
         myArrivalLane = MIN2(myParameter->arrivalLane, (int)(lanes.size() - 1));
     } else if (myParameter->arrivalLaneProcedure == ArrivalLaneDefinition::FIRST_ALLOWED) {
@@ -730,7 +747,7 @@ MSBaseVehicle::calculateArrivalParams() {
             }
         }
         if (myArrivalLane == -1) {
-            WRITE_WARNING("Vehicle '" + getID() + "' has no usable arrivalLane on edge '" + myRoute->getLastEdge()->getID() + "'.");
+            WRITE_WARNING("Vehicle '" + getID() + "' has no usable arrivalLane on edge '" + arrivalEdge->getID() + "'.");
             myArrivalLane = 0;
         }
     } else if (myParameter->arrivalLaneProcedure == ArrivalLaneDefinition::RANDOM) {
@@ -742,7 +759,7 @@ MSBaseVehicle::calculateArrivalParams() {
             }
         }
         if (usable.empty()) {
-            WRITE_WARNING("Vehicle '" + getID() + "' has no usable arrivalLane on edge '" + myRoute->getLastEdge()->getID() + "'.");
+            WRITE_WARNING("Vehicle '" + getID() + "' has no usable arrivalLane on edge '" + arrivalEdge->getID() + "'.");
             myArrivalLane = 0;
         } else {
             myArrivalLane = usable[RandHelper::rand(0, (int)usable.size())]->getIndex();;
