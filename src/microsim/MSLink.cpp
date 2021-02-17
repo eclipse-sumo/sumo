@@ -1413,7 +1413,8 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         throw ProcessError("Zipper junctions with more than two conflicting lanes are not supported (at junction '"
                            + myJunction->getID() + "')");
     }
-    if (dist > myFoeVisibilityDistance) {
+    const double brakeGap = ego->getCarFollowModel().brakeGap(ego->getSpeed(), ego->getCarFollowModel().getMaxDecel(), 0);
+    if (dist > MAX2(myFoeVisibilityDistance, brakeGap)) {
 #ifdef DEBUG_ZIPPER
         const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
         if (DEBUG_COND_ZIPPER) DEBUGOUT(SIMTIME << " getZipperSpeed ego=" << ego->getID()
@@ -1425,6 +1426,7 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
     if (DEBUG_COND_ZIPPER) DEBUGOUT(SIMTIME << " getZipperSpeed ego=" << ego->getID()
                                         << " egoAT=" << arrivalTime
                                         << " dist=" << dist
+                                        << " brakeGap=" << brakeGap
                                         << " vSafe=" << vSafe
                                         << " numFoes=" << collectFoes->size()
                                         << "\n")
