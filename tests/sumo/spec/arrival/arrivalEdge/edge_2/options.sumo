@@ -1,0 +1,2 @@
+--fcd-output fcd.xml
+--device.fcd.period 10

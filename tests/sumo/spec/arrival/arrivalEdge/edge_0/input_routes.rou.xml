@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route edges="beg beg2 merge end end2 end3" color="yellow" id="route_0"/>
+    <vehicle id="v0" depart="0" route="route_0" arrivalEdge="0"/>
+</routes>
