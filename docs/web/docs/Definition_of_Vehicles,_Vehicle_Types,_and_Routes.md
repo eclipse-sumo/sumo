@@ -321,7 +321,7 @@ Determines the edge along the vehicles route where the vehicle enters the networ
     
 ### arrivalLane
 
-Determines the speed at which the vehicle should end its route;
+Determines the lane on which the vehicle should end it's route
 
 - "`current`": the vehicle will not change
 it's lane when nearing arrival. It will use whatever lane is more
