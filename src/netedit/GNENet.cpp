@@ -3313,6 +3313,8 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         }
         // disable update geometry before clear undo list
         myUpdateGeometryEnabled = false;
+        // destropy Popup
+        myViewNet->destroyPopup();
         // clear undo list (This will be remove additionals and shapes)
         myViewNet->getUndoList()->p_clear();
         // clear all elements (it will also removed from grid)
