@@ -7,6 +7,12 @@ symmetric_approach
 variations
 
 # input longer flow to test different configurations
+variations_highspeed
+
+# input longer flow to test different configurations
+variations_dense
+
+# input longer flow to test different configurations
 variations_subsecond
 variations_subsecond_IDM
 
