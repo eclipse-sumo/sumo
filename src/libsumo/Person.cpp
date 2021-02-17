@@ -176,6 +176,7 @@ Person::filterReservation(int stateFilter, const Reservation* res, std::vector<l
     for (MSTransportable* p : res->persons) {
         personIDs.push_back(p->getID());
     }
+    std::sort(personIDs.begin(), personIDs.end());
     reservations.push_back(TraCIReservation(res->id,
                 personIDs,
                 res->group,
