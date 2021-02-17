@@ -94,15 +94,13 @@ Person::getLanePosition(const std::string& personID) {
 std::vector<libsumo::TraCIReservation>
 Person::getTaxiReservations(int onlyNew) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(onlyNew);
-    tcpip::Storage ret = Dom::get(libsumo::VAR_TAXI_RESERVATIONS, "", &content);
+    StoHelp::writeTypedInt(content, onlyNew);
+    tcpip::Storage& ret = Dom::get(libsumo::VAR_TAXI_RESERVATIONS, "", &content);
     std::vector<libsumo::TraCIReservation> result;
-    ret.readUnsignedByte(); // compound type
     int numReservations = ret.readInt();
     while (numReservations-- > 0) {
         libsumo::TraCIReservation r;
-        StoHelp::readCompound(ret, 9);
+        StoHelp::readCompound(ret, 10);
         r.id = StoHelp::readTypedString(ret);
         r.persons = StoHelp::readTypedStringList(ret);
         r.group = StoHelp::readTypedString(ret);
@@ -112,6 +110,7 @@ Person::getTaxiReservations(int onlyNew) {
         r.arrivalPos = StoHelp::readTypedDouble(ret);
         r.depart = StoHelp::readTypedDouble(ret);
         r.reservationTime = StoHelp::readTypedDouble(ret);
+        r.state = StoHelp::readTypedInt(ret);
         result.emplace_back(r);
     }
     return result;

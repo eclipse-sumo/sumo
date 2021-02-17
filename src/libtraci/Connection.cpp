@@ -289,7 +289,6 @@ Connection::check_resultState(tcpip::Storage& inMsg, int command, bool ignoreCom
 
 int
 Connection::check_commandGetResult(tcpip::Storage& inMsg, int command, int expectedType, bool ignoreCommandId) const {
-    inMsg.position(); // respStart
     int length = inMsg.readUnsignedByte();
     if (length == 0) {
         length = inMsg.readInt();
