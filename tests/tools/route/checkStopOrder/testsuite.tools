@@ -1,3 +1,6 @@
 # Copy of basic
 basic
 stopTable
+
+# detect inconsistence in a single vehicle schedule
+1veh_inconsistent
