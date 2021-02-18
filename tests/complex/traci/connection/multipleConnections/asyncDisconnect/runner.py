@@ -23,7 +23,6 @@ from __future__ import print_function
 import os
 import subprocess
 import sys
-import time
 import math
 from multiprocessing import Process, freeze_support
 

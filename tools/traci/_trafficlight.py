@@ -125,6 +125,7 @@ def _readLinks(result):
         signals.append(controlledLinks)
     return signals
 
+
 def _readConstraints(result):
     result.readLength()
     num = result.readInt()  # Length
@@ -253,7 +254,7 @@ class TrafficLightDomain(Domain):
         """
         return self._getUniversal(tc.TL_PRIORITY_VEHICLES, tlsID, "i", linkIndex)
 
-    def getConstraints(self, tlsID, tripId = ""):
+    def getConstraints(self, tlsID, tripId=""):
         """getConstraints(string, string) -> list(Constraint)
         Returns the list of rail signal constraints for the given rail signal.
         If tripId is not "", only constraints with the given tripId are

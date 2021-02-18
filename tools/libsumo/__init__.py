@@ -79,7 +79,6 @@ TraCIPhase.__repr__ = _trafficlight.Phase.__repr__
 TraCISignalConstraint.__repr__ = _trafficlight.Constraint.__repr__
 
 
-
 exceptions.TraCIException = TraCIException
 simulation.Stage = TraCIStage
 vehicle.StopData = TraCINextStopData

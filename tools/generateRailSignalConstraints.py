@@ -148,16 +148,17 @@ def get_options(args=None):
 
     return options
 
+
 class Conflict:
     def __init__(self, tripID, otherSignal, otherTripID, limit, line, otherLine, vehID, otherVehID, conflictTime):
-        self.tripID      = tripID
+        self.tripID = tripID
         self.otherSignal = otherSignal
         self.otherTripID = otherTripID
-        self.limit       = limit
-        self.line        = line
-        self.otherLine   = otherLine
-        self.vehID       = vehID
-        self.otherVehID  = otherVehID
+        self.limit = limit
+        self.line = line
+        self.otherLine = otherLine
+        self.vehID = vehID
+        self.otherVehID = otherVehID
         self.conflictTime = conflictTime
 
 
@@ -362,7 +363,7 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
     numIgnoredConflicts = 0
     # signal -> [(tripID, otherSignal, otherTripID, limit, line, otherLine, vehID, otherVehID), ...]
     conflicts = defaultdict(list)
-    ignoredVehicles = dict() # tripId -> earliestConflictTime
+    ignoredVehicles = dict()  # tripId -> earliestConflictTime
     for switch, stopRoutes2 in switchRoutes.items():
         numSwitchConflicts = 0
         numIgnoredSwitchConflicts = 0
@@ -450,8 +451,9 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
                             pStop, nStop))
                     limit += countPassingTrainsToOtherStops(options, pSignal, busStop, pTimeAtSignal, end, signalTimes)
                     conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, pStop.prevTripId, limit,
-                                               # attributes for adding comments
-                                               nStop.prevLine, pStop.prevLine, nStop.vehID, pStop.vehID, nArrival))
+                                                       # attributes for adding comments
+                                                       nStop.prevLine, pStop.prevLine,
+                                                       nStop.vehID, pStop.vehID, nArrival))
         if options.verbose:
             print("Found %s conflicts at switch %s" % (numSwitchConflicts, switch))
             if numIgnoredSwitchConflicts > 0:
@@ -577,9 +579,9 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                         # predecessor tripId after stop is needed
                         pTripId = pStop.getAttributeSecure("tripId", pStop.vehID)
                         conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, pTripId, limit,
-                                                   # attributes for adding comments
-                                                   nStop.prevLine,
-                                                   pStop.prevLine, nStop.vehID, pStop.vehID, nStop.arrival))
+                                                           # attributes for adding comments
+                                                           nStop.prevLine,
+                                                           pStop.prevLine, nStop.vehID, pStop.vehID, nStop.arrival))
                         numConflicts += 1
                         if busStop == options.debugStop:
                             print("   found insertionConflict pSignal=%s nSignal=%s pTripId=%s" % (

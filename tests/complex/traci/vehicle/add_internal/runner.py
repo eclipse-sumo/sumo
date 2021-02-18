@@ -35,7 +35,6 @@ traci.start([sumoBinary,
              ] + sys.argv[1:])
 
 
-
 traci.route.add("r_startInternal", [":C_11", "CN"])
 traci.vehicle.add("v_startInternal", "r_startInternal")
 

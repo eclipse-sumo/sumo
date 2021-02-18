@@ -104,8 +104,8 @@ def splitNet(options):
             elif mode in ("tram", "bus"):
                 edgeTypes = ["railway.tram"] if mode == "tram" else []
                 for hwType in ("bus_guideway", "living_street", "motorway", "motorway_link", "primary", "primary_link",
-                            "residential", "secondary", "secondary_link", "tertiary", "tertiary_link",
-                            "trunk", "trunk_link", "unclassified", "unsurfaced"):
+                               "residential", "secondary", "secondary_link", "tertiary", "tertiary_link",
+                               "trunk", "trunk_link", "unclassified", "unsurfaced"):
                     if mode == "tram":
                         edgeTypes.append("highway.%s|railway.tram" % hwType)
                     else:

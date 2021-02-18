@@ -106,7 +106,8 @@ def calculateDoors(polygons, net):
         isLane = net.hasEdge(p.attributes['sumo-object-id'][:-2])
         isNode = net.hasNode(p.attributes['sumo-object-id'])
         if not isLane and not isNode:
-            print("ERROR: objID \'%s\' not found as lane or node in network, aborting..." % p.attributes['sumo-object-id'])
+            print("ERROR: objID \'%s\' not found as lane or node in network, aborting..." %
+                  p.attributes['sumo-object-id'])
             sys.exit(1)
         doorPositions = []
         doorIDs = []
@@ -148,11 +149,11 @@ def calculateDoors(polygons, net):
         assert (len(doorPositions) % 2 == 0), "ERROR: len(doorPositions) is not even (%d), aborting..." % len(doorPositions)  # noqa
         for i in range(0, len(doorPositions), 2):
             door = sumolib.shapes.polygon.Polygon(
-                    id=doorIDs[int(i / 2)],
-                    type=JPS_DOOR_TYPE_NAME,
-                    color=JPS_DOOR_COLOR,
-                    layer=JPS_DOOR_LAYER,
-                    shape=[doorPositions[i], doorPositions[i + 1]])
+                id=doorIDs[int(i / 2)],
+                type=JPS_DOOR_TYPE_NAME,
+                color=JPS_DOOR_COLOR,
+                layer=JPS_DOOR_LAYER,
+                shape=[doorPositions[i], doorPositions[i + 1]])
             door.attributes['from-object-id'] = door.id.split(JPS_DOOR_ID_DELIMITER)[0]
             door.attributes['to-object-id'] = door.id.split(JPS_DOOR_ID_DELIMITER)[1]
             door.attributes['transition-id'] = myLastTransitionId

@@ -39,7 +39,8 @@ def add_options():
     argParser.add_argument("--date", help="define the day to import, format: 'YYYYMMDD'")
     argParser.add_argument("--fcd", help="directory to write / read the generated FCD files to / from")
     argParser.add_argument("--gpsdat", help="directory to write / read the generated gpsdat files to / from")
-    argParser.add_argument("--modes", help="comma separated list of modes to import (tram,subway,rail,bus,ship,light_rail,rail_electric)")
+    argParser.add_argument(
+        "--modes", help="comma separated list of modes to import (tram,subway,rail,bus,ship,light_rail,rail_electric)")
     argParser.add_argument("--vtype-output", help="file to write the generated vehicle types to")
     argParser.add_argument("--verbose", action="store_true", default=False, help="tell me what you are doing")
     return argParser
@@ -187,7 +188,7 @@ def main(options):
                     fcdFile[mode].write(buf)
                     timeIndex = arrivalSec
                 tripFile[mode].write('    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s_%s"/>\n' %
-                                    (trip_id, seqs[s], mode, firstDep, d.route_short_name, seqs[s]))
+                                     (trip_id, seqs[s], mode, firstDep, d.route_short_name, seqs[s]))
                 seenModes.add(mode)
     if options.gpsdat:
         if not os.path.exists(options.gpsdat):
