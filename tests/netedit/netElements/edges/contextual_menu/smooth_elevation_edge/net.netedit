@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12.12.2018 13:16:33 by Eclipse SUMO netedit Version v1_0_0+1333-2fb8438a8e
+<!-- generated on 18.02.2021 11:51:10 by Eclipse SUMO netedit Version v1_8_0+1259-7e7e8eca35
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb114942.22012\netedit.gui\netElements\edges\contextual_menu\smooth_elevation_edge\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb114942.22012\netedit.gui\netElements\edges\contextual_menu\smooth_elevation_edge\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -30,23 +31,28 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\shapes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb114942.22012\netedit.gui\netElements\edges\contextual_menu\smooth_elevation_edge\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb114942.22012\netedit.gui\netElements\edges\contextual_menu\smooth_elevation_edge\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb114942.22012\netedit.gui\netElements\edges\contextual_menu\smooth_elevation_edge\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb114942.22012\netedit.gui\netElements\edges\contextual_menu\smooth_elevation_edge\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb114942.22012\netedit.gui\netElements\edges\contextual_menu\smooth_elevation_edge\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb114942.22012\netedit.gui\netElements\edges\contextual_menu\smooth_elevation_edge\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb114942.22012\netedit.gui\netElements\edges\contextual_menu\smooth_elevation_edge\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb114942.22012\netedit.gui\netElements\edges\contextual_menu\smooth_elevation_edge\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb114942.22012\netedit.gui\netElements\edges\contextual_menu\smooth_elevation_edge\log.txt"/>
     </report>
 
 </configuration>
@@ -66,10 +72,10 @@
         <lane id=":gneJ0_2_0" index="0" speed="3.65" length="2.08" shape="3.20,1.60 2.00,0.80 1.71,0.23"/>
     </edge>
     <edge id=":gneJ0_3" function="internal">
-        <lane id=":gneJ0_3_0" index="0" speed="3.65" length="2.59" shape="1.71,0.23 1.60,-0.00 2.00,-0.80 3.20,-1.60"/>
+        <lane id=":gneJ0_3_0" index="0" speed="3.65" length="2.59" shape="1.71,0.23 1.60,0.00 2.00,-0.80 3.20,-1.60"/>
     </edge>
     <edge id=":gneJ0_w0" function="walkingarea">
-        <lane id=":gneJ0_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.26" width="3.20" shape="-3.20,3.20 0.00,3.20 -0.00,3.20 3.20,3.20 3.20,3.20 3.20,0.00 3.20,0.00 3.20,-3.20 -3.02,1.24 -2.49,-0.36 -1.60,-1.60 -0.36,-2.49 1.24,-3.02"/>
+        <lane id=":gneJ0_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.26" width="3.20" shape="-3.20,3.20 0.00,3.20 0.00,3.20 3.20,3.20 3.20,3.20 3.20,0.00 3.20,0.00 3.20,-3.20 -3.02,1.24 -2.49,-0.36 -1.60,-1.60 -0.36,-2.49 1.24,-3.02"/>
     </edge>
     <edge id=":gneJ1_0" function="internal">
         <lane id=":gneJ1_0_0" index="0" speed="3.90" length="2.58" shape="48.40,3.20 48.30,2.50 48.00,2.00 47.50,1.70 46.80,1.60"/>
@@ -88,9 +94,7 @@
     </edge>
     <edge id=":gneJ2_0" function="internal">
         <lane id=":gneJ2_0_0" index="0" speed="6.47" length="4.75" shape="1.60,9.55 1.95,12.00 3.01,13.74 3.21,13.86"/>
-    </edge>
-    <edge id=":gneJ2_1" function="internal">
-        <lane id=":gneJ2_1_0" index="0" speed="7.29" length="7.12" shape="1.60,9.55 1.95,13.40 3.02,16.14 3.25,16.35"/>
+        <lane id=":gneJ2_0_1" index="1" speed="7.29" length="7.12" shape="1.60,9.55 1.95,13.40 3.02,16.14 3.25,16.35"/>
     </edge>
     <edge id=":gneJ2_2" function="internal">
         <lane id=":gneJ2_2_0" index="0" speed="6.47" length="4.29" shape="3.21,13.86 4.76,14.77 7.23,15.08"/>
@@ -105,7 +109,7 @@
         <lane id=":gneJ2_c1_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="-3.20,11.55 3.20,11.55"/>
     </edge>
     <edge id=":gneJ2_w0" function="walkingarea">
-        <lane id=":gneJ2_w0_0" index="0" allow="pedestrian" speed="1.00" length="7.17" width="3.20" shape="0.00,9.55 -3.20,9.55 7.30,19.88 7.25,16.68 7.25,16.68 7.20,13.48 3.20,9.55 -0.00,9.55"/>
+        <lane id=":gneJ2_w0_0" index="0" allow="pedestrian" speed="1.00" length="7.17" width="3.20" shape="0.00,9.55 -3.20,9.55 7.30,19.88 7.25,16.68 7.25,16.68 7.20,13.48 3.20,9.55 0.00,9.55"/>
     </edge>
     <edge id=":gneJ2_w1" function="walkingarea">
         <lane id=":gneJ2_w1_0" index="0" allow="pedestrian" speed="1.00" length="11.93" width="4.00" shape="3.30,19.95 7.30,19.88 -3.20,9.55 -3.20,13.55"/>
@@ -183,7 +187,7 @@
     <junction id=":gneJ0_3_0" type="internal" x="1.71" y="0.23" incLanes=":gneJ0_2_0 gneE8_0" intLanes=":gneJ0_0_0"/>
     <junction id=":gneJ1_3_0" type="internal" x="48.26" y="0.29" incLanes=":gneJ1_2_0 gneE4_0" intLanes=":gneJ1_0_0"/>
     <junction id=":gneJ2_2_0" type="internal" x="3.21" y="13.86" incLanes=":gneJ2_0_0" intLanes=":gneJ2_c0_0 :gneJ2_c1_0"/>
-    <junction id=":gneJ2_3_0" type="internal" x="3.25" y="16.35" incLanes=":gneJ2_1_0" intLanes=":gneJ2_c0_0 :gneJ2_c1_0"/>
+    <junction id=":gneJ2_3_0" type="internal" x="3.25" y="16.35" incLanes=":gneJ2_0_1" intLanes=":gneJ2_c0_0 :gneJ2_c1_0"/>
     <junction id=":gneJ3_1_0" type="internal" x="47.10" y="13.44" incLanes=":gneJ3_0_0" intLanes=":gneJ3_c0_0 :gneJ3_c1_0"/>
 
     <connection from="gneE0" to="gneE5" fromLane="0" toLane="0" via=":gneJ1_1_0" dir="l" state="M"/>
@@ -194,7 +198,7 @@
     <connection from="gneE4" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_0_0" dir="r" state="M"/>
     <connection from="gneE8" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_0_0" dir="l" state="M"/>
     <connection from="gneE9" to="gneE2" fromLane="0" toLane="0" via=":gneJ2_0_0" dir="r" state="m"/>
-    <connection from="gneE9" to="gneE2" fromLane="0" toLane="1" via=":gneJ2_1_0" dir="r" state="m"/>
+    <connection from="gneE9" to="gneE2" fromLane="0" toLane="1" via=":gneJ2_0_1" dir="r" state="m"/>
 
     <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":gneJ0_1" to="gneE9" fromLane="0" toLane="0" dir="r" state="M"/>
@@ -206,7 +210,7 @@
     <connection from=":gneJ1_3" to="gneE1" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":gneJ2_0" to="gneE2" fromLane="0" toLane="0" via=":gneJ2_2_0" dir="r" state="m"/>
     <connection from=":gneJ2_2" to="gneE2" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":gneJ2_1" to="gneE2" fromLane="0" toLane="1" via=":gneJ2_3_0" dir="r" state="m"/>
+    <connection from=":gneJ2_0" to="gneE2" fromLane="1" toLane="1" via=":gneJ2_3_0" dir="r" state="m"/>
     <connection from=":gneJ2_3" to="gneE2" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":gneJ3_0" to="gneE4" fromLane="0" toLane="0" via=":gneJ3_1_0" dir="r" state="m"/>
     <connection from=":gneJ3_1" to="gneE4" fromLane="0" toLane="0" dir="r" state="M"/>

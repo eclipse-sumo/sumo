@@ -1,10 +1,4 @@
 -tp appdata=netedit.gui
-netElements\edges\contextual_menu\set_geometry_point
-netElements\edges\contextual_menu\restore_geometry_point
-netElements\edges\contextual_menu\straigthen_edge
-netElements\edges\contextual_menu\smooth_edge
-netElements\edges\contextual_menu\straighten_elevation_edge
-netElements\edges\contextual_menu\smooth_elevation_edge
 netElements\connections\inspect\parameters
 netElements\connections\inspect_TLS\parameters
 netElements\connections\inspect_selected\parameters

@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.inspectMode()
 
 # smooth edge
-netedit.contextualMenuOperation(referencePosition, 250, 170, 10, 8)
+netedit.contextualMenuOperation(referencePosition, 250, 260, 10, 9)
 
 # recompute
 netedit.rebuildNetwork()

@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.inspectMode()
 
 # straigthen edge
-netedit.contextualMenuOperation(referencePosition, 250, 170, 10, 7)
+netedit.contextualMenuOperation(referencePosition, 250, 260, 10, 8)
 
 # recompute
 netedit.rebuildNetwork()
