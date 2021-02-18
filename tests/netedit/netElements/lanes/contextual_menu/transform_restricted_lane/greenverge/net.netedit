@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 26.04.2019 15:43:25 by Eclipse SUMO netedit Version v1_2_0+0025-6204dba46c
+<!-- generated on 18.02.2021 12:03:46 by Eclipse SUMO netedit Version v1_8_0+1259-7e7e8eca35
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_26Apr121940.3568/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\transform_restricted_lane\greenverge\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_26Apr121940.3568/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\transform_restricted_lane\greenverge\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -26,34 +27,38 @@
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="true"/>
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_26Apr121940.3568/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_26Apr121940.3568/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_26Apr121940.3568/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_26Apr121940.3568/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\routes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\transform_restricted_lane\greenverge\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\transform_restricted_lane\greenverge\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\transform_restricted_lane\greenverge\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\transform_restricted_lane\greenverge\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\transform_restricted_lane\greenverge\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\transform_restricted_lane\greenverge\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_26Apr121940.3568/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\transform_restricted_lane\greenverge\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\transform_restricted_lane\greenverge\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_26Apr121940.3568/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\transform_restricted_lane\greenverge\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.9" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -67,7 +72,7 @@
         <lane id=":gneJ0_2_0" index="0" speed="3.65" length="2.08" shape="3.20,1.60 2.00,0.80 1.71,0.23"/>
     </edge>
     <edge id=":gneJ0_3" function="internal">
-        <lane id=":gneJ0_3_0" index="0" speed="3.65" length="2.59" shape="1.71,0.23 1.60,-0.00 2.00,-0.80 3.20,-1.60"/>
+        <lane id=":gneJ0_3_0" index="0" speed="3.65" length="2.59" shape="1.71,0.23 1.60,0.00 2.00,-0.80 3.20,-1.60"/>
     </edge>
     <edge id=":gneJ0_w0" function="walkingarea">
         <lane id=":gneJ0_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.26" width="3.20" shape="-3.20,3.20 0.00,3.20 0.00,3.20 3.20,3.20 3.20,3.20 3.20,0.00 3.20,0.00 3.20,-3.20 -3.02,1.24 -2.49,-0.36 -1.60,-1.60 -0.36,-2.49 1.24,-3.02"/>

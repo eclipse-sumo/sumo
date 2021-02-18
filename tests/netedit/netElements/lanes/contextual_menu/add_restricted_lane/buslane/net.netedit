@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 16.12.2018 13:57:17 by Eclipse SUMO netedit Version v1_0_1+1100-f932f3b896
+<!-- generated on 18.02.2021 11:57:02 by Eclipse SUMO netedit Version v1_8_0+1259-7e7e8eca35
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/netElements/lanes/contextual_menu/add_restricted_lane/buslane\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\buslane\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/netElements/lanes/contextual_menu/add_restricted_lane/buslane\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\buslane\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -30,23 +31,28 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/netElements/lanes/contextual_menu/add_restricted_lane/buslane\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/netElements/lanes/contextual_menu/add_restricted_lane/buslane\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/netElements/lanes/contextual_menu/add_restricted_lane/buslane\shapes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\buslane\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\buslane\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\buslane\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\buslane\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\buslane\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\buslane\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/netElements/lanes/contextual_menu/add_restricted_lane/buslane\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\buslane\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\buslane\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/netElements/lanes/contextual_menu/add_restricted_lane/buslane\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb115410.13932\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\buslane\log.txt"/>
     </report>
 
 </configuration>
@@ -66,7 +72,7 @@
         <lane id=":gneJ0_2_0" index="0" speed="3.65" length="2.08" shape="3.20,1.60 2.00,0.80 1.71,0.23"/>
     </edge>
     <edge id=":gneJ0_3" function="internal">
-        <lane id=":gneJ0_3_0" index="0" speed="3.65" length="2.59" shape="1.71,0.23 1.60,-0.00 2.00,-0.80 3.20,-1.60"/>
+        <lane id=":gneJ0_3_0" index="0" speed="3.65" length="2.59" shape="1.71,0.23 1.60,0.00 2.00,-0.80 3.20,-1.60"/>
     </edge>
     <edge id=":gneJ0_w0" function="walkingarea">
         <lane id=":gneJ0_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.26" width="3.20" shape="-3.20,3.20 0.00,3.20 -0.00,3.20 3.20,3.20 3.20,3.20 3.20,0.00 3.20,0.00 3.20,-3.20 -3.02,1.24 -2.49,-0.36 -1.60,-1.60 -0.36,-2.49 1.24,-3.02"/>
@@ -91,9 +97,7 @@
     </edge>
     <edge id=":gneJ2_1" function="internal">
         <lane id=":gneJ2_1_0" index="0" allow="bus" speed="6.51" length="4.75" shape="1.60,9.60 1.95,12.05 3.00,13.80 3.20,13.92"/>
-    </edge>
-    <edge id=":gneJ2_2" function="internal">
-        <lane id=":gneJ2_2_0" index="0" speed="7.33" length="7.08" shape="1.60,9.60 1.95,13.45 3.00,16.20 3.20,16.39"/>
+        <lane id=":gneJ2_1_1" index="1" speed="7.33" length="7.08" shape="1.60,9.60 1.95,13.45 3.00,16.20 3.20,16.39"/>
     </edge>
     <edge id=":gneJ2_3" function="internal">
         <lane id=":gneJ2_3_0" index="0" allow="bus" speed="6.51" length="4.28" shape="3.20,13.92 4.75,14.85 7.20,15.20"/>
@@ -177,7 +181,7 @@
     <junction id=":gneJ0_3_0" type="internal" x="1.71" y="0.23" incLanes=":gneJ0_2_0 gneE8_0" intLanes=":gneJ0_0_0"/>
     <junction id=":gneJ1_3_0" type="internal" x="48.26" y="0.29" incLanes=":gneJ1_2_0 gneE4_0" intLanes=":gneJ1_0_0"/>
     <junction id=":gneJ2_3_0" type="internal" x="3.20" y="13.92" incLanes=":gneJ2_1_0" intLanes=":gneJ2_c0_0"/>
-    <junction id=":gneJ2_4_0" type="internal" x="3.20" y="16.39" incLanes=":gneJ2_2_0" intLanes=":gneJ2_c0_0"/>
+    <junction id=":gneJ2_4_0" type="internal" x="3.20" y="16.39" incLanes=":gneJ2_1_1" intLanes=":gneJ2_c0_0"/>
 
     <connection from="-gneE2" to="gneE8" fromLane="0" toLane="0" via=":gneJ2_0_0" dir="l" state="M"/>
     <connection from="gneE0" to="gneE5" fromLane="0" toLane="0" via=":gneJ1_1_0" dir="l" state="M"/>
@@ -189,7 +193,7 @@
     <connection from="gneE5" to="-gneE2" fromLane="0" toLane="0" via=":gneJ3_0_0" dir="l" state="m"/>
     <connection from="gneE8" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_0_0" dir="l" state="M"/>
     <connection from="gneE9" to="gneE2" fromLane="0" toLane="0" via=":gneJ2_1_0" dir="r" state="m"/>
-    <connection from="gneE9" to="gneE2" fromLane="0" toLane="1" via=":gneJ2_2_0" dir="r" state="m"/>
+    <connection from="gneE9" to="gneE2" fromLane="0" toLane="1" via=":gneJ2_1_1" dir="r" state="m"/>
 
     <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":gneJ0_1" to="gneE9" fromLane="0" toLane="0" dir="r" state="M"/>
@@ -202,7 +206,7 @@
     <connection from=":gneJ2_0" to="gneE8" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":gneJ2_1" to="gneE2" fromLane="0" toLane="0" via=":gneJ2_3_0" dir="r" state="m"/>
     <connection from=":gneJ2_3" to="gneE2" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":gneJ2_2" to="gneE2" fromLane="0" toLane="1" via=":gneJ2_4_0" dir="r" state="m"/>
+    <connection from=":gneJ2_1" to="gneE2" fromLane="1" toLane="1" via=":gneJ2_4_0" dir="r" state="m"/>
     <connection from=":gneJ2_4" to="gneE2" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":gneJ3_0" to="-gneE2" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":gneJ3_1" to="gneE4" fromLane="0" toLane="0" dir="r" state="M"/>
