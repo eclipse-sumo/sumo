@@ -140,7 +140,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
         }
         if (pars->arrivalEdgeProcedure == RouteIndexDefinition::RANDOM) {
             const int routeEdges = (int)myRoute->getEdges().size();
-            const int begin = myCurrEdge - myRoute->begin();
+            const int begin = (int)(myCurrEdge - myRoute->begin());
             // write specific edge in vehroute output for reproducibility
             pars->arrivalEdge = RandHelper::rand(begin, routeEdges);
             pars->arrivalEdgeProcedure = RouteIndexDefinition::GIVEN;
