@@ -301,6 +301,10 @@ public:
 
 #ifdef SWIG
 %template(TraCIPhaseVector) std::vector<libsumo::TraCIPhase*>; // *NOPAD*
+#ifdef SWIGJAVA
+// this is just a workaround for a shorter file name, see https://github.com/swig/swig/issues/1089
+%template(ContextSubscriptionResults) std::map<std::string, std::map<std::string, std::map<int, std::shared_ptr<libsumo::TraCIResult> > > >; // *NOPAD*
+#endif
 #endif
 
 

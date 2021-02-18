@@ -307,13 +307,7 @@ if (SUMO_LIBRARIES AND WIN32)
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH}")
     file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${GDAL_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${GL2PS_PATH}/Release/*.dll" "${GL2PS_PATH}/bin/*.dll")  # "Release" used by old versions of SUMOLibraries
     # set SWIG
-    set(SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-3.0.12/swig.exe")
-    # set protobuf
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.?.?")
-    set(Protobuf_PROTOC_EXECUTABLE "${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.?.?/bin/protoc.exe")
-    set(Protobuf_INCLUDE_DIR "${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.?.?/include")
-    set(Protobuf_LIBRARY_DEBUG "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/protobuf-3.?.?/lib/libprotobufd.lib")
-    set(Protobuf_LIBRARY "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/protobuf-3.?.?/lib/libprotobuf.lib")
+    file(GLOB SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-*/swig.exe")
     # set apache maven
     file(GLOB MVN_EXECUTABLE "${SUMO_LIBRARIES}/apache-maven-*/bin/mvn.cmd")
     file(GLOB TEXTTEST_EXECUTABLE "${SUMO_LIBRARIES}/TextTest-*/texttest.exe")
