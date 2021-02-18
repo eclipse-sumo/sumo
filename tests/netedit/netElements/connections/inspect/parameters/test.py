@@ -38,7 +38,7 @@ netedit.changeEditMode('5')
 netedit.leftClick(referencePosition, 228, 164)
 
 # check parameters
-netedit.checkParameters(referencePosition, 13, True)
+netedit.checkParameters(referencePosition, 17, True)
 
 # save network
 netedit.saveNetwork(referencePosition)

@@ -1,10 +1,4 @@
 -tp appdata=netedit.gui
-netElements\connections\inspect\parameters
-netElements\connections\inspect_TLS\parameters
-netElements\connections\inspect_selected\parameters
-netElements\connections\inspect_selected_TLS\parameters
-netElements\lanes\inspect\parameters
-netElements\lanes\inspect_selected\parameters
 additionalElements\busstop\load\parkingLength
 additionalElements\e1detector\lock_unlock
 additionalElements\e1detector\move
@@ -380,13 +374,10 @@ demandElements\flow_embedded\load\probability
 demandElements\flow_embedded\load\number
 demandElements\flow_embedded\load\parameters
 demandElements\flow_embedded\volatileRecomputing
-demandElements\person\create\default_trip\default_trip_fromto
 demandElements\person\create\default_trip\default_trip_busstop
 demandElements\person\create\default_walk\default_walk_edges
-demandElements\person\create\default_walk\default_walk_fromto
 demandElements\person\create\default_walk\default_walk_busstop
 demandElements\person\create\default_walk\default_walk_route
-demandElements\person\create\default_ride\default_ride_fromto
 demandElements\person\create\default_ride\default_ride_busstop
 demandElements\person\create\default_stop\default_stop_lane
 demandElements\person\create\default_stop\default_stop_busstop
@@ -394,13 +385,10 @@ demandElements\person\create\color
 demandElements\person\create\departPos
 demandElements\person\create\depart
 demandElements\person\delete
-demandElements\personFlow\create\default_trip\default_trip_fromto
 demandElements\personFlow\create\default_trip\default_trip_busstop
 demandElements\personFlow\create\default_walk\default_walk_edges
-demandElements\personFlow\create\default_walk\default_walk_fromto
 demandElements\personFlow\create\default_walk\default_walk_busstop
 demandElements\personFlow\create\default_walk\default_walk_route
-demandElements\personFlow\create\default_ride\default_ride_fromto
 demandElements\personFlow\create\default_ride\default_ride_busstop
 demandElements\personFlow\create\default_stop\default_stop_lane
 demandElements\personFlow\create\default_stop\default_stop_busstop

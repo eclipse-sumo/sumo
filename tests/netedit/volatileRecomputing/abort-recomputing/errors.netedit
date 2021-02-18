@@ -72,7 +72,6 @@ Debug: Created connection 'fromgneE7_0togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
-Debug: Additionals saved
 Debug: Deleting unreferenced detExit 'e3Detector_0'
 Debug: Deleting unreferenced detEntry 'e3Detector_0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
