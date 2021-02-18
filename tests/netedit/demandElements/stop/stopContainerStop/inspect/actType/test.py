@@ -50,13 +50,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 175)
 
 # change value
-netedit.modifyAttribute(7, "dummy", True)
+netedit.modifyAttribute(7, "dummy", False)
 
 # change value
-netedit.modifyAttribute(7, "", True)
+netedit.modifyAttribute(7, "", False)
 
 # change value
-netedit.modifyAttribute(7, "singing", True)
+netedit.modifyAttribute(7, "singing", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

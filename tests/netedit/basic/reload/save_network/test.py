@@ -75,5 +75,8 @@ netedit.saveRoutes(referencePosition)
 # reload netedit saving all
 netedit.reload(neteditProcess, True, True, False, False, False, False)
 
+# click over view again
+netedit.leftClick(referencePosition, 0, 0)
+
 # quit netedit
 netedit.quit(neteditProcess, False, False, False, False, False, False)

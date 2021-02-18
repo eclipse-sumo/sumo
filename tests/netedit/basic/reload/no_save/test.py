@@ -69,5 +69,8 @@ netedit.typeEnter()
 # reload netedit without saving
 netedit.reload(neteditProcess, True, False, True, False, True, False)
 
+# click over view again
+netedit.leftClick(referencePosition, 0, 0)
+
 # quit netedit without saving
-netedit.quit(neteditProcess, False, False, False, False, False, False)
+netedit.quit(neteditProcess)

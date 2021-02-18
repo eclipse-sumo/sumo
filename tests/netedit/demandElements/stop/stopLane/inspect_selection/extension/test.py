@@ -44,19 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 244, 220)
 
 # change value
-netedit.modifyAttribute(6, "dummyValue", True)
+netedit.modifyAttribute(6, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(6, "", True)
+netedit.modifyAttribute(6, "", False)
 
 # change value
-netedit.modifyAttribute(6, "-5", True)
+netedit.modifyAttribute(6, "-5", False)
 
 # change value
-netedit.modifyAttribute(6, "0", True)
+netedit.modifyAttribute(6, "0", False)
 
 # change value
-netedit.modifyAttribute(6, "3.5", True)
+netedit.modifyAttribute(6, "3.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

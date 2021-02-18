@@ -75,5 +75,8 @@ netedit.saveAdditionals(referencePosition)
 # reload netedit saving all
 netedit.reload(neteditProcess, False, False, False, False, True, True)
 
+# click over view again
+netedit.leftClick(referencePosition, 0, 0)
+
 # quit netedit
 netedit.quit(neteditProcess, False, False, False, False, False, False)

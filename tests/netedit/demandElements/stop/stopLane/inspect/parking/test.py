@@ -47,10 +47,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 186, 215)
 
 # change value
-netedit.modifyBoolAttribute(12, True)
+netedit.modifyBoolAttribute(12, False)
 
 # change value
-netedit.modifyBoolAttribute(13, True)
+netedit.modifyBoolAttribute(13, False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

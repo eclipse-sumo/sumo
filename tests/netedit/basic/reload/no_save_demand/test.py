@@ -75,5 +75,8 @@ netedit.saveAdditionals(referencePosition)
 # reload netedit without saving demand
 netedit.reload(neteditProcess, False, False, False, False, True, False)
 
+# click over view again
+netedit.leftClick(referencePosition, 0, 0)
+
 # quit netedit
 netedit.quit(neteditProcess, False, False, False, False, False, False)
