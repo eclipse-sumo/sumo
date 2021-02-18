@@ -50,21 +50,10 @@ generating constraints that are likely to be inconsistent.
 When the option is set the ordering of vehicles is cross-checked with regard to
 arrival and until times:
 
-- predecessor constraints (which are based on sorted arrival times)
-  should have the same ordering when looking at until-times
-  If an inconsistent ordering is found, the vehicle that goes first in the
-  simulation (earlier until time) will not get a constraint to wait for the
-  vehicle that goes earlier according to the 'arrival' value. and also will not
-  receive any constraints at subsequent signals
-  Also, no further predecessorConstraints are generated for that busStop
-
-- insertionPredecessor constraints (which are based on sorted until times)
-  should have the same ordering when looking at arrival times
-  If an inconsistent ordering is found, the vehicle that goes second in the
-  simulation (later until time) will not get a constraint to wait for the
-  vehicle that goes later according to the 'arrival' value.
-  Also, no further insertionPredecessor constraints are generated for that busStop
-
+Given two vehicles A and B which stop at the same location, if A arrives at the
+stop later than B, but A also leaves earlier than B, then B is "overtaken" by A.
+In this case no constraints will be generated for B for this stop and any
+subsequent stops (neither predecessor nor insertionPredecessor)
 
 """
 
