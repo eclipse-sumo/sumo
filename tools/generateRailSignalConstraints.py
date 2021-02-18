@@ -51,7 +51,7 @@ When the option is set the ordering of vehicles is cross-checked with regard to
 arrival and until times:
 
 - predecessor constraints (which are based on sorted arrival times)
-  should have the same ordering when looking until-times
+  should have the same ordering when looking at until-times
   If an inconsistent ordering is found, the vehicle that goes first in the
   simulation (earlier until time) will not get a constraint to wait for the
   vehicle that goes earlier according to the 'arrival' value. and also will not
