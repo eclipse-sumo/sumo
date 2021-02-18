@@ -4,5 +4,5 @@ processed 2 routes across 3 edges with 1 merging switches
 Found 4 stops after merging switches and 2 signals that guard switches
 ignoring stop at stop_c for parking vehicle t2 (00:18:20, 00:18:50)
 Found 2 conflicts
-Ignored 1 conflicts
+Ignored 1 conflicts and 0 stops
 Found 0 insertion conflicts

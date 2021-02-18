@@ -5,5 +5,12 @@ repeat3
 # 
 multiStop
 
+# one train passes the stop and the other train is inserted there. the passing stain was previously overtaken and therefore generates no constraint
+insertion
+
 # one train passes the stop and the other train is inserted there
 insertion3
+
+# each train has multiple stops. If a train has a self-inconsistent schedule, other trains should not wait for it.
+# 
+multiStop2
