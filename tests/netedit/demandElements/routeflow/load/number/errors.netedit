@@ -17,16 +17,16 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.0
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding route 'route_0' in GNEChange_DemandElement
-Error: At least one of 'period', 'vehsPerHour', 'probability', and 'number' is needed in flow 'flow_0'.
+Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'flow_0'.
 Error: Attribute 'number' in definition of flow 'flow_1' is not of type int.
-Error: Flow cannot be created
+Error: flow cannot be created
 Error: Attribute 'number' in definition of flow 'flow_2' is empty.
-Error: Flow cannot be created
+Error: flow cannot be created
 Error: Negative repetition number in the definition of flow 'flow_3'.
 Error: Attribute 'number' in definition of flow 'flow_4' is not of type int.
-Error: Flow cannot be created
+Error: flow cannot be created
 Debug: Adding flowRoute 'flow_5' in GNEChange_DemandElement
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.29Sep153816.12104\netedit.gui\demandElements\routeflow\load\number\input_routes.rou.xml failed.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.3_from_16Feb165957.10892\netedit.gui\demandElements\routeflow\load\number\input_routes.rou.xml failed.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing flowRoute 'flow_5' in GNEChange_DemandElement
