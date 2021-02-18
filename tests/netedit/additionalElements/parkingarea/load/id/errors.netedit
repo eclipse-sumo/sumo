@@ -5,9 +5,9 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding parkingArea 'parkingArea_0' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary -17.00,-25.20,32.00,-5.20
+GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary -17.00,-23.60,32.00,-3.60
 Debug: Adding parkingArea 'parkingArea_1' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingArea_1 into SUMORTree with boundary -15.00,-25.20,34.00,-5.20
+GLDebug: 	Inserted parkingArea:parkingArea_1 into SUMORTree with boundary -15.00,-23.60,34.00,-3.60
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -24,9 +24,9 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced parkingArea 'parkingArea_1'
-GLDebug: 	Removed object parkingArea:parkingArea_1 from SUMORTree with boundary -15.00,-25.20,34.00,-5.20
+GLDebug: 	Removed object parkingArea:parkingArea_1 from SUMORTree with boundary -15.00,-23.60,34.00,-3.60
 Debug: Deleting unreferenced parkingArea 'parkingArea_0'
-GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary -17.00,-25.20,32.00,-5.20
+GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary -17.00,-23.60,32.00,-3.60
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

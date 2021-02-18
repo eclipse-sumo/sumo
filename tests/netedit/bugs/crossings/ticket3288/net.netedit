@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12.08.2020 10:15:00 by Eclipse SUMO netedit Version v1_6_0+1504-21ba4914b8
+<!-- generated on 18.02.2021 01:34:53 by Eclipse SUMO netedit Version v1_8_0+1229-2e951a2dc5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug101024.13044\netedit.gui\bugs\crossings\ticket3288\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\bugs\crossings\ticket3288\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug101024.13044\netedit.gui\bugs\crossings\ticket3288\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\bugs\crossings\ticket3288\net.net.xml"/>
     </output>
 
     <processing>
@@ -27,37 +27,37 @@
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="true"/>
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug101024.13044\netedit.gui\bugs\crossings\ticket3288\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug101024.13044\netedit.gui\bugs\crossings\ticket3288\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug101024.13044\netedit.gui\bugs\crossings\ticket3288\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug101024.13044\netedit.gui\bugs\crossings\ticket3288\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug101024.13044\netedit.gui\bugs\crossings\ticket3288\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug101024.13044\netedit.gui\bugs\crossings\ticket3288\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\bugs\crossings\ticket3288\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\bugs\crossings\ticket3288\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\bugs\crossings\ticket3288\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\bugs\crossings\ticket3288\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\bugs\crossings\ticket3288\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\bugs\crossings\ticket3288\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug101024.13044\netedit.gui\bugs\crossings\ticket3288\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\bugs\crossings\ticket3288\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug101024.13044\netedit.gui\bugs\crossings\ticket3288\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\bugs\crossings\ticket3288\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug101024.13044\netedit.gui\bugs\crossings\ticket3288\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Feb165957.11276\netedit.gui\bugs\crossings\ticket3288\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.9" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
