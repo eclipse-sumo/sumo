@@ -104,6 +104,13 @@ traci.simulation.clearPending()
 print("save simstate")
 traci.simulation.saveState("state.xml")
 try:
+    traci.simulation.setParameter("foo", "foo.bla", "42")
+except traci.TraCIException:
+    pass
+traci.simulation.setParameter("", "bar", "42")
+print("getParameter (generic)", traci.simulation.getParameter("", "bar"))
+
+try:
     print("getParameter", traci.simulation.getParameter("foo", "foo.bla"))
 except traci.TraCIException:
     pass

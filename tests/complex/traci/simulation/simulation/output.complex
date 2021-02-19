@@ -1,8 +1,8 @@
 Loading configuration ... done.
 loaded? False
  Retrying in 1 seconds
-version at start (20, 'SUMO v1_8_0+0826-500f1cb')
-version (20, 'SUMO v1_8_0+0826-500f1cb')
+version at start (20, 'SUMO v1_8_0+1277-97d8927')
+version (20, 'SUMO v1_8_0+1277-97d8927')
 loaded? True
 {114: ('horiz', 'horiz1'), 116: ()}
 step 0
@@ -66,6 +66,7 @@ distanceRoad 5131.87897232
 drivingDistanceRoad 5136.55
 clearing pending
 save simstate
+getParameter (generic) 42
 getParameter charginStation.totalEnergyCharged 0.00
 getParameter chargingStation.name megaCharger
 getParameter chargingStation.lane o_0
