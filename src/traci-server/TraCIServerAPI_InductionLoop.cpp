@@ -87,7 +87,7 @@ TraCIServerAPI_InductionLoop::processSet(TraCIServer& server, tcpip::Storage& in
     int variable = inputStorage.readUnsignedByte();
     if (variable != libsumo::VAR_PARAMETER
        ) {
-        return server.writeErrorStatusCmd(libsumo::CMD_SET_INDUCTIONLOOP_VARIABLE, "Set Indunction Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
+        return server.writeErrorStatusCmd(libsumo::CMD_SET_INDUCTIONLOOP_VARIABLE, "Set Induction Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // id
     std::string id = inputStorage.readString();
