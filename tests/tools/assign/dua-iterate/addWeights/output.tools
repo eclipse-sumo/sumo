@@ -1,0 +1,71 @@
+> Executing step 0
+>> Running router on input_trips.trips.xml
+>>> Begin time: 2021-02-19 12:50:12.791984
+>>> End time: 2021-02-19 12:50:12.841023
+>>> Duration: 0:00:00.049039
+<<
+>> Running simulation
+>>> Begin time: 2021-02-19 12:50:12.841103
+>>> End time: 2021-02-19 12:50:12.910850
+>>> Duration: 0:00:00.069747
+<<
+< Step 0 ended (duration: 0:00:00.118988)
+------------------
+
+> Executing step 1
+>> Running router on 0/input_trips_000.rou.alt.xml
+>>> Begin time: 2021-02-19 12:50:12.915399
+>>> End time: 2021-02-19 12:50:12.967774
+>>> Duration: 0:00:00.052375
+<<
+>> Running simulation
+>>> Begin time: 2021-02-19 12:50:12.967832
+>>> End time: 2021-02-19 12:50:13.020615
+>>> Duration: 0:00:00.052783
+<<
+< Step 1 ended (duration: 0:00:00.105346)
+------------------
+
+> Executing step 2
+>> Running router on 1/input_trips_001.rou.alt.xml
+>>> Begin time: 2021-02-19 12:50:13.025654
+>>> End time: 2021-02-19 12:50:13.081095
+>>> Duration: 0:00:00.055441
+<<
+>> Running simulation
+>>> Begin time: 2021-02-19 12:50:13.081181
+>>> End time: 2021-02-19 12:50:13.138811
+>>> Duration: 0:00:00.057630
+<<
+< Step 2 ended (duration: 0:00:00.113284)
+------------------
+
+> Executing step 3
+>> Running router on 2/input_trips_002.rou.alt.xml
+>>> Begin time: 2021-02-19 12:50:13.141759
+>>> End time: 2021-02-19 12:50:13.185806
+>>> Duration: 0:00:00.044047
+<<
+>> Running simulation
+>>> Begin time: 2021-02-19 12:50:13.185867
+>>> End time: 2021-02-19 12:50:13.244102
+>>> Duration: 0:00:00.058235
+<<
+< Step 3 ended (duration: 0:00:00.102466)
+------------------
+
+> Executing step 4
+>> Running router on 3/input_trips_003.rou.alt.xml
+>>> Begin time: 2021-02-19 12:50:13.249275
+>>> End time: 2021-02-19 12:50:13.295557
+>>> Duration: 0:00:00.046282
+<<
+>> Running simulation
+>>> Begin time: 2021-02-19 12:50:13.295622
+>>> End time: 2021-02-19 12:50:13.352099
+>>> Duration: 0:00:00.056477
+<<
+< Step 4 ended (duration: 0:00:00.103022)
+------------------
+
+dua-iterate ended (duration: 0:00:00.563672)

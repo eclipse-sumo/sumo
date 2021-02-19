@@ -30,4 +30,7 @@ external_gawron
 
 # improve person mode choice through iteration
 intermodal
+
+# add additional weights for iteration
+addWeights
 mapmatchJunctions
