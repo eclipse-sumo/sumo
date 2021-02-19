@@ -58,7 +58,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     if (period > 0 && (timestep - begin) % period != 0) {
         return;
     }
-    const long mask = MSDevice_FCD::getWrittenAttributes();
+    const long long int mask = MSDevice_FCD::getWrittenAttributes();
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     const double radius = OptionsCont::getOptions().getFloat("device.fcd.radius");
     const bool filter = MSDevice_FCD::getEdgeFilter().size() > 0;
