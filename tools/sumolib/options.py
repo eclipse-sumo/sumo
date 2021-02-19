@@ -170,16 +170,17 @@ class ArgumentParser(argparse.ArgumentParser):
                         if s in args:
                             is_set = True
                             break
-                    if option.name in self._fix_path_args:
-                        option.value = os.path.join(os.path.dirname(cfg_file), option.value)
+                    value = option.value
+                    if option.name in self._fix_path_args and not value.startswith("http"):
+                        value = os.path.join(os.path.dirname(cfg_file), value)
                     if not is_set:
-                        if option.value == "True":
+                        if value == "True":
                             config_args += ["--" + option.name]
-                        elif option.value != "False":
+                        elif value != "False":
                             if option.name in multi_value:
-                                config_args += ["--" + option.name] + option.value.split()
+                                config_args += ["--" + option.name] + value.split()
                             else:
-                                config_args += ["--" + option.name, option.value]
+                                config_args += ["--" + option.name, value]
         namespace, unknown_args = argparse.ArgumentParser.parse_known_args(
             self, args=args+config_args, namespace=namespace)
         self.write_config_file(namespace)
