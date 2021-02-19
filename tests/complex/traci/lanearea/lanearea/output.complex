@@ -1,4 +1,5 @@
 Loading configuration ... done.
+ Retrying in 1 seconds
 step 1.0
   examining det0
      pos 100.0
@@ -91,6 +92,7 @@ step 4.0
      occupancy 0.116017146486
      jamLengthVeh 0
      jamLengthMet 0.0
+parameter 42
 laneareas ('det0', 'det1')
 lanearea count 2
 subscriptionResults:  {16: 1}

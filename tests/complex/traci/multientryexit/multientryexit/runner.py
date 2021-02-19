@@ -40,6 +40,9 @@ print("vehNum", traci.multientryexit.getLastStepVehicleNumber(detID))
 print("meanSpeed", traci.multientryexit.getLastStepMeanSpeed(detID))
 print("vehIDs", traci.multientryexit.getLastStepVehicleIDs(detID))
 print("haltNum", traci.multientryexit.getLastStepHaltingNumber(detID))
+
+traci.multientryexit.setParameter(detID, "foo", "42")
+print("parameter", traci.multientryexit.getParameter(detID, "foo"))
 traci.multientryexit.subscribe(detID)
 print(traci.multientryexit.getSubscriptionResults(detID))
 for step in range(3, 6):

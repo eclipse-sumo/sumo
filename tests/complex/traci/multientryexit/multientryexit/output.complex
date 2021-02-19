@@ -11,6 +11,7 @@ vehNum 1
 meanSpeed 6.20637786887
 vehIDs ('horiz',)
 haltNum 0
+parameter 42
 {16: 1}
 step 3
 {16: 1}
