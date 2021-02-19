@@ -41,7 +41,7 @@ public class SimpleTest {
 
 
         StringBuilder sb = new StringBuilder();
-        Number size = Math.min(1, Math.random() * 100);
+        Number size = Math.max(1, Math.random() * 100);
 
         for (int i = 0; i < size.intValue(); i++) {
             sb.append(i + "," + i + " ");
