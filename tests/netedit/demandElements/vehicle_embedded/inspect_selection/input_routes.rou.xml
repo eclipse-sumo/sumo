@@ -47,7 +47,7 @@
 	
 	<!-- vehicle B -->
     <vehicle id="vehicle_embeddedB" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" depart="0.00">
-		<route edges="gneE2 gneE4" color="red"/>
+		<route edges="gneE4 gneE5" color="red"/>
 		<param key="KeyB1" value="valueB1"/>
 		<param key="KeyB3" value="valueB2"/>
 		<param key="KeyB2" value="valueB3"/>
