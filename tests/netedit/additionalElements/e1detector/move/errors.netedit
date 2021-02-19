@@ -6,71 +6,34 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e1Detector' in TagSelector
-Debug: Adding e1Detector 'e1Detector_gneE0_0_0' in GNEChange_Additional
-Debug: Setting new attribute pos '12.00' into e1Detector 'e1Detector_gneE0_0_0'
-Debug: Setting new attribute pos '17.00' into e1Detector 'e1Detector_gneE0_0_0'
-Debug: Setting new attribute pos '27.00' into e1Detector 'e1Detector_gneE0_0_0'
-Debug: Setting new attribute pos '17.00' into e1Detector 'e1Detector_gneE0_0_0'
-Debug: Setting new attribute pos '0.00' into e1Detector 'e1Detector_gneE0_0_0'
-Debug: Setting new attribute pos '17.00' into e1Detector 'e1Detector_gneE0_0_0'
-Debug: Setting new attribute pos '50.00' into e1Detector 'e1Detector_gneE0_0_0'
-Debug: Setting new attribute pos '33.00' into e1Detector 'e1Detector_gneE0_0_0'
+Debug: Adding e1Detector 'e1Detector_gneE1_0_0' in GNEChange_Additional
+Debug: Setting new attribute pos '34.00' into e1Detector 'e1Detector_gneE1_0_0'
+Debug: Setting new attribute pos '37.00' into e1Detector 'e1Detector_gneE1_0_0'
+Debug: Setting new attribute pos '18.00' into e1Detector 'e1Detector_gneE1_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '50.00' into e1Detector 'e1Detector_gneE0_0_0'
+Debug: Setting previous attribute pos '37.00' into e1Detector 'e1Detector_gneE1_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '17.00' into e1Detector 'e1Detector_gneE0_0_0'
+Debug: Setting previous attribute pos '34.00' into e1Detector 'e1Detector_gneE1_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '0.00' into e1Detector 'e1Detector_gneE0_0_0'
+Debug: Setting previous attribute pos '40.00' into e1Detector 'e1Detector_gneE1_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '17.00' into e1Detector 'e1Detector_gneE0_0_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '27.00' into e1Detector 'e1Detector_gneE0_0_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '17.00' into e1Detector 'e1Detector_gneE0_0_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '12.00' into e1Detector 'e1Detector_gneE0_0_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '17.00' into e1Detector 'e1Detector_gneE0_0_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing e1Detector 'e1Detector_gneE0_0_0' in GNEChange_Additional
-Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Removing e1Detector 'e1Detector_gneE1_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding e1Detector 'e1Detector_gneE0_0_0' in GNEChange_Additional
+Debug: Adding e1Detector 'e1Detector_gneE1_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '12.00' into e1Detector 'e1Detector_gneE0_0_0'
+Debug: Setting new attribute pos '34.00' into e1Detector 'e1Detector_gneE1_0_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '17.00' into e1Detector 'e1Detector_gneE0_0_0'
+Debug: Setting new attribute pos '37.00' into e1Detector 'e1Detector_gneE1_0_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '27.00' into e1Detector 'e1Detector_gneE0_0_0'
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '17.00' into e1Detector 'e1Detector_gneE0_0_0'
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '0.00' into e1Detector 'e1Detector_gneE0_0_0'
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '17.00' into e1Detector 'e1Detector_gneE0_0_0'
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '50.00' into e1Detector 'e1Detector_gneE0_0_0'
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '33.00' into e1Detector 'e1Detector_gneE0_0_0'
-Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Setting new attribute pos '18.00' into e1Detector 'e1Detector_gneE1_0_0'
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -86,7 +49,7 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced e1Detector 'e1Detector_gneE0_0_0'
+Debug: Deleting unreferenced e1Detector 'e1Detector_gneE1_0_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
