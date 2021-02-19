@@ -26,6 +26,7 @@ import os
 import sys
 import io
 import pandas as pd
+import datetime
 import zipfile
 
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
@@ -74,16 +75,20 @@ def main(options):
                              converters={'trip_id': str, 'arrival_time': time2sec, 'departure_time': time2sec,
                                          'stop_id': str, 'stop_sequence': int})
     trips = pd.read_csv(gtfsZip.open('trips.txt'), dtype=str)
+    calendar = pd.read_csv(gtfsZip.open('calendar.txt'), dtype=str)
     calendar_dates = pd.read_csv(gtfsZip.open('calendar_dates.txt'), dtype=str)
 
     # currently not used:
     # agency = pd.read_csv(gtfsZip.open('agency.txt'), dtype=str)
-    # calendar = pd.read_csv(gtfsZip.open('calendar.txt'), dtype=str)
     # transfers = pd.read_csv(gtfsZip.open('transfers.txt'), dtype=str)
 
     # Merging the tables
-    tmp = pd.merge(trips, calendar_dates, on='service_id')
-    trips_on_day = tmp[tmp['date'] == options.date]
+    weekday = 'monday tuesday wednesday thursday friday saturday sunday'.split()[datetime.datetime.strptime(options.date, "%Y%m%d").weekday()]
+    removed = calendar_dates[(calendar_dates.date == options.date) & (calendar_dates.exception_type == '2')]
+    services = calendar[(calendar.start_date <= options.date) & (calendar.end_date >= options.date) &
+                        (calendar[weekday] == '1') & (~calendar.service_id.isin(removed.service_id))]
+    added = calendar_dates[(calendar_dates.date == options.date) & (calendar_dates.exception_type == '1')]
+    trips_on_day = trips[trips.service_id.isin(services.service_id) | trips.service_id.isin(added.service_id)]
     if 'fare_stops.txt' in gtfsZip.namelist():
         zones = pd.read_csv(gtfsZip.open('fare_stops.txt'), dtype=str)
         stops_merged = pd.merge(pd.merge(stops, stop_times, on='stop_id'), zones, on='stop_id')
