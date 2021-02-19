@@ -101,6 +101,7 @@ title: ChangeLog
   - Added option **--device.ssm.filter-edges.input-file** to filter ssm device output by location. Issue #7398
   - Added vehicle attribute 'arrivalEdge' which can be used to set an arrival edge index ahead of the last edge of it's route. Issue #7609
   - Connection attribute 'visibility' now controls the distance for zipper merge related speed adjustments (default 100m). Issue #8240
+  - Added option **--fcd-output.attributes** to set the list of attributes which are included in fcd-output. Issue #7632
   
 - sumo-gui
   - Random color for containers is now supported. Issue #7941
