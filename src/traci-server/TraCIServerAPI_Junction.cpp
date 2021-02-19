@@ -26,6 +26,7 @@
 #include <microsim/MSJunctionControl.h>
 #include "TraCIServer.h"
 #include <libsumo/Junction.h>
+#include <libsumo/StorageHelper.h>
 #include "TraCIServerAPI_Junction.h"
 
 
@@ -47,6 +48,40 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
     }
     server.writeStatusCmd(libsumo::CMD_GET_JUNCTION_VARIABLE, libsumo::RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
+    return true;
+}
+
+
+bool
+TraCIServerAPI_Junction::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
+                                      tcpip::Storage& outputStorage) {
+    std::string warning = ""; // additional description for response
+    // variable
+    int variable = inputStorage.readUnsignedByte();
+    if (variable != libsumo::VAR_PARAMETER
+       ) {
+        return server.writeErrorStatusCmd(libsumo::CMD_SET_JUNCTION_VARIABLE, "Set Junction Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
+    }
+    // id
+    std::string id = inputStorage.readString();
+    // process
+    try {
+        switch (variable) {
+            case libsumo::VAR_PARAMETER: {
+                StoHelp::readCompound(inputStorage, 2, "A compound object of size 2 is needed for setting a parameter.");
+                const std::string name = StoHelp::readTypedString(inputStorage, "The name of the parameter must be given as a string.");
+                const std::string value = StoHelp::readTypedString(inputStorage, "The value of the parameter must be given as a string.");
+                libsumo::Junction::setParameter(id, name, value);
+                break;
+            }
+            break;
+            default:
+                break;
+        }
+    } catch (libsumo::TraCIException& e) {
+        return server.writeErrorStatusCmd(libsumo::CMD_SET_JUNCTION_VARIABLE, e.what(), outputStorage);
+    }
+    server.writeStatusCmd(libsumo::CMD_SET_JUNCTION_VARIABLE, libsumo::RTYPE_OK, warning, outputStorage);
     return true;
 }
 
