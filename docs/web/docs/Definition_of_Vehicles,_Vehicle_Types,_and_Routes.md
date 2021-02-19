@@ -84,6 +84,7 @@ A vehicle may be defined using the following attributes:
 | arrivalLane     | int/string (≥0,"current")                                                     | The lane at which the vehicle shall leave the network; see [\#arrivalLane](#arrivallane). *default: "current"*                                                                                                                                        |
 | arrivalPos      | float(m)/string (≥0<sup>(1)</sup>, "random", "max")                           | The position at which the vehicle shall leave the network; see [\#arrivalPos](#arrivalpos). *default: "max"*                                                                                                                                          |
 | arrivalSpeed    | float(m/s)/string (≥0,"current")                                              | The speed with which the vehicle shall leave the network; see [\#arrivalSpeed](#arrivalspeed). *default: "current"*                                                                                                                                   |
+| arrivalEdge     | int (index from \[0, routeLength\[ or "random"    | The final edge along the route where the vehicle should leave the network (only supported if a complete route is defined); see [\#arrivalEdge](#arrivalEdge).                                                                                                                           |
 | line            | string                                                                        | A string specifying the id of a public transport line which can be used when specifying [person rides](Specification/Persons.md#rides)                                                                                                                   |
 | personNumber    | int (in \[0,personCapacity\])                                                 | The number of occupied seats when the vehicle is inserted. *default: 0*                                                                                                                                                                                          |
 | containerNumber | int (in \[0,containerCapacity\])                                              | The number of occupied container places when the vehicle is inserted. *default: 0*                                                                                                                                                                               |
@@ -314,10 +315,11 @@ vehicle.
 Determines the edge along the vehicles route where the vehicle enters the network (By default this is 0: the first edge).
 
 - integer index `≥0` and `<routeLength`: The vehicle is inserted at the given index
-- "`random`": A random index along the route is usedd. If that speed is unsafe, departure is delayed.
+- "`random`": A random index along the route is used.
 
 !!! note
-    The attribute `departEdge` is ignored if the vehicle or flow  does not use attribute `route` and does not define the child element `<route>`
+    The attribute `departEdge` is ignored for `<trip>`s and for `<flow>` that do not use attribute `route` and do not define the child element `<route>`.
+    
     
 ### arrivalLane
 
@@ -352,6 +354,16 @@ Determines the speed at which the vehicle should end its route;
   possible. *(default behavior)*
 - `≥0`: the vehicle approaches it's arrival
   position to end with the specified speed
+  
+### arrivalEdge
+
+Determines the edge along the vehicles route where the vehicle leaves the network (By default this is final edge).
+
+- integer index `≥0` and `<routeLength`: The vehicle is inserted at the given index
+- "`random`": A random index along the route is used.
+
+!!! note
+    The attribute `arrivalEdge` is ignored for `<trip>`s and for `<flow>` that do not use attribute `route` and do not define the child element `<route>`.
 
 # Vehicle Types
 
