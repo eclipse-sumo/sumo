@@ -139,8 +139,8 @@ title: ChangeLog
   - Public transport edges that are disconnected from the main road network (in particular railways) are now included in the output when using option **--keep.edges.components 1** as long as they have public transport stops that are written via option **--ptstop-output**. Issue #8061
   - Edge types now support attribute 'spreadType'. Issue #7897
   - The behavior of option **--geometry.remove** (merging subsequent edges with common attributes) no longer depends on written **--ptstop-output** (stops will be remapped onto merged edges). To enable legacy behavior, the option **--geometry.remove.keep-ptstops** may be set. Issue #8155
-  - Element connection file element `<walkingArea>` no supports attribute 'width' #7968
-  - Lane attribute type is now writing in OpenDRIVE output. Issue #8229
+  - Connection file element `<walkingArea>` no supports attribute 'width' #7968
+  - Lane attribute type is now written in OpenDRIVE output. Issue #8229
 
 
 - TraCI
