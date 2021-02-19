@@ -1,0 +1,5 @@
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="10000.00" id="dump_000_900">
+        <edge id="middle" traveltime="1000"/>
+    </interval>
+</meandata>

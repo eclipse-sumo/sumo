@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 586, 303)
 
 # change arrivalPosLat with an invalid value
-netedit.modifyAttribute(13, "", False)
+netedit.modifyAttribute(13, "", True)
 
 # change arrivalPosLat with an invalid value
-netedit.modifyAttribute(13, "dummyPosLat", False)
+netedit.modifyAttribute(13, "dummyPosLat", True)
 
 # change arrivalPosLat with an invalid value
-netedit.modifyAttribute(13, "left", False)
+netedit.modifyAttribute(13, "left", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)
