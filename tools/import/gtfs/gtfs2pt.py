@@ -69,6 +69,8 @@ def get_options(args=None):
     argParser.add_argument("--fill-gaps", default=5000, type=float, help="maximum distance between stops")
 
     options = gtfs2fcd.check_options(argParser.parse_args(args=args))
+    if options.network is None:
+        sys.exit("Please give a network file using --network FILE.")
     if options.map_output is None:
         options.map_output = os.path.join('output', options.region)
     if options.network_split is None:
