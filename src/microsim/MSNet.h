@@ -87,7 +87,7 @@ class OptionsCont;
  * @class MSNet
  * @brief The simulated network and simulation perfomer
  */
-class MSNet {
+class MSNet : public Parameterised {
 public:
     /** @enum SimulationState
      * @brief Possible states of a simulation - running or stopped with different reasons

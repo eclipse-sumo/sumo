@@ -36,6 +36,7 @@
 #include <libsumo/Helper.h>
 #include <libsumo/Simulation.h>
 #include <libsumo/TraCIConstants.h>
+#include <libsumo/StorageHelper.h>
 #include "TraCIServerAPI_Simulation.h"
 
 
@@ -294,6 +295,7 @@ TraCIServerAPI_Simulation::processSet(TraCIServer& server, tcpip::Storage& input
     if (variable != libsumo::CMD_CLEAR_PENDING_VEHICLES
             && variable != libsumo::CMD_SAVE_SIMSTATE
             && variable != libsumo::CMD_LOAD_SIMSTATE
+            && variable != libsumo::VAR_PARAMETER
             && variable != libsumo::CMD_MESSAGE
        ) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_SIM_VARIABLE, "Set Simulation Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
@@ -331,6 +333,13 @@ TraCIServerAPI_Simulation::processSet(TraCIServer& server, tcpip::Storage& input
                 TraCIServer::getInstance()->stateLoaded(TIME2STEPS(time));
             }
             break;
+            case libsumo::VAR_PARAMETER: {
+                StoHelp::readCompound(inputStorage, 2, "A compound object of size 2 is needed for setting a parameter.");
+                const std::string name = StoHelp::readTypedString(inputStorage, "The name of the parameter must be given as a string.");
+                const std::string value = StoHelp::readTypedString(inputStorage, "The value of the parameter must be given as a string.");
+                libsumo::Simulation::setParameter(id, name, value);
+                break;
+            }
             case libsumo::CMD_MESSAGE: {
                 std::string msg;
                 if (!server.readTypeCheckingString(inputStorage, msg)) {

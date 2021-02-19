@@ -721,16 +721,22 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
         } else {
             throw TraCIException("Invalid busStop parameter '" + attrName + "'");
         }
+    } else if (objectID == "") {
+        return MSNet::getInstance()->getParameter(key, "");
     } else {
-        throw TraCIException("Parameter '" + key + "' is not supported.");
+        throw TraCIException("Simulation parameter '" + key + "' is not supported for object id '" + objectID + "'. Use empty id for generic network parameters");
     }
 }
 
 LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Simulation)
 
 void
-Simulation::setParameter(const std::string& /* objectID */, const std::string& param, const std::string& /* value */) {
-    throw TraCIException("Setting parameter '" + param + "' is not supported.");
+Simulation::setParameter(const std::string& objectID, const std::string& param, const std::string& value ) {
+    if (objectID == "") {
+        MSNet::getInstance()->setParameter(param, value);
+    } else {
+        throw TraCIException("Setting simulation parameter '" + param + "' is not supported for object id '" + objectID + "'. Use empty id for generic network parameters");
+    }
 }
 
 void
