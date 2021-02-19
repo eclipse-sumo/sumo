@@ -52,7 +52,7 @@ netedit.changeElement("detExit")
 
 # Create Exit detector E3 (for saving)
 netedit.leftClick(referencePosition, 250, 110)
-netedit.leftClick(referencePosition, 250, 450)
+netedit.leftClick(referencePosition, 250, 420)
 
 # go to inspect mode
 netedit.inspectMode()

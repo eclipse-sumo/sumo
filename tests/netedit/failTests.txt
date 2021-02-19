@@ -4,15 +4,8 @@ additionalElements\e2detector\lock_unlock
 additionalElements\e2detector\move
 additionalElements\e2MultiLaneDetector\lock_unlock
 additionalElements\e2MultiLaneDetector\move
-additionalElements\e3detector\inspect\id
 additionalElements\e3detector\lock_unlock
 additionalElements\e3detector\move
-additionalElements\detentry\load\no_parent
-additionalElements\detentry\load\parent_invalid
-additionalElements\detentry\lock_unlock
-additionalElements\detentry\move
-additionalElements\detexit\lock_unlock
-additionalElements\detexit\move
 additionalElements\parkingarea\inspect_selection\block_move
 additionalElements\parkingarea\lock_unlock
 additionalElements\parkingarea\move
