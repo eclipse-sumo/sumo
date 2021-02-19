@@ -58,6 +58,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     if (period > 0 && (timestep - begin) % period != 0) {
         return;
     }
+    const long mask = MSDevice_FCD::getWrittenAttributes();
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     const double radius = OptionsCont::getOptions().getFloat("device.fcd.radius");
     const bool filter = MSDevice_FCD::getEdgeFilter().size() > 0;
@@ -94,29 +95,29 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             }
             of.openTag(SUMO_TAG_VEHICLE);
             of.writeAttr(SUMO_ATTR_ID, veh->getID());
-            of.writeAttr(SUMO_ATTR_X, pos.x());
-            of.writeAttr(SUMO_ATTR_Y, pos.y());
+            of.writeOptionalAttr(SUMO_ATTR_X, pos.x(), mask);
+            of.writeOptionalAttr(SUMO_ATTR_Y, pos.y(), mask);
             if (elevation) {
-                of.writeAttr(SUMO_ATTR_Z, pos.z());
+                of.writeOptionalAttr(SUMO_ATTR_Z, pos.z(), mask);
             }
-            of.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(veh->getAngle()));
-            of.writeAttr(SUMO_ATTR_TYPE, veh->getVehicleType().getID());
-            of.writeAttr(SUMO_ATTR_SPEED, veh->getSpeed());
-            of.writeAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane());
+            of.writeOptionalAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(veh->getAngle()), mask);
+            of.writeOptionalAttr(SUMO_ATTR_TYPE, veh->getVehicleType().getID(), mask);
+            of.writeOptionalAttr(SUMO_ATTR_SPEED, veh->getSpeed(), mask);
+            of.writeOptionalAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane(), mask);
             if (microVeh != nullptr) {
-                of.writeAttr(SUMO_ATTR_LANE, microVeh->getLane()->getID());
+                of.writeOptionalAttr(SUMO_ATTR_LANE, microVeh->getLane()->getID(), mask);
             } else {
-                of.writeAttr(SUMO_ATTR_EDGE, veh->getEdge()->getID());
+                of.writeOptionalAttr(SUMO_ATTR_EDGE, veh->getEdge()->getID(), mask);
             }
-            of.writeAttr(SUMO_ATTR_SLOPE, veh->getSlope());
+            of.writeOptionalAttr(SUMO_ATTR_SLOPE, veh->getSlope(), mask);
             if (microVeh != nullptr) {
                 if (signals) {
-                    of.writeAttr(SUMO_ATTR_SIGNALS, toString(microVeh->getSignals()));
+                    of.writeOptionalAttr(SUMO_ATTR_SIGNALS, toString(microVeh->getSignals()), mask);
                 }
                 if (writeAccel) {
-                    of.writeAttr(SUMO_ATTR_ACCELERATION, toString(microVeh->getAcceleration()));
+                    of.writeOptionalAttr(SUMO_ATTR_ACCELERATION, toString(microVeh->getAcceleration()), mask);
                     if (MSGlobals::gSublane) {
-                        of.writeAttr(SUMO_ATTR_ACCELERATION_LAT, microVeh->getLaneChangeModel().getAccelerationLat());
+                        of.writeOptionalAttr(SUMO_ATTR_ACCELERATION_LAT, microVeh->getLaneChangeModel().getAccelerationLat(), mask);
                     }
                 }
             }
@@ -133,18 +134,18 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                     distance += veh->getPositionOnLane();
                 }
                 // if the kilometrage runs counter to the edge direction edge->getDistance() is negative
-                of.writeAttr(SUMO_ATTR_DISTANCE, fabs(distance));
+                of.writeOptionalAttr(SUMO_ATTR_DISTANCE, fabs(distance), mask);
             }
             if (maxLeaderDistance >= 0 && microVeh != nullptr) {
                 std::pair<const MSVehicle* const, double> leader = microVeh->getLeader(maxLeaderDistance);
                 if (leader.first != nullptr) {
-                    of.writeAttr(SUMO_ATTR_LEADER_ID, toString(leader.first->getID()));
-                    of.writeAttr(SUMO_ATTR_LEADER_SPEED, toString(leader.first->getSpeed()));
-                    of.writeAttr(SUMO_ATTR_LEADER_GAP, toString(leader.second + microVeh->getVehicleType().getMinGap()));
+                    of.writeOptionalAttr(SUMO_ATTR_LEADER_ID, toString(leader.first->getID()), mask);
+                    of.writeOptionalAttr(SUMO_ATTR_LEADER_SPEED, toString(leader.first->getSpeed()), mask);
+                    of.writeOptionalAttr(SUMO_ATTR_LEADER_GAP, toString(leader.second + microVeh->getVehicleType().getMinGap()), mask);
                 } else {
-                    of.writeAttr(SUMO_ATTR_LEADER_ID, "");
-                    of.writeAttr(SUMO_ATTR_LEADER_SPEED, -1);
-                    of.writeAttr(SUMO_ATTR_LEADER_GAP, -1);
+                    of.writeOptionalAttr(SUMO_ATTR_LEADER_ID, "", mask);
+                    of.writeOptionalAttr(SUMO_ATTR_LEADER_SPEED, -1, mask);
+                    of.writeOptionalAttr(SUMO_ATTR_LEADER_GAP, -1, mask);
                 }
             }
             for (const std::string& key : params) {
@@ -160,11 +161,11 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
 
             const std::vector<MSTransportable*>& persons = veh->getPersons();
             for (MSTransportable* person : persons) {
-                writeTransportable(of, edge, person, true, SUMO_TAG_PERSON, useGeo, elevation);
+                writeTransportable(of, edge, person, true, SUMO_TAG_PERSON, useGeo, elevation, mask);
             }
             const std::vector<MSTransportable*>& containers = veh->getContainers();
             for (MSTransportable* container : containers) {
-                writeTransportable(of, edge, container, true, SUMO_TAG_CONTAINER, useGeo, elevation);
+                writeTransportable(of, edge, container, true, SUMO_TAG_CONTAINER, useGeo, elevation, mask);
             }
         }
     }
@@ -178,7 +179,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             }
             const std::vector<MSTransportable*>& persons = (*e)->getSortedPersons(timestep);
             for (MSTransportable* person : persons) {
-                writeTransportable(of, *e, person, inRadius.count(person) > 0, SUMO_TAG_PERSON, useGeo, elevation);
+                writeTransportable(of, *e, person, inRadius.count(person) > 0, SUMO_TAG_PERSON, useGeo, elevation, mask);
             }
         }
     }
@@ -192,7 +193,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             }
             const std::vector<MSTransportable*>& containers = (*e)->getSortedContainers(timestep);
             for (MSTransportable* container : containers) {
-                writeTransportable(of, *e, container, inRadius.count(container) > 0, SUMO_TAG_CONTAINER, useGeo, elevation);
+                writeTransportable(of, *e, container, inRadius.count(container) > 0, SUMO_TAG_CONTAINER, useGeo, elevation, mask);
             }
         }
     }
@@ -201,7 +202,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
 
 
 void
-MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, bool inRadius, SumoXMLTag tag, bool useGeo, bool elevation) {
+MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, bool inRadius, SumoXMLTag tag, bool useGeo, bool elevation, long long int mask) {
     if (p->getDevice(typeid(MSTransportableDevice_FCD)) == nullptr && !inRadius) {
         return;
     }

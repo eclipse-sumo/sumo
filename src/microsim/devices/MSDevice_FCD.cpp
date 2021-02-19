@@ -36,6 +36,7 @@
 // ===========================================================================
 std::set<const MSEdge*> MSDevice_FCD::myEdgeFilter;
 bool MSDevice_FCD::myEdgeFilterInitialized(false);
+long long int MSDevice_FCD::myWrittenAttributes(-1);
 
 // ===========================================================================
 // method definitions
@@ -63,7 +64,7 @@ MSDevice_FCD::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
         MSDevice_FCD* device = new MSDevice_FCD(v, "fcd_" + v.getID());
         into.push_back(device);
         if (!myEdgeFilterInitialized) {
-            initEdgeFilter();
+            initOnce();
         }
     }
 }
@@ -82,10 +83,11 @@ MSDevice_FCD::~MSDevice_FCD() {
 
 
 void
-MSDevice_FCD::initEdgeFilter() {
+MSDevice_FCD::initOnce() {
     myEdgeFilterInitialized = true;
-    if (OptionsCont::getOptions().isSet("fcd-output.filter-edges.input-file")) {
-        const std::string file = OptionsCont::getOptions().getString("fcd-output.filter-edges.input-file");
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (oc.isSet("fcd-output.filter-edges.input-file")) {
+        const std::string file = oc.getString("fcd-output.filter-edges.input-file");
         std::ifstream strm(file.c_str());
         if (!strm.good()) {
             throw ProcessError("Could not load names of edges for filtering fcd-output from '" + file + "'.");
@@ -100,6 +102,18 @@ MSDevice_FCD::initEdgeFilter() {
             myEdgeFilter.insert(MSEdge::dictionary(name));
         }
     }
+    if (oc.isSet("fcd-output.attributes")) {
+        myWrittenAttributes = 0;
+        for (std::string attrName : oc.getStringVector("fcd-output.attributes")) {
+            if (!SUMOXMLDefinitions::Attrs.hasString(attrName)) {
+                WRITE_ERROR("Unknown attribute '" + attrName + "' to write in fcd output.");
+                continue;
+            }
+            int attr = SUMOXMLDefinitions::Attrs.get(attrName);
+            assert(attr < 63);
+            myWrittenAttributes |= ((long long int)1 << attr);
+        }
+    }
 }
 
 
@@ -107,6 +121,7 @@ void
 MSDevice_FCD::cleanup() {
     myEdgeFilter.clear();
     myEdgeFilterInitialized = false;
+    myWrittenAttributes = -1;
 }
 
 
