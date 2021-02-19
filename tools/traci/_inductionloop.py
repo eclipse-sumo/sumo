@@ -41,7 +41,7 @@ _RETURN_VALUE_FUNC = {tc.LAST_STEP_VEHICLE_DATA: readVehicleData}
 class InductionLoopDomain(Domain):
 
     def __init__(self):
-        Domain.__init__(self, "inductionloop", tc.CMD_GET_INDUCTIONLOOP_VARIABLE, None,
+        Domain.__init__(self, "inductionloop", tc.CMD_GET_INDUCTIONLOOP_VARIABLE, tc.CMD_SET_INDUCTIONLOOP_VARIABLE,
                         tc.CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE, tc.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE,
                         tc.CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT, tc.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_CONTEXT,
                         _RETURN_VALUE_FUNC,

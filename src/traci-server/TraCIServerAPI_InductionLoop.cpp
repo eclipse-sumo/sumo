@@ -79,4 +79,38 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
 }
 
 
+bool
+TraCIServerAPI_InductionLoop::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
+                                      tcpip::Storage& outputStorage) {
+    std::string warning = ""; // additional description for response
+    // variable
+    int variable = inputStorage.readUnsignedByte();
+    if (variable != libsumo::VAR_PARAMETER
+       ) {
+        return server.writeErrorStatusCmd(libsumo::CMD_SET_INDUCTIONLOOP_VARIABLE, "Set Indunction Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
+    }
+    // id
+    std::string id = inputStorage.readString();
+    // process
+    try {
+        switch (variable) {
+            case libsumo::VAR_PARAMETER: {
+                StoHelp::readCompound(inputStorage, 2, "A compound object of size 2 is needed for setting a parameter.");
+                const std::string name = StoHelp::readTypedString(inputStorage, "The name of the parameter must be given as a string.");
+                const std::string value = StoHelp::readTypedString(inputStorage, "The value of the parameter must be given as a string.");
+                libsumo::InductionLoop::setParameter(id, name, value);
+                break;
+            }
+            break;
+            default:
+                break;
+        }
+    } catch (libsumo::TraCIException& e) {
+        return server.writeErrorStatusCmd(libsumo::CMD_SET_INDUCTIONLOOP_VARIABLE, e.what(), outputStorage);
+    }
+    server.writeStatusCmd(libsumo::CMD_SET_INDUCTIONLOOP_VARIABLE, libsumo::RTYPE_OK, warning, outputStorage);
+    return true;
+}
+
+
 /****************************************************************************/
