@@ -44,6 +44,16 @@ public:
                            tcpip::Storage& outputStorage);
 
 
+    /** @brief Processes a set value command (Command 0xc1: Set MeMeDetector Variable)
+     *
+     * @param[in] server The TraCI-server-instance which schedules this request
+     * @param[in] inputStorage The storage to read the command from
+     * @param[out] outputStorage The storage to write the result to
+     */
+    static bool processSet(TraCIServer& server, tcpip::Storage& inputStorage,
+                           tcpip::Storage& outputStorage);
+
+
 private:
     /// @brief invalidated copy constructor
     TraCIServerAPI_MultiEntryExit(const TraCIServerAPI_MultiEntryExit& s);

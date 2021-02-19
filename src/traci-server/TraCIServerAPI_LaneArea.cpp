@@ -25,6 +25,7 @@
 #include <microsim/output/MSDetectorControl.h>
 #include <libsumo/LaneArea.h>
 #include <libsumo/TraCIConstants.h>
+#include <libsumo/StorageHelper.h>
 #include "TraCIServer.h"
 #include "TraCIServerAPI_LaneArea.h"
 
@@ -47,6 +48,40 @@ TraCIServerAPI_LaneArea::processGet(TraCIServer& server, tcpip::Storage& inputSt
     }
     server.writeStatusCmd(libsumo::CMD_GET_LANEAREA_VARIABLE, libsumo::RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
+    return true;
+}
+
+
+bool
+TraCIServerAPI_LaneArea::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
+                                      tcpip::Storage& outputStorage) {
+    std::string warning = ""; // additional description for response
+    // variable
+    int variable = inputStorage.readUnsignedByte();
+    if (variable != libsumo::VAR_PARAMETER
+       ) {
+        return server.writeErrorStatusCmd(libsumo::CMD_SET_LANEAREA_VARIABLE, "Set Lane Area Detector Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
+    }
+    // id
+    std::string id = inputStorage.readString();
+    // process
+    try {
+        switch (variable) {
+            case libsumo::VAR_PARAMETER: {
+                StoHelp::readCompound(inputStorage, 2, "A compound object of size 2 is needed for setting a parameter.");
+                const std::string name = StoHelp::readTypedString(inputStorage, "The name of the parameter must be given as a string.");
+                const std::string value = StoHelp::readTypedString(inputStorage, "The value of the parameter must be given as a string.");
+                libsumo::LaneArea::setParameter(id, name, value);
+                break;
+            }
+            break;
+            default:
+                break;
+        }
+    } catch (libsumo::TraCIException& e) {
+        return server.writeErrorStatusCmd(libsumo::CMD_SET_LANEAREA_VARIABLE, e.what(), outputStorage);
+    }
+    server.writeStatusCmd(libsumo::CMD_SET_LANEAREA_VARIABLE, libsumo::RTYPE_OK, warning, outputStorage);
     return true;
 }
 

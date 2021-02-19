@@ -24,7 +24,7 @@ from .domain import Domain
 class LaneAreaDomain(Domain):
 
     def __init__(self, name="lanearea", deprecatedFor=None):
-        Domain.__init__(self, name, tc.CMD_GET_LANEAREA_VARIABLE, None,
+        Domain.__init__(self, name, tc.CMD_GET_LANEAREA_VARIABLE, tc.CMD_SET_LANEAREA_VARIABLE,
                         tc.CMD_SUBSCRIBE_LANEAREA_VARIABLE, tc.RESPONSE_SUBSCRIBE_LANEAREA_VARIABLE,
                         tc.CMD_SUBSCRIBE_LANEAREA_CONTEXT, tc.RESPONSE_SUBSCRIBE_LANEAREA_CONTEXT,
                         {}, deprecatedFor,
