@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Feb 13 12:46:54 2021 by Eclipse SUMO sumo Version v1_8_0+1170-71bbe14
+<!-- generated on Fri Feb 19 10:50:03 2021 by Eclipse SUMO sumo Version v1_8_0+1289-692df37
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -131,6 +131,9 @@
 
         <!-- Restrict fcd output to the edge selection from the given input file -->
         <fcd-output.filter-edges.input-file value="" type="FILE"/>
+
+        <!-- List attributes that should be included in the FCD output -->
+        <fcd-output.attributes value="" type="STR[]"/>
 
         <!-- Restrict SSM device output to the edge selection from the given input file -->
         <device.ssm.filter-edges.input-file value="" type="FILE"/>
