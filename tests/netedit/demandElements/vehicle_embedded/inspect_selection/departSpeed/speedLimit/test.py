@@ -41,7 +41,7 @@ netedit.selectionInvertDemand()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 91, 392)
+netedit.leftClick(referencePosition, 114, 396)
 
 # change departSpeed with an invalid value
 netedit.modifyAttribute(5, "", True)
