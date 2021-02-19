@@ -1,4 +1,5 @@
 Loading configuration ... done.
+ Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -6,14 +7,15 @@ inductionloops ('0',)
 inductionloop count 1
 examining 0
 vehNum 1
-meanSpeed 4.033343723951839
+meanSpeed 4.03334372395
 vehIDs ('horiz',)
-occupancy 14.062612603401092
+occupancy 14.0626126034
 meanLength 5.0
 timeSinceDet 0.0
 vehData [('horiz', 5.0, 2.859373873965989, -1.0, 'DEFAULT_VEHTYPE')]
 position 10.0
 laneID 2fi_0
+parameter 42
 {16: 1}
 step 3
 {16: 1}

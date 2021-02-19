@@ -46,6 +46,9 @@ print("vehData", traci.inductionloop.getVehicleData(loopID))
 print("position", traci.inductionloop.getPosition(loopID))
 print("laneID", traci.inductionloop.getLaneID(loopID))
 
+traci.inductionloop.setParameter(loopID, "foo", "42")
+print("parameter", traci.inductionloop.getParameter(loopID, "foo"))
+
 traci.inductionloop.subscribe(loopID)
 print(traci.inductionloop.getSubscriptionResults(loopID))
 for step in range(3, 6):
