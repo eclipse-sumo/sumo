@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 22.04.2020 10:15:45 by Eclipse SUMO netedit Version v1_5_0+1230-5308a0e38c
+<!-- generated on 19.02.2021 13:42:26 by Eclipse SUMO netedit Version v1_8_0+1306-31714e5190
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr101332.8300\netedit.gui\additionalElements\detexit\move\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_19Feb133503.19856\netedit.gui\additionalElements\detexit\move\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr101332.8300\netedit.gui\additionalElements\detexit\move\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_19Feb133503.19856\netedit.gui\additionalElements\detexit\move\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,35 +30,35 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr101332.8300\netedit.gui\additionalElements\detexit\move\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr101332.8300\netedit.gui\additionalElements\detexit\move\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr101332.8300\netedit.gui\additionalElements\detexit\move\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr101332.8300\netedit.gui\additionalElements\detexit\move\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr101332.8300\netedit.gui\additionalElements\detexit\move\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr101332.8300\netedit.gui\additionalElements\detexit\move\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_19Feb133503.19856\netedit.gui\additionalElements\detexit\move\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_19Feb133503.19856\netedit.gui\additionalElements\detexit\move\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_19Feb133503.19856\netedit.gui\additionalElements\detexit\move\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_19Feb133503.19856\netedit.gui\additionalElements\detexit\move\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_19Feb133503.19856\netedit.gui\additionalElements\detexit\move\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_19Feb133503.19856\netedit.gui\additionalElements\detexit\move\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr101332.8300\netedit.gui\additionalElements\detexit\move\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_19Feb133503.19856\netedit.gui\additionalElements\detexit\move\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr101332.8300\netedit.gui\additionalElements\detexit\move\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_19Feb133503.19856\netedit.gui\additionalElements\detexit\move\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr101332.8300\netedit.gui\additionalElements\detexit\move\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_19Feb133503.19856\netedit.gui\additionalElements\detexit\move\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e3Detector id="e3Detector_0" pos="22.00,7.00" freq="900.00" file="e3Detector_0.xml">
+    <e3Detector id="e3Detector_0" pos="22.00,6.00" freq="900.00" file="e3Detector_0.xml">
+        <detExit lane="gneE1_0" pos="29.00"/>
         <detEntry lane="gneE0_0" pos="17.00"/>
-        <detExit lane="gneE1_0" pos="23.00"/>
     </e3Detector>
 </additional>

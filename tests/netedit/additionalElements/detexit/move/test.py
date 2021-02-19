@@ -54,25 +54,21 @@ netedit.changeElement("detEntry")
 netedit.leftClick(referencePosition, 250, 50)
 netedit.leftClick(referencePosition, 100, 250)
 
-# apply zoom out
-netedit.setZoom("25", "0", "70")
-
 # change to move mode
 netedit.moveMode()
 
 # move Entry to left
-netedit.moveElement(referencePosition, 110, 200, 50, 200)
+netedit.moveElement(referencePosition, 100, 180, 150, 180)
 
 # move back
-netedit.moveElement(referencePosition, 50, 200, 120, 200)
+netedit.moveElement(referencePosition, 150, 200, 120, 200)
 
 # move Entry to right
-netedit.moveElement(referencePosition, 120, 200, 245, 200)
+netedit.moveElement(referencePosition, 120, 200, 200, 200)
 
 # Check undos and redos
 netedit.undo(referencePosition, 8)
 netedit.redo(referencePosition, 8)
-
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

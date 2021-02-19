@@ -57,38 +57,38 @@ netedit.leftClick(referencePosition, 100, 250)
 # change to move mode
 netedit.moveMode()
 
-# move Entry to right
-netedit.moveElement(referencePosition, -75, 190, 150, 190)
+# move Entry to left
+netedit.moveElement(referencePosition, 100, 180, 150, 180)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Entry
-netedit.leftClick(referencePosition, 275, 190)
+netedit.leftClick(referencePosition, 150, 180)
 
 # block additional
-netedit.modifyBoolAttribute(7, True)
+netedit.modifyBoolAttribute(8, True)
 
 # change to move mode
 netedit.moveMode()
 
-# try to move Entry to right (must be blocked)
-netedit.moveElement(referencePosition, 140, 190, 300, 190)
+# move back
+netedit.moveElement(referencePosition, 150, 180, 100, 180)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Entry
-netedit.leftClick(referencePosition, 275, 190)
+netedit.leftClick(referencePosition, 100, 180)
 
 # unblock additional
-netedit.modifyBoolAttribute(7, True)
+netedit.modifyBoolAttribute(8, True)
 
 # change to move mode
 netedit.moveMode()
 
-# move Entry to right (must be allowed)
-netedit.moveElement(referencePosition, 140, 190, 300, 190)
+# move back
+netedit.moveElement(referencePosition, 100, 180, 200, 180)
 
 # Check undos and redos
 netedit.undo(referencePosition, 7)
