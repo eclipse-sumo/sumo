@@ -44,16 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 586, 303)
 
 # change arrivalLane with an invalid value
-netedit.modifyAttribute(6, "", False)
+netedit.modifyAttribute(6, "", True)
 
 # change arrivalLane with an invalid value
-netedit.modifyAttribute(6, "dummyLane", False)
+netedit.modifyAttribute(6, "dummyLane", True)
 
 # change departColor with a valid value
-netedit.modifyAttribute(6, "500", False)
+netedit.modifyAttribute(6, "500", True)
 
 # change arrivalLane with a valid value
-netedit.modifyAttribute(6, "0", False)
+netedit.modifyAttribute(6, "0", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)
