@@ -38,6 +38,9 @@ junctionID = "0"
 print("examining", junctionID)
 print("pos", traci.junction.getPosition(junctionID))
 print("pos3D", traci.junction.getPosition(junctionID, True))
+traci.junction.setParameter(junctionID, "foo", "42")
+print("parameter", traci.junction.getParameter(junctionID, "foo"))
+
 traci.junction.subscribe(junctionID)
 print(traci.junction.getSubscriptionResults(junctionID))
 for step in range(3, 6):
