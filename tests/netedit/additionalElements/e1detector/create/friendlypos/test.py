@@ -38,7 +38,7 @@ netedit.changeElement("e1Detector")
 netedit.changeDefaultBoolValue(7)
 
 # create E1 with different friendly position
-netedit.leftClick(referencePosition, 450, 250)
+netedit.leftClick(referencePosition, 450, 245)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

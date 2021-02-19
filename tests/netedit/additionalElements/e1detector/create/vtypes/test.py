@@ -38,13 +38,13 @@ netedit.changeElement("e1Detector")
 netedit.changeDefaultValue(6, "%%;$$$ %%$$ type.3")
 
 # try to create E1 with invalid vehicle types
-netedit.leftClick(referencePosition, 400, 250)
+netedit.leftClick(referencePosition, 400, 245)
 
 # set valid vehicle type
 netedit.changeDefaultValue(6, "private passenger taxi bus")
 
 # create E1 with valid vehicle types
-netedit.leftClick(referencePosition, 400, 250)
+netedit.leftClick(referencePosition, 400, 245)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

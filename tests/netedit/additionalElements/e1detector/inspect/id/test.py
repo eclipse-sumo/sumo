@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("e1Detector")
 
 # create E1 1
-netedit.leftClick(referencePosition, 250, 155)
+netedit.leftClick(referencePosition, 250, 210)
 
 # create E1 2
 netedit.leftClick(referencePosition, 450, 170)
@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 450, 170)
 netedit.inspectMode()
 
 # inspect first E1
-netedit.leftClick(referencePosition, 250, 155)
+netedit.leftClick(referencePosition, 250, 210)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(0, "e1Detector_gneE2_1_1", True)

@@ -38,7 +38,7 @@ netedit.changeElement("e1Detector")
 netedit.changeDefaultBoolValue(9)
 
 # create E1 with different block movement
-netedit.leftClick(referencePosition, 500, 250)
+netedit.leftClick(referencePosition, 500, 245)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

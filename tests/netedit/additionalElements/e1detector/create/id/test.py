@@ -35,31 +35,31 @@ netedit.additionalMode()
 netedit.changeElement("e1Detector")
 
 # Create E1
-netedit.leftClick(referencePosition, 140, 250)
+netedit.leftClick(referencePosition, 140, 245)
 
 # enable ID
 netedit.changeDefaultBoolValue(2)
 
 # Create E1
-netedit.leftClick(referencePosition, 160, 250)
+netedit.leftClick(referencePosition, 160, 245)
 
 # set a invalid  id (duplicated)
 netedit.changeDefaultValue(3, "e1Detector_gneE0_0_0")
 
 # try to create E1 with invalid id
-netedit.leftClick(referencePosition, 180, 250)
+netedit.leftClick(referencePosition, 180, 245)
 
 # set a invalid  id
 netedit.changeDefaultValue(3, ";;;")
 
 # try to create E1 with invalid id
-netedit.leftClick(referencePosition, 200, 250)
+netedit.leftClick(referencePosition, 200, 245)
 
 # set a valid id
 netedit.changeDefaultValue(3, "customID")
 
 # create E1 with valid id
-netedit.leftClick(referencePosition, 220, 250)
+netedit.leftClick(referencePosition, 220, 245)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

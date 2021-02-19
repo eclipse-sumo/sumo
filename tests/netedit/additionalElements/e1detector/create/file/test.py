@@ -38,13 +38,13 @@ netedit.changeElement("e1Detector")
 netedit.changeDefaultValue(5, "&&&&&&&&")
 
 # try to create E1 with invalid filename
-netedit.leftClick(referencePosition, 350, 250)
+netedit.leftClick(referencePosition, 350, 245)
 
 # set valid filename
 netedit.changeDefaultValue(5, "myOwnFilename.txt")
 
 # try to create E1 with invalid filename
-netedit.leftClick(referencePosition, 350, 250)
+netedit.leftClick(referencePosition, 350, 245)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)
