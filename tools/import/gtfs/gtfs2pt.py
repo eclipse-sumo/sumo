@@ -50,7 +50,7 @@ def get_options(args=None):
     argParser.add_argument("--poly-output", help="file to write the generated polygon files to")
     argParser.add_argument("--route-output", help="file to write the generated public transport stops and routes to")
     argParser.add_argument("--vehicle-output", help="file to write the generated public transport vehicles to")
-    argParser.add_argument("-n", "--network", help="sumo network to use")
+    argParser.add_argument("-n", "--network", help="sumo network to use", fix_path=True)
     argParser.add_argument("--network-split", help="directory to write generated networks to")
     # argParser.add_argument("--network-split.vclass", action="store_true", default=False,
     #                        help="use the allowed vclass instead of the edge type to split the network")

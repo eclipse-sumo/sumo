@@ -18,6 +18,7 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
+import os
 import sys
 import subprocess
 from collections import namedtuple
@@ -81,6 +82,17 @@ class ArgumentParser(argparse.ArgumentParser):
         self.add_argument('-c', '--configuration-file', help='read configuration from FILE', metavar="FILE")
         self.add_argument('-C', '--save-configuration', help='save configuration to FILE and exit', metavar="FILE")
         self.add_argument('--save-template', help='save configuration template to FILE and exit', metavar="FILE")
+        self._fix_path_args = set()
+
+    def add_argument(self, *args, **kwargs):
+        fix_path = kwargs.get("fix_path")
+        if "fix_path" in kwargs:
+            del kwargs["fix_path"]
+        a = argparse.ArgumentParser.add_argument(self, *args, **kwargs)
+        if fix_path is True:
+            for s in a.option_strings:
+                if s.startswith("--"):
+                    self._fix_path_args.add(s[2:])
 
     def write_config_file(self, namespace, exit=True):
         if namespace.save_configuration:
@@ -158,6 +170,8 @@ class ArgumentParser(argparse.ArgumentParser):
                         if s in args:
                             is_set = True
                             break
+                    if option.name in self._fix_path_args:
+                        option.value = os.path.join(os.path.dirname(cfg_file), option.value)
                     if not is_set:
                         if option.value == "True":
                             config_args += ["--" + option.name]
