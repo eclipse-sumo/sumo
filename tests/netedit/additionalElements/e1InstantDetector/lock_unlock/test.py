@@ -35,43 +35,43 @@ netedit.additionalMode()
 netedit.changeElement("instantInductionLoop")
 
 # create E1
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 183, 210)
 
 # change to move mode
 netedit.moveMode()
 
 # move E1 to right
-netedit.moveElement(referencePosition, 120, 250, 250, 250)
+netedit.moveElement(referencePosition, 183, 210, 241, 210)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect E1
-netedit.leftClick(referencePosition, 350, 250)
+netedit.leftClick(referencePosition, 241, 210)
 
 # block additional
-netedit.modifyBoolAttribute(10, True)
+netedit.modifyBoolAttribute(11, True)
 
 # change to move mode
 netedit.moveMode()
 
 # try to move E1 to right (must be blocked)
-netedit.moveElement(referencePosition, 250, 250, 350, 250)
+netedit.moveElement(referencePosition, 241, 210, 373, 210)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect E1
-netedit.leftClick(referencePosition, 350, 250)
+netedit.leftClick(referencePosition, 373, 210)
 
 # unblock additional
-netedit.modifyBoolAttribute(10, True)
+netedit.modifyBoolAttribute(11, True)
 
 # change to move mode
 netedit.moveMode()
 
 # move E1 to right (must be allowed)
-netedit.moveElement(referencePosition, 250, 250, 350, 250)
+netedit.moveElement(referencePosition, 373, 210, 400, 210)
 
 # Check undos and redos
 netedit.undo(referencePosition, 5)
@@ -85,3 +85,4 @@ netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)
+

@@ -38,13 +38,13 @@ netedit.changeElement("instantInductionLoop")
 netedit.changeDefaultValue(3, "\"\"\";;")
 
 # try to create E1 with invalid name
-netedit.leftClick(referencePosition, 300, 250)
+netedit.leftClick(referencePosition, 300, 210)
 
 # set valid name
 netedit.changeDefaultValue(3, "customName")
 
 # create E1 with valid name
-netedit.leftClick(referencePosition, 300, 250)
+netedit.leftClick(referencePosition, 300, 210)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

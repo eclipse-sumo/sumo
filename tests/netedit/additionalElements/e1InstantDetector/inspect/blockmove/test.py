@@ -35,16 +35,16 @@ netedit.additionalMode()
 netedit.changeElement("instantInductionLoop")
 
 # create E1
-netedit.leftClick(referencePosition, 250, 140)
+netedit.leftClick(referencePosition, 250, 210)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E1
-netedit.leftClick(referencePosition, 250, 140)
+netedit.leftClick(referencePosition, 250, 210)
 
 # Change boolean parameter block movement
-netedit.modifyBoolAttribute(10, True)
+netedit.modifyBoolAttribute(11, True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

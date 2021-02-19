@@ -38,7 +38,7 @@ netedit.changeElement("instantInductionLoop")
 netedit.changeDefaultBoolValue(8)
 
 # create E1 with different block movement
-netedit.leftClick(referencePosition, 500, 250)
+netedit.leftClick(referencePosition, 500, 210)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

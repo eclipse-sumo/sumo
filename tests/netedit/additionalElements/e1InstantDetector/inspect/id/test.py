@@ -35,16 +35,16 @@ netedit.additionalMode()
 netedit.changeElement("instantInductionLoop")
 
 # create E1 1
-netedit.leftClick(referencePosition, 250, 140)
+netedit.leftClick(referencePosition, 250, 210)
 
 # create E1 2
-netedit.leftClick(referencePosition, 450, 140)
+netedit.leftClick(referencePosition, 450, 210)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E1
-netedit.leftClick(referencePosition, 250, 140)
+netedit.leftClick(referencePosition, 250, 210)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(0, "instantInductionLoop_gneE2_1_1", True)

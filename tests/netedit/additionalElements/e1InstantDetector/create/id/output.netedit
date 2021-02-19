@@ -2,14 +2,14 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 instantInductionLoop
-TestFunctions: Clicked over position 444 - 418
-TestFunctions: Clicked over position 464 - 418
-instantInductionLoop_gneE0_0_0
-TestFunctions: Clicked over position 484 - 418
+TestFunctions: Clicked over position 444 - 378
+TestFunctions: Clicked over position 484 - 378
+instantInductionLoop_gneE1_0_0
+TestFunctions: Clicked over position 524 - 378
 ;;;
-TestFunctions: Clicked over position 504 - 418
+TestFunctions: Clicked over position 584 - 378
 customID
-TestFunctions: Clicked over position 524 - 418
+TestFunctions: Clicked over position 644 - 378
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully
