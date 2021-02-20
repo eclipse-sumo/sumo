@@ -20,13 +20,13 @@ from __future__ import absolute_import
 import os
 import re
 import subprocess
-from Tkinter import Canvas, Menu, StringVar, Tk, LEFT
-from ttk import Button, Frame, Menubutton, Label, Scrollbar, Entry
-import tkFileDialog
+from tkinter import Canvas, Menu, StringVar, Tk, LEFT, PhotoImage
+from tkinter.ttk import Button, Frame, Menubutton, Label, Scrollbar, Entry
+from tkinter import filedialog
 from sumolib.options import Option, readOptions
 
 THISDIR = os.path.dirname(__file__)
-BINDIR = os.path.join(THISDIR, '..', 'bin')
+BINDIR = os.path.join(THISDIR, '..', '..', 'bin')
 
 APPLICATIONS = ['netconvert', 'netgenerate', 'polyconvert', 'od2trips', 'duarouter', 'jtrrouter',
                 'dfrouter', 'marouter', 'sumo', 'sumo-gui', 'activitygen']
@@ -40,9 +40,9 @@ class ResizingCanvas(Canvas):
 
     def __init__(self, parent, **kwargs):
         Canvas.__init__(self, parent, **kwargs)
-        self.bind("<Configure>", self.on_resize)
-        self.height = self.winfo_reqheight()
-        self.width = self.winfo_reqwidth()
+        #self.bind("<Configure>", self.on_resize)
+        #self.height = 400
+        #self.width = 700
 
     def on_resize(self, event):
         # determine the ratio of old width/height to new width/height
@@ -100,6 +100,9 @@ class Launcher:
 
         self.root.title(self.title_prefix)
         self.root.minsize(700, 200)
+        self.root.geometry("700x400")
+        #self.root.iconphoto(True, PhotoImage(file = os.path.join(THISDIR, "launcher.gif")))
+        
         numButtons = self.mainButtons()
         for i in range(numButtons):
             root.columnconfigure(i, weight=1)
@@ -170,7 +173,7 @@ class Launcher:
 
     def loadCfg(self):
         self.file_opt['title'] = 'Load configuration file'
-        filename = tkFileDialog.askopenfilename(**self.file_opt)
+        filename = filedialog.askopenfilename(**self.file_opt)
         self.root.title(self.title_prefix + " " + filename)
         self.loadedOptions = readOptions(filename)
         for o in self.loadedOptions:
