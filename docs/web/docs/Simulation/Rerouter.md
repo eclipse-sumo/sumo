@@ -229,6 +229,10 @@ The attributes used within such definitions are:
 | **id**         | id (string) | The id of a new route to assign; the id must be the id of a previously loaded route                                                                          |
 | probability    | float       | The the probability with which a vehicle will use the given edge as destination; (default 1). The probabilities are automatically normalized for all entries |
 
+### Repeated public transport routes
+
+If the new route assigned with the rerouter contains stops, the vehicle will use these stops. If the stops use attribute 'until' then the route should use attribute ['cycleTime'](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#repeated_routes) to shift the until-times by a set amount on each repeat.
+
 ## Rerouting to an alternative Parking Area
 
 Vehicles that stop at a [parking
