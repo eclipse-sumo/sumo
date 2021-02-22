@@ -349,7 +349,7 @@ The response is a list of Collision objects:
 
 | type + string | type + string | type + string | type + string |  type + double | type + double | type + string | type + string |type + double |
 | :-----------: | :-----------: | :-----------: | :-----------: | :------------: | :-----------: |:------------: |:------------: |:-----------: |
-|  collider id  | victim id     | collider type | victim type   | collider speed | victim speed  | collision type| lane id       | po on lane   |
+|  collider id  | victim id     | collider type | victim type   | collider speed | victim speed  | collision type| lane id       | pos on lane  |
 
 ## Generic Parameter Retrieval 0x7e
 
