@@ -1,2 +1,5 @@
 # Tests the constraint API
 getConstraints
+
+# reverse constraint-based train order and adapt other constraints to avoid deadlock
+swapConstraints
