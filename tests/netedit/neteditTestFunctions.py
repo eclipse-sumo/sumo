@@ -28,10 +28,10 @@ import time
 import pyperclip
 
 # define delay before every operation
-DELAY_KEY = 0.4  # 0.2
-DELAY_KEY_TAB = 0.3  # 0.1
-DELAY_MOVE = 0.1
-DELAY_MOUSE = 0.5
+DELAY_KEY = 0.4         # 0.2
+DELAY_KEY_TAB = 0.3     # 0.1
+DELAY_MOUSE_MOVE = 0.5  # 0.1
+DELAY_MOUSE_CLICK = 1   # 0.5
 DELAY_QUESTION = 3
 DELAY_RELOAD = 5
 DELAY_REFERENCE = 30
@@ -52,6 +52,25 @@ _REFERENCE_PNG = os.path.join(os.path.dirname(__file__), "reference.png")
 #################################################
 # interaction functions
 #################################################
+
+def typeKeyUp(key):
+    """
+    @brief type single key up
+    """
+    # Leave key up
+    pyautogui.keyUp(key)
+    # wait after key up
+    time.sleep(DELAY_KEY)
+
+    
+def typeKeyDown(key):
+    """
+    @brief type single key down
+    """
+    # Leave key down
+    pyautogui.keyDown(key)
+    # wait after key down
+    time.sleep(DELAY_KEY)
 
 
 def typeEscape():
@@ -112,42 +131,34 @@ def typeKey(key):
     """
     @brief type single key
     """
-    # wait before every operation
-    time.sleep(DELAY_KEY)
     # type keys
     pyautogui.hotkey(key)
+    # wait before every operation
+    time.sleep(DELAY_KEY)
 
 
 def typeTwoKeys(key1, key2):
     """
     @brief type two keys at the same time (key1 -> key2)
     """
-    # wait before every operation
-    time.sleep(DELAY_KEY)
     # press key 1
-    pyautogui.keyDown(key1)
+    typeKeyDown(key1)
     # type key 2
     typeKey(key2)
-    # wait before every operation
-    time.sleep(DELAY_KEY)
     # leave key 1
-    pyautogui.keyUp(key1)
+    typeKeyUp(key1)
 
 
 def typeThreeKeys(key1, key2, key3):
     """
     @brief type three keys at the same time (key1 -> key2 -> key3)
     """
-    # wait before every operation
-    time.sleep(DELAY_KEY)
     # press key 1
-    pyautogui.keyDown(key1)
+    typeKeyDown(key1)
     # type key 2 and 3
     typeTwoKeys(key2, key3)
-    # wait before every operation
-    time.sleep(DELAY_KEY)
     # leave key 1
-    pyautogui.keyUp(key1)
+    typeKeyUp(key1)
 
 
 def translateKeys(value, layout="de"):
@@ -171,7 +182,6 @@ def pasteIntoTextField(value, removePreviousContents=True, useClipboard=True, la
     # remove previous content
     if removePreviousContents:
         typeTwoKeys('ctrl', 'a')
-        time.sleep(DELAY_KEY)
     if useClipboard:
         # use copy & paste (due problems with certain characters, for example '|')
         pyperclip.copy(value)
@@ -184,18 +194,16 @@ def leftClick(referencePosition, positionx, positiony):
     """
     @brief do left click over a position relative to referencePosition (pink square)
     """
-    # wait before every operation
-    time.sleep(DELAY_MOUSE)
     # obtain clicked position
     clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
     # move mouse to position
     pyautogui.moveTo(clickedPosition)
-    # wait
-    time.sleep(DELAY_MOVE)
+    # wait after move
+    time.sleep(DELAY_MOUSE_MOVE)
     # click over position
     pyautogui.click(button='left')
     # wait after every operation
-    time.sleep(DELAY_MOUSE)
+    time.sleep(DELAY_MOUSE_CLICK)
     print("TestFunctions: Clicked over position", clickedPosition[0], '-', clickedPosition[1])
 
 
@@ -204,23 +212,21 @@ def leftClickShift(referencePosition, positionx, positiony):
     @brief do left click over a position relative to referencePosition (pink square) while shift key is pressed
     """
     # Leave Shift key pressed
-    pyautogui.keyDown('shift')
-    # wait before every operation
-    time.sleep(DELAY_MOUSE)
+    typeKeyDown('shift')
     # obtain clicked position
     clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
     # move mouse to position
     pyautogui.moveTo(clickedPosition)
-    # wait
-    time.sleep(DELAY_MOVE)
+    # wait after move
+    time.sleep(DELAY_MOUSE_MOVE)
     # click over position
     pyautogui.click(button='left')
+    # wait after every operation
+    time.sleep(DELAY_MOUSE_CLICK)
     # show debug
     print("TestFunctions: Clicked with Shift key pressed over position", clickedPosition[0], '-', clickedPosition[1])
     # Release Shift key
-    pyautogui.keyUp('shift')
-    # wait after key up
-    time.sleep(DELAY_KEY)
+    typeKeyUp('shift')
 
 
 def leftClickControl(referencePosition, positionx, positiony):
@@ -228,23 +234,21 @@ def leftClickControl(referencePosition, positionx, positiony):
     @brief do left click over a position relative to referencePosition (pink square) while control key is pressed
     """
     # Leave Control key pressed
-    pyautogui.keyDown('ctrl')
-    # wait before every operation
-    time.sleep(DELAY_MOUSE)
+    typeKeyDown('ctrl')
     # obtain clicked position
     clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
     # move mouse to position
     pyautogui.moveTo(clickedPosition)
-    # wait
-    time.sleep(DELAY_MOVE)
+    # wait after move
+    time.sleep(DELAY_MOUSE_MOVE)
     # click over position
     pyautogui.click(button='left')
+    # wait after every operation
+    time.sleep(DELAY_MOUSE_CLICK)
     # show debug
     print("TestFunctions: Clicked with Control key pressed over position", clickedPosition[0], '-', clickedPosition[1])
     # Release Control key
-    pyautogui.keyUp('ctrl')
-    # wait after key up
-    time.sleep(DELAY_KEY)
+    typeKeyUp('ctrl')
 
 
 def leftClickAltShift(referencePosition, positionx, positiony):
@@ -252,28 +256,26 @@ def leftClickAltShift(referencePosition, positionx, positiony):
     @brief do left click over a position relative to referencePosition (pink square) while alt key is pressed
     """
     # Leave alt key pressed
-    pyautogui.keyDown('alt')
+    typeKeyDown('alt')
     # Leave shift key pressed
-    pyautogui.keyDown('shift')
-    # wait before every operation
-    time.sleep(DELAY_MOUSE)
+    typeKeyDown('shift')
     # obtain clicked position
     clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
     # move mouse to position
     pyautogui.moveTo(clickedPosition)
-    # wait
-    time.sleep(DELAY_MOVE)
+    # wait after move
+    time.sleep(DELAY_MOUSE_MOVE)
     # click over position
     pyautogui.click(button='left')
+    # wait after every operation
+    time.sleep(DELAY_MOUSE_CLICK)
     # show debug
     print("TestFunctions: Clicked with alt and shift key pressed over position",
           clickedPosition[0], '-', clickedPosition[1])
     # Release alt key
-    pyautogui.keyUp('alt')
+    typeKeyUp('alt')
     # Release shift key
-    pyautogui.keyUp('shift')
-    # wait after key up
-    time.sleep(DELAY_KEY)
+    typeKeyUp('shift')
 
 
 def dragDrop(referencePosition, x1, y1, x2, y2):
@@ -395,9 +397,11 @@ def getReferenceMatch(neProcess, waitTime):
         # click over position
         pyautogui.moveTo(referencePosition)
         # wait
-        time.sleep(DELAY_MOVE)
+        time.sleep(DELAY_MOUSE_MOVE)
         # click over position (used to center view in window)
         pyautogui.click(button='left')
+        # wait after every operation
+        time.sleep(DELAY_MOUSE_CLICK)
         # return reference position
         return referencePosition
     # reference not found, then kill netedit process
@@ -418,6 +422,10 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, waitTime=
     # atexit.register(quit, neteditProcess, False, False)
     # print debug information
     print("TestFunctions: Netedit opened successfully")
+    # all keys up
+    typeKeyUp("shift")
+    typeKeyUp("control")
+    typeKeyUp("alt")
     # Wait for Netedit reference
     return neteditProcess, getReferenceMatch(neteditProcess, waitTime)
 
@@ -662,6 +670,11 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             try:
                 NeteditProcess.wait(DELAY_QUIT_NETEDIT)
                 print("TestFunctions: Netedit closed successfully")
+                # all keys up
+                typeKeyUp("shift")
+                typeKeyUp("control")
+                typeKeyUp("alt")
+                # exit 
                 return
             except subprocess.TimeoutExpired:
                 pass
@@ -669,9 +682,20 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             time.sleep(DELAY_QUIT_NETEDIT)
             if NeteditProcess.poll() is not None:
                 print("TestFunctions: Netedit closed successfully")
+                # all keys up
+                typeKeyUp("shift")
+                typeKeyUp("control")
+                typeKeyUp("alt")
+                # exit 
                 return
         NeteditProcess.kill()
         print("TestFunctions: Error closing Netedit")
+        # all keys up
+        typeKeyUp("shift")
+        typeKeyUp("control")
+        typeKeyUp("alt")
+        # exit
+        return
 
 
 def openNetworkAs(waitTime=2):
@@ -1142,18 +1166,18 @@ def createConnection(referencePosition, fromLanePositionX, fromLanePositionY,
     """
     # check if connection has to be created in certain mode
     if mode == "conflict":
-        pyautogui.keyDown('ctrl')
+        typeKeyDown('ctrl')
     elif mode == "yield":
-        pyautogui.keyDown('shift')
+        typeKeyDown('shift')
     # select first lane
     leftClick(referencePosition, fromLanePositionX, fromLanePositionY)
     # select another lane for create a connection
     leftClick(referencePosition, toLanePositionX, toLanePositionY)
     # check if connection has to be created in certain mode
     if mode == "conflict":
-        pyautogui.keyUp('ctrl')
+        typeKeyUp('ctrl')
     elif mode == "yield":
-        pyautogui.keyUp('shift')
+        typeKeyUp('shift')
 
 
 def saveConnectionEdit():
@@ -1778,15 +1802,13 @@ def selectionRectangle(referencePosition, startX, startY, endX, endY):
     @brief select using an rectangle
     """
     # Leave Shift key pressedX
-    pyautogui.keyDown('shift')
-    # wait after key up
-    time.sleep(DELAY_KEY)
+    typeKeyDown('shift')
     # move element
     dragDrop(referencePosition, startX, startY, endX, endY)
     # wait after key up
     time.sleep(DELAY_KEY)
     # Release Shift key
-    pyautogui.keyUp('shift')
+    typeKeyUp('shift')
     # wait for gl debug
     time.sleep(DELAY_SELECT)
 
