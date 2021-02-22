@@ -1,5 +1,6 @@
 -tp appdata=netedit.gui
 additionalElements\busstop\load\parkingLength
+
 additionalElements\e2detector\lock_unlock
 additionalElements\e2detector\move
 additionalElements\e2MultiLaneDetector\lock_unlock
@@ -56,9 +57,6 @@ demandElements\flow_embedded\inspect_selection\color
 demandElements\flow_embedded\load\parameters
 demandElements\flow_embedded\volatileRecomputing
 
-demandElements\stop\basic\no_parents
-demandElements\stop\basic\invalid_parent
-demandElements\stop\basic\invalid_type
 demandElements\stop\stopLane\delete
 demandElements\stop\stopLane\inspect_selection\friendlyPos
 demandElements\stop\stopLane\inspect_selection\duration
