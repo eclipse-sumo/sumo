@@ -263,6 +263,13 @@ Some further messages require additional parameters.
 <td><p>Reads origin and destination position together with usable modes and other person paramters and computes the currently fastest route for the person using the available modes.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._simulation.html#SimulationDomain-findIntermodalRoute">findIntermodalRoute</a></p></td>
 </tr>
+<tr class="odd">
+<td><p>get collisions (0x23)</p></td>
+<td><p>-</p></td>
+<td><p>compound, see below</p></td>
+<td><p>Retrieves details on all collision events in the last time step.</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._simulation.html#SimulationDomain-getCollisions">getCollisions</a></p></td>
+</tr>
 </tbody>
 </table>
 
@@ -335,6 +342,14 @@ empty, the default vehicle type is used.
 
 The response is a list of stages similar to the one returned by
 findRoute.
+
+### Command 0x23: Get Collisions
+
+The response is a list of Collision objects:
+
+| type + string | type + string | type + string | type + string |  type + double | type + double | type + string | type + string |type + double |
+| :-----------: | :-----------: | :-----------: | :-----------: | :------------: | :-----------: |:------------: |:------------: |:-----------: |
+|  collider id  | victim id     | collider type | victim type   | collider speed | victim speed  | collision type| lane id       | po on lane   |
 
 ## Generic Parameter Retrieval 0x7e
 
