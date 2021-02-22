@@ -242,6 +242,31 @@ MSRailSignal::addConstraint(const std::string& tripId, MSRailSignalConstraint* c
     myConstraints[tripId].push_back(constraint);
 }
 
+
+bool
+MSRailSignal::removeConstraint(const std::string& tripId, MSRailSignalConstraint* constraint) {
+    if (myConstraints.count(tripId) != 0) {
+        auto& constraints = myConstraints[tripId];
+        auto it = std::find(constraints.begin(), constraints.end(), constraint);
+        if (it != constraints.end()) {
+            delete *it;
+            constraints.erase(it);
+            return true;
+        }
+    }
+    if (myInsertionConstraints.count(tripId) != 0) {
+        auto& constraints = myInsertionConstraints[tripId];
+        auto it = std::find(constraints.begin(), constraints.end(), constraint);
+        if (it != constraints.end()) {
+            delete *it;
+            constraints.erase(it);
+            return true;
+        }
+    }
+    return false;
+}
+
+
 void
 MSRailSignal::addInsertionConstraint(const std::string& tripId, MSRailSignalConstraint* constraint) {
     myInsertionConstraints[tripId].push_back(constraint);

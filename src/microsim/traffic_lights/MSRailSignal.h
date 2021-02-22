@@ -233,6 +233,9 @@ public:
     const std::map<std::string, std::vector<MSRailSignalConstraint*> >&  getInsertionConstraints() const {
         return myInsertionConstraints;
     }
+
+    /// @brief remove contraint for signal switching
+    bool removeConstraint(const std::string& tripId, MSRailSignalConstraint* constraint);
     /// @}
 
     /// update driveway for extended deadlock protection

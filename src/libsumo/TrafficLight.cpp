@@ -274,6 +274,62 @@ TrafficLight::getConstraints(const std::string& tlsID, const std::string& tripId
     return result;
 }
 
+void
+TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId) {
+    MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
+    MSTrafficLightLogic* const active2 = getTLS(foeSignal).getDefault();
+    MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);
+    MSRailSignal* s2 = dynamic_cast<MSRailSignal*>(active2);
+    if (s == nullptr) {
+        throw TraCIException("'" + tlsID + "' is not a rail signal");
+    }
+    if (s2 == nullptr) {
+        throw TraCIException("'" + foeSignal + "' is not a rail signal");
+    }
+    MSRailSignalConstraint_Predecessor* c = nullptr;
+    for (auto item : s->getConstraints()) {
+        if (tripId == item.first) {
+            for (MSRailSignalConstraint* cand : item.second) {
+                MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);
+                if (pc != nullptr && pc->myFoeSignal->getID() == foeSignal && pc->myTripId == foeId) {
+                    c = pc;
+                    break;
+                }
+            }
+            break;
+        }
+    }
+    if (c != nullptr) {
+        const double limit = c->myLimit;
+        s->removeConstraint(tripId, c);
+        s2->addConstraint(foeId, new MSRailSignalConstraint_Predecessor(s, tripId, limit));
+        removeConstraints(foeId);
+    } else {
+        throw TraCIException("Rail signal '" + tlsID + "' does not have the given constraint for '" + tripId + "'");
+    }
+}
+
+void
+TrafficLight::removeConstraints(const std::string& foeId) {
+    // remove all constraints that have the given foeId
+    // @noote could improve efficiency by storing a map in MSRailSignalControl
+    for (const std::string& tlsID : getIDList()) {
+        MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
+        MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);
+        if (s != nullptr) {
+            auto cands = s->getConstraints(); // make copy
+            for (auto item : cands) {
+                for (MSRailSignalConstraint* cand : item.second) {
+                    MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);
+                    if (pc != nullptr && pc->myTripId == foeId) {
+                        s->removeConstraint(item.first, cand);
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 std::string
 TrafficLight::getParameter(const std::string& tlsID, const std::string& paramName) {

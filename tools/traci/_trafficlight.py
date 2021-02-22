@@ -344,3 +344,9 @@ class TrafficLightDomain(Domain):
         self._setCmd(tc.TL_COMPLETE_PROGRAM_RYG, tlsID, format, *values)
 
     setCompleteRedYellowGreenDefinition = setProgramLogic
+
+    def swapConstraints(self, tlsID, tripId, foeSignal, foeId):
+        """swapConstraints(string, string, string, string)
+        Reverse the given constraint and remove all existing constraints with foeId
+        """
+        self._setCmd(tc.TL_CONSTRAINT_REVERSE, tlsID, "tsss", 3, tripId, foeSignal, foeId)

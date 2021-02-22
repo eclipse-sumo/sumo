@@ -272,6 +272,18 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const libsumo::TraCILogi
 }
 
 
+void
+TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId) {
+    tcpip::Storage content;
+    content.writeByte(libsumo::TYPE_COMPOUND);
+    content.writeInt(3);
+    StoHelp::writeTypedString(content, tripId);
+    StoHelp::writeTypedString(content, foeSignal);
+    StoHelp::writeTypedString(content, foeId);
+    Dom::set(libsumo::TL_CONSTRAINT_REVERSE, tlsID, &content);
+}
+
+
 LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(TrafficLight, TL)
 
 }
