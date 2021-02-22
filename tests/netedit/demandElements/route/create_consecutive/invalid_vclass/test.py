@@ -34,12 +34,12 @@ netedit.supermodeDemand()
 # go to route mode
 netedit.routeMode()
 
-# create busStop in mode "reference left"
+# create route
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 55)
-netedit.leftClick(referencePosition, 64, 160)
-netedit.leftClick(referencePosition, 190, 256)
+netedit.leftClick(referencePosition, 68, 160)
+netedit.leftClick(referencePosition, 190, 236)
 
 # press enter to create route
 netedit.typeEnter()
