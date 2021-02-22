@@ -28,13 +28,12 @@ import time
 import pyperclip
 
 # define delay before every operation
-DELAY_KEY = 0.4         # 0.2
-DELAY_KEY_TAB = 0.3     # 0.1
+DELAY_KEY = 0.3         # 0.2
+DELAY_KEY_TAB = 0.2     # 0.1
 DELAY_MOUSE_MOVE = 0.5  # 0.1
-DELAY_MOUSE_CLICK = 1   # 0.5
+DELAY_MOUSE_CLICK = 0.7 # 0.5
 DELAY_QUESTION = 3
 DELAY_RELOAD = 5
-DELAY_REFERENCE = 30
 DELAY_START_NETEDIT = 3
 DELAY_QUIT_NETEDIT = 5
 DELAY_QUIT_SUMOGUI = 3
@@ -370,7 +369,7 @@ def Popen(extraParameters, debugInformation):
     return subprocess.Popen(neteditCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
 
 
-def getReferenceMatch(neProcess, waitTime):
+def getReferenceMatch(neProcess):
     """
     @brief obtain reference referencePosition (pink square)
     """
@@ -378,7 +377,7 @@ def getReferenceMatch(neProcess, waitTime):
     print("Finding reference")
     try:
         # capture screen and search reference
-        positionOnScreen = pyautogui.locateOnScreen(_REFERENCE_PNG, waitTime)
+        positionOnScreen = pyautogui.locateOnScreen(_REFERENCE_PNG, 1)
     except Exception as e:
         # we cannot specify the exception here because some versions of pyautogui use one and some don't
         print(e)
@@ -410,7 +409,7 @@ def getReferenceMatch(neProcess, waitTime):
     sys.exit("TestFunctions: Killed Netedit process. 'reference.png' not found")
 
 
-def setupAndStart(testRoot, extraParameters=[], debugInformation=True, waitTime=DELAY_REFERENCE):
+def setupAndStart(testRoot, extraParameters=[], debugInformation=True):
     """
     @brief setup and start netedit
     """
@@ -427,7 +426,7 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, waitTime=
     typeKeyUp("control")
     typeKeyUp("alt")
     # Wait for Netedit reference
-    return neteditProcess, getReferenceMatch(neteditProcess, waitTime)
+    return neteditProcess, getReferenceMatch(neteditProcess)
 
 
 def supermodeNetwork():
