@@ -4,31 +4,31 @@ Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e3Detector' in TagSelector
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Debug: Selected item 'detEntry' in TagSelector
-Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Selected item 'detExit' in TagSelector
-Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
-Debug: Setting new attribute pos '22.00,5.00' into e3Detector 'e3Detector_0'
-Debug: Setting new attribute pos '22.00,-1.00' into e3Detector 'e3Detector_0'
-Debug: Setting new attribute pos '16.00,-1.00' into e3Detector 'e3Detector_0'
-Debug: Setting new attribute pos '30.00,-1.00' into e3Detector 'e3Detector_0'
+Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
+Debug: Setting new attribute pos '18.00,6.00' into e3Detector 'e3Detector_0'
+Debug: Setting new attribute pos '18.00,-2.00' into e3Detector 'e3Detector_0'
+Debug: Setting new attribute pos '14.00,-2.00' into e3Detector 'e3Detector_0'
+Debug: Setting new attribute pos '29.00,-2.00' into e3Detector 'e3Detector_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '16.00,-1.00' into e3Detector 'e3Detector_0'
+Debug: Setting previous attribute pos '14.00,-2.00' into e3Detector 'e3Detector_0'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute pos '18.00,-2.00' into e3Detector 'e3Detector_0'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute pos '18.00,6.00' into e3Detector 'e3Detector_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute pos '22.00,-1.00' into e3Detector 'e3Detector_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '22.00,5.00' into e3Detector 'e3Detector_0'
+Debug: Removing detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '22.00,0.00' into e3Detector 'e3Detector_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing detExit 'e3Detector_0detExit1' in GNEChange_Additional
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: Removing detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
@@ -37,27 +37,27 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '22.00,5.00' into e3Detector 'e3Detector_0'
+Debug: Setting new attribute pos '18.00,6.00' into e3Detector 'e3Detector_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '22.00,-1.00' into e3Detector 'e3Detector_0'
+Debug: Setting new attribute pos '18.00,-2.00' into e3Detector 'e3Detector_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '16.00,-1.00' into e3Detector 'e3Detector_0'
+Debug: Setting new attribute pos '14.00,-2.00' into e3Detector 'e3Detector_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '30.00,-1.00' into e3Detector 'e3Detector_0'
+Debug: Setting new attribute pos '29.00,-2.00' into e3Detector 'e3Detector_0'
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit1'
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
+Debug: Deleting unreferenced detExit 'e3Detector_0'
+Debug: Deleting unreferenced detEntry 'e3Detector_0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
