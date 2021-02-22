@@ -50,7 +50,7 @@ element:
 | **pos**        | float         | The position of the calibrator on the specified lane (currently ignored, see [\[1\]](https://github.com/eclipse/sumo/issues/1331)   |
 | freq           | float         | The aggregation interval in which to calibrate the flows. default is step-length                                |
 | routeProbe     | id (string)   | The id of the [routeProbe](../Simulation/Output/RouteProbe.md) element from which to determine the route distribution for generated vehicles.|
-| jamTheshold    | float | A threshold value to detect and clear unexpected jamming if the mean edge speed drops below FLOAT * speedLimit. Range [0, 1]. Default: 0.5 (0.8 in meso)|
+| jamThreshold    | float | A threshold value to detect and clear unexpected jamming if the mean edge speed drops below FLOAT * speedLimit. Range [0, 1]. Default: 0.5 (0.8 in meso)|
 | output         | file (string) | The output file for writing calibrator information or *NULL*                                                    |
 | vTypes         | string        | space separated list of vehicle type ids to consider (for counting/removal/type-modification), "" means all; default "".          |
 
