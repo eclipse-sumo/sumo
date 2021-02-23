@@ -2225,6 +2225,8 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(GNENet* net, bool allowUndoRedo, c
             WRITE_WARNING("A " + toString(E2Tag) + " needs at least a lane or a list of lanes.");
         } else if (!frequency.empty() && !trafficLight.empty()) {
             WRITE_WARNING("Frecuency and TL cannot be defined at the same time.");
+        } else if (!frequency.empty() && !GNEAttributeCarrier::canParse<SUMOTime>(frequency)) {
+            WRITE_WARNING("Invalid E2 Frequency.");
         } else {
             // update frequency (temporal)
             if (frequency.empty() && trafficLight.empty()) {
