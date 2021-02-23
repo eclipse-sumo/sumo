@@ -28,6 +28,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/transportables/MSTransportable.h>
+#include "MSDevice_FCD.h"
 #include "MSTransportableDevice_FCD.h"
 
 // ===========================================================================
@@ -55,6 +56,7 @@ MSTransportableDevice_FCD::buildDevices(MSTransportable& t, std::vector<MSTransp
     if (equippedByDefaultAssignmentOptions(oc, "fcd", t, oc.isSet("fcd-output"), true)) {
         MSTransportableDevice_FCD* device = new MSTransportableDevice_FCD(t, "fcd_" + t.getID());
         into.push_back(device);
+        MSDevice_FCD::initOnce();
     }
 }
 

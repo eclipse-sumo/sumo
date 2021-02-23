@@ -87,6 +87,10 @@ public:
         return myWrittenAttributes;
     }
 
+    /// @brief initialize edge filter and attribute mask (once)
+    static void initOnce();
+
+
     /// @brief resets the edge filter
     static void cleanup();
 
@@ -102,9 +106,6 @@ private:
     /// @brief spatial filter for FCD output
     static std::set<const MSEdge*> myEdgeFilter;
     static bool myEdgeFilterInitialized;
-
-    /// @brief initialize edge filter and attribute mask (once)
-    static void initOnce();
 
     /// @brief bit mask for checking attributes to be written
     static long long int myWrittenAttributes;

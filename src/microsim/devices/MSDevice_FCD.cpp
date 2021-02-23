@@ -63,9 +63,7 @@ MSDevice_FCD::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
     if (equippedByDefaultAssignmentOptions(oc, "fcd", v, oc.isSet("fcd-output"))) {
         MSDevice_FCD* device = new MSDevice_FCD(v, "fcd_" + v.getID());
         into.push_back(device);
-        if (!myEdgeFilterInitialized) {
-            initOnce();
-        }
+        initOnce();
     }
 }
 
@@ -84,6 +82,9 @@ MSDevice_FCD::~MSDevice_FCD() {
 
 void
 MSDevice_FCD::initOnce() {
+    if (myEdgeFilterInitialized) {
+        return;
+    }
     myEdgeFilterInitialized = true;
     const OptionsCont& oc = OptionsCont::getOptions();
     if (oc.isSet("fcd-output.filter-edges.input-file")) {

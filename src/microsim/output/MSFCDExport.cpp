@@ -213,16 +213,16 @@ MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportab
     }
     of.openTag(tag);
     of.writeAttr(SUMO_ATTR_ID, p->getID());
-    of.writeAttr(SUMO_ATTR_X, pos.x());
-    of.writeAttr(SUMO_ATTR_Y, pos.y());
+    of.writeOptionalAttr(SUMO_ATTR_X, pos.x(), mask);
+    of.writeOptionalAttr(SUMO_ATTR_Y, pos.y(), mask);
     if (elevation) {
-        of.writeAttr(SUMO_ATTR_Z, pos.z());
+        of.writeOptionalAttr(SUMO_ATTR_Z, pos.z(), mask);
     }
-    of.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(p->getAngle()));
-    of.writeAttr(SUMO_ATTR_SPEED, p->getSpeed());
-    of.writeAttr(SUMO_ATTR_POSITION, p->getEdgePos());
-    of.writeAttr(SUMO_ATTR_EDGE, e->getID());
-    of.writeAttr(SUMO_ATTR_SLOPE, e->getLanes()[0]->getShape().slopeDegreeAtOffset(p->getEdgePos()));
+    of.writeOptionalAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(p->getAngle()), mask);
+    of.writeOptionalAttr(SUMO_ATTR_SPEED, p->getSpeed(), mask);
+    of.writeOptionalAttr(SUMO_ATTR_POSITION, p->getEdgePos(), mask);
+    of.writeOptionalAttr(SUMO_ATTR_EDGE, e->getID(), mask);
+    of.writeOptionalAttr(SUMO_ATTR_SLOPE, e->getLanes()[0]->getShape().slopeDegreeAtOffset(p->getEdgePos()), mask);
     of.closeTag();
 }
 
