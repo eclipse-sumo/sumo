@@ -389,11 +389,13 @@ MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
     if (stopEdge == edges.back() && !stops.empty()) {
         if (stopPos >= lastPos && stopPos <= stops.back().endPos) {
             // no new stop and no adaption needed
+            stops.back().actType += "," + action;
             return;
         }
         if (stopPos >= lastPos && stopPos <= lastPos + myHolder.getVehicleType().getLength()) {
             // stop length adaption needed
             stops.back().endPos = MIN2(lastPos + myHolder.getVehicleType().getLength(), stopEdge->getLength());
+            stops.back().actType += "," + action;
             return;
         }
     }
