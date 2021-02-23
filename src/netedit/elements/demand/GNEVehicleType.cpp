@@ -284,9 +284,9 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_SPEEDFACTOR:
             if (wasSet(VTYPEPARS_SPEEDFACTOR_SET)) {
-                return toString(speedFactor.getParameter()[0]);
+                return toString(speedFactor);
             } else {
-                return toString(defaultValues.speedFactor.getParameter()[0]);
+                return toString(defaultValues.speedFactor);
             }
         case SUMO_ATTR_SPEEDDEV:
             if (wasSet(VTYPEPARS_SPEEDFACTOR_SET)) {
@@ -701,7 +701,7 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_MAXSPEED:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_SPEEDFACTOR:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            return Distribution_Parameterized::isValidDescription(value);
         case SUMO_ATTR_SPEEDDEV:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_COLOR:
@@ -1017,7 +1017,7 @@ GNEVehicleType::overwriteVType(GNEDemandElement* vType, SUMOVTypeParameter* newV
         vType->setAttribute(SUMO_ATTR_MAXSPEED, toString(newVTypeParameter->maxSpeed), undoList);
     }
     if (newVTypeParameter->wasSet(VTYPEPARS_SPEEDFACTOR_SET)) {
-        vType->setAttribute(SUMO_ATTR_SPEEDFACTOR, toString(newVTypeParameter->speedFactor.getParameter()[0]), undoList);
+        vType->setAttribute(SUMO_ATTR_SPEEDFACTOR, toString(newVTypeParameter->speedFactor), undoList);
     }
     if (newVTypeParameter->wasSet(VTYPEPARS_SPEEDFACTOR_SET)) {
         vType->setAttribute(SUMO_ATTR_SPEEDDEV, toString(newVTypeParameter->speedFactor.getParameter()[1]), undoList);
@@ -1308,13 +1308,13 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_SPEEDFACTOR:
-            if (!value.empty() && (value != toString(defaultValues.speedFactor.getParameter()[0]))) {
-                speedFactor.getParameter()[0] = parse<double>(value);
+            if (!value.empty() && (value != toString(defaultValues.speedFactor))) {
+                speedFactor.parse(value, false);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
             } else {
                 // set default value
-                speedFactor.getParameter()[0] = defaultValues.speedFactor.getParameter()[0];
+                speedFactor.parse(toString(defaultValues.speedFactor), false);
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_SPEEDFACTOR_SET;
             }
@@ -1328,7 +1328,9 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 // set default value
                 speedFactor.getParameter()[1] = defaultValues.speedFactor.getParameter()[1];
                 // unset parameter
-                parametersSet &= ~VTYPEPARS_SPEEDFACTOR_SET;
+                if (speedFactor.getParameter() == defaultValues.speedFactor.getParameter()) {
+                    parametersSet &= ~VTYPEPARS_SPEEDFACTOR_SET;
+                }
             }
             break;
         case SUMO_ATTR_COLOR:

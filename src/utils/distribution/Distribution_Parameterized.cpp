@@ -78,6 +78,23 @@ Distribution_Parameterized::parse(const std::string& description, const bool har
     }
 }
 
+bool
+Distribution_Parameterized::isValidDescription(const std::string& description) {
+    Distribution_Parameterized dummy("", 0, 0);
+    try {
+        dummy.parse(description, true);
+        std::string error;
+        bool valid = dummy.isValid(error);
+        if (!valid) {
+            WRITE_ERROR(error);
+        }
+        return valid;
+    } catch (...) {
+        WRITE_ERROR("Invalid format of distribution parameterized");
+        return false;
+    }
+}
+
 
 double
 Distribution_Parameterized::sample(std::mt19937* which) const {

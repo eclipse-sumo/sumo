@@ -2895,8 +2895,8 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEEDFACTOR,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUEMUTABLE | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::EXTENDED,
-                                              "The vehicles expected multiplicator for lane speed limits");
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUEMUTABLE | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::EXTENDED,
+                                              "The vehicles expected multiplicator for lane speed limits (or a distribution specifier)");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEEDDEV,

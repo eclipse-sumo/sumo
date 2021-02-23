@@ -76,6 +76,9 @@ public:
     /// @brief Returns the string representation of this distribution
     std::string toStr(std::streamsize accuracy) const;
 
+    /// @brief validate input description
+    static bool isValidDescription(const std::string& description);
+
 private:
     /// @brief The distribution's parameters
     std::vector<double> myParameter;
