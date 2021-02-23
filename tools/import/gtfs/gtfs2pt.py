@@ -98,7 +98,7 @@ def splitNet(options):
     typedNets = {}
     for inp in glob.glob(os.path.join(options.gpsdat, "gpsdat_*.csv")):
         mode = os.path.basename(inp)[7:-4]
-        if not options.modes or mode in options.modes.split():
+        if not options.modes or mode in options.modes.split(","):
             netPrefix = os.path.join(options.network_split, mode)
             edgeTypes = [mode]
             if "rail" in mode or mode == "subway":
