@@ -1,10 +1,4 @@
 -tp appdata=netedit.gui
-additionalElements\busstop\load\parkingLength
-
-additionalElements\e2detector\lock_unlock
-additionalElements\e2detector\move
-additionalElements\e2MultiLaneDetector\lock_unlock
-additionalElements\e2MultiLaneDetector\move
 
 additionalElements\e3detector\lock_unlock (INVALID)
 

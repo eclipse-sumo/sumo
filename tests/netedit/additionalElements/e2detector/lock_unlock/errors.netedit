@@ -7,13 +7,13 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e2Detector' in TagSelector
 Debug: Adding e2Detector 'e2Detector_gneE0_0_0' in GNEChange_Additional
-Debug: Setting new attribute pos '23.00' into e2Detector 'e2Detector_gneE0_0_0'
+Debug: Setting new attribute pos '29.00' into e2Detector 'e2Detector_gneE0_0_0'
 Debug: Setting new attribute blockMovement 'true' into e2Detector 'e2Detector_gneE0_0_0'
 Debug: Setting new attribute blockMovement 'false' into e2Detector 'e2Detector_gneE0_0_0'
-Debug: Setting new attribute pos '31.00' into e2Detector 'e2Detector_gneE0_0_0'
+Debug: Setting new attribute pos '9.00' into e2Detector 'e2Detector_gneE0_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '23.00' into e2Detector 'e2Detector_gneE0_0_0'
+Debug: Setting previous attribute pos '29.00' into e2Detector 'e2Detector_gneE0_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute blockMovement '1' into e2Detector 'e2Detector_gneE0_0_0'
@@ -31,7 +31,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding e2Detector 'e2Detector_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '23.00' into e2Detector 'e2Detector_gneE0_0_0'
+Debug: Setting new attribute pos '29.00' into e2Detector 'e2Detector_gneE0_0_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute blockMovement 'true' into e2Detector 'e2Detector_gneE0_0_0'
@@ -40,7 +40,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute blockMovement 'false' into e2Detector 'e2Detector_gneE0_0_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '31.00' into e2Detector 'e2Detector_gneE0_0_0'
+Debug: Setting new attribute pos '9.00' into e2Detector 'e2Detector_gneE0_0_0'
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
