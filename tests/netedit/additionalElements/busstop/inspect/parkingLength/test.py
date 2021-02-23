@@ -28,22 +28,37 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# go to select mode
-netedit.selectMode()
+# go to additional mode
+netedit.additionalMode()
 
-# select all using invert
-netedit.selectionInvert()
+# select busStop
+netedit.changeElement("busStop")
+
+# change reference to center
+netedit.changeDefaultValue(9, "reference center")
+
+# create busStop in mode "reference center"
+netedit.leftClick(referencePosition, 250, 170)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect busstops
-netedit.leftClick(referencePosition, 160, 270)
+# inspect first busStop
+netedit.leftClick(referencePosition, 250, 190)
 
-# Set person capacity
-netedit.modifyAttribute(3, "50", False)
+# Change parameter lenght with a non valid value (throw warning)
+netedit.modifyAttribute(8, "dummylenght", True)
 
-# Check undo redo
+# Change parameter lenght with a valid value
+netedit.modifyAttribute(8, "-7", True)
+
+# Change parameter lenght with a valid value
+netedit.modifyAttribute(8, "2.5", True)
+
+# Change parameter lenght with a valid value
+netedit.modifyAttribute(8, "10", True)
+
+# Check undos and redos
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 

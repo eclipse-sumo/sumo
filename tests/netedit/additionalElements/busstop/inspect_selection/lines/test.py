@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect busstops
-netedit.leftClick(referencePosition, 160, 280)
+netedit.leftClick(referencePosition, 160, 270)
 
 # Set lines
 netedit.modifyAttribute(2, "commonLine1 commonLine2", False)
