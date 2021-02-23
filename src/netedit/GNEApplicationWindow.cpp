@@ -3466,8 +3466,10 @@ GNEApplicationWindow::getEditMenuCommands() {
 
 void 
 GNEApplicationWindow::clearUndoList() {
-    // destropy Popup (to avoid crashes)
-    myViewNet->destroyPopup();
+    if (myViewNet) {
+        // destropy Popup (to avoid crashes)
+        myViewNet->destroyPopup();
+    }
     // clear undo list and return true to continue with closing/reload
     myUndoList->p_clear();
 }
