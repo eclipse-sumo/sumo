@@ -17,6 +17,11 @@
 # @author  Philip Ritzer
 # @date    2020-02-15
 
+"""
+Simulate Demand Responsive Transport via TraCi
+Track progress https://github.com/eclipse/sumo/issues/8256
+"""
+
 import os
 import sys
 from argparse import ArgumentParser
@@ -50,59 +55,254 @@ def initOptions():
 
     return argParser
 
-def get_rv(options, r_new, r_pending, r_ids, fleet, v_type, rv_dict, step):
-    r_rejected = []
+def rr_pair(req1, req2, v_type, rv_dict):
+    r1_pu0 = req1.tw_pickup[0]
+    r1_pu1 = req1.tw_pickup[1]
+    r1_do0 = req1.tw_dropoff[0]
+    r1_do1 = req1.tw_dropoff[1]
+    r2_pu0 = req2.tw_pickup[0]
+    r2_pu1 = req2.tw_pickup[1]
+    r2_do0 = req2.tw_dropoff[0]
+    r2_do1 = req2.tw_dropoff[1]
 
-    for x in r_ids:
+    # combination 1p2p 2p2d 2d1d
+    if r1_pu0 <= r2_pu1 and r2_do0 <= r1_do1:
+    # if earliest pick up of req 1 before latest pick up of req 2 and
+    # if earliest drop off of req 2 before latest drop off of req 1
+        tt_1p2p = int(traci.simulation.findRoute(req1.fromEdge, req2.fromEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+        tt_2p2d = rv_dict.get('%sy_%sz' % (req2.id, req2.id), False)
+        if not tt_2p2d:
+            tt_2p2d = int(traci.simulation.findRoute(req2.fromEdge, req2.toEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+            pair = '%sy_%sz' % (req2.id, req2.id) # 2p2d
+            rv_dict[pair] = [tt_2p2d, -1, [req2.id, req2.id]]
+        else:
+            tt_2p2d = tt_2p2d[0]
+        tt_2d1d = int(traci.simulation.findRoute(req1.toEdge, req2.toEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
 
-        if x.rejected:
-            # if reservation has been rejected
+        if (r1_pu0 + tt_1p2p) > r2_pu1:
+            pass # not possible
+        elif (r1_pu0 + tt_1p2p + tt_2p2d) > r2_do1:
+            pass # not possible
+        elif (r1_pu0 + tt_1p2p + tt_2p2d + tt_2d1d) > r1_do1:
+            pass # not possible
+        else:
+            # pairs are possible
+            pair = '%sy_%sy' % (req1.id, req2.id) # 1p2p
+            rv_dict[pair] = [tt_1p2p, 1, [req1.id, req2.id]] 
+            pair = '%sz_%sz' % (req2.id, req1.id) # 2d1d
+            rv_dict[pair] = [tt_2d1d, -1, [req2.id, req1.id]] 
+
+    # combination 1p2p 2p1d 1d2d
+    if r1_pu0 <= r2_pu1 and r1_do0 <= r2_do1:
+    # if earliest pick up of req 1 before latest pick up of req 2 and
+    # if earliest drop off of req 1 before latest drop off of req 2
+        tt_1p2p = rv_dict.get('%sy_%sy' % (req1.id, req2.id), False)
+        if not tt_1p2p:
+            tt_1p2p = int(traci.simulation.findRoute(req1.fromEdge, req2.fromEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+        else:
+            tt_1p2p = tt_1p2p[0]
+        tt_2p1d = int(traci.simulation.findRoute(req2.fromEdge, req1.toEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+        tt_1d2d = int(traci.simulation.findRoute(req1.toEdge, req2.toEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+
+        if (r1_pu0 + tt_1p2p) > r2_pu1:
+            pass # not possible 
+        elif (r1_pu0 + tt_1p2p + tt_2p1d) > r1_do1:
+            pass # not possible
+        elif (r1_pu0 + tt_1p2p + tt_2p1d + tt_1d2d) > r2_do1:
+            pass # not possible
+        else:
+            # pairs are possible
+            pair = '%sy_%sy' % (req1.id, req2.id) # 1p2p
+            if not rv_dict.get(pair, False):
+                rv_dict[pair] = [tt_1p2p, 1, [req1.id, req2.id]]
+            pair = '%sy_%sz' % (req2.id, req1.id) # 2p1d
+            rv_dict[pair] = [tt_2p1d, -1, [req2.id, req1.id]]                
+            pair = '%sz_%sz' % (req1.id, req2.id) # 1d2d
+            rv_dict[pair] = [tt_1d2d, -1, [req1.id, req2.id]]
+
+    # combination 2p1p 1p2d 2d1d
+    if r2_pu0 <= r1_pu1 and r2_do0 <= r1_do1:
+    # if earliest pick up of req 2 before latest pick up of req 1 and
+    # if earliest drop off of req 2 before latest drop off of req 1
+        tt_2p1p = int(traci.simulation.findRoute(req2.fromEdge, req1.fromEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+        tt_1p2d = int(traci.simulation.findRoute(req1.fromEdge, req2.toEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+        tt_2d1d = rv_dict.get('%sz_%sz' % (req2.id, req1.id), False)
+        if not tt_2d1d:
+            tt_2d1d = int(traci.simulation.findRoute(req2.toEdge, req1.toEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+        else:
+            tt_2d1d = tt_2d1d[0]
+
+        if (r2_pu0 + tt_2p1p) > r1_pu1:
+            pass # not possible
+        elif (r2_pu0 + tt_2p1p + tt_1p2d) > r2_do1:
+            pass # not possible
+        elif (r2_pu0 + tt_2p1p + tt_1p2d + tt_2d1d) > r1_do1:
+            pass # not possible
+        else:
+            # pairs are possible
+            pair = '%sy_%sy' % (req2.id, req1.id) # 2p1p
+            rv_dict[pair] = [tt_2p1p, 1, [req2.id, req1.id]]
+            pair = '%sy_%sz' % (req1.id, req2.id) # 1p2d
+            rv_dict[pair] = [tt_1p2d, -1, [req1.id, req2.id]]
+            pair = '%sz_%sz' % (req1.id, req2.id) # 2d1d
+            if not rv_dict.get(pair, False):
+                rv_dict[pair] = [tt_2d1d, -1, [req2.id, req1.id]]
+
+    # combination 2p1p 1p1d 1d2d
+    if r2_pu0 <= r1_pu1 and r1_do0 <= r2_do1:
+    # if earliest pick up of req 2 before latest pick up of req 1 and
+    # if earliest drop off of req 1 before latest drop off of req 2
+        tt_2p1p = rv_dict.get('%sy_%sy' % (req2.id, req1.id), False)
+        tt_1d2d = rv_dict.get('%sz_%sz' % (req1.id, req2.id), False)
+        tt_1p1d = rv_dict.get('%sy_%sz' % (req1.id, req1.id), False)
+        if not tt_1p1d:
+            tt_1p1d = int(traci.simulation.findRoute(req1.fromEdge, req1.toEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+            pair = '%sy_%sz' % (req1.id, req1.id) # 1p1d
+            rv_dict[pair] = [tt_1p1d, -1, [req1.id, req1.id]]
+        else:
+            tt_1p1d = tt_1p1d[0]
+        if not tt_2p1p or not tt_1d2d:
+            if not tt_2p1p:
+                tt_2p1p = int(traci.simulation.findRoute(req2.fromEdge, req1.fromEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+            else:
+                tt_2p1p = tt_2p1p[0]
+            if not tt_1d2d:
+                tt_1d2d = int(traci.simulation.findRoute(req1.toEdge, req2.toEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+            else:
+                tt_1d2d = tt_1d2d[0]
+            tt_1p1d = rv_dict.get('%sy_%sz' % (req1.id, req1.id))[0]
+
+            if (r2_pu0 + tt_2p1p) > r1_pu1:
+                pass # not possible
+            elif (r2_pu0 + tt_2p1p + tt_1p1d) > r1_do1:
+                pass # not possible
+            elif (r2_pu0 + tt_2p1p + tt_1p1d + tt_1d2d) > r2_do1:
+                pass # not possible
+            else:
+                # pairs are possible
+                pair = '%sy_%sy' % (req2.id, req1.id) # 2p1p
+                if not rv_dict.get(pair, False):
+                    rv_dict[pair] = [tt_2p1p, 1, [req2.id, req1.id]]
+                pair = '%sz_%sz' % (req1.id, req2.id) # 1d2d
+                if not rv_dict.get(pair, False):
+                    rv_dict[pair] = [tt_1d2d, -1, [req1.id, req2.id]]
+
+    # pair 1d2p
+    if r1_do0 <= r2_pu1:
+    # if earliest drop off of req 1 before latest pick up of req 2
+        tt_1d2p = int(traci.simulation.findRoute(req1.toEdge, req2.fromEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+        if (r1_do0 + tt_1d2p) < r2_pu1:
+        # if droping off req 1 at earliest time, req 2 can be pick up at least at latest time, then pair possible
+            pair = '%sz_%sy' % (req1.id, req2.id) # 1d2p
+            rv_dict[pair] = [tt_1d2p, 1, [req1.id, req2.id]]
+
+    # pair 2d1p
+    if r2_do0 <= r1_pu1:
+    # if earliest drop off of req 2 before latest pick up of req 1
+        tt_2d1p = int(traci.simulation.findRoute(req2.toEdge, req1.fromEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+        if (r2_do0 + tt_2d1p) < r1_pu1:
+        # if droping off req 1 at earliest time, req 2 can be pick up at least at latest time, then pair possible
+            pair = '%sz_%sy' % (req2.id, req1.id) # 2d1p
+            rv_dict[pair] = [tt_2d1p, 1, [req2.id, req1.id]]
+
+def get_rv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step):
+    # remove requests, that have been served in the last step - 
+    # Avoid calculating unfeasible pairs
+    for x_id in r_id_served:
+        x = r_all[x_id]
+        x.served = True
+        for key, value in rv_dict.items():
+            if x_id in value[2]:
+                rv_dict.pop(key)
+
+    r_remove = []
+    pu_remove = []
+    for x_id, x in r_all.items():
+
+        if x.rejected or x.served:
+            # if reservation has been served or rejected
             continue
         
-        if x.id in r_new:
+        elif x_id in r_id_new:
+            #if reservation is new
             # add direct route pair
-            route_id = '%sy_%sz' % (x.id, x.id)
-            rv_dict[route_id] = (x.direct+60, -1, [x.id, x.id]) # TODO default stop time
+            #route_id = '%sy_%sz' % (x_id, x_id)
+            #rv_dict[route_id] = [x.direct+60, -1, [x_id, x_id]] # TODO default stop time
+
+            # add vehicle-request pairs
+            for v_id in fleet:
+                # calculate travel time to pickup
+                pickup_time = int(traci.simulation.findRoute(traci.vehicle.getRoadID(v_id), x.fromEdge, v_type, routingMode=0).travelTime)
+                if step+pickup_time <= x.tw_pickup[1]:
+                    # if vehicle on time, add to rv graph
+                    route_id = '%s_%sz' % (v_id, x_id)
+                    rv_dict[route_id] = [pickup_time+60, 1, [v_id, x_id]] # TODO default stop time
+
+            # add request-request pairs only with:
+            second_requests = list(set(r_all.keys()) ^ set(r_id_picked) ^ set(r_id_served))
+            for req2 in second_requests:
+                if req2 == x_id:
+                    continue
+                rr_pair(x, r_all.get(req2), v_type, rv_dict) # search possible pairs and add to rv
         
-        if x.state != 8: 
-            # if not picked up
+        elif not x.vehicle:
+            # if reservation not assigned
+            # check if pick-up still possible
             if x.tw_pickup[1] < step:
                 # pickup time window surpass simulation time -> reject request
                 # TODO persons stay in simulation, how can they be deleted?
                 # TODO no rejection option should be implement in future
                 x.rejected = True
-                r_rejected.append(x.id)
-                print("reservation %s cannot be served" % x.id)
-        
-            else:
-                # check if vehicles can arrive to pickup on time
-                for v_id in fleet:
+                r_remove.append(x_id)
+                print("reservation %s cannot be served" % x_id)
+                continue
+            
+            remove = True
+            for v_id in fleet:
+                route_id = '%s_%sy' % (v_id, x_id)
+                if rv_dict.get(route_id, False):
+                    # if key not in rv, pair already infeasible
                     # calculate travel time to pickup
-                    pickup_time = int(traci.simulation.findRoute(traci.vehicle.getRoadID(v_id), x.toEdge, v_type, routingMode=0).travelTime)
+                    pickup_time = int(traci.simulation.findRoute(traci.vehicle.getRoadID(v_id), x.fromEdge, v_type, routingMode=0).travelTime)
                     if step+pickup_time <= x.tw_pickup[1]:
                         # if vehicle on time, add to rv graph
-                        route_id = '%s_%sz' % (v_id, x.id)
-                        if rv_dict.get(route_id, False):
-                            # update key
-                            rv_dict[route_id][0] = pickup_time+60
-                        else:
-                            rv_dict[route_id] = [pickup_time+60, 1, [v_id, x.id]] # TODO default stop time
-                    
+                        rv_dict[route_id][0] = pickup_time+60
+                        remove = False
                     else:
-                        # if not, remove from rv
-                        x.rejected = True
-                        r_rejected.append(x.id)
-                        print("reservation %s cannot be served" % x.id)
+                        # remove pair if pick-up not possible
+                        rv_dict.pop(route_id)
+            if remove:
+                # if no vehicle available for pick-up on time
+                x.rejected = True
+                r_remove.append(x_id)
+                print("reservation %s cannot be served" % x_id)
 
+        elif x_id not in r_id_picked:
+            # if reservation assigned but not picked up
+            # TODO is this relevant?
+            route_id = '%s_%sy' % (x.vehicle, x_id)
+            if rv_dict.get(route_id, False):
+                # calculate travel time to pickup
+                pickup_time = int(traci.simulation.findRoute(traci.vehicle.getRoadID(v_id), x.fromEdge, v_type, routingMode=0).travelTime)               
+                rv_dict[route_id][0] = pickup_time+60
+                if step+pickup_time <= x.tw_pickup[1]:
+                    print("time window should not be surpass")
+        
+        elif x_id in r_id_picked:
+            # if reservation picked up, delete pair with stop
+            pu_remove.append('%sy' % x_id)
 
+        else:
+            print("Attribute state not considered")
 
-
-    # remove rejected reservations from rv graph
-    for key, value in rv_dict.items():
-        if set(value[2]) & set(r_rejected):
-            del rv_dict[key]
-                           
-
+    # remove rejected, served and picked up reservations from rv graph
+    for key in list(rv_dict):
+        if set(rv_dict[key][2]) & set(r_remove):
+            rv_dict.pop(key)
+        else:
+            stops = key.split("_")
+            if set(pu_remove) & set(stops):
+                rv_dict.pop(key)
 
 def main():
     
@@ -110,8 +310,7 @@ def main():
     argParser = initOptions()
     options = argParser.parse_args()
 
-    r_ids = []
-    r_new = []
+    r_all = {}
     rv_dict = {}
 
     # start traci
@@ -130,14 +329,15 @@ def main():
         v_type = traci.vehicle.getTypeID(fleet[0])
 
         # get new reservations
+        r_id_new = []
         for x in traci.person.getTaxiReservations(1):           
 
             # search direct travel time 
-            #TODO check if we can calculate all travel times at once (like duarouter)
             direct = int(traci.simulation.findRoute(x.fromEdge, x.toEdge, v_type, x.depart, routingMode=0).travelTime)
 
-            # add new reservation attributes            
+            # add new reservation attributes
             setattr(x, 'direct', direct) # direct travel time
+            setattr(x, 'vehicle', False) # id of assigned vehicle
             setattr(x, 'tw_pickup', [x.depart, x.depart+options.max_wait]) # pickup time window
             # drop off time window
             if x.direct*options.drf < options.drf_min:
@@ -147,18 +347,27 @@ def main():
             setattr(x, 'served', False) # if reservation served
             setattr(x, 'rejected', False) # if reservation rejected
             
-            # add to new reservations
-            r_new.append(x)
+            # add id to new reservations
+            r_id_new.append(x.id)
             # add reservation to list
-            r_ids.append(x)
+            r_all[x.id] = x
 
-        # check reservation not assigned yet
-        r_pending = [x.id for x in traci.person.getTaxiReservations(2)]
+        # reservations already picked up
+        r_id_picked = [x.id for x in traci.person.getTaxiReservations(8)]
+        # reservations already served
+        r_id_current = [x.id for x in traci.person.getTaxiReservations(0)]
+        r_id_served = [x_id for x_id, x in r_all.items() if not x.served and x_id not in r_id_current]
 
-        if r_pending:
+        # if reservations pending
+        if traci.person.getTaxiReservations(2):
             # search request-vehicles pairs
-            get_rv(options, r_new, r_pending, r_ids, fleet, v_type, rv_dict, step)
+            get_rv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step)
+            
+            # search trips (rtv graph)
+            # TODO implement RTV
 
+            # search best solution (ILP)
+            # TODO implement ILP
         step += options.sim_step
 
     traci.close()
