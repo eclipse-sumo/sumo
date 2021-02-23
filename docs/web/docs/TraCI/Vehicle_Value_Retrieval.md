@@ -447,6 +447,12 @@ value is also shown in the table.
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getLastActionTime">getLastActionTime</a></p></td>
 </tr>
 <tr class="even">
+<td><p>stops (0x74)</p></td>
+<td><p>complex</p></td>
+<td><p>Returns the list of the next or last n stops as StopData objects.</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getStops">getStops</a></p></td>
+</tr>
+<tr class="odd">
 <td></td>
 <td></td>
 <td></td>
