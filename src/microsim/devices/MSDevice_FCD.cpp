@@ -21,6 +21,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <bitset>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -31,12 +32,15 @@
 #include <microsim/MSVehicle.h>
 #include "MSDevice_FCD.h"
 
+// some attributes are not written by default and must be enabled via option fcd-output.attributes
+#define DEFAULT_MASK (~((long long int)1 << SUMO_ATTR_VEHICLE))
+
 // ===========================================================================
 // static members
 // ===========================================================================
 std::set<const MSEdge*> MSDevice_FCD::myEdgeFilter;
 bool MSDevice_FCD::myEdgeFilterInitialized(false);
-long long int MSDevice_FCD::myWrittenAttributes(-1);
+long long int MSDevice_FCD::myWrittenAttributes(DEFAULT_MASK);
 
 // ===========================================================================
 // method definitions
@@ -115,6 +119,7 @@ MSDevice_FCD::initOnce() {
             myWrittenAttributes |= ((long long int)1 << attr);
         }
     }
+    //std::cout << "mask=" << myWrittenAttributes << " binary=" << std::bitset<64>(myWrittenAttributes) << "\n";
 }
 
 
@@ -122,7 +127,7 @@ void
 MSDevice_FCD::cleanup() {
     myEdgeFilter.clear();
     myEdgeFilterInitialized = false;
-    myWrittenAttributes = -1;
+    myWrittenAttributes = DEFAULT_MASK;
 }
 
 

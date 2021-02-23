@@ -347,6 +347,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "leaderID",               SUMO_ATTR_LEADER_ID },
     { "leaderSpeed",            SUMO_ATTR_LEADER_SPEED },
     { "leaderGap",              SUMO_ATTR_LEADER_GAP },
+    { "vehicle",                SUMO_ATTR_VEHICLE },
 
     // Edge
     { "id",                     SUMO_ATTR_ID },
@@ -776,7 +777,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "avoidOverlap",           SUMO_ATTR_AVOID_OVERLAP },
 
     { "actorConfig",            SUMO_ATTR_ACTORCONFIG },
-    { "vehicle",                SUMO_ATTR_VEHICLE },
     { "startTime",              SUMO_ATTR_STARTTIME },
     { "vehicleClass",           SUMO_ATTR_VEHICLECLASS },
     { "fuel",                   SUMO_ATTR_FUEL },

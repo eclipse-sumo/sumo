@@ -161,11 +161,11 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
 
             const std::vector<MSTransportable*>& persons = veh->getPersons();
             for (MSTransportable* person : persons) {
-                writeTransportable(of, edge, person, true, SUMO_TAG_PERSON, useGeo, elevation, mask);
+                writeTransportable(of, edge, person, veh, true, SUMO_TAG_PERSON, useGeo, elevation, mask);
             }
             const std::vector<MSTransportable*>& containers = veh->getContainers();
             for (MSTransportable* container : containers) {
-                writeTransportable(of, edge, container, true, SUMO_TAG_CONTAINER, useGeo, elevation, mask);
+                writeTransportable(of, edge, container, veh, true, SUMO_TAG_CONTAINER, useGeo, elevation, mask);
             }
         }
     }
@@ -179,7 +179,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             }
             const std::vector<MSTransportable*>& persons = (*e)->getSortedPersons(timestep);
             for (MSTransportable* person : persons) {
-                writeTransportable(of, *e, person, inRadius.count(person) > 0, SUMO_TAG_PERSON, useGeo, elevation, mask);
+                writeTransportable(of, *e, person, nullptr, inRadius.count(person) > 0, SUMO_TAG_PERSON, useGeo, elevation, mask);
             }
         }
     }
@@ -193,7 +193,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             }
             const std::vector<MSTransportable*>& containers = (*e)->getSortedContainers(timestep);
             for (MSTransportable* container : containers) {
-                writeTransportable(of, *e, container, inRadius.count(container) > 0, SUMO_TAG_CONTAINER, useGeo, elevation, mask);
+                writeTransportable(of, *e, container, nullptr, inRadius.count(container) > 0, SUMO_TAG_CONTAINER, useGeo, elevation, mask);
             }
         }
     }
@@ -202,7 +202,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
 
 
 void
-MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, bool inRadius, SumoXMLTag tag, bool useGeo, bool elevation, long long int mask) {
+MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, const SUMOVehicle* v, bool inRadius, SumoXMLTag tag, bool useGeo, bool elevation, long long int mask) {
     if (p->getDevice(typeid(MSTransportableDevice_FCD)) == nullptr && !inRadius) {
         return;
     }
@@ -223,6 +223,7 @@ MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportab
     of.writeOptionalAttr(SUMO_ATTR_POSITION, p->getEdgePos(), mask);
     of.writeOptionalAttr(SUMO_ATTR_EDGE, e->getID(), mask);
     of.writeOptionalAttr(SUMO_ATTR_SLOPE, e->getLanes()[0]->getShape().slopeDegreeAtOffset(p->getEdgePos()), mask);
+    of.writeOptionalAttr(SUMO_ATTR_VEHICLE, v == nullptr ? "" : v->getID(), mask);
     of.closeTag();
 }
 
