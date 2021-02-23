@@ -1,7 +1,5 @@
 -tp appdata=netedit.gui
 
-additionalElements\e3detector\lock_unlock (INVALID)
-
 additionalElements\parkingarea\inspect_selection\block_move
 additionalElements\parkingarea\lock_unlock
 additionalElements\parkingarea\move
@@ -9,6 +7,7 @@ additionalElements\parkingspace\inspect_selection\block_move
 additionalElements\parkingspace\lock_unlock
 additionalElements\parkingspace\move
 additionalElements\parkingspace\volatileRecomputing
+
 additionalElements\routeprobe\delete
 additionalElements\vaporizer\delete
 
@@ -40,15 +39,12 @@ demandElements\flow\load\arrivalLane
 demandElements\flow\volatileRecomputing
 
 demandElements\vehicle_embedded\delete
-demandElements\vehicle_embedded\load\departSpeed
 demandElements\vehicle_embedded\load\depart
 demandElements\vehicle_embedded\load\parameters
 demandElements\vehicle_embedded\volatileRecomputing
 
 demandElements\flow_embedded\create\arrivalLane
 demandElements\flow_embedded\delete
-demandElements\flow_embedded\inspect\personNumber
-demandElements\flow_embedded\inspect_selection\color
 demandElements\flow_embedded\load\parameters
 demandElements\flow_embedded\volatileRecomputing
 
@@ -78,14 +74,12 @@ demandElements\stop\stopLane\load\parking
 demandElements\stop\stopLane\load\actType
 demandElements\stop\stopLane\move
 demandElements\stop\stopLane\volatileRecomputing
+
 demandElements\stop\stopBusStop\delete
 demandElements\stop\stopContainerStop\delete
 demandElements\stop\stopContainerStop\volatileRecomputing
 demandElements\stop\stopChargingStation\volatileRecomputing
 demandElements\stop\stopParkingArea\delete
 demandElements\stop\stopParkingArea\volatileRecomputing
-
-dataElements\edgeData\inspect_selection\parameters
-dataElements\edgeRelData\inspect_selection\parameters
 
 selection\basic\additional_basic

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07.09.2020 10:55:17 by Eclipse SUMO netedit Version v1_6_0+1978-66ee23b95e
+<!-- generated on 23.02.2021 10:30:31 by Eclipse SUMO netedit Version v1_8_0+1342-32ebcde4b7
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep105205.14384\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb102920.8424\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep105205.14384\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb102920.8424\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,28 +30,28 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep105205.14384\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep105205.14384\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep105205.14384\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep105205.14384\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep105205.14384\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep105205.14384\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb102920.8424\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb102920.8424\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb102920.8424\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb102920.8424\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb102920.8424\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb102920.8424\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep105205.14384\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb102920.8424\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep105205.14384\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb102920.8424\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep105205.14384\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb102920.8424\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\log.txt"/>
     </report>
 
 </configuration>
@@ -65,9 +65,6 @@
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </vehicle>
     <vehicle id="vehicle_2" depart="20.00" departSpeed="0.00">
-        <route edges="gneE2 gneE4 gneE5" color="cyan"/>
-    </vehicle>
-    <vehicle id="vehicle_3" depart="20.00" departSpeed="500.00">
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </vehicle>
     <vehicle id="vehicle_4" depart="20.00" departSpeed="1.00">

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07.09.2020 14:15:38 by Eclipse SUMO netedit Version v1_6_0+2013-27eec12fcb
+<!-- generated on 23.02.2021 11:00:52 by Eclipse SUMO netedit Version v1_8_0+1342-32ebcde4b7
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep134808.15888\netedit.gui\demandElements\flow_embedded\inspect\personNumber\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb105927.5076\netedit.gui\demandElements\flow_embedded\inspect\personNumber\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep134808.15888\netedit.gui\demandElements\flow_embedded\inspect\personNumber\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb105927.5076\netedit.gui\demandElements\flow_embedded\inspect\personNumber\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,35 +30,35 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep134808.15888\netedit.gui\demandElements\flow_embedded\inspect\personNumber\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep134808.15888\netedit.gui\demandElements\flow_embedded\inspect\personNumber\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep134808.15888\netedit.gui\demandElements\flow_embedded\inspect\personNumber\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep134808.15888\netedit.gui\demandElements\flow_embedded\inspect\personNumber\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep134808.15888\netedit.gui\demandElements\flow_embedded\inspect\personNumber\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep134808.15888\netedit.gui\demandElements\flow_embedded\inspect\personNumber\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb105927.5076\netedit.gui\demandElements\flow_embedded\inspect\personNumber\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb105927.5076\netedit.gui\demandElements\flow_embedded\inspect\personNumber\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb105927.5076\netedit.gui\demandElements\flow_embedded\inspect\personNumber\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb105927.5076\netedit.gui\demandElements\flow_embedded\inspect\personNumber\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb105927.5076\netedit.gui\demandElements\flow_embedded\inspect\personNumber\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb105927.5076\netedit.gui\demandElements\flow_embedded\inspect\personNumber\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep134808.15888\netedit.gui\demandElements\flow_embedded\inspect\personNumber\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb105927.5076\netedit.gui\demandElements\flow_embedded\inspect\personNumber\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep134808.15888\netedit.gui\demandElements\flow_embedded\inspect\personNumber\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb105927.5076\netedit.gui\demandElements\flow_embedded\inspect\personNumber\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep134808.15888\netedit.gui\demandElements\flow_embedded\inspect\personNumber\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb105927.5076\netedit.gui\demandElements\flow_embedded\inspect\personNumber\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <flow id="flow_0" begin="0.00" line="dummyNumber" personNumber="3" end="3600.00" number="1800">
+    <flow id="flow_0" begin="0.00" personNumber="3" end="3600.00" number="1800">
         <route edges="gneE2 gneE4 gneE5" color="cyan"/>
     </flow>
 </routes>

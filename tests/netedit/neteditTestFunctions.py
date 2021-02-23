@@ -1888,7 +1888,7 @@ def selectionClearData():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(19):
+    for _ in range(21):
         typeTab()
     # type space to select clear option
     typeSpace()
@@ -1902,7 +1902,7 @@ def selectionInvertData():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(20):
+    for _ in range(22):
         typeTab()
     # type space to select invert operation
     typeSpace()

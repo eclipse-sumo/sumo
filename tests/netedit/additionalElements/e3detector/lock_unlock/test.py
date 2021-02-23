@@ -79,7 +79,7 @@ netedit.moveElement(referencePosition, 120, 50, 300, 50)
 netedit.inspectMode()
 
 # inspect E3
-netedit.leftClick(referencePosition, 120, 65)
+netedit.leftClick(referencePosition, 300, 65)
 
 # unblock additional
 netedit.modifyBoolAttribute(12, False)
@@ -88,7 +88,7 @@ netedit.modifyBoolAttribute(12, False)
 netedit.moveMode()
 
 # move E3 to right (must be allowed)
-netedit.moveElement(referencePosition, 120, 50, 300, 50)
+netedit.moveElement(referencePosition, 300, 50, 300, 350)
 
 # Check undos and redos
 netedit.undo(referencePosition, 8)
