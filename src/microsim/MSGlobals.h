@@ -59,6 +59,9 @@ public:
     /** The time to detect grid locks on highways */
     static SUMOTime gTimeToGridlockHighways;
 
+    /** The time to wait for teleport on disconected routes */
+    static SUMOTime gTimeToTeleportDisconnected;
+
     /** Information how long a vehicle must wait for impatience to grow from 0 to 1 */
     static SUMOTime gTimeToImpatience;
 

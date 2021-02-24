@@ -1856,13 +1856,16 @@ MSLane::executeMovements(const SUMOTime t) {
         i = VehCont::reverse_iterator(myVehicles.erase(i.base()));
     }
     if (myVehicles.size() > 0) {
-        if (MSGlobals::gTimeToGridlock > 0 || MSGlobals::gTimeToGridlockHighways > 0) {
+        if (MSGlobals::gTimeToGridlock > 0 || MSGlobals::gTimeToGridlockHighways > 0 || MSGlobals::gTimeToTeleportDisconnected > 0) {
             MSVehicle* const veh = myVehicles.back(); // the vehice at the front of the queue
             if (!veh->isStopped() && veh->getLane() == this) {
                 const bool wrongLane = !veh->getLane()->appropriate(veh);
                 const bool r1 = MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock;
                 const bool r2 = MSGlobals::gTimeToGridlockHighways > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlockHighways && veh->getLane()->getSpeedLimit() > 69. / 3.6 && wrongLane;
-                if (r1 || r2) {
+                const bool r3 = MSGlobals::gTimeToTeleportDisconnected > 0 && veh->getWaitingTime() > MSGlobals::gTimeToTeleportDisconnected
+                    && veh->succEdge(1) != nullptr
+                    && veh->getEdge()->allowedLanes(*veh->succEdge(1), veh->getVClass()) == nullptr;
+                if (r1 || r2 || r3) {
                     const std::vector<MSLink*>::const_iterator link = succLinkSec(*veh, 1, *this, veh->getBestLanesContinuation());
                     const bool minorLink = !wrongLane && (link != myLinks.end()) && !((*link)->havePriority());
                     const std::string reason = (wrongLane ? " (wrong lane)" : (minorLink ? " (yield)" : " (jam)"));
@@ -1872,6 +1875,7 @@ MSLane::executeMovements(const SUMOTime t) {
                     WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; waited too long"
                                   + reason
                                   + (r2 ? " (highway)" : "")
+                                  + (r3 ? " (disconnected)" : "")
                                   + ", lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                     if (wrongLane) {
                         MSNet::getInstance()->getVehicleControl().registerTeleportWrongLane();
