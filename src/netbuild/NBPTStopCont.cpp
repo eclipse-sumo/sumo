@@ -326,11 +326,20 @@ NBPTStopCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) 
 
 void
 NBPTStopCont::replaceEdge(const std::string& edgeID, const EdgeVector& replacement) {
-    for (auto& item : myPTStops) {
-        if (!item.second->replaceEdge(edgeID, replacement)) {
-            WRITE_WARNINGF("Could not re-assign pt stop '%' after replacing edge '%'.", item.first, edgeID);
+    if (myPTStops.size() > 0 && myPTStopLookup.size() == 0) {
+        // init lookup once
+        for (auto& item : myPTStops) {
+            myPTStopLookup[item.second->getEdgeId()].push_back(item.second);
         }
     }
+    for (NBPTStop* stop : myPTStopLookup[edgeID]) {
+        if (!stop->replaceEdge(edgeID, replacement)) {
+            WRITE_WARNINGF("Could not re-assign pt stop '%' after replacing edge '%'.", stop->getID(), edgeID);
+        } else {
+            myPTStopLookup[stop->getEdgeId()].push_back(stop);
+        }
+    }
+    myPTStopLookup.erase(edgeID);
 }
 
 

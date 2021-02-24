@@ -100,6 +100,9 @@ private:
     /// @brief The map of names to pt stops
     PTStopsCont myPTStops;
 
+    /// @brief The map of edge ids to stops
+    std::map<std::string, std::vector<NBPTStop*> > myPTStopLookup;
+
     NBPTStop* getReverseStop(NBPTStop* pStop, NBEdgeCont& cont);
 
 
