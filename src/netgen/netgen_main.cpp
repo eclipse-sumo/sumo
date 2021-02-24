@@ -106,6 +106,8 @@ NGNet*
 buildNetwork(NBNetBuilder& nb) {
     OptionsCont& oc = OptionsCont::getOptions();
 
+    const double laneWidth = oc.isDefault("default.lanewidth") ? SUMO_const_laneWidth : oc.getFloat("default.lanewidth");
+    double minLength = (oc.getInt("default.lanenumber") + oc.getInt("turn-lanes")) * 2 * laneWidth + oc.getFloat("default.junctions.radius") * 2 + POSITION_EPS;
     // spider-net
     if (oc.getBool("spider")) {
         // check values
@@ -114,13 +116,19 @@ buildNetwork(NBNetBuilder& nb) {
             WRITE_ERROR("Spider networks need at least 3 arms.");
             hadError = true;
         }
+        if (oc.getInt("spider.arm-number") > 4 && oc.isDefault("spider.omit-center")) {
+            WRITE_WARNING("Spider networks with many arms should use option ommit-center");
+        }
         if (oc.getInt("spider.circle-number") < 1) {
             WRITE_ERROR("Spider networks need at least one circle.");
             hadError = true;
         }
-        if (oc.getFloat("spider.space-radius") < 10) {
-            WRITE_ERROR("The radius of spider networks must be at least 10m.");
+        minLength = MAX2(minLength, laneWidth * 2 * MAX2(oc.getInt("spider.arm-number"), 3) / (2 * M_PI));
+        if (oc.getFloat("spider.space-radius") < POSITION_EPS) {
+            WRITE_ERROR("The radius of spider networks must be at least "  + toString(POSITION_EPS));
             hadError = true;
+        } else if (oc.getFloat("spider.space-radius") < minLength) {
+            WRITE_WARNING("The radius of spider networks should be at least " + toString(minLength) + " for the given lanenumber, lanewidth and junction radius");
         }
         if (hadError) {
             throw ProcessError();
@@ -157,8 +165,6 @@ buildNetwork(NBNetBuilder& nb) {
             WRITE_ERROR("The number of nodes must be positive and at least 2 in one direction if there are no attachments.");
             hadError = true;
         }
-        const double laneWidth = oc.isDefault("default.lanewidth") ? SUMO_const_laneWidth : oc.getFloat("default.lanewidth");
-        const double minLength = (oc.getInt("default.lanenumber") + oc.getInt("turn-lanes")) * 2 * laneWidth + oc.getFloat("default.junctions.radius") * 2 + POSITION_EPS;
         const double minAttachLength = minLength / 2 + POSITION_EPS / 2;
         if (xLength < POSITION_EPS || yLength < POSITION_EPS) {
             WRITE_ERROR("The distance between nodes must be at least " + toString(POSITION_EPS));
