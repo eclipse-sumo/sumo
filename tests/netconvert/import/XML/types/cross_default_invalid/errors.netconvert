@@ -1,0 +1,3 @@
+Error: default.lanenumber must be at least 1
+Error: default.lanewidth must be at least 0.10
+Quitting (on error).

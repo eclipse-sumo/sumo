@@ -34,5 +34,8 @@ ignore_unknown_type
 # Simple cross using types for edge definition and overwriting allowed
 cross_usingtypes_overwrite
 
+# test invalid default lanenumber and width
+cross_default_invalid
+
 # spread types
 spread_types
