@@ -497,7 +497,13 @@ def main(options):
                 elif options.personrides:
                     element = "ride"
                     attrs = ' lines="%s%s"' % (options.personrides, otherattrs)
-                fouttrips.write( '        <%s%s%s%s/>\n' % (element, attrFrom, attrTo, attrs))
+                if intermediate:
+                    fouttrips.write( '        <%s%s to="%s"%s/>\n' % (element, attrFrom, intermediate[0].getID(), attrs))
+                    for edge in intermediate[1:]:
+                        fouttrips.write( '        <%s to="%s"%s/>\n' % (element, edge.getID(), attrs))
+                    fouttrips.write( '        <%s%s%s/>\n' % (element, attrTo, attrs))
+                else:
+                    fouttrips.write( '        <%s%s%s%s/>\n' % (element, attrFrom, attrTo, attrs))
                 fouttrips.write('    </person>\n')
             else:
                 if options.jtrrouter:
