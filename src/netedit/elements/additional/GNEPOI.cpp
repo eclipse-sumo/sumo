@@ -42,8 +42,7 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                const Position& pos, bool geo, double layer, double angle, const std::string& imgFile,
                bool relativePath, double width, double height, bool movementBlocked) :
     PointOfInterest(id, type, color, pos, geo, "", 0, 0, layer, angle, imgFile, relativePath, width, height),
-    GNEShape(id, net, GLO_POI, SUMO_TAG_POI, movementBlocked,
-{}, {}, {}, {}, {}, {}, {}, {}) {
+    GNEShape(id, net, GLO_POI, SUMO_TAG_POI, movementBlocked, {}, {}, {}, {}, {}, {}, {}, {}) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // set GEO Position
@@ -56,8 +55,7 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                double layer, double angle, const std::string& imgFile, bool relativePath, GNELane* lane, double posOverLane, double posLat,
                double width, double height, bool movementBlocked) :
     PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, posLat, layer, angle, imgFile, relativePath, width, height),
-    GNEShape(id, net, GLO_POI, SUMO_TAG_POILANE, movementBlocked,
-{}, {}, {lane}, {}, {}, {}, {}, {}) {
+    GNEShape(id, net, GLO_POI, SUMO_TAG_POILANE, movementBlocked, {}, {}, {lane}, {}, {}, {}, {}, {}) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -68,8 +66,13 @@ GNEPOI::~GNEPOI() {}
 
 GNEMoveOperation*
 GNEPOI::getMoveOperation(const double /* shapeOffset */) {
-    // return move operation for a position
-    return new GNEMoveOperation(this, *this);
+    if (getTagProperty().getTag() == SUMO_TAG_POILANE) {
+        // return move operation for POI placed over lane
+        return new GNEMoveOperation(this, getParentLanes().front(), { myPosOverLane });
+    } else {
+        // return move operation for a position in view
+        return new GNEMoveOperation(this, *this);
+    }
 }
 
 
@@ -503,14 +506,23 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNEPOI::setMoveShape(const GNEMoveResult& moveResult) {
     // set geometry
-    set(moveResult.shapeToUpdate.front());
+    if (getTagProperty().getTag() == SUMO_TAG_POILANE) {
+        myPosOverLane = moveResult.shapeToUpdate.front().x();
+    } else {
+        set(moveResult.shapeToUpdate.front());
+    }
+    updateGeometry();
 }
 
 
 void
 GNEPOI::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
+    if (getTagProperty().getTag() == SUMO_TAG_POILANE) {
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front().x())));
+    } else {
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
+    }
     undoList->p_end();
 }
 
