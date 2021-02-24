@@ -54,6 +54,13 @@ public:
         return ret.readInt();
     }
 
+    static int readTypedByte(tcpip::Storage& ret, const std::string& error = "") {
+        if (ret.readUnsignedByte() != libsumo::TYPE_BYTE && error != "") {
+            throw TraCIException(error);
+        }
+        return ret.readByte();
+    }
+
     static double readTypedDouble(tcpip::Storage& ret, const std::string& error = "") {
         if (ret.readUnsignedByte() != libsumo::TYPE_DOUBLE && error != "") {
             throw TraCIException(error);

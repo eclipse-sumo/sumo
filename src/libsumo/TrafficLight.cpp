@@ -463,6 +463,7 @@ TrafficLight::buildConstraint(const std::string& tripId, MSRailSignalConstraint*
         c.foeSignal = pc->myFoeSignal->getID();
         c.limit = pc->myLimit;
         c.type = insertionConstraint ? 1 : 0;
+        c.mustWait = !pc->cleared();
     }
     return c;
 }

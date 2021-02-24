@@ -96,16 +96,17 @@ def _readLogics(result):
 
 
 class Constraint:
-    def __init__(self, tripId, foeId, foeSignal, limit, type):
+    def __init__(self, tripId, foeId, foeSignal, limit, type, mustWait):
         self.tripId = tripId
         self.foeId = foeId
         self.foeSignal = foeSignal
         self.limit = limit
         self.type = type
+        self.mustWait = mustWait
 
     def __repr__(self):
-        return ("Constraint(tripId=%s, foeId=%s, foeSignal=%s, limit=%s, type=%s)" %
-                (self.tripId, self.foeId, self.foeSignal, self.limit, self.type))
+        return ("Constraint(tripId=%s, foeId=%s, foeSignal=%s, limit=%s, type=%s, mustWait=%s)" %
+                (self.tripId, self.foeId, self.foeSignal, self.limit, self.type, self.mustWait))
 
 
 def _readLinks(result):
@@ -136,7 +137,8 @@ def _readConstraints(result):
         foeSignal = result.readTypedString()
         limit = result.readTypedInt()
         type = result.readTypedInt()
-        constraints.append(Constraint(tripId, foeId, foeSignal, limit, type))
+        mustWait = bool(result.readTypedByte())
+        constraints.append(Constraint(tripId, foeId, foeSignal, limit, type, mustWait))
     return constraints
 
 

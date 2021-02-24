@@ -27,6 +27,7 @@
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <libsumo/TraCIConstants.h>
+#include <libsumo/StorageHelper.h>
 #include <libsumo/TrafficLight.h>
 #include "TraCIServerAPI_TrafficLight.h"
 
@@ -163,16 +164,12 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
                     server.getWrapperStorage().writeInt((int)constraints.size());
                     for (const auto& c : constraints) {
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                        server.getWrapperStorage().writeString(c.tripId);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                        server.getWrapperStorage().writeString(c.foeId);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                        server.getWrapperStorage().writeString(c.foeSignal);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                        server.getWrapperStorage().writeInt(c.limit);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                        server.getWrapperStorage().writeInt(c.type);
+                        StoHelp::writeTypedString(server.getWrapperStorage(), c.tripId);
+                        StoHelp::writeTypedString(server.getWrapperStorage(), c.foeId);
+                        StoHelp::writeTypedString(server.getWrapperStorage(), c.foeSignal);
+                        StoHelp::writeTypedInt(server.getWrapperStorage(), c.limit);
+                        StoHelp::writeTypedInt(server.getWrapperStorage(), c.type);
+                        StoHelp::writeTypedByte(server.getWrapperStorage(), c.mustWait);
                     }
                     break;
                 }

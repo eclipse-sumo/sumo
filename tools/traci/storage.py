@@ -47,6 +47,11 @@ class Storage:
         assert(t == tc.TYPE_INTEGER)
         return i
 
+    def readTypedByte(self):
+        t, b = self.read("!BB")
+        assert(t == tc.TYPE_BYTE)
+        return b
+
     def readDouble(self):
         return self.read("!d")[0]
 

@@ -602,6 +602,8 @@ struct TraCISignalConstraint {
     int limit;
     /// @brief the type of constraint (predecessor:0, insertionPredecessor:1)
     int type;
+    /// @brief whether tripId must still wait for foeId to pass foeSignal 
+    bool mustWait;
 };
 
 }
