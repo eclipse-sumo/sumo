@@ -1,3 +1,4 @@
+Warning: The distance between nodes should be at least 14.50 for the given lanenumber, lanewidth and junction radius
 Warning: Intersecting left turns at junction 'B1' from lane 'B2B1_0' and lane 'B0B1_0' (increase junction radius to avoid this).
 Warning: Intersecting left turns at junction 'B1' from lane 'C1B1_0' and lane 'A1B1_0' (increase junction radius to avoid this).
 Warning: Intersecting left turns at junction 'B2' from lane 'B3B2_0' and lane 'B1B2_0' (increase junction radius to avoid this).
