@@ -154,16 +154,23 @@ buildNetwork(NBNetBuilder& nb) {
         // check values
         bool hadError = false;
         if (xNo < 1 || yNo < 1 || (attachLength == 0 && (xNo < 2 && yNo < 2))) {
-            WRITE_ERROR("The number of nodes must be positive and at least 2 in one direction.");
+            WRITE_ERROR("The number of nodes must be positive and at least 2 in one direction if there are no attachments.");
             hadError = true;
         }
-        if (xLength < 10. || yLength < 10.) {
-            WRITE_ERROR("The distance between nodes must be at least 10m in both directions.");
+        const double laneWidth = oc.isDefault("default.lanewidth") ? SUMO_const_laneWidth : oc.getFloat("default.lanewidth");
+        const double minLength = (oc.getInt("default.lanenumber") + oc.getInt("turn-lanes")) * 2 * laneWidth + oc.getFloat("default.junctions.radius") * 2 + POSITION_EPS;
+        const double minAttachLength = minLength / 2 + POSITION_EPS / 2;
+        if (xLength < POSITION_EPS || yLength < POSITION_EPS) {
+            WRITE_ERROR("The distance between nodes must be at least " + toString(POSITION_EPS));
             hadError = true;
+        } else if (xLength < minLength || yLength < minLength) {
+            WRITE_WARNING("The distance between nodes should be at least " + toString(minLength) + " for the given lanenumber, lanewidth and junction radius");
         }
-        if (attachLength != 0.0 && attachLength < 10.) {
-            WRITE_ERROR("The length of attached streets must be at least 10m.");
+        if (attachLength != 0.0 && attachLength < POSITION_EPS) {
+            WRITE_ERROR("The length of attached streets must be at least " + toString(POSITION_EPS));
             hadError = true;
+        } else if (attachLength != 0.0 && attachLength < minAttachLength) {
+            WRITE_WARNING("The length of attached streets should be at least " + toString(minAttachLength) + " for the given lanenumber, lanewidth and junction radius");
         }
         if (hadError) {
             throw ProcessError();
