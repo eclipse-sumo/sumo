@@ -64,7 +64,7 @@ void
 NBNetBuilder::applyOptions(OptionsCont& oc) {
     // apply options to type control
     myTypeCont.setEdgeTypeDefaults(oc.getInt("default.lanenumber"), oc.getFloat("default.lanewidth"), oc.getFloat("default.speed"),
-                                   oc.getInt("default.priority"), parseVehicleClasses("", oc.getString("default.disallow")), 
+                                   oc.getInt("default.priority"), parseVehicleClasses(oc.getString("default.allow"), oc.getString("default.disallow")), 
                                    SUMOXMLDefinitions::LaneSpreadFunctions.get(oc.getString("default.spreadtype")));
     // apply options to edge control
     myEdgeCont.applyOptions(oc);
