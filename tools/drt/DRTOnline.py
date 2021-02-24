@@ -25,6 +25,7 @@ Track progress https://github.com/eclipse/sumo/issues/8256
 import os
 import sys
 from argparse import ArgumentParser
+from pulp import *
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -409,8 +410,59 @@ def get_rtv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, r
             last_stops = ["%sy" % s.split(" ")[1] if s.split(" ")[0] == "pickup" else "%sz" % s.split(" ")[1] for s in last_stops]
             #for x_id in r_id_new:
                 # search possible routes for new reservations
+    
+    return rtv_dict
 
 
+def ilp_solve(options, v_num, r_num, costs, vehicle_constraints, request_constraints):
+    # founds the combination of trips that minimize the costs function
+
+    #req_costs = [request.cost for request in requests] # TODO to implement req with diff costs/priorities
+    order_trips = costs.keys()
+
+    ILP_result = []
+
+    # Create the 'prob' variable to contain the problem data
+    prob = LpProblem("DARP", LpMinimize)
+
+    # 'Trips_vars' dict with the referenced Variables (all possible trips)
+    Trips_vars = LpVariable.dicts("Trip", order_trips, cat='Binary')
+
+    # add objective function
+    prob += lpSum([costs[i] * Trips_vars[i] for i in order_trips]) - \
+            options.c_ko * lpSum([sum(request_constraints[i]) * Trips_vars[i] for i in order_trips]), \
+            "Total_Trips_Travel_Time"
+    
+    # cost of each route = trip cost - (cost of serve a request * Nr of request served)
+
+    # add constraints
+    for index in range(v_num):
+        prob += lpSum([vehicle_constraints[i][index] * Trips_vars[i] for i in order_trips]) <= 1, \
+                "Max_1_Trip_for_Vehicle_%s" % index
+
+    for index in range(r_num):
+        prob += lpSum([request_constraints[i][index] * Trips_vars[i] for i in order_trips]) <= 1, \
+                "Max_1_Trip_for_Request_%s" % index
+
+
+    prob += lpSum([sum(vehicle_constraints[i]) * Trips_vars[i] for i in order_trips]) >= 1, \
+            "Avoid_null_result_by_assigning_at_least_one_vehicle"
+
+    # The problem data is written into following file
+    prob.writeLP("DRT_ilp.txt") # TODO write as temporary
+
+    # The problem is solved using PuLP's Solver choice
+    prob.solve(PULP_CBC_CMD(msg=0))
+
+    if LpStatus[prob.status] != 'Optimal':
+        sys.exit("No optimal solution could be found. Return value: %s" % LpStatus[prob.status])
+    else:  # if optimal solution was found
+        for v in prob.variables():
+            if v.varValue == 1:
+                result = v.name.split("Trip_")[1]
+                ILP_result.append(result)
+
+    return ILP_result
 
 def main():
     
@@ -423,9 +475,9 @@ def main():
 
     # start traci
     traci.start(['sumo-gui', '--net-file', '%s' %options.network, '-r', 
-    '%s,%s' % (options.reservations, options.taxis), 
-    "--device.taxi.dispatch-algorithm", "traci", '-g', '%s' %options.gui_settings,
-    "--tripinfo-output", '%s' %options.output, "--tripinfo-output.write-unfinished"])
+    '%s,%s' % (options.reservations, options.taxis),
+    '--device.taxi.dispatch-algorithm', 'traci', '-g', '%s' %options.gui_settings,
+    '--tripinfo-output', '%s' %options.output, '--tripinfo-output.write-unfinished'])
 
     # execute the TraCI control loop
     step = 0
@@ -482,9 +534,32 @@ def main():
                 stops = rtv_dict.split("_")
                 # assign route to vehicle
                 traci.vehicle.dispatchTaxi(stops[0], stops[1:])
-            #else:
-                # of multiple vehicle darp, solve ILP
-                # TODO implement ILP
+            
+            else:
+                # if multiple vehicle darp, solve ILP with pulp
+                vehicle_constraints = {}
+                request_constraints = {}
+                costs = {}
+                trips = list(rtv_dict.keys()) # list of all trips for ILP solution parse
+
+                # add bonus_cost to trip cost (makes trips with more served requests cheaper than splitting the requests to more
+                # vehicles with smaller trips if both strategies would yield a similar cost)
+                for idx, trip_id in enumerate(trips):
+                    # rtv_dict[route] = [travel_time, v_bin, r_bin, value] 
+                    bonus_cost = (sum(rtv_dict[trip_id][2]) + 1) * options.cost_per_trip # TODO specific cost for vehicle can be consider here
+                    costs.update({idx: rtv_dict[trip_id][0] + bonus_cost})  # generate dict with cost
+                    vehicle_constraints.update({idx: rtv_dict[trip_id][1]})  # generate dict with vehicle used in the trip
+                    request_constraints.update({idx: rtv_dict[trip_id][2]})  # generate dict with served requests in the trip
+                # TODO len(r_id_new) wrong when considering not picked up requests
+                ilp_result = ilp_solve(options, len(fleet), len(r_id_new), costs, vehicle_constraints, request_constraints)
+    
+                for route_index in ilp_result:
+                    # assign routes to vehicles
+                    route_id = trips[int(route_index)]
+                    route_id = route_id.replace('y', '')
+                    route_id = route_id.replace('z', '')
+                    stops = route_id.split("_")
+                    traci.vehicle.dispatchTaxi(stops[0], stops[1:])
             
         step += options.sim_step
 
