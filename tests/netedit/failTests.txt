@@ -11,11 +11,6 @@ additionalElements\parkingspace\volatileRecomputing
 additionalElements\routeprobe\delete
 additionalElements\vaporizer\delete
 
-shapeElements\poi\lock_unlock
-shapeElements\poi\move
-shapeElements\poilane\inspect\blockmove
-shapeElements\poilane\move
-shapeElements\poilane\lock_unlock
 shapeElements\poly\move\block_shape
 shapeElements\poly\move\block_move_shape
 

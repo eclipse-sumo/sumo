@@ -40,24 +40,18 @@ netedit.leftClick(referencePosition, 150, 210)
 # go to move mode
 netedit.moveMode()
 
-# move first POILane to right
-netedit.moveElement(referencePosition, -20, 215, 200, 210)
+# move POILane to right
+netedit.moveElement(referencePosition, 150, 210, 300, 210)
 
-# move first POILane to left
-netedit.moveElement(referencePosition, 200, 215, 0, 210)
+# move POILane to left
+netedit.moveElement(referencePosition, 300, 210, 200, 210)
 
-# move first POILane to left
-netedit.moveElement(referencePosition, 0, 215, -180, 210)
-
-# move first POILane to left
-netedit.moveElement(referencePosition, -100, 215, 600, 210)
-
-# move first POILane to left
-netedit.moveElement(referencePosition, 530, 215, 300, 210)
+# move POILane to left
+netedit.moveElement(referencePosition, 200, 210, 250, 210)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
 
 # save shapes
 netedit.saveAdditionals(referencePosition)

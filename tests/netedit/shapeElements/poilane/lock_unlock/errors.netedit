@@ -2,12 +2,13 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'poly' in TagSelector
 Debug: Selected item 'poiLane' in TagSelector
 Debug: Adding poiLane 'poi_0' into viewNet
+Debug: Setting new attribute pos '29.00' into poiLane 'poi_0'
 Debug: Setting new attribute blockMovement 'true' into poiLane 'poi_0'
 Debug: Setting new attribute blockMovement 'false' into poiLane 'poi_0'
-Debug: Setting new attribute pos '27.00' into poiLane 'poi_0'
+Debug: Setting new attribute pos '4.00' into poiLane 'poi_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '44.00' into poiLane 'poi_0'
+Debug: Setting previous attribute pos '29.00' into poiLane 'poi_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute blockMovement '1' into poiLane 'poi_0'
@@ -16,10 +17,10 @@ Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute blockMovement '0' into poiLane 'poi_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing poiLane 'poi_0' from viewNet
+Debug: Setting previous attribute pos '44.00' into poiLane 'poi_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding poiLane 'poi_0' into viewNet
+Debug: Setting new attribute pos '29.00' into poiLane 'poi_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute blockMovement 'true' into poiLane 'poi_0'
@@ -28,7 +29,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute blockMovement 'false' into poiLane 'poi_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '27.00' into poiLane 'poi_0'
+Debug: Setting new attribute pos '4.00' into poiLane 'poi_0'
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

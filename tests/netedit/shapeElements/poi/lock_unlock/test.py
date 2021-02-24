@@ -56,16 +56,16 @@ netedit.leftClick(referencePosition, 100, 350)
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 100, 100)
+netedit.leftClick(referencePosition, 110, 95)
 
 # block POI
-netedit.modifyBoolAttribute(11, True)
+netedit.modifyBoolAttribute(12, True)
 
 # inspect second POI
-netedit.leftClick(referencePosition, 100, 350)
+netedit.leftClick(referencePosition, 110, 360)
 
 # block POI
-netedit.modifyBoolAttribute(11, True)
+netedit.modifyBoolAttribute(12, True)
 
 # go to move mode
 netedit.moveMode()

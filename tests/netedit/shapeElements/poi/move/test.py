@@ -56,10 +56,10 @@ netedit.leftClick(referencePosition, 100, 350)
 netedit.moveMode()
 
 # move first POI to left down
-netedit.moveElement(referencePosition, -78, 50, 200, 60)
+netedit.moveElement(referencePosition, 108, 94, 375, 151)
 
 # move second POI to left up
-netedit.moveElement(referencePosition, -78, 385, 200, 300)
+netedit.moveElement(referencePosition, 110, 363, 355, 250)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

@@ -37,35 +37,41 @@ netedit.changeElement("poiLane")
 # create poiLane
 netedit.leftClick(referencePosition, 150, 210)
 
-# go to inspect mode
-netedit.inspectMode()
-
-# inspect first POILane
-netedit.leftClick(referencePosition, 140, 210)
-
-# Change boolean parameter block
-netedit.modifyBoolAttribute(16, True)
-
 # go to move mode
 netedit.moveMode()
 
-# try to move POI
-netedit.moveElement(referencePosition, -20, 215, 200, 210)
+# move POILane to right
+netedit.moveElement(referencePosition, 150, 210, 295, 210)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect first POILane
-netedit.leftClick(referencePosition, 140, 210)
+# inspect POILane
+netedit.leftClick(referencePosition, 295, 210)
 
 # Change boolean parameter block
-netedit.modifyBoolAttribute(16, True)
+netedit.modifyBoolAttribute(17, True)
 
 # go to move mode
 netedit.moveMode()
 
-# now move POI
-netedit.moveElement(referencePosition, -20, 215, 200, 210)
+# move POILane to right
+netedit.moveElement(referencePosition, 295, 210, 100, 210)
+
+# go to inspect mode
+netedit.inspectMode()
+
+# inspect POILane
+netedit.leftClick(referencePosition, 100, 210)
+
+# Change boolean parameter block
+netedit.modifyBoolAttribute(17, True)
+
+# go to move mode
+netedit.moveMode()
+
+# move POILane to right
+netedit.moveElement(referencePosition, 100, 210, 350, 210)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)
