@@ -589,12 +589,12 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::buildNetworkVi
         myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES);
 
     menuCheckWarnAboutMerge = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Ask for confirmation before merging junction.", "", "",
+        "Ask for confirmation before merging junction", "", "",
         GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_ASKFORMERGE),
         myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE);
 
     menuCheckShowJunctionBubble = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Show bubbles over junction's shapes.", "", "",
+        "Show bubbles over junction's shapes", "", "",
         GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_BUBBLES),
         myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES);
 
