@@ -680,6 +680,14 @@ NBFrame::checkOptions() {
         WRITE_ERROR("only one of the options 'tls.green.time' or 'tls.cycle.time' may be given");
         ok = false;
     }
+    if (oc.getInt("default.lanenumber") < 1) {
+        WRITE_ERROR("default.lanenumber must be at least 1");
+        ok = false;
+    }
+    if (!oc.isDefault("default.lanewidth") && oc.getFloat("default.lanewidth") < POSITION_EPS) {
+        WRITE_ERROR("default.lanewidth must be at least " + toString(POSITION_EPS));
+        ok = false;
+    }
     if (!oc.isDefault("default.disallow") && !oc.isDefault("default.allow")) {
         WRITE_ERROR("only one of the options 'default.disallow' or 'default.allow' may be given");
         ok = false;
