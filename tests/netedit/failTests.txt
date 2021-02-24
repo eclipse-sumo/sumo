@@ -6,8 +6,6 @@ additionalElements\vaporizer\delete
 shapeElements\poly\move\block_shape
 shapeElements\poly\move\block_move_shape
 
-TAZElements\basic\TAZ_saveDialog
-
 demandElements\route\fix\remove
 demandElements\route\fix\save
 demandElements\route\fix\select

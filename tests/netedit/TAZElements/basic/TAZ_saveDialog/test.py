@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.TAZMode()
 
 # create TAZ
-netedit.createSquaredTAZ(referencePosition, 100, 50, 100, True)
+netedit.createSquaredTAZ(referencePosition, 184, 131, 200, True)
 
 # save network
 netedit.saveNetwork(referencePosition)
