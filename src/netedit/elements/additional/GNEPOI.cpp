@@ -66,7 +66,9 @@ GNEPOI::~GNEPOI() {}
 
 GNEMoveOperation*
 GNEPOI::getMoveOperation(const double /* shapeOffset */) {
-    if (getTagProperty().getTag() == SUMO_TAG_POILANE) {
+    if (myBlockMovement) {
+        return nullptr;
+    } else if (getTagProperty().getTag() == SUMO_TAG_POILANE) {
         // return move operation for POI placed over lane
         return new GNEMoveOperation(this, getParentLanes().front(), { myPosOverLane });
     } else {
