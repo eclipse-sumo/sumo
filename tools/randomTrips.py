@@ -490,16 +490,14 @@ def main(options):
             if options.pedestrians:
                 fouttrips.write(
                     '    <person id="%s" depart="%.2f"%s>\n' % (label, depart, personattrs))
+                element = "walk"
+                attrs = otherattrs
                 if options.persontrips:
-                    fouttrips.write(
-                        '        <personTrip%s%s%s/>\n' % (attrFrom, attrTo, otherattrs))
+                    element = "personTrip"
                 elif options.personrides:
-                    fouttrips.write(
-                        '        <ride from="%s" to="%s" lines="%s"%s/>\n' % (
-                            source_edge.getID(), sink_edge.getID(), options.personrides, otherattrs))
-                else:
-                    fouttrips.write(
-                        '        <walk%s%s%s/>\n' % (attrFrom, attrTo, otherattrs))
+                    element = "ride"
+                    attrs = ' lines="%s%s"' % (options.personrides, otherattrs)
+                fouttrips.write( '        <%s%s%s%s/>\n' % (element, attrFrom, attrTo, attrs))
                 fouttrips.write('    </person>\n')
             else:
                 if options.jtrrouter:
