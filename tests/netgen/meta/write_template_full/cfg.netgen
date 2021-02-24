@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 16 09:34:26 2020 by Eclipse SUMO netgenerate Version v1_8_0+0261-d8d0c429ef
+<!-- generated on Wed Feb 24 10:13:09 2021 by Eclipse SUMO netgenerate Version v1_8_0+1363-614b854
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -114,6 +114,7 @@
         <default.sidewalk-width value="2" type="FLOAT" help="The default width of added sidewalks"/>
         <default.bikelane-width value="1" type="FLOAT" help="The default width of added bike lanes"/>
         <default.crossing-width value="4" type="FLOAT" help="The default width of a pedestrian crossing"/>
+        <default.allow value="" type="STR" help="The default for allowed vehicle classes"/>
         <default.disallow value="" type="STR" help="The default for disallowed vehicle classes"/>
         <default.junctions.keep-clear value="true" type="BOOL" help="Whether junctions should be kept clear by default"/>
         <default.junctions.radius value="4" type="FLOAT" help="The default turning radius of intersections"/>

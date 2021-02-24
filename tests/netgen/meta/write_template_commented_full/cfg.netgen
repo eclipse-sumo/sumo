@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 16 09:34:27 2020 by Eclipse SUMO netgenerate Version v1_8_0+0261-d8d0c429ef
+<!-- generated on Wed Feb 24 10:13:09 2021 by Eclipse SUMO netgenerate Version v1_8_0+1363-614b854
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -287,6 +287,9 @@
 
         <!-- The default width of a pedestrian crossing -->
         <default.crossing-width value="4" type="FLOAT"/>
+
+        <!-- The default for allowed vehicle classes -->
+        <default.allow value="" type="STR"/>
 
         <!-- The default for disallowed vehicle classes -->
         <default.disallow value="" type="STR"/>

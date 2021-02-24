@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_8_0+1148-fede844
+Eclipse SUMO netconvert Version v1_8_0+1363-614b854
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -217,6 +217,7 @@ Building Defaults Options:
   --default.bikelane-width FLOAT       The default width of added bike lanes
   --default.crossing-width FLOAT       The default width of a pedestrian
                                         crossing
+  --default.allow STR                  The default for allowed vehicle classes
   --default.disallow STR               The default for disallowed vehicle
                                         classes
   --default.junctions.keep-clear       Whether junctions should be kept clear
