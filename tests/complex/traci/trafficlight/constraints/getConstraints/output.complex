@@ -1,11 +1,16 @@
  Retrying in 1 seconds
 constraints for 'A'
-   Constraint(tripId=t0, foeId=t1, foeSignal=D, limit=3, type=0)
-   Constraint(tripId=t0, foeId=t2, foeSignal=D, limit=3, type=0)
-   Constraint(tripId=t0, foeId=t3, foeSignal=D, limit=3, type=0)
-   Constraint(tripId=t4, foeId=t5, foeSignal=D, limit=1, type=0)
+   Constraint(tripId=t0, foeId=t1, foeSignal=D, limit=3, type=0, mustWait=True)
+   Constraint(tripId=t0, foeId=t2, foeSignal=D, limit=3, type=0, mustWait=True)
+   Constraint(tripId=t0, foeId=t3, foeSignal=D, limit=3, type=0, mustWait=True)
+   Constraint(tripId=t4, foeId=t5, foeSignal=D, limit=1, type=0, mustWait=True)
 constraints for 'A' and trip 't0'
-   Constraint(tripId=t0, foeId=t1, foeSignal=D, limit=3, type=0)
-   Constraint(tripId=t0, foeId=t2, foeSignal=D, limit=3, type=0)
-   Constraint(tripId=t0, foeId=t3, foeSignal=D, limit=3, type=0)
+   Constraint(tripId=t0, foeId=t1, foeSignal=D, limit=3, type=0, mustWait=True)
+   Constraint(tripId=t0, foeId=t2, foeSignal=D, limit=3, type=0, mustWait=True)
+   Constraint(tripId=t0, foeId=t3, foeSignal=D, limit=3, type=0, mustWait=True)
 constraints for 'D'
+constraints for 'A' (later)
+   Constraint(tripId=t0, foeId=t1, foeSignal=D, limit=3, type=0, mustWait=False)
+   Constraint(tripId=t0, foeId=t2, foeSignal=D, limit=3, type=0, mustWait=True)
+   Constraint(tripId=t0, foeId=t3, foeSignal=D, limit=3, type=0, mustWait=True)
+   Constraint(tripId=t4, foeId=t5, foeSignal=D, limit=1, type=0, mustWait=True)

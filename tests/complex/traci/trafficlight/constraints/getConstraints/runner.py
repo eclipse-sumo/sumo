@@ -45,4 +45,10 @@ print("constraints for 'D'")
 for c in traci.trafficlight.getConstraints("D"):
     print("   %s" % c)
 
+for i in range(100):
+    traci.simulationStep()
+print("constraints for 'A' (later)")
+for c in traci.trafficlight.getConstraints("A"):
+    print("   %s" % c)
+
 traci.close()
