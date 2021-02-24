@@ -39,6 +39,9 @@ vehicle_class_persontrips
 # test trips with intermediate waypoints
 intermediate
 
+# test pedestrian trips with intermediate waypoints
+intermediate_pedestrians
+
 # write weights for visualization
 weights_output
 
