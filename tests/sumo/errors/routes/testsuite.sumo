@@ -45,6 +45,9 @@ disconnected
 # disconnected routes with check switched off
 disconnected_off
 
+# disconnected routes with check switched off, special time-to-teleport.disconnected for this use case
+disconnected_off_customTeleport
+
 # route file with empty person
 emptyperson
 

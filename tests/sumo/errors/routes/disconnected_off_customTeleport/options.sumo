@@ -1,0 +1,4 @@
+--no-step-log --no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml --ignore-route-errors
+--time-to-teleport 100
+--tripinfo-output tripinfos.xml
+--time-to-teleport.disconnected 20
