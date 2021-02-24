@@ -41,7 +41,7 @@ def initOptions():
     argParser.add_argument("-n", "--network", dest="network", help="SUMO network file", metavar="FILE", required=True)
     argParser.add_argument("-r", "--reservations", dest="reservations", help="File with reservations (persons)", metavar="FILE", required=True)
     argParser.add_argument("-v", "--taxi", dest="taxis", help="File with drt vehicles (vehicles with taxi device)", metavar="FILE", required=True)
-    argParser.add_argument("-g", dest="gui_settings", help="Load visualisation settings from FILE", metavar="FILE", required=False)
+    argParser.add_argument("-g", dest="gui_settings", help="Load visualization settings from FILE", metavar="FILE", required=False)
     argParser.add_argument("-o", dest="output", help="Name of output file", default='tripinfo.xml', required=False)
 
     argParser.add_argument("--c_ko", dest="c_ko", help="cost of ignoring a request", type=float, default=1000000000000, required=False)
@@ -480,10 +480,14 @@ def main():
     rv_dict = {}
 
     # start traci
-    traci.start(['sumo-gui', '--net-file', '%s' %options.network, '-r', 
+    run_traci = ['sumo-gui', '--net-file', '%s' %options.network, '-r', 
     '%s,%s' % (options.reservations, options.taxis), '-l', 'log.txt',
-    '--device.taxi.dispatch-algorithm', 'traci', '-g', '%s' %options.gui_settings,
-    '--tripinfo-output', '%s' %options.output, '--tripinfo-output.write-unfinished'])
+    '--device.taxi.dispatch-algorithm', 'traci',
+    '--tripinfo-output', '%s' %options.output, '--tripinfo-output.write-unfinished']
+    if options.gui_settings:
+        run_traci.extend(['-g', '%s' %options.gui_settings])
+
+    traci.start(run_traci)
 
     # execute the TraCI control loop
     step = 0
