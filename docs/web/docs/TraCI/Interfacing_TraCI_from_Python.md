@@ -214,12 +214,16 @@ different simulation instances and labels. The function *traci.switch()*
 can then be used to switch to any of the initialized labels:
 
 ```
- traci.start(["sumo", "-c", "sim1.sumocfg"], label="sim1")
+ traci.start(["sumo", "-c", "sim1.sumocfg"], label="sim1")
  traci.start(["sumo", "-c", "sim2.sumocfg"], label="sim2")
  traci.switch("sim1")
  traci.simulationStep() # run 1 step for sim1
  traci.switch("sim2")
- traci.simulationStep() # run 1 step for sim2
+ traci.simulationStep() # run 1 step for sim2 
+ traci.switch("sim1")
+ traci.close()
+ traci.switch("sim2")
+ traci.close()
 ```
 
 If you prefer a more object oriented approach you can also use
