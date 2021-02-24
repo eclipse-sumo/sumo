@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 17.10.2018 11:02:52 by Eclipse SUMO netedit Version v1_0_1+0296-2f18426848
+<!-- generated on 24.02.2021 10:04:12 by Eclipse SUMO netedit Version v1_8_0+1360-4b150fce9e
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Oct094251.2672/netedit.gui/additionalElements/parkingarea/lock_unlock\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Oct094251.2672/netedit.gui/additionalElements/parkingarea/lock_unlock\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,26 +30,32 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Oct094251.2672/netedit.gui/additionalElements/parkingarea/lock_unlock\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Oct094251.2672/netedit.gui/additionalElements/parkingarea/lock_unlock\shapes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Oct094251.2672/netedit.gui/additionalElements/parkingarea/lock_unlock\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Oct094251.2672/netedit.gui/additionalElements/parkingarea/lock_unlock\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <parkingArea id="parkingArea_gneE0_0_0" lane="gneE0_0" startPos="28.00" endPos="38.00"/>
+    <parkingArea id="parkingArea_gneE0_0_0" lane="gneE0_0" startPos="40.00" endPos="50.00"/>
 </additional>

@@ -44,37 +44,37 @@ netedit.leftClick(referencePosition, 250, 250)
 netedit.moveMode()
 
 # move parkingArea to right
-netedit.moveElement(referencePosition, 150, 300, 250, 300)
+netedit.moveElement(referencePosition, 250, 270, 400, 270)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect parkingArea
-netedit.leftClick(referencePosition, 350, 300)
+netedit.leftClick(referencePosition, 400, 270)
 
 # block additional
-netedit.modifyBoolAttribute(14, False)
+netedit.modifyBoolAttribute(15, False)
 
 # change to move mode
 netedit.moveMode()
 
 # try to move parkingArea to right (must be blocked)
-netedit.moveElement(referencePosition, 250, 300, 350, 300)
+netedit.moveElement(referencePosition, 400, 270, 200, 270)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect parkingArea
-netedit.leftClick(referencePosition, 350, 300)
+netedit.leftClick(referencePosition, 200, 270)
 
 # unblock additional
-netedit.modifyBoolAttribute(14, False)
+netedit.modifyBoolAttribute(15, False)
 
 # change to move mode
 netedit.moveMode()
 
 # move parkingArea to right (must be allowed)
-netedit.moveElement(referencePosition, 250, 300, 350, 300)
+netedit.moveElement(referencePosition, 200, 270, 350, 270)
 
 # Check undos and redos
 netedit.undo(referencePosition, 5)

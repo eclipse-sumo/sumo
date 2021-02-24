@@ -1,11 +1,11 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding parkingArea 'parkingArea_A' in GNEChange_Additional
-Debug: Adding space 'parkingArea_Aspace0' in GNEChange_Additional
+Debug: Adding space 'parkingArea_A' in GNEChange_Additional
 Debug: Inserting parameter 'KeyA1|valueA1' into additional space.
 Debug: Inserting parameter 'KeyA2|valueA2' into additional space.
 Debug: Inserting parameter 'KeyA3|valueA3' into additional space.
 Debug: Adding parkingArea 'parkingArea_B' in GNEChange_Additional
-Debug: Adding space 'parkingArea_Bspace0' in GNEChange_Additional
+Debug: Adding space 'parkingArea_B' in GNEChange_Additional
 Debug: Inserting parameter 'KeyB1|valueB1' into additional space.
 Debug: Inserting parameter 'KeyB2|valueB2' into additional space.
 Debug: Inserting parameter 'KeyB3|valueB3' into additional space.
@@ -18,14 +18,20 @@ Debug: Setting new attribute selected 'true' into edge 'gneE3'
 Debug: Setting new attribute selected 'true' into junction 'gneJ3'
 Debug: Setting new attribute selected 'true' into edge 'gneE2'
 Debug: Setting new attribute selected 'true' into parkingArea 'parkingArea_A'
+Debug: Setting new attribute selected 'true' into space 'parkingArea_A'
 Debug: Setting new attribute selected 'true' into parkingArea 'parkingArea_B'
-Debug: Setting new attribute selected 'true' into space 'parkingArea_Aspace0'
-Debug: Setting new attribute selected 'true' into space 'parkingArea_Bspace0'
+Debug: Setting new attribute selected 'true' into space 'parkingArea_B'
+Debug: Setting new attribute blockMovement 'true' into space 'parkingArea_A'
+Debug: Setting new attribute blockMovement 'true' into space 'parkingArea_B'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into space 'parkingArea_Bspace0'
-Debug: Setting previous attribute selected '0' into space 'parkingArea_Aspace0'
+Debug: Setting previous attribute blockMovement '0' into space 'parkingArea_B'
+Debug: Setting previous attribute blockMovement '0' into space 'parkingArea_A'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute selected '0' into space 'parkingArea_B'
 Debug: Setting previous attribute selected '0' into parkingArea 'parkingArea_B'
+Debug: Setting previous attribute selected '0' into space 'parkingArea_A'
 Debug: Setting previous attribute selected '0' into parkingArea 'parkingArea_A'
 Debug: Setting previous attribute selected '0' into edge 'gneE2'
 Debug: Setting previous attribute selected '0' into junction 'gneJ3'
@@ -37,17 +43,16 @@ Debug: Setting previous attribute selected '0' into edge 'gneE1'
 Debug: Setting previous attribute selected '0' into junction 'gneJ0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing space 'parkingArea_Bspace0' in GNEChange_Additional
+Debug: Removing space 'parkingArea_B' in GNEChange_Additional
 Debug: Removing parkingArea 'parkingArea_B' in GNEChange_Additional
-Debug: Removing space 'parkingArea_Aspace0' in GNEChange_Additional
+Debug: Removing space 'parkingArea_A' in GNEChange_Additional
 Debug: Removing parkingArea 'parkingArea_A' in GNEChange_Additional
-Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding parkingArea 'parkingArea_A' in GNEChange_Additional
-Debug: Adding space 'parkingArea_Aspace0' in GNEChange_Additional
+Debug: Adding space 'parkingArea_A' in GNEChange_Additional
 Debug: Adding parkingArea 'parkingArea_B' in GNEChange_Additional
-Debug: Adding space 'parkingArea_Bspace0' in GNEChange_Additional
+Debug: Adding space 'parkingArea_B' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
@@ -59,10 +64,13 @@ Debug: Setting new attribute selected 'true' into edge 'gneE3'
 Debug: Setting new attribute selected 'true' into junction 'gneJ3'
 Debug: Setting new attribute selected 'true' into edge 'gneE2'
 Debug: Setting new attribute selected 'true' into parkingArea 'parkingArea_A'
+Debug: Setting new attribute selected 'true' into space 'parkingArea_A'
 Debug: Setting new attribute selected 'true' into parkingArea 'parkingArea_B'
-Debug: Setting new attribute selected 'true' into space 'parkingArea_Aspace0'
-Debug: Setting new attribute selected 'true' into space 'parkingArea_Bspace0'
+Debug: Setting new attribute selected 'true' into space 'parkingArea_B'
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute blockMovement 'true' into space 'parkingArea_A'
+Debug: Setting new attribute blockMovement 'true' into space 'parkingArea_B'
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
@@ -72,9 +80,9 @@ Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
-Debug: Deleting unreferenced space 'parkingArea_Bspace0'
+Debug: Deleting unreferenced space 'parkingArea_B'
 Debug: Deleting unreferenced parkingArea 'parkingArea_B'
-Debug: Deleting unreferenced space 'parkingArea_Aspace0'
+Debug: Deleting unreferenced space 'parkingArea_A'
 Debug: Deleting unreferenced parkingArea 'parkingArea_A'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

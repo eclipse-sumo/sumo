@@ -1,13 +1,5 @@
 -tp appdata=netedit.gui
 
-additionalElements\parkingarea\inspect_selection\block_move
-additionalElements\parkingarea\lock_unlock
-additionalElements\parkingarea\move
-additionalElements\parkingspace\inspect_selection\block_move
-additionalElements\parkingspace\lock_unlock
-additionalElements\parkingspace\move
-additionalElements\parkingspace\volatileRecomputing
-
 additionalElements\routeprobe\delete
 additionalElements\vaporizer\delete
 

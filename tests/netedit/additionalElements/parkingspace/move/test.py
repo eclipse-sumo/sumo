@@ -44,22 +44,22 @@ netedit.changeElement("space")
 netedit.selectAdditionalChild(8, 0)
 
 # create space
-netedit.leftClick(referencePosition, 250, 105)
+netedit.leftClick(referencePosition, 250, 110)
 
 # change to move mode
 netedit.moveMode()
 
 # move space
-netedit.moveElement(referencePosition, 100, 20, 330, 40)
+netedit.moveElement(referencePosition, 240, 100, 400, 100)
 
 # move space
-netedit.moveElement(referencePosition, 330, 40, 400, 40)
+netedit.moveElement(referencePosition, 400, 100, 200, 50)
 
 # move space
-netedit.moveElement(referencePosition, 400, 40, 400, 220)
+netedit.moveElement(referencePosition, 200, 50, 400, 200)
 
 # move space
-netedit.moveElement(referencePosition, 400, 220, 100, 200)
+netedit.moveElement(referencePosition, 400, 200, 50, 50)
 
 # Check undos and redos
 netedit.undo(referencePosition, 6)

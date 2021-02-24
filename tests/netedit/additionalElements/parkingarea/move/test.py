@@ -38,38 +38,23 @@ netedit.changeElement("parkingArea")
 netedit.changeDefaultValue(11, "reference center")
 
 # create parkingArea in mode "reference center"
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 250, 240)
 
 # change to move mode
 netedit.moveMode()
 
 # move parkingArea to left
-netedit.moveElement(referencePosition, 150, 300, 50, 300)
+netedit.moveElement(referencePosition, 250, 270, 400, 270)
 
 # move back
-netedit.moveElement(referencePosition, 50, 300, 150, 300)
+netedit.moveElement(referencePosition, 400, 270, 70, 270)
 
 # move parkingArea to right
-netedit.moveElement(referencePosition, 150, 300, 250, 300)
-
-# move back
-netedit.moveElement(referencePosition, 250, 300, 150, 300)
-
-# move parkingArea to left overpassing lane
-netedit.moveElement(referencePosition, 150, 300, -100, 300)
-
-# move back
-netedit.moveElement(referencePosition, -90, 300, 150, 300)
-
-# move parkingArea to right overpassing lane
-netedit.moveElement(referencePosition, 150, 300, 550, 300)
-
-# move back to another different position of initial
-netedit.moveElement(referencePosition, 500, 300, 300, 300)
+netedit.moveElement(referencePosition, 130, 270, 300, 270)
 
 # Check undos and redos
-netedit.undo(referencePosition, 9)
-netedit.redo(referencePosition, 9)
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)
