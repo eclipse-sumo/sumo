@@ -159,6 +159,52 @@ public:
         FXLabel *myInfoLabel = nullptr;
     };
 
+    // ===========================================================================
+    // class ShiftShapeGeometry
+    // ===========================================================================
+
+    class ShiftShapeGeometry : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEMoveFrame::ShiftShapeGeometry)
+
+    public:
+        /// @brief constructor
+        ShiftShapeGeometry(GNEMoveFrame* moveFrameParent);
+
+        /// @brief destructor
+        ~ShiftShapeGeometry();
+
+        /// @brief show shift shape geometry
+        void showShiftShapeGeometry();
+
+        /// @brief hide change Z in selection
+        void hideShiftShapeGeometry();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when user changes Z value
+        long onCmdChangeShiftValue(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press the apply Z value button
+        long onCmdShiftShapeGeometry(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(ShiftShapeGeometry)
+
+    private:
+        /// @brief pointer to move frame parent
+        GNEMoveFrame* myMoveFrameParent;
+
+        /// @brief textField for shiftX value
+        FXTextField* myShiftValueXTextField = nullptr;
+
+        /// @brief textField for shiftY value
+        FXTextField* myShiftValueYTextField = nullptr;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -195,4 +241,7 @@ private:
 
     /// @brief modul for change Z in selection
     ChangeZInSelection* myChangeZInSelection = nullptr;
+
+    /// @brief modul for shift shape geometry
+    ShiftShapeGeometry* myShiftShapeGeometry = nullptr;
 };

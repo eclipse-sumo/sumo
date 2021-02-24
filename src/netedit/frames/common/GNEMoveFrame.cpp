@@ -41,9 +41,16 @@ FXDEFMAP(GNEMoveFrame::ShiftEdgeGeometry) ShiftEdgeGeometryMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_APPLY,          GNEMoveFrame::ShiftEdgeGeometry::onCmdShiftEdgeGeometry),
 };
 
+FXDEFMAP(GNEMoveFrame::ShiftShapeGeometry) ShiftShapeGeometryMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEMoveFrame::ShiftShapeGeometry::onCmdChangeShiftValue),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_APPLY,          GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry),
+};
+
+
 // Object implementation
 FXIMPLEMENT(GNEMoveFrame::ChangeZInSelection,   FXGroupBox, ChangeZInSelectionMap,  ARRAYNUMBER(ChangeZInSelectionMap))
 FXIMPLEMENT(GNEMoveFrame::ShiftEdgeGeometry,    FXGroupBox, ShiftEdgeGeometryMap,   ARRAYNUMBER(ShiftEdgeGeometryMap))
+FXIMPLEMENT(GNEMoveFrame::ShiftShapeGeometry,   FXGroupBox, ShiftShapeGeometryMap,  ARRAYNUMBER(ShiftShapeGeometryMap))
 
 // ===========================================================================
 // method definitions
@@ -417,6 +424,92 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
 }
 
 // ---------------------------------------------------------------------------
+// GNEMoveFrame::ShiftShapeGeometry - methods
+// ---------------------------------------------------------------------------
+
+GNEMoveFrame::ShiftShapeGeometry::ShiftShapeGeometry(GNEMoveFrame* moveFrameParent) :
+    FXGroupBox(moveFrameParent->myContentFrame, "Shift shape geometry", GUIDesignGroupBoxFrame),
+    myMoveFrameParent(moveFrameParent) {
+    // create horizontal frame
+    FXHorizontalFrame* horizontalFrameX = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    // create elements for Z value
+    new FXLabel(horizontalFrameX, "X value", 0, GUIDesignLabelAttribute);
+    myShiftValueXTextField = new FXTextField(horizontalFrameX, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
+    myShiftValueXTextField->setText("0");
+    // create horizontal frame
+    FXHorizontalFrame* horizontalFrameY = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    // create elements for Z value
+    new FXLabel(horizontalFrameY, "Y value", 0, GUIDesignLabelAttribute);
+    myShiftValueYTextField = new FXTextField(horizontalFrameY, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
+    myShiftValueYTextField->setText("0");
+    // create apply button
+    new FXButton(this,
+        "Shift shape geometry\t\tShift shape geometry orthogonally to driving direction for all selected shapes",
+        GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), this, MID_GNE_APPLY, GUIDesignButton);
+}
+
+
+GNEMoveFrame::ShiftShapeGeometry::~ShiftShapeGeometry() {}
+
+
+void
+GNEMoveFrame::ShiftShapeGeometry::showShiftShapeGeometry() {
+    // show modul
+    show();
+}
+
+
+void
+GNEMoveFrame::ShiftShapeGeometry::hideShiftShapeGeometry() {
+    // hide modul
+    hide();
+}
+
+
+long
+GNEMoveFrame::ShiftShapeGeometry::onCmdChangeShiftValue(FXObject*, FXSelector, void*) {
+    // just call onCmdShiftShapeGeometry
+    return onCmdShiftShapeGeometry(nullptr, 0, nullptr);
+}
+
+
+long
+GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector, void*) {
+    // get undo-list
+    auto undoList = myMoveFrameParent->getViewNet()->getUndoList();
+    // get values
+    const double shiftValueX = GNEAttributeCarrier::parse<double>(myShiftValueXTextField->getText().text());
+    const double shiftValueY = GNEAttributeCarrier::parse<double>(myShiftValueYTextField->getText().text());
+    const Position shiftValue(shiftValueX, shiftValueY);
+    // get selected polygons and POIs (avoid POILanes)
+    const auto polygons = myMoveFrameParent->getViewNet()->getNet()->retrieveShapes(SUMO_TAG_POLY, true);
+    const auto POIs = myMoveFrameParent->getViewNet()->getNet()->retrieveShapes(SUMO_TAG_POI, true);
+    // begin undo-redo 
+    myMoveFrameParent->getViewNet()->getUndoList()->p_begin("shift shape geometries");
+    // iterate over shapes
+    for (const auto& polygon : polygons) {
+        // get shape geometry
+        PositionVector shape = GNEAttributeCarrier::parse<PositionVector>(polygon->getAttribute(SUMO_ATTR_SHAPE));
+        // shift shape geometry
+        shape.add(shiftValue);
+        // set new shape again
+        polygon->setAttribute(SUMO_ATTR_SHAPE, toString(shape), undoList);
+    }
+    // iterate over POIs
+    for (const auto& POI : POIs) {
+        // get shape geometry
+        Position position = GNEAttributeCarrier::parse<Position>(POI->getAttribute(SUMO_ATTR_POSITION));
+        // shift shape geometry
+        position.add(shiftValue);
+        // set new shape again
+        POI->setAttribute(SUMO_ATTR_POSITION, toString(position), undoList);
+    }
+    // end undo-redo
+    myMoveFrameParent->getViewNet()->getUndoList()->p_end();
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
 // GNEMoveFrame - methods
 // ---------------------------------------------------------------------------
 
@@ -428,6 +521,8 @@ GNEMoveFrame::GNEMoveFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     myShiftEdgeGeometry = new ShiftEdgeGeometry(this);
     // create change z selection
     myChangeZInSelection = new ChangeZInSelection(this);
+    // create shift shape geometry modul
+    myShiftShapeGeometry = new ShiftShapeGeometry(this);
 }
 
 
@@ -448,6 +543,9 @@ GNEMoveFrame::show() {
     const auto junctions = myViewNet->getNet()->retrieveJunctions(true);
     // get selected edges
     const auto edges = myViewNet->getNet()->retrieveEdges(true);
+    // get selected polygons and POIs (avoid POILanes)
+    const auto polygons = myViewNet->getNet()->retrieveShapes(SUMO_TAG_POLY, true);
+    const auto POIs = myViewNet->getNet()->retrieveShapes(SUMO_TAG_POI, true);
     // check if there are junctions and edge selected
     if ((junctions.size() > 0) || (edges.size() > 0)) {
         myChangeZInSelection->showChangeZInSelection();
@@ -459,6 +557,12 @@ GNEMoveFrame::show() {
         myShiftEdgeGeometry->showShiftEdgeGeometry();
     } else {
         myShiftEdgeGeometry->hideShiftEdgeGeometry();
+    }
+    // check if there are polygons and POIs selected
+    if ((polygons.size() + POIs.size()) > 0) {
+        myShiftShapeGeometry->showShiftShapeGeometry();
+    } else {
+        myShiftShapeGeometry->hideShiftShapeGeometry();
     }
     // show
     GNEFrame::show();
