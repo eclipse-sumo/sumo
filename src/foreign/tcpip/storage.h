@@ -121,6 +121,9 @@ public:
 	StorageType::const_iterator begin() const { return store.begin(); }
 	StorageType::const_iterator end() const { return store.end(); }
 
+	/// @brief Invalidated assignment operator.
+	Storage& operator=(const Storage&) = delete;
+
 };
 
 } // namespace tcpip
