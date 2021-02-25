@@ -114,6 +114,10 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
                     if (unspecifiedArrivalPos ||
                             myHolder.isStoppedInRange(arrivalPos, myHolder.getLength() + MSGlobals::gStopTolerance)) {
                         i = myTransportables.erase(i); // erase first in case proceed throws an exception
+                        MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
+                        if (taxiDevice != nullptr) {
+                            taxiDevice->customerArrived(transportable);
+                        }
                         if (!transportable->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
                             if (myAmContainer) {
                                 MSNet::getInstance()->getContainerControl().erase(transportable);
@@ -128,10 +132,6 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
                             } else {
                                 MSStopOut::getInstance()->unloadedPersons(vehicle, 1);
                             }
-                        }
-                        MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
-                        if (taxiDevice != nullptr) {
-                            taxiDevice->customerArrived(transportable);
                         }
                         continue;
                     }

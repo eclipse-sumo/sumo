@@ -510,6 +510,21 @@ MSDevice_Taxi::customerArrived(const MSTransportable* person) {
             myDispatcher->fulfilledReservation(res);
         }
         myCurrentReservations.clear();
+    } else {
+        // check whether a single reservation has been fulfilled
+        for (const Reservation* res : myCurrentReservations) {
+            bool fulfilled = true;
+            for (MSTransportable* t : res->persons) {
+                if (myCustomers.count(t) != 0) {
+                    fulfilled = false;
+                    break;
+                }
+            }
+            if (fulfilled) {
+                myDispatcher->fulfilledReservation(res);
+                myCurrentReservations.erase(res);
+            }
+        }
     }
 }
 
