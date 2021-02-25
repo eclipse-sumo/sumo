@@ -151,20 +151,20 @@ def writeField(protof, use, typ, name, tagNumber):
 def generateProto(tagAttrs, depthTags, enums, protodir, base):
     with open(os.path.join(protodir, "%s.proto" % base), 'w') as protof:
         protof.write('syntax = "proto2";\npackage %s;\n' % base)
-        for name, enum in enums.iteritems():
+        for name, enum in enums.items():
             protof.write("\nenum %s {\n" % capitalFirst(name))
             for idx, entry in enumerate(enum):
                 if entry[0].isdigit():
                     entry = "_" + entry
                 protof.write("  %s = %s;\n" % (entry, idx))
             protof.write("}\n")
-        for tagList in depthTags.itervalues():
+        for tagList in depthTags.values():
             next = 1
             for tags in tagList:
                 for tag in tags:
                     protof.write("\nmessage %s {\n" % capitalFirst(tag))
                     count = 1
-                    for a in tagAttrs[tag].itervalues():
+                    for a in tagAttrs[tag].values():
                         writeField(protof, a.use, a.type, a.name, count)
                         count += 1
                     if next < len(tagList):

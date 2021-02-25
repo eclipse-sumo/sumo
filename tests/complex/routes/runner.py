@@ -110,7 +110,7 @@ if options.element:
     runInstance(
         options.element, options.attr, options.child, elements[options.element])
 else:
-    for elem, depart in sorted(elements.iteritems()):
+    for elem, depart in sorted(elements.items()):
         for attrSet in range(2 ** len(attrs)):
             for childSet in range(2 ** len(childs)):
                 runInstance(elem, attrSet, childSet, depart)

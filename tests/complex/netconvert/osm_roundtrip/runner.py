@@ -70,7 +70,7 @@ def get_filtered_lines(prefix):
             ('.edg.xml', '<edges '),
             ('.con.xml', '<connections '),
             ('.tll.xml', '<tlLogics ')]:
-        result += filter(open(prefix + suffix, 'U').readlines(), start_element)
+        result += filter(open(prefix + suffix).readlines(), start_element)
     return result
 
 

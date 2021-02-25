@@ -36,7 +36,7 @@ proc = {
 srcRoot = os.path.join(os.path.dirname(__file__), "..", "..")
 
 for root, dirs, files in os.walk(srcRoot):
-    for pattern, repTo in proc.iteritems():
+    for pattern, repTo in proc.items():
         for name in glob.glob(os.path.join(root, pattern)):
             repFrom = repTo[:repTo.find(' ')]
             print("Patching '%s'" % name)
