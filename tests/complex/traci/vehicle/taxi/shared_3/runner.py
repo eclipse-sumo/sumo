@@ -65,4 +65,7 @@ print("currentCustomers", traci.vehicle.getParameter(taxiID, "device.taxi.curren
 
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
+    print("%s reservations %s" % (
+        traci.simulation.getTime(),
+        traci.person.getTaxiReservations(0)))
 traci.close()
