@@ -20,3 +20,6 @@ arrival_at_stop_usePrev
 # 
 # use arrival+duration insteald of until for insertion constraints
 until_from_duration
+
+# two trains are inserted at the same stop
+both_insertion

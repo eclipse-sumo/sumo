@@ -1,23 +1,9 @@
-<?xml version="1.0" ?>
-<add>
-    <tlLogic id="C" offset="5" programID="SZP_Prio" type="static">
-        <!-- Order of signal groups:
-0 FZ11
-1 FZ11
-2 FZ11
-3 FZ21
-4 FZ21
-5 FZ21
-6 FZ31
-7 FZ31
-8 FZ31
-9 FZ41
-10 FZ41
-11 FZ41
-12 PED2
-13 PED3
-14 PED4
-15 PED1-->
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-02-26 15:58:20.297339 by tls_csvSignalGroups.py v1_8_0+1401-4bed82ad3f
+  options: <doubleminus>debug <doubleminus>input lsa_def.csv <doubleminus>net input_net.net.xml <doubleminus>output out.add.xml
+-->
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <tlLogic id="C" type="static" programID="SZP_Prio" offset="5">
         <phase duration="10" state="GGGrrrrrrrrrrrrr"/>
         <phase duration="3" state="yyyrrrrrrrrrrrrr"/>
         <phase duration="1" state="rrrrrrrrrrrrrrrr"/>
@@ -39,5 +25,22 @@
         <phase duration="5" state="rrrrrrrrrrrrrrGr"/>
         <phase duration="4" state="rrrrrrrrrrrrrrrr"/>
         <phase duration="1" state="uuurrrrrrrrrrrrr"/>
+<!-- Order of signal groups:
+0 FZ11
+1 FZ11
+2 FZ11
+3 FZ21
+4 FZ21
+5 FZ21
+6 FZ31
+7 FZ31
+8 FZ31
+9 FZ41
+10 FZ41
+11 FZ41
+12 PED2
+13 PED3
+14 PED4
+15 PED1-->
     </tlLogic>
-</add>
+</additional>

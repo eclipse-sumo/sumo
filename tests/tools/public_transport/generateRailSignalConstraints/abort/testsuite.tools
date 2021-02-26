@@ -14,3 +14,6 @@ insertion3
 # each train has multiple stops. If a train has a self-inconsistent schedule, other trains should not wait for it.
 # 
 multiStop2
+
+# one train passes the stop and the other train is inserted there
+foeInsertion

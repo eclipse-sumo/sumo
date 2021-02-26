@@ -10,6 +10,9 @@ reversal
 # find insertion conflicts
 insertion
 
+# do not enter station (block with stop) until foe vehicle has been inserted there and left
+insertionFoe
+
 # simple network with two branches that merge towards a single stop
 # test aborting after inconsistency
 abort

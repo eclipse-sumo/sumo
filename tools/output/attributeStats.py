@@ -104,12 +104,12 @@ def main():
 
     print(stats.toString(options.precision))
     if missingAttr:
-        print("%s elements did not provide attribute '%s' Example ids: %s" %
-              (len(missingAttr), options.attribute, sorted(missingAttr)[:10]))
+        print("%s elements did not provide attribute '%s' Example ids: '%s'" %
+              (len(missingAttr), options.attribute, "', '".join(sorted(missingAttr)[:10])))
     if invalidType:
         print(("%s distinct values of attribute '%s' could not be interpreted " +
-               "as numerical value or time. Example values: %s") %
-              (len(invalidType), options.attribute, sorted(invalidType)[:10]))
+               "as numerical value or time. Example values: '%s'") %
+              (len(invalidType), options.attribute, "', '".join(sorted(invalidType)[:10])))
 
     if options.hist_output is not None:
         with open(options.hist_output, 'w') as f:
@@ -118,7 +118,7 @@ def main():
 
     if options.full_output is not None:
         with open(options.full_output, 'w') as f:
-            for id, data in vals.items():
+            for id, data in sorted(vals.items()):
                 for x in data:
                     f.write(setPrecision("%.2f %s\n", options.precision) % (x, id))
 

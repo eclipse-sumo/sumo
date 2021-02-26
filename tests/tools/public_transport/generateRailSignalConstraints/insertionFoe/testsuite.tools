@@ -1,0 +1,17 @@
+# one train passes the stop and the other train is inserted there
+basic
+
+# one train passes the stop and the other train is inserted there, passing train has parking stop
+parking
+
+# one train passes the stop and the other train is inserted there, passing train has parking stop
+parking_skip
+
+# one train passes the stop and the other train is inserted there, inserted train has parking stop
+foeParking
+
+# one train passes the stop and the other train is inserted there, inserted train has parking stop
+foeParking_skip
+
+# the signal before a stop is not at the end of any edge before this stop (but at the start of the first edge)
+prior_signal_at_prior_stop

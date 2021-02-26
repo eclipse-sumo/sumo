@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 26 Feb 2021 01:21:57 PM CET by Eclipse SUMO netedit Version v1_8_0+1397-23ddab0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-200.00,0.00,1400.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="a" from="gneJ1" to="A" priority="-1">
+        <lane id="a_0" index="0" allow="rail" speed="13.89" length="400.00" shape="-200.00,-1.60 200.00,-1.60"/>
+    </edge>
+    <edge id="b" from="A" to="B" priority="-1">
+        <lane id="b_0" index="0" allow="rail" speed="13.89" length="400.00" shape="200.00,-1.60 600.00,-1.60"/>
+    </edge>
+    <edge id="c" from="B" to="C" priority="-1">
+        <lane id="c_0" index="0" allow="rail" speed="13.89" length="400.00" shape="600.00,-1.60 1000.00,-1.60"/>
+    </edge>
+    <edge id="d" from="C" to="D" priority="-1">
+        <lane id="d_0" index="0" allow="rail" speed="13.89" length="400.00" shape="1000.00,-1.60 1400.00,-1.60"/>
+    </edge>
+
+    <junction id="A" type="rail_signal" x="200.00" y="0.00" incLanes="a_0" intLanes="" shape="200.00,0.00 200.00,-3.20 200.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="B" type="rail_signal" x="600.00" y="0.00" incLanes="b_0" intLanes="" shape="600.00,0.00 600.00,-3.20 600.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="C" type="rail_signal" x="1000.00" y="0.00" incLanes="c_0" intLanes="" shape="1000.00,0.00 1000.00,-3.20 1000.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="D" type="dead_end" x="1400.00" y="0.00" incLanes="d_0" intLanes="" shape="1400.00,-3.20 1400.00,0.00"/>
+    <junction id="gneJ1" type="dead_end" x="-200.00" y="0.00" incLanes="" intLanes="" shape="-200.00,0.00 -200.00,-3.20"/>
+
+    <connection from="a" to="b" fromLane="0" toLane="0" tl="A" linkIndex="0" dir="s" state="O"/>
+    <connection from="b" to="c" fromLane="0" toLane="0" tl="B" linkIndex="0" dir="s" state="O"/>
+    <connection from="c" to="d" fromLane="0" toLane="0" tl="C" linkIndex="0" dir="s" state="O"/>
+
+</net>

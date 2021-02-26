@@ -58,7 +58,7 @@ def main(options):
                 idx += 1
             else:
                 seen = set(s)
-                for edge in sorted(s[-1].getOutgoing()):
+                for edge in sorted(s[-1].getOutgoing(), key=lambda e:e.getID()):
                     if edge not in seen:
                         stubs.append(s + [edge])
         outf.write('</routes>\n')
