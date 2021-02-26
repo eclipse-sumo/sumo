@@ -13,8 +13,6 @@
 
 # @file    DRTOnline.py
 # @author  Giuliana Armellini
-# @author  Pablo Alvarez
-# @author  Philip Ritzer
 # @date    2020-02-15
 
 """
@@ -26,6 +24,7 @@ import os
 import sys
 from argparse import ArgumentParser
 from pulp import *
+import rtvAlgorithm
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -43,7 +42,9 @@ def initOptions():
     argParser.add_argument("-v", "--taxi", dest="taxis", help="File with drt vehicles (vehicles with taxi device)", metavar="FILE", required=True)
     argParser.add_argument("-g", dest="gui_settings", help="Load visualization settings from FILE", metavar="FILE", required=False)
     argParser.add_argument("-o", dest="output", help="Name of output file", default='tripinfo.xml', required=False)
-
+    argParser.add_argument("--rtv", dest="rtv_algorithm", help="Method to search for possible routes (rtv). Available: 0: exhaustive search, 1: simple, 2: simple_rerouting", default=0, required=False)
+    argParser.add_argument("--rtv_time", dest="rtv_time", help="Maximal time for exhaustive search (default 5 seconds)", default=5, required=False)
+    
     argParser.add_argument("--c_ko", dest="c_ko", help="cost of ignoring a request", type=float, default=1000000000000, required=False)
     argParser.add_argument("--cost_per_trip", dest="cost_per_trip", help="avoid using multiple vehicles if trip time is similar", type=float, default=600, required=False)
 
@@ -313,140 +314,6 @@ def get_rv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, rv
     
     return r_id_rejected
 
-def get_rtv(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step):
-    # search possible routes
-    # simple algorithm
-    rtv_dict = {}
-    route_id = {}
-    # list with all not served requests needed for r_bin for ILP
-    r_id_rtv = list(r_all.keys())
-    r_id_rtv = list(set(r_id_rtv) - set(r_id_served))
-    for v_id in fleet:
-        v_bin = [0] * len(fleet) # list of assigned vehicles for ILP
-        v_bin[fleet.index(v_id)] = 1
-        v_capacity = traci.vehicle.getPersonCapacity(v_id)
-        
-        # search possible pairs to consider
-        assigned_v = [x_id for x_id, x in r_all.items() if x.vehicle == v_id] # add assigned to vehicle
-        assigned_v = list(set(assigned_v) - set(r_id_served)) # remove already served
-        picked_v = list(set(assigned_v) & set(r_id_picked)) # add picked up by vehicle
-
-        filter_pairs = r_id_unassigned.copy() # add unassigned
-        filter_pairs.append(v_id) # add vehicle
-        filter_pairs.extend(assigned_v) # add to pairs
-
-        pairs = [x_id for x_id, x in rv_dict.items() if x[2][0] in filter_pairs and x[2][1] in filter_pairs]
-        # get first pairs
-        if assigned_v:
-            # if requests assigned, changes only possible after second stops to avoid detours
-            # a better way for allow small detours should be consider. TODO for example:
-            # tt 1 2 equivalent to tt 3 1 2, if so, add key to first pairs
-            next_act, next_id = traci.vehicle.getStops(v_id, 1)[0].actType.split(" ")
-            if next_act == 'pickup':
-                next_act = 'y'
-            else:
-                next_act = 'z'
-            first_pairs = ["%s_%s%s" % (v_id, next_id,next_act)]
-        else:
-            # if not, consider all possible
-            first_pairs = [x for x in pairs if x.startswith(v_id)]
-
-        for first_pair in first_pairs:
-            # search all possible routes ids starting with this
-            route = first_pair
-            i = 1
-            while i <= (len(filter_pairs)-1)*2 and len(route.split("_"))-1 < (len(filter_pairs)-1)*2:
-                for pair in pairs:
-                    if not pair.startswith(route.split("_")[-1]):
-                        continue # if pairs are not compatible
-
-                    route_new = ("_").join([route, pair.split("_")[-1]])
-
-                    # check if pick up before drop off
-                    stops = route_new.split("_")
-                    # consider picked requests
-                    trip_pick = picked_v.copy()
-                    trip_pick.extend([s[:-1] for s in route_new.split('_')[1:] if s.endswith("y")])
-                    trip_drop = [s[:-1] for s in route_new.split('_')[1:] if s.endswith("z")]
-                    if len(trip_pick) != len(set(trip_pick)) or len(trip_drop) != len(set(trip_drop)):
-                        continue # stop already in route
-
-                    abort = False
-                    for stop in trip_drop:
-                        try:
-                            if stop in picked_v:
-                                index_pu = -1 # if request already picked up, index is -1
-                            else:
-                                index_pu = stops.index(('%sy' % stop))
-                            index_do = stops.index(('%sz' % stop))
-                        except:
-                            abort = True
-                            break # if stop not even picked up
-
-                        if index_pu > index_do:
-                            abort = True
-                            break # request drop off before pick up (should not be assured with time windows?)
-                    if abort:
-                        continue
-
-                    if route == first_pair:
-                        pax = rv_dict[first_pair][1] + rv_dict[pair][1] # num passenger
-                        route_tw = rv_dict[first_pair][0] + rv_dict[pair][0] # travel time
-                    else:
-                        pax = route_id[route][1] + rv_dict[pair][1] # num passenger
-                        route_tw = route_id[route][0] + rv_dict[pair][0] # travel time
-                    
-                    # check capacity
-                    if pax > v_capacity:
-                        continue # capacity surpass
-
-                    # check time window for stop
-                    stop_id = pair.split("_")[-1]
-                    if stop_id.endswith('y'):
-                        stop_tw = r_all[stop_id[:-1]].tw_pickup
-                        if route_tw > stop_tw[1]:
-                            continue # max stop time surpass
-                        elif route_tw < stop_tw[0] and pax == 1:
-                            # if veh to early at stop, only possible if vehicle is empty (equivalent to pax = 1)
-                            route_tw = stop_tw[0] # consider the extra stop time
-                    else:
-                        stop_tw = r_all[stop_id[:-1]].tw_dropoff
-                        if route_tw > stop_tw[1]:
-                            continue # max stop time surpass
-                        # route_tw < stop_tw[0] only relevant if drop off time definition is implemented
-                    
-                    # add route id
-                    route_id[route_new] = [route_tw, pax] # route time window and current passenger number
-                    
-                    #if len(route_new.split("_")) % 2 == 1:
-                    # check if all reservation served                                
-                    if set(trip_pick) == set(trip_drop):                            
-                        # if requests assigned to vehicle, they must be on route
-                        # picked requests already checked with extension of trip_pick
-                        if set(assigned_v) != set(trip_pick) & set(assigned_v):
-                            # route not possible
-                            continue
-                        else:
-                            # add possible route to dict
-                            r_bin = [0] * len(r_id_rtv) # list of all consider reservations for ILP
-                            for s in trip_pick:
-                                r_bin[r_id_rtv.index(s)] = 1
-                            rtv_dict[route_new] = [route_tw, v_bin, r_bin, route_tw-sum(r_bin)*options.c_ko] 
-                            # route_id: route travel time, served reservations, vehicle, requests, value
-                        
-                    route = route_new
-                i += 1
-        if len(fleet) == 1:
-            # if one vehicle darp, assign the fastest route with max reservation served
-            key_list = list(rtv_dict.keys())
-            value_list = [value[3] for key, value in rtv_dict.items()]
-            key_index = value_list.index(min(value_list))
-            route_id = key_list[key_index]
-            return {route_id: rtv_dict[route_id]}, r_id_rtv
-    
-    return rtv_dict, r_id_rtv
-
-
 def ilp_solve(options, v_num, r_num, costs, vehicle_constraints, request_constraints):
     # founds the combination of trips that minimize the costs function
 
@@ -505,6 +372,7 @@ def main():
 
     r_all = {}
     rv_dict = {}
+    memory_problems = [0]
 
     # start traci
     run_traci = ['sumo-gui', '--net-file', '%s' %options.network, '-r', 
@@ -569,12 +437,25 @@ def main():
                 r_id_picked.extend(traci.vehicle.getPersonIDList(v))
 
         # if reservations pending
-        if r_id_unassigned:
+        if r_id_unassigned:                
+            if options.debug:
+                print('\nRun dispatcher')
+                if r_id_new:
+                    print('New reservations: ', r_id_new)
+                print('Unassigned reservations: ', (set(r_id_unassigned)-set(r_id_new)))
             # search request-vehicles pairs
             get_rv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step, r_id_rejected)
             
             # search trips (rtv graph)
-            rtv_dict, r_id_rtv = get_rtv(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step)
+            # TODO define/import algorithm before to avoid checking each time
+            # Maybe a list with the function as element and get the element (0, 1, 2)
+            if options.rtv_algorithm == 0:
+                rtv_dict, r_id_rtv, memory_problems = rtvAlgorithm.exhaustive_search(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step, memory_problems)
+            elif options.rtv_algorithm == 1:
+                rtv_dict, r_id_rtv = rtvAlgorithm.simple(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step)
+            elif options.rtv_algorithm == 2:
+                rtv_dict, r_id_rtv = rtvAlgorithm.simple_rerouting(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step)
+            #rtv_dict, r_id_rtv = get_rtv(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step)
 
             if len(rtv_dict) == 0:
                 step += options.sim_step
@@ -629,7 +510,7 @@ def main():
                     if tt_new_route >= tt_current_route:
                         continue # current route better than new found
                 if options.debug:
-                    print(route_id)
+                    print('Dispatch: ', route_id)
                 traci.vehicle.dispatchTaxi(stops[0], stops[1:])
                 # assign vehicle to requests
                 # TODO to avoid major changes in the pick-up time when assigning new passengers,
@@ -654,7 +535,12 @@ def main():
 
 
         step += options.sim_step
-    
+
+    if options.rtv_algorithm == 0: # if exhaustive search
+        if sum(memory_problems) == 0:
+            print('Optimal solution found')
+        else:
+            print('The maximum specified time for the calculation with the exact method was exceeded. Solution could not be optimal')
     print('DRT simulation ended')
     traci.close()
 
