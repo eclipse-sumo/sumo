@@ -37,20 +37,19 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="person_0" depart="0.00" color="cyan">
-		<walk edges="gneE0 gneE1"/>
-	
-        <stop lane="gneE1_0" startPos="25.00" endPos="35.00" friendlyPos="dummy"/>
+    <route edges="gneE0 gneE1" color="yellow" id="route_0">
+        <stop lane="gneE1_0" startPos="5.00" endPos="15.00" friendlyPos="dummy"/>
 		
-		<stop lane="gneE1_0" startPos="25.00" endPos="35.00" friendlyPos=""/>
+		<stop lane="gneE1_0" startPos="5.00" endPos="15.00" friendlyPos=""/>
 		
-		<stop lane="gneE1_0" startPos="25.00" endPos="35.00" friendlyPos="-4"/>
+		<stop lane="gneE1_0" startPos="5.00" endPos="15.00" friendlyPos="-4"/>
 		
-		<stop lane="gneE1_0" startPos="25.00" endPos="35.00" friendlyPos="0"/>
+		<stop lane="gneE1_0" startPos="5.00" endPos="15.00" friendlyPos="0"/>
 		
-		<stop lane="gneE1_0" startPos="25.00" endPos="35.00" friendlyPos="2.3"/>
+		<stop lane="gneE1_0" startPos="5.00" endPos="15.00" friendlyPos="2.3"/>
 		
-		<stop lane="gneE1_0" startPos="25.00" endPos="35.00" friendlyPos="true"/>
+		<stop lane="gneE1_0" startPos="5.00" endPos="15.00" friendlyPos="true"/>
 		
-    </person>
+    </route>
+	<flow id="routeFlow" begin="0.00" route="route_0" end="3600.00" number="1800"/>
 </routes>

@@ -1,7 +1,9 @@
 Error: Attribute 'startPos' in definition of a stop is not of type float.
-Error: Invalid start or end position for stop on lane 'gneE1_0' in person 'person_0'.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in route ''.
 Error: Attribute 'startPos' in definition of a stop is empty.
-Error: Invalid start or end position for stop on lane 'gneE1_0' in person 'person_0'.
-Error: Invalid start or end position for stop on lane 'gneE1_0' in person 'person_0'.
-Error: Invalid start or end position for stop on lane 'gneE1_0' in person 'person_0'.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Aug131829.7340\netedit.gui\demandElements\stop\stopLane\load\startPos\input_routes.rou.xml failed.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in route ''.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in route ''.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in route ''.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in route ''.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in route ''.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Feb095558.4692\netedit.gui\demandElements\stop\stopLane\load\startPos\input_routes.rou.xml failed.
