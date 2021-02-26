@@ -37,10 +37,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="person_0" depart="0.00" color="cyan">
-		<stop lane="gneE4_0" startPos="15.00" endPos="20.00" duration="60.00"/>
-
-		<walk edges="gneE4 gneE2"/>
+    <route edges="gneE0 gneE1" color="yellow" id="route_0">
 		
 		<stop lane="gneE2_4" startPos="20.00" endPos="22.00" duration="60.00"/>
 		
@@ -52,15 +49,15 @@
 		
 		<stop lane="gneE2_0" startPos="42.00" endPos="44.00" duration="60.00"/>
 		
-	</person>
+	</route>
+	<flow id="routeFlowA" begin="0.00" route="route_0" end="3600.00" number="1800"/>
 	
-    <person id="person_1" depart="0.00" color="cyan">
+    <route edges="gneE0 gneE1" color="yellow" id="route_1">
 
 		<stop lane="gneE1_0" startPos="25.00" endPos="35.00" duration="60.00"/>
-		
-		<walk edges="gneE1 gneE0"/>
-				
+						
 		<stop lane="gneE0_0" startPos="35.00" endPos="45.00" duration="60.00"/>
 		
-	</person>
+	</route>
+	<flow id="routeFlowB" begin="0.00" route="route_1" end="3600.00" number="1800"/>
 </routes>
