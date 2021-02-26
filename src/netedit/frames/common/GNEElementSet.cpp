@@ -183,6 +183,8 @@ GNEElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*) {
     } else {
         // set default color
         mySetComboBox->setTextColor(FXRGB(0, 0, 0));
+        // set current set
+        myMatchAttribute->showMatchAttribute(myCurrentSet);
     }
     return 1;
 }

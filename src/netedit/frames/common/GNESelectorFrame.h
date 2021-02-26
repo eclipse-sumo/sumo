@@ -361,7 +361,7 @@ private:
     GNEElementSet* myDemandElementSet;
 
     /// @brief moduls for select data element set
-    GNEElementSet*myDataElementSet;
+    GNEElementSet* myDataElementSet;
 
     /// @brief modul for visual scaling
     VisualScaling* myVisualScaling;
