@@ -43,6 +43,7 @@ DELAY_RECOMPUTE = 3
 DELAY_RECOMPUTE_VOLATILE = 5
 DELAY_REMOVESELECTION = 2
 DELAY_CHANGEMODE = 1
+DELAY_REFERENCE = 3
 
 _NETEDIT_APP = os.environ.get("NETEDIT_BINARY", "netedit")
 _TEXTTEST_SANDBOX = os.environ.get("TEXTTEST_SANDBOX", os.getcwd())
@@ -376,6 +377,8 @@ def getReferenceMatch(neProcess):
     # show information
     print("Finding reference")
     try:
+        # wait for reference
+        time.sleep(DELAY_REFERENCE)
         # capture screen and search reference
         positionOnScreen = pyautogui.locateOnScreen(_REFERENCE_PNG, 1)
     except Exception as e:
