@@ -1,12 +1,12 @@
 <tripinfos>
-    <tripinfo departDelay="0.00" id="0" />
-    <tripinfo departDelay="0.00" id="1" />
-    <tripinfo departDelay="0.00" id="2" />
-    <tripinfo departDelay="0.00" id="3" />
-    <tripinfo departDelay="0.00" id="4" />
-    <tripinfo departDelay="0.00" id="6" />
-    <tripinfo departDelay="0.00" id="5" />
-    <tripinfo departDelay="0.00" id="7" />
-    <tripinfo departDelay="0.00" id="8" />
-    <tripinfo departDelay="0.00" id="9" />
+    <tripinfo id="0" departDelay="0.00" />
+    <tripinfo id="1" departDelay="0.00" />
+    <tripinfo id="2" departDelay="0.00" />
+    <tripinfo id="3" departDelay="0.00" />
+    <tripinfo id="4" departDelay="0.00" />
+    <tripinfo id="6" departDelay="0.00" />
+    <tripinfo id="5" departDelay="0.00" />
+    <tripinfo id="7" departDelay="0.00" />
+    <tripinfo id="8" departDelay="0.00" />
+    <tripinfo id="9" departDelay="0.00" />
 </tripinfos>
