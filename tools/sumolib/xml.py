@@ -209,8 +209,8 @@ def compound_object(element_name, attrnames, warn=False):
                 s = initialIndent + "<%s %s>\n" % (self.name, " ".join(fields))
                 for c in self._child_list:
                     s += c.toXML(initialIndent + indent)
-                if self._text is not None:
-                    s += self._text.strip()
+                if self._text is not None and self._text.strip():
+                    s += self._text.strip(" ")
                 return s + "%s</%s>\n" % (initialIndent, self.name)
 
         def __repr__(self):
