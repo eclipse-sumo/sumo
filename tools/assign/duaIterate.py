@@ -358,7 +358,8 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
 
 
 def filterTripinfo(step, attrs):
-    attrs.add("id")
+    if "id" not in attrs:
+        attrs = ["id"] + attrs
     inFile = "%s%stripinfo_%03i.xml" % (step, os.sep, step)
     if os.path.exists(inFile):
         out = open(inFile + ".filtered", 'w')
@@ -600,7 +601,7 @@ def main(args=None):
         sys.stdout.flush()
         call([sumoBinary, "-c", "%s%siteration_%03i.sumocfg" % (step, os.sep, step)], log)
         if options.tripinfoFilter:
-            filterTripinfo(step, set(options.tripinfoFilter.split(",")))
+            filterTripinfo(step, options.tripinfoFilter.split(","))
         etime = datetime.now()
         print(">>> End time: %s" % etime)
         print(">>> Duration: %s" % (etime - btime))
