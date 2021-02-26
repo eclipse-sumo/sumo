@@ -123,6 +123,11 @@ MSTransportableControl::erase(MSTransportable* transportable) {
     const std::map<std::string, MSTransportable*>::iterator i = myTransportables.find(transportable->getID());
     if (i != myTransportables.end()) {
         myRunningNumber--;
+        if (transportable->isPerson()) {
+            MSNet::getInstance()->informTransportableStateListener(transportable, MSNet::TransportableState::PERSON_ARRIVED);
+        } else {
+            MSNet::getInstance()->informTransportableStateListener(transportable, MSNet::TransportableState::CONTAINER_ARRIVED);
+        }
         myEndedNumber++;
         delete i->second;
         myTransportables.erase(i);
@@ -152,6 +157,12 @@ MSTransportableControl::checkWaiting(MSNet* net, const SUMOTime time) {
             myWaitingForDepartureNumber--;
             if (transportables[i]->proceed(net, time)) {
                 myRunningNumber++;
+                if (transportables[i]->isPerson()) {
+                    MSNet::getInstance()->informTransportableStateListener(transportables[i], MSNet::TransportableState::PERSON_DEPARTED);
+                }
+                else {
+                    MSNet::getInstance()->informTransportableStateListener(transportables[i], MSNet::TransportableState::CONTAINER_DEPARTED);
+                }
             } else {
                 erase(transportables[i]);
             }

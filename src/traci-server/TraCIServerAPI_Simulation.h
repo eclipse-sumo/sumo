@@ -76,6 +76,9 @@ private:
     static void writeVehicleStateNumber(TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state);
     static void writeVehicleStateIDs(TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state);
 
+    static void writeTransportableStateNumber(TraCIServer& server, tcpip::Storage& outputStorage, MSNet::TransportableState state);
+    static void writeTransportableStateIDs(TraCIServer& server, tcpip::Storage& outputStorage, MSNet::TransportableState state);
+
 
 private:
     /// @brief invalidated copy constructor

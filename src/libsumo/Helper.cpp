@@ -114,6 +114,7 @@ std::vector<Subscription> Helper::mySubscriptions;
 Subscription* Helper::myLastContextSubscription = nullptr;
 std::map<int, std::shared_ptr<VariableWrapper> > Helper::myWrapper;
 Helper::VehicleStateListener Helper::myVehicleStateListener;
+Helper::TransportableStateListener Helper::myTransportableStateListener;
 LANE_RTREE_QUAL* Helper::myLaneTree;
 std::map<std::string, MSVehicle*> Helper::myRemoteControlledVehicles;
 std::map<std::string, MSPerson*> Helper::myRemoteControlledPersons;
@@ -186,7 +187,7 @@ Helper::handleSubscriptions(const SUMOTime t) {
         const bool isArrivedVehicle = (s.commandId == CMD_SUBSCRIBE_VEHICLE_VARIABLE || s.commandId == CMD_SUBSCRIBE_VEHICLE_CONTEXT)
                                       && (find(getVehicleStateChanges(MSNet::VehicleState::ARRIVED).begin(), getVehicleStateChanges(MSNet::VehicleState::ARRIVED).end(), s.id) != getVehicleStateChanges(MSNet::VehicleState::ARRIVED).end());
         const bool isArrivedPerson = (s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE || s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_CONTEXT)
-                                     && MSNet::getInstance()->getPersonControl().get(s.id) == nullptr;
+                                      && (find(getTransportableStateChanges(MSNet::TransportableState::PERSON_ARRIVED).begin(), getTransportableStateChanges(MSNet::TransportableState::PERSON_ARRIVED).end(), s.id) != getTransportableStateChanges(MSNet::TransportableState::PERSON_ARRIVED).end());
         if (s.endTime < t || isArrivedVehicle || isArrivedPerson) {
             i = mySubscriptions.erase(i);
             continue;
@@ -538,6 +539,28 @@ Helper::getVehicleStateChanges(const MSNet::VehicleState state) {
 void
 Helper::clearVehicleStates() {
     for (auto& i : myVehicleStateListener.myVehicleStateChanges) {
+        i.second.clear();
+    }
+}
+
+
+void
+Helper::registerTransportableStateListener() {
+    if (MSNet::hasInstance()) {
+        MSNet::getInstance()->addTransportableStateListener(&myTransportableStateListener);
+    }
+}
+
+
+const std::vector<std::string>&
+Helper::getTransportableStateChanges(const MSNet::TransportableState state) {
+    return myTransportableStateListener.myTransportableStateChanges[state];
+}
+
+
+void
+Helper::clearTransportableStates() {
+    for (auto& i : myTransportableStateListener.myTransportableStateChanges) {
         i.second.clear();
     }
 }
@@ -1598,6 +1621,12 @@ Helper::SubscriptionWrapper::wrapStringPair(const std::string& objID, const int 
 void
 Helper::VehicleStateListener::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& /*info*/) {
     myVehicleStateChanges[to].push_back(vehicle->getID());
+}
+
+
+void
+Helper::TransportableStateListener::transportableStateChanged(const MSTransportable* const transportable, MSNet::TransportableState to, const std::string& /*info*/) {
+    myTransportableStateChanges[to].push_back(transportable->getID());
 }
 
 

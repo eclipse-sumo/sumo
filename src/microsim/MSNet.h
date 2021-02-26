@@ -59,6 +59,7 @@ class MSJunctionControl;
 class MSInsertionControl;
 class SUMORouteLoaderControl;
 class MSTransportableControl;
+class MSTransportable;
 class MSVehicle;
 class MSRoute;
 class MSLane;
@@ -674,12 +675,73 @@ public:
     void informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to, const std::string& info = "");
     /// @}
 
+
+    /// @name Notification about transportable state changes
+    /// @{
+
+    /// @brief Definition of a transportable state
+    enum class TransportableState {
+        /// @brief The transportable person has departed (was inserted into the network)
+        PERSON_DEPARTED,
+        /// @brief The transportable person arrived at his destination (is deleted)
+        PERSON_ARRIVED,
+        /// @brief The transportable container has departed (was inserted into the network)
+        CONTAINER_DEPARTED,
+        /// @brief The transportable container arrived at his destination (is deleted)
+        CONTAINER_ARRIVED
+    };
+
+
+    /** @class TransportableStateListener
+     * @brief Interface for objects listening to transportable state changes
+     */
+    class TransportableStateListener {
+    public:
+        /// @brief Constructor
+        TransportableStateListener() { }
+
+        /// @brief Destructor
+        virtual ~TransportableStateListener() { }
+
+        /** @brief Called if a transportable changes its state
+         * @param[in] transportable The transportable which changed its state
+         * @param[in] to The state the transportable has changed to
+         * @param[in] info Additional information on the state change
+         */
+        virtual void transportableStateChanged(const MSTransportable* const transportable, TransportableState to, const std::string& info = "") = 0;
+
+    };
+
+
+    /** @brief Adds a transportable states listener
+     * @param[in] listener The listener to add
+     */
+    void addTransportableStateListener(TransportableStateListener* listener);
+
+
+    /** @brief Removes a transportable states listener
+     * @param[in] listener The listener to remove
+     */
+    void removeTransportableStateListener(TransportableStateListener* listener);
+
+
+    /** @brief Informs all added listeners about a transportable's state change
+     * @param[in] transportable The transportable which changed its state
+     * @param[in] to The state the transportable has changed to
+     * @param[in] info Information regarding the replacement
+     * @see TransportableStateListener:TransportableStateChanged
+     */
+    void informTransportableStateListener(const MSTransportable* const transportable, TransportableState to, const std::string& info = "");
+    /// @}
+
+
     /// @brief register collision and return whether it was the first one involving these vehicles
     bool registerCollision(const SUMOTrafficObject* collider, const SUMOTrafficObject* victim, const std::string& collisionType, const MSLane* lane, double pos);
 
     const CollisionMap& getCollisions() const {
         return myCollisions;
     }
+
 
     /** @brief Returns the travel time to pass an edge
      * @param[in] e The edge for which the travel time to be passed shall be returned
@@ -896,12 +958,18 @@ protected:
     /// @brief Container for vehicle state listener
     std::vector<VehicleStateListener*> myVehicleStateListeners;
 
+    /// @brief Container for transportable state listener
+    std::vector<TransportableStateListener*> myTransportableStateListeners;
+
     /// @brief collisions in the current time step
     CollisionMap myCollisions;
 
 #ifdef HAVE_FOX
     /// @brief to avoid concurrent access to the state update function
-    FXMutex myStateListenerMutex;
+    FXMutex myVehicleStateListenerMutex;
+
+    /// @brief to avoid concurrent access to the state update function
+    FXMutex myTransportableStateListenerMutex;
 #endif
 
     /// @brief container to record warnings that shall only be issued once

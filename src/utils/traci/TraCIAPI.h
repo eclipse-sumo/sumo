@@ -426,6 +426,11 @@ public:
         libsumo::TraCIPositionVector getNetBoundary() const;
         int getMinExpectedNumber() const;
 
+        int getDepartedPersonNumber() const;
+        std::vector<std::string> getDepartedPersonIDList() const;
+        int getArrivedPersonNumber() const;
+        std::vector<std::string> getArrivedPersonIDList() const;
+
         int getBusStopWaiting(const std::string& stopID) const;
         std::vector<std::string> getBusStopWaitingIDList(const std::string& stopID) const;
 

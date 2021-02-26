@@ -175,6 +175,12 @@ public:
 
     static void clearVehicleStates();
 
+    static void registerTransportableStateListener();
+
+    static const std::vector<std::string>& getTransportableStateChanges(const MSNet::TransportableState state);
+
+    static void clearTransportableStates();
+
     /// @name functions for moveToXY
     /// @{
     static bool moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID,
@@ -252,6 +258,13 @@ private:
         std::map<MSNet::VehicleState, std::vector<std::string> > myVehicleStateChanges;
     };
 
+    class TransportableStateListener : public MSNet::TransportableStateListener {
+    public:
+        void transportableStateChanged(const MSTransportable* const transportable, MSNet::TransportableState to, const std::string& info = "");
+        /// @brief Changes in the states of simulated transportables
+        std::map<MSNet::TransportableState, std::vector<std::string> > myTransportableStateChanges;
+    };
+
     /// @brief The list of known, still valid subscriptions
     static std::vector<Subscription> mySubscriptions;
 
@@ -263,6 +276,9 @@ private:
 
     /// @brief Changes in the states of simulated vehicles
     static VehicleStateListener myVehicleStateListener;
+
+    /// @brief Changes in the states of simulated transportables
+    static TransportableStateListener myTransportableStateListener;
 
     /// @brief A storage of lanes
     static LANE_RTREE_QUAL* myLaneTree;

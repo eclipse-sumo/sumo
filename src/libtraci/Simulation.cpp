@@ -282,6 +282,30 @@ Simulation::getEndingTeleportIDList() {
 }
 
 
+int
+Simulation::getDepartedPersonNumber() {
+    return Dom::getInt(libsumo::VAR_DEPARTED_PERSONS_NUMBER, "");
+}
+
+
+std::vector<std::string>
+Simulation::getDepartedPersonIDList() {
+    return Dom::getStringVector(libsumo::VAR_DEPARTED_PERSONS_IDS, "");
+}
+
+
+int
+Simulation::getArrivedPersonNumber() {
+    return Dom::getInt(libsumo::VAR_ARRIVED_PERSONS_NUMBER, "");
+}
+
+
+std::vector<std::string>
+Simulation::getArrivedPersonIDList() {
+    return Dom::getStringVector(libsumo::VAR_ARRIVED_PERSONS_IDS, "");
+}
+
+
 std::vector<std::string>
 Simulation::getBusStopIDList() {
     return Dom::getStringVector(libsumo::VAR_BUS_STOP_ID_LIST, "");
