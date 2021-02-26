@@ -44,19 +44,7 @@ demandElements\stop\stopLane\inspect_selection\containerTrigger
 demandElements\stop\stopLane\inspect_selection\expectedContainer
 demandElements\stop\stopLane\inspect_selection\parking
 demandElements\stop\stopLane\inspect_selection\actType
-demandElements\stop\stopLane\load\default
-demandElements\stop\stopLane\load\startPos
-demandElements\stop\stopLane\load\endPos
-demandElements\stop\stopLane\load\friendlyPos
-demandElements\stop\stopLane\load\duration
-demandElements\stop\stopLane\load\until
-demandElements\stop\stopLane\load\extension
-demandElements\stop\stopLane\load\triggered
-demandElements\stop\stopLane\load\expected
-demandElements\stop\stopLane\load\containerTrigger
-demandElements\stop\stopLane\load\expectedContainers
-demandElements\stop\stopLane\load\parking
-demandElements\stop\stopLane\load\actType
+
 demandElements\stop\stopLane\move
 demandElements\stop\stopLane\volatileRecomputing
 
@@ -68,3 +56,6 @@ demandElements\stop\stopParkingArea\delete
 demandElements\stop\stopParkingArea\volatileRecomputing
 
 selection\basic\additional_basic
+
+
+shift polygons
