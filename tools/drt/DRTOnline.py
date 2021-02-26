@@ -69,15 +69,15 @@ def rr_pair(req1, req2, v_type, rv_dict):
     if r1_pu0 <= r2_pu1 and r2_do0 <= r1_do1:
     # if earliest pick up of req 1 before latest pick up of req 2 and
     # if earliest drop off of req 2 before latest drop off of req 1
-        tt_1p2p = int(traci.simulation.findRoute(req1.fromEdge, req2.fromEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+        tt_1p2p = int(traci.simulation.findRoute(req1.fromEdge, req2.fromEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time ticket #6714
         tt_2p2d = rv_dict.get('%sy_%sz' % (req2.id, req2.id), False)
         if not tt_2p2d:
-            tt_2p2d = req2.direct + 60 # TODO default stop time
+            tt_2p2d = req2.direct + 60 # TODO default stop time ticket #6714
             pair = '%sy_%sz' % (req2.id, req2.id) # 2p2d
             rv_dict[pair] = [tt_2p2d, -1, [req2.id, req2.id]]
         else:
             tt_2p2d = tt_2p2d[0]
-        tt_2d1d = int(traci.simulation.findRoute(req1.toEdge, req2.toEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+        tt_2d1d = int(traci.simulation.findRoute(req1.toEdge, req2.toEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time ticket #6714
 
         if (r1_pu0 + tt_1p2p) > r2_pu1:
             pass # not possible
@@ -98,11 +98,11 @@ def rr_pair(req1, req2, v_type, rv_dict):
     # if earliest drop off of req 1 before latest drop off of req 2
         tt_1p2p = rv_dict.get('%sy_%sy' % (req1.id, req2.id), False)
         if not tt_1p2p:
-            tt_1p2p = int(traci.simulation.findRoute(req1.fromEdge, req2.fromEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+            tt_1p2p = int(traci.simulation.findRoute(req1.fromEdge, req2.fromEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time ticket #6714
         else:
             tt_1p2p = tt_1p2p[0]
-        tt_2p1d = int(traci.simulation.findRoute(req2.fromEdge, req1.toEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
-        tt_1d2d = int(traci.simulation.findRoute(req1.toEdge, req2.toEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+        tt_2p1d = int(traci.simulation.findRoute(req2.fromEdge, req1.toEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time ticket #6714
+        tt_1d2d = int(traci.simulation.findRoute(req1.toEdge, req2.toEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time ticket #6714
 
         if (r1_pu0 + tt_1p2p) > r2_pu1:
             pass # not possible 
@@ -124,11 +124,11 @@ def rr_pair(req1, req2, v_type, rv_dict):
     if r2_pu0 <= r1_pu1 and r2_do0 <= r1_do1:
     # if earliest pick up of req 2 before latest pick up of req 1 and
     # if earliest drop off of req 2 before latest drop off of req 1
-        tt_2p1p = int(traci.simulation.findRoute(req2.fromEdge, req1.fromEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
-        tt_1p2d = int(traci.simulation.findRoute(req1.fromEdge, req2.toEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+        tt_2p1p = int(traci.simulation.findRoute(req2.fromEdge, req1.fromEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time ticket #6714
+        tt_1p2d = int(traci.simulation.findRoute(req1.fromEdge, req2.toEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time ticket #6714
         tt_2d1d = rv_dict.get('%sz_%sz' % (req2.id, req1.id), False)
         if not tt_2d1d:
-            tt_2d1d = int(traci.simulation.findRoute(req2.toEdge, req1.toEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+            tt_2d1d = int(traci.simulation.findRoute(req2.toEdge, req1.toEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time ticket #6714
         else:
             tt_2d1d = tt_2d1d[0]
 
@@ -156,18 +156,18 @@ def rr_pair(req1, req2, v_type, rv_dict):
         tt_1d2d = rv_dict.get('%sz_%sz' % (req1.id, req2.id), False)
         tt_1p1d = rv_dict.get('%sy_%sz' % (req1.id, req1.id), False)
         if not tt_1p1d:
-            tt_1p1d = req1.direct + 60 # TODO default stop time
+            tt_1p1d = req1.direct + 60 # TODO default stop time ticket #6714
             pair = '%sy_%sz' % (req1.id, req1.id) # 1p1d
             rv_dict[pair] = [tt_1p1d, -1, [req1.id, req1.id]]
         else:
             tt_1p1d = tt_1p1d[0]
         if not tt_2p1p or not tt_1d2d:
             if not tt_2p1p:
-                tt_2p1p = int(traci.simulation.findRoute(req2.fromEdge, req1.fromEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+                tt_2p1p = int(traci.simulation.findRoute(req2.fromEdge, req1.fromEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time ticket #6714
             else:
                 tt_2p1p = tt_2p1p[0]
             if not tt_1d2d:
-                tt_1d2d = int(traci.simulation.findRoute(req1.toEdge, req2.toEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+                tt_1d2d = int(traci.simulation.findRoute(req1.toEdge, req2.toEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time ticket #6714
             else:
                 tt_1d2d = tt_1d2d[0]
             tt_1p1d = rv_dict.get('%sy_%sz' % (req1.id, req1.id))[0]
@@ -190,7 +190,7 @@ def rr_pair(req1, req2, v_type, rv_dict):
     # pair 1d2p
     if r1_do0 <= r2_pu1:
     # if earliest drop off of req 1 before latest pick up of req 2
-        tt_1d2p = int(traci.simulation.findRoute(req1.toEdge, req2.fromEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+        tt_1d2p = int(traci.simulation.findRoute(req1.toEdge, req2.fromEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time ticket #6714
         if (r1_do0 + tt_1d2p) < r2_pu1:
         # if droping off req 1 at earliest time, req 2 can be pick up at least at latest time, then pair possible
             pair = '%sz_%sy' % (req1.id, req2.id) # 1d2p
@@ -199,7 +199,7 @@ def rr_pair(req1, req2, v_type, rv_dict):
     # pair 2d1p
     if r2_do0 <= r1_pu1:
     # if earliest drop off of req 2 before latest pick up of req 1
-        tt_2d1p = int(traci.simulation.findRoute(req2.toEdge, req1.fromEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time
+        tt_2d1p = int(traci.simulation.findRoute(req2.toEdge, req1.fromEdge, v_type, routingMode=0).travelTime) + 60 # TODO default stop time ticket #6714
         if (r2_do0 + tt_2d1p) < r1_pu1:
         # if droping off req 1 at earliest time, req 2 can be pick up at least at latest time, then pair possible
             pair = '%sz_%sy' % (req2.id, req1.id) # 2d1p
@@ -227,7 +227,7 @@ def get_rv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, rv
             #if reservation is new
             # add direct route pair
             route_id = '%sy_%sz' % (x_id, x_id) # y: pickup / z: drop off
-            rv_dict[route_id] = [x.direct+60, -1, [x_id, x_id]] # TODO default stop time
+            rv_dict[route_id] = [x.direct+60, -1, [x_id, x_id]] # TODO default stop time ticket #6714
 
             # add vehicle-request pairs
             for v_id in fleet:
@@ -236,7 +236,7 @@ def get_rv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, rv
                 if step+pickup_time <= x.tw_pickup[1]:
                     # if vehicle on time, add to rv graph
                     route_id = '%s_%sy' % (v_id, x_id)
-                    rv_dict[route_id] = [pickup_time+60, 1, [v_id, x_id]] # TODO default stop time
+                    rv_dict[route_id] = [pickup_time+60, 1, [v_id, x_id]] # TODO default stop time ticket #6714
 
             # add request-request pairs only with:
             second_requests = list(set(r_all.keys()) ^ set(r_id_picked) ^ set(r_id_served))
@@ -281,7 +281,6 @@ def get_rv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, rv
 
         elif x_id not in r_id_picked:
             # if reservation assigned but not picked up
-            # TODO is this relevant?
             route_id = '%s_%sy' % (x.vehicle, x_id)
             if rv_dict.get(route_id, False):
                 # calculate travel time to pickup
@@ -299,7 +298,7 @@ def get_rv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, rv
             if step+dropoff_time <= x.tw_dropoff[1]:
                 # if vehicle on time, add to rv graph
                 route_id = '%s_%sz' % (x.vehicle, x_id)
-                rv_dict[route_id] = [dropoff_time+60, -1, [x.vehicle, x_id]] # TODO default stop time
+                rv_dict[route_id] = [dropoff_time+60, -1, [x.vehicle, x_id]] # TODO default stop time ticket #6714
         else:
             print("Attribute state not considered")
 
@@ -505,7 +504,7 @@ def main():
                     edges = [taxi_stops.lane.split("_")[0] for taxi_stops in traci.vehicle.getStops(stops[0])]
                     edges.insert(0, traci.vehicle.getLaneID(stops[0]).split("_")[0]) # add current edge
                     for idx, edge in enumerate(edges[:-1]):
-                        tt_current_route += int(traci.simulation.findRoute(edge, edges[idx+1], v_type, step, routingMode=0).travelTime) + 60 # TODO default stop time
+                        tt_current_route += int(traci.simulation.findRoute(edge, edges[idx+1], v_type, step, routingMode=0).travelTime) + 60 # TODO default stop time ticket #6714
                     tt_new_route = rtv_dict[route_id][0]
                     if tt_new_route >= tt_current_route:
                         continue # current route better than new found
@@ -519,7 +518,7 @@ def main():
                     x = r_all[x_id]
                     x.vehicle = stops[0]
             
-        # TODO work around for #6714
+        # TODO work around for ticket #6714
         # check if person already picked up or dropped of
         for v_id in fleet:
             if traci.vehicle.isStoppedTriggered(v_id):
