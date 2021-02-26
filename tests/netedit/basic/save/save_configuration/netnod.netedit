@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 3/11/2020 9:11:20 AM by Eclipse SUMO netedit Version v1_5_0+0577-c86610ca2e
+<!-- generated on Fr 26 Feb 2021 15:16:36 CET by Eclipse SUMO netedit Version v1_8_0+1401-4bed82ad3f
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\basic\save\save_configuration\input_net.net.xml"/>
+        <sumo-net-file value="/home/behr_mi/.texttest/tmp/netedit.gui.26Feb151619.28609/netedit.gui/basic/save/save_configuration/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\basic\save\save_configuration\net.net.xml"/>
-        <plain-output-prefix value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\basic\save\save_configuration\net"/>
+        <output-file value="/home/behr_mi/.texttest/tmp/netedit.gui.26Feb151619.28609/netedit.gui/basic/save/save_configuration/net.net.xml"/>
+        <plain-output-prefix value="/home/behr_mi/.texttest/tmp/netedit.gui.26Feb151619.28609/netedit.gui/basic/save/save_configuration/net"/>
     </output>
 
     <processing>
@@ -32,31 +32,33 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\basic\save\save_configuration\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\basic\save\save_configuration\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\basic\save\save_configuration\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\basic\save\save_configuration\routes.xml"/>
+        <additional-files value="/home/behr_mi/.texttest/tmp/netedit.gui.26Feb151619.28609/netedit.gui/basic/save/save_configuration/additionals.xml"/>
+        <additionals-output value="/home/behr_mi/.texttest/tmp/netedit.gui.26Feb151619.28609/netedit.gui/basic/save/save_configuration/additionals.xml"/>
+        <route-files value="/home/behr_mi/.texttest/tmp/netedit.gui.26Feb151619.28609/netedit.gui/basic/save/save_configuration/routes.xml"/>
+        <demandelements-output value="/home/behr_mi/.texttest/tmp/netedit.gui.26Feb151619.28609/netedit.gui/basic/save/save_configuration/routes.xml"/>
+        <data-files value="/home/behr_mi/.texttest/tmp/netedit.gui.26Feb151619.28609/netedit.gui/basic/save/save_configuration/datas.xml"/>
+        <dataelements-output value="/home/behr_mi/.texttest/tmp/netedit.gui.26Feb151619.28609/netedit.gui/basic/save/save_configuration/datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\basic\save\save_configuration\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="/home/behr_mi/.texttest/tmp/netedit.gui.26Feb151619.28609/netedit.gui/basic/save/save_configuration/gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\basic\save\save_configuration\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/behr_mi/.texttest/tmp/netedit.gui.26Feb151619.28609/netedit.gui/basic/save/save_configuration/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\basic\save\save_configuration\log.txt"/>
+        <error-log value="/home/behr_mi/.texttest/tmp/netedit.gui.26Feb151619.28609/netedit.gui/basic/save/save_configuration/log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<nodes version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
     <node id="A" x="50.00" y="0.00" type="priority"/>
