@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 21 Aug 2020 02:28:17 PM CEST by Eclipse SUMO netedit Version v1_6_0+1707-2370e97800
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <new value="true"/>
+    </input>
+
+    <output>
+        <output-file value="/home/kobo/dlr/debug/7435/net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <netedit>
+        <route-files value="/home/kobo/dlr/debug/7435/input_routes.rou.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="train" length="50.00" vClass="rail"/>
+    <vehicle id="t0" type="train" depart="0.00" departSpeed="max">
+        <route edges="a b c"/>
+        <stop busStop="stop_a" arrival="100" until="130" duration="30"/>
+        <stop busStop="stop_c" arrival="200" until="230" duration="30"/>
+    </vehicle>
+    <vehicle id="t1" type="train" depart="20.00" departSpeed="max">
+        <route edges="a b c"/>
+        <stop busStop="stop_a" arrival="50" until="80" duration="30"/>
+        <stop busStop="stop_c" arrival="150" until="180" duration="30"/>
+    </vehicle>
+</routes>
