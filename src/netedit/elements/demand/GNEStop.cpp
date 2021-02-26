@@ -375,7 +375,9 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             glPushMatrix();
             // move to geometry front
             glTranslated(myDemandElementGeometry.getShape().back().x(), myDemandElementGeometry.getShape().back().y(), getType());
-            glRotated(myDemandElementGeometry.getShapeRotations().back(), 0, 0, 1);
+            if (myDemandElementGeometry.getShapeRotations().size() > 0) {
+                glRotated(myDemandElementGeometry.getShapeRotations().back(), 0, 0, 1);
+            }
             // draw front of Stop depending if it's placed over a lane or over a stoppingPlace
             if (getParentLanes().size() > 0) {
                 // draw front of Stop
