@@ -51,7 +51,7 @@ MSSwarmTrafficLightLogic::MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, 
         addPolicy(new MSSOTLCongestionPolicy(new MSSOTLPolicy5DFamilyStimulus("CONGESTION", parameters), parameters));
     }
 
-    if (getPolicies().empty()) {
+    if (myPolicies.empty()) {
         WRITE_ERROR("NO VALID POLICY LIST READ");
     }
 
@@ -60,7 +60,7 @@ MSSwarmTrafficLightLogic::MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, 
     gotTargetLane = false;
 
 #ifdef SWARM_DEBUG
-    std::ostringstream d_str; d_str << getMaxCongestionDuration(); vector<MSSOTLPolicy*> policies = getPolicies();
+    std::ostringstream d_str; d_str << getMaxCongestionDuration(); vector<MSSOTLPolicy*> policies = myPolicies;
 
     WRITE_MESSAGE("getMaxCongestionDuration " + d_str.str());
     for (int i = 0; i < policies.size(); i++) {
@@ -195,7 +195,7 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) {
     }
 //	Log the initial state
 #ifdef ANALYSIS_DEBUG
-        WRITE_MESSAGE("TL " + getID() + " time 0 Policy: " + getCurrentPolicy()->getName() + " (pheroIn= 0 ,pheroOut= 0 ) OldPolicy: " + getCurrentPolicy()->getName() + " .");
+        WRITE_MESSAGE("TL " + getID() + " time 0 Policy: " + myCurrentPolicy->getName() + " (pheroIn= 0 ,pheroOut= 0 ) OldPolicy: " + myCurrentPolicy->getName() + " .");
 //	ostringstream maplog;
 //	for(map<string, vector<int> >::const_iterator mIt = m_laneIndexMap.begin();mIt != m_laneIndexMap.end();++mIt)
 //	{
@@ -234,7 +234,7 @@ int MSSwarmTrafficLightLogic::decideNextPhase() {
         targetLanes = getCurrentPhaseDef().getTargetLaneSet();
     }
 
-    if (getCurrentPolicy()->getName().compare("Congestion") == 0 && getCurrentPhaseDef().isCommit()) {
+    if (myCurrentPolicy->getName().compare("Congestion") == 0 && getCurrentPhaseDef().isCommit()) {
         congestion_steps += 1;	//STEPS2TIME(getCurrentPhaseDef().duration);
 #ifdef SWARM_DEBUG
         WRITE_MESSAGE("\n" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic decideNextPhase()"); std: ostringstream dnp; dnp << (MSNet::getInstance()->getCurrentTimeStep()) << " MSSwarmTrafficLightLogic::decideNextPhase:: " << "tlsid=" << getID() << " congestion_steps=" << congestion_steps; WRITE_MESSAGE(dnp.str());
@@ -283,13 +283,13 @@ int MSSwarmTrafficLightLogic::decideNextPhase() {
 //        return getCurrentPhaseIndex() + 1;
 //	}
 #ifdef SWARM_DEBUG
-        std::ostringstream str; str << "tlsID=" << getID() << " currentPolicyname=" + getCurrentPolicy()->getName(); WRITE_MESSAGE(str.str());
+        std::ostringstream str; str << "tlsID=" << getID() << " currentPolicyname=" + myCurrentPolicy->getName(); WRITE_MESSAGE(str.str());
 #endif
 
     //Execute current policy. congestion "policy" must maintain the commit phase, and that must be an all-red one
-    return getCurrentPolicy()->decideNextPhase(getCurrentPhaseElapsed(), &getCurrentPhaseDef(), getCurrentPhaseIndex(),
+    return myCurrentPolicy->decideNextPhase(getCurrentPhaseElapsed(), &getCurrentPhaseDef(), getCurrentPhaseIndex(),
             getPhaseIndexWithMaxCTS(), isThresholdPassed(), isPushButtonPressed(), countVehicles(getCurrentPhaseDef()));
-//	int newStep =getCurrentPolicy()->decideNextPhase(getCurrentPhaseElapsed(), &getCurrentPhaseDef(), getCurrentPhaseIndex(),
+//	int newStep =myCurrentPolicy->decideNextPhase(getCurrentPhaseElapsed(), &getCurrentPhaseDef(), getCurrentPhaseIndex(),
 //	          getPhaseIndexWithMaxCTS(), isThresholdPassed(), isPushButtonPressed(), countVehicles(getCurrentPhaseDef()));
 //	if(newStep != myStep)
 //	  pheroBegin = phero;
@@ -430,16 +430,14 @@ void MSSwarmTrafficLightLogic::updateSensitivities() {
     double elapsedTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - lastThetaSensitivityUpdate);
     lastThetaSensitivityUpdate = MSNet::getInstance()->getCurrentTimeStep();
 
-    MSSOTLPolicy* currentPolicy = getCurrentPolicy();
-    std::vector<MSSOTLPolicy*> policies = getPolicies();
-
     //reset of the sensitivity thresholds in case of 0 pheromone on the input lanes
     if (getPheromoneForInputLanes() == 0) {
-        for (int i = 0; i < (int)policies.size(); i++) {
-            policies[i]->setThetaSensitivity(getThetaInit());
+        for (MSSOTLPolicy* const policy : myPolicies) {
+            policy->setThetaSensitivity(getThetaInit());
 //			ANALYSIS_DBG(
 #ifdef SWARM_DEBUG
-            std::ostringstream phero_str; phero_str << "Policy " << policies[i]->getName() << " sensitivity reset to " << policies[i]->getThetaSensitivity() << " due to evaporated input pheromone."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::updateSensitivities::" + phero_str.str());
+            std::ostringstream phero_str; phero_str << "Policy " << policy->getName() << " sensitivity reset to " << policy->getThetaSensitivity() << " due to evaporated input pheromone.";
+            WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::updateSensitivities::" + phero_str.str());
 #endif
         }
         return;
@@ -447,7 +445,7 @@ void MSSwarmTrafficLightLogic::updateSensitivities() {
 
     double eta = -1.;
     // If skipEta it means that we've had Congestion for too much time. Forcing forgetting.
-    if (!skipEta || currentPolicy->getName().compare("Congestion") != 0) {
+    if (!skipEta || myCurrentPolicy->getName().compare("Congestion") != 0) {
         switch (getReinforcementMode()) {
             case 0:
                 if (elapsedTime == STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())) {
@@ -463,11 +461,10 @@ void MSSwarmTrafficLightLogic::updateSensitivities() {
                 break;
         }
     }
-    for (int i = 0; i < (int)policies.size(); i++) {
-        MSSOTLPolicy* policy = policies[i];
+    for (MSSOTLPolicy* const policy : myPolicies) {
         double newSensitivity;
         if (eta < 0) {	//bad performance
-            if (policy == currentPolicy) { // punish the current policy
+            if (policy == myCurrentPolicy) { // punish the current policy
                 newSensitivity = policy->getThetaSensitivity() + getForgettingCox() * (-eta);
             } else
                 // reward the other ones
@@ -475,7 +472,7 @@ void MSSwarmTrafficLightLogic::updateSensitivities() {
                 newSensitivity = policy->getThetaSensitivity() - getLearningCox() * (-eta);
             }
         } else {	//good performance
-            if (policy == currentPolicy) {	//reward the current policy
+            if (policy == myCurrentPolicy) {	//reward the current policy
                 newSensitivity = policy->getThetaSensitivity() - getLearningCox() * eta;
             } else
                 //	punish the other ones
@@ -656,7 +653,7 @@ double MSSwarmTrafficLightLogic::getDistanceOfMaxPheroForOutputLanes() {
     return result;
 }
 void MSSwarmTrafficLightLogic::decidePolicy() {
-//	MSSOTLPolicy* currentPolicy = getCurrentPolicy();
+//	MSSOTLPolicy* currentPolicy = myCurrentPolicy;
     // Decide if it is the case to check for another plan
 //	double sampled = (double) RandHelper::rand(RAND_MAX);
     double sampled = RandHelper::rand();
@@ -671,9 +668,9 @@ void MSSwarmTrafficLightLogic::decidePolicy() {
         //double dispersionOut = getDispersionForOutputLanes(pheroOut);
         double distancePheroIn = getDistanceOfMaxPheroForInputLanes();
         double distancePheroOut = getDistanceOfMaxPheroForOutputLanes();
-        MSSOTLPolicy* oldPolicy = getCurrentPolicy();
+        MSSOTLPolicy* oldPolicy = myCurrentPolicy;
         choosePolicy(pheroIn, pheroOut, distancePheroIn, distancePheroOut);
-        MSSOTLPolicy* newPolicy = getCurrentPolicy();
+        MSSOTLPolicy* newPolicy = myCurrentPolicy;
 
         if (newPolicy != oldPolicy) {
 #ifdef ANALYSIS_DEBUG
@@ -834,7 +831,7 @@ double MSSwarmTrafficLightLogic::calculateEtaDiff() {
         if (carsOut == 0) {
             // We're in Congestion but not for long so we don't do nothing. When we reach max steps for
             // Congestion the evaluation of eta is skipped and we force a forget of the policy
-            if (getCurrentPolicy()->getName().compare("Congestion") == 0) {
+            if (myCurrentPolicy->getName().compare("Congestion") == 0) {
                 eta = 0;
             }
             // vehicles aren't going out and we've additional vehicle on a red lane. We set
@@ -1030,7 +1027,7 @@ double MSSwarmTrafficLightLogic::calculateEtaRatio() {
         if (carsOut == 0) {
             // we're in Congestion but not for long so we don't do nothing. When we reach max steps for
             // Congestion the evaluation of eta is skipped and we force a forget of the policy
-            if (getCurrentPolicy()->getName().compare("Congestion") == 0) {
+            if (myCurrentPolicy->getName().compare("Congestion") == 0) {
                 eta = 0;
             }
             // vehicles aren't going out and we've additional vehicle on a red lane. We set
@@ -1119,7 +1116,7 @@ void MSSwarmTrafficLightLogic::resetLaneCheck() {
 void MSSwarmTrafficLightLogic::choosePolicy(double phero_in, double phero_out, double dispersion_in,
         double dispersion_out) {
     if (m_useVehicleTypesWeights) {
-        for (std::vector<MSSOTLPolicy*>::iterator it = getPolicies().begin(); it != getPolicies().end(); ++it) {
+        for (std::vector<MSSOTLPolicy*>::iterator it = myPolicies.begin(); it != myPolicies.end(); ++it) {
             if (it.operator * ()->getName() == "Phase") {
                 activate(*it);
                 return;
@@ -1129,16 +1126,16 @@ void MSSwarmTrafficLightLogic::choosePolicy(double phero_in, double phero_out, d
     std::vector<double> thetaStimuli;
     double thetaSum = 0.0;
     // Compute stimulus for each policy
-    for (int i = 0; i < (int)getPolicies().size(); i++) {
-        double stimulus = getPolicies()[i]->computeDesirability(phero_in, phero_out, dispersion_in, dispersion_out);
-        double thetaStimulus = pow(stimulus, 2) / (pow(stimulus, 2) + pow(getPolicies()[i]->getThetaSensitivity(), 2));
+    for (int i = 0; i < (int)myPolicies.size(); i++) {
+        double stimulus = myPolicies[i]->computeDesirability(phero_in, phero_out, dispersion_in, dispersion_out);
+        double thetaStimulus = pow(stimulus, 2) / (pow(stimulus, 2) + pow(myPolicies[i]->getThetaSensitivity(), 2));
 
         thetaStimuli.push_back(thetaStimulus);
         thetaSum += thetaStimulus;
 
 //		ANALYSIS_DBG(
 #ifdef SWARM_DEBUG
-        ostringstream so_str; so_str << " policy " << getPolicies()[i]->getName() << " stimulus " << stimulus << " pow(stimulus,2) " << pow(stimulus, 2) << " pow(Threshold,2) " << pow(getPolicies()[i]->getThetaSensitivity(), 2) << " thetaStimulus " << thetaStimulus << " thetaSum " << thetaSum << " TL " << getID(); WRITE_MESSAGE("MSSwarmTrafficLightLogic::choosePolicy::" + so_str.str());
+        ostringstream so_str; so_str << " policy " << myPolicies[i]->getName() << " stimulus " << stimulus << " pow(stimulus,2) " << pow(stimulus, 2) << " pow(Threshold,2) " << pow(myPolicies[i]->getThetaSensitivity(), 2) << " thetaStimulus " << thetaStimulus << " thetaSum " << thetaSum << " TL " << getID(); WRITE_MESSAGE("MSSwarmTrafficLightLogic::choosePolicy::" + so_str.str());
 #endif
     }
 
@@ -1148,15 +1145,15 @@ void MSSwarmTrafficLightLogic::choosePolicy(double phero_in, double phero_out, d
     double r = RandHelper::rand((double)thetaSum);
 
     double partialSum = 0;
-    for (int i = 0; i < (int)getPolicies().size(); i++) {
+    for (int i = 0; i < (int)myPolicies.size(); i++) {
         partialSum += thetaStimuli[i];
 
 //		ANALYSIS_DBG(
 #ifdef SWARM_DEBUG
-        ostringstream aao_str; aao_str << " policy " << getPolicies()[i]->getName() << " partialSum " << partialSum << " thetaStimuls " << thetaStimuli[i] << " r " << r << " TL " << getID(); WRITE_MESSAGE("MSSwarmTrafficLightLogic::choosePolicy::" + aao_str.str());
+        ostringstream aao_str; aao_str << " policy " << myPolicies[i]->getName() << " partialSum " << partialSum << " thetaStimuls " << thetaStimuli[i] << " r " << r << " TL " << getID(); WRITE_MESSAGE("MSSwarmTrafficLightLogic::choosePolicy::" + aao_str.str());
 #endif
         if (partialSum >= r) {
-            activate(getPolicies()[i]);
+            activate(myPolicies[i]);
             break;
         }
     }
@@ -1171,7 +1168,7 @@ bool MSSwarmTrafficLightLogic::canRelease() {
 #ifdef SWARM_DEBUG
     std::ostringstream phero_str; phero_str << "getCurrentPhaseElapsed()=" << time2string(getCurrentPhaseElapsed()) << " isThresholdPassed()=" << isThresholdPassed() << " currentPhase=" << (&getCurrentPhaseDef())->getState() << " countVehicles()=" << countVehicles(getCurrentPhaseDef()); WRITE_MESSAGE("MSSwamTrafficLightLogic::canRelease(): " + phero_str.str());
 #endif
-    return getCurrentPolicy()->canRelease(getCurrentPhaseElapsed(), isThresholdPassed(), isPushButtonPressed(), &getCurrentPhaseDef(),
+    return myCurrentPolicy->canRelease(getCurrentPhaseElapsed(), isThresholdPassed(), isPushButtonPressed(), &getCurrentPhaseDef(),
                                           countVehicles(getCurrentPhaseDef()));
 }
 

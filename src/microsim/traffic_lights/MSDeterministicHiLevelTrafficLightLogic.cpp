@@ -95,7 +95,7 @@ int MSDeterministicHiLevelTrafficLightLogic::decideNextPhase() {
 #endif
 
     //Execute current policy. congestion "policy" must maintain the commit phase, and that must be an all-red one
-    return getCurrentPolicy()->decideNextPhase(getCurrentPhaseElapsed(),
+    return myCurrentPolicy->decideNextPhase(getCurrentPhaseElapsed(),
             &getCurrentPhaseDef(), getCurrentPhaseIndex(),
             getPhaseIndexWithMaxCTS(), isThresholdPassed(), isPushButtonPressed(),
             countVehicles(getCurrentPhaseDef()));
@@ -165,8 +165,8 @@ void MSDeterministicHiLevelTrafficLightLogic::choosePolicy(
     int index_maxStimulus = 0;
     double maxStimulus = -1;
     // Compute simulus for each policy
-    for (int i = 0; i < (int)getPolicies().size(); i++) {
-        double stimulus = getPolicies()[i]->computeDesirability(mean_vSpeed_in,
+    for (int i = 0; i < (int)myPolicies.size(); i++) {
+        double stimulus = myPolicies[i]->computeDesirability(mean_vSpeed_in,
                           mean_vSpeed_out);
         if (stimulus > maxStimulus) {
             maxStimulus = stimulus;
@@ -176,7 +176,7 @@ void MSDeterministicHiLevelTrafficLightLogic::choosePolicy(
         std::ostringstream so_str; so_str << " policy " << getPolicies()[i]->getName() << " stimulus " << stimulus; WRITE_MESSAGE("MSDeterministicHiLevelTrafficLightLogic::choosePolicy::" + so_str.str());
 #endif
     }
-    activate(getPolicies()[index_maxStimulus]);
+    activate(myPolicies[index_maxStimulus]);
 
 }
 
@@ -184,7 +184,7 @@ bool MSDeterministicHiLevelTrafficLightLogic::canRelease() {
 #ifdef SWARM_DEBUG
     std::ostringstream phero_str; phero_str << "getCurrentPhaseElapsed()=" << time2string(getCurrentPhaseElapsed()) << " isThresholdPassed()=" << isThresholdPassed() << " currentPhase=" << (&getCurrentPhaseDef())->getState() << " countVehicles()=" << countVehicles(getCurrentPhaseDef()); WRITE_MESSAGE("\nMSDeterministicHiLevelTrafficLightLogic::canRelease(): " + phero_str.str());
 #endif
-    return getCurrentPolicy()->canRelease(getCurrentPhaseElapsed(),
+    return myCurrentPolicy->canRelease(getCurrentPhaseElapsed(),
                                           isThresholdPassed(), isPushButtonPressed(), &getCurrentPhaseDef(),
                                           countVehicles(getCurrentPhaseDef()));
 }

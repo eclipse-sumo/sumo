@@ -40,13 +40,13 @@ MSSOTLHiLevelTrafficLightLogic::MSSOTLHiLevelTrafficLightLogic(MSTLLogicControl&
 }
 
 MSSOTLHiLevelTrafficLightLogic::~MSSOTLHiLevelTrafficLightLogic() {
-    for (int i = 0; i < (int)policies.size(); i++) {
-        delete (policies[i]);
+    for (MSSOTLPolicy* const policy : myPolicies) {
+        delete policy;
     }
 }
 
 void MSSOTLHiLevelTrafficLightLogic::addPolicy(MSSOTLPolicy* policy) {
-    policies.push_back(policy);
+    myPolicies.push_back(policy);
 }
 
 void MSSOTLHiLevelTrafficLightLogic::init(NLDetectorBuilder& nb) {
@@ -54,5 +54,5 @@ void MSSOTLHiLevelTrafficLightLogic::init(NLDetectorBuilder& nb) {
 }
 
 void MSSOTLHiLevelTrafficLightLogic::activate(MSSOTLPolicy* policy) {
-    currentPolicy = policy;
+    myCurrentPolicy = policy;
 }

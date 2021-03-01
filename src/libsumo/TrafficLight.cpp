@@ -300,7 +300,7 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
         }
     }
     if (c != nullptr) {
-        const double limit = c->myLimit;
+        const int limit = c->myLimit;
         s->removeConstraint(tripId, c);
         s2->addConstraint(foeId, new MSRailSignalConstraint_Predecessor(s, tripId, limit));
         removeConstraints(foeId);

@@ -76,19 +76,6 @@ public:
     ~MSSOTLHiLevelTrafficLightLogic();
 
     /**
-     * \brief Returns the vector of the low-level policies used by this high-level tll.
-     */
-    std::vector<MSSOTLPolicy*>& getPolicies() {
-        return policies;
-    }
-    /**
-     * \brief Returns the low-level policy currently selected by this high-level tll.
-     */
-    MSSOTLPolicy* getCurrentPolicy() {
-        return currentPolicy;
-    }
-
-    /**
      * @brief Initialises the tls
      * @param[in] nb The detector builder
      */
@@ -109,10 +96,9 @@ public:
 protected:
     virtual void decidePolicy() = 0;
 
-private:
-
-    std::vector<MSSOTLPolicy*> policies;
-    MSSOTLPolicy* currentPolicy;
+protected:
+    std::vector<MSSOTLPolicy*> myPolicies;
+    MSSOTLPolicy* myCurrentPolicy;
 
 };
 
