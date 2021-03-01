@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb  3 13:34:37 2020 by Eclipse SUMO netconvert Version v1_4_0+0905-23ed11b1c4
+<!-- generated on Mon Mar  1 11:25:41 2021 by Eclipse SUMO netconvert Version v1_8_0+1465-ef27e247f9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -91,7 +91,7 @@ SPDX-License-Identifier: EPL-2.0
     </busStop>
     <busStop id="1907517438" name="Pablo-Neruda-Straße" lane="44956230#1_1" startPos="23.70" endPos="39.94" friendlyPos="true"/>
     <busStop id="1965562491" name="Krankenhaus Köpenick/Besuchereingang" lane="31012749#3_1" startPos="14.63" endPos="27.09" friendlyPos="true"/>
-    <busStop id="296942988" name="Pablo-Neruda-Straße" lane="26708288#1_1" startPos="14.69" endPos="30.15" friendlyPos="true"/>
+    <busStop id="296942988" name="Pablo-Neruda-Straße" lane="26708288#1_1" startPos="15.32" endPos="30.15" friendlyPos="true"/>
     <busStop id="3239724394" name="Anemonenstraße" lane="37850032#0_1" startPos="47.65" endPos="62.65" friendlyPos="true"/>
     <busStop id="3239724399" name="Krankenhaus Köpenick/Südseite" lane="31343609#1_0" startPos="14.30" endPos="40.23" friendlyPos="true">
         <access lane="151260831#1_0" pos="15.17" length="46.00" friendlyPos="1"/>
