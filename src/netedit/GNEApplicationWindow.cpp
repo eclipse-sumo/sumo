@@ -566,21 +566,22 @@ GNEApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
-    // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
-    if (myViewNet && !onCmdClose(0, 0, 0)) {
-        return 1;
-    } else {
-        // get the new file name
-        FXFileDialog opendialog(this, "Open Network");
-        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
-        opendialog.setSelectMode(SELECTFILE_EXISTING);
-        opendialog.setPatternList("SUMO nets (*.net.xml)\nAll files (*)");
-        if (gCurrentFolder.length() != 0) {
-            opendialog.setDirectory(gCurrentFolder);
-        }
-        if (opendialog.execute()) {
+
+    // get the new file name
+    FXFileDialog opendialog(this, "Open Network");
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("SUMO nets (*.net.xml)\nAll files (*)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        // get file
+        const std::string file = opendialog.getFilename().text();
+        // check if file isn't empty first and current edited Net can be closed (und therefore the undo-list cleared, see #5753)
+        if (file.empty() && myViewNet && !onCmdClose(0, 0, 0)) {
+            // set current folder
             gCurrentFolder = opendialog.getDirectory();
-            std::string file = opendialog.getFilename().text();
             // load network
             loadConfigOrNet(file, true);
             // add it into recent nets
@@ -588,9 +589,10 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
             // when a net is loaded, save additionals and TLSPrograms are disabled
             disableSaveAdditionalsMenu();
             myFileMenuCommands.saveTLSPrograms->disable();
+            myFileMenuCommands.saveEdgeTypes->disable();
         }
-        return 1;
     }
+    return 0;
 }
 
 
