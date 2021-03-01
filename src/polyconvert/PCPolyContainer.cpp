@@ -184,9 +184,7 @@ PCPolyContainer::saveDlrTDP(const std::string& prefix) {
         out2 << i.second->getShapeType() << "\t";
         out2 << i.first << "\t";
 
-        PositionVector shape(i.second->getShape());
-        for (int i = 0; i < (int) shape.size(); i++) {
-            Position pos = shape[i];
+        for (Position pos : i.second->getShape()) {
             gch.cartesian2geo(pos);
             pos.mul(geoScale);
             out2 << pos.x() << "\t";

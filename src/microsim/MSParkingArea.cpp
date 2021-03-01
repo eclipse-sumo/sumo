@@ -78,10 +78,8 @@ MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::strin
     for (int i = 0; i < capacity; ++i) {
         // calculate pos
         const Position pos = GeomHelper::calculateLotSpacePosition(myShape, i, spaceDim, myAngle, myWidth, myLength);
-        // calculate angel
-        const double angle = GeomHelper::calculateLotSpaceAngle(myShape, i, spaceDim, myAngle);
         // add lotEntry
-        addLotEntry(pos.x(), pos.y(), pos.z(), myWidth, myLength, angle);
+        addLotEntry(pos.x(), pos.y(), pos.z(), myWidth, myLength, GeomHelper::calculateLotSpaceAngle(myShape, i, spaceDim, myAngle));
         // update endPos
         mySpaceOccupancies.back().endPos = myBegPos + MAX2(POSITION_EPS, spaceDim * (i + 1));
     }

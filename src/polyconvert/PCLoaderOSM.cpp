@@ -421,7 +421,6 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& 
             //  ... so we won't report duplicate nodes
             PCOSMNode* toAdd = new PCOSMNode();
             toAdd->id = id;
-            bool ok = true;
             toAdd->lon = attrs.get<double>(SUMO_ATTR_LON, toString(id).c_str(), ok);
             toAdd->lat = attrs.get<double>(SUMO_ATTR_LAT, toString(id).c_str(), ok);
             if (!ok) {

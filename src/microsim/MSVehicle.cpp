@@ -5236,8 +5236,8 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                 (*j).bestLaneOffset = 0;
             }
         }
-        for (int i = requireChangeToLeftForbidden; i >= 0; i--) {
-            clanes[i].length -= clanes[i].currentLength;
+        for (int idx = requireChangeToLeftForbidden; idx >= 0; idx--) {
+            clanes[idx].length -= clanes[idx].currentLength;
         }
 
         //vehicle with elecHybrid device prefers running under an overhead wire

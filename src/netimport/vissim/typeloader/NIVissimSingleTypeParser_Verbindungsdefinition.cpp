@@ -134,18 +134,18 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream& from) {
                 int laneNo;
                 from >> laneNo; // unused and type-checking is missing!
                 // get the list of assigned car classes
-                std::vector<int> assignedVehicles;
+                std::vector<int> assigned;
                 tag = myRead(from);
                 if (tag == "fahrzeugklassen") {
                     tag = myRead(from);
                 }
                 while (tag != "DATAEND" && tag != "spur" && tag != "keinspurwechsel") {
                     int classes = StringUtils::toInt(tag);
-                    assignedVehicles.push_back(classes);
+                    assigned.push_back(classes);
                     tag = readEndSecure(from);
                 }
                 // build and add the definition
-                NIVissimClosedLaneDef* cld = new NIVissimClosedLaneDef(assignedVehicles);
+                NIVissimClosedLaneDef* cld = new NIVissimClosedLaneDef(assigned);
                 clv.push_back(cld);
             }
         } while (tag != "DATAEND");
