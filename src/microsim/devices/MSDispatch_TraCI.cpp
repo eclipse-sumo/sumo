@@ -103,11 +103,12 @@ MSDispatch_TraCI::splitReservation(std::string resID, std::vector<std::string> p
             throw InvalidArgument("Cannot remove all person from reservation '" + resID + "'");
         }
         std::vector<MSTransportable*> split;
-        for (std::string p : personIDs) {
-            for (MSTransportable* t : res->persons) {
+        for (const std::string& p : personIDs) {
+            for (MSTransportable* const t : res->persons) {
                 if (t->getID() == p) {
                     res->persons.erase(t);
                     split.push_back(t);
+                    break;
                 }
             }
         }
