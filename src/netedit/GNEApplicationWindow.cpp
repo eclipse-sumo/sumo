@@ -2701,7 +2701,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, "Open Additionals file");
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("XML files (*.xml)\nAdditional files (*.add.xml)\nAll files (*)");
+    opendialog.setPatternList("XML files (*.xml)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -2789,11 +2789,11 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
-                            "Select name of the additional file", ".add.xml",
+                            "Select name of the additional file", ".xml",
                             GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL),
                             currentFolder);
             // add xml extension
-            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".add.xml");
+            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
             // check tat file is valid
             if (fileWithExtension != "") {
                 // change value of "additional-files"
@@ -2840,11 +2840,11 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
     }
     // Open window to select additional file
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the additional file", ".add.xml",
+                    "Select name of the additional file", ".xml",
                     GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL),
                     currentFolder);
     // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".add.xml");
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
     // check tat file is valid
     if (fileWithExtension != "") {
         // reset writtable flag
