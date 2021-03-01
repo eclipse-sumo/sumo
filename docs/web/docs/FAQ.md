@@ -151,7 +151,7 @@ this as a bug [as explained below](#how_do_i_report_erroneous_behavior_of_a_sumo
 This wiki documents the behavior of the [latest development version](Downloads.md#nightly_snapshots). This is usually quite
 close the the [latest release](Downloads.md) (differences are
 explicitly listed in the [ChangeLog](ChangeLog.md). If you are
-using an older version of SUMO, you need to refer to [the documentation that is packaged with that version](Downloads.md#sumo_-_older_releases). Note that we do
+using an older version of SUMO, you need to refer to [the documentation that is packaged with that version](Downloads.md#sumo_-_alternative_download_and_older_releases). Note that we do
 not back-port bugfixes to older version of SUMO. If possible you should
 always use the latest version of SUMO.
 
