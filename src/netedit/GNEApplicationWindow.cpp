@@ -1348,8 +1348,8 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
             // clear additional path
             additionalsSavePath = "";
         }
-        // Check if there are demand elements in our net
-        if (myNet->getNumberOfDemandElements() > 0) {
+        // Check if there are demand elements in our net (3 due default vehicle types and person types)
+        if (myNet->getNumberOfDemandElements() > 3) {
             // ask user if want to save demand elements if weren't saved previously
             if (oc.getString("route-files") == "") {
                 // write warning if netedit is running in testing mode

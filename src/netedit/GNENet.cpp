@@ -3330,6 +3330,8 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         WRITE_GLDEBUG("initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options");
         // init again junction an edges (Additionals and shapes will be loaded after the end of this function)
         initJunctionsAndEdges();
+        // init default vTypes again
+        myAttributeCarriers->addDefaultVTypes();
     } else {
         // insert all junctions of grid again
         WRITE_GLDEBUG("Add junctions during recomputing after calling myNetBuilder->compute(...)");
