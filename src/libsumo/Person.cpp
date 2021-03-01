@@ -152,8 +152,15 @@ Person::getTaxiReservations(int stateFilter) {
             }
         }
     }
+    std::sort(result.begin(), result.end(), reservation_by_id_sorter());
     return result;
 }
+
+int
+Person::reservation_by_id_sorter::operator()(const TraCIReservation& r1, const TraCIReservation& r2) const {
+    return r1.id < r2.id;
+}
+
 
 std::string
 Person::splitTaxiReservation(std::string reservationID, const std::vector<std::string>& personIDs) {

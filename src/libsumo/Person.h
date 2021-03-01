@@ -105,6 +105,16 @@ private:
     static MSStage* convertTraCIStage(const TraCIStage& stage, const std::string personID);
     static bool filterReservation(int stateFilter, const Reservation* res, std::vector<libsumo::TraCIReservation>& reservations);
 
+    /// @brief clase for CW Sorter
+    class reservation_by_id_sorter {
+    public:
+        /// @brief constructor
+        reservation_by_id_sorter() {};
+
+        /// @brief comparing operation for sort
+        int operator()(const TraCIReservation& r1, const TraCIReservation& r2) const;
+    };
+
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
