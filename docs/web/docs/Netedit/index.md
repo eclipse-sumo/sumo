@@ -10,7 +10,7 @@ title: netedit
 - **System:** portable (Linux/Windows is tested); opens a window
 - **Input (optional):** road network definitions to import
 - **Output:** A generated SUMO-road network; optionally also other outputs
-- **Programming Language:** c++
+- **Programming Language:** C++
 
 # Usage Description
 
