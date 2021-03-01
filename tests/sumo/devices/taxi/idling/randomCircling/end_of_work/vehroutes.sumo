@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug 17 16:06:25 2020 by Eclipse SUMO sumo Version v1_6_0+1604-a3868a1088
+<!-- generated on Mon Mar  1 14:29:39 2021 by Eclipse SUMO sumo Version v1_8_0+1431-5cfb348
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -79,7 +79,7 @@ SPDX-License-Identifier: EPL-2.0
             <route replacedOnEdge="B2C2" reason="taxi:idling:randomCircling" replacedAtTime="489.00" probability="0" edges="A2B2 B2C2 C2B2 B2A2 A2A1 A1A0 A0B0 B0A0 A0A1 A1B1 B1B2 B2C2 C2B2 B2A2 A2A1 A1A0 A0B0 B0A0 A0A1 A1B1 B1B2 B2C2 C2B2 B2B1 B1B0 B0C0 C0C1 C1C2 C2B2 B2A2 A2A1 A1A0 A0B0 B0A0 A0A1 A1B1 B1B2 B2C2 C2B2 B2B1 B1B0 B0C0 C0C1 C1C2 C2B2 B2A2 A2A1 A1A2 A2B2 B2C2 C2B2 B2A2 A2A1 A1A0 A0B0 B0A0 A0A1 A1B1 B1B2 B2C2 C2B2 B2B1 B1B0 B0C0 C0C1 C1C2 C2B2 B2A2 A2A1 A1A2 A2B2 B2C2 C2C1 C1C2"/>
             <route edges="A2B2 B2C2 C2B2 B2A2 A2A1 A1A0 A0B0 B0A0 A0A1 A1B1 B1B2 B2C2 C2B2 B2A2 A2A1 A1A0 A0B0 B0A0 A0A1 A1B1 B1B2 B2C2 C2B2 B2B1 B1B0 B0C0 C0C1 C1C2 C2B2 B2A2 A2A1 A1A0 A0B0 B0A0 A0A1 A1B1 B1B2 B2C2 C2B2 B2B1 B1B0 B0C0 C0C1 C1C2 C2B2 B2A2 A2A1 A1A2 A2B2 B2C2 C2B2 B2A2 A2A1 A1A0 A0B0 B0A0 A0A1 A1B1 B1B2 B2C2 C2B2 B2B1 B1B0 B0C0 C0C1 C1C2 C2B2 B2A2 A2A1 A1A2 A2B2 B2C2 C2C1 C1C2 C2D2 D2D1"/>
         </routeDistribution>
-        <stop lane="B2C2_1" actType="pickup p0"/>
+        <stop lane="B2C2_1" permitted="p0" actType="pickup p0"/>
         <stop lane="A0B0_1" actType="dropOff p0"/>
         <param key="device.taxi.end" value="500"/>
     </vehicle>
