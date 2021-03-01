@@ -3523,6 +3523,7 @@ MSLCM_SL2015::wantsChange(
     MSAbstractLaneChangeModel::MSLCMessager& /* msgPass */,
     int blocked,
     const std::pair<MSVehicle*, double>& leader,
+    const std::pair<MSVehicle*, double>& follower,
     const std::pair<MSVehicle*, double>& neighLead,
     const std::pair<MSVehicle*, double>& neighFollow,
     const MSLane& neighLane,
@@ -3550,7 +3551,7 @@ MSLCM_SL2015::wantsChange(
     double latDist = 0;
     const MSLane* dummy = myVehicle.getLane();
     MSLeaderDistanceInfo leaders(leader, dummy);
-    MSLeaderDistanceInfo followers(std::make_pair((MSVehicle*)nullptr, -1), dummy);
+    MSLeaderDistanceInfo followers(follower, dummy);
     MSLeaderDistanceInfo blockers(std::make_pair((MSVehicle*)nullptr, -1), dummy);
     MSLeaderDistanceInfo neighLeaders(neighLead, dummy);
     MSLeaderDistanceInfo neighFollowers(neighFollow, dummy);

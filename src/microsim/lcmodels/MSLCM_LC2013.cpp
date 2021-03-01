@@ -152,6 +152,7 @@ MSLCM_LC2013::wantsChange(
     MSAbstractLaneChangeModel::MSLCMessager& msgPass,
     int blocked,
     const std::pair<MSVehicle*, double>& leader,
+    const std::pair<MSVehicle*, double>& /*follower*/,
     const std::pair<MSVehicle*, double>& neighLead,
     const std::pair<MSVehicle*, double>& neighFollow,
     const MSLane& neighLane,

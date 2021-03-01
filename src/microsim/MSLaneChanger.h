@@ -188,6 +188,7 @@ protected:
         int laneOffset,
         const MSLane* targetLane,
         const std::pair<MSVehicle* const, double>& leader,
+        const std::pair<MSVehicle* const, double>& follower,
         const std::pair<MSVehicle* const, double>& neighLead,
         const std::pair<MSVehicle* const, double>& neighFollow,
         const std::vector<MSVehicle::LaneQ>& preb) const;

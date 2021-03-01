@@ -255,6 +255,7 @@ public:
         int laneOffset,
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
         const std::pair<MSVehicle*, double>& leader,
+        const std::pair<MSVehicle*, double>& follower,
         const std::pair<MSVehicle*, double>& neighLead,
         const std::pair<MSVehicle*, double>& neighFollow,
         const MSLane& neighLane,
@@ -265,6 +266,7 @@ public:
         UNUSED_PARAMETER(&msgPass);
         UNUSED_PARAMETER(blocked);
         UNUSED_PARAMETER(&leader);
+        UNUSED_PARAMETER(&follower);
         UNUSED_PARAMETER(&neighLead);
         UNUSED_PARAMETER(&neighFollow);
         UNUSED_PARAMETER(&neighLane);
