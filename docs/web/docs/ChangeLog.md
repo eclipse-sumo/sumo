@@ -349,6 +349,7 @@ title: ChangeLog
   - Added new functions for railway simulation to investigate why a rail signal is red: *trafficlight.getBlockingVehicles, trafficlight.getRivalVehicles, trafficlight.getPriorityVehicles'. Issue #7019
   - Function 'simulation.findIntermodalRoute' now supports mode=taxi. Issue #7757
   - Functon vehicle.moveToXY' now only maps onto lanes compatible with the vClass of the vehicle. To ignore permissions, bit2 of the keepRoute flag can be set. Issue #5383
+  - Added [API for coupling taxi dispatch algorithms](Simulation/Taxi.md#traci). Issue #6526
 
 - Tools
   - Added [randomTrips.py](Tools/Trip.md) option **--via-edge-types**. When this option is set to a list of types, edges of this type are not used for departure or arrival unless they are on the fringe. This can be used to prevent departure on the middle of a motorway. Issue #7505
