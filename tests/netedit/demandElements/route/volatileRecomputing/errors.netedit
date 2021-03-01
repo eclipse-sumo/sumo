@@ -175,6 +175,9 @@ Debug: Deleting unreferenced crossing ':gneJ7_c0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ8' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ8_c0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ9' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced route 'route_0' in AttributeCarriers destructor
 Debug: Deleting unreferenced route 'route_1' in AttributeCarriers destructor
 Debug: Deleting unreferenced route 'route_2' in AttributeCarriers destructor
