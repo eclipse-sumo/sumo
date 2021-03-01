@@ -549,7 +549,7 @@ void
 GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::buildNetworkViewOptionsMenuChecks(FXMenuPane* editMenu) {
     // create menu checks
     menuCheckToogleGrid = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Toogle grid", "Ctrl+G", "",
+        "Toggle grid", "Ctrl+G", "",
         GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOOGLEGRID),
         myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_TOOGLEGRID);
 
@@ -656,7 +656,7 @@ void
 GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::buildDemandViewOptionsMenuChecks(FXMenuPane* editMenu) {
     // create menu checks
     menuCheckToogleGrid = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Toogle grid", "", "",
+        "Toggle grid", "", "",
         GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOOGLEGRID),
         myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID);
 

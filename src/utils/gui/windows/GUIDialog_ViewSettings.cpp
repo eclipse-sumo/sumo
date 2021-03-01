@@ -134,7 +134,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         new FXHorizontalSeparator(frame1, GUIDesignHorizontalSeparator);
 
         FXMatrix* m12 = new FXMatrix(frame1, 2, GUIDesignViewSettingsMatrix1);
-        myShowGrid = new FXCheckButton(m12, "Toogle grid", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+        myShowGrid = new FXCheckButton(m12, "Toggle grid", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
         myShowGrid->setCheck(mySettings->showGrid);
         new FXLabel(m12, "");
         FXMatrix* m121 = new FXMatrix(m12, 2, GUIDesignViewSettingsMatrix2);
