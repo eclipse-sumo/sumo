@@ -30,6 +30,7 @@
 #include <utils/router/SUMOAbstractRouter.h>
 #include <utils/router/AStarRouter.h>
 #include <utils/router/RouterProvider.h>
+#include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
 #include "MSDevice.h"
 

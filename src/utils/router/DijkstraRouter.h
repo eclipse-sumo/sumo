@@ -81,7 +81,7 @@ public:
         SUMOAbstractRouter<E, V>("DijkstraRouter", unbuildIsWarning, effortOperation, ttOperation, havePermissions, haveRestrictions),
         mySilent(silent), myExternalEffort(calc) {
         for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            myEdgeInfos.push_back(typename SUMOAbstractRouter<E, V>::EdgeInfo(*i));
+            this->myEdgeInfos.push_back(typename SUMOAbstractRouter<E, V>::EdgeInfo(*i));
         }
     }
 
@@ -89,25 +89,12 @@ public:
     virtual ~DijkstraRouter() { }
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        auto clone = new DijkstraRouter<E, V>(myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(),
+        auto clone = new DijkstraRouter<E, V>(this->myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(),
                                               this->myOperation, this->myTTOperation, mySilent, myExternalEffort,
                                               this->myHavePermissions, this->myHaveRestrictions);
         clone->setAutoBulkMode(this->myAutoBulkMode);
         return clone;
     }
-
-    void init() {
-        // all EdgeInfos touched in the previous query are either in myFrontierList or myFound: clean those up
-        for (auto& edgeInfo : myFrontierList) {
-            edgeInfo->reset();
-        }
-        myFrontierList.clear();
-        for (auto& edgeInfo : myFound) {
-            edgeInfo->reset();
-        }
-        myFound.clear();
-    }
-
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
@@ -115,13 +102,13 @@ public:
                  SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
         assert(from != nullptr && (vehicle == nullptr || to != nullptr));
         // check whether from and to can be used
-        if (myEdgeInfos[from->getNumericalID()].prohibited || this->isProhibited(from, vehicle)) {
+        if (this->myEdgeInfos[from->getNumericalID()].prohibited || this->isProhibited(from, vehicle)) {
             if (!silent) {
                 this->myErrorMsgHandler->inform("Vehicle '" + Named::getIDSecure(vehicle) + "' is not allowed on source edge '" + from->getID() + "'.");
             }
             return false;
         }
-        if (to != nullptr && (myEdgeInfos[to->getNumericalID()].prohibited || this->isProhibited(to, vehicle))) {
+        if (to != nullptr && (this->myEdgeInfos[to->getNumericalID()].prohibited || this->isProhibited(to, vehicle))) {
             if (!silent) {
                 this->myErrorMsgHandler->inform("Vehicle '" + Named::getIDSecure(vehicle) + "' is not allowed on destination edge '" + to->getID() + "'.");
             }
@@ -135,31 +122,31 @@ public:
         const SUMOVehicleClass vClass = vehicle == nullptr ? SVC_IGNORING : vehicle->getVClass();
         std::tuple<const E*, const V*, SUMOTime> query = std::make_tuple(from, vehicle, msTime);
         if (this->myBulkMode || (this->myAutoBulkMode && query == myLastQuery)) {
-            const auto& toInfo = myEdgeInfos[to->getNumericalID()];
+            const auto& toInfo = this->myEdgeInfos[to->getNumericalID()];
             if (toInfo.visited) {
-                buildPathFrom(&toInfo, into);
+                this->buildPathFrom(&toInfo, into);
                 this->endQuery(1);
                 return true;
             }
         } else {
-            init();
+            this->init();
             // add begin node
-            auto* const fromInfo = &(myEdgeInfos[from->getNumericalID()]);
-            fromInfo->effort = 0.;
-            fromInfo->prev = nullptr;
-            fromInfo->leaveTime = STEPS2TIME(msTime);
+            auto& fromInfo = this->myEdgeInfos[from->getNumericalID()];
+            fromInfo.effort = 0.;
+            fromInfo.prev = nullptr;
+            fromInfo.leaveTime = STEPS2TIME(msTime);
             if (myExternalEffort != nullptr) {
-                myExternalEffort->setInitialState(fromInfo->edge->getNumericalID());
+                myExternalEffort->setInitialState(fromInfo.edge->getNumericalID());
             }
-            myFrontierList.push_back(fromInfo);
+            this->myFrontierList.push_back(&fromInfo);
         }
         myLastQuery = query;
         // loop
         int num_visited = 0;
-        while (!myFrontierList.empty()) {
+        while (!this->myFrontierList.empty()) {
             num_visited += 1;
             // use the node with the minimal length
-            auto* const minimumInfo = myFrontierList.front();
+            auto* const minimumInfo = this->myFrontierList.front();
             const E* const minEdge = minimumInfo->edge;
 #ifdef DijkstraRouter_DEBUG_QUERY
             std::cout << "DEBUG: hit '" << minEdge->getID() << "' Eff: " << minimumInfo->effort << ", Leave: " << minimumInfo->leaveTime << " Q: ";
@@ -174,16 +161,16 @@ public:
                 if (myExternalEffort != nullptr) {
                     myExternalEffort->update(minEdge->getNumericalID(), minimumInfo->prev->edge->getNumericalID(), minEdge->getLength());
                 }
-                buildPathFrom(minimumInfo, into);
+                this->buildPathFrom(minimumInfo, into);
                 this->endQuery(num_visited);
 #ifdef DijkstraRouter_DEBUG_QUERY_PERF
                 std::cout << "visited " + toString(num_visited) + " edges (final path length=" + toString(into.size()) + " edges=" + toString(into) + ")\n";
 #endif
                 return true;
             }
-            std::pop_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
-            myFrontierList.pop_back();
-            myFound.push_back(minimumInfo);
+            std::pop_heap(this->myFrontierList.begin(), this->myFrontierList.end(), myComparator);
+            this->myFrontierList.pop_back();
+            this->myFound.push_back(minimumInfo);
             minimumInfo->visited = true;
             const double effortDelta = this->getEffort(minEdge, vehicle, minimumInfo->leaveTime);
             const double leaveTime = minimumInfo->leaveTime + this->getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
@@ -192,9 +179,9 @@ public:
             }
             // check all ways from the node with the minimal length
             for (const std::pair<const E*, const E*>& follower : minEdge->getViaSuccessors(vClass)) {
-                auto* const followerInfo = &(myEdgeInfos[follower.first->getNumericalID()]);
+                auto& followerInfo = this->myEdgeInfos[follower.first->getNumericalID()];
                 // check whether it can be used
-                if (followerInfo->prohibited || this->isProhibited(follower.first, vehicle)) {
+                if (followerInfo.prohibited || this->isProhibited(follower.first, vehicle)) {
                     continue;
                 }
                 double effort = minimumInfo->effort + effortDelta;
@@ -202,17 +189,17 @@ public:
                 this->updateViaEdgeCost(follower.second, vehicle, time, effort, length);
                 assert(effort >= minimumInfo->effort);
                 assert(time >= minimumInfo->leaveTime);
-                const double oldEffort = followerInfo->effort;
-                if (!followerInfo->visited && effort < oldEffort) {
-                    followerInfo->effort = effort;
-                    followerInfo->leaveTime = time;
-                    followerInfo->prev = minimumInfo;
+                const double oldEffort = followerInfo.effort;
+                if (!followerInfo.visited && effort < oldEffort) {
+                    followerInfo.effort = effort;
+                    followerInfo.leaveTime = time;
+                    followerInfo.prev = minimumInfo;
                     if (oldEffort == std::numeric_limits<double>::max()) {
-                        myFrontierList.push_back(followerInfo);
-                        std::push_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
+                        this->myFrontierList.push_back(&followerInfo);
+                        std::push_heap(this->myFrontierList.begin(), this->myFrontierList.end(), myComparator);
                     } else {
-                        std::push_heap(myFrontierList.begin(),
-                                       std::find(myFrontierList.begin(), myFrontierList.end(), followerInfo) + 1,
+                        std::push_heap(this->myFrontierList.begin(),
+                                       std::find(this->myFrontierList.begin(), this->myFrontierList.end(), &followerInfo) + 1,
                                        myComparator);
                     }
                 }
@@ -228,32 +215,6 @@ public:
         return false;
     }
 
-
-    void prohibit(const std::vector<E*>& toProhibit) {
-        for (E* const edge : this->myProhibited) {
-            myEdgeInfos[edge->getNumericalID()].prohibited = false;
-        }
-        for (E* const edge : toProhibit) {
-            myEdgeInfos[edge->getNumericalID()].prohibited = true;
-        }
-        this->myProhibited = toProhibit;
-    }
-
-
-    /// Builds the path from marked edges
-    void buildPathFrom(const typename SUMOAbstractRouter<E, V>::EdgeInfo* rbegin, std::vector<const E*>& edges) {
-        std::vector<const E*> tmp;
-        while (rbegin != 0) {
-            tmp.push_back(rbegin->edge);
-            rbegin = rbegin->prev;
-        }
-        std::copy(tmp.rbegin(), tmp.rend(), std::back_inserter(edges));
-    }
-
-    const typename SUMOAbstractRouter<E, V>::EdgeInfo& getEdgeInfo(int index) const {
-        return myEdgeInfos[index];
-    }
-
 private:
     DijkstraRouter(const std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo>& edgeInfos, bool unbuildIsWarning,
                    typename SUMOAbstractRouter<E, V>::Operation effortOperation, typename SUMOAbstractRouter<E, V>::Operation ttOperation, bool silent, EffortCalculator* calc,
@@ -262,7 +223,7 @@ private:
         mySilent(silent),
         myExternalEffort(calc) {
         for (const auto& edgeInfo : edgeInfos) {
-            myEdgeInfos.push_back(typename SUMOAbstractRouter<E, V>::EdgeInfo(edgeInfo.edge));
+            this->myEdgeInfos.push_back(typename SUMOAbstractRouter<E, V>::EdgeInfo(edgeInfo.edge));
         }
     }
 
@@ -274,14 +235,6 @@ private:
     std::tuple<const E*, const V*, SUMOTime> myLastQuery;
 
     EffortCalculator* const myExternalEffort;
-
-    /// The container of edge information
-    std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo> myEdgeInfos;
-
-    /// A container for reusage of the min edge heap
-    std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo*> myFrontierList;
-    /// @brief list of visited Edges (for resetting)
-    std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo*> myFound;
 
     EdgeInfoByEffortComparator myComparator;
 };

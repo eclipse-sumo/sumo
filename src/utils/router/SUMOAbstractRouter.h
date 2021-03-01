@@ -135,6 +135,18 @@ public:
 
     virtual SUMOAbstractRouter* clone() = 0;
 
+    void init() {
+        // all EdgeInfos touched in the previous query are either in myFrontierList or myFound: clean those up
+        for (auto& edgeInfo : myFrontierList) {
+            edgeInfo->reset();
+        }
+        myFrontierList.clear();
+        for (auto& edgeInfo : myFound) {
+            edgeInfo->reset();
+        }
+        myFound.clear();
+    }
+
     /// reset internal caches, used by CHRouter
     virtual void reset(const V* const vehicle) {
         UNUSED_PARAMETER(vehicle);
@@ -142,6 +154,10 @@ public:
 
     const std::string& getType() const {
         return myType;
+    }
+
+    inline const typename SUMOAbstractRouter<E, V>::EdgeInfo& getEdgeInfo(int index) const {
+        return myEdgeInfos[index];
     }
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
@@ -201,8 +217,6 @@ public:
     inline bool isProhibited(const E* const edge, const V* const vehicle) const {
         return (myHavePermissions && edge->prohibits(vehicle)) || (myHaveRestrictions && edge->restricts(vehicle));
     }
-
-    virtual void prohibit(const std::vector<E*>& /* toProhibit */) {}
 
     inline double getTravelTime(const E* const e, const V* const v, const double t, const double effort) const {
         return myTTOperation == nullptr ? effort : (*myTTOperation)(e, v, t);
@@ -289,6 +303,27 @@ public:
         myAutoBulkMode = mode;
     }
 
+    virtual void prohibit(const std::vector<E*>& toProhibit) {
+        for (E* const edge : this->myProhibited) {
+            myEdgeInfos[edge->getNumericalID()].prohibited = false;
+        }
+        for (E* const edge : toProhibit) {
+            myEdgeInfos[edge->getNumericalID()].prohibited = true;
+        }
+        this->myProhibited = toProhibit;
+    }
+
+
+    /// Builds the path from marked edges
+    void buildPathFrom(const typename SUMOAbstractRouter<E, V>::EdgeInfo* rbegin, std::vector<const E*>& edges) {
+        std::vector<const E*> tmp;
+        while (rbegin != nullptr) {
+            tmp.push_back(rbegin->edge);
+            rbegin = rbegin->prev;
+        }
+        std::copy(tmp.rbegin(), tmp.rend(), std::back_inserter(edges));
+    }
+
 protected:
     /// @brief the handler for routing errors
     MsgHandler* const myErrorMsgHandler;
@@ -311,7 +346,16 @@ protected:
     /// @brief whether edge restrictions need to be considered
     const bool myHaveRestrictions;
 
+    /// The list of explicitly prohibited edges
     std::vector<E*> myProhibited;
+
+    /// The container of edge information
+    std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo> myEdgeInfos;
+
+    /// A container for reusage of the min edge heap
+    std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo*> myFrontierList;
+    /// @brief list of visited Edges (for resetting)
+    std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo*> myFound;
 
 private:
     /// @brief the type of this router
@@ -323,7 +367,8 @@ private:
     /// @brief the time spent querying in milliseconds
     long long int myQueryStartTime;
     long long int myQueryTimeSum;
+
 private:
     /// @brief Invalidated assignment operator
-    SUMOAbstractRouter& operator=(const SUMOAbstractRouter& s);
+    SUMOAbstractRouter& operator=(const SUMOAbstractRouter& s) = delete;
 };
