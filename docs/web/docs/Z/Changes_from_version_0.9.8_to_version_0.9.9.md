@@ -115,7 +115,7 @@ title: Changes from version 0.9.8 to version 0.9.9
 
 - duarouter / jtrrouter
   - Removed option **--move-on-short**. It got obsolete as vehicles
-    may start on edges which are shroter than they are, now.
+    may start on edges which are shorter than they are, now.
 
 - duarouter
   - debugged [bug 1981921 duarouter truncates routes](http://sourceforge.net/tracker/index.php?func=detail&aid=1981921&group_id=45607&atid=443421);
