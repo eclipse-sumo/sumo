@@ -358,8 +358,10 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
                 } else {
                     stops.back().containerTriggered = true;
                 }
+                stops.back().permitted.insert(transportable->getID());
             }
             //stops.back().awaitedPersons.insert(res.person->getID());
+            stops.back().parametersSet |= STOP_PERMITTED_SET;
         } else {
             prepareStop(tmpEdges, stops, lastPos, res->to, res->toPos, "dropOff " + toString(res->persons));
             stops.back().duration = TIME2STEPS(60); // pay and collect bags
