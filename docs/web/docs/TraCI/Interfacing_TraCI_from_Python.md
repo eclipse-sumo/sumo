@@ -65,8 +65,8 @@ traci.close()
 
 After connecting to the simulation, you can emit various commands and
 execute simulation steps until you want to finish by closing the
-connection. by default the close command will wait until the sumo
-process really finishes. You can disable this by calling
+connection. By default, the close command will wait until the sumo
+process really finishes. You can disable this by calling:
 
 ```
 traci.close(False)
