@@ -517,21 +517,6 @@ def main():
                 for x_id in set(stops[1:]):
                     x = r_all[x_id]
                     x.vehicle = stops[0]
-            
-        # TODO work around for ticket #6714
-        # check if person already picked up or dropped of
-        for v_id in fleet:
-            if traci.vehicle.isStoppedTriggered(v_id):
-                next_act = traci.vehicle.getStops(v_id, 1)[0]
-                if next_act.actType:
-                    next_act, next_id = next_act.actType.split(" ")
-                    if next_act == 'pickup' and next_id in traci.vehicle.getPersonIDList(v_id):
-                        # already picked up
-                        traci.vehicle.resume(v_id)
-                    elif next_act == 'dropOff' and next_id not in traci.vehicle.getPersonIDList(v_id):
-                        # already dropped of
-                        traci.vehicle.resume(v_id)
-
 
         step += options.sim_step
 
