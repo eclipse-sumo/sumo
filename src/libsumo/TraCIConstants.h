@@ -816,7 +816,7 @@ TRACI_CONST int TL_EXTERNAL_STATE = 0x2e;
 TRACI_CONST int TL_CONSTRAINT = 0x2f;
 
 // switch order of trains encoded in rail signal constraints (set: traffic lights)
-TRACI_CONST int TL_CONSTRAINT_REVERSE = 0x32;
+TRACI_CONST int TL_CONSTRAINT_SWAP = 0x32;
 
 // outgoing link number (get: lanes)
 TRACI_CONST int LANE_LINK_NUMBER = 0x30;

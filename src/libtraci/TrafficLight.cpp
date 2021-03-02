@@ -282,7 +282,7 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
     StoHelp::writeTypedString(content, tripId);
     StoHelp::writeTypedString(content, foeSignal);
     StoHelp::writeTypedString(content, foeId);
-    Dom::set(libsumo::TL_CONSTRAINT_REVERSE, tlsID, &content);
+    Dom::set(libsumo::TL_CONSTRAINT_SWAP, tlsID, &content);
 }
 
 

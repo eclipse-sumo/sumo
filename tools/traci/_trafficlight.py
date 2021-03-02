@@ -353,4 +353,4 @@ class TrafficLightDomain(Domain):
         """swapConstraints(string, string, string, string)
         Reverse the given constraint and remove all existing constraints with foeId
         """
-        self._setCmd(tc.TL_CONSTRAINT_REVERSE, tlsID, "tsss", 3, tripId, foeSignal, foeId)
+        self._setCmd(tc.TL_CONSTRAINT_SWAP, tlsID, "tsss", 3, tripId, foeSignal, foeId)
