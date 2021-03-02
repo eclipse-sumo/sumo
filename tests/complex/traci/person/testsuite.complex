@@ -9,5 +9,7 @@ priorStage
 
 # retrieve prior stage (walk after riding)
 priorStage2
-
 arrivalPos
+
+# test aborting a riding stage before pickup
+abort_riding
