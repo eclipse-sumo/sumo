@@ -79,7 +79,12 @@ FXMenuCheckIcon::getDefaultWidth() {
     if (aw && tw) {
         aw += 5;
     }
-    return LEADSPACE + tw + aw + TRAILSPACE;
+    // return width depending of icon
+    if (myIcon) {
+        return LEADSPACE + (myIcon->getWidth() + 5) + tw + aw + TRAILSPACE;
+    } else {
+        return LEADSPACE + tw + aw + TRAILSPACE;
+    }
 }
 
 
