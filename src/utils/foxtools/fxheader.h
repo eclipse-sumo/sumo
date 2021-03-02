@@ -15,13 +15,17 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2021
 ///
-// Main Header of FOX Toolkit
+// Main header of FOX Toolkit
 /****************************************************************************/
 #pragma once
 
-// Avoid Warning Level for External Headers
-#pragma warning(push, 0)
-#include <fx.h>
-#pragma warning(pop)
+/* Avoid warnings for external headers in MSVC */
+#ifdef _MSC_VER
+    #pragma warning(push, 0)
+    #include <fx.h>
+    #pragma warning(pop)
+#else
+    #include <fx.h>
+#endif
 
 // More info: https://devblogs.microsoft.com/cppblog/broken-warnings-theory/
