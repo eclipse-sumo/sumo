@@ -174,6 +174,28 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     }
                     break;
                 }
+                case libsumo::TL_CONSTRAINT_BYFOE: {
+                    std::string foeId;
+                    if (!server.readTypeCheckingString(inputStorage, foeId)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The foeId must be given as a string.", outputStorage);
+                    }
+                    std::vector<libsumo::TraCISignalConstraint> constraints = libsumo::TrafficLight::getConstraintsByFoe(id, foeId);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
+                    const int cnt = 1 + (int)constraints.size() * 5;
+                    server.getWrapperStorage().writeInt(cnt);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
+                    server.getWrapperStorage().writeInt((int)constraints.size());
+                    for (const auto& c : constraints) {
+                        StoHelp::writeTypedString(server.getWrapperStorage(), c.signalId);
+                        StoHelp::writeTypedString(server.getWrapperStorage(), c.tripId);
+                        StoHelp::writeTypedString(server.getWrapperStorage(), c.foeId);
+                        StoHelp::writeTypedString(server.getWrapperStorage(), c.foeSignal);
+                        StoHelp::writeTypedInt(server.getWrapperStorage(), c.limit);
+                        StoHelp::writeTypedInt(server.getWrapperStorage(), c.type);
+                        StoHelp::writeTypedByte(server.getWrapperStorage(), c.mustWait);
+                    }
+                    break;
+                }
                 case libsumo::TL_EXTERNAL_STATE: {
                     if (!MSNet::getInstance()->getTLSControl().knows(id)) {
                         throw libsumo::TraCIException("Traffic light '" + id + "' is not known");

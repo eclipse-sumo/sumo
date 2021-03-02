@@ -146,7 +146,9 @@ def _readConstraints(result):
 
 _RETURN_VALUE_FUNC = {tc.TL_COMPLETE_DEFINITION_RYG: _readLogics,
                       tc.TL_CONTROLLED_LINKS: _readLinks,
-                      tc.TL_CONSTRAINT: _readConstraints}
+                      tc.TL_CONSTRAINT: _readConstraints,
+                      tc.TL_CONSTRAINT_BYFOE: _readConstraints,
+                      }
 
 
 class TrafficLightDomain(Domain):
@@ -265,6 +267,15 @@ class TrafficLightDomain(Domain):
         returned. Otherwise, all constraints are returned
         """
         return self._getUniversal(tc.TL_CONSTRAINT, tlsID, "s", tripId)
+
+    def getConstraintsByFoe(self, foeSignal, foeId=""):
+        """getConstraintsByFoe(string, string) -> list(Constraint)
+        Returns the list of rail signal constraints that have the given rail
+        signal id as their foeSignal.
+        If foeId is not "", only constraints with the given foeId are
+        returned. Otherwise, all constraints are returned
+        """
+        return self._getUniversal(tc.TL_CONSTRAINT_BYFOE, foeSignal, "s", foeId)
 
     def setRedYellowGreenState(self, tlsID, state):
         """setRedYellowGreenState(string, string) -> None

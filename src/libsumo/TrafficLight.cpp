@@ -274,6 +274,38 @@ TrafficLight::getConstraints(const std::string& tlsID, const std::string& tripId
     return result;
 }
 
+std::vector<TraCISignalConstraint>
+TrafficLight::getConstraintsByFoe(const std::string& foeSignal, const std::string& foeId) {
+    // retrieve all constraints that have the given foeSignal (optionally filtered by foeId)
+    // @note could improve efficiency by storing a map of rail signals in MSRailSignalControl
+    std::vector<TraCISignalConstraint> result;
+    for (const std::string& tlsID : getIDList()) {
+        MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
+        MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);
+        if (s != nullptr) {
+            for (auto item : s->getConstraints()) {
+                for (MSRailSignalConstraint* cand : item.second) {
+                    MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);
+                    if (pc != nullptr && pc->myFoeSignal->getID() == foeSignal
+                            && (foeId == "" || pc->myTripId == foeId)) {
+                        result.push_back(buildConstraint(s->getID(), item.first, pc, false));
+                    }
+                }
+            }
+            for (auto item : s->getInsertionConstraints()) {
+                for (MSRailSignalConstraint* cand : item.second) {
+                    MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);
+                    if (pc != nullptr && pc->myFoeSignal->getID() == foeSignal
+                            && (foeId == "" || pc->myTripId == foeId)) {
+                        result.push_back(buildConstraint(s->getID(), item.first, pc, true));
+                    }
+                }
+            }
+        }
+    }
+    return result;
+}
+
 void
 TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId) {
     MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
@@ -312,7 +344,7 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
 void
 TrafficLight::removeConstraints(const std::string& foeId) {
     // remove all constraints that have the given foeId
-    // @noote could improve efficiency by storing a map in MSRailSignalControl
+    // @note could improve efficiency by storing a map of rail signals in MSRailSignalControl
     for (const std::string& tlsID : getIDList()) {
         MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
         MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);

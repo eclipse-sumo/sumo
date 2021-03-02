@@ -66,6 +66,7 @@ public:
     static std::vector<std::string> getRivalVehicles(const std::string& tlsID, int linkIndex);
     static std::vector<std::string> getPriorityVehicles(const std::string& tlsID, int linkIndex);
     static std::vector<libsumo::TraCISignalConstraint> getConstraints(const std::string& tlsID, const std::string& tripId = "");
+    static std::vector<libsumo::TraCISignalConstraint> getConstraintsByFoe(const std::string& foeSignal, const std::string& foeId = "");
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
