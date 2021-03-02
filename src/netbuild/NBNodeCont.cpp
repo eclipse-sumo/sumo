@@ -453,7 +453,7 @@ NBNodeCont::removeRailComponents(NBDistrictCont& dc, NBEdgeCont& ec, NBPTStopCon
 
 int
 NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
-                                NBTrafficLightLogicCont& tlc, NBPTStopCont& sc,
+                                NBTrafficLightLogicCont& /*tlc*/, NBPTStopCont& sc,
                                 NBParkingCont& pc,
                                 bool removeGeometryNodes) {
     // load edges that shall not be modified
@@ -475,6 +475,17 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
         }
     }
     std::vector<NBNode*> toRemove;
+
+    std::map<NBEdge*, std::set<NBTrafficLightDefinition*> > tlsLookup;
+    for (auto it = ec.begin(); it != ec.end(); it++) {
+        NBEdge* e = it->second;
+        NBNode* to = e->getToNode();
+        if (to->isTLControlled()) {
+            tlsLookup[e] = to->getControllingTLS();
+        }
+    }
+
+
     for (const auto& i : myNodes) {
         NBNode* const current = i.second;
         bool remove = false;
@@ -498,7 +509,12 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
             NBEdge* const continuation = j.second;
             begin->append(continuation);
             continuation->getToNode()->replaceIncoming(continuation, begin, 0);
-            tlc.replaceRemoved(continuation, -1, begin, -1, true);
+            auto itTL = tlsLookup.find(continuation);
+            if (itTL != tlsLookup.end()) {
+                for (NBTrafficLightDefinition* tls : itTL->second) {
+                    tls->replaceRemoved(continuation, -1, begin, -1, true);
+                }
+            }
             sc.replaceEdge(continuation->getID(), { begin });
             ec.extract(dc, continuation, true);
         }
