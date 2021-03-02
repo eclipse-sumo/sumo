@@ -579,7 +579,7 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
         // get file
         const std::string file = opendialog.getFilename().text();
         // check if file isn't empty first and current edited Net can be closed (und therefore the undo-list cleared, see #5753)
-        if (file.empty() && myViewNet && !onCmdClose(0, 0, 0)) {
+        if (!file.empty() && myViewNet && !onCmdClose(0, 0, 0)) {
             // set current folder
             gCurrentFolder = opendialog.getDirectory();
             // load network
