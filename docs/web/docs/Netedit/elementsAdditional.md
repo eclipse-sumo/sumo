@@ -73,7 +73,7 @@ Stopping places are sections of lanes, in which vehicles can stop during a certa
 
 #### Bus stop
 
-[Bus stops](../Simulation/Public_Transport.md) are positions of a
+[Bus stops](../Simulation/Public_Transport.md#bus_stops) are positions of a
 lane in which vehicles ("busses") stop for a pre-given time. Every Bus stop has an unique ID assigned automatically by
 **netedit**, a length and a list of bus lines defined by the user.
 
@@ -82,7 +82,7 @@ Bus stop
 
 #### Container stops
 
-[Container stops](../Specification/Logistics.md) are similar to BusStops, but they are oriented towards [logistics simulation](../Specification/Logistics.md).
+[Container stops](../Specification/Logistics.md#container_stops) are similar to BusStops, but they are oriented towards [logistics simulation](../Specification/Logistics.md).
 
 ![](../images/GNEContainerStop.png)    
 Container stop

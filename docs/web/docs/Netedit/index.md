@@ -14,7 +14,7 @@ title: netedit
 
 # Usage Description
 
-**netedit** is a visual network editor. It can be used to create networks from scratch and to modify all aspects of existing networks. With a powerful selection and highlighting interface it can also be used to debug network attributes. **netedit** is built on top of [netconvert](../netconvert.md). As a general rule of thumb, anything [netconvert](../netconvert.md) can do, **netedit** can do as well. **netedit** has unlimited undo/redo capabilities and thus allows editing mistakes to be quickly corrected. Editing commands are generally issued with a left-click (according to the current [edit mode](#edit_modes)). The user interface closely follows that of [sumo-gui](../sumo-gui.md#interaction_with_the_view). Additional keyboard hotkeys are documented in the *Help* menu.
+**netedit** is a visual network editor. It can be used to create networks from scratch and to modify all aspects of existing networks. With a powerful selection and highlighting interface it can also be used to debug network attributes. **netedit** is built on top of [netconvert](../netconvert.md). As a general rule of thumb, anything [netconvert](../netconvert.md) can do, **netedit** can do as well. **netedit** has unlimited undo/redo capabilities and thus allows editing mistakes to be quickly corrected. Editing commands are generally issued with a left-click (according to the current [edit mode](editModes.md)). The user interface closely follows that of [sumo-gui](../sumo-gui.md#interaction_with_the_view). Additional keyboard hotkeys are documented in the *Help* menu.
 
 **netedit** can also be used to define and edit
 
@@ -168,17 +168,17 @@ sumo-gui](../sumo-gui.md#keyboard_shortcuts) are supported.
 ## Customizing Visualization
 
 Most of the visualization options that are available in [sumo-gui](../sumo-gui.md#changing_the_appearancevisualisation_of_the_simulation) can also be set in netedit. This includes the facilities for [loading
-background images](../sumo-gui.md#using_decals_within_sumo-gui). It is also possible to load [POIs and Polygons](../Simulation/Shapes.md) using the menu *File-\>Load Shapes*.
+background images](../sumo-gui.md#showing_background_images). It is also possible to load [POIs and Polygons](elementsShape.md) using the menu *File-> Additionals and Shapes-> Load Additionals*.
 
 ### Background Grid
 
-When activating the background grid via the visualization settings dialog ![](../images/Colorwheel.gif) or via the *show grid* option in [Create Edge Mode](#create_edges), all clicks that create or move objects will snap to the nearest grid point. The resolution of the grid can be
+When activating the background grid via the visualization settings dialog ![](../images/Colorwheel.gif) or via the *show grid* option in [Create Edge Mode](editModesNetwork.md#create_edges), all clicks that create or move objects will snap to the nearest grid point. The resolution of the grid can be
 customized in the *Background*-Tab of the visualization settings dialog. By using hotkey **Ctrl-PageUp** the grid spacing is doubled and with **Ctrl-PageDown** the grid size is reduce by a factor of 2.
 
 ## Terminology
 
 The main network elements that are used to represent a road network in SUMO are [edges, lanes, junctions, connections, traffic
-lights](../Networks/SUMO_Road_Networks.md). [Additional infrastructure elements](#additional_elements) such as bus stops, detectors and variable speed signs are kept in separate files and
+lights](../Networks/SUMO_Road_Networks.md). [Additional infrastructure elements](elementsAdditional.md) such as bus stops, detectors and variable speed signs are kept in separate files and
 loaded at the start of the simulation. In SUMO the terms **node** and **junction** and **intersection** are used interchangeably (in netedit the term junction is used throughout).
 
 # Netedit usage

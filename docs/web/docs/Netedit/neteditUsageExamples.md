@@ -6,7 +6,7 @@ title: neteditUsageExamples
 
 ## Reducing the extent of the network
 
-1.  switch to [selection mode](#select)
+1.  switch to [selection mode](editModesCommon.md#select)
 2.  enable the *auto-select junctions* checkbox in the top menu bar
 3.  select the portion of the network you wish to keep (i.e. by holding *<SHIFT\>* and performing a rectangle-selection)
 4.  invert the selection with the *Invert* button
@@ -28,7 +28,7 @@ By default, the geometry of an edge starts with the position of the source junct
 
 ### Using 'Set geometry endpoint'
 
-1.  switch to [move mode](#move)
+1.  switch to [move mode](editModesCommon.md#move)
 2.  shift-click near the start or the end of the edge to create/remove a custom geometry endpoint (marked with 'S' at the start and 'E' and the end).
 3.  once create these special geometry points can be moved around like normal geometry points
 
@@ -37,18 +37,18 @@ By default, the geometry of an edge starts with the position of the source junct
 
 Afterwards, you will have to recompute the junction shape to see how it looks (F5). If you want to modify the edge and it's reverse edge at once this works almost the same way:
 
-1.  switch to [select mode](#select)
+1.  switch to [select mode](editModesCommon.md#select)
 2.  select both edges
-3.  switch to [move mode](#move)
+3.  switch to [move mode](editModesCommon.md#move)
 4.  create/move geometry points for that edge
 5.  create new geometry points where the endpoints of the edge should be
-6.  switch to [select mode](#select)
+6.  switch to [select mode](editModesCommon.md#select)
 7.  deselect both edges
 8.  right-click on the new endpoints and select Set geometry endpoint here twice (once for each edge)
 
 ### Entering the Position manually
 
-1.  switch to [inspect mode](#inspect)
+1.  switch to [inspect mode](editModesCommon.md#inspect)
 2.  click on the edge that shall be modified
 3.  enter new values for attributes *shapeStart* or *shapeEnd*
 
@@ -56,10 +56,10 @@ Afterwards, you will have to recompute the junction shape to see how it looks (F
 
 1.  create new junctions where the endpoints of the edge should be
   - Either split an existing edge (right-click and select *Split edge here*)
-  - Or [create a new edge with new junctions in create-edge mode](index.md#create_edges)
-2.  switch to [select mode](#select)
+  - Or [create a new edge with new junctions in create-edge mode](editModesNetwork.md#create_edges)
+2.  switch to [select mode](editModesCommon.md#select)
 3.  select the original junction and the new junction near it
-4.  Menu *Processing-\>Join Selected Junctions (F7)*
+4.  Menu *Processing -> Join Selected Junctions (F7)*
 
 This will create a single joined junction but keep the endpoints at the original junction positions.
 
@@ -80,7 +80,7 @@ This will create a single joined junction but keep the endpoints at the original
     intersection (this will be the radius of the roundabout)
 2.  Delete the central intersection
 3.  Connect the new intersections with one-way roads going in a circle
-4.  Tweak the geometry of the roundabout by creating additional geometry points in [move mode](#move) to make it more rounded. 
+4.  Tweak the geometry of the roundabout by creating additional geometry points in [move mode](editModesCommon.md#move) to make it more rounded. 
     You can also use the function 'smooth edge' from the edge context menu.
 5.  Check for correct right of way (the inside edge should have priority over the entering edges). This should work by default but may fail if the shape of the roundabout is not 'round' enough. Either correct the geometry or assign a higher priority value to the roundabout roads (compared to the adjoining roads)
 
@@ -135,7 +135,7 @@ When setting coloring to *by selection* it may also help to modify transparency 
 
 ## Defining a linear referencing scheme [(kilometrage / mileage/ chainage)](../Simulation/Railways.md#kilometrage_mileage_chainage)
 
-1. [Define a route](#route_mode) through your network along which you want to define kilometrage (in forward direction)
+1. [Define a route](editModesDemand.md#route_mode) through your network along which you want to define kilometrage (in forward direction)
 2. (optional) Use inspect mode to et the initial distance value of the first edge of the route (default 0)
 3) Right click the route element (in demand mode) and select 'Apply distance along route'
 
@@ -152,10 +152,10 @@ directions. To make a unidirectional track usable in both directions,
 
 ### Creating bidirectional tracks from scratch
 
-1.  use [\#Create_Edges](#create_edges) to create an edge
-2.  use [\#Inspect](#inspect) to set the edge attribute *allow* to *rail* (or a combination of one or more railway vehicle classes)
+1.  use [Create Edges](editModesNetwork.md#create_edges) to create an edge
+2.  use [Inspect](editModesCommon.md#inspect) to set the edge attribute *allow* to *rail* (or a combination of one or more railway vehicle classes)
 3.  set edge attribute *spreadType* to *center*
-4.  set the new edge as [\#Edge_template](#edge_template)
-5.  make the edge bidirectional as explained above in [\#Make_an_existing_track_bidirectional](#make_an_existing_track_bidirectional)
-6.  in [\#Create_Edges](#create_edges), set the checkbox to *Two-way* and optionally to *Chain*
+4.  set the new edge as [Edge template](editModesCommon.md#edge_template)
+5.  make the edge bidirectional as explained above in [Make an existing track bidirectional](#make_an_existing_track_bidirectional)
+6.  in [Create Edges](editModesNetwork.md#create_edges), set the checkbox to *Two-way* and optionally to *Chain*
 7.  continue to created edges. Each click will create bidirectional track

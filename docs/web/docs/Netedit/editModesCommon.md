@@ -29,7 +29,7 @@ The serialized form is useful in select mode when selecting objects with a parti
 
 ### Edge template
 
-When inspecting an edge, the extra buttons *set Edge ... as Template* and *Copy ... into edge ...* appear in the inspection frame. These can be used to set default attributes for [#Create_Edges](#create_edges) and to copy attributes between edges.
+When inspecting an edge, the extra buttons *set Edge ... as Template* and *Copy ... into edge ...* appear in the inspection frame. These can be used to set default attributes for [Create Edges](editModesNetwork.md#create_edges) and to copy attributes between edges.
 
 The following (non-unique) attributes are set/copied:
 
@@ -125,7 +125,7 @@ The 'Match Attribute' controls allow to specify a set of objects by matching the
 
 #### Special Cases
 
-- For attributes *allow* and *disallow*, the attribute value **all** is shown in [#Inspect](#inspect)-mode when all classes are allowed (or disallowed). In this case an edge (or lane) will also be selected when using any vClass as match string (and edge with attribute `disallow="all"` will also match when filtering for disallow with string **passenger**). However, for technical reasons the match
+- For attributes *allow* and *disallow*, the attribute value **all** is shown in [Inspect](#inspect)-mode when all classes are allowed (or disallowed). In this case an edge (or lane) will also be selected when using any vClass as match string (and edge with attribute `disallow="all"` will also match when filtering for disallow with string **passenger**). However, for technical reasons the match
   string **=all** will not match this edge (**all** is expanded to **all private emergency passenger bus ... custom1 custom2**).
 
 #### Examples
