@@ -25,7 +25,7 @@
 #include <map>
 #include <string>
 #include <set>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include "GUIGlObject.h"
 
 

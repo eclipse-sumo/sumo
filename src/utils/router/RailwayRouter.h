@@ -25,7 +25,7 @@
 #include <algorithm>
 #include <assert.h>
 #ifdef HAVE_FOX
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #endif
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOTime.h>

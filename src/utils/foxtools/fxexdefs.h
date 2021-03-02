@@ -25,7 +25,7 @@
 
 #include <config.h>
 
-#include <fx.h>
+#include "fxheader.h"
 
 #ifdef WIN32
 #define NOMINMAX

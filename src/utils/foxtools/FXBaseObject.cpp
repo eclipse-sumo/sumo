@@ -26,12 +26,9 @@
  * ======================================================================= */
 #include <config.h>
 
-#include <fxver.h>
 #define NOMINMAX
-#include <xincs.h>
 #undef NOMINMAX
-#include <fxdefs.h>
-#include <fx.h>
+#include "fxheader.h"
 /*
 #include <FXString.h>
 #include <FXHash.h>

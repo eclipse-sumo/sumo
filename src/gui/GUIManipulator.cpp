@@ -19,7 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <string>
 #include <gui/GUIApplicationWindow.h>
 #include "GUIManipulator.h"

@@ -11,39 +11,17 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEAbout.h
-/// @author  Jakob Erdmann
-/// @date    Feb 2011
+/// @file    fxheader.h
+/// @author  Pablo Alvarez Lopez
+/// @date    Mar 2021
 ///
-// The "About" - dialog for NETEDIT, (adapted from GUIDialog_AboutSUMO)
+// Main Header of FOX Toolkit
 /****************************************************************************/
 #pragma once
-#include <config.h>
 
-#include <utils/foxtools/fxheader.h>
+// Avoid Warning Level for External Headers
+#pragma warning(push, 0)
+#include <fx.h>
+#pragma warning(pop)
 
-
-// ===========================================================================
-// class definitions
-// ===========================================================================
-/**
- * @class GNEAbout
- * @brief The application's "About" - dialog
- */
-class GNEAbout : public FXDialogBox {
-public:
-    /**@brief Constructor
-     * @param[in] parent The parent window
-     */
-    GNEAbout(FXWindow* parent);
-
-    /// @brief Destructor
-    ~GNEAbout();
-
-    /// @brief Creates the widget
-    void create();
-
-private:
-    /// @brief Font for the widget
-    FXFont* myHeadlineFont;
-};
+// More info: https://devblogs.microsoft.com/cppblog/broken-warnings-theory/

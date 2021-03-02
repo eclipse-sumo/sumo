@@ -27,7 +27,7 @@
 #include <vector>
 #include <map>
 #include <functional>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/common/ValueSource.h>
 #include <utils/common/ValueRetriever.h>
 #include <utils/gui/globjects/GUIGlObject.h>

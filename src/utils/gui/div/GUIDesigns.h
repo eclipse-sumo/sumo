@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <string>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 
 // ===========================================================================
 // Class declaration

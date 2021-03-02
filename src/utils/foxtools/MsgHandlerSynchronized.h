@@ -23,7 +23,7 @@
 #include <config.h>
 
 #ifdef HAVE_FOX
-#include <fx.h>
+#include "fxheader.h"
 #endif
 #include <string>
 #include <vector>

@@ -22,7 +22,7 @@
 #include <config.h>
 
 #include <iostream>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GLIncludes.h>

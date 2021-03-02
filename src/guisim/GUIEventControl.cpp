@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <cassert>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include "GUIEventControl.h"
 
 

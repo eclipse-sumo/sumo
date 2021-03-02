@@ -23,7 +23,7 @@
 
 #include <string>
 #include <vector>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 
 
 // ===========================================================================

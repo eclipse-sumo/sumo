@@ -27,7 +27,7 @@
 #include <map>
 #include <set>
 #ifdef HAVE_FOX
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/foxtools/FXSynchQue.h>
 #endif
 #include <utils/distribution/RandomDistributor.h>

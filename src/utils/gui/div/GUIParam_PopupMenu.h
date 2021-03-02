@@ -23,7 +23,7 @@
 
 #include <config.h>
 
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/common/ValueSource.h>
 
 

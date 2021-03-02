@@ -29,7 +29,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/StdDefs.h>
 #ifdef HAVE_FOX
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #endif
 
 

@@ -21,7 +21,7 @@
 #pragma once
 #include <config.h>
 
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBNode.h>
 #include <netedit/elements/GNEHierarchicalContainer.h>

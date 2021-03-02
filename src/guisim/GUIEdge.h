@@ -25,7 +25,7 @@
 
 #include <vector>
 #include <string>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <microsim/MSEdge.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/settings/GUIPropertySchemeStorage.h>

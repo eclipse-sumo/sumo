@@ -37,7 +37,7 @@
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/geom/Boundary.h>
 #ifdef HAVE_FOX
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #endif
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include "RONode.h"

@@ -21,7 +21,7 @@
 #define MFXEditableTable_h
 #include <config.h>
 
-#include <fx.h>
+#include "fxheader.h"
 #include <set>
 
 struct MFXEditedTableItem {

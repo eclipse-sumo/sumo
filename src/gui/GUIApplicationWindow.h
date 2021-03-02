@@ -26,7 +26,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/foxtools/FXSynchQue.h>
 #include <utils/foxtools/FXThreadEvent.h>
 #include <utils/foxtools/MFXInterThreadEventClient.h>

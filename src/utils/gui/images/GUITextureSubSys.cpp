@@ -19,7 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <cassert>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/ToString.h>

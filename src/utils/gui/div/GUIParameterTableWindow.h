@@ -26,7 +26,7 @@
 #include <string>
 #include <algorithm>
 #include <functional>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/common/ValueSource.h>
 #include <utils/common/SUMOTime.h>
 #include "GUIParameterTableItem.h"

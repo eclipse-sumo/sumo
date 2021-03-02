@@ -26,7 +26,7 @@
 
 #include <config.h>
 
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/geom/Position.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/xml/SUMOSAXHandler.h>

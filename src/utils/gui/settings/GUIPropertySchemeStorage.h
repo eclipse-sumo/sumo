@@ -24,7 +24,7 @@
 #include <config.h>
 
 #include <vector>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/foxtools/MFXIconComboBox.h>
 #include <utils/foxtools/MFXUtils.h>

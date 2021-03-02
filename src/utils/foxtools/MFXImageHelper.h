@@ -23,7 +23,7 @@
 
 #include <string>
 #include <vector>
-#include <fx.h>
+#include "fxheader.h"
 #include <utils/common/UtilExceptions.h>
 
 class MFXImageHelper {

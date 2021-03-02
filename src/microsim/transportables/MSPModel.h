@@ -28,7 +28,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <microsim/transportables/MSPerson.h>
 #ifdef HAVE_FOX
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #endif
 
 // ===========================================================================

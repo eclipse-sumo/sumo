@@ -21,7 +21,7 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <microsim/MSRouteHandler.h>
 #include "GUIVehicleControl.h"
 #include "GUIVehicle.h"

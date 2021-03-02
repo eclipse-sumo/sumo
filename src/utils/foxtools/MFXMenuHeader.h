@@ -21,7 +21,7 @@
 #define MFXMenuHeader_h
 #include <config.h>
 
-#include <fx.h>
+#include "fxheader.h"
 
 class MFXMenuHeader : public FXMenuCommand {
 public:

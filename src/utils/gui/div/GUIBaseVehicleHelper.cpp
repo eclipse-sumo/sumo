@@ -18,7 +18,7 @@
 // Functions used in GUIBaseVehicleHelper and GNEVehicle
 /****************************************************************************/
 #include <config.h>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/images/GUITexturesHelper.h>

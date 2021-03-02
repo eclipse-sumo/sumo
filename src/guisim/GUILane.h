@@ -22,7 +22,7 @@
 #pragma once
 #include <config.h>
 
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <string>
 #include <utility>
 #include <microsim/MSLane.h>

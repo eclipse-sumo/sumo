@@ -29,7 +29,7 @@
 
 #include <list>
 #include <vector>
-#include <fx.h>
+#include "fxheader.h"
 #ifdef WORKLOAD_PROFILING
 #include <chrono>
 #include <utils/common/MsgHandler.h>

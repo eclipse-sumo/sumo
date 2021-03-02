@@ -24,7 +24,7 @@
 #include <map>
 #include <iostream>
 #include <cassert>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include "GUIGlObject.h"
 #include "GUIGlObjectStorage.h"
 

@@ -22,7 +22,7 @@
 #pragma once
 #include <config.h>
 
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
 #include "GUISUMOAbstractView.h"

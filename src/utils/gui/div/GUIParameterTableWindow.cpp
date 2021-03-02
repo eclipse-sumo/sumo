@@ -23,7 +23,7 @@
 #include <config.h>
 
 #include <string>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include "GUIParameterTableWindow.h"
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/common/ToString.h>
