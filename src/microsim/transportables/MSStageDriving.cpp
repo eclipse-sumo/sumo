@@ -384,17 +384,18 @@ MSStageDriving::setVehicle(SUMOVehicle* v) {
 
 void
 MSStageDriving::abort(MSTransportable* t) {
+    myDestinationStop = nullptr;
     if (myVehicle != nullptr) {
         // jumping out of a moving vehicle!
         myVehicle->removeTransportable(t);
         myDestination = myVehicle->getLane() == nullptr ? myVehicle->getEdge() : &myVehicle->getLane()->getEdge();
-        myDestinationStop = nullptr;
         // myVehicleDistance and myTimeLoss are updated in subsequent call to setArrived
     } else {
         MSTransportableControl& tc = (t->isPerson() ?
                                       MSNet::getInstance()->getPersonControl() :
                                       MSNet::getInstance()->getContainerControl());
         tc.abortWaitingForVehicle(t);
+        myDestination = myWaitingEdge;
     }
 }
 
