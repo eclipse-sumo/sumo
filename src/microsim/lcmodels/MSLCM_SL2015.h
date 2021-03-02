@@ -431,6 +431,8 @@ protected:
     double myRoundaboutBonus;
     // @brief factor for cooperative speed adjustment
     double myCooperativeSpeed;
+    // time for unrestricted driving on the right to accept keepRight change
+    double myKeepRightAcceptanceTime;
     //@}
 
     /// @name derived parameters
