@@ -166,6 +166,7 @@ def simple_rerouting(options, r_id_unassigned, r_id_picked, r_id_served, r_all, 
         filter_pairs.extend(assigned_v) # add to pairs
 
         pairs = [x_id for x_id, x in sorted(rv_dict.items(), key=lambda e: e[1][0]) if x[2][0] in filter_pairs and x[2][1] in filter_pairs]
+        first_pairs = []
         # get first pairs
         if assigned_v:
             # if requests assigned, changes only possible after second stops to avoid detours
@@ -173,14 +174,16 @@ def simple_rerouting(options, r_id_unassigned, r_id_picked, r_id_served, r_all, 
             # tt 1 2 equivalent to tt 3 1 2, if so, add key to first pairs
             next_act = traci.vehicle.getStops(v_id, 1)[0]
             if next_act.arrival > 0: # if stop is occurring in this step
-                next_act, next_id = traci.vehicle.getStops(v_id, 2)[1].actType.split(",")[0].split(" ")
+                next_act = traci.vehicle.getStops(v_id, 2)[1].actType.split(",")
             else:
-                next_act, next_id = next_act.actType.split(",")[0].split(" ")
-            if next_act == 'pickup':
-                next_act = 'y'
-            else:
-                next_act = 'z'
-            first_pairs = ["%s_%s%s" % (v_id, next_id,next_act)]
+                next_act = next_act.actType.split(",")
+            next_id = []
+            for s in next_act:
+                if 'pickup' in s:
+                    next_id.append('%sy' % s.split(" ")[1])
+                else:
+                    next_id.append('%sz' % s.split(" ")[1])
+            first_pairs = ["%s_%s" % (v_id, "_".join(next_id))]
         else:
             # if not, consider all possible
             first_pairs = [x for x in pairs if x.startswith(v_id)]
@@ -224,12 +227,17 @@ def simple_rerouting(options, r_id_unassigned, r_id_picked, r_id_served, r_all, 
                         continue
 
                     if route == first_pair:
-                        pax = rv_dict[first_pair][1] + rv_dict[pair][1] # num passenger
+                        # if more than 1 reservation in stop, cannot call rvGraph
+                        first_pair_pax = first_pair.count('y') - first_pair.count('z')
+                        pax = first_pair_pax + rv_dict[pair][1] # num passenger
+                        first_pair = ("_").join(first_pair.split("_")[:2]) # consider only one time
                         route_tw = rv_dict[first_pair][0]+step + rv_dict[pair][0] # travel time
                     else:
-                        pax = route_id[route][1] + rv_dict[pair][1] # num passenger
-                        route_tw = route_id[route][0] + rv_dict[pair][0] # travel time
-                    
+                        try:
+                            pax = route_id[route][1] + rv_dict[pair][1] # num passenger
+                            route_tw = route_id[route][0] + rv_dict[pair][0] # travel time
+                        except:
+                            print("Check")
                     # check capacity
                     if pax > v_capacity:
                         continue # capacity surpass
