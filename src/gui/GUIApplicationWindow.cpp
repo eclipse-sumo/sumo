@@ -565,7 +565,7 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuSeparator(myWindowsMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myWindowsMenu,
                                            "Clear Message Window", "", "Clear the message window.",
-                                           nullptr, this, MID_CLEARMESSAGEWINDOW);
+                                           GUIIconSubSys::getIcon(GUIIcon::CLEARMESSAGEWINDOW), this, MID_CLEARMESSAGEWINDOW);
     // build help menu
     myHelpMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar,
