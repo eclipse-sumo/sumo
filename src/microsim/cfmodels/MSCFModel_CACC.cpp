@@ -93,7 +93,9 @@ MSCFModel_CACC::MSCFModel_CACC(const MSVehicleType* vtype) :
     myGapControlGainGapDot(vtype->getParameter().getCFParam(SUMO_ATTR_GC_GAIN_GAP_DOT_CACC, DEFAULT_GC_GAIN_GAP_DOT_CACC)),
     myCollisionAvoidanceGainGap(vtype->getParameter().getCFParam(SUMO_ATTR_CA_GAIN_GAP_CACC, DEFAULT_CA_GAIN_GAP_CACC)),
     myCollisionAvoidanceGainGapDot(vtype->getParameter().getCFParam(SUMO_ATTR_CA_GAIN_GAP_DOT_CACC, DEFAULT_CA_GAIN_GAP_DOT_CACC)),
-    myHeadwayTimeACC(vtype->getParameter().getCFParam(SUMO_ATTR_HEADWAY_TIME_CACC_TO_ACC, DEFAULT_HEADWAYTIME_ACC)) {
+    myHeadwayTimeACC(vtype->getParameter().getCFParam(SUMO_ATTR_HEADWAY_TIME_CACC_TO_ACC, DEFAULT_HEADWAYTIME_ACC)),
+    myApplyDriverstate(vtype->getParameter().getCFParam(SUMO_ATTR_APPLYDRIVERSTATE, 0))
+{
     myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
     acc_CFM.setHeadwayTime(myHeadwayTimeACC);
 }
@@ -111,6 +113,9 @@ MSCFModel_CACC::freeSpeed(const MSVehicle* const veh, double speed, double seen,
 
 double
 MSCFModel_CACC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
+    if (myApplyDriverstate) {
+        applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap2pred, predSpeed, predMaxDecel, pred);
+    }
 
     const double desSpeed = veh->getLane()->getVehicleMaxSpeed(veh);
     const double vCACC = _v(veh, pred, gap2pred, speed, predSpeed, desSpeed, true);
@@ -139,6 +144,9 @@ MSCFModel_CACC::followSpeed(const MSVehicle* const veh, double speed, double gap
 
 double
 MSCFModel_CACC::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
+    if (myApplyDriverstate) {
+        applyHeadwayPerceptionError(veh, speed, gap);
+    }
 
     // NOTE: This allows return of smaller values than minNextSpeed().
     // Only relevant for the ballistic update: We give the argument headway=TS, to assure that
