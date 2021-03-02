@@ -4,7 +4,7 @@ title: elementsDemand
 
 # Demand elements
 
-*Demand elements* are the elements that NETEDIT uses to define vehicular demand for SUMO. All of this elements can be created, inspected and selected in supermode *demand* (F2)
+*Demand elements* are the elements that [netedit](index.md) uses to define vehicular demand for SUMO. All of this elements can be created, inspected and selected in supermode *Demand* (F3).
 
 ## Route
 

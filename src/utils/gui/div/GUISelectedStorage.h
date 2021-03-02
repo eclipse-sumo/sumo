@@ -26,7 +26,7 @@
 #include <string>
 #include <map>
 #include <fstream>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 

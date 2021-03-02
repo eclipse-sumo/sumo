@@ -22,7 +22,7 @@
 #include <config.h>
 
 #include <map>
-#include <fx.h>
+#include "fxheader.h"
 
 /// @brief FXRecentNetworks
 class FXRecentNetworks : public FXRecentFiles {

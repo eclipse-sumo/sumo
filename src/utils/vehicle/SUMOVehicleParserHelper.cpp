@@ -1205,6 +1205,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         ACCParams.insert(SUMO_ATTR_GC_GAIN_SPACE);
         ACCParams.insert(SUMO_ATTR_CA_GAIN_SPEED);
         ACCParams.insert(SUMO_ATTR_CA_GAIN_SPACE);
+        ACCParams.insert(SUMO_ATTR_APPLYDRIVERSTATE);
         allowedCFModelAttrs[SUMO_TAG_CF_ACC] = ACCParams;
         allParams.insert(ACCParams.begin(), ACCParams.end());
 
@@ -1228,6 +1229,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         CACCParams.insert(SUMO_ATTR_CA_GAIN_SPEED);
         CACCParams.insert(SUMO_ATTR_CA_GAIN_SPACE);
         CACCParams.insert(SUMO_ATTR_HEADWAY_TIME_CACC_TO_ACC);
+        CACCParams.insert(SUMO_ATTR_APPLYDRIVERSTATE);
         allowedCFModelAttrs[SUMO_TAG_CF_CACC] = CACCParams;
         allParams.insert(CACCParams.begin(), CACCParams.end());
 
@@ -1282,6 +1284,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
         lc2013Params.insert(SUMO_ATTR_LCA_COOPERATIVE_SPEED);
         lc2013Params.insert(SUMO_ATTR_LCA_OVERTAKE_RIGHT);
         lc2013Params.insert(SUMO_ATTR_LCA_SIGMA);
+        lc2013Params.insert(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME);
         lc2013Params.insert(SUMO_ATTR_LCA_EXPERIMENTAL1);
         allowedLCModelAttrs[LCM_LC2013] = lc2013Params;
 

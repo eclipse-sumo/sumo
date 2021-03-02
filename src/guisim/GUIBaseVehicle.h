@@ -26,7 +26,7 @@
 #include <vector>
 #include <set>
 #include <string>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/common/RGBColor.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/PositionVector.h>

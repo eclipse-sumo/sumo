@@ -592,6 +592,8 @@ struct TraCICollision {
 
 
 struct TraCISignalConstraint {
+    /// @brief the idea of the rail signal where this constraint is active
+    std::string signalId;
     /// @brief the tripId or vehicle id of the train that is constrained
     std::string tripId;
     /// @brief the tripId or vehicle id of the train that must pass first

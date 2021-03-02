@@ -21,11 +21,9 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <fxver.h>
 #define NOMINMAX
-#include <xincs.h>
 #undef NOMINMAX
-#include <fx.h>
+#include "fxheader.h"
 #include <utils/common/StdDefs.h>
 /*
 #include <fxdefs.h>
@@ -43,7 +41,6 @@
 #endif
 
 using namespace FX;
-#include "fxexdefs.h"
 #include "FXThreadEvent.h"
 
 // ===========================================================================

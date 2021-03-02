@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Di 04 Aug 2020 15:56:59 CEST by Eclipse SUMO netedit Version v1_6_0+1389-ecd33cdf00
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/kobo/dlr/sumo/tests/sumo/lc_model/keep_right/empty_roads/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/kobo/dlr/sumo/tests/sumo/lc_model/keep_right/empty_roads/net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,-200.00,1000.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="A" from="gneJ2" to="gneJ3" priority="1">
+        <lane id="A_0" index="0" speed="8.33" length="1000.00" shape="0.00,95.20 1000.00,95.20"/>
+        <lane id="A_1" index="1" speed="8.33" length="1000.00" shape="0.00,98.40 1000.00,98.40"/>
+    </edge>
+    <edge id="B" from="gneJ0" to="gneJ1" priority="1">
+        <lane id="B_0" index="0" speed="13.89" length="1000.00" shape="0.00,-4.80 1000.00,-4.80"/>
+        <lane id="B_1" index="1" speed="13.89" length="1000.00" shape="0.00,-1.60 1000.00,-1.60"/>
+    </edge>
+    <edge id="C" from="gneJ4" to="gneJ5" priority="1">
+        <lane id="C_0" index="0" speed="27.78" length="1000.00" shape="0.00,-104.80 1000.00,-104.80"/>
+        <lane id="C_1" index="1" speed="27.78" length="1000.00" shape="0.00,-101.60 1000.00,-101.60"/>
+    </edge>
+    <edge id="D" from="gneJ6" to="gneJ7" priority="1">
+        <lane id="D_0" index="0" speed="36.11" length="1000.00" shape="0.00,-204.80 1000.00,-204.80"/>
+        <lane id="D_1" index="1" speed="36.11" length="1000.00" shape="0.00,-201.60 1000.00,-201.60"/>
+    </edge>
+
+    <junction id="gneJ0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-6.40"/>
+    <junction id="gneJ1" type="dead_end" x="1000.00" y="0.00" incLanes="B_0 B_1" intLanes="" shape="1000.00,-6.40 1000.00,0.00"/>
+    <junction id="gneJ2" type="dead_end" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,100.00 0.00,93.60"/>
+    <junction id="gneJ3" type="dead_end" x="1000.00" y="100.00" incLanes="A_0 A_1" intLanes="" shape="1000.00,93.60 1000.00,100.00"/>
+    <junction id="gneJ4" type="dead_end" x="0.00" y="-100.00" incLanes="" intLanes="" shape="0.00,-100.00 0.00,-106.40"/>
+    <junction id="gneJ5" type="dead_end" x="1000.00" y="-100.00" incLanes="C_0 C_1" intLanes="" shape="1000.00,-106.40 1000.00,-100.00"/>
+    <junction id="gneJ6" type="dead_end" x="0.00" y="-200.00" incLanes="" intLanes="" shape="0.00,-200.00 0.00,-206.40"/>
+    <junction id="gneJ7" type="dead_end" x="1000.00" y="-200.00" incLanes="D_0 D_1" intLanes="" shape="1000.00,-206.40 1000.00,-200.00"/>
+
+</net>

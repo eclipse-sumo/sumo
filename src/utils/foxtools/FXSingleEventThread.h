@@ -24,7 +24,7 @@
 #define FXSingleEventThread_h
 #include <config.h>
 
-#include <fx.h>
+#include "fxheader.h"
 #include <FXThread.h>
 #include "fxexdefs.h"
 

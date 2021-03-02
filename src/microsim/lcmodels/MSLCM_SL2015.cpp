@@ -57,7 +57,6 @@
 #define URGENCY 2.0
 
 #define KEEP_RIGHT_TIME 5.0 // the number of seconds after which a vehicle should move to the right lane
-#define KEEP_RIGHT_ACCEPTANCE 7.0 // calibration factor for determining the desire to keep right
 
 #define RELGAIN_NORMALIZATION_MIN_SPEED 10.0
 
@@ -148,6 +147,7 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     mySpeedGainLookahead(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD, 5)),
     myRoundaboutBonus(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT, myCooperativeParam)),
     myCooperativeSpeed(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_SPEED, myCooperativeParam)),
+    myKeepRightAcceptanceTime(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME, -1)),
     mySigmaState(0) {
     initDerivedParameters();
 }
@@ -1606,10 +1606,33 @@ MSLCM_SL2015::_wantsChangeSublane(
         if (right && myVehicle.getSpeed() > 0 && (maxGainRight >= 0
                 || ((myPreviousState & LCA_KEEPRIGHT) != 0 && maxGainRight >= -myKeepRightParam))) {
             // honor the obligation to keep right (Rechtsfahrgebot)
-            // XXX consider fast approaching followers on the current lane
-            //const double vMax = myLookAheadSpeed;
             const double vMax = myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle);
-            const double acceptanceTime = KEEP_RIGHT_ACCEPTANCE * vMax * MAX2(1., myVehicle.getSpeed()) / myVehicle.getLane()->getSpeedLimit();
+            const double roadSpeedFactor = vMax / myVehicle.getLane()->getSpeedLimit(); // differse from speedFactor if vMax < speedLimit
+            double acceptanceTime;
+            if (myKeepRightAcceptanceTime == -1) {
+                // legacy behavior: scale acceptance time with current speed and
+                // use old hard-coded constant
+                acceptanceTime = 7 * roadSpeedFactor * MAX2(1.0, myVehicle.getSpeed());
+            } else {
+                acceptanceTime = myKeepRightAcceptanceTime * roadSpeedFactor;
+                if (followers.hasVehicles()) {
+                    // reduce acceptanceTime if a follower vehicle is faster or wants to drive faster
+                    double minFactor = 1.0;
+                    for (int i = 0; i < followers.numSublanes(); ++i) {
+                        CLeaderDist follower = followers[i];
+                        if (follower.first != nullptr && follower.second < 2 * follower.first->getCarFollowModel().brakeGap(follower.first->getSpeed())) {
+                            const double fRSF = follower.first->getLane()->getVehicleMaxSpeed(follower.first) / follower.first->getLane()->getSpeedLimit();
+                            const double factor = MAX2(1.0, myVehicle.getSpeed()) /
+                                (MAX3(follower.first->getSpeed(), 1.0, myVehicle.getSpeed())
+                                 * MAX2(roadSpeedFactor, fRSF));
+                            if (factor < minFactor) {
+                                minFactor = factor;
+                            }
+                        }
+                    }
+                    acceptanceTime *= minFactor;
+                }
+            }
             double fullSpeedGap = MAX2(0., neighDist - myVehicle.getCarFollowModel().brakeGap(vMax));
             double fullSpeedDrivingSeconds = MIN2(acceptanceTime, fullSpeedGap / vMax);
             CLeaderDist neighLead = getSlowest(neighLeaders);
@@ -3453,6 +3476,8 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(myLaneDiscipline);
     } else if (key == toString(SUMO_ATTR_LCA_SIGMA)) {
         return toString(mySigma);
+    } else if (key == toString(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME)) {
+        return toString(myKeepRightAcceptanceTime);
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
         return toString(mySpeedGainLookahead);
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT)) {
@@ -3504,6 +3529,8 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
         myLaneDiscipline = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SIGMA)) {
         mySigma = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME)) {
+        myKeepRightAcceptanceTime = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
         mySpeedGainLookahead = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT)) {
@@ -3523,6 +3550,7 @@ MSLCM_SL2015::wantsChange(
     MSAbstractLaneChangeModel::MSLCMessager& /* msgPass */,
     int blocked,
     const std::pair<MSVehicle*, double>& leader,
+    const std::pair<MSVehicle*, double>& follower,
     const std::pair<MSVehicle*, double>& neighLead,
     const std::pair<MSVehicle*, double>& neighFollow,
     const MSLane& neighLane,
@@ -3550,7 +3578,7 @@ MSLCM_SL2015::wantsChange(
     double latDist = 0;
     const MSLane* dummy = myVehicle.getLane();
     MSLeaderDistanceInfo leaders(leader, dummy);
-    MSLeaderDistanceInfo followers(std::make_pair((MSVehicle*)nullptr, -1), dummy);
+    MSLeaderDistanceInfo followers(follower, dummy);
     MSLeaderDistanceInfo blockers(std::make_pair((MSVehicle*)nullptr, -1), dummy);
     MSLeaderDistanceInfo neighLeaders(neighLead, dummy);
     MSLeaderDistanceInfo neighFollowers(neighFollow, dummy);

@@ -21,7 +21,7 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/windows/GUIGlChildWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>

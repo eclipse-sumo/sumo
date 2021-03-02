@@ -22,7 +22,7 @@
 #include <config.h>
 
 
-#include <fx.h>
+#include "fxheader.h"
 
 /**
 * The menu check widget is used to change a state in the

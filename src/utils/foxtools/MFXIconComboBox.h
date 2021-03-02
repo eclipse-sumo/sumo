@@ -22,7 +22,7 @@
 #define MFXIconComboBox_h
 #include <config.h>
 
-#include <fx.h>
+#include "fxheader.h"
 
 
 /** A list item which allows for custom coloring

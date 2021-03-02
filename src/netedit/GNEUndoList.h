@@ -28,7 +28,7 @@
 
 #include <stack>
 #include <string>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 
 
 // ===========================================================================

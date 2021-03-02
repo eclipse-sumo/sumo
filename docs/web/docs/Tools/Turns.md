@@ -18,15 +18,16 @@ There are three basic styles of converting turn-counts to routes:
 
 ## Turn count data format
 The turn-count data must be provided in the format:
-```
+
+```xml
 <interval id="generated" begin="0.0" end="99.0">
-        <edgeRelation from="-58.121.42" to="64" count="1"/>
-        <edgeRelation from="-58.121.42" to="-31" count="3"/>
-        <edgeRelation from="45" to="-68" count="3"/>
-        <edgeRelation from="-31.80.00" to="31" count="1"/>
-        <edgeRelation from="-31.80.00" to="37" count="1"/>
-        <edgeRelation from="-31.80.00" to="-23" count="13"/>
-        <edgeRelation from="-92.180.00" to="-60" count="1"/>
+    <edgeRelation from="-58.121.42" to="64" count="1"/>
+    <edgeRelation from="-58.121.42" to="-31" count="3"/>
+    <edgeRelation from="45" to="-68" count="3"/>
+    <edgeRelation from="-31.80.00" to="31" count="1"/>
+    <edgeRelation from="-31.80.00" to="37" count="1"/>
+    <edgeRelation from="-31.80.00" to="-23" count="13"/>
+    <edgeRelation from="-92.180.00" to="-60" count="1"/>
 </interval>
 ```
 
@@ -35,7 +36,7 @@ The script generates routes from *any combination* of turn-count data, edge-coun
 the resulting routes fulfill the counting data
 
 ## turn counts
-The turn-count data format is the same as as described [above](#turn-count-data-format).
+The turn-count data format is the same as as described [above](#turn_count_data_format).
 ```
 python tools/routeSampler.py -r <input-route-file> --turn-files <turn-files -o <output-file>
 ```
@@ -72,8 +73,9 @@ python tools/routeSampler.py -r sampleRoutes.rou.xml --edgedata-files <edgedat
 By default, the input options --edgedata-files and --turn-files allow restricting counts for single edges and pairs of consecutive edges. 
 
 To define count restrictions for longer consecutive edge sequences the optional 'via' attribute can be used for `<edgeRelation>` elements:
-```
-   <edgeRelation from="A" to="D" via="B C" count="42"/>
+
+```xml
+<edgeRelation from="A" to="D" via="B C" count="42"/>
 ```
 
 To define count restrictions on non-consecutive edges the option **--turn-max-gap <INT>** can be used. Example:

@@ -23,7 +23,7 @@
 #include <config.h>
 
 #include <vector>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <microsim/MSVehicleControl.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 

@@ -202,9 +202,10 @@ bindings are included when downloading a sumo-build.
   tools/traci](TraCI/Interfacing_TraCI_from_Python.md) allows
   to interact with [sumo](sumo.md) using Python (This library
   is tested daily and supports all TraCI commands).
-- C++: [The C++ TraCIAPI](TraCI/C++TraCIAPI.md) is client
-  library that is part of the [sumo](sumo.md)-source tree (API
-  coverage is almost complete).
+- C++: [libtraci](Libtraci.md) is a client library that is part of the [sumo](sumo.md)-source tree. It is fully API-compatible with [libsumo](Libsumo.md). 
+- C++: [The C++ TraCIAPI](TraCI/C++TraCIAPI.md) is a client
+  library that is part of the [sumo](sumo.md)-source tree. (API
+  coverage is almost complete but this client is no longer updated. Use libtraci instead)
 - C++: [The Veins project](http://veins.car2x.org) provides a
   middle-ware for coupling [sumo](sumo.md) with
   [OMNET++](https://omnetpp.org/). As part of the infrastructure it
@@ -219,15 +220,11 @@ bindings are included when downloading a sumo-build.
   {{SUMO}}*/tools/contributed/traci4matlab*
   Not all TraCI commands have been
   implemented.
+- Java: [libtraci](Libtraci.md) is a client library that is part of the [sumo](sumo.md)-source tree. It is fully API-compatible with [libsumo](Libsumo.md) and a sumo release provides pro-compiled Java bindings (via SWIG).
 - Java: [TraaS](TraCI/TraaS.md#java_client) provides a client
   library that is part of the [sumo](sumo.md)-source tree (API
-  coverage is almost complete).
-- Others: Any language that can access webservices using
-  [SOAP](https://en.wikipedia.org/wiki/SOAP) can access SUMO using the
-  [TraaS Webservice](TraCI/TraaS.md#webservice). A [Java
-  webservice client](TraCI/TraaS.md#webservice_client) is also
-  included with TraaS. API lags
-  behind the python client.
+  coverage is large but this client is no longer updated. Use libtraci instead)
+- Others: Any language that is supported by SWIG can in principle use the bindings provided by libsumo or libtraci
 
 ### V2X simulation
 

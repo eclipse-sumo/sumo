@@ -22,7 +22,7 @@
 #include <config.h>
 
 
-#include <fx.h>
+#include "fxheader.h"
 
 /// @brief FXTreeListDinamic
 class FXTreeListDinamic : public FXTreeList {

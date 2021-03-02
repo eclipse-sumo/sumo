@@ -22,7 +22,7 @@
 
 #include <utils/foxtools/FXThreadEvent.h>
 #include <utils/foxtools/FXBaseObject.h>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 
 
 /**

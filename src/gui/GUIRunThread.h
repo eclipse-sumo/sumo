@@ -26,7 +26,7 @@
 #include <vector>
 #include <set>
 #include <iostream>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/foxtools/FXSingleEventThread.h>
 #include <utils/foxtools/FXThreadEvent.h>
 #include <utils/foxtools/FXSynchQue.h>

@@ -23,7 +23,7 @@
 #pragma once
 #include <config.h>
 
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <microsim/output/MSInductLoop.h>
 #include <utils/geom/Position.h>
 #include "GUIDetectorWrapper.h"

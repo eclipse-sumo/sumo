@@ -23,7 +23,7 @@
 #define FXLinkLabel_h
 #include <config.h>
 
-#include <fx.h>
+#include "fxheader.h"
 
 /** A label which points to a link.
 * This class behaves very much like the FXLabel class but it

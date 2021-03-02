@@ -693,6 +693,7 @@ MSLaneChanger::checkChangeWithinEdge(
     const std::pair<MSVehicle* const, double>& leader,
     const std::vector<MSVehicle::LaneQ>& preb) const {
 
+    std::pair<MSVehicle*, double> follower = getRealFollower(myCandi);
     std::pair<MSVehicle* const, double> neighLead = getRealLeader(myCandi + laneOffset);
     std::pair<MSVehicle*, double> neighFollow = getRealFollower(myCandi + laneOffset);
     if (neighLead.first != nullptr && neighLead.first == neighFollow.first) {
@@ -701,7 +702,7 @@ MSLaneChanger::checkChangeWithinEdge(
         neighFollow.first = 0;
     }
     ChangerIt target = myCandi + laneOffset;
-    return checkChange(laneOffset, target->lane, leader, neighLead, neighFollow, preb);
+    return checkChange(laneOffset, target->lane, leader, follower, neighLead, neighFollow, preb);
 }
 
 int
@@ -709,6 +710,7 @@ MSLaneChanger::checkChange(
     int laneOffset,
     const MSLane* targetLane,
     const std::pair<MSVehicle* const, double>& leader,
+    const std::pair<MSVehicle* const, double>& follower,
     const std::pair<MSVehicle* const, double>& neighLead,
     const std::pair<MSVehicle* const, double>& neighFollow,
     const std::vector<MSVehicle::LaneQ>& preb) const {
@@ -848,7 +850,7 @@ MSLaneChanger::checkChange(
 
     MSAbstractLaneChangeModel::MSLCMessager msg(leader.first, neighLead.first, neighFollow.first);
     int state = blocked | vehicle->getLaneChangeModel().wantsChange(
-                    laneOffset, msg, blocked, leader, neighLead, neighFollow, *targetLane, preb, &(myCandi->lastBlocked), &(myCandi->firstBlocked));
+                    laneOffset, msg, blocked, leader, follower, neighLead, neighFollow, *targetLane, preb, &(myCandi->lastBlocked), &(myCandi->firstBlocked));
 
     if (blocked == 0 && (state & LCA_WANTS_LANECHANGE) != 0 && neighLead.first != nullptr) {
         // do a more careful (but expensive) check to ensure that a
@@ -1456,7 +1458,8 @@ MSLaneChanger::checkChangeOpposite(
         const std::vector<MSVehicle::LaneQ>& preb) {
     const bool isOpposite = vehicle->getLaneChangeModel().isOpposite();
     MSLane* source = vehicle->getMutableLane();
-    int state = checkChange(laneOffset, targetLane, leader, neighLead, neighFollow, preb);
+    const std::pair<MSVehicle* const, double> follower(nullptr, -1);
+    int state = checkChange(laneOffset, targetLane, leader, follower, neighLead, neighFollow, preb);
     vehicle->getLaneChangeModel().setOwnState(state);
     bool changingAllowed = (state & LCA_BLOCKED) == 0;
     // change if the vehicle wants to and is allowed to change

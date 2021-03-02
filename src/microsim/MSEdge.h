@@ -29,7 +29,7 @@
 #include <string>
 #include <iostream>
 #ifdef HAVE_FOX
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #endif
 #include <utils/common/Named.h>
 #include <utils/common/Parameterised.h>

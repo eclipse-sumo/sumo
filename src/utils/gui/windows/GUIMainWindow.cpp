@@ -23,7 +23,7 @@
 
 #include <string>
 #include <algorithm>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 // fx3d includes windows.h so we need to guard against macro pollution
 #ifdef WIN32
 #define NOMINMAX

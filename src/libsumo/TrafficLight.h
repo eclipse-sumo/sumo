@@ -66,6 +66,7 @@ public:
     static std::vector<std::string> getRivalVehicles(const std::string& tlsID, int linkIndex);
     static std::vector<std::string> getPriorityVehicles(const std::string& tlsID, int linkIndex);
     static std::vector<libsumo::TraCISignalConstraint> getConstraints(const std::string& tlsID, const std::string& tripId = "");
+    static std::vector<libsumo::TraCISignalConstraint> getConstraintsByFoe(const std::string& foeSignal, const std::string& foeId = "");
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
@@ -93,7 +94,7 @@ public:
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
-    static libsumo::TraCISignalConstraint buildConstraint(const std::string& tripId, MSRailSignalConstraint* constraint, bool insertionConstraint); 
+    static libsumo::TraCISignalConstraint buildConstraint(const std::string& tlsID, const std::string& tripId, MSRailSignalConstraint* constraint, bool insertionConstraint); 
     static void removeConstraints(const std::string& foeID);
 
 private:

@@ -19,7 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <gui/GUIGlobals.h>
 #include <microsim/MSRouteHandler.h>

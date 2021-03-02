@@ -64,7 +64,6 @@
 #define OPPOSITE_URGENCY 5.0
 
 #define KEEP_RIGHT_TIME 5.0 // the number of seconds after which a vehicle should move to the right lane
-#define KEEP_RIGHT_ACCEPTANCE 7.0 // calibration factor for determining the desire to keep right
 
 #define KEEP_RIGHT_HEADWAY 2.0
 #define MAX_ONRAMP_LENGTH 200.
@@ -113,6 +112,7 @@ MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
     myRoundaboutBonus(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT, myCooperativeParam)),
     myCooperativeSpeed(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_SPEED, myCooperativeParam)),
     myOvertakeRightParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_OVERTAKE_RIGHT, 0)),
+    myKeepRightAcceptanceTime(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME, -1)),
     myExperimentalParam1(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)) {
     initDerivedParameters();
 #ifdef DEBUG_CONSTRUCTOR
@@ -152,6 +152,7 @@ MSLCM_LC2013::wantsChange(
     MSAbstractLaneChangeModel::MSLCMessager& msgPass,
     int blocked,
     const std::pair<MSVehicle*, double>& leader,
+    const std::pair<MSVehicle*, double>& follower,
     const std::pair<MSVehicle*, double>& neighLead,
     const std::pair<MSVehicle*, double>& neighFollow,
     const MSLane& neighLane,
@@ -173,7 +174,7 @@ MSLCM_LC2013::wantsChange(
     }
 #endif
 
-    const int result = _wantsChange(laneOffset, msgPass, blocked, leader, neighLead, neighFollow, neighLane, preb, lastBlocked, firstBlocked);
+    const int result = _wantsChange(laneOffset, msgPass, blocked, leader, follower, neighLead, neighFollow, neighLane, preb, lastBlocked, firstBlocked);
 
 #ifdef DEBUG_WANTS_CHANGE
     if (DEBUG_COND) {
@@ -1063,6 +1064,7 @@ MSLCM_LC2013::_wantsChange(
     MSAbstractLaneChangeModel::MSLCMessager& msgPass,
     int blocked,
     const std::pair<MSVehicle*, double>& leader,
+    const std::pair<MSVehicle*, double>& follower,
     const std::pair<MSVehicle*, double>& neighLead,
     const std::pair<MSVehicle*, double>& neighFollow,
     const MSLane& neighLane,
@@ -1609,9 +1611,23 @@ MSLCM_LC2013::_wantsChange(
             }
 
             // honor the obligation to keep right (Rechtsfahrgebot)
-            // XXX consider fast approaching followers on the current lane. Refs #2578
-            //const double vMax = myLookAheadSpeed;
-            const double acceptanceTime = KEEP_RIGHT_ACCEPTANCE * vMax * MAX2(1.0, myVehicle.getSpeed()) / myVehicle.getLane()->getSpeedLimit();
+            const double roadSpeedFactor = vMax / myVehicle.getLane()->getSpeedLimit(); // differse from speedFactor if vMax < speedLimit
+            double acceptanceTime;
+            if (myKeepRightAcceptanceTime == -1) {
+                // legacy behavior: scale acceptance time with current speed and
+                // use old hard-coded constant
+                acceptanceTime = 7 * roadSpeedFactor * MAX2(1.0, myVehicle.getSpeed());
+            } else {
+                acceptanceTime = myKeepRightAcceptanceTime * roadSpeedFactor;
+                if (follower.first != nullptr && follower.second < 2 * follower.first->getCarFollowModel().brakeGap(follower.first->getSpeed())) {
+                    // reduce acceptanceTime if the follower vehicle is faster or wants to drive faster
+                    const double fRSF = follower.first->getLane()->getVehicleMaxSpeed(follower.first) / follower.first->getLane()->getSpeedLimit();
+                    const double factor = MAX2(1.0, myVehicle.getSpeed()) /
+                        (MAX3(follower.first->getSpeed(), 1.0, myVehicle.getSpeed())
+                         * MAX2(roadSpeedFactor, fRSF));
+                    acceptanceTime *= factor;
+                }
+            }
             double fullSpeedGap = MAX2(0., neighDist - myVehicle.getCarFollowModel().brakeGap(vMax));
             double fullSpeedDrivingSeconds = MIN2(acceptanceTime, fullSpeedGap / vMax);
             if (neighLead.first != 0 && neighLead.first->getSpeed() < vMax) {
@@ -1633,6 +1649,14 @@ MSLCM_LC2013::_wantsChange(
 
             const double deltaProb = (myChangeProbThresholdRight * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
             myKeepRightProbability -= myVehicle.getActionStepLengthSecs() * deltaProb;
+
+            //std::cout << STEPS2TIME(currentTime)
+            //          << " veh=" << myVehicle.getID()
+            //          << " acceptanceTime=" << acceptanceTime
+            //          << " fullSpeedDrivingSeconds=" << fullSpeedDrivingSeconds
+            //          << " dProb=" << deltaProb
+            //          << " myKeepRightProbability=" << myKeepRightProbability
+            //          << "\n";
 
 #ifdef DEBUG_WANTS_CHANGE
             if (DEBUG_COND) {
@@ -1984,6 +2008,8 @@ MSLCM_LC2013::getParameter(const std::string& key) const {
         return toString(myOvertakeRightParam);
     } else if (key == toString(SUMO_ATTR_LCA_SIGMA)) {
         return toString(mySigma);
+    } else if (key == toString(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME)) {
+        return toString(myKeepRightAcceptanceTime);
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
         return toString(mySpeedGainLookahead);
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT)) {
@@ -2023,6 +2049,8 @@ MSLCM_LC2013::setParameter(const std::string& key, const std::string& value) {
         myOvertakeRightParam = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SIGMA)) {
         mySigma = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME)) {
+        myKeepRightAcceptanceTime = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
         mySpeedGainLookahead = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT)) {

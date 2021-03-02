@@ -24,7 +24,7 @@
 #include <vector>
 #include <set>
 #include <string>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/common/RGBColor.h>
 #include <microsim/transportables/MSTransportable.h>

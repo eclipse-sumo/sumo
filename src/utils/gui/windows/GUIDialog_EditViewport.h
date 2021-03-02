@@ -21,7 +21,7 @@
 #pragma once
 #include <config.h>
 
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 
 // ===========================================================================
 // class declarations

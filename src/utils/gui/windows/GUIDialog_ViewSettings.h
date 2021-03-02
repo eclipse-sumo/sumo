@@ -22,7 +22,7 @@
 #pragma once
 #include <config.h>
 
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/foxtools/MFXAddEditTypedTable.h>
 

@@ -34,7 +34,7 @@
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/common/Parameterised.h>
 #ifdef HAVE_FOX
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <FXThread.h>
 #endif
 

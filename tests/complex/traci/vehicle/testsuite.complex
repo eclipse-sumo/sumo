@@ -50,6 +50,9 @@ getNeighborsOpposite
 # use changeLaneRelative to change to the opposite side and back
 changeOpposite
 
+# test changeLane and changeLaneRelative
+changeLane
+
 # test reaction to an invalid changeRelative command in a network that allows opposite direction driving (#6576)
 changeRelative_invalid
 

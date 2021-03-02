@@ -71,6 +71,7 @@
         <xsd:attribute name="lcOvertakeRight" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcLaneDiscipline" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcSigma" type="nonNegativeFloatType"/>
+        <xsd:attribute name="lcKeepRightAcceptanceTime" type="xsd:float"/>
         <xsd:attribute name="maxSpeedLat" type="positiveFloatType"/>
         <xsd:attribute name="latAlignment">
             <xsd:simpleType>
@@ -147,6 +148,7 @@
         <xsd:attribute name="collisionAvoidanceGainSpeed" type="xsd:float"/>
         <xsd:attribute name="collisionAvoidanceGainSpace" type="xsd:float"/>
         <xsd:attribute name="tauCACCToACC" type="xsd:float"/>
+        <xsd:attribute name="applyDriverState" type="xsd:float"/>
         <xsd:attribute name="carFollowModel" type="xsd:string"/>
         <xsd:attribute name="trainType">
             <xsd:simpleType>

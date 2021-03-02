@@ -32,7 +32,7 @@
 #include <microsim/output/MSCrossSection.h>
 #include <utils/common/UtilExceptions.h>
 #ifdef HAVE_FOX
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #endif
 
 

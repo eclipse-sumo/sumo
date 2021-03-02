@@ -21,7 +21,7 @@
 #include <config.h>
 
 #ifdef HAVE_FOX
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #endif
 #include "IntermodalEdge.h"
 

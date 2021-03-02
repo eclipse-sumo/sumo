@@ -71,6 +71,7 @@ public:
         int laneOffset,
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
         const std::pair<MSVehicle*, double>& leader,
+        const std::pair<MSVehicle*, double>& follower,
         const std::pair<MSVehicle*, double>& neighLead,
         const std::pair<MSVehicle*, double>& neighFollow,
         const MSLane& neighLane,
@@ -124,6 +125,7 @@ protected:
         int laneOffset,
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
         const std::pair<MSVehicle*, double>& leader,
+        const std::pair<MSVehicle*, double>& follower,
         const std::pair<MSVehicle*, double>& neighLead,
         const std::pair<MSVehicle*, double>& neighFollow,
         const MSLane& neighLane,
@@ -251,6 +253,9 @@ protected:
     double myCooperativeSpeed;
     // allow overtaking right even though it is prohibited
     double myOvertakeRightParam;
+
+    // time for unrestricted driving on the right to accept keepRight change
+    double myKeepRightAcceptanceTime;
 
     // for feature testing
     const double myExperimentalParam1;

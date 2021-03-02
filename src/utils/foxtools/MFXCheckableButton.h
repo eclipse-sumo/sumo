@@ -21,7 +21,7 @@
 #define MFXCheckableButton_h
 #include <config.h>
 
-#include <fx.h>
+#include "fxheader.h"
 
 /**
  * @class MFXCheckableButton

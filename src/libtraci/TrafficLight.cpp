@@ -202,6 +202,31 @@ TrafficLight::getConstraints(const std::string& tlsID, const std::string& tripId
     const int n = ret.readInt();
     for (int i = 0; i < n; ++i) {
         libsumo::TraCISignalConstraint c;
+        c.signalId = StoHelp::readTypedString(ret);
+        c.tripId = StoHelp::readTypedString(ret);
+        c.foeId = StoHelp::readTypedString(ret);
+        c.foeSignal = StoHelp::readTypedString(ret);
+        c.limit = StoHelp::readTypedInt(ret);
+        c.type = StoHelp::readTypedInt(ret);
+        c.mustWait = StoHelp::readTypedByte(ret);
+        result.push_back(c);
+    }
+    return result;
+}
+
+std::vector<libsumo::TraCISignalConstraint>
+TrafficLight::getConstraintsByFoe(const std::string& foeSignal, const std::string& foeId) {
+    std::vector<libsumo::TraCISignalConstraint> result;
+    tcpip::Storage content;
+    StoHelp::writeTypedString(content, foeId);
+    tcpip::Storage& ret = Dom::get(libsumo::TL_CONSTRAINT_BYFOE, foeSignal, &content);
+    ret.readInt(); // components
+    // number of items
+    ret.readUnsignedByte();
+    const int n = ret.readInt();
+    for (int i = 0; i < n; ++i) {
+        libsumo::TraCISignalConstraint c;
+        c.signalId = StoHelp::readTypedString(ret);
         c.tripId = StoHelp::readTypedString(ret);
         c.foeId = StoHelp::readTypedString(ret);
         c.foeSignal = StoHelp::readTypedString(ret);
@@ -281,7 +306,7 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
     StoHelp::writeTypedString(content, tripId);
     StoHelp::writeTypedString(content, foeSignal);
     StoHelp::writeTypedString(content, foeId);
-    Dom::set(libsumo::TL_CONSTRAINT_REVERSE, tlsID, &content);
+    Dom::set(libsumo::TL_CONSTRAINT_SWAP, tlsID, &content);
 }
 
 

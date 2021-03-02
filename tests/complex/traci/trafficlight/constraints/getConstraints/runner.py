@@ -44,6 +44,9 @@ for c in traci.trafficlight.getConstraints("A", "t0"):
 print("constraints for 'D'")
 for c in traci.trafficlight.getConstraints("D"):
     print("   %s" % c)
+print("constraints where 'D' is foeSignal")
+for c in traci.trafficlight.getConstraintsByFoe("D"):
+    print("   %s" % c)
 
 for i in range(100):
     traci.simulationStep()

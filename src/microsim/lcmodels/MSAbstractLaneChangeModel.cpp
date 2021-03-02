@@ -347,7 +347,7 @@ MSAbstractLaneChangeModel::laneChangeOutput(const std::string& tag, MSLane* sour
                                             LCA_RIGHT | LCA_LEFT
                                             | LCA_AMBLOCKINGLEADER | LCA_AMBLOCKINGFOLLOWER
                                             | LCA_MRIGHT | LCA_MLEFT
-                                            | LCA_AMBACKBLOCKER | LCA_AMBACKBLOCKER_STANDING))));
+                                            | LCA_AMBACKBLOCKER | LCA_AMBACKBLOCKER_STANDING))) + myVehicle.getParameter().getParameter("lcReason"));
         of.writeAttr("leaderGap", myLastLeaderGap == NO_NEIGHBOR ? "None" : toString(myLastLeaderGap));
         of.writeAttr("leaderSecureGap", myLastLeaderSecureGap == NO_NEIGHBOR ? "None" : toString(myLastLeaderSecureGap));
         of.writeAttr("leaderSpeed", myLastLeaderSpeed == NO_NEIGHBOR ? "None" : toString(myLastLeaderSpeed));

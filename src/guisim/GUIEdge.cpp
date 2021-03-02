@@ -26,7 +26,7 @@
 #include <cmath>
 #include <string>
 #include <algorithm>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
