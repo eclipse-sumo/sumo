@@ -42,7 +42,7 @@ def initOptions():
     argParser.add_argument("-v", "--taxi", dest="taxis", help="File with drt vehicles (vehicles with taxi device)", metavar="FILE", required=True)
     argParser.add_argument("-g", dest="gui_settings", help="Load visualization settings from FILE", metavar="FILE", required=False)
     argParser.add_argument("-o", dest="output", help="Name of output file", default='tripinfo.xml', required=False)
-    argParser.add_argument("--rtv", dest="rtv_algorithm", help="Method to search for possible routes (rtv). Available: 0: exhaustive search, 1: simple, 2: simple_rerouting", default=0, required=False)
+    argParser.add_argument("--rtv", dest="rtv_algorithm", help="Method to search for possible routes (rtv). Available: 0: exhaustive search, 1: simple, 2: simple_rerouting", default='0', required=False)
     argParser.add_argument("--rtv_time", dest="rtv_time", help="Maximal time for exhaustive search (default 5 seconds)", default=5, required=False)
     
     argParser.add_argument("--c_ko", dest="c_ko", help="cost of ignoring a request", type=float, default=1000000000000, required=False)
@@ -239,7 +239,7 @@ def get_rv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, rv
                     rv_dict[route_id] = [pickup_time+60, 1, [v_id, x_id]] # TODO default stop time ticket #6714
 
             # add request-request pairs only with:
-            second_requests = list(set(r_all.keys()) ^ set(r_id_picked) ^ set(r_id_served))
+            second_requests = list(set(r_all.keys()) ^ set(r_id_served))
             for req2 in second_requests:
                 if req2 == x_id:
                     continue
@@ -295,10 +295,8 @@ def get_rv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, rv
             # add vehicle-request pairs
             # calculate travel time to drop off
             dropoff_time = int(traci.simulation.findRoute(traci.vehicle.getRoadID(x.vehicle), x.toEdge, v_type, routingMode=0).travelTime)
-            if step+dropoff_time <= x.tw_dropoff[1]:
-                # if vehicle on time, add to rv graph
-                route_id = '%s_%sz' % (x.vehicle, x_id)
-                rv_dict[route_id] = [dropoff_time+60, -1, [x.vehicle, x_id]] # TODO default stop time ticket #6714
+            route_id = '%s_%sz' % (x.vehicle, x_id)
+            rv_dict[route_id] = [dropoff_time+60, -1, [x.vehicle, x_id]] # TODO default stop time ticket #6714
         else:
             print("Attribute state not considered")
 
@@ -384,9 +382,10 @@ def main():
     traci.start(run_traci)
 
     # execute the TraCI control loop
-    step = 0
+    step = 10
     r_id_rejected = []
-    while traci.simulation.getMinExpectedNumber() > 0 or traci.person.getIDList():
+    rerouting = True
+    while rerouting:
         traci.simulationStep(step)
 
         # get fleet and vType for route calculation 
@@ -427,7 +426,7 @@ def main():
         
         
         # unassigned reservations
-        r_id_unassigned = [x.id for x_id, x in r_all.items() if not x.vehicle]
+        r_id_unassigned = [x.id for x_id, x in r_all.items() if not x.vehicle and not x.rejected]
         
         # reservations already picked up
         r_id_picked = []
@@ -436,7 +435,7 @@ def main():
                 r_id_picked.extend(traci.vehicle.getPersonIDList(v))
 
         # if reservations pending
-        if r_id_unassigned:                
+        if r_id_unassigned:
             if options.debug:
                 print('\nRun dispatcher')
                 if r_id_new:
@@ -448,11 +447,11 @@ def main():
             # search trips (rtv graph)
             # TODO define/import algorithm before to avoid checking each time
             # Maybe a list with the function as element and get the element (0, 1, 2)
-            if options.rtv_algorithm == 0:
+            if options.rtv_algorithm == '0':
                 rtv_dict, r_id_rtv, memory_problems = rtvAlgorithm.exhaustive_search(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step, memory_problems)
-            elif options.rtv_algorithm == 1:
-                rtv_dict, r_id_rtv = rtvAlgorithm.simple(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step)
-            elif options.rtv_algorithm == 2:
+            elif options.rtv_algorithm == '1':
+                rtv_dict, r_id_rtv = rtvAlgorithm.simple(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step, r_id_rejected)
+            elif options.rtv_algorithm == '2':
                 rtv_dict, r_id_rtv = rtvAlgorithm.simple_rerouting(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step)
             #rtv_dict, r_id_rtv = get_rtv(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step)
 
@@ -518,6 +517,15 @@ def main():
                     x = r_all[x_id]
                     x.vehicle = stops[0]
 
+        # remove rejected: #TODO ticket #8305
+            # for x_id in r_id_rejected:
+            #     traci.person.removeStages(x_id)
+            #     step += options.sim_step
+        
+        check_rejected = [x.id for x_id, x in r_all.items() if x.rejected]
+        if not traci.simulation.getMinExpectedNumber() > 0 and set(traci.person.getIDList()) == set(check_rejected) and not r_id_unassigned:
+            rerouting = False
+            
         step += options.sim_step
 
     if options.rtv_algorithm == 0: # if exhaustive search
