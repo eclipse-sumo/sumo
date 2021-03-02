@@ -93,7 +93,7 @@ public:
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
-    static libsumo::TraCISignalConstraint buildConstraint(const std::string& tripId, MSRailSignalConstraint* constraint, bool insertionConstraint); 
+    static libsumo::TraCISignalConstraint buildConstraint(const std::string& tlsID, const std::string& tripId, MSRailSignalConstraint* constraint, bool insertionConstraint); 
     static void removeConstraints(const std::string& foeID);
 
 private:

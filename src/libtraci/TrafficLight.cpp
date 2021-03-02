@@ -202,6 +202,7 @@ TrafficLight::getConstraints(const std::string& tlsID, const std::string& tripId
     const int n = ret.readInt();
     for (int i = 0; i < n; ++i) {
         libsumo::TraCISignalConstraint c;
+        c.signalId = StoHelp::readTypedString(ret);
         c.tripId = StoHelp::readTypedString(ret);
         c.foeId = StoHelp::readTypedString(ret);
         c.foeSignal = StoHelp::readTypedString(ret);

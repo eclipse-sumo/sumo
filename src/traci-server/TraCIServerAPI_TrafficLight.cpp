@@ -164,6 +164,7 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
                     server.getWrapperStorage().writeInt((int)constraints.size());
                     for (const auto& c : constraints) {
+                        StoHelp::writeTypedString(server.getWrapperStorage(), c.signalId);
                         StoHelp::writeTypedString(server.getWrapperStorage(), c.tripId);
                         StoHelp::writeTypedString(server.getWrapperStorage(), c.foeId);
                         StoHelp::writeTypedString(server.getWrapperStorage(), c.foeSignal);

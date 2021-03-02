@@ -260,7 +260,7 @@ TrafficLight::getConstraints(const std::string& tlsID, const std::string& tripId
             continue;
         }
         for (MSRailSignalConstraint* c : item.second) {
-            result.push_back(buildConstraint(item.first, c, false));
+            result.push_back(buildConstraint(tlsID, item.first, c, false));
         }
     }
     for (auto item : s->getInsertionConstraints()) {
@@ -268,7 +268,7 @@ TrafficLight::getConstraints(const std::string& tlsID, const std::string& tripId
             continue;
         }
         for (MSRailSignalConstraint* c : item.second) {
-            result.push_back(buildConstraint(item.first, c, true));
+            result.push_back(buildConstraint(tlsID, item.first, c, true));
         }
     }
     return result;
@@ -451,7 +451,7 @@ TrafficLight::getTLS(const std::string& id) {
 
 
 libsumo::TraCISignalConstraint
-TrafficLight::buildConstraint(const std::string& tripId, MSRailSignalConstraint* constraint, bool insertionConstraint) {
+TrafficLight::buildConstraint(const std::string& tlsID, const std::string& tripId, MSRailSignalConstraint* constraint, bool insertionConstraint) {
     TraCISignalConstraint c;
     c.tripId = tripId;
     MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(constraint);
@@ -459,6 +459,7 @@ TrafficLight::buildConstraint(const std::string& tripId, MSRailSignalConstraint*
         // unsupported constraint
         c.type = -1;
     } else {
+        c.signalId = tlsID;
         c.foeId = pc->myTripId;
         c.foeSignal = pc->myFoeSignal->getID();
         c.limit = pc->myLimit;
