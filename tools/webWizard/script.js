@@ -216,8 +216,8 @@ on("ready", function(){
      * @function
      * checks if the checkbox is checked and displays the canvas in this case, else not
      **/
-    function toogleCanvas(){
-        if(canvasToogle.checked){
+    function toggleCanvas(){
+        if(canvasToggle.checked){
             canvasActive = true;
             canvas.style.removeProperty("display");
         } else {
@@ -226,10 +226,10 @@ on("ready", function(){
         }
     }
 
-    var canvasToogle = elem("#canvas-toogle");
+    var canvasToggle = elem("#canvas-toggle");
 
-    canvasToogle.on("click", toogleCanvas);
-    toogleCanvas();
+    canvasToggle.on("click", toggleCanvas);
+    toggleCanvas();
 
     // OSM map
     // avoid cross domain resource sharing issues (#3991)

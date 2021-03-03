@@ -432,7 +432,7 @@ public:
     /// @name FOX-callbacks
     /// @{
 
-    /// @brief called when user toogle the go back button
+    /// @brief called when user toggle the go back button
     long onCmdGoBack(FXObject*, FXSelector, void*);
     /// @}
 

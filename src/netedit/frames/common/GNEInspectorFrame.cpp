@@ -1091,7 +1091,7 @@ GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition,
         if (myViewNet->getMouseButtonKeyPressed().controlKeyPressed()) {
             // Check if this GLobject type is locked
             if (!myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(objectsUnderCursor.getGlTypeFront())) {
-                // toogle networkElement selection
+                // toggle networkElement selection
                 if (objectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     objectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
                 }
@@ -1131,7 +1131,7 @@ GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, 
         if (myViewNet->getMouseButtonKeyPressed().controlKeyPressed()) {
             // Check if this GLobject type is locked
             if (!myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(objectsUnderCursor.getGlTypeFront())) {
-                // toogle networkElement selection
+                // toggle networkElement selection
                 if (objectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     objectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
                 }
@@ -1171,7 +1171,7 @@ GNEInspectorFrame::processDataSupermodeClick(const Position& clickedPosition, GN
         if (myViewNet->getMouseButtonKeyPressed().controlKeyPressed()) {
             // Check if this GLobject type is locked
             if (!myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(objectsUnderCursor.getGlTypeFront())) {
-                // toogle networkElement selection
+                // toggle networkElement selection
                 if (objectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     objectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
                 }

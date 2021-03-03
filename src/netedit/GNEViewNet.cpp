@@ -94,30 +94,30 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_V_MODES_VEHICLE,                      GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_MODES_PROHIBITION_PERSONTYPE,       GNEViewNet::onCmdSetMode),
     // Network view options
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_TOOGLEGRID,           GNEViewNet::onCmdToogleShowGrid),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES,   GNEViewNet::onCmdToogleDrawSpreadVehicles),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS,   GNEViewNet::onCmdToogleShowDemandElementsNetwork),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES,          GNEViewNet::onCmdToogleSelectEdges),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS,      GNEViewNet::onCmdToogleShowConnections),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS,      GNEViewNet::onCmdToogleHideConnections),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION,      GNEViewNet::onCmdToogleExtendSelection),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES,      GNEViewNet::onCmdToogleChangeAllPhases),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE,          GNEViewNet::onCmdToogleWarnAboutMerge),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES,          GNEViewNet::onCmdToogleShowJunctionBubbles),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION,        GNEViewNet::onCmdToogleMoveElevation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES,           GNEViewNet::onCmdToogleChainEdges),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES,    GNEViewNet::onCmdToogleAutoOppositeEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID,           GNEViewNet::onCmdToggleShowGrid),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES,   GNEViewNet::onCmdToggleDrawSpreadVehicles),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS,   GNEViewNet::onCmdToggleShowDemandElementsNetwork),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES,          GNEViewNet::onCmdToggleSelectEdges),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS,      GNEViewNet::onCmdToggleShowConnections),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS,      GNEViewNet::onCmdToggleHideConnections),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION,      GNEViewNet::onCmdToggleExtendSelection),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES,      GNEViewNet::onCmdToggleChangeAllPhases),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE,          GNEViewNet::onCmdToggleWarnAboutMerge),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES,          GNEViewNet::onCmdToggleShowJunctionBubbles),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION,        GNEViewNet::onCmdToggleMoveElevation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES,           GNEViewNet::onCmdToggleChainEdges),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES,    GNEViewNet::onCmdToggleAutoOppositeEdge),
     // Demand view options
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID,              GNEViewNet::onCmdToogleShowGrid),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES,    GNEViewNet::onCmdToogleDrawSpreadVehicles),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED,      GNEViewNet::onCmdToogleHideNonInspecteDemandElements),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES,            GNEViewNet::onCmdToogleHideShapes),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,    GNEViewNet::onCmdToogleShowAllPersonPlans),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON,            GNEViewNet::onCmdToogleLockPerson),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID,              GNEViewNet::onCmdToggleShowGrid),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES,    GNEViewNet::onCmdToggleDrawSpreadVehicles),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED,      GNEViewNet::onCmdToggleHideNonInspecteDemandElements),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES,            GNEViewNet::onCmdToggleHideShapes),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,    GNEViewNet::onCmdToggleShowAllPersonPlans),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON,            GNEViewNet::onCmdToggleLockPerson),
     // Data view options
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,         GNEViewNet::onCmdToogleShowAdditionals),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES,              GNEViewNet::onCmdToogleShowShapes),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,      GNEViewNet::onCmdToogleShowDemandElementsData),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,         GNEViewNet::onCmdToggleShowAdditionals),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES,              GNEViewNet::onCmdToggleShowShapes),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,      GNEViewNet::onCmdToggleShowDemandElementsData),
     // Select elements
     FXMAPFUNC(SEL_COMMAND, MID_ADDSELECT,                                   GNEViewNet::onCmdAddSelected),
     FXMAPFUNC(SEL_COMMAND, MID_REMOVESELECT,                                GNEViewNet::onCmdRemoveSelected),
@@ -755,14 +755,14 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         // depending of the visualizationSettings, enable or disable check box show grid
         if (myVisualizationSettings->showGrid) {
             // change show grid
-            if (!myNetworkViewOptions.menuCheckToogleGrid->amChecked() ||
-                    !myDemandViewOptions.menuCheckToogleGrid->amChecked()) {
+            if (!myNetworkViewOptions.menuCheckToggleGrid->amChecked() ||
+                    !myDemandViewOptions.menuCheckToggleGrid->amChecked()) {
                 // change to true
-                myNetworkViewOptions.menuCheckToogleGrid->setChecked(true);
-                myDemandViewOptions.menuCheckToogleGrid->setChecked(true);
+                myNetworkViewOptions.menuCheckToggleGrid->setChecked(true);
+                myDemandViewOptions.menuCheckToggleGrid->setChecked(true);
                 // update show grid buttons
-                myNetworkViewOptions.menuCheckToogleGrid->update();
-                myNetworkViewOptions.menuCheckToogleGrid->update();
+                myNetworkViewOptions.menuCheckToggleGrid->update();
+                myNetworkViewOptions.menuCheckToggleGrid->update();
             }
             // draw grid only in network and demand mode
             if (myEditModes.isCurrentSupermodeNetwork() || myEditModes.isCurrentSupermodeDemand()) {
@@ -770,14 +770,14 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             }
         } else {
             // change show grid
-            if (myNetworkViewOptions.menuCheckToogleGrid->amChecked() ||
-                    myDemandViewOptions.menuCheckToogleGrid->amChecked()) {
+            if (myNetworkViewOptions.menuCheckToggleGrid->amChecked() ||
+                    myDemandViewOptions.menuCheckToggleGrid->amChecked()) {
                 // change to false
-                myNetworkViewOptions.menuCheckToogleGrid->setChecked(false);
-                myDemandViewOptions.menuCheckToogleGrid->setChecked(false);
+                myNetworkViewOptions.menuCheckToggleGrid->setChecked(false);
+                myDemandViewOptions.menuCheckToggleGrid->setChecked(false);
                 // update show grid buttons
-                myNetworkViewOptions.menuCheckToogleGrid->update();
-                myNetworkViewOptions.menuCheckToogleGrid->update();
+                myNetworkViewOptions.menuCheckToggleGrid->update();
+                myNetworkViewOptions.menuCheckToggleGrid->update();
             }
         }
         // update show connections
@@ -2802,8 +2802,8 @@ GNEViewNet::onCmdEditCrossingShape(FXObject*, FXSelector, void*) {
 
 
 long
-GNEViewNet::onCmdToogleSelectEdges(FXObject*, FXSelector sel, void*) {
-    // Toogle menuCheckSelectEdges
+GNEViewNet::onCmdToggleSelectEdges(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckSelectEdges
     if (myNetworkViewOptions.menuCheckSelectEdges->amChecked() == TRUE) {
         myNetworkViewOptions.menuCheckSelectEdges->setChecked(FALSE);
     } else {
@@ -2819,8 +2819,8 @@ GNEViewNet::onCmdToogleSelectEdges(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEViewNet::onCmdToogleShowConnections(FXObject*, FXSelector sel, void*) {
-    // Toogle menuCheckShowConnections
+GNEViewNet::onCmdToggleShowConnections(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckShowConnections
     if (myNetworkViewOptions.menuCheckShowConnections->amChecked() == TRUE) {
         myNetworkViewOptions.menuCheckShowConnections->setChecked(FALSE);
     } else {
@@ -2846,8 +2846,8 @@ GNEViewNet::onCmdToogleShowConnections(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEViewNet::onCmdToogleHideConnections(FXObject*, FXSelector sel, void*) {
-    // Toogle menuCheckHideConnections
+GNEViewNet::onCmdToggleHideConnections(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckHideConnections
     if (myNetworkViewOptions.menuCheckHideConnections->amChecked() == TRUE) {
         myNetworkViewOptions.menuCheckHideConnections->setChecked(FALSE);
     } else {
@@ -2865,8 +2865,8 @@ GNEViewNet::onCmdToogleHideConnections(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEViewNet::onCmdToogleExtendSelection(FXObject*, FXSelector sel, void*) {
-    // Toogle menuCheckExtendSelection
+GNEViewNet::onCmdToggleExtendSelection(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckExtendSelection
     if (myNetworkViewOptions.menuCheckExtendSelection->amChecked() == TRUE) {
         myNetworkViewOptions.menuCheckExtendSelection->setChecked(FALSE);
     } else {
@@ -2884,8 +2884,8 @@ GNEViewNet::onCmdToogleExtendSelection(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEViewNet::onCmdToogleChangeAllPhases(FXObject*, FXSelector sel, void*) {
-    // Toogle menuCheckChangeAllPhases
+GNEViewNet::onCmdToggleChangeAllPhases(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckChangeAllPhases
     if (myNetworkViewOptions.menuCheckChangeAllPhases->amChecked() == TRUE) {
         myNetworkViewOptions.menuCheckChangeAllPhases->setChecked(FALSE);
     } else {
@@ -2903,34 +2903,34 @@ GNEViewNet::onCmdToogleChangeAllPhases(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEViewNet::onCmdToogleShowGrid(FXObject*, FXSelector sel, void*) {
-    // show or hidde grid depending of myNetworkViewOptions.menuCheckToogleGrid
+GNEViewNet::onCmdToggleShowGrid(FXObject*, FXSelector sel, void*) {
+    // show or hidde grid depending of myNetworkViewOptions.menuCheckToggleGrid
     if (myVisualizationSettings->showGrid) {
         myVisualizationSettings->showGrid = false;
-        myNetworkViewOptions.menuCheckToogleGrid->setChecked(false);
-        myDemandViewOptions.menuCheckToogleGrid->setChecked(false);
+        myNetworkViewOptions.menuCheckToggleGrid->setChecked(false);
+        myDemandViewOptions.menuCheckToggleGrid->setChecked(false);
     } else {
         myVisualizationSettings->showGrid = true;
-        myNetworkViewOptions.menuCheckToogleGrid->setChecked(true);
-        myDemandViewOptions.menuCheckToogleGrid->setChecked(true);
+        myNetworkViewOptions.menuCheckToggleGrid->setChecked(true);
+        myDemandViewOptions.menuCheckToggleGrid->setChecked(true);
     }
-    myNetworkViewOptions.menuCheckToogleGrid->update();
-    myDemandViewOptions.menuCheckToogleGrid->update();
+    myNetworkViewOptions.menuCheckToggleGrid->update();
+    myDemandViewOptions.menuCheckToggleGrid->update();
     // update view to show grid
     updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
-    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_TOOGLEGRID)) {
-        myNetworkViewOptions.menuCheckToogleGrid->setFocus();
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID)) {
+        myNetworkViewOptions.menuCheckToggleGrid->setFocus();
     } else if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID)) {
-        myDemandViewOptions.menuCheckToogleGrid->setFocus();
+        myDemandViewOptions.menuCheckToggleGrid->setFocus();
     }
     return 1;
 }
 
 
 long
-GNEViewNet::onCmdToogleDrawSpreadVehicles(FXObject*, FXSelector sel, void*) {
-    // Toogle menuCheckShowDemandElements
+GNEViewNet::onCmdToggleDrawSpreadVehicles(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckShowDemandElements
     if ((myNetworkViewOptions.menuCheckDrawSpreadVehicles->amChecked() == TRUE) ||
             (myDemandViewOptions.menuCheckDrawSpreadVehicles->amChecked() == TRUE)) {
         myNetworkViewOptions.menuCheckDrawSpreadVehicles->setChecked(FALSE);
@@ -2986,8 +2986,8 @@ GNEViewNet::onCmdToogleDrawSpreadVehicles(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEViewNet::onCmdToogleWarnAboutMerge(FXObject*, FXSelector sel, void*) {
-    // Toogle menuCheckWarnAboutMerge
+GNEViewNet::onCmdToggleWarnAboutMerge(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckWarnAboutMerge
     if (myNetworkViewOptions.menuCheckWarnAboutMerge->amChecked() == TRUE) {
         myNetworkViewOptions.menuCheckWarnAboutMerge->setChecked(FALSE);
     } else {
@@ -3005,8 +3005,8 @@ GNEViewNet::onCmdToogleWarnAboutMerge(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEViewNet::onCmdToogleShowJunctionBubbles(FXObject*, FXSelector sel, void*) {
-    // Toogle menuCheckShowJunctionBubble
+GNEViewNet::onCmdToggleShowJunctionBubbles(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckShowJunctionBubble
     if (myNetworkViewOptions.menuCheckShowJunctionBubble->amChecked() == TRUE) {
         myNetworkViewOptions.menuCheckShowJunctionBubble->setChecked(FALSE);
     } else {
@@ -3024,8 +3024,8 @@ GNEViewNet::onCmdToogleShowJunctionBubbles(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEViewNet::onCmdToogleMoveElevation(FXObject*, FXSelector sel, void*) {
-    // Toogle menuCheckMoveElevation
+GNEViewNet::onCmdToggleMoveElevation(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckMoveElevation
     if (myNetworkViewOptions.menuCheckMoveElevation->amChecked() == TRUE) {
         myNetworkViewOptions.menuCheckMoveElevation->setChecked(FALSE);
     } else {
@@ -3043,8 +3043,8 @@ GNEViewNet::onCmdToogleMoveElevation(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEViewNet::onCmdToogleChainEdges(FXObject*, FXSelector sel, void*) {
-    // Toogle menuCheckMoveElevation
+GNEViewNet::onCmdToggleChainEdges(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckMoveElevation
     if (myNetworkViewOptions.menuCheckChainEdges->amChecked() == TRUE) {
         myNetworkViewOptions.menuCheckChainEdges->setChecked(FALSE);
     } else {
@@ -3062,8 +3062,8 @@ GNEViewNet::onCmdToogleChainEdges(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEViewNet::onCmdToogleAutoOppositeEdge(FXObject*, FXSelector sel, void*) {
-    // Toogle menuCheckAutoOppositeEdge
+GNEViewNet::onCmdToggleAutoOppositeEdge(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckAutoOppositeEdge
     if (myNetworkViewOptions.menuCheckAutoOppositeEdge->amChecked() == TRUE) {
         myNetworkViewOptions.menuCheckAutoOppositeEdge->setChecked(FALSE);
     } else {
@@ -3081,8 +3081,8 @@ GNEViewNet::onCmdToogleAutoOppositeEdge(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEViewNet::onCmdToogleHideNonInspecteDemandElements(FXObject*, FXSelector sel, void*) {
-    // Toogle menuCheckHideNonInspectedDemandElements
+GNEViewNet::onCmdToggleHideNonInspecteDemandElements(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckHideNonInspectedDemandElements
     if (myDemandViewOptions.menuCheckHideNonInspectedDemandElements->amChecked() == TRUE) {
         myDemandViewOptions.menuCheckHideNonInspectedDemandElements->setChecked(FALSE);
     } else {
@@ -3100,8 +3100,8 @@ GNEViewNet::onCmdToogleHideNonInspecteDemandElements(FXObject*, FXSelector sel, 
 
 
 long
-GNEViewNet::onCmdToogleHideShapes(FXObject*, FXSelector sel, void*) {
-    // Toogle menuCheckHideShapes
+GNEViewNet::onCmdToggleHideShapes(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckHideShapes
     if (myDemandViewOptions.menuCheckHideShapes->amChecked() == TRUE) {
         myDemandViewOptions.menuCheckHideShapes->setChecked(FALSE);
     } else {
@@ -3119,8 +3119,8 @@ GNEViewNet::onCmdToogleHideShapes(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEViewNet::onCmdToogleShowAllPersonPlans(FXObject*, FXSelector sel, void*) {
-    // Toogle menuCheckShowAllPersonPlans
+GNEViewNet::onCmdToggleShowAllPersonPlans(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckShowAllPersonPlans
     if (myDemandViewOptions.menuCheckShowAllPersonPlans->amChecked() == TRUE) {
         myDemandViewOptions.menuCheckShowAllPersonPlans->setChecked(FALSE);
     } else {
@@ -3138,8 +3138,8 @@ GNEViewNet::onCmdToogleShowAllPersonPlans(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEViewNet::onCmdToogleLockPerson(FXObject*, FXSelector sel, void*) {
-    // Toogle menuCheckLockPerson
+GNEViewNet::onCmdToggleLockPerson(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckLockPerson
     if (myDemandViewOptions.menuCheckLockPerson->amChecked() == TRUE) {
         myDemandViewOptions.menuCheckLockPerson->setChecked(FALSE);
     } else {
@@ -3179,8 +3179,8 @@ GNEViewNet::onCmdToogleLockPerson(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEViewNet::onCmdToogleShowAdditionals(FXObject*, FXSelector sel, void*) {
-    // Toogle menuCheckShowAdditionals
+GNEViewNet::onCmdToggleShowAdditionals(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckShowAdditionals
     if (myDataViewOptions.menuCheckShowAdditionals->amChecked() == TRUE) {
         myDataViewOptions.menuCheckShowAdditionals->setChecked(FALSE);
     } else {
@@ -3198,8 +3198,8 @@ GNEViewNet::onCmdToogleShowAdditionals(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEViewNet::onCmdToogleShowShapes(FXObject*, FXSelector sel, void*) {
-    // Toogle menuCheckShowShapes
+GNEViewNet::onCmdToggleShowShapes(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckShowShapes
     if (myDataViewOptions.menuCheckShowShapes->amChecked() == TRUE) {
         myDataViewOptions.menuCheckShowShapes->setChecked(FALSE);
     } else {
@@ -3217,8 +3217,8 @@ GNEViewNet::onCmdToogleShowShapes(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEViewNet::onCmdToogleShowDemandElementsNetwork(FXObject*, FXSelector sel, void*) {
-    // Toogle menuCheckShowDemandElements
+GNEViewNet::onCmdToggleShowDemandElementsNetwork(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckShowDemandElements
     if (myNetworkViewOptions.menuCheckShowDemandElements->amChecked() == TRUE) {
         myNetworkViewOptions.menuCheckShowDemandElements->setChecked(FALSE);
     } else {
@@ -3238,8 +3238,8 @@ GNEViewNet::onCmdToogleShowDemandElementsNetwork(FXObject*, FXSelector sel, void
 
 
 long
-GNEViewNet::onCmdToogleShowDemandElementsData(FXObject*, FXSelector sel, void*) {
-    // Toogle menuCheckShowDemandElements
+GNEViewNet::onCmdToggleShowDemandElementsData(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckShowDemandElements
     if (myDataViewOptions.menuCheckShowDemandElements->amChecked() == TRUE) {
         myDataViewOptions.menuCheckShowDemandElements->setChecked(FALSE);
     }
@@ -3443,10 +3443,10 @@ GNEViewNet::updateNetworkModeSpecificControls() {
     myViewParent->getGNEAppWindows()->getEditMenuCommands().demandViewOptions.hideDemandViewOptionsMenuChecks();
     myViewParent->getGNEAppWindows()->getEditMenuCommands().dataViewOptions.hideDataViewOptionsMenuChecks();
     // In network mode, always show option "show grid", "draw spread vehicles" and "show demand elements"
-    myNetworkViewOptions.menuCheckToogleGrid->show();
+    myNetworkViewOptions.menuCheckToggleGrid->show();
     myNetworkViewOptions.menuCheckDrawSpreadVehicles->show();
     myNetworkViewOptions.menuCheckShowDemandElements->show();
-    menuChecks.menuCheckToogleGrid->show();
+    menuChecks.menuCheckToggleGrid->show();
     menuChecks.menuCheckDrawSpreadVehicles->show();
     menuChecks.menuCheckShowDemandElements->show();
     // show separator
@@ -3607,10 +3607,10 @@ GNEViewNet::updateDemandModeSpecificControls() {
     myViewParent->getGNEAppWindows()->getEditMenuCommands().demandViewOptions.hideDemandViewOptionsMenuChecks();
     myViewParent->getGNEAppWindows()->getEditMenuCommands().dataViewOptions.hideDataViewOptionsMenuChecks();
     // always show "hide shapes", "show grid" and "draw spread vehicles"
-    myDemandViewOptions.menuCheckToogleGrid->show();
+    myDemandViewOptions.menuCheckToggleGrid->show();
     myDemandViewOptions.menuCheckDrawSpreadVehicles->show();
     myDemandViewOptions.menuCheckHideShapes->show();
-    menuChecks.menuCheckToogleGrid->show();
+    menuChecks.menuCheckToggleGrid->show();
     menuChecks.menuCheckDrawSpreadVehicles->show();
     menuChecks.menuCheckHideShapes->show();
     // show separator
@@ -4328,7 +4328,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     if (myObjectsUnderCursor.getAttributeCarrierFront() && !myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
                         // Check if this GLobject type is locked
                         if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
-                            // toogle networkElement selection
+                            // toggle networkElement selection
                             if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                                 myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
                             } else {
@@ -4629,7 +4629,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
                     if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
                         // Check if this GLobject type is locked
                         if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
-                            // toogle networkElement selection
+                            // toggle networkElement selection
                             if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                                 myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
                             } else {
@@ -4780,7 +4780,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
                     if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDataElement()) {
                         // Check if this GLobject type is locked
                         if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
-                            // toogle networkElement selection
+                            // toggle networkElement selection
                             if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                                 myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
                             } else {

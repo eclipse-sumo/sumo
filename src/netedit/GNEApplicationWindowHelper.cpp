@@ -527,7 +527,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::buildModesMenuCommands(FXMenuPane
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::NetworkViewOptions(GNEApplicationWindow* GNEApp) :
-    menuCheckToogleGrid(nullptr),
+    menuCheckToggleGrid(nullptr),
     menuCheckDrawSpreadVehicles(nullptr),
     menuCheckShowDemandElements(nullptr),
     menuCheckSelectEdges(nullptr),
@@ -548,10 +548,10 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::NetworkViewOpt
 void
 GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::buildNetworkViewOptionsMenuChecks(FXMenuPane* editMenu) {
     // create menu checks
-    menuCheckToogleGrid = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+    menuCheckToggleGrid = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
         "Toggle grid", "Ctrl+G", "",
-        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOOGLEGRID),
-        myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_TOOGLEGRID);
+        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEGRID),
+        myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID);
 
     menuCheckDrawSpreadVehicles = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
         "Draw vehicles spread in lane or in depart position", "", "",
@@ -620,7 +620,7 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::buildNetworkVi
 
 void
 GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::hideNetworkViewOptionsMenuChecks() {
-    menuCheckToogleGrid->hide();
+    menuCheckToggleGrid->hide();
     menuCheckDrawSpreadVehicles->hide();
     menuCheckShowDemandElements->hide();
     menuCheckSelectEdges->hide();
@@ -641,7 +641,7 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::hideNetworkVie
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::DemandViewOptions(GNEApplicationWindow* GNEApp) :
-    menuCheckToogleGrid(nullptr),
+    menuCheckToggleGrid(nullptr),
     menuCheckDrawSpreadVehicles(nullptr),
     menuCheckHideShapes(nullptr),
     menuCheckHideNonInspectedDemandElements(nullptr),
@@ -655,9 +655,9 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::DemandViewOptio
 void
 GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::buildDemandViewOptionsMenuChecks(FXMenuPane* editMenu) {
     // create menu checks
-    menuCheckToogleGrid = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+    menuCheckToggleGrid = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
         "Toggle grid", "", "",
-        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOOGLEGRID),
+        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEGRID),
         myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID);
 
     menuCheckDrawSpreadVehicles = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
@@ -692,7 +692,7 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::buildDemandView
 
 void
 GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::hideDemandViewOptionsMenuChecks() {
-    menuCheckToogleGrid->hide();
+    menuCheckToggleGrid->hide();
     menuCheckDrawSpreadVehicles->hide();
     menuCheckHideShapes->hide();
     menuCheckHideNonInspectedDemandElements->hide();
@@ -1062,32 +1062,32 @@ GNEApplicationWindowHelper::SupermodeCommands::buildSupermodeCommands(FXMenuPane
 // ---------------------------------------------------------------------------
 
 bool
-GNEApplicationWindowHelper::toogleEditOptionsNetwork(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck, const int numericalKeyPressed, FXObject* obj, FXSelector sel) {
+GNEApplicationWindowHelper::toggleEditOptionsNetwork(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck, const int numericalKeyPressed, FXObject* obj, FXSelector sel) {
     // finally function correspond to visibleMenuCommands[numericalKeyPressed]
-    if (menuCheck == viewNet->getNetworkViewOptions().menuCheckToogleGrid) {
-        // Toogle menuCheckToogleGrid
-        if (viewNet->getNetworkViewOptions().menuCheckToogleGrid->amChecked() == TRUE) {
+    if (menuCheck == viewNet->getNetworkViewOptions().menuCheckToggleGrid) {
+        // Toggle menuCheckToggleGrid
+        if (viewNet->getNetworkViewOptions().menuCheckToggleGrid->amChecked() == TRUE) {
             // show extra information for tests
-            WRITE_DEBUG("Disabled toogle show grid throught alt + " + toString(numericalKeyPressed + 1));
+            WRITE_DEBUG("Disabled toggle show grid throught alt + " + toString(numericalKeyPressed + 1));
         } else {
             // show extra information for tests
-            WRITE_DEBUG("Enabled toogle show grid throught alt + " + toString(numericalKeyPressed + 1));
+            WRITE_DEBUG("Enabled toggle show grid throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleShowGrid
-        viewNet->onCmdToogleShowGrid(obj, sel, nullptr);
+        // Call manually onCmdToggleShowGrid
+        viewNet->onCmdToggleShowGrid(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckDrawSpreadVehicles) {
-        // Toogle menuCheckDrawSpreadVehicles
+        // Toggle menuCheckDrawSpreadVehicles
         if (viewNet->getNetworkViewOptions().menuCheckDrawSpreadVehicles->amChecked() == TRUE) {
             // show extra information for tests
-            WRITE_DEBUG("Disabled toogle draw spread vehicles throught alt + " + toString(numericalKeyPressed + 1));
+            WRITE_DEBUG("Disabled toggle draw spread vehicles throught alt + " + toString(numericalKeyPressed + 1));
         } else {
             // show extra information for tests
-            WRITE_DEBUG("Enabled toogle spread vehicles throught alt + " + toString(numericalKeyPressed + 1));
+            WRITE_DEBUG("Enabled toggle spread vehicles throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleDrawSpreadVehicles
-        viewNet->onCmdToogleDrawSpreadVehicles(obj, sel, nullptr);
+        // Call manually onCmdToggleDrawSpreadVehicles
+        viewNet->onCmdToggleDrawSpreadVehicles(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckShowDemandElements) {
-        // Toogle menuCheckShowDemandElements
+        // Toggle menuCheckShowDemandElements
         if (viewNet->getNetworkViewOptions().menuCheckShowDemandElements->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled show demand elements throught alt + " + toString(numericalKeyPressed + 1));
@@ -1095,10 +1095,10 @@ GNEApplicationWindowHelper::toogleEditOptionsNetwork(GNEViewNet* viewNet, const 
             // show extra information for tests
             WRITE_DEBUG("Enabled show demand elements throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleShowDemandElementsNetwork
-        viewNet->onCmdToogleShowDemandElementsNetwork(obj, sel, nullptr);
+        // Call manually onCmdToggleShowDemandElementsNetwork
+        viewNet->onCmdToggleShowDemandElementsNetwork(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckSelectEdges) {
-        // Toogle menuCheckSelectEdges
+        // Toggle menuCheckSelectEdges
         if (viewNet->getNetworkViewOptions().menuCheckSelectEdges->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled select edges throught alt + " + toString(numericalKeyPressed + 1));
@@ -1106,10 +1106,10 @@ GNEApplicationWindowHelper::toogleEditOptionsNetwork(GNEViewNet* viewNet, const 
             // show extra information for tests
             WRITE_DEBUG("Enabled select edges throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleSelectEdges
-        viewNet->onCmdToogleSelectEdges(obj, sel, nullptr);
+        // Call manually onCmdToggleSelectEdges
+        viewNet->onCmdToggleSelectEdges(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckShowConnections) {
-        // Toogle menuCheckShowConnections
+        // Toggle menuCheckShowConnections
         if (viewNet->getNetworkViewOptions().menuCheckShowConnections->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled show connections throught alt + " + toString(numericalKeyPressed + 1));
@@ -1117,10 +1117,10 @@ GNEApplicationWindowHelper::toogleEditOptionsNetwork(GNEViewNet* viewNet, const 
             // show extra information for tests
             WRITE_DEBUG("Enabled show connections throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleShowConnections
-        viewNet->onCmdToogleShowConnections(obj, sel, nullptr);
+        // Call manually onCmdToggleShowConnections
+        viewNet->onCmdToggleShowConnections(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckHideConnections) {
-        // Toogle menuCheckHideConnections
+        // Toggle menuCheckHideConnections
         if (viewNet->getNetworkViewOptions().menuCheckHideConnections->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled hide connections throught alt + " + toString(numericalKeyPressed + 1));
@@ -1128,10 +1128,10 @@ GNEApplicationWindowHelper::toogleEditOptionsNetwork(GNEViewNet* viewNet, const 
             // show extra information for tests
             WRITE_DEBUG("Enabled hide connections throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleHideConnections
-        viewNet->onCmdToogleHideConnections(obj, sel, nullptr);
+        // Call manually onCmdToggleHideConnections
+        viewNet->onCmdToggleHideConnections(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckExtendSelection) {
-        // Toogle menuCheckExtendSelection
+        // Toggle menuCheckExtendSelection
         if (viewNet->getNetworkViewOptions().menuCheckExtendSelection->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled extend selection throught alt + " + toString(numericalKeyPressed + 1));
@@ -1139,10 +1139,10 @@ GNEApplicationWindowHelper::toogleEditOptionsNetwork(GNEViewNet* viewNet, const 
             // show extra information for tests
             WRITE_DEBUG("Enabled extend selection throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleExtendSelection
-        viewNet->onCmdToogleExtendSelection(obj, sel, nullptr);
+        // Call manually onCmdToggleExtendSelection
+        viewNet->onCmdToggleExtendSelection(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckChangeAllPhases) {
-        // Toogle menuCheckChangeAllPhases
+        // Toggle menuCheckChangeAllPhases
         if (viewNet->getNetworkViewOptions().menuCheckChangeAllPhases->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled change all phases throught alt + " + toString(numericalKeyPressed + 1));
@@ -1150,10 +1150,10 @@ GNEApplicationWindowHelper::toogleEditOptionsNetwork(GNEViewNet* viewNet, const 
             // show extra information for tests
             WRITE_DEBUG("Enabled change all phases throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleChangeAllPhases
-        viewNet->onCmdToogleChangeAllPhases(obj, sel, nullptr);
+        // Call manually onCmdToggleChangeAllPhases
+        viewNet->onCmdToggleChangeAllPhases(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckWarnAboutMerge) {
-        // Toogle menuCheckWarnAboutMerge
+        // Toggle menuCheckWarnAboutMerge
         if (viewNet->getNetworkViewOptions().menuCheckWarnAboutMerge->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled warn about merge throught alt + " + toString(numericalKeyPressed + 1));
@@ -1161,10 +1161,10 @@ GNEApplicationWindowHelper::toogleEditOptionsNetwork(GNEViewNet* viewNet, const 
             // show extra information for tests
             WRITE_DEBUG("Enabled warn about merge throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleWarnAboutMerge
-        viewNet->onCmdToogleWarnAboutMerge(obj, sel, nullptr);
+        // Call manually onCmdToggleWarnAboutMerge
+        viewNet->onCmdToggleWarnAboutMerge(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckShowJunctionBubble) {
-        // Toogle menuCheckShowJunctionBubble
+        // Toggle menuCheckShowJunctionBubble
         if (viewNet->getNetworkViewOptions().menuCheckShowJunctionBubble->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled show junction as bubble throught alt + " + toString(numericalKeyPressed + 1));
@@ -1172,10 +1172,10 @@ GNEApplicationWindowHelper::toogleEditOptionsNetwork(GNEViewNet* viewNet, const 
             // show extra information for tests
             WRITE_DEBUG("Enabled show junction as bubble throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleShowJunctionBubble
-        viewNet->onCmdToogleShowJunctionBubbles(obj, sel, nullptr);
+        // Call manually onCmdToggleShowJunctionBubble
+        viewNet->onCmdToggleShowJunctionBubbles(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckMoveElevation) {
-        // Toogle menuCheckMoveElevation
+        // Toggle menuCheckMoveElevation
         if (viewNet->getNetworkViewOptions().menuCheckMoveElevation->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled move elevation throught alt + " + toString(numericalKeyPressed + 1));
@@ -1183,10 +1183,10 @@ GNEApplicationWindowHelper::toogleEditOptionsNetwork(GNEViewNet* viewNet, const 
             // show extra information for tests
             WRITE_DEBUG("Enabled move elevation throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleMoveElevation
-        viewNet->onCmdToogleMoveElevation(obj, sel, nullptr);
+        // Call manually onCmdToggleMoveElevation
+        viewNet->onCmdToggleMoveElevation(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckChainEdges) {
-        // Toogle menuCheckChainEdges
+        // Toggle menuCheckChainEdges
         if (viewNet->getNetworkViewOptions().menuCheckChainEdges->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled chain edges throught alt + " + toString(numericalKeyPressed + 1));
@@ -1194,10 +1194,10 @@ GNEApplicationWindowHelper::toogleEditOptionsNetwork(GNEViewNet* viewNet, const 
             // show extra information for tests
             WRITE_DEBUG("Enabled chain edges throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleChainEdges
-        viewNet->onCmdToogleChainEdges(obj, sel, nullptr);
+        // Call manually onCmdToggleChainEdges
+        viewNet->onCmdToggleChainEdges(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckAutoOppositeEdge) {
-        // Toogle menuCheckAutoOppositeEdge
+        // Toggle menuCheckAutoOppositeEdge
         if (viewNet->getNetworkViewOptions().menuCheckAutoOppositeEdge->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled auto opposite edge throught alt + " + toString(numericalKeyPressed + 1));
@@ -1205,8 +1205,8 @@ GNEApplicationWindowHelper::toogleEditOptionsNetwork(GNEViewNet* viewNet, const 
             // show extra information for tests
             WRITE_DEBUG("Enabled auto opposite edge throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleAutoOppositeEdge
-        viewNet->onCmdToogleAutoOppositeEdge(obj, sel, nullptr);
+        // Call manually onCmdToggleAutoOppositeEdge
+        viewNet->onCmdToggleAutoOppositeEdge(obj, sel, nullptr);
     } else {
         return false;
     }
@@ -1215,31 +1215,31 @@ GNEApplicationWindowHelper::toogleEditOptionsNetwork(GNEViewNet* viewNet, const 
 
 
 bool
-GNEApplicationWindowHelper::toogleEditOptionsDemand(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck, const int numericalKeyPressed, FXObject* obj, FXSelector sel) {
-    if (menuCheck == viewNet->getDemandViewOptions().menuCheckToogleGrid) {
-        // Toogle menuCheckToogleGrid
-        if (viewNet->getDemandViewOptions().menuCheckToogleGrid->amChecked() == TRUE) {
+GNEApplicationWindowHelper::toggleEditOptionsDemand(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck, const int numericalKeyPressed, FXObject* obj, FXSelector sel) {
+    if (menuCheck == viewNet->getDemandViewOptions().menuCheckToggleGrid) {
+        // Toggle menuCheckToggleGrid
+        if (viewNet->getDemandViewOptions().menuCheckToggleGrid->amChecked() == TRUE) {
             // show extra information for tests
-            WRITE_DEBUG("Disabled toogle show grid throught alt + " + toString(numericalKeyPressed + 1));
+            WRITE_DEBUG("Disabled toggle show grid throught alt + " + toString(numericalKeyPressed + 1));
         } else {
             // show extra information for tests
-            WRITE_DEBUG("Enabled toogle show grid throught alt + " + toString(numericalKeyPressed + 1));
+            WRITE_DEBUG("Enabled toggle show grid throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleShowGrid
-        viewNet->onCmdToogleShowGrid(obj, sel, nullptr);
+        // Call manually onCmdToggleShowGrid
+        viewNet->onCmdToggleShowGrid(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckDrawSpreadVehicles) {
-        // Toogle menuCheckDrawSpreadVehicles
+        // Toggle menuCheckDrawSpreadVehicles
         if (viewNet->getDemandViewOptions().menuCheckDrawSpreadVehicles->amChecked() == TRUE) {
             // show extra information for tests
-            WRITE_DEBUG("Disabled toogle draw spread vehicles throught alt + " + toString(numericalKeyPressed + 1));
+            WRITE_DEBUG("Disabled toggle draw spread vehicles throught alt + " + toString(numericalKeyPressed + 1));
         } else {
             // show extra information for tests
-            WRITE_DEBUG("Enabled toogle spread vehicles throught alt + " + toString(numericalKeyPressed + 1));
+            WRITE_DEBUG("Enabled toggle spread vehicles throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleDrawSpreadVehicles
-        viewNet->onCmdToogleDrawSpreadVehicles(obj, sel, nullptr);
+        // Call manually onCmdToggleDrawSpreadVehicles
+        viewNet->onCmdToggleDrawSpreadVehicles(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckHideShapes) {
-        // Toogle menuCheckHideShapes
+        // Toggle menuCheckHideShapes
         if (viewNet->getDemandViewOptions().menuCheckHideShapes->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled hide shapes throught alt + " + toString(numericalKeyPressed + 1));
@@ -1247,10 +1247,10 @@ GNEApplicationWindowHelper::toogleEditOptionsDemand(GNEViewNet* viewNet, const M
             // show extra information for tests
             WRITE_DEBUG("Enabled hide shapes throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleHideNonInspecteDemandElements
-        viewNet->onCmdToogleHideShapes(obj, sel, nullptr);
+        // Call manually onCmdToggleHideNonInspecteDemandElements
+        viewNet->onCmdToggleHideShapes(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckHideNonInspectedDemandElements) {
-        // Toogle menuCheckHideNonInspectedDemandElements
+        // Toggle menuCheckHideNonInspectedDemandElements
         if (viewNet->getDemandViewOptions().menuCheckHideNonInspectedDemandElements->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled hide non inspected demand elements throught alt + " + toString(numericalKeyPressed + 1));
@@ -1258,10 +1258,10 @@ GNEApplicationWindowHelper::toogleEditOptionsDemand(GNEViewNet* viewNet, const M
             // show extra information for tests
             WRITE_DEBUG("Enabled hide non inspected demand elements throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleHideNonInspecteDemandElements
-        viewNet->onCmdToogleHideNonInspecteDemandElements(obj, sel, nullptr);
+        // Call manually onCmdToggleHideNonInspecteDemandElements
+        viewNet->onCmdToggleHideNonInspecteDemandElements(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckShowAllPersonPlans) {
-        // Toogle menuCheckShowAllPersonPlans
+        // Toggle menuCheckShowAllPersonPlans
         if (viewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled show all person plans throught alt + " + toString(numericalKeyPressed + 1));
@@ -1269,10 +1269,10 @@ GNEApplicationWindowHelper::toogleEditOptionsDemand(GNEViewNet* viewNet, const M
             // show extra information for tests
             WRITE_DEBUG("Enabled show all person plans throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleHideNonInspecteDemandElements
-        viewNet->onCmdToogleHideNonInspecteDemandElements(obj, sel, nullptr);
+        // Call manually onCmdToggleHideNonInspecteDemandElements
+        viewNet->onCmdToggleHideNonInspecteDemandElements(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckLockPerson) {
-        // Toogle menuCheckShowAllPersonPlans
+        // Toggle menuCheckShowAllPersonPlans
         if (viewNet->getDemandViewOptions().menuCheckLockPerson->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled lock person plan throught alt + " + toString(numericalKeyPressed + 1));
@@ -1280,8 +1280,8 @@ GNEApplicationWindowHelper::toogleEditOptionsDemand(GNEViewNet* viewNet, const M
             // show extra information for tests
             WRITE_DEBUG("Enabled lock person plan throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleLockPerson
-        viewNet->onCmdToogleLockPerson(obj, sel, nullptr);
+        // Call manually onCmdToggleLockPerson
+        viewNet->onCmdToggleLockPerson(obj, sel, nullptr);
     } else {
         return false;
     }
@@ -1290,9 +1290,9 @@ GNEApplicationWindowHelper::toogleEditOptionsDemand(GNEViewNet* viewNet, const M
 
 
 bool
-GNEApplicationWindowHelper::toogleEditOptionsData(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck, const int numericalKeyPressed, FXObject* obj, FXSelector sel) {
+GNEApplicationWindowHelper::toggleEditOptionsData(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck, const int numericalKeyPressed, FXObject* obj, FXSelector sel) {
     if (menuCheck == viewNet->getDataViewOptions().menuCheckShowAdditionals) {
-        // Toogle menuCheckHideShapes
+        // Toggle menuCheckHideShapes
         if (viewNet->getDataViewOptions().menuCheckShowAdditionals->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled show additionals throught alt + " + toString(numericalKeyPressed + 1));
@@ -1300,10 +1300,10 @@ GNEApplicationWindowHelper::toogleEditOptionsData(GNEViewNet* viewNet, const MFX
             // show extra information for tests
             WRITE_DEBUG("Enabled show shapes throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleShowAdditionals
-        viewNet->onCmdToogleShowAdditionals(obj, sel, nullptr);
+        // Call manually onCmdToggleShowAdditionals
+        viewNet->onCmdToggleShowAdditionals(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDataViewOptions().menuCheckShowShapes) {
-        // Toogle menuCheckHideShapes
+        // Toggle menuCheckHideShapes
         if (viewNet->getDataViewOptions().menuCheckShowShapes->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled show shapes throught alt + " + toString(numericalKeyPressed + 1));
@@ -1311,10 +1311,10 @@ GNEApplicationWindowHelper::toogleEditOptionsData(GNEViewNet* viewNet, const MFX
             // show extra information for tests
             WRITE_DEBUG("Enabled show shapes throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleShowShapes
-        viewNet->onCmdToogleShowShapes(obj, sel, nullptr);
+        // Call manually onCmdToggleShowShapes
+        viewNet->onCmdToggleShowShapes(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDataViewOptions().menuCheckShowDemandElements) {
-        // Toogle menuCheckShowDemandElements
+        // Toggle menuCheckShowDemandElements
         if (viewNet->getDataViewOptions().menuCheckShowDemandElements->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled show demand elements throught alt + " + toString(numericalKeyPressed + 1));
@@ -1322,8 +1322,8 @@ GNEApplicationWindowHelper::toogleEditOptionsData(GNEViewNet* viewNet, const MFX
             // show extra information for tests
             WRITE_DEBUG("Enabled show demand elements throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleShowDemandElementsData
-        viewNet->onCmdToogleShowDemandElementsData(obj, sel, nullptr);
+        // Call manually onCmdToggleShowDemandElementsData
+        viewNet->onCmdToggleShowDemandElementsData(obj, sel, nullptr);
     } else {
         return false;
     }

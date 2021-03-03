@@ -179,7 +179,7 @@ private:
     /// @brief The all-red time (unused here)
     SUMOTime myIntermediateTime;
 
-    /// @brief Toogles the usage either of phases or of time periods in signal groups
+    /// @brief Toggles the usage either of phases or of time periods in signal groups
     bool myPhaseDefined;
 
     /// @brief Vector of nodes belonging to this traffic light

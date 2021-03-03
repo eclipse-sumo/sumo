@@ -25,7 +25,7 @@ Debug: Adding flowRoute 'flow_0' in GNEChange_DemandElement
 Debug: Adding flowRoute 'flow_1' in GNEChange_DemandElement
 Debug: Adding flowRoute 'flow_2' in GNEChange_DemandElement
 Debug: Adding flowRoute 'flow_3' in GNEChange_DemandElement
-Debug: Enabled toogle show grid throught alt + 1
+Debug: Enabled toggle show grid throught alt + 1
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'

@@ -35,7 +35,7 @@ Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Enabled show demand elements throught alt + 3
-Debug: Enabled toogle spread vehicles throught alt + 2
+Debug: Enabled toggle spread vehicles throught alt + 2
 Debug: Setting new attribute selected '1' into edge '1'
 Debug: Setting new attribute selected '1' into edge '2'
 Debug: Setting new attribute selected '1' into edge '3'

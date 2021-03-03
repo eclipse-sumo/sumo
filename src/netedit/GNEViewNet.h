@@ -266,65 +266,65 @@ public:
     /// @name View options network call backs
     /// @{
 
-    /// @brief toogle select edges
-    long onCmdToogleSelectEdges(FXObject*, FXSelector, void*);
+    /// @brief toggle select edges
+    long onCmdToggleSelectEdges(FXObject*, FXSelector, void*);
 
-    /// @brief toogle show connections
-    long onCmdToogleShowConnections(FXObject*, FXSelector, void*);
+    /// @brief toggle show connections
+    long onCmdToggleShowConnections(FXObject*, FXSelector, void*);
 
-    /// @brief toogle hide connections
-    long onCmdToogleHideConnections(FXObject*, FXSelector, void*);
+    /// @brief toggle hide connections
+    long onCmdToggleHideConnections(FXObject*, FXSelector, void*);
 
-    /// @brief toogle extend selection
-    long onCmdToogleExtendSelection(FXObject*, FXSelector, void*);
+    /// @brief toggle extend selection
+    long onCmdToggleExtendSelection(FXObject*, FXSelector, void*);
 
-    /// @brief toogle change all phases
-    long onCmdToogleChangeAllPhases(FXObject*, FXSelector, void*);
+    /// @brief toggle change all phases
+    long onCmdToggleChangeAllPhases(FXObject*, FXSelector, void*);
 
-    /// @brief toogle show grid
-    long onCmdToogleShowGrid(FXObject*, FXSelector, void*);
+    /// @brief toggle show grid
+    long onCmdToggleShowGrid(FXObject*, FXSelector, void*);
 
-    /// @brief toogle draw vehicles in begin position or spread in lane
-    long onCmdToogleDrawSpreadVehicles(FXObject*, FXSelector, void*);
+    /// @brief toggle draw vehicles in begin position or spread in lane
+    long onCmdToggleDrawSpreadVehicles(FXObject*, FXSelector, void*);
 
-    /// @brief toogle warn for merge
-    long onCmdToogleWarnAboutMerge(FXObject*, FXSelector, void*);
+    /// @brief toggle warn for merge
+    long onCmdToggleWarnAboutMerge(FXObject*, FXSelector, void*);
 
-    /// @brief toogle show junction bubbles
-    long onCmdToogleShowJunctionBubbles(FXObject*, FXSelector, void*);
+    /// @brief toggle show junction bubbles
+    long onCmdToggleShowJunctionBubbles(FXObject*, FXSelector, void*);
 
-    /// @brief toogle move elevation
-    long onCmdToogleMoveElevation(FXObject*, FXSelector, void*);
+    /// @brief toggle move elevation
+    long onCmdToggleMoveElevation(FXObject*, FXSelector, void*);
 
-    /// @brief toogle chain edges
-    long onCmdToogleChainEdges(FXObject*, FXSelector, void*);
+    /// @brief toggle chain edges
+    long onCmdToggleChainEdges(FXObject*, FXSelector, void*);
 
-    /// @brief toogle autoOpposite edge
-    long onCmdToogleAutoOppositeEdge(FXObject*, FXSelector, void*);
+    /// @brief toggle autoOpposite edge
+    long onCmdToggleAutoOppositeEdge(FXObject*, FXSelector, void*);
 
-    /// @brief toogle hide non inspected demand elements
-    long onCmdToogleHideNonInspecteDemandElements(FXObject*, FXSelector, void*);
+    /// @brief toggle hide non inspected demand elements
+    long onCmdToggleHideNonInspecteDemandElements(FXObject*, FXSelector, void*);
 
-    /// @brief toogle hide shapes in super mode demand
-    long onCmdToogleHideShapes(FXObject*, FXSelector, void*);
+    /// @brief toggle hide shapes in super mode demand
+    long onCmdToggleHideShapes(FXObject*, FXSelector, void*);
 
-    /// @brief toogle show all person plans in super mode demand
-    long onCmdToogleShowAllPersonPlans(FXObject*, FXSelector, void*);
+    /// @brief toggle show all person plans in super mode demand
+    long onCmdToggleShowAllPersonPlans(FXObject*, FXSelector, void*);
 
-    /// @brief toogle lock person in super mode demand
-    long onCmdToogleLockPerson(FXObject*, FXSelector, void*);
+    /// @brief toggle lock person in super mode demand
+    long onCmdToggleLockPerson(FXObject*, FXSelector, void*);
 
-    /// @brief toogle show additionals in super mode data
-    long onCmdToogleShowAdditionals(FXObject*, FXSelector, void*);
+    /// @brief toggle show additionals in super mode data
+    long onCmdToggleShowAdditionals(FXObject*, FXSelector, void*);
 
-    /// @brief toogle show shapes in super mode data
-    long onCmdToogleShowShapes(FXObject*, FXSelector, void*);
+    /// @brief toggle show shapes in super mode data
+    long onCmdToggleShowShapes(FXObject*, FXSelector, void*);
 
-    /// @brief toogle show demand elements (network)
-    long onCmdToogleShowDemandElementsNetwork(FXObject*, FXSelector, void*);
+    /// @brief toggle show demand elements (network)
+    long onCmdToggleShowDemandElementsNetwork(FXObject*, FXSelector, void*);
 
-    /// @brief toogle show demand elements (data)
-    long onCmdToogleShowDemandElementsData(FXObject*, FXSelector, void*);
+    /// @brief toggle show demand elements (data)
+    long onCmdToggleShowDemandElementsData(FXObject*, FXSelector, void*);
 
     /// @}
 

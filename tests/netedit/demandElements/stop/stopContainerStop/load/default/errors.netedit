@@ -7,7 +7,7 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding containerStop 'containerStop' in GNEChange_Additional
 Debug: Adding trip 'trip' in GNEChange_DemandElement
 Debug: Adding stopContainerStop 'trip' in GNEChange_DemandElement
-Debug: Disabled toogle show grid throught alt + 1
+Debug: Disabled toggle show grid throught alt + 1
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

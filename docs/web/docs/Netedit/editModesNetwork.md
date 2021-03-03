@@ -173,7 +173,7 @@ Basic view of TAZ creation controls
 Creating a TAZ
 
 2\) **Definition of Edges and its inputs (sources) and outputs (sinks)**: A single click over a TAZ open the editing fields for
-TAZEdges in side menu. If the checkbox *Membership* is enabled (Toogle) box, a click over an edge will add it to the list of edges vinculated to the TAZ, (Or will be removed from the list if it was previously selected). Edge will will be added to the list with the input/output values given in the *New source*/*New sink* text fields. (note: A TAZ Edge always has a Source and a Sink).
+TAZEdges in side menu. If the checkbox *Membership* is enabled (Toggle) box, a click over an edge will add it to the list of edges vinculated to the TAZ, (Or will be removed from the list if it was previously selected). Edge will will be added to the list with the input/output values given in the *New source*/*New sink* text fields. (note: A TAZ Edge always has a Source and a Sink).
 
 ![](../images/TAZMode3.png)   
 Controls after clicking over a TAZ

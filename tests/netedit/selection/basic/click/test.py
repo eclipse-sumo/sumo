@@ -46,7 +46,7 @@ netedit.selectMode()
 # select edge using a simple click
 netedit.leftClickControl(referencePosition, 210, 210)
 
-# toogle edges selection
+# toggle edges selection
 netedit.changeEditMode('2')
 
 # select lane using a simple click

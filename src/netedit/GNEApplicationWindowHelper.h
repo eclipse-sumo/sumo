@@ -379,7 +379,7 @@ struct GNEApplicationWindowHelper {
             void hideNetworkViewOptionsMenuChecks();
 
             /// @brief menu check to show grid button
-            FXMenuCheckIcon* menuCheckToogleGrid;
+            FXMenuCheckIcon* menuCheckToggleGrid;
 
             /// @brief menu check to draw vehicles in begin position or spread in lane
             FXMenuCheckIcon* menuCheckDrawSpreadVehicles;
@@ -444,7 +444,7 @@ struct GNEApplicationWindowHelper {
             void hideDemandViewOptionsMenuChecks();
 
             /// @brief menu check to show grid button
-            FXMenuCheckIcon* menuCheckToogleGrid;
+            FXMenuCheckIcon* menuCheckToggleGrid;
 
             /// @brief menu check to draw vehicles in begin position or spread in lane
             FXMenuCheckIcon* menuCheckDrawSpreadVehicles;
@@ -723,16 +723,16 @@ struct GNEApplicationWindowHelper {
         SupermodeCommands& operator=(const SupermodeCommands&) = delete;
     };
 
-    /// @brief toogle edit options Network menu commands (called in GNEApplicationWindow::onCmdToogleEditOptions)
-    static bool toogleEditOptionsNetwork(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,
+    /// @brief toggle edit options Network menu commands (called in GNEApplicationWindow::onCmdToggleEditOptions)
+    static bool toggleEditOptionsNetwork(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,
                                          const int numericalKeyPressed, FXObject* obj, FXSelector sel);
 
-    /// @brief toogle edit options Demand menu commands (called in GNEApplicationWindow::onCmdToogleEditOptions)
-    static bool toogleEditOptionsDemand(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,
+    /// @brief toggle edit options Demand menu commands (called in GNEApplicationWindow::onCmdToggleEditOptions)
+    static bool toggleEditOptionsDemand(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,
                                         const int numericalKeyPressed, FXObject* obj, FXSelector sel);
 
-    /// @brief toogle edit options Data menu commands (called in GNEApplicationWindow::onCmdToogleEditOptions)
-    static bool toogleEditOptionsData(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,
+    /// @brief toggle edit options Data menu commands (called in GNEApplicationWindow::onCmdToggleEditOptions)
+    static bool toggleEditOptionsData(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,
                                       const int numericalKeyPressed, FXObject* obj, FXSelector sel);
 
 private:

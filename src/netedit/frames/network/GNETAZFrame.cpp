@@ -478,10 +478,10 @@ GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* T
     myTAZFrameParent(TAZFrameParent),
     myDefaultTAZSourceWeight(1),
     myDefaultTAZSinkWeight(1) {
-    // create checkbox for toogle membership
-    FXHorizontalFrame* toogleMembershipFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(toogleMembershipFrame, "Membership", 0, GUIDesignLabelAttribute);
-    myToggleMembership = new FXCheckButton(toogleMembershipFrame, "Toggle", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    // create checkbox for toggle membership
+    FXHorizontalFrame* toggleMembershipFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(toggleMembershipFrame, "Membership", 0, GUIDesignLabelAttribute);
+    myToggleMembership = new FXCheckButton(toggleMembershipFrame, "Toggle", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // by default enabled
     myToggleMembership->setCheck(TRUE);
     // create default TAZ Source weight
@@ -499,7 +499,7 @@ GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* T
     // Create information label
     std::ostringstream information;
     information
-            << "- Toogle Membership:\n"
+            << "- Toggle Membership:\n"
             << "  Create new Sources/Sinks\n"
             << "  with given weights.";
     myInformationLabel = new FXLabel(this, information.str().c_str(), 0, GUIDesignLabelFrameInformation);
@@ -617,14 +617,14 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
         myTAZFrameParent->myTAZSelectionStatistics->clearSelectedEdges();
         // set text of myToggleMembership
         if (myToggleMembership->getCheck() == TRUE) {
-            myToggleMembership->setText("toogle");
+            myToggleMembership->setText("toggle");
             // show TAZSource/Sink Frames
             myDefaultTAZSourceFrame->show();
             myDefaultTAZSinkFrame->show();
             // update information label
             std::ostringstream information;
             information
-                    << "- Toogle Membership:\n"
+                    << "- Toggle Membership:\n"
                     << "  Create new Sources/Sinks\n"
                     << "  with given weights.";
             myInformationLabel->setText(information.str().c_str());
@@ -1358,7 +1358,7 @@ GNETAZFrame::processClick(const Position& clickedPosition, const GNEViewNetHelpe
             return false;
         }
     } else if (objectsUnderCursor.getEdgeFront()) {
-        // if toogle Edge is enabled, select edge. In other case create two new TAZSource/Sinks
+        // if toggle Edge is enabled, select edge. In other case create two new TAZSource/Sinks
         if (myTAZChildDefaultParameters->getToggleMembership()) {
             // create new TAZSource/Sinks or delete it
             return addOrRemoveTAZMember(objectsUnderCursor.getEdgeFront());
@@ -1394,7 +1394,7 @@ void
 GNETAZFrame::processEdgeSelection(const std::vector<GNEEdge*>& edges) {
     // first check that a TAZ is selected
     if (myTAZCurrent->getTAZ()) {
-        // if "toogle Membership" is enabled, create new TAZSources/sinks. In other case simply select edges
+        // if "toggle Membership" is enabled, create new TAZSources/sinks. In other case simply select edges
         if (myTAZChildDefaultParameters->getToggleMembership()) {
             // iterate over edges
             for (auto i : edges) {

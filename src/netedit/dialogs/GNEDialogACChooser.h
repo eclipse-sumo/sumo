@@ -57,7 +57,7 @@ public:
 protected:
     FOX_CONSTRUCTOR(GNEDialogACChooser)
 
-    /// @brief toogle selection
+    /// @brief toggle selection
     void toggleSelection(int listIndex) override;
 
     /// @brief filter ACs

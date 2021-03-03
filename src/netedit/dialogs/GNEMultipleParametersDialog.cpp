@@ -105,7 +105,7 @@ GNEMultipleParametersDialog::ParametersValues::addParameter(std::pair<std::strin
     // add row
     myParameterRows.push_back(new ParameterRow(this, myVerticalFrameRow));
     // enable add button in the last row
-    myParameterRows.back()->toogleAddButton();
+    myParameterRows.back()->toggleAddButton();
 }
 
 
@@ -120,7 +120,7 @@ GNEMultipleParametersDialog::ParametersValues::clearParameters() {
     // add row
     myParameterRows.push_back(new ParameterRow(this, myVerticalFrameRow));
     // enable add button in the last row
-    myParameterRows.back()->toogleAddButton();
+    myParameterRows.back()->toggleAddButton();
 }
 
 
@@ -251,7 +251,7 @@ GNEMultipleParametersDialog::ParametersValues::ParameterRow::enableRow(const std
 
 
 void
-GNEMultipleParametersDialog::ParametersValues::ParameterRow::toogleAddButton() {
+GNEMultipleParametersDialog::ParametersValues::ParameterRow::toggleAddButton() {
     // clear and disable parameter and value fields
     keyField->setText("");
     keyField->disable();

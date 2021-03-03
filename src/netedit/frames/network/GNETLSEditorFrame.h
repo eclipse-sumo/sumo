@@ -323,7 +323,7 @@ public:
     /// @note discards any modifications
     long onCmdCancel(FXObject*, FXSelector, void*);
 
-    /// @brief Called when the user presses the button Toogle
+    /// @brief Called when the user presses the button Toggle
     long onCmdToggle(FXObject*, FXSelector, void*);
 
     /// @brief Called when the user presses the button Guess

@@ -114,8 +114,8 @@ public:
             /// @brief enable rlow
             void enableRow(const std::string& parameter, const std::string& value) const;
 
-            /// @brief toogle add button
-            void toogleAddButton();
+            /// @brief toggle add button
+            void toggleAddButton();
 
             /// @brief check if remove button is in mode "add"
             bool isButtonInAddMode() const;

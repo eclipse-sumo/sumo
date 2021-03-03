@@ -79,8 +79,8 @@ enum {
     MID_HOTKEY_CTRL_C_COPY,
     /// @brief Perform a single simulation step in SUMO and open Demand Elements in NETEDIT
     MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS,
-    /// @brief Toogle Gaming mode in SUMO and grid in NETEDIT
-    MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,
+    /// @brief Toggle Gaming mode in SUMO and grid in NETEDIT
+    MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID,
     /// @brief open edge type files
     MID_HOTKEY_CTRL_H_OPENEDGETYPES,
     /// @brief Open viewport editor
@@ -119,26 +119,26 @@ enum {
     /// @name Alt hotkeys
     /// @{
 
-    /// @brief toogle edit option
-    MID_HOTKEY_ALT_0_TOOGLEEDITOPTION,
-    /// @brief toogle edit option
-    MID_HOTKEY_ALT_1_TOOGLEEDITOPTION,
-    /// @brief toogle edit option
-    MID_HOTKEY_ALT_2_TOOGLEEDITOPTION,
-    /// @brief toogle edit option
-    MID_HOTKEY_ALT_3_TOOGLEEDITOPTION,
-    /// @brief toogle edit option
-    MID_HOTKEY_ALT_4_TOOGLEEDITOPTION,
-    /// @brief toogle edit option
-    MID_HOTKEY_ALT_5_TOOGLEEDITOPTION,
-    /// @brief toogle edit option
-    MID_HOTKEY_ALT_6_TOOGLEEDITOPTION,
-    /// @brief toogle edit option
-    MID_HOTKEY_ALT_7_TOOGLEEDITOPTION,
-    /// @brief toogle edit option
-    MID_HOTKEY_ALT_8_TOOGLEEDITOPTION,
-    /// @brief toogle edit option
-    MID_HOTKEY_ALT_9_TOOGLEEDITOPTION,
+    /// @brief toggle edit option
+    MID_HOTKEY_ALT_0_TOGGLEEDITOPTION,
+    /// @brief toggle edit option
+    MID_HOTKEY_ALT_1_TOGGLEEDITOPTION,
+    /// @brief toggle edit option
+    MID_HOTKEY_ALT_2_TOGGLEEDITOPTION,
+    /// @brief toggle edit option
+    MID_HOTKEY_ALT_3_TOGGLEEDITOPTION,
+    /// @brief toggle edit option
+    MID_HOTKEY_ALT_4_TOGGLEEDITOPTION,
+    /// @brief toggle edit option
+    MID_HOTKEY_ALT_5_TOGGLEEDITOPTION,
+    /// @brief toggle edit option
+    MID_HOTKEY_ALT_6_TOGGLEEDITOPTION,
+    /// @brief toggle edit option
+    MID_HOTKEY_ALT_7_TOGGLEEDITOPTION,
+    /// @brief toggle edit option
+    MID_HOTKEY_ALT_8_TOGGLEEDITOPTION,
+    /// @brief toggle edit option
+    MID_HOTKEY_ALT_9_TOGGLEEDITOPTION,
     /// @brief Main window closes
     MID_HOTKEY_ALT_F4_CLOSE,
 
@@ -363,12 +363,12 @@ enum {
     MID_SHOWTOOLTIPS,
     /// @brief Make snapshot - button
     MID_MAKESNAPSHOT,
-    /// @brief toogle zooming style
+    /// @brief toggle zooming style
     MID_ZOOM_STYLE,
-    /// @brief toogle time display mode
-    MID_TIME_TOOGLE,
-    /// @brief toogle delay between alternative value
-    MID_DELAY_TOOGLE,
+    /// @brief toggle time display mode
+    MID_TIME_TOGGLE,
+    /// @brief toggle delay between alternative value
+    MID_DELAY_TOGGLE,
     /// @brief scale traffic
     MID_DEMAND_SCALE,
     /// @brief scale vehicle speed
@@ -641,7 +641,7 @@ enum {
     /// @{
 
     /// @brief show grid
-    MID_GNE_NETWORKVIEWOPTIONS_TOOGLEGRID,
+    MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID,
     /// @brief Draw vehicles in begin position or spread in lane
     MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES,
     /// @brief show demand elements

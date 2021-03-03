@@ -233,11 +233,11 @@ public:
     /// @brief called when the update/FXCall redo is executed
     long onUpdRedo(FXObject* obj, FXSelector sel, void* ptr);
 
-    /// @brief toogle viewOption
-    long onCmdToogleViewOption(FXObject*, FXSelector, void*);
+    /// @brief toggle viewOption
+    long onCmdToggleViewOption(FXObject*, FXSelector, void*);
 
     /// @brief update viewOption
-    long onUpdToogleViewOption(FXObject*, FXSelector, void*);
+    long onUpdToggleViewOption(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save as plain xml is executed
     long onCmdSaveAsPlainXML(FXObject*, FXSelector, void*);
@@ -268,10 +268,10 @@ public:
     /// @brief called when the command/FXCall clear message windows is executed
     long onCmdClearMsgWindow(FXObject*, FXSelector, void*);
 
-    /// @brief called when user toogle windows checkbox "load additionals"
+    /// @brief called when user toggle windows checkbox "load additionals"
     long onCmdLoadAdditionalsInSUMOGUI(FXObject*, FXSelector, void*);
 
-    /// @brief called when user toogle windows checkbox "load demand"
+    /// @brief called when user toggle windows checkbox "load demand"
     long onCmdLoadDemandInSUMOGUI(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall load thread is executed
@@ -322,14 +322,14 @@ public:
     /// @brief enable or disable sender object depending if viewNet exist
     long onUpdRequiereViewNet(FXObject* sender, FXSelector sel, void* ptr);
 
-    /// @brief called if the user press key combination Ctrl + G to toogle grid
-    long onCmdToogleGrid(FXObject*, FXSelector, void*);
+    /// @brief called if the user press key combination Ctrl + G to toggle grid
+    long onCmdToggleGrid(FXObject*, FXSelector, void*);
 
     /// @brief called if the user call set front element
     long onCmdSetFrontElement(FXObject*, FXSelector, void*);
 
     /// @brief called if the user press key combination Alt + <0-9>
-    long onCmdToogleEditOptions(FXObject*, FXSelector, void*);
+    long onCmdToggleEditOptions(FXObject*, FXSelector, void*);
 
     /// @brief called if the user selects help->Documentation
     long onCmdHelp(FXObject* sender, FXSelector sel, void* ptr);

@@ -543,7 +543,7 @@ struct GNEViewNetHelper {
         bool editingElevation() const;
 
         /// @brief checkable button to show grid button
-        MFXCheckableButton* menuCheckToogleGrid;
+        MFXCheckableButton* menuCheckToggleGrid;
 
         /// @brief checkable button to draw vehicles in begin position or spread in lane
         MFXCheckableButton* menuCheckDrawSpreadVehicles;
@@ -629,7 +629,7 @@ struct GNEViewNetHelper {
         const GNEDemandElement* getLockedPerson() const;
 
         /// @brief menu check to show grid button
-        MFXCheckableButton* menuCheckToogleGrid;
+        MFXCheckableButton* menuCheckToggleGrid;
 
         /// @brief menu check to draw vehicles in begin position or spread in lane
         MFXCheckableButton* menuCheckDrawSpreadVehicles;

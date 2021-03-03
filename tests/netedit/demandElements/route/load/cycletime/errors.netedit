@@ -23,7 +23,7 @@ Debug: Adding route 'route_1' in GNEChange_DemandElement
 Debug: Format of optional optional SUMOTime attribute 'cycleTime' of route with ID 'route_2' is invalid; Cannot be parsed to SUMOTime; Default value will be used.
 Debug: Adding route 'route_2' in GNEChange_DemandElement
 Debug: Adding route 'route_3' in GNEChange_DemandElement
-Debug: Enabled toogle show grid throught alt + 1
+Debug: Enabled toggle show grid throught alt + 1
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00

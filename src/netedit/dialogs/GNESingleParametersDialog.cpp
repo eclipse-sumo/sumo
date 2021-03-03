@@ -105,7 +105,7 @@ GNESingleParametersDialog::ParametersValues::addParameter(std::pair<std::string,
     // add row
     myParameterRows.push_back(new ParameterRow(this, myVerticalFrameRow));
     // enable add button in the last row
-    myParameterRows.back()->toogleAddButton();
+    myParameterRows.back()->toggleAddButton();
 }
 
 
@@ -120,7 +120,7 @@ GNESingleParametersDialog::ParametersValues::clearParameters() {
     // add row
     myParameterRows.push_back(new ParameterRow(this, myVerticalFrameRow));
     // enable add button in the last row
-    myParameterRows.back()->toogleAddButton();
+    myParameterRows.back()->toggleAddButton();
 }
 
 
@@ -246,7 +246,7 @@ GNESingleParametersDialog::ParametersValues::ParameterRow::enableRow(const std::
 
 
 void
-GNESingleParametersDialog::ParametersValues::ParameterRow::toogleAddButton() {
+GNESingleParametersDialog::ParametersValues::ParameterRow::toggleAddButton() {
     // clear and disable parameter and value fields
     keyField->setText("");
     keyField->disable();
