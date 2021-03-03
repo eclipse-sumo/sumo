@@ -109,13 +109,13 @@ LD_LIBRARY_PATH=$SUMO_HOME/bin ./test
 ### Example Code (APITest.java)
 
 ```
-import java.util.Arrays;
 import org.eclipse.sumo.libtraci.Simulation;
 import org.eclipse.sumo.libtraci.StringVector;
 
 public class APITest {
     public static void main(String[] args) {
-        Simulation.start(new StringVector(Arrays.asList("sumo", "-n", "net.net.xml")));
+        System.loadLibrary("libtracijni");
+        Simulation.start(new StringVector(new String[] {"sumo", "-n", "net.net.xml"}));
         for (int i = 0; i < 5; i++) {
             Simulation.step();
         }
@@ -132,5 +132,5 @@ javac -cp $SUMO_HOME/bin/libtraci-1.8.0-SNAPSHOT.jar APITest.java
 
 ### running on Linux
 ```
-java -cp $SUMO_HOME/bin/libtraci-1.8.0-SNAPSHOT.jar:. APITest
+java -Djava.library.path=$SUMO_HOME/bin -cp $SUMO_HOME/bin/libtraci-1.8.0-SNAPSHOT.jar:. APITest
 ```
