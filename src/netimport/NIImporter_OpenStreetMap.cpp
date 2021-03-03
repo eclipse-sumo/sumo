@@ -940,6 +940,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 && key != "railway:track_ref"
                 && key != "usage"
                 && key != "electrified"
+                && key != "bus"
                 && key != "public_transport") {
             return;
         }
@@ -1008,6 +1009,10 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 myCurrentEdge->myHighWayType = joinToStringSorting(types, compoundTypeSeparator);
             } else {
                 myCurrentEdge->myHighWayType = singleTypeID;
+            }
+        } else if (key == "bus") {
+            if (value != "no") {
+                myCurrentEdge->myBuswayType = WAY_FORWARD;
             }
         } else if (key == "lanes") {
             try {
