@@ -135,16 +135,28 @@ public:
 
     virtual SUMOAbstractRouter* clone() = 0;
 
-    void init() {
-        // all EdgeInfos touched in the previous query are either in myFrontierList or myFound: clean those up
-        for (auto& edgeInfo : myFrontierList) {
-            edgeInfo->reset();
+    inline void init(const int edgeID, const SUMOTime msTime) {
+        if (!myAmClean) {
+            // all EdgeInfos touched in the previous query are either in myFrontierList or myFound: clean those up
+            for (auto& edgeInfo : myFrontierList) {
+                edgeInfo->reset();
+            }
+            myFrontierList.clear();
+            for (auto& edgeInfo : myFound) {
+                edgeInfo->reset();
+            }
+            myFound.clear();
+            if (edgeID > -1) {
+                // add begin node
+                auto& fromInfo = myEdgeInfos[edgeID];
+                fromInfo.effort = 0.;
+                fromInfo.heuristicEffort = 0.;
+                fromInfo.prev = nullptr;
+                fromInfo.leaveTime = STEPS2TIME(msTime);
+                myFrontierList.push_back(&fromInfo);
+            }
+            myAmClean = true;
         }
-        myFrontierList.clear();
-        for (auto& edgeInfo : myFound) {
-            edgeInfo->reset();
-        }
-        myFound.clear();
     }
 
     /// reset internal caches, used by CHRouter
@@ -281,6 +293,29 @@ public:
     }
 
 
+    inline double setHint(const typename std::vector<const E*>::const_iterator routeBegin, const typename std::vector<const E*>::const_iterator routeEnd, const V* const v, SUMOTime msTime) {
+        double time = STEPS2TIME(msTime);
+        double effort = 0.;
+        double length = 0.;
+        const EdgeInfo* prev = &myEdgeInfos[(*routeBegin)->getNumericalID()];
+        init((*routeBegin)->getNumericalID(), msTime);
+        for (auto e = routeBegin + 1; e != routeEnd; ++e) {
+            if (isProhibited(*e, v)) {
+                return -1;
+            }
+            auto& edgeInfo = myEdgeInfos[(*e)->getNumericalID()];
+            edgeInfo.heuristicEffort = effort;
+            edgeInfo.prev = prev;
+            updateViaCost(prev->edge, *e, v, time, effort, length);
+            edgeInfo.effort = effort;
+            edgeInfo.leaveTime = time;
+            myFound.push_back(&edgeInfo);
+            prev = &edgeInfo;
+        }
+        return effort;
+    }
+
+
     inline double getEffort(const E* const e, const V* const v, double t) const {
         return (*myOperation)(e, v, t);
     }
@@ -339,6 +374,9 @@ protected:
 
     /// @brief whether we are currently trying to detect bulk mode automatically
     bool myAutoBulkMode;
+
+    /// @brief whether we are already initialized
+    bool myAmClean;
 
     /// @brief whether edge permissions need to be considered
     const bool myHavePermissions;

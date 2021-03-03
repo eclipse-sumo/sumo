@@ -129,16 +129,11 @@ public:
                 return true;
             }
         } else {
-            this->init();
-            // add begin node
-            auto& fromInfo = this->myEdgeInfos[from->getNumericalID()];
-            fromInfo.effort = 0.;
-            fromInfo.prev = nullptr;
-            fromInfo.leaveTime = STEPS2TIME(msTime);
+            this->init(from->getNumericalID(), msTime);
             if (myExternalEffort != nullptr) {
-                myExternalEffort->setInitialState(fromInfo.edge->getNumericalID());
+                myExternalEffort->setInitialState(from->getNumericalID());
             }
-            this->myFrontierList.push_back(&fromInfo);
+            this->myAmClean = false;
         }
         myLastQuery = query;
         // loop

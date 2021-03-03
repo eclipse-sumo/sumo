@@ -306,6 +306,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             source = *s;
         }
     }
+    // router.setHint(myCurrEdge, myRoute->end(), this, t);
     router.compute(source, sink, this, t, edges, silent);
     if (edges.empty() && silent) {
         return;
