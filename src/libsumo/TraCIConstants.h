@@ -1146,16 +1146,16 @@ TRACI_CONST int VAR_NET_BOUNDING_BOX = 0x7c;
 TRACI_CONST int VAR_MIN_EXPECTED_VEHICLES = 0x7d;
 
 // number of departed persons (get: simulation)
-TRACI_CONST int VAR_DEPARTED_PERSONS_NUMBER = 0x60;
+TRACI_CONST int VAR_DEPARTED_PERSONS_NUMBER = 0x24;
 
 // departed person ids (get: simulation)
-TRACI_CONST int VAR_DEPARTED_PERSONS_IDS = 0x61;
+TRACI_CONST int VAR_DEPARTED_PERSONS_IDS = 0x25;
 
 // number of arrived persons (get: simulation)
-TRACI_CONST int VAR_ARRIVED_PERSONS_NUMBER = 0x62;
+TRACI_CONST int VAR_ARRIVED_PERSONS_NUMBER = 0x26;
 
 // ids of arrived persons (get: simulation)
-TRACI_CONST int VAR_ARRIVED_PERSONS_IDS = 0x63;
+TRACI_CONST int VAR_ARRIVED_PERSONS_IDS = 0x27;
 
 // number of vehicles starting to park (get: simulation)
 TRACI_CONST int VAR_STOP_STARTING_VEHICLES_NUMBER = 0x68;
