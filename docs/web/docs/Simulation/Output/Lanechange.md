@@ -58,6 +58,8 @@ The reason may be one of
 A reason may be further qualified by the addition of the string
 **|urgent**.
 
+If a vehicle has the [generic parameter](../GenericParameters.md) "lcReason", that value will be added to the 'reason' attribute in the output. This can be used to further qualify the change reason when influencing vehicles via [TraCI](../../TraCI/Change_Vehicle_State.md).
+
 ### Continuous Lane Changes
 
 If the simulation is performed with the
