@@ -62,6 +62,9 @@ title: ChangeLog
   - Fixed invalid ptline output when stop edge is removed via option. Issue #8039
   - Fixed duplicate public transport stops when importing public transport lines from OSM. Issue #8060
   - Fixed missing trafficlights when combining options **--tls.discard-simple** and **--junctions.join**. Issue #8219
+  - Fixed high running time when using option **--geometry.remove** on large networks. Issue #8270
+  - Fixed crash when using option **--heightmap.shapefiles** with unsuitable shape data. Issue #8307
+  - Fixed missing bus-permissions when importing OSM. Issue #8310
 
 - od2trips
   - Fixed invalid begin and end times when writting personFlows. Issue #7885
@@ -78,10 +81,14 @@ title: ChangeLog
   - Function 'trafficlight.setProgramLogic' new resets phase duration. Issue #2238
   - Function 'trafficlight.setPhaseDuration' now works for actuatd traffic lights. Issue #1959
   - Route replacement with internal edge at the start of the edges list no longer causes an error. Issue #8231
+  - Fixed failure to add stop when close to the stop position (but not quite too close). Also affected taxi re-dispatch. Issue #8285
+  - Looped taxi-dispatch now picks up persons in the intended order. Issue #8295
+  - Fixed crash after calling 'person.removeStage' on a riding stage. Issue #8305
   
 - Tools
   - Fixed error in xml2csv.py when loading files names consists only of numbers. Issue #7910
   - Fixed invalid routes when [importing MATSim plans](Tools/Import/MATSim.md) #7948  
+  - randomTrips.py now generates multi-stage plans when combining option **--intermediate** with options that generated persons (i.e. **--persontrips**). Issue #8273
   
 ### Enhancements
 - Simulation
@@ -102,6 +109,8 @@ title: ChangeLog
   - Added vehicle attribute 'arrivalEdge' which can be used to set an arrival edge index ahead of the last edge of it's route. Issue #7609
   - Connection attribute 'visibility' now controls the distance for zipper merge related speed adjustments (default 100m). Issue #8240
   - Added option **--fcd-output.attributes** to set the list of attributes which are included in fcd-output. Issue #7632
+  - fcd-output can now distinguish riding and walking persons by adding 'vehicle' to the option **--fcd-output.attributes**. Issue #7631
+  - Added option **time-to-teleport.disconnected** which is applied when teleporting vehicles on fully disconnected routes. Issue #8267
   
 - sumo-gui
   - Random color for containers is now supported. Issue #7941
@@ -142,7 +151,10 @@ title: ChangeLog
   - The behavior of option **--geometry.remove** (merging subsequent edges with common attributes) no longer depends on written **--ptstop-output** (stops will be remapped onto merged edges). To enable legacy behavior, the option **--geometry.remove.keep-ptstops** may be set. Issue #8155
   - Connection file element `<walkingArea>` no supports attribute 'width' #7968
   - Lane attribute type is now written in OpenDRIVE output. Issue #8229
+  - Added option **--default.allow** to set default edge permissions (also applies to netgenerate). Issue #8271
 
+- netgenerate
+  - Releaxed restrictions on minimum edge lengths when building grid and spider networks. Issue #8272
 
 - TraCI
   - Added function 'traci.simulation.getCollisions' to retrieve a list of collision objects for the current time step. This also includes collisions between vehicles and pedestrians. Issue #7728
@@ -153,12 +165,14 @@ title: ChangeLog
   - The reservation objects returnd by [traci.person.getTaxiReservations](Simulation/Taxi.md#gettaxireservations) now includes persons that are eligible for re-dispatch and includes the state of the reservation (new, assigned, on board). Issue #8168
   - Added function 'traci.person.splitTaxiReservation' to transport pre-made groups with multiple vehicles. Issue #8236
   - The domains 'simulation', 'junction', 'inductionloop', 'lanearea', 'multientryexit' now support setParameter and getParameter. Issue #4733, #8244
+  - The value set by `traci.vehicle.setParameter("lcReason", VALUE)` will now be appended to lanechange-output. Issue #8297
 
 - Tools
   - Added [new tools](Tools/Import/GTFS.md) to support GTFS import. Issue #4596
   - The tool [gridDistricts.py](Tools/District.md#griddistrictspy) can be used to generated a grid of districts (TAZs) for a given network. #7946
   - [netcheck.py](Tools/Net.md#netcheckpy) now supports option **--print-types** to analyze the edge types of the different network components. Issue #8097
-  - The tool [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy) can now handle inconsistent schedule input without generating deadlocking constraints when setting option **--abort-unordered**. Issue #7436, #8246
+  - The tool [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy) can now handle inconsistent schedule input without generating deadlocking constraints when setting option **--abort-unordered**. Issue #7436, #8246, #8278
+  - When loading additional weights in for [duaIterate.py](Demand/Dynamic_User_Assignment.md#iterative_assignment_dynamic_user_equilibrium), the new option **--addweights.once** controls whether the weights are to be effective in every iteration or not. The new default is to apply them in every iteration whereas previously, they were applied only in the first iteration. Issue #8249
 
 ### Other
 
