@@ -204,24 +204,27 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
         OGRGeometry* geom = feature->GetGeometryRef();
         assert(geom != 0);
 
-        // @todo gracefull handling of shapefiles with unexpected contents or any error handling for that matter
-        assert(std::string(geom->getGeometryName()) == std::string("POLYGON"));
-        // try transform to wgs84
-        geom->transform(toWGS84);
-        OGRLinearRing* cgeom = ((OGRPolygon*) geom)->getExteriorRing();
-        // assume TIN with with 4 points and point0 == point3
-        assert(cgeom->getNumPoints() == 4);
-        PositionVector corners;
-        for (int j = 0; j < 3; j++) {
-            Position pos((double) cgeom->getX(j), (double) cgeom->getY(j), (double) cgeom->getZ(j));
-            corners.push_back(pos);
-            myBoundary.add(pos);
+        OGRwkbGeometryType gtype = geom->getGeometryType();
+        if (gtype == wkbPolygon) {
+            assert(std::string(geom->getGeometryName()) == std::string("POLYGON"));
+            // try transform to wgs84
+            geom->transform(toWGS84);
+            OGRLinearRing* cgeom = ((OGRPolygon*) geom)->getExteriorRing();
+            // assume TIN with with 4 points and point0 == point3
+            assert(cgeom->getNumPoints() == 4);
+            PositionVector corners;
+            for (int j = 0; j < 3; j++) {
+                Position pos((double) cgeom->getX(j), (double) cgeom->getY(j), (double) cgeom->getZ(j));
+                corners.push_back(pos);
+                myBoundary.add(pos);
+            }
+            addTriangle(corners);
+            numFeatures++;
+        } else {
+            WRITE_WARNINGF("Ignored heightmap feature type %", geom->getGeometryName());
         }
-        addTriangle(corners);
-        numFeatures++;
 
         /*
-        OGRwkbGeometryType gtype = geom->getGeometryType();
         switch (gtype) {
             case wkbPolygon: {
                 break;
