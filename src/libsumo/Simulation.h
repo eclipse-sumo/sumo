@@ -18,8 +18,6 @@
 // C++ TraCI client API implementation
 /****************************************************************************/
 #pragma once
-#include <config.h>
-
 #include <vector>
 #include <libsumo/TraCIDefs.h>
 
@@ -37,9 +35,6 @@ public:
 #ifdef LIBTRACI
     static std::pair<int, std::string> init(int port = 8813, int numRetries = 10, const std::string& host = "localhost", const std::string& label = "default", FILE* const pipe = nullptr);
 
-    static std::pair<int, std::string> start(const std::vector<std::string>& cmd, int port = -1, int numRetries = 10, const std::string& label = "default", const bool verbose = false,
-                                             const std::string& traceFile = "", bool traceGetters = true, void* _stdout = nullptr);
-
     static bool isLibsumo();
 
     static bool hasGUI();
@@ -52,6 +47,9 @@ public:
     static void setOrder(int order);
 
 #endif
+
+    static std::pair<int, std::string> start(const std::vector<std::string>& cmd, int port = -1, int numRetries = 10, const std::string& label = "default", const bool verbose = false,
+                                             const std::string& traceFile = "", bool traceGetters = true, void* _stdout = nullptr);
 
     /// @brief load a simulation with the given arguments
     static void load(const std::vector<std::string>& args);

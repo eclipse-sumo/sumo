@@ -159,14 +159,8 @@ public:
                 return true;
             }
         } else {
-            this->init();
-            // add begin node
-            auto& fromInfo = this->myEdgeInfos[from->getNumericalID()];
-            fromInfo.effort = 0.;
-            fromInfo.heuristicEffort = 0.;
-            fromInfo.prev = nullptr;
-            fromInfo.leaveTime = STEPS2TIME(msTime);
-            this->myFrontierList.push_back(&fromInfo);
+            this->init(from->getNumericalID(), msTime);
+            this->myAmClean = false;
         }
         // loop
         int num_visited = 0;

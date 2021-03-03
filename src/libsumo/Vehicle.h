@@ -19,8 +19,6 @@
 // C++ Vehicle API
 /****************************************************************************/
 #pragma once
-#include <config.h>
-
 #include <limits>
 #include <vector>
 #include <libsumo/TraCIDefs.h>

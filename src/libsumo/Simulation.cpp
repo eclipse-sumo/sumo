@@ -67,6 +67,14 @@ ContextSubscriptionResults Simulation::myContextSubscriptionResults;
 // ===========================================================================
 // static member definitions
 // ===========================================================================
+std::pair<int, std::string>
+Simulation::start(const std::vector<std::string>& cmd, int /* port */, int /* numRetries */, const std::string& /* label */, const bool /* verbose */,
+    const std::string& /* traceFile */, bool /* traceGetters */, void* /* _stdout */) {
+    load(std::vector<std::string>(cmd.begin() + 1, cmd.end()));
+    return getVersion();
+}
+
+
 void
 Simulation::load(const std::vector<std::string>& args) {
     close("Libsumo issued load command.");

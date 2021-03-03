@@ -21,7 +21,6 @@
 // C++ TraCI client API implementation
 /****************************************************************************/
 #pragma once
-#include <config.h>
 // we do not include config.h here, since we should be independent of a special sumo build
 #include <libsumo/TraCIConstants.h>
 #include <vector>
