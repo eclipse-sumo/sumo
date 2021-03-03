@@ -80,8 +80,7 @@ import as above.
 
 ```
 #include <iostream>
-#define LIBTRACI
-#include <libsumo/Simulation.h>
+#include <libsumo/libtraci.h>
 
 using namespace libtraci;
 
@@ -110,8 +109,7 @@ LD_LIBRARY_PATH=$SUMO_HOME/bin ./test
 ### Example Code (APITest.java)
 
 ```
-import org.eclipse.sumo.libtraci.Simulation;
-import org.eclipse.sumo.libtraci.StringVector;
+import org.eclipse.sumo.libtraci.*;
 
 public class APITest {
     public static void main(String[] args) {
