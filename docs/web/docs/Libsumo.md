@@ -67,6 +67,36 @@ variable `LIBSUMO_AS_TRACI` to a non empty value which will trigger the
 import as above.
 
 
+## C++
+
+### Example Code (test.cpp)
+
+```
+#include <iostream>
+#include <libsumo/Simulation.h>
+
+using namespace libsumo;
+
+int main(int argc, char* argv[]) {
+    Simulation::load({"-n", "net.net.xml"});
+    for (int i = 0; i < 5; i++) {
+        Simulation::step();
+    }
+    Simulation::close();
+}
+```
+
+### compiling on Linux (make sure SUMO_HOME is set and sumo has been built)
+
+```
+g++ -o test -std=c++11 -I$SUMO_HOME/src test.cpp -L$SUMO_HOME/bin -lsumocpp
+```
+
+### running on Linux
+```
+LD_LIBRARY_PATH=$SUMO_HOME/bin ./test
+```
+
 ## Java
 
 ### Example Code (Test.java)
