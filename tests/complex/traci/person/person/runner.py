@@ -54,6 +54,13 @@ def print_prior_plan(personID, comment=""):
     for i, stage in stages:
         print("  %s: %s" % (i, stage))
 
+def checkStateChanges():
+    print("%s: departed=%s (%s) arrived=%s (%s)" % (
+        traci.simulation.getTime(),
+        traci.simulation.getDepartedPersonIDList(),
+        traci.simulation.getDepartedPersonNumber(),
+        traci.simulation.getArrivedPersonIDList(),
+        traci.simulation.getArrivedPersonNumber()))
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "--fcd-output",
              "fcd.xml"] + sys.argv[1:])
@@ -66,6 +73,7 @@ traci.person.appendWaitingStage("newPerson", 20, "arrived")
 traci.person.setSpeed("newPerson", 1.2)
 
 for i in range(3):
+    checkStateChanges()
     print("step", step())
 
 

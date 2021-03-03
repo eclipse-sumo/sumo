@@ -1,7 +1,10 @@
 Loading configuration ... done.
  Retrying in 1 seconds
+0.0: departed=() (0) arrived=() (0)
 step 0.0
+1.0: departed=('horiz', 'detour', 'detour2', 'newPerson') (4) arrived=() (0)
 step 1.0
+2.0: departed=() (0) arrived=() (0)
 step 2.0
 detour edges ('3si', '2o', '2fi', '2si', '4o')
 detour edges after routing ('3si', '4o')
