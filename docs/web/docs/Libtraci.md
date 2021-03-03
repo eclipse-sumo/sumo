@@ -103,3 +103,34 @@ g++ -o test -std=c++11 -I$SUMO_HOME/src test.cpp -L$SUMO_HOME/bin -ltracicpp
 ```
 LD_LIBRARY_PATH=$SUMO_HOME/bin ./test
 ```
+
+## Java
+
+### Example Code (APITest.java)
+
+```
+import java.util.Arrays;
+import org.eclipse.sumo.libtraci.Simulation;
+import org.eclipse.sumo.libtraci.StringVector;
+
+public class APITest {
+    public static void main(String[] args) {
+        Simulation.start(new StringVector(Arrays.asList("sumo", "-n", "net.net.xml")));
+        for (int i = 0; i < 5; i++) {
+            Simulation.step();
+        }
+        Simulation.close();
+    }
+}
+```
+
+### compiling on Linux (make sure SUMO_HOME is set and sumo has been built)
+
+```
+javac -cp $SUMO_HOME/bin/libtraci-1.8.0-SNAPSHOT.jar APITest.java
+```
+
+### running on Linux
+```
+java -cp $SUMO_HOME/bin/libtraci-1.8.0-SNAPSHOT.jar:. APITest
+```
