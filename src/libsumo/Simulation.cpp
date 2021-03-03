@@ -94,6 +94,7 @@ Simulation::isLoaded() {
 void
 Simulation::step(const double time) {
     Helper::clearVehicleStates();
+    Helper::clearTransportableStates();
     const SUMOTime t = TIME2STEPS(time);
     if (t == 0) {
         MSNet::getInstance()->simulationStep();
@@ -289,6 +290,29 @@ Simulation::getEndingTeleportNumber() {
 std::vector<std::string>
 Simulation::getEndingTeleportIDList() {
     return Helper::getVehicleStateChanges(MSNet::VehicleState::ENDING_TELEPORT);
+}
+
+int
+Simulation::getDepartedPersonNumber() {
+    return (int)Helper::getTransportableStateChanges(MSNet::TransportableState::PERSON_DEPARTED).size();
+}
+
+
+std::vector<std::string>
+Simulation::getDepartedPersonIDList() {
+    return Helper::getTransportableStateChanges(MSNet::TransportableState::PERSON_DEPARTED);
+}
+
+
+int
+Simulation::getArrivedPersonNumber() {
+    return (int)Helper::getTransportableStateChanges(MSNet::TransportableState::PERSON_ARRIVED).size();
+}
+
+
+std::vector<std::string>
+Simulation::getArrivedPersonIDList() {
+    return Helper::getTransportableStateChanges(MSNet::TransportableState::PERSON_ARRIVED);
 }
 
 std::vector<std::string>
@@ -767,6 +791,7 @@ Simulation::loadState(const std::string& fileName) {
         throw TraCIException("Loading state from '" + fileName + "' failed.");
     }
     Helper::clearVehicleStates();
+    Helper::clearTransportableStates();
     PROGRESS_TIME_MESSAGE(before);
     return STEPS2TIME(newTime);
 }
@@ -834,6 +859,14 @@ Simulation::handleVariable(const std::string& objID, const int variable, Variabl
             return wrapper->wrapInt(objID, variable, getEmergencyStoppingVehiclesNumber());
         case VAR_EMERGENCYSTOPPING_VEHICLES_IDS:
             return wrapper->wrapStringList(objID, variable, getEmergencyStoppingVehiclesIDList());
+        case VAR_DEPARTED_PERSONS_NUMBER:
+            return wrapper->wrapInt(objID, variable, getDepartedPersonNumber());
+        case VAR_DEPARTED_PERSONS_IDS:
+            return wrapper->wrapStringList(objID, variable, getDepartedPersonIDList());
+        case VAR_ARRIVED_PERSONS_NUMBER:
+            return wrapper->wrapInt(objID, variable, getArrivedPersonNumber());
+        case VAR_ARRIVED_PERSONS_IDS:
+            return wrapper->wrapStringList(objID, variable, getArrivedPersonIDList());
         case VAR_DELTA_T:
             return wrapper->wrapDouble(objID, variable, getDeltaT());
         case VAR_MIN_EXPECTED_VEHICLES:

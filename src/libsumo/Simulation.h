@@ -94,6 +94,11 @@ public:
     static int getEndingTeleportNumber();
     static std::vector<std::string> getEndingTeleportIDList();
 
+    static int getDepartedPersonNumber();
+    static std::vector<std::string> getDepartedPersonIDList();
+    static int getArrivedPersonNumber();
+    static std::vector<std::string> getArrivedPersonIDList();
+
     static std::vector<std::string> getBusStopIDList();
     static int getBusStopWaiting(const std::string& stopID);
 

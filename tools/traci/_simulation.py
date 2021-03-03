@@ -256,6 +256,36 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_ARRIVED_VEHICLES_IDS)
 
+    def getDepartedPersonNumber(self):
+        """getDepartedPersonNumber() -> integer
+
+        Returns the number of persons which departed (were inserted into the road network) in this time step.
+        """
+        return self._getUniversal(tc.VAR_DEPARTED_PERSONS_NUMBER)
+
+    def getDepartedPersonIDList(self):
+        """getDepartedPersonIDList() -> list(string)
+
+        Returns a list of ids of persons which departed (were inserted into the road network) in this time step.
+        """
+        return self._getUniversal(tc.VAR_DEPARTED_PERSONS_IDS)
+
+    def getArrivedPersonNumber(self):
+        """getArrivedPersonNumber() -> integer
+
+        Returns the number of persons which arrived (have reached their destination and are removed from the road
+        network) in this time step.
+        """
+        return self._getUniversal(tc.VAR_ARRIVED_PERSONS_NUMBER)
+
+    def getArrivedPersonIDList(self):
+        """getArrivedPersonIDList() -> list(string)
+
+        Returns a list of ids of persons which arrived (have reached their destination and are removed from the road
+        network) in this time step.
+        """
+        return self._getUniversal(tc.VAR_ARRIVED_PERSONS_IDS)
+
     def getParkingStartingVehiclesNumber(self):
         """getParkingStartingVehiclesNumber() -> integer
 

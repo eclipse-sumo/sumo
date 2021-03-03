@@ -1101,12 +1101,41 @@ MSNet::removeVehicleStateListener(VehicleStateListener* listener) {
 void
 MSNet::informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to, const std::string& info) {
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myStateListenerMutex, MSGlobals::gNumThreads > 1);
+    FXConditionalLock lock(myVehicleStateListenerMutex, MSGlobals::gNumThreads > 1);
 #endif
     for (VehicleStateListener* const listener : myVehicleStateListeners) {
         listener->vehicleStateChanged(vehicle, to, info);
     }
 }
+
+
+void
+MSNet::addTransportableStateListener(TransportableStateListener* listener) {
+    if (find(myTransportableStateListeners.begin(), myTransportableStateListeners.end(), listener) == myTransportableStateListeners.end()) {
+        myTransportableStateListeners.push_back(listener);
+    }
+}
+
+
+void
+MSNet::removeTransportableStateListener(TransportableStateListener* listener) {
+    std::vector<TransportableStateListener*>::iterator i = std::find(myTransportableStateListeners.begin(), myTransportableStateListeners.end(), listener);
+    if (i != myTransportableStateListeners.end()) {
+        myTransportableStateListeners.erase(i);
+    }
+}
+
+
+void
+MSNet::informTransportableStateListener(const MSTransportable* const transportable, TransportableState to, const std::string& info) {
+#ifdef HAVE_FOX
+    FXConditionalLock lock(myTransportableStateListenerMutex, MSGlobals::gNumThreads > 1);
+#endif
+    for (TransportableStateListener* const listener : myTransportableStateListeners) {
+        listener->transportableStateChanged(transportable, to, info);
+    }
+}
+
 
 bool
 MSNet::registerCollision(const SUMOTrafficObject* collider, const SUMOTrafficObject* victim, const std::string& collisionType, const MSLane* lane, double pos) {
@@ -1130,6 +1159,7 @@ MSNet::registerCollision(const SUMOTrafficObject* collider, const SUMOTrafficObj
     myCollisions[collider->getID()].push_back(c);
     return true;
 }
+
 
 bool
 MSNet::addStoppingPlace(const SumoXMLTag category, MSStoppingPlace* stop) {

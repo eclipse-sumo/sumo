@@ -1387,6 +1387,26 @@ TraCIAPI::SimulationScope::getEndingTeleportIDList() const {
     return getStringVector(libsumo::VAR_TELEPORT_ENDING_VEHICLES_IDS, "");
 }
 
+int
+TraCIAPI::SimulationScope::getDepartedPersonNumber() const {
+    return (int)getInt(libsumo::VAR_DEPARTED_PERSONS_NUMBER, "");
+}
+
+std::vector<std::string>
+TraCIAPI::SimulationScope::getDepartedPersonIDList() const {
+    return getStringVector(libsumo::VAR_DEPARTED_PERSONS_IDS, "");
+}
+
+int
+TraCIAPI::SimulationScope::getArrivedPersonNumber() const {
+    return (int)getInt(libsumo::VAR_ARRIVED_PERSONS_NUMBER, "");
+}
+
+std::vector<std::string>
+TraCIAPI::SimulationScope::getArrivedPersonIDList() const {
+    return getStringVector(libsumo::VAR_ARRIVED_PERSONS_IDS, "");
+}
+
 double
 TraCIAPI::SimulationScope::getDeltaT() const {
     return getDouble(libsumo::VAR_DELTA_T, "");

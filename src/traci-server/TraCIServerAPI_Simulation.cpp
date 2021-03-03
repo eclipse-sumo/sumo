@@ -82,6 +82,18 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             case libsumo::VAR_ARRIVED_VEHICLES_IDS:
                 writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VehicleState::ARRIVED);
                 break;
+            case libsumo::VAR_DEPARTED_PERSONS_NUMBER:
+                writeTransportableStateNumber(server, server.getWrapperStorage(), MSNet::TransportableState::PERSON_DEPARTED);
+                break;
+            case libsumo::VAR_DEPARTED_PERSONS_IDS:
+                writeTransportableStateIDs(server, server.getWrapperStorage(), MSNet::TransportableState::PERSON_DEPARTED);
+                break;
+            case libsumo::VAR_ARRIVED_PERSONS_NUMBER:
+                writeTransportableStateNumber(server, server.getWrapperStorage(), MSNet::TransportableState::PERSON_ARRIVED);
+                break;
+            case libsumo::VAR_ARRIVED_PERSONS_IDS:
+                writeTransportableStateIDs(server, server.getWrapperStorage(), MSNet::TransportableState::PERSON_ARRIVED);
+                break;
             case libsumo::VAR_PARKING_STARTING_VEHICLES_NUMBER:
                 writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VehicleState::STARTING_PARKING);
                 break;
@@ -370,6 +382,22 @@ TraCIServerAPI_Simulation::writeVehicleStateNumber(TraCIServer& server, tcpip::S
 void
 TraCIServerAPI_Simulation::writeVehicleStateIDs(TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state) {
     const std::vector<std::string>& ids = server.getVehicleStateChanges().find(state)->second;
+    outputStorage.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
+    outputStorage.writeStringList(ids);
+}
+
+
+void
+TraCIServerAPI_Simulation::writeTransportableStateNumber(TraCIServer& server, tcpip::Storage& outputStorage, MSNet::TransportableState state) {
+    const std::vector<std::string>& ids = server.getTransportableStateChanges().find(state)->second;
+    outputStorage.writeUnsignedByte(libsumo::TYPE_INTEGER);
+    outputStorage.writeInt((int)ids.size());
+}
+
+
+void
+TraCIServerAPI_Simulation::writeTransportableStateIDs(TraCIServer& server, tcpip::Storage& outputStorage, MSNet::TransportableState state) {
+    const std::vector<std::string>& ids = server.getTransportableStateChanges().find(state)->second;
     outputStorage.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
     outputStorage.writeStringList(ids);
 }

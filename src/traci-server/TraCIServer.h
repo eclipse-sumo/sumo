@@ -56,7 +56,7 @@
 /** @class TraCIServer
  * @brief TraCI server used to control sumo by a remote TraCI client
  */
-class TraCIServer final : public MSNet::VehicleStateListener, public libsumo::VariableWrapper {
+class TraCIServer final : public MSNet::VehicleStateListener, public libsumo::VariableWrapper, public MSNet::TransportableStateListener {
 public:
     /// @brief Definition of a method to be called for serving an associated commandID
     typedef bool(*CmdExecutor)(TraCIServer& server, tcpip::Storage& inputStorage, tcpip::Storage& outputStorage);
@@ -100,6 +100,8 @@ public:
 
     void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& info = "");
 
+    void transportableStateChanged(const MSTransportable* const transportable, MSNet::TransportableState to, const std::string& info = "");
+
     /// @name Writing Status Messages
     /// @{
 
@@ -137,6 +139,16 @@ public:
         } else {
             // Requested in the context of a custom query by active client
             return myCurrentSocket->second->vehicleStateChanges;
+        }
+    }
+
+    const std::map<MSNet::TransportableState, std::vector<std::string> >& getTransportableStateChanges() const {
+        if (myCurrentSocket == mySockets.end()) {
+            // Requested in context of a subscription update
+            return myTransportableStateChanges;
+        } else {
+            // Requested in the context of a custom query by active client
+            return myCurrentSocket->second->transportableStateChanges;
         }
     }
 
@@ -290,6 +302,8 @@ private:
         tcpip::Socket* socket;
         /// @brief container for vehicle state changes since last step taken by this client
         std::map<MSNet::VehicleState, std::vector<std::string> > vehicleStateChanges;
+        /// @brief container for transportable state changes since last step taken by this client
+        std::map<MSNet::TransportableState, std::vector<std::string> > transportableStateChanges;
     private:
         SocketInfo(const SocketInfo&);
     };
@@ -391,6 +405,15 @@ private:
     /// with a proper vehicleStateChanges container mySockets[...].second->vehicleStateChanges
     /// Performance could be improved if for a single client, myVehicleStateChanges is used only.
     std::map<MSNet::VehicleState, std::vector<std::string> > myVehicleStateChanges;
+
+    /// @brief Changes in the states of simulated transportables
+    /// @note
+    /// Server cache myTransportableStateChanges is used for managing last steps subscription updates
+    /// and for client information in case that myAmEmbedded==true, which implies a single client.
+    /// For the potential multiclient case (myAmEmbedded==false), each socket in mySockets is associated
+    /// with a proper TransportableStateChanges container mySockets[...].second->TransportableStateChanges
+    /// Performance could be improved if for a single client, myTransportableStateChanges is used only.
+    std::map<MSNet::TransportableState, std::vector<std::string> > myTransportableStateChanges;
 
 private:
     bool addObjectVariableSubscription(const int commandId, const bool hasContext);
