@@ -1,0 +1,4773 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version="0.6" generator="osmconvert 0.8.11" timestamp="2020-09-21T00:00:00Z">
+	<bounds minlat="47.374" minlon="8.524" maxlat="47.377" maxlon="8.529"/>
+	<node id="27256989" lat="47.3747945" lon="8.5276455" version="1"/>
+	<node id="28137435" lat="47.3762" lon="8.5278379" version="1"/>
+	<node id="28137436" lat="47.3755636" lon="8.5268238" version="1"/>
+	<node id="28137443" lat="47.3761127" lon="8.5262101" version="1"/>
+	<node id="28137444" lat="47.3764183" lon="8.5265679" version="1"/>
+	<node id="28137445" lat="47.3760992" lon="8.5274157" version="1"/>
+	<node id="28581587" lat="47.3764327" lon="8.5257045" version="1"/>
+	<node id="28581993" lat="47.3753752" lon="8.52493" version="1"/>
+	<node id="28582044" lat="47.3749928" lon="8.5260427" version="1"/>
+	<node id="28582192" lat="47.3750213" lon="8.5279887" version="1"/>
+	<node id="28584151" lat="47.3767242" lon="8.5267106" version="1"/>
+	<node id="28584172" lat="47.3743203" lon="8.5269335" version="1"/>
+	<node id="28587330" lat="47.375905" lon="8.5273562" version="1"/>
+	<node id="29039090" lat="47.3745664" lon="8.5255663" version="1"/>
+	<node id="29039091" lat="47.3753115" lon="8.5266831" version="1"/>
+	<node id="29039092" lat="47.3747722" lon="8.5274667" version="1"/>
+	<node id="30825881" lat="47.3767475" lon="8.5247872" version="1"/>
+	<node id="30826161" lat="47.3762019" lon="8.5243971" version="1"/>
+	<node id="30826182" lat="47.3756824" lon="8.5240307" version="1"/>
+	<node id="52726911" lat="47.3768783" lon="8.5260301" version="1"/>
+	<node id="157375645" lat="47.3743276" lon="8.5262135" version="1"/>
+	<node id="157375646" lat="47.3742449" lon="8.5263244" version="1"/>
+	<node id="157375648" lat="47.374561" lon="8.5267678" version="1"/>
+	<node id="157375649" lat="47.3748805" lon="8.5263016" version="1"/>
+	<node id="157375650" lat="47.374584" lon="8.5258495" version="1"/>
+	<node id="157375651" lat="47.3744692" lon="8.5260025" version="1"/>
+	<node id="157375652" lat="47.3745353" lon="8.5261061" version="1"/>
+	<node id="157375653" lat="47.3743965" lon="8.5263139" version="1"/>
+	<node id="262153504" lat="47.3761685" lon="8.5255346" version="1">
+		<tag k="bus" v="yes"/>
+		<tag k="ele" v="411"/>
+		<tag k="ref" v="1158"/>
+		<tag k="name" v="Helvetiaplatz"/>
+		<tag k="highway" v="bus_stop"/>
+		<tag k="network" v="ZVV"/>
+		<tag k="uic_ref" v="8591184"/>
+		<tag k="nat_name" v="Zürich, Helvetiaplatz"/>
+		<tag k="operator" v="VBZ"/>
+		<tag k="uic_name" v="Zürich, Helvetiaplatz"/>
+		<tag k="trolleybus" v="yes"/>
+		<tag k="wheelchair" v="limited"/>
+		<tag k="public_transport" v="stop_position"/>
+	</node>
+	<node id="279262777" lat="47.3759028" lon="8.5253256" version="1"/>
+	<node id="301223443" lat="47.3756088" lon="8.525822" version="1"/>
+	<node id="301223444" lat="47.3754919" lon="8.5256003" version="1"/>
+	<node id="301223445" lat="47.3754069" lon="8.5259375" version="1"/>
+	<node id="301223446" lat="47.3756189" lon="8.5258943" version="1"/>
+	<node id="301223535" lat="47.3761722" lon="8.5258145" version="1"/>
+	<node id="301223537" lat="47.375429" lon="8.5251126" version="1"/>
+	<node id="301223538" lat="47.3750962" lon="8.526074" version="1"/>
+	<node id="301223922" lat="47.3766665" lon="8.5271254" version="1">
+		<tag k="name" v="Denner Express"/>
+		<tag k="shop" v="convenience"/>
+		<tag k="website" v="https://www.denner.ch/"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:street" v="Molkenstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Mo-Sa 08:00-20:00"/>
+		<tag k="addr:housenumber" v="8"/>
+	</node>
+	<node id="305001960" lat="47.3766784" lon="8.5270621" version="1">
+		<tag k="name" v="Postfinance"/>
+		<tag k="brand" v="PostFinance"/>
+		<tag k="amenity" v="atm"/>
+		<tag k="alt_name" v="Postomat"/>
+		<tag k="capacity" v="3"/>
+		<tag k="operator" v="PostFinance"/>
+		<tag k="wheelchair" v="yes"/>
+		<tag k="opening_hours" v="24/7"/>
+	</node>
+	<node id="309921040" lat="47.3764107" lon="8.5263373" version="1">
+		<tag k="name" v="John Baker"/>
+		<tag k="shop" v="bakery"/>
+		<tag k="email" v="john@johnbaker.ch"/>
+		<tag k="phone" v="+41 44 281 92 92"/>
+		<tag k="website" v="https://www.johnbaker.ch/"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:street" v="Molkenstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Mo-Fr 07:00-19:00, Sa 08:00-16:00; Su 08:00-14:00"/>
+		<tag k="addr:housenumber" v="15"/>
+		<tag k="opening_hours:covid19" v="same"/>
+	</node>
+	<node id="310788549" lat="47.3756685" lon="8.5243755" version="1">
+		<tag k="name" v="Kobal"/>
+		<tag k="phone" v="+41 44 241 26 19"/>
+		<tag k="amenity" v="restaurant"/>
+		<tag k="cuisine" v="indian"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="wheelchair" v="no"/>
+		<tag k="addr:street" v="Kanzleistrasse"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Mo-Su 11:00-14:30, 17:30-23:30"/>
+		<tag k="addr:housenumber" v="78"/>
+	</node>
+	<node id="310788830" lat="47.3756046" lon="8.5245573" version="1">
+		<tag k="name" v="Sportbar"/>
+		<tag k="amenity" v="pub"/>
+		<tag k="website" v="https://www.sport-bar.ch/"/>
+		<tag k="wheelchair" v="no"/>
+	</node>
+	<node id="311607525" lat="47.3765292" lon="8.5259639" version="1">
+		<tag k="name" v="Hooters"/>
+		<tag k="amenity" v="restaurant"/>
+		<tag k="cuisine" v="burger"/>
+		<tag k="website" v="http://www.hooters-zurich.ch"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="wheelchair" v="limited"/>
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Su-Th 11:00-24:00; Fr-Sa 11:00-01:30"/>
+		<tag k="addr:housenumber" v="96"/>
+		<tag k="toilets:wheelchair" v="no"/>
+	</node>
+	<node id="312220302" lat="47.3750277" lon="8.5246855" version="1"/>
+	<node id="312224769" lat="47.376059" lon="8.5246472" version="1"/>
+	<node id="312224770" lat="47.3760958" lon="8.5245369" version="1"/>
+	<node id="312224773" lat="47.3760259" lon="8.5244961" version="1"/>
+	<node id="312224775" lat="47.3759734" lon="8.524585" version="1"/>
+	<node id="312225197" lat="47.3761151" lon="8.5244422" version="1">
+		<tag k="name" v="Papeterie Hahn"/>
+		<tag k="wheelchair" v="no"/>
+		<tag k="disused:shop" v="stationery"/>
+	</node>
+	<node id="312225199" lat="47.3760269" lon="8.5243632" version="1"/>
+	<node id="312225201" lat="47.3759915" lon="8.5244717" version="1"/>
+	<node id="312225482" lat="47.3759465" lon="8.524306" version="1"/>
+	<node id="312225484" lat="47.3759048" lon="8.5244337" version="1"/>
+	<node id="312458293" lat="47.3756793" lon="8.5242733" version="1"/>
+	<node id="312458294" lat="47.375721" lon="8.5241456" version="1"/>
+	<node id="312531630" lat="47.3751475" lon="8.5274644" version="1"/>
+	<node id="312531632" lat="47.3758132" lon="8.5273848" version="1"/>
+	<node id="312531634" lat="47.3755733" lon="8.52701" version="1"/>
+	<node id="312537869" lat="47.3762652" lon="8.5266665" version="1">
+		<tag k="dog" v="yes"/>
+		<tag k="ref" v="224"/>
+		<tag k="name" v="Fischbrunnen"/>
+		<tag k="bottle" v="yes"/>
+		<tag k="amenity" v="drinking_water"/>
+		<tag k="material" v="stone"/>
+		<tag k="operator" v="WVZ"/>
+		<tag k="wheelchair" v="yes"/>
+		<tag k="drinking_water:description" v="Quellwasser"/>
+	</node>
+	<node id="312538007" lat="47.3760291" lon="8.5272985" version="1">
+		<tag k="fee" v="no"/>
+		<tag k="name" v="Helvetiaplatz"/>
+		<tag k="unisex" v="yes"/>
+		<tag k="amenity" v="toilets"/>
+		<tag k="capacity" v="2"/>
+		<tag k="operator" v="ZüriWC"/>
+		<tag k="wheelchair" v="no"/>
+		<tag k="opening_hours" v="24/7"/>
+	</node>
+	<node id="313898344" lat="47.376059" lon="8.5252233" version="1">
+		<tag k="name" v="Medbase Apotheke Helvetiaplatz"/>
+		<tag k="brand" v="Medbase"/>
+		<tag k="branch" v="Zürich Helvetiaplatz"/>
+		<tag k="amenity" v="pharmacy"/>
+		<tag k="website" v="https://www.topwell.ch/medbaseapothekezuerichhelvetiapl/"/>
+		<tag k="alt_name" v="Topwell Apotheke Helvetiaplatz"/>
+		<tag k="old_name" v="Helvetiaplatz Apotheke"/>
+		<tag k="operator" v="Medbase Apotheken"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="dispensing" v="yes"/>
+		<tag k="wheelchair" v="yes"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Mo-Fr 08:00-19:00; Sa 09:00-17:00"/>
+		<tag k="brand:wikidata" v="Q50038690"/>
+		<tag k="addr:housenumber" v="39"/>
+	</node>
+	<node id="317454772" lat="47.3754357" lon="8.5244774" version="1">
+		<tag k="name" v="Brick"/>
+		<tag k="amenity" v="bar"/>
+		<tag k="website" v="http://brickbar.ch/"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="addr:housenumber" v="21"/>
+	</node>
+	<node id="318206585" lat="47.3762378" lon="8.5271138" version="1"/>
+	<node id="318207327" lat="47.3763577" lon="8.527233" version="1"/>
+	<node id="318207333" lat="47.376219" lon="8.5275371" version="1"/>
+	<node id="335568970" lat="47.37466" lon="8.52514" version="1">
+		<tag k="name" v="Zürich Ankerstrasse / BGZ"/>
+		<tag k="amenity" v="car_sharing"/>
+		<tag k="website" v="https://www.mobility.ch/"/>
+		<tag k="capacity" v="2"/>
+		<tag k="operator" v="Mobility Genossenschaft"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="24/7"/>
+		<tag k="mobility:station_id" v="1969"/>
+	</node>
+	<node id="335568980" lat="47.3765617" lon="8.5268361" version="1">
+		<tag k="name" v="Zürich Helvetiaplatz"/>
+		<tag k="website" v="https://www.mobility.ch/"/>
+		<tag k="capacity" v="5"/>
+		<tag k="operator" v="Mobility Genossenschaft"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="24/7"/>
+		<tag k="disused:amenity" v="car_sharing"/>
+		<tag k="mobility:station_id" v="1862"/>
+	</node>
+	<node id="335568981" lat="47.37582" lon="8.52485" version="1">
+		<tag k="name" v="Zürich Helvetiaplatz / Langstrasse"/>
+		<tag k="amenity" v="car_sharing"/>
+		<tag k="website" v="https://www.mobility.ch/"/>
+		<tag k="capacity" v="1"/>
+		<tag k="operator" v="Mobility Genossenschaft"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="24/7"/>
+		<tag k="mobility:station_id" v="3247"/>
+	</node>
+	<node id="346245377" lat="47.3769125" lon="8.5258364" version="1">
+		<tag k="name" v="Gotthard"/>
+		<tag k="amenity" v="restaurant"/>
+		<tag k="wheelchair" v="no"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="63"/>
+	</node>
+	<node id="358160818" lat="47.3745514" lon="8.5253668" version="1"/>
+	<node id="362915349" lat="47.3768022" lon="8.52612" version="1">
+		<tag k="name" v="Kir Royal"/>
+		<tag k="amenity" v="bar"/>
+		<tag k="website" v="https://www.kirroyal.ch/"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Tu-Sa 17:00+"/>
+		<tag k="addr:housenumber" v="62"/>
+	</node>
+	<node id="366737292" lat="47.3740702" lon="8.5268084" version="1">
+		<tag k="name" v="Casino-Saal Aussersihl"/>
+		<tag k="amenity" v="theatre"/>
+		<tag k="website" v="http://www.hora.ch/"/>
+		<tag k="alt_name" v="Theater Hora"/>
+	</node>
+	<node id="393960594" lat="47.3747339" lon="8.5253657" version="1"/>
+	<node id="393960601" lat="47.3748285" lon="8.5252273" version="1"/>
+	<node id="393961427" lat="47.3740315" lon="8.5269133" version="1"/>
+	<node id="393961436" lat="47.3742218" lon="8.5269037" version="1"/>
+	<node id="439211311" lat="47.3747226" lon="8.5276297" version="1"/>
+	<node id="439211314" lat="47.3749965" lon="8.5259465" version="1"/>
+	<node id="439211315" lat="47.3753676" lon="8.5248755" version="1"/>
+	<node id="439211316" lat="47.3765546" lon="8.5257214" version="1"/>
+	<node id="439211317" lat="47.3763365" lon="8.5263848" version="1"/>
+	<node id="439211318" lat="47.376681" lon="8.5269799" version="1"/>
+	<node id="439211319" lat="47.3762297" lon="8.5279587" version="1"/>
+	<node id="439211320" lat="47.3758903" lon="8.5274547" version="1"/>
+	<node id="439211321" lat="47.3755655" lon="8.528138" version="1"/>
+	<node id="439211322" lat="47.3751264" lon="8.5274388" version="1"/>
+	<node id="439211323" lat="47.374863" lon="8.5276772" version="1"/>
+	<node id="439211324" lat="47.3750585" lon="8.5279647" version="1"/>
+	<node id="442148723" lat="47.3747984" lon="8.5261724" version="1"/>
+	<node id="442148724" lat="47.374497" lon="8.5266781" version="1"/>
+	<node id="442148725" lat="47.3743895" lon="8.5268384" version="1">
+		<tag k="barrier" v="gate"/>
+	</node>
+	<node id="446305375" lat="47.3752512" lon="8.52598" version="1"/>
+	<node id="446305376" lat="47.3753791" lon="8.5262048" version="1"/>
+	<node id="469977452" lat="47.3745488" lon="8.5273052" version="1">
+		<tag k="amenity" v="parking"/>
+		<tag k="parking" v="surface"/>
+		<tag k="capacity:disabled" v="no"/>
+	</node>
+	<node id="480426252" lat="47.3763431" lon="8.5263876" version="1"/>
+	<node id="480426254" lat="47.3765089" lon="8.5258712" version="1"/>
+	<node id="495576109" lat="47.375227" lon="8.5260558" version="1">
+		<tag k="name" v="Xenix Bar"/>
+		<tag k="amenity" v="pub"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="wheelchair" v="yes"/>
+		<tag k="addr:postcode" v="8004"/>
+	</node>
+	<node id="504484417" lat="47.3754216" lon="8.5271179" version="1">
+		<tag k="amenity" v="bicycle_parking"/>
+		<tag k="capacity" v="20"/>
+	</node>
+	<node id="504484420" lat="47.3750635" lon="8.5260411" version="1">
+		<tag k="amenity" v="bicycle_parking"/>
+		<tag k="covered" v="yes"/>
+		<tag k="capacity" v="10"/>
+	</node>
+	<node id="504484426" lat="47.3753719" lon="8.5251016" version="1">
+		<tag k="amenity" v="bicycle_parking"/>
+		<tag k="capacity" v="10"/>
+	</node>
+	<node id="582219350" lat="47.3749683" lon="8.5258392" version="1">
+		<tag k="name" v="Central"/>
+		<tag k="amenity" v="bar"/>
+		<tag k="smoking" v="outside"/>
+		<tag k="website" v="https://www.cntrl.ch/"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="wheelchair" v="no"/>
+		<tag k="addr:street" v="Ankerstrasse"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="addr:housenumber" v="65"/>
+	</node>
+	<node id="656516103" lat="47.3755766" lon="8.5271252" version="1">
+		<tag k="name" v="Volkshaus"/>
+		<tag k="amenity" v="restaurant"/>
+		<tag k="website" v="https://www.restaurantvolkshaus.ch/"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="wheelchair" v="limited"/>
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Mo-We 08:00-23:30; Th,Fr 08:00-01:00, Sa 09:00-01:00, Su 10:00-23:30"/>
+		<tag k="addr:housenumber" v="60"/>
+		<tag k="toilets:wheelchair" v="yes"/>
+	</node>
+	<node id="656547646" lat="47.3767249" lon="8.5269477" version="1">
+		<tag k="amenity" v="telephone"/>
+		<tag k="covered" v="yes"/>
+		<tag k="operator" v="Swisscom"/>
+	</node>
+	<node id="656625980" lat="47.3765897" lon="8.5272549" version="1">
+		<tag k="ref" v="3-8004-28248"/>
+		<tag k="amenity" v="post_box"/>
+		<tag k="operator" v="Die Schweizerische Post"/>
+		<tag k="post_box:type" v="lamp"/>
+		<tag k="collection_times" v="Mo-Fr 18:00; Su 15:45"/>
+		<tag k="post_box:location" v="Molkenstrasse 8, 8004 Zürich"/>
+	</node>
+	<node id="656646048" lat="47.376328" lon="8.527878" version="1">
+		<tag k="name" v="Brasserie Café de Paris"/>
+		<tag k="amenity" v="restaurant"/>
+		<tag k="website" v="https://www.brasserie-cafedeparis.ch/"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:street" v="Ankerstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="addr:housenumber" v="113"/>
+	</node>
+	<node id="656754116" lat="47.3747771" lon="8.5246841" version="1">
+		<tag k="name" v="Red &#38; Hot"/>
+		<tag k="amenity" v="restaurant"/>
+		<tag k="cuisine" v="chinese"/>
+		<tag k="website" v="https://redandhot.ch/"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Tu-Th 11:30-14:00, Mo-Su 18:00-22:00, Sa-Su 12:00-15:30"/>
+		<tag k="addr:housenumber" v="10"/>
+	</node>
+	<node id="672645623" lat="47.376509" lon="8.5251808" version="1">
+		<tag k="name" v="Bäckerei Maria del Carmen Nieto"/>
+		<tag k="shop" v="bakery"/>
+		<tag k="wheelchair" v="yes"/>
+	</node>
+	<node id="702999082" lat="47.3756407" lon="8.5258211" version="1"/>
+	<node id="702999083" lat="47.3755561" lon="8.5260194" version="1"/>
+	<node id="702999084" lat="47.3756609" lon="8.5259394" version="1"/>
+	<node id="702999085" lat="47.3756436" lon="8.5256836" version="1"/>
+	<node id="702999086" lat="47.3753516" lon="8.5264622" version="1"/>
+	<node id="702999087" lat="47.375404" lon="8.5262997" version="1"/>
+	<node id="702999088" lat="47.3751328" lon="8.526048" version="1"/>
+	<node id="702999089" lat="47.3753131" lon="8.5263003" version="1"/>
+	<node id="702999090" lat="47.3755879" lon="8.5266286" version="1"/>
+	<node id="702999091" lat="47.3756404" lon="8.5264661" version="1"/>
+	<node id="702999094" lat="47.3757397" lon="8.5259732" version="1"/>
+	<node id="702999095" lat="47.3758279" lon="8.525624" version="1"/>
+	<node id="702999096" lat="47.3757622" lon="8.5258479" version="1"/>
+	<node id="702999097" lat="47.3757905" lon="8.5260575" version="1"/>
+	<node id="702999098" lat="47.3761151" lon="8.5258001" version="1"/>
+	<node id="702999099" lat="47.3759172" lon="8.5261271" version="1"/>
+	<node id="733731357" lat="47.3761842" lon="8.5242925" version="1"/>
+	<node id="734228381" lat="47.3766337" lon="8.52483" version="1"/>
+	<node id="734228382" lat="47.3763484" lon="8.524595" version="1"/>
+	<node id="734228384" lat="47.3763063" lon="8.5247229" version="1"/>
+	<node id="734228385" lat="47.3765271" lon="8.5248677" version="1"/>
+	<node id="734228387" lat="47.3763567" lon="8.5253501" version="1"/>
+	<node id="768439915" lat="47.3760403" lon="8.5281086" version="1"/>
+	<node id="768439918" lat="47.3758848" lon="8.5283805" version="1"/>
+	<node id="768439921" lat="47.3757832" lon="8.5282538" version="1"/>
+	<node id="768439923" lat="47.3759388" lon="8.5279819" version="1"/>
+	<node id="808458794" lat="47.3750304" lon="8.524534" version="1">
+		<tag k="name" v="Peking Garden"/>
+		<tag k="email" v="langstrasse@peking-garden.ch"/>
+		<tag k="phone" v="+41 44 241 23 23"/>
+		<tag k="amenity" v="restaurant"/>
+		<tag k="cuisine" v="chinese"/>
+		<tag k="website" v="https://www.peking-garden.ch/zh-langstrasse"/>
+		<tag k="takeaway" v="yes"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="wheelchair" v="no"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Su-Th 11:00-02:00, Fr-Sa 11:00-04:00"/>
+		<tag k="addr:housenumber" v="13"/>
+		<tag k="opening_hours:covid19" v="off"/>
+	</node>
+	<node id="808458800" lat="47.3757473" lon="8.5249062" version="1"/>
+	<node id="808458804" lat="47.3758873" lon="8.5248373" version="1"/>
+	<node id="808458805" lat="47.3757693" lon="8.5243372" version="1"/>
+	<node id="808458808" lat="47.3758428" lon="8.5250005" version="1"/>
+	<node id="808458829" lat="47.3754976" lon="8.5249008" version="1"/>
+	<node id="808458835" lat="47.3758647" lon="8.5251128" version="1">
+		<tag k="name" v="Celia"/>
+		<tag k="phone" v="+41 44 240 04 75"/>
+		<tag k="amenity" v="restaurant"/>
+		<tag k="cuisine" v="italian"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="wheelchair" v="limited"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="addr:housenumber" v="35"/>
+	</node>
+	<node id="808458842" lat="47.3756331" lon="8.5248242" version="1"/>
+	<node id="808458843" lat="47.3759777" lon="8.524901" version="1"/>
+	<node id="808458845" lat="47.3757755" lon="8.524954" version="1"/>
+	<node id="808458858" lat="47.3757399" lon="8.5250664" version="1"/>
+	<node id="808458863" lat="47.375702" lon="8.5250424" version="1"/>
+	<node id="808643242" lat="47.3758548" lon="8.5242774" version="1">
+		<tag k="name" v="Coiffeur Marta"/>
+		<tag k="shop" v="hairdresser"/>
+	</node>
+	<node id="808643253" lat="47.3759073" lon="8.524313" version="1">
+		<tag k="name" v="Coiffeur Malibu"/>
+		<tag k="shop" v="hairdresser"/>
+	</node>
+	<node id="808643294" lat="47.375841" lon="8.5240023" version="1">
+		<tag k="name" v="Video Sphinx"/>
+		<tag k="shop" v="video"/>
+		<tag k="wheelchair" v="no"/>
+	</node>
+	<node id="813914170" lat="47.3762377" lon="8.5248122" version="1"/>
+	<node id="813914196" lat="47.3761879" lon="8.5249884" version="1"/>
+	<node id="813914209" lat="47.3761293" lon="8.5247939" version="1"/>
+	<node id="813914226" lat="47.3760433" lon="8.5246987" version="1"/>
+	<node id="813914241" lat="47.3762775" lon="8.5246901" version="1"/>
+	<node id="813914247" lat="47.3760745" lon="8.5249647" version="1"/>
+	<node id="813914266" lat="47.3760887" lon="8.5249172" version="1"/>
+	<node id="813914278" lat="47.3762191" lon="8.5245227" version="1"/>
+	<node id="813914299" lat="47.375949" lon="8.5249899" version="1">
+		<tag k="addr:street" v="Anwandstrasse"/>
+		<tag k="addr:housenumber" v="5"/>
+	</node>
+	<node id="813914311" lat="47.3761613" lon="8.5246877" version="1">
+		<tag k="name" v="Chreis 4 Hotels: Anwand Lodges"/>
+		<tag k="stars" v="2"/>
+		<tag k="tourism" v="hotel"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:street" v="Anwandstrasse"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="addr:housenumber" v="10"/>
+	</node>
+	<node id="813914316" lat="47.3762983" lon="8.5245492" version="1">
+		<tag k="addr:street" v="Kernstrasse"/>
+		<tag k="addr:housenumber" v="32"/>
+	</node>
+	<node id="813914348" lat="47.3759972" lon="8.52484" version="1"/>
+	<node id="813914353" lat="47.3762284" lon="8.5248651" version="1"/>
+	<node id="813914365" lat="47.3760462" lon="8.5250533" version="1">
+		<tag k="addr:street" v="Anwandstrasse"/>
+		<tag k="addr:housenumber" v="2"/>
+	</node>
+	<node id="813914394" lat="47.3758529" lon="8.5247391" version="1"/>
+	<node id="813914417" lat="47.3759467" lon="8.524127" version="1">
+		<tag k="addr:street" v="Kernstrasse"/>
+		<tag k="addr:housenumber" v="25"/>
+	</node>
+	<node id="813914434" lat="47.3758974" lon="8.5245969" version="1"/>
+	<node id="813914443" lat="47.3763177" lon="8.524564" version="1"/>
+	<node id="813914457" lat="47.3761112" lon="8.5251923" version="1"/>
+	<node id="813914502" lat="47.3760723" lon="8.5242145" version="1">
+		<tag k="addr:street" v="Kernstrasse"/>
+		<tag k="addr:housenumber" v="27"/>
+	</node>
+	<node id="813914516" lat="47.376164" lon="8.5250269" version="1"/>
+	<node id="845207226" lat="47.3764913" lon="8.5246975" version="1">
+		<tag k="addr:street" v="Kernstrasse"/>
+		<tag k="addr:housenumber" v="36"/>
+	</node>
+	<node id="845207380" lat="47.3766265" lon="8.5247948" version="1"/>
+	<node id="845207523" lat="47.3764148" lon="8.5246426" version="1">
+		<tag k="addr:street" v="Kernstrasse"/>
+		<tag k="addr:housenumber" v="34"/>
+	</node>
+	<node id="848938621" lat="47.375795" lon="8.524773" version="1"/>
+	<node id="848938624" lat="47.3748216" lon="8.5256646" version="1"/>
+	<node id="848938625" lat="47.3752965" lon="8.5241674" version="1"/>
+	<node id="848938627" lat="47.3751454" lon="8.5251285" version="1"/>
+	<node id="848938637" lat="47.375505" lon="8.5248093" version="1">
+		<tag k="addr:street" v="Kanzleistrasse"/>
+		<tag k="addr:housenumber" v="70"/>
+	</node>
+	<node id="848938644" lat="47.3747852" lon="8.5254013" version="1"/>
+	<node id="848938649" lat="47.3749628" lon="8.5256055" version="1"/>
+	<node id="848938696" lat="47.3748734" lon="8.5248957" version="1"/>
+	<node id="848938704" lat="47.3751917" lon="8.5249443" version="1">
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="20"/>
+	</node>
+	<node id="848938708" lat="47.3751472" lon="8.5242093" version="1"/>
+	<node id="848938722" lat="47.3757128" lon="8.5248231" version="1"/>
+	<node id="848938741" lat="47.3749736" lon="8.5249751" version="1"/>
+	<node id="848938743" lat="47.3752098" lon="8.5242999" version="1"/>
+	<node id="848938766" lat="47.3749728" lon="8.525889" version="1"/>
+	<node id="848938769" lat="47.3752272" lon="8.5251929" version="1">
+		<tag k="addr:street" v="Kanzleistrasse"/>
+		<tag k="addr:housenumber" v="63"/>
+	</node>
+	<node id="848938789" lat="47.3747181" lon="8.5255019" version="1"/>
+	<node id="848938796" lat="47.3756473" lon="8.5243721" version="1">
+		<tag k="addr:street" v="Kanzleistrasse"/>
+		<tag k="addr:housenumber" v="78"/>
+	</node>
+	<node id="848938810" lat="47.3752333" lon="8.5240798" version="1"/>
+	<node id="848938814" lat="47.3757233" lon="8.5249781" version="1">
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="31"/>
+	</node>
+	<node id="848938822" lat="47.3749372" lon="8.5256388" version="1"/>
+	<node id="848938826" lat="47.3748934" lon="8.5247289" version="1">
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="12"/>
+	</node>
+	<node id="848938848" lat="47.375061" lon="8.5256028" version="1"/>
+	<node id="848938868" lat="47.3748922" lon="8.5247666" version="1">
+		<tag k="name" v="Cut &#38; Color"/>
+		<tag k="shop" v="hairdresser"/>
+		<tag k="brand" v="cut&#38;color"/>
+		<tag k="branch" v="Zürich Langstrasse"/>
+		<tag k="website" v="https://www.cutandcolor.ch/de/coiffeur-zuerich-langstrasse"/>
+		<tag k="alt_name" v="Cut &#38; Color Langstrasse"/>
+		<tag k="operator" v="Hairstylist Pierre"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="wheelchair" v="no"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Mo-Fr 09:00-20:00; Sa 09:00-17:00"/>
+		<tag k="addr:housenumber" v="12"/>
+	</node>
+	<node id="848938878" lat="47.3748654" lon="8.5255212" version="1"/>
+	<node id="848938905" lat="47.3755589" lon="8.5246472" version="1">
+		<tag k="addr:street" v="Kanzleistrasse"/>
+		<tag k="addr:housenumber" v="72"/>
+	</node>
+	<node id="848938939" lat="47.3750677" lon="8.5248796" version="1">
+		<tag k="name" v="shop-in-shop"/>
+		<tag k="shop" v="convenience"/>
+		<tag k="wheelchair" v="yes"/>
+	</node>
+	<node id="848938955" lat="47.3751245" lon="8.5251567" version="1"/>
+	<node id="848938961" lat="47.375273" lon="8.525005" version="1"/>
+	<node id="848938963" lat="47.3757664" lon="8.5248585" version="1"/>
+	<node id="848938973" lat="47.3751233" lon="8.5244301" version="1"/>
+	<node id="848938976" lat="47.3751566" lon="8.5253199" version="1"/>
+	<node id="848938977" lat="47.3752659" lon="8.5242154" version="1"/>
+	<node id="848938983" lat="47.3748469" lon="8.5249761" version="1"/>
+	<node id="848938990" lat="47.3752425" lon="8.5250339" version="1">
+		<tag k="name" v="SO Pizza"/>
+		<tag k="amenity" v="restaurant"/>
+		<tag k="cuisine" v="pizza"/>
+		<tag k="website" v="https://www.so.pizza/"/>
+		<tag k="takeaway" v="yes"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Mo-We 12:00-14:00,19:00-23:00; Th-Fr 12:00-14:00,19:00-01:00; Sa 19:00-01:00"/>
+		<tag k="addr:housenumber" v="20"/>
+	</node>
+	<node id="848938992" lat="47.3750957" lon="8.5248506" version="1">
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="18"/>
+	</node>
+	<node id="848938998" lat="47.3757175" lon="8.5247166" version="1"/>
+	<node id="848939003" lat="47.3748669" lon="8.5255438" version="1">
+		<tag k="name" v="Amok Männerröcke"/>
+		<tag k="shop" v="boutique"/>
+	</node>
+	<node id="848939006" lat="47.3751571" lon="8.525088" version="1"/>
+	<node id="848939007" lat="47.3752033" lon="8.5241247" version="1"/>
+	<node id="848939015" lat="47.3747926" lon="8.5246565" version="1">
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="10"/>
+	</node>
+	<node id="848939019" lat="47.3748905" lon="8.5255623" version="1"/>
+	<node id="848939033" lat="47.3750497" lon="8.5257367" version="1"/>
+	<node id="848939034" lat="47.3748698" lon="8.5257327" version="1"/>
+	<node id="848939045" lat="47.3750092" lon="8.5255331" version="1"/>
+	<node id="848939062" lat="47.3749491" lon="8.5250495" version="1"/>
+	<node id="848939070" lat="47.375209" lon="8.5252539" version="1"/>
+	<node id="848939090" lat="47.3750607" lon="8.5243394" version="1"/>
+	<node id="848939092" lat="47.3756016" lon="8.5245144" version="1">
+		<tag k="addr:street" v="Kanzleistrasse"/>
+		<tag k="addr:housenumber" v="76"/>
+	</node>
+	<node id="848939095" lat="47.3750038" lon="8.5251752" version="1"/>
+	<node id="848939117" lat="47.375033" lon="8.525787" version="1"/>
+	<node id="848939128" lat="47.3749627" lon="8.524839" version="1">
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="14"/>
+	</node>
+	<node id="850608016" lat="47.37593" lon="8.5275496" version="1"/>
+	<node id="850608081" lat="47.3755314" lon="8.5284297" version="1"/>
+	<node id="850608085" lat="47.3758739" lon="8.5287826" version="1"/>
+	<node id="850608101" lat="47.3756935" lon="8.5284106" version="1"/>
+	<node id="850608104" lat="47.375413" lon="8.5284017" version="1"/>
+	<node id="850608114" lat="47.3746828" lon="8.5275967" version="1"/>
+	<node id="850608162" lat="47.3744997" lon="8.5273207" version="1"/>
+	<node id="850608174" lat="47.3762192" lon="8.5279858" version="1"/>
+	<node id="850608176" lat="47.3759128" lon="8.5277469" version="1"/>
+	<node id="850608178" lat="47.3760924" lon="8.5287571" version="1"/>
+	<node id="850608183" lat="47.3760897" lon="8.5280202" version="1"/>
+	<node id="850608200" lat="47.3757951" lon="8.5285373" version="1"/>
+	<node id="850608211" lat="47.3743305" lon="8.5270761" version="1"/>
+	<node id="850608223" lat="47.3761289" lon="8.5286528" version="1"/>
+	<node id="850608263" lat="47.3758033" lon="8.5286609" version="1"/>
+	<node id="850608271" lat="47.3761677" lon="8.5279051" version="1"/>
+	<node id="850608283" lat="47.3744487" lon="8.5272585" version="1"/>
+	<node id="850608299" lat="47.3760034" lon="8.5288705" version="1"/>
+	<node id="869269126" lat="47.3766139" lon="8.5255795" version="1">
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="98"/>
+	</node>
+	<node id="869269127" lat="47.3765691" lon="8.5250179" version="1">
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="105"/>
+	</node>
+	<node id="869269130" lat="47.3764659" lon="8.5253108" version="1"/>
+	<node id="869269133" lat="47.3768493" lon="8.5250528" version="1">
+		<tag k="name" v="Red Rose"/>
+		<tag k="amenity" v="nightclub"/>
+		<tag k="website" v="http://www.clubredrose.ch"/>
+	</node>
+	<node id="869269134" lat="47.3762192" lon="8.5252429" version="1">
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="99"/>
+	</node>
+	<node id="869269142" lat="47.3765989" lon="8.5256184" version="1">
+		<tag k="name" v="Treff-Point Kiosk"/>
+		<tag k="amenity" v="cafe"/>
+		<tag k="wheelchair" v="no"/>
+	</node>
+	<node id="869269143" lat="47.376691" lon="8.5253378" version="1">
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="102"/>
+	</node>
+	<node id="869269146" lat="47.3763183" lon="8.5253411" version="1">
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="97"/>
+	</node>
+	<node id="869269151" lat="47.3767906" lon="8.5250335" version="1">
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="106"/>
+	</node>
+	<node id="869269162" lat="47.3766604" lon="8.5254315" version="1">
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="100"/>
+	</node>
+	<node id="869269165" lat="47.3765094" lon="8.5252091" version="1">
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="101"/>
+	</node>
+	<node id="869269167" lat="47.3763278" lon="8.5252167" version="1"/>
+	<node id="869269168" lat="47.376746" lon="8.5251692" version="1">
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="104"/>
+	</node>
+	<node id="869269170" lat="47.3765561" lon="8.5250284" version="1">
+		<tag k="name" v="Karaoke 4you"/>
+		<tag k="amenity" v="bar"/>
+		<tag k="addr:city" v="Zürich"/>
+	</node>
+	<node id="869269171" lat="47.3763811" lon="8.5254416" version="1">
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="95"/>
+	</node>
+	<node id="871794830" lat="47.3769647" lon="8.5262004" version="1">
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="64"/>
+	</node>
+	<node id="871794849" lat="47.3768196" lon="8.5260968" version="1">
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="62"/>
+	</node>
+	<node id="871794866" lat="47.3769443" lon="8.5257794" version="1">
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="63"/>
+	</node>
+	<node id="890983462" lat="47.3753016" lon="8.5282964" version="1"/>
+	<node id="890983514" lat="47.374387" lon="8.5273368" version="1"/>
+	<node id="890983583" lat="47.3749158" lon="8.5277154" version="1"/>
+	<node id="890983657" lat="47.3743459" lon="8.5272686" version="1"/>
+	<node id="890983692" lat="47.374362" lon="8.5271213" version="1">
+		<tag k="addr:street" v="Rotwandstrasse"/>
+		<tag k="addr:housenumber" v="10"/>
+	</node>
+	<node id="914702932" lat="47.3750614" lon="8.5279326" version="1">
+		<tag k="addr:street" v="Rotwandstrasse"/>
+		<tag k="addr:housenumber" v="35"/>
+	</node>
+	<node id="914702935" lat="47.3755813" lon="8.5283563" version="1"/>
+	<node id="914702939" lat="47.3757286" lon="8.5284544" version="1">
+		<tag k="addr:street" v="Bäckerstrasse"/>
+		<tag k="addr:housenumber" v="52"/>
+	</node>
+	<node id="914702977" lat="47.3758181" lon="8.5276932" version="1"/>
+	<node id="914702981" lat="47.3751496" lon="8.5280698" version="1">
+		<tag k="addr:street" v="Rotwandstrasse"/>
+		<tag k="addr:housenumber" v="37"/>
+	</node>
+	<node id="914702989" lat="47.3756192" lon="8.5282957" version="1">
+		<tag k="addr:street" v="Bäckerstrasse"/>
+		<tag k="addr:housenumber" v="54"/>
+	</node>
+	<node id="914702996" lat="47.3760102" lon="8.5286087" version="1">
+		<tag k="addr:street" v="Müllerstrasse"/>
+		<tag k="addr:housenumber" v="67"/>
+	</node>
+	<node id="914703004" lat="47.3757132" lon="8.5281282" version="1">
+		<tag k="addr:street" v="Bäckerstrasse"/>
+		<tag k="addr:housenumber" v="56"/>
+	</node>
+	<node id="914703025" lat="47.3758775" lon="8.5277712" version="1"/>
+	<node id="914703028" lat="47.3760376" lon="8.528575" version="1"/>
+	<node id="914703038" lat="47.3758602" lon="8.5278729" version="1">
+		<tag k="addr:street" v="Bäckerstrasse"/>
+		<tag k="addr:housenumber" v="60"/>
+	</node>
+	<node id="914703052" lat="47.3757591" lon="8.5276112" version="1"/>
+	<node id="914703059" lat="47.3752395" lon="8.5282098" version="1">
+		<tag k="addr:street" v="Rotwandstrasse"/>
+		<tag k="addr:housenumber" v="39"/>
+	</node>
+	<node id="914703070" lat="47.3762872" lon="8.5280887" version="1">
+		<tag k="addr:street" v="Ankerstrasse"/>
+		<tag k="addr:housenumber" v="114"/>
+	</node>
+	<node id="914703073" lat="47.3754087" lon="8.5281009" version="1">
+		<tag k="addr:street" v="Bäckerstrasse"/>
+		<tag k="addr:housenumber" v="51"/>
+	</node>
+	<node id="914703116" lat="47.3762374" lon="8.5282645" version="1"/>
+	<node id="914703118" lat="47.3759364" lon="8.5277491" version="1">
+		<tag k="addr:street" v="Bäckerstrasse"/>
+		<tag k="addr:housenumber" v="62"/>
+	</node>
+	<node id="914703152" lat="47.3758989" lon="8.5276621" version="1">
+		<tag k="name" v="The Yard"/>
+		<tag k="tourism" v="hotel"/>
+		<tag k="website" v="https://www.theyard.ch/"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="wheelchair" v="no"/>
+		<tag k="addr:street" v="Bäckerstrasse"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="addr:housenumber" v="62"/>
+		<tag k="wheelchair:description" v="2 Stufen beim Eingang"/>
+	</node>
+	<node id="914703166" lat="47.3755763" lon="8.5278027" version="1">
+		<tag k="addr:street" v="Bäckerstrasse"/>
+		<tag k="addr:housenumber" v="57"/>
+	</node>
+	<node id="914703191" lat="47.3759816" lon="8.5280354" version="1">
+		<tag k="addr:street" v="Ankerstrasse"/>
+		<tag k="addr:housenumber" v="112"/>
+	</node>
+	<node id="914703195" lat="47.3762625" lon="8.5282968" version="1"/>
+	<node id="914703205" lat="47.3755033" lon="8.5282426" version="1"/>
+	<node id="914703212" lat="47.3754397" lon="8.5281697" version="1"/>
+	<node id="914703236" lat="47.3760192" lon="8.5285411" version="1"/>
+	<node id="914703239" lat="47.3756939" lon="8.5279081" version="1">
+		<tag k="addr:street" v="Bäckerstrasse"/>
+		<tag k="addr:housenumber" v="58"/>
+	</node>
+	<node id="920508285" lat="47.3762932" lon="8.5278804" version="1"/>
+	<node id="920508304" lat="47.3766291" lon="8.526574" version="1">
+		<tag k="addr:street" v="Molkenstrasse"/>
+		<tag k="addr:housenumber" v="17"/>
+	</node>
+	<node id="920508306" lat="47.3763596" lon="8.5279813" version="1"/>
+	<node id="920508324" lat="47.3763665" lon="8.5277394" version="1"/>
+	<node id="920508348" lat="47.3764425" lon="8.5278617" version="1"/>
+	<node id="920508375" lat="47.3764727" lon="8.5276314" version="1">
+		<tag k="name" v="Heilsarmee Wohnheim für Männer und Frauen"/>
+	</node>
+	<node id="920508378" lat="47.3763916" lon="8.5269836" version="1">
+		<tag k="addr:street" v="Molkenstrasse"/>
+		<tag k="addr:housenumber" v="9"/>
+	</node>
+	<node id="920508413" lat="47.3764971" lon="8.5265695" version="1">
+		<tag k="addr:street" v="Molkenstrasse"/>
+		<tag k="addr:housenumber" v="15"/>
+	</node>
+	<node id="920508420" lat="47.3763319" lon="8.5279388" version="1">
+		<tag k="addr:street" v="Ankerstrasse"/>
+		<tag k="addr:housenumber" v="113"/>
+	</node>
+	<node id="920508440" lat="47.3761252" lon="8.5279726" version="1">
+		<tag k="addr:street" v="Ankerstrasse"/>
+		<tag k="addr:housenumber" v="110"/>
+	</node>
+	<node id="920508442" lat="47.3766102" lon="8.5273025" version="1">
+		<tag k="addr:street" v="Molkenstrasse"/>
+		<tag k="addr:housenumber" v="8"/>
+	</node>
+	<node id="920508463" lat="47.3768877" lon="8.5265817" version="1">
+		<tag k="addr:street" v="Molkenstrasse"/>
+		<tag k="addr:housenumber" v="21"/>
+	</node>
+	<node id="920508540" lat="47.3764858" lon="8.527541" version="1">
+		<tag k="addr:street" v="Molkenstrasse"/>
+		<tag k="addr:housenumber" v="6"/>
+	</node>
+	<node id="1016012577" lat="47.376472" lon="8.5252652" version="1">
+		<tag k="name" v="Subway"/>
+		<tag k="brand" v="Subway"/>
+		<tag k="amenity" v="fast_food"/>
+		<tag k="cuisine" v="sandwich"/>
+		<tag k="website" v="http://www.subway-sandwiches.ch/"/>
+		<tag k="takeaway" v="yes"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="wheelchair" v="limited"/>
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Mo-Th 10:00-23:00; Fr-Sa 10:00-01:00; Su 10:00-22:00"/>
+		<tag k="brand:wikidata" v="Q244457"/>
+		<tag k="addr:housenumber" v="101"/>
+	</node>
+	<node id="1069585307" lat="47.3752543" lon="8.5261232" version="1">
+		<tag k="name" v="Xenix"/>
+		<tag k="amenity" v="cinema"/>
+		<tag k="website" v="https://www.xenix.ch"/>
+		<tag k="wikidata" v="Q15136000"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="wheelchair" v="yes"/>
+		<tag k="addr:street" v="Kanzleistrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="addr:housenumber" v="52"/>
+	</node>
+	<node id="1320113402" lat="47.3759618" lon="8.5284417" version="1"/>
+	<node id="1320113404" lat="47.3759681" lon="8.5284567" version="1"/>
+	<node id="1391309505" lat="47.375034" lon="8.5276943" version="1">
+		<tag k="name" v="Evangelisch Metodistische Kirche"/>
+		<tag k="amenity" v="place_of_worship"/>
+		<tag k="religion" v="christian"/>
+		<tag k="wheelchair" v="no"/>
+		<tag k="denomination" v="methodist"/>
+	</node>
+	<node id="1417968679" lat="47.3763362" lon="8.5244002" version="1">
+		<tag k="addr:street" v="Kernstrasse"/>
+		<tag k="addr:housenumber" v="31"/>
+	</node>
+	<node id="1442004393" lat="47.3760904" lon="8.5278522" version="1">
+		<tag k="name" v="Ah-Hua"/>
+		<tag k="phone" v="+41 44 240 38 88"/>
+		<tag k="amenity" v="restaurant"/>
+		<tag k="cuisine" v="thai"/>
+		<tag k="name:de" v="Ah-Hua II"/>
+		<tag k="website" v="https://www.ah-hua.ch/"/>
+		<tag k="takeaway" v="yes"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="wheelchair" v="yes"/>
+		<tag k="addr:street" v="Ankerstrasse"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Tu-Fr 11:30-14:30,17:30-22:30; Sa,Su 12:00-22:30"/>
+		<tag k="diet:vegetarian" v="yes"/>
+		<tag k="addr:housenumber" v="110"/>
+	</node>
+	<node id="1486118351" lat="47.3765627" lon="8.5263963" version="1"/>
+	<node id="1486118355" lat="47.3765627" lon="8.5261075" version="1"/>
+	<node id="1486118357" lat="47.3766007" lon="8.526283" version="1"/>
+	<node id="1486118366" lat="47.3769732" lon="8.5263613" version="1"/>
+	<node id="1584001968" lat="47.3757717" lon="8.524005" version="1"/>
+	<node id="1584002010" lat="47.376274" lon="8.5243563" version="1"/>
+	<node id="1584034520" lat="47.3754635" lon="8.5269328" version="1">
+		<tag k="highway" v="traffic_signals"/>
+		<tag k="crossing" v="traffic_signals"/>
+		<tag k="crossing_ref" v="zebra"/>
+		<tag k="traffic_signals:direction" v="forward"/>
+	</node>
+	<node id="1584034532" lat="47.3754686" lon="8.526717" version="1">
+		<tag k="highway" v="traffic_signals"/>
+		<tag k="crossing" v="traffic_signals"/>
+		<tag k="crossing_ref" v="zebra"/>
+		<tag k="traffic_signals:direction" v="forward"/>
+	</node>
+	<node id="1584034534" lat="47.3756722" lon="8.5267057" version="1">
+		<tag k="highway" v="traffic_signals"/>
+		<tag k="crossing" v="traffic_signals"/>
+		<tag k="crossing_ref" v="zebra"/>
+		<tag k="traffic_signals:direction" v="backward"/>
+	</node>
+	<node id="1584034537" lat="47.3756623" lon="8.5269489" version="1">
+		<tag k="highway" v="traffic_signals"/>
+		<tag k="crossing" v="traffic_signals"/>
+		<tag k="crossing_ref" v="zebra"/>
+		<tag k="traffic_signals:direction" v="backward"/>
+	</node>
+	<node id="1584034539" lat="47.3760341" lon="8.5263018" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="unmarked"/>
+	</node>
+	<node id="1584034542" lat="47.3763441" lon="8.5258515" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="unmarked"/>
+	</node>
+	<node id="1584034560" lat="47.3764873" lon="8.5255748" version="1">
+		<tag k="highway" v="traffic_signals"/>
+		<tag k="crossing" v="traffic_signals"/>
+		<tag k="crossing_ref" v="zebra"/>
+		<tag k="traffic_signals:direction" v="backward"/>
+	</node>
+	<node id="1584034574" lat="47.3765467" lon="8.5257788" version="1">
+		<tag k="highway" v="traffic_signals"/>
+		<tag k="crossing" v="traffic_signals"/>
+		<tag k="crossing_ref" v="zebra"/>
+		<tag k="traffic_signals:direction" v="backward"/>
+	</node>
+	<node id="1584034577" lat="47.376592" lon="8.5256437" version="1"/>
+	<node id="1584034601" lat="47.3767126" lon="8.5255843" version="1"/>
+	<node id="1584034620" lat="47.3768372" lon="8.5249567" version="1"/>
+	<node id="1584034630" lat="47.3768566" lon="8.5251548" version="1"/>
+	<node id="1584034632" lat="47.3768731" lon="8.5251674" version="1"/>
+	<node id="1584034633" lat="47.3768728" lon="8.5257217" version="1"/>
+	<node id="1584034644" lat="47.376901" lon="8.525874" version="1"/>
+	<node id="1584034647" lat="47.3768997" lon="8.5253306" version="1"/>
+	<node id="1584034656" lat="47.3769348" lon="8.5250429" version="1"/>
+	<node id="1584034685" lat="47.3769999" lon="8.5254362" version="1"/>
+	<node id="1584034704" lat="47.3769931" lon="8.5250953" version="1"/>
+	<node id="1595200941" lat="47.3748955" lon="8.5244617" version="1"/>
+	<node id="1595200971" lat="47.3749661" lon="8.5241587" version="1"/>
+	<node id="1595200990" lat="47.3749953" lon="8.5243392" version="1"/>
+	<node id="1595201033" lat="47.3750202" lon="8.5242496" version="1"/>
+	<node id="1595201050" lat="47.3750351" lon="8.5245663" version="1"/>
+	<node id="1595201112" lat="47.3750918" lon="8.5244786" version="1"/>
+	<node id="1595201201" lat="47.3751445" lon="8.5246414" version="1"/>
+	<node id="1595201291" lat="47.3752049" lon="8.5244646" version="1"/>
+	<node id="1595201418" lat="47.3752341" lon="8.5244839" version="1"/>
+	<node id="1595201577" lat="47.3753495" lon="8.5243114" version="1"/>
+	<node id="1595201603" lat="47.3753598" lon="8.5247953" version="1"/>
+	<node id="1595201786" lat="47.3754868" lon="8.5244079" version="1"/>
+	<node id="1595224464" lat="47.3760016" lon="8.5252608" version="1"/>
+	<node id="1595224488" lat="47.3763151" lon="8.5254807" version="1"/>
+	<node id="1595224503" lat="47.3763858" lon="8.5255339" version="1"/>
+	<node id="1595224518" lat="47.3764448" lon="8.5254113" version="1"/>
+	<node id="1803069788" lat="47.3759862" lon="8.5255493" version="1">
+		<tag k="fee" v="no"/>
+		<tag k="name" v="Velo-Pumpstation"/>
+		<tag k="note" v="Kanzlei / Bushaltestelle Helvetiaplatz"/>
+		<tag k="amenity" v="compressed_air"/>
+		<tag k="wheelchair" v="no"/>
+	</node>
+	<node id="1872536627" lat="47.3754332" lon="8.5241602" version="1"/>
+	<node id="1872536629" lat="47.3753801" lon="8.524238" version="1"/>
+	<node id="1872536631" lat="47.3754305" lon="8.5243172" version="1"/>
+	<node id="1872536632" lat="47.3755574" lon="8.5241968" version="1"/>
+	<node id="1872536633" lat="47.3755009" lon="8.5243621" version="1"/>
+	<node id="1872536634" lat="47.3755431" lon="8.5242386" version="1"/>
+	<node id="1872536635" lat="47.3756007" lon="8.5240571" version="1"/>
+	<node id="1872536636" lat="47.3755239" lon="8.5240052" version="1"/>
+	<node id="2008369716" lat="47.3760181" lon="8.5277705" version="1">
+		<tag k="name" v="Centro"/>
+		<tag k="amenity" v="restaurant"/>
+		<tag k="cuisine" v="italian"/>
+		<tag k="wheelchair" v="yes"/>
+		<tag k="addr:street" v="Ankerstrasse"/>
+		<tag k="addr:housenumber" v="108"/>
+	</node>
+	<node id="2015772140" lat="47.3759889" lon="8.5274787" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="uncontrolled"/>
+		<tag k="crossing_ref" v="zebra"/>
+	</node>
+	<node id="2015772146" lat="47.3762695" lon="8.5277075" version="1"/>
+	<node id="2015772149" lat="47.3765813" lon="8.5270277" version="1"/>
+	<node id="2015772161" lat="47.3766187" lon="8.5261475" version="1"/>
+	<node id="2015772164" lat="47.3766249" lon="8.5261287" version="1"/>
+	<node id="2015772171" lat="47.3769388" lon="8.5263527" version="1"/>
+	<node id="2015772175" lat="47.376943" lon="8.5263398" version="1"/>
+	<node id="2015772178" lat="47.3769595" lon="8.5264434" version="1"/>
+	<node id="2178135077" lat="47.3754652" lon="8.5272753" version="1">
+		<tag k="name" v="Volkshaus"/>
+		<tag k="amenity" v="theatre"/>
+		<tag k="website" v="https://www.volkshaus.ch/"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="addr:housenumber" v="60"/>
+	</node>
+	<node id="2261078654" lat="47.3742664" lon="8.5263573" version="1"/>
+	<node id="2261078656" lat="47.3742747" lon="8.5263445" version="1"/>
+	<node id="2261078661" lat="47.3743224" lon="8.5267377" version="1"/>
+	<node id="2261078662" lat="47.3743314" lon="8.5267246" version="1"/>
+	<node id="2261078671" lat="47.3744315" lon="8.5265816" version="1"/>
+	<node id="2261078673" lat="47.3744506" lon="8.5266112" version="1"/>
+	<node id="2261078674" lat="47.3744659" lon="8.5266337" version="1"/>
+	<node id="2261078698" lat="47.3746512" lon="8.5257406" version="1"/>
+	<node id="2261078703" lat="47.3746671" lon="8.5257175" version="1"/>
+	<node id="2261078724" lat="47.3748236" lon="8.5259992" version="1"/>
+	<node id="2261078726" lat="47.3748279" lon="8.5259928" version="1"/>
+	<node id="2261078750" lat="47.3750942" lon="8.5260513" version="1"/>
+	<node id="2261078752" lat="47.3751008" lon="8.526024" version="1"/>
+	<node id="2261078765" lat="47.3754531" lon="8.5249885" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="uncontrolled"/>
+		<tag k="crossing_ref" v="zebra"/>
+	</node>
+	<node id="2261078767" lat="47.3755195" lon="8.5279112" version="1"/>
+	<node id="2261078790" lat="47.375883" lon="8.5272054" version="1"/>
+	<node id="2261078793" lat="47.3760503" lon="8.5274595" version="1"/>
+	<node id="2261078797" lat="47.3762914" lon="8.5256177" version="1">
+		<tag k="highway" v="traffic_signals"/>
+		<tag k="crossing" v="traffic_signals"/>
+		<tag k="crossing_ref" v="zebra"/>
+		<tag k="traffic_signals:direction" v="forward"/>
+	</node>
+	<node id="2261078798" lat="47.376313" lon="8.5261615" version="1"/>
+	<node id="2261078800" lat="47.376331" lon="8.5264214" version="1"/>
+	<node id="2261078801" lat="47.3763689" lon="8.5267621" version="1"/>
+	<node id="2261078802" lat="47.3764234" lon="8.5266224" version="1"/>
+	<node id="2261078803" lat="47.3764248" lon="8.5265985" version="1"/>
+	<node id="2309435440" lat="47.3756759" lon="8.5266796" version="1"/>
+	<node id="2309435441" lat="47.3756887" lon="8.5267117" version="1"/>
+	<node id="2309435442" lat="47.3758747" lon="8.5264649" version="1"/>
+	<node id="2309435443" lat="47.3758913" lon="8.5264963" version="1"/>
+	<node id="2309435444" lat="47.3760136" lon="8.5262702" version="1"/>
+	<node id="2309435445" lat="47.3760518" lon="8.5262539" version="1">
+		<tag k="ele" v="411"/>
+		<tag k="ref" v="1158"/>
+		<tag k="name" v="Helvetiaplatz"/>
+		<tag k="tram" v="yes"/>
+		<tag k="network" v="ZVV"/>
+		<tag k="railway" v="tram_stop"/>
+		<tag k="uic_ref" v="8591184"/>
+		<tag k="operator" v="VBZ"/>
+		<tag k="uic_name" v="Zürich, Helvetiaplatz"/>
+		<tag k="public_transport" v="stop_position"/>
+	</node>
+	<node id="2309435447" lat="47.3760333" lon="8.5263378" version="1"/>
+	<node id="2309435448" lat="47.3760579" lon="8.5263384" version="1"/>
+	<node id="2309435449" lat="47.3761195" lon="8.526135" version="1"/>
+	<node id="2309435450" lat="47.3761368" lon="8.5261401" version="1"/>
+	<node id="2309435451" lat="47.3761548" lon="8.5261827" version="1"/>
+	<node id="2309435452" lat="47.3761707" lon="8.5261967" version="1"/>
+	<node id="2309435453" lat="47.3762658" lon="8.5259486" version="1"/>
+	<node id="2309435454" lat="47.3762638" lon="8.5260657" version="1"/>
+	<node id="2309435456" lat="47.3763143" lon="8.5258333" version="1"/>
+	<node id="2309435457" lat="47.3763487" lon="8.5258055" version="1"/>
+	<node id="2309435458" lat="47.3763263" lon="8.5259231" version="1">
+		<tag k="ele" v="411"/>
+		<tag k="ref" v="1158"/>
+		<tag k="name" v="Helvetiaplatz"/>
+		<tag k="tram" v="yes"/>
+		<tag k="network" v="ZVV"/>
+		<tag k="railway" v="tram_stop"/>
+		<tag k="uic_ref" v="8591184"/>
+		<tag k="operator" v="VBZ"/>
+		<tag k="uic_name" v="Zürich, Helvetiaplatz"/>
+		<tag k="public_transport" v="stop_position"/>
+	</node>
+	<node id="2309435459" lat="47.3763738" lon="8.5258697" version="1"/>
+	<node id="2309435460" lat="47.3764043" lon="8.5257038" version="1"/>
+	<node id="2309435461" lat="47.3764367" lon="8.5257175" version="1"/>
+	<node id="2309435462" lat="47.3764523" lon="8.5256051" version="1"/>
+	<node id="2309435463" lat="47.3764889" lon="8.5256011" version="1"/>
+	<node id="2309435464" lat="47.3765211" lon="8.5254363" version="1"/>
+	<node id="2309435465" lat="47.3765448" lon="8.5254554" version="1"/>
+	<node id="2341997683" lat="47.3762059" lon="8.5283972" version="1">
+		<tag k="amenity" v="recycling"/>
+		<tag k="operator" v="ERZ"/>
+		<tag k="description" v="Container: Metall (3), Grünglas (3), Weissglas (2), Braunglas (1)"/>
+		<tag k="opening_hours" v="Mo-Sa 07:00-20:00"/>
+		<tag k="recycling:cans" v="yes"/>
+		<tag k="recycling_type" v="container"/>
+		<tag k="recycling:aluminium" v="yes"/>
+		<tag k="recycling:glass_bottles" v="yes"/>
+	</node>
+	<node id="2424760755" lat="47.3766881" lon="8.525443" version="1">
+		<tag k="name" v="Kulturbüro Zürich"/>
+		<tag k="shop" v="yes"/>
+		<tag k="email" v="zuerich@kulturbuero.ch"/>
+		<tag k="phone" v="+41 44 242 42 82"/>
+		<tag k="rental" v="yes"/>
+		<tag k="name:de" v="Kulturbüro Zürich"/>
+		<tag k="website" v="https://www.kulturbuero.ch/"/>
+		<tag k="operator" v="Migros Kulturprozent"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Tu 10:00-22:00; We-Sa 13:30-18:30"/>
+		<tag k="internet_access" v="wlan"/>
+		<tag k="addr:housenumber" v="100"/>
+	</node>
+	<node id="2424887405" lat="47.3760631" lon="8.5245967" version="1">
+		<tag k="name" v="Les Complices*"/>
+		<tag k="amenity" v="arts_centre"/>
+		<tag k="website" v="http://lescomplices.ch"/>
+		<tag k="wheelchair" v="no"/>
+		<tag k="addr:street" v="Anwandstrasse"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="addr:housenumber" v="9"/>
+	</node>
+	<node id="2463960533" lat="47.3760634" lon="8.5268416" version="1">
+		<tag k="name" v="Helvetiaplatz"/>
+		<tag k="amenity" v="marketplace"/>
+		<tag k="website" v="https://www.zuercher-maerkte.ch/helvetiaplatz.html"/>
+		<tag k="operator" v="Stadt Zürich, Marktpolizei"/>
+		<tag k="opening_hours" v="Tu,Fr 06:00-11:00"/>
+	</node>
+	<node id="2472125583" lat="47.3747583" lon="8.5262931" version="1"/>
+	<node id="2472125656" lat="47.3745782" lon="8.5260078" version="1"/>
+	<node id="2567818134" lat="47.3763862" lon="8.5266788" version="1"/>
+	<node id="2567818138" lat="47.3759398" lon="8.5268294" version="1"/>
+	<node id="2567818141" lat="47.3764008" lon="8.5266802" version="1"/>
+	<node id="2567818929" lat="47.3757357" lon="8.5268753" version="1"/>
+	<node id="2567854590" lat="47.3748562" lon="8.5275798" version="1">
+		<tag k="highway" v="crossing"/>
+	</node>
+	<node id="2583985894" lat="47.3765497" lon="8.5269401" version="1">
+		<tag k="natural" v="tree"/>
+		<tag k="leaf_type" v="broadleaved"/>
+		<tag k="denotation" v="urban"/>
+	</node>
+	<node id="2583985898" lat="47.3764952" lon="8.5270581" version="1">
+		<tag k="natural" v="tree"/>
+		<tag k="leaf_type" v="broadleaved"/>
+		<tag k="denotation" v="urban"/>
+	</node>
+	<node id="2583985903" lat="47.3764244" lon="8.5272217" version="1">
+		<tag k="natural" v="tree"/>
+		<tag k="leaf_type" v="broadleaved"/>
+		<tag k="denotation" v="urban"/>
+	</node>
+	<node id="2583985907" lat="47.3763735" lon="8.5273558" version="1">
+		<tag k="natural" v="tree"/>
+		<tag k="leaf_type" v="broadleaved"/>
+		<tag k="denotation" v="urban"/>
+	</node>
+	<node id="2583985910" lat="47.3763245" lon="8.5274792" version="1">
+		<tag k="natural" v="tree"/>
+		<tag k="leaf_type" v="broadleaved"/>
+		<tag k="denotation" v="urban"/>
+	</node>
+	<node id="2583985914" lat="47.3762718" lon="8.5275918" version="1">
+		<tag k="natural" v="tree"/>
+		<tag k="leaf_type" v="broadleaved"/>
+		<tag k="denotation" v="urban"/>
+	</node>
+	<node id="2583985917" lat="47.3765113" lon="8.5273206" version="1">
+		<tag k="natural" v="tree"/>
+		<tag k="leaf_type" v="broadleaved"/>
+		<tag k="denotation" v="urban"/>
+	</node>
+	<node id="2583985921" lat="47.3764643" lon="8.527439" version="1">
+		<tag k="natural" v="tree"/>
+		<tag k="leaf_type" v="broadleaved"/>
+		<tag k="denotation" v="urban"/>
+	</node>
+	<node id="2583985945" lat="47.3759331" lon="8.5271577" version="1">
+		<tag k="name" v="Denkmal der Arbeit"/>
+		<tag k="tourism" v="artwork"/>
+		<tag k="wikidata" v="Q27229972"/>
+		<tag k="artist_name" v="Karl Geiser"/>
+		<tag k="artwork_type" v="statue"/>
+	</node>
+	<node id="2632087167" lat="47.3764498" lon="8.5273289" version="1"/>
+	<node id="2645535377" lat="47.3757411" lon="8.5267869" version="1"/>
+	<node id="2645535378" lat="47.3761984" lon="8.527097" version="1"/>
+	<node id="2645535379" lat="47.3761157" lon="8.5264358" version="1"/>
+	<node id="2645535381" lat="47.3760427" lon="8.5274218" version="1"/>
+	<node id="2717037990" lat="47.3766404" lon="8.5255437" version="1">
+		<tag k="name" v="Trix Mix"/>
+		<tag k="shop" v="jewelry"/>
+		<tag k="fixme" v="postiion of door to Haus seems too far from Langstrsse"/>
+		<tag k="phone" v="+41 44 291 19 01"/>
+		<tag k="source" v="local_knowledge"/>
+		<tag k="website" v="http://www.trixmix.ch/"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="wheelchair" v="no"/>
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Mo-Fr 10:00-18:30; Sa 10:00-16:00"/>
+		<tag k="addr:housenumber" v="98"/>
+	</node>
+	<node id="2884057387" lat="47.3750271" lon="8.5259886" version="1">
+		<tag k="highway" v="stop"/>
+	</node>
+	<node id="2884057388" lat="47.3750457" lon="8.526119" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="uncontrolled"/>
+		<tag k="crossing_ref" v="zebra"/>
+		<tag k="tactile_paving" v="yes"/>
+	</node>
+	<node id="2884057400" lat="47.3753568" lon="8.5249878" version="1">
+		<tag k="highway" v="stop"/>
+	</node>
+	<node id="2884057612" lat="47.3760264" lon="8.527423" version="1"/>
+	<node id="2884057613" lat="47.3760967" lon="8.5263982" version="1"/>
+	<node id="2884057615" lat="47.3762139" lon="8.5271006" version="1"/>
+	<node id="2915847505" lat="47.3749537" lon="8.5244837" version="1">
+		<tag k="name" v="PHO Vietnam"/>
+		<tag k="amenity" v="restaurant"/>
+		<tag k="cuisine" v="vietnamese"/>
+		<tag k="website" v="http://www.pho-vietnam.ch/"/>
+		<tag k="takeaway" v="yes"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="addr:housenumber" v="13"/>
+	</node>
+	<node id="2953842462" lat="47.3747422" lon="8.5265099" version="1"/>
+	<node id="2953842463" lat="47.37467" lon="8.5265712" version="1"/>
+	<node id="2953842464" lat="47.3748122" lon="8.5270366" version="1"/>
+	<node id="2953842465" lat="47.3746608" lon="8.5268837" version="1"/>
+	<node id="2953842466" lat="47.374633" lon="8.5268406" version="1"/>
+	<node id="2953842467" lat="47.37484" lon="8.5270783" version="1"/>
+	<node id="2953842468" lat="47.3747039" lon="8.5267293" version="1"/>
+	<node id="2953842469" lat="47.3752068" lon="8.5265594" version="1"/>
+	<node id="2953842470" lat="47.3749963" lon="8.5268583" version="1"/>
+	<node id="2953842471" lat="47.3751661" lon="8.5268581" version="1"/>
+	<node id="2953842472" lat="47.3747057" lon="8.5268236" version="1"/>
+	<node id="2953842473" lat="47.3746529" lon="8.5268034" version="1"/>
+	<node id="2953842474" lat="47.374709" lon="8.5265158" version="1"/>
+	<node id="2953842475" lat="47.3746702" lon="8.5266138" version="1"/>
+	<node id="2953842476" lat="47.3749599" lon="8.52664" version="1">
+		<tag k="name" v="Gefängnis Zürich"/>
+		<tag k="amenity" v="prison"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:street" v="Rotwandstrasse"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="addr:housenumber" v="21"/>
+	</node>
+	<node id="2953842477" lat="47.3746398" lon="8.5269132" version="1"/>
+	<node id="2953842478" lat="47.3748303" lon="8.5270104" version="1"/>
+	<node id="2953842479" lat="47.3748119" lon="8.526578" version="1"/>
+	<node id="2953842480" lat="47.374782" lon="8.5270638" version="1"/>
+	<node id="2953842481" lat="47.3748649" lon="8.526325" version="1">
+		<tag k="barrier" v="gate"/>
+	</node>
+	<node id="2953842482" lat="47.3746763" lon="8.5272628" version="1"/>
+	<node id="2953842483" lat="47.3748977" lon="8.5272519" version="1"/>
+	<node id="2953842484" lat="47.3749079" lon="8.527267" version="1"/>
+	<node id="2953842485" lat="47.3747583" lon="8.5270972" version="1"/>
+	<node id="2953842486" lat="47.3748323" lon="8.5262811" version="1"/>
+	<node id="2953842487" lat="47.3751789" lon="8.5268771" version="1"/>
+	<node id="2953842488" lat="47.3745868" lon="8.5269054" version="1"/>
+	<node id="2953842489" lat="47.3746553" lon="8.5272936" version="1"/>
+	<node id="2953842490" lat="47.3748891" lon="8.527007" version="1"/>
+	<node id="2953842491" lat="47.3746857" lon="8.5268526" version="1"/>
+	<node id="2953842492" lat="47.3747691" lon="8.5271886" version="1"/>
+	<node id="2953842493" lat="47.375128" lon="8.5266693" version="1"/>
+	<node id="2953842494" lat="47.3752178" lon="8.5265434" version="1"/>
+	<node id="2953842495" lat="47.3748181" lon="8.5271198" version="1"/>
+	<node id="2953842496" lat="47.3747887" lon="8.5262757" version="1"/>
+	<node id="2955534770" lat="47.3746107" lon="8.5261522" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2955534771" lat="47.3744146" lon="8.5263989" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956813595" lat="47.3758688" lon="8.5255656" version="1"/>
+	<node id="2956813596" lat="47.3758958" lon="8.5254718" version="1"/>
+	<node id="2956813597" lat="47.3757958" lon="8.5263916" version="1"/>
+	<node id="2956813598" lat="47.3759233" lon="8.5256037" version="1"/>
+	<node id="2956813599" lat="47.3759513" lon="8.5255163" version="1"/>
+	<node id="2956814075" lat="47.3758409" lon="8.5253961" version="1"/>
+	<node id="2956814076" lat="47.3753236" lon="8.5264131" version="1">
+		<tag k="barrier" v="gate"/>
+	</node>
+	<node id="2956814081" lat="47.3752229" lon="8.5256644" version="1">
+		<tag k="barrier" v="gate"/>
+	</node>
+	<node id="2956815182" lat="47.3760615" lon="8.5256704" version="1"/>
+	<node id="2956815183" lat="47.3756082" lon="8.5265658" version="1"/>
+	<node id="2956815314" lat="47.3755073" lon="8.5251646" version="1"/>
+	<node id="2956815315" lat="47.375774" lon="8.5255174" version="1"/>
+	<node id="2956815316" lat="47.3756788" lon="8.5254556" version="1"/>
+	<node id="2956815318" lat="47.3757975" lon="8.5254387" version="1"/>
+	<node id="2956815319" lat="47.3757022" lon="8.5253769" version="1"/>
+	<node id="2956817195" lat="47.3755399" lon="8.5251868" version="1"/>
+	<node id="2956818365" lat="47.3756152" lon="8.5261194" version="1"/>
+	<node id="2956818367" lat="47.3753545" lon="8.5260166" version="1"/>
+	<node id="2956818368" lat="47.3751552" lon="8.5256167" version="1"/>
+	<node id="2956818369" lat="47.3756989" lon="8.5259464" version="1"/>
+	<node id="2956818370" lat="47.3753517" lon="8.5257565" version="1"/>
+	<node id="2956818371" lat="47.3756155" lon="8.5255304" version="1"/>
+	<node id="2956818372" lat="47.3755108" lon="8.5254852" version="1"/>
+	<node id="2956818373" lat="47.3754684" lon="8.5254844" version="1"/>
+	<node id="2956818374" lat="47.3755143" lon="8.5261636" version="1"/>
+	<node id="2956818375" lat="47.3754325" lon="8.5255189" version="1"/>
+	<node id="2956818376" lat="47.3753941" lon="8.5256204" version="1"/>
+	<node id="2956818377" lat="47.3757128" lon="8.5257093" version="1"/>
+	<node id="2956819426" lat="47.3754458" lon="8.5261382" version="1"/>
+	<node id="2956819427" lat="47.375404" lon="8.5262485" version="1"/>
+	<node id="2956819428" lat="47.3752777" lon="8.5264752" version="1"/>
+	<node id="2956819876" lat="47.375337" lon="8.5259433" version="1"/>
+	<node id="2956819877" lat="47.3756593" lon="8.526056" version="1"/>
+	<node id="2956819878" lat="47.375663" lon="8.5255854" version="1"/>
+	<node id="2956819879" lat="47.3755656" lon="8.5255012" version="1"/>
+	<node id="2956819880" lat="47.3757144" lon="8.5258072" version="1"/>
+	<node id="2956819881" lat="47.3753924" lon="8.5260838" version="1"/>
+	<node id="2956819882" lat="47.3753348" lon="8.5258626" version="1"/>
+	<node id="2956819883" lat="47.3755708" lon="8.5261625" version="1"/>
+	<node id="2956819884" lat="47.3756896" lon="8.5256435" version="1"/>
+	<node id="2956820471" lat="47.3756601" lon="8.5261384" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820472" lat="47.37525" lon="8.5268817" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820473" lat="47.3757179" lon="8.5253659" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820474" lat="47.3753259" lon="8.5255134" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820475" lat="47.3756383" lon="8.5253578" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820476" lat="47.3756457" lon="8.5263905" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820477" lat="47.3758564" lon="8.5262242" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820478" lat="47.3759944" lon="8.5260606" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820479" lat="47.3759853" lon="8.5256421" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820480" lat="47.3758091" lon="8.5254376" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820481" lat="47.3760762" lon="8.5259291" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820482" lat="47.3753696" lon="8.5253793" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820483" lat="47.3758254" lon="8.5261518" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820484" lat="47.3757546" lon="8.5261035" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820485" lat="47.375206" lon="8.5259238" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820486" lat="47.3752479" lon="8.5258433" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820487" lat="47.3761306" lon="8.5258218" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820488" lat="47.3751811" lon="8.5270292" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820489" lat="47.37535" lon="8.5267637" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820490" lat="47.3755676" lon="8.5253015" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820491" lat="47.3759182" lon="8.5261625" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2956820492" lat="47.3760616" lon="8.5257119" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="2957061241" lat="47.3755703" lon="8.5269938" version="1"/>
+	<node id="2957061242" lat="47.3748524" lon="8.5277333" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="unmarked"/>
+		<tag k="traffic_calming" v="table"/>
+	</node>
+	<node id="2957062050" lat="47.3749048" lon="8.527677" version="1"/>
+	<node id="2957062051" lat="47.3755126" lon="8.5270242" version="1"/>
+	<node id="2962270491" lat="47.3757913" lon="8.5255647" version="1"/>
+	<node id="2962270492" lat="47.375821" lon="8.5255823" version="1"/>
+	<node id="2962270493" lat="47.3757532" lon="8.5258312" version="1"/>
+	<node id="2962270494" lat="47.3757235" lon="8.5258136" version="1"/>
+	<node id="2964071724" lat="47.3763958" lon="8.5260522" version="1"/>
+	<node id="2964071725" lat="47.3765225" lon="8.5258602" version="1"/>
+	<node id="2964071726" lat="47.3761987" lon="8.5265104" version="1"/>
+	<node id="2964071727" lat="47.3765654" lon="8.5256289" version="1"/>
+	<node id="2964071729" lat="47.3763203" lon="8.5262199" version="1"/>
+	<node id="2964071731" lat="47.376812" lon="8.5248417" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="unmarked"/>
+		<tag k="traffic_calming" v="table"/>
+	</node>
+	<node id="2975855240" lat="47.3767849" lon="8.526869" version="1">
+		<tag k="name" v="Tremondi"/>
+		<tag k="amenity" v="restaurant"/>
+		<tag k="website" v="https://www.tre-mondi.ch/"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:street" v="Molkenstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Tu-Th 18:00-01:00; Fr-Sa 18:00-04:00"/>
+		<tag k="addr:housenumber" v="20"/>
+	</node>
+	<node id="3071791417" lat="47.3765256" lon="8.5254588" version="1"/>
+	<node id="3078522845" lat="47.3752043" lon="8.5246537" version="1">
+		<tag k="name" v="Rubinfeld"/>
+		<tag k="shop" v="clothes"/>
+	</node>
+	<node id="3194463083" lat="47.3753593" lon="8.5265898" version="1"/>
+	<node id="3396946682" lat="47.3749824" lon="8.5269722" version="1">
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="55"/>
+	</node>
+	<node id="3396946683" lat="47.3749702" lon="8.5270618" version="1">
+		<tag k="name" v="Staatsanwaltschaft Zürich-Limmat, Zürich-Sihl"/>
+		<tag k="office" v="government"/>
+		<tag k="government" v="prosecutor"/>
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="55"/>
+	</node>
+	<node id="3461321894" lat="47.3741301" lon="8.5270669" version="1"/>
+	<node id="3461321910" lat="47.3742206" lon="8.5269518" version="1"/>
+	<node id="3477874392" lat="47.3754041" lon="8.5240015" version="1"/>
+	<node id="3477874404" lat="47.3769597" lon="8.5259362" version="1"/>
+	<node id="3479479308" lat="47.3755166" lon="8.5271955" version="1">
+		<tag k="name" v="hamman und spa, Stadbad Zürich"/>
+		<tag k="amenity" v="spa"/>
+		<tag k="website" v="https://www.stadtbadzuerich.ch/"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="addr:housenumber" v="60"/>
+	</node>
+	<node id="3648465487" lat="47.3760168" lon="8.5272704" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="3648465506" lat="47.3752938" lon="8.5268268" version="1">
+		<tag k="amenity" v="bench"/>
+	</node>
+	<node id="3648465510" lat="47.3759124" lon="8.5270908" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="3648465523" lat="47.3752281" lon="8.526955" version="1">
+		<tag k="amenity" v="bench"/>
+	</node>
+	<node id="3648466326" lat="47.3759612" lon="8.5272103" version="1">
+		<tag k="natural" v="tree"/>
+	</node>
+	<node id="3752897802" lat="47.3754806" lon="8.5241449" version="1"/>
+	<node id="3932358336" lat="47.3763634" lon="8.5254955" version="1">
+		<tag k="name" v="Jamarico"/>
+		<tag k="shop" v="music"/>
+		<tag k="website" v="https://www.jamarico-shop.ch/music"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="addr:housenumber" v="95"/>
+	</node>
+	<node id="3978697268" lat="47.3757428" lon="8.5240733" version="1">
+		<tag k="highway" v="crossing"/>
+	</node>
+	<node id="4002994036" lat="47.37538" lon="8.5272107" version="1">
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="58"/>
+	</node>
+	<node id="4005581156" lat="47.3765627" lon="8.5264179" version="1"/>
+	<node id="4005581157" lat="47.3769264" lon="8.5264287" version="1"/>
+	<node id="4005581158" lat="47.3769263" lon="8.5264424" version="1"/>
+	<node id="4056185260" lat="47.3750842" lon="8.5275329" version="1">
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="54"/>
+	</node>
+	<node id="4070417589" lat="47.3764213" lon="8.5264559" version="1">
+		<tag k="name" v="Bank"/>
+		<tag k="amenity" v="restaurant"/>
+		<tag k="website" v="https://www.bankzuerich.ch/"/>
+		<tag k="operator" v="Bindella"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="wheelchair" v="yes"/>
+		<tag k="addr:street" v="Molkenstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Mo-We 09:00-23:00; Th 09:00-24:00; Fr-Sa 09:00-24:00; Su 09:00-22:00"/>
+		<tag k="outdoor_seating" v="yes"/>
+		<tag k="addr:housenumber" v="15"/>
+		<tag k="toilets:wheelchair" v="yes"/>
+	</node>
+	<node id="4070417590" lat="47.3764194" lon="8.5262341" version="1">
+		<tag k="name" v="CS Bancomat"/>
+		<tag k="brand" v="Credit Suisse"/>
+		<tag k="amenity" v="atm"/>
+		<tag k="operator" v="Credit Suisse"/>
+	</node>
+	<node id="4245891578" lat="47.3753231" lon="8.5240872" version="1">
+		<tag k="addr:street" v="Bauhallengasse"/>
+		<tag k="addr:housenumber" v="11"/>
+	</node>
+	<node id="4245891579" lat="47.3760388" lon="8.525256" version="1">
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="39"/>
+	</node>
+	<node id="4245900497" lat="47.3747739" lon="8.5253068" version="1"/>
+	<node id="4245900498" lat="47.374781" lon="8.5248294" version="1"/>
+	<node id="4245900499" lat="47.3748179" lon="8.5252432" version="1"/>
+	<node id="4245900500" lat="47.3748204" lon="8.5253771" version="1"/>
+	<node id="4245900501" lat="47.3748293" lon="8.5246828" version="1"/>
+	<node id="4245900502" lat="47.3748414" lon="8.5253468" version="1"/>
+	<node id="4245900504" lat="47.3748911" lon="8.5254218" version="1"/>
+	<node id="4245900505" lat="47.3749055" lon="8.524798" version="1"/>
+	<node id="4245900507" lat="47.3749094" lon="8.5255369" version="1"/>
+	<node id="4245900508" lat="47.3749141" lon="8.5253886" version="1"/>
+	<node id="4245900509" lat="47.3749216" lon="8.5247491" version="1"/>
+	<node id="4245900510" lat="47.3749217" lon="8.5255504" version="1"/>
+	<node id="4245900511" lat="47.3749312" lon="8.5254082" version="1"/>
+	<node id="4245900512" lat="47.3749367" lon="8.5253827" version="1"/>
+	<node id="4245900513" lat="47.3749399" lon="8.5254229" version="1"/>
+	<node id="4245900514" lat="47.374943" lon="8.5253901" version="1"/>
+	<node id="4245900515" lat="47.3749739" lon="8.5254813" version="1"/>
+	<node id="4245900519" lat="47.3750003" lon="8.5258856" version="1"/>
+	<node id="4245900520" lat="47.3750009" lon="8.5249947" version="1"/>
+	<node id="4245900522" lat="47.375006" lon="8.5249794" version="1"/>
+	<node id="4245900523" lat="47.3750077" lon="8.5248713" version="1"/>
+	<node id="4245900524" lat="47.3750224" lon="8.5248268" version="1"/>
+	<node id="4245900525" lat="47.3750719" lon="8.5248623" version="1"/>
+	<node id="4245900527" lat="47.3750784" lon="8.52526" version="1"/>
+	<node id="4245900528" lat="47.3750796" lon="8.524839" version="1"/>
+	<node id="4245900529" lat="47.3750829" lon="8.5256375" version="1"/>
+	<node id="4245900530" lat="47.375087" lon="8.5252339" version="1"/>
+	<node id="4245900531" lat="47.3750916" lon="8.524293" version="1"/>
+	<node id="4245900532" lat="47.3751043" lon="8.5248816" version="1"/>
+	<node id="4245900534" lat="47.3751109" lon="8.5248615" version="1"/>
+	<node id="4245900536" lat="47.3751136" lon="8.5250567" version="1"/>
+	<node id="4245900537" lat="47.3751351" lon="8.5251205" version="1"/>
+	<node id="4245900538" lat="47.3751379" lon="8.5246614" version="1"/>
+	<node id="4245900539" lat="47.3751542" lon="8.5243837" version="1"/>
+	<node id="4245900540" lat="47.3751584" lon="8.5249204" version="1"/>
+	<node id="4245900541" lat="47.3751556" lon="8.5259787" version="1"/>
+	<node id="4245900542" lat="47.3751603" lon="8.5250783" version="1"/>
+	<node id="4245900543" lat="47.3751669" lon="8.5252265" version="1"/>
+	<node id="4245900544" lat="47.3751737" lon="8.524045" version="1"/>
+	<node id="4245900545" lat="47.3751797" lon="8.5261017" version="1"/>
+	<node id="4245900546" lat="47.3752468" lon="8.5251404" version="1"/>
+	<node id="4245900547" lat="47.3752647" lon="8.5260337" version="1"/>
+	<node id="4245900548" lat="47.3752804" lon="8.5250367" version="1"/>
+	<node id="4245900549" lat="47.3753532" lon="8.5248154" version="1"/>
+	<node id="4245900550" lat="47.3753733" lon="8.524805" version="1"/>
+	<node id="4245900551" lat="47.3754004" lon="8.5251275" version="1"/>
+	<node id="4245900552" lat="47.3754136" lon="8.5251141" version="1"/>
+	<node id="4245900553" lat="47.3754554" lon="8.5251275" version="1"/>
+	<node id="4245900554" lat="47.3754861" lon="8.5248577" version="1"/>
+	<node id="4245900555" lat="47.3755004" lon="8.5244176" version="1"/>
+	<node id="4245900556" lat="47.3755007" lon="8.5251856" version="1"/>
+	<node id="4245900557" lat="47.3755204" lon="8.524763" version="1"/>
+	<node id="4245900558" lat="47.3755333" lon="8.5252078" version="1"/>
+	<node id="4245900559" lat="47.3755362" lon="8.5247177" version="1"/>
+	<node id="4245900560" lat="47.3755483" lon="8.5247832" version="1"/>
+	<node id="4245900561" lat="47.3755538" lon="8.5247667" version="1"/>
+	<node id="4245900562" lat="47.3755832" lon="8.5245716" version="1"/>
+	<node id="4245900563" lat="47.3755915" lon="8.5258792" version="1"/>
+	<node id="4245900564" lat="47.3756141" lon="8.5259136" version="1"/>
+	<node id="4245900565" lat="47.375615" lon="8.524811" version="1"/>
+	<node id="4245900566" lat="47.3756151" lon="8.5249794" version="1"/>
+	<node id="4245900567" lat="47.3756231" lon="8.5244477" version="1"/>
+	<node id="4245900568" lat="47.3756267" lon="8.5247812" version="1"/>
+	<node id="4245900569" lat="47.375636" lon="8.5248436" version="1"/>
+	<node id="4245900570" lat="47.3756366" lon="8.5258373" version="1"/>
+	<node id="4245900571" lat="47.3756407" lon="8.5248297" version="1"/>
+	<node id="4245900572" lat="47.3756503" lon="8.5247078" version="1"/>
+	<node id="4245900573" lat="47.3756556" lon="8.5248578" version="1"/>
+	<node id="4245900574" lat="47.3756604" lon="8.5248432" version="1"/>
+	<node id="4245900575" lat="47.3756676" lon="8.5247204" version="1"/>
+	<node id="4245900576" lat="47.3756737" lon="8.524635" version="1"/>
+	<node id="4245900577" lat="47.3756846" lon="8.5258453" version="1"/>
+	<node id="4245900578" lat="47.375688" lon="8.524805" version="1"/>
+	<node id="4245900579" lat="47.3757107" lon="8.5248293" version="1"/>
+	<node id="4245900580" lat="47.3757139" lon="8.524511" version="1"/>
+	<node id="4245900581" lat="47.375738" lon="8.5248492" version="1"/>
+	<node id="4245900582" lat="47.3757407" lon="8.5244272" version="1"/>
+	<node id="4245900583" lat="47.3757411" lon="8.52484" version="1"/>
+	<node id="4245900584" lat="47.3757476" lon="8.5244051" version="1"/>
+	<node id="4245900585" lat="47.3757549" lon="8.5261743" version="1"/>
+	<node id="4245900586" lat="47.3757558" lon="8.5244377" version="1"/>
+	<node id="4245900587" lat="47.3757624" lon="8.5261494" version="1"/>
+	<node id="4245900588" lat="47.3757628" lon="8.5244158" version="1"/>
+	<node id="4245900589" lat="47.3758023" lon="8.5262052" version="1"/>
+	<node id="4245900590" lat="47.3758097" lon="8.5261803" version="1"/>
+	<node id="4245900591" lat="47.3758526" lon="8.5249694" version="1"/>
+	<node id="4245900592" lat="47.3758561" lon="8.5249338" version="1"/>
+	<node id="4245900593" lat="47.3758626" lon="8.5249384" version="1"/>
+	<node id="4245900594" lat="47.3758665" lon="8.5262919" version="1"/>
+	<node id="4245900595" lat="47.3758691" lon="8.5245407" version="1"/>
+	<node id="4245900596" lat="47.3758694" lon="8.5251621" version="1"/>
+	<node id="4245900597" lat="47.3758774" lon="8.5245135" version="1"/>
+	<node id="4245900598" lat="47.3758948" lon="8.5251494" version="1"/>
+	<node id="4245900599" lat="47.3759123" lon="8.5245691" version="1"/>
+	<node id="4245900600" lat="47.3759205" lon="8.524542" version="1"/>
+	<node id="4245900601" lat="47.3759365" lon="8.5250285" version="1"/>
+	<node id="4245900602" lat="47.3759647" lon="8.5244762" version="1"/>
+	<node id="4245900603" lat="47.375971" lon="8.524457" version="1"/>
+	<node id="4245900604" lat="47.3759834" lon="8.526125" version="1"/>
+	<node id="4245900605" lat="47.3759838" lon="8.5256442" version="1"/>
+	<node id="4245900606" lat="47.3759939" lon="8.5252174" version="1"/>
+	<node id="4245900607" lat="47.3759962" lon="8.5245166" version="1"/>
+	<node id="4245900608" lat="47.3760146" lon="8.5245299" version="1"/>
+	<node id="4245900609" lat="47.3760286" lon="8.524488" version="1"/>
+	<node id="4245900610" lat="47.3760684" lon="8.5256243" version="1"/>
+	<node id="4245900611" lat="47.3760746" lon="8.525313" version="1"/>
+	<node id="4245900612" lat="47.3760785" lon="8.5255978" version="1"/>
+	<node id="4245900613" lat="47.3761109" lon="8.524424" version="1"/>
+	<node id="4245900614" lat="47.3761193" lon="8.5244665" version="1"/>
+	<node id="4245900615" lat="47.3761359" lon="8.5252111" version="1"/>
+	<node id="4245900616" lat="47.3761446" lon="8.525687" version="1"/>
+	<node id="4245900617" lat="47.3761427" lon="8.5247448" version="1"/>
+	<node id="4245900618" lat="47.3761546" lon="8.5256605" version="1"/>
+	<node id="4245900619" lat="47.3761658" lon="8.5252303" version="1"/>
+	<node id="4245900620" lat="47.3761722" lon="8.5252102" version="1"/>
+	<node id="4245900621" lat="47.3761826" lon="8.5246226" version="1"/>
+	<node id="4245900622" lat="47.376195" lon="8.5251192" version="1"/>
+	<node id="4245900623" lat="47.3762164" lon="8.5254121" version="1"/>
+	<node id="4245900624" lat="47.3762431" lon="8.5251494" version="1"/>
+	<node id="4245900625" lat="47.3762435" lon="8.524512" version="1"/>
+	<node id="4245900626" lat="47.3762528" lon="8.5252778" version="1"/>
+	<node id="4245900627" lat="47.3762558" lon="8.5252683" version="1"/>
+	<node id="4245900628" lat="47.3762685" lon="8.5250649" version="1"/>
+	<node id="4245900629" lat="47.3762726" lon="8.5249831" version="1"/>
+	<node id="4245900630" lat="47.3762776" lon="8.5250696" version="1"/>
+	<node id="4245900631" lat="47.3762783" lon="8.5252955" version="1"/>
+	<node id="4245900632" lat="47.3762971" lon="8.5250005" version="1"/>
+	<node id="4245900633" lat="47.3763335" lon="8.5250246" version="1"/>
+	<node id="4245900634" lat="47.3763371" lon="8.5248758" version="1"/>
+	<node id="4245900635" lat="47.3763548" lon="8.5250132" version="1"/>
+	<node id="4245900636" lat="47.3763561" lon="8.5251263" version="1"/>
+	<node id="4245900637" lat="47.3763624" lon="8.5251306" version="1"/>
+	<node id="4245900638" lat="47.3763724" lon="8.5250985" version="1"/>
+	<node id="4245900639" lat="47.3763848" lon="8.5247792" version="1"/>
+	<node id="4245900640" lat="47.3763871" lon="8.524912" version="1"/>
+	<node id="4245900641" lat="47.3764066" lon="8.5255276" version="1"/>
+	<node id="4245900642" lat="47.3764216" lon="8.5251361" version="1"/>
+	<node id="4245900643" lat="47.3764226" lon="8.5251327" version="1"/>
+	<node id="4245900644" lat="47.3764361" lon="8.5251459" version="1"/>
+	<node id="4245900645" lat="47.3764381" lon="8.5251017" version="1"/>
+	<node id="4245900646" lat="47.3764391" lon="8.5250708" version="1"/>
+	<node id="4245900647" lat="47.3764463" lon="8.5250757" version="1"/>
+	<node id="4245900648" lat="47.3764478" lon="8.5251083" version="1"/>
+	<node id="4245900649" lat="47.3764524" lon="8.5246686" version="1"/>
+	<node id="4245900650" lat="47.3764764" lon="8.5252773" version="1"/>
+	<node id="4245900651" lat="47.3764784" lon="8.5248463" version="1"/>
+	<node id="4245900652" lat="47.376486" lon="8.5252839" version="1"/>
+	<node id="4245900653" lat="47.3764887" lon="8.5249122" version="1"/>
+	<node id="4245900654" lat="47.3765028" lon="8.5248671" version="1"/>
+	<node id="4245900655" lat="47.3765075" lon="8.524925" version="1"/>
+	<node id="4245900656" lat="47.3765088" lon="8.5248523" version="1"/>
+	<node id="4245900657" lat="47.3765204" lon="8.5247184" version="1"/>
+	<node id="4245900658" lat="47.3765822" lon="8.5249759" version="1"/>
+	<node id="4245900659" lat="47.3766034" lon="8.5256865" version="1"/>
+	<node id="4245900660" lat="47.3766369" lon="8.5255033" version="1"/>
+	<node id="4245900661" lat="47.3766783" lon="8.5253767" version="1"/>
+	<node id="4245900662" lat="47.3766967" lon="8.5257529" version="1"/>
+	<node id="4245900663" lat="47.3767211" lon="8.5255632" version="1"/>
+	<node id="4245900664" lat="47.3767231" lon="8.5256188" version="1"/>
+	<node id="4245900665" lat="47.3767255" lon="8.5252322" version="1"/>
+	<node id="4245900666" lat="47.3767276" lon="8.5255953" version="1"/>
+	<node id="4245900667" lat="47.3767376" lon="8.5256322" version="1"/>
+	<node id="4245900668" lat="47.3767421" lon="8.5256214" version="1"/>
+	<node id="4245900669" lat="47.3767624" lon="8.5254366" version="1"/>
+	<node id="4245900670" lat="47.3767666" lon="8.5251062" version="1"/>
+	<node id="4245900671" lat="47.3767706" lon="8.5254424" version="1"/>
+	<node id="4245900672" lat="47.3767957" lon="8.5258246" version="1"/>
+	<node id="4245900673" lat="47.3768107" lon="8.5249723" version="1"/>
+	<node id="4245900674" lat="47.3768115" lon="8.5252934" version="1"/>
+	<node id="4245900675" lat="47.3768178" lon="8.5252979" version="1"/>
+	<node id="4245900676" lat="47.3768526" lon="8.5251675" version="1"/>
+	<node id="4245900677" lat="47.3768593" lon="8.5257066" version="1"/>
+	<node id="4245900678" lat="47.3768679" lon="8.5255141" version="1"/>
+	<node id="4245900679" lat="47.3768795" lon="8.5258876" version="1"/>
+	<node id="4245900680" lat="47.3768806" lon="8.5251487" version="1"/>
+	<node id="4245900681" lat="47.3768906" lon="8.5251561" version="1"/>
+	<node id="4245900682" lat="47.3769385" lon="8.5253716" version="1"/>
+	<node id="4245900683" lat="47.3769447" lon="8.5256013" version="1"/>
+	<node id="4246061191" lat="47.3763513" lon="8.5264363" version="1"/>
+	<node id="4246061192" lat="47.3763601" lon="8.5264282" version="1"/>
+	<node id="4246061193" lat="47.3763919" lon="8.5265345" version="1"/>
+	<node id="4246061194" lat="47.376401" lon="8.5265266" version="1"/>
+	<node id="4246061196" lat="47.3765461" lon="8.5261581" version="1"/>
+	<node id="4246061197" lat="47.3765606" lon="8.526572" version="1"/>
+	<node id="4246061198" lat="47.3766702" lon="8.5259902" version="1"/>
+	<node id="4246061199" lat="47.3766925" lon="8.5265759" version="1"/>
+	<node id="4246061200" lat="47.3766946" lon="8.5264219" version="1"/>
+	<node id="4246061201" lat="47.3768087" lon="8.5262599" version="1"/>
+	<node id="4246061202" lat="47.376854" lon="8.5261214" version="1"/>
+	<node id="4246061203" lat="47.3769575" lon="8.5265838" version="1"/>
+	<node id="4416196405" lat="47.3768262" lon="8.5265381" version="1">
+		<tag k="name" v="Gartmann Bürobedarf"/>
+		<tag k="shop" v="stationery"/>
+		<tag k="website" v="http://www.buero-gartmann.ch/"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:street" v="Molkenstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Mo-Fr 08:30-18:30; We 08:30-17:30; Sa 09:00-13:00"/>
+		<tag k="addr:housenumber" v="21"/>
+	</node>
+	<node id="4416196406" lat="47.3760697" lon="8.527417" version="1"/>
+	<node id="4424003109" lat="47.3756755" lon="8.5249734" version="1">
+		<tag k="name" v="Metzg"/>
+		<tag k="amenity" v="restaurant"/>
+		<tag k="website" v="https://www.metzg-grill.ch/"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="addr:housenumber" v="31"/>
+	</node>
+	<node id="4549432191" lat="47.3756888" lon="8.5280088" version="1">
+		<tag k="name" v="Zero Zero Rare Groove"/>
+		<tag k="shop" v="books"/>
+	</node>
+	<node id="4549433191" lat="47.3757569" lon="8.5278706" version="1">
+		<tag k="name" v="Uniqum - Dinge für tägliches Tun"/>
+		<tag k="shop" v="clothes"/>
+	</node>
+	<node id="4579779848" lat="47.3756982" lon="8.5262788" version="1">
+		<tag k="name" v="Kosmische-Granit-Pyramide"/>
+		<tag k="tourism" v="artwork"/>
+		<tag k="wikidata" v="Q27229701"/>
+		<tag k="artist_name" v="Paul Sieber"/>
+	</node>
+	<node id="4580295823" lat="47.375699" lon="8.5260544" version="1">
+		<tag k="dog" v="no"/>
+		<tag k="ref" v="1161"/>
+		<tag k="name" v="Olivia-Brunnen"/>
+		<tag k="bottle" v="no"/>
+		<tag k="amenity" v="drinking_water"/>
+		<tag k="material" v="stone"/>
+		<tag k="operator" v="WVZ"/>
+		<tag k="wikidata" v="Q27229789"/>
+		<tag k="wheelchair" v="no"/>
+		<tag k="artist_name" v="Paul Sieber"/>
+		<tag k="drinking_water:description" v="Leitungswasser"/>
+	</node>
+	<node id="4581800304" lat="47.376157" lon="8.5264502" version="1">
+		<tag k="name" v="Kugellager oder runde Steine (II)"/>
+		<tag k="tourism" v="artwork"/>
+		<tag k="wikidata" v="Q27230024"/>
+		<tag k="artist_name" v="Lawrence Weiner"/>
+	</node>
+	<node id="4851815760" lat="47.376011" lon="8.5273099" version="1"/>
+	<node id="4851815761" lat="47.3760267" lon="8.5272777" version="1"/>
+	<node id="4851815762" lat="47.3760242" lon="8.5273239" version="1"/>
+	<node id="4851815763" lat="47.3760399" lon="8.5272917" version="1"/>
+	<node id="4862040975" lat="47.3762867" lon="8.5280931" version="1">
+		<tag k="man_made" v="surveillance"/>
+		<tag k="surveillance" v="outdoor"/>
+		<tag k="surveillance:type" v="camera"/>
+		<tag k="surveillance:zone" v="street"/>
+	</node>
+	<node id="4896466310" lat="47.3761065" lon="8.5254009" version="1"/>
+	<node id="4896466311" lat="47.3761894" lon="8.5256791" version="1"/>
+	<node id="4940630010" lat="47.3753098" lon="8.5247452" version="1">
+		<tag k="name" v="ZKB Automatenbank"/>
+		<tag k="brand" v="ZKB"/>
+		<tag k="branch" v="Zürich Aussersihl"/>
+		<tag k="amenity" v="atm"/>
+		<tag k="cash_in" v="yes"/>
+		<tag k="website" v="https://www.zkb.ch/de/ks/psc/filialen-geldautomaten.standort.zuerich-aussersihl.html"/>
+		<tag k="alt_name" v="ZKB Aussersihl"/>
+		<tag k="operator" v="Zürcher Kantonalbank"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="wheelchair" v="yes"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="24/7"/>
+		<tag k="brand:wikidata" v="Q248476"/>
+		<tag k="addr:housenumber" v="21"/>
+	</node>
+	<node id="5081848366" lat="47.3762258" lon="8.5274115" version="1">
+		<tag k="addr:street" v="Molkenstrasse"/>
+		<tag k="addr:housenumber" v="5"/>
+	</node>
+	<node id="5082670665" lat="47.3753472" lon="8.5252292" version="1">
+		<tag k="ref" v="322"/>
+		<tag k="operator" v="WVZ"/>
+		<tag k="emergency" v="fire_hydrant"/>
+		<tag k="fire_hydrant:type" v="pillar"/>
+		<tag k="fire_hydrant:position" v="sidewalk"/>
+	</node>
+	<node id="5082670666" lat="47.3748923" lon="8.5260891" version="1">
+		<tag k="barrier" v="gate"/>
+	</node>
+	<node id="5082670667" lat="47.374818" lon="8.5262032" version="1"/>
+	<node id="5082670668" lat="47.3751006" lon="8.5259757" version="1">
+		<tag k="ref" v="321"/>
+		<tag k="operator" v="WVZ"/>
+		<tag k="emergency" v="fire_hydrant"/>
+		<tag k="fire_hydrant:type" v="pillar"/>
+		<tag k="fire_hydrant:position" v="sidewalk"/>
+	</node>
+	<node id="5083782204" lat="47.3764931" lon="8.5260376" version="1">
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="96"/>
+	</node>
+	<node id="5083782205" lat="47.3764373" lon="8.5261789" version="1">
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="94"/>
+	</node>
+	<node id="5083782206" lat="47.375496" lon="8.5271125" version="1">
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="60"/>
+	</node>
+	<node id="5083782207" lat="47.3752207" lon="8.5274011" version="1">
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="56"/>
+	</node>
+	<node id="5083782841" lat="47.3760358" lon="8.5277427" version="1">
+		<tag k="addr:street" v="Ankerstrasse"/>
+		<tag k="addr:housenumber" v="108"/>
+	</node>
+	<node id="5083782842" lat="47.3758998" lon="8.5275516" version="1"/>
+	<node id="5083782843" lat="47.3759222" lon="8.5277281" version="1"/>
+	<node id="5083782844" lat="47.3759005" lon="8.5277315" version="1"/>
+	<node id="5083782845" lat="47.3758722" lon="8.5277825" version="1"/>
+	<node id="5083782846" lat="47.3758923" lon="8.5278131" version="1"/>
+	<node id="5083782847" lat="47.3759693" lon="8.5278015" version="1"/>
+	<node id="5083782848" lat="47.3759591" lon="8.527817" version="1"/>
+	<node id="5083782850" lat="47.3747157" lon="8.5269565" version="1">
+		<tag k="addr:street" v="Rotwandstrasse"/>
+		<tag k="addr:housenumber" v="19a"/>
+	</node>
+	<node id="5083782851" lat="47.3743105" lon="8.5270759" version="1"/>
+	<node id="5083782852" lat="47.3743222" lon="8.527085" version="1"/>
+	<node id="5083782853" lat="47.3742914" lon="8.527101" version="1"/>
+	<node id="5083782854" lat="47.3743002" lon="8.5271158" version="1"/>
+	<node id="5083782855" lat="47.3742881" lon="8.5271658" version="1"/>
+	<node id="5083782858" lat="47.3742766" lon="8.5271467" version="1"/>
+	<node id="5083782865" lat="47.3743835" lon="8.526754" version="1">
+		<tag k="addr:street" v="Rotwandstrasse"/>
+		<tag k="addr:housenumber" v="19"/>
+	</node>
+	<node id="5083782868" lat="47.3756936" lon="8.5286394" version="1"/>
+	<node id="5083782869" lat="47.3757096" lon="8.5286644" version="1"/>
+	<node id="5083782870" lat="47.3757499" lon="8.5285982" version="1"/>
+	<node id="5083782871" lat="47.3756826" lon="8.5285135" version="1"/>
+	<node id="5083782872" lat="47.3756368" lon="8.5285805" version="1"/>
+	<node id="5083782873" lat="47.3755572" lon="8.528455" version="1"/>
+	<node id="5083782874" lat="47.3756828" lon="8.528653" version="1"/>
+	<node id="5083782875" lat="47.375552" lon="8.5284621" version="1"/>
+	<node id="5083782876" lat="47.3756776" lon="8.5286601" version="1"/>
+	<node id="5083782896" lat="47.37591" lon="8.5287152" version="1">
+		<tag k="addr:street" v="Müllerstrasse"/>
+		<tag k="addr:housenumber" v="65"/>
+	</node>
+	<node id="5083782897" lat="47.3761453" lon="8.5283589" version="1">
+		<tag k="addr:street" v="Müllerstrasse"/>
+		<tag k="addr:housenumber" v="71"/>
+	</node>
+	<node id="5083782906" lat="47.3761577" lon="8.5242274" version="1">
+		<tag k="name" v="Aggarwal"/>
+		<tag k="shop" v="convenience"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="wheelchair" v="limited"/>
+		<tag k="addr:street" v="Anwandstrasse"/>
+		<tag k="addr:housenumber" v="27"/>
+	</node>
+	<node id="5103538106" lat="47.3762096" lon="8.5260687" version="1"/>
+	<node id="5103538107" lat="47.3762967" lon="8.5260062" version="1"/>
+	<node id="5103538108" lat="47.3762546" lon="8.5260741" version="1"/>
+	<node id="5103538109" lat="47.3762027" lon="8.5260066" version="1"/>
+	<node id="5103538110" lat="47.3762452" lon="8.5259393" version="1"/>
+	<node id="5103538111" lat="47.3761892" lon="8.525988" version="1"/>
+	<node id="5103538112" lat="47.3762317" lon="8.5259207" version="1"/>
+	<node id="5103538113" lat="47.37631" lon="8.5260242" version="1"/>
+	<node id="5103538114" lat="47.376268" lon="8.5260921" version="1"/>
+	<node id="5103538115" lat="47.3760159" lon="8.5262958" version="1"/>
+	<node id="5138563602" lat="47.3747676" lon="8.5276579" version="1"/>
+	<node id="5138563603" lat="47.374785" lon="8.5276839" version="1"/>
+	<node id="5138563606" lat="47.3746728" lon="8.5276698" version="1">
+		<tag k="ref" v="1453"/>
+		<tag k="operator" v="WVZ"/>
+		<tag k="emergency" v="fire_hydrant"/>
+		<tag k="fire_hydrant:type" v="pillar"/>
+		<tag k="fire_hydrant:position" v="sidewalk"/>
+	</node>
+	<node id="5138563607" lat="47.3743163" lon="8.5270603" version="1">
+		<tag k="ref" v="2381"/>
+		<tag k="operator" v="WVZ"/>
+		<tag k="emergency" v="fire_hydrant"/>
+		<tag k="fire_hydrant:type" v="pillar"/>
+		<tag k="fire_hydrant:position" v="sidewalk"/>
+	</node>
+	<node id="5153794083" lat="47.3756741" lon="8.5257271" version="1">
+		<tag k="sport" v="table_tennis"/>
+		<tag k="access" v="permissive"/>
+		<tag k="leisure" v="pitch"/>
+	</node>
+	<node id="5153794084" lat="47.3756632" lon="8.5257803" version="1">
+		<tag k="sport" v="table_tennis"/>
+		<tag k="access" v="permissive"/>
+		<tag k="leisure" v="pitch"/>
+	</node>
+	<node id="5164769021" lat="47.3754754" lon="8.5240488" version="1">
+		<tag k="tourism" v="picnic_site"/>
+	</node>
+	<node id="5280373592" lat="47.3767873" lon="8.5265345" version="1">
+		<tag k="name" v="Postagentur 8026 Zürich Helvetiaplatz"/>
+		<tag k="note" v="integriert in Gartmann Bürobedarf Papeterie"/>
+		<tag k="phone" v="+41 848 88 88 88"/>
+		<tag k="amenity" v="post_office"/>
+		<tag k="operator" v="Die Schweizerische Post AG"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="start_date" v="2017-09-18"/>
+		<tag k="addr:street" v="Molkenstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Mo-Fr 08:30-18:30; We 08:30-17:30; Sa 09:00-13:00"/>
+		<tag k="addr:housenumber" v="21"/>
+	</node>
+	<node id="5283725115" lat="47.3748124" lon="8.5277767" version="1"/>
+	<node id="5296075064" lat="47.3763263" lon="8.5259941" version="1">
+		<tag k="amenity" v="waste_basket"/>
+	</node>
+	<node id="5296075066" lat="47.3762567" lon="8.5258856" version="1">
+		<tag k="amenity" v="waste_basket"/>
+	</node>
+	<node id="5297597969" lat="47.3760948" lon="8.5261983" version="1"/>
+	<node id="5297597970" lat="47.3760175" lon="8.5265057" version="1">
+		<tag k="faces" v="3"/>
+		<tag k="amenity" v="clock"/>
+		<tag k="display" v="analog"/>
+		<tag k="support" v="pole"/>
+		<tag k="operator" v="EWZ"/>
+		<tag k="visibility" v="area"/>
+	</node>
+	<node id="5297597972" lat="47.3761336" lon="8.5257562" version="1">
+		<tag k="ref" v="2585"/>
+		<tag k="operator" v="WVZ"/>
+		<tag k="emergency" v="fire_hydrant"/>
+		<tag k="fire_hydrant:type" v="pillar"/>
+		<tag k="fire_hydrant:position" v="sidewalk"/>
+	</node>
+	<node id="5297597973" lat="47.3765662" lon="8.5259116" version="1">
+		<tag k="ref" v="2586"/>
+		<tag k="operator" v="WVZ"/>
+		<tag k="emergency" v="fire_hydrant"/>
+		<tag k="fire_hydrant:type" v="pillar"/>
+		<tag k="fire_hydrant:position" v="sidewalk"/>
+	</node>
+	<node id="5297597978" lat="47.3761203" lon="8.5276847" version="1"/>
+	<node id="5297597979" lat="47.3762394" lon="8.5279048" version="1"/>
+	<node id="5297597980" lat="47.376277" lon="8.5277933" version="1">
+		<tag k="ref" v="2447"/>
+		<tag k="operator" v="WVZ"/>
+		<tag k="emergency" v="fire_hydrant"/>
+		<tag k="fire_hydrant:type" v="pillar"/>
+		<tag k="fire_hydrant:position" v="sidewalk"/>
+	</node>
+	<node id="5297597981" lat="47.3758011" lon="8.5270278" version="1">
+		<tag k="ref" v="3673"/>
+		<tag k="operator" v="WVZ"/>
+		<tag k="emergency" v="fire_hydrant"/>
+		<tag k="fire_hydrant:type" v="pillar"/>
+		<tag k="fire_hydrant:diameter" v="75"/>
+		<tag k="fire_hydrant:position" v="lane"/>
+	</node>
+	<node id="5297597982" lat="47.3754069" lon="8.5281141" version="1">
+		<tag k="ref" v="3681"/>
+		<tag k="operator" v="WVZ"/>
+		<tag k="emergency" v="fire_hydrant"/>
+		<tag k="fire_hydrant:type" v="pillar"/>
+		<tag k="fire_hydrant:diameter" v="75"/>
+		<tag k="fire_hydrant:position" v="sidewalk"/>
+	</node>
+	<node id="5297597985" lat="47.3761309" lon="8.5281421" version="1"/>
+	<node id="5297597986" lat="47.3761641" lon="8.5280835" version="1"/>
+	<node id="5297657485" lat="47.3753701" lon="8.5282341" version="1">
+		<tag k="amenity" v="parking"/>
+		<tag k="parking" v="surface"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="parking:condition" v="disc"/>
+		<tag k="parking:condition:default" v="free"/>
+		<tag k="parking:condition:maxstay" v="1 h"/>
+		<tag k="parking:condition:residents" v="8004"/>
+		<tag k="parking:condition:time_interval" v="Mo-Sa 08:00-11:30, 13:30-18:00"/>
+	</node>
+	<node id="5299186750" lat="47.3765957" lon="8.5272411" version="1">
+		<tag k="ref" v="3-8004-28247"/>
+		<tag k="amenity" v="post_box"/>
+		<tag k="operator" v="Die Schweizerische Post"/>
+		<tag k="post_box:type" v="lamp"/>
+		<tag k="collection_times" v="Mo-Fr 18:00; Su 15:45"/>
+		<tag k="post_box:location" v="Molkenstrasse 8, 8004 Zürich"/>
+	</node>
+	<node id="5356681423" lat="47.3769098" lon="8.5265902" version="1">
+		<tag k="ref" v="3-8004-28213"/>
+		<tag k="amenity" v="post_box"/>
+		<tag k="operator" v="Die Schweizerische Post"/>
+		<tag k="post_box:type" v="lamp"/>
+		<tag k="collection_times" v="Mo-Fr 19:00; Su 15:45"/>
+		<tag k="post_box:location" v="Postagentur Zürich Helvetiaplatz, Molkenstrasse 21, 8004 Zürich"/>
+	</node>
+	<node id="5426456791" lat="47.3754736" lon="8.5240891" version="1">
+		<tag k="name" v="Fair-Teiler Kernstrasse"/>
+		<tag k="amenity" v="social_facility"/>
+		<tag k="website" v="https://foodsharing.de/?page=fairteiler&#38;sub=ft&#38;bid=108&#38;id=940"/>
+		<tag k="operator" v="foodsharing.de"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="wheelchair" v="yes"/>
+		<tag k="addr:street" v="Kernstrasse"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="24/7"/>
+		<tag k="social_facility" v="food_bank"/>
+		<tag k="addr:housenumber" v="14"/>
+		<tag k="social_facility:for" v="everyone"/>
+	</node>
+	<node id="5604615732" lat="47.3762751" lon="8.525425" version="1">
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="47"/>
+	</node>
+	<node id="5643617050" lat="47.3762658" lon="8.5254188" version="1">
+		<tag k="name" v="Christian Uhren &#38; Schmuck"/>
+		<tag k="shop" v="jewelry"/>
+		<tag k="website" v="http://www.uhrenschmuck24.ch/helvetiaplatz"/>
+		<tag k="operator" v="Christian Goldschmiede"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:country" v="CH"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Mo-Fr 09:00-18:30; Sa 09:00-16:00"/>
+		<tag k="addr:housenumber" v="47"/>
+	</node>
+	<node id="5679794324" lat="47.376698" lon="8.5260536" version="1">
+		<tag k="name" v="Feldenkrais Methode Andreas Kleemann"/>
+		<tag k="level" v="2"/>
+		<tag k="phone" v="+41 76 516 65 16"/>
+		<tag k="office" v="therapist"/>
+		<tag k="website" v="https://freilandhaltung.net/"/>
+		<tag k="operator" v="Andreas Kleemann"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="start_date" v="2017"/>
+		<tag k="wheelchair" v="limited"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="payment:cash" v="yes"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Mo,PH 14:00-20:00; Tu-We,PH 10:00-20:00; Th,PH 10:00-18:00; Fr,PH 10:00-20:00, Sa,PH 10:00-16:00"/>
+		<tag k="payment:invoice" v="yes"/>
+		<tag k="addr:housenumber" v="62"/>
+		<tag k="healthcare:speciality" v="feldenkrais_methode"/>
+		<tag k="payment:cryptocurrencies" v="yes"/>
+	</node>
+	<node id="5680499464" lat="47.3755937" lon="8.5270176" version="1"/>
+	<node id="5680499465" lat="47.3756033" lon="8.5266248" version="1"/>
+	<node id="5680499466" lat="47.3754019" lon="8.5268185" version="1"/>
+	<node id="5680499467" lat="47.3755322" lon="8.5266337" version="1"/>
+	<node id="5680499468" lat="47.3748218" lon="8.5275109" version="1"/>
+	<node id="5680499469" lat="47.3749527" lon="8.5260634" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="unmarked"/>
+		<tag k="traffic_calming" v="table"/>
+	</node>
+	<node id="5680499470" lat="47.3753908" lon="8.5267216" version="1"/>
+	<node id="5680499471" lat="47.3753644" lon="8.5269093" version="1"/>
+	<node id="5680499472" lat="47.375" lon="8.5273098" version="1"/>
+	<node id="5680499473" lat="47.375082" lon="8.5260632" version="1"/>
+	<node id="5680499474" lat="47.3750208" lon="8.5261574" version="1"/>
+	<node id="5680499476" lat="47.376337" lon="8.525524" version="1"/>
+	<node id="5680499477" lat="47.3762158" lon="8.525773" version="1"/>
+	<node id="5680499478" lat="47.3764884" lon="8.5258664" version="1"/>
+	<node id="5680499479" lat="47.3765755" lon="8.5256826" version="1"/>
+	<node id="5680499480" lat="47.3764603" lon="8.5259226" version="1"/>
+	<node id="5680499482" lat="47.3764193" lon="8.5255276" version="1"/>
+	<node id="5680499483" lat="47.3766591" lon="8.5247826" version="1"/>
+	<node id="5680499484" lat="47.3764589" lon="8.525422" version="1"/>
+	<node id="5680499485" lat="47.3763937" lon="8.5255533" version="1"/>
+	<node id="5680499486" lat="47.3759789" lon="8.5252721" version="1"/>
+	<node id="5682247754" lat="47.3753985" lon="8.5267525" version="1"/>
+	<node id="5682247755" lat="47.3750363" lon="8.525962" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="unmarked"/>
+	</node>
+	<node id="5682247780" lat="47.374957" lon="8.5258875" version="1"/>
+	<node id="5682247781" lat="47.3749719" lon="8.5258988" version="1"/>
+	<node id="5682247782" lat="47.3749853" lon="8.5259025" version="1"/>
+	<node id="5682247783" lat="47.3749988" lon="8.5258982" version="1"/>
+	<node id="5682247784" lat="47.3750104" lon="8.5258795" version="1"/>
+	<node id="5682247785" lat="47.3753084" lon="8.5249779" version="1"/>
+	<node id="5682255772" lat="47.3755353" lon="8.5269987" version="1"/>
+	<node id="5682255773" lat="47.37555" lon="8.5269893" version="1"/>
+	<node id="5682255962" lat="47.3758639" lon="8.5274281" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="unmarked"/>
+		<tag k="traffic_calming" v="table"/>
+	</node>
+	<node id="5682255964" lat="47.3766732" lon="8.5247341" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="unmarked"/>
+		<tag k="traffic_calming" v="table"/>
+	</node>
+	<node id="5682255967" lat="47.375895" lon="8.5271905" version="1"/>
+	<node id="5682255968" lat="47.3764072" lon="8.5266209" version="1"/>
+	<node id="5682255969" lat="47.3767442" lon="8.5266015" version="1"/>
+	<node id="5682255970" lat="47.3763768" lon="8.5265083" version="1"/>
+	<node id="5682255971" lat="47.37636" lon="8.5264677" version="1"/>
+	<node id="5682255972" lat="47.3763799" lon="8.5265055" version="1"/>
+	<node id="5682255973" lat="47.3763631" lon="8.5264649" version="1"/>
+	<node id="5682255974" lat="47.3765215" lon="8.526228" version="1"/>
+	<node id="5682255975" lat="47.3764423" lon="8.526084" version="1"/>
+	<node id="5682255976" lat="47.376544" lon="8.5261566" version="1"/>
+	<node id="5682255977" lat="47.3765586" lon="8.5259066" version="1"/>
+	<node id="5682255978" lat="47.3765575" lon="8.5259098" version="1"/>
+	<node id="5682255979" lat="47.3764845" lon="8.5259458" version="1"/>
+	<node id="5682255980" lat="47.3764869" lon="8.5259475" version="1"/>
+	<node id="5682255982" lat="47.376639" lon="8.5266335" version="1"/>
+	<node id="5682255990" lat="47.3769194" lon="8.5259474" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="unmarked"/>
+		<tag k="traffic_calming" v="table"/>
+	</node>
+	<node id="5682255991" lat="47.3765683" lon="8.525656" version="1"/>
+	<node id="5682255992" lat="47.376584" lon="8.5256925" version="1"/>
+	<node id="5682255993" lat="47.376593" lon="8.5257011" version="1"/>
+	<node id="5682255994" lat="47.3768742" lon="8.5258957" version="1"/>
+	<node id="5682255995" lat="47.3769506" lon="8.5259831" version="1"/>
+	<node id="5682256008" lat="47.3759426" lon="8.5275476" version="1"/>
+	<node id="5682256009" lat="47.3750668" lon="8.5246239" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="unmarked"/>
+		<tag k="traffic_calming" v="table"/>
+	</node>
+	<node id="5682256010" lat="47.3753986" lon="8.5248615" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="unmarked"/>
+		<tag k="traffic_calming" v="table"/>
+	</node>
+	<node id="5682256014" lat="47.3752747" lon="8.5249525" version="1"/>
+	<node id="5682256015" lat="47.3765053" lon="8.5258556" version="1"/>
+	<node id="5682256016" lat="47.3759304" lon="8.52524" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="unmarked"/>
+		<tag k="traffic_calming" v="table"/>
+	</node>
+	<node id="5682256017" lat="47.3758848" lon="8.5252098" version="1"/>
+	<node id="5682256018" lat="47.3763763" lon="8.5255519" version="1"/>
+	<node id="5682256019" lat="47.37535" lon="8.5250093" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="unmarked"/>
+		<tag k="traffic_calming" v="table"/>
+	</node>
+	<node id="5682256020" lat="47.3754761" lon="8.524917" version="1"/>
+	<node id="5682256121" lat="47.375428" lon="8.5250669" version="1"/>
+	<node id="5682256122" lat="47.3760755" lon="8.5256499" version="1"/>
+	<node id="5682256123" lat="47.3759681" lon="8.5255047" version="1"/>
+	<node id="5682256124" lat="47.3758471" lon="8.5253835" version="1"/>
+	<node id="5682256125" lat="47.3755025" lon="8.5251363" version="1"/>
+	<node id="5682256126" lat="47.3753138" lon="8.5264263" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="unmarked"/>
+		<tag k="traffic_calming" v="table"/>
+	</node>
+	<node id="5682256127" lat="47.375211" lon="8.525656" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="unmarked"/>
+		<tag k="traffic_calming" v="table"/>
+	</node>
+	<node id="5682256128" lat="47.3754105" lon="8.5250549" version="1"/>
+	<node id="5682256129" lat="47.3751039" lon="8.5259785" version="1"/>
+	<node id="5682256130" lat="47.3750829" lon="8.5260411" version="1"/>
+	<node id="5682256131" lat="47.3750883" lon="8.5260809" version="1"/>
+	<node id="5682256132" lat="47.3750982" lon="8.5260982" version="1"/>
+	<node id="5682256133" lat="47.3753452" lon="8.526474" version="1"/>
+	<node id="5682256134" lat="47.3753818" lon="8.5265163" version="1"/>
+	<node id="5682256135" lat="47.3755848" lon="8.526638" version="1"/>
+	<node id="5682256137" lat="47.3756162" lon="8.5251108" version="1"/>
+	<node id="5682256138" lat="47.375806" lon="8.5271901" version="1"/>
+	<node id="5682256139" lat="47.3760163" lon="8.5263238" version="1"/>
+	<node id="5682256140" lat="47.3757908" lon="8.5264261" version="1"/>
+	<node id="5682256141" lat="47.375869" lon="8.5263278" version="1"/>
+	<node id="5682256142" lat="47.3759817" lon="8.526171" version="1"/>
+	<node id="5682256143" lat="47.3761946" lon="8.5258282" version="1"/>
+	<node id="5682256144" lat="47.3760777" lon="8.5263689" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="uncontrolled"/>
+		<tag k="crossing_ref" v="zebra"/>
+	</node>
+	<node id="5682256145" lat="47.3763188" lon="8.5257577" version="1"/>
+	<node id="5682256146" lat="47.3759771" lon="8.5262535" version="1"/>
+	<node id="5682256147" lat="47.3760525" lon="8.5261572" version="1"/>
+	<node id="5682256148" lat="47.3762731" lon="8.5258081" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="traffic_signals"/>
+		<tag k="crossing_ref" v="zebra"/>
+	</node>
+	<node id="5682256149" lat="47.3762262" lon="8.5261538" version="1">
+		<tag k="seats" v="4"/>
+		<tag k="amenity" v="bench"/>
+		<tag k="backrest" v="yes"/>
+		<tag k="material" v="wood"/>
+	</node>
+	<node id="5682256150" lat="47.3762425" lon="8.5261263" version="1">
+		<tag k="amenity" v="waste_basket"/>
+	</node>
+	<node id="5682256151" lat="47.3761447" lon="8.5260582" version="1">
+		<tag k="seats" v="4"/>
+		<tag k="amenity" v="bench"/>
+		<tag k="backrest" v="yes"/>
+		<tag k="material" v="wood"/>
+	</node>
+	<node id="5682256152" lat="47.3761643" lon="8.5260266" version="1">
+		<tag k="amenity" v="waste_basket"/>
+	</node>
+	<node id="5682256153" lat="47.3764117" lon="8.5258929" version="1">
+		<tag k="highway" v="traffic_signals"/>
+		<tag k="crossing" v="traffic_signals"/>
+		<tag k="crossing_ref" v="zebra"/>
+		<tag k="traffic_signals:direction" v="forward"/>
+	</node>
+	<node id="5682256154" lat="47.3764385" lon="8.5258224" version="1"/>
+	<node id="5682256155" lat="47.3763626" lon="8.5260087" version="1"/>
+	<node id="5682256156" lat="47.3762751" lon="8.5261435" version="1"/>
+	<node id="5682256157" lat="47.3762257" lon="8.5262109" version="1"/>
+	<node id="5682256158" lat="47.376154" lon="8.5262934" version="1"/>
+	<node id="5682256159" lat="47.3760553" lon="8.526391" version="1"/>
+	<node id="5682256160" lat="47.3759453" lon="8.526407" version="1"/>
+	<node id="5753954747" lat="47.375122" lon="8.5260227" version="1">
+		<tag k="dog" v="no"/>
+		<tag k="ref" v="572"/>
+		<tag k="note" v="Schulhausbrunnen"/>
+		<tag k="bottle" v="yes"/>
+		<tag k="amenity" v="drinking_water"/>
+		<tag k="operator" v="WVZ"/>
+		<tag k="wheelchair" v="yes"/>
+		<tag k="drinking_water:description" v="Quellwasser"/>
+	</node>
+	<node id="5844670586" lat="47.376502" lon="8.5252025" version="1">
+		<tag k="name" v="WOKO"/>
+		<tag k="phone" v="+41 44 256 68 00"/>
+		<tag k="office" v="company"/>
+		<tag k="website" v="http://woko.ch"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="opening_hours" v="Mo-Th 09:00-12:00, 12:30-15:00"/>
+		<tag k="addr:housenumber" v="101"/>
+	</node>
+	<node id="5945878069" lat="47.3759287" lon="8.5276269" version="1">
+		<tag k="name" v="Garbo"/>
+		<tag k="amenity" v="restaurant"/>
+		<tag k="website" v="https://www.garbozuerich.ch/"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="wheelchair" v="no"/>
+		<tag k="addr:street" v="Bäckerstrasse"/>
+		<tag k="addr:postcode" v="8004"/>
+		<tag k="addr:housenumber" v="62"/>
+		<tag k="wheelchair:description" v="2 Stufen beim Eingang"/>
+	</node>
+	<node id="6027033726" lat="47.3763774" lon="8.52681" version="1"/>
+	<node id="6027033727" lat="47.3764967" lon="8.5269289" version="1"/>
+	<node id="6027033728" lat="47.3764569" lon="8.5270169" version="1"/>
+	<node id="6027033729" lat="47.3764435" lon="8.5270046" version="1"/>
+	<node id="6027033730" lat="47.3764218" lon="8.5270511" version="1"/>
+	<node id="6027033731" lat="47.3764352" lon="8.5270647" version="1"/>
+	<node id="6027033732" lat="47.3762586" lon="8.5274478" version="1"/>
+	<node id="6027033733" lat="47.3762451" lon="8.5274334" version="1"/>
+	<node id="6027033734" lat="47.3762678" lon="8.5273877" version="1"/>
+	<node id="6027033735" lat="47.3762817" lon="8.5273993" version="1"/>
+	<node id="6027033764" lat="47.3763991" lon="8.5277977" version="1"/>
+	<node id="6027033765" lat="47.3764014" lon="8.5277933" version="1"/>
+	<node id="6027033766" lat="47.3763899" lon="8.5280247" version="1">
+		<tag k="addr:street" v="Ankerstrasse"/>
+		<tag k="addr:housenumber" v="115"/>
+	</node>
+	<node id="6027033767" lat="47.3767681" lon="8.5268263" version="1"/>
+	<node id="6027033775" lat="47.3767262" lon="8.5269314" version="1"/>
+	<node id="6027033776" lat="47.3765193" lon="8.5274181" version="1"/>
+	<node id="6027033777" lat="47.3765942" lon="8.5272306" version="1"/>
+	<node id="6027033778" lat="47.3766035" lon="8.5272368" version="1"/>
+	<node id="6027033779" lat="47.3766788" lon="8.5270477" version="1"/>
+	<node id="6027033784" lat="47.3765485" lon="8.5276287" version="1"/>
+	<node id="6027035585" lat="47.3765374" lon="8.527615" version="1"/>
+	<node id="6027035586" lat="47.376597" lon="8.5275038" version="1"/>
+	<node id="6027035587" lat="47.3765216" lon="8.5274211" version="1"/>
+	<node id="6027035588" lat="47.3764098" lon="8.5276547" version="1"/>
+	<node id="6027035596" lat="47.3765434" lon="8.5276362" version="1"/>
+	<node id="6027035597" lat="47.3764717" lon="8.5277475" version="1"/>
+	<node id="6051529302" lat="47.3768022" lon="8.52612" version="1">
+		<tag k="name" v="EATbyalex LAB"/>
+		<tag k="email" v="hello@eatbyalex.com"/>
+		<tag k="phone" v="+41 78 977 79 90"/>
+		<tag k="amenity" v="restaurant"/>
+		<tag k="cuisine" v="plant-based;whole_food;organic;plant_based"/>
+		<tag k="smoking" v="no"/>
+		<tag k="website" v="https://eatbyalex.com/"/>
+		<tag k="delivery" v="yes"/>
+		<tag k="takeaway" v="yes"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="diet:vegan" v="yes"/>
+		<tag k="addr:street" v="Brunaustrasse"/>
+		<tag k="addr:postcode" v="8002"/>
+		<tag k="opening_hours" v="Su-Th 15:30-16:30"/>
+		<tag k="addr:housenumber" v="61"/>
+	</node>
+	<node id="6165393429" lat="47.3767696" lon="8.526802" version="1"/>
+	<node id="6165393430" lat="47.3766523" lon="8.5270638" version="1"/>
+	<node id="6165393431" lat="47.3762794" lon="8.5278763" version="1"/>
+	<node id="6165393439" lat="47.3766182" lon="8.5267006" version="1"/>
+	<node id="6165393440" lat="47.376641" lon="8.5264203" version="1"/>
+	<node id="6165393441" lat="47.3766644" lon="8.5262445" version="1"/>
+	<node id="6165393442" lat="47.3768142" lon="8.5263515" version="1"/>
+	<node id="6165393443" lat="47.3769196" lon="8.5263764" version="1"/>
+	<node id="6165393444" lat="47.3765648" lon="8.5261673" version="1"/>
+	<node id="6165393445" lat="47.3766241" lon="8.5266323" version="1"/>
+	<node id="6227046585" lat="47.3764149" lon="8.5254193" version="1">
+		<tag k="name" v="PUTPUT Takeaway"/>
+		<tag k="amenity" v="fast_food"/>
+		<tag k="website" v="http://www.putput.ch"/>
+		<tag k="addr:city" v="Zürich"/>
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="opening_hours" v="Tu-Fr 11:30-14:00, 17:30-21:00; Mo 11:30-14:30"/>
+	</node>
+	<node id="6896222370" lat="47.3762866" lon="8.5270834" version="1">
+		<tag k="name" v="Campo"/>
+		<tag k="amenity" v="bar"/>
+	</node>
+	<node id="6896222371" lat="47.3762254" lon="8.5272069" version="1">
+		<tag k="fee" v="yes"/>
+		<tag k="diaper" v="yes"/>
+		<tag k="unisex" v="yes"/>
+		<tag k="amenity" v="toilets"/>
+	</node>
+	<node id="7059522707" lat="47.3763009" lon="8.525528" version="1"/>
+	<node id="7059522708" lat="47.3760028" lon="8.5255239" version="1"/>
+	<node id="7059522709" lat="47.3760511" lon="8.5255696" version="1"/>
+	<node id="7402704136" lat="47.3759622" lon="8.5289228" version="1">
+		<tag k="name" v="märli garten"/>
+		<tag k="leisure" v="garden"/>
+	</node>
+	<node id="7507155085" lat="47.3754023" lon="8.526804" version="1"/>
+	<node id="7507155086" lat="47.3753906" lon="8.5268613" version="1"/>
+	<node id="7507155087" lat="47.3753211" lon="8.5269662" version="1"/>
+	<node id="7507155094" lat="47.3755534" lon="8.5266412" version="1"/>
+	<node id="7574983735" lat="47.3749436" lon="8.526389" version="1"/>
+	<node id="7658422234" lat="47.3767584" lon="8.5268066" version="1"/>
+	<node id="7658422235" lat="47.3767492" lon="8.5268185" version="1"/>
+	<node id="7658422276" lat="47.3765082" lon="8.5274039" version="1"/>
+	<node id="7658422277" lat="47.3761907" lon="8.5276541" version="1"/>
+	<node id="7658422278" lat="47.3762337" lon="8.5277746" version="1">
+		<tag k="highway" v="crossing"/>
+		<tag k="crossing" v="unmarked"/>
+		<tag k="traffic_calming" v="table"/>
+	</node>
+	<node id="7658422279" lat="47.3762869" lon="8.5278929" version="1"/>
+	<node id="7732400032" lat="47.3762635" lon="8.5254875" version="1">
+		<tag k="ref" v="1158-2"/>
+		<tag k="amenity" v="vending_machine"/>
+		<tag k="covered" v="no"/>
+		<tag k="vending" v="public_transport_tickets"/>
+		<tag k="operator" v="VBZ"/>
+	</node>
+	<node id="7732425345" lat="47.3762187" lon="8.5259536" version="1">
+		<tag k="ref" v="1158-3"/>
+		<tag k="amenity" v="vending_machine"/>
+		<tag k="covered" v="yes"/>
+		<tag k="vending" v="public_transport_tickets"/>
+		<tag k="operator" v="VBZ"/>
+	</node>
+	<node id="7732431308" lat="47.3760959" lon="8.5256543" version="1">
+		<tag k="ref" v="1158-1"/>
+		<tag k="amenity" v="vending_machine"/>
+		<tag k="covered" v="yes"/>
+		<tag k="vending" v="public_transport_tickets"/>
+		<tag k="operator" v="VBZ"/>
+	</node>
+	<way id="4533221" version="1">
+		<nd ref="2261078800"/>
+		<nd ref="2261078802"/>
+		<nd ref="2567818141"/>
+		<nd ref="2261078801"/>
+		<nd ref="2884057615"/>
+		<nd ref="4416196406"/>
+		<nd ref="2261078793"/>
+		<nd ref="2884057612"/>
+		<nd ref="2261078790"/>
+		<nd ref="2567818929"/>
+		<nd ref="2645535377"/>
+		<nd ref="2884057613"/>
+		<nd ref="2261078798"/>
+		<nd ref="2964071729"/>
+		<nd ref="2261078800"/>
+		<tag k="name" v="Helvetiaplatz"/>
+		<tag k="place" v="square"/>
+		<tag k="bicycle" v="no"/>
+		<tag k="name:ko" v="헬베티아 광장"/>
+		<tag k="surface" v="paving_stones"/>
+		<tag k="wikidata" v="Q1236093"/>
+		<tag k="wikipedia" v="de:Helvetiaplatz (Zürich)"/>
+	</way>
+	<way id="4533224" version="1">
+		<nd ref="28582192"/>
+		<nd ref="2957061242"/>
+		<nd ref="27256989"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Rotwandstrasse"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="highway" v="residential"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="cycleway" v="opposite"/>
+		<tag k="maxspeed" v="30"/>
+		<tag k="sidewalk" v="both"/>
+		<tag k="oneway:bicycle" v="no"/>
+	</way>
+	<way id="4592658" version="1">
+		<nd ref="29039090"/>
+		<nd ref="2261078703"/>
+		<nd ref="2261078698"/>
+		<nd ref="2261078724"/>
+		<nd ref="2261078726"/>
+		<nd ref="5082670666"/>
+		<nd ref="2953842469"/>
+		<nd ref="2953842494"/>
+		<nd ref="29039091"/>
+		<nd ref="2953842487"/>
+		<nd ref="2953842471"/>
+		<nd ref="2953842483"/>
+		<nd ref="2953842484"/>
+		<nd ref="29039092"/>
+		<nd ref="2953842489"/>
+		<nd ref="2953842482"/>
+		<nd ref="442148725"/>
+		<nd ref="2261078661"/>
+		<nd ref="2261078662"/>
+	</way>
+	<way id="4743773" version="1">
+		<nd ref="28584151"/>
+		<nd ref="2015772149"/>
+		<nd ref="2632087167"/>
+		<nd ref="2015772146"/>
+		<nd ref="7658422278"/>
+		<nd ref="28137435"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Molkenstrasse"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="source" v="survey"/>
+		<tag k="highway" v="residential"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="30"/>
+		<tag k="sidewalk" v="both"/>
+		<tag k="oneway:bicycle" v="yes"/>
+	</way>
+	<way id="4803428" version="1">
+		<nd ref="30826182"/>
+		<nd ref="3978697268"/>
+		<nd ref="30826161"/>
+		<nd ref="5682255964"/>
+		<nd ref="30825881"/>
+		<tag k="lcn" v="yes"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Kernstrasse"/>
+		<tag k="highway" v="residential"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="30"/>
+	</way>
+	<way id="5772447" version="1">
+		<nd ref="27256989"/>
+		<nd ref="28584172"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Rotwandstrasse"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="source" v="survey"/>
+		<tag k="highway" v="residential"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="cycleway" v="opposite"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="oneway:bicycle" v="no"/>
+	</way>
+	<way id="6275380" version="1">
+		<nd ref="52726911"/>
+		<nd ref="5682255990"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Marmorgasse"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="highway" v="residential"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="30"/>
+	</way>
+	<way id="15734263" version="1">
+		<nd ref="28584172"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Kanzleistrasse"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="source" v="survey"/>
+		<tag k="highway" v="residential"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="cycleway" v="opposite"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="oneway:bicycle" v="no"/>
+	</way>
+	<way id="21856101" version="1">
+		<nd ref="442148723"/>
+		<nd ref="157375650"/>
+		<nd ref="157375651"/>
+		<nd ref="157375652"/>
+		<nd ref="157375653"/>
+		<nd ref="157375645"/>
+		<nd ref="157375646"/>
+		<nd ref="2261078654"/>
+		<nd ref="2261078656"/>
+		<nd ref="2261078671"/>
+		<nd ref="2261078673"/>
+		<nd ref="2261078674"/>
+		<nd ref="442148724"/>
+		<nd ref="157375648"/>
+		<nd ref="2953842475"/>
+		<nd ref="2953842463"/>
+		<nd ref="2953842474"/>
+		<nd ref="2953842462"/>
+		<nd ref="2953842481"/>
+		<nd ref="157375649"/>
+		<nd ref="5082670667"/>
+		<nd ref="442148723"/>
+	</way>
+	<way id="28420432" version="1">
+		<nd ref="5682256009"/>
+		<nd ref="312220302"/>
+		<tag k="lit" v="no"/>
+		<tag k="name" v="Bauhallengasse"/>
+		<tag k="highway" v="residential"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="50"/>
+	</way>
+	<way id="29116100" version="1">
+		<nd ref="28581587"/>
+		<nd ref="1584034560"/>
+		<nd ref="3071791417"/>
+		<nd ref="30825881"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Stauffacherstrasse"/>
+		<tag k="lanes" v="4"/>
+		<tag k="oneway" v="no"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="sidewalk" v="both"/>
+		<tag k="trolley_wire" v="yes"/>
+		<tag k="lanes:forward" v="2"/>
+		<tag k="lanes:backward" v="2"/>
+		<tag k="bus:lanes:forward" v="designated|permissive"/>
+		<tag k="vehicle:lanes:forward" v="no|yes"/>
+		<tag k="vehicle:lanes:backward" v="no|yes"/>
+	</way>
+	<way id="29116101" version="1">
+		<nd ref="28581587"/>
+		<nd ref="1584034574"/>
+		<nd ref="52726911"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Langstrasse"/>
+		<tag k="lanes" v="3"/>
+		<tag k="oneway" v="no"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="sidewalk" v="both"/>
+		<tag k="wikipedia" v="de:Langstrasse (Stadt Zürich)"/>
+		<tag k="trolley_wire" v="yes"/>
+		<tag k="lanes:forward" v="2"/>
+		<tag k="lanes:backward" v="1"/>
+		<tag k="bus:lanes:forward" v="designated|permissive"/>
+		<tag k="vehicle:lanes:forward" v="no|yes"/>
+	</way>
+	<way id="31969559" version="1">
+		<nd ref="358160818"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="highway" v="service"/>
+		<tag k="service" v="driveway"/>
+		<tag k="surface" v="asphalt"/>
+	</way>
+	<way id="34346688" version="1">
+		<nd ref="393960594"/>
+		<nd ref="4245900497"/>
+		<nd ref="4245900499"/>
+		<nd ref="393960601"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Ankerstrasse"/>
+		<tag k="addr:housenumber" v="53"/>
+	</way>
+	<way id="34346791" version="1">
+		<nd ref="3461321894"/>
+		<nd ref="3461321910"/>
+		<nd ref="393961436"/>
+		<nd ref="393961427"/>
+		<nd ref="3461321894"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="37521300" version="1">
+		<nd ref="439211311"/>
+		<nd ref="439211314"/>
+		<nd ref="439211315"/>
+		<nd ref="439211316"/>
+		<nd ref="439211317"/>
+		<nd ref="2261078803"/>
+		<nd ref="439211318"/>
+		<nd ref="439211319"/>
+		<nd ref="439211320"/>
+		<nd ref="439211321"/>
+		<nd ref="439211322"/>
+		<nd ref="439211323"/>
+		<nd ref="439211324"/>
+	</way>
+	<way id="38001063" version="1">
+		<nd ref="446305375"/>
+		<nd ref="4245900547"/>
+		<nd ref="446305376"/>
+		<nd ref="702999089"/>
+		<nd ref="4245900545"/>
+		<nd ref="702999088"/>
+		<nd ref="4245900541"/>
+		<nd ref="446305375"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Kanzleistrasse"/>
+		<tag k="addr:housenumber" v="52"/>
+	</way>
+	<way id="39985864" version="1">
+		<nd ref="4246061203"/>
+		<nd ref="2015772178"/>
+		<nd ref="1486118366"/>
+		<tag k="name" v="Kollerhof"/>
+		<tag k="owner" v="Immobilien Stadt Zürich (IMMO)"/>
+		<tag k="building" v="public"/>
+	</way>
+	<way id="44906784" version="1">
+		<nd ref="28581993"/>
+		<nd ref="2884057400"/>
+		<nd ref="5682256019"/>
+		<nd ref="2956818368"/>
+		<nd ref="5682247755"/>
+		<nd ref="2884057387"/>
+		<nd ref="28582044"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Kanzleistrasse"/>
+		<tag k="highway" v="residential"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="30"/>
+	</way>
+	<way id="56004913" version="1">
+		<nd ref="702999091"/>
+		<nd ref="702999087"/>
+		<nd ref="702999086"/>
+		<nd ref="702999090"/>
+		<nd ref="2956815183"/>
+		<nd ref="702999091"/>
+		<tag k="name" v="Kanzlei Turnhalle"/>
+		<tag k="amenity" v="nightclub"/>
+		<tag k="building" v="yes"/>
+		<tag k="roof:shape" v="hipped"/>
+		<tag k="wheelchair" v="limited"/>
+		<tag k="addr:street" v="Kanzleistrasse"/>
+		<tag k="addr:housenumber" v="54"/>
+	</way>
+	<way id="56004914" version="1">
+		<nd ref="702999094"/>
+		<nd ref="702999097"/>
+		<nd ref="702999099"/>
+		<nd ref="702999098"/>
+		<nd ref="4245900605"/>
+		<nd ref="702999095"/>
+		<nd ref="702999096"/>
+		<nd ref="702999094"/>
+		<tag k="ref" v="110"/>
+		<tag k="name" v="Kanzleiwiese"/>
+		<tag k="leisure" v="playground"/>
+		<tag k="operator" v="Grün Stadt Zürich"/>
+	</way>
+	<way id="61637182" version="1">
+		<nd ref="768439915"/>
+		<nd ref="768439918"/>
+		<nd ref="768439921"/>
+		<nd ref="768439923"/>
+		<nd ref="914703191"/>
+		<nd ref="768439915"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="66923069" version="1">
+		<nd ref="4245900576"/>
+		<nd ref="4245900572"/>
+		<nd ref="4245900568"/>
+		<nd ref="4245900559"/>
+		<nd ref="848938905"/>
+		<nd ref="4245900562"/>
+		<nd ref="4245900576"/>
+		<tag k="owner" v="Stiftung PWG"/>
+		<tag k="building" v="residential"/>
+		<tag k="start_date" v="2004"/>
+	</way>
+	<way id="66923071" version="1">
+		<nd ref="4245900591"/>
+		<nd ref="4245900593"/>
+		<nd ref="4245900592"/>
+		<nd ref="808458804"/>
+		<nd ref="808458843"/>
+		<nd ref="813914299"/>
+		<nd ref="4245900601"/>
+		<nd ref="4245900591"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="67396136" version="1">
+		<nd ref="813914241"/>
+		<nd ref="813914443"/>
+		<nd ref="813914316"/>
+		<nd ref="4245900625"/>
+		<nd ref="813914278"/>
+		<nd ref="4245900621"/>
+		<nd ref="813914241"/>
+		<tag k="owner" v="Stiftung PWG"/>
+		<tag k="building" v="apartments"/>
+		<tag k="start_date" v="1891"/>
+	</way>
+	<way id="67396137" version="1">
+		<nd ref="4245900611"/>
+		<nd ref="4245900623"/>
+		<nd ref="4245900631"/>
+		<nd ref="4245900626"/>
+		<nd ref="4245900627"/>
+		<nd ref="869269134"/>
+		<nd ref="4245900620"/>
+		<nd ref="4245900619"/>
+		<nd ref="4245900615"/>
+		<nd ref="4245900611"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="67396139" version="1">
+		<nd ref="813914348"/>
+		<nd ref="813914226"/>
+		<nd ref="813914434"/>
+		<nd ref="813914394"/>
+		<nd ref="813914348"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Anwandstrasse"/>
+		<tag k="addr:housenumber" v="7"/>
+	</way>
+	<way id="67396141" version="1">
+		<nd ref="813914209"/>
+		<nd ref="813914353"/>
+		<nd ref="813914196"/>
+		<nd ref="813914266"/>
+		<nd ref="813914209"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Anwandstrasse"/>
+		<tag k="addr:housenumber" v="8"/>
+	</way>
+	<way id="71339955" version="1">
+		<nd ref="4245900515"/>
+		<nd ref="848939045"/>
+		<nd ref="848938848"/>
+		<nd ref="848938976"/>
+		<nd ref="4245900527"/>
+		<nd ref="4245900530"/>
+		<nd ref="848939095"/>
+		<nd ref="4245900512"/>
+		<nd ref="4245900514"/>
+		<nd ref="4245900511"/>
+		<nd ref="4245900513"/>
+		<nd ref="4245900515"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Kanzleistrasse"/>
+		<tag k="addr:housenumber" v="57"/>
+	</way>
+	<way id="71339960" version="1">
+		<nd ref="4245900531"/>
+		<nd ref="848938708"/>
+		<nd ref="848938743"/>
+		<nd ref="4245900539"/>
+		<nd ref="4245900531"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Bauhallengasse"/>
+		<tag k="addr:housenumber" v="5"/>
+	</way>
+	<way id="71339962" version="1">
+		<nd ref="4245900540"/>
+		<nd ref="4245900532"/>
+		<nd ref="4245900534"/>
+		<nd ref="848938992"/>
+		<nd ref="4245900528"/>
+		<nd ref="4245900525"/>
+		<nd ref="4245900524"/>
+		<nd ref="4245900523"/>
+		<nd ref="848938741"/>
+		<nd ref="4245900520"/>
+		<nd ref="4245900522"/>
+		<nd ref="4245900536"/>
+		<nd ref="4245900540"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="71339968" version="1">
+		<nd ref="848939033"/>
+		<nd ref="4245900529"/>
+		<nd ref="848938848"/>
+		<nd ref="848939045"/>
+		<nd ref="848938649"/>
+		<nd ref="848939033"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Kanzleistrasse"/>
+		<tag k="addr:housenumber" v="53"/>
+	</way>
+	<way id="71339969" version="1">
+		<nd ref="848938625"/>
+		<nd ref="3477874392"/>
+		<nd ref="848938810"/>
+		<nd ref="848938625"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Kernstrasse"/>
+		<tag k="addr:housenumber" v="12"/>
+	</way>
+	<way id="71339970" version="1">
+		<nd ref="848938789"/>
+		<nd ref="848938624"/>
+		<nd ref="848939019"/>
+		<nd ref="848938878"/>
+		<nd ref="848938644"/>
+		<nd ref="848938789"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Ankerstrasse"/>
+		<tag k="addr:housenumber" v="61"/>
+	</way>
+	<way id="71339971" version="1">
+		<nd ref="848938766"/>
+		<nd ref="4245900519"/>
+		<nd ref="848939117"/>
+		<nd ref="848938822"/>
+		<nd ref="848939034"/>
+		<nd ref="848938766"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Ankerstrasse"/>
+		<tag k="addr:housenumber" v="65"/>
+	</way>
+	<way id="71339974" version="1">
+		<nd ref="848938977"/>
+		<nd ref="848938743"/>
+		<nd ref="848938708"/>
+		<nd ref="848939007"/>
+		<nd ref="848938977"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Bauhallengasse"/>
+		<tag k="addr:housenumber" v="7"/>
+	</way>
+	<way id="71339975" version="1">
+		<nd ref="848938963"/>
+		<nd ref="4245900583"/>
+		<nd ref="4245900581"/>
+		<nd ref="4245900579"/>
+		<nd ref="848938722"/>
+		<nd ref="4245900578"/>
+		<nd ref="848938998"/>
+		<nd ref="848938621"/>
+		<nd ref="848938963"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="33"/>
+	</way>
+	<way id="71504793" version="1">
+		<nd ref="768439921"/>
+		<nd ref="850608101"/>
+		<nd ref="914702939"/>
+		<nd ref="850608200"/>
+		<nd ref="768439918"/>
+		<nd ref="768439921"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="71504794" version="1">
+		<nd ref="850608271"/>
+		<nd ref="850608016"/>
+		<nd ref="5083782842"/>
+		<nd ref="914702977"/>
+		<nd ref="914703239"/>
+		<nd ref="914703205"/>
+		<nd ref="850608104"/>
+		<nd ref="5083782876"/>
+		<nd ref="5083782874"/>
+		<nd ref="5083782872"/>
+		<nd ref="5083782873"/>
+		<nd ref="5083782875"/>
+		<nd ref="850608081"/>
+		<nd ref="914702935"/>
+		<nd ref="914702989"/>
+		<nd ref="914703004"/>
+		<nd ref="914703038"/>
+		<nd ref="5083782846"/>
+		<nd ref="5083782845"/>
+		<nd ref="914703025"/>
+		<nd ref="5083782844"/>
+		<nd ref="850608176"/>
+		<nd ref="5083782843"/>
+		<nd ref="914703118"/>
+		<nd ref="5083782847"/>
+		<nd ref="5083782848"/>
+		<nd ref="850608183"/>
+		<nd ref="920508440"/>
+		<nd ref="850608271"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="71504795" version="1">
+		<nd ref="850608283"/>
+		<nd ref="890983514"/>
+		<nd ref="890983657"/>
+		<nd ref="5083782855"/>
+		<nd ref="5083782858"/>
+		<nd ref="5083782854"/>
+		<nd ref="5083782853"/>
+		<nd ref="5083782851"/>
+		<nd ref="5083782852"/>
+		<nd ref="850608211"/>
+		<nd ref="890983692"/>
+		<nd ref="850608283"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="71504808" version="1">
+		<nd ref="850608178"/>
+		<nd ref="850608299"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="71504809" version="1">
+		<nd ref="5297597985"/>
+		<nd ref="1320113402"/>
+		<nd ref="1320113404"/>
+		<nd ref="850608263"/>
+		<nd ref="850608085"/>
+		<nd ref="914702996"/>
+		<nd ref="914703028"/>
+		<nd ref="914703236"/>
+		<nd ref="914703116"/>
+		<nd ref="5297597985"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="71504830" version="1">
+		<nd ref="850608114"/>
+		<nd ref="850608162"/>
+		<nd ref="850608114"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="73285915" version="1">
+		<nd ref="4245900655"/>
+		<nd ref="4245900653"/>
+		<nd ref="4245900646"/>
+		<nd ref="4245900647"/>
+		<nd ref="4245900645"/>
+		<nd ref="4245900648"/>
+		<nd ref="4245900644"/>
+		<nd ref="4245900642"/>
+		<nd ref="4245900643"/>
+		<nd ref="4245900638"/>
+		<nd ref="4245900637"/>
+		<nd ref="4245900636"/>
+		<nd ref="869269167"/>
+		<nd ref="869269130"/>
+		<nd ref="4245900650"/>
+		<nd ref="4245900652"/>
+		<nd ref="869269165"/>
+		<nd ref="869269127"/>
+		<nd ref="4245900658"/>
+		<nd ref="4245900655"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="75470554" version="1">
+		<nd ref="28582192"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Lutherstrasse"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="source" v="survey"/>
+		<tag k="highway" v="residential"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="cycleway" v="opposite"/>
+		<tag k="maxspeed" v="30"/>
+		<tag k="sidewalk" v="both"/>
+		<tag k="oneway:bicycle" v="no"/>
+	</way>
+	<way id="75470569" version="1">
+		<nd ref="914703073"/>
+		<nd ref="890983462"/>
+		<nd ref="914703059"/>
+		<nd ref="914702981"/>
+		<nd ref="914702932"/>
+		<nd ref="890983583"/>
+		<nd ref="4056185260"/>
+		<nd ref="312531630"/>
+		<nd ref="2261078767"/>
+		<nd ref="914703073"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="77771633" version="1">
+		<nd ref="914703052"/>
+		<nd ref="914702977"/>
+		<tag k="highway" v="footway"/>
+	</way>
+	<way id="77771634" version="1">
+		<nd ref="914703205"/>
+		<nd ref="914702935"/>
+		<tag k="tunnel" v="yes"/>
+		<tag k="highway" v="footway"/>
+	</way>
+	<way id="77771642" version="1">
+		<nd ref="914702977"/>
+		<nd ref="914703025"/>
+		<tag k="tunnel" v="yes"/>
+		<tag k="highway" v="footway"/>
+	</way>
+	<way id="77771645" version="1">
+		<nd ref="914703212"/>
+		<nd ref="914703205"/>
+		<tag k="highway" v="footway"/>
+	</way>
+	<way id="78440688" version="1">
+		<nd ref="920508324"/>
+		<nd ref="920508285"/>
+		<nd ref="920508420"/>
+		<nd ref="920508306"/>
+		<nd ref="920508348"/>
+		<nd ref="6027033764"/>
+		<nd ref="6027033765"/>
+		<nd ref="920508324"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="81552989" version="1">
+		<nd ref="30825881"/>
+		<nd ref="2964071731"/>
+		<tag k="lcn" v="yes"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Kernstrasse"/>
+		<tag k="highway" v="residential"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="30"/>
+	</way>
+	<way id="83115253" version="1">
+		<nd ref="312220302"/>
+		<nd ref="28581993"/>
+		<tag k="lcn" v="yes"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Langstrasse"/>
+		<tag k="lanes" v="2"/>
+		<tag k="oneway" v="no"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="30"/>
+		<tag k="sidewalk" v="both"/>
+		<tag k="wikipedia" v="de:Langstrasse (Stadt Zürich)"/>
+		<tag k="trolley_wire" v="yes"/>
+		<tag k="lanes:forward" v="1"/>
+		<tag k="lanes:backward" v="1"/>
+	</way>
+	<way id="135309642" version="1">
+		<nd ref="4005581156"/>
+		<nd ref="1486118351"/>
+		<nd ref="1486118357"/>
+		<nd ref="5682255974"/>
+		<nd ref="5682255976"/>
+		<nd ref="5682255975"/>
+		<nd ref="480426252"/>
+		<nd ref="4246061192"/>
+		<nd ref="4246061191"/>
+		<nd ref="5682255973"/>
+		<nd ref="5682255971"/>
+		<nd ref="5682255970"/>
+		<nd ref="5682255972"/>
+		<nd ref="4246061193"/>
+		<nd ref="4246061194"/>
+		<nd ref="28137444"/>
+		<nd ref="920508413"/>
+		<nd ref="4246061197"/>
+		<nd ref="4005581156"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="144918692" version="1">
+		<nd ref="1417968679"/>
+		<nd ref="1584002010"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="144918695" version="1">
+		<nd ref="733731357"/>
+		<nd ref="813914502"/>
+		<nd ref="813914417"/>
+		<nd ref="1584001968"/>
+	</way>
+	<way id="144923059" version="1">
+		<nd ref="4245900662"/>
+		<nd ref="4245900659"/>
+		<nd ref="1584034577"/>
+		<nd ref="869269142"/>
+		<nd ref="869269126"/>
+		<nd ref="4245900660"/>
+		<nd ref="4245900663"/>
+		<nd ref="1584034601"/>
+		<nd ref="4245900666"/>
+		<nd ref="4245900664"/>
+		<nd ref="4245900667"/>
+		<nd ref="4245900662"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="144923064" version="1">
+		<nd ref="1584034685"/>
+		<nd ref="4245900682"/>
+		<nd ref="1584034647"/>
+		<nd ref="1584034704"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Kernstrasse"/>
+		<tag k="addr:housenumber" v="48"/>
+	</way>
+	<way id="146238768" version="1">
+		<nd ref="4245900544"/>
+		<nd ref="1595201033"/>
+		<nd ref="1595200971"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Wengistrasse"/>
+		<tag k="addr:housenumber" v="2a"/>
+	</way>
+	<way id="146238771" version="1">
+		<nd ref="1595201418"/>
+		<nd ref="1595201577"/>
+		<nd ref="1595201786"/>
+		<nd ref="1595201603"/>
+		<nd ref="1595201201"/>
+		<nd ref="1595201291"/>
+		<nd ref="1595201418"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="21"/>
+	</way>
+	<way id="146238774" version="1">
+		<nd ref="1595200990"/>
+		<nd ref="1595200941"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="11"/>
+	</way>
+	<way id="146238777" version="1">
+		<nd ref="1595200990"/>
+		<nd ref="1595201112"/>
+		<nd ref="1595201050"/>
+		<nd ref="1595200941"/>
+		<nd ref="1595200990"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="13"/>
+	</way>
+	<way id="146241190" version="1">
+		<nd ref="734228387"/>
+		<nd ref="1595224518"/>
+		<nd ref="4245900641"/>
+		<nd ref="1595224503"/>
+		<nd ref="1595224488"/>
+		<nd ref="734228387"/>
+		<tag k="building" v="apartments"/>
+	</way>
+	<way id="159977163" version="1">
+		<nd ref="279262777"/>
+		<nd ref="5682256016"/>
+		<nd ref="30826161"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Anwandstrasse"/>
+		<tag k="highway" v="residential"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="30"/>
+	</way>
+	<way id="176773328" version="1">
+		<nd ref="1872536636"/>
+		<nd ref="3752897802"/>
+		<nd ref="1872536632"/>
+		<nd ref="1872536635"/>
+		<nd ref="1872536636"/>
+		<tag k="source" v="Stadt Zürich OGD WMS"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Kernstrasse"/>
+		<tag k="addr:housenumber" v="14"/>
+	</way>
+	<way id="176773334" version="1">
+		<nd ref="1872536634"/>
+		<nd ref="1872536627"/>
+		<nd ref="1872536629"/>
+		<nd ref="1872536631"/>
+		<nd ref="1872536633"/>
+		<nd ref="1872536634"/>
+		<tag k="source" v="Stadt Zürich OGD WMS"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Kanzleistrasse"/>
+		<tag k="addr:housenumber" v="77"/>
+	</way>
+	<way id="207098749" version="1">
+		<nd ref="358160818"/>
+		<nd ref="28582044"/>
+		<nd ref="2884057388"/>
+		<nd ref="2956819428"/>
+		<nd ref="3194463083"/>
+		<nd ref="1584034532"/>
+		<nd ref="28137436"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Ankerstrasse"/>
+		<tag k="highway" v="residential"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="30"/>
+	</way>
+	<way id="216706000" version="1">
+		<nd ref="442148725"/>
+		<nd ref="28584172"/>
+		<tag k="name" v="Kanzleistrasse"/>
+		<tag k="access" v="no"/>
+		<tag k="highway" v="service"/>
+		<tag k="service" v="driveway"/>
+	</way>
+	<way id="216706001" version="1">
+		<nd ref="442148724"/>
+		<nd ref="442148725"/>
+		<tag k="name" v="Kanzleistrasse"/>
+		<tag k="access" v="no"/>
+		<tag k="tunnel" v="building_passage"/>
+		<tag k="highway" v="service"/>
+		<tag k="service" v="driveway"/>
+	</way>
+	<way id="221878051" version="1">
+		<nd ref="5138563603"/>
+		<nd ref="2309435441"/>
+		<nd ref="2309435443"/>
+		<nd ref="2309435447"/>
+		<nd ref="2309435451"/>
+		<nd ref="2309435458"/>
+		<nd ref="2309435461"/>
+		<nd ref="2309435463"/>
+		<nd ref="2309435465"/>
+		<tag k="gauge" v="1000"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="tracks" v="1"/>
+		<tag k="railway" v="tram"/>
+		<tag k="voltage" v="600"/>
+		<tag k="operator" v="VBZ"/>
+		<tag k="frequency" v="0"/>
+		<tag k="electrified" v="contact_line"/>
+	</way>
+	<way id="221965677" version="1">
+		<nd ref="2309435456"/>
+		<nd ref="2309435449"/>
+		<nd ref="2309435444"/>
+		<tag k="bin" v="yes"/>
+		<tag k="name" v="Helvetiaplatz"/>
+		<tag k="bench" v="yes"/>
+		<tag k="railway" v="platform"/>
+		<tag k="shelter" v="yes"/>
+		<tag k="operator" v="VBZ"/>
+		<tag k="wheelchair" v="limited"/>
+		<tag k="public_transport" v="platform"/>
+		<tag k="wheelchair:description" v="Keine erhöhte Kante, dritte Türe mit Faltrampe (Fahrpersonal) nutzbar"/>
+	</way>
+	<way id="221965680" version="1">
+		<nd ref="2309435448"/>
+		<nd ref="2309435452"/>
+		<nd ref="2309435454"/>
+		<nd ref="2309435459"/>
+		<tag k="bin" v="yes"/>
+		<tag k="name" v="Helvetiaplatz"/>
+		<tag k="bench" v="yes"/>
+		<tag k="railway" v="platform"/>
+		<tag k="shelter" v="yes"/>
+		<tag k="operator" v="VBZ"/>
+		<tag k="wheelchair" v="limited"/>
+		<tag k="public_transport" v="platform"/>
+		<tag k="wheelchair:description" v="Keine erhöhte Kante, dritte Türe mit Faltrampe (Fahrpersonal) nutzbar"/>
+	</way>
+	<way id="239435841" version="1">
+		<nd ref="2472125656"/>
+		<nd ref="2472125583"/>
+		<tag k="access" v="no"/>
+		<tag k="oneway" v="no"/>
+		<tag k="highway" v="service"/>
+		<tag k="service" v="driveway"/>
+	</way>
+	<way id="250298454" version="1">
+		<nd ref="2309435444"/>
+		<nd ref="1584034539"/>
+		<nd ref="2309435448"/>
+		<nd ref="5682256144"/>
+		<nd ref="2884057613"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="crossing"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="paved"/>
+	</way>
+	<way id="250298523" version="1">
+		<nd ref="5680499464"/>
+		<nd ref="1584034537"/>
+		<nd ref="2567818929"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="crossing"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="paved"/>
+	</way>
+	<way id="259200019" version="1">
+		<nd ref="2645535381"/>
+		<nd ref="5682255967"/>
+		<nd ref="2567818929"/>
+		<nd ref="2645535377"/>
+		<nd ref="2884057613"/>
+		<tag k="highway" v="footway"/>
+	</way>
+	<way id="259200020" version="1">
+		<nd ref="2632087167"/>
+		<nd ref="318207327"/>
+		<tag k="highway" v="footway"/>
+	</way>
+	<way id="291873834" version="1">
+		<nd ref="2953842493"/>
+		<nd ref="2953842470"/>
+		<nd ref="2953842479"/>
+		<nd ref="7574983735"/>
+		<nd ref="2953842493"/>
+	</way>
+	<way id="291873837" version="1">
+		<nd ref="2953842495"/>
+		<nd ref="2953842492"/>
+		<nd ref="2953842488"/>
+		<nd ref="2953842466"/>
+		<nd ref="2953842465"/>
+		<nd ref="2953842477"/>
+		<nd ref="2953842485"/>
+		<nd ref="2953842480"/>
+		<nd ref="2953842495"/>
+	</way>
+	<way id="291873839" version="1">
+		<nd ref="2472125583"/>
+		<nd ref="2953842496"/>
+		<nd ref="2953842486"/>
+		<nd ref="2953842481"/>
+		<tag k="access" v="no"/>
+		<tag k="highway" v="service"/>
+		<tag k="service" v="driveway"/>
+	</way>
+	<way id="291873841" version="1">
+		<nd ref="2953842490"/>
+		<nd ref="2953842467"/>
+		<nd ref="2953842464"/>
+		<nd ref="2953842478"/>
+		<nd ref="2953842472"/>
+		<nd ref="2953842491"/>
+		<nd ref="2953842473"/>
+		<nd ref="2953842468"/>
+		<nd ref="2953842490"/>
+	</way>
+	<way id="292139177" version="1">
+		<nd ref="2956813595"/>
+		<nd ref="2956813598"/>
+		<nd ref="2956813599"/>
+		<nd ref="2956813596"/>
+		<nd ref="2956813595"/>
+		<tag k="building" v="shed"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="38"/>
+	</way>
+	<way id="292139210" version="1">
+		<nd ref="2956813599"/>
+		<nd ref="2956815182"/>
+		<nd ref="301223535"/>
+		<nd ref="4245900604"/>
+		<nd ref="4245900594"/>
+		<nd ref="2956813597"/>
+		<nd ref="2956815183"/>
+		<nd ref="702999090"/>
+		<tag k="barrier" v="fence"/>
+	</way>
+	<way id="292139211" version="1">
+		<nd ref="702999086"/>
+		<nd ref="2956814076"/>
+		<nd ref="301223538"/>
+		<nd ref="2261078750"/>
+		<nd ref="2261078752"/>
+		<nd ref="2956814081"/>
+		<nd ref="4245900551"/>
+		<nd ref="4245900552"/>
+		<nd ref="301223537"/>
+		<nd ref="4245900553"/>
+		<nd ref="2956815314"/>
+		<tag k="barrier" v="fence"/>
+	</way>
+	<way id="292139391" version="1">
+		<nd ref="2956815315"/>
+		<nd ref="2956815318"/>
+		<nd ref="2956815319"/>
+		<nd ref="2956815316"/>
+		<nd ref="2956815315"/>
+		<tag k="building" v="shed"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="34"/>
+	</way>
+	<way id="292139481" version="1">
+		<nd ref="2956817195"/>
+		<nd ref="4245900558"/>
+		<nd ref="4245900556"/>
+		<nd ref="2956815314"/>
+		<nd ref="2956817195"/>
+		<tag k="fee" v="no"/>
+		<tag k="male" v="yes"/>
+		<tag k="name" v="Pissoir Obere Langstrasse"/>
+		<tag k="female" v="no"/>
+		<tag k="amenity" v="toilets"/>
+		<tag k="building" v="service"/>
+		<tag k="operator" v="ZüriWC"/>
+		<tag k="wheelchair" v="no"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="opening_hours" v="24/7"/>
+		<tag k="building:levels" v="1"/>
+		<tag k="addr:housenumber" v="30"/>
+		<tag k="toilets:position" v="urinal"/>
+	</way>
+	<way id="292139495" version="1">
+		<nd ref="2956818370"/>
+		<nd ref="2956819882"/>
+		<nd ref="2956819876"/>
+		<nd ref="2956818367"/>
+		<nd ref="2956819881"/>
+		<nd ref="2956819426"/>
+		<nd ref="2956818374"/>
+		<nd ref="2956819883"/>
+		<nd ref="2956818365"/>
+		<nd ref="2956819877"/>
+		<nd ref="2956818369"/>
+		<nd ref="2956819880"/>
+		<nd ref="2956818377"/>
+		<nd ref="2956819884"/>
+		<nd ref="2956819878"/>
+		<nd ref="2956818371"/>
+		<nd ref="2956819879"/>
+		<nd ref="2956818372"/>
+		<nd ref="2956818373"/>
+		<nd ref="2956818375"/>
+		<nd ref="2956818376"/>
+		<nd ref="2956818370"/>
+		<tag k="highway" v="footway"/>
+	</way>
+	<way id="292139679" version="1">
+		<nd ref="2956819428"/>
+		<nd ref="5682256126"/>
+		<nd ref="2956814076"/>
+		<nd ref="2956819427"/>
+		<nd ref="2956819426"/>
+		<tag k="foot" v="yes"/>
+		<tag k="access" v="private"/>
+		<tag k="highway" v="service"/>
+	</way>
+	<way id="292166553" version="1">
+		<nd ref="5283725115"/>
+		<nd ref="2957061242"/>
+		<nd ref="2957062050"/>
+		<nd ref="2957062051"/>
+		<nd ref="5682255772"/>
+		<nd ref="5682255773"/>
+		<nd ref="2957061241"/>
+		<nd ref="5680499464"/>
+		<tag k="highway" v="footway"/>
+	</way>
+	<way id="292166648" version="1">
+		<nd ref="5680499467"/>
+		<nd ref="1584034532"/>
+		<nd ref="7507155085"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="crossing"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="paved"/>
+	</way>
+	<way id="292166650" version="1">
+		<nd ref="5680499468"/>
+		<nd ref="2567854590"/>
+		<nd ref="2957062050"/>
+		<tag k="footway" v="crossing"/>
+		<tag k="highway" v="footway"/>
+		<tag k="crossing" v="traffic_signals"/>
+	</way>
+	<way id="292688494" version="1">
+		<nd ref="2962270492"/>
+		<nd ref="2962270493"/>
+		<nd ref="2962270494"/>
+		<nd ref="2962270491"/>
+		<nd ref="2962270492"/>
+		<tag k="building" v="roof"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="36"/>
+	</way>
+	<way id="292847495" version="1">
+		<nd ref="5680499479"/>
+		<nd ref="5682255991"/>
+		<nd ref="2964071727"/>
+		<nd ref="2964071731"/>
+		<tag k="footway" v="sidewalk"/>
+		<tag k="highway" v="footway"/>
+	</way>
+	<way id="292847543" version="1">
+		<nd ref="2964071725"/>
+		<nd ref="1584034574"/>
+		<nd ref="5680499479"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="crossing"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="paved"/>
+		<tag k="crossing" v="marked"/>
+	</way>
+	<way id="292847553" version="1">
+		<nd ref="318206585"/>
+		<nd ref="2884057615"/>
+		<nd ref="2645535378"/>
+		<nd ref="2567818138"/>
+		<nd ref="2645535379"/>
+		<tag k="highway" v="footway"/>
+	</way>
+	<way id="292847554" version="1">
+		<nd ref="318207327"/>
+		<nd ref="318206585"/>
+		<tag k="tunnel" v="building_passage"/>
+		<tag k="highway" v="footway"/>
+	</way>
+	<way id="298904469" version="1">
+		<nd ref="27256989"/>
+		<nd ref="2567854590"/>
+		<nd ref="1584034520"/>
+		<nd ref="28137436"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Stauffacherstrasse"/>
+		<tag k="lanes" v="4"/>
+		<tag k="oneway" v="no"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="sidewalk" v="both"/>
+		<tag k="lanes:forward" v="2"/>
+		<tag k="lanes:backward" v="2"/>
+		<tag k="vehicle:lanes:forward" v="no|yes"/>
+		<tag k="vehicle:lanes:backward" v="no|yes"/>
+	</way>
+	<way id="313465295" version="1">
+		<nd ref="5682256138"/>
+		<nd ref="28587330"/>
+		<nd ref="2015772140"/>
+		<nd ref="5297597978"/>
+		<nd ref="28137435"/>
+		<nd ref="5297597979"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Ankerstrasse"/>
+		<tag k="oneway" v="no"/>
+		<tag k="highway" v="residential"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="sidewalk" v="both"/>
+	</way>
+	<way id="313465298" version="1">
+		<nd ref="28137436"/>
+		<nd ref="1584034534"/>
+		<nd ref="5682256160"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Stauffacherstrasse"/>
+		<tag k="lanes" v="5"/>
+		<tag k="oneway" v="no"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="sidewalk" v="both"/>
+		<tag k="lanes:forward" v="2"/>
+		<tag k="lanes:backward" v="3"/>
+		<tag k="turn:lanes:backward" v="|left|through;right"/>
+		<tag k="vehicle:lanes:forward" v="no|yes"/>
+		<tag k="vehicle:lanes:backward" v="no|yes|yes"/>
+	</way>
+	<way id="338944187" version="1">
+		<nd ref="3461321894"/>
+		<nd ref="393961427"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="339029355" version="1">
+		<nd ref="850608223"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="371342799" version="1">
+		<nd ref="2309435464"/>
+		<nd ref="2309435462"/>
+		<nd ref="2309435460"/>
+		<nd ref="2309435457"/>
+		<nd ref="2309435453"/>
+		<nd ref="2309435450"/>
+		<nd ref="5297597969"/>
+		<nd ref="2309435445"/>
+		<nd ref="5103538115"/>
+		<nd ref="2309435442"/>
+		<nd ref="2309435440"/>
+		<nd ref="5138563602"/>
+		<tag k="gauge" v="1000"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="tracks" v="1"/>
+		<tag k="railway" v="tram"/>
+		<tag k="voltage" v="600"/>
+		<tag k="operator" v="VBZ"/>
+		<tag k="frequency" v="0"/>
+		<tag k="electrified" v="contact_line"/>
+	</way>
+	<way id="425261685" version="1">
+		<nd ref="4245900621"/>
+		<nd ref="813914311"/>
+		<nd ref="4245900617"/>
+		<nd ref="813914170"/>
+		<nd ref="813914241"/>
+		<nd ref="4245900621"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Anwandstrasse"/>
+		<tag k="addr:housenumber" v="10"/>
+	</way>
+	<way id="425261686" version="1">
+		<nd ref="4245900629"/>
+		<nd ref="4245900634"/>
+		<nd ref="4245900640"/>
+		<nd ref="4245900635"/>
+		<nd ref="4245900633"/>
+		<nd ref="4245900632"/>
+		<nd ref="4245900629"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="101a"/>
+	</way>
+	<way id="425261687" version="1">
+		<nd ref="4245900539"/>
+		<nd ref="848938973"/>
+		<nd ref="848939090"/>
+		<nd ref="4245900531"/>
+		<nd ref="4245900539"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Bauhallengasse"/>
+		<tag k="addr:housenumber" v="3"/>
+	</way>
+	<way id="425261688" version="1">
+		<nd ref="4245900601"/>
+		<nd ref="4245900598"/>
+		<nd ref="4245900596"/>
+		<nd ref="808458858"/>
+		<nd ref="808458845"/>
+		<nd ref="808458808"/>
+		<nd ref="4245900591"/>
+		<nd ref="4245900601"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="35"/>
+	</way>
+	<way id="425261689" version="1">
+		<nd ref="4245900651"/>
+		<nd ref="4245900654"/>
+		<nd ref="4245900656"/>
+		<nd ref="734228385"/>
+		<nd ref="4245900655"/>
+		<nd ref="4245900658"/>
+		<nd ref="734228381"/>
+		<nd ref="845207380"/>
+		<nd ref="4245900657"/>
+		<nd ref="4245900651"/>
+		<tag k="building" v="apartments"/>
+		<tag k="addr:street" v="Kernstrasse"/>
+		<tag k="addr:housenumber" v="38"/>
+	</way>
+	<way id="425261690" version="1">
+		<nd ref="4245900618"/>
+		<nd ref="4245900616"/>
+		<nd ref="4245900610"/>
+		<nd ref="4245900612"/>
+		<nd ref="4245900618"/>
+		<tag k="amenity" v="shelter"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="shelter_type" v="public_transport"/>
+		<tag k="addr:housenumber" v="44"/>
+	</way>
+	<way id="425261691" version="1">
+		<nd ref="4245900623"/>
+		<nd ref="1595224488"/>
+		<nd ref="734228387"/>
+		<nd ref="4245900631"/>
+		<nd ref="4245900623"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425261692" version="1">
+		<nd ref="4245900499"/>
+		<nd ref="4245900508"/>
+		<nd ref="4245900504"/>
+		<nd ref="4245900502"/>
+		<nd ref="4245900500"/>
+		<nd ref="4245900497"/>
+		<nd ref="4245900499"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Ankerstrasse"/>
+		<tag k="addr:housenumber" v="57"/>
+	</way>
+	<way id="425261693" version="1">
+		<nd ref="4245900672"/>
+		<nd ref="4245900662"/>
+		<nd ref="4245900667"/>
+		<nd ref="4245900668"/>
+		<nd ref="4245900677"/>
+		<nd ref="4245900672"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Langstrasse"/>
+		<tag k="addr:housenumber" v="61"/>
+	</way>
+	<way id="425261694" version="1">
+		<nd ref="4245900513"/>
+		<nd ref="848938878"/>
+		<nd ref="848939019"/>
+		<nd ref="4245900507"/>
+		<nd ref="4245900510"/>
+		<nd ref="4245900515"/>
+		<nd ref="4245900513"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Ankerstrasse"/>
+		<tag k="addr:housenumber" v="63"/>
+	</way>
+	<way id="425261695" version="1">
+		<nd ref="4245900590"/>
+		<nd ref="4245900589"/>
+		<nd ref="4245900585"/>
+		<nd ref="4245900587"/>
+		<nd ref="4245900590"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="79"/>
+	</way>
+	<way id="425261696" version="1">
+		<nd ref="4245900600"/>
+		<nd ref="4245900599"/>
+		<nd ref="4245900595"/>
+		<nd ref="4245900597"/>
+		<nd ref="4245900600"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Anwandstrasse"/>
+		<tag k="addr:housenumber" v="7a"/>
+	</way>
+	<way id="425261697" version="1">
+		<nd ref="4245900632"/>
+		<nd ref="4245900630"/>
+		<nd ref="4245900628"/>
+		<nd ref="4245900624"/>
+		<nd ref="4245900622"/>
+		<nd ref="4245900629"/>
+		<nd ref="4245900632"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="addr:housenumber" v="99a"/>
+	</way>
+	<way id="425261698" version="1">
+		<nd ref="4245900670"/>
+		<nd ref="869269151"/>
+		<nd ref="4245900673"/>
+		<nd ref="1584034620"/>
+		<nd ref="1584034656"/>
+		<nd ref="4245900681"/>
+		<nd ref="4245900680"/>
+		<nd ref="1584034632"/>
+		<nd ref="1584034630"/>
+		<nd ref="4245900676"/>
+		<nd ref="4245900670"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425261699" version="1">
+		<nd ref="4245900683"/>
+		<nd ref="4245900678"/>
+		<nd ref="4245900682"/>
+		<nd ref="1584034685"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425261700" version="1">
+		<nd ref="808458842"/>
+		<nd ref="4245900571"/>
+		<nd ref="4245900569"/>
+		<nd ref="4245900573"/>
+		<nd ref="4245900566"/>
+		<nd ref="808458829"/>
+		<nd ref="4245900554"/>
+		<nd ref="848938637"/>
+		<nd ref="4245900557"/>
+		<nd ref="4245900560"/>
+		<nd ref="4245900561"/>
+		<nd ref="4245900565"/>
+		<nd ref="808458842"/>
+		<tag k="owner" v="Stiftung PWG"/>
+		<tag k="building" v="residential"/>
+		<tag k="start_date" v="1890"/>
+	</way>
+	<way id="425261701" version="1">
+		<nd ref="1595201201"/>
+		<nd ref="4245900538"/>
+		<nd ref="4245900549"/>
+		<nd ref="1595201603"/>
+		<nd ref="1595201201"/>
+		<tag k="building" v="roof"/>
+	</way>
+	<way id="425261702" version="1">
+		<nd ref="4245900676"/>
+		<nd ref="4245900674"/>
+		<nd ref="4245900665"/>
+		<nd ref="869269168"/>
+		<nd ref="4245900670"/>
+		<nd ref="4245900676"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425261703" version="1">
+		<nd ref="4245900660"/>
+		<nd ref="869269162"/>
+		<nd ref="4245900661"/>
+		<nd ref="4245900669"/>
+		<nd ref="4245900663"/>
+		<nd ref="4245900660"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425261704" version="1">
+		<nd ref="4245900649"/>
+		<nd ref="845207523"/>
+		<nd ref="734228382"/>
+		<nd ref="734228384"/>
+		<nd ref="4245900639"/>
+		<nd ref="4245900649"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425261705" version="1">
+		<nd ref="4245900562"/>
+		<nd ref="848939092"/>
+		<nd ref="4245900567"/>
+		<nd ref="4245900580"/>
+		<nd ref="4245900576"/>
+		<nd ref="4245900562"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425261706" version="1">
+		<nd ref="4245900501"/>
+		<nd ref="848939015"/>
+		<nd ref="4245900498"/>
+		<nd ref="4245900501"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425261707" version="1">
+		<nd ref="4245900572"/>
+		<nd ref="4245900575"/>
+		<nd ref="808458842"/>
+		<nd ref="4245900565"/>
+		<nd ref="4245900568"/>
+		<nd ref="4245900572"/>
+		<tag k="building" v="roof"/>
+	</way>
+	<way id="425261708" version="1">
+		<nd ref="4245900639"/>
+		<nd ref="4245900651"/>
+		<nd ref="4245900657"/>
+		<nd ref="845207226"/>
+		<nd ref="4245900649"/>
+		<nd ref="4245900639"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425261709" version="1">
+		<nd ref="1595201786"/>
+		<nd ref="4245900555"/>
+		<nd ref="4245900550"/>
+		<nd ref="1595201603"/>
+		<nd ref="1595201786"/>
+		<tag k="building" v="roof"/>
+	</way>
+	<way id="425261710" version="1">
+		<nd ref="4245900573"/>
+		<nd ref="4245900574"/>
+		<nd ref="808458800"/>
+		<nd ref="848938814"/>
+		<nd ref="808458863"/>
+		<nd ref="4245900566"/>
+		<nd ref="4245900573"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425261711" version="1">
+		<nd ref="4245900505"/>
+		<nd ref="4245900509"/>
+		<nd ref="848938826"/>
+		<nd ref="4245900501"/>
+		<nd ref="4245900498"/>
+		<nd ref="848938696"/>
+		<nd ref="4245900505"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425261714" version="1">
+		<nd ref="4245900674"/>
+		<nd ref="4245900675"/>
+		<nd ref="4245900671"/>
+		<nd ref="4245900669"/>
+		<nd ref="4245900661"/>
+		<nd ref="869269143"/>
+		<nd ref="4245900665"/>
+		<nd ref="4245900674"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425261716" version="1">
+		<nd ref="4245900523"/>
+		<nd ref="848939128"/>
+		<nd ref="4245900505"/>
+		<nd ref="848938696"/>
+		<nd ref="848938983"/>
+		<nd ref="848939062"/>
+		<nd ref="848938741"/>
+		<nd ref="4245900523"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425261718" version="1">
+		<nd ref="871794866"/>
+		<nd ref="1584034644"/>
+		<nd ref="4245900679"/>
+		<nd ref="4245900672"/>
+		<nd ref="4245900677"/>
+		<nd ref="1584034633"/>
+		<nd ref="4245900683"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425261719" version="1">
+		<nd ref="4245900615"/>
+		<nd ref="813914457"/>
+		<nd ref="813914516"/>
+		<nd ref="813914247"/>
+		<nd ref="813914365"/>
+		<nd ref="4245900606"/>
+		<nd ref="1595224464"/>
+		<nd ref="4245900611"/>
+		<nd ref="4245900615"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425261720" version="1">
+		<nd ref="4245900546"/>
+		<nd ref="4245900548"/>
+		<nd ref="848938961"/>
+		<nd ref="848938704"/>
+		<nd ref="4245900540"/>
+		<nd ref="4245900536"/>
+		<nd ref="848939006"/>
+		<nd ref="4245900542"/>
+		<nd ref="4245900546"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425261721" version="1">
+		<nd ref="4245900567"/>
+		<nd ref="848938796"/>
+		<nd ref="312458293"/>
+		<nd ref="808458805"/>
+		<nd ref="4245900584"/>
+		<nd ref="4245900588"/>
+		<nd ref="4245900586"/>
+		<nd ref="4245900582"/>
+		<nd ref="4245900580"/>
+		<nd ref="4245900567"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425261723" version="1">
+		<nd ref="848939006"/>
+		<nd ref="848938627"/>
+		<nd ref="4245900537"/>
+		<nd ref="848938955"/>
+		<nd ref="4245900543"/>
+		<nd ref="848939070"/>
+		<nd ref="848938769"/>
+		<nd ref="4245900546"/>
+		<nd ref="4245900542"/>
+		<nd ref="848939006"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425286719" version="1">
+		<nd ref="3477874404"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425288501" version="1">
+		<nd ref="4246061197"/>
+		<nd ref="920508304"/>
+		<nd ref="4246061199"/>
+		<nd ref="4246061200"/>
+		<nd ref="6165393440"/>
+		<nd ref="4005581156"/>
+		<nd ref="4246061197"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425288503" version="1">
+		<nd ref="2015772164"/>
+		<nd ref="4246061201"/>
+		<nd ref="4246061202"/>
+		<nd ref="871794849"/>
+		<nd ref="4246061198"/>
+		<nd ref="2015772164"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425288504" version="1">
+		<nd ref="4246061199"/>
+		<nd ref="920508463"/>
+		<nd ref="4246061203"/>
+		<nd ref="2015772178"/>
+		<nd ref="4005581158"/>
+		<nd ref="4005581157"/>
+		<nd ref="4246061200"/>
+		<nd ref="4246061199"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425288505" version="1">
+		<nd ref="4246061201"/>
+		<nd ref="2015772171"/>
+		<nd ref="2015772175"/>
+		<nd ref="1486118366"/>
+		<nd ref="871794830"/>
+		<nd ref="4246061202"/>
+		<nd ref="4246061201"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="425288506" version="1">
+		<nd ref="4246061196"/>
+		<nd ref="1486118355"/>
+		<nd ref="2015772161"/>
+		<nd ref="2015772164"/>
+		<nd ref="4246061198"/>
+		<nd ref="5682255978"/>
+		<nd ref="5682255977"/>
+		<nd ref="480426254"/>
+		<nd ref="5682255979"/>
+		<nd ref="5682255980"/>
+		<nd ref="5682255975"/>
+		<nd ref="5682255976"/>
+		<nd ref="4246061196"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="493253457" version="1">
+		<nd ref="4851815763"/>
+		<nd ref="4851815761"/>
+		<nd ref="4851815760"/>
+		<nd ref="4851815762"/>
+		<nd ref="4851815763"/>
+		<tag k="building" v="service"/>
+		<tag k="addr:street" v="Ankerstrasse"/>
+		<tag k="building:levels" v="1"/>
+		<tag k="addr:housenumber" v="101"/>
+	</way>
+	<way id="506450342" version="1">
+		<nd ref="2956817195"/>
+		<nd ref="2956814075"/>
+		<nd ref="2956813596"/>
+		<tag k="barrier" v="fence"/>
+	</way>
+	<way id="521669304" version="1">
+		<nd ref="30826182"/>
+		<nd ref="5682256010"/>
+		<nd ref="28581993"/>
+		<tag k="lcn" v="yes"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Kanzleistrasse"/>
+		<tag k="highway" v="residential"/>
+		<tag k="maxspeed" v="30"/>
+	</way>
+	<way id="521669306" version="1">
+		<nd ref="5082670667"/>
+		<nd ref="2472125583"/>
+		<nd ref="442148724"/>
+		<tag k="name" v="Kanzleistrasse"/>
+		<tag k="access" v="no"/>
+		<tag k="oneway" v="no"/>
+		<tag k="highway" v="service"/>
+		<tag k="service" v="driveway"/>
+	</way>
+	<way id="521669307" version="1">
+		<nd ref="5082670666"/>
+		<nd ref="5082670667"/>
+		<tag k="name" v="Kanzleistrasse"/>
+		<tag k="access" v="no"/>
+		<tag k="tunnel" v="building_passage"/>
+		<tag k="highway" v="service"/>
+		<tag k="service" v="driveway"/>
+	</way>
+	<way id="521669308" version="1">
+		<nd ref="28582044"/>
+		<nd ref="5680499469"/>
+		<nd ref="5082670666"/>
+		<tag k="name" v="Kanzleistrasse"/>
+		<tag k="access" v="no"/>
+		<tag k="highway" v="service"/>
+		<tag k="service" v="driveway"/>
+	</way>
+	<way id="521814123" version="1">
+		<nd ref="5083782872"/>
+		<nd ref="5083782871"/>
+		<nd ref="5083782870"/>
+		<nd ref="5083782869"/>
+		<nd ref="5083782868"/>
+		<nd ref="5083782874"/>
+		<nd ref="5083782872"/>
+		<tag k="building" v="yes"/>
+		<tag k="addr:street" v="Müllerstrasse"/>
+		<tag k="addr:housenumber" v="63b"/>
+	</way>
+	<way id="524434349" version="1">
+		<nd ref="5103538112"/>
+		<nd ref="5103538110"/>
+		<nd ref="5103538109"/>
+		<nd ref="5103538111"/>
+		<nd ref="5103538112"/>
+		<tag k="amenity" v="shelter"/>
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="shelter_type" v="public_transport"/>
+		<tag k="addr:housenumber" v="89"/>
+	</way>
+	<way id="524434350" version="1">
+		<nd ref="5103538114"/>
+		<nd ref="5103538108"/>
+		<nd ref="5103538107"/>
+		<nd ref="5103538113"/>
+		<nd ref="5103538114"/>
+		<tag k="amenity" v="shelter"/>
+		<tag k="addr:street" v="Stauffacherstrasse"/>
+		<tag k="shelter_type" v="public_transport"/>
+		<tag k="addr:housenumber" v="90"/>
+	</way>
+	<way id="536837425" version="1">
+		<nd ref="30826182"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Kernstrasse"/>
+		<tag k="highway" v="residential"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="30"/>
+	</way>
+	<way id="546792877" version="1">
+		<nd ref="5283725115"/>
+		<tag k="footway" v="sidewalk"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="asphalt"/>
+	</way>
+	<way id="546792884" version="1">
+		<nd ref="28587330"/>
+		<nd ref="5682255962"/>
+		<nd ref="914703052"/>
+		<nd ref="914703212"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Bäckerstrasse"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="highway" v="residential"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="cycleway" v="opposite"/>
+		<tag k="maxspeed" v="30"/>
+		<tag k="sidewalk" v="both"/>
+		<tag k="oneway:bicycle" v="no"/>
+	</way>
+	<way id="548362722" version="1">
+		<nd ref="914703116"/>
+		<nd ref="914703195"/>
+		<nd ref="914703070"/>
+		<nd ref="850608174"/>
+		<nd ref="5297597986"/>
+		<nd ref="5297597985"/>
+		<nd ref="914703116"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="596220164" version="1">
+		<nd ref="2567818929"/>
+		<nd ref="2567818138"/>
+		<nd ref="2567818134"/>
+		<tag k="highway" v="footway"/>
+	</way>
+	<way id="596220165" version="1">
+		<nd ref="2645535377"/>
+		<nd ref="1584034534"/>
+		<nd ref="5680499465"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="crossing"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="paved"/>
+	</way>
+	<way id="596220166" version="1">
+		<nd ref="5680499469"/>
+		<nd ref="5680499474"/>
+		<nd ref="5680499470"/>
+		<nd ref="5682247754"/>
+		<nd ref="7507155085"/>
+		<nd ref="5680499466"/>
+		<nd ref="7507155086"/>
+		<nd ref="5680499471"/>
+		<nd ref="7507155087"/>
+		<nd ref="5680499472"/>
+		<nd ref="5680499468"/>
+		<tag k="footway" v="sidewalk"/>
+		<tag k="highway" v="footway"/>
+	</way>
+	<way id="596220167" version="1">
+		<nd ref="5680499474"/>
+		<nd ref="2884057388"/>
+		<nd ref="5680499473"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="crossing"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="paved"/>
+	</way>
+	<way id="596220168" version="1">
+		<nd ref="2884057613"/>
+		<nd ref="2645535379"/>
+		<nd ref="2964071726"/>
+		<nd ref="2567818134"/>
+		<tag k="highway" v="footway"/>
+	</way>
+	<way id="596220169" version="1">
+		<nd ref="5680499476"/>
+		<nd ref="2261078797"/>
+		<nd ref="5680499477"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="crossing"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="paved"/>
+		<tag k="crossing" v="marked"/>
+	</way>
+	<way id="596220170" version="1">
+		<nd ref="2964071726"/>
+		<nd ref="2964071729"/>
+		<tag k="highway" v="footway"/>
+	</way>
+	<way id="596220171" version="1">
+		<nd ref="5680499477"/>
+		<nd ref="5682256148"/>
+		<nd ref="2309435456"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="crossing"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="paved"/>
+		<tag k="crossing" v="marked"/>
+	</way>
+	<way id="596220172" version="1">
+		<nd ref="2964071727"/>
+		<nd ref="1584034560"/>
+		<nd ref="5680499482"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="crossing"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="paved"/>
+		<tag k="crossing" v="marked"/>
+	</way>
+	<way id="596220173" version="1">
+		<nd ref="5682255964"/>
+		<nd ref="5680499483"/>
+		<nd ref="5680499484"/>
+		<nd ref="5680499482"/>
+		<nd ref="5680499485"/>
+		<nd ref="5682256018"/>
+		<nd ref="5680499476"/>
+		<nd ref="5680499486"/>
+		<nd ref="5682256016"/>
+		<nd ref="5682256017"/>
+		<nd ref="5682256020"/>
+		<nd ref="5682256010"/>
+		<nd ref="5682256009"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="sidewalk"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="asphalt"/>
+	</way>
+	<way id="596514076" version="1">
+		<nd ref="5682256130"/>
+		<nd ref="5682247755"/>
+		<nd ref="5682247783"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="crossing"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="paved"/>
+	</way>
+	<way id="596514080" version="1">
+		<nd ref="5682247785"/>
+		<nd ref="5682247784"/>
+		<nd ref="5682247783"/>
+		<nd ref="5682247782"/>
+		<nd ref="5682247781"/>
+		<nd ref="5682247780"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="sidewalk"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="asphalt"/>
+	</way>
+	<way id="596514097" version="1">
+		<nd ref="5680499464"/>
+		<nd ref="5682255962"/>
+		<nd ref="5682256008"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="sidewalk"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="asphalt"/>
+	</way>
+	<way id="596514100" version="1">
+		<nd ref="2261078802"/>
+		<nd ref="5682255968"/>
+		<nd ref="2567818134"/>
+		<nd ref="2645535378"/>
+		<nd ref="2645535381"/>
+		<nd ref="2884057612"/>
+		<tag k="highway" v="footway"/>
+	</way>
+	<way id="596514101" version="1">
+		<nd ref="28584151"/>
+		<nd ref="6165393439"/>
+		<nd ref="2567818141"/>
+		<nd ref="2567818134"/>
+		<tag k="highway" v="service"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="vehicle" v="no"/>
+	</way>
+	<way id="596514102" version="1">
+		<nd ref="5682255969"/>
+		<nd ref="5682255982"/>
+		<nd ref="6165393445"/>
+		<nd ref="2261078802"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="sidewalk"/>
+		<tag k="highway" v="footway"/>
+	</way>
+	<way id="596514104" version="1">
+		<nd ref="2964071729"/>
+		<nd ref="2964071724"/>
+		<nd ref="5680499480"/>
+		<nd ref="5680499478"/>
+		<nd ref="5682256015"/>
+		<nd ref="2964071725"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="sidewalk"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="asphalt"/>
+	</way>
+	<way id="596514105" version="1">
+		<nd ref="5682255995"/>
+		<nd ref="5682255990"/>
+		<nd ref="5682255994"/>
+		<nd ref="5682255993"/>
+		<nd ref="5682255992"/>
+		<nd ref="5680499479"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="sidewalk"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="asphalt"/>
+	</way>
+	<way id="596514110" version="1">
+		<nd ref="5682256008"/>
+		<nd ref="2015772140"/>
+		<nd ref="2884057612"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="crossing"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="paved"/>
+	</way>
+	<way id="596514111" version="1">
+		<nd ref="2956818368"/>
+		<nd ref="5682256127"/>
+		<nd ref="2956814081"/>
+		<nd ref="2956818370"/>
+		<tag k="foot" v="yes"/>
+		<tag k="access" v="private"/>
+		<tag k="highway" v="service"/>
+	</way>
+	<way id="596514112" version="1">
+		<nd ref="5682256121"/>
+		<nd ref="2261078765"/>
+		<nd ref="5682256020"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="crossing"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="paved"/>
+		<tag k="crossing" v="marked"/>
+	</way>
+	<way id="596514113" version="1">
+		<nd ref="5682256014"/>
+		<nd ref="5682247785"/>
+		<nd ref="5682256019"/>
+		<nd ref="5682256128"/>
+		<nd ref="5682256121"/>
+		<nd ref="5682256125"/>
+		<nd ref="5682256124"/>
+		<nd ref="5682256123"/>
+		<nd ref="5682256122"/>
+		<nd ref="5680499477"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="sidewalk"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="asphalt"/>
+	</way>
+	<way id="596514114" version="1">
+		<nd ref="5682256137"/>
+		<nd ref="279262777"/>
+		<nd ref="262153504"/>
+		<nd ref="2261078797"/>
+		<nd ref="28581587"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Langstrasse"/>
+		<tag k="lanes" v="3"/>
+		<tag k="oneway" v="no"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="30"/>
+		<tag k="sidewalk" v="both"/>
+		<tag k="wikipedia" v="de:Langstrasse (Stadt Zürich)"/>
+		<tag k="trolley_wire" v="yes"/>
+		<tag k="lanes:forward" v="2"/>
+		<tag k="lanes:backward" v="1"/>
+		<tag k="bus:lanes:forward" v="permissive|designated"/>
+		<tag k="vehicle:lanes:forward" v="yes|no"/>
+	</way>
+	<way id="596514115" version="1">
+		<nd ref="28137436"/>
+		<nd ref="1584034537"/>
+		<nd ref="5682256138"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Ankerstrasse"/>
+		<tag k="lanes" v="3"/>
+		<tag k="oneway" v="no"/>
+		<tag k="highway" v="residential"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="sidewalk" v="both"/>
+		<tag k="lanes:forward" v="1"/>
+		<tag k="lanes:backward" v="2"/>
+		<tag k="turn:lanes:backward" v="through|right"/>
+	</way>
+	<way id="596514116" version="1">
+		<nd ref="5680499477"/>
+		<nd ref="5682256143"/>
+		<nd ref="5682256142"/>
+		<nd ref="5682256141"/>
+		<nd ref="5682256140"/>
+		<nd ref="5680499465"/>
+		<nd ref="5682256135"/>
+		<nd ref="7507155094"/>
+		<nd ref="5680499467"/>
+		<nd ref="5682256134"/>
+		<nd ref="5682256133"/>
+		<nd ref="5682256126"/>
+		<nd ref="5682256132"/>
+		<nd ref="5682256131"/>
+		<nd ref="5680499473"/>
+		<nd ref="5682256130"/>
+		<nd ref="5682256129"/>
+		<nd ref="5682256127"/>
+		<nd ref="5682256128"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="sidewalk"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="asphalt"/>
+	</way>
+	<way id="596514117" version="1">
+		<nd ref="5680499466"/>
+		<nd ref="1584034520"/>
+		<nd ref="2957062051"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="crossing"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="paved"/>
+	</way>
+	<way id="596514118" version="1">
+		<nd ref="28581587"/>
+		<nd ref="5682256145"/>
+		<nd ref="5682256148"/>
+		<nd ref="5682256147"/>
+		<nd ref="5682256146"/>
+		<nd ref="5682256160"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Stauffacherstrasse"/>
+		<tag k="lanes" v="1"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="cycleway" v="lane"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="sidewalk" v="right"/>
+		<tag k="cycleway:right" v="lane"/>
+	</way>
+	<way id="596514119" version="1">
+		<nd ref="5682256156"/>
+		<nd ref="5682256155"/>
+		<nd ref="5682256153"/>
+		<nd ref="5682256154"/>
+		<nd ref="28581587"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Stauffacherstrasse"/>
+		<tag k="lanes" v="2"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="sidewalk" v="right"/>
+	</way>
+	<way id="596514120" version="1">
+		<nd ref="5682256160"/>
+		<nd ref="5682256159"/>
+		<nd ref="5682256144"/>
+		<nd ref="5682256158"/>
+		<nd ref="5682256157"/>
+		<nd ref="5682256156"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Stauffacherstrasse"/>
+		<tag k="lanes" v="1"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="sidewalk" v="right"/>
+	</way>
+	<way id="596514121" version="1">
+		<nd ref="5682256160"/>
+		<nd ref="5682256139"/>
+		<nd ref="1584034539"/>
+		<nd ref="28137443"/>
+		<nd ref="5103538106"/>
+		<nd ref="1584034542"/>
+		<nd ref="28581587"/>
+		<tag k="bus" v="yes"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Stauffacherstrasse"/>
+		<tag k="lanes" v="2"/>
+		<tag k="access" v="no"/>
+		<tag k="oneway" v="no"/>
+		<tag k="highway" v="service"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="lanes:forward" v="1"/>
+		<tag k="lanes:backward" v="1"/>
+	</way>
+	<way id="639659585" version="1">
+		<nd ref="318207327"/>
+		<nd ref="6027033731"/>
+		<nd ref="6027033730"/>
+		<nd ref="6027033729"/>
+		<nd ref="6027033728"/>
+		<nd ref="6027033727"/>
+		<nd ref="6027033726"/>
+		<nd ref="318206585"/>
+		<nd ref="318207327"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="639659591" version="1">
+		<nd ref="920508306"/>
+		<nd ref="6027033766"/>
+		<nd ref="920508348"/>
+		<nd ref="920508306"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="639659592" version="1">
+		<nd ref="6027033767"/>
+		<nd ref="6027033775"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="639659594" version="1">
+		<nd ref="6027033779"/>
+		<nd ref="6027033775"/>
+		<nd ref="6027033779"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="639659595" version="1">
+		<nd ref="6027035586"/>
+		<nd ref="6027033779"/>
+		<nd ref="6027033778"/>
+		<nd ref="6027033777"/>
+		<nd ref="6027033776"/>
+		<nd ref="6027035587"/>
+		<nd ref="6027035586"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="639659597" version="1">
+		<nd ref="6027035597"/>
+		<nd ref="6027035588"/>
+		<nd ref="6027035587"/>
+		<nd ref="6027035586"/>
+		<nd ref="6027035585"/>
+		<nd ref="6027033784"/>
+		<nd ref="6027035596"/>
+		<nd ref="6027035597"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="639659599" version="1">
+		<nd ref="6027035597"/>
+		<nd ref="6027035596"/>
+		<tag k="building" v="yes"/>
+	</way>
+	<way id="658377075" version="1">
+		<nd ref="2309435459"/>
+		<nd ref="5682256153"/>
+		<nd ref="5680499480"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="crossing"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="paved"/>
+		<tag k="crossing" v="marked"/>
+	</way>
+	<way id="658377076" version="1">
+		<nd ref="2309435456"/>
+		<nd ref="1584034542"/>
+		<nd ref="2309435459"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="crossing"/>
+		<tag k="highway" v="footway"/>
+		<tag k="surface" v="paved"/>
+	</way>
+	<way id="658377077" version="1">
+		<nd ref="6165393431"/>
+		<nd ref="7658422276"/>
+		<nd ref="6165393430"/>
+		<nd ref="7658422235"/>
+		<nd ref="7658422234"/>
+		<nd ref="6165393429"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="sidewalk"/>
+		<tag k="highway" v="footway"/>
+	</way>
+	<way id="658377079" version="1">
+		<nd ref="6165393439"/>
+		<nd ref="6165393445"/>
+		<nd ref="920508304"/>
+		<tag k="access" v="private"/>
+		<tag k="highway" v="service"/>
+	</way>
+	<way id="658377080" version="1">
+		<nd ref="920508304"/>
+		<nd ref="6165393440"/>
+		<tag k="layer" v="-1"/>
+		<tag k="access" v="private"/>
+		<tag k="tunnel" v="yes"/>
+		<tag k="highway" v="service"/>
+	</way>
+	<way id="658377081" version="1">
+		<nd ref="6165393440"/>
+		<nd ref="6165393441"/>
+		<nd ref="6165393442"/>
+		<nd ref="6165393443"/>
+		<tag k="access" v="private"/>
+		<tag k="highway" v="service"/>
+	</way>
+	<way id="658377082" version="1">
+		<nd ref="6165393441"/>
+		<nd ref="6165393444"/>
+		<tag k="access" v="private"/>
+		<tag k="highway" v="service"/>
+	</way>
+	<way id="755835707" version="1">
+		<nd ref="7059522707"/>
+		<nd ref="4896466310"/>
+		<tag k="bin" v="yes"/>
+		<tag k="name" v="Helvetiaplatz"/>
+		<tag k="bench" v="yes"/>
+		<tag k="highway" v="platform"/>
+		<tag k="shelter" v="no"/>
+		<tag k="operator" v="VBZ"/>
+		<tag k="public_transport" v="platform"/>
+	</way>
+	<way id="755835708" version="1">
+		<nd ref="7059522708"/>
+		<nd ref="7059522709"/>
+		<nd ref="4896466311"/>
+		<tag k="bin" v="yes"/>
+		<tag k="name" v="Helvetiaplatz"/>
+		<tag k="bench" v="yes"/>
+		<tag k="highway" v="platform"/>
+		<tag k="shelter" v="yes"/>
+		<tag k="operator" v="VBZ"/>
+		<tag k="public_transport" v="platform"/>
+	</way>
+	<way id="791130340" version="1">
+		<nd ref="28581993"/>
+		<nd ref="2261078765"/>
+		<nd ref="5682256137"/>
+		<tag k="lit" v="yes"/>
+		<tag k="name" v="Langstrasse"/>
+		<tag k="lanes" v="2"/>
+		<tag k="oneway" v="no"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="maxspeed" v="30"/>
+		<tag k="sidewalk" v="both"/>
+		<tag k="wikipedia" v="de:Langstrasse (Stadt Zürich)"/>
+		<tag k="trolley_wire" v="yes"/>
+		<tag k="lanes:forward" v="1"/>
+		<tag k="lanes:backward" v="1"/>
+	</way>
+	<way id="820159540" version="1">
+		<nd ref="7658422279"/>
+		<nd ref="6165393431"/>
+		<nd ref="7658422278"/>
+		<nd ref="7658422277"/>
+		<tag k="lit" v="yes"/>
+		<tag k="footway" v="sidewalk"/>
+		<tag k="highway" v="footway"/>
+	</way>
+	<relation id="59606" version="1">
+		<member type="way" ref="596514119" role="from"/>
+		<member type="node" ref="28581587" role="via"/>
+		<member type="way" ref="596514114" role="to"/>
+		<tag k="type" v="restriction"/>
+		<tag k="restriction" v="no_left_turn"/>
+	</relation>
+	<relation id="1186606" version="1">
+		<member type="way" ref="29116100" role="from"/>
+		<member type="node" ref="28581587" role="via"/>
+		<member type="way" ref="29116101" role="to"/>
+		<tag k="type" v="restriction"/>
+		<tag k="restriction" v="no_left_turn"/>
+	</relation>
+	<relation id="1186607" version="1">
+		<member type="way" ref="29116101" role="from"/>
+		<member type="node" ref="28581587" role="via"/>
+		<member type="way" ref="596514118" role="to"/>
+		<tag k="type" v="restriction"/>
+		<tag k="restriction" v="no_left_turn"/>
+	</relation>
+	<relation id="1205706" version="1">
+		<member type="way" ref="29116101" role="to"/>
+		<tag k="type" v="restriction"/>
+		<tag k="restriction" v="no_left_turn"/>
+	</relation>
+	<relation id="4206943" version="1">
+		<member type="way" ref="298904469" role="to"/>
+		<member type="node" ref="28137436" role="via"/>
+		<member type="way" ref="596514115" role="from"/>
+		<tag k="type" v="restriction"/>
+		<tag k="restriction" v="no_left_turn"/>
+	</relation>
+	<relation id="5383854" version="1">
+		<member type="way" ref="298904469" role="from"/>
+		<member type="node" ref="28137436" role="via"/>
+		<member type="way" ref="207098749" role="to"/>
+		<tag k="type" v="restriction"/>
+		<tag k="restriction" v="no_left_turn"/>
+	</relation>
+	<relation id="5676047" version="1">
+		<member type="way" ref="207098749" role="from"/>
+		<member type="node" ref="28137436" role="via"/>
+		<member type="way" ref="313465298" role="to"/>
+		<tag k="type" v="restriction"/>
+		<tag k="restriction" v="no_left_turn"/>
+	</relation>
+	<relation id="7572159" version="1">
+		<member type="node" ref="2309435445" role="stop"/>
+		<member type="way" ref="221965677" role="platform"/>
+		<member type="node" ref="2309435458" role="stop"/>
+		<member type="way" ref="221965680" role="platform"/>
+		<member type="way" ref="524434350" role=""/>
+		<member type="way" ref="524434349" role=""/>
+		<member type="way" ref="425261690" role=""/>
+		<member type="node" ref="262153504" role="stop"/>
+		<member type="way" ref="755835708" role="platform"/>
+		<member type="way" ref="755835707" role="platform"/>
+		<tag k="ele" v="411"/>
+		<tag k="ref" v="1158"/>
+		<tag k="name" v="Helvetiaplatz"/>
+		<tag k="type" v="public_transport"/>
+		<tag k="network" v="ZVV"/>
+		<tag k="uic_ref" v="8591184"/>
+		<tag k="operator" v="VBZ"/>
+		<tag k="uic_name" v="Zürich, Helvetiaplatz"/>
+		<tag k="public_transport" v="stop_area"/>
+	</relation>
+	<relation id="7892483" version="1">
+		<member type="way" ref="29116100" role="from"/>
+		<tag k="type" v="restriction"/>
+		<tag k="restriction" v="no_left_turn"/>
+	</relation>
+	<relation id="8373389" version="1">
+		<member type="way" ref="596514119" role="from"/>
+		<member type="node" ref="28581587" role="via"/>
+		<member type="way" ref="596514118" role="to"/>
+		<tag k="type" v="restriction"/>
+		<tag k="restriction" v="no_u_turn"/>
+	</relation>
+</osm>

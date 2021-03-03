@@ -1,0 +1,2 @@
+--osm-files osm.xml
+--remove-edges.by-vclass pedestrian

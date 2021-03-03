@@ -130,4 +130,7 @@ join_tram
 # test option edges.join-tram-dist (no tram lines in input)
 join_tram2
 ticket8155_orig
+
+# import vehicle:lanes, vehicle:lanes:forward, vehicle:lanes:backward
+vehicle_lanes
 bugs
