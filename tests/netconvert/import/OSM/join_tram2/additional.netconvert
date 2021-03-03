@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec 22 08:33:34 2020 by Eclipse SUMO netconvert Version v1_8_0+0330-56970ea
+<!-- generated on Wed Mar  3 12:18:56 2021 by Eclipse SUMO netconvert Version v1_8_0+1529-18e32356cd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,7 +27,7 @@ SPDX-License-Identifier: EPL-2.0
     </processing>
 
     <edge_removal>
-        <keep-edges.by-vclass value="passenger,tram"/>
+        <keep-edges.by-vclass value="passenger,tram,bus"/>
     </edge_removal>
 
     <junctions>
@@ -44,9 +44,22 @@ SPDX-License-Identifier: EPL-2.0
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="1741027767" name="Holzhof (Volkswagenhalle)" lane="127240643#1_0" startPos="79.92" endPos="94.92" friendlyPos="true"/>
+    <busStop id="272856305" name="Europaplatz" lane="122119622#1_0" startPos="22.54" endPos="37.54" friendlyPos="true">
+        <access lane="171266179#0_0" pos="0.00" length="100.72" friendlyPos="1"/>
+        <access lane="316789358_0" pos="42.13" length="85.95" friendlyPos="1"/>
+        <access lane="316789359_0" pos="0.00" length="91.71" friendlyPos="1"/>
+        <access lane="32055380#0_0" pos="14.15" length="98.23" friendlyPos="1"/>
+        <access lane="32055380#1_0" pos="0.00" length="98.58" friendlyPos="1"/>
+    </busStop>
     <busStop id="272856887" name="Am Wassertor (Volkswagenhalle)" lane="316791983_0" startPos="5.67" endPos="20.67" friendlyPos="true"/>
     <busStop id="272857163" name="John-F.-Kennedy-Platz" lane="32055654_0" startPos="15.68" endPos="23.18" friendlyPos="true"/>
-    <busStop id="295017591" name="Friedrich-Wilhelm-Platz" lane="19044896#0_0" startPos="16.80" endPos="31.80" friendlyPos="true"/>
+    <busStop id="295017591" name="Friedrich-Wilhelm-Platz" lane="19044896#0_0" startPos="16.80" endPos="31.80" friendlyPos="true">
+        <access lane="30426485#0_0" pos="0.00" length="43.60" friendlyPos="1"/>
+        <access lane="30426485#1_0" pos="0.00" length="44.05" friendlyPos="1"/>
+        <access lane="30426485#2_0" pos="0.00" length="44.92" friendlyPos="1"/>
+        <access lane="32055586#0_0" pos="21.20" length="14.83" friendlyPos="1"/>
+        <access lane="588927595_0" pos="7.59" length="38.99" friendlyPos="1"/>
+    </busStop>
     <busStop id="3142549205" name="John-F.-Kennedy-Platz" lane="309119318#0_0" startPos="116.90" endPos="130.12" friendlyPos="true">
         <access lane="171266144#4_0" pos="0.00" length="42.83" friendlyPos="1"/>
         <access lane="315422095#1_0" pos="26.67" length="29.38" friendlyPos="1"/>
@@ -55,13 +68,19 @@ SPDX-License-Identifier: EPL-2.0
         <access lane="315422095#4_0" pos="0.00" length="36.79" friendlyPos="1"/>
     </busStop>
     <busStop id="3144381697" name="Friedrich-Wilhelm-Platz" lane="6148690#1_0" startPos="42.66" endPos="67.66" friendlyPos="true">
-        <access lane="19044896#0_0" pos="23.27" length="4.48" friendlyPos="1"/>
         <access lane="30426485#0_0" pos="0.00" length="46.42" friendlyPos="1"/>
         <access lane="30426485#1_0" pos="0.00" length="46.99" friendlyPos="1"/>
+        <access lane="30426485#2_0" pos="0.00" length="47.99" friendlyPos="1"/>
         <access lane="32055586#0_0" pos="21.32" length="19.31" friendlyPos="1"/>
         <access lane="588927595_0" pos="7.59" length="40.12" friendlyPos="1"/>
     </busStop>
-    <busStop id="3144381698" name="Friedrich-Wilhelm-Platz" lane="19044896#0_0" startPos="53.07" endPos="78.07" friendlyPos="true"/>
+    <busStop id="3144381698" name="Friedrich-Wilhelm-Platz" lane="19044896#0_0" startPos="53.07" endPos="78.07" friendlyPos="true">
+        <access lane="32055586#0_0" pos="66.41" length="15.57" friendlyPos="1"/>
+        <access lane="32055586#1_0" pos="0.00" length="48.65" friendlyPos="1"/>
+        <access lane="32055586#2_0" pos="0.00" length="54.15" friendlyPos="1"/>
+        <access lane="32055586#3_0" pos="0.00" length="76.29" friendlyPos="1"/>
+        <access lane="32055586#4_0" pos="0.00" length="77.60" friendlyPos="1"/>
+    </busStop>
     <busStop id="3144398475" name="Friedrich-Wilhelm-Platz" lane="833551067_0" startPos="18.26" endPos="41.96" friendlyPos="true">
         <access lane="-23209152#1_0" pos="0.00" length="53.66" friendlyPos="1"/>
         <access lane="-23209152#4_0" pos="25.43" length="5.22" friendlyPos="1"/>
@@ -85,7 +104,13 @@ SPDX-License-Identifier: EPL-2.0
         <access lane="23209152#4_0" pos="61.86" length="229.83" friendlyPos="1"/>
         <access lane="24021576#0_0" pos="0.00" length="227.99" friendlyPos="1"/>
     </busStop>
-    <busStop id="3388048661" name="Friedrich-Wilhelm-Platz" lane="19044896#0_0" startPos="53.34" endPos="68.34" friendlyPos="true"/>
+    <busStop id="3388048661" name="Friedrich-Wilhelm-Platz" lane="19044896#0_0" startPos="53.34" endPos="68.34" friendlyPos="true">
+        <access lane="32055586#0_0" pos="61.20" length="16.39" friendlyPos="1"/>
+        <access lane="32055586#1_0" pos="0.00" length="55.70" friendlyPos="1"/>
+        <access lane="32055586#2_0" pos="0.00" length="61.24" friendlyPos="1"/>
+        <access lane="32055586#3_0" pos="0.00" length="83.45" friendlyPos="1"/>
+        <access lane="32055586#4_0" pos="0.00" length="84.76" friendlyPos="1"/>
+    </busStop>
     <busStop id="343717113" name="Güldenstraße" lane="167920428#2_0" startPos="221.76" endPos="236.76" friendlyPos="true"/>
     <busStop id="398552760" name="Südstraße" lane="5021501#0_0" startPos="3.63" endPos="18.63" friendlyPos="true"/>
     <busStop id="4081780757" name="John-F.-Kennedy-Platz" lane="309119320#2_0" startPos="42.70" endPos="61.11" friendlyPos="true">

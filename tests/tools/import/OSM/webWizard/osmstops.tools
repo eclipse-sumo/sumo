@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb  1 22:20:27 2021 by Eclipse SUMO netconvert Version v1_8_0+0870-65a6b4a5f4
+<!-- generated on Wed Mar  3 12:19:53 2021 by Eclipse SUMO netconvert Version v1_8_0+1529-18e32356cd
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml,/home/behr_mi/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/home/behr_mi/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/home/behr_mi/sumo/data/typemap/osmNetconvertShips.typ.xml,/home/behr_mi/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
+        <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertShips.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
         <osm-files value="osm_bbox.osm.xml"/>
     </input>
 
@@ -324,7 +324,13 @@
     <busStop id="271373068" name="S+U Brandenburger Tor" lane="24913304#1_1" startPos="170.96" endPos="185.96" friendlyPos="true" lines="TXL 100"/>
     <busStop id="271430924" name="Berliner Rathaus" lane="606078065_2" startPos="14.08" endPos="29.08" friendlyPos="true" lines="M48 N8 N40 N42"/>
     <busStop id="271670135" name="U Alexanderplatz" lane="305093247#2_2" startPos="32.12" endPos="47.12" friendlyPos="true" lines="N5"/>
-    <busStop id="271884565" name="Memhardstraße" lane="523630412_0" startPos="43.63" endPos="58.63" friendlyPos="true" lines="N65"/>
+    <busStop id="271884565" name="Memhardstraße" lane="523630412_0" startPos="43.63" endPos="58.63" friendlyPos="true" lines="N65">
+        <access lane="4613308#1_0" pos="13.13" length="39.63" friendlyPos="1"/>
+        <access lane="4613308#2_0" pos="8.66" length="27.28" friendlyPos="1"/>
+        <access lane="473149638#0_0" pos="0.00" length="30.83" friendlyPos="1"/>
+        <access lane="503549461_0" pos="71.45" length="35.15" friendlyPos="1"/>
+        <access lane="523630409_0" pos="46.67" length="0.78" friendlyPos="1"/>
+    </busStop>
     <busStop id="272408975" name="Unter den Linden/Friedrichstraße" lane="188386313#0_1" startPos="23.37" endPos="38.37" friendlyPos="true" lines="TXL 100 200 N2"/>
     <busStop id="27411231" name="S Alexanderplatz" lane="4471817#1_0" startPos="93.57" endPos="293.57" friendlyPos="true" lines="S5 S7 S3 S9">
         <access lane="272757274_0" pos="0.00" length="10.59" friendlyPos="1"/>

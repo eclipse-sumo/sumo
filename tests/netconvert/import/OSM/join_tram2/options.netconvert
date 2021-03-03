@@ -2,4 +2,4 @@
  --ptstop-output additional.xml
  --ptline-output ptlines.xml
  --no-internal-links
- --keep-edges.by-vclass passenger,tram
+ --keep-edges.by-vclass passenger,tram,bus
