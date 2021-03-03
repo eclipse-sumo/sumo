@@ -187,7 +187,7 @@ Helper::handleSubscriptions(const SUMOTime t) {
         const bool isArrivedVehicle = (s.commandId == CMD_SUBSCRIBE_VEHICLE_VARIABLE || s.commandId == CMD_SUBSCRIBE_VEHICLE_CONTEXT)
                                       && (find(getVehicleStateChanges(MSNet::VehicleState::ARRIVED).begin(), getVehicleStateChanges(MSNet::VehicleState::ARRIVED).end(), s.id) != getVehicleStateChanges(MSNet::VehicleState::ARRIVED).end());
         const bool isArrivedPerson = (s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE || s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_CONTEXT)
-                                      && (find(getTransportableStateChanges(MSNet::TransportableState::PERSON_ARRIVED).begin(), getTransportableStateChanges(MSNet::TransportableState::PERSON_ARRIVED).end(), s.id) != getTransportableStateChanges(MSNet::TransportableState::PERSON_ARRIVED).end());
+                                      && MSNet::getInstance()->getPersonControl().get(s.id) == nullptr;
         if (s.endTime < t || isArrivedVehicle || isArrivedPerson) {
             i = mySubscriptions.erase(i);
             continue;
