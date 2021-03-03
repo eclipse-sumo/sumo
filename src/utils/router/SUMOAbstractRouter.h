@@ -31,6 +31,8 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
+//#define ROUTER_DEBUG_HINT
+//#define ROUTER_DEBUG_COND (true)
 
 
 // ===========================================================================
@@ -136,7 +138,7 @@ public:
     virtual SUMOAbstractRouter* clone() = 0;
 
     inline void init(const int edgeID, const SUMOTime msTime) {
-        if (!myAmClean) {
+//        if (!myAmClean) {
             // all EdgeInfos touched in the previous query are either in myFrontierList or myFound: clean those up
             for (auto& edgeInfo : myFrontierList) {
                 edgeInfo->reset();
@@ -156,7 +158,7 @@ public:
                 myFrontierList.push_back(&fromInfo);
             }
             myAmClean = true;
-        }
+//        }
     }
 
     /// reset internal caches, used by CHRouter
@@ -311,6 +313,12 @@ public:
             edgeInfo.leaveTime = time;
             myFound.push_back(&edgeInfo);
             prev = &edgeInfo;
+            if (ROUTER_DEBUG_COND) {
+                std::cout << "DEBUG: hit=" << (*e)->getID()
+                    << " TT=" << edgeInfo.effort
+                    << " EF=" << this->getEffort(*e, v, edgeInfo.leaveTime)
+                    << " HT=" << edgeInfo.heuristicEffort << "\n";
+            }
         }
         return effort;
     }
