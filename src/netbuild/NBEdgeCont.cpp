@@ -1689,7 +1689,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
             } else {
                 WRITE_WARNINGF("Not joining tram edge '%s' with % lanes", item.second->getID(), item.second->getNumLanes());
             }
-        } else if ((permissions & SVC_PASSENGER) != 0) {
+        } else if ((permissions & (SVC_PASSENGER | SVC_BUS)) != 0) {
             targetEdges.insert(item.second);
         }
     }
@@ -1726,7 +1726,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
             // is minimal and within maxDist
             for (int i = 0; i < edge->getNumLanes(); i++) {
                 double maxLaneDist = -1;
-                if ((edge->getPermissions(i) & SVC_PASSENGER) != 0) {
+                if ((edge->getPermissions(i) & (SVC_PASSENGER | SVC_BUS)) != 0) {
                     const PositionVector& laneShape = edge->getLaneShape(i);
                     for (Position pos : laneShape) {
                         const double dist = tramShape.distance2D(pos, false);
