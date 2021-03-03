@@ -11,7 +11,7 @@ cross-platform, cross-language, and networked interaction with
 To allow coupling with client code, bindings must be provided for each client
 language. Historically, this has led to a larger number of client
 implementations with varying levels of API completeness and only the python
-client was kept up-to-date by the core sumo development team.
+client was kept up-to-date by the core SUMO development team.
 
 The avoid this problem, Libtraci is provided as a SWIG compatible C++ client
 library that is fully compatible with [Libsumo](Libsumo.md). It even uses the
@@ -38,6 +38,7 @@ The following things currently do not work (or work differently than with the Tr
   - the pure Python TraCI client sometimes accepts any iterable object where Libtraci wants a list
   - pure Python may accept any object where Libtraci needs a boolean value
 - Exception handling does not work yet
+- there is no cleanup / waiting for the started subprocess (sumo)
 
 # Building it
 
@@ -124,7 +125,9 @@ public class APITest {
 }
 ```
 
-### compiling on Linux (make sure SUMO_HOME is set and sumo has been built)
+### compiling on Linux
+
+make sure SUMO_HOME is set and the jar / so / dll files are available
 
 ```
 javac -cp $SUMO_HOME/bin/libtraci-1.8.0-SNAPSHOT.jar APITest.java
