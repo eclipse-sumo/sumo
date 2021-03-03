@@ -123,12 +123,9 @@ MSTransportableControl::erase(MSTransportable* transportable) {
     const std::map<std::string, MSTransportable*>::iterator i = myTransportables.find(transportable->getID());
     if (i != myTransportables.end()) {
         myRunningNumber--;
-        if (transportable->isPerson()) {
-            MSNet::getInstance()->informTransportableStateListener(transportable, MSNet::TransportableState::PERSON_ARRIVED);
-        } else {
-            MSNet::getInstance()->informTransportableStateListener(transportable, MSNet::TransportableState::CONTAINER_ARRIVED);
-        }
         myEndedNumber++;
+        MSNet::getInstance()->informTransportableStateListener(transportable,
+                transportable->isPerson() ? MSNet::TransportableState::PERSON_ARRIVED : MSNet::TransportableState::CONTAINER_ARRIVED);
         delete i->second;
         myTransportables.erase(i);
     }
@@ -155,14 +152,11 @@ MSTransportableControl::checkWaiting(MSNet* net, const SUMOTime time) {
         // we cannot use an iterator here because there might be additions to the vector while proceeding
         for (int i = 0; i < (int)transportables.size(); ++i) {
             myWaitingForDepartureNumber--;
+            const bool isPerson = transportables[i]->isPerson();
             if (transportables[i]->proceed(net, time)) {
                 myRunningNumber++;
-                if (transportables[i]->isPerson()) {
-                    MSNet::getInstance()->informTransportableStateListener(transportables[i], MSNet::TransportableState::PERSON_DEPARTED);
-                }
-                else {
-                    MSNet::getInstance()->informTransportableStateListener(transportables[i], MSNet::TransportableState::CONTAINER_DEPARTED);
-                }
+                MSNet::getInstance()->informTransportableStateListener(transportables[i],
+                        isPerson ? MSNet::TransportableState::PERSON_DEPARTED : MSNet::TransportableState::CONTAINER_DEPARTED);
             } else {
                 erase(transportables[i]);
             }
