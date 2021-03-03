@@ -2453,6 +2453,12 @@ GNEApplicationWindow::onUpdToogleViewOption(FXObject* obj, FXSelector sel, void*
                 } else {
                     menuCheck->setCheck(FALSE);
                 }
+                // special case for lock persons
+                if (myViewNet->getDemandViewOptions().menuCheckLockPerson->isEnabled()) {
+                    menuCheck->enable();
+                } else {
+                    menuCheck->disable();
+                }
                 break;
             case MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS:
                 if (myViewNet->getDataViewOptions().menuCheckShowAdditionals->amChecked()) {
