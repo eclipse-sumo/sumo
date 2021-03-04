@@ -132,7 +132,7 @@ for p in [
                     optionsFiles[f[8:]].append(path)
                 if f.startswith("config."):
                     configFiles[f[7:]].append(path)
-            if curDir == join(SUMO_HOME, "tests") or curDir == os.path.dirname(curDir):
+            if curDir == os.path.realpath(join(SUMO_HOME, "tests")) or curDir == os.path.dirname(curDir):
                 break
             curDir = os.path.dirname(curDir)
         if not configFiles:
