@@ -396,7 +396,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     int numLanesBackward = tc.getEdgeTypeNumLanes(type);
     double speed = tc.getEdgeTypeSpeed(type);
     bool defaultsToOneWay = tc.getEdgeTypeIsOneWay(type);
-    SVCPermissions permissions = tc.getEdgeTypePermissions(type);
+    SVCPermissions permissions = tc.getEdgeTypePermissions(type) | e->myExtraAllowed;
     if (e->myCurrentIsElectrified && (permissions & SVC_RAIL) != 0) {
         permissions |= (SVC_RAIL_ELECTRIC | SVC_RAIL_FAST);
     }
@@ -941,6 +941,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 && key != "usage"
                 && key != "electrified"
                 && key != "bus"
+                && key != "psv"
                 && key != "public_transport") {
             return;
         }
@@ -1012,7 +1013,11 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             }
         } else if (key == "bus") {
             if (value != "no") {
-                myCurrentEdge->myBuswayType = WAY_FORWARD;
+                myCurrentEdge->myExtraAllowed |= SVC_BUS;
+            }
+        } else if (key == "psv") {
+            if (value != "no") {
+                myCurrentEdge->myExtraAllowed |= SVC_BUS | SVC_TAXI;
             }
         } else if (key == "lanes") {
             try {

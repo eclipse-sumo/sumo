@@ -167,6 +167,7 @@ protected:
             id(_id), myNoLanes(-1), myNoLanesForward(0),
             myMaxSpeed(MAXSPEED_UNGIVEN),
             myMaxSpeedBackward(MAXSPEED_UNGIVEN),
+            myExtraAllowed(0),
             myCyclewayType(WAY_UNKNOWN), // building of extra lane depends on bikelaneWidth of loaded typemap
             myBuswayType(WAY_NONE), // buslanes are always built when declared
             mySidewalkType(WAY_UNKNOWN), // building of extra lanes depends on sidewalkWidth of loaded typemap
@@ -196,6 +197,8 @@ protected:
         double myMaxSpeed;
         /// @brief maximum speed in km/h, or MAXSPEED_UNGIVEN
         double myMaxSpeedBackward;
+        /// @brief Extra permissions added from tags instead of highway type
+        SVCPermissions myExtraAllowed;
         /// @brief The type, stored in "highway" key
         std::string myHighWayType;
         /// @brief Information whether this is an one-way road
