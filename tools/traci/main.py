@@ -196,9 +196,6 @@ def load(args):
     """
     if "" not in _connections:
         raise FatalTraCIError("Not connected.")
-    if _currentLabel[0] in _traceFile:
-        # cannot wrap because the method is import from __init__
-        _traceFile[_currentLabel[0]].write("traci.load(%s)\n" % repr(args))
     return _connections[""].load(args)
 
 
@@ -214,10 +211,6 @@ def simulationStep(step=0):
     """
     if "" not in _connections:
         raise FatalTraCIError("Not connected.")
-    if _currentLabel[0] in _traceFile:
-        # cannot wrap because the method is import from __init__
-        args = "" if step == 0 else str(step)
-        _traceFile[_currentLabel[0]].write("traci.simulationStep(%s)\n" % args)
     return _connections[""].simulationStep(step)
 
 
@@ -264,21 +257,20 @@ def close(wait=True):
     del _connections[_currentLabel[0]]
     del _connections[""]
     if _currentLabel[0] in _traceFile:
-        # cannot wrap because the method is import from __init__
-        _traceFile[_currentLabel[0]].write("traci.close()\n")
-        _traceFile[_currentLabel[0]].close()
         del _traceFile[_currentLabel[0]]
-        for domain in _defaultDomains:
-            domain._setTraceFile(None, False)
 
 
 def switch(label):
-    _connections[""] = getConnection(label)
+    con = getConnection(label)
+    _connections[""] = con
     _currentLabel[0] = label
     for domain in _defaultDomains:
-        domain._setConnection(_connections[""])
-        if _traceFile:
+        domain._setConnection(con)
+        if label in _traceFile:
             domain._setTraceFile(_traceFile[label], _traceGetters[label])
+            # connection holds a copy of each domain
+            getattr(con, domain._name)._setTraceFile(_traceFile[label], _traceGetters[label])
+            con._traceFile = _traceFile[label]
 
 
 def getLabel():

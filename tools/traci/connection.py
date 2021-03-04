@@ -55,6 +55,7 @@ class Connection:
         self._subscriptionMapping = {}
         self._stepListeners = {}
         self._nextStepListenerID = 0
+        self._traceFile = None
         for domain in _defaultDomains:
             domain._register(self, self._subscriptionMapping)
 
@@ -290,6 +291,8 @@ class Connection:
         Load a simulation from the given arguments.
         """
         self._sendCmd(tc.CMD_LOAD, None, None, "l", args)
+        if self._traceFile:
+            self._traceFile.write("traci.load(%s)\n" % repr(args))
 
     def simulationStep(self, step=0.):
         """
@@ -308,6 +311,9 @@ class Connection:
             responses.append(self._readSubscription(result))
             numSubs -= 1
         self._manageStepListeners(step)
+        if self._traceFile:
+            args = "" if step == 0 else str(step)
+            self._traceFile.write("traci.simulationStep(%s)\n" % args)
         return responses
 
     def _manageStepListeners(self, step):
@@ -372,6 +378,11 @@ class Connection:
             self._socket = None
         if wait and self._process is not None:
             self._process.wait()
+        if self._traceFile:
+            self._traceFile.write("traci.close()\n")
+            self._traceFile.close()
+            for domain in _defaultDomains:
+                domain._setTraceFile(None, False)
 
 
 class StepListener(object):
