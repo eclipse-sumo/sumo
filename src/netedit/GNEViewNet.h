@@ -409,7 +409,7 @@ public:
     void setFrontAttributeCarrier(const GNEAttributeCarrier* AC);
 
     /// @brief draw front attributeCarrier
-    void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, GUIGlObjectType objectType, const double extraOffset = 0);
+    void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
 
     /// @brief check if lock icon should be visible
     bool showLockIcon() const;

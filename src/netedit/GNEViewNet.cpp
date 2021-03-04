@@ -1287,11 +1287,11 @@ GNEViewNet::setFrontAttributeCarrier(const GNEAttributeCarrier* AC) {
 
 
 void
-GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, GUIGlObjectType objectType, const double extraOffset) {
+GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset) {
     if (myFrontAttributeCarrier == AC) {
         glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT + extraOffset);
     } else {
-        glTranslated(0, 0, objectType + extraOffset);
+        glTranslated(0, 0, typeOrLayer + extraOffset);
     }
 }
 
