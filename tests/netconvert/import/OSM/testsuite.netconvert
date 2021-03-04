@@ -129,6 +129,9 @@ join_tram
 
 # test option edges.join-tram-dist (no tram lines in input)
 join_tram2
+
+# test option edges.join-tram-dist, tram way is tagged with psv=designated
+join_tram3
 ticket8155_orig
 
 # import vehicle:lanes, vehicle:lanes:forward, vehicle:lanes:backward
