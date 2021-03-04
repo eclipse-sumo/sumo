@@ -751,12 +751,11 @@ TraCIServer::cleanup() {
     myOutputStorage.reset();
     myInputStorage.reset();
     mySubscriptionCache.reset();
-    std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i;
-    for (i = myVehicleStateChanges.begin(); i != myVehicleStateChanges.end(); i++) {
-        i->second.clear();
+    for (auto& i : myVehicleStateChanges) {
+        i.second.clear();
     }
-    for (std::map<MSNet::TransportableState, std::vector<std::string> >::iterator i = myTransportableStateChanges.begin(); i != myTransportableStateChanges.end(); ++i) {
-        (*i).second.clear();
+    for (auto& i : myTransportableStateChanges) {
+        i.second.clear();
     }
     myCurrentSocket = mySockets.begin();
 }

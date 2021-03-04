@@ -313,13 +313,14 @@ public:
             edgeInfo.leaveTime = time;
             myFound.push_back(&edgeInfo);
             prev = &edgeInfo;
-#ifdef ROUTER_DEBUG_COND
-            std::cout << "DEBUG: hit=" << (*e)->getID()
-                << " TT=" << edgeInfo.effort
-                << " EF=" << this->getEffort(*e, v, edgeInfo.leaveTime)
-                << " HT=" << edgeInfo.heuristicEffort << "\n";
+#ifdef ROUTER_DEBUG_HINT
+            if (ROUTER_DEBUG_COND) {
+                std::cout << "DEBUG: hit=" << (*e)->getID()
+                    << " TT=" << edgeInfo.effort
+                    << " EF=" << this->getEffort(*e, v, edgeInfo.leaveTime)
+                    << " HT=" << edgeInfo.heuristicEffort << "\n";
+            }
 #endif
-            
         }
         return effort;
     }

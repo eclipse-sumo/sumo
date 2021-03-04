@@ -219,7 +219,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             WRITE_MESSAGE("There are stop edges which were not part of the original route for vehicle '" + veh.getID() + "'.");
         }
         const ConstROEdgeVector& targets = mandatory.size() > oldEdges.size() ? mandatory : oldEdges;
-        newEdges.push_back(*(targets.begin()));
+        newEdges.push_back(targets.front());
         ConstROEdgeVector::iterator nextMandatory = mandatory.begin() + 1;
         int lastMandatory = 0;
         for (ConstROEdgeVector::const_iterator i = targets.begin() + 1;
@@ -238,6 +238,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                     last = newEdges.back();
                     newEdges.pop_back();
                 }
+//                router.setHint(targets.begin(), i, &veh, begin);
                 if (!router.compute(last, *i, &veh, begin, newEdges)) {
                     // backtrack: try to route from last mandatory edge to next mandatory edge
                     // XXX add option for backtracking in smaller increments

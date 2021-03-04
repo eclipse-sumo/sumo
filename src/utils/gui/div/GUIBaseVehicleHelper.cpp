@@ -178,7 +178,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
         case SVS_BICYCLE:
         case SVS_MOPED:
         case SVS_MOTORCYCLE: {
-            RGBColor darker = current.changedBrightness(-50);
+            darker = current.changedBrightness(-50);
             // body
             drawPoly(vehiclePoly_Cyclist, 4);
             // head
@@ -354,12 +354,10 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             glPopMatrix();
             break;
         case SVS_SHIP: {
-            RGBColor darker = current.changedBrightness(-30);
-            RGBColor darker2 = current.changedBrightness(-70);
             drawPoly(vehiclePoly_Ship, 4);
-            GLHelper::setColor(darker);
+            GLHelper::setColor(current.changedBrightness(-30));
             drawPoly(vehiclePoly_ShipDeck, 5);
-            GLHelper::setColor(darker2);
+            GLHelper::setColor(current.changedBrightness(-70));
             drawPoly(vehiclePoly_ShipSuperStructure, 6);
             break;
         }

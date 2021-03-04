@@ -291,24 +291,24 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     // draw the horizontal lines dividing the signal groups
     glColor3d(1, 1, 1);
     // compute some values needed more than once
-    const double height = (double) caller.getHeight();
-    const double width = (double) caller.getWidth();
-    const double barWidth = MAX2(1.0, width - 31);
-    const double fontHeight = 0.08 * 300. / height;
-    const double fontWidth = 0.08 * 300. / width;
-    const double h9 = ((double) 9 / height);
-    const double h10 = ((double) 10 / height);
-    const double h11 = ((double) 11 / height);
-    const double h16 = ((double) 16 / height);
-    const double h20 = ((double) 20 / height);
+    const double panelHeight = (double) caller.getHeight();
+    const double panelWidth = (double) caller.getWidth();
+    const double barWidth = MAX2(1.0, panelWidth - 31);
+    const double fontHeight = 0.08 * 300. / panelHeight;
+    const double fontWidth = 0.08 * 300. / panelWidth;
+    const double h9 = 9. / panelHeight;
+    const double h10 = 10. / panelHeight;
+    const double h11 = 11. / panelHeight;
+    const double h16 = 16. / panelHeight;
+    const double h20 = 20. / panelHeight;
     // draw the link names and the lines dividing them
-    double h = (double)(1.0 - h10);
-    double h2 = 12;
+    double h = 1. - h10;
+    double h2 = 12.;
     for (int i = 0; i < (int)myTLLogic->getLinks().size() + 1; ++i) {
         // draw the bar
         glBegin(GL_LINES);
         glVertex2d(0, h);
-        glVertex2d((double)(30. / width), h);
+        glVertex2d((double)(30. / panelWidth), h);
         glEnd();
         // draw the name
         if (i < (int)myTLLogic->getLinks().size()) {
@@ -325,11 +325,11 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     glEnd();
 
     // draw the names closure (vertical line)
-    h += (double) 20 / height;
+    h += 20. / panelHeight;
     glColor3d(1, 1, 1);
     glBegin(GL_LINES);
-    glVertex2d((double) 30 / width, 1.0);
-    glVertex2d((double) 30 / width, h);
+    glVertex2d(30. / panelWidth, 1.);
+    glVertex2d(30. / panelWidth, h);
     glEnd();
 
 
@@ -337,9 +337,9 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     // disable value addition while drawing
     myLock.lock();
     // determine the initial offset
-    double x = ((double) 31. / width);
-    double ta = (double) leftOffset / width;
-    ta *= (double)((barWidth / ((double)(myLastTime - myBeginTime))));
+    double x = 31. / panelWidth;
+    double ta = (double) leftOffset / panelWidth;
+    ta *= barWidth / ((double)(myLastTime - myBeginTime));
     x += ta;
 
     // and the initial phase information
@@ -352,10 +352,10 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         SUMOTime i = 30;
         // the first phase may be drawn incompletely
         SUMOTime duration = *pd - fpo;
-        // compute the heigh and the width of the phase
-        h = (double)(1.0 - h10);
-        double a = (double) duration / width;
-        a *= (double)((barWidth / ((double)(myLastTime - myBeginTime))));
+        // compute the height and the width of the phase
+        h = 1. - h10;
+        double a = (double) duration / panelWidth;
+        a *= barWidth / ((double)(myLastTime - myBeginTime));
         const double x2 = x + a;
 
         // go through the links
@@ -402,10 +402,10 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     if (myPhases.size() != 0) {
         SUMOTime tickDist = TIME2STEPS(10);
         // patch distances - hack
-        double t = myBeginOffset != nullptr ? (double) myBeginOffset->getValue() : STEPS2TIME(myLastTime - myBeginTime);
+        double t = myBeginOffset != nullptr ? myBeginOffset->getValue() : STEPS2TIME(myLastTime - myBeginTime);
         while (t > barWidth / 4.) {
             tickDist += TIME2STEPS(10);
-            t -= (double)(barWidth / 4.);
+            t -= barWidth / 4.;
         }
         // draw time information
         //h = (double)(myTLLogic->getLinks().size() * 20 + 12);
@@ -414,13 +414,13 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         // time ticks
         SUMOTime currTime = myFirstTime2Show;
         int pos = 31;// + /*!!!currTime*/ - myFirstTime2Show;
-        double glpos = (double) pos / width;
-        const double ticSize = 4 / height;
-        while (pos < width + 50) {
+        double glpos = (double) pos / panelWidth;
+        const double ticSize = 4. / panelHeight;
+        while (pos < panelWidth + 50.) {
             const std::string timeStr = (gHumanReadableTime
                                          ? time2string(currTime % 3600000).substr(3) // only write mn:ss
                                          : toString((int)STEPS2TIME(currTime)));
-            const double w = 50 / width;
+            const double w = 50. / panelWidth;
             glTranslated(glpos - w / 2., glh - h20, 0);
             GLHelper::drawText(timeStr, Position(0, 0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
             glTranslated(-glpos + w / 2., -glh + h20, 0);
@@ -432,7 +432,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
 
             const double a = STEPS2TIME(tickDist) * barWidth / STEPS2TIME(myLastTime - myBeginTime);
             pos += (int) a;
-            glpos += a / width;
+            glpos += a / panelWidth;
             currTime += tickDist;
         }
     }
