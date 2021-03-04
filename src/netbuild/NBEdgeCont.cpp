@@ -1674,7 +1674,6 @@ NBEdgeCont::joinLanes(SVCPermissions perms) {
     return affectedEdges;
 }
 
-
 int
 NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc, double maxDist) {
     // this is different from joinSimilarEdges because there don't need to be
@@ -1683,11 +1682,11 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
     std::set<NBEdge*> targetEdges;
     for (auto item : myEdges) {
         SVCPermissions permissions = item.second->getPermissions();
-        if (permissions == SVC_TRAM) {
+        if (isTram(permissions)) {
             if (item.second->getNumLanes() == 1) {
                 tramEdges.insert(item.second);
             } else {
-                WRITE_WARNINGF("Not joining tram edge '%s' with % lanes", item.second->getID(), item.second->getNumLanes());
+                WRITE_WARNINGF("Not joining tram edge '%' with % lanes", item.second->getID(), item.second->getNumLanes());
             }
         } else if ((permissions & (SVC_PASSENGER | SVC_BUS)) != 0) {
             targetEdges.insert(item.second);
@@ -1846,7 +1845,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
                 }
                 road->setPermissions(road->getPermissions(laneIndex) | SVC_TRAM, laneIndex);
                 for (NBEdge* in : incoming) {
-                    if (in->getPermissions() == SVC_TRAM && !in->isConnectedTo(road)) {
+                    if (isTram(in->getPermissions()) && !in->isConnectedTo(road)) {
                         if (in->getFromNode() != road->getFromNode()) {
                             in->reinitNodes(in->getFromNode(), road->getFromNode());
                         } else {
@@ -1864,7 +1863,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
                 // copy to avoid concurrent modification
                 auto outEdges = tramEdge->getToNode()->getOutgoingEdges();
                 for (NBEdge* out : outEdges) {
-                    if (out->getPermissions() == SVC_TRAM && !lastRoad->isConnectedTo(out)) {
+                    if (isTram(out->getPermissions()) && !lastRoad->isConnectedTo(out)) {
                         if (lastRoad->getToNode() != out->getToNode()) {
                             out->reinitNodes(lastRoad->getToNode(), out->getToNode());
                         } else {

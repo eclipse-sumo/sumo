@@ -322,6 +322,12 @@ extern bool canParseVehicleShape(const std::string& shape);
  */
 extern bool isRailway(SVCPermissions permissions);
 
+/** @brief Returns whether an edge with the given permission is a tram edge
+ * @param[in] permissions The permissions of the edge
+ * @return Whether the edge is a tram edge
+ */
+extern bool isTram(SVCPermissions permissions);
+
 /** @brief Returns whether an edge with the given permission is a waterway edge
  * @param[in] permissions The permissions of the edge
  * @return Whether the edge is a waterway edge

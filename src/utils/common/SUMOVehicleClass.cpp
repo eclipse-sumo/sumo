@@ -367,6 +367,10 @@ bool isRailway(SVCPermissions permissions) {
     return (permissions & SVC_RAIL_CLASSES) > 0 && (permissions & SVC_PASSENGER) == 0;
 }
 
+bool isTram(SVCPermissions permissions) {
+    return (permissions & SVC_RAIL_CLASSES) == SVC_TRAM && (permissions & SVC_PASSENGER) == 0;
+}
+
 
 bool
 isWaterway(SVCPermissions permissions) {
