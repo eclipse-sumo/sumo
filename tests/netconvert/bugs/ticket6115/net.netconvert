@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar  4 13:07:41 2021 by Eclipse SUMO netconvert Version v1_8_0+1545-bfd1d5b457
+<!-- generated on Fri Mar  5 09:55:06 2021 by Eclipse SUMO netconvert Version v1_8_0+1557-467b75c743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -83,7 +83,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":281047651_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="4.67" shape="1299.88,988.86 1301.32,989.00 1302.13,988.63 1302.33,987.76 1301.91,986.38"/>
     </edge>
     <edge id=":281047656_0" function="internal">
-        <lane id=":281047656_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="6.52" length="9.85" shape="416.81,430.01 414.08,430.86 411.86,430.66 410.14,429.39 408.93,427.07"/>
+        <lane id=":281047656_0_0" index="0" disallow="pedestrian bus tram rail_urban rail rail_electric rail_fast ship" speed="6.52" length="9.85" shape="416.81,430.01 414.08,430.86 411.86,430.66 410.14,429.39 408.93,427.07"/>
     </edge>
     <edge id=":281047656_1" function="internal">
         <lane id=":281047656_1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.41" length="11.03" shape="414.56,436.46 412.61,433.83 411.23,432.02 410.11,430.09 408.93,427.07"/>
@@ -98,7 +98,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":545848195_1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="9.22" length="8.88" shape="678.61,353.59 679.04,356.63 679.66,359.01 680.46,360.73 681.44,361.79"/>
     </edge>
     <edge id=":545848240_0" function="internal">
-        <lane id=":545848240_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.41" length="0.45" shape="495.10,404.96 494.97,404.93 494.88,404.92 494.79,404.92 494.65,404.93"/>
+        <lane id=":545848240_0_0" index="0" disallow="pedestrian bus tram rail_urban rail rail_electric rail_fast ship" speed="13.41" length="0.45" shape="495.10,404.96 494.97,404.93 494.88,404.92 494.79,404.92 494.65,404.93"/>
     </edge>
     <edge id=":627854546_0" function="internal">
         <lane id=":627854546_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="7.68" length="9.68" shape="361.33,457.28 363.72,456.68 365.96,456.88 368.06,457.86 370.03,459.63"/>
@@ -128,10 +128,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":6556490704_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.41" length="0.30" shape="403.08,497.50 403.27,497.73"/>
     </edge>
     <edge id=":769220224_0" function="internal">
-        <lane id=":769220224_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.41" length="13.05" shape="660.12,476.74 649.40,469.30"/>
+        <lane id=":769220224_0_0" index="0" disallow="pedestrian bus tram rail_urban rail rail_electric rail_fast ship" speed="13.41" length="13.05" shape="660.12,476.74 649.40,469.30"/>
     </edge>
     <edge id=":769220224_1" function="internal">
-        <lane id=":769220224_1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.41" length="12.42" shape="655.44,479.94 653.79,476.63 652.98,474.12 651.90,471.85 649.40,469.30"/>
+        <lane id=":769220224_1_0" index="0" disallow="pedestrian bus tram rail_urban rail rail_electric rail_fast ship" speed="13.41" length="12.42" shape="655.44,479.94 653.79,476.63 652.98,474.12 651.90,471.85 649.40,469.30"/>
     </edge>
     <edge id=":769220272_0" function="internal">
         <lane id=":769220272_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="6.44" length="9.25" shape="315.97,374.06 318.31,373.03 320.38,373.03 322.17,374.05 323.69,376.11"/>
@@ -243,15 +243,15 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id="61732970#0" from="545848218" to="769220224" priority="-1" type="highway.residential" spreadType="center" shape="809.53,529.95 737.32,512.87 664.66,478.60 651.44,469.66">
         <lane id="61732970#0_0" index="0" allow="pedestrian" speed="13.41" length="159.23" width="2.00" shape="809.90,528.39 737.85,511.35 665.45,477.21 661.58,474.59"/>
-        <lane id="61732970#0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.41" length="159.23" shape="809.30,530.92 736.99,513.82 664.16,479.48 660.12,476.74"/>
+        <lane id="61732970#0_1" index="1" disallow="pedestrian bus tram rail_urban rail rail_electric rail_fast ship" speed="13.41" length="159.23" shape="809.30,530.92 736.99,513.82 664.16,479.48 660.12,476.74"/>
     </edge>
     <edge id="61732970#1" from="769220224" to="545848240" priority="-1" type="highway.residential" spreadType="center" shape="651.51,469.71 597.39,426.13 495.09,403.94">
         <lane id="61732970#1_0" index="0" allow="pedestrian" speed="13.41" length="172.18" width="2.00" shape="651.03,467.27 598.10,424.64 495.65,402.42"/>
-        <lane id="61732970#1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.41" length="172.18" shape="649.40,469.30 596.95,427.05 495.10,404.96"/>
+        <lane id="61732970#1_1" index="1" disallow="pedestrian bus tram rail_urban rail rail_electric rail_fast ship" speed="13.41" length="172.18" shape="649.40,469.30 596.95,427.05 495.10,404.96"/>
     </edge>
     <edge id="61732970#2" from="545848240" to="281047656" priority="-1" type="highway.residential" spreadType="center" shape="494.81,403.92 476.13,405.19 455.35,411.03 410.43,431.87">
         <lane id="61732970#2_0" index="0" allow="pedestrian" speed="13.41" length="83.14" width="2.00" shape="494.48,402.33 475.86,403.60 454.79,409.53 415.72,427.65"/>
-        <lane id="61732970#2_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.41" length="83.14" shape="494.65,404.93 476.30,406.18 455.70,411.97 416.81,430.01"/>
+        <lane id="61732970#2_1" index="1" disallow="pedestrian bus tram rail_urban rail rail_electric rail_fast ship" speed="13.41" length="83.14" shape="494.65,404.93 476.30,406.18 455.70,411.97 416.81,430.01"/>
     </edge>
     <edge id="61732977" from="769220256" to="769220272" priority="-1" type="highway.residential" spreadType="center" shape="309.64,436.06 285.84,395.18 296.28,387.54 321.45,371.81">
         <lane id="61732977_0" index="0" allow="pedestrian" speed="13.41" length="83.51" width="2.00" shape="311.02,435.25 287.95,395.62 297.18,388.86 317.34,376.27"/>
