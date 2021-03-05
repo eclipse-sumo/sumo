@@ -13,6 +13,9 @@ steplistener
 # test client-side command tracing
 tracing
 
+# run two subsequent simulations with tracing
+tracing_repeat
+
 # test client-side command tracing when calling commands via the connection
 tracing_connection
 
