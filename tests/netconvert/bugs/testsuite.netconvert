@@ -31,7 +31,8 @@ ticket267
 # Test for false foe determination (on inner-continuation-intersections) yielding in a teleport
 ticket19_falseFoe
 ticket606
-#geometry-remove option
+
+# geometry-remove option
 ticket637
 ticket727
 
@@ -102,9 +103,6 @@ ticket5817
 
 # scurve-stretch with changed default radius
 ticket5881
-
-# osm import left handed traffic and pedestrians
-ticket6115
 
 # invalid network with option geometry.remove.min-length
 ticket6333
