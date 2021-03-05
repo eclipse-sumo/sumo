@@ -397,6 +397,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     double speed = tc.getEdgeTypeSpeed(type);
     bool defaultsToOneWay = tc.getEdgeTypeIsOneWay(type);
     SVCPermissions permissions = tc.getEdgeTypePermissions(type) | e->myExtraAllowed;
+    permissions &= ~e->myExtraDisallowed;
     if (e->myCurrentIsElectrified && (permissions & SVC_RAIL) != 0) {
         permissions |= (SVC_RAIL_ELECTRIC | SVC_RAIL_FAST);
     }
@@ -1011,13 +1012,12 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             } else {
                 myCurrentEdge->myHighWayType = singleTypeID;
             }
-        } else if (key == "bus") {
-            if (value != "no") {
+        } else if (key == "bus" || key == "psv") {
+            // 'psv' inclures taxi in the UK but not in germany
+            if (value == "no") {
+                myCurrentEdge->myExtraDisallowed |= SVC_BUS;
+            } else {
                 myCurrentEdge->myExtraAllowed |= SVC_BUS;
-            }
-        } else if (key == "psv") {
-            if (value != "no") {
-                myCurrentEdge->myExtraAllowed |= SVC_BUS | SVC_TAXI;
             }
         } else if (key == "lanes") {
             try {
