@@ -648,7 +648,7 @@ MSLaneChanger::getRealFollower(const ChangerIt& target) const {
     // or a follower which is partially lapping into the target lane
     neighFollow = getCloserFollower(candiPos, neighFollow, target->lane->getPartialBehind(vehicle));
 
-    if (neighFollow == nullptr) {
+    if (neighFollow == nullptr || neighFollow == vehicle) {
         CLeaderDist consecutiveFollower = target->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true)[0];
 #ifdef DEBUG_SURROUNDING_VEHICLES
         if (DEBUG_COND) {
