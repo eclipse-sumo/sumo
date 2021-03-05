@@ -41,8 +41,8 @@ def get_options(args=None):
     optParser = optparse.OptionParser()
     optParser.add_option("-r", "--route-file", dest="routefile", help="define the input route file with trips")
     optParser.add_option("-n", "--number", dest="number", help="number of trips to split")
-    optParser.add_option("-oa", "--output-file-a", dest="outputA", help="define the first output route file with trips")
-    optParser.add_option("-ob", "--output-file-b", dest="outputB", help="define the second output route file with trips")
+    optParser.add_option("-a", "--output-file-a", dest="outputA", help="define the first output route file with trips")
+    optParser.add_option("-b", "--output-file-b", dest="outputB", help="define the second output route file with trips")
     (options, args) = optParser.parse_args(args=args)
     if not options.routefile or not options.number:
         optParser.print_help()
@@ -52,6 +52,11 @@ def get_options(args=None):
 
 def main(options):
     infile = options.routefile
+    # check outputs 
+    if not options.outputA:
+        options.outputA = "tripsA.rou.xml"
+    if not options.outputB:
+        options.outputB = "tripsB.rou.xml"
     # copy all trips into an array
     tripsArray = []
     for trip in sumolib.xml.parse(infile, "trip"):
@@ -75,7 +80,7 @@ def main(options):
         # update index
         index += 1
     # write trips A
-    with open("tripsA.rou.xml", 'w') as outf:
+    with open(options.outputA, 'w') as outf:
         # write header
         outf.write("<?xml version= \"1.0\" encoding=\"UTF-8\"?>\n\n")
         # open route rag
@@ -87,7 +92,7 @@ def main(options):
         # close route tag
         outf.write("</routes>\n")
     # write trips B
-    with open("tripsB.rou.xml", 'w') as outf:
+    with open(options.outputB, 'w') as outf:
         # write header
         outf.write("<?xml version= \"1.0\" encoding=\"UTF-8\"?>\n\n")
         # open route rag
