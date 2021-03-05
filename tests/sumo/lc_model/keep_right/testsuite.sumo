@@ -12,5 +12,8 @@ empty_roads
 # test parameter keepRightAcceptanceTime
 empty_roads_acceptanceTime
 
+# test parameter keepRightAcceptanceTime if there is a fast follower vehicle
+fast_follower_acceptanceTime
+
 # test time for changing to the right when the right lane has a medium amount of traffic
 medium_traffic
