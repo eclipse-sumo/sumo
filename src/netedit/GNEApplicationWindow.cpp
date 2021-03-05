@@ -1660,7 +1660,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
             }
         }
         // obtain viewport
-        FXRegistry reg("SUMO GUI", "Eclipse");
+        FXRegistry reg("SUMO GUI", "sumo-gui");
         reg.read();
         reg.writeRealEntry("viewport", "x", myViewNet->getChanger().getXPos());
         reg.writeRealEntry("viewport", "y", myViewNet->getChanger().getYPos());

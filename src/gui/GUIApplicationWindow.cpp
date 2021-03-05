@@ -805,7 +805,7 @@ GUIApplicationWindow::onCmdNetedit(FXObject*, FXSelector, void*) {
     if (myGLWindows.empty()) {
         return 1;
     }
-    FXRegistry reg("SUMO netedit", "Eclipse");
+    FXRegistry reg("SUMO netedit", "netedit");
     reg.read();
     const GUISUMOAbstractView* const v = myGLWindows[0]->getView();
     reg.writeRealEntry("viewport", "x", v->getChanger().getXPos());
