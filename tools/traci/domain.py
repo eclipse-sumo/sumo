@@ -127,6 +127,7 @@ class Domain:
         self._subscriptionDefault = subscriptionDefault
         self._connection = None
         self._traceFile = None
+        self._hasTracingWrapper = False
         _defaultDomains.append(self)
 
     def _register(self, connection, mapping):
@@ -142,7 +143,8 @@ class Domain:
         self._connection = connection
 
     def _setTraceFile(self, traceFile, traceGetters):
-        if self._traceFile is None:
+        if self._traceFile is None and not self._hasTracingWrapper:
+            self._hasTracingWrapper = True
             # decorate all methods
             for attrName in dir(self):
                 if (not attrName.startswith("_")
