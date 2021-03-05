@@ -487,6 +487,7 @@
         <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="length" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="angle" type="xsd:float" use="optional"/>
+        <xsd:attribute name="slope" type="xsd:float" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="calibratorType">

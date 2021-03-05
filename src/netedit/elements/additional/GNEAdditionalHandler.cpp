@@ -355,8 +355,8 @@ GNEAdditionalHandler::buildParkingArea(GNENet* net, bool allowUndoRedo, const st
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildParkingSpace(GNENet* net, bool allowUndoRedo, GNEAdditional* parkingAreaParent, Position pos, double width, double length, double angle, bool blockMovement) {
-    GNEAdditional* parkingSpace = new GNEParkingSpace(net, parkingAreaParent, pos, width, length, angle, blockMovement);
+GNEAdditionalHandler::buildParkingSpace(GNENet* net, bool allowUndoRedo, GNEAdditional* parkingAreaParent, Position pos, double width, double length, double angle, double slope, bool blockMovement) {
+    GNEAdditional* parkingSpace = new GNEParkingSpace(net, parkingAreaParent, pos, width, length, angle, slope, blockMovement);
     if (allowUndoRedo) {
         net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_PARKING_SPACE));
         net->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingSpace, true), true);
@@ -2042,6 +2042,7 @@ GNEAdditionalHandler::parseAndBuildParkingSpace(GNENet* net, bool allowUndoRedo,
     double width = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_PARKING_SPACE, SUMO_ATTR_WIDTH, abort);
     double length = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_PARKING_SPACE, SUMO_ATTR_LENGTH, abort);
     double angle = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_PARKING_SPACE, SUMO_ATTR_ANGLE, abort);
+    double slope = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_PARKING_SPACE, SUMO_ATTR_SLOPE, abort);
     // parse Netedit attributes
     bool blockMovement = false;
     if (attrs.hasAttribute(GNE_ATTR_BLOCK_MOVEMENT)) {
@@ -2061,7 +2062,7 @@ GNEAdditionalHandler::parseAndBuildParkingSpace(GNENet* net, bool allowUndoRedo,
         // check that Parking Area Parent exists
         if (parkingAreaParent != nullptr) {
             // save ID of last created element
-            GNEAdditional* additionalCreated = buildParkingSpace(net, allowUndoRedo, parkingAreaParent, pos, width, length, angle, blockMovement);
+            GNEAdditional* additionalCreated = buildParkingSpace(net, allowUndoRedo, parkingAreaParent, pos, width, length, angle, slope, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
                 insertedAdditionals->commitAdditionalInsertion(additionalCreated);

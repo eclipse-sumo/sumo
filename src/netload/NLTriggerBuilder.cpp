@@ -579,8 +579,9 @@ NLTriggerBuilder::parseAndAddLotEntry(const SUMOSAXAttributes& attrs) {
     double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, "", ok, myParkingArea->getWidth());
     double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, "", ok, myParkingArea->getLength());
     double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, "", ok, myParkingArea->getAngle());
+    double slope = attrs.getOpt<double>(SUMO_ATTR_SLOPE, "", ok, 0.);
     // add the lot entry
-    addLotEntry(x, y, z, width, length, angle);
+    addLotEntry(x, y, z, width, length, angle, slope);
 }
 
 
@@ -771,10 +772,11 @@ NLTriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
 
 void
 NLTriggerBuilder::addLotEntry(double x, double y, double z,
-                              double width, double length, double angle) {
+                              double width, double length,
+                              double angle, double slope) {
     if (myParkingArea != nullptr) {
         if (!myParkingArea->parkOnRoad()) {
-            myParkingArea->addLotEntry(x, y, z, width, length, angle);
+            myParkingArea->addLotEntry(x, y, z, width, length, angle, slope);
         } else {
             throw InvalidArgument("Cannot not add lot entry to on-road parking area.");
         }

@@ -158,7 +158,7 @@ Vehicle::getAngle(const std::string& vehID) {
 double
 Vehicle::getSlope(const std::string& vehID) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
-    return veh->isOnRoad() ? veh->getSlope() : INVALID_DOUBLE_VALUE;
+    return (veh->isOnRoad() || veh->isParking()) ? veh->getSlope() : INVALID_DOUBLE_VALUE;
 }
 
 

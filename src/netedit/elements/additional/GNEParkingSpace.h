@@ -44,9 +44,10 @@ public:
      * @param[in] width ParkingArea's width
      * @param[in] length ParkingArea's length
      * @param[in] angle ParkingArea's angle
+     * @param[in] slope ParkingArea's slope (of this space)
      * @param[in] block movement enable or disable additional movement
      */
-    GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos, double width, double length, double angle, bool blockMovement);
+    GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos, double width, double length, double angle, double slope, bool blockMovement);
 
     /// @brief Destructor
     ~GNEParkingSpace();
@@ -133,6 +134,9 @@ protected:
 
     /// @brief Angle of Parking Space
     double myAngle;
+
+    /// @brief Slope of Parking Space
+    double mySlope;
 
 private:
     /// @brief set attribute after validation

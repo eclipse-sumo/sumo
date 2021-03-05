@@ -31,13 +31,14 @@
 // method definitions
 // ===========================================================================
 
-GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos, double width, double length, double angle, bool blockMovement) :
+GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos, double width, double length, double angle, double slope, bool blockMovement) :
     GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "", blockMovement,
 {}, {}, {}, {parkingAreaParent}, {}, {}, {}, {}),
 myPosition(pos),
 myWidth(width),
 myLength(length),
-myAngle(angle) {
+myAngle(angle),
+mySlope(slope) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -171,6 +172,8 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
             return toString(myLength);
         case SUMO_ATTR_ANGLE:
             return toString(myAngle);
+        case SUMO_ATTR_SLOPE:
+            return toString(mySlope);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_PARENT:
@@ -201,6 +204,7 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_ANGLE:
+        case SUMO_ATTR_SLOPE:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_PARENT:
         case GNE_ATTR_SELECTED:
@@ -223,6 +227,8 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LENGTH:
             return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_ANGLE:
+            return canParse<double>(value);
+        case SUMO_ATTR_SLOPE:
             return canParse<double>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
@@ -279,6 +285,11 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ANGLE:
             myAngle = parse<double>(value);
+            // update boundary
+            updateCenteringBoundary(true);
+            break;
+        case SUMO_ATTR_SLOPE:
+            mySlope = parse<double>(value);
             // update boundary
             updateCenteringBoundary(true);
             break;
