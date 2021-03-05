@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 24 10:13:07 2021 by Eclipse SUMO netconvert Version v1_8_0+1363-614b854
+<!-- generated on Fri Mar  5 10:47:08 2021 by Eclipse SUMO netconvert Version v1_8_0+1515-e589325
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -779,6 +779,9 @@
 
         <!-- Whether additional attributes shall be imported -->
         <osm.all-attributes value="false" type="BOOL"/>
+
+        <!-- List of additional attributes that shall be imported from OSM via osm.all-attributes (set &apos;all&apos; to import all) -->
+        <osm.extra-attributes value="bridge,tunnel,layer,postal_code" type="STR[]"/>
 
         <!-- The edge lengths given in the MATSIM-file will be kept -->
         <matsim.keep-length value="false" type="BOOL"/>

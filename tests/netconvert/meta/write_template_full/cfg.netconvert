@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 24 10:13:07 2021 by Eclipse SUMO netconvert Version v1_8_0+1363-614b854
+<!-- generated on Fri Mar  5 10:47:07 2021 by Eclipse SUMO netconvert Version v1_8_0+1515-e589325
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -292,6 +292,7 @@
         <osm.stop-output.length.tram value="25" type="FLOAT" help="The default length of a tram stop in FLOAT m"/>
         <osm.stop-output.length.train value="200" type="FLOAT" help="The default length of a train stop in FLOAT m"/>
         <osm.all-attributes value="false" type="BOOL" help="Whether additional attributes shall be imported"/>
+        <osm.extra-attributes value="bridge,tunnel,layer,postal_code" type="STR[]" help="List of additional attributes that shall be imported from OSM via osm.all-attributes (set &apos;all&apos; to import all)"/>
         <matsim.keep-length value="false" type="BOOL" help="The edge lengths given in the MATSIM-file will be kept"/>
         <matsim.lanes-from-capacity value="false" type="BOOL" help="The lane number will be computed from the capacity"/>
         <shapefile.street-id value="" synonymes="arcview.street-id" type="STR" help="Read edge ids from column STR"/>
