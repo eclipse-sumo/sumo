@@ -98,6 +98,7 @@ log:^Performance:{->}^Vehicles:
 log:traci.start(.*){REPLACE traci.start(ARGS)}
 log:traci.simulation.step(.*){REPLACE traci.simulationStep()}
 log:traci.simulation.close(){REPLACE traci.close()}
+log2:traci.start(.*){REPLACE traci.start(ARGS)}
 net:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
 vehroutes2:<!--{[->]}-->
