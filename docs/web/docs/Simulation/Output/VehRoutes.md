@@ -83,3 +83,18 @@ As an example, the following definition enables the device for the vehicle type 
 
 Alternatively, you can use the SUMO option **--device.vehroute.probability** to set the probability for a vehicle to generate the vehroute-output.
 For example, setting the option **--device.vehroute.probability 0.25** will equip about a quarter of the vehicles with a vehroute device (each vehicle determines this randomly with 25% probability).
+
+## Further Options
+
+- **--vehroute-output.exit-times**: Write the exit times for all edges
+- **--vehroute-output.last-route**: Only write the final route (if the vehicle was rerouted during the simulation)
+- **--vehroute-output.sorted**:     Sorts the written vehicles by departure time
+- **--vehroute-output.dua**:        Write the output in the duarouter-alternatives format
+- **--vehroute-output.cost**:       Write attribute 'cost' for all routes
+- **--vehroute-output.intended-depart**: Use the intended departure time rather than the actual departure time (in case of departure delays)
+- **--vehroute-output.route-length**: Write total route length as attribute 'length'
+- **--vehroute-output.write-unfinished**:   Write vehroute output for vehicles which have not reached their destination at the end of the simulation
+- **--vehroute-output.skip-ptlines**:  Skip vehroute output for public transport vehicles (vehicles that have a 'line' attribute)
+- **--vehroute-output.incomplete**:   Include invalid routes and route stubs (from-to) in the output
+                                        in vehroute output
+  --vehroute-output.stop-edges         Include information about edges between
