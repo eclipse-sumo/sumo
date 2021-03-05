@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar  5 10:47:08 2021 by Eclipse SUMO netconvert Version v1_8_0+1515-e589325
+<!-- generated on Fri Mar  5 16:25:34 2021 by Eclipse SUMO netconvert Version v1_8_0+1526-3d5d2c8
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -764,6 +764,9 @@
 
         <!-- Whether one-way roads should be spread to the side instead of centered -->
         <osm.oneway-spread-right value="false" type="BOOL"/>
+
+        <!-- Import lane-specific access restrictions -->
+        <osm.lane-access value="false" type="BOOL"/>
 
         <!-- The default length of a public transport stop in FLOAT m -->
         <osm.stop-output.length value="25" type="FLOAT"/>
