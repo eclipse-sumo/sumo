@@ -1173,6 +1173,8 @@ MSLCM_LC2013::_wantsChange(
                   << " lastBlocked=" << Named::getIDSecure(*lastBlocked)
                   << " leader=" << Named::getIDSecure(leader.first)
                   << " leaderGap=" << leader.second
+                  << " follower=" << Named::getIDSecure(follower.first)
+                  << " followerGap=" << follower.second
                   << " neighLead=" << Named::getIDSecure(neighLead.first)
                   << " neighLeadGap=" << neighLead.second
                   << " neighFollow=" << Named::getIDSecure(neighFollow.first)
