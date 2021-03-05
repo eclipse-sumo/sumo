@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:41 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on Fri Mar  5 10:46:42 2021 by Eclipse SUMO netconvert Version v1_8_0+1515-e589325
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -1562,7 +1562,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <edge id="-22917251" from="32266936" to="32266938" name="Teltowkanalbrücke" priority="10" type="highway.tertiary">
         <lane id="-22917251_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="56.06" shape="474.36,48.87 479.18,104.72"/>
-        <param key="bridge" value="true"/>
+        <param key="bridge" value="yes"/>
         <param key="layer" value="1"/>
     </edge>
     <edge id="-24214694" from="32266938" to="32266935" name="Wegedornstraße" priority="10" type="highway.tertiary">
@@ -1591,7 +1591,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id="22917251" from="32266938" to="32266936" name="Teltowkanalbrücke" priority="10" type="highway.tertiary">
         <lane id="22917251_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="56.06" shape="475.99,104.99 471.17,49.14"/>
-        <param key="bridge" value="true"/>
+        <param key="bridge" value="yes"/>
         <param key="layer" value="1"/>
     </edge>
     <edge id="24214694" from="32266935" to="32266938" name="Wegedornstraße" priority="10" type="highway.tertiary">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Feb 12 14:46:21 2021 by Eclipse SUMO netconvert Version v1_8_0+1146-7b4d661
+<!-- generated on Fri Mar  5 10:46:42 2021 by Eclipse SUMO netconvert Version v1_8_0+1515-e589325
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2508,7 +2508,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-143308570_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="45.47" shape="1470.11,286.62 1465.61,241.38" changeLeft="authority">
             <param key="origId" value="143308570"/>
         </lane>
-        <param key="bridge" value="true"/>
+        <param key="bridge" value="yes"/>
         <param key="layer" value="1"/>
         <param key="postal_code" value="12489"/>
     </edge>
@@ -2716,7 +2716,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="143308570_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="45.47" shape="1468.79,241.06 1473.29,286.31" changeLeft="authority">
             <param key="origId" value="143308570"/>
         </lane>
-        <param key="bridge" value="true"/>
+        <param key="bridge" value="yes"/>
         <param key="layer" value="1"/>
         <param key="postal_code" value="12489"/>
     </edge>
@@ -2730,7 +2730,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="144909695_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="149.22" shape="1067.01,273.54 1054.67,292.95 1050.49,299.09 1039.86,314.23 1006.71,351.66 970.60,385.50">
             <param key="origId" value="144909695"/>
         </lane>
-        <param key="bridge" value="true"/>
+        <param key="bridge" value="yes"/>
         <param key="layer" value="1"/>
         <param key="ref" value="A 113"/>
     </edge>
@@ -2909,7 +2909,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="22762378_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="151.46" shape="950.90,390.81 971.01,375.76 997.99,349.63 1023.82,320.79 1053.72,279.43">
             <param key="origId" value="22762378"/>
         </lane>
-        <param key="bridge" value="true"/>
+        <param key="bridge" value="yes"/>
         <param key="layer" value="1"/>
         <param key="ref" value="A 113"/>
     </edge>

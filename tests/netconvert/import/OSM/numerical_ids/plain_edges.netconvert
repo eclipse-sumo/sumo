@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:41 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on Fri Mar  5 10:46:42 2021 by Eclipse SUMO netconvert Version v1_8_0+1515-e589325
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0
 
 <edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="-22917251" from="32266936" to="32266938" name="Teltowkanalbrücke" priority="10" type="highway.tertiary" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship">
-        <param key="bridge" value="true"/>
+        <param key="bridge" value="yes"/>
         <param key="layer" value="1"/>
     </edge>
     <edge id="-24214694" from="32266938" to="32266935" name="Wegedornstraße" priority="10" type="highway.tertiary" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
@@ -63,7 +63,7 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="-5198587" from="36268392" to="36268431" name="Gustav-Kirchhoff-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="20430080" from="57343359" to="294831567" name="Rudower Chaussee" priority="10" type="highway.tertiary" numLanes="1" speed="22.22" shape="-1.27,347.46 4.55,342.53 12.54,333.63 32.95,332.62 190.22,343.97 304.73,350.90 387.65,360.32 486.97,382.40" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="22917251" from="32266938" to="32266936" name="Teltowkanalbrücke" priority="10" type="highway.tertiary" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship">
-        <param key="bridge" value="true"/>
+        <param key="bridge" value="yes"/>
         <param key="layer" value="1"/>
     </edge>
     <edge id="24214694" from="32266935" to="32266938" name="Wegedornstraße" priority="10" type="highway.tertiary" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
