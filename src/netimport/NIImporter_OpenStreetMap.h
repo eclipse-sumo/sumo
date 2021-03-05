@@ -490,6 +490,9 @@ protected:
 
         /// @brief whether additional way attributes shall be added to the edge
         bool myAllAttributes;
+        /// @brief extra attributes to import
+        std::set<std::string> myExtraAttributes;
+
 
     private:
         /** @brief invalidated copy constructor */

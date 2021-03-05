@@ -844,6 +844,12 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     mySpeedMap["UZ:rural"] = 100;
     mySpeedMap["UZ:motorway"] = 110;
     myAllAttributes = OptionsCont::getOptions().getBool("osm.all-attributes");
+    std::vector<std::string> extra = OptionsCont::getOptions().getStringVector("osm.extra-attributes");
+    myExtraAttributes.insert(extra.begin(), extra.end());
+    if (myExtraAttributes.count("all") != 0) {
+        // import all
+        myExtraAttributes.clear();
+    }
 }
 
 NIImporter_OpenStreetMap::EdgesHandler::~EdgesHandler() = default;
@@ -921,8 +927,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 key = "ignore";
             }
         }
-        if (myAllAttributes && (key == "bridge" || key == "tunnel")) {
-            myCurrentEdge->setParameter(key, "true"); // could be differentiated further if necessary
+        if (myAllAttributes && (myExtraAttributes.count(key) != 0 || myExtraAttributes.size() == 0)) {
+            const std::string info = "way=" + toString(myCurrentEdge->id) + ", k=" + key;
+            myCurrentEdge->setParameter(key, attrs.get<std::string>(SUMO_ATTR_V, info.c_str(), ok, false)); 
         }
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
         if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes")
@@ -1077,9 +1084,6 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             myCurrentEdge->ref = value;
             myCurrentEdge->setParameter("ref", value);
         } else if (key == "layer") {
-            if (myAllAttributes) {
-                myCurrentEdge->setParameter(key, value);
-            }
             try {
                 myCurrentEdge->myLayer = StringUtils::toInt(value);
             } catch (...) {
@@ -1097,8 +1101,6 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
                               toString(myCurrentEdge->id) + "'.");
             }
-        } else if (myAllAttributes && key == "postal_code") {
-            myCurrentEdge->setParameter(key, value);
         } else if (key == "railway:preferred_direction") {
             if (value == "both") {
                 myCurrentEdge->myRailDirection = WAY_BOTH;
