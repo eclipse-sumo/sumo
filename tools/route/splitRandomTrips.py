@@ -43,6 +43,8 @@ def get_options(args=None):
     optParser.add_option("-n", "--number", dest="number", help="number of trips to split")
     optParser.add_option("-a", "--output-file-a", dest="outputA", help="define the first output route file with trips")
     optParser.add_option("-b", "--output-file-b", dest="outputB", help="define the second output route file with trips")
+    optParser.add_option("--random", action="store_true", default=False, help="use a random seed to initialize the random number generator")
+    optParser.add_option("-s", "--seed", type="int", default=42, help="random seed")
     (options, args) = optParser.parse_args(args=args)
     if not options.routefile or not options.number:
         optParser.print_help()
@@ -51,6 +53,8 @@ def get_options(args=None):
 
 
 def main(options):
+    if not options.random:
+        random.seed(options.seed)
     infile = options.routefile
     # check outputs 
     if not options.outputA:
@@ -64,7 +68,10 @@ def main(options):
     # declare range [0, numTrips]
     tripsRange = range(0, len(tripsArray))
     # randomSample
-    randomSample = random.sample(tripsRange, int(options.number))
+    if (int(options.number) < len(tripsArray)):
+        randomSample = random.sample(tripsRange, int(options.number))
+    else:
+        randomSample = tripsRange
     # separate in two groups
     tripsArrayA =[]
     tripsArrayB =[]
