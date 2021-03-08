@@ -55,14 +55,14 @@ def main(options):
     infile = options.routefile
     # set default output file
     if not options.outfile:
-        outfile = infile.replace(".xml", ".parking.xml")
+        options.outfile = infile.replace(".xml", ".parking.xml")
     # declare a list with parkings
     parkings = []
     # save all parkings in a list
     for parking in sumolib.xml.parse(options.parking, "parkingArea"):
         parkings.append(parking)
     # open file
-    with open(outfile, 'w') as outf:
+    with open(options.outfile, 'w') as outf:
         # write header
         outf.write("<?xml version= \"1.0\" encoding=\"UTF-8\"?>\n\n")
         # open route rag
