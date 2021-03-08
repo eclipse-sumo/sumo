@@ -260,6 +260,38 @@ This only adds a stop at **parkingAreaA** to the vehicle with id **0_parkingArea
 Note, that the lane of that parking area must belong to one of the edges
 "e1, e2, e3" of the vehicles route.
 
+# addParkingAreaStops2Trips.py
+
+Add a stop over parking in all trips given in input file 
+
+```
+python tools/addParkingAreaStops2Trips.py -r <route-file> -p <parking-areas> -d <duration in seconds> [-o <output-file>]
+```
+
+The stop will be added to the trip route.
+
+```
+<routes>
+    <trip id="vehicle_0" depart="0.00" from="WC" to="CN"/>
+</routes>
+```
+
+```
+python tools/route/addParkingAreaStops2Routes.py -r <route-file> -p <parkings-file> -d 1800 [-o <output-file>]
+```
+
+```
+<routes>
+    <trip depart="0.00" from="WC" id="vehicle_0" to="CN">
+        <stop duration="1800" parkingArea="parkingArea_WC_3_0"/>
+    </trip>
+</routes>
+```
+
+This only adds a stop at **parkingAreaA** to the vehicle with id **0_parkingAreaA**.
+Note, that the lane of that parking area must belong to one of the edges
+"e1, e2, e3" of the vehicles route.
+
 # addStops2Routes.py
 
 Declares vehicles to stop at the end of their route.
@@ -290,7 +322,6 @@ python tools/route/addStops2Routes.py -n <net-file> -r <route-file> -t <vTyp
     </vehicle>
 </routes>
 ```
-
 
 # vehicle2flow.py
 
@@ -359,7 +390,6 @@ one, while Option u is to use the calculated max cycle length as the
 cycle length for all intersections. With Option e only the green time
 splits will be adapted.
 
-
 # implausibleRoutes.py
 
 This tool analyzes a give route file and computes a implausibility score for each route.
@@ -377,7 +407,6 @@ The implausibility score is a weighted sum of individual measures of implausibil
 The tool reports routes with an implausibility score above a given threshold.
 It can also be used to generated restrictions for [flowrouter](Detector.md#flowrouterpy).
 
-
 # addStopDelay.py
 
 This tool adds a random delay to some or all stops that have a 'duration' value by increasing the duration
@@ -389,8 +418,6 @@ The delays are sampled from a [truncated Normal distribution](https://en.wikiped
 **--mean FLOAT, --dev FLOAT, --min FLOAT, --max FLOAT**. In the special case where min=max, a fixed delay is added.
 By setting option **--probability FLOAT**, stops only receive a delay with the given probability.#
 
-
-
 # checkStopOrder.py
 
 This tool reads a [public transport schedule for vehicles or trips](../Simulation/Public_Transport.md#single_vehicles_and_trips) and checks whether the time spent at the same stop by different vehicles is overlapping. This occurence may be expected for bus lines but typically indicates a data error for a railway schedule (unless [portion working](../Simulation/Railways.md#portion_working) takes place).
@@ -400,3 +427,9 @@ python tools/route/checkStopOrder.py -r <route-file>
 
 When setting option **--stop-table STOP_ID** a time table for all vehicles that service the given `<busStop>`-id is written to standard output.
 
+# splitRandomTrips.py
+
+This tool splits a trip file in two different strip files
+```
+python tools/route/splitRandomTrips.py -r <route-file> -a <first output file> -b <second output file> -n <number of trips in second file>
+```
