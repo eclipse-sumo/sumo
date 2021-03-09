@@ -339,7 +339,6 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_NUMLANES:
             throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + getTagStr() + " isn't allowed");
-            break;
         case SUMO_ATTR_SPEED:
             if (value.empty()) {
                 attrs.erase(key);

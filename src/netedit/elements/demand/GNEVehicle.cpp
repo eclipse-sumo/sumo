@@ -1377,7 +1377,6 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                     GLHelper::setColor(getParentDemandElements().at(0)->getColor());
                     break;
                 }
-                break;
             }
             case 2: {
                 if (wasSet(VEHPARS_COLOR_SET)) {

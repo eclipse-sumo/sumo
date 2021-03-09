@@ -75,6 +75,8 @@
 
     #pragma clang diagnostic ignored "-Wsuggest-destructor-override"
 
+    #pragma clang diagnostic ignored "-Wswitch-enum"
+
     /* CLANG in Windows */
     #endif
 

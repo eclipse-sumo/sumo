@@ -575,7 +575,6 @@ MSLane::insertVehicle(MSVehicle& veh) {
             // ... and if that doesn't work, we put the vehicle to the free position
             return freeInsertion(veh, speed, posLat);
         }
-        break;
         case DepartPosDefinition::FREE:
             return freeInsertion(veh, speed, posLat);
         case DepartPosDefinition::LAST:

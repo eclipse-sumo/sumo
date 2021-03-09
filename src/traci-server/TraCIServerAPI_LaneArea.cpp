@@ -74,7 +74,6 @@ TraCIServerAPI_LaneArea::processSet(TraCIServer& server, tcpip::Storage& inputSt
                 libsumo::LaneArea::setParameter(id, name, value);
                 break;
             }
-            break;
             default:
                 break;
         }

@@ -650,7 +650,7 @@ Person::appendDrivingStage(const std::string& personID, const std::string& toEdg
         throw TraCIException("Invalid edge '" + toEdge + "' for person: '" + personID + "'");
     }
     if (lines.size() == 0) {
-        return throw TraCIException("Empty lines parameter for person: '" + personID + "'");
+        throw TraCIException("Empty lines parameter for person: '" + personID + "'");
     }
     MSStoppingPlace* bs = nullptr;
     if (stopID != "") {

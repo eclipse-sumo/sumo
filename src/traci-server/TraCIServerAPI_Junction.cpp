@@ -74,7 +74,6 @@ TraCIServerAPI_Junction::processSet(TraCIServer& server, tcpip::Storage& inputSt
                 libsumo::Junction::setParameter(id, name, value);
                 break;
             }
-            break;
             default:
                 break;
         }

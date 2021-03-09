@@ -333,7 +333,6 @@ GNEDataSet::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-            break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

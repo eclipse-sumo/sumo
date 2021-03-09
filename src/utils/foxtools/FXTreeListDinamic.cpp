@@ -59,4 +59,5 @@ FXTreeListDinamic::onLeftBtnPress(FXObject* obj, FXSelector sel, void* ptr) {
 }
 
 
-FXTreeListDinamic::FXTreeListDinamic() {}
+FXTreeListDinamic::FXTreeListDinamic() {
+}

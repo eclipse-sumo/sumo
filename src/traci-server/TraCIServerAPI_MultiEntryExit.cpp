@@ -71,7 +71,6 @@ TraCIServerAPI_MultiEntryExit::processSet(TraCIServer& server, tcpip::Storage& i
                 libsumo::MultiEntryExit::setParameter(id, name, value);
                 break;
             }
-            break;
             default:
                 break;
         }

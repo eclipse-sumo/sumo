@@ -2189,7 +2189,6 @@ GNEViewNet::onCmdLaneOperation(FXObject*, FXSelector sel, void*) {
             return removeRestrictedLane(SVC_IGNORING);
         default:
             return 0;
-            break;
     }
 }
 

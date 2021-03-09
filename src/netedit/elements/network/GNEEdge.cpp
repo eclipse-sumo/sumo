@@ -1377,7 +1377,6 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_NUMLANES:
             throw InvalidArgument("GNEEdge::setAttribute (private) called for attr SUMO_ATTR_NUMLANES. This should never happen");
-            break;
         case SUMO_ATTR_PRIORITY:
             myNBEdge->myPriority = parse<int>(value);
             break;

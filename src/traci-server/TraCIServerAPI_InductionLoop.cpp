@@ -101,7 +101,6 @@ TraCIServerAPI_InductionLoop::processSet(TraCIServer& server, tcpip::Storage& in
                 libsumo::InductionLoop::setParameter(id, name, value);
                 break;
             }
-            break;
             default:
                 break;
         }
