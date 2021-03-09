@@ -59,9 +59,7 @@
 
 #include <mesogui/GUIMEVehicleControl.h>
 
-#ifdef HAVE_OSG
 #include <osgview/GUIOSGView.h>
-#endif
 
 #define SPEEDFACTOR_SCALE 100.0
 

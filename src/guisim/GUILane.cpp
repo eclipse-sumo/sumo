@@ -53,17 +53,7 @@
 #include "GUIVehicle.h"
 #include "GUINet.h"
 #include <utils/gui/div/GUIDesigns.h>
-
-#ifdef HAVE_OSG
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable: 4275) // do not warn about the DLL interface for OSG
-#endif
-#include <osg/Geometry>
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
-#endif
+#include <osgview/GUIOSGHeader.h>
 
 //#define GUILane_DEBUG_DRAW_WALKING_AREA_VERTICES
 //#define GUILane_DEBUG_DRAW_VERTICES

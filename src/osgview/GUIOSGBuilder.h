@@ -22,21 +22,25 @@
 
 #ifdef HAVE_OSG
 
-#include <map>
 #include "GUIOSGView.h"
+
+#include <map>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 namespace osg {
-class Node;
-class Group;
-class PositionAttitudeTransform;
+    class Node;
+    class Group;
+    class PositionAttitudeTransform;
 }
+
 namespace osgUtil {
-class Tessellator;
+    class Tessellator;
 }
+
 class MSVehicleType;
 class MSEdge;
 class GUIJunctionWrapper;
@@ -70,9 +74,7 @@ private:
 
     static void setShapeState(osg::ref_ptr<osg::ShapeDrawable> shape);
 
-private:
     static std::map<std::string, osg::ref_ptr<osg::Node> > myCars;
-
 };
 
 

@@ -22,64 +22,37 @@
 
 #ifdef HAVE_OSG
 
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable: 4127) // do not warn about constant conditional expression
-#pragma warning(disable: 4275) // do not warn about the DLL interface for OSG
-#endif
-#include <osg/Version>
-#include <osgViewer/ViewerEventHandlers>
-#include <osgGA/TrackballManipulator>
-#include <osgDB/ReadFile>
-#include <osgDB/WriteFile>
-#include <osg/ShapeDrawable>
-#include <osg/Node>
-#include <osg/Group>
-#include <osg/Geode>
-#include <osg/Geometry>
-#include <osg/Sequence>
-#include <osg/Texture2D>
-#include <osgViewer/Viewer>
-#include <osgUtil/Tessellator>
-#include <osg/PositionAttitudeTransform>
-#include <osg/ShadeModel>
-#include <osg/Light>
-#include <osg/LightSource>
-#include <osg/ComputeBoundsVisitor>
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
-
-#include <microsim/MSNet.h>
+#include <guisim/GUIEdge.h>
+#include <guisim/GUIJunctionWrapper.h>
+#include <guisim/GUILane.h>
+#include <guisim/GUINet.h>
 #include <microsim/MSEdge.h>
-#include <microsim/MSLane.h>
 #include <microsim/MSEdgeControl.h>
-#include <microsim/MSJunctionControl.h>
 #include <microsim/MSJunction.h>
+#include <microsim/MSJunctionControl.h>
+#include <microsim/MSLane.h>
+#include <microsim/MSNet.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
-#include <guisim/GUIJunctionWrapper.h>
-#include <guisim/GUINet.h>
-#include <guisim/GUIEdge.h>
-#include <guisim/GUILane.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
+
 #include "GUIOSGView.h"
 #include "GUIOSGBuilder.h"
-
 
 //#define DEBUG_TESSEL
 
 // ===========================================================================
 // static member variables
 // ===========================================================================
-std::map<std::string, osg::ref_ptr<osg::Node> > GUIOSGBuilder::myCars;
 
+std::map<std::string, osg::ref_ptr<osg::Node> > GUIOSGBuilder::myCars;
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
 osg::Group*
 GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu) {
     osgUtil::Tessellator tesselator;
@@ -423,6 +396,5 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
 }
 
 #endif
-
 
 /****************************************************************************/

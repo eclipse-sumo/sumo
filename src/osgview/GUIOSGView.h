@@ -22,19 +22,9 @@
 
 #ifdef HAVE_OSG
 
+#include "GUIOSGHeader.h"
+
 #include <string>
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable: 4275) // do not warn about the DLL interface for OSG
-#endif
-#include <osgGA/TerrainManipulator>
-#include <osgViewer/Viewer>
-#include <osg/PositionAttitudeTransform>
-#include <osg/ShapeDrawable>
-#include <osg/ref_ptr>
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
@@ -47,16 +37,19 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GUINet;
 class GUISUMOViewParent;
 class GUIVehicle;
 class GUILaneWrapper;
 class MSRoute;
-namespace osgGA {
-class CameraManipulator;
-class NodeTrackerManipulator;
-}
+class MSTransportable;
+class MSVehicle;
 
+namespace osgGA {
+    class CameraManipulator;
+    class NodeTrackerManipulator;
+}
 
 // ===========================================================================
 // class definitions
@@ -84,10 +77,8 @@ public:
          */
         Command_TLSChange(const MSLink* const link, osg::Switch* switchNode);
 
-
         /// @brief Destructor
         virtual ~Command_TLSChange();
-
 
         /** @brief Executes the command
          *
@@ -96,7 +87,6 @@ public:
          *  the old traffic light and adds a new one.
          */
         void execute();
-
 
     private:
         /// @brief The link to observe
@@ -108,14 +98,12 @@ public:
         /// @brief The previous link state
         LinkState myLastState;
 
-
     private:
         /// @brief Invalidated copy constructor.
-        Command_TLSChange(const Command_TLSChange&);
+        Command_TLSChange(const Command_TLSChange&) = delete;
 
         /// @brief Invalidated assignment operator.
-        Command_TLSChange& operator=(const Command_TLSChange&);
-
+        Command_TLSChange& operator=(const Command_TLSChange&) = delete;
     };
 
     /// @brief struct for OSG movable elements
@@ -162,11 +150,9 @@ public:
      */
     void startTrack(int id);
 
-
     /** @brief Stops vehicle tracking
      */
     void stopTrack();
-
 
     /** @brief Returns the id of the tracked vehicle (-1 if none)
      * @return The glID of the vehicle to track
@@ -251,6 +237,7 @@ private:
     };
 
 protected:
+    GUIOSGView() {}
 
     osg::ref_ptr<FXOSGAdapter> myAdapter;
     osg::ref_ptr<osgViewer::Viewer> myViewer;
@@ -269,10 +256,6 @@ private:
     osg::ref_ptr<osg::Node> myYellowLight;
     osg::ref_ptr<osg::Node> myRedLight;
     osg::ref_ptr<osg::Node> myRedYellowLight;
-
-protected:
-    GUIOSGView() { }
-
 };
 
 #endif

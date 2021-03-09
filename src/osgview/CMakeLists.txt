@@ -1,4 +1,5 @@
 SET(osgview_STAT_SRCS
+   GUIOSGHeader.h
    GUIOSGBuilder.cpp
    GUIOSGBuilder.h
    GUIOSGView.cpp
