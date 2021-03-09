@@ -585,6 +585,7 @@ MSLane::insertVehicle(MSVehicle& veh) {
                 break;
             }
             FALLTHROUGH;
+            break;
         case DepartPosDefinition::BASE:
         case DepartPosDefinition::DEFAULT:
         default:
@@ -603,6 +604,7 @@ MSLane::insertVehicle(MSVehicle& veh) {
                     }
                 }
                 FALLTHROUGH;
+                break;
             }
             // no break! continue with DepartPosLatDefinition::FREE
             case DepartPosLatDefinition::FREE: {

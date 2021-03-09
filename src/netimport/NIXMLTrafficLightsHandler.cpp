@@ -93,6 +93,7 @@ NIXMLTrafficLightsHandler::myStartElement(
                 const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
                 myCurrentTL->setParameter(key, val);
             }
+            break;
         default:
             break;
     }

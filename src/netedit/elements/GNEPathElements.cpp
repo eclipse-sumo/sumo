@@ -167,13 +167,13 @@ GNEPathElements::drawJunctionPathChildren(const GUIVisualizationSettings& s, con
 // ---------------------------------------------------------------------------
 
 void
-GNEPathElements::calculatePathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*>& /* viaEdges */) {
+GNEPathElements::calculatePathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*>& viaEdges) {
     // check if from and to lane are valid
     if (fromLane && toLane) {
         // remove path elements from lanes and junctions
         removeElements();
         // get from-via-to edges
-        const std::vector<GNEEdge*> edges = calculateFromViaToEdges(fromLane, toLane, edges);
+        const std::vector<GNEEdge*> edges = calculateFromViaToEdges(fromLane, toLane, viaEdges);
         // calculate path
         const std::vector<GNEEdge*> path = myDemandElement->getNet()->getPathCalculator()->calculatePath(vClass, edges);
         // set new path lanes
@@ -241,13 +241,13 @@ GNEPathElements::calculateConsecutivePathLanes(const std::vector<GNELane*>& lane
 
 
 void
-GNEPathElements::resetPathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*>& /* viaEdges */) {
+GNEPathElements::resetPathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*>& viaEdges) {
     // check if from and to lane are valid
     if (fromLane && toLane) {
         // remove path elements from lanes and junctions
         removeElements();
         // get from-via-to edges
-        const std::vector<GNEEdge*> edges = calculateFromViaToEdges(fromLane, toLane, edges);
+        const std::vector<GNEEdge*> edges = calculateFromViaToEdges(fromLane, toLane, viaEdges);
         // set new route lanes
         myPathElements.clear();
         // use edges as path elements

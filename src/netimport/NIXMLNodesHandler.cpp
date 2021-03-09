@@ -92,6 +92,7 @@ NIXMLNodesHandler::myStartElement(int element,
                 const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
                 myLastParameterised->setParameter(key, val);
             }
+            break;
         default:
             break;
     }

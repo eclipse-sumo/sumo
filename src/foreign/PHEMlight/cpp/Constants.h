@@ -20,19 +20,17 @@
 ///
 //
 /****************************************************************************/
-
-
-#ifndef PHEMlightCONSTANTS
-#define PHEMlightCONSTANTS
+#pragma once
+#include <config.h>
 
 #include <string>
 
-#define FLEET
 
 namespace PHEMlightdll {
     class Constants {
-        //Calculation constant
+        
     public:
+        // Calculation constant
         static const double GRAVITY_CONST;
         static const double AIR_DENSITY_CONST;
         static const double NORMALIZING_SPEED;
@@ -42,11 +40,10 @@ namespace PHEMlightdll {
         static const double DRIVE_TRAIN_EFFICIENCY_All;
         static const double DRIVE_TRAIN_EFFICIENCY_CB;
 
-
-        //Strings
+        // Strings
         static const std::string HeavyVehicle;
 
-        //Vehiclestrings
+        // Vehiclestrings
         static const std::string strPKW;
         static const std::string strLNF;
         static const std::string strLKW;
@@ -57,7 +54,7 @@ namespace PHEMlightdll {
         static const std::string strMR4;
         static const std::string strKKR;
 
-        //Fuelstrings
+        // Fuelstrings
         static const std::string strGasoline;
         static const std::string strDiesel;
         static const std::string strCNG;
@@ -65,22 +62,22 @@ namespace PHEMlightdll {
         static const std::string strHybrid;
         static const std::string strBEV;
 
-        //Euroclasses
+        // Euroclasses
         static const std::string strEU;
 
-        //Sizeclasse
+        // Sizeclasse
         static const std::string strSI;
         static const std::string strSII;
         static const std::string strSIII;
 
-
-        //Drive train efficiency
-        static double _DRIVE_TRAIN_EFFICIENCY;
+        /// @brief get drive train efficiency
         const static double&  getDRIVE_TRAIN_EFFICIENCY();
+
+        /// @brief set drive train efficiency
         static void setDRIVE_TRAIN_EFFICIENCY(const double&  value);
 
+    private:
+        // Drive train efficiency
+        static double myDRIVE_TRAIN_EFFICIENCY;
     };
 }
-
-
-#endif	//#ifndef PHEMlightCONSTANTS

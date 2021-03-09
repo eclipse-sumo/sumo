@@ -90,6 +90,7 @@ ShapeHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                         }
                     }
                 }
+                break;
             default:
                 break;
         }

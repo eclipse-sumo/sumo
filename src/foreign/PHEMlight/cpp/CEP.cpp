@@ -198,21 +198,21 @@ namespace PHEMlightdll {
     }
 
     double CEP::CalcPower(double speed, double acc, double gradient) {
-        //Declaration
+        // Declaration
         double power = 0;
         double rotFactor = GetRotationalCoeffecient(speed);
         double powerAux = (_auxPower * _ratedPower);
 
-        //Calculate the power
+        // Calculate the power
         power += (_massVehicle + _vehicleLoading) * Constants::GRAVITY_CONST * (_resistanceF0 + _resistanceF1 * speed + _resistanceF4 * std::pow(speed, 4)) * speed;
         power += (_crossSectionalArea * _cWValue * Constants::AIR_DENSITY_CONST / 2) * std::pow(speed, 3);
         power += (_massVehicle * rotFactor + _vehicleMassRot + _vehicleLoading) * acc * speed;
         power += (_massVehicle + _vehicleLoading) * Constants::GRAVITY_CONST * gradient * 0.01 * speed;
         power /= 1000;
-        power /= Constants::_DRIVE_TRAIN_EFFICIENCY;
+        power /= Constants::getDRIVE_TRAIN_EFFICIENCY();
         power += powerAux;
 
-        //Return result
+        // Return result
         return power;
     }
 

@@ -34,7 +34,7 @@ extern "C" {
 
 enum FONSflags {
 	FONS_ZERO_TOPLEFT = 1,
-	FONS_ZERO_BOTTOMLEFT = 2,
+	FONS_ZERO_BOTTOMLEFT = 2
 };
 
 enum FONSalign {
@@ -46,7 +46,7 @@ enum FONSalign {
 	FONS_ALIGN_TOP 		= 1<<3,
 	FONS_ALIGN_MIDDLE	= 1<<4,
 	FONS_ALIGN_BOTTOM	= 1<<5,
-	FONS_ALIGN_BASELINE	= 1<<6, // Default
+	FONS_ALIGN_BASELINE	= 1<<6	// Default
 };
 
 enum FONSerrorCode {
@@ -57,7 +57,7 @@ enum FONSerrorCode {
 	// Calls to fonsPushState has created too large stack, if you need deep state stack bump up FONS_MAX_STATES.
 	FONS_STATES_OVERFLOW = 3,
 	// Trying to pop too many states fonsPopState().
-	FONS_STATES_UNDERFLOW = 4,
+	FONS_STATES_UNDERFLOW = 4
 };
 
 struct FONSparams {

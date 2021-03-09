@@ -544,6 +544,7 @@ GNEAttributeCarrier::getAlternativeValueForDisabledAttributes(SumoXMLAttr key) c
                 }
             }
             FALLTHROUGH;
+            break;
         default:
             return getAttribute(key);
     }

@@ -483,6 +483,7 @@ MSEdge::getDepartPosBound(const MSVehicle& veh, bool upper) const {
             } else {
                 pos = 0;
             }
+            break;
         case DepartPosDefinition::BASE:
         case DepartPosDefinition::DEFAULT:
             break;

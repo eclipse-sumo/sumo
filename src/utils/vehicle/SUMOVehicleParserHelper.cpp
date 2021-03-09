@@ -1019,6 +1019,7 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into, const Sumo
                                     WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Must be greater than 0");
                                 }
                             }
+                            break;
                         default:
                             break;
                     }
@@ -1033,6 +1034,7 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into, const Sumo
                                     WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Only values between [0-1] are allowed");
                                 }
                             }
+                            break;
                         default:
                             break;
                     }
@@ -1348,6 +1350,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
                                 WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Must be equal or greater than 0");
                             }
                         }
+                        break;
                     default:
                         break;
                 }
@@ -1362,6 +1365,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
                                 WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Must be greater than 0");
                             }
                         }
+                        break;
                     default:
                         break;
                 }

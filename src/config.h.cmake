@@ -76,6 +76,10 @@
     #pragma clang diagnostic ignored "-Wsuggest-destructor-override"
 
     #pragma clang diagnostic ignored "-Wswitch-enum"
+	
+	#pragma clang diagnostic ignored "-Wglobal-constructors"
+	
+	#pragma clang diagnostic ignored "-Wexit-time-destructors"
 
     /* CLANG in Windows */
     #endif
