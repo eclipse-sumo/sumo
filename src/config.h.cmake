@@ -71,6 +71,10 @@
 
     #pragma clang diagnostic ignored "-Winconsistent-missing-destructor-override"
 
+    #pragma clang diagnostic ignored "-Wsuggest-override"
+
+    #pragma clang diagnostic ignored "-Wsuggest-destructor-override"
+
     /* CLANG in Windows */
     #endif
 

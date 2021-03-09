@@ -19,8 +19,14 @@
 /****************************************************************************/
 #pragma once
 
-/* Avoid warnings for external headers in MSVC */
+
+// Avoid warnings for external headers in MSVC
 #ifdef _MSC_VER
+    // avoid warnings in clang
+    #ifdef __clang__
+    #pragma clang system_header
+    #endif
+
     #pragma warning(push, 0)
     #include <fx.h>
     #pragma warning(pop)
