@@ -270,7 +270,7 @@ NLHandler::myStartElement(int element,
             }
             case SUMO_TAG_PREDECESSOR: // intended fall-through
             case SUMO_TAG_INSERTION_PREDECESSOR:
-                addPredecessorConstraint(element, attrs);
+                addPredecessorConstraint(element, attrs, myConstrainedSignal);
                 break;
             default:
                 break;
@@ -1543,8 +1543,8 @@ NLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, 
 
 
 void
-NLHandler::addPredecessorConstraint(int element, const SUMOSAXAttributes& attrs) {
-    if (myConstrainedSignal == nullptr) {
+NLHandler::addPredecessorConstraint(int element, const SUMOSAXAttributes& attrs, MSRailSignal* rs) {
+    if (rs == nullptr) {
         throw InvalidArgument("Rail signal '" + toString((SumoXMLTag)element) + "' constraint must occur within a railSignalConstraints element");
     }
     bool ok = true;
@@ -1565,9 +1565,9 @@ NLHandler::addPredecessorConstraint(int element, const SUMOSAXAttributes& attrs)
         for (const std::string& foe : foes) {
             MSRailSignalConstraint* c = new MSRailSignalConstraint_Predecessor(signal, foe, limit);
             if (element == SUMO_TAG_PREDECESSOR) {
-                myConstrainedSignal->addConstraint(tripId, c);
+                rs->addConstraint(tripId, c);
             } else if (element == SUMO_TAG_INSERTION_PREDECESSOR) {
-                myConstrainedSignal->addInsertionConstraint(tripId, c);
+                rs->addInsertionConstraint(tripId, c);
             } else {
                 throw InvalidArgument("Unsupported rail signal constraint '" + toString((SumoXMLTag)element) + "'");
             }

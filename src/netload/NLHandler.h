@@ -248,7 +248,7 @@ private:
     virtual void openWAUT(const SUMOSAXAttributes& attrs);
     void addWAUTSwitch(const SUMOSAXAttributes& attrs);
     void addWAUTJunction(const SUMOSAXAttributes& attrs);
-    void addPredecessorConstraint(int element, const SUMOSAXAttributes& attrs);
+    static void addPredecessorConstraint(int element, const SUMOSAXAttributes& attrs, MSRailSignal* rs);
 
     /// Parses network location description
     void setLocation(const SUMOSAXAttributes& attrs);
