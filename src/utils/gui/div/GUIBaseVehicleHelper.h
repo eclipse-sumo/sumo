@@ -38,8 +38,8 @@ class GUIGlObject;
  * @brief A MSVehicle extended by some values for usage within the gui
  */
 class GUIBaseVehicleHelper {
-public:
 
+public:
     /// @brief draw poly
     static void drawPoly(const double* poses, const double offset);
 
@@ -58,7 +58,7 @@ public:
 
     /**@brief try to draw vehicle as raster image and return true if sucessful
      * @param[in] length The custom length of the vehicle
-    */
+     */
     static bool drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, const std::string& file,
             const GUIGlObject* o, const double width, double length);
 };
