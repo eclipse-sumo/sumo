@@ -53,6 +53,7 @@
 #include "GUIVehicle.h"
 #include "GUINet.h"
 #include <utils/gui/div/GUIDesigns.h>
+
 #include <osgview/GUIOSGHeader.h>
 
 //#define GUILane_DEBUG_DRAW_WALKING_AREA_VERTICES

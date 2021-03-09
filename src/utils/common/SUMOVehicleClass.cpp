@@ -77,7 +77,7 @@ static StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitialize
 };
 
 
-static StringBijection<SUMOVehicleClass> SumoVehicleClassStrings(
+StringBijection<SUMOVehicleClass> SumoVehicleClassStrings(
     sumoVehicleClassStringInitializer, SVC_CUSTOM2, false);
 
 

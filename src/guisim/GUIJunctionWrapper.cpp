@@ -25,7 +25,6 @@
 
 #include <string>
 #include <utility>
-#include <osgview/GUIOSGHeader.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSJunction.h>
@@ -45,6 +44,8 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+
+#include <osgview/GUIOSGHeader.h>
 
 //#define GUIJunctionWrapper_DEBUG_DRAW_NODE_SHAPE_VERTICES
 
