@@ -16,6 +16,10 @@ Railways can be imported from
 [OSM](../Networks/Import/OpenStreetMap.md). They can also be
 explicitly specified using the existing *vClasses*.
 
+### Parallel Tracks
+If a railway has parallel tracks, these must be modelled as distinct edge
+elements instead of a single edge with multiple "lanes".
+
 ### OSM
 
 #### Types
@@ -93,6 +97,16 @@ will be show).
   attribute *bidi* with a value of *1*
 - Create bidirectional tracks [as explained
   here](../Netedit/index.md#creating_bidirectional_railway_tracks)
+
+### Routing in bidirectional networks
+When computing train routes in a network with parallel tracks which are usable in both directions it may be
+desireable to have tracks use one track in preferation (i.e. to always keep on
+the right side) and thereby prevent issuse between oncoming trains.
+
+To express this preference, the edges in the preferred direction and on the
+preferred side may be assigned a higher priority value. This value will be taken
+into account when setting option **--weights.priority-factor** which applies to
+[sumo](../sumo.md) and [duarouter](../duarouter.md).
 
 ### Importing bidirectional tracks from OSM
 
