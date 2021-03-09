@@ -48,7 +48,7 @@
 
 
 Command* MSTractionSubstation::myCommandForSolvingCircuit = nullptr;
-std::mutex ow_mutex;
+static std::mutex ow_mutex;
 
 // ===========================================================================
 // member method definitions

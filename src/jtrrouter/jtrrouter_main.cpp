@@ -54,9 +54,17 @@
 #include "ROJTRTurnDefLoader.h"
 #include "ROJTRFrame.h"
 
+// ===========================================================================
+// method declaration
+// ===========================================================================
+
+void initNet(RONet& net, ROLoader& loader, const std::vector<double>& turnDefs);
+std::vector<double> getTurningDefaults(OptionsCont& oc);
+void loadJTRDefinitions(RONet& net, OptionsCont& oc);
+void computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc);
 
 // ===========================================================================
-// functions
+// method implementation
 // ===========================================================================
 /* -------------------------------------------------------------------------
  * data processing methods
@@ -163,10 +171,10 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     net.cleanup();
 }
 
+// -----------------------------------------------------------------------
+// main
+// -----------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * main
- * ----------------------------------------------------------------------- */
 int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();

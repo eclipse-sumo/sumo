@@ -80,9 +80,9 @@ void APIENTRY combineCallback(GLdouble coords[3],
     *dataOut = vertex;
 }
 
-GLfloat INV_POLY_TEX_DIM = 1.0 / 256.0;
-GLfloat xPlane[] = {INV_POLY_TEX_DIM, 0.0, 0.0, 0.0};
-GLfloat yPlane[] = {0.0, INV_POLY_TEX_DIM, 0.0, 0.0};
+static const GLfloat INV_POLY_TEX_DIM = 1.0 / 256.0;
+static const GLfloat xPlane[] = {INV_POLY_TEX_DIM, 0.0, 0.0, 0.0};
+static const GLfloat yPlane[] = {0.0, INV_POLY_TEX_DIM, 0.0, 0.0};
 
 // ===========================================================================
 // method definitions

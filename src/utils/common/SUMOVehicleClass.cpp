@@ -38,7 +38,7 @@
 // static members
 // ===========================================================================
 
-StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitializer[] = {
+static StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitializer[] = {
     {"ignoring",          SVC_IGNORING},
     {"private",           SVC_PRIVATE},
     {"public_emergency",  SVC_EMERGENCY}, // !!! deprecated
@@ -76,14 +76,15 @@ StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitializer[] = {
     {"custom2",           SVC_CUSTOM2}
 };
 
-StringBijection<SUMOVehicleClass> SumoVehicleClassStrings(
+
+static StringBijection<SUMOVehicleClass> SumoVehicleClassStrings(
     sumoVehicleClassStringInitializer, SVC_CUSTOM2, false);
 
 
 std::set<std::string> deprecatedVehicleClassesSeen;
 
 
-StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitializer[] = {
+static StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitializer[] = {
     {"pedestrian",            SVS_PEDESTRIAN},
     {"bicycle",               SVS_BICYCLE},
     {"moped",                 SVS_MOPED},

@@ -51,10 +51,18 @@
 #include <utils/xml/XMLSubSys.h>
 #include <utils/iodevices/OutputDevice.h>
 
+// ===========================================================================
+// method declaration
+// ===========================================================================
+
+void fillOptions();
+bool checkOptions();
+NGNet* buildNetwork(NBNetBuilder & nb);
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 void
 fillOptions() {
     OptionsCont& oc = OptionsCont::getOptions();

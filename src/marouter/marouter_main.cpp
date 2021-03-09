@@ -69,9 +69,20 @@
 #include "ROMARouteHandler.h"
 #include "ROMAEdge.h"
 
+// ===========================================================================
+// method declaration
+// ===========================================================================
+
+void initNet(RONet& net, ROLoader& loader, OptionsCont& oc);
+double getTravelTime(const ROEdge* const edge, const ROVehicle* const veh, double time);
+void computeAllPairs(RONet& net, OptionsCont& oc);
+void writeInterval(OutputDevice & dev, const SUMOTime begin, const SUMOTime end, const RONet & net, const ROVehicle* const veh);
+void writeInterval(OutputDevice & dev, const SUMOTime begin, const SUMOTime end, const RONet & net, const ROVehicle* const veh);
+void computeRoutes(RONet & net, OptionsCont & oc, ODMatrix & matrix);
+
 
 // ===========================================================================
-// functions
+// Method implementation
 // ===========================================================================
 /* -------------------------------------------------------------------------
  * data processing methods

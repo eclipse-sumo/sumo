@@ -89,9 +89,9 @@ private:
     static double myT_B_C3_Parameter[27];
     /// @}
 
-
     /// @brief A-weighted correction for octave bands
-    static double myAOctaveBandCorrection[27];
+    static const double myAOctaveBandCorrection[27];
 
-
+    /// @brief A-weighted correction for surface
+    static const double mySurfaceCorrection[27];
 };

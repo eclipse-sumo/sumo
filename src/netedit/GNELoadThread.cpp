@@ -165,9 +165,6 @@ GNELoadThread::run() {
             net = nullptr;
         } catch (std::exception& e) {
             WRITE_ERROR(e.what());
-#ifdef _DEBUG
-            throw;
-#endif
             delete net;
             delete netBuilder;
             net = nullptr;

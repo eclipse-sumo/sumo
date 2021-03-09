@@ -247,8 +247,10 @@ GUIApplicationWindow::dependentBuild() {
     new FXToolBarGrip(myMenuBar, myMenuBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     buildToolBars();
     // build the thread - io
-    myLoadThreadEvent.setTarget(this),  myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
-    myRunThreadEvent.setTarget(this), myRunThreadEvent.setSelector(ID_RUNTHREAD_EVENT);
+    myLoadThreadEvent.setTarget(this);
+    myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
+    myRunThreadEvent.setTarget(this);
+    myRunThreadEvent.setSelector(ID_RUNTHREAD_EVENT);
 
     // build the status bar
     myStatusbar = new FXStatusBar(this, GUIDesignStatusBar);

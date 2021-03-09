@@ -36,7 +36,7 @@
 
 using namespace std;
 
-std::mutex circuit_lock;
+static std::mutex circuit_lock;
 
 Node* Circuit::addNode(string name) {
     if (getNode(name) != nullptr) {

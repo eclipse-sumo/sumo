@@ -32,7 +32,7 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-StringBijection<NBSign::SignType>::Entry signTypeStringsInitializer[] = {
+static StringBijection<NBSign::SignType>::Entry signTypeStringsInitializer[] = {
     {"speed limit",       NBSign::SIGN_TYPE_SPEED},
     {"yield",             NBSign::SIGN_TYPE_YIELD},
     {"stop",              NBSign::SIGN_TYPE_STOP},
