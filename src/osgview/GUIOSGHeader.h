@@ -29,6 +29,10 @@
 
 // avoid certain warnings in MSVC
 #ifdef _MSC_VER
+    // avoid warnings in clang
+    #ifdef __clang__
+    #pragma clang system_header
+    #endif
 #pragma warning(push)
 #pragma warning(disable: 4127) // do not warn about constant conditional expression
 #pragma warning(disable: 4275) // do not warn about the DLL interface for OSG
