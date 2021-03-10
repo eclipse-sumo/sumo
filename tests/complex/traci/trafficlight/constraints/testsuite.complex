@@ -3,3 +3,7 @@ getConstraints
 
 # reverse constraint-based train order and adapt other constraints to avoid deadlock
 swapConstraints
+
+# reverse constraint-based train order and adapt other constraints to avoid deadlock.
+# loadState before swap and then swap again
+swapConstraints_loadState
