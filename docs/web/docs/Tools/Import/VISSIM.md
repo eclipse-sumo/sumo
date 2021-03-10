@@ -39,7 +39,7 @@ ermöglichen.
 Der Aufruf von `netconvert` für VISSIM-Netze erfolgt über:
 
 ```
-netconvert –vissim-file=<VISSIM_FILE –output-file=MySUMOFile.net.xml
+netconvert –-vissim-file=<VISSIM_FILE –-output-file=MySUMOFile.net.xml
 ```
 
 Die Unterscheidung, ob es sich um ein VISSIM-Netz im neuen `inpx`- oder
