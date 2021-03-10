@@ -147,12 +147,15 @@ The attributes within the stages have the following meaning:
 
 | Name        | Type                 | Description                                                                                                                      |
 | ----------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `depart`      | (simulation) seconds | The departure time for this stage. For `<ride>,<transport>`, this is the time where the vehicle is entered.                   |
-| `arrival`     | (simulation) seconds | The arrival time for this stage N.B. In stop stages this is the time at which the stage ends i.e. after the duration time period |
+| `depart`      | (simulation) seconds | The departure time for this stage. For `<ride>,<transport>`, this is the time where the vehicle is entered.                    (-1 if the vehicl wasn't entered) |
+| `arrival`     | (simulation) seconds | The arrival time for this stage N.B. In stop stages this is the time at which the stage ends i.e. after the duration time period (-1 if the stage did not start) |
 | `arrivalPos`  | m                    | The arrival position on the destination edge for this stage                                                                      |
-| `duration`    | (simulation) seconds | The time spent at a stop                                                                                                         |
+| `duration`    | (simulation) seconds | The time spent in that stage (-1 if the stage did not start)                                                                                                         |
 | `actType`     | string               | The activity description of a stop                                                                                               |
 | `waitingTime` | (simulation) seconds | The time spent waiting for a vehicle                                                                                             |
+| `routeLength` | m | the distance travelled in that stage|
+| `timeLoss` | s | the time lost due to travelling at speed below the maximum speed in that stage. For a `<ride>` this is the timeLoss of the vehicle during the ride|
+| `maxSpeed` | s | the maximum speed permitted in that stage|
 
 ## Aggregated Output
 
