@@ -60,3 +60,6 @@ maneuver_reroute
 
 # parkingReroute is triggered on the insertion edge, insertion is delayed. Should not crash (#6705)
 reroute_insertion_delayed
+
+# test slope for parking vehicles 
+roadside_slope

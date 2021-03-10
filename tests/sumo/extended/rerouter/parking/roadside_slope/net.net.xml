@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 10 Mar 2021 11:20:13 AM CET by Eclipse SUMO netedit Version v1_8_0+1556-b327afb
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-362563.54,-4832311.19" convBoundary="654.41,92.53,748.05,382.54" origBoundary="13.296064,43.631354,13.321826,43.642858" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="a" from="12" to="14" name="Via Montespirello" priority="60" type="strada.doppiosenso.50" shape="654.41,92.53,57.00 701.35,237.92,100.00 748.05,382.54,51.00">
+        <lane id="a_0" index="0" speed="13.89" length="318.39" shape="658.98,91.06,57.00 705.92,236.45,100.00 752.62,381.07,51.00"/>
+        <lane id="a_1" index="1" speed="13.89" length="318.39" shape="655.93,92.04,57.00 702.87,237.43,100.00 749.57,382.05,51.00"/>
+    </edge>
+
+    <junction id="12" type="dead_end" x="654.41" y="92.53" z="57.00" incLanes="" intLanes="" shape="654.41,92.53,57.00 660.50,90.56,57.00"/>
+    <junction id="14" type="dead_end" x="748.05" y="382.54" z="51.00" incLanes="a_0 a_1" intLanes="" shape="754.14,380.57,51.00 748.05,382.54,51.00"/>
+
+</net>
