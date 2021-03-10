@@ -15,6 +15,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Johannes Rummel
 /// @date    Wed, 07.12.2005
 ///
 // A lane area vehicles can halt at (gui-version)
@@ -23,6 +24,7 @@
 
 #include <string>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/geom/Boundary.h>
 #include <utils/gui/div/GLHelper.h>
@@ -53,8 +55,9 @@
 // method definitions
 // ===========================================================================
 GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
-                       double frompos, double topos, const std::string name, int personCapacity, double parkingLength) :
-    MSStoppingPlace(id, lines, lane, frompos, topos, name, personCapacity, parkingLength),
+                       double frompos, double topos, const std::string name, int personCapacity,
+                       double parkingLength, const RGBColor& color) :
+    MSStoppingPlace(id, lines, lane, frompos, topos, name, personCapacity, parkingLength, color),
     GUIGlObject_AbstractAdd(GLO_BUS_STOP, id),
     myPersonExaggeration(1) {
     const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
@@ -157,7 +160,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     // draw the area
     glTranslated(0, 0, getType());
-    GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
+    GLHelper::setColor(getColor());
     const double exaggeration = s.addSize.getExaggeration(s, this);
     const double offset = myWidth * 0.5 * MAX2(0.0, exaggeration - 1);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, myWidth * 0.5 * exaggeration, 0, offset);
@@ -182,7 +185,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // pop matrix for every line
             glPopMatrix();
         }
-        GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
+        GLHelper::setColor(getColor());
         for (std::vector<Position>::const_iterator i = myAccessCoords.begin(); i != myAccessCoords.end(); ++i) {
             GLHelper::drawBoxLine(*i, RAD2DEG(myFGSignPos.angleTo2D(*i)) - 90, myFGSignPos.distanceTo2D(*i), .05);
         }

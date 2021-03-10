@@ -14,6 +14,7 @@
 /// @file    GUIContainerStop.h
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
+/// @author  Johannes Rummel
 /// @date    Wed, 01.08.2014
 ///
 // A lane area vehicles can halt at (gui-version)
@@ -25,6 +26,7 @@
 #include <string>
 #include <utils/common/Command.h>
 #include <utils/common/VectorHelper.h>
+#include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
 #include <microsim/MSStoppingPlace.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -69,7 +71,7 @@ public:
     GUIContainerStop(const std::string& id,
                      const std::vector<std::string>& lines, MSLane& lane,
                      double frompos, double topos, const std::string& name,
-                     int containerCapacity, double parkingLength);
+                     int containerCapacity, double parkingLength, const RGBColor& color);
 
 
     /// @brief Destructor

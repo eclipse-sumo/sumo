@@ -18,6 +18,7 @@
 /// @author  Eric Nicolay
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
+/// @author  Johannes Rummel
 /// @date    Thu, 17 Oct 2002
 ///
 // Builds trigger objects for microsim
@@ -42,6 +43,8 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/WrappingCommand.h>
+#include <utils/common/RGBColor.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/options/OptionsCont.h>
 #include "NLHandler.h"
 #include "NLTriggerBuilder.h"
@@ -486,6 +489,21 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
     //get the name, leave blank if not given
     const std::string ptStopName = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
 
+    //get the color, use default if not given
+    RGBColor defaultColor;
+    switch (element) {
+    case SUMO_TAG_BUS_STOP:
+    case SUMO_TAG_TRAIN_STOP:
+        // default color, copy from GUIVisualizationSettings: GUIVisualizationStoppingPlaceSettings::busStopColor
+        defaultColor = RGBColor(76, 170, 50);
+        break;
+    case SUMO_TAG_CONTAINER_STOP:
+        // default color, copy from GUIVisualizationSettings: GUIVisualizationStoppingPlaceSettings::containerStopColor
+        defaultColor = RGBColor(83, 89, 172);
+        break;
+    }
+    RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok, defaultColor);
+
     MSLane* lane = getLane(attrs, toString(element), id);
     // get the positions
     double frompos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
@@ -499,7 +517,7 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
     const int personCapacity = attrs.getOpt<int>(SUMO_ATTR_PERSON_CAPACITY, id.c_str(), ok, defaultCapacity);
     const double parkingLength = attrs.getOpt<double>(SUMO_ATTR_PARKING_LENGTH, id.c_str(), ok, 0);
     // build the bus stop
-    buildStoppingPlace(net, id, lines, lane, frompos, topos, element, ptStopName, personCapacity, parkingLength);
+    buildStoppingPlace(net, id, lines, lane, frompos, topos, element, ptStopName, personCapacity, parkingLength, color);
 }
 
 
@@ -741,8 +759,9 @@ NLTriggerBuilder::buildRerouter(MSNet&, const std::string& id,
 
 void
 NLTriggerBuilder::buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
-                                     double frompos, double topos, const SumoXMLTag element, std::string ptStopName, int personCapacity, double parkingLength) {
-    myCurrentStop = new MSStoppingPlace(id, lines, *lane, frompos, topos, ptStopName, personCapacity, parkingLength);
+                                     double frompos, double topos, const SumoXMLTag element, std::string ptStopName,
+                                     int personCapacity, double parkingLength, RGBColor& color) {
+    myCurrentStop = new MSStoppingPlace(id, lines, *lane, frompos, topos, ptStopName, personCapacity, parkingLength, color);
     if (!net.addStoppingPlace(element, myCurrentStop)) {
         delete myCurrentStop;
         myCurrentStop = nullptr;

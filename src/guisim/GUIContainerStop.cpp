@@ -14,6 +14,7 @@
 /// @file    GUIContainerStop.cpp
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
+/// @author  Johannes Rummel
 /// @date    Wed, 01.08.2014
 ///
 // A lane area vehicles can halt at (gui-version)
@@ -22,6 +23,7 @@
 
 #include <string>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/geom/Boundary.h>
 #include <utils/gui/div/GLHelper.h>
@@ -50,8 +52,9 @@
 // method definitions
 // ===========================================================================
 GUIContainerStop::GUIContainerStop(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
-                                   double frompos, double topos, const std::string& name, int containerCapacity, double parkingLength) :
-    MSStoppingPlace(id, lines, lane, frompos, topos, name, containerCapacity, parkingLength),
+                                   double frompos, double topos, const std::string& name, int containerCapacity,
+                                   double parkingLength, const RGBColor& color) :
+    MSStoppingPlace(id, lines, lane, frompos, topos, name, containerCapacity, parkingLength, color),
     GUIGlObject_AbstractAdd(GLO_CONTAINER_STOP, id) {
     const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
     myFGShape = lane.getShape();
@@ -120,7 +123,7 @@ GUIContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     // draw the area
     glTranslated(0, 0, getType());
-    GLHelper::setColor(s.stoppingPlaceSettings.containerStopColor);
+    GLHelper::setColor(getColor());
     const double exaggeration = s.addSize.getExaggeration(s, this);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, 1.0);
     // draw details unless zoomed out to far
@@ -136,7 +139,7 @@ GUIContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
             glRotated(rotSign * myFGSignRot, 0, 0, 1);
             // draw line
-            GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.stoppingPlaceSettings.containerStopColor, 0, FONS_ALIGN_LEFT);
+            GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, getColor(), 0, FONS_ALIGN_LEFT);
             // pop matrix for every line
             glPopMatrix();
         }

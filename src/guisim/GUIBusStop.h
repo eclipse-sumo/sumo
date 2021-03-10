@@ -15,6 +15,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Johannes Rummel
 /// @date    Wed, 07.12.2005
 ///
 // A lane area vehicles can halt at (gui-version)
@@ -26,6 +27,7 @@
 #include <string>
 #include <utils/common/Command.h>
 #include <utils/common/VectorHelper.h>
+#include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
 #include <microsim/MSStoppingPlace.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -70,7 +72,7 @@ public:
     GUIBusStop(const std::string& id,
                const std::vector<std::string>& lines, MSLane& lane,
                double frompos, double topos, const std::string name,
-               int personCapacity, double parkingLength);
+               int personCapacity, double parkingLength, const RGBColor& color);
 
 
     /// @brief Destructor

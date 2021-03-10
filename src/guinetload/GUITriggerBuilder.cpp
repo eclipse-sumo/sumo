@@ -15,6 +15,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Johannes Rummel
 /// @date    Mon, 26.04.2004
 ///
 // Builds trigger objects for guisim
@@ -23,6 +24,7 @@
 
 #include <string>
 #include <fstream>
+#include <utils/common/RGBColor.h>
 #include <guisim/GUILaneSpeedTrigger.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUITriggeredRerouter.h>
@@ -70,12 +72,12 @@ GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
 void
 GUITriggerBuilder::buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
                                       double frompos, double topos, const SumoXMLTag element, std::string name,
-                                      int personCapacity, double parkingLength) {
+                                      int personCapacity, double parkingLength, RGBColor& color) {
     if (element == SUMO_TAG_CONTAINER_STOP) {
         //TODO: shall we also allow names for container stops? might make sense [GL March '17]
-        myCurrentStop = new GUIContainerStop(id, lines, *lane, frompos, topos, name, personCapacity, parkingLength);
+        myCurrentStop = new GUIContainerStop(id, lines, *lane, frompos, topos, name, personCapacity, parkingLength, color);
     } else {
-        myCurrentStop = new GUIBusStop(id, lines, *lane, frompos, topos, name, personCapacity, parkingLength);
+        myCurrentStop = new GUIBusStop(id, lines, *lane, frompos, topos, name, personCapacity, parkingLength, color);
     }
     if (!net.addStoppingPlace(element, myCurrentStop)) {
         delete myCurrentStop;

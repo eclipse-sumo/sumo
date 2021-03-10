@@ -24,3 +24,6 @@ long_bus_at_busstop
 
 # define stop one edge
 stop_edge
+
+# A bus stopping at a bus stop with a user defined color.
+busstop_change_color

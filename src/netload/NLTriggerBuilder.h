@@ -26,6 +26,7 @@
 
 #include <string>
 #include <vector>
+#include <utils/common/RGBColor.h>
 
 
 // ===========================================================================
@@ -308,7 +309,7 @@ protected:
      */
     virtual void buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
                                     double frompos, double topos, const SumoXMLTag element, std::string string,
-                                    int personCapacity, double parkingLength);
+                                    int personCapacity, double parkingLength, RGBColor& color);
 
     /** @brief Builds a charging station
      *

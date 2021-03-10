@@ -16,6 +16,7 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
+/// @author  Johannes Rummel
 /// @date    Mon, 26.04.2004
 ///
 // Builds trigger objects for guisim
@@ -25,6 +26,7 @@
 
 #include <string>
 #include <netload/NLTriggerBuilder.h>
+#include <utils/common/RGBColor.h>
 
 
 // ===========================================================================
@@ -109,7 +111,7 @@ protected:
      */
     virtual void buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
                                     double frompos, double topos, const SumoXMLTag element, std::string string,
-                                    int personCapacity, double parkingLength);
+                                    int personCapacity, double parkingLength, RGBColor& color);
 
 
     /** @brief Builds a parking area

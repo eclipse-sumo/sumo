@@ -14,6 +14,7 @@
 /// @file    MSStoppingPlace.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Johannes Rummel
 /// @date    Mon, 13.12.2005
 ///
 // A lane area vehicles can halt at
@@ -27,6 +28,7 @@
 #include <string>
 #include <utils/common/Named.h>
 #include <utils/common/Parameterised.h>
+#include <utils/common/RGBColor.h>
 
 
 // ===========================================================================
@@ -67,9 +69,11 @@ public:
      */
     MSStoppingPlace(const std::string& id,
                     const std::vector<std::string>& lines, MSLane& lane,
-                    double begPos, double endPos, const std::string name = "",
+                    double begPos, double endPos,
+                    const std::string name = "",
                     int capacity = 0,
-                    double parkingLength = 0);
+                    double parkingLength = 0,
+                    const RGBColor& color = RGBColor::WHITE);
 
 
 
@@ -197,6 +201,8 @@ public:
 
     const std::string& getMyName() const;
 
+    const RGBColor& getColor() const;
+
     static int getPersonsAbreast(double length);
 
     /// @brief get list of vehicles waiting at this stop
@@ -256,6 +262,9 @@ protected:
 
     /// @brief the scaled space capacity for parking vehicles
     const double myParkingFactor;
+
+    /// @brief The color of the stopping place
+    const RGBColor myColor;
 
 protected:
 

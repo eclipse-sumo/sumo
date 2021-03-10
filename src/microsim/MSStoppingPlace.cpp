@@ -14,6 +14,7 @@
 /// @file    MSStoppingPlace.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Johannes Rummel
 /// @date    Mon, 13.12.2005
 ///
 // A lane area vehicles can halt at
@@ -24,6 +25,7 @@
 #include <map>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/geom/Position.h>
+#include <utils/common/RGBColor.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSNet.h>
@@ -39,11 +41,13 @@ MSStoppingPlace::MSStoppingPlace(const std::string& id,
                                  MSLane& lane,
                                  double begPos, double endPos, const std::string name,
                                  int capacity,
-                                 double parkingLength) :
+                                 double parkingLength,
+                                 const RGBColor& color) :
     Named(id), myLines(lines), myLane(lane),
     myBegPos(begPos), myEndPos(endPos), myLastFreePos(endPos),
     myName(name),
     myTransportableCapacity(capacity),
+    myColor(color),
     myParkingFactor(parkingLength <= 0 ? 1 : (endPos - begPos) / parkingLength) {
     computeLastFreePos();
     for (int i = 0; i < capacity; i++) {
@@ -271,6 +275,12 @@ MSStoppingPlace::getAccessDistance(const MSEdge* edge) const {
 const std::string&
 MSStoppingPlace::getMyName() const {
     return myName;
+}
+
+
+const RGBColor&
+MSStoppingPlace::getColor() const {
+    return myColor;
 }
 
 
