@@ -265,8 +265,8 @@ SUMORouteHandler::myEndElement(int element) {
                 closeVehicle();
                 delete myVehicleParameter;
                 myVehicleParameter = nullptr;
+                break;
             }
-            break;
         case SUMO_TAG_FLOW:
             closeFlow();
             delete myVehicleParameter;

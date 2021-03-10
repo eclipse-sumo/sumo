@@ -934,7 +934,6 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
             case MSStageType::WAITING_FOR_DEPART:
                 MSNet::getInstance()->getPersonControl().forceDeparture();
                 FALLTHROUGH;
-                break;
             case MSStageType::WAITING: {
                 if (p->getNumRemainingStages() <= 1 || p->getStageType(1) != MSStageType::WALKING) {
                     // insert walking stage after the current stage

@@ -351,7 +351,6 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
                 x = ((x - 500000.) / 1000000.) * 3; // continues with UTM
             }
             FALLTHROUGH;
-            break;
             case UTM: {
                 int zone = (int)(x + 180) / 6 + 1;
                 myProjString = "+proj=utm +zone=" + toString(zone) +
