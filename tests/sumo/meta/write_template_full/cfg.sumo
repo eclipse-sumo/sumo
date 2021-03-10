@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 24 14:06:37 2021 by Eclipse SUMO sumo Version v1_8_0+1374-cd07ba9
+<!-- generated on Wed Mar 10 12:59:19 2021 by Eclipse SUMO sumo Version v1_8_0+1560-191d774
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -84,6 +84,8 @@
         <stop-output value="" type="FILE" help="Record stops and loading/unloading of passenger and containers for all vehicles into FILE"/>
         <collision-output value="" type="FILE" help="Write collision information into FILE"/>
         <statistic-output value="" synonymes="statistics-output" type="FILE" help="Write overall statistics into FILE"/>
+        <movereminder-output value="" type="FILE" help="Save movereminder states of selected vehicles into FILE"/>
+        <movereminder-output.vehicles value="" type="STR[]" help="List of vehicle ids which shall save their movereminder states"/>
         <save-state.times value="" type="STR[]" help="Use TIME[] as times at which a network state written"/>
         <save-state.period value="-1" type="TIME" help="save state repeatedly after TIME period"/>
         <save-state.prefix value="state" type="FILE" help="Prefix for network states"/>
@@ -91,6 +93,7 @@
         <save-state.files value="" type="FILE" help="Files for network states"/>
         <save-state.rng value="false" type="BOOL" help="Save random number generator states"/>
         <save-state.transportables value="false" type="BOOL" help="Save person and container states (experimental)"/>
+        <save-state.constraints value="false" type="BOOL" help="Save rail signal constraints"/>
         <save-state.precision value="2" type="INT" help="Write internal state values with the given precision (default 2)"/>
     </output>
 
