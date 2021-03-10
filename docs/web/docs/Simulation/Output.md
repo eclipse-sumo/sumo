@@ -243,6 +243,7 @@ When setting the option **--duration-log.statistics**, (shortcut **-t**) verbose
 vehicle trips will be printed:
 
 - RouteLength: average route length
+- Speed: average trip speed
 - Duration: average trip duration
 - WaitingTime: average time spent standing (involuntarily)
 - TimeLoss: average time lost due to driving slower than desired
@@ -265,11 +266,14 @@ output will be added:
 - walks: the number of distinct `<walk>`-elements in the input
 - RouteLength: average walk length
 - Duration: average walk duration
+- TimeLoss: average time lost due to walking below maximum speed or stopping
 
 If the simulation contained passengers (persons riding in vehicles) the
 following output will be added:
 
 - Rides: the number of distinct `<ride>`-elements in the input
+- WaitingTime: average time spent waiting for ride
+- RouteLength: average ride length
 - Duration: average ride duration
 - Bus rides: number of rides with a public transport vehicle driving
   on roads (public transport is identified by having the
