@@ -34,6 +34,7 @@ on a lane. The parameters have the following meanings:
 | endPos         | float       | \-lane.length < x < lane.length (negative values count backwards from the end of the lane) | lane.length | The end position on the lane (the higher position on the lane) in meters, must be larger than *startPos* by more than 0.1m  |
 | friendlyPos    | bool        | *true,false*                                                                                 | *false*     | whether invalid stop positions should be corrected automatically (default *false*)                                          |
 | name           | string      | simple String                                                                                |             | Container stop name. This is only used for visualization purposes.                                                          |
+| color           | color      | see [color definition](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#colors)                                                                                | "83,89,172"            | Container stop color. This is only used for visualization purposes.                                                               |
 | lines          | string list | A list of names separated by spaces (' ')                                                    |             | meant to be the names of the logistic lines that stop at this container stop. This is only used for visualization purposes. |
 
 !!! caution
