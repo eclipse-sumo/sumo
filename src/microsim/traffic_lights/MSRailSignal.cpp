@@ -98,6 +98,7 @@ MSRailSignal::MSRailSignal(MSTLLogicControl& tlcontrol,
     myCurrentPhase(DELTA_T, std::string(SUMO_MAX_CONNECTIONS, 'X'), -1), // dummy phase
     myPhaseIndex(0) {
     myDefaultCycleTime = DELTA_T;
+    MSRailSignalControl::getInstance().addSignal(this);
 }
 
 void
@@ -266,6 +267,21 @@ MSRailSignal::removeConstraint(const std::string& tripId, MSRailSignalConstraint
     return false;
 }
 
+void
+MSRailSignal::removeConstraints() {
+    for (auto item : myConstraints) {
+        for (MSRailSignalConstraint* c : item.second) {
+            delete c;
+        }
+    }
+    myConstraints.clear();
+    for (auto item : myInsertionConstraints) {
+        for (MSRailSignalConstraint* c : item.second) {
+            delete c;
+        }
+    }
+    myInsertionConstraints.clear();
+}
 
 void
 MSRailSignal::addInsertionConstraint(const std::string& tripId, MSRailSignalConstraint* constraint) {

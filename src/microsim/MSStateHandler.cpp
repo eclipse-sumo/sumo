@@ -33,6 +33,7 @@
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSRailSignalConstraint.h>
+#include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <microsim/devices/MSDevice_ToC.h>
@@ -48,6 +49,7 @@
 #include <microsim/MSRoute.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSDriverState.h>
+#include <netload/NLHandler.h>
 #include "MSStateHandler.h"
 
 #include <mesosim/MESegment.h>
@@ -67,7 +69,9 @@ MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset, b
     myVCAttrs(nullptr),
     myLastParameterised(nullptr),
     myOnlyReadTime(onlyReadTime),
-    myRemoved(0) {
+    myRemoved(0),
+    myConstrainedSignal(nullptr)
+{
     myAmLoadingState = true;
     const std::vector<std::string> vehIDs = OptionsCont::getOptions().getStringVector("load-state.remove-vehicles");
     myVehiclesToRemove.insert(vehIDs.begin(), vehIDs.end());
@@ -84,7 +88,12 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step) {
     out.setPrecision(OptionsCont::getOptions().getInt("save-state.precision"));
     out.writeHeader<MSEdge>(SUMO_TAG_SNAPSHOT);
     out.writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/state_file.xsd");
-    out.writeAttr(SUMO_ATTR_VERSION, VERSION_STRING).writeAttr(SUMO_ATTR_TIME, time2string(step)).writeAttr(SUMO_ATTR_TYPE, MSGlobals::gUseMesoSim ? "meso" : "micro");
+    out.writeAttr(SUMO_ATTR_VERSION, VERSION_STRING);
+    out.writeAttr(SUMO_ATTR_TIME, time2string(step));
+    out.writeAttr(SUMO_ATTR_TYPE, MSGlobals::gUseMesoSim ? "meso" : "micro");
+    if (OptionsCont::getOptions().getBool("save-state.constraints")) {
+        out.writeAttr(SUMO_ATTR_CONSTRAINTS, true);
+    }
     if (OptionsCont::getOptions().getBool("save-state.rng")) {
         saveRNGs(out);
     }
@@ -136,6 +145,10 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             const std::string& version = attrs.getString(SUMO_ATTR_VERSION);
             if (version != VERSION_STRING) {
                 WRITE_WARNING("State was written with sumo version " + version + " (present: " + VERSION_STRING + ")!");
+            }
+            bool ok;
+            if (attrs.getOpt<bool>(SUMO_ATTR_CONSTRAINTS, nullptr, ok, false)) {
+                MSRailSignalConstraint::clearAll();
             }
             break;
         }
@@ -293,6 +306,22 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         case SUMO_TAG_PERSON:
         case SUMO_TAG_CONTAINER:
             myAttrs = attrs.clone();
+            break;
+        case SUMO_TAG_RAILSIGNAL_CONSTRAINTS: {
+            bool ok = true;
+            const std::string signalID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+            if (!MSNet::getInstance()->getTLSControl().knows(signalID)) {
+                throw InvalidArgument("Rail signal '" + signalID + "' in railSignalConstraints loaded from state is not known");
+            }
+            myConstrainedSignal = dynamic_cast<MSRailSignal*>(MSNet::getInstance()->getTLSControl().get(signalID).getDefault());
+            if (myConstrainedSignal == nullptr) {
+                throw InvalidArgument("Traffic light '" + signalID + "' is not a rail signal");
+            }
+            break;
+        }
+        case SUMO_TAG_PREDECESSOR: // intended fall-through
+        case SUMO_TAG_INSERTION_PREDECESSOR:
+            NLHandler::addPredecessorConstraint(element, attrs, myConstrainedSignal);
             break;
         default:
             break;

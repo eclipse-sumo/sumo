@@ -29,6 +29,7 @@
 #include <microsim/MSVehicleControl.h>
 #include "MSRailSignal.h"
 #include "MSRailSignalConstraint.h"
+#include "MSRailSignalControl.h"
 
 //#define DEBUG_PASSED
 //#define DEBUG_LANE
@@ -49,12 +50,39 @@ MSRailSignalConstraint::cleanup() {
 void
 MSRailSignalConstraint::saveState(OutputDevice& out) {
     MSRailSignalConstraint_Predecessor::saveState(out);
+    if (OptionsCont::getOptions().getBool("save-state.constraints")) {
+        for (MSRailSignal* s : MSRailSignalControl::getInstance().getSignals()) {
+            if (s->getConstraints().size() > 0 || s->getInsertionConstraints().size() > 0) {
+                out.openTag(SUMO_TAG_RAILSIGNAL_CONSTRAINTS);
+                out.writeAttr(SUMO_ATTR_ID, s->getID());
+                for (auto item : s->getConstraints()) {
+                    for (MSRailSignalConstraint* c : item.second) {
+                        c->write(out, SUMO_TAG_PREDECESSOR, item.first);
+                    }
+                }
+                for (auto item : s->getInsertionConstraints()) {
+                    for (MSRailSignalConstraint* c : item.second) {
+                        c->write(out, SUMO_TAG_INSERTION_PREDECESSOR, item.first);
+                    }
+                }
+                out.closeTag();
+            }
+        }
+    }
 }
 
 void
 MSRailSignalConstraint::clearState() {
     MSRailSignalConstraint_Predecessor::clearState();
 }
+
+void
+MSRailSignalConstraint::clearAll() {
+    for (MSRailSignal* s : MSRailSignalControl::getInstance().getSignals()) {
+        s->removeConstraints();
+    }
+}
+
 
 std::string
 MSRailSignalConstraint::getVehID(const std::string& tripID) {
@@ -262,6 +290,19 @@ MSRailSignalConstraint_Predecessor::PassedTracker::loadState(int index, const st
     }
 #endif
     myLastIndex = index;
+}
+
+
+void
+MSRailSignalConstraint_Predecessor::write(OutputDevice& out, SumoXMLTag tag, const std::string& tripId) const {
+    out.openTag(tag);
+    out.writeAttr(SUMO_ATTR_TRIP_ID, tripId);
+    out.writeAttr(SUMO_ATTR_TLID, myFoeSignal->getID());
+    out.writeAttr(SUMO_ATTR_FOES, myTripId);
+    if (myLimit > 1) {
+    out.writeAttr(SUMO_ATTR_LIMIT, myLimit);
+    }
+    out.closeTag();
 }
 
 /****************************************************************************/

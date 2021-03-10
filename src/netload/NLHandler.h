@@ -124,6 +124,8 @@ public:
         return myNetworkVersion;
     }
 
+    static void addPredecessorConstraint(int element, const SUMOSAXAttributes& attrs, MSRailSignal* rs);
+
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
@@ -248,7 +250,6 @@ private:
     virtual void openWAUT(const SUMOSAXAttributes& attrs);
     void addWAUTSwitch(const SUMOSAXAttributes& attrs);
     void addWAUTJunction(const SUMOSAXAttributes& attrs);
-    static void addPredecessorConstraint(int element, const SUMOSAXAttributes& attrs, MSRailSignal* rs);
 
     /// Parses network location description
     void setLocation(const SUMOSAXAttributes& attrs);

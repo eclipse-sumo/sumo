@@ -2,6 +2,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
     <xsd:include schemaLocation="routeTypes.xsd"/>
+    <xsd:include schemaLocation="additional_file.xsd"/>
 
     <xsd:element name="snapshot">
         <xsd:complexType>
@@ -19,10 +20,12 @@
                 <xsd:element name="segment" type="segmentStateType" minOccurs="0"/>
                 <xsd:element name="vehicleTransfer" type="vehicleTransferType" minOccurs="0"/>
                 <xsd:element name="railSignalConstraintTracker" type="railSignalConstraintTrackerType" minOccurs="0"/>
+                <xsd:element name="railSignalConstraints" type="railSignalConstraintsType" minOccurs="0"/>
             </xsd:choice>
             <xsd:attribute name="version" type="xsd:string"/>
             <xsd:attribute name="time" type="timeType"/>
             <xsd:attribute name="type" type="xsd:string"/>
+            <xsd:attribute name="constraints" type="boolType"/>
         </xsd:complexType>
     </xsd:element>
 

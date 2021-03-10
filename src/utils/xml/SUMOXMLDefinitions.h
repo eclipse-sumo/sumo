@@ -949,6 +949,7 @@ enum SumoXMLAttr {
     /// @brief Information within the junction logic which internal lanes block external
     SUMO_ATTR_FOES,
     /// @}
+    SUMO_ATTR_CONSTRAINTS,
 
     /// @name Attributes for detectors
     /// @{

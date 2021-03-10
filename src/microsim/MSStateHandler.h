@@ -30,6 +30,7 @@
 // class declarations
 // ===========================================================================
 class MESegment;
+class MSRailSignal;
 
 
 // ===========================================================================
@@ -123,6 +124,9 @@ private:
 
     /// @brief vehicles that were removed when loading state
     int myRemoved;
+
+    /// @brief rail signal for which constraints are being loaded
+    MSRailSignal* myConstrainedSignal;
 
 private:
     /// @brief save the state of random number generators

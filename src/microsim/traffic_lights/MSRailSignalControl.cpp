@@ -92,4 +92,9 @@ MSRailSignalControl::updateDriveways(const MSEdge* used) {
     myProtectedDriveways.erase(used);
 }
 
+void
+MSRailSignalControl::addSignal(MSRailSignal* signal) {
+    mySignals.push_back(signal);
+}
+
 /****************************************************************************/

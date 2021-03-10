@@ -291,6 +291,8 @@ MSFrame::fillOptions() {
     oc.addDescription("save-state.rng", "Output", "Save random number generator states");
     oc.doRegister("save-state.transportables", new Option_Bool(false));
     oc.addDescription("save-state.transportables", "Output", "Save person and container states (experimental)");
+    oc.doRegister("save-state.constraints", new Option_Bool(false));
+    oc.addDescription("save-state.constraints", "Output", "Save rail signal constraints");
     oc.doRegister("save-state.precision", new Option_Integer(2));
     oc.addDescription("save-state.precision", "Output", "Write internal state values with the given precision (default 2)");
 

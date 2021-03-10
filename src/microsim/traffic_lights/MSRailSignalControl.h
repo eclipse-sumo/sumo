@@ -61,6 +61,13 @@ public:
         return myUsedEdges;
     }
 
+    void addSignal(MSRailSignal* signal);
+
+    const std::vector<MSRailSignal*>& getSignals() const {
+        return mySignals;
+    }
+
+
 private:
     /** @brief Constructor */
     MSRailSignalControl();
@@ -73,6 +80,9 @@ private:
 
     /// @brief map of driveways that must perform additional checks if the key edge is used by a train route
     std::map<const MSEdge*, std::vector<std::pair<MSRailSignal*, int> > > myProtectedDriveways;
+
+    /// @brief list of all rail signals
+    std::vector<MSRailSignal*> mySignals;
 
     static MSRailSignalControl* myInstance;
 

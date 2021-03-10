@@ -825,7 +825,7 @@ MSTLLogicControl::switchOffAll() {
 
 void
 MSTLLogicControl::saveState(OutputDevice& out) {
-    MSRailSignalConstraint::saveState(out);
+    MSRailSignalConstraint::saveState(out); // always saves vehicle tracker states
     for (const auto& logic : myLogics) {
         logic.second->saveState(out);
     }

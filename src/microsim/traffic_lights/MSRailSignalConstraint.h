@@ -52,6 +52,8 @@ public:
         return "RailSignalConstraint";
     }
 
+    virtual void write(OutputDevice& out, SumoXMLTag tag, const std::string& tripId) const = 0;
+
     /// @brief clean up state
     static void cleanup();
 
@@ -60,6 +62,9 @@ public:
 
     /** @brief Clear all constraint states before quick-loading state */
     static void clearState();
+
+    /** @brief Remove all constraints before quick-loading state */
+    static void clearAll();
 
 protected:
     static std::string getVehID(const std::string& tripID);
@@ -74,6 +79,8 @@ public:
 
     /// @brief Destructor
     ~MSRailSignalConstraint_Predecessor() {};
+
+    void write(OutputDevice& out, SumoXMLTag tag, const std::string& tripId) const;
 
     /// @brief clean up state
     static void cleanup();

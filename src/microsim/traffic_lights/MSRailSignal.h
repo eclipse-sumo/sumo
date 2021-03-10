@@ -236,6 +236,7 @@ public:
 
     /// @brief remove contraint for signal switching
     bool removeConstraint(const std::string& tripId, MSRailSignalConstraint* constraint);
+    void removeConstraints();
     /// @}
 
     /// update driveway for extended deadlock protection
