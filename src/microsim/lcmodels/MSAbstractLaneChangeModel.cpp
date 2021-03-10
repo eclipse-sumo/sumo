@@ -546,21 +546,25 @@ MSAbstractLaneChangeModel::updateShadowLane() {
     if (myShadowLane != nullptr) {
         myShadowLane->setPartialOccupation(&myVehicle);
         const std::vector<MSLane*>& further = myVehicle.getFurtherLanes();
-        const std::vector<double>& furtherPosLat = myVehicle.getFurtherLanesPosLat();
-        assert(further.size() == furtherPosLat.size());
-        passed.push_back(myShadowLane);
-        for (int i = 0; i < (int)further.size(); ++i) {
-            MSLane* shadowFurther = getShadowLane(further[i], furtherPosLat[i]);
+        if (myAmOpposite) {
+            assert(further.size() == 0);
+        } else {
+            const std::vector<double>& furtherPosLat = myVehicle.getFurtherLanesPosLat();
+            assert(further.size() == furtherPosLat.size());
+            passed.push_back(myShadowLane);
+            for (int i = 0; i < (int)further.size(); ++i) {
+                MSLane* shadowFurther = getShadowLane(further[i], furtherPosLat[i]);
 #ifdef DEBUG_SHADOWLANE
-            if (debugVehicle()) {
-                std::cout << SIMTIME << "   further=" << further[i]->getID() << " (posLat=" << furtherPosLat[i] << ") shadowFurther=" << Named::getIDSecure(shadowFurther) << "\n";
-            }
+                if (debugVehicle()) {
+                    std::cout << SIMTIME << "   further=" << further[i]->getID() << " (posLat=" << furtherPosLat[i] << ") shadowFurther=" << Named::getIDSecure(shadowFurther) << "\n";
+                }
 #endif
-            if (shadowFurther != nullptr && shadowFurther->getLinkTo(passed.back()) != nullptr) {
-                passed.push_back(shadowFurther);
+                if (shadowFurther != nullptr && shadowFurther->getLinkTo(passed.back()) != nullptr) {
+                    passed.push_back(shadowFurther);
+                }
             }
+            std::reverse(passed.begin(), passed.end());
         }
-        std::reverse(passed.begin(), passed.end());
     } else {
         if (isChangingLanes() && myVehicle.getLateralOverlap() > NUMERICAL_EPS) {
             WRITE_WARNING("Vehicle '" + myVehicle.getID() + "' could not finish continuous lane change (lane disappeared) time=" +
