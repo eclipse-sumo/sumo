@@ -165,10 +165,12 @@ public:
      * @param[in] width Width of the lot rectangle
      * @param[in] length Length of the lot rectangle
      * @param[in] angle Angle of the lot rectangle
+     * @param[in] slope Slope of the lot rectangle
      * @exception InvalidArgument If the current parking area is 0
      */
     void addLotEntry(double x, double y, double z,
-                     double width, double length, double angle);
+                     double width, double length,
+                     double angle, double slope);
 
 
 

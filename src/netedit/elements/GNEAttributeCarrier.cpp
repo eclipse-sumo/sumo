@@ -1652,6 +1652,12 @@ GNEAttributeCarrier::fillAdditionals() {
                                               "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_SLOPE,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::ANGLE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The slope of the road-side parking spaces",
+                                              "0.00");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
     }
     currentTag = SUMO_TAG_E1DETECTOR;
     {

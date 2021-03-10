@@ -250,11 +250,12 @@ public:
      * @param[in] width ParkingArea's width
      * @param[in] length ParkingArea's length
      * @param[in] angle ParkingArea's angle
+     * @param[in] slope ParkingArea's slope (of this space)
      * @param[in] blockMovemet enable or disable block movement
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the charging Station can not be added to the net (is duplicate)
      */
-    static GNEAdditional* buildParkingSpace(GNENet* net, bool allowUndoRedo, GNEAdditional* parkingAreaParent, Position pos, double width, double length, double angle, bool blockMovement);
+    static GNEAdditional* buildParkingSpace(GNENet* net, bool allowUndoRedo, GNEAdditional* parkingAreaParent, Position pos, double width, double length, double angle, double slope, bool blockMovement);
 
     /**@brief Builds a induction loop detector (E1)
      * @param[in] net net in which element will be inserted

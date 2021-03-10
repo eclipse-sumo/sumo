@@ -325,4 +325,14 @@ GeomHelper::calculateLotSpaceAngle(const PositionVector& shape, const int index,
     return ((double)atan2((endOffset.x() - startOffset.x()), (startOffset.y() - endOffset.y())) * (double)180.0 / (double)M_PI) + angle;
 }
 
+
+double 
+GeomHelper::calculateLotSpaceSlope(const PositionVector& shape, const int index, const double spaceDim) {
+    // declare shape offsets
+    const Position startOffset = shape.positionAtOffset(spaceDim * (index));
+    const Position endOffset = shape.positionAtOffset(spaceDim * (index + 1));
+    // return slope
+    return (double)asin((startOffset.z() - endOffset.z()) / spaceDim) * (double)180.0 / (double)M_PI;
+}
+
 /****************************************************************************/

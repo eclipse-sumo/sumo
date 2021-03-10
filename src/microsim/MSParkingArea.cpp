@@ -76,10 +76,12 @@ MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::strin
     // Initialize space occupancies if there is a road-side capacity
     // The overall number of lots is fixed and each lot accepts one vehicle regardless of size
     for (int i = 0; i < capacity; ++i) {
-        // calculate pos
+        // calculate pos, angle and slope of parking lot space
         const Position pos = GeomHelper::calculateLotSpacePosition(myShape, i, spaceDim, myAngle, myWidth, myLength);
+        double spaceAngle = GeomHelper::calculateLotSpaceAngle(myShape, i, spaceDim, myAngle);
+        double spaceSlope = GeomHelper::calculateLotSpaceSlope(myShape, i, spaceDim);
         // add lotEntry
-        addLotEntry(pos.x(), pos.y(), pos.z(), myWidth, myLength, GeomHelper::calculateLotSpaceAngle(myShape, i, spaceDim, myAngle));
+        addLotEntry(pos.x(), pos.y(), pos.z(), myWidth, myLength, spaceAngle, spaceSlope);
         // update endPos
         mySpaceOccupancies.back().endPos = myBegPos + MAX2(POSITION_EPS, spaceDim * (i + 1));
     }
@@ -91,9 +93,9 @@ MSParkingArea::~MSParkingArea() {}
 
 
 void
-MSParkingArea::addLotEntry(double x, double y, double z, double width, double length, double angle) {
+MSParkingArea::addLotEntry(double x, double y, double z, double width, double length, double angle, double slope) {
     // create LotSpaceDefinition
-    LotSpaceDefinition lsd((int)mySpaceOccupancies.size(), nullptr, x, y, z, angle, width, length);
+    LotSpaceDefinition lsd((int)mySpaceOccupancies.size(), nullptr, x, y, z, angle, slope, width, length);
     // If we are modelling parking set the end position to the lot position relative to the lane
     // rather than the end of the parking area - this results in vehicles stopping nearer the space
     // and re-entering the lane nearer the space. (If we are not modelling parking the vehicle will usually
@@ -206,6 +208,16 @@ MSParkingArea::getVehicleAngle(const SUMOVehicle& forVehicle) const {
 }
 
 double
+MSParkingArea::getVehicleSlope(const SUMOVehicle& forVehicle) const {
+    for (const auto& lsd : mySpaceOccupancies) {
+        if (lsd.vehicle == &forVehicle) {
+            return lsd.slope;
+        }
+    }
+    return 0;
+}
+
+double
 MSParkingArea::getGUIAngle(const SUMOVehicle& forVehicle) const {
     for (const auto& lsd : mySpaceOccupancies) {
         if (lsd.vehicle == &forVehicle) {
@@ -280,6 +292,7 @@ MSParkingArea::LotSpaceDefinition::LotSpaceDefinition() :
     index(-1),
     vehicle(nullptr),
     rotation(0),
+    slope(0),
     width(0),
     length(0),
     endPos(0),
@@ -288,11 +301,12 @@ MSParkingArea::LotSpaceDefinition::LotSpaceDefinition() :
 }
 
 
-MSParkingArea::LotSpaceDefinition::LotSpaceDefinition(int index_, SUMOVehicle* vehicle_, double x, double y, double z, double rotation_, double width_, double length_) :
+MSParkingArea::LotSpaceDefinition::LotSpaceDefinition(int index_, SUMOVehicle* vehicle_, double x, double y, double z, double rotation_, double slope_, double width_, double length_) :
     index(index_),
     vehicle(vehicle_),
     position(Position(x, y, z)),
     rotation(rotation_),
+    slope(slope_),
     width(width_),
     length(length_),
     endPos(0),

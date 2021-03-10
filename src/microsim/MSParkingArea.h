@@ -149,6 +149,9 @@ public:
     /// @brief Returns the angle of parked vehicle
     double getVehicleAngle(const SUMOVehicle& forVehicle) const;
 
+    /// @brief Returns the slope of parked vehicle
+    double getVehicleSlope(const SUMOVehicle& forVehicle) const;
+
     /** @brief Return the angle of myLastFreeLot - the next parking lot
      *         only expected to be called after we have established there is space in the parking area
      *
@@ -177,10 +180,12 @@ public:
      * @param[in] width Width of the lot rectangle
      * @param[in] length Length of the lot rectangle
      * @param[in] angle Angle of the lot rectangle
+     * @param[in] slope Slope of the lot rectangle
      * @return Whether the lot entry could be added
      */
     virtual void addLotEntry(double x, double y, double z,
-                             double width, double length, double angle);
+                             double width, double length,
+                             double angle, double slope);
 
     /// @brief Returns the lot rectangle width
     double getWidth() const;
@@ -209,7 +214,7 @@ protected:
         LotSpaceDefinition();
 
         /// @brief parameter constructor
-        LotSpaceDefinition(int index, SUMOVehicle* vehicle, double x, double y, double z, double rotation, double width, double length);
+        LotSpaceDefinition(int index, SUMOVehicle* vehicle, double x, double y, double z, double rotation, double slope, double width, double length);
 
         /// @brief the running index
         const int index;
@@ -222,6 +227,9 @@ protected:
 
         /// @brief The rotation
         const double rotation;
+
+        /// @brief The slope
+        const double slope;
 
         /// @brief The width
         const double width;
