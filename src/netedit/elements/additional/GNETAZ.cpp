@@ -314,8 +314,6 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
         }
-        // pop layer matrix
-        glPopMatrix();
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw depending if is closed
@@ -325,6 +323,17 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, scaledGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
             }
         }
+        // check if front dotted contour has to be drawn
+        if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+            // draw depending if is closed
+            if (getFill() || scaledGeometry.getShape().isClosed()) {
+                GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::FRONT, s, scaledGeometry.getShape(), 1);
+            } else {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, scaledGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
+            }
+        }
+        // pop layer matrix
+        glPopMatrix();
         // pop name
         glPopName();
         /* temporal */

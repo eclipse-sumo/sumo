@@ -229,6 +229,14 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                     GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, *this, getWidth(), getHeight(), 0, 0, getShapeNaviDegree(), POIExaggeration);
                 }
             }
+            // check if front dotted contour has to be drawn
+            if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+                if (getShapeImgFile().empty()) {
+                    GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::FRONT, s, *this, 1.3, POIExaggeration);
+                } else {
+                    GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, *this, getWidth(), getHeight(), 0, 0, getShapeNaviDegree(), POIExaggeration);
+                }
+            }
             // pop name
             glPopName();
         }
