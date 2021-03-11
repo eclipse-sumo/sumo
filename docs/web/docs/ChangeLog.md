@@ -111,6 +111,7 @@ title: ChangeLog
   - Added option **--fcd-output.attributes** to set the list of attributes which are included in fcd-output. Issue #7632
   - fcd-output can now distinguish riding and walking persons by adding 'vehicle' to the option **--fcd-output.attributes**. Issue #7631
   - Added option **time-to-teleport.disconnected** which is applied when teleporting vehicles on fully disconnected routes. Issue #8267
+  - Now supporting element `<containerFlow>` to define multiple containers.
   
 - sumo-gui
   - Random color for containers is now supported. Issue #7941
