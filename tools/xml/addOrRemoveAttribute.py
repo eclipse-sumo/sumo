@@ -56,12 +56,12 @@ def get_options(args=None):
 
 
 def main(options):
+    # parse tree
+    tree = ET.parse(options.file)
+    # obtain root
+    root = tree.getroot()
     # open output file
     with open(options.output, 'w') as outf:
-        # parse tree
-        tree = ET.parse(options.file)
-        # obtain root
-        root = tree.getroot()
         # iterate over all XML elements
         for it in root.iter():
             # check tag
