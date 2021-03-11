@@ -1623,11 +1623,13 @@ MSLCM_LC2013::_wantsChange(
                 acceptanceTime = myKeepRightAcceptanceTime * roadSpeedFactor;
                 if (follower.first != nullptr && follower.second < 2 * follower.first->getCarFollowModel().brakeGap(follower.first->getSpeed())) {
                     // reduce acceptanceTime if the follower vehicle is faster or wants to drive faster
-                    const double fRSF = follower.first->getLane()->getVehicleMaxSpeed(follower.first) / follower.first->getLane()->getSpeedLimit();
-                    const double factor = MAX2(1.0, myVehicle.getSpeed()) /
-                        (MAX3(follower.first->getSpeed(), 1.0, myVehicle.getSpeed())
-                         * MAX2(roadSpeedFactor, fRSF));
-                    acceptanceTime *= factor;
+                    if (follower.first->getSpeed() >= myVehicle.getSpeed()) {
+                        acceptanceTime *= MAX2(1.0, myVehicle.getSpeed()) / MAX2(1.0, follower.first->getSpeed());
+                        const double fRSF = follower.first->getLane()->getVehicleMaxSpeed(follower.first) / follower.first->getLane()->getSpeedLimit();
+                        if (fRSF > roadSpeedFactor) {
+                            acceptanceTime /= fRSF;
+                        }
+                    }
                 }
             }
             double fullSpeedGap = MAX2(0., neighDist - myVehicle.getCarFollowModel().brakeGap(vMax));

@@ -1621,12 +1621,15 @@ MSLCM_SL2015::_wantsChangeSublane(
                     for (int i = 0; i < followers.numSublanes(); ++i) {
                         CLeaderDist follower = followers[i];
                         if (follower.first != nullptr && follower.second < 2 * follower.first->getCarFollowModel().brakeGap(follower.first->getSpeed())) {
-                            const double fRSF = follower.first->getLane()->getVehicleMaxSpeed(follower.first) / follower.first->getLane()->getSpeedLimit();
-                            const double factor = MAX2(1.0, myVehicle.getSpeed()) /
-                                (MAX3(follower.first->getSpeed(), 1.0, myVehicle.getSpeed())
-                                 * MAX2(roadSpeedFactor, fRSF));
-                            if (factor < minFactor) {
-                                minFactor = factor;
+                            if (follower.first->getSpeed() >= myVehicle.getSpeed()) {
+                                double factor = MAX2(1.0, myVehicle.getSpeed()) / MAX2(1.0, follower.first->getSpeed());
+                                const double fRSF = follower.first->getLane()->getVehicleMaxSpeed(follower.first) / follower.first->getLane()->getSpeedLimit();
+                                if (fRSF > roadSpeedFactor) {
+                                    factor /= fRSF;
+                                }
+                                if (factor < minFactor) {
+                                    minFactor = factor;
+                                }
                             }
                         }
                     }
