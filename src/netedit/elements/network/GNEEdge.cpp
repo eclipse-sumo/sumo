@@ -221,7 +221,7 @@ GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
     // flag to enable/disable remove geometry point
     bool removeGeometryPoint = true;
     // obtain index
-    const int index = myNBEdge->getGeometry().indexOfClosest(clickedPosition);
+    const int index = myNBEdge->getGeometry().indexOfClosest(clickedPosition, true);
     // check index
     if (index == -1) {
         removeGeometryPoint = false;
@@ -437,7 +437,7 @@ GNEEdge::getNBEdge() const {
 Position
 GNEEdge::getSplitPos(const Position& clickPos) {
     const PositionVector& geom = myNBEdge->getGeometry();
-    int index = geom.indexOfClosest(clickPos);
+    int index = geom.indexOfClosest(clickPos, true);
     if (geom[index].distanceSquaredTo2D(clickPos) < SNAP_RADIUS_SQUARED) {
         // split at existing geometry point
         return geom[index];
@@ -470,7 +470,7 @@ GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
             // snap new position to grid
             newPos = myNet->getViewNet()->snapToActiveGrid(newPos);
             undoList->p_begin("set endpoint");
-            int index = geom.indexOfClosest(pos);
+            int index = geom.indexOfClosest(pos, true);
             // check if snap to existing geometry
             if (geom[index].distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED) {
                 pos = geom[index];
