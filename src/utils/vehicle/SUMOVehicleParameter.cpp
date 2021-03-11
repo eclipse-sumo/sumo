@@ -252,7 +252,7 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, bool close) const {
 
 bool
 SUMOVehicleParameter::parseDepart(const std::string& val, const std::string& element, const std::string& id,
-                                  SUMOTime& depart, DepartDefinition& dd, std::string& error) {
+                            SUMOTime& depart, DepartDefinition& dd, std::string& error, const std::string& attr) {
     if (val == "triggered") {
         dd = DEPART_TRIGGERED;
     } else if (val == "containerTriggered") {
@@ -267,14 +267,14 @@ SUMOVehicleParameter::parseDepart(const std::string& val, const std::string& ele
             depart = string2time(val);
             dd = DEPART_GIVEN;
             if (depart < 0) {
-                error = "Negative departure time in the definition of '" + id + "'.";
+                error = "Negative " + attr + " time in the definition of " + element + " '" + id + "'.";
                 return false;
             }
         } catch (...) {
             if (id.empty()) {
-                error = "Invalid departure time for " + element + ". Must be one of (\"triggered\", \"containerTriggered\", \"now\", or a float >= 0)";
+                error = "Invalid " + attr + " time for " + element + ". Must be one of (\"triggered\", \"containerTriggered\", \"now\", or a float >= 0)";
             } else {
-                error = "Invalid departure time for " + element + " '" + id + "';\n must be one of (\"triggered\", \"containerTriggered\", \"now\", or a float >= 0)";
+                error = "Invalid " + attr+ " time for " + element + " '" + id + "';\n must be one of (\"triggered\", \"containerTriggered\", \"now\", or a float >= 0)";
             }
             return false;
         }

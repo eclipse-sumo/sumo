@@ -467,7 +467,7 @@ public:
      * @return Whether the given value is a valid depart definition
      */
     static bool parseDepart(const std::string& val, const std::string& element, const std::string& id,
-                            SUMOTime& depart, DepartDefinition& dd, std::string& error);
+                            SUMOTime& depart, DepartDefinition& dd, std::string& error, const std::string& attr="departure");
 
     /** @brief Validates a given departLane value
      * @param[in] val The departLane value to parse

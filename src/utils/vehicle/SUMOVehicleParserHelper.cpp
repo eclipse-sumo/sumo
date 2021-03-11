@@ -180,7 +180,11 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
         }
         ret->depart = beginDefault;
         if (hasBegin) {
-            ret->depart = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), ok);
+            std::string errorMsg;
+            if (!SUMOVehicleParameter::parseDepart(attrs.get<std::string>(SUMO_ATTR_BEGIN, id.c_str(), ok),
+                        toString(tag), id, ret->depart, ret->departProcedure, errorMsg, "begin")) {
+                throw ProcessError(errorMsg);
+            }
         }
         if (ok && ret->depart < 0) {
             delete ret;
@@ -194,6 +198,10 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
         if (hasEnd) {
             ret->repetitionEnd = attrs.getSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), ok);
             ret->parametersSet |= VEHPARS_END_SET;
+        } else if (ret->departProcedure == DEPART_TRIGGERED) {
+            if (!hasNumber) {
+                return handleError(hardFail, abortCreation, toString(tag) + " '" + id + "' with triggered begin must define 'number'.");
+            }
         } else if ((endDefault >= TIME2STEPS(9223372036854773) || endDefault < 0)
                    // see SUMOTIME_MAXSTRING (which differs slightly from SUMOTime_MAX)
                    && (!hasNumber || (!hasProb && !hasPeriod && !hasXPH))) {

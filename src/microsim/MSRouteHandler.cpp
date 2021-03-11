@@ -752,20 +752,20 @@ MSRouteHandler::closeTransportableFlow() {
         if (myVehicleParameter->repetitionProbability > 0) {
             if (myVehicleParameter->repetitionEnd == SUMOTime_MAX) {
                 throw ProcessError("probabilistic " + myActiveTypeName + "Flow '" + fid + "' must specify end time");
-            }
-            else {
+            } else {
                 for (SUMOTime t = myVehicleParameter->depart; t < myVehicleParameter->repetitionEnd; t += TIME2STEPS(1)) {
                     if (RandHelper::rand(&myParsingRNG) < myVehicleParameter->repetitionProbability) {
                         addFlowTransportable(t, type, baseID, i++);
                     }
                 }
             }
-        }
-        else {
+        } else {
             SUMOTime depart = myVehicleParameter->depart;
             for (; i < myVehicleParameter->repetitionNumber; i++) {
                 addFlowTransportable(depart, type, baseID, i);
-                depart += myVehicleParameter->repetitionOffset;
+                if (myVehicleParameter->departProcedure != DEPART_TRIGGERED) {
+                    depart += myVehicleParameter->repetitionOffset;
+                }
             }
         }
         resetActivePlanAndVehicleParameter();
