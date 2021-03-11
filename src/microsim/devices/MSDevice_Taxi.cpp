@@ -351,7 +351,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
             }
         }
         if (isPickup) {
-            prepareStop(tmpEdges, stops, lastPos, res->from, res->fromPos, "pickup " + toString(res->persons));
+            prepareStop(tmpEdges, stops, lastPos, res->from, res->fromPos, "pickup " + toString(res->persons) + " (" + res->id + ")");
             for (const MSTransportable* const transportable : res->persons) {
                 if (transportable->isPerson()) {
                     stops.back().triggered = true;
@@ -363,7 +363,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
             //stops.back().awaitedPersons.insert(res.person->getID());
             stops.back().parametersSet |= STOP_PERMITTED_SET;
         } else {
-            prepareStop(tmpEdges, stops, lastPos, res->to, res->toPos, "dropOff " + toString(res->persons));
+            prepareStop(tmpEdges, stops, lastPos, res->to, res->toPos, "dropOff " + toString(res->persons) + " (" + res->id + ")");
             stops.back().duration = TIME2STEPS(60); // pay and collect bags
         }
     }
