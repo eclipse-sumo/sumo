@@ -127,6 +127,9 @@ ROMAFrame::addImportOptions() {
     oc.doRegister("junction-taz", new Option_Bool(false));
     oc.addDescription("junction-taz", "Input", "Initialize a TAZ for every junction to use attributes toJunction and fromJunction");
 
+    oc.doRegister("ignore-taz", new Option_Bool(false));
+    oc.addDescription("ignore-taz", "Input", "Ignore attributes 'fromTaz' and 'toTaz'");
+
     // need to do this here to be able to check for network and route input options
     SystemFrame::addReportOptions(oc);
 

@@ -74,6 +74,9 @@ private:
     /// @brief The current vehicle parameters
     SUMOVehicleParameter* myVehicleParameter;
 
+    /// @brief whether to ignore attributes fromTaz, toTaz
+    const bool myIgnoreTaz;
+
 private:
     /// @brief Invalidated copy constructor
     ROMARouteHandler(const ROMARouteHandler& s);

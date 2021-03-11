@@ -34,7 +34,9 @@
 // method definitions
 // ===========================================================================
 ROMARouteHandler::ROMARouteHandler(ODMatrix& matrix) :
-    SUMOSAXHandler(""), myMatrix(matrix) {
+    SUMOSAXHandler(""), myMatrix(matrix),
+    myIgnoreTaz(OptionsCont::getOptions().getBool("ignore-taz"))
+{
     if (OptionsCont::getOptions().isSet("taz-param")) {
         myTazParamKeys = OptionsCont::getOptions().getStringVector("taz-param");
     }
@@ -49,10 +51,10 @@ void
 ROMARouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     if (element == SUMO_TAG_TRIP || element == SUMO_TAG_VEHICLE) {
         myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(element, attrs, true);
-        if (!myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) && attrs.hasAttribute(SUMO_ATTR_FROM)) {
+        if ((!myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) || myIgnoreTaz) && attrs.hasAttribute(SUMO_ATTR_FROM)) {
             myVehicleParameter->fromTaz = attrs.getString(SUMO_ATTR_FROM);
         }
-        if (!myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET) && attrs.hasAttribute(SUMO_ATTR_TO)) {
+        if ((!myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET) || myIgnoreTaz) && attrs.hasAttribute(SUMO_ATTR_TO)) {
             myVehicleParameter->toTaz = attrs.getString(SUMO_ATTR_TO);
         }
     } else if (element == SUMO_TAG_PARAM && !myTazParamKeys.empty()) {
@@ -76,7 +78,8 @@ ROMARouteHandler::myEndElement(int element) {
         } else {
             myMatrix.add(myVehicleParameter->id, myVehicleParameter->depart,
                          myVehicleParameter->fromTaz, myVehicleParameter->toTaz, myVehicleParameter->vtypeid,
-                         !myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET), !myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET));
+                         !myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) || myIgnoreTaz,
+                         !myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET) || myIgnoreTaz);
         }
         delete myVehicleParameter;
     }
