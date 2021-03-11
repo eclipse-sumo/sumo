@@ -237,7 +237,10 @@ class FXMenuCheckIcon;
 /// @brief label with thick, text justify to left and width of 100
 #define GUIDesignLabelThick100          (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief label with thick, text justify to left and width of 100
+/// @brief label with thick, text justify to left and width of 75
+#define GUIDesignLabelThick75           (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 75, GUIDesignHeight, 2, 2, 2, 2
+
+/// @brief label with thick, text justify to left and width of 50
 #define GUIDesignLabelThick50           (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 50, GUIDesignHeight, 2, 2, 2, 2
 
 /// @}

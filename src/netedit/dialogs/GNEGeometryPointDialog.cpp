@@ -46,7 +46,7 @@ FXIMPLEMENT_ABSTRACT(GNEGeometryPointDialog, FXTopWindow, GNEGeometryPointDialog
 // ===========================================================================
 
 GNEGeometryPointDialog::GNEGeometryPointDialog(GNEViewNet* viewNet, Position* pos) :
-    FXTopWindow(viewNet, "Custom Geometry Point", GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), GUIDesignDialogBoxExplicit(200, 80)),
+    FXTopWindow(viewNet, "Custom Geometry Point", GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), GUIDesignDialogBoxExplicit(320, 80)),
     myViewNet(viewNet),
     myPos(pos),
     myOriginalPos(*pos),
@@ -55,18 +55,18 @@ GNEGeometryPointDialog::GNEGeometryPointDialog(GNEViewNet* viewNet, Position* po
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create frame for X,Y
     FXHorizontalFrame* XYFrame = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(XYFrame, "X,Y,[Z]", nullptr, GUIDesignLabelThick50);
+    new FXLabel(XYFrame, "X,Y,[Z]", nullptr, GUIDesignLabelThick75);
     myTextFieldXY = new FXTextField(XYFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldXY->setText(toString(*pos).c_str());
     // create frame for lon,lat
     FXHorizontalFrame* lonLatFrame = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(lonLatFrame, "lon,lat", nullptr, GUIDesignLabelThick50);
+    new FXLabel(lonLatFrame, "lon,lat,[Z]", nullptr, GUIDesignLabelThick75);
     myTextFieldLonLat = new FXTextField(lonLatFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // check if enable geo coordinates
     if (myGeo) {
         Position geoPos = *pos;
         GeoConvHelper::getFinal().cartesian2geo(geoPos);
-        myTextFieldLonLat->setText(toString(geoPos).c_str());
+        myTextFieldLonLat->setText(toString(geoPos, gPrecisionGeo).c_str());
     } else {
         myTextFieldLonLat->disable();
     }
