@@ -24,7 +24,11 @@ from __future__ import absolute_import
 import os
 import sys
 import optparse
-import xml.etree.ElementTree as ET
+try:
+    import xml.etree.cElementTree as ET
+except ImportError as e:
+    print("recovering from ImportError '%s'" % e)
+    import xml.etree.ElementTree as ET
 
 
 if 'SUMO_HOME' in os.environ:
