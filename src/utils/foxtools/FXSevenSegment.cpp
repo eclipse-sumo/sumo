@@ -127,9 +127,9 @@ void FXSevenSegment::setVertical(const FXint len) {
 }
 
 // set segment thickness
-void FXSevenSegment::setThickness(const FXint width) {
-    if (width != st) {
-        st = (FXshort)width;
+void FXSevenSegment::setThickness(const FXint w) {
+    if (w != st) {
+        st = (FXshort)w;
         checkSize();
         recalc();
         update();
@@ -137,9 +137,9 @@ void FXSevenSegment::setThickness(const FXint width) {
 }
 
 // set groove thickness
-void FXSevenSegment::setGroove(const FXint width) {
-    if (width != groove) {
-        groove = (FXshort)width;
+void FXSevenSegment::setGroove(const FXint w) {
+    if (w != groove) {
+        groove = (FXshort)w;
         checkSize();
         recalc();
         update();

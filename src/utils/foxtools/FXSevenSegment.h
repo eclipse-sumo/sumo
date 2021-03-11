@@ -116,13 +116,13 @@ public:
     }
 
     /// get/set segment thickness
-    void setThickness(const FXint width);
+    void setThickness(const FXint w);
     FXint getThickness() const {
         return st;
     }
 
     /// get/set groove thickness
-    void setGroove(const FXint width);
+    void setGroove(const FXint w);
     FXint getGroove() const {
         return groove;
     }

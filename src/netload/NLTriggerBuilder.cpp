@@ -489,18 +489,8 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
     const std::string ptStopName = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
 
     //get the color, use default if not given
-    RGBColor defaultColor;
-    switch (element) {
-    case SUMO_TAG_BUS_STOP:
-    case SUMO_TAG_TRAIN_STOP:
-        // default color, copy from GUIVisualizationSettings: GUIVisualizationStoppingPlaceSettings::busStopColor
-        defaultColor = RGBColor(76, 170, 50);
-        break;
-    case SUMO_TAG_CONTAINER_STOP:
-        // default color, copy from GUIVisualizationSettings: GUIVisualizationStoppingPlaceSettings::containerStopColor
-        defaultColor = RGBColor(83, 89, 172);
-        break;
-    }
+    // default color, copy from GUIVisualizationStoppingPlaceSettings::busStopColor / containerStopColor
+    const RGBColor defaultColor = element == SUMO_TAG_CONTAINER_STOP ? RGBColor(83, 89, 172) : RGBColor(76, 170, 50);
     RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok, defaultColor);
 
     MSLane* lane = getLane(attrs, toString(element), id);

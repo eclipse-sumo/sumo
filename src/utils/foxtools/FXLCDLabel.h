@@ -112,11 +112,11 @@ public:
     FXint getVertical() const;
 
     /// set/get segment width - must be less than half the segment length
-    void setThickness(const FXint width);
+    void setThickness(const FXint w);
     FXint getThickness() const;
 
     /// set/get groove width - must be less than segment width
-    void setGroove(const FXint width);
+    void setGroove(const FXint w);
     FXint getGroove() const;
 
     /// return minimum width

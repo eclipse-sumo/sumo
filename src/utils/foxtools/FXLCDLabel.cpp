@@ -194,11 +194,11 @@ FXint FXLCDLabel::getThickness() const {
 }
 
 // set the width of the segments
-void FXLCDLabel::setThickness(const FXint width) {
+void FXLCDLabel::setThickness(const FXint w) {
     FXSevenSegment* child = (FXSevenSegment*)getFirst();
-    if (width != child->getThickness()) {
+    if (w != child->getThickness()) {
         for (child = (FXSevenSegment*)getFirst(); child; child = (FXSevenSegment*)child->getNext()) {
-            child->setThickness(width);
+            child->setThickness(w);
         }
         recalc();
         update();
@@ -212,11 +212,11 @@ FXint FXLCDLabel::getGroove() const {
 }
 
 // set the groove width
-void FXLCDLabel::setGroove(const FXint width) {
+void FXLCDLabel::setGroove(const FXint w) {
     FXSevenSegment* child = (FXSevenSegment*)getFirst();
-    if (width != child->getGroove()) {
+    if (w != child->getGroove()) {
         for (child = (FXSevenSegment*)getFirst(); child; child = (FXSevenSegment*)child->getNext()) {
-            child->setGroove(width);
+            child->setGroove(w);
         }
         recalc();
         update();
@@ -310,17 +310,17 @@ void FXLCDLabel::drawString(const FXString& lbl) {
     //        for the last sevensegment, so as to fill the remaining space.
     FXSevenSegment* child = (FXSevenSegment*)getFirst();
     if (options & LAYOUT_FILL) {
-        FXint width = this->width - padleft - padright - (border << 1);
-        FXint height = this->height - padtop - padbottom - (border << 1);
-        hspacing = FXMAX(width, height) / 50;
+        const FXint w = this->width - padleft - padright - (border << 1);
+        const FXint h = this->height - padtop - padbottom - (border << 1);
+        hspacing = FXMAX(w, h) / 50;
         if (hspacing < 1) {
             hspacing = 1;
         }
-        FXint hsl = (width - (nfigures - 1) * hspacing) / nfigures;
+        FXint hsl = (w - (nfigures - 1) * hspacing) / nfigures;
         if (hsl < 5) {
             hsl = 5;
         }
-        FXint vsl = height >> 1;
+        FXint vsl = h >> 1;
         if (vsl < 5) {
             vsl = 5;
         }
