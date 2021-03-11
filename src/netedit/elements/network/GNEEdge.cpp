@@ -1190,8 +1190,12 @@ GNEEdge::updateVehicleStackLabels() {
 
 void
 GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane* lane) const {
+    // declare conditions
+    const bool lastLane = (lane == myLanes.back());
+    const bool validScale = (s.scale > 8.0);
+    const bool elevationMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && myNet->getViewNet()->getNetworkViewOptions().editingElevation();
     // first check conditions
-    if ((lane == myLanes.back()) && (s.scale > 8.0) && !myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
+    if (lastLane && (validScale || elevationMode) && !myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         // Obtain exaggeration of the draw
         const double exaggeration = s.addSize.getExaggeration(s, this);
         // get circle width
