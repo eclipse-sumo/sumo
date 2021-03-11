@@ -2004,7 +2004,7 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
         // make a copy of edge geometry
         PositionVector edgeGeometry = lane->getParentEdge()->getNBEdge()->getGeometry();
         // get index position
-        const int index = edgeGeometry.indexOfClosest(getPositionInformation());
+        const int index = edgeGeometry.indexOfClosest(getPositionInformation(), true);
         // get new position
         Position newPosition = edgeGeometry[index];
         // edit using GNEGeometryPointDialog
@@ -2036,7 +2036,7 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
         // make a copy of polygon geometry
         PositionVector polygonGeometry = poly->getShape();
         // get index position
-        const int index = polygonGeometry.indexOfClosest(getPositionInformation());
+        const int index = polygonGeometry.indexOfClosest(getPositionInformation(), true);
         // get new position
         Position newPosition = polygonGeometry[index];
         // edit using GNEGeometryPointDialog
@@ -2056,7 +2056,7 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
         // make a copy of TAZ geometry
         PositionVector TAZGeometry = TAZ->getTAZElementShape();
         // get index position
-        const int index = TAZGeometry.indexOfClosest(getPositionInformation());
+        const int index = TAZGeometry.indexOfClosest(getPositionInformation(), true);
         // get new position
         Position newPosition = TAZGeometry[index];
         // edit using GNEGeometryPointDialog

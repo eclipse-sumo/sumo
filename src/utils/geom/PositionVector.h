@@ -341,9 +341,14 @@ public:
      */
     Position transformToVectorCoordinates(const Position& p, bool extend = false) const;
 
-    /// @brief index of the closest position to p
-    /// @note: may only be called for a non-empty vector
-    int indexOfClosest(const Position& p) const;
+    /* @brief index of the closest position to p
+     * @in twoD whether all positions should be projected onto the plan
+       @note: may only be called for a non-empty vector
+    */
+    int indexOfClosest(const Position& p, bool twoD = false) const;
+
+    /// @brief index of the closest position to p when projecting vector and p onto the plan
+    int indexOfClosest2D(const Position& p) const;
 
     /// @brief distances of all my points to s and all of s points to myself
     /// @note if perpendicular is set to true, only the perpendicular distances are returned

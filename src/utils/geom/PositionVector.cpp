@@ -945,7 +945,7 @@ PositionVector::transformToVectorCoordinates(const Position& p, bool extend) con
 
 
 int
-PositionVector::indexOfClosest(const Position& p) const {
+PositionVector::indexOfClosest(const Position& p, bool twoD) const {
     if (size() == 0) {
         return -1;
     }
@@ -953,7 +953,8 @@ PositionVector::indexOfClosest(const Position& p) const {
     double dist;
     int closest = 0;
     for (int i = 0; i < (int)size(); i++) {
-        dist = p.distanceTo((*this)[i]);
+        const Position& p2 = (*this)[i];
+        dist = twoD ? p.distanceTo2D(p2) : p.distanceTo(p2);
         if (dist < minDist) {
             closest = i;
             minDist = dist;
