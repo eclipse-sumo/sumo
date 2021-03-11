@@ -9,3 +9,6 @@ trip_chain
 
 # persons riding the ferry
 ferry_trip
+
+# 2 persons starting in the same vehicle
+triggered
