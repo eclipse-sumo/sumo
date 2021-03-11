@@ -44,7 +44,6 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/WrappingCommand.h>
 #include <utils/common/RGBColor.h>
-#include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/options/OptionsCont.h>
 #include "NLHandler.h"
 #include "NLTriggerBuilder.h"
