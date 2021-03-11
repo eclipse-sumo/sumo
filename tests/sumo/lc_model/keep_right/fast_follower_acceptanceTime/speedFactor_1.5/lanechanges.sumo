@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar  5 14:39:08 2021 by Eclipse SUMO sumo Version v1_8_0+1523-443164b
+<!-- generated on Thu Mar 11 14:55:32 2021 by Eclipse SUMO sumo Version v1_8_0+1579-4d4c1b6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,6 +36,6 @@ SPDX-License-Identifier: EPL-2.0
 <lanechanges>
     <change id="b" type="t0" time="6.00" from="B_1" to="B_0" dir="-1" speed="20.84" pos="130.11" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
     <change id="a" type="t0" time="6.00" from="A_1" to="A_0" dir="-1" speed="12.50" pos="80.07" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
-    <change id="c" type="t0" time="7.00" from="C_1" to="C_0" dir="-1" speed="41.67" pos="296.79" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
-    <change id="d" type="t0" time="10.00" from="D_1" to="D_0" dir="-1" speed="54.16" pos="546.75" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="c" type="t0" time="8.00" from="C_1" to="C_0" dir="-1" speed="41.67" pos="338.46" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="d" type="t0" time="13.00" from="D_1" to="D_0" dir="-1" speed="54.16" pos="709.25" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
 </lanechanges>
