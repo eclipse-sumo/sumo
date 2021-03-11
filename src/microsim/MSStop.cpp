@@ -48,19 +48,24 @@ MSStop::getEndPos(const SUMOVehicle& veh) const {
 
 std::string
 MSStop::getDescription() const {
+    std::string result;
     if (parkingarea != nullptr) {
-        return "parkingArea:" + parkingarea->getID();
+        result = "parkingArea:" + parkingarea->getID();
     } else if (containerstop != nullptr) {
-        return "containerStop:" + containerstop->getID();
+        result = "containerStop:" + containerstop->getID();
     } else if (busstop != nullptr) {
-        return "busStop:" + busstop->getID();
+        result = "busStop:" + busstop->getID();
     } else if (chargingStation != nullptr) {
-        return "chargingStation:" + chargingStation->getID();
+        result = "chargingStation:" + chargingStation->getID();
     } else if (overheadWireSegment != nullptr) {
-        return "overheadWireSegment:" + overheadWireSegment->getID();
+        result = "overheadWireSegment:" + overheadWireSegment->getID();
     } else {
-        return "lane:" + lane->getID() + " pos:" + toString(pars.endPos);
+        result = "lane:" + lane->getID() + " pos:" + toString(pars.endPos);
     }
+    if (pars.actType != "") {
+        result += " actType:" + pars.actType;
+    }
+    return result;
 }
 
 

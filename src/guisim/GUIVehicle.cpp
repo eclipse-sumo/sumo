@@ -741,6 +741,9 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
         if (stop.pars.speed > 0) {
             label += " speed:" + toString(stop.pars.speed);
         }
+        if (stop.pars.actType != "") {
+            label += " actType:" + stop.pars.actType;
+        }
         std::pair<const MSLane*, double> stopPos = std::make_pair(stop.lane, stopLanePos);
         const double nameSize = s.vehicleName.size / s.scale;
         Position pos2 = pos - Position(0, nameSize * repeat[stopPos]);
