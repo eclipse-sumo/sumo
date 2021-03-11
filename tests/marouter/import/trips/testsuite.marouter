@@ -6,3 +6,6 @@ multiTaz
 # single trips without taz
 noTaz
 ignoreUnknown
+
+# use trip attributes from,to directly
+ignore_taz
