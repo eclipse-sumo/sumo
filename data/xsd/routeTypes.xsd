@@ -468,6 +468,7 @@
         <xsd:attribute name="end" type="timeType"/>
         <xsd:attribute name="period" type="timeType"/>
         <xsd:attribute name="vehsPerHour" type="nonNegativeFloatType"/>
+        <xsd:attribute name="perHour" type="nonNegativeFloatType"/>
         <xsd:attribute name="probability" type="nonNegativeFloatType"/>
         <xsd:attribute name="number" type="xsd:int"/>
         <xsd:attribute name="color" type="colorType"/>
@@ -798,10 +799,11 @@
     <xsd:complexType name="personFlowType">
         <xsd:complexContent>
             <xsd:extension base="personBaseType">
-                <xsd:attribute name="begin" type="timeType"/>
+                <xsd:attribute name="begin" type="personDepartType"/>
                 <xsd:attribute name="end" type="timeType"/>
                 <xsd:attribute name="period" type="timeType"/>
                 <xsd:attribute name="personsPerHour" type="nonNegativeFloatType"/>
+                <xsd:attribute name="perHour" type="nonNegativeFloatType"/>
                 <xsd:attribute name="probability" type="nonNegativeFloatType"/>
                 <xsd:attribute name="number" type="xsd:int"/>
             </xsd:extension>
@@ -882,6 +884,28 @@
     </xsd:complexType>
 
     <xsd:complexType name="containerType">
+        <xsd:complexContent>
+            <xsd:extension base="containerBaseType">
+                <xsd:attribute name="depart" type="personDepartType" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="containerFlowType">
+        <xsd:complexContent>
+            <xsd:extension base="containerBaseType">
+                <xsd:attribute name="begin" type="personDepartType"/>
+                <xsd:attribute name="end" type="timeType"/>
+                <xsd:attribute name="period" type="timeType"/>
+                <xsd:attribute name="containersPerHour" type="nonNegativeFloatType"/>
+                <xsd:attribute name="perHour" type="nonNegativeFloatType"/>
+                <xsd:attribute name="probability" type="nonNegativeFloatType"/>
+                <xsd:attribute name="number" type="xsd:int"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="containerBaseType">
         <xsd:choice maxOccurs="unbounded">
             <xsd:element name="transport">
                 <xsd:complexType>
@@ -905,7 +929,6 @@
             <xsd:element name="param" type="paramType"/>
         </xsd:choice>
         <xsd:attribute name="id" type="idType" use="required"/>
-        <xsd:attribute name="depart" type="timeType" use="required"/>
         <xsd:attribute name="arrival" type="nonNegativeFloatType"/>
         <xsd:attribute name="type" type="xsd:string"/>
         <xsd:attribute name="departPos" type="departPosType"/>
