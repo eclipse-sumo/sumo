@@ -443,7 +443,7 @@ HelpersHBEFA3::myFunctionParameter[45][6][6] = {
 // ===========================================================================
 // method definitions
 // ===========================================================================
-HelpersHBEFA3::HelpersHBEFA3() : PollutantsInterface::Helper("HBEFA3") {
+HelpersHBEFA3::HelpersHBEFA3() : PollutantsInterface::Helper("HBEFA3", HBEFA3_BASE, -1) {
     int index = HBEFA3_BASE;
     std::string light[] = { "LDV", "LDV_G_EU0", "LDV_G_EU1", "LDV_G_EU2", "LDV_G_EU3", "LDV_G_EU4", "LDV_G_EU5", "LDV_G_EU6", "LDV_G_East",
                             "LDV_D_EU0", "LDV_D_EU1", "LDV_D_EU2", "LDV_D_EU3", "LDV_D_EU4", "LDV_D_EU5", "LDV_D_EU6",

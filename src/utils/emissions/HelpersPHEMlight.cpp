@@ -37,7 +37,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-HelpersPHEMlight::HelpersPHEMlight() : PollutantsInterface::Helper("PHEMlight"), myIndex(PHEMLIGHT_BASE) {
+HelpersPHEMlight::HelpersPHEMlight() :
+    PollutantsInterface::Helper("PHEMlight", PHEMLIGHT_BASE, -1),
+    myIndex(PHEMLIGHT_BASE) {
 }
 
 

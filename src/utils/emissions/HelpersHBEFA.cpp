@@ -131,7 +131,7 @@ HelpersHBEFA::myFunctionParameter[42][36] = {
 // ===========================================================================
 // method definitions
 // ===========================================================================
-HelpersHBEFA::HelpersHBEFA() : PollutantsInterface::Helper("HBEFA2") {
+HelpersHBEFA::HelpersHBEFA() : PollutantsInterface::Helper("HBEFA2", HBEFA_BASE, -1) {
     int clusterSizesH[] = {3, 6, 12};
     int clusterSizesP[] = {7, 14};
     int index = HBEFA_BASE;

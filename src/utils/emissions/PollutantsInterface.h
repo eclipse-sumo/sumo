@@ -103,7 +103,10 @@ public:
         /** @brief Constructor, intializes the name
          * @param[in] name the name of the model (string before the '/' in the emission class attribute)
          */
-        Helper(std::string name, const int defaultClass = -1) : myName(name) {
+        Helper(std::string name, const int baseIndex, const int defaultClass) :
+            myName(name),
+            myBaseIndex(baseIndex)
+        {
             if (defaultClass != -1) {
                 myEmissionClassStrings.insert("default", defaultClass);
                 myEmissionClassStrings.addAlias("unknown", defaultClass);
@@ -274,9 +277,16 @@ public:
             myEmissionClassStrings.addKeysInto(list);
         }
 
+        bool includesClass(const SUMOEmissionClass c) const {
+            return (c >> 16) == (myBaseIndex >> 16);
+        }
+
     protected:
         /// @brief the name of the model
         const std::string myName;
+
+        /// @brief the starting index for classes of this model
+        const int myBaseIndex;
 
         /// @brief Mapping between emission class names and integer representations
         StringBijection<SUMOEmissionClass> myEmissionClassStrings;
