@@ -44,15 +44,20 @@ title: ChangeLog
   - Fixed crash when using network property dialog in meso. Issue #7998
   - Person drawing style "as circles" is now drawing circles as intended. Issue #8130
   - Fixed crash when opening person parameter dialog for a person with depart="triggered". Issue #8164
+  - Default coloring now indicates lanes that allow rails and busses. #8315
   
 - netedit
-  - Fixed invalid E2 detector shape #7895 (Regression in 1.7.0)
+  - Fixed invalid E2 detector shape Issue #7895 (Regression in 1.7.0)
+  - Fixed invalid rendering layer of polygons below roads. Issue #8316 (Regression in 1.7.0)
   - Access elements can only be placed on lane that permit pedestrian traffic. Issue #5893
   - Fixed issues when adding stops in person plan. #7829
   - Fixed issue where written network (with only invalid crossings) is modified upon reloading. Issue #7765
   - In Traffic Light mode, cycle time is now updated, when new phase is inserted. Issue #7961
   - Fixed problem with invisible data elements. Issue #7643 
   - Fixed problem with invisible vehicles when activating 'spread vehicles'. Issue #7931
+  - Polygon and poi now have a visual indication when 'marked as front'. Issue #8331
+  - Fixed bug when deleting or changing geometry-points (via dialog) in 3d-networks. Issue #8345
+  - When polygons and other network elements overlap, clicks will not correctly go to the top element by default. Issue #8346
   
 - netconvert
   - Fixed invalid signal plans in network with unusual geometry. Issue #7915
@@ -64,7 +69,7 @@ title: ChangeLog
   - Fixed missing trafficlights when combining options **--tls.discard-simple** and **--junctions.join**. Issue #8219
   - Fixed high running time when using option **--geometry.remove** on large networks. Issue #8270
   - Fixed crash when using option **--heightmap.shapefiles** with unsuitable shape data. Issue #8307
-  - Fixed missing bus-permissions when importing OSM. Issue #8310
+  - Fixed missing bus-permissions when importing OSM. Issue #8310, #8317
 
 - od2trips
   - Fixed invalid begin and end times when writting personFlows. Issue #7885
@@ -84,6 +89,7 @@ title: ChangeLog
   - Fixed failure to add stop when close to the stop position (but not quite too close). Also affected taxi re-dispatch. Issue #8285
   - Looped taxi-dispatch now picks up persons in the intended order. Issue #8295
   - Fixed crash after calling 'person.removeStage' on a riding stage. Issue #8305
+  - Fixed invalid traceFile output. Issue #8320, #8323
   
 - Tools
   - Fixed error in xml2csv.py when loading files names consists only of numbers. Issue #7910
@@ -112,6 +118,9 @@ title: ChangeLog
   - fcd-output can now distinguish riding and walking persons by adding 'vehicle' to the option **--fcd-output.attributes**. Issue #7631
   - Added option **time-to-teleport.disconnected** which is applied when teleporting vehicles on fully disconnected routes. Issue #8267
   - Now supporting element `<containerFlow>` to define multiple containers.
+  - Added option **--save-state.constraints** to include constraints in saved simulation state. Issue #8337
+  - PersonFlow now supports attribute `begin="triggered" number="..."` to start a number of persons in the same vehicle. Issue #8165
+  - Added option **--device.battery.track-fuel** to track fuel level for other fuels besides electricity #8349
   
 - sumo-gui
   - Random color for containers is now supported. Issue #7941
@@ -141,7 +150,7 @@ title: ChangeLog
 
 - netconvert
   - Lanes and connections now support attributes 'changeLeft' and 'changeRight' to configure lane-change restrictions. Issue #3656
-  - Lane changing restrictions are now imported from OSM. To achieve legacy behavior, set option **--ignore-change-restrictions all**. Issue #8221  
+  - Lane changing restrictions are now imported from OSM. To achieve legacy behavior, set option **--ignore-change-restrictions all**. Issue #8221
   - Added option **--tls.no-mixed** which prevents building phases where different connections from the same lane have green and red signals. Issue #7821
   - Element `<laneType>` is now supported in an edge `<type>` to pre-configure speed, width and permissions for individual lanes. Issue #7791
   - Merging of overlapping geo-referenced networks with re-occuring ids now works without setting option **--ignore-errors**. Issue #8019
@@ -153,9 +162,14 @@ title: ChangeLog
   - Connection file element `<walkingArea>` no supports attribute 'width' #7968
   - Lane attribute type is now written in OpenDRIVE output. Issue #8229
   - Added option **--default.allow** to set default edge permissions (also applies to netgenerate). Issue #8271
+  - Added option **--osm.extra-attributes** to import addional edge attributes (osm tags) as generic parameters. Issue #8322
+  - Added option **--osm.lane-access** for import of extra lane access permissions (experimental). Issue #7601
 
 - netgenerate
   - Releaxed restrictions on minimum edge lengths when building grid and spider networks. Issue #8272
+
+- marouter
+  - Added option **--ignore-taz** to route individual trips written by [od2trips](od2trips.md) between their assigned edges. Issue #8343
 
 - TraCI
   - Added function 'traci.simulation.getCollisions' to retrieve a list of collision objects for the current time step. This also includes collisions between vehicles and pedestrians. Issue #7728
@@ -174,6 +188,7 @@ title: ChangeLog
   - [netcheck.py](Tools/Net.md#netcheckpy) now supports option **--print-types** to analyze the edge types of the different network components. Issue #8097
   - The tool [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy) can now handle inconsistent schedule input without generating deadlocking constraints when setting option **--abort-unordered**. Issue #7436, #8246, #8278
   - When loading additional weights in for [duaIterate.py](Demand/Dynamic_User_Assignment.md#iterative_assignment_dynamic_user_equilibrium), the new option **--addweights.once** controls whether the weights are to be effective in every iteration or not. The new default is to apply them in every iteration whereas previously, they were applied only in the first iteration. Issue #8249
+  - Added new tool [splitRandom.py](Tools/Routes.md#splitrandompy). Issue #8324
 
 ### Other
 
