@@ -6,3 +6,6 @@ xml2csv
 
 # Tests for CSV XML conversion
 csv2xml
+
+# Test for add or remove attributes
+addOrRemoveAttribute
