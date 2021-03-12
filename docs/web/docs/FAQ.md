@@ -162,7 +162,7 @@ always use the latest version of SUMO.
   mailing list but **please** remember to copy / screenshot the error
   message itself and attach it to your question. Attaching (zipped\!)
   input files for reproducing the error message is also a good idea
-  (see question above).
+  (see question above). When sending screenshots of sumo-gui, please include the whole screen so the application version and simulation time are visible.
 
 ### How do I report erroneous behavior of a SUMO application?
 
@@ -172,7 +172,7 @@ always use the latest version of SUMO.
 - a description of the SUMO-version and the operating system you are
   using
 - a screenshot or error output showing the unexpected behavior (this
-  may allow us to diagnose the problem at a single glance)
+  may allow us to diagnose the problem at a single glance). When sending screenshots of sumo-gui, please include the whole screen so the application version and simulation time are visible.
 - the complete input files for reproducing the error (i.e. a .sumocfg
   and all files referenced therein) in a zip-archive. Please remove
   unnecessary inputs (i.e. only 2 vehicles instead of 2000) and try to
@@ -198,7 +198,7 @@ always use the latest version of SUMO.
   - Always name the SUMO version to which your question applies
   - Include relevant warnings/errors/stack-traces in your question
     (please copy the text and avoid screenshots to reproduce text
-    messages)
+    messages). When sending screenshots of sumo-gui, please include the whole screen so the application version and simulation time are visible.
 - Phrase your question using familiar terms (not everyone is an expert
 in your domain).
 - Don't ask for too many things in a single post.
