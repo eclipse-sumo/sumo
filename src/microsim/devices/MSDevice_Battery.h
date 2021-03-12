@@ -105,10 +105,10 @@ private:
     void checkParam(const SumoXMLAttr paramKey, const double lower = 0., const double upper = std::numeric_limits<double>::infinity());
 
 public:
-    /// @brief Get the actual vehicle's Battery Capacity in kWh
+    /// @brief Get the actual vehicle's Battery Capacity in Wh
     double getActualBatteryCapacity() const;
 
-    /// @brief Get the total vehicle's Battery Capacity in kWh
+    /// @brief Get the total vehicle's Battery Capacity in Wh
     double getMaximumBatteryCapacity() const;
 
     /// @brief Get the maximum power when accelerating
@@ -174,10 +174,10 @@ public:
     }
 
 protected:
-    /// @brief Parameter, The actual vehicles's Battery Capacity in kWh, [myActualBatteryCapacity <= myMaximumBatteryCapacity]
+    /// @brief Parameter, The actual vehicles's Battery Capacity in Wh, [myActualBatteryCapacity <= myMaximumBatteryCapacity]
     double myActualBatteryCapacity;
 
-    /// @brief Parameter, The total vehicles's Battery Capacity in kWh, [myMaximumBatteryCapacity >= 0]
+    /// @brief Parameter, The total vehicles's Battery Capacity in Wh, [myMaximumBatteryCapacity >= 0]
     double myMaximumBatteryCapacity;
 
     /// @brief Parameter, The Maximum Power when accelerating, [myPowerMax >= 0]

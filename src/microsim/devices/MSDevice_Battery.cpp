@@ -114,8 +114,10 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
     if (getMaximumBatteryCapacity() != 0) {
         myParam[SUMO_ATTR_ANGLE] = myLastAngle == std::numeric_limits<double>::infinity() ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle());
         if (myTrackFuel) {
+            // [ml]
             myConsum = PollutantsInterface::compute(veh.getVehicleType().getEmissionClass(), PollutantsInterface::FUEL, veh.getSpeed(), veh.getAcceleration(), veh.getSlope()) * TS;
         } else {
+            // [Wh]
             myConsum = PollutantsInterface::getEnergyHelper().compute(0, PollutantsInterface::ELEC, veh.getSpeed(), veh.getAcceleration(), veh.getSlope(), &myParam) * TS;
         }
         if (veh.isParking()) {
