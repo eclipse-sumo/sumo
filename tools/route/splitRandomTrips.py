@@ -11,12 +11,12 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    addParkingAreaStops2Routes.py
-# @author  Evamarie Wiessner
-# @date    2017-01-09
+# @file    splitRandom.py
+# @author  Pablo Alvarez Lopez
+# @date    2021-03-09
 
 """
-add stops at parkingAreas to vehicle routes
+splits a route file randomly in two parts
 """
 
 from __future__ import print_function
@@ -39,12 +39,18 @@ import sumolib  # noqa
 
 def get_options(args=None):
     optParser = optparse.OptionParser()
-    optParser.add_option("-r", "--route-file", dest="routefile", help="define the input route file with trips")
-    optParser.add_option("-n", "--number", dest="number", help="number of trips to split")
-    optParser.add_option("-a", "--output-file-a", dest="outputA", help="define the first output route file with trips")
-    optParser.add_option("-b", "--output-file-b", dest="outputB", help="define the second output route file with trips")
-    optParser.add_option("--random", action="store_true", default=False, help="use a random seed to initialize the random number generator")
-    optParser.add_option("-s", "--seed", type="int", default=42, help="random seed")
+    optParser.add_option("-r", "--route-file", dest="routefile",
+            help="define the input route file with trips or vehicles")
+    optParser.add_option("-n", "--number", dest="number",
+            help="number of trips/vehicles to split")
+    optParser.add_option("-a", "--output-file-a", dest="outputA", default="tripsA.rou.xml",
+            help="define the first output route file")
+    optParser.add_option("-b", "--output-file-b", dest="outputB", default="tripsB.rou.xml",
+            help="define the second output route file")
+    optParser.add_option("--random", action="store_true", default=False,
+            help="use a random seed to initialize the random number generator")
+    optParser.add_option("-s", "--seed", type="int", default=42,
+            help="random seed")
     (options, args) = optParser.parse_args(args=args)
     if not options.routefile or not options.number:
         optParser.print_help()
@@ -56,15 +62,8 @@ def main(options):
     if not options.random:
         random.seed(options.seed)
     infile = options.routefile
-    # check outputs 
-    if not options.outputA:
-        options.outputA = "tripsA.rou.xml"
-    if not options.outputB:
-        options.outputB = "tripsB.rou.xml"
     # copy all trips into an array
-    tripsArray = []
-    for trip in sumolib.xml.parse(infile, "trip"):
-        tripsArray.append(trip)
+    tripsArray = list(sumolib.xml.parse(infile, ["trip", "vehicle", "flow"]))
     # declare range [0, numTrips]
     tripsRange = range(0, len(tripsArray))
     # randomSample
@@ -87,29 +86,20 @@ def main(options):
         # update index
         index += 1
     # write trips A
-    with open(options.outputA, 'w') as outf:
-        # write header
-        outf.write("<?xml version= \"1.0\" encoding=\"UTF-8\"?>\n\n")
-        # open route rag
-        outf.write("<routes>\n")
-        # iterate over trips
-        for trip in tripsArrayA:
-            # write trip
-            outf.write(trip.toXML(initialIndent="    "))
-        # close route tag
-        outf.write("</routes>\n")
-    # write trips B
-    with open(options.outputB, 'w') as outf:
-        # write header
-        outf.write("<?xml version= \"1.0\" encoding=\"UTF-8\"?>\n\n")
-        # open route rag
-        outf.write("<routes>\n")
-        # iterate over trips
-        for trip in tripsArrayB:
-            # write trip
-            outf.write(trip.toXML(initialIndent="    "))
-        # close route tag
-        outf.write("</routes>\n")
+    for fname, trips in [
+        (options.outputA, tripsArrayA),
+        (options.outputB, tripsArrayB)]:
+        with open(fname, 'w') as outf:
+            # write header
+            sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
+            # open route rag
+            outf.write("<routes>\n")
+            # iterate over trips
+            for trip in trips:
+                # write trip
+                outf.write(trip.toXML(initialIndent="    "))
+            # close route tag
+            outf.write("</routes>\n")
 
 
 if __name__ == "__main__":
