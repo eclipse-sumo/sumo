@@ -998,7 +998,14 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXML
             }
         }
         else if (myActiveTransportablePlan->empty()) {
-            throw ProcessError("The start edge for " + agent + " '" + aid + "' is not known.");
+            // if depart is triggered, use start edge of the transporting vehicle as 'from' edge
+            if (startVeh != nullptr) {
+                myActiveTransportablePlan->push_back(new MSStageWaiting(
+                    startVeh->getRoute().getEdges().front(), nullptr, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
+            }
+            else {
+                throw ProcessError("The start edge for " + agent + " '" + aid + "' is not known.");
+            }
         }
         if (to == nullptr) {
             const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, aid.c_str(), ok);

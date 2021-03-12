@@ -24,11 +24,11 @@
         <stop lane="gneE1_1" startPos="98.50" endPos="108.50" duration="60.00"/>
     </trip>
     <person id="p0" depart="triggered">
-        <ride from="gneE0" to="gneE1" lines="v0"/>
+        <ride to="gneE1" lines="v0"/>
         <walk to="gneE3"/>
     </person>
     <person id="p1" depart="triggered">
-        <ride from="gneE0" to="gneE1" lines="v0"/>
+        <ride to="gneE1" lines="v0"/>
         <walk to="gneE3"/>
     </person>
 </routes>
