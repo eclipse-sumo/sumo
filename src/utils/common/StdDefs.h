@@ -141,3 +141,10 @@ double truncate(double x, int fractionBits);
 
 /// @brief round to the given number of mantissa bits beyond the given number
 double roundBits(double x, int fractionBits);
+
+/** @brief Returns the number of instances of the current object that shall be emitted
+ * given the number of loaded objects
+ * considering that "frac" of all objects shall be emitted overall
+ * @return the number of objects to create (something between 0 and ceil(frac))
+ */
+int getScalingQuota(double frac, int loaded);

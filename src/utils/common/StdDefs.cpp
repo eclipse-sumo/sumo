@@ -45,4 +45,19 @@ double roundBits(double x, int fractionBits) {
 }
 
 
+int
+getScalingQuota(double frac, int loaded) {
+    if (frac < 0 || frac == 1.) {
+        return 1;
+    }
+    const int base = (int)frac;
+    const int resolution = 1000;
+    const int intFrac = (int)floor((frac - base) * resolution + 0.5);
+    // apply % twice to avoid integer overflow
+    if (((loaded % resolution) * intFrac) % resolution < intFrac) {
+        return base + 1;
+    }
+    return base;
+}
+
 /****************************************************************************/
