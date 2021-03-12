@@ -95,7 +95,7 @@ definitions.
 
 | Attribute  | Type     | Range                              | Default | Remark                                            |
 | ---------- | -------- | ---------------------------------- | ------- | ------------------------------------------------- |
-| from       | string   | valid edge ids                     | \-      | id of the start edge (optional, if it is a subsequent movement) |
+| from       | string   | valid edge ids                     | \-      | id of the start edge (optional, if it is a subsequent movement or [starts in a vehicle](persons.md#starting_the_simulation_in_a_vehicle)) |
 | to         | string   | valid edge ids                     | \-      | id of the destination edge                        |
 | busStop    | string   | valid bus stop ids                 | \-      | id of the destination stop                        |
 | lines      | list     | valid line or vehicle ids or *ANY* | \-      | list of vehicle alternatives to take for the ride |
@@ -121,15 +121,6 @@ the preceding plan element
 A given bus stop may serve as a replacement for a destination edge and
 arrival position. If an arrival position is given nevertheless it has to
 be inside the range of the stop.
-
-### Starting the simulation in a Vehicle
-To start the simulation while riding in a vehicle, the following conditions must be met:
-- the depart attribute must be set to 'triggered'
-- the first stage of the plan must be a ride
-- the lines attribute of the first ride must contain the ID of the vehicle to start in
-- the starting vehicle must already be loaded in the input file
-
-The person will then depart at the time of the vehicle departure and appear in the simulation as soon as the vehicle enters the network.
 
 ## Walks
 
@@ -204,11 +195,52 @@ from the previous stage of its plan or at the specified `departPos` if no previo
 stage exists. The walk concludes at the specified `arrivalPos` which defaults to the
 end of the final edge. Both position attributes support the special
 values `max` and `random` which work as described [for
-vehicles](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#s_vehicles_depart_and_arrival_parameter).
+vehicles](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#a_vehicles_depart_and_arrival_parameter).
 
 ## Stopping
 
 The person stops for the maximum of `currentTime` + `duration` and `until`.
+
+
+# Starting the simulation in a Vehicle
+It is possible to start the person simulation simultaneously with the start of a vehicle simulation within that vehicle. I.e. the person starts with a ride within the vehicle, when the vehicle is inserted to the simulation. This is possible for a `person` definition and a `personFlow`. In both cases the vehicle must already be loaded in the input file.
+
+!!! note
+    The starting vehicle must already be loaded in the input file
+    
+## Starting a person in a vehicle
+To start the simulation of a person while riding in a vehicle, the `depart` attribute of the person must be set to `triggered`.
+Additionally the first stage of the plan must be a `ride`. The `from` attribute is not necessary, since the vehicle start position is already defined and used.
+The vehicle is indicated by using only the vehicle ID for the `lanes` attribute of the ride.
+
+## Starting multiple persons in a vehicle
+To start the simulation of multiple persons with the same plan while riding in a vehicle, `personFlow` can be used. This only works for the distribution attribute `number`, which defines the number of persons insterted into the vehicle, and the attribute `begin="triggered"`. The `end` attribute is ignored or can be left.
+Additionally the first stage of the plan must be a `ride`. The `from` attribute is not necessary, since the vehicle start position is already defined and used.
+The vehicle is indicated by using only the vehicle ID for the `lanes` attribute of the ride.
+
+## Examples
+Person `p0` starts within the vehicle defined by trip `v0` at edge `gneE0`. The ride ends at edge `gneE1`.
+```xml
+<trip id="v0" depart="15.00" from="gneE0" to="gneE2">
+    <stop lane="gneE1_1" duration="60.00"/>
+</trip>
+<person id="p0" depart="triggered">
+    <ride to="gneE1" lines="v0"/>
+    <walk to="gneE3"/>
+</person>
+```
+
+Persons defined by personFlow `p0` start within the vehicle defined by trip `v0` at edge `gneE0`. The ride ends at edge `gneE1`.
+```xml
+<trip id="v0" depart="15.00" from="gneE0" to="gneE2">
+    <stop lane="gneE1_1" duration="60.00"/>
+</trip>
+<personFlow id="p0" begin="triggered" number="2">
+    <ride to="gneE1" lines="v0"/>
+    <walk to="gneE3"/>
+</person>
+```
+
 
 # Router input
 The following definitions can be processed with [duarouter](../duarouter.md) and [sumo](../sumo.md).
