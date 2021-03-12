@@ -49,7 +49,7 @@ elements of plan definitions.
 
 | Attribute     | Type   | Range                     | Default | Remark                                                 |
 | ------------- | ------ | ------------------------- | ------- | ------------------------------------------------------ |
-| from          | string | valid edge ids            | \-      | id of the start edge                                   |
+| from          | string | valid edge ids            | \-      | id of the start edge (optional, if it is a subsequent movement or [starts in a vehicle](Containers.md#starting_the_simulation_in_a_vehicle)) |
 | to            | string | valid edge ids            | \-      | id of the destination edge                             |
 | containerStop | string | valid container stop ids  | \-      | id of the destination stop                             |
 | lines         | list   | valid line or vehicle ids | \-      | list of vehicle alternatives to take for the transport |
@@ -73,7 +73,7 @@ are child elements of plan definitions.
 | Attribute  | Type       | Range          | Default | Remark                                  |
 | ---------- | ---------- | -------------- | ------- | --------------------------------------- |
 | edges      | list       | valid edge ids | \-      | id of the edges to tranship             |
-| from       | string     | valid edge ids | \-      | id of the start edge                    |
+| from       | string     | valid edge ids | \-      | id of the start edge (optional, if it is a subsequent movement) |
 | to         | string     | valid edge ids | \-      | id of the destination edge              |
 | containerStop | string  | valid containerStop ids | \- | id of the destination container stop|
 | speed      | float(m/s) | \>0            | 5km/h   | speed of the container for this tranship in m/s |
@@ -206,6 +206,13 @@ See also [personFlows](Persons.md#repeated_persons_personflows)
        <transport to="3/4to4/4" lines="truck0"/>
    </containerFlow>
 ```
+
+# Starting the simulation in a Vehicle
+It is possible to start the container simulation simultaneously with the start of a vehicle simulation within that vehicle. I.e. the container starts with a transport within the vehicle, when the vehicle is inserted to the simulation. This is possible for a `container` definition and a `containerFlow`.
+It is the same as for `person` and `personFlow`.
+
+!!! note
+    See [Persons](Persons.md#starting-the-simulation-in-a-vehicle) but use `transport` instead of `ride`.
 
 # Planned features
 
