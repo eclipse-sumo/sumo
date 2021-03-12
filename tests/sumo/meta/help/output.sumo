@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_8_0+1560-191d774
+Eclipse SUMO sumo Version v1_8_0+1594-7719405
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -131,10 +131,6 @@ Output Options:
                                         vehicles into FILE
   --collision-output FILE              Write collision information into FILE
   --statistic-output FILE              Write overall statistics into FILE
-  --movereminder-output FILE           Save movereminder states of selected
-                                        vehicles into FILE
-  --movereminder-output.vehicles STR[]  List of vehicle ids which shall save
-                                        their movereminder states
   --save-state.times STR[]             Use TIME[] as times at which a network
                                         state written
   --save-state.period TIME             save state repeatedly after TIME period
@@ -428,6 +424,8 @@ Battery Options:
                                         vehicles
   --device.battery.deterministic       The 'battery' devices are set
                                         deterministic using a fraction of 1000
+  --device.battery.track-fuel          Track fuel consumption for non-electric
+                                        vehicles
 
 Example Device Options:
   --device.example.probability FLOAT   The probability for a vehicle to have a
