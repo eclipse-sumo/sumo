@@ -562,12 +562,9 @@ GNEViewNetHelper::ObjectsUnderCursor::sortGUIGlObjects(const std::vector<GUIGlOb
     // iterate over set
     for (const auto& GLObject : GUIGlObjects) {
         // try to parse shape
-        const SUMOPolygon* poly = dynamic_cast<SUMOPolygon*>(GLObject);
-        const PointOfInterest* POI = dynamic_cast<PointOfInterest*>(GLObject);
-        if (poly) {
-            mySortedGUIGlObjects[poly->getShapeLayer()].push_back(GLObject);
-        } else if (POI) {
-            mySortedGUIGlObjects[POI->getShapeLayer()].push_back(GLObject);
+        const Shape* shape = dynamic_cast<Shape*>(GLObject);
+        if (shape) {
+            mySortedGUIGlObjects[shape->getShapeLayer()].push_back(GLObject);
         } else {
             mySortedGUIGlObjects[GLObject->getType()].push_back(GLObject);
         }
