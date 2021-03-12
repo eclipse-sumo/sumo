@@ -32,6 +32,7 @@ formats. Following files can be generated, sorted by application:
 - [GPX](http://en.wikipedia.org/wiki/GPS_eXchange_Format)
 - [KML](https://en.wikipedia.org/wiki/Keyhole_Markup_Language)
 - [Kepler-JSON](https://kepler.gl/)
+- IPG Traces (experimental)
 - [POIs](../Simulation/Shapes.md#poi_point_of_interest_definitions)
   (can visualize GPS distortions and sampling in
   [sumo-gui](../sumo-gui.md))
