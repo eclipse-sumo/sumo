@@ -222,6 +222,9 @@ protected:
     /// @brief Parameter, How many timestep the vehicle is stopped
     int myVehicleStopped;
 
+    /// @brief whether to track fuel consumption instead of electricity
+    bool myTrackFuel;
+
 private:
     /// @brief Invalidated copy constructor.
     MSDevice_Battery(const MSDevice_Battery&);

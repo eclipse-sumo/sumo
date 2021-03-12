@@ -46,6 +46,9 @@
 void
 MSDevice_Battery::insertOptions(OptionsCont& oc) {
     insertDefaultAssignmentOptions("battery", "Battery", oc);
+    // custom options
+    oc.doRegister("device.battery.track-fuel", new Option_Bool(false));
+    oc.addDescription("device.battery.track-fuel", "Battery", "Track fuel consumption for non-electric vehicles");
 }
 
 
@@ -110,7 +113,11 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
     // Update Energy from the battery
     if (getMaximumBatteryCapacity() != 0) {
         myParam[SUMO_ATTR_ANGLE] = myLastAngle == std::numeric_limits<double>::infinity() ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle());
-        myConsum = PollutantsInterface::getEnergyHelper().compute(0, PollutantsInterface::ELEC, veh.getSpeed(), veh.getAcceleration(), veh.getSlope(), &myParam) * TS;
+        if (myTrackFuel) {
+            myConsum = PollutantsInterface::compute(veh.getVehicleType().getEmissionClass(), PollutantsInterface::FUEL, veh.getSpeed(), veh.getAcceleration(), veh.getSlope()) * TS;
+        } else {
+            myConsum = PollutantsInterface::getEnergyHelper().compute(0, PollutantsInterface::ELEC, veh.getSpeed(), veh.getAcceleration(), veh.getSlope(), &myParam) * TS;
+        }
         if (veh.isParking()) {
             // recuperation from last braking step is ok but further consumption should cease
             myConsum = MIN2(myConsum, 0.0);
@@ -249,7 +256,8 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     myActChargingStation(nullptr),         // Initially the vehicle isn't over a Charging Station
     myPreviousNeighbouringChargingStation(nullptr),    // Initially the vehicle wasn't over a Charging Station
     myEnergyCharged(0),                 // Initially the energy charged is zero
-    myVehicleStopped(0) {               // Initially the vehicle is stopped and the corresponding variable is 0
+    myVehicleStopped(0)    // Initially the vehicle is stopped and the corresponding variable is 0
+{
 
     if (maximumBatteryCapacity < 0) {
         WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter " + toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY) + " (" + toString(maximumBatteryCapacity) + ").")
@@ -286,6 +294,8 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     checkParam(SUMO_ATTR_PROPULSIONEFFICIENCY);
     checkParam(SUMO_ATTR_RECUPERATIONEFFICIENCY);
     checkParam(SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION);
+
+    myTrackFuel = !PollutantsInterface::getEnergyHelper().includesClass(holder.getVehicleType().getEmissionClass()) && OptionsCont::getOptions().getBool("device.battery.track-fuel");
 }
 
 
