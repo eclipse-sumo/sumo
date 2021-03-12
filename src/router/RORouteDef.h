@@ -173,18 +173,10 @@ protected:
     static bool myUsingJTRR;
 
 private:
-    /** Function-object for sorting routes from highest to lowest probability. */
-    struct ComparatorProbability {
-        bool operator()(const RORoute* const a, const RORoute* const b) {
-            return a->getProbability() > b->getProbability();
-        }
-    };
-
-private:
     /// @brief Invalidated copy constructor
-    RORouteDef(const RORouteDef& src);
+    RORouteDef(const RORouteDef& src) = delete;
 
     /// @brief Invalidated assignment operator
-    RORouteDef& operator=(const RORouteDef& src);
+    RORouteDef& operator=(const RORouteDef& src) = delete;
 
 };
