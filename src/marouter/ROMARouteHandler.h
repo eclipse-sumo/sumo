@@ -77,6 +77,12 @@ private:
     /// @brief whether to ignore attributes fromTaz, toTaz
     const bool myIgnoreTaz;
 
+    /// @brief scale for loading vehicles
+    double myScale;
+
+    /// @brief number of parsed vehicles
+    int myNumLoaded;
+
 private:
     /// @brief Invalidated copy constructor
     ROMARouteHandler(const ROMARouteHandler& s);
