@@ -208,7 +208,7 @@ MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
             // update end time
             vectorBeginEndCharge.back().second = i->timeStep;
             // update timestep of charge
-            firstTimeStep += 1000;
+            firstTimeStep += DELTA_T;
             // check if charge is continuous. If not, open a new vehicle tag
             if (((i + 1) != myChargeValues.end()) && (((i + 1)->timeStep) != firstTimeStep)) {
                 // set new firstTimeStep of charge
@@ -245,7 +245,7 @@ MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
             // close tag timestep
             output.closeTag();
             // update timestep of charge
-            firstTimeStep += 1000;
+            firstTimeStep += DELTA_T;
             // check if charge is continuous. If not, open a new vehicle tag
             if (((i + 1) != myChargeValues.end()) && (((i + 1)->timeStep) != firstTimeStep)) {
                 // set new firstTimeStep of charge
