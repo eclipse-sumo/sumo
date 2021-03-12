@@ -16,6 +16,7 @@
 /// @author  Jakob Erdmann
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
+/// @author  Johannes Rummel
 /// @date    Mon, 9 Jul 2001
 ///
 // Parser and container for routes during their loading
@@ -1109,12 +1110,12 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 edge = &stopLane->getEdge();
             } else {
                 if (myActiveTransportablePlan && !myActiveTransportablePlan->empty()) { // use end of movement before
-                    const MSStoppingPlace* bs = myActiveTransportablePlan->back()->getDestinationStop();
-                    if (bs != nullptr) { // use end of movement before definied as a stopping place
-                        edge = &bs->getLane().getEdge();
-                        stop.lane = bs->getLane().getID();
-                        stop.endPos = bs->getEndLanePosition();
-                        stop.startPos = bs->getBeginLanePosition();
+                    toStop = myActiveTransportablePlan->back()->getDestinationStop();
+                    if (toStop != nullptr) { // use end of movement before definied as a stopping place
+                        edge = &toStop->getLane().getEdge();
+                        stop.lane = toStop->getLane().getID();
+                        stop.endPos = toStop->getEndLanePosition();
+                        stop.startPos = toStop->getBeginLanePosition();
                     } else { // use end of movement before definied as lane/edge
                         edge = myActiveTransportablePlan->back()->getDestination();
                         stop.lane = edge->getLanes()[0]->getID();
