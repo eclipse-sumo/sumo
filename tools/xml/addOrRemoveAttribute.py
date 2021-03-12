@@ -11,12 +11,12 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    addParkingAreaStops2Routes.py
-# @author  Evamarie Wiessner
-# @date    2017-01-09
+# @file    addOrRemoveAttribute.py
+# @author  Pablo Alvarez Lopez
+# @date    2021-03-09
 
 """
-add stops at parkingAreas to vehicle routes
+sets / removes attribute for the specified xml element
 """
 
 from __future__ import print_function
