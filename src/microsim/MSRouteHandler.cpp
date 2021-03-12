@@ -938,7 +938,7 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXML
         }
         const std::string aid = myVehicleParameter->id;
         bool ok = true;
-        MSEdge* from = nullptr;
+        const MSEdge* from = nullptr;
         const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, aid.c_str(), ok);
         StringTokenizer st(desc);
         std::string sID = attrs.getOpt<std::string>(stopAttr, nullptr, ok, "");
@@ -992,19 +992,15 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXML
                 throw ProcessError("Disconnected plan for triggered " + agent + " '" + aid +
                     "' (edge '" + fromID + "' != edge '" + startVeh->getRoute().getEdges().front()->getID() + "').");
             }
-            if (myActiveTransportablePlan->empty()) {
-                myActiveTransportablePlan->push_back(new MSStageWaiting(
-                    from, nullptr, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
-            }
+        } else if (startVeh != nullptr) {
+            from = startVeh->getRoute().getEdges().front();
         }
-        else if (myActiveTransportablePlan->empty()) {
-            // if depart is triggered, use start edge of the transporting vehicle as 'from' edge
-            if (startVeh != nullptr) {
-                myActiveTransportablePlan->push_back(new MSStageWaiting(
-                    startVeh->getRoute().getEdges().front(), nullptr, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
-            }
-            else {
+        if (myActiveTransportablePlan->empty()) {
+            if (from == nullptr) {
                 throw ProcessError("The start edge for " + agent + " '" + aid + "' is not known.");
+            } else {
+                myActiveTransportablePlan->push_back(new MSStageWaiting(
+                            from, nullptr, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
             }
         }
         if (to == nullptr) {
