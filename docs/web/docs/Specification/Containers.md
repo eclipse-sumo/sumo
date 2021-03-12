@@ -212,7 +212,7 @@ It is possible to start the container simulation simultaneously with the start o
 It is the same as for `person` and `personFlow`.
 
 !!! note
-    See [Persons](Persons.md#starting-the-simulation-in-a-vehicle) but use `transport` instead of `ride`.
+    See [Persons](Persons.md#starting_the_simulation_in_a_vehicle) but use `transport` instead of `ride`.
 
 # Planned features
 
