@@ -92,8 +92,6 @@ def main(options):
         with open(fname, 'w') as outf:
             # write header
             sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
-            # open route rag
-            outf.write("<routes>\n")
             # iterate over trips
             for trip in trips:
                 # write trip
