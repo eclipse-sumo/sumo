@@ -66,4 +66,4 @@ addParkingAreaStops2Routes
 addParkingAreaStops2Trips
 
 # test for split random trips
-splitRandomTrips
+splitRandom

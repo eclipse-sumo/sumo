@@ -427,9 +427,9 @@ python tools/route/checkStopOrder.py -r <route-file>
 
 When setting option **--stop-table STOP_ID** a time table for all vehicles that service the given `<busStop>`-id is written to standard output.
 
-# splitRandomTrips.py
+# splitRandom.py
 
-This tool splits a trip file in two different strip files
+This tool splits a route file in two different route files
 ```
-python tools/route/splitRandomTrips.py -r <route-file> -a <first output file> -b <second output file> -n <number of trips in second file>
+python tools/route/splitRandom.py -r <route-file> -a <first output file> -b <second output file> -n <number of trips in second file>
 ```
