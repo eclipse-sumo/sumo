@@ -63,16 +63,16 @@ def main(options):
     # open output file
     with open(options.output, 'w') as outf:
         # iterate over all XML elements
-        for it in root.iter():
+        for node in root.iter():
             # check tag
-            if (it.tag == options.tag):
+            if (node.tag == options.tag):
                 # continue depending of operation
                 if (options.operation == "add"):
                     # set new attribute (or modify existent)
-                    it.set(options.attribute, options.value)
+                    node.set(options.attribute, options.value)
                 else:
                     # delete attribute
-                    del it.attrib[options.attribute]
+                    del node.attrib[options.attribute]
         # write modified tree
         tree.write(options.output)
 
