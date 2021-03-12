@@ -522,6 +522,13 @@ MSStageWaiting::getStageSummary(const bool /* isPerson */) const {
     if (myWaitingDuration >= 0) {
         timeInfo += " duration " + time2string(myWaitingDuration);
     }
+    if (getDestinationStop() != nullptr) {
+        std::string nameMsg = "";
+        if (getDestinationStop()->getMyName() != "") {
+            nameMsg = "(" + getDestinationStop()->getMyName() + ") ";
+        }
+        return "stopping at stop '" + getDestinationStop()->getID() + "' " + nameMsg + timeInfo + " (" + myActType + ")";
+    }
     return "stopping at edge '" + getDestination()->getID() + "' " + timeInfo + " (" + myActType + ")";
 }
 
