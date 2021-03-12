@@ -7,6 +7,12 @@ half_equipped
 # Vehicle taking different chargingStations and busstops, every with a different configuration 
 chargingStations
 
+# track fuel consumption from vehicle emissionClass instead of electricity
+trackFuel
+
+# track fuel consumption from vehicle emissionClass instead of electricity but emissionClass is Energy
+trackFuel_elec
+
 # leave the road while charging
 chargingStations_parked
 

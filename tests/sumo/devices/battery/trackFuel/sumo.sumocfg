@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>		
+		<additional-files value = "input_additional.add.xml"/>
+	</input>
+
+	<!-- enable battery device in all vehicles -->
+	<device.battery.probability value="1"/>
+	
+</configuration>
