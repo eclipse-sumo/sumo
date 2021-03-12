@@ -558,13 +558,22 @@ GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::clearElements() {
 void
 GNEViewNetHelper::ObjectsUnderCursor::sortGUIGlObjects(const std::vector<GUIGlObject*>& GUIGlObjects) {
     // declare a map to save GUIGlObjects sorted by GLO_TYPE
-    std::map<GUIGlObjectType, std::vector<GUIGlObject*> > mySortedGUIGlObjects;
+    std::map<double, std::vector<GUIGlObject*> > mySortedGUIGlObjects;
     // iterate over set
     for (const auto& GLObject : GUIGlObjects) {
-        mySortedGUIGlObjects[GLObject->getType()].push_back(GLObject);
+        // try to parse shape
+        const SUMOPolygon* poly = dynamic_cast<SUMOPolygon*>(GLObject);
+        const PointOfInterest* POI = dynamic_cast<PointOfInterest*>(GLObject);
+        if (poly) {
+            mySortedGUIGlObjects[poly->getShapeLayer()].push_back(GLObject);
+        } else if (POI) {
+            mySortedGUIGlObjects[POI->getShapeLayer()].push_back(GLObject);
+        } else {
+            mySortedGUIGlObjects[GLObject->getType()].push_back(GLObject);
+        }
     }
     // move sorted GUIGlObjects into myGUIGlObjectLanes using a reverse iterator
-    for (std::map<GUIGlObjectType, std::vector<GUIGlObject*> >::reverse_iterator i = mySortedGUIGlObjects.rbegin(); i != mySortedGUIGlObjects.rend(); i++) {
+    for (std::map<double, std::vector<GUIGlObject*> >::reverse_iterator i = mySortedGUIGlObjects.rbegin(); i != mySortedGUIGlObjects.rend(); i++) {
         for (const auto& GlObject : i->second) {
             // avoid GLO_NETWORKELEMENT
             if (GlObject->getType() != GLO_NETWORKELEMENT) {
