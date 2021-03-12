@@ -197,10 +197,10 @@ MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
         // First calculate charge for every vehicle
         std::vector<double> charge;
         std::vector<std::pair<SUMOTime, SUMOTime> > vectorBeginEndCharge;
-        SUMOTime firsTimeStep = myChargeValues.at(0).timeStep;
+        SUMOTime firstTimeStep = myChargeValues.at(0).timeStep;
         // set first value
         charge.push_back(0);
-        vectorBeginEndCharge.push_back(std::pair<SUMOTime, SUMOTime>(firsTimeStep, 0));
+        vectorBeginEndCharge.push_back(std::pair<SUMOTime, SUMOTime>(firstTimeStep, 0));
         // iterate over charging values
         for (std::vector<Charge>::const_iterator i = myChargeValues.begin(); i != myChargeValues.end(); i++) {
             // update chargue
@@ -208,17 +208,17 @@ MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
             // update end time
             vectorBeginEndCharge.back().second = i->timeStep;
             // update timestep of charge
-            firsTimeStep += 1000;
+            firstTimeStep += 1000;
             // check if charge is continuous. If not, open a new vehicle tag
-            if (((i + 1) != myChargeValues.end()) && (((i + 1)->timeStep) != firsTimeStep)) {
-                // set new firsTimeStep of charge
-                firsTimeStep = (i + 1)->timeStep;
+            if (((i + 1) != myChargeValues.end()) && (((i + 1)->timeStep) != firstTimeStep)) {
+                // set new firstTimeStep of charge
+                firstTimeStep = (i + 1)->timeStep;
                 charge.push_back(0);
-                vectorBeginEndCharge.push_back(std::pair<SUMOTime, SUMOTime>(firsTimeStep, 0));
+                vectorBeginEndCharge.push_back(std::pair<SUMOTime, SUMOTime>(firstTimeStep, 0));
             }
         }
         // now write values
-        firsTimeStep = myChargeValues.at(0).timeStep;
+        firstTimeStep = myChargeValues.at(0).timeStep;
         int vehicleCounter = 0;
         // open tag for first vehicle and write id and type of vehicle
         output.openTag(SUMO_TAG_VEHICLE);
@@ -245,11 +245,11 @@ MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
             // close tag timestep
             output.closeTag();
             // update timestep of charge
-            firsTimeStep += 1000;
+            firstTimeStep += 1000;
             // check if charge is continuous. If not, open a new vehicle tag
-            if (((i + 1) != myChargeValues.end()) && (((i + 1)->timeStep) != firsTimeStep)) {
-                // set new firsTimeStep of charge
-                firsTimeStep = (i + 1)->timeStep;
+            if (((i + 1) != myChargeValues.end()) && (((i + 1)->timeStep) != firstTimeStep)) {
+                // set new firstTimeStep of charge
+                firstTimeStep = (i + 1)->timeStep;
                 // update counter
                 vehicleCounter++;
                 // close previous vehicle tag
