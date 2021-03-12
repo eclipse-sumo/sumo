@@ -32,37 +32,27 @@
 
 #include "GNEDeleteFrame.h"
 
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+
+FXDEFMAP(GNEDeleteFrame::DeleteOptions) DeleteOptionsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEDeleteFrame::DeleteOptions::onCmdSetOption),
+};
+
+// Object implementation
+FXIMPLEMENT(GNEDeleteFrame::DeleteOptions, FXGroupBox, DeleteOptionsMap, ARRAYNUMBER(DeleteOptionsMap))
 
 // ---------------------------------------------------------------------------
 // GNEDeleteFrame::DeleteOptions - methods
 // ---------------------------------------------------------------------------
 
 GNEDeleteFrame::DeleteOptions::DeleteOptions(GNEDeleteFrame* deleteFrameParent) :
-    FXGroupBox(deleteFrameParent->myContentFrame, "Options", GUIDesignGroupBoxFrame) {
-
+    FXGroupBox(deleteFrameParent->myContentFrame, "Options", GUIDesignGroupBoxFrame),
+    myDeleteFrameParent(deleteFrameParent) {
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
-    myDeleteOnlyGeometryPoints = new FXCheckButton(this, "Delete only geometryPoints", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myDeleteOnlyGeometryPoints = new FXCheckButton(this, "Delete geometry points", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myDeleteOnlyGeometryPoints->setCheck(FALSE);
-
-    // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
-    myProtectAdditionals = new FXCheckButton(this, "Protect additional elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
-    myProtectAdditionals->setCheck(TRUE);
-
-    // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
-    myProtectTAZs = new FXCheckButton(this, "Protect TAZ elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
-    myProtectTAZs->setCheck(TRUE);
-
-    // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
-    myProtectShapes = new FXCheckButton(this, "Protect shape elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
-    myProtectShapes->setCheck(TRUE);
-
-    // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
-    myProtectDemandElements = new FXCheckButton(this, "Protect demand elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
-    myProtectDemandElements->setCheck(TRUE);
-
-    // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
-    myProtectGenericDatas = new FXCheckButton(this, "Protect data elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
-    myProtectGenericDatas->setCheck(TRUE);
 }
 
 
@@ -75,32 +65,65 @@ GNEDeleteFrame::DeleteOptions::deleteOnlyGeometryPoints() const {
 }
 
 
+long 
+GNEDeleteFrame::DeleteOptions::onCmdSetOption(FXObject*, FXSelector, void*) {
+    myDeleteFrameParent->getViewNet()->update();
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// GNEDeleteFrame::ProtectElements - methods
+// ---------------------------------------------------------------------------
+
+GNEDeleteFrame::ProtectElements::ProtectElements(GNEDeleteFrame* deleteFrameParent) :
+    FXGroupBox(deleteFrameParent->myContentFrame, "Protect Elements", GUIDesignGroupBoxFrame) {
+    // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
+    myProtectAdditionals = new FXCheckButton(this, "Protect additional elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myProtectAdditionals->setCheck(TRUE);
+    // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
+    myProtectTAZs = new FXCheckButton(this, "Protect TAZ elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myProtectTAZs->setCheck(TRUE);
+    // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
+    myProtectShapes = new FXCheckButton(this, "Protect shape elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myProtectShapes->setCheck(TRUE);
+    // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
+    myProtectDemandElements = new FXCheckButton(this, "Protect demand elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myProtectDemandElements->setCheck(TRUE);
+    // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
+    myProtectGenericDatas = new FXCheckButton(this, "Protect data elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myProtectGenericDatas->setCheck(TRUE);
+}
+
+
+GNEDeleteFrame::ProtectElements::~ProtectElements() {}
+
+
 bool
-GNEDeleteFrame::DeleteOptions::protectAdditionals() const {
+GNEDeleteFrame::ProtectElements::protectAdditionals() const {
     return (myProtectAdditionals->getCheck() == TRUE);
 }
 
 
 bool
-GNEDeleteFrame::DeleteOptions::protectTAZs() const {
+GNEDeleteFrame::ProtectElements::protectTAZs() const {
     return (myProtectTAZs->getCheck() == TRUE);
 }
 
 
 bool
-GNEDeleteFrame::DeleteOptions::protectShapes() const {
+GNEDeleteFrame::ProtectElements::protectShapes() const {
     return (myProtectShapes->getCheck() == TRUE);
 }
 
 
 bool
-GNEDeleteFrame::DeleteOptions::protectDemandElements() const {
+GNEDeleteFrame::ProtectElements::protectDemandElements() const {
     return (myProtectDemandElements->getCheck() == TRUE);
 }
 
 
 bool
-GNEDeleteFrame::DeleteOptions::protectGenericDatas() const {
+GNEDeleteFrame::ProtectElements::protectGenericDatas() const {
     return (myProtectGenericDatas->getCheck() == TRUE);
 }
 
@@ -112,6 +135,8 @@ GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     GNEFrame(horizontalFrameParent, viewNet, "Delete") {
     // create delete options modul
     myDeleteOptions = new DeleteOptions(this);
+    // create protect elements modul
+    myProtectElements = new ProtectElements(this);
 }
 
 
@@ -205,17 +230,17 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
         // check type of of object under cursor object
         if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
             // Check if junction can be deleted
-            if (ignoreOptions || SubordinatedElements(objectsUnderCursor.getJunctionFront()).checkElements(myDeleteOptions)) {
+            if (ignoreOptions || SubordinatedElements(objectsUnderCursor.getJunctionFront()).checkElements(myProtectElements)) {
                 myViewNet->getNet()->deleteJunction(objectsUnderCursor.getJunctionFront(), myViewNet->getUndoList());
             }
         } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-            if (ignoreOptions || SubordinatedElements(objectsUnderCursor.getEdgeFront()).checkElements(myDeleteOptions)) {
+            if (ignoreOptions || SubordinatedElements(objectsUnderCursor.getEdgeFront()).checkElements(myProtectElements)) {
                 // if all ok, then delete edge
                 myViewNet->getNet()->deleteEdge(objectsUnderCursor.getEdgeFront(), myViewNet->getUndoList(), false);
             }
         } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE) {
             // Check if edge can be deleted
-            if (ignoreOptions || SubordinatedElements(objectsUnderCursor.getLaneFront()).checkElements(myDeleteOptions)) {
+            if (ignoreOptions || SubordinatedElements(objectsUnderCursor.getLaneFront()).checkElements(myProtectElements)) {
                 // if all ok, then delete lane
                 myViewNet->getNet()->deleteLane(objectsUnderCursor.getLaneFront(), myViewNet->getUndoList(), false);
             }
@@ -326,27 +351,27 @@ GNEDeleteFrame::SubordinatedElements::~SubordinatedElements() {}
 
 
 bool
-GNEDeleteFrame::SubordinatedElements::checkElements(const DeleteOptions* deleteOptions) {
+GNEDeleteFrame::SubordinatedElements::checkElements(const ProtectElements* protectElements) {
     // check every parent/child
-    if ((myAdditionalParents > 0) && deleteOptions->protectAdditionals()) {
+    if ((myAdditionalParents > 0) && protectElements->protectAdditionals()) {
         openWarningDialog("additional", myAdditionalParents, false);
-    } else if ((myAdditionalChilds > 0) && deleteOptions->protectAdditionals()) {
+    } else if ((myAdditionalChilds > 0) && protectElements->protectAdditionals()) {
         openWarningDialog("additional", myAdditionalChilds, true);
-    } else if ((myTAZParents > 0) && deleteOptions->protectTAZs()) {
+    } else if ((myTAZParents > 0) && protectElements->protectTAZs()) {
         openWarningDialog("TAZ", myTAZParents, false);
-    } else if ((myTAZChilds > 0) && deleteOptions->protectTAZs()) {
+    } else if ((myTAZChilds > 0) && protectElements->protectTAZs()) {
         openWarningDialog("TAZ", myTAZChilds, true);
-    } else if ((myShapeParents > 0) && deleteOptions->protectShapes()) {
+    } else if ((myShapeParents > 0) && protectElements->protectShapes()) {
         openWarningDialog("shape", myShapeParents, false);
-    } else if ((myShapeChilds > 0) && deleteOptions->protectShapes()) {
+    } else if ((myShapeChilds > 0) && protectElements->protectShapes()) {
         openWarningDialog("shape", myShapeChilds, true);
-    } else if ((myDemandElementParents > 0) && deleteOptions->protectDemandElements()) {
+    } else if ((myDemandElementParents > 0) && protectElements->protectDemandElements()) {
         openWarningDialog("demand", myDemandElementParents, false);
-    } else if ((myDemandElementChilds > 0) && deleteOptions->protectDemandElements()) {
+    } else if ((myDemandElementChilds > 0) && protectElements->protectDemandElements()) {
         openWarningDialog("demand", myDemandElementChilds, true);
-    } else if ((myGenericDataParents > 0) && deleteOptions->protectGenericDatas()) {
+    } else if ((myGenericDataParents > 0) && protectElements->protectGenericDatas()) {
         openWarningDialog("data", myGenericDataParents, false);
-    } else if ((myGenericDataChilds > 0) && deleteOptions->protectGenericDatas()) {
+    } else if ((myGenericDataChilds > 0) && protectElements->protectGenericDatas()) {
         openWarningDialog("data", myGenericDataChilds, true);
     } else {
         // all checks ok, then return true, to remove element

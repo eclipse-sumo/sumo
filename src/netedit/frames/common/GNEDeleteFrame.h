@@ -38,6 +38,8 @@ public:
     // ===========================================================================
 
     class DeleteOptions : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEDeleteFrame::DeleteOptions)
 
     public:
         /// @brief constructor
@@ -48,6 +50,38 @@ public:
 
         /// @brief check if only delete geometry points checkbox is enabled
         bool deleteOnlyGeometryPoints() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when user change an option
+        long onCmdSetOption(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(DeleteOptions)
+
+    private:
+        /// @brief delete frame parent
+        GNEDeleteFrame* myDeleteFrameParent;
+
+        /// @brief checkbox for enable/disable delete only geometry points
+        FXCheckButton* myDeleteOnlyGeometryPoints;
+    };
+
+    // ===========================================================================
+    // class ProtectElements
+    // ===========================================================================
+
+    class ProtectElements : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        ProtectElements(GNEDeleteFrame* deleteFrameParent);
+
+        /// @brief destructor
+        ~ProtectElements();
 
         /// @brief check if protect additional elements checkbox is enabled
         bool protectAdditionals() const;
@@ -65,9 +99,6 @@ public:
         bool protectGenericDatas() const;
 
     private:
-        /// @brief checkbox for enable/disable delete only geometry points
-        FXCheckButton* myDeleteOnlyGeometryPoints;
-
         /// @brief checkbox for enable/disable protect additionals
         FXCheckButton* myProtectAdditionals;
 
@@ -147,7 +178,7 @@ protected:
         ~SubordinatedElements();
 
         /// @brief if element can be removed
-        bool checkElements(const DeleteOptions* deleteOptions);
+        bool checkElements(const ProtectElements* protectElements);
 
     protected:
         /// @brief parent of SubordinatedElements
@@ -212,4 +243,7 @@ protected:
 private:
     /// @brief modul for delete options
     DeleteOptions* myDeleteOptions;
+
+    /// @brief modul for protect elements
+    ProtectElements* myProtectElements;
 };
