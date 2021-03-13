@@ -28,6 +28,13 @@ if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "RelWithDebInfo")
 endif ()
 
+if(NOT CMAKE_INSTALL_PREFIX OR CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  message(STATUS "Setting install dir inside build dir ${CMAKE_BINARY_DIR} ")
+  set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/install CACHE PATH "Install location" FORCE)
+else()
+  message(STATUS "Using preset install directory ${CMAKE_INSTALL_PREFIX}")
+endif()
+
 project(SUMO CXX C)
 set(PACKAGE_VERSION "git")
 cmake_minimum_required(VERSION 3.1)

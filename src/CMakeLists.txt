@@ -1,3 +1,34 @@
+# utility function to install headers from a file list
+function(install_headers _file_list)
+    # install headers
+    foreach(f ${_file_list})
+        get_filename_component(_ext ${f} EXT)
+        if(NOT _ext STREQUAL ".h")
+            continue()
+        endif()
+        file(RELATIVE_PATH _sub_dir ${CMAKE_SOURCE_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR})
+        install(FILES ${f}
+            DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/sumo/${_sub_dir}
+            COMPONENT Development)
+    endforeach()
+endfunction()
+
+# utility function to add target to cmake export config
+function(export_target target _file_list)
+    # install headers
+    install_headers("${_file_list}")
+    # set package include dir
+    target_include_directories(libsumocpp PUBLIC
+        ${target_BUILD_INTERFACE_LIST}
+        $<INSTALL_INTERFACE:include/sumo>
+    )
+    # add target to export package
+    install( TARGETS libsumocpp EXPORT ${PROJECT_NAME}Targets
+        RUNTIME DESTINATION bin COMPONENT RuntimeLibraries
+        LIBRARY DESTINATION lib COMPONENT RuntimeLibraries
+        ARCHIVE DESTINATION lib COMPONENT Development)
+endfunction()
+
 set(netconvertlibs
         netwrite netimport netbuild foreign_eulerspiral ${GDAL_LIBRARY} netimport_vissim netimport_vissim_typeloader netimport_vissim_tempstructs ${commonlibs})
 
@@ -94,6 +125,9 @@ install(DIRECTORY libsumo DESTINATION include
         PATTERN "Subscription.h" EXCLUDE)
 
 configure_file(config.h.cmake config.h)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/config.h
+            DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/sumo
+            COMPONENT Development)
 
 if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../.git/index")
     set(VERSION_DEP "${CMAKE_CURRENT_SOURCE_DIR}/../.git/index")
@@ -103,4 +137,55 @@ add_custom_command(OUTPUT version.h
                    DEPENDS ${VERSION_DEP}
                   )
 add_custom_target(generate-version-h DEPENDS version.h)
-set_property(TARGET generate-version-h PROPERTY FOLDER "CMake") 
+set_property(TARGET generate-version-h PROPERTY FOLDER "CMake")
+
+# Create both a build and install CMake export package
+set(export_config_name ${PROJECT_NAME})
+set(${PROJECT_NAME}_INSTALL_CONFIG_DIR "lib/cmake/${PROJECT_NAME}")
+file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_CONFIG_DIR})
+#------------------------------------------------------------------------------
+# Configure ${PROJECT_NAME}ConfigVersion.cmake common to build and install tree
+include(CMakePackageConfigHelpers)
+set(config_version_file ${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake)
+write_basic_package_version_file(
+  ${config_version_file}
+  VERSION "${PACKAGE_VERSION}"
+  COMPATIBILITY ExactVersion
+  )
+#------------------------------------------------------------------------------
+# Export '${PROJECT_NAME}Targets.cmake' for a build tree
+export(
+  EXPORT ${PROJECT_NAME}Targets
+  NAMESPACE SUMO::
+  FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Targets.cmake"
+  )
+
+# Configure '${PROJECT_NAME}Config.cmake' for a build tree
+set(build_config ${CMAKE_BINARY_DIR}/${PROJECT_NAME}Config.cmake)
+configure_package_config_file(
+  ${PROJECT_NAME}Config.cmake.in
+  ${build_config}
+  INSTALL_DESTINATION "${PROJECT_BINARY_DIR}"
+  )
+
+#------------------------------------------------------------------------------
+# Export '${PROJECT_NAME}Targets.cmake' for an install tree
+install(
+  EXPORT ${PROJECT_NAME}Targets
+  NAMESPACE SUMO::
+  FILE ${PROJECT_NAME}Targets.cmake
+  DESTINATION ${${PROJECT_NAME}_INSTALL_CONFIG_DIR}
+  )
+
+set(install_config ${PROJECT_BINARY_DIR}/CMakeFiles/${PROJECT_NAME}Config.cmake)
+configure_package_config_file(
+  ${PROJECT_NAME}Config.cmake.in
+  ${install_config}
+  INSTALL_DESTINATION ${${PROJECT_NAME}_INSTALL_CONFIG_DIR}
+  )
+
+# Install config files
+install(
+  FILES ${config_version_file} ${install_config}
+  DESTINATION "${${PROJECT_NAME}_INSTALL_CONFIG_DIR}"
+  )
