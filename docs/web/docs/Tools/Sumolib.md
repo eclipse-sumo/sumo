@@ -22,6 +22,24 @@ else:   
     sys.exit("please declare environment variable 'SUMO_HOME'")
 ```
 
+# loading a network file
+
+```
+# import the library
+import sumolib
+# parse the net
+net = sumolib.net.readNet('myNet.net.xml')
+```
+
+The following named arguments may be given to the `readNet` function:
+
+- withPrograms (bool): import all traffic light programs (default False)
+- withLatestPrograms (bool) : import only the last program for each traffic light. This is the program that would be active in sumo by default. (default False)
+- withConnections (bool) : import all connections (default True)
+- withFoes (bool) : import right-of-way information (default True)
+- withInternal (bool) : import internal edges and lanes (default False)
+- withPedestrianConnections (bool) : import connections between sidewalks, crossings (default False)
+
 # usage examples
 
 ## import a network and retrieve nodes and edges
