@@ -2,5 +2,7 @@ trip_departLane_default
 
 # Copy of trip_closedAlready
 trip_departLane_best
+trip_departLane_default_ignore
 vehicle_departLane_default
 vehicle_departLane_best
+vehicle_departLane_default_ignore

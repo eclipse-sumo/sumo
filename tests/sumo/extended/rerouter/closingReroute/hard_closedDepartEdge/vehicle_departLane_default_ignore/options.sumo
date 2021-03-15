@@ -1,0 +1,4 @@
+--route-files=input_routes2.rou.xml
+-b 800
+--ignore-route-errors
+-v
