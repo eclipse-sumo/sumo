@@ -61,12 +61,12 @@ GUIBusStop::GUIBusStop(const std::string& id, SumoXMLTag element, const std::vec
     myTransportableExaggeration(1) {
     const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
     // see MSVehicleControl defContainerType
-    myWidth = MAX2(1.0, ceil(personCapacity / getTransportablesAbreast()) * myTransportableDepth);
+    myWidth = MAX2(1.0, ceil((double)personCapacity / getTransportablesAbreast()) * myTransportableDepth);
     myFGShape = lane.getShape();
-    myFGShape.move2side((lane.getWidth() + myWidth) * 0.45 * offsetSign);
     myFGShape = myFGShape.getSubpart(
                     lane.interpolateLanePosToGeometryPos(frompos),
                     lane.interpolateLanePosToGeometryPos(topos));
+    myFGShape.move2side((lane.getWidth() + myWidth) * 0.45 * offsetSign);
     myFGShapeRotations.reserve(myFGShape.size() - 1);
     myFGShapeLengths.reserve(myFGShape.size() - 1);
     int e = (int) myFGShape.size() - 1;
@@ -231,7 +231,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
 Boundary
 GUIBusStop::getCenteringBoundary() const {
     Boundary b = myFGShape.getBoxBoundary();
-    b.grow(SUMO_const_laneWidth);
+    b.grow(myWidth);
     for (const Position& p : myAccessCoords) {
         b.add(p);
     }
