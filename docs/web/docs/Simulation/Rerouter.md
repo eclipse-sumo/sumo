@@ -393,5 +393,4 @@ To following effects occur:
 ## Departure on a closed edge
 
 When the departure edge for a vehicle is closed, vehicles will ignore this for
-'soft' closing. For a 'hard' closing they delay their departure until the 
-closing has ended.
+'soft' closing. For a 'hard' closing the simulation will raise an error. If **--ignore-route-errors** is set, the vehicle will be discarded with a warning.
