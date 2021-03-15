@@ -54,14 +54,14 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
+GUIBusStop::GUIBusStop(const std::string& id, SumoXMLTag element, const std::vector<std::string>& lines, MSLane& lane,
                        double frompos, double topos, const std::string name, int personCapacity,
                        double parkingLength, const RGBColor& color) :
-    MSStoppingPlace(id, lines, lane, frompos, topos, name, personCapacity, parkingLength, color),
+    MSStoppingPlace(id, element, lines, lane, frompos, topos, name, personCapacity, parkingLength, color),
     GUIGlObject_AbstractAdd(GLO_BUS_STOP, id),
     myPersonExaggeration(1) {
     const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
-    myWidth = MAX2(1.0, ceil(personCapacity / getPersonsAbreast()) * SUMO_const_waitingPersonDepth);
+    myWidth = MAX2(1.0, ceil(personCapacity / getTransportablesAbreast()) * SUMO_const_waitingPersonDepth);
     myFGShape = lane.getShape();
     myFGShape.move2side((lane.getWidth() + myWidth) * 0.45 * offsetSign);
     myFGShape = myFGShape.getSubpart(

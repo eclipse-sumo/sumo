@@ -39,7 +39,7 @@
 MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
                                      const std::string& name,
                                      double chargingPower, double efficency, bool chargeInTransit, double chargeDelay) :
-    MSStoppingPlace(chargingStationID, std::vector<std::string>(), lane, startPos, endPos, name),
+    MSStoppingPlace(chargingStationID, SUMO_TAG_CHARGING_STATION, std::vector<std::string>(), lane, startPos, endPos, name),
     myChargingPower(0),
     myEfficiency(0),
     myChargeInTransit(chargeInTransit),

@@ -37,13 +37,16 @@
 // method definitions
 // ===========================================================================
 MSStoppingPlace::MSStoppingPlace(const std::string& id,
+                                 SumoXMLTag element,
                                  const std::vector<std::string>& lines,
                                  MSLane& lane,
                                  double begPos, double endPos, const std::string name,
                                  int capacity,
                                  double parkingLength,
                                  const RGBColor& color) :
-    Named(id), myLines(lines), myLane(lane),
+    Named(id),
+    myElement(element),
+    myLines(lines), myLane(lane),
     myBegPos(begPos), myEndPos(endPos), myLastFreePos(endPos),
     myName(name),
     myTransportableCapacity(capacity),
@@ -134,7 +137,7 @@ double
 MSStoppingPlace::getWaitingPositionOnLane(MSTransportable* t) const {
     auto it = myWaitingTransportables.find(t);
     if (it != myWaitingTransportables.end() && it->second >= 0) {
-        return myEndPos - (0.5 + (it->second) % getPersonsAbreast()) * SUMO_const_waitingPersonWidth;
+        return myEndPos - (0.5 + (it->second) % getTransportablesAbreast()) * SUMO_const_waitingPersonWidth;
     } else {
         return (myEndPos + myBegPos) / 2;
     }
@@ -142,13 +145,15 @@ MSStoppingPlace::getWaitingPositionOnLane(MSTransportable* t) const {
 
 
 int
-MSStoppingPlace::getPersonsAbreast(double length) {
-    return MAX2(1, (int)floor(length / SUMO_const_waitingPersonWidth));
+MSStoppingPlace::getTransportablesAbreast(double length, SumoXMLTag element) {
+    return MAX2(1, (int)floor(length / (element == SUMO_TAG_CONTAINER_STOP
+                    ? 2.5 // see MSVehicleControl defContainerType
+                    : SUMO_const_waitingPersonWidth)));
 }
 
 int
-MSStoppingPlace::getPersonsAbreast() const {
-    return getPersonsAbreast(myEndPos - myBegPos);
+MSStoppingPlace::getTransportablesAbreast() const {
+    return getTransportablesAbreast(myEndPos - myBegPos, myElement);
 }
 
 Position
@@ -158,10 +163,10 @@ MSStoppingPlace::getWaitPosition(MSTransportable* t) const {
     auto it = myWaitingTransportables.find(t);
     if (it != myWaitingTransportables.end()) {
         if (it->second >= 0) {
-            row = int(it->second / getPersonsAbreast());
+            row = int(it->second / getTransportablesAbreast());
         } else {
             // invalid position, draw outside bounds
-            row = 1 + myTransportableCapacity / getPersonsAbreast();
+            row = 1 + myTransportableCapacity / getTransportablesAbreast();
         }
     }
     const double lefthandSign = (MSGlobals::gLefthand ? -1 : 1);

@@ -55,7 +55,7 @@ static std::mutex ow_mutex;
 // ===========================================================================
 
 MSOverheadWire::MSOverheadWire(const std::string& overheadWireSegmentID, MSLane& lane, double startPos, double endPos, bool voltageSource) :
-    MSStoppingPlace(overheadWireSegmentID, std::vector<std::string>(), lane, startPos, endPos),
+    MSStoppingPlace(overheadWireSegmentID, SUMO_TAG_OVERHEAD_WIRE_SEGMENT, std::vector<std::string>(), lane, startPos, endPos),
     myVoltage(0),
     myChargingVehicle(false),
     myTotalCharge(0),

@@ -75,9 +75,9 @@ GUITriggerBuilder::buildStoppingPlace(MSNet& net, std::string id, std::vector<st
                                       int personCapacity, double parkingLength, RGBColor& color) {
     if (element == SUMO_TAG_CONTAINER_STOP) {
         //TODO: shall we also allow names for container stops? might make sense [GL March '17]
-        myCurrentStop = new GUIContainerStop(id, lines, *lane, frompos, topos, name, personCapacity, parkingLength, color);
+        myCurrentStop = new GUIContainerStop(id, element, lines, *lane, frompos, topos, name, personCapacity, parkingLength, color);
     } else {
-        myCurrentStop = new GUIBusStop(id, lines, *lane, frompos, topos, name, personCapacity, parkingLength, color);
+        myCurrentStop = new GUIBusStop(id, element, lines, *lane, frompos, topos, name, personCapacity, parkingLength, color);
     }
     if (!net.addStoppingPlace(element, myCurrentStop)) {
         delete myCurrentStop;

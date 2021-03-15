@@ -68,6 +68,7 @@ public:
      * @param[in] endPos End position of the stop on the lane
      */
     MSStoppingPlace(const std::string& id,
+                    SumoXMLTag element,
                     const std::vector<std::string>& lines, MSLane& lane,
                     double begPos, double endPos,
                     const std::string name = "",
@@ -203,7 +204,7 @@ public:
 
     const RGBColor& getColor() const;
 
-    static int getPersonsAbreast(double length);
+    static int getTransportablesAbreast(double length, SumoXMLTag element);
 
     /// @brief get list of vehicles waiting at this stop
     std::vector<const SUMOVehicle*> getStoppedVehicles() const;
@@ -233,9 +234,12 @@ protected:
      */
     void computeLastFreePos();
 
-    int getPersonsAbreast() const;
+    int getTransportablesAbreast() const;
 
 protected:
+    /// @brief the type of stopping place
+    const SumoXMLTag myElement;
+
     /// @brief The list of lines that are assigned to this stop
     std::vector<std::string> myLines;
 

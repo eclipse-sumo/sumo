@@ -69,6 +69,7 @@ public:
      * @param[in] endPos End position of the container stop on the lane
      */
     GUIContainerStop(const std::string& id,
+                     SumoXMLTag element,
                      const std::vector<std::string>& lines, MSLane& lane,
                      double frompos, double topos, const std::string& name,
                      int containerCapacity, double parkingLength, const RGBColor& color);

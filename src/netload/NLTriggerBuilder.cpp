@@ -502,11 +502,19 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
         throw InvalidArgument("Invalid position for " + toString(element) + " '" + id + "'.");
     }
     const std::vector<std::string>& lines = attrs.getOptStringVector(SUMO_ATTR_LINES, id.c_str(), ok, false);
-    const int defaultCapacity = MAX2(MSStoppingPlace::getPersonsAbreast(topos - frompos) * 3, 6);
-    const int personCapacity = attrs.getOpt<int>(SUMO_ATTR_PERSON_CAPACITY, id.c_str(), ok, defaultCapacity);
+    int defaultCapacity;
+    SumoXMLAttr capacityAttr;
+    if (element == SUMO_TAG_BUS_STOP) {
+        defaultCapacity = MAX2(MSStoppingPlace::getTransportablesAbreast(topos - frompos, element) * 3, 6);
+        capacityAttr = SUMO_ATTR_PERSON_CAPACITY;
+    } else {
+        defaultCapacity = MSStoppingPlace::getTransportablesAbreast(topos - frompos, element);
+        capacityAttr = SUMO_ATTR_CONTAINER_CAPACITY;
+    }
+    const int transportableCapacity = attrs.getOpt<int>(capacityAttr, id.c_str(), ok, defaultCapacity);
     const double parkingLength = attrs.getOpt<double>(SUMO_ATTR_PARKING_LENGTH, id.c_str(), ok, 0);
     // build the bus stop
-    buildStoppingPlace(net, id, lines, lane, frompos, topos, element, ptStopName, personCapacity, parkingLength, color);
+    buildStoppingPlace(net, id, lines, lane, frompos, topos, element, ptStopName, transportableCapacity, parkingLength, color);
 }
 
 
@@ -751,7 +759,7 @@ void
 NLTriggerBuilder::buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
                                      double frompos, double topos, const SumoXMLTag element, std::string ptStopName,
                                      int personCapacity, double parkingLength, RGBColor& color) {
-    myCurrentStop = new MSStoppingPlace(id, lines, *lane, frompos, topos, ptStopName, personCapacity, parkingLength, color);
+    myCurrentStop = new MSStoppingPlace(id, element, lines, *lane, frompos, topos, ptStopName, personCapacity, parkingLength, color);
     if (!net.addStoppingPlace(element, myCurrentStop)) {
         delete myCurrentStop;
         myCurrentStop = nullptr;
