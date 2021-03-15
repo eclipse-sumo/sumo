@@ -391,6 +391,8 @@
         <xsd:attribute name="endPos" type="xsd:float"/>
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
         <xsd:attribute name="lines" type="xsd:string" use="optional"/>
+        <xsd:attribute name="containerCapacity" type="nonNegativeIntType" use="optional"/>
+        <xsd:attribute name="parkingLength" type="nonNegativeFloatType" use="optional"/>
     </xsd:complexType>
     
     <xsd:complexType name="chargingStationType">
