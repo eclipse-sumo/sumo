@@ -31,7 +31,7 @@ import sumolib
 net = sumolib.net.readNet('myNet.net.xml')
 ```
 
-The following named arguments may be given to the `readNet` function:
+The following named arguments may be given to the `readNet` function (i.e. `readNet('myNet.net.xml', withInternal=True)`):
 
 - withPrograms (bool): import all traffic light programs (default False)
 - withLatestPrograms (bool) : import only the last program for each traffic light. This is the program that would be active in sumo by default. (default False)
