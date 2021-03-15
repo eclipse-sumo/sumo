@@ -56,6 +56,8 @@ OSM](../Tutorials/PT_from_OpenStreetMap.md#initial_network_and_public_transit_in
 | -------------- | ---------- | ------------------- | -------------------------------------------------------------- |
 | **lane**       | string     | id                  | The name of the lane from which this stop may also be accessed |
 | **pos**        | float      | position along lane | The position along the lane from which the stop is reached     |
+| length         | float      | >= 0 | The distance for computing the access time of pedestrians that use this element|
+| friendlyPos    | bool       |      | Whether an invalid **pos** should be silently converted to the closest correct approximation |
 
 # Letting Vehicles stop at a bus stop
 
