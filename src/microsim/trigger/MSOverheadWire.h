@@ -156,9 +156,9 @@ public:
 protected:
 
     /// @brief struct to save information for the overhead wire segment output
-    struct charge {
+    struct Charge {
         /// @brief constructor
-        charge(SUMOTime _timeStep, std::string _vehicleID, std::string _vehicleType, std::string _status,
+        Charge(SUMOTime _timeStep, std::string _vehicleID, std::string _vehicleType, std::string _status,
                double _WCharged, double _actualBatteryCapacity, double _maxBatteryCapacity, double _voltage,
                double _totalEnergyCharged) :
             timeStep(_timeStep),
@@ -191,9 +191,6 @@ protected:
         double chargingEfficiency;
         // @brief current energy charged by charging stations AFTER charging
         double totalEnergyCharged;
-
-
-
     };
 
     /** @brief A class for sorting vehicle on lane under the overhead wire segment */
@@ -218,7 +215,7 @@ protected:
     double myTotalCharge;
 
     /// @brief vector with the charges of this charging station
-    std::vector<charge> myChargeValues;
+    std::vector<Charge> myChargeValues;
 
     std::vector<SUMOVehicle*> myChargingVehicles;
 

@@ -606,7 +606,7 @@ MSOverheadWire::addChargeValueForOutput(double WCharged, MSDevice_ElecHybrid* el
     // update total charge
     myTotalCharge += WCharged;
     // create charge row and insert it in myChargeValues
-    charge C(MSNet::getInstance()->getCurrentTimeStep(), elecHybrid->getHolder().getID(), elecHybrid->getHolder().getVehicleType().getID(),
+    Charge C(MSNet::getInstance()->getCurrentTimeStep(), elecHybrid->getHolder().getID(), elecHybrid->getHolder().getVehicleType().getID(),
              status, WCharged, elecHybrid->getActualBatteryCapacity(), elecHybrid->getMaximumBatteryCapacity(),
              elecHybrid->getVoltageOfOverheadWire(), myTotalCharge);
     myChargeValues.push_back(C);
@@ -634,7 +634,7 @@ MSOverheadWire::writeOverheadWireSegmentOutput(OutputDevice& output) {
         charge.push_back(0);
         vectorBeginEndCharge.push_back(std::tuple<SUMOTime, SUMOTime, std::string>(firsTimeStep, 0, myChargeValues.at(0).vehicleID));
         // iterate over charging values
-        for (std::vector<MSOverheadWire::charge>::const_iterator i = myChargeValues.begin(); i != myChargeValues.end(); i++) {
+        for (std::vector<Charge>::const_iterator i = myChargeValues.begin(); i != myChargeValues.end(); i++) {
             // update chargue
             charge.back() += i->WCharged;
             // update end time
@@ -661,7 +661,7 @@ MSOverheadWire::writeOverheadWireSegmentOutput(OutputDevice& output) {
         output.writeAttr(SUMO_ATTR_CHARGINGEND, time2string(std::get<1>(vectorBeginEndCharge.at(0))));
         output.writeAttr(SUMO_ATTR_MAXIMUMBATTERYCAPACITY, myChargeValues.at(0).maxBatteryCapacity);
         // iterate over charging values
-        for (std::vector<MSOverheadWire::charge>::const_iterator i = myChargeValues.begin(); i != myChargeValues.end(); i++) {
+        for (std::vector<Charge>::const_iterator i = myChargeValues.begin(); i != myChargeValues.end(); i++) {
             // open tag for timestep and write all parameters
             output.openTag(SUMO_TAG_STEP);
             output.writeAttr(SUMO_ATTR_TIME, time2string(i->timeStep));
