@@ -144,6 +144,8 @@ protected:
         double totalEnergyCharged;
     };
 
+    static void writeVehicle(OutputDevice& out, const std::vector<Charge>& chargeSteps, int iStart, int iEnd, double charged);
+
     /// @brief Charging station's charging power
     double myChargingPower;
 
@@ -162,8 +164,10 @@ protected:
     /// @brief total energy charged by this charging station
     double myTotalCharge;
 
-    /// @brief vector with the charges of this charging station
-    std::vector<Charge> myChargeValues;
+    /// @brief map with the charges of this charging station (key = vehicleID)
+    std::map<std::string, std::vector<Charge> > myChargeValues;
+    /// @brief order vehicles by time of first charge
+    std::vector<std::string> myChargedVehicles;
 
 private:
     /// @brief Invalidated copy constructor.

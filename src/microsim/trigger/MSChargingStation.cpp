@@ -179,95 +179,75 @@ MSChargingStation::addChargeValueForOutput(double WCharged, MSDevice_Battery* ba
     // update total charge
     myTotalCharge += WCharged;
     // create charge row and insert it in myChargeValues
-    Charge C(MSNet::getInstance()->getCurrentTimeStep(), battery->getHolder().getID(), battery->getHolder().getVehicleType().getID(),
+    const std::string vehID = battery->getHolder().getID();
+    if (myChargeValues.count(vehID) == 0) {
+        myChargedVehicles.push_back(vehID);
+    }
+    Charge C(MSNet::getInstance()->getCurrentTimeStep(), vehID, battery->getHolder().getVehicleType().getID(),
              status, WCharged, battery->getActualBatteryCapacity(), battery->getMaximumBatteryCapacity(),
              myChargingPower, myEfficiency, myTotalCharge);
-    myChargeValues.push_back(C);
+    myChargeValues[vehID].push_back(C);
 }
 
 
 void
 MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
+    int chargingSteps = 0;
+    for (const auto& item : myChargeValues) {
+        chargingSteps += item.second.size();
+    }
     output.openTag(SUMO_TAG_CHARGING_STATION);
     output.writeAttr(SUMO_ATTR_ID, myID);
     output.writeAttr(SUMO_ATTR_TOTALENERGYCHARGED, myTotalCharge);
-    output.writeAttr(SUMO_ATTR_CHARGINGSTEPS, myChargeValues.size());
+    output.writeAttr(SUMO_ATTR_CHARGINGSTEPS, chargingSteps);
     // start writting
     if (myChargeValues.size() > 0) {
-        // First calculate charge for every vehicle
-        std::vector<double> charge;
-        std::vector<std::pair<SUMOTime, SUMOTime> > vectorBeginEndCharge;
-        SUMOTime firstTimeStep = myChargeValues.at(0).timeStep;
-        // set first value
-        charge.push_back(0);
-        vectorBeginEndCharge.push_back(std::pair<SUMOTime, SUMOTime>(firstTimeStep, 0));
-        // iterate over charging values
-        for (std::vector<Charge>::const_iterator i = myChargeValues.begin(); i != myChargeValues.end(); i++) {
-            // update chargue
-            charge.back() += i->WCharged;
-            // update end time
-            vectorBeginEndCharge.back().second = i->timeStep;
-            // update timestep of charge
-            firstTimeStep += DELTA_T;
-            // check if charge is continuous. If not, open a new vehicle tag
-            if (((i + 1) != myChargeValues.end()) && (((i + 1)->timeStep) != firstTimeStep)) {
-                // set new firstTimeStep of charge
-                firstTimeStep = (i + 1)->timeStep;
-                charge.push_back(0);
-                vectorBeginEndCharge.push_back(std::pair<SUMOTime, SUMOTime>(firstTimeStep, 0));
+        for (const std::string vehID : myChargedVehicles) {
+            int iStart = 0;
+            const auto& chargeSteps = myChargeValues[vehID];
+            while (iStart < (int)chargeSteps.size()) {
+                int iEnd = iStart + 1;
+                double charged = chargeSteps[iStart].WCharged;
+                while (iEnd < (int)chargeSteps.size() && chargeSteps[iEnd].timeStep == chargeSteps[iEnd - 1].timeStep + DELTA_T) {
+                    charged += chargeSteps[iEnd].WCharged;
+                    iEnd++;
+                }
+                writeVehicle(output, chargeSteps, iStart, iEnd, charged);
+                iStart = iEnd;
             }
         }
-        // now write values
-        firstTimeStep = myChargeValues.at(0).timeStep;
-        int vehicleCounter = 0;
-        // open tag for first vehicle and write id and type of vehicle
-        output.openTag(SUMO_TAG_VEHICLE);
-        output.writeAttr(SUMO_ATTR_ID, myChargeValues.at(0).vehicleID);
-        output.writeAttr(SUMO_ATTR_TYPE, myChargeValues.at(0).vehicleType);
-        output.writeAttr(SUMO_ATTR_TOTALENERGYCHARGED_VEHICLE, charge.at(0));
-        output.writeAttr(SUMO_ATTR_CHARGINGBEGIN, time2string(vectorBeginEndCharge.at(0).first));
-        output.writeAttr(SUMO_ATTR_CHARGINGEND, time2string(vectorBeginEndCharge.at(0).second));
-        // iterate over charging values
-        for (std::vector<Charge>::const_iterator i = myChargeValues.begin(); i != myChargeValues.end(); i++) {
-            // open tag for timestep and write all parameters
-            output.openTag(SUMO_TAG_STEP);
-            output.writeAttr(SUMO_ATTR_TIME, time2string(i->timeStep));
-            // charge values
-            output.writeAttr(SUMO_ATTR_CHARGING_STATUS, i->status);
-            output.writeAttr(SUMO_ATTR_ENERGYCHARGED, i->WCharged);
-            output.writeAttr(SUMO_ATTR_PARTIALCHARGE, i->totalEnergyCharged);
-            // charging values of charging station in this timestep
-            output.writeAttr(SUMO_ATTR_CHARGINGPOWER, i->chargingPower);
-            output.writeAttr(SUMO_ATTR_EFFICIENCY, i->chargingEfficiency);
-            // battery status of vehicle
-            output.writeAttr(SUMO_ATTR_ACTUALBATTERYCAPACITY, i->actualBatteryCapacity);
-            output.writeAttr(SUMO_ATTR_MAXIMUMBATTERYCAPACITY, i->maxBatteryCapacity);
-            // close tag timestep
-            output.closeTag();
-            // update timestep of charge
-            firstTimeStep += DELTA_T;
-            // check if charge is continuous. If not, open a new vehicle tag
-            if (((i + 1) != myChargeValues.end()) && (((i + 1)->timeStep) != firstTimeStep)) {
-                // set new firstTimeStep of charge
-                firstTimeStep = (i + 1)->timeStep;
-                // update counter
-                vehicleCounter++;
-                // close previous vehicle tag
-                output.closeTag();
-                // open tag for new vehicle and write id and type of vehicle
-                output.openTag(SUMO_TAG_VEHICLE);
-                output.writeAttr(SUMO_ATTR_ID, (i + 1)->vehicleID);
-                output.writeAttr(SUMO_ATTR_TYPE, (i + 1)->vehicleType);
-                output.writeAttr(SUMO_ATTR_TOTALENERGYCHARGED_VEHICLE, charge.at(vehicleCounter));
-                output.writeAttr(SUMO_ATTR_CHARGINGBEGIN, vectorBeginEndCharge.at(vehicleCounter).first);
-                output.writeAttr(SUMO_ATTR_CHARGINGEND, vectorBeginEndCharge.at(vehicleCounter).second);
-            }
-        }
-        // close vehicle tag
-        output.closeTag();
     }
     // close charging station tag
     output.closeTag();
+}
+
+void
+MSChargingStation::writeVehicle(OutputDevice& out, const std::vector<Charge>& chargeSteps, int iStart, int iEnd, double charged) {
+    const Charge& first = chargeSteps[iStart];
+    out.openTag(SUMO_TAG_VEHICLE);
+    out.writeAttr(SUMO_ATTR_ID, first.vehicleID);
+    out.writeAttr(SUMO_ATTR_TYPE, first.vehicleType);
+    out.writeAttr(SUMO_ATTR_TOTALENERGYCHARGED_VEHICLE, charged);
+    out.writeAttr(SUMO_ATTR_CHARGINGBEGIN, time2string(first.timeStep));
+    out.writeAttr(SUMO_ATTR_CHARGINGEND, time2string(chargeSteps[iEnd - 1].timeStep));
+    for (int i = iStart; i < iEnd; i++) {
+        const Charge& c = chargeSteps[i];
+        out.openTag(SUMO_TAG_STEP);
+        out.writeAttr(SUMO_ATTR_TIME, time2string(c.timeStep));
+        // charge values
+        out.writeAttr(SUMO_ATTR_CHARGING_STATUS, c.status);
+        out.writeAttr(SUMO_ATTR_ENERGYCHARGED, c.WCharged);
+        out.writeAttr(SUMO_ATTR_PARTIALCHARGE, c.totalEnergyCharged);
+        // charging values of charging station in this timestep
+        out.writeAttr(SUMO_ATTR_CHARGINGPOWER, c.chargingPower);
+        out.writeAttr(SUMO_ATTR_EFFICIENCY, c.chargingEfficiency);
+        // battery status of vehicle
+        out.writeAttr(SUMO_ATTR_ACTUALBATTERYCAPACITY, c.actualBatteryCapacity);
+        out.writeAttr(SUMO_ATTR_MAXIMUMBATTERYCAPACITY, c.maxBatteryCapacity);
+        // close tag timestep
+        out.closeTag();
+    }
+    out.closeTag();
 }
 
 
