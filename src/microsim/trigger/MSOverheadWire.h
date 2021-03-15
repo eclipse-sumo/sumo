@@ -205,6 +205,8 @@ protected:
         }
     };
 
+    void static writeVehicle(OutputDevice& out, const std::vector<Charge>& chargeSteps, int iStart, int iEnd, double charged);
+
     /// @brief Overhead wire's voltage
     double myVoltage;
 
@@ -214,8 +216,10 @@ protected:
     /// @brief total energy charged by this charging station
     double myTotalCharge;
 
-    /// @brief vector with the charges of this charging station
-    std::vector<Charge> myChargeValues;
+    /// @brief map with the charges of this charging station (key = vehicleID)
+    std::map<std::string, std::vector<Charge> > myChargeValues;
+    /// @brief order vehicles by time of first charge
+    std::vector<std::string> myChargedVehicles;
 
     std::vector<SUMOVehicle*> myChargingVehicles;
 
