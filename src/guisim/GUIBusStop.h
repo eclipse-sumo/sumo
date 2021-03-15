@@ -156,7 +156,7 @@ private:
     PositionVector myAccessCoords;
 
     /// @brief The current person exaggeration
-    mutable double myPersonExaggeration;
+    mutable double myTransportableExaggeration;
 
 
 };

@@ -32,11 +32,10 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
+#include <microsim/transportables/MSTransportable.h>
 #include <microsim/transportables/MSStageDriving.h>
 #include "GUINet.h"
 #include "GUIEdge.h"
-#include "GUIPerson.h"
-#include "GUIBusStop.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
@@ -59,9 +58,10 @@ GUIBusStop::GUIBusStop(const std::string& id, SumoXMLTag element, const std::vec
                        double parkingLength, const RGBColor& color) :
     MSStoppingPlace(id, element, lines, lane, frompos, topos, name, personCapacity, parkingLength, color),
     GUIGlObject_AbstractAdd(GLO_BUS_STOP, id),
-    myPersonExaggeration(1) {
+    myTransportableExaggeration(1) {
     const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
-    myWidth = MAX2(1.0, ceil(personCapacity / getTransportablesAbreast()) * SUMO_const_waitingPersonDepth);
+    // see MSVehicleControl defContainerType
+    myWidth = MAX2(1.0, ceil(personCapacity / getTransportablesAbreast()) * myTransportableDepth);
     myFGShape = lane.getShape();
     myFGShape.move2side((lane.getWidth() + myWidth) * 0.45 * offsetSign);
     myFGShape = myFGShape.getSubpart(
@@ -125,8 +125,9 @@ GUIBusStop::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("end position [m]", false, myEndPos);
     ret->mkItem("lines", false, joinToString(myLines, " "));
     ret->mkItem("parking length [m]", false, (myEndPos - myBegPos) / myParkingFactor);
-    ret->mkItem("person capacity [#]", false, myTransportableCapacity);
-    ret->mkItem("person number [#]", true, new FunctionBinding<GUIBusStop, int>(this, &MSStoppingPlace::getTransportableNumber));
+    const std::string transportable = (myElement == SUMO_TAG_CONTAINER_STOP ? "container" : "person");
+    ret->mkItem((transportable + " capacity [#]").c_str(), false, myTransportableCapacity);
+    ret->mkItem((transportable + " number [#]").c_str(), true, new FunctionBinding<GUIBusStop, int>(this, &MSStoppingPlace::getTransportableNumber));
     ret->mkItem("stopped vehicles[#]", true, new FunctionBinding<GUIBusStop, int>(this, &MSStoppingPlace::getStoppedVehicleNumber));
     ret->mkItem("last free pos[m]", true, new FunctionBinding<GUIBusStop, double>(this, &MSStoppingPlace::getLastFreePos));
     // rides-being-waited-on statistic
@@ -198,10 +199,16 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(exaggeration, exaggeration, 1);
         GLHelper::drawFilledCircle((double) 1.1, noPoints);
         glTranslated(0, 0, .1);
-        GLHelper::setColor(s.stoppingPlaceSettings.busStopColorSign);
+        GLHelper::setColor(myElement == SUMO_TAG_CONTAINER_STOP
+                ? s.stoppingPlaceSettings.containerStopColorSign
+                : s.stoppingPlaceSettings.busStopColorSign);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
         if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
-            GLHelper::drawText("H", Position(), .1, 1.6, s.stoppingPlaceSettings.busStopColor, myFGSignRot);
+            if (myElement == SUMO_TAG_CONTAINER_STOP) {
+                GLHelper::drawText("C", Position(), .1, 1.6, s.stoppingPlaceSettings.containerStopColor, myFGSignRot);
+            } else {
+                GLHelper::drawText("H", Position(), .1, 1.6, s.stoppingPlaceSettings.busStopColor, myFGSignRot);
+            }
         }
         glPopMatrix();
     }
@@ -209,7 +216,11 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawTextSettings(s.addFullName, getMyName(), myFGSignPos, s.scale, s.getTextAngle(myFGSignRot), GLO_MAX - getType());
     }
     if (exaggeration > 1) {
-        myPersonExaggeration = s.personSize.getExaggeration(s, nullptr);
+        if (myElement == SUMO_TAG_CONTAINER_STOP) {
+            myTransportableExaggeration = s.containerSize.getExaggeration(s, nullptr);
+        } else {
+            myTransportableExaggeration = s.personSize.getExaggeration(s, nullptr);
+        }
     }
     glPopMatrix();
     glPopName();
@@ -235,10 +246,10 @@ GUIBusStop::getOptionalName() const {
 Position
 GUIBusStop::getWaitPosition(MSTransportable* t) const {
     Position result = MSStoppingPlace::getWaitPosition(t);
-    if (myPersonExaggeration > 1) {
+    if (myTransportableExaggeration > 1) {
         Position ref = myLane.getShape().positionAtOffset(myLane.interpolateLanePosToGeometryPos((myBegPos + myEndPos) / 2),
                        myLane.getWidth() / 2);
-        result = ref + (result - ref) * myPersonExaggeration;
+        result = ref + (result - ref) * myTransportableExaggeration;
     }
     return result;
 }

@@ -29,7 +29,6 @@
 #include <guisim/GUINet.h>
 #include <guisim/GUITriggeredRerouter.h>
 #include <guisim/GUIBusStop.h>
-#include <guisim/GUIContainerStop.h>
 #include <guisim/GUIParkingArea.h>
 #include <guisim/GUICalibrator.h>
 #include <guisim/GUIChargingStation.h>
@@ -73,12 +72,7 @@ void
 GUITriggerBuilder::buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
                                       double frompos, double topos, const SumoXMLTag element, std::string name,
                                       int personCapacity, double parkingLength, RGBColor& color) {
-    if (element == SUMO_TAG_CONTAINER_STOP) {
-        //TODO: shall we also allow names for container stops? might make sense [GL March '17]
-        myCurrentStop = new GUIContainerStop(id, element, lines, *lane, frompos, topos, name, personCapacity, parkingLength, color);
-    } else {
-        myCurrentStop = new GUIBusStop(id, element, lines, *lane, frompos, topos, name, personCapacity, parkingLength, color);
-    }
+    myCurrentStop = new GUIBusStop(id, element, lines, *lane, frompos, topos, name, personCapacity, parkingLength, color);
     if (!net.addStoppingPlace(element, myCurrentStop)) {
         delete myCurrentStop;
         myCurrentStop = nullptr;

@@ -270,6 +270,9 @@ protected:
     /// @brief The color of the stopping place
     const RGBColor myColor;
 
+    /// @brief row depth of waiting transportables
+    const double myTransportableDepth;
+
 protected:
 
     /// @brief Persons waiting at this stop (mapped to waiting position)

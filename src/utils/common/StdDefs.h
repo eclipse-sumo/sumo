@@ -54,8 +54,8 @@ const double SUMO_const_halfLaneAndOffset = SUMO_const_halfLaneWidth + SUMO_cons
 const double SUMO_const_laneMarkWidth = (double) 0.1;
 const double SUMO_const_waitingPersonWidth = 0.8;
 const double SUMO_const_waitingPersonDepth = 0.67;
-const double SUMO_const_waitingContainerWidth = 2.4;
-const double SUMO_const_waitingContainerDepth = 6.1;
+const double SUMO_const_waitingContainerWidth = 2.5;
+const double SUMO_const_waitingContainerDepth = 6.2;
 
 /// @brief the speed threshold at which vehicles are considered as halting
 const double SUMO_const_haltingSpeed = (double) 0.1;

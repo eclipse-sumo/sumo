@@ -51,7 +51,9 @@ MSStoppingPlace::MSStoppingPlace(const std::string& id,
     myName(name),
     myTransportableCapacity(capacity),
     myParkingFactor(parkingLength <= 0 ? 1 : (endPos - begPos) / parkingLength),
-    myColor(color)
+    myColor(color),
+    // see MSVehicleControl defContainerType
+    myTransportableDepth(element == SUMO_TAG_CONTAINER_STOP ? SUMO_const_waitingContainerDepth : SUMO_const_waitingPersonDepth)
 {
     computeLastFreePos();
     for (int i = 0; i < capacity; i++) {
@@ -136,8 +138,11 @@ MSStoppingPlace::fits(double pos, const SUMOVehicle& veh) const {
 double
 MSStoppingPlace::getWaitingPositionOnLane(MSTransportable* t) const {
     auto it = myWaitingTransportables.find(t);
+    const double waitingWidth = myElement == SUMO_TAG_CONTAINER_STOP
+        ? SUMO_const_waitingContainerWidth
+        : SUMO_const_waitingPersonWidth;
     if (it != myWaitingTransportables.end() && it->second >= 0) {
-        return myEndPos - (0.5 + (it->second) % getTransportablesAbreast()) * SUMO_const_waitingPersonWidth;
+        return myEndPos - (0.5 + (it->second) % getTransportablesAbreast()) * waitingWidth;
     } else {
         return (myEndPos + myBegPos) / 2;
     }
@@ -147,7 +152,7 @@ MSStoppingPlace::getWaitingPositionOnLane(MSTransportable* t) const {
 int
 MSStoppingPlace::getTransportablesAbreast(double length, SumoXMLTag element) {
     return MAX2(1, (int)floor(length / (element == SUMO_TAG_CONTAINER_STOP
-                    ? 2.5 // see MSVehicleControl defContainerType
+                    ? SUMO_const_waitingContainerWidth
                     : SUMO_const_waitingPersonWidth)));
 }
 
@@ -171,7 +176,7 @@ MSStoppingPlace::getWaitPosition(MSTransportable* t) const {
     }
     const double lefthandSign = (MSGlobals::gLefthand ? -1 : 1);
     return myLane.getShape().positionAtOffset(myLane.interpolateLanePosToGeometryPos(lanePos),
-            lefthandSign * (myLane.getWidth() / 2 + row * SUMO_const_waitingPersonDepth));
+            lefthandSign * (myLane.getWidth() / 2 + row * myTransportableDepth));
 }
 
 
