@@ -50,34 +50,24 @@
     <vehicle id="v5" route="r" depart="containerTriggered" departPos="last" line="dummy" type="bus"       />
     <vehicle id="v6" route="r" depart="containerTriggered" departPos="last" line="dummy" type="train"     />
 
-    <container id="c10" depart="00" departPos="200" type="container">
+    <containerFlow id="c10" begin="00" end="1" number="10" departPos="200" type="container">
         <transport from="beg" to="end" lines="ANY"/>
-    </container>
-    <container id="c11" depart="00" departPos="200" type="container">
-        <transport from="beg" to="end" lines="ANY"/>
-    </container>
-    <container id="c12" depart="00" departPos="200" type="container">
-        <transport from="beg" to="end" lines="ANY"/>
-    </container>
-    <container id="c13" depart="00" departPos="200" type="container">
-        <transport from="beg" to="end" lines="ANY"/>
-    </container>
-    <container id="c14" depart="00" departPos="200" type="container">
-        <transport from="beg" to="end" lines="ANY"/>
-    </container>
-    <container id="c15" depart="00" departPos="200" type="container">
-        <transport from="beg" to="end" lines="ANY"/>
-    </container>
-    <container id="c16" depart="00" departPos="200" type="container">
-        <transport from="beg" to="end" lines="ANY"/>
-    </container>
-    <container id="c17" depart="00" departPos="200" type="container">
-        <transport from="beg" to="end" lines="ANY"/>
-    </container>
-    <container id="c18" depart="00" departPos="200" type="container">
-        <transport from="beg" to="end" lines="ANY"/>
-    </container>
-    <container id="c19" depart="00" departPos="200" type="container">
-        <transport from="beg" to="end" lines="ANY"/>
-    </container>
+    </containerFlow>
+
+    <containerFlow id="stopA" begin="0" end="1" number="4">
+        <stop containerStop="A" duration="1"/>
+        <transport to="end" lines="INVALID"/>
+    </containerFlow>
+    <containerFlow id="stopB" begin="0" end="1" number="4">
+        <stop containerStop="B" duration="1"/>
+        <transport to="end" lines="INVALID"/>
+    </containerFlow>
+    <containerFlow id="stopC" begin="0" end="1" number="8">
+        <stop containerStop="C" duration="1"/>
+        <transport to="end" lines="INVALID"/>
+    </containerFlow>
+    <containerFlow id="stopD" begin="0" end="1" number="8">
+        <stop containerStop="D" duration="1"/>
+        <transport to="end" lines="INVALID"/>
+    </containerFlow>
 </routes>

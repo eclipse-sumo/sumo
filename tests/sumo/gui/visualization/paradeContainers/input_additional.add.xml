@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 15 Mar 2021 02:08:05 PM CET by Eclipse SUMO netedit Version v1_8_0+1646-0477b52
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <containerStop id="A" name="default stop" lane="beg_0" startPos="30.00" endPos="40.00" containerCapacity="5"/>
+    <containerStop id="B" name="small stop" lane="beg_0" startPos="150.00" endPos="155.00" containerCapacity="5"/>
+    <containerStop id="C" name="big stop" lane="beg_0" startPos="280.00" endPos="300.00" containerCapacity="10"/>
+    <containerStop id="D" name="medium stop" lane="beg_0" startPos="400.00" endPos="415.00" containerCapacity="10"/>
+</additional>
