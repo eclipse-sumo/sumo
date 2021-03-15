@@ -57,8 +57,8 @@ public:
     /// @brief destructor
     ~MSChargingStation();
 
-    /// @brief Get charging station's charging power
-    double getChargingPower() const;
+    /// @brief Get charging station's charging power in the
+    double getChargingPower(bool usingFuel) const;
 
     /// @brief Get efficiency of the charging station
     double getEfficency() const;

@@ -47,7 +47,7 @@ MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLan
     myChargingVehicle(false),
     myTotalCharge(0) {
     if (chargingPower < 0)
-        WRITE_WARNING("Parameter " + toString(SUMO_ATTR_CHARGINGPOWER) + " for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " is invalid (" + toString(getChargingPower()) + ").")
+        WRITE_WARNING("Parameter " + toString(SUMO_ATTR_CHARGINGPOWER) + " for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " is invalid (" + toString(chargingPower) + ").")
         else {
             myChargingPower = chargingPower;
         }
@@ -75,8 +75,13 @@ MSChargingStation::~MSChargingStation() {
 
 
 double
-MSChargingStation::getChargingPower() const {
-    return myChargingPower;
+MSChargingStation::getChargingPower(bool usingFuel) const {
+    if (usingFuel) {
+        return myChargingPower;
+    } else {
+        // Convert from [Ws] to [Wh] (3600s / 1h):
+        return myChargingPower / 3600;
+    }
 }
 
 
