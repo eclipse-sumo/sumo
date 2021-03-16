@@ -85,3 +85,7 @@ Python library field
 
 ![](../images/CMakePython1.png "Two different python version at the same time")
 Two different python version at the same time
+
+## CLang and Windows
+
+If you want to compile using CLang in Windows, just add "ClangCL" in "Optional Toolset" (-T)
