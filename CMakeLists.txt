@@ -60,6 +60,9 @@ if (GNU_COMPILER OR CLANG_COMPILER)
     if (CLANG_COMPILER AND WIN32)
         # flags for clang in windows
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+        # disable debug build (due a problem with Runtime Libraries)
+        set(CMAKE_CONFIGURATION_TYPES "Release")
+        set(CMAKE_BUILD_TYPE "Release")
     else ()
         #flags for clang and gcc in linux
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread -Wall -pedantic -Wextra")
@@ -102,6 +105,8 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
 if (CLANG_COMPILER)
     if (WIN32) 
         set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=undefined,integer,unsigned-integer-overflow -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build/clang_sanitize_blacklist.txt")
+        # set iterator de bug level in 0
+        add_compile_definitions(_ITERATOR_DEBUG_LEVEL=0)
     else ()
         set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=undefined,address,integer,unsigned-integer-overflow -fno-omit-frame-pointer -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build/clang_sanitize_blacklist.txt")
     endif ()
