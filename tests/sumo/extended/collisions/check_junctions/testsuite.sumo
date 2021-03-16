@@ -5,3 +5,6 @@ stoptime
 
 # collider stop position should not be moved back too far
 slow_collider
+
+# stop after junction collision, test for #8359
+stoptime_warn

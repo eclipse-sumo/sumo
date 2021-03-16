@@ -1,0 +1,5 @@
+Warning: Unused states in tlLogic 'C', program '0' in phase 0 after tl-index 22
+Warning: Missing yellow phase in tlLogic 'C', program '0' for tl-index 6 when switching to phase 1
+Warning: Vehicle 'flow_1.8' performs emergency stop at the end of lane 'WC_1' because of a red traffic light (decel=-9.16, offset=3.92), time=34.00.
+Warning: Vehicle 'flow_0.8' performs emergency stop at the end of lane 'EC_0' because of a red traffic light (decel=-8.18, offset=1.88), time=34.00.
+Warning: Vehicle 'flow_1.12'; junction collision with vehicle 'flow_0.30', lane=':C_18_0', gap=-1.00, time=103.00 stage=move.
