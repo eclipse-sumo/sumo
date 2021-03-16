@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 23 10:48:04 2020 by Eclipse SUMO netconvert Version v1_5_0+1262-87c7f4a707
+<!-- generated on Tue Mar 16 10:31:55 2021 by Eclipse SUMO netconvert Version v1_8_0+1657-6f75391
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -10,7 +10,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <input>
         <shapefile-prefix value="data/roads"/>
-        <shapefile.traditional-axis-mapping value="true"/>
     </input>
 
     <output>
@@ -34,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-393250.70,-5817849.97" convBoundary="0.00,0.00,647.20,469.84" origBoundary="13.427344,52.500380,13.436832,52.504554" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -367,7 +366,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="194559652_0" index="0" speed="13.89" length="65.27" shape="545.63,15.75 549.29,27.58 575.03,61.25 581.41,69.60"/>
     </edge>
     <edge id="194711249" from="62" to="101" priority="0" spreadType="center" shape="595.85,59.43 589.45,50.91 575.85,32.79 619.75,0.00">
-        <lane id="194711249_0" index="0" speed="13.89" length="84.95" shape="593.96,56.91 589.45,50.91 575.85,32.79 619.75,0.00"/>
+        <lane id="194711249_0" index="0" speed="13.89" length="84.95" shape="593.96,56.91 589.45,50.91 575.85,32.79 619.75,-0.00"/>
     </edge>
     <edge id="195332166" from="3" to="27" priority="0" spreadType="center" shape="274.24,286.06 238.55,227.20 203.69,169.73">
         <lane id="195332166_0" index="0" speed="13.89" length="124.81" shape="271.27,281.17 238.55,227.20 206.55,174.45"/>
@@ -394,7 +393,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="240438287_0" index="0" speed="13.89" length="72.49" shape="85.61,211.46 74.73,210.46 68.54,211.20 33.60,197.88 21.67,203.04 20.33,207.79"/>
     </edge>
     <edge id="240438289" from="118" to="119" priority="0" spreadType="center" shape="74.73,210.46 62.49,188.12 52.55,193.16 45.45,191.45 33.60,197.88 10.34,149.78 0.00,146.33">
-        <lane id="240438289_0" index="0" speed="13.89" length="121.71" shape="74.73,210.46 62.49,188.12 52.55,193.16 45.45,191.45 33.60,197.88 10.34,149.78 -0.00,146.33"/>
+        <lane id="240438289_0" index="0" speed="13.89" length="121.71" shape="74.73,210.46 62.49,188.12 52.55,193.16 45.45,191.45 33.60,197.88 10.34,149.78 0.00,146.33"/>
     </edge>
     <edge id="240438293" from="120" to="121" priority="0" spreadType="center">
         <lane id="240438293_0" index="0" speed="13.89" length="61.35" shape="62.49,188.12 34.70,133.43"/>
