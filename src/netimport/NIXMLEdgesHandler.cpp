@@ -544,14 +544,24 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes& attrs) {
 
 PositionVector
 NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes& attrs) {
-    if (!attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
+    if (!attrs.hasAttribute(SUMO_ATTR_SHAPE) && myShape.size() > 0) {
         return myShape;
     }
     // try to build shape
     bool ok = true;
     if (!attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
-        myReinitKeepEdgeShape = false;
-        return PositionVector();
+        const double maxSegmentLength = OptionsCont::getOptions().getFloat("geometry.max-segment-length");
+        if (maxSegmentLength > 0) {
+            PositionVector shape;
+            shape.push_back(myFromNode->getPosition());
+            shape.push_back(myToNode->getPosition());
+            // shape is already cartesian but we must use a copy because the original will be modified
+            NBNetBuilder::addGeometrySegments(shape, PositionVector(shape), maxSegmentLength);
+            return shape;
+        } else {
+            myReinitKeepEdgeShape = false;
+            return PositionVector();
+        }
     }
     PositionVector shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nullptr, ok, PositionVector());
     if (!NBNetBuilder::transformCoordinates(shape)) {
