@@ -132,6 +132,7 @@ MSLane::AnyVehicleIterator::operator*() {
         } else if (myI3 != myI3End) {
             return myLane->myTmpVehicles[myI3];
         } else {
+            assert(myI2 == myI2End);
             return nullptr;
         }
     } else {
@@ -285,6 +286,7 @@ MSLane::setPartialOccupation(MSVehicle* v) {
 #ifdef HAVE_FOX
     FXConditionalLock lock(myPartialOccupatorMutex, MSGlobals::gNumSimThreads > 1);
 #endif
+    //assert(std::find(myPartialVehicles.begin(), myPartialVehicles.end(), v) == myPartialVehicles.end());
     myPartialVehicles.push_back(v);
     return myLength;
 }

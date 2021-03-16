@@ -4728,7 +4728,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
 
 
 void
-MSVehicle::computeFurtherLanes(MSLane* enteredLane, double pos) {
+MSVehicle::computeFurtherLanes(MSLane* enteredLane, double pos, bool collision) {
     // build the list of lanes the vehicle is lapping into
     if (!myLaneChangeModel->isOpposite()) {
         double leftLength = myType->getLength() - pos;
@@ -4756,9 +4756,12 @@ MSVehicle::computeFurtherLanes(MSLane* enteredLane, double pos) {
                     || clane->getLinkCont()[0]->getDirection() == LinkDirection::TURN_LEFTHAND))) {
                 break;
             }
-            myFurtherLanes.push_back(clane);
-            myFurtherLanesPosLat.push_back(myState.myPosLat);
-            leftLength -= (clane)->setPartialOccupation(this);
+            if (!collision || std::find(myFurtherLanes.begin(), myFurtherLanes.end(), clane) == myFurtherLanes.end()) {
+                myFurtherLanes.push_back(clane);
+                myFurtherLanesPosLat.push_back(myState.myPosLat);
+                clane->setPartialOccupation(this);
+            }
+            leftLength -= clane->getLength();
         }
         myState.myBackPos = -leftLength;
     } else {
@@ -6184,7 +6187,7 @@ MSVehicle::handleCollisionStop(MSStop& stop, const bool collision, const double 
                 myState.myPos = MIN2(myState.myPos, stop.pars.endPos);
                 myCachedPosition = Position::INVALID;
                 if (myState.myPos < myType->getLength()) {
-                    computeFurtherLanes(myLane, myState.myPos);
+                    computeFurtherLanes(myLane, myState.myPos, true);
                     myAngle = computeAngle();
                     if (myLaneChangeModel->isOpposite()) {
                         myAngle += M_PI;
