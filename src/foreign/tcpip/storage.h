@@ -10,8 +10,8 @@
  ** \author Bjoern Hendriks <hendriks@ibr.cs.tu-bs.de>                 **
  **                                                                    **
  ************************************************************************/
-#ifndef __SHAWN_APPS_TCPIP_STORAGE_H
-#define __SHAWN_APPS_TCPIP_STORAGE_H
+#pragma once
+#include <config.h>
 
 #ifdef SHAWN
      #include <shawn_config.h>
@@ -129,12 +129,3 @@ public:
 } // namespace tcpip
 
 #endif // BUILD_TCPIP
-
-#endif
-/*-----------------------------------------------------------------------
- * Source  $Source: $
- * Version $Revision: 620 $
- * Date    $Date: 2011-07-08 17:39:10 +0200 (Fri, 08 Jul 2011) $
- *-----------------------------------------------------------------------
- * $Log: $
- *-----------------------------------------------------------------------*/

@@ -24,8 +24,15 @@
 
 #include <vector>
 #ifdef HAVE_EIGEN
-#include "Eigen/Dense"
-#include "Eigen/Geometry"
+    // avoid warnings in clang
+    #ifdef __clang__
+        #pragma clang system_header
+    #endif
+    #pragma warning(push, 0)
+    #include "Eigen/Dense"
+    #include "Eigen/Geometry"
+    #include "Eigen/Sparse"
+    #pragma warning(pop)
 #endif
 #include "Node.h"
 #include "Element.h"

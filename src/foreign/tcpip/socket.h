@@ -6,8 +6,8 @@
  ** file in the root of the Shawn source tree for further details.     **
  ************************************************************************/
 
-#ifndef __SHAWN_APPS_TCPIP_SOCKET_H
-#define __SHAWN_APPS_TCPIP_SOCKET_H
+#pragma once
+#include <config.h>
 
 #ifdef SHAWN
      #include <shawn_config.h>
@@ -133,13 +133,3 @@ namespace tcpip
 }	// namespace tcpip
 
 #endif // BUILD_TCPIP
-
-#endif
-
-/*-----------------------------------------------------------------------
-* Source  $Source: $
-* Version $Revision: 612 $
-* Date    $Date: 2011-06-14 15:16:52 +0200 (Tue, 14 Jun 2011) $
-*-----------------------------------------------------------------------
-* $Log:$
-*-----------------------------------------------------------------------*/

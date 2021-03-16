@@ -26,11 +26,7 @@
 #include <mutex>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#ifdef HAVE_EIGEN
-#include "Eigen/Dense"
-#include "Eigen/Sparse"
-#include "Eigen/Geometry"
-#endif
+
 #include "Element.h"
 #include "Circuit.h"
 

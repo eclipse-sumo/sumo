@@ -395,7 +395,8 @@ GNEApplicationWindow::dependentBuild() {
     // build toolbar menu
     getToolbarsGrip().buildMenuToolbarsGrip();
     // build the thread - io
-    myLoadThreadEvent.setTarget(this),  myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
+    myLoadThreadEvent.setTarget(this);
+    myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
     // build the status bar
     myStatusbar = new FXStatusBar(this, GUIDesignStatusBar);
     {
