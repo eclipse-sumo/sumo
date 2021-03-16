@@ -290,9 +290,9 @@ class Connection:
         """
         Load a simulation from the given arguments.
         """
-        self._sendCmd(tc.CMD_LOAD, None, None, "l", args)
         if self._traceFile:
             self._traceFile.write("traci.load(%s)\n" % repr(args))
+        self._sendCmd(tc.CMD_LOAD, None, None, "l", args)
 
     def simulationStep(self, step=0.):
         """
@@ -300,6 +300,9 @@ class Connection:
         If the given value is 0 or absent, exactly one step is performed.
         Values smaller than or equal to the current sim time result in no action.
         """
+        if self._traceFile:
+            args = "" if step == 0 else str(step)
+            self._traceFile.write("traci.simulationStep(%s)\n" % args)
         if type(step) is int and step >= 1000:
             warnings.warn("API change now handles step as floating point seconds", stacklevel=2)
         result = self._sendCmd(tc.CMD_SIMSTEP, None, None, "D", step)
@@ -311,9 +314,6 @@ class Connection:
             responses.append(self._readSubscription(result))
             numSubs -= 1
         self._manageStepListeners(step)
-        if self._traceFile:
-            args = "" if step == 0 else str(step)
-            self._traceFile.write("traci.simulationStep(%s)\n" % args)
         return responses
 
     def _manageStepListeners(self, step):
@@ -370,6 +370,11 @@ class Connection:
         self._sendCmd(tc.CMD_SETORDER, None, None, "I", order)
 
     def close(self, wait=True):
+        if self._traceFile:
+            self._traceFile.write("traci.close()\n")
+            self._traceFile.close()
+            for domain in _defaultDomains:
+                domain._setTraceFile(None, False)
         for listenerID in list(self._stepListeners.keys()):
             self.removeStepListener(listenerID)
         if self._socket is not None:
@@ -378,11 +383,6 @@ class Connection:
             self._socket = None
         if wait and self._process is not None:
             self._process.wait()
-        if self._traceFile:
-            self._traceFile.write("traci.close()\n")
-            self._traceFile.close()
-            for domain in _defaultDomains:
-                domain._setTraceFile(None, False)
 
 
 class StepListener(object):
