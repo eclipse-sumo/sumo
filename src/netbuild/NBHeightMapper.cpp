@@ -298,22 +298,20 @@ NBHeightMapper::loadTiff(const std::string& file) {
     }
     const int picSize = xSize * ySize;
     int16_t* raster = (int16_t*)CPLMalloc(sizeof(int16_t) * picSize);
+    bool ok = true;
     for (int i = 1; i <= poDataset->GetRasterCount(); i++) {
         GDALRasterBand* poBand = poDataset->GetRasterBand(i);
         if (poBand->GetColorInterpretation() != GCI_GrayIndex) {
             WRITE_ERROR("Unknown color band in " + file + ".");
             clearData();
-            break;
-        }
-        if (poBand->GetRasterDataType() != GDT_Int16) {
-            WRITE_ERROR("Unknown data type in " + file + ".");
-            clearData();
+            ok = false;
             break;
         }
         assert(xSize == poBand->GetXSize() && ySize == poBand->GetYSize());
         if (poBand->RasterIO(GF_Read, 0, 0, xSize, ySize, raster, xSize, ySize, GDT_Int16, 0, 0) == CE_Failure) {
             WRITE_ERROR("Failure in reading " + file + ".");
             clearData();
+            ok = false;
             break;
         }
     }
@@ -323,17 +321,21 @@ NBHeightMapper::loadTiff(const std::string& file) {
         min = MIN2(min, (double)raster[i]);
         max = MAX2(max, (double)raster[i]);
     }
-    WRITE_MESSAGE("Read geotiff heightmap with size " + toString(xSize) + "," + toString(ySize)
-            + " for geo boundary [" + toString(boundary)
-            + "] with elevation range [" + toString(min) + "," + toString(max) + "].");
     GDALClose(poDataset);
-    RasterData rasterData;
-    rasterData.raster = raster;
-    rasterData.boundary = boundary;
-    rasterData.xSize = xSize;
-    rasterData.ySize = ySize;
-    myRasters.push_back(rasterData);
-    return picSize;
+    if (ok) {
+        WRITE_MESSAGE("Read geotiff heightmap with size " + toString(xSize) + "," + toString(ySize)
+                + " for geo boundary [" + toString(boundary)
+                + "] with elevation range [" + toString(min) + "," + toString(max) + "].");
+        RasterData rasterData;
+        rasterData.raster = raster;
+        rasterData.boundary = boundary;
+        rasterData.xSize = xSize;
+        rasterData.ySize = ySize;
+        myRasters.push_back(rasterData);
+        return picSize;
+    } else {
+        return 0;
+    }
 #else
     UNUSED_PARAMETER(file);
     WRITE_ERROR("Cannot load GeoTIFF file since SUMO was compiled without GDAL support.");
