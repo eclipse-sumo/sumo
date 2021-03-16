@@ -122,6 +122,14 @@ public:
     };
 
 private:
+
+    struct RasterData {
+        int16_t* raster;
+        Boundary boundary;
+        int xSize;
+        int ySize;
+    };
+
     /// @brief the singleton instance
     static NBHeightMapper myInstance;
 
@@ -131,7 +139,7 @@ private:
     TRIANGLE_RTREE_QUAL myRTree;
 
     /// @brief raster height information in m for all loaded files
-    std::vector<std::pair<Boundary, int16_t*> > myRasters;
+    std::vector<RasterData> myRasters;
 
     /// @brief dimensions of one pixel in raster data
     Position mySizeOfPixel;

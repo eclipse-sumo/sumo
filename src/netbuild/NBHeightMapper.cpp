@@ -82,11 +82,11 @@ NBHeightMapper::getZ(const Position& geo) const {
         return 0;
     }
     for (auto& item : myRasters) {
-        const Boundary& boundary = item.first;
-        int16_t* raster = item.second;
+        const Boundary& boundary = item.boundary;
+        int16_t* raster = item.raster;
         double result = -1e6;
         if (boundary.around(geo)) {
-            const int xSize = int((boundary.xmax() - boundary.xmin()) / mySizeOfPixel.x() + .5);
+            const int xSize = item.xSize;
             const double normX = (geo.x() - boundary.xmin()) / mySizeOfPixel.x();
             const double normY = (geo.y() - boundary.ymax()) / mySizeOfPixel.y();
             PositionVector corners;
@@ -96,7 +96,7 @@ NBHeightMapper::getZ(const Position& geo) const {
             } else {
                 corners.push_back(Position(floor(normX) - 0.5, floor(normY) + 0.5, raster[(int)normY * xSize + (int)normX - 1]));
             }
-            if (normY - floor(normY) > 0.5) {
+            if (normY - floor(normY) > 0.5 && ((int)normY + 1) < item.ySize) {
                 corners.push_back(Position(floor(normX) + 0.5, floor(normY) + 1.5, raster[((int)normY + 1) * xSize + (int)normX]));
             } else {
                 corners.push_back(Position(floor(normX) + 0.5, floor(normY) - 0.5, raster[((int)normY - 1) * xSize + (int)normX]));
@@ -126,7 +126,7 @@ NBHeightMapper::getZ(const Position& geo) const {
             return triangle->getZ(geo);
         }
     }
-    WRITE_WARNING("Could not get height data for coordinate " + toString(geo));
+    WRITE_WARNINGF("Could not get height data for coordinate %", toString(geo));
     return 0;
 }
 
@@ -317,8 +317,22 @@ NBHeightMapper::loadTiff(const std::string& file) {
             break;
         }
     }
+    double min = std::numeric_limits<double>::max();
+    double max = -std::numeric_limits<double>::max();
+    for (int i = 0; i < picSize; i++) {
+        min = MIN2(min, (double)raster[i]);
+        max = MAX2(max, (double)raster[i]);
+    }
+    WRITE_MESSAGE("Read geotiff heightmap with size " + toString(xSize) + "," + toString(ySize)
+            + " for geo boundary [" + toString(boundary)
+            + "] with elevation range [" + toString(min) + "," + toString(max) + "].");
     GDALClose(poDataset);
-    myRasters.push_back(std::make_pair(boundary, raster));
+    RasterData rasterData;
+    rasterData.raster = raster;
+    rasterData.boundary = boundary;
+    rasterData.xSize = xSize;
+    rasterData.ySize = ySize;
+    myRasters.push_back(rasterData);
     return picSize;
 #else
     UNUSED_PARAMETER(file);
@@ -336,7 +350,7 @@ NBHeightMapper::clearData() {
     myTriangles.clear();
 #ifdef HAVE_GDAL
     for (auto& item : myRasters) {
-        CPLFree(item.second);
+        CPLFree(item.raster);
     }
     myRasters.clear();
 #endif
