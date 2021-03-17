@@ -10,11 +10,17 @@ first
 # replace first stop while already on the stop edge
 first_later
 
+# replace first stop after the vehicle has departed
+first_teleport
+
 # replace second stop after the vehicle has departed
 second
 
 # replace second stop with "" after the vehicle has departed
 second_remove
+
+# replace second stop after the vehicle has departed
+second_teleport
 
 # replace last stop after the vehicle has departed
 last
