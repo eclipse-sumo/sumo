@@ -13,6 +13,9 @@ first_later
 # replace second stop after the vehicle has departed
 second
 
+# replace second stop with "" after the vehicle has departed
+second_remove
+
 # replace last stop after the vehicle has departed
 last
 
