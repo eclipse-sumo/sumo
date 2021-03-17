@@ -1200,6 +1200,17 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
     MSLane* stopLane = MSLane::dictionary(stop.lane);
     MSEdge* stopEdge = &stopLane->getEdge();
 
+    auto itStop = myStops.begin();
+    std::advance(itStop, nextStopIndex);
+    MSStop& replacedStop = *itStop;
+
+    if (replacedStop.lane == stopLane && replacedStop.pars.endPos == stop.endPos) {
+        // only replace stop attributes
+        const_cast<SUMOVehicleParameter::Stop&>(replacedStop.pars) = stop;
+        replacedStop.initPars(stop);
+        return true;
+    }
+
     if (!stopLane->allowsVehicleClass(getVClass())) {
         errorMsg = ("Disallowed stop lane '" + stopLane->getID() + "'");
         return false;
@@ -1233,9 +1244,6 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
         }
     }
 
-    auto itStop = myStops.begin();
-    std::advance(itStop, nextStopIndex);
-    MSStop& replacedStop = *itStop;
     const_cast<SUMOVehicleParameter::Stop&>(replacedStop.pars) = stop;
     replacedStop.initPars(stop);
     replacedStop.edge = myRoute->end(); // will be patched in replaceRoute
