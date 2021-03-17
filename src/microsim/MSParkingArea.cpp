@@ -83,7 +83,7 @@ MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::strin
         // add lotEntry
         addLotEntry(pos.x(), pos.y(), pos.z(), myWidth, myLength, spaceAngle, spaceSlope);
         // update endPos
-        mySpaceOccupancies.back().endPos = myBegPos + MAX2(POSITION_EPS, spaceDim * (i + 1));
+        mySpaceOccupancies.back().endPos = MIN2(myEndPos, myBegPos + MAX2(POSITION_EPS, spaceDim * (i + 1)));
     }
     computeLastFreePos();
 }
