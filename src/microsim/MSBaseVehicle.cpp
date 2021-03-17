@@ -1216,10 +1216,12 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
     bool newDestination = nextStopIndex == n - 1 && stops[nextStopIndex].edge == oldEdges.end() - 1;
 
     ConstMSEdgeVector toNewStop;
-    router.compute(*itStart, startPos, stopEdge, stop.endPos, this, t, toNewStop, true);
-    if (toNewStop.size() == 0) {
-        errorMsg = "No route found from edge '" + (*itStart)->getID() + "' to stop edge '" + stopEdge->getID() + "'";
-        return false;
+    if (!teleport) {
+        router.compute(*itStart, startPos, stopEdge, stop.endPos, this, t, toNewStop, true);
+        if (toNewStop.size() == 0) {
+            errorMsg = "No route found from edge '" + (*itStart)->getID() + "' to stop edge '" + stopEdge->getID() + "'";
+            return false;
+        }
     }
 
     ConstMSEdgeVector fromNewStop;
@@ -1258,7 +1260,7 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
         newEdges.insert(newEdges.end(), fromNewStop.begin(), fromNewStop.end() - 1);
         newEdges.insert(newEdges.end(), itEnd, oldEdges.end());
     } else {
-        newEdges.push_back(toNewStop.back());
+        newEdges.push_back(stopEdge);
     }
     //std::cout << SIMTIME << " replaceStop veh=" << getID()
     //    << " oldEdges=" << oldRemainingEdges.size()
