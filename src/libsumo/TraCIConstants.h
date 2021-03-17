@@ -518,6 +518,8 @@ TRACI_CONST double INVALID_DOUBLE_VALUE = -1073741824.0;
 TRACI_CONST int INVALID_INT_VALUE = -1073741824;
 // maximum value for client ordering (2 ^ 30)
 TRACI_CONST int MAX_ORDER = 1073741824;
+// default number of connection attempts
+TRACI_CONST int DEFAULT_NUM_RETRIES = 60;
 
 
 // ****************************************

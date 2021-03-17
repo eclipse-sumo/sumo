@@ -49,6 +49,7 @@ from . import _lane, _person, _route, _vehicle, _vehicletype  # noqa
 from . import _edge, _gui, _junction, _poi, _polygon, _simulation  # noqa
 from . import _calibrator, _routeprobe, _rerouter  # noqa
 from . import _busstop, _parkingarea, _chargingstation, _overheadwire  # noqa
+from . import constants as tc  # noqa
 
 inductionloop = _inductionloop.InductionLoopDomain()
 lanearea = _lanearea.LaneAreaDomain()
@@ -103,7 +104,7 @@ def _addTracing(method):
     return tracingWrapper
 
 
-def connect(port=8813, numRetries=10, host="localhost", proc=None, waitBetweenRetries=1):
+def connect(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", proc=None, waitBetweenRetries=1):
     """
     Establish a connection to a TraCI-Server and return the
     connection object. The connection is not saved in the pool and not
@@ -127,7 +128,7 @@ def connect(port=8813, numRetries=10, host="localhost", proc=None, waitBetweenRe
     raise FatalTraCIError("Could not connect in %s tries" % (numRetries + 1))
 
 
-def init(port=8813, numRetries=10, host="localhost", label="default", proc=None):
+def init(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", label="default", proc=None):
     """
     Establish a connection to a TraCI-Server and store it under the given
     label. This method is not thread-safe. It accesses the connection
@@ -138,7 +139,7 @@ def init(port=8813, numRetries=10, host="localhost", label="default", proc=None)
     return getVersion()
 
 
-def start(cmd, port=None, numRetries=10, label="default", verbose=False,
+def start(cmd, port=None, numRetries=tc.DEFAULT_NUM_RETRIES, label="default", verbose=False,
           traceFile=None, traceGetters=True, stdout=None):
     """
     Start a sumo server using cmd, establish a connection to it and

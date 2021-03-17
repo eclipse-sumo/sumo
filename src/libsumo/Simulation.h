@@ -33,7 +33,8 @@ namespace LIBSUMO_NAMESPACE {
 class Simulation {
 public:
 #ifdef LIBTRACI
-    static std::pair<int, std::string> init(int port = 8813, int numRetries = 10, const std::string& host = "localhost", const std::string& label = "default", FILE* const pipe = nullptr);
+    static std::pair<int, std::string> init(int port = 8813, int numRetries = libsumo::DEFAULT_NUM_RETRIES,
+                                            const std::string& host = "localhost", const std::string& label = "default", FILE* const pipe = nullptr);
 
     static bool isLibsumo();
 
@@ -48,7 +49,8 @@ public:
 
 #endif
 
-    static std::pair<int, std::string> start(const std::vector<std::string>& cmd, int port = -1, int numRetries = 10, const std::string& label = "default", const bool verbose = false,
+    static std::pair<int, std::string> start(const std::vector<std::string>& cmd, int port = -1, int numRetries = libsumo::DEFAULT_NUM_RETRIES,
+                                             const std::string& label = "default", const bool verbose = false,
                                              const std::string& traceFile = "", bool traceGetters = true, void* _stdout = nullptr);
 
     /// @brief load a simulation with the given arguments
