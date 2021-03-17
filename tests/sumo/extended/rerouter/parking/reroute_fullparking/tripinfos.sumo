@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Mar 17 08:48:30 2021 by Eclipse SUMO sumo Version v1_8_0+1661-481d0d6cf2
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <stop-output value="stopinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="vehicle_0" depart="0.00" departLane="-5137911#9_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="110.00" arrivalLane="61567479#4_0" arrivalPos="137.98" arrivalSpeed="7.78" duration="110.00" routeLength="403.35" waitingTime="1.00" waitingCount="1" stopTime="50.00" timeLoss="10.76" rerouteNo="1" devices="tripinfo_vehicle_0 routing_vehicle_0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="vehicle_2" depart="0.00" departLane="24526821#0_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="149.00" arrivalLane="-4531517#4_0" arrivalPos="191.28" arrivalSpeed="7.11" duration="149.00" routeLength="666.96" waitingTime="0.00" waitingCount="0" stopTime="50.00" timeLoss="17.47" rerouteNo="2" devices="tripinfo_vehicle_2 routing_vehicle_2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="vehicle_1" depart="0.00" departLane="-5137911#2_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="171.00" arrivalLane="-4531517#7_0" arrivalPos="120.59" arrivalSpeed="7.44" duration="171.00" routeLength="846.14" waitingTime="0.00" waitingCount="0" stopTime="50.00" timeLoss="17.77" rerouteNo="1" devices="tripinfo_vehicle_1 routing_vehicle_1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+</tripinfos>

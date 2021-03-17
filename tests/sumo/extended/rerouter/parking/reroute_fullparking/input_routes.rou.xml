@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 17.03.2021 08:12:22 by Eclipse SUMO netedit Version v1_8_0+1661-481d0d6cf2
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\ART-FORUM\1-Network\miv.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\bug\net.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="D:\bug\add.xml"/>
+        <route-files value="D:\bug\trips.rou.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="vehicle_0" depart="0.00" from="-5137911#9" to="61567479#4">
+		<stop duration="50" parkingArea="parkingArea_61567479#3_0_0"/>
+	</trip>
+    <trip id="vehicle_1" depart="0.00" from="-5137911#2" to="-4531517#7">
+		<stop duration="50" parkingArea="parkingArea_61567479#3_0_0"/>
+	</trip>
+    <trip id="vehicle_2" depart="0.00" from="24526821#0" to="-4531517#4">
+		<stop duration="50" parkingArea="parkingArea_61567479#3_0_0"/>
+	</trip>
+</routes>

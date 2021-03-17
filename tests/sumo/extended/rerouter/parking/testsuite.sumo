@@ -63,3 +63,6 @@ reroute_insertion_delayed
 
 # test slope for parking vehicles 
 roadside_slope
+
+# reroute full parking (see #8338)
+reroute_fullparking
