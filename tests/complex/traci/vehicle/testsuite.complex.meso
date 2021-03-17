@@ -1,10 +1,10 @@
+replaceStop
+
 # Tests the vehicle API
 vehicle
 
 # simple context subscription test (less generic than then the contextSubscriptions suite)
 vehicle_context
-
-replaceStop
 
 # Tests the stop resume
 resume
