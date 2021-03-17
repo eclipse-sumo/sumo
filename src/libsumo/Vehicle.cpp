@@ -936,14 +936,9 @@ Vehicle::replaceStop(const std::string& vehID,
                      double startPos,
                      double until) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
-    MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
-    if (veh == nullptr) {
-        WRITE_WARNING("replaceStop not yet implemented for meso");
-        return;
-    }
     if (edgeID == "") {
         // only remove stop
-        const bool ok = veh->abortNextStop(nextStopIndex);
+        const bool ok = vehicle->abortNextStop(nextStopIndex);
         if (!ok) {
             throw TraCIException("Stop replacement failed for vehicle '" + vehID + "' (invalid nextStopIndex).");
         }
@@ -952,7 +947,7 @@ Vehicle::replaceStop(const std::string& vehID,
                 pos, laneIndex, startPos, flags, duration, until);
 
         std::string error;
-        if (!veh->replaceStop(nextStopIndex, stopPars, "traci:replaceStop", error)) {
+        if (!vehicle->replaceStop(nextStopIndex, stopPars, "traci:replaceStop", error)) {
             throw TraCIException("Stop replacement failed for vehicle '" + vehID + "' (" + error + ").");
         }
     }

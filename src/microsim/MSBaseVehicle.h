@@ -593,6 +593,18 @@ public:
     /// @brief deletes the next stop at the given index if it exists
     bool abortNextStop(int nextStopIndex = 0);
 
+    /**
+     * replace the next stop at the given index with the given stop parameters
+     * will wait for the given duration before continuing on its route
+     * The route between start other stops and destination will be kept unchanged and
+     * only the part around the replacement index will be adapted according to the new stop location
+     * @param[in] nextStopDist The replacement index
+     * @param[in] stop Stop parameters
+     * @param[out] errorMsg returned error message
+     */
+    bool replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const std::string& info, std::string& errorMsg);
+
+
     /// @brief whether this vehicle is selected in the GUI
     virtual bool isSelected() const {
         return false;

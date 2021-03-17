@@ -1181,17 +1181,6 @@ public:
      */
     bool addTraciStop(SUMOVehicleParameter::Stop stop, std::string& errorMsg);
 
-    /**
-     * replace the next stop at the given index with the given stop parameters
-     * will wait for the given duration before continuing on its route
-     * The route between start other stops and destination will be kept unchanged and
-     * only the part around the replacement index will be adapted according to the new stop location
-     * @param[in] nextStopDist The replacement index
-     * @param[in] stop Stop parameters
-     * @param[out] errorMsg returned error message
-     */
-    bool replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const std::string& info, std::string& errorMsg);
-
     bool handleCollisionStop(MSStop& stop, const bool collision, const double distToStop, const std::string& errorMsgStart, std::string& errorMsg);
 
     /**
