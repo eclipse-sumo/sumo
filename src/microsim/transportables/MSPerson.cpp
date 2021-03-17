@@ -426,10 +426,10 @@ MSPerson::~MSPerson() {
 
 
 void
-MSPerson::checkAccess(const MSStage* const prior, const bool isDisembark) {
+MSPerson::checkAccess(const MSStage* const prior, const bool waitAtStop) {
     MSStoppingPlace* const prevStop = prior->getDestinationStop();
     if (prevStop != nullptr) {
-        if (isDisembark) {
+        if (waitAtStop) {
             const double accessDist = prevStop->getAccessDistance(prior->getDestination());
             if (accessDist > 0.) {
                 const double arrivalAtBs = (prevStop->getBeginLanePosition() + prevStop->getEndLanePosition()) / 2;

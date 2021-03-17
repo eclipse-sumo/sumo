@@ -117,9 +117,9 @@ public:
      * @return Whether the transportables plan continues  */
     virtual bool proceed(MSNet* net, SUMOTime time, const bool vehicleArrived = false);
 
-    virtual void checkAccess(const MSStage* const prior, const bool isDisembark = true) {
+    virtual void checkAccess(const MSStage* const prior, const bool waitAtStop = true) {
         UNUSED_PARAMETER(prior);
-        UNUSED_PARAMETER(isDisembark);
+        UNUSED_PARAMETER(waitAtStop);
     }
 
     /// @brief set the id (inherited from Named but forbidden for transportables)
