@@ -12,3 +12,9 @@ ferry_trip
 
 # 2 persons starting in the same vehicle
 triggered
+
+# walk to a busStop (with limited capacity) and then continue walking
+walk_busStop_walk
+
+# walk to a busStop (with limited capacity) and then continue walking
+walkRoute_busStop_walk
