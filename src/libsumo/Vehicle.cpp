@@ -941,12 +941,20 @@ Vehicle::replaceStop(const std::string& vehID,
         WRITE_WARNING("replaceStop not yet implemented for meso");
         return;
     }
-    SUMOVehicleParameter::Stop stopPars = buildStopParameters(edgeID,
-                                          pos, laneIndex, startPos, flags, duration, until);
+    if (edgeID == "") {
+        // only remove stop
+        const bool ok = veh->abortNextStop(nextStopIndex);
+        if (!ok) {
+            throw TraCIException("Stop replacement failed for vehicle '" + vehID + "' (invalid nextStopIndex).");
+        }
+    } else {
+        SUMOVehicleParameter::Stop stopPars = buildStopParameters(edgeID,
+                pos, laneIndex, startPos, flags, duration, until);
 
-    std::string error;
-    if (!veh->replaceStop(nextStopIndex, stopPars, "traci:replaceStop", error)) {
-        throw TraCIException("Stop replacement failed for vehicle '" + vehID + "' (" + error + ").");
+        std::string error;
+        if (!veh->replaceStop(nextStopIndex, stopPars, "traci:replaceStop", error)) {
+            throw TraCIException("Stop replacement failed for vehicle '" + vehID + "' (" + error + ").");
+        }
     }
 }
 
