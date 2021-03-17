@@ -524,11 +524,6 @@ def main(args=None):
         input_demands = options.flows.split(",")
     else:
         input_demands = options.routes.split(",")
-    if options.externalgawron:
-        # avoid dependency on numpy for normal duaIterate
-        from routeChoices import getRouteChoices, calFirstRouteProbs
-        print('use externalgawron')
-        edgesMap = {}
     if options.weightmemory:
         costmemory = CostMemory('traveltime', pessimism=options.pessimism, network_file=options.net
                                 )
@@ -583,42 +578,6 @@ def main(args=None):
                 print(">>> End time: %s" % etime)
                 print(">>> Duration: %s" % (etime - btime))
                 print("<<")
-                # use the external gawron
-                if options.externalgawron:
-                    basename = get_basename(router_input)
-                    if ((step > 0 and not options.skipFirstRouting) or step > 1):
-                        basename = basename[:-4]
-                    print('basename', basename)
-                    ecomeasure = None
-                    if options.eco_measure:
-                        ecomeasure = options.eco_measure
-                    if step == options.firstStep + 1 and options.skipFirstRouting:
-                        if options.caloldprob:
-                            calFirstRouteProbs("dump_000_%s.xml" % (
-                                options.aggregation), basename + "_001.rou.alt.xml", options.addweights,
-                                ecomeasure)
-                        else:
-                            shutil.copy(str(1) + os.sep +
-                                        basename + "_001.rou.alt.xml", ".." + os.sep + basename + "_001.rou.galt.xml")
-                            shutil.copy(str(step) + os.sep +
-                                        basename + "_001.rou.xml", str(step) + os.sep + basename + "_001.grou.xml")
-                    if step == options.firstStep and not options.skipFirstRouting:
-                        shutil.copy(str(step) + os.sep +
-                                    basename + "_000.rou.alt.xml", ".." + os.sep + basename + "_000.rou.galt.xml")
-                        shutil.copy(str(step) + os.sep +
-                                    basename + "_000.rou.xml", ".." + os.sep + basename + "_000.grou.xml")
-                    else:
-                        print('step:', step)
-                        print('get externalgawron')
-                        dumpfile = str(step-1)+os.sep+"dump_%03i_%s.xml" % (
-                            step - 1, options.aggregation)
-                        shutil.copy(str(step-1) + os.sep + basename + "_00%s.rou.alt.xml" % (step-1),
-                                    basename + "_00%s.rou.galt.xml" % (step-1))
-                        if (not options.skipFirstRouting) or (options.skipFirstRouting and step > 1):
-                            output, edgesMap = getRouteChoices(
-                                edgesMap, dumpfile, str(step)+os.sep + basename +
-                                "_%03i.rou.alt.xml" % step, options.net,
-                                options.addweights, options.gA, options.gBeta, step, ecomeasure)
 
         # simulation
         print(">> Running simulation")

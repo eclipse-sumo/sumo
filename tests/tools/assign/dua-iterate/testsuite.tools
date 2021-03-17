@@ -25,9 +25,6 @@ binary
 # testing convergence of travel times
 convergence
 
-# testing external gawron calculation
-external_gawron
-
 # improve person mode choice through iteration
 intermodal
 
