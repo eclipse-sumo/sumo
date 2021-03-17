@@ -325,6 +325,16 @@ application.
 !!! note
     Multiple date sources (i.e. detector definitions) are permitted to write to the same output file.
 
+# Time values
+
+## Output
+By default, all time values written by sumo are in seconds. All applications and some python tools support the option **--human-readable-time** (short **-H**) which causes times in the output to be written as "HH:MM:SS" (hours, minutes second). Subsecond times will be written as "HH:MM:SS.SS". If the written time exceeds 24 hours, it will be written as "DD:HH:MM:SS" where DD is the number of days.
+
+Setting the option **--human-readable-time** also affects how some time values are formatted in sumo-gui dialogs (i.e. breakpoints).
+
+## Input
+All time values in options and xml input may always be given as seconds or in "HH:MM:SS" or "DD:HH:MM:SS" format.
+
 # Using Python tools from the Command Line
 
 Many [tools](../Tools/index.md) that are distributed by SUMO (in the
