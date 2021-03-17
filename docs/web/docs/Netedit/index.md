@@ -181,43 +181,57 @@ The main network elements that are used to represent a road network in SUMO are 
 lights](../Networks/SUMO_Road_Networks.md). [Additional infrastructure elements](elementsAdditional.md) such as bus stops, detectors and variable speed signs are kept in separate files and
 loaded at the start of the simulation. In SUMO the terms **node** and **junction** and **intersection** are used interchangeably (in netedit the term junction is used throughout).
 
-# Netedit usage
+# Editing Modes
 
-- [Edit Modes](editModes.md)
-  - [Common modes](editModesCommon.md)
-    - [Inspect](editModesCommon.md#inspect)
-    - [Delete](editModesCommon.md#delete)
-    - [Select](editModesCommon.md#select)
-    - [Move](editModesCommon.md#move)
-  - [Network specific modes](editModesNetwork.md)
-    - [Edges](editModesNetwork.md#create_edges)
-    - [Connections](editModesNetwork.md#edit_connections)    
-    - [Traffic Lights](editModesNetwork.md#traffic_lights)
-    - [Crossings](editModesNetwork.md#crossings)
-    - [Additionals (busStops, detectors, ...)](editModesNetwork.md#additionals)
-    - [TAZ](editModesNetwork.md#taz_traffic_analysis_zones)
-    - [Shapes (POI, Poly)](editModesNetwork.md#shapes)    
-    - [Prohibitions](editModesNetwork.md#prohibitions)
-  - [Demand specific modes](editModesDemand.md)
-    - [Routes](editModesDemand.md#route_mode)
-    - [Vehicles](editModesDemand.md#vehicle_mode)
-    - [Vehicle Types](editModesDemand.md#vehicle_type_mode)
-    - [Stops](editModesDemand.md#stop_mode)
-    - [Persons](editModesDemand.md#person_mode)
-    - [Person Types](editModesDemand.md#person_type_mode)
-    - [Person Plans](editModesDemand.md#person_plan_mode)
-  - [Data specific modes](editModesData.md)
-    - [Edge Data](editModesData.md#edge_data_mode)
-    - [Edge Relation Data](editModesData.md#edge_rel_data_mode)
-- [Elements](elements.md)
-  - [Network elements](elementsNetwork.md)
-  - [Additional elements](elementsAdditional.md)
-  - [Shape Elements](elementsShape.md)
-  - [TAZ elements](elementsTAZ.md)
-  - [Demand elements](elementsDemand.md)
-  - [Data elements](elementsData.md)
-- [Popup-Menu functions](neteditPopupFunctions.md)
-- [Usage examples](neteditUsageExamples.md)
+Netedit can be switched between three major edit modes (called supermodes) for edting [network](editModesNetwork.md) related objects, [traffic](editModesDemand.md) related objects and [data](editModesData.md) objects.
+Each of these [supermodes](editModes.md) has a number of sub-modes (simply called modes) for inspecting, deleting and adding the different objects.
+Some of these modes are common to all super modes while others are specifc to a particular supermode as listed below.
+
+## [Common modes](editModesCommon.md) ##
+ 
+### [Inspect](editModesCommon.md#inspect) ###
+### [Delete](editModesCommon.md#delete) ###
+### [Select](editModesCommon.md#select) ###
+### [Move](editModesCommon.md#move) ###
+ 
+## [Network specific modes](editModesNetwork.md) ##
+ 
+### [Edges](editModesNetwork.md#create_edges) ###
+### [Connections](editModesNetwork.md#edit_connections) ###
+### [Traffic Lights](editModesNetwork.md#traffic_lights) ###
+### [Crossings](editModesNetwork.md#crossings) ###
+### [Additionals (busStops, detectors, ...)](editModesNetwork.md#additionals) ###
+### [TAZ](editModesNetwork.md#taz_traffic_analysis_zones) ###
+### [Shapes (POI, Poly)](editModesNetwork.md#shapes) ###
+### [Prohibitions](editModesNetwork.md#prohibitions) ###
+ 
+## [Demand specific modes](editModesDemand.md) ##
+
+### [Routes](editModesDemand.md#route_mode) ###
+### [Vehicles](editModesDemand.md#vehicle_mode) ###
+### [Vehicle Types](editModesDemand.md#vehicle_type_mode) ###
+### [Stops](editModesDemand.md#stop_mode) ###
+### [Persons](editModesDemand.md#person_mode) ###
+### [Person Types](editModesDemand.md#person_type_mode) ###
+### [Person Plans](editModesDemand.md#person_plan_mode) ###
+
+## [Data specific modes](editModesData.md) ##
+### [Edge Data](editModesData.md#edge_data_mode) ###
+### [Edge Relation Data](editModesData.md#edge_rel_data_mode) ###
+
+# [Elements](elements.md) ##
+
+Netedit is used to create and edit a variety of different objects. Each object may support additional functionality and this is documented in the following
+
+## [Network elements](elementsNetwork.md) ##
+## [Additional elements](elementsAdditional.md) ##
+## [Shape Elements](elementsShape.md) ##
+## [TAZ elements](elementsTAZ.md) ##
+## [Demand elements](elementsDemand.md) ##
+## [Data elements](elementsData.md) ##
+
+# [Popup-Menu functions](neteditPopupFunctions.md) #
+# [Usage examples](neteditUsageExamples.md) #
 
 # Planned Features
 
