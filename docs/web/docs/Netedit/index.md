@@ -189,46 +189,47 @@ Some of these modes are common to all super modes while others are specifc to a 
 
 ## [Common modes](editModesCommon.md) ##
  
-### [Inspect](editModesCommon.md#inspect) ###
-### [Delete](editModesCommon.md#delete) ###
-### [Select](editModesCommon.md#select) ###
-### [Move](editModesCommon.md#move) ###
+- [Inspect](editModesCommon.md#inspect)
+- [Delete](editModesCommon.md#delete)
+- [Select](editModesCommon.md#select)
+- [Move](editModesCommon.md#move)
  
 ## [Network specific modes](editModesNetwork.md) ##
  
-### [Edges](editModesNetwork.md#create_edges) ###
-### [Connections](editModesNetwork.md#edit_connections) ###
-### [Traffic Lights](editModesNetwork.md#traffic_lights) ###
-### [Crossings](editModesNetwork.md#crossings) ###
-### [Additionals (busStops, detectors, ...)](editModesNetwork.md#additionals) ###
-### [TAZ](editModesNetwork.md#taz_traffic_analysis_zones) ###
-### [Shapes (POI, Poly)](editModesNetwork.md#shapes) ###
-### [Prohibitions](editModesNetwork.md#prohibitions) ###
+- [Edges](editModesNetwork.md#create_edges)
+- [Connections](editModesNetwork.md#edit_connections)
+- [Traffic Lights](editModesNetwork.md#traffic_lights)
+- [Crossings](editModesNetwork.md#crossings)
+- [Additionals (busStops, detectors, ...)](editModesNetwork.md#additionals)
+- [TAZ](editModesNetwork.md#taz_traffic_analysis_zones)
+- [Shapes (POI, Poly)](editModesNetwork.md#shapes)
+- [Prohibitions](editModesNetwork.md#prohibitions)
  
 ## [Demand specific modes](editModesDemand.md) ##
 
-### [Routes](editModesDemand.md#route_mode) ###
-### [Vehicles](editModesDemand.md#vehicle_mode) ###
-### [Vehicle Types](editModesDemand.md#vehicle_type_mode) ###
-### [Stops](editModesDemand.md#stop_mode) ###
-### [Persons](editModesDemand.md#person_mode) ###
-### [Person Types](editModesDemand.md#person_type_mode) ###
-### [Person Plans](editModesDemand.md#person_plan_mode) ###
+- [Routes](editModesDemand.md#route_mode)
+- [Vehicles](editModesDemand.md#vehicle_mode)
+- [Vehicle Types](editModesDemand.md#vehicle_type_mode)
+- [Stops](editModesDemand.md#stop_mode)
+- [Persons](editModesDemand.md#person_mode)
+- [Person Types](editModesDemand.md#person_type_mode)
+- [Person Plans](editModesDemand.md#person_plan_mode)
 
 ## [Data specific modes](editModesData.md) ##
-### [Edge Data](editModesData.md#edge_data_mode) ###
-### [Edge Relation Data](editModesData.md#edge_rel_data_mode) ###
+
+- [Edge Data](editModesData.md#edge_data_mode)
+- [Edge Relation Data](editModesData.md#edge_rel_data_mode)
 
 # [Elements](elements.md) ##
 
 Netedit is used to create and edit a variety of different objects. Each object may support additional functionality and this is documented in the following
 
-## [Network elements](elementsNetwork.md) ##
-## [Additional elements](elementsAdditional.md) ##
-## [Shape Elements](elementsShape.md) ##
-## [TAZ elements](elementsTAZ.md) ##
-## [Demand elements](elementsDemand.md) ##
-## [Data elements](elementsData.md) ##
+- [Network elements](elementsNetwork.md)
+- [Additional elements](elementsAdditional.md)
+- [Shape Elements](elementsShape.md)
+- [TAZ elements](elementsTAZ.md)
+- [Demand elements](elementsDemand.md)
+- [Data elements](elementsData.md)
 
 # [Popup-Menu functions](neteditPopupFunctions.md) #
 # [Usage examples](neteditUsageExamples.md) #
