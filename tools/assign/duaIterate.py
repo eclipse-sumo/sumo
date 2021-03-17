@@ -17,10 +17,11 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @author  Yun-Pang Floetteroed
+# @author  Behzad Bamdad Mehrabani
 # @date    2008-02-13
 
 """
-Run duarouter and sumo alternating to perform a dynamic user assignment.
+Run duarouter and sumo alternating to perform a dynamic user assignment or a dynamic system optimal assignment
 Based on the Perl script dua_iterate.pl.
 """
 from __future__ import print_function
@@ -31,7 +32,9 @@ import subprocess
 import shutil
 import glob
 import argparse
+import xml.etree.ElementTree as ET
 from datetime import datetime
+
 from costMemory import CostMemory
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
@@ -144,16 +147,12 @@ def initOptions():
     argParser.add_argument("--max-alternatives", default=5, help="prune the number of alternatives to INT")
     argParser.add_argument("--skip-first-routing", action="store_true", dest="skipFirstRouting",
                            default=False, help="run simulation with demands before first routing")
-    argParser.add_argument("--logit", action="store_true", dest="logit",
-                           default=False, help="use the logit model for route choice")
-    argParser.add_argument("-g", "--logitbeta", type=float, dest="logitbeta",
+    argParser.add_argument("--logit", action="store_true", default=False, help="use the logit model for route choice")
+    argParser.add_argument("-g", "--logitbeta", type=float,
                            default=0.15, help="use the c-logit model for route choice; logit model when beta = 0")
-    argParser.add_argument("-i", "--logitgamma", type=float, dest="logitgamma",
-                           default=1., help="use the c-logit model for route choice")
-    argParser.add_argument("-G", "--logittheta", type=float, dest="logittheta",
-                           help="parameter to adapt the cost unit")
-    argParser.add_argument("-J", "--addweights", dest="addweights",
-                           help="Additional weightes for duarouter")
+    argParser.add_argument("-i", "--logitgamma", type=float, default=1., help="use the c-logit model for route choice")
+    argParser.add_argument("-G", "--logittheta", type=float, help="parameter to adapt the cost unit")
+    argParser.add_argument("-J", "--addweights", help="Additional weightes for duarouter")
     argParser.add_argument("--addweights.once", dest="addweightsOnce", action="store_true",
                            default=False, help="use added weights only on the first iteration")
     argParser.add_argument("--router-verbose", action="store_true",
@@ -175,6 +174,8 @@ def initOptions():
                            help="writing intermediate and resulting route files in gzipped format")
     argParser.add_argument("--dualog", default="dua.log", help="log file path (default 'dua.log')")
     argParser.add_argument("--log", default="stdout.log", help="log file path (default 'dua.log')")
+    argParser.add_argument("--marginal-cost", action="store_true", default=False,
+                           help="use marginal cost to perform system optimal traffic assignment")
     argParser.add_argument("remaining_args", nargs='*')
     return argParser
 
@@ -216,7 +217,6 @@ def writeRouteConf(duarouterBinary, step, options, dua_args, file,
         '--routing-algorithm', options.routing_algorithm,
         '--max-alternatives', str(options.max_alternatives),
         '--weights.expand',
-        '--logit', str(options.logit),
         '--logit.beta', str(options.logitbeta),
         '--logit.gamma', str(options.logitgamma),
         '--random', str(options.absrand),
@@ -227,6 +227,8 @@ def writeRouteConf(duarouterBinary, step, options, dua_args, file,
     ]
     if options.districts:
         args += ['--additional-files', options.districts]
+    if options.logit:
+        args += ['--route-choice-method', 'logit']
 
     if step > 0 or options.addweights:
         weightpath = ""
@@ -438,6 +440,31 @@ def get_basename(demand_file):
         return basename[:basename.find(".")]
 
 
+def calcMarginalCost(step, options):
+    if step > 1:
+        tree_sumo_cur = ET.parse(os.path.join(str(step - 1), get_weightfilename(options, step - 1, "dump")))
+        tree_sumo_prv = ET.parse(os.path.join(str(step - 2), get_weightfilename(options, step - 2, "dump")))
+        for interval_cur in tree_sumo_cur.getroot():
+            begin_cur = interval_cur.attrib.get("begin")
+            for interval_prv in tree_sumo_prv.getroot():
+                begin_prv = interval_prv.attrib.get("begin")
+                for edge_cur in interval_cur.iter('edge'):
+                    for edge_prv in interval_prv.iter('edge'):
+                        if begin_cur == begin_prv and edge_cur.get("id") == edge_prv.get("id"):
+                            if edge_cur.get("traveltime") is not None and edge_prv.get(
+                                    "traveltime") is not None:
+                                veh_cur = float(edge_cur.get("left")) + float(edge_cur.get("arrived"))
+                                veh_prv = float(edge_prv.get("left")) + float(edge_prv.get("arrived"))
+                                tt_cur = float(edge_cur.get("traveltime"))
+                                tt_prv = float(edge_prv.get("traveltime"))
+                                dif_tt = abs(tt_cur - tt_prv)
+                                dif_veh = abs(veh_cur - veh_prv)
+                                if dif_veh != 0:
+                                    edge_cur.set("traveltime", str(dif_tt / dif_veh + tt_cur))
+        tree_sumo_cur.write(
+            os.path.join(str(step - 1), get_weightfilename(options, step - 1, "dump")))
+
+
 def main(args=None):
     argParser = initOptions()
 
@@ -451,8 +478,9 @@ def main(args=None):
     duaBinary = sumolib.checkBinary("duarouter", options.path)
     sumoBinary = sumolib.checkBinary("sumo", options.path)
     if options.addweights and options.weightmemory:
-        argParser.error(
-            "Options --addweights and --weight-memory are mutually exclusive.")
+        argParser.error("Options --addweights and --weight-memory are mutually exclusive.")
+    if options.marginal_cost and not options.logit:
+        print("Warning! --marginal-cost works best with --logit.", file=sys.stderr)
 
     # make sure BOTH binaries are callable before we start
     try:
@@ -482,13 +510,11 @@ def main(args=None):
     log = open(options.dualog, "w+")
     if options.zip:
         if options.clean_alt:
-            sys.exit(
-                "Error: Please use either --zip or --clean-alt but not both.")
+            sys.exit("Error: Please use either --zip or --clean-alt but not both.")
         try:
             subprocess.call("7z", stdout=open(os.devnull, 'wb'))
         except Exception:
-            sys.exit(
-                "Error: Could not locate 7z, please make sure its on the search path.")
+            sys.exit("Error: Could not locate 7z, please make sure its on the search path.")
         zipProcesses = {}
         zipLog = open("7zip.log", "w+")
     starttime = datetime.now()
@@ -547,6 +573,9 @@ def main(args=None):
                                          output, options.routefile)
                 log.flush()
                 sys.stdout.flush()
+                if options.marginal_cost:
+                    calcMarginalCost(step, options)
+
                 call([duaBinary, "-c", cfgname], log)
                 if options.clean_alt and router_input not in input_demands:
                     os.remove(router_input)
