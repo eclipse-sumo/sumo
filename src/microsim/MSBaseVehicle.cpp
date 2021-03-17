@@ -1238,6 +1238,13 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
     replacedStop.initPars(stop);
     replacedStop.edge = myRoute->end(); // will be patched in replaceRoute
     replacedStop.lane = stopLane;
+    if (MSGlobals::gUseMesoSim) {
+        replacedStop.segment = MSGlobals::gMesoNet->getSegmentForEdge(replacedStop.lane->getEdge(), replacedStop.getEndPos(*this));
+        if (replacedStop.lane->isInternal()) {
+            errorMsg = "Mesoscopic simulation does not allow stopping on internal edge '" + stop.edge + "' for vehicle '" + getID() + "'.";
+            return false;
+        }
+    }
 
     ConstMSEdgeVector oldRemainingEdges(myCurrEdge, getRoute().end());
     ConstMSEdgeVector newEdges; // only remaining

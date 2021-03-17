@@ -2322,6 +2322,7 @@ Vehicle::buildStopParameters(const std::string& edgeOrStoppingPlaceID,
             throw TraCIException("The " + toString(stoppingPlaceType) + " '" + edgeOrStoppingPlaceID + "' is not known");
         }
         newStop.lane = bs->getLane().getID();
+        newStop.edge = bs->getLane().getEdge().getID();
         newStop.endPos = bs->getEndLanePosition();
         newStop.startPos = bs->getBeginLanePosition();
         switch (stoppingPlaceType) {
@@ -2363,6 +2364,7 @@ Vehicle::buildStopParameters(const std::string& edgeOrStoppingPlaceID,
             throw TraCIException("No lane with index '" + toString(laneIndex) + "' on edge '" + edgeOrStoppingPlaceID + "'.");
         }
         newStop.lane = allLanes[laneIndex]->getID();
+        newStop.edge = allLanes[laneIndex]->getEdge().getID();
         newStop.endPos = pos;
         newStop.startPos = startPos;
         newStop.parametersSet |= STOP_START_SET | STOP_END_SET;
