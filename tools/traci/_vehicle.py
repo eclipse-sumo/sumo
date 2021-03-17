@@ -1078,14 +1078,15 @@ class VehicleDomain(Domain):
         self.setStop(vehID, stopID, duration=duration, until=until, flags=flags | tc.STOP_PARKING_AREA)
 
     def replaceStop(self, vehID, nextStopIndex, edgeID, pos=1., laneIndex=0, duration=tc.INVALID_DOUBLE_VALUE,
-                    flags=tc.STOP_DEFAULT, startPos=tc.INVALID_DOUBLE_VALUE, until=tc.INVALID_DOUBLE_VALUE):
+                    flags=tc.STOP_DEFAULT, startPos=tc.INVALID_DOUBLE_VALUE,
+                    until=tc.INVALID_DOUBLE_VALUE, teleport=0):
         """replaceStop(string, int, string, double, integer, double, integer, double, double) -> None
 
         Replaces stop at the given index with a new stop. Automatically modifies
         the route if the replacement stop is at another location
         """
-        self._setCmd(tc.CMD_REPLACE_STOP, vehID, "tsdbdiddi", 8, edgeID, pos,
-                     laneIndex, duration, flags, startPos, until, nextStopIndex)
+        self._setCmd(tc.CMD_REPLACE_STOP, vehID, "tsdbdiddib", 9, edgeID, pos,
+                     laneIndex, duration, flags, startPos, until, nextStopIndex, teleport)
 
     def resume(self, vehID):
         """resume(string) -> None

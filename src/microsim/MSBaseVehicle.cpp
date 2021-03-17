@@ -1190,7 +1190,7 @@ MSBaseVehicle::abortNextStop(int nextStopIndex) {
 
 
 bool
-MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const std::string& info, std::string& errorMsg) {
+MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const std::string& info, bool teleport, std::string& errorMsg) {
     const int n = (int)myStops.size();
     if (nextStopIndex < 0 || nextStopIndex >= n) {
         errorMsg = ("Invalid nextStopIndex '" + toString(nextStopIndex) + "' for " + toString(n) + " remaining stops");
@@ -1249,7 +1249,11 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
     ConstMSEdgeVector oldRemainingEdges(myCurrEdge, getRoute().end());
     ConstMSEdgeVector newEdges; // only remaining
     newEdges.insert(newEdges.end(), myCurrEdge, itStart);
-    newEdges.insert(newEdges.end(), toNewStop.begin(), toNewStop.end() - 1);
+    if (!teleport) {
+        newEdges.insert(newEdges.end(), toNewStop.begin(), toNewStop.end() - 1);
+    } else {
+        newEdges.push_back(*itStart);
+    }
     if (!newDestination) {
         newEdges.insert(newEdges.end(), fromNewStop.begin(), fromNewStop.end() - 1);
         newEdges.insert(newEdges.end(), itEnd, oldEdges.end());

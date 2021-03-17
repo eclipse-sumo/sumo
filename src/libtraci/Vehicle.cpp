@@ -687,9 +687,10 @@ Vehicle::replaceStop(const std::string& vehID,
                      double duration,
                      int flags,
                      double startPos,
-                     double until) {
+                     double until,
+                     int teleport) {
     tcpip::Storage content;
-    StoHelp::writeCompound(content, 8);
+    StoHelp::writeCompound(content, 9);
     StoHelp::writeTypedString(content, edgeID);
     StoHelp::writeTypedDouble(content, pos);
     StoHelp::writeTypedByte(content, laneIndex);
@@ -698,6 +699,7 @@ Vehicle::replaceStop(const std::string& vehID,
     StoHelp::writeTypedDouble(content, startPos);
     StoHelp::writeTypedDouble(content, until);
     StoHelp::writeTypedInt(content, nextStopIndex);
+    StoHelp::writeTypedByte(content, teleport);
     Dom::set(libsumo::CMD_REPLACE_STOP, vehID, &content);
 }
 

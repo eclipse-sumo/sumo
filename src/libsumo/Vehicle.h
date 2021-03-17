@@ -132,7 +132,8 @@ public:
                             double duration = libsumo::INVALID_DOUBLE_VALUE,
                             int flags = libsumo::STOP_DEFAULT,
                             double startPos = libsumo::INVALID_DOUBLE_VALUE,
-                            double until = libsumo::INVALID_DOUBLE_VALUE);
+                            double until = libsumo::INVALID_DOUBLE_VALUE,
+                            int teleport = 0);
 
     static void rerouteParkingArea(const std::string& vehID,
                                    const std::string& parkingAreaID);

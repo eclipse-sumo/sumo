@@ -466,8 +466,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Replacing stop needs a compound object description.", outputStorage);
                 }
                 int compoundSize = inputStorage.readInt();
-                if (compoundSize != 8) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Replacing stop needs a compound object description of eight items.", outputStorage);
+                if (compoundSize != 8 && compoundSize != 9) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Replacing stop needs a compound object description of eight or nine items.", outputStorage);
                 }
                 // read road map position
                 std::string edgeID;
@@ -503,7 +503,13 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingInt(inputStorage, nextStopIndex)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The eigth stop replacement parameter must be the replacement index given as a int.", outputStorage);
                 }
-                libsumo::Vehicle::replaceStop(id, nextStopIndex, edgeID, pos, laneIndex, duration, stopFlags, startPos, until);
+                int teleport = 0;
+                if (compoundSize == 9) {
+                    if (!server.readTypeCheckingByte(inputStorage, teleport)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The nineth stop replacement parameter must be the teleport flag given as a byte.", outputStorage);
+                    }
+                }
+                libsumo::Vehicle::replaceStop(id, nextStopIndex, edgeID, pos, laneIndex, duration, stopFlags, startPos, until, teleport);
             }
             break;
             case libsumo::CMD_REROUTE_TO_PARKING: {

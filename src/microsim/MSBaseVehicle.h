@@ -600,9 +600,10 @@ public:
      * only the part around the replacement index will be adapted according to the new stop location
      * @param[in] nextStopDist The replacement index
      * @param[in] stop Stop parameters
+     * @param[in] teleport Whether to cover the route to the replacement stop via teleporting
      * @param[out] errorMsg returned error message
      */
-    bool replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const std::string& info, std::string& errorMsg);
+    bool replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const std::string& info, bool teleport, std::string& errorMsg);
 
 
     /// @brief whether this vehicle is selected in the GUI
