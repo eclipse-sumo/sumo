@@ -92,8 +92,19 @@ MSTransportable::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
     if (error != "") {
         throw ProcessError(error);
     }
+    bool accessToStop = false;
     if (prior->getStageType() == MSStageType::WALKING) {
-        checkAccess(prior);
+        accessToStop = checkAccess(prior);
+    }
+    if (!accessToStop && (myStep == myPlan->end()
+                || ((*myStep)->getStageType() != MSStageType::DRIVING
+                    && (*myStep)->getStageType() != MSStageType::TRIP))) {
+        MSStoppingPlace* priorStop = prior->getStageType() == MSStageType::TRIP ? prior->getOriginStop() : prior->getDestinationStop();
+        // a trip might resolve to DRIVING so we would have to stay at the stop
+        // if a trip resolves to something else, this step will do stop removal
+        if (priorStop != nullptr) {
+            priorStop->removeTransportable(this);
+        }
     }
     if (myStep != myPlan->end()) {
         if ((*myStep)->getStageType() == MSStageType::WALKING && (prior->getStageType() != MSStageType::ACCESS || prior->getDestination() != (*myStep)->getFromEdge())) {
@@ -102,10 +113,6 @@ MSTransportable::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
         (*myStep)->proceed(net, this, time, prior);
         return true;
     } else {
-        // cleanup
-        if (prior->getDestinationStop() != nullptr) {
-            prior->getDestinationStop()->removeTransportable(this);
-        }
         MSNet::getInstance()->getPersonControl().addArrived();
         return false;
     }

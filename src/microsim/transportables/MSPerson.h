@@ -249,7 +249,9 @@ public:
     /// destructor
     virtual ~MSPerson();
 
-    void checkAccess(const MSStage* const prior, const bool isDisembark = true);
+    /* @brief check whether an access stage must be added and return whether a
+     * stage was added */
+    bool checkAccess(const MSStage* const prior, const bool isDisembark = true);
 
     /// @brief return the list of internal edges if this person is walking and the pedestrian model allows it
     const std::string& getNextEdge() const;

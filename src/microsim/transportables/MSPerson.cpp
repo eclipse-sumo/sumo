@@ -425,7 +425,7 @@ MSPerson::~MSPerson() {
 }
 
 
-void
+bool
 MSPerson::checkAccess(const MSStage* const prior, const bool waitAtStop) {
     MSStoppingPlace* const prevStop = prior->getDestinationStop();
     if (prevStop != nullptr) {
@@ -434,16 +434,19 @@ MSPerson::checkAccess(const MSStage* const prior, const bool waitAtStop) {
             if (accessDist > 0.) {
                 const double arrivalAtBs = (prevStop->getBeginLanePosition() + prevStop->getEndLanePosition()) / 2;
                 myStep = myPlan->insert(myStep, new MSPersonStage_Access(prior->getDestination(), prevStop, arrivalAtBs, accessDist, false));
+                return true;
             }
         } else {
             if (prior->getStageType() != MSStageType::TRIP) {
                 const double accessDist = prevStop->getAccessDistance((*myStep)->getFromEdge());
                 if (accessDist > 0.) {
                     myStep = myPlan->insert(myStep, new MSPersonStage_Access((*myStep)->getFromEdge(), prevStop, prevStop->getAccessPos((*myStep)->getFromEdge()), accessDist, true));
+                    return true;
                 }
             }
         }
     }
+    return false;
 }
 
 
