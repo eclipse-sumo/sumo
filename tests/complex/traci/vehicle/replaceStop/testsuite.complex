@@ -22,6 +22,12 @@ second_remove
 # replace second stop after the vehicle has departed
 second_teleport
 
+# replace second stop after the vehicle has departed. new stop isn't reachable
+second_unreachable_teleport
+
+# change attributes of second stop without rerouting
+second_change_attribute
+
 # replace last stop after the vehicle has departed
 last
 
