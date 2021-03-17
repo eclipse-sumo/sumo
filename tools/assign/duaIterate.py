@@ -157,11 +157,6 @@ def initOptions():
                            default=False, help="use added weights only on the first iteration")
     argParser.add_argument("--router-verbose", action="store_true",
                            default=False, help="let duarouter print some statistics")
-    argParser.add_argument("-M", "--external-gawron", action="store_true", dest="externalgawron",
-                           default=False, help="use the external gawron calculation")
-    argParser.add_argument("-N", "--calculate-oldprob", action="store_true", dest="caloldprob",
-                           default=False, help="calculate the old route probabilities with the free-flow " +
-                                               "travel times when using the external gawron calculation")
     argParser.add_argument("--weight-memory", action="store_true", default=False, dest="weightmemory",
                            help="smooth edge weights across iterations")
     argParser.add_argument("--pessimism", default=1, type=float,
