@@ -4,6 +4,8 @@ vehicle
 # simple context subscription test (less generic than then the contextSubscriptions suite)
 vehicle_context
 
+replaceStop
+
 # Tests the stop resume
 resume
 
@@ -13,3 +15,20 @@ distance_after_reroute
 # test retrieval of upcoming traffic lights
 nextTLS
 
+# test estimated public transport stop delay
+stopDelay
+
+# test estimated public transport stop delay when the stops are actually waypoints
+stopDelay_waypoint
+
+# test estimated public transport stop delay along a path with varying speeds
+stopDelay2
+
+# retrieve stops with limits
+getStops
+
+# retrieve stops from the past after loading state
+pastStops_stateLoaded
+
+# set rerouting device parameter period
+setReroutingPeriod
