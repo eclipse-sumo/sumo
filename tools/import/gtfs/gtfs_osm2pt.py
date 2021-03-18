@@ -86,6 +86,7 @@ def repair_routes(options):
         for key, value in sumo_vClass.items():
             dua_file.write('\t<vType id="%s" vClass="%s"/>\n' % (key, value))
 
+        sumo_edges = [sumo_edge.getID() for sumo_edge in net.getEdges()]
         for ptline, ptline_route in sumolib.xml.parse_fast_nested(options.osm_routes, "ptLine", ("id", "name", "line", "type"), "route", ("edges")):        
             count += 1
             #if not any([ptline.type == "bus", ptline.type == "tram"]): #TODO enable pt_type filter
@@ -97,11 +98,11 @@ def repair_routes(options):
             # search ptLine origin
             index = 0
             line_orig = route_edges[index]
-            while not line_orig in net.getEdges() and index+1 < len(route_edges):
+            while not line_orig in sumo_edges and index+1 < len(route_edges):
                 # search for first route edge included in the sumo network
                 index += 1
                 line_orig = route_edges[index]
-            if not line_orig in net.getEdges():
+            if not line_orig in sumo_edges:
                 # if no edge found, discard ptLine
                 continue
             # adapt osm route to sumo network
@@ -110,15 +111,21 @@ def repair_routes(options):
             # search ptLine destination
             index = -1
             line_dest = route_edges[index]
-            while not line_dest in net.getEdges() and index-1 < -len(route_edges):
+            while not line_dest in sumo_edges and index-1 < -len(route_edges):
                 # search for last route edge included in the sumo network
                 index += -1
                 line_orig = route_edges[index]
-            if not line_dest in net.getEdges():
-                # if not edge found, discard ptLine
+            if not line_dest in sumo_edges:
+                # if no edges found, discard ptLine
                 continue
             # adapt osm route to sumo network
             route_edges = route_edges[ : index-1]
+
+            # consider only edges in sumo network
+            route_edges = [edge for edge in route_edges if edge in sumo_edges]
+            if not route_edges:
+                # if no edges found, discard ptLine
+                continue
 
             # transform ptLine origin and destination to geo coordinates
             x, y = net.getEdge(line_orig).getFromNode().getCoord()
@@ -128,9 +135,6 @@ def repair_routes(options):
 
             # find ptLine direction
             line_dir = get_line_dir(line_orig, line_dest)
-
-            # consider only edges in sumo network
-            route_edges = [edge for edge in route_edges if edge in net.getEdges()]
 
             osm_routes[ptline.id] = [ptline.attr_name, ptline.line, ptline.type, line_dir]
             dua_file.write("""\t<vehicle id="%s" type="%s" depart="0">\n""" % (ptline.id, ptline.type))
