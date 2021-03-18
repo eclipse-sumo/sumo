@@ -612,7 +612,9 @@ GNEViewNet::showJunctionAsBubbles() const {
 
 bool
 GNEViewNet::mergeJunctions(GNEJunction* movedJunction, GNEJunction* targetJunction) {
-    if (movedJunction && targetJunction && (movedJunction != targetJunction)) {
+    if (movedJunction && targetJunction && 
+        !movedJunction->isAttributeCarrierSelected() && !targetJunction->isAttributeCarrierSelected() && 
+        (movedJunction != targetJunction)) {
         // optionally ask for confirmation
         if (myNetworkViewOptions.menuCheckWarnAboutMerge->amChecked()) {
             WRITE_DEBUG("Opening FXMessageBox 'merge junctions'");
