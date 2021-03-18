@@ -579,34 +579,40 @@ GNELane::drawChildren(const GUIVisualizationSettings& s) const {
 
 void
 GNELane::drawPathAdditionalElements(const GUIVisualizationSettings& s) const {
+/*
     // draw child path additionals
     for (const auto& tag : myPathAdditionalElements) {
         for (const GNEAdditional* element : tag.second) {
             element->drawLanePathChildren(s, this, 0);
         }
     }
+*/
 }
 
 
 void
 GNELane::drawPathDemandElements(const GUIVisualizationSettings& s) const {
+/*
     // draw child path demand elements
     for (const auto& tag : myPathDemandElements) {
         for (const GNEDemandElement* const element : tag.second) {
             element->drawLanePathChildren(s, this, 0);
         }
     }
+*/
 }
 
 
 void
 GNELane::drawPathGenericDataElements(const GUIVisualizationSettings& s) const {
+/*
     // draw child path generic datas
     for (const auto& tag : myPathGenericDatas) {
         for (const GNEGenericData* element : tag.second) {
             element->drawLanePathChildren(s, this, 0);
         }
     }
+*/
 }
 
 

@@ -37,8 +37,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DemandElement, GNEChange, nullptr, 0)
 
 GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement, bool forward) :
     GNEChange(demandElement, forward, demandElement->isAttributeCarrierSelected()),
-    myDemandElement(demandElement),
-    myPath(demandElement->getPath()) {
+    myDemandElement(demandElement) {
     myDemandElement->incRef("GNEChange_DemandElement");
 }
 
@@ -52,13 +51,6 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
         if (myDemandElement->getNet()->getAttributeCarriers()->demandElementExist(myDemandElement)) {
             // remove demand element of network
             myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement);
-            // remove element from path
-            for (const auto& pathElement : myPath) {
-                pathElement.getLane()->removePathDemandElement(myDemandElement);
-                if (pathElement.getJunction()) {
-                    pathElement.getJunction()->removePathDemandElement(myDemandElement);
-                }
-            }
         }
         delete myDemandElement;
     }
@@ -76,13 +68,6 @@ GNEChange_DemandElement::undo() {
         }
         // delete demand element from net
         myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement);
-        // remove element from path
-        for (const auto& pathElement : myPath) {
-            pathElement.getLane()->removePathDemandElement(myDemandElement);
-            if (pathElement.getJunction()) {
-                pathElement.getJunction()->removePathDemandElement(myDemandElement);
-            }
-        }
         // restore container
         restoreHierarchicalContainers();
     } else {
@@ -136,13 +121,6 @@ GNEChange_DemandElement::redo() {
         }
         // delete demand element from net
         myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement);
-        // remove element from path
-        for (const auto& pathElement : myPath) {
-            pathElement.getLane()->removePathDemandElement(myDemandElement);
-            if (pathElement.getJunction()) {
-                pathElement.getJunction()->removePathDemandElement(myDemandElement);
-            }
-        }
         // remove demand element from parents and children
         removeElementFromParentsAndChildren(myDemandElement);
     }

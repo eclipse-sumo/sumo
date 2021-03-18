@@ -165,9 +165,11 @@ GNEWalk::isDemandElementValid() const {
             // check if exist a route between parent edges
             return (myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), getParentEdges()).size() > 0);
         }
+/*
     } else if (getPath().size() > 0) {
         // if path edges isn't empty, then there is a valid route
         return true;
+*/
     } else {
         return false;
     }
@@ -274,10 +276,10 @@ GNEWalk::updateGeometry() {
     // calculate geometry path depending if is a Walk over route
     if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
         // calculate edge geometry path using parent route
-        GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getPath(), extremeGeometry);
+        GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, /*getParentDemandElements().at(1)->getPath(),*/ extremeGeometry);
     } else {
         // calculate edge geometry path using path
-        GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getPath(), extremeGeometry);
+        GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, /*getPath(),*/ extremeGeometry);
     }
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
@@ -288,6 +290,7 @@ GNEWalk::updateGeometry() {
 
 void
 GNEWalk::computePath() {
+/*
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_EDGE) {
         calculatePathLanes(getVClass(), true,
@@ -318,6 +321,7 @@ GNEWalk::computePath() {
                            getLastAllowedVehicleLane(),
                            getParentDemandElements().back()->getParentEdges());
     }
+*/
     // update geometry
     updateGeometry();
 }
@@ -325,6 +329,7 @@ GNEWalk::computePath() {
 
 void
 GNEWalk::invalidatePath() {
+/*
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_EDGE) {
         resetPathLanes(getVClass(), true,
@@ -355,6 +360,7 @@ GNEWalk::invalidatePath() {
                        getLastAllowedVehicleLane(),
                        getParentDemandElements().back()->getParentEdges());
     }
+*/
     // update geometry
     updateGeometry();
 }

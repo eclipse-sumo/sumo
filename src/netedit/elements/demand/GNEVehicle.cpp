@@ -390,9 +390,11 @@ GNEVehicle::isDemandElementValid() const {
         // check if from and to are the same edges
         if ((getParentEdges().size() == 2) && (getParentEdges().at(0) == getParentEdges().at(1))) {
             return true;
+        /*
         } else if (getPath().size() > 0) {
             // if path edges isn't empty, then there is a valid route
             return true;
+        */
         } else {
             return false;
         }
@@ -523,9 +525,11 @@ GNEVehicle::updateGeometry() {
             } else {
                 firstLane = nullptr;
             }
+        /*
         } else if ((getPath().size() > 0) && getPath().front().getLane()) {
             // use path edges
             firstLane = getPath().front().getLane();
+        */
         } else if (getParentEdges().size() > 0) {
             // use first
             firstLane = getParentEdges().front()->getLanes().front();
@@ -542,13 +546,13 @@ GNEVehicle::updateGeometry() {
         // continue depending of tag
         if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
             // calculate edge geometry path using path
-            GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getPath(), extremeGeometry);
+            GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, /*getPath(),*/ extremeGeometry);
         } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
             // calculate edge geometry path using route edges
-            GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getPath(), extremeGeometry);
+            GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, /*getParentDemandElements().at(1)->getPath(),*/ extremeGeometry);
         } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_WITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
             // calculate edge geometry path using embedded route edges
-            GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getChildDemandElements().front()->getPath(), extremeGeometry);
+            GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, /*getChildDemandElements().front()->getPath(),*/ extremeGeometry);
         }
         // update start pos geometry
         myDemandElementGeometry.updateGeometry(firstLane, extremeGeometry.laneStartPosition);
@@ -564,12 +568,14 @@ GNEVehicle::updateGeometry() {
 void
 GNEVehicle::computePath() {
     // calculate path (only for flows and trips)
+/*
     if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
         calculatePathLanes(getVClass(), true,
                            getFirstAllowedVehicleLane(),
                            getLastAllowedVehicleLane(),
                            getViaEdges());
     }
+*/
     // update geometry
     updateGeometry();
 }
@@ -578,12 +584,14 @@ GNEVehicle::computePath() {
 void
 GNEVehicle::invalidatePath() {
     // reset path (only for flows and trips)
+/*
     if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
         resetPathLanes(getVClass(), true,
                        getFirstAllowedVehicleLane(),
                        getLastAllowedVehicleLane(),
                        getViaEdges());
     }
+*/
     // update geometry
     updateGeometry();
 }

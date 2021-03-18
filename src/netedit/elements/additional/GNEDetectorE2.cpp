@@ -222,10 +222,12 @@ GNEDetectorE2::updateGeometry() {
         // set extremes
         extremeGeometry.laneStartPosition = startPosFixed;
         extremeGeometry.laneEndPosition = endPosFixed;
+        /*
         // calculate consecutive path using parent lanes
         calculateConsecutivePathLanes(getParentLanes());
+        */
         // calculate edge geometry path using path
-        GNEGeometry::calculateLaneGeometricPath(myAdditionalSegmentGeometry, getPath(), extremeGeometry);
+        GNEGeometry::calculateLaneGeometricPath(myAdditionalSegmentGeometry, /*getPath(),*/ extremeGeometry);
     } else {
         // Cut shape using as delimitators fixed start position and fixed end position
         myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), startPosFixed * getParentLanes().front()->getLengthGeometryFactor(), endPosFixed * getParentLanes().back()->getLengthGeometryFactor());

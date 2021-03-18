@@ -1368,6 +1368,7 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s) const {
             demandElement->drawGL(s);
         }
     }
+/*
     // draw child path additionals
     for (const auto& tag : myPathAdditionalElements) {
         for (const auto& element : tag.second) {
@@ -1386,6 +1387,7 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s) const {
             element->drawJunctionPathChildren(s, this, 0);
         }
     }
+*/
 }
 
 

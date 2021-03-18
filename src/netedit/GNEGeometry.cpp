@@ -1065,7 +1065,8 @@ GNEGeometry::adjustStartPosGeometricPath(double& startPos, const GNELane* startL
 
 
 void
-GNEGeometry::calculateLaneGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, const std::vector<GNEPathElements::PathElement>& path, GNEGeometry::ExtremeGeometry& extremeGeometry) {
+GNEGeometry::calculateLaneGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, /*const std::vector<GNEPathElements::PathElement>& path,*/ GNEGeometry::ExtremeGeometry& extremeGeometry) {
+/*
     // clear geometry
     segmentGeometry.clearSegmentGeometry();
     // first check that there is parent edges
@@ -1130,6 +1131,7 @@ GNEGeometry::calculateLaneGeometricPath(GNEGeometry::SegmentGeometry& segmentGeo
             }
         }
     }
+*/
 }
 
 

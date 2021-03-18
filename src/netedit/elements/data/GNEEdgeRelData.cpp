@@ -107,8 +107,10 @@ GNEEdgeRelData::isGenericDataVisible() const {
 
 void
 GNEEdgeRelData::updateGeometry() {
+/*
     // calculate generic data path
     calculateGenericDataLanePath(getParentEdges());
+*/
 }
 
 

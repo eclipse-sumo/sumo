@@ -248,7 +248,7 @@ GNERoute::updateGeometry() {
     // declare extreme geometry
     GNEGeometry::ExtremeGeometry extremeGeometry;
     // calculate edge geometry path using path
-    GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getPath(), extremeGeometry);
+    GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, /*getPath(),*/ extremeGeometry);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {
@@ -260,8 +260,10 @@ GNERoute::updateGeometry() {
 
 void
 GNERoute::computePath() {
+/*
     // calculate consecutive path using parent edges
     calculateConsecutivePathLanes(getVClass(), true, getParentEdges());
+*/
     // update geometry
     updateGeometry();
 }
@@ -269,8 +271,10 @@ GNERoute::computePath() {
 
 void
 GNERoute::invalidatePath() {
+/*
     // due routes don't need to calculate a dijkstra path, just calculate consecutive path lanes again
     calculateConsecutivePathLanes(getVClass(), true, getParentEdges());
+*/
     // update geometry
     updateGeometry();
 }

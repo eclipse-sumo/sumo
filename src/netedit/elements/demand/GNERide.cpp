@@ -145,9 +145,11 @@ GNERide::isDemandElementValid() const {
     if ((getParentEdges().size() == 2) && (getParentEdges().at(0) == getParentEdges().at(1))) {
         // from and to are the same edges
         return true;
+/*
     } else if (getPath().size() > 0) {
         // if path edges isn't empty, then there is a valid route
         return true;
+*/
     } else {
         return false;
     }
@@ -250,7 +252,7 @@ GNERide::updateGeometry() {
     // calculate person plan start and end positions
     GNEGeometry::ExtremeGeometry extremeGeometry = calculatePersonPlanLaneStartEndPos();
     // calculate edge geometry path using path
-    GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getPath(), extremeGeometry);
+    GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, /*getPath(),*/ extremeGeometry);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();
@@ -260,6 +262,7 @@ GNERide::updateGeometry() {
 
 void
 GNERide::computePath() {
+/*
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_EDGE) {
         calculatePathLanes(getVClass(), false,
@@ -282,6 +285,7 @@ GNERide::computePath() {
                            getParentAdditionals().back()->getParentLanes().front(),
                            {});
     }
+*/
     // update geometry
     updateGeometry();
 }
@@ -289,6 +293,7 @@ GNERide::computePath() {
 
 void
 GNERide::invalidatePath() {
+/*
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_EDGE) {
         resetPathLanes(getVClass(), false,
@@ -311,6 +316,7 @@ GNERide::invalidatePath() {
                        getParentAdditionals().back()->getParentLanes().front(),
                        {});
     }
+*/
     // update geometry
     updateGeometry();
 }

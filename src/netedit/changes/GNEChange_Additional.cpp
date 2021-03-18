@@ -34,8 +34,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Additional, GNEChange, nullptr, 0)
 
 GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forward) :
     GNEChange(additional, forward, additional->isAttributeCarrierSelected()),
-    myAdditional(additional),
-    myPath(additional->getPath()) {
+    myAdditional(additional) {
     myAdditional->incRef("GNEChange_Additional");
 }
 
@@ -49,13 +48,6 @@ GNEChange_Additional::~GNEChange_Additional() {
         if (myAdditional->getNet()->getAttributeCarriers()->additionalExist(myAdditional)) {
             // delete additional from net
             myAdditional->getNet()->getAttributeCarriers()->deleteAdditional(myAdditional);
-            // remove element from path (used by E2 multilane detectors)
-            for (const auto& pathElement : myPath) {
-                pathElement.getLane()->removePathAdditionalElement(myAdditional);
-                if (pathElement.getJunction()) {
-                    pathElement.getJunction()->removePathAdditionalElement(myAdditional);
-                }
-            }
         }
         delete myAdditional;
     }
@@ -73,13 +65,6 @@ GNEChange_Additional::undo() {
         }
         // delete additional from net
         myAdditional->getNet()->getAttributeCarriers()->deleteAdditional(myAdditional);
-        // remove element from path
-        for (const auto& pathElement : myPath) {
-            pathElement.getLane()->removePathAdditionalElement(myAdditional);
-            if (pathElement.getJunction()) {
-                pathElement.getJunction()->removePathAdditionalElement(myAdditional);
-            }
-        }
         // restore container
         restoreHierarchicalContainers();
     } else {
@@ -121,13 +106,6 @@ GNEChange_Additional::redo() {
         }
         // delete additional from net
         myAdditional->getNet()->getAttributeCarriers()->deleteAdditional(myAdditional);
-        // remove element from path
-        for (const auto& pathElement : myPath) {
-            pathElement.getLane()->removePathAdditionalElement(myAdditional);
-            if (pathElement.getJunction()) {
-                pathElement.getJunction()->removePathAdditionalElement(myAdditional);
-            }
-        }
         // remove additional from parents and children
         removeElementFromParentsAndChildren(myAdditional);
     }

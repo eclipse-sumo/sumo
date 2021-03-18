@@ -27,7 +27,6 @@
 #include <config.h>
 
 #include <netedit/elements/GNEHierarchicalElement.h>
-#include <netedit/elements/GNEPathElements.h>
 #include <netedit/GNEGeometry.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
@@ -51,7 +50,7 @@ class GNEDataInterval;
  * @class GNEGenericData
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEGenericData : public GUIGlObject, public Parameterised, public GNEHierarchicalElement, public GNEPathElements {
+class GNEGenericData : public GUIGlObject, public Parameterised, public GNEHierarchicalElement {
 
 public:
     /**@brief Constructor
