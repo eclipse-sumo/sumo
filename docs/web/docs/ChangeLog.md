@@ -1737,7 +1737,7 @@ title: ChangeLog
     [openGap()](TraCI/Change_Vehicle_State.md#open_gap_0x16)
     for temporary changes of the vehicle's desired headway. Issue #4172
   - Added functions *person.getPosition3D, person.getAngle,
-    person.getLanePosition, persion.getColor, person.getLength* to
+    person.getLanePosition, person.getColor, person.getLength* to
     the C++ client.
 
 ### Other
