@@ -1298,7 +1298,6 @@ MSEdge::getTravelTimeAggregated(const MSEdge* const edge, const SUMOVehicle* con
 
 void
 MSEdge::inferEdgeType() {
-    assert(isInternal);
     // @note must be called after closeBuilding() to ensure successors and
     // predecessors are set
     if (isInternal() && myEdgeType == "") {

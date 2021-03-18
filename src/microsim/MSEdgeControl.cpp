@@ -357,9 +357,7 @@ MSEdgeControl::checkCollisionForInactive(MSLane* l) {
 void
 MSEdgeControl::setAdditionalRestrictions() {
     for (MSEdge* e : myEdges) {
-        if (e->isInternal()) {
-            e->inferEdgeType();
-        }
+        e->inferEdgeType();
         const std::vector<MSLane*>& lanes = e->getLanes();
         for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
             (*j)->initRestrictions();
