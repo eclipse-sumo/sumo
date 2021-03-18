@@ -1295,4 +1295,18 @@ MSEdge::getTravelTimeAggregated(const MSEdge* const edge, const SUMOVehicle* con
     return edge->getLength() / MIN2(MSRoutingEngine::getAssumedSpeed(edge, veh), veh->getMaxSpeed());
 }
 
+
+void
+MSEdge::inferEdgeType() {
+    assert(isInternal);
+    // @note must be called after closeBuilding() to ensure successors and
+    // predecessors are set
+    if (isInternal() && myEdgeType == "") {
+        const std::string typeBefore = getNormalBefore()->getEdgeType();
+        if (typeBefore != "" && getNormalSuccessor()->getEdgeType() == typeBefore) {
+            myEdgeType = typeBefore;
+        }
+    }
+}
+
 /****************************************************************************/

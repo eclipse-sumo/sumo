@@ -310,6 +310,9 @@ public:
         return myEdgeType;
     }
 
+    // @brief try to infer edge type for internal edges
+    void inferEdgeType();
+
     /** @brief Returns the priority of the edge
      */
     int getPriority() const {
