@@ -1,4 +1,4 @@
-Eclipse SUMO od2trips Version v1_8_0+0635-4f1a99aa91
+Eclipse SUMO od2trips Version v1_8_0+1716-cf635e7
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Importer of O/D-matrices for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -39,6 +39,10 @@ Output Options:
   --persontrips                    Writes persontrips instead of vehicles
   --persontrips.modes STR[]        Add modes attribute to personTrips
   --ignore-vehicle-type            Does not save vtype information
+  --from-attr STR                  Defines an alternative from-attribute (i.e.
+                                    fromJunction)
+  --to-attr STR                    Defines an alternative to-attribute (i.e.
+                                    toJunction)
 
 Time Options:
   -b, --begin TIME                 Defines the begin time;

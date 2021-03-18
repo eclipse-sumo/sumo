@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  7 12:51:22 2020 by Eclipse SUMO od2trips Version v1_6_0+2011-142405e97b
+<!-- generated on Thu Mar 18 16:56:09 2021 by Eclipse SUMO od2trips Version v1_8_0+1716-cf635e7
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
@@ -32,6 +32,8 @@
         <persontrips value="false" type="BOOL" help="Writes persontrips instead of vehicles"/>
         <persontrips.modes value="" type="STR[]" help="Add modes attribute to personTrips"/>
         <ignore-vehicle-type value="false" synonymes="no-vtype" type="BOOL" help="Does not save vtype information"/>
+        <from-attr value="from" type="STR" help="Defines an alternative from-attribute (i.e. fromJunction)"/>
+        <to-attr value="to" type="STR" help="Defines an alternative to-attribute (i.e. toJunction)"/>
     </output>
 
     <time>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  7 12:51:22 2020 by Eclipse SUMO od2trips Version v1_6_0+2011-142405e97b
+<!-- generated on Thu Mar 18 16:56:10 2021 by Eclipse SUMO od2trips Version v1_8_0+1716-cf635e7
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
@@ -71,6 +71,12 @@
 
         <!-- Does not save vtype information -->
         <ignore-vehicle-type value="false" synonymes="no-vtype" type="BOOL"/>
+
+        <!-- Defines an alternative from-attribute (i.e. fromJunction) -->
+        <from-attr value="from" type="STR"/>
+
+        <!-- Defines an alternative to-attribute (i.e. toJunction) -->
+        <to-attr value="to" type="STR"/>
 
     </output>
 
