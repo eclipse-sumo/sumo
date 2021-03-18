@@ -164,6 +164,17 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
     }
 }
 
+void
+MSDevice_Taxi::removeReservation(MSTransportable* person,
+                              const std::set<std::string>& lines,
+                              const MSEdge* from, double fromPos,
+                              const MSEdge* to, double toPos,
+                              const std::string& group) {
+    if (myDispatcher != nullptr && lines.size() == 1 && *lines.begin() == TAXI_SERVICE) {
+        myDispatcher->removeReservation(person, from, fromPos, to, toPos, group);
+    }
+}
+
 
 SUMOTime
 MSDevice_Taxi::triggerDispatch(SUMOTime currentTime) {

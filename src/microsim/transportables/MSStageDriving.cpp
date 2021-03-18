@@ -395,6 +395,7 @@ MSStageDriving::abort(MSTransportable* t) {
                                       MSNet::getInstance()->getPersonControl() :
                                       MSNet::getInstance()->getContainerControl());
         tc.abortWaitingForVehicle(t);
+        MSDevice_Taxi::removeReservation(t, getLines(), myWaitingEdge, myWaitingPos, myDestination, getArrivalPos(), myGroup);
         myDestination = myWaitingEdge;
     }
 }

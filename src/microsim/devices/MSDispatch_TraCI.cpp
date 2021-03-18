@@ -50,6 +50,21 @@ MSDispatch_TraCI::addReservation(MSTransportable* person,
     return res;
 }
 
+std::string
+MSDispatch_TraCI::removeReservation(MSTransportable* person,
+                                   const MSEdge* from, double fromPos,
+                                   const MSEdge* to, double toPos,
+                                   const std::string& group) {
+    const std::string removedID = MSDispatch::removeReservation(person, from, fromPos, to, toPos, group);
+    if (myReservationLookup.hasString(removedID)) {
+        // warning! res is already deleted
+        const Reservation* res = myReservationLookup.get(removedID);
+        myReservationLookup.remove(removedID, res);
+    }
+    return removedID;
+}
+
+
 void
 MSDispatch_TraCI::fulfilledReservation(const Reservation* res) {
     myReservationLookup.remove(res->id, res);

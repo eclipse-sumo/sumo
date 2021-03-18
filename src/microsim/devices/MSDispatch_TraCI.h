@@ -52,6 +52,12 @@ public:
                                 const std::string& group,
                                 int maxCapacity);
 
+    /// @brief remove person from reservation. If the whole reservation is removed, return it's id
+    std::string removeReservation(MSTransportable* person,
+                                   const MSEdge* from, double fromPos,
+                                   const MSEdge* to, double toPos,
+                                   const std::string& group);
+
     /// @brief do nothing (dispatch happens via TraCI calls)
     virtual void computeDispatch(SUMOTime /*now*/, const std::vector<MSDevice_Taxi*>& /*fleet*/) {}
 

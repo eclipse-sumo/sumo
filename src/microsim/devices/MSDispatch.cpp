@@ -109,6 +109,46 @@ MSDispatch::addReservation(MSTransportable* person,
     return result;
 }
 
+
+std::string
+MSDispatch::removeReservation(MSTransportable* person,
+                           const MSEdge* from, double fromPos,
+                           const MSEdge* to, double toPos,
+                           const std::string& group) {
+    std::string removedID = "";
+    auto it = myGroupReservations.find(group);
+    if (it != myGroupReservations.end()) {
+        // try to add to existing reservation
+        for (auto itRes = it->second.begin(); itRes != it->second.end(); itRes++) {
+            Reservation* res = *itRes;
+            if (res->persons.count(person) != 0
+                    && res->from == from
+                    && res->to == to
+                    && res->fromPos == fromPos
+                    && res->toPos == toPos) {
+                res->persons.erase(person);
+                if (res->persons.empty()) {
+                    removedID = res->id;
+                    fulfilledReservation(res);
+                    it->second.erase(itRes);
+                }
+                break;
+            }
+        }
+    }
+#ifdef DEBUG_RESERVATION
+    if (DEBUG_COND2(person)) std::cout << SIMTIME
+                                           << " removeReservation p=" << person->getID()
+                                           << " from=" << from->getID() << " fromPos=" << fromPos
+                                           << " to=" << to->getID() << " toPos=" << toPos
+                                           << " group=" << group
+                                           << " removedID=" << removedID
+                                           << "\n";
+#endif
+    return removedID;
+}
+
+
 std::vector<Reservation*>
 MSDispatch::getReservations() {
     std::vector<Reservation*> reservations;

@@ -125,6 +125,12 @@ public:
                                         const std::string& group,
                                         int maxCapacity);
 
+    /// @brief remove person from reservation. If the whole reservation is removed, return it's id
+    virtual std::string removeReservation(MSTransportable* person,
+                                   const MSEdge* from, double fromPos,
+                                   const MSEdge* to, double toPos,
+                                   const std::string& group);
+
     /// @brief erase reservation from storage
     virtual void fulfilledReservation(const Reservation* res);
 

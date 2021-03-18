@@ -210,6 +210,10 @@ MSDevice_Transportable::removeTransportable(MSTransportable* transportable) {
                 MSStopOut::getInstance()->unloadedPersons(&myHolder, 1);
             }
         }
+        MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
+        if (taxiDevice != nullptr) {
+            taxiDevice->customerArrived(transportable);
+        }
     }
 }
 
