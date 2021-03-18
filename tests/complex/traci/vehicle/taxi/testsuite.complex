@@ -30,3 +30,6 @@ case1_redispatch_before_pickup_close_to_stop
 
 # shared dispatch of multiple partially-overlapping reservations picks up persons at the same location twice and each stop must track whom to pick up (stop attribute 'permitted').
 looped_dispatch
+
+# update reservations when removing a person
+remove_person
