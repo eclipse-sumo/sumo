@@ -268,6 +268,15 @@ Furthermore, the function
 can be used to access the consumption of the vehicle if the `emissionClass="Energy/unknown"` [is
 declared](#emission_output).
 
+### Calculating the remaining Range:
+
+After the vehicle has been driving for a while, the remaining range can be computed based on previous consumption and distance:
+```
+mWh = traci.vehicle.getDistance(vehID) / float(traci.vehicle.getParameter(vehID, "device.battery.totalEnergyConsumed"))
+remainingRange = float(traci.vehicle.getParameter(vehID, "device.battery.actualBatteryCapacity")) * mWh
+```
+To compute the remaining range on departure, the value of `mWh` (meters per Watt-hour) should be calibrated from a prior simulation.
+
 ## Model Details
 
 All information about the implemented device (including details on the
