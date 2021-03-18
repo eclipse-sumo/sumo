@@ -29,7 +29,7 @@ For the simulation of [persons which walk around or ride in vehicles, additional
 
 # Vehicles and Routes
 
-Initially, we will define a vehicle with a route owned by him only:
+Initially, we will define a vehicle with a route that belongs to it:
 
 ```xml
 <routes>
