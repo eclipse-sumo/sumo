@@ -13,7 +13,7 @@ title: Tutorials
 * [SUMOlympics](SUMOlympics.md) - Create special lanes and simple traffic lights in netedit, more about flows and vehicle types, working with vehicle 
 * [Autobahn](Autobahn.md) - Build a highway, create a mixed highway flow, visualize vehicle speed, save view settings
 * [Manhattan](Manhattan.md) - Build a [Manhattan mobility model](https://en.wikipedia.org/wiki/Manhattan_mobility_model)
-* [Public Transport](PublicTransportTutorial.md) - Build a public transport scenario from scratch
+* [Public Transport](PublicTransport.md) - Build a public transport scenario from scratch
 
 # Advanced Tutorials
 * [Hello SUMO](Hello_SUMO.md) - The simplest net and a single car set up "by hand"
