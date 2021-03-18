@@ -205,9 +205,9 @@ MSDevice_Transportable::removeTransportable(MSTransportable* transportable) {
         myTransportables.erase(it);
         if (MSStopOut::active() && myHolder.isStopped()) {
             if (myAmContainer) {
-                MSStopOut::getInstance()->loadedContainers(&myHolder, 1);
+                MSStopOut::getInstance()->unloadedContainers(&myHolder, 1);
             } else {
-                MSStopOut::getInstance()->loadedPersons(&myHolder, 1);
+                MSStopOut::getInstance()->unloadedPersons(&myHolder, 1);
             }
         }
     }
