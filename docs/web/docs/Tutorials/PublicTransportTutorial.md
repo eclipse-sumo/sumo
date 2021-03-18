@@ -6,20 +6,24 @@ title: Public Transport Tutorial
 This tutorial is a small example of how to incorporate public transport, without
 using the osm.wizard.py.
 Main topics are:
+
 *   Public Transport
 *   Bus stops
 
 ### Useful links
 Tutorials
+
 * https://sumo.dlr.de/docs/Tutorials/index.html
 
 Documentation
+
 * https://sumo.dlr.de/docs/Simulation/Public_Transport.html --> Public Transport
 * https://sumo.dlr.de/docs/Simulation/Public_Transport.html#public_transport_schedules --> Public Transport Schedules
 * https://sumo.dlr.de/docs/Specification/Persons.html --> Person
 * https://sumo.dlr.de/docs/TraCI/Vehicle_Value_Retrieval.html --> Vehicle
 
 Pydoc
+
 * https://sumo.dlr.de/pydoc/traci._person.html
 * https://sumo.dlr.de/pydoc/traci._vehicle.html
 * https://sumo.dlr.de/pydoc/traci._busstop.html
@@ -51,6 +55,7 @@ Following gifs will describe the basic creation of the net used in this tutorial
 *Adding bus stops to the edges.*
 
 If you are not sure about how to create a net in netedit, take a look at this tutorial:
+
 * https://sumo.dlr.de/docs/Tutorials/quick_start.html
 It explains the use of edges, connections, demands, routes etc. in depth.
 
@@ -165,5 +170,6 @@ command line.
 ```
 For getting specific data about the simulation, you can use TraCI.
 A good starting point would be the tutorials provided:
+
 * https://sumo.dlr.de/docs/Tutorials/TraCI4Traffic_Lights.html
 * https://sumo.dlr.de/docs/Tutorials/TraCIPedCrossing.html
