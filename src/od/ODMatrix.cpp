@@ -230,6 +230,13 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
     std::vector<ODCell*>::iterator next = myContainer.begin();
     std::vector<ODVehicle> vehicles;
     SUMOTime lastOut = -DELTA_T;
+
+    const OptionsCont& oc = OptionsCont::getOptions();
+    std::string personDepartPos = oc.isSet("departpos") ? oc.getString("departpos") : "random";
+    std::string personArrivalPos = oc.isSet("arrivalpos") ? oc.getString("arrivalpos") : "random";
+    std::string fromAttr = oc.getString("from-attr");
+    std::string toAttr = oc.getString("to-attr");
+
     // go through the time steps
     for (SUMOTime t = begin; t < end;) {
         if (stepLog && t - lastOut >= DELTA_T) {
@@ -260,9 +267,6 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
             sort(vehicles.begin(), vehicles.end(), descending_departure_comperator());
         }
 
-        const OptionsCont& oc = OptionsCont::getOptions();
-        std::string personDepartPos = oc.isSet("departpos") ? oc.getString("departpos") : "random";
-        std::string personArrivalPos = oc.isSet("arrivalpos") ? oc.getString("arrivalpos") : "random";
         for (std::vector<ODVehicle>::reverse_iterator i = vehicles.rbegin(); i != vehicles.rend() && (*i).depart == t; ++i) {
             if (t >= begin) {
                 myNumWritten++;
@@ -270,7 +274,8 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
                     dev.openTag(SUMO_TAG_PERSON).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
                     dev.writeAttr(SUMO_ATTR_DEPARTPOS, personDepartPos);
                     dev.openTag(SUMO_TAG_WALK);
-                    dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
+                    dev.writeAttr(fromAttr, (*i).from);
+                    dev.writeAttr(toAttr, (*i).to);
                     dev.writeAttr(SUMO_ATTR_FROM_TAZ, (*i).cell->origin).writeAttr(SUMO_ATTR_TO_TAZ, (*i).cell->destination);
                     dev.writeAttr(SUMO_ATTR_ARRIVALPOS, personArrivalPos);
                     dev.closeTag();
@@ -279,7 +284,8 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
                     dev.openTag(SUMO_TAG_PERSON).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
                     dev.writeAttr(SUMO_ATTR_DEPARTPOS, personDepartPos);
                     dev.openTag(SUMO_TAG_PERSONTRIP);
-                    dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
+                    dev.writeAttr(fromAttr, (*i).from);
+                    dev.writeAttr(toAttr, (*i).to);
                     dev.writeAttr(SUMO_ATTR_FROM_TAZ, (*i).cell->origin).writeAttr(SUMO_ATTR_TO_TAZ, (*i).cell->destination);
                     dev.writeAttr(SUMO_ATTR_ARRIVALPOS, personArrivalPos);
                     if (modes != "") {
@@ -289,7 +295,8 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
                     dev.closeTag();
                 } else {
                     dev.openTag(SUMO_TAG_TRIP).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
-                    dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
+                    dev.writeAttr(fromAttr, (*i).from);
+                    dev.writeAttr(toAttr, (*i).to);
                     writeDefaultAttrs(dev, noVtype, i->cell);
                     dev.closeTag();
                 }

@@ -114,6 +114,12 @@ fillOptions() {
     oc.addSynonyme("ignore-vehicle-type", "no-vtype", true);
     oc.addDescription("ignore-vehicle-type", "Output", "Does not save vtype information");
 
+    oc.doRegister("from-attr", new Option_String(toString(SUMO_ATTR_FROM)));
+    oc.addDescription("from-attr", "Output", "Defines an alternative from-attribute (i.e. fromJunction)");
+
+    oc.doRegister("to-attr", new Option_String(toString(SUMO_ATTR_TO)));
+    oc.addDescription("to-attr", "Output", "Defines an alternative to-attribute (i.e. toJunction)");
+
 
     // register the time settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
