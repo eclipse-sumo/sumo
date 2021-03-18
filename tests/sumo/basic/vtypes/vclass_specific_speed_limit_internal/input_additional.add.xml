@@ -1,0 +1,8 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <type id="t1">
+        <restriction vClass="custom1" speed="3"/>
+    </type>
+    <type id="t3">
+        <restriction vClass="custom1" speed="3"/>
+    </type>
+</additional>
