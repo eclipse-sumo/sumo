@@ -78,7 +78,7 @@ To let *n* vehicles depart between times *t0* and *t1* set the options
 ```
 
 !!! note
-    The actual number of departures may be lower if the road capacity is insufficient to accommodate that number of vehicles or if the network is not fully connected (in this case some of the generated trips will be invalid).
+    The actual number of departures may be lower if the road capacity is [insufficient to accommodate that number of vehicles](../Simulation/VehicleInsertion.md#delayed_departure) or if the network is not fully connected (in this case some of the generated trips will be invalid).
 
 ## Validated routes and trips
 
