@@ -537,6 +537,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             if ((e->myBuswayType & WAY_FORWARD) != 0) {
                 nbe->setPermissions(SVC_BUS, 0);
             }
+            applyChangeProhibition(nbe, e->myChangeForward);
+            applyLaneUseInformation(nbe, e->myLaneUseForward);
             if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_FORWARD) != 0)) {
                 nbe->addBikeLane(tc.getEdgeTypeBikeLaneWidth(type) * offsetFactor);
             } else if (nbe->getPermissions(0) == SVC_BUS) {
@@ -548,8 +550,6 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             nbe->updateParameters(e->getParametersMap());
             nbe->setDistance(distanceStart);
-            applyChangeProhibition(nbe, e->myChangeForward);
-            applyLaneUseInformation(nbe, e->myLaneUseForward);
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '" + id + "'.");
@@ -564,6 +564,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             if ((e->myBuswayType & WAY_BACKWARD) != 0) {
                 nbe->setPermissions(SVC_BUS, 0);
             }
+            applyChangeProhibition(nbe, e->myChangeBackward);
+            applyLaneUseInformation(nbe, e->myLaneUseBackward);
             if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_BACKWARD) != 0)) {
                 nbe->addBikeLane(tc.getEdgeTypeBikeLaneWidth(type) * offsetFactor);
             } else if (nbe->getPermissions(0) == SVC_BUS) {
@@ -575,8 +577,6 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             nbe->updateParameters(e->getParametersMap());
             nbe->setDistance(distanceEnd);
-            applyChangeProhibition(nbe, e->myChangeBackward);
-            applyLaneUseInformation(nbe, e->myLaneUseBackward);
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '-" + id + "'.");
