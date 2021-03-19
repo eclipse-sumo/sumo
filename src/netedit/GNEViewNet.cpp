@@ -2184,7 +2184,7 @@ GNEViewNet::onCmdLaneReachability(FXObject* menu, FXSelector, void*) {
         // obtain vClass
         const SUMOVehicleClass vClass = SumoVehicleClassStrings.get(dynamic_cast<FXMenuCommand*>(menu)->getText().text());
         // calculate reachability
-        myNet->getPathCalculator()->calculateReachability(vClass, clickedLane->getParentEdge());
+        myNet->getPathManager()->getPathCalculator()->calculateReachability(vClass, clickedLane->getParentEdge());
         // select all lanes with reachablility greather than 0
         myUndoList->p_begin("select lane reachability");
         for (const auto& edge : myNet->getAttributeCarriers()->getEdges()) {

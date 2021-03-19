@@ -1213,7 +1213,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
         routeParameters.edges = originalVehicle->getChildDemandElements().front()->getParentEdges();
     } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
         // calculate path using from-via-to edges
-        routeParameters.edges = originalVehicle->getNet()->getPathCalculator()->calculatePath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
+        routeParameters.edges = originalVehicle->getNet()->getPathManager()->getPathCalculator()->calculatePath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
     }
     // only continue if edges are valid
     if (routeParameters.edges.empty()) {
@@ -1279,7 +1279,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         routeParameters.edges = originalVehicle->getChildDemandElements().front()->getParentEdges();
     } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
         // calculate path using from-via-to edges
-        routeParameters.edges = originalVehicle->getNet()->getPathCalculator()->calculatePath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
+        routeParameters.edges = originalVehicle->getNet()->getPathManager()->getPathCalculator()->calculatePath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
     }
     // only continue if edges are valid
     if (routeParameters.edges.empty()) {

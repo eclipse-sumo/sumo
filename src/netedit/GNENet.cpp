@@ -90,7 +90,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myViewNet(nullptr),
     myNetBuilder(netBuilder),
     myAttributeCarriers(new GNENetHelper::AttributeCarriers(this)),
-    myPathCalculator(new GNENetHelper::PathCalculator(this)),
+    myPathManager(new GNEPathManager(this)),
     myEdgeIDSupplier("gneE", netBuilder->getEdgeCont().getAllNames()),
     myJunctionIDSupplier("gneJ", netBuilder->getNodeCont().getAllNames()),
     myNeedRecompute(true),
@@ -116,8 +116,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
 
 
 GNENet::~GNENet() {
-    // delete route calculator Instance
-    delete myPathCalculator;
+    // delete path manager
+    delete myPathManager;
     // delete AttributeCarriers
     delete myAttributeCarriers;
     // show extra information for tests
@@ -132,9 +132,9 @@ GNENet::getAttributeCarriers() const {
 }
 
 
-GNENetHelper::PathCalculator*
-GNENet::getPathCalculator() {
-    return myPathCalculator;
+GNEPathManager*
+GNENet::getPathManager() {
+    return myPathManager;
 }
 
 
@@ -1660,7 +1660,7 @@ GNENet::computeDemandElements(GNEApplicationWindow* window) {
     window->setStatusBarText("Computing demand elements ...");
     // if we aren't in Demand mode, update path calculator
     if (!myViewNet->getEditModes().isCurrentSupermodeDemand())  {
-        myPathCalculator->updatePathCalculator();
+        myPathManager->getPathCalculator()->updatePathCalculator();
     }
     // iterate over all demand elements and compute
     for (const auto& i : myAttributeCarriers->getDemandElements()) {

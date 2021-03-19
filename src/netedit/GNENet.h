@@ -30,6 +30,7 @@
 #include <config.h>
 
 #include "GNENetHelper.h"
+#include "GNEPathManager.h"
 
 // ===========================================================================
 // class definitions
@@ -53,8 +54,8 @@ public:
     /// @brief retrieve all attribute carriers of Net
     GNENetHelper::AttributeCarriers* getAttributeCarriers() const;
 
-    /// @brief obtain instance of PathCalculator
-    GNENetHelper::PathCalculator* getPathCalculator();
+    /// @brief get path manager
+    GNEPathManager* getPathManager();
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -766,8 +767,8 @@ protected:
     /// @brief AttributeCarriers of net
     GNENetHelper::AttributeCarriers* myAttributeCarriers;
 
-    /// @brief PathCalculator instance
-    GNENetHelper::PathCalculator* myPathCalculator;
+    /// @brief Path manager
+    GNEPathManager* myPathManager;
 
     /// @name ID Suppliers for newly created edges and junctions
     // @{
