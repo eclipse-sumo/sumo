@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar 19 14:10:32 2021 by Eclipse SUMO netconvert Version v1_8_0+1727-e8eb006
+<!-- generated on Fri Mar 19 15:33:26 2021 by Eclipse SUMO netconvert Version v1_8_0+1731-3cee3c3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,7 +26,6 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <xml-validation value="never"/>
         <aggregate-warnings value="5"/>
-        <ignore-errors.edge-type value="true"/>
     </report>
 
 </configuration>
@@ -66,35 +65,59 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <junction id="C" type="priority" x="100.00" y="100.00" incLanes="NC_0 EC_0 SC_0 WC_0" intLanes="" shape="95.20,108.80 104.80,108.80 105.24,106.58 105.80,105.80 106.58,105.24 107.58,104.91 108.80,104.80 108.80,95.20 106.58,94.76 105.80,94.20 105.24,93.42 104.91,92.42 104.80,91.20 95.20,91.20 94.76,93.42 94.20,94.20 93.42,94.76 92.42,95.09 91.20,95.20 91.20,104.80 93.42,105.24 94.20,105.80 94.76,106.58 95.09,107.58">
-        <request index="0"  response="000000000000" foes="000000000000"/>
-        <request index="1"  response="000000000000" foes="110100110000"/>
-        <request index="2"  response="000010000000" foes="110010110000"/>
-        <request index="3"  response="000000000000" foes="000000000000"/>
-        <request index="4"  response="000110000110" foes="100110000110"/>
-        <request index="5"  response="010110000110" foes="010110000110"/>
-        <request index="6"  response="000000000000" foes="000000000000"/>
-        <request index="7"  response="000000000000" foes="110000110100"/>
-        <request index="8"  response="000000000010" foes="110000110010"/>
-        <request index="9"  response="000000000000" foes="000000000000"/>
-        <request index="10" response="000110000110" foes="000110100110"/>
-        <request index="11" response="000110010110" foes="000110010110"/>
+        <request index="0"  response="000000000000000000000000" foes="000000110000001100000000"/>
+        <request index="1"  response="000000000000000000000000" foes="000000110000001100000000"/>
+        <request index="2"  response="000000000000000000000000" foes="111111110000111100000000"/>
+        <request index="3"  response="000000000000000000000000" foes="111111110000111100000000"/>
+        <request index="4"  response="000000001111000000000000" foes="111100001111111100000000"/>
+        <request index="5"  response="000000001111000000000000" foes="111100001111111100000000"/>
+        <request index="6"  response="000000001100000000000000" foes="110000001100000000000000"/>
+        <request index="7"  response="000000001100000000000000" foes="110000001100000000000000"/>
+        <request index="8"  response="000000111100000000111111" foes="110000111100000000111111"/>
+        <request index="9"  response="000000111100000000111111" foes="110000111100000000111111"/>
+        <request index="10" response="001111111100000000111100" foes="001111111100000000111100"/>
+        <request index="11" response="001111111100000000111100" foes="001111111100000000111100"/>
+        <request index="12" response="000000000000000000000000" foes="001100000000000000110000"/>
+        <request index="13" response="000000000000000000000000" foes="001100000000000000110000"/>
+        <request index="14" response="000000000000000000000000" foes="111100000000111111110000"/>
+        <request index="15" response="000000000000000000000000" foes="111100000000111111110000"/>
+        <request index="16" response="000000000000000000001111" foes="111100000000111100001111"/>
+        <request index="17" response="000000000000000000001111" foes="111100000000111100001111"/>
+        <request index="18" response="000000000000000000001100" foes="000000000000110000001100"/>
+        <request index="19" response="000000000000000000001100" foes="000000000000110000001100"/>
+        <request index="20" response="000000111111000000111100" foes="000000111111110000111100"/>
+        <request index="21" response="000000111111000000111100" foes="000000111111110000111100"/>
+        <request index="22" response="000000111100001111111100" foes="000000111100001111111100"/>
+        <request index="23" response="000000111100001111111100" foes="000000111100001111111100"/>
     </junction>
     <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="CE_0 CE_1" intLanes="" shape="200.00,101.60 200.00,95.20 200.00,101.60"/>
     <junction id="N" type="dead_end" x="100.00" y="200.00" incLanes="CN_0 CN_1" intLanes="" shape="98.40,200.00 104.80,200.00 98.40,200.00"/>
     <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0 CS_1" intLanes="" shape="101.60,0.00 95.20,0.00 101.60,0.00"/>
     <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="CW_0 CW_1" intLanes="" shape="0.00,98.40 0.00,104.80 0.00,98.40"/>
 
-    <connection from="EC" to="CN" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="EC" to="CN" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="EC" to="CN" fromLane="0" toLane="1" dir="r" state="m"/>
+    <connection from="EC" to="CW" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="EC" to="CW" fromLane="0" toLane="1" dir="s" state="m"/>
+    <connection from="EC" to="CS" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="EC" to="CS" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from="NC" to="CW" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="NC" to="CW" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from="NC" to="CS" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="NC" to="CS" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="NC" to="CE" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="NC" to="CE" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from="SC" to="CE" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="SC" to="CE" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from="SC" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="SC" to="CN" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="SC" to="CW" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="SC" to="CW" fromLane="0" toLane="1" dir="l" state="m"/>
-    <connection from="WC" to="CS" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="WC" to="CS" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="WC" to="CS" fromLane="0" toLane="1" dir="r" state="m"/>
+    <connection from="WC" to="CE" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="WC" to="CE" fromLane="0" toLane="1" dir="s" state="m"/>
+    <connection from="WC" to="CN" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="WC" to="CN" fromLane="0" toLane="1" dir="l" state="m"/>
 
 </net>

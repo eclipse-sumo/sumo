@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar 19 13:57:03 2021 by Eclipse SUMO netconvert Version v1_8_0+1727-e8eb006
+<!-- generated on Fri Mar 19 15:33:26 2021 by Eclipse SUMO netconvert Version v1_8_0+1731-3cee3c3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -76,20 +76,24 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="4854982237" type="dead_end" x="3.17" y="12.04" incLanes="-c_0" intLanes="" shape="3.17,12.04 0.91,14.31 3.17,12.04"/>
     <junction id="5543923995" type="dead_end" x="65.39" y="0.00" incLanes="-a_0" intLanes="" shape="65.39,0.00 63.05,-2.18 65.39,0.00"/>
     <junction id="C" type="priority" x="29.66" y="38.43" incLanes="a_0 c_0 -b_0" intLanes="" shape="36.98,35.25 32.30,30.90 30.47,32.21 29.54,32.39 28.62,32.25 27.68,31.78 26.74,31.00 22.22,35.54 23.63,37.57 23.87,38.58 23.78,39.59 23.38,40.60 22.67,41.61 29.92,47.90 31.75,45.43 32.76,43.37 33.38,41.51 34.01,39.67 35.08,37.65">
-        <request index="0" response="000000" foes="000000"/>
-        <request index="1" response="110000" foes="111000"/>
-        <request index="2" response="100000" foes="100000"/>
-        <request index="3" response="100010" foes="100010"/>
-        <request index="4" response="000000" foes="000010"/>
-        <request index="5" response="000000" foes="001110"/>
+        <request index="0" response="00000000" foes="00110000"/>
+        <request index="1" response="00000000" foes="00110000"/>
+        <request index="2" response="11000000" foes="11110000"/>
+        <request index="3" response="10000000" foes="10000000"/>
+        <request index="4" response="10000111" foes="10000111"/>
+        <request index="5" response="10000111" foes="10000111"/>
+        <request index="6" response="00000000" foes="00000100"/>
+        <request index="7" response="00000000" foes="00111100"/>
     </junction>
     <junction id="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050928_3246050929_3246050930_3246050932_3366620136_583899005" type="dead_end" x="0.00" y="75.27" incLanes="b_0 b_1" intLanes="" shape="-1.30,74.15 3.54,78.34 -1.30,74.15"/>
 
     <connection from="-b" to="-c" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-b" to="-a" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="a" to="b" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="a" to="b" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="a" to="-c" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="c" to="-a" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="c" to="b" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="c" to="b" fromLane="0" toLane="1" dir="l" state="m"/>
 
 </net>
