@@ -32,7 +32,7 @@ class GNEAttributeCarrier;
 class GNELane;
 class GNENet;
 
-class GNEPathManager : public GUISUMOAbstractView {
+class GNEPathManager {
 
 public:
     /// @brief class used to calculate paths in nets
