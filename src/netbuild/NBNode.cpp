@@ -1374,6 +1374,53 @@ NBNode::computeLanes2Lanes() {
                 }
             }
         }
+
+        // in case of lane change permissions on the outgoing edge, ensure that
+        // all it's lane can be reached from each connected incoming edge
+        bool targetProhibitsChange = false;
+        for (int i = 0; i < currentOutgoing->getNumLanes(); i++) {
+            const NBEdge::Lane& lane = currentOutgoing->getLanes()[i];
+            if ((lane.changeLeft != SVCAll && lane.changeLeft != SVC_IGNORING && i + 1 < currentOutgoing->getNumLanes())
+                    || (lane.changeRight != SVCAll && lane.changeRight != SVC_IGNORING && i > 0)) {
+                targetProhibitsChange = true;
+                break;
+            }
+        }
+        if (targetProhibitsChange) {
+            //std::cout << " node=" << getID() << " outgoing=" << currentOutgoing->getID() << " targetProhibitsChange\n";
+            for (NBEdge* incoming : myIncomingEdges) {
+                if (incoming->getStep() <= NBEdge::EdgeBuildingStep::LANES2LANES_DONE) {
+                    std::map<int, int> outToIn;
+                    for (const NBEdge::Connection& c : incoming->getConnections()) {
+                        if (c.toEdge == currentOutgoing) {
+                            outToIn[c.toLane] = c.fromLane;
+                        }
+                    }
+                    for (int toLane = 0; toLane < currentOutgoing->getNumLanes(); toLane++) {
+                        if (outToIn.count(toLane) == 0) {
+                            bool added = false;
+                            // find incoming lane for neighboring outgoing
+                            for (int i = 0; i < toLane; i++) {
+                                if (outToIn.count(i) != 0) {
+                                    incoming->setConnection(outToIn[i], currentOutgoing, toLane, NBEdge::Lane2LaneInfoType::COMPUTED);
+                                    added = true;
+                                    break;
+                                }
+                            }
+                            if (!added) {
+                                for (int i = toLane; i < currentOutgoing->getNumLanes(); i++) {
+                                    if (outToIn.count(i) != 0) {
+                                        incoming->setConnection(outToIn[i], currentOutgoing, toLane, NBEdge::Lane2LaneInfoType::COMPUTED);
+                                        added = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     // special case e): rail_crossing
     // there should only be straight connections here
