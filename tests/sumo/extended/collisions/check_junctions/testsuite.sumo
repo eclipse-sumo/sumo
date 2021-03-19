@@ -1,5 +1,11 @@
 basic
 
+# detect more collisions
+junctionMinGap20
+
+# detect fewer collisions
+junctionMinGap-2
+
 # stop after collision
 stoptime
 
