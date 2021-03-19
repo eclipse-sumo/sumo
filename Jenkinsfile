@@ -10,6 +10,13 @@ spec:
   - name: maven
     image: maven:alpine
     tty: true
+    resources:
+      limits:
+        memory: "2Gi"
+        cpu: "1"
+      requests:
+        memory: "2Gi"
+        cpu: "1"    
     command:
     - cat
     env:
