@@ -543,7 +543,6 @@ GNEAttributeCarrier::getAlternativeValueForDisabledAttributes(SumoXMLAttr key) c
                     return "not together with end and number";
                 }
             }
-            FALLTHROUGH;
             return "0";
         default:
             return getAttribute(key);
