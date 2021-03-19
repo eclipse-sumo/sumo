@@ -1,8 +1,8 @@
 Loading configuration ... done.
 loaded? False
  Retrying in 1 seconds
-version at start (20, 'SUMO v1_8_0+1277-97d8927')
-version (20, 'SUMO v1_8_0+1277-97d8927')
+version at start (20, 'SUMO v1_8_0+1723-ac2556e')
+version (20, 'SUMO v1_8_0+1723-ac2556e')
 loaded? True
 {114: ('horiz', 'horiz1'), 116: ()}
 step 0
@@ -97,6 +97,7 @@ findIntermodalRoute (car)
 findIntermodalRoute (bike,car,public)
   Stage(type=3, vType=DEFAULT_VEHTYPE, line=car, edges=('o', '2o'), travelTime=729.248201439, cost=729.248201439, length=20111.55, intended=car, depart=6.00096, departPos=0.0, arrivalPos=5000.0)
 
+contextSubscriptions: {}
 step 0
 {114: (), 116: ()}
 step 1

@@ -176,6 +176,14 @@ ppStages("findIntermodalRoute (bike,car,public)",
 
 traci.vehicle.setSpeedMode("emergencyStopper", 0)
 traci.vehicle.setSpeed("emergencyStopper", 100)
+try:
+    traci.simulation.subscribeContext("",
+            traci.constants.CMD_GET_VEHICLE_VARIABLE, 42,
+            [traci.constants.VAR_SPEED])
+    print("contextSubscriptions:", traci.simulation.getAllContextSubscriptionResults())
+except:
+    pass
+
 for step in range(12):
     print("step", step)
     traci.simulationStep()
