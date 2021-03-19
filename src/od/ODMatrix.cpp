@@ -234,8 +234,8 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
     const OptionsCont& oc = OptionsCont::getOptions();
     std::string personDepartPos = oc.isSet("departpos") ? oc.getString("departpos") : "random";
     std::string personArrivalPos = oc.isSet("arrivalpos") ? oc.getString("arrivalpos") : "random";
-    std::string fromAttr = oc.getString("from-attr");
-    std::string toAttr = oc.getString("to-attr");
+    SumoXMLAttr fromAttr = oc.getBool("junctions") ? SUMO_ATTR_FROMJUNCTION : SUMO_ATTR_FROM;
+    SumoXMLAttr toAttr = oc.getBool("junctions") ? SUMO_ATTR_TOJUNCTION : SUMO_ATTR_TO;
 
     // go through the time steps
     for (SUMOTime t = begin; t < end;) {
