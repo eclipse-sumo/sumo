@@ -25,6 +25,9 @@
 // class definitions
 // ===========================================================================
 
+class GNEAttributeCarrier;
+class GNELane;
+
 class GNEPathManager : public GUISUMOAbstractView {
 
 public:
@@ -33,6 +36,50 @@ public:
 
     /// @brief destructor
     ~GNEPathManager();
+
+protected:
+
+    class Segment {
+
+    public:
+        /// @brief constructor
+        Segment(GNEPathManager* pathManager, GNEAttributeCarrier* element);
+
+        /// @brief destructor
+        ~Segment();
+
+        /// @brief path manager
+        GNEPathManager* myPathManager;
+
+        /// @brief parent element
+        const GNEAttributeCarrier* myElement;
+
+        /// @brief valid element
+        bool myValid;
+
+    private:
+        /// @brief default constructor
+        Segment();
+
+        /// @brief Invalidated copy constructor.
+        Segment(const Segment&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        Segment& operator=(const Segment&) = delete;
+    };
+
+
+    class GNEPath {
+        GNEAttributeCarrier *element;
+        std::vector<Segment*> segments;
+    };
+
+    std::vector<GNEPath*> paths;
+
+    std::map<GNELane*, std::set<Segment*> > myLaneSegments;
+
+
+    void clearSegmentFromLaneSegments(Segment *segment);
 
 private:
     /// @brief Invalidated copy constructor.
