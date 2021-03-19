@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_8_0+1594-7719405
+Eclipse SUMO sumo Version v1_8_0+1724-dde034d
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -182,6 +182,8 @@ Processing Options:
                                         performing collision.action (except for
                                         action 'none')
   --collision.check-junctions          Enables collisions checks on junctions
+  --collision.check-junctions.mingap FLOAT  Increase or decrease sensitivity
+                                        for junction collision check
   --collision.mingap-factor FLOAT      Sets the fraction of minGap that must be
                                         maintained to avoid collision detection.
                                         If a negative value is given, the

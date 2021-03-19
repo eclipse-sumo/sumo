@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar 12 10:25:53 2021 by Eclipse SUMO sumo Version v1_8_0+1594-7719405
+<!-- generated on Fri Mar 19 11:27:41 2021 by Eclipse SUMO sumo Version v1_8_0+1724-dde034d
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -114,6 +114,7 @@
         <collision.action value="teleport" type="STR" help="How to deal with collisions: [none,warn,teleport,remove]"/>
         <collision.stoptime value="0" type="TIME" help="Let vehicle stop for TIME before performing collision.action (except for action &apos;none&apos;)"/>
         <collision.check-junctions value="false" type="BOOL" help="Enables collisions checks on junctions"/>
+        <collision.check-junctions.mingap value="0" type="FLOAT" help="Increase or decrease sensitivity for junction collision check"/>
         <collision.mingap-factor value="-1" type="FLOAT" help="Sets the fraction of minGap that must be maintained to avoid collision detection. If a negative value is given, the carFollowModel parameter is used"/>
         <max-num-vehicles value="-1" type="INT" help="Delay vehicle insertion to stay within the given maximum number"/>
         <max-num-teleports value="-1" type="INT" help="Abort the simulation if the given maximum number of teleports is exceeded"/>

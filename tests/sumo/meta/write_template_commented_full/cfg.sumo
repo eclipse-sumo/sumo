@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar 12 10:25:53 2021 by Eclipse SUMO sumo Version v1_8_0+1594-7719405
+<!-- generated on Fri Mar 19 11:27:41 2021 by Eclipse SUMO sumo Version v1_8_0+1724-dde034d
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -305,6 +305,9 @@
 
         <!-- Enables collisions checks on junctions -->
         <collision.check-junctions value="false" type="BOOL"/>
+
+        <!-- Increase or decrease sensitivity for junction collision check -->
+        <collision.check-junctions.mingap value="0" type="FLOAT"/>
 
         <!-- Sets the fraction of minGap that must be maintained to avoid collision detection. If a negative value is given, the carFollowModel parameter is used -->
         <collision.mingap-factor value="-1" type="FLOAT"/>
