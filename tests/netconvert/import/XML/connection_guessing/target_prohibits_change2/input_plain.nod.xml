@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 19 Mar 2021 01:11:51 PM CET by Eclipse SUMO netedit Version v1_8_0+1727-e8eb006
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="osm.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/localdata2/debug/wizard_adlershof/8391/net.net.xml"/>
+        <plain-output-prefix value="/localdata2/debug/wizard_adlershof/8391/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="true"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-398790.46,-5809139.45" convBoundary="1870.77,1146.53,1936.16,1221.80" origBoundary="13.453860,52.423355,13.575739,52.459757" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="1652675093" x="1900.43" y="1184.96" type="priority"/>
+    <node id="4854982237" x="1873.94" y="1158.57" type="priority"/>
+    <node id="5543923995" x="1936.16" y="1146.53" type="priority"/>
+    <node id="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050928_3246050929_3246050930_3246050932_3366620136_583899005" x="1870.77" y="1221.80" type="traffic_light" tl="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050928_3246050929_3246050930_3246050932_3366620136_583899005"/>
+</nodes>

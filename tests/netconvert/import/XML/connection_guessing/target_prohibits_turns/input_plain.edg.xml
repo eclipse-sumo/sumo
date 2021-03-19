@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 19 Mar 2021 02:09:37 PM CET by Eclipse SUMO netedit Version v1_8_0+1727-e8eb006
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="orig.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="orig.net.xml"/>
+        <plain-output-prefix value="/localdata2/debug/8391/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="CE" from="C" to="E" priority="2" numLanes="2" speed="13.89" spreadType="roadCenter">
+        <lane index="0" changeLeft="authority" changeRight="authority"/>
+        <lane index="1" changeLeft="authority" changeRight="authority"/>
+    </edge>
+    <edge id="CN" from="C" to="N" priority="2" numLanes="2" speed="13.89" spreadType="roadCenter">
+        <lane index="0" changeLeft="authority" changeRight="authority"/>
+        <lane index="1" changeLeft="authority" changeRight="authority"/>
+    </edge>
+    <edge id="CS" from="C" to="S" priority="2" numLanes="2" speed="13.89" spreadType="roadCenter">
+        <lane index="0" changeLeft="authority" changeRight="authority"/>
+        <lane index="1" changeLeft="authority" changeRight="authority"/>
+    </edge>
+    <edge id="CW" from="C" to="W" priority="2" numLanes="2" speed="13.89" spreadType="roadCenter">
+        <lane index="0" changeLeft="authority" changeRight="authority"/>
+        <lane index="1" changeLeft="authority" changeRight="authority"/>
+    </edge>
+    <edge id="EC" from="E" to="C" priority="2" numLanes="1" speed="13.89" spreadType="roadCenter"/>
+    <edge id="NC" from="N" to="C" priority="2" numLanes="1" speed="13.89" spreadType="roadCenter"/>
+    <edge id="SC" from="S" to="C" priority="2" numLanes="1" speed="13.89" spreadType="roadCenter"/>
+    <edge id="WC" from="W" to="C" priority="2" numLanes="1" speed="13.89" spreadType="roadCenter"/>
+</edges>
