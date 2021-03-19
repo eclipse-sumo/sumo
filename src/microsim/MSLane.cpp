@@ -98,6 +98,7 @@
 MSLane::DictType MSLane::myDict;
 MSLane::CollisionAction MSLane::myCollisionAction(MSLane::COLLISION_ACTION_TELEPORT);
 bool MSLane::myCheckJunctionCollisions(false);
+double MSLane::myCheckJunctionCollisionMinGap(0);
 SUMOTime MSLane::myCollisionStopTime(0);
 double MSLane::myCollisionMinGapFactor(1.0);
 bool MSLane::myExtrapolateSubstepDepart(false);
@@ -1356,7 +1357,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
         for (AnyVehicleIterator veh = anyVehiclesBegin(); veh != anyVehiclesEnd(); ++veh) {
             MSVehicle* collider = const_cast<MSVehicle*>(*veh);
             //std::cout << "   collider " << collider->getID() << "\n";
-            PositionVector colliderBoundary = collider->getBoundingBox();
+            PositionVector colliderBoundary = collider->getBoundingBox(myCheckJunctionCollisionMinGap);
             for (std::vector<const MSLane*>::const_iterator it = foeLanes.begin(); it != foeLanes.end(); ++it) {
                 const MSLane* foeLane = *it;
 #ifdef DEBUG_JUNCTION_COLLISIONS
@@ -1386,7 +1387,8 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
 #endif
                     if (colliderBoundary.overlapsWith(victim->getBoundingBox())) {
                         // make a detailed check
-                        if (collider->getBoundingPoly().overlapsWith(victim->getBoundingPoly())) {
+                        PositionVector boundingPoly = collider->getBoundingPoly();
+                        if (collider->getBoundingPoly(myCheckJunctionCollisionMinGap).overlapsWith(victim->getBoundingPoly())) {
                             // junction leader is the victim
                             assert(isInternal());
                             if (victim->isLeader(myLinks.front(), collider)) {
@@ -3816,6 +3818,7 @@ MSLane::initCollisionOptions(const OptionsCont& oc) {
         WRITE_ERROR("Invalid collision.action '" + action + "'.");
     }
     myCheckJunctionCollisions = oc.getBool("collision.check-junctions");
+    myCheckJunctionCollisionMinGap = oc.getFloat("collision.check-junctions.mingap");
     myCollisionStopTime = string2time(oc.getString("collision.stoptime"));
     myCollisionMinGapFactor = oc.getFloat("collision.mingap-factor");
     myExtrapolateSubstepDepart = oc.getBool("extrapolate-departpos");

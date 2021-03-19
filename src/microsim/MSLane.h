@@ -1482,6 +1482,7 @@ private:
     /// @brief the action to take on collisions
     static CollisionAction myCollisionAction;
     static bool myCheckJunctionCollisions;
+    static double myCheckJunctionCollisionMinGap;
     static SUMOTime myCollisionStopTime;
     static double myCollisionMinGapFactor;
     static bool myExtrapolateSubstepDepart;

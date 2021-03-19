@@ -5926,23 +5926,26 @@ MSVehicle::unsafeLinkAhead(const MSLane* lane) const {
 
 
 PositionVector
-MSVehicle::getBoundingBox() const {
+MSVehicle::getBoundingBox(double offset) const {
     PositionVector centerLine;
     centerLine.push_back(getPosition());
     for (MSLane* lane : myFurtherLanes) {
         centerLine.push_back(lane->getShape().back());
     }
     centerLine.push_back(getBackPosition());
-    centerLine.move2side(0.5 * myType->getWidth());
+    if (offset != 0) {
+        centerLine.extrapolate2D(offset);
+    }
+    centerLine.move2side(MAX2(0.0, 0.5 * myType->getWidth() + offset));
     PositionVector result = centerLine;
-    centerLine.move2side(-myType->getWidth());
+    centerLine.move2side(MIN2(0.0, -myType->getWidth() - 2 * offset));
     result.append(centerLine.reverse(), POSITION_EPS);
     return result;
 }
 
 
 PositionVector
-MSVehicle::getBoundingPoly() const {
+MSVehicle::getBoundingPoly(double offset) const {
     // XXX implement more types
     switch (myType->getGuiShape()) {
         case SVS_PASSENGER:
@@ -5954,17 +5957,20 @@ MSVehicle::getBoundingPoly() const {
             PositionVector centerLine;
             centerLine.push_back(getPosition());
             centerLine.push_back(getBackPosition());
+            if (offset != 0) {
+                centerLine.extrapolate2D(offset);
+            }
             PositionVector line1 = centerLine;
             PositionVector line2 = centerLine;
-            line1.move2side(0.3 * myType->getWidth());
-            line2.move2side(0.5 * myType->getWidth());
+            line1.move2side(MAX2(0.0, 0.3 * myType->getWidth() + offset));
+            line2.move2side(MAX2(0.0, 0.5 * myType->getWidth() + offset));
             line2.scaleRelative(0.8);
             result.push_back(line1[0]);
             result.push_back(line2[0]);
             result.push_back(line2[1]);
             result.push_back(line1[1]);
-            line1.move2side(-0.6 * myType->getWidth());
-            line2.move2side(-1.0 * myType->getWidth());
+            line1.move2side(MIN2(0.0, -0.6 * myType->getWidth() - offset));
+            line2.move2side(MIN2(0.0, -1.0 * myType->getWidth() - offset));
             result.push_back(line1[1]);
             result.push_back(line2[1]);
             result.push_back(line2[0]);
@@ -5972,7 +5978,7 @@ MSVehicle::getBoundingPoly() const {
             return result;
         }
         default:
-            return getBoundingBox();
+            return getBoundingBox(offset);
     }
 }
 

@@ -1204,10 +1204,10 @@ public:
                               const std::vector<MSLane*>& passedLanes);
 
     /// @brief get bounding rectangle
-    PositionVector getBoundingBox() const;
+    PositionVector getBoundingBox(double offset = 0) const;
 
     /// @brief get bounding polygon
-    PositionVector getBoundingPoly() const;
+    PositionVector getBoundingPoly(double offset = 0) const;
 
     /** @enum ManoeuvreType
      *  @brief  flag identifying which, if any, manoeuvre is in progress

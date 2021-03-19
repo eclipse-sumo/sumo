@@ -343,6 +343,9 @@ MSFrame::fillOptions() {
     oc.doRegister("collision.check-junctions", new Option_Bool(false));
     oc.addDescription("collision.check-junctions", "Processing", "Enables collisions checks on junctions");
 
+    oc.doRegister("collision.check-junctions.mingap", new Option_Float(0));
+    oc.addDescription("collision.check-junctions.mingap", "Processing", "Increase or decrease sensitivity for junction collision check");
+
     oc.doRegister("collision.mingap-factor", new Option_Float(-1));
     oc.addDescription("collision.mingap-factor", "Processing", "Sets the fraction of minGap that must be maintained to avoid collision detection. If a negative value is given, the carFollowModel parameter is used");
 
