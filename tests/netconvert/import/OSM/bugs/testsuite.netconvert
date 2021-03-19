@@ -54,3 +54,6 @@ ticket8039
 
 # missing tls (signals.guess) when using --join-tram-dist
 ticket8219
+
+# invalid shifted change prohibitions
+ticket8393

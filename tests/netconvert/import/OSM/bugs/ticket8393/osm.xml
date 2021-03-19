@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.56.9 76e5016d">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2021-03-19T13:29:42Z"/>
+
+  <node id="671564454" lat="52.4332134" lon="13.5413315"/>
+  <node id="1652675075" lat="52.4329783" lon="13.5409628">
+    <tag k="ele" v="35.0"/>
+    <tag k="source:ele" v="Geoportal Berlin / K5"/>
+  </node>
+  <node id="1652675093" lat="52.4340909" lon="13.5391992"/>
+  <node id="1652675097" lat="52.4343785" lon="13.5387743"/>
+  <node id="1906399894" lat="52.4343379" lon="13.5408945"/>
+  <node id="2391105464" lat="52.4337838" lon="13.5396857"/>
+  <node id="2391105467" lat="52.4339391" lon="13.5394397">
+    <tag k="bus" v="yes"/>
+    <tag k="name" v="S Adlershof/Franz-Ehrlich-Straße"/>
+    <tag k="note" v="Endhaltestelle"/>
+    <tag k="public_transport" v="stop_position"/>
+  </node>
+  <node id="3246050929" lat="52.4343097" lon="13.5388760">
+    <tag k="button_operated" v="no"/>
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing:island" v="no"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="yes"/>
+    <tag k="traffic_signals:sound" v="yes"/>
+    <tag k="traffic_signals:vibration" v="yes"/>
+  </node>
+  <node id="3366620136" lat="52.4342818" lon="13.5389172">
+    <tag k="bicycle" v="yes"/>
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="4004564272" lat="52.4333771" lon="13.5377813"/>
+  <node id="4004564307" lat="52.4334893" lon="13.5375927"/>
+  <node id="4004564377" lat="52.4339892" lon="13.5384264"/>
+  <node id="4004564379" lat="52.4340027" lon="13.5384034"/>
+  <node id="4004564386" lat="52.4340831" lon="13.5385728"/>
+  <node id="4004564388" lat="52.4340956" lon="13.5385522"/>
+  <node id="4004564489" lat="52.4341017" lon="13.5389275"/>
+  <node id="4004564497" lat="52.4342134" lon="13.5387373"/>
+  <node id="4407052119" lat="52.4336083" lon="13.5381476"/>
+  <node id="4407052120" lat="52.4336062" lon="13.5377786"/>
+  <node id="4407052121" lat="52.4339035" lon="13.5385729"/>
+  <node id="4407052123" lat="52.4336869" lon="13.5379057"/>
+  <node id="4407052124" lat="52.4339837" lon="13.5387402"/>
+  <node id="4407052125" lat="52.4339965" lon="13.5387187"/>
+  <node id="4854982235" lat="52.4340361" lon="13.5384996"/>
+  <node id="4854982236" lat="52.4339500" lon="13.5386458"/>
+  <node id="4854982237" lat="52.4338489" lon="13.5388175"/>
+  <node id="4854982238" lat="52.4335881" lon="13.5377506">
+    <tag k="addr:city" v="Berlin"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="5C"/>
+    <tag k="addr:postcode" v="12489"/>
+    <tag k="addr:street" v="Rudower Chaussee"/>
+    <tag k="addr:suburb" v="Adlershof"/>
+    <tag k="entrance" v="yes"/>
+  </node>
+  <node id="4854982239" lat="52.4338445" lon="13.5381559">
+    <tag k="addr:city" v="Berlin"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="5B"/>
+    <tag k="addr:postcode" v="12489"/>
+    <tag k="addr:street" v="Rudower Chaussee"/>
+    <tag k="addr:suburb" v="Adlershof"/>
+    <tag k="entrance" v="yes"/>
+  </node>
+  <node id="4854982240" lat="52.4340377" lon="13.5386493">
+    <tag k="addr:city" v="Berlin"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="5A"/>
+    <tag k="addr:postcode" v="12489"/>
+    <tag k="addr:street" v="Rudower Chaussee"/>
+    <tag k="addr:suburb" v="Adlershof"/>
+    <tag k="entrance" v="yes"/>
+  </node>
+  <node id="5539781703" lat="52.4341440" lon="13.5405298">
+    <tag k="leaf_cycle" v="deciduous"/>
+    <tag k="leaf_type" v="broadleaved"/>
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="5539781704" lat="52.4341104" lon="13.5404385">
+    <tag k="leaf_cycle" v="deciduous"/>
+    <tag k="leaf_type" v="broadleaved"/>
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="5539781705" lat="52.4340369" lon="13.5403404">
+    <tag k="leaf_cycle" v="deciduous"/>
+    <tag k="leaf_type" v="broadleaved"/>
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="5539781720" lat="52.4338956" lon="13.5396091">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="5539782321" lat="52.4339738" lon="13.5394883">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="5539782322" lat="52.4339867" lon="13.5392338">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="5539782324" lat="52.4340274" lon="13.5390250">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="5539782325" lat="52.4339778" lon="13.5391057">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="5539782326" lat="52.4338753" lon="13.5389614">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="5539782337" lat="52.4340967" lon="13.5393099">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="5539782338" lat="52.4342077" lon="13.5391518">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="5539782340" lat="52.4342651" lon="13.5394010">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="5539782343" lat="52.4342904" lon="13.5397204">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="5539782347" lat="52.4342388" lon="13.5397012">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="5539782348" lat="52.4341045" lon="13.5401063">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="5543923969" lat="52.4339157" lon="13.5397290">
+    <tag k="amenity" v="waste_basket"/>
+  </node>
+  <node id="5543923970" lat="52.4341997" lon="13.5393878">
+    <tag k="amenity" v="waste_basket"/>
+  </node>
+  <node id="5543923971" lat="52.4341626" lon="13.5395486">
+    <tag k="amenity" v="waste_basket"/>
+  </node>
+  <node id="5543923972" lat="52.4341421" lon="13.5395050">
+    <tag k="direction" v="266"/>
+    <tag k="leisure" v="pitch"/>
+    <tag k="sport" v="table_tennis"/>
+  </node>
+  <node id="5543923973" lat="52.4341770" lon="13.5394541">
+    <tag k="direction" v="266"/>
+    <tag k="leisure" v="pitch"/>
+    <tag k="sport" v="table_tennis"/>
+  </node>
+  <node id="5543923974" lat="52.4341210" lon="13.5394686">
+    <tag k="amenity" v="bench"/>
+    <tag k="backrest" v="yes"/>
+    <tag k="destination" v="50"/>
+  </node>
+  <node id="5543923975" lat="52.4341536" lon="13.5394160">
+    <tag k="amenity" v="bench"/>
+    <tag k="backrest" v="no"/>
+    <tag k="destination" v="50"/>
+  </node>
+  <node id="5543923986" lat="52.4343834" lon="13.5408688"/>
+  <node id="5543923987" lat="52.4342323" lon="13.5405934"/>
+  <node id="5543923988" lat="52.4342209" lon="13.5405718">
+    <tag k="leaf_cycle" v="deciduous"/>
+    <tag k="leaf_type" v="broadleaved"/>
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="5543923995" lat="52.4337520" lon="13.5397360"/>
+  <node id="5543924045" lat="52.4338909" lon="13.5385942"/>
+  <node id="5564696431" lat="52.4340256" lon="13.5390963"/>
+  <node id="5750123850" lat="52.4334832" lon="13.5382366"/>
+  <node id="5836660312" lat="52.4339020" lon="13.5398538"/>
+  <node id="5836660313" lat="52.4342933" lon="13.5392948"/>
+  <node id="5836660314" lat="52.4342674" lon="13.5389385"/>
+  <node id="5836660315" lat="52.4343301" lon="13.5398007"/>
+  <node id="5836660316" lat="52.4337706" lon="13.5398701"/>
+  <node id="5836660317" lat="52.4337204" lon="13.5397861"/>
+  <node id="5836660318" lat="52.4343527" lon="13.5408618"/>
+  <node id="5836660319" lat="52.4341314" lon="13.5404729"/>
+  <node id="5836660320" lat="52.4343312" lon="13.5400544"/>
+  <node id="5836660321" lat="52.4343414" lon="13.5399489"/>
+  <node id="5836660322" lat="52.4348018" lon="13.5398691"/>
+  <node id="5999946568" lat="52.4339077" lon="13.5395676"/>
+  <node id="5999946569" lat="52.4339833" lon="13.5394462">
+    <tag k="highway" v="bus_stop"/>
+    <tag k="name" v="S Adlershof/Franz-Ehrlich-Straße"/>
+    <tag k="shelter" v="no"/>
+    <tag k="tactile_paving" v="no"/>
+  </node>
+  <node id="6275106349" lat="52.4332559" lon="13.5378734"/>
+  <node id="6292614805" lat="52.4326285" lon="13.5379462"/>
+  <node id="6292614806" lat="52.4335755" lon="13.5396455"/>
+  <node id="6292614807" lat="52.4339072" lon="13.5391072"/>
+  <node id="6292614808" lat="52.4331330" lon="13.5379262"/>
+  <node id="6292614809" lat="52.4332840" lon="13.5376928"/>
+  <node id="6292614810" lat="52.4330274" lon="13.5372977"/>
+  <node id="7170324896" lat="52.4333176" lon="13.5379720"/>
+  <node id="7170324897" lat="52.4333925" lon="13.5378397"/>
+  <node id="7170324898" lat="52.4333554" lon="13.5377812"/>
+  <node id="7170324899" lat="52.4341710" lon="13.5390809"/>
+  <node id="7170324900" lat="52.4339276" lon="13.5386839"/>
+  <node id="7227447791" lat="52.4334749" lon="13.5401753"/>
+  <node id="7227447792" lat="52.4336088" lon="13.5403948"/>
+  <node id="7227447793" lat="52.4337018" lon="13.5405351"/>
+  <node id="7227447794" lat="52.4337823" lon="13.5406489"/>
+  <node id="7227447795" lat="52.4338988" lon="13.5408236"/>
+  <node id="7227447796" lat="52.4339136" lon="13.5408602"/>
+  <node id="7227447797" lat="52.4339099" lon="13.5409171"/>
+  <node id="7227447798" lat="52.4338492" lon="13.5410309"/>
+  <node id="7227447799" lat="52.4337352" lon="13.5411813"/>
+  <node id="7227447800" lat="52.4337055" lon="13.5411996"/>
+  <node id="7227447801" lat="52.4336683" lon="13.5411590"/>
+  <node id="7227447802" lat="52.4335246" lon="13.5409375"/>
+  <node id="7227447803" lat="52.4334961" lon="13.5409131"/>
+  <node id="7227447804" lat="52.4334713" lon="13.5409354"/>
+  <way id="142575672">
+    <nd ref="1652675097"/>
+    <nd ref="3246050929"/>
+    <nd ref="3366620136"/>
+    <nd ref="5836660314"/>
+    <nd ref="7170324899"/>
+    <nd ref="1652675093"/>
+    <tag k="change:lanes:backward" v="not_left|yes"/>
+    <tag k="change:lanes:forward" v="not_left"/>
+    <tag k="highway" v="unclassified"/>
+    <tag k="lanes" v="3"/>
+    <tag k="lanes:backward" v="2"/>
+    <tag k="lanes:forward" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Franz-Ehrlich-Straße"/>
+    <tag k="name:etymology:wikidata" v="Q877688"/>
+    <tag k="parking:lane:both" v="no"/>
+    <tag k="postal_code" v="12489"/>
+    <tag k="sidewalk" v="both"/>
+    <tag k="smoothness" v="excellent"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="turn:lanes:backward" v="left|through;right"/>
+  </way>
+  <way id="142575695">
+    <nd ref="1652675093"/>
+    <nd ref="5564696431"/>
+    <nd ref="4854982237"/>
+    <nd ref="5750123850"/>
+    <nd ref="7170324896"/>
+    <nd ref="6275106349"/>
+    <tag k="highway" v="unclassified"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Moriz-Seeler-Straße"/>
+    <tag k="name:etymology:wikidata" v="Q404744"/>
+    <tag k="parking:lane:both" v="parallel"/>
+    <tag k="postal_code" v="12489"/>
+    <tag k="sidewalk" v="both"/>
+    <tag k="smoothness" v="excellent"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="318210373">
+    <nd ref="1652675093"/>
+    <nd ref="2391105467"/>
+    <nd ref="2391105464"/>
+    <nd ref="5543923995"/>
+    <nd ref="5836660317"/>
+    <nd ref="7227447791"/>
+    <nd ref="1652675075"/>
+    <tag k="cycleway:both" v="no"/>
+    <tag k="highway" v="unclassified"/>
+    <tag k="lanes" v="2"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Franz-Ehrlich-Straße"/>
+    <tag k="name:etymology:wikidata" v="Q877688"/>
+    <tag k="parking:lane:both" v="parallel"/>
+    <tag k="postal_code" v="12489"/>
+    <tag k="sidewalk" v="both"/>
+    <tag k="smoothness" v="excellent"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="578659340">
+    <nd ref="5543923987"/>
+    <nd ref="5543923986"/>
+    <tag k="barrier" v="fence"/>
+    <tag k="fence_type" v="wire"/>
+    <tag k="height" v="1"/>
+  </way>
+  <way id="636250227">
+    <nd ref="5999946569"/>
+    <nd ref="5999946568"/>
+    <tag k="bench" v="no"/>
+    <tag k="bin" v="no"/>
+    <tag k="bus" v="yes"/>
+    <tag k="name" v="S Adlershof/Franz-Ehrlich-Straße"/>
+    <tag k="note" v="Endhaltestelle"/>
+    <tag k="passenger_information_display" v="no"/>
+    <tag k="public_transport" v="platform"/>
+    <tag k="shelter" v="no"/>
+    <tag k="tactile_paving" v="yes"/>
+  </way>
+  <way id="671969090">
+    <nd ref="6292614810"/>
+    <nd ref="6292614809"/>
+    <nd ref="6292614808"/>
+    <nd ref="6292614807"/>
+    <nd ref="6292614806"/>
+    <nd ref="6292614805"/>
+    <nd ref="6292614810"/>
+    <tag k="boundary" v="protected_area"/>
+    <tag k="heritage" v="4"/>
+    <tag k="heritage:operator" v="lda"/>
+    <tag k="lda:criteria" v="Gesamtanlage"/>
+    <tag k="name" v="Fernsehzentrum Adlershof"/>
+    <tag k="protect_class" v="22"/>
+    <tag k="ref:lda" v="09045245"/>
+  </way>
+
+</osm>
