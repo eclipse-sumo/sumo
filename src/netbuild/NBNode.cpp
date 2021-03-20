@@ -1375,7 +1375,7 @@ NBNode::computeLanes2Lanes() {
             }
         }
 
-        // in case of lane change permissions on the outgoing edge, ensure that
+        // in case of lane change restrictions on the outgoing edge, ensure that
         // all it's lane can be reached from each connected incoming edge
         bool targetProhibitsChange = false;
         for (int i = 0; i < currentOutgoing->getNumLanes(); i++) {
@@ -1389,7 +1389,7 @@ NBNode::computeLanes2Lanes() {
         if (targetProhibitsChange) {
             //std::cout << " node=" << getID() << " outgoing=" << currentOutgoing->getID() << " targetProhibitsChange\n";
             for (NBEdge* incoming : myIncomingEdges) {
-                if (incoming->getStep() <= NBEdge::EdgeBuildingStep::LANES2LANES_DONE) {
+                if (incoming->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_DONE) {
                     std::map<int, int> outToIn;
                     for (const NBEdge::Connection& c : incoming->getConnections()) {
                         if (c.toEdge == currentOutgoing) {
