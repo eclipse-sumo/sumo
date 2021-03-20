@@ -3,3 +3,6 @@
 
 # a split in the road with 5 incoming lanes, 2 lanes continuing left and 3 lanes continuing right
 5in2main3ramp_with_bike_lane
+
+# keep default connections even though not all lanes are reachable via changing
+ramp_target_prohibits_turns
