@@ -94,6 +94,10 @@ where `/your/path/to/sumo` is the path stated in the caveats section of the `bre
 ```
 echo $SUMO_HOME
 ```
+If the path is not printed you can try the following command
+```
+source ~/.bash_profile
+````
 After the installation you need to log out/in in order to let X11 start automatically, when calling a gui-based application like ```sumo-gui```. (Alternatively, you may start X11 manually by pressing *cmd-space* and entering ```XQuartz```).
 
 Additionally, SUMO provides native **macOS application bundles** for its graphical applications, so they can be added to the macOS dock. There is a separate brew cask that will copy these bundles to the `Applications` folder:
