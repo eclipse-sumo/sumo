@@ -62,7 +62,8 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation
     }
 #endif
     const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
-    int capacityLeft = taxi->getHolder().getVehicleType().getPersonCapacity() - (int)res->persons.size();
+    const bool isPerson = (*res->persons.begin())->isPerson();
+    int capacityLeft = remainingCapacity(taxi, res);
     std::vector<const Reservation*> sequence{ res, res };
     std::vector<const Reservation*> toRemove{ res };
     EdgePosVector posSequence({ std::make_pair(res->from, res->fromPos), std::make_pair(res->to, res->toPos) });
@@ -73,7 +74,8 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation
     // check whether the ride can be shared
     for (auto it2 = resIt + 1; it2 != reservations.end();) {
         Reservation* const res2 = *it2;
-        if (capacityLeft < (int)res2->persons.size()) {
+        const bool isPerson2 = (*res2->persons.begin())->isPerson();
+        if (capacityLeft < (int)res2->persons.size() || isPerson != isPerson2) {
             it2++;
             continue;
         }

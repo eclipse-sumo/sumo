@@ -42,8 +42,9 @@ MSDispatch_TraCI::addReservation(MSTransportable* person,
                                  const MSEdge* from, double fromPos,
                                  const MSEdge* to, double toPos,
                                  const std::string& group,
-                                 int maxCapacity) {
-    Reservation* res = MSDispatch::addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group, maxCapacity);
+                                 int maxCapacity,
+                                 int maxContainerCapacity) {
+    Reservation* res = MSDispatch::addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group, maxCapacity, maxContainerCapacity);
     if (!myReservationLookup.has(res)) {
         myReservationLookup.insert(res->id, res);
     }

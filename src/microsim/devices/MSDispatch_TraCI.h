@@ -50,7 +50,8 @@ public:
                                 const MSEdge* from, double fromPos,
                                 const MSEdge* to, double toPos,
                                 const std::string& group,
-                                int maxCapacity);
+                                int maxCapacity,
+                                int maxContainerCapacity);
 
     /// @brief remove person from reservation. If the whole reservation is removed, return it's id
     std::string removeReservation(MSTransportable* person,

@@ -43,7 +43,8 @@ MSDispatch_GreedyShared::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation*>
         std::cout << SIMTIME << " dispatch taxi=" << taxi->getHolder().getID() << " person=" << toString(res->persons) << "\n";
     }
 #endif
-    const int capacityLeft = taxi->getHolder().getVehicleType().getPersonCapacity() - (int)res->persons.size();
+    const bool isPerson = (*res->persons.begin())->isPerson();
+    const int capacityLeft = remainingCapacity(taxi, res);
     const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     // check whether the ride can be shared
     int shareCase = 0;
@@ -56,7 +57,10 @@ MSDispatch_GreedyShared::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation*>
     double directTime2 = -1;
     for (auto it2 = resIt + 1; it2 != reservations.end(); it2++) {
         res2 = *it2;
-        if (capacityLeft < (int)res2->persons.size()) {
+        const bool isPerson2 = (*res2->persons.begin())->isPerson();
+
+        if (capacityLeft < (int)res2->persons.size() || isPerson != isPerson2) {
+            // do not try to mix person and container dispatch
             continue;
         }
         // res picks up res2 on the way

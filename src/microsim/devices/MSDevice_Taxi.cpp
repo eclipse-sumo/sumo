@@ -57,6 +57,7 @@ Command* MSDevice_Taxi::myDispatchCommand(nullptr);
 // @brief the list of available taxis
 std::vector<MSDevice_Taxi*> MSDevice_Taxi::myFleet;
 int MSDevice_Taxi::myMaxCapacity(0);
+int MSDevice_Taxi::myMaxContainerCapacity(0);
 
 #define TAXI_SERVICE "taxi"
 
@@ -112,9 +113,11 @@ MSDevice_Taxi::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>
             WRITE_WARNING("Vehicle '" + v.getID() + "' with device.taxi should have vClass taxi instead of '" + toString(v.getVClass()) + "'.");
         }
         const int personCapacity = v.getVehicleType().getPersonCapacity();
+        const int containerCapacity = v.getVehicleType().getContainerCapacity();
         myMaxCapacity = MAX2(myMaxCapacity, personCapacity);
-        if (personCapacity < 1) {
-            WRITE_WARNINGF("Vehicle '%' with personCapacity % is not usable as taxi.", v.getID(), toString(personCapacity));
+        myMaxContainerCapacity = MAX2(myMaxContainerCapacity, containerCapacity);
+        if (personCapacity < 1 && containerCapacity < 1) {
+            WRITE_WARNINGF("Vehicle '%' with personCapacity % and containerCapacity % is not usable as taxi.", v.getID(), toString(personCapacity), toString(containerCapacity));
         }
     }
 }
@@ -160,7 +163,7 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
         if (myDispatchCommand == nullptr) {
             initDispatch();
         }
-        myDispatcher->addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group, myMaxCapacity);
+        myDispatcher->addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group, myMaxCapacity, myMaxContainerCapacity);
     }
 }
 
@@ -229,8 +232,10 @@ MSDevice_Taxi::~MSDevice_Taxi() {
     myFleet.erase(std::find(myFleet.begin(), myFleet.end(), this));
     // recompute myMaxCapacity
     myMaxCapacity = 0;
+    myMaxContainerCapacity = 0;
     for (MSDevice_Taxi* taxi : myFleet) {
         myMaxCapacity = MAX2(myMaxCapacity, taxi->getHolder().getVehicleType().getPersonCapacity());
+        myMaxContainerCapacity = MAX2(myMaxContainerCapacity, taxi->getHolder().getVehicleType().getContainerCapacity());
     }
 }
 

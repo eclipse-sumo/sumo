@@ -69,7 +69,7 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
         SUMOTime closestTime = SUMOTime_MAX;
         bool tooEarly = false;
         for (auto* taxi : available) {
-            if (taxi->getHolder().getVehicleType().getPersonCapacity() < (int)res->persons.size()) {
+            if (remainingCapacity(taxi, res) < 0) {
                 continue;
             }
             SUMOTime travelTime = computePickupTime(now, taxi, *res, router);
@@ -155,7 +155,7 @@ MSDispatch_GreedyClosest::computeDispatch(SUMOTime now, const std::vector<MSDevi
         for (Reservation* res : activeReservations) {
             SUMOTime recheck = SUMOTime_MAX;
             for (auto* taxi : available) {
-                if (taxi->getHolder().getVehicleType().getPersonCapacity() < (int)res->persons.size()) {
+                if (remainingCapacity(taxi, res) < 0) {
                     continue;
                 }
                 SUMOTime travelTime = computePickupTime(now, taxi, *res, router);

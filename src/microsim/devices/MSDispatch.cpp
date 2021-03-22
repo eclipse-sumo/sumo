@@ -65,7 +65,8 @@ MSDispatch::addReservation(MSTransportable* person,
                            const MSEdge* from, double fromPos,
                            const MSEdge* to, double toPos,
                            std::string group,
-                           int maxCapacity) {
+                           int maxCapacity,
+                           int maxContainerCapacity) {
     // no new reservation nedded if the person can be added to an existing group
     if (group == "") {
         // the default empty group implies, no grouping is wanted (and
@@ -82,8 +83,16 @@ MSDispatch::addReservation(MSTransportable* person,
                     && res->from == from
                     && res->to == to
                     && res->fromPos == fromPos
-                    && res->toPos == toPos
-                    && (int)res->persons.size() < maxCapacity) {
+                    && res->toPos == toPos) {
+                if (res->persons.size() > 0 && (*res->persons.begin())->isPerson() != person->isPerson()) {
+                    WRITE_WARNINGF("Mixing reservations of persons and containers with the same group is not supported for % and %",
+                            (*res->persons.begin())->getID(), person->getID());
+                }
+                if ((person->isPerson() && (int)res->persons.size() >= maxCapacity) ||
+                        (!person->isPerson() && (int)res->persons.size() >= maxContainerCapacity)) {
+                    // split group to ensure that at least one taxi is capable of delivering group size.
+                    continue;
+                }
                 res->persons.insert(person);
                 result = res;
                 added = true;
@@ -238,6 +247,15 @@ MSDispatch::computeDetourTime(SUMOTime t, SUMOTime viaTime, const MSDevice_Taxi*
               << " direct=" << timeDirect << " detour=" << timeDetour << " wait=" << wait << "\n";
 #endif
     return timeDetour;
+}
+
+
+int
+MSDispatch::remainingCapacity(const MSDevice_Taxi* taxi, const Reservation* res) {
+    assert(res->persons.size() > 0);
+    return ((*res->persons.begin())->isPerson()
+            ? taxi->getHolder().getVehicleType().getPersonCapacity()
+            : taxi->getHolder().getVehicleType().getContainerCapacity()) - res->persons.size();
 }
 
 /****************************************************************************/

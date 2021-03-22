@@ -105,10 +105,6 @@ public:
         return myFleet;
     }
 
-    static int getMaxCapacity() {
-        return myMaxCapacity;
-    }
-
 public:
     /// @brief Destructor.
     ~MSDevice_Taxi();
@@ -254,6 +250,8 @@ private:
     static std::vector<MSDevice_Taxi*> myFleet;
     // @brief the maximum personCapacity in the fleet
     static int myMaxCapacity;
+    // @brief the maximum container capacity in the fleet
+    static int myMaxContainerCapacity;
 
 private:
     /// @brief Invalidated copy constructor.
