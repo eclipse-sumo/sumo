@@ -125,7 +125,12 @@ std::string
 MSDispatch::removeReservation(MSTransportable* person,
                            const MSEdge* from, double fromPos,
                            const MSEdge* to, double toPos,
-                           const std::string& group) {
+                           std::string group) {
+    if (group == "") {
+        // the default empty group implies, no grouping is wanted (and
+        // transportable ids are unique)
+        group = person->getID();
+    }
     std::string removedID = "";
     auto it = myGroupReservations.find(group);
     if (it != myGroupReservations.end()) {

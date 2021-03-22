@@ -130,7 +130,7 @@ public:
     virtual std::string removeReservation(MSTransportable* person,
                                    const MSEdge* from, double fromPos,
                                    const MSEdge* to, double toPos,
-                                   const std::string& group);
+                                   std::string group);
 
     /// @brief erase reservation from storage
     virtual void fulfilledReservation(const Reservation* res);
