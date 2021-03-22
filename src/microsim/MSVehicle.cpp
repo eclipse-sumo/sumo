@@ -1745,6 +1745,8 @@ MSVehicle::boardTransportables(MSStop& stop) {
         stop.containerTriggered = false;
         if (myAmRegisteredAsWaitingForPerson || myAmRegisteredAsWaitingForContainer) {
             unregister = true;
+            myAmRegisteredAsWaitingForPerson = false;
+            myAmRegisteredAsWaitingForContainer = false;
         }
     }
     if (boarded) {
@@ -6142,12 +6144,9 @@ MSVehicle::handleCollisionStop(MSStop& stop, const bool collision, const double 
 bool
 MSVehicle::resumeFromStopping() {
     if (isStopped()) {
-        if (myAmRegisteredAsWaitingForPerson) {
+        if (myAmRegisteredAsWaitingForPerson || myAmRegisteredAsWaitingForContainer) {
             MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
             myAmRegisteredAsWaitingForPerson = false;
-        }
-        if (myAmRegisteredAsWaitingForContainer) {
-            MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
             myAmRegisteredAsWaitingForContainer = false;
         }
         // we have waited long enough and fulfilled any passenger-requirements
