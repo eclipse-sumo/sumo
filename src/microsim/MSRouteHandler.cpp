@@ -1011,7 +1011,7 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXML
                 throw ProcessError("The to edge '" + toID + "' within a " + mode + " of " + agent + " '" + aid + "' is not known.");
             }
         }
-        const std::string group = attrs.getOpt<std::string>(SUMO_ATTR_GROUP, aid.c_str(), ok, getDefaultGroup(aid));
+        const std::string group = attrs.getOpt<std::string>(SUMO_ATTR_GROUP, aid.c_str(), ok, OptionsCont::getOptions().getString("persontrip.default.group"));
         const std::string intendedVeh = attrs.getOpt<std::string>(SUMO_ATTR_INTENDED, nullptr, ok, "");
         const SUMOTime intendedDepart = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DEPART, nullptr, ok, -1);
         arrivalPos = SUMOVehicleParameter::interpretEdgePos(arrivalPos, to->getLength(), SUMO_ATTR_ARRIVALPOS, agent + " '" + aid + "' takes a " + mode + " to edge '" + to->getID() + "'");
@@ -1298,7 +1298,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         parseWalkPositions(attrs, myVehicleParameter->id, from, to, departPos, arrivalPos, stoppingPlace, nullptr, ok);
 
         const std::string modes = attrs.getOpt<std::string>(SUMO_ATTR_MODES, id, ok, "");
-        const std::string group = attrs.getOpt<std::string>(SUMO_ATTR_GROUP, id, ok, getDefaultGroup(id));
+        const std::string group = attrs.getOpt<std::string>(SUMO_ATTR_GROUP, id, ok, OptionsCont::getOptions().getString("persontrip.default.group"));
         SVCPermissions modeSet = 0;
         std::string errorMsg;
         // try to parse person modes
@@ -1531,12 +1531,6 @@ MSRouteHandler::addTranship(const SUMOSAXAttributes& attrs) {
         deleteActivePlanAndVehicleParameter();
         throw;
     }
-}
-
-std::string
-MSRouteHandler::getDefaultGroup(const std::string& personID) {
-    const std::string defaultGroup = OptionsCont::getOptions().getString("persontrip.default.group");
-    return defaultGroup == "" ? personID : defaultGroup;
 }
 
 /****************************************************************************/

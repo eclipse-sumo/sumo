@@ -64,9 +64,14 @@ MSDispatch::addReservation(MSTransportable* person,
                            SUMOTime pickupTime,
                            const MSEdge* from, double fromPos,
                            const MSEdge* to, double toPos,
-                           const std::string& group,
+                           std::string group,
                            int maxCapacity) {
     // no new reservation nedded if the person can be added to an existing group
+    if (group == "") {
+        // the default empty group implies, no grouping is wanted (and
+        // transportable ids are unique)
+        group = person->getID();
+    }
     Reservation* result = nullptr;
     bool added = false;
     auto it = myGroupReservations.find(group);
