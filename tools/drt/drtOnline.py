@@ -37,25 +37,28 @@ import traci
 def initOptions():
     argParser = ArgumentParser()
     
-    argParser.add_argument("-n", "--network", dest="network", help="SUMO network file", metavar="FILE", required=True)
-    argParser.add_argument("-r", "--reservations", dest="reservations", help="File with reservations (persons)", metavar="FILE", required=True)
-    argParser.add_argument("-v", "--taxi", dest="taxis", help="File with drt vehicles (vehicles with taxi device)", metavar="FILE", required=True)
+    argParser.add_argument("-n", "--network", dest="network", help="SUMO network file", metavar="FILE", required=False)
+    argParser.add_argument("-r", "--reservations", help="File with reservations (persons)", metavar="FILE", required=False)
+    argParser.add_argument("-v", "--taxi", dest="taxis", help="File with drt vehicles (vehicles with taxi device)", metavar="FILE", required=False)
+    argParser.add_argument("-c", dest="sumocfg", help="Sumo configuration file", metavar="FILE", required=False)
+    argParser.add_argument("-s", dest="sumo", help="Run with sumo or sumo-gui (default: sumo)", default="sumo", required=False)
     argParser.add_argument("-g", dest="gui_settings", help="Load visualization settings from FILE", metavar="FILE", required=False)
     argParser.add_argument("-o", dest="output", help="Name of output file", default='tripinfo.xml', required=False)
     argParser.add_argument("--rtv", dest="rtv_algorithm", help="Method to search for possible routes (rtv). Available: 0: exhaustive search, 1: simple, 2: simple_rerouting", default='0', required=False)
-    argParser.add_argument("--rtv_time", dest="rtv_time", help="Maximal time for exhaustive search (default 5 seconds)", default=5, required=False)
+    argParser.add_argument("--rtv-time", help="Timeout for exhaustive search (default 5 seconds)", type=float, default=5, required=False)
+    argParser.add_argument("--ilp-time", help="Timeout for ILP solver (default 5 seconds)", type=float, default=5, required=False)
     
-    argParser.add_argument("--c_ko", dest="c_ko", help="cost of ignoring a request", type=float, default=1000000000000, required=False)
-    argParser.add_argument("--cost_per_trip", dest="cost_per_trip", help="avoid using multiple vehicles if trip time is similar", type=float, default=600, required=False)
+    argParser.add_argument("--c-ko", help="Cost of ignoring a request", type=int, default=1000000000000, required=False)
+    argParser.add_argument("--cost-per-trip", help="Cost to avoid using multiple vehicles if trip time is similar (default 600 seconds)", type=int, default=600, required=False)
 
-    argParser.add_argument("--debug", help="get all info steps", action='store_true')
+    argParser.add_argument("--debug", action='store_true')
     
-    argParser.add_argument("--drf", dest="drf", help="direct route factor", type=int, default=2, required=False)
-    argParser.add_argument("--drf_min", dest="drf_min", help="minimum time for cases with short trips", type=int, default=600, required=False)
-    argParser.add_argument("--max_wait", dest="max_wait", help="maximum waiting time for pickup", type=int, default=900, required=False)
-    argParser.add_argument("--max_diff", dest="max_diff", help="maximum difference with assigned time", type=int, default=300, required=False)
-    argParser.add_argument("--veh_wait", dest="veh_wait", help="maximum waiting time for passenger in the vehicle", type=int, default=180, required=False)
-    argParser.add_argument("--sim_step", dest="sim_step", help="time window for request collection", type=int, default=30, required=False)
+    argParser.add_argument("--drf", dest="drf", help="Direct Route Factor", type=int, default=2, required=False)
+    argParser.add_argument("--drf-min", help="Minimum time for cases with short trips", type=int, default=600, required=False)
+    argParser.add_argument("--max-wait", help="Maximum waiting time for pickup", type=int, default=900, required=False)
+    argParser.add_argument("--max-diff", help="Maximum difference with assigned time", type=int, default=300, required=False)
+    argParser.add_argument("--veh-wait", help="Maximum waiting time for passenger in the vehicle", type=int, default=180, required=False)
+    argParser.add_argument("--sim-step", help="Time window for request collection", type=int, default=30, required=False)
 
     return argParser
 
@@ -205,30 +208,14 @@ def rr_pair(req1, req2, v_type, rv_dict):
             pair = '%sz_%sy' % (req2.id, req1.id) # 2d1p
             rv_dict[pair] = [tt_2d1p, 1, [req2.id, req1.id]]
 
-def get_rv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step, r_id_rejected):
-    # remove requests, that have been served in the last step - 
-    # Avoid calculating unfeasible pairs
-    for x_id in r_id_served:
-        x = r_all[x_id]
-        x.served = True
-        for key in list(rv_dict):
-            if x_id in rv_dict[key][2]:
-                rv_dict.pop(key)
-
-    r_remove = []
-    pu_remove = []
+def get_rv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step):
+    r_rv_remove = []
+    r_all_remove = []
     for x_id, x in r_all.items():
+        if x_id in r_id_new:
+            # if reservation is new
 
-        if x.rejected or x.served:
-            # if reservation has been served or rejected
-            continue
-        
-        elif x_id in r_id_new:
-            #if reservation is new
-            # add direct route pair
-            route_id = '%sy_%sz' % (x_id, x_id) # y: pickup / z: drop off
-            rv_dict[route_id] = [x.direct+60, -1, [x_id, x_id]] # TODO default stop time ticket #6714
-
+            r_possible = False # check if request can be serve for a vehicle on time
             # add vehicle-request pairs
             for v_id in fleet:
                 # calculate travel time to pickup
@@ -237,10 +224,25 @@ def get_rv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, rv
                     # if vehicle on time, add to rv graph
                     route_id = '%s_%sy' % (v_id, x_id)
                     rv_dict[route_id] = [pickup_time+60, 1, [v_id, x_id]] # TODO default stop time ticket #6714
+                    r_possible = True
+            
+            if not r_possible:
+                # reject request and remove person from simulation
+                # TODO no rejection option should be implemented in future
+                print("Reservation %s cannot be served" % x_id)
+                r_all_remove.append(x_id)
+                r_rv_remove.extend(['%sy' %x_id, '%sz' %x_id])
+                for person in x.persons:
+                   traci.person.removeStages(person)
+                continue
+
+            # add direct route pair
+            route_id = '%sy_%sz' % (x_id, x_id) # y: pickup / z: drop off
+            rv_dict[route_id] = [x.direct+60, -1, [x_id, x_id]] # TODO default stop time ticket #6714
 
             # add request-request pairs only with:
-            second_requests = list(set(r_all.keys()) ^ set(r_id_served))
-            for req2 in second_requests:
+            requests2 = set(r_all.keys()) ^ set(r_all_remove)
+            for req2 in requests2:
                 if req2 == x_id:
                     continue
                 rr_pair(x, r_all.get(req2), v_type, rv_dict) # search possible pairs and add to rv
@@ -250,12 +252,12 @@ def get_rv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, rv
             # check if pick-up still possible
             if x.tw_pickup[1] < step:
                 # pickup time window surpass simulation time -> reject request
-                # TODO persons stay in simulation, how can they be deleted?
-                # TODO no rejection option should be implement in future
-                x.rejected = True
-                r_id_rejected.append(x_id)
-                r_remove.append(x_id)
-                print("reservation %s cannot be served" % x_id)
+                # TODO no rejection option should be implemented in future
+                print("Reservation %s cannot be served" % x_id)
+                r_all_remove.append(x_id)
+                r_rv_remove.extend(['%sy' %x_id, '%sz' %x_id])
+                for person in x.persons:
+                    traci.person.removeStages(person)
                 continue
             
             remove = True
@@ -273,43 +275,40 @@ def get_rv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, rv
                         # remove pair if pick-up not possible
                         rv_dict.pop(route_id)
             if remove:
-                # if no vehicle available for pick-up on time
-                x.rejected = True
-                r_remove.append(x_id)
-                r_id_rejected.append(x_id)
-                print("reservation %s cannot be served" % x_id)
+                # if no vehicle available for pick-up on time -> reject request
+                print("Reservation %s cannot be served" % x_id)
+                r_all_remove.append(x_id)
+                r_rv_remove.extend(['%sy' %x_id, '%sz' %x_id])
+                for person in x.persons:
+                    traci.person.removeStages(person)
 
         elif x_id not in r_id_picked:
             # if reservation assigned but not picked up
             route_id = '%s_%sy' % (x.vehicle, x_id)
             if rv_dict.get(route_id, False):
-                # calculate travel time to pickup
+                # update travel time to pickup
                 pickup_time = int(traci.simulation.findRoute(traci.vehicle.getRoadID(x.vehicle), x.fromEdge, v_type, routingMode=0).travelTime)               
-                rv_dict[route_id][0] = pickup_time+60
-                if step+pickup_time > x.tw_pickup[1]:
-                    print("time window should not be surpass")
+                rv_dict[route_id][0] = pickup_time+60 # TODO default stop time ticket #6714
+                if options.debug and step+pickup_time > x.tw_pickup[1]: # Debug only
+                    print("Time window surpassed by", step+pickup_time - x.tw_pickup[1])
         
         elif x_id in r_id_picked:
-            # if reservation picked up, delete pair with stop and add v-r drop-off
-            pu_remove.append('%sy' % x_id)
-            # add vehicle-request pairs
-            # calculate travel time to drop off
+            # if reservation picked up, delete pick-up pair
+            r_rv_remove.append('%sy' % x_id)
+            # update travel time to drop off
             dropoff_time = int(traci.simulation.findRoute(traci.vehicle.getRoadID(x.vehicle), x.toEdge, v_type, routingMode=0).travelTime)
             route_id = '%s_%sz' % (x.vehicle, x_id)
             rv_dict[route_id] = [dropoff_time+60, -1, [x.vehicle, x_id]] # TODO default stop time ticket #6714
         else:
-            print("Attribute state not considered")
+            print("Error: Reservation state not considered")
 
     # remove rejected, served and picked up reservations from rv graph
-    for key in list(rv_dict):
-        if set(rv_dict[key][2]) & set(r_remove):
-            rv_dict.pop(key)
-        else:
-            stops = key.split("_")
-            if set(pu_remove) & set(stops):
-                rv_dict.pop(key)
-    
-    return r_id_rejected
+    if r_rv_remove:
+        [rv_dict.pop(key) for key in list(rv_dict) if set(r_rv_remove) & set(key.split("_"))]
+
+    # remove rejected reservations from r_all
+    if r_all_remove:
+        [r_all.pop(key) for key in r_all_remove]
 
 def ilp_solve(options, v_num, r_num, costs, vehicle_constraints, request_constraints):
     # founds the combination of trips that minimize the costs function
@@ -349,7 +348,7 @@ def ilp_solve(options, v_num, r_num, costs, vehicle_constraints, request_constra
     prob.writeLP("DRT_ilp.txt") # TODO write as temporary
 
     # The problem is solved using PuLP's Solver choice
-    prob.solve(PULP_CBC_CMD(msg=0))
+    prob.solve(PULP_CBC_CMD(msg=0, timeLimit= options.ilp_time))
 
     if LpStatus[prob.status] != 'Optimal':
         sys.exit("No optimal solution could be found. Return value: %s" % LpStatus[prob.status])
@@ -372,26 +371,29 @@ def main():
     memory_problems = [0]
 
     # start traci
-    run_traci = ['sumo-gui', '--net-file', '%s' %options.network, '-r', 
-    '%s,%s' % (options.reservations, options.taxis), '-l', 'log.txt',
-    '--device.taxi.dispatch-algorithm', 'traci',
-    '--tripinfo-output', '%s' %options.output, '--tripinfo-output.write-unfinished']
-    if options.gui_settings:
-        run_traci.extend(['-g', '%s' %options.gui_settings])
+    if options.sumocfg:
+        run_traci = [options.sumo, "-c", options.sumocfg]
+    else:
+        run_traci = [options.sumo, '--net-file', '%s' %options.network, '-r', 
+        '%s,%s' % (options.reservations, options.taxis), '-l', 'log.txt',
+        '--device.taxi.dispatch-algorithm', 'traci',
+        '--tripinfo-output', '%s' %options.output, '--tripinfo-output.write-unfinished']
+        if options.gui_settings:
+            run_traci.extend(['-g', '%s' %options.gui_settings])            
 
     traci.start(run_traci)
 
     # execute the TraCI control loop
-    step = 10
-    r_id_rejected = []
+    step = traci.simulation.getTime() + 10
+    v_type = None
     rerouting = True
     while rerouting:
         traci.simulationStep(step)
 
-        # get fleet and vType for route calculation 
-        # only fleets with one vType are considered
-        fleet = traci.vehicle.getTaxiFleet(-1)
-        v_type = traci.vehicle.getTypeID(fleet[0])
+        # get vType for route calculation
+        if not v_type:
+            fleet = traci.vehicle.getTaxiFleet(-1)
+            v_type = traci.vehicle.getTypeID(fleet[0])
 
         # get new reservations
         r_id_new = []
@@ -410,47 +412,50 @@ def main():
                 setattr(x, 'tw_dropoff', [x.tw_pickup[0]+direct, x.tw_pickup[1]+direct+options.drf_min])
             else:
                 setattr(x, 'tw_dropoff', [x.tw_pickup[0]+direct, x.tw_pickup[1]+direct*options.drf])
-            setattr(x, 'served', False) # if reservation served
-            setattr(x, 'rejected', False) # if reservation rejected
             
             # add id to new reservations
             r_id_new.append(x.id)
             # add reservation to list
             r_all[x.id] = x
 
-        # TODO why not use all id list as set instead?
-        # reservations already served
-        r_id_current = set(r_all.keys()) & set(traci.person.getIDList()) #TODO work around for ticket #8168
-        r_id_current = list(r_id_current - set(r_id_rejected))
-        r_id_served = list(set(r_all.keys()) - set(r_id_current)) #TODO work around for ticket #8168
-        
-        
         # unassigned reservations
-        r_id_unassigned = [x.id for x_id, x in r_all.items() if not x.vehicle and not x.rejected]
+        r_id_unassigned = [x.id for x_id, x in r_all.items() if not x.vehicle]
         
-        # reservations already picked up
-        r_id_picked = []
-        for v in fleet: #TODO work around for ticket #8168
-            if traci.vehicle.getPersonIDList(v):
-                r_id_picked.extend(traci.vehicle.getPersonIDList(v))
-
         # if reservations pending
         if r_id_unassigned:
             if options.debug:
                 print('\nRun dispatcher')
                 if r_id_new:
                     print('New reservations: ', r_id_new)
-                print('Unassigned reservations: ', (set(r_id_unassigned)-set(r_id_new)))
+                print('Unassigned reservations: ', list(set(r_id_unassigned)-set(r_id_new)))
+            
+            # remove reservations already served
+            r_id_current = [x.id for x in traci.person.getTaxiReservations(0)]
+            r_id_served = list(set(r_all.keys()) - set(r_id_current))
+            [r_all.pop(key) for key in r_id_served]
+            [rv_dict.pop(key) for key in list(rv_dict) if set(r_id_served) & set(rv_dict[key][2])]
+
+            # reservations already picked up
+            r_id_picked = [x.id for x in traci.person.getTaxiReservations(8)]
+
+            # get fleet 
+            fleet = traci.vehicle.getTaxiFleet(-1)
+
             # search request-vehicles pairs
-            get_rv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step, r_id_rejected)
+            if options.debug:
+                print('Calculate RV-Graph')
+            get_rv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step)
             
             # search trips (rtv graph)
             # TODO define/import algorithm before to avoid checking each time
             # Maybe a list with the function as element and get the element (0, 1, 2)
+            
+            if options.debug:
+                print('Calculate RTV-Graph')
             if options.rtv_algorithm == '0':
-                rtv_dict, r_id_rtv, memory_problems = rtvAlgorithm.exhaustive_search(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step, memory_problems)
+                rtv_dict, r_id_rtv, memory_problems = rtvAlgorithm.exhaustive_search(options, r_id_unassigned, r_id_picked, r_all, fleet, v_type, rv_dict, step, memory_problems)
             elif options.rtv_algorithm == '1':
-                rtv_dict, r_id_rtv = rtvAlgorithm.simple(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step, r_id_rejected)
+                rtv_dict, r_id_rtv = rtvAlgorithm.simple(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step)
             elif options.rtv_algorithm == '2':
                 rtv_dict, r_id_rtv = rtvAlgorithm.simple_rerouting(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step)
             #rtv_dict, r_id_rtv = get_rtv(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step)
@@ -479,6 +484,9 @@ def main():
                     vehicle_constraints.update({idx: rtv_dict[trip_id][1]})  # generate dict with vehicle used in the trip
                     request_constraints.update({idx: rtv_dict[trip_id][2]})  # generate dict with served requests in the trip
                 
+                
+                if options.debug:
+                    print('Solve ILP')
                 ilp_result = ilp_solve(options, len(fleet), len(r_id_rtv), costs, vehicle_constraints, request_constraints)
                 
                 # parse ILP result
@@ -490,8 +498,12 @@ def main():
                 stops = stops.replace('z', '')
                 stops = stops.split("_")
                 # first check if route different or better (when no optimal solution) than already assigned
-                try:
-                    current_route = [taxi_stops.actType.split(" ")[1] for taxi_stops in traci.vehicle.getStops(stops[0])]
+                current_route = []
+                try: # get current route
+                    for taxi_stop in traci.vehicle.getStops(stops[0]):
+                        sub_stops = taxi_stop.actType.split(",") # if more than 1 reservation in stop
+                        for sub_stop in sub_stops:
+                            current_route.append(sub_stop.split(" ")[2][1:-1])
                 except:
                     current_route = ['None']
                 if current_route == stops[1:]:
@@ -500,7 +512,7 @@ def main():
                 elif set(current_route) == set(stops[1:]) and len(current_route) == len(stops[1:]):
                     # if route serve same request, check if new is faster
                     tt_current_route = 0
-                    edges = [taxi_stops.lane.split("_")[0] for taxi_stops in traci.vehicle.getStops(stops[0])]
+                    edges = [taxi_stops.lane.split("_")[0] for taxi_stops in traci.vehicle.getStops(stops[0])] #TODO check next_act update
                     edges.insert(0, traci.vehicle.getLaneID(stops[0]).split("_")[0]) # add current edge
                     for idx, edge in enumerate(edges[:-1]):
                         tt_current_route += int(traci.simulation.findRoute(edge, edges[idx+1], v_type, step, routingMode=0).travelTime) + 60 # TODO default stop time ticket #6714
@@ -516,14 +528,8 @@ def main():
                 for x_id in set(stops[1:]):
                     x = r_all[x_id]
                     x.vehicle = stops[0]
-
-        # remove rejected: #TODO ticket #8305
-            # for x_id in r_id_rejected:
-            #     traci.person.removeStages(x_id)
-            #     step += options.sim_step
         
-        check_rejected = [x.id for x_id, x in r_all.items() if x.rejected]
-        if not traci.simulation.getMinExpectedNumber() > 0 and set(traci.person.getIDList()) == set(check_rejected) and not r_id_unassigned:
+        if not traci.simulation.getMinExpectedNumber() > 0 and not traci.person.getIDList():
             rerouting = False
             
         step += options.sim_step

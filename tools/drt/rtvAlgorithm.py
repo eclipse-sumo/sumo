@@ -35,7 +35,7 @@ else:
 
 import traci
 
-def simple(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step, r_id_rejected):
+def simple(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step):
     # search possible routes only for vehicles without route
     # the route search is approximate with an modifcated ec
     # simple algorithm
@@ -55,7 +55,7 @@ def simple(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_t
             # search possible pairs to consider
             pairs = [x_id for x_id, x in sorted(rv_dict.items(), key=lambda e: e[1][0]) if set(r_id_unassigned) & set(x[2])]
             # get first pair with faster route
-            first_pairs = [x for x in pairs if x.startswith(v_id)]
+            first_pairs = [x for x in pairs if x.split("_")[0] == v_id]
             for first_pair in first_pairs:
                 # search all possible routes ids starting with this
                 route = first_pair
@@ -65,7 +65,7 @@ def simple(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_t
                         if len(route.split("_"))-1 >= 2*len(r_id_unassigned):
                             break # no more stops possible
 
-                        if not pair.startswith(route.split("_")[-1]):
+                        if pair.split("_")[0] != route.split("_")[-1]:
                             continue # if pairs are not compatible
 
                         route_new = ("_").join([route, pair.split("_")[-1]])
@@ -158,7 +158,6 @@ def simple_rerouting(options, r_id_unassigned, r_id_picked, r_id_served, r_all, 
         
         # search possible pairs to consider
         assigned_v = [x_id for x_id, x in r_all.items() if x.vehicle == v_id] # add assigned to vehicle
-        assigned_v = list(set(assigned_v) - set(r_id_served)) # remove already served
         picked_v = list(set(assigned_v) & set(r_id_picked)) # add picked up by vehicle
 
         filter_pairs = r_id_unassigned.copy() # add unassigned
@@ -172,21 +171,25 @@ def simple_rerouting(options, r_id_unassigned, r_id_picked, r_id_served, r_all, 
             # if requests assigned, changes only possible after second stops to avoid detours
             # a better way for allow small detours should be consider. TODO for example:
             # tt 1 2 equivalent to tt 3 1 2, if so, add key to first pairs
-            next_act = traci.vehicle.getStops(v_id, 1)[0]
-            if next_act.arrival > 0: # if stop is occurring in this step
-                next_act = traci.vehicle.getStops(v_id, 2)[1].actType.split(",")
-            else:
-                next_act = next_act.actType.split(",")
-            next_id = []
-            for s in next_act:
-                if 'pickup' in s:
-                    next_id.append('%sy' % s.split(" ")[1])
+            for next_stop in traci.vehicle.getStops(v_id):
+                next_act = next_stop.actType.split(",")[0].split(" ")[0]
+                next_id = next_stop.actType.split(",")[0].split(" ")[-1][1:-1]
+                if next_act == 'pickup' and next_id in r_id_picked:
+                    # person already picked up, consider next stop
+                    continue
+                elif next_act == 'dropOff' and next_id not in r_all.keys():
+                    # person already dropped off, consider next stop
+                    continue
                 else:
-                    next_id.append('%sz' % s.split(" ")[1])
-            first_pairs = ["%s_%s" % (v_id, "_".join(next_id))]
+                    # next stop valid
+                    if next_act == 'pickup':
+                        first_pairs = ["%s_%sy" % (v_id, next_id)]
+                    else:
+                        first_pairs = ["%s_%sz" % (v_id, next_id)]
+                    break
         else:
             # if not, consider all possible
-            first_pairs = [x for x in pairs if x.startswith(v_id)]
+            first_pairs = [x for x in pairs if x.split("_")[0] == v_id]
 
         for first_pair in first_pairs:
             # search all possible routes ids starting with this
@@ -194,7 +197,7 @@ def simple_rerouting(options, r_id_unassigned, r_id_picked, r_id_served, r_all, 
             i = 1
             while i <= (len(filter_pairs)-1)*2 and len(route.split("_"))-1 < (len(filter_pairs)-1)*2:
                 for pair in pairs:
-                    if not pair.startswith(route.split("_")[-1]):
+                    if pair.split("_")[0] != route.split("_")[-1]:
                         continue # if pairs are not compatible
 
                     route_new = ("_").join([route, pair.split("_")[-1]])
@@ -233,11 +236,9 @@ def simple_rerouting(options, r_id_unassigned, r_id_picked, r_id_served, r_all, 
                         first_pair = ("_").join(first_pair.split("_")[:2]) # consider only one time
                         route_tw = rv_dict[first_pair][0]+step + rv_dict[pair][0] # travel time
                     else:
-                        try:
-                            pax = route_id[route][1] + rv_dict[pair][1] # num passenger
-                            route_tw = route_id[route][0] + rv_dict[pair][0] # travel time
-                        except:
-                            print("Check")
+                        pax = route_id[route][1] + rv_dict[pair][1] # num passenger
+                        route_tw = route_id[route][0] + rv_dict[pair][0] # travel time
+
                     # check capacity
                     if pax > v_capacity:
                         continue # capacity surpass
@@ -288,11 +289,14 @@ def simple_rerouting(options, r_id_unassigned, r_id_picked, r_id_served, r_all, 
     
     return rtv_dict, r_id_rtv
 
-def search_routes(route, pairs, assigned_v, picked_v, r_all, rv_dict, r_id_rtv, v_capacity, v_bin, rtv_dict, routes_tree, options):
+def search_routes(route, pairs, assigned_v, picked_v, r_all, rv_dict, r_id_rtv, v_capacity, v_bin, rtv_dict, routes_tree, options, start_time):
     # route means [route_id, route_tw, route_pax]
     route_id, route_tw, route_pax = route
     for pair in pairs:
-        if not pair.startswith(route_id.split("_")[-1]):
+        if (time.perf_counter() - start_time) > options.rtv_time:
+            # limit route search time
+            break
+        if pair.split("_")[0] != route_id.split("_")[-1]:
             continue # if pairs are not compatible
 
         newroute_id = ("_").join([route_id, pair.split("_")[-1]])
@@ -366,13 +370,12 @@ def search_routes(route, pairs, assigned_v, picked_v, r_all, rv_dict, r_id_rtv, 
             
     return routes_tree, rtv_dict
 
-def exhaustive_search(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step, memory_problems):
+def exhaustive_search(options, r_id_unassigned, r_id_picked, r_all, fleet, v_type, rv_dict, step, memory_problems):
     # search possible routes
     # exhaustive search
     rtv_dict = {}
-    # list with all not served requests needed for r_bin for ILP
+    # list with all requests needed for r_bin for ILP
     r_id_rtv = list(r_all.keys())
-    r_id_rtv = list(set(r_id_rtv) - set(r_id_served))
     # TODO allow checking for vehicles with same characteristics and copy the 
     # rtv for them. To be the same -> no route assigned, same position and same capacity
     for v_id in fleet:
@@ -382,7 +385,6 @@ def exhaustive_search(options, r_id_unassigned, r_id_picked, r_id_served, r_all,
         
         # search possible pairs to consider
         assigned_v = [x_id for x_id, x in r_all.items() if x.vehicle == v_id] # add assigned to vehicle
-        assigned_v = list(set(assigned_v) - set(r_id_served)) # remove already served
         picked_v = list(set(assigned_v) & set(r_id_picked)) # add picked up by vehicle
 
         filter_pairs = r_id_unassigned.copy() # add unassigned
@@ -398,28 +400,34 @@ def exhaustive_search(options, r_id_unassigned, r_id_picked, r_id_served, r_all,
             # if requests assigned, changes only possible after second stops to avoid detours
             # a better way for allow small detours should be consider. TODO for example:
             # tt 1 2 equivalent to tt 3 1 2, if so, add key to first pairs
-            next_act = traci.vehicle.getStops(v_id, 1)[0]
-            if next_act.arrival > 0: # if stop is occurring in this step
-                next_act, next_id = traci.vehicle.getStops(v_id, 2)[1].actType.split(",")[0].split(" ")
-            else:
-                next_act, next_id = next_act.actType.split(",")[0].split(" ")
-            if next_act == 'pickup':
-                next_act = 'y'
-            else:
-                next_act = 'z'
-            route_id = "%s_%s%s" % (v_id, next_id,next_act)
-            route_tw = rv_dict[route_id][0]
-            routes_tree[i] = [[route_id, route_tw+step, 1]]
-        else:
-            # if not, consider all possible
-            routes_tree[i] = [[x, rv_dict[x][0]+step, 1] for x in pairs if x.startswith(v_id)]
+            for next_stop in traci.vehicle.getStops(v_id):
+                next_act = next_stop.actType.split(",")[0].split(" ")[0]
+                next_id = next_stop.actType.split(",")[0].split(" ")[-1][1:-1]
+                if next_act == 'pickup' and next_id in r_id_picked:
+                    # person already picked up, consider next stop
+                    continue
+                elif next_act == 'dropOff' and next_id not in r_all.keys():
+                    # person already dropped off, consider next stop
+                    continue
+                else:
+                    # next stop valid
+                    if next_act == 'pickup':
+                        route_id = "%s_%sy" % (v_id, next_id)
+                    else:
+                        route_id = "%s_%sz" % (v_id, next_id)
+                    route_tw = rv_dict.get(route_id, False)[0]
+                    routes_tree[i] = [[route_id, route_tw+step, 1]]
+                    break
+        if not routes_tree[i]:
+            # if vehicle not assigned or no valid stop found, consider all possible
+            routes_tree[i] = [[x, rv_dict[x][0]+step, 1] for x in pairs if x.split("_")[0] == v_id]
         
         start_time = time.perf_counter()
         while routes_tree[i]:
             # exhaustive search
             routes_tree.append([])
             for route in routes_tree[i]:
-                routes_tree[i + 1], rtv_dict = search_routes(route, pairs, assigned_v, picked_v, r_all, rv_dict, r_id_rtv, v_capacity, v_bin, rtv_dict, routes_tree[i + 1], options)
+                routes_tree[i + 1], rtv_dict = search_routes(route, pairs, assigned_v, picked_v, r_all, rv_dict, r_id_rtv, v_capacity, v_bin, rtv_dict, routes_tree[i + 1], options, start_time)
                 if (time.perf_counter() - start_time) > options.rtv_time:
                     memory_problems.append(1)
                     break
