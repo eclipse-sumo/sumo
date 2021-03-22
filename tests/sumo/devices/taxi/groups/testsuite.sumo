@@ -18,3 +18,6 @@
 
 # 5 persons wish to share a taxi but maximum personCapacity is 4
 5persons_small_taxi
+
+# 5 persons that do not want to share a taxi
+5persons_ungrouped
