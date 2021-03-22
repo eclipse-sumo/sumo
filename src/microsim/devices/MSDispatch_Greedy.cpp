@@ -26,11 +26,9 @@
 #include "MSRoutingEngine.h"
 #include "MSDispatch_GreedyShared.h"
 
-//#define DEBUG_RESERVATION
 //#define DEBUG_DISPATCH
 //#define DEBUG_SERVABLE
 //#define DEBUG_TRAVELTIME
-//#define DEBUG_DETOUR
 //#define DEBUG_COND2(obj) (obj->getID() == "p0")
 #define DEBUG_COND2(obj) (true)
 
