@@ -227,7 +227,7 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
         myVehicle->addTransportable(transportable);
         net->getInsertionControl().add(myVehicle);
         myWaitingEdge->removeWaiting(myVehicle);
-        net->getVehicleControl().unregisterOneWaiting(true);
+        net->getVehicleControl().unregisterOneWaiting();
     } else {
         if (isPerson) {
             net->getPersonControl().addWaiting(myWaitingEdge, transportable);

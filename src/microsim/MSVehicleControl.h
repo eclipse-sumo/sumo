@@ -286,7 +286,7 @@ public:
      * @return Number of active vehicles
      */
     int getActiveVehicleCount() const {
-        return myLoadedVehNo - (myWaitingForPerson + myWaitingForContainer + myEndedVehNo);
+        return myLoadedVehNo - (myWaitingForTransportable + myEndedVehNo);
     }
 
 
@@ -426,22 +426,14 @@ public:
 
     /** @brief increases the count of vehicles waiting for a transport to allow recognition of person / container related deadlocks
      */
-    void registerOneWaiting(const bool isPerson) {
-        if (isPerson) {
-            myWaitingForPerson++;
-        } else {
-            myWaitingForContainer++;
-        }
+    void registerOneWaiting() {
+        myWaitingForTransportable++;
     }
 
     /** @brief decreases the count of vehicles waiting for a transport to allow recognition of person / container related deadlocks
      */
-    void unregisterOneWaiting(const bool isPerson) {
-        if (isPerson) {
-            myWaitingForPerson--;
-        } else {
-            myWaitingForContainer--;
-        }
+    void unregisterOneWaiting() {
+        myWaitingForTransportable--;
     }
 
     /// @brief registers one collision-related teleport
@@ -628,11 +620,8 @@ private:
     /// @brief Whether the default taxi type was already used or can still be replaced
     bool myDefaultTaxiTypeMayBeDeleted;
 
-    /// the number of vehicles wainting for persons contained in myWaiting which can only continue by being triggered
-    int myWaitingForPerson;
-
-    /// the number of vehicles wainting for containers contained in myWaiting which can only continue by being triggered
-    int myWaitingForContainer;
+    /// the number of vehicles wainting for persons or containers contained in myWaiting which can only continue by being triggered
+    int myWaitingForTransportable;
 
     /// @brief The scaling factor (especially for inc-dua)
     double myScale;

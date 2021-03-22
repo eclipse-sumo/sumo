@@ -62,8 +62,7 @@ MSVehicleControl::MSVehicleControl() :
     myDefaultContainerTypeMayBeDeleted(true),
     myDefaultBikeTypeMayBeDeleted(true),
     myDefaultTaxiTypeMayBeDeleted(true),
-    myWaitingForPerson(0),
-    myWaitingForContainer(0),
+    myWaitingForTransportable(0),
     myMaxSpeedFactor(1),
     myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)),
     myPendingRemovals(MSGlobals::gNumSimThreads > 1) {
@@ -277,7 +276,7 @@ MSVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) {
                 static_cast<MSVehicle*>(v)->setTentativeLaneAndPosition(firstEdge->getLanes()[0], v->getParameter().departPos);
             }
             firstEdge->addWaiting(v);
-            registerOneWaiting(pars.departProcedure == DEPART_TRIGGERED);
+            registerOneWaiting();
         }
         if (v->getVClass() != SVC_TAXI && pars.line != "" && pars.repetitionNumber < 0) {
             myPTVehicles.push_back(v);

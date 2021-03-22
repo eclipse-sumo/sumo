@@ -1567,7 +1567,9 @@ MSVehicle::processNextStop(double currentVelocity) {
                     stop.triggered = false;
                 }
                 // we can only register after waiting for one step. otherwise we might falsely signal a deadlock
-                MSNet::getInstance()->getVehicleControl().registerOneWaiting(true);
+                if (!myAmRegisteredAsWaitingForContainer) {
+                    MSNet::getInstance()->getVehicleControl().registerOneWaiting();
+                }
                 myAmRegisteredAsWaitingForPerson = true;
 #ifdef DEBUG_STOPS
                 if (DEBUG_COND) {
@@ -1581,7 +1583,9 @@ MSVehicle::processNextStop(double currentVelocity) {
                     stop.containerTriggered = false;
                 }
                 // we can only register after waiting for one step. otherwise we might falsely signal a deadlock
-                MSNet::getInstance()->getVehicleControl().registerOneWaiting(false);
+                if (!myAmRegisteredAsWaitingForPerson) {
+                    MSNet::getInstance()->getVehicleControl().registerOneWaiting();
+                }
                 myAmRegisteredAsWaitingForContainer = true;
 #ifdef DEBUG_STOPS
                 if (DEBUG_COND) {
@@ -1704,7 +1708,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                     } else {
                         MSNet::getInstance()->getInsertionControl().add(splitVeh);
                         splitVeh->getRoute().getEdges()[0]->removeWaiting(splitVeh);
-                        MSNet::getInstance()->getVehicleControl().unregisterOneWaiting(false);
+                        MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
                         const double newLength = MAX2(myType->getLength() - splitVeh->getVehicleType().getLength(),
                                                       myType->getParameter().locomotiveLength);
                         getSingularType().setLength(newLength);
@@ -1734,35 +1738,39 @@ MSVehicle::boardTransportables(MSStop& stop) {
                          && net->hasContainers()
                          && net->getContainerControl().loadAnyWaiting(&myLane->getEdge(), this, stop.pars, stop.timeToLoadNextContainer, stop.duration)
                          && stop.numExpectedContainer == 0);
+
+    bool unregister = false;
     if (time > stop.endBoarding) {
         stop.triggered = false;
         stop.containerTriggered = false;
+        if (myAmRegisteredAsWaitingForPerson || myAmRegisteredAsWaitingForContainer) {
+            unregister = true;
+        }
     }
     if (boarded) {
         // the triggering condition has been fulfilled. Maybe we want to wait a bit longer for additional riders (car pooling)
-        stop.triggered = false;
-        if (myAmRegisteredAsWaitingForPerson) {
-            MSNet::getInstance()->getVehicleControl().unregisterOneWaiting(true);
-            myAmRegisteredAsWaitingForPerson = false;
-#ifdef DEBUG_STOPS
-            if (DEBUG_COND) {
-                std::cout << SIMTIME << " vehicle '" << getID() << "' unregisters as waiting for person." << std::endl;
-            }
-#endif
+        if (myAmRegisteredAsWaitingForPerson && !myAmRegisteredAsWaitingForContainer) {
+            unregister = true;
         }
+        stop.triggered = false;
+        myAmRegisteredAsWaitingForPerson = false;
     }
     if (loaded) {
         // the triggering condition has been fulfilled
-        stop.containerTriggered = false;
-        if (myAmRegisteredAsWaitingForContainer) {
-            MSNet::getInstance()->getVehicleControl().unregisterOneWaiting(false);
-            myAmRegisteredAsWaitingForContainer = false;
-#ifdef DEBUG_STOPS
-            if (DEBUG_COND) {
-                std::cout << SIMTIME << " vehicle '" << getID() << "' unregisters as waiting for container." << std::endl;
-            }
-#endif
+        if (myAmRegisteredAsWaitingForContainer && !myAmRegisteredAsWaitingForPerson) {
+            unregister = true;
         }
+        stop.containerTriggered = false;
+        myAmRegisteredAsWaitingForContainer = false;
+    }
+
+    if (unregister) {
+        MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
+#ifdef DEBUG_STOPS
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " vehicle '" << getID() << "' unregisters as waiting for transportable." << std::endl;
+        }
+#endif
     }
 }
 
@@ -6135,11 +6143,11 @@ bool
 MSVehicle::resumeFromStopping() {
     if (isStopped()) {
         if (myAmRegisteredAsWaitingForPerson) {
-            MSNet::getInstance()->getVehicleControl().unregisterOneWaiting(true);
+            MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
             myAmRegisteredAsWaitingForPerson = false;
         }
         if (myAmRegisteredAsWaitingForContainer) {
-            MSNet::getInstance()->getVehicleControl().unregisterOneWaiting(false);
+            MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
             myAmRegisteredAsWaitingForContainer = false;
         }
         // we have waited long enough and fulfilled any passenger-requirements
