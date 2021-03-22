@@ -260,10 +260,14 @@ GNERoute::updateGeometry() {
 
 void
 GNERoute::computePath() {
-/*
-    // calculate consecutive path using parent edges
-    calculateConsecutivePathLanes(getVClass(), true, getParentEdges());
-*/
+    // extract lanes from parent edges
+    std::vector<GNELane*> lanes;
+    for (const auto &edge : getParentEdges()) {
+        lanes.push_back(edge->getLanes().front());
+    }
+    lanes.push_back(getLastAllowedVehicleLane());
+    // calculate path
+    myNet->getPathManager()->calculatePath(this, SVC_IGNORING, true, lanes);
     // update geometry
     updateGeometry();
 }

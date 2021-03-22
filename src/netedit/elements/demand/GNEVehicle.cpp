@@ -568,14 +568,17 @@ GNEVehicle::updateGeometry() {
 void
 GNEVehicle::computePath() {
     // calculate path (only for flows and trips)
-/*
     if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
-        calculatePathLanes(getVClass(), true,
-                           getFirstAllowedVehicleLane(),
-                           getLastAllowedVehicleLane(),
-                           getViaEdges());
+        // extract lanes from parent edges
+        std::vector<GNELane*> lanes;
+        lanes.push_back(getFirstAllowedVehicleLane());
+        for (int i = 1; i < ((int)getParentEdges().size() - 1); i++) {
+            lanes.push_back(getParentEdges().at(i)->getLaneByAllowedVClass(getVClass()));
+        }
+        lanes.push_back(getLastAllowedVehicleLane());
+        // calculate path
+        myNet->getPathManager()->calculatePath(this, getVClass(), true, lanes);
     }
-*/
     // update geometry
     updateGeometry();
 }

@@ -272,7 +272,7 @@ GNEPathManager::getPathCalculator() {
 
 
 void 
-GNEPathManager::calculatePath(GNEAttributeCarrier* AC, std::vector<GNELane*> lanes) {
+GNEPathManager::calculatePath(GNEAttributeCarrier* AC, SUMOVehicleClass vClass, const bool allowedVClass, std::vector<GNELane*> lanes) {
     // check if AC exist already in myPaths
     if (myPaths.find(AC) != myPaths.end()) {
         // delete segments

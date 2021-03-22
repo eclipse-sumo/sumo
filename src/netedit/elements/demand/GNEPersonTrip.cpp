@@ -270,30 +270,20 @@ GNEPersonTrip::updateGeometry() {
 
 void
 GNEPersonTrip::computePath() {
-/*
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_EDGE) {
-        calculatePathLanes(getVClass(), true,
-                           getFirstAllowedVehicleLane(),
-                           getLastAllowedVehicleLane(),
-                           {});
+        myNet->getPathManager()->calculatePath(this, getVClass(), true,
+            {getFirstAllowedVehicleLane(), getLastAllowedVehicleLane()});
     } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) {
-        calculatePathLanes(getVClass(), true,
-                           getFirstAllowedVehicleLane(),
-                           getParentAdditionals().back()->getParentLanes().front(),
-                           {});
+        myNet->getPathManager()->calculatePath(this, getVClass(), true,
+            {getFirstAllowedVehicleLane(), getParentAdditionals().back()->getParentLanes().front()});
     } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_EDGE) {
-        calculatePathLanes(getVClass(), true,
-                           getParentAdditionals().front()->getParentLanes().front(),
-                           getLastAllowedVehicleLane(),
-                           {});
+        myNet->getPathManager()->calculatePath(this, getVClass(), true,
+            {getParentAdditionals().front()->getParentLanes().front(), getLastAllowedVehicleLane()});
     } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP) {
-        calculatePathLanes(getVClass(), true,
-                           getParentAdditionals().front()->getParentLanes().front(),
-                           getParentAdditionals().back()->getParentLanes().front(),
-                           {});
+        myNet->getPathManager()->calculatePath(this, getVClass(), true,
+            {getParentAdditionals().front()->getParentLanes().front(), getParentAdditionals().back()->getParentLanes().front()});
     }
-*/
     // update geometry
     updateGeometry();
 }

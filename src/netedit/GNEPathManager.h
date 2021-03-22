@@ -78,7 +78,7 @@ public:
     PathCalculator* getPathCalculator();
 
     /// @brief calculate path
-    void calculatePath(GNEAttributeCarrier* AC, std::vector<GNELane*> lanes);
+    void calculatePath(GNEAttributeCarrier* AC, SUMOVehicleClass vClass, const bool allowedVClass, std::vector<GNELane*> lanes);
 
     /// @brief clear segments
     void clearSegments();

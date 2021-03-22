@@ -1047,6 +1047,7 @@ GNELane::invalidatePathElements() {
             additionalElement->updateGeometry();
         }
     }
+/*
     // make a copy of myPathDemandElements
     auto copyOfPathDemandElements = myPathDemandElements;
     for (const auto& tag : copyOfPathDemandElements) {
@@ -1054,6 +1055,7 @@ GNELane::invalidatePathElements() {
             demandElement->invalidatePath();
         }
     }
+*/
     // make a copy of myPathGenericDatas
     auto copyOfPathGenericDatas = myPathGenericDatas;
     for (const auto& tag : copyOfPathGenericDatas) {
