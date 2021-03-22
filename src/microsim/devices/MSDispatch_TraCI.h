@@ -49,9 +49,9 @@ public:
                                 SUMOTime pickupTime,
                                 const MSEdge* from, double fromPos,
                                 const MSEdge* to, double toPos,
-                                const std::string& group,
+                                std::string group,
                                 int maxCapacity,
-                                int maxContainerCapacity);
+                                int maxContainerCapacity) override;
 
     /// @brief remove person from reservation. If the whole reservation is removed, return it's id
     std::string removeReservation(MSTransportable* person,

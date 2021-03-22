@@ -41,7 +41,7 @@ MSDispatch_TraCI::addReservation(MSTransportable* person,
                                  SUMOTime pickupTime,
                                  const MSEdge* from, double fromPos,
                                  const MSEdge* to, double toPos,
-                                 const std::string& group,
+                                 std::string group,
                                  int maxCapacity,
                                  int maxContainerCapacity) {
     Reservation* res = MSDispatch::addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group, maxCapacity, maxContainerCapacity);
