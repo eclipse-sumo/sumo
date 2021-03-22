@@ -308,12 +308,6 @@ GNEPerson::computePath() {
 }
 
 
-void
-GNEPerson::invalidatePath() {
-    // nothing to invalidate
-}
-
-
 Position
 GNEPerson::getPositionInView() const {
     // Position in view depend of first child element

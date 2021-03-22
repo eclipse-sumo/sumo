@@ -140,12 +140,6 @@ GNEVehicleType::computePath() {
 }
 
 
-void
-GNEVehicleType::invalidatePath() {
-    // nothing to invalidate
-}
-
-
 Position
 GNEVehicleType::getPositionInView() const {
     return Position();

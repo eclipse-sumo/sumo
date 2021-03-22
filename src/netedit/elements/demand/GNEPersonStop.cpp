@@ -270,12 +270,6 @@ GNEPersonStop::computePath() {
 }
 
 
-void
-GNEPersonStop::invalidatePath() {
-    // nothing to invalidate
-}
-
-
 Position
 GNEPersonStop::getPositionInView() const {
     // get lane

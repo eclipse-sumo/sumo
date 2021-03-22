@@ -581,22 +581,6 @@ GNEVehicle::computePath() {
 }
 
 
-void
-GNEVehicle::invalidatePath() {
-    // reset path (only for flows and trips)
-/*
-    if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
-        resetPathLanes(getVClass(), true,
-                       getFirstAllowedVehicleLane(),
-                       getLastAllowedVehicleLane(),
-                       getViaEdges());
-    }
-*/
-    // update geometry
-    updateGeometry();
-}
-
-
 Position
 GNEVehicle::getPositionInView() const {
     return myDemandElementGeometry.getShape().front();

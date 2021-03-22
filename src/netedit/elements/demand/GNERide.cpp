@@ -291,37 +291,6 @@ GNERide::computePath() {
 }
 
 
-void
-GNERide::invalidatePath() {
-/*
-    // update lanes depending of walk tag
-    if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_EDGE) {
-        resetPathLanes(getVClass(), false,
-                       getFirstAllowedVehicleLane(),
-                       getLastAllowedVehicleLane(),
-                       {});
-    } else if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_BUSSTOP) {
-        resetPathLanes(getVClass(), false,
-                       getFirstAllowedVehicleLane(),
-                       getParentAdditionals().back()->getParentLanes().front(),
-                       {});
-    } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_EDGE) {
-        resetPathLanes(getVClass(), false,
-                       getParentAdditionals().front()->getParentLanes().front(),
-                       getLastAllowedVehicleLane(),
-                       {});
-    } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_BUSSTOP) {
-        resetPathLanes(getVClass(), false,
-                       getParentAdditionals().front()->getParentLanes().front(),
-                       getParentAdditionals().back()->getParentLanes().front(),
-                       {});
-    }
-*/
-    // update geometry
-    updateGeometry();
-}
-
-
 Position
 GNERide::getPositionInView() const {
     return Position();

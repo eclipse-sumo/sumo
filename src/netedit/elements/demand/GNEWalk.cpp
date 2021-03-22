@@ -327,45 +327,6 @@ GNEWalk::computePath() {
 }
 
 
-void
-GNEWalk::invalidatePath() {
-/*
-    // update lanes depending of walk tag
-    if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_EDGE) {
-        resetPathLanes(getVClass(), true,
-                       getFirstAllowedVehicleLane(),
-                       getLastAllowedVehicleLane(),
-                       {});
-    } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_BUSSTOP) {
-        resetPathLanes(getVClass(), true,
-                       getFirstAllowedVehicleLane(),
-                       getParentAdditionals().back()->getParentLanes().front(),
-                       {});
-    } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_EDGE) {
-        resetPathLanes(getVClass(), true,
-                       getParentAdditionals().front()->getParentLanes().front(),
-                       getLastAllowedVehicleLane(),
-                       {});
-    } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_BUSSTOP) {
-        resetPathLanes(getVClass(), true,
-                       getParentAdditionals().front()->getParentLanes().front(),
-                       getParentAdditionals().back()->getParentLanes().front(),
-                       {});
-    } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
-        // due walk edges don't need to calculate a dijkstra path, just calculate consecutive path lanes again
-        calculateConsecutivePathLanes(getVClass(), true, getParentEdges());
-    } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
-        resetPathLanes(getVClass(), true,
-                       getFirstAllowedVehicleLane(),
-                       getLastAllowedVehicleLane(),
-                       getParentDemandElements().back()->getParentEdges());
-    }
-*/
-    // update geometry
-    updateGeometry();
-}
-
-
 Position
 GNEWalk::getPositionInView() const {
     return Position();

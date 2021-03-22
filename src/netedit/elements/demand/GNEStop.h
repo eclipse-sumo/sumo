@@ -95,9 +95,6 @@ public:
     /// @brief compute path
     void computePath();
 
-    /// @brief invalidate path
-    void invalidatePath();
-
     /// @brief Returns position of demand element in view
     Position getPositionInView() const;
     /// @}

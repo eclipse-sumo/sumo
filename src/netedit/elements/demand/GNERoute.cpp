@@ -269,17 +269,6 @@ GNERoute::computePath() {
 }
 
 
-void
-GNERoute::invalidatePath() {
-/*
-    // due routes don't need to calculate a dijkstra path, just calculate consecutive path lanes again
-    calculateConsecutivePathLanes(getVClass(), true, getParentEdges());
-*/
-    // update geometry
-    updateGeometry();
-}
-
-
 Position
 GNERoute::getPositionInView() const {
     return Position();
