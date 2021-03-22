@@ -82,15 +82,15 @@ You can then install the latest stable release of SUMO with the following comman
 brew tap dlr-ts/sumo
 brew install sumo
 ```
-To finalize your setup, please make sure to set the **SUMO_HOME** environment variable and have it point to the directory of your SUMO installation. Depending on your shell, you may set this variable either in `.bash_profile` or `.zshrc`. To set this variable in `.bash_profile` you can use the following commands. 
+To finalize your setup, please make sure to set the **SUMO_HOME** environment variable and have it point to the directory of your SUMO installation. Depending on your shell, you may set this variable either in `.bashrc` or `.zshrc`. To set this variable in `.bashrc` you can use the following commands. 
 ```
-touch ~/.bash_profile; open ~/.bash_profile
+touch ~/.bashrc; open ~/.bashrc
 ```
 Just insert the following new line at the end of the file: 
 ```
 export SUMO_HOME=/your/path/to/sumo
 ```
-where `/your/path/to/sumo` is the path stated in the caveats section of the `brew install sumo` command. Restart the Terminal and test the newly added variable:
+where `/your/path/to/sumo` is the path stated in the caveats section of the `brew install sumo` command. Restart the Terminal (or run `source ~/.bashrc`) and test the newly added variable:
 ```
 echo $SUMO_HOME
 ```
