@@ -20,6 +20,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
+import optparse
 from collections import defaultdict
 
 if 'SUMO_HOME' in os.environ:
@@ -29,30 +30,50 @@ from sumolib.miscutils import parseTime
 
 import os,sys
 
-stopOutput = sys.argv[1]
+def get_options(args=None):
+    optParser = optparse.OptionParser()
+    optParser.add_option("-o", "--stop-output-file", dest="stopOutput", 
+        help="output route file with stops")
+    optParser.add_option("-s", "--stopping-place", dest="stoppingPlace", 
+        help="stoppingPlace Type (busStop, parkingArea...)", default="parkingArea")
+    (options, args) = optParser.parse_args(args=args)
+    if not options.stopOutput:
+        optParser.print_help()
+        sys.exit()
+    return options
 
-stoppingPlace = "parkingArea"
-
-vehCounts = defaultdict(list)
-
-time = None
-for stop in sumolib.xml.parse(stopOutput, "stopinfo"):
-    splace = stop.getAttributeSecure(stoppingPlace, "")
-    if splace != "":
-        vehCounts[splace].append((parseTime(stop.started), 1))
-        vehCounts[splace].append((parseTime(stop.ended), -1))
 
 
-for splace, times in vehCounts.items():
-    times.sort()
-    with open(splace + ".txt", "w") as outf:
-        tPrev = None
-        count = 0
-        outf.write("time count\n")
-        for t,change in times:
-            if t != tPrev and tPrev is not None:
-                outf.write("%s %s\n" % (tPrev, count))
-            count += change
-            tPrev = t
-        outf.write("%s %s\n" % (t, count))
+def main(options):
+    # declare veh counts
+    vehCounts = defaultdict(list)
 
+    time = None
+    for stop in sumolib.xml.parse(options.stopOutput, "stopinfo"):
+        splace = stop.getAttributeSecure(options.stoppingPlace, "")
+        if splace != "":
+            vehCounts[splace].append((parseTime(stop.started), 1))
+            vehCounts[splace].append((parseTime(stop.ended), -1))
+    #iterate over vehCounts
+    for splace, times in vehCounts.items():
+        times.sort()
+        with open(splace + ".xml", "w") as outf:
+            tPrev = None
+            count = 0
+            # write header
+            outf.write("<?xml version= \"1.0\" encoding=\"UTF-8\"?>\n\n")
+            # open route rag
+            outf.write("<stoppingPlace>\n")
+            # iterate over trips
+            for t,change in times:
+                if t != tPrev and tPrev is not None:
+                    outf.write("    <step time=\"%s\" number=\"%s\"/>\n" % (tPrev, count))
+                count += change
+                tPrev = t
+            outf.write("    <step time=\"%s\" number=\"%s\"/>\n" % (t, count))
+            # close route tag
+            outf.write("</stoppingPlace>\n")
+
+if __name__ == "__main__":
+    options = get_options(sys.argv)
+    main(options)
