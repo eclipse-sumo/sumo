@@ -54,6 +54,7 @@
 #include <mesosim/MELoop.h>
 
 //#define DEBUG_REROUTE
+//#define DEBUG_ADD_STOP
 //#define DEBUG_COND (getID() == "follower")
 //#define DEBUG_COND (true)
 #define DEBUG_COND (isSelected())
@@ -945,6 +946,9 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     if (searchStart == nullptr) {
         searchStart = &myCurrEdge;
     }
+#ifdef DEBUG_ADD_STOP
+    if (DEBUG_COND) std::cout << " stopEdge=" << stopEdge->getID() << " searchStart=" << (**searchStart)->getID() << " index=" << (int)((*searchStart) - myRoute->begin()) << " route=" << toString(myRoute->getEdges()) << "\n";
+#endif
     stop.edge = std::find(*searchStart, myRoute->end(), stopEdge);
     MSRouteIterator prevStopEdge = myCurrEdge;
     const MSEdge* prevEdge = (getLane() == nullptr ? getEdge() : &getLane()->getEdge());
@@ -958,6 +962,9 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
             prevEdge = &myStops.back().lane->getEdge();
             prevStopPos = myStops.back().pars.endPos;
             stop.edge = std::find(prevStopEdge, myRoute->end(), stopEdge);
+#ifdef DEBUG_ADD_STOP
+            if (DEBUG_COND) std::cout << " (@end) prevStopEdge=" << (*prevStopEdge)->getID() << " index=" << (int)(prevStopEdge - myRoute->begin()) << "\n";
+#endif
             if (prevStopEdge == stop.edge                // laneEdge check is insufficient for looped routes
                     && prevEdge == &stop.lane->getEdge() // route iterator check insufficient for internal lane stops
                     && prevStopPos > stop.pars.endPos) {
@@ -980,6 +987,9 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
                 ++iter;
                 --index;
             }
+#ifdef DEBUG_ADD_STOP
+            if (DEBUG_COND) std::cout << " (@fit) prevStopEdge=" << (*prevStopEdge)->getID() << " index=" << (int)(prevStopEdge - myRoute->begin()) << "\n";
+#endif
             stop.edge = std::find(prevStopEdge, myRoute->end(), stopEdge);
         }
     }

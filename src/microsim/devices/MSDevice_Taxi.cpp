@@ -45,6 +45,7 @@
 #include "MSDevice_Taxi.h"
 
 //#define DEBUG_DISPATCH
+#define DEBUG_COND (true)
 
 // ===========================================================================
 // static member variables
@@ -259,7 +260,7 @@ MSDevice_Taxi::dispatch(const Reservation& res) {
 void
 MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
 #ifdef DEBUG_DISPATCH
-    if (true) {
+    if (DEBUG_COND) {
         std::cout << SIMTIME << " taxi=" << myHolder.getID() << " dispatch:\n";
         for (const Reservation* res : reservations) {
             std::cout << "   persons=" << toString(res->persons) << "\n";
@@ -294,7 +295,9 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
             // no overlap with existing customers - extend route
             tmpEdges = myHolder.getRoute().getEdges();
             lastPos = veh->getStops().back().pars.endPos;
-
+#ifdef DEBUG_DISPATCH
+            if (DEBUG_COND) std::cout << " re-dispatch with route-extension\n";
+#endif
         } else if (nOccur.size() == myCustomers.size()) {
             // redefine route (verify correct number of mentions)
             std::set<const MSTransportable*> onBoard;
@@ -344,6 +347,9 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
                 myHolder.abortNextStop();
             }
             tmpEdges.push_back(myHolder.getEdge());
+#ifdef DEBUG_DISPATCH
+            if (DEBUG_COND) std::cout << " re-dispatch from scratch\n";
+#endif
         } else {
             // inconsistent re-dispatch
             std::vector<std::string> missing;
@@ -383,7 +389,14 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
             stops.back().duration = TIME2STEPS(60); // pay and collect bags
         }
     }
+#ifdef DEBUG_DISPATCH
+    if (DEBUG_COND) std::cout << "   tmpEdges=" << toString(tmpEdges) << "\n";
+#endif
     myHolder.replaceRouteEdges(tmpEdges, -1, 0, "taxi:prepare_dispatch", false, false, false);
+#ifdef DEBUG_DISPATCH
+    if (DEBUG_COND) std::cout << "   replacedRoute=" << toString(tmpEdges)
+                            << "\n     actualRoute=" << toString(myHolder.getRoute().getEdges()) << "\n";
+#endif
     for (SUMOVehicleParameter::Stop& stop : stops) {
         std::string error;
         myHolder.addStop(stop, error);
