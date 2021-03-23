@@ -584,7 +584,8 @@ MSLane::insertVehicle(MSVehicle& veh) {
             return lastInsertion(veh, speed, posLat, patchSpeed);
         case DepartPosDefinition::STOP:
             if (veh.hasStops() && veh.getNextStop().lane == this) {
-                pos = veh.getNextStop().getEndPos(veh);
+                // getLastFreePos of stopping place could return negative position to avoid blocking the stop
+                pos = MAX2(0.0, veh.getNextStop().getEndPos(veh));
                 break;
             }
             FALLTHROUGH;
