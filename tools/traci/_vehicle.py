@@ -1083,7 +1083,16 @@ class VehicleDomain(Domain):
         """replaceStop(string, int, string, double, integer, double, integer, double, double) -> None
 
         Replaces stop at the given index with a new stop. Automatically modifies
-        the route if the replacement stop is at another location
+        the route if the replacement stop is at another location.
+        For edgeID a stopping place id may be given if the flag marks this
+        stop as stopping on busStop, parkingArea, containerStop etc.
+        If edgeID is "", the stop at the given index will be removed without
+        replacement and the route will not be modified.
+        If teleport is set to 1, the route to the replacement stop will be
+        disconnected (forcing a teleport). 
+        If stopIndex is 0 the gap will be between the current
+        edge and the new stop. Otherwise the gap will be between the stop edge for
+        nextStopIndex - 1 and the new stop.
         """
         self._setCmd(tc.CMD_REPLACE_STOP, vehID, "tsdbdiddib", 9, edgeID, pos,
                      laneIndex, duration, flags, startPos, until, nextStopIndex, teleport)
