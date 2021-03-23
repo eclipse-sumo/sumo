@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 23.03.2021 09:54:50 by Eclipse SUMO netedit Version v1_8_0+1744-662ff8fcc3
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <output>
+        <output-file value="D:\Bug\net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <netedit>
+        <additional-files value="D:\Bug\add.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+	<parkingArea id="ParkingArea0" lane="gneE0_0" startPos="1.00" endPos="-1.00" roadsideCapacity="5"/>
+    <parkingArea id="ParkingArea1" lane="gneE1_0" startPos="1.00" endPos="-1.00" roadsideCapacity="5"/>
+</additional>

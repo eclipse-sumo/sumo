@@ -3,3 +3,6 @@ ticket8116
 
 # early abort due to invalid active vehicle count
 ticket8397
+
+# invalid departPos when using departPos="stop"
+ticket8404
