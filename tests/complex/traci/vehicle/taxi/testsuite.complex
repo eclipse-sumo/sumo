@@ -33,3 +33,6 @@ looped_dispatch
 
 # update reservations when removing a person
 remove_person
+
+# see #8398
+redispatch_on_internal
