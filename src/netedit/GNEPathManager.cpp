@@ -287,6 +287,18 @@ GNEPathManager::calculatePath(GNEAttributeCarrier* AC, SUMOVehicleClass vClass, 
 
 
 void 
+GNEPathManager::drawPath(const GNELane* lane, const GNEAttributeCarrier* AC) {
+    //
+}
+
+
+void
+GNEPathManager::invalidatePath(const GNELane* lane) {
+    //
+}
+
+
+void 
 GNEPathManager::clearSegments() {
     // first iterate over paths
     for (const auto &path : myPaths) {

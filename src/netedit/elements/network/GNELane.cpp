@@ -545,12 +545,14 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw children
         drawChildren(s);
+/*
         // draw path additional elements
         drawPathAdditionalElements(s);
         // draw path demand elements
         drawPathDemandElements(s);
         // draw path generic dataelements
         drawPathGenericDataElements(s);
+*/
     }
 }
 
@@ -574,45 +576,6 @@ GNELane::drawChildren(const GUIVisualizationSettings& s) const {
             demandElement->drawGL(s);
         }
     }
-}
-
-
-void
-GNELane::drawPathAdditionalElements(const GUIVisualizationSettings& s) const {
-/*
-    // draw child path additionals
-    for (const auto& tag : myPathAdditionalElements) {
-        for (const GNEAdditional* element : tag.second) {
-            element->drawLanePathChildren(s, this, 0);
-        }
-    }
-*/
-}
-
-
-void
-GNELane::drawPathDemandElements(const GUIVisualizationSettings& s) const {
-/*
-    // draw child path demand elements
-    for (const auto& tag : myPathDemandElements) {
-        for (const GNEDemandElement* const element : tag.second) {
-            element->drawLanePathChildren(s, this, 0);
-        }
-    }
-*/
-}
-
-
-void
-GNELane::drawPathGenericDataElements(const GUIVisualizationSettings& s) const {
-/*
-    // draw child path generic datas
-    for (const auto& tag : myPathGenericDatas) {
-        for (const GNEGenericData* element : tag.second) {
-            element->drawLanePathChildren(s, this, 0);
-        }
-    }
-*/
 }
 
 
@@ -965,105 +928,6 @@ GNELane::isAttributeEnabled(SumoXMLAttr key) const {
 const std::map<std::string, std::string>&
 GNELane::getACParametersMap() const {
     return myParentEdge->getNBEdge()->getLaneStruct(myIndex).getParametersMap();
-}
-
-
-void
-GNELane::addPathAdditionalElement(GNEAdditional* additionalElement) {
-    // get tag
-    SumoXMLTag tag = additionalElement->getTagProperty().getTag();
-    // avoid insert duplicated path element childs
-    if (std::find(myPathAdditionalElements[tag].begin(), myPathAdditionalElements[tag].end(), additionalElement) == myPathAdditionalElements[tag].end()) {
-        myPathAdditionalElements[tag].push_back(additionalElement);
-    }
-}
-
-
-void
-GNELane::removePathAdditionalElement(GNEAdditional* additionalElement) {
-    // get tag
-    SumoXMLTag tag = additionalElement->getTagProperty().getTag();
-    // search and remove pathElementChild
-    auto it = std::find(myPathAdditionalElements[tag].begin(), myPathAdditionalElements[tag].end(), additionalElement);
-    if (it != myPathAdditionalElements[tag].end()) {
-        myPathAdditionalElements[tag].erase(it);
-    }
-}
-
-
-void
-GNELane::addPathDemandElement(GNEDemandElement* demandElement) {
-    // get tag
-    SumoXMLTag tag = demandElement->getTagProperty().getTag();
-    // avoid insert duplicated path element childs
-    if (std::find(myPathDemandElements[tag].begin(), myPathDemandElements[tag].end(), demandElement) == myPathDemandElements[tag].end()) {
-        myPathDemandElements[tag].push_back(demandElement);
-    }
-}
-
-
-void
-GNELane::removePathDemandElement(GNEDemandElement* demandElement) {
-    // get tag
-    SumoXMLTag tag = demandElement->getTagProperty().getTag();
-    // search and remove pathElementChild
-    auto it = std::find(myPathDemandElements[tag].begin(), myPathDemandElements[tag].end(), demandElement);
-    if (it != myPathDemandElements[tag].end()) {
-        myPathDemandElements[tag].erase(it);
-    }
-}
-
-
-void
-GNELane::addPathGenericData(GNEGenericData* genericData) {
-    // get tag
-    SumoXMLTag tag = genericData->getTagProperty().getTag();
-    // avoid insert duplicated path element childs
-    if (std::find(myPathGenericDatas[tag].begin(), myPathGenericDatas[tag].end(), genericData) == myPathGenericDatas[tag].end()) {
-        myPathGenericDatas[tag].push_back(genericData);
-    }
-}
-
-
-void
-GNELane::removePathGenericData(GNEGenericData* genericData) {
-    // get tag
-    SumoXMLTag tag = genericData->getTagProperty().getTag();
-    // search and remove pathElementChild
-    auto it = std::find(myPathGenericDatas[tag].begin(), myPathGenericDatas[tag].end(), genericData);
-    if (it != myPathGenericDatas[tag].end()) {
-        myPathGenericDatas[tag].erase(it);
-    }
-}
-
-
-void
-GNELane::invalidatePathElements() {
-    // make a copy of myPathAdditionalElements
-    auto copyOfPathAdditionalElements = myPathAdditionalElements;
-    for (const auto& tag : copyOfPathAdditionalElements) {
-        for (const auto& additionalElement : tag.second) {
-            // note: currently additional elements don't use compute/invalidate paths
-            additionalElement->updateGeometry();
-        }
-    }
-/*
-    // make a copy of myPathDemandElements
-    auto copyOfPathDemandElements = myPathDemandElements;
-    for (const auto& tag : copyOfPathDemandElements) {
-        for (const auto& demandElement : tag.second) {
-            demandElement->invalidatePath();
-        }
-    }
-*/
-    // make a copy of myPathGenericDatas
-    auto copyOfPathGenericDatas = myPathGenericDatas;
-    for (const auto& tag : copyOfPathGenericDatas) {
-        for (const auto& genericData : tag.second) {
-            // note: currently generic datas don't use compute/invalidate paths
-            genericData->updateGeometry();
-        }
-    }
 }
 
 
