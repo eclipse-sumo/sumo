@@ -241,22 +241,22 @@ vehicles in its emitters-output. Assuming that
 [dfrouter](../dfrouter.md) was called with the options
 
 ```
-dfrouter --net-file net.net.xml --routes-output routes.rou.xml --emitters-output vehicles.xml ...
+dfrouter --net-file net.net.xml --routes-output routes.rou.xml --emitters-output vehicles.rou.xml --measure-files flows.txt
 ```
 
-SUMO must be called in the following way:
+sumo must be called in the following way:
 
 ```
-sumo --net-file net.net.xml --additional-files routes.rou.xml,emitters.rou.xml
+sumo --net-file net.net.xml --additional-files routes.rou.xml,vehicles.rou.xml
 ```
 
 If you run the tool
 [Tools/Routes\#sort_routes.py](../Tools/Routes.md#sort_routespy)
-to sort the emitters, either of the following will work:
+to sort the vehicles, either of the following will work:
 
 ```
-sumo --net-file net.net.xml --route-files routes.rou.xml,sorted_emitters.rou.xml
-sumo --net-file net.net.xml --route-files sorted_emitters.rou.xml --additional-files routes.rou.xml
+sumo --net-file net.net.xml --route-files routes.rou.xml,sorted_vehicles.rou.xml
+sumo --net-file net.net.xml --route-files sorted_vehicles.rou.xml --additional-files routes.rou.xml
 ```
 
 # flowrouter.py
