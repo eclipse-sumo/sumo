@@ -50,8 +50,9 @@ for splace, times in vehCounts.items():
         count = 0
         outf.write("time count\n")
         for t,change in times:
+            if t != tPrev and tPrev is not None:
+                outf.write("%s %s\n" % (tPrev, count))
             count += change
-            if t != tPrev:
-                outf.write("%s %s\n" % (t, count))
             tPrev = t
+        outf.write("%s %s\n" % (t, count))
 
