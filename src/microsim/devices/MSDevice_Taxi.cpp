@@ -277,6 +277,9 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
         myHolder.abortNextStop();
         assert(!veh->hasStops());
         tmpEdges.push_back(myHolder.getEdge());
+        if (veh->getLane() != nullptr && veh->getLane()->isInternal()) {
+            tmpEdges.push_back(veh->getLane()->getNextNormal());
+        }
     } else {
         assert(veh->hasStops());
         // check how often existing customers appear in the new reservations
@@ -347,6 +350,9 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
                 myHolder.abortNextStop();
             }
             tmpEdges.push_back(myHolder.getEdge());
+            if (veh->getLane() != nullptr && veh->getLane()->isInternal()) {
+                tmpEdges.push_back(veh->getLane()->getNextNormal());
+            }
 #ifdef DEBUG_DISPATCH
             if (DEBUG_COND) std::cout << " re-dispatch from scratch\n";
 #endif
@@ -392,7 +398,10 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
 #ifdef DEBUG_DISPATCH
     if (DEBUG_COND) std::cout << "   tmpEdges=" << toString(tmpEdges) << "\n";
 #endif
-    myHolder.replaceRouteEdges(tmpEdges, -1, 0, "taxi:prepare_dispatch", false, false, false);
+    if (!myHolder.replaceRouteEdges(tmpEdges, -1, 0, "taxi:prepare_dispatch", false, false, false)) {
+        throw ProcessError("Route replacement for taxi dispatch failed for vehicle '" + myHolder.getID()
+                + "' at time " + time2string(MSNet::getInstance()->getCurrentTimeStep()));
+    }
 #ifdef DEBUG_DISPATCH
     if (DEBUG_COND) std::cout << "   replacedRoute=" << toString(tmpEdges)
                             << "\n     actualRoute=" << toString(myHolder.getRoute().getEdges()) << "\n";
