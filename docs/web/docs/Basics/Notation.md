@@ -68,7 +68,7 @@ Complete examples of XML-Files are shown like the following:
   and there are no spaces allowed. The color may also be defined using
   a single string with a [HTML color code](https://en.wikipedia.org/wiki/Web_colors#Hex_triplet) or one of
   the basic colors ("red", "green", "blue", "yellow", "cyan",
-  "magenta", "black", "white", "grey")
+  "magenta", "black", "white", "grey"). The value of "random" will assign a random color.
 - *<2D-POSITION\>*: two floats separated by ','
   (*<FLOAT\>*,*<FLOAT\>*), which describe the x- and the y-offset,
   respectively. z is 0 implicitly
