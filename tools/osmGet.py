@@ -28,7 +28,6 @@ except ImportError:
     import http.client as httplib
     import urllib.parse as urlparse
 
-import optparse
 import base64
 from os import path
 
@@ -58,21 +57,21 @@ def readCompressed(conn, urlpath, query, filename):
         out.close()
 
 
-optParser = optparse.OptionParser()
-optParser.add_option("-p", "--prefix", default="osm", help="for output file")
-optParser.add_option("-b", "--bbox", help="bounding box to retrieve in geo coordinates west,south,east,north")
-optParser.add_option("-t", "--tiles", type="int",
+optParser = sumolib.options.ArgumentParser(description="Get network from OpenStreetMap")
+optParser.add_argument("-p", "--prefix", default="osm", help="for output file")
+optParser.add_argument("-b", "--bbox", help="bounding box to retrieve in geo coordinates west,south,east,north")
+optParser.add_argument("-t", "--tiles", type=int,
                      default=1, help="number of tiles the output gets split into")
-optParser.add_option("-d", "--output-dir", help="optional output directory (must already exist)")
-optParser.add_option("-a", "--area", type="int", help="area id to retrieve")
-optParser.add_option("-x", "--polygon", help="calculate bounding box from polygon data in file")
-optParser.add_option("-u", "--url", default="www.overpass-api.de/api/interpreter",
+optParser.add_argument("-d", "--output-dir", help="optional output directory (must already exist)")
+optParser.add_argument("-a", "--area", type=int, help="area id to retrieve")
+optParser.add_argument("-x", "--polygon", help="calculate bounding box from polygon data in file")
+optParser.add_argument("-u", "--url", default="www.overpass-api.de/api/interpreter",
                      help="Download from the given OpenStreetMap server")
 # alternatives: overpass.kumi.systems/api/interpreter, sumo.dlr.de/osm/api/interpreter
 
 
 def get(args=None):
-    (options, args) = optParser.parse_args(args=args)
+    options = optParser.parse_args(args=args)
     if not options.bbox and not options.area and not options.polygon:
         optParser.error("At least one of 'bbox' and 'area' and 'polygon' has to be set.")
     if options.polygon:
