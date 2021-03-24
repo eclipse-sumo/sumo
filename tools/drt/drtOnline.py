@@ -59,6 +59,7 @@ def initOptions():
     argParser.add_argument("--max-diff", help="Maximum difference with assigned time", type=int, default=300, required=False)
     argParser.add_argument("--veh-wait", help="Maximum waiting time for passenger in the vehicle", type=int, default=180, required=False)
     argParser.add_argument("--sim-step", help="Time window for request collection", type=int, default=30, required=False)
+    argParser.add_argument("--end-time", help="Simulation time to close Traci (default 90000 sec - 25h)", type=int, default=90000, required=False)
 
     return argParser
 
@@ -533,7 +534,7 @@ def main():
                     x = r_all[x_id]
                     x.vehicle = stops[0]
         
-        if not traci.simulation.getMinExpectedNumber() > 0 and not traci.person.getIDList():
+        if step > options.end_time or (not traci.simulation.getMinExpectedNumber() > 0 and not traci.person.getIDList()): #TODO ticket #8385
             rerouting = False
             
         step += options.sim_step
