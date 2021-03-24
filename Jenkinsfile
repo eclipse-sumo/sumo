@@ -63,7 +63,7 @@ spec:
     stage('Run maven') {
       steps {
         container('maven') {
-          sh 'apt-get update && ls -lsa'
+          sh 'cmake --version || pwd && ls -lsa'
         }
       }
     }
