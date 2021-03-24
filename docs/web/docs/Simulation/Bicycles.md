@@ -32,6 +32,9 @@ automatically used when specifying `vClass="bicycle"`. By adapting [vType-parame
 acceleration,deceleration,maximumSpeed,etc..](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
 different cyclist types can be modelled.
 
+## Useful Model Parameters
+- latAlignment="right"
+
 ### Problems and workarounds
 
 - No bi-directional movements on bicycle lanes
