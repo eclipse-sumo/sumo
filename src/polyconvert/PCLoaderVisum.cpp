@@ -287,6 +287,11 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                 color = c;
             }
             if (!discard) {
+                const std::string origId = id;
+                int index = 1;
+                while (toFill.getPOIs().get(id) != nullptr) {
+                    id = origId + "#" + toString(index++);
+                }
                 PointOfInterest* poi = new PointOfInterest(id, type, color, pos, false, "", 0, 0, layer);
                 toFill.add(poi);
             }
@@ -315,6 +320,11 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                     color = c;
                 }
                 if (!discard) {
+                    const std::string origId = id;
+                    int index = 1;
+                    while (toFill.getPolygons().get(id) != nullptr) {
+                        id = origId + "#" + toString(index++);
+                    }
                     SUMOPolygon* poly = new SUMOPolygon(id, type, color, vec, false, false, 1, layer);
                     toFill.add(poly);
                 }
@@ -361,12 +371,22 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             }
             if (!discard) {
                 if (teilflaechen[flaechenelemente[area]].size() > 0) {
+                    const std::string origId = id;
+                    int index = 1;
+                    while (toFill.getPolygons().get(id) != nullptr) {
+                        id = origId + "#" + toString(index++);
+                    }
                     SUMOPolygon* poly = new SUMOPolygon(id, type, color, teilflaechen[flaechenelemente[area]], false, false, 1, layer);
                     toFill.add(poly);
                 } else {
                     Position pos(x, y);
                     if (!geoConvHelper.x2cartesian(pos)) {
                         WRITE_WARNING("Unable to project coordinates for POI '" + id + "'.");
+                    }
+                    const std::string origId = id;
+                    int index = 1;
+                    while (toFill.getPOIs().get(id) != nullptr) {
+                        id = origId + "#" + toString(index++);
                     }
                     PointOfInterest* poi = new PointOfInterest(id, type, color, pos, false, "", 0, 0, layer);
                     toFill.add(poi);
