@@ -36,6 +36,8 @@ def get_options(args=None):
         help="output route file with stops")
     optParser.add_option("-s", "--stopping-place", dest="stoppingPlace", 
         help="stoppingPlace Type (busStop, parkingArea...)", default="parkingArea")
+    optParser.add_option("-c", "--csv", dest="csv", 
+        help="write in CSV format", default="")
     (options, args) = optParser.parse_args(args=args)
     if not options.stopOutput:
         optParser.print_help()
@@ -61,16 +63,27 @@ def main(options):
             tPrev = None
             count = 0
             # write header
-            outf.write("<?xml version= \"1.0\" encoding=\"UTF-8\"?>\n\n")
-            # open route rag
-            outf.write("<stoppingPlace>\n")
+            if (options.csv):
+                # write CSV header
+                outf.write("step,number\n")
+            else:
+                # write XML header
+                outf.write("<?xml version= \"1.0\" encoding=\"UTF-8\"?>\n\n")
+                # open route rag
+                outf.write("<stoppingPlace>\n")
             # iterate over trips
             for t,change in times:
                 if t != tPrev and tPrev is not None:
-                    outf.write("    <step time=\"%s\" number=\"%s\"/>\n" % (tPrev, count))
+                    if (options.csv):
+                        outf.write("%s,%s\n" % (tPrev, count))
+                    else:
+                        outf.write("    <step time=\"%s\" number=\"%s\"/>\n" % (tPrev, count))
                 count += change
                 tPrev = t
-            outf.write("    <step time=\"%s\" number=\"%s\"/>\n" % (t, count))
+            if (options.csv):
+                outf.write("%s,%s\n" % (tPrev, count))
+            else:
+                outf.write("    <step time=\"%s\" number=\"%s\"/>\n" % (t, count))
             # close route tag
             outf.write("</stoppingPlace>\n")
 
