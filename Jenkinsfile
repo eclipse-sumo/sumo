@@ -16,7 +16,7 @@ spec:
         memory: "1Gi"
         cpu: "500m"
   - name: maven
-    image: ubuntu:20.04
+    image: roberthilbrich/ubuntu-sumo:latest
     tty: true
     resources:
       limits:
