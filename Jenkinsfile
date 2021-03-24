@@ -7,6 +7,14 @@ apiVersion: v1
 kind: Pod
 spec:
   containers:
+  - name: jnlp
+    resources:
+      limits:
+        memory: "1Gi"
+        cpu: "500m"
+      requests:
+        memory: "1Gi"
+        cpu: "500m"
   - name: maven
     image: maven:alpine
     tty: true
