@@ -68,7 +68,7 @@ spec:
             cd cmake-build 
             export CC=gcc; export CXX=g++; 
             cmake ..
-            make -j4
+            make
           '''
         }
       }
