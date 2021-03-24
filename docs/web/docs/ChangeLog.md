@@ -216,7 +216,7 @@ title: ChangeLog
     - tools/tls_buildTransitions.py → tools/tls/buildTransitions.py
     - tools/generateTurnRatios.py -> tools/turn-defs/generateTurnRatios.py
     - tools/assign/matrixDailyToHourly.py -> tools/district/aggregateAndSplitMatrices.py
-    
+  - randomTrips.py option **-c** is no longer a shortcut for option **--vclass**. Instead it is used to load a configuration file (written via **--C**). Issue #8409
 
 ## Version 1.8.0 (02.12.2020)
 
