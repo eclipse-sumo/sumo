@@ -1302,8 +1302,35 @@ MSEdge::inferEdgeType() {
     // predecessors are set
     if (isInternal() && myEdgeType == "") {
         const std::string typeBefore = getNormalBefore()->getEdgeType();
-        if (typeBefore != "" && getNormalSuccessor()->getEdgeType() == typeBefore) {
-            myEdgeType = typeBefore;
+        if (typeBefore != "") {
+            const std::string typeAfter = getNormalSuccessor()->getEdgeType();
+            if (typeBefore == typeAfter) {
+                myEdgeType = typeBefore;
+            } else if (typeAfter != "") {
+                MSNet* net = MSNet::getInstance();
+                auto resBefore = net->getRestrictions(typeBefore);
+                auto resAfter = net->getRestrictions(typeAfter);
+                if (resBefore != nullptr && resAfter != nullptr) {
+                    // create new restrictions for this type-combination
+                    const std::string internalType = typeBefore + "|" + typeAfter;
+                    if (net->getRestrictions(internalType) == nullptr) {
+                        bool added = false;
+                        for (const auto& item : *resBefore) {
+                            const SUMOVehicleClass svc = item.first;
+                            const double speed = item.second;
+                            const auto it = (*resAfter).find(svc);
+                            if (it != (*resAfter).end()) {
+                                const double speed2 = it->second;
+                                net->addRestriction(internalType, svc, (speed + speed2) / 2);
+                                added = true;
+                            }
+                        }
+                        if (added) {
+                            myEdgeType = internalType;
+                        }
+                    }
+                }
+            }
         }
     }
 }
