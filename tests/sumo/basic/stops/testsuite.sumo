@@ -28,5 +28,8 @@ stop_edge
 # simulation ends before stop is finished
 stop_output_early_end
 
+# simulation ends before stop is finished
+stop_output_early_end_write
+
 # A bus stopping at a bus stop with a user defined color.
 busstop_change_color

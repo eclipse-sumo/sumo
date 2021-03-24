@@ -1,0 +1,5 @@
+--no-step-log --no-duration-log --net-file=net3.net.xml --routes=input_routes.rou.xml --vehroute-output vehroutes.xml
+--stop-output stopinfos.xml
+-e 30
+--vehroute-output.write-unfinished
+--stop-output.write-unfinished
