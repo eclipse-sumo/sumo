@@ -76,6 +76,7 @@ StringBijection<NIImporter_VISUM::VISUM_KEY>::Entry NIImporter_VISUM::KEYS_DE[] 
     { "Z",  VISUM_DESTINATION },
     { "KATNR", VISUM_CATID },
     { "ZWISCHENPUNKT", VISUM_EDGEITEM },
+    { "POIKATEGORIE", VISUM_POICATEGORY },
     { "NR", VISUM_NO } // must be the last one
 };
 

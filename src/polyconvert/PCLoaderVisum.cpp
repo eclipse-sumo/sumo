@@ -86,6 +86,7 @@ StringBijection<PCLoaderVisum::VISUM_KEY>::Entry PCLoaderVisum::KEYS_DE[] = {
     { "Z",  VISUM_DESTINATION },
     { "KATNR", VISUM_CATID },
     { "ZWISCHENPUNKT", VISUM_EDGEITEM },
+    { "POIKATEGORIE", VISUM_POICATEGORY },
     { "NR", VISUM_NO } // must be the last one
 };
 
@@ -283,7 +284,6 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                 layer = def.layer;
             } else {
                 id = oc.getString("prefix") + id;
-                type = oc.getString("type");
                 color = c;
             }
             if (!discard) {
@@ -375,7 +375,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
         }
 
 
-        if (line.find("$POIKATEGORIEDEF:") == 0 || line.find("$POIKATEGORIE:") == 0) {
+        if (line.find("$POIKATEGORIEDEF:") == 0 || line.find("$" + KEYS.getString(VISUM_POICATEGORY) + ":") == 0) {
             // ok, got categories, begin parsing from next line
             parsingCategories = true;
             lineParser.reinit(line.substr(line.find(":") + 1));

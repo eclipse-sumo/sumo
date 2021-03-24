@@ -565,6 +565,7 @@ protected:
         // polyconvert keys added to avoid warnings
         VISUM_CATID,
         VISUM_EDGEITEM,
+        VISUM_POICATEGORY,
         VISUM_NO // must be the last one
     };
 
