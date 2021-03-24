@@ -114,14 +114,6 @@ The **--component-output** and **--results-output** options are not compatible w
 
 Use the option **--help** for the latest version information.
 
-# netextract.py
-
-This tool extracts nodes and edges from a given network for their reuse
-in netconvert.
-
-!!! note
-    netconvert is able to import *.net.xml* files and export [plain xml files](../Networks/PlainXML.md) which makes this tool obsolete. It is retained for educational purposes as it demonstrates working with a sumo network from python.
-
 # xmledges_applyOffset.py and xmlnodes_applyOffset.py
 
 Both tools apply the given offset to the geometrical information of
