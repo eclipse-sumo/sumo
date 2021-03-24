@@ -91,6 +91,9 @@ fillOptions() {
     oc.addSynonyme("visum-files", "visum");
     oc.addDescription("visum-files", "Input", "Reads polygons from FILE assuming it's a Visum-net");
 
+    oc.doRegister("visum.language-file", new Option_FileName());
+    oc.addDescription("visum.language-file", "Input", "Load language mappings from FILE");
+
     // xml import
     oc.doRegister("xml-files", new Option_FileName());
     oc.addSynonyme("xml-files", "xml");

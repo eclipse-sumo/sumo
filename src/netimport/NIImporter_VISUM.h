@@ -562,6 +562,9 @@ protected:
         VISUM_EDGEID,
         VISUM_ORIGIN,
         VISUM_DESTINATION,
+        // polyconvert keys added to avoid warnings
+        VISUM_CATID,
+        VISUM_EDGEITEM,
         VISUM_NO // must be the last one
     };
 

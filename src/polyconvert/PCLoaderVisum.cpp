@@ -45,6 +45,53 @@
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/importio/NamedColumnsParser.h>
 
+StringBijection<PCLoaderVisum::VISUM_KEY>::Entry PCLoaderVisum::KEYS_DE[] = {
+    // duplicates NIImporter_VISUM::KEYS_DE due to lack of suitable common location
+    { "VSYS", VISUM_SYS },
+    { "STRECKENTYP", VISUM_LINKTYPE },
+    { "KNOTEN", VISUM_NODE },
+    { "BEZIRK", VISUM_DISTRICT },
+    { "PUNKT", VISUM_POINT },
+    { "STRECKE", VISUM_LINK },
+    { "V0IV", VISUM_V0 },
+    { "VSYSSET", VISUM_TYPES },
+    { "RANG", VISUM_RANK },
+    { "KAPIV", VISUM_CAPACITY },
+    { "XKOORD", VISUM_XCOORD },
+    { "YKOORD", VISUM_YCOORD },
+    { "ID", VISUM_ID },
+    { "CODE", VISUM_CODE },
+    { "VONKNOTNR", VISUM_FROMNODE },
+    { "NACHKNOTNR", VISUM_TONODE },
+    { "TYPNR", VISUM_TYPE },
+    { "TYP", VISUM_TYP },
+    { "ANBINDUNG", VISUM_DISTRICT_CONNECTION },
+    { "BEZNR", VISUM_SOURCE_DISTRICT },
+    { "KNOTNR",  VISUM_FROMNODENO },
+    { "RICHTUNG",  VISUM_DIRECTION },
+    { "FLAECHEID",  VISUM_SURFACEID },
+    { "TFLAECHEID",  VISUM_FACEID },
+    { "VONPUNKTID",  VISUM_FROMPOINTID },
+    { "NACHPUNKTID",  VISUM_TOPOINTID },
+    { "KANTE",  VISUM_EDGE },
+    { "ABBIEGER",  VISUM_TURN },
+    { "UEBERKNOTNR",  VISUM_VIANODENO },
+    { "ANZFAHRSTREIFEN",  VISUM_NUMLANES },
+    { "INDEX",  VISUM_INDEX },
+    { "STRECKENPOLY",  VISUM_LINKPOLY },
+    { "FLAECHENELEMENT",  VISUM_SURFACEITEM },
+    { "TEILFLAECHENELEMENT",  VISUM_FACEITEM },
+    { "KANTEID",  VISUM_EDGEID },
+    { "Q",  VISUM_ORIGIN },
+    { "Z",  VISUM_DESTINATION },
+    { "KATNR", VISUM_CATID },
+    { "ZWISCHENPUNKT", VISUM_EDGEITEM },
+    { "NR", VISUM_NO } // must be the last one
+};
+
+
+StringBijection<PCLoaderVisum::VISUM_KEY> PCLoaderVisum::KEYS(PCLoaderVisum::KEYS_DE, VISUM_NO);
+
 
 // ===========================================================================
 // method definitions
@@ -54,6 +101,10 @@ PCLoaderVisum::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
                          PCTypeMap& tm) {
     if (!oc.isSet("visum-files")) {
         return;
+    }
+    const std::string languageFile = oc.getString("visum.language-file");
+    if (languageFile != "") {
+        loadLanguage(languageFile);
     }
     // parse file(s)
     std::vector<std::string> files = oc.getStringVector("visum-files");
@@ -87,46 +138,46 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             what = "";
         }
         // read items
-        if (what == "$PUNKT") {
+        if (what == "$" + KEYS.getString(VISUM_POINT)) {
             lineParser.parseLine(line);
-            long long int id = StringUtils::toLong(lineParser.get("ID"));
-            double x = StringUtils::toDouble(lineParser.get("XKOORD"));
-            double y = StringUtils::toDouble(lineParser.get("YKOORD"));
+            long long int id = StringUtils::toLong(lineParser.get(KEYS.getString(VISUM_ID)));
+            double x = StringUtils::toDouble(lineParser.get(KEYS.getString(VISUM_XCOORD)));
+            double y = StringUtils::toDouble(lineParser.get(KEYS.getString(VISUM_YCOORD)));
             Position pos(x, y);
             if (!geoConvHelper.x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for point '" + toString(id) + "'.");
             }
             punkte[id] = pos;
             continue;
-        } else if (what == "$KANTE") {
+        } else if (what == "$" + KEYS.getString(VISUM_EDGE)) {
             lineParser.parseLine(line);
-            long long int id = StringUtils::toLong(lineParser.get("ID"));
-            long long int fromID = StringUtils::toLong(lineParser.get("VONPUNKTID"));
-            long long int toID = StringUtils::toLong(lineParser.get("NACHPUNKTID"));
+            long long int id = StringUtils::toLong(lineParser.get(KEYS.getString(VISUM_ID)));
+            long long int fromID = StringUtils::toLong(lineParser.get(KEYS.getString(VISUM_FROMPOINTID)));
+            long long int toID = StringUtils::toLong(lineParser.get(KEYS.getString(VISUM_TOPOINTID)));
             PositionVector vec;
             vec.push_back(punkte[fromID]);
             vec.push_back(punkte[toID]);
             kanten[id] = vec;
             continue;
-        } else if (what == "$ZWISCHENPUNKT") {
+        } else if (what == "$" + KEYS.getString(VISUM_EDGEITEM)) {
             lineParser.parseLine(line);
-            long long int id = StringUtils::toLong(lineParser.get("KANTEID"));
-            int index = StringUtils::toInt(lineParser.get("INDEX"));
-            double x = StringUtils::toDouble(lineParser.get("XKOORD"));
-            double y = StringUtils::toDouble(lineParser.get("YKOORD"));
+            long long int id = StringUtils::toLong(lineParser.get(KEYS.getString(VISUM_EDGEID)));
+            int index = StringUtils::toInt(lineParser.get(KEYS.getString(VISUM_INDEX)));
+            double x = StringUtils::toDouble(lineParser.get(KEYS.getString(VISUM_XCOORD)));
+            double y = StringUtils::toDouble(lineParser.get(KEYS.getString(VISUM_YCOORD)));
             Position pos(x, y);
             if (!geoConvHelper.x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for edge '" + toString(id) + "'.");
             }
             kanten[id].insert(kanten[id].begin() + index, pos);
             continue;
-        } else if (what == "$TEILFLAECHENELEMENT") {
+        } else if (what == "$" + KEYS.getString(VISUM_FACEITEM)) {
             lineParser.parseLine(line);
-            long long int id = StringUtils::toLong(lineParser.get("TFLAECHEID"));
+            long long int id = StringUtils::toLong(lineParser.get(KEYS.getString(VISUM_FACEID)));
             //int index = StringUtils::toInt(lineParser.get("INDEX"));
             //index = 0; /// hmmmm - assume it's sorted...
-            long long int kid = StringUtils::toLong(lineParser.get("KANTEID"));
-            int dir = StringUtils::toInt(lineParser.get("RICHTUNG"));
+            long long int kid = StringUtils::toLong(lineParser.get(KEYS.getString(VISUM_EDGEID)));
+            int dir = StringUtils::toInt(lineParser.get(KEYS.getString(VISUM_DIRECTION)));
             if (teilflaechen.find(id) == teilflaechen.end()) {
                 teilflaechen[id] = PositionVector();
             }
@@ -140,26 +191,26 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                 }
             }
             continue;
-        } else if (what == "$FLAECHENELEMENT") {
+        } else if (what == "$" + KEYS.getString(VISUM_SURFACEITEM)) {
             lineParser.parseLine(line);
-            long long int id = StringUtils::toLong(lineParser.get("FLAECHEID"));
-            long long int tid = StringUtils::toLong(lineParser.get("TFLAECHEID"));
+            long long int id = StringUtils::toLong(lineParser.get(KEYS.getString(VISUM_SURFACEID)));
+            long long int tid = StringUtils::toLong(lineParser.get(KEYS.getString(VISUM_FACEID)));
             flaechenelemente[id] = tid;
             continue;
         }
         // set if read
         if (line[0] == '$') {
             what = "";
-            if (line.find("$PUNKT") == 0) {
-                what = "$PUNKT";
-            } else if (line.find("$KANTE") == 0) {
-                what = "$KANTE";
-            } else if (line.find("$ZWISCHENPUNKT") == 0) {
-                what = "$ZWISCHENPUNKT";
-            } else if (line.find("$TEILFLAECHENELEMENT") == 0) {
-                what = "$TEILFLAECHENELEMENT";
-            } else if (line.find("$FLAECHENELEMENT") == 0) {
-                what = "$FLAECHENELEMENT";
+            if (line.find("$" + KEYS.getString(VISUM_POINT) + ":") == 0) {
+                what = "$" + KEYS.getString(VISUM_POINT);
+            } else if (line.find("$" + KEYS.getString(VISUM_EDGE) + ":") == 0) {
+                what = "$" + KEYS.getString(VISUM_EDGE);
+            } else if (line.find("$" + KEYS.getString(VISUM_EDGEITEM) + ":") == 0) {
+                what = "$" + KEYS.getString(VISUM_EDGEITEM);
+            } else if (line.find("$" + KEYS.getString(VISUM_FACEITEM) + ":") == 0) {
+                what = "$" + KEYS.getString(VISUM_FACEITEM);
+            } else if (line.find("$" + KEYS.getString(VISUM_SURFACEITEM) + ":") == 0) {
+                what = "$" + KEYS.getString(VISUM_SURFACEITEM);
             }
             if (what != "") {
                 lineParser.reinit(line.substr(what.length() + 1));
@@ -208,12 +259,12 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             // parse the poi
             // $POI:Nr;CATID;CODE;NAME;Kommentar;XKoord;YKoord;
             lineParser.parseLine(line);
-            long long int idL = StringUtils::toLong(lineParser.get("Nr"));
+            long long int idL = StringUtils::toLong(lineParser.get(KEYS.getString(VISUM_NO)));
             std::string id = toString(idL);
-            std::string catid = lineParser.get("CATID");
+            std::string catid = lineParser.get(KEYS.getString(VISUM_CATID));
             // process read values
-            double x = StringUtils::toDouble(lineParser.get("XKoord"));
-            double y = StringUtils::toDouble(lineParser.get("YKoord"));
+            double x = StringUtils::toDouble(lineParser.get(KEYS.getString(VISUM_XCOORD)));
+            double y = StringUtils::toDouble(lineParser.get(KEYS.getString(VISUM_YCOORD)));
             Position pos(x, y);
             if (!geoConvHelper.x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for POI '" + id + "'.");
@@ -286,11 +337,11 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
         if (parsingDistrictsDirectly) {
             //$BEZIRK:NR	CODE	NAME	TYPNR	XKOORD	YKOORD	FLAECHEID	BEZART	IVANTEIL_Q	IVANTEIL_Z	OEVANTEIL	METHODEANBANTEILE	ZWERT1	ZWERT2	ZWERT3	ISTINAUSWAHL	OBEZNR	NOM_COM	COD_COM
             lineParser.parseLine(line);
-            long long int idL = StringUtils::toLong(lineParser.get("NR"));
+            long long int idL = StringUtils::toLong(lineParser.get(KEYS.getString(VISUM_NO)));
             std::string id = toString(idL);
-            long long int area = StringUtils::toLong(lineParser.get("FLAECHEID"));
-            double x = StringUtils::toDouble(lineParser.get("XKOORD"));
-            double y = StringUtils::toDouble(lineParser.get("YKOORD"));
+            long long int area = StringUtils::toLong(lineParser.get(KEYS.getString(VISUM_SURFACEID)));
+            double x = StringUtils::toDouble(lineParser.get(KEYS.getString(VISUM_XCOORD)));
+            double y = StringUtils::toDouble(lineParser.get(KEYS.getString(VISUM_YCOORD)));
             // patch the values
             std::string type = "district";
             bool discard = oc.getBool("discard");
@@ -317,7 +368,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                     if (!geoConvHelper.x2cartesian(pos)) {
                         WRITE_WARNING("Unable to project coordinates for POI '" + id + "'.");
                     }
-                    PointOfInterest* poi = new PointOfInterest(id, type, color, pos, "", nullptr, 0, layer);
+                    PointOfInterest* poi = new PointOfInterest(id, type, color, pos, false, "", 0, 0, layer);
                     toFill.add(poi);
                 }
             }
@@ -329,12 +380,12 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             parsingCategories = true;
             lineParser.reinit(line.substr(line.find(":") + 1));
         }
-        if (line.find("$POI:") == 0) {
+        if ((line.find("$POI:") == 0) || line.find("$POIOFCAT") != std::string::npos) {
             // ok, got pois, begin parsing from next line
             parsingPOIs = true;
             lineParser.reinit(line.substr(line.find(":") + 1));
         }
-        if (line.find("$BEZIRK") == 0 && line.find("FLAECHEID") != std::string::npos) {
+        if (line.find("$" + KEYS.getString(VISUM_DISTRICT)) == 0 && line.find(KEYS.getString(VISUM_SURFACEID)) != std::string::npos) {
             // ok, have a district header, and it seems like districts would reference shapes...
             parsingDistrictsDirectly = true;
             lineParser.reinit(line.substr(line.find(":") + 1));
@@ -351,5 +402,28 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
     }
 }
 
+
+void
+PCLoaderVisum::loadLanguage(const std::string& file) {
+    std::ifstream strm(file.c_str());
+    if (!strm.good()) {
+        throw ProcessError("Could not load VISUM language map from '" + file + "'.");
+    }
+    while (strm.good()) {
+        std::string keyDE;
+        std::string keyNew;
+        strm >> keyDE;
+        strm >> keyNew;
+        if (KEYS.hasString(keyDE)) {
+            VISUM_KEY key = KEYS.get(keyDE);
+            KEYS.remove(keyDE, key);
+            KEYS.insert(keyNew, key);
+        } else if (keyDE != "") {
+            // do not warn about network-related keys (NIImporter_VISUM)
+            //WRITE_WARNING("Unknown entry '" + keyDE + "' in VISUM language map");
+        }
+    }
+
+}
 
 /****************************************************************************/

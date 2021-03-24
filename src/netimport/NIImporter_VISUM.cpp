@@ -74,6 +74,8 @@ StringBijection<NIImporter_VISUM::VISUM_KEY>::Entry NIImporter_VISUM::KEYS_DE[] 
     { "KANTEID",  VISUM_EDGEID },
     { "Q",  VISUM_ORIGIN },
     { "Z",  VISUM_DESTINATION },
+    { "KATNR", VISUM_CATID },
+    { "ZWISCHENPUNKT", VISUM_EDGEITEM },
     { "NR", VISUM_NO } // must be the last one
 };
 

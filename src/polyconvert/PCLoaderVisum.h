@@ -68,4 +68,59 @@ protected:
                      PCTypeMap& tm);
 
 
+    /**
+     * @enum VISUM keys
+     * @brief Numbers representing VISUM keywords
+     */
+    enum VISUM_KEY {
+        VISUM_SYS,
+        VISUM_LINKTYPE,
+        VISUM_NODE,
+        VISUM_DISTRICT,
+        VISUM_POINT,
+        VISUM_LINK,
+        VISUM_V0,
+        VISUM_TYPES,
+        VISUM_RANK,
+        VISUM_CAPACITY,
+        VISUM_XCOORD,
+        VISUM_YCOORD,
+        VISUM_FROMNODE,
+        VISUM_TONODE,
+        VISUM_TYPE,
+        VISUM_TYP,
+        VISUM_ID,
+        VISUM_CODE,
+        VISUM_DISTRICT_CONNECTION,
+        VISUM_SOURCE_DISTRICT,
+        VISUM_FROMNODENO,
+        VISUM_DIRECTION,
+        VISUM_SURFACEID,
+        VISUM_FACEID,
+        VISUM_FROMPOINTID,
+        VISUM_TOPOINTID,
+        VISUM_EDGE,
+        VISUM_VIANODENO,
+        VISUM_NUMLANES,
+        VISUM_TURN,
+        VISUM_INDEX,
+        VISUM_LINKPOLY,
+        VISUM_SURFACEITEM,
+        VISUM_FACEITEM,
+        VISUM_EDGEID,
+        VISUM_ORIGIN,
+        VISUM_DESTINATION,
+        // polyconvert keys added to avoid warnings
+        VISUM_CATID,
+        VISUM_EDGEITEM,
+        VISUM_NO // must be the last one
+    };
+
+    /// Strings for the keywords
+    static StringBijection<VISUM_KEY>::Entry KEYS_DE[];
+
+    /// @brief link directions
+    static StringBijection<VISUM_KEY> KEYS;
+
+    static void loadLanguage(const std::string& file);
 };
