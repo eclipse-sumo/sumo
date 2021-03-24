@@ -84,8 +84,9 @@ def main(options):
                 outf.write("%s,%s\n" % (tPrev, count))
             else:
                 outf.write("    <step time=\"%s\" number=\"%s\"/>\n" % (t, count))
-            # close route tag
-            outf.write("</stoppingPlace>\n")
+            if (options.csv == ""):
+                # close route tag
+                outf.write("</stoppingPlace>\n")
 
 if __name__ == "__main__":
     options = get_options(sys.argv)
