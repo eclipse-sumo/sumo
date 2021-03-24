@@ -427,12 +427,13 @@ def assign_remaining_args(application, prefix, args):
 
 def get_basename(demand_file):
     basename = os.path.basename(demand_file)
-    if 'alt' in basename:
-        return basename[:-12]
-    elif 'trips' in basename:
-        return basename[:-10]
-    else:
-        return basename[:basename.find(".")]
+    # note this will still cause problems if multiple input file have the same
+    # prefix and only differ in suffix
+    for suffix in ['.rou.xml', '.rou.alt.xml', '.trips.xml', '.xml']:
+        if basename.endswith(suffix):
+            basename = basename[:-len(suffix)]
+            break;
+    return basename
 
 
 def calcMarginalCost(step, options):
