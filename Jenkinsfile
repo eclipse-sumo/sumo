@@ -16,7 +16,7 @@ spec:
         memory: "1Gi"
         cpu: "500m"
   - name: maven
-    image: maven:alpine
+    image: ubuntu:20.04
     tty: true
     resources:
       limits:
@@ -63,7 +63,7 @@ spec:
     stage('Run maven') {
       steps {
         container('maven') {
-          sh 'mvn clean deploy'
+          sh 'apt-get update && ls -lsa'
         }
       }
     }
