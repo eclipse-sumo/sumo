@@ -155,6 +155,10 @@ parking:input_routes.rou.parking.xml
 parking:parking_parkingLot.add.xml
 toolcfg:out.toolcfg
 tracefile:tracefile_out.txt
+parkingA:parkingA.xml
+parkingB:parkingB.xml
+parkingC:parkingC.xml
+parkingD:parkingD.xml
 
 [run_dependent_text]
 output:Begin time
