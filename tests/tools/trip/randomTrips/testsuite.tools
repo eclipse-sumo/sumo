@@ -1,3 +1,5 @@
+saveConfig
+loadConfig
 simple
 begin_end_human_readable
 

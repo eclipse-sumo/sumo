@@ -71,6 +71,7 @@ copy_test_path:ptlines.xml
 copy_test_path:input_edgedata.xml
 copy_test_path:summary.xml
 copy_test_path:config.txt
+copy_test_path:input.toolcfg
 copy_test_path:input_sel.txt
 copy_test_path:matsim_plans.xml
 copy_test_path:input_data.xml
@@ -97,6 +98,7 @@ fixed:routes.rou.xml.fixed
 activityfile:activityfile.tcl
 mobilityfile:mobilityfile.tcl
 cfg:config.tcl
+toolcfg:config.xml
 summary:intersection_metrics_summary.txt
 pois:pois.add.xml
 trips:trips.trips.xml
@@ -192,6 +194,7 @@ routes:<!-- generated on{[->]}-->
 routesA:<!-- generated on{[->]}-->
 routesB:<!-- generated on{[->]}-->
 xml:<!-- generated on{[->]}-->
+toolcfg:<!-- generated on{[->]}-->
 errors:Execution of .*duarouter.*'{REPLACE Execution of <path-to>duarouter'}
 errors:Leaked object at 
 errors:*** 9 leaks found
