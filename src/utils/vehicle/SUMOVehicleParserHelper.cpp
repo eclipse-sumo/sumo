@@ -30,6 +30,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
@@ -671,6 +672,12 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                     } else {
                         vtype->width = width;
                         vtype->parametersSet |= VTYPEPARS_WIDTH_SET;
+                        if (vClass == SVC_PEDESTRIAN
+                                && OptionsCont::getOptions().exists("pedestrian.striping.stripe-width")
+                                && OptionsCont::getOptions().getString("pedestrian.model") == "striping"
+                                && OptionsCont::getOptions().getFloat("pedestrian.striping.stripe-width") < vtype->width) {
+                            WRITE_WARNINGF("Pedestrian vType '%' width % is larger than pedestrian.striping.stripe-width and this may cause collisions with vehicles.", id, vtype->width);
+                        }
                     }
                 }
             }

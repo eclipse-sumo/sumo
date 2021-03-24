@@ -33,6 +33,7 @@
 #include <microsim/MSLink.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/MSVehicleControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/transportables/MSStage.h>
 #include <microsim/transportables/MSTransportableControl.h>
@@ -115,6 +116,12 @@ MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) :
     initWalkingAreaPaths(net);
     // configurable parameters
     stripeWidth = oc.getFloat("pedestrian.striping.stripe-width");
+    MSVehicleType* defaultPedType = MSNet::getInstance()->getVehicleControl().getVType(DEFAULT_PEDTYPE_ID);
+    if (defaultPedType != nullptr && defaultPedType->getWidth() > stripeWidth) {
+        WRITE_WARNINGF("Pedestrian vType '%' width % is larger than pedestrian.striping.stripe-width and this may cause collisions with vehicles.",
+                DEFAULT_PEDTYPE_ID, defaultPedType->getWidth());
+    }
+
     dawdling = oc.getFloat("pedestrian.striping.dawdling");
     RESERVE_FOR_ONCOMING_FACTOR = oc.getFloat("pedestrian.striping.reserve-oncoming");
     RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS = oc.getFloat("pedestrian.striping.reserve-oncoming.junctions");

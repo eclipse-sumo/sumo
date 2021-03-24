@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="pType" width="0.5" vClass="pedestrian"/>
+    <person id="p0" depart="0.00" departPos="-30">
+        <walk edges="a" departPosLat="1.5" arrivalPos="30"/>
+    </person>
+    <person id="p1" depart="0.00" departPos="-30" type="pType">
+        <walk edges="a" departPosLat="1.5" arrivalPos="30"/>
+    </person>
+    <vehicle id="v0" type="DEFAULT_BIKETYPE" depart="0.00" departPos="30" arrivalPos="-30">
+        <route edges="a"/>
+    </vehicle>
+</routes>
