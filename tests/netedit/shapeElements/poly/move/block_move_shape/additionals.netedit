@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01.10.2020 13:21:49 by Eclipse SUMO netedit Version v1_7_0+0389-4e540543f6
+<!-- generated on 24.03.2021 13:08:52 by Eclipse SUMO netedit Version v1_8_0+1774-2d3fdf74c4
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Oct131813.3004\netedit.gui\shapeElements\poly\move\block_move_shape\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\bans_ol\.texttest\tmp\netedit.gui.24Mar130755.8124\netedit.gui\shapeElements\poly\move\block_move_shape\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Oct131813.3004\netedit.gui\shapeElements\poly\move\block_move_shape\net.net.xml"/>
+        <output-file value="C:\Users\bans_ol\.texttest\tmp\netedit.gui.24Mar130755.8124\netedit.gui\shapeElements\poly\move\block_move_shape\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,33 +30,33 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Oct131813.3004\netedit.gui\shapeElements\poly\move\block_move_shape\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Oct131813.3004\netedit.gui\shapeElements\poly\move\block_move_shape\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Oct131813.3004\netedit.gui\shapeElements\poly\move\block_move_shape\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Oct131813.3004\netedit.gui\shapeElements\poly\move\block_move_shape\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Oct131813.3004\netedit.gui\shapeElements\poly\move\block_move_shape\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Oct131813.3004\netedit.gui\shapeElements\poly\move\block_move_shape\datas.xml"/>
+        <additional-files value="C:\Users\bans_ol\.texttest\tmp\netedit.gui.24Mar130755.8124\netedit.gui\shapeElements\poly\move\block_move_shape\additionals.xml"/>
+        <additionals-output value="C:\Users\bans_ol\.texttest\tmp\netedit.gui.24Mar130755.8124\netedit.gui\shapeElements\poly\move\block_move_shape\additionals.xml"/>
+        <route-files value="C:\Users\bans_ol\.texttest\tmp\netedit.gui.24Mar130755.8124\netedit.gui\shapeElements\poly\move\block_move_shape\routes.xml"/>
+        <demandelements-output value="C:\Users\bans_ol\.texttest\tmp\netedit.gui.24Mar130755.8124\netedit.gui\shapeElements\poly\move\block_move_shape\routes.xml"/>
+        <data-files value="C:\Users\bans_ol\.texttest\tmp\netedit.gui.24Mar130755.8124\netedit.gui\shapeElements\poly\move\block_move_shape\datas.xml"/>
+        <dataelements-output value="C:\Users\bans_ol\.texttest\tmp\netedit.gui.24Mar130755.8124\netedit.gui\shapeElements\poly\move\block_move_shape\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Oct131813.3004\netedit.gui\shapeElements\poly\move\block_move_shape\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\bans_ol\.texttest\tmp\netedit.gui.24Mar130755.8124\netedit.gui\shapeElements\poly\move\block_move_shape\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Oct131813.3004\netedit.gui\shapeElements\poly\move\block_move_shape\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\bans_ol\.texttest\tmp\netedit.gui.24Mar130755.8124\netedit.gui\shapeElements\poly\move\block_move_shape\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Oct131813.3004\netedit.gui\shapeElements\poly\move\block_move_shape\log.txt"/>
+        <error-log value="C:\Users\bans_ol\.texttest\tmp\netedit.gui.24Mar130755.8124\netedit.gui\shapeElements\poly\move\block_move_shape\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poly id="poly_0" color="red" fill="0" layer="128.00" shape="30.000000,10.000000 30.000000,20.000000 20.000000,20.000000 20.000000,10.000000 30.000000,10.000000"/>
+    <poly id="poly_0" color="red" fill="0" layer="0.00" shape="30.000000,10.000000 30.000000,20.000000 20.000000,20.000000 20.000000,10.000000 30.000000,10.000000"/>
 </additional>
