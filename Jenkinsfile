@@ -60,31 +60,46 @@ spec:
     }
   }
   stages {
-    stage('Build SUMO') {
+    stage('Building SUMO') {
       steps {
         container('ubuntu-sumo') {
-          sh 'mkdir -p cmake-build && cd cmake-build && export CC=gcc; export CXX=g++; cmake ..'
+          sh '''
+            mkdir -p cmake-build 
+            cd cmake-build 
+            export CC=gcc; export CXX=g++; 
+            cmake ..
+            make -j4
+          '''
         }
       }
     }
     stage('Build TraaS') {
       steps {
         container('ubuntu-sumo') {
-          sh 'mkdir -p cmake-build && cd cmake-build && make traas'
+          sh '''
+            cd cmake-build
+            make traas
+          '''
         }
       }
     }
     stage('Maven Artifact - libsumo') {
       steps {
         container('ubuntu-sumo') {
-          sh 'cmake-build/src/libsumo && mvn --batch-mode deploy'
+          sh '''
+            cd cmake-build/src/libsumo
+            mvn --batch-mode deploy
+          '''
         }
       }
     }
     stage('Maven Artifact - libtraci') {
       steps {
         container('ubuntu-sumo') {
-          sh 'cmake-build/src/libtraci && mvn --batch-mode deploy'
+          sh '''
+            cd cmake-build/src/libtraci 
+            mvn --batch-mode deploy
+          '''
         }
       }
     }
