@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  7 12:51:22 2020 by Eclipse SUMO polyconvert Version v1_6_0+2011-142405e97b
+<!-- generated on Wed Mar 24 21:07:20 2021 by Eclipse SUMO polyconvert Version v1_8_0+1803-fe50666
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
@@ -18,6 +18,7 @@
         <dlr-navteq-poly-files value="" type="FILE" help="Reads polygons from FILE assuming they&apos;re coded in DLR-Navteq (Elmar)-format"/>
         <dlr-navteq-poi-files value="" type="FILE" help="Reads pois from FILE+ assuming they&apos;re coded in DLR-Navteq (Elmar)-format"/>
         <visum-files value="" synonymes="visum" type="FILE" help="Reads polygons from FILE assuming it&apos;s a Visum-net"/>
+        <visum.language-file value="" type="FILE" help="Load language mappings from FILE"/>
         <xml-files value="" synonymes="xml" type="FILE" help="Reads pois and shapes from FILE assuming they&apos;re coded in XML"/>
         <osm-files value="" synonymes="osm" type="FILE" help="Reads pois from FILE+ assuming they&apos;re coded in OSM"/>
         <osm.keep-full-type value="false" type="BOOL" help="The type will be made of the key-value - pair"/>
