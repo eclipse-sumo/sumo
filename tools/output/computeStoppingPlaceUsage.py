@@ -31,19 +31,18 @@ from sumolib.miscutils import parseTime
 import os,sys
 
 def get_options(args=None):
-    optParser = optparse.OptionParser()
-    optParser.add_option("-o", "--stop-output-file", dest="stopOutput", 
+    parser = sumolib.options.ArgumentParser(description="Compute Stopping Place usage")
+    parser.add_argument("-o", "--stop-output-file", dest="stopOutput", 
         help="output route file with stops")
-    optParser.add_option("-s", "--stopping-place", dest="stoppingPlace", 
+    parser.add_argument("-s", "--stopping-place", dest="stoppingPlace", 
         help="stoppingPlace Type (busStop, parkingArea...)", default="parkingArea")
-    optParser.add_option("-c", "--csv", dest="csv", 
-        help="write in CSV format", default="")
-    (options, args) = optParser.parse_args(args=args)
+    parser.add_argument("--csv", action="store_true", default=False, 
+        help="write in CSV format")
+    options = parser.parse_args(args=args)
     if not options.stopOutput:
         optParser.print_help()
         sys.exit()
     return options
-
 
 
 def main(options):
@@ -84,10 +83,9 @@ def main(options):
                 outf.write("%s,%s\n" % (tPrev, count))
             else:
                 outf.write("    <step time=\"%s\" number=\"%s\"/>\n" % (t, count))
-            if (options.csv == ""):
+            if (options.csv == False):
                 # close route tag
                 outf.write("</stoppingPlace>\n")
 
 if __name__ == "__main__":
-    options = get_options(sys.argv)
-    main(options)
+    main(get_options())
