@@ -1,6 +1,9 @@
 # straight call of the script
 simple
 
+# call with 2 trip files
+multipe_inputs
+
 # vtypes from an additional file
 vtypes_add
 
