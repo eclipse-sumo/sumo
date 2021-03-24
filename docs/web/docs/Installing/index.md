@@ -10,7 +10,7 @@ you want to install it locally and have administrator rights on your
 machine you should download and execute one of the installers
 (preferably 64 bit). If you need a "portable" version or do not have
 admin rights, use the correct zip, extract it into a desired folder
-using [7Zip](https://7-zip.de/),
+using [7Zip](https://www.7-zip.org/),
 [Winzip](https://www.winzip.com/win/de/prod_down.html), or a similar tool. Every
 package contains the binaries, all dlls needed, the examples, tools, and
 documentation in HTML format.
