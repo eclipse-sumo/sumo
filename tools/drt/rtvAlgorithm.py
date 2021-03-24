@@ -415,7 +415,10 @@ def exhaustive_search(options, r_id_unassigned, r_id_picked, r_all, fleet, v_typ
                         route_id = "%s_%sy" % (v_id, next_id)
                     else:
                         route_id = "%s_%sz" % (v_id, next_id)
-                    route_tw = rv_dict.get(route_id, False)[0]
+                    if not rv_dict.get(route_id, False):
+                        #TODO manage teleports
+                        continue
+                    route_tw = rv_dict[route_id][0]
                     routes_tree[i] = [[route_id, route_tw+step, 1]]
                     break
         if not routes_tree[i]:
@@ -434,7 +437,7 @@ def exhaustive_search(options, r_id_unassigned, r_id_picked, r_all, fleet, v_typ
             del routes_tree[i][:]
             i = i + 1  # next tree depth
         
-    if len(fleet) == 1:
+    if len(fleet) == 1 and rtv_dict:
         # if one vehicle darp, assign the fastest route with max reservation served
         key_list = list(rtv_dict.keys())
         value_list = [value[3] for key, value in rtv_dict.items()]

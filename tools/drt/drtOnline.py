@@ -229,7 +229,7 @@ def get_rv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, rv
             if not r_possible:
                 # reject request and remove person from simulation
                 # TODO no rejection option should be implemented in future
-                print("Reservation %s cannot be served" % x_id)
+                print("Reservation %s (person %s) cannot be served" % (x_id, x.persons))
                 r_all_remove.append(x_id)
                 r_rv_remove.extend(['%sy' %x_id, '%sz' %x_id])
                 for person in x.persons:
@@ -253,7 +253,7 @@ def get_rv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, rv
             if x.tw_pickup[1] < step:
                 # pickup time window surpass simulation time -> reject request
                 # TODO no rejection option should be implemented in future
-                print("Reservation %s cannot be served" % x_id)
+                print("Reservation %s (person %s) cannot be served" % (x_id, x.persons))
                 r_all_remove.append(x_id)
                 r_rv_remove.extend(['%sy' %x_id, '%sz' %x_id])
                 for person in x.persons:
@@ -276,7 +276,7 @@ def get_rv(options, r_id_new, r_id_picked, r_id_served, r_all, fleet, v_type, rv
                         rv_dict.pop(route_id)
             if remove:
                 # if no vehicle available for pick-up on time -> reject request
-                print("Reservation %s cannot be served" % x_id)
+                print("Reservation %s (person %s) cannot be served" % (x_id, x.persons))
                 r_all_remove.append(x_id)
                 r_rv_remove.extend(['%sy' %x_id, '%sz' %x_id])
                 for person in x.persons:
@@ -372,7 +372,7 @@ def main():
 
     # start traci
     if options.sumocfg:
-        run_traci = [options.sumo, "-c", options.sumocfg]
+        run_traci = [options.sumo, "-c", options.sumocfg, '--tripinfo-output.write-unfinished']
     else:
         run_traci = [options.sumo, '--net-file', '%s' %options.network, '-r', 
         '%s,%s' % (options.reservations, options.taxis), '-l', 'log.txt',
@@ -428,6 +428,13 @@ def main():
                 if r_id_new:
                     print('New reservations: ', r_id_new)
                 print('Unassigned reservations: ', list(set(r_id_unassigned)-set(r_id_new)))
+
+            # get fleet 
+            fleet = traci.vehicle.getTaxiFleet(-1)
+            if set(fleet) != set(fleet) & set(traci.vehicle.getIDList()): #TODO manage teleports
+                print("\nVehicle %s is being teleported, skip to next step" % (set(fleet) - set(traci.vehicle.getIDList())))
+                step += options.sim_step
+                continue # if a vehicle is being teleported skip to next step
             
             # remove reservations already served
             r_id_current = [x.id for x in traci.person.getTaxiReservations(0)]
@@ -437,9 +444,6 @@ def main():
 
             # reservations already picked up
             r_id_picked = [x.id for x in traci.person.getTaxiReservations(8)]
-
-            # get fleet 
-            fleet = traci.vehicle.getTaxiFleet(-1)
 
             # search request-vehicles pairs
             if options.debug:
