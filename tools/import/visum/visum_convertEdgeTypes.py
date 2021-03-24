@@ -48,7 +48,7 @@ for line in fd:
         fdo.write('   <type id="' + map["nr"])
         fdo.write('" priority="' + str(100 - int(map["rang"])))
         fdo.write('" numLanes="' + map["anzfahrstreifen"])
-        fdo.write('" speed="' + str(float(map["v0iv"]) / 3.6))
+        fdo.write('" speed="' + str(float(map["v0iv"].replace("km/h", "")) / 3.6))
         fdo.write('"/>\n')
 
     if line.find("$STRECKENTYP") == 0:

@@ -28,19 +28,14 @@ from __future__ import print_function
 import sys
 import os
 from xml.sax import make_parser
-
-sys.path.append(
-    os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../../lib"))
-import sumonet  # noqa
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+import sumolib  # noqa
 
 if len(sys.argv) < 3:
     print("Usage: " + sys.argv[0] + " <SUMO-net> <VISUM-net> <output>")
     sys.exit()
 print("Reading net...")
-parser = make_parser()
-net = sumonet.NetReader()
-parser.setContentHandler(net)
-parser.parse(sys.argv[1])
+net = sumolib.net.readNet(sys.argv[1])
 
 print("Reading VISUM...")
 fd = open(sys.argv[2])
@@ -61,7 +56,7 @@ for line in fd:
         toNode = vals[4]
         strID = vals[5]
         rest = ";".join(vals[lastKnown + 1:]).strip()
-        fN = net.getNet()._id2node[fromNode]
+        fN = net.getID(fromNode)
         me = None
         for e in fN._outgoing:
             if e._id == strID or e._id == "-" + strID:

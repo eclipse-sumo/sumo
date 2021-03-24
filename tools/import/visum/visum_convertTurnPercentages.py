@@ -27,21 +27,14 @@ from __future__ import print_function
 import os
 import sys
 from xml.sax import make_parser
-
-sys.path.append(
-    os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../../lib"))
-import sumonet  # noqa
-
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+import sumolib  # noqa
 
 if len(sys.argv) < 4:
     print("Usage: " + sys.argv[0] + " <SUMO_NET> <VISUM_TURNINGS> <OUTPUT>")
     sys.exit()
 print("Reading net...")
-parser = make_parser()
-net = sumonet.NetReader()
-parser.setContentHandler(net)
-parser.parse(sys.argv[1])
-net = net.getNet()
+net = sumolib.net.readNet(sys.argv[1])
 
 # initialise edges and nodes map
 emap = {}
