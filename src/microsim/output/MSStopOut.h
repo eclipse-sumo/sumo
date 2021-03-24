@@ -75,8 +75,10 @@ public:
     void loadedContainers(const SUMOVehicle* veh, int n);
     void unloadedContainers(const SUMOVehicle* veh, int n);
 
-    void stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& stop, const std::string& laneOrEdgeID);
+    void stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& stop, const std::string& laneOrEdgeID, bool simEnd = false);
 
+    /// @brief generate output for vehicles which are still stopped at simulation end
+    void generateOutputForUnfinished();
 
 private:
     struct StopInfo {
@@ -98,7 +100,7 @@ private:
         int unloadedContainers;
     };
 
-    std::map<const SUMOVehicle*, StopInfo> myStopped;
+    std::map<const SUMOVehicle*, StopInfo, ComparatorNumericalIdLess> myStopped;
 
     OutputDevice& myDevice;
 

@@ -535,6 +535,9 @@ MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
         WRITE_MESSAGE("Reason: " + reason);
     }
     myDetectorControl->close(myStep);
+    if (MSStopOut::active() && OptionsCont::getOptions().getBool("stop-output.write-unfinished")) {
+        MSStopOut::getInstance()->generateOutputForUnfinished();
+    }
     if (OptionsCont::getOptions().getBool("vehroute-output.write-unfinished")) {
         MSDevice_Vehroutes::generateOutputForUnfinished();
     }

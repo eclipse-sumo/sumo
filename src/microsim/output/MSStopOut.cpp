@@ -24,6 +24,7 @@
 #include <utils/common/MsgHandler.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSParkingArea.h>
 #include <microsim/MSStoppingPlace.h>
@@ -98,7 +99,7 @@ MSStopOut::unloadedContainers(const SUMOVehicle* veh, int n) {
 }
 
 void
-MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& stop, const std::string& laneOrEdgeID) {
+MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& stop, const std::string& laneOrEdgeID, bool simEnd) {
     assert(veh != nullptr);
     if (myStopped.count(veh) == 0) {
         WRITE_WARNING("Vehicle '" + veh->getID() + "' ends stop on edge '" + veh->getEdge()->getID()
@@ -108,7 +109,7 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
     const StopInfo& si = myStopped.find(veh)->second;
     double delay = -1;
     double arrivalDelay = -1;
-    if (stop.until >= 0) {
+    if (stop.until >= 0 && !simEnd) {
         delay = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - stop.until);
     }
     if (stop.arrival >= 0) {
@@ -125,7 +126,7 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
     myDevice.writeAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane());
     myDevice.writeAttr(SUMO_ATTR_PARKING, stop.parking);
     myDevice.writeAttr("started", time2string(stop.actualArrival));
-    myDevice.writeAttr("ended", time2string(MSNet::getInstance()->getCurrentTimeStep()));
+    myDevice.writeAttr("ended", simEnd ? "-1" : time2string(MSNet::getInstance()->getCurrentTimeStep()));
     myDevice.writeAttr("delay", delay);
     if (stop.arrival >= 0) {
         myDevice.writeAttr("arrivalDelay", arrivalDelay);
@@ -164,5 +165,17 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
     myStopped.erase(veh);
 }
 
+void
+MSStopOut::generateOutputForUnfinished() {
+    while (!myStopped.empty()) {
+        const auto& item = *myStopped.begin();
+        const SUMOVehicle* veh = item.first;
+        const SUMOVehicleParameter::Stop* stop = veh->getNextStopParameter();
+        assert(stop != nullptr);
+        const std::string laneOrEdgeID = MSGlobals::gUseMesoSim ? veh->getEdge()->getID() : Named::getIDSecure(veh->getLane());
+        // erases item from myStopped
+        stopEnded(veh, *stop, laneOrEdgeID, true);
+    }
+}
 
 /****************************************************************************/

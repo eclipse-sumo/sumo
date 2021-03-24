@@ -262,6 +262,8 @@ MSFrame::fillOptions() {
 
     oc.doRegister("stop-output", new Option_FileName());
     oc.addDescription("stop-output", "Output", "Record stops and loading/unloading of passenger and containers for all vehicles into FILE");
+    oc.doRegister("stop-output.write-unfinished", new Option_Bool(false));
+    oc.addDescription("stop-output.write-unfinished", "Output", "Write stop output for stops which have not ended at simulation end");
 
     oc.doRegister("collision-output", new Option_FileName());
     oc.addDescription("collision-output", "Output", "Write collision information into FILE");
