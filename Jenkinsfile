@@ -81,7 +81,7 @@ spec:
         }
       }
     }
-    stage('Maven Artifact - libsumo') {
+    stage('Maven Artifact - libtraci') {
       steps {
         container('ubuntu-sumo') {
           sh 'cmake-build/src/libtraci && mvn --batch-mode deploy'
