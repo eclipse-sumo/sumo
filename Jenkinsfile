@@ -15,7 +15,7 @@ spec:
       requests:
         memory: "1Gi"
         cpu: "500m"
-  - name: maven
+  - name: ubuntu-sumo
     image: roberthilbrich/ubuntu-sumo:latest
     tty: true
     resources:
@@ -60,10 +60,31 @@ spec:
     }
   }
   stages {
-    stage('Run maven') {
+    stage('Build SUMO') {
       steps {
-        container('maven') {
-          sh 'cmake --version || pwd && ls -lsa'
+        container('ubuntu-sumo') {
+          sh 'mkdir -p cmake-build && cd cmake-build && export CC=gcc; export CXX=g++; cmake ..'
+        }
+      }
+    }
+    stage('Build TraaS') {
+      steps {
+        container('ubuntu-sumo') {
+          sh 'mkdir -p cmake-build && cd cmake-build && make traas'
+        }
+      }
+    }
+    stage('Maven Artifact - libsumo') {
+      steps {
+        container('ubuntu-sumo') {
+          sh 'cmake-build/src/libsumo && mvn --batch-mode deploy'
+        }
+      }
+    }
+    stage('Maven Artifact - libsumo') {
+      steps {
+        container('ubuntu-sumo') {
+          sh 'cmake-build/src/libtraci && mvn --batch-mode deploy'
         }
       }
     }
