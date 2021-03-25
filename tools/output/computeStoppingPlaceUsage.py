@@ -38,12 +38,19 @@ def get_options(args=None):
         help="stoppingPlace type (busStop, parkingArea...)", default="parkingArea")
     parser.add_argument("--csv", action="store_true", default=False,
         help="write in CSV format")
-    parser.add_argument("--only-changes", action="store_true", default=False,
+    parser.add_argument("--only-changes", action="store_true", default=False, dest="onlyChanges",
         help="write output only for steps where the occupancy changes")
+    parser.add_argument("-b", "--begin", default=None, help="begin time (when writting all steps)")
+    parser.add_argument("-e", "--end", default=None, help="end time (when writting all steps)")
     options = parser.parse_args(args=args)
     if not options.stopOutput:
         optParser.print_help()
         sys.exit()
+
+    if options.begin:
+        options.begin = int(parseTime(options.begin))
+    if options.end:
+        options.end = int(parseTime(options.end))
     return options
 
 
@@ -69,6 +76,41 @@ def main(options):
             count += change
             tPrev = t
         steps.append((tPrev, count))
+
+
+        if not options.onlyChanges:
+            # fill missing steps
+            steps2 = []
+            index = 0
+            number = 0
+            if options.begin is not None:
+                time = options.begin
+                # skip steps before begin
+                while steps[index][0] < time and index < len(steps):
+                    index += 1
+            else:
+                time = int(steps[0][0])
+
+            abort = False
+            while index < len(steps):
+                # fill gaps between steps
+                newTime, newNumber = steps[index]
+                for t in range(time, int(newTime)):
+                    steps2.append((float(t), number))
+                    if options.end is not None and t == options.end:
+                        abort = True
+                        break;
+                if abort:
+                    break
+                steps2.append((newTime, newNumber))
+                if options.end is not None and newTime == options.end:
+                    break
+                number = newNumber
+                time = int(newTime) + 1
+                index += 1
+
+            steps = steps2
+
 
         suffix = ".csv" if options.csv else ".xml"
         with open(splace + suffix, "w") as outf:
