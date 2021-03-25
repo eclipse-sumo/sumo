@@ -1,8 +1,0 @@
-<?xml version= "1.0" encoding="UTF-8"?>
-
-<stoppingPlace>
-    <step time="33.0" number="1"/>
-    <step time="133.0" number="0"/>
-    <step time="741.0" number="1"/>
-    <step time="1241.0" number="0"/>
-</stoppingPlace>
