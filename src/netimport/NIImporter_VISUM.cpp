@@ -446,14 +446,14 @@ NIImporter_VISUM::parse_Edges() {
         }
         oneway_checked = false;
     }
+    std::string name = StringUtils::latin1_to_utf8(myLineParser.get(KEYS.getString(VISUM_NAME)));
     // add the edge
     const SVCPermissions permissions = getPermissions(KEYS.getString(VISUM_TYPES), false, myNetBuilder.getTypeCont().getEdgeTypePermissions(type));
     int prio = myUseVisumPrio ? myNetBuilder.getTypeCont().getEdgeTypePriority(type) : -1;
     if (nolanes != 0 && speed != 0) {
         LaneSpreadFunction lsf = oneway_checked ? LaneSpreadFunction::CENTER : LaneSpreadFunction::RIGHT;
-        // @todo parse name from visum files
         NBEdge* e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio,
-                               NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, lsf, "");
+                               NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, lsf, name);
         e->setPermissions(permissions);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             delete e;
@@ -469,9 +469,8 @@ NIImporter_VISUM::parse_Edges() {
     myCurrentID = '-' + myCurrentID;
     if (nolanes != 0 && speed != 0) {
         LaneSpreadFunction lsf = oneway_checked ? LaneSpreadFunction::CENTER : LaneSpreadFunction::RIGHT;
-        // @todo parse name from visum files
         NBEdge* e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio,
-                               NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, lsf, "");
+                               NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, lsf, name);
         e->setPermissions(permissions);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             delete e;
