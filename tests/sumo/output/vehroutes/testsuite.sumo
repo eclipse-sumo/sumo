@@ -82,6 +82,7 @@ dua_trip
 # public transport and walk possible
 person_route_length
 person_write_unfinished
+person_exit_times
 
 # sorting without public transport
 no_pt_lines_sorted
