@@ -335,26 +335,32 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
         const int limit = c->myLimit;
         s->removeConstraint(tripId, c);
         s2->addConstraint(foeId, new MSRailSignalConstraint_Predecessor(s, tripId, limit));
-        removeConstraints(foeId);
+        removeConstraints("", "", "", foeId);
     } else {
         throw TraCIException("Rail signal '" + tlsID + "' does not have the given constraint for '" + tripId + "'");
     }
 }
 
 void
-TrafficLight::removeConstraints(const std::string& foeId) {
+TrafficLight::removeConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId) {
     // remove all constraints that have the given foeId
     // @note could improve efficiency by storing a map of rail signals in MSRailSignalControl
-    for (const std::string& tlsID : getIDList()) {
-        MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
-        MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);
-        if (s != nullptr) {
-            auto cands = s->getConstraints(); // make copy
-            for (auto item : cands) {
-                for (MSRailSignalConstraint* cand : item.second) {
-                    MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);
-                    if (pc != nullptr && pc->myTripId == foeId) {
-                        s->removeConstraint(item.first, cand);
+    for (const std::string& tlsCand : getIDList()) {
+        if (tlsID == "" || tlsCand == tlsID) {
+            MSTrafficLightLogic* const active = getTLS(tlsCand).getDefault();
+            MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);
+            if (s != nullptr) {
+                auto cands = s->getConstraints(); // make copy
+                for (auto item : cands) {
+                    if (tripId == "" || item.first == tripId) {
+                        for (MSRailSignalConstraint* cand : item.second) {
+                            MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);
+                            if (pc != nullptr 
+                                    && (foeId == "" || pc->myTripId == foeId)
+                                    && (foeSignal == "" || pc->myFoeSignal->getID() == foeSignal)) {
+                                s->removeConstraint(item.first, cand);
+                            }
+                        }
                     }
                 }
             }

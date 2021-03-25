@@ -78,6 +78,7 @@ public:
     static void setProgramLogic(const std::string& tlsID, const libsumo::TraCILogic& logic);
 
     static void swapConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId);
+    static void removeConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId);
 
     // aliases for backward compatibility
     inline static std::vector<libsumo::TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID) {
@@ -93,7 +94,6 @@ public:
 
 private:
     static libsumo::TraCISignalConstraint buildConstraint(const std::string& tlsID, const std::string& tripId, MSRailSignalConstraint* constraint, bool insertionConstraint); 
-    static void removeConstraints(const std::string& foeID);
 
 private:
 #ifndef SWIGJAVA

@@ -365,3 +365,9 @@ class TrafficLightDomain(Domain):
         Reverse the given constraint and remove all existing constraints with foeId
         """
         self._setCmd(tc.TL_CONSTRAINT_SWAP, tlsID, "tsss", 3, tripId, foeSignal, foeId)
+
+    def removeConstraints(self, tlsID, tripId, foeSignal, foeId):
+        """removeConstraints(string, string, string, string)
+        remove constraints with the given values. Any combination of inputs may
+        be set to "" to act as a wildcard filter """
+        self._setCmd(tc.TL_CONSTRAINT_REMOVE, tlsID, "tsss", 3, tripId, foeSignal, foeId)

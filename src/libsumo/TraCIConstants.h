@@ -820,8 +820,11 @@ TRACI_CONST int TL_CONSTRAINT = 0x2f;
 // switch order of trains encoded in rail signal constraints (set: traffic lights)
 TRACI_CONST int TL_CONSTRAINT_SWAP = 0x32;
 
-// add/get rail signal constraints by foeSignal
+// add/get rail signal constraints by foeSignal (get: traffic lights)
 TRACI_CONST int TL_CONSTRAINT_BYFOE = 0x34;
+
+// add/get rail signal constraints by foeSignal (set: traffic lights)
+TRACI_CONST int TL_CONSTRAINT_REMOVE = 0x35;
 
 // outgoing link number (get: lanes)
 TRACI_CONST int LANE_LINK_NUMBER = 0x30;
