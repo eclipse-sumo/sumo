@@ -1,1 +1,1 @@
--f input_routes.rou.xml -o out.rou.xml --operation add -t trip -a color -v cyan tools/xml/addOrRemoveAttribute.py
+-f input_routes.rou.xml -o out.rou.xml -t trip -a color -v cyan

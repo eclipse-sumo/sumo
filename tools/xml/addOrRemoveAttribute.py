@@ -44,7 +44,6 @@ def get_options(args=None):
     optParser = optparse.OptionParser()
     optParser.add_option("-f", "--file", dest="file", help="define the XML input file")
     optParser.add_option("-o", "--output", dest="output", help="define the XML output file")
-    optParser.add_option("--operation", dest="operation", help="operation (add(update) or remove)")
     optParser.add_option("-t", "--tag", dest="tag", help="tag to edit")
     optParser.add_option("-a", "--attribute", dest="attribute", help="attribute to edit")
     optParser.add_option("-v", "--value", dest="value", help="value to update")
@@ -67,7 +66,7 @@ def main(options):
             # check tag
             if (node.tag == options.tag):
                 # continue depending of operation
-                if (options.operation == "add"):
+                if options.value is not None:
                     # set new attribute (or modify existent)
                     node.set(options.attribute, options.value)
                 else:
