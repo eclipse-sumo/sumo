@@ -48,10 +48,15 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 
     <distributionManagement>
         <repository>
-            <id>github</id>
-            <name>GitHub Eclipse SUMO Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/eclipse/sumo</url>
+            <id>repo.eclipse.org</id>
+            <name>Project Repository - Releases</name>
+            <url>https://repo.eclipse.org/content/repositories/sumo-releases/</url>
         </repository>
+        <snapshotRepository>
+            <id>repo.eclipse.org</id>
+            <name>Project Repository - Snapshots</name>
+            <url>https://repo.eclipse.org/content/repositories/sumo-snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
 
     <build>
