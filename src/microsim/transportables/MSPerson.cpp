@@ -56,7 +56,9 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::string& person
         SUMOTime walkingTime, double speed,
         double departPos, double arrivalPos, double departPosLat) :
     MSStageMoving(route, toStop, speed, departPos, arrivalPos, departPosLat, MSStageType::WALKING),
-    myWalkingTime(walkingTime) {
+    myWalkingTime(walkingTime),
+    myExitTimes(nullptr)
+{
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(departPos, route.front()->getLength(), SUMO_ATTR_DEPARTPOS,
                   "person '" + personID + "' walking from " + route.front()->getID());
     myArrivalPos = SUMOVehicleParameter::interpretEdgePos(arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS,
@@ -68,6 +70,7 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::string& person
 
 
 MSPerson::MSPersonStage_Walking::~MSPersonStage_Walking() {
+    delete myExitTimes;
 }
 
 
@@ -107,6 +110,9 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
                 myMoveReminders.push_back(rem);
             };
         }
+    }
+    if (OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
+        myExitTimes = new std::vector<SUMOTime>();
     }
     (*myRouteStep)->addPerson(person);
 }
@@ -249,6 +255,15 @@ MSPerson::MSPersonStage_Walking::routeOutput(const bool /* isPerson */, OutputDe
     if (withRouteLength) {
         os.writeAttr("routeLength", walkDistance());
     }
+    if (myExitTimes != nullptr) {
+        std::vector<std::string> exits;
+        for (SUMOTime t : *myExitTimes) {
+            exits.push_back(time2string(t));
+        }
+        std::vector<std::string> missing(MAX2(0, (int)myRoute.size() - (int)myExitTimes->size()), "-1");
+        exits.insert(exits.end(), missing.begin(), missing.end());
+        os.writeAttr("exitTimes", exits);
+    }
     os.closeTag(comment);
 }
 
@@ -265,6 +280,9 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTim
                              arrived ? getArrivalPos() : lane->getLength(),
                              arrived ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_JUNCTION);
         }
+    }
+    if (myExitTimes != nullptr && nextInternal == nullptr) {
+        myExitTimes->push_back(currentTime);
     }
     myMoveReminders.clear();
     myLastEdgeEntryTime = currentTime;

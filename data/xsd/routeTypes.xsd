@@ -868,6 +868,7 @@
                     <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
                     <xsd:attribute name="cost" type="xsd:float"/>
                     <xsd:attribute name="routeLength" type="xsd:float"/>
+                    <xsd:attribute name="exitTimes" type="xsd:string"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="stop" type="stopType"/>

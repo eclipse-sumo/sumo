@@ -155,6 +155,9 @@ public:
         /// @brief the MoveReminders encountered while walking
         std::vector<MSMoveReminder*> myMoveReminders;
 
+        /// @brief optional exit time tracking for vehroute output
+        std::vector<SUMOTime>* myExitTimes;
+
         class arrival_finder {
         public:
             /// constructor
