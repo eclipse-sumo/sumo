@@ -272,13 +272,14 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
     double lastPos = myHolder.getPositionOnLane();
     MSBaseVehicle* veh = dynamic_cast<MSBaseVehicle*>(&myHolder);
     assert(veh != nullptr);
+    const MSEdge* rerouteOrigin = veh->getRerouteOrigin();
     if (isEmpty()) {
         // start fresh from the current edge
         myHolder.abortNextStop();
         assert(!veh->hasStops());
         tmpEdges.push_back(myHolder.getEdge());
-        if (veh->getLane() != nullptr && veh->getLane()->isInternal()) {
-            tmpEdges.push_back(veh->getLane()->getNextNormal());
+        if (myHolder.getEdge() != rerouteOrigin) {
+            tmpEdges.push_back(rerouteOrigin);
         }
     } else {
         assert(veh->hasStops());
@@ -350,8 +351,8 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
                 myHolder.abortNextStop();
             }
             tmpEdges.push_back(myHolder.getEdge());
-            if (veh->getLane() != nullptr && veh->getLane()->isInternal()) {
-                tmpEdges.push_back(veh->getLane()->getNextNormal());
+            if (myHolder.getEdge() != rerouteOrigin) {
+                tmpEdges.push_back(rerouteOrigin);
             }
 #ifdef DEBUG_DISPATCH
             if (DEBUG_COND) std::cout << " re-dispatch from scratch\n";
@@ -416,6 +417,9 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
     // SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = myHolder.getInfluencer().getRouterTT(veh->getRNGIndex())
     myHolder.reroute(t, "taxi:dispatch", router, false);
+#ifdef DEBUG_DISPATCH
+    if (DEBUG_COND) std::cout << "\n      finalRoute=" << toString(myHolder.getRoute().getEdges()) << " routeIndex=" << myHolder.getRoutePosition() << "\n";
+#endif
     myState |= PICKUP;
 }
 
