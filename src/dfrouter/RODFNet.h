@@ -135,6 +135,8 @@ protected:
     bool hasSourceDetector(ROEdge* edge,
                            const RODFDetectorCon& detectors) const;
 
+    bool isAllowed(const ROEdge* const edge) const;
+
     struct IterationEdge {
         int depth;
         ROEdge* edge;
@@ -178,6 +180,7 @@ private:
     /// @brief List of ids of edges that shall not be used
     std::vector<std::string> myDisallowedEdges;
 
+    SUMOVehicleClass myAllowedVClass;
 
     bool myKeepTurnarounds;
 

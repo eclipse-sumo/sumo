@@ -155,6 +155,9 @@ RODFFrame::fillOptions() {
     oc.doRegister("disallowed-edges", new Option_StringVector(StringVector({ "" })));
     oc.addDescription("disallowed-edges", "Processing", "Do not route on these edges");
 
+    oc.doRegister("vclass", new Option_String("ignoring"));
+    oc.addDescription("vclass", "Processing", "Only route on edges allowing the given vclass");
+
     oc.doRegister("keep-turnarounds", new Option_Bool(false));
     oc.addDescription("keep-turnarounds", "Processing", "Allow turnarounds as route continuations");
 

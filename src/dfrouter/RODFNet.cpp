@@ -51,6 +51,7 @@ RODFNet::RODFNet(bool amInHighwayMode) :
     myAvgSpeedFactorPKW(1),
     myAvgSpeedFactorLKW(1) {
     myDisallowedEdges = OptionsCont::getOptions().getStringVector("disallowed-edges");
+    myAllowedVClass = getVehicleClassID(OptionsCont::getOptions().getString("vclass"));
     myKeepTurnarounds = OptionsCont::getOptions().getBool("keep-turnarounds");
 }
 
@@ -59,18 +60,25 @@ RODFNet::~RODFNet() {
 }
 
 
+bool
+RODFNet::isAllowed(const ROEdge* const edge) const {
+    return (!edge->isInternal() && !edge->isWalkingArea() && !edge->isCrossing() &&
+        (edge->getPermissions() & myAllowedVClass) == myAllowedVClass &&
+        find(myDisallowedEdges.begin(), myDisallowedEdges.end(), edge->getID()) == myDisallowedEdges.end());
+
+}
+
+
 void
 RODFNet::buildApproachList() {
     for (const auto& rit : getEdgeMap()) {
-        ROEdge* ce = rit.second;
-        if (ce->isInternal()) {
+        ROEdge* const ce = rit.second;
+        if (!isAllowed(ce)) {
             continue;
         }
-        const ROEdgeVector& successors = ce->getSuccessors();
-        for (ROEdgeVector::const_iterator it = successors.begin(); it != successors.end(); ++it) {
-            ROEdge* help = *it;
-            if (find(myDisallowedEdges.begin(), myDisallowedEdges.end(), help->getID()) != myDisallowedEdges.end()) {
-                // edges in sinks will not be used
+        for (ROEdge* const help : ce->getSuccessors()) {
+            if (!isAllowed(help)) {
+                // blocked edges will not be used
                 continue;
             }
             if (!myKeepTurnarounds && help->getToJunction() == ce->getFromJunction()) {
@@ -78,14 +86,8 @@ RODFNet::buildApproachList() {
                 continue;
             }
             // add the connection help->ce to myApproachingEdges
-            if (myApproachingEdges.find(help) == myApproachingEdges.end()) {
-                myApproachingEdges[help] = ROEdgeVector();
-            }
             myApproachingEdges[help].push_back(ce);
             // add the connection ce->help to myApproachingEdges
-            if (myApproachedEdges.find(ce) == myApproachedEdges.end()) {
-                myApproachedEdges[ce] = ROEdgeVector();
-            }
             myApproachedEdges[ce].push_back(help);
         }
     }
@@ -299,7 +301,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
             t.distance += appr[i]->getLength();
             t.edges2Pass.push_back(appr[i]);
             if (!addNextNoFurther) {
-                t.passedNo = t.passedNo + 1;
+                t.passedNo++;
                 toSolve.push(t);
             } else {
                 if (!hadOne) {
@@ -323,7 +325,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
             } else {
                 bool ok = into.removeRouteDesc(*i);
                 assert(ok);
-                UNUSED_PARAMETER(ok); // ony used for assertion
+                UNUSED_PARAMETER(ok); // only used for assertion
             }
         }
     } else {
