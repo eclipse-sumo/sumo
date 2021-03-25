@@ -32,12 +32,14 @@ import os,sys
 
 def get_options(args=None):
     parser = sumolib.options.ArgumentParser(description="Compute Stopping Place usage")
-    parser.add_argument("-o", "--stop-output-file", dest="stopOutput", 
-        help="output route file with stops")
-    parser.add_argument("-s", "--stopping-place", dest="stoppingPlace", 
-        help="stoppingPlace Type (busStop, parkingArea...)", default="parkingArea")
-    parser.add_argument("--csv", action="store_true", default=False, 
+    parser.add_argument("-s", "--stop-output-file", dest="stopOutput",
+        help="simulation stop-output file")
+    parser.add_argument("-t", "--stopping-place", dest="stoppingPlace",
+        help="stoppingPlace type (busStop, parkingArea...)", default="parkingArea")
+    parser.add_argument("--csv", action="store_true", default=False,
         help="write in CSV format")
+    parser.add_argument("--only-changes", action="store_true", default=False,
+        help="write output only for steps where the occupancy changes")
     options = parser.parse_args(args=args)
     if not options.stopOutput:
         optParser.print_help()
@@ -58,34 +60,33 @@ def main(options):
     #iterate over vehCounts
     for splace, times in vehCounts.items():
         times.sort()
-        with open(splace + ".xml", "w") as outf:
-            tPrev = None
-            count = 0
+        steps = []
+        tPrev = None
+        count = 0
+        for t,change in times:
+            if t != tPrev and tPrev is not None:
+                steps.append((tPrev, count))
+            count += change
+            tPrev = t
+        steps.append((tPrev, count))
+
+        suffix = ".csv" if options.csv else ".xml"
+        with open(splace + suffix, "w") as outf:
             # write header
-            if (options.csv):
+            if options.csv:
                 # write CSV header
                 outf.write("step,number\n")
+                for time, number in steps:
+                    outf.write("%s,%s\n" % (time, number))
             else:
                 # write XML header
                 outf.write("<?xml version= \"1.0\" encoding=\"UTF-8\"?>\n\n")
                 # open route rag
                 outf.write("<stoppingPlace>\n")
-            # iterate over trips
-            for t,change in times:
-                if t != tPrev and tPrev is not None:
-                    if (options.csv):
-                        outf.write("%s,%s\n" % (tPrev, count))
-                    else:
-                        outf.write("    <step time=\"%s\" number=\"%s\"/>\n" % (tPrev, count))
-                count += change
-                tPrev = t
-            if (options.csv):
-                outf.write("%s,%s\n" % (tPrev, count))
-            else:
-                outf.write("    <step time=\"%s\" number=\"%s\"/>\n" % (t, count))
-            if (options.csv == False):
-                # close route tag
+                for time, number in steps:
+                    outf.write('    <step time="%s" number="%s"/>\n' % (time, number))
                 outf.write("</stoppingPlace>\n")
+
 
 if __name__ == "__main__":
     main(get_options())

@@ -159,6 +159,10 @@ parkingA:parkingA.xml
 parkingB:parkingB.xml
 parkingC:parkingC.xml
 parkingD:parkingD.xml
+parkingA:parkingA.csv
+parkingB:parkingB.csv
+parkingC:parkingC.csv
+parkingD:parkingD.csv
 
 [run_dependent_text]
 output:Begin time
