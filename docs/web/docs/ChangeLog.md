@@ -22,6 +22,8 @@ title: ChangeLog
   - Members of personFlow and containerFlow are no longer in the same ride unless the group attribute is set. Issue #8396
   - Vehicle type attribute containerCapacity is now supported when using taxi device for container logistics #7892
   - Fixed invalid chargingSstation-output and overheadwiresegments-output in subsecond simulation or when multiple vehicles are charging at the same element simultaneously. Issue #8351
+  - Fixed invalid depart position when using departPos="stop" with a full parkingArea. Issue #8338
+  - Fixed invalid waiting pedestrian count at busStop which caused invalid pedestrian jamming. Issue #8366
   - Fixed crash after junction collision with stoptime. Issue #8359
   - Sublane model fixes
     - Fixed deadlock in roundabout. Issue #7935
@@ -62,6 +64,7 @@ title: ChangeLog
   - Polygon and poi now have a visual indication when 'marked as front'. Issue #8331
   - Fixed bug when deleting or changing geometry-points (via dialog) in 3d-networks. Issue #8345
   - When polygons and other network elements overlap, clicks will not correctly go to the top element by default. Issue #8346
+  - Fixed invalid "merging junctions" confirmation when moving a selection of junctions. Issue #8373
   
 - netconvert
   - Fixed invalid signal plans in network with unusual geometry. Issue #7915
@@ -209,6 +212,7 @@ title: ChangeLog
   - Added function 'traci.person.splitTaxiReservation' to transport pre-made groups with multiple vehicles. Issue #8236
   - The domains 'simulation', 'junction', 'inductionloop', 'lanearea', 'multientryexit' now support setParameter and getParameter. Issue #4733, #8244
   - The value set by `traci.vehicle.setParameter("lcReason", VALUE)` will now be appended to lanechange-output. Issue #8297
+  - Function 'traci.vehicle.replaceStop' now supports deleting stops and optionally teleporting to the replacement stop. Issue #8265
 
 - Tools
   - Added [new tools](Tools/Import/GTFS.md) to support GTFS import. Issue #4596
