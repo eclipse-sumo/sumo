@@ -27,6 +27,7 @@ import numpy as np
 import zipfile
 import subprocess
 import time
+import datetime
 import math
 from argparse import ArgumentParser
 
@@ -271,6 +272,7 @@ if __name__ == "__main__":
     trips = pd.read_csv(gtfsZip.open('trips.txt'), dtype=str)
     shapes = pd.read_csv(gtfsZip.open('shapes.txt'), dtype=str)
     calendar_dates = pd.read_csv(gtfsZip.open('calendar_dates.txt'), dtype=str)
+    calendar = pd.read_csv(gtfsZip.open('calendar.txt'), dtype=str)
 
     # change col types
     stops['stop_lat'] = stops['stop_lat'].astype(float)
@@ -281,8 +283,13 @@ if __name__ == "__main__":
     stop_times['stop_sequence'] = stop_times['stop_sequence'].astype(float)
 
     # filter trips for a representative date
-    gtfs_data = pd.merge(trips, calendar_dates, on='service_id')
-    gtfs_data = gtfs_data[gtfs_data['date'] == options.date]
+    # from gtfs2fcd.py
+    weekday = 'monday tuesday wednesday thursday friday saturday sunday'.split()[datetime.datetime.strptime(options.date, "%Y%m%d").weekday()]
+    removed = calendar_dates[(calendar_dates.date == options.date) & (calendar_dates.exception_type == '2')]
+    services = calendar[(calendar.start_date <= options.date) & (calendar.end_date >= options.date) &
+                        (calendar[weekday] == '1') & (~calendar.service_id.isin(removed.service_id))]
+    added = calendar_dates[(calendar_dates.date == options.date) & (calendar_dates.exception_type == '1')]
+    gtfs_data = trips[trips.service_id.isin(services.service_id) | trips.service_id.isin(added.service_id)]
 
     # merge gtfs data from stop_times / trips / routes / stops
     gtfs_data = pd.merge(pd.merge(pd.merge(gtfs_data, stop_times, on='trip_id'), stops, on='stop_id'), routes, on='route_id')
