@@ -19,6 +19,10 @@ title: ChangeLog
   - Fixed insufficent precision of timestamps when using low step-length (i.e. 0.025). Issue #8129
   - Fixed crash when using junction-taz in combination with taxi device. Issue #8152
   - Fixed emergency braking when approaching zipper link. Issue #8242
+  - Members of personFlow and containerFlow are no longer in the same ride unless the group attribute is set. Issue #8396
+  - Vehicle type attribute containerCapacity is now supported when using taxi device for container logistics #7892
+  - Fixed invalid chargingSstation-output and overheadwiresegments-output in subsecond simulation or when multiple vehicles are charging at the same element simultaneously. Issue #8351
+  - Fixed crash after junction collision with stoptime. Issue #8359
   - Sublane model fixes
     - Fixed deadlock in roundabout. Issue #7935
     - Fixed invalid deceleration at intersection due to misinterpreting lateral position of approaching foes #7925
@@ -70,6 +74,15 @@ title: ChangeLog
   - Fixed high running time when using option **--geometry.remove** on large networks. Issue #8270
   - Fixed crash when using option **--heightmap.shapefiles** with unsuitable shape data. Issue #8307
   - Fixed missing bus-permissions when importing OSM. Issue #8310, #8317
+  - Option **--geometry.max-segment-length** now takes effect when importing from .edg.xml without edge attribute shape. Issue #8362
+  - Fixed invalid z-data when importing geotiff. Issue #8364
+  - Fixed invalid error when loading heightmap from geotiff with different color depths. Issue #8365
+  
+- polyconvert
+  - POIs are now correctly imported from VISUM files. Issue #8414
+
+- dfrouter
+  - Input networks with pedestrian infrastructure no longer result in invalid output. Issue #8408
 
 - od2trips
   - Fixed invalid begin and end times when writting personFlows. Issue #7885
@@ -86,15 +99,17 @@ title: ChangeLog
   - Function 'trafficlight.setProgramLogic' new resets phase duration. Issue #2238
   - Function 'trafficlight.setPhaseDuration' now works for actuatd traffic lights. Issue #1959
   - Route replacement with internal edge at the start of the edges list no longer causes an error. Issue #8231
-  - Fixed failure to add stop when close to the stop position (but not quite too close). Also affected taxi re-dispatch. Issue #8285
+  - Fixed failure to add stop when close to the stop position (but not quite too close). Also affected taxi re-dispatch. Issue #8285,#8398  
   - Looped taxi-dispatch now picks up persons in the intended order. Issue #8295
   - Fixed crash after calling 'person.removeStage' on a riding stage. Issue #8305
+  - Fixed crash after removing persons that have an open taxi reservation #8363
   - Fixed invalid traceFile output. Issue #8320, #8323
   
 - Tools
   - Fixed error in xml2csv.py when loading files names consists only of numbers. Issue #7910
   - Fixed invalid routes when [importing MATSim plans](Tools/Import/MATSim.md) #7948  
   - randomTrips.py now generates multi-stage plans when combining option **--intermediate** with options that generated persons (i.e. **--persontrips**). Issue #8273
+  - Fixed duaIterate.py crash when loading multiple route files with particular names. Issue #8411
   
 ### Enhancements
 - Simulation
@@ -121,6 +136,10 @@ title: ChangeLog
   - Added option **--save-state.constraints** to include constraints in saved simulation state. Issue #8337
   - PersonFlow now supports attribute `begin="triggered" number="..."` to start a number of persons in the same vehicle. Issue #8165
   - Added option **--device.battery.track-fuel** to track fuel level for other fuels besides electricity #8349
+  - Added option **--collision.check-junctions.mingap** to increase/decrease the sensitivity of junction-collision checks. Issue #8312
+  - Added option **--stop-output.write-unfinished** to write stops that are not ended at simulation end. Issue #8401
+  - Vehicle Class specific speed limits are now interpolated onto junctions. #8380
+  - Option **--vehroute-output.exit-times** now applies to walks #8415
   
 - sumo-gui
   - Random color for containers is now supported. Issue #7941
@@ -131,6 +150,7 @@ title: ChangeLog
   - Background images can now be removed using the 'Clear Decals' button. Issue #8144
   - Vehicle lengths will now be scaled according to [custom edge lengths](Simulation/Distances.md) to avoid confusing visual overlap. A new vehicle visualization setting checkbox 'scale length with geometry' is provided to disable scaling. Issue #6920
   - Asymmetrical lane-change restrictions are now indicated by a combination of broken and unbroken divider lines. Issue #3656
+  - Improved visualization of containers waiting at containerStop. Issue #8348
   
 
 - netedit
@@ -164,12 +184,20 @@ title: ChangeLog
   - Added option **--default.allow** to set default edge permissions (also applies to netgenerate). Issue #8271
   - Added option **--osm.extra-attributes** to import addional edge attributes (osm tags) as generic parameters. Issue #8322
   - Added option **--osm.lane-access** for import of extra lane access permissions (experimental). Issue #7601
-
+  - Option **--output.street-names** is now working for  VISUM network. Issue #8418
+  
 - netgenerate
   - Releaxed restrictions on minimum edge lengths when building grid and spider networks. Issue #8272
 
 - marouter
   - Added option **--ignore-taz** to route individual trips written by [od2trips](od2trips.md) between their assigned edges. Issue #8343
+  - Option **--scale** is now applied when loading route files instead of od-matrices. Issue #8352
+  
+- od2trips
+  - Added option **--junctions** which interprets the loaded source and sink ids at fromJunction and toJunction ids. #8389
+
+- dfrouter
+  - Added option **--vclass** to filter eligble edges in a multi-modal network. Issue #8408
 
 - TraCI
   - Added function 'traci.simulation.getCollisions' to retrieve a list of collision objects for the current time step. This also includes collisions between vehicles and pedestrians. Issue #7728
@@ -189,15 +217,23 @@ title: ChangeLog
   - The tool [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy) can now handle inconsistent schedule input without generating deadlocking constraints when setting option **--abort-unordered**. Issue #7436, #8246, #8278
   - When loading additional weights in for [duaIterate.py](Demand/Dynamic_User_Assignment.md#iterative_assignment_dynamic_user_equilibrium), the new option **--addweights.once** controls whether the weights are to be effective in every iteration or not. The new default is to apply them in every iteration whereas previously, they were applied only in the first iteration. Issue #8249
   - Added new tool [splitRandom.py](Tools/Routes.md#splitrandompy). Issue #8324
+  - Added new tool [splitRandom.py](Tools/Routes.md#splitrandompy). Issue #8324
 
 ### Other
 
 - Miscellaneous
   - Fixed "Error: Cannot get file attributes" when loading large files on Windows and macOS. Issue #6620
+  - Clang build now works on Windows (Visual Studio) #8123
+
+- netedit
+  - When using rectangle selection, junctions of selected edges are now added to the selection by default. Issue #8406
 
 - netconvert
   - Parallel turn lanes are no longer written as distinct edges but are instead written as multi-lane edge with different lane lenghts. As before, lane-changing on an intersection is not permitted on a turn lane. Issue #7954
   - Written network version is now 1.9.0
+
+- Documentation
+  - Added [public transport tutorial](Tutorials/PublicTransport.md) (without web wizard). Issue #8108
   
 - Tools
   - Some obsolete tools were moved to tools/purgatory (let us know if you were using them). Issue #1425
