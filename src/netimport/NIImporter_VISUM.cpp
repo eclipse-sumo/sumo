@@ -74,6 +74,10 @@ StringBijection<NIImporter_VISUM::VISUM_KEY>::Entry NIImporter_VISUM::KEYS_DE[] 
     { "KANTEID",  VISUM_EDGEID },
     { "Q",  VISUM_ORIGIN },
     { "Z",  VISUM_DESTINATION },
+    { "HALTEPUNKT",  VISUM_STOPPOINT },
+    { "NAME",  VISUM_NAME },
+    { "STRNR",  VISUM_LINKNO },
+    { "RELPOS",  VISUM_RELPOS },
     { "KATNR", VISUM_CATID },
     { "ZWISCHENPUNKT", VISUM_EDGEITEM },
     { "POIKATEGORIE", VISUM_POICATEGORY },
@@ -172,6 +176,10 @@ NIImporter_VISUM::NIImporter_VISUM(NBNetBuilder& nb,
 
     addParser("LSASIGNALGRUPPEZULSAPHASE", &NIImporter_VISUM::parse_SignalGroupsToPhases);
     addParser("FAHRSTREIFENABBIEGER", &NIImporter_VISUM::parse_LanesConnections);
+
+    if (OptionsCont::getOptions().isSet("ptstop-output")) {
+        addParser(KEYS.getString(VISUM_STOPPOINT), &NIImporter_VISUM::parse_stopPoints);
+    }
 }
 
 
@@ -725,7 +733,7 @@ NIImporter_VISUM::parse_Lanes() {
     // It is permitted for KNOTNR to be 0
     //
     // get the edge
-    NBEdge* baseEdge = getNamedEdge("STRNR");
+    NBEdge* baseEdge = getNamedEdge(KEYS.getString(VISUM_LINKNO));
     if (baseEdge == nullptr) {
         return;
     }
@@ -735,7 +743,7 @@ NIImporter_VISUM::parse_Lanes() {
     if (node == nullptr) {
         node = edge->getToNode();
     } else {
-        edge = getNamedEdgeContinuating("STRNR", node);
+        edge = getNamedEdgeContinuating(KEYS.getString(VISUM_LINKNO), node);
     }
     // check
     if (edge == nullptr) {
@@ -1146,6 +1154,53 @@ void NIImporter_VISUM::parse_LanesConnections() {
 }
 
 
+void NIImporter_VISUM::parse_stopPoints() {
+    std::string id = NBHelpers::normalIDRepresentation(myLineParser.get(KEYS.getString(VISUM_NO)));
+    std::string name = StringUtils::latin1_to_utf8(myLineParser.get(KEYS.getString(VISUM_NAME)));
+    SVCPermissions permissions = getPermissions(KEYS.getString(VISUM_TYPES), true);
+    NBNode* from = getNamedNodeSecure(KEYS.getString(VISUM_FROMNODE));
+    NBNode* to = getNamedNodeSecure(KEYS.getString(VISUM_FROMNODENO));
+    const std::string edgeID = myLineParser.get(KEYS.getString(VISUM_LINKNO));
+    if (edgeID == "") {
+        WRITE_WARNINGF("Ignoring stopping place '%' without edge id", id);
+    } else if (from == nullptr && to == nullptr) {
+        WRITE_WARNINGF("Ignoring stopping place '%' without node informatio", id);
+    } else {
+        NBEdge* edge = getNamedEdge(KEYS.getString(VISUM_LINKNO));
+        if (from != nullptr) {
+            if (edge->getToNode() == from) {
+                NBEdge* edge2 = myNetBuilder.getEdgeCont().retrieve("-" + edge->getID());
+                if (edge2 == nullptr) {
+                    WRITE_WARNINGF("Could not find edge with from-node '%' and base id '%' for stopping place '%'", from->getID(), edge->getID(), id);
+                } else {
+                    edge = edge2;
+                }
+            } else if (edge->getFromNode() != from) {
+                WRITE_WARNINGF("Unexpected from-node '%' for edge '%' of stopping place '%'", from->getID(), edge->getID(), id);
+            }
+        } else {
+            if (edge->getFromNode() == to) {
+                NBEdge* edge2 = myNetBuilder.getEdgeCont().retrieve("-" + edge->getID());
+                if (edge2 == nullptr) {
+                    WRITE_WARNINGF("Could not find edge with to-node '%' and base id '%' for stopping place '%'", to->getID(), edge->getID(), id);
+                } else {
+                    edge = edge2;
+                }
+            } else if (edge->getToNode() != to) {
+                WRITE_WARNINGF("Unexpected to-node '%' for edge '%' of stopping place '%'", to->getID(), edge->getID(), id);
+            }
+        }
+        double relPos = StringUtils::toDouble(myLineParser.get(KEYS.getString(VISUM_RELPOS)));
+        /// @note could also retrieve Xkoord, ykoord from $HALTESTELLE
+        Position pos = edge->getGeometry().positionAtOffset(edge->getLength() * relPos);
+
+        const double length = OptionsCont::getOptions().getFloat("osm.stop-output.length");
+        NBPTStop* ptStop = new NBPTStop(id, pos, edge->getID(), edge->getID(), length, name, permissions);
+        myNetBuilder.getPTStopCont().insert(ptStop);
+    }
+}
+
+
 
 
 
@@ -1214,7 +1269,7 @@ NIImporter_VISUM::getPermissions(const std::string& name, bool warn, SVCPermissi
             result |= SVC_PASSENGER;
         } else {
             if (warn) {
-                WRITE_WARNING("Encountered unknown vehicle category '" + v + "' in type '" + myLineParser.get(KEYS.getString(VISUM_NO)) + "'");
+                WRITE_WARNINGF("Encountered unknown vehicle category '" + v + "' in type '%'", myLineParser.get(KEYS.getString(VISUM_NO)));
             }
             result |= unknown;
         }

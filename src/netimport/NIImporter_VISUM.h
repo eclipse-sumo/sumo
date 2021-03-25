@@ -447,6 +447,8 @@ private:
     /// @brief Parses FAHRSTREIFENABBIEGER
     void parse_LanesConnections();
 
+    /// @brief Parses HALTEPUNKT (public transport stop locations)
+    void parse_stopPoints();
 
     /** @brief Adds a parser into the sorted list of parsers to use
      *
@@ -562,6 +564,10 @@ protected:
         VISUM_EDGEID,
         VISUM_ORIGIN,
         VISUM_DESTINATION,
+        VISUM_STOPPOINT,
+        VISUM_NAME,
+        VISUM_LINKNO,
+        VISUM_RELPOS,
         // polyconvert keys added to avoid warnings
         VISUM_CATID,
         VISUM_EDGEITEM,
