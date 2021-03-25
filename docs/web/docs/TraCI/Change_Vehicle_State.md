@@ -111,6 +111,11 @@ The stop flags are a bitset with the following additive components
 | :-------------------: | :------------------: | :---------------: | :--------: | :-----------------: | :-----------------: | :--------------------------: | :---------------------------: |
 | value type *compound* | item number (2 or 3) | value type *byte* | Lane Index | value type *double* | Duration in seconds | value type *byte* (optional) | bool for relative lane change |
 
+Please note: 
+The duration for the lane change is the time the vehicle tries to perfom the lane change(s). If the duration is too small to perform all lane changes then the vehicle stops changing lanes after the duration. 
+
+After the vehicle has sucessfully performed the lane change(s) the vehicle continues its journey normally. This means the vehicle will not stay on the lane for the whole duration if the vehicle decides to change back the lanes.  
+
 ### slow down (0x14)
 
 |         byte          |        integer         |        byte         | double |        byte         |       double        |
