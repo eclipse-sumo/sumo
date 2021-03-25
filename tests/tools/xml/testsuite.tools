@@ -8,4 +8,4 @@ xml2csv
 csv2xml
 
 # Test for add or remove attributes
-addOrRemoveAttribute
+changeAttribute

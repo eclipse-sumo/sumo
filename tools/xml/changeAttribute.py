@@ -11,7 +11,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    addOrRemoveAttribute.py
+# @file    changeAttribute.py
 # @author  Pablo Alvarez Lopez
 # @date    2021-03-09
 
@@ -46,7 +46,7 @@ def get_options(args=None):
     optParser.add_option("-o", "--output", dest="output", help="define the XML output file")
     optParser.add_option("-t", "--tag", dest="tag", help="tag to edit")
     optParser.add_option("-a", "--attribute", dest="attribute", help="attribute to edit")
-    optParser.add_option("-v", "--value", dest="value", help="value to update")
+    optParser.add_option("-v", "--value", dest="value", help="value to update (deletes attribute if not specified)")
     (options, args) = optParser.parse_args(args=args)
     if not options.file:
         optParser.print_help()
