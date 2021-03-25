@@ -1,2 +1,5 @@
+# Tests route computation with forbidden edges
+vclass
+
 # Tests for default arrival and depart parameters
 defaults

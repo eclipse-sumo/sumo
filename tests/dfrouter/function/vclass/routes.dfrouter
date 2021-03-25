@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Mar 25 09:53:17 2021 by Eclipse SUMO dfrouter Version v1_8_0+1823-4a64b80d86
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_tri.net.xml"/>
+        <detector-files value="input_tri.det.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <routes-output value="routes.rou.xml"/>
+    </output>
+
+    <processing>
+        <keep-longer-routes value="true"/>
+        <vclass value="passenger"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <route id="beg_to_end" edges="beg 1toL L Lto2 end"/>
+    <route id="beg_to_end_1" edges="beg 1toR R Rto2 end"/>
+
+</routes>

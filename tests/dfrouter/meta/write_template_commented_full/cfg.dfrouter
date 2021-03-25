@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  7 13:04:06 2020 by Eclipse SUMO dfrouter Version v1_6_0+2013-2419297574
+<!-- generated on Thu Mar 25 09:47:03 2021 by Eclipse SUMO dfrouter Version v1_8_0+1823-4a64b80d86
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -119,6 +119,9 @@
 
         <!-- Do not route on these edges -->
         <disallowed-edges value="" type="STR[]"/>
+
+        <!-- Only route on edges allowing the given vclass -->
+        <vclass value="ignoring" type="STR"/>
 
         <!-- Allow turnarounds as route continuations -->
         <keep-turnarounds value="false" type="BOOL"/>

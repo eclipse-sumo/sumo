@@ -1,4 +1,4 @@
-Eclipse SUMO dfrouter Version v1_8_0+0635-4f1a99aa91
+Eclipse SUMO dfrouter Version v1_8_0+1823-4a64b80d86
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Builds vehicle routes for SUMO using detector values.
 
@@ -65,6 +65,8 @@ Processing Options:
                                         without passing a detector
   --emissions-only                     Writes only emission times
   --disallowed-edges STR[]             Do not route on these edges
+  --vclass STR                         Only route on edges allowing the given
+                                        vclass
   --keep-turnarounds                   Allow turnarounds as route continuations
   --min-route-length FLOAT             Minimum distance in meters between start
                                         and end node of every route
