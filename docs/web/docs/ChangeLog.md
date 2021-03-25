@@ -206,7 +206,7 @@ title: ChangeLog
   - Added function 'traci.simulation.getCollisions' to retrieve a list of collision objects for the current time step. This also includes collisions between vehicles and pedestrians. Issue #7728
   - Can now retrieve vehicle parameters 'device.battery.totalEnergyConsumed' and 'device.battery.totalEnergyRegenerated' when a vehicle has the battery device. Issue #6507
   - vehicle.dispatchTaxi now supports re-dispatching a taxi that is already in pickup or occupied mode. Issue #8148
-  - Vehicles that are accumlating insertion delay (because they cannot safely enter the network as schedule) can now be retrieved using the functions 'traci.simulation.getPendingVehicles', 'traci.edge.getPendingVehicles' and 'traci.lane.getPendingVehicles. Issue #8157
+  - Vehicles that are accumulating insertion delay (because they cannot safely enter the network as schedule) can now be retrieved using the functions 'traci.simulation.getPendingVehicles', 'traci.edge.getPendingVehicles' and 'traci.lane.getPendingVehicles. Issue #8157
   - Taxi customers (including those that shall be picked up but are not yet on board) can now be trieved using `traci.vehicle.getParameter(vehID, "device.taxi.currentCustomers")`. Issue #8189
   - The reservation objects returnd by [traci.person.getTaxiReservations](Simulation/Taxi.md#gettaxireservations) now includes persons that are eligible for re-dispatch and includes the state of the reservation (new, assigned, on board). Issue #8168
   - Added function 'traci.person.splitTaxiReservation' to transport pre-made groups with multiple vehicles. Issue #8236
