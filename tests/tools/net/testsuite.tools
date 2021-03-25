@@ -1,6 +1,3 @@
-# tests tools\net\netextract.py
-netextract
-
 # tests tools\net\netcheck.py
 netcheck
 netdiff
