@@ -199,7 +199,7 @@ void
 MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
     int chargingSteps = 0;
     for (const auto& item : myChargeValues) {
-        chargingSteps += item.second.size();
+        chargingSteps += (int)item.second.size();
     }
     output.openTag(SUMO_TAG_CHARGING_STATION);
     output.writeAttr(SUMO_ATTR_ID, myID);

@@ -260,7 +260,8 @@ MSDispatch::remainingCapacity(const MSDevice_Taxi* taxi, const Reservation* res)
     assert(res->persons.size() > 0);
     return ((*res->persons.begin())->isPerson()
             ? taxi->getHolder().getVehicleType().getPersonCapacity()
-            : taxi->getHolder().getVehicleType().getContainerCapacity()) - res->persons.size();
+            : taxi->getHolder().getVehicleType().getContainerCapacity()) - (int)res->persons.size();
 }
+
 
 /****************************************************************************/

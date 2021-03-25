@@ -745,7 +745,7 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
         }
         if (MSGlobals::gUseMesoSim && type == TrafficLightType::ACTUATED) {
             if (!myHaveWarnedAboutInvalidTLType) {
-                WRITE_WARNING("Traffic light type '" + toString(type) + "' cannot be used in mesoscopic simulation. Using '" + toString(TrafficLightType::STATIC) + "' as fallback");
+                WRITE_WARNING("Traffic light type '" + toString(type) + "' cannot be used in mesoscopic simulation. Using '" + toString(TrafficLightType::STATIC) + "' as fallback.");
                 myHaveWarnedAboutInvalidTLType = true;
             }
             type = TrafficLightType::STATIC;

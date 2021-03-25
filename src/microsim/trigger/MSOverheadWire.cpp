@@ -621,7 +621,7 @@ void
 MSOverheadWire::writeOverheadWireSegmentOutput(OutputDevice& output) {
     int chargingSteps = 0;
     for (const auto& item : myChargeValues) {
-        chargingSteps += item.second.size();
+        chargingSteps += (int)item.second.size();
     }
     output.openTag(SUMO_TAG_OVERHEAD_WIRE_SEGMENT);
     output.writeAttr(SUMO_ATTR_ID, myID);
@@ -681,5 +681,6 @@ MSOverheadWire::writeVehicle(OutputDevice& out, const std::vector<Charge>& charg
     }
     out.closeTag();
 }
+
 
 /****************************************************************************/
