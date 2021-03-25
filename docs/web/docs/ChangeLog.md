@@ -221,7 +221,7 @@ title: ChangeLog
   - The tool [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy) can now handle inconsistent schedule input without generating deadlocking constraints when setting option **--abort-unordered**. Issue #7436, #8246, #8278
   - When loading additional weights in for [duaIterate.py](Demand/Dynamic_User_Assignment.md#iterative_assignment_dynamic_user_equilibrium), the new option **--addweights.once** controls whether the weights are to be effective in every iteration or not. The new default is to apply them in every iteration whereas previously, they were applied only in the first iteration. Issue #8249
   - Added new tool [splitRandom.py](Tools/Routes.md#splitrandompy). Issue #8324
-  - Added new tool [splitRandom.py](Tools/Routes.md#splitrandompy). Issue #8324
+  - Added new tool [changeAttribute.py](Tools/Xmls.md#changeAttributepy). Issue #8339
 
 ### Other
 
