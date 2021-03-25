@@ -82,3 +82,14 @@ The options have the same meaning as above.
 <a href="http://amitran.eu/"><img src="../../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
 <span style="">This part of SUMO was developed, reworked, or extended within the project 
 <a href="http://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>
+
+
+## changeAttribute.py
+
+This sets/removes the specified attribute on all tags (elements) in the input file and writes the result to a new file
+If option **--value** (**-v**) is not given, the attribute is removed. Otherwise it is added/modified to the given value.
+
+```
+python tools/xml/changeAttrbiute.py -f INPUT_FILE -o OUTPUT_FILE -t TAG -a ATTRIBUTE [-v VALUE]
+```
+
