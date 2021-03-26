@@ -1639,6 +1639,8 @@ TraCIServer::stateLoaded(SUMOTime targetTime) {
             stateChange.second.clear();
         }
     }
+    mySubscriptions.clear();
+    mySubscriptionCache.reset();
 }
 
 

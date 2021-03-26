@@ -800,6 +800,7 @@ Simulation::loadState(const std::string& fileName) {
     }
     Helper::clearVehicleStates();
     Helper::clearTransportableStates();
+    Helper::clearSubscriptions();
     PROGRESS_TIME_MESSAGE(before);
     return STEPS2TIME(newTime);
 }
