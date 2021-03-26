@@ -331,10 +331,10 @@ class Builder(object):
                 if os.name == "posix":
                     f.write("#!/bin/bash\n")
                 if ptOptions is not None:
-                    f.write("python \"%s\" %s\n" %
+                    f.write('python "%s" %s\n' %
                             (ptlines2flowsPath, " ".join(map(quoted_str, self.getRelative(ptOptions)))))
                 for opts in sorted(randomTripsCalls):
-                    f.write("python \"%s\" %s\n" %
+                    f.write('python "%s" %s\n' %
                             (randomTripsPath, " ".join(map(quoted_str, self.getRelative(opts)))))
 
     def parseTripOpts(self, vehicle, options, publicTransport):

@@ -246,16 +246,16 @@ for p in [
                 except OSError:
                     print("Executable %s not found, generating shell scripts instead of config." % app, file=sys.stderr)
                 if not haveConfig:
-                    appOptions.insert(0, "$SUMO_HOME/bin/" + app)
+                    appOptions.insert(0, '"$SUMO_HOME/bin/%s"' % app)
             elif app == "tools":
                 for i, a in enumerate(appOptions):
                     if a.endswith(".py"):
                         del appOptions[i:i+1]
-                        appOptions[0:0] = [os.environ.get("PYTHON", "python"), "$SUMO_HOME/" + a]
+                        appOptions[0:0] = [os.environ.get("PYTHON", "python"), '"$SUMO_HOME/%s"' % a]
                         break
                     if a.endswith(".jar"):
                         del appOptions[i:i+1]
-                        appOptions[0:0] = ["java", "-jar", "$SUMO_HOME/" + a]
+                        appOptions[0:0] = ["java", "-jar", '"$SUMO_HOME/%s"' % a]
                         break
             elif app == "complex":
                 for i, a in enumerate(appOptions):
