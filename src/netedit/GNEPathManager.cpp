@@ -309,10 +309,26 @@ GNEPathManager::calculatePath(GNEAttributeCarrier* AC, SUMOVehicleClass vClass, 
 }
 
 
-void 
-GNEPathManager::drawPath(const GNELane* lane, const GNEAttributeCarrier* AC) {
+void
+GNEPathManager::drawAdditionalElementPath(const GUIVisualizationSettings& s, const GNELane* lane, const GNEAdditional* additionalElement) {
     if (myLaneSegments.count(lane) > 0) {
-        std::cout << "draw" << std::endl;
+        additionalElement->drawPartialGL(s, lane, 0);
+    }
+}
+
+
+void 
+GNEPathManager::drawDemandElementPath(const GUIVisualizationSettings& s, const GNELane* lane, const GNEDemandElement* demandElement) {
+    if (myLaneSegments.count(lane) > 0) {
+        demandElement->drawPartialGL(s, lane, 0);
+    }
+}
+
+
+void 
+GNEPathManager::drawGenericDataPath(const GUIVisualizationSettings& s, const GNELane* lane, const GNEGenericData* genericData) {
+    if (myLaneSegments.count(lane) > 0) {
+        genericData->drawPartialGL(s, lane, 0);
     }
 }
 

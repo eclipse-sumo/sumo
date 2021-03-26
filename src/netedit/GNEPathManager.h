@@ -80,8 +80,14 @@ public:
     /// @brief calculate path
     void calculatePath(GNEAttributeCarrier* AC, SUMOVehicleClass vClass, const bool allowedVClass, std::vector<GNELane*> lanes);
 
-    /// @brief draw path
-    void drawPath(const GNELane* lane, const GNEAttributeCarrier* AC);
+    /// @brief draw additional element path
+    void drawAdditionalElementPath(const GUIVisualizationSettings& s, const GNELane* lane, const GNEAdditional* additionalElement);
+
+    /// @brief draw demand element path
+    void drawDemandElementPath(const GUIVisualizationSettings& s, const GNELane* lane, const GNEDemandElement* demandElement);
+
+    /// @brief draw generic data path
+    void drawGenericDataPath(const GUIVisualizationSettings& s, const GNELane* lane, const GNEGenericData* genericData);
 
     /// @brief invalidate path
     void invalidatePath(const GNELane* lane);
