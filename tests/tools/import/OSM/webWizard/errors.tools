@@ -153,6 +153,6 @@ Warning: Vehicle 'pt_tram_M2:3.0' ends teleporting on edge '-148458500#0', time 
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; collision with vehicle 'pt_tram_M2:3.0', lane='148458500#1_0', gap=-1.00, time=486.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', time 486.00.
 Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=486.00.
+Warning: Teleporting person 'ped87' from vehicle destination edge '32590434#1' to intended destination edge '4471817#1'
 Warning: Person 'ped49' aborted waiting for M5:0 at busStop '1633759766'.
-Warning: Person 'ped110' aborted waiting for M5:2 at busStop '1633759766'.
-Warning: Person 'ped138' aborted waiting for 200:1 at busStop '1827996414'.
+Warning: Person 'ped138' aborted waiting for M4:0 at busStop '1633759766'.
