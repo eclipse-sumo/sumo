@@ -132,6 +132,9 @@ class ArgumentParser(argparse.ArgumentParser):
             sys.exit()
 
     def parse_args(self, args=None, namespace=None):
+        if args is not None:
+            # gracefully handle non-string args passed from another script
+            args = map(str, args)
         args, argv = self.parse_known_args(args, namespace)
         if argv:
             self.error('unrecognized arguments: %s' % ' '.join(argv))
