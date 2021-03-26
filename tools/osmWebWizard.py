@@ -201,7 +201,9 @@ class Builder(object):
             self.additionalFiles.append(self.files["poly"])
 
         typefiles = [typemaps["net"]]
-        netconvertOptions = osmBuild.DEFAULT_NETCONVERT_OPTS
+        # leading space ensures that arguments starting with -- are not
+        # misinterpreted as options
+        netconvertOptions = " " + osmBuild.DEFAULT_NETCONVERT_OPTS
         netconvertOptions += ",--tls.default-type,actuated"
         if "pedestrian" in self.data["vehicles"]:
             # sidewalks are already included via typefile
