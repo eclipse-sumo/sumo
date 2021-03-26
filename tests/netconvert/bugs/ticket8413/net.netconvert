@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar 26 11:38:00 2021 by Eclipse SUMO netconvert Version v1_8_0+1832-7f37ad4
+<!-- generated on Fri Mar 26 12:21:46 2021 by Eclipse SUMO netconvert Version v1_8_0+1855-f88c15b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -72,10 +72,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_6_0" index="0" speed="13.89" length="14.40" shape="101.60,92.80 101.60,107.20"/>
     </edge>
     <edge id=":C_7" function="internal">
-        <lane id=":C_7_0" index="0" speed="13.89" length="10.18" shape="101.60,92.80 101.05,96.65 99.40,99.40 96.75,100.99"/>
-    </edge>
-    <edge id=":C_11" function="internal">
-        <lane id=":C_11_0" index="0" speed="13.89" length="4.01" shape="96.75,100.99 96.65,101.05 92.80,101.60"/>
+        <lane id=":C_7_0" index="0" speed="13.89" length="14.19" shape="101.60,92.80 101.05,96.65 99.40,99.40 96.65,101.05 92.80,101.60"/>
     </edge>
     <edge id=":C_8" function="internal">
         <lane id=":C_8_0" index="0" speed="13.89" length="14.40" shape="92.80,98.40 107.20,98.40"/>
@@ -83,8 +80,8 @@ SPDX-License-Identifier: EPL-2.0
     <edge id=":C_9" function="internal">
         <lane id=":C_9_0" index="0" speed="13.89" length="5.93" shape="92.80,98.40 96.65,98.95 98.40,100.00"/>
     </edge>
-    <edge id=":C_12" function="internal">
-        <lane id=":C_12_0" index="0" speed="13.89" length="8.26" shape="98.40,100.00 99.40,100.60 101.05,103.35 101.60,107.20"/>
+    <edge id=":C_11" function="internal">
+        <lane id=":C_11_0" index="0" speed="13.89" length="8.26" shape="98.40,100.00 99.40,100.60 101.05,103.35 101.60,107.20"/>
     </edge>
     <edge id=":N_0" function="internal">
         <lane id=":N_0_0" index="0" speed="13.89" length="4.67" shape="101.60,200.00 100.80,201.20 100.00,201.60 99.20,201.20 98.40,200.00"/>
@@ -131,17 +128,17 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="yyyrrrrrrr"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 EC_0 gneE0_0 WC_0" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_10_0 :C_5_0 :C_6_0 :C_11_0 :C_8_0 :C_12_0" shape="96.80,107.20 103.20,107.20 107.20,103.20 107.20,96.80 103.20,92.80 100.00,92.80 92.80,96.80 92.80,103.20">
+    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 EC_0 gneE0_0 WC_0" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_10_0 :C_5_0 :C_6_0 :C_7_0 :C_8_0 :C_11_0" shape="96.80,107.20 103.20,107.20 107.20,103.20 107.20,96.80 103.20,92.80 100.00,92.80 92.80,96.80 92.80,103.20">
         <request index="0" response="0000000000" foes="0010001000" cont="0"/>
-        <request index="1" response="1000000000" foes="1101111000" cont="0"/>
-        <request index="2" response="0000000000" foes="1001000000" cont="0"/>
-        <request index="3" response="0010000011" foes="1011000011" cont="0"/>
-        <request index="4" response="0100000010" foes="0100100010" cont="1"/>
-        <request index="5" response="0100010010" foes="0100010010" cont="0"/>
-        <request index="6" response="1100001110" foes="1100001110" cont="0"/>
-        <request index="7" response="1100001001" foes="1100001001" cont="1"/>
-        <request index="8" response="0010000010" foes="0011110010" cont="0"/>
-        <request index="9" response="0010001110" foes="0011001110" cont="1"/>
+        <request index="1" response="1001100000" foes="1101111000" cont="0"/>
+        <request index="2" response="0001000000" foes="1001000000" cont="0"/>
+        <request index="3" response="0011000011" foes="1011000011" cont="0"/>
+        <request index="4" response="0100100010" foes="0100100010" cont="1"/>
+        <request index="5" response="0000000000" foes="0100010010" cont="0"/>
+        <request index="6" response="1000000000" foes="1100001110" cont="0"/>
+        <request index="7" response="1000000001" foes="1100001001" cont="0"/>
+        <request index="8" response="0011100010" foes="0011110010" cont="0"/>
+        <request index="9" response="0011001110" foes="0011001110" cont="1"/>
     </junction>
     <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="CE_0" intLanes="" shape="200.00,100.00 200.00,96.80 200.00,100.00"/>
     <junction id="N" type="priority" x="100.00" y="200.00" incLanes="CN_0" intLanes=":N_0_0" shape="100.00,200.00 103.20,200.00 100.00,200.00">
@@ -155,22 +152,21 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="gneJ3" type="dead_end" x="-300.00" y="0.00" incLanes="" intLanes="" shape="-300.00,0.00 -300.00,-6.40"/>
 
-    <junction id=":C_10_0" type="internal" x="105.60" y="100.00" incLanes=":C_4_0 NC_0 WC_0" intLanes=":C_1_0 :C_5_0 :C_8_0"/>
-    <junction id=":C_11_0" type="internal" x="96.75" y="100.99" incLanes=":C_7_0 NC_0" intLanes=":C_0_0 :C_3_0 :C_8_0 :C_9_0"/>
-    <junction id=":C_12_0" type="internal" x="98.40" y="100.00" incLanes=":C_9_0 EC_0" intLanes=":C_1_0 :C_2_0 :C_3_0 :C_6_0 :C_7_0"/>
+    <junction id=":C_10_0" type="internal" x="105.60" y="100.00" incLanes=":C_4_0 NC_0 WC_0 gneE0_0" intLanes=":C_1_0 :C_5_0 :C_8_0"/>
+    <junction id=":C_11_0" type="internal" x="98.40" y="100.00" incLanes=":C_9_0 EC_0" intLanes=":C_1_0 :C_2_0 :C_3_0 :C_6_0 :C_7_0"/>
 
     <connection from="CN" to="NC" fromLane="0" toLane="0" via=":N_0_0" dir="t" state="M"/>
     <connection from="CW" to="WC" fromLane="0" toLane="0" via=":W_0_0" dir="t" state="M"/>
-    <connection from="EC" to="CN" fromLane="0" toLane="0" via=":C_2_0" tl="C" linkIndex="2" dir="r" state="O"/>
+    <connection from="EC" to="CN" fromLane="0" toLane="0" via=":C_2_0" tl="C" linkIndex="2" dir="r" state="o"/>
     <connection from="EC" to="CW" fromLane="0" toLane="0" via=":C_3_0" tl="C" linkIndex="3" dir="s" state="o"/>
     <connection from="EC" to="CE" fromLane="0" toLane="0" via=":C_4_0" tl="C" linkIndex="4" dir="t" state="o"/>
     <connection from="NC" to="CW" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="0" dir="r" state="O"/>
-    <connection from="NC" to="CE" fromLane="0" toLane="0" via=":C_1_0" tl="C" linkIndex="1" dir="l" state="O"/>
+    <connection from="NC" to="CE" fromLane="0" toLane="0" via=":C_1_0" tl="C" linkIndex="1" dir="l" state="o"/>
     <connection from="WC" to="CE" fromLane="0" toLane="0" via=":C_8_0" tl="C" linkIndex="8" dir="s" state="o"/>
     <connection from="WC" to="CN" fromLane="0" toLane="0" via=":C_9_0" tl="C" linkIndex="9" dir="l" state="o"/>
-    <connection from="gneE0" to="CE" fromLane="0" toLane="0" via=":C_5_0" dir="r" state="m"/>
-    <connection from="gneE0" to="CN" fromLane="0" toLane="0" via=":C_6_0" dir="s" state="m"/>
-    <connection from="gneE0" to="CW" fromLane="0" toLane="0" via=":C_7_0" dir="l" state="m"/>
+    <connection from="gneE0" to="CE" fromLane="0" toLane="0" via=":C_5_0" tl="C" linkIndex="5" dir="r" state="O"/>
+    <connection from="gneE0" to="CN" fromLane="0" toLane="0" via=":C_6_0" tl="C" linkIndex="6" dir="s" state="O"/>
+    <connection from="gneE0" to="CW" fromLane="0" toLane="0" via=":C_7_0" tl="C" linkIndex="7" dir="l" state="o"/>
     <connection from="gneE3" to="gneE0" fromLane="1" toLane="0" via=":gneJ0_0_0" dir="s" state="M"/>
 
     <connection from=":C_0" to="CW" fromLane="0" toLane="0" dir="r" state="M"/>
@@ -181,11 +177,10 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":C_10" to="CE" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":C_5" to="CE" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":C_6" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_7" to="CW" fromLane="0" toLane="0" via=":C_11_0" dir="l" state="m"/>
-    <connection from=":C_11" to="CW" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":C_7" to="CW" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":C_8" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_9" to="CN" fromLane="0" toLane="0" via=":C_12_0" dir="l" state="m"/>
-    <connection from=":C_12" to="CN" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":C_9" to="CN" fromLane="0" toLane="0" via=":C_11_0" dir="l" state="m"/>
+    <connection from=":C_11" to="CN" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":N_0" to="NC" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":W_0" to="WC" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="0" dir="s" state="M"/>
