@@ -62,7 +62,7 @@ nextNodeID = net.getEdge('myEdgeID').getToNode().getID()
 ```
 speedSum = 0.0
 edgeCount = 0
-for edge in sumolib.output.parse('myNet.edg.xml', ['edge']):
+for edge in sumolib.xml.parse('myNet.edg.xml', ['edge']):
     speedSum += float(edge.speed)
     edgeCount += 1
 avgSpeed = speedSum / edgeCount
@@ -72,7 +72,7 @@ avgSpeed = speedSum / edgeCount
 
 ```
 edgeStats = sumolib.miscutils.Statistics("edge speeds")
-for edge in sumolib.output.parse('myNet.edg.xml', ['edge']):
+for edge in sumolib.xml.parse('myNet.edg.xml', ['edge']):
     edgeStats.add(float(edge.speed))
 avgSpeed = edgeStats.median()
 ```
@@ -98,7 +98,7 @@ if len(edges) > 0:
 ## parse all edges in a route file
 
 ```
-for route in sumolib.output.parse_fast("myRoutes.rou.xml", 'route', ['edges']):
+for route in sumolib.xml.parse_fast("myRoutes.rou.xml", 'route', ['edges']):
     edge_ids = route.edges.split()
     # do something with the vector of edge ids
 ```
@@ -106,15 +106,28 @@ for route in sumolib.output.parse_fast("myRoutes.rou.xml", 'route', ['edges
 ## parse vehicles and their route edges in a route file
 
 ```
-for vehicle in sumolib.output.parse("myRoutes.rou.xml", "vehicle"):
+for vehicle in sumolib.xml.parse("myRoutes.rou.xml", "vehicle"):
     route = vehicle.route[0] # access the first (and only) child element with name 'route'
     edges = route.edges.split()
 ```
 
+with automatic data conversions (including depart time as "HH:MM:SS"):
+
+```
+from sumolib.miscutils import parseTime
+for vehicle in sumolib.xml.parse("myRoutes.rou.xml", "vehicle", attr_conversions={
+            'depart' : parseTime,
+            'edges' : (lambda x : x.split())}):
+    edges = vehicle.route[0].edges
+    if vehicle.depart > 42:
+       ...
+```
+
+
 ## parse all edges in a edge data (meanData) file
 
 ```
-for interval in sumolib.output.parse("edgedata.xml", "interval"):
+for interval in sumolib.xml.parse("edgedata.xml", "interval"):
     for edge in interval.edge:    
         # do something with the edge attributes i.e. edge.entered
 ```
