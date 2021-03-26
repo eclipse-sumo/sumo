@@ -1,8 +1,14 @@
 Loaded 3 routes (3 distinct)
 Starting optimization for interval [0.0, 300.0] (mismatch 5)
+Primal Feasibility  Dual Feasibility    Duality Gap         Step             Path Parameter      Objective          
+1.0                 1.0                 1.0                 -                1.0                 2.0                 
+0.1987546857788     0.1987546857788     0.1987546857788     0.8082513113128  0.1987546857788     4.393248922143      
+0.008291028323248   0.008291028323279   0.008291028323278   1.0              0.00829102832335    0.09677074944818    
+8.91856714702e-07   8.918567147584e-07  8.918567146147e-07  0.9998931647711  8.918567147468e-07  1.530147941763e-05  
+4.459279168163e-11  4.459288737761e-11  4.459297133331e-11  0.9999499999066  4.459300327214e-11  7.650750957305e-10  
 Optimization terminated successfully.
          Current function value: 0.000000    
-         Iterations: 2
+         Iterations: 4
 Optimization succeeded
 0: Wrote 10 routes (1 distinct) achieving total count 20 (100.00%) at 2 locations. GEH<5 for 100.00%
 300: Wrote 8 routes (1 distinct) achieving total count 16 (100.00%) at 2 locations. GEH<5 for 100.00%

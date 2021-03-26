@@ -1,1 +1,2 @@
-Warning: Scipy version 1.2.3 does not support initial guess for opt.linprog. Optimization may fail
+/usr/lib/python3/dist-packages/scipy/optimize/_linprog.py:498: OptimizeWarning: x0 is used only when method is 'revised simplex'. 
+  warn(warning_message, OptimizeWarning)
