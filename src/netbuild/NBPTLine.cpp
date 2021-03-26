@@ -227,7 +227,11 @@ NBPTLine::replaceEdge(const std::string& edgeID, const EdgeVector& replacement) 
     myRoute.clear();
     for (NBEdge* e : oldRoute) {
         if (e->getID() == edgeID) {
-            myRoute.insert(myRoute.end(), replacement.begin(), replacement.end());
+            for (NBEdge* e2 : replacement) {
+                if (myRoute.empty() || myRoute.back() != e2) {
+                    myRoute.push_back(e2);
+                }
+            }
         } else {
             myRoute.push_back(e);
         }

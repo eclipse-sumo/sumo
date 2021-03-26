@@ -454,6 +454,7 @@ NBNodeCont::removeRailComponents(NBDistrictCont& dc, NBEdgeCont& ec, NBPTStopCon
 int
 NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
                                 NBTrafficLightLogicCont& /*tlc*/, NBPTStopCont& sc,
+                                NBPTLineCont& lc,
                                 NBParkingCont& pc,
                                 bool removeGeometryNodes) {
     // load edges that shall not be modified
@@ -517,6 +518,7 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
                 tlsLookup[begin] = itTL->second;
             }
             sc.replaceEdge(continuation->getID(), { begin });
+            lc.replaceEdge(continuation->getID(), { begin });
             ec.extract(dc, continuation, true);
         }
         toRemove.push_back(current);

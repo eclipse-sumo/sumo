@@ -80,6 +80,9 @@ private:
                           const NBPTStop* from, const NBPTStop* to, const NBVehicle* veh);
 
     static std::string getWayID(const std::string& edgeID);
+
+    /// @brief The map of edge ids to lines that use this edge in their route
+    std::map<std::string, std::set<NBPTLine*> > myPTLineLookup;
 };
 
 

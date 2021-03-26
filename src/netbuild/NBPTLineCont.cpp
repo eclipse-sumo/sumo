@@ -434,9 +434,21 @@ NBPTLineCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) 
 void
 NBPTLineCont::replaceEdge(const std::string& edgeID, const EdgeVector& replacement) {
     //std::cout << " replaceEdge " << edgeID << " replacement=" << toString(replacement) << "\n";
-    for (auto& item : myPTLines) {
-        item.second->replaceEdge(edgeID, replacement);
+    if (myPTLines.size() > 0 && myPTLineLookup.size() == 0) {
+        // init lookup once
+        for (auto& item : myPTLines) {
+            for (const NBEdge* e : item.second->getRoute()) {
+                myPTLineLookup[e->getID()].insert(item.second);
+            }
+        }
     }
+    for (NBPTLine* line : myPTLineLookup[edgeID]) {
+        line->replaceEdge(edgeID, replacement);
+        for (const NBEdge* e : replacement) {
+            myPTLineLookup[e->getID()].insert(line);
+        }
+    }
+    myPTLineLookup.erase(edgeID);
 }
 
 
