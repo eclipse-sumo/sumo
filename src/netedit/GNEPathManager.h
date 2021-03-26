@@ -95,7 +95,7 @@ protected:
 
     public:
         /// @brief constructor
-        Segment(GNEPathManager* pathManager, GNEAttributeCarrier* element);
+        Segment(GNEPathManager* pathManager, GNEAttributeCarrier* element, const GNELane* lane);
 
         /// @brief destructor
         ~Segment();
@@ -121,13 +121,16 @@ protected:
     };
 
     /// @brief map with Attribute Carrier and their asociated path
-    std::map<GNEAttributeCarrier*, const std::vector<Segment*> > myPaths;
+    std::map<GNEAttributeCarrier*, std::vector<Segment*> > myPaths;
 
     /// @brief map with lane segments
-    std::map<GNELane*, std::set<Segment*> > myLaneSegments;
+    std::map<const GNELane*, std::set<Segment*> > myLaneSegments;
 
     /// @brief PathCalculator instance
     PathCalculator* myPathCalculator;
+
+    /// @brief add segments int laneSegments (called by Segment constructor)
+    void addSegmentInLaneSegments(Segment *segment, const GNELane *lane);
 
     /// @brief clear segments from laneSegments (called by Segment destructor)
     void clearSegmentFromLaneSegments(Segment *segment);

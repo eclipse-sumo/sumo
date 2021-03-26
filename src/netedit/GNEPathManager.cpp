@@ -260,6 +260,8 @@ GNEPathManager::GNEPathManager(const GNENet* net) :
 
 
 GNEPathManager::~GNEPathManager() {
+    // clear paths
+    clearSegments();
     // delete route calculator Instance
     delete myPathCalculator;
 }
@@ -282,13 +284,36 @@ GNEPathManager::calculatePath(GNEAttributeCarrier* AC, SUMOVehicleClass vClass, 
         // remove AC from myPaths
         myPaths.erase(AC);
     }
-
+    // get edges
+    std::vector<GNEEdge*> edges;
+    edges.reserve(lanes.size());
+    for (const auto &lane : lanes) {
+        edges.push_back(lane->getParentEdge());
+    }
+    // calculate path
+    std::vector<GNEEdge*> path = myPathCalculator->calculatePath(vClass, edges);
+    // continue if path isn't empty
+    if (path.size() > 0) {
+        // declare segment vector
+        std::vector<Segment*> segments;
+        for (const auto & edge : path) {
+            // get first allowed lane
+            const GNELane* lane = edge->getLaneByAllowedVClass(vClass);
+            // create segment
+            Segment *segment = new Segment(this, AC, lane);
+            segments.push_back(segment);
+        }
+        // add segment in path
+        myPaths[AC] = segments;
+    }
 }
 
 
 void 
 GNEPathManager::drawPath(const GNELane* lane, const GNEAttributeCarrier* AC) {
-    //
+    if (myLaneSegments.count(lane) > 0) {
+        std::cout << "draw" << std::endl;
+    }
 }
 
 
@@ -312,10 +337,12 @@ GNEPathManager::clearSegments() {
 }
 
 
-GNEPathManager::Segment::Segment(GNEPathManager* pathManager, GNEAttributeCarrier* element) :
+GNEPathManager::Segment::Segment(GNEPathManager* pathManager, GNEAttributeCarrier* element, const GNELane* lane) :
     myPathManager(pathManager),
     myElement(element),
     myValid(true) {
+    // add segment in laneSegments
+    myPathManager->addSegmentInLaneSegments(this, lane);
 
 }
 
@@ -335,9 +362,15 @@ GNEPathManager::Segment::Segment() :
 
 
 void 
+GNEPathManager::addSegmentInLaneSegments(Segment* segment, const GNELane* lane) {
+    myLaneSegments[lane].insert(segment);
+}
+
+
+void 
 GNEPathManager::clearSegmentFromLaneSegments(Segment* segment) {
     // first declare vector with lanes to clear
-    std::vector<GNELane*> lanesToClear;
+    std::vector<const GNELane*> lanesToClear;
     // now iterate over laneSegments
     for (auto &laneSegment : myLaneSegments) {
         // remove segment from segment sets
