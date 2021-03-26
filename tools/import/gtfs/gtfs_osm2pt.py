@@ -294,6 +294,10 @@ if __name__ == "__main__":
     # merge gtfs data from stop_times / trips / routes / stops
     gtfs_data = pd.merge(pd.merge(pd.merge(gtfs_data, stop_times, on='trip_id'), stops, on='stop_id'), routes, on='route_id')
 
+    # filter given pt types
+    filter_gtfs_modes = [key for key, value in gtfs_modes.items() if value in options.pt_types]
+    gtfs_data = gtfs_data[gtfs_data['route_type'].isin(filter_gtfs_modes)]
+
     # Filter relevant information
     gtfs_data = gtfs_data[['route_id', 'shape_id', 'trip_id', 'stop_id','route_short_name', 'route_type', 'trip_headsign', 'direction_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence', 'arrival_time', 'departure_time']]
     
