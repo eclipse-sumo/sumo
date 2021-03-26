@@ -301,6 +301,10 @@ if __name__ == "__main__":
     # Filter relevant information
     gtfs_data = gtfs_data[['route_id', 'shape_id', 'trip_id', 'stop_id','route_short_name', 'route_type', 'trip_headsign', 'direction_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence', 'arrival_time', 'departure_time']]
     
+    # replace characters
+    gtfs_data['stop_name'] = gtfs_data['stop_name'].str.replace('[/|\'\";,!<>&*?\t\n\r]',' ')
+    gtfs_data['trip_headsign'] = gtfs_data['trip_headsign'].str.replace('[/|\'\";,!<>&*?\t\n\r]',' ')
+
     # filter data inside SUMO net by stop location and shape
     net_boundary = [float(boundary) for boundary in options.region.split(",")]
     gtfs_data = gtfs_data[(net_boundary[1] <= gtfs_data['stop_lat']) & (gtfs_data['stop_lat'] <= net_boundary[3]) & (net_boundary[0] <= gtfs_data['stop_lon']) & (gtfs_data['stop_lon'] <= net_boundary[2])]
@@ -563,8 +567,8 @@ if __name__ == "__main__":
                 error_file.write("route id= '%s' line= '%s' trip= '%s' not mapped stops\n" % (row.route_id, row.route_short_name, row.trip_id))
                 continue
 
-            output_file.write('    <vehicle id="%s_%s" line="%s_%s" depart="%s" departEdge="%s" arrivalEdge="%s" type="%s">\n' 
-                % (row.route_short_name, row.trip_id, row.route_id, row.direction_id, row.arrival_time, min(stop_index), max(stop_index), pt_type))
+            output_file.write('    <vehicle id="%s_%s" line="%s_%s" depart="%s" departEdge="%s" arrivalEdge="%s" type="%s"><!--%s-->\n' 
+                % (row.route_short_name, row.trip_id, row.route_id, row.direction_id, row.arrival_time, min(stop_index), max(stop_index), pt_type, row.trip_headsign))
             output_file.write('        <route edges="%s"/>\n' % (" ".join(edges_list)))
             
             check_seq = -1
@@ -580,8 +584,8 @@ if __name__ == "__main__":
                 stop_index = edges_list.index(stop.edge_id)
                 if stop_index > check_seq :
                     check_seq = stop_index
-                    output_file.write('        <stop busStop="%s" name="%s" arrival="%s" duration="%s" until="%s"/><!--%s %s-->\n' %
-                        (stop.stop_item_id, stop.stop_name, stop.arrival_time, options.duration, stop.departure_time, stop.edge_id, stop_index))
+                    output_file.write('        <stop busStop="%s" arrival="%s" duration="%s" until="%s"/><!--%s-->\n' %
+                        (stop.stop_item_id, stop.arrival_time, options.duration, stop.departure_time, stop.stop_name))
                 elif stop_index < check_seq:
                     # stop not downstream
                     error_file.write("sequence error in stop item %s %s (sequence %s) of route %s (trip %s)\n" % (stop.stop_item_id, stop.stop_name, stop.stop_sequence, stop.route_id, stop.trip_id))
