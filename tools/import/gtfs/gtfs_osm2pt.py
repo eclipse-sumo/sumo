@@ -444,6 +444,14 @@ if __name__ == "__main__":
             # get edges near stop location
             x, y = net.convertLonLat2XY(row.stop_lon, row.stop_lat)
             edges = net.getNeighboringEdges(x, y, radius, includeJunctions=False)
+            pt_class = sumo_vClass.get(pt_type, False)
+            if pt_class == "bus":
+                stop_length = options.bus_stop_length
+            elif pt_class == "tram":
+                stop_length = options.tram_stop_length
+            else:
+                stop_length = options.train_stop_length
+            edges = [edge for edge in edges if edge[0].getLength() >= stop_length*1.20] # filter length
             edges.sort(key = lambda x: x[1]) # sort by distance
 
             for edge in edges:
@@ -452,15 +460,8 @@ if __name__ == "__main__":
                     continue
                 
                 for lane in edge[0].getLanes():
-                    pt_class = sumo_vClass.get(pt_type, False)
                     if lane.allows(pt_class):
                         lane_id = lane.getID()                            
-                        if pt_class == "bus":
-                            stop_length = options.bus_stop_length
-                        elif pt_class == "tram":
-                            stop_length = options.tram_stop_length
-                        else:
-                            stop_length = options.train_stop_length
                         pos = lane.getClosestLanePosAndDist((x, y))[0]
                         start = max(0, pos-stop_length)
                         end = min(start+stop_length, lane.getLength())
