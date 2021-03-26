@@ -178,6 +178,9 @@ See the [pydoc
 documentation](http://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterCFManeuver)
 for detailed specifications.
 
+!!! caution
+    The filter only takes effect in subsequent simulation steps. The vehicle values returned directly after issuing the subscription are not affected.
+
 ## Adding a StepListener
 
 Often a function needs to be called each time when
