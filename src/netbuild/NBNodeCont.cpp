@@ -514,6 +514,7 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
                 for (NBTrafficLightDefinition* tls : itTL->second) {
                     tls->replaceRemoved(continuation, -1, begin, -1, true);
                 }
+                tlsLookup[begin] = itTL->second;
             }
             sc.replaceEdge(continuation->getID(), { begin });
             ec.extract(dc, continuation, true);
