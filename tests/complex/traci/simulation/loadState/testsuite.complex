@@ -15,3 +15,6 @@ detectors
 
 # test reset of the various IDLists upon loading state
 IDList
+
+# test reset of the various subscriptions when calling loadState
+subscription
