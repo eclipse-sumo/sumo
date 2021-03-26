@@ -49,7 +49,7 @@ traci.simulation.saveState("state.xml")
 for i in range(2):
     traci.simulation.loadState("state.xml")
     traci.simulationStep()
-    traci.vehicle.add(veh, "r0", typeID="t0")
+    traci.vehicle.add(veh, "r0")
     traci.vehicle.subscribe(veh, [tc.VAR_SPEED])
     traci.simulationStep()
     check()
