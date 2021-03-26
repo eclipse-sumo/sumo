@@ -249,11 +249,24 @@ MSVehicleControl::clearState() {
         delete (*i).second;
     }
     myVTypeDistDict.clear();
-    // delete vehicle types
+    // delete vehicle types but keep default types
+    std::vector<MSVehicleType*> defaultTypes({
+            myVTypeDict[DEFAULT_VTYPE_ID],
+            myVTypeDict[DEFAULT_PEDTYPE_ID],
+            myVTypeDict[DEFAULT_CONTAINERTYPE_ID],
+            myVTypeDict[DEFAULT_BIKETYPE_ID],
+            myVTypeDict[DEFAULT_TAXITYPE_ID]}
+            );
+    for (auto t : defaultTypes) {
+        myVTypeDict.erase(t->getID());
+    }
     for (VTypeDictType::iterator i = myVTypeDict.begin(); i != myVTypeDict.end(); ++i) {
         delete (*i).second;
     }
     myVTypeDict.clear();
+    for (auto t : defaultTypes) {
+        myVTypeDict[t->getID()] = t;
+    }
     myDefaultVTypeMayBeDeleted = true;
     myDefaultPedTypeMayBeDeleted = true;
     myDefaultContainerTypeMayBeDeleted = true;
