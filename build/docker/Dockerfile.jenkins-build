@@ -7,6 +7,15 @@
 # root privilege, so we cannot install any packages
 # at build time.
 
+# The docker image should be uploaded to ghcr.io
+# in order to be used by the Jenkinsfile build.
+# This can be achieved with a Personal Access Token from GitHub
+
+# (See following for the developer with username USERNAME on GitHub)
+# > echo $GITHUB_PAT | docker login ghcr.io --username USERNAME --password-stdin
+# > docker tag LOCALIMAGEID ghcr.io/eclipse/eclipse-sumo-build-ubuntu:latest
+# > docker push ghcr.io/eclipse/eclipse-sumo-build-ubuntu:latest
+
 FROM ubuntu:20.04
 
 # Install a compiler, then all requirements and remove the compiler afterwards
