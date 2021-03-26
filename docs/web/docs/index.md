@@ -160,7 +160,7 @@ Below are links to some of the most important/used tools:
 
 - [osmWebWizard](Tools/Import/OSM.md#osmwebwizardpy) - create a simple scenario, in just a few clicks and using your web browser
 - [Interfacing TraCI from Python](TraCI/Interfacing_TraCI_from_Python.md) - access a running SUMO simulation using Python
-- [sumolib](Tools/Sumolib.md) - Python modules for working with SUMO networks
+- [sumolib](Tools/Sumolib.md) - Python modules for working with SUMO networks and sumo xml files in general
 - [Xml Tools](Tools/Xml.md) - tools for converting SUMO outputs to CSV/Spreadsheet, and vice versa
 - [traceExporter.py](Tools/TraceExporter.md) - export mobility traces (FCD output) into different "trace file" formats
 - [netdiff.py](Tools/Net.md#netdiffpy) - determine the differences between two networks
