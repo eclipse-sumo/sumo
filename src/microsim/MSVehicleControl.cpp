@@ -66,6 +66,19 @@ MSVehicleControl::MSVehicleControl() :
     myMaxSpeedFactor(1),
     myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)),
     myPendingRemovals(MSGlobals::gNumSimThreads > 1) {
+
+    initDefaultTypes();
+    myScale = OptionsCont::getOptions().getFloat("scale");
+}
+
+
+MSVehicleControl::~MSVehicleControl() {
+    clearState();
+}
+
+
+void 
+MSVehicleControl::initDefaultTypes() {
     SUMOVTypeParameter defType(DEFAULT_VTYPE_ID, SVC_PASSENGER);
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
 
@@ -88,13 +101,6 @@ MSVehicleControl::MSVehicleControl() :
     defContainerType.height = 2.6;
     defContainerType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     myVTypeDict[DEFAULT_CONTAINERTYPE_ID] = MSVehicleType::build(defContainerType);
-
-    myScale = OptionsCont::getOptions().getFloat("scale");
-}
-
-
-MSVehicleControl::~MSVehicleControl() {
-    clearState();
 }
 
 
@@ -249,40 +255,16 @@ MSVehicleControl::clearState() {
         delete (*i).second;
     }
     myVTypeDistDict.clear();
-    // delete vehicle types but keep default types
-    // default types may have been overwritten (even with a distribution) but
-    // will be written to the state in this case
-    VTypeDictType cleanDict;
-    if (!myDefaultVTypeMayBeDeleted) {
-        cleanDict[DEFAULT_VTYPE_ID] = myVTypeDict[DEFAULT_VTYPE_ID];
-        myVTypeDict.erase(DEFAULT_VTYPE_ID);
-        myDefaultVTypeMayBeDeleted = true;
-    };
-    if (!myDefaultPedTypeMayBeDeleted) {
-        cleanDict[DEFAULT_PEDTYPE_ID] = myVTypeDict[DEFAULT_PEDTYPE_ID];
-        myVTypeDict.erase(DEFAULT_PEDTYPE_ID);
-        myDefaultPedTypeMayBeDeleted = true;
-    };
-    if (!myDefaultContainerTypeMayBeDeleted) {
-        cleanDict[DEFAULT_CONTAINERTYPE_ID] = myVTypeDict[DEFAULT_CONTAINERTYPE_ID];
-        myVTypeDict.erase(DEFAULT_CONTAINERTYPE_ID);
-        myDefaultContainerTypeMayBeDeleted = true;
-    };
-    if (!myDefaultBikeTypeMayBeDeleted) {
-        cleanDict[DEFAULT_BIKETYPE_ID] = myVTypeDict[DEFAULT_BIKETYPE_ID];
-        myVTypeDict.erase(DEFAULT_BIKETYPE_ID);
-        myDefaultBikeTypeMayBeDeleted = true;
-    };
-    if (!myDefaultTaxiTypeMayBeDeleted) {
-        cleanDict[DEFAULT_TAXITYPE_ID] = myVTypeDict[DEFAULT_TAXITYPE_ID];
-        myVTypeDict.erase(DEFAULT_TAXITYPE_ID);
-        myDefaultTaxiTypeMayBeDeleted = true;
-    };
-
+    // delete vehicle types
     for (VTypeDictType::iterator i = myVTypeDict.begin(); i != myVTypeDict.end(); ++i) {
         delete (*i).second;
     }
-    myVTypeDict = cleanDict;
+    myVTypeDict.clear();
+    myDefaultVTypeMayBeDeleted = true;
+    myDefaultPedTypeMayBeDeleted = true;
+    myDefaultContainerTypeMayBeDeleted = true;
+    myDefaultBikeTypeMayBeDeleted = true;
+    myDefaultTaxiTypeMayBeDeleted = true;
 }
 
 

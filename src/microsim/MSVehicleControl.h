@@ -80,6 +80,8 @@ public:
     /// @brief Destructor
     virtual ~MSVehicleControl();
 
+    /// @brief create default types
+    void initDefaultTypes(); 
 
     /// @name Vehicle creation
     /// @{

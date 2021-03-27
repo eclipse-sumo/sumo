@@ -792,6 +792,7 @@ Simulation::loadState(const std::string& fileName) {
     const SUMOTime newTime = hTime.getTime();
     // clean up state
     MSNet::getInstance()->clearState(newTime);
+    MSNet::getInstance()->getVehicleControl().initDefaultTypes();
     // load state
     MSStateHandler h(fileName, 0);
     XMLSubSys::runParser(h, fileName);
