@@ -32,7 +32,8 @@ setup(
     author='DLR and contributors',
     author_email='sumo@dlr.de',
     license='EPL-2.0',
-    description="The pure python version of the TraCI API to communicate with the traffic simulation SUMO",
+    description="The pure python version of the TraCI API to communicate with the traffic simulation Eclipse SUMO",
+    long_description = open(os.path.join(os.path.dirname(package_dir), 'README.md')).read(),
 
     classifiers=[
         'Development Status :: 5 - Production/Stable',

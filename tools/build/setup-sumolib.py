@@ -33,7 +33,8 @@ setup(
     author_email='sumo@dlr.de',
     license='EPL-2.0',
     description=("Python helper modules to read networks, parse output data and " +
-                 "do other useful stuff related to the traffic simulation SUMO"),
+                 "do other useful stuff related to the traffic simulation Eclipse SUMO"),
+    long_description = open(os.path.join(os.path.dirname(package_dir), 'README.md')).read(),
 
     classifiers=[
         'Development Status :: 5 - Production/Stable',
