@@ -222,7 +222,7 @@ The following outputs are not supported:
 
 The following SUMO features are not supported:
 
-- TraCI (planned for the future)
+- [Actuated traffic lights](Traffic_Lights.md#actuated_traffic_lights)
 - Electric model
 - Wireless model
 - Opposite-direction driving
