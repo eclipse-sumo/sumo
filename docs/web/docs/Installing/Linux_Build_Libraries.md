@@ -184,6 +184,15 @@ sudo mv  /usr/local/src/sumo-0.22.0/doc /usr/local/share/sumo-0.22.0/
 The required libraries are libxerces-c-dev, libgdal-dev, libproj-dev and
 libfox-1.6-dev.
 
+#### CentOS / RHEL
+
+```
+sudo yum install xerces-c-devel cmake libxerces-c-dev  gdal-devel proj-develgl2ps-devel gcc-c++
+```
+
+You need to download fox-toolkit from it's website and build manually
+http://www.fox-toolkit.org/download.html
+
 #### Cygwin
 
 Cygwin comes with a quite old xerces-c (version 2.5). After installing
