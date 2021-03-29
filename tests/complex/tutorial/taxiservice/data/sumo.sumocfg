@@ -1,0 +1,12 @@
+<configuration>
+            <input>
+                <net-file value="net.net.xml"/>
+                <route-files value="demand.rou.xml"/>
+                <additional-files value="add.add.xml"/>
+                <no-step-log value="True"/>
+                <time-to-teleport value="0"/>
+                <device.taxi.dispatch-algorithm value="traci"/>
+                <device.taxi.idle-algorithm value="randomCircling"/>
+
+            </input>
+        </configuration>
