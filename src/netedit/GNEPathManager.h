@@ -108,6 +108,9 @@ public:
     /// @brief calculate path
     void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, const bool allowedVClass, std::vector<GNELane*> lanes);
 
+    /// @brief remove path
+    void removePath(PathElement* pathElement);
+
     /// @brief draw path elements
     void drawPathElements(const GUIVisualizationSettings& s, const GNELane* lane);
 

@@ -890,6 +890,8 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
     if (myNet->isUpdateGeometryEnabled()) {
         demandElement->updateGeometry();
     }
+    // compute path
+    demandElement->computePath();
     // demandElements has to be saved
     myNet->requireSaveDemandElements(true);
 
@@ -914,6 +916,8 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
     }
     // remove element from grid
     myNet->removeGLObjectFromGrid(demandElement);
+    // delete path element
+    myNet->getPathManager()->removePath(demandElement);
     // demandElements has to be saved
     myNet->requireSaveDemandElements(true);
 }

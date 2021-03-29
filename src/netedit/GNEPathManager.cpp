@@ -284,13 +284,13 @@ GNEPathManager::getPathCalculator() {
 
 void 
 GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, const bool allowedVClass, std::vector<GNELane*> lanes) {
-    // check if AC exist already in myPaths
+    // check if path element exist already in myPaths
     if (myPaths.find(pathElement) != myPaths.end()) {
         // delete segments
         for (const auto& segment : myPaths.at(pathElement)) {
             delete segment;
         }
-        // remove AC from myPaths
+        // remove path element from myPaths
         myPaths.erase(pathElement);
     }
     // get edges
@@ -314,6 +314,20 @@ GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass,
         }
         // add segment in path
         myPaths[pathElement] = segments;
+    }
+}
+
+
+void 
+GNEPathManager::removePath(PathElement* pathElement) {
+    // check if path element exist already in myPaths
+    if (myPaths.find(pathElement) != myPaths.end()) {
+        // delete segments
+        for (const auto& segment : myPaths.at(pathElement)) {
+            delete segment;
+        }
+        // remove path element from myPaths
+        myPaths.erase(pathElement);
     }
 }
 
