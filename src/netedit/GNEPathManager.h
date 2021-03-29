@@ -22,6 +22,8 @@
 
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBVehicle.h>
+#include <utils/router/SUMOAbstractRouter.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
 
 
 // ===========================================================================
@@ -35,6 +37,32 @@ class GNENet;
 class GNEPathManager {
 
 public:
+    /// @brief class used for path elements
+    class PathElement {
+
+    public:
+        /// @brief constructor
+        PathElement();
+
+        /// @brief destructor
+        ~PathElement();
+
+        /**@brief Draws partial object (lane)
+        * @param[in] s The settings for the current view (may influence drawing)
+        * @param[in] lane GNELane in which draw partial
+        * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
+        */
+        virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const = 0;
+
+        /**@brief Draws partial object (junction)
+         * @param[in] s The settings for the current view (may influence drawing)
+         * @param[in] fromLane from GNELane
+         * @param[in] toLane to GNELane
+         * @param[in] offsetFront offset for drawing element front (needed for selected elements)
+         */
+        virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const = 0;
+    };
+
     /// @brief class used to calculate paths in nets
     class PathCalculator {
 
@@ -81,13 +109,13 @@ public:
     void calculatePath(GNEAttributeCarrier* AC, SUMOVehicleClass vClass, const bool allowedVClass, std::vector<GNELane*> lanes);
 
     /// @brief draw additional element path
-    void drawAdditionalElementPath(const GUIVisualizationSettings& s, const GNELane* lane, const GNEAdditional* additionalElement);
+    void drawAdditionalElementPath(const GUIVisualizationSettings& s, const GNELane* lane);
 
     /// @brief draw demand element path
-    void drawDemandElementPath(const GUIVisualizationSettings& s, const GNELane* lane, const GNEDemandElement* demandElement);
+    void drawDemandElementPath(const GUIVisualizationSettings& s, const GNELane* lane);
 
     /// @brief draw generic data path
-    void drawGenericDataPath(const GUIVisualizationSettings& s, const GNELane* lane, const GNEGenericData* genericData);
+    void drawGenericDataPath(const GUIVisualizationSettings& s, const GNELane* lane);
 
     /// @brief invalidate path
     void invalidatePath(const GNELane* lane);
@@ -96,7 +124,7 @@ public:
     void clearSegments();
 
 protected:
-
+    /// @brief segment
     class Segment {
 
     public:

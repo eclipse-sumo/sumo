@@ -45,6 +45,15 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+// 
+// ---------------------------------------------------------------------------
+// GNEPathManager::PathElement - methods
+// ---------------------------------------------------------------------------
+
+GNEPathManager::PathElement::PathElement() {}
+
+
+GNEPathManager::PathElement::~PathElement() {}
 
 // ---------------------------------------------------------------------------
 // GNEPathManager::PathCalculator - methods
@@ -310,26 +319,34 @@ GNEPathManager::calculatePath(GNEAttributeCarrier* AC, SUMOVehicleClass vClass, 
 
 
 void
-GNEPathManager::drawAdditionalElementPath(const GUIVisualizationSettings& s, const GNELane* lane, const GNEAdditional* additionalElement) {
+GNEPathManager::drawAdditionalElementPath(const GUIVisualizationSettings& s, const GNELane* lane) {
     if (myLaneSegments.count(lane) > 0) {
-        additionalElement->drawPartialGL(s, lane, 0);
+        for (const auto &element: myLaneSegments.at(lane)) {
+        /*
+            additionalElement->drawPartialGL(s, lane, 0);
+        */
+        }
     }
 }
 
 
 void 
-GNEPathManager::drawDemandElementPath(const GUIVisualizationSettings& s, const GNELane* lane, const GNEDemandElement* demandElement) {
+GNEPathManager::drawDemandElementPath(const GUIVisualizationSettings& s, const GNELane* lane) {
+/*
     if (myLaneSegments.count(lane) > 0) {
         demandElement->drawPartialGL(s, lane, 0);
     }
+*/
 }
 
 
 void 
-GNEPathManager::drawGenericDataPath(const GUIVisualizationSettings& s, const GNELane* lane, const GNEGenericData* genericData) {
+GNEPathManager::drawGenericDataPath(const GUIVisualizationSettings& s, const GNELane* lane) {
+/*
     if (myLaneSegments.count(lane) > 0) {
         genericData->drawPartialGL(s, lane, 0);
     }
+*/
 }
 
 

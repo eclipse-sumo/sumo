@@ -22,6 +22,7 @@
 
 #include <netedit/elements/GNEHierarchicalElement.h>
 #include <netedit/GNEGeometry.h>
+#include <netedit/GNEPathManager.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -47,7 +48,7 @@ class GNEJunction;
  * @class GNEDemandElement
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEDemandElement : public GUIGlObject, public GNEHierarchicalElement {
+class GNEDemandElement : public GUIGlObject, public GNEHierarchicalElement, public GNEPathManager::PathElement {
 
 public:
     /// @brief struct for pack all variables related with Demand Element moving

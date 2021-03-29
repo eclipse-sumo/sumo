@@ -22,6 +22,7 @@
 
 #include <netedit/elements/GNEHierarchicalElement.h>
 #include <netedit/GNEGeometry.h>
+#include <netedit/GNEPathManager.h>
 #include <netedit/GNEMoveElement.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
@@ -43,7 +44,7 @@ class GUIGLObjectPopupMenu;
  * @class GNEAdditional
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEAdditional : public GUIGlObject, public Parameterised, public GNEHierarchicalElement, public GNEMoveElement  {
+class GNEAdditional : public GUIGlObject, public Parameterised, public GNEHierarchicalElement, public GNEMoveElement, public GNEPathManager::PathElement {
 
 public:
     /**@brief Constructor
