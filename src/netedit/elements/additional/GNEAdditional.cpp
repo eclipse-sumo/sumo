@@ -95,12 +95,6 @@ GNEAdditional::getAdditionalGeometry() const {
 }
 
 
-const GNEGeometry::SegmentGeometry&
-GNEAdditional::getAdditionalSegmentGeometry() const {
-    return myAdditionalSegmentGeometry;
-}
-
-
 void
 GNEAdditional::setSpecialColor(const RGBColor* color) {
     mySpecialColor = color;
@@ -255,21 +249,6 @@ GNEAdditional::isAdditionalBlocked() const {
 }
 
 
-void
-GNEAdditional::updatePartialGeometry(const GNELane* lane) {
-    // currently only for E2 Multilane Detectors
-    if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
-        // declare extreme geometry
-        GNEGeometry::ExtremeGeometry extremeGeometry;
-        // get extremes
-        extremeGeometry.laneStartPosition = GNEAttributeCarrier::parse<double>(getAttribute(SUMO_ATTR_POSITION));
-        extremeGeometry.laneEndPosition = GNEAttributeCarrier::parse<double>(getAttribute(SUMO_ATTR_ENDPOS));
-        // update geometry path for the given lane
-        GNEGeometry::updateGeometricPath(myAdditionalSegmentGeometry, lane, extremeGeometry);
-    }
-}
-
-
 GUIGLObjectPopupMenu*
 GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -357,6 +336,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         glPushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         glTranslated(0, 0, getType() + offsetFront);
+/*
         // iterate over segments
         for (const auto& segment : myAdditionalSegmentGeometry) {
             // draw partial segment
@@ -367,6 +347,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
                 GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, E2DetectorWidth);
             }
         }
+*/
         // Pop last matrix
         glPopMatrix();
         // draw additional ID
@@ -375,6 +356,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         }
         // Pop name
         glPopName();
+/*
         // check if shape dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // iterate over segments
@@ -394,6 +376,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
                 }
             }
         }
+*/
     }
 }
 

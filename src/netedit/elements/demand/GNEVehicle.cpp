@@ -502,62 +502,6 @@ GNEVehicle::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNEVehicle::updateGeometry() {
-    // declare extreme geometry
-    GNEGeometry::ExtremeGeometry extremeGeometry;
-    // check if depart and arrival pos lanes are defined
-    if (departPosProcedure == DepartPosDefinition::GIVEN) {
-        extremeGeometry.laneStartPosition = departPos;
-    }
-    if (arrivalPosProcedure == ArrivalPosDefinition::GIVEN) {
-        extremeGeometry.laneEndPosition = arrivalPos;
-    }
-    // get first allowed lane
-    GNELane* firstLane = getFirstAllowedVehicleLane();
-    // check if first lane wasn't sucesfully obtained
-    if (!firstLane) {
-        if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
-            // use route edges
-            firstLane = getParentDemandElements().at(1)->getParentEdges().front()->getLanes().front();
-        } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_WITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
-            // use embebbed route
-            if (getChildDemandElements().size() > 0) {
-                firstLane = getChildDemandElements().front()->getParentEdges().front()->getLanes().front();
-            } else {
-                firstLane = nullptr;
-            }
-        /*
-        } else if ((getPath().size() > 0) && getPath().front().getLane()) {
-            // use path edges
-            firstLane = getPath().front().getLane();
-        */
-        } else if (getParentEdges().size() > 0) {
-            // use first
-            firstLane = getParentEdges().front()->getLanes().front();
-        } else {
-            firstLane = nullptr;
-        }
-    }
-    // continue only if lane was sucesfully found
-    if (firstLane) {
-        // check if depart pos has to be adjusted
-        if ((departPosProcedure == DepartPosDefinition::GIVEN) && (extremeGeometry.laneStartPosition < 0)) {
-            extremeGeometry.laneStartPosition += firstLane->getLaneShape().length();
-        }
-        // continue depending of tag
-        if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
-            // calculate edge geometry path using path
-            GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, /*getPath(),*/ extremeGeometry);
-        } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
-            // calculate edge geometry path using route edges
-            GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, /*getParentDemandElements().at(1)->getPath(),*/ extremeGeometry);
-        } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_WITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
-            // calculate edge geometry path using embedded route edges
-            GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, /*getChildDemandElements().front()->getPath(),*/ extremeGeometry);
-        }
-        // update start pos geometry
-        myDemandElementGeometry.updateGeometry(firstLane, extremeGeometry.laneStartPosition);
-        firstLane->getParentEdge()->updateVehicleStackLabels();
-    }
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();
@@ -788,6 +732,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         } else {
             GLHelper::setColor(s.colorSettings.vehicleTrips);
         }
+/*
         // iterate over segments
         if (drawSpreadVehicles) {
             for (const auto& segment : myDemandElementSegmentGeometry) {
@@ -804,12 +749,14 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
                 }
             }
         }
+*/
         // Pop last matrix
         glPopMatrix();
         // Draw name if isn't being drawn for selecting
         if (!s.drawForRectangleSelection) {
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
         }
+/*
         // check if shape dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // get first and last allowed lanes
@@ -832,6 +779,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
                 }
             }
         }
+*/
         // Pop name
         glPopName();
     }

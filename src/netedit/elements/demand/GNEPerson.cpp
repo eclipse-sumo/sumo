@@ -354,10 +354,13 @@ GNEPerson::getCenteringBoundary() const {
         if (getChildDemandElements().front()->getTagProperty().isPersonStop()) {
             // use boundary of stop center
             return getChildDemandElements().front()->getCenteringBoundary();
-        } else {
+        } 
+        /*
+        else {
             // obtain boundary of first position over edge
             personBoundary.add(getChildDemandElements().front()->getDemandElementSegmentGeometry().getFirstPosition());
         }
+        */
     } else {
         personBoundary = Boundary(-0.1, -0.1, 0.1, 0.1);
     }
@@ -402,8 +405,10 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             // obtain position of stop center
             personPosition = getChildDemandElements().front()->getPositionInView();
         } else {
+        /*
             // obtain position of first edge
             personPosition = getChildDemandElements().front()->getDemandElementSegmentGeometry().getFirstPosition();
+        */
         }
         // check that position is valid and person can be drawn
         if ((personPosition != Position::INVALID) &&

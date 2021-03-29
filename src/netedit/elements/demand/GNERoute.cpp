@@ -245,10 +245,6 @@ GNERoute::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNERoute::updateGeometry() {
-    // declare extreme geometry
-    GNEGeometry::ExtremeGeometry extremeGeometry;
-    // calculate edge geometry path using path
-    GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, /*getPath(),*/ extremeGeometry);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {
@@ -334,6 +330,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         glPushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType(), offsetFront);
+/*
         // iterate over segments
         for (const auto& segment : myDemandElementSegmentGeometry) {
             // draw partial segment
@@ -344,6 +341,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
                 GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, routeWidth);
             }
         }
+*/
         // Pop last matrix
         glPopMatrix();
         // Draw name if isn't being drawn for selecting
@@ -357,6 +355,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
             // get first and last allowed lanes
             const GNELane* firstLane = getFirstAllowedVehicleLane();
             const GNELane* lastLane = getLastAllowedVehicleLane();
+/*
             // iterate over segments
             for (const auto& segment : myDemandElementSegmentGeometry) {
                 if (segment.isLaneSegment() && (segment.getLane() == lane)) {
@@ -373,6 +372,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
                     }
                 }
             }
+*/
         }
     }
 }

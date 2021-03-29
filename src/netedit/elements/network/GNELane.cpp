@@ -169,22 +169,18 @@ GNELane::updateGeometry() {
     // update additionals children associated with this lane
     for (const auto& additional : getParentAdditionals()) {
         additional->updateGeometry();
-        additional->updatePartialGeometry(this);
     }
     // update additionals parents associated with this lane
     for (const auto& additional : getChildAdditionals()) {
         additional->updateGeometry();
-        additional->updatePartialGeometry(this);
     }
     // update partial demand elements parents associated with this lane
     for (const auto& demandElement : getParentDemandElements()) {
         demandElement->updateGeometry();
-        demandElement->updatePartialGeometry(this);
     }
     // update partial demand elements children associated with this lane
     for (const auto& demandElement : getChildDemandElements()) {
         demandElement->updateGeometry();
-        demandElement->updatePartialGeometry(this);
     }
     // Update geometry of parent generic datas that have this edge as parent
     for (const auto& additionalParent : getParentGenericDatas()) {

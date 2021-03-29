@@ -94,12 +94,6 @@ GNEDemandElement::getDemandElementGeometry() {
 }
 
 
-const GNEGeometry::SegmentGeometry&
-GNEDemandElement::getDemandElementSegmentGeometry() const {
-    return myDemandElementSegmentGeometry;
-}
-
-
 GNEDemandElement*
 GNEDemandElement::getPreviousChildDemandElement(const GNEDemandElement* demandElement) const {
     // find child demand element
@@ -161,28 +155,6 @@ GNEDemandElement::updateDemandElementStackLabel(const int stack) {
 void
 GNEDemandElement::updateDemandElementSpreadGeometry(const GNELane* lane, const double posOverLane) {
     mySpreadGeometry.updateGeometry(lane, posOverLane);
-}
-
-
-void
-GNEDemandElement::updatePartialGeometry(const GNELane* lane) {
-    // declare extreme geometry
-    GNEGeometry::ExtremeGeometry extremeGeometry;
-    // special case for stops
-    if (myTagProperty.isVehicle()) {
-        // use depart/arrival positions as lane extremes
-        extremeGeometry.laneStartPosition = getAttributeDouble(SUMO_ATTR_DEPARTPOS);
-        extremeGeometry.laneEndPosition = getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
-    } else if (myTagProperty.isPersonPlan()) {
-        // calculate person plan start and end positions
-        extremeGeometry = calculatePersonPlanLaneStartEndPos();
-    }
-    // update geometry path for the given lane
-    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, lane, extremeGeometry);
-    // update child demand elementss
-    for (const auto& i : getChildDemandElements()) {
-        i->updatePartialGeometry(lane);
-    }
 }
 
 
@@ -394,7 +366,7 @@ GNEDemandElement::getFirstPersonPlanEdge() const {
             return nullptr;
     }
 }
-
+/*
 
 GNEGeometry::ExtremeGeometry
 GNEDemandElement::calculatePersonPlanLaneStartEndPos() const {
@@ -643,7 +615,7 @@ GNEDemandElement::drawPersonPlanPartialJunction(const GUIVisualizationSettings& 
         }
     }
 }
-
+*/
 
 void
 GNEDemandElement::replaceDemandParentEdges(const std::string& value) {

@@ -310,6 +310,7 @@ GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass,
             const GNELane* lane = edge->getLaneByAllowedVClass(vClass);
             // create segment
             Segment *segment = new Segment(this, pathElement, lane);
+            // add it into segment vector
             segments.push_back(segment);
         }
         // add segment in path

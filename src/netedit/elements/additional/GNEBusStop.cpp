@@ -63,23 +63,6 @@ GNEBusStop::updateGeometry() {
 
     // Get position of the sign
     mySignPos = tmpShape.getLineCenter();
-
-    // update child demand elements geometry
-    for (const auto& demandElement : getChildDemandElements()) {
-        // special case for person trips
-        if (demandElement->getTagProperty().isPersonTrip()) {
-            // update previous and next person plan
-            GNEDemandElement* previousDemandElement = demandElement->getParentDemandElements().front()->getPreviousChildDemandElement(demandElement);
-            if (previousDemandElement) {
-                previousDemandElement->updatePartialGeometry(getParentLanes().front());
-            }
-            GNEDemandElement* nextDemandElement = demandElement->getParentDemandElements().front()->getNextChildDemandElement(demandElement);
-            if (nextDemandElement) {
-                nextDemandElement->updatePartialGeometry(getParentLanes().front());
-            }
-        }
-        demandElement->updatePartialGeometry(getParentLanes().front());
-    }
 }
 
 

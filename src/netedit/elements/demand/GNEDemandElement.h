@@ -126,9 +126,6 @@ public:
     /// @brief get demand element geometry (stacked)
     const GNEGeometry::Geometry& getDemandElementGeometry();
 
-    /// @brief get demand element segment geometry (stacked)
-    const GNEGeometry::SegmentGeometry& getDemandElementSegmentGeometry() const;
-
     /// @brief get previous child demand element to the given demand element
     GNEDemandElement* getPreviousChildDemandElement(const GNEDemandElement* demandElement) const;
 
@@ -146,9 +143,6 @@ public:
 
     /// @brief update element spread geometry
     void updateDemandElementSpreadGeometry(const GNELane* lane, const double posOverLane);
-
-    /// @brief partial update pre-computed geometry information
-    void updatePartialGeometry(const GNELane* lane);
 
     /// @name members and functions relative to elements common to all demand elements
     /// @{
@@ -334,9 +328,6 @@ protected:
     /// @brief demand element geometry (also called "stacked geometry")
     GNEGeometry::Geometry myDemandElementGeometry;
 
-    /// @brief demand element segment geometry (also called "stacked geometry")
-    GNEGeometry::SegmentGeometry myDemandElementSegmentGeometry;
-
     /// @brief demand element spread geometry (Only used by vehicles and pedestrians)
     GNEGeometry::Geometry mySpreadGeometry;
 
@@ -351,17 +342,6 @@ protected:
 
     /// @name Only for person plans
     /// @{
-
-    /// @brief calculate extreme geometry
-    GNEGeometry::ExtremeGeometry calculatePersonPlanLaneStartEndPos() const;
-
-    /// @brief draw person plan partial lane
-    void drawPersonPlanPartialLane(const GUIVisualizationSettings& s, const GNELane* lane,
-                                   const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const;
-
-    /// @brief draw person plan partial junction
-    void drawPersonPlanPartialJunction(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane,
-                                       const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const;
 
     /// @brief person plans arrival position radius
     static const double myPersonPlanArrivalPositionDiameter;

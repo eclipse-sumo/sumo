@@ -118,9 +118,6 @@ public:
     /// @brief obtain additional geometry
     const GNEGeometry::Geometry& getAdditionalGeometry() const;
 
-    /// @brief obtain additional segment geometry
-    const GNEGeometry::SegmentGeometry& getAdditionalSegmentGeometry() const;
-
     /// @brief set special color
     void setSpecialColor(const RGBColor* color);
 
@@ -165,9 +162,6 @@ public:
 
     /// @brief Check if additional item is currently blocked (i.e. cannot be moved with mouse)
     bool isAdditionalBlocked() const;
-
-    /// @brief partial update pre-computed geometry information
-    void updatePartialGeometry(const GNELane* lane);
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -280,9 +274,6 @@ protected:
 
     /// @brief geometry to be precomputed in updateGeometry(...)
     GNEGeometry::Geometry myAdditionalGeometry;
-
-    /// @brief segment geometry to be precomputed in updateGeometry(...) (used by E2Multilane)
-    GNEGeometry::SegmentGeometry myAdditionalSegmentGeometry;
 
     /// @brief name of additional
     std::string myAdditionalName;

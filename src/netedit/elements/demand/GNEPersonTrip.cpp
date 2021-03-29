@@ -257,10 +257,6 @@ GNEPersonTrip::commitGeometryMoving(GNEUndoList* undoList) {
 
 void
 GNEPersonTrip::updateGeometry() {
-    // calculate person plan start and end positions
-    GNEGeometry::ExtremeGeometry extremeGeometry = calculatePersonPlanLaneStartEndPos();
-    // calculate edge geometry path using path
-    GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, /*getPath(),*/ extremeGeometry);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();
@@ -331,15 +327,19 @@ GNEPersonTrip::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 void
 GNEPersonTrip::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const {
+/*
     // draw person plan over lane
     drawPersonPlanPartialLane(s, lane, offsetFront, s.widthSettings.personTrip, s.colorSettings.personTrip);
+*/
 }
 
 
 void
 GNEPersonTrip::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const {
+/*
     // draw person plan over junction
     drawPersonPlanPartialJunction(s, fromLane, toLane, offsetFront, s.widthSettings.personTrip, s.colorSettings.personTrip);
+*/
 }
 
 

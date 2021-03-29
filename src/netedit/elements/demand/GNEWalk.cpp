@@ -271,16 +271,6 @@ GNEWalk::commitGeometryMoving(GNEUndoList* undoList) {
 
 void
 GNEWalk::updateGeometry() {
-    // calculate person plan start and end positions
-    GNEGeometry::ExtremeGeometry extremeGeometry = calculatePersonPlanLaneStartEndPos();
-    // calculate geometry path depending if is a Walk over route
-    if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
-        // calculate edge geometry path using parent route
-        GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, /*getParentDemandElements().at(1)->getPath(),*/ extremeGeometry);
-    } else {
-        // calculate edge geometry path using path
-        GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, /*getPath(),*/ extremeGeometry);
-    }
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();
@@ -379,15 +369,19 @@ GNEWalk::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 void
 GNEWalk::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const {
+/*
     // draw person plan over lane
     drawPersonPlanPartialLane(s, lane, offsetFront, s.widthSettings.walk, s.colorSettings.walk);
+*/
 }
 
 
 void
 GNEWalk::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const {
+/*
     // draw person plan over junction
     drawPersonPlanPartialJunction(s, fromLane, toLane, offsetFront, s.widthSettings.walk, s.colorSettings.walk);
+*/
 }
 
 
