@@ -106,16 +106,10 @@ public:
     PathCalculator* getPathCalculator();
 
     /// @brief calculate path
-    void calculatePath(GNEAttributeCarrier* AC, SUMOVehicleClass vClass, const bool allowedVClass, std::vector<GNELane*> lanes);
+    void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, const bool allowedVClass, std::vector<GNELane*> lanes);
 
-    /// @brief draw additional element path
-    void drawAdditionalElementPath(const GUIVisualizationSettings& s, const GNELane* lane);
-
-    /// @brief draw demand element path
-    void drawDemandElementPath(const GUIVisualizationSettings& s, const GNELane* lane);
-
-    /// @brief draw generic data path
-    void drawGenericDataPath(const GUIVisualizationSettings& s, const GNELane* lane);
+    /// @brief draw path elements
+    void drawPathElements(const GUIVisualizationSettings& s, const GNELane* lane);
 
     /// @brief invalidate path
     void invalidatePath(const GNELane* lane);
@@ -129,7 +123,7 @@ protected:
 
     public:
         /// @brief constructor
-        Segment(GNEPathManager* pathManager, GNEAttributeCarrier* element, const GNELane* lane);
+        Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane);
 
         /// @brief destructor
         ~Segment();
@@ -138,7 +132,7 @@ protected:
         GNEPathManager* myPathManager;
 
         /// @brief parent element
-        const GNEAttributeCarrier* myElement;
+        const PathElement* myPathElement;
 
         /// @brief valid element
         bool myValid;
@@ -154,8 +148,8 @@ protected:
         Segment& operator=(const Segment&) = delete;
     };
 
-    /// @brief map with Attribute Carrier and their asociated path
-    std::map<GNEAttributeCarrier*, std::vector<Segment*> > myPaths;
+    /// @brief map with path element and their asociated segments
+    std::map<PathElement*, std::vector<Segment*> > myPaths;
 
     /// @brief map with lane segments
     std::map<const GNELane*, std::set<Segment*> > myLaneSegments;

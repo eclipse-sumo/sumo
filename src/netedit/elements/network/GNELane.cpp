@@ -546,17 +546,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // draw children
         drawChildren(s);
         // draw path additional elements
-        for (const auto &additional : getChildAdditionals()) {
-            myNet->getPathManager()->drawAdditionalElementPath(s, this);
-        }
-        // draw path demand elements
-        for (const auto& demand : getChildDemandElements()) {
-            myNet->getPathManager()->drawDemandElementPath(s, this);
-        }
-        // draw path data elements
-        for (const auto& genericData : getChildGenericDatas()) {
-            myNet->getPathManager()->drawGenericDataPath(s, this);
-        }
+        myNet->getPathManager()->drawPathElements(s, this);
     }
 }
 

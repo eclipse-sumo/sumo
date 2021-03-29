@@ -283,15 +283,15 @@ GNEPathManager::getPathCalculator() {
 
 
 void 
-GNEPathManager::calculatePath(GNEAttributeCarrier* AC, SUMOVehicleClass vClass, const bool allowedVClass, std::vector<GNELane*> lanes) {
+GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, const bool allowedVClass, std::vector<GNELane*> lanes) {
     // check if AC exist already in myPaths
-    if (myPaths.find(AC) != myPaths.end()) {
+    if (myPaths.find(pathElement) != myPaths.end()) {
         // delete segments
-        for (const auto& segment : myPaths.at(AC)) {
+        for (const auto& segment : myPaths.at(pathElement)) {
             delete segment;
         }
         // remove AC from myPaths
-        myPaths.erase(AC);
+        myPaths.erase(pathElement);
     }
     // get edges
     std::vector<GNEEdge*> edges;
@@ -309,44 +309,22 @@ GNEPathManager::calculatePath(GNEAttributeCarrier* AC, SUMOVehicleClass vClass, 
             // get first allowed lane
             const GNELane* lane = edge->getLaneByAllowedVClass(vClass);
             // create segment
-            Segment *segment = new Segment(this, AC, lane);
+            Segment *segment = new Segment(this, pathElement, lane);
             segments.push_back(segment);
         }
         // add segment in path
-        myPaths[AC] = segments;
+        myPaths[pathElement] = segments;
     }
 }
 
 
 void
-GNEPathManager::drawAdditionalElementPath(const GUIVisualizationSettings& s, const GNELane* lane) {
+GNEPathManager::drawPathElements(const GUIVisualizationSettings& s, const GNELane* lane) {
     if (myLaneSegments.count(lane) > 0) {
         for (const auto &element: myLaneSegments.at(lane)) {
-        /*
-            additionalElement->drawPartialGL(s, lane, 0);
-        */
+            element->myPathElement->drawPartialGL(s, lane, 0);
         }
     }
-}
-
-
-void 
-GNEPathManager::drawDemandElementPath(const GUIVisualizationSettings& s, const GNELane* lane) {
-/*
-    if (myLaneSegments.count(lane) > 0) {
-        demandElement->drawPartialGL(s, lane, 0);
-    }
-*/
-}
-
-
-void 
-GNEPathManager::drawGenericDataPath(const GUIVisualizationSettings& s, const GNELane* lane) {
-/*
-    if (myLaneSegments.count(lane) > 0) {
-        genericData->drawPartialGL(s, lane, 0);
-    }
-*/
 }
 
 
@@ -370,9 +348,9 @@ GNEPathManager::clearSegments() {
 }
 
 
-GNEPathManager::Segment::Segment(GNEPathManager* pathManager, GNEAttributeCarrier* element, const GNELane* lane) :
+GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane) :
     myPathManager(pathManager),
-    myElement(element),
+    myPathElement(element),
     myValid(true) {
     // add segment in laneSegments
     myPathManager->addSegmentInLaneSegments(this, lane);
@@ -389,7 +367,7 @@ GNEPathManager::Segment::~Segment() {
 
 GNEPathManager::Segment::Segment() :
     myPathManager(nullptr),
-    myElement(nullptr),
+    myPathElement(nullptr),
     myValid(false) {
 }
 
