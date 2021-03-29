@@ -502,9 +502,24 @@ GNEVehicle::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNEVehicle::updateGeometry() {
+    // declare departLane
+    GNELane* lane = getFirstAllowedVehicleLane();
+    // continue depending of lane
+    if (lane) {
+        // declare departPos
+        double posOverLane = 0;
+        if (canParse<double>(getDepartPos())) {
+            posOverLane = parse<double>(getDepartPos());
+        }
+        // update Geometry
+        myDemandElementGeometry.updateGeometry(lane, posOverLane);
+    } else {
+        // set vehicle in center position
+        myDemandElementGeometry.updateGeometry(Position(0, 0), 0);
+    }
     // update child demand elementss
-    for (const auto& i : getChildDemandElements()) {
-        i->updateGeometry();
+    for (const auto& demandElements : getChildDemandElements()) {
+        demandElements->updateGeometry();
     }
 }
 
