@@ -139,24 +139,17 @@ def repair_routes(options):
             line_dir = get_line_dir(line_orig, line_dest)
 
             osm_routes[ptline.id] = [ptline.attr_name, ptline.line, ptline.type, line_dir]
-            dua_file.write("""\t<vehicle id="%s" type="%s" depart="0">\n""" % (ptline.id, ptline.type))
-            dua_file.write("""\t\t<route edges="%s"/>\n""" % (" ").join(route_edges))
-            dua_file.write("""\t</vehicle>\n""")
+            dua_file.write("""\t<trip id="%s" type="%s" depart="0" via="%s"/>\n""" % (ptline.id, ptline.type, (" ").join(route_edges)))
         dua_file.write("</routes>\n")
     
     # run duarouter
-    run_dua = subprocess.call([sumolib.checkBinary('duarouter'), '-n', options.network, '--route-files', dua_input ,'--repair', '-o', dua_output, '--error-log', dua_error, '--repair.from', '--repair.to', '--verbose'])
+    run_dua = subprocess.call([sumolib.checkBinary('duarouter'), '-n', options.network, '--route-files', dua_input ,'--repair', '-o', dua_output, '--error-log', dua_error, '--verbose'])
     if run_dua == 1:
         # if not succesfull run with "ignore-errors"
         print("duarouter found errors in routes, keep only possible routes")
-        subprocess.call([sumolib.checkBinary('duarouter'), '-n', options.network, '--route-files', dua_input ,'--repair', '-o', dua_output, '--repair.from', '--repair.to', '--ignore-errors', '--verbose'])
+        subprocess.call([sumolib.checkBinary('duarouter'), '-n', options.network, '--route-files', dua_input ,'--repair', '-o', dua_output, '--ignore-errors', '--error-log', dua_error])
 
-    # search ptLines with errors 
-    with open(dua_error, 'r') as error_file:
-        error_file = error_file.read()
-        error_lines = [line.split("'")[1] for line in error_file.splitlines() if line.startswith("Error:")] # takes only edge id
-
-    return dua_output, osm_routes, set(error_lines)
+    return dua_output, osm_routes
 
 if __name__ == "__main__":
 
@@ -232,18 +225,19 @@ if __name__ == "__main__":
     osm_routes = {}
     if options.repair:
         print("repair osm routes")
-        osm_repair_routes, osm_routes, error_lines = repair_routes(options)
+        osm_repair_routes, osm_routes = repair_routes(options)
+
+        n_routes = len(osm_routes)
 
         for ptline, ptline_route in sumolib.xml.parse_fast_nested(osm_repair_routes, "vehicle", ("id"), "route", ("edges")):        
             if len(ptline_route.edges) > 2:
                 osm_routes[ptline.id].append(ptline_route.edges)
-            else:
-                error_lines.append(ptline.id)
         
         # remove invalid routes from dict
-        for line in error_lines:
-            if osm_routes.get(line, False):
-                del osm_routes[line]
+        [osm_routes.pop(line) for line in list(osm_routes) if len(osm_routes[line]) < 5]
+
+        if n_routes != len(osm_routes):
+            print("Not all given routes could been imported, see 'dua_error.xml' for more information.")
     else:        
         for ptline, ptline_route in sumolib.xml.parse_fast_nested(options.osm_routes, "ptLine", ("id", "name", "line", "type"), "route", ("edges")):
             if ptline.type not in options.pt_types:
