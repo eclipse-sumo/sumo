@@ -417,6 +417,18 @@ if __name__ == "__main__":
                                 if lane.allows(pt_class):
                                     lane_id = lane.getID()
                             map_stops[key][1] = lane_id
+                            # update start and end
+                            if pt_class == "bus":
+                                stop_length = options.bus_stop_length
+                            elif pt_class == "tram":
+                                stop_length = options.tram_stop_length
+                            else:
+                                stop_length = options.train_stop_length
+                            pos = lane.getClosestLanePosAndDist((x, y))[0]
+                            start = max(0, pos-stop_length)
+                            end = min(start+stop_length, lane.getLength())
+                            map_stops[key][2] = start
+                            map_stops[key][3] = end
                             # update edge in data frame
                             gtfs_data.loc[gtfs_data["stop_item_id"] == key, "edge_id"] = edge[0].getID()
                             
@@ -425,11 +437,11 @@ if __name__ == "__main__":
                             gtfs_data.loc[(gtfs_data["stop_id"] == row.stop_id) & (gtfs_data["shape_id"].isin(shape_list)), "stop_item_id"] = key
                             gtfs_data.loc[(gtfs_data["stop_id"] == row.stop_id) & (gtfs_data["shape_id"].isin(shape_list)), "edge_id"] = edge[0].getID()
 
-                            stop_mapped = 'yes'
+                            stop_mapped = True
                             break
-                    if stop_mapped == 'yes':
+                    if stop_mapped == True:
                         break # if already found the stop, don't keep searching
-            if stop_mapped != 'yes':
+            if stop_mapped != True:
                 stop_mapped = None # if stop not the same, search stop
                     
 
