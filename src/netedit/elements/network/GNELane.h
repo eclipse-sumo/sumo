@@ -92,6 +92,9 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+    /// @brief get lane geometry
+    const GNEGeometry::Geometry& getLaneGeometry() const;
+
     /// @brief get elements shape
     const PositionVector& getLaneShape() const;
 

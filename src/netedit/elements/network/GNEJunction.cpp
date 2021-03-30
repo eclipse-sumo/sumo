@@ -491,6 +491,8 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw Junction childs
             drawJunctionChildren(s);
+            // draw path additional elements
+            myNet->getPathManager()->drawJunctionPathElements(s, this);
             // check if dotted contour has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 if (drawShape) {

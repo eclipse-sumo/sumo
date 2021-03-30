@@ -119,6 +119,12 @@ GNELane::allowPedestrians() const {
 }
 
 
+const GNEGeometry::Geometry&
+GNELane::getLaneGeometry() const {
+    return myLaneGeometry;
+}
+
+
 const PositionVector&
 GNELane::getLaneShape() const {
     return myParentEdge->getNBEdge()->getLaneShape(myIndex);
@@ -542,7 +548,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // draw children
         drawChildren(s);
         // draw path additional elements
-        myNet->getPathManager()->drawPathElements(s, this);
+        myNet->getPathManager()->drawLanePathElements(s, this);
     }
 }
 

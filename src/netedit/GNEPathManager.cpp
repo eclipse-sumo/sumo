@@ -305,13 +305,22 @@ GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass,
     if (path.size() > 0) {
         // declare segment vector
         std::vector<Segment*> segments;
-        for (const auto & edge : path) {
+        for (int i = 0; i < (int)path.size(); i++) {
             // get first allowed lane
-            const GNELane* lane = edge->getLaneByAllowedVClass(vClass);
-            // create segment
-            Segment *segment = new Segment(this, pathElement, lane);
+            const GNELane* lane = path.at(i)->getLaneByAllowedVClass(vClass);
+            // create segments
+            Segment* laneSegment = new Segment(this, pathElement, lane);
             // add it into segment vector
-            segments.push_back(segment);
+            segments.push_back(laneSegment);
+            // continue if this isn't the last edge
+            if (path.at(i) != path.back()) {
+                // obtain next lane
+                const GNELane* nextLane = path.at(i+1)->getLaneByAllowedVClass(vClass);
+                // create junction segments
+                Segment* junctionSegment = new Segment(this, pathElement, path.at(i)->getParentJunctions().at(1), lane, nextLane);
+                // add it into segment vector
+                segments.push_back(junctionSegment);
+            }
         }
         // add segment in path
         myPaths[pathElement] = segments;
@@ -334,10 +343,20 @@ GNEPathManager::removePath(PathElement* pathElement) {
 
 
 void
-GNEPathManager::drawPathElements(const GUIVisualizationSettings& s, const GNELane* lane) {
+GNEPathManager::drawLanePathElements(const GUIVisualizationSettings& s, const GNELane* lane) {
     if (myLaneSegments.count(lane) > 0) {
-        for (const auto &element: myLaneSegments.at(lane)) {
-            element->myPathElement->drawPartialGL(s, lane, 0);
+        for (const auto &segment: myLaneSegments.at(lane)) {
+            segment->getPathElement()->drawPartialGL(s, lane, 0);
+        }
+    }
+}
+
+
+void
+GNEPathManager::drawJunctionPathElements(const GUIVisualizationSettings& s, const GNEJunction* junction) {
+    if (myJunctionSegments.count(junction) > 0) {
+        for (const auto& segment : myJunctionSegments.at(junction)) {
+            segment->getPathElement()->drawPartialGL(s, segment->getPreviousLane(), segment->getNextLane(), 0);
         }
     }
 }
@@ -366,23 +385,55 @@ GNEPathManager::clearSegments() {
 GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane) :
     myPathManager(pathManager),
     myPathElement(element),
+    myPreviousLane(nullptr),
+    myNextLane(nullptr),
     myValid(true) {
     // add segment in laneSegments
     myPathManager->addSegmentInLaneSegments(this, lane);
+}
 
+
+GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* element, const GNEJunction* junction, 
+    const GNELane* previousLane, const GNELane* nextLane) :
+    myPathManager(pathManager),
+    myPathElement(element),
+    myPreviousLane(previousLane),
+    myNextLane(nextLane),
+    myValid(true) {
+    // add segment in junctionSegments
+    myPathManager->addSegmentInJunctionSegments(this, junction);
 }
 
 
 GNEPathManager::Segment::~Segment() {
     // clear segment from LaneSegments
-    myPathManager->clearSegmentFromLaneSegments(this);
+    myPathManager->clearSegmentFromJunctionAndLaneSegments(this);
+}
 
+
+const GNEPathManager::PathElement*
+GNEPathManager::Segment::getPathElement() const {
+    return myPathElement;
+}
+
+
+const GNELane* 
+GNEPathManager::Segment::getPreviousLane() const {
+    return myPreviousLane;
+}
+
+
+const GNELane* 
+GNEPathManager::Segment::getNextLane() const {
+    return myNextLane;
 }
 
 
 GNEPathManager::Segment::Segment() :
     myPathManager(nullptr),
     myPathElement(nullptr),
+    myPreviousLane(nullptr),
+    myNextLane(nullptr),
     myValid(false) {
 }
 
@@ -393,12 +444,18 @@ GNEPathManager::addSegmentInLaneSegments(Segment* segment, const GNELane* lane) 
 }
 
 
-void 
-GNEPathManager::clearSegmentFromLaneSegments(Segment* segment) {
+void
+GNEPathManager::addSegmentInJunctionSegments(Segment* segment, const GNEJunction* junction) {
+    myJunctionSegments[junction].insert(segment);
+}
+
+
+void
+GNEPathManager::clearSegmentFromJunctionAndLaneSegments(Segment* segment) {
     // first declare vector with lanes to clear
     std::vector<const GNELane*> lanesToClear;
     // now iterate over laneSegments
-    for (auto &laneSegment : myLaneSegments) {
+    for (auto& laneSegment : myLaneSegments) {
         // remove segment from segment sets
         if (laneSegment.second.find(segment) != laneSegment.second.end()) {
             laneSegment.second.erase(segment);
@@ -409,10 +466,26 @@ GNEPathManager::clearSegmentFromLaneSegments(Segment* segment) {
         }
     }
     // finally clear empty lanes from myLaneSegments
-    for (const auto &laneToClear : lanesToClear) {
+    for (const auto& laneToClear : lanesToClear) {
         myLaneSegments.erase(laneToClear);
     }
+    // first declare vector with junctions to clear
+    std::vector<const GNEJunction*> junctionsToClear;
+    // now iterate over junctionSegments
+    for (auto& junctionSegment : myJunctionSegments) {
+        // remove segment from segment sets
+        if (junctionSegment.second.find(segment) != junctionSegment.second.end()) {
+            junctionSegment.second.erase(segment);
+        }
+        // now check if junction doesn't have segments
+        if (junctionSegment.second.empty()) {
+            junctionsToClear.push_back(junctionSegment.first);
+        }
+    }
+    // finally clear empty junctions from myJunctionSegments
+    for (const auto& junctionToClear : junctionsToClear) {
+        myJunctionSegments.erase(junctionToClear);
+    }
 }
-
 
 /****************************************************************************/

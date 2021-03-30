@@ -747,6 +747,8 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         } else {
             GLHelper::setColor(s.colorSettings.vehicleTrips);
         }
+        // draw geometry
+        GNEGeometry::drawGeometry(myNet->getViewNet(), lane->getLaneGeometry(), 0.2);
 /*
         // iterate over segments
         if (drawSpreadVehicles) {

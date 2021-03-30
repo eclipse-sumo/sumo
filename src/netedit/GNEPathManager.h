@@ -111,8 +111,11 @@ public:
     /// @brief remove path
     void removePath(PathElement* pathElement);
 
-    /// @brief draw path elements
-    void drawPathElements(const GUIVisualizationSettings& s, const GNELane* lane);
+    /// @brief draw lane path elements
+    void drawLanePathElements(const GUIVisualizationSettings& s, const GNELane* lane);
+
+    /// @brief draw junction path elements
+    void drawJunctionPathElements(const GUIVisualizationSettings& s, const GNEJunction* junction);
 
     /// @brief invalidate path
     void invalidatePath(const GNELane* lane);
@@ -125,17 +128,36 @@ protected:
     class Segment {
 
     public:
-        /// @brief constructor
+        /// @brief constructor for lanes
         Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane);
+
+        /// @brief constructor for junctions
+        Segment(GNEPathManager* pathManager, PathElement* element, const GNEJunction* junction, const GNELane* previousLane, const GNELane* nextLane);
 
         /// @brief destructor
         ~Segment();
 
+        /// @brief get path element
+        const PathElement* getPathElement() const;
+
+        /// @brief get previous lane
+        const GNELane* getPreviousLane() const;
+
+        /// @brief get next lane
+        const GNELane* getNextLane() const;
+
+    protected:
         /// @brief path manager
         GNEPathManager* myPathManager;
 
-        /// @brief parent element
+        /// @brief path element
         const PathElement* myPathElement;
+
+        /// @brief previous lane
+        const GNELane *myPreviousLane;
+        
+        /// @brief next lane
+        const GNELane* myNextLane;
 
         /// @brief valid element
         bool myValid;
@@ -151,20 +173,26 @@ protected:
         Segment& operator=(const Segment&) = delete;
     };
 
+    /// @brief add segments int laneSegments (called by Segment constructor)
+    void addSegmentInLaneSegments(Segment *segment, const GNELane *lane);
+
+    /// @brief add segments int junctionSegments (called by Segment constructor)
+    void addSegmentInJunctionSegments(Segment* segment, const GNEJunction* junction);
+
+    /// @brief clear segments from junction and lane Segments (called by Segment destructor)
+    void clearSegmentFromJunctionAndLaneSegments(Segment* segment);
+
+    /// @brief PathCalculator instance
+    PathCalculator* myPathCalculator;
+
     /// @brief map with path element and their asociated segments
     std::map<PathElement*, std::vector<Segment*> > myPaths;
 
     /// @brief map with lane segments
     std::map<const GNELane*, std::set<Segment*> > myLaneSegments;
 
-    /// @brief PathCalculator instance
-    PathCalculator* myPathCalculator;
-
-    /// @brief add segments int laneSegments (called by Segment constructor)
-    void addSegmentInLaneSegments(Segment *segment, const GNELane *lane);
-
-    /// @brief clear segments from laneSegments (called by Segment destructor)
-    void clearSegmentFromLaneSegments(Segment *segment);
+    /// @brief map with junction segments
+    std::map<const GNEJunction*, std::set<Segment*> > myJunctionSegments;
 
 private:
     /// @brief Invalidated copy constructor.
