@@ -32,7 +32,7 @@ import base64
 from os import path
 
 import sumolib  # noqa
-
+from urllib.request import urlopen
 
 def readCompressed(conn, urlpath, query, filename):
     conn.request("POST", "/" + urlpath, """
@@ -68,7 +68,8 @@ optParser.add_argument("-x", "--polygon", help="calculate bounding box from poly
 optParser.add_argument("-u", "--url", default="www.overpass-api.de/api/interpreter",
                      help="Download from the given OpenStreetMap server")
 # alternatives: overpass.kumi.systems/api/interpreter, sumo.dlr.de/osm/api/interpreter
-
+optParser.add_argument("-w", "--wikidata",action="store_true", dest="wikidata",
+                     default=False, help="get the corresponding wikidata")
 
 def get(args=None):
     options = optParser.parse_args(args=args)
@@ -132,7 +133,18 @@ def get(args=None):
                 b = e
 
     conn.close()
-
+    # extract the wiki data according to the wikidata-value in the extracted osm file
+    if options.wikidata:
+        filename = options.prefix + '.wikidata.xml'
+        osmFile = path.join(os.getcwd(), options.prefix + "_bbox.osm.xml")
+        codeSet = set()
+        for line in open(osmFile, encoding='utf8'):
+            if 'wikidata' in line:
+               codeSet.add(line.split('"')[3])
+        out = open(path.join(os.getcwd(), filename), "wb")
+        content = urlopen("https://www.wikidata.org/w/api.php?action=wbgetentities&ids=%s&format=json" % ("|".join(codeSet))).read()
+        out.write(content)
+        out.close()
 
 if __name__ == "__main__":
     get()
