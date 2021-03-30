@@ -265,7 +265,7 @@ def map_stops(options, net, routes, rout):
                             ap = net.convertLonLat2XY(float(veh.x), float(veh.y))
                             numAccess = 0
                             for accessEdge, _ in sorted(net.getNeighboringEdges(*ap, r=100), key=lambda i: i[1]):
-                                if accessEdge.getID() != edge.getID() and accessEdge.allows("passenger"):
+                                if accessEdge.getID() != edge.getID() and accessEdge.allows("pedestrian"):
                                     _, accessPos, accessDist = accessEdge.getClosestLanePosDist(ap)
                                     rout.write(('        <access friendlyPos="true" ' +
                                                 'lane="%s_0" pos="%s" length="%s"/>\n') %

@@ -520,7 +520,7 @@ if __name__ == "__main__":
                 ap = sumolib.geomhelper.positionAtShapeOffset(net.getLane(value[1]).getShape(), value[2])
                 numAccess = 0
                 for accessEdge, _ in sorted(net.getNeighboringEdges(*ap, r=100), key=lambda i: i[1]):
-                    if accessEdge.getID() != key.split("_")[0] and accessEdge.allows("passenger"):
+                    if accessEdge.getID() != key.split("_")[0] and accessEdge.allows("pedestrian"):
                         _, accessPos, accessDist = accessEdge.getClosestLanePosDist(ap)
                         output_file.write(('        <access friendlyPos="true" ' +
                                     'lane="%s_0" pos="%s" length="%s"/>\n') %
