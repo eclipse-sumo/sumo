@@ -107,7 +107,7 @@ on("ready", function(){
 
     var canvas = elem("canvas");
     var canvasActive = false;
-    var canvasRect = [.1, .1, .9, .9];
+    var canvasRect = [.1, .1, .75, .9];
     var ctx = canvas.getContext("2d");
 
     /**
@@ -130,7 +130,7 @@ on("ready", function(){
     function draw(){
         var x0 = canvas.width * canvasRect[0],
             y0 = canvas.height * canvasRect[1],
-            x1 = canvas.width * canvasRect[2] - 250,
+            x1 = canvas.width * canvasRect[2],
             y1 = canvas.height * canvasRect[3];
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -159,7 +159,7 @@ on("ready", function(){
     function changeMousePointer(x, y, down){
         var x0 = canvas.width * canvasRect[0],
             y0 = canvas.height * canvasRect[1],
-            x1 = canvas.width * canvasRect[2] - 250,
+            x1 = canvas.width * canvasRect[2],
             y1 = canvas.height * canvasRect[3];
 
         var cursor = "", t = 20; //tolerance
@@ -191,15 +191,43 @@ on("ready", function(){
         mouse.x = evt.clientX;
         mouse.y = evt.clientY;
         if(mouse.area !== null){
-            if(mouse.area[1] == "n")
-                canvasRect[1] += dy;
-            else if(mouse.area[1] == "s")
-                canvasRect[3] += dy;
+            if(mouse.area[1] == "n"){
+                if((canvasRect[1] + dy)<=canvasRect[3]){
+                    canvasRect[1] += dy;
+                } else if ((canvasRect[1] + dy)>canvasRect[3]){
+                    [canvasRect[1], canvasRect[3]] = [canvasRect[3], canvasRect[1]];
+                    canvasRect[3] += dy;
+                    mouse.area[1] = "s";
+                }
+            }
+            else if(mouse.area[1] == "s"){
+                if((canvasRect[3] + dy)>=canvasRect[1]){
+                    canvasRect[3] += dy;
+                } else if ((canvasRect[3] + dy)<canvasRect[1]){
+                    [canvasRect[1], canvasRect[3]] = [canvasRect[3], canvasRect[1]];
+                    canvasRect[1] += dy;
+                    mouse.area[1] = "n";
+                }
+            }
 
-            if(mouse.area[2] == "w")
-                canvasRect[0] += dx;
-            else if(mouse.area[2] == "e")
-                canvasRect[2] += dx;
+            if(mouse.area[2] == "w"){
+                if((canvasRect[0] + dx)<=canvasRect[2]){
+                    canvasRect[0] += dx;
+                } else if ((canvasRect[0] + dx)>canvasRect[2]){
+                    [canvasRect[0], canvasRect[2]] = [canvasRect[2], canvasRect[0]];
+                    canvasRect[2] += dx;
+                    mouse.area[2] = "e";
+                }
+            }
+            else if(mouse.area[2] == "e"){
+                if((canvasRect[2] + dx)>=canvasRect[0]){
+                    canvasRect[2] += dx;
+                } else if ((canvasRect[2] + dx)<canvasRect[0]){
+                    [canvasRect[0], canvasRect[2]] = [canvasRect[2], canvasRect[0]];
+                    canvasRect[0] += dx;
+                    mouse.area[2] = "w";
+                }
+            }
 
             if(mouse.area[1] == "m"){
                 canvasRect[0] += dx;
