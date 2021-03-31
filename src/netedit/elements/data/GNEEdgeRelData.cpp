@@ -121,7 +121,7 @@ GNEEdgeRelData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 
 void
-GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const {
+GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront, const int options) const {
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         // get flag for only draw contour
         const bool onlyDrawContour = !isGenericDataVisible();
@@ -172,7 +172,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
 
 
 void
-GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const {
+GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront, const int options) const {
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         // get flag for only draw contour
         const bool onlyDrawContour = !isGenericDataVisible();

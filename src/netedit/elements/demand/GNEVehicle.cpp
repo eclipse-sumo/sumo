@@ -729,7 +729,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const {
+GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront, const int options) const {
     if (!s.drawForRectangleSelection && ((s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) || isAttributeCarrierSelected())) {
         // declare flag to draw spread vehicles
         const bool drawSpreadVehicles = (myNet->getViewNet()->getNetworkViewOptions().drawSpreadVehicles() || myNet->getViewNet()->getDemandViewOptions().drawSpreadVehicles());
@@ -748,7 +748,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             GLHelper::setColor(s.colorSettings.vehicleTrips);
         }
         // draw geometry
-        GNEGeometry::drawGeometry(myNet->getViewNet(), lane->getLaneGeometry(), 0.2);
+        GNEGeometry::drawGeometry(myNet->getViewNet(), lane->getLaneGeometry(), width);
 /*
         // iterate over segments
         if (drawSpreadVehicles) {
@@ -804,7 +804,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
 
 
 void
-GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const {
+GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront, const int options) const {
     if (!s.drawForRectangleSelection && fromLane->getLane2laneConnections().exist(toLane) &&
             ((s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) || isAttributeCarrierSelected())) {
         // Start drawing adding an gl identificator

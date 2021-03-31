@@ -199,7 +199,7 @@ public:
     * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
     * @note currently only E2Multilane detectors use drawPartialGL
     */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const;
+    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront, const int options) const;
 
     /**@brief Draws partial object (junction)
     * @param[in] s The settings for the current view (may influence drawing)
@@ -208,7 +208,7 @@ public:
     * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
     * @note currently only E2Multilane detectors use drawPartialGL
     */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const;
+    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront, const int options) const;
     /// @}
 
     /// @name inherited from GNEAttributeCarrier

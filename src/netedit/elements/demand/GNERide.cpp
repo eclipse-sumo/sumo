@@ -318,7 +318,7 @@ GNERide::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 
 void
-GNERide::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const {
+GNERide::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront, const int options) const {
 /*
     // draw person plan over lane
     drawPersonPlanPartialLane(s, lane, offsetFront, s.widthSettings.ride, s.colorSettings.ride);
@@ -327,7 +327,7 @@ GNERide::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, c
 
 
 void
-GNERide::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const {
+GNERide::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront, const int options) const {
 /*
     // draw person plan over junction
     drawPersonPlanPartialJunction(s, fromLane, toLane, offsetFront, s.widthSettings.ride, s.colorSettings.ride);
