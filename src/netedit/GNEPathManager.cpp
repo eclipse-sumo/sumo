@@ -306,10 +306,13 @@ GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass,
         // declare segment vector
         std::vector<Segment*> segments;
         for (int i = 0; i < (int)path.size(); i++) {
+            // get flags
+            const bool firstSegment = (i == 0);
+            const bool lastSegment = (i == ((int)path.size() - 1));
             // get first allowed lane
             const GNELane* lane = path.at(i)->getLaneByAllowedVClass(vClass);
             // create segments
-            Segment* laneSegment = new Segment(this, pathElement, lane);
+            Segment* laneSegment = new Segment(this, pathElement, lane, firstSegment, lastSegment);
             // add it into segment vector
             segments.push_back(laneSegment);
             // continue if this isn't the last edge
@@ -346,7 +349,11 @@ void
 GNEPathManager::drawLanePathElements(const GUIVisualizationSettings& s, const GNELane* lane) {
     if (myLaneSegments.count(lane) > 0) {
         for (const auto &segment: myLaneSegments.at(lane)) {
-            segment->getPathElement()->drawPartialGL(s, lane, 0);
+            // get flags
+            const int firstSegment = segment->isFirstSegment()? GNEPathManager::PathElement::Options::FIRST_SEGMENT : 0;
+            const int lastSegment = segment->isLastSegment()? GNEPathManager::PathElement::Options::LAST_SEGMENT : 0;
+            // draw segment
+            segment->getPathElement()->drawPartialGL(s, lane, 0, firstSegment | lastSegment);
         }
     }
 }
@@ -356,7 +363,7 @@ void
 GNEPathManager::drawJunctionPathElements(const GUIVisualizationSettings& s, const GNEJunction* junction) {
     if (myJunctionSegments.count(junction) > 0) {
         for (const auto& segment : myJunctionSegments.at(junction)) {
-            segment->getPathElement()->drawPartialGL(s, segment->getPreviousLane(), segment->getNextLane(), 0);
+            segment->getPathElement()->drawPartialGL(s, segment->getPreviousLane(), segment->getNextLane(), 0, 0);
         }
     }
 }
@@ -382,9 +389,12 @@ GNEPathManager::clearSegments() {
 }
 
 
-GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane) :
+GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane, const bool firstSegment, const bool lastSegment) :
     myPathManager(pathManager),
     myPathElement(element),
+    myFirstSegment(firstSegment),
+    myLastSegment(lastSegment),
+    myJunctionSegment(false),
     myPreviousLane(nullptr),
     myNextLane(nullptr),
     myValid(true) {
@@ -397,6 +407,9 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* eleme
     const GNELane* previousLane, const GNELane* nextLane) :
     myPathManager(pathManager),
     myPathElement(element),
+    myFirstSegment(false),
+    myLastSegment(false),
+    myJunctionSegment(true),
     myPreviousLane(previousLane),
     myNextLane(nextLane),
     myValid(true) {
@@ -411,6 +424,26 @@ GNEPathManager::Segment::~Segment() {
 }
 
 
+bool 
+GNEPathManager::Segment::isFirstSegment() const {
+    if (!myJunctionSegment) {
+        return myFirstSegment;
+    } else {
+        throw ProcessError("Invalid call: Only allowed in lane segments");
+    }
+}
+
+
+bool 
+GNEPathManager::Segment::isLastSegment() const {
+    if (!myJunctionSegment) {
+        return myLastSegment;
+    } else {
+        throw ProcessError("Invalid call: Only allowed in lane segments");
+    }
+}
+
+
 const GNEPathManager::PathElement*
 GNEPathManager::Segment::getPathElement() const {
     return myPathElement;
@@ -419,19 +452,30 @@ GNEPathManager::Segment::getPathElement() const {
 
 const GNELane* 
 GNEPathManager::Segment::getPreviousLane() const {
-    return myPreviousLane;
+    if (myJunctionSegment) {
+        return myPreviousLane;
+    } else {
+        throw ProcessError("Invalid call: Only allowed in junction segments");
+    }
 }
 
 
 const GNELane* 
 GNEPathManager::Segment::getNextLane() const {
-    return myNextLane;
+    if (myJunctionSegment) {
+        return myNextLane;
+    } else {
+        throw ProcessError("Invalid call: Only allowed in junction segments");
+    }
 }
 
 
 GNEPathManager::Segment::Segment() :
     myPathManager(nullptr),
     myPathElement(nullptr),
+    myFirstSegment(false),
+    myLastSegment(false),
+    myJunctionSegment(false),
     myPreviousLane(nullptr),
     myNextLane(nullptr),
     myValid(false) {

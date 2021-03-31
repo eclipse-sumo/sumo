@@ -41,6 +41,11 @@ public:
     class PathElement {
 
     public:
+        enum Options {
+            FIRST_SEGMENT = 1 << 0,  // First segment
+            LAST_SEGMENT  = 1 << 1,  // Last segment
+        };
+
         /// @brief constructor
         PathElement();
 
@@ -48,19 +53,21 @@ public:
         ~PathElement();
 
         /**@brief Draws partial object (lane)
-        * @param[in] s The settings for the current view (may influence drawing)
-        * @param[in] lane GNELane in which draw partial
-        * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
-        */
-        virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const = 0;
+         * @param[in] s The settings for the current view (may influence drawing)
+         * @param[in] lane GNELane in which draw partial
+         * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
+         * @param[in] options partial GL Options
+         */
+        virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront, const int options) const = 0;
 
         /**@brief Draws partial object (junction)
          * @param[in] s The settings for the current view (may influence drawing)
          * @param[in] fromLane from GNELane
          * @param[in] toLane to GNELane
          * @param[in] offsetFront offset for drawing element front (needed for selected elements)
+         * @param[in] options partial GL Options
          */
-        virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const = 0;
+        virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront, const int options) const = 0;
     };
 
     /// @brief class used to calculate paths in nets
@@ -129,13 +136,19 @@ protected:
 
     public:
         /// @brief constructor for lanes
-        Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane);
+        Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane, const bool firstSegment, const bool lastSegment);
 
         /// @brief constructor for junctions
         Segment(GNEPathManager* pathManager, PathElement* element, const GNEJunction* junction, const GNELane* previousLane, const GNELane* nextLane);
 
         /// @brief destructor
         ~Segment();
+
+        /// @brief check if segment is the first path's segment
+        bool isFirstSegment() const;
+
+        /// @brief check if segment is the last path's segment
+        bool isLastSegment() const;
 
         /// @brief get path element
         const PathElement* getPathElement() const;
@@ -152,6 +165,15 @@ protected:
 
         /// @brief path element
         const PathElement* myPathElement;
+
+        /// @brief first segment
+        const bool myFirstSegment;
+        
+        /// @brief lastSegment
+        const bool myLastSegment;
+
+        /// @brief flag for junction element
+        const bool myJunctionSegment;
 
         /// @brief previous lane
         const GNELane *myPreviousLane;
