@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-03-12 15:16:40.604352 by $Id$ v1_8_0+1622-37651b8e32
+<!-- generated on 2021-03-31 14:50:55.424533 by $Id$ v1_8_0+1885-4fc969a10e
   options: -r input_routes.rou.xml -n 3000 -a outA.rou.xml -b outB.rou.xml -s 42
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -6029,7 +6029,6 @@
     <trip depart="112729.00" departLane="best" departSpeed="max" from="-4531516#3" id="100033855_100022042_440_0" to="445787491#0" type="medium"/>
     <trip depart="112729.00" departLane="best" departSpeed="max" from="355730462#0" id="100036796_100023765_442_0" to="5058977#1" type="large"/>
     <trip depart="112731.00" departLane="best" departSpeed="max" from="320364658#0" id="100091888_100057872_433_0" to="447787390#0" type="medium"/>
-    <trip depart="112732.00" departLane="best" departSpeed="max" from="320364658#0" id="100223222_100131435_441_0" to="30429265#2" type="small"/>
     <trip depart="112732.14" departLane="best" departSpeed="max" from="320364658#0" id="100631291_100350481_431_0" to="30429265#2" type="large"/>
     <trip depart="112733.56" departLane="best" departSpeed="max" from="125502220#0" id="100430725_100248423_417_0" to="5059316#0" type="large"/>
     <trip depart="112734.00" departLane="best" departSpeed="max" from="318881710#0" id="100153037_100092549_432_0" to="447787390#0" type="medium"/>
@@ -6605,6 +6604,7 @@
     <trip depart="113070.00" departLane="best" departSpeed="max" from="-321714436#3" id="100027154_100017943_451_0" to="445787491#0" type="large"/>
     <trip depart="113071.00" departLane="best" departSpeed="max" from="59383254#1" id="100033815_100022022_444_0" to="30429265#2" type="small"/>
     <trip depart="113071.41" departLane="best" departSpeed="max" from="320364658#0" id="100670237_100369805_422_0" to="-316764349#2" type="small"/>
+    <trip depart="113072.00" departLane="best" departSpeed="max" from="125502220#0" id="100164176_100098715_438_0" to="-38167738#10" type="large"/>
     <trip depart="113072.42" departLane="best" departSpeed="max" from="-375217310#2" id="100818077_100445200_445_0" to="24584145#0" type="small"/>
     <trip depart="113073.00" departLane="best" departSpeed="max" from="493783055" id="100818091_100445203_448_0" to="5058977#1" type="large"/>
     <trip depart="113073.93" departLane="best" departSpeed="max" from="125502220#0" id="100216234_100127616_437_0" to="27060186#1" type="medium"/>
@@ -6612,9 +6612,11 @@
     <trip depart="113074.00" departLane="best" departSpeed="max" from="563616437#0" id="100044624_100028537_442_0" to="375217310#0" type="medium"/>
     <trip depart="113075.00" departLane="best" departSpeed="max" from="-4364835#1" id="100028412_100018687_441_0" to="447787390#0" type="large"/>
     <trip depart="113075.00" departLane="best" departSpeed="max" from="321714432#0" id="100031769_100020803_444_0" to="5058977#1" type="large"/>
+    <trip depart="113078.00" departLane="best" departSpeed="max" from="125502220#0" id="100151835_100091752_440_0" to="-512158810#6" type="large"/>
     <trip depart="113078.42" departLane="best" departSpeed="max" from="320364658#0" id="100814030_100443556_444_0" to="4531517#5" type="medium"/>
     <trip depart="113079.00" departLane="best" departSpeed="max" from="-533531077" id="100041965_100026971_443_0" to="447787390#0" type="large"/>
-    <trip depart="113080.00" departLane="best" departSpeed="max" from="316764344#0" id="100029247_100019143_450_0" to="5058977#1" type="large"/>
+    <trip depart="113079.31" departLane="best" departSpeed="max" from="320364658#0" id="100855941_100469104_433_0" to="321714434#0" type="small"/>
+    <trip depart="113081.00" departLane="best" departSpeed="max" from="125502220#0" id="100165974_100099762_444_0" to="447787390#0" type="large"/>
     <trip depart="113082.00" departLane="best" departSpeed="max" from="316764349#0" id="100068895_100043632_441_0" to="501199051#0" type="large"/>
     <trip depart="113082.00" departLane="best" departSpeed="max" from="316764349#0" id="100107091_100066554_451_0" to="33049407#4" type="large"/>
     <trip depart="113082.00" departLane="best" departSpeed="max" from="493783055" id="100167388_100100543_452_0" to="5058977#1" type="medium"/>
@@ -6622,79 +6624,77 @@
     <trip depart="113083.00" departLane="best" departSpeed="max" from="316764357" id="100019845_100013539_451_0" to="447787390#0" type="large"/>
     <trip depart="113083.00" departLane="best" departSpeed="max" from="23207367#0" id="100031084_100020374_444_0" to="447787390#0" type="small"/>
     <trip depart="113083.00" departLane="best" departSpeed="max" from="510544107#0" id="100038691_100024903_447_0" to="5058977#1" type="large"/>
-    <trip depart="113083.00" departLane="best" departSpeed="max" from="320364658#0" id="100039079_100025123_440_0" to="59383254#8" type="large"/>
+    <trip depart="113083.00" departLane="best" departSpeed="max" from="320364658#0" id="100168060_100100892_447_0" to="447787390#0" type="small"/>
     <trip depart="113083.14" departLane="best" departSpeed="max" from="320364658#0" id="100423507_100246947_420_0" to="29136146#0" type="small"/>
-    <trip depart="113083.80" departLane="best" departSpeed="max" from="125502220#0" id="100210032_100124135_448_0" to="-316764349#2" type="small"/>
+    <trip depart="113084.00" departLane="best" departSpeed="max" from="-165574143#1" id="100028067_100018526_445_0" to="501199051#0" type="large"/>
     <trip depart="113084.00" departLane="best" departSpeed="max" from="316764352#0" id="100029242_100019142_439_0" to="447787390#0" type="small"/>
     <trip depart="113084.00" departLane="best" departSpeed="max" from="125502220#0" id="100216271_100127634_448_0" to="-316764349#2" type="medium"/>
     <trip depart="113084.26" departLane="best" departSpeed="max" from="125502220#0" id="100809526_100440647_439_0" to="-5724308#5" type="large"/>
     <trip depart="113084.63" departLane="best" departSpeed="max" from="320364658#0" id="100353652_100218845_431_0" to="30429265#2" type="medium"/>
     <trip depart="113085.00" departLane="best" departSpeed="max" from="-225710049#1" id="100028261_100018623_445_0" to="166445406#0" type="medium"/>
-    <trip depart="113085.00" departLane="best" departSpeed="max" from="38167738#0" id="100084145_100053312_446_0" to="-23257958#2" type="small"/>
+    <trip depart="113085.00" departLane="best" departSpeed="max" from="125502220#0" id="100568461_100317309_440_0" to="5058977#1" type="small"/>
     <trip depart="113086.00" departLane="best" departSpeed="max" from="314915850#0" id="100199571_100118551_441_0" to="316764353" type="small"/>
     <trip depart="113086.00" departLane="best" departSpeed="max" from="316764345" id="100544878_100305623_450_0" to="447787390#0" type="medium"/>
     <trip depart="113086.75" departLane="best" departSpeed="max" from="-8110777#2" id="100598786_100331396_419_0" to="5058977#1" type="large"/>
     <trip depart="113087.40" departLane="best" departSpeed="max" from="125502220#0" id="100368720_100226379_432_0" to="533525971" type="small"/>
     <trip depart="113088.00" departLane="best" departSpeed="max" from="-8110777#2" id="100008169_100005765_447_0" to="5058977#1" type="large"/>
-    <trip depart="113088.00" departLane="best" departSpeed="max" from="320364658#0" id="100047144_100030152_451_0" to="445787491#0" type="small"/>
+    <trip depart="113089.00" departLane="best" departSpeed="max" from="-206498898#2" id="100021960_100014775_447_0" to="501199051#0" type="large"/>
     <trip depart="113089.00" departLane="best" departSpeed="max" from="-8110777#2" id="100038033_100024495_447_0" to="5058977#1" type="small"/>
-    <trip depart="113090.00" departLane="best" departSpeed="max" from="24526820#0" id="100035860_100023257_438_0" to="59383254#3" type="small"/>
-    <trip depart="113090.00" departLane="best" departSpeed="max" from="318881710#0" id="100153347_100092685_451_0" to="-316764349#2" type="large"/>
-    <trip depart="113091.00" departLane="best" departSpeed="max" from="-321714437#2" id="100034886_100022681_450_0" to="-61567479#2" type="medium"/>
+    <trip depart="113090.00" departLane="best" departSpeed="max" from="314915850#0" id="100147143_100089073_450_0" to="5058977#1" type="small"/>
+    <trip depart="113091.00" departLane="best" departSpeed="max" from="316761550#0" id="100027618_100018232_450_0" to="246973997#0" type="large"/>
     <trip depart="113091.07" departLane="best" departSpeed="max" from="125502220#0" id="100414786_100245112_425_0" to="501199062#0" type="medium"/>
     <trip depart="113092.00" departLane="best" departSpeed="max" from="-23209132#8" id="100018120_100012469_447_0" to="447787390#0" type="large"/>
-    <trip depart="113092.00" departLane="best" departSpeed="max" from="318881710#0" id="100203642_100120764_442_0" to="5058977#1" type="small"/>
     <trip depart="113092.71" departLane="best" departSpeed="max" from="320364658#0" id="100909137_100491726_415_0" to="525452872" type="small"/>
-    <trip depart="113093.00" departLane="best" departSpeed="max" from="206391414#1" id="100019887_100013560_446_0" to="-26147813#3" type="large"/>
+    <trip depart="113093.00" departLane="best" departSpeed="max" from="584032570" id="100043879_100028060_442_0" to="207083565#0" type="small"/>
     <trip depart="113093.00" departLane="best" departSpeed="max" from="314915850#0" id="100077374_100048933_452_0" to="525452872" type="large"/>
-    <trip depart="113093.00" departLane="best" departSpeed="max" from="125502220#0" id="100085965_100054389_452_0" to="447787390#0" type="medium"/>
+    <trip depart="113093.00" departLane="best" departSpeed="max" from="320364658#0" id="100090797_100057194_445_0" to="447787390#0" type="medium"/>
     <trip depart="113093.00" departLane="best" departSpeed="max" from="320364658#0" id="100172870_100103619_443_0" to="30429265#2" type="large"/>
-    <trip depart="113093.00" departLane="best" departSpeed="max" from="318881710#0" id="100204126_100120931_446_0" to="-316764349#2" type="large"/>
+    <trip depart="113094.00" departLane="best" departSpeed="max" from="510544107#0" id="100026713_100017703_441_0" to="5058977#1" type="small"/>
     <trip depart="113094.00" departLane="best" departSpeed="max" from="314915850#0" id="100076738_100048542_449_0" to="501199051#0" type="large"/>
     <trip depart="113094.00" departLane="best" departSpeed="max" from="318881710#0" id="100202432_100120097_440_0" to="316764353" type="large"/>
     <trip depart="113094.16" departLane="best" departSpeed="max" from="125502220#0" id="100211281_100124885_441_0" to="-512158810#6" type="medium"/>
-    <trip depart="113095.00" departLane="best" departSpeed="max" from="318881710#0" id="100145417_100088012_438_0" to="5058977#1" type="large"/>
-    <trip depart="113096.00" departLane="best" departSpeed="max" from="230951131#2" id="100031198_100020431_446_0" to="30429265#2" type="large"/>
-    <trip depart="113096.00" departLane="best" departSpeed="max" from="314915850#0" id="100062177_100039429_447_0" to="501199051#0" type="small"/>
-    <trip depart="113096.87" departLane="best" departSpeed="max" from="320364658#0" id="100821170_100446214_443_0" to="321714434#0" type="medium"/>
+    <trip depart="113096.00" departLane="best" departSpeed="max" from="316764349#0" id="100004226_100003077_442_0" to="501199051#0" type="medium"/>
+    <trip depart="113096.00" departLane="best" departSpeed="max" from="24526820#0" id="100035584_100023123_439_0" to="447787390#0" type="medium"/>
+    <trip depart="113096.00" departLane="best" departSpeed="max" from="318881710#0" id="100148601_100089936_442_0" to="316764350#2" type="medium"/>
+    <trip depart="113097.00" departLane="best" departSpeed="max" from="125502220#0" id="100165588_100099563_446_0" to="447787390#0" type="small"/>
     <trip depart="113099.00" departLane="best" departSpeed="max" from="30424681#3" id="100039297_100025317_442_0" to="5058977#1" type="medium"/>
-    <trip depart="113099.00" departLane="best" departSpeed="max" from="5229164#5" id="100129062_100078851_445_0" to="501199051#0" type="medium"/>
-    <trip depart="113099.72" departLane="best" departSpeed="max" from="320364658#0" id="100819201_100445466_441_0" to="-316764349#2" type="large"/>
+    <trip depart="113099.00" departLane="best" departSpeed="max" from="318881710#0" id="100152807_100092434_451_0" to="5058977#1" type="small"/>
+    <trip depart="113100.00" departLane="best" departSpeed="max" from="5229165#4" id="100022454_100015086_442_0" to="5058977#1" type="large"/>
     <trip depart="113100.00" departLane="best" departSpeed="max" from="316764349#0" id="100023433_100015739_446_0" to="5058977#1" type="medium"/>
     <trip depart="113100.00" departLane="best" departSpeed="max" from="318881710#0" id="100084293_100053386_444_0" to="-316764349#2" type="large"/>
     <trip depart="113100.26" departLane="best" departSpeed="max" from="493783055" id="100816105_100444556_440_0" to="-24719645#5" type="small"/>
     <trip depart="113100.44" departLane="best" departSpeed="max" from="320364658#0" id="100512207_100289791_415_0" to="30429265#2" type="small"/>
     <trip depart="113101.00" departLane="best" departSpeed="max" from="125502220#0" id="100088025_100055556_440_0" to="447787390#0" type="small"/>
-    <trip depart="113101.00" departLane="best" departSpeed="max" from="493783055" id="100211963_100125301_448_0" to="5137923#0" type="small"/>
+    <trip depart="113103.00" departLane="best" departSpeed="max" from="5184855#0" id="100029713_100019484_443_0" to="445787491#0" type="small"/>
     <trip depart="113103.00" departLane="best" departSpeed="max" from="320364658#0" id="100037389_100024217_440_0" to="84488280#2" type="small"/>
-    <trip depart="113103.00" departLane="best" departSpeed="max" from="41290241#3" id="100040281_100025917_445_0" to="30429265#2" type="medium"/>
+    <trip depart="113103.00" departLane="best" departSpeed="max" from="320364658#0" id="100091617_100057721_438_0" to="501199051#0" type="large"/>
     <trip depart="113104.00" departLane="best" departSpeed="max" from="-8110777#2" id="100008728_100006195_452_0" to="5058977#1" type="large"/>
     <trip depart="113104.00" departLane="best" departSpeed="max" from="314915850#0" id="100080095_100050671_438_0" to="501199051#0" type="small"/>
-    <trip depart="113104.00" departLane="best" departSpeed="max" from="318881710#0" id="100151624_100091679_446_0" to="501199051#0" type="small"/>
+    <trip depart="113104.00" departLane="best" departSpeed="max" from="320364658#0" id="100171141_100102704_441_0" to="447787390#0" type="medium"/>
     <trip depart="113104.00" departLane="best" departSpeed="max" from="125502220#0" id="100214139_100126470_442_0" to="-5724308#5" type="medium"/>
     <trip depart="113104.91" departLane="best" departSpeed="max" from="320364658#0" id="100893309_100483718_440_0" to="-316764349#2" type="large"/>
-    <trip depart="113105.00" departLane="best" departSpeed="max" from="320364658#0" id="100893874_100484012_436_0" to="-4364840#5" type="small"/>
+    <trip depart="113105.00" departLane="best" departSpeed="max" from="125502220#0" id="100085053_100053840_444_0" to="447787390#0" type="medium"/>
     <trip depart="113105.00" departLane="best" departSpeed="max" from="125502220#0" id="100214460_100126556_452_0" to="316764353" type="small"/>
     <trip depart="113106.00" departLane="best" departSpeed="max" from="320364658#0" id="100172527_100103463_452_0" to="525452872" type="small"/>
     <trip depart="113106.00" departLane="best" departSpeed="max" from="125502220#0" id="100215107_100126973_451_0" to="30429265#2" type="medium"/>
+    <trip depart="113106.63" departLane="best" departSpeed="max" from="320364658#0" id="100730519_100400565_435_0" to="320364658#0" type="medium"/>
     <trip depart="113108.00" departLane="best" departSpeed="max" from="314915850#0" id="100069544_100044040_450_0" to="501199051#0" type="small"/>
     <trip depart="113108.00" departLane="best" departSpeed="max" from="320364658#0" id="100171760_100103017_447_0" to="-316764349#2" type="large"/>
     <trip depart="113108.00" departLane="best" departSpeed="max" from="320364658#0" id="100181641_100108711_452_0" to="30429265#2" type="medium"/>
     <trip depart="113109.00" departLane="best" departSpeed="max" from="321714432#0" id="100040949_100026299_449_0" to="5058977#1" type="large"/>
-    <trip depart="113109.87" departLane="best" departSpeed="max" from="314915850#0" id="100452631_100263801_420_0" to="-5137944#7" type="large"/>
+    <trip depart="113110.00" departLane="best" departSpeed="max" from="125502220#0" id="100086225_100054506_451_0" to="5058977#1" type="large"/>
     <trip depart="113110.00" departLane="best" departSpeed="max" from="320364658#0" id="100217067_100128060_452_0" to="30425927#4" type="medium"/>
     <trip depart="113110.48" departLane="best" departSpeed="max" from="125502220#0" id="100819502_100445536_436_0" to="-316764349#2" type="small"/>
-    <trip depart="113111.00" departLane="best" departSpeed="max" from="510544107#0" id="100038593_100024805_440_0" to="5058977#1" type="medium"/>
+    <trip depart="113111.00" departLane="best" departSpeed="max" from="512158810#0" id="100152088_100091972_446_0" to="501199051#0" type="medium"/>
     <trip depart="113112.00" departLane="best" departSpeed="max" from="-23255473" id="100041465_100026630_446_0" to="447787390#0" type="small"/>
-    <trip depart="113112.26" departLane="best" departSpeed="max" from="125502220#0" id="100818202_100445229_437_0" to="-316764349#2" type="large"/>
+    <trip depart="113113.00" departLane="best" departSpeed="max" from="316764353" id="100016991_100011816_440_0" to="5058977#1" type="medium"/>
     <trip depart="113113.00" departLane="best" departSpeed="max" from="84488280#2" id="100032499_100021247_449_0" to="447787390#0" type="small"/>
-    <trip depart="113113.00" departLane="best" departSpeed="max" from="318881710#0" id="100083421_100052896_443_0" to="501199051#0" type="small"/>
     <trip depart="113114.00" departLane="best" departSpeed="max" from="4531516#4" id="100036584_100023661_446_0" to="166445406#0" type="medium"/>
     <trip depart="113114.00" departLane="best" departSpeed="max" from="318881710#0" id="100152939_100092500_451_0" to="5058977#1" type="medium"/>
     <trip depart="113114.43" departLane="best" departSpeed="max" from="320364658#0" id="100512915_100290060_411_0" to="30429265#2" type="small"/>
     <trip depart="113115.00" departLane="best" departSpeed="max" from="59383254#6" id="100015070_100010417_440_0" to="447787390#0" type="medium"/>
     <trip depart="113115.00" departLane="best" departSpeed="max" from="320364658#0" id="100098066_100061490_452_0" to="-61567479#2" type="small"/>
-    <trip depart="113115.00" departLane="best" departSpeed="max" from="318881710#0" id="100153617_100092793_444_0" to="-316764349#2" type="large"/>
+    <trip depart="113115.25" departLane="best" departSpeed="max" from="320364658#0" id="100320971_100187532_426_0" to="30429265#2" type="small"/>
     <trip depart="113116.00" departLane="best" departSpeed="max" from="-27060186#2" id="100025475_100016897_450_0" to="246973997#0" type="large"/>
     <trip depart="113116.00" departLane="best" departSpeed="max" from="483461464#0" id="100026023_100017290_445_0" to="5058977#1" type="medium"/>
     <trip depart="113117.00" departLane="best" departSpeed="max" from="125502220#0" id="100164796_100099026_442_0" to="5058977#1" type="small"/>
@@ -6706,9 +6706,9 @@
     <trip depart="113119.00" departLane="best" departSpeed="max" from="447787390#0" id="100013931_100009750_442_0" to="447787390#0" type="large"/>
     <trip depart="113119.00" departLane="best" departSpeed="max" from="512158814#0" id="100022852_100015327_441_0" to="447787390#0" type="small"/>
     <trip depart="113119.21" departLane="best" departSpeed="max" from="125502220#0" id="100646623_100357771_436_0" to="-512158810#6" type="medium"/>
-    <trip depart="113120.00" departLane="best" departSpeed="max" from="125502220#0" id="100086039_100054426_449_0" to="5058977#1" type="large"/>
+    <trip depart="113121.00" departLane="best" departSpeed="max" from="316764357" id="100020515_100013940_442_0" to="447787390#0" type="medium"/>
     <trip depart="113121.00" departLane="best" departSpeed="max" from="314915850#0" id="100134125_100081551_452_0" to="501199051#0" type="large"/>
-    <trip depart="113121.00" departLane="best" departSpeed="max" from="314915850#0" id="100143368_100086741_438_0" to="501199051#0" type="large"/>
+    <trip depart="113122.00" departLane="best" departSpeed="max" from="159245987#3" id="100041856_100026917_441_0" to="5058977#1" type="medium"/>
     <trip depart="113122.00" departLane="best" departSpeed="max" from="125502220#0" id="100163810_100098440_444_0" to="447787390#0" type="small"/>
     <trip depart="113123.00" departLane="best" departSpeed="max" from="-27060186#2" id="100031878_100020857_443_0" to="447787390#0" type="small"/>
     <trip depart="113123.00" departLane="best" departSpeed="max" from="-8110777#2" id="100141060_100085505_447_0" to="5058977#1" type="large"/>
@@ -6716,25 +6716,24 @@
     <trip depart="113126.00" departLane="best" departSpeed="max" from="125502220#0" id="100085978_100054396_445_0" to="-316764349#2" type="medium"/>
     <trip depart="113126.00" departLane="best" departSpeed="max" from="125502220#0" id="100213416_100126008_450_0" to="447787390#0" type="medium"/>
     <trip depart="113127.00" departLane="best" departSpeed="max" from="159245985#0" id="100033091_100021617_442_0" to="447787390#0" type="medium"/>
-    <trip depart="113127.50" departLane="best" departSpeed="max" from="320364658#0" id="100518533_100292722_415_0" to="30429265#2" type="small"/>
-    <trip depart="113128.00" departLane="best" departSpeed="max" from="41290241#4" id="100041150_100026428_441_0" to="-316764349#2" type="medium"/>
-    <trip depart="113128.00" departLane="best" departSpeed="max" from="318881710#0" id="100204739_100121332_440_0" to="316764353" type="medium"/>
+    <trip depart="113128.00" departLane="best" departSpeed="max" from="-23292244#2" id="100018264_100012514_438_0" to="5058977#1" type="small"/>
+    <trip depart="113128.00" departLane="best" departSpeed="max" from="314915850#0" id="100077008_100048671_452_0" to="501199051#0" type="medium"/>
+    <trip depart="113128.00" departLane="best" departSpeed="max" from="125502220#0" id="100215497_100127180_444_0" to="316764353" type="medium"/>
     <trip depart="113129.00" departLane="best" departSpeed="max" from="316764347" id="100027666_100018248_451_0" to="166445406#0" type="large"/>
     <trip depart="113129.00" departLane="best" departSpeed="max" from="59383254#6" id="100031479_100020554_449_0" to="447787390#0" type="large"/>
     <trip depart="113129.00" departLane="best" departSpeed="max" from="61567479#0" id="100035033_100022754_451_0" to="447787390#0" type="large"/>
     <trip depart="113129.00" departLane="best" departSpeed="max" from="-4531516#3" id="100037312_100024178_443_0" to="445787491#0" type="medium"/>
     <trip depart="113131.00" departLane="best" departSpeed="max" from="-206498898#2" id="100021547_100014517_444_0" to="501199051#0" type="large"/>
     <trip depart="113131.00" departLane="best" departSpeed="max" from="125502220#0" id="100088097_100055589_452_0" to="5058977#1" type="large"/>
-    <trip depart="113132.00" departLane="best" departSpeed="max" from="316764349#0" id="100006271_100004473_439_0" to="501199051#0" type="medium"/>
-    <trip depart="113133.00" departLane="best" departSpeed="max" from="320364658#0" id="100089349_100056269_451_0" to="321714437#0" type="large"/>
+    <trip depart="113132.00" departLane="best" departSpeed="max" from="314915850#0" id="100060638_100038482_441_0" to="501199051#0" type="small"/>
+    <trip depart="113133.00" departLane="best" departSpeed="max" from="125502220#0" id="100162890_100097878_443_0" to="-316764349#2" type="medium"/>
     <trip depart="113134.00" departLane="best" departSpeed="max" from="59383254#1" id="100032601_100021349_439_0" to="447787390#0" type="medium"/>
-    <trip depart="113134.00" departLane="best" departSpeed="max" from="320364658#0" id="100033115_100021629_440_0" to="-563616438#2" type="medium"/>
+    <trip depart="113134.00" departLane="best" departSpeed="max" from="318881710#0" id="100145843_100088284_445_0" to="-316764349#2" type="medium"/>
     <trip depart="113134.68" departLane="best" departSpeed="max" from="493783055" id="100210866_100124586_442_0" to="5058977#1" type="medium"/>
     <trip depart="113135.28" departLane="best" departSpeed="max" from="125502220#0" id="100638043_100352862_435_0" to="447787390#0" type="small"/>
-    <trip depart="113135.31" departLane="best" departSpeed="max" from="320364658#0" id="100372437_100228237_431_0" to="5134673#0" type="large"/>
-    <trip depart="113137.00" departLane="best" departSpeed="max" from="318881710#0" id="100152136_100091996_443_0" to="5058977#1" type="medium"/>
+    <trip depart="113137.00" departLane="best" departSpeed="max" from="314915850#0" id="100128310_100078376_441_0" to="525452872" type="large"/>
+    <trip depart="113137.67" departLane="best" departSpeed="max" from="-375217310#2" id="100809543_100440664_442_0" to="-622456655#1" type="medium"/>
     <trip depart="113138.00" departLane="best" departSpeed="max" from="59383254#6" id="100033108_100021625_440_0" to="447787390#0" type="small"/>
-    <trip depart="113138.00" departLane="best" departSpeed="max" from="41290241#3" id="100040386_100025942_445_0" to="30429265#2" type="small"/>
     <trip depart="113139.28" departLane="best" departSpeed="max" from="320364658#0" id="100672325_100371007_421_0" to="30429265#2" type="large"/>
     <trip depart="113140.00" departLane="best" departSpeed="max" from="316764350#0" id="100025208_100016778_447_0" to="30429265#2" type="small"/>
     <trip depart="113140.00" departLane="best" departSpeed="max" from="316764349#0" id="100063915_100040512_442_0" to="501199051#0" type="large"/>
@@ -6744,31 +6743,32 @@
     <trip depart="113141.00" departLane="best" departSpeed="max" from="-32882364#1" id="100019569_100013379_447_0" to="24354472" type="small"/>
     <trip depart="113142.00" departLane="best" departSpeed="max" from="316764349#0" id="100005451_100003863_453_0" to="501199051#0" type="large"/>
     <trip depart="113142.00" departLane="best" departSpeed="max" from="321714432#0" id="100039143_100025187_450_0" to="5058977#1" type="medium"/>
-    <trip depart="113142.00" departLane="best" departSpeed="max" from="320364658#0" id="100116566_100071844_452_0" to="320364658#0" type="large"/>
     <trip depart="113143.00" departLane="best" departSpeed="max" from="-4531516#3" id="100030564_100019952_443_0" to="445787491#0" type="medium"/>
     <trip depart="113143.00" departLane="best" departSpeed="max" from="59383254#6" id="100031419_100020501_449_0" to="166445406#0" type="small"/>
+    <trip depart="113143.00" departLane="best" departSpeed="max" from="125502220#0" id="100166373_100099915_450_0" to="-316764349#2" type="large"/>
     <trip depart="113143.00" departLane="best" departSpeed="max" from="320364658#0" id="100220559_100129970_451_0" to="-316764349#2" type="large"/>
     <trip depart="113143.49" departLane="best" departSpeed="max" from="125502220#0" id="100208340_100123318_439_0" to="316764353" type="large"/>
-    <trip depart="113144.41" departLane="best" departSpeed="max" from="320364658#0" id="100906945_100490996_419_0" to="23295226#2" type="small"/>
+    <trip depart="113145.00" departLane="best" departSpeed="max" from="316764349#0" id="100038506_100024782_444_0" to="501199051#0" type="small"/>
     <trip depart="113145.76" departLane="best" departSpeed="max" from="320364658#0" id="100369361_100226699_433_0" to="30429265#2" type="small"/>
-    <trip depart="113146.00" departLane="best" departSpeed="max" from="320364658#0" id="100000485_100000360_443_0" to="447787390#0" type="medium"/>
+    <trip depart="113146.00" departLane="best" departSpeed="max" from="314915850#0" id="100081895_100051853_443_0" to="501199051#0" type="medium"/>
     <trip depart="113146.00" departLane="best" departSpeed="max" from="-5134673#0" id="100082611_100052309_440_0" to="447787390#0" type="medium"/>
-    <trip depart="113147.00" departLane="best" departSpeed="max" from="159245988#5" id="100018016_100012417_446_0" to="501199051#0" type="medium"/>
-    <trip depart="113148.41" departLane="best" departSpeed="max" from="320364658#0" id="100294191_100179517_435_0" to="166445405#0" type="large"/>
+    <trip depart="113147.00" departLane="best" departSpeed="max" from="-27060186#2" id="100021086_100014291_450_0" to="533525970" type="large"/>
+    <trip depart="113149.00" departLane="best" departSpeed="max" from="318881710#0" id="100084210_100053344_448_0" to="5058977#1" type="small"/>
     <trip depart="113149.00" departLane="best" departSpeed="max" from="125502220#0" id="100161847_100097328_443_0" to="30429265#2" type="medium"/>
     <trip depart="113149.53" departLane="best" departSpeed="max" from="125502220#0" id="100209123_100123629_439_0" to="316764353" type="large"/>
     <trip depart="113150.44" departLane="best" departSpeed="max" from="320364658#0" id="100512501_100289873_406_0" to="-316764349#2" type="medium"/>
     <trip depart="113151.00" departLane="best" departSpeed="max" from="316764350#2" id="100019969_100013598_446_0" to="316764343#0" type="large"/>
     <trip depart="113151.00" departLane="best" departSpeed="max" from="493783055" id="100032208_100020986_443_0" to="5058977#1" type="medium"/>
     <trip depart="113151.48" departLane="best" departSpeed="max" from="320364658#0" id="100486866_100278376_409_0" to="30429265#2" type="large"/>
-    <trip depart="113152.00" departLane="best" departSpeed="max" from="320364658#0" id="100092471_100058091_442_0" to="23295226#2" type="medium"/>
+    <trip depart="113152.00" departLane="best" departSpeed="max" from="125502220#0" id="100161192_100096957_451_0" to="30429265#2" type="large"/>
     <trip depart="113152.00" departLane="best" departSpeed="max" from="320364658#0" id="100223082_100131402_444_0" to="23295226#2" type="small"/>
-    <trip depart="113152.50" departLane="best" departSpeed="max" from="320364658#0" id="100334680_100201241_429_0" to="30429265#2" type="small"/>
+    <trip depart="113152.60" departLane="best" departSpeed="max" from="320364658#0" id="100277590_100171845_443_0" to="501199051#0" type="large"/>
     <trip depart="113153.00" departLane="best" departSpeed="max" from="27060475#0" id="100041231_100026509_444_0" to="445787491#0" type="small"/>
     <trip depart="113153.00" departLane="best" departSpeed="max" from="314915850#0" id="100077311_100048870_448_0" to="501199051#0" type="large"/>
-    <trip depart="113153.30" departLane="best" departSpeed="max" from="125502220#0" id="100426054_100247469_434_0" to="5059316#0" type="medium"/>
+    <trip depart="113153.36" departLane="best" departSpeed="max" from="-8110777#2" id="100695582_100382597_426_0" to="-584032572#1" type="small"/>
     <trip depart="113154.00" departLane="best" departSpeed="max" from="-23209132#5" id="100021432_100014434_444_0" to="501199051#0" type="medium"/>
     <trip depart="113154.00" departLane="best" departSpeed="max" from="314915850#0" id="100075911_100047921_447_0" to="501199051#0" type="large"/>
+    <trip depart="113154.00" departLane="best" departSpeed="max" from="320364658#0" id="100169081_100101490_443_0" to="-316764349#2" type="large"/>
     <trip depart="113154.56" departLane="best" departSpeed="max" from="125502220#0" id="100644082_100356782_443_0" to="316764353" type="small"/>
     <trip depart="113154.68" departLane="best" departSpeed="max" from="320364658#0" id="100337984_100204545_428_0" to="-316764349#2" type="large"/>
     <trip depart="113155.00" departLane="best" departSpeed="max" from="321714432#0" id="100031677_100020752_439_0" to="5058977#1" type="small"/>
@@ -6785,127 +6785,128 @@
     <trip depart="113159.00" departLane="best" departSpeed="max" from="314915850#0" id="100079911_100050590_447_0" to="501199051#0" type="small"/>
     <trip depart="113159.00" departLane="best" departSpeed="max" from="125502220#0" id="100212273_100125447_449_0" to="27060186#1" type="medium"/>
     <trip depart="113160.00" departLane="best" departSpeed="max" from="246973997#4" id="100027475_100018164_444_0" to="447787390#0" type="medium"/>
-    <trip depart="113160.00" departLane="best" departSpeed="max" from="320364658#0" id="100032817_100021480_445_0" to="-312649892" type="small"/>
+    <trip depart="113160.00" departLane="best" departSpeed="max" from="318881710#0" id="100150083_100090748_446_0" to="316764353" type="medium"/>
     <trip depart="113160.00" departLane="best" departSpeed="max" from="125502220#0" id="100211806_100125211_452_0" to="147688814" type="medium"/>
     <trip depart="113160.71" departLane="best" departSpeed="max" from="320364658#0" id="100918306_100496580_435_0" to="-316764349#2" type="large"/>
     <trip depart="113162.00" departLane="best" departSpeed="max" from="125502220#0" id="100214504_100126594_442_0" to="-316764349#2" type="medium"/>
     <trip depart="113163.00" departLane="best" departSpeed="max" from="125502220#0" id="100015440_100010740_451_0" to="-316764349#2" type="medium"/>
     <trip depart="113163.00" departLane="best" departSpeed="max" from="33274944#0" id="100020587_100013976_445_0" to="501199051#0" type="large"/>
     <trip depart="113163.65" departLane="best" departSpeed="max" from="320364658#0" id="100237349_100141019_447_0" to="29223994#4" type="large"/>
-    <trip depart="113164.00" departLane="best" departSpeed="max" from="314915850#0" id="100077339_100048898_442_0" to="501199051#0" type="small"/>
+    <trip depart="113165.00" departLane="best" departSpeed="max" from="320364658#0" id="100169138_100101509_442_0" to="447787390#0" type="small"/>
     <trip depart="113165.53" departLane="best" departSpeed="max" from="320364658#0" id="100236206_100139876_423_0" to="501199051#0" type="large"/>
     <trip depart="113166.00" departLane="best" departSpeed="max" from="246973997#0" id="100027264_100018053_449_0" to="447787390#0" type="medium"/>
     <trip depart="113167.00" departLane="best" departSpeed="max" from="84488280#2" id="100033061_100021602_445_0" to="447787390#0" type="large"/>
     <trip depart="113168.00" departLane="best" departSpeed="max" from="533525972" id="100021130_100014313_453_0" to="5058977#1" type="large"/>
+    <trip depart="113168.00" departLane="best" departSpeed="max" from="316764350#0" id="100025227_100016788_449_0" to="-5137944#7" type="small"/>
     <trip depart="113168.00" departLane="best" departSpeed="max" from="320364658#0" id="100089758_100056569_450_0" to="447787390#0" type="medium"/>
     <trip depart="113168.00" departLane="best" departSpeed="max" from="320364658#0" id="100098899_100061938_443_0" to="84488280#2" type="medium"/>
     <trip depart="113168.00" departLane="best" departSpeed="max" from="320364658#0" id="100169021_100101469_453_0" to="59383254#3" type="small"/>
     <trip depart="113168.00" departLane="best" departSpeed="max" from="125502220#0" id="100784922_100428855_450_0" to="447787390#0" type="large"/>
     <trip depart="113168.69" departLane="best" departSpeed="max" from="125502220#0" id="100345122_100211683_433_0" to="-316764349#2" type="large"/>
-    <trip depart="113169.00" departLane="best" departSpeed="max" from="5229165#6" id="100022258_100014988_448_0" to="510544106#0" type="small"/>
+    <trip depart="113169.00" departLane="best" departSpeed="max" from="318881710#0" id="100148943_100090135_443_0" to="5058977#1" type="large"/>
     <trip depart="113169.00" departLane="best" departSpeed="max" from="318881710#0" id="100155126_100093712_443_0" to="316764353" type="large"/>
     <trip depart="113169.00" departLane="best" departSpeed="max" from="320364658#0" id="100816641_100444735_447_0" to="447787390#0" type="large"/>
     <trip depart="113170.00" departLane="best" departSpeed="max" from="125502220#0" id="100085040_100053833_446_0" to="316764353" type="small"/>
-    <trip depart="113170.00" departLane="best" departSpeed="max" from="318881710#0" id="100145640_100088182_439_0" to="5058977#1" type="medium"/>
-    <trip depart="113170.64" departLane="best" departSpeed="max" from="125502220#0" id="100208855_100123557_449_0" to="-159245985#3" type="medium"/>
+    <trip depart="113170.56" departLane="best" departSpeed="max" from="125502220#0" id="100647922_100358067_446_0" to="-316764349#2" type="large"/>
+    <trip depart="113170.65" departLane="best" departSpeed="max" from="320364658#0" id="100272874_100169487_433_0" to="59383254#8" type="medium"/>
     <trip depart="113171.00" departLane="best" departSpeed="max" from="33049438#1" id="100025806_100017124_448_0" to="447787390#0" type="large"/>
     <trip depart="113171.00" departLane="best" departSpeed="max" from="316764352#0" id="100029065_100019089_441_0" to="447787390#0" type="medium"/>
     <trip depart="113172.00" departLane="best" departSpeed="max" from="159243113#0" id="100019884_100013559_443_0" to="5058977#1" type="small"/>
     <trip depart="113172.00" departLane="best" departSpeed="max" from="-207083565#4" id="100035732_100023197_446_0" to="5058977#1" type="large"/>
-    <trip depart="113173.00" departLane="best" departSpeed="max" from="320364658#0" id="100172500_100103449_442_0" to="30429265#2" type="small"/>
+    <trip depart="113174.00" departLane="best" departSpeed="max" from="318881710#0" id="100149629_100090533_444_0" to="30429265#2" type="large"/>
+    <trip depart="113174.00" departLane="best" departSpeed="max" from="320364658#0" id="100171506_100102821_443_0" to="-316764349#2" type="small"/>
     <trip depart="113174.00" departLane="best" departSpeed="max" from="125502220#0" id="100213823_100126316_451_0" to="447787390#0" type="small"/>
     <trip depart="113175.00" departLane="best" departSpeed="max" from="206391414#1" id="100021458_100014440_453_0" to="501199051#0" type="small"/>
-    <trip depart="113175.00" departLane="best" departSpeed="max" from="-61567479#3" id="100040528_100026048_443_0" to="445787491#0" type="medium"/>
+    <trip depart="113175.00" departLane="best" departSpeed="max" from="320364658#0" id="100117052_100072126_446_0" to="23295226#2" type="small"/>
     <trip depart="113176.00" departLane="best" departSpeed="max" from="33049438#1" id="100025687_100017005_445_0" to="447787390#0" type="medium"/>
     <trip depart="113176.00" departLane="best" departSpeed="max" from="355730462#0" id="100037151_100024098_447_0" to="5058977#1" type="medium"/>
     <trip depart="113176.14" departLane="best" departSpeed="max" from="125502220#0" id="100350357_100216918_425_0" to="512158813#0" type="medium"/>
     <trip depart="113176.41" departLane="best" departSpeed="max" from="320364658#0" id="100336782_100203343_435_0" to="30429265#2" type="medium"/>
     <trip depart="113177.00" departLane="best" departSpeed="max" from="320364658#0" id="100088165_100055612_445_0" to="501199051#0" type="large"/>
-    <trip depart="113177.00" departLane="best" departSpeed="max" from="125502220#0" id="100162241_100097512_453_0" to="447787390#0" type="large"/>
+    <trip depart="113177.16" departLane="best" departSpeed="max" from="125502220#0" id="100211124_100124806_452_0" to="501199062#0" type="medium"/>
     <trip depart="113179.00" departLane="best" departSpeed="max" from="125502220#0" id="100166848_100100260_444_0" to="533525971" type="medium"/>
-    <trip depart="113180.00" departLane="best" departSpeed="max" from="206391414#1" id="100019562_100013372_444_0" to="501199051#0" type="medium"/>
+    <trip depart="113180.00" departLane="best" departSpeed="max" from="320364658#0" id="100191331_100114045_445_0" to="84488280#2" type="medium"/>
     <trip depart="113181.00" departLane="best" departSpeed="max" from="-23210003#0" id="100021114_100014305_444_0" to="501199051#0" type="small"/>
     <trip depart="113181.00" departLane="best" departSpeed="max" from="318881710#0" id="100155687_100093969_443_0" to="316764353" type="small"/>
-    <trip depart="113181.00" departLane="best" departSpeed="max" from="320364658#0" id="100223702_100131775_453_0" to="447787390#0" type="medium"/>
+    <trip depart="113183.00" departLane="best" departSpeed="max" from="321714432#0" id="100040295_100025922_443_0" to="5058977#1" type="small"/>
     <trip depart="113183.41" departLane="best" departSpeed="max" from="320364658#0" id="100904183_100489288_420_0" to="23295226#2" type="medium"/>
     <trip depart="113185.00" departLane="best" departSpeed="max" from="314915850#0" id="100083244_100052777_445_0" to="501199051#0" type="medium"/>
     <trip depart="113185.67" departLane="best" departSpeed="max" from="320364658#0" id="100816861_100444808_438_0" to="447787390#0" type="medium"/>
-    <trip depart="113186.00" departLane="best" departSpeed="max" from="24625140#0" id="100022637_100015153_445_0" to="-5134673#2" type="large"/>
-    <trip depart="113186.00" departLane="best" departSpeed="max" from="314915850#0" id="100078398_100049660_445_0" to="501199051#0" type="small"/>
+    <trip depart="113186.00" departLane="best" departSpeed="max" from="-29223994#3" id="100035525_100023094_442_0" to="-29223994#1" type="medium"/>
+    <trip depart="113186.40" departLane="best" departSpeed="max" from="125502220#0" id="100533502_100300078_427_0" to="316764353" type="medium"/>
     <trip depart="113186.46" departLane="best" departSpeed="max" from="320364658#0" id="100636007_100352401_428_0" to="30429265#2" type="small"/>
     <trip depart="113187.18" departLane="best" departSpeed="max" from="320364658#0" id="100653401_100361974_424_0" to="30429265#2" type="large"/>
     <trip depart="113187.82" departLane="best" departSpeed="max" from="493783055" id="100609672_100339464_434_0" to="493783055" type="large"/>
     <trip depart="113188.00" departLane="best" departSpeed="max" from="316761550#0" id="100002794_100002097_439_0" to="501199051#0" type="medium"/>
     <trip depart="113188.00" departLane="best" departSpeed="max" from="125502220#0" id="100086190_100054494_451_0" to="5058977#1" type="small"/>
-    <trip depart="113188.42" departLane="best" departSpeed="max" from="125502220#0" id="100321900_100188461_428_0" to="-38167738#10" type="large"/>
+    <trip depart="113188.60" departLane="best" departSpeed="max" from="320364658#0" id="100284244_100175172_442_0" to="321714434#0" type="large"/>
     <trip depart="113188.84" departLane="best" departSpeed="max" from="125502220#0" id="100816165_100444576_443_0" to="316764353" type="small"/>
     <trip depart="113189.00" departLane="best" departSpeed="max" from="-8110777#2" id="100002874_100002137_443_0" to="5058977#1" type="medium"/>
     <trip depart="113189.00" departLane="best" departSpeed="max" from="-23257958#1" id="100026962_100017814_440_0" to="501199051#0" type="medium"/>
-    <trip depart="113189.00" departLane="best" departSpeed="max" from="38167738#0" id="100084096_100053287_451_0" to="501199051#0" type="large"/>
+    <trip depart="113190.00" departLane="best" departSpeed="max" from="33049438#1" id="100014161_100009847_445_0" to="501199051#0" type="medium"/>
     <trip depart="113191.00" departLane="best" departSpeed="max" from="-27060186#2" id="100031552_100020627_441_0" to="447787390#0" type="medium"/>
     <trip depart="113191.31" departLane="best" departSpeed="max" from="320364658#0" id="100418030_100245793_424_0" to="30429265#2" type="medium"/>
-    <trip depart="113192.00" departLane="best" departSpeed="max" from="316764349#0" id="100018373_100012552_443_0" to="501199051#0" type="large"/>
+    <trip depart="113192.00" departLane="best" departSpeed="max" from="493783055" id="100190255_100113453_445_0" to="5058977#1" type="large"/>
     <trip depart="113193.00" departLane="best" departSpeed="max" from="29136063#0" id="100020250_100013771_451_0" to="30429265#2" type="medium"/>
     <trip depart="113193.00" departLane="best" departSpeed="max" from="-33049407#5" id="100021967_100014777_442_0" to="447787390#0" type="small"/>
-    <trip depart="113193.00" departLane="best" departSpeed="max" from="316761550#0" id="100037261_100024153_440_0" to="447787390#0" type="large"/>
+    <trip depart="113193.00" departLane="best" departSpeed="max" from="125502220#0" id="100088111_100055594_443_0" to="30429265#2" type="medium"/>
     <trip depart="113193.00" departLane="best" departSpeed="max" from="125502220#0" id="100161359_100096996_453_0" to="5058977#1" type="small"/>
     <trip depart="113193.00" departLane="best" departSpeed="max" from="125502220#0" id="100163918_100098548_442_0" to="447787390#0" type="large"/>
     <trip depart="113194.00" departLane="best" departSpeed="max" from="314915850#0" id="100202109_100119854_449_0" to="314915850#0" type="large"/>
     <trip depart="113195.00" departLane="best" departSpeed="max" from="33049438#1" id="100023920_100015948_444_0" to="501199051#0" type="medium"/>
     <trip depart="113196.00" departLane="best" departSpeed="max" from="-533531077" id="100031717_100020777_448_0" to="501199051#0" type="small"/>
-    <trip depart="113196.00" departLane="best" departSpeed="max" from="125502220#0" id="100163662_100098323_444_0" to="-316764349#2" type="medium"/>
-    <trip depart="113196.40" departLane="best" departSpeed="max" from="314915850#0" id="100800103_100436264_433_0" to="150841796#0" type="large"/>
-    <trip depart="113197.00" departLane="best" departSpeed="max" from="318881710#0" id="100155618_100093900_443_0" to="316764353" type="small"/>
+    <trip depart="113196.00" departLane="best" departSpeed="max" from="125502220#0" id="100213882_100126345_442_0" to="447787390#0" type="large"/>
+    <trip depart="113197.72" departLane="best" departSpeed="max" from="320364658#0" id="100504698_100286198_434_0" to="30429265#2" type="large"/>
     <trip depart="113198.00" departLane="best" departSpeed="max" from="230951131#2" id="100041649_100026726_447_0" to="30429265#2" type="large"/>
     <trip depart="113199.00" departLane="best" departSpeed="max" from="125502220#0" id="100160071_100096411_443_0" to="447787390#0" type="medium"/>
     <trip depart="113199.87" departLane="best" departSpeed="max" from="320364658#0" id="100354450_100219244_427_0" to="30429265#2" type="small"/>
-    <trip depart="113200.00" departLane="best" departSpeed="max" from="125502220#0" id="100084821_100053718_452_0" to="5058977#1" type="medium"/>
+    <trip depart="113200.00" departLane="best" departSpeed="max" from="320364658#0" id="100217416_100128292_446_0" to="447787390#0" type="medium"/>
     <trip depart="113201.26" departLane="best" departSpeed="max" from="320364658#0" id="100623600_100345419_437_0" to="30429265#2" type="small"/>
     <trip depart="113202.00" departLane="best" departSpeed="max" from="-206391414#0" id="100020720_100014016_446_0" to="321714432#5" type="small"/>
     <trip depart="113202.00" departLane="best" departSpeed="max" from="316764349#0" id="100053615_100034276_440_0" to="501199051#0" type="small"/>
     <trip depart="113203.00" departLane="best" departSpeed="max" from="23295224#1" id="100044764_100028600_447_0" to="5058977#1" type="medium"/>
-    <trip depart="113203.00" departLane="best" departSpeed="max" from="316764349#0" id="100051699_100033168_443_0" to="316764349#0" type="small"/>
+    <trip depart="113203.00" departLane="best" departSpeed="max" from="320364658#0" id="100089464_100056302_444_0" to="447787390#0" type="large"/>
     <trip depart="113204.00" departLane="best" departSpeed="max" from="493783055" id="100088877_100056022_441_0" to="5058977#1" type="large"/>
     <trip depart="113204.00" departLane="best" departSpeed="max" from="320364658#0" id="100218401_100128836_452_0" to="-316764349#2" type="small"/>
     <trip depart="113204.26" departLane="best" departSpeed="max" from="125502220#0" id="100813896_100443489_445_0" to="-316764349#2" type="large"/>
-    <trip depart="113204.49" departLane="best" departSpeed="max" from="125502220#0" id="100207300_100122657_449_0" to="447787390#0" type="large"/>
-    <trip depart="113204.61" departLane="best" departSpeed="max" from="493783055" id="100326657_100193218_430_0" to="4531516#4" type="medium"/>
+    <trip depart="113205.00" departLane="best" departSpeed="max" from="59383254#8" id="100031249_100020454_443_0" to="447787390#0" type="large"/>
     <trip depart="113206.00" departLane="best" departSpeed="max" from="-8110777#2" id="100008661_100006128_442_0" to="5058977#1" type="small"/>
+    <trip depart="113206.00" departLane="best" departSpeed="max" from="23295224#1" id="100043779_100028016_450_0" to="447787390#0" type="small"/>
     <trip depart="113206.00" departLane="best" departSpeed="max" from="316764349#0" id="100164186_100098720_450_0" to="501199051#0" type="medium"/>
+    <trip depart="113208.00" departLane="best" departSpeed="max" from="318881710#0" id="100204883_100121380_440_0" to="316764353" type="small"/>
     <trip depart="113209.00" departLane="best" departSpeed="max" from="61567479#4" id="100030587_100019975_448_0" to="321714436#0" type="small"/>
-    <trip depart="113209.00" departLane="best" departSpeed="max" from="125502220#0" id="100087769_100055428_446_0" to="5058977#1" type="medium"/>
-    <trip depart="113209.84" departLane="best" departSpeed="max" from="320364658#0" id="100857831_100469734_446_0" to="320364658#0" type="large"/>
-    <trip depart="113212.00" departLane="best" departSpeed="max" from="320364658#0" id="100191405_100114068_445_0" to="-377715252#1" type="small"/>
-    <trip depart="113212.83" departLane="best" departSpeed="max" from="320364658#0" id="100809698_100440819_445_0" to="447787390#0" type="small"/>
+    <trip depart="113209.00" departLane="best" departSpeed="max" from="-8110777#2" id="100917297_100496212_452_0" to="5058977#1" type="large"/>
+    <trip depart="113212.00" departLane="best" departSpeed="max" from="320364658#0" id="100047339_100030347_448_0" to="59383254#4" type="small"/>
+    <trip depart="113212.00" departLane="best" departSpeed="max" from="320364658#0" id="100226032_100132951_448_0" to="30429265#2" type="small"/>
+    <trip depart="113214.00" departLane="best" departSpeed="max" from="61567479#4" id="100035096_100022781_453_0" to="5058977#1" type="large"/>
     <trip depart="113214.00" departLane="best" departSpeed="max" from="316764349#0" id="100046349_100029647_445_0" to="501199051#0" type="small"/>
-    <trip depart="113214.00" departLane="best" departSpeed="max" from="314915850#0" id="100102318_100063871_446_0" to="501199051#0" type="medium"/>
+    <trip depart="113214.73" departLane="best" departSpeed="max" from="125502220#0" id="100641064_100355273_438_0" to="-159245988#6" type="small"/>
     <trip depart="113215.00" departLane="best" departSpeed="max" from="314915850#0" id="100140395_100085078_452_0" to="23198104#2" type="large"/>
     <trip depart="113215.00" departLane="best" departSpeed="max" from="320364658#0" id="100175135_100104973_449_0" to="23258242#0" type="small"/>
     <trip depart="113216.00" departLane="best" departSpeed="max" from="314915850#0" id="100014660_100010173_446_0" to="501199051#0" type="large"/>
     <trip depart="113216.00" departLane="best" departSpeed="max" from="493783055" id="100088520_100055809_443_0" to="321714437#0" type="large"/>
     <trip depart="113216.17" departLane="best" departSpeed="max" from="314915850#0" id="100807962_100439905_435_0" to="525452872" type="large"/>
     <trip depart="113216.76" departLane="best" departSpeed="max" from="320364658#0" id="100365549_100224793_424_0" to="30429265#2" type="large"/>
-    <trip depart="113217.00" departLane="best" departSpeed="max" from="-23209132#5" id="100017682_100012220_449_0" to="447787390#0" type="small"/>
+    <trip depart="113217.00" departLane="best" departSpeed="max" from="320364658#0" id="100168603_100101215_451_0" to="447787390#0" type="large"/>
     <trip depart="113217.11" departLane="best" departSpeed="max" from="320364658#0" id="100418590_100245914_441_0" to="4364841#4" type="medium"/>
     <trip depart="113217.39" departLane="best" departSpeed="max" from="320364658#0" id="100868100_100472238_438_0" to="23292244#0" type="large"/>
     <trip depart="113218.00" departLane="best" departSpeed="max" from="125502220#0" id="100166095_100099822_442_0" to="-316764349#2" type="large"/>
-    <trip depart="113218.00" departLane="best" departSpeed="max" from="320364658#0" id="100228521_100134395_442_0" to="30429265#2" type="small"/>
+    <trip depart="113218.93" departLane="best" departSpeed="max" from="125502220#0" id="100216136_100127567_441_0" to="316764353" type="medium"/>
     <trip depart="113219.00" departLane="best" departSpeed="max" from="512158814#0" id="100019460_100013270_446_0" to="-316764349#2" type="large"/>
-    <trip depart="113219.00" departLane="best" departSpeed="max" from="5184855#0" id="100029279_100019169_447_0" to="447787390#0" type="medium"/>
+    <trip depart="113219.00" departLane="best" departSpeed="max" from="320364658#0" id="100186953_100111667_441_0" to="320364658#0" type="large"/>
     <trip depart="113220.00" departLane="best" departSpeed="max" from="61734682#2" id="100020335_100013850_453_0" to="447787390#0" type="small"/>
-    <trip depart="113220.00" departLane="best" departSpeed="max" from="321714432#0" id="100040601_100026121_447_0" to="5058977#1" type="small"/>
     <trip depart="113220.52" departLane="best" departSpeed="max" from="320364658#0" id="100496691_100282252_425_0" to="30429265#2" type="large"/>
     <trip depart="113220.53" departLane="best" departSpeed="max" from="125502220#0" id="100210066_100124143_439_0" to="5058977#1" type="large"/>
-    <trip depart="113221.00" departLane="best" departSpeed="max" from="35047528#1" id="100013854_100009711_450_0" to="5058977#1" type="medium"/>
-    <trip depart="113221.00" departLane="best" departSpeed="max" from="61567479#4" id="100033385_100021710_446_0" to="447787390#0" type="small"/>
-    <trip depart="113221.00" departLane="best" departSpeed="max" from="318881710#0" id="100084513_100053459_450_0" to="447787390#0" type="medium"/>
-    <trip depart="113223.00" departLane="best" departSpeed="max" from="501199049#0" id="100017835_100012327_454_0" to="447787390#0" type="small"/>
-    <trip depart="113224.00" departLane="best" departSpeed="max" from="320364658#0" id="100059391_100037755_440_0" to="320364658#0" type="medium"/>
-    <trip depart="113224.57" departLane="best" departSpeed="max" from="320364658#0" id="100623389_100345373_429_0" to="30429265#2" type="medium"/>
-    <trip depart="113225.00" departLane="best" departSpeed="max" from="246973997#4" id="100038365_100024722_440_0" to="447787390#0" type="medium"/>
-    <trip depart="113226.00" departLane="best" departSpeed="max" from="246973997#0" id="100030946_100020305_453_0" to="447787390#0" type="medium"/>
-    <trip depart="113227.00" departLane="best" departSpeed="max" from="321714437#0" id="100033236_100021673_447_0" to="321714437#0" type="small"/>
-    <trip depart="113227.00" departLane="best" departSpeed="max" from="318881710#0" id="100155307_100093803_440_0" to="-316764349#2" type="small"/>
+    <trip depart="113221.00" departLane="best" departSpeed="max" from="314915850#0" id="100021240_100014368_450_0" to="5229165#6" type="large"/>
+    <trip depart="113221.00" departLane="best" departSpeed="max" from="-321714437#2" id="100043159_100027629_451_0" to="445787491#0" type="medium"/>
+    <trip depart="113222.00" departLane="best" departSpeed="max" from="320364658#0" id="100222843_100131299_451_0" to="447787390#0" type="medium"/>
+    <trip depart="113224.00" departLane="best" departSpeed="max" from="-4531516#4" id="100030805_100020193_448_0" to="445787491#0" type="medium"/>
+    <trip depart="113224.00" departLane="best" departSpeed="max" from="314915850#0" id="100065579_100041554_444_0" to="525452872" type="small"/>
+    <trip depart="113225.00" departLane="best" departSpeed="max" from="483461464#0" id="100019776_100013505_446_0" to="5058977#1" type="small"/>
+    <trip depart="113226.00" departLane="best" departSpeed="max" from="5059000#0" id="100017975_100012397_446_0" to="501199051#0" type="large"/>
+    <trip depart="113227.00" departLane="best" departSpeed="max" from="5184855#0" id="100029793_100019516_443_0" to="447787390#0" type="medium"/>
+    <trip depart="113227.00" departLane="best" departSpeed="max" from="125502220#0" id="100085950_100054382_446_0" to="447787390#0" type="small"/>
+    <trip depart="113227.38" departLane="best" departSpeed="max" from="320364658#0" id="100628445_100349058_433_0" to="30429265#2" type="small"/>
     <trip depart="113227.84" departLane="best" departSpeed="max" from="320364658#0" id="100850598_100466996_450_0" to="30429265#2" type="medium"/>
     <trip depart="113228.00" departLane="best" departSpeed="max" from="59383254#6" id="100031925_100020881_451_0" to="447787390#0" type="large"/>
     <trip depart="113228.00" departLane="best" departSpeed="max" from="-4531517#7" id="100034428_100022384_440_0" to="23198104#2" type="medium"/>
@@ -6914,7 +6915,7 @@
     <trip depart="113228.00" departLane="best" departSpeed="max" from="125502220#0" id="100165441_100099416_444_0" to="447787390#0" type="medium"/>
     <trip depart="113228.22" departLane="best" departSpeed="max" from="320364658#0" id="100282707_100174403_429_0" to="320364658#0" type="small"/>
     <trip depart="113228.48" departLane="best" departSpeed="max" from="125502220#0" id="100819869_100445620_444_0" to="-316764349#2" type="small"/>
-    <trip depart="113229.00" departLane="best" departSpeed="max" from="147688814" id="100026161_100017359_451_0" to="447787390#0" type="medium"/>
+    <trip depart="113229.00" departLane="best" departSpeed="max" from="125502220#0" id="100167777_100100651_443_0" to="447787390#0" type="small"/>
     <trip depart="113230.00" departLane="best" departSpeed="max" from="-8110777#2" id="100138717_100084152_448_0" to="5058977#1" type="small"/>
     <trip depart="113230.26" departLane="best" departSpeed="max" from="125502220#0" id="100206569_100122266_440_0" to="316764353" type="small"/>
     <trip depart="113231.00" departLane="best" departSpeed="max" from="-207083565#7" id="100029762_100019506_452_0" to="5058977#1" type="medium"/>
@@ -6922,15 +6923,15 @@
     <trip depart="113232.00" departLane="best" departSpeed="max" from="314915850#0" id="100121792_100074866_453_0" to="525452872" type="large"/>
     <trip depart="113232.39" departLane="best" departSpeed="max" from="320364658#0" id="100613261_100341305_439_0" to="30429265#2" type="small"/>
     <trip depart="113233.00" departLane="best" departSpeed="max" from="246973997#4" id="100800703_100436864_450_0" to="447787390#0" type="medium"/>
-    <trip depart="113233.83" departLane="best" departSpeed="max" from="320364658#0" id="100819021_100445424_432_0" to="447787390#0" type="medium"/>
+    <trip depart="113234.00" departLane="best" departSpeed="max" from="447787390#0" id="100013453_100009416_445_0" to="447787390#0" type="small"/>
     <trip depart="113235.00" departLane="best" departSpeed="max" from="125502220#0" id="100038970_100025089_440_0" to="-316764349#2" type="medium"/>
-    <trip depart="113235.00" departLane="best" departSpeed="max" from="5058977#1" id="100045259_100028984_444_0" to="5058977#1" type="large"/>
-    <trip depart="113235.95" departLane="best" departSpeed="max" from="320364658#0" id="100902378_100488236_436_0" to="29136063#0" type="large"/>
+    <trip depart="113235.00" departLane="best" departSpeed="max" from="318881710#0" id="100157451_100094996_449_0" to="5058977#1" type="large"/>
+    <trip depart="113235.99" departLane="best" departSpeed="max" from="320364658#0" id="100335832_100202393_430_0" to="30429265#2" type="small"/>
     <trip depart="113236.00" departLane="best" departSpeed="max" from="314915850#0" id="100070082_100044272_441_0" to="501199051#0" type="small"/>
     <trip depart="113237.00" departLane="best" departSpeed="max" from="320364658#0" id="100218641_100128956_443_0" to="-24663733#1" type="medium"/>
-    <trip depart="113237.02" departLane="best" departSpeed="max" from="314915850#0" id="100803526_100438370_433_0" to="30424681#3" type="small"/>
+    <trip depart="113237.60" departLane="best" departSpeed="max" from="320364658#0" id="100254764_100158434_438_0" to="525452872" type="small"/>
     <trip depart="113238.00" departLane="best" departSpeed="max" from="-8110777#2" id="100043231_100027701_443_0" to="5058977#1" type="medium"/>
-    <trip depart="113238.00" departLane="best" departSpeed="max" from="-4531516#3" id="100088506_100055795_440_0" to="445787491#0" type="large"/>
+    <trip depart="113239.00" departLane="best" departSpeed="max" from="510544107#0" id="100027339_100018096_448_0" to="5058977#1" type="small"/>
     <trip depart="113239.00" departLane="best" departSpeed="max" from="59383254#1" id="100033224_100021669_445_0" to="447787390#0" type="small"/>
     <trip depart="113239.00" departLane="best" departSpeed="max" from="4364840#1" id="100041998_100026988_441_0" to="447787390#0" type="small"/>
     <trip depart="113239.00" departLane="best" departSpeed="max" from="125502220#0" id="100085855_100054334_453_0" to="5058977#1" type="small"/>
@@ -6949,13 +6950,13 @@
     <trip depart="113247.00" departLane="best" departSpeed="max" from="377715252#0" id="100029825_100019527_441_0" to="5058977#1" type="small"/>
     <trip depart="113247.00" departLane="best" departSpeed="max" from="4531516#0" id="100042322_100027119_448_0" to="5058977#1" type="small"/>
     <trip depart="113247.00" departLane="best" departSpeed="max" from="125502220#0" id="100214861_100126864_443_0" to="147688814" type="medium"/>
-    <trip depart="113248.00" departLane="best" departSpeed="max" from="125502220#0" id="100085096_100053861_454_0" to="30429265#2" type="small"/>
-    <trip depart="113249.48" departLane="best" departSpeed="max" from="320364658#0" id="100610117_100339733_434_0" to="30429265#2" type="small"/>
+    <trip depart="113249.00" departLane="best" departSpeed="max" from="61567479#0" id="100034740_100022573_447_0" to="321714437#0" type="medium"/>
+    <trip depart="113249.63" departLane="best" departSpeed="max" from="314915850#0" id="100711170_100390738_435_0" to="150841796#0" type="large"/>
     <trip depart="113250.00" departLane="best" departSpeed="max" from="320364658#0" id="100094391_100059422_450_0" to="501199051#0" type="large"/>
     <trip depart="113250.00" departLane="best" departSpeed="max" from="125502220#0" id="100165296_100099271_444_0" to="5058977#1" type="large"/>
     <trip depart="113250.00" departLane="best" departSpeed="max" from="318881710#0" id="100206056_100122049_444_0" to="5058977#1" type="small"/>
     <trip depart="113251.00" departLane="best" departSpeed="max" from="512158816#0" id="100086629_100054737_455_0" to="501199051#0" type="large"/>
-    <trip depart="113251.69" departLane="best" departSpeed="max" from="320364658#0" id="100360335_100222186_427_0" to="30429265#2" type="medium"/>
+    <trip depart="113252.00" departLane="best" departSpeed="max" from="159245985#1" id="100032530_100021278_442_0" to="447787390#0" type="small"/>
     <trip depart="113252.23" departLane="best" departSpeed="max" from="320364658#0" id="100324749_100191310_434_0" to="-316764349#2" type="large"/>
     <trip depart="113253.00" departLane="best" departSpeed="max" from="-27060186#2" id="100031863_100020850_444_0" to="447787390#0" type="small"/>
     <trip depart="113253.00" departLane="best" departSpeed="max" from="314915850#0" id="100076136_100048019_449_0" to="501199051#0" type="medium"/>
@@ -6965,28 +6966,28 @@
     <trip depart="113254.00" departLane="best" departSpeed="max" from="125502220#0" id="100085710_100054256_441_0" to="5058977#1" type="large"/>
     <trip depart="113254.00" departLane="best" departSpeed="max" from="320364658#0" id="100107607_100066817_449_0" to="445787491#0" type="medium"/>
     <trip depart="113254.00" departLane="best" departSpeed="max" from="318881710#0" id="100156282_100094366_447_0" to="447787390#0" type="large"/>
-    <trip depart="113254.00" departLane="best" departSpeed="max" from="320364658#0" id="100216918_100127911_442_0" to="-316764349#2" type="large"/>
+    <trip depart="113255.00" departLane="best" departSpeed="max" from="-4531517#4" id="100033632_100021901_451_0" to="447787390#0" type="medium"/>
     <trip depart="113255.00" departLane="best" departSpeed="max" from="318881710#0" id="100151989_100091906_450_0" to="501199051#0" type="small"/>
     <trip depart="113256.23" departLane="best" departSpeed="max" from="320364658#0" id="100603606_100333494_427_0" to="30429265#2" type="medium"/>
     <trip depart="113256.63" departLane="best" departSpeed="max" from="320364658#0" id="100645495_100357404_437_0" to="-316764349#2" type="medium"/>
     <trip depart="113257.00" departLane="best" departSpeed="max" from="-23292244#1" id="100017537_100012075_447_0" to="-316764349#2" type="large"/>
-    <trip depart="113257.00" departLane="best" departSpeed="max" from="321714436#0" id="100033120_100021631_443_0" to="5058977#1" type="large"/>
+    <trip depart="113258.00" departLane="best" departSpeed="max" from="316764351#0" id="100024475_100016321_441_0" to="447787390#0" type="medium"/>
     <trip depart="113258.00" departLane="best" departSpeed="max" from="125502220#0" id="100215239_100127009_450_0" to="447787390#0" type="small"/>
-    <trip depart="113258.25" departLane="best" departSpeed="max" from="-375217310#2" id="100395004_100239082_434_0" to="428966186#1" type="large"/>
+    <trip depart="113258.61" departLane="best" departSpeed="max" from="320364658#0" id="100483074_100275635_413_0" to="30429265#2" type="large"/>
     <trip depart="113259.00" departLane="best" departSpeed="max" from="-25272980#0" id="100029923_100019547_446_0" to="60151069#1" type="medium"/>
-    <trip depart="113259.00" departLane="best" departSpeed="max" from="246973997#4" id="100038925_100025066_445_0" to="447787390#0" type="large"/>
+    <trip depart="113259.00" departLane="best" departSpeed="max" from="314915850#0" id="100074822_100047257_451_0" to="501199051#0" type="small"/>
     <trip depart="113259.00" departLane="best" departSpeed="max" from="318881710#0" id="100153760_100092936_441_0" to="5058977#1" type="small"/>
     <trip depart="113259.26" departLane="best" departSpeed="max" from="125502220#0" id="100810284_100441405_447_0" to="447787390#0" type="medium"/>
     <trip depart="113262.00" departLane="best" departSpeed="max" from="61734682#2" id="100022435_100015076_454_0" to="-316764349#2" type="small"/>
     <trip depart="113262.00" departLane="best" departSpeed="max" from="-4364835#1" id="100027027_100017830_441_0" to="525452872" type="large"/>
-    <trip depart="113262.00" departLane="best" departSpeed="max" from="-159243113#0" id="100028291_100018638_442_0" to="501199051#0" type="large"/>
+    <trip depart="113263.00" departLane="best" departSpeed="max" from="318881710#0" id="100148454_100089789_454_0" to="-61567479#2" type="small"/>
     <trip depart="113263.00" departLane="best" departSpeed="max" from="-4531516#4" id="100606453_100336245_455_0" to="445787491#0" type="large"/>
-    <trip depart="113264.00" departLane="best" departSpeed="max" from="-159243113#0" id="100026489_100017548_444_0" to="501199051#0" type="medium"/>
+    <trip depart="113264.00" departLane="best" departSpeed="max" from="-165574143#1" id="100028373_100018674_447_0" to="-24526524#1" type="medium"/>
     <trip depart="113264.00" departLane="best" departSpeed="max" from="533525972" id="100039880_100025695_447_0" to="447787390#0" type="small"/>
-    <trip depart="113264.00" departLane="best" departSpeed="max" from="320364658#0" id="100216933_100127926_451_0" to="147688814" type="large"/>
+    <trip depart="113265.00" departLane="best" departSpeed="max" from="159243113#0" id="100021790_100014697_452_0" to="4364840#2" type="medium"/>
     <trip depart="113265.00" departLane="best" departSpeed="max" from="59383254#6" id="100037193_100024119_453_0" to="447787390#0" type="small"/>
     <trip depart="113265.00" departLane="best" departSpeed="max" from="320364658#0" id="100047159_100030167_447_0" to="30429265#2" type="large"/>
-    <trip depart="113265.16" departLane="best" departSpeed="max" from="320364658#0" id="100906717_100490886_422_0" to="30429265#2" type="large"/>
+    <trip depart="113265.18" departLane="best" departSpeed="max" from="320364658#0" id="100362818_100223428_439_0" to="-316764349#2" type="large"/>
     <trip depart="113265.61" departLane="best" departSpeed="max" from="125502220#0" id="100638805_100353322_446_0" to="30425927#0" type="small"/>
     <trip depart="113266.00" departLane="best" departSpeed="max" from="314915850#0" id="100022384_100015051_445_0" to="-5237595#3" type="large"/>
     <trip depart="113266.00" departLane="best" departSpeed="max" from="-207083565#7" id="100029753_100019503_443_0" to="447787390#0" type="medium"/>
@@ -6994,14 +6995,12 @@
     <trip depart="113266.00" departLane="best" departSpeed="max" from="-8110777#2" id="100079829_100050549_450_0" to="5058977#1" type="large"/>
     <trip depart="113268.00" departLane="best" departSpeed="max" from="314915850#0" id="100013346_100009309_445_0" to="525452872" type="small"/>
     <trip depart="113268.00" departLane="best" departSpeed="max" from="-5134723#3" id="100035495_100023079_451_0" to="447787390#0" type="medium"/>
-    <trip depart="113269.00" departLane="best" departSpeed="max" from="318881710#0" id="100151688_100091711_443_0" to="150841796#0" type="small"/>
+    <trip depart="113269.00" departLane="best" departSpeed="max" from="320364658#0" id="100218836_100129040_442_0" to="-316764349#2" type="small"/>
     <trip depart="113270.00" departLane="best" departSpeed="max" from="24847823#1" id="100021589_100014559_445_0" to="501199051#0" type="small"/>
-    <trip depart="113271.00" departLane="best" departSpeed="max" from="-8110777#2" id="100037609_100024327_452_0" to="5058977#1" type="large"/>
     <trip depart="113271.00" departLane="best" departSpeed="max" from="125502220#0" id="100163024_100097942_442_0" to="-316764349#2" type="small"/>
     <trip depart="113271.48" departLane="best" departSpeed="max" from="125502220#0" id="100813902_100443492_446_0" to="-38167738#10" type="medium"/>
     <trip depart="113273.00" departLane="best" departSpeed="max" from="321714432#0" id="100040719_100026192_453_0" to="5058977#1" type="small"/>
     <trip depart="113273.00" departLane="best" departSpeed="max" from="38167738#0" id="100084453_100053446_454_0" to="447787390#0" type="medium"/>
-    <trip depart="113273.00" departLane="best" departSpeed="max" from="318881710#0" id="100155413_100093838_441_0" to="-316764349#2" type="small"/>
+    <trip depart="113275.00" departLane="best" departSpeed="max" from="61567479#0" id="100035215_100022814_449_0" to="447787390#0" type="medium"/>
     <trip depart="113275.00" departLane="best" departSpeed="max" from="320364658#0" id="100167918_100100779_444_0" to="-23312087#1" type="small"/>
-    <trip depart="113275.50" departLane="best" departSpeed="max" from="320364658#0" id="100400192_100240811_429_0" to="30429265#2" type="large"/>
 </routes>

@@ -42,7 +42,9 @@ def get_options(args=None):
     optParser.add_option("-r", "--route-file", dest="routefile",
             help="define the input route file with trips or vehicles")
     optParser.add_option("-n", "--number", dest="number",
-            help="number of trips/vehicles to split")
+            help="number of trips/vehicles to split (not together with percent)")
+    optParser.add_option("-p", "--percent", dest="percent",
+            help="percent of trips/vehicles to split (not toghether with number")
     optParser.add_option("-a", "--output-file-a", dest="outputA", default="tripsA.rou.xml",
             help="define the first output route file")
     optParser.add_option("-b", "--output-file-b", dest="outputB", default="tripsB.rou.xml",
@@ -52,7 +54,7 @@ def get_options(args=None):
     optParser.add_option("-s", "--seed", type="int", default=42,
             help="random seed")
     (options, args) = optParser.parse_args(args=args)
-    if not options.routefile or not options.number:
+    if not options.routefile or not (options.number or options.percent) or (options.number and options.percent):
         optParser.print_help()
         sys.exit()
     return options
@@ -66,9 +68,16 @@ def main(options):
     tripsArray = list(sumolib.xml.parse(infile, ["trip", "vehicle", "flow"]))
     # declare range [0, numTrips]
     tripsRange = range(0, len(tripsArray))
+    # declare num of vehicles
+    numVehicles = 0
+    # set num vehicles depending of options or number
+    if (options.number):
+        numVehicles = int(options.number)
+    elif (options.percent):
+        numVehicles = int(len(tripsArray) * int(options.percent) / 100.0)
     # randomSample
-    if (int(options.number) < len(tripsArray)):
-        randomSample = random.sample(tripsRange, int(options.number))
+    if (numVehicles < len(tripsArray)):
+        randomSample = random.sample(tripsRange, numVehicles)
     else:
         randomSample = tripsRange
     # separate in two groups
