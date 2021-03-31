@@ -31,6 +31,7 @@ pd.options.mode.chained_assignment = None  # default='warn'
 
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib
+from sumolib.xml import parse_fast_nested as xmlParser
 
 
 def initOptions():
@@ -47,7 +48,12 @@ def initOptions():
     argParser.add_argument("--train-stop-length", default=110, type=float, help="length for a train stop")
     argParser.add_argument("--tram-stop-length", default=60, type=float, help="length for a tram stop")
     argParser.add_argument("--duration", default=10, type=int, help="minimum time to wait on a stop")
-    return argParser
+
+    options = argParser.parse_args()
+    options.pt_types = options.pt_types.split(",")
+    options.region = [float(boundary) for boundary in options.region.split(",")]
+
+    return options
 
 
 def get_line_dir(line_orig, line_dest):
@@ -73,26 +79,18 @@ def get_line_dir(line_orig, line_dest):
     return line_dir
 
 
-def repair_routes(options):
+def repair_routes(options, net, sumo_vClass):
     # use duarouter to repair the given osm routes
-
-    dua_input = "dua_input.xml"
-    dua_output = "dua_output.xml"
-    dua_error = "dua_error.xml"
-
+    osm_routes = {}
     # write dua input file
-    count = 0
-    with open(dua_input, 'w+', encoding="utf8") as dua_file:
+    with open("dua_input.xml", 'w+', encoding="utf8") as dua_file:
         dua_file.write("<routes>\n")
         for key, value in sumo_vClass.items():
             dua_file.write('\t<vType id="%s" vClass="%s"/>\n' % (key, value))
 
         sumo_edges = [sumo_edge.getID() for sumo_edge in net.getEdges()]
-        for ptline, ptline_route in sumolib.xml.parse_fast_nested(options.osm_routes, "ptLine", ("id", "name", "line", "type"), "route", ("edges")):
-            count += 1
+        for ptline, ptline_route in xmlParser(options.osm_routes, "ptLine", ("id", "name", "line", "type"), "route", ("edges")):
             if ptline.type not in options.pt_types:
-                continue
-            if osm_routes.get(ptline.id, False):
                 continue
 
             route_edges = ptline_route.edges.split(" ")
@@ -137,30 +135,42 @@ def repair_routes(options):
             # find ptLine direction
             line_dir = get_line_dir(line_orig, line_dest)
 
-            osm_routes[ptline.id] = [ptline.attr_name, ptline.line, ptline.type, line_dir]
+            osm_routes[ptline.id] = (ptline.attr_name, ptline.line, ptline.type, line_dir)
             dua_file.write("""\t<trip id="%s" type="%s" depart="0" via="%s"/>\n""" % (ptline.id, ptline.type, (" ").join(route_edges)))
         dua_file.write("</routes>\n")
 
     # run duarouter
-    run_dua = subprocess.call([sumolib.checkBinary('duarouter'), '-n', options.network, '--route-files', dua_input, '--repair', '-o', dua_output, '--error-log', dua_error, '--verbose'])
-    if run_dua == 1:
-        # if not successful, run with "ignore-errors"
-        print("duarouter found errors in routes, keep only possible routes")
-        subprocess.call([sumolib.checkBinary('duarouter'), '-n', options.network, '--route-files', dua_input, '--repair', '-o', dua_output, '--ignore-errors', '--error-log', dua_error])
+    subprocess.call([sumolib.checkBinary('duarouter'), '-n', options.network,
+                    '--route-files', 'dua_input.xml', '--repair', '-o',
+                     'dua_output.xml', '--error-log', 'invalid_osm_routes.txt',
+                     '--ignore-errors'])
 
-    return dua_output, osm_routes
+    # parse repaired routes
+    n_routes = len(osm_routes)
+
+    for ptline, ptline_route in xmlParser("dua_output.xml", "vehicle", ("id"), "route", ("edges")):
+        if len(ptline_route.edges) > 2:
+            osm_routes[ptline.id] += (ptline_route.edges, )
+
+    # remove dua files
+    os.remove("dua_input.xml")
+    os.remove("dua_output.xml")
+    os.remove("dua_output.alt.xml")
+
+    # remove invalid routes from dict
+    [osm_routes.pop(line) for line in list(osm_routes) if len(osm_routes[line]) < 5]
+
+    if n_routes != len(osm_routes):
+        print("Not all given routes have been imported, see 'invalid_osm_routes.txt' for more information")
+
+    return osm_routes
 
 
-if __name__ == "__main__":
-
-    # read inputs
-    argParser = initOptions()
-    options = argParser.parse_args()
-    options.pt_types = options.pt_types.split(",")
+def main(options):
 
     # ----------------------- Import SUMO net ---------------------------------
 
-    print("import net")
+    print("Import net")
     net = sumolib.net.readNet(options.network)
 
     # ----------------------- gtfs, osm and sumo modes ------------------------
@@ -173,7 +183,7 @@ if __name__ == "__main__":
         }
 
     gtfs_modes = {
-        # modes according to https://developers.google.com/transit/gtfs/reference/#routestxt
+        # https://developers.google.com/transit/gtfs/reference/#routestxt
         '0':  'tram',
         '1':  'subway',
         '2':  'train',
@@ -182,7 +192,7 @@ if __name__ == "__main__":
         # '5':  'cableTram',
         # '6':  'aerialLift',
         # '7':  'funicular',
-        # modes used in Berlin and MDV see https://developers.google.com/transit/gtfs/reference/extended-route-types
+        # https://developers.google.com/transit/gtfs/reference/extended-route-types
         '100':  'train',        # DB
         '109':  'train',  # S-Bahn
         '400':  'subway',      # U-Bahn
@@ -212,7 +222,7 @@ if __name__ == "__main__":
         'Str': 'tram',        # tbd
         'DPF': 'train',        # tbd
         }
-    # bus and tram modes from https://developers.google.com/transit/gtfs/reference/extended-route-types
+    # https://developers.google.com/transit/gtfs/reference/extended-route-types
     for i in range(700, 717):
         gtfs_modes[str(i)] = 'bus'
     for i in range(900, 907):
@@ -220,26 +230,13 @@ if __name__ == "__main__":
 
     # -----------------------  Import route-paths from OSM --------------------
 
-    print("import osm routes")
-
-    osm_routes = {}
     if options.repair:
-        print("repair osm routes")
-        osm_repair_routes, osm_routes = repair_routes(options)
-
-        n_routes = len(osm_routes)
-
-        for ptline, ptline_route in sumolib.xml.parse_fast_nested(osm_repair_routes, "vehicle", ("id"), "route", ("edges")):
-            if len(ptline_route.edges) > 2:
-                osm_routes[ptline.id].append(ptline_route.edges)
-
-        # remove invalid routes from dict
-        [osm_routes.pop(line) for line in list(osm_routes) if len(osm_routes[line]) < 5]
-
-        if n_routes != len(osm_routes):
-            print("Not all given routes could been imported, see 'dua_error.xml' for more information.")
+        print("Import and repair osm routes")
+        osm_routes = repair_routes(options, net, sumo_vClass)
     else:
-        for ptline, ptline_route in sumolib.xml.parse_fast_nested(options.osm_routes, "ptLine", ("id", "name", "line", "type"), "route", ("edges")):
+        print("Import osm routes")
+        osm_routes = {}
+        for ptline, ptline_route in xmlParser(options.osm_routes, "ptLine", ("id", "name", "line", "type"), "route", ("edges")):
             if ptline.type not in options.pt_types:
                 continue
             if len(ptline_route.edges) > 2:
@@ -256,7 +253,7 @@ if __name__ == "__main__":
                 osm_routes[ptline.id] = (ptline.attr_name, ptline.line, ptline.type, line_dir, ptline_route.edges)
 
     # -----------------------  Import GTFS data -------------------------------
-    print("import gtfs data")
+    print("Import gtfs data")
 
     gtfsZip = zipfile.ZipFile(options.gtfs)
     routes = pd.read_csv(gtfsZip.open('routes.txt'), dtype=str)
@@ -299,9 +296,8 @@ if __name__ == "__main__":
     gtfs_data['trip_headsign'] = gtfs_data['trip_headsign'].str.replace('[/|\'\";,!<>&*?\t\n\r]', ' ')
 
     # filter data inside SUMO net by stop location and shape
-    net_boundary = [float(boundary) for boundary in options.region.split(",")]
-    gtfs_data = gtfs_data[(net_boundary[1] <= gtfs_data['stop_lat']) & (gtfs_data['stop_lat'] <= net_boundary[3]) & (net_boundary[0] <= gtfs_data['stop_lon']) & (gtfs_data['stop_lon'] <= net_boundary[2])]
-    shapes = shapes[(net_boundary[1] <= shapes['shape_pt_lat']) & (shapes['shape_pt_lat'] <= net_boundary[3]) & (net_boundary[0] <= shapes['shape_pt_lon']) & (shapes['shape_pt_lon'] <= net_boundary[2])]
+    gtfs_data = gtfs_data[(options.region[1] <= gtfs_data['stop_lat']) & (gtfs_data['stop_lat'] <= options.region[3]) & (options.region[0] <= gtfs_data['stop_lon']) & (gtfs_data['stop_lon'] <= options.region[2])]
+    shapes = shapes[(options.region[1] <= shapes['shape_pt_lat']) & (shapes['shape_pt_lat'] <= options.region[3]) & (options.region[0] <= shapes['shape_pt_lon']) & (shapes['shape_pt_lon'] <= options.region[2])]
 
     # times to sec to enable sorting
     trip_list = gtfs_data[gtfs_data["stop_sequence"] == 0]
@@ -328,7 +324,7 @@ if __name__ == "__main__":
     filter_stops = filter_stops[['route_id', 'shape_id', 'stop_id', 'route_short_name', 'route_type', 'trip_headsign', 'direction_id', 'stop_name', 'stop_lat', 'stop_lon']].drop_duplicates()
 
     # -----------------------  Define Stops and Routes ------------------------
-    print("map stops and routes")
+    print("Map stops and routes")
 
     map_routes = {}
     map_stops = {}
@@ -338,6 +334,9 @@ if __name__ == "__main__":
     missing_lines = []
 
     for row in filter_stops.itertuples():
+        # check if route already discarded
+        if row.shape_id in missing_lines:
+            continue
 
         # check if gtfs route already mapped to osm route
         if not map_routes.get(row.shape_id, False):
@@ -352,32 +351,39 @@ if __name__ == "__main__":
             line_dir = get_line_dir((pt_orig.shape_pt_lon, pt_orig.shape_pt_lat), (pt_dest.shape_pt_lon, pt_dest.shape_pt_lat))
 
             # get osm lines with same route name and pt type
-            osm_lines = [key for key in osm_routes.keys() if osm_routes[key][1] == pt_line and osm_routes[key][2] == pt_type]
+            osm_lines = [key for key, value in osm_routes.items() if value[1] == pt_line and value[2] == pt_type]
             if len(osm_lines) > 1:
                 # get the direction for the found routes and take the route with lower difference
                 aux_dif = [abs(line_dir-osm_routes[key][3]) for key in osm_lines]
                 osm_id = osm_lines[aux_dif.index(min(aux_dif))]
 
                 # add mapped osm route to dict
-                map_routes[row.shape_id] = [osm_id, osm_routes.get(osm_id)[4].split(" ")]
+                map_routes[row.shape_id] = (osm_id, osm_routes[osm_id][4].split(" "))
             else:
-                # no osm route found
-                missing_lines.append(pt_line)
-
-        # check if route was mapped
-        if not map_routes.get(row.shape_id, False):
-            continue  # route not found, pt stops can not be mapped
+                # no osm route found, do not map stops of route
+                missing_lines.append((pt_line, row.trip_headsign))
+                continue
 
         # check if stop already mapped
         stop_mapped = [key for key in map_stops.keys() if key.split("_")[0] == row.stop_id]
         stop_item_id = 0  # for pt stops with different stop points
+
+        # set stop's type, class and length
+        pt_type = gtfs_modes[row.route_type]
+        pt_class = sumo_vClass[pt_type]
+        if pt_class == "bus":
+            stop_length = options.bus_stop_length
+        elif pt_class == "tram":
+            stop_length = options.tram_stop_length
+        else:
+            stop_length = options.train_stop_length
 
         if stop_mapped:
             # get maximum item for stop
             stop_item_id = [int(stop.split("_")[1]) for stop in stop_mapped]
             stop_item_id = max(stop_item_id) + 1
 
-            # check if the stop is already define #TODO merge stops on same edges
+            # check if the stop is already define
             for key in stop_mapped:
                 # for item of mapped stop
                 stop_edge = map_stops[key][1].split("_")[0]
@@ -399,43 +405,38 @@ if __name__ == "__main__":
                     edges = net.getNeighboringEdges(x, y, radius, includeJunctions=False)
                     edges.sort(key=lambda x: x[1])  # sort by distance
 
-                    for edge in edges:
-                        edge_inter = set(map_routes[row.shape_id][1])  # current route edges
-                        for shape_item in map_stops[key][5]:  # shapes id of stop
-                            # define the interseccion between the route edges of all shapes in stop
-                            edge_inter = set(edge_inter) & set(map_routes[shape_item][1])
-                        if edge[0].getID() in edge_inter:
-                            # if the edge is in all routes
-                            for lane in edge[0].getLanes():
-                                # update the lane id
-                                pt_class = sumo_vClass.get(pt_type, False)
-                                if lane.allows(pt_class):
-                                    lane_id = lane.getID()
-                            map_stops[key][1] = lane_id
-                            # update start and end
-                            if pt_class == "bus":
-                                stop_length = options.bus_stop_length
-                            elif pt_class == "tram":
-                                stop_length = options.tram_stop_length
-                            else:
-                                stop_length = options.train_stop_length
-                            pos = lane.getClosestLanePosAndDist((x, y))[0]
+                    # interseccion between route edges of all shapes in stop
+                    edge_inter = set(map_routes[row.shape_id][1])
+                    for shape_item in map_stops[key][5]:  # shapes id of stop
+                        edge_inter = set(edge_inter) & set(map_routes[shape_item][1])
+
+                    # find edge
+                    new_edge = [edge[0] for edge in edges if edge[0].getID() in edge_inter and edge[0].getLength() >= stop_length*1.20]  # filter length
+                    if not new_edge:
+                        new_edge = [edge[0] for edge in edges if edge[0].getID() in edge_inter]
+                    if not new_edge:
+                        continue  # stops are not same
+
+                    # if the edge is in all routes
+                    for lane in new_edge[0].getLanes():
+                        # update the lane id, start and end
+                        if lane.allows(pt_class):
+                            lane_id = lane.getID()
+                            pos = int(lane.getClosestLanePosAndDist((x, y))[0])
                             start = max(0, pos-stop_length)
                             end = min(start+stop_length, lane.getLength())
-                            map_stops[key][2] = start
-                            map_stops[key][3] = end
-                            # update edge in data frame
-                            gtfs_data.loc[gtfs_data["stop_item_id"] == key, "edge_id"] = edge[0].getID()
-
-                            # add to data frame
-                            shape_list = [key for key, value in shapes_dict.items() if value == row.shape_id]
-                            gtfs_data.loc[(gtfs_data["stop_id"] == row.stop_id) & (gtfs_data["shape_id"].isin(shape_list)), "stop_item_id"] = key
-                            gtfs_data.loc[(gtfs_data["stop_id"] == row.stop_id) & (gtfs_data["shape_id"].isin(shape_list)), "edge_id"] = edge[0].getID()
-
-                            stop_mapped = True
+                            map_stops[key][1:4] = [lane_id, start, end]
                             break
-                    if stop_mapped is True:
-                        break  # if already found the stop, don't keep searching
+                    # update edge in data frame
+                    gtfs_data.loc[gtfs_data["stop_item_id"] == key, "edge_id"] = new_edge[0].getID()
+                    # add to data frame
+                    shape_list = [key for key, value in shapes_dict.items() if value == row.shape_id]
+                    gtfs_data.loc[(gtfs_data["stop_id"] == row.stop_id) & (gtfs_data["shape_id"].isin(shape_list)), "stop_item_id"] = key
+                    gtfs_data.loc[(gtfs_data["stop_id"] == row.stop_id) & (gtfs_data["shape_id"].isin(shape_list)), "edge_id"] = new_edge[0].getID()
+
+                    stop_mapped = True
+                    break
+
             if stop_mapped is not True:
                 stop_mapped = None  # if stop not the same, search stop
 
@@ -444,13 +445,6 @@ if __name__ == "__main__":
             # get edges near stop location
             x, y = net.convertLonLat2XY(row.stop_lon, row.stop_lat)
             edges = net.getNeighboringEdges(x, y, radius, includeJunctions=False)
-            pt_class = sumo_vClass.get(pt_type, False)
-            if pt_class == "bus":
-                stop_length = options.bus_stop_length
-            elif pt_class == "tram":
-                stop_length = options.tram_stop_length
-            else:
-                stop_length = options.train_stop_length
             edges = [edge for edge in edges if edge[0].getLength() >= stop_length*1.20]  # filter length
             edges.sort(key=lambda x: x[1])  # sort by distance
 
@@ -460,55 +454,30 @@ if __name__ == "__main__":
                     continue
 
                 for lane in edge[0].getLanes():
-                    if lane.allows(pt_class):
-                        lane_id = lane.getID()
-                        pos = lane.getClosestLanePosAndDist((x, y))[0]
-                        start = max(0, pos-stop_length)
-                        end = min(start+stop_length, lane.getLength())
-                        stop_item_id = "%s_%s" % (row.stop_id, stop_item_id)
-                        map_stops[stop_item_id] = [row.stop_name, lane_id, start, end, pt_type, [row.shape_id]]
-                        # add data to data frame
-                        shape_list = [key for key, value in shapes_dict.items() if value == row.shape_id]
-                        gtfs_data.loc[(gtfs_data["stop_id"] == row.stop_id) & (gtfs_data["shape_id"].isin(shape_list)), "stop_item_id"] = stop_item_id
-                        gtfs_data.loc[(gtfs_data["stop_id"] == row.stop_id) & (gtfs_data["shape_id"].isin(shape_list)), "edge_id"] = edge[0].getID()
+                    if not lane.allows(pt_class):
+                        continue
+                    lane_id = lane.getID()
+                    pos = lane.getClosestLanePosAndDist((x, y))[0]
+                    start = max(0, pos-stop_length)
+                    end = min(start+stop_length, lane.getLength())
+                    stop_item_id = "%s_%s" % (row.stop_id, stop_item_id)
+                    map_stops[stop_item_id] = [row.stop_name, lane_id, start, end, pt_type, [row.shape_id]]
+                    # add data to data frame
+                    shape_list = [key for key, value in shapes_dict.items() if value == row.shape_id]
+                    gtfs_data.loc[(gtfs_data["stop_id"] == row.stop_id) & (gtfs_data["shape_id"].isin(shape_list)), "stop_item_id"] = stop_item_id
+                    gtfs_data.loc[(gtfs_data["stop_id"] == row.stop_id) & (gtfs_data["shape_id"].isin(shape_list)), "edge_id"] = edge[0].getID()
 
-                        stop_mapped = True
-                        break
+                    stop_mapped = True
+                    break
                 break
 
         # if stop not mapped, add to missing stops
         if not stop_mapped:
-            missing_stops.append((row.stop_id, row.shape_id, row.stop_name, row.stop_lat, row.stop_lon))
-
-    # -----------------------   Save mapped and missing data ------------------
-    if options.debug:
-        file_map_stops = "debug_map_stops.csv"
-        with open(file_map_stops, 'w', encoding="utf8") as output_file:
-            output_file.write("stop_item_id;stop_name;lane_id;start;end;pt_type;shape_id\n")
-            for key, value in map_stops.items():
-                output_file.write("%s;%s;%s;%s;%s;%s;%s\n" % (key, value[0], value[1], value[2], value[3], value[4], value[5]))
-
-        file_miss_stops = "debug_missing_stops.csv"
-        with open(file_miss_stops, 'w', encoding="utf8") as output_file:
-            output_file.write("stop_id;shape_id;stop_name;stop_lat;stop_lon\n")
-            for stop in set(missing_stops):
-                output_file.write("%s;%s;%s;%s;%s\n" % (stop[0], stop[1], stop[2], stop[3], stop[4]))
-
-        file_map_routes = "debug_map_routes.csv"
-        with open(file_map_routes, 'w', encoding="utf8") as output_file:
-            output_file.write("shape_id;osm_id;edges\n")
-            for key, value in map_routes.items():
-                output_file.write("%s;%s;%s\n" % (key, value[0], value[1]))
-
-        file_miss_routes = "debug_missing_routes.csv"
-        with open(file_miss_routes, 'w', encoding="utf8") as output_file:
-            output_file.write("line_id\n")
-            for line in set(missing_lines):
-                output_file.write("%s\n" % (line))
+            missing_stops.append((row.stop_id, row.stop_name, row.route_short_name))
 
     # -----------------------   Write Stops Output ----------------------------
 
-    print("generates stops output")
+    print("Generates stops output")
 
     stop_output = "gtfs_stops.add.xml"
     with open(stop_output, 'w', encoding="utf8") as output_file:
@@ -516,11 +485,11 @@ if __name__ == "__main__":
         for key, value in map_stops.items():
             if value[4] == "bus":
                 output_file.write('    <busStop id="%s" lane="%s" startPos="%s" endPos="%s" name="%s" friendlyPos="true"/>\n' %
-                            (key, value[1], value[2], value[3], value[0]))
+                                  (key, value[1], value[2], value[3], value[0]))
             else:
                 # from gtfs2pt.py
                 output_file.write('    <trainStop id="%s" lane="%s" startPos="%s" endPos="%s" name="%s" friendlyPos="true">\n' %
-                            (key, value[1], value[2], value[3], value[0]))
+                                  (key, value[1], value[2], value[3], value[0]))
 
                 ap = sumolib.geomhelper.positionAtShapeOffset(net.getLane(value[1]).getShape(), value[2])
                 numAccess = 0
@@ -528,47 +497,42 @@ if __name__ == "__main__":
                     if accessEdge.getID() != key.split("_")[0] and accessEdge.allows("pedestrian"):
                         _, accessPos, accessDist = accessEdge.getClosestLanePosDist(ap)
                         output_file.write(('        <access friendlyPos="true" ' +
-                                    'lane="%s_0" pos="%s" length="%s"/>\n') %
-                                    (accessEdge.getID(), accessPos, 1.5 * accessDist))
+                                          'lane="%s_0" pos="%s" length="%s"/>\n') %
+                                          (accessEdge.getID(), accessPos, 1.5 * accessDist))
                         numAccess += 1
                         if numAccess == 5:
                             break
                 output_file.write('    </trainStop>\n')
         output_file.write('</additional>\n')
 
-    print("generates routes output")
+    print("Generates routes output")
 
+    sequence_errors = []
     route_output = "gtfs_ptline.rou.xml"
-    route_error = "gtfs_ptline_error.txt"
 
-    with open(route_output, 'w', encoding="utf8") as output_file, open(route_error, 'w', encoding="utf8") as error_file:
+    with open(route_output, 'w', encoding="utf8") as output_file:
         sumolib.xml.writeHeader(output_file, route_output, "routes")
-        for value in set(gtfs_modes.values()):
-            output_file.write('    <vType id="%s" vClass="%s"/>\n' % (value, sumo_vClass.get(value, False)))
+        for key, value in sumo_vClass.items():
+            output_file.write('    <vType id="%s" vClass="%s"/>\n' % (key, value))
 
         for row in trip_list.sort_values("departure").itertuples():
-
-            # check if pt type is considered
-            pt_type = gtfs_modes.get(row.route_type, False)
-            if not pt_type:
-                continue  # if pt type not considered go to next row
 
             main_shape = shapes_dict.get(row.shape_id, None)
             if not map_routes.get(main_shape, None):
                 # if route not mapped
                 continue
 
+            pt_type = gtfs_modes[row.route_type]
             edges_list = map_routes[main_shape][1]
             stop_list = gtfs_data[gtfs_data["trip_id"] == row.trip_id].sort_values("stop_sequence")
             stop_index = [edges_list.index(stop.edge_id) for stop in stop_list.itertuples() if stop.edge_id in edges_list]
 
             if len(set(stop_index)) < 3:
                 # Not enough stops mapped
-                error_file.write("route id= '%s' line= '%s' trip= '%s' not mapped stops\n" % (row.route_id, row.route_short_name, row.trip_id))
                 continue
 
             output_file.write('    <vehicle id="%s_%s" line="%s_%s" depart="%s" departEdge="%s" arrivalEdge="%s" type="%s"><!--%s-->\n'
-                % (row.route_short_name, row.trip_id, row.route_id, row.direction_id, row.arrival_time, min(stop_index), max(stop_index), pt_type, row.trip_headsign))
+                              % (row.route_short_name, row.trip_id, row.route_id, row.direction_id, row.arrival_time, min(stop_index), max(stop_index), pt_type, row.trip_headsign))
             output_file.write('        <route edges="%s"/>\n' % (" ".join(edges_list)))
 
             check_seq = -1
@@ -576,19 +540,31 @@ if __name__ == "__main__":
                 if not stop.stop_item_id:
                     # if stop not mapped
                     continue
-                if stop.edge_id not in edges_list:
-                    # stop not in route
-                    error_file.write("route error stop item %s %s (sequence %s) not in route %s (trip %s)\n" % (stop.stop_item_id, stop.stop_name, stop.stop_sequence, stop.route_id, stop.trip_id))
-                    continue
-
                 stop_index = edges_list.index(stop.edge_id)
                 if stop_index > check_seq:
                     check_seq = stop_index
                     output_file.write('        <stop busStop="%s" arrival="%s" duration="%s" until="%s"/><!--%s-->\n' %
-                        (stop.stop_item_id, stop.arrival_time, options.duration, stop.departure_time, stop.stop_name))
+                                      (stop.stop_item_id, stop.arrival_time, options.duration, stop.departure_time, stop.stop_name))
                 elif stop_index < check_seq:
                     # stop not downstream
-                    error_file.write("sequence error in stop item %s %s (sequence %s) of route %s (trip %s)\n" % (stop.stop_item_id, stop.stop_name, stop.stop_sequence, stop.route_id, stop.trip_id))
+                    sequence_errors.append((stop.stop_item_id, row.route_short_name, row.trip_headsign, stop.trip_id))
 
             output_file.write('    </vehicle>\n')
         output_file.write('</routes>\n')
+
+    # -----------------------   Save missing data ------------------
+    if any([missing_stops, missing_lines, sequence_errors]):
+        print("Not all given gtfs elements have been mapped, see 'gtfs_missing.xml' for more information")
+        with open("gtfs_missing.xml", 'w', encoding="utf8") as output_file:
+            output_file.write('<missingElements>\n')
+            for stop in set(missing_stops):
+                output_file.write('    <stop id="%s" name="%s" ptLine="%s"/>\n' % stop)
+            for line in set(missing_lines):
+                output_file.write('    <ptLine id="%s" trip_headsign="%s"/>\n' % line)
+            for stop in set(sequence_errors):
+                output_file.write('    <stopSequence stop_id="%s" ptLine="%s" trip_headsign="%s" trip_id="%s"/>\n' % stop)
+            output_file.write('</missingElements>\n')
+
+
+if __name__ == "__main__":
+    main(initOptions())
