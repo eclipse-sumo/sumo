@@ -420,13 +420,14 @@ def main(options):
 
                     # if the edge is in all routes
                     for lane in new_edge[0].getLanes():
-                        # update the lane id, start and end
+                        # update the lane id, start and end and add shape
                         if lane.allows(pt_class):
                             lane_id = lane.getID()
                             pos = int(lane.getClosestLanePosAndDist((x, y))[0])
                             start = max(0, pos-stop_length)
                             end = min(start+stop_length, lane.getLength())
                             map_stops[key][1:4] = [lane_id, start, end]
+                            map_stops[key][5].append(row.shape_id)
                             break
                     # update edge in data frame
                     gtfs_data.loc[gtfs_data["stop_item_id"] == key, "edge_id"] = new_edge[0].getID()
