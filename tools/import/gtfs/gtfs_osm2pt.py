@@ -48,6 +48,7 @@ def initOptions():
     argParser.add_argument("--train-stop-length", default=110, type=float, help="length for a train stop")
     argParser.add_argument("--tram-stop-length", default=60, type=float, help="length for a tram stop")
     argParser.add_argument("--duration", default=10, type=int, help="minimum time to wait on a stop")
+    argParser.add_argument("--min-stops", default=3, type=int, help="minimum number of stops a public transport line must have to be imported")
 
     options = argParser.parse_args()
     options.pt_types = options.pt_types.split(",")
@@ -527,7 +528,7 @@ def main(options):
             stop_list = gtfs_data[gtfs_data["trip_id"] == row.trip_id].sort_values("stop_sequence")
             stop_index = [edges_list.index(stop.edge_id) for stop in stop_list.itertuples() if stop.edge_id in edges_list]
 
-            if len(set(stop_index)) < 3:
+            if len(set(stop_index)) < options.min_stops:
                 # Not enough stops mapped
                 continue
 
