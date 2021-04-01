@@ -39,8 +39,8 @@ use a certain follower edge has to be given. An example:
 <edgeRelations>
    <interval begin="0" end="3600">
       <edgeRelation from="myEdge0" to="myEdge1" probability="0.2"/>
-      <edgeRelation from="myEdge0" to="myEdge1" probability="0.7"/>
-      <edgeRelation from="myEdge0" to="myEdge1" probability="0.1"/>
+      <edgeRelation from="myEdge0" to="myEdge2" probability="0.7"/>
+      <edgeRelation from="myEdge0" to="myEdge3" probability="0.1"/>
 
       ... any other edges ...
 
