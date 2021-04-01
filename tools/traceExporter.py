@@ -16,6 +16,7 @@
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @author  Evamarie Wiessner
+# @author  Mirko Barthauer
 # @date    2013-01-15
 
 
@@ -32,7 +33,7 @@ sys.path.append(os.path.join(os.environ.get(
 
 from sumolib.miscutils import getSocketStream  # noqa
 import sumolib.net  # noqa
-from sumolib.output.convert import phem, omnet, shawn, ns2, gpsdat, kml, gpx, poi, ipg, fcdfilter, keplerjson  # noqa
+from sumolib.output.convert import phem, omnet, shawn, ns2, gpsdat, kml, gpx, poi, ipg, fcdfilter, keplerjson, trj  # noqa
 
 
 class FCDTimeEntry:
@@ -50,12 +51,12 @@ def disturb_gps(x, y, deviation):
     return x, y
 
 
-def _getOutputStream(name):
+def _getOutputStream(name, binary=False):
     if not name:
         return None
     if name.endswith(".gz"):
         return gzip.open(name, "wt")
-    return open(name, "w")
+    return open(name, "wb" if binary else "w")
 
 
 def _closeOutputStream(strm):
@@ -131,7 +132,7 @@ def runMethod(inputFile, outputFile, writer, options, further={}):
     else:
         further["base-date"] = datetime.datetime.now().replace(hour=0,
                                                                minute=0, second=0, microsecond=0)
-    o = _getOutputStream(outputFile)
+    o = _getOutputStream(outputFile, binary=len(options.trj) > 0)
     if inputFile.isdigit():
         inp = getSocketStream(int(inputFile))
     else:
@@ -228,7 +229,17 @@ output format. Optionally the output can be sampled, filtered and distorted.
     # IPG
     optParser.add_option("--ipg-output", dest="ipg", metavar="FILE",
                          help="Defines the name of the ipg trace file to generate")
-
+    
+    # TRJ
+    optParser.add_option("--trj-output", dest="trj", metavar="FILE",
+                         help="Defines the name of the trj file to generate")
+    optParser.add_option("--trj-veh-width", dest="trjvehwidth", default=1.7,
+                         type="float", help="Defines the assumed vehicle width")
+    optParser.add_option("--trj-vehicle-length", dest="trjvehlength", default=4.8,
+                         type="float", help="Defines the assumed vehicle length")
+    optParser.add_option("--timestep", dest="timestep", default=1.0,
+                         type="float", help="Used time step duration")
+    
     # parse
     if len(args) == 1:
         sys.exit(USAGE.replace('%prog', os.path.basename(__file__)))
@@ -252,6 +263,13 @@ output format. Optionally the output can be sampled, filtered and distorted.
     # omnet
     if options.omnet and not options.fcd:
         print("A fcd-output from SUMO must be given using the --fcd-input.")
+        return 1
+    # trj
+    if options.trj and not options.fcd:
+        print("A fcd-output from SUMO must be given using the --fcd-input.")
+        return 1
+    if options.trj and not options.net:
+        print("A SUMO network must be given using the --net-input option.")
         return 1
     # ----- check needed values
 
@@ -340,8 +358,16 @@ output format. Optionally the output can be sampled, filtered and distorted.
     if options.ipg:
         runMethod(options.fcd, options.ipg, ipg.fcd2ipg, options)
     # ----- IPG
-    return 0
 
+    # ----- TRJ
+    if options.trj:
+        if not net:
+            net = sumolib.net.readNet(options.net)
+        runMethod(options.fcd, options.trj, trj.fcd2trj, options, 
+            {"length":options.trjvehlength, "width":options.trjvehwidth, "bbox": net.getBBoxXY(), "timestep":options.timestep})
+    # ----- TRJ
+    
+    return 0
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv))
