@@ -88,7 +88,6 @@ def fcd2trj(inpFCD, outSTRM, further):
             outSTRM.write(struct.pack("=i", numericID))
             outSTRM.write(struct.pack("=i", edgeNumericID))
             outSTRM.write(struct.pack("=c", chr(laneIndex).encode()))
-            #outSTRM.write(struct.pack("=c", bytes(str(laneIndex))))
             outSTRM.write(struct.pack("=f", x))
             outSTRM.write(struct.pack("=f", y))
             outSTRM.write(struct.pack("=f", rearX))
