@@ -684,8 +684,6 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
 
                     # predecessor tripId after stop is needed
                     pTripId = pStop.getAttributeSecure("tripId", pStop.vehID)
-                    # succesor tripId before stop is needed
-                    nTripId = nVehStops[nIndex - 1]
                     conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, pTripId, limit,
                                                        # attributes for adding comments
                                                        nStop.prevLine,
