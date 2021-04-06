@@ -47,12 +47,17 @@ In the same area some taxis are created after some steps. There is no additional
 #### Net creation
 If you'd like to create the same net depicted or you want to revisit netedit you can
 use the following gifs as a guide. Otherwise you can skip this section.
+
+
 ![](../images/TaxiNetCreation01.gif)
 *Creating the basic net.*
+
 ![](../images/TaxiNetCreation02.gif)
 *Adding a sidewalk.*
+
 ![](../images/TaxiNetCreation03.gif)
 *Making the connections. You can go ahead and add the connections to the other connecting streets as well.*
+
 ![](../images/TaxiNetCreation04.gif)
 *Creating routes. You can go ahead and add the other routes for the vehicles.*   
 
@@ -68,7 +73,6 @@ To create a vehicle of type taxi you have to add the key parameter:
    <vType id="taxi" vClass="taxi" personCapacity="8">
        <param key="has.taxi.device" value="true"/>
    </vType>
-
 ```
 There are other option to define the taxis behaviour. You can decide when the taxis are going to disappear or if they start circling the area. In this example the taxis will keep circling the area, even when there are no longer people in the simulation. This is done by choosing a dispatch-algorithm at the start of the simulation, which is discussed later in the tutorial.  
 
@@ -76,10 +80,10 @@ There are other option to define the taxis behaviour. You can decide when the ta
 Next you can create a person, which departs at the start and heads to the designated bus stop.
 Essential here is the third line, declaring the person wants to go by taxi to edge gneE2. Essential is the lines parameter.  
 ```
-  <person id="HeadingBusstop1" depart="0.00" color="green">
-        <walk from="-gneE1" busStop="busStop_gneE0_0_0"/>
-        <ride from="gneE0" to="gneE2" lines="taxi"/>   
-    </person>
+<person id="HeadingBusstop1" depart="0.00" color="green">
+    <walk from="-gneE1" busStop="busStop_gneE0_0_0"/>
+    <ride from="gneE0" to="gneE2" lines="taxi"/>   
+</person>
 ```
 It is also possible to define personTrips for intermodal routing or group several people together.   
 Like in the beginner traci tutorials shown you can create a runner.py file to manage the taxi creation in your project.
@@ -173,9 +177,8 @@ driving around in the network after a short break.
                 <time-to-teleport value="0"/>
                 <device.taxi.dispatch-algorithm value="traci"/>
                 <device.taxi.idle-algorithm value="randomCircling"/>
-
             </input>
-        </configuration>
+</configuration>
 ```
 Another way to use the algorithms is to add them to the traci.start in the script:
 ```
