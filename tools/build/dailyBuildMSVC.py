@@ -133,7 +133,7 @@ optParser.add_option("-n", "--no-tests", dest="tests", action="store_false",
 optParser.add_option("-x", "--x64only", action="store_true",
                      default=False, help="skip Win32 and debug build (as well as netedit tests)")
 optParser.add_option("-p", "--python", help="path to python interpreter to use")
-optParser.add_option("-c", "--msvc-version", default="msvc12",
+optParser.add_option("-c", "--msvc-version", default="msvc16",
                      help="Visual Studio version to use (either msvc12 or msvc16)")
 optParser.add_option("-u", "--repositories", default="git",
                      help="repositories to update")
@@ -187,7 +187,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
         subprocess.call(["cmake", "--build", ".", "--target", "lisum"],
                         cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         plat = platform.lower().replace("x", "win")
-        if options.msvc_version != "msvc12":
+        if options.msvc_version != "msvc16":
             plat += options.msvc_version
         if ret == 0 and sumoAllZip:
             try:
