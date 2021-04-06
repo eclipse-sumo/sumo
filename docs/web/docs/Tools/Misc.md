@@ -140,7 +140,7 @@ This script generates parking area rerouters from a parking area definition. Exa
 python tools/generateParkingAreaRerouters.py -n <net-file> -a <parkingArea-file> -o <output-file> 
 ```
 
-# averageRuns.py
+# averageTripStatistics.py
 
 This script runs a given sumo configuration multiple times with
 different random seeds and averages the trip statistics output (see [trip statistics](../Simulation/Output.md#aggregated_traffic_measures).)
@@ -148,7 +148,7 @@ different random seeds and averages the trip statistics output (see [trip statis
 Example:
 
 ```
-python tools/averageRuns.py <sumocfg-file> -n 100
+python tools/averageTripStatistics.py <sumocfg-file> -n 100
 ```
 
 # tileGet.py
