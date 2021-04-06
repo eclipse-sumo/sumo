@@ -141,10 +141,13 @@ def repair_routes(options, net, sumo_vClass):
         dua_file.write("</routes>\n")
 
     # run duarouter
-    subprocess.call([sumolib.checkBinary('duarouter'), '-n', options.network,
-                    '--route-files', 'dua_input.xml', '--repair', '-o',
-                     'dua_output.xml', '--error-log', 'invalid_osm_routes.txt',
-                     '--ignore-errors'])
+    run_dua = subprocess.call([sumolib.checkBinary('duarouter'), '-n', options.network,
+                              '--route-files', 'dua_input.xml', '--repair', '-o',
+                               'dua_output.xml', '--error-log', 'invalid_osm_routes.txt',
+                               '--ignore-errors'])
+    if run_dua == 1:
+        # exit the program
+        sys.exit("Traying to repair OSM routes failed. Duarouter quits with error, see 'invalid_osm_routes.txt'")
 
     # parse repaired routes
     n_routes = len(osm_routes)
