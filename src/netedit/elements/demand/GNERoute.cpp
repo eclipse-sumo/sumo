@@ -262,7 +262,7 @@ GNERoute::computePath() {
         lanes.push_back(edge->getLanes().front());
     }
     // calculate path
-    myNet->getPathManager()->calculatePath(this, SVC_PEDESTRIAN, true, lanes);  // SVC_PEDESTRIAN temporal
+    myNet->getPathManager()->calculatePath(this, SVC_IGNORING, true, lanes);
     // update geometry
     updateGeometry();
 }
