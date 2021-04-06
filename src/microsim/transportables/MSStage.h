@@ -431,6 +431,9 @@ private:
     /// the time until the person is waiting
     SUMOTime myWaitingUntil;
 
+    /// @brief waiting position at stopping place
+    Position myStopWaitPos;
+
     /// @brief The type of activity
     std::string myActType;
 

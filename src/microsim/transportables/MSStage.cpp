@@ -412,6 +412,7 @@ MSStageWaiting::MSStageWaiting(const MSEdge* destination, MSStoppingPlace* toSto
             initial ? MSStageType::WAITING_FOR_DEPART : MSStageType::WAITING),
     myWaitingDuration(duration),
     myWaitingUntil(until),
+    myStopWaitPos(Position::INVALID),
     myActType(actType) {
 }
 
@@ -431,6 +432,9 @@ MSStageWaiting::getUntil() const {
 
 Position
 MSStageWaiting::getPosition(SUMOTime /* now */) const {
+    if (myStopWaitPos != Position::INVALID) {
+        return myStopWaitPos;
+    }
     return getEdgePosition(myDestination, myArrivalPos,
                            ROADSIDE_OFFSET * (MSGlobals::gLefthand ? -1 : 1));
 }
@@ -448,6 +452,7 @@ MSStageWaiting::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
     const SUMOTime until = MAX3(now, now + myWaitingDuration, myWaitingUntil);
     if (myDestinationStop != nullptr) {
         myDestinationStop->addTransportable(transportable);
+        myStopWaitPos = myDestinationStop->getWaitPosition(transportable);
     }
     if (dynamic_cast<MSPerson*>(transportable) != nullptr) {
         previous->getEdge()->addPerson(transportable);
