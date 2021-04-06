@@ -4079,11 +4079,11 @@ NBEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
     for (const Connection& con : myConnections) {
         std::pair<const NBEdge*, const Connection*> pair(con.toEdge, nullptr);
         // special case for Persons in Netedit
-        if (vClass == SVC_PEDESTRIAN) {         //
-            myViaSuccessors.push_back(pair);    //
-        } else if (con.fromLane >= 0 && con.toLane >= 0 &&
-                   con.toEdge != nullptr &&
-                   (getPermissions(con.fromLane) & con.toEdge->getPermissions(con.toLane) & vClass) != 0) {
+        if (vClass == SVC_PEDESTRIAN) {
+            myViaSuccessors.push_back(pair);    // Pedestrians have complete freedom of movement in all sucessors
+        } else if ((con.fromLane >= 0) && (con.toLane >= 0) &&
+                   (con.toEdge != nullptr) &&
+                   ((getPermissions(con.fromLane) & con.toEdge->getPermissions(con.toLane) & vClass) == vClass)) {
             // ignore duplicates
             if (con.getLength() > 0) {
                 pair.second = &con;
