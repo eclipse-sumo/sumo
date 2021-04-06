@@ -54,7 +54,7 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
 
 bool
 TraCIServerAPI_Junction::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
-                                      tcpip::Storage& outputStorage) {
+                                    tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();

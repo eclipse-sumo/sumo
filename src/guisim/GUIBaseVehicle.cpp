@@ -426,10 +426,10 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     // draw the vehicle
     bool drawCarriages = false;
     const double geometryFactor = (s.scaleLength ?
-            ((myVehicle.getLane() != nullptr
-              ? myVehicle.getLane()->getLengthGeometryFactor()
-              : (myVehicle.getEdge()->getLanes().size() > 0 ? myVehicle.getEdge()->getLanes()[0]->getLengthGeometryFactor() : 1)))
-            : 1);
+                                   ((myVehicle.getLane() != nullptr
+                                     ? myVehicle.getLane()->getLengthGeometryFactor()
+                                     : (myVehicle.getEdge()->getLanes().size() > 0 ? myVehicle.getEdge()->getLanes()[0]->getLengthGeometryFactor() : 1)))
+                                   : 1);
     const double scaledLength = length * geometryFactor;
     switch (s.vehicleQuality) {
         case 0:

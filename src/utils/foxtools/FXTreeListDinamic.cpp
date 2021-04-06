@@ -25,7 +25,7 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(FXTreeListDinamic) FXTreeListDinamicMap[]={
+FXDEFMAP(FXTreeListDinamic) FXTreeListDinamicMap[] = {
     FXMAPFUNC(SEL_LEFTBUTTONPRESS, 0, FXTreeListDinamic::onLeftBtnPress),
 };
 
@@ -41,7 +41,7 @@ FXTreeListDinamic::FXTreeListDinamic(FXComposite* p, FXObject* tgt, FXSelector s
 }
 
 
-void 
+void
 FXTreeListDinamic::show() {
     // update height
     setHeight(getContentHeight() + 20);

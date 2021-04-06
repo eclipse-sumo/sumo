@@ -765,7 +765,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         hadRailSignal |= (*link)->getTLLogic() != nullptr;
 
         if (!(*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength(), aVehicle->getImpatience(),
-                    cfModel.getMaxDecel(), 0, posLat, nullptr, false, aVehicle)
+                             cfModel.getMaxDecel(), 0, posLat, nullptr, false, aVehicle)
                 || !(*link)->havePriority()) {
             // have to stop at junction
             std::string errorMsg = "";
@@ -1510,12 +1510,12 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                 const bool newCollision = MSNet::getInstance()->registerCollision(v, leader.first, "sharedLane", this, leader.first->getEdgePos());
                 if (newCollision) {
                     WRITE_WARNING(
-                            "Vehicle '" + v->getID()
-                            + "' collision with person '" + leader.first->getID()
-                            + "', lane='" + getID()
-                            + "', gap=" + toString(leader.second - length)
-                            + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
-                            + " stage=" + stage + ".");
+                        "Vehicle '" + v->getID()
+                        + "' collision with person '" + leader.first->getID()
+                        + "', lane='" + getID()
+                        + "', gap=" + toString(leader.second - length)
+                        + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
+                        + " stage=" + stage + ".");
                     MSNet::getInstance()->getVehicleControl().registerCollision();
                 }
             }
@@ -1567,11 +1567,11 @@ MSLane::detectPedestrianJunctionCollision(const MSVehicle* collider, const Posit
                 const bool newCollision = MSNet::getInstance()->registerCollision(collider, *it_p, collisionType, foeLane, (*it_p)->getEdgePos());
                 if (newCollision) {
                     WRITE_WARNING(
-                            "Vehicle '" + collider->getID()
-                            + "' collision with person '" + (*it_p)->getID()
-                            + "', lane='" + getID()
-                            + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
-                            + " stage=" + stage + ".");
+                        "Vehicle '" + collider->getID()
+                        + "' collision with person '" + (*it_p)->getID()
+                        + "', lane='" + getID()
+                        + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
+                        + " stage=" + stage + ".");
                     MSNet::getInstance()->getVehicleControl().registerCollision();
                 }
             }
@@ -1669,9 +1669,9 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
         return;
     }
     std::string collisionType = ((collider->getLaneChangeModel().isOpposite() != victim->getLaneChangeModel().isOpposite()
-                || (&collider->getLane()->getEdge() == victim->getLane()->getEdge().getBidiEdge()))
-            ?  "frontal collision"
-            : (isInternal() ? "junction collision" : "collision"));
+                                  || (&collider->getLane()->getEdge() == victim->getLane()->getEdge().getBidiEdge()))
+                                 ?  "frontal collision"
+                                 : (isInternal() ? "junction collision" : "collision"));
     // in frontal collisions the opposite vehicle is the collider
     if (victim->getLaneChangeModel().isOpposite() && !collider->getLaneChangeModel().isOpposite()) {
         std::swap(collider, victim);
@@ -1717,7 +1717,7 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
             stop.lane = collider->getLane()->getID();
             stop.startPos = MIN2(collider->getPositionOnLane() + collider->getCarFollowModel().brakeGap(colliderSpeed, collider->getCarFollowModel().getEmergencyDecel(), 0),
                                  MAX3(0.0, victimStopPos - 0.75 * victim->getVehicleType().getLength(),
-                                     collider->getPositionOnLane() - SPEED2DIST(collider->getSpeed())));
+                                      collider->getPositionOnLane() - SPEED2DIST(collider->getSpeed())));
             stop.endPos = stop.startPos;
             stop.parametersSet |= STOP_START_SET | STOP_END_SET;
             collider->addStop(stop, dummyError, 0, true);
@@ -1770,11 +1770,11 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
     const bool newCollision = MSNet::getInstance()->registerCollision(collider, victim, collisionType, this, collider->getPositionOnLane(this));
     if (newCollision) {
         WRITE_WARNING(prefix
-                + "', lane='" + getID()
-                + "', gap=" + toString(gap)
-                + (MSGlobals::gSublane ? "', latGap=" + toString(latGap) : "")
-                + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
-                + " stage=" + stage + ".");
+                      + "', lane='" + getID()
+                      + "', gap=" + toString(gap)
+                      + (MSGlobals::gSublane ? "', latGap=" + toString(latGap) : "")
+                      + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
+                      + " stage=" + stage + ".");
         MSNet::getInstance()->informVehicleStateListener(victim, MSNet::VehicleState::COLLISION);
         MSNet::getInstance()->informVehicleStateListener(collider, MSNet::VehicleState::COLLISION);
         MSNet::getInstance()->getVehicleControl().registerCollision();
@@ -1867,8 +1867,8 @@ MSLane::executeMovements(const SUMOTime t) {
                 const bool r1 = MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock;
                 const bool r2 = MSGlobals::gTimeToGridlockHighways > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlockHighways && veh->getLane()->getSpeedLimit() > 69. / 3.6 && wrongLane;
                 const bool r3 = MSGlobals::gTimeToTeleportDisconnected > 0 && veh->getWaitingTime() > MSGlobals::gTimeToTeleportDisconnected
-                    && veh->succEdge(1) != nullptr
-                    && veh->getEdge()->allowedLanes(*veh->succEdge(1), veh->getVClass()) == nullptr;
+                                && veh->succEdge(1) != nullptr
+                                && veh->getEdge()->allowedLanes(*veh->succEdge(1), veh->getVClass()) == nullptr;
                 if (r1 || r2 || r3) {
                     const std::vector<MSLink*>::const_iterator link = succLinkSec(*veh, 1, *this, veh->getBestLanesContinuation());
                     const bool minorLink = !wrongLane && (link != myLinks.end()) && !((*link)->havePriority());

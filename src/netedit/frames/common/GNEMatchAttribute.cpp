@@ -43,7 +43,7 @@ FXIMPLEMENT(GNEMatchAttribute, FXGroupBox, GNEMatchAttributeMap, ARRAYNUMBER(GNE
 // method definitions
 // ===========================================================================
 
-GNEMatchAttribute::GNEMatchAttribute(GNEElementSet* elementSet, SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string &defaultValue) :
+GNEMatchAttribute::GNEMatchAttribute(GNEElementSet* elementSet, SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string& defaultValue) :
     FXGroupBox(elementSet->getSelectorFrameParent()->getContentFrame(), "Match Attribute", GUIDesignGroupBoxFrame),
     myElementSet(elementSet),
     myCurrentTag(defaultTag),
@@ -135,7 +135,7 @@ GNEMatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     // set invalid color
     myMatchTagComboBox->setTextColor(FXRGB(255, 0, 0));
     // iterate over tags
-    for (const auto &tagString : myTagStringVector) {
+    for (const auto& tagString : myTagStringVector) {
         if (tagString.second == myMatchTagComboBox->getText().text()) {
             // set valid tag
             myCurrentTag = tagString.first;
@@ -316,7 +316,7 @@ GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
 }
 
 
-void 
+void
 GNEMatchAttribute::updateTag() {
     // declare tag index
     int tagIndex = -1;
@@ -344,7 +344,7 @@ GNEMatchAttribute::updateTag() {
 }
 
 
-void 
+void
 GNEMatchAttribute::updateAttribute() {
     // first check if tag is valid
     if (myCurrentTag != SUMO_TAG_NOTHING) {

@@ -37,8 +37,7 @@ ROMARouteHandler::ROMARouteHandler(ODMatrix& matrix) :
     SUMOSAXHandler(""), myMatrix(matrix),
     myIgnoreTaz(OptionsCont::getOptions().getBool("ignore-taz")),
     myScale(OptionsCont::getOptions().getFloat("scale")),
-    myNumLoaded(0)
-{
+    myNumLoaded(0) {
     if (OptionsCont::getOptions().isSet("taz-param")) {
         myTazParamKeys = OptionsCont::getOptions().getStringVector("taz-param");
     }
@@ -82,9 +81,9 @@ ROMARouteHandler::myEndElement(int element) {
             for (int i = 0; i < quota; i++) {
                 const std::string id = i == 0 ? myVehicleParameter->id : myVehicleParameter->id + "." + toString(i);
                 myMatrix.add(id, myVehicleParameter->depart,
-                        myVehicleParameter->fromTaz, myVehicleParameter->toTaz, myVehicleParameter->vtypeid,
-                        !myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) || myIgnoreTaz,
-                        !myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET) || myIgnoreTaz);
+                             myVehicleParameter->fromTaz, myVehicleParameter->toTaz, myVehicleParameter->vtypeid,
+                             !myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) || myIgnoreTaz,
+                             !myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET) || myIgnoreTaz);
             }
             myNumLoaded += 1;
         }

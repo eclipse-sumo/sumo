@@ -200,8 +200,8 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawFilledCircle((double) 1.1, noPoints);
         glTranslated(0, 0, .1);
         GLHelper::setColor(myElement == SUMO_TAG_CONTAINER_STOP
-                ? s.stoppingPlaceSettings.containerStopColorSign
-                : s.stoppingPlaceSettings.busStopColorSign);
+                           ? s.stoppingPlaceSettings.containerStopColorSign
+                           : s.stoppingPlaceSettings.busStopColorSign);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
         if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
             if (myElement == SUMO_TAG_CONTAINER_STOP) {

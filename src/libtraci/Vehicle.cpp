@@ -1155,7 +1155,7 @@ Vehicle::dispatchTaxi(const std::string& vehID,  const std::vector<std::string>&
 void
 Vehicle::subscribeLeader(const std::string& vehID, double dist, double begin, double end) {
     subscribe(vehID, std::vector<int>({ libsumo::VAR_LEADER }), begin, end,
-              libsumo::TraCIResults({ {libsumo::VAR_LEADER, std::make_shared<libsumo::TraCIDouble>(dist)} }));
+    libsumo::TraCIResults({ {libsumo::VAR_LEADER, std::make_shared<libsumo::TraCIDouble>(dist)} }));
 }
 
 

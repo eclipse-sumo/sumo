@@ -34,13 +34,13 @@
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent):
     GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-    myEdgeTypeParent(edgeTypeParent) {
+myEdgeTypeParent(edgeTypeParent) {
 }
 
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent, const NBTypeCont::LaneTypeDefinition& laneType):
     GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-    myEdgeTypeParent(edgeTypeParent) {
+myEdgeTypeParent(edgeTypeParent) {
     // copy parameters
     speed = laneType.speed;
     permissions = laneType.permissions;
@@ -59,7 +59,7 @@ GNELaneType::getEdgeTypeParent() const {
 }
 
 
-void 
+void
 GNELaneType::copyLaneType(GNELaneType* originalLaneType, GNEUndoList* undoList) {
     // copy speed
     setAttribute(SUMO_ATTR_SPEED, originalLaneType->getAttribute(SUMO_ATTR_SPEED), undoList);

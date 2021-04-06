@@ -822,12 +822,12 @@ GNESelectorFrame::show() {
         myNetworkElementSet->showElementSet();
         myDemandElementSet->hideElementSet();
         myDataElementSet->hideElementSet();
-    } else if(myViewNet->getEditModes().isCurrentSupermodeDemand()) {
+    } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
         // only show demand element set
         myNetworkElementSet->hideElementSet();
         myDemandElementSet->showElementSet();
         myDataElementSet->hideElementSet();
-    } else if(myViewNet->getEditModes().isCurrentSupermodeData()) {
+    } else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
         // only show data element set
         myNetworkElementSet->hideElementSet();
         myDemandElementSet->hideElementSet();
@@ -1201,53 +1201,51 @@ GNESelectorFrame::getMatches(const SumoXMLTag ACTag, const SumoXMLAttr ACAttr, c
     for (const auto& AC : allACbyTag) {
         if (expr == "") {
             result.push_back(AC);
-        }
-        else if (tagValue.hasAttribute(ACAttr) && tagValue.getAttributeProperties(ACAttr).isNumerical()) {
+        } else if (tagValue.hasAttribute(ACAttr) && tagValue.getAttributeProperties(ACAttr).isNumerical()) {
             double acVal;
             std::istringstream buf(AC->getAttribute(ACAttr));
             buf >> acVal;
             switch (compOp) {
-            case '<':
-                if (acVal < val) {
-                    result.push_back(AC);
-                }
-                break;
-            case '>':
-                if (acVal > val) {
-                    result.push_back(AC);
-                }
-                break;
-            case '=':
-                if (acVal == val) {
-                    result.push_back(AC);
-                }
-                break;
+                case '<':
+                    if (acVal < val) {
+                        result.push_back(AC);
+                    }
+                    break;
+                case '>':
+                    if (acVal > val) {
+                        result.push_back(AC);
+                    }
+                    break;
+                case '=':
+                    if (acVal == val) {
+                        result.push_back(AC);
+                    }
+                    break;
             }
-        }
-        else {
+        } else {
             // string match
             std::string acVal = AC->getAttributeForSelection(ACAttr);
             switch (compOp) {
-            case '@':
-                if (acVal.find(expr) != std::string::npos) {
-                    result.push_back(AC);
-                }
-                break;
-            case '!':
-                if (acVal.find(expr) == std::string::npos) {
-                    result.push_back(AC);
-                }
-                break;
-            case '=':
-                if (acVal == expr) {
-                    result.push_back(AC);
-                }
-                break;
-            case '^':
-                if (acVal != expr) {
-                    result.push_back(AC);
-                }
-                break;
+                case '@':
+                    if (acVal.find(expr) != std::string::npos) {
+                        result.push_back(AC);
+                    }
+                    break;
+                case '!':
+                    if (acVal.find(expr) == std::string::npos) {
+                        result.push_back(AC);
+                    }
+                    break;
+                case '=':
+                    if (acVal == expr) {
+                        result.push_back(AC);
+                    }
+                    break;
+                case '^':
+                    if (acVal != expr) {
+                        result.push_back(AC);
+                    }
+                    break;
             }
         }
     }
@@ -1262,53 +1260,51 @@ GNESelectorFrame::getGenericMatches(const std::vector<GNEGenericData*>& genericD
     for (const auto& genericData : genericDatas) {
         if (expr == "") {
             result.push_back(genericData);
-        }
-        else if (attr != toString(GNE_ATTR_PARENT)) {
+        } else if (attr != toString(GNE_ATTR_PARENT)) {
             double acVal;
             std::istringstream buf(genericData->getParameter(attr, "0"));
             buf >> acVal;
             switch (compOp) {
-            case '<':
-                if (acVal < val) {
-                    result.push_back(genericData);
-                }
-                break;
-            case '>':
-                if (acVal > val) {
-                    result.push_back(genericData);
-                }
-                break;
-            case '=':
-                if (acVal == val) {
-                    result.push_back(genericData);
-                }
-                break;
+                case '<':
+                    if (acVal < val) {
+                        result.push_back(genericData);
+                    }
+                    break;
+                case '>':
+                    if (acVal > val) {
+                        result.push_back(genericData);
+                    }
+                    break;
+                case '=':
+                    if (acVal == val) {
+                        result.push_back(genericData);
+                    }
+                    break;
             }
-        }
-        else {
+        } else {
             // string match
             std::string acVal = genericData->getAttributeForSelection(GNE_ATTR_PARENT);
             switch (compOp) {
-            case '@':
-                if (acVal.find(expr) != std::string::npos) {
-                    result.push_back(genericData);
-                }
-                break;
-            case '!':
-                if (acVal.find(expr) == std::string::npos) {
-                    result.push_back(genericData);
-                }
-                break;
-            case '=':
-                if (acVal == expr) {
-                    result.push_back(genericData);
-                }
-                break;
-            case '^':
-                if (acVal != expr) {
-                    result.push_back(genericData);
-                }
-                break;
+                case '@':
+                    if (acVal.find(expr) != std::string::npos) {
+                        result.push_back(genericData);
+                    }
+                    break;
+                case '!':
+                    if (acVal.find(expr) == std::string::npos) {
+                        result.push_back(genericData);
+                    }
+                    break;
+                case '=':
+                    if (acVal == expr) {
+                        result.push_back(genericData);
+                    }
+                    break;
+                case '^':
+                    if (acVal != expr) {
+                        result.push_back(genericData);
+                    }
+                    break;
             }
         }
     }
@@ -1322,7 +1318,7 @@ GNESelectorFrame::getModificationModeModul() const {
 }
 
 
-FXVerticalFrame* 
+FXVerticalFrame*
 GNESelectorFrame::getContentFrame() const {
     return myContentFrame;
 }

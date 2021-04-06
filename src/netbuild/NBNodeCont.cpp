@@ -420,7 +420,7 @@ NBNodeCont::removeRailComponents(NBDistrictCont& dc, NBEdgeCont& ec, NBPTStopCon
     int numRemovedEdges = 0;
     for (auto& component : myRailComponents) {
         bool keep = false;
-        for (std::string edgeID: component) {
+        for (std::string edgeID : component) {
             if (stopEdges.count(edgeID) != 0) {
                 keep = true;
                 break;
@@ -855,8 +855,8 @@ NBNodeCont::joinSameJunctions(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLight
     for (auto& item : myNodes) {
         Position pos = item.second->getPosition();
         std::string rounded = (OutputDevice::realString(pos.x(), gPrecision)
-                + "_" + OutputDevice::realString(pos.y(), gPrecision)
-                + "_" + OutputDevice::realString(pos.z(), gPrecision));
+                               + "_" + OutputDevice::realString(pos.y(), gPrecision)
+                               + "_" + OutputDevice::realString(pos.z(), gPrecision));
         positions[rounded].insert(item.second);
     }
     NodeClusters clusters;

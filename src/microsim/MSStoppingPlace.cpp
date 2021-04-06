@@ -53,8 +53,7 @@ MSStoppingPlace::MSStoppingPlace(const std::string& id,
     myParkingFactor(parkingLength <= 0 ? 1 : (endPos - begPos) / parkingLength),
     myColor(color),
     // see MSVehicleControl defContainerType
-    myTransportableDepth(element == SUMO_TAG_CONTAINER_STOP ? SUMO_const_waitingContainerDepth : SUMO_const_waitingPersonDepth)
-{
+    myTransportableDepth(element == SUMO_TAG_CONTAINER_STOP ? SUMO_const_waitingContainerDepth : SUMO_const_waitingPersonDepth) {
     computeLastFreePos();
     for (int i = 0; i < capacity; i++) {
         myWaitingSpots.insert(i);
@@ -139,8 +138,8 @@ double
 MSStoppingPlace::getWaitingPositionOnLane(MSTransportable* t) const {
     auto it = myWaitingTransportables.find(t);
     const double waitingWidth = myElement == SUMO_TAG_CONTAINER_STOP
-        ? SUMO_const_waitingContainerWidth
-        : SUMO_const_waitingPersonWidth;
+                                ? SUMO_const_waitingContainerWidth
+                                : SUMO_const_waitingPersonWidth;
     if (it != myWaitingTransportables.end() && it->second >= 0) {
         return myEndPos - (0.5 + (it->second) % getTransportablesAbreast()) * waitingWidth;
     } else {
@@ -152,8 +151,8 @@ MSStoppingPlace::getWaitingPositionOnLane(MSTransportable* t) const {
 int
 MSStoppingPlace::getTransportablesAbreast(double length, SumoXMLTag element) {
     return MAX2(1, (int)floor(length / (element == SUMO_TAG_CONTAINER_STOP
-                    ? SUMO_const_waitingContainerWidth
-                    : SUMO_const_waitingPersonWidth)));
+                                        ? SUMO_const_waitingContainerWidth
+                                        : SUMO_const_waitingPersonWidth)));
 }
 
 int

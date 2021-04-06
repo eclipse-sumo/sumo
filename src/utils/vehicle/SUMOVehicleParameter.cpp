@@ -252,7 +252,7 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, bool close) const {
 
 bool
 SUMOVehicleParameter::parseDepart(const std::string& val, const std::string& element, const std::string& id,
-                            SUMOTime& depart, DepartDefinition& dd, std::string& error, const std::string& attr) {
+                                  SUMOTime& depart, DepartDefinition& dd, std::string& error, const std::string& attr) {
     if (val == "triggered") {
         dd = DEPART_TRIGGERED;
     } else if (val == "containerTriggered") {
@@ -274,7 +274,7 @@ SUMOVehicleParameter::parseDepart(const std::string& val, const std::string& ele
             if (id.empty()) {
                 error = "Invalid " + attr + " time for " + element + ". Must be one of (\"triggered\", \"containerTriggered\", \"now\", or a float >= 0)";
             } else {
-                error = "Invalid " + attr+ " time for " + element + " '" + id + "';\n must be one of (\"triggered\", \"containerTriggered\", \"now\", or a float >= 0)";
+                error = "Invalid " + attr + " time for " + element + " '" + id + "';\n must be one of (\"triggered\", \"containerTriggered\", \"now\", or a float >= 0)";
             }
             return false;
         }

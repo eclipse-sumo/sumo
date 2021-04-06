@@ -363,7 +363,7 @@ GNEViewNetHelper::ObjectsUnderCursor::getLaneFront() const {
 }
 
 
-const std::vector<GNELane*>& 
+const std::vector<GNELane*>&
 GNEViewNetHelper::ObjectsUnderCursor::getLanes() const {
     if (mySwapLane2edge) {
         return myEdgeObjects.lanes;
@@ -1636,7 +1636,7 @@ GNEViewNetHelper::TestingMode::drawTestingElements(GUIMainWindow* mainWindow) {
     if (myTestingEnabled) {
         // check if main windows has to be resized
         if (myTestingWidth > 0) {
-             mainWindow->resize(myTestingWidth, myTestingHeight);
+            mainWindow->resize(myTestingWidth, myTestingHeight);
         }
         //std::cout << " fixed: view=" << getWidth() << ", " << getHeight() << " app=" << mainWindow->getWidth() << ", " << mainWindow->getHeight() << "\n";
         // draw pink square in the upper left corner on top of everything

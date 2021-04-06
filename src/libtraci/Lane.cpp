@@ -110,13 +110,13 @@ Lane::getLinks(std::string laneID) {
         double length = sto.readDouble();
 
         ret.push_back(libsumo::TraCIConnection(approachedLane,
-                                                hasPrio,
-                                                isOpen,
-                                                hasFoe,
-                                                approachedLaneInternal,
-                                                state,
-                                                direction,
-                                                length));
+                                               hasPrio,
+                                               isOpen,
+                                               hasFoe,
+                                               approachedLaneInternal,
+                                               state,
+                                               direction,
+                                               length));
 
     }
     return ret;

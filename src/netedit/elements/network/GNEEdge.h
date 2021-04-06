@@ -205,7 +205,7 @@ public:
     void copyTemplate(const GNEInspectorFrame::TemplateEditor::EdgeTemplate& edgeTemplate, GNEUndoList* undoList);
 
     /// @brief copy edge attributes from edgeType
-    void copyEdgeType(const GNEEdgeType *edgeType, GNEUndoList* undoList);
+    void copyEdgeType(const GNEEdgeType* edgeType, GNEUndoList* undoList);
 
     /// @brief returns GLIDs of all lanes
     std::set<GUIGlID> getLaneGlIDs() const;

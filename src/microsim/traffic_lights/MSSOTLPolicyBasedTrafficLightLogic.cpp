@@ -55,7 +55,9 @@ MSSOTLPolicyBasedTrafficLightLogic::~MSSOTLPolicyBasedTrafficLightLogic(void) {
 
 int MSSOTLPolicyBasedTrafficLightLogic::decideNextPhase() {
 #ifdef SWARM_DEBUG
-    std::ostringstream str; str << "\n" << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << getID() << "invoked MSSOTLPolicyBasedTrafficLightLogic::decideNextPhase()"; WRITE_MESSAGE(str.str());
+    std::ostringstream str;
+    str << "\n" << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << getID() << "invoked MSSOTLPolicyBasedTrafficLightLogic::decideNextPhase()";
+    WRITE_MESSAGE(str.str());
 #endif
     return myPolicy->decideNextPhase(getCurrentPhaseElapsed(),
                                      &getCurrentPhaseDef(), getCurrentPhaseIndex(),
@@ -65,7 +67,9 @@ int MSSOTLPolicyBasedTrafficLightLogic::decideNextPhase() {
 
 bool MSSOTLPolicyBasedTrafficLightLogic::canRelease() {
 #ifdef SWARM_DEBUG
-    std::ostringstream str; str << "\n" << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << getID() << "invoked MSSOTLPolicyBasedTrafficLightLogic::canRelease()"; WRITE_MESSAGE(str.str());
+    std::ostringstream str;
+    str << "\n" << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << getID() << "invoked MSSOTLPolicyBasedTrafficLightLogic::canRelease()";
+    WRITE_MESSAGE(str.str());
 #endif
     return myPolicy->canRelease(getCurrentPhaseElapsed(), isThresholdPassed(), isPushButtonPressed(),
                                 &getCurrentPhaseDef(), countVehicles(getCurrentPhaseDef()));

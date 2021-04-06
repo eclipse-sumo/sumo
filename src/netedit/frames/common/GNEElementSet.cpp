@@ -43,8 +43,8 @@ FXIMPLEMENT(GNEElementSet, FXGroupBox, GNEElementSetMap, ARRAYNUMBER(GNEElementS
 // method definitions
 // ===========================================================================
 
-GNEElementSet::GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode supermode, 
-    SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string &defaultValue) :
+GNEElementSet::GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode supermode,
+                             SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string& defaultValue) :
     FXGroupBox(selectorFrameParent->getContentFrame(), "Element Set", GUIDesignGroupBoxFrame),
     mySelectorFrameParent(selectorFrameParent),
     myMatchAttribute(nullptr),
@@ -88,7 +88,7 @@ GNEElementSet::GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode su
 GNEElementSet::~GNEElementSet() {}
 
 
-GNESelectorFrame* 
+GNESelectorFrame*
 GNEElementSet::getSelectorFrameParent() const {
     return mySelectorFrameParent;
 }
@@ -123,8 +123,7 @@ GNEElementSet::showElementSet() {
         if (myCurrentSet == Type::INVALID) {
             // disable macht attribute
             myMatchGenericDataAttribute->disableMatchGenericDataAttribute();
-        }
-        else {
+        } else {
             // enable match attribute
             myMatchGenericDataAttribute->enableMatchGenericDataAttribute();
         }

@@ -48,8 +48,7 @@ Reservation::getID() const {
 MSDispatch::MSDispatch(const std::map<std::string, std::string>& params) :
     Parameterised(params),
     myOutput(nullptr),
-    myReservationCount(0)
-{
+    myReservationCount(0) {
     const std::string opt = "device.taxi.dispatch-algorithm.output";
     if (OptionsCont::getOptions().isSet(opt)) {
         OutputDevice::createDeviceByOption(opt, "DispatchInfo");
@@ -86,7 +85,7 @@ MSDispatch::addReservation(MSTransportable* person,
                     && res->toPos == toPos) {
                 if (res->persons.size() > 0 && (*res->persons.begin())->isPerson() != person->isPerson()) {
                     WRITE_WARNINGF("Mixing reservations of persons and containers with the same group is not supported for % and %",
-                            (*res->persons.begin())->getID(), person->getID());
+                                   (*res->persons.begin())->getID(), person->getID());
                 }
                 if ((person->isPerson() && (int)res->persons.size() >= maxCapacity) ||
                         (!person->isPerson() && (int)res->persons.size() >= maxContainerCapacity)) {
@@ -123,9 +122,9 @@ MSDispatch::addReservation(MSTransportable* person,
 
 std::string
 MSDispatch::removeReservation(MSTransportable* person,
-                           const MSEdge* from, double fromPos,
-                           const MSEdge* to, double toPos,
-                           std::string group) {
+                              const MSEdge* from, double fromPos,
+                              const MSEdge* to, double toPos,
+                              std::string group) {
     if (group == "") {
         // the default empty group implies, no grouping is wanted (and
         // transportable ids are unique)

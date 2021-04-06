@@ -842,7 +842,7 @@ MSBaseVehicle::isStopped() const {
 bool
 MSBaseVehicle::isParking() const {
     return isStopped() && myStops.begin()->pars.parking && (
-        myStops.begin()->parkingarea == nullptr || !myStops.begin()->parkingarea->parkOnRoad());
+               myStops.begin()->parkingarea == nullptr || !myStops.begin()->parkingarea->parkOnRoad());
 }
 
 
@@ -948,7 +948,9 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
         searchStart = &myCurrEdge;
     }
 #ifdef DEBUG_ADD_STOP
-    if (DEBUG_COND) std::cout << " stopEdge=" << stopEdge->getID() << " searchStart=" << (**searchStart)->getID() << " index=" << (int)((*searchStart) - myRoute->begin()) << " route=" << toString(myRoute->getEdges()) << "\n";
+    if (DEBUG_COND) {
+        std::cout << " stopEdge=" << stopEdge->getID() << " searchStart=" << (**searchStart)->getID() << " index=" << (int)((*searchStart) - myRoute->begin()) << " route=" << toString(myRoute->getEdges()) << "\n";
+    }
 #endif
     stop.edge = std::find(*searchStart, myRoute->end(), stopEdge);
     MSRouteIterator prevStopEdge = myCurrEdge;
@@ -964,7 +966,9 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
             prevStopPos = myStops.back().pars.endPos;
             stop.edge = std::find(prevStopEdge, myRoute->end(), stopEdge);
 #ifdef DEBUG_ADD_STOP
-            if (DEBUG_COND) std::cout << " (@end) prevStopEdge=" << (*prevStopEdge)->getID() << " index=" << (int)(prevStopEdge - myRoute->begin()) << "\n";
+            if (DEBUG_COND) {
+                std::cout << " (@end) prevStopEdge=" << (*prevStopEdge)->getID() << " index=" << (int)(prevStopEdge - myRoute->begin()) << "\n";
+            }
 #endif
             if (prevStopEdge == stop.edge                // laneEdge check is insufficient for looped routes
                     && prevEdge == &stop.lane->getEdge() // route iterator check insufficient for internal lane stops
@@ -989,7 +993,9 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
                 --index;
             }
 #ifdef DEBUG_ADD_STOP
-            if (DEBUG_COND) std::cout << " (@fit) prevStopEdge=" << (*prevStopEdge)->getID() << " index=" << (int)(prevStopEdge - myRoute->begin()) << "\n";
+            if (DEBUG_COND) {
+                std::cout << " (@fit) prevStopEdge=" << (*prevStopEdge)->getID() << " index=" << (int)(prevStopEdge - myRoute->begin()) << "\n";
+            }
 #endif
             stop.edge = std::find(prevStopEdge, myRoute->end(), stopEdge);
         }

@@ -44,7 +44,7 @@ public:
     /**@brief Constructor for default edge (empty ID)
     * @param[in] createEdgeFrame Frame in which edgeType is created
     */
-    GNEEdgeType(GNECreateEdgeFrame *createEdgeFrame);
+    GNEEdgeType(GNECreateEdgeFrame* createEdgeFrame);
 
     /**@brief Constructor
      * @param[in] net The net to inform about gui updates
@@ -57,7 +57,7 @@ public:
      * @param[in] edgeType original NBTypeCont::EdgeTypeDefinition
      * @param[in] spreadType original spreadType
      */
-    GNEEdgeType(GNENet* net, const std::string &ID, const NBTypeCont::EdgeTypeDefinition *edgeType);
+    GNEEdgeType(GNENet* net, const std::string& ID, const NBTypeCont::EdgeTypeDefinition* edgeType);
 
     /// @brief Destructor.
     ~GNEEdgeType();

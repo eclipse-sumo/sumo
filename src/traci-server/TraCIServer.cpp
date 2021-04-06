@@ -1184,7 +1184,7 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
                 message.writeUnsignedByte(*i);
                 message.writeString(*j);
                 // TODO check why writeStorage fails here (probably some kind of invalid iterator)
-                for (const auto& v : **k) {
+                for (const auto& v :** k) {
                     message.writeChar(v);
                 }
                 tcpip::Storage tmpOutput;

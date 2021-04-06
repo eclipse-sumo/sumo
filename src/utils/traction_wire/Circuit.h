@@ -24,19 +24,19 @@
 
 #include <vector>
 #ifdef HAVE_EIGEN
-    // avoid warnings in clang
-    #ifdef __clang__
-        #pragma clang system_header
-    #endif
-  #ifdef WIN32
-    #pragma warning(push, 0)
-  #endif
-    #include "Eigen/Dense"
-    #include "Eigen/Geometry"
-    #include "Eigen/Sparse"
-  #ifdef WIN32
-    #pragma warning(pop)
-  #endif
+// avoid warnings in clang
+#ifdef __clang__
+#pragma clang system_header
+#endif
+#ifdef WIN32
+#pragma warning(push, 0)
+#endif
+#include "Eigen/Dense"
+#include "Eigen/Geometry"
+#include "Eigen/Sparse"
+#ifdef WIN32
+#pragma warning(pop)
+#endif
 #endif
 #include "Node.h"
 #include "Element.h"

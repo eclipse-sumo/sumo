@@ -517,7 +517,7 @@ MESegment::getTauJJ(int nextQueueSize, double nextQueueCapacity, double nextJamT
     const double n_jam_threshold = headwayCapacity * nextJamThreshold / nextQueueCapacity;
 
     /// @brief slope and axis offset for the jam-jam headway function
-    double a,b;
+    double a, b;
     // solving f(x) = a * x + b
     a = (STEPS2TIME(myTau_jj) * headwayCapacity - STEPS2TIME(tau_jf_withLength)) / (headwayCapacity - n_jam_threshold);
     b = headwayCapacity * (STEPS2TIME(myTau_jj) - a);

@@ -286,7 +286,7 @@ GNEPersonStop::getPositionInView() const {
         } else if (firstLane->getLaneShape().size() > 0) {
             return firstLane->getLaneShape().front();
         } else {
-            return Position(0,0);
+            return Position(0, 0);
         }
     } else if (getParentDemandElements().size() > 0) {
         return getParentDemandElements().front()->getPositionInView();
@@ -854,7 +854,7 @@ GNEPersonStop::getFirstAllowedLane() const {
     if (getParentEdges().empty()) {
         return nullptr;
     }
-    for (const auto &pLane : getParentEdges().front()->getLanes()) {
+    for (const auto& pLane : getParentEdges().front()->getLanes()) {
         if (pLane->allowPedestrians()) {
             return pLane;
         }

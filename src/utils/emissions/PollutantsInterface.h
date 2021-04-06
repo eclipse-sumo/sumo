@@ -105,8 +105,7 @@ public:
          */
         Helper(std::string name, const int baseIndex, const int defaultClass) :
             myName(name),
-            myBaseIndex(baseIndex)
-        {
+            myBaseIndex(baseIndex) {
             if (defaultClass != -1) {
                 myEmissionClassStrings.insert("default", defaultClass);
                 myEmissionClassStrings.addAlias("unknown", defaultClass);

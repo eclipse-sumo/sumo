@@ -333,7 +333,7 @@ public:
 
     /// @brief darw
     static void drawSpaceOccupancies(const double exaggeration, const Position& pos, const double rotation,
-        const double width, const double length, const bool vehicle);
+                                     const double width, const double length, const bool vehicle);
 
 private:
     /// @brief normalize angle for lookup in myCircleCoords

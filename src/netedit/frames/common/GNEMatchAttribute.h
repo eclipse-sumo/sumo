@@ -33,7 +33,7 @@ class GNEMatchAttribute : protected FXGroupBox {
 
 public:
     /// @brief constructor
-    GNEMatchAttribute(GNEElementSet* elementSet, SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string &defaultValue);
+    GNEMatchAttribute(GNEElementSet* elementSet, SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string& defaultValue);
 
     /// @brief destructor
     ~GNEMatchAttribute();

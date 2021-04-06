@@ -97,8 +97,8 @@ MSTransportable::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
         accessToStop = checkAccess(prior);
     }
     if (!accessToStop && (myStep == myPlan->end()
-                || ((*myStep)->getStageType() != MSStageType::DRIVING
-                    && (*myStep)->getStageType() != MSStageType::TRIP))) {
+                          || ((*myStep)->getStageType() != MSStageType::DRIVING
+                              && (*myStep)->getStageType() != MSStageType::TRIP))) {
         MSStoppingPlace* priorStop = prior->getStageType() == MSStageType::TRIP ? prior->getOriginStop() : prior->getDestinationStop();
         // a trip might resolve to DRIVING so we would have to stay at the stop
         // if a trip resolves to something else, this step will do stop removal

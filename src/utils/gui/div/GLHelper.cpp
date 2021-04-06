@@ -466,15 +466,15 @@ GLHelper::resetFont() {
 }
 
 
-void 
+void
 GLHelper::setGL2PS(bool active) {
     myGL2PSActive = active;
 }
 
 
-void 
-GLHelper::drawSpaceOccupancies(const double exaggeration, const Position &pos, const double rotation, 
-    const double width, const double length, const bool vehicle) {
+void
+GLHelper::drawSpaceOccupancies(const double exaggeration, const Position& pos, const double rotation,
+                               const double width, const double length, const bool vehicle) {
     // declare colors
     const RGBColor red(255, 0, 0, 255);
     const RGBColor green(0, 255, 0, 255);
@@ -502,7 +502,7 @@ GLHelper::drawSpaceOccupancies(const double exaggeration, const Position &pos, c
     // rotate
     glRotated(rotation, 0, 0, 1);
     // set color
-    GLHelper::setColor(vehicle? green : red);
+    GLHelper::setColor(vehicle ? green : red);
     // draw box lines
     GLHelper::drawBoxLines(geom, 0.1 * exaggeration);
     // pop matrix

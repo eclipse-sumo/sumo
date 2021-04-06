@@ -688,8 +688,8 @@ Vehicle::getNeighbors(const std::string& vehID, const int mode) {
                     std::swap(follower, leader);
                 }
                 const double secureGap = (follower->getCarFollowModel().getSecureGap(
-                            follower, leader, follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel())
-                        * follower->getLaneChangeModel().getSafetyFactor());
+                                              follower, leader, follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel())
+                                          * follower->getLaneChangeModel().getSafetyFactor());
                 if (n.second < secureGap) {
                     blockers.addLeader(n.first, n.second, 0, i);
                 }
@@ -948,7 +948,7 @@ Vehicle::replaceStop(const std::string& vehID,
         }
     } else {
         SUMOVehicleParameter::Stop stopPars = buildStopParameters(edgeID,
-                pos, laneIndex, startPos, flags, duration, until);
+                                              pos, laneIndex, startPos, flags, duration, until);
 
         std::string error;
         if (!vehicle->replaceStop(nextStopIndex, stopPars, "traci:replaceStop", teleport != 0, error)) {
@@ -1999,7 +1999,7 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Vehicle, VEHICLE)
 void
 Vehicle::subscribeLeader(const std::string& vehID, double dist, double begin, double end) {
     subscribe(vehID, std::vector<int>({ libsumo::VAR_LEADER }), begin, end,
-              libsumo::TraCIResults({ {libsumo::VAR_LEADER, std::make_shared<libsumo::TraCIDouble>(dist)} }));
+    libsumo::TraCIResults({ {libsumo::VAR_LEADER, std::make_shared<libsumo::TraCIDouble>(dist)} }));
 }
 
 

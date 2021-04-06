@@ -57,7 +57,7 @@
 
 void fillOptions();
 bool checkOptions();
-NGNet* buildNetwork(NBNetBuilder & nb);
+NGNet* buildNetwork(NBNetBuilder& nb);
 
 // ===========================================================================
 // method definitions

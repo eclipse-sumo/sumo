@@ -347,7 +347,7 @@ MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicl
         return myFreeSublanes;
     }
     const double requiredGap = (myHaveOppositeLeaders ? 0
-        : veh->getCarFollowModel().getSecureGap(veh, ego, veh->getSpeed(), ego->getSpeed(), ego->getCarFollowModel().getMaxDecel()));
+                                : veh->getCarFollowModel().getSecureGap(veh, ego, veh->getSpeed(), ego->getSpeed(), ego->getCarFollowModel().getMaxDecel()));
     const double missingGap = requiredGap - gap;
     /*
     if (ego->getID() == "disabled" || gDebugFlag1) {

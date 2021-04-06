@@ -324,8 +324,8 @@ NBHeightMapper::loadTiff(const std::string& file) {
     GDALClose(poDataset);
     if (ok) {
         WRITE_MESSAGE("Read geotiff heightmap with size " + toString(xSize) + "," + toString(ySize)
-                + " for geo boundary [" + toString(boundary)
-                + "] with elevation range [" + toString(min) + "," + toString(max) + "].");
+                      + " for geo boundary [" + toString(boundary)
+                      + "] with elevation range [" + toString(min) + "," + toString(max) + "].");
         RasterData rasterData;
         rasterData.raster = raster;
         rasterData.boundary = boundary;

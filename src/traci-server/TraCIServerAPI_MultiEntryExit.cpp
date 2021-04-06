@@ -51,7 +51,7 @@ TraCIServerAPI_MultiEntryExit::processGet(TraCIServer& server, tcpip::Storage& i
 
 bool
 TraCIServerAPI_MultiEntryExit::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
-                                      tcpip::Storage& outputStorage) {
+        tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();

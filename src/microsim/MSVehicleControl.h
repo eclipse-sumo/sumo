@@ -81,7 +81,7 @@ public:
     virtual ~MSVehicleControl();
 
     /// @brief create default types
-    void initDefaultTypes(); 
+    void initDefaultTypes();
 
     /// @name Vehicle creation
     /// @{

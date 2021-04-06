@@ -965,25 +965,25 @@ GNEInspectorFrame::AdditionalDialog::showAdditionalDialog() {
         const GNEAttributeCarrier* AC = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
         // check AC
         if (AC->getTagProperty().getTag() == SUMO_TAG_REROUTER) {
-            // update button 
+            // update button
             myOpenAdditionalDialog->setText("Open Rerouter dialog");
             myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::REROUTER));
             // show modul
             show();
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_CALIBRATOR) {
-            // update button 
+            // update button
             myOpenAdditionalDialog->setText("Open Calibrator dialog");
             myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR));
             // show modul
             show();
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_LANECALIBRATOR) {
-            // update button 
+            // update button
             myOpenAdditionalDialog->setText("Open Lane Calibrator dialog");
             myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR));
             // show modul
             show();
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_VSS) {
-            // update button 
+            // update button
             myOpenAdditionalDialog->setText("Open VSS dialog");
             myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::VARIABLESPEEDSIGN));
             // show modul
@@ -1094,21 +1094,18 @@ GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition,
                 // toggle networkElement selection
                 if (objectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     objectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
-                }
-                else {
+                } else {
                     objectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
                 }
             }
-        }
-        else {
+        } else {
             // first check if we clicked over a OverlappedInspection point
             if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
                 if (!myOverlappedInspection->previousElement(clickedPosition)) {
                     // inspect attribute carrier, (or multiselection if AC is selected)
                     inspectClickedElement(objectsUnderCursor, clickedPosition);
                 }
-            }
-            else  if (!myOverlappedInspection->nextElement(clickedPosition)) {
+            } else  if (!myOverlappedInspection->nextElement(clickedPosition)) {
                 // inspect attribute carrier, (or multiselection if AC is selected)
                 inspectClickedElement(objectsUnderCursor, clickedPosition);
             }
@@ -1116,8 +1113,7 @@ GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition,
             focusUpperElement();
         }
         return true;
-    }
-    else {
+    } else {
         return false;
     }
 }
@@ -1134,21 +1130,18 @@ GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, 
                 // toggle networkElement selection
                 if (objectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     objectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
-                }
-                else {
+                } else {
                     objectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
                 }
             }
-        }
-        else {
+        } else {
             // first check if we clicked over a OverlappedInspection point
             if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
                 if (!myOverlappedInspection->previousElement(clickedPosition)) {
                     // inspect attribute carrier, (or multiselection if AC is selected)
                     inspectClickedElement(objectsUnderCursor, clickedPosition);
                 }
-            }
-            else  if (!myOverlappedInspection->nextElement(clickedPosition)) {
+            } else  if (!myOverlappedInspection->nextElement(clickedPosition)) {
                 // inspect attribute carrier, (or multiselection if AC is selected)
                 inspectClickedElement(objectsUnderCursor, clickedPosition);
             }
@@ -1156,8 +1149,7 @@ GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, 
             focusUpperElement();
         }
         return true;
-    }
-    else {
+    } else {
         return false;
     }
 }
@@ -1174,21 +1166,18 @@ GNEInspectorFrame::processDataSupermodeClick(const Position& clickedPosition, GN
                 // toggle networkElement selection
                 if (objectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     objectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
-                }
-                else {
+                } else {
                     objectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
                 }
             }
-        }
-        else {
+        } else {
             // first check if we clicked over a OverlappedInspection point
             if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
                 if (!myOverlappedInspection->previousElement(clickedPosition)) {
                     // inspect attribute carrier, (or multiselection if AC is selected)
                     inspectClickedElement(objectsUnderCursor, clickedPosition);
                 }
-            }
-            else  if (!myOverlappedInspection->nextElement(clickedPosition)) {
+            } else  if (!myOverlappedInspection->nextElement(clickedPosition)) {
                 // inspect attribute carrier, (or multiselection if AC is selected)
                 inspectClickedElement(objectsUnderCursor, clickedPosition);
             }
@@ -1196,8 +1185,7 @@ GNEInspectorFrame::processDataSupermodeClick(const Position& clickedPosition, GN
             focusUpperElement();
         }
         return true;
-    }
-    else {
+    } else {
         return false;
     }
 }
@@ -1219,8 +1207,7 @@ GNEInspectorFrame::inspectSingleElement(GNEAttributeCarrier* AC) {
                     itemsToInspect.push_back(i);
                 }
             }
-        }
-        else {
+        } else {
             itemsToInspect.push_back(AC);
         }
     }
@@ -1250,32 +1237,23 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         std::string headerString;
         if (ACs.front()->getTagProperty().isNetworkElement()) {
             headerString = "Net: ";
-        }
-        else if (ACs.front()->getTagProperty().isAdditionalElement()) {
+        } else if (ACs.front()->getTagProperty().isAdditionalElement()) {
             headerString = "Additional: ";
-        }
-        else if (ACs.front()->getTagProperty().isShape()) {
+        } else if (ACs.front()->getTagProperty().isShape()) {
             headerString = "Shape: ";
-        }
-        else if (ACs.front()->getTagProperty().isTAZElement()) {
+        } else if (ACs.front()->getTagProperty().isTAZElement()) {
             headerString = "TAZ: ";
-        }
-        else if (ACs.front()->getTagProperty().isVehicle()) {
+        } else if (ACs.front()->getTagProperty().isVehicle()) {
             headerString = "Vehicle: ";
-        }
-        else if (ACs.front()->getTagProperty().isRoute()) {
+        } else if (ACs.front()->getTagProperty().isRoute()) {
             headerString = "Route: ";
-        }
-        else if (ACs.front()->getTagProperty().isPerson()) {
+        } else if (ACs.front()->getTagProperty().isPerson()) {
             headerString = "Person: ";
-        }
-        else if (ACs.front()->getTagProperty().isPersonPlan()) {
+        } else if (ACs.front()->getTagProperty().isPersonPlan()) {
             headerString = "PersonPlan: ";
-        }
-        else if (ACs.front()->getTagProperty().isStop()) {
+        } else if (ACs.front()->getTagProperty().isStop()) {
             headerString = "Stop: ";
-        }
-        else if (ACs.front()->getTagProperty().isDataElement()) {
+        } else if (ACs.front()->getTagProperty().isDataElement()) {
             headerString = "Data: ";
         }
         if (ACs.size() > 1) {
@@ -1310,8 +1288,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         if (ACs.size() == 1) {
             myHierarchicalElementTree->showHierarchicalElementTree(ACs.front());
         }
-    }
-    else {
+    } else {
         getFrameHeaderLabel()->setText("Inspect");
         myContentFrame->recalc();
     }
@@ -1394,8 +1371,7 @@ GNEInspectorFrame::onCmdGoBack(FXObject*, FXSelector, void*) {
     if (myPreviousElementInspect) {
         inspectSingleElement(myPreviousElementInspect);
         myPreviousElementInspect = nullptr;
-    }
-    else if (myPreviousElementDelete != nullptr) {
+    } else if (myPreviousElementDelete != nullptr) {
         myPreviousElementDelete = nullptr;
         // Hide inspect frame and show delete frame
         hide();
@@ -1421,8 +1397,7 @@ GNEInspectorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
     // if AC is a lane but selectEdges checkBox is enabled, then inspect their parent edge
     if (AC->getTagProperty().getTag() == SUMO_TAG_LANE && myViewNet->getNetworkViewOptions().selectEdges()) {
         inspectSingleElement(dynamic_cast<GNELane*>(AC)->getParentEdge());
-    }
-    else {
+    } else {
         inspectSingleElement(AC);
     }
     // update view (due dotted contour)

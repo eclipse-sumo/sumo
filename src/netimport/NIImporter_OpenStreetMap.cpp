@@ -934,7 +934,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         }
         if (myAllAttributes && (myExtraAttributes.count(key) != 0 || myExtraAttributes.size() == 0)) {
             const std::string info = "way=" + toString(myCurrentEdge->id) + ", k=" + key;
-            myCurrentEdge->setParameter(key, attrs.get<std::string>(SUMO_ATTR_V, info.c_str(), ok, false)); 
+            myCurrentEdge->setParameter(key, attrs.get<std::string>(SUMO_ATTR_V, info.c_str(), ok, false));
         }
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
         if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes")
@@ -1932,7 +1932,7 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
         }
 
         WRITE_MESSAGE("Adding new type '" + type + "' (first occurence for edge '" + id + "').");
-        tc.insertEdgeType(newType, numLanes, maxSpeed, prio, permissions, spreadType, width, 
+        tc.insertEdgeType(newType, numLanes, maxSpeed, prio, permissions, spreadType, width,
                           defaultIsOneWay, sidewalkWidth, bikelaneWidth, 0, 0, 0);
         for (auto& type3 : types) {
             if (!tc.getEdgeTypeShallBeDiscarded(type3)) {

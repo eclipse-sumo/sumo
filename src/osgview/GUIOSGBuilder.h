@@ -32,13 +32,13 @@
 // ===========================================================================
 
 namespace osg {
-    class Node;
-    class Group;
-    class PositionAttitudeTransform;
+class Node;
+class Group;
+class PositionAttitudeTransform;
 }
 
 namespace osgUtil {
-    class Tessellator;
+class Tessellator;
 }
 
 class MSVehicleType;

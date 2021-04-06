@@ -141,7 +141,7 @@ MSSOTLTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 WRITE_MESSAGE("Listing lanes for TLS " + getID());
 
                 for (int i = 0; i < lvv.size(); i++) {
-                LaneVector lv = lvv[i];
+                    LaneVector lv = lvv[i];
 
                     for (int j = 0; j < lv.size(); j++) {
                         MSLane* lane = lv[j];
@@ -301,7 +301,7 @@ MSSOTLTrafficLightLogic::isThresholdPassed() {
     //	WRITE_MESSAGE("\n" +time2string(MSNet::getInstance()->getCurrentTimeStep()) +"\tMSSOTLTrafficLightLogic::isThresholdPassed()::  " + " tlsid=" + getID());
 
     std::ostringstream threshold_str;
-        //	threshold_str << "tlsid=" << getID() << " targetPhaseCTS size=" << targetPhasesCTS.size();
+    //	threshold_str << "tlsid=" << getID() << " targetPhaseCTS size=" << targetPhasesCTS.size();
 //			threshold_str << "\n";
     WRITE_MESSAGE(threshold_str.str());
 #endif
@@ -331,8 +331,8 @@ MSSOTLTrafficLightLogic::isThresholdPassed() {
             //	threshold_str <<"\tTL " +getID()<<" time " +time2string(step)<< "(getThreshold()= " << getThreshold()
             //		<< ", targetPhaseCTS= " << iterator->second << " )" << " phase="<<getPhase(iterator->first).getState();
             threshold_str << getCurrentPhaseDef().getState() << ";" << time2string(step) << ";" << getThreshold()
-            << ";" << iterator->second << ";" << getPhase(iterator->first).getState() << ";"
-            << iterator->first << "!=" << lastChain;
+                          << ";" << iterator->second << ";" << getPhase(iterator->first).getState() << ";"
+                          << iterator->first << "!=" << lastChain;
             WRITE_MESSAGE(threshold_str.str());
 #endif
             //Note that the current chain is not eligible to be directly targeted again, it would be unfair
@@ -490,8 +490,8 @@ MSSOTLTrafficLightLogic::trySwitch() {
             }
 #ifdef ANALYSIS_DEBUG
             std::ostringstream oss;
-                oss << getID() << " from " << getPhase(previousStep).getState() << " to " << currentPhase.getState() << " after " << time2string(elapsed);
-                WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + "\tMSSOTLTrafficLightLogic::trySwitch " + oss.str());
+            oss << getID() << " from " << getPhase(previousStep).getState() << " to " << currentPhase.getState() << " after " << time2string(elapsed);
+            WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + "\tMSSOTLTrafficLightLogic::trySwitch " + oss.str());
 #endif
         }
     }

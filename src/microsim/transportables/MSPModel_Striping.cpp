@@ -119,7 +119,7 @@ MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) :
     MSVehicleType* defaultPedType = MSNet::getInstance()->getVehicleControl().getVType(DEFAULT_PEDTYPE_ID, nullptr, true);
     if (defaultPedType != nullptr && defaultPedType->getWidth() > stripeWidth) {
         WRITE_WARNINGF("Pedestrian vType '%' width % is larger than pedestrian.striping.stripe-width and this may cause collisions with vehicles.",
-                DEFAULT_PEDTYPE_ID, defaultPedType->getWidth());
+                       DEFAULT_PEDTYPE_ID, defaultPedType->getWidth());
     }
 
     dawdling = oc.getFloat("pedestrian.striping.dawdling");
@@ -980,7 +980,7 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                             const double b = tan(angleDiff) * veh->getVehicleType().getWidth();
                             if (b <= veh->getVehicleType().getLength()) {
                                 const double a = veh->getVehicleType().getWidth();
-                                xWidth = sqrt(a*a + b*b);
+                                xWidth = sqrt(a * a + b * b);
                             } else {
                                 // XXX actually xWidth shrints towards car length while angleDiff approachess 90
                                 xWidth = veh->getVehicleType().getLength();
@@ -1000,12 +1000,12 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                             const bool addBack = addVehicleFoe(veh, lane, relPos2, xWidth, lateral_offset, minY, maxY, toDelete, transformedPeds);
                             if (path == debugPath) {
                                 std::cout << "  veh=" << veh->getID()
-                                    << " pos=" << veh->getPosition() << " back=" << veh->getBackPosition()
-                                    << " vehAngle=" << RAD2DEG(veh->getAngle())
-                                    << " shapeAngle=" << RAD2DEG(shapeAngle)
-                                    << " angleDiff=" << RAD2DEG(angleDiff) << " xWidth=" << xWidth
-                                    << " correctY=" << correctY
-                                    << " vecCoord=" << relPos << " vecCoordBack=" << relPos2 << "\n";
+                                          << " pos=" << veh->getPosition() << " back=" << veh->getBackPosition()
+                                          << " vehAngle=" << RAD2DEG(veh->getAngle())
+                                          << " shapeAngle=" << RAD2DEG(shapeAngle)
+                                          << " angleDiff=" << RAD2DEG(angleDiff) << " xWidth=" << xWidth
+                                          << " correctY=" << correctY
+                                          << " vecCoord=" << relPos << " vecCoordBack=" << relPos2 << "\n";
                             }
                             if (addFront && addBack) {
                                 // add in-between positions

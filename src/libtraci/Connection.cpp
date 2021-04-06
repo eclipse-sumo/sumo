@@ -188,7 +188,7 @@ Connection::createCommand(int cmdID, int varID, const std::string* const objID, 
 
 void
 Connection::subscribe(int domID, const std::string& objID, double beginTime, double endTime,
-    int domain, double range, const std::vector<int>& vars, const libsumo::TraCIResults& params) {
+                      int domain, double range, const std::vector<int>& vars, const libsumo::TraCIResults& params) {
     if (!mySocket.has_client_connection()) {
         throw tcpip::SocketException("Socket is not initialised");
     }
@@ -212,10 +212,10 @@ Connection::subscribe(int domID, const std::string& objID, double beginTime, dou
             // default for detectors is vehicle number, for all others (and contexts) id list
             outMsg.writeUnsignedByte(1);
             const bool isDetector = domID == libsumo::CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE
-				|| domID == libsumo::CMD_SUBSCRIBE_LANEAREA_VARIABLE
-				|| domID == libsumo::CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE
-				|| domID == libsumo::CMD_SUBSCRIBE_LANE_VARIABLE
-				|| domID == libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE;
+                                    || domID == libsumo::CMD_SUBSCRIBE_LANEAREA_VARIABLE
+                                    || domID == libsumo::CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE
+                                    || domID == libsumo::CMD_SUBSCRIBE_LANE_VARIABLE
+                                    || domID == libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE;
             outMsg.writeUnsignedByte(isDetector ? libsumo::LAST_STEP_VEHICLE_NUMBER : libsumo::TRACI_ID_LIST);
         }
     } else {

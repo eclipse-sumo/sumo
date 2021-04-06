@@ -193,7 +193,7 @@ GNETagProperties::end() const {
 }
 
 
-const GNEAttributeProperties& 
+const GNEAttributeProperties&
 GNETagProperties::at(int index) const {
     return myAttributeProperties.at(index);
 }

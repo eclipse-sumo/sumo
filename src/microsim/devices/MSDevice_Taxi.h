@@ -83,10 +83,10 @@ public:
 
     /// @brief retract reservation
     static void removeReservation(MSTransportable* person,
-                              const std::set<std::string>& lines,
-                              const MSEdge* from, double fromPos,
-                              const MSEdge* to, double toPos,
-                              const std::string& group);
+                                  const std::set<std::string>& lines,
+                                  const MSEdge* from, double fromPos,
+                                  const MSEdge* to, double toPos,
+                                  const std::string& group);
 
     /// @brief period command to trigger the dispatch algorithm
     static SUMOTime triggerDispatch(SUMOTime currentTime);

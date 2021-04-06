@@ -50,9 +50,9 @@ public:
     };
 
     /// @brief constructor
-    GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode supermode, 
-                  SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, 
-                  const std::string &defaultValue);
+    GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode supermode,
+                  SumoXMLTag defaultTag, SumoXMLAttr defaultAttr,
+                  const std::string& defaultValue);
 
     /// @brief destructor
     ~GNEElementSet();

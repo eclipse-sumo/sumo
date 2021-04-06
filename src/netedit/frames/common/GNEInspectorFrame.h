@@ -220,7 +220,7 @@ public:
         const TemplateEditor::EdgeTemplate& getEdgeTemplate() const;
 
         /// @brief update edge template
-        void updateEdgeTemplate(const GNEEdge *edge);
+        void updateEdgeTemplate(const GNEEdge* edge);
 
         /// @brief set template (used by shortcut)
         void setTemplate();

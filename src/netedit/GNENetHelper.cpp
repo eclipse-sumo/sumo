@@ -542,7 +542,7 @@ GNENetHelper::AttributeCarriers::deleteEdgeType(GNEEdgeType* edgeType) {
     // update edge selector
     if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
-    }  
+    }
 }
 
 
@@ -711,7 +711,7 @@ GNENetHelper::AttributeCarriers::updateAdditionalID(GNEAttributeCarrier* AC, con
 bool
 GNENetHelper::AttributeCarriers::shapeExist(const GNEShape* shape) const {
     // get tag (due POIs)
-    SumoXMLTag shapeTag = (shape->getTagProperty().getTag() == SUMO_TAG_POILANE)? SUMO_TAG_POI : shape->getTagProperty().getTag();
+    SumoXMLTag shapeTag = (shape->getTagProperty().getTag() == SUMO_TAG_POILANE) ? SUMO_TAG_POI : shape->getTagProperty().getTag();
     // first check that shape pointer is valid
     if (shape) {
         return myShapes.at(shapeTag).find(shape->getID()) != myShapes.at(shapeTag).end();
@@ -724,7 +724,7 @@ GNENetHelper::AttributeCarriers::shapeExist(const GNEShape* shape) const {
 void
 GNENetHelper::AttributeCarriers::insertShape(GNEShape* shape) {
     // get tag (due POIs)
-    SumoXMLTag shapeTag = (shape->getTagProperty().getTag() == SUMO_TAG_POILANE)? SUMO_TAG_POI : shape->getTagProperty().getTag();
+    SumoXMLTag shapeTag = (shape->getTagProperty().getTag() == SUMO_TAG_POILANE) ? SUMO_TAG_POI : shape->getTagProperty().getTag();
     // Check if shape element exists before insertion
     if (!shapeExist(shape)) {
         myShapes.at(shapeTag).insert(std::make_pair(shape->getID(), shape));
@@ -745,7 +745,7 @@ GNENetHelper::AttributeCarriers::insertShape(GNEShape* shape) {
 void
 GNENetHelper::AttributeCarriers::deleteShape(GNEShape* shape) {
     // get tag (due POIs)
-    SumoXMLTag shapeTag = (shape->getTagProperty().getTag() == SUMO_TAG_POILANE)? SUMO_TAG_POI : shape->getTagProperty().getTag();
+    SumoXMLTag shapeTag = (shape->getTagProperty().getTag() == SUMO_TAG_POILANE) ? SUMO_TAG_POI : shape->getTagProperty().getTag();
     // first check that shape pointer is valid
     if (shapeExist(shape)) {
         // remove it from inspected elements and HierarchicalElementTree
@@ -767,7 +767,7 @@ GNENetHelper::AttributeCarriers::deleteShape(GNEShape* shape) {
 void
 GNENetHelper::AttributeCarriers::updateShapeID(GNEAttributeCarrier* AC, const std::string& newID) {
     // get tag (due POIs)
-    SumoXMLTag shapeTag = (AC->getTagProperty().getTag() == SUMO_TAG_POILANE)? SUMO_TAG_POI : AC->getTagProperty().getTag();
+    SumoXMLTag shapeTag = (AC->getTagProperty().getTag() == SUMO_TAG_POILANE) ? SUMO_TAG_POI : AC->getTagProperty().getTag();
     // continue
     if (myShapes.at(shapeTag).count(AC->getID()) == 0) {
         throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.shapes");

@@ -252,14 +252,14 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
         // adding node and edge with a different naming scheme to keep the original edge id for easier route repair
         NBNode* intermediate = new NBNode(id + ".0", toNode->getPosition() + Position(POSITION_EPS, POSITION_EPS));
         if (myNodeCont.insert(intermediate)) {
-            insertEdge(id + ".0", intermediate, toNode, freeSpeed, (int) (permLanes + 0.5), capacity, length);
+            insertEdge(id + ".0", intermediate, toNode, freeSpeed, (int)(permLanes + 0.5), capacity, length);
             toNode = intermediate;
         } else {
             delete intermediate;
             WRITE_ERROR("Could not add intermediate node to split loop edge '" + id + "'.");
         }
     }
-    insertEdge(id, fromNode, toNode, freeSpeed, (int) (permLanes + 0.5), capacity, length);
+    insertEdge(id, fromNode, toNode, freeSpeed, (int)(permLanes + 0.5), capacity, length);
 }
 
 

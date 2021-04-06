@@ -50,8 +50,8 @@ public:
 #endif
 
     static std::pair<int, std::string> start(const std::vector<std::string>& cmd, int port = -1, int numRetries = libsumo::DEFAULT_NUM_RETRIES,
-                                             const std::string& label = "default", const bool verbose = false,
-                                             const std::string& traceFile = "", bool traceGetters = true, void* _stdout = nullptr);
+            const std::string& label = "default", const bool verbose = false,
+            const std::string& traceFile = "", bool traceGetters = true, void* _stdout = nullptr);
 
     /// @brief load a simulation with the given arguments
     static void load(const std::vector<std::string>& args);

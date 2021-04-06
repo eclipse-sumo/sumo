@@ -382,7 +382,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
         // Push layer matrix
         glPushMatrix();
         // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CONNECTION, (editedNetworkElement == this)? 1 : 0);
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CONNECTION, (editedNetworkElement == this) ? 1 : 0);
         // Set color
         GLHelper::setColor(connectionColor);
         if ((s.scale * selectionScale < 5.) && !s.drawForRectangleSelection) {

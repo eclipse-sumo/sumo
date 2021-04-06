@@ -185,16 +185,16 @@ Person::filterReservation(int stateFilter, const Reservation* res, std::vector<l
     }
     std::sort(personIDs.begin(), personIDs.end());
     reservations.push_back(TraCIReservation(res->id,
-                personIDs,
-                res->group,
-                res->from->getID(),
-                res->to->getID(),
-                res->fromPos,
-                res->toPos,
-                STEPS2TIME(res->pickupTime),
-                STEPS2TIME(res->reservationTime),
-                res->state
-                ));
+                                            personIDs,
+                                            res->group,
+                                            res->from->getID(),
+                                            res->to->getID(),
+                                            res->fromPos,
+                                            res->toPos,
+                                            STEPS2TIME(res->pickupTime),
+                                            STEPS2TIME(res->reservationTime),
+                                            res->state
+                                           ));
     return true;
 }
 

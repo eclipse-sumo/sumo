@@ -131,7 +131,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
         }
     }
     // reset all vehicles that were in influencedVehicles in the previous step but not in the current step todo refactor
-    for (auto elem : lastStepInfluencedVehicles){
+    for (auto elem : lastStepInfluencedVehicles) {
         influencedVehicles.erase(elem);
         std::map<std::string, std::string>::iterator it = influencedTypes.find(elem);
         MSVehicle* veh2 = dynamic_cast<MSVehicle*>(vc.getVehicle(elem));
@@ -142,9 +142,9 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
             if (targetType != nullptr) {
                 veh2->replaceVehicleType(targetType);
                 veh2->getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_STRATEGIC_PARAM),
-                    targetType->getParameter().getLCParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "1"));
+                                                        targetType->getParameter().getLCParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "1"));
             }
-        }    
+        }
     }
 
     for (std::string vehID : myUpcomingVehicles) {

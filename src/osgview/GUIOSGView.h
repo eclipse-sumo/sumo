@@ -47,8 +47,8 @@ class MSTransportable;
 class MSVehicle;
 
 namespace osgGA {
-    class CameraManipulator;
-    class NodeTrackerManipulator;
+class CameraManipulator;
+class NodeTrackerManipulator;
 }
 
 // ===========================================================================

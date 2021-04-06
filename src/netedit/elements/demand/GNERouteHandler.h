@@ -251,7 +251,7 @@ protected:
 
     /// @brief Ends the processing of a containerFlow
     void closeContainerFlow();
-    
+
     /// @brief Ends the processing of a routeFlow
     void closeFlow();
 

@@ -38,7 +38,7 @@ class FXMenuCheckIcon : public FXMenuCommand {
 
 public:
     /// @brief Construct a menu check
-    FXMenuCheckIcon(FXComposite* p, const FXString& text, const FXIcon* icon, FXObject* tgt=NULL, FXSelector sel=0, FXuint opts=0);
+    FXMenuCheckIcon(FXComposite* p, const FXString& text, const FXIcon* icon, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = 0);
 
     /// @brief Return default width
     virtual FXint getDefaultWidth();
@@ -47,7 +47,7 @@ public:
     virtual FXint getDefaultHeight();
 
     /// @brief Set check state (TRUE, FALSE or MAYBE)
-    void setCheck(FXbool s=TRUE);
+    void setCheck(FXbool s = TRUE);
 
     /// @brief Get check state (TRUE, FALSE or MAYBE)
     FXbool getCheck() const;

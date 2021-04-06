@@ -230,7 +230,7 @@ MEVehicle::checkStop(SUMOTime time) {
                 MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
             } else {
                 WRITE_WARNING("Vehicle '" + getID() + "' has multiple stops on segment '" + mySegment->getID()
-                        + "', time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " (stop-output will be merged)");
+                              + "', time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " (stop-output will be merged)");
             }
         }
         hadStop = true;

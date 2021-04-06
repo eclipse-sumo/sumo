@@ -243,7 +243,7 @@ NBPTLine::deleteInvalidStops(const NBEdgeCont& ec, const NBPTStopCont& sc) {
     // delete stops that are missing or have no edge
     for (auto it = myPTStops.begin(); it != myPTStops.end();) {
         NBPTStop* stop = *it;
-        if (sc.get(stop->getID()) == nullptr || 
+        if (sc.get(stop->getID()) == nullptr ||
                 ec.getByID(stop->getEdgeId()) == nullptr) {
             WRITE_WARNINGF("Removed invalid stop '%' from line '%'.", stop->getID(), getLineID());
             it = myPTStops.erase(it);

@@ -72,12 +72,12 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 
 GNERoute::GNERoute(GNENet* net) :
     GNEDemandElement(net->generateDemandElementID(SUMO_TAG_ROUTE), net, GLO_ROUTE, SUMO_TAG_ROUTE,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myColor(RGBColor::YELLOW),
-    myRepeat(0),
-    myCycleTime(0),
-    myVClass(SVC_PASSENGER) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+Parameterised(),
+myColor(RGBColor::YELLOW),
+myRepeat(0),
+myCycleTime(0),
+myVClass(SVC_PASSENGER) {
     // compute route
     computePath();
 }
@@ -85,12 +85,12 @@ GNERoute::GNERoute(GNENet* net) :
 
 GNERoute::GNERoute(GNENet* net, const GNERouteHandler::RouteParameter& routeParameters) :
     GNEDemandElement(routeParameters.routeID, net, GLO_ROUTE, SUMO_TAG_ROUTE,
-        {}, routeParameters.edges, {}, {}, {}, {}, {}, {}),
-    Parameterised(routeParameters.parameters),
-    myColor(routeParameters.color),
-    myRepeat(routeParameters.repeat),
-    myCycleTime(routeParameters.cycleTime),
-    myVClass(routeParameters.vClass) {
+{}, routeParameters.edges, {}, {}, {}, {}, {}, {}),
+Parameterised(routeParameters.parameters),
+myColor(routeParameters.color),
+myRepeat(routeParameters.repeat),
+myCycleTime(routeParameters.cycleTime),
+myVClass(routeParameters.vClass) {
     // compute route
     computePath();
 }
@@ -98,12 +98,12 @@ GNERoute::GNERoute(GNENet* net, const GNERouteHandler::RouteParameter& routePara
 
 GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter& routeParameters) :
     GNEDemandElement(vehicleParent, net, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED,
-        {}, routeParameters.edges, {}, {}, {}, {}, {vehicleParent}, {}),
-    Parameterised(routeParameters.parameters),
-    myColor(routeParameters.color),
-    myRepeat(routeParameters.repeat),
-    myCycleTime(routeParameters.cycleTime),
-    myVClass(routeParameters.vClass) {
+{}, routeParameters.edges, {}, {}, {}, {}, {vehicleParent}, {}),
+Parameterised(routeParameters.parameters),
+myColor(routeParameters.color),
+myRepeat(routeParameters.repeat),
+myCycleTime(routeParameters.cycleTime),
+myVClass(routeParameters.vClass) {
     // compute route
     computePath();
 }
@@ -111,12 +111,12 @@ GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const GNERouteH
 
 GNERoute::GNERoute(GNEDemandElement* route) :
     GNEDemandElement(route, route->getNet(), GLO_ROUTE, SUMO_TAG_ROUTE,
-    {}, route->getParentEdges(), {}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myColor(route->getColor()),
-    myRepeat(parse<int>(route->getAttribute(SUMO_ATTR_REPEAT))),
-    myCycleTime(parse<SUMOTime>(route->getAttribute(SUMO_ATTR_CYCLETIME))),
-    myVClass(route->getVClass()) {
+{}, route->getParentEdges(), {}, {}, {}, {}, {}, {}),
+Parameterised(),
+myColor(route->getColor()),
+myRepeat(parse<int>(route->getAttribute(SUMO_ATTR_REPEAT))),
+myCycleTime(parse<SUMOTime>(route->getAttribute(SUMO_ATTR_CYCLETIME))),
+myVClass(route->getVClass()) {
     // compute route
     computePath();
 }

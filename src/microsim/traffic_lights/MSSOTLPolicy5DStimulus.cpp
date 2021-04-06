@@ -49,7 +49,8 @@ double MSSOTLPolicy5DStimulus::computeDesirability(double vehInMeasure, double v
 #ifdef SWARM_DEBUG
     std::ostringstream str;
     str << "cox=" << getStimCox() << ", cox_exp_in=" << getStimCoxExpIn() << ", cox_exp_out=" << getStimCoxExpOut()
-    << ", off_in=" << getStimOffsetIn() << ", off_out=" << getStimOffsetOut() << ", div_in=" << getStimDivisorIn() << ", div_out=" << getStimDivisorOut(); WRITE_MESSAGE(str.str());
+        << ", off_in=" << getStimOffsetIn() << ", off_out=" << getStimOffsetOut() << ", div_in=" << getStimDivisorIn() << ", div_out=" << getStimDivisorOut();
+    WRITE_MESSAGE(str.str());
 #endif
     //		it seems to be not enough, a strange segmentation fault appears...
     //	 if((getStimCoxExpIn()!=0.0 && getStimDivisorIn()==0.0)||(getStimCoxExpOut()!=0.0 && getStimDivisorOut()==0.0)){

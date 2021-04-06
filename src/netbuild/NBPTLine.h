@@ -39,8 +39,8 @@ class NBPTLine {
 
 public:
     NBPTLine(const std::string& id, const std::string& name,
-                      const std::string& type, const std::string& ref, int interval, const std::string& nightService,
-                      SUMOVehicleClass vClass);
+             const std::string& type, const std::string& ref, int interval, const std::string& nightService,
+             SUMOVehicleClass vClass);
 
     void addPTStop(NBPTStop* pStop);
 

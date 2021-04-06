@@ -144,11 +144,11 @@ public:
 
     private:
         /// @brief pointer to move frame parent
-        GNEMoveFrame *myMoveFrameParent;
+        GNEMoveFrame* myMoveFrameParent;
 
         /// @brief textField for Z value
         FXTextField* myZValueTextField = nullptr;
-        
+
         /// @brief radio button for absolute value
         FXRadioButton* myAbsoluteValue = nullptr;
 
@@ -156,7 +156,7 @@ public:
         FXRadioButton* myRelativeValue = nullptr;
 
         /// @brief info label
-        FXLabel *myInfoLabel = nullptr;
+        FXLabel* myInfoLabel = nullptr;
     };
 
     // ===========================================================================
@@ -234,10 +234,10 @@ public:
 
 private:
     /// @brief modul for NetworkMode Options
-    NetworkModeOptions *myNetworkModeOptions = nullptr;
+    NetworkModeOptions* myNetworkModeOptions = nullptr;
 
     /// @brief modul for shift edge geometry
-    ShiftEdgeGeometry *myShiftEdgeGeometry = nullptr;
+    ShiftEdgeGeometry* myShiftEdgeGeometry = nullptr;
 
     /// @brief modul for change Z in selection
     ChangeZInSelection* myChangeZInSelection = nullptr;

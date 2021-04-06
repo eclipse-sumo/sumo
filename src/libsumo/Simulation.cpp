@@ -69,7 +69,7 @@ ContextSubscriptionResults Simulation::myContextSubscriptionResults;
 // ===========================================================================
 std::pair<int, std::string>
 Simulation::start(const std::vector<std::string>& cmd, int /* port */, int /* numRetries */, const std::string& /* label */, const bool /* verbose */,
-    const std::string& /* traceFile */, bool /* traceGetters */, void* /* _stdout */) {
+                  const std::string& /* traceFile */, bool /* traceGetters */, void* /* _stdout */) {
     load(std::vector<std::string>(cmd.begin() + 1, cmd.end()));
     return getVersion();
 }
@@ -763,7 +763,7 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
 LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Simulation)
 
 void
-Simulation::setParameter(const std::string& objectID, const std::string& param, const std::string& value ) {
+Simulation::setParameter(const std::string& objectID, const std::string& param, const std::string& value) {
     if (objectID == "") {
         MSNet::getInstance()->setParameter(param, value);
     } else {

@@ -916,7 +916,7 @@ NBEdge::setLaneSpreadFunction(LaneSpreadFunction spread) {
 }
 
 
-LaneSpreadFunction 
+LaneSpreadFunction
 NBEdge::getLaneSpreadFunction() const {
     return myLaneSpreadFunction;
 }
@@ -1057,7 +1057,7 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
         return false;
     }
     return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed, length,
-            customShape, uncontrolled, permissions, changeLeft, changeRight, postProcess);
+                         customShape, uncontrolled, permissions, changeLeft, changeRight, postProcess);
 }
 
 

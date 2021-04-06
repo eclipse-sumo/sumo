@@ -2026,7 +2026,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #ifdef DEBUG_PLAN_MOVE
     if (DEBUG_COND) {
         std::cout << "   dist=" << dist << " bestLaneConts=" << toString(bestLaneConts)
-            << "\n   maxV=" << maxV << " laneMaxV=" << laneMaxV << " v=" << v << "\n";
+                  << "\n   maxV=" << maxV << " laneMaxV=" << laneMaxV << " v=" << v << "\n";
     }
 #endif
     assert(bestLaneConts.size() > 0);
@@ -2107,7 +2107,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                         // ego posLat is added when retrieving sublanes but it
                         // should be negated (subtract twice to compensate)
                         latOffset = ((myLane->getWidth() + shadowLane->getWidth()) * 0.5
-                                - 2 * getLateralPositionOnLane());
+                                     - 2 * getLateralPositionOnLane());
 
                     }
                     MSLeaderInfo shadowLeaders = shadowLane->getLastVehicleInformation(this, latOffset, lane->getLength() - seen);
@@ -2129,7 +2129,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #ifdef DEBUG_PLAN_MOVE
                     if (DEBUG_COND) {
                         std::cout << SIMTIME << " opposite shadows veh=" << getID() << " shadowLane=" << shadowLane->getID()
-                            << " latOffset=" << latOffset << " shadowLeaders=" << shadowLeaders.toString() << "\n";
+                                  << " latOffset=" << latOffset << " shadowLeaders=" << shadowLeaders.toString() << "\n";
                     }
 #endif
                     shadowLeaders.fixOppositeGaps(true);
@@ -2270,17 +2270,17 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // check whether the lane or the shadowLane is a dead end (allow some leeway on intersections)
         if (lane->isLinkEnd(link)
                 || ((*link)->getViaLane() == nullptr
-                 && getLateralOverlap() > POSITION_EPS
-                 // do not get stuck on narrow edges
-                 && getVehicleType().getWidth() <= lane->getEdge().getWidth()
-                 // this is the exit link of a junction. The normal edge should support the shadow
-                 && ((myLaneChangeModel->getShadowLane((*link)->getLane()) == nullptr)
-                     // the internal lane after an internal junction has no parallel lane. make sure there is no shadow before continuing
-                     || (lane->getEdge().isInternal() && lane->getIncomingLanes()[0].lane->getEdge().isInternal()))
-                 // ignore situations where the shadow lane is part of a double-connection with the current lane
-                 && (myLaneChangeModel->getShadowLane() == nullptr
-                     || myLaneChangeModel->getShadowLane()->getLinkCont().size() == 0
-                     || myLaneChangeModel->getShadowLane()->getLinkCont().front()->getLane() != (*link)->getLane()))
+                    && getLateralOverlap() > POSITION_EPS
+                    // do not get stuck on narrow edges
+                    && getVehicleType().getWidth() <= lane->getEdge().getWidth()
+                    // this is the exit link of a junction. The normal edge should support the shadow
+                    && ((myLaneChangeModel->getShadowLane((*link)->getLane()) == nullptr)
+                        // the internal lane after an internal junction has no parallel lane. make sure there is no shadow before continuing
+                        || (lane->getEdge().isInternal() && lane->getIncomingLanes()[0].lane->getEdge().isInternal()))
+                    // ignore situations where the shadow lane is part of a double-connection with the current lane
+                    && (myLaneChangeModel->getShadowLane() == nullptr
+                        || myLaneChangeModel->getShadowLane()->getLinkCont().size() == 0
+                        || myLaneChangeModel->getShadowLane()->getLinkCont().front()->getLane() != (*link)->getLane()))
                 || (opposite && (*link)->getViaLaneOrLane()->getOpposite() == nullptr)) {
             double va = cfModel.stopSpeed(this, getSpeed(), seen);
             if (lastLink != nullptr) {
@@ -2556,7 +2556,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // l=linkLength, a=accel, t=continuousTime, v=vLeave
         // l=v*t + 0.5*a*t^2, solve for t and multiply with a, then add v
         const double estimatedLeaveSpeed = MIN2((*link)->getViaLaneOrLane()->getVehicleMaxSpeed(this),
-            getCarFollowModel().estimateSpeedAfterDistance((*link)->getLength(), arrivalSpeed, getVehicleType().getCarFollowModel().getMaxAccel()));
+                                                getCarFollowModel().estimateSpeedAfterDistance((*link)->getLength(), arrivalSpeed, getVehicleType().getCarFollowModel().getMaxAccel()));
         lfLinks.push_back(DriveProcessItem(*link, v, vLinkWait, setRequest,
                                            arrivalTime, arrivalSpeed,
                                            arrivalTimeBraking, arrivalSpeedBraking,
@@ -2673,8 +2673,8 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
 
 void
 MSVehicle::adaptToLeaderDistance(const MSLeaderDistanceInfo& ahead, double latOffset,
-                          const double seen, DriveProcessItem* const lastLink,
-                          const MSLane* const lane, double& v, double& vLinkPass) const {
+                                 const double seen, DriveProcessItem* const lastLink,
+                                 const MSLane* const lane, double& v, double& vLinkPass) const {
     int rightmost;
     int leftmost;
     ahead.getSubLanes(this, latOffset, rightmost, leftmost);
@@ -4236,7 +4236,7 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
     } else if (myFurtherLanes.size() > 0 && lane == myFurtherLanes.back()) {
         return myState.myBackPos;
     } else if ((myLaneChangeModel->getShadowFurtherLanes().size() > 0 && lane == myLaneChangeModel->getShadowFurtherLanes().back())
-            || (myLaneChangeModel->getFurtherTargetLanes().size() > 0 && lane == myLaneChangeModel->getFurtherTargetLanes().back())) {
+               || (myLaneChangeModel->getFurtherTargetLanes().size() > 0 && lane == myLaneChangeModel->getFurtherTargetLanes().back())) {
         assert(myFurtherLanes.size() > 0);
         if (lane->getLength() == myFurtherLanes.back()->getLength()) {
             return myState.myBackPos;
@@ -4761,9 +4761,9 @@ MSVehicle::computeFurtherLanes(MSLane* enteredLane, double pos, bool collision) 
                 clane = clane->getLogicalPredecessorLane();
             }
             if (clane == nullptr || clane == myLane || clane == myLane->getBidiLane()
-                || (clane->isInternal() && (
-                    clane->getLinkCont()[0]->getDirection() == LinkDirection::TURN
-                    || clane->getLinkCont()[0]->getDirection() == LinkDirection::TURN_LEFTHAND))) {
+                    || (clane->isInternal() && (
+                            clane->getLinkCont()[0]->getDirection() == LinkDirection::TURN
+                            || clane->getLinkCont()[0]->getDirection() == LinkDirection::TURN_LEFTHAND))) {
                 break;
             }
             if (!collision || std::find(myFurtherLanes.begin(), myFurtherLanes.end(), clane) == myFurtherLanes.end()) {

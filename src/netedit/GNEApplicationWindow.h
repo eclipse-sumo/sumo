@@ -403,7 +403,7 @@ public:
     const std::string& isUndoRedoEnabled() const;
 
     /// @brief getEdit Menu Commands (needed for show/hide menu commands)
-    GNEApplicationWindowHelper::EditMenuCommands &getEditMenuCommands();
+    GNEApplicationWindowHelper::EditMenuCommands& getEditMenuCommands();
 
     /// @brief clear undo list
     void clearUndoList();
@@ -518,7 +518,7 @@ private:
     bool continueWithUnsavedDemandElementChanges(const std::string& operation);
 
     /// @brief extract folder
-    FXString getFolder(const std::string &folder) const;
+    FXString getFolder(const std::string& folder) const;
 
     /// @brief Invalidated copy constructor.
     GNEApplicationWindow(const GNEApplicationWindow&) = delete;

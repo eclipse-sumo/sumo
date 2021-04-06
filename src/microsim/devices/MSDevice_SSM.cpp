@@ -252,12 +252,10 @@ MSDevice_SSM::initEdgeFilter() {
                 MSEdge* edge = MSEdge::dictionary(edgeID);
                 if (edge != nullptr) {
                     myEdgeFilter.insert(edge);
-                }
-                else {
+                } else {
                     WRITE_WARNING("Unknown edge ID '" + edgeID + "' in SSM device edge filter (" + file + "): " + line);
                 }
-            }
-            else if (StringUtils::startsWith(line, "junction:")) {
+            } else if (StringUtils::startsWith(line, "junction:")) {
                 // get the internal edge(s) of a junction
                 std::string junctionID = line.substr(9);
                 MSJunction* junction = MSNet::getInstance()->getJunctionControl().get(junctionID);
@@ -265,14 +263,11 @@ MSDevice_SSM::initEdgeFilter() {
                     for (MSLane* const internalLane : junction->getInternalLanes()) {
                         myEdgeFilter.insert(&(internalLane->getEdge()));
                     }
-                }
-                else {
+                } else {
                     WRITE_WARNING("Unknown junction ID '" + junctionID + "' in SSM device edge filter (" + file + "): " + line);
                 }
-            }
-            else if (line == "") { // ignore empty lines (mostly last line)
-            }
-            else {
+            } else if (line == "") { // ignore empty lines (mostly last line)
+            } else {
                 WRITE_WARNING("Cannot interpret line in SSM device edge filter (" + file + "): " + line);
             }
         }
@@ -2897,7 +2892,7 @@ MSDevice_SSM::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification r
 #ifdef DEBUG_SSM_NOTIFICATIONS
     MSBaseVehicle* v = (MSBaseVehicle*) &veh;
     if (DEBUG_COND(v)) {
-            std::cout << SIMTIME << "device '" << getID() << "' notifyEnter: reason=" << reason << " currentEdge=" << v->getLane()->getEdge().getID() << "\n";
+        std::cout << SIMTIME << "device '" << getID() << "' notifyEnter: reason=" << reason << " currentEdge=" << v->getLane()->getEdge().getID() << "\n";
     }
 #else
     UNUSED_PARAMETER(veh);

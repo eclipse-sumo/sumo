@@ -225,7 +225,7 @@ struct GNEViewNetHelper {
         GNELane* getLaneFront() const;
 
         /// @brief get lanes
-        const std::vector<GNELane*> &getLanes() const;
+        const std::vector<GNELane*>& getLanes() const;
 
         /// @brief get front crossing or a pointer to nullptr
         GNECrossing* getCrossingFront() const;

@@ -113,7 +113,7 @@ public:
                     replacementEdges2.push_back(prev);
                     replacementEdges2.insert(replacementEdges2.end(), replacementEdges.begin(), replacementEdges.end());
                     addVirtualTurns(prev, bidi, railEdges, numericalID, dist - prev->getLength(),
-                            maxTrainLength + prev->getLength(), replacementEdges2);
+                                    maxTrainLength + prev->getLength(), replacementEdges2);
                 }
             }
         }

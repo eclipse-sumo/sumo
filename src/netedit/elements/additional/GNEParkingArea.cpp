@@ -67,7 +67,7 @@ GNEParkingArea::updateGeometry() {
     mySignPos = tmpShape.getLineCenter();
     // clear LotSpaceDefinitions
     myLotSpaceDefinitions.clear();
-    // iterate over 
+    // iterate over
     for (int i = 0; i < myRoadSideCapacity; ++i) {
         // calculate pos
         const Position pos = GeomHelper::calculateLotSpacePosition(myAdditionalGeometry.getShape(), i, spaceDim, myAngle, myWidth, length);

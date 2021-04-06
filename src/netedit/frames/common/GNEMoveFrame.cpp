@@ -72,10 +72,10 @@ GNEMoveFrame::NetworkModeOptions::NetworkModeOptions(GNEMoveFrame* moveFramePare
 GNEMoveFrame::NetworkModeOptions::~NetworkModeOptions() {}
 
 
-bool 
+bool
 GNEMoveFrame::NetworkModeOptions::getMoveWholePolygons() const {
     if (myMoveFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-        (myMoveFrameParent->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
+            (myMoveFrameParent->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
         return (myMoveWholePolygons->getCheck() == TRUE);
     } else {
         return false;
@@ -97,8 +97,8 @@ GNEMoveFrame::ShiftEdgeGeometry::ShiftEdgeGeometry(GNEMoveFrame* moveFrameParent
     myShiftValueTextField->setText("0");
     // create apply button
     new FXButton(this,
-        "Shift edge geometry\t\tShift edge geometry orthogonally to driving direction for all selected edges",
-        GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), this, MID_GNE_APPLY, GUIDesignButton);
+                 "Shift edge geometry\t\tShift edge geometry orthogonally to driving direction for all selected edges",
+                 GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), this, MID_GNE_APPLY, GUIDesignButton);
 }
 
 
@@ -134,7 +134,7 @@ GNEMoveFrame::ShiftEdgeGeometry::onCmdShiftEdgeGeometry(FXObject*, FXSelector, v
     const double shiftValue = GNEAttributeCarrier::parse<double>(myShiftValueTextField->getText().text());
     // get selected edges
     const auto edges = myMoveFrameParent->getViewNet()->getNet()->retrieveEdges(true);
-    // begin undo-redo 
+    // begin undo-redo
     myMoveFrameParent->getViewNet()->getUndoList()->p_begin("shift edge geometries");
     // iterate over edges
     for (const auto& edge : edges) {
@@ -176,13 +176,13 @@ GNEMoveFrame::ChangeZInSelection::ChangeZInSelection(GNEMoveFrame* moveFramePare
     myZValueTextField->setText("0");
     // Create all options buttons
     myAbsoluteValue = new FXRadioButton(this, "Absolute value\t\tSet Z value as absolute",
-        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myRelativeValue = new FXRadioButton(this, "Relative value\t\tSet Z value as relative",
-        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create apply button
     new FXButton(this,
-        "Apply Z value\t\tApply Z value to all selected junctions",
-        GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_APPLY, GUIDesignButton);
+                 "Apply Z value\t\tApply Z value to all selected junctions",
+                 GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_APPLY, GUIDesignButton);
     // set absolute value as default
     myAbsoluteValue->setCheck(true);
     // set info label
@@ -193,7 +193,7 @@ GNEMoveFrame::ChangeZInSelection::ChangeZInSelection(GNEMoveFrame* moveFramePare
 GNEMoveFrame::ChangeZInSelection::~ChangeZInSelection() {}
 
 
-void 
+void
 GNEMoveFrame::ChangeZInSelection::showChangeZInSelection() {
     // update info label
     updateInfoLabel();
@@ -209,14 +209,14 @@ GNEMoveFrame::ChangeZInSelection::hideChangeZInSelection() {
 }
 
 
-long 
+long
 GNEMoveFrame::ChangeZInSelection::onCmdChangeZValue(FXObject*, FXSelector, void*) {
     // just call onCmdApplyZ
     return onCmdApplyZ(nullptr, 0, nullptr);
 }
 
 
-long 
+long
 GNEMoveFrame::ChangeZInSelection::onCmdChangeZMode(FXObject* obj, FXSelector, void*) {
     if (obj == myAbsoluteValue) {
         myAbsoluteValue->setCheck(true);
@@ -239,7 +239,7 @@ GNEMoveFrame::ChangeZInSelection::onCmdApplyZ(FXObject*, FXSelector, void*) {
     const auto junctions = myMoveFrameParent->getViewNet()->getNet()->retrieveJunctions(true);
     // get selected edges
     const auto edges = myMoveFrameParent->getViewNet()->getNet()->retrieveEdges(true);
-    // begin undo-redo 
+    // begin undo-redo
     myMoveFrameParent->getViewNet()->getUndoList()->p_begin("change Z values in selection");
     // iterate over junctions
     for (const auto& junction : junctions) {
@@ -247,7 +247,7 @@ GNEMoveFrame::ChangeZInSelection::onCmdApplyZ(FXObject*, FXSelector, void*) {
             // get junction position
             PositionVector junctionShape = junction->getNBNode()->getShape();
             // modify z Value depending of absolute/relative
-            for (auto &shapePos : junctionShape) {
+            for (auto& shapePos : junctionShape) {
                 if (myAbsoluteValue->getCheck() == TRUE) {
                     shapePos.setz(zValue);
                 } else {
@@ -296,12 +296,12 @@ GNEMoveFrame::ChangeZInSelection::onCmdApplyZ(FXObject*, FXSelector, void*) {
             edge->setAttribute(SUMO_ATTR_SHAPE, toString(edgeShape), undoList);
         }
         // set new start and end positions
-        if ((edge->getAttribute(GNE_ATTR_SHAPE_START).size() > 0) && 
-            (shapeStart.distanceSquaredTo2D(edge->getParentJunctions().front()->getNBNode()->getPosition()) < 2)) {
+        if ((edge->getAttribute(GNE_ATTR_SHAPE_START).size() > 0) &&
+                (shapeStart.distanceSquaredTo2D(edge->getParentJunctions().front()->getNBNode()->getPosition()) < 2)) {
             edge->setAttribute(GNE_ATTR_SHAPE_START, toString(shapeStart), undoList);
         }
-        if ((edge->getAttribute(GNE_ATTR_SHAPE_END).size() > 0) && 
-            (shapeEnd.distanceSquaredTo2D(edge->getParentJunctions().back()->getNBNode()->getPosition()) < 2)) {
+        if ((edge->getAttribute(GNE_ATTR_SHAPE_END).size() > 0) &&
+                (shapeEnd.distanceSquaredTo2D(edge->getParentJunctions().back()->getNBNode()->getPosition()) < 2)) {
             edge->setAttribute(GNE_ATTR_SHAPE_END, toString(shapeEnd), undoList);
         }
     }
@@ -313,7 +313,7 @@ GNEMoveFrame::ChangeZInSelection::onCmdApplyZ(FXObject*, FXSelector, void*) {
 }
 
 
-void 
+void
 GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
     // get junctions
     const auto junctions = myMoveFrameParent->getViewNet()->getNet()->retrieveJunctions(true);
@@ -358,7 +358,7 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
             // get innnen geometry
             const PositionVector innenGeometry = edge->getNBEdge()->getInnerGeometry();
             // iterate over innenGeometry
-            for (const auto &geometryPoint : innenGeometry) {
+            for (const auto& geometryPoint : innenGeometry) {
                 // check min
                 if (geometryPoint.z() < selectionMinimum) {
                     selectionMinimum = geometryPoint.z();
@@ -413,7 +413,7 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
         selectionAverage = floor(selectionAverage);
         selectionAverage *= 0.01;
         // set label string
-        const std::string labelStr = 
+        const std::string labelStr =
             "- Num geometry points: " + toString(numPoints) + "\n" +
             "- Selection minimum Z: " + toString(selectionMinimum) + "\n" +
             "- Selection maximum Z: " + toString(selectionMaximun) + "\n" +
@@ -444,8 +444,8 @@ GNEMoveFrame::ShiftShapeGeometry::ShiftShapeGeometry(GNEMoveFrame* moveFramePare
     myShiftValueYTextField->setText("0");
     // create apply button
     new FXButton(this,
-        "Shift shape geometry\t\tShift shape geometry orthogonally to driving direction for all selected shapes",
-        GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), this, MID_GNE_APPLY, GUIDesignButton);
+                 "Shift shape geometry\t\tShift shape geometry orthogonally to driving direction for all selected shapes",
+                 GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), this, MID_GNE_APPLY, GUIDesignButton);
 }
 
 
@@ -484,7 +484,7 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
     // get selected polygons and POIs (avoid POILanes)
     const auto polygons = myMoveFrameParent->getViewNet()->getNet()->retrieveShapes(SUMO_TAG_POLY, true);
     const auto POIs = myMoveFrameParent->getViewNet()->getNet()->retrieveShapes(SUMO_TAG_POI, true);
-    // begin undo-redo 
+    // begin undo-redo
     myMoveFrameParent->getViewNet()->getUndoList()->p_begin("shift shape geometries");
     // iterate over shapes
     for (const auto& polygon : polygons) {

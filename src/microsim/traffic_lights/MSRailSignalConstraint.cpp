@@ -102,8 +102,7 @@ MSRailSignalConstraint::getVehID(const std::string& tripID) {
 MSRailSignalConstraint_Predecessor::MSRailSignalConstraint_Predecessor(const MSRailSignal* signal, const std::string& tripId, int limit) :
     myTripId(tripId),
     myLimit(limit),
-    myFoeSignal(signal)
-{
+    myFoeSignal(signal) {
     for (const auto& lv : signal->getLinks()) {
         for (const MSLink* link : lv) {
             MSLane* lane = link->getViaLaneOrLane();
@@ -300,7 +299,7 @@ MSRailSignalConstraint_Predecessor::write(OutputDevice& out, SumoXMLTag tag, con
     out.writeAttr(SUMO_ATTR_TLID, myFoeSignal->getID());
     out.writeAttr(SUMO_ATTR_FOES, myTripId);
     if (myLimit > 1) {
-    out.writeAttr(SUMO_ATTR_LIMIT, myLimit);
+        out.writeAttr(SUMO_ATTR_LIMIT, myLimit);
     }
     out.closeTag();
 }

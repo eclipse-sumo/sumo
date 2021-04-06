@@ -202,7 +202,7 @@ protected:
     DemandElementMove myStopMove;
 
     /// @brief get first valid lane
-    const GNELane *getFirstAllowedLane() const;
+    const GNELane* getFirstAllowedLane() const;
 
 private:
     /// @brief method for setting the attribute and nothing else

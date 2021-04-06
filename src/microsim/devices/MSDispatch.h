@@ -128,9 +128,9 @@ public:
 
     /// @brief remove person from reservation. If the whole reservation is removed, return it's id
     virtual std::string removeReservation(MSTransportable* person,
-                                   const MSEdge* from, double fromPos,
-                                   const MSEdge* to, double toPos,
-                                   std::string group);
+                                          const MSEdge* from, double fromPos,
+                                          const MSEdge* to, double toPos,
+                                          std::string group);
 
     /// @brief erase reservation from storage
     virtual void fulfilledReservation(const Reservation* res);

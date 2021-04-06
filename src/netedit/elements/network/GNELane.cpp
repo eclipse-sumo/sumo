@@ -113,7 +113,7 @@ GNELane::getParentEdge() const {
 }
 
 
-bool 
+bool
 GNELane::allowPedestrians() const {
     return (myParentEdge->getNBEdge()->getPermissions(myIndex) & SVC_PEDESTRIAN) > 0;
 }
@@ -708,7 +708,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             resetEndPoints->disable();
         }
         // check if we clicked over a geometry point
-        if ((editMode == NetworkEditMode::NETWORK_MOVE) && myParentEdge->clickedOverGeometryPoint(myNet->getViewNet()->getPositionInformation() )) {
+        if ((editMode == NetworkEditMode::NETWORK_MOVE) && myParentEdge->clickedOverGeometryPoint(myNet->getViewNet()->getPositionInformation())) {
             GUIDesigns::buildFXMenuCommand(ret, "Set custom Geometry Point", nullptr, &parent, MID_GNE_CUSTOM_GEOMETRYPOINT);
         }
         // add separator

@@ -277,9 +277,9 @@ GeomHelper::makeRing(const double radius1, const double radius2, const Position&
 
 
 
-const Position 
-GeomHelper::calculateLotSpacePosition(const PositionVector &shape, const int index, const double spaceDim, const double angle, 
-    const double width, const double length) {
+const Position
+GeomHelper::calculateLotSpacePosition(const PositionVector& shape, const int index, const double spaceDim, const double angle,
+                                      const double width, const double length) {
     //declare pos
     Position pos;
     // declare shape offsets
@@ -316,7 +316,7 @@ GeomHelper::calculateLotSpacePosition(const PositionVector &shape, const int ind
 }
 
 
-double 
+double
 GeomHelper::calculateLotSpaceAngle(const PositionVector& shape, const int index, const double spaceDim, const double angle) {
     // declare shape offsets
     const Position startOffset = shape.positionAtOffset(spaceDim * (index));
@@ -326,7 +326,7 @@ GeomHelper::calculateLotSpaceAngle(const PositionVector& shape, const int index,
 }
 
 
-double 
+double
 GeomHelper::calculateLotSpaceSlope(const PositionVector& shape, const int index, const double spaceDim) {
     return shape.slopeDegreeAtOffset(spaceDim * (index + 1));
 }

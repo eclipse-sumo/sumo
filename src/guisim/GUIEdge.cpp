@@ -450,8 +450,8 @@ GUIEdge::setMultiColor(const GUIColorer& c) const {
             for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
                     segment != nullptr; segment = segment->getNextSegment()) {
                 mySegmentColors.push_back(
-                        c.getScheme().getColor(segment->getRelativeOccupancy() > segment->getRelativeJamThreshold() ? 2 :
-                            (segment->getRelativeOccupancy() * 2 < segment->getRelativeJamThreshold() ? 0 : 1)));
+                    c.getScheme().getColor(segment->getRelativeOccupancy() > segment->getRelativeJamThreshold() ? 2 :
+                                           (segment->getRelativeOccupancy() * 2 < segment->getRelativeJamThreshold() ? 0 : 1)));
             }
             return true;
         case 12: // by segment occupancy

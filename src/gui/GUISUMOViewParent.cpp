@@ -202,7 +202,7 @@ GUISUMOViewParent::getObjectIDs(int messageId) const {
                 static_cast<GUIMEVehicleControl*>(static_cast<GUINet*>(MSNet::getInstance())->getGUIMEVehicleControl())->insertVehicleIDs(vehicles);
             } else {
                 static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(
-                        vehicles, myParent->listParking(), myParent->listTeleporting());
+                    vehicles, myParent->listParking(), myParent->listTeleporting());
             }
             return vehicles;
         }

@@ -798,9 +798,9 @@ GUILane::drawJunctionChangeProhibitions() const {
         const bool cl = myEdge->getLanes()[myIndex - 1]->allowsChangingLeft(SVC_PASSENGER);
         const bool cr = allowsChangingRight(SVC_PASSENGER);
         // solid line marking
-        double mw,mw2;
+        double mw, mw2;
         // optional broken line marking
-        double mw3,mw4;
+        double mw3, mw4;
         if (!cl && !cr) {
             // draw a single solid line
             mw = myHalfLaneWidth + SUMO_const_laneMarkWidth * 0.4;

@@ -190,7 +190,7 @@ protected:
 class MSCriticalFollowerDistanceInfo : public MSLeaderDistanceInfo {
 public:
     /// Constructor
-    MSCriticalFollowerDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset, bool haveOppositeLeaders=false);
+    MSCriticalFollowerDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset, bool haveOppositeLeaders = false);
 
     /// Destructor
     virtual ~MSCriticalFollowerDistanceInfo();

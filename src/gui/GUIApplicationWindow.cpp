@@ -460,12 +460,12 @@ GUIApplicationWindow::fillMenuBar() {
                                            "Application Settings...", "", "Open a Dialog for Application Settings editing.",
                                            nullptr, this, MID_APPSETTINGS);
     myGamingModeCheckbox = new FXMenuCheck(mySettingsMenu,
-                    "Gaming Mode\tCtrl+G\tToggle gaming mode on/off.",
-                    this, MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID);
+                                           "Gaming Mode\tCtrl+G\tToggle gaming mode on/off.",
+                                           this, MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID);
     GUIDesigns::buildFXMenuCommandShortcut(mySettingsMenu,
-                    "Full Screen Mode", "Ctrl+F", "Toggle full screen mode on/off.",
-                    GUIIconSubSys::getIcon(GUIIcon::FULL_SCREEN), this, MID_HOTKEY_CTRL_F_FULSCREENMODE);
-    
+                                           "Full Screen Mode", "Ctrl+F", "Toggle full screen mode on/off.",
+                                           GUIIconSubSys::getIcon(GUIIcon::FULL_SCREEN), this, MID_HOTKEY_CTRL_F_FULSCREENMODE);
+
     // build Locate menu
     myLocatorMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, "&Locate", nullptr, myLocatorMenu);
@@ -509,7 +509,7 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuCheck(myLocatorMenu,
                     "Show vehicles outside the road network\t\tShow vehicles that are teleporting or driving remote-controlled outside the road network in locator dialog.",
                     this, MID_LISTTELEPORTING);
-    
+
     // build control menu
     myControlMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, "Simulation", nullptr, myControlMenu);

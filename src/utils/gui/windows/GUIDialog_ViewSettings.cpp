@@ -1400,7 +1400,7 @@ GUIDialog_ViewSettings::onCmdSaveDecals(FXObject*, FXSelector, void* /*data*/) {
 }
 
 
-long 
+long
 GUIDialog_ViewSettings::onCmdClearDecals(FXObject*, FXSelector, void* /*data*/) {
     // lock decals mutex
     myDecalsLock->lock();

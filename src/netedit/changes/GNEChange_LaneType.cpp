@@ -48,7 +48,7 @@ GNEChange_LaneType::~GNEChange_LaneType() {
     myLaneType->decRef("GNEChange_LaneType");
     if (myLaneType->unreferenced()) {
         // get lane types
-        const auto &laneTypes = myLaneType->getEdgeTypeParent()->getLaneTypes();
+        const auto& laneTypes = myLaneType->getEdgeTypeParent()->getLaneTypes();
         // remove it from edgeType
         if (std::find(laneTypes.begin(), laneTypes.end(), myLaneType) != laneTypes.end()) {
             myLaneType->getEdgeTypeParent()->removeLaneType(myLaneType);

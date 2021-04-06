@@ -22,16 +22,16 @@
 
 // Avoid warnings for external headers in MSVC
 #ifdef _MSC_VER
-    // avoid warnings in clang
-    #ifdef __clang__
-    #pragma clang system_header
-    #endif
+// avoid warnings in clang
+#ifdef __clang__
+#pragma clang system_header
+#endif
 
-    #pragma warning(push, 0)
-    #include <fx.h>
-    #pragma warning(pop)
+#pragma warning(push, 0)
+#include <fx.h>
+#pragma warning(pop)
 #else
-    #include <fx.h>
+#include <fx.h>
 #endif
 
 // More info: https://devblogs.microsoft.com/cppblog/broken-warnings-theory/

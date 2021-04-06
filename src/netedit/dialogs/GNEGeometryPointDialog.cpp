@@ -92,7 +92,7 @@ GNEGeometryPointDialog::~GNEGeometryPointDialog() {
 }
 
 
-long 
+long
 GNEGeometryPointDialog::onCmdChangeGeometryPoint(FXObject* sender, FXSelector, void*) {
     // check text field
     if (sender == myTextFieldXY) {
@@ -139,7 +139,7 @@ GNEGeometryPointDialog::onCmdChangeGeometryPoint(FXObject* sender, FXSelector, v
 }
 
 
-long 
+long
 GNEGeometryPointDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // stop modal
     getApp()->stopModal(this);
@@ -147,7 +147,7 @@ GNEGeometryPointDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEGeometryPointDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // set original position
     *myPos = myOriginalPos;

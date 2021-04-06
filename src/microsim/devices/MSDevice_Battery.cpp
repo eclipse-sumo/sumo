@@ -255,8 +255,7 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     myActChargingStation(nullptr),         // Initially the vehicle isn't over a Charging Station
     myPreviousNeighbouringChargingStation(nullptr),    // Initially the vehicle wasn't over a Charging Station
     myEnergyCharged(0),                 // Initially the energy charged is zero
-    myVehicleStopped(0)    // Initially the vehicle is stopped and the corresponding variable is 0
-{
+    myVehicleStopped(0) {  // Initially the vehicle is stopped and the corresponding variable is 0
 
     if (maximumBatteryCapacity < 0) {
         WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter " + toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY) + " (" + toString(maximumBatteryCapacity) + ").")

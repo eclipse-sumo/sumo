@@ -258,7 +258,7 @@ NGNet::toNB() const {
                 NBEdge* back = new NBEdge("-" + e->getID(), node, e->getFromNode(),
                                           "", myNetBuilder.getTypeCont().getEdgeTypeSpeed(""),
                                           e->getNumLanes(), e->getPriority(),
-                                          myNetBuilder.getTypeCont().getEdgeTypeWidth(""), 
+                                          myNetBuilder.getTypeCont().getEdgeTypeWidth(""),
                                           NBEdge::UNSPECIFIED_OFFSET, LaneSpreadFunction::RIGHT);
                 myNetBuilder.getEdgeCont().insert(back);
             }

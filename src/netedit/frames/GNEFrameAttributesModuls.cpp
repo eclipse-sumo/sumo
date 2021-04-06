@@ -1383,7 +1383,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
         newVal = stripWhitespaceAfterComma(newVal);
     }
     // get inspected ACs (for code cleaning)
-    const auto & inspectedACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+    const auto& inspectedACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     // Check if attribute must be changed
     if ((inspectedACs.size() > 0) && inspectedACs.front()->isValid(myACAttr.getAttr(), newVal)) {
         // check if we're merging junction
@@ -1485,15 +1485,15 @@ GNEFrameAttributesModuls::AttributesEditorRow::mergeJunction(SumoXMLAttr attr, c
     // check if we're editing junction position
     if ((inspectedACs.size() == 1) && (inspectedACs.front()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) && (attr == SUMO_ATTR_POSITION)) {
         // retrieve original junction
-        GNEJunction *movedJunction = myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->retrieveJunction(inspectedACs.front()->getID());
+        GNEJunction* movedJunction = myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->retrieveJunction(inspectedACs.front()->getID());
         // parse position
         const Position newPosition = GNEAttributeCarrier::parse<Position>(newVal);
         // iterate over network junction
-        for (const auto &junction : myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getJunctions()) {
+        for (const auto& junction : myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getJunctions()) {
             // check distance position
             if ((junction.second->getPositionInView().distanceTo2D(newPosition) < POSITION_EPS) &&
-                myAttributesEditorParent->getFrameParent()->getViewNet()->mergeJunctions(movedJunction, junction.second)) {
-                    return true;
+                    myAttributesEditorParent->getFrameParent()->getViewNet()->mergeJunctions(movedJunction, junction.second)) {
+                return true;
             }
         }
     }

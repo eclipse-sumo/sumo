@@ -89,15 +89,15 @@ NIXMLTypesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                     WRITE_ERROR("Invalid lane spread type '" + spreadTypeS + "'. Using default 'right'");
                 }
                 // insert edgeType in container
-                myTypeCont.insertEdgeType(myCurrentTypeID, numLanes, speed, priority, permissions, spreadType, width, 
+                myTypeCont.insertEdgeType(myCurrentTypeID, numLanes, speed, priority, permissions, spreadType, width,
                                           oneway, sidewalkWidth, bikeLaneWidth, widthResolution, maxWidth, minWidth);
                 // check if mark edgeType as discard
                 if (discard) {
                     myTypeCont.markEdgeTypeAsToDiscard(myCurrentTypeID);
                 }
                 // mark attributes as set
-                SumoXMLAttr myAttrs[] = {SUMO_ATTR_PRIORITY, SUMO_ATTR_NUMLANES, SUMO_ATTR_SPEED, SUMO_ATTR_ALLOW, 
-                                         SUMO_ATTR_DISALLOW, SUMO_ATTR_SPREADTYPE, SUMO_ATTR_ONEWAY, SUMO_ATTR_DISCARD, 
+                SumoXMLAttr myAttrs[] = {SUMO_ATTR_PRIORITY, SUMO_ATTR_NUMLANES, SUMO_ATTR_SPEED, SUMO_ATTR_ALLOW,
+                                         SUMO_ATTR_DISALLOW, SUMO_ATTR_SPREADTYPE, SUMO_ATTR_ONEWAY, SUMO_ATTR_DISCARD,
                                          SUMO_ATTR_WIDTH, SUMO_ATTR_SIDEWALKWIDTH, SUMO_ATTR_BIKELANEWIDTH
                                         };
                 for (const auto& attr : myAttrs) {

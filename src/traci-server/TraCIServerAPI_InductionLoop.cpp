@@ -81,7 +81,7 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
 
 bool
 TraCIServerAPI_InductionLoop::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
-                                      tcpip::Storage& outputStorage) {
+        tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();

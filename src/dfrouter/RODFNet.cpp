@@ -63,8 +63,8 @@ RODFNet::~RODFNet() {
 bool
 RODFNet::isAllowed(const ROEdge* const edge) const {
     return (!edge->isInternal() && !edge->isWalkingArea() && !edge->isCrossing() &&
-        (edge->getPermissions() & myAllowedVClass) == myAllowedVClass &&
-        find(myDisallowedEdges.begin(), myDisallowedEdges.end(), edge->getID()) == myDisallowedEdges.end());
+            (edge->getPermissions() & myAllowedVClass) == myAllowedVClass &&
+            find(myDisallowedEdges.begin(), myDisallowedEdges.end(), edge->getID()) == myDisallowedEdges.end());
 
 }
 

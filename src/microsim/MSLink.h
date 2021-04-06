@@ -110,8 +110,7 @@ public:
             waitingTime(_waitingTime),
             dist(_dist),
             speed(_speed),
-            latOffset(_latOffset)
-        {
+            latOffset(_latOffset) {
         }
 
         /// @brief The time the vehicle's front arrives at the link

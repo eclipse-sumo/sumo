@@ -151,8 +151,8 @@ protected:
     /// @brief Ends the processing of a container
     virtual void closeContainer() = 0;
 
-	/// @brief Ends the processing of a container flow
-	virtual void closeContainerFlow() = 0;
+    /// @brief Ends the processing of a container flow
+    virtual void closeContainerFlow() = 0;
 
     /// @brief Ends the processing of a flow
     virtual void closeFlow() = 0;
@@ -176,16 +176,16 @@ protected:
     /// @brief Processing of a person
     virtual void addPerson(const SUMOSAXAttributes& attrs) = 0;
 
-	/// @brief Processing of a ride
-	virtual void addRide(const SUMOSAXAttributes& attrs) = 0;
+    /// @brief Processing of a ride
+    virtual void addRide(const SUMOSAXAttributes& attrs) = 0;
 
     /// @brief Processing of a container
     virtual void addContainer(const SUMOSAXAttributes& attrs) = 0;
 
-	/// @brief Processing of a transport
-	virtual void addTransport(const SUMOSAXAttributes& attrs) = 0;
+    /// @brief Processing of a transport
+    virtual void addTransport(const SUMOSAXAttributes& attrs) = 0;
 
-	/// @brief Processing of a tranship
+    /// @brief Processing of a tranship
     virtual void addTranship(const SUMOSAXAttributes& attrs) = 0;
 
     //@}

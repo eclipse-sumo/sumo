@@ -1450,8 +1450,8 @@ MSLCM_SL2015::_wantsChangeSublane(
 
     const int iMin = MIN2(myVehicle.getLane()->getRightmostSublane(), neighLane.getRightmostSublane());
     double leftMax = MAX2(
-                               myVehicle.getLane()->getRightSideOnEdge() + myVehicle.getLane()->getWidth(),
-                               neighLane.getRightSideOnEdge() + neighLane.getWidth());
+                         myVehicle.getLane()->getRightSideOnEdge() + myVehicle.getLane()->getWidth(),
+                         neighLane.getRightSideOnEdge() + neighLane.getWidth());
     double rightMin = MIN2(myVehicle.getLane()->getRightSideOnEdge(), neighLane.getRightSideOnEdge());
     if (checkOpposite || isOpposite()) {
         leftMax = getLeftBorder();
@@ -2038,7 +2038,7 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
 #ifdef DEBUG_EXPECTED_SLSPEED
     if (DEBUG_COND) {
         std::cout << SIMTIME << " veh=" << myVehicle.getID() << " updateExpectedSublaneSpeeds opposite=" << isOpposite()
-            << " sublaneOffset=" << sublaneOffset << " laneIndex=" << laneIndex << " lane=" << lane->getID() << " ahead=" << ahead.toString() << "\n";
+                  << " sublaneOffset=" << sublaneOffset << " laneIndex=" << laneIndex << " lane=" << lane->getID() << " ahead=" << ahead.toString() << "\n";
     }
 #endif
 

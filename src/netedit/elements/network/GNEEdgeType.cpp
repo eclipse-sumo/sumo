@@ -36,7 +36,7 @@
 // members methods
 // ===========================================================================
 
-GNEEdgeType::GNEEdgeType(GNECreateEdgeFrame *createEdgeFrame) :
+GNEEdgeType::GNEEdgeType(GNECreateEdgeFrame* createEdgeFrame) :
     GNENetworkElement(createEdgeFrame->getViewNet()->getNet(), "", GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
     // create laneType
     GNELaneType* laneType = new GNELaneType(this);
@@ -54,10 +54,10 @@ GNEEdgeType::GNEEdgeType(GNENet* net) :
 }
 
 
-GNEEdgeType::GNEEdgeType(GNENet* net, const std::string &ID, const NBTypeCont::EdgeTypeDefinition *edgeType) :
+GNEEdgeType::GNEEdgeType(GNENet* net, const std::string& ID, const NBTypeCont::EdgeTypeDefinition* edgeType) :
     GNENetworkElement(net, ID, GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
     // create  laneTypes
-    for (const auto &laneTypeDef : edgeType->laneTypeDefinitions) {
+    for (const auto& laneTypeDef : edgeType->laneTypeDefinitions) {
         GNELaneType* laneType = new GNELaneType(this, laneTypeDef);
         laneType->incRef("GNEEdgeType::GNEEdgeType(parameters)");
         myLaneTypes.push_back(laneType);
@@ -75,7 +75,7 @@ GNEEdgeType::GNEEdgeType(GNENet* net, const std::string &ID, const NBTypeCont::E
 
 GNEEdgeType::~GNEEdgeType() {
     // delete laneTypes
-    for (const auto &laneType : myLaneTypes) {
+    for (const auto& laneType : myLaneTypes) {
         laneType->decRef("GNEEdgeType::~GNEEdgeType");
         if (laneType->unreferenced()) {
             delete laneType;
@@ -117,7 +117,7 @@ GNEEdgeType::addLaneType(GNELaneType* laneType, const int position) {
 }
 
 
-void 
+void
 GNEEdgeType::addLaneType(GNEUndoList* undoList) {
     // get options
     const OptionsCont& oc = OptionsCont::getOptions();
@@ -148,7 +148,7 @@ GNEEdgeType::removeLaneType(GNELaneType* laneType) {
 }
 
 
-void 
+void
 GNEEdgeType::removeLaneType(const int index, GNEUndoList* undoList) {
     // first check if index is correct
     if ((myLaneTypes.size() > 1) && (index < (int)myLaneTypes.size())) {
@@ -156,7 +156,7 @@ GNEEdgeType::removeLaneType(const int index, GNEUndoList* undoList) {
         undoList->p_begin("remove laneType");
         // copy laneType values
         for (int i = index; i < ((int)myLaneTypes.size() - 1); i++) {
-            myLaneTypes.at(i)->copyLaneType(myLaneTypes.at(i+1), undoList);
+            myLaneTypes.at(i)->copyLaneType(myLaneTypes.at(i + 1), undoList);
         }
         // remove last lane
         undoList->add(new GNEChange_LaneType(myLaneTypes.back(), ((int)myLaneTypes.size() - 1), false), true);
@@ -399,7 +399,7 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
     // update edge selector
     if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
-    }  
+    }
 }
 
 

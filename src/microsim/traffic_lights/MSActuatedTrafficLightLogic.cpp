@@ -67,8 +67,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
         const std::string& basePath) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::ACTUATED, phases, step, delay, parameter),
     myLastTrySwitchTime(0),
-    myTraCISwitch(false)
-{
+    myTraCISwitch(false) {
     myMaxGap = StringUtils::toDouble(getParameter("max-gap", DEFAULT_MAX_GAP));
     myPassingTime = StringUtils::toDouble(getParameter("passing-time", DEFAULT_PASSING_TIME));
     myDetectorGap = StringUtils::toDouble(getParameter("detector-gap", DEFAULT_DETECTOR_GAP));
@@ -466,7 +465,7 @@ MSActuatedTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
         mySwitchCommand->deschedule(this);
         mySwitchCommand = new SwitchCommand(tlcontrol, this, stepDuration + simStep);
         MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
-                mySwitchCommand, stepDuration + simStep);
+            mySwitchCommand, stepDuration + simStep);
         myTraCISwitch = true;
     }
 }

@@ -170,10 +170,10 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
 
 void
 MSDevice_Taxi::removeReservation(MSTransportable* person,
-                              const std::set<std::string>& lines,
-                              const MSEdge* from, double fromPos,
-                              const MSEdge* to, double toPos,
-                              const std::string& group) {
+                                 const std::set<std::string>& lines,
+                                 const MSEdge* from, double fromPos,
+                                 const MSEdge* to, double toPos,
+                                 const std::string& group) {
     if (myDispatcher != nullptr && lines.size() == 1 && *lines.begin() == TAXI_SERVICE) {
         myDispatcher->removeReservation(person, from, fromPos, to, toPos, group);
     }
@@ -300,7 +300,9 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
             tmpEdges = myHolder.getRoute().getEdges();
             lastPos = veh->getStops().back().pars.endPos;
 #ifdef DEBUG_DISPATCH
-            if (DEBUG_COND) std::cout << " re-dispatch with route-extension\n";
+            if (DEBUG_COND) {
+                std::cout << " re-dispatch with route-extension\n";
+            }
 #endif
         } else if (nOccur.size() == myCustomers.size()) {
             // redefine route (verify correct number of mentions)
@@ -355,7 +357,9 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
                 tmpEdges.push_back(rerouteOrigin);
             }
 #ifdef DEBUG_DISPATCH
-            if (DEBUG_COND) std::cout << " re-dispatch from scratch\n";
+            if (DEBUG_COND) {
+                std::cout << " re-dispatch from scratch\n";
+            }
 #endif
         } else {
             // inconsistent re-dispatch
@@ -397,15 +401,17 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
         }
     }
 #ifdef DEBUG_DISPATCH
-    if (DEBUG_COND) std::cout << "   tmpEdges=" << toString(tmpEdges) << "\n";
+    if (DEBUG_COND) {
+        std::cout << "   tmpEdges=" << toString(tmpEdges) << "\n";
+    }
 #endif
     if (!myHolder.replaceRouteEdges(tmpEdges, -1, 0, "taxi:prepare_dispatch", false, false, false)) {
         throw ProcessError("Route replacement for taxi dispatch failed for vehicle '" + myHolder.getID()
-                + "' at time " + time2string(MSNet::getInstance()->getCurrentTimeStep()));
+                           + "' at time " + time2string(MSNet::getInstance()->getCurrentTimeStep()));
     }
 #ifdef DEBUG_DISPATCH
     if (DEBUG_COND) std::cout << "   replacedRoute=" << toString(tmpEdges)
-                            << "\n     actualRoute=" << toString(myHolder.getRoute().getEdges()) << "\n";
+                                  << "\n     actualRoute=" << toString(myHolder.getRoute().getEdges()) << "\n";
 #endif
     for (SUMOVehicleParameter::Stop& stop : stops) {
         std::string error;
@@ -418,7 +424,9 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
     // SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = myHolder.getInfluencer().getRouterTT(veh->getRNGIndex())
     myHolder.reroute(t, "taxi:dispatch", router, false);
 #ifdef DEBUG_DISPATCH
-    if (DEBUG_COND) std::cout << "\n      finalRoute=" << toString(myHolder.getRoute().getEdges()) << " routeIndex=" << myHolder.getRoutePosition() << "\n";
+    if (DEBUG_COND) {
+        std::cout << "\n      finalRoute=" << toString(myHolder.getRoute().getEdges()) << " routeIndex=" << myHolder.getRoutePosition() << "\n";
+    }
 #endif
     myState |= PICKUP;
 }

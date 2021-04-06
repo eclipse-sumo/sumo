@@ -711,13 +711,13 @@ GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
         // now create GNETypes based on typeContainerAux
         myViewNet->getUndoList()->p_begin("load edgeTypes");
         // iterate over typeContainerAux
-        for (const auto &auxEdgeType : typeContainerAux) {
+        for (const auto& auxEdgeType : typeContainerAux) {
             // create new edge type
             GNEEdgeType* edgeType = new GNEEdgeType(myNet, auxEdgeType.first, auxEdgeType.second);
             // add it using undoList
             myViewNet->getUndoList()->add(new GNEChange_EdgeType(edgeType, true), true);
             // iterate over lanes auxType
-            for (const auto &auxLaneType : auxEdgeType.second->laneTypeDefinitions) {
+            for (const auto& auxLaneType : auxEdgeType.second->laneTypeDefinitions) {
                 // also create a new laneType
                 GNELaneType* laneType = new GNELaneType(edgeType, auxLaneType);
                 // add it using undoList
@@ -1084,8 +1084,8 @@ GNEApplicationWindow::fillMenuBar() {
     myMenuBarFile.buildRecentFiles(myFileMenu);
     new FXMenuSeparator(myFileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
-        "&Quit", "Ctrl+Q", "Quit the Application.",
-        nullptr, this, MID_HOTKEY_CTRL_Q_CLOSE);
+                                           "&Quit", "Ctrl+Q", "Quit the Application.",
+                                           nullptr, this, MID_HOTKEY_CTRL_Q_CLOSE);
     // build modes menu
     myModesMenu = new FXMenuPane(this);
     myModesMenuTitle = GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Modes", nullptr, myModesMenu);
@@ -1140,11 +1140,11 @@ GNEApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Help", nullptr, myHelpMenu);
     // build help menu commands
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu,
-        "&Online Documentation", "F1", "Open Online documentation.",
-        nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
+                                           "&Online Documentation", "F1", "Open Online documentation.",
+                                           nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu,
-        "&About", "F12", "About netedit.",
-        GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_F12_ABOUT);
+                                           "&About", "F12", "About netedit.",
+                                           GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_F12_ABOUT);
 }
 
 
@@ -1816,7 +1816,7 @@ GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onUpdRequiereViewNet(FXObject* sender, FXSelector, void*) {
     // enable or disable sender element depending of viewNet
     sender->handle(this, myViewNet ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
@@ -2201,7 +2201,7 @@ GNEApplicationWindow::onUpdReload(FXObject* sender, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onUpdSaveAllElements(FXObject* sender, FXSelector, void*) {
     bool enable = false;
     if (myNet) {
@@ -2263,7 +2263,7 @@ GNEApplicationWindow::onUpdRedo(FXObject* obj, FXSelector sel, void* ptr) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onCmdToggleViewOption(FXObject* obj, FXSelector sel, void* ptr) {
     // check viewNet
     if (myViewNet) {
@@ -2408,8 +2408,7 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void*
             case MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES:
                 if (myViewNet->getNetworkViewOptions().menuCheckAutoOppositeEdge->amChecked()) {
                     menuCheck->setCheck(TRUE);
-                }
-                else {
+                } else {
                     menuCheck->setCheck(FALSE);
                 }
                 break;
@@ -2490,7 +2489,7 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void*
 }
 
 
-long 
+long
 GNEApplicationWindow::onCmdSaveAllElements(FXObject*, FXSelector, void*) {
     // save all elements
     if (!myNet->isNetSaved()) {
@@ -2612,9 +2611,9 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject*, FXSelector, void*) {
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
-                "Select name of the edgeType file", ".xml",
-                GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE),
-                currentFolder);
+                            "Select name of the edgeType file", ".xml",
+                            GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE),
+                            currentFolder);
             // add xml extension
             std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
             // check tat file is valid
@@ -2694,9 +2693,9 @@ GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*) {
     }
     // Open window to select edgeType file
     FXString file = MFXUtils::getFilename2Write(this,
-        "Select name of the edgeType file", ".xml",
-        GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE),
-        currentFolder);
+                    "Select name of the edgeType file", ".xml",
+                    GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE),
+                    currentFolder);
     // add xml extension
     std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
     // check tat file is valid
@@ -2744,8 +2743,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         update();
         // restore validation for additionals
         XMLSubSys::setValidation("auto", "auto", "auto");
-    }
-    else {
+    } else {
         // write debug information
         WRITE_DEBUG("Cancel additional dialog");
     }
@@ -2912,8 +2910,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         update();
         // restore validation for demand
         XMLSubSys::setValidation("auto", "auto", "auto");
-    }
-    else {
+    } else {
         // write debug information
         WRITE_DEBUG("Cancel demand element dialog");
     }
@@ -2951,8 +2948,7 @@ GNEApplicationWindow::onUpdReloadDemandElements(FXObject*, FXSelector, void*) {
     // check if file exist
     if (OptionsCont::getOptions().getString("route-files").empty()) {
         myFileMenuCommands.reloadDemandElements->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    }
-    else {
+    } else {
         myFileMenuCommands.reloadDemandElements->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
     return 1;
@@ -3090,8 +3086,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         myViewNet->getIntervalBar().enableIntervalBarUpdate();
         // update
         update();
-    }
-    else {
+    } else {
         // write debug information
         WRITE_DEBUG("Cancel data element dialog");
     }
@@ -3138,8 +3133,7 @@ GNEApplicationWindow::onUpdReloadDataElements(FXObject*, FXSelector, void*) {
     // check if file exist
     if (OptionsCont::getOptions().getString("data-files").empty()) {
         myFileMenuCommands.reloadDataElements->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    }
-    else {
+    } else {
         myFileMenuCommands.reloadDataElements->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
     return 1;
@@ -3387,7 +3381,7 @@ GNEApplicationWindow::getFolder(const std::string& folder) const {
     std::string newFolder = folder;
     // declare stop flag
     bool stop = false;
-    // continue while stop is false 
+    // continue while stop is false
     while (!stop) {
         if (newFolder.empty()) {
             // new folder empty, then stop
@@ -3476,13 +3470,13 @@ GNEApplicationWindow::isUndoRedoEnabled() const {
 }
 
 
-GNEApplicationWindowHelper::EditMenuCommands& 
+GNEApplicationWindowHelper::EditMenuCommands&
 GNEApplicationWindow::getEditMenuCommands() {
     return myEditMenuCommands;
 }
 
 
-void 
+void
 GNEApplicationWindow::clearUndoList() {
     if (myViewNet) {
         // destropy Popup (to avoid crashes)
@@ -3527,7 +3521,7 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myWindowsMenuCommands(this),
     mySupermodeCommands(this),
     myViewNet(nullptr),
-    myMDIMenu(nullptr) { 
+    myMDIMenu(nullptr) {
 }
 
 

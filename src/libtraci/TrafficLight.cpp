@@ -292,7 +292,7 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const libsumo::TraCILogi
     }
     StoHelp::writeCompound(content, (int)logic.subParameter.size());
     for (const auto& key_value : logic.subParameter) {
-        StoHelp::writeTypedStringList(content, std::vector<std::string>{key_value.first, key_value.second});
+        StoHelp::writeTypedStringList(content, std::vector<std::string> {key_value.first, key_value.second});
     }
     Dom::set(libsumo::TL_COMPLETE_PROGRAM_RYG, tlsID, &content);
 }

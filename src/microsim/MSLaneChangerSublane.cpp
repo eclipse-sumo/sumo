@@ -489,8 +489,8 @@ bool
 MSLaneChangerSublane::checkChangeToNewLane(MSVehicle* vehicle, const int direction, ChangerIt from, ChangerIt to) {
     const bool opposite = (&from->lane->getEdge() != &to->lane->getEdge());
     const bool changedToNewLane = (to->lane != from->lane
-            && fabs(vehicle->getLateralPositionOnLane()) > 0.5 * vehicle->getLane()->getWidth()
-            && (mayChange(direction) || opposite));
+                                   && fabs(vehicle->getLateralPositionOnLane()) > 0.5 * vehicle->getLane()->getWidth()
+                                   && (mayChange(direction) || opposite));
     if (changedToNewLane) {
         const int oppositeSign = vehicle->getLaneChangeModel().isOpposite() ? -1 : 1;
         vehicle->myState.myPosLat -= direction * 0.5 * (from->lane->getWidth() + to->lane->getWidth()) * oppositeSign;
@@ -652,13 +652,13 @@ MSLaneChangerSublane::checkChangeSublane(
 
 bool
 MSLaneChangerSublane::checkChangeOpposite(
-        MSVehicle* vehicle,
-        int laneOffset,
-        MSLane* targetLane,
-        const std::pair<MSVehicle* const, double>& leader,
-        const std::pair<MSVehicle* const, double>& neighLead,
-        const std::pair<MSVehicle* const, double>& neighFollow,
-        const std::vector<MSVehicle::LaneQ>& preb) {
+    MSVehicle* vehicle,
+    int laneOffset,
+    MSLane* targetLane,
+    const std::pair<MSVehicle* const, double>& leader,
+    const std::pair<MSVehicle* const, double>& neighLead,
+    const std::pair<MSVehicle* const, double>& neighFollow,
+    const std::vector<MSVehicle::LaneQ>& preb) {
     myCheckedChangeOpposite = true;
 
     UNUSED_PARAMETER(leader);
@@ -695,27 +695,27 @@ MSLaneChangerSublane::checkChangeOpposite(
 
 #ifdef DEBUG_CHANGE_OPPOSITE
     if (DEBUG_COND) std::cout << SIMTIME
-        << " checkChangeOppositeSublane: veh=" << vehicle->getID()
-            << " laneOffset=" << laneOffset
-            << "\n  leaders=" << leaders.toString()
-            << "\n  neighLeaders=" << neighLeaders.toString()
-            << "\n  followers=" << followers.toString()
-            << "\n  neighFollowers=" << neighFollowers.toString()
-            << "\n";
+                                  << " checkChangeOppositeSublane: veh=" << vehicle->getID()
+                                  << " laneOffset=" << laneOffset
+                                  << "\n  leaders=" << leaders.toString()
+                                  << "\n  neighLeaders=" << neighLeaders.toString()
+                                  << "\n  followers=" << followers.toString()
+                                  << "\n  neighFollowers=" << neighFollowers.toString()
+                                  << "\n";
 #endif
 
     LaneChangeAction alternatives = (LaneChangeAction)((mayChange(-1) ? LCA_RIGHT : LCA_NONE)
-            | (mayChange(1) ? LCA_LEFT : LCA_NONE));
+                                    | (mayChange(1) ? LCA_LEFT : LCA_NONE));
 
     int blocked = 0;
     double latDist = 0;
     double maneuverDist = 0;
     const int wish = vehicle->getLaneChangeModel().wantsChangeSublane(
-            laneOffset, alternatives,
-            leaders, followers, blockers,
-            neighLeaders, neighFollowers, neighBlockers,
-            neighLane, preb,
-            &(myCandi->lastBlocked), &(myCandi->firstBlocked), latDist, maneuverDist, blocked);
+                         laneOffset, alternatives,
+                         leaders, followers, blockers,
+                         neighLeaders, neighFollowers, neighBlockers,
+                         neighLane, preb,
+                         &(myCandi->lastBlocked), &(myCandi->firstBlocked), latDist, maneuverDist, blocked);
     int state = blocked | wish;
 
     const int oldstate = state;

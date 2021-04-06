@@ -67,45 +67,51 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
         const bool hasPeriod = attrs.hasAttribute(SUMO_ATTR_PERIOD);
         const bool hasVPH = attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR);
         const bool hasPPH = attrs.hasAttribute(SUMO_ATTR_PERSONSPERHOUR);
-		const bool hasCPH = attrs.hasAttribute(SUMO_ATTR_CONTAINERSPERHOUR);
-		const bool hasPH = attrs.hasAttribute(SUMO_ATTR_PERHOUR);
+        const bool hasCPH = attrs.hasAttribute(SUMO_ATTR_CONTAINERSPERHOUR);
+        const bool hasPH = attrs.hasAttribute(SUMO_ATTR_PERHOUR);
         const bool hasXPH = hasVPH || hasPPH || hasCPH || hasPH;
         const bool hasProb = attrs.hasAttribute(SUMO_ATTR_PROB);
         const bool hasNumber = attrs.hasAttribute(SUMO_ATTR_NUMBER);
         const bool hasBegin = attrs.hasAttribute(SUMO_ATTR_BEGIN);
         const bool hasEnd = attrs.hasAttribute(SUMO_ATTR_END);
-		SumoXMLAttr PERHOUR = SUMO_ATTR_PERHOUR;
-		if (hasVPH) PERHOUR = SUMO_ATTR_VEHSPERHOUR;
-		if (hasPPH) PERHOUR = SUMO_ATTR_PERSONSPERHOUR;
-		if (hasCPH) PERHOUR = SUMO_ATTR_CONTAINERSPERHOUR;
-		if (hasXPH && !(hasVPH ^ hasPPH ^ hasCPH ^ hasPH)) {
-			return handleError(hardFail, abortCreation,
-							   "At most one of '" + attrs.getName(SUMO_ATTR_PERHOUR) + 
-							   "', '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) + 
-							   "', '" + attrs.getName(SUMO_ATTR_PERSONSPERHOUR) + 
-							   "' and '" + attrs.getName(SUMO_ATTR_CONTAINERSPERHOUR) + 
-							   "' has to be given in the definition of " + toString(tag) + " '" + id + "'.");
-		}
+        SumoXMLAttr PERHOUR = SUMO_ATTR_PERHOUR;
+        if (hasVPH) {
+            PERHOUR = SUMO_ATTR_VEHSPERHOUR;
+        }
+        if (hasPPH) {
+            PERHOUR = SUMO_ATTR_PERSONSPERHOUR;
+        }
+        if (hasCPH) {
+            PERHOUR = SUMO_ATTR_CONTAINERSPERHOUR;
+        }
+        if (hasXPH && !(hasVPH ^ hasPPH ^ hasCPH ^ hasPH)) {
+            return handleError(hardFail, abortCreation,
+                               "At most one of '" + attrs.getName(SUMO_ATTR_PERHOUR) +
+                               "', '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
+                               "', '" + attrs.getName(SUMO_ATTR_PERSONSPERHOUR) +
+                               "' and '" + attrs.getName(SUMO_ATTR_CONTAINERSPERHOUR) +
+                               "' has to be given in the definition of " + toString(tag) + " '" + id + "'.");
+        }
         if (hasPeriod && hasXPH) {
             return handleError(hardFail, abortCreation,
                                "At most one of '" + attrs.getName(SUMO_ATTR_PERIOD) +
                                "' and '" + attrs.getName(PERHOUR) +
                                "' has to be given in the definition of "
-								+ toString(tag) + " '" + id + "'.");
+                               + toString(tag) + " '" + id + "'.");
         }
         if (hasPeriod && hasProb) {
             return handleError(hardFail, abortCreation,
                                "At most one of '" + attrs.getName(SUMO_ATTR_PERIOD) +
                                "' and '" + attrs.getName(SUMO_ATTR_PROB) +
                                "' has to be given in the definition of "
-								+ toString(tag) + " '" + id + "'.");
+                               + toString(tag) + " '" + id + "'.");
         }
         if (hasProb && hasXPH) {
             return handleError(hardFail, abortCreation,
                                "At most one of '" + attrs.getName(SUMO_ATTR_PROB) +
                                "' and '" + attrs.getName(PERHOUR) +
                                "' has to be given in the definition of "
-								+ toString(tag) + " '" + id + "'.");
+                               + toString(tag) + " '" + id + "'.");
         }
         if (hasPeriod || hasXPH || hasProb) {
             if (hasEnd && hasNumber) {
@@ -114,12 +120,12 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
                                    "', '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
                                    "', '" + attrs.getName(SUMO_ATTR_PERSONSPERHOUR) +
                                    "', '" + attrs.getName(SUMO_ATTR_CONTAINERSPERHOUR) +
-					               "', '" + attrs.getName(SUMO_ATTR_PERHOUR) +
+                                   "', '" + attrs.getName(SUMO_ATTR_PERHOUR) +
                                    "' or '" + attrs.getName(SUMO_ATTR_PROB) +
                                    "' are given at most one of '" + attrs.getName(SUMO_ATTR_END) +
                                    "' and '" + attrs.getName(SUMO_ATTR_NUMBER) +
                                    "' are allowed in "
-									+ toString(tag) + " '" + id + "'.");
+                                   + toString(tag) + " '" + id + "'.");
             }
         } else {
             if (!hasNumber) {
@@ -128,11 +134,11 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
                                    "', '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
                                    "', '" + attrs.getName(SUMO_ATTR_PERSONSPERHOUR) +
                                    "', '" + attrs.getName(SUMO_ATTR_CONTAINERSPERHOUR) +
-					               "', '" + attrs.getName(SUMO_ATTR_PERHOUR) +
+                                   "', '" + attrs.getName(SUMO_ATTR_PERHOUR) +
                                    "', '" + attrs.getName(SUMO_ATTR_PROB) +
                                    "', and '" + attrs.getName(SUMO_ATTR_NUMBER) +
                                    "' is needed in "
-									+ toString(tag) + " '" + id + "'.");
+                                   + toString(tag) + " '" + id + "'.");
             }
         }
         SUMOVehicleParameter* ret = new SUMOVehicleParameter();
@@ -143,9 +149,9 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
         if (tag == SUMO_TAG_PERSONFLOW) {
             ret->vtypeid = DEFAULT_PEDTYPE_ID;
         }
-		if (tag == SUMO_TAG_CONTAINERFLOW) {
-			ret->vtypeid = DEFAULT_CONTAINERTYPE_ID;
-		}
+        if (tag == SUMO_TAG_CONTAINERFLOW) {
+            ret->vtypeid = DEFAULT_CONTAINERTYPE_ID;
+        }
         try {
             parseCommonAttributes(attrs, hardFail, ret, "flow");
         } catch (ProcessError&) {
@@ -176,21 +182,21 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
             if (ok && (ret->repetitionProbability <= 0 || ret->repetitionProbability > 1)) {
                 delete ret;
                 return handleError(hardFail, abortCreation, "Invalid repetition probability in the definition of "
-					+ toString(tag) + " '" + id + "'.");
+                                   + toString(tag) + " '" + id + "'.");
             }
         }
         ret->depart = beginDefault;
         if (hasBegin) {
             std::string errorMsg;
             if (!SUMOVehicleParameter::parseDepart(attrs.get<std::string>(SUMO_ATTR_BEGIN, id.c_str(), ok),
-                        toString(tag), id, ret->depart, ret->departProcedure, errorMsg, "begin")) {
+                                                   toString(tag), id, ret->depart, ret->departProcedure, errorMsg, "begin")) {
                 throw ProcessError(errorMsg);
             }
         }
         if (ok && ret->depart < 0) {
             delete ret;
             return handleError(hardFail, abortCreation, "Negative begin time in the definition of "
-				+ toString(tag) + " '" + id + "'.");
+                               + toString(tag) + " '" + id + "'.");
         }
         ret->repetitionEnd = endDefault;
         if (ret->repetitionEnd < 0) {
@@ -207,7 +213,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
                    // see SUMOTIME_MAXSTRING (which differs slightly from SUMOTime_MAX)
                    && (!hasNumber || (!hasProb && !hasPeriod && !hasXPH))) {
             WRITE_WARNING("Undefined end for "
-				+ toString(tag) + " '" + id + "', defaulting to 24hour duration.");
+                          + toString(tag) + " '" + id + "', defaulting to 24hour duration.");
             ret->repetitionEnd = ret->depart + TIME2STEPS(24 * 3600);
         }
         if (ok && ret->repetitionEnd < ret->depart) {
@@ -227,7 +233,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
                 if (ok && ret->repetitionNumber < 0) {
                     delete ret;
                     return handleError(hardFail, abortCreation, "Negative repetition number in the definition of "
-						+ toString(tag) + " '" + id + "'.");
+                                       + toString(tag) + " '" + id + "'.");
                 }
                 if (ok && ret->repetitionOffset < 0) {
                     ret->repetitionOffset = (ret->repetitionEnd - ret->depart) / ret->repetitionNumber;
@@ -242,7 +248,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
                 if (ok && ret->repetitionOffset <= 0) {
                     delete ret;
                     return handleError(hardFail, abortCreation, "Invalid repetition rate in the definition of "
-						+ toString(tag) + " '" + id + "'.");
+                                       + toString(tag) + " '" + id + "'.");
                 }
                 if (ret->repetitionEnd == SUMOTime_MAX) {
                     ret->repetitionNumber = std::numeric_limits<int>::max();

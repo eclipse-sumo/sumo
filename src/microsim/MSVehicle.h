@@ -1774,7 +1774,7 @@ protected:
 
     /// updates myFurtherLanes on lane insertion or after collision
     void computeFurtherLanes(MSLane* enteredLane, double pos, bool collision = false);
-        
+
     /// updates LaneQ::nextOccupation and myCurrentLaneInBestLanes
     void updateOccupancyAndCurrentBestLane(const MSLane* startLane);
 
@@ -2000,8 +2000,8 @@ protected:
                         const MSLane* const lane, double& v, double& vLinkPass) const;
 
     void adaptToLeaderDistance(const MSLeaderDistanceInfo& ahead, double latOffset,
-                          const double seen, DriveProcessItem* const lastLink,
-                          const MSLane* const lane, double& v, double& vLinkPass) const;
+                               const double seen, DriveProcessItem* const lastLink,
+                               const MSLane* const lane, double& v, double& vLinkPass) const;
 
     /// @brief checks for link leaders on the given link
     void checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,

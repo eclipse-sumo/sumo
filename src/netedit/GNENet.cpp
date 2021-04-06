@@ -1062,14 +1062,14 @@ GNENet::save(OptionsCont& oc) {
     // clear typeContainer
     myNetBuilder->getTypeCont().clearTypes();
     // now update typeContainer with edgeTypes
-    for (const auto &edgeType : myAttributeCarriers->getEdgeTypes()) {
+    for (const auto& edgeType : myAttributeCarriers->getEdgeTypes()) {
         myNetBuilder->getTypeCont().insertEdgeType(edgeType.first, edgeType.second);
         for (int i = 0; i < (int)edgeType.second->getLaneTypes().size(); i++) {
             myNetBuilder->getTypeCont().insertLaneType(edgeType.first, i,
-                edgeType.second->getLaneTypes().at(i)->speed,
-                edgeType.second->getLaneTypes().at(i)->permissions,
-                edgeType.second->getLaneTypes().at(i)->width,
-                edgeType.second->getLaneTypes().at(i)->attrs);
+                    edgeType.second->getLaneTypes().at(i)->speed,
+                    edgeType.second->getLaneTypes().at(i)->permissions,
+                    edgeType.second->getLaneTypes().at(i)->width,
+                    edgeType.second->getLaneTypes().at(i)->attrs);
         }
     }
     // write network
@@ -2232,11 +2232,11 @@ GNENet::resetJunctionConnections(GNEJunction* junction, GNEUndoList* undoList) {
 }
 
 
-void 
+void
 GNENet::clearAdditionalElements(GNEUndoList* undoList) {
     undoList->p_begin("clear additional elements");
     // clear additionals
-    for (const auto &additionalMap : myAttributeCarriers->getAdditionals()) {
+    for (const auto& additionalMap : myAttributeCarriers->getAdditionals()) {
         while (additionalMap.second.size() > 0) {
             deleteAdditional(additionalMap.second.begin()->second, undoList);
         }
@@ -2257,7 +2257,7 @@ GNENet::clearAdditionalElements(GNEUndoList* undoList) {
 }
 
 
-void 
+void
 GNENet::clearDemandElements(GNEUndoList* undoList) {
     undoList->p_begin("clear demand elements");
     // clear demand elements
@@ -2270,7 +2270,7 @@ GNENet::clearDemandElements(GNEUndoList* undoList) {
 }
 
 
-void 
+void
 GNENet::clearDataElements(GNEUndoList* undoList) {
     undoList->p_begin("clear data elements");
     // clear data sets
@@ -3126,19 +3126,19 @@ GNENet::getNumberOfTLSPrograms() const {
 }
 
 
-void 
+void
 GNENet::saveEdgeTypes(const std::string& filename) {
     // first clear typeContainer
     myNetBuilder->getTypeCont().clearTypes();
     // now update typeContainer with edgeTypes
-    for (const auto &edgeType : myAttributeCarriers->getEdgeTypes()) {
+    for (const auto& edgeType : myAttributeCarriers->getEdgeTypes()) {
         myNetBuilder->getTypeCont().insertEdgeType(edgeType.first, edgeType.second);
         for (int i = 0; i < (int)edgeType.second->getLaneTypes().size(); i++) {
             myNetBuilder->getTypeCont().insertLaneType(edgeType.first, i,
-                edgeType.second->getLaneTypes().at(i)->speed,
-                edgeType.second->getLaneTypes().at(i)->permissions,
-                edgeType.second->getLaneTypes().at(i)->width,
-                edgeType.second->getLaneTypes().at(i)->attrs);
+                    edgeType.second->getLaneTypes().at(i)->speed,
+                    edgeType.second->getLaneTypes().at(i)->permissions,
+                    edgeType.second->getLaneTypes().at(i)->width,
+                    edgeType.second->getLaneTypes().at(i)->attrs);
         }
     }
     // open device
@@ -3203,17 +3203,17 @@ GNENet::isUpdateDataEnabled() const {
 void
 GNENet::initJunctionsAndEdges() {
     // init edge types
-    for (const auto &edgeType : myNetBuilder->getTypeCont()) {
+    for (const auto& edgeType : myNetBuilder->getTypeCont()) {
         // register edge type
         myAttributeCarriers->registerEdgeType(new GNEEdgeType(this, edgeType.first, edgeType.second));
     }
     // init junctions (by default Crossing and walking areas aren't created)
-    for (const auto &nodeName : myNetBuilder->getNodeCont().getAllNames()) {
+    for (const auto& nodeName : myNetBuilder->getNodeCont().getAllNames()) {
         // create and register junction
         myAttributeCarriers->registerJunction(new GNEJunction(this, myNetBuilder->getNodeCont().retrieve(nodeName), true));
     }
     // init edges
-    for (const auto &edgeName : myNetBuilder->getEdgeCont().getAllNames()) {
+    for (const auto& edgeName : myNetBuilder->getEdgeCont().getAllNames()) {
         // create edge using NBEdge
         GNEEdge* edge = new GNEEdge(this, myNetBuilder->getEdgeCont().retrieve(edgeName), false, true);
         // register edge

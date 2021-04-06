@@ -3080,7 +3080,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                 if ((wacs.shape.size() != 0 || wacs.width != NBEdge::UNSPECIFIED_WIDTH) && includes(connected, wacs.edges)) {
                     if (wacs.shape.size() != 0) {
                         wa.shape = wacs.shape;
-                    } 
+                    }
                     if (wacs.width != NBEdge::UNSPECIFIED_WIDTH) {
                         wa.width = wacs.width;
                     }

@@ -146,7 +146,7 @@ public:
         return ret;
     }
 
-    static libsumo::TraCIPosition getPos(int var, const std::string& id, tcpip::Storage* add = nullptr, const bool isGeo=false) {
+    static libsumo::TraCIPosition getPos(int var, const std::string& id, tcpip::Storage* add = nullptr, const bool isGeo = false) {
         tcpip::Storage& result = get(var, id, add, isGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D);
         libsumo::TraCIPosition p;
         p.x = result.readDouble();

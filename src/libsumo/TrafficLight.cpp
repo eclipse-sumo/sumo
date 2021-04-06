@@ -355,7 +355,7 @@ TrafficLight::removeConstraints(const std::string& tlsID, const std::string& tri
                     if (tripId == "" || item.first == tripId) {
                         for (MSRailSignalConstraint* cand : item.second) {
                             MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);
-                            if (pc != nullptr 
+                            if (pc != nullptr
                                     && (foeId == "" || pc->myTripId == foeId)
                                     && (foeSignal == "" || pc->myFoeSignal->getID() == foeSignal)) {
                                 s->removeConstraint(item.first, cand);

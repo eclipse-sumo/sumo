@@ -146,7 +146,7 @@ public:
     inline double stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
         return stopSpeed(veh, speed, gap, myDecel);
     }
-    
+
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
      *
      * Returns the velocity of the vehicle when approaching a static object (such as the end of a lane) assuming no reaction time is needed.

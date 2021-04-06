@@ -110,14 +110,18 @@ MSSOTLPolicy::~MSSOTLPolicy(void) {
 
 double MSSOTLPolicy::computeDesirability(double vehInMeasure, double vehOutMeasure, double vehInDispersionMeasure,	double vehOutDispersionMeasure) {
 #ifdef SWARM_DEBUG
-    std::ostringstream str; str << "\nMSSOTLPolicy::computeStimulus\n" << getName(); WRITE_MESSAGE(str.str());
+    std::ostringstream str;
+    str << "\nMSSOTLPolicy::computeStimulus\n" << getName();
+    WRITE_MESSAGE(str.str());
 #endif
     return myDesirabilityAlgorithm->computeDesirability(vehInMeasure, vehOutMeasure, vehInDispersionMeasure, vehOutDispersionMeasure);
 }
 
 double MSSOTLPolicy::computeDesirability(double vehInMeasure, double vehOutMeasure) {
 #ifdef SWARM_DEBUG
-    std::ostringstream str; str << "\nMSSOTLPolicy::computeStimulus\n" << getName(); WRITE_MESSAGE(str.str());
+    std::ostringstream str;
+    str << "\nMSSOTLPolicy::computeStimulus\n" << getName();
+    WRITE_MESSAGE(str.str());
 #endif
     return myDesirabilityAlgorithm->computeDesirability(vehInMeasure, vehOutMeasure, 0, 0);
 }

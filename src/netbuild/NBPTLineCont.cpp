@@ -304,7 +304,7 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont, bool
             while (cont.retrieve("-" + *it3 + "#" + std::to_string(i), true) != nullptr) {
                 if (cont.retrieve("-" + *it3 + "#" + std::to_string(i), false)) {
                     currentWayMinusEdges.insert(currentWayMinusEdges.begin(),
-                            cont.retrieve("-" + *it3 + "#" + std::to_string(i), false));
+                                                cont.retrieve("-" + *it3 + "#" + std::to_string(i), false));
                 }
                 i++;
             }
@@ -312,23 +312,27 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont, bool
 #ifdef DEBUG_CONSTRUCT_ROUTE
         if (pTLine->getLineID() == DEBUGLINEID) {
             std::cout << " way=" << (*it3)
-                << " done=" << toString(edges)
-                << " first=" << Named::getIDSecure(first)
-                << " last=" << Named::getIDSecure(last)
-                << " +=" << toString(currentWayEdges)
-                << " -=" << toString(currentWayMinusEdges)
-                << "\n";
+                      << " done=" << toString(edges)
+                      << " first=" << Named::getIDSecure(first)
+                      << " last=" << Named::getIDSecure(last)
+                      << " +=" << toString(currentWayEdges)
+                      << " -=" << toString(currentWayMinusEdges)
+                      << "\n";
         }
 #endif
         if (currentWayEdges.empty()) {
 #ifdef DEBUG_CONSTRUCT_ROUTE
-            if (pTLine->getLineID() == DEBUGLINEID) std::cout << " if0\n";
+            if (pTLine->getLineID() == DEBUGLINEID) {
+                std::cout << " if0\n";
+            }
 #endif
             continue;
         }
         if (last == currentWayEdges.front()->getFromNode() && last != nullptr) {
 #ifdef DEBUG_CONSTRUCT_ROUTE
-            if (pTLine->getLineID() == DEBUGLINEID) std::cout << " if1\n";
+            if (pTLine->getLineID() == DEBUGLINEID) {
+                std::cout << " if1\n";
+            }
 #endif
             if (!prevWayEdges.empty()) {
                 edges.insert(edges.end(), prevWayEdges.begin(), prevWayEdges.end());
@@ -339,7 +343,9 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont, bool
             last = currentWayEdges.back()->getToNode();
         } else if (last == currentWayEdges.back()->getToNode() && last != nullptr) {
 #ifdef DEBUG_CONSTRUCT_ROUTE
-            if (pTLine->getLineID() == DEBUGLINEID) std::cout << " if2\n";
+            if (pTLine->getLineID() == DEBUGLINEID) {
+                std::cout << " if2\n";
+            }
 #endif
             if (!prevWayEdges.empty()) {
                 edges.insert(edges.end(), prevWayEdges.begin(), prevWayEdges.end());
@@ -350,7 +356,9 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont, bool
                 currentWayEdges.clear();
                 last = nullptr;
 #ifdef DEBUG_CONSTRUCT_ROUTE
-                if (pTLine->getLineID() == DEBUGLINEID) std::cout << " continue1\n";
+                if (pTLine->getLineID() == DEBUGLINEID) {
+                    std::cout << " continue1\n";
+                }
 #endif
                 continue;
             } else {
@@ -359,7 +367,9 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont, bool
             }
         } else if (first == currentWayEdges.front()->getFromNode() && first != nullptr) {
 #ifdef DEBUG_CONSTRUCT_ROUTE
-            if (pTLine->getLineID() == DEBUGLINEID) std::cout << " if3\n";
+            if (pTLine->getLineID() == DEBUGLINEID) {
+                std::cout << " if3\n";
+            }
 #endif
             edges.insert(edges.end(), prevWayMinusEdges.begin(), prevWayMinusEdges.end());
             edges.insert(edges.end(), currentWayEdges.begin(), currentWayEdges.end());
@@ -368,7 +378,9 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont, bool
             prevWayMinusEdges.clear();
         } else if (first == currentWayEdges.back()->getToNode() && first != nullptr) {
 #ifdef DEBUG_CONSTRUCT_ROUTE
-            if (pTLine->getLineID() == DEBUGLINEID) std::cout << " if4\n";
+            if (pTLine->getLineID() == DEBUGLINEID) {
+                std::cout << " if4\n";
+            }
 #endif
             edges.insert(edges.end(), prevWayMinusEdges.begin(), prevWayMinusEdges.end());
             if (currentWayMinusEdges.empty()) {
@@ -377,7 +389,9 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont, bool
                 prevWayEdges.clear();
                 prevWayMinusEdges.clear();
 #ifdef DEBUG_CONSTRUCT_ROUTE
-                if (pTLine->getLineID() == DEBUGLINEID) std::cout << " continue2\n";
+                if (pTLine->getLineID() == DEBUGLINEID) {
+                    std::cout << " continue2\n";
+                }
 #endif
                 continue;
             } else {
@@ -388,7 +402,9 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont, bool
             }
         } else {
 #ifdef DEBUG_CONSTRUCT_ROUTE
-            if (pTLine->getLineID() == DEBUGLINEID) std::cout << " if5\n";
+            if (pTLine->getLineID() == DEBUGLINEID) {
+                std::cout << " if5\n";
+            }
 #endif
             if (it3 != pTLine->getMyWays().begin()) {
                 if (!silent) {

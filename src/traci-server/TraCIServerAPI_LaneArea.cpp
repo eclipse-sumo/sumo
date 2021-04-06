@@ -54,7 +54,7 @@ TraCIServerAPI_LaneArea::processGet(TraCIServer& server, tcpip::Storage& inputSt
 
 bool
 TraCIServerAPI_LaneArea::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
-                                      tcpip::Storage& outputStorage) {
+                                    tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();

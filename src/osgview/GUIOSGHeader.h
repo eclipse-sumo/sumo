@@ -24,19 +24,19 @@
 
 // Define NOMIMAX, due osg may include windows.h somewhere so we need to guard against macro pollution
 #ifdef WIN32
-    #define NOMINMAX
+#define NOMINMAX
 #endif
 
 // avoid certain warnings in MSVC
 #ifdef _MSC_VER
-    // avoid warnings in clang
-    #ifdef __clang__
-        #pragma clang system_header
-    #endif
-    #pragma warning(push, 0)
-    #pragma warning(disable: 4127) // do not warn about constant conditional expression
-    #pragma warning(disable: 4275) // do not warn about the DLL interface for OSG
-    #pragma warning(disable: 4005) // do not warn about macro redefinition
+// avoid warnings in clang
+#ifdef __clang__
+#pragma clang system_header
+#endif
+#pragma warning(push, 0)
+#pragma warning(disable: 4127) // do not warn about constant conditional expression
+#pragma warning(disable: 4275) // do not warn about the DLL interface for OSG
+#pragma warning(disable: 4005) // do not warn about macro redefinition
 #endif
 
 // OSG Headers
@@ -66,12 +66,12 @@
 
 // pop MSVC warnings
 #ifdef _MSC_VER
-    #pragma warning(pop)
+#pragma warning(pop)
 #endif
 
-// Undefine NOMIMAX 
+// Undefine NOMIMAX
 #ifdef WIN32
-    #undef NOMINMAX
+#undef NOMINMAX
 #endif
 
 #endif

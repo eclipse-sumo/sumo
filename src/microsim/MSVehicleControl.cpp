@@ -77,7 +77,7 @@ MSVehicleControl::~MSVehicleControl() {
 }
 
 
-void 
+void
 MSVehicleControl::initDefaultTypes() {
     SUMOVTypeParameter defType(DEFAULT_VTYPE_ID, SVC_PASSENGER);
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);

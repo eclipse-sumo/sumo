@@ -322,9 +322,9 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
     }
     if ((int)myAlternatives.size() > RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().getMaxRouteNumber()) {
         // only keep the routes with highest probability
-        sort(myAlternatives.begin(), myAlternatives.end(), [](const RORoute* const a, const RORoute* const b) {
+        sort(myAlternatives.begin(), myAlternatives.end(), [](const RORoute * const a, const RORoute * const b) {
             return a->getProbability() > b->getProbability();
-            });
+        });
         for (std::vector<RORoute*>::iterator i = myAlternatives.begin() + RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().getMaxRouteNumber(); i != myAlternatives.end(); i++) {
             delete *i;
         }

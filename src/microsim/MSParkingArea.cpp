@@ -42,8 +42,8 @@
 // method definitions
 // ===========================================================================
 MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::string>& lines,
-    MSLane& lane, double begPos, double endPos, int capacity, double width, double length, 
-    double angle, const std::string& name, bool onRoad) :
+                             MSLane& lane, double begPos, double endPos, int capacity, double width, double length,
+                             double angle, const std::string& name, bool onRoad) :
     MSStoppingPlace(id, SUMO_TAG_PARKING_AREA, lines, lane, begPos, endPos, name),
     myCapacity(0),
     myOnRoad(onRoad),
@@ -427,7 +427,7 @@ MSParkingArea::getCapacity() const {
 }
 
 
-bool 
+bool
 MSParkingArea::parkOnRoad() const {
     return myOnRoad;
 }
@@ -445,7 +445,7 @@ MSParkingArea::getOccupancyIncludingBlocked() const {
 }
 
 
-int 
+int
 MSParkingArea::getLastStepOccupancy() const {
     return myLastStepOccupancy;
 }
@@ -456,13 +456,13 @@ MSParkingArea::notifyEgressBlocked() {
 }
 
 
-int 
+int
 MSParkingArea::getNumAlternatives() const {
     return myNumAlternatives;
 }
 
 
-void 
+void
 MSParkingArea::setNumAlternatives(int alternatives) {
     myNumAlternatives = MAX2(myNumAlternatives, alternatives);
 }

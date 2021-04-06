@@ -47,7 +47,7 @@ public:
         return result;
     }
 
-    static int readTypedInt(tcpip::Storage& ret, const std::string& error="") {
+    static int readTypedInt(tcpip::Storage& ret, const std::string& error = "") {
         if (ret.readUnsignedByte() != libsumo::TYPE_INTEGER && error != "") {
             throw TraCIException(error);
         }

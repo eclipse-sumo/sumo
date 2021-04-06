@@ -77,7 +77,7 @@ bool MSPedestrianPushButton::isActiveForEdge(const MSEdge* walkingEdge, const MS
 #ifdef SWARM_DEBUG
                 std::ostringstream oss;
                 oss << "MSPedestrianPushButton::isActiveForEdge Pushbutton active for edge " << walkingEdge->getID() << " crossing " << crossing->getID()
-                << " for " << person->getID() << " wait " << person->getWaitingSeconds();
+                    << " for " << person->getID() << " wait " << person->getWaitingSeconds();
                 WRITE_MESSAGE(oss.str());
 #endif
                 return true;
@@ -102,9 +102,10 @@ bool MSPedestrianPushButton::isActiveForEdge(const MSEdge* walkingEdge, const MS
                                 || (std::find(crossing->getSuccessors().begin(), crossing->getSuccessors().end(), walkingEdge) != crossing->getSuccessors().end()
                                     && std::find(crossing->getPredecessors().begin(), crossing->getPredecessors().end(), nextEdge) != crossing->getPredecessors().end())) {
 #ifdef SWARM_DEBUG
-                                std::ostringstream oss;
-                                oss << "MSPedestrianPushButton::isActiveForEdge Pushbutton active for edge " << walkingEdge->getID() << " crossing " << crossing->getID()
-                                << " for " << vehicle->getID() << " wait " << vehicle->getWaitingSeconds(); WRITE_MESSAGE(oss.str());
+                            std::ostringstream oss;
+                            oss << "MSPedestrianPushButton::isActiveForEdge Pushbutton active for edge " << walkingEdge->getID() << " crossing " << crossing->getID()
+                                << " for " << vehicle->getID() << " wait " << vehicle->getWaitingSeconds();
+                            WRITE_MESSAGE(oss.str());
 #endif
                             // Also release the vehicles here
                             lane->releaseVehicles();
@@ -119,7 +120,7 @@ bool MSPedestrianPushButton::isActiveForEdge(const MSEdge* walkingEdge, const MS
 #ifdef SWARM_DEBUG
     std::ostringstream oss;
     oss << "MSPedestrianPushButton::isActiveForEdge Pushbutton not active for edge " << walkingEdge->getID() << " crossing " << crossing->getID()
-    << " num Persons " << persons.size();
+        << " num Persons " << persons.size();
     WRITE_MESSAGE(oss.str());
 #endif
     return false;
@@ -183,7 +184,7 @@ std::vector<MSPushButton*> MSPedestrianPushButton::loadPushButtons(const MSPhase
                         MSEdge* walking = *wIt;
 #ifdef SWARM_DEBUG
                         WRITE_MESSAGE("MSPedestrianPushButton::loadPushButtons Added pushButton for walking edge " + walking->getID() + " crossing edge "
-                                          + crossing->getID() + " crossed edge " + laneEdge->getID() + ". Phase state " + phase->getState());
+                                      + crossing->getID() + " crossed edge " + laneEdge->getID() + ". Phase state " + phase->getState());
 #endif
                         pushButtons.push_back(new MSPedestrianPushButton(walking, crossing));
                     }

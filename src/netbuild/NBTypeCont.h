@@ -87,9 +87,9 @@ public:
 
         /// @brief parameter Constructor
         EdgeTypeDefinition(int numLanes, double speed, int priority,
-            double width, SVCPermissions permissions, LaneSpreadFunction spreadType,
-            bool oneWay, double sideWalkWidth, double bikeLaneWidth,
-            double widthResolution, double maxWidth, double minWidth);
+                           double width, SVCPermissions permissions, LaneSpreadFunction spreadType,
+                           bool oneWay, double sideWalkWidth, double bikeLaneWidth,
+                           double widthResolution, double maxWidth, double minWidth);
 
         /// @brief whether any lane attributes deviate from the edge attributes
         bool needsLaneType() const;
@@ -182,7 +182,7 @@ public:
                         double maxSpeed, int prio,
                         SVCPermissions permissions,
                         LaneSpreadFunction spreadType,
-                        double width, 
+                        double width,
                         bool oneWayIsDefault,
                         double sidewalkWidth,
                         double bikeLaneWidth,
@@ -208,7 +208,7 @@ public:
                         double maxSpeed,
                         SVCPermissions permissions,
                         double width,
-                        const std::set<SumoXMLAttr> &attrs);
+                        const std::set<SumoXMLAttr>& attrs);
 
     /**@brief Returns the number of known edgeTypes
      * @return The number of known edge edgeTypes (excluding the default)
@@ -409,7 +409,7 @@ public:
 
 protected:
     /// @brief The default edgeType
-    EdgeTypeDefinition *myDefaultType;
+    EdgeTypeDefinition* myDefaultType;
 
     /// @brief The container of edgeTypes
     TypesCont myEdgeTypes;

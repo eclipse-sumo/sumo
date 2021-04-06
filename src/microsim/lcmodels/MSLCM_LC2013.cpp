@@ -969,9 +969,9 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             // euler
             MSVehicle* const nfv = neighFollow.first;
             vsafe1 = nfv->getCarFollowModel().followSpeed(nfv, nfv->getSpeed(), neighFollow.second + SPEED2DIST(plannedSpeed),
-                                                          plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
+                     plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
             vsafe = nfv->getCarFollowModel().followSpeed(nfv, nfv->getSpeed(), neighFollow.second + SPEED2DIST(plannedSpeed - vsafe1),
-                                                         plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
+                    plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
             // NOTE: since vsafe1 > nfv->getSpeed() is possible, we don't have vsafe1 < vsafe < nfv->getSpeed here (similar pattern above works differently)
         } else {
             // ballistic
@@ -1646,7 +1646,7 @@ MSLCM_LC2013::_wantsChange(
                 fullSpeedGap = MIN2(fullSpeedGap, leader.second);
                 fullSpeedDrivingSeconds = MIN2(fullSpeedDrivingSeconds, fullSpeedGap / (vMax - leader.first->getSpeed()));
                 const double relGain = (vMax - leader.first->getLane()->getVehicleMaxSpeed(leader.first)) / MAX2(vMax,
-                                            RELGAIN_NORMALIZATION_MIN_SPEED);
+                                       RELGAIN_NORMALIZATION_MIN_SPEED);
                 // tiebraker to avoid buridans paradox see #1312
                 mySpeedGainProbability += myVehicle.getActionStepLengthSecs() * relGain;
             }

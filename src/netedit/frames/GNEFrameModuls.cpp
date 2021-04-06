@@ -579,7 +579,7 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementTree(GNEAttribut
     myHE = dynamic_cast<GNEHierarchicalElement*>(AC);
     // show HierarchicalElementTree and refresh HierarchicalElementTree
     if (myHE) {
-        // refresh HierarchicalElementTree 
+        // refresh HierarchicalElementTree
         refreshHierarchicalElementTree();
         // show myTreeListDinamic
         myTreeListDinamic->show();
@@ -1753,7 +1753,7 @@ GNEFrameModuls::OverlappedInspection::showOverlappedInspection(const GNEViewNetH
         bool insert = true;
         // check supermode demand
         if (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
-            !AC->getTagProperty().isDemandElement()) {
+                !AC->getTagProperty().isDemandElement()) {
             insert = false;
         }
         // check supermode data

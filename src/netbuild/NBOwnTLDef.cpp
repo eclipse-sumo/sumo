@@ -1096,8 +1096,8 @@ NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, c
 
 std::string
 NBOwnTLDef::correctMixed(std::string state, const EdgeVector& fromEdges,
-                               const std::vector<int>& fromLanes,
-                               bool& buildMixedGreenPhase, std::vector<bool>& mixedGreen) {
+                         const std::vector<int>& fromLanes,
+                         bool& buildMixedGreenPhase, std::vector<bool>& mixedGreen) {
     for (int i1 = 0; i1 < (int)fromEdges.size(); ++i1) {
         if ((state[i1] == 'G' || state[i1] == 'g')) {
             for (int i2 = 0; i2 < (int)fromEdges.size(); ++i2) {

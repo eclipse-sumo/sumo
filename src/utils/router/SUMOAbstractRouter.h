@@ -139,25 +139,25 @@ public:
 
     inline void init(const int edgeID, const SUMOTime msTime) {
 //        if (!myAmClean) {
-            // all EdgeInfos touched in the previous query are either in myFrontierList or myFound: clean those up
-            for (auto& edgeInfo : myFrontierList) {
-                edgeInfo->reset();
-            }
-            myFrontierList.clear();
-            for (auto& edgeInfo : myFound) {
-                edgeInfo->reset();
-            }
-            myFound.clear();
-            if (edgeID > -1) {
-                // add begin node
-                auto& fromInfo = myEdgeInfos[edgeID];
-                fromInfo.effort = 0.;
-                fromInfo.heuristicEffort = 0.;
-                fromInfo.prev = nullptr;
-                fromInfo.leaveTime = STEPS2TIME(msTime);
-                myFrontierList.push_back(&fromInfo);
-            }
-            myAmClean = true;
+        // all EdgeInfos touched in the previous query are either in myFrontierList or myFound: clean those up
+        for (auto& edgeInfo : myFrontierList) {
+            edgeInfo->reset();
+        }
+        myFrontierList.clear();
+        for (auto& edgeInfo : myFound) {
+            edgeInfo->reset();
+        }
+        myFound.clear();
+        if (edgeID > -1) {
+            // add begin node
+            auto& fromInfo = myEdgeInfos[edgeID];
+            fromInfo.effort = 0.;
+            fromInfo.heuristicEffort = 0.;
+            fromInfo.prev = nullptr;
+            fromInfo.leaveTime = STEPS2TIME(msTime);
+            myFrontierList.push_back(&fromInfo);
+        }
+        myAmClean = true;
 //        }
     }
 
@@ -316,9 +316,9 @@ public:
 #ifdef ROUTER_DEBUG_HINT
             if (ROUTER_DEBUG_COND) {
                 std::cout << "DEBUG: hit=" << (*e)->getID()
-                    << " TT=" << edgeInfo.effort
-                    << " EF=" << this->getEffort(*e, v, edgeInfo.leaveTime)
-                    << " HT=" << edgeInfo.heuristicEffort << "\n";
+                          << " TT=" << edgeInfo.effort
+                          << " EF=" << this->getEffort(*e, v, edgeInfo.leaveTime)
+                          << " HT=" << edgeInfo.heuristicEffort << "\n";
             }
 #endif
         }

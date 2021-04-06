@@ -48,7 +48,7 @@
 // static
 // ===========================================================================
 const double GNEEdge::SNAP_RADIUS = SUMO_const_halfLaneWidth;
-const double GNEEdge::SNAP_RADIUS_SQUARED = (SUMO_const_halfLaneWidth * SUMO_const_halfLaneWidth);
+const double GNEEdge::SNAP_RADIUS_SQUARED = (SUMO_const_halfLaneWidth* SUMO_const_halfLaneWidth);
 
 // ===========================================================================
 // members methods
@@ -56,15 +56,15 @@ const double GNEEdge::SNAP_RADIUS_SQUARED = (SUMO_const_halfLaneWidth * SUMO_con
 
 GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
     GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, {
-        net->retrieveJunction(nbe->getFromNode()->getID()), net->retrieveJunction(nbe->getToNode()->getID())
-    },
-    {}, {}, {}, {}, {}, {}, {}),
-    myNBEdge(nbe),
-    myLanes(0),
-    myAmResponsible(false),
-    myWasSplit(wasSplit),
-    myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-    myUpdateGeometry(true) {
+    net->retrieveJunction(nbe->getFromNode()->getID()), net->retrieveJunction(nbe->getToNode()->getID())
+},
+{}, {}, {}, {}, {}, {}, {}),
+myNBEdge(nbe),
+myLanes(0),
+myAmResponsible(false),
+myWasSplit(wasSplit),
+myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+myUpdateGeometry(true) {
     // Create lanes
     int numLanes = myNBEdge->getNumLanes();
     myLanes.reserve(numLanes);
@@ -300,12 +300,12 @@ GNEEdge::clickedOverShapeEnd(const Position& pos) const {
 }
 
 
-bool 
+bool
 GNEEdge::clickedOverGeometryPoint(const Position& pos) const {
     // first check inner geometry
     const PositionVector innenShape = myNBEdge->getInnerGeometry();
     // iterate over geometry point
-    for (const auto &geometryPoint : innenShape) {
+    for (const auto& geometryPoint : innenShape) {
         if (geometryPoint.distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED) {
             return true;
         }
@@ -451,12 +451,12 @@ GNEEdge::getSplitPos(const Position& clickPos) {
 void
 GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
     if ((myNBEdge->getGeometry().front().distanceSquaredTo2D(getParentJunctions().front()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
-        (myNBEdge->getGeometry().front().distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED)) {
+            (myNBEdge->getGeometry().front().distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED)) {
         undoList->p_begin("remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_START, "", undoList);
         undoList->p_end();
-    } else if ((myNBEdge->getGeometry().back().distanceSquaredTo2D(getParentJunctions().back()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) && 
-        (myNBEdge->getGeometry().back().distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED)) {
+    } else if ((myNBEdge->getGeometry().back().distanceSquaredTo2D(getParentJunctions().back()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
+               (myNBEdge->getGeometry().back().distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED)) {
         undoList->p_begin("remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
         undoList->p_end();
@@ -710,8 +710,8 @@ GNEEdge::copyTemplate(const GNEInspectorFrame::TemplateEditor::EdgeTemplate& edg
 }
 
 
-void 
-GNEEdge::copyEdgeType(const GNEEdgeType *edgeType, GNEUndoList* undoList) {
+void
+GNEEdge::copyEdgeType(const GNEEdgeType* edgeType, GNEUndoList* undoList) {
     // set type (only for info)
     setAttribute(SUMO_ATTR_TYPE, edgeType->getAttribute(SUMO_ATTR_ID), undoList);
     // set num lanes
@@ -1323,7 +1323,9 @@ GNEEdge::StackPosition::endPosition() const {
 
 
 GNEEdge::StackDemandElements::StackDemandElements(const StackPosition stackedPosition, GNEDemandElement* demandElement) :
-    pair(stackedPosition, {demandElement}) {
+    pair(stackedPosition, {
+    demandElement
+}) {
 }
 
 
@@ -1352,7 +1354,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
     // get edge parameters
     const auto edgeParameters = templateEditor->getEdgeTemplate().edgeParameters;
     // check if we have to update template
-    const bool updateTemplate = edgeParameters.empty()? false : (edgeParameters.at(SUMO_ATTR_ID) == getID());
+    const bool updateTemplate = edgeParameters.empty() ? false : (edgeParameters.at(SUMO_ATTR_ID) == getID());
     switch (key) {
         case SUMO_ATTR_ID:
             myNet->getAttributeCarriers()->updateID(this, value);

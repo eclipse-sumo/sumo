@@ -53,9 +53,9 @@ MSDispatch_TraCI::addReservation(MSTransportable* person,
 
 std::string
 MSDispatch_TraCI::removeReservation(MSTransportable* person,
-                                   const MSEdge* from, double fromPos,
-                                   const MSEdge* to, double toPos,
-                                   const std::string& group) {
+                                    const MSEdge* from, double fromPos,
+                                    const MSEdge* to, double toPos,
+                                    const std::string& group) {
     const std::string removedID = MSDispatch::removeReservation(person, from, fromPos, to, toPos, group);
     if (myReservationLookup.hasString(removedID)) {
         // warning! res is already deleted
@@ -129,9 +129,9 @@ MSDispatch_TraCI::splitReservation(std::string resID, std::vector<std::string> p
             }
         }
         Reservation* newRes = new Reservation(toString(myReservationCount++), split,
-                res->reservationTime, res->pickupTime,
-                res->from, res->fromPos,
-                res->to, res->toPos, res->group);
+                                              res->reservationTime, res->pickupTime,
+                                              res->from, res->fromPos,
+                                              res->to, res->toPos, res->group);
         myGroupReservations[res->group].push_back(newRes);
         myReservationLookup.insert(newRes->id, newRes);
         return newRes->id;

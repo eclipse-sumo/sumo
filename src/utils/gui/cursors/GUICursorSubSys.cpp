@@ -55,12 +55,12 @@ GUICursorSubSys::GUICursorSubSys(FXApp* a) {
     myCursors[GUICursor::MOVEELEMENT] = new FXGIFCursor(a, MoveElement_cursor, 1, 2);
 
     // ... and create them
-    for (const auto &cursor : myCursors) {
+    for (const auto& cursor : myCursors) {
         if (cursor.second != nullptr) {
             cursor.second->create();
         }
     }
-    
+
 }
 
 
