@@ -26,15 +26,16 @@ import sys
 import struct
 import math
 
+
 def fcd2trj(inpFCD, outSTRM, further):
     endian = b'B' if sys.byteorder == "big" else b'L'
-    
+
     # write FORMAT block
     outSTRM.write(struct.pack("=c", chr(0).encode()))
     outSTRM.write(struct.pack("=c", endian))
     outSTRM.write(struct.pack("f", 3.0))
     outSTRM.write(struct.pack("=c", chr(0).encode()))
-    
+
     # write DIMENSIONS block
     outSTRM.write(struct.pack("=c", chr(1).encode()))
     outSTRM.write(struct.pack("=c", chr(1).encode()))
@@ -43,7 +44,7 @@ def fcd2trj(inpFCD, outSTRM, further):
     outSTRM.write(struct.pack("=i", int(further["bbox"][0][1])))
     outSTRM.write(struct.pack("=i", int(further["bbox"][1][0])))
     outSTRM.write(struct.pack("=i", int(further["bbox"][1][1])))
-    
+
     # go through fcd output and encode links and vehicle IDs
     edgeDict = {}
     trafficPartDict = {}
@@ -55,13 +56,13 @@ def fcd2trj(inpFCD, outSTRM, further):
         # write TIMESTEP block
         outSTRM.write(struct.pack("=c", chr(2).encode()))
         outSTRM.write(struct.pack("=f", timestep.time))
-        
+
         for v in timestep.vehicle:
             speed = float(v.speed)
             if v.id not in trafficPartDict:
                 trafficPartDict[v.id] = trafficPartCounter
                 trafficPartCounter += 1
-                prevSpeed[v.id] = speed 
+                prevSpeed[v.id] = speed
             numericID = trafficPartDict[v.id]
             accel = (speed - prevSpeed[v.id])/further["timestep"]
             if "_" not in v.lane:
@@ -69,20 +70,20 @@ def fcd2trj(inpFCD, outSTRM, further):
                 laneIndex = 0
             else:
                 edge, laneIndex = v.lane.rsplit("_", 1)
-                laneIndex = min(int(laneIndex),9)
-            
+                laneIndex = min(int(laneIndex), 9)
+
             if edge not in edgeDict:
                 edgeDict[edge] = edgeCounter
                 edgeCounter += 1
             edgeNumericID = edgeDict[edge]
-            
+
             # calculated values
             x = float(v.x)
             y = float(v.y)
             angle = float(v.angle)
             rearX = x - math.cos(angle)*further["length"]
             rearY = y - math.sin(angle)*further["length"]
-            
+
             # write VEHICLE block
             outSTRM.write(struct.pack("=c", chr(3).encode()))
             outSTRM.write(struct.pack("=i", numericID))
@@ -96,7 +97,7 @@ def fcd2trj(inpFCD, outSTRM, further):
             outSTRM.write(struct.pack("=f", further["width"]))
             outSTRM.write(struct.pack("=f", speed))
             outSTRM.write(struct.pack("=f", accel))
-            outSTRM.write(struct.pack("=f", 0.0)) # front z coord
-            outSTRM.write(struct.pack("=f", 0.0)) # back z coord
+            outSTRM.write(struct.pack("=f", 0.0))  # front z coord
+            outSTRM.write(struct.pack("=f", 0.0))  # back z coord
             # remember value for next timestep
             prevSpeed[numericID] = speed

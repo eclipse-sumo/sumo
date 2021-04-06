@@ -24,7 +24,7 @@ from __future__ import absolute_import
 import os
 import sys
 import optparse
-import random 
+import random
 
 # (seed)
 
@@ -40,19 +40,19 @@ import sumolib  # noqa
 def get_options(args=None):
     optParser = optparse.OptionParser()
     optParser.add_option("-r", "--route-file", dest="routefile",
-            help="define the input route file with trips or vehicles")
+                         help="define the input route file with trips or vehicles")
     optParser.add_option("-n", "--number", dest="number",
-            help="number of trips/vehicles to split (not together with percent)")
+                         help="number of trips/vehicles to split (not together with percent)")
     optParser.add_option("-p", "--percent", dest="percent",
-            help="percent of trips/vehicles to split (not toghether with number")
+                         help="percent of trips/vehicles to split (not toghether with number")
     optParser.add_option("-a", "--output-file-a", dest="outputA", default="tripsA.rou.xml",
-            help="define the first output route file")
+                         help="define the first output route file")
     optParser.add_option("-b", "--output-file-b", dest="outputB", default="tripsB.rou.xml",
-            help="define the second output route file")
+                         help="define the second output route file")
     optParser.add_option("--random", action="store_true", default=False,
-            help="use a random seed to initialize the random number generator")
+                         help="use a random seed to initialize the random number generator")
     optParser.add_option("-s", "--seed", type="int", default=42,
-            help="random seed")
+                         help="random seed")
     (options, args) = optParser.parse_args(args=args)
     if not options.routefile or not (options.number or options.percent) or (options.number and options.percent):
         optParser.print_help()
@@ -81,8 +81,8 @@ def main(options):
     else:
         randomSample = tripsRange
     # separate in two groups
-    tripsArrayA =[]
-    tripsArrayB =[]
+    tripsArrayA = []
+    tripsArrayB = []
     # declare index
     index = 0
     # iterate over randomSample
@@ -97,7 +97,7 @@ def main(options):
     # write trips A
     for fname, trips in [
         (options.outputA, tripsArrayA),
-        (options.outputB, tripsArrayB)]:
+            (options.outputB, tripsArrayB)]:
         with open(fname, 'w') as outf:
             # write header
             sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa

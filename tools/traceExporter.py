@@ -132,7 +132,7 @@ def runMethod(inputFile, outputFile, writer, options, further={}):
     else:
         further["base-date"] = datetime.datetime.now().replace(hour=0,
                                                                minute=0, second=0, microsecond=0)
-    binaryOutput = True if options.trj else False 
+    binaryOutput = True if options.trj else False
     o = _getOutputStream(outputFile, binary=binaryOutput)
     if inputFile.isdigit():
         inp = getSocketStream(int(inputFile))
@@ -230,7 +230,7 @@ output format. Optionally the output can be sampled, filtered and distorted.
     # IPG
     optParser.add_option("--ipg-output", dest="ipg", metavar="FILE",
                          help="Defines the name of the ipg trace file to generate")
-    
+
     # TRJ
     optParser.add_option("--trj-output", dest="trj", metavar="FILE",
                          help="Defines the name of the trj file to generate")
@@ -240,7 +240,7 @@ output format. Optionally the output can be sampled, filtered and distorted.
                          type="float", help="Defines the assumed vehicle length")
     optParser.add_option("--timestep", dest="timestep", default=1.0,
                          type="float", help="Used time step duration")
-    
+
     # parse
     if len(args) == 1:
         sys.exit(USAGE.replace('%prog', os.path.basename(__file__)))
@@ -364,11 +364,12 @@ output format. Optionally the output can be sampled, filtered and distorted.
     if options.trj:
         if not net:
             net = sumolib.net.readNet(options.net)
-        runMethod(options.fcd, options.trj, trj.fcd2trj, options, 
-            {"length":options.trjvehlength, "width":options.trjvehwidth, "bbox": net.getBBoxXY(), "timestep":options.timestep})
+        runMethod(options.fcd, options.trj, trj.fcd2trj, options,
+                  {"length": options.trjvehlength, "width": options.trjvehwidth, "bbox": net.getBBoxXY(), "timestep": options.timestep})
     # ----- TRJ
-    
+
     return 0
+
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv))
