@@ -250,7 +250,8 @@ algorithm).
 The most important feature of pedestrian interactions is collision
 avoidance. To achieve this, the “striping”-model divides the lateral
 width of a lane into discrete stripes of fixed width. This width is user
-configurable using the option **--pedestrian.striping.stripe-width** {{DT_FLOAT}} and defaults to 0.65 m. These stripes are
+configurable using the option **--pedestrian.striping.stripe-width** {{DT_FLOAT}} and defaults to 0.65 m and
+doesn't have to match the lateral resolution of the sublane model. These stripes are
 similar to lanes of a multi-lane road. Collision avoidance is thus
 reduced to maintaining sufficient distance within the same stripe.
 Whenever a pedestrian comes too close to another pedestrian within the
@@ -261,7 +262,10 @@ occupies two stripes and thus needs to ensure sufficient distances in
 both. The algorithm for selecting the preferred stripe is based on the
 direction of movement (preferring evasion to the right for oncoming
 pedestrians) and the expected distance the pedestrian will be able to
-walk in that stripe without a collision.
+walk in that stripe without a collision. The model assumes that the pedestrian
+can fit into a single strip when walking in it's center. When **--pedestrian.striping-width** {{DT_FLOAT}} 
+is lower than a given path width, 100% safety is not guaranteed on shared lanes, i.e. collisions may occour.
+The warning to change the stripe-width will then be shown during simulation.
 
 During every simulation step, each pedestrian advances as fast as
 possible while still avoiding collisions. The updates happen in a single
