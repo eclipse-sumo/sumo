@@ -22,7 +22,7 @@ transfer_unconnected_2
 # person ride for restricted capacity
 capacity
 
-# test wheather the containerNumber of a vehicle increases/decreases if a container gets loaded/unloaded
+# test whether the containerNumber of a vehicle increases/decreases if a container gets loaded/unloaded
 container_number
 
 # tests if a container leaves a vehicle not only if the destination edge is reached but also if the vehicle that is transporting the container reached its current destination stop (plus minos some tolerance)
