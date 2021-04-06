@@ -217,18 +217,8 @@ GNEDetectorE2::updateGeometry() {
         endPosFixed = getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
     }
     if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
-/*
-        // declare extreme geometry
-        GNEGeometry::ExtremeGeometry extremeGeometry;
-        // set extremes
-        extremeGeometry.laneStartPosition = startPosFixed;
-        extremeGeometry.laneEndPosition = endPosFixed;
-        // calculate consecutive path using parent lanes
-        calculateConsecutivePathLanes(getParentLanes());
-        // calculate edge geometry path using path
-
-        GNEGeometry::calculateLaneGeometricPath(myAdditionalSegmentGeometry, getPath(), extremeGeometry);
-*/
+        // calculate path
+        myNet->getPathManager()->calculatePath(this, SVC_PEDESTRIAN, true, getParentLanes());  // SVC_PEDESTRIAN temporal
     } else {
         // Cut shape using as delimitators fixed start position and fixed end position
         myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), startPosFixed * getParentLanes().front()->getLengthGeometryFactor(), endPosFixed * getParentLanes().back()->getLengthGeometryFactor());
