@@ -132,7 +132,8 @@ def runMethod(inputFile, outputFile, writer, options, further={}):
     else:
         further["base-date"] = datetime.datetime.now().replace(hour=0,
                                                                minute=0, second=0, microsecond=0)
-    o = _getOutputStream(outputFile, binary=len(options.trj) > 0)
+    binaryOutput = True if options.trj else False 
+    o = _getOutputStream(outputFile, binary=binaryOutput)
     if inputFile.isdigit():
         inp = getSocketStream(int(inputFile))
     else:
