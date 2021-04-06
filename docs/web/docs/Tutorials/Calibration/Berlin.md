@@ -8,7 +8,7 @@ This article describes how a detailed traffic scenario was modelled
 using the SUMO simulation package and demonstrates how the simulation
 results are matching to measurements of the real world traffic.
 
-## THE STUDY AREA
+## The study area
 
 The UTRaLab (Urban Traffic Research Laboratory) is a test track with a
 length of 1.2 kilometres along a small river called “Ernst-Ruska-Ufer”
@@ -21,21 +21,21 @@ of the induction loops is given in Fig. 1.
 
 ![Berlin.png](../../images/Berlin.png "Berlin.png")
 
-## MODELLING WITHIN THE SUMO-Package
+## Modelling within the SUMO-Package
 
 Preparing a traffic simulation includes to model the road network as
 well as to model the traffic demand within the traffic network. Traffic
 Net Modelling The simulation net includes the section between
 “Wegedornstraße” and “Adlergestell”. It represents the exact number of
 lanes, turn lanes and links to all side roads. Within the considered
-section there are two traffic lights, one at the junction “Altglinicker
+section there are two traffic lights, one at the junction “Altglienicker
 Brücke” and one at the junction “Am Studio”. Both are modelled with
 fixed time schedules according to the time of the day. The main
 challenge in modelling was a spill-back into the study area caused
 outside at the junction Adlergestell. As there was no sensor data
 available to model the bottleneck itself Variable Speed Signs (VSS)
 \[3\] were placed in the model at the outbound of the junction
-“Altglinicker Brücke” towards Adlergestell. The VSS supplies all
+“Altglienicker Brücke” towards Adlergestell. The VSS supplies all
 vehicles crossing with a new maximum speed, derived from the single
 value data from the detectors. Traffic Demand Modelling Due to find a
 work day, outside holidays, where considerable congestion occurred,
@@ -61,7 +61,7 @@ plausibility and difference between the vehicle classes were considered
 such as passenger cars having a higher acceleration and deceleration
 than trucks.
 
-## RESULTS
+## Results
 
 In order to obtain the same measurements from simulation than from
 reality “Induction loops” \[6\] were instantiated at the same positions
@@ -96,7 +96,7 @@ flow and taken into account that no simulation is able to model all
 effects of reality, the diagrams demonstrate a high similarity of
 congestion length and duration.
 
-## SUMMARY AND OUTLOOK
+## Summary and Outlook
 
 It was demonstrated that Variable Speed Signs allow to model congestion
 effects caused outside the simulated net. The resulting duration and
@@ -106,7 +106,7 @@ reliability is done by more detailed analyses of the simulation results.
 Therefore the datasets received for each vehicle from the test track
 sensors and from the simulation are compared.
 
-## REFERENCES
+## References
 
 - \[1\]
   <http://www.dlr.de/fs/en/desktopdefault.aspx/tabid-1237/5441_read-11863/>
