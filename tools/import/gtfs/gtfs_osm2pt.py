@@ -459,7 +459,7 @@ def main(options):
                     if not lane.allows(pt_class):
                         continue
                     lane_id = lane.getID()
-                    pos = lane.getClosestLanePosAndDist((x, y))[0]
+                    pos = int(lane.getClosestLanePosAndDist((x, y))[0])
                     start = max(0, pos-stop_length)
                     end = min(start+stop_length, lane.getLength())
                     stop_item_id = "%s_%s" % (row.stop_id, stop_item_id)
@@ -497,10 +497,11 @@ def main(options):
                 numAccess = 0
                 for accessEdge, _ in sorted(net.getNeighboringEdges(*ap, r=100), key=lambda i: i[1]):
                     if accessEdge.getID() != key.split("_")[0] and accessEdge.allows("pedestrian"):
+                        lane_id = [lane.getID() for lane in accessEdge.getLanes() if lane.allows("pedestrian")][0]
                         _, accessPos, accessDist = accessEdge.getClosestLanePosDist(ap)
                         output_file.write(('        <access friendlyPos="true" ' +
-                                          'lane="%s_0" pos="%s" length="%s"/>\n') %
-                                          (accessEdge.getID(), accessPos, 1.5 * accessDist))
+                                          'lane="%s" pos="%s" length="%s"/>\n') %
+                                          (lane_id, int(accessPos), 1.5 * int(accessDist)))
                         numAccess += 1
                         if numAccess == 5:
                             break
