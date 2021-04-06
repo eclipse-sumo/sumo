@@ -25,12 +25,12 @@ import zipfile
 import subprocess
 import datetime
 import math
-from argparse import ArgumentParser
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
 
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
+from sumolib.options import ArgumentParser  # noqa
 
 
 def initOptions():
@@ -91,7 +91,7 @@ def repair_routes(options, net, sumo_vClass):
             dua_file.write('\t<vType id="%s" vClass="%s"/>\n' % (key, value))
 
         sumo_edges = [sumo_edge.getID() for sumo_edge in net.getEdges()]
-        for ptline, ptline_route in xmlParser(options.osm_routes, "ptLine", ("id", "name", "line", "type"), "route", ("edges")):
+        for ptline, ptline_route in sumolib.xml.parse_fast_nested(options.osm_routes, "ptLine", ("id", "name", "line", "type"), "route", "edges"):
             if ptline.type not in options.pt_types:
                 continue
 
@@ -154,7 +154,7 @@ def repair_routes(options, net, sumo_vClass):
     # parse repaired routes
     n_routes = len(osm_routes)
 
-    for ptline, ptline_route in xmlParser("dua_output.xml", "vehicle", ("id"), "route", ("edges")):
+    for ptline, ptline_route in sumolib.xml.parse_fast_nested("dua_output.xml", "vehicle", "id", "route", "edges"):
         if len(ptline_route.edges) > 2:
             osm_routes[ptline.id] += (ptline_route.edges, )
 
@@ -242,7 +242,7 @@ def main(options):
     else:
         print("Import osm routes")
         osm_routes = {}
-        for ptline, ptline_route in xmlParser(options.osm_routes, "ptLine", ("id", "name", "line", "type"), "route", ("edges")):
+        for ptline, ptline_route in sumolib.xml.parse_fast_nested(options.osm_routes, "ptLine", ("id", "name", "line", "type"), "route", "edges"):
             if ptline.type not in options.pt_types:
                 continue
             if len(ptline_route.edges) > 2:

@@ -83,7 +83,7 @@ def simple(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_t
                             try:
                                 index_pu = stops.index(('%sy' % stop))
                                 index_do = stops.index(('%sz' % stop))
-                            except:
+                            except ValueError:
                                 abort = True
                                 break  # if stop not even picked up
 
@@ -222,7 +222,7 @@ def simple_rerouting(options, r_id_unassigned, r_id_picked, r_id_served, r_all, 
                             else:
                                 index_pu = stops.index(('%sy' % stop))
                             index_do = stops.index(('%sz' % stop))
-                        except:
+                        except ValueError:
                             abort = True
                             break  # if stop not even picked up
 
@@ -293,7 +293,8 @@ def simple_rerouting(options, r_id_unassigned, r_id_picked, r_id_served, r_all, 
     return rtv_dict, r_id_rtv
 
 
-def search_routes(route, pairs, assigned_v, picked_v, r_all, rv_dict, r_id_rtv, v_capacity, v_bin, rtv_dict, routes_tree, options, start_time):
+def search_routes(route, pairs, assigned_v, picked_v, r_all, rv_dict, r_id_rtv,
+                  v_capacity, v_bin, rtv_dict, routes_tree, options, start_time):
     # route means [route_id, route_tw, route_pax]
     route_id, route_tw, route_pax = route
     for pair in pairs:
@@ -322,7 +323,7 @@ def search_routes(route, pairs, assigned_v, picked_v, r_all, rv_dict, r_id_rtv, 
                 else:
                     index_pu = stops.index(('%sy' % stop))
                 index_do = stops.index(('%sz' % stop))
-            except:
+            except ValueError:
                 abort = True
                 break  # if stop not even picked up
 
@@ -437,7 +438,8 @@ def exhaustive_search(options, r_id_unassigned, r_id_picked, r_all, fleet, v_typ
             routes_tree.append([])
             for route in routes_tree[i]:
                 routes_tree[i + 1], rtv_dict = search_routes(route, pairs, assigned_v, picked_v, r_all,
-                                                             rv_dict, r_id_rtv, v_capacity, v_bin, rtv_dict, routes_tree[i + 1], options, start_time)
+                                                             rv_dict, r_id_rtv, v_capacity, v_bin, rtv_dict,
+                                                             routes_tree[i + 1], options, start_time)
                 if (time.perf_counter() - start_time) > options.rtv_time:
                     memory_problems.append(1)
                     break

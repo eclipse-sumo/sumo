@@ -20,7 +20,6 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-import optparse
 from collections import defaultdict
 
 if 'SUMO_HOME' in os.environ:
@@ -43,7 +42,7 @@ def get_options(args=None):
     parser.add_argument("-e", "--end", default=None, help="end time (when writting all steps)")
     options = parser.parse_args(args=args)
     if not options.stopOutput:
-        optParser.print_help()
+        parser.print_help()
         sys.exit()
 
     if options.begin:

@@ -501,7 +501,8 @@ def main():
             elif options.rtv_algorithm == '2':
                 rtv_dict, r_id_rtv = rtvAlgorithm.simple_rerouting(
                     options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step)
-            # rtv_dict, r_id_rtv = get_rtv(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step)
+            # rtv_dict, r_id_rtv = get_rtv(options, r_id_unassigned, r_id_picked, r_id_served, r_all,
+            #                              fleet, v_type, rv_dict, step)
 
             if len(rtv_dict) == 0:
                 step += options.sim_step
@@ -518,8 +519,8 @@ def main():
                 costs = {}
                 trips = list(rtv_dict.keys())  # list of all trips for ILP solution parse
 
-                # add bonus_cost to trip cost (makes trips with more served requests cheaper than splitting the requests to more
-                # vehicles with smaller trips if both strategies would yield a similar cost)
+                # add bonus_cost to trip cost (makes trips with more served requests cheaper than splitting
+                # the requests to more vehicles with smaller trips if both strategies would yield a similar cost)
                 for idx, trip_id in enumerate(trips):
                     # rtv_dict[route] = [travel_time, v_bin, r_bin, value]
                     # TODO specific cost for vehicle can be consider here
@@ -563,8 +564,8 @@ def main():
                     edges.insert(0, traci.vehicle.getLaneID(stops[0]).split("_")[0])  # add current edge
                     for idx, edge in enumerate(edges[:-1]):
                         # TODO default stop time ticket #6714
-                        tt_current_route += int(traci.simulation.findRoute(edge,
-                                                                           edges[idx+1], v_type, step, routingMode=0).travelTime) + 60
+                        tt_current_route += int(traci.simulation.findRoute(edge, edges[idx+1], v_type, step,
+                                                                           routingMode=0).travelTime) + 60
                     tt_new_route = rtv_dict[route_id][0]
                     if tt_new_route >= tt_current_route:
                         continue  # current route better than new found
@@ -579,16 +580,16 @@ def main():
                     x.vehicle = stops[0]
 
         # TODO ticket #8385
-        if step > options.end_time or (not traci.simulation.getMinExpectedNumber() > 0 and not traci.person.getIDList()):
+        if step > options.end_time or (traci.simulation.getMinExpectedNumber() <= 0 and not traci.person.getIDList()):
             rerouting = False
 
         step += options.sim_step
 
     if options.rtv_algorithm == 0:  # if exhaustive search
         if sum(memory_problems) == 0:
-            print('Optimal solution found')
+            print('Optimal solution found.')
         else:
-            print('The maximum specified time for the calculation with the exact method was exceeded. Solution could not be optimal')
+            print('The maximal specified calculation time has been exceeded. Solution could be not optimal.')
     print('DRT simulation ended')
     traci.close()
 
