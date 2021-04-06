@@ -3,9 +3,7 @@
 #pragma SWIG nowarn=511
 // avoid warnings about unknown base class std::runtime_error
 #pragma SWIG nowarn=401
-#endif
 
-#ifdef SWIGPYTHON
 %naturalvar;
 %rename(edge) Edge;
 %rename(inductionloop) InductionLoop;
@@ -338,12 +336,15 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
         return None
 %}
 
-#endif
+#endif // SWIGPYTHON
 
 %begin %{
 #ifdef _MSC_VER
 // ignore constant conditional expression and unreachable/unsafe code warnings
 #pragma warning(disable:4127 4702 4996)
+#else
+// ignore unused parameter warnings for vector template code
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 #endif
 
 #include <iostream>
