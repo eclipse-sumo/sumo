@@ -1,0 +1,14 @@
+# Tests for <SUMO_DIST>/tools/countEdgeUsage.py
+basic
+
+# Tests for <SUMO_DIST>/tools/countEdgeUsage.py
+taz
+
+# Tests for <SUMO_DIST>/tools/countEdgeUsage.py
+subpart
+
+# Tests for <SUMO_DIST>/tools/countEdgeUsage.py
+subpart_file
+
+# Tests for <SUMO_DIST>/tools/countEdgeUsage.py
+intermediate

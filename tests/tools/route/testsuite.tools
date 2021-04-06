@@ -32,7 +32,7 @@ routeStats
 departOffset
 
 # test for generating edge traffic counts
-showDepartsAndArrivalsPerEdge
+countEdgeUsage
 
 # generated traces for use with tracemapper
 tracegenerator
