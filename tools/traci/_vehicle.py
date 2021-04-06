@@ -1089,7 +1089,7 @@ class VehicleDomain(Domain):
         If edgeID is "", the stop at the given index will be removed without
         replacement and the route will not be modified.
         If teleport is set to 1, the route to the replacement stop will be
-        disconnected (forcing a teleport). 
+        disconnected (forcing a teleport).
         If stopIndex is 0 the gap will be between the current
         edge and the new stop. Otherwise the gap will be between the stop edge for
         nextStopIndex - 1 and the new stop.

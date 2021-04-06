@@ -83,7 +83,8 @@ def main(options):
     # transfers = pd.read_csv(gtfsZip.open('transfers.txt'), dtype=str)
 
     # Merging the tables
-    weekday = 'monday tuesday wednesday thursday friday saturday sunday'.split()[datetime.datetime.strptime(options.date, "%Y%m%d").weekday()]
+    weekday = 'monday tuesday wednesday thursday friday saturday sunday'.split(
+    )[datetime.datetime.strptime(options.date, "%Y%m%d").weekday()]
     removed = calendar_dates[(calendar_dates.date == options.date) & (calendar_dates.exception_type == '2')]
     services = calendar[(calendar.start_date <= options.date) & (calendar.end_date >= options.date) &
                         (calendar[weekday] == '1') & (~calendar.service_id.isin(removed.service_id))]

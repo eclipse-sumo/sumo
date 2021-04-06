@@ -44,37 +44,37 @@ VIA_SUFFIX = ".via.xml"
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser(description="Generate trips between random locations")
     optParser.add_argument("-n", "--net-file", dest="netfile",
-                         help="define the net file (mandatory)")
+                           help="define the net file (mandatory)")
     optParser.add_argument("-a", "--additional-files", dest="additional",
-                         help="define additional files to be loaded by the router")
+                           help="define additional files to be loaded by the router")
     optParser.add_argument("-o", "--output-trip-file", dest="tripfile",
-                         default="trips.trips.xml", help="define the output trip filename")
+                           default="trips.trips.xml", help="define the output trip filename")
     optParser.add_argument("-r", "--route-file", dest="routefile",
-                         help="generates route file with duarouter")
+                           help="generates route file with duarouter")
     optParser.add_argument("--vtype-output", dest="vtypeout",
-                         help="Store generated vehicle types in a separate file")
+                           help="Store generated vehicle types in a separate file")
     optParser.add_argument("--weights-prefix", dest="weightsprefix",
-                         help="loads probabilities for being source, destination and via-edge from the files named " +
-                         "<prefix>.src.xml, <prefix>.sink.xml and <prefix>.via.xml")
+                           help="loads probabilities for being source, destination and via-edge from the files named " +
+                           "<prefix>.src.xml, <prefix>.sink.xml and <prefix>.via.xml")
     optParser.add_argument("--weights-output-prefix", dest="weights_outprefix",
-                         help="generates weights files for visualisation")
+                           help="generates weights files for visualisation")
     optParser.add_argument("--pedestrians", action="store_true",
-                         default=False, help="create a person file with pedestrian trips instead of vehicle trips")
+                           default=False, help="create a person file with pedestrian trips instead of vehicle trips")
     optParser.add_argument("--persontrips", action="store_true",
-                         default=False, help="create a person file with person trips instead of vehicle trips")
+                           default=False, help="create a person file with person trips instead of vehicle trips")
     optParser.add_argument("--personrides", help="create a person file with rides using STR as lines attribute")
     optParser.add_argument("--persontrip.transfer.car-walk", dest="carWalkMode",
-                         help="Where are mode changes from car to walking allowed " +
-                         "(possible values: 'ptStops', 'allJunctions' and combinations)")
+                           help="Where are mode changes from car to walking allowed " +
+                           "(possible values: 'ptStops', 'allJunctions' and combinations)")
     optParser.add_argument("--persontrip.walkfactor", dest="walkfactor",
-                         help="Use FLOAT as a factor on pedestrian maximum speed during intermodal routing")
+                           help="Use FLOAT as a factor on pedestrian maximum speed during intermodal routing")
     optParser.add_argument("--prefix", dest="tripprefix",
-                         default="", help="prefix for the trip ids")
+                           default="", help="prefix for the trip ids")
     optParser.add_argument("-t", "--trip-attributes", dest="tripattrs",
-                         default="", help="additional trip attributes. When generating pedestrians, attributes for " +
-                         "<person> and <walk> are supported.")
+                           default="", help="additional trip attributes. When generating pedestrians, attributes for " +
+                           "<person> and <walk> are supported.")
     optParser.add_argument("--fringe-start-attributes", dest="fringeattrs",
-                         default="", help="additional trip attributes when starting on a fringe.")
+                           default="", help="additional trip attributes when starting on a fringe.")
     optParser.add_argument("-b", "--begin", default=0, help="begin time")
     optParser.add_argument("-e", "--end", default=3600, help="end time (default 3600)")
     optParser.add_argument(
@@ -82,62 +82,61 @@ def get_options(args=None):
         "period=FLOAT (default 1.0). If option --binomial is used, the expected arrival rate is set to 1/period.")
     optParser.add_argument("-s", "--seed", type=int, default=42, help="random seed")
     optParser.add_argument("--random", action="store_true",
-                         default=False, help="use a random seed to initialize the random number generator")
+                           default=False, help="use a random seed to initialize the random number generator")
     optParser.add_argument("-l", "--length", action="store_true",
-                         default=False, help="weight edge probability by length")
+                           default=False, help="weight edge probability by length")
     optParser.add_argument("-L", "--lanes", action="store_true",
-                         default=False, help="weight edge probability by number of lanes")
+                           default=False, help="weight edge probability by number of lanes")
     optParser.add_argument("--edge-param", dest="edgeParam",
-                         help="use the given edge parameter as factor for edge")
+                           help="use the given edge parameter as factor for edge")
     optParser.add_argument("--speed-exponent", type=float, dest="speed_exponent",
-                         default=0.0, help="weight edge probability by speed^<FLOAT> (default 0)")
+                           default=0.0, help="weight edge probability by speed^<FLOAT> (default 0)")
     optParser.add_argument("--angle", type=float, dest="angle",
-                         default=90.0, help="weight edge probability by angle [0-360] relative to the network center")
+                           default=90.0, help="weight edge probability by angle [0-360] relative to the network center")
     optParser.add_argument("--angle-factor", type=float, dest="angle_weight",
-                         default=1.0, help="maximum weight factor for angle")
+                           default=1.0, help="maximum weight factor for angle")
     optParser.add_argument("--fringe-factor", type=float, dest="fringe_factor",
-                         default=1.0, help="multiply weight of fringe edges by <FLOAT> (default 1")
+                           default=1.0, help="multiply weight of fringe edges by <FLOAT> (default 1")
     optParser.add_argument("--fringe-threshold", type=float, dest="fringe_threshold",
-                         default=0.0, help="only consider edges with speed above <FLOAT> as fringe edges (default 0)")
-    optParser.add_argument("--allow-fringe", dest="allow_fringe", action="store_true",
-                         default=False, help="Allow departing on edges that leave the network and arriving on edges " +
-                         "that enter the network (via turnarounds or as 1-edge trips")
+                           default=0.0, help="only consider edges with speed above <FLOAT> as fringe edges (default 0)")
+    optParser.add_argument("--allow-fringe", dest="allow_fringe", action="store_true", default=False,
+                           help="Allow departing on edges that leave the network and arriving on edges " +
+                           "that enter the network (via turnarounds or as 1-edge trips")
     optParser.add_argument("--allow-fringe.min-length", type=float, dest="allow_fringe_min_length",
-                         help="Allow departing on edges that leave the network and arriving on edges " +
-                         "that enter the network, if they have at least the given length")
+                           help="Allow departing on edges that leave the network and arriving on edges " +
+                           "that enter the network, if they have at least the given length")
     optParser.add_argument("--min-distance", type=float, dest="min_distance",
-                         default=0.0, help="require start and end edges for each trip to be at least <FLOAT> m apart")
+                           default=0.0, help="require start and end edges for each trip to be at least <FLOAT> m apart")
     optParser.add_argument("--max-distance", type=float, dest="max_distance",
-                         default=None, help="require start and end edges for each trip to be at most <FLOAT> m " +
-                         "apart (default 0 which disables any checks)")
+                           default=None, help="require start and end edges for each trip to be at most <FLOAT> m " +
+                           "apart (default 0 which disables any checks)")
     optParser.add_argument("-i", "--intermediate", type=int,
-                         default=0, help="generates the given number of intermediate way points")
-    optParser.add_argument("--flows", type=int,
-                         default=0, help="generates INT flows that together output vehicles with the specified period")
+                           default=0, help="generates the given number of intermediate way points")
+    optParser.add_argument("--flows", type=int, default=0,
+                           help="generates INT flows that together output vehicles with the specified period")
     optParser.add_argument("--jtrrouter", action="store_true",
-                         default=False, help="Create flows without destination as input for jtrrouter")
-    optParser.add_argument("--maxtries", type=int,
-                         default=100, help="number of attemps for finding a trip which meets the distance constraints")
+                           default=False, help="Create flows without destination as input for jtrrouter")
+    optParser.add_argument("--maxtries", type=int, default=100,
+                           help="number of attemps for finding a trip which meets the distance constraints")
     optParser.add_argument("--binomial", type=int, metavar="N",
-                         help="If this is set, the number of departures per seconds will be drawn from a binomial " +
-                         "distribution with n=N and p=PERIOD/N where PERIOD is the argument given to " +
-                         "option --period. Tnumber of attemps for finding a trip which meets the distance constraints")
+                           help="If this is set, the number of departures per second will be drawn from a binomial " +
+                           "distribution with n=N and p=PERIOD/N where PERIOD is the argument given to --period")
     optParser.add_argument("--vclass", "--edge-permission", default="passenger",
-                         help="only from and to edges which permit the given vehicle class")
+                           help="only from and to edges which permit the given vehicle class")
     optParser.add_argument("--vehicle-class",
-                         help="The vehicle class assigned to the generated trips (adds a standard vType definition " +
-                         "to the output file).")
+                           help="The vehicle class assigned to the generated trips (adds a standard vType definition " +
+                           "to the output file).")
     optParser.add_argument("--remove-loops", dest="remove_loops", action="store_true",
-                         default=False, help="Remove loops at route start and end")
+                           default=False, help="Remove loops at route start and end")
     optParser.add_argument("--junction-taz", dest="junctionTaz", action="store_true",
-                         default=False, help="Write trips with fromJunction and toJunction")
+                           default=False, help="Write trips with fromJunction and toJunction")
     optParser.add_argument("--via-edge-types", dest="viaEdgeTypes",
-                         help="Set list of edge types that cannot be used for departure or arrival " +
-                         "(unless being on the fringe)")
+                           help="Set list of edge types that cannot be used for departure or arrival " +
+                           "(unless being on the fringe)")
     optParser.add_argument("--validate", default=False, action="store_true",
-                         help="Whether to produce trip output that is already checked for connectivity")
+                           help="Whether to produce trip output that is already checked for connectivity")
     optParser.add_argument("-v", "--verbose", action="store_true",
-                         default=False, help="tell me what you are doing")
+                           default=False, help="tell me what you are doing")
     options = optParser.parse_args(args=args)
     if not options.netfile:
         optParser.print_help()
@@ -496,12 +495,12 @@ def main(options):
                     element = "ride"
                     attrs = ' lines="%s%s"' % (options.personrides, otherattrs)
                 if intermediate:
-                    fouttrips.write( '        <%s%s to="%s"%s/>\n' % (element, attrFrom, intermediate[0].getID(), attrs))
+                    fouttrips.write('        <%s%s to="%s"%s/>\n' % (element, attrFrom, intermediate[0].getID(), attrs))
                     for edge in intermediate[1:]:
-                        fouttrips.write( '        <%s to="%s"%s/>\n' % (element, edge.getID(), attrs))
-                    fouttrips.write( '        <%s%s%s/>\n' % (element, attrTo, attrs))
+                        fouttrips.write('        <%s to="%s"%s/>\n' % (element, edge.getID(), attrs))
+                    fouttrips.write('        <%s%s%s/>\n' % (element, attrTo, attrs))
                 else:
-                    fouttrips.write( '        <%s%s%s%s/>\n' % (element, attrFrom, attrTo, attrs))
+                    fouttrips.write('        <%s%s%s%s/>\n' % (element, attrFrom, attrTo, attrs))
                 fouttrips.write('    </person>\n')
             else:
                 if options.jtrrouter:
