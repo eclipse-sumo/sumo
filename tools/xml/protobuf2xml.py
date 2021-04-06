@@ -57,7 +57,7 @@ def read_n(inputf, n):
         Raise RuntimeError if the stream ended before
         n bytes were read.
     """
-    buf = ''
+    buf = b''
     while n > 0:
         data = inputf.read(n)
         if data == '':
