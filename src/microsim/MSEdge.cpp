@@ -562,15 +562,19 @@ MSEdge::validateDepartSpeed(SUMOVehicle& v) const {
     const SUMOVehicleParameter& pars = v.getParameter();
     const MSVehicleType& type = v.getVehicleType();
     if (pars.departSpeedProcedure == DepartSpeedDefinition::GIVEN && pars.departSpeed > getVehicleMaxSpeed(&v) + NUMERICAL_EPS) {
-        const std::vector<double>& speedFactorParams = type.getSpeedFactor().getParameter();
-        if (speedFactorParams[1] > 0.) {
-            v.setChosenSpeedFactor(type.computeChosenSpeedDeviation(nullptr, pars.departSpeed / getSpeedLimit()));
-            if (v.getChosenSpeedFactor() > speedFactorParams[0] + 2 * speedFactorParams[1]) {
-                // only warn for significant deviation
-                WRITE_WARNING("Choosing new speed factor " + toString(v.getChosenSpeedFactor()) + " for vehicle '" + pars.id + "' to match departure speed.");
+        // check departLane (getVehicleMaxSpeed checks lane 0)
+        MSLane* departLane = MSGlobals::gMesoNet ? getLanes()[0] : getDepartLane(dynamic_cast<MSVehicle&>(v));
+        if (departLane != nullptr && pars.departSpeed > departLane->getVehicleMaxSpeed(&v) + NUMERICAL_EPS) {
+            const std::vector<double>& speedFactorParams = type.getSpeedFactor().getParameter();
+            if (speedFactorParams[1] > 0.) {
+                v.setChosenSpeedFactor(type.computeChosenSpeedDeviation(nullptr, pars.departSpeed / getSpeedLimit()));
+                if (v.getChosenSpeedFactor() > speedFactorParams[0] + 2 * speedFactorParams[1]) {
+                    // only warn for significant deviation
+                    WRITE_WARNING("Choosing new speed factor " + toString(v.getChosenSpeedFactor()) + " for vehicle '" + pars.id + "' to match departure speed.");
+                }
+            } else {
+                return false;
             }
-        } else {
-            return false;
         }
     }
     return true;
