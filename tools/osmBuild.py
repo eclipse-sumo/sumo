@@ -43,23 +43,23 @@ optParser.add_argument("-p", "--prefix", default="osm", help="for output file")
 optParser.add_argument(
     "-f", "--osm-file", help="full name of the osm file to import")
 optParser.add_argument("-m", "--typemap", default=None,
-                     help="typemap file for the extraction of colored areas (optional)")
+                       help="typemap file for the extraction of colored areas (optional)")
 optParser.add_argument("--netconvert-typemap", default=None,
-                     help="typemap files for netconverter (optional)")
+                       help="typemap files for netconverter (optional)")
 optParser.add_argument("-o", "--oldapi-prefix", default=None,
-                     help="prefix that was used for retrieval with the old API")
+                       help="prefix that was used for retrieval with the old API")
 optParser.add_argument("-t", "--tiles", type=int, default=1,
-                     help="number of tiles used for retrieving OSM-data via the old api")
+                       help="number of tiles used for retrieving OSM-data via the old api")
 optParser.add_argument("--vehicle-classes", default='all',
-                     help="[(%s)]extract network for a reduced set of vehicle classes" % possibleVClassOptions)
+                       help="[(%s)]extract network for a reduced set of vehicle classes" % possibleVClassOptions)
 optParser.add_argument("-d", "--output-directory", default=os.getcwd(),
-                     help="directory in which to put the output files")
+                       help="directory in which to put the output files")
 optParser.add_argument("-n", "--netconvert-options",
-                     default=DEFAULT_NETCONVERT_OPTS, help="comma-separated options for netconvert")
+                       default=DEFAULT_NETCONVERT_OPTS, help="comma-separated options for netconvert")
 optParser.add_argument("--pedestrians", action="store_true",
-                     default=False, help="add pedestrian infrastructure to the network")
+                       default=False, help="add pedestrian infrastructure to the network")
 optParser.add_argument("-y", "--polyconvert-options",
-                     default="-v,--osm.keep-full-type", help="comma-separated options for polyconvert")
+                       default="-v,--osm.keep-full-type", help="comma-separated options for polyconvert")
 
 
 def getRelative(dirname, option):

@@ -75,6 +75,7 @@ def main(options):
         # write modified tree
         tree.write(options.output)
 
+
 if __name__ == "__main__":
     options = get_options(sys.argv)
     main(options)

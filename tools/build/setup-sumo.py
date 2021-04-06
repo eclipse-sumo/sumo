@@ -31,7 +31,7 @@ setup(
     author_email='sumo@dlr.de',
     license='EPL-2.0',
     description=("A microscopic, multi-modal traffic simulation package"),
-    long_description = open(os.path.join(os.path.dirname(package_dir), 'README.md')).read(),
+    long_description=open(os.path.join(os.path.dirname(package_dir), 'README.md')).read(),
 
     classifiers=[
         'Development Status :: 5 - Production/Stable',

@@ -432,7 +432,7 @@ def get_basename(demand_file):
     for suffix in ['.rou.xml', '.rou.alt.xml', '.trips.xml', '.xml']:
         if basename.endswith(suffix):
             basename = basename[:-len(suffix)]
-            break;
+            break
     return basename
 
 

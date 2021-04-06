@@ -43,6 +43,7 @@ class InstallPlatlib(install):
 
 class BinaryDistribution(Distribution):
     """Distribution which always forces a binary package with platform name"""
+
     def has_ext_modules(self):
         return True
 
@@ -55,7 +56,7 @@ setup(
     author_email='sumo@dlr.de',
     license='EPL-2.0',
     description="The python version of the libtraci API to communicate with the traffic simulation Eclipse SUMO",
-    long_description = open(os.path.join(os.path.dirname(package_dir), 'README.md')).read(),
+    long_description=open(os.path.join(os.path.dirname(package_dir), 'README.md')).read(),
 
     classifiers=[
         'Development Status :: 4 - Beta',

@@ -93,7 +93,7 @@ def main(options):
                 if lastUntil is not None and until < lastUntil:
                     print("Vehicle %s has 'until' (%s) before previous 'until' (%s) at stop %s" % (
                         vehicle.id, tf(until), tf(lastUntil), stop.busStop), file=sys.stderr)
-                lastUntil = until;
+                lastUntil = until
                 stopTimes[stop.busStop].append((arrival, until, vehicle.id, stop.getAttributeSecure("tripId", "")))
 
     for stop, times in stopTimes.items():

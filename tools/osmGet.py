@@ -34,6 +34,7 @@ from os import path
 import sumolib  # noqa
 from urllib.request import urlopen
 
+
 def readCompressed(conn, urlpath, query, filename):
     conn.request("POST", "/" + urlpath, """
     <osm-script timeout="240" element-limit="1073741824">
@@ -61,15 +62,16 @@ optParser = sumolib.options.ArgumentParser(description="Get network from OpenStr
 optParser.add_argument("-p", "--prefix", default="osm", help="for output file")
 optParser.add_argument("-b", "--bbox", help="bounding box to retrieve in geo coordinates west,south,east,north")
 optParser.add_argument("-t", "--tiles", type=int,
-                     default=1, help="number of tiles the output gets split into")
+                       default=1, help="number of tiles the output gets split into")
 optParser.add_argument("-d", "--output-dir", help="optional output directory (must already exist)")
 optParser.add_argument("-a", "--area", type=int, help="area id to retrieve")
 optParser.add_argument("-x", "--polygon", help="calculate bounding box from polygon data in file")
 optParser.add_argument("-u", "--url", default="www.overpass-api.de/api/interpreter",
-                     help="Download from the given OpenStreetMap server")
+                       help="Download from the given OpenStreetMap server")
 # alternatives: overpass.kumi.systems/api/interpreter, sumo.dlr.de/osm/api/interpreter
-optParser.add_argument("-w", "--wikidata",action="store_true", dest="wikidata",
-                     default=False, help="get the corresponding wikidata")
+optParser.add_argument("-w", "--wikidata", action="store_true", dest="wikidata",
+                       default=False, help="get the corresponding wikidata")
+
 
 def get(args=None):
     options = optParser.parse_args(args=args)
@@ -140,11 +142,13 @@ def get(args=None):
         codeSet = set()
         for line in open(osmFile, encoding='utf8'):
             if 'wikidata' in line:
-               codeSet.add(line.split('"')[3])
+                codeSet.add(line.split('"')[3])
         out = open(path.join(os.getcwd(), filename), "wb")
-        content = urlopen("https://www.wikidata.org/w/api.php?action=wbgetentities&ids=%s&format=json" % ("|".join(codeSet))).read()
+        content = urlopen("https://www.wikidata.org/w/api.php?action=wbgetentities&ids=%s&format=json" %
+                          ("|".join(codeSet))).read()
         out.write(content)
         out.close()
+
 
 if __name__ == "__main__":
     get()
