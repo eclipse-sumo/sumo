@@ -53,7 +53,7 @@ resulting SUMO-network is generated.
 netconvert is able to import road networks from
 the following formats:
 
-- ["SUMO native" XML
+- ["SUMO plain" XML
   descriptions](Networks/PlainXML.md)
   (\*.edg.xml, \*.nod.xml, \*.con.xml, \*.tll.xml)
 - [OpenStreetMap](OpenStreetMap_file.md) (\*.osm.xml),
@@ -71,6 +71,12 @@ the following formats:
   including shapes
 - [a DLR internal variant of Navteq's
   GDF](Networks/Import/DlrNavteq.md) (Elmar format)
+
+### Merging networks
+- any input files may be combined
+- "plain XML" files will be applied last and can be used to patch/update previously loaded elements
+- multiple sumo networks (.net.xml) may be merged by giving a list of files: **--sumo-net-file FILE1,FILE2**. The offsets will be handled automatically for geo-referenced network data
+- To merge nodes and ids which occupy the same location but have different ids, the the options **--junctions.join-same --edges.join** can be set
 
 ## Export
 
