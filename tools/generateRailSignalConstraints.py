@@ -147,7 +147,8 @@ def get_options(args=None):
 
 
 class Conflict:
-    def __init__(self, tripID, otherSignal, otherTripID, limit, line, otherLine, vehID, otherVehID, conflictTime, foeInsertion=False):
+    def __init__(self, tripID, otherSignal, otherTripID, limit, line, otherLine,
+                 vehID, otherVehID, conflictTime, foeInsertion=False):
         self.tripID = tripID
         self.otherSignal = otherSignal
         self.otherTripID = otherTripID
@@ -369,7 +370,9 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                 arrival = parseTime(stop.arrival)
                 until = parseTime(stop.until)
                 for edgesBefore2, stop2 in stopRoutes[stop.busStop]:
-                    if stop2.vehID == stop.vehID or not stop2.hasAttribute("arrival") or not stop2.hasAttribute("until"):
+                    if stop2.vehID == stop.vehID:
+                        continue
+                    if not stop2.hasAttribute("arrival") or not stop2.hasAttribute("until"):
                         continue
                     if options.skipParking and parseBool(stop2.getAttributeSecure("parking", "false")):
                         continue
@@ -377,11 +380,12 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                     until2 = parseTime(stop2.until)
                     if arrival2 > arrival and until2 < until:
                         overtaken = True
-                        print("Vehicle %s (%s, %s) overtaken by %s (%s, %s) at stop %s (index %s) and ignored afterwards" % (
-                            stop.vehID, humanReadableTime(arrival), humanReadableTime(until),
-                            stop2.vehID, humanReadableTime(arrival2), humanReadableTime(until2),
-                            stop.busStop, i),
-                            file=sys.stderr)
+                        print(("Vehicle %s (%s, %s) overtaken by %s (%s, %s) " +
+                               "at stop %s (index %s) and ignored afterwards") %
+                              (stop.vehID, humanReadableTime(arrival), humanReadableTime(until),
+                               stop2.vehID, humanReadableTime(arrival2), humanReadableTime(until2),
+                               stop.busStop, i),
+                              file=sys.stderr)
                         break
             if overtaken:
                 stop.setAttribute("invalid", True)

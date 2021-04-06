@@ -26,7 +26,6 @@ from __future__ import print_function
 
 import os
 import sys
-from xml.sax import make_parser
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 import sumolib  # noqa
 

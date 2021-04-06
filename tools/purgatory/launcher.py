@@ -20,7 +20,7 @@ from __future__ import absolute_import
 import os
 import re
 import subprocess
-from tkinter import Canvas, Menu, StringVar, Tk, LEFT, PhotoImage
+from tkinter import Canvas, Menu, StringVar, Tk, LEFT
 from tkinter.ttk import Button, Frame, Menubutton, Label, Scrollbar, Entry
 from tkinter import filedialog
 from sumolib.options import Option, readOptions
@@ -40,9 +40,9 @@ class ResizingCanvas(Canvas):
 
     def __init__(self, parent, **kwargs):
         Canvas.__init__(self, parent, **kwargs)
-        #self.bind("<Configure>", self.on_resize)
-        #self.height = 400
-        #self.width = 700
+        # self.bind("<Configure>", self.on_resize)
+        # self.height = 400
+        # self.width = 700
 
     def on_resize(self, event):
         # determine the ratio of old width/height to new width/height
@@ -101,7 +101,7 @@ class Launcher:
         self.root.title(self.title_prefix)
         self.root.minsize(700, 200)
         self.root.geometry("700x400")
-        #self.root.iconphoto(True, PhotoImage(file = os.path.join(THISDIR, "launcher.gif")))
+        # self.root.iconphoto(True, PhotoImage(file = os.path.join(THISDIR, "launcher.gif")))
 
         numButtons = self.mainButtons()
         for i in range(numButtons):
