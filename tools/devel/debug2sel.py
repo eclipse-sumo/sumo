@@ -20,7 +20,6 @@
 """
 from __future__ import print_function
 import sys
-from collections import defaultdict
 
 outfile = sys.argv[1]
 ids = sys.argv[2].split()

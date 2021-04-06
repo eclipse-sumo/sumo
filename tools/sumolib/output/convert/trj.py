@@ -16,8 +16,8 @@
 
 """
 This module includes functions for converting SUMO's fcd-output into
-data files read by SSAM. 
-See the SSAM TRJ standard at 
+data files read by SSAM.
+See the SSAM TRJ standard at
 https://github.com/OSADP/SSAM/blob/master/Documentation/SSAM%20File%20Format%20v1.04.pdf
 https://github.com/OSADP/SSAM/blob/master/Documentation/Open%20Source%20SSAM%20File%20Format%20v3.0.pdf
 """
@@ -66,7 +66,7 @@ def fcd2trj(inpFCD, outSTRM, further):
             numericID = trafficPartDict[v.id]
             accel = (speed - prevSpeed[v.id])/further["timestep"]
             if "_" not in v.lane:
-                edge = lane
+                edge = v.lane
                 laneIndex = 0
             else:
                 edge, laneIndex = v.lane.rsplit("_", 1)

@@ -365,7 +365,8 @@ output format. Optionally the output can be sampled, filtered and distorted.
         if not net:
             net = sumolib.net.readNet(options.net)
         runMethod(options.fcd, options.trj, trj.fcd2trj, options,
-                  {"length": options.trjvehlength, "width": options.trjvehwidth, "bbox": net.getBBoxXY(), "timestep": options.timestep})
+                  {"length": options.trjvehlength, "width": options.trjvehwidth,
+                   "bbox": net.getBBoxXY(), "timestep": options.timestep})
     # ----- TRJ
 
     return 0

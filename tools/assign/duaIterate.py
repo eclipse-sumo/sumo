@@ -29,7 +29,6 @@ from __future__ import absolute_import
 import os
 import sys
 import subprocess
-import shutil
 import glob
 import argparse
 import xml.etree.ElementTree as ET

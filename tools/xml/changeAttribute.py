@@ -57,23 +57,19 @@ def get_options(args=None):
 def main(options):
     # parse tree
     tree = ET.parse(options.file)
-    # obtain root
-    root = tree.getroot()
-    # open output file
-    with open(options.output, 'w') as outf:
-        # iterate over all XML elements
-        for node in root.iter():
-            # check tag
-            if (node.tag == options.tag):
-                # continue depending of operation
-                if options.value is not None:
-                    # set new attribute (or modify existent)
-                    node.set(options.attribute, options.value)
-                else:
-                    # delete attribute
-                    del node.attrib[options.attribute]
-        # write modified tree
-        tree.write(options.output)
+    # iterate over all XML elements
+    for node in tree.getroot():
+        # check tag
+        if node.tag == options.tag:
+            # continue depending of operation
+            if options.value is not None:
+                # set new attribute (or modify existent)
+                node.set(options.attribute, options.value)
+            else:
+                # delete attribute
+                del node.attrib[options.attribute]
+    # write modified tree
+    tree.write(options.output)
 
 
 if __name__ == "__main__":

@@ -26,20 +26,19 @@ from collections import defaultdict
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-from sumolib.miscutils import parseTime
+from sumolib.miscutils import parseTime  # noqa
 
-import os,sys
 
 def get_options(args=None):
     parser = sumolib.options.ArgumentParser(description="Compute Stopping Place usage")
     parser.add_argument("-s", "--stop-output-file", dest="stopOutput",
-        help="simulation stop-output file")
+                        help="simulation stop-output file")
     parser.add_argument("-t", "--stopping-place", dest="stoppingPlace",
-        help="stoppingPlace type (busStop, parkingArea...)", default="parkingArea")
+                        help="stoppingPlace type (busStop, parkingArea...)", default="parkingArea")
     parser.add_argument("--csv", action="store_true", default=False,
-        help="write in CSV format")
+                        help="write in CSV format")
     parser.add_argument("--only-changes", action="store_true", default=False, dest="onlyChanges",
-        help="write output only for steps where the occupancy changes")
+                        help="write output only for steps where the occupancy changes")
     parser.add_argument("-b", "--begin", default=None, help="begin time (when writting all steps)")
     parser.add_argument("-e", "--end", default=None, help="end time (when writting all steps)")
     options = parser.parse_args(args=args)
@@ -64,19 +63,18 @@ def main(options):
         if splace != "":
             vehCounts[splace].append((parseTime(stop.started), 1))
             vehCounts[splace].append((parseTime(stop.ended), -1))
-    #iterate over vehCounts
+    # iterate over vehCounts
     for splace, times in vehCounts.items():
         times.sort()
         steps = []
         tPrev = None
         count = 0
-        for t,change in times:
+        for t, change in times:
             if t != tPrev and tPrev is not None:
                 steps.append((tPrev, count))
             count += change
             tPrev = t
         steps.append((tPrev, count))
-
 
         if not options.onlyChanges:
             # fill missing steps
@@ -99,7 +97,7 @@ def main(options):
                     steps2.append((float(t), number))
                     if options.end is not None and t == options.end:
                         abort = True
-                        break;
+                        break
                 if abort:
                     break
                 steps2.append((newTime, newNumber))
@@ -110,7 +108,6 @@ def main(options):
                 index += 1
 
             steps = steps2
-
 
         suffix = ".csv" if options.csv else ".xml"
         with open(splace + suffix, "w") as outf:

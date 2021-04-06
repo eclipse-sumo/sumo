@@ -102,7 +102,7 @@ class Launcher:
         self.root.minsize(700, 200)
         self.root.geometry("700x400")
         #self.root.iconphoto(True, PhotoImage(file = os.path.join(THISDIR, "launcher.gif")))
-        
+
         numButtons = self.mainButtons()
         for i in range(numButtons):
             root.columnconfigure(i, weight=1)

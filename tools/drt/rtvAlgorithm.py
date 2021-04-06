@@ -32,8 +32,7 @@ if 'SUMO_HOME' in os.environ:
     sys.path.append(tools)
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
-
-import traci
+import traci  # noqa
 
 
 def simple(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_type, rv_dict, step):
@@ -54,7 +53,8 @@ def simple(options, r_id_unassigned, r_id_picked, r_id_served, r_all, fleet, v_t
             # if vehicle idle
             # if 'not next_stops' not enough, last drop off stops stay in list #TODO this could be solved with #8168
             # search possible pairs to consider
-            pairs = [x_id for x_id, x in sorted(rv_dict.items(), key=lambda e: e[1][0]) if set(r_id_unassigned) & set(x[2])]
+            pairs = [x_id for x_id, x in sorted(rv_dict.items(), key=lambda e: e[1][0])
+                     if set(r_id_unassigned) & set(x[2])]
             # get first pair with faster route
             first_pairs = [x for x in pairs if x.split("_")[0] == v_id]
             for first_pair in first_pairs:
@@ -166,7 +166,8 @@ def simple_rerouting(options, r_id_unassigned, r_id_picked, r_id_served, r_all, 
         filter_pairs.append(v_id)  # add vehicle
         filter_pairs.extend(assigned_v)  # add to pairs
 
-        pairs = [x_id for x_id, x in sorted(rv_dict.items(), key=lambda e: e[1][0]) if x[2][0] in filter_pairs and x[2][1] in filter_pairs]
+        pairs = [x_id for x_id, x in sorted(rv_dict.items(), key=lambda e: e[1][0])
+                 if x[2][0] in filter_pairs and x[2][1] in filter_pairs]
         first_pairs = []
         # get first pairs
         if assigned_v:
@@ -395,7 +396,8 @@ def exhaustive_search(options, r_id_unassigned, r_id_picked, r_all, fleet, v_typ
         filter_pairs.append(v_id)  # add vehicle
         filter_pairs.extend(assigned_v)  # add to pairs
 
-        pairs = [x_id for x_id, x in sorted(rv_dict.items(), key=lambda e: e[1][0]) if x[2][0] in filter_pairs and x[2][1] in filter_pairs]
+        pairs = [x_id for x_id, x in sorted(rv_dict.items(), key=lambda e: e[1][0])
+                 if x[2][0] in filter_pairs and x[2][1] in filter_pairs]
 
         routes_tree = [[]]  # list with incomplete routes
         i = 0
@@ -434,7 +436,8 @@ def exhaustive_search(options, r_id_unassigned, r_id_picked, r_all, fleet, v_typ
             # exhaustive search
             routes_tree.append([])
             for route in routes_tree[i]:
-                routes_tree[i + 1], rtv_dict = search_routes(route, pairs, assigned_v, picked_v, r_all, rv_dict, r_id_rtv, v_capacity, v_bin, rtv_dict, routes_tree[i + 1], options, start_time)
+                routes_tree[i + 1], rtv_dict = search_routes(route, pairs, assigned_v, picked_v, r_all,
+                                                             rv_dict, r_id_rtv, v_capacity, v_bin, rtv_dict, routes_tree[i + 1], options, start_time)
                 if (time.perf_counter() - start_time) > options.rtv_time:
                     memory_problems.append(1)
                     break
