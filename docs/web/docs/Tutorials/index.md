@@ -10,10 +10,11 @@ title: Tutorials
 * [OSMWebWizard](OSMWebWizard.md) - Setting up a scenario with just a few clicks using osmWebWizard.py; getting a network from OpenStreetMap
 * [Quick Start](quick_start.md) - A more complex tutorial with [netedit](../Netedit/index.md); first steps in SUMO
 * [Driving in Circles](Driving_in_Circles.md) - Work with [netedit](../Netedit/index.md); define a flow; let vehicles drive in circles using rerouters
-* [SUMOlympics](SUMOlympics.md) - Create special lanes and simple traffic lights in netedit, more about flows and vehicle types, working with vehicle 
+* [SUMOlympics](SUMOlympics.md) - Create special lanes and simple traffic lights in netedit, more about flows and vehicle types, working with vehicle
 * [Autobahn](Autobahn.md) - Build a highway, create a mixed highway flow, visualize vehicle speed, save view settings
 * [Manhattan](Manhattan.md) - Build a [Manhattan mobility model](https://en.wikipedia.org/wiki/Manhattan_mobility_model)
 * [Public Transport](PublicTransport.md) - Build a public transport scenario from scratch
+* [TaxiService](TaxiService.md) - Build a taxi service from scratch
 
 # Advanced Tutorials
 * [Hello SUMO](Hello_SUMO.md) - The simplest net and a single car set up "by hand"

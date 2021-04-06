@@ -1,0 +1,17 @@
+PersonId: 
+ ('HeadingBusstop1', 'HeadingBusstop2', 'HeadingBusstop3', 'HeadingBusstop5')
+PickupList:
+ ['0', '1', '2', '3']
+Taxifleet-Status
+empty:  ('taxiV0', 'taxiV5', 'taxiV10', 'taxiV15')
+pickup:  ()
+Taxifleet-Status
+empty:  ('taxiV5', 'taxiV10', 'taxiV15')
+pickup:  ('taxiV0',)
+Taxifleet-Status
+empty:  ('taxiV10', 'taxiV15')
+pickup:  ('taxiV0', 'taxiV5')
+Taxifleet-Status
+empty:  ('taxiV15',)
+pickup:  ('taxiV0', 'taxiV5', 'taxiV10')
+Loading configuration ... done.
