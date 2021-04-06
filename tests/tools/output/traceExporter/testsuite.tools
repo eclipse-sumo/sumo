@@ -19,6 +19,9 @@ kml
 # convert fcd traces to IPG
 ipg
 
+# convert fcd traces to SSAM TRJ
+trj
+
 # Whether setting time constaints works
 time
 boundary

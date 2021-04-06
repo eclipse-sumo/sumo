@@ -124,6 +124,7 @@ str:test.str
 gpsdat:gpsdat.txt
 gpx:output.gpx
 kml:output.kml
+trj:output.trj
 ipg:ipg.txt
 geojson:output.geojson
 match:match.txt

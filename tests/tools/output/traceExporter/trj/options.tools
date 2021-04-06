@@ -1,0 +1,1 @@
+-i fcd.xml --trj-output output.trj -n net.net.xml
