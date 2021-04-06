@@ -7,6 +7,9 @@ speed_given0
 # checks using the given speed (10)
 speed_given10
 
+# test interaction with departLane and lane-specific speed
+speed_given10_laneSpeed
+
 # checks using the given speed when speedDev is present
 speed_given_deviation
 
