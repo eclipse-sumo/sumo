@@ -43,7 +43,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
         followerLowDist = traci.vehicle.getFollower(vehID, 5)
         print("%s: followerAuto=%s followerShort=%s" % (
             t, followerAutoDist, followerLowDist))
-    except traci.TraCIException as e:
+    except traci.TraCIException:
         # ego left the simulation
         break
     traci.simulationStep()

@@ -30,11 +30,11 @@ import traci.constants as tc  # noqa
 
 
 traci.start([sumolib.checkBinary("sumo"),
-    "-n", "input_net4.net.xml",
-    "-r", "input_routes.rou.xml",
-    "--tripinfo-output", "tripinfo.xml",
-    "--no-step-log",
-    ] + sys.argv[1:])
+             "-n", "input_net4.net.xml",
+             "-r", "input_routes.rou.xml",
+             "--tripinfo-output", "tripinfo.xml",
+             "--no-step-log",
+             ] + sys.argv[1:])
 
 for i in range(10):
     if i == 5:

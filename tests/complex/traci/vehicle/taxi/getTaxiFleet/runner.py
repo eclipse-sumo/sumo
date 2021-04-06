@@ -44,7 +44,6 @@ traci.start([sumoBinary,
              ] + sys.argv[1:])
 
 
-
 while traci.simulation.getMinExpectedNumber() > 0:
 
     print("%s all=%s empty=%s pickup=%s dropoff=%s pickup+dropoff=%s" % (

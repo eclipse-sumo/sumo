@@ -178,10 +178,10 @@ traci.vehicle.setSpeedMode("emergencyStopper", 0)
 traci.vehicle.setSpeed("emergencyStopper", 100)
 try:
     traci.simulation.subscribeContext("",
-            traci.constants.CMD_GET_VEHICLE_VARIABLE, 42,
-            [traci.constants.VAR_SPEED])
+                                      traci.constants.CMD_GET_VEHICLE_VARIABLE, 42,
+                                      [traci.constants.VAR_SPEED])
     print("contextSubscriptions:", traci.simulation.getAllContextSubscriptionResults())
-except:
+except traci.TraCIException:
     pass
 
 for step in range(12):

@@ -31,7 +31,7 @@ import pyperclip
 DELAY_KEY = 0.3         # 0.2
 DELAY_KEY_TAB = 0.2     # 0.1
 DELAY_MOUSE_MOVE = 0.5  # 0.1
-DELAY_MOUSE_CLICK = 0.7 # 0.5
+DELAY_MOUSE_CLICK = 0.7  # 0.5
 DELAY_QUESTION = 3
 DELAY_RELOAD = 5
 DELAY_START_NETEDIT = 3
@@ -53,6 +53,7 @@ _REFERENCE_PNG = os.path.join(os.path.dirname(__file__), "reference.png")
 # interaction functions
 #################################################
 
+
 def typeKeyUp(key):
     """
     @brief type single key up
@@ -62,7 +63,7 @@ def typeKeyUp(key):
     # wait after key up
     time.sleep(DELAY_KEY)
 
-    
+
 def typeKeyDown(key):
     """
     @brief type single key down
@@ -676,7 +677,7 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
                 typeKeyUp("shift")
                 typeKeyUp("control")
                 typeKeyUp("alt")
-                # exit 
+                # exit
                 return
             except subprocess.TimeoutExpired:
                 pass
@@ -688,7 +689,7 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
                 typeKeyUp("shift")
                 typeKeyUp("control")
                 typeKeyUp("alt")
-                # exit 
+                # exit
                 return
         NeteditProcess.kill()
         print("TestFunctions: Error closing Netedit")

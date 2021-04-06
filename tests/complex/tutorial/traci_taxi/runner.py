@@ -12,7 +12,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    taxiservice.py
+# @file    runner.py
 # @author  Michael Behrisch
 # @author  Daniel Krajzewicz
 # @author  Melanie Weber

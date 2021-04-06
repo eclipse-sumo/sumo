@@ -48,6 +48,7 @@ traci.start([sumoBinary,
 
 traci.simulationStep()
 
+
 def dispatch():
     fleet = traci.vehicle.getTaxiFleet(0)
     taxiID = fleet[0]
@@ -64,6 +65,7 @@ def dispatch():
     # dropoff c
     traci.vehicle.dispatchTaxi(taxiID, [b, c, b, c])
     print("currentCustomers", traci.vehicle.getParameter(taxiID, "device.taxi.currentCustomers"))
+
 
 print("%s reservations %s" % (
     traci.simulation.getTime(),

@@ -45,6 +45,7 @@ for tlsID in traci.trafficlight.getIDList():
 
 traci.simulation.saveState("state.xml")
 
+
 def swap():
     traci.trafficlight.swapConstraints("D", "t2", "A", "t0")
 
@@ -52,6 +53,8 @@ def swap():
     for tlsID in traci.trafficlight.getIDList():
         for c in traci.trafficlight.getConstraints(tlsID):
             print(" tls=%s %s" % (tlsID, c))
+
+
 swap()
 traci.simulation.loadState("state.xml")
 swap()

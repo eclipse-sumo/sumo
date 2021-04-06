@@ -31,6 +31,7 @@ traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:],
             traceFile="log.txt")
 con = traci.getConnection()
 
+
 def step():
     s = con.simulation.getTime()
     con.simulationStep()

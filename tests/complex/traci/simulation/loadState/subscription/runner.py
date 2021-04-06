@@ -28,7 +28,6 @@ SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", ".."
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import traci  # noqa
 import sumolib  # noqa
-import traci.constants as tc
 
 
 def check():
@@ -50,7 +49,7 @@ for i in range(2):
     traci.simulation.loadState("state.xml")
     traci.simulationStep()
     traci.vehicle.add(veh, "r0")
-    traci.vehicle.subscribe(veh, [tc.VAR_SPEED])
+    traci.vehicle.subscribe(veh, [traci.constants.VAR_SPEED])
     traci.simulationStep()
     check()
 
