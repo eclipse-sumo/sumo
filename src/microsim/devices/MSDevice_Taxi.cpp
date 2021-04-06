@@ -581,7 +581,7 @@ MSDevice_Taxi::hasFuturePickup() {
         if (stop.reached) {
             continue;
         }
-        if (StringUtils::startsWith(stop.pars.actType, "pickup")) {
+        if (stop.pars.permitted.size() > 0) {
             return true;
         }
     }
