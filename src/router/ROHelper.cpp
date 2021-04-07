@@ -56,22 +56,34 @@ recheckForLoops(ConstROEdgeVector& edges, const ConstROEdgeVector& mandatory) {
     // remove loops at the route's begin
     //  (vehicle makes a turnaround to get into the right direction at an already passed node)
     const RONode* start = edges[0]->getFromJunction();
-    int lastStart = 0;
-    for (int i = 1; i < (int)edges.size(); i++) {
-        if (edges[i]->getFromJunction() == start) {
-            lastStart = i;
-        }
+    if (start == nullptr && edges.size() > 1) {
+        // taz edge has no fromJunction
+        start = edges[1]->getFromJunction();
     }
-    if (lastStart > 0 && noMandatory(mandatory, edges.begin(), edges.begin() + lastStart - 1)) {
-        edges.erase(edges.begin(), edges.begin() + lastStart - 1);
+    if (start != nullptr) {
+        int lastStart = 0;
+        for (int i = 1; i < (int)edges.size(); i++) {
+            if (edges[i]->getFromJunction() == start) {
+                lastStart = i;
+            }
+        }
+        if (lastStart > 0 && noMandatory(mandatory, edges.begin(), edges.begin() + lastStart - 1)) {
+            edges.erase(edges.begin(), edges.begin() + lastStart - 1);
+        }
     }
     // remove loops at the route's end
     //  (vehicle makes a turnaround to get into the right direction at an already passed node)
     const RONode* end = edges.back()->getToJunction();
-    for (int i = 0; i < (int)edges.size() - 1; i++) {
-        if (edges[i]->getToJunction() == end && noMandatory(mandatory, edges.begin() + i + 2, edges.end())) {
-            edges.erase(edges.begin() + i + 2, edges.end());
-            break;
+    if (end == nullptr && edges.size() > 1) {
+        // taz edge has no toJunction
+        end = edges[edges.size() - 2]->getToJunction();
+    }
+    if (end != nullptr) {
+        for (int i = 0; i < (int)edges.size() - 1; i++) {
+            if (edges[i]->getToJunction() == end && noMandatory(mandatory, edges.begin() + i + 2, edges.end())) {
+                edges.erase(edges.begin() + i + 2, edges.end());
+                break;
+            }
         }
     }
 
