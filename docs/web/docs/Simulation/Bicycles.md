@@ -34,23 +34,24 @@ different cyclist types can be modelled.
 
 ## Useful Model Parameters
 Once the vClass "bicycle" is chosen, the following parameters, which can still be customized, are set for bicycle:
-    * minGap = 0.5 m
-    * max. acceleration = 1.2 m/s^2
-    * max. deceleration = 3 m/s^2
-    * emergency deceleration = 7 m/s^2
-    * Length = 1.6 m
-    * max speed = 20 kmh where you can modify it by defining vClass specific speed limit (see the point in the Problems and worksarounds below)
+ - minGap = 0.5 m
+ - max. acceleration = 1.2 m/s^2
+ - max. deceleration = 3 m/s^2
+ - emergency deceleration = 7 m/s^2
+ - Length = 1.6 m
+ - max speed = 20 kmh where you can modify it by defining vClass specific speed limit (see the point in the Problems and worksarounds below)
 
-The vaules of some other parameters for bicycles are different from those for vehicles apparently. If no real data for the respective calibrations is available, some intuitive suggestions are listed below for reference. 
-- latAlignment = "right"
-- carFollowModel = IDM
+The vaules of some other parameters for bicycles are different from those for vehicles apparently. If no real data for the respective calibrations is available, some intuitive suggestions are listed below for reference.
+
+- latAlignment = "right" (cyclists ride on the right side of the central line)
+- carFollowModel = IDM (movement is more smoothing)
 - lcStrategic = 0.5 (in comparison to the default value (1) this setting makes bicycles to perform strategic lane changing later)
-- lcCooperativeRoundabout = 0.
-- lcTurnAlignmentDistance = 20.
-- lcMaxSpeedLatFactor = 0.
-- jmCrossingGap = 3~4
-- jmSigmaMinor = 0.
-- jmStoplineGap = 0.5
+- lcCooperativeRoundabout = 0. (cyclists keep on the right lane in a mutli-lane roundabout)
+- lcTurnAlignmentDistance = 20. (distance to a location where bicycles start to keeping right/left on a lane for preparing to make turns)
+- lcMaxSpeedLatFactor = 0. (no lateral speed for bikes)
+- jmCrossingGap = 3~4 (Minimum distance to pedestrians that are walking towards the conflict point with a bike)
+- jmSigmaMinor = 0. (no imperfection while passing a minor link)
+- jmStoplineGap = 0.5 (Stopping distance in front of prioritary / TL-controlled stop line)
 
 ### Problems and workarounds
 
