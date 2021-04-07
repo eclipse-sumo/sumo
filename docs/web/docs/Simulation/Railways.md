@@ -295,16 +295,8 @@ This constrain defines that a given vehicle id (or tripId) can only pass the cur
 ### insertionPredecessor constraint
 This constrain defines that a given vehicle id (or tripId) can only be inserted on the block leading up to the current signal after some other vehicle ('foe') with the given id or tripId has passed signal 'tl'. The foe vehicle must have been the last vehicle to do so or it must have been one of the last 'limit' vehicles at the time of switching green.
 
-### generateRailSignalConstraints.py
-Constraints can be generated using the tool `generateRailSignalConstraints.py`. Example:
-
-```
-<SUMO_HOME>/tools/generateRailSignalConstraints.py -r <input-route-file> -n <input-net-file> -a <input-stop-file> -o <output-file>
-```
-The tool will analyze the order of arrival at stations (stops). 
-
-- If vehicles have successive stops at the same station but reach this station via different tracks, constraints will be generated for the signals ahead of the merging switch. The vehicle that comes later has to wait for the vehicle that comes earlier (`predecessorConstraint`).
-- If vehicles are inserted on the edge of their first stop, a `insertionPredecessor`-constraint is generated so that insertion is delayed until the train that stops earlier has passed the signal subsequent to the station.
+### constraints generation
+Constraints can be generated using the tool [generateRailSignalConstraints.py](../Tools/Railways.md#generaterailsignalconstraintspy).
 
 # TraCI
 

@@ -53,6 +53,7 @@ functions
 sumo output files
 - *[emissions](Emissions.md)* - tools for computing and
 visualizing emissions
+- *[railways](Railways.md)* - tools for the simulations of trains
 - *[xml](Xml.md)* - python tools for converting xml and
 xml schema related utilities
 - *[devel](devel.md)* - tools for developers
