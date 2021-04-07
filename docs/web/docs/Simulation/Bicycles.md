@@ -34,6 +34,7 @@ different cyclist types can be modelled.
 
 ## Useful Model Parameters
 Once the vClass "bicycle" is chosen, the following parameters, which can still be customized, are set for bicycle:
+
  - minGap = 0.5 m
  - max. acceleration = 1.2 m/s^2
  - max. deceleration = 3 m/s^2
