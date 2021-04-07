@@ -23,16 +23,17 @@ import os
 try:
     import httplib
     import urlparse
+    from urllib2 import urlopen
 except ImportError:
     # python3
     import http.client as httplib
     import urllib.parse as urlparse
+    from urllib.request import urlopen
 
 import base64
 from os import path
 
 import sumolib  # noqa
-from urllib.request import urlopen
 
 
 def readCompressed(conn, urlpath, query, filename):
