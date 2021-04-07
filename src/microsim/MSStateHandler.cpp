@@ -78,6 +78,7 @@ MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset, b
 
 
 MSStateHandler::~MSStateHandler() {
+    delete myVCAttrs;
 }
 
 
@@ -182,6 +183,9 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             break;
         }
         case SUMO_TAG_DELAY: {
+            if (myVCAttrs != nullptr) {
+                delete myVCAttrs;
+            }
             myVCAttrs = attrs.clone();
             break;
         }
