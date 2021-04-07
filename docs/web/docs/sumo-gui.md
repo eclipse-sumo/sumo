@@ -802,7 +802,7 @@ time-intervals.
 - [marouter netload-output](marouter.md#macroscopic_outputs)
 - [Smoothed traveltimes from device.rerouting](Demand/Automatic_Routing.md) when running
   [sumo](sumo.md) with option **--device.rerouting.output**.
-- [showDepartsAndArrivalsPerEdge.py](Tools/Routes.md#showdepartsandarrivalsperedge)
+- [countEdgeUsage.py](Tools/Routes.md#countedgeusagepy)
 - [netedit](Netedit/index.md#data_specific_modes) can be used to create and modify edgeData files
 
 These files can be used with
@@ -883,7 +883,7 @@ The [background images (decals)](#showing_background_images) support attribute `
   [Tools/Routes\#route2sel.py](Tools/Routes.md#route2selpy)
 - To Visualize the number of vehicles arriving or departing at any
   edge use the tool
-  [Tools/Routes\#showDepartsAndArrivalsPerEdge](Tools/Routes.md#showdepartsandarrivalsperedge)
+  [Tools/Routes\countEdgeUsage](Tools/Routes.md#countedgeusagepy)
 
 ## Investigating internal edges and lanes
 
