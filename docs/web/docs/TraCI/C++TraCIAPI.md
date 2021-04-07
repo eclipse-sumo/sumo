@@ -2,6 +2,9 @@
 title: C++TraCIAPI
 ---
 
+!!! caution
+    This library is no longer maintained. Please use [libtraci](../Libtraci.md) or [libsumo](../Libsumo.md).
+
 # C++ TraCIAPI client library
 
 The C++ TraCIAPI is client library that is part of the SUMO-source tree.
@@ -11,9 +14,6 @@ that uses the library is at
 {{SUMO}}*/src/traci_testclient/TraCITestClient.cpp*. Doxygen-generated
 documentation can be found
 [here](http://sumo.dlr.de/daily/doxygen/d8/d1c/class_tra_c_i_a_p_i.html)
-
-!!! note
-    Due to not being the main client library for use by the core developers, this client library is sometimes tailing behind in API converage
 
 ## Building the Library
 
