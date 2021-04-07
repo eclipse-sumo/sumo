@@ -71,7 +71,7 @@ the time.
 
 Bidirectional track usage is modeled by two edges that have their
 geometries exactly reversed and using the attribute `spreadType="center"`. This will result
-in lane geometries that are overlayed exactly. These edges are referred
+in lane geometries that are overlaid exactly. These edges are referred
 to as *superposed* (alternatively as bidirectional rail edges). In the
 .net.xml file these edges are marked with `bidi="<REVERSE_EDGE_ID>"` but this is a generated
 attribute and not to be set by the user.
@@ -82,14 +82,14 @@ will restrict it's usage to one direction at a time.
 ### Bidirectional rails in [sumo-gui](../sumo-gui.md)
 
 sumo-gui automatically shows only one of both edges to avoid duplicate
-drawing of cross-ties. The visualisation option *show lane direction*
+drawing of cross-ties. The visualization option *show lane direction*
 can be used to identify superposed edges. (arrows in both directions
 will be show).
 
 ### Working with bidirectional tracks in [netedit](../Netedit/index.md)
 
 - To show both edges that constitute a bidirectional track, activate
-  edge visualisation option *spread superposed*. Both edges will be
+  edge visualization option *spread superposed*. Both edges will be
   drawn narrower and with a side-offset to make them both visible
   without overlap.
 - To find (and highlight) all bidirectional tracks, use [attribute
@@ -99,9 +99,9 @@ will be show).
   here](../Netedit/index.md#creating_bidirectional_railway_tracks)
 
 ### Routing in bidirectional networks
-When computing train routes in a network with parallel tracks which are usable in both directions it may be
-desireable to have tracks use one track in preferation (i.e. to always keep on
-the right side) and thereby prevent issuse between oncoming trains.
+When computing train routes in a network with parallel tracks which are usable in both directions, it may be
+desirable that trains preferentially use one of the tracks (i.e. to always keep on
+the right side) and thereby preventing conflicts between oncoming trains.
 
 To express this preference, the edges in the preferred direction and on the
 preferred side may be assigned a higher priority value. This value will be taken
@@ -169,7 +169,7 @@ Edge distance is imported from OSM and can also be be set along a route in [nete
 When train tracks can be used in both directions, there is considerable freedom for trains when search a path through the network. To reduce the number of conflicts (when two vehicles want to use the same track in opposite directions), the preferred direction for each track can be defined and factored into the routing decision.
 
 When routes are computed in the simulation, this is done by setting the option **--device.rerouting.priority-factor FLOAT**. This causes the priority values of edges to be factored into the routing decision with higher values being preferred. 
-At the default value of 0. Edge priority is ignored when routing. When setting a positive value, the edges with the lowest priority receive a penalty factor to their estimated travel time of 1 + FLOAT whereas the edges with the highest priority receive no penalty. Edges with medium priority will receive a penality of 1 + x * FLOAT where 
+At the default value of 0. Edge priority is ignored when routing. When setting a positive value, the edges with the lowest priority receive a penalty factor to their estimated travel time of 1 + FLOAT whereas the edges with the highest priority receive no penalty. Edges with medium priority will receive a penalty of 1 + x * FLOAT where 
 
 ```
   x = (edgePriority - minPriority) / (maxPriority - minPriority)
@@ -185,7 +185,7 @@ The priority values can either be assigned by the user or computed heuristically
 
 # Modelling Trains
 
-There is a dedicated carFollowMode for trains which can be actived by
+There is a dedicated carFollowMode for trains which can be activated by
 setting `carFollowModel="Rail" trainType="<TYPE>"` in the `<vType>` definition. Allowed values for trainType are
 
 - Freight
@@ -248,7 +248,7 @@ To split a train, the following input definition can be used. The rear half of t
 When defined this way, The rear part of the train will be created as a new simulation vehicle once the first part has reached the stop. After stopping, The front half of the train will continue with reduced length.
 
 ## Joining two trains
-To join two trains, the following input definition can be used. The front half of the train must define a stop trigger with value **join**. The rear half othe train must define attribute 'join' referencing the id of the front half.
+To join two trains, the following input definition can be used. The front half of the train must define a stop trigger with value **join**. The rear half of the other train must define the attribute 'join' referencing the id of the front half.
 
 ```
 <vType id="train" vClass="rail"/>
@@ -260,7 +260,7 @@ To join two trains, the following input definition can be used. The front half o
         <stop busStop="B" duration="5.00" join="t0"/>
     </trip>
 ```
-The rear part of the train will be joined to the front part if the followign conditions are met:
+The rear part of the train will be joined to the front part if the following conditions are met:
 - the rear part has fulfilled its stopping duration
 - the front part the train is present and it's back is on the same lane as the front of the rear part
 - the gap between the trains is less than 5 meters
@@ -309,7 +309,7 @@ Furthermore the following functions are available for rail signals:
 - traci.trafficlight.getRivalVehicles(tlsID, linkIndex): Returns the list of vehicles that also wish to enter the subsequent block for the given tls-linkIndex (regardless of priority) from the perspective of the closest vehicle upstream of the signal
 - traci.trafficlight.getPriorityVehicles(tlsID, linkIndex): Returns the list of vehicles that also wish to enter the subsequent block for the given tls-linkIndex (only those with higher priority) from the perspective of the closest vehicle upstream of the signal
 
-# Visualisation
+# Visualization
 
 The length of railway carriages, locomotive and the gap between the
 carriages can be configured using the following [generic vType
