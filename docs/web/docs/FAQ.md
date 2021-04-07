@@ -1040,6 +1040,12 @@ To fix it install the latest nvidia drivers, open the nvidia system control pane
 and select nvidia as your preferred graphics processor. If this does not fix it, try
 to set the integrated graphics as preferred. (Thanks @palvarezlopez for finding out.)
 
+### SUMO-GUI and NETEDIT flickering
+
+There is a know problem in Windows 10 with scaling and flickering in certain applications. 
+If scaling is greather than 100%, a flickering may appear in SUMO-GUI and NETEDIT during mouse movement.
+The only known solution is leaving Scaling at 100%
+
 ## Upgrading
 
 ### How do I upgrade SUMO?
