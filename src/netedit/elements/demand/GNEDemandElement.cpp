@@ -528,13 +528,13 @@ GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, c
                     // draw partial segment
                     if (firstLane == lane) {
                         // draw front dotted contour
-                        GNEGeometry::drawDottedContourLane(GNEGeometry::DottedContourType::INSPECT, s, GNEGeometry::DottedGeometry(s, segment.getShape(), false), segmentWidth, true, false);
+                        GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, GNEGeometry::DottedGeometry(s, segment.getShape(), false), segmentWidth, true, false);
                     } else if (lastLane == lane) {
                         // draw back dotted contour
-                        GNEGeometry::drawDottedContourLane(GNEGeometry::DottedContourType::INSPECT, s, GNEGeometry::DottedGeometry(s, segment.getShape(), false), segmentWidth, false, true);
+                        GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, GNEGeometry::DottedGeometry(s, segment.getShape(), false), segmentWidth, false, true);
                     } else {
                         // draw dotted contour
-                        GNEGeometry::drawDottedContourLane(GNEGeometry::DottedContourType::INSPECT, s, lane->getDottedLaneGeometry(), segmentWidth, false, false);
+                        GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, lane->getDottedLaneGeometry(), segmentWidth, false, false);
                     }
                 }
             }
@@ -610,7 +610,7 @@ GNEDemandElement::drawPersonPlanPartialJunction(const GUIVisualizationSettings& 
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw lane2lane dotted geometry
             if (fromLane->getLane2laneConnections().exist(toLane)) {
-                GNEGeometry::drawDottedContourLane(GNEGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneDottedGeometry(toLane), segmentWidth, false, false);
+                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneDottedGeometry(toLane), segmentWidth, false, false);
             }
         }
     }

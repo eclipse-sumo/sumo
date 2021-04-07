@@ -434,16 +434,16 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 // calculate dotted geometry
                 GNEGeometry::DottedGeometry dottedConnectionGeometry(s, shapeSuperposed, false);
                 dottedConnectionGeometry.setWidth(0.1);
-                // use drawDottedContourLane to draw it
-                GNEGeometry::drawDottedContourLane(GNEGeometry::DottedContourType::INSPECT, s, dottedConnectionGeometry, s.connectionSettings.connectionWidth * selectionScale, true, true);
+                // use drawDottedContourGeometry to draw it
+                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, dottedConnectionGeometry, s.connectionSettings.connectionWidth * selectionScale, true, true);
             }
             // check if front contour has to be drawn (not useful at high zoom)
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
                 // calculate dotted geometry
                 GNEGeometry::DottedGeometry dottedConnectionGeometry(s, shapeSuperposed, false);
                 dottedConnectionGeometry.setWidth(0.1);
-                // use drawDottedContourLane to draw it
-                GNEGeometry::drawDottedContourLane(GNEGeometry::DottedContourType::FRONT, s, dottedConnectionGeometry, s.connectionSettings.connectionWidth * selectionScale, true, true);
+                // use drawDottedContourGeometry to draw it
+                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::FRONT, s, dottedConnectionGeometry, s.connectionSettings.connectionWidth * selectionScale, true, true);
             }
         }
     }

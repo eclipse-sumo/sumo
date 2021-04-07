@@ -538,11 +538,11 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         if (!drawRailway) {
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
                     (myNet->getViewNet()->isAttributeCarrierInspected(myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
-                GNEGeometry::drawDottedContourLane(GNEGeometry::DottedContourType::INSPECT, s, myDottedLaneGeometry, laneDrawingConstants.halfWidth, true, true);
+                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, myDottedLaneGeometry, laneDrawingConstants.halfWidth, true, true);
             }
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
                     ((myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
-                GNEGeometry::drawDottedContourLane(GNEGeometry::DottedContourType::FRONT, s, myDottedLaneGeometry, laneDrawingConstants.halfWidth, true, true);
+                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::FRONT, s, myDottedLaneGeometry, laneDrawingConstants.halfWidth, true, true);
             }
         }
         // draw children

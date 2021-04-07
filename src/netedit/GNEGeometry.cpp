@@ -788,8 +788,8 @@ GNEGeometry::HierarchicalConnections::drawDottedConnection(const DottedContourTy
         }
         // change default width
         dottedGeometry.setWidth(0.1);
-        // use drawDottedContourLane to draw it
-        GNEGeometry::drawDottedContourLane(type, s, dottedGeometry, exaggeration * 0.1, false, false);
+        // use drawDottedContourGeometry to draw it
+        GNEGeometry::drawDottedContourGeometry(type, s, dottedGeometry, exaggeration * 0.1, false, false);
         // Pop draw matrix
         glPopMatrix();
     }
@@ -843,15 +843,13 @@ GNEGeometry::adjustStartPosGeometricPath(double& startPos, const GNELane* startL
 
 
 void
-GNEGeometry::drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width, const double offsetBegin, const double offsetEnd) {
-    // declare trim geometry to draw
-    const Geometry geometryToDraw(geometry, offsetBegin, offsetEnd);
+GNEGeometry::drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width) {
     // continue depending of draw for position selection
     if (viewNet->getVisualisationSettings().drawForPositionSelection) {
         // obtain mouse Position
         const Position mousePosition = viewNet->getPositionInformation();
         // obtain position over lane relative to mouse position
-        const Position posOverLane = geometryToDraw.getShape().positionAtOffset2D(geometryToDraw.getShape().nearest_offset_to_point2D(mousePosition));
+        const Position posOverLane = geometry.getShape().positionAtOffset2D(geometry.getShape().nearest_offset_to_point2D(mousePosition));
         // if mouse is over segment
         if (posOverLane.distanceSquaredTo2D(mousePosition) <= (width * width)) {
             // push matrix
@@ -867,7 +865,7 @@ GNEGeometry::drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, c
         // draw line (needed for zoom out)
         GLHelper::drawLine(geometry.getShape());
     } else {
-        GLHelper::drawBoxLines(geometryToDraw.getShape(), geometryToDraw.getShapeRotations(), geometryToDraw.getShapeLengths(), width);
+        GLHelper::drawBoxLines(geometry.getShape(), geometry.getShapeRotations(), geometry.getShapeLengths(), width);
     }
 }
 
@@ -1044,7 +1042,7 @@ GNEGeometry::drawLaneGeometry(const GNEViewNet* viewNet, const PositionVector& s
 
 
 void
-GNEGeometry::drawDottedContourLane(const DottedContourType type, const GUIVisualizationSettings& s, const DottedGeometry& dottedGeometry, const double width, const bool drawFirstExtrem, const bool drawLastExtrem) {
+GNEGeometry::drawDottedContourGeometry(const DottedContourType type, const GUIVisualizationSettings& s, const DottedGeometry& dottedGeometry, const double width, const bool drawFirstExtrem, const bool drawLastExtrem) {
     // declare DottedGeometryColor
     DottedGeometryColor dottedGeometryColor(s);
     // make a copy of dotted geometry
@@ -1096,7 +1094,7 @@ void
 GNEGeometry::drawDottedContourEdge(const DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFrontExtreme, const bool drawBackExtreme) {
     if (edge->getLanes().size() == 1) {
         GNELane::LaneDrawingConstants laneDrawingConstants(s, edge->getLanes().front());
-        GNEGeometry::drawDottedContourLane(type, s, edge->getLanes().front()->getDottedLaneGeometry(), laneDrawingConstants.halfWidth, drawFrontExtreme, drawBackExtreme);
+        GNEGeometry::drawDottedContourGeometry(type, s, edge->getLanes().front()->getDottedLaneGeometry(), laneDrawingConstants.halfWidth, drawFrontExtreme, drawBackExtreme);
     } else {
         // set left hand flag
         const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
@@ -1189,8 +1187,8 @@ void
 GNEGeometry::drawDottedContourShape(const DottedContourType type, const GUIVisualizationSettings& s, const PositionVector& shape, const double width, const double exaggeration) {
     // calculate dotted geometry
     GNEGeometry::DottedGeometry dottedGeometry(s, shape, false);
-    // use drawDottedContourLane to draw it
-    drawDottedContourLane(type, s, dottedGeometry, width * exaggeration, true, true);
+    // use drawDottedContourGeometry to draw it
+    drawDottedContourGeometry(type, s, dottedGeometry, width * exaggeration, true, true);
 }
 
 

@@ -346,7 +346,7 @@ struct GNEGeometry {
                                  const std::vector<double>& lengths, const std::vector<RGBColor>& colors, double width, const bool onlyContour = false);
 
     /// @brief draw geometry
-    static void drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width, const double offsetBegin = -1, const double offsetEnd = -1);
+    static void drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width);
 
     /// @brief draw contour geometry
     static void drawContourGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width, const bool drawExtremes = false);
@@ -359,8 +359,8 @@ struct GNEGeometry {
     static void drawMovingHint(const GUIVisualizationSettings& s, const GNEViewNet* viewNet, const PositionVector& shape,
                                const RGBColor& hintColor, const double radius, const double exaggeration);
 
-    /// @brief draw dotted contour for the given dottedGeometry (used by lanes, routes, etc.)
-    static void drawDottedContourLane(const DottedContourType type, const GUIVisualizationSettings& s, const DottedGeometry& dottedGeometry, const double width, const bool drawFirstExtrem, const bool drawLastExtrem);
+    /// @brief draw dotted contour for the given dotted geometry (used by lanes, routes, etc.)
+    static void drawDottedContourGeometry(const DottedContourType type, const GUIVisualizationSettings& s, const DottedGeometry& dottedGeometry, const double width, const bool drawFirstExtrem, const bool drawLastExtrem);
 
     /// @brief draw dotted contour for the given dottedGeometries (used by edges)
     static void drawDottedContourEdge(const DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFrontExtreme, const bool drawBackExtreme);
