@@ -44,13 +44,12 @@ Once the vClass "bicycle" is chosen, the following parameters, which can still b
 
 The vaules of some other parameters for bicycles are different from those for vehicles apparently. If no real data for the respective calibrations is available, some intuitive suggestions are listed below for reference.
 
-- latAlignment = "right" (cyclists ride on the right side of the central line)
-- carFollowModel = IDM (movement is more smoothing)
+- latAlignment = "right" (cyclists ride on the right side of their lane)
+- carFollowModel = IDM (if smoothed acceleration is desired)
 - lcStrategic = 0.5 (in comparison to the default value (1) this setting makes bicycles to perform strategic lane changing later)
-- lcCooperativeRoundabout = 0. (cyclists keep on the right lane in a mutli-lane roundabout)
-- lcTurnAlignmentDistance = 20. (distance to a location where bicycles start to keeping right/left on a lane for preparing to make turns)
-- lcMaxSpeedLatFactor = 0. (no lateral speed for bikes)
-- jmCrossingGap = 3~4 (Minimum distance to pedestrians that are walking towards the conflict point with a bike)
+- lcCooperativeRoundabout = 0. (cyclists keep on the right lane in a multi-lane roundabout)
+- lcTurnAlignmentDistance = 20. (distance to a location where bicycles start to keeping right/left of their lane for preparing to make turns)
+- jmCrossingGap = 4 (Minimum distance to pedestrians that are walking towards the conflict point with a bike - lower than the default of 10 for cars)
 - jmSigmaMinor = 0. (no imperfection while passing a minor link)
 - jmStoplineGap = 0.5 (Stopping distance in front of prioritary / TL-controlled stop line)
 
