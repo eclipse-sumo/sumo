@@ -242,6 +242,8 @@ title: ChangeLog
 - Tools
   - Some obsolete tools were moved to tools/purgatory (let us know if you were using them). Issue #1425
   - The following tools were renamed/relocated: (issue #1425)
+    - tools/showDepartsAndArrivalsPerEdge.py -> tools/countEdgeUsage.py
+    - tools/averageRuns.py -> tools/averageTripStatistics.py
     - tools/shapes/debug2shapes.py -> tools/devel/debug2shapes.py
     - tools/build/timing.py -> tools/devel/timing.py
     - tools/build/rebuild_cscope.sh -> tools/devel/rebuild_cscope.sh
