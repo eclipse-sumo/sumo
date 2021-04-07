@@ -35,9 +35,9 @@ may also [download pre-build Windows binaries](../Downloads.md).
 - If you decide to use the Python which comes with Visual Studio
   - Test start a python script and add association
   - Add Python to the path (also the Scripts dir), find it at C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64
-  - Install pyautogui, matplotlib, rtree, pyproj, lxml following the instructions https://docs.microsoft.com/en-us/visualstudio/python/tutorial-working-with-python-in-visual-studio-step-05-installing-packages?view=vs-2019
-- If not use `pip install pyautogui, matplotlib, pyproj, lxml`
-- Download [rtree from here](https://www.lfd.uci.edu/~gohlke/pythonlibs/#rtree) and install it using pip or Visual Studio
+  - Install pyautogui, matplotlib, rtree, pyproj, lxml, pipwin following the instructions https://docs.microsoft.com/en-us/visualstudio/python/tutorial-working-with-python-in-visual-studio-step-05-installing-packages?view=vs-2019
+- If not use `pip install pyautogui matplotlib pyproj lxml pipwin`
+- Run `pipwin install rtree` (or wownload [rtree from here](https://www.lfd.uci.edu/~gohlke/pythonlibs/#rtree) and install it manually)
 - (after 30 days) Setup a Microsoft account (if you do not already have one) and register your Visual Studio
 
 ## Further notes
@@ -73,7 +73,7 @@ need to install the Visual C++ 2017 Runtime Distributable for running
 SUMO then (tested with Visual Studio 2013). 
 
 !!! Caution
-    When cloning SUMOLibraries you must initialized all submodules with `git submoudle update --init`
+    When cloning SUMOLibraries you must initialize all submodules with `git submodule update --init`
 
 For details on building your
 own and also on how to use different versions and additional libraries
