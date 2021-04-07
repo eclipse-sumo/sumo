@@ -109,7 +109,7 @@ Using python tools, conversion of .net.xml files into further formats is support
   information or filter stops when reducing the network size.
 - [Public transport
   lines](Tutorials/PT_from_OpenStreetMap.md#initial_network_and_public_transit_information_extraction): Automatically updated when reducing network extent.
-- [Shape definitions](Simulation/Shapes.m) to be embedded in network output that supports this ([OpenDRIVE](Networks/Import/OpenDRIVE.md))
+- [Shape definitions](Simulation/Shapes.md) to be embedded in network output that supports this ([OpenDRIVE](Networks/Import/OpenDRIVE.md))
 - [Elevation Data files](Networks/Elevation.md#including_elevation_data_in_a_network)
 
 ## Export
