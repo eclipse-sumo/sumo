@@ -48,6 +48,44 @@ GNEGeometry::Geometry::Geometry() :
 }
 
 
+GNEGeometry::Geometry::Geometry(const Geometry& geometry, double beginTrim, double endTrim) :
+    myShape(geometry.getShape()),
+    myShapeRotations(geometry.getShapeRotations()),
+    myShapeLengths(geometry.getShapeLengths()),
+    myLane(nullptr),
+    myAdditional(nullptr) {
+    // check trim values
+    if ((beginTrim != -1) || (endTrim != -1)) {
+        // get shape lenght
+        const double shapeLength = myShape.length2D();
+        // set initial beginTrim value
+        if (beginTrim < 0) {
+            beginTrim = 0;
+        }
+        // set initial endtrim value
+        if (endTrim < 0) {
+            endTrim = shapeLength;
+        }
+        // check maximum beginTrim
+        if (beginTrim > (shapeLength - POSITION_EPS)) {
+            beginTrim = (shapeLength - POSITION_EPS);
+        }
+        // check maximum endTrim
+        if ((endTrim > shapeLength)) {
+            endTrim = shapeLength;
+        }
+        // check sub-vector
+        if (endTrim <= beginTrim) {
+            endTrim = beginTrim + POSITION_EPS;
+        }
+        // trim shape
+        myShape = myShape.getSubpart2D(beginTrim, endTrim);
+        // calculate shape rotation and lenghts
+        calculateShapeRotationsAndLengths();
+    }
+}
+
+
 GNEGeometry::Geometry::Geometry(const PositionVector& shape) :
     myShape(shape),
     myLane(nullptr),
@@ -805,12 +843,15 @@ GNEGeometry::adjustStartPosGeometricPath(double& startPos, const GNELane* startL
 
 
 void
-GNEGeometry::drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width) {
+GNEGeometry::drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width, const double offsetBegin, const double offsetEnd) {
+    // declare trim geometry to draw
+    const Geometry geometryToDraw(geometry, offsetBegin, offsetEnd);
+    // continue depending of draw for position selection
     if (viewNet->getVisualisationSettings().drawForPositionSelection) {
         // obtain mouse Position
         const Position mousePosition = viewNet->getPositionInformation();
         // obtain position over lane relative to mouse position
-        const Position posOverLane = geometry.getShape().positionAtOffset2D(geometry.getShape().nearest_offset_to_point2D(mousePosition));
+        const Position posOverLane = geometryToDraw.getShape().positionAtOffset2D(geometryToDraw.getShape().nearest_offset_to_point2D(mousePosition));
         // if mouse is over segment
         if (posOverLane.distanceSquaredTo2D(mousePosition) <= (width * width)) {
             // push matrix
@@ -826,8 +867,7 @@ GNEGeometry::drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, c
         // draw line (needed for zoom out)
         GLHelper::drawLine(geometry.getShape());
     } else {
-        // draw geometry
-        GLHelper::drawBoxLines(geometry.getShape(), geometry.getShapeRotations(), geometry.getShapeLengths(), width);
+        GLHelper::drawBoxLines(geometryToDraw.getShape(), geometryToDraw.getShapeRotations(), geometryToDraw.getShapeLengths(), width);
     }
 }
 

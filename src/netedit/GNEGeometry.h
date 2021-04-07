@@ -59,6 +59,9 @@ struct GNEGeometry {
         /// @brief constructor
         Geometry();
 
+        /// @brief trim constructor
+        Geometry(const Geometry& geometry, double beginTrim, double endTrim);
+
         /// @brief parameter constructor
         Geometry(const PositionVector& shape);
 
@@ -343,7 +346,7 @@ struct GNEGeometry {
                                  const std::vector<double>& lengths, const std::vector<RGBColor>& colors, double width, const bool onlyContour = false);
 
     /// @brief draw geometry
-    static void drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width);
+    static void drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width, const double offsetBegin = -1, const double offsetEnd = -1);
 
     /// @brief draw contour geometry
     static void drawContourGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width, const bool drawExtremes = false);
