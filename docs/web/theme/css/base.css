@@ -565,17 +565,18 @@ background: var(--hljs-addition-bg);
 h1, h2 {
 border-bottom: 1px solid #919699;
 padding-bottom: 1px;
-font-weight: 400;
 margin-bottom: .4em;
 }
 
 h1 {
-font-size: 1.8em;
+font-size: 1.9em;
+font-weight: 700;
 }
 
 h2 {
 font-size: 1.5em;
 margin-top: 1em;
+font-weight: 400;
 }
 
 h3 {
