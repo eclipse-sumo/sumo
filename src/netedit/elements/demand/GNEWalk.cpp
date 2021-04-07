@@ -282,16 +282,16 @@ void
 GNEWalk::computePath() {
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_EDGE) {
-        myNet->getPathManager()->calculatePath(this, getVClass(), true,
+        myNet->getPathManager()->calculateLanesPath(this, getVClass(), true,
             {getFirstAllowedVehicleLane(), getLastAllowedVehicleLane()});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_BUSSTOP) {
-        myNet->getPathManager()->calculatePath(this, getVClass(), true,
+        myNet->getPathManager()->calculateLanesPath(this, getVClass(), true,
             {getFirstAllowedVehicleLane(), getParentAdditionals().back()->getParentLanes().front()});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_EDGE) {
-        myNet->getPathManager()->calculatePath(this, getVClass(), true,
+        myNet->getPathManager()->calculateLanesPath(this, getVClass(), true,
             {getParentAdditionals().front()->getParentLanes().front(), getLastAllowedVehicleLane()});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_BUSSTOP) {
-        myNet->getPathManager()->calculatePath(this, getVClass(), true,
+        myNet->getPathManager()->calculateLanesPath(this, getVClass(), true,
             {getParentAdditionals().front()->getParentLanes().front(), getParentAdditionals().back()->getParentLanes().front()});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
         // extract lanes from parent edges
@@ -302,7 +302,7 @@ GNEWalk::computePath() {
         }
         lanes.push_back(getLastAllowedVehicleLane());
         // calculate path
-        myNet->getPathManager()->calculatePath(this, getVClass(), true, lanes);
+        myNet->getPathManager()->calculateLanesPath(this, getVClass(), true, lanes);
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
         // extract lanes from parent route edges
         std::vector<GNELane*> lanes;
@@ -312,7 +312,7 @@ GNEWalk::computePath() {
         }
         lanes.push_back(getLastAllowedVehicleLane());
         // calculate path
-        myNet->getPathManager()->calculatePath(this, getVClass(), true, lanes);
+        myNet->getPathManager()->calculateLanesPath(this, getVClass(), true, lanes);
     }
     // update geometry
     updateGeometry();

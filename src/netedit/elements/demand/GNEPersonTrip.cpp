@@ -268,16 +268,16 @@ void
 GNEPersonTrip::computePath() {
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_EDGE) {
-        myNet->getPathManager()->calculatePath(this, getVClass(), true,
+        myNet->getPathManager()->calculateLanesPath(this, getVClass(), true,
             {getFirstAllowedVehicleLane(), getLastAllowedVehicleLane()});
     } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) {
-        myNet->getPathManager()->calculatePath(this, getVClass(), true,
+        myNet->getPathManager()->calculateLanesPath(this, getVClass(), true,
             {getFirstAllowedVehicleLane(), getParentAdditionals().back()->getParentLanes().front()});
     } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_EDGE) {
-        myNet->getPathManager()->calculatePath(this, getVClass(), true,
+        myNet->getPathManager()->calculateLanesPath(this, getVClass(), true,
             {getParentAdditionals().front()->getParentLanes().front(), getLastAllowedVehicleLane()});
     } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP) {
-        myNet->getPathManager()->calculatePath(this, getVClass(), true,
+        myNet->getPathManager()->calculateLanesPath(this, getVClass(), true,
             {getParentAdditionals().front()->getParentLanes().front(), getParentAdditionals().back()->getParentLanes().front()});
     }
     // update geometry

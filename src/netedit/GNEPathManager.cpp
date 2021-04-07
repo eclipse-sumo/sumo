@@ -282,8 +282,8 @@ GNEPathManager::getPathCalculator() {
 }
 
 
-void 
-GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, const bool allowedVClass, std::vector<GNELane*> lanes) {
+void
+GNEPathManager::calculateEdgesPath(PathElement* pathElement, SUMOVehicleClass vClass, const bool allowedVClass, std::vector<GNEEdge*> edges) {
     // check if path element exist already in myPaths
     if (myPaths.find(pathElement) != myPaths.end()) {
         // delete segments
@@ -293,20 +293,14 @@ GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass,
         // remove path element from myPaths
         myPaths.erase(pathElement);
     }
-    // get edges
-    std::vector<GNEEdge*> edges;
-    edges.reserve(lanes.size());
-    for (const auto &lane : lanes) {
-        edges.push_back(lane->getParentEdge());
-    }
     // calculate path
-    std::vector<GNEEdge*> path = myPathCalculator->calculatePath(vClass, edges);
+    const std::vector<GNEEdge*> path = myPathCalculator->calculatePath(vClass, edges);
     // continue if path isn't empty
     if (path.size() > 0) {
         // declare segment vector
         std::vector<Segment*> segments;
         for (int i = 0; i < (int)path.size(); i++) {
-            // get flags
+            // get first and last segment flags
             const bool firstSegment = (i == 0);
             const bool lastSegment = (i == ((int)path.size() - 1));
             // get first allowed lane
@@ -318,7 +312,7 @@ GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass,
             // continue if this isn't the last edge
             if (path.at(i) != path.back()) {
                 // obtain next lane
-                const GNELane* nextLane = path.at(i+1)->getLaneByAllowedVClass(vClass);
+                const GNELane* nextLane = path.at(i + 1)->getLaneByAllowedVClass(vClass);
                 // create junction segments
                 Segment* junctionSegment = new Segment(this, pathElement, path.at(i)->getParentJunctions().at(1), lane, nextLane);
                 // add it into segment vector
@@ -328,6 +322,21 @@ GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass,
         // add segment in path
         myPaths[pathElement] = segments;
     }
+}
+
+
+void 
+GNEPathManager::calculateLanesPath(PathElement* pathElement, SUMOVehicleClass vClass, const bool allowedVClass, std::vector<GNELane*> lanes) {
+    // declare edges
+    std::vector<GNEEdge*> edges;
+    // reserve edges
+    edges.reserve(lanes.size());
+    // get parent of every lane
+    for (const auto& lane : lanes) {
+        edges.push_back(lane->getParentEdge());
+    }
+    // calculate edges path
+    calculateEdgesPath(pathElement, vClass, allowedVClass, edges);
 }
 
 

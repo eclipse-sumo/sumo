@@ -112,8 +112,11 @@ public:
     /// @brief obtain instance of PathCalculator
     PathCalculator* getPathCalculator();
 
-    /// @brief calculate path
-    void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, const bool allowedVClass, std::vector<GNELane*> lanes);
+    /// @brief calculate path for edges
+    void calculateEdgesPath(PathElement* pathElement, SUMOVehicleClass vClass, const bool allowedVClass, std::vector<GNEEdge*> edges);
+
+    /// @brief calculate path for lanes
+    void calculateLanesPath(PathElement* pathElement, SUMOVehicleClass vClass, const bool allowedVClass, std::vector<GNELane*> lanes);
 
     /// @brief remove path
     void removePath(PathElement* pathElement);

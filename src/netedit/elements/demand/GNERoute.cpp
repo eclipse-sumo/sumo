@@ -246,9 +246,9 @@ GNERoute::commitGeometryMoving(GNEUndoList*) {
 void
 GNERoute::updateGeometry() {
     // update child demand elementss
-    for (const auto& i : getChildDemandElements()) {
-        if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {
-            i->updateGeometry();
+    for (const auto& demandElement : getChildDemandElements()) {
+        if (!demandElement->getTagProperty().isPersonStop() && !demandElement->getTagProperty().isStop()) {
+            demandElement->updateGeometry();
         }
     }
 }
@@ -256,13 +256,8 @@ GNERoute::updateGeometry() {
 
 void
 GNERoute::computePath() {
-    // extract lanes from parent edges
-    std::vector<GNELane*> lanes;
-    for (const auto &edge : getParentEdges()) {
-        lanes.push_back(edge->getLanes().front());
-    }
     // calculate path
-    myNet->getPathManager()->calculatePath(this, SVC_IGNORING, true, lanes);
+    myNet->getPathManager()->calculateEdgesPath(this, SVC_IGNORING, true, getParentEdges());
     // update geometry
     updateGeometry();
 }
