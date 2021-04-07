@@ -6,6 +6,9 @@ Tools can be found in the SUMO-distribution under {{SUMO}}/tools. Most of
 them are tiny - they were written for a certain purpose and worked well
 under certain input, but may be not verified for other cases.
 
+All tools should work with Python 3.7 or later on Windows, Linux and MacOS.
+We try to keep them compatible with Python 3.5 and 2.7 as well.
+
 The tools are divided into the following topics:
 
 - *[assign](Assign.md)* - traffic assignment tools
@@ -61,4 +64,4 @@ xml schema related utilities
 above categories
 
 !!! caution
-    Most tools were written for Python 2.7 and still require this version. With the exception of sumolib and traci, Python 3.0 compatibility is not assured. We are still working on it.
+    Please always ensure that you have the environment variable SUMO_HOME properly set.
