@@ -23,91 +23,27 @@ with the results on this [summary webpage](https://sumo.dlr.de/daily/).
 # Setup
 
 We use [TextTest](http://texttest.org/) 4.x as our testing environment which
-is Python based and currently available for Python 2 and 3. To install
-it, you can open a terminal / Windows console and type:
+is Python based and currently available for Python 3. To install
+it on Linux / MacOS, you can open a terminal and type:
 
 ```
-pip install texttest
+pip3 install texttest
 ```
+For Windows you should download and run the installer from the
+[SourceForge project page](https://sourceforge.net/projects/texttest/).
 
-on all platforms, but it will not pull in the dependencies, so you need
+It might not pull in all the dependencies, so in some cases you need
 to follow the [TextTest installation
 instructions](http://texttest.org/index.php?page=documentation_trunk&n=install_texttest)
-and the additional info here.
+and the additional info there.
 
-## Windows Setup (outdated)
+For MacOS the following command should install all dependencies:
+   `brew install python py3cairo pygobject3 gtk+3 adwaita-icon-theme`
 
-!!! note The Window Setup section should be updated, because we can now also use Python 3.x with TextTest 4.x
-
-You will need the following software (at least for a setup with GUI)
-
-- [Python 2.7](http://www.python.org/download/)
-- [GTK and PyGTK for Windows](https://www.gtk.org/docs/installations/)
-  - If you are using the 32 bit version of Python you can use [the
-    all in one
-    installer](http://ftp.gnome.org/pub/GNOME/binaries/win32/pygtk/2.24/pygtk-all-in-one-2.24.0.win32-py2.7.msi)
-  - For 64 bit this
-    <http://stackoverflow.com/questions/14567921/python-pygtk-windows-7-64-bit>
-    answer still applies except that the unofficial python packages
-    now need pip to be installed
-- [TKDiff](https://sourceforge.net/projects/tkdiff/) (you can choose another
-compatible diff tool if you like)
-- python and diff should also appear in your PATH.
-
-Visual guide:
-
-![](../images/TestInstall1.png "Python path shouldn't include whitespaces")
-
-Python path shouldn't include whitespaces
-
-![](../images/TestInstall2.png "Python requieres a full installation")
-
-Python requieres a full installation
-
-![](../images/TestInstall3.png "PyGTK must be installed in the same folder of Python")
-
-PyGTK must be installed in the same folder of Python
-
-![](../images/TestInstall6.png "TkDiff path shouldn't include whitespaces")
-
-TkDiff path shouldn't include whitespaces
-
-![](../images/TestInstall4.png "Check that python works typing `Python` in CMD.")
-
-Check that python works typing `Python` in `cmd`.
-Type "quit()" to exit
-
-![](../images/TestInstall5.png "Type `pip install texttest` to install TextTest automatically from Python repository")
-
-Type `pip install texttest` to install TextTest automatically from Python repository
-
-![](../images/TestInstall7.png "Every value of environment variable `PATH` must be separated with `;`")
-
-Every value of environment variable `PATH` must be separated with `;`
+If the installation was successful, this window will appear after execution of `runAllTests.bat`
 
 ![](../images/TestInstall8.png "If Installation was successfully, this window will appear after execution of `runAllTests.bat`")
 
-If Installation was successfully, this window will appear after execution of `runAllTests.bat`
-
-## Linux setup
-
-This is much easier because at least with recent distributions there is
-probably everything included. With openSUSE 10.2 you need python-gtk and
-python-cairo as well as tkdiff before installing TextTest. If you don't
-need the GUI you can probably even skip these.
-
-## macOS setup
-
-You can easily install all TextTest 4.x and all of its dependencies on a recent macOS with Homebrew.  
-
-1. Make sure to have python 3.x installed:
-   `brew install python`
-2. Install all dependencies for TextTest 4.x:
-   `brew install py3cairo pygobject3 gtk+3 adwaita-icon-theme`
-3. Install TextTest via pip:
-   `pip3 install texttest`
-
-You can find more information about the general installation process and the system requirements of TextTest [here](http://texttest.sourceforge.net/index.php?page=documentation_4_0&n=install_texttest). 
 
 ## Customize configuration
 
