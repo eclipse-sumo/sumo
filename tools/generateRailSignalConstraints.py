@@ -244,7 +244,7 @@ def findMergingSwitches(options, uniqueRoutes, net):
             if edge in predReversal:
                 numReversals += 1
             if options.verbose:
-                print("mergingEdge=%s pred=%s" % (edge, ','.join(preds)))
+                print("mergingEdge=%s pred=%s" % (edge, ','.join(sorted(preds))))
             mergeSwitches.add(edge)
 
     if numReversals == 0:
