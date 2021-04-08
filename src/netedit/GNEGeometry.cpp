@@ -48,6 +48,15 @@ GNEGeometry::Geometry::Geometry() :
 }
 
 
+GNEGeometry::Geometry::Geometry(const Geometry& geometry) :
+    myShape(geometry.myShape),
+    myShapeRotations(geometry.myShapeRotations),
+    myShapeLengths(geometry.myShapeLengths),
+    myLane(geometry.myLane),
+    myAdditional(geometry.myAdditional) {
+}
+
+
 GNEGeometry::Geometry::Geometry(const Geometry& geometry, double beginTrim, double endTrim) :
     myShape(geometry.getShape()),
     myShapeRotations(geometry.getShapeRotations()),

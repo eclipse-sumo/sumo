@@ -56,8 +56,11 @@ struct GNEGeometry {
     class Geometry {
 
     public:
-        /// @brief constructor
+        /// @brief default constructor
         Geometry();
+
+        /// @brief copy constructor
+        Geometry(const Geometry& geometry);
 
         /// @brief trim constructor
         Geometry(const Geometry& geometry, double beginTrim, double endTrim);
@@ -103,7 +106,7 @@ struct GNEGeometry {
         /// @brief The lengths of the single shape parts
         const std::vector<double>& getShapeLengths() const;
 
-    private:
+    protected:
         /// @brief clear geometry
         void clearGeometry();
 
@@ -125,6 +128,7 @@ struct GNEGeometry {
         /// @brief additional (to use additional geometry)
         const GNEAdditional* myAdditional;
 
+    private:
         /// @brief Invalidated assignment operator
         Geometry& operator=(const Geometry& other) = delete;
     };
