@@ -108,6 +108,9 @@ Connection::close() {
         pclose(myProcessPipe);
 #endif
     }
+    myConnections.erase(myLabel);
+    delete myActive;
+    myActive = nullptr;
 }
 
 
