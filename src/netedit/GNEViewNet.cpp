@@ -4213,6 +4213,8 @@ GNEViewNet::drawTemporalJunction() const {
             !myMouseButtonKeyPressed.altKeyPressed()) {
         // get mouse position
         const Position mousePosition = snapToActiveGrid(getPositionInformation());
+        // get junction exaggeration
+        const double junctionExaggeration = myVisualizationSettings->junctionSize.getExaggeration(myVisualizationSettings, nullptr, 4);
         // get buble color
         RGBColor bubbleColor = myVisualizationSettings->junctionColorer.getScheme().getColor(1);
         // change alpha
@@ -4228,7 +4230,7 @@ GNEViewNet::drawTemporalJunction() const {
         // set color
         GLHelper::setColor(bubbleColor);
         // draw filled circle
-        GLHelper::drawFilledCircle(myVisualizationSettings->neteditSizeSettings.junctionBubbleRadius, myVisualizationSettings->getCircleResolution());
+        GLHelper::drawFilledCircle(myVisualizationSettings->neteditSizeSettings.junctionBubbleRadius * junctionExaggeration, myVisualizationSettings->getCircleResolution());
         // pop junction matrix
         glPopMatrix();
         // draw temporal edge
