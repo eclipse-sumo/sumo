@@ -45,6 +45,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType
                              const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, id),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
+    GNEPathManager::PathElement(GNEPathManager::PathElement::ADDITIONAL_ELEMENT),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
     mySpecialColor(nullptr) {
@@ -62,6 +63,7 @@ GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, 
                              const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, additionalParents.front()->getID()),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
+    GNEPathManager::PathElement(GNEPathManager::PathElement::ADDITIONAL_ELEMENT),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
     mySpecialColor(nullptr) {

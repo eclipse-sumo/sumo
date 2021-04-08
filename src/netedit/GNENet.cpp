@@ -1660,12 +1660,12 @@ GNENet::computeDemandElements(GNEApplicationWindow* window) {
     if (!myViewNet->getEditModes().isCurrentSupermodeDemand())  {
         myPathManager->getPathCalculator()->updatePathCalculator();
     }
-    // clear current paths
-    myPathManager->clearSegments();
+    // clear demand paths
+    myPathManager->clearDemandPaths();
     // iterate over all demand elements and compute
-    for (const auto& i : myAttributeCarriers->getDemandElements()) {
-        for (const auto& j : i.second) {
-            j.second->computePath();
+    for (const auto& demandElements : myAttributeCarriers->getDemandElements()) {
+        for (const auto& demandElement : demandElements.second) {
+            demandElement.second->computePath();
         }
     }
     window->setStatusBarText("Finished computing demand elements.");
