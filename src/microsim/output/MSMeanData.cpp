@@ -422,6 +422,7 @@ MSMeanData::MSMeanData(const std::string& id,
     myAmEdgeBased(!useLanes),
     myDumpBegin(dumpBegin),
     myDumpEnd(dumpEnd),
+    myInitTime(SUMOTime_MAX),
     myPrintDefaults(printDefaults),
     myDumpInternal(withInternal),
     myTrackVehicles(trackVehicles),
@@ -431,6 +432,7 @@ MSMeanData::MSMeanData(const std::string& id,
 
 void
 MSMeanData::init() {
+    myInitTime = MSNet::getInstance()->getCurrentTimeStep();
     for (MSEdge* const edge : MSNet::getInstance()->getEdgeControl().getEdges()) {
         if ((myDumpInternal || !edge->isInternal()) &&
                 ((detectPersons() && myDumpInternal) || (!edge->isCrossing() && !edge->isWalkingArea()))) {
@@ -619,8 +621,12 @@ MSMeanData::writeXMLOutput(OutputDevice& dev,
             }
         }
     }
-    if (numReady == 0 || myTrackVehicles) {
+    const bool partialInterval = startTime < myInitTime;
+    if (numReady == 0 || myTrackVehicles || partialInterval) {
         resetOnly(stopTime);
+    }
+    if (partialInterval) {
+        return;
     }
     while (numReady-- > 0) {
         if (!myPendingIntervals.empty()) {

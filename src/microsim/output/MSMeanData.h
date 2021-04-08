@@ -443,6 +443,9 @@ private:
     /// @brief The first and the last time step to write information (-1 indicates always)
     const SUMOTime myDumpBegin, myDumpEnd;
 
+    /// @brief time at which init was called();
+    SUMOTime myInitTime;
+
     /// @brief The corresponding first edges
     MSEdgeVector myEdges;
 

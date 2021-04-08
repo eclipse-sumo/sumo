@@ -85,7 +85,7 @@ MSDetectorControl::add(MSMeanData* md, const std::string& device,
                        SUMOTime frequency, SUMOTime begin) {
     myMeanData[md->getID()].push_back(md);
     addDetectorAndInterval(md, &OutputDevice::getDevice(device), frequency, begin);
-    if (begin == string2time(OptionsCont::getOptions().getString("begin"))) {
+    if (begin <= string2time(OptionsCont::getOptions().getString("begin"))) {
         md->init();
     }
 }
@@ -148,8 +148,9 @@ MSDetectorControl::addDetectorAndInterval(MSDetectorFileOutput* det,
         OutputDevice* device,
         SUMOTime interval,
         SUMOTime begin) {
+    const SUMOTime simBegin = string2time(OptionsCont::getOptions().getString("begin"));
     if (begin == -1) {
-        begin = string2time(OptionsCont::getOptions().getString("begin"));
+        begin = simBegin;
     }
     IntervalsKey key = std::make_pair(interval, begin);
     Intervals::iterator it = myIntervals.find(key);
@@ -158,7 +159,12 @@ MSDetectorControl::addDetectorAndInterval(MSDetectorFileOutput* det,
         DetectorFileVec detAndFileVec;
         detAndFileVec.push_back(std::make_pair(det, device));
         myIntervals.insert(std::make_pair(key, detAndFileVec));
-        myLastCalls[key] = begin;
+        SUMOTime lastCall = begin;
+        if (begin < simBegin) {
+            SUMOTime divRest = (simBegin - begin) % interval;
+            lastCall = simBegin - divRest;
+        }
+        myLastCalls[key] = lastCall;
     } else {
         DetectorFileVec& detAndFileVec = it->second;
         if (find_if(detAndFileVec.begin(), detAndFileVec.end(), [&](const DetectorFilePair & pair) {
