@@ -240,7 +240,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
                                            "Load Additionals...", "Ctrl+A", "Load additionals and shapes.",
                                            GUIIconSubSys::getIcon(GUIIcon::OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
     reloadAdditionals = GUIDesigns::buildFXMenuCommandShortcut(fileMenuAdditionals,
-                        "Reload Additionals", "", "Reload additionals",
+                        "Reload Additionals", "", "Reload additionals.",
                         GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALS);
     reloadAdditionals->disable();
     saveAdditionals = GUIDesigns::buildFXMenuCommandShortcut(fileMenuAdditionals,
@@ -257,7 +257,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
                                            "Load Demand Elements...", "Ctrl+D", "Load demand elements.",
                                            GUIIconSubSys::getIcon(GUIIcon::OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS);
     reloadDemandElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDemandElements,
-                           "Reload Demand Elements", "", "Reload demand elements",
+                           "Reload Demand Elements", "", "Reload demand elements.",
                            GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_DEMANDELEMENTS);
     reloadDemandElements->disable();
     saveDemandElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDemandElements,
@@ -274,7 +274,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
                                            "Load Data Elements...", "Ctrl+B", "Load data elements.",
                                            GUIIconSubSys::getIcon(GUIIcon::OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS);
     reloadDataElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
-                         "Reload Data Elements", "", "Reload data elements",
+                         "Reload Data Elements", "", "Reload data elements.",
                          GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_DATAELEMENTS);
     reloadDataElements->disable();
     saveDataElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
@@ -594,7 +594,7 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::buildNetworkVi
                               myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE);
 
     menuCheckShowJunctionBubble = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                                  "Show bubbles over junction's shapes", "Alt+5", "",
+                                  "Show bubbles over junctions shapes", "Alt+5", "",
                                   GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_BUBBLES),
                                   myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES);
 
