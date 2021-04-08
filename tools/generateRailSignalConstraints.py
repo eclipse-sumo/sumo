@@ -110,6 +110,8 @@ def get_options(args=None):
                         help="Ignore unordered timing if the vehicle which arrives first is parking")
     parser.add_argument("-P", "--skip-parking", dest="skipParking", action="store_true", default=False,
                         help="Do not generate constraints for a vehicle that parks at the next stop")
+    parser.add_argument("--redundant", default=-1,
+                        help="Add redundant constraint within given time range (reduces impact of modifying constraints at runtime)")
     parser.add_argument("--comment.line", action="store_true", dest="commentLine", default=False,
                         help="add lines of involved trains in comment")
     parser.add_argument("--comment.id", action="store_true", dest="commentId", default=False,
@@ -142,6 +144,7 @@ def get_options(args=None):
         sys.stdout.flush()
 
     options.delay = parseTime(options.delay)
+    options.redundant = parseTime(options.redundant)
 
     return options
 
@@ -396,6 +399,7 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
     prior merge switch and establish their ordering"""
 
     numConflicts = 0
+    numRedundant = 0
     numIgnoredConflicts = 0
     numIgnoredStops = 0
     # signal -> [(tripID, otherSignal, otherTripID, limit, line, otherLine, vehID, otherVehID), ...]
@@ -403,6 +407,7 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
 
     for switch, stopRoutes2 in switchRoutes.items():
         numSwitchConflicts = 0
+        numRedudantSwitchConflicts = 0
         numIgnoredSwitchConflicts = 0
         numIgnoredSwitchStops = 0
         if switch == options.debugSwitch:
@@ -423,6 +428,7 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
                     continue
                 arrivals.append((arrival, edges, stop))
             arrivals.sort(key=itemgetter(0))
+            arrivalsBySignal = defaultdict(list)
             for (pArrival, pEdges, pStop), (nArrival, nEdges, nStop) in zip(arrivals[:-1], arrivals[1:]):
                 pSignal, pTimeSiSt = mergeSignals[(switch, pEdges)]
                 nSignal, nTimeSiSt = mergeSignals[(switch, nEdges)]
@@ -463,13 +469,39 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
                                                        # attributes for adding comments
                                                        nStop.prevLine, pStop.prevLine,
                                                        nStop.vehID, pStop.vehID, nArrival))
+                    if options.redundant >= 0:
+                        prevBegin = pTimeAtSignal
+                        for p2Arrival, p2Stop in reversed(arrivalsBySignal[pSignal]):
+                            if pArrival - p2Arrival > options.redundant:
+                                break
+                            numRedundant += 1
+                            numRedudantSwitchConflicts += 1
+                            p2TimeAtSignal = p2Arrival - pTimeSiSt
+                            limit += 1
+                            limit += countPassingTrainsToOtherStops(options, pSignal, busStop, p2TimeAtSignal, prevBegin, signalTimes)
+                            conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, p2Stop.prevTripId, limit,
+                                                               # attributes for adding comments
+                                                               nStop.prevLine, p2Stop.prevLine,
+                                                               nStop.vehID, p2Stop.vehID, nArrival))
+                            prevBegin = p2TimeAtSignal
+
+                if pSignal is not None and not (
+                        options.skipParking and
+                        parseBool(pStop.getAttributeSecure("parking", "false"))):
+                    arrivalsBySignal[pSignal].append((pArrival, pStop))
+
         if options.verbose:
             print("Found %s conflicts at switch %s" % (numSwitchConflicts, switch))
+            if numRedudantSwitchConflicts > 0:
+                print("Found %s redundant conflicts at switch %s" % (numRedundantSwitchConflicts, switch))
+
             if numIgnoredSwitchConflicts > 0 or numIgnoredSwitchStops > 0:
                 print("Ignored %s conflicts and % stops at switch %s" %
                       (numIgnoredSwitchConflicts, numIgnoredSwitchStops, switch))
 
     print("Found %s conflicts" % numConflicts)
+    if numRedundant > 0:
+        print("Found %s redundant conflicts" % numRedundant)
 
     if numIgnoredConflicts > 0 or numIgnoredStops > 0:
         print("Ignored %s conflicts and %s stops" % (numIgnoredConflicts, numIgnoredStops))
