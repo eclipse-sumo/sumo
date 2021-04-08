@@ -75,7 +75,7 @@ def run(suffix, args, out=sys.stdout, guiTests=False, console=False, chrouter=Tr
     try:
         if os.name == "posix":
             subprocess.call(['python3', '-V'], stdout=open(os.devnull, "w"))
-        apps += ',complex.python3,tools.python3,complex.libsumo.python3,complex.libtraci.python3'
+        apps += ',complex.python2,tools.python2,complex.libsumo,complex.libtraci'
     except Exception:
         pass
     if guiTests:
