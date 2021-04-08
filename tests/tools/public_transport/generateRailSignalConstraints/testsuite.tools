@@ -16,3 +16,6 @@ insertionFoe
 # simple network with two branches that merge towards a single stop
 # test aborting after inconsistency
 abort
+
+# add redundant constraints to limit the impact of swapping constraints at runtime
+redundant

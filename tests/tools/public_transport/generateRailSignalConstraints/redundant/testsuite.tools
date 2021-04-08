@@ -1,0 +1,11 @@
+# two trains approach the same stop from different tracks.
+# Add redundant constraints within 100s window
+100s
+
+# two trains approach the same stop from different tracks.
+# Add redundant constraints within 200s window
+200s
+
+# two trains approach the same stop from different tracks.
+# Add redundant constraints within 1h window
+1h
