@@ -50,10 +50,41 @@
 // GNEPathManager::PathElement - methods
 // ---------------------------------------------------------------------------
 
-GNEPathManager::PathElement::PathElement() {}
+GNEPathManager::PathElement::PathElement(const Options option) :
+    myOption(option) {
+}
 
 
 GNEPathManager::PathElement::~PathElement() {}
+
+
+bool 
+GNEPathManager::PathElement::isNetworkElement() const {
+    return (myOption == PathElement::Options::NETWORK_ELEMENT);
+}
+
+
+bool 
+GNEPathManager::PathElement::isAdditionalElement() const {
+    return (myOption == PathElement::Options::ADDITIONAL_ELEMENT);
+}
+
+
+bool
+GNEPathManager::PathElement::isDemandElement() const {
+    return (myOption == PathElement::Options::DEMAND_ELEMENT);
+}
+
+
+bool 
+GNEPathManager::PathElement::isDataElement() const {
+    return (myOption == PathElement::Options::DATA_ELEMENT);
+}
+
+
+GNEPathManager::PathElement::PathElement() :
+    myOption(PathElement::Options::NETWORK_ELEMENT) {
+}
 
 // ---------------------------------------------------------------------------
 // GNEPathManager::PathCalculator - methods
@@ -395,16 +426,22 @@ GNEPathManager::invalidatePath(const GNELane* lane) {
 
 
 void 
-GNEPathManager::clearSegments() {
-    // first iterate over paths
-    for (const auto &path : myPaths) {
-        // delete all segments
-        for (const auto &segment : path.second) {
-            delete segment;
+GNEPathManager::clearDemandPaths() {
+    // declare iterator
+    auto it = myPaths.begin();
+    // iterate over paths
+    while (it != myPaths.end()) {
+        if (it->first->isDemandElement()) {
+            // delete all segments
+            for (const auto &segment : it->second) {
+                delete segment;
+            }
+            // remove path
+            it = myPaths.erase(it);
+        } else {
+            it++;
         }
     }
-    // clear paths
-    myPaths.clear();
 }
 
 
@@ -549,6 +586,20 @@ GNEPathManager::clearSegmentFromJunctionAndLaneSegments(Segment* segment) {
     for (const auto& junctionToClear : junctionsToClear) {
         myJunctionSegments.erase(junctionToClear);
     }
+}
+
+
+void 
+GNEPathManager::clearSegments() {
+    // first iterate over paths
+    for (const auto& path : myPaths) {
+        // delete all segments
+        for (const auto& segment : path.second) {
+            delete segment;
+        }
+    }
+    // clear paths
+    myPaths.clear();
 }
 
 /****************************************************************************/

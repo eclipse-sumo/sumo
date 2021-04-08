@@ -42,15 +42,31 @@ public:
 
     public:
         enum Options {
-            FIRST_SEGMENT = 1 << 0,  // First segment
-            LAST_SEGMENT  = 1 << 1,  // Last segment
+            NETWORK_ELEMENT =    1 << 0,  // Network element
+            ADDITIONAL_ELEMENT = 1 << 1,  // Additional element
+            DEMAND_ELEMENT =     1 << 2,  // Demand element
+            DATA_ELEMENT =       1 << 3,  // Data element
+            FIRST_SEGMENT =      1 << 4,  // First segment
+            LAST_SEGMENT  =      1 << 5,  // Last segment
         };
 
         /// @brief constructor
-        PathElement();
+        PathElement(const Options option);
 
         /// @brief destructor
         ~PathElement();
+
+        /// @brief check if pathElement is a network element
+        bool isNetworkElement() const;
+
+        /// @brief check if pathElement is an additional element
+        bool isAdditionalElement() const;
+
+        /// @brief check if pathElement is a demand element
+        bool isDemandElement() const;
+
+        /// @brief check if pathElement is a data element
+        bool isDataElement() const;
 
         /**@brief Draws partial object (lane)
          * @param[in] s The settings for the current view (may influence drawing)
@@ -68,6 +84,13 @@ public:
          * @param[in] options partial GL Options
          */
         virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront, const int options) const = 0;
+
+    private:
+        /// @brief default constructor
+        PathElement();
+
+        /// @brief pathElement option
+        const Options myOption;
     };
 
     /// @brief class used to calculate paths in nets
@@ -133,8 +156,8 @@ public:
     /// @brief invalidate path
     void invalidatePath(const GNELane* lane);
 
-    /// @brief clear segments
-    void clearSegments();
+    /// @brief clear demand paths
+    void clearDemandPaths();
 
 protected:
     /// @brief segment
@@ -209,6 +232,9 @@ protected:
 
     /// @brief clear segments from junction and lane Segments (called by Segment destructor)
     void clearSegmentFromJunctionAndLaneSegments(Segment* segment);
+
+    /// @brief clear segments
+    void clearSegments();
 
     /// @brief PathCalculator instance
     PathCalculator* myPathCalculator;
