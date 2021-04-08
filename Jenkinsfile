@@ -16,7 +16,7 @@ spec:
         memory: "1Gi"
         cpu: "500m"
   - name: ubuntu-sumo
-    image: ghcr.io/eclipse/eclipse-sumo-build-ubuntu:latest
+    image: roberthilbrich/ubuntu-sumo:latest
     tty: true
     resources:
       limits:
