@@ -331,6 +331,19 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
 }
 
 
+double 
+GNEDetectorE2::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_POSITION:
+            return myPositionOverLane;
+        case SUMO_ATTR_ENDPOS:
+            return myEndPositionOverLane;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
 void
 GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {

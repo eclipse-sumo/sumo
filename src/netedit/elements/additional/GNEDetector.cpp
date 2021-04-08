@@ -126,11 +126,6 @@ GNEDetector::getGeometryPositionOverLane() const {
 }
 
 
-double
-GNEDetector::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
-}
-
 
 std::string
 GNEDetector::getParentName() const {

@@ -243,6 +243,17 @@ GNEDetectorEntryExit::getAttribute(SumoXMLAttr key) const {
 }
 
 
+double 
+GNEDetectorEntryExit::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_POSITION:
+            return myPositionOverLane;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
 void
 GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
