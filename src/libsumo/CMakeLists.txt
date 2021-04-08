@@ -9,6 +9,7 @@ endif()
 set(libsumostatic_STAT_SRCS
     Edge.cpp
     Edge.h
+    GUI.h
     Helper.cpp
     Helper.h
     InductionLoop.cpp

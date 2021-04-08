@@ -12,6 +12,7 @@
 // Add necessary symbols to generated header
 %{
 #include <libsumo/Edge.h>
+#include <libsumo/GUI.h>
 #include <libsumo/InductionLoop.h>
 #include <libsumo/Junction.h>
 #include <libsumo/LaneArea.h>
@@ -44,6 +45,7 @@
 %template(TraCIReservationVector) std::vector<libsumo::TraCIReservation>;
 %template(TraCISignalConstraintVector) std::vector<libsumo::TraCISignalConstraint>;
 %include "../libsumo/Edge.h"
+%include "../libsumo/GUI.h"
 %include "../libsumo/InductionLoop.h"
 %include "../libsumo/Junction.h"
 %include "../libsumo/LaneArea.h"

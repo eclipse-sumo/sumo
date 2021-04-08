@@ -16,7 +16,7 @@
 
 import sys
 
-from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation  # noqa
+from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation, _gui  # noqa
 from traci.connection import StepListener  # noqa
 from .libtraci import vehicle, simulation, person, trafficlight
 from .libtraci import *  # noqa
@@ -138,3 +138,4 @@ def simulationStep(step=0):
 
 
 simulation.step = simulationStep
+gui.DEFAULT_VIEW = _gui.GuiDomain.DEFAULT_VIEW

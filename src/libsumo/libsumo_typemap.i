@@ -6,6 +6,7 @@
 
 %naturalvar;
 %rename(edge) Edge;
+%rename(gui) GUI;
 %rename(inductionloop) InductionLoop;
 %rename(junction) Junction;
 %rename(lane) Lane;
@@ -98,6 +99,11 @@
         values.push_back(PyFloat_AsDouble(PySequence_GetItem($input, i)));
     }
     $1 = &values;
+}
+
+// this is just a workaround to ignore the Simulation::start _stdout argument
+%typemap(in) void* {
+    $1 = nullptr;
 }
 
 
