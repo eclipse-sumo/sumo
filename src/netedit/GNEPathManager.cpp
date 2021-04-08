@@ -282,8 +282,18 @@ GNEPathManager::getPathCalculator() {
 }
 
 
+int 
+GNEPathManager::getPathSize(PathElement* pathElement) const {
+    if (myPaths.count(pathElement) > 0) {
+        return myPaths.at(pathElement).size();
+    } else {
+        return 0;
+    }
+}
+
+
 void
-GNEPathManager::calculateEdgesPath(PathElement* pathElement, SUMOVehicleClass vClass, const bool allowedVClass, std::vector<GNEEdge*> edges) {
+GNEPathManager::calculateEdgesPath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges) {
     // check if path element exist already in myPaths
     if (myPaths.find(pathElement) != myPaths.end()) {
         // delete segments
@@ -326,7 +336,7 @@ GNEPathManager::calculateEdgesPath(PathElement* pathElement, SUMOVehicleClass vC
 
 
 void 
-GNEPathManager::calculateLanesPath(PathElement* pathElement, SUMOVehicleClass vClass, const bool allowedVClass, std::vector<GNELane*> lanes) {
+GNEPathManager::calculateLanesPath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNELane*> lanes) {
     // declare edges
     std::vector<GNEEdge*> edges;
     // reserve edges
@@ -336,7 +346,7 @@ GNEPathManager::calculateLanesPath(PathElement* pathElement, SUMOVehicleClass vC
         edges.push_back(lane->getParentEdge());
     }
     // calculate edges path
-    calculateEdgesPath(pathElement, vClass, allowedVClass, edges);
+    calculateEdgesPath(pathElement, vClass, edges);
 }
 
 
