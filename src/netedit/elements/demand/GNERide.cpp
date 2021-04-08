@@ -260,16 +260,16 @@ void
 GNERide::computePath() {
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_EDGE) {
-        myNet->getPathManager()->calculateLanesPath(this, getVClass(), false,
+        myNet->getPathManager()->calculateLanesPath(this, getVClass(),
             {getFirstAllowedVehicleLane(), getLastAllowedVehicleLane()});
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_BUSSTOP) {
-        myNet->getPathManager()->calculateLanesPath(this, getVClass(), false,
+        myNet->getPathManager()->calculateLanesPath(this, getVClass(),
             {getFirstAllowedVehicleLane(), getParentAdditionals().back()->getParentLanes().front()});
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_EDGE) {
-        myNet->getPathManager()->calculateLanesPath(this, getVClass(), false,
+        myNet->getPathManager()->calculateLanesPath(this, getVClass(),
             {getParentAdditionals().front()->getParentLanes().front(), getLastAllowedVehicleLane()});
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_BUSSTOP) {
-        myNet->getPathManager()->calculateLanesPath(this, getVClass(), false,
+        myNet->getPathManager()->calculateLanesPath(this, getVClass(),
             {getParentAdditionals().front()->getParentLanes().front(), getParentAdditionals().back()->getParentLanes().front()});
     }
     // update geometry
