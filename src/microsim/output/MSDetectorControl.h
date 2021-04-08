@@ -84,10 +84,10 @@ public:
      * @param[in] type The type of the detector
      * @param[in] d The detector to add
      * @param[in] device The device the detector uses
-     * @param[in] splInterval The sample interval of the detector
+     * @param[in] interval The sample interval of the detector
      * @exception ProcessError If the detector is already known
      */
-    void add(SumoXMLTag type, MSDetectorFileOutput* d, const std::string& device, SUMOTime splInterval, SUMOTime begin = -1);
+    void add(SumoXMLTag type, MSDetectorFileOutput* d, const std::string& device, SUMOTime interval, SUMOTime begin = -1);
 
 
 
@@ -190,7 +190,7 @@ protected:
     /// @brief Container holding DetectorFilePair (with the same interval).
     typedef std::vector< DetectorFilePair > DetectorFileVec;
 
-    /// @brief Definition of the interval key
+    /// @brief Definition of the interval key (interval, begin)
     typedef std::pair<SUMOTime, SUMOTime> IntervalsKey;
 
     /// @brief Association of intervals to DetectorFilePair containers.
