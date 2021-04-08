@@ -1,5 +1,4 @@
 Loading configuration ... done.
- Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -24,7 +23,7 @@ step 4
 {0: ('View #0',)}
 step 5
 {0: ('View #0',)}
-veh selected: 0
-edge selected: 0
-veh selected: 1
-edge selected: 1
+veh selected: False
+edge selected: False
+veh selected: True
+edge selected: True

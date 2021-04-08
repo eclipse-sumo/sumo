@@ -20,7 +20,8 @@ from __future__ import absolute_import
 from .domain import Domain
 from . import constants as tc
 
-_RETURN_VALUE_FUNC = {tc.VAR_HAS_VIEW: lambda result: bool(result.read("!i")[0])}
+_RETURN_VALUE_FUNC = {tc.VAR_HAS_VIEW: lambda result: bool(result.read("!i")[0]),
+                      tc.VAR_SELECT: lambda result: bool(result.read("!i")[0])}
 
 
 class GuiDomain(Domain):
