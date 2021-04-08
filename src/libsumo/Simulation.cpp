@@ -787,7 +787,7 @@ Simulation::loadState(const std::string& fileName) {
     long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading state from '" + fileName + "'");
     // XXX reset transportable state
     // load time only
-    MSStateHandler hTime(fileName, 0, true);
+    MSStateHandler::MSStateTimeHandler hTime;
     XMLSubSys::runParser(hTime, fileName);
     const SUMOTime newTime = hTime.getTime();
     // clean up state

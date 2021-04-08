@@ -59,6 +59,24 @@ public:
         return myTime;
     }
 
+    /// handler to read only the simulation time from a state
+    class MSStateTimeHandler : public SUMOSAXHandler {
+    public:
+        /// @brief get time
+        SUMOTime getTime() const {
+            return myTime;
+        }
+
+    protected:
+        void myStartElement(int element, const SUMOSAXAttributes& attrs) {
+            if (element ==  SUMO_TAG_SNAPSHOT) {
+                myTime = string2time(attrs.getString(SUMO_ATTR_TIME));
+            }
+        }
+        /// @brief time
+        SUMOTime myTime;
+    };
+
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
