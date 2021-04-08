@@ -44,8 +44,8 @@ vType-attribute `vClass="emergency"` a blue flashing light will be drawn also.
 # References
 
 Bieker, Laura (2015) Traffic safety evaluations for Emergency Vehicles.
-Young Researchers Seminar, 17.-19. Juni 2015, Rom, Italien.
+Young Researchers Seminar, 17.-19. June 2015, Rome, Italy.
 
 Bieker, Laura (2011) Emergency Vehicle Prioritization using
-Vehicle-To-Vehicle Communication. Young Researchers Seminar, 8.-10. Jun.
-2011, Kopenhagen, Dänemark.
+Vehicle-To-Vehicle Communication. Young Researchers Seminar, 8.-10. June
+2011, Copenhagen, Denmark.
