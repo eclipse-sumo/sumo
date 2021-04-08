@@ -2243,13 +2243,6 @@ GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
     menuCheckHideShapes->setChecked(false);
     menuCheckHideShapes->create();
 
-    menuCheckHideNonInspectedDemandElements = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-            ("\t\tToggle show non-inspected demand elements"),
-            GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS),
-            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED, GUIDesignMFXCheckableButton);
-    menuCheckHideNonInspectedDemandElements->setChecked(false);
-    menuCheckHideNonInspectedDemandElements->create();
-
     menuCheckShowAllPersonPlans = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             ("\t\tShow all person plans"),
             GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWPERSONPLANS),
@@ -2264,6 +2257,13 @@ GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
     menuCheckLockPerson->setChecked(false);
     menuCheckLockPerson->create();
 
+    menuCheckHideNonInspectedDemandElements = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+        ("\t\tToggle show non-inspected demand elements"),
+        GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS),
+        myViewNet, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED, GUIDesignMFXCheckableButton);
+    menuCheckHideNonInspectedDemandElements->setChecked(false);
+    menuCheckHideNonInspectedDemandElements->create();
+
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
 }
@@ -2274,9 +2274,9 @@ GNEViewNetHelper::DemandViewOptions::hideDemandViewOptionsMenuChecks() {
     menuCheckToggleGrid->hide();
     menuCheckDrawSpreadVehicles->hide();
     menuCheckHideShapes->hide();
-    menuCheckHideNonInspectedDemandElements->hide();
     menuCheckShowAllPersonPlans->hide();
     menuCheckLockPerson->hide();
+    menuCheckHideNonInspectedDemandElements->hide();
     // Also hide toolbar grip
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->show();
 }
@@ -2294,14 +2294,14 @@ GNEViewNetHelper::DemandViewOptions::getVisibleDemandMenuCommands(std::vector<MF
     if (menuCheckHideShapes->shown()) {
         commands.push_back(menuCheckHideShapes);
     }
-    if (menuCheckHideNonInspectedDemandElements->shown()) {
-        commands.push_back(menuCheckHideNonInspectedDemandElements);
-    }
     if (menuCheckShowAllPersonPlans->shown() && menuCheckShowAllPersonPlans->isEnabled()) {
         commands.push_back(menuCheckShowAllPersonPlans);
     }
     if (menuCheckLockPerson->shown() && menuCheckLockPerson->isEnabled()) {
         commands.push_back(menuCheckLockPerson);
+    }
+    if (menuCheckHideNonInspectedDemandElements->shown()) {
+        commands.push_back(menuCheckHideNonInspectedDemandElements);
     }
 }
 

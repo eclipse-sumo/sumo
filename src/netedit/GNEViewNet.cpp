@@ -3472,8 +3472,10 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkViewOptions.menuCheckShowConnections->show();
             // show view options
             myNetworkViewOptions.menuCheckSelectEdges->show();
+            myNetworkViewOptions.menuCheckShowConnections->show();
             // show menu checks
             menuChecks.menuCheckSelectEdges->show();
+            menuChecks.menuCheckShowConnections->show();
             break;
         case NetworkEditMode::NETWORK_SELECT:
             myViewParent->getSelectorFrame()->show();

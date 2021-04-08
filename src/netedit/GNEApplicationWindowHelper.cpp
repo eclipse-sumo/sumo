@@ -1249,17 +1249,6 @@ GNEApplicationWindowHelper::toggleEditOptionsDemand(GNEViewNet* viewNet, const M
         }
         // Call manually onCmdToggleHideNonInspecteDemandElements
         viewNet->onCmdToggleHideShapes(obj, sel, nullptr);
-    } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckHideNonInspectedDemandElements) {
-        // Toggle menuCheckHideNonInspectedDemandElements
-        if (viewNet->getDemandViewOptions().menuCheckHideNonInspectedDemandElements->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled hide non inspected demand elements throught alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled hide non inspected demand elements throught alt + " + toString(numericalKeyPressed + 1));
-        }
-        // Call manually onCmdToggleHideNonInspecteDemandElements
-        viewNet->onCmdToggleHideNonInspecteDemandElements(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckShowAllPersonPlans) {
         // Toggle menuCheckShowAllPersonPlans
         if (viewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->amChecked() == TRUE) {
@@ -1282,6 +1271,17 @@ GNEApplicationWindowHelper::toggleEditOptionsDemand(GNEViewNet* viewNet, const M
         }
         // Call manually onCmdToggleLockPerson
         viewNet->onCmdToggleLockPerson(obj, sel, nullptr);
+    } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckHideNonInspectedDemandElements) {
+        // Toggle menuCheckHideNonInspectedDemandElements
+        if (viewNet->getDemandViewOptions().menuCheckHideNonInspectedDemandElements->amChecked() == TRUE) {
+            // show extra information for tests
+            WRITE_DEBUG("Disabled hide non inspected demand elements throught alt + " + toString(numericalKeyPressed + 1));
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Enabled hide non inspected demand elements throught alt + " + toString(numericalKeyPressed + 1));
+        }
+        // Call manually onCmdToggleHideNonInspecteDemandElements
+        viewNet->onCmdToggleHideNonInspecteDemandElements(obj, sel, nullptr);
     } else {
         return false;
     }

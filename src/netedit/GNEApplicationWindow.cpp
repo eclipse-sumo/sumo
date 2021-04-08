@@ -2426,13 +2426,6 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void*
                     menuCheck->setCheck(FALSE);
                 }
                 break;
-            case MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED:
-                if (myViewNet->getDemandViewOptions().menuCheckHideNonInspectedDemandElements->amChecked()) {
-                    menuCheck->setCheck(TRUE);
-                } else {
-                    menuCheck->setCheck(FALSE);
-                }
-                break;
             case MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES:
                 if (myViewNet->getDemandViewOptions().menuCheckHideShapes->amChecked()) {
                     menuCheck->setCheck(TRUE);
@@ -2458,6 +2451,13 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void*
                     menuCheck->enable();
                 } else {
                     menuCheck->disable();
+                }
+                break;
+            case MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED:
+                if (myViewNet->getDemandViewOptions().menuCheckHideNonInspectedDemandElements->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
                 }
                 break;
             case MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS:

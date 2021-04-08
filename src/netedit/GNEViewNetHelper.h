@@ -637,14 +637,14 @@ struct GNEViewNetHelper {
         /// @brief Hide shapes (Polygons and POIs)
         MFXCheckableButton* menuCheckHideShapes;
 
-        /// @brief Hide non inspected demand elements
-        MFXCheckableButton* menuCheckHideNonInspectedDemandElements;
-
         /// @brief show all person plans
         MFXCheckableButton* menuCheckShowAllPersonPlans;
 
         /// @brief Lock Person
         MFXCheckableButton* menuCheckLockPerson;
+
+        /// @brief Hide non inspected demand elements
+        MFXCheckableButton* menuCheckHideNonInspectedDemandElements;
 
     private:
         /// @brief pointer to net
