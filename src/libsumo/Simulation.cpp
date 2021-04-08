@@ -139,16 +139,7 @@ Simulation::getSubscriptionResults() {
 }
 
 
-const SubscriptionResults
-Simulation::getAllSubscriptionResults() {
-    return mySubscriptionResults;
-}
-
-
-const ContextSubscriptionResults
-Simulation::getAllContextSubscriptionResults() {
-    return myContextSubscriptionResults;
-}
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Simulation, SIM)
 
 
 std::pair<int, std::string>

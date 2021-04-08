@@ -538,17 +538,7 @@ Simulation::getSubscriptionResults() {
 }
 
 
-const libsumo::SubscriptionResults
-Simulation::getAllSubscriptionResults() {
-    return libtraci::Connection::getActive().getAllSubscriptionResults(libsumo::RESPONSE_SUBSCRIBE_SIM_VARIABLE);
-}
-
-
-const libsumo::ContextSubscriptionResults
-Simulation::getAllContextSubscriptionResults() {
-    return libtraci::Connection::getActive().getAllContextSubscriptionResults(libsumo::RESPONSE_SUBSCRIBE_SIM_CONTEXT);
-}
-
+LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(Simulation, SIM)
 
 }
 
