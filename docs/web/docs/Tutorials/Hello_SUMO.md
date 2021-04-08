@@ -5,7 +5,7 @@ title: Hello SUMO
 !!! note
     This tutorial assumes very basic computer skill. If you run into any questions please read the page [Basics/Basic Computer Skills](../Basics/Basic_Computer_Skills.md).
 
-## Hello Sumo - Introduction
+## Introduction
 
 This tutorial aims at first time Sumo users. We are building the
 simplest net possible and let a single car drive on it. All files
