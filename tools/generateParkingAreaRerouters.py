@@ -144,7 +144,7 @@ class ReroutersGeneration(object):
 """
 
     _RR_PARKING = """
-            <parkingAreaReroute id="{pid}" visible="{visible}"/> <!-- dist: {dist} -->"""
+            <parkingAreaReroute id="{pid}" visible="{visible}"/> <!-- dist: {dist:.1f} -->"""
 
     def _save_rerouters(self):
         """ Save the parking lots into a SUMO XML additional file
