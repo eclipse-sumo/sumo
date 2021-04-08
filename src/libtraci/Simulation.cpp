@@ -26,6 +26,7 @@
 #include "Connection.h"
 #include "Domain.h"
 #include <libsumo/StorageHelper.h>
+#include <libsumo/GUI.h>
 #include <libsumo/Simulation.h>
 
 
@@ -79,7 +80,12 @@ Simulation::isLibsumo() {
 
 bool
 Simulation::hasGUI() {
-    return true;
+    try {
+        GUI::getIDList();
+        return true;
+    } catch (libsumo::TraCIException&) {
+        return false;
+    }
 }
 
 
@@ -478,8 +484,8 @@ Simulation::findIntermodalRoute(const std::string& fromEdge, const std::string& 
     StoHelp::writeTypedString(content, pType);
     StoHelp::writeTypedString(content, vType);
     StoHelp::writeTypedString(content, destStop);
-    tcpip::Storage result = Dom::get(libsumo::FIND_INTERMODAL_ROUTE, "", &content);
-    int numStages = StoHelp::readCompound(result);
+    tcpip::Storage& result = Dom::get(libsumo::FIND_INTERMODAL_ROUTE, "", &content);
+    int numStages = result.readInt();
     std::vector<libsumo::TraCIStage> ret;
     while (numStages-- > 0) {
         libsumo::TraCIStage s;
@@ -497,6 +503,7 @@ Simulation::findIntermodalRoute(const std::string& fromEdge, const std::string& 
         s.departPos = StoHelp::readTypedDouble(result);
         s.arrivalPos = StoHelp::readTypedDouble(result);
         s.description = StoHelp::readTypedString(result);
+        ret.emplace_back(s);
     }
     return ret;
 }

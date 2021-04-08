@@ -65,15 +65,18 @@ Connection::Connection(const std::string& host, int port, int numRetries, const 
 void
 Connection::readOutput() {
     std::array<char, 256> buffer;
+    bool errout = false;
     while (fgets(buffer.data(), (int)buffer.size(), myProcessPipe) != nullptr) {
         std::stringstream result;
         result << buffer.data();
         std::string line;
         while (std::getline(result, line)) {
-            if (line.compare(0, 6, "Error:") == 0 || line.compare(0, 8, "Warning:") == 0) {
+            if ((errout && line[0] == ' ') || line.compare(0, 6, "Error:") == 0 || line.compare(0, 8, "Warning:") == 0) {
                 std::cerr << line << std::endl;
+                errout = true;
             } else {
                 std::cout << line << std::endl;
+                errout = false;
             }
         }
     }

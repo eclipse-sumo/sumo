@@ -327,6 +327,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 };
 
 %exceptionclass libsumo::TraCIException;
+%exceptionclass libsumo::FatalTraCIError;
 
 %pythonprepend libsumo::Vehicle::add(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&,
                                      const std::string&, const std::string&, const std::string&, const std::string&, const std::string&,
@@ -396,8 +397,24 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
         SWIG_exception(SWIG_ValueError, s.c_str());
 #endif
     } catch (std::runtime_error &e) {
-        const std::string s = std::string("SUMO error: ") + e.what();
-        SWIG_exception(SWIG_RuntimeError, s.c_str());
+        const std::string s = e.what();
+        std::string printError;
+        if (std::getenv("TRACI_PRINT_ERROR") != nullptr) {
+            printError = std::getenv("TRACI_PRINT_ERROR");
+        }
+#ifdef LIBTRACI
+        if (printError == "all" || printError == "client") {
+#else
+        if (printError == "all" || printError == "libsumo") {
+#endif
+            std::cerr << "Error: " << s << std::endl;
+        }
+#ifdef SWIGPYTHON
+        PyErr_SetObject(SWIG_Python_ExceptionType(SWIGTYPE_p_libsumo__FatalTraCIError), PyUnicode_FromString(s.c_str()));
+        SWIG_fail;
+#else
+        SWIG_exception(SWIG_ValueError, s.c_str());
+#endif
     } catch (...) {
         SWIG_exception(SWIG_UnknownError, "unknown exception");
     }
