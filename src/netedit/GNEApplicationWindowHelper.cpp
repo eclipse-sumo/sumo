@@ -1269,8 +1269,8 @@ GNEApplicationWindowHelper::toggleEditOptionsDemand(GNEViewNet* viewNet, const M
             // show extra information for tests
             WRITE_DEBUG("Enabled show all person plans throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToggleHideNonInspecteDemandElements
-        viewNet->onCmdToggleHideNonInspecteDemandElements(obj, sel, nullptr);
+        // Call manually onCmdToggleShowAllPersonPlans
+        viewNet->onCmdToggleShowAllPersonPlans(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckLockPerson) {
         // Toggle menuCheckShowAllPersonPlans
         if (viewNet->getDemandViewOptions().menuCheckLockPerson->amChecked() == TRUE) {
