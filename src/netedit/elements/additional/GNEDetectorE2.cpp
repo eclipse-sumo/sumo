@@ -218,7 +218,7 @@ GNEDetectorE2::updateGeometry() {
     }
     if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
         // calculate path
-        myNet->getPathManager()->calculateLanesPath(this, SVC_IGNORING, true, getParentLanes());
+        myNet->getPathManager()->calculateLanesPath(this, SVC_IGNORING, getParentLanes());
     } else {
         // Cut shape using as delimitators fixed start position and fixed end position
         myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), startPosFixed * getParentLanes().front()->getLengthGeometryFactor(), endPosFixed * getParentLanes().back()->getLengthGeometryFactor());
