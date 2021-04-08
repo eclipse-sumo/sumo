@@ -413,6 +413,9 @@ struct GUIVisualizationWidthSettings {
     /// @brief width for routes
     static const double route;
 
+    /// @brief width for embeddedroutes
+    static const double embeddedRoute;
+
     /// @brief width for trips
     static const double trip;
 

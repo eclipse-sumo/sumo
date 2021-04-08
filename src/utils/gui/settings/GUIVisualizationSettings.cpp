@@ -170,6 +170,7 @@ const RGBColor GUIVisualizationDottedContourSettings::secondFrontColor(0, 255, 0
 // -------------------------------------------------------------------------
 
 const double GUIVisualizationWidthSettings::route(0.66);
+const double GUIVisualizationWidthSettings::embeddedRoute(0.55);
 const double GUIVisualizationWidthSettings::trip(0.2);
 const double GUIVisualizationWidthSettings::personTrip(0.25);
 const double GUIVisualizationWidthSettings::walk(0.25);
