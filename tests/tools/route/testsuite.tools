@@ -67,3 +67,6 @@ addParkingAreaStops2Trips
 
 # test for split random trips
 splitRandom
+
+# test for split route files trips
+splitRouteFiles
