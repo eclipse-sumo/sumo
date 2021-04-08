@@ -30,6 +30,8 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOSAXReader.h>
+#include <utils/xml/XMLSubSys.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSRailSignalConstraint.h>
@@ -55,6 +57,39 @@
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
 
+
+// ===========================================================================
+// MSStateTimeHandler method definitions
+// ===========================================================================
+
+SUMOTime
+MSStateHandler::MSStateTimeHandler::getTime(const std::string& fileName) {
+    // build handler and parser
+    MSStateTimeHandler handler;
+    handler.setFileName(fileName);
+    handler.myTime = -1;
+    SUMOSAXReader* parser = XMLSubSys::getSAXReader(handler);
+    if (!parser->parseFirst(fileName)) {
+        delete parser;
+        throw ProcessError("Can not read XML-file '" + fileName + "'.");
+    }
+    // parse
+    while (parser->parseNext() && handler.myTime != -1);
+    // clean up
+    if (handler.myTime == -1) {
+        delete parser;
+        throw ProcessError("Could not parse time from state file '" + fileName + "'");
+    }
+    delete parser;
+    return handler.myTime;
+}
+
+void
+MSStateHandler::MSStateTimeHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+    if (element == SUMO_TAG_SNAPSHOT) {
+        myTime = string2time(attrs.getString(SUMO_ATTR_TIME));
+    }
+}
 
 // ===========================================================================
 // method definitions

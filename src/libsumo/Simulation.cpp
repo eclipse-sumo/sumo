@@ -779,8 +779,7 @@ Simulation::loadState(const std::string& fileName) {
     // XXX reset transportable state
     // load time only
     MSStateHandler::MSStateTimeHandler hTime;
-    XMLSubSys::runParser(hTime, fileName);
-    const SUMOTime newTime = hTime.getTime();
+    const SUMOTime newTime = hTime.getTime(fileName);
     // clean up state
     MSNet::getInstance()->clearState(newTime);
     MSNet::getInstance()->getVehicleControl().initDefaultTypes();

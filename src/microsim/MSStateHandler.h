@@ -62,18 +62,11 @@ public:
     /// handler to read only the simulation time from a state
     class MSStateTimeHandler : public SUMOSAXHandler {
     public:
-        /// @brief get time
-        SUMOTime getTime() const {
-            return myTime;
-        }
+        /// @brief parse time from state file
+        static SUMOTime getTime(const std::string& fileName);
 
     protected:
-        void myStartElement(int element, const SUMOSAXAttributes& attrs) {
-            if (element ==  SUMO_TAG_SNAPSHOT) {
-                myTime = string2time(attrs.getString(SUMO_ATTR_TIME));
-            }
-        }
-        /// @brief time
+        void myStartElement(int element, const SUMOSAXAttributes& attrs);
         SUMOTime myTime;
     };
 
