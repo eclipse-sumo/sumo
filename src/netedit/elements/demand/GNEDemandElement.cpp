@@ -332,9 +332,25 @@ GNEDemandElement::getLastAllowedVehicleLane() const {
 }
 
 
+const Position
+GNEDemandElement::getBeginPosition(const double pedestrianDepartPos) const {
+    if (myTagProperty.isPersonStop()) {
+        return getPositionInView();
+    } else {
+        // get first lane
+        const GNELane* firstLane = myNet->getPathManager()->getFirstLane(this);
+        if (firstLane) {
+            return firstLane->getLaneShape().positionAtOffset2D(pedestrianDepartPos);
+        } else {
+            return Position(0, 0);
+        }
+    }
+}
+
+
 const GNEEdge*
 GNEDemandElement::getFirstPersonPlanEdge() const {
-    // set specific mode depending of tag
+    // continue depending of tag
     switch (myTagProperty.getTag()) {
         // route
         case GNE_TAG_WALK_ROUTE:

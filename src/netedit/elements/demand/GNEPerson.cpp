@@ -399,20 +399,10 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
         const double distanceSquared = pow(exaggeration * std::max(length, width), 2);
         // obtain img file
         const std::string file = getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_IMGFILE);
-        Position personPosition;
-        // obtain position depending of first PersonPlan child
-        if (getChildDemandElements().front()->getTagProperty().isPersonStop()) {
-            // obtain position of stop center
-            personPosition = getChildDemandElements().front()->getPositionInView();
-        } else {
-        /*
-            // obtain position of first edge
-            personPosition = getChildDemandElements().front()->getDemandElementSegmentGeometry().getFirstPosition();
-        */
-        }
-        // check that position is valid and person can be drawn
-        if ((personPosition != Position::INVALID) &&
-                !(s.drawForPositionSelection && (personPosition.distanceSquaredTo(myNet->getViewNet()->getPositionInformation()) > distanceSquared))) {
+        // obtain position
+        const Position personPosition = getChildDemandElements().front()->getBeginPosition(getAttributeDouble(SUMO_ATTR_DEPARTPOS));
+        // check if person can be drawn
+        if (!(s.drawForPositionSelection && (personPosition.distanceSquaredTo(myNet->getViewNet()->getPositionInformation()) > distanceSquared))) {
             // push GL ID
             glPushName(getGlID());
             // push draw matrix

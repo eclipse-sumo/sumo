@@ -326,6 +326,9 @@ public:
     /// @brief get first allowed vehicle lane
     GNELane* getLastAllowedVehicleLane() const;
 
+    /// @brief get personPlan start position
+    const Position getBeginPosition(const double pedestrianDepartPos) const;
+
 protected:
     /// @brief demand element geometry (also called "stacked geometry")
     GNEGeometry::Geometry myDemandElementGeometry;
@@ -339,11 +342,11 @@ protected:
     /// @brief check if a new demand element ID is valid
     bool isValidDemandElementID(const std::string& newID) const;
 
+    /// @name Only for person plans
+    /// @{
     /// @brief get first person plan edge
     const GNEEdge* getFirstPersonPlanEdge() const;
 
-    /// @name Only for person plans
-    /// @{
     /// @brief get person plan depart positions
     double getPersonPlanDepartPos() const;
 
