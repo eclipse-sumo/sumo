@@ -154,12 +154,10 @@ GNEPathManager::PathCalculator::calculatePath(const SUMOVehicleClass vClass, con
             // if next edge is the same of current edge, remove it
             if (*solutionIt == *(solutionIt + 1)) {
                 solutionIt = solution.erase(solutionIt);
-            }
-            else {
+            } else {
                 solutionIt++;
             }
-        }
-        else {
+        } else {
             solutionIt++;
         }
     }
@@ -316,9 +314,19 @@ GNEPathManager::getPathCalculator() {
 int 
 GNEPathManager::getPathSize(PathElement* pathElement) const {
     if (myPaths.count(pathElement) > 0) {
-        return myPaths.at(pathElement).size();
+        return (int)myPaths.at(pathElement).size();
     } else {
         return 0;
+    }
+}
+
+
+const GNELane* 
+GNEPathManager::getFirstLane(const PathElement* pathElement) const {
+    if ((myPaths.count(pathElement) > 0) && (myPaths.at(pathElement).size() > 0)) {
+        return myPaths.at(pathElement).front()->getLane();
+    } else {
+        return nullptr;
     }
 }
 
@@ -450,9 +458,10 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* eleme
     myPathElement(element),
     myFirstSegment(firstSegment),
     myLastSegment(lastSegment),
-    myJunctionSegment(false),
+    myLane(lane),
     myPreviousLane(nullptr),
     myNextLane(nullptr),
+    myJunction(nullptr),
     myValid(true) {
     // add segment in laneSegments
     myPathManager->addSegmentInLaneSegments(this, lane);
@@ -465,9 +474,10 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* eleme
     myPathElement(element),
     myFirstSegment(false),
     myLastSegment(false),
-    myJunctionSegment(true),
+    myLane(nullptr),
     myPreviousLane(previousLane),
     myNextLane(nextLane),
+    myJunction(junction),
     myValid(true) {
     // add segment in junctionSegments
     myPathManager->addSegmentInJunctionSegments(this, junction);
@@ -482,7 +492,7 @@ GNEPathManager::Segment::~Segment() {
 
 bool 
 GNEPathManager::Segment::isFirstSegment() const {
-    if (!myJunctionSegment) {
+    if (myLane) {
         return myFirstSegment;
     } else {
         throw ProcessError("Invalid call: Only allowed in lane segments");
@@ -492,7 +502,7 @@ GNEPathManager::Segment::isFirstSegment() const {
 
 bool 
 GNEPathManager::Segment::isLastSegment() const {
-    if (!myJunctionSegment) {
+    if (myLane) {
         return myLastSegment;
     } else {
         throw ProcessError("Invalid call: Only allowed in lane segments");
@@ -507,8 +517,14 @@ GNEPathManager::Segment::getPathElement() const {
 
 
 const GNELane* 
+GNEPathManager::Segment::getLane() const {
+    return myLane;
+}
+
+
+const GNELane* 
 GNEPathManager::Segment::getPreviousLane() const {
-    if (myJunctionSegment) {
+    if (myJunction) {
         return myPreviousLane;
     } else {
         throw ProcessError("Invalid call: Only allowed in junction segments");
@@ -518,11 +534,17 @@ GNEPathManager::Segment::getPreviousLane() const {
 
 const GNELane* 
 GNEPathManager::Segment::getNextLane() const {
-    if (myJunctionSegment) {
+    if (myJunction) {
         return myNextLane;
     } else {
         throw ProcessError("Invalid call: Only allowed in junction segments");
     }
+}
+
+
+const GNEJunction* 
+GNEPathManager::Segment::getJunction() const {
+    return myJunction;
 }
 
 
@@ -531,9 +553,10 @@ GNEPathManager::Segment::Segment() :
     myPathElement(nullptr),
     myFirstSegment(false),
     myLastSegment(false),
-    myJunctionSegment(false),
+    myLane(false),
     myPreviousLane(nullptr),
     myNextLane(nullptr),
+    myJunction(false),
     myValid(false) {
 }
 

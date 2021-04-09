@@ -138,6 +138,9 @@ public:
     /// @brief get path element size with the given PathElement
     int getPathSize(PathElement * pathElement) const;
 
+    /// @brief get first lane associated with path element
+    const GNELane* getFirstLane(const PathElement* pathElement) const;
+
     /// @brief calculate path for edges
     void calculateEdgesPath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges);
 
@@ -182,11 +185,17 @@ protected:
         /// @brief get path element
         const PathElement* getPathElement() const;
 
+        /// @brief get lane associated with this segment
+        const GNELane* getLane() const;
+
         /// @brief get previous lane
         const GNELane* getPreviousLane() const;
 
         /// @brief get next lane
         const GNELane* getNextLane() const;
+
+        /// @brief get junction associated with this segment
+        const GNEJunction* getJunction() const;
 
     protected:
         /// @brief path manager
@@ -201,8 +210,8 @@ protected:
         /// @brief lastSegment
         const bool myLastSegment;
 
-        /// @brief flag for junction element
-        const bool myJunctionSegment;
+        /// @brief lane associated with this segment
+        const GNELane* myLane;
 
         /// @brief previous lane
         const GNELane *myPreviousLane;
@@ -210,7 +219,10 @@ protected:
         /// @brief next lane
         const GNELane* myNextLane;
 
-        /// @brief valid element
+        /// @brief junction associated with this segment
+        const GNEJunction* myJunction;
+
+        /// @brief valid segment
         bool myValid;
 
     private:
@@ -240,7 +252,7 @@ protected:
     PathCalculator* myPathCalculator;
 
     /// @brief map with path element and their asociated segments
-    std::map<PathElement*, std::vector<Segment*> > myPaths;
+    std::map<const PathElement*, std::vector<Segment*> > myPaths;
 
     /// @brief map with lane segments
     std::map<const GNELane*, std::set<Segment*> > myLaneSegments;
