@@ -398,6 +398,7 @@ python tools/route/implausibleRoutes.py <net-file> <route-file>
 ```
 
 The implausibility score is a weighted sum of individual measures of implausibility (with configurable weights):
+
 - The quotient of (routeLength / airDistance)
 - The relative detour time: (routeDuration / shortestRouteDuration)
 - The absolute detour time: (routeDuration - shortestRouteDuration)
