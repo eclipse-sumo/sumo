@@ -495,14 +495,17 @@ def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all, fleet,
                     # next stop valid
                     if next_act == 'pickup':
                         trip_id = "%s_%sy" % (veh_id, next_id)
+                        trip_tw = rv_dict[trip_id][0]
+                        trips_tree[i] = [[trip_id, trip_tw+step, 1]]
+                        break
                     else:
                         trip_id = "%s_%sz" % (veh_id, next_id)
+                        trip_tw = rv_dict[trip_id][0]
+                        trips_tree[i] = [[trip_id, trip_tw+step, -1]]
+                        break
                     if not rv_dict.get(trip_id, False):
                         # TODO manage teleports
                         continue
-                    trip_tw = rv_dict[trip_id][0]
-                    trips_tree[i] = [[trip_id, trip_tw+step, 1]]
-                    break
         if not trips_tree[i]:
             # if vehicle not assigned or no valid stop found, consider all
             trips_tree[i] = [[pair, rv_dict[pair][0]+step, 1] for pair in pairs
