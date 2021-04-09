@@ -81,5 +81,8 @@ emergency_redlight
 # test usage of SL2015
 SL2015
 
+# test --lanechange.duration with opposite-direction driving
+continuous
+
 # bugs specific to opposite-direction driving
 bugs
