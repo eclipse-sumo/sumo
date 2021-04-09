@@ -346,8 +346,8 @@ def search_trips(trip, pairs, res_assigned_veh, res_picked_veh, res_all, rv_dict
     If the maximum search time given is not surpass, all possible trips are
     consider.
     """
-    # trip means [trip_id, trip_tw, trip_pax]
-    trip_id, trip_tw, trip_pax = trip
+    # trip means [trip_id, trip_time, trip_pax]
+    trip_id, trip_time, trip_pax = trip
     for pair in pairs:
         if (time.perf_counter() - start_time) > options.rtv_time:
             # limit trip search time
@@ -393,7 +393,7 @@ def search_trips(trip, pairs, res_assigned_veh, res_picked_veh, res_all, rv_dict
         # calculate number of passengers (pax)
         # and travel time (trip_time)
         new_trip_pax = trip_pax + rv_dict[pair][1]
-        new_trip_tw = trip_tw + rv_dict[pair][0]
+        new_trip_time = trip_time + rv_dict[pair][0]
 
         # check capacity
         if new_trip_pax > veh_capacity:
@@ -403,20 +403,20 @@ def search_trips(trip, pairs, res_assigned_veh, res_picked_veh, res_all, rv_dict
         stop_id = pair.split("_")[-1]
         if stop_id.endswith('y'):
             stop_tw = res_all[stop_id[:-1]].tw_pickup
-            if new_trip_tw > stop_tw[1]:
+            if new_trip_time > stop_tw[1]:
                 continue  # max stop time surpass
-            elif new_trip_tw < stop_tw[0] and new_trip_pax == 1:
+            elif new_trip_time < stop_tw[0] and new_trip_pax == 1:
                 # if vehicle is too early at stop, it can wait
                 # if it is empty (equivalent to pax == 1)
-                new_trip_tw = stop_tw[0]  # waiting time at stop
+                new_trip_time = stop_tw[0]  # waiting time at stop
         else:
             stop_tw = res_all[stop_id[:-1]].tw_dropoff
-            if new_trip_tw > stop_tw[1]:
+            if new_trip_time > stop_tw[1]:
                 continue  # max stop time surpass
             # TODO trip_time < stop_tw[0] only relevant if drop off time definition is implemented # noqa
 
         # add trip id to tree
-        trips_tree.append([new_trip_id, new_trip_tw, new_trip_pax])
+        trips_tree.append([new_trip_id, new_trip_time, new_trip_pax])
 
         # check if all reservation served
         if set(trip_pick) == set(trip_drop):
@@ -430,11 +430,11 @@ def search_trips(trip, pairs, res_assigned_veh, res_picked_veh, res_all, rv_dict
                 res_bin = [0] * len(rtv_res)  # reservation in trip
                 for stop in trip_pick:
                     res_bin[rtv_res.index(stop)] = 1
-                trip_cost = new_trip_tw - sum(res_bin)*options.c_ko
+                trip_cost = new_trip_time - sum(res_bin)*options.c_ko
 
                 # rtv_dict format:
                 # trip_id: travel time, vehicle, reservations, cost
-                rtv_dict[new_trip_id] = [new_trip_tw, veh_bin, res_bin,
+                rtv_dict[new_trip_id] = [new_trip_time, veh_bin, res_bin,
                                          trip_cost]
 
     return trips_tree, rtv_dict
@@ -495,13 +495,13 @@ def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all, fleet,
                     # next stop valid
                     if next_act == 'pickup':
                         trip_id = "%s_%sy" % (veh_id, next_id)
-                        trip_tw = rv_dict[trip_id][0]
-                        trips_tree[i] = [[trip_id, trip_tw+step, 1]]
+                        trip_time = rv_dict[trip_id][0]
+                        trips_tree[i] = [[trip_id, trip_time+step, 1]]
                         break
                     else:
                         trip_id = "%s_%sz" % (veh_id, next_id)
-                        trip_tw = rv_dict[trip_id][0]
-                        trips_tree[i] = [[trip_id, trip_tw+step, -1]]
+                        trip_time = rv_dict[trip_id][0]
+                        trips_tree[i] = [[trip_id, trip_time+step, -1]]
                         break
                     if not rv_dict.get(trip_id, False):
                         # TODO manage teleports
