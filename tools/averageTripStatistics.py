@@ -87,7 +87,7 @@ def main(options):
     for i in range(options.numRuns):
         sys.stdout.write('.')
         sys.stdout.flush()
-        seed = str(random.randint(0, 2**31))
+        seed = str(int(random.random() * 2**31))
         output = check_output([SUMO, '-c', options.config,
                                '--duration-log.statistics',
                                '--no-duration-log', 'false',
