@@ -296,15 +296,18 @@ GNEPerson::commitGeometryMoving(GNEUndoList*) {
 void
 GNEPerson::updateGeometry() {
     // only update geometry of childrens
-    for (const auto& i : getChildDemandElements()) {
-        i->updateGeometry();
+    for (const auto& demandElement : getChildDemandElements()) {
+        demandElement->updateGeometry();
     }
 }
 
 
 void
 GNEPerson::computePath() {
-    // nothing to compute
+    // compute all children
+    for (const auto& demandElement : getChildDemandElements()) {
+        demandElement->computePath();
+    }
 }
 
 
