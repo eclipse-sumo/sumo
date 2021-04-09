@@ -80,10 +80,11 @@ jobs:
         sudo make install
 
     - name: Building Examples and Tests
+      if: matrix.build_type == 'full'
       run: |
-        sudo apt-get install python3-pyproj python3-rtree
+        sudo apt-get install python3-pyproj python3-rtree python3-pulp
         cd sumo/cmake-build
-        if [[ "${{ matrix.build_type }}" == "full" ]]; then make CTEST_OUTPUT_ON_FAILURE=1 examples test; fi
+        make CTEST_OUTPUT_ON_FAILURE=1 examples test
 
     - name: Uploading artifacts (SUMO binaries)
       uses: actions/upload-artifact@v1
