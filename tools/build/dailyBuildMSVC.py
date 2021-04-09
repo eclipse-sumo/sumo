@@ -181,8 +181,8 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
         buildDir = generateCMake(generator, platform, log, options.suffix == "extra", options.python)
         ret = subprocess.call(["cmake", "--build", ".", "--config", "Release"],
                               cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
-        if os.path.exists(os.path.join("src", "libsumo", "_libsumo.vcxproj")):
-            subprocess.call(["cmake", "--build", ".", "--target", "_libsumo"],
+        if os.path.exists(os.path.join("src", "libsumo", "libsumo.vcxproj")):
+            subprocess.call(["cmake", "--build", ".", "--target", "libsumo"],
                             cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         subprocess.call(["cmake", "--build", ".", "--target", "lisum"],
                         cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
