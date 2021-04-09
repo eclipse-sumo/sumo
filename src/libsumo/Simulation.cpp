@@ -778,8 +778,7 @@ Simulation::loadState(const std::string& fileName) {
     long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading state from '" + fileName + "'");
     // XXX reset transportable state
     // load time only
-    MSStateHandler::MSStateTimeHandler hTime;
-    const SUMOTime newTime = hTime.getTime(fileName);
+    const SUMOTime newTime = MSStateHandler::MSStateTimeHandler::getTime(fileName);
     // clean up state
     MSNet::getInstance()->clearState(newTime);
     MSNet::getInstance()->getVehicleControl().initDefaultTypes();
