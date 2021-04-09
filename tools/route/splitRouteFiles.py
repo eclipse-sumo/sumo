@@ -175,7 +175,7 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID,
         if '.gz' in routesIn:
             f = gzip.open(routesIn, 'rb')
         else:
-            f = open(routesIn, 'rb')
+            f = open(routesIn, 'r')
         while True:
             pos = f.tell()
             line = f.readline()

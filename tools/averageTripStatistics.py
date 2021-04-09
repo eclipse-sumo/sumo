@@ -91,7 +91,7 @@ def main(options):
         output = check_output([SUMO, '-c', options.config,
                                '--duration-log.statistics',
                                '--no-duration-log', 'false',
-                               '--seed', seed])
+                               '--seed', seed], universal_newlines=True)
         for stats, retriever in statsRetrievers:
             stats.add(retriever(output), seed)
     print()
