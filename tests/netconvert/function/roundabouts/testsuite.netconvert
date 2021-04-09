@@ -12,6 +12,9 @@ divided_attachment
 
 # load a sumo network which already contains a roundabout
 re-import
+
+# load a sumo network which already contains a roundabout
+re-import_modify
 ramp-like-attachment
 
 # now with options ramps.guess
