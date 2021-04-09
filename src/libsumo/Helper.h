@@ -23,6 +23,7 @@
 #include <memory>
 #include <libsumo/Subscription.h>
 #include <microsim/MSNet.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 
 
 // ===========================================================================
@@ -133,6 +134,11 @@ public:
     static MSPerson* getPerson(const std::string& id);
     static SUMOTrafficObject* getTrafficObject(int domain, const std::string& id);
     static const MSVehicleType& getVehicleType(const std::string& vehicleID);
+
+    static SUMOVehicleParameter::Stop buildStopParameters(const std::string& edgeOrStoppingPlaceID,
+            double pos, int laneIndex, double startPos, int flags, double duration, double until);
+
+    static TraCINextStopData buildStopData(const SUMOVehicleParameter::Stop& stopPar);
 
     static void findObjectShape(int domain, const std::string& id, PositionVector& shape);
 

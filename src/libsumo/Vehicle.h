@@ -24,9 +24,6 @@
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/VehicleType.h>
 #include <libsumo/TraCIConstants.h>
-#ifndef LIBTRACI
-#include <utils/vehicle/SUMOVehicleParameter.h>
-#endif
 
 
 // ===========================================================================
@@ -237,11 +234,6 @@ private:
     static bool isVisible(const SUMOVehicle* veh);
 
     static bool isOnInit(const std::string& vehID);
-
-    static SUMOVehicleParameter::Stop buildStopParameters(const std::string& edgeOrStoppingPlaceID,
-            double pos, int laneIndex, double startPos, int flags, double duration, double until);
-
-    static TraCINextStopData buildStopData(const SUMOVehicleParameter::Stop& stopPar);
 
 private:
     static SubscriptionResults mySubscriptionResults;

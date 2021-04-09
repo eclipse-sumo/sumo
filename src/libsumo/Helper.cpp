@@ -31,6 +31,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/transportables/MSTransportableControl.h>
@@ -507,6 +508,155 @@ Helper::getTrafficObject(int domain, const std::string& id) {
 const MSVehicleType&
 Helper::getVehicleType(const std::string& vehicleID) {
     return getVehicle(vehicleID)->getVehicleType();
+}
+
+
+SUMOVehicleParameter::Stop
+Helper::buildStopParameters(const std::string& edgeOrStoppingPlaceID,
+                             double pos, int laneIndex, double startPos, int flags, double duration, double until) {
+    SUMOVehicleParameter::Stop newStop;
+    newStop.duration = duration == INVALID_DOUBLE_VALUE ? SUMOTime_MAX : TIME2STEPS(duration);
+    newStop.until = until == INVALID_DOUBLE_VALUE ? -1 : TIME2STEPS(until);
+    newStop.index = STOP_INDEX_FIT;
+    if (newStop.duration >= 0) {
+        newStop.parametersSet |= STOP_DURATION_SET;
+    }
+    if (newStop.until >= 0) {
+        newStop.parametersSet |= STOP_UNTIL_SET;
+    }
+    if ((flags & 1) != 0) {
+        newStop.parking = true;
+        newStop.parametersSet |= STOP_PARKING_SET;
+    }
+    if ((flags & 2) != 0) {
+        newStop.triggered = true;
+        newStop.parametersSet |= STOP_TRIGGER_SET;
+    }
+    if ((flags & 4) != 0) {
+        newStop.containerTriggered = true;
+        newStop.parametersSet |= STOP_CONTAINER_TRIGGER_SET;
+    }
+
+    SumoXMLTag stoppingPlaceType = SUMO_TAG_NOTHING;
+    if ((flags & 8) != 0) {
+        stoppingPlaceType = SUMO_TAG_BUS_STOP;
+    }
+    if ((flags & 16) != 0) {
+        stoppingPlaceType = SUMO_TAG_CONTAINER_STOP;
+    }
+    if ((flags & 32) != 0) {
+        stoppingPlaceType = SUMO_TAG_CHARGING_STATION;
+    }
+    if ((flags & 64) != 0) {
+        stoppingPlaceType = SUMO_TAG_PARKING_AREA;
+    }
+    if ((flags & 128) != 0) {
+        stoppingPlaceType = SUMO_TAG_OVERHEAD_WIRE_SEGMENT;
+    }
+
+    if (stoppingPlaceType != SUMO_TAG_NOTHING) {
+        MSStoppingPlace* bs = MSNet::getInstance()->getStoppingPlace(edgeOrStoppingPlaceID, stoppingPlaceType);
+        if (bs == nullptr) {
+            throw TraCIException("The " + toString(stoppingPlaceType) + " '" + edgeOrStoppingPlaceID + "' is not known");
+        }
+        newStop.lane = bs->getLane().getID();
+        newStop.edge = bs->getLane().getEdge().getID();
+        newStop.endPos = bs->getEndLanePosition();
+        newStop.startPos = bs->getBeginLanePosition();
+        switch (stoppingPlaceType) {
+            case SUMO_TAG_BUS_STOP:
+                newStop.busstop = edgeOrStoppingPlaceID;
+                break;
+            case SUMO_TAG_CONTAINER_STOP:
+                newStop.containerstop = edgeOrStoppingPlaceID;
+                break;
+            case SUMO_TAG_CHARGING_STATION:
+                newStop.chargingStation = edgeOrStoppingPlaceID;
+                break;
+            case SUMO_TAG_PARKING_AREA:
+                newStop.parkingarea = edgeOrStoppingPlaceID;
+                break;
+            case SUMO_TAG_OVERHEAD_WIRE_SEGMENT:
+                newStop.overheadWireSegment = edgeOrStoppingPlaceID;
+                break;
+            default:
+                throw TraCIException("Unknown stopping place type '" + toString(stoppingPlaceType) + "'.");
+        }
+    } else {
+        if (startPos == INVALID_DOUBLE_VALUE) {
+            startPos = pos - POSITION_EPS;
+        }
+        if (startPos < 0.) {
+            throw TraCIException("Position on lane must not be negative.");
+        }
+        if (pos < startPos) {
+            throw TraCIException("End position on lane must be after start position.");
+        }
+        // get the actual lane that is referenced by laneIndex
+        MSEdge* road = MSEdge::dictionary(edgeOrStoppingPlaceID);
+        if (road == nullptr) {
+            throw TraCIException("Edge '" + edgeOrStoppingPlaceID + "' is not known.");
+        }
+        const std::vector<MSLane*>& allLanes = road->getLanes();
+        if ((laneIndex < 0) || laneIndex >= (int)(allLanes.size())) {
+            throw TraCIException("No lane with index '" + toString(laneIndex) + "' on edge '" + edgeOrStoppingPlaceID + "'.");
+        }
+        newStop.lane = allLanes[laneIndex]->getID();
+        newStop.edge = allLanes[laneIndex]->getEdge().getID();
+        newStop.endPos = pos;
+        newStop.startPos = startPos;
+        newStop.parametersSet |= STOP_START_SET | STOP_END_SET;
+    }
+    return newStop;
+}
+
+
+TraCINextStopData
+Helper::buildStopData(const SUMOVehicleParameter::Stop& stopPar) {
+    std::string stoppingPlaceID = "";
+    if (stopPar.busstop != "") {
+        stoppingPlaceID = stopPar.busstop;
+    }
+    if (stopPar.containerstop != "") {
+        stoppingPlaceID = stopPar.containerstop;
+    }
+    if (stopPar.parkingarea != "") {
+        stoppingPlaceID = stopPar.parkingarea;
+    }
+    if (stopPar.chargingStation != "") {
+        stoppingPlaceID = stopPar.chargingStation;
+    }
+    if (stopPar.overheadWireSegment != "") {
+        stoppingPlaceID = stopPar.overheadWireSegment;
+    }
+    int stopFlags = (
+                        (stopPar.parking ? 1 : 0) +
+                        (stopPar.triggered ? 2 : 0) +
+                        (stopPar.containerTriggered ? 4 : 0) +
+                        (stopPar.busstop != "" ? 8 : 0) +
+                        (stopPar.containerstop != "" ? 16 : 0) +
+                        (stopPar.chargingStation != "" ? 32 : 0) +
+                        (stopPar.parkingarea != "" ? 64 : 0) +
+                        (stopPar.overheadWireSegment != "" ? 128 : 0));
+
+    return TraCINextStopData(stopPar.lane,
+                             stopPar.startPos,
+                             stopPar.endPos,
+                             stoppingPlaceID,
+                             stopFlags,
+                             // negative duration is permitted to indicate that a vehicle cannot
+                             // re-enter traffic after parking
+                             stopPar.duration != -1 ? STEPS2TIME(stopPar.duration) : INVALID_DOUBLE_VALUE,
+                             stopPar.until >= 0 ? STEPS2TIME(stopPar.until) : INVALID_DOUBLE_VALUE,
+                             stopPar.arrival >= 0 ? STEPS2TIME(stopPar.arrival) : INVALID_DOUBLE_VALUE,
+                             stopPar.actualArrival >= 0 ? STEPS2TIME(stopPar.actualArrival) : INVALID_DOUBLE_VALUE,
+                             stopPar.depart >= 0 ? STEPS2TIME(stopPar.depart) : INVALID_DOUBLE_VALUE,
+                             stopPar.split,
+                             stopPar.join,
+                             stopPar.actType,
+                             stopPar.tripId,
+                             stopPar.line,
+                             stopPar.speed);
 }
 
 

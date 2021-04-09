@@ -11,12 +11,34 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    libtraci.h
+/// @file    libsumo.h
 /// @author  Michael Behrisch
 /// @date    03.03.2021
 ///
-// Helper file for libtraci inclusion
+// Helper file for libsumo inclusion
 /****************************************************************************/
 #pragma once
-#define LIBTRACI 1
-#include "libsumo.h"
+#include "Edge.h"
+#include "GUI.h"
+#include "InductionLoop.h"
+#include "Junction.h"
+#include "LaneArea.h"
+#include "Lane.h"
+#include "MultiEntryExit.h"
+#include "POI.h"
+#include "Polygon.h"
+#include "Route.h"
+#include "Simulation.h"
+#include "TrafficLight.h"
+#include "VehicleType.h"
+#include "Vehicle.h"
+#include "Person.h"
+#include "Calibrator.h"
+#include "BusStop.h"
+#include "ParkingArea.h"
+#include "ChargingStation.h"
+#include "OverheadWire.h"
+#include "Rerouter.h"
+#include "MeanData.h"
+#include "VariableSpeedSign.h"
+#include "RouteProbe.h"
