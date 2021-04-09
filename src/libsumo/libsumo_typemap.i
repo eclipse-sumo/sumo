@@ -377,7 +377,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %exception {
     try {
         $action
-    } catch (libsumo::TraCIException &e) {
+    } catch (const libsumo::TraCIException& e) {
         const std::string s = e.what();
         std::string printError;
         if (std::getenv("TRACI_PRINT_ERROR") != nullptr) {
@@ -396,7 +396,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 #else
         SWIG_exception(SWIG_ValueError, s.c_str());
 #endif
-    } catch (std::runtime_error &e) {
+    } catch (const std::exception& e) {
         const std::string s = e.what();
         std::string printError;
         if (std::getenv("TRACI_PRINT_ERROR") != nullptr) {
@@ -413,7 +413,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
         PyErr_SetObject(SWIG_Python_ExceptionType(SWIGTYPE_p_libsumo__FatalTraCIError), PyUnicode_FromString(s.c_str()));
         SWIG_fail;
 #else
-        SWIG_exception(SWIG_ValueError, s.c_str());
+        SWIG_exception(SWIG_UnknownError, s.c_str());
 #endif
     } catch (...) {
         SWIG_exception(SWIG_UnknownError, "unknown exception");
