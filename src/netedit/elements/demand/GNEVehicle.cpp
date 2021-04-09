@@ -768,7 +768,9 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
         }
         // check if shape dotted contour has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+        if (s.drawDottedContour() ||
+            myNet->getViewNet()->isAttributeCarrierInspected(this) ||
+            (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             // declare trim geometry to draw
             const GNEGeometry::DottedGeometry pathDottedGeometry((firstSegment || lastSegment)? GNEGeometry::DottedGeometry(s, pathGeometry.getShape(), false) : lane->getDottedLaneGeometry());
             // draw inspected dotted contour
@@ -811,10 +813,19 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
         // Pop last matrix
         glPopMatrix();
         // check if shape dotted contour has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            // draw lane2lane dotted geometry
+        if (s.drawDottedContour() ||
+            myNet->getViewNet()->isAttributeCarrierInspected(this) ||
+            (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+            // check if exist lane2lane connection
             if (fromLane->getLane2laneConnections().exist(toLane)) {
-                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneDottedGeometry(toLane), width, false, false);
+                // draw inspected dotted contour
+                if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+                    GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneDottedGeometry(toLane), width, false, false);
+                }
+                // draw front dotted contour
+                if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+                    GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneDottedGeometry(toLane), width, false, false);
+                }
             }
         }
         // Pop name
