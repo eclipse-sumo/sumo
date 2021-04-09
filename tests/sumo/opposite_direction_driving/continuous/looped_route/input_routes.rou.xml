@@ -1,0 +1,8 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE"/>
+
+    <route id="r0" edges="WE EW"/>
+
+    <vehicle id="ego" route="r0" departPos="0"  depart="0" departLane="1" />
+
+</routes>
