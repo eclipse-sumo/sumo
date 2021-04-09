@@ -44,3 +44,6 @@ sumolib
 public_transport
 misc
 devel
+
+# tests for drt tools
+drt

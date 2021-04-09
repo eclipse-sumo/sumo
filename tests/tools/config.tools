@@ -170,6 +170,7 @@ validate900:validate900.rou.xml
 validate2700:validate2700.rou.xml
 validate1800:validate1800.rou.xml
 vehtypes:vehtypes.xml
+tripinfos:tripinfos.xml
 
 [run_dependent_text]
 output:Begin time
