@@ -1432,6 +1432,25 @@ NBEdgeCont::removeRoundabout(const NBNode* node) {
     }
 }
 
+void
+NBEdgeCont::removeRoundaboutEdges(const EdgeSet& toRemove) {
+    removeRoundaboutEdges(toRemove, myRoundabouts);
+    removeRoundaboutEdges(toRemove, myGuessedRoundabouts);
+}
+
+void
+NBEdgeCont::removeRoundaboutEdges(const EdgeSet& toRemove, std::set<EdgeSet>& roundabouts) {
+    // members of a set are constant so we have to do some tricks
+    std::vector<EdgeSet> rList;
+    for (const EdgeSet& r : roundabouts) {
+        EdgeSet r2;
+        std::set_difference(r.begin(), r.end(), toRemove.begin(), toRemove.end(), std::inserter(r2, r2.end()));
+        rList.push_back(r2);
+    }
+    roundabouts.clear();
+    roundabouts.insert(rList.begin(), rList.end());
+}
+
 
 void
 NBEdgeCont::markRoundabouts() {

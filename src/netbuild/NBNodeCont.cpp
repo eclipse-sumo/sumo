@@ -393,6 +393,7 @@ NBNodeCont::removeComponents(NBDistrictCont& dc, NBEdgeCont& ec, const int numKe
             components.pop_back();
         }
     }
+    ec.removeRoundaboutEdges(toRemove);
     for (NBEdge* e : toRemove) {
         NBNode* const fromNode = e->getFromNode();
         NBNode* const toNode = e->getToNode();

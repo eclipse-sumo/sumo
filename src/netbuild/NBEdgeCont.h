@@ -571,6 +571,8 @@ public:
 
     /// @brief remove roundabout that contains the given node
     void removeRoundabout(const NBNode* node);
+    /// @brief remove edges from all stored roundabouts
+    void removeRoundaboutEdges(const EdgeSet& toRemove);
 
     /// @brief mark edge priorities and prohibit turn-arounds for all roundabout edges
     void markRoundabouts();
@@ -618,6 +620,8 @@ public:
 private:
     /// @brief compute the form factor for a loop of edges
     static double formFactor(const EdgeVector& loopEdges);
+
+    void removeRoundaboutEdges(const EdgeSet& toRemove, std::set<EdgeSet>& roundabouts);
 
 private:
     /// @brief The network builder; used to obtain type information
