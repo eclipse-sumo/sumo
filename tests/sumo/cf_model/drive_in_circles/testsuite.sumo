@@ -38,3 +38,6 @@ circle_two_lanes_actionsteplength
 
 # initialize with high density and set model parameters for stop and go
 circle_stop_and_go
+
+# initialize with high density and set model parameters for stop and go
+circle_stop_and_go_legacy
