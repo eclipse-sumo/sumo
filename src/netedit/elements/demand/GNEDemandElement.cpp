@@ -368,59 +368,18 @@ GNEDemandElement::getFirstPersonPlanEdge() const {
             return nullptr;
     }
 }
-/*
 
-GNEGeometry::ExtremeGeometry
-GNEDemandElement::calculatePersonPlanLaneStartEndPos() const {
-    // declare extreme geometry
-    GNEGeometry::ExtremeGeometry extremeGeometry;
+
+double
+GNEDemandElement::getPersonPlanDepartPos() const {
     // get previous person Plan
     const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
-    double endLanePosPreviousLane = 0;
-    // obtain previous plan
+    // check if this is the first person plan
     if (previousPersonPlan) {
-        if (previousPersonPlan->getTagProperty().personPlanEndEdge()) {
-            // get arrival position
-            endLanePosPreviousLane = previousPersonPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
-        } else if (previousPersonPlan->getTagProperty().personPlanEndBusStop()) {
-            // get arrival pos (end busStop shape)
-            endLanePosPreviousLane = previousPersonPlan->getParentAdditionals().back()->getAttributeDouble(SUMO_ATTR_ENDPOS);
-            extremeGeometry.viewStartPos = previousPersonPlan->getParentAdditionals().back()->getAdditionalGeometry().getShape().back();
-        }
+        return previousPersonPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+    } else {
+        return getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
     }
-    // set lane start position
-    if (myTagProperty.personPlanStartEdge()) {
-        if (previousPersonPlan) {
-            // use as startLanePos the endLanePosPreviousLane
-            extremeGeometry.laneStartPosition = endLanePosPreviousLane;
-            // obtain last allowed vehicle lane of previous person plan
-            const GNELane* lastAllowedLanePrevious = previousPersonPlan->getLastAllowedVehicleLane();
-            // check if both plans start in the same lane
-            if (lastAllowedLanePrevious) {
-                extremeGeometry.viewStartPos = lastAllowedLanePrevious->getLaneShape().positionAtOffset(extremeGeometry.laneStartPosition);
-            }
-        } else {
-            // return pedestrian departPos
-            extremeGeometry.laneStartPosition = getParentDemandElements().front()->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
-        }
-    } else if (myTagProperty.personPlanStartBusStop()) {
-        // use as startLanePos the busStop end position
-        extremeGeometry.laneStartPosition = getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
-        // use as extraEndPosition the end of first busStop shape
-        extremeGeometry.viewStartPos = getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
-    }
-    // set lane end position
-    if (myTagProperty.personPlanEndEdge()) {
-        // use as endLane Position the arrival position
-        extremeGeometry.laneEndPosition = getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
-    } else if (myTagProperty.personPlanEndBusStop()) {
-        // use as endLanePosition the busStop start position
-        extremeGeometry.laneEndPosition = getParentAdditionals().back()->getAttributeDouble(SUMO_ATTR_STARTPOS);
-        // use as extraEndPosition the begin of last busStop shape
-        extremeGeometry.viewEndPos = getParentAdditionals().back()->getAdditionalGeometry().getShape().front();
-    }
-    // return extreme geometry
-    return extremeGeometry;
 }
 
 
@@ -461,6 +420,7 @@ GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, c
         glPushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType(), offsetFront);
+/*
         // iterate over segments
         for (const auto& segment : myDemandElementSegmentGeometry) {
             // draw partial segment
@@ -485,6 +445,7 @@ GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, c
                 }
             }
         }
+*/
         // Pop last matrix
         glPopMatrix();
         // Draw name if isn't being drawn for selecting
@@ -495,6 +456,7 @@ GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, c
         glPopName();
         // check if person plan ArrivalPos attribute
         if (myTagProperty.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+        /*
             // obtain arrival position using last segment
             const Position& arrivalPos = getDemandElementSegmentGeometry().getLastPosition();
             // only draw arrival position point if isn't -1
@@ -518,12 +480,14 @@ GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, c
                     glPopMatrix();
                 }
             }
+        */
         }
         // check if shape dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // get first and last allowed lanes
             const GNELane* firstLane = getFirstAllowedVehicleLane();
             const GNELane* lastLane = getLastAllowedVehicleLane();
+        /*
             // iterate over segments
             for (const auto& segment : myDemandElementSegmentGeometry) {
                 if (segment.isLaneSegment() && (segment.getLane() == lane)) {
@@ -540,6 +504,7 @@ GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, c
                     }
                 }
             }
+        */
         }
     }
     // draw person parent if this is the edge first edge and this is the first plan
@@ -617,7 +582,6 @@ GNEDemandElement::drawPersonPlanPartialJunction(const GUIVisualizationSettings& 
         }
     }
 }
-*/
 
 void
 GNEDemandElement::replaceDemandParentEdges(const std::string& value) {

@@ -344,6 +344,16 @@ protected:
 
     /// @name Only for person plans
     /// @{
+    /// @brief get person plan depart positions
+    double getPersonPlanDepartPos() const;
+
+    /// @brief draw person plan partial lane
+    void drawPersonPlanPartialLane(const GUIVisualizationSettings& s, const GNELane* lane,
+                                   const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const;
+
+    /// @brief draw person plan partial junction
+    void drawPersonPlanPartialJunction(const GUIVisualizationSettings & s, const GNELane * fromLane, const GNELane * toLane,
+                                       const double offsetFront, const double personPlanWidth, const RGBColor & personPlanColor) const;
 
     /// @brief person plans arrival position radius
     static const double myPersonPlanArrivalPositionDiameter;
