@@ -32,6 +32,7 @@ if 'SUMO_HOME' in os.environ:
     sys.path.append(tools)
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
+from sumolib import checkBinary  # noqa
 import traci  # noqa
 findRoute = traci.simulation.findRoute
 
@@ -451,12 +452,17 @@ def main():
     rv_dict = {}
     exact_sol = [0]
 
+    if options.sumo == 'sumo':
+        SUMO = checkBinary('sumo')
+    else:
+        SUMO = checkBinary('sumo-gui')
+
     # start traci
     if options.sumocfg:
-        run_traci = [options.sumo, "-c", options.sumocfg,
+        run_traci = [SUMO, "-c", options.sumocfg,
                      '--tripinfo-output.write-unfinished']
     else:
-        run_traci = [options.sumo, '--net-file', '%s' % options.network, '-r',
+        run_traci = [SUMO, '--net-file', '%s' % options.network, '-r',
                      '%s,%s' % (options.reservations, options.taxis), '-l',
                      'log.txt', '--device.taxi.dispatch-algorithm', 'traci',
                      '--tripinfo-output', '%s' % options.output,
