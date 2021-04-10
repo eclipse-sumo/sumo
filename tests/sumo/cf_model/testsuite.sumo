@@ -4,6 +4,9 @@ parameters
 # show that each model allows vehicles to follow each other around a circular track
 drive_in_circles
 
+# updated version with simplified inputs and density control
+drive_in_circles_small
+
 # show that each model allows vehicles to follow each other around a circular track (with lower steplength)
 drive_in_circles_steplength
 

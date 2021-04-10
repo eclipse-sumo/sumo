@@ -1,0 +1,7 @@
+
+[Reported by kobo at 08Dec17:28:16]
+search_string:collision
+search_file:errors
+ignore_other_errors:1
+full_description:collisions
+brief_description:see #4839
