@@ -236,10 +236,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                         zipf.write(f, includeDir + f[len(srcDir):])
                 zipf.write(os.path.join(buildDir, "src", "version.h"), os.path.join(includeDir, "version.h"))
                 for f in glob.glob(os.path.join(toolsDir, "lib*", "*lib*.py*")):
-                    # no os.path.join here, since the namelist uses only "/"
-                    nameInZip = "tools/" + f[len(toolsDir) + 1].replace("\\", "/")
-                    if nameInZip not in zipf.namelist():
-                        zipf.write(f, nameInZip)
+                    zipf.write(f, binDir.replace("bin", "tools") + f[len(toolsDir):])
                 zipf.close()
                 if options.suffix == "":
                     # installers only for the vanilla build
