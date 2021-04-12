@@ -253,7 +253,7 @@ title: Changes from Version 0.31.0 to Version 0.32.0
 - The SUMO build process now supports CMake. It is likely that version
 0.32.0 will be the last one shipping Visual Studio solutions. Please
 have a look at
-[Windows CMake](../Installing/Windows_Build.md#cmake) for
+[Windows CMake](../Installing/Windows_Build.md#manual_cmake_configuration) for
 information on how to build SUMO on Windows with CMake. There are
 also helper scripts in preparation at [{{SUMO}}/tools/build]({{Source}}tools/build) for instance `tools/build/buildMSVS15Project.py`.
 

@@ -37,7 +37,7 @@ The following things currently do not work (or work differently than with the Tr
 
 It currently requires cmake and swig being installed together with the
 developer packages for Python (and Java if needed), for Windows see
-[Windows CMake](Installing/Windows_Build.md#cmake). You
+[Windows CMake](Installing/Windows_Build.md#manual_cmake_configuration). You
 need to (re-)compile sumo yourself under Windows following the remarks
 above, under Linux see [Installing/Linux_Build](Installing/Linux_Build.md)
 (it is probably just a matter of calling cmake and

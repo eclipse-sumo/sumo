@@ -32,10 +32,15 @@ may also [download pre-build Windows binaries](../Downloads.md).
 - Go to team explorer
   - Choose Manage Connections, then "Local Git"->Clone https://github.com/DLR-TS/SUMOLibraries
 - Now be patient until CMake starts configuring
-  - If it does not or you want to reconfigure choose Project->"Generate Cache" (if this option is not there you may need to wait a little longer until Visual Studio has picked up everything)
-- Select Build->BuildAll (CMake->BuildAll in earlier versions)
+  - If it does not or you want to reconfigure choose *Project->Generate Cache* (if this option is not there you may need to wait a little longer until Visual Studio has picked up everything)
+- Select *Build->Build All* (*CMake->Build All* in earlier versions)
 - Set the [SUMO_HOME](../Basics/Basic_Computer_Skills.md#sumo_home) environment variable
 - Install Texttest https://sourceforge.net/projects/texttest/files/latest/download
+
+CMake settings can easily be modified, loaded and saved using *Project -> CMake Settings* in Visual Studio.
+
+![](../images/vs_cmake_settings.png)   
+Editing the CMake settings using Visual Studio
 
 ### Optional but still recommended steps
 
@@ -94,9 +99,9 @@ folders are `32bits/fox-1.6.54/lib`, `32bits/proj_gdal-1911/bin` and
 `32bits/xerces-c-3.2.0/bin`. You can add both to the path but always add the
 64 bit version first.
 
-## CMake
+## Manual CMake configuration
 
-### Method 1: CMake GUI
+### Method 1: Via CMake GUI
 
 - Start the CMake gui
 - Select the source path (e.g. D:\\projects\\sumo)
@@ -112,9 +117,6 @@ folders are `32bits/fox-1.6.54/lib`, `32bits/proj_gdal-1911/bin` and
 
 Visual guide:
 
-![](../images/CMakeClonningSUMO.png)   
-Cloning SUMO
-
 ![](../images/CMakeConfiguration1.png)   
 Selecting Solution (Visual Studio, Eclipse, etc.) in the CMake gui
 
@@ -124,7 +126,7 @@ Libraries successfully configured
 ![](../images/CMakeConfiguration5.png)   
 Generated solution
 
-### Method 2: CMake command line
+### Method 2: Via CMake command line
 
 - Go to the source path (e.g. `cd D:\projects\sumo`)
 - Create a build directory (e.g. `mkdir cmake-build && cd cmake-build`)
