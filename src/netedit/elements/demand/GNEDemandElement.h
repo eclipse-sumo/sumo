@@ -51,21 +51,6 @@ class GNEJunction;
 class GNEDemandElement : public GUIGlObject, public GNEHierarchicalElement, public GNEPathManager::PathElement {
 
 public:
-    /// @brief struct for pack all variables related with Demand Element moving
-    struct DemandElementMove {
-        /// @brief boundary used during moving of elements (to avoid insertion in RTREE)
-        Boundary movingGeometryBoundary;
-
-        /// @brief value for saving first original position over lane before moving
-        Position originalViewPosition;
-
-        /// @brief value for saving first original position over lane before moving
-        std::string firstOriginalLanePosition;
-
-        /// @brief value for saving second original position over lane before moving
-        std::string secondOriginalPosition;
-    };
-
     /**@brief Constructor
      * @param[in] id Gl-id of the demand element element (Must be unique)
      * @param[in] net pointer to GNEViewNet of this demand element element belongs

@@ -197,9 +197,6 @@ public:
     const std::map<std::string, std::string>& getACParametersMap() const;
 
 protected:
-    /// @brief variable demand element move
-    DemandElementMove myStopMove;
-
     /// @brief get first valid lane
     const GNELane* getFirstAllowedLane() const;
 

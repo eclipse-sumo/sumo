@@ -155,12 +155,12 @@ GNEStop::startGeometryMoving() {
     // only start geometry moving if stop is placed over a lane
     if (getParentLanes().size() > 0) {
         // always save original position over view
-        myStopMove.originalViewPosition = getPositionInView();
+        myOriginalViewPosition = getPositionInView();
         // save start and end position
-        myStopMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_STARTPOS);
-        myStopMove.secondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);
+        myFirstOriginalLanePosition = getAttribute(SUMO_ATTR_STARTPOS);
+        mySecondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);
         // save current centering boundary
-        myStopMove.movingGeometryBoundary = getCenteringBoundary();
+        myMovingGeometryBoundary = getCenteringBoundary();
     }
 }
 
@@ -168,9 +168,9 @@ GNEStop::startGeometryMoving() {
 void
 GNEStop::endGeometryMoving() {
     // check that stop is placed over a lane and endGeometryMoving was called only once
-    if ((getParentLanes().size() > 0) && myStopMove.movingGeometryBoundary.isInitialised()) {
+    if ((getParentLanes().size() > 0) && myMovingGeometryBoundary.isInitialised()) {
         // reset myMovingGeometryBoundary
-        myStopMove.movingGeometryBoundary.reset();
+        myMovingGeometryBoundary.reset();
     }
 }
 
@@ -180,35 +180,35 @@ GNEStop::moveGeometry(const Position& offset) {
     // only move if at leats start or end positions is defined
     if ((getParentLanes().size() > 0) && ((parametersSet & STOP_START_SET) || (parametersSet & STOP_END_SET))) {
         // Calculate new position using old position
-        Position newPosition = myStopMove.originalViewPosition;
+        Position newPosition = myOriginalViewPosition;
         newPosition.add(offset);
         // filtern position using snap to active grid
         newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition);
-        double offsetLane = getParentLanes().front()->getLaneShape().nearest_offset_to_point2D(newPosition, false) - getParentLanes().front()->getLaneShape().nearest_offset_to_point2D(myStopMove.originalViewPosition, false);
+        double offsetLane = getParentLanes().front()->getLaneShape().nearest_offset_to_point2D(newPosition, false) - getParentLanes().front()->getLaneShape().nearest_offset_to_point2D(myOriginalViewPosition, false);
         // check if both position has to be moved
         if ((parametersSet & STOP_START_SET) && (parametersSet & STOP_END_SET)) {
             // calculate stoppingPlace length and lane length (After apply geometry factor)
-            double stoppingPlaceLength = fabs(parse<double>(myStopMove.secondOriginalPosition) - parse<double>(myStopMove.firstOriginalLanePosition));
+            double stoppingPlaceLength = fabs(parse<double>(mySecondOriginalPosition) - parse<double>(myFirstOriginalLanePosition));
             double laneLengt = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength() * getParentLanes().front()->getLengthGeometryFactor();
             // avoid changing stopping place's length
-            if ((parse<double>(myStopMove.firstOriginalLanePosition) + offsetLane) < 0) {
+            if ((parse<double>(myFirstOriginalLanePosition) + offsetLane) < 0) {
                 startPos = 0;
                 endPos = stoppingPlaceLength;
-            } else if ((parse<double>(myStopMove.secondOriginalPosition) + offsetLane) > laneLengt) {
+            } else if ((parse<double>(mySecondOriginalPosition) + offsetLane) > laneLengt) {
                 startPos = laneLengt - stoppingPlaceLength;
                 endPos = laneLengt;
             } else {
-                startPos = parse<double>(myStopMove.firstOriginalLanePosition) + offsetLane;
-                endPos = parse<double>(myStopMove.secondOriginalPosition) + offsetLane;
+                startPos = parse<double>(myFirstOriginalLanePosition) + offsetLane;
+                endPos = parse<double>(mySecondOriginalPosition) + offsetLane;
             }
         } else {
             // check if start position must be moved
             if ((parametersSet & STOP_START_SET)) {
-                startPos = parse<double>(myStopMove.firstOriginalLanePosition) + offsetLane;
+                startPos = parse<double>(myFirstOriginalLanePosition) + offsetLane;
             }
             // check if start position must be moved
             if ((parametersSet & STOP_END_SET)) {
-                endPos = parse<double>(myStopMove.secondOriginalPosition) + offsetLane;
+                endPos = parse<double>(mySecondOriginalPosition) + offsetLane;
             }
         }
         // update geometry
@@ -223,10 +223,10 @@ GNEStop::commitGeometryMoving(GNEUndoList* undoList) {
     if ((getParentLanes().size() > 0) && ((parametersSet & STOP_START_SET) || (parametersSet & STOP_END_SET))) {
         undoList->p_begin("position of " + getTagStr());
         if (parametersSet & STOP_START_SET) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(startPos), myStopMove.firstOriginalLanePosition));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(startPos), myFirstOriginalLanePosition));
         }
         if (parametersSet & STOP_END_SET) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(endPos), myStopMove.secondOriginalPosition));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(endPos), mySecondOriginalPosition));
         }
         undoList->p_end();
     }
@@ -299,8 +299,8 @@ GNEStop::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
     if (getParentAdditionals().size() > 0) {
         return getParentAdditionals().at(0)->getCenteringBoundary();
-    } else if (myStopMove.movingGeometryBoundary.isInitialised()) {
-        return myStopMove.movingGeometryBoundary;
+    } else if (myMovingGeometryBoundary.isInitialised()) {
+        return myMovingGeometryBoundary;
     } else if (myDemandElementGeometry.getShape().size() > 0) {
         Boundary b = myDemandElementGeometry.getShape().getBoxBoundary();
         b.grow(20);

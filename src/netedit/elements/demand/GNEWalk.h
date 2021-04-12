@@ -251,9 +251,6 @@ public:
     const std::map<std::string, std::string>& getACParametersMap() const;
 
 protected:
-    /// @brief variable for move walks
-    DemandElementMove myWalkMove;
-
     /// @brief arrival position
     double myArrivalPosition;
 

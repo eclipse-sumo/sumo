@@ -215,6 +215,7 @@ GNEWalk::getColor() const {
 
 void
 GNEWalk::startGeometryMoving() {
+/*
     // only start geometry moving if arrival position isn't -1
     if (myArrivalPosition != -1) {
         // always save original position over view
@@ -224,21 +225,25 @@ GNEWalk::startGeometryMoving() {
         // save current centering boundary
         myWalkMove.movingGeometryBoundary = getCenteringBoundary();
     }
+*/
 }
 
 
 void
 GNEWalk::endGeometryMoving() {
+/*
     // check that myArrivalPosition isn't -1 and endGeometryMoving was called only once
     if ((myArrivalPosition != -1) && myWalkMove.movingGeometryBoundary.isInitialised()) {
         // reset myMovingGeometryBoundary
         myWalkMove.movingGeometryBoundary.reset();
     }
+*/
 }
 
 
 void
 GNEWalk::moveGeometry(const Position& offset) {
+/*
     // only move if myArrivalPosition isn't -1
     if (myArrivalPosition != -1) {
         // Calculate new position using old position
@@ -255,17 +260,20 @@ GNEWalk::moveGeometry(const Position& offset) {
         // Update geometry
         updateGeometry();
     }
+*/
 }
 
 
 void
 GNEWalk::commitGeometryMoving(GNEUndoList* undoList) {
+/*
     // only commit geometry moving if myArrivalPosition isn't -1
     if (myArrivalPosition != -1) {
         undoList->p_begin("arrivalPos of " + getTagStr());
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ARRIVALPOS, toString(myArrivalPosition), myWalkMove.firstOriginalLanePosition));
         undoList->p_end();
     }
+*/
 }
 
 

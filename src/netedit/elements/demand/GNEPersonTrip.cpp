@@ -201,6 +201,7 @@ GNEPersonTrip::getColor() const {
 
 void
 GNEPersonTrip::startGeometryMoving() {
+/*
     // only start geometry moving if arrival position isn't -1
     if (myArrivalPosition != -1) {
         // always save original position over view
@@ -210,21 +211,25 @@ GNEPersonTrip::startGeometryMoving() {
         // save current centering boundary
         myPersonTripMove.movingGeometryBoundary = getCenteringBoundary();
     }
+*/
 }
 
 
 void
 GNEPersonTrip::endGeometryMoving() {
+/*
     // check that myArrivalPosition isn't -1 and endGeometryMoving was called only once
     if ((myArrivalPosition != -1) && myPersonTripMove.movingGeometryBoundary.isInitialised()) {
         // reset myMovingGeometryBoundary
         myPersonTripMove.movingGeometryBoundary.reset();
     }
+*/
 }
 
 
 void
 GNEPersonTrip::moveGeometry(const Position& offset) {
+/*
     // only move if myArrivalPosition isn't -1
     if (myArrivalPosition != -1) {
         // Calculate new position using old position
@@ -241,17 +246,20 @@ GNEPersonTrip::moveGeometry(const Position& offset) {
         // Update geometry
         updateGeometry();
     }
+*/
 }
 
 
 void
 GNEPersonTrip::commitGeometryMoving(GNEUndoList* undoList) {
+/*
     // only commit geometry moving if myArrivalPosition isn't -1
     if (myArrivalPosition != -1) {
         undoList->p_begin("arrivalPos of " + getTagStr());
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ARRIVALPOS, toString(myArrivalPosition), myPersonTripMove.firstOriginalLanePosition));
         undoList->p_end();
     }
+*/
 }
 
 

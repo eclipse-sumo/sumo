@@ -203,8 +203,17 @@ public:
     double getEndGeometryPositionOverLane() const;
 
 protected:
-    /// @brief variable demand element move
-    DemandElementMove myStopMove;
+    /// @brief boundary used during moving of elements (to avoid insertion in RTREE)
+    Boundary myMovingGeometryBoundary;
+
+    /// @brief value for saving first original position over lane before moving
+    Position myOriginalViewPosition;
+
+    /// @brief value for saving first original position over lane before moving
+    std::string myFirstOriginalLanePosition;
+
+    /// @brief value for saving second original position over lane before moving
+    std::string mySecondOriginalPosition;
 
 private:
     /// @brief method for setting the attribute and nothing else

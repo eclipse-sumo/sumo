@@ -193,6 +193,7 @@ GNERide::getColor() const {
 
 void
 GNERide::startGeometryMoving() {
+/*
     // only start geometry moving if arrival position isn't -1
     if (myArrivalPosition != -1) {
         // always save original position over view
@@ -202,21 +203,25 @@ GNERide::startGeometryMoving() {
         // save current centering boundary
         myRideMove.movingGeometryBoundary = getCenteringBoundary();
     }
+*/
 }
 
 
 void
 GNERide::endGeometryMoving() {
+/*
     // check that myArrivalPosition isn't -1 and endGeometryMoving was called only once
     if ((myArrivalPosition != -1) && myRideMove.movingGeometryBoundary.isInitialised()) {
         // reset myMovingGeometryBoundary
         myRideMove.movingGeometryBoundary.reset();
     }
+*/
 }
 
 
 void
 GNERide::moveGeometry(const Position& offset) {
+/*
     // only move if myArrivalPosition isn't -1
     if (myArrivalPosition != -1) {
         // Calculate new position using old position
@@ -233,17 +238,20 @@ GNERide::moveGeometry(const Position& offset) {
         // Update geometry
         updateGeometry();
     }
+*/
 }
 
 
 void
 GNERide::commitGeometryMoving(GNEUndoList* undoList) {
+/*
     // only commit geometry moving if myArrivalPosition isn't -1
     if (myArrivalPosition != -1) {
         undoList->p_begin("arrivalPos of " + getTagStr());
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ARRIVALPOS, toString(myArrivalPosition), myRideMove.firstOriginalLanePosition));
         undoList->p_end();
     }
+*/
 }
 
 
