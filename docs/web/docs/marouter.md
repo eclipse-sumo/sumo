@@ -96,6 +96,7 @@ configuration:
 | **--weight-adaption** {{DT_FLOAT}} | The travel time influence of prior intervals; *default:* **0** |
 | **--taz-param** {{DT_STR[]}} | Parameter key(s) defining source (and sink) taz |
 | **--junction-taz** {{DT_BOOL}} | Initialize a TAZ for every junction to use attributes toJunction and fromJunction; *default:* **false** |
+| **--ignore-taz** {{DT_BOOL}} | Ignore attributes 'fromTaz' and 'toTaz'; *default:* **false** |
 
 ### Output
 

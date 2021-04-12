@@ -66,6 +66,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--persontrips** {{DT_BOOL}} | Writes persontrips instead of vehicles; *default:* **false** |
 | **--persontrips.modes** {{DT_STR[]}} | Add modes attribute to personTrips |
 | **--ignore-vehicle-type** {{DT_BOOL}} | Does not save vtype information; *default:* **false** |
+| **--junctions** {{DT_BOOL}} | Writes trips between junctions; *default:* **false** |
 
 ### Time
 

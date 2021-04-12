@@ -97,6 +97,8 @@ configuration:
 | **--fcd-output.max-leader-distance** {{DT_FLOAT}} | Add leader vehicle information to the FCD output (within the given distance); *default:* **-1** |
 | **--fcd-output.params** {{DT_STR[]}} | Add generic parameter values to the FCD output |
 | **--fcd-output.filter-edges.input-file** {{DT_FILE}} | Restrict fcd output to the edge selection from the given input file |
+| **--fcd-output.attributes** {{DT_STR[]}} | List attributes that should be included in the FCD output |
+| **--device.ssm.filter-edges.input-file** {{DT_FILE}} | Restrict SSM device output to the edge selection from the given input file |
 | **--full-output** {{DT_FILE}} | Save a lot of information for each timestep (very redundant) |
 | **--queue-output** {{DT_FILE}} | Save the vehicle queues at the junctions (experimental) |
 | **--vtk-output** {{DT_FILE}} | Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files) |
@@ -125,6 +127,7 @@ configuration:
 | **--lanechange-output.ended** {{DT_BOOL}} | Record end of lane change manoeuvres; *default:* **false** |
 | **--lanechange-output.xy** {{DT_BOOL}} | Record coordinates of lane change manoeuvres; *default:* **false** |
 | **--stop-output** {{DT_FILE}} | Record stops and loading/unloading of passenger and containers for all vehicles into FILE |
+| **--stop-output.write-unfinished** {{DT_BOOL}} | Write stop output for stops which have not ended at simulation end; *default:* **false** |
 | **--collision-output** {{DT_FILE}} | Write collision information into FILE |
 | **--statistic-output** {{DT_FILE}} | Write overall statistics into FILE |
 | **--save-state.times** {{DT_STR[]}} | Use TIME[] as times at which a network state written |
@@ -134,6 +137,7 @@ configuration:
 | **--save-state.files** {{DT_FILE}} | Files for network states |
 | **--save-state.rng** {{DT_BOOL}} | Save random number generator states; *default:* **false** |
 | **--save-state.transportables** {{DT_BOOL}} | Save person and container states (experimental); *default:* **false** |
+| **--save-state.constraints** {{DT_BOOL}} | Save rail signal constraints; *default:* **false** |
 | **--save-state.precision** {{DT_INT}} | Write internal state values with the given precision (default 2); *default:* **2** |
 
 ### Time
@@ -160,12 +164,14 @@ configuration:
 | **--collision.action** {{DT_STR}} | How to deal with collisions: [none,warn,teleport,remove]; *default:* **teleport** |
 | **--collision.stoptime** {{DT_TIME}} | Let vehicle stop for TIME before performing collision.action (except for action 'none'); *default:* **0** |
 | **--collision.check-junctions** {{DT_BOOL}} | Enables collisions checks on junctions; *default:* **false** |
+| **--collision.check-junctions.mingap** {{DT_FLOAT}} | Increase or decrease sensitivity for junction collision check; *default:* **0** |
 | **--collision.mingap-factor** {{DT_FLOAT}} | Sets the fraction of minGap that must be maintained to avoid collision detection. If a negative value is given, the carFollowModel parameter is used; *default:* **-1** |
 | **--max-num-vehicles** {{DT_INT}} | Delay vehicle insertion to stay within the given maximum number; *default:* **-1** |
 | **--max-num-teleports** {{DT_INT}} | Abort the simulation if the given maximum number of teleports is exceeded; *default:* **-1** |
 | **--scale** {{DT_FLOAT}} | Scale demand by the given factor (by discarding or duplicating vehicles); *default:* **1** |
 | **--time-to-teleport** {{DT_TIME}} | Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting; *default:* **300** |
 | **--time-to-teleport.highways** {{DT_TIME}} | The waiting time after which vehicles on a fast road (speed > 69km/h) are teleported if they are on a non-continuing lane; *default:* **0** |
+| **--time-to-teleport.disconnected** {{DT_TIME}} | The waiting time after which vehicles with a disconnected route are teleported; *default:* **0** |
 | **--waiting-time-memory** {{DT_TIME}} | Length of time interval, over which accumulated waiting time is taken into account (default is 100s.); *default:* **100** |
 | **--max-depart-delay** {{DT_TIME}} | How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped; *default:* **-1** |
 | **--sloppy-insert** {{DT_BOOL}} | Whether insertion on an edge shall not be repeated in same step once failed; *default:* **false** |
@@ -285,6 +291,7 @@ configuration:
 | **--device.battery.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'battery' device; *default:* **-1** |
 | **--device.battery.explicit** {{DT_STR[]}} | Assign a 'battery' device to named vehicles |
 | **--device.battery.deterministic** {{DT_BOOL}} | The 'battery' devices are set deterministic using a fraction of 1000; *default:* **false** |
+| **--device.battery.track-fuel** {{DT_BOOL}} | Track fuel consumption for non-electric vehicles; *default:* **false** |
 
 ### Example Device
 
@@ -309,7 +316,6 @@ configuration:
 | **--device.ssm.extratime** {{DT_FLOAT}} | Specifies the time in seconds to be logged after a conflict is over (default is 5.00secs.). Required >0 if PET is to be calculated for crossing conflicts. |
 | **--device.ssm.file** {{DT_STR}} | Give a global default filename for the SSM output. |
 | **--device.ssm.geo** {{DT_BOOL}} | Whether to use coordinates of the original reference system in output (default is false). |
-| **--device.ssm.filter-edges.input-file** {{DT_STR}} | Give a file containing a white list of edgeIDs and junctionIDs, defining where to measure the conflicts.; *default:* all edges are used |
 
 ### Toc Device
 

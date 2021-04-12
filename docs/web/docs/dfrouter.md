@@ -92,6 +92,7 @@ Applications\#Configuration Files](Basics/Using_the_Command_Line_Applications.md
 | **--max-search-depth** {{DT_INT}} | Number of edges to follow a route without passing a detector; *default:* **30** |
 | **--emissions-only** {{DT_BOOL}} | Writes only emission times; *default:* **false** |
 | **--disallowed-edges** {{DT_STR[]}} | Do not route on these edges |
+| **--vclass** {{DT_STR}} | Only route on edges allowing the given vclass; *default:* **ignoring** |
 | **--keep-turnarounds** {{DT_BOOL}} | Allow turnarounds as route continuations; *default:* **false** |
 | **--min-route-length** {{DT_FLOAT}} | Minimum distance in meters between start and end node of every route; *default:* **-1** |
 | **--randomize-flows** {{DT_BOOL}} | generate random departure times for emitted vehicles; *default:* **false** |
