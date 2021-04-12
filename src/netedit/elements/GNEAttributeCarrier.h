@@ -468,8 +468,11 @@ private:
     /// @brief fill common person attributes (used by person and personFlows)
     static void fillCommonPersonAttributes(SumoXMLTag currentTag);
 
-    /// @brief fill stop person attributes (used by stops and personStps)
+    /// @brief fill stop person attributes
     static void fillCommonStopAttributes(SumoXMLTag currentTag, const bool parking);
+
+    /// @brief fill person stop person attributes
+    static void fillCommonPersonStopAttributes(SumoXMLTag currentTag, const bool parking);
 
     /// @brief fill Data elements
     static void fillDataElements();

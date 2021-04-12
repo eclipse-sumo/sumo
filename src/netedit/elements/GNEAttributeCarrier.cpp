@@ -3928,8 +3928,19 @@ GNEAttributeCarrier::fillPersonStopElements() {
                                               "The name of the edge the stop shall be located at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ENDPOS,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         // fill common stop attributes
-        fillCommonStopAttributes(currentTag, true);
+        fillCommonPersonStopAttributes(currentTag, true);
     }
     currentTag = GNE_TAG_PERSONSTOP_BUSSTOP;
     {
@@ -3947,7 +3958,7 @@ GNEAttributeCarrier::fillPersonStopElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // fill common stop attributes
-        fillCommonStopAttributes(currentTag, true);
+        fillCommonPersonStopAttributes(currentTag, true);
     }
 }
 
@@ -4504,6 +4515,31 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
         "Value used for trips that uses this stop");
     myTagProperties[currentTag].addAttribute(attrProperty);
     */
+}
+
+
+void
+GNEAttributeCarrier::fillCommonPersonStopAttributes(SumoXMLTag currentTag, const bool parking) {
+    // declare empty GNEAttributeProperties
+    GNEAttributeProperties attrProperty;
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_DURATION,
+        GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUESTATIC,
+        "Minimum duration for stopping",
+        "60");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_UNTIL,
+        GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUESTATIC,
+        "The time step at which the route continues",
+        "0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
+        GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+        "Activity displayed for stopped person in GUI and output files ",
+        "waiting");
+    myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
 
