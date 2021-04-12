@@ -1,6 +1,9 @@
 # try to load signal plan with invalid state
 invalid_state
 
+# try to load signal plan with invalid state
+invalid_state_length
+
 # empty tls program
 no_phases
 
