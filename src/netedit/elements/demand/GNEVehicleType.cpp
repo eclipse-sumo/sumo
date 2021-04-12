@@ -1607,6 +1607,18 @@ GNEVehicleType::setEnabledAttribute(const int /*enabledAttributes*/) {
 }
 
 
+void 
+GNEVehicleType::setMoveShape(const GNEMoveResult& moveResult) {
+    //
+}
+
+
+void
+GNEVehicleType::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    //
+}
+
+
 void
 GNEVehicleType::updateDefaultVClassAttributes(const VClassDefaultValues& defaultValues) {
     if (!wasSet(VTYPEPARS_LENGTH_SET)) {

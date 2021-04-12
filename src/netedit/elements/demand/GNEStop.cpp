@@ -35,15 +35,15 @@
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag,
-{}, {}, {}, {stoppingPlace}, {}, {}, {stopParent}, {}),
-SUMOVehicleParameter::Stop(stopParameter) {
+        {}, {}, {}, {stoppingPlace}, {}, {}, {stopParent}, {}),
+    SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
 GNEStop::GNEStop(GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, net, GLO_STOP, SUMO_TAG_STOP_LANE,
-{}, {}, {lane}, {}, {}, {}, {stopParent}, {}),
-SUMOVehicleParameter::Stop(stopParameter) {
+        {}, {}, {lane}, {}, {}, {}, {stopParent}, {}),
+    SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
@@ -52,7 +52,12 @@ GNEStop::~GNEStop() {}
 
 GNEMoveOperation* 
 GNEStop::getMoveOperation(const double /*shapeOffset*/) {
-    return nullptr;
+    if (myTagProperty.getTag() == SUMO_TAG_STOP_LANE) {
+        // return move operation for additional placed over shape
+        return new GNEMoveOperation(this, getParentLanes().front(), {startPos, endPos});
+    } else {
+        return nullptr;
+    }
 }
 
 
@@ -911,5 +916,16 @@ GNEStop::setEnabledAttribute(const int enabledAttributes) {
     parametersSet = enabledAttributes;
 }
 
+
+void 
+GNEStop::setMoveShape(const GNEMoveResult& moveResult) {
+    //
+}
+
+
+void
+GNEStop::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    //
+}
 
 /****************************************************************************/

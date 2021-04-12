@@ -870,4 +870,14 @@ GNEPerson::setEnabledAttribute(const int enabledAttributes) {
 }
 
 
+void GNEPerson::setMoveShape(const GNEMoveResult& moveResult) {
+    //
+}
+
+
+void
+GNEPerson::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    //
+}
+
 /****************************************************************************/

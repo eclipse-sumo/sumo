@@ -78,6 +78,12 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet
 GNEDemandElement::~GNEDemandElement() {}
 
 
+void
+GNEDemandElement::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
+    // currently there isn't demand elements with removable geometry points
+}
+
+
 const std::string&
 GNEDemandElement::getID() const {
     return getMicrosimID();

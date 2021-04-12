@@ -1669,6 +1669,18 @@ GNEVehicle::setEnabledAttribute(const int enabledAttributes) {
 
 
 void
+GNEVehicle::setMoveShape(const GNEMoveResult& moveResult) {
+    //
+}
+
+
+void
+GNEVehicle::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    //
+}
+
+
+void
 GNEVehicle::drawStackLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length, const double exaggeration) const {
     // declare contour width
     const double contourWidth = (0.05 * exaggeration);

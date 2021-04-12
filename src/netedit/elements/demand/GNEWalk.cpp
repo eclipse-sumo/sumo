@@ -574,4 +574,15 @@ GNEWalk::setEnabledAttribute(const int /*enabledAttributes*/) {
 }
 
 
+void 
+GNEWalk::setMoveShape(const GNEMoveResult& moveResult) {
+    //
+}
+
+
+void 
+GNEWalk::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    //
+}
+
 /****************************************************************************/

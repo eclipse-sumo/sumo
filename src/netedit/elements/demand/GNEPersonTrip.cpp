@@ -524,4 +524,14 @@ GNEPersonTrip::setEnabledAttribute(const int /*enabledAttributes*/) {
 }
 
 
+void GNEPersonTrip::setMoveShape(const GNEMoveResult& moveResult) {
+    //
+}
+
+
+void
+GNEPersonTrip::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    //
+}
+
 /****************************************************************************/

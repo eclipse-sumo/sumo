@@ -505,4 +505,15 @@ GNERide::setEnabledAttribute(const int /*enabledAttributes*/) {
 }
 
 
+void 
+GNERide::setMoveShape(const GNEMoveResult& moveResult) {
+    //
+}
+
+
+void
+GNERide::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    //
+}
+
 /****************************************************************************/

@@ -601,4 +601,15 @@ GNERoute::setEnabledAttribute(const int /*enabledAttributes*/) {
 }
 
 
+void 
+GNERoute::setMoveShape(const GNEMoveResult& moveResult) {
+    //
+}
+
+
+void 
+GNERoute::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    //
+}
+
 /****************************************************************************/

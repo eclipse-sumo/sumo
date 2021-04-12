@@ -922,4 +922,15 @@ GNEPersonStop::setEnabledAttribute(const int enabledAttributes) {
 }
 
 
+void 
+GNEPersonStop::setMoveShape(const GNEMoveResult& moveResult) {
+    //
+}
+
+
+void
+GNEPersonStop::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    //
+}
+
 /****************************************************************************/

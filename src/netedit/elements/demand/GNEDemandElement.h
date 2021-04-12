@@ -49,7 +49,7 @@ class GNEJunction;
  * @class GNEDemandElement
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEDemandElement : public GUIGlObject, public GNEHierarchicalElement, public GNEPathManager::PathElement {
+class GNEDemandElement : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement, public GNEPathManager::PathElement {
 
 public:
     /**@brief Constructor
@@ -107,6 +107,9 @@ public:
      * @note returned GNEMoveOperation can be nullptr
      */
     virtual GNEMoveOperation* getMoveOperation(const double shapeOffset) = 0;
+    
+    /// @brief remove geometry point in the clicked position (Currently unused in shapes)
+    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
     /// @brief get ID
     const std::string& getID() const;
@@ -367,6 +370,12 @@ private:
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
+
+    /// @brief set move shape
+    virtual void setMoveShape(const GNEMoveResult& moveResult) = 0;
+
+    /// @brief commit move shape
+    virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
     /// @brief Invalidated copy constructor.
     GNEDemandElement(const GNEDemandElement&) = delete;
