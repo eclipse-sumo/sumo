@@ -308,6 +308,12 @@ SUMOVehicleParameter(vehicleParameters) {
 GNEVehicle::~GNEVehicle() {}
 
 
+GNEMoveOperation* 
+GNEVehicle::getMoveOperation(const double /*shapeOffset*/) {
+    return nullptr;
+}
+
+
 std::string
 GNEVehicle::getBegin() const {
     // obtain depart
@@ -473,30 +479,6 @@ GNEVehicle::getVClass() const {
 const RGBColor&
 GNEVehicle::getColor() const {
     return color;
-}
-
-
-void
-GNEVehicle::startGeometryMoving() {
-    // Vehicles cannot be moved
-}
-
-
-void
-GNEVehicle::endGeometryMoving() {
-    // Vehicles cannot be moved
-}
-
-
-void
-GNEVehicle::moveGeometry(const Position&) {
-    // Vehicles cannot be moved
-}
-
-
-void
-GNEVehicle::commitGeometryMoving(GNEUndoList*) {
-    // Vehicles cannot be moved
 }
 
 

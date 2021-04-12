@@ -22,6 +22,7 @@
 
 #include <netedit/elements/GNEHierarchicalElement.h>
 #include <netedit/GNEGeometry.h>
+#include <netedit/GNEMoveElement.h>
 #include <netedit/GNEPathManager.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
@@ -102,6 +103,11 @@ public:
     /// @brief Destructor
     virtual ~GNEDemandElement();
 
+    /**@brief get move operation for the given shapeOffset
+     * @note returned GNEMoveOperation can be nullptr
+     */
+    virtual GNEMoveOperation* getMoveOperation(const double shapeOffset) = 0;
+
     /// @brief get ID
     const std::string& getID() const;
 
@@ -169,22 +175,6 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
-    /// @brief begin geometry movement
-    virtual void startGeometryMoving() = 0;
-
-    /// @brief end geometry movement
-    virtual void endGeometryMoving() = 0;
-
-    /**@brief change the position of the element geometry without saving in undoList
-     * @param[in] offset Position used for calculate new position of geometry without updating RTree
-     */
-    virtual void moveGeometry(const Position& offset) = 0;
-
-    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-     * @param[in] undoList The undoList on which to register changes
-     */
-    virtual void commitGeometryMoving(GNEUndoList* undoList) = 0;
-
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 

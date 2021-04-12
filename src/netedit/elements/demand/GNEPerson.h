@@ -108,6 +108,11 @@ public:
     /// @brief destructor
     ~GNEPerson();
 
+    /**@brief get move operation for the given shapeOffset
+     * @note returned GNEMoveOperation can be nullptr
+     */
+    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+
     /**@brief get begin time of demand element
      * @note: used by demand elements of type "Person", and it has to be implemented as children
      * @throw invalid argument if demand element doesn't has a begin time
@@ -140,22 +145,6 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
-    /// @brief start geometry movement
-    void startGeometryMoving();
-
-    /// @brief end geometry movement
-    void endGeometryMoving();
-
-    /**@brief change the position of the element geometry without saving in undoList
-     * @param[in] offset Position used for calculate new position of geometry without updating RTree
-     */
-    void moveGeometry(const Position& offset);
-
-    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-     * @param[in] undoList The undoList on which to register changes
-     */
-    void commitGeometryMoving(GNEUndoList* undoList);
-
     /// @brief update pre-computed geometry information
     void updateGeometry();
 

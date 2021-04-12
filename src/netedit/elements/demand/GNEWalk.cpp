@@ -90,6 +90,12 @@ myArrivalPosition(arrivalPosition) {
 GNEWalk::~GNEWalk() {}
 
 
+GNEMoveOperation* 
+GNEWalk::getMoveOperation(const double /*shapeOffset*/) {
+    return nullptr;
+}
+
+
 GUIGLObjectPopupMenu*
 GNEWalk::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -210,70 +216,6 @@ GNEWalk::getVClass() const {
 const RGBColor&
 GNEWalk::getColor() const {
     return getParentDemandElements().front()->getColor();
-}
-
-
-void
-GNEWalk::startGeometryMoving() {
-/*
-    // only start geometry moving if arrival position isn't -1
-    if (myArrivalPosition != -1) {
-        // always save original position over view
-        myWalkMove.originalViewPosition = getPositionInView();
-        // save arrival position
-        myWalkMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_ARRIVALPOS);
-        // save current centering boundary
-        myWalkMove.movingGeometryBoundary = getCenteringBoundary();
-    }
-*/
-}
-
-
-void
-GNEWalk::endGeometryMoving() {
-/*
-    // check that myArrivalPosition isn't -1 and endGeometryMoving was called only once
-    if ((myArrivalPosition != -1) && myWalkMove.movingGeometryBoundary.isInitialised()) {
-        // reset myMovingGeometryBoundary
-        myWalkMove.movingGeometryBoundary.reset();
-    }
-*/
-}
-
-
-void
-GNEWalk::moveGeometry(const Position& offset) {
-/*
-    // only move if myArrivalPosition isn't -1
-    if (myArrivalPosition != -1) {
-        // Calculate new position using old position
-        Position newPosition = myWalkMove.originalViewPosition;
-        newPosition.add(offset);
-        // filtern position using snap to active grid
-        newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition);
-        // obtain lane shape (to improve code legibility)
-        const PositionVector& laneShape = getParentEdges().back()->getLanes().front()->getLaneShape();
-        // calculate offset lane
-        double offsetLane = laneShape.nearest_offset_to_point2D(newPosition, false) - laneShape.nearest_offset_to_point2D(myWalkMove.originalViewPosition, false);
-        // Update arrival Position
-        myArrivalPosition = parse<double>(myWalkMove.firstOriginalLanePosition) + offsetLane;
-        // Update geometry
-        updateGeometry();
-    }
-*/
-}
-
-
-void
-GNEWalk::commitGeometryMoving(GNEUndoList* undoList) {
-/*
-    // only commit geometry moving if myArrivalPosition isn't -1
-    if (myArrivalPosition != -1) {
-        undoList->p_begin("arrivalPos of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ARRIVALPOS, toString(myArrivalPosition), myWalkMove.firstOriginalLanePosition));
-        undoList->p_end();
-    }
-*/
 }
 
 

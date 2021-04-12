@@ -928,8 +928,7 @@ GNEViewNetHelper::MouseButtonKeyPressed::mouseRightButtonPressed() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::MoveSingleElementValues::MoveSingleElementValues(GNEViewNet* viewNet) :
-    myViewNet(viewNet),
-    myDemandElementToMove(nullptr) {
+    myViewNet(viewNet) {
 }
 
 
@@ -1077,17 +1076,20 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
 
 bool
 GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementDemandMode() {
-    // first obtain moving reference (common for all)
-    myRelativeClickedPosition = myViewNet->getPositionInformation();
-    // check what type of AC will be moved
-    if (myViewNet->myObjectsUnderCursor.getDemandElementFront() &&
-            (myViewNet->myObjectsUnderCursor.getAttributeCarrierFront() == myViewNet->myObjectsUnderCursor.getDemandElementFront())) {
-        // set additionals moved object
-        myDemandElementToMove = myViewNet->myObjectsUnderCursor.getDemandElementFront();
-        // start demand element geometry moving
-        myDemandElementToMove->startGeometryMoving();
-        // there is moved items, then return true
-        return true;
+    // get demand element front
+    GNEDemandElement* demandElement = myViewNet->myObjectsUnderCursor.getDemandElementFront();
+    // check demand element
+    if (demandElement && (myViewNet->myObjectsUnderCursor.getAttributeCarrierFront() == demandElement)) {
+        // get move operation
+        GNEMoveOperation* moveOperation = demandElement->getMoveOperation(0);
+        // continue if move operation is valid
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
+            return true;
+        } else {
+            return false;
+        }
+
     } else {
         // there isn't moved items, then return false
         return false;
@@ -1099,11 +1101,6 @@ void
 GNEViewNetHelper::MoveSingleElementValues::moveSingleElement(const bool mouseLeftButtonPressed) {
     // calculate offsetMovement
     const Position offsetMovement = calculateOffset();
-    // calculate movement for demand (temporal)
-    if (myDemandElementToMove/* && (myDemandElementToMove->isDemandElementBlocked() == false)*/) {
-        // Move DemandElement geometry without commiting changes
-        myDemandElementToMove->moveGeometry(offsetMovement);
-    }
     // check if mouse button is pressed
     if (mouseLeftButtonPressed) {
         // iterate over all operations
@@ -1129,12 +1126,6 @@ void
 GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
     // calculate offsetMovement
     const Position offsetMovement = calculateOffset();
-    // finish demand (temporal)
-    if (myDemandElementToMove) {
-        myDemandElementToMove->commitGeometryMoving(myViewNet->getUndoList());
-        myDemandElementToMove->endGeometryMoving();
-        myDemandElementToMove = nullptr;
-    }
     // finish all move operations
     for (const auto& moveOperation : myMoveOperations) {
         GNEMoveElement::commitMove(myViewNet, moveOperation, offsetMovement, myViewNet->getUndoList());

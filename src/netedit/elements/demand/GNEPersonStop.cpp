@@ -51,6 +51,12 @@ GNEPersonStop::GNEPersonStop(GNENet* net, GNEDemandElement* personParent, GNEEdg
 GNEPersonStop::~GNEPersonStop() {}
 
 
+GNEMoveOperation* 
+GNEPersonStop::getMoveOperation(const double /*shapeOffset*/) {
+    return nullptr;
+}
+
+
 std::string
 GNEPersonStop::getBegin() const {
     return "";
@@ -152,99 +158,6 @@ GNEPersonStop::getVClass() const {
 const RGBColor&
 GNEPersonStop::getColor() const {
     return myNet->getViewNet()->getVisualisationSettings().colorSettings.personStops;
-}
-
-
-void
-GNEPersonStop::startGeometryMoving() {
-/*
-    // only start geometry moving if stop is placed over a edge
-    if (getFirstAllowedLane() != nullptr) {
-        // always save original position over view
-        myOriginalViewPosition = getPositionInView();
-        // save start and end position
-        myFirstOriginalLanePosition = getAttribute(SUMO_ATTR_STARTPOS);
-        mySecondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);
-        // save current centering boundary
-        myMovingGeometryBoundary = getCenteringBoundary();
-    }
-    */
-}
-
-
-void
-GNEPersonStop::endGeometryMoving() {
-/*
-    // check that stop is placed over a lane and endGeometryMoving was called only once
-    if (getFirstAllowedLane() != nullptr && myMovingGeometryBoundary.isInitialised()) {
-        // reset myMovingGeometryBoundary
-        myMovingGeometryBoundary.reset();
-    }
-*/
-}
-
-
-void
-GNEPersonStop::moveGeometry(const Position& offset) {
-/*
-    // get lane
-    const GNELane* const firstLane = getFirstAllowedLane();
-    // only move if at leats start or end positions is defined
-    if (firstLane != nullptr && ((parametersSet & STOP_START_SET) || (parametersSet & STOP_END_SET))) {
-        // Calculate new position using old position
-        Position newPosition = myOriginalViewPosition;
-        newPosition.add(offset);
-        // filtern position using snap to active grid
-        newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition);
-        double offsetLane = firstLane->getLaneShape().nearest_offset_to_point2D(newPosition, false) - firstLane->getLaneShape().nearest_offset_to_point2D(myOriginalViewPosition, false);
-        // check if both position has to be moved
-        if ((parametersSet & STOP_START_SET) && (parametersSet & STOP_END_SET)) {
-            // calculate stoppingPlace length and lane length (After apply geometry factor)
-            double stoppingPlaceLength = fabs(parse<double>(mySecondOriginalPosition) - parse<double>(myFirstOriginalLanePosition));
-            double laneLengt = getParentEdges().front()->getNBEdge()->getFinalLength() * firstLane->getLengthGeometryFactor();
-            // avoid changing stopping place's length
-            if ((parse<double>(myFirstOriginalLanePosition) + offsetLane) < 0) {
-                startPos = 0;
-                endPos = stoppingPlaceLength;
-            } else if ((parse<double>(mySecondOriginalPosition) + offsetLane) > laneLengt) {
-                startPos = laneLengt - stoppingPlaceLength;
-                endPos = laneLengt;
-            } else {
-                startPos = parse<double>(myFirstOriginalLanePosition) + offsetLane;
-                endPos = parse<double>(mySecondOriginalPosition) + offsetLane;
-            }
-        } else {
-            // check if start position must be moved
-            if ((parametersSet & STOP_START_SET)) {
-                startPos = parse<double>(myFirstOriginalLanePosition) + offsetLane;
-            }
-            // check if start position must be moved
-            if ((parametersSet & STOP_END_SET)) {
-                endPos = parse<double>(mySecondOriginalPosition) + offsetLane;
-            }
-        }
-        // update geometry
-        updateGeometry();
-    }
-*/
-}
-
-
-void
-GNEPersonStop::commitGeometryMoving(GNEUndoList* undoList) {
-/*
-    // only commit geometry moving if at leats start or end positions is defined
-    if (getFirstAllowedLane() != nullptr && ((parametersSet & STOP_START_SET) || (parametersSet & STOP_END_SET))) {
-        undoList->p_begin("position of " + getTagStr());
-        if (parametersSet & STOP_START_SET) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(startPos), myFirstOriginalLanePosition));
-        }
-        if (parametersSet & STOP_END_SET) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(endPos), mySecondOriginalPosition));
-        }
-        undoList->p_end();
-    }
-*/
 }
 
 

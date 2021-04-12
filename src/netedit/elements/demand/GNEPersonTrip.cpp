@@ -85,6 +85,12 @@ myModes(modes) {
 GNEPersonTrip::~GNEPersonTrip() {}
 
 
+GNEMoveOperation* 
+GNEPersonTrip::getMoveOperation(const double /*shapeOffset*/) {
+    return nullptr;
+}
+
+
 GUIGLObjectPopupMenu*
 GNEPersonTrip::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -196,70 +202,6 @@ GNEPersonTrip::getVClass() const {
 const RGBColor&
 GNEPersonTrip::getColor() const {
     return getParentDemandElements().front()->getColor();
-}
-
-
-void
-GNEPersonTrip::startGeometryMoving() {
-/*
-    // only start geometry moving if arrival position isn't -1
-    if (myArrivalPosition != -1) {
-        // always save original position over view
-        myPersonTripMove.originalViewPosition = getPositionInView();
-        // save arrival position
-        myPersonTripMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_ARRIVALPOS);
-        // save current centering boundary
-        myPersonTripMove.movingGeometryBoundary = getCenteringBoundary();
-    }
-*/
-}
-
-
-void
-GNEPersonTrip::endGeometryMoving() {
-/*
-    // check that myArrivalPosition isn't -1 and endGeometryMoving was called only once
-    if ((myArrivalPosition != -1) && myPersonTripMove.movingGeometryBoundary.isInitialised()) {
-        // reset myMovingGeometryBoundary
-        myPersonTripMove.movingGeometryBoundary.reset();
-    }
-*/
-}
-
-
-void
-GNEPersonTrip::moveGeometry(const Position& offset) {
-/*
-    // only move if myArrivalPosition isn't -1
-    if (myArrivalPosition != -1) {
-        // Calculate new position using old position
-        Position newPosition = myPersonTripMove.originalViewPosition;
-        newPosition.add(offset);
-        // filtern position using snap to active grid
-        newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition);
-        // obtain lane shape (to improve code legibility)
-        const PositionVector& laneShape = getParentEdges().back()->getLanes().front()->getLaneShape();
-        // calculate offset lane
-        double offsetLane = laneShape.nearest_offset_to_point2D(newPosition, false) - laneShape.nearest_offset_to_point2D(myPersonTripMove.originalViewPosition, false);
-        // Update arrival Position
-        myArrivalPosition = parse<double>(myPersonTripMove.firstOriginalLanePosition) + offsetLane;
-        // Update geometry
-        updateGeometry();
-    }
-*/
-}
-
-
-void
-GNEPersonTrip::commitGeometryMoving(GNEUndoList* undoList) {
-/*
-    // only commit geometry moving if myArrivalPosition isn't -1
-    if (myArrivalPosition != -1) {
-        undoList->p_begin("arrivalPos of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ARRIVALPOS, toString(myArrivalPosition), myPersonTripMove.firstOriginalLanePosition));
-        undoList->p_end();
-    }
-*/
 }
 
 

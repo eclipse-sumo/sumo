@@ -125,6 +125,12 @@ myVClass(route->getVClass()) {
 GNERoute::~GNERoute() {}
 
 
+GNEMoveOperation* 
+GNERoute::getMoveOperation(const double /*shapeOffset*/) {
+    return nullptr;
+}
+
+
 GUIGLObjectPopupMenu*
 GNERoute::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GNERoutePopupMenu(app, parent, *this);
@@ -216,30 +222,6 @@ GNERoute::getVClass() const {
 const RGBColor&
 GNERoute::getColor() const {
     return myColor;
-}
-
-
-void
-GNERoute::startGeometryMoving() {
-    // Routes cannot be moved
-}
-
-
-void
-GNERoute::endGeometryMoving() {
-    // Routes cannot be moved
-}
-
-
-void
-GNERoute::moveGeometry(const Position&) {
-    // Routes cannot be moved
-}
-
-
-void
-GNERoute::commitGeometryMoving(GNEUndoList*) {
-    // Routes cannot be moved
 }
 
 

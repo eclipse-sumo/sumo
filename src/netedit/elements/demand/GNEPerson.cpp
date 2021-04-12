@@ -172,6 +172,12 @@ SUMOVehicleParameter(personparameters) {
 GNEPerson::~GNEPerson() {}
 
 
+GNEMoveOperation* GNEPerson::getMoveOperation(const double /*shapeOffset*/) {
+
+    return nullptr;
+}
+
+
 std::string
 GNEPerson::getBegin() const {
     // obtain depart depending if is a Person, trip or routeFlow
@@ -266,30 +272,6 @@ GNEPerson::getVClass() const {
 const RGBColor&
 GNEPerson::getColor() const {
     return color;
-}
-
-
-void
-GNEPerson::startGeometryMoving() {
-    // Persons cannot be moved
-}
-
-
-void
-GNEPerson::endGeometryMoving() {
-    // Persons cannot be moved
-}
-
-
-void
-GNEPerson::moveGeometry(const Position&) {
-    // Persons cannot be moved
-}
-
-
-void
-GNEPerson::commitGeometryMoving(GNEUndoList*) {
-    // Persons cannot be moved
 }
 
 

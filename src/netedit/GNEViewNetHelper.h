@@ -867,9 +867,6 @@ struct GNEViewNetHelper {
         /// @brief relative position of Clicked Position regarding to originalGeometryPointPosition (Used when user doesn't click exactly over the center of element)
         Position myRelativeClickedPosition;
 
-        /// @brief the demand element which position is being moved
-        GNEDemandElement* myDemandElementToMove;
-
         /// @brief move operations
         std::vector<GNEMoveOperation*> myMoveOperations;
     };

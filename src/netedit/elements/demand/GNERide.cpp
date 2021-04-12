@@ -79,6 +79,12 @@ myLines(lines) {
 GNERide::~GNERide() {}
 
 
+GNEMoveOperation* 
+GNERide::getMoveOperation(const double /*shapeOffset*/) {
+    return nullptr;
+}
+
+
 GUIGLObjectPopupMenu*
 GNERide::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -188,70 +194,6 @@ GNERide::getVClass() const {
 const RGBColor&
 GNERide::getColor() const {
     return getParentDemandElements().front()->getColor();
-}
-
-
-void
-GNERide::startGeometryMoving() {
-/*
-    // only start geometry moving if arrival position isn't -1
-    if (myArrivalPosition != -1) {
-        // always save original position over view
-        myRideMove.originalViewPosition = getPositionInView();
-        // save arrival position
-        myRideMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_ARRIVALPOS);
-        // save current centering boundary
-        myRideMove.movingGeometryBoundary = getCenteringBoundary();
-    }
-*/
-}
-
-
-void
-GNERide::endGeometryMoving() {
-/*
-    // check that myArrivalPosition isn't -1 and endGeometryMoving was called only once
-    if ((myArrivalPosition != -1) && myRideMove.movingGeometryBoundary.isInitialised()) {
-        // reset myMovingGeometryBoundary
-        myRideMove.movingGeometryBoundary.reset();
-    }
-*/
-}
-
-
-void
-GNERide::moveGeometry(const Position& offset) {
-/*
-    // only move if myArrivalPosition isn't -1
-    if (myArrivalPosition != -1) {
-        // Calculate new position using old position
-        Position newPosition = myRideMove.originalViewPosition;
-        newPosition.add(offset);
-        // filtern position using snap to active grid
-        newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition);
-        // obtain lane shape (to improve code legibility)
-        const PositionVector& laneShape = getParentEdges().back()->getLanes().front()->getLaneShape();
-        // calculate offset lane
-        double offsetLane = laneShape.nearest_offset_to_point2D(newPosition, false) - laneShape.nearest_offset_to_point2D(myRideMove.originalViewPosition, false);
-        // Update arrival Position
-        myArrivalPosition = parse<double>(myRideMove.firstOriginalLanePosition) + offsetLane;
-        // Update geometry
-        updateGeometry();
-    }
-*/
-}
-
-
-void
-GNERide::commitGeometryMoving(GNEUndoList* undoList) {
-/*
-    // only commit geometry moving if myArrivalPosition isn't -1
-    if (myArrivalPosition != -1) {
-        undoList->p_begin("arrivalPos of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ARRIVALPOS, toString(myArrivalPosition), myRideMove.firstOriginalLanePosition));
-        undoList->p_end();
-    }
-*/
 }
 
 

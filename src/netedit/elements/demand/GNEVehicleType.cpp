@@ -76,6 +76,12 @@ myDefaultVehicleTypeModified(false) {
 GNEVehicleType::~GNEVehicleType() {}
 
 
+GNEMoveOperation* 
+GNEVehicleType::getMoveOperation(const double /*shapeOffset*/) {
+    return nullptr;
+}
+
+
 void
 GNEVehicleType::writeDemandElement(OutputDevice& device) const {
     // only write default vehicle types if it was modified
@@ -98,30 +104,6 @@ GNEVehicleType::getVClass() const {
 const RGBColor&
 GNEVehicleType::getColor() const {
     return color;
-}
-
-
-void
-GNEVehicleType::startGeometryMoving() {
-    // VTypes cannot be moved
-}
-
-
-void
-GNEVehicleType::endGeometryMoving() {
-    // VTypes cannot be moved
-}
-
-
-void
-GNEVehicleType::moveGeometry(const Position&) {
-    // VTypes cannot be moved
-}
-
-
-void
-GNEVehicleType::commitGeometryMoving(GNEUndoList*) {
-    // VTypes cannot be moved
 }
 
 
