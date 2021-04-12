@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Git Master
+## Version 1.9.0 (13.04.2021)
 
 ### Bugfixes
 - Simulation
@@ -202,6 +202,7 @@ title: ChangeLog
   - Added option **--osm.extra-attributes** to import addional edge attributes (osm tags) as generic parameters. Issue #8322
   - Added option **--osm.lane-access** for import of extra lane access permissions (experimental). Issue #7601
   - Option **--output.street-names** is now working for  VISUM network. Issue #8418
+  - MatSim import can now split self loops and handle "half" lanes. Issue #8047, #7947
   
 - netgenerate
   - Releaxed restrictions on minimum edge lengths when building grid and spider networks. Issue #8272
@@ -215,6 +216,10 @@ title: ChangeLog
 
 - dfrouter
   - Added option **--vclass** to filter eligble edges in a multi-modal network. Issue #8408
+
+- Routing (duarouter / sumo)
+  - The landmark table format changed to a more compressed version (old tables are still readable). Issue #8153
+  - Gzipped landmark tables can now be read as well. Issue #8153
 
 - TraCI
   - [libtraci](Libtraci.md) is now the "officially supported" library for the Java, Python and C++ TraCI clients, providing (functional) identical interfaces for all three languages. TraaS and the old C++ TraCI API are considered deprecated.
@@ -245,7 +250,10 @@ title: ChangeLog
 
 - Miscellaneous
   - Fixed "Error: Cannot get file attributes" when loading large files on Windows and macOS. Issue #6620
-  - Clang build now works on Windows (Visual Studio) #8123
+  - Clang build now works on Windows (Visual Studio) Issue #8123
+  - Python3 is now the default and recommended python Issue #5700
+  - The released windows binaries are now built using Visual Studio 2019
+  - XML parsing can now handle https references to schemas on Windows
 
 - netedit
   - When using rectangle selection, junctions of selected edges are now added to the selection by default. Issue #8406
