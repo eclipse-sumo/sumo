@@ -13,7 +13,7 @@ may also [download pre-build Windows binaries](../Downloads.md).
 
 - A [Visual Studio Community, Professional or Enterprise 2015 or later](https://www.visualstudio.com) installation
 - [CMake for Windows](https://cmake.org/download)
-- Python
+- Python 3.X
 - SUMO sources (either an unpacked src zip or a git clone, see
   [Getting the source code](../Installing/Linux_Build.md#getting_the_source_code))
 - Installed Libraries (Xerces-C, Proj, Fox) preferably by cloning <https://github.com/DLR-TS/SUMOLibraries/>
@@ -84,9 +84,6 @@ pointing to the resulting directory. They are build using Visual Studio
 2019, but may be used with earlier and later versions as well. You may
 need to install the Visual C++ 2019 Runtime Distributable for running
 SUMO (tested with Visual Studio 2019). 
-
-!!! Caution
-    When cloning SUMOLibraries you must initialize all submodules with `git submodule update --init`
 
 For details on building your
 own and also on how to use different versions and additional libraries
@@ -209,33 +206,3 @@ MSVCR140.dll). You can check if all dependencies are correct using
 ### In debug mode, execution cannot proceed because MSVCR120D.dll/MSVCR140D.dll was not found
 
 Your version of Visual Studio doesn't support Debugging, you can only compile in release mode.
-
-## Available configurations and additional options
-
-- The release build is used for the distribution of SUMO. The Debug build
-allows all debugging features. Keep in mind that
-[Texttest](../Developer/Tests.md) usually picks up the release
-build.
-  - Release: All optimizations, assertions disabled, no debugging
-    symbols, links against external release libs
-  - Debug: No optimizations, assertions enabled, debugging symbols
-    included, links against external debug libs
-
-- Left clicking over Solution/Properties/Configuration Manager allow to
-change between configurations:
-
-![](../images/SwichDebugRelease.png)
-
-- To switch to a different target platform (e.g. 32bit instead of 64bit) please
-run CMake again with a different generator. Do not use Visual Studio to add a different platform.
-- Naming Conventions: 64bit executables have the same name as their 32bit
-counterpart. The Debug build additionally carries the suffix 'D'.
-- To enable [Libsumo](../Libsumo.md) add SWIG dir and exe for
-building Python and Java bindings:
-  - Make sure Python and a JDK are installed
-  - Python will only work with the release build (unless you compile
-    a debug version of Python yourself)
-- To disable certain features delete all values referring to the
-feature (e.g. to disable GDAL remove GDAL_INCLUDE_DIR and
-GDAL_LIBRARY in the CMake GUI or in CMakeCache.txt) and run the
-generator again.
