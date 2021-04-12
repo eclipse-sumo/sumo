@@ -33,6 +33,7 @@ formats. Following files can be generated, sorted by application:
 - [KML](https://en.wikipedia.org/wiki/Keyhole_Markup_Language)
 - [Kepler-JSON](https://kepler.gl/)
 - IPG Traces (experimental)
+- [SSAM trajectories](https://github.com/OSADP/SSAM)
 - [POIs](../Simulation/Shapes.md#poi_point_of_interest_definitions)
   (can visualize GPS distortions and sampling in
   [sumo-gui](../sumo-gui.md))
@@ -140,6 +141,20 @@ the application,
 | Option              | Description                       |
 |---------------------|-----------------------------------|
 | **--kml-output** {{DT_FILE}} | Generates a KML file named {{DT_FILE}} |
+
+### IPG
+
+| Option              | Description                       |
+|---------------------|-----------------------------------|
+| **--ipg-output** {{DT_FILE}} | Generates a IPG file named {{DT_FILE}} |
+
+### SSAM
+
+| Option                      | Description                                     |
+|-----------------------------|-------------------------------------------------|
+| **--trj-output** {{DT_FILE}}   | Generates the SSAM trajectory file named {{DT_FILE}} |
+| **--trj-veh-width** {{DT_FILE}} | vehicle width for trajectory generation
+| **--trj-veh-length** {{DT_FILE}} | vehicle length for trajectory generation
 
 ### fcd
 
