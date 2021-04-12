@@ -182,10 +182,10 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
         ret = subprocess.call(["cmake", "--build", ".", "--config", "Release"],
                               cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         if os.path.exists(os.path.join(buildDir, "src", "libsumo", "libsumo.vcxproj")):
-            subprocess.call(["cmake", "--build", ".", "--target", "libsumo"],
+            subprocess.call(["cmake", "--build", ".", "--config", "Release", "--target", "libsumo"],
                             cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         if os.path.exists(os.path.join(buildDir, "src", "libtraci", "libtraci.vcxproj")):
-            subprocess.call(["cmake", "--build", ".", "--target", "libtraci"],
+            subprocess.call(["cmake", "--build", ".", "--config", "Release", "--target", "libtraci"],
                             cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         subprocess.call(["cmake", "--build", ".", "--target", "lisum"],
                         cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
@@ -260,6 +260,12 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
         with open(makeAllLog, 'a') as debugLog:
             ret = subprocess.call(["cmake", "--build", ".", "--config", "Debug"],
                                   cwd=buildDir, stdout=debugLog, stderr=subprocess.STDOUT)
+            if os.path.exists(os.path.join(buildDir, "src", "libsumo", "libsumo.vcxproj")):
+                subprocess.call(["cmake", "--build", ".", "--config", "Debug", "--target", "libsumo"],
+                                cwd=buildDir, stdout=debugLog, stderr=subprocess.STDOUT)
+            if os.path.exists(os.path.join(buildDir, "src", "libtraci", "libtraci.vcxproj")):
+                subprocess.call(["cmake", "--build", ".", "--config", "Debug", "--target", "libtraci"],
+                                cwd=buildDir, stdout=debugLog, stderr=subprocess.STDOUT)
             if ret == 0 and sumoAllZip:
                 status.printLog("Creating sumoDebug.zip.", debugLog)
                 try:
@@ -268,6 +274,8 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                     for ext in ("*D.exe", "*.dll", "*D.pdb"):
                         for f in glob.glob(os.path.join(options.rootDir, options.binDir, ext)):
                             zipf.write(f, os.path.join(binDir, os.path.basename(f)))
+                    for f in glob.glob(os.path.join(toolsDir, "lib*", "*lib*.p*")):
+                        zipf.write(f, binDir.replace("bin", "tools") + f[len(toolsDir):])
                     zipf.close()
                 except IOError as ziperr:
                     status.printLog("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), debugLog)
