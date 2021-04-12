@@ -661,27 +661,27 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::buildDemandView
                           myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID);
 
     menuCheckDrawSpreadVehicles = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                                  "Draw vehicles spread/depart position", "", "",
+                                  "Draw vehicles spread/depart position", "Alt+2", "",
                                   GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SPREADVEHICLE),
                                   myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES);
 
     menuCheckHideShapes = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                          "Toggle show shapes", "", "",
+                          "Toggle show shapes", "Alt+3", "",
                           GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDESHAPES),
                           myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES);
 
     menuCheckShowAllPersonPlans = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                                  "Show all person plans", "", "",
+                                  "Show all person plans", "Alt+4", "",
                                   GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWPERSONPLANS),
                                   myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS);
 
     menuCheckLockPerson = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                          "Lock selected person", "", "",
+                          "Lock selected person", "Alt+5", "",
                           GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_LOCKPERSON),
                           myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON);
 
     menuCheckHideNonInspectedDemandElements = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Toggle show non-inspected demand elements", "", "",
+        "Toggle show non-inspected demand elements", "Alt+6", "",
         GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS),
         myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED);
 
