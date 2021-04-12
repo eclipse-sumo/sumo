@@ -106,6 +106,24 @@ python tools/route/cutRoutes.py reduced.net.xml orig.rou.xml 
 
 Filtering stopping places is also supported by setting the options **--additional-input** and **--stops-output**.
 
+# splitRouteFiles.py
+
+This script splits a list of route files (e.g. coming from [duarouter](../duarouter.md))
+by start time. If a detector file is given, the routes will be also split by 
+the edges with detectors. Example:
+
+```
+python tools/route/splitRouteFiles.py <route-files>
+```
+
+As default, the routes will be split in steps of 900 seconds. This can be changed
+with the option **-s**. 
+The detector file can be loaded with the option **-f**. Example:
+
+```
+python tools/route/splitRouteFiles.py <route-files> -f <detector-file>
+```
+
 # routeStats.py
 
 Compute a length-histogram for all routes in a given route file.
