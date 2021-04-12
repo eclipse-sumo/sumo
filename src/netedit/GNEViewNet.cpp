@@ -813,22 +813,6 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         } else {
             myDemandViewOptions.menuCheckShowAllPersonPlans->enable();
         }
-        // check if menuCheckLockPerson must be enabled or disabled
-        if (myDemandViewOptions.menuCheckLockPerson->amChecked() == FALSE) {
-            // check if we're in inspector mode and we're inspecting exactly one element
-            if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) && myInspectedAttributeCarriers.size() > 0) {
-                // obtain tag property
-                const GNETagProperties& tagProperty = myInspectedAttributeCarriers.front()->getTagProperty();
-                // enable menu check lock person if is either a person, a person plan or a person stop
-                if (tagProperty.isPerson() || tagProperty.isPersonPlan() || tagProperty.isPersonStop()) {
-                    myDemandViewOptions.menuCheckLockPerson->enable();
-                } else {
-                    myDemandViewOptions.menuCheckLockPerson->disable();
-                }
-            } else {
-                myDemandViewOptions.menuCheckLockPerson->disable();
-            }
-        }
     }
     // draw elements
     glLineWidth(1);
@@ -3140,7 +3124,7 @@ GNEViewNet::onCmdToggleLockPerson(FXObject*, FXSelector sel, void*) {
     // Toggle menuCheckLockPerson
     if (myDemandViewOptions.menuCheckLockPerson->amChecked() == TRUE) {
         myDemandViewOptions.menuCheckLockPerson->setChecked(FALSE);
-    } else {
+    } else if ((myInspectedAttributeCarriers.size() > 0) && myInspectedAttributeCarriers.front()->getTagProperty().isPerson()) {
         myDemandViewOptions.menuCheckLockPerson->setChecked(TRUE);
     }
     myDemandViewOptions.menuCheckLockPerson->update();
@@ -3152,19 +3136,13 @@ GNEViewNet::onCmdToggleLockPerson(FXObject*, FXSelector sel, void*) {
             // lock person depending if casted demand element is either a person or a person plan
             if (personOrPersonPlan->getTagProperty().isPerson()) {
                 myDemandViewOptions.lockPerson(personOrPersonPlan);
-                // change menuCheckLockPerson text
-                myDemandViewOptions.menuCheckLockPerson->setText(("unlock " + personOrPersonPlan->getID()).c_str());
             } else {
                 myDemandViewOptions.lockPerson(personOrPersonPlan->getParentDemandElements().front());
-                // change menuCheckLockPerson text
-                myDemandViewOptions.menuCheckLockPerson->setText(("unlock " + personOrPersonPlan->getParentDemandElements().front()->getID()).c_str());
             }
         }
     } else {
         // unlock current person
         myDemandViewOptions.unlockPerson();
-        // change menuCheckLockPerson text
-        myDemandViewOptions.menuCheckLockPerson->setText("lock person");
     }
     // update view
     updateViewNet();
