@@ -27,7 +27,7 @@ title: ChangeLog
   - Fixed invalid waiting pedestrian count at busStop which caused invalid pedestrian jamming. Issue #8366
   - Fixed crash after junction collision with stoptime. Issue #8359  
   - Attribute departLane is no longer ignored when validating attribute departSpeed. Issue #8226
-  - Perons and containers with a `<stop>` stage at a busStop are now assigned to that stop instead of just waiting on the edge. Issue #8436
+  - Persons and containers with a `<stop>` stage at a busStop are now assigned to that stop instead of just waiting on the edge. Issue #8436
   - Fixed invalid edgeData output if simulation begin is later than edgeData begin. Issue #8464
   - Sublane model fixes
     - Fixed deadlock in roundabout. Issue #7935
