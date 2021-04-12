@@ -6,6 +6,7 @@ title: ChangeLog
 
 ### Bugfixes
 - Simulation
+   Option **--xml-validation.net** is now working again. Issue #8107 (regression in 1.5.0)
   - Fixed disappearing vehicle when transporting containers with taxi. Issue #7893
   - Fixed collisions between pedestrians and vehicles on shared space #7960
   - Vehicles with low (desired) decel value will no longer perform an emergency stop when caught in the "Yellow Light Dilemma Zone". Instead they will brake with decel **--tls.yellow.min-decel** (default: 3) as long as they have a sufficiently high emergencyDecel value. Issue #7956
@@ -24,7 +25,10 @@ title: ChangeLog
   - Fixed invalid chargingSstation-output and overheadwiresegments-output in subsecond simulation or when multiple vehicles are charging at the same element simultaneously. Issue #8351
   - Fixed invalid depart position when using departPos="stop" with a full parkingArea. Issue #8338
   - Fixed invalid waiting pedestrian count at busStop which caused invalid pedestrian jamming. Issue #8366
-  - Fixed crash after junction collision with stoptime. Issue #8359
+  - Fixed crash after junction collision with stoptime. Issue #8359  
+  - Attribute departLane is no longer ignored when validating attribute departSpeed. Issue #8226
+  - Perons and containers with a `<stop>` stage at a busStop are now assigned to that stop instead of just waiting on the edge. Issue #8436
+  - Fixed invalid edgeData output if simulation begin is later than edgeData begin. Issue #8464
   - Sublane model fixes
     - Fixed deadlock in roundabout. Issue #7935
     - Fixed invalid deceleration at intersection due to misinterpreting lateral position of approaching foes #7925
@@ -39,6 +43,7 @@ title: ChangeLog
     - Fixed unsafe driving. Issue #8082, #8084, #8112, #8141
     - Fixed late change to the opposite side due to misidentification of oncoming vehicle #8080
     - Fixed premature arrival while on the opposite side. Issue #8199
+    - Fixed Error when using continuous lane-changing with a looped route #8471
 
 - meso
   - Fixed invalid jam-front back-propagation speed. Issue #8000 (Regression in 1.7.0)
@@ -80,6 +85,7 @@ title: ChangeLog
   - Option **--geometry.max-segment-length** now takes effect when importing from .edg.xml without edge attribute shape. Issue #8362
   - Fixed invalid z-data when importing geotiff. Issue #8364
   - Fixed invalid error when loading heightmap from geotiff with different color depths. Issue #8365
+  - Fixed crash when loaded roundabouts are removed due to option  **--keep-edges.components**. Issue #8465
   
 - polyconvert
   - POIs are now correctly imported from VISUM files. Issue #8414
@@ -89,6 +95,9 @@ title: ChangeLog
 
 - od2trips
   - Fixed invalid begin and end times when writting personFlows. Issue #7885
+
+- duarouter
+  - Fixed invalid routes when using option **--remove-loops** with **--with-taz**. Issue #8451
   
 - TraCI
   - Function 'vehicle.getSpeedWithoutTraCI' now returns original model speeds after calling moveToXY. Issue #7190
@@ -104,9 +113,14 @@ title: ChangeLog
   - Route replacement with internal edge at the start of the edges list no longer causes an error. Issue #8231
   - Fixed failure to add stop when close to the stop position (but not quite too close). Also affected taxi re-dispatch. Issue #8285,#8398  
   - Looped taxi-dispatch now picks up persons in the intended order. Issue #8295
+  - Fixed bug where traci.vehicle.dispatchTaxi could generate non-continuous routes. Issue #8424
   - Fixed crash after calling 'person.removeStage' on a riding stage. Issue #8305
   - Fixed crash after removing persons that have an open taxi reservation #8363
   - Fixed invalid traceFile output. Issue #8320, #8323
+  - Fixed missing default vehicle types after calling simulation.loadState. Issue #8410
+  - Fixed invalid error related to subscriptions after calling simulation.loadState. Issue #8426
+  - Fixed memory leak when calling simulation.loadState. Issue #8450
+  - Fixed invalid build dependencies for libsumo. Issue #8472
   
 - Tools
   - Fixed error in xml2csv.py when loading files names consists only of numbers. Issue #7910
@@ -220,9 +234,12 @@ title: ChangeLog
   - The tool [gridDistricts.py](Tools/District.md#griddistrictspy) can be used to generated a grid of districts (TAZs) for a given network. #7946
   - [netcheck.py](Tools/Net.md#netcheckpy) now supports option **--print-types** to analyze the edge types of the different network components. Issue #8097
   - The tool [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy) can now handle inconsistent schedule input without generating deadlocking constraints when setting option **--abort-unordered**. Issue #7436, #8246, #8278
+  - The tool [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy) can now generate redundant constraints by setting option **--redundant TIME**. Issue #8456
   - When loading additional weights in for [duaIterate.py](Demand/Dynamic_User_Assignment.md#iterative_assignment_dynamic_user_equilibrium), the new option **--addweights.once** controls whether the weights are to be effective in every iteration or not. The new default is to apply them in every iteration whereas previously, they were applied only in the first iteration. Issue #8249
-  - Added new tool [splitRandom.py](Tools/Routes.md#splitrandompy). Issue #8324
-  - Added new tool [changeAttribute.py](Tools/Xml.md#changeattributepy). Issue #8339
+  - Added new tool [splitRandom.py](Tools/Routes.md#splitrandompy). to split route files into random subsets. Issue #8324
+  - Added new tool [changeAttribute.py](Tools/Xml.md#changeattributepy) to add/change/remove xml attributes. Issue #8339
+  - Added new tool [computeStoppingPlaceUsage.py](Tools/Output.md#computestoppingplaceusagepy) to compute running occupancy of parking ares from stop-output. Issue #8405
+  - [traceExporter.py](Tools/TraceExporter.md) now supports SSAM trajectories. Issue #8051
 
 ### Other
 
