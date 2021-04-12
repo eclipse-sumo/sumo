@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 18 10:23:10 2020 by Eclipse SUMO netconvert Version v1_7_0+1088-46b7762484
+<!-- generated on Mon Apr 12 21:15:30 2021 by Eclipse SUMO netconvert Version v1_8_0+1985-b3699bc617
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -112,6 +112,7 @@
             <xsd:element name="geometry.remove" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="geometry.remove.keep-edges.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="geometry.remove.keep-edges.input-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.remove.keep-ptstops" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="geometry.remove.min-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="geometry.remove.width-tolerance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="geometry.max-segment-length" type="floatOptionType" minOccurs="0"/>
@@ -159,6 +160,7 @@
             <xsd:element name="default.sidewalk-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.bikelane-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.crossing-width" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="default.allow" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.disallow" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.junctions.keep-clear" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="default.junctions.radius" type="floatOptionType" minOccurs="0"/>
@@ -199,6 +201,7 @@
             <xsd:element name="tls.quarter-offset" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="tls.default-type" type="strOptionType" minOccurs="0"/>
             <xsd:element name="tls.layout" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="tls.no-mixed" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.min-dur" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.max-dur" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.group-signals" type="boolOptionType" minOccurs="0"/>
@@ -306,6 +309,7 @@
         <xsd:all>
             <xsd:element name="railway.signals.discard" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.topology.repair" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="railway.topology.repair.minimal" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.topology.repair.connect-straight" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.topology.repair.stop-turn" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.topology.all-bidi" type="boolOptionType" minOccurs="0"/>
@@ -320,16 +324,19 @@
     <xsd:complexType name="formatsTopicType">
         <xsd:all>
             <xsd:element name="discard-params" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="ignore-change-restrictions" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="osm.skip-duplicates-check" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.elevation" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.layer-elevation" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.layer-elevation.max-grade" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.oneway-spread-right" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="osm.lane-access" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.stop-output.length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.stop-output.length.bus" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.stop-output.length.tram" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.stop-output.length.train" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.all-attributes" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="osm.extra-attributes" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="matsim.keep-length" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="matsim.lanes-from-capacity" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.street-id" type="strOptionType" minOccurs="0"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep  8 13:06:12 2020 by Eclipse SUMO marouter Version v1_6_0+2018-124343ba59
+<!-- generated on Mon Apr 12 21:15:30 2021 by Eclipse SUMO marouter Version v1_8_0+1985-b3699bc617
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -33,6 +33,7 @@
             <xsd:element name="weight-adaption" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="taz-param" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="junction-taz" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="ignore-taz" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

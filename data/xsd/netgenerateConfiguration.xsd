@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep  8 13:06:13 2020 by Eclipse SUMO netgenerate Version v1_6_0+2018-124343ba59
+<!-- generated on Mon Apr 12 21:15:30 2021 by Eclipse SUMO netgenerate Version v1_8_0+1985-b3699bc617
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -142,6 +142,7 @@
             <xsd:element name="default.sidewalk-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.bikelane-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.crossing-width" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="default.allow" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.disallow" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.junctions.keep-clear" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="default.junctions.radius" type="floatOptionType" minOccurs="0"/>
@@ -178,6 +179,7 @@
             <xsd:element name="tls.quarter-offset" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="tls.default-type" type="strOptionType" minOccurs="0"/>
             <xsd:element name="tls.layout" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="tls.no-mixed" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.min-dur" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.max-dur" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.group-signals" type="boolOptionType" minOccurs="0"/>
