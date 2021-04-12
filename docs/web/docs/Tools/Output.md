@@ -249,3 +249,12 @@ where -t: name of output files containing vehicle information, generate
       -e: set true for applying the t test (default: false)
       -k: set true for applying the Kruskal-Wallis test (default: false)
 ```
+
+## computeStoppingPlaceUsage.py
+This tool reads stop-output and generates occupancy-over-time for stopping places (i.e. parkingArea).
+A distinct output file will be created for each stopping place.
+
+Example:
+```
+python tools/output/computeStoppingPlaceUsage.py -s input_routes.rou.xml -o 
+```
