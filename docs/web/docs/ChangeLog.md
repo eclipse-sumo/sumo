@@ -174,7 +174,7 @@ title: ChangeLog
   - Added file menu options 'reload additionals' and 'reload demand'. Issue #6099
   - Route attributes 'repeat' and 'cycleTime' are now supported. Issue #6655
   - Added "Save All" option. Issue #6357
-  - In move mode, exact coordinates for a gemetry point can be set via right-click menu. Issue #2500
+  - In move mode, exact coordinates for a geometry point can be set via right-click menu. Issue #2500
   - Edges can now be selected via context menu. Issue #4549
   - Selected edges and junctions can now be moved in z-direction (absolutely or relatively) via move mode frame controls. Issue #2499
   - Shapes of selected edges can now be shifted orthogonally to their driving direction via move mode frame controls. Issue #2456
