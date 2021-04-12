@@ -143,11 +143,17 @@ python tools/generateParkingAreaRerouters.py -n <net-file> -a <parkingArea-fil
 # averageTripStatistics.py
 
 This script runs a given sumo configuration multiple times with
-different random seeds and averages the trip statistics output (see [trip statistics](../Simulation/Output.md#aggregated_traffic_measures).)
+different random seeds and averages the trip statistics output (see [trip statistics](../Simulation/Output.md#aggregated_traffic_measures)).
 
 Example:
 
 ```
+python tools/averageTripStatistics.py <sumocfg-file>
+```
+
+As default, the simulation will be run 10 times with an initial seed for 
+random seed generation of 42. These values can be changed with the options
+**-n** and **-s** respectively.
 
 # ptlines2flows.py
 
