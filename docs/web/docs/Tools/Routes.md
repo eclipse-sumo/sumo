@@ -33,6 +33,14 @@ vehicle.
 - When working in **--fix**-mode a vehicle type file must be given
 - No tests for dealing with networks that have internal edges
 
+# findAllRoutes.py
+
+The tool determines all possible routes between the given source and target edges. Example:
+
+```
+python tools/findAllRoutes.py -n <net-file> -o <output-file> -s <source-edges> -t <target-edges>
+```
+
 # analyzePersonPlans.py
 Count the different types of person plans according to the sequence of used modes. Private rides are distinguished from public transport rides using the assumption that the name of the private vehicle will start with the name of the person (as happens for [duarouter](../duarouter.md)-generated person plans).
 ```
