@@ -12,3 +12,6 @@ removeConstraints_signalId
 removeConstraints_tripId
 removeConstraints_foeId
 removeConstraints_foeSignal
+
+# tests for automatic deadlock-avoidance after swapConstraints
+swap
