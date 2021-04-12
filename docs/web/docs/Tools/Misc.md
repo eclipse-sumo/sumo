@@ -148,8 +148,23 @@ different random seeds and averages the trip statistics output (see [trip statis
 Example:
 
 ```
-python tools/averageTripStatistics.py <sumocfg-file> -n 100
+
+# ptlines2flows.py
+
+This script determines feasible stop-to-stop travel times and creates a public
+transport schedule (regular interval timetable) for all lines. The stop-to-stop 
+travel times are determined on an empty network. Example:
+
 ```
+python tools/ptlines2flows.py -n <net-file> -s <ptstops-file> -l <ptlines-file> -o <output-file>
+```
+
+As output, the public transport lines are written as [flows](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md).
+By default a period of 600 seconds is adopted as regular interval, which can be 
+changed with the **-p** option.
+
+With the option **--use-osm-routes**, public transport routes from the given osm
+ptlines-file will be used, rather than creating new shortest path routes between stops.
 
 # tileGet.py
 
