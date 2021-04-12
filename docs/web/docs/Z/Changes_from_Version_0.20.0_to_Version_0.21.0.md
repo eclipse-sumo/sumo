@@ -121,7 +121,7 @@ title: Changes from Version 0.20.0 to Version 0.21.0
     vehicles in this case
   - added [HBEFA3](../Models/Emissions/HBEFA3-based.md)
     emission model
-  - added [outputs](../Simulation/Output.md) conforming to the
+  - added [outputs](../Simulation/Output/index.md) conforming to the
     Amitran standards
 
 - sumo-gui

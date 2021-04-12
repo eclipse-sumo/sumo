@@ -86,7 +86,7 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Saving and Loading Simulation State](Simulation/SaveAndLoad.md)
 
 ## Output
-- [Simulation output overview](Simulation/Output.md)
+- [Simulation output overview](Simulation/Output/index.md)
 
 ## TraCI (On-line Interaction)
 - [TraCI overview](TraCI.md)

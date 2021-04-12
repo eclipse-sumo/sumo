@@ -331,7 +331,7 @@ the image will be rotated according to the persons location and stage.
 
 # Person Output
 
-Most of the [Simulation outputs](../Simulation/Output.md) are
+Most of the [Simulation outputs](../Simulation/Output/index.md) are
 tailored for vehicles. Only a small number of output formats support
 persons:
 
@@ -339,7 +339,7 @@ persons:
 - [vehroute-output](../Simulation/Output/VehRoutes.md)
 - [fcd-output](../Simulation/Output/FCDOutput.md)
 - [netstate-dump](../Simulation/Output/RawDump.md)
-- [aggregated simulation statistics](../Simulation/Output.md#aggregated_traffic_measures)
+- [aggregated simulation statistics](../Simulation/Output/index.md#aggregated_traffic_measures)
 
 # Planned features
 

@@ -143,7 +143,7 @@ python tools/generateParkingAreaRerouters.py -n <net-file> -a <parkingArea-fil
 # averageTripStatistics.py
 
 This script runs a given sumo configuration multiple times with
-different random seeds and averages the trip statistics output (see [trip statistics](../Simulation/Output.md#aggregated_traffic_measures)).
+different random seeds and averages the trip statistics output (see [trip statistics](../Simulation/Output/index.md#aggregated_traffic_measures)).
 
 Example:
 

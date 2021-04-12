@@ -226,7 +226,7 @@ title: Changes from Version 0.30.0 to Version 0.31.0
   - Pedestrian `<walk>`s may now be defined using attribute *route*. #3302
   - Summary-output now includes mean vehicle speed (absolute and
     relative) as well as the number of halting vehicles. #3312
-  - Pedestrian statistics are now included in the [aggregated traffic measures](../Simulation/Output.md#aggregated_traffic_measures). #3306
+  - Pedestrian statistics are now included in the [aggregated traffic measures](../Simulation/Output/index.md#aggregated_traffic_measures). #3306
   - Tripinfo-output now includes additional attributes for persons
     and containers stages (*depart, waitingTime, duration, vehicle,
     arrivalPos, actType*). #3305

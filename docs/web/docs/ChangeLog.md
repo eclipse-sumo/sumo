@@ -784,7 +784,7 @@ title: ChangeLog
   - Added option **--fcd-output.params KEY1,KEY2,...** to extend fcd-output with additional vehicle [generic parameters](Simulation/GenericParameters.md). Issue #6685
   - Tripinfo-output attribute vaporized now includes specific description for premature vehicle removal (collision, traci, calibrator, ...). Issue #6718
   - Tripinfo-output now includes timeloss for person rides. Issue #6891
-  - Added option **--statistic-output** to write [various statistics](Simulation/Output.md#commandline_output_verbose) in XML format. Issue #3751
+  - Added option **--statistic-output** to write [various statistics](Simulation/Output/index.md#commandline_output_verbose) in XML format. Issue #3751
   - vType attribute 'lcSigma' now always affect lateral position (previously, only sublane model and continuous lanechange modle were affected).
   - Option **--save-state.times** now accepts human-readable time. Issue #6810
   - Added new 'device.toc' parameters ['mrmSafeSpot' and 'mrmSafeSpotDuration'](ToC_Device.md) to control the behavior during minimum-risk maneuvers. Issue #6157
@@ -917,7 +917,7 @@ title: ChangeLog
   - Added option **--step-log.period INT** to set the number of simulation steps between outputs. The new default is 100 which brings a major execution speedup when running sumo on windows with step-log (where command-line output is slow). Issue #6377
   - Added option **--fcd-output.acceleration** to include acceleration values in fcd-output. When sublane simulation is enabled, attribute 'accelerationLat' is added as well. Issue #6448
   - Added option **--lanechange-output.xy** to include coordinates in lanechange-output. Issue #6588
-  - [Aggregated tripinfo output](Simulation/Output.md#aggregated_traffic_measures) now includes average speed. Issue #6480
+  - [Aggregated tripinfo output](Simulation/Output/index.md#aggregated_traffic_measures) now includes average speed. Issue #6480
   - Trips, flows, personTrips and walks with attributes `fromJunction`, `toJunction` and `viaJunctions` are now supported when setting option **--junction-taz**. Issue #6474
   - Calibrators can now be used to update vehicle types by defining flows with the 'type' attribute and without the 'vehsPerHour' attribute. Issue #6219
   - When defining [automated switching between traffic light programs](Simulation/Traffic_Lights.md#defining_program_switch_times_and_procedure), the new attribute 'period' can now be used to define repeating switch times. Issue #6540
@@ -1525,7 +1525,7 @@ title: ChangeLog
     - When a railSignal is placed on a short edge at the incoming network fringe, the signal will regulate train insertion for all trains longer than the insertion edge. Issue #5135
     - Trains can now reverse on bidirectional edges without the definition of a `<stop>`. Issue #5213
     - RailSignal logic no longer requires all railway switch nodes to be of type *railSignal*. Instead they can be guarded by other railSignal nodes along the incoming tracks. Issue #5091
-    - Added new output option **--railsignal-block-output** {{DT_FILE}} to support analysis of the [generated signal block structure](Simulation/Output.md#additional_debugging_outputs). Issue #5109
+    - Added new output option **--railsignal-block-output** {{DT_FILE}} to support analysis of the [generated signal block structure](Simulation/Output/index.md#additional_debugging_outputs). Issue #5109
 
 - sumo-gui
   - Major improvement in rendering speed
@@ -2127,7 +2127,7 @@ title: ChangeLog
     Situations." IEEE Trans. Intelligent Transportation Systems 15.1
     (2014): 296-305.\]
   - [Statistic
-    output](Simulation/Output.md#aggregated_traffic_measures)
+    output](Simulation/Output/index.md#aggregated_traffic_measures)
     now also includes total delay by vehicles which could not be
     inserted by the end of the simulation if options **--duration-log.statistics** and **--tripinfo-output.write-unfinished** are set. Issue #4174
   - The default lane-changing model *LC2013* now supports [parameter

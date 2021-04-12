@@ -3,7 +3,7 @@ title: Visualization
 ---
 
 [sumo](../sumo.md) offers a wide range of
-[outputs](../Simulation/Output.md), but one may find it hard to
+[outputs](../Simulation/Output/index.md), but one may find it hard to
 parse and visualize them. Below, you may find some tools that allow to
 visualize a simulation run's results for being included in a scientific
 paper. Additional tools read plain .csv-files and were added to the

@@ -337,4 +337,4 @@ Pedestrians are included in the following outputs:
 - [vehroute-output](../Simulation/Output/VehRoutes.md)
 - [fcd-output](../Simulation/Output/FCDOutput.md)
 - [netstate-dump](../Simulation/Output/RawDump.md)
-- [aggregated simulation statistics](../Simulation/Output.md#aggregated_traffic_measures)
+- [aggregated simulation statistics](../Simulation/Output/index.md#aggregated_traffic_measures)

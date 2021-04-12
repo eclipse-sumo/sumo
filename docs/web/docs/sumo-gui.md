@@ -167,7 +167,7 @@ The following objects can be accessed by right-click:
   "Simulation parameters") button.
 
   !!! note
-        Simulation Parameters include all values available via [verbose output](Simulation/Output.md#commandline_output_verbose) such as departed, running and arrived vehicles. It also includes network statistics such as number of edges and nodes.
+        Simulation Parameters include all values available via [verbose output](Simulation/Output/index.md#commandline_output_verbose) such as departed, running and arrived vehicles. It also includes network statistics such as number of edges and nodes.
 
 The following additional functions are available via right-click:
 
@@ -219,7 +219,7 @@ opened. The following types are available:
 - [Vehicle](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
 - [Person](Specification/Persons.md)
 - [Traffic light](Simulation/Traffic_Lights.md)
-- Additional infrastructure for [detecting](Simulation/Output.md#simulated_detectors) or for [influencing traffic](index.md#traffic_management_and_other_structures).
+- Additional infrastructure for [detecting](Simulation/Output/index.md#simulated_detectors) or for [influencing traffic](index.md#traffic_management_and_other_structures).
 - [Point of Interest (PoI)](Simulation/Shapes.md#poi_point_of_interest_definitions)
 - [Polygon](Simulation/Shapes.md#polygon_definitions)
 

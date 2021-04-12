@@ -502,9 +502,9 @@ definitions](Simulation/Output/Induction_Loops_Detectors_(E1).md),
 [variable speed signs](Simulation/Variable_Speed_Signs.md) and
 [bus stops](Simulation/Public_Transport.md). These files are
 also used to configure simulation outputs such as [edge-based traffic
-measures](Simulation/Output.md#values_for_edges_or_lanes) or
+measures](Simulation/Output/index.md#values_for_edges_or_lanes) or
 [traffic light switching
-information](Simulation/Output.md#traffic_lights-based_information).
+information](Simulation/Output/index.md#traffic_lights-based_information).
 Furthermore, any element permitted in a route file such as
 [vTypes](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types),
 [routes](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#routes)

@@ -199,7 +199,7 @@ vehicle only once but they include/exclude some special cases.
 - left + arrived
 
 !!! note
-    When using `<laneData>` the sum *left* + *arrived* excludes all the vehicles that exited the lane by lane-changing. whereas the sum *left* + *arrived* + *laneChangedFrom* may count vehicles multiple times. If total counts on a lane are needed it is better to use a [detector](../../Simulation/Output.md#simulated_detectors).
+    When using `<laneData>` the sum *left* + *arrived* excludes all the vehicles that exited the lane by lane-changing. whereas the sum *left* + *arrived* + *laneChangedFrom* may count vehicles multiple times. If total counts on a lane are needed it is better to use a [detector](../../Simulation/Output/index.md#simulated_detectors).
 
 ## Notes
 

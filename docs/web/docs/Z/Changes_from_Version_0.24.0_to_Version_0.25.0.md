@@ -133,14 +133,14 @@ title: Changes from Version 0.24.0 to Version 0.25.0
     the vehicles drive along footpaths and railways.
   - [Zipper merging](https://en.wikipedia.org/wiki/Merge_%28traffic%29) is
     now supported (see netconvert enhancement below). #1292
-  - Added person statistics to [verbose output](../Simulation/Output.md#commandline_output_verbose). #1898
+  - Added person statistics to [verbose output](../Simulation/Output/index.md#commandline_output_verbose). #1898
   - Now warning about jammed pedestrians.
   - Now warning about pedestrians "collisions".
   - Now warning about traffic lights where one link never gets a green light.
   - It is now possible to [modify the offset of an existing tls program](../Simulation/Traffic_Lights.md#modifying_existing_tls-programs)
     without loading a completely new `tlLogic`-definition. #1940
   - Added option **--duration-log.statistics** {{DT_BOOL}} which causes average vehicle trip data to be
-    [printed in verbose mode](../Simulation/Output.md#commandline_output_verbose)
+    [printed in verbose mode](../Simulation/Output/index.md#commandline_output_verbose)
     (average route length, travel time and time loss, ...) for quick
     evaluation of a scenario. #1911
   - The option **--max-num-vehicles** {{DT_INT}} can now be used to maintain a constant number of

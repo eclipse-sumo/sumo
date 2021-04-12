@@ -161,6 +161,6 @@ The attributes within the stages have the following meaning:
 
 Aggregated output for key output attributes can be obtained by setting
 the option **--duration-log.statistics** (see [Commandline
-Output](../../Simulation/Output.md#commandline_output_verbose)).
+Output](../../Simulation/Output/index.md#commandline_output_verbose)).
 For further aggregation see
 [Tools/Xml\#xml2csv.py](../../Tools/Xml.md#xml2csvpy).

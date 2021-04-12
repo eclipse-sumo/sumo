@@ -156,7 +156,7 @@ title: Changes from Version 0.31.0 to Version 0.32.0
     for emission-model (electricity) output by setting `emissionClass="Energy/unknown"`
   - Tripinfo-output for pedestrians now includes *routeLength,
     duration* and *timeLoss*. #3305
-  - [duration-log.statistics](../Simulation/Output.md#aggregated_traffic_measures)-output
+  - [duration-log.statistics](../Simulation/Output/index.md#aggregated_traffic_measures)-output
     now informs about person rides. #3620
   - Vehicles that end their route with a stop on a parkingArea
     (arrivalPos is within the parkingArea bounds) will be assigned a
