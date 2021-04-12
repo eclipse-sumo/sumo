@@ -2,12 +2,22 @@
 title: Windows Build
 ---
 
-This document describes how to build SUMO under MS-Windows using only
+This document describes how to build SUMO under Windows using only
 freely available (this does **not** mean "open source") tools.
 Instructions on how to build SUMO on Windows using an Open Source
 toolchain are included in our [building on
-Linux](../Installing/Linux_Build.md) pages. Please note that you
+Linux](../Installing/Linux_Build.md) page. Please note that you
 may also [download pre-build Windows binaries](../Downloads.md).
+
+## Prerequisites
+
+- A [Visual Studio Community, Professional or Enterprise 2015 or later](https://www.visualstudio.com) installation
+- [CMake for Windows](https://cmake.org/download)
+- Python
+- SUMO sources (either an unpacked src zip or a git clone, see
+  [Getting the source code](../Installing/Linux_Build.md#getting_the_source_code))
+- Installed Libraries (Xerces-C, Proj, Fox) preferably by cloning <https://github.com/DLR-TS/SUMOLibraries/>
+  - Make sure that the `SUMO_LIBRARIES` environment variable points to your cloned directory
 
 ## Recommended Windows setup
 
@@ -18,59 +28,62 @@ may also [download pre-build Windows binaries](../Downloads.md).
 
 ![](../images/VSInstall.png)
 
-- clone https://github.com/eclipse/sumo or open your existing local SUMO folder
-- go to team explorer
-  - choose Manage Connections, then "Local Git"->Clone https://github.com/DLR-TS/SUMOLibraries
-- now be patient until CMake starts configuring
-  - if it does not or you want to reconfigure choose Project->"Generate Cache" (if this option is not there you may need to wait a little longer until Visual Studio has picked up everything)
+- Clone https://github.com/eclipse/sumo or open your existing local SUMO folder
+- Go to team explorer
+  - Choose Manage Connections, then "Local Git"->Clone https://github.com/DLR-TS/SUMOLibraries
+- Now be patient until CMake starts configuring
+  - If it does not or you want to reconfigure choose Project->"Generate Cache" (if this option is not there you may need to wait a little longer until Visual Studio has picked up everything)
 - Select Build->BuildAll (CMake->BuildAll in earlier versions)
-- set SUMO_HOME
+- Set the [SUMO_HOME](../Basics/Basic_Computer_Skills.md#sumo_home) environment variable
 - Install Texttest https://sourceforge.net/projects/texttest/files/latest/download
 
-### optional but still recommended steps
+### Optional but still recommended steps
 
-- Install notepad++
-- Install TortoiseGit
+- Install [Notepad++](https://notepad-plus-plus.org/)
+- Install [TortoiseGit](https://tortoisegit.org/)
 - Install [Git command line tools](https://git-scm.com/download/win) (this is mandatory if you install TortoiseGit)
+
 - If you decide to use the Python which comes with Visual Studio
   - Test start a python script and add association
-  - Add Python to the path (also the Scripts dir), find it at C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64
+  - Add Python to the path (also the Scripts dir), find it at `C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64`
   - Install pyautogui, matplotlib, rtree, pyproj, lxml, pipwin following the instructions https://docs.microsoft.com/en-us/visualstudio/python/tutorial-working-with-python-in-visual-studio-step-05-installing-packages?view=vs-2019
-- If not use `pip install pyautogui matplotlib pyproj lxml pipwin`
-- Run `pipwin install rtree` (or wownload [rtree from here](https://www.lfd.uci.edu/~gohlke/pythonlibs/#rtree) and install it manually)
+- If not, use `pip install pyautogui matplotlib pyproj lxml pipwin`
+
+- Run `pipwin install rtree` (or download Rtree [from here](https://www.lfd.uci.edu/~gohlke/pythonlibs/#rtree) and install it manually)
 - (after 30 days) Setup a Microsoft account (if you do not already have one) and register your Visual Studio
 
 ## Further notes
 
-If you need a different python version or want to test with multiple pythons you can either install them directly from Visual Studio or [Download Python for Windows](http://www.python.org/download/) and install it. Most SUMO tools should work with Python 2 and 3. Please make sure that you install the recommend python modules as above.
+If you need a different python version or want to test with multiple Pythons you can either install them directly from Visual Studio or [Download Python for Windows](http://www.python.org/download/) and install it. Most SUMO tools should work with Python 2 and 3. Please make sure that you install the recommend python modules as above.
 
-If you want to clone / checkout a special sumo version, you can of course do it from the ommand line (if you have installed the command line tools)
-using `git clone --recursive https://github.com/eclipse/sumo` or download and extract a source package, see [Downloads](../Downloads.md)
+If you want to clone / checkout a special SUMO version, you can of course do it from the command line (if you have installed the command line tools)
+using `git clone --recursive https://github.com/eclipse/sumo` or download and extract a source package, see [Downloads](../Downloads.md).
 
-The command for the [\#Libraries](#libraries) is: `git clone --recursive https://github.com/DLR-TS/SUMOLibraries`. If you do not place the libraries in the same folder as sumo, you will need to set the SUMO_LIBRARIES environment variable to the directory.
+The command for the [Libraries](#libraries) is: `git clone --recursive https://github.com/DLR-TS/SUMOLibraries`. If you do not place the libraries in the same folder as SUMO, you will need to set the **SUMO_LIBRARIES** environment variable to the directory.
 
-It Visual Studio fails at first try (maybe SUMOLibraries are not cloned yet or are in an unusual location, the errors talk about not finding Xerces)
-  - Select Project->"Generate Cache" to try again (it is CMake->Generate in earlier Visual Studio versions) or see below
+If Visual Studio fails at first try, it is probably because the SUMOLibraries are not cloned yet or are in an unusual location. The errors are due to Xerces not being found. Try:
+
+- Select *Project->"Generate Cache"* to try again (it is *CMake->Generate* in earlier Visual Studio versions) or see [below](#troubleshooting).
 
 ### Adapting settings
 
-If you need to modify settings, you can edit the CMakeCache.txt by opening it in your favorite text editor or via the Project->Cmake-Cache menu. The following things might be useful
+If you need to modify settings, you can edit the `CMakeCache.txt` by opening it in your favorite text editor or via the *Project->CMake-Cache* menu. The following things might be useful:
 
-  - If the libraries are not found, set SUMO_LIBRARIES:PATH to something like C:/Users/testus/source/repos/SUMOLibraries) and retry
-  - If the wrong python interpreter or library is found, edit the PYTHON_* variables
-  - If you want to disable the build of the GUI (Fox) or usage of Proj, set the according library entries to the empty string
+- If the libraries are not found, set `SUMO_LIBRARIES:PATH` to something like `C:/Users/testus/source/repos/SUMOLibraries`) and retry
+- If a wrong Python interpreter or library is found, edit the PYTHON_* variables
+- If you want to disable building the GUI (Fox) or usage of Proj, set the according library entries to an empty string
 
-To make a debug build, you should *not* change CMAKE_BUILD_TYPE in the cache file. You should choose a different configuration in the GUI instead.
+To make a debug build, you should ***not*** change CMAKE_BUILD_TYPE in the cache file. You should choose a different configuration in the GUI instead.
 
 ## Libraries
 
 We provide a central location for getting all dependent libraries at
 <https://github.com/DLR-TS/SUMOLibraries>. The easiest way is to clone
 this repository and define an environment variable `SUMO_LIBRARIES`
-pointing to the resulting directory. They are build with Visual Studio
-2017, but may be used with earlier and later versions as well. You may
-need to install the Visual C++ 2017 Runtime Distributable for running
-SUMO then (tested with Visual Studio 2013). 
+pointing to the resulting directory. They are build using Visual Studio
+2019, but may be used with earlier and later versions as well. You may
+need to install the Visual C++ 2019 Runtime Distributable for running
+SUMO (tested with Visual Studio 2019). 
 
 !!! Caution
     When cloning SUMOLibraries you must initialize all submodules with `git submodule update --init`
@@ -84,13 +97,56 @@ folders are `32bits/fox-1.6.54/lib`, `32bits/proj_gdal-1911/bin` and
 `32bits/xerces-c-3.2.0/bin`. You can add both to the path but always add the
 64 bit version first.
 
+## CMake
+
+### Method 1: CMake GUI
+
+- Start the CMake gui
+- Select the source path (e.g. D:\\projects\\sumo)
+- Select the build path (e.g. D:\\projects\\sumo\\cmake-build)
+  - It can be identical to the source path, but we recommend to separate them
+  - Build directory will be created if necessary
+- Start configuration by pressing the "Configure" button
+  - Select compiler (the default should do)
+- Create the Visual Studio solution by clicking on "Generate"
+- Open the generated solution (.sln file) (e.g. *D:\\projects\\sumo\\cmake-build\\SUMO.sln*) using the File Explorer or by clicking on "Open Project"
+- Build the configurations you want
+  - Binaries will appear in D:\\projects\\sumo\\bin
+
+Visual guide:
+
+![](../images/CMakeClonningSUMO.png)   
+Cloning SUMO
+
+![](../images/CMakeConfiguration1.png)   
+Selecting Solution (Visual Studio, Eclipse, etc.) in the CMake gui
+
+![](../images/CMakeConfiguration4.png)   
+Libraries successfully configured
+
+![](../images/CMakeConfiguration5.png)   
+Generated solution
+
+### Method 2: CMake command line
+
+- Go to the source path (e.g. `cd D:\projects\sumo`)
+- Create a build directory (e.g. `mkdir cmake-build && cd cmake-build`)
+- Run CMake with the correct Visual Studio version (e.g. `cmake .. -G "Visual Studio 16 2019 Win64"`)
+  - For a list of all possible generators run `cmake --help`
+- Open the solution *D:\\projects\\sumo\\cmake-build\\SUMO.sln*
+  - Or build from the command line using `cmake --build . --config Release`
+
 ## Tests
 
-- If you plan to extend SUMO yourself, or just want to know whether
-  everything compiled OK, it is strongly recommended to have a look at
-  [Developer/Tests](../Developer/Tests.md). This tool makes it
-  easier to check whether some existing functionality was broken by
-  the extensions.
+If you plan to extend SUMO yourself, or just want to know whether
+everything compiled OK, it is strongly recommended to have a look at
+[Developer/Tests](../Developer/Tests.md). This tool makes it
+easier to check whether some existing functionality was broken by
+the extensions.
+
+## CLang
+
+If you want to compile using CLang in Windows, just add "ClangCL" in CMake's "Optional Toolset" (-T).
 
 ## Troubleshooting
 
@@ -98,6 +154,17 @@ folders are `32bits/fox-1.6.54/lib`, `32bits/proj_gdal-1911/bin` and
   include and library paths containing spaces (for instance
   `C:\Program Files`). Thus try to avoid installing SUMO or any of the
   libraries in such paths.
+- Python cannot be found
+  - Make sure that there are not two different Python versions
+    installed
+  - Python libraries can be specified manually (e.g.
+    <PythonFolder\>\\libs\\python<version\>.lib)
+
+![](../images/CMakeConfiguration6.png)   
+Python library fields in the CMake Cache
+
+![](../images/CMakePython1.png)   
+Two different Python versions at the same time
 
 ### Linker reports something similar to "LINK : fatal error LNK1104: cannot open file 'C:\\Program.obj'"
 
@@ -105,18 +172,18 @@ You probably have installed a library to a path containing white spaces
 in its name. In such a case, the according environment variable should
 be embedded in quotes (").
 
-Example: set FOX="D:\\my libs\\fox-1.6.36".
+Example: set FOX="D:\\my libs\\fox-1.6.36"
 
 ### Failure on pre-build event (missing version.h or \*typemap.h)
 
 If Visual Studio reports a failed pre-build event you can safely ignore
 this, unless you are building from the [source code
 repository](../FAQ.md#how_do_i_access_the_code_repository). In
-this case you should probably install Python. Even if python is
+this case you should probably install Python. Even if Python is
 installed the file associations may be broken which causes the
-generation of src/version.h via tools/build/version.py to fail. Either
-repair your file associations or undefine HAVE_VERSION_H in
-src/windows_config.h.
+generation of `src/version.h` via the `tools/build/version.py` script to fail. Either
+repair your file associations or undefine **HAVE_VERSION_H** in
+`src/windows_config.h`.
 
 If you did install Python correctly, double check that it passes
 [command line
@@ -135,34 +202,40 @@ Studio 2012](https://www.microsoft.com/en-US/download/details.aspx?id=30679)
 (for MSVCR120.dll) or [Microsoft Visual C++ Redistributable Packages for
 Visual Studio 2015](https://www.visualstudio.com/downloads/) (for
 MSVCR140.dll). You can check if all dependencies are correct using
-[Dependencies](https://lucasg.github.io/Dependencies/)
+[Dependencies](https://lucasg.github.io/Dependencies/).
 
 ![](../images/Dependencies.png)
 
 ### In debug mode, execution cannot proceed because MSVCR120D.dll/MSVCR140D.dll was not found
 
-Your version of Visual Studio doesn't support Debugging, only can be
-compiled in release mode.
+Your version of Visual Studio doesn't support Debugging, you can only compile in release mode.
 
-## Available configurations
+## Available configurations and additional options
 
-The release build is used for the distribution of sumo. The Debug build
+- The release build is used for the distribution of SUMO. The Debug build
 allows all debugging features. Keep in mind that
 [Texttest](../Developer/Tests.md) usually picks up the release
 build.
+  - Release: All optimizations, assertions disabled, no debugging
+    symbols, links against external release libs
+  - Debug: No optimizations, assertions enabled, debugging symbols
+    included, links against external debug libs
 
-- Release: All optimizations, assertions disabled, no debugging
-  symbols, links against external release libs
-- Debug: No optimizations, assertions enabled, debugging symbols
-  included, links against external debug libs
-
-Left clicking over Solution/Properties/Configuration Manager allow to
+- Left clicking over Solution/Properties/Configuration Manager allow to
 change between configurations:
 
 ![](../images/SwichDebugRelease.png)
 
-To switch to a different platform (e.g. 32bit instead of 64 bit) please
-run cmake again with a different generator.
-
-Naming Conventions: 64bit executables have the same name as their 32bit
+- To switch to a different target platform (e.g. 32bit instead of 64bit) please
+run CMake again with a different generator. Do not use Visual Studio to add a different platform.
+- Naming Conventions: 64bit executables have the same name as their 32bit
 counterpart. The Debug build additionally carries the suffix 'D'.
+- To enable [Libsumo](../Libsumo.md) add SWIG dir and exe for
+building Python and Java bindings:
+  - Make sure Python and a JDK are installed
+  - Python will only work with the release build (unless you compile
+    a debug version of Python yourself)
+- To disable certain features delete all values referring to the
+feature (e.g. to disable GDAL remove GDAL_INCLUDE_DIR and
+GDAL_LIBRARY in the CMake GUI or in CMakeCache.txt) and run the
+generator again.
