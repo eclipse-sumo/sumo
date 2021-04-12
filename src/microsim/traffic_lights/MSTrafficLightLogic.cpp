@@ -146,7 +146,10 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                 const std::string optionalFrom = iNextDefault ? "" : " from phase " + toString(i);
                 const std::string& state1 = phases[i]->getState();
                 const std::string& state2 = phases[iNext]->getState();
-                assert(state1.size() == state2.size());
+                if (state1.size() != state2.size()) {
+                    throw ProcessError("Mismatching phase state length in tlLogic '" + getID()
+                                       + "', program '" + getProgramID() + "' in phases " + toString(i) + " and " + toString(iNext));
+                }
                 if (!haveWarnedAboutUnusedStates && state1.size() > myLanes.size() + myIgnoredIndices.size()) {
                     WRITE_WARNING("Unused states in tlLogic '" + getID()
                                   + "', program '" + getProgramID() + "' in phase " + toString(i)
