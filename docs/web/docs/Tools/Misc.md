@@ -176,11 +176,10 @@ ptlines-file will be used, rather than creating new shortest path routes between
 
 This script retrieves background images from ESRI ArcGIS tile servers and other imaging APIs
 such as Google Maps and MapQuest. The simplest usage is to call it with a SUMO
-network file only. It will generate a visualisation settings file containing the coordinates which
+network file only. It will generate a visualization settings file containing the coordinates which
 can be loaded with sumo-gui or netedit. The most useful options are -t for the
-(maximum) number of tiles to retrieve and -u to give the URL of the tile server.
+(maximum) number of tiles to retrieve and -u to give the URL of the tile server. Examples:
 
-Examples: 
 - Retrieving data from the public ArcGIS online instance:
 ```
 python tools/tileGet.py -n test.net.xml -t 10

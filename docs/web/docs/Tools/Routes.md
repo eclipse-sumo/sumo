@@ -17,8 +17,8 @@ python tools\route\routecheck.py <net> <vehicletypes> [-f|--fix] <routes>+
 python tools\route\routecheck.py <net> <vehicletypes+routes>
 ```
 
-If a route is broken (or disconnected), the tool writes something like the
-following to cout:
+If a route is broken (or disconnected), the tool gives a warning, e.g.: "Warning: 
+Route for vehicle 0 disconnected between startEdge and endEdge"
 
 If **--fix** (**-f**) is given, routes are tried to be repaired
 (assuming only one link is missing). The name of the output file(s) is
@@ -140,7 +140,7 @@ with the same vehicles. Routes must be child elements of `<vehicle>`-elements.
 Output for plotting may also be generated (see **--help**).
 
 ```
-python tools/route/routeStats.py myNet.net.xml myRoutes.rou.xml
+python tools/route/routeStats.py <net-file> <route-file>
 ```
 
 When setting option **--attribute depart** a histogram on departure times (or departure time
@@ -167,7 +167,7 @@ controlled. Each of these options supports values from \[0, 1\] as well
 as the special value *random*.
 
 ```
-python tools/route/route2poly.py myNet.net.xml myRoutes.rou.xml
+python tools/route/route2poly.py <net-file> <route-file>
 ```
 
 # route2sel.py
@@ -178,11 +178,11 @@ for visualization in [sumo-gui](../sumo-gui.md) or pruning a
 network via [netconvert](../netconvert.md).
 
 ```
-python tools/route2sel.py myRoutes.rou.xml -o usedEdges.txt
+python tools/route/route2sel.py <route-file> -o usedEdges.txt
 ```
 
 ```
-netconvert --net-file myNet.net.xml --keep-edges.input-file usedEdges.txt --output reduced.net.xml
+netconvert --net-file <net-file> --keep-edges.input-file usedEdges.txt --output reduced.net.xml
 ```
 
 # route_departOffset
@@ -192,21 +192,21 @@ When setting the option **--depart-edges Edge1,Edge2,...**, only vehicles that d
 edges are affected.
 
 ```
-python tools/route/route_departOffset.py --input-file myRoutes.rou.xml --output-file shifted.rou.xml --depart-offset 900
+python tools/route/route_departOffset.py --input-file <route-file> --output-file shifted.rou.xml --depart-offset 900
 ```
 
 The option **--depart-interval a,b,c,d** shifts all departures within the interval \[a,b\[ to the
 interval \[c,d\[.
 
 ```
-python tools/route/route_departOffset.py --input-file myRoutes.rou.xml --output-file shifted.rou.xml --depart-interval 3600,7200,0,500
+python tools/route/route_departOffset.py --input-file <route-file> --output-file shifted.rou.xml --depart-interval 3600,7200,0,500
 ```
 
 # route_1htoDay
 Uses "route_departOffset.py" for building 24 route files which describe a whole day assuming the given route files describes an hour.
 
 ```
-python tools/route/route_1htoDay.py myRoutes.rou.xml
+python tools/route/route_1htoDay.py <route-file>
 ```
 
 # route2alts.py
@@ -216,7 +216,7 @@ Builds route alternatives assigning the so determined probabilities to use a rou
 Please note that the cost of the route is not computed!
 
 ```
-python tools/route/route2alts.py myRoutes.rou.xml
+python tools/route/route2alts.py <route-file>
 ```
 
 # countEdgeUsage.py
@@ -291,7 +291,7 @@ Note, that the lane of that parking area must belong to one of the edges
 Add a stop over parking in all trips given in input file 
 
 ```
-python tools/addParkingAreaStops2Trips.py -r <route-file> -p <parking-areas> -d <duration in seconds> [-o <output-file>]
+python tools/route/addParkingAreaStops2Trips.py -r <route-file> -p <parking-areas> -d <duration in seconds> [-o <output-file>]
 ```
 
 The stop will be added to the trip route.
@@ -323,7 +323,7 @@ Note, that the lane of that parking area must belong to one of the edges
 Declares vehicles to stop at the end of their route.
 
 ```
-python tools/addStops2Routes.py -n <net-file> -r <route-file> -t <vType-file> -o <output-file> -d <stop duration in seconds> -u <stop until time>
+python tools/route/addStops2Routes.py -n <net-file> -r <route-file> -t <vType-file> -o <output-file> -d <stop duration in seconds> -u <stop until time>
 ```
 
 Either the "duration" or "until" for stop must be given. Using the option **-p**, the vehicle stops besides the road without blocking other vehicles. Example:
