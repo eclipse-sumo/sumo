@@ -25,6 +25,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/vehicle/SUMORouteHandler.h>
 
 #include "GNEPersonStop.h"
@@ -249,68 +250,57 @@ GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
         const double exaggeration = s.addSize.getExaggeration(s, this);
         // declare value to save stop color
         const RGBColor stopColor = drawUsingSelectColor()? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stops;
+        const RGBColor centralLineColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stops;
         // Start drawing adding an gl identificator
         glPushName(getGlID());
-        // Add a draw matrix
+        // Add layer matrix matrix
         glPushMatrix();
-        // set Color
-        GLHelper::setColor(stopColor);
-        // Start with the drawing of the area traslating matrix to origin
+        // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
-        // draw depending of details
-        if (s.drawDetail(s.detailSettings.stopsDetails, exaggeration) && firstLane != nullptr) {
-            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GLHelper::drawBoxLines(myDemandElementGeometry.getShape(), myDemandElementGeometry.getShapeRotations(), myDemandElementGeometry.getShapeLengths(), exaggeration * 0.1, 0,
-                                   getParentEdges().front()->getNBEdge()->getLaneWidth(firstLane->getIndex()) * 0.5);
-            GLHelper::drawBoxLines(myDemandElementGeometry.getShape(), myDemandElementGeometry.getShapeRotations(), myDemandElementGeometry.getShapeLengths(), exaggeration * 0.1, 0,
-                                   getParentEdges().front()->getNBEdge()->getLaneWidth(firstLane->getIndex()) * -0.5);
-            // pop draw matrix
-            glPopMatrix();
-            // Add a draw matrix
-            glPushMatrix();
-            // Start with the drawing of the area traslating matrix to origin
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
-            // move to geometry front
-            glTranslated(myDemandElementGeometry.getShape().back().x(), myDemandElementGeometry.getShape().back().y(), 0);
-            glRotated(myDemandElementGeometry.getShapeRotations().back(), 0, 0, 1);
-            // draw front of Stop depending if it's placed over a lane or over a stoppingPlace
-            GLHelper::drawBoxLine(Position(0, 0), 0, exaggeration * 0.5, getParentEdges().front()->getNBEdge()->getLaneWidth(firstLane->getIndex()) * 0.5);
-            // move to "S" position
-            glTranslated(0, 1, 0);
-            // only draw text if isn't being drawn for selecting
-            if (s.drawForRectangleSelection) {
-                GLHelper::setColor(stopColor);
-                GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-            } else if (s.drawDetail(s.detailSettings.stopsText, exaggeration)) {
-                // draw "S" symbol
-                GLHelper::drawText("S", Position(), .1, 2.8, stopColor);
-                // move to subtitle positin
-                glTranslated(0, 1.4, 0);
-                // draw subtitle depending of tag
-                GLHelper::drawText("edge", Position(), .1, 1, stopColor, 180);
+        // set base color
+        GLHelper::setColor(stopColor);
+        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+        GNEGeometry::drawGeometry(myNet->getViewNet(), myDemandElementGeometry, 0.3 * exaggeration);
+        // move to front
+        glTranslated(0, 0, .1);
+        // set central color
+        GLHelper::setColor(centralLineColor);
+        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+        GNEGeometry::drawGeometry(myNet->getViewNet(), myDemandElementGeometry, 0.05 * exaggeration);
+        // move to icon position and front
+        glTranslated(myDemandElementGeometry.getShape().front().x(), myDemandElementGeometry.getShape().front().y(), .1);
+        // rotate over lane
+        GNEGeometry::rotateOverLane(myDemandElementGeometry.getShapeRotations().front());
+        // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
+        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+            // set color
+            glColor3d(1, 1, 1);
+            // rotate texture
+            glRotated(180, 0, 0, 1);
+            // draw texture
+            if (drawUsingSelectColor()) {
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZERSELECTED), s.additionalSettings.vaporizerSize * exaggeration);
+            } else {
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZER), s.additionalSettings.vaporizerSize * exaggeration);
             }
-            // pop draw matrix
-            glPopMatrix();
-            // Draw name if isn't being drawn for selecting
-            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-            // check if dotted contour has to be drawn
-            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                // draw dooted contour depending if it's placed over a lane or over a stoppingPlace
-                if (firstLane != nullptr) {
-                    // GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.getShape(),
-                    //        getParentEdges().front()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * 0.5);
-                } else {
-                    // GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.getShape(), exaggeration);
-                }
-            }
-        } else {
-            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myDemandElementGeometry, exaggeration * 0.8);
-            // pop draw matrix
-            glPopMatrix();
         }
+        else {
+            // set route probe color
+            GLHelper::setColor(stopColor);
+            // just drawn a box
+            GLHelper::drawBoxLine(Position(0, 0), 0, 2 * s.additionalSettings.vaporizerSize, s.additionalSettings.vaporizerSize * exaggeration);
+        }
+        // pop layer matrix
+        glPopMatrix();
         // Pop name
         glPopName();
+        // check if dotted contours has to be drawn
+        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3, exaggeration);
+        }
+        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 0.3, exaggeration);
+        }
         // draw person parent if this stop if their first person plan child
         if ((getParentDemandElements().size() == 1) && getParentDemandElements().front()->getChildDemandElements().front() == this) {
             getParentDemandElements().front()->drawGL(s);
