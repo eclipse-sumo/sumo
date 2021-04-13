@@ -191,7 +191,7 @@ title: ChangeLog
   - Added option **--tls.no-mixed** which prevents building phases where different connections from the same lane have green and red signals. Issue #7821
   - Element `<laneType>` is now supported in an edge `<type>` to pre-configure speed, width and permissions for individual lanes. Issue #7791
   - Merging of overlapping geo-referenced networks with re-occuring ids now works without setting option **--ignore-errors**. Issue #8019
-  - When using option **--junctions.join-turns** to merge overlapping networks with diffent junction ids, the option **--edges.join** can now be used to automatically remove duplicate edges. Issue #8019
+  - When using option **--junctions.join-same** to merge overlapping networks with diffent junction ids, the option **--edges.join** can now be used to automatically remove duplicate edges. Issue #8019
   - Added option **--railway.topology.repair.minimal**. This works similar to **--railway.topology.repair** but avoids creating bidirectional tracks that are not needed for public transport routes (only applies when using option **--ptline-outut**). Issue #7982
   - Public transport edges that are disconnected from the main road network (in particular railways) are now included in the output when using option **--keep.edges.components 1** as long as they have public transport stops that are written via option **--ptstop-output**. Issue #8061
   - Edge types now support attribute 'spreadType'. Issue #7897
