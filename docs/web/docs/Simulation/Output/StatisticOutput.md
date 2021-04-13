@@ -101,13 +101,13 @@ The following output attributes are generated:
 
 ### transportStatistics
 
-| Attribute Name   | Value Type | Description                                               |
-| ---------------- | ---------- | --------------------------------------------------------- |
-| **number**       | #          |                           |
-| **routeLength**  | m          |                           |
-| **duration**     | s          |                           |
-| **bus**          | #          |                           |
-| **train**        | #          |                           |
-| **taxi**         | #          |                           |
-| **bike**         | #          |                           |
-| **aborted**      | #          |                           |
+| Attribute Name   | Value Type | Description                                                               |
+| ---------------- | ---------- | --------------------------------------------------------------------------|
+| **number**       | #          | Total number of transports (Transports involve movement of containers)    |
+| **routeLength**  | m          | The average transport route length                                        |
+| **duration**     | s          | The average total transport duration                                      |
+| **bus**          | #          | Number of transports with a public transport vehicle driving on roads     |
+| **train**        | #          | Number of transports with a public transport vehicle driving on rails     |
+| **taxi**         | #          | Number of taxi transports                                                 |
+| **bike**         | #          | Number of transports with vehicle class *bicycle*                         |
+| **aborted**      | #          | Number of transports that could not be completed                          |

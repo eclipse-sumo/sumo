@@ -141,7 +141,8 @@ Alternatively, the [values for edges or lanes](#values_for_edges_or_lanes) can b
   information about the current state of the simulation (vehicle count etc.)
 - [simulation state person statistics](PersonSummary.md):
   information about the current state of persons the simulation (person count etc.)
-- [statistic output](StatisticOutput.md)
+- [statistic output](StatisticOutput.md):
+  overall statistics of the simulation (vehicles, teleports, safety, persons, vehicleTripStatistics, rideStatistics, etc.)
 
 ## [traffic lights-based information](Traffic_Lights.md)
 
@@ -284,6 +285,8 @@ following output will be added:
 - Bike rides: number of rides with vehicle class *bicycle*
 - Aborted rides: rides that could not be completed because no suitable
   vehicle was available
+
+You can also take a look at [statistic output](StatisticOutput.md) for a more overall statistics of the entire simulation, including those mentioned above and additional ones safety-, ride- and transport-related. 
 
 When setting this option and using [sumo-gui](../../sumo-gui.md), the
 network parameter dialog will also show a running average for these
