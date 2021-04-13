@@ -94,6 +94,7 @@ public:
 
 private:
     static libsumo::TraCISignalConstraint buildConstraint(const std::string& tlsID, const std::string& tripId, MSRailSignalConstraint* constraint, bool insertionConstraint);
+    static std::vector<libsumo::TraCISignalConstraint> findConstraintsDeadLocks(const std::string& tripId, const std::string& foeId);
 
 private:
 #ifndef SWIGJAVA

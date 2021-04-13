@@ -33,6 +33,7 @@
 #include <microsim/traffic_lights/MSDelayBasedTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/traffic_lights/MSRailSignalConstraint.h>
+#include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <netload/NLDetectorBuilder.h>
 #include <libsumo/TraCIConstants.h>
 #include "TrafficLight.h"
@@ -335,7 +336,7 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
         const int limit = c->myLimit;
         s->removeConstraint(tripId, c);
         s2->addConstraint(foeId, new MSRailSignalConstraint_Predecessor(s, tripId, limit));
-        removeConstraints("", "", "", foeId);
+        std::vector<TraCISignalConstraint> deadlocks = findConstraintsDeadLocks(foeId, tripId);
     } else {
         throw TraCIException("Rail signal '" + tlsID + "' does not have the given constraint for '" + tripId + "'");
     }
@@ -366,6 +367,55 @@ TrafficLight::removeConstraints(const std::string& tlsID, const std::string& tri
             }
         }
     }
+}
+
+
+std::vector<TraCISignalConstraint>
+TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::string& tripId) {
+    std::vector<TraCISignalConstraint> result;
+    // find circular constraints (deadlock)
+    // foeId is now constrainted by tripId and assumed to follow tripId on the
+    // same track without possibility of overtaking
+    // we look for a third vehicle foeId2 where
+    // tripId waits for foeId2 and foeId2 waits on foeId
+    std::map<std::string, TraCISignalConstraint> constraintsOnTripId;
+    std::map<std::string, TraCISignalConstraint> constrainedByFoeId;
+    std::set<std::string> foeId2Cands1;
+    std::set<std::string> foeId2Cands2;
+    for (MSRailSignal* s : MSRailSignalControl::getInstance().getSignals()) {
+        for (auto item : s->getConstraints()) {
+            for (MSRailSignalConstraint* cand : item.second) {
+                MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);
+                if (pc != nullptr) {
+                    if (item.first == tripId) {
+                        // @could there by more than one constraint on tripId by this foe2?
+                        constraintsOnTripId[pc->myTripId] = buildConstraint(s->getID(), item.first, pc, false);
+                        foeId2Cands1.insert(pc->myTripId);
+                    } else if (pc->myTripId == foeId) {
+                        constrainedByFoeId[item.first] = buildConstraint(s->getID(), item.first, pc, false);
+                        foeId2Cands2.insert(item.first);
+                    }
+                }
+            }
+        }
+    }
+    std::vector<std::string> foeIds2;
+    std::set_intersection(
+            foeId2Cands1.begin(), foeId2Cands1.end(),
+            foeId2Cands2.begin(), foeId2Cands2.end(),
+            std::back_inserter(foeIds2));
+    if (foeIds2.size() > 0) {
+        //std::cout << " findConstraintsDeadLocks foeId=" << foeId << " tripId=" << tripId << " foeId2=" << toString(foeIds2) << "\n";
+        const TraCISignalConstraint& c = constrainedByFoeId[foeIds2.front()];
+        result.push_back(c);
+        swapConstraints(c.signalId, c.tripId, c.foeSignal, c.foeId);
+        if (foeIds2.size() > 1) {
+            // calling swapConstraints once may result in further swaps so we have to recheck for remaining deadlocks anew
+            std::vector<TraCISignalConstraint> result2 = findConstraintsDeadLocks(foeId, tripId);
+            result.insert(result.end(), result2.begin(), result2.end());
+        }
+    }
+    return result;
 }
 
 
