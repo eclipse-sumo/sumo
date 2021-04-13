@@ -215,7 +215,7 @@ title: ChangeLog
   - Added option **--junctions** which interprets the loaded source and sink IDs as fromJunction and toJunction ids. #8389
 
 - dfrouter
-  - Added option **--vclass** to filter eligble edges in a multi-modal network. Issue #8408
+  - Added option **--vclass** to filter eligible edges in a multi-modal network. Issue #8408
   
 - polyconvert
   - Added option **--visum.language-file** to support importing shapes from English and French language versions (default is German). Issue #8414
