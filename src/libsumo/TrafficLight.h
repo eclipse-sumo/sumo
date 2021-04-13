@@ -77,7 +77,7 @@ public:
     static void setPhaseDuration(const std::string& tlsID, const double phaseDuration);
     static void setProgramLogic(const std::string& tlsID, const libsumo::TraCILogic& logic);
 
-    static void swapConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId);
+    static std::vector<libsumo::TraCISignalConstraint> swapConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId);
     static void removeConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId);
 
     // aliases for backward compatibility
@@ -94,6 +94,7 @@ public:
 
 private:
     static libsumo::TraCISignalConstraint buildConstraint(const std::string& tlsID, const std::string& tripId, MSRailSignalConstraint* constraint, bool insertionConstraint);
+    /// @brief perform swapConstraints to resolve deadlocks and return the new constraints
     static std::vector<libsumo::TraCISignalConstraint> findConstraintsDeadLocks(const std::string& tripId, const std::string& foeId);
 
 private:

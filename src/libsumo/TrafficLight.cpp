@@ -307,7 +307,7 @@ TrafficLight::getConstraintsByFoe(const std::string& foeSignal, const std::strin
     return result;
 }
 
-void
+std::vector<TraCISignalConstraint>
 TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId) {
     MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
     MSTrafficLightLogic* const active2 = getTLS(foeSignal).getDefault();
@@ -336,7 +336,7 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
         const int limit = c->myLimit;
         s->removeConstraint(tripId, c);
         s2->addConstraint(foeId, new MSRailSignalConstraint_Predecessor(s, tripId, limit));
-        std::vector<TraCISignalConstraint> deadlocks = findConstraintsDeadLocks(foeId, tripId);
+        return findConstraintsDeadLocks(foeId, tripId);
     } else {
         throw TraCIException("Rail signal '" + tlsID + "' does not have the given constraint for '" + tripId + "'");
     }
@@ -407,8 +407,17 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
     if (foeIds2.size() > 0) {
         //std::cout << " findConstraintsDeadLocks foeId=" << foeId << " tripId=" << tripId << " foeId2=" << toString(foeIds2) << "\n";
         const TraCISignalConstraint& c = constrainedByFoeId[foeIds2.front()];
-        result.push_back(c);
-        swapConstraints(c.signalId, c.tripId, c.foeSignal, c.foeId);
+        TraCISignalConstraint nc; // constraint after swap
+        nc.tripId = c.foeId;
+        nc.foeId = c.tripId;
+        nc.signalId = c.foeSignal;
+        nc.foeSignal = c.signalId;
+        nc.limit = c.limit;
+        nc.type = c.type;
+        nc.mustWait = true; // ???
+        result.push_back(nc);
+        std::vector<TraCISignalConstraint> result2 = swapConstraints(c.signalId, c.tripId, c.foeSignal, c.foeId);
+        result.insert(result.end(), result2.begin(), result2.end());
         if (foeIds2.size() > 1) {
             // calling swapConstraints once may result in further swaps so we have to recheck for remaining deadlocks anew
             std::vector<TraCISignalConstraint> result2 = findConstraintsDeadLocks(foeId, tripId);

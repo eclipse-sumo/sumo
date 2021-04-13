@@ -148,6 +148,7 @@ _RETURN_VALUE_FUNC = {tc.TL_COMPLETE_DEFINITION_RYG: _readLogics,
                       tc.TL_CONTROLLED_LINKS: _readLinks,
                       tc.TL_CONSTRAINT: _readConstraints,
                       tc.TL_CONSTRAINT_BYFOE: _readConstraints,
+                      tc.TL_CONSTRAINT_SWAP: _readConstraints,
                       }
 
 
@@ -361,10 +362,11 @@ class TrafficLightDomain(Domain):
     setCompleteRedYellowGreenDefinition = setProgramLogic
 
     def swapConstraints(self, tlsID, tripId, foeSignal, foeId):
-        """swapConstraints(string, string, string, string)
-        Reverse the given constraint and remove all existing constraints with foeId
+        """swapConstraints(string, string, string, string) -> list(Constraint)
+        Reverse the given constraint and return list of new constraints that
+        were created (by swapping) to avoid deadlock.
         """
-        self._setCmd(tc.TL_CONSTRAINT_SWAP, tlsID, "tsss", 3, tripId, foeSignal, foeId)
+        return self._getUniversal(tc.TL_CONSTRAINT_SWAP, tlsID, "tsss", 3, tripId, foeSignal, foeId)
 
     def removeConstraints(self, tlsID, tripId, foeSignal, foeId):
         """removeConstraints(string, string, string, string)
