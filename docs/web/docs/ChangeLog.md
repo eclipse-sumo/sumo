@@ -216,6 +216,9 @@ title: ChangeLog
 
 - dfrouter
   - Added option **--vclass** to filter eligble edges in a multi-modal network. Issue #8408
+  
+- polyconvert
+  - Added option **--visum.language-file** to support importing shapes from English and French language versions (default is German). Issue #8414
 
 - Routing (duarouter / sumo)
   - The landmark table format changed to a more compressed version (old tables are still readable). Issue #8153
