@@ -127,14 +127,18 @@ def main():
     for step in range(options.calibStep):
         print('calibration step:', step)
         files = []
+        current_directory = os.getcwd()
+        final_directory = os.path.join(current_directory, str(step))
+        if not os.path.exists(final_directory):
+            os.makedirs(final_directory)
 
         # calibration choice
         firstRoute = options.routes.split(",")[0]
         routname = os.path.basename(firstRoute)
         if '_' in routname:
-            output = os.path.join(pyPath, "%s_%03i.cal.xml" % (routname[:routname.rfind('_')], step))
+            output = "%s_%03i.cal.xml" % (routname[:routname.rfind('_')], step)
         else:
-            output = os.path.join(pyPath, "%s_%03i.cal.xml" % (routname[:routname.find('.')], step))
+            output = "%s_%03i.cal.xml" % (routname[:routname.find('.')], step)
 
         call(calibrator + ["CHOICE", "-choicesetfile",
                            options.routes, "-choicefile", "%s" % output], log)
