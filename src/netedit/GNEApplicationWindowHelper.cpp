@@ -351,21 +351,21 @@ GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::hideNetworkM
 void
 GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::buildNetworkMenuCommands(FXMenuPane* modesMenu) {
     // build every FXMenuCommand giving it a shortcut
+    inspectMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+                "&Inspect mode", "I", "Inspect elements and change their attributes.",
+                GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_I_MODES_INSPECT);
+    deleteMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+                "&Delete mode", "D", "Delete elements.",
+                GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_D_MODES_DELETE);
+    selectMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+                "&Select mode", "S", "Select elements.",
+                GUIIconSubSys::getIcon(GUIIcon::MODESELECT), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_S_MODES_SELECT);
+    moveMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+                "&Move mode", "M", "Move elements.",
+                GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_M_MODES_MOVE);
     createEdgeMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                      "&Edge mode", "E", "Create junction and edges.",
                      GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_E_MODES_EDGE_EDGEDATA);
-    moveMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-               "&Move mode", "M", "Move elements.",
-               GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_M_MODES_MOVE);
-    deleteMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                 "&Delete mode", "D", "Delete elements.",
-                 GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_D_MODES_DELETE);
-    inspectMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                  "&Inspect mode", "I", "Inspect elements and change their attributes.",
-                  GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_I_MODES_INSPECT);
-    selectMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                 "&Select mode", "S", "Select elements.",
-                 GUIIconSubSys::getIcon(GUIIcon::MODESELECT), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_S_MODES_SELECT);
     connectMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                   "&Connection mode", "C", "Modes connections between lanes.",
                   GUIIconSubSys::getIcon(GUIIcon::MODECONNECTION), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_C_MODES_CONNECT_PERSONPLAN);
