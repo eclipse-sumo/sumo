@@ -2,11 +2,13 @@
 title: Statistic Output
 ---
 
-## Instantiating within the Simulation
+# Instantiating within the Simulation
 
 Statistic output is activated by setting the simulation option **--statistic-output** {{DT_FILE}} on the command line or in a *.sumocfg* file.
+The elements `vehicleTripStatistics`, `pedestrianStatistics`, `rideStatistics` and `transportStatistics` are only generated when either of the options
+**--duration-log.statistics** or **--tripinfo-output** are set.
 
-## Generated Output
+# Generated Output
 
 The generated XML file looks like this:
 
@@ -25,7 +27,7 @@ The generated XML file looks like this:
 
 The following output attributes are generated:
 
-### vehicles
+## vehicles
 
 | Attribute Name | Value Type | Description                                                                  |
 | -------------- | ---------- | ---------------------------------------------------------------------------- |
@@ -35,7 +37,7 @@ The following output attributes are generated:
 | **waiting**    | #          | Number of vehicles which were waiting for insertion (could not be inserted)  |
 
 
-### teleports
+## teleports
 
 | Attribute Name  | Value Type | Description                                                                                                                        |
 | --------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------- |
@@ -45,7 +47,7 @@ The following output attributes are generated:
 | **wrongLane**   | #          | Number of teleportations due to the vehicle being stuck on a lane which has no connection to the next edge on its route            |
 
 
-### safety
+## safety
 
 | Attribute Name      | Value Type | Description                            |
 | ------------------- | ---------- | -------------------------------------- |
@@ -53,7 +55,7 @@ The following output attributes are generated:
 | **emergencyStops**  | #          | Number of emergency stops performed    |
 
 
-### persons
+## persons
 
 | Attribute Name | Value Type | Description                                               |
 | -------------- | ---------- | --------------------------------------------------------- |
@@ -62,7 +64,7 @@ The following output attributes are generated:
 | **jammed**     | #          | Number of persons that were jammed during the simulation  |
 
 
-### vehicleTripStatistics
+## vehicleTripStatistics
 
 | Attribute Name         | Value Type | Description                                                                                 |
 | ---------------------- | ---------- | ------------------------------------------------------------------------------------------- |
@@ -75,7 +77,7 @@ The following output attributes are generated:
 | **departDelayWaiting** | s          | The average waiting time of vehicles which could not be inserted due to lack of road space  |
 
 
-### pedestrianStatistics
+## pedestrianStatistics
 
 | Attribute Name  | Value Type | Description                                                           |
 | --------------- | ---------- | --------------------------------------------------------------------- |
@@ -85,7 +87,7 @@ The following output attributes are generated:
 | **timeLoss**    | s          | The average time lost due to walking below maximum speed or stopping  |
 
 
-### rideStatistics
+## rideStatistics
 
 | Attribute Name   | Value Type | Description                                                                 |
 | ---------------- | ---------- | --------------------------------------------------------------------------- |
@@ -99,7 +101,7 @@ The following output attributes are generated:
 | **aborted**      | #          | Number of rides that could not be completed                                 |
 
 
-### transportStatistics
+## transportStatistics
 
 | Attribute Name   | Value Type | Description                                                               |
 | ---------------- | ---------- | --------------------------------------------------------------------------|
@@ -111,3 +113,18 @@ The following output attributes are generated:
 | **taxi**         | #          | Number of taxi transports                                                 |
 | **bike**         | #          | Number of transports with vehicle class *bicycle*                         |
 | **aborted**      | #          | Number of transports that could not be completed                          |
+
+# Usage examples
+
+## Fair Traveltime comparison between simulations
+When comparing simulations with a fixed end-time, those simulations may differ in the number of departed and arrived vehicles. In this case, care must be taken to include the "missing" vehicles in a comparison, since many outputs only include arrived vehicles by default.
+The include statistics for these vehicles, the options **--tripinfo-output.write-unfinished --duration-log.statistics** must be set.
+The general idea is to add up the travel time (duration) and the time that was spent waiting for departure (departDelay) for all vehicles that were defined in the input.
+
+Since the statistic output only provides averages, we must multiply those values with the corresponding counts:
+
+```
+totalTravelTime = 
+     vehicles.inserted * (vehicleTripStatistics.duration + vehicleTripStatistics.departDelay)
+   + vehicles.waiting * vehicleTripStatistics.departDelayWaiting
+```
