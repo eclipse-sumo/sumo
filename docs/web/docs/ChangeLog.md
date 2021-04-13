@@ -36,7 +36,7 @@ title: ChangeLog
     - Fixed invalid collision warning. Issue #8068
     - Fixed invalid vehicle angle in subsecond simulation. Issue #8070
     - Lateral deviation due to lcSigma > 0 is now independent of step-length when using `latAlignment="arbitrary"`. Issue #8154
-    - Lateral no longer exceeds lcAccelLat. Issue #8195
+    - Lateral acceleration no longer exceeds lcAccelLat. Issue #8195
   - Opposite direction driving fixes
     - Fixed undetected collisions. Issue #8082, #8111
     - Fixed invalid collision warning. Issue #8079
