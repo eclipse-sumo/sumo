@@ -109,7 +109,7 @@ title: ChangeLog
   - Fixed [simpla](Simpla.md) crashes. Issue #8151, #8179
   - Fixed crash when starting traci with option traceFile, closing and starting again without traceFile. Issue #8177
   - Function 'trafficlight.setProgramLogic' new resets phase duration. Issue #2238
-  - Function 'trafficlight.setPhaseDuration' now works for actuatd traffic lights. Issue #1959
+  - Function 'trafficlight.setPhaseDuration' now works for actuated traffic lights. Issue #1959
   - Route replacement with internal edge at the start of the edges list no longer causes an error. Issue #8231
   - Fixed failure to add stop when close to the stop position (but not quite too close). Also affected taxi re-dispatch. Issue #8285,#8398  
   - Looped taxi-dispatch now picks up persons in the intended order. Issue #8295
@@ -199,7 +199,7 @@ title: ChangeLog
   - Connection file element `<walkingArea>` now supports attribute 'width' #7968
   - Lane attribute type is now written in OpenDRIVE output. Issue #8229
   - Added option **--default.allow** to set default edge permissions (also applies to netgenerate). Issue #8271
-  - Added option **--osm.extra-attributes** to import addional edge attributes (osm tags) as generic parameters. Issue #8322
+  - Added option **--osm.extra-attributes** to import additional edge attributes (osm tags) as generic parameters. Issue #8322
   - Added option **--osm.lane-access** for import of extra lane access permissions (experimental). Issue #7601
   - Option **--output.street-names** is now working for  VISUM network. Issue #8418
   - MatSim import can now split self loops and handle "half" lanes. Issue #8047, #7947
@@ -231,7 +231,7 @@ title: ChangeLog
   - vehicle.dispatchTaxi now supports re-dispatching a taxi that is already in pickup or occupied mode. Issue #8148
   - Vehicles that are accumulating insertion delay (because they cannot safely enter the network as schedule) can now be retrieved using the functions 'traci.simulation.getPendingVehicles', 'traci.edge.getPendingVehicles' and 'traci.lane.getPendingVehicles. Issue #8157
   - Taxi customers (including those that shall be picked up but are not yet on board) can now be retrieved using `traci.vehicle.getParameter(vehID, "device.taxi.currentCustomers")`. Issue #8189
-  - The reservation objects returnd by [traci.person.getTaxiReservations](Simulation/Taxi.md#gettaxireservations) now includes persons that are eligible for re-dispatch and includes the state of the reservation (new, assigned, on board). Issue #8168
+  - The reservation objects returned by [traci.person.getTaxiReservations](Simulation/Taxi.md#gettaxireservations) now includes persons that are eligible for re-dispatch and includes the state of the reservation (new, assigned, on board). Issue #8168
   - Added function 'traci.person.splitTaxiReservation' to transport pre-made groups with multiple vehicles. Issue #8236
   - The domains 'simulation', 'junction', 'inductionloop', 'lanearea', 'multientryexit' now support setParameter and getParameter. Issue #4733, #8244
   - The value set by `traci.vehicle.setParameter("lcReason", VALUE)` will now be appended to lanechange-output. Issue #8297
@@ -262,7 +262,7 @@ title: ChangeLog
   - When using rectangle selection, junctions of selected edges are now added to the selection by default. Issue #8406
 
 - netconvert
-  - Parallel turn lanes are no longer written as distinct edges but are instead written as multi-lane edge with different lane lenghts. As before, lane-changing on an intersection is not permitted on a turn lane. Issue #7954
+  - Parallel turn lanes are no longer written as distinct edges but are instead written as multi-lane edge with different lane lengths. As before, lane-changing on an intersection is not permitted on a turn lane. Issue #7954
   - Written network version is now 1.9.0
 
 - Documentation
