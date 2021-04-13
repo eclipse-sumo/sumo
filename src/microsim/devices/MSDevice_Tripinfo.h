@@ -255,7 +255,8 @@ private:
     static std::set<const MSDevice_Tripinfo*, ComparatorNumericalIdLess> myPendingOutput;
 
     /// @brief global tripinfo statistics
-    static double myVehicleCount;
+    static long myVehicleCount;
+    static long myUndepartedVehicleCount;
     static double myTotalRouteLength;
     static double myTotalSpeed;
     static SUMOTime myTotalDuration;
@@ -264,7 +265,7 @@ private:
     static SUMOTime myTotalDepartDelay;
     static SUMOTime myWaitingDepartDelay;
 
-    static int myWalkCount;
+    static long myWalkCount;
     static double myTotalWalkRouteLength;
     static SUMOTime myTotalWalkDuration;
     static SUMOTime myTotalWalkTimeLoss;
