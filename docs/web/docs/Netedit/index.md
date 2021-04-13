@@ -125,6 +125,12 @@ title: netedit
 | Paste                  | Ctrl + V | Paste previously cut/copied text in a text field |
 | Select all text        | Ctrl + A | Select all text in a text field                  |
 
+
+**Toolbar shortcuts**   
+The mode-depended option checkboxes (such as *Toggle grid* and others) located in the toolbar, can easily be checked an unchecked using the `Alt + NUMBER` shortcut, where NUMBER corresponds to its position within the options (e.g. *Toggle grid* is 1, and so on).
+
+---
+
 In addition to these hotkeys, [all hotkeys for moving and zooming in
 sumo-gui](../sumo-gui.md#keyboard_shortcuts) are supported.
 
