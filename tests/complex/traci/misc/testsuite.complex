@@ -25,5 +25,8 @@ tracing_noGetters
 # test client-side command tracing
 tracing_close_start
 
+# test some output
+verbose
+
 # test various functions and options for influencing the behavior of rerouting functions
 rerouting
