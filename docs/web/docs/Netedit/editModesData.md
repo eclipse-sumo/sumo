@@ -33,3 +33,5 @@ EdgeRelDatas are created over two edges
 ![](../images/DataMode8.png)Click over second edge to create path
 
 ![](../images/DataMode9.png)Press enter to create edge rel data
+
+## TAZ relation mode

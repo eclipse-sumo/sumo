@@ -14,12 +14,17 @@ When inspecting an element that is [selected](#select) along with multiple eleme
 - If the elements differ in their attributes, the whole range of occurring values is shown
 - All selected elements of the same type are modified at the same time when setting a new value
 
-![](../images/InspectMode1.png)Changing the number of lanes of an edge.
-![](../images/InspectMode2.png)Number of lanes of the edge changed
+![](../images/InspectMode1.png)   
+Changing the number of lanes of an edge
 
-![](../images/InspectMode3.png)Changing the width of a lane. Note that option "select edges" is disabled. 
+![](../images/InspectMode2.png)   
+Number of lanes of the edge changed
 
-![](../images/InspectMode4.png)Width of lane changed (gaps will disappear upon triggering recomputation with **F5**)
+![](../images/InspectMode3.png)   
+Changing the width of a lane. Note that option "select edges" is disabled
+
+![](../images/InspectMode4.png)   
+Width of lane changed (gaps will disappear upon triggering recomputation with **F5**)
 
 ### Generic Parameters
 Most simulation objects support [Generic Parameters](../Simulation/GenericParameters.md) to express custom user data and supplemental configurations. They can be edited with the 'Edit parameters' dialog which is accessible with the 'Edit parameters' button. 
@@ -57,25 +62,30 @@ The Delete mode is used to remove an element of your network. The following is p
 
 The delete frame own a list of elements that is filled automatically with the childs of the current element under the cursor. This list of child elements can be marked using Control + left-Click, and every child can be centered, inspected or removed individually with a right click over an element.
 
-![](../images/GNEDeleteFrame1.png)General view of the delete frame
+![](../images/GNEDeleteFrame1.png)   
+General view of the delete frame
 
 Additionally, the delete frame has a list of options to avoid undesirable deletes:
 
 - Force deletion of additionals: Used to avoid undesirable deletion of additionals.
 
-![](../images/GNEDeleteFrame5.png)If the user tries to remove an element with additional childs and 'Force deletion of additionals' is disabled, netedit shows a warning dialog and the element isn't deleted.
+![](../images/GNEDeleteFrame5.png)   
+If the user tries to remove an element with additional childs and 'Force deletion of additionals' is disabled, netedit shows a warning dialog and the element isn't deleted.
 
 - Delete only geometry points: Used to remove only geometry points
 
-![](../images/GNEDeleteFrame6.png)Only Geometry points can be deleted
+![](../images/GNEDeleteFrame6.png)   
+Only Geometry points can be deleted
 
 ## Select
 
 Select network objects according to various criteria. Selected objects can be moved or deleted together. It is also possible to set attributes for all selected junctions (or all edges) at the same time using **inspect mode**.
 
-![](../images/ModeSelect1.png)The left frame shows information about the current selected elements. 
+![](../images/ModeSelect1.png)   
+The left frame shows information about the current selected elements
 
-![](../images/ModeSelect2.png)Selected elements are painted with a different color.
+![](../images/ModeSelect2.png)   
+Selected elements are painted with a different color
 
 ### Methods for selecting
 
