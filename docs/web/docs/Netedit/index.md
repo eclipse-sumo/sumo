@@ -4,7 +4,7 @@ title: netedit
 
 # From 30.000 feet
 
-**netedit** is a graphical network editor for SUMO.
+**netedit** is a graphical network editor included in SUMO.
 
 - **Purpose:** create and modify SUMO networks
 - **System:** portable (Linux/Windows is tested); opens a window
@@ -16,7 +16,7 @@ title: netedit
 
 **netedit** is a visual network editor. It can be used to create networks from scratch and to modify all aspects of existing networks. With a powerful selection and highlighting interface it can also be used to debug network attributes. **netedit** is built on top of [netconvert](../netconvert.md). As a general rule of thumb, anything [netconvert](../netconvert.md) can do, **netedit** can do as well. **netedit** has unlimited undo/redo capabilities and thus allows editing mistakes to be quickly corrected. Editing commands are generally issued with a left-click (according to the current [edit mode](editModes.md)). The user interface closely follows that of [sumo-gui](../sumo-gui.md#interaction_with_the_view). Additional keyboard hotkeys are documented in the *Help* menu.
 
-**netedit** can also be used to define and edit
+**netedit** can also be used to define and edit:
 
 - [additional simulation infrastructure](elementsAdditional.md)
 - [traffic (vehicles, persons, vTypes, routes)](elementsDemand.md)
@@ -189,46 +189,55 @@ loaded at the start of the simulation. In SUMO the terms **node** and **junction
 
 # Editing Modes
 
-Netedit can be switched between three major edit modes (called supermodes) for edting [network](editModesNetwork.md) related objects, [traffic](editModesDemand.md) related objects and [data](editModesData.md) objects.
-Each of these [supermodes](editModes.md) has a number of sub-modes (simply called modes) for inspecting, deleting and adding the different objects.
-Some of these modes are common to all super modes while others are specifc to a particular supermode as listed below.
+Netedit can be switched between three major edit modes (also called ***supermodes***) for editing [network](editModesNetwork.md)-related objects, [traffic](editModesDemand.md)-related objects and [data](editModesData.md) objects.
+Each of these [supermodes](editModes.md) has a number of sub-modes (simply called ***modes***) for inspecting, deleting and adding the different objects.
+Some of these modes are common to all supermodes while others are specifc to a particular supermode as listed below.
 
-## [Common modes](editModesCommon.md) ##
- 
+## [Common modes](editModesCommon.md)
+
+This modes are present in all supermodes and have custom cursors:
+
 - [Inspect](editModesCommon.md#inspect)
 - [Delete](editModesCommon.md#delete)
 - [Select](editModesCommon.md#select)
-- [Move](editModesCommon.md#move)
+- [Move](editModesCommon.md#move) (absent in *Data Supermode*)
  
-## [Network specific modes](editModesNetwork.md) ##
- 
+## [Network specific modes](editModesNetwork.md)
+
+Modes available in the *Network Supermode*:
+
 - [Edges](editModesNetwork.md#create_edges)
 - [Connections](editModesNetwork.md#edit_connections)
+- [Prohibitions](editModesNetwork.md#prohibitions)
 - [Traffic Lights](editModesNetwork.md#traffic_lights)
-- [Crossings](editModesNetwork.md#crossings)
 - [Additionals (busStops, detectors, ...)](editModesNetwork.md#additionals)
+- [Crossings](editModesNetwork.md#crossings)
 - [TAZ](editModesNetwork.md#taz_traffic_analysis_zones)
 - [Shapes (POI, Poly)](editModesNetwork.md#shapes)
-- [Prohibitions](editModesNetwork.md#prohibitions)
  
-## [Demand specific modes](editModesDemand.md) ##
+## [Demand specific modes](editModesDemand.md)
+
+Modes available in the *Demand Supermode*:
 
 - [Routes](editModesDemand.md#route_mode)
 - [Vehicles](editModesDemand.md#vehicle_mode)
 - [Vehicle Types](editModesDemand.md#vehicle_type_mode)
 - [Stops](editModesDemand.md#stop_mode)
-- [Persons](editModesDemand.md#person_mode)
 - [Person Types](editModesDemand.md#person_type_mode)
+- [Persons](editModesDemand.md#person_mode)
 - [Person Plans](editModesDemand.md#person_plan_mode)
 
-## [Data specific modes](editModesData.md) ##
+## [Data specific modes](editModesData.md)
+
+Modes available in the *Data Supermode*:
 
 - [Edge Data](editModesData.md#edge_data_mode)
-- [Edge Relation Data](editModesData.md#edge_rel_data_mode)
+- [Edge Relation](editModesData.md#edge_rel_data_mode)
+- [TAZ Relation](editModesData.md#taz_relation_mode)
 
-# [Elements](elements.md) ##
+# [Elements](elements.md)
 
-Netedit is used to create and edit a variety of different objects. Each object may support additional functionality and this is documented in the following
+Netedit is used to create and edit a variety of different objects. Each object may support additional functionality:
 
 - [Network elements](elementsNetwork.md)
 - [Additional elements](elementsAdditional.md)
@@ -237,14 +246,24 @@ Netedit is used to create and edit a variety of different objects. Each object m
 - [Demand elements](elementsDemand.md)
 - [Data elements](elementsData.md)
 
-# [Popup-Menu functions](neteditPopupFunctions.md) #
-# [Usage examples](neteditUsageExamples.md) #
+# [Popup-Menu functions](neteditPopupFunctions.md)
+
+Right clicking over an element will open a popup-menu with functions and operations relevant to set element. You can right click on:
+
+- [Edge and Lane](neteditPopupFunctions.md#edge_and_lane)
+- [Junction](neteditPopupFunctions.md#junction)
+- [Connection](neteditPopupFunctions.md#connection)
+- [Crossing](neteditPopupFunctions.md#crossing)
+- [Modifiable Poly](neteditPopupFunctions.md#modifiable_poly)
+- [Additionals](neteditPopupFunctions.md#additionals)
+- [Route](neteditPopupFunctions.md#route)
+
+# [Usage examples](neteditUsageExamples.md)
 
 # Planned Features
 
-- Support for editing features already supported by
-[netconvert](../netconvert.md)
-  - Editing `<neigh>` information for [Simulation/OppositeDirectionDriving](../Simulation/OppositeDirectionDriving.md).
+- Support for editing features already supported by [netconvert](../netconvert.md)
+  - Editing `<neigh>` information for [Simulation/OppositeDirectionDriving](../Simulation/OppositeDirectionDriving.md)
     
 
 !!! note
@@ -254,4 +273,3 @@ Netedit is used to create and edit a variety of different objects. Each object m
 - Integration of [netgenerate](../netgenerate.md)
 - Integration of [netdiff](../Tools/Net.md#netdiffpy)
 - Adding / merging of sub-networks to the existing network
-- ...
