@@ -88,9 +88,11 @@ enum class GUIIcon {
 
     /// @name green and yellow objects icons
     /// @{
+    GREENCONTAINER,
     GREENEDGE,
     GREENVEHICLE,
     GREENPERSON,
+    YELLOWCONTAINER,
     YELLOWEDGE,
     YELLOWVEHICLE,
     YELLOWPERSON,

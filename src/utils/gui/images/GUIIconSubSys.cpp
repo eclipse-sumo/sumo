@@ -62,6 +62,8 @@
 #include "locate_poi.xpm"
 #include "locate_poly.xpm"
 
+#include "green_container.xpm"
+#include "yellow_container.xpm"
 #include "green_edge.xpm"
 #include "yellow_edge.xpm"
 #include "green_vehicle.xpm"
@@ -399,9 +401,11 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::LOCATEPOI] = new FXXPMIcon(a, locate_poi_xpm);
     myIcons[GUIIcon::LOCATEPOLY] = new FXXPMIcon(a, locate_poly_xpm);
 
+    myIcons[GUIIcon::GREENCONTAINER] = new FXXPMIcon(a, green_container_xpm);
     myIcons[GUIIcon::GREENEDGE] = new FXXPMIcon(a, green_edge_xpm);
     myIcons[GUIIcon::GREENVEHICLE] = new FXXPMIcon(a, green_vehicle_xpm);
     myIcons[GUIIcon::GREENPERSON] = new FXXPMIcon(a, green_person_xpm);
+    myIcons[GUIIcon::YELLOWCONTAINER] = new FXXPMIcon(a, yellow_container_xpm);
     myIcons[GUIIcon::YELLOWEDGE] = new FXXPMIcon(a, yellow_edge_xpm);
     myIcons[GUIIcon::YELLOWVEHICLE] = new FXXPMIcon(a, yellow_vehicle_xpm);
     myIcons[GUIIcon::YELLOWPERSON] = new FXXPMIcon(a, yellow_person_xpm);
