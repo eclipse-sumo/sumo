@@ -36,6 +36,7 @@
 // ===========================================================================
 #ifndef LIBTRACI
 class MSRailSignalConstraint;
+class SUMOVehicle;
 #endif
 
 // ===========================================================================
@@ -95,7 +96,8 @@ public:
 private:
     static libsumo::TraCISignalConstraint buildConstraint(const std::string& tlsID, const std::string& tripId, MSRailSignalConstraint* constraint, bool insertionConstraint);
     /// @brief perform swapConstraints to resolve deadlocks and return the new constraints
-    static std::vector<libsumo::TraCISignalConstraint> findConstraintsDeadLocks(const std::string& tripId, const std::string& foeId);
+    static std::vector<libsumo::TraCISignalConstraint> findConstraintsDeadLocks(const std::string& tripId, const std::string& foeId, const std::string& foeSignal);
+    static SUMOVehicle* getVehicleByTripId(const std::string tripOrVehID);
 
 private:
 #ifndef SWIGJAVA

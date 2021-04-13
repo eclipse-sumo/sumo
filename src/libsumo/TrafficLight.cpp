@@ -336,7 +336,7 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
         const int limit = c->myLimit;
         s->removeConstraint(tripId, c);
         s2->addConstraint(foeId, new MSRailSignalConstraint_Predecessor(s, tripId, limit));
-        return findConstraintsDeadLocks(foeId, tripId);
+        return findConstraintsDeadLocks(foeId, tripId, foeSignal);
     } else {
         throw TraCIException("Rail signal '" + tlsID + "' does not have the given constraint for '" + tripId + "'");
     }
@@ -371,7 +371,7 @@ TrafficLight::removeConstraints(const std::string& tlsID, const std::string& tri
 
 
 std::vector<TraCISignalConstraint>
-TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::string& tripId) {
+TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::string& tripId, const std::string& foeSignal) {
     std::vector<TraCISignalConstraint> result;
     // find circular constraints (deadlock)
     // foeId is now constrainted by tripId and assumed to follow tripId on the
@@ -416,15 +416,80 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
         nc.type = c.type;
         nc.mustWait = true; // ???
         result.push_back(nc);
+        // let foe wait for foe2
         std::vector<TraCISignalConstraint> result2 = swapConstraints(c.signalId, c.tripId, c.foeSignal, c.foeId);
         result.insert(result.end(), result2.begin(), result2.end());
         if (foeIds2.size() > 1) {
             // calling swapConstraints once may result in further swaps so we have to recheck for remaining deadlocks anew
-            std::vector<TraCISignalConstraint> result2 = findConstraintsDeadLocks(foeId, tripId);
+            std::vector<TraCISignalConstraint> result2 = findConstraintsDeadLocks(foeId, tripId, foeSignal);
             result.insert(result.end(), result2.begin(), result2.end());
         }
     }
+    if (foeId2Cands1.size() > 0) {
+        // foe2 might be constrained implicitly by foe due to following on the same track
+        // in this case foe must be on the route of foe2 between its current position and foeSignal
+        SUMOVehicle* foe = getVehicleByTripId(foeId);
+        if (foe != nullptr) {
+            const MSEdge* foeEdge = foe->getEdge();
+            const double foePos = foe->getPositionOnLane();
+            for (const std::string& foeId2 : foeId2Cands1) {
+                SUMOVehicle* foe2 = getVehicleByTripId(foeId2);
+                if (foe2 != nullptr) {
+                    ConstMSEdgeVector foe2Route = foe2->getRoute().getEdges();
+                    bool constrainedByFoe = false;
+                    for (int i = foe2->getRoutePosition(); i < (int)foe2Route.size(); i++) {
+                        const MSEdge* e = foe2Route[i];
+                        if (e == foeEdge &&
+                                ((e != foe2->getEdge() || foe2->getPositionOnLane() < foePos)
+                                 || (foe->hasDeparted() && !foe2->hasDeparted())
+                                 || (!foe->hasDeparted() && !foe2->hasDeparted() &&
+                                     (foe->getParameter().depart < foe2->getParameter().depart
+                                      || (foe->getParameter().depart == foe2->getParameter().depart && foe->getNumericalID() < foe2->getNumericalID())))
+                                 )) {
+                            constrainedByFoe = true;
+                            //std::cout << " foe=" << foeId << " foeEdge=" << foeEdge->getID() << " foe2=" << foe2->getID() << " i=" << i << " e=" << e->getID() << " foePos=" << foePos << " foe2Pos=" << foe2->getPositionOnLane() << "\n";
+                            break;
+                        }
+                        if (e->getToJunction()->getID() == foeSignal) {
+                            break;
+                        }
+                    }
+                    if (constrainedByFoe) {
+                        // foe cannot wait for foe2 (since it's behind). Instead foe2 must wait for tripId
+                        //std::cout << " findConstraintsDeadLocks foeId=" << foeId << " tripId=" << tripId << " implicit foeId2=" << toString(foeIds2) << "\n";
+                        const TraCISignalConstraint& c = constraintsOnTripId[foeId2];
+                        TraCISignalConstraint nc; // constraint after swap
+                        nc.tripId = c.foeId;
+                        nc.foeId = c.tripId;
+                        nc.signalId = c.foeSignal;
+                        nc.foeSignal = c.signalId;
+                        nc.limit = c.limit;
+                        nc.type = c.type;
+                        nc.mustWait = true; // ???
+                        result.push_back(nc);
+                        // let foe wait for foe2
+                        std::vector<TraCISignalConstraint> result2 = swapConstraints(c.signalId, c.tripId, c.foeSignal, c.foeId);
+                        result.insert(result.end(), result2.begin(), result2.end());
+                    }
+                }
+            }
+
+        }
+    }
     return result;
+}
+
+
+SUMOVehicle*
+TrafficLight::getVehicleByTripId(const std::string tripOrVehID) {
+    MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
+    for (MSVehicleControl::constVehIt i = c.loadedVehBegin(); i != c.loadedVehEnd(); ++i) {
+        SUMOVehicle* veh = i->second;
+        if (veh->getParameter().getParameter("tripId", veh->getID()) == tripOrVehID) {
+            return veh;
+        }
+    }
+    return nullptr;
 }
 
 

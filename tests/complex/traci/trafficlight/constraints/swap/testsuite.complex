@@ -13,6 +13,12 @@
 # reversed order of swapConstraints calls
 4b
 
+# a single swap causes additional swaps
+5
+
+# a single swap causes additional swaps
+6
+
 # deadlock must be resolved (only solution is to let the overtaking vehicle keep overtaking)
 redundant_1
 
