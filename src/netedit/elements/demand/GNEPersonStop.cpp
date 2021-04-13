@@ -81,19 +81,11 @@ GNEPersonStop::isDemandElementValid() const {
         return true;
     } else if (firstLane != nullptr) {
         // obtain lane length
-        double laneLength = getParentEdges().front()->getNBEdge()->getFinalLength() * firstLane->getLengthGeometryFactor();
-        // declare a copy of start and end positions
-        double startPosCopy = startPos;
-        double endPosCopy = endPos;
-        // check if position has to be fixed
-        if (startPosCopy < 0) {
-            startPosCopy += laneLength;
-        }
-        if (endPosCopy < 0) {
-            endPosCopy += laneLength;
-        }
+        const double laneLength = getParentEdges().front()->getNBEdge()->getFinalLength() * firstLane->getLengthGeometryFactor();
+        // declare end pos fixed
+        const double endPosFixed = (endPos < 0)? (endPos + laneLength) : endPos;
         // check values
-        return ((startPosCopy >= 0) && (endPosCopy <= getParentEdges().front()->getNBEdge()->getFinalLength()) && ((endPosCopy - startPosCopy) >= POSITION_EPS));
+        return (endPosFixed <= getParentEdges().front()->getNBEdge()->getFinalLength()) && (endPosFixed > 0);
     } else {
         return false;
     }
@@ -102,36 +94,22 @@ GNEPersonStop::isDemandElementValid() const {
 
 std::string
 GNEPersonStop::getDemandElementProblem() const {
-    // declare a copy of start and end positions
-    double startPosCopy = startPos;
-    double endPosCopy = endPos;
-    // obtain lane length
-    double laneLength = getParentEdges().front()->getNBEdge()->getFinalLength();
-    // check if position has to be fixed
-    if (startPosCopy < 0) {
-        startPosCopy += laneLength;
+    if (friendlyPos) {
+        return "";
+    } else {
+        // obtain lane length
+        const double laneLength = getParentEdges().front()->getNBEdge()->getFinalLength();
+        // declare end pos fixed
+        const double endPosFixed = (endPos < 0) ? (endPos + laneLength) : endPos;
+        // check positions over lane
+        if (endPosFixed < 0) {
+            return (toString(SUMO_ATTR_ENDPOS) + " < 0");
+        } else if (endPosFixed > getParentEdges().front()->getNBEdge()->getFinalLength()) {
+            return (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
+        } else {
+            return "";
+        }
     }
-    if (endPosCopy < 0) {
-        endPosCopy += laneLength;
-    }
-    // declare variables
-    std::string errorStart, separator, errorEnd;
-    // check positions over lane
-    if (startPosCopy < 0) {
-        errorStart = (toString(SUMO_ATTR_STARTPOS) + " < 0");
-    } else if (startPosCopy > getParentEdges().front()->getNBEdge()->getFinalLength()) {
-        errorStart = (toString(SUMO_ATTR_STARTPOS) + " > lanes's length");
-    }
-    if (endPosCopy < 0) {
-        errorEnd = (toString(SUMO_ATTR_ENDPOS) + " < 0");
-    } else if (endPosCopy > getParentEdges().front()->getNBEdge()->getFinalLength()) {
-        errorEnd = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
-    }
-    // check separator
-    if ((errorStart.size() > 0) && (errorEnd.size() > 0)) {
-        separator = " and ";
-    }
-    return errorStart + separator + errorEnd;
 }
 
 
@@ -156,13 +134,13 @@ GNEPersonStop::getColor() const {
 void
 GNEPersonStop::updateGeometry() {
     // get lane
-    const GNELane* firstLane = getFirstAllowedLane();
+    const GNELane* lane = getFirstAllowedLane();
     // only update Stops over lanes, because other uses the geometry of stopping place parent
-    if (firstLane != nullptr) {
-        // Cut shape using as delimitators fixed start position and fixed end position
-        myDemandElementGeometry.updateGeometry(firstLane->getLaneShape(), 0, 2);
+    if (lane != nullptr) {
+        // update geometry using lane and pos over lane
+        myDemandElementGeometry.updateGeometry(lane, endPos);
     } else if (getParentAdditionals().size() > 0) {
-        // use geometry of additional (busStop)
+        // update geometry using geometry of additional (busStop)
         myDemandElementGeometry.updateGeometry(getParentAdditionals().at(0));
     }
     // compute previous and next person plan
@@ -249,34 +227,28 @@ GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
     // get lane
     const GNELane* const firstLane = getFirstAllowedLane();
     // declare flag to enable or disable draw person plan
-    bool drawPersonPlan = false;
+    bool drawPersonStop = false;
     if (myTagProperty.isPersonStop()) {
         if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
                 myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
-            drawPersonPlan = true;
+            drawPersonStop = true;
         }
     } else if (myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
-        drawPersonPlan = true;
+        drawPersonStop = true;
     } else if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front())) {
-        drawPersonPlan = true;
+        drawPersonStop = true;
     } else if (myNet->getViewNet()->getDemandViewOptions().getLockedPerson() == getParentDemandElements().front()) {
-        drawPersonPlan = true;
+        drawPersonStop = true;
     } else if (!myNet->getViewNet()->getInspectedAttributeCarriers().empty() && myNet->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isPersonPlan() &&
                (myNet->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(GNE_ATTR_PARENT) == getAttribute(GNE_ATTR_PARENT))) {
-        drawPersonPlan = true;
+        drawPersonStop = true;
     }
     // check if stop can be drawn
-    if (drawPersonPlan) {
+    if (drawPersonStop) {
         // Obtain exaggeration of the draw
         const double exaggeration = s.addSize.getExaggeration(s, this);
         // declare value to save stop color
-        RGBColor stopColor;
-        // Set color
-        if (drawUsingSelectColor()) {
-            stopColor = s.colorSettings.selectedPersonPlanColor;
-        } else {
-            stopColor = s.colorSettings.stops;
-        }
+        const RGBColor stopColor = drawUsingSelectColor()? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stops;
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix
@@ -435,8 +407,6 @@ GNEPersonStop::getAttribute(SumoXMLAttr key) const {
         // specific of stops over edges/lanes
         case SUMO_ATTR_EDGE:
             return getParentEdges().front()->getID();
-        case SUMO_ATTR_STARTPOS:
-            return toString(startPos);
         case SUMO_ATTR_ENDPOS:
             return toString(endPos);
         case SUMO_ATTR_FRIENDLY_POS:
@@ -455,8 +425,6 @@ GNEPersonStop::getAttribute(SumoXMLAttr key) const {
 double
 GNEPersonStop::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_STARTPOS:
-            return startPos;
         case SUMO_ATTR_ENDPOS:
             return endPos;
         case SUMO_ATTR_ARRIVALPOS:
@@ -491,7 +459,6 @@ GNEPersonStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_PARKING_AREA:
         // specific of stops over edges/lanes
         case SUMO_ATTR_EDGE:
-        case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_FRIENDLY_POS:
         //
@@ -564,20 +531,8 @@ GNEPersonStop::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        case SUMO_ATTR_STARTPOS:
-            if (canParse<double>(value)) {
-                return SUMORouteHandler::isStopPosValid(parse<double>(value), endPos, getParentEdges().front()->getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPos);
-            } else {
-                return false;
-            }
         case SUMO_ATTR_ENDPOS:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
-                return SUMORouteHandler::isStopPosValid(startPos, parse<double>(value), getParentEdges().front()->getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPos);
-            } else {
-                return false;
-            }
+            return canParse<double>(value) && fabs(parse<double>(value)) < getParentEdges().front()->getNBEdge()->getFinalLength();
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         //
@@ -608,16 +563,6 @@ GNEPersonStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     undoList->add(new GNEChange_EnableAttribute(this, parametersSet, newParametersSet), true);
     // modify parametersSetCopy depending of attr
     switch (key) {
-        case SUMO_ATTR_STARTPOS:
-            if (parametersSet & STOP_END_SET) {
-                undoList->p_add(new GNEChange_Attribute(this, key, toString(endPos - MIN_STOP_LENGTH)));
-            } else {
-                undoList->p_add(new GNEChange_Attribute(this, key, toString(getParentEdges().front()->getNBEdge()->getFinalLength() - MIN_STOP_LENGTH)));
-            }
-            break;
-        case SUMO_ATTR_ENDPOS:
-            undoList->p_add(new GNEChange_Attribute(this, key, toString(getParentEdges().front()->getNBEdge()->getFinalLength())));
-            break;
         case SUMO_ATTR_DURATION:
             undoList->p_add(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
             break;
@@ -817,10 +762,6 @@ GNEPersonStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceDemandParentEdges(value);
             updateGeometry();
             edge = value;
-            break;
-        case SUMO_ATTR_STARTPOS:
-            startPos = parse<double>(value);
-            updateGeometry();
             break;
         case SUMO_ATTR_ENDPOS:
             endPos = parse<double>(value);
