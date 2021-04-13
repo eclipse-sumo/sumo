@@ -212,7 +212,7 @@ title: ChangeLog
   - Option **--scale** is now applied when loading route files instead of od-matrices. Issue #8352
   
 - od2trips
-  - Added option **--junctions** which interprets the loaded source and sink ids at fromJunction and toJunction ids. #8389
+  - Added option **--junctions** which interprets the loaded source and sink IDs as fromJunction and toJunction ids. #8389
 
 - dfrouter
   - Added option **--vclass** to filter eligble edges in a multi-modal network. Issue #8408
