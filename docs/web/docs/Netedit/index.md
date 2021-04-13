@@ -260,6 +260,14 @@ Right clicking over an element will open a popup-menu with functions and operati
 
 # [Usage examples](neteditUsageExamples.md)
 
+- [Reducing the extent of a network](neteditUsageExamples.md#reducing_the_extent_of_the_network)
+- [Specifying the complete geometry of an edge including endpoints](neteditUsageExamples.md#specifying_the_complete_geometry_of_an_edge_including_endpoints)
+- [Converting an intersection into a roundabout](neteditUsageExamples.md#converting_an_intersection_into_a_roundabout)
+- [Correcting road access permissions](neteditUsageExamples.md#correcting_road_access_permissions)
+- [Creating bidirectional railway tracks](neteditUsageExamples.md#creating_bidirectional_railway_tracks)
+
+And many [others](neteditUsageExamples.md).
+
 # Planned Features
 
 - Support for editing features already supported by [netconvert](../netconvert.md)
