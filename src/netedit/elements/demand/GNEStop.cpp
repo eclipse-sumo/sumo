@@ -95,15 +95,7 @@ GNEStop::isDemandElementValid() const {
             endPosCopy += laneLength;
         }
         // check values
-        if (!(parametersSet & STOP_START_SET) && !(parametersSet & STOP_END_SET)) {
-            return true;
-        } else if (!(parametersSet & STOP_START_SET)) {
-            return (endPosCopy <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
-        } else if (!(parametersSet & STOP_END_SET)) {
-            return (startPosCopy >= 0);
-        } else {
-            return ((startPosCopy >= 0) && (endPosCopy <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) && ((endPosCopy - startPosCopy) >= POSITION_EPS));
-        }
+        return ((startPosCopy >= 0) && (endPosCopy <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) && ((endPosCopy - startPosCopy) >= POSITION_EPS));
     }
 }
 
@@ -187,19 +179,7 @@ GNEStop::computePath() {
 Position
 GNEStop::getPositionInView() const {
     if (getParentLanes().size() > 0) {
-        // calculate start and end positions as absolute values
-        double start = fabs(parametersSet & STOP_START_SET ? startPos : 0);
-        double end = fabs(parametersSet & STOP_END_SET ? endPos : getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
-        // obtain position in view depending if both positions are defined
-        if (!(parametersSet & STOP_START_SET) && !(parametersSet & STOP_END_SET)) {
-            return getParentLanes().front()->getLaneShape().positionAtOffset(getParentLanes().front()->getLaneShape().length() / 2);
-        } else if (!(parametersSet & STOP_START_SET)) {
-            return getParentLanes().front()->getLaneShape().positionAtOffset(end);
-        } else if (!(parametersSet & STOP_END_SET)) {
-            return getParentLanes().front()->getLaneShape().positionAtOffset(start);
-        } else {
-            return getParentLanes().front()->getLaneShape().positionAtOffset((start + end) / 2.0);
-        }
+        return getParentLanes().front()->getLaneShape().positionAtOffset((startPos + endPos) / 2.0);
     } else if (getParentDemandElements().size() > 0) {
         return getParentDemandElements().front()->getPositionInView();
     } else {
@@ -432,17 +412,9 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         case SUMO_ATTR_STARTPOS:
-            if (parametersSet & STOP_START_SET) {
-                return toString(startPos);
-            } else {
-                return "";
-            }
+            return toString(startPos);
         case SUMO_ATTR_ENDPOS:
-            if (parametersSet & STOP_END_SET) {
-                return toString(endPos);
-            } else {
-                return "";
-            }
+            return toString(endPos);
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(friendlyPos);
         //
@@ -460,17 +432,9 @@ double
 GNEStop::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_STARTPOS:
-            if (parametersSet & STOP_START_SET) {
-                return startPos;
-            } else {
-                return 0;
-            }
+            return startPos;
         case SUMO_ATTR_ENDPOS:
-            if (parametersSet & STOP_END_SET) {
-                return endPos;
-            } else {
-                return getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-            }
+            return endPos;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -566,17 +530,13 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_STARTPOS:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
+            if (canParse<double>(value)) {
                 return SUMORouteHandler::isStopPosValid(parse<double>(value), endPos, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPos);
             } else {
                 return false;
             }
         case SUMO_ATTR_ENDPOS:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
+            if (canParse<double>(value)) {
                 return SUMORouteHandler::isStopPosValid(startPos, parse<double>(value), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPos);
             } else {
                 return false;
@@ -598,12 +558,6 @@ GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     int newParametersSet = parametersSet;
     // modify parametersSetCopy depending of attr
     switch (key) {
-        case SUMO_ATTR_STARTPOS:
-            newParametersSet |= STOP_START_SET;
-            break;
-        case SUMO_ATTR_ENDPOS:
-            newParametersSet |= STOP_END_SET;
-            break;
         case SUMO_ATTR_DURATION:
             newParametersSet |= STOP_DURATION_SET;
             break;
@@ -629,16 +583,6 @@ GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     undoList->add(new GNEChange_EnableAttribute(this, parametersSet, newParametersSet), true);
     // modify parametersSetCopy depending of attr
     switch (key) {
-        case SUMO_ATTR_STARTPOS:
-            if (parametersSet & STOP_END_SET) {
-                undoList->p_add(new GNEChange_Attribute(this, key, toString(endPos - MIN_STOP_LENGTH)));
-            } else {
-                undoList->p_add(new GNEChange_Attribute(this, key, toString(getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength() - MIN_STOP_LENGTH)));
-            }
-            break;
-        case SUMO_ATTR_ENDPOS:
-            undoList->p_add(new GNEChange_Attribute(this, key, toString(getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength())));
-            break;
         case SUMO_ATTR_DURATION:
             undoList->p_add(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
             break;
@@ -658,12 +602,6 @@ GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     int newParametersSet = parametersSet;
     // modify parametersSetCopy depending of attr
     switch (key) {
-        case SUMO_ATTR_STARTPOS:
-            newParametersSet &= ~STOP_START_SET;
-            break;
-        case SUMO_ATTR_ENDPOS:
-            newParametersSet &= ~STOP_END_SET;
-            break;
         case SUMO_ATTR_DURATION:
             newParametersSet &= ~STOP_DURATION_SET;
             break;
@@ -699,10 +637,6 @@ GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_CHARGING_STATION:
         case SUMO_ATTR_PARKING_AREA:
             return false;
-        case SUMO_ATTR_STARTPOS:
-            return (parametersSet & STOP_START_SET) != 0;
-        case SUMO_ATTR_ENDPOS:
-            return (parametersSet & STOP_END_SET) != 0;
         case SUMO_ATTR_DURATION:
             return (parametersSet & STOP_DURATION_SET) != 0;
         case SUMO_ATTR_UNTIL:
@@ -744,14 +678,7 @@ GNEStop::getACParametersMap() const {
 
 double
 GNEStop::getStartGeometryPositionOverLane() const {
-    double fixedPos = 0;
-    if (parametersSet & STOP_START_SET) {
-        fixedPos = startPos;
-    } else if (parametersSet & STOP_END_SET) {
-        fixedPos = endPos - MIN_STOP_LENGTH;
-    } else {
-        fixedPos = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength() - MIN_STOP_LENGTH;
-    }
+    double fixedPos = startPos;
     const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     if (fixedPos < 0) {
         fixedPos += len;
@@ -762,12 +689,7 @@ GNEStop::getStartGeometryPositionOverLane() const {
 
 double
 GNEStop::getEndGeometryPositionOverLane() const {
-    double fixedPos = 0;
-    if (parametersSet & STOP_END_SET) {
-        fixedPos = endPos;
-    } else {
-        fixedPos = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-    }
+    double fixedPos = endPos;
     const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     if (fixedPos < 0) {
         fixedPos += len;
@@ -877,21 +799,11 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateGeometry();
             break;
         case SUMO_ATTR_STARTPOS:
-            if (value.empty()) {
-                parametersSet &= ~STOP_START_SET;
-            } else {
-                startPos = parse<double>(value);
-                parametersSet |= STOP_START_SET;
-            }
+            startPos = parse<double>(value);
             updateGeometry();
             break;
         case SUMO_ATTR_ENDPOS:
-            if (value.empty()) {
-                parametersSet &= ~STOP_END_SET;
-            } else {
-                endPos = parse<double>(value);
-                parametersSet |= STOP_END_SET;
-            }
+            parametersSet |= STOP_END_SET;
             updateGeometry();
             break;
         case SUMO_ATTR_FRIENDLY_POS:
@@ -919,13 +831,20 @@ GNEStop::setEnabledAttribute(const int enabledAttributes) {
 
 void 
 GNEStop::setMoveShape(const GNEMoveResult& moveResult) {
-    //
+    // change both position
+    startPos = moveResult.shapeToUpdate.front().x();
+    endPos = moveResult.shapeToUpdate.back().x();
+    // update geometry
+    updateGeometry();
 }
 
 
 void
 GNEStop::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    //
+    undoList->p_begin("position of " + getTagStr());
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.shapeToUpdate.front().x())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.shapeToUpdate.back().x())));
+    undoList->p_end();
 }
 
 /****************************************************************************/

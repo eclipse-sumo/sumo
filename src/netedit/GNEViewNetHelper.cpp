@@ -1076,12 +1076,14 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
 
 bool
 GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementDemandMode() {
-    // get demand element front
-    GNEDemandElement* demandElement = myViewNet->myObjectsUnderCursor.getDemandElementFront();
+    // first obtain moving reference (common for all)
+    myRelativeClickedPosition = myViewNet->getPositionInformation();
+    // get front AC
+    const GNEAttributeCarrier* frontAC = myViewNet->myObjectsUnderCursor.getAttributeCarrierFront();
     // check demand element
-    if (demandElement && (myViewNet->myObjectsUnderCursor.getAttributeCarrierFront() == demandElement)) {
+    if (myViewNet->myObjectsUnderCursor.getDemandElementFront() && (frontAC == myViewNet->myObjectsUnderCursor.getDemandElementFront())) {
         // get move operation
-        GNEMoveOperation* moveOperation = demandElement->getMoveOperation(0);
+        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getDemandElementFront()->getMoveOperation(0);
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);

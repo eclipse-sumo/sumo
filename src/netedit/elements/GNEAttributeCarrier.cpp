@@ -3334,15 +3334,13 @@ GNEAttributeCarrier::fillStopElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_STARTPOS,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::ACTIVATABLE |  GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              "The begin position on the lane (the lower position on the lane) in meters",
-                                              "0");
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The begin position on the lane (the lower position on the lane) in meters");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ENDPOS,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m",
-                                              "0");
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
@@ -3929,7 +3927,7 @@ GNEAttributeCarrier::fillPersonStopElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ENDPOS,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m");
         myTagProperties[currentTag].addAttribute(attrProperty);
 

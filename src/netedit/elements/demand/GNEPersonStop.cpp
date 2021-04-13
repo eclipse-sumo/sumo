@@ -93,15 +93,7 @@ GNEPersonStop::isDemandElementValid() const {
             endPosCopy += laneLength;
         }
         // check values
-        if (!(parametersSet & STOP_START_SET) && !(parametersSet & STOP_END_SET)) {
-            return true;
-        } else if (!(parametersSet & STOP_START_SET)) {
-            return (endPosCopy <= getParentEdges().front()->getNBEdge()->getFinalLength());
-        } else if (!(parametersSet & STOP_END_SET)) {
-            return (startPosCopy >= 0);
-        } else {
-            return ((startPosCopy >= 0) && (endPosCopy <= getParentEdges().front()->getNBEdge()->getFinalLength()) && ((endPosCopy - startPosCopy) >= POSITION_EPS));
-        }
+        return ((startPosCopy >= 0) && (endPosCopy <= getParentEdges().front()->getNBEdge()->getFinalLength()) && ((endPosCopy - startPosCopy) >= POSITION_EPS));
     } else {
         return false;
     }
@@ -444,17 +436,9 @@ GNEPersonStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGE:
             return getParentEdges().front()->getID();
         case SUMO_ATTR_STARTPOS:
-            if (parametersSet & STOP_START_SET) {
-                return toString(startPos);
-            } else {
-                return "";
-            }
+            return toString(startPos);
         case SUMO_ATTR_ENDPOS:
-            if (parametersSet & STOP_END_SET) {
-                return toString(endPos);
-            } else {
-                return "";
-            }
+            return toString(endPos);
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(friendlyPos);
         //
@@ -472,17 +456,9 @@ double
 GNEPersonStop::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_STARTPOS:
-            if (parametersSet & STOP_START_SET) {
-                return startPos;
-            } else {
-                return 0;
-            }
+            return startPos;
         case SUMO_ATTR_ENDPOS:
-            if (parametersSet & STOP_END_SET) {
-                return endPos;
-            } else {
-                return getParentEdges().front()->getNBEdge()->getFinalLength();
-            }
+            return endPos;
         case SUMO_ATTR_ARRIVALPOS:
             return 0;
         default:
@@ -589,9 +565,7 @@ GNEPersonStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_STARTPOS:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
+            if (canParse<double>(value)) {
                 return SUMORouteHandler::isStopPosValid(parse<double>(value), endPos, getParentEdges().front()->getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPos);
             } else {
                 return false;
@@ -621,29 +595,11 @@ GNEPersonStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     int newParametersSet = parametersSet;
     // modify parametersSetCopy depending of attr
     switch (key) {
-        case SUMO_ATTR_STARTPOS:
-            newParametersSet |= STOP_START_SET;
-            break;
-        case SUMO_ATTR_ENDPOS:
-            newParametersSet |= STOP_END_SET;
-            break;
         case SUMO_ATTR_DURATION:
             newParametersSet |= STOP_DURATION_SET;
             break;
         case SUMO_ATTR_UNTIL:
             newParametersSet |= STOP_UNTIL_SET;
-            break;
-        case SUMO_ATTR_EXTENSION:
-            newParametersSet |= STOP_EXTENSION_SET;
-            break;
-        case SUMO_ATTR_EXPECTED:
-            newParametersSet |= STOP_TRIGGER_SET;
-            break;
-        case SUMO_ATTR_EXPECTED_CONTAINERS:
-            newParametersSet |= STOP_CONTAINER_TRIGGER_SET;
-            break;
-        case SUMO_ATTR_PARKING:
-            newParametersSet |= STOP_PARKING_SET;
             break;
         default:
             break;
@@ -681,12 +637,6 @@ GNEPersonStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     int newParametersSet = parametersSet;
     // modify parametersSetCopy depending of attr
     switch (key) {
-        case SUMO_ATTR_STARTPOS:
-            newParametersSet &= ~STOP_START_SET;
-            break;
-        case SUMO_ATTR_ENDPOS:
-            newParametersSet &= ~STOP_END_SET;
-            break;
         case SUMO_ATTR_DURATION:
             newParametersSet &= ~STOP_DURATION_SET;
             break;
@@ -695,15 +645,6 @@ GNEPersonStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
             break;
         case SUMO_ATTR_EXTENSION:
             newParametersSet &= ~STOP_EXTENSION_SET;
-            break;
-        case SUMO_ATTR_EXPECTED:
-            newParametersSet &= ~STOP_TRIGGER_SET;
-            break;
-        case SUMO_ATTR_EXPECTED_CONTAINERS:
-            newParametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
-            break;
-        case SUMO_ATTR_PARKING:
-            newParametersSet &= ~STOP_PARKING_SET;
             break;
         default:
             break;
@@ -722,10 +663,6 @@ GNEPersonStop::isAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_CHARGING_STATION:
         case SUMO_ATTR_PARKING_AREA:
             return false;
-        case SUMO_ATTR_STARTPOS:
-            return (parametersSet & STOP_START_SET) != 0;
-        case SUMO_ATTR_ENDPOS:
-            return (parametersSet & STOP_END_SET) != 0;
         case SUMO_ATTR_DURATION:
             return (parametersSet & STOP_DURATION_SET) != 0;
         case SUMO_ATTR_UNTIL:
@@ -882,21 +819,11 @@ GNEPersonStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             edge = value;
             break;
         case SUMO_ATTR_STARTPOS:
-            if (value.empty()) {
-                parametersSet &= ~STOP_START_SET;
-            } else {
-                startPos = parse<double>(value);
-                parametersSet |= STOP_START_SET;
-            }
+            startPos = parse<double>(value);
             updateGeometry();
             break;
         case SUMO_ATTR_ENDPOS:
-            if (value.empty()) {
-                parametersSet &= ~STOP_END_SET;
-            } else {
-                endPos = parse<double>(value);
-                parametersSet |= STOP_END_SET;
-            }
+            endPos = parse<double>(value);
             updateGeometry();
             break;
         case SUMO_ATTR_FRIENDLY_POS:
