@@ -260,6 +260,7 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
 
     // initialise performance computation
     mySimBeginMillis = SysUtils::getCurrentMillis();
+    myTraCIMillis = 0;
     myHasInternalLinks = hasInternalLinks;
     myHasElevation = checkElevation();
     myHasPedestrianNetwork = checkWalkingarea();
@@ -416,6 +417,9 @@ MSNet::generateStatistics(SUMOTime start) {
         // print performance notice
         msg << "Performance: " << "\n" << " Duration: " << elapsedMs2string(duration) << "\n";
         if (duration != 0) {
+            if (myTraCIMillis > 0) {
+                msg << " TraCI-Duration: " << elapsedMs2string(myTraCIMillis) << "\n";
+            }
             msg << " Real time factor: " << (STEPS2TIME(myStep - start) * 1000. / (double)duration) << "\n";
             msg.setf(std::ios::fixed, std::ios::floatfield);     // use decimal format
             msg.setf(std::ios::showpoint);    // print decimal point
@@ -678,6 +682,7 @@ MSNet::simulationStep() {
     libsumo::Helper::postProcessRemoteControl();
     if (myLogExecutionTime) {
         myTraCIStepDuration += SysUtils::getCurrentMillis();
+        myTraCIMillis += myTraCIStepDuration;
     }
     // update and write (if needed) detector values
     writeOutput();

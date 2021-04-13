@@ -896,6 +896,9 @@ protected:
     /// @brief The overall simulation duration
     long mySimBeginMillis;
 
+    /// @brief The overall time spent waiting for traci operations including
+    long myTraCIMillis;
+
     /// @brief The overall number of vehicle movements
     long long int myVehiclesMoved;
     long long int myPersonsMoved;
