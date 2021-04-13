@@ -101,7 +101,7 @@ title: ChangeLog
   
 - TraCI
   - Function 'vehicle.getSpeedWithoutTraCI' now returns original model speeds after calling moveToXY. Issue #7190
-  - Fixed issues with mapping location and speed for funnction 'person.moveToXY' . Issue #7907, #7908
+  - Fixed issues with mapping location and speed for function 'person.moveToXY' . Issue #7907, #7908
   - Fixed crash when switching to carFollowModel that requries vehicle variables. Issue #7949
   - Fixed crash when using traci.simulation.getDistanceRoad. Issue #5114
   - Fixed non-deterministic behavior for person.moveToXY. Issue #7933
