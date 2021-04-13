@@ -223,6 +223,8 @@ If the simulation contained persons the following output will be added:
 
 - Duration: The amount of elapsed time (as measure by a clock hanging
   on the wall) while computing the simulation.
+- TraCI-Duration: The amount of elapsed time (as measure by a clock hanging
+  on the wall) spent for processing TraCI-commands. This includes the time spent in the traci client script.
 - "Real time factor": The quotient of *simulated time* / *computation
   time*. If one hour is simulated in 360 seconds the real time factor
   is 10.
