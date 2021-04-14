@@ -50,5 +50,6 @@ enum class GUITexture {
     LANE_BUS,
     LANE_PEDESTRIAN,
     STOP,
+    STOP_SELECTED,
     TEXTURE_MAX
 };
