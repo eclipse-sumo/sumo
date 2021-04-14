@@ -486,7 +486,26 @@ class Net:
                             for p in l.getShape3D()]
             e.rebuildShape()
 
-    def getShortestPath(self, fromEdge, toEdge, maxCost=1e400, vClass=None, reversalPenalty=0, includeFromToCost=True):
+    def getInternalPath(self, conn):
+        minInternalCost = 1e400
+        minPath = None
+        for c in conn:
+            if c.getViaLaneID() != "":
+                viaCost = 0
+                viaID = c.getViaLaneID()
+                viaPath = []
+                while viaID != "":
+                    viaLane = self.getLane(viaID)
+                    viaCost += viaLane.getLength()
+                    viaID = viaLane.getOutgoing()[0].getViaLaneID()
+                    viaPath.append(viaLane.getEdge())
+                if viaCost < minInternalCost:
+                    minInternalCost = viaCost
+                    minPath = viaPath
+        return minPath, minInternalCost
+
+    def getShortestPath(self, fromEdge, toEdge, maxCost=1e400, vClass=None, reversalPenalty=0,
+                        includeFromToCost=True, withInternal=False):
         """
         Finds the shortest path from fromEdge to toEdge respecting vClass, using Dijkstra's algorithm.
         It returns a pair of a tuple of edges and the cost. If no path is found the first element is None.
@@ -503,15 +522,16 @@ class Net:
                 appendix = (toEdge,) + appendix
                 appendixCost += toEdge.getLength()
                 toEdge = list(toEdge.getIncoming().keys())[0]
-        q = [(fromEdge.getLength() if includeFromToCost else 0, fromEdge.getID(), fromEdge, ())]
+        q = [(fromEdge.getLength() if includeFromToCost else 0, fromEdge.getID(), (fromEdge, ), ())]
         seen = set()
         dist = {fromEdge: fromEdge.getLength()}
         while q:
-            cost, _, e1, path = heapq.heappop(q)
+            cost, _, e1via, path = heapq.heappop(q)
+            e1 = e1via[-1]
             if e1 in seen:
                 continue
             seen.add(e1)
-            path += (e1,)
+            path += e1via
             if e1 == toEdge:
                 if self.hasInternal:
                     return path + appendix, cost + appendixCost
@@ -527,16 +547,16 @@ class Net:
                     newCost = cost + e2.getLength()
                     if e2 == e1.getBidi():
                         newCost += reversalPenalty
+                    minPath = (e2,)
                     if self.hasInternal:
-                        minInternalCost = 1e400
-                        for c in conn:
-                            if c.getViaLaneID() != "":
-                                minInternalCost = min(minInternalCost, self.getLane(c.getViaLaneID()).getLength())
-                        if minInternalCost < 1e400:
+                        viaPath, minInternalCost = self.getInternalPath(conn)
+                        if viaPath is not None:
                             newCost += minInternalCost
+                            if withInternal:
+                                minPath = tuple(viaPath + [e2])
                     if e2 not in dist or newCost < dist[e2]:
                         dist[e2] = newCost
-                        heapq.heappush(q, (newCost, e2.getID(), e2, path))
+                        heapq.heappush(q, (newCost, e2.getID(), minPath, path))
         return None, 1e400
 
 

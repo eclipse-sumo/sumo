@@ -46,15 +46,37 @@ def getLength(net, edges):
     length = last.getLength()
     for e in edges[1:]:
         if net.hasInternal:
-            minInternalCost = 1e400
-            for c in last.getConnections(e):
-                if c.getViaLaneID() != "":
-                    minInternalCost = min(minInternalCost, net.getLane(c.getViaLaneID()).getLength())
-            if minInternalCost < 1e400:
+            viaPath, minInternalCost = net.getInternalPath(last.getConnections(e))
+            if viaPath is not None:
                 length += minInternalCost
         length += e.getLength()
         last = e
     return length
+
+
+def addInternal(net, edges):
+    """
+    Returns a list of edges of a route including internal edges.
+    The input network has to contain internal edges (withInternal needs to be set when parsing).
+    The list of input edges can either contain edge objects or edge ids as strings.
+    The return value will always contain edge objects.
+    If there is no connection between two consecutive edges no internal edge is added.
+    If there are multiple connections between two edges, the shortest one is used.
+    """
+    if len(edges) == 0:
+        return []
+    if isinstance(edges[0], basestring):
+        edges = [net.getEdge(e) for e in edges]
+    last = edges[0]
+    result = [last]
+    for e in edges[1:]:
+        if net.hasInternal:
+            viaPath, _ = net.getInternalPath(last.getConnections(e))
+            if viaPath is not None:
+                result += viaPath
+        result.append(e)
+        last = e
+    return result
 
 
 def _getMinPath(paths):
