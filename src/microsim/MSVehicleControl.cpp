@@ -260,6 +260,7 @@ MSVehicleControl::clearState() {
         delete (*i).second;
     }
     myVTypeDict.clear();
+    myPendingRemovals.clear(); // could be leftovers from MSVehicleTransfer::checkInsertions (teleport beyond arrival)
     myDefaultVTypeMayBeDeleted = true;
     myDefaultPedTypeMayBeDeleted = true;
     myDefaultContainerTypeMayBeDeleted = true;
