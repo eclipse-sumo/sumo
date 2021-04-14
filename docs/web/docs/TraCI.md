@@ -132,7 +132,7 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
   - [Change Vehicle State](TraCI/Change_Vehicle_State.md)
     change a vehicle's state
   - [Change Person State](TraCI/Change_Person_State.md)
-    change a persons's state
+    change a persons state
   - [Change Vehicle Type
     State](TraCI/Change_VehicleType_State.md) change a
     vehicle type's state

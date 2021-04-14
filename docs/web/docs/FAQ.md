@@ -808,11 +808,11 @@ registered
 ### How can I make the simulation run faster?
 
 - make sure there are [no unwanted jams](#the_simulation_has_lots_of_jamsdeadlocks_what_can_i_do)
-  The more vehicles there are in the simulion, the slower it gets.
+  The more vehicles there are in the simulation, the slower it gets.
 - if your network is very large, build it with option
   --no-internal-links ([simplified intersection model](Simulation/Intersections.md#internal_links))
 - If you are using trips or periodic rerouting, enable [parallel routing](Demand/Automatic_Routing.md#parallelization)
-- use the default step-lenght of 1s (using **--step-length 0.1** slows down the simulation
+- use the default step-length of 1s (using **--step-length 0.1** slows down the simulation
   by a factor of 10)
 - if your simulation is very larger. consider using the [mesoscopic simulation model](Simulation/Meso.md)
 - see below for further tips on slow-down
@@ -953,7 +953,7 @@ In a city simulation of one day running with 80k UPS where a vehicle spends on a
 
 Calculated as ` 24 * 3600 * 80000 / 1800 = 3840000 `
 
-## Visualisation
+## Visualization
 
 ### sumo-gui breaks
 
@@ -964,7 +964,7 @@ Calculated as ` 24 * 3600 * 80000 / 1800 = 3840000 `
 
   Newer Windows-Versions seem to cache the area under the mouse to
   apply the mouse shadow afterwards. To avoid this, go to your
-  Systemmenu, then Mouse-\>Pointers and disable the mouse shadows.
+  System menu, then Mouse-\>Pointers and disable the mouse shadows.
   That's the only solution so far. (Origin: Till Oliver Knoll, via QT
   Interest List)
 
@@ -1043,7 +1043,7 @@ to set the integrated graphics as preferred. (Thanks @palvarezlopez for finding 
 ### SUMO-GUI and NETEDIT flickering
 
 There is a know problem in Windows 10 with scaling and flickering in certain applications. 
-If scaling is greather than 100%, a flickering may appear in SUMO-GUI and NETEDIT during mouse movement.
+If scaling is greater than 100%, a flickering may appear in SUMO-GUI and NETEDIT during mouse movement.
 The only known solution is leaving Scaling at 100%
 
 ## Upgrading

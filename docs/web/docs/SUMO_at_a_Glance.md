@@ -11,13 +11,11 @@ moves through a given road network. The simulation allows to address a
 large set of traffic management topics. It is purely microscopic: each
 vehicle is modelled explicitly, has an own route, and moves individually
 through the network. Simulations are deterministic by default but there
-are various options for [introducing
-randomness](Simulation/Randomness.md).
+are various options for [introducing randomness](Simulation/Randomness.md).
 
 If you download the SUMO package, you will note that it contains further
 applications besides SUMO. These applications are used to import/prepare
-road networks and demand data for being used in SUMO, see [\#Included
-Applications](#included_applications) for a more verbose
+road networks and demand data for being used in SUMO, see [Included Applications](#included_applications) for a more verbose
 list.
 
 ## Features
@@ -106,7 +104,7 @@ Two major design goals are approached: the software shall be fast and it
 shall be portable. Due to this, the very first versions were developed
 to be run from the command line only - no graphical interface was
 supplied at first and all parameter had to be inserted by hand. This
-should increase the execution speed by leaving off slow visualisation.
+should increase the execution speed by leaving off slow visualization.
 Also, due to these goals, the software was split into several parts.
 Each of them has a certain purpose and must be run individually. This is
 something that makes SUMO different to other simulation packages where,
@@ -144,7 +142,7 @@ integrated approach by now.
 <img src="images/Dlr_small.gif" title="dlr_small.gif" alt="" />
 </figure></td>
 <td><p>Peter Wagner</p></td>
-<td><p>Models, organisation, spiritual lead</p></td>
+<td><p>Models, organization, spiritual lead</p></td>
 </tr>
 <tr class="odd">
 <td><p>Daniel Krajzewicz</p></td>
@@ -193,7 +191,7 @@ integrated approach by now.
 </tr>
 <tr class="even">
 <td><p>Jakob Erdmann</p></td>
-<td><p>network import, <a href="netedit.html" title="wikilink">netedit</a></p></td>
+<td><p>network import, <a href="netedit/index.html">netedit</a></p></td>
 <td></td>
 </tr>
 <tr class="odd">
@@ -267,11 +265,11 @@ integrated approach by now.
 <img src="images/Tum-logo.png" title="tum-logo.png" alt="" />
 </figure></td>
 <td><p>Piotr Woznica</p></td>
-<td><p><a href="activitygen.html" title="wikilink">activitygen</a></p></td>
+<td><p><a href="activitygen.html">activitygen</a></p></td>
 </tr>
 <tr class="even">
 <td><p>Walter Bamberger</p></td>
-<td><p>Development of <a href="activitygen.html" title="wikilink">activitygen</a> as a base for the evaluation of trust scenarios in VANETs. The work is part of the project <a href="http://www.ldv.ei.tum.de/fidens/">Fidens: Trust between Cooperative Systems</a> featuring trusted probabilistic knowledge processing in vehicular networks.</p></td>
+<td><p>Development of <a href="activitygen.html">activitygen</a> as a base for the evaluation of trust scenarios in VANETs. The work is part of the project <a href="http://www.ldv.ei.tum.de/fidens/">Fidens: Trust between Cooperative Systems</a> featuring trusted probabilistic knowledge processing in vehicular networks.</p></td>
 <td></td>
 </tr>
 <tr class="odd">
@@ -294,7 +292,7 @@ integrated approach by now.
 <tr class="even">
 <td></td>
 <td><p>Leontios Papaleontiou</p></td>
-<td><p><a href="Contributed/SUMO_Traffic_Modeler.html" title="wikilink">Contributed/SUMO Traffic Modeler</a></p></td>
+<td><p><a href="Contributed/SUMO_Traffic_Modeler.html">Contributed/SUMO Traffic Modeler</a></p></td>
 </tr>
 <tr class="odd">
 <td><figure>

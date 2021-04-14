@@ -34,7 +34,7 @@ the following mapping:
 
 If the network does not contain edge types only a bus mapping is possible which will use all available edges.
 
-For this tutorial we will use the readymade example network of Eichwalde.
+For this tutorial we will use the example network of Eichwalde.
 
 # Finding a data source for GTFS
 
@@ -69,7 +69,7 @@ The script runs for about five minutes and generates several subdirectories but 
 - GTFS_VBB_Juni-Dezember-2016_publictransport.add.xml (defining the static routes and stops)
 - GTFS_VBB_Juni-Dezember-2016_publictransport.rou.xml (defining the single public transport vehicles)
 
-The vtypes output generates very simple vehicle type definitions for the different public transport modes in use. You are encouraded to modify this file and adapt
+The vtypes output generates very simple vehicle type definitions for the different public transport modes in use. You are encouraged to modify this file and adapt
 it to the real situation especially concerning capacity (number of seats) for the different modes. You may of course also use vehicle types from another source and skip this output.
 
 In order to use them in a simulation you should pass them as additional files (not route files!) in the order given above.

@@ -14,7 +14,7 @@ Feel free to contribute and improve the SUMO Documentation. All changes need to 
 <br><br>
 # **Creating an article**
 
-To creat a new article (or page) just create a Markdown (.md) file in the [documentation directory]({{Source}}docs/web/docs).
+To create a new article (or page) just create a Markdown (.md) file in the [documentation directory]({{Source}}docs/web/docs).
 
 !!! note
     Please capitalize the very first letter of the name and use `_` (underscores) instead of leaving a ` ` (space) between words in the filename.

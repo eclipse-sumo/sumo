@@ -123,7 +123,7 @@ This script is based on the maximal flow theory and does flow routing
 similar to the [dfrouter](../dfrouter.md). Three mandatory input
 files are needed, i.e. the SUMO network (.net.xml) and two files, which
 specify detectors and flows respectively. The type of the detectors
-(source, sink, inbetween) can be detected by the script or read from the
+(source, sink, in between) can be detected by the script or read from the
 given detector file. As an example the script can be executed as
 
 ```

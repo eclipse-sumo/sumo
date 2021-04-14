@@ -48,7 +48,7 @@ The main parameters of the network are the number of (double) rows the parking l
 (ROW_DIST). They define the layout assuming a fixed width of each slot.
 
 We generate a node file defining the positions of the junctions and an edge file
-specifiying the connections between the nodes together with parameters such as the 
+specifying the connections between the nodes together with parameters such as the 
 number of lanes and the allowed vehicle classes.
 
 We open the files as standard text files and use a helper function from the sumolib to 
@@ -161,7 +161,7 @@ would block (only visually but still) the sidewalk, so we enlarge the slots a li
 angle which lets all vehicles park forward leaving some space for the pedestrians.
 
 For the bus stops the only small surprise is that we need one less than parking lots because they are only 
-inbetween the parking roads.
+in between the parking roads.
 ```
 for row in range(DOUBLE_ROWS-1):
     edgeID = "cyber%sto%s" % (row, row + 1)
@@ -170,7 +170,7 @@ for row in range(DOUBLE_ROWS-1):
 Now we could close the additional file and already load it to the see the infrastructure.
 
 We will however reuse the additional file to start defining the vehicles (at least the vehicle types).
-Most of the vehicle type definiton is for the look (the color) and the vehicle class such that
+Most of the vehicle type definition is for the look (the color) and the vehicle class such that
 it will only use the right roads. The cyber car also has a taxi device to react to passenger requests.
 We will also define a regular bus to allow for comparisons with a regular bus service in further iterations
 of this tutorial.

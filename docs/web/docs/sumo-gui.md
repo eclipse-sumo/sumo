@@ -149,7 +149,7 @@ information:
 
 The following objects can be accessed by right-click:
 
-- Vehicles (some attributes are only availabe when using a specific
+- Vehicles (some attributes are only available when using a specific
   simulation model, i.e. [MESO](Simulation/Meso.md) or [sublane
   model](Simulation/SublaneModel.md#New_Parameters))
 - Persons
@@ -469,7 +469,7 @@ most) of these objects:
 - Coloring options: Color by some attribute and change the color
 value/range
   - Show color value: show the numerical value that is used for
-    coloring (text configuration obtions as for the id)
+    coloring (text configuration options as for the id)
 
 ## Vehicle Visualisation Settings
 
@@ -511,7 +511,7 @@ value/range
 | by reroute number              | count   | The number of times this vehicle has bee rerouted                                                                                                                                                             |
 | by selection                   | \-      | Colors selected and unselected vehicles differently                                                                                                                                                           |
 | by offset from best lane       | count   | The number of immediate lane changes the vehicle must perform in order to follow its route                                                                                                                 |
-| by acceleration                | m/s^2   | The xurrent vehicle acceleration                                                                                                                                                                                                              |
+| by acceleration                | m/s^2   | The current vehicle acceleration                                                                                                                                                                                                              |
 | by time gap                    | s       | The time to collide with the leader vehicle assuming constant speeds                                                                                                                                       |
 | by depart delay                | s       | The difference of actual insertion time and intended depart time                                                                                                                                       |
 | by time loss                   | s       | The total time loss from driving slower than desired since departure                                                                                                                                       |
@@ -611,7 +611,7 @@ well](#changing_the_appearancevisualisation_of_the_simulation).
 
 In addition to changing the appearance of simulated structures, one may
 also load additional background images ("decals") into
-**sumo-gui**. For this, open the visualisation
+**sumo-gui**. For this, open the visualization
 settings using ![Colorwheel.gif](images/Colorwheel.gif "Colorwheel") and - if you are not yet here - choose the
 "Background" panel (see Figure below). You will see a table with the following
 columns: **file**, **centerX**, **centerY**, **width**,
@@ -871,7 +871,7 @@ The [background images (decals)](#showing_background_images) support attribute `
   - The upcoming stops and their planned timing (or trigger condition) is automatically shown along the route. To show only the next round of a cyclic route (i.e. for public transport), disable the checkbox 'show looped route'
   - Direction reversal of rail vehicles will be shown along the route with the text 'reverse' and an index.
   - To show the index of each edge along the route, the vehicle visualization option 'Show route index' can be activated
-- Thow show the route of person, right click and select *Show Current
+- To show the route of a person, right click and select *Show Current
   Route*. To show the trajectory on a walkingarea, select *Show
   Walkingarea Path*.
 - To highlight an arbitrary set of edges in the simulation create a
@@ -889,10 +889,10 @@ The [background images (decals)](#showing_background_images) support attribute `
 
 [Internal Edges](Networks/SUMO_Road_Networks.md#internal_edges)
 define the movements across an intersection. By default they are hidden
-behind the shape of the junction to give a prettier visualisation.
+behind the shape of the junction to give a prettier visualization.
 Occasionally it is of interest to understand which internal lane
 corresponds to which movement as their IDs may be referenced in the
-output or in error messages. The following visualisation settings are
+output or in error messages. The following visualization settings are
 helpful:
 
 - Junction settings:

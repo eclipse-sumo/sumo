@@ -74,7 +74,7 @@ To create a vehicle of type taxi you have to add the key parameter:
        <param key="has.taxi.device" value="true"/>
    </vType>
 ```
-There are other option to define the taxis behaviour. You can decide when the taxis are going to disappear or if they start circling the area. In this example the taxis will keep circling the area, even when there are no longer people in the simulation. This is done by choosing a dispatch-algorithm at the start of the simulation, which is discussed later in the tutorial.  
+There are other option to define the taxis behavior. You can decide when the taxis are going to disappear or if they start circling the area. In this example the taxis will keep circling the area, even when there are no longer people in the simulation. This is done by choosing a dispatch-algorithm at the start of the simulation, which is discussed later in the tutorial.  
 
 
 Next you can create a person, which departs at the start and heads to the designated bus stop.
@@ -138,7 +138,7 @@ def emergencyTaxi(busstopID):
     for i, val in enumerate(peopleWaiting):
         pickup.append(traci.person.getTaxiReservations(0)[i].id)
     # if one Taxi should pick up all customers, the list needs to clarify the drop off
-    # hence the pickup is extendet by the order of drop offs
+    # hence the pickup is extended by the order of drop offs
     # pickup.extend(pickup)
     try:
         fleet = traci.vehicle.getTaxiFleet(0)
@@ -148,14 +148,14 @@ def emergencyTaxi(busstopID):
     for i, val in enumerate(peopleWaiting):
         traci.vehicle.dispatchTaxi(fleet[i], pickup[i])
 ```
-The taxi from the list with listpostion i is dispatched to pick up the person from list "pickup" at position i.   
+The taxi from the list with listposition i is dispatched to pick up the person from list "pickup" at position i.   
 
 It is also possible to let one taxi pick up and drop off all the people, if the vehicle capacity is sufficient.
 
 ```
 pickup.extend(pickup)
 ```
-Meight look like this:   
+Might look like this:   
 ```
 pickup = [a,b,c,a,b,c]
 ```
