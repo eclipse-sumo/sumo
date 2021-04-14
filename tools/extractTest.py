@@ -176,6 +176,10 @@ for p in [
                     if o == "{CLEAR}":
                         appOptions = []
                         continue
+                    if o[0] == "-" and o in appOptions:
+                        idx = appOptions.index(o)
+                        if idx < len(appOptions) - 1 and appOptions[idx + 1][0] != "-":
+                            del appOptions[idx:idx+2]
                     appOptions.append(o)
                     if "=" in o:
                         o = o.split("=")[-1]
