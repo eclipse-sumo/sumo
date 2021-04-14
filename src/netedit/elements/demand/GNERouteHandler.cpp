@@ -556,7 +556,7 @@ GNERouteHandler::buildStop(GNENet* net, bool undoDemandElements, const SUMOVehic
             WRITE_ERROR("A stop requires a stoppingPlace or a lane");
         } else if (stoppingPlace) {
             // create stop using stopParameters and stoppingPlace
-            GNEDemandElement* stop = new GNEStop(stopTagType, net, stopParameters, stoppingPlace, stopParent);
+            GNEDemandElement* stop = new GNEPersonStop(net, stopParent, stoppingPlace, stopParameters);
             // add it depending of undoDemandElements
             if (undoDemandElements) {
                 net->getViewNet()->getUndoList()->p_begin("add " + stop->getTagStr());
@@ -584,7 +584,7 @@ GNERouteHandler::buildStop(GNENet* net, bool undoDemandElements, const SUMOVehic
             }
         } else {
             // create stop using stopParameters and lane
-            GNEDemandElement* stop = new GNEStop(net, stopParameters, lane, stopParent);
+            GNEDemandElement* stop = new GNEPersonStop(net, stopParent, lane->getParentEdge(), stopParameters);
             // add it depending of undoDemandElements
             if (undoDemandElements) {
                 net->getViewNet()->getUndoList()->p_begin("add " + stop->getTagStr());

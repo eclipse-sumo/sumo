@@ -127,22 +127,15 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
             // scale
             glScaled(E3Exaggeration, E3Exaggeration, 1);
             // set color
-            glColor3d(1, 1, 1);
-            // rotate
-            glRotated(180, 0, 0, 1);
-            // draw depending
-            if (s.drawForRectangleSelection || !s.drawDetail(s.detailSettings.laneTextures, E3Exaggeration)) {
-                // set color
-                GLHelper::setColor(RGBColor::GREY);
-                // just draw a box
-                GLHelper::drawBoxLine(Position(0, s.detectorSettings.E3Size), 0, 2 * s.detectorSettings.E3Size, s.detectorSettings.E3Size);
+            GLHelper::setColor(RGBColor::GREY);
+            // just draw a box
+            GLHelper::drawBoxLine(Position(0, s.detectorSettings.E3Size), 0, 2 * s.detectorSettings.E3Size, s.detectorSettings.E3Size);
+        } else {
+            // draw texture
+            if (drawUsingSelectColor()) {
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::E3_SELECTED), s.detectorSettings.E3Size);
             } else {
-                // draw texture
-                if (drawUsingSelectColor()) {
-                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_E3SELECTED), s.detectorSettings.E3Size);
-                } else {
-                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_E3), s.detectorSettings.E3Size);
-                }
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::E3), s.detectorSettings.E3Size);
             }
             // Pop texture matrix
             glPopMatrix();

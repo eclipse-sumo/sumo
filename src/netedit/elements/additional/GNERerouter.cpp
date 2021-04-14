@@ -121,42 +121,34 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double rerouterExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // check exaggeration
-        if (s.drawAdditionals(rerouterExaggeration)) {
-            // check if boundary has to be drawn
-            if (s.drawBoundaries) {
-                GLHelper::drawBoundary(getCenteringBoundary());
-            }
-            // push name
-            glPushName(getGlID());
-            // push layer matrix
-            glPushMatrix();
-            // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_REROUTER);
-            // Add layer matrix
-            glPushMatrix();
-            // translate to position
-            glTranslated(myPosition.x(), myPosition.y(), 0);
-            // scale
-            glScaled(rerouterExaggeration, rerouterExaggeration, 1);
-            // Draw icon depending of detector is selected and if isn't being drawn for selecting
-            if (!s.drawForPositionSelection) {
-                // set White color
-                glColor3d(1, 1, 1);
-                // rotate
-                glRotated(180, 0, 0, 1);
-                // draw texture depending of selection
-                if (drawUsingSelectColor()) {
-                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTERSELECTED), s.additionalSettings.rerouterSize);
-                } else {
-                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTER), s.additionalSettings.rerouterSize);
-                }
+    if (s.drawAdditionals(rerouterExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // check if boundary has to be drawn
+        if (s.drawBoundaries) {
+            GLHelper::drawBoundary(getCenteringBoundary());
+        }
+        // push name
+        glPushName(getGlID());
+        // push layer matrix
+        glPushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_REROUTER);
+        // Add layer matrix
+        glPushMatrix();
+        // translate to position
+        glTranslated(myPosition.x(), myPosition.y(), 0);
+        // scale
+        glScaled(rerouterExaggeration, rerouterExaggeration, 1);
+        // Draw icon depending of detector is selected and if isn't being drawn for selecting
+        if (!s.drawForPositionSelection) {
+            // set White color
+            glColor3d(1, 1, 1);
+            // rotate
+            glRotated(180, 0, 0, 1);
+            // draw texture depending of selection
+            if (drawUsingSelectColor()) {
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::REROUTER_SELECTED), s.additionalSettings.rerouterSize);
             } else {
-                // set redcolor
-                GLHelper::setColor(RGBColor::RED);
-                // just draw a square
-                GLHelper::drawBoxLine(Position(0, s.additionalSettings.rerouterSize), 0, 2 * s.additionalSettings.rerouterSize, s.additionalSettings.rerouterSize);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::REROUTER), s.additionalSettings.rerouterSize);
             }
             // Pop texture matrix
             glPopMatrix();

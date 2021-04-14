@@ -3352,24 +3352,24 @@ GNEViewNetHelper::LockIcon::getLockIcon(const GNEAttributeCarrier* AC) {
     if (AC->drawUsingSelectColor()) {
         if (!AC->getTagProperty().canBlockMovement()) {
             // Draw not movable texture if additional isn't movable and is selected
-            return GUITextureSubSys::getTexture(GNETEXTURE_NOTMOVINGSELECTED);
+            return GUITextureSubSys::getTexture(GUITexture::NOTMOVING_SELECTED);
         } else if (AC->getAttribute(GNE_ATTR_BLOCK_MOVEMENT) == toString(true)) {
             // Draw lock texture if additional is movable, is blocked and is selected
-            return GUITextureSubSys::getTexture(GNETEXTURE_LOCKSELECTED);
+            return GUITextureSubSys::getTexture(GUITexture::LOCK_SELECTED);
         } else {
             // Draw empty texture if additional is movable, isn't blocked and is selected
-            return GUITextureSubSys::getTexture(GNETEXTURE_EMPTYSELECTED);
+            return GUITextureSubSys::getTexture(GUITexture::EMPTY_SELECTED);
         }
     } else {
         if (!AC->getTagProperty().canBlockMovement()) {
             // Draw not movable texture if additional isn't movable
-            return GUITextureSubSys::getTexture(GNETEXTURE_NOTMOVING);
+            return GUITextureSubSys::getTexture(GUITexture::NOTMOVING);
         } else if (AC->getAttribute(GNE_ATTR_BLOCK_MOVEMENT) == toString(true)) {
             // Draw lock texture if additional is movable and is blocked
-            return GUITextureSubSys::getTexture(GNETEXTURE_LOCK);
+            return GUITextureSubSys::getTexture(GUITexture::LOCK);
         } else {
             // Draw empty texture if additional is movable and isn't blocked
-            return GUITextureSubSys::getTexture(GNETEXTURE_EMPTY);
+            return GUITextureSubSys::getTexture(GUITexture::EMPTY);
         }
     }
 }

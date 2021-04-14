@@ -1382,11 +1382,11 @@ GNELane::drawTextures(const GUIVisualizationSettings& s, const LaneDrawingConsta
             glRotated(90, 0, 0, 1);
             // draw texture box depending of type of restriction
             if (isRestricted(SVC_PEDESTRIAN)) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LANEPEDESTRIAN), iconWidth);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::LANE_PEDESTRIAN), iconWidth);
             } else if (isRestricted(SVC_BICYCLE)) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LANEBIKE), iconWidth);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::LANE_BIKE), iconWidth);
             } else if (isRestricted(SVC_BUS)) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LANEBUS), iconWidth);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::LANE_BUS), iconWidth);
             }
             // Pop draw matrix 2
             glPopMatrix();
@@ -1584,9 +1584,9 @@ GNELane::buildEdgeOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
 void
 GNELane::buildLaneOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret) {
     // Get icons
-    FXIcon* pedestrianIcon = GUIIconSubSys::getIcon(GUIIcon::LANEPEDESTRIAN);
-    FXIcon* bikeIcon = GUIIconSubSys::getIcon(GUIIcon::LANEBIKE);
-    FXIcon* busIcon = GUIIconSubSys::getIcon(GUIIcon::LANEBUS);
+    FXIcon* pedestrianIcon = GUIIconSubSys::getIcon(GUIIcon::LANE_PEDESTRIAN);
+    FXIcon* bikeIcon = GUIIconSubSys::getIcon(GUIIcon::LANE_BIKE);
+    FXIcon* busIcon = GUIIconSubSys::getIcon(GUIIcon::LANE_BUS);
     FXIcon* greenVergeIcon = GUIIconSubSys::getIcon(GUIIcon::LANEGREENVERGE);
     // if lane is selected, calculate number of restricted lanes
     bool edgeHasSidewalk = false;
