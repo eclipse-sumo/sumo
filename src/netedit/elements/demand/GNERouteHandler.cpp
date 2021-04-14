@@ -501,7 +501,6 @@ GNERouteHandler::buildStop(GNENet* net, bool undoDemandElements, const SUMOVehic
     // declare pointers to parent elements
     GNEAdditional* stoppingPlace = nullptr;
     GNELane* lane = nullptr;
-    GNEEdge* edge = nullptr;
     // GNEEdge* edge = nullptr;
     SumoXMLTag stopTagType = SUMO_TAG_NOTHING;
     bool validParentDemandElement = true;
@@ -543,20 +542,17 @@ GNERouteHandler::buildStop(GNENet* net, bool undoDemandElements, const SUMOVehic
     } else if (stopParameters.lane.size() > 0) {
         lane = net->retrieveLane(stopParameters.lane, false);
         stopTagType = SUMO_TAG_STOP_LANE;
-    } else if (stopParameters.edge.size() > 0) {
-        edge = net->retrieveEdge(stopParameters.edge, false);
-        stopTagType = GNE_TAG_PERSONSTOP_EDGE;
     }
     // first check that parent is valid
     if (validParentDemandElement) {
         // check if values are correct
-        if (stoppingPlace && lane && edge) {
-            WRITE_ERROR("A stop must be defined either over a stoppingPlace or over a lane or over a edge");
-        } else if (!stoppingPlace && !lane && !edge) {
+        if (stoppingPlace && lane) {
+            WRITE_ERROR("A stop must be defined either over a stoppingPlace or over a lane");
+        } else if (!stoppingPlace && !lane) {
             WRITE_ERROR("A stop requires a stoppingPlace or a lane");
         } else if (stoppingPlace) {
             // create stop using stopParameters and stoppingPlace
-            GNEDemandElement* stop = new GNEPersonStop(net, stopParent, stoppingPlace, stopParameters);
+            GNEDemandElement* stop = new GNEStop(stopTagType, net, stopParameters, stoppingPlace, stopParent);
             // add it depending of undoDemandElements
             if (undoDemandElements) {
                 net->getViewNet()->getUndoList()->p_begin("add " + stop->getTagStr());
@@ -568,23 +564,9 @@ GNERouteHandler::buildStop(GNENet* net, bool undoDemandElements, const SUMOVehic
                 stopParent->addChildElement(stop);
                 stop->incRef("buildStoppingPlaceStop");
             }
-        } else if (edge) {
-            // create stop using stopParameters and edge
-            GNEDemandElement* stop = new GNEPersonStop(net, stopParent, edge, stopParameters);
-            // add it depending of undoDemandElements
-            if (undoDemandElements) {
-                net->getViewNet()->getUndoList()->p_begin("add " + stop->getTagStr());
-                net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stop, true), true);
-                net->getViewNet()->getUndoList()->p_end();
-            } else {
-                net->getAttributeCarriers()->insertDemandElement(stop);
-                edge->addChildElement(stop);
-                stopParent->addChildElement(stop);
-                stop->incRef("buildEdgeStop");
-            }
         } else {
             // create stop using stopParameters and lane
-            GNEDemandElement* stop = new GNEPersonStop(net, stopParent, lane->getParentEdge(), stopParameters);
+            GNEDemandElement* stop = new GNEStop(net, stopParameters, lane, stopParent);
             // add it depending of undoDemandElements
             if (undoDemandElements) {
                 net->getViewNet()->getUndoList()->p_begin("add " + stop->getTagStr());
@@ -1824,9 +1806,16 @@ GNERouteHandler::closePerson() {
                                       personPlanValue.arrivalPos, personPlanValue.lines);
                             break;
                         }
-                        case GNE_TAG_PERSONSTOP_BUSSTOP:
+                        case GNE_TAG_PERSONSTOP_BUSSTOP: {
+                            buildPersonStop(myNet, true, person, nullptr, personPlanValue.busStop, personPlanValue.stopParameters);
+                            break;
+                        }
                         case GNE_TAG_PERSONSTOP_EDGE: {
-                            buildStop(myNet, true, personPlanValue.stopParameters, person);
+                            if (personPlanValue.lane) {
+                                buildPersonStop(myNet, true, person, personPlanValue.lane->getParentEdge(), nullptr, personPlanValue.stopParameters);
+                            } else { 
+                                buildPersonStop(myNet, true, person, personPlanValue.toEdge, nullptr, personPlanValue.stopParameters);
+                            }
                             break;
                         }
                         default:
