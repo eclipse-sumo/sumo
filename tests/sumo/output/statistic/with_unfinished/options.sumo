@@ -4,3 +4,4 @@
 --statistic-output statistic.xml
 --tripinfo-output dummy.xml
 --tripinfo-output.write-unfinished
+-t

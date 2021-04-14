@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Apr 13 17:14:42 2021 by Eclipse SUMO sumo Version v1_9_0+0025-3a8bae0
+<!-- generated on Wed Apr 14 13:38:12 2021 by Eclipse SUMO sumo Version v1_9_0+0042-53312db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">
-    <vehicles loaded="90" inserted="60" running="40" waiting="30"/>
+    <vehicles loaded="91" inserted="60" running="40" waiting="30"/>
     <teleports total="0" jam="0" yield="0" wrongLane="0"/>
     <safety collisions="0" emergencyStops="0"/>
     <persons loaded="0" running="0" jammed="0"/>
