@@ -54,7 +54,13 @@ GNEPersonStop::~GNEPersonStop() {}
 
 GNEMoveOperation* 
 GNEPersonStop::getMoveOperation(const double /*shapeOffset*/) {
-    return nullptr;
+    if (myTagProperty.getTag() == GNE_TAG_PERSONSTOP_EDGE) {
+        // return move operation for additional placed over shape
+        return new GNEMoveOperation(this, getParentEdges().front()->getLanes().front(), {endPos});
+    }
+    else {
+        return nullptr;
+    }
 }
 
 
@@ -154,15 +160,6 @@ GNEPersonStop::updateGeometry() {
         // update geometry using geometry of additional (busStop)
         myDemandElementGeometry.updateGeometry(getParentAdditionals().at(0));
     }
-    // compute previous and next person plan
-    GNEDemandElement* previousDemandElement = getParentDemandElements().front()->getPreviousChildDemandElement(this);
-    if (previousDemandElement) {
-        previousDemandElement->updateGeometry();
-    }
-    GNEDemandElement* nextDemandElement = getParentDemandElements().front()->getNextChildDemandElement(this);
-    if (nextDemandElement) {
-        nextDemandElement->updateGeometry();
-    }
 }
 
 
@@ -235,8 +232,6 @@ GNEPersonStop::splitEdgeGeometry(const double /*splitPosition*/, const GNENetwor
 
 void
 GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
-    // get lane
-    const GNELane* const firstLane = getFirstAllowedLane();
     // declare flag to enable or disable draw person plan
     bool drawPersonStop = false;
     if (myTagProperty.isPersonStop()) {
@@ -762,15 +757,21 @@ GNEPersonStop::setEnabledAttribute(const int enabledAttributes) {
 }
 
 
-void 
+void
 GNEPersonStop::setMoveShape(const GNEMoveResult& moveResult) {
-    //
+    // change endPos
+    endPos = moveResult.shapeToUpdate.front().x();
+    // update geometry
+    updateGeometry();
 }
 
 
 void
 GNEPersonStop::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    //
+    undoList->p_begin("endPos of " + getTagStr());
+    // now adjust endPos position
+    setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.shapeToUpdate.front().x()), undoList);
+    undoList->p_end();
 }
 
 /****************************************************************************/
