@@ -295,7 +295,7 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
     os.writeAttr("departSpeed", myDepartSpeed);
     SUMOTime departDelay = myHolder.getDepartDelay();
     if (!myHolder.hasDeparted()) {
-        assert(myHolder.getParam().depart <= SIMSTEP || myHolder.getParam().departProcedure != DEPART_GIVEN);
+        assert(myHolder.getParameter().depart <= SIMSTEP || myHolder.getParameter().departProcedure != DEPART_GIVEN);
         departDelay = SIMSTEP - myHolder.getParameter().depart;
     }
     os.writeAttr("departDelay", time2string(departDelay));
