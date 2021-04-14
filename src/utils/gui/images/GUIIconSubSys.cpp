@@ -489,9 +489,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::ARROW_LEFT] = new FXXPMIcon(a, arrowleft_xpm);
     myIcons[GUIIcon::ARROW_RIGHT] = new FXXPMIcon(a, arrowright_xpm);
 
-    myIcons[GUIIcon::LANEPEDESTRIAN] = new FXXPMIcon(a, lanepedestrian);
-    myIcons[GUIIcon::LANEBUS] = new FXXPMIcon(a, lanebus);
-    myIcons[GUIIcon::LANEBIKE] = new FXXPMIcon(a, lanebike);
+    myIcons[GUIIcon::LANE_PEDESTRIAN] = new FXXPMIcon(a, lanepedestrian);
+    myIcons[GUIIcon::LANE_BUS] = new FXXPMIcon(a, lanebus);
+    myIcons[GUIIcon::LANE_BIKE] = new FXXPMIcon(a, lanebike);
     myIcons[GUIIcon::LANEGREENVERGE] = new FXXPMIcon(a, lanegreenverge);
 
     myIcons[GUIIcon::EXT] = new FXXPMIcon(a, ext_xpm);

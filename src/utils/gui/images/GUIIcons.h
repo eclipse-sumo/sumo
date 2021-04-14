@@ -238,9 +238,9 @@ enum class GUIIcon {
 
     /// @name lane icons
     /// @{
-    LANEPEDESTRIAN,
-    LANEBUS,
-    LANEBIKE,
+    LANE_PEDESTRIAN,
+    LANE_BUS,
+    LANE_BIKE,
     LANEGREENVERGE,
     /// @}
 
