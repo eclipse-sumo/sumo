@@ -267,15 +267,18 @@ void
 MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
     const SUMOTime timeLoss = MSGlobals::gUseMesoSim ? myMesoTimeLoss : static_cast<MSVehicle&>(myHolder).getTimeLoss();
     const double routeLength = myRouteLength + (myArrivalTime == NOT_ARRIVED ? myHolder.getPositionOnLane() : myArrivalPos);
-    const SUMOTime duration = (myArrivalTime == NOT_ARRIVED ? SIMSTEP : myArrivalTime) - myHolder.getDeparture();
+    SUMOTime duration = 0;
+    if (myHolder.hasDeparted()) {
+        duration = (myArrivalTime == NOT_ARRIVED ? SIMSTEP : myArrivalTime) - myHolder.getDeparture();
+        myVehicleCount++;
+        myTotalRouteLength += routeLength;
+        myTotalSpeed += routeLength / STEPS2TIME(duration);
+        myTotalDuration += duration;
+        myTotalWaitingTime += myWaitingTime;
+        myTotalTimeLoss += timeLoss;
+        myTotalDepartDelay += myHolder.getDepartDelay();
+    }
 
-    myVehicleCount++;
-    myTotalRouteLength += routeLength;
-    myTotalSpeed += routeLength / STEPS2TIME(duration);
-    myTotalDuration += duration;
-    myTotalWaitingTime += myWaitingTime;
-    myTotalTimeLoss += timeLoss;
-    myTotalDepartDelay += myHolder.getDepartDelay();
     myPendingOutput.erase(this);
     if (tripinfoOut == nullptr) {
         return;
@@ -283,14 +286,19 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
     // write
     OutputDevice& os = *tripinfoOut;
     os.openTag("tripinfo").writeAttr("id", myHolder.getID());
-    os.writeAttr("depart", time2string(myHolder.getDeparture()));
+    os.writeAttr("depart", myHolder.hasDeparted() ? time2string(myHolder.getDeparture()) : "-1");
     os.writeAttr("departLane", myDepartLane);
     os.writeAttr("departPos", myHolder.getDepartPos());
     if (MSGlobals::gLateralResolution > 0) {
         os.writeAttr("departPosLat", myDepartPosLat);
     }
     os.writeAttr("departSpeed", myDepartSpeed);
-    os.writeAttr("departDelay", time2string(myHolder.getDepartDelay()));
+    SUMOTime departDelay = myHolder.getDepartDelay();
+    if (!myHolder.hasDeparted()) {
+        assert(myHolder.getParam().depart <= SIMSTEP || myHolder.getParam().departProcedure != DEPART_GIVEN);
+        departDelay = SIMSTEP - myHolder.getParameter().depart;
+    }
+    os.writeAttr("departDelay", time2string(departDelay));
     os.writeAttr("arrival", time2string(myArrivalTime));
     os.writeAttr("arrivalLane", myArrivalLane);
     os.writeAttr("arrivalPos", myArrivalPos);
@@ -344,10 +352,17 @@ MSDevice_Tripinfo::generateOutputForUnfinished() {
                                  &OutputDevice::getDeviceByOption("tripinfo-output") : nullptr);
     myWaitingDepartDelay = 0;
     myUndepartedVehicleCount = 0;
+    const bool writeUndeparted = OptionsCont::getOptions().getBool("tripinfo-output.write-undeparted");
     const SUMOTime t = net->getCurrentTimeStep();
     while (myPendingOutput.size() > 0) {
         const MSDevice_Tripinfo* d = *myPendingOutput.begin();
-        if (d->myHolder.hasDeparted()) {
+        const bool departed = d->myHolder.hasDeparted();
+        const bool departDelayed = d->myHolder.getParameter().depart <= t;
+        if (!departed && departDelayed) {
+            myUndepartedVehicleCount++;
+            myWaitingDepartDelay += (t - d->myHolder.getParameter().depart);
+        }
+        if (departed || (writeUndeparted && departDelayed)) {
             const_cast<MSDevice_Tripinfo*>(d)->updateParkingStopTime();
             d->generateOutput(tripinfoOut);
             if (tripinfoOut != nullptr) {
@@ -361,8 +376,6 @@ MSDevice_Tripinfo::generateOutputForUnfinished() {
                 OutputDevice::getDeviceByOption("tripinfo-output").closeTag();
             }
         } else {
-            myUndepartedVehicleCount++;
-            myWaitingDepartDelay += (t - d->myHolder.getParameter().depart);
             myPendingOutput.erase(d);
         }
     }

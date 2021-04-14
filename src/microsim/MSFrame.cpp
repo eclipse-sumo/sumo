@@ -196,6 +196,9 @@ MSFrame::fillOptions() {
     oc.doRegister("tripinfo-output.write-unfinished", new Option_Bool(false));
     oc.addDescription("tripinfo-output.write-unfinished", "Output", "Write tripinfo output for vehicles which have not arrived at simulation end");
 
+    oc.doRegister("tripinfo-output.write-undeparted", new Option_Bool(false));
+    oc.addDescription("tripinfo-output.write-undeparted", "Output", "Write tripinfo output for vehicles which have not departed at simulation end because of depart delay");
+
     oc.doRegister("vehroute-output", new Option_FileName());
     oc.addSynonyme("vehroute-output", "vehroutes");
     oc.addDescription("vehroute-output", "Output", "Save single vehicle route info into FILE");
@@ -785,6 +788,12 @@ MSFrame::checkOptions() {
     }
     if (oc.isDefault("tracker-interval") && !oc.isDefault("step-length")) {
         oc.set("tracker-interval", oc.getString("step-length"));
+    }
+    if (oc.getBool("tripinfo-output.write-undeparted")) {
+        if (!oc.isDefault("tripinfo-output.write-unfinished") && !oc.getBool("tripinfo-output.write-unfinished")) {
+            WRITE_WARNING("option tripinfo-output.write-undeparted implies tripinfo-output.write-unfinished");
+        }
+        oc.set("tripinfo-output.write-unfinished", "true");
     }
     if (oc.getInt("precision") > 2) {
         if (oc.isDefault("netstate-dump.precision")) {
