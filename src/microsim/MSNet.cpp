@@ -417,7 +417,7 @@ MSNet::generateStatistics(SUMOTime start) {
         // print performance notice
         msg << "Performance: " << "\n" << " Duration: " << elapsedMs2string(duration) << "\n";
         if (duration != 0) {
-            if (myTraCIMillis > 0) {
+            if (TraCIServer::getInstance() != nullptr) {
                 msg << " TraCI-Duration: " << elapsedMs2string(myTraCIMillis) << "\n";
             }
             msg << " Real time factor: " << (STEPS2TIME(myStep - start) * 1000. / (double)duration) << "\n";
