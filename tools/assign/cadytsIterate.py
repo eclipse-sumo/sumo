@@ -141,7 +141,7 @@ def main():
             output = "%s_%03i.cal.xml" % (routname[:routname.find('.')], step)
 
         call(calibrator + ["CHOICE", "-choicesetfile",
-                           options.routes, "-choicefile", "%s" % output], log)
+                           options.routes, "-choicefile", "%s/%s" % (step,output)], log)
         files.append(output)
 
         # simulation
