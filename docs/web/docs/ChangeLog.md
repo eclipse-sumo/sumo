@@ -5,6 +5,8 @@ title: ChangeLog
 ## Git Master
 
 ### Bugfixes
+- Simulation
+  - Statistic-output value departDelayWaiting is now in s (was in ms before).
 
 ### Enhancements
 
