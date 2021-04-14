@@ -159,8 +159,7 @@ The attributes within the stages have the following meaning:
 
 ## Aggregated Output
 
-Aggregated output for key output attributes can be obtained by setting
-the option **--duration-log.statistics** (see [Commandline
-Output](../../Simulation/Output/index.md#commandline_output_verbose)).
-For further aggregation see
-[Tools/Xml\#xml2csv.py](../../Tools/Xml.md#xml2csvpy).
+Aggregated output for key tripinfo-output attributes can be obtained by setting
+the option [**--statistic-output**](StatisticOutput.md).
+
+For further aggregation see [attributeStats.py](Tools/Output.html#attributestatspy) and [Tools/Xml\#xml2csv.py](../../Tools/Xml.md#xml2csvpy).
