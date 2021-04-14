@@ -134,12 +134,22 @@ GNEPersonStop::getColor() const {
 
 void
 GNEPersonStop::updateGeometry() {
-    // get lane
-    const GNELane* lane = getFirstAllowedLane();
     // only update Stops over lanes, because other uses the geometry of stopping place parent
-    if (lane != nullptr) {
-        // update geometry using lane and pos over lane
-        myDemandElementGeometry.updateGeometry(lane, endPos);
+    if (getParentEdges().size() > 0) {
+        // get lanes
+        const GNELane* frontLane = getParentEdges().front()->getLanes().front();
+        const GNELane* backLane = getParentEdges().front()->getLanes().back();
+        // get lane drawing constants
+        GNELane::LaneDrawingConstants laneDrawingConstantsFront(myNet->getViewNet()->getVisualisationSettings(), frontLane);
+        GNELane::LaneDrawingConstants laneDrawingConstantBack(myNet->getViewNet()->getVisualisationSettings(), backLane);
+        // calculate front position
+        const Position frontPosition = frontLane->getLaneShape().positionAtOffset2D(endPos, laneDrawingConstantsFront.halfWidth);
+        // calulate length between both shapes
+        const double length = backLane->getLaneShape().distance2D(frontPosition, true);
+        // calculate back position
+        const Position backPosition = frontLane->getLaneShape().positionAtOffset2D(endPos, (length + laneDrawingConstantBack.halfWidth - laneDrawingConstantsFront.halfWidth) * -1);
+        // update demand element geometry using both positions
+        myDemandElementGeometry.updateGeometry({frontPosition, backPosition});
     } else if (getParentAdditionals().size() > 0) {
         // update geometry using geometry of additional (busStop)
         myDemandElementGeometry.updateGeometry(getParentAdditionals().at(0));
@@ -250,7 +260,7 @@ GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
         const double exaggeration = s.addSize.getExaggeration(s, this);
         // declare value to save stop color
         const RGBColor stopColor = drawUsingSelectColor()? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stops;
-        const RGBColor centralLineColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stops;
+        const RGBColor centralLineColor = drawUsingSelectColor() ? stopColor.changedBrightness(-32) : RGBColor::WHITE;
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add layer matrix matrix
@@ -270,7 +280,9 @@ GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
         // move to icon position and front
         glTranslated(myDemandElementGeometry.getShape().front().x(), myDemandElementGeometry.getShape().front().y(), .1);
         // rotate over lane
-        GNEGeometry::rotateOverLane(myDemandElementGeometry.getShapeRotations().front());
+        GNEGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
+        // move again
+        glTranslated(0, s.additionalSettings.vaporizerSize * exaggeration, 0);
         // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
         if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
             // set color
@@ -279,12 +291,11 @@ GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
             glRotated(180, 0, 0, 1);
             // draw texture
             if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZERSELECTED), s.additionalSettings.vaporizerSize * exaggeration);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOP_SELECTED), s.additionalSettings.vaporizerSize * exaggeration);
             } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZER), s.additionalSettings.vaporizerSize * exaggeration);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOP), s.additionalSettings.vaporizerSize * exaggeration);
             }
-        }
-        else {
+        } else {
             // set route probe color
             GLHelper::setColor(stopColor);
             // just drawn a box
@@ -474,37 +485,8 @@ GNEPersonStop::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        case SUMO_ATTR_INDEX:
-            if ((value == "fit") || (value == "end")) {
-                return true;
-            } else if (canParse<int>(value)) {
-                return (parse<int>(value) >= 0);
-            } else {
-                return false;
-            }
-        case SUMO_ATTR_TRIGGERED:
-            return canParse<bool>(value);
-        case SUMO_ATTR_CONTAINER_TRIGGERED:
-            return canParse<bool>(value);
-        case SUMO_ATTR_EXPECTED:
-        case SUMO_ATTR_EXPECTED_CONTAINERS:
-            if (value.empty()) {
-                return true;
-            } else {
-                std::vector<std::string> IDs = parse<std::vector<std::string>>(value);
-                for (const auto& i : IDs) {
-                    if (SUMOXMLDefinitions::isValidVehicleID(i) == false) {
-                        return false;
-                    }
-                }
-                return true;
-            }
-        case SUMO_ATTR_PARKING:
-            return canParse<bool>(value);
         case SUMO_ATTR_ACTTYPE:
             return true;
-        case SUMO_ATTR_TRIP_ID:
-            return SUMOXMLDefinitions::isValidVehicleID(value);
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
             return (myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
