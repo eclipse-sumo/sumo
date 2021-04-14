@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 24 09:41:36 2021 by Eclipse SUMO sumo Version v1_8_0+1771-247bf97
+<!-- generated on Wed Apr 14 10:26:07 2021 by Eclipse SUMO sumo Version v1_9_0+0041-8aed0dc
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -62,6 +62,7 @@
         <person-summary-output value="" type="FILE" help="Save aggregated person counts into FILE"/>
         <tripinfo-output value="" synonymes="tripinfo" type="FILE" help="Save single vehicle trip info into FILE"/>
         <tripinfo-output.write-unfinished value="false" type="BOOL" help="Write tripinfo output for vehicles which have not arrived at simulation end"/>
+        <tripinfo-output.write-undeparted value="false" type="BOOL" help="Write tripinfo output for vehicles which have not departed at simulation end because of depart delay"/>
         <vehroute-output value="" synonymes="vehroutes" type="FILE" help="Save single vehicle route info into FILE"/>
         <vehroute-output.exit-times value="false" synonymes="vehroutes.exit-times" type="BOOL" help="Write the exit times for all edges"/>
         <vehroute-output.last-route value="false" synonymes="vehroutes.last-route" type="BOOL" help="Write the last route only"/>
