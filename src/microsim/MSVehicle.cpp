@@ -2100,7 +2100,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             // also slow down for leaders on the shadowLane relative to the current lane
             const MSLane* shadowLane = myLaneChangeModel->getShadowLane(leaderLane);
             if (shadowLane != nullptr
-                    && (MSGlobals::gLateralResolution > 0 || getLateralOverlap() > POSITION_EPS)) {
+                    && (MSGlobals::gLateralResolution > 0 || getLateralOverlap() > POSITION_EPS
+                        // continous lane change cannot be stopped so we must adapt to the leader on the target lane
+                        || myLaneChangeModel->getLaneChangeCompletion() < 0.5)) {
                 if ((&shadowLane->getEdge() == &leaderLane->getEdge() || myLaneChangeModel->isOpposite())) {
                     double latOffset = getLane()->getRightSideOnEdge() - myLaneChangeModel->getShadowLane()->getRightSideOnEdge();
                     if (myLaneChangeModel->isOpposite()) {
