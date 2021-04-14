@@ -286,9 +286,9 @@ GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
             glRotated(180, 0, 0, 1);
             // draw texture
             if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOP_SELECTED), s.additionalSettings.vaporizerSize * exaggeration);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::PERSONSTOP_SELECTED), s.additionalSettings.vaporizerSize * exaggeration);
             } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOP), s.additionalSettings.vaporizerSize * exaggeration);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::PERSONSTOP), s.additionalSettings.vaporizerSize * exaggeration);
             }
         } else {
             // set route probe color
