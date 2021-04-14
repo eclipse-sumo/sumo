@@ -116,7 +116,7 @@ The modification modes have the following functions
 
 ### Match Attribute
 
-The 'Match Attribute' controls allow to specify a set of objects by matching their attributes agains a given expression. When combining this set with the current selection, the *Modificatiton Mode* is also applied.
+The 'Match Attribute' controls allow to specify a set of objects by matching their attributes against a given expression. When combining this set with the current selection, the *Modification Mode* is also applied.
 
 1.  Select an object type from the first input box
 2.  Select an attribute from the second input box
@@ -168,7 +168,7 @@ final shape after saving or activating full recomputation (F5) may be slightly d
 ![](../images/CreateEdge7.png)By setting the option "show junctions as bubbles", circles are drawn instead of detailed junction shapes which can improve visibility.
 
 ### Changing Elevation ###
-When checking the 'Elevation' checkbox, elevation of junctions and existing geometry points can be modified by dragging the with the mouse (with their x,y coordinates remaining unchanged).  At the same time, the numerical elevation value will be displayed for every junction and geometry point.  It is useful to combine this with [elevation or sloope coloring](../Networks/Elevation.md#visualizing_elevation_data).
+When checking the 'Elevation' checkbox, elevation of junctions and existing geometry points can be modified by dragging the with the mouse (with their x,y coordinates remaining unchanged).  At the same time, the numerical elevation value will be displayed for every junction and geometry point.  It is useful to combine this with [elevation or slope coloring](../Networks/Elevation.md#visualizing_elevation_data).
 
 ### Moving Object Selections
 

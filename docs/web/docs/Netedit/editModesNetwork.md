@@ -120,7 +120,7 @@ Add additional elements to the net. Additionals can be placed over a lane or in 
 ## Crossings
 
 Add [pedestrian crossings](../Networks/PlainXML.md#pedestrian_crossings) for use with [pedestrian simulation](../Simulation/Pedestrians.md). Crossings are define relative a junction and edges at this junction.
-Their width can be customized and they can either be configured as priotized (zebra stripes) or unprioritzed (vehicles have right of way). Crossings are added using the following steps:
+Their width can be customized and they can either be configured as prioritized (zebra stripes) or unprioritized (vehicles have right of way). Crossings are added using the following steps:
 
 1.  activate crossing mode (R)
 2.  select a junction
@@ -180,7 +180,7 @@ Creating a TAZ
     If the checkbox 'Edges within' was checked during TAZ creation, all edges within the shape are automatically added as sources and sinks.
 
 A single click over a TAZ open the editing fields for
-TAZEdges in side menu. If the checkbox *Membership* is enabled (Toggle) box, a click over an edge will add it to the list of edges vinculated to the TAZ, (Or will be removed from the list if it was previously selected). Edge will will be added to the list with the input/output values given in the *New source*/*New sink* text fields. (note: A TAZ Edge always has a Source and a Sink).
+TAZEdges in side menu. If the checkbox *Membership* is enabled (Toggle) box, a click over an edge will add it to the list of edges linked to the TAZ, (Or will be removed from the list if it was previously selected). Edge will will be added to the list with the input/output values given in the *New source*/*New sink* text fields. (note: A TAZ Edge always has a Source and a Sink).
 
 ![](../images/TAZMode3.png)   
 Controls after clicking over a TAZ
@@ -228,7 +228,7 @@ Polygons with shape blocked.
 Besides, the contextual menu offers several options, like the aforementioned open or close shape, simplify the shape, erase a vertex of the shape and establish a vertex of the shape as the initial one.
 
 ![](../images/ModePolygon7SimplifingShape.png)   
-Contextual menu of polygon. Left click over verte show more options.
+Contextual menu of polygon. Left click over to show more options.
 
 The Points Of Interest (POIs) are the locations in the map used to mark several elements relevant to the simulation, which don’t interact with the rest of elements (monuments, special buildings, etc.). As default, they are represented as a colored point, but can also be depicted using an image.
 

@@ -63,7 +63,7 @@ Editing values of a vehicle type using attribute editor.
 
 ## Stops mode
 
-Stops used by all type of vehicles (Vehicles, Flows and Trips) can be created using StopFrame. Stops is an special type of demand elements, because it always depend of either a route or a vehicle (i.e. It can be writted in XML within the definition of either a route or a vehicle). Before creating a new Stop, their demand element parent has to be selected and the stop type (placed over a Lane or over a stopping Place). To create it, simply click over a lane or over a stopping place.
+Stops used by all type of vehicles (Vehicles, Flows and Trips) can be created using StopFrame. Stops is an special type of demand elements, because it always depend of either a route or a vehicle (i.e. It can be written in XML within the definition of either a route or a vehicle). Before creating a new Stop, their demand element parent has to be selected and the stop type (placed over a Lane or over a stopping Place). To create it, simply click over a lane or over a stopping place.
 
 ![](../images/neteditStopMode1.png)   
 General view of Stop Mode. Route and stop type can be selected in frame. 

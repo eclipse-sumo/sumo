@@ -191,7 +191,7 @@ loaded at the start of the simulation. In SUMO the terms **node** and **junction
 
 Netedit can be switched between three major edit modes (also called ***supermodes***) for editing [network](editModesNetwork.md)-related objects, [traffic](editModesDemand.md)-related objects and [data](editModesData.md) objects.
 Each of these [supermodes](editModes.md) has a number of sub-modes (simply called ***modes***) for inspecting, deleting and adding the different objects.
-Some of these modes are common to all supermodes while others are specifc to a particular supermode as listed below.
+Some of these modes are common to all supermodes while others are specific to a particular supermode as listed below.
 
 ## [Common modes](editModesCommon.md)
 

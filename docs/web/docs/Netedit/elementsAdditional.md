@@ -155,7 +155,7 @@ Route Probe
 
 ### Calibrator
 
-A [calibrator](../Simulation/Calibrator.md) generates a flow of vehicles during a certain time, and allows dynamic adaption of traffic flows and speeds. A calibrator can be used to modify a simulation scenario based on induction loop measurements. It will remove vehicles in excess of the specified flow and will insert new vehicles if the normal traffic demand of the simulation does not reach the specified number of vehsPerHour. Furthermore, the defined edge speed will be adjusted to the specified speed similar of the operation of a variable speed sign. Calibrators will also remove vehicles if the traffic on their lane is jammed beyond the specified flow and speed. This ensures that invalid jams do not grow upstream past a calibrator. A right-click over the calibrator icon allows openening the values editor with the menu option 'Open calibrator Dialog'.
+A [calibrator](../Simulation/Calibrator.md) generates a flow of vehicles during a certain time, and allows dynamic adaption of traffic flows and speeds. A calibrator can be used to modify a simulation scenario based on induction loop measurements. It will remove vehicles in excess of the specified flow and will insert new vehicles if the normal traffic demand of the simulation does not reach the specified number of vehsPerHour. Furthermore, the defined edge speed will be adjusted to the specified speed similar of the operation of a variable speed sign. Calibrators will also remove vehicles if the traffic on their lane is jammed beyond the specified flow and speed. This ensures that invalid jams do not grow upstream past a calibrator. A right-click over the calibrator icon allows opening the values editor with the menu option 'Open calibrator Dialog'.
 
 ![](../images/GNECalibrator.png)    
 Calibrator 
@@ -170,7 +170,7 @@ A [rerouter](../Simulation/Rerouter.md) changes the route of a vehicle as soon a
 ![](../images/GNERerouter.png)    
 Rerouter is placed off the net.
 
-A right-click over the rerouter icon allows openening the values editor with the menu option 'Open rerouter Dialog'. Rerouter's values are divided in intervals, and every interval contains a list of [closing streets](../Simulation/Rerouter.md#closing_a_street), [closing lanes](../Simulation/Rerouter.md#closing_a_lane), [assignations of new destinations](../Simulation/Rerouter.md#assigning_a_new_destination) and [assignations of new routes](../Simulation/Rerouter.md#assigning_a_new_route):
+A right-click over the rerouter icon allows opening the values editor with the menu option 'Open rerouter Dialog'. Rerouter's values are divided in intervals, and every interval contains a list of [closing streets](../Simulation/Rerouter.md#closing_a_street), [closing lanes](../Simulation/Rerouter.md#closing_a_lane), [assignations of new destinations](../Simulation/Rerouter.md#assigning_a_new_destination) and [assignations of new routes](../Simulation/Rerouter.md#assigning_a_new_route):
 
 ![](../images/GNERerouterDialog1.png)    
 open rerouter dialog. One click over '+' button open a dialog for adding a new interval.

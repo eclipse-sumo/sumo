@@ -39,7 +39,7 @@ There isn't an visual connection between end point and their end junction
 - *Straighten edge*: Allow to restore the visual shape of an edge
 
 ![](../images/neteditStraighten1.png)   
-With the operation move visual shape of an edge can be modificed
+With the operation move visual shape of an edge can be modified
 
 ![](../images/neteditStraighten2.png)   
 Straighten edge restore the original shape of an edge

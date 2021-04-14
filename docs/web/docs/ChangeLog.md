@@ -27,12 +27,12 @@ title: ChangeLog
   - Fixed inconsistent vehicle positioning after collision stop #8109
   - Fixed slow initialization of railway router. Issue #8120
   - Fixed invalid braking of vehicles at traffic light junctions with crossings. Issue #8116
-  - Fixed insufficent precision of timestamps when using low step-length (i.e. 0.025). Issue #8129
+  - Fixed insufficient precision of timestamps when using low step-length (i.e. 0.025). Issue #8129
   - Fixed crash when using junction-taz in combination with taxi device. Issue #8152
   - Fixed emergency braking when approaching zipper link. Issue #8242
   - Members of personFlow and containerFlow are no longer in the same ride unless the group attribute is set. Issue #8396
   - Vehicle type attribute containerCapacity is now supported when using taxi device for container logistics #7892
-  - Fixed invalid chargingSstation-output and overheadwiresegments-output in subsecond simulation or when multiple vehicles are charging at the same element simultaneously. Issue #8351
+  - Fixed invalid chargingStation-output and overheadwiresegments-output in subsecond simulation or when multiple vehicles are charging at the same element simultaneously. Issue #8351
   - Fixed invalid depart position when using departPos="stop" with a full parkingArea. Issue #8338
   - Fixed invalid waiting pedestrian count at busStop which caused invalid pedestrian jamming. Issue #8366
   - Fixed crash after junction collision with stoptime. Issue #8359  
@@ -42,7 +42,7 @@ title: ChangeLog
   - Sublane model fixes
     - Fixed deadlock in roundabout. Issue #7935
     - Fixed invalid deceleration at intersection due to misinterpreting lateral position of approaching foes #7925
-    - Fixed collision in sublane model after parallel internal edges (requries rebuilding the network) #3619
+    - Fixed collision in sublane model after parallel internal edges (requires rebuilding the network) #3619
     - Fixed invalid collision warning. Issue #8068
     - Fixed invalid vehicle angle in subsecond simulation. Issue #8070
     - Lateral deviation due to lcSigma > 0 is now independent of step-length when using `latAlignment="arbitrary"`. Issue #8154
@@ -104,7 +104,7 @@ title: ChangeLog
   - Input networks with pedestrian infrastructure no longer result in invalid output. Issue #8408
 
 - od2trips
-  - Fixed invalid begin and end times when writting personFlows. Issue #7885
+  - Fixed invalid begin and end times when writing personFlows. Issue #7885
 
 - duarouter
   - Fixed invalid routes when using option **--remove-loops** with **--with-taz**. Issue #8451
@@ -112,7 +112,7 @@ title: ChangeLog
 - TraCI
   - Function 'vehicle.getSpeedWithoutTraCI' now returns original model speeds after calling moveToXY. Issue #7190
   - Fixed issues with mapping location and speed for function 'person.moveToXY' . Issue #7907, #7908
-  - Fixed crash when switching to carFollowModel that requries vehicle variables. Issue #7949
+  - Fixed crash when switching to carFollowModel that requires vehicle variables. Issue #7949
   - Fixed crash when using traci.simulation.getDistanceRoad. Issue #5114
   - Fixed non-deterministic behavior for person.moveToXY. Issue #7933
   - Function vehicle.getNeighbors now correctly handles neighbors that changed lane after the ego vehicle in the same simulation step. #8119
@@ -141,7 +141,7 @@ title: ChangeLog
 ### Enhancements
 - Simulation
   - Sublane model can now be used together with overtaking through the opposite direction. Issue #1997
-  - Added stop atttribute 'permitted' to restrict persons and containers that can enter vehicle at stop #7869
+  - Added stop attribute 'permitted' to restrict persons and containers that can enter vehicle at stop #7869
   - In tripinfo-output, the access stage of a person plan now includes attributes depart and arrival. Issue #7822
   - Detectors for actuated traffic lights can now be selectively disabled by setting the special id 'NO_DETECTOR' for a lane. #7919
   - Setting vehicle attribute `arrivalLane="random"` and `"first"` is now supported. Issue #7932
@@ -201,7 +201,7 @@ title: ChangeLog
   - Added option **--tls.no-mixed** which prevents building phases where different connections from the same lane have green and red signals. Issue #7821
   - Element `<laneType>` is now supported in an edge `<type>` to pre-configure speed, width and permissions for individual lanes. Issue #7791
   - Merging of overlapping geo-referenced networks with re-occuring ids now works without setting option **--ignore-errors**. Issue #8019
-  - When using option **--junctions.join-same** to merge overlapping networks with diffent junction ids, the option **--edges.join** can now be used to automatically remove duplicate edges. Issue #8019
+  - When using option **--junctions.join-same** to merge overlapping networks with different junction ids, the option **--edges.join** can now be used to automatically remove duplicate edges. Issue #8019
   - Added option **--railway.topology.repair.minimal**. This works similar to **--railway.topology.repair** but avoids creating bidirectional tracks that are not needed for public transport routes (only applies when using option **--ptline-outut**). Issue #7982
   - Public transport edges that are disconnected from the main road network (in particular railways) are now included in the output when using option **--keep.edges.components 1** as long as they have public transport stops that are written via option **--ptstop-output**. Issue #8061
   - Edge types now support attribute 'spreadType'. Issue #7897
@@ -215,7 +215,7 @@ title: ChangeLog
   - MatSim import can now split self loops and handle "half" lanes. Issue #8047, #7947
   
 - netgenerate
-  - Releaxed restrictions on minimum edge lengths when building grid and spider networks. Issue #8272
+  - Relaxed restrictions on minimum edge lengths when building grid and spider networks. Issue #8272
 
 - marouter
   - Added option **--ignore-taz** to route individual trips written by [od2trips](od2trips.md) between their assigned edges. Issue #8343
@@ -304,7 +304,7 @@ title: ChangeLog
 
 ### Bugfixes
 - simulation      
-  - Fixed automatic ride sharing for personTrips between the same origin and destination that did not declare a common 'group'. By default, rides are not shared. Automatic ride sharing for persontTrips and rides can be enabled by setting option **--persontrip.default.group STR** to an arbitrary value. Issue #7559, #7560  
+  - Fixed automatic ride sharing for personTrips between the same origin and destination that did not declare a common 'group'. By default, rides are not shared. Automatic ride sharing for personTrips and rides can be enabled by setting option **--persontrip.default.group STR** to an arbitrary value. Issue #7559, #7560  
   - Fixed bug where leader vehicles were ignored during lane-changing when using the sublane mode. Issue #7614
   - Fixed invalid conflict check for vehicles on the same intersection. Issue #7618, #7173, #7825, #7840
   - Fixed failure to create a rescue lane. Issue #7173  
@@ -313,14 +313,14 @@ title: ChangeLog
   - Planned vehicle stops are no longer included in edgeData waitingTime output. Issue #7748
   - Option **--ignore-junction-blocker** is now working again. Issue #7650 (Regression in 1.0.0)
   - Fixed "jumping" persons when transfering from car to walking at junction. Issue #7778   
-  - Fixed unsave insertion speed for IDM which was causing emergency braking #7786  
+  - Fixed unsaved insertion speed for IDM which was causing emergency braking #7786  
   - When using the sublane model, vehicles will now consider the travel speed on lanes beyond their current neighboring lanes for tactical lane changing. Issue #7620
   - Emergency vehicles that are using a rescue lane can now pass an intersection even if the necessary turning lane is blocked. Issue #7619
   - Fixed invalid negative space and time gap in ssm device output. Issue #7844
   - Now saving output of ssm device relative to the configuration file by default. Issue #7847
   - Fixed invalid speed and acceleration for parked vehicle. Issue #7850
   - Fixed negative timeLoss in edgeData output. Issue #7805
-  - battery model now works correctly with subeconds and handles additional power intake better. Issue #7695
+  - battery model now works correctly with subseconds and handles additional power intake better. Issue #7695
   - crashing
     - Fixed crash on parallel intermodal routing. Issue #7627
     - Fixe crash when defining stops on internal edges. Issue #7690
@@ -344,7 +344,7 @@ title: ChangeLog
     - Rail signal constraints now work correctly after loading simulation state. Issue #7523, #7673
     - Fixed deadlock after loading state. Issue #7837
   - taxi fixes
-    - Fixed bug with non-deterministc behavior and aborted rides if person capacity at a busStop was exceeded. Issue #7674, #7662
+    - Fixed bug with non-deterministic behavior and aborted rides if person capacity at a busStop was exceeded. Issue #7674, #7662
     - Intermodal routing no longer returns plans that frequently alternate between taxi and walking. The assumed time penalty when starting a taxi ride is now set to 300s configurable with option **--persontrip.taxi.waiting-time**. Issue #7651
     - Grouped rides are now serviced in batches when the group size exceeds maximum taxi personCapacity. Issue #7660  
     
@@ -390,14 +390,14 @@ title: ChangeLog
   - Rail carriages are now drawn next to the track when at a stop with parking=true. Issue #7528
   - Fixed invalid simulation end after reloading. Issue #7582
   - Prevented opening of multiple locator windows for the same object type. Issue #6916
-  - Fixed crash when locating vehiles by name while the simulation is running. Issue #7768
+  - Fixed crash when locating vehicles by name while the simulation is running. Issue #7768
   - Fixed crash when loading a network with internal lanes using mesosim and disabling junction shape rendering. Issue #7857 (regression in 1.6.0)
   
 - duarouter
   - Fixed crash on parallel intermodal routing. Issue #7627
   - Parallel intermodal routing now respects the option **--routing-algorithm**. Issue #7628
   - Fixed NaN value int output when using option **--logit**. Issue #7621
-  - Fixed invalid intermodal plans where switching between riding and walking happend on intersection. Issue #7652
+  - Fixed invalid intermodal plans where switching between riding and walking happened on intersection. Issue #7652
   - Fixed invalid intermodal plans when walk ends at trainStation and an access element is required to reach the starting edge of the ride. Issue #7654
   
 - TraCI
