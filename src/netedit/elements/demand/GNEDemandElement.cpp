@@ -386,19 +386,17 @@ GNEDemandElement::getFirstPersonPlanEdge() const {
         case GNE_TAG_WALK_EDGES:
         // edge->edge
         case GNE_TAG_PERSONTRIP_FIRST_EDGE:
+        case GNE_TAG_RIDE_FIRST_EDGE:
         case GNE_TAG_WALK_EDGE_EDGE:
-        case GNE_TAG_RIDE_EDGE_EDGE:
         // edge->busStop
         case GNE_TAG_PERSONTRIP_FIRST_BUSSTOP:
+        case GNE_TAG_RIDE_FIRST_BUSSTOP:
         case GNE_TAG_WALK_EDGE_BUSSTOP:
-        case GNE_TAG_RIDE_EDGE_BUSSTOP:
             return getParentEdges().front();
         // busStop->edge
         case GNE_TAG_WALK_BUSSTOP_EDGE:
-        case GNE_TAG_RIDE_BUSSTOP_EDGE:
         // busStop->busStop
         case GNE_TAG_WALK_BUSSTOP_BUSSTOP:
-        case GNE_TAG_RIDE_BUSSTOP_BUSSTOP:
             return getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
         // stops
         case GNE_TAG_PERSONSTOP_BUSSTOP:

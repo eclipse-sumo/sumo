@@ -472,9 +472,9 @@ GNERide::getHierarchyName() const {
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP) {
         return "ride: " + getParentAdditionals().front()->getID();
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_FIRST_EDGE) {
-        return "ride: " + getParentAdditionals().front()->getID() + " -> " + getParentEdges().back()->getID();
+        return "ride: " + getParentEdges().front()->getID() + " -> " + getParentEdges().back()->getID();
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_FIRST_BUSSTOP) {
-        return "ride: " + getParentAdditionals().front()->getID() + " -> " + getParentAdditionals().front()->getID();
+        return "ride: " + getParentEdges().front()->getID() + " -> " + getParentAdditionals().back()->getID();
     } else {
         throw ("Invalid ride tag");
     }

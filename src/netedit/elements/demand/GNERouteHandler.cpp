@@ -672,7 +672,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
                 buildPersonTrip(viewNet->getNet(), true, personParent, nullptr, toEdge, nullptr, arrivalPos, types, modes);
                 return true;
             } else {
-                viewNet->setStatusBarText("A person trip from edge to edge needs two edges");
+                viewNet->setStatusBarText("A person trip to edge needs one edge");
             }
             break;
         }
@@ -682,7 +682,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
                 buildPersonTrip(viewNet->getNet(), true, personParent, nullptr, nullptr, toBusStop, arrivalPos, types, modes);
                 return true;
             } else {
-                viewNet->setStatusBarText("A ride from edge to bussTop needs an edge and a busSTop");
+                viewNet->setStatusBarText("A person trip to bussTop needs onebusSTop");
             }
             break;
         }
@@ -692,7 +692,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
                 buildPersonTrip(viewNet->getNet(), true, personParent, fromEdge, toEdge, nullptr, arrivalPos, types, modes);
                 return true;
             } else {
-                viewNet->setStatusBarText("A ride from busStop to edge needs a busStop and an edge");
+                viewNet->setStatusBarText("A person trip from edge to edge needs two edges edge");
             }
             break;
         }
@@ -702,7 +702,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
                 buildPersonTrip(viewNet->getNet(), true, personParent, fromEdge, nullptr, toBusStop, arrivalPos, types, modes);
                 return true;
             } else {
-                viewNet->setStatusBarText("A person trip from busStop to busStop needs two busStops");
+                viewNet->setStatusBarText("A person trip from edge to busStop needs one edge and one busStop");
             }
             break;
         }
@@ -768,43 +768,43 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
             break;
         }
         // Rides
-        case GNE_TAG_RIDE_EDGE_EDGE: {
+        case GNE_TAG_RIDE_EDGE: {
             // check if ride edge->edge can be created
-            if (fromEdge && toEdge) {
-                buildRide(viewNet->getNet(), true, personParent, fromEdge, toEdge, nullptr, nullptr, arrivalPos, lines);
+            if (toEdge) {
+                buildRide(viewNet->getNet(), true, personParent, nullptr, toEdge, nullptr, arrivalPos, lines);
                 return true;
             } else {
-                viewNet->setStatusBarText("A ride from edge to edge needs two edges");
+                viewNet->setStatusBarText("A ride to edge needs one edge");
             }
             break;
         }
-        case GNE_TAG_RIDE_EDGE_BUSSTOP: {
+        case GNE_TAG_RIDE_BUSSTOP: {
             // check if ride edge->busStop can be created
-            if (fromEdge && toBusStop) {
-                buildRide(viewNet->getNet(), true, personParent, fromEdge, nullptr, nullptr, toBusStop, arrivalPos, lines);
+            if (toBusStop) {
+                buildRide(viewNet->getNet(), true, personParent, nullptr, nullptr, toBusStop, arrivalPos, lines);
                 return true;
             } else {
-                viewNet->setStatusBarText("A ride from edge to busStop needs an edge and a busStop");
+                viewNet->setStatusBarText("A ride to bussTop needs onebusSTop");
             }
             break;
         }
-        case GNE_TAG_RIDE_BUSSTOP_EDGE: {
+        case GNE_TAG_RIDE_FIRST_EDGE: {
             // check if ride busStop->edge can be created
-            if (fromBusStop && toEdge) {
-                buildRide(viewNet->getNet(), true, personParent, nullptr, toEdge, fromBusStop, nullptr, arrivalPos, lines);
+            if (fromEdge && toEdge) {
+                buildRide(viewNet->getNet(), true, personParent, fromEdge, toEdge, nullptr, arrivalPos, lines);
                 return true;
             } else {
-                viewNet->setStatusBarText("A ride from busStop to edge needs a busStop and an edge");
+                viewNet->setStatusBarText("A ride from edge to edge needs two edges edge");
             }
             break;
         }
-        case GNE_TAG_RIDE_BUSSTOP_BUSSTOP: {
+        case GNE_TAG_RIDE_FIRST_BUSSTOP: {
             // check if ride busStop->busStop can be created
-            if (fromBusStop && toBusStop) {
-                buildRide(viewNet->getNet(), true, personParent, nullptr, nullptr, fromBusStop, toBusStop, arrivalPos, lines);
+            if (fromEdge && toBusStop) {
+                buildRide(viewNet->getNet(), true, personParent, fromEdge, nullptr, toBusStop, arrivalPos, lines);
                 return true;
             } else {
-                viewNet->setStatusBarText("A ride from busStop to busStop needs two busStops");
+                viewNet->setStatusBarText("A ride from edge to busStop needs one edge and one busStop");
             }
             break;
         }
@@ -1042,8 +1042,8 @@ GNERouteHandler::buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElemen
 
 
 void
-GNERouteHandler::buildRide(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                           GNEAdditional* busStopFrom, GNEAdditional* busStopTo, double arrivalPos, const std::vector<std::string>& lines) {
+GNERouteHandler::buildRide(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, GNEAdditional* busStopTo, 
+                           double arrivalPos, const std::vector<std::string>& lines) {
     // declare ride
     GNEDemandElement* ride = nullptr;
     // create ride depending of parameters
@@ -1052,7 +1052,7 @@ GNERouteHandler::buildRide(GNENet* net, bool undoDemandElements, GNEDemandElemen
         ride = new GNERide(net, personParent, fromEdge, toEdge, arrivalPos, lines);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
-            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_RIDE_EDGE_EDGE) + " within person '" + personParent->getID() + "'");
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_RIDE_FIRST_EDGE) + " within person '" + personParent->getID() + "'");
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
@@ -1070,7 +1070,7 @@ GNERouteHandler::buildRide(GNENet* net, bool undoDemandElements, GNEDemandElemen
         ride = new GNERide(net, personParent, fromEdge, busStopTo, arrivalPos, lines);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
-            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_RIDE_EDGE_BUSSTOP) + " within person '" + personParent->getID() + "'");
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_RIDE_FIRST_BUSSTOP) + " within person '" + personParent->getID() + "'");
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
@@ -1083,12 +1083,12 @@ GNERouteHandler::buildRide(GNENet* net, bool undoDemandElements, GNEDemandElemen
             // include reference
             ride->incRef("buildRide");
         }
-    } else if (busStopFrom && toEdge) {
+    } else if (toEdge) {
         // create ride busStop->edge
-        ride = new GNERide(net, personParent, busStopFrom, toEdge, arrivalPos, lines);
+        ride = new GNERide(net, personParent, toEdge, arrivalPos, lines);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
-            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_RIDE_BUSSTOP_EDGE) + " within person '" + personParent->getID() + "'");
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_RIDE_EDGE) + " within person '" + personParent->getID() + "'");
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
@@ -1096,17 +1096,16 @@ GNERouteHandler::buildRide(GNENet* net, bool undoDemandElements, GNEDemandElemen
             net->getAttributeCarriers()->insertDemandElement(ride);
             // set references in children
             personParent->addChildElement(ride);
-            busStopFrom->addChildElement(ride);
             toEdge->addChildElement(ride);
             // include reference
             ride->incRef("buildRide");
         }
-    } else if (busStopFrom && busStopTo) {
+    } else if (busStopTo) {
         // create ride busStop->busStop
-        ride = new GNERide(net, personParent, busStopFrom, busStopTo, arrivalPos, lines);
+        ride = new GNERide(net, personParent, busStopTo, arrivalPos, lines);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
-            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_RIDE_BUSSTOP_BUSSTOP) + " within person '" + personParent->getID() + "'");
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_RIDE_BUSSTOP) + " within person '" + personParent->getID() + "'");
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
@@ -1114,7 +1113,6 @@ GNERouteHandler::buildRide(GNENet* net, bool undoDemandElements, GNEDemandElemen
             net->getAttributeCarriers()->insertDemandElement(ride);
             // set references in children
             personParent->addChildElement(ride);
-            busStopFrom->addChildElement(ride);
             busStopTo->addChildElement(ride);
             // include reference
             ride->incRef("buildRide");
@@ -1784,26 +1782,27 @@ GNERouteHandler::closePerson() {
                             break;
                         }
                         // Rides
-                        case GNE_TAG_RIDE_EDGE_EDGE: {
-                            buildRide(myNet, true, person, personPlanValue.fromEdge, personPlanValue.toEdge, nullptr, nullptr,
+                        case GNE_TAG_RIDE_EDGE: {
+                            buildRide(myNet, true, person, nullptr, personPlanValue.toEdge, nullptr,
                                       personPlanValue.arrivalPos, personPlanValue.lines);
                             break;
                         }
-                        case GNE_TAG_RIDE_EDGE_BUSSTOP: {
-                            buildRide(myNet, true, person, personPlanValue.fromEdge, nullptr, nullptr, personPlanValue.toBusStop,
+                        case GNE_TAG_RIDE_BUSSTOP: {
+                            buildRide(myNet, true, person, nullptr, nullptr, personPlanValue.toBusStop,
                                       personPlanValue.arrivalPos, personPlanValue.lines);
                             break;
                         }
-                        case GNE_TAG_RIDE_BUSSTOP_EDGE: {
-                            buildRide(myNet, true, person, nullptr, personPlanValue.toEdge, personPlanValue.fromBusStop, nullptr,
+                        case GNE_TAG_RIDE_FIRST_EDGE: {
+                            buildRide(myNet, true, person, personPlanValue.fromEdge, personPlanValue.toEdge, nullptr,
+                                personPlanValue.arrivalPos, personPlanValue.lines);
+                            break;
+                        }
+                        case GNE_TAG_RIDE_FIRST_BUSSTOP: {
+                            buildRide(myNet, true, person, personPlanValue.fromEdge, nullptr, personPlanValue.toBusStop,
                                       personPlanValue.arrivalPos, personPlanValue.lines);
                             break;
                         }
-                        case GNE_TAG_RIDE_BUSSTOP_BUSSTOP: {
-                            buildRide(myNet, true, person, nullptr, nullptr, personPlanValue.fromBusStop, personPlanValue.toBusStop,
-                                      personPlanValue.arrivalPos, personPlanValue.lines);
-                            break;
-                        }
+                        // Stops
                         case GNE_TAG_PERSONSTOP_BUSSTOP: {
                             buildPersonStop(myNet, true, person, nullptr, personPlanValue.busStop, personPlanValue.stopParameters);
                             break;
@@ -1903,26 +1902,27 @@ GNERouteHandler::closePersonFlow() {
                             break;
                         }
                         // Rides
-                        case GNE_TAG_RIDE_EDGE_EDGE: {
-                            buildRide(myNet, true, person, personPlanValue.fromEdge, personPlanValue.toEdge, nullptr, nullptr,
-                                      personPlanValue.arrivalPos, personPlanValue.lines);
+                        case GNE_TAG_RIDE_EDGE: {
+                            buildRide(myNet, true, person, nullptr, personPlanValue.toEdge, nullptr,
+                                personPlanValue.arrivalPos, personPlanValue.lines);
                             break;
                         }
-                        case GNE_TAG_RIDE_EDGE_BUSSTOP: {
-                            buildRide(myNet, true, person, personPlanValue.fromEdge, nullptr, nullptr, personPlanValue.toBusStop,
-                                      personPlanValue.arrivalPos, personPlanValue.lines);
+                        case GNE_TAG_RIDE_BUSSTOP: {
+                            buildRide(myNet, true, person, nullptr, nullptr, personPlanValue.toBusStop,
+                                personPlanValue.arrivalPos, personPlanValue.lines);
                             break;
                         }
-                        case GNE_TAG_RIDE_BUSSTOP_EDGE: {
-                            buildRide(myNet, true, person, nullptr, personPlanValue.toEdge, personPlanValue.fromBusStop, nullptr,
-                                      personPlanValue.arrivalPos, personPlanValue.lines);
+                        case GNE_TAG_RIDE_FIRST_EDGE: {
+                            buildRide(myNet, true, person, personPlanValue.fromEdge, personPlanValue.toEdge, nullptr,
+                                personPlanValue.arrivalPos, personPlanValue.lines);
                             break;
                         }
-                        case GNE_TAG_RIDE_BUSSTOP_BUSSTOP: {
-                            buildRide(myNet, true, person, nullptr, nullptr, personPlanValue.fromBusStop, personPlanValue.toBusStop,
-                                      personPlanValue.arrivalPos, personPlanValue.lines);
+                        case GNE_TAG_RIDE_FIRST_BUSSTOP: {
+                            buildRide(myNet, true, person, personPlanValue.fromEdge, nullptr, personPlanValue.toBusStop,
+                                personPlanValue.arrivalPos, personPlanValue.lines);
                             break;
                         }
+                        // stops
                         case GNE_TAG_PERSONSTOP_BUSSTOP:
                         case GNE_TAG_PERSONSTOP_EDGE: {
                             buildStop(myNet, true, personPlanValue.stopParameters, person);
@@ -2220,65 +2220,53 @@ GNERouteHandler::PersonPlansValues::PersonPlansValues() :
 void
 GNERouteHandler::PersonPlansValues::updateGNETag() {
     // set GNE Tag depending of parameters
-    if ((tag == SUMO_TAG_PERSONTRIP) && !fromEdge && toEdge) {
-        // edge->edge
-        if (tag == SUMO_TAG_PERSONTRIP) {
+    if (tag == SUMO_TAG_PERSONTRIP) {
+        if (!fromEdge && toEdge) {
+            // previous PersonPlan->edge
             tag = GNE_TAG_PERSONTRIP_EDGE;
-        } 
-        /*
-        else if (tag == SUMO_TAG_WALK) {
-            tag = GNE_TAG_WALK_EDGE_EDGE;
-        } else if (tag == SUMO_TAG_RIDE) {
-            tag = GNE_TAG_RIDE_EDGE_EDGE;
-        }
-        */
-    } else if ((tag == SUMO_TAG_PERSONTRIP) && !fromEdge && toBusStop) {
-        // edge->busStop
-        if (tag == SUMO_TAG_PERSONTRIP) {
+        } else if (!fromEdge && toBusStop) {
+            // previous PersonPlan->busStop
             tag = GNE_TAG_PERSONTRIP_BUSSTOP;
+        } else if (fromEdge && toEdge) {
+            // edge->edge
+            tag = GNE_TAG_PERSONTRIP_FIRST_EDGE;
+        } else if (fromEdge && toBusStop) {
+            // edge->busStop
+            tag = GNE_TAG_PERSONTRIP_FIRST_BUSSTOP;
         }
-        /*
-        else if (tag == SUMO_TAG_WALK) {
-            tag = GNE_TAG_WALK_EDGE_BUSSTOP;
-        } else if (tag == SUMO_TAG_RIDE) {
-            tag = GNE_TAG_RIDE_EDGE_BUSSTOP;
+    } else if (tag == SUMO_TAG_RIDE) {
+        if (!fromEdge && toEdge) {
+            // previous PersonPlan->edge
+            tag = GNE_TAG_RIDE_EDGE;
+        } else if (!fromEdge && toBusStop) {
+            // previous PersonPlan->busStop
+            tag = GNE_TAG_RIDE_BUSSTOP;
+        } else if (fromEdge && toEdge) {
+            // edge->edge
+            tag = GNE_TAG_RIDE_FIRST_EDGE;
+        } else if (fromEdge && toBusStop) {
+            // edge->busStop
+            tag = GNE_TAG_RIDE_FIRST_BUSSTOP;
         }
-        */
     } else if (fromEdge && toEdge) {
         // edge->edge
-        if (tag == SUMO_TAG_PERSONTRIP) {
-            tag = GNE_TAG_PERSONTRIP_FIRST_EDGE;
-        } else if (tag == SUMO_TAG_WALK) {
+        if (tag == SUMO_TAG_WALK) {
             tag = GNE_TAG_WALK_EDGE_EDGE;
-        } else if (tag == SUMO_TAG_RIDE) {
-            tag = GNE_TAG_RIDE_EDGE_EDGE;
         }
     } else if (fromEdge && toBusStop) {
         // edge->busStop
-        if (tag == SUMO_TAG_PERSONTRIP) {
-            tag = GNE_TAG_PERSONTRIP_FIRST_BUSSTOP;
-        } else if (tag == SUMO_TAG_WALK) {
+        if (tag == SUMO_TAG_WALK) {
             tag = GNE_TAG_WALK_EDGE_BUSSTOP;
-        } else if (tag == SUMO_TAG_RIDE) {
-            tag = GNE_TAG_RIDE_EDGE_BUSSTOP;
         }
     } else if (fromBusStop && toEdge) {
         // busStop->edge
-        if (tag == SUMO_TAG_PERSONTRIP) {
-            /*tag = GNE_TAG_PERSONTRIP_BUSSTOP_EDGE;*/
-        } else if (tag == SUMO_TAG_WALK) {
+        if (tag == SUMO_TAG_WALK) {
             tag = GNE_TAG_WALK_BUSSTOP_EDGE;
-        } else if (tag == SUMO_TAG_RIDE) {
-            tag = GNE_TAG_RIDE_BUSSTOP_EDGE;
         }
     } else if (fromBusStop && toBusStop) {
         // busStop->busStop
-        if (tag == SUMO_TAG_PERSONTRIP) {
-            /*tag = GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP;*/
-        } else if (tag == SUMO_TAG_WALK) {
+        if (tag == SUMO_TAG_WALK) {
             tag = GNE_TAG_WALK_BUSSTOP_BUSSTOP;
-        } else if (tag == SUMO_TAG_RIDE) {
-            tag = GNE_TAG_RIDE_BUSSTOP_BUSSTOP;
         }
     } else if (edges.size() > 0) {
         // walk edges

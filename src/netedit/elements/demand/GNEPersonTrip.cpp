@@ -493,9 +493,9 @@ GNEPersonTrip::getHierarchyName() const {
     } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP) {
         return "personTrip: " + getParentAdditionals().front()->getID();
     } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_FIRST_EDGE) {
-        return "personTrip: " + getParentAdditionals().front()->getID() + " -> " + getParentEdges().back()->getID();
+        return "personTrip: " + getParentEdges().front()->getID() + " -> " + getParentEdges().back()->getID();
     } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_FIRST_BUSSTOP) {
-        return "personTrip: " + getParentAdditionals().front()->getID() + " -> " + getParentAdditionals().front()->getID();
+        return "personTrip: " + getParentEdges().front()->getID() + " -> " + getParentAdditionals().front()->getID();
     } else {
         throw ("Invalid personTrip tag");
     }
