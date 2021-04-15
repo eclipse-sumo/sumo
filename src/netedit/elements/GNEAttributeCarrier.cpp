@@ -3472,8 +3472,18 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
                                       GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_EDGE,
                                       GUIIcon::PERSONTRIP_FROMTO, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
+        // to edge
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TO,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The name of the edge the " + toString(currentTag) + " ends at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // arrival position
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "arrival position on the destination edge",
+                                              "-1");
+        myTagProperties[currentTag].addAttribute(attrProperty);
         // fill attributes
-        fillPersonPlanEdgeEdge(currentTag);
         fillPersonTripAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_BUSSTOP;
@@ -3483,8 +3493,12 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
                                       GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_BUSSTOP,
                                       GUIIcon::PERSONTRIP_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
+        // to busStop
+        attrProperty = GNEAttributeProperties(GNE_ATTR_TO_BUSSTOP,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "Id of the destination " + toString(SUMO_TAG_BUS_STOP));
+        myTagProperties[currentTag].addAttribute(attrProperty);
         // fill attributes
-        fillPersonPlanEdgeBusStop(currentTag);
         fillPersonTripAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_FIRST_EDGE;
@@ -3494,8 +3508,23 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
                                       GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_STOP,
                                       GUIIcon::PERSONTRIP_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
+        // from edge
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The name of the edge the " + toString(currentTag) + " starts at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // to edge
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TO,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The name of the edge the " + toString(currentTag) + " ends at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // arrival position
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "arrival position on the destination edge",
+                                              "-1");
+        myTagProperties[currentTag].addAttribute(attrProperty);
         // fill attributes
-        fillPersonPlanEdgeStop(currentTag);
         fillPersonTripAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_FIRST_BUSSTOP;
@@ -3505,8 +3534,17 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
                                       GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_BUSSTOP | GNETagProperties::PERSONPLAN_END_EDGE,
                                       GUIIcon::PERSONTRIP_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
+        // from edge
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The name of the edge the " + toString(currentTag) + " starts at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // to busStop
+        attrProperty = GNEAttributeProperties(GNE_ATTR_TO_BUSSTOP,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "Id of the destination " + toString(SUMO_TAG_BUS_STOP));
+        myTagProperties[currentTag].addAttribute(attrProperty);
         // fill attributes
-        fillPersonPlanBusStopEdge(currentTag);
         fillPersonTripAttributes(currentTag);
     }
 }
