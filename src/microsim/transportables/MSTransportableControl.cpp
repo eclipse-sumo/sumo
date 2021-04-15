@@ -148,17 +148,19 @@ void
 MSTransportableControl::checkWaiting(MSNet* net, const SUMOTime time) {
     myHaveNewWaiting = false;
     while (myWaiting4Departure.find(time) != myWaiting4Departure.end()) {
-        const TransportableVector& transportables = myWaiting4Departure[time];
+        TransportableVector& transportables = myWaiting4Departure[time];
         // we cannot use an iterator here because there might be additions to the vector while proceeding
-        for (int i = 0; i < (int)transportables.size(); ++i) {
+        for (auto it = transportables.begin(); it != transportables.end();) {
+            MSTransportable* t = *it;
+            it = transportables.erase(it);
             myWaitingForDepartureNumber--;
-            const bool isPerson = transportables[i]->isPerson();
-            if (transportables[i]->proceed(net, time)) {
+            const bool isPerson = t->isPerson();
+            if (t->proceed(net, time)) {
                 myRunningNumber++;
-                MSNet::getInstance()->informTransportableStateListener(transportables[i],
+                MSNet::getInstance()->informTransportableStateListener(t,
                         isPerson ? MSNet::TransportableState::PERSON_DEPARTED : MSNet::TransportableState::CONTAINER_DEPARTED);
             } else {
-                erase(transportables[i]);
+                erase(t);
             }
         }
         myWaiting4Departure.erase(time);
