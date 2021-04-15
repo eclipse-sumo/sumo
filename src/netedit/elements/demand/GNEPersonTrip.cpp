@@ -216,28 +216,24 @@ GNEPersonTrip::updateGeometry() {
 
 void
 GNEPersonTrip::computePath() {
+    // declare lane vector
+    std::vector<GNELane*> lanes;
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE) {
         // get previous plan
-        const GNEDemandElement *previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
+        const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
         // check previousPersonPlan
         if (previousPersonPlan) {
             // calculate depending of previous person plan
             if (previousPersonPlan->getTagProperty().personPlanEndEdge()) {
                 // use last edge
-                myNet->getPathManager()->calculateLanesPath(this, getVClass(),
-                    { previousPersonPlan->getLastAllowedVehicleLane(), 
-                      getLastAllowedVehicleLane()});
+                lanes = {previousPersonPlan->getLastAllowedVehicleLane(), getLastAllowedVehicleLane()};
             } else if (previousPersonPlan->getTagProperty().personPlanEndBusStop()) {
                 // use busStop lane
-                myNet->getPathManager()->calculateLanesPath(this, getVClass(),
-                    { previousPersonPlan->getParentAdditionals().front()->getParentLanes().front(), 
-                      getLastAllowedVehicleLane() });
+                lanes = {previousPersonPlan->getParentAdditionals().front()->getParentLanes().front(), getLastAllowedVehicleLane()};
             } else if (previousPersonPlan->getTagProperty().personPlanEndStop()) {
                 // use stop lane
-                myNet->getPathManager()->calculateLanesPath(this, getVClass(),
-                    { previousPersonPlan->getParentLanes().front(), 
-                      getLastAllowedVehicleLane() });
+                lanes = {previousPersonPlan->getParentLanes().front(), getLastAllowedVehicleLane()};
             }
         }
     } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP) {
@@ -248,37 +244,24 @@ GNEPersonTrip::computePath() {
             // calculate depending of previous person plan
             if (previousPersonPlan->getTagProperty().personPlanEndEdge()) {
                 // use last edge
-                myNet->getPathManager()->calculateLanesPath(this, getVClass(), { 
-                        previousPersonPlan->getLastAllowedVehicleLane(), 
-                        getParentAdditionals().back()->getParentLanes().front() 
-                    });
+                lanes = {previousPersonPlan->getLastAllowedVehicleLane(), getParentAdditionals().back()->getParentLanes().front()};
             } else if (previousPersonPlan->getTagProperty().personPlanEndBusStop()) {
                 // use busStop lane
-                myNet->getPathManager()->calculateLanesPath(this, getVClass(), { 
-                        previousPersonPlan->getParentAdditionals().front()->getParentLanes().front(), 
-                        getParentAdditionals().back()->getParentLanes().front() 
-                    });
+                lanes = {previousPersonPlan->getParentAdditionals().front()->getParentLanes().front(), getParentAdditionals().back()->getParentLanes().front()};
             } else if (previousPersonPlan->getTagProperty().personPlanEndStop()) {
                 // use stop lane
-                myNet->getPathManager()->calculateLanesPath(this, getVClass(), { 
-                        previousPersonPlan->getParentLanes().front(), 
-                        getParentAdditionals().back()->getParentLanes().front() 
-                    });
+                lanes = {previousPersonPlan->getParentLanes().front(), getParentAdditionals().back()->getParentLanes().front()};
             }
         }
     } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_FIRST_EDGE) {
         // use first and last edge
-        myNet->getPathManager()->calculateLanesPath(this, getVClass(), { 
-                getFirstAllowedVehicleLane(), 
-                getLastAllowedVehicleLane() 
-            });
+        lanes = {getFirstAllowedVehicleLane(), getLastAllowedVehicleLane()};
     } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_FIRST_BUSSTOP) {
         // use first edge and busStop
-        myNet->getPathManager()->calculateLanesPath(this, getVClass(), { 
-                getFirstAllowedVehicleLane(), 
-                getParentAdditionals().back()->getParentLanes().front() 
-            });
+        lanes = {getFirstAllowedVehicleLane(), getParentAdditionals().back()->getParentLanes().front()};
     }
+    // calculate path
+    myNet->getPathManager()->calculateLanesPath(this, SVC_PASSENGER, lanes);
     // update geometry
     updateGeometry();
 }
