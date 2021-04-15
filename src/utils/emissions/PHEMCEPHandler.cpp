@@ -348,9 +348,8 @@ PHEMCEPHandler::ReadVehicleFile(const std::vector<std::string>& path, const std:
     } // end while
 
     while (std::getline(fileVehicle, line) && line.substr(0, 1) != commentPrefix) {
-        std::stringstream  lineStream(line);
-        std::string cell;
-        std::vector <double> vi;
+        std::stringstream lineStream(line);
+        std::vector<double> vi;
         while (std::getline(lineStream, cell, ',')) {
             double entry;
             std::istringstream(cell) >> entry;
@@ -366,8 +365,7 @@ PHEMCEPHandler::ReadVehicleFile(const std::vector<std::string>& path, const std:
         }
 
         std::stringstream  lineStream(line);
-        std::string cell;
-        std::vector <double> vi;
+        std::vector<double> vi;
         while (std::getline(lineStream, cell, ',')) {
             double entry;
             std::istringstream(cell) >> entry;
@@ -441,7 +439,6 @@ bool PHEMCEPHandler::ReadEmissionData(bool readFC, const std::vector<std::string
 
     while (std::getline(fileEmission, line)) {
         std::stringstream  lineStream(line);
-        std::string cell;
         std::vector <double> vi;
         while (std::getline(lineStream, cell, ',')) {
             double entry;

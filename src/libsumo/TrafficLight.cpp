@@ -417,12 +417,12 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
         nc.mustWait = true; // ???
         result.push_back(nc);
         // let foe wait for foe2
-        std::vector<TraCISignalConstraint> result2 = swapConstraints(c.signalId, c.tripId, c.foeSignal, c.foeId);
+        const std::vector<TraCISignalConstraint>& result2 = swapConstraints(c.signalId, c.tripId, c.foeSignal, c.foeId);
         result.insert(result.end(), result2.begin(), result2.end());
         if (foeIds2.size() > 1) {
             // calling swapConstraints once may result in further swaps so we have to recheck for remaining deadlocks anew
-            std::vector<TraCISignalConstraint> result2 = findConstraintsDeadLocks(foeId, tripId, foeSignal);
-            result.insert(result.end(), result2.begin(), result2.end());
+            const std::vector<TraCISignalConstraint>& result3 = findConstraintsDeadLocks(foeId, tripId, foeSignal);
+            result.insert(result.end(), result3.begin(), result3.end());
         }
     }
     if (foeId2Cands1.size() > 0) {
