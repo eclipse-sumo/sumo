@@ -58,4 +58,8 @@ objects = [
 [setGetParam(*x) for x in objects]
 print("step", step())
 
+vehID = "veh0"
+traci.vehicle.subscribe(vehID)
+traci.vehicle.unsubscribe(vehID)
+
 traci.close()
