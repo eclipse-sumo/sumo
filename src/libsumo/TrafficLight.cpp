@@ -342,7 +342,7 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
         s2->addConstraint(foeId, new MSRailSignalConstraint_Predecessor(s, tripId, limit));
         return findConstraintsDeadLocks(foeId, tripId, foeSignal);
     } else {
-        throw TraCIException("Rail signal '" + tlsID + "' does not have the given constraint for '" + tripId + "'");
+        throw TraCIException("Rail signal '" + tlsID + "' does not have a contraint for tripId '" + tripId + "' with foeSignal '" + foeSignal + "' and foeId '" + foeId + "'");
     }
 }
 
