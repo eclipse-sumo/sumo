@@ -367,7 +367,7 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
         for i, (edgesBefore, stop) in enumerate(stopRoute):
             if not (stop.hasAttribute("arrival") and stop.hasAttribute("until")):
                 continue
-            if options.skipParking and parseBool(stop.getAttributeSecure("parking", "false")):
+            if not overtaken and options.skipParking and parseBool(stop.getAttributeSecure("parking", "false")):
                 continue
             if not overtaken:
                 arrival = parseTime(stop.arrival)
@@ -391,6 +391,10 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                               file=sys.stderr)
                         break
             if overtaken:
+                #print("invalid veh=%s stop=%s arrival=%s until=%s" %
+                #        (stop.vehID, stop.busStop,
+                #            humanReadableTime(parseTime(stop.arrival)),
+                #            humanReadableTime(parseTime(stop.until))))
                 stop.setAttribute("invalid", True)
 
 
