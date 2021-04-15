@@ -28,13 +28,14 @@ except ImportError:
     # python3
     import http.client as httplib
     import urllib.parse as urlparse
-    from urllib.request import urlopen
+    from urllib.request import urlopen, Request
 
 import base64
 from os import path
 
 import sumolib  # noqa
-
+from sumolib.output import parse
+import gzip
 
 def readCompressed(conn, urlpath, query, filename):
     conn.request("POST", "/" + urlpath, """
@@ -138,18 +139,36 @@ def get(args=None):
     conn.close()
     # extract the wiki data according to the wikidata-value in the extracted osm file
     if options.wikidata:
-        filename = options.prefix + '.wikidata.xml'
+        filename = options.prefix + '.wikidata.xml.gz'
         osmFile = path.join(os.getcwd(), options.prefix + "_bbox.osm.xml")
         codeSet = set()
+        # deal with invalid characters
+        bad_chars = [';', ':', '!', "*", ')', '(', '-', '_', '%', '&', '/', '=', '?', '§','#','<','>']
         for line in open(osmFile, encoding='utf8'):
-            if 'wikidata' in line:
-                codeSet.add(line.split('"')[3])
-        out = open(path.join(os.getcwd(), filename), "wb")
-        content = urlopen("https://www.wikidata.org/w/api.php?action=wbgetentities&ids=%s&format=json" %
-                          ("|".join(codeSet))).read()
-        out.write(content)
-        out.close()
+            subSet = set()
+            if 'wikidata' in line and line.split('"')[3][0] == 'Q':
+                basicData = line.split('"')[3]
+                for i in bad_chars:
+                    basicData = basicData.replace(i, ' ')
+                elems = basicData.split(' ')
+                for e in elems:
+                    if e and e[0] == 'Q':
+                        subSet.add(e)
+                codeSet.update(subSet)
 
+        # make and save query results iteratively
+        codeList = list(codeSet)
+        interval = 50 # the maximal number of query items
+        with gzip.open(path.join(os.getcwd(), filename), "wb") as outf:
+            for i in range(0, len(codeSet), interval):
+                j = i + interval
+                if j > len(codeSet):
+                    j = len(codeSet)
+                subList = codeList[i:j]
+                content = urlopen("https://www.wikidata.org/w/api.php?action=wbgetentities&ids=%s&format=json" %
+                              ("|".join(subList))).read()
+                outf.write(content)
+        outf.close()
 
 if __name__ == "__main__":
     get()
