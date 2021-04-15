@@ -605,6 +605,12 @@ struct TraCISignalConstraint {
     int type;
     /// @brief whether tripId must still wait for foeId to pass foeSignal
     bool mustWait;
+
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCISignalConstraint(signalId=" << signalId << ", tripid=" << tripId << ", foeSignal=" << foeSignal << ", foeId=" << foeId << ")";
+        return os.str();
+    }
 };
 
 }

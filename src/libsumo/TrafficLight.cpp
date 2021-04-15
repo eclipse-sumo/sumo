@@ -38,6 +38,7 @@
 #include <libsumo/TraCIConstants.h>
 #include "TrafficLight.h"
 
+//#define DEBUG_CONSTRAINT_DEADLOCK
 
 namespace libsumo {
 // ===========================================================================
@@ -309,6 +310,9 @@ TrafficLight::getConstraintsByFoe(const std::string& foeSignal, const std::strin
 
 std::vector<TraCISignalConstraint>
 TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId) {
+#ifdef DEBUG_CONSTRAINT_DEADLOCK
+    std::cout << "swapConstraints tlsId=" << tlsID << " tripId=" << tripId << " foeSignal=" << foeSignal << " foeId=" << foeId << "\n";
+#endif
     MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
     MSTrafficLightLogic* const active2 = getTLS(foeSignal).getDefault();
     MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);
@@ -386,7 +390,7 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
         for (auto item : s->getConstraints()) {
             for (MSRailSignalConstraint* cand : item.second) {
                 MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);
-                if (pc != nullptr) {
+                if (pc != nullptr && !pc->cleared()) {
                     if (item.first == tripId) {
                         // @could there by more than one constraint on tripId by this foe2?
                         constraintsOnTripId[pc->myTripId] = buildConstraint(s->getID(), item.first, pc, false);
@@ -404,8 +408,13 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
             foeId2Cands1.begin(), foeId2Cands1.end(),
             foeId2Cands2.begin(), foeId2Cands2.end(),
             std::back_inserter(foeIds2));
+#ifdef DEBUG_CONSTRAINT_DEADLOCK
+    std::cout << "findConstraintsDeadLocks foeId=" << foeId << " tripId=" << tripId << " foeSignal=" << foeSignal << "\n";
+    for (const std::string& foeId2 : foeIds2) {
+        std::cout << "  deadlockId=" << foeId2 << " " << constraintsOnTripId[foeId2].getString() << " " << constrainedByFoeId[foeId2].getString() << "\n";
+    }
+#endif
     if (foeIds2.size() > 0) {
-        //std::cout << " findConstraintsDeadLocks foeId=" << foeId << " tripId=" << tripId << " foeId2=" << toString(foeIds2) << "\n";
         const TraCISignalConstraint& c = constrainedByFoeId[foeIds2.front()];
         TraCISignalConstraint nc; // constraint after swap
         nc.tripId = c.foeId;
@@ -432,7 +441,15 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
         if (foe != nullptr) {
             const MSEdge* foeEdge = foe->getEdge();
             const double foePos = foe->getPositionOnLane();
+            bool swappedOnce = false;
             for (const std::string& foeId2 : foeId2Cands1) {
+                if (swappedOnce) {
+                    // foeId2 might not be valid anymore. Need fresh recheck for
+                    // remaining implicit deadlocks
+                    const std::vector<TraCISignalConstraint>& result4 = findConstraintsDeadLocks(foeId, tripId, foeSignal);
+                    result.insert(result.end(), result4.begin(), result4.end());
+                    break;
+                }
                 SUMOVehicle* foe2 = getVehicleByTripId(foeId2);
                 if (foe2 != nullptr) {
                     ConstMSEdgeVector foe2Route = foe2->getRoute().getEdges();
@@ -456,7 +473,9 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
                     }
                     if (constrainedByFoe) {
                         // foe cannot wait for foe2 (since it's behind). Instead foe2 must wait for tripId
-                        //std::cout << " findConstraintsDeadLocks foeId=" << foeId << " tripId=" << tripId << " implicit foeId2=" << toString(foeIds2) << "\n";
+#ifdef DEBUG_CONSTRAINT_DEADLOCK
+                        std::cout << " foeLeaderDeadlock=" << foeId2 << "\n";
+#endif
                         const TraCISignalConstraint& c = constraintsOnTripId[foeId2];
                         TraCISignalConstraint nc; // constraint after swap
                         nc.tripId = c.foeId;
@@ -470,10 +489,10 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
                         // let foe wait for foe2
                         std::vector<TraCISignalConstraint> result2 = swapConstraints(c.signalId, c.tripId, c.foeSignal, c.foeId);
                         result.insert(result.end(), result2.begin(), result2.end());
+                        swappedOnce = true;
                     }
                 }
             }
-
         }
     }
     return result;
