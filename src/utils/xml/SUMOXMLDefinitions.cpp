@@ -247,15 +247,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "flowRoute",                      GNE_TAG_FLOW_ROUTE },
     { "flowWithRoute",                  GNE_TAG_FLOW_WITHROUTE },
     // GNE Person trips
-    { "personTrip: edge->edge",         GNE_TAG_PERSONTRIP_EDGE_EDGE },
-    { "personTrip: edge->busStop",      GNE_TAG_PERSONTRIP_EDGE_BUSSTOP },
-    { "personTrip: edge->stop",         GNE_TAG_PERSONTRIP_EDGE_STOP },
-    { "personTrip: busStop->edge",      GNE_TAG_PERSONTRIP_BUSSTOP_EDGE },
-    { "personTrip: busStop->busStop",   GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP },
-    { "personTrip: busStop->stop",      GNE_TAG_PERSONTRIP_BUSSTOP_STOP },
-    { "personTrip: stop->edge",         GNE_TAG_PERSONTRIP_STOP_EDGE },
-    { "personTrip: stop->busStop",      GNE_TAG_PERSONTRIP_STOP_BUSSTOP },
-    { "personTrip: stop->stop",         GNE_TAG_PERSONTRIP_STOP_STOP },
+    { "personTrip: edge",               GNE_TAG_PERSONTRIP_EDGE },
+    { "personTrip: busStop",            GNE_TAG_PERSONTRIP_BUSSTOP },
+    { "personTrip: stop",               GNE_TAG_PERSONTRIP_STOP },
     // GNE Walks
     { "walk: edge->edge",               GNE_TAG_WALK_EDGE_EDGE },
     { "walk: edge->busStop",            GNE_TAG_WALK_EDGE_BUSSTOP },

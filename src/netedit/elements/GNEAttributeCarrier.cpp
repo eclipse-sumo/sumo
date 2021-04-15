@@ -3465,7 +3465,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
     // fill person trips
-    SumoXMLTag currentTag = GNE_TAG_PERSONTRIP_EDGE_EDGE;
+    SumoXMLTag currentTag = GNE_TAG_PERSONTRIP_EDGE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
@@ -3476,7 +3476,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         fillPersonPlanEdgeEdge(currentTag);
         fillPersonTripAttributes(currentTag);
     }
-    currentTag = GNE_TAG_PERSONTRIP_EDGE_BUSSTOP;
+    currentTag = GNE_TAG_PERSONTRIP_BUSSTOP;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
@@ -3485,83 +3485,6 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       GUIIcon::PERSONTRIP_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // fill attributes
         fillPersonPlanEdgeBusStop(currentTag);
-        fillPersonTripAttributes(currentTag);
-    }
-    currentTag = GNE_TAG_PERSONTRIP_EDGE_STOP;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_STOP,
-                                      GUIIcon::PERSONTRIP_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
-        // fill attributes
-        fillPersonPlanEdgeStop(currentTag);
-        fillPersonTripAttributes(currentTag);
-    }
-    currentTag = GNE_TAG_PERSONTRIP_BUSSTOP_EDGE;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_BUSSTOP | GNETagProperties::PERSONPLAN_END_EDGE,
-                                      GUIIcon::PERSONTRIP_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
-        // fill attributes
-        fillPersonPlanBusStopEdge(currentTag);
-        fillPersonTripAttributes(currentTag);
-    }
-    currentTag = GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_BUSSTOP | GNETagProperties::PERSONPLAN_END_BUSSTOP,
-                                      GUIIcon::PERSONTRIP_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
-        // fill attributes
-        fillPersonPlanBusStopBusStop(currentTag);
-        fillPersonTripAttributes(currentTag);
-    }
-    currentTag = GNE_TAG_PERSONTRIP_BUSSTOP_STOP;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_BUSSTOP | GNETagProperties::PERSONPLAN_END_STOP,
-                                      GUIIcon::PERSONTRIP_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
-        // fill attributes
-        fillPersonPlanBusStopStop(currentTag);
-        fillPersonTripAttributes(currentTag);
-    }
-    currentTag = GNE_TAG_PERSONTRIP_STOP_EDGE;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_STOP | GNETagProperties::PERSONPLAN_END_EDGE,
-                                      GUIIcon::PERSONTRIP_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
-        // fill attributes
-        fillPersonPlanStopEdge(currentTag);
-        fillPersonTripAttributes(currentTag);
-    }
-    currentTag = GNE_TAG_PERSONTRIP_STOP_BUSSTOP;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_STOP | GNETagProperties::PERSONPLAN_END_BUSSTOP,
-                                      GUIIcon::PERSONTRIP_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
-        // fill attributes
-        fillPersonPlanStopBusStop(currentTag);
-        fillPersonTripAttributes(currentTag);
-    }
-    currentTag = GNE_TAG_PERSONTRIP_STOP_STOP;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_STOP | GNETagProperties::PERSONPLAN_END_STOP,
-                                      GUIIcon::PERSONTRIP_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
-        // fill attributes
-        fillPersonPlanStopStop(currentTag);
         fillPersonTripAttributes(currentTag);
     }
 }
