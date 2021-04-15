@@ -26,23 +26,24 @@ import os
 import sys
 import io
 import pandas as pd
-import datetime
 import zipfile
 
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 import traceExporter  # noqa
+import gtfs2osm  # noqa
 
 
 def add_options():
     argParser = sumolib.options.ArgumentParser()
-    argParser.add_argument("-r", "--region", help="define the region to process")
+    argParser.add_argument("-r", "--region", default="gtfs",
+                           help="define the region to process")
     argParser.add_argument("--gtfs", help="define gtfs zip file to load (mandatory)", fix_path=True)
     argParser.add_argument("--date", help="define the day to import, format: 'YYYYMMDD'")
     argParser.add_argument("--fcd", help="directory to write / read the generated FCD files to / from")
     argParser.add_argument("--gpsdat", help="directory to write / read the generated gpsdat files to / from")
-    argParser.add_argument(
-        "--modes", help="comma separated list of modes to import (tram,subway,rail,bus,ship,light_rail,rail_electric)")
+    argParser.add_argument("--modes", default="bus,tram,train,subway,ferry",
+                           help="comma separated list of modes to import (bus, tram, train, subway and/or ferry)")
     argParser.add_argument("--vtype-output", help="file to write the generated vehicle types to")
     argParser.add_argument("--verbose", action="store_true", default=False, help="tell me what you are doing")
     return argParser
@@ -51,8 +52,6 @@ def add_options():
 def check_options(options):
     if options.gtfs is None or options.date is None:
         sys.exit("Please give a GTFS file using --gtfs FILE and a date using --date YYYYMMDD.")
-    if options.region is None:
-        options.region = os.path.basename(options.gtfs)[:-4]
     if options.fcd is None:
         options.fcd = os.path.join('fcd', options.region)
     if options.gpsdat is None:
@@ -66,30 +65,13 @@ def time2sec(s):
 
 
 def main(options):
-    if options.verbose:
-        print('Loading GTFS data "%s"' % options.gtfs)
-    gtfsZip = zipfile.ZipFile(sumolib.open(options.gtfs, False))
-    routes = pd.read_csv(gtfsZip.open('routes.txt'), dtype=str)
-    stops = pd.read_csv(gtfsZip.open('stops.txt'), dtype=str)
-    stop_times = pd.read_csv(gtfsZip.open('stop_times.txt'),
-                             converters={'trip_id': str, 'arrival_time': time2sec, 'departure_time': time2sec,
-                                         'stop_id': str, 'stop_sequence': int})
-    trips = pd.read_csv(gtfsZip.open('trips.txt'), dtype=str)
-    calendar = pd.read_csv(gtfsZip.open('calendar.txt'), dtype=str)
-    calendar_dates = pd.read_csv(gtfsZip.open('calendar_dates.txt'), dtype=str)
 
-    # currently not used:
-    # agency = pd.read_csv(gtfsZip.open('agency.txt'), dtype=str)
-    # transfers = pd.read_csv(gtfsZip.open('transfers.txt'), dtype=str)
+    gtfsZip = zipfile.ZipFile(options.gtfs)
+    routes, trips_on_day, shapes, stops, stop_times = gtfs2osm.import_gtfs(options, gtfsZip)
 
-    # Merging the tables
-    weekday = 'monday tuesday wednesday thursday friday saturday sunday'.split(
-    )[datetime.datetime.strptime(options.date, "%Y%m%d").weekday()]
-    removed = calendar_dates[(calendar_dates.date == options.date) & (calendar_dates.exception_type == '2')]
-    services = calendar[(calendar.start_date <= options.date) & (calendar.end_date >= options.date) &
-                        (calendar[weekday] == '1') & (~calendar.service_id.isin(removed.service_id))]
-    added = calendar_dates[(calendar_dates.date == options.date) & (calendar_dates.exception_type == '1')]
-    trips_on_day = trips[trips.service_id.isin(services.service_id) | trips.service_id.isin(added.service_id)]
+    stop_times['arrival_time'] = stop_times['arrival_time'].map(time2sec)
+    stop_times['departure_time'] = stop_times['departure_time'].map(time2sec)
+
     if 'fare_stops.txt' in gtfsZip.namelist():
         zones = pd.read_csv(gtfsZip.open('fare_stops.txt'), dtype=str)
         stops_merged = pd.merge(pd.merge(stops, stop_times, on='stop_id'), zones, on='stop_id')
@@ -107,57 +89,12 @@ def main(options):
                                                'fare_zone', 'fare_token', 'start_char',
                                                'arrival_time', 'departure_time']].drop_duplicates()
 
-    gtfs_modes = {
-        # modes according to https://developers.google.com/transit/gtfs/reference/#routestxt
-        '0':  'tram',
-        '1':  'subway',
-        '2':  'rail',
-        '3':  'bus',
-        '4':  'ship',
-        # '5':  'cableTram',
-        # '6':  'aerialLift',
-        # '7':  'funicular',
-        # modes used in Berlin and MDV see https://developers.google.com/transit/gtfs/reference/extended-route-types
-        '100':  'rail',        # DB
-        '109':  'light_rail',  # S-Bahn
-        '400':  'subway',      # U-Bahn
-        '1000': 'ship',        # Faehre
-        # additional modes used in Hamburg
-        '402':  'subway',      # U-Bahn
-        '1200': 'ship',        # Faehre
-        # modes used by hafas
-        's': 'light_rail',
-        'RE': 'rail',
-        'RB': 'rail',
-        'IXB': 'rail',        # tbd
-        'ICE': 'rail_electric',
-        'IC': 'rail_electric',
-        'IRX': 'rail',        # tbd
-        'EC': 'rail',
-        'NJ': 'rail',        # tbd
-        'RHI': 'rail',        # tbd
-        'DPN': 'rail',        # tbd
-        'SCH': 'rail',        # tbd
-        'Bsv': 'rail',        # tbd
-        'KAT': 'rail',        # tbd
-        'AIR': 'rail',        # tbd
-        'DPS': 'rail',        # tbd
-        'lt': 'light_rail',  # tbd
-        'BUS': 'bus',        # tbd
-        'Str': 'tram',        # tbd
-        'DPF': 'rail',        # tbd
-    }
-    # bus and tram modes from https://developers.google.com/transit/gtfs/reference/extended-route-types
-    for i in range(700, 717):
-        gtfs_modes[str(i)] = 'bus'
-    for i in range(900, 907):
-        gtfs_modes[str(i)] = 'tram'
     fcdFile = {}
     tripFile = {}
     if not os.path.exists(options.fcd):
         os.makedirs(options.fcd)
     seenModes = set()
-    modes = set(options.modes.split(",") if options.modes else gtfs_modes.values())
+    modes = set(options.modes.split(",") if options.modes else gtfs2osm.GTFS2OSM_MODES.values())
     for mode in modes:
         filePrefix = os.path.join(options.fcd, mode)
         fcdFile[mode] = io.open(filePrefix + '.fcd.xml', 'w', encoding="utf8")
@@ -187,7 +124,7 @@ def main(options):
                 if firstDep is None:
                     firstDep = departureSec - timeIndex
                 offset += departureSec - arrivalSec
-            mode = gtfs_modes[d.route_type]
+            mode = gtfs2osm.GTFS2OSM_MODES[d.route_type]
             if mode in modes:
                 s = tuple(stopSeq)
                 if s not in seqs:
@@ -216,7 +153,7 @@ def main(options):
             sumolib.xml.writeHeader(vout, root="additional")
             for mode in sorted(seenModes):
                 vout.write(u'    <vType id="%s" vClass="%s"/>\n' %
-                           (mode, "rail_urban" if mode in ("light_rail", "subway") else mode))
+                           (mode, gtfs2osm.OSM2SUMO_MODES[mode]))
             vout.write(u'</additional>\n')
 
 
