@@ -1,0 +1,8 @@
+Reading up to time step: 0.00Reading up to time step: 200.00Success.
+Loading net
+Loading GTFS data "gtfs.zip"
+Import and repair osm routes
+Not all given routes have been imported, see 'invalid_osm_routes.txt' for more information
+Map stops and routes
+Generates stops and routes output
+Not all given gtfs elements have been mapped, see 'gtfs_missing.xml' for more information

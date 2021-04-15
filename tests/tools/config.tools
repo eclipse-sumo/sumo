@@ -79,6 +79,7 @@ copy_test_path:matsim_plans.xml
 copy_test_path:input_data.xml
 copy_test_path_merge:data
 copy_test_path:sim.sumocfg
+copy_test_path:gtfs.zip
 
 [collate_file]
 detectors:e1.add.xml
@@ -171,6 +172,9 @@ validate2700:validate2700.rou.xml
 validate1800:validate1800.rou.xml
 vehtypes:vehtypes.xml
 tripinfos:tripinfos.xml
+gtfs_missing:gtfs_missing.xml
+gtfs_routes:gtfs_publictransport.rou.xml
+gtfs_additional:gtfs_publictransport.add.xml
 
 [run_dependent_text]
 output:Begin time
@@ -262,6 +266,8 @@ diff_nod:<!-- generated on{[->]}-->
 diff_tll:<!-- generated on{[->]}-->
 diff_xml:<!-- generated on{[->]}-->
 meandata:<!-- generated on{[->]}-->
+gtfs_additional:<!-- generated on{[->]}-->
+gtfs_routes:<!-- generated on{[->]}-->
 
 [floating_point_tolerance]
 net:0.0101

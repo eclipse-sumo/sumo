@@ -1,0 +1,1005 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Apr 14 15:22:10 2021 by Eclipse SUMO netconvert Version v1_9_0+0038-34804216f7
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="miv.typ.xml"/>
+        <osm-files value="../osm/BS_detail.osm.xml"/>
+    </input>
+
+    <output>
+        <output-prefix value="net"/>
+        <output-file value=".net.xml"/>
+        <plain-output-prefix value="netpatch/"/>
+        <output.street-names value="true"/>
+        <output.original-names value="false"/>
+        <ptstop-output value="_stops.add.xml"/>
+        <ptline-output value="_ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+        <proj.plain-geo value="true"/>
+    </projection>
+
+    <processing>
+        <geometry.remove value="true"/>
+        <roundabouts.guess value="true"/>
+        <edges.join-tram-dist value="1.6"/>
+    </processing>
+
+    <tls_building>
+        <tls.discard-simple value="true"/>
+        <tls.join value="true"/>
+        <tls.guess-signals value="true"/>
+        <tls.default-type value="actuated"/>
+    </tls_building>
+
+    <ramp_guessing>
+        <ramps.guess value="true"/>
+    </ramp_guessing>
+
+    <edge_removal>
+        <keep-edges.in-geo-boundary value="10.509219,52.256458,10.530758,52.270119"/>
+        <keep-edges.by-vclass value="passenger,bus"/>
+        <keep-edges.components value="1"/>
+    </edge_removal>
+
+    <junctions>
+        <no-turnarounds.except-turnlane value="true"/>
+        <junctions.join value="true"/>
+        <junctions.corner-detail value="5"/>
+    </junctions>
+
+    <report>
+        <verbose value="true"/>
+        <aggregate-warnings value="5"/>
+        <log value=".log"/>
+    </report>
+
+</configuration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="102308" name="Bus 420: Braunschweig Rathhaus =&gt; Wolfenbüttel Bahnhof" line="420" type="bus" vClass="bus" period="900" completeness="0.13">
+        <route edges="27220201#0 61312640#0 27220216 319583927#0 29087077#0 25730280#0 25730280#3 25730282 315422094 315422095#0 315422095#1 24020888#0 32352621#0 43328051#0"/>
+        <busStop id="270148915" name="Rathaus"/>
+        <busStop id="335771085" name="Schloss"/>
+        <busStop id="272856917" name="John-F.-Kennedy-Platz"/>
+    </ptLine>
+    <ptLine id="104095" name="Bus 230: Wolfsburg =&gt; Braunschweig" line="230" type="bus" vClass="bus" period="1800" completeness="0.05">
+        <route edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300"/>
+        <busStop id="-4420481310" name="Staatstheater"/>
+        <busStop id="-583283132" name="Rathaus"/>
+    </ptLine>
+    <ptLine id="1085700" name="ICE 12: Berlin Ostbahnhof =&gt; Interlaken Ost" line="ICE 12" type="train" vClass="rail" period="7200" completeness="0.00"/>
+    <ptLine id="1132154" name="Bus 431: Helmstedter Straße =&gt; Hauptbahnhof" line="431" type="bus" vClass="bus" period="1800" completeness="0.00"/>
+    <ptLine id="1177046" name="Bus 417: Moorhüttenweg =&gt; Berggarten" line="417" type="bus" vClass="bus" period="1800" completeness="0.00"/>
+    <ptLine id="1346455" name="Bus 452: Helmstedter Straße =&gt; Gardessen" line="452" type="bus" vClass="bus" period="3600" completeness="0.00"/>
+    <ptLine id="1518915" name="Bus 422: Lehndorf =&gt; Bebelhof" line="422" type="bus" vClass="bus" period="1800" completeness="0.17">
+        <route edges="283066855 9887577 25087143 59873992 320814798 8118981 59873991 320814805#0 320399277#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+        <busStop id="4420481309" name="Goslarsche Straße"/>
+        <busStop id="-335811224" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+        <busStop id="335753779" name="Staatstheater"/>
+    </ptLine>
+    <ptLine id="178936" name="RB 40: Braunschweig =&gt; Burg" line="RB 40" type="train" vClass="rail" period="3600" completeness="0.00"/>
+    <ptLine id="1798225" name="ICE 12: Interlaken Ost =&gt; Berlin" line="ICE 12" type="train" vClass="rail" period="7200" completeness="0.00"/>
+    <ptLine id="18306" name="Bus 419: Hauptbahnhof =&gt; Hauptbahnhof" line="419" type="bus" vClass="bus" period="600" completeness="0.11">
+        <route edges="316791974#0 316791974#1 30426508#0 317191948 171349008#0 316791987#1 316791983 316791991 25076268 316779270 23209056#0 23209056#2 305951352 311580921#0 311580921#1 311580921#2 25076286#0 43328051#0"/>
+        <busStop id="544541081" name="Holzhof (Volkswagenhalle)"/>
+        <busStop id="272856887" name="Am Wassertor (Volkswagenhalle)"/>
+        <busStop id="272856917" name="John-F.-Kennedy-Platz"/>
+    </ptLine>
+    <ptLine id="1862608" name="Bus 450: Braunschweig Rathaus =&gt; Vechelde" line="450" type="bus" vClass="bus" period="1800" completeness="0.18">
+        <route edges="-615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 376743573#0 376743573#4 376743573#5 376743572#0 382052543 376743574#0 30424335#0 501412552#0 31413791#0 31413791#1 501412548#1 501412550 394076960#0 501406797"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="343717895" name="Güldenstraße"/>
+        <busStop id="282832480" name="Radeklint"/>
+        <busStop id="3790696287" name="Maschstraße"/>
+    </ptLine>
+    <ptLine id="1862609" name="Bus 450: Vechelde =&gt; Braunschweig Rathaus" line="450" type="bus" vClass="bus" period="1800" completeness="0.20">
+        <route edges="375727027#0 375727027#1 375727027#2 394076983 394076973#0 505845266 23208546#0 320399275#0 320399275#3 320399274#0 320399274#1 30424376#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0"/>
+        <busStop id="1223820160" name="Maschstraße"/>
+        <busStop id="282832479" name="Radeklint"/>
+        <busStop id="343718199" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+    </ptLine>
+    <ptLine id="1967175" name="Bus 424: Rühme =&gt; Bevenrode =&gt; Essenrode" line="424" type="bus" vClass="bus" period="3600" completeness="0.00"/>
+    <ptLine id="2004766" name="Bus 798: WF, Bahnhof =&gt; WF-Salzdahlum" line="798" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="2277611" name="Bus 603: Braunschweig =&gt; SZ-Bad" line="603" type="bus" vClass="bus" completeness="0.05">
+        <route edges="25290398 25290438 32055654 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 588927595 6279149#0 316781871#1 30426426#0 316781875#0 306497784 306497780 23118706 384876527 384876529 559570920#0 122119622#0 559570919#0 61996465#0 24021025 319389907"/>
+        <busStop id="272857163" name="John-F.-Kennedy-Platz"/>
+        <busStop id="3388048661" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="272856305" name="Europaplatz"/>
+    </ptLine>
+    <ptLine id="2277612" name="Bus 603: SZ-Bad =&gt; Braunschweig" line="603" type="bus" vClass="bus" completeness="0.05">
+        <route edges="23329778#6 122119619 319389909#0 319389909#1 316789358 316789359 61996467#0 127240631#0 317191948 171349008#0 316791987#1 316791983 316791991 25076268 316779270 23209056#0 23209056#2 305951352 311580921#0 311580921#1 311580921#2 25076286#0 43328051#0"/>
+        <busStop id="757436879" name="Europaplatz"/>
+        <busStop id="272856887" name="Am Wassertor (Volkswagenhalle)"/>
+        <busStop id="272856917" name="John-F.-Kennedy-Platz"/>
+    </ptLine>
+    <ptLine id="2500638" name="IC 56: Norddeich =&gt; Cottbus" line="IC 56" type="train" vClass="rail" completeness="0.00"/>
+    <ptLine id="2532417" name="RB 40: Burg =&gt; Braunschweig" line="RB 40" type="train" vClass="rail" period="3600" completeness="0.00"/>
+    <ptLine id="2572291" name="Bus 437: Moorhüttenweg =&gt; Im Dorfe via Klein Schöppenstedt" line="437" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="2639593" line="111" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="2653085" name="Linie 113 via Schwülper Baunschweiger Straße" line="113" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="2656639" name="Linie 113 via Rothemühle" line="113" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="2657421" name="Linie 112" line="Linie 112" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="2657480" name="Bus 601: SZ-Lebenstedt =&gt; Braunschweig" line="601" type="bus" vClass="bus" period="21600" completeness="0.13">
+        <route edges="23329778#6 122119619 319389909#0 319389909#1 316789358 316789359 61996467#0 127240631#0 317191948 171349008#0 316791987#1 316791983 316791991 25076268 316779270 23209056#0 23209056#2 305951352 311580921#0 311580921#1 311580921#2 25076286#0 43328051#0"/>
+        <busStop id="757436879" name="Europaplatz"/>
+        <busStop id="272856887" name="Am Wassertor (Volkswagenhalle)"/>
+        <busStop id="272856917" name="John-F.-Kennedy-Platz"/>
+    </ptLine>
+    <ptLine id="2657481" name="Bus 601: Braunschweig =&gt; SZ-Lebenstedt" line="601" type="bus" vClass="bus" period="21600" completeness="0.14">
+        <route edges="25290398 25290438 32055654 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 588927595 6279149#0 316781871#1 30426426#0 316781875#0 306497784 306497780 23118706 384876527 384876529 559570920#0 122119622#0 559570919#0 61996465#0 24021025 319389907"/>
+        <busStop id="272857163" name="John-F.-Kennedy-Platz"/>
+        <busStop id="3388048661" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="272856305" name="Europaplatz"/>
+    </ptLine>
+    <ptLine id="2657699" name="Bus 631: Salzgitter-Bad =&gt; Braunschweig" line="631" type="bus" vClass="bus" period="43200" completeness="0.10">
+        <route edges="23329778#6 122119619 319389909#0 319389909#1 316789358 316789359 61996467#0 127240631#0 317191948 171349008#0 316791987#1 316791983 316791991 25076268 316779270 23209056#0 23209056#2 305951352 311580921#0 311580921#1 311580921#2 25076286#0 43328051#0"/>
+        <busStop id="757436879" name="Europaplatz"/>
+        <busStop id="272856887" name="Am Wassertor (Volkswagenhalle)"/>
+        <busStop id="272856917" name="John-F.-Kennedy-Platz"/>
+    </ptLine>
+    <ptLine id="2658026" name="Bus 631: Braunschweig =&gt; SZ-Bad" line="631" type="bus" vClass="bus" period="43200" completeness="0.10">
+        <route edges="25290398 25290438 32055654 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 588927595 6279149#0 316781871#1 30426426#0 316781875#0 306497784 306497780 23118706 384876527 384876529 559570920#0 122119622#0 559570919#0 61996465#0 24021025 319389907"/>
+        <busStop id="272857163" name="John-F.-Kennedy-Platz"/>
+        <busStop id="3388048661" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="272856305" name="Europaplatz"/>
+    </ptLine>
+    <ptLine id="2660202" name="Bus 480: Braunschweig Rathaus =&gt; Groß Schwülper" line="480" type="bus" vClass="bus" period="3600" completeness="0.19">
+        <route edges="-5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 376743573#0 376743573#4 376743573#5 376743572#0 382052543 376743574#0 30424335#0 501412552#0 31413791#0 31413791#1 501412548#1 501412550 394076960#0 501406797"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="343717895" name="Güldenstraße"/>
+        <busStop id="282832480" name="Radeklint"/>
+        <busStop id="3790696287" name="Maschstraße"/>
+    </ptLine>
+    <ptLine id="2661865" name="Bus 790: Wolfenbüttel =&gt; WF-Linden, Neindorfer Straße =&gt; SZ-Thiede" line="790" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="2665963" name="Bus 604: Wolfenbüttel =&gt; SZ-Lebenstedt" line="604" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="2665964" name="Bus 604: SZ-Lebenstedt =&gt; Wolfenbüttel" line="604" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="2665966" name="Bus 604: Wolfenbüttel, Kornmarkt =&gt; SZ-Beddingen" line="604" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="2665967" name="Bus 604: SZ-Beddingen =&gt; Wolfenbüttel" line="604" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="2665968" name="Bus 604: SZ-Sauingen =&gt; Wolfenbüttel" line="604" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="2752852" name="Tram 2: Siegfriedviertel =&gt; Heidberg (über Hbf)" line="2" type="tram" vClass="tram" completeness="0.00"/>
+    <ptLine id="2770412" name="Tram 2: Heidberg =&gt; Siegfriedviertel (über Leisewitzstraße)" line="2" type="tram" vClass="tram" period="900" completeness="0.00"/>
+    <ptLine id="2770413" name="Tram 2: Heidberg =&gt; Siegfriedviertel (über Hbf)" line="2" type="tram" vClass="tram" completeness="0.00"/>
+    <ptLine id="2777015" name="Tram 1: Wenden =&gt; Stöckheim" line="1" type="tram" vClass="tram" period="600" completeness="0.00"/>
+    <ptLine id="2808890" name="Tram 5: Hauptbahnhof =&gt; Broitzem" line="5" type="tram" vClass="tram" period="600" completeness="0.00"/>
+    <ptLine id="2808900" name="Tram 5: Broitzem =&gt; Hauptbahnhof" line="5" type="tram" vClass="tram" period="600" completeness="0.00"/>
+    <ptLine id="2837393" name="Tram 3: Volkmarode =&gt; Weststadt" line="3" type="tram" vClass="tram" period="600" completeness="0.00"/>
+    <ptLine id="2837734" name="RE60: Rheine =&gt; Braunschweig" line="RE60" type="train" vClass="rail" period="7200" completeness="0.00"/>
+    <ptLine id="2915007" name="Bus 427: Volkmarode =&gt; Weddel =&gt; Essehof via IGS Volkmarode" line="427" type="bus" vClass="bus" period="3600" completeness="0.00"/>
+    <ptLine id="2915008" name="Bus 437: Neuer Weg =&gt; Moorhüttenweg via Ostdeutsche Straße" line="437" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="2928267" name="Bus 416: Völkenrode =&gt; Kralenriede" line="416" type="bus" vClass="bus" period="900" completeness="0.00">
+        <route edges="375727027#0 375727027#1 375727027#2 394076983 394076973#0 505845266 23208546#0 320399275#0 320399275#3 320399274#0 320399274#1 30424376#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+    </ptLine>
+    <ptLine id="2928268" name="Bus 416: Kralenriede =&gt; Völkenrode" line="416" type="bus" vClass="bus" period="900" completeness="0.15">
+        <route edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 376743573#0 376743573#4 376743573#5 376743572#0 382052543 376743574#0 30424335#0 501412552#0 31413791#0 31413791#1 501412548#1 501412550 394076960#0 501406797"/>
+        <busStop id="335753779" name="Staatstheater"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="343717895" name="Güldenstraße"/>
+        <busStop id="282832480" name="Radeklint"/>
+        <busStop id="3790696287" name="Maschstraße"/>
+    </ptLine>
+    <ptLine id="2928355" name="Bus 416: Kralenriede =&gt; Völkenrode (via Niebelungenplatz)" line="416" type="bus" vClass="bus" period="86400" completeness="0.15">
+        <route edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 376743573#0 376743573#4 376743573#5 376743572#0 382052543 376743574#0 30424335#0 501412552#0 31413791#0 31413791#1 501412548#1 501412550 394076960#0 501406797"/>
+        <busStop id="335753779" name="Staatstheater"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="343717895" name="Güldenstraße"/>
+        <busStop id="282832480" name="Radeklint"/>
+        <busStop id="3790696287" name="Maschstraße"/>
+    </ptLine>
+    <ptLine id="2928360" name="Bus 416: Völkenrode =&gt; Kralenriede (via Niebelungenplatz)" line="416" type="bus" vClass="bus" period="86400" completeness="0.00">
+        <route edges="375727027#0 375727027#1 375727027#2 394076983 394076973#0 505845266 23208546#0 320399275#0 320399275#3 320399274#0 320399274#1 30424376#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+    </ptLine>
+    <ptLine id="2928804" name="Bus 436: Flughafen =&gt; Hauptbahnhof" line="436" type="bus" vClass="bus" period="1800" completeness="0.00"/>
+    <ptLine id="2928805" name="Bus 436: Hauptbahnhof =&gt; Flughafen" line="436" type="bus" vClass="bus" period="1800" completeness="0.00"/>
+    <ptLine id="2930766" name="Flixbus 164: Wolfenbüttel =&gt; Hamburg" line="164" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="2948482" name="Bus 464: Rühme =&gt; Stadion" line="464" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="2948483" name="Bus 464: Stadion =&gt; Rühme" line="464" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="3004644" name="RE60: Braunschweig =&gt; Rheine" line="RE60" type="train" vClass="rail" period="7200" completeness="0.00"/>
+    <ptLine id="3067629" name="Bus 560: Wipshausen =&gt; Braunschweig Rathaus" line="560" type="bus" vClass="bus" period="3600" completeness="0.13">
+        <route edges="375727027#0 375727027#1 375727027#2 394076983 394076973#0 505845266 23208546#0 320399275#0 320399275#3 320399274#0 320399274#1 30424376#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732"/>
+        <busStop id="1223820160" name="Maschstraße"/>
+        <busStop id="282832479" name="Radeklint"/>
+        <busStop id="343718199" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+    </ptLine>
+    <ptLine id="31272" name="Tram 4: Helmstedter Straße =&gt; Radeklint" line="4" type="tram" vClass="tram" period="900" completeness="0.00"/>
+    <ptLine id="31275" name="Tram 3: Weststadt =&gt; Volkmarode" line="3" type="tram" vClass="tram" period="600" completeness="0.00"/>
+    <ptLine id="31366" name="Tram 1: Stöckheim =&gt; Wenden" line="1" type="tram" vClass="tram" period="600" completeness="0.00"/>
+    <ptLine id="31478" name="Tram 2: Siegfriedviertel =&gt; Heidberg (über Leisewitzstraße)" line="2" type="tram" vClass="tram" period="900" completeness="0.00"/>
+    <ptLine id="3247692" name="RE70: Braunschweig =&gt; Bielefeld" line="RE70" type="train" vClass="rail" period="7200" completeness="0.00"/>
+    <ptLine id="3249628" name="Bus 452: Bornum =&gt; Helmstedter Straße" line="452" type="bus" vClass="bus" period="3600" completeness="0.00"/>
+    <ptLine id="3249632" name="Bus 452: Helmstedter Straße =&gt; Bornum" line="452" type="bus" vClass="bus" period="3600" completeness="0.00"/>
+    <ptLine id="3249717" name="Bus 452: Gardessen =&gt; Helmstedter Straße" line="452" type="bus" vClass="bus" period="3600" completeness="0.00"/>
+    <ptLine id="3399103" name="RE70: Bielefeld =&gt; Braunschweig" line="RE70" type="train" vClass="rail" period="7200" completeness="0.00"/>
+    <ptLine id="349308" name="Bus 429: Hauptbahnhof =&gt; Hauptbahnhof" line="429" type="bus" vClass="bus" period="600" completeness="0.12">
+        <route edges="25290398 25290438 32055654 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 588927595 6279149#0 316781871#1 30426426#0 316781875#0 306497784 306497780 23118706 384876527 384876526 4743778#0 127240643#0 127240643#1 127240643#2"/>
+        <busStop id="272857163" name="John-F.-Kennedy-Platz"/>
+        <busStop id="3388048661" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="1741027767" name="Holzhof (Volkswagenhalle)"/>
+    </ptLine>
+    <ptLine id="3589226" name="Flixbus 064: Leverkusen =&gt; Berlin ZOB" line="064" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="380269" name="IC 56: Leipzig =&gt; Norddeich" line="IC 56" type="train" vClass="rail" period="7200" completeness="0.00"/>
+    <ptLine id="380381" name="IC 55: Köln =&gt; Leipzig =&gt; Dresden" line="IC 55" type="train" vClass="rail" period="7200" completeness="0.00"/>
+    <ptLine id="3887930" name="Tram 4: Radeklint =&gt; Helmstedter Straße" line="4" type="tram" vClass="tram" period="900" completeness="0.00"/>
+    <ptLine id="4223565" name="RB46: Braunschweig =&gt; Herzberg" line="RB46" type="train" vClass="rail" period="3600" completeness="0.00"/>
+    <ptLine id="4223566" name="RB46: Herzberg =&gt; Braunschweig" line="RB46" type="train" vClass="rail" period="3600" completeness="0.00"/>
+    <ptLine id="4233670" name="RB 43: Braunschweig =&gt; Goslar" line="RB 43" type="train" vClass="rail" period="3600" completeness="0.00"/>
+    <ptLine id="4233671" name="RB 43: Goslar =&gt; Braunschweig" line="RB 43" type="train" vClass="rail" period="3600" completeness="0.00"/>
+    <ptLine id="4233672" name="RB44:Braunschweig=&gt;Salzgitter-Lebenstedt" line="RB44" type="train" vClass="rail" period="3600" completeness="0.00"/>
+    <ptLine id="4233673" name="RB44:Salzgitter-Lebenstedt=&gt;Braunschweig" line="RB44" type="train" vClass="rail" period="3600" completeness="0.00"/>
+    <ptLine id="4233674" name="RB 45: Braunschweig =&gt; Schöppenstedt" line="RB 45" type="train" vClass="rail" period="3600" completeness="0.00"/>
+    <ptLine id="4233675" name="RB 45: Schöppenstedt =&gt; Braunschweig" line="RB 45" type="train" vClass="rail" period="3600" completeness="0.00"/>
+    <ptLine id="4233677" name="RB 47: Braunschweig =&gt; Uelzen" line="RB47" type="train" vClass="rail" period="7200" completeness="0.00"/>
+    <ptLine id="4238487" name="RB 42: Bad-Harzburg =&gt; Braunschweig" line="RB 42" type="train" vClass="rail" period="3600" completeness="0.00"/>
+    <ptLine id="4238488" name="RB 42: Braunschweig =&gt; Bad Harzburg" line="RB 42" type="train" vClass="rail" period="3600" completeness="0.00"/>
+    <ptLine id="4238489" name="RB 47: Uelzen =&gt; Braunschweig" line="RB47" type="train" vClass="rail" period="7200" completeness="0.00"/>
+    <ptLine id="4238490" name="RE 50: Wolfsburg =&gt; Hildesheim" line="RE 50" type="train" vClass="rail" period="3600" completeness="0.00"/>
+    <ptLine id="4238491" name="RE 50: Hildesheim =&gt; Wolfsburg" line="RE 50" type="train" vClass="rail" period="3600" completeness="0.00"/>
+    <ptLine id="4274867" name="Bus 602 Braunschweig - SZ-Thiede - Braunschweig" line="602" type="bus" vClass="bus" completeness="0.10">
+        <route edges="25290398 25290438 32055654 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 588927595 6279149#0 316781871#1 30426426#0 316781875#0 306497784 306497780 23118706 384876527 384876526 4743778#0 127240643#0 127240643#1 127240643#2 316791974#0 316791974#1 30426508#0 317191948 171349008#0 316791987#1 316791983 316791991 25076268 316779270 23209056#0 23209056#2 305951352 311580921#0 311580921#1 311580921#2 25076286#0 43328051#0"/>
+        <busStop id="272857163" name="John-F.-Kennedy-Platz"/>
+        <busStop id="3388048661" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="1741027767" name="Holzhof (Volkswagenhalle)"/>
+    </ptLine>
+    <ptLine id="4458997" name="IC 55: Oberstdorf =&gt; Köln =&gt; Magdeburg" line="IC 55" type="train" vClass="rail" period="86400" completeness="0.00"/>
+    <ptLine id="4599998" name="Tram 1: Stöckheim =&gt; Wenden (via Anklamstraße)" line="1" type="tram" vClass="tram" completeness="0.00"/>
+    <ptLine id="4599999" name="Tram 1: Wenden =&gt; Stöckheim (via Anklamstraße)" line="1" type="tram" vClass="tram" completeness="0.00"/>
+    <ptLine id="4616533" name="Bus 424: Essenrode =&gt; Bevenrode =&gt; Rühme" line="424" type="bus" vClass="bus" period="3600" completeness="0.00"/>
+    <ptLine id="4617961" name="Bus 464: Rühme =&gt; Volkmarode" line="464" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="4673568" name="Bus 411: Lamme =&gt; Südstadt" line="411" type="bus" vClass="bus" period="1800" completeness="0.00">
+        <route edges="375727027#0 375727027#1 375727027#2 394076983 394076973#0 505845266 23208546#0 320399275#0 320399275#3 320399274#0 320399274#1 30424376#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+    </ptLine>
+    <ptLine id="4673569" name="Bus 411: Lamme =&gt; Mascherode" line="411" type="bus" vClass="bus" period="1800" completeness="0.00">
+        <route edges="375727027#0 375727027#1 375727027#2 394076983 394076973#0 505845266 23208546#0 320399275#0 320399275#3 320399274#0 320399274#1 30424376#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+    </ptLine>
+    <ptLine id="4673570" name="Bus 411: Südstadt =&gt; Lamme" line="411" type="bus" vClass="bus" period="1800" completeness="0.15">
+        <route edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 376743573#0 376743573#4 376743573#5 376743572#0 382052543 376743574#0 30424335#0 501412552#0 31413791#0 31413791#1 501412548#1 501412550 394076960#0 501406797"/>
+        <busStop id="-4420481310" name="Staatstheater"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="343717895" name="Güldenstraße"/>
+        <busStop id="282832480" name="Radeklint"/>
+        <busStop id="3790696287" name="Maschstraße"/>
+    </ptLine>
+    <ptLine id="4673571" name="Bus 411: Mascherode =&gt; Lamme" line="411" type="bus" vClass="bus" period="1800" completeness="0.13">
+        <route edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 376743573#0 376743573#4 376743573#5 376743572#0 382052543 376743574#0 30424335#0 501412552#0 31413791#0 31413791#1 501412548#1 501412550 394076960#0 501406797"/>
+        <busStop id="-4420481310" name="Staatstheater"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="343717895" name="Güldenstraße"/>
+        <busStop id="282832480" name="Radeklint"/>
+        <busStop id="3790696287" name="Maschstraße"/>
+    </ptLine>
+    <ptLine id="558248" name="Bus 433: Völkenrode =&gt; Hondelage" line="433" type="bus" vClass="bus" period="1800" completeness="0.00"/>
+    <ptLine id="5954222" name="Bus 798: WF-Salzdahlum =&gt; WF, Bahnhof" line="798" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6081732" name="Bus 426: Flughafen =&gt; Hamburger Straße" line="426" type="bus" vClass="bus" period="1800" completeness="0.00"/>
+    <ptLine id="6081733" name="Bus 426: Hamburger Straße =&gt; Flughafen" line="426" type="bus" vClass="bus" period="1800" completeness="0.00"/>
+    <ptLine id="6086282" name="Bus 420: Wolfenbüttel Bahnhof =&gt; Braunschweig Rathaus" line="420" type="bus" vClass="bus" period="900" completeness="0.13">
+        <route edges="25290398 25290438 51353826#0 61976434#0 61976434#1 61976434#2 61976434#3 61976434#4 25730283#0 315422093#0 25730281#0 27220157#0 29976721#0 4729561#0 317365383#0 317365383#1 317365382#0 27220209#0"/>
+        <busStop id="655312126" name="John-F.-Kennedy-Platz"/>
+        <busStop id="299530289" name="Schloss"/>
+        <busStop id="765881522" name="Rathaus"/>
+    </ptLine>
+    <ptLine id="6114950" name="Bus 560: Braunschweig Rathaus =&gt; Wipshausen" line="560" type="bus" vClass="bus" period="3600" completeness="0.13">
+        <route edges="-615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 376743573#0 376743573#4 376743573#5 376743572#0 382052543 376743574#0 30424335#0 501412552#0 31413791#0 31413791#1 501412548#1 501412550 394076960#0 501406797"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="343717895" name="Güldenstraße"/>
+        <busStop id="282832480" name="Radeklint"/>
+        <busStop id="3790696287" name="Maschstraße"/>
+    </ptLine>
+    <ptLine id="6181528" name="IC 56: Cottbus =&gt; Norddeich" line="IC 56" type="train" vClass="rail" completeness="0.00"/>
+    <ptLine id="6189812" name="Fernbus nach Bielefeld" line="Fernbus nach Bielefeld" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6189852" name="Fernbus nach Bonn" line="Fernbus nach Bonn" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6189853" name="Fernbus nach Bremen" line="Fernbus nach Bremen" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6189854" name="Fernbus nach Dortmund" line="Fernbus nach Dortmund" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6189855" name="Fernbus nach Dresden" line="Fernbus nach Dresden" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6189907" name="Fernbus nach Düsseldorf" line="Fernbus nach Düsseldorf" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6189908" name="Fernbus nach Essen" line="Fernbus nach Essen" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6189933" name="Fernbus nach Frankfurt am Main" line="Fernbus nach Frankfurt am Main" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6189934" name="Fernbus nach Halle" line="Fernbus nach Halle" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6189935" name="Fernbus nach Hamburg" line="Fernbus nach Hamburg" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6189936" name="Fernbus nach Hannover" line="Fernbus nach Hannover" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6189938" name="Fernbus nach Kassel" line="Fernbus nach Kassel" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6189939" name="Fernbus nach Köln" line="Fernbus nach Köln" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6189946" name="Fernbus nach Leipzig" line="Fernbus nach Leipzig" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6189957" name="Fernbus nach Magdeburg" line="Fernbus nach Magdeburg" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6189958" name="Fernbus nach München" line="Fernbus nach München" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6189959" name="Fernbus nach Münster" line="Fernbus nach Münster" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6257876" name="P&amp;R" line="P&amp;R" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6333310" name="IC 55: Magdeburg =&gt; Köln =&gt; Oberstdorf" line="IC 55" type="train" vClass="rail" period="86400" completeness="0.00"/>
+    <ptLine id="6428561" name="Bus 480: Groß Schwülper =&gt; Braunschweig Rathaus" line="480" type="bus" vClass="bus" period="3600" completeness="0.22">
+        <route edges="375727027#0 375727027#1 375727027#2 394076983 394076973#0 505845266 23208546#0 320399275#0 320399275#3 320399274#0 320399274#1 30424376#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0"/>
+        <busStop id="1223820160" name="Maschstraße"/>
+        <busStop id="282832479" name="Radeklint"/>
+        <busStop id="343718199" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+    </ptLine>
+    <ptLine id="6561973" name="Bus 445: BS Weststadt =&gt; Vallstedt" line="445" type="bus" vClass="bus" period="3600" completeness="0.00"/>
+    <ptLine id="6561974" name="Bus 445: Vallstedt =&gt; BS Weststadt" line="445" type="bus" vClass="bus" period="3600" completeness="0.00"/>
+    <ptLine id="6565867" name="Bus 790: SZ-Thiede =&gt; WF-Linden, Neindorfer Straße =&gt; Wolfenbüttel" line="790" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6567667" name="Bus 790: SZ-Thiede =&gt; WF, Cranachstraße =&gt; Wolfenbüttel" line="790" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6573308" name="Bus 484: Groß Schwülper =&gt; Rühme" line="484" type="bus" vClass="bus" period="3600" completeness="0.00"/>
+    <ptLine id="6592716" name="Bus 418: Lamme =&gt; Riddagshausen" line="418" type="bus" vClass="bus" period="1800" completeness="0.16">
+        <route edges="283066855 9887577 25087143 59873992 320814798 8118981 59873991 320814805#0 320399277#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+        <busStop id="4420481309" name="Goslarsche Straße"/>
+        <busStop id="343717363" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+        <busStop id="335753779" name="Staatstheater"/>
+    </ptLine>
+    <ptLine id="6592717" name="Bus 418: Riddagshausen =&gt; Lamme" line="418" type="bus" vClass="bus" period="1800" completeness="0.15">
+        <route edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855"/>
+        <busStop id="-4420481310" name="Staatstheater"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="-335811224" name="Güldenstraße"/>
+        <busStop id="-822623518" name="Goslarsche Straße"/>
+    </ptLine>
+    <ptLine id="6615477" name="Bus 422: Bebelhof =&gt; Lehndorf" line="422" type="bus" vClass="bus" period="1800" completeness="0.17">
+        <route edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855"/>
+        <busStop id="-4420481310" name="Staatstheater"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="-335811224" name="Güldenstraße"/>
+        <busStop id="-822623518" name="Goslarsche Straße"/>
+    </ptLine>
+    <ptLine id="6681788" name="Bus 431: Hauptbahnhof =&gt; Helmstedter Straße" line="431" type="bus" vClass="bus" period="1800" completeness="0.00"/>
+    <ptLine id="66869" name="Bus 461: Hauptbahnhof =&gt; PTB" line="461" type="bus" vClass="bus" period="1800" completeness="0.11">
+        <route edges="25290398 25290438 32055654 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 588927595 6279149#0 316781871#1 30426426#0 316781875#0 306497784 306497780 23118706 384876527 384876529 559570920#0 122119622#0 559570919#0 61996465#0 24021025 319389907"/>
+        <busStop id="272857163" name="John-F.-Kennedy-Platz"/>
+        <busStop id="3388048661" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="272856305" name="Europaplatz"/>
+    </ptLine>
+    <ptLine id="6714526" name="Bus 433: Hondelage =&gt; Völkenrode" line="433" type="bus" vClass="bus" period="1800" completeness="0.00"/>
+    <ptLine id="6715040" name="Bus 412: Welfenplatz =&gt; Helmstedter Straße" line="412" type="bus" vClass="bus" period="1800" completeness="0.00"/>
+    <ptLine id="6726648" name="Bus 413: Bevenrode =&gt; Leiferde" line="413" type="bus" vClass="bus" period="3600" completeness="0.11">
+        <route edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 8618349#0 8618349#3 319389908#0 31016344#0 316781879#0 8618348 316785565 23118706 384876527 384876526 4743778#0 127240643#0 127240643#1 127240643#2"/>
+        <busStop id="-4420481310" name="Staatstheater"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="343717194" name="Güldenstraße"/>
+        <busStop id="585140525" name="Südstraße"/>
+        <busStop id="4513474931" name="Südstraße"/>
+        <busStop id="1741027767" name="Holzhof (Volkswagenhalle)"/>
+    </ptLine>
+    <ptLine id="6726649" name="Bus 413: Leiferde =&gt; Bevenrode" line="413" type="bus" vClass="bus" period="3600" completeness="0.12">
+        <route edges="316791974#0 316791974#1 30426519#0 319389905 319389906#0 306497783 306497787#0 5021501#0 167920428#0 167920428#3 167920428#4 167920428#6 376468591#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+        <busStop id="544541081" name="Holzhof (Volkswagenhalle)"/>
+        <busStop id="398552760" name="Südstraße"/>
+        <busStop id="4513474932" name="Südstraße"/>
+        <busStop id="343717113" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+        <busStop id="335753779" name="Staatstheater"/>
+    </ptLine>
+    <ptLine id="6726650" name="Bus 413: Leiferde =&gt; Querumer Forst" line="413" type="bus" vClass="bus" period="1800" completeness="0.16">
+        <route edges="316791974#0 316791974#1 30426519#0 319389905 319389906#0 306497783 306497787#0 5021501#0 167920428#0 167920428#3 167920428#4 167920428#6 376468591#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+        <busStop id="544541081" name="Holzhof (Volkswagenhalle)"/>
+        <busStop id="398552760" name="Südstraße"/>
+        <busStop id="4513474932" name="Südstraße"/>
+        <busStop id="343717113" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+        <busStop id="335753779" name="Staatstheater"/>
+    </ptLine>
+    <ptLine id="6726651" name="Bus 413: Querumer Forst =&gt; Leiferde" line="413" type="bus" vClass="bus" period="1800" completeness="0.16">
+        <route edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 8618349#0 8618349#3 319389908#0 31016344#0 316781879#0 8618348 316785565 23118706 384876527 384876526 4743778#0 127240643#0 127240643#1 127240643#2"/>
+        <busStop id="-4420481310" name="Staatstheater"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="343717194" name="Güldenstraße"/>
+        <busStop id="585140525" name="Südstraße"/>
+        <busStop id="4513474931" name="Südstraße"/>
+        <busStop id="1741027767" name="Holzhof (Volkswagenhalle)"/>
+    </ptLine>
+    <ptLine id="6726652" name="Bus 413: Querumer Forst =&gt; Rüningen" line="413" type="bus" vClass="bus" period="1800" completeness="0.19">
+        <route edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 8618349#0 8618349#3 319389908#0 31016344#0 316781879#0 8618348 316785565 23118706 384876527 384876526 4743778#0 127240643#0 127240643#1 127240643#2"/>
+        <busStop id="-4420481310" name="Staatstheater"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="343717194" name="Güldenstraße"/>
+        <busStop id="585140525" name="Südstraße"/>
+        <busStop id="4513474931" name="Südstraße"/>
+        <busStop id="1741027767" name="Holzhof (Volkswagenhalle)"/>
+    </ptLine>
+    <ptLine id="6726653" name="Bus 413: Dieselstraße =&gt; Querumer Forst" line="413" type="bus" vClass="bus" period="1800" completeness="0.18">
+        <route edges="316791974#0 316791974#1 30426519#0 319389905 319389906#0 306497783 306497787#0 5021501#0 167920428#0 167920428#3 167920428#4 167920428#6 376468591#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+        <busStop id="544541081" name="Holzhof (Volkswagenhalle)"/>
+        <busStop id="398552760" name="Südstraße"/>
+        <busStop id="4513474932" name="Südstraße"/>
+        <busStop id="343717113" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+        <busStop id="335753779" name="Staatstheater"/>
+    </ptLine>
+    <ptLine id="6745384" name="Bus 417: Berggarten =&gt; Moorhüttenweg" line="417" type="bus" vClass="bus" period="1800" completeness="0.00"/>
+    <ptLine id="6745946" name="Bus 464: Stadion =&gt; Tostmannplatz" line="464" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6746197" name="Bus 461: PTB =&gt; Hauptbahnhof" line="461" type="bus" vClass="bus" period="1800" completeness="0.00">
+        <route edges="23329778#6 122119619 319389909#0 319389909#1 316789358 316789359 61996467#0 127240631#0 317191948 171349008#0 316791987#1 316791983 316791991 25076268 316779270 23209056#0 23209056#2 305951352 311580921#0 311580921#1 311580921#2 25076286#0 43328051#0"/>
+    </ptLine>
+    <ptLine id="6768238" name="Bus 414: Ernst-Böhme-Straße =&gt; Stadion (Schwarzer Berg)" line="414" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6768239" name="Bus 414: Stadion (Schwarzer Berg) =&gt; Ernst-Böhme Straße" line="414" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6768240" name="Bus 414: Stadion (Schwarzer Berg) =&gt; Heideblick" line="414" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6768241" name="Bus 414: Stadion (Schwarzer Berg) =&gt; Waller Weg" line="414" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6768242" name="Bus 414: Waller Weg =&gt; Stadion (Schwarzer Berg)" line="414" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6768729" name="Bus 434: Heideblick =&gt; Krugplatz" line="434" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6768730" name="Bus 434: Hänflingstraße =&gt; Im Steinkampe" line="434" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6768731" name="Bus 434: Krugplatz =&gt; Heideblick" line="434" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6789990" name="Bus 482: Braunschweiger Verkehrs-GmbH =&gt; Hauptbahnhof" line="482" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6789991" name="Bus 482: Hauptbahnhof =&gt; Braunschweiger Verkehrs-GmbH" line="482" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6812135" name="Bus 230: Braunschweig =&gt; Wolfsburg" line="230" type="bus" vClass="bus" period="1800" completeness="0.05">
+        <route edges="5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+        <busStop id="1515856077" name="Rathaus"/>
+        <busStop id="335753779" name="Staatstheater"/>
+    </ptLine>
+    <ptLine id="6812889" name="Bus 620: Braunschweig =&gt; SZ-Lebenstedt" line="620" type="bus" vClass="bus" completeness="0.04">
+        <route edges="25290398 25290438 32055654 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 588927595 6279149#0 316781871#1 30426426#0 316781875#0 306497784 306497780 23118706 384876527 384876529 559570920#0 122119622#0 559570919#0 61996465#0 24021025 319389907"/>
+        <busStop id="272857163" name="John-F.-Kennedy-Platz"/>
+        <busStop id="3388048661" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="272856305" name="Europaplatz"/>
+    </ptLine>
+    <ptLine id="6812890" name="Bus 620: SZ-Lebenstedt =&gt; Braunschweig" line="620" type="bus" vClass="bus" completeness="0.00">
+        <route edges="23329778#6 122119619 319389909#0 319389909#1 316789358 316789359 61996467#0 127240631#0 317191948 171349008#0 316791987#1 316791983 316791991 25076268 316779270 23209056#0 23209056#2 305951352 311580921#0 311580921#1 311580921#2 25076286#0 43328051#0"/>
+    </ptLine>
+    <ptLine id="6829866" name="Bus 443: Donauknoten =&gt; Querum" line="443" type="bus" vClass="bus" period="1800" completeness="0.16">
+        <route edges="283066855 9887577 25087143 59873992 320814798 8118981 59873991 320814805#0 320399277#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+        <busStop id="4420481309" name="Goslarsche Straße"/>
+        <busStop id="343717363" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+        <busStop id="335753779" name="Staatstheater"/>
+    </ptLine>
+    <ptLine id="6829867" name="Bus 443: Querum =&gt; Donauknoten" line="443" type="bus" vClass="bus" period="1800" completeness="0.17">
+        <route edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855"/>
+        <busStop id="-4420481310" name="Staatstheater"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="-335811224" name="Güldenstraße"/>
+        <busStop id="-822623518" name="Goslarsche Straße"/>
+    </ptLine>
+    <ptLine id="6831287" name="Bus 455: BS Weststadt =&gt; Timmerlah" line="455" type="bus" vClass="bus" period="3600" completeness="0.00"/>
+    <ptLine id="6831621" name="Bus 455: Timmerlah =&gt; BS Weststadt" line="455" type="bus" vClass="bus" period="3600" completeness="0.00"/>
+    <ptLine id="6832029" name="Bus 465: Turmstraße =&gt; Hahnenkleestraße" line="465" type="bus" vClass="bus" period="3600" completeness="0.00"/>
+    <ptLine id="6832030" name="Bus 465: Rüningen =&gt; Broitzem" line="465" type="bus" vClass="bus" period="3600" completeness="0.00"/>
+    <ptLine id="6832054" name="Bus 485: Broitzem =&gt; Rüningen" line="485" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6832055" name="Bus 485: Rüningen =&gt; Broitzem" line="485" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6861965" name="Bus 455: BS Weststadt =&gt; Geitelde" line="455" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6861966" name="Bus 455: Geitelde =&gt; BS Weststadt via Georg-Althaus-Straße" line="455" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6862087" name="Bus 481: Leiferde =&gt; Stöckheim" line="481" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6862088" name="Bus 481: Stöckheim =&gt; Leiferde" line="481" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6862962" name="Bus 411: Kanzlerfeld =&gt; Südstadt" line="411" type="bus" vClass="bus" completeness="0.00">
+        <route edges="375727027#0 375727027#1 375727027#2 394076983 394076973#0 505845266 23208546#0 320399275#0 320399275#3 320399274#0 320399274#1 30424376#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+    </ptLine>
+    <ptLine id="6862963" name="Bus 411: Südstadt =&gt; Kanzlerfeld" line="411" type="bus" vClass="bus" completeness="0.19">
+        <route edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 376743573#0 376743573#4 376743573#5 376743572#0 382052543 376743574#0 30424335#0 501412552#0 31413791#0 31413791#1 501412548#1 501412550 394076960#0 501406797"/>
+        <busStop id="-4420481310" name="Staatstheater"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="343717895" name="Güldenstraße"/>
+        <busStop id="282832480" name="Radeklint"/>
+        <busStop id="3790696287" name="Maschstraße"/>
+    </ptLine>
+    <ptLine id="6915025" name="Bus 730: Braunschweig =&gt; Evessen" line="730" type="bus" vClass="bus" period="3600" completeness="0.11">
+        <route edges="314842169#0 627097689#0 627097688 326537336#0 191875414#0 -510544114 56816450#0 37975912#0 54684973#0 33230516 315421255#0 499618367 27220201#0 61312640#0 27220216 319583927#0 29087077#0 25730280#0 25730280#3 25730282 315422094 315422095#0 315422095#1 24020888#0 32352621#0 43328051#0"/>
+        <busStop id="4635230831" name="Wilhelmstraße"/>
+        <busStop id="4635230830" name="Wilhelmstraße"/>
+        <busStop id="270148915" name="Rathaus"/>
+        <busStop id="335771085" name="Schloss"/>
+        <busStop id="272856917" name="John-F.-Kennedy-Platz"/>
+    </ptLine>
+    <ptLine id="6915026" name="Bus 730: Braunschweig =&gt; Neuerkerode" line="730" type="bus" vClass="bus" period="3600" completeness="0.22">
+        <route edges="314842169#0 627097689#0 627097688 326537336#0 191875414#0 -510544114 56816450#0 37975912#0 54684973#0 33230516 315421255#0 499618367 27220201#0 61312640#0 27220216 319583927#0 29087077#0 25730280#0 25730280#3 25730282 315422094 315422095#0 315422095#1 24020888#0 32352621#0 43328051#0"/>
+        <busStop id="4635230831" name="Wilhelmstraße"/>
+        <busStop id="4635230830" name="Wilhelmstraße"/>
+        <busStop id="270148915" name="Rathaus"/>
+        <busStop id="335771085" name="Schloss"/>
+        <busStop id="272856917" name="John-F.-Kennedy-Platz"/>
+    </ptLine>
+    <ptLine id="6915027" name="Bus 730: Evessen =&gt; Braunschweig" line="730" type="bus" vClass="bus" period="3600" completeness="0.12">
+        <route edges="25290398 25290438 32055654 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 32055586#0 23209152#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 27220209#0 314842169#0 -10740033#2 -10740033#1 326537335 627097688 5134711#0 5134711#3 150679087#0 150679087#1"/>
+        <busStop id="272857163" name="John-F.-Kennedy-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+    </ptLine>
+    <ptLine id="6915028" name="Bus 730: Neuerkerode =&gt; Braunschweig" line="730" type="bus" vClass="bus" period="3600" completeness="0.21">
+        <route edges="25290398 25290438 32055654 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 32055586#0 23209152#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 27220209#0 314842169#0 -10740033#2 -10740033#1 326537335 627097688 5134711#0 5134711#3 150679087#0 150679087#1"/>
+        <busStop id="272857163" name="John-F.-Kennedy-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+    </ptLine>
+    <ptLine id="6952628" name="Bus 412: Hans Geitel Straße =&gt; Welfenplatz" line="412" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6952629" name="Bus 412: Welfenplatz =&gt; Paxmannstraße" line="412" type="bus" vClass="bus" period="1800" completeness="0.00"/>
+    <ptLine id="6952991" name="Bus 412: Braunschweiger Verkehrs-GmbH =&gt; Welfenplatz" line="412" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6952992" name="Bus 412: Paxmannstraße =&gt; Rathaus" line="412" type="bus" vClass="bus" period="1800" completeness="0.05">
+        <route edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300"/>
+        <busStop id="-4420481310" name="Staatstheater"/>
+        <busStop id="-583283132" name="Rathaus"/>
+    </ptLine>
+    <ptLine id="6952993" name="Bus 412: Rathaus =&gt; Paxmannstraße" line="412" type="bus" vClass="bus" completeness="0.05">
+        <route edges="5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+        <busStop id="1515856077" name="Rathaus"/>
+        <busStop id="335753779" name="Staatstheater"/>
+    </ptLine>
+    <ptLine id="6952994" name="Bus 412: Rautheimer Straße =&gt; Helmstedter Straße" line="412" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6953209" name="Bus 413: Bevenrode =&gt; Messeweg" line="413" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6953210" name="Bus 413: Leiferde =&gt; Essener Straße" line="413" type="bus" vClass="bus" period="1800" completeness="0.19">
+        <route edges="316791974#0 316791974#1 30426519#0 319389905 319389906#0 306497783 306497787#0 5021501#0 167920428#0 167920428#3 167920428#4 167920428#6 376468591#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+        <busStop id="544541081" name="Holzhof (Volkswagenhalle)"/>
+        <busStop id="398552760" name="Südstraße"/>
+        <busStop id="4513474932" name="Südstraße"/>
+        <busStop id="343717113" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+        <busStop id="335753779" name="Staatstheater"/>
+    </ptLine>
+    <ptLine id="6953211" name="Bus 413: Messeweg =&gt; Bevenrode" line="413" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6953324" name="Bus 414: Ernst-Böhme-Straße =&gt; Waller Weg" line="414" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6953325" name="Bus 414: Stadion (Schwarzer Berg) =&gt; Am Hafen" line="414" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6953326" name="Bus 416: Altstadtmarkt =&gt; Kralenriede" line="416" type="bus" vClass="bus" completeness="0.25">
+        <route edges="-625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+        <busStop id="335753779" name="Staatstheater"/>
+    </ptLine>
+    <ptLine id="6953421" name="Bus 417: Berggarten =&gt; Moorhüttenweg via IGS Volkmarode" line="417" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6953422" name="Bus 417: Dammstraße Ost =&gt; Angerburgstraße" line="417" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6953423" name="Bus 417: Dammstraße Ost =&gt; Moorhüttenweg" line="417" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6953424" name="Bus 417: IGS Volkmarode =&gt; Berggarten" line="417" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6953425" name="Bus 417: Moorhüttenweg =&gt; Angerburgstraße" line="417" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974018" name="Bus 418: An der Horst =&gt; Rathaus" line="418" type="bus" vClass="bus" completeness="0.58">
+        <route edges="283066855 9887577 25087143 59873992 320814798 8118981 59873991 320814805#0 320399277#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732"/>
+        <busStop id="4420481309" name="Goslarsche Straße"/>
+        <busStop id="343717363" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+    </ptLine>
+    <ptLine id="6974019" name="Bus 418: Raffteichbad =&gt; Riddagshausen" line="418" type="bus" vClass="bus" completeness="0.21">
+        <route edges="283066855 9887577 25087143 59873992 320814798 8118981 59873991 320814805#0 320399277#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+        <busStop id="4420481309" name="Goslarsche Straße"/>
+        <busStop id="343717363" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+        <busStop id="335753779" name="Staatstheater"/>
+    </ptLine>
+    <ptLine id="6974020" name="Bus 418: Rathaus =&gt; An der Horst" line="418" type="bus" vClass="bus" completeness="0.55">
+        <route edges="-5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="-335811224" name="Güldenstraße"/>
+        <busStop id="-822623518" name="Goslarsche Straße"/>
+    </ptLine>
+    <ptLine id="6974021" name="Bus 418: Rathaus =&gt; Reuchlinstraße" line="418" type="bus" vClass="bus" completeness="0.35">
+        <route edges="-5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="-335811224" name="Güldenstraße"/>
+        <busStop id="-822623518" name="Goslarsche Straße"/>
+    </ptLine>
+    <ptLine id="6974022" name="Bus 418: Reuchlinstraße =&gt; Rathaus" line="418" type="bus" vClass="bus" completeness="0.39">
+        <route edges="283066855 9887577 25087143 59873992 320814798 8118981 59873991 320814805#0 320399277#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732"/>
+        <busStop id="4420481309" name="Goslarsche Straße"/>
+        <busStop id="343717363" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+    </ptLine>
+    <ptLine id="6974023" name="Bus 418: Reuchlinstraße =&gt; Riddagshausen" line="418" type="bus" vClass="bus" completeness="0.23">
+        <route edges="283066855 9887577 25087143 59873992 320814798 8118981 59873991 320814805#0 320399277#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+        <busStop id="4420481309" name="Goslarsche Straße"/>
+        <busStop id="343717363" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+        <busStop id="335753779" name="Staatstheater"/>
+    </ptLine>
+    <ptLine id="6974024" name="Bus 418: Riddagshausen =&gt; Raffteichbad" line="418" type="bus" vClass="bus" completeness="0.18">
+        <route edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855"/>
+        <busStop id="-4420481310" name="Staatstheater"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="-335811224" name="Güldenstraße"/>
+        <busStop id="-822623518" name="Goslarsche Straße"/>
+    </ptLine>
+    <ptLine id="6974025" name="Bus 418: Riddagshausen =&gt; Reuchlinstraße" line="418" type="bus" vClass="bus" completeness="0.21">
+        <route edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855"/>
+        <busStop id="-4420481310" name="Staatstheater"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="-335811224" name="Güldenstraße"/>
+        <busStop id="-822623518" name="Goslarsche Straße"/>
+    </ptLine>
+    <ptLine id="6974265" name="Bus 422: Bebelhof =&gt; Güldenstraße" line="422" type="bus" vClass="bus" completeness="0.29">
+        <route edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2"/>
+        <busStop id="-4420481310" name="Staatstheater"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="-335811224" name="Güldenstraße"/>
+    </ptLine>
+    <ptLine id="6974266" name="Bus 422: Rathaus =&gt; Lehndorf" line="422" type="bus" vClass="bus" completeness="0.24">
+        <route edges="-615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="-335811224" name="Güldenstraße"/>
+        <busStop id="-822623518" name="Goslarsche Straße"/>
+    </ptLine>
+    <ptLine id="6974267" name="Bus 422: Lehndorf =&gt; Rathaus" line="422" type="bus" vClass="bus" completeness="0.27">
+        <route edges="283066855 9887577 25087143 59873992 320814798 8118981 59873991 320814805#0 320399277#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732"/>
+        <busStop id="4420481309" name="Goslarsche Straße"/>
+        <busStop id="-335811224" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+    </ptLine>
+    <ptLine id="6974398" name="Bus 424: Bevenrode =&gt; Heideblick" line="424" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974399" name="Bus 424: Bevenrode =&gt; Rühme" line="424" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974400" name="Bus 424: Waggum =&gt; Rühme" line="424" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974403" name="Bus 424: Rühme =&gt; Bevenrode" line="424" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974404" name="Bus 424: Rühme =&gt; Waggum" line="424" type="bus" vClass="bus" period="1800" completeness="0.00"/>
+    <ptLine id="6974823" name="Bus 426: Boeselagerstraße =&gt; Ottenroder Straße" line="426" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974824" name="Bus 426: Boeselagerstraße =&gt; Hamburger Straße" line="426" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974825" name="Bus 426: Hamburger Straße =&gt; In den Waashaien" line="426" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974826" name="Bus 426: Ottenroder Straße =&gt; Boeselagerstraße" line="426" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974827" name="Bus 427: Essehof =&gt; Volkmarode" line="427" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974828" name="Bus 427: Essehof =&gt; Weddel =&gt; Volkmarode" line="427" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974829" name="Bus 427: Hühnerkamp =&gt; Volkmarode" line="427" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974830" name="Bus 427: IGS Volkmarode =&gt; Volkmarode" line="427" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974831" name="Bus 427: Moorhüttenweg =&gt; IGS Volkmarode" line="427" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974832" name="Bus 427: Volkmarode =&gt; Essehof" line="427" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974833" name="Bus 427: Volkmarode =&gt; Hordorf" line="427" type="bus" vClass="bus" period="3600" completeness="0.00"/>
+    <ptLine id="6974834" name="Bus 427: Volkmarode =&gt; Weddel =&gt; Essehof" line="427" type="bus" vClass="bus" period="3600" completeness="0.00"/>
+    <ptLine id="6974835" name="Bus 427: Volkmarode =&gt; Weddel via IGS Volkmarode" line="427" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974836" name="Bus 427: Volkmarode =&gt; Weddel" line="427" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974837" name="Bus 427: Weddel =&gt; Volkmarode (verkürzt)" line="427" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974838" name="Bus 427: Weddel =&gt; Volkmarode via IGS Volkmarode" line="427" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974839" name="Bus 427: Weddel =&gt; Volkmarode" line="427" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974989" name="Bus 431: Am Spieltore =&gt; Helmstedter Straße" line="431" type="bus" vClass="bus" period="1800" completeness="0.00"/>
+    <ptLine id="6974990" name="Bus 431: Erfurtplatz =&gt; Glogaustraße" line="431" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974991" name="Bus 431: Erfurtplatz =&gt; Helmstedter Straße" line="431" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974992" name="Bus 431: Glogaustraße =&gt; Erfurtplatz" line="431" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974993" name="Bus 431: Glogaustraße =&gt; Hauptbahnhof" line="431" type="bus" vClass="bus" period="1800" completeness="0.00"/>
+    <ptLine id="6974994" name="Bus 431: Glogaustraße =&gt; Klinikum Salzdahlumer Straße" line="431" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974995" name="Bus 431: Hauptbahnhof =&gt; Glogaustraße" line="431" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974996" name="Bus 431: Hauptbahnhof =&gt; Klinikum Salzdahlumer Straße" line="431" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974997" name="Bus 431: Paxmannstraße =&gt; Hauptbahnhof" line="431" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974998" name="Bus 431: Paxmannstraße =&gt; Welfenplatz" line="431" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6974999" name="Bus 431: Welfenplatz =&gt; Erfurtplatz" line="431" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6975000" name="Bus 431: Welfenplatz =&gt; Helmstedter Straße" line="431" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6975024" name="Bus 433: Paracelsusstraße =&gt; Hondelage" line="433" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6975025" name="Bus 433: Völkenrode =&gt; Rudolfplatz" line="433" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6975161" name="Bus 434: Heideblick =&gt; Hänflingsstraße" line="434" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6975162" name="Bus 434: Heideblick =&gt; Schmiedegasse" line="434" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6975163" name="Bus 434: Hänflingstraße =&gt; Heideblick" line="434" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6975164" name="Bus 434: Lagesbüttel Schule =&gt; Heideblick" line="434" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6975308" name="Bus 436: Steinriedendamm =&gt; Hauptbahnhof" line="436" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6975309" name="Bus 443: Donauknoten =&gt; Helenenstraße" line="443" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6975310" name="Bus 443: Donauknoten =&gt; Münzstraße" line="443" type="bus" vClass="bus" completeness="0.23">
+        <route edges="283066855 9887577 25087143 59873992 320814798 8118981 59873991 320814805#0 320399277#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504"/>
+        <busStop id="4420481309" name="Goslarsche Straße"/>
+        <busStop id="343717363" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+    </ptLine>
+    <ptLine id="6975311" name="Bus 443: Rathaus =&gt; Donauknoten" line="443" type="bus" vClass="bus" completeness="0.26">
+        <route edges="-5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="-335811224" name="Güldenstraße"/>
+        <busStop id="-822623518" name="Goslarsche Straße"/>
+    </ptLine>
+    <ptLine id="6975312" name="Bus 443: Rathaus =&gt; Essener Straße" line="443" type="bus" vClass="bus" completeness="0.11">
+        <route edges="283066855 9887577 25087143 59873992 320814798 8118981 59873991 320814805#0 320399277#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+        <busStop id="1515856077" name="Rathaus"/>
+        <busStop id="335753779" name="Staatstheater"/>
+    </ptLine>
+    <ptLine id="6977507" name="Bus 445: Vallstedt =&gt; BS Weststadt (Schulbus)" line="445" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6977508" name="Bus 454: Sielkamp =&gt; Stadion (Schwarzer Berg)" line="454" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6977509" name="Bus 454: Stadion (Schwarzer Berg) =&gt; Weizenbleek" line="454" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6977510" name="Bus 455: Geitelde =&gt; BS Weststadt" line="455" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6978321" name="Bus 464: Steinriedendamm =&gt; Essener Straße" line="464" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6995391" name="Bus 493: Rathaus =&gt; Neuerkerode" line="493" type="bus" vClass="bus" completeness="0.05">
+        <route edges="5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+        <busStop id="1515856077" name="Rathaus"/>
+        <busStop id="335753779" name="Staatstheater"/>
+    </ptLine>
+    <ptLine id="6995644" name="Bus 471: Jägersruh Siedlung =&gt; Klinikum Salzdahlumer Straße" line="471" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6995645" name="Bus 471: Jägersruh Siedlung =&gt; Welfenplatz" line="471" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6995646" name="Bus 471: Klinikum Salzdahlumer Straße =&gt; Jägersruh Siedlung" line="471" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6995647" name="Bus 471: Welfenplatz =&gt; Jägersruh Siedlung" line="471" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6996025" name="Bus 437: IGS Volkmarode =&gt; Im Dorfe" line="437" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6996026" name="Bus 437: Moorhüttenweg =&gt; Im Dorfe" line="437" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6996027" name="Bus 437: Moorhüttenweg =&gt; Neuer Weg via Klein Schöppenstedt u. IGS Volkmarode" line="437" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6996028" name="Bus 437: Moorhüttenweg =&gt; Neuer Weg via Klein Schöppenstedt" line="437" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6996029" name="Bus 437: Moorhüttenweg =&gt; Neuer Weg" line="437" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6996031" name="Bus 437: Neeteweg =&gt; IGS Volkmarode" line="437" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6996034" name="Bus 437: Neuer Weg =&gt; Moorhüttenweg" line="437" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6996265" name="Bus 442: Glogaustraße =&gt; Hans-Geitel-Straße" line="442" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6996266" name="Bus 442: Hans-Geitel-Straße =&gt; Schulzentrum Stöckheim" line="442" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6996267" name="Bus 442: Helmstedter Straße =&gt; Welfenplatz" line="442" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6996268" name="Bus 442: Paxmannstrßae =&gt; Schulzentrum Stöckheim" line="442" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6996269" name="Bus 442: Schulzentrum Stöckheim =&gt; Helmstedter Straße" line="442" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6996484" name="Bus 465: Donauknoten =&gt; Georg-Althaus-Straße" line="465" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6996486" name="Bus 465: Turmstraße =&gt; Geiteldestraße" line="465" type="bus" vClass="bus" period="3600" completeness="0.00"/>
+    <ptLine id="6996504" name="Bus 481: Rüningen =&gt; Leiferde" line="481" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6996505" name="Bus 481: Rüningen =&gt; Stöckheim" line="481" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6996506" name="Bus 481: Stöckheim =&gt; Rüningen" line="481" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6996668" name="Bus 420: Braunschweig Hauptbahnhof =&gt; Wolfenbüttel Bahnhof" line="420" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="6996669" name="Bus 420: Braunschweig Rathhaus =&gt; Wolfenbüttel Kornmarkt" line="420" type="bus" vClass="bus" completeness="0.15">
+        <route edges="27220201#0 61312640#0 27220216 319583927#0 29087077#0 25730280#0 25730280#3 25730282 315422094 315422095#0 315422095#1 24020888#0 32352621#0 43328051#0"/>
+        <busStop id="270148915" name="Rathaus"/>
+        <busStop id="335771085" name="Schloss"/>
+        <busStop id="272856917" name="John-F.-Kennedy-Platz"/>
+    </ptLine>
+    <ptLine id="6996670" name="Bus 420: Wolfenbüttel Kornmarkt =&gt; Braunschweig Rathaus" line="420" type="bus" vClass="bus" completeness="0.14">
+        <route edges="25290398 25290438 51353826#0 61976434#0 61976434#1 61976434#2 61976434#3 61976434#4 25730283#0 315422093#0 25730281#0 27220157#0 29976721#0 4729561#0 317365383#0 317365383#1 317365382#0 27220209#0"/>
+        <busStop id="655312126" name="John-F.-Kennedy-Platz"/>
+        <busStop id="299530289" name="Schloss"/>
+        <busStop id="765881522" name="Rathaus"/>
+    </ptLine>
+    <ptLine id="6996671" name="Bus 560: Bortfeld =&gt; Braunschweig Rathaus" line="560" type="bus" vClass="bus" completeness="0.28">
+        <route edges="375727027#0 375727027#1 375727027#2 394076983 394076973#0 505845266 23208546#0 320399275#0 320399275#3 320399274#0 320399274#1 30424376#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732"/>
+        <busStop id="1223820160" name="Maschstraße"/>
+        <busStop id="282832479" name="Radeklint"/>
+        <busStop id="343718199" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+    </ptLine>
+    <ptLine id="6996673" name="Bus 560: Braunschweig Rathaus =&gt; Wendeburg (ohne Bortfeld)" line="560" type="bus" vClass="bus" completeness="0.24">
+        <route edges="-615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 376743573#0 376743573#4 376743573#5 376743572#0 382052543 376743574#0 30424335#0 501412552#0 31413791#0 31413791#1 501412548#1 501412550 394076960#0 501406797"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="343717895" name="Güldenstraße"/>
+        <busStop id="282832480" name="Radeklint"/>
+        <busStop id="3790696287" name="Maschstraße"/>
+    </ptLine>
+    <ptLine id="6996674" name="Bus 560: Wendeburg =&gt; Braunschweig Rathaus (schnell)" line="560" type="bus" vClass="bus" completeness="0.21">
+        <route edges="375727027#0 375727027#1 375727027#2 394076983 394076973#0 505845266 23208546#0 320399275#0 320399275#3 320399274#0 320399274#1 30424376#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732"/>
+        <busStop id="1223820160" name="Maschstraße"/>
+        <busStop id="282832479" name="Radeklint"/>
+        <busStop id="343718199" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+    </ptLine>
+    <ptLine id="6996675" name="Bus 560: Wendeburg =&gt; Braunschweig Rathaus" line="560" type="bus" vClass="bus" completeness="0.19">
+        <route edges="375727027#0 375727027#1 375727027#2 394076983 394076973#0 505845266 23208546#0 320399275#0 320399275#3 320399274#0 320399274#1 30424376#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732"/>
+        <busStop id="1223820160" name="Maschstraße"/>
+        <busStop id="282832479" name="Radeklint"/>
+        <busStop id="343718199" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+    </ptLine>
+    <ptLine id="6996676" name="Bus 560: Wipshausen =&gt; Braunschweig Rathaus (schnell)" line="560" type="bus" vClass="bus" completeness="0.14">
+        <route edges="375727027#0 375727027#1 375727027#2 394076983 394076973#0 505845266 23208546#0 320399275#0 320399275#3 320399274#0 320399274#1 30424376#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732"/>
+        <busStop id="1223820160" name="Maschstraße"/>
+        <busStop id="282832479" name="Radeklint"/>
+        <busStop id="343718199" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+    </ptLine>
+    <ptLine id="7018920" name="Bus 484: Gewerbegebiet Waller See =&gt; Rühme" line="484" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7018921" name="Bus 484: Hansestraße West =&gt; Rühme" line="484" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7018922" name="Bus 484: Rühme =&gt; Gewerbegebiet Waller See" line="484" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7018923" name="Bus 484: Rühme =&gt; Hansestraße West" line="484" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7018924" name="Bus 484: Rühme =&gt; Groß Schwülper" line="484" type="bus" vClass="bus" period="3600" completeness="0.00"/>
+    <ptLine id="7019017" name="Bus 465: Geiteldestraße =&gt; Broitzem" line="465" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7019028" name="Bus 465: Stidden =&gt; Hahnenkleestraße" line="465" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7019392" name="Bus 452: Bornum =&gt; Helmstedter Straße (ohne Destedt)" line="452" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7019393" name="Bus 452: Bornum =&gt; Helmstedter Straße (via Gardessen)" line="452" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7019394" name="Bus 452: Destedt =&gt; Helmstedter Straße" line="452" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7019395" name="Bus 452: Helmstedter Straße =&gt; Bornum/Elm (komplett via Weddel)" line="452" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7019396" name="Bus 452: Helmstedter Straße =&gt; Bornum/Elm (komplett)" line="452" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7019397" name="Bus 452: Helmstedter Straße =&gt; Emil-Berg-Straße (via Weddel)" line="452" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7019398" name="Bus 452: Helmstedter Straße =&gt; Emil-Berg-Straße" line="452" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7090403" name="Tram 1: Hauptbahnhof =&gt; Stöckheim" line="1" type="tram" vClass="tram" completeness="0.00"/>
+    <ptLine id="7090404" name="Tram 1: Rathaus =&gt; Wenden" line="1" type="tram" vClass="tram" completeness="0.00"/>
+    <ptLine id="7090405" name="Tram 1: Stöckheim =&gt; Hauptbahnhof" line="1" type="tram" vClass="tram" completeness="0.00"/>
+    <ptLine id="7090406" name="Tram 1: Wenden =&gt; Rathaus" line="1" type="tram" vClass="tram" completeness="0.00"/>
+    <ptLine id="7090528" name="Tram 2: Hauptbahnhof =&gt; Heidberg" line="2" type="tram" vClass="tram" completeness="0.00"/>
+    <ptLine id="7090529" name="Tram 2: Heidberg =&gt; Hauptbahnhof" line="2" type="tram" vClass="tram" completeness="0.00"/>
+    <ptLine id="7090530" name="Tram 2: Heidberg =&gt; Rathaus" line="2" type="tram" vClass="tram" completeness="0.00"/>
+    <ptLine id="7090531" name="Tram 2: Rathaus =&gt; Siegfriedviertel" line="2" type="tram" vClass="tram" completeness="0.00"/>
+    <ptLine id="7090532" name="Tram 2: Siegfriedviertel =&gt; Rathaus" line="2" type="tram" vClass="tram" completeness="0.00"/>
+    <ptLine id="7090581" name="Tram 3: Rathaus =&gt; Volkmarode" line="3" type="tram" vClass="tram" completeness="0.00"/>
+    <ptLine id="7090582" name="Tram 3: Schloss =&gt; Weststadt" line="3" type="tram" vClass="tram" completeness="0.00"/>
+    <ptLine id="7090583" name="Tram 3: Volkmarode =&gt; Rathaus" line="3" type="tram" vClass="tram" completeness="0.00"/>
+    <ptLine id="7090584" name="Tram 3: Weststadt =&gt; Schloss" line="3" type="tram" vClass="tram" completeness="0.00"/>
+    <ptLine id="7090656" name="Tram 5: Am Magnitor =&gt; Broitzem" line="5" type="tram" vClass="tram" completeness="0.00"/>
+    <ptLine id="7090657" name="Tram 5: Broitzem =&gt; Leonhardplatz" line="5" type="tram" vClass="tram" completeness="0.00"/>
+    <ptLine id="7090928" name="Bus 465: Georg-Althaus-Straße =&gt; Donauknoten" line="465" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="71751" name="Bus 427: Essehof =&gt; Weddel =&gt; Volkmarode via IGS Volkmarode" line="427" type="bus" vClass="bus" period="3600" completeness="0.00"/>
+    <ptLine id="7345498" name="Bus 412: Braunschweiger Verkehrs-GmbH =&gt; Sachsendamm" line="412" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="73571" name="Bus 454: Stadion (Schwarzer Berg) =&gt; Schwarzer Berg =&gt; Stadion (Schwarzer Berg)" line="454" type="bus" vClass="bus" period="1800" completeness="0.00"/>
+    <ptLine id="7378840" name="Bus 191: Gifhorn, Steinweg =&gt; Wenden, Heideblick" line="Bus 191: Gifhorn, Steinweg =&gt; Wenden, Heideblick" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7378841" name="Bus 191: Wenden, Heideblick =&gt; Gifhorn, Steinweg" line="Bus 191: Wenden, Heideblick =&gt; Gifhorn, Steinweg" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7392814" name="Bus 191: Gifhorn, Bahnhof (Süd) =&gt; Wenden, Heideblick" line="Bus 191: Gifhorn, Bahnhof (Süd) =&gt; Wenden, Heideblick" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7392821" name="Bus 191: Wenden, Heideblick =&gt; Gifhorn, Bahnhof (Süd)" line="Bus 191: Wenden, Heideblick =&gt; Gifhorn, Bahnhof (Süd)" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7393653" name="Bus 111: Gifhorn, Gesundheitsamt =&gt; Wenden, Heideblick" line="111" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7393662" name="Bus 111: Wenden, Heideblick =&gt; Gifhorn, Gesundheitsamt" line="111" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="75660" name="Bus 434: Im Steinkampe =&gt; Hänflingstraße" line="434" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="75711" name="Bus 484: Rühme =&gt; Groß Schwülper (via Gewerbegebiet Waller See)" line="484" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="76902" name="IC 56: Norddeich Mole =&gt; Leipzig" line="IC 56" type="train" vClass="rail" period="7200" completeness="0.00"/>
+    <ptLine id="76955" name="Bus 414: Heideblick =&gt; Stadion (Schwarzer Berg)" line="414" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7797053" name="ICE 13: Frankfurt =&gt; Berlin" line="ICE 13" type="train" vClass="rail" period="7200" completeness="0.00"/>
+    <ptLine id="7797054" name="ICE 13: Berlin =&gt; Frankfurt" line="ICE 13" type="train" vClass="rail" period="7200" completeness="0.00"/>
+    <ptLine id="7797950" name="RB48: SZ-Lebenstedt=&gt; Braunschweig HBF" line="RB48" type="train" vClass="rail" completeness="0.00"/>
+    <ptLine id="7797951" name="RB48: Braunschweig=&gt; SZ-Lebenstedt" line="RB48" type="train" vClass="rail" period="3600" completeness="0.00"/>
+    <ptLine id="7800621" name="RB46: Seesen=&gt; Braunschweig HBF" line="RB46" type="train" vClass="rail" completeness="0.00"/>
+    <ptLine id="7800622" name="RB46: Braunschweig HBF=&gt; Seesen" line="RB 46" type="train" vClass="rail" completeness="0.00"/>
+    <ptLine id="78732" name="IC 55: Leipzig =&gt; Köln" line="IC 55" type="train" vClass="rail" period="7200" completeness="0.00"/>
+    <ptLine id="8500092" name="Bus 603: SZ-Steterburg =&gt; SZ-Bad" line="603" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="8500097" name="Bus 603: SZ-Bad =&gt; SZ-Steterburg" line="603" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="8500503" name="Bus 603: SZ-Steterburg =&gt; Abzweig MAN =&gt; SZ-Barum" line="603" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="8500504" name="Bus 603: SZ-Steterburg =&gt; SZ-Immendorf, Ort =&gt; SZ-Barum" line="603" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="8500510" name="Bus 603: SZ-Steterburg =&gt; SZ-Watenstedt, Alstom" line="603" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="8501721" name="Bus 604: WF, T.-H.-Gymnasium =&gt; SZ-Beddingen" line="604" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="8501722" name="Bus 604: SZ-Thiede =&gt; SZ-Lebenstedt" line="604" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="8501723" name="Bus 604: Wolfenbüttel =&gt; SZ-Steterburg" line="604" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="8501724" name="Bus 604: SZ-Steterburg =&gt; Wolfenbüttel" line="604" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="8501725" name="Bus 604: SZ-Lebenstedt =&gt; SZ-Steterburg" line="604" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="8501726" name="Bus 604: SZ-Beddingen =&gt; SZ-Thiede" line="604" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="8504299" name="Bus 620: SZ-Üfingen =&gt; SZ-Thiede, G.-Hauptmann-Straße" line="620" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="8504300" name="Bus 620: SZ-Üfingen =&gt; SZ-Thiede, Schule" line="620" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="8504411" name="Bus 620: SZ-Thiede, G.-Hauptmann-Straße =&gt; SZ-Steterburg, Schulring =&gt; SZ-Beddingen" line="620" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="8504413" name="Bus 620: SZ-Thiede, Schule =&gt; SZ-Steterburg, Schulring =&gt; SZ-Beddingen" line="620" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="8504414" name="Bus 620: SZ-Thiede, Schule =&gt; SZ-Steterburg, Kloster =&gt; SZ-Beddingen" line="620" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="8519006" name="Bus 790: SZ-Thiede =&gt; Wolfenbüttel, Kornmarkt" line="790" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="8519010" name="Bus 790: Wolfenbüttel =&gt; WF, Cranachstraße =&gt; SZ-Thiede" line="790" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="8688124" name="Bus 426: Steinriedendamm =&gt; Boeselagerstraße (ALT)" line="426" type="bus" vClass="bus" period="1800" completeness="0.00"/>
+    <ptLine id="8688125" name="Bus 426: Boeselagerstraße =&gt; Steinriedendamm (ALT)" line="426" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="8688425" name="Bus 413: Querumer Forst =&gt; Dieselstraße" line="413" type="bus" vClass="bus" period="1800" completeness="0.17">
+        <route edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 8618349#0 8618349#3 319389908#0 31016344#0 316781879#0 8618348 316785565 23118706 384876527 384876526 4743778#0 127240643#0 127240643#1 127240643#2"/>
+        <busStop id="-4420481310" name="Staatstheater"/>
+        <busStop id="-583283132" name="Rathaus"/>
+        <busStop id="247702454" name="Packhof"/>
+        <busStop id="4397192314" name="Hintern Brüdern"/>
+        <busStop id="4397192313" name="Altstadtmarkt"/>
+        <busStop id="343717194" name="Güldenstraße"/>
+        <busStop id="585140525" name="Südstraße"/>
+        <busStop id="4513474931" name="Südstraße"/>
+        <busStop id="1741027767" name="Holzhof (Volkswagenhalle)"/>
+    </ptLine>
+    <ptLine id="8688426" name="Bus 413: Altstadtmarkt =&gt; Querumer Forst" line="413" type="bus" vClass="bus" period="1800" completeness="0.20">
+        <route edges="-625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+        <busStop id="335753779" name="Staatstheater"/>
+    </ptLine>
+    <ptLine id="8688427" name="Bus 413: Rüningen =&gt; Querumer Forst" line="413" type="bus" vClass="bus" period="1800" completeness="0.20">
+        <route edges="316791974#0 316791974#1 30426519#0 319389905 319389906#0 306497783 306497787#0 5021501#0 167920428#0 167920428#3 167920428#4 167920428#6 376468591#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 37976103#0 171756596 405363051#0"/>
+        <busStop id="544541081" name="Holzhof (Volkswagenhalle)"/>
+        <busStop id="398552760" name="Südstraße"/>
+        <busStop id="4513474932" name="Südstraße"/>
+        <busStop id="343717113" name="Güldenstraße"/>
+        <busStop id="-270105899" name="Altstadtmarkt"/>
+        <busStop id="335753011" name="Friedrich-Wilhelm-Platz"/>
+        <busStop id="3265534056" name="Friedrich-Wilhelm-Straße"/>
+        <busStop id="270066352" name="Münzstraße"/>
+        <busStop id="1515856077" name="Rathaus"/>
+        <busStop id="335753779" name="Staatstheater"/>
+    </ptLine>
+    <ptLine id="9117989" name="Bus 435: Donauknoten =&gt; Messegelände Nordeingang" line="435" type="bus" vClass="bus" period="1800" completeness="0.00"/>
+    <ptLine id="9118455" name="Bus 435: Messegelände Nordeingang =&gt; Donauknoten" line="435" type="bus" vClass="bus" period="1800" completeness="0.00"/>
+</ptLines>
