@@ -313,7 +313,7 @@ title: ChangeLog
   - Planned vehicle stops are no longer included in edgeData waitingTime output. Issue #7748
   - Option **--ignore-junction-blocker** is now working again. Issue #7650 (Regression in 1.0.0)
   - Fixed "jumping" persons when transfering from car to walking at junction. Issue #7778   
-  - Fixed unsaved insertion speed for IDM which was causing emergency braking #7786  
+  - Fixed unsafe insertion speed for IDM which was causing emergency braking #7786  
   - When using the sublane model, vehicles will now consider the travel speed on lanes beyond their current neighboring lanes for tactical lane changing. Issue #7620
   - Emergency vehicles that are using a rescue lane can now pass an intersection even if the necessary turning lane is blocked. Issue #7619
   - Fixed invalid negative space and time gap in ssm device output. Issue #7844
