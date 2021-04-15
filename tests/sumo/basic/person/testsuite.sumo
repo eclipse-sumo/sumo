@@ -97,6 +97,9 @@ persons_triggered
 # person stops for a given duration
 stop_duration
 
+# person stops for a given duration
+stop_duration0
+
 # person stops for a given duration, specified via attribute edge
 stop_edge
 
