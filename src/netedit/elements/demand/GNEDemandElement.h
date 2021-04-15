@@ -322,6 +322,9 @@ protected:
 
     /// @name Only for person plans
     /// @{
+    /// @brief check if person plan can be drawn
+    bool drawPersonPlan() const;
+
     /// @brief get first person plan edge
     const GNEEdge* getFirstPersonPlanEdge() const;
 

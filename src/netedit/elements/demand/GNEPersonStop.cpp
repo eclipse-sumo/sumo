@@ -232,25 +232,8 @@ GNEPersonStop::splitEdgeGeometry(const double /*splitPosition*/, const GNENetwor
 
 void
 GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
-    // declare flag to enable or disable draw person plan
-    bool drawPersonStop = false;
-    if (myTagProperty.isPersonStop()) {
-        if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
-                myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
-            drawPersonStop = true;
-        }
-    } else if (myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
-        drawPersonStop = true;
-    } else if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front())) {
-        drawPersonStop = true;
-    } else if (myNet->getViewNet()->getDemandViewOptions().getLockedPerson() == getParentDemandElements().front()) {
-        drawPersonStop = true;
-    } else if (!myNet->getViewNet()->getInspectedAttributeCarriers().empty() && myNet->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isPersonPlan() &&
-               (myNet->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(GNE_ATTR_PARENT) == getAttribute(GNE_ATTR_PARENT))) {
-        drawPersonStop = true;
-    }
     // check if stop can be drawn
-    if (drawPersonStop) {
+    if (drawPersonPlan()) {
         // Obtain exaggeration of the draw
         const double exaggeration = s.addSize.getExaggeration(s, this);
         // declare value to save stop color
@@ -291,10 +274,14 @@ GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::PERSONSTOP), s.additionalSettings.vaporizerSize * exaggeration);
             }
         } else {
-            // set route probe color
+            // rotate
+            glRotated(22.5, 0, 0, 1);
+            // set stop color
             GLHelper::setColor(stopColor);
-            // just drawn a box
-            GLHelper::drawBoxLine(Position(0, 0), 0, 2 * s.additionalSettings.vaporizerSize, s.additionalSettings.vaporizerSize * exaggeration);
+            // move matrix
+            glTranslated(0, 0, 0);
+            // draw filled circle
+            GLHelper::drawFilledCircle(0.1 + s.additionalSettings.vaporizerSize, 8);
         }
         // pop layer matrix
         glPopMatrix();
