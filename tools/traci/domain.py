@@ -148,6 +148,7 @@ class Domain:
             # decorate all methods
             for attrName in dir(self):
                 if (not attrName.startswith("_")
+                        and attrName != 'unsubscribe'
                         and (traceGetters or not attrName.startswith("get"))):
                     attr = getattr(self, attrName)
                     if callable(attr):
