@@ -496,13 +496,15 @@ GNEFrameModuls::DemandElementSelector::getPersonPlanPreviousEdge() const {
     const GNEDemandElement* lastPersonPlan = myCurrentDemandElement->getChildDemandElements().back();
     // check tag
     switch (lastPersonPlan->getTagProperty().getTag()) {
-        case GNE_TAG_PERSONTRIP_EDGE_EDGE:
+        case GNE_TAG_PERSONTRIP_EDGE:
+        case GNE_TAG_PERSONTRIP_FIRST_EDGE:
         case GNE_TAG_WALK_EDGES:
         case GNE_TAG_WALK_EDGE_EDGE:
         case GNE_TAG_RIDE_EDGE_EDGE:
         case GNE_TAG_PERSONSTOP_EDGE:
             return lastPersonPlan->getParentEdges().back();
-        case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
+        case GNE_TAG_PERSONTRIP_BUSSTOP:
+        case GNE_TAG_PERSONTRIP_FIRST_BUSSTOP:
         case GNE_TAG_WALK_EDGE_BUSSTOP:
         case GNE_TAG_RIDE_EDGE_BUSSTOP:
         case GNE_TAG_PERSONSTOP_BUSSTOP:
@@ -2154,8 +2156,19 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag element, const bool
             myCreationMode |= START_EDGE;
             myCreationMode |= END_EDGE;
             break;
+        // edge
+        case GNE_TAG_PERSONTRIP_EDGE:
+            myCreationMode |= SHOW_CANDIDATE_EDGES;
+            myCreationMode |= END_EDGE;
+            break;
+        // busStop
+        case GNE_TAG_PERSONTRIP_BUSSTOP:
+            myCreationMode |= SHOW_CANDIDATE_EDGES;
+            myCreationMode |= ONLY_FROMTO;
+            myCreationMode |= END_BUSSTOP;
+            break;
         // edge->edge
-        case GNE_TAG_PERSONTRIP_EDGE_EDGE:
+        case GNE_TAG_PERSONTRIP_FIRST_EDGE:
         case GNE_TAG_WALK_EDGE_EDGE:
         case GNE_TAG_RIDE_EDGE_EDGE:
             myCreationMode |= SHOW_CANDIDATE_EDGES;
@@ -2164,7 +2177,7 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag element, const bool
             myCreationMode |= END_EDGE;
             break;
         // edge->busStop
-        case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
+        case GNE_TAG_PERSONTRIP_FIRST_BUSSTOP:
         case GNE_TAG_WALK_EDGE_BUSSTOP:
         case GNE_TAG_RIDE_EDGE_BUSSTOP:
             myCreationMode |= SHOW_CANDIDATE_EDGES;
@@ -2173,7 +2186,6 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag element, const bool
             myCreationMode |= END_BUSSTOP;
             break;
         // busStop->edge
-        case GNE_TAG_PERSONTRIP_BUSSTOP_EDGE:
         case GNE_TAG_WALK_BUSSTOP_EDGE:
         case GNE_TAG_RIDE_BUSSTOP_EDGE:
             myCreationMode |= SHOW_CANDIDATE_EDGES;
@@ -2182,7 +2194,6 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag element, const bool
             myCreationMode |= END_EDGE;
             break;
         // busStop->busStop
-        case GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP:
         case GNE_TAG_WALK_BUSSTOP_BUSSTOP:
         case GNE_TAG_RIDE_BUSSTOP_BUSSTOP:
             myCreationMode |= ONLY_FROMTO;

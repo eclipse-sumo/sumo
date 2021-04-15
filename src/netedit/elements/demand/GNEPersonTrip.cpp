@@ -37,11 +37,11 @@
 
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
                              double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
-    GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_EDGE_EDGE,
-{}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myVTypes(types),
-myModes(modes) {
+    GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_FIRST_EDGE,
+        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition),
+    myVTypes(types),
+    myModes(modes) {
     // compute person trip
     computePath();
 }
@@ -49,34 +49,34 @@ myModes(modes) {
 
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
                              double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
-    GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_EDGE_BUSSTOP,
-{}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myVTypes(types),
-myModes(modes) {
+    GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_FIRST_BUSSTOP,
+        {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition),
+    myVTypes(types),
+    myModes(modes) {
     // compute person trip
     computePath();
 }
 
-GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEEdge* toEdge,
+GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* toEdge,
                              double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
-    GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_BUSSTOP_EDGE,
-{}, {toEdge}, {}, {fromBusStop}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myVTypes(types),
-myModes(modes) {
+    GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_EDGE,
+        {}, {toEdge}, {}, {}, {}, {}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition),
+    myVTypes(types),
+    myModes(modes) {
     // compute person trip
     computePath();
 }
 
 
-GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEAdditional* toBusStop,
+GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdditional* toBusStop,
                              double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
-    GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP,
-{}, {}, {}, {fromBusStop, toBusStop}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myVTypes(types),
-myModes(modes) {
+    GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_BUSSTOP,
+        {}, {}, {}, {toBusStop}, {}, {}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition),
+    myVTypes(types),
+    myModes(modes) {
     // compute person trip
     computePath();
 }
@@ -217,18 +217,67 @@ GNEPersonTrip::updateGeometry() {
 void
 GNEPersonTrip::computePath() {
     // update lanes depending of walk tag
-    if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_EDGE) {
-        myNet->getPathManager()->calculateLanesPath(this, getVClass(),
-            {getFirstAllowedVehicleLane(), getLastAllowedVehicleLane()});
-    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) {
-        myNet->getPathManager()->calculateLanesPath(this, getVClass(),
-            {getFirstAllowedVehicleLane(), getParentAdditionals().back()->getParentLanes().front()});
-    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_EDGE) {
-        myNet->getPathManager()->calculateLanesPath(this, getVClass(),
-            {getParentAdditionals().front()->getParentLanes().front(), getLastAllowedVehicleLane()});
-    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP) {
-        myNet->getPathManager()->calculateLanesPath(this, getVClass(),
-            {getParentAdditionals().front()->getParentLanes().front(), getParentAdditionals().back()->getParentLanes().front()});
+    if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE) {
+        // get previous plan
+        const GNEDemandElement *previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
+        // check previousPersonPlan
+        if (previousPersonPlan) {
+            // calculate depending of previous person plan
+            if (previousPersonPlan->getTagProperty().personPlanEndEdge()) {
+                // use last edge
+                myNet->getPathManager()->calculateLanesPath(this, getVClass(),
+                    { previousPersonPlan->getLastAllowedVehicleLane(), 
+                      getLastAllowedVehicleLane()});
+            } else if (previousPersonPlan->getTagProperty().personPlanEndBusStop()) {
+                // use busStop lane
+                myNet->getPathManager()->calculateLanesPath(this, getVClass(),
+                    { previousPersonPlan->getParentAdditionals().front()->getParentLanes().front(), 
+                      getLastAllowedVehicleLane() });
+            } else if (previousPersonPlan->getTagProperty().personPlanEndStop()) {
+                // use stop lane
+                myNet->getPathManager()->calculateLanesPath(this, getVClass(),
+                    { previousPersonPlan->getParentLanes().front(), 
+                      getLastAllowedVehicleLane() });
+            }
+        }
+    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP) {
+        // get previous plan
+        const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
+        // check previousPersonPlan
+        if (previousPersonPlan) {
+            // calculate depending of previous person plan
+            if (previousPersonPlan->getTagProperty().personPlanEndEdge()) {
+                // use last edge
+                myNet->getPathManager()->calculateLanesPath(this, getVClass(), { 
+                        previousPersonPlan->getLastAllowedVehicleLane(), 
+                        getParentAdditionals().back()->getParentLanes().front() 
+                    });
+            } else if (previousPersonPlan->getTagProperty().personPlanEndBusStop()) {
+                // use busStop lane
+                myNet->getPathManager()->calculateLanesPath(this, getVClass(), { 
+                        previousPersonPlan->getParentAdditionals().front()->getParentLanes().front(), 
+                        getParentAdditionals().back()->getParentLanes().front() 
+                    });
+            } else if (previousPersonPlan->getTagProperty().personPlanEndStop()) {
+                // use stop lane
+                myNet->getPathManager()->calculateLanesPath(this, getVClass(), { 
+                        previousPersonPlan->getParentLanes().front(), 
+                        getParentAdditionals().back()->getParentLanes().front() 
+                    });
+            }
+        }
+    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_FIRST_EDGE) {
+        // use first and last edge
+        myNet->getPathManager()->calculateLanesPath(this, getVClass(), { 
+                getFirstAllowedVehicleLane(), 
+                getLastAllowedVehicleLane() 
+            });
+    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_FIRST_BUSSTOP) {
+        // use first edge and busStop
+        myNet->getPathManager()->calculateLanesPath(this, getVClass(), { 
+                getFirstAllowedVehicleLane(), 
+                getParentAdditionals().back()->getParentLanes().front() 
+            });
     }
     // update geometry
     updateGeometry();
@@ -433,14 +482,14 @@ GNEPersonTrip::getPopUpID() const {
 
 std::string
 GNEPersonTrip::getHierarchyName() const {
-    if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_EDGE) {
-        return "personTrip: " + getParentEdges().front()->getID() + " -> " + getParentEdges().back()->getID();
-    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) {
-        return "personTrip: " + getParentEdges().front()->getID() + " -> " + getParentAdditionals().back()->getID();
-    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_EDGE) {
+    if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE) {
+        return "personTrip: " + getParentEdges().front()->getID();
+    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP) {
+        return "personTrip: " + getParentAdditionals().front()->getID();
+    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_FIRST_EDGE) {
         return "personTrip: " + getParentAdditionals().front()->getID() + " -> " + getParentEdges().back()->getID();
-    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP) {
-        return "personTrip: " + getParentAdditionals().front()->getID() + " -> " + getParentAdditionals().back()->getID();
+    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_FIRST_BUSSTOP) {
+        return "personTrip: " + getParentAdditionals().front()->getID() + " -> " + getParentAdditionals().front()->getID();
     } else {
         throw ("Invalid personTrip tag");
     }

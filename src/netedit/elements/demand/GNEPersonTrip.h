@@ -63,25 +63,23 @@ public:
     /**@brief parameter constructor for person edge->edge
     * @param[in] viewNet view in which this PersonTrip is placed
     * @param[in] personParent person parent
-    * @param[in] fromBusStop from busStop
     * @param[in] toEdge to edge
     * @param[in] arrivalPosition arrival position on the destination edge
     * @param[in] types list of possible vehicle types to take
     * @param[in] modes list of possible traffic modes
     */
-    GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEEdge* toEdge,
+    GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* toEdge,
                   double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes);
 
     /**@brief parameter constructor for person edge->edge
     * @param[in] viewNet view in which this PersonTrip is placed
     * @param[in] personParent person parent
-    * @param[in] fromBusStop from busStop
     * @param[in] toBusStop to busStop
     * @param[in] arrivalPosition arrival position on the destination edge
     * @param[in] types list of possible vehicle types to take
     * @param[in] modes list of possible traffic modes
     */
-    GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEAdditional* toBusStop,
+    GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdditional* toBusStop,
                   double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes);
 
     /// @brief destructor
