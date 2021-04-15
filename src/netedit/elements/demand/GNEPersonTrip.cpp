@@ -358,7 +358,10 @@ GNEPersonTrip::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_VTYPES:
             return joinToString(myVTypes, " ");
         case SUMO_ATTR_ARRIVALPOS:
-            if (myArrivalPosition == -1) {
+            if ((myTagProperty.getTag() == GNE_TAG_PERSONTRIP_FIRST_BUSSTOP) ||
+                (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP)) {
+                    return getParentAdditionals().front()->getAttribute(SUMO_ATTR_ENDPOS);
+            } else if (myArrivalPosition == -1) {
                 return "";
             } else {
                 return toString(myArrivalPosition);
@@ -379,7 +382,10 @@ double
 GNEPersonTrip::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ARRIVALPOS:
-            if (myArrivalPosition != -1) {
+            if ((myTagProperty.getTag() == GNE_TAG_PERSONTRIP_FIRST_BUSSTOP) ||
+                (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP)) {
+                return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_STARTPOS);
+            } else if (myArrivalPosition != -1) {
                 return myArrivalPosition;
             } else {
                 return (getLastAllowedVehicleLane()->getLaneShape().length() - POSITION_EPS);

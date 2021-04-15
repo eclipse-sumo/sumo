@@ -417,7 +417,9 @@ GNEDemandElement::getPersonPlanDepartPos() const {
     const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
     // check if this is the first person plan
     if (previousPersonPlan) {
-        if (previousPersonPlan->getTagProperty().hasAttribute(SUMO_ATTR_ENDPOS)) {
+        if (previousPersonPlan->getTagProperty().personPlanEndBusStop()) {
+            return previousPersonPlan->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
+        } else if (previousPersonPlan->getTagProperty().hasAttribute(SUMO_ATTR_ENDPOS)) {
             return previousPersonPlan->getAttributeDouble(SUMO_ATTR_ENDPOS);
         } else if (previousPersonPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
             return previousPersonPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
