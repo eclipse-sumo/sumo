@@ -64,6 +64,7 @@ spec:
       steps {
         container('ubuntu-sumo') {
           sh '''
+            git fetch --tags --force
             mkdir -p cmake-build 
             cd cmake-build 
             export CC=gcc; export CXX=g++; 
