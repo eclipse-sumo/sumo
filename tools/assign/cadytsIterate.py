@@ -20,8 +20,13 @@
 # @date    2010-09-15
 
 """
-Run cadyts to calibrate the simulation with given routes and traffic measurements.
-Respective traffic zones information has to exist in the given route files.
+- Run Cadyts to calibrate the SUMO simulation with given routes (including alternatives and
+  exit time) for each edge and traffic measurements.
+- Edges' exit-time information can be obtained by setting the option "exit-times" True when
+  running DUARouter/duaIterate.py
+- The file format of the route alternatives (together with exit-times info) corresponds to 
+  the DUAROUTER assignment result (*.alt.xml)
+- Respective traffic zones information has to exist in the given route files.
 """
 from __future__ import absolute_import
 from __future__ import print_function
