@@ -4,6 +4,11 @@
 # deadlock must be resolved (default: delayed vehicle gets more delayed)
 2
 
+# deadlock must be resolved 
+# initially it would have been possible to delay the delayed vehicle some more but that constraint can no longer be swapped because both vehicles have passed that point.
+# As a consequeunce, the overtaking vehicle must keep overtaking
+2_swapLater
+
 # no further constraints must be removed
 3
 
