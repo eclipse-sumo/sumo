@@ -162,4 +162,4 @@ The attributes within the stages have the following meaning:
 Aggregated output for key tripinfo-output attributes can be obtained by setting
 the option [**--statistic-output**](StatisticOutput.md).
 
-For further aggregation see [attributeStats.py](Tools/Output.html#attributestatspy) and [Tools/Xml\#xml2csv.py](../../Tools/Xml.md#xml2csvpy).
+For further aggregation see [attributeStats.py](../../Tools/Output.md#attributestatspy) and [Tools/Xml\#xml2csv.py](../../Tools/Xml.md#xml2csvpy).
