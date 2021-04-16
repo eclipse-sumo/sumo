@@ -28,13 +28,12 @@ except ImportError:
     # python3
     import http.client as httplib
     import urllib.parse as urlparse
-    from urllib.request import urlopen, Request
+    from urllib.request import urlopen
 
 import base64
 from os import path
 
 import sumolib  # noqa
-from sumolib.output import parse
 import gzip
 
 def readCompressed(conn, urlpath, query, filename):
@@ -143,7 +142,7 @@ def get(args=None):
         osmFile = path.join(os.getcwd(), options.prefix + "_bbox.osm.xml")
         codeSet = set()
         # deal with invalid characters
-        bad_chars = [';', ':', '!', "*", ')', '(', '-', '_', '%', '&', '/', '=', '?', '§','#','<','>']
+        bad_chars = [';', ':', '!', "*", ')', '(', '-', '_', '%', '&', '/', '=', '?', '//','\\','#','<','>']
         for line in open(osmFile, encoding='utf8'):
             subSet = set()
             if 'wikidata' in line and line.split('"')[3][0] == 'Q':
