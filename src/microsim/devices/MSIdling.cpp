@@ -43,36 +43,42 @@
 
 void
 MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
-    MSVehicle& veh = dynamic_cast<MSVehicle&>(taxi->getHolder());
-    if (!veh.hasStops()) {
+    if (!taxi->getHolder().hasStops()) {
         //std::cout << SIMTIME << " MSIdling_Stop add stop\n";
         // add stop
         std::string errorOut;
-        const double brakeGap = veh.getCarFollowModel().brakeGap(veh.getSpeed());
-        std::pair<const MSLane*, double> stopPos = veh.getLanePosAfterDist(brakeGap);
+        double brakeGap = 0;
+        std::pair<const MSLane*, double> stopPos;
+        if (MSGlobals::gUseMesoSim) {
+            stopPos = std::make_pair(taxi->getHolder().getLane(), taxi->getHolder().getPositionOnLane());
+        } else {
+            MSVehicle& veh = dynamic_cast<MSVehicle&>(taxi->getHolder());
+            brakeGap = veh.getCarFollowModel().brakeGap(veh.getSpeed());
+            stopPos = veh.getLanePosAfterDist(brakeGap);
+        }
         if (stopPos.first != nullptr) {
             SUMOVehicleParameter::Stop stop;
             stop.lane = stopPos.first->getID();
             stop.startPos = stopPos.second;
             stop.endPos = stopPos.second + POSITION_EPS;
-            if (veh.getVehicleType().getContainerCapacity() > 0) {
+            if (taxi->getHolder().getVehicleType().getContainerCapacity() > 0) {
                 stop.containerTriggered = true;
             } else {
                 stop.triggered = true;
             }
             stop.actType = "idling";
             stop.parking = true;
-            veh.addTraciStop(stop, errorOut);
+            taxi->getHolder().addTraciStop(stop, errorOut);
             if (errorOut != "") {
                 WRITE_WARNING(errorOut);
             }
         } else {
-            WRITE_WARNING("Idle taxi '" + veh.getID() + "' could not stop within " + toString(brakeGap) + "m");
+            WRITE_WARNING("Idle taxi '" + taxi->getHolder().getID() + "' could not stop within " + toString(brakeGap) + "m");
         }
     } else {
         //std::cout << SIMTIME << " MSIdling_Stop reuse stop\n";
-        MSStop& stop = veh.getNextStop();
-        if (veh.getVehicleType().getContainerCapacity() > 0) {
+        MSStop& stop = taxi->getHolder().getNextStop();
+        if (taxi->getHolder().getVehicleType().getContainerCapacity() > 0) {
             stop.containerTriggered = true;
         } else {
             stop.triggered = true;
@@ -86,7 +92,7 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
 
 void
 MSIdling_RandomCircling::idle(MSDevice_Taxi* taxi) {
-    MSVehicle& veh = dynamic_cast<MSVehicle&>(taxi->getHolder());
+    SUMOVehicle& veh = taxi->getHolder();
     ConstMSEdgeVector edges = veh.getRoute().getEdges();
     ConstMSEdgeVector newEdges;
     double remainingDist = -veh.getPositionOnLane();

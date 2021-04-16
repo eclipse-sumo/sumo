@@ -97,10 +97,6 @@ void
 MSDevice_Taxi::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "taxi", v, false)) {
-        if (MSGlobals::gUseMesoSim) {
-            WRITE_WARNING("Mesoscopic simulation does not support the taxi device yet.");
-            return;
-        }
         // build the device
         MSDevice_Taxi* device = new MSDevice_Taxi(v, "taxi_" + v.getID());
         into.push_back(device);
@@ -122,6 +118,7 @@ MSDevice_Taxi::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>
         }
     }
 }
+
 
 void
 MSDevice_Taxi::initDispatch() {
@@ -501,8 +498,7 @@ MSDevice_Taxi::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
         if (!myIsStopped) {
             // limit duration of stop
             // @note: stops are not yet added to the vehicle so we can change the loaded parameters. Stops added from a route are not affected
-            MSVehicle& veh = static_cast<MSVehicle&>(myHolder);
-            veh.getNextStop().endBoarding = myServiceEnd;
+            myHolder.getNextStop().endBoarding = myServiceEnd;
         }
     }
     myIsStopped = myHolder.isStopped();
@@ -547,12 +543,11 @@ MSDevice_Taxi::customerArrived(const MSTransportable* person) {
     myCustomers.erase(person);
     if (myHolder.getPersonNumber() == 0 && myHolder.getContainerNumber() == 0) {
         myState &= ~OCCUPIED;
-        MSVehicle* veh = static_cast<MSVehicle*>(&myHolder);
-        if (veh->getStops().size() > 1 && (myState & PICKUP) == 0) {
+        if (myHolder.getStops().size() > 1 && (myState & PICKUP) == 0) {
             WRITE_WARNINGF("All customers left vehicle '%' at time % but there are % remaining stops",
-                           veh->getID(), time2string(MSNet::getInstance()->getCurrentTimeStep()), veh->getStops().size() - 1);
-            while (veh->getStops().size() > 1) {
-                veh->abortNextStop(1);
+                           myHolder.getID(), time2string(MSNet::getInstance()->getCurrentTimeStep()), myHolder.getStops().size() - 1);
+            while (myHolder.getStops().size() > 1) {
+                myHolder.abortNextStop(1);
             }
         }
     }
@@ -584,8 +579,7 @@ MSDevice_Taxi::customerArrived(const MSTransportable* person) {
 
 bool
 MSDevice_Taxi::hasFuturePickup() {
-    MSVehicle* veh = static_cast<MSVehicle*>(&myHolder);
-    for (const auto& stop : veh->getStops()) {
+    for (const auto& stop : myHolder.getStops()) {
         if (stop.reached) {
             continue;
         }

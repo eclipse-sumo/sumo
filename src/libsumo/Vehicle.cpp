@@ -911,15 +911,10 @@ Vehicle::setStop(const std::string& vehID,
                  double startPos,
                  double until) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
-    MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
-    if (veh == nullptr) {
-        WRITE_WARNING("setStop not yet implemented for meso");
-        return;
-    }
     SUMOVehicleParameter::Stop stopPars = Helper::buildStopParameters(edgeID,
                                           pos, laneIndex, startPos, flags, duration, until);
     std::string error;
-    if (!veh->addTraciStop(stopPars, error)) {
+    if (!vehicle->addTraciStop(stopPars, error)) {
         throw TraCIException(error);
     }
 }

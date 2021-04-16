@@ -39,6 +39,7 @@ class MSRoute;
 class MSEdge;
 class MSLane;
 class MSPerson;
+class MSStop;
 class MSTransportable;
 class MSParkingArea;
 class MSStoppingPlace;
@@ -301,8 +302,33 @@ public:
     /** @brief Returns whether the vehicle stops at the given edge */
     virtual bool stopsAtEdge(const MSEdge* edge) const = 0;
 
+    /** @brief Returns whether the vehicle has to stop somewhere
+     * @return Whether the vehicle has to stop somewhere
+     */
+    virtual bool hasStops() const = 0;
+
+    /**
+     * returns the list of stops not yet reached in the stop queue
+     * @return the list of upcoming stops
+     */
+    virtual const std::list<MSStop>& getStops() const = 0;
+
+    /**
+    * returns the next imminent stop in the stop queue
+    * @return the upcoming stop
+    */
+    virtual MSStop& getNextStop() = 0;
+
     /** @brief Returns parameters of the next stop or nullptr **/
     virtual const SUMOVehicleParameter::Stop* getNextStopParameter() const = 0;
+
+    /**
+     * schedule a new stop for the vehicle; each time a stop is reached, the vehicle
+     * will wait for the given duration before continuing on its route
+     * @param[in] stop Stop parameters
+     * @param[out] errorMsg returned error message
+     */
+    virtual bool addTraciStop(SUMOVehicleParameter::Stop stop, std::string& errorMsg) = 0;
 
     virtual void setChosenSpeedFactor(const double factor) = 0;
 

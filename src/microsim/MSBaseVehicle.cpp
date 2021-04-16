@@ -1189,6 +1189,49 @@ MSBaseVehicle::getStopIndices() const {
 }
 
 
+MSStop&
+MSBaseVehicle::getNextStop() {
+    return myStops.front();
+}
+
+
+const SUMOVehicleParameter::Stop*
+MSBaseVehicle::getNextStopParameter() const {
+    if (hasStops()) {
+        return &myStops.front().pars;
+    }
+    return nullptr;
+}
+
+
+bool
+MSBaseVehicle::addTraciStop(SUMOVehicleParameter::Stop stop, std::string& errorMsg) {
+    //if the stop exists update the duration
+    for (std::list<MSStop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {
+        if (iter->lane->getID() == stop.lane && fabs(iter->pars.endPos - stop.endPos) < POSITION_EPS) {
+            // update existing stop
+            if (stop.duration == 0 && stop.until < 0 && !iter->reached) {
+                myStops.erase(iter);
+                // XXX also erase from myParameter->stops ?
+            } else {
+                iter->duration = stop.duration;
+                iter->triggered = stop.triggered;
+                iter->containerTriggered = stop.containerTriggered;
+                const_cast<SUMOVehicleParameter::Stop&>(iter->pars).until = stop.until;
+                const_cast<SUMOVehicleParameter::Stop&>(iter->pars).parking = stop.parking;
+            }
+            return true;
+        }
+    }
+    const bool result = addStop(stop, errorMsg);
+    if (result) {
+        /// XXX handle stops added out of order
+        myParameter->stops.push_back(stop);
+    }
+    return result;
+}
+
+
 bool
 MSBaseVehicle::abortNextStop(int nextStopIndex) {
     if (hasStops() && nextStopIndex < (int)myStops.size()) {

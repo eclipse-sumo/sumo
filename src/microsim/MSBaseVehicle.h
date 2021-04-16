@@ -583,6 +583,23 @@ public:
     }
 
     /**
+    * returns the next imminent stop in the stop queue
+    * @return the upcoming stop
+    */
+    MSStop& getNextStop();
+
+    /// @brief return parameters for the next stop (SUMOVehicle Interface)
+    const SUMOVehicleParameter::Stop* getNextStopParameter() const;
+
+    /**
+     * schedule a new stop for the vehicle; each time a stop is reached, the vehicle
+     * will wait for the given duration before continuing on its route
+     * @param[in] stop Stop parameters
+     * @param[out] errorMsg returned error message
+     */
+    virtual bool addTraciStop(SUMOVehicleParameter::Stop stop, std::string& errorMsg);
+
+    /**
     * resumes a vehicle from stopping
     * @return true on success, the resuming fails if the vehicle wasn't parking in the first place
     */

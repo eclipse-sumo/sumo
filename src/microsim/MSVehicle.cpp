@@ -6079,32 +6079,12 @@ MSVehicle::rerouteParkingArea(const std::string& parkingAreaID, std::string& err
     return true;
 }
 
+
 bool
 MSVehicle::addTraciStop(SUMOVehicleParameter::Stop stop, std::string& errorMsg) {
-    //if the stop exists update the duration
-    for (std::list<MSStop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {
-        if (iter->lane->getID() == stop.lane && fabs(iter->pars.endPos - stop.endPos) < POSITION_EPS) {
-            // update existing stop
-            if (stop.duration == 0 && stop.until < 0 && !iter->reached) {
-                myStops.erase(iter);
-                // XXX also erase from myParameter->stops ?
-                updateBestLanes(true);
-            } else {
-                iter->duration = stop.duration;
-                iter->triggered = stop.triggered;
-                iter->containerTriggered = stop.containerTriggered;
-                const_cast<SUMOVehicleParameter::Stop&>(iter->pars).until = stop.until;
-                const_cast<SUMOVehicleParameter::Stop&>(iter->pars).parking = stop.parking;
-            }
-            return true;
-        }
-    }
-    const bool result = addStop(stop, errorMsg);
-    if (result) {
-        /// XXX handle stops added out of order
-        myParameter->stops.push_back(stop);
-    }
-    if (myLane != nullptr) {
+    const int numStops = (int)myStops.size();
+    const bool result = MSBaseVehicle::addTraciStop(stop, errorMsg);
+    if (myLane != nullptr && numStops != (int)myStops.size()) {
         updateBestLanes(true);
     }
     return result;
@@ -6198,19 +6178,6 @@ MSVehicle::resumeFromStopping() {
     return false;
 }
 
-
-MSStop&
-MSVehicle::getNextStop() {
-    return myStops.front();
-}
-
-const SUMOVehicleParameter::Stop*
-MSVehicle::getNextStopParameter() const {
-    if (hasStops()) {
-        return &myStops.front().pars;
-    }
-    return nullptr;
-}
 
 MSVehicle::Influencer&
 MSVehicle::getInfluencer() {

@@ -1184,15 +1184,6 @@ public:
     bool handleCollisionStop(MSStop& stop, const bool collision, const double distToStop, const std::string& errorMsgStart, std::string& errorMsg);
 
     /**
-    * returns the next imminent stop in the stop queue
-    * @return the upcoming stop
-    */
-    MSStop& getNextStop();
-
-    /// @brief return parameters for the next stop (SUMOVehicle Interface)
-    const SUMOVehicleParameter::Stop* getNextStopParameter() const;
-
-    /**
     * resumes a vehicle from stopping
     * @return true on success, the resuming fails if the vehicle wasn't parking in the first place
     */
