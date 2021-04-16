@@ -4,3 +4,6 @@ vissim_parseRoutes
 # tools for downloading and importing OSM networks
 OSM
 MATSim
+
+# tools for importing GTFS data
+GTFS
