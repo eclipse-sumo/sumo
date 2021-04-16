@@ -364,9 +364,10 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
     Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
     Record2, reprog2 = _createRecordAndPattern(element_name2, attrnames2, warn, optional)
     record = None
+    m = None
     for line in _open(xmlfile, encoding):
         m2 = reprog2.search(line)
-        if m2:
+        if m and m2:
             if optional:
                 yield record, Record2(**m2.groupdict())
             else:
