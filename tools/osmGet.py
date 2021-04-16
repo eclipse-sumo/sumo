@@ -142,7 +142,7 @@ def get(args=None):
         osmFile = path.join(os.getcwd(), options.prefix + "_bbox.osm.xml")
         codeSet = set()
         # deal with invalid characters
-        bad_chars = [';', ':', '!', "*", ')', '(', '-', '_', '%', '&', '/', '=', '?', '$','%','','//','\\','#','<','>']
+        bad_chars = [';', ':', '!', "*", ')', '(', '-', '_', '%', '&', '/', '=', '?', '$','//','\\','#','<','>']
         for line in open(osmFile, encoding='utf8'):
             subSet = set()
             if 'wikidata' in line and line.split('"')[3][0] == 'Q':
