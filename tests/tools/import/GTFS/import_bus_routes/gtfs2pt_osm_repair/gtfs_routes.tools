@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-04-14 16:01:58.331012 by gtfs_ptline.rou.xml v1_9_0+0038-34804216f7
-  options: -n net.net.xml <doubleminus>osm-routes ptlines.xml <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111 <doubleminus>bbox 10.509219,52.256458,10.530758,52.270119 <doubleminus>repair <doubleminus>pt-types bus <doubleminus>min-stops 0
+<!-- generated on 2021-04-16 16:57:12.397571 by gtfs_publictransport.rou.xml v1_9_0+0092-9367f1c8af
+  options: -n net.net.xml <doubleminus>osm-routes ptlines.xml <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111 <doubleminus>bbox 10.509219,52.256458,10.530758,52.270119 <doubleminus>repair <doubleminus>modes bus <doubleminus>min-stops 0 <doubleminus>verbose
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="bus" vClass="bus"/>
-    <vType id="train" vClass="rail"/>
-    <vType id="tram" vClass="tram"/>
-    <vType id="subway" vClass="rail_urban"/>
-    <vType id="ferry" vClass="ship"/>
     <vehicle id="422_132188547" line="14785_3_0" depart="5:00:00" departEdge="29" arrivalEdge="30" type="bus"><!--Braunschweig Bebelhof-->
         <route edges="283066855 9887577 25087143 59873992 320814798 8118981 59873991 320814805#0 320399277#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 37976103#0"/>
         <stop busStop="120010034201_0" arrival="5:00:00" duration="10" until="5:00:00"/><!--Braunschweig Rathaus-->
