@@ -343,7 +343,7 @@ client version and SUMO version match. When using SUMO version 1.0.0 or larger y
   The simulation itself runs on a single core. However, routing
   in [sumo](sumo.md) or [duarouter](duarouter.md) can
   be parallelized by setting the option **--device.rerouting.threads** {{DT_INT}} and **--routing-threads** {{DT_INT}} respectively.
-  When these options are are used, multiple cores on the machine are used.
+  When these options are used, multiple cores on the machine are used.
   
   There is no support for multi-node parallelization.
   
