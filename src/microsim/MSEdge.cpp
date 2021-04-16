@@ -298,6 +298,11 @@ MSEdge::rebuildAllowedTargets(const bool updateVehicles) {
                 if (&link->getLane()->getEdge() == target) {
                     allLanes->push_back(lane);
                     combinedTargetPermissions |= link->getLane()->getPermissions();
+                    if (link->getViaLane() != nullptr &&
+                            ((lane->getPermissions() & link->getLane()->getPermissions()) != link->getViaLane()->getPermissions())) {
+                        // custom connection permissions
+                        universalMap = false;
+                    }
                 }
             }
             if (combinedTargetPermissions == 0 || (lane->getPermissions() & combinedTargetPermissions) != lane->getPermissions()) {
