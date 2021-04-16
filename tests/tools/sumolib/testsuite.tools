@@ -27,5 +27,8 @@ getShortestRoute_rail
 # parsing XML and accessing objects
 xml
 
+# parsing nested XML
+xml.parse_nested
+
 # testing statistics 
 statistics
