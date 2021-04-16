@@ -1,3 +1,15 @@
+sumo (1.9.0+dfsg1-8) focal; urgency=medium
+
+  * new upstream version
+
+ -- Michael Behrisch <oss@behrisch.de>  Tue, 13 Apr 2021 11:22:48 +0200
+
+sumo (1.8.0+dfsg1-2~focal) focal; urgency=medium
+
+  * new upstream version
+
+ -- Michael Behrisch <oss@behrisch.de>  Wed, 02 Dec 2020 10:55:01 +0100
+
 sumo (1.7.0+dfsg1-2) bionic; urgency=medium
 
   * new upstream version

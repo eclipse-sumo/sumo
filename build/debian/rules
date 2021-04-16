@@ -22,20 +22,23 @@ include /usr/share/dpkg/buildflags.mk
 
 # we need to set the CMAKE_BUILD_TYPE because it is set to "None" otherwise
 override_dh_auto_configure:
-	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release
+	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DENABLE_JAVA_BINDINGS=OFF
 
 override_dh_auto_build-indep:
-#	$(MAKE) --directory=$(BUILDDIR) traas
-	./tools/build/buildPyDoc.py -p docs/pydoc -c
-	#Clean some unneeded files and fix permissions
+#	Clean some unneeded files
 	find ./tools -name '*.pyc' -print0 | xargs -0 rm -f
 	rm -rf ./tools/contributed/traas/license.txt
 	rm -rf ./tools/contributed/traci4matlab/license.txt
 	rm -rf ./tools/game/sounds/license.txt
-
-override_dh_auto_test:
 	sed -i '/traas/d' ./docs/examples/runAll.py
-	dh_auto_test
+#	Fix shebangs
+	find ./tools -name '*.py' -print0 | xargs -0 sed -i 's,^#!/usr/bin/env python2,#!/usr/bin/python2,'
+	find ./tools -name '*.py' -print0 | xargs -0 sed -i 's,^#!/usr/bin/env python3,#!/usr/bin/python3,'
+	find ./tools -name '*.py' -print0 | xargs -0 sed -i 's,^#!/usr/bin/env python,#!/usr/bin/python3,'
+	find ./docs -name '*.py' -print0 | xargs -0 sed -i 's,^#!/usr/bin/env python,#!/usr/bin/python3,'
+	find ./docs -name '*.py' -print0 | xargs -0 sed -i 's,"python","python3",'
+#	build pydoc
+	./tools/build/buildPyDoc.py -p docs/pydoc -c
 
 override_dh_auto_build-arch:
 	dh_auto_build -a
@@ -43,6 +46,7 @@ override_dh_auto_build-arch:
 
 override_dh_auto_install:
 	dh_auto_install
+	find . -name "*.pyc" -delete
 	find . -type d -name "__pycache__" -delete
 
 # By default, dh_compress compresses files that Debian policy mandates

@@ -38,9 +38,6 @@ BuildRequires:  python3
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
 BuildRequires:  swig
-%if 0%{?suse_version}
-BuildRequires:  python-xml
-%endif
 BuildRequires:  help2man
 BuildRequires:  pkgconfig
 BuildRequires:  unzip
@@ -93,11 +90,7 @@ The libsumo python module provides support to connect to and remote control a ru
 %prep
 %setup -q
 # Use real shebang
-%if 0%{?fedora_version} > 28 || 0%{?centos_version} >= 800
 find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python$,#!%{_bindir}/python3,'
-%else
-find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python$,#!%{_bindir}/python,'
-%endif
 find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python3$,#!%{_bindir}/python3,'
 
 %build
