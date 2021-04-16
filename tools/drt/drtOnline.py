@@ -64,7 +64,7 @@ def initOptions():
                     help="Cost of ignoring a reservation")
     ap.add_argument("--cost-per-trip", type=int, default=600,
                     help="Cost to avoid using multiple vehicles if the travel time of trips is similar (default 600 seconds)")  # noqa
-    ap.add_argument("--drf", dest="drf", type=int, default=2,
+    ap.add_argument("--drf", dest="drf", type=float, default=2,
                     help="Factor by which the DRT travel time should not exceed the one of a direct connection (default 2)")  # noqa
     ap.add_argument("--drf-min", type=int, default=600,
                     help="Minimum time difference allowed between DRT travel time and direct connection for the cases of short trips (default 600 seconds)")  # noqa
