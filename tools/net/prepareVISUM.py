@@ -20,9 +20,9 @@
 
 Parses a VISUM-file and writes a modified
  version in "<FILENAME>_mod.net".
-Removes all roads which type is not within
+Removes all roads whose type is not within
  types2import, patches lane number information
- for all other using the values stored in types2import.
+ for all others using the values stored in types2import.
 """
 from __future__ import absolute_import
 from __future__ import print_function

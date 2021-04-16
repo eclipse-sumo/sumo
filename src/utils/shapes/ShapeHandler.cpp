@@ -251,7 +251,7 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
         }
         // check that lineWidth is positive
         if (lineWidth <= 0) {
-            WRITE_ERROR("Polygon's lineWidth must be greather than 0.");
+            WRITE_ERROR("Polygon's lineWidth must be greater than 0.");
             return;
         }
         // create polygon, or show an error if polygon already exists
