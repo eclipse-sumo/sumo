@@ -54,3 +54,6 @@ beyond_stops
 
 # assign edge priority based on main direction
 direction-priority
+
+# road connections should not be affect by railway repair
+road_connections
