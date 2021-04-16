@@ -188,7 +188,11 @@ NBRailwayTopologyAnalyzer::addBidiEdge(NBNetBuilder& nb, NBEdge* edge, bool upda
         if (update) {
             updateTurns(edge);
             // reconnected added edges
-            e2->getFromNode()->invalidateIncomingConnections();
+            for (NBEdge* incoming : e2->getFromNode()->getIncomingEdges()) {
+                if (isRailway(incoming->getPermissions())) {
+                    incoming->invalidateConnections();
+                }
+            }
         }
         return e2;
     } else {
