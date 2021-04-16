@@ -19,3 +19,6 @@ internal_junction_controlled
 
 # bicycles make an indirect left turn and wait at the internal junction until a gap in the flow of their own phase
 internal_junction_uncontrolled
+
+# mopeds make an indirect left turn and wait at the internal junction until the flow across gets the green light. Their waiting area encompasses multiple lanes.
+internal_junction_controlled_moped
