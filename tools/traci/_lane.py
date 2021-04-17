@@ -109,6 +109,16 @@ class LaneDomain(Domain):
         if extended=True, each result tuple contains
         (string approachedLane, bool hasPrio, bool isOpen, bool hasFoe,
         string approachedInternal, string state, string direction, float length)
+
+        isOpen: whether a vehicle driving at the speed limit (minimum auf
+                incoming and outgoing lane) could safely pass the junction with
+                regard to approaching foes if it were to enter it in this step
+                (false for red traffic light).
+                Foe vehicles that are already on the junction are ignored!
+        hasPrio: whether the link is the main road at a priority junction or
+                 currently has green light ('G')
+        hasFoe: whether any foe vehicles are approaching the junction or on the
+                junction that would interfere with passing it in the current time step
         """
         complete_data = self._getUniversal(tc.LANE_LINKS, laneID)
         if extended:
