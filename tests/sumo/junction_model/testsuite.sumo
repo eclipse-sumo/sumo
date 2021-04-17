@@ -27,6 +27,12 @@ driveAfterRedTime
 ignoreRightOfWay
 ignoreFoeOnJunction
 
+# tests ignoring foes by id
+ignoreID
+
+# tests ignoring foes by type
+ignoreType
+
 # configure timegap to observe when passing a minor link
 timegapMinor
 

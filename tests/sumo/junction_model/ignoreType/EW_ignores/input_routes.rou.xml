@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="t0" sigma="0" speedDev="0.1"/>
+
+   <flow id="foe" type="t0" begin="0" end="45" period="2" departPos="10" departSpeed="max" arrivalPos="50">
+       <route edges="SC CN"/>
+   </flow>
+   <vehicle id="ego" type="t0" depart="7" departPos="10" departSpeed="0" arrivalPos="50">
+       <route edges="EC CW"/>
+       <param key="junctionModel.ignoreTypes" value="t0"/>
+   </vehicle>
+</routes>

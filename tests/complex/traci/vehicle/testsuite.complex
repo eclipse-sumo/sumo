@@ -101,3 +101,6 @@ add_internal
 
 # test setRoute with internal edges
 setRoute_internal
+
+# test ignoring specific foes ids and foe types
+junctionModel.ignore
