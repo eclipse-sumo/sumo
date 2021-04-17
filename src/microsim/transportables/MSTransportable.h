@@ -324,6 +324,10 @@ public:
         return myDevices;
     }
 
+    virtual bool hasInfluencer() const {
+        return false;
+    }
+
     /** @brief Saves the current state into the given stream
      */
     void saveState(OutputDevice& out);

@@ -546,6 +546,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "jmSigmaMinor",           SUMO_ATTR_JM_SIGMA_MINOR },
     { "jmStoplineGap",          SUMO_ATTR_JM_STOPLINE_GAP },
     { "jmTimegapMinor",         SUMO_ATTR_JM_TIMEGAP_MINOR },
+    { "junctionModel.ignoreIDs", SUMO_ATTR_JM_IGNORE_IDS },
+    { "junctionModel.ignoreTypes", SUMO_ATTR_JM_IGNORE_TYPES },
 
     { "last",                   SUMO_ATTR_LAST },
     { "cost",                   SUMO_ATTR_COST },

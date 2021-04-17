@@ -817,6 +817,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_JM_SIGMA_MINOR,
     SUMO_ATTR_JM_STOPLINE_GAP,
     SUMO_ATTR_JM_TIMEGAP_MINOR,
+    SUMO_ATTR_JM_IGNORE_IDS,
+    SUMO_ATTR_JM_IGNORE_TYPES,
     /// @}
 
     /// @name route alternatives / distribution attributes

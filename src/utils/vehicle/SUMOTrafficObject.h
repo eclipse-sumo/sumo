@@ -181,4 +181,7 @@ public:
      */
     virtual bool hasArrived() const = 0;
 
+    /// @brief whether the vehicle is individually influenced (via TraCI or special parameters)
+    virtual bool hasInfluencer() const = 0;
+
 };

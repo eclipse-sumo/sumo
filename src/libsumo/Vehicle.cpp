@@ -1882,6 +1882,14 @@ Vehicle::setParameter(const std::string& vehID, const std::string& key, const st
         } catch (InvalidArgument& e) {
             throw TraCIException("Vehicle '" + vehID + "' does not support carFollowModel parameter '" + key + "' (" + e.what() + ").");
         }
+    } else if (StringUtils::startsWith(key, "junctionModel.")) {
+        try {
+            // use the whole key (including junctionModel prefix)
+            veh->setJunctionModelParameter(key, value);
+        } catch (InvalidArgument& e) {
+            // error message includes id since it is also used for xml input
+            throw TraCIException(e.what());
+        }
     } else if (StringUtils::startsWith(key, "has.") && StringUtils::endsWith(key, ".device")) {
         StringTokenizer tok(key, ".");
         if (tok.size() != 3) {

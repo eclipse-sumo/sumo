@@ -615,6 +615,7 @@ private:
     /// @brief check whether the given vehicle positions overlap laterally
     static bool lateralOverlap(double posLat, double width, double posLat2, double width2);
 
+    static bool ignoreFoe(const SUMOTrafficObject* ego, const SUMOVehicle* foe);
 
 private:
     /// @brief The lane behind the junction approached by this link

@@ -153,6 +153,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
         const MSEdge* arrivalEdge = pars->arrivalEdge >= 0 ? myRoute->getEdges()[pars->arrivalEdge] : myRoute->getLastEdge();
         calculateArrivalParams(arrivalEdge);
     }
+    initJunctionModelParams();
 }
 
 
@@ -1602,6 +1603,34 @@ MSBaseVehicle::setDeviceParameter(const std::string& deviceName, const std::stri
         }
     }
     throw InvalidArgument("No device of type '" + deviceName + "' exists");
+}
+
+
+void
+MSBaseVehicle::setJunctionModelParameter(const std::string& key, const std::string& value) {
+    if (key == toString(SUMO_ATTR_JM_IGNORE_IDS) || key == toString(SUMO_ATTR_JM_IGNORE_TYPES)) {
+        getParameter().parametersSet |= VEHPARS_JUNCTIONMODEL_PARAMS_SET;
+        const_cast<SUMOVehicleParameter&>(getParameter()).setParameter(key, value);
+        // checked in MSLink::ignoreFoe
+    } else {
+        throw InvalidArgument("Vehicle '" + getID() + "' does not support junctionModel parameter '" + key + "'");
+    }
+}
+
+
+void
+MSBaseVehicle::initJunctionModelParams() {
+    /* Design idea for additioanl junction model parameters:
+       We can distinguish between 3 levels of parameters
+       1. typically shared buy multiple vehicles -> vType parameter
+       2. specific to one vehicle but stays constant throughout the simulation -> vehicle parameter
+       3. specific to one vehicle and expected to change during simulation -> prefixed generic vehicle parameter
+       */
+    for (auto item : getParameter().getParametersMap()) {
+        if (StringUtils::startsWith(item.first, "junctionModel.")) {
+            setJunctionModelParameter(item.first, item.second);
+        }
+    }
 }
 
 

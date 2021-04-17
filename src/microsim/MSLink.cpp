@@ -27,6 +27,7 @@
 #include <limits>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/StringTokenizer.h>
 #include "MSNet.h"
 #include "MSJunction.h"
 #include "MSLink.h"
@@ -627,6 +628,7 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSp
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) == 0
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0) < it.second.speed
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) < RandHelper::rand(ego->getRNG()))
+                && !ignoreFoe(ego, it.first)
                 && blockedByFoe(it.first, it.second, arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, sameTargetLane,
                                 impatience, decel, waitingTime, ego)) {
             if (collectFoes == nullptr) {
@@ -1240,6 +1242,9 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 if (gDebugFlag1) {
                     std::cout << " leader=" << leader->getID() << " contLane=" << contLane << " cannotIgnore=" << cannotIgnore << " stopAsap=" << stopAsap << "\n";
                 }
+                if (ignoreFoe(ego, leader)) {
+                    continue;
+                }
                 result.emplace_back(leader, gap, stopAsap ? -1 : distToCrossing, fromLeft, inTheWay);
             }
 
@@ -1257,6 +1262,9 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             if (distToPeds >= -MSPModel::SAFETY_GAP && MSNet::getInstance()->getPersonControl().getMovementModel()->blockedAtDist(foeLane, vehSideOffset, vehWidth,
                     ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_CROSSING_GAP, JM_CROSSING_GAP_DEFAULT),
                     collectBlockers)) {
+                //if (ignoreFoe(ego, leader)) {
+                //    continue;
+                //}
                 result.emplace_back(nullptr, -1, distToPeds);
             }
         }
@@ -1307,6 +1315,9 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                         || (posLat > posLatLeader && myInternalLaneBefore->getIndex() < foeLane->getIndex())) {
                     if (gDebugFlag1) {
                         std::cout << SIMTIME << " blocked by " << leader->getID() << " (sublane split) foeLane=" << foeLane->getID() << "\n";
+                    }
+                    if (ignoreFoe(ego, leader)) {
+                        continue;
                     }
                     result.emplace_back(leader, gap, -1);
                 }
@@ -1590,5 +1601,24 @@ MSLink::getDescription() const {
     return myLaneBefore->getID() + "->" + getViaLaneOrLane()->getID();
 }
 
+
+bool
+MSLink::ignoreFoe(const SUMOTrafficObject* ego, const SUMOVehicle* foe) {
+    if (ego == nullptr || !ego->getParameter().wasSet(VEHPARS_JUNCTIONMODEL_PARAMS_SET)) {
+        return false;
+    }
+    const SUMOVehicleParameter& param = ego->getParameter();
+    for (const std::string typeID : StringTokenizer(param.getParameter(toString(SUMO_ATTR_JM_IGNORE_TYPES), "")).getVector()) {
+        if (typeID == foe->getVehicleType().getID()) {
+            return true;
+        }
+    }
+    for (const std::string id : StringTokenizer(param.getParameter(toString(SUMO_ATTR_JM_IGNORE_IDS), "")).getVector()) {
+        if (id == foe->getID()) {
+            return true;
+        }
+    }
+    return false;
+}
 
 /****************************************************************************/
