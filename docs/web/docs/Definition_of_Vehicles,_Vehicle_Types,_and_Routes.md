@@ -893,6 +893,24 @@ as hard as it can. At a value of 0, the driver will only perform
 maneuvers that do not force other vehicles to slow down. Intermediate
 values interpolate smoothly between these extremes.
 
+### Transient Parameters
+
+Junction model parameters that are expected to change during the simulation are modelled via [generic parameters](https://sumo.dlr.de/docs/Simulation/GenericParameters.md). The following parametes are supported (via xml input and `traci.vehicle.setParameter`):
+
+- junctionModel.ignoreIDs : ignore foe vehicles with the given ids
+- junctionModel.ignoreTypes : ignore foe vehicles that have any of the given types
+
+If multiple ignore parameters are set, they are combined with "or".
+Foes are ignored while they are approaching a junction and also while they are on the junction.
+
+Example
+```
+<vehicle id="ego" depart="0" route="r0">
+   <param key="junctionModel.ignoreIDs" value="foe1 foe2"/>
+   <param key="junctionModel.ignoreTypes" value="bikeType"/>
+</vehicle>
+```
+
 ## Default Vehicle Type
 
 If the `type` attribute of a vehicle is not
