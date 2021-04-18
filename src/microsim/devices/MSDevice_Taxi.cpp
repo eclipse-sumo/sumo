@@ -392,9 +392,10 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
             }
             //stops.back().awaitedPersons.insert(res.person->getID());
             stops.back().parametersSet |= STOP_PERMITTED_SET;
+            stops.back().duration = TIME2STEPS(getFloatParam(myHolder, OptionsCont::getOptions(), "taxi.pickUpDuration", 0, false));
         } else {
             prepareStop(tmpEdges, stops, lastPos, res->to, res->toPos, "dropOff " + toString(res->persons) + " (" + res->id + ")");
-            stops.back().duration = TIME2STEPS(60); // pay and collect bags
+            stops.back().duration = TIME2STEPS(getFloatParam(myHolder, OptionsCont::getOptions(), "taxi.dropOffDuration", 60, false)); // pay and collect bags
         }
     }
 #ifdef DEBUG_DISPATCH
@@ -456,7 +457,7 @@ MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
     stop.lane = getStopLane(stopEdge)->getID();
     stop.startPos = stopPos;
     stop.endPos = MAX2(stopPos, MIN2(myHolder.getVehicleType().getLength(), stopEdge->getLength()));
-    stop.parking = true;
+    stop.parking = getBoolParam(myHolder, OptionsCont::getOptions(), "taxi.parking", true, false);
     stop.actType = action;
     stop.index = STOP_INDEX_END;
     stops.push_back(stop);
