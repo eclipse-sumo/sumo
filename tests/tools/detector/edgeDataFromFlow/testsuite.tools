@@ -1,5 +1,11 @@
 # only flow on the main motorway, aggregate by hour
 basic
 
+# generate cadyts output
+cadyts
+
+# no detector file use detector column as edge names
+edge_names
+
 # aggregate by hour
 interval

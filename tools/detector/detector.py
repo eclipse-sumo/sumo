@@ -220,13 +220,16 @@ class DetectorReader(handler.ContentHandler):
             for group in groupList:
                 group.clearFlow(begin, interval)
 
-    def readFlows(self, flowFile, det="Detector", flow="qPKW", speed=None, time=None, timeVal=None, timeMax=None):
+    def readFlows(self, flowFile, det="Detector", flow="qPKW",
+                  speed=None, time=None, timeVal=None, timeMax=None, addDetectors=False):
         values = parseFlowFile(
             flowFile,
             detCol=det, timeCol=time, flowCol=flow,
             speedCol=speed, begin=timeVal, end=timeMax)
         hadFlow = False
         for det, time, flow, speed in values:
+            if addDetectors and det not in self._det2edge:
+                self.addDetector(det, 0., det, None)
             hadFlow = True
             self.addFlow(det, flow, speed)
         return hadFlow

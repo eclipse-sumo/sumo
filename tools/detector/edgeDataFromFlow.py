@@ -39,7 +39,7 @@ DEBUG = False
 def get_options(args=None):
     parser = sumolib.options.ArgumentParser(description="Convert detector flow file to edgeData format")
     parser.add_argument("-d", "--detector-file", dest="detfile",
-                        help="read detectors from FILE (mandatory)", metavar="FILE")
+                        help="read detectors from FILE", metavar="FILE")
     parser.add_argument("-f", "--detector-flow-file", dest="flowfile",
                         help="read detector flows to compare to from FILE (mandatory)", metavar="FILE")
     parser.add_argument("-o", "--output-file", dest="output",
@@ -52,10 +52,12 @@ def get_options(args=None):
                         help="custom end time (minutes or H:M:S)")
     parser.add_argument("-i", "--interval", default=1440,
                         help="custom aggregation interval (minutes or H:M:S)")
+    parser.add_argument("--cadyts", action="store_true",
+                        default=False, help="generate output in cadyts format")
     parser.add_argument("-v", "--verbose", action="store_true", dest="verbose",
                         default=False, help="tell me what you are doing")
     options = parser.parse_args(args=args)
-    if not options.detfile or not options.flowfile or not options.output:
+    if not options.flowfile or not options.output:
         parser.print_help()
         sys.exit()
 
@@ -88,8 +90,9 @@ def main(options):
     endM = min(int(sumolib.miscutils.parseTime(options.end, 60) / 60), tMax)
 
     with open(options.output, "w") as outf:
+        root = "measurements" if options.cadyts else "data"
         sumolib.xml.writeHeader(outf)
-        outf.write('<data>\n')
+        outf.write('<%s>\n' % root)
         while beginM <= endM:
             iEndM = beginM + intervalM
             edges = defaultdict(dict)  # edge : {attr:val}
@@ -97,7 +100,8 @@ def main(options):
 
             for flowcol in flowcols:
                 detReader = detector.DetectorReader(options.detfile, LaneMap())
-                detReader.readFlows(options.flowfile, flow=flowcol, time="Time", timeVal=beginM, timeMax=iEndM)
+                detReader.readFlows(options.flowfile, flow=flowcol, time="Time", timeVal=beginM, timeMax=iEndM,
+                                    addDetectors=(options.detfile is None))
                 for edge, detData in detReader._edge2DetData.items():
                     maxFlow = 0
                     nGroups = 0
@@ -111,13 +115,18 @@ def main(options):
                     edges[edge][flowcol] = maxFlow
                     maxGroups[edge] = max(maxGroups[edge], nGroups)
 
-            outf.write('    <interval id="flowdata" begin="%s" end="%s">\n' % (beginM * 60, iEndM * 60))
-            for edge in sorted(edges.keys()):
-                attrs = ' '.join(['%s="%s"' % (k, v) for k, v in sorted(edges[edge].items())])
-                outf.write('        <edge id="%s" %s groups="%s"/>\n' % (edge, attrs, nGroups))
-            outf.write('    </interval>\n')
+            if options.cadyts:
+                for edge in sorted(edges.keys()):
+                    outf.write('    <singlelink link="%s" start="%s" end="%s" value="%s" stddev="8" type="COUNT_VEH"/>\n' %
+                               (edge, beginM * 60, iEndM * 60, sum(edges[edge].values())))
+            else:
+                outf.write('    <interval id="flowdata" begin="%s" end="%s">\n' % (beginM * 60, iEndM * 60))
+                for edge in sorted(edges.keys()):
+                    attrs = ' '.join(['%s="%s"' % (k, v) for k, v in sorted(edges[edge].items())])
+                    outf.write('        <edge id="%s" %s groups="%s"/>\n' % (edge, attrs, nGroups))
+                outf.write('    </interval>\n')
             beginM += intervalM
-        outf.write('</data>\n')
+        outf.write('</%s>\n' % root)
 
 
 if __name__ == "__main__":
