@@ -379,25 +379,20 @@ const GNEEdge*
 GNEDemandElement::getFirstPersonPlanEdge() const {
     // continue depending of tag
     switch (myTagProperty.getTag()) {
-        // route
-        case GNE_TAG_WALK_ROUTE:
-            return getParentDemandElements().at(1)->getParentEdges().front();
-        // edges
-        case GNE_TAG_WALK_EDGES:
         // edge->edge
         case GNE_TAG_PERSONTRIP_FIRST_EDGE:
         case GNE_TAG_RIDE_FIRST_EDGE:
-        case GNE_TAG_WALK_EDGE_EDGE:
+        case GNE_TAG_WALK_FIRST_EDGE:
         // edge->busStop
         case GNE_TAG_PERSONTRIP_FIRST_BUSSTOP:
         case GNE_TAG_RIDE_FIRST_BUSSTOP:
-        case GNE_TAG_WALK_EDGE_BUSSTOP:
+        case GNE_TAG_WALK_FIRST_BUSSTOP:
+        // walk edges
+        case GNE_TAG_WALK_EDGES:
             return getParentEdges().front();
-        // busStop->edge
-        case GNE_TAG_WALK_BUSSTOP_EDGE:
-        // busStop->busStop
-        case GNE_TAG_WALK_BUSSTOP_BUSSTOP:
-            return getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
+        // walk route
+        case GNE_TAG_WALK_ROUTE:
+            return getParentDemandElements().at(1)->getParentEdges().front();
         // stops
         case GNE_TAG_PERSONSTOP_BUSSTOP:
             return getParentAdditionals().front()->getParentLanes().front()->getParentEdge();

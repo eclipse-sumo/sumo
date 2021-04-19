@@ -707,40 +707,40 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
             break;
         }
         // Walks
-        case GNE_TAG_WALK_EDGE_EDGE: {
+        case GNE_TAG_WALK_EDGE: {
             // check if walk edge->edge can be created
-            if (fromEdge && toEdge) {
-                buildWalk(viewNet->getNet(), true, personParent, fromEdge, toEdge, nullptr, nullptr, {}, nullptr, arrivalPos);
+            if (toEdge) {
+                buildWalk(viewNet->getNet(), true, personParent, nullptr, toEdge, nullptr, {}, nullptr, arrivalPos);
                 return true;
             } else {
                 viewNet->setStatusBarText("A walk from edge to edge needs two edges");
             }
             break;
         }
-        case GNE_TAG_WALK_EDGE_BUSSTOP: {
+        case GNE_TAG_WALK_BUSSTOP: {
             // check if walk edge->busStop can be created
-            if (fromEdge && toBusStop) {
-                buildWalk(viewNet->getNet(), true, personParent, fromEdge, nullptr, nullptr, toBusStop, {}, nullptr, arrivalPos);
+            if (toBusStop) {
+                buildWalk(viewNet->getNet(), true, personParent, nullptr, nullptr, toBusStop, {}, nullptr, arrivalPos);
                 return true;
             } else {
                 viewNet->setStatusBarText("A ride from edge to bussTop needs an edge and a busSTop");
             }
             break;
         }
-        case GNE_TAG_WALK_BUSSTOP_EDGE: {
+        case GNE_TAG_WALK_FIRST_EDGE: {
             // check if walk busStop->edge can be created
-            if (fromBusStop && toEdge) {
-                buildWalk(viewNet->getNet(), true, personParent, nullptr, toEdge, fromBusStop, nullptr, {}, nullptr, arrivalPos);
+            if (fromEdge && toEdge) {
+                buildWalk(viewNet->getNet(), true, personParent, fromEdge, toEdge, nullptr, {}, nullptr, arrivalPos);
                 return true;
             } else {
                 viewNet->setStatusBarText("A ride from busStop to edge needs a busStop and an edge");
             }
             break;
         }
-        case GNE_TAG_WALK_BUSSTOP_BUSSTOP: {
+        case GNE_TAG_WALK_FIRST_BUSSTOP: {
             // check if walk busStop->busStop can be created
-            if (fromBusStop && toBusStop) {
-                buildWalk(viewNet->getNet(), true, personParent, nullptr, nullptr, fromBusStop, toBusStop, {}, nullptr, arrivalPos);
+            if (fromEdge && toBusStop) {
+                buildWalk(viewNet->getNet(), true, personParent, fromEdge, nullptr, toBusStop, {}, nullptr, arrivalPos);
                 return true;
             } else {
                 viewNet->setStatusBarText("A walk from busStop to busStop needs two busStops");
@@ -750,7 +750,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         case GNE_TAG_WALK_EDGES: {
             // check if walk edges can be created
             if (edges.size() > 0) {
-                buildWalk(viewNet->getNet(), true, personParent, nullptr, nullptr, nullptr, nullptr, edges, nullptr, arrivalPos);
+                buildWalk(viewNet->getNet(), true, personParent, nullptr, nullptr, nullptr, edges, nullptr, arrivalPos);
                 return true;
             } else {
                 viewNet->setStatusBarText("A walk with edges attribute needs a list of edges");
@@ -760,7 +760,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         case GNE_TAG_WALK_ROUTE: {
             // check if walk edges can be created
             if (route) {
-                buildWalk(viewNet->getNet(), true, personParent, nullptr, nullptr, nullptr, nullptr, {}, route, arrivalPos);
+                buildWalk(viewNet->getNet(), true, personParent, nullptr, nullptr, nullptr, {}, route, arrivalPos);
                 return true;
             } else {
                 viewNet->setStatusBarText("A route walk needs a route");
@@ -923,7 +923,7 @@ GNERouteHandler::buildPersonTrip(GNENet* net, bool undoDemandElements, GNEDemand
 
 void
 GNERouteHandler::buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                           GNEAdditional* busStopFrom, GNEAdditional* busStopTo, const std::vector<GNEEdge*>& edges, GNEDemandElement* route, double arrivalPos) {
+                           GNEAdditional* busStopTo, const std::vector<GNEEdge*>& edges, GNEDemandElement* route, double arrivalPos) {
     // declare walk
     GNEDemandElement* walk = nullptr;
     // create walk depending of parameters
@@ -932,7 +932,7 @@ GNERouteHandler::buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElemen
         walk = new GNEWalk(net, personParent, fromEdge, toEdge, arrivalPos);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
-            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_WALK_EDGE_EDGE) + " within person '" + personParent->getID() + "'");
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_WALK_FIRST_EDGE) + " within person '" + personParent->getID() + "'");
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
@@ -950,7 +950,7 @@ GNERouteHandler::buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElemen
         walk = new GNEWalk(net, personParent, fromEdge, busStopTo, arrivalPos);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
-            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_WALK_EDGE_BUSSTOP) + " within person '" + personParent->getID() + "'");
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_WALK_FIRST_BUSSTOP) + " within person '" + personParent->getID() + "'");
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
@@ -963,12 +963,12 @@ GNERouteHandler::buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElemen
             // include reference
             walk->incRef("buildWalk");
         }
-    } else if (busStopFrom && toEdge) {
+    } else if (toEdge) {
         // create walk busStop->edge
-        walk = new GNEWalk(net, personParent, busStopFrom, toEdge, arrivalPos);
+        walk = new GNEWalk(net, personParent, toEdge, arrivalPos);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
-            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_WALK_BUSSTOP_EDGE) + " within person '" + personParent->getID() + "'");
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_WALK_EDGE) + " within person '" + personParent->getID() + "'");
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
@@ -976,17 +976,16 @@ GNERouteHandler::buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElemen
             net->getAttributeCarriers()->insertDemandElement(walk);
             // set references in children
             personParent->addChildElement(walk);
-            busStopFrom->addChildElement(walk);
             toEdge->addChildElement(walk);
             // include reference
             walk->incRef("buildWalk");
         }
-    } else if (busStopFrom && busStopTo) {
+    } else if (busStopTo) {
         // create walk busStop->busStop
-        walk = new GNEWalk(net, personParent, busStopFrom, busStopTo, arrivalPos);
+        walk = new GNEWalk(net, personParent, busStopTo, arrivalPos);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
-            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_WALK_BUSSTOP_BUSSTOP) + " within person '" + personParent->getID() + "'");
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_WALK_BUSSTOP) + " within person '" + personParent->getID() + "'");
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
@@ -994,7 +993,6 @@ GNERouteHandler::buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElemen
             net->getAttributeCarriers()->insertDemandElement(walk);
             // set references in children
             personParent->addChildElement(walk);
-            busStopFrom->addChildElement(walk);
             busStopTo->addChildElement(walk);
             // include reference
             walk->incRef("buildWalk");
@@ -1751,33 +1749,33 @@ GNERouteHandler::closePerson() {
                             break;
                         }
                         // Walks
-                        case GNE_TAG_WALK_EDGE_EDGE: {
-                            buildWalk(myNet, true, person, personPlanValue.fromEdge, personPlanValue.toEdge, nullptr, nullptr, {}, nullptr,
+                        case GNE_TAG_WALK_EDGE: {
+                            buildWalk(myNet, true, person, nullptr, personPlanValue.toEdge, nullptr, {}, nullptr,
                                       personPlanValue.arrivalPos);
                             break;
                         }
-                        case GNE_TAG_WALK_EDGE_BUSSTOP: {
-                            buildWalk(myNet, true, person, personPlanValue.fromEdge, nullptr, nullptr, personPlanValue.toBusStop, {}, nullptr,
+                        case GNE_TAG_WALK_BUSSTOP: {
+                            buildWalk(myNet, true, person, nullptr, nullptr, personPlanValue.toBusStop, {}, nullptr,
                                       personPlanValue.arrivalPos);
                             break;
                         }
-                        case GNE_TAG_WALK_BUSSTOP_EDGE: {
-                            buildWalk(myNet, true, person, nullptr, personPlanValue.toEdge, personPlanValue.fromBusStop, nullptr, {}, nullptr,
+                        case GNE_TAG_WALK_FIRST_EDGE: {
+                            buildWalk(myNet, true, person, personPlanValue.fromEdge, personPlanValue.toEdge, nullptr, {}, nullptr,
                                       personPlanValue.arrivalPos);
                             break;
                         }
-                        case GNE_TAG_WALK_BUSSTOP_BUSSTOP: {
-                            buildWalk(myNet, true, person, nullptr, nullptr, personPlanValue.fromBusStop, personPlanValue.toBusStop, {}, nullptr,
+                        case GNE_TAG_WALK_FIRST_BUSSTOP: {
+                            buildWalk(myNet, true, person, personPlanValue.fromEdge, nullptr, personPlanValue.toBusStop, {}, nullptr,
                                       personPlanValue.arrivalPos);
                             break;
                         }
                         case GNE_TAG_WALK_EDGES: {
-                            buildWalk(myNet, true, person, nullptr, nullptr, nullptr, nullptr, personPlanValue.edges, nullptr,
+                            buildWalk(myNet, true, person, nullptr, nullptr, nullptr, personPlanValue.edges, nullptr,
                                       personPlanValue.arrivalPos);
                             break;
                         }
                         case GNE_TAG_WALK_ROUTE: {
-                            buildWalk(myNet, true, person, nullptr, nullptr, nullptr, nullptr, {}, personPlanValue.route,
+                            buildWalk(myNet, true, person, nullptr, nullptr, nullptr, {}, personPlanValue.route,
                                       personPlanValue.arrivalPos);
                             break;
                         }
@@ -1871,33 +1869,33 @@ GNERouteHandler::closePersonFlow() {
                             break;
                         }
                         // Walks
-                        case GNE_TAG_WALK_EDGE_EDGE: {
-                            buildWalk(myNet, true, person, personPlanValue.fromEdge, personPlanValue.toEdge, nullptr, nullptr, {}, nullptr,
+                        case GNE_TAG_WALK_EDGE: {
+                            buildWalk(myNet, true, person, nullptr, personPlanValue.toEdge, nullptr, {}, nullptr,
                                       personPlanValue.arrivalPos);
                             break;
                         }
-                        case GNE_TAG_WALK_EDGE_BUSSTOP: {
-                            buildWalk(myNet, true, person, personPlanValue.fromEdge, nullptr, nullptr, personPlanValue.toBusStop, {}, nullptr,
+                        case GNE_TAG_WALK_BUSSTOP: {
+                            buildWalk(myNet, true, person, nullptr, nullptr, personPlanValue.toBusStop, {}, nullptr,
                                       personPlanValue.arrivalPos);
                             break;
                         }
-                        case GNE_TAG_WALK_BUSSTOP_EDGE: {
-                            buildWalk(myNet, true, person, nullptr, personPlanValue.toEdge, personPlanValue.fromBusStop, nullptr, {}, nullptr,
+                        case GNE_TAG_WALK_FIRST_EDGE: {
+                            buildWalk(myNet, true, person, personPlanValue.fromEdge, personPlanValue.toEdge, nullptr, {}, nullptr,
                                       personPlanValue.arrivalPos);
                             break;
                         }
-                        case GNE_TAG_WALK_BUSSTOP_BUSSTOP: {
-                            buildWalk(myNet, true, person, nullptr, nullptr, personPlanValue.fromBusStop, personPlanValue.toBusStop, {}, nullptr,
+                        case GNE_TAG_WALK_FIRST_BUSSTOP: {
+                            buildWalk(myNet, true, person, personPlanValue.fromEdge, nullptr, personPlanValue.toBusStop, {}, nullptr,
                                       personPlanValue.arrivalPos);
                             break;
                         }
                         case GNE_TAG_WALK_EDGES: {
-                            buildWalk(myNet, true, person, nullptr, nullptr, nullptr, nullptr, personPlanValue.edges, nullptr,
+                            buildWalk(myNet, true, person, nullptr, nullptr, nullptr, personPlanValue.edges, nullptr,
                                       personPlanValue.arrivalPos);
                             break;
                         }
                         case GNE_TAG_WALK_ROUTE: {
-                            buildWalk(myNet, true, person, nullptr, nullptr, nullptr, nullptr, {}, personPlanValue.route,
+                            buildWalk(myNet, true, person, nullptr, nullptr, nullptr, {}, personPlanValue.route,
                                       personPlanValue.arrivalPos);
                             break;
                         }
@@ -2248,32 +2246,26 @@ GNERouteHandler::PersonPlansValues::updateGNETag() {
             // edge->busStop
             tag = GNE_TAG_RIDE_FIRST_BUSSTOP;
         }
-    } else if (fromEdge && toEdge) {
-        // edge->edge
-        if (tag == SUMO_TAG_WALK) {
-            tag = GNE_TAG_WALK_EDGE_EDGE;
+    } else if (SUMO_TAG_WALK) {
+        if (!fromEdge && toEdge) {
+            // previous PersonPlan->edge
+            tag = GNE_TAG_WALK_EDGE;
+        } else if (!fromEdge && toBusStop) {
+            // previous PersonPlan->busStop
+            tag = GNE_TAG_WALK_BUSSTOP;
+        } else if (fromEdge && toEdge) {
+            // edge->edge
+            tag = GNE_TAG_WALK_FIRST_EDGE;
+        } else if (fromEdge && toBusStop) {
+            // edge->busStop
+            tag = GNE_TAG_WALK_FIRST_BUSSTOP;
+        } else if (edges.size() > 0) {
+            // walk edges
+            tag = GNE_TAG_WALK_EDGES;
+        } else if (route) {
+            // walk route
+            tag = GNE_TAG_WALK_EDGES;
         }
-    } else if (fromEdge && toBusStop) {
-        // edge->busStop
-        if (tag == SUMO_TAG_WALK) {
-            tag = GNE_TAG_WALK_EDGE_BUSSTOP;
-        }
-    } else if (fromBusStop && toEdge) {
-        // busStop->edge
-        if (tag == SUMO_TAG_WALK) {
-            tag = GNE_TAG_WALK_BUSSTOP_EDGE;
-        }
-    } else if (fromBusStop && toBusStop) {
-        // busStop->busStop
-        if (tag == SUMO_TAG_WALK) {
-            tag = GNE_TAG_WALK_BUSSTOP_BUSSTOP;
-        }
-    } else if (edges.size() > 0) {
-        // walk edges
-        tag = GNE_TAG_WALK_EDGES;
-    } else if (route) {
-        // walk route
-        tag = GNE_TAG_WALK_EDGES;
     } else if (edgeStop || lane) {
         // person stop lane
         tag = GNE_TAG_PERSONSTOP_EDGE;

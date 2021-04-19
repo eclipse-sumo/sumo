@@ -57,20 +57,18 @@ public:
     /**@brief parameter constructor for person edge->edge
     * @param[in] viewNet view in which this Walk is placed
     * @param[in] personParent person parent
-    * @param[in] fromBusStop from busStop
     * @param[in] toEdge to edge
     * @param[in] arrivalPosition arrival position on the destination edge
     */
-    GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEEdge* toEdge, double arrivalPosition);
+    GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* toEdge, double arrivalPosition);
 
     /**@brief parameter constructor for person edge->edge
     * @param[in] viewNet view in which this Walk is placed
     * @param[in] personParent person parent
-    * @param[in] fromBusStop from busStop
     * @param[in] toBusStop to busStop
     * @param[in] arrivalPosition arrival position on the destination edge
     */
-    GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEAdditional* toBusStop, double arrivalPosition);
+    GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* toBusStop, double arrivalPosition);
 
     /**@brief parameter constructor for person edge->edge
     * @param[in] viewNet view in which this Walk is placed

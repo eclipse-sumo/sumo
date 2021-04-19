@@ -749,18 +749,39 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
             }
             // invert walks
             if (!locks->IsObjectTypeLocked(GLO_WALK)) {
-                for (const auto& walkFromTo : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_EDGE_EDGE)) {
+                for (const auto& walkFromTo : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_EDGE)) {
                     if (walkFromTo.second->isAttributeCarrierSelected()) {
                         walkFromTo.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                     } else {
                         walkFromTo.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                     }
                 }
-                for (const auto& walkBusStop : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_EDGE_BUSSTOP)) {
+                for (const auto& walkBusStop : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_BUSSTOP)) {
                     if (walkBusStop.second->isAttributeCarrierSelected()) {
                         walkBusStop.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                     } else {
                         walkBusStop.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                }
+                for (const auto& walkFromTo : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_FIRST_EDGE)) {
+                    if (walkFromTo.second->isAttributeCarrierSelected()) {
+                        walkFromTo.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        walkFromTo.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                }
+                for (const auto& walkBusStop : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_FIRST_BUSSTOP)) {
+                    if (walkBusStop.second->isAttributeCarrierSelected()) {
+                        walkBusStop.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        walkBusStop.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                }
+                for (const auto& walkEdges : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_EDGES)) {
+                    if (walkEdges.second->isAttributeCarrierSelected()) {
+                        walkEdges.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        walkEdges.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                     }
                 }
                 for (const auto& walkRoute : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_ROUTE)) {
@@ -1111,14 +1132,31 @@ GNESelectorFrame::clearCurrentSelection() const {
             }
             // unselect walks
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_WALK)) {
-                for (const auto& walkFromTo : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_EDGE_EDGE)) {
-                    if (walkFromTo.second->isAttributeCarrierSelected()) {
-                        walkFromTo.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_WALK)) {
+                    for (const auto& walkFromTo : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_EDGE)) {
+                        if (walkFromTo.second->isAttributeCarrierSelected()) {
+                            walkFromTo.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                        }
+                    }
+                    for (const auto& walkBusStop : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_BUSSTOP)) {
+                        if (walkBusStop.second->isAttributeCarrierSelected()) {
+                            walkBusStop.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                        }
+                    }
+                    for (const auto& walkBusStop : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_FIRST_EDGE)) {
+                        if (walkBusStop.second->isAttributeCarrierSelected()) {
+                            walkBusStop.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                        }
+                    }
+                    for (const auto& walkBusStop : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_FIRST_BUSSTOP)) {
+                        if (walkBusStop.second->isAttributeCarrierSelected()) {
+                            walkBusStop.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                        }
                     }
                 }
-                for (const auto& walkBusStop : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_EDGE_BUSSTOP)) {
-                    if (walkBusStop.second->isAttributeCarrierSelected()) {
-                        walkBusStop.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                for (const auto& walkEdges : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_EDGES)) {
+                    if (walkEdges.second->isAttributeCarrierSelected()) {
+                        walkEdges.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
                     }
                 }
                 for (const auto& walkRoute : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_ROUTE)) {
@@ -1489,16 +1527,19 @@ GNESelectorFrame::ACsToSelected() const {
         }
         // check walks
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_WALK)) {
-            if ((demandElementsMap.at(GNE_TAG_WALK_EDGE_EDGE).size() > 0) ||
-                    (demandElementsMap.at(GNE_TAG_WALK_EDGE_BUSSTOP).size() > 0) ||
-                    (demandElementsMap.at(GNE_TAG_WALK_ROUTE).size() > 0)) {
+            if ((demandElementsMap.at(GNE_TAG_WALK_EDGE).size() > 0) ||
+                (demandElementsMap.at(GNE_TAG_WALK_BUSSTOP).size() > 0) ||
+                (demandElementsMap.at(GNE_TAG_WALK_FIRST_EDGE).size() > 0) ||
+                (demandElementsMap.at(GNE_TAG_WALK_FIRST_BUSSTOP).size() > 0) ||
+                (demandElementsMap.at(GNE_TAG_WALK_EDGES).size() > 0) ||
+                (demandElementsMap.at(GNE_TAG_WALK_ROUTE).size() > 0)) {
                 return true;
             }
         }
         // check person stops
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSONSTOP)) {
             if ((demandElementsMap.at(GNE_TAG_PERSONSTOP_EDGE).size() > 0) ||
-                    (demandElementsMap.at(GNE_TAG_PERSONSTOP_BUSSTOP).size() > 0)) {
+                (demandElementsMap.at(GNE_TAG_PERSONSTOP_BUSSTOP).size() > 0)) {
                 return true;
             }
         }
@@ -1507,7 +1548,7 @@ GNESelectorFrame::ACsToSelected() const {
             for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
                 for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
                     if ((!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGEDATA) && (genericData->getType() == GLO_EDGEDATA)) ||
-                            (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGERELDATA) && (genericData->getType() == GLO_EDGERELDATA))) {
+                        (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGERELDATA) && (genericData->getType() == GLO_EDGERELDATA))) {
                         return true;
                     }
                 }
