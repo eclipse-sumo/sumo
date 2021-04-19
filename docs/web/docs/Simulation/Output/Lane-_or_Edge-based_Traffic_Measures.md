@@ -35,6 +35,10 @@ For a lane based dump simply write:
 </additional>
 ```
 
+!!! note
+    attribute 'id' is only used to distinguish outputs if there are multiple edgeData defintions. The value is otherwise arbitrary and does not influence written outputs.
+    
+
 For additional attributes see the table below.
 
 | Attribute Name | Value Type                     | Description                             |
