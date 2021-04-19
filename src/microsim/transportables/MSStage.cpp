@@ -429,6 +429,11 @@ MSStageWaiting::getUntil() const {
     return myWaitingUntil;
 }
 
+SUMOTime
+MSStageWaiting::getDuration() const {
+    return myWaitingDuration;
+}
+
 
 Position
 MSStageWaiting::getPosition(SUMOTime /* now */) const {

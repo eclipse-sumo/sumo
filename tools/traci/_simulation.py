@@ -88,7 +88,10 @@ class Stage(object):
             to = ' edge="%s"' % self.edges[-1]
             if self.destStop != "":
                 to = ' busStop="%s"' % self.destStop
-            return '<stop%s\n' % (to,)
+            other = ''
+            if self.travelTime >= 0:
+                other += ' duration="%s"' % self.travelTime
+            return '<stop%s%s\n' % (to, other)
 
         elif self.type == tc.STAGE_DRIVING:
             to = ' to="%s"' % self.edges[-1]

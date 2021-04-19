@@ -386,6 +386,7 @@ public:
 
     SUMOTime getUntil() const;
 
+    SUMOTime getDuration() const;
     ///
     Position getPosition(SUMOTime now) const;
 

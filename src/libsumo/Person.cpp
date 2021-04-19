@@ -278,7 +278,6 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
     }
     result.departPos = INVALID_DOUBLE_VALUE;
     result.cost = INVALID_DOUBLE_VALUE;
-    result.travelTime = INVALID_DOUBLE_VALUE;
     result.depart = stage->getDeparted() >= 0 ? STEPS2TIME(stage->getDeparted()) : INVALID_DOUBLE_VALUE;
     result.travelTime = stage->getArrived() >= 0 ? STEPS2TIME(stage->getArrived() - stage->getDeparted()) : INVALID_DOUBLE_VALUE;
     // Some stage type dependant attributes
@@ -302,6 +301,13 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
         case MSStageType::WALKING: {
             auto* walkingStage = (MSPerson::MSPersonStage_Walking*) stage;
             result.departPos = walkingStage->getDepartPos();
+            break;
+        }
+        case MSStageType::WAITING: {
+            auto* waitingStage = (MSStageWaiting*) stage;
+            if (waitingStage->getDuration() > 0) {
+                result.travelTime = STEPS2TIME(waitingStage->getDuration());
+            }
             break;
         }
         default:
