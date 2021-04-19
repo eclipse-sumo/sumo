@@ -233,7 +233,7 @@ GNEWalk::computePath() {
     // declare lane vector
     std::vector<GNELane*> lanes;
     // update lanes depending of walk tag
-    if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE) {
+    if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE) {
         // get previous plan
         const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
         // check previousPersonPlan
@@ -250,7 +250,7 @@ GNEWalk::computePath() {
                 lanes = { previousPersonPlan->getParentLanes().front(), getLastAllowedVehicleLane() };
             }
         }
-    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP) {
+    } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP) {
         // get previous plan
         const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
         // check previousPersonPlan
@@ -267,10 +267,10 @@ GNEWalk::computePath() {
                 lanes = { previousPersonPlan->getParentLanes().front(), getParentAdditionals().back()->getParentLanes().front() };
             }
         }
-    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_FIRST_EDGE) {
+    } else if (myTagProperty.getTag() == GNE_TAG_WALK_FIRST_EDGE) {
         // use first and last edge
         lanes = { getFirstAllowedVehicleLane(), getLastAllowedVehicleLane() };
-    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_FIRST_BUSSTOP) {
+    } else if (myTagProperty.getTag() == GNE_TAG_WALK_FIRST_BUSSTOP) {
         // use first edge and busStop
         lanes = { getFirstAllowedVehicleLane(), getParentAdditionals().back()->getParentLanes().front() };
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
