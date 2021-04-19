@@ -80,6 +80,56 @@ class Stage(object):
             self.__attr_repr__("description"),
         ] if v != ""])
 
+    def toXML(self, firstStage=True, isPerson=True):
+        """write stage as xml element.
+        If firstStage=False, the from-attribute is omitted since sumo derives it from the prior stage.
+        """
+        if self.type == tc.STAGE_WAITING:
+            to = ' edge="%s"' % self.edges[-1]
+            if self.destStop != "":
+                to = ' busStop="%s"' % self.destStop
+            return '<stop%s\n' % (to,)
+
+        elif self.type == tc.STAGE_DRIVING:
+            to = ' to="%s"' % self.edges[-1]
+            if self.destStop != "":
+                to = ' busStop="%s"' % self.destStop
+            fro = ' from="%s"' % self.edges[0] if firstStage else ''
+            elem = "ride" if isPerson else "transport"
+            other = ''
+            if self.vType:
+                other += ' vType="%s"' % self.vType
+            if self.line:
+                other += ' lines="%s"' % self.line
+            return '<%s%s%s%s\n' % (elem, fro, to, other)
+
+        elif self.type == tc.STAGE_WALKING:
+            to = ''
+            if self.destStop != "":
+                to = ' busStop="%s"' % self.destStop
+            edges = ' '.join(self.edges)
+            return '<walk%s%s\n' % (edges, to)
+
+        elif self.type == tc.STAGE_TRIP:
+            to = ' to="%s"' % self.edges[-1]
+            if self.destStop != "":
+                to = ' busStop="%s"' % self.destStop
+            fro = ' from="%s"' % self.edges[0] if firstStage else ''
+            return '<personTrip%s%s\n' % (fro, to)
+
+        elif self.type == tc.STAGE_TRANSHIP:
+            to = ' to="%s"' % self.edges[-1]
+            if self.destStop != "":
+                to = ' busStop="%s"' % self.destStop
+            fro = ' from="%s"' % self.edges[0] if firstStage else ''
+            return '<tranship%s%s\n' % (fro, to)
+
+        else:
+            # STAGE_ACCESS and STAGE_WAITING_FOR_DEPART are never read from xml
+            #print("unwritten stage: ", self.type)
+            return ""
+
+
 
 def _readStage(result):
     # compound size and type
