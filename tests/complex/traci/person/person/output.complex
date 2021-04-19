@@ -98,7 +98,7 @@ prio stages for 'newPerson' past plan
   -1: Stage(type=3, vType=DEFAULT_VEHTYPE, line=B42, edges=('3si', ':0_10'), travelTime=10.0, cost=INVALID, length=14.1178279391, depart=7.0, departPos=INVALID, arrivalPos=9.06782793907, description=driving)
 remaining stages for 'newPerson' remaining plan after jump
   0: Stage(type=1, edges=(':0_10',), travelTime=INVALID, cost=INVALID, length=0.0, depart=17.0, departPos=INVALID, arrivalPos=9.06782793907, description=waiting (last stage removed))
-  1: Stage(type=1, edges=(':0_10',), travelTime=INVALID, cost=INVALID, length=0.0, depart=INVALID, departPos=INVALID, arrivalPos=9.06782793907, description=waiting (Jumped out of a moving vehicle. Ouch!))
+  1: Stage(type=1, edges=(':0_10',), travelTime=10.0, cost=INVALID, length=0.0, depart=INVALID, departPos=INVALID, arrivalPos=9.06782793907, description=waiting (Jumped out of a moving vehicle. Ouch!))
 'detour' on road :0_w2
 'detour2' on road :0_w2
 detour2 edges ('3si', '2o', '2fi', '2si', '4si')

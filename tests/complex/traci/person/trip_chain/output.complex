@@ -6,7 +6,7 @@
 
 <personTrip to="1/4to2/4"
 
-<stop edge="1/4to2/4"
+<stop edge="1/4to2/4" duration="20.0"
 
 <ride to="3/4to4/4" lines="car0"
 
