@@ -392,7 +392,10 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
             }
             //stops.back().awaitedPersons.insert(res.person->getID());
             stops.back().parametersSet |= STOP_PERMITTED_SET;
-            stops.back().duration = TIME2STEPS(getFloatParam(myHolder, OptionsCont::getOptions(), "taxi.pickUpDuration", 0, false));
+            if (stops.back().duration == -1) {
+                // keep dropOffDuration if the stop is dropOff and pickUp
+                stops.back().duration = TIME2STEPS(getFloatParam(myHolder, OptionsCont::getOptions(), "taxi.pickUpDuration", 0, false));
+            }
         } else {
             prepareStop(tmpEdges, stops, lastPos, res->to, res->toPos, "dropOff " + toString(res->persons) + " (" + res->id + ")");
             stops.back().duration = TIME2STEPS(getFloatParam(myHolder, OptionsCont::getOptions(), "taxi.dropOffDuration", 60, false)); // pay and collect bags
