@@ -216,7 +216,7 @@ GNEPersonTrip::updateGeometry() {
 void
 GNEPersonTrip::computePath() {
     // calculate path
-    myNet->getPathManager()->calculateLanesPath(this, SVC_PASSENGER, {getFirstPersonPlanLane(), getLastPersonPlanLane()});
+    myNet->getPathManager()->calculateLanesPath(this, SVC_PEDESTRIAN, {getFirstPersonPlanLane(), getLastPersonPlanLane()});
     // update geometry
     updateGeometry();
 }

@@ -207,12 +207,21 @@ GNERide::updateGeometry() {
 
 void
 GNERide::computePath() {
+    // get lanes
+    const std::vector<GNELane*> lanes = {getFirstPersonPlanLane(), getLastPersonPlanLane()};
     // calculate path
-    myNet->getPathManager()->calculateLanesPath(this, SVC_PASSENGER, {getFirstPersonPlanLane(), getLastPersonPlanLane()});
-    // check path
+    myNet->getPathManager()->calculateLanesPath(this, SVC_PASSENGER, lanes);
+    // check path (taxis)
     if (myNet->getPathManager()->getPathSize(this) == 0) {
-        myNet->getPathManager()->calculateLanesPath(this, SVC_PEDESTRIAN, {getFirstPersonPlanLane(), getLastPersonPlanLane()});
-        /* extend for buses, taxis, etc. */
+        myNet->getPathManager()->calculateLanesPath(this, SVC_TAXI, lanes);
+    }
+    // check path (bus)
+    if (myNet->getPathManager()->getPathSize(this) == 0) {
+        myNet->getPathManager()->calculateLanesPath(this, SVC_BUS, lanes);
+    }
+    // check path (pedestrian)
+    if (myNet->getPathManager()->getPathSize(this) == 0) {
+        myNet->getPathManager()->calculateLanesPath(this, SVC_PEDESTRIAN, lanes);
     }
     // update geometry
     updateGeometry();
