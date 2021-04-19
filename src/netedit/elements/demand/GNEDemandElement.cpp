@@ -628,9 +628,9 @@ GNEDemandElement::replaceLastParentEdge(const std::string& value) {
 
 
 void
-GNEDemandElement::replaceAdditionalParent(SumoXMLTag tag, const std::string& value, const int parentIndex) {
+GNEDemandElement::replaceAdditionalParent(SumoXMLTag tag, const std::string& value) {
     std::vector<GNEAdditional*> parentAdditionals = getParentAdditionals();
-    parentAdditionals[parentIndex] = myNet->retrieveAdditional(tag, value);
+    parentAdditionals[0] = myNet->retrieveAdditional(tag, value);
     // replace parent additionals
     replaceParentElements(this, parentAdditionals);
 }

@@ -360,7 +360,7 @@ protected:
     void replaceLastParentEdge(const std::string& value);
 
     /// @brief replace additional parent
-    void replaceAdditionalParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
+    void replaceAdditionalParent(SumoXMLTag tag, const std::string& value);
 
     /// @brief replace demand element parent
     void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);

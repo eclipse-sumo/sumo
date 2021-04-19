@@ -604,9 +604,6 @@ public:
         /// @brief add stoppingPlace
         bool addStoppingPlace(GNEAdditional* stoppingPlace, const bool shiftKeyPressed, const bool controlKeyPressed);
 
-        /// @brief get from stoppingPlace
-        GNEAdditional* getFromStoppingPlace(SumoXMLTag expectedTag) const;
-
         /// @brief get to stoppingPlace
         GNEAdditional* getToStoppingPlace(SumoXMLTag expectedTag) const;
 
@@ -663,11 +660,10 @@ public:
             END_EDGE                = 1 << 3,   // Path ends in an edge
             SINGLE_ELEMENT          = 1 << 4,   // Path only had one element
             ONLY_FROMTO             = 1 << 5,   // Path only had two elements (first and last)
-            START_BUSSTOP           = 1 << 6,   // Path begins in a busStop
-            END_BUSSTOP             = 1 << 7,   // Path ends in a busStop
-            ROUTE                   = 1 << 8,   // Path uses a route
-            REQUIERE_FIRSTELEMENT   = 1 << 9,   // Path start always in a previous element
-            SHOW_CANDIDATE_EDGES    = 1 << 10,  // disable candidate edges
+            END_BUSSTOP             = 1 << 6,   // Path ends in a busStop
+            ROUTE                   = 1 << 7,   // Path uses a route
+            REQUIERE_FIRSTELEMENT   = 1 << 8,   // Path start always in a previous element
+            SHOW_CANDIDATE_EDGES    = 1 << 9,   // disable candidate edges
         };
 
         /// @brief update InfoRouteLabel
@@ -696,9 +692,6 @@ public:
 
         /// @brief vector with selected edges
         std::vector<GNEEdge*> mySelectedEdges;
-
-        /// @brief from additional (usually a busStop)
-        GNEAdditional* myFromStoppingPlace;
 
         /// @brief to additional (usually a busStop)
         GNEAdditional* myToStoppingPlace;

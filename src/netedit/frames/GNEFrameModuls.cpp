@@ -2082,7 +2082,6 @@ GNEFrameModuls::PathCreator::PathCreator(GNEFrame* frameParent) :
     myFrameParent(frameParent),
     myVClass(SVC_PASSENGER),
     myCreationMode(0),
-    myFromStoppingPlace(nullptr),
     myToStoppingPlace(nullptr),
     myRoute(nullptr) {
     // create label for route info
@@ -2199,13 +2198,12 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag element, const bool
         case GNE_TAG_WALK_FIRST_BUSSTOP:
             myCreationMode |= SHOW_CANDIDATE_EDGES;
             myCreationMode |= ONLY_FROMTO;
-            myCreationMode |= START_BUSSTOP;
             myCreationMode |= END_BUSSTOP;
             break;
         // stops
         case GNE_TAG_PERSONSTOP_BUSSTOP:
             myCreationMode |= SINGLE_ELEMENT;
-            myCreationMode |= START_BUSSTOP;
+            myCreationMode |= END_BUSSTOP;
             break;
         case GNE_TAG_PERSONSTOP_EDGE:
             myCreationMode |= SINGLE_ELEMENT;
@@ -2349,33 +2347,14 @@ GNEFrameModuls::PathCreator::getSelectedEdges() const {
 bool
 GNEFrameModuls::PathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
     // check if stoppingPlaces aren allowed
-    if (((myCreationMode & START_BUSSTOP) + (myCreationMode & END_BUSSTOP)) == 0) {
+    if ((myCreationMode & END_BUSSTOP) == 0) {
         return false;
     }
-    // check if only a busStop is allowed
-    if ((myCreationMode & SINGLE_ELEMENT) && myFromStoppingPlace) {
+    // check if previously stopping place from was set
+    if (myToStoppingPlace) {
         return false;
-    }
-    // first add startBusStop
-    if (myCreationMode & START_BUSSTOP) {
-        // check if previously stopping place from was set
-        if (myFromStoppingPlace) {
-            // check if previously stopping place to was set
-            if ((myCreationMode & END_BUSSTOP) && myToStoppingPlace) {
-                return false;
-            } else {
-                myToStoppingPlace = stoppingPlace;
-            }
-        } else {
-            myFromStoppingPlace = stoppingPlace;
-        }
-    } else if (myCreationMode & END_BUSSTOP) {
-        // check if previously stopping place from was set
-        if (myToStoppingPlace) {
-            return false;
-        } else {
-            myToStoppingPlace = stoppingPlace;
-        }
+    } else {
+        myToStoppingPlace = stoppingPlace;
     }
     // enable abort route button
     myAbortCreationButton->enable();
@@ -2384,7 +2363,7 @@ GNEFrameModuls::PathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, cons
     // disable undo/redo
     myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
     // enable or disable remove last stoppingPlace button
-    if (myFromStoppingPlace || myToStoppingPlace) {
+    if (myToStoppingPlace) {
         myRemoveLastInsertedElement->enable();
     } else {
         myRemoveLastInsertedElement->disable();
@@ -2396,16 +2375,6 @@ GNEFrameModuls::PathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, cons
     // update stoppingPlace colors
     updateEdgeColors();
     return true;
-}
-
-
-GNEAdditional*
-GNEFrameModuls::PathCreator::getFromStoppingPlace(SumoXMLTag expectedTag) const {
-    if (myFromStoppingPlace && (myFromStoppingPlace->getTagProperty().getTag() == expectedTag)) {
-        return myFromStoppingPlace;
-    } else {
-        return nullptr;
-    }
 }
 
 
@@ -2590,7 +2559,7 @@ GNEFrameModuls::PathCreator::createPath() {
 void
 GNEFrameModuls::PathCreator::abortPathCreation() {
     // first check that there is elements
-    if ((mySelectedEdges.size() > 0) || myFromStoppingPlace || myToStoppingPlace || myRoute) {
+    if ((mySelectedEdges.size() > 0) || myToStoppingPlace || myRoute) {
         // unblock undo/redo
         myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
         // clear edges
@@ -2718,7 +2687,6 @@ GNEFrameModuls::PathCreator::clearPath() {
     }
     // clear edges, additionals and route
     mySelectedEdges.clear();
-    myFromStoppingPlace = nullptr;
     myToStoppingPlace = nullptr;
     myRoute = nullptr;
     // clear path
@@ -2738,10 +2706,6 @@ GNEFrameModuls::PathCreator::recalculatePath() {
     if (myRoute) {
         edges = myRoute->getParentEdges();
     } else {
-        // add from stopping place edge
-        if (myFromStoppingPlace) {
-            edges.push_back(myFromStoppingPlace->getParentLanes().front()->getParentEdge());
-        }
         // add selected edges
         for (const auto& edge : mySelectedEdges) {
             edges.push_back(edge);

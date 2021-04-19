@@ -414,33 +414,6 @@ private:
     /// @brief fill person plan rides
     static void fillPersonPlanRides();
 
-    /// @brief fill person plan edge -> edge
-    static void fillPersonPlanEdgeEdge(SumoXMLTag currentTag);
-
-    /// @brief fill person plan edge -> edge
-    static void fillPersonPlanEdgeBusStop(SumoXMLTag currentTag);
-
-    /// @brief fill person plan edge -> stop
-    static void fillPersonPlanEdgeStop(SumoXMLTag currentTag);
-
-    /// @brief fill person plan busStop -> edge
-    static void fillPersonPlanBusStopEdge(SumoXMLTag currentTag);
-
-    /// @brief fill person plan busStop -> edge
-    static void fillPersonPlanBusStopBusStop(SumoXMLTag currentTag);
-
-    /// @brief fill person plan busStop -> stop
-    static void fillPersonPlanBusStopStop(SumoXMLTag currentTag);
-
-    /// @brief fill person plan stop -> edge
-    static void fillPersonPlanStopEdge(SumoXMLTag currentTag);
-
-    /// @brief fill person plan stop -> edge
-    static void fillPersonPlanStopBusStop(SumoXMLTag currentTag);
-
-    /// @brief fill person plan stop -> stop
-    static void fillPersonPlanStopStop(SumoXMLTag currentTag);
-
     /// @brief fill specific person trip attributes
     static void fillPersonTripAttributes(SumoXMLTag currentTag);
 

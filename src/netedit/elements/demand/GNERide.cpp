@@ -329,8 +329,6 @@ GNERide::getAttribute(SumoXMLAttr key) const {
             return getParentEdges().front()->getID();
         case SUMO_ATTR_TO:
             return getParentEdges().back()->getID();
-        case GNE_ATTR_FROM_BUSSTOP:
-            return getParentAdditionals().front()->getID();
         case GNE_ATTR_TO_BUSSTOP:
             return getParentAdditionals().back()->getID();
         // specific person plan attributes
@@ -378,7 +376,6 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         // Common person plan attributes
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-        case GNE_ATTR_FROM_BUSSTOP:
         case GNE_ATTR_TO_BUSSTOP:
         // specific person plan attributes
         case SUMO_ATTR_LINES:
@@ -400,7 +397,6 @@ GNERide::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
             return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveEdge(value, false) != nullptr);
-        case GNE_ATTR_FROM_BUSSTOP:
         case GNE_ATTR_TO_BUSSTOP:
             return (myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
         // specific person plan attributes
@@ -494,18 +490,8 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
             // compute person trip
             computePath();
             break;
-        case GNE_ATTR_FROM_BUSSTOP:
-            replaceAdditionalParent(SUMO_TAG_BUS_STOP, value, 0);
-            // compute person trip
-            computePath();
-            break;
         case GNE_ATTR_TO_BUSSTOP:
-            // -> check this
-            if (getParentAdditionals().size() > 1) {
-                replaceAdditionalParent(SUMO_TAG_BUS_STOP, value, 1);
-            } else {
-                replaceAdditionalParent(SUMO_TAG_BUS_STOP, value, 0);
-            }
+            replaceAdditionalParent(SUMO_TAG_BUS_STOP, value);
             // compute person trip
             computePath();
             break;
