@@ -418,6 +418,7 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
                 SUMOVehicle* foe2 = getVehicleByTripId(foeId2);
                 if (foe2 != nullptr) {
                     ConstMSEdgeVector foe2Route = foe2->getRoute().getEdges();
+                    const TraCISignalConstraint& c = constraintsOnTripId[foeId2];
                     bool constrainedByFoe = false;
                     for (int i = foe2->getRoutePosition(); i < (int)foe2Route.size(); i++) {
                         const MSEdge* e = foe2Route[i];
@@ -429,19 +430,22 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
                                       || (foe->getParameter().depart == foe2->getParameter().depart && foe->getNumericalID() < foe2->getNumericalID())))
                                  )) {
                             constrainedByFoe = true;
-                            //std::cout << " foe=" << foeId << " foeEdge=" << foeEdge->getID() << " foe2=" << foe2->getID() << " i=" << i << " e=" << e->getID() << " foePos=" << foePos << " foe2Pos=" << foe2->getPositionOnLane() << "\n";
+#ifdef DEBUG_CONSTRAINT_DEADLOCK
+                            std::cout << "findConstraintsDeadLocks foeId=" << foeId << " tripId=" << tripId << " foeSignal=" << foeSignal << "\n";
+                            std::cout << "  foeLeaderDeadlock foeEdge=" << foeEdge->getID() << " foe2=" << foe2->getParameter().getParameter("tripId", foe2->getID())
+                                << " routePos=" << foe2->getRoutePosition() << " futureRPos=" << i << " e=" << e->getID()
+                                //<< " foePos=" << foePos << " foe2Pos=" << foe2->getPositionOnLane()
+                                << " " << constraintsOnTripId[foeId2].getString() << "\n";
+#endif
                             break;
                         }
-                        if (e->getToJunction()->getID() == foeSignal) {
+                        if (e->getToJunction()->getID() == foeSignal
+                                || e->getToJunction()->getID() == c.foeSignal) {
                             break;
                         }
                     }
                     if (constrainedByFoe) {
                         // foe cannot wait for foe2 (since it's behind). Instead foe2 must wait for tripId
-#ifdef DEBUG_CONSTRAINT_DEADLOCK
-                        std::cout << " foeLeaderDeadlock=" << foeId2 << "\n";
-#endif
-                        const TraCISignalConstraint& c = constraintsOnTripId[foeId2];
                         TraCISignalConstraint nc; // constraint after swap
                         nc.tripId = c.foeId;
                         nc.foeId = c.tripId;
