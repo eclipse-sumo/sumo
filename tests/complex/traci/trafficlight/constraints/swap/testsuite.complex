@@ -33,3 +33,6 @@ redundant_2
 # a foeInsertion constraint can no longer be swapped (to avoid deadlock) after the vehicle has been inserted (even if the constraint has not yet been fulfulled because the inserted vehicle has not passed the next signal).
 # Instead it must be treated like an implicit constraint (foe2 follows foe on the same track)
 foeInsertion
+
+# prevent false positive foeLeader deadlock check in looped network
+looped
