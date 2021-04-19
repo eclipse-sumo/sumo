@@ -104,15 +104,21 @@ GNEDemandElement::getDemandElementGeometry() {
 
 GNEDemandElement*
 GNEDemandElement::getPreviousChildDemandElement(const GNEDemandElement* demandElement) const {
-    // find child demand element
-    auto it = std::find(getChildDemandElements().begin(), getChildDemandElements().end(), demandElement);
-    // return element or null depending of iterator
-    if (it == getChildDemandElements().end()) {
-        return nullptr;
-    } else if (it == getChildDemandElements().begin()) {
+    // first check if there are demand elements
+    if (getChildDemandElements().empty()) {
         return nullptr;
     } else {
-        return *(it - 1);
+        // find child demand element
+        auto it = std::find(getChildDemandElements().begin(), getChildDemandElements().end(), demandElement);
+        // return element or null depending of iterator
+        if (it == getChildDemandElements().end()) {
+            // in this case, we assume that the last child is the previos child
+            return getChildDemandElements().back();
+        } else if (it == getChildDemandElements().begin()) {
+            return nullptr;
+        } else {
+            return *(it - 1);
+        }
     }
 }
 
