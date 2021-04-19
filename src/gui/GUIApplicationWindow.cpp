@@ -100,6 +100,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_F4_CLOSE,    GUIApplicationWindow::onCmdQuit),
     FXMAPFUNC(SEL_CLOSE,    MID_WINDOW,                 GUIApplicationWindow::onCmdQuit),
 
+    FXMAPFUNC(SEL_COMMAND,  MID_NEW_WINDOW,                                     GUIApplicationWindow::onCmdNewWindow),
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_CONFIG,                                    GUIApplicationWindow::onCmdOpenConfiguration),
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_NETWORK,                                   GUIApplicationWindow::onCmdOpenNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_P,                                  GUIApplicationWindow::onCmdOpenShapes),
@@ -379,6 +380,10 @@ GUIApplicationWindow::fillMenuBar() {
     // build file menu
     myFileMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, "&File", nullptr, myFileMenu);
+    GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
+                                           "New Window", "Ctrl+Shift+N", "Open a new sumo-gui window.",
+                                           nullptr, this, MID_NEW_WINDOW);
+    new FXMenuSeparator(myFileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
                                            "&Open Simulation...", "Ctrl+O", "Open a simulation (Configuration file).",
                                            GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_OPEN_CONFIG);
@@ -823,6 +828,32 @@ GUIApplicationWindow::onCmdNetedit(FXObject*, FXSelector, void*) {
         }
     }
     std::string cmd = netedit + " --registry-viewport -s " + "\"" + OptionsCont::getOptions().getString("net-file") + "\"";
+    // start in background
+#ifndef WIN32
+    cmd = cmd + " &";
+#else
+    // see "help start" for the parameters
+    cmd = "start /B \"\" " + cmd;
+#endif
+    WRITE_MESSAGE("Running " + cmd + ".");
+    // yay! fun with dangerous commands... Never use this over the internet
+    SysUtils::runHiddenCommand(cmd);
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdNewWindow(FXObject*, FXSelector, void*) {
+    FXRegistry reg("SUMO sumo-gui", "sumo-gui");
+    std::string sumo_gui = "sumo-gui";
+    const char* sumoPath = getenv("SUMO_HOME");
+    if (sumoPath != nullptr) {
+        std::string newPath = std::string(sumoPath) + "/bin/sumo_gui";
+        if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
+            sumo_gui = "\"" + newPath + "\"";
+        }
+    }
+    std::string cmd = sumo_gui;
     // start in background
 #ifndef WIN32
     cmd = cmd + " &";

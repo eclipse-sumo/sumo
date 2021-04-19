@@ -80,6 +80,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_CLOSE,    MID_WINDOW,                 GNEApplicationWindow::onCmdQuit),
 
     // toolbar file
+    FXMAPFUNC(SEL_COMMAND,  MID_NEW_WINDOW,                                     GNEApplicationWindow::onCmdNewWindow),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_N_NEWNETWORK,                       GNEApplicationWindow::onCmdNewNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_N_NEWNETWORK,                       GNEApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_NETWORK,                                   GNEApplicationWindow::onCmdOpenNetwork),
@@ -1622,6 +1623,32 @@ GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
             }
         }
     }
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdNewWindow(FXObject*, FXSelector, void*) {
+    FXRegistry reg("SUMO netedit", "netedit");
+    std::string netedit = "netedit";
+    const char* sumoPath = getenv("SUMO_HOME");
+    if (sumoPath != nullptr) {
+        std::string newPath = std::string(sumoPath) + "/bin/netedit";
+        if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
+            netedit = "\"" + newPath + "\"";
+        }
+    }
+    std::string cmd = netedit;
+    // start in background
+#ifndef WIN32
+    cmd = cmd + " &";
+#else
+    // see "help start" for the parameters
+    cmd = "start /B \"\" " + cmd;
+#endif
+    WRITE_MESSAGE("Running " + cmd + ".");
+    // yay! fun with dangerous commands... Never use this over the internet
+    SysUtils::runHiddenCommand(cmd);
     return 1;
 }
 

@@ -101,6 +101,9 @@ public:
 
     /// @name FOX-callbacks
     /// @{
+    /// @brief called when the command/FXCall new window is executed
+    long onCmdNewWindow(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall new network is executed
     long onCmdNewNetwork(FXObject*, FXSelector, void*);
 

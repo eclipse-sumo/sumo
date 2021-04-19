@@ -121,6 +121,9 @@ public:
     /// @name FOX-callbacks
     /// @{
 
+    /// @brief Called on menu File->New Window
+    long onCmdNewWindow(FXObject*, FXSelector, void*);
+
     /// @brief Called on menu File->Open Configuration
     long onCmdOpenConfiguration(FXObject*, FXSelector, void*);
 

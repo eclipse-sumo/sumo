@@ -252,6 +252,8 @@ enum {
     /// @name Main Window File Menu - IDs
     /// @{
 
+    /// @brief Open a New Window
+    MID_NEW_WINDOW,
     /// @brief Open configuration - ID
     MID_OPEN_CONFIG,
     /// @brief Open network - ID

@@ -40,6 +40,7 @@ title: netedit
 
 | File shortcuts              | Key              | Description                         |
 | --------------------------- | ---------------- | ----------------------------------- |
+| New Window                  | Ctrl + Shift + N | Open a new netedit window           |
 | New Network                 | Ctrl + N         | Create a new network                |
 | Open Network                | Ctrl + O         | Open an existing network            |
 | Open configuration          | Ctrl + T         | Open an existing SUMO configuration |
