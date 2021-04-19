@@ -829,6 +829,7 @@ MSNet::clearState(const SUMOTime step) {
             item2.second->clearState();
         }
     }
+    myShapeContainer->clearState();
     myBeginOfTimestepEvents->clearState(myStep, step);
     myEndOfTimestepEvents->clearState(myStep, step);
     myInsertionEvents->clearState(myStep, step);

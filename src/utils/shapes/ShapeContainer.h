@@ -169,6 +169,9 @@ public:
     /// @brief register highlight of the specified type if the given id
     virtual void registerHighlight(const std::string& objectID, const int type, const std::string& polygonID);
 
+    /** @brief Remove all dynamics before quick-loading state */
+    void clearState();
+
 protected:
     /// @brief add polygon
     virtual bool add(SUMOPolygon* poly, bool ignorePruning = false);

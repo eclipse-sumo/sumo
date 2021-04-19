@@ -201,6 +201,13 @@ ShapeContainer::add(PointOfInterest* poi, bool /* ignorePruning */) {
     return true;
 }
 
+void
+ShapeContainer::clearState() {
+    for (auto& item : myPolygonUpdateCommands) {
+        item.second->deschedule();
+    }
+    myPolygonUpdateCommands.clear();
+}
 
 void
 ShapeContainer::cleanupPolygonDynamics(const std::string& id) {
