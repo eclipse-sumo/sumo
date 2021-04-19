@@ -3573,8 +3573,6 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
                                              "arrival position on the destination edge",
                                              "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
-        // fill attributes
-        fillRideAttributes(currentTag);
     }
     currentTag = GNE_TAG_WALK_BUSSTOP;
     {
@@ -3588,8 +3586,6 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "Id of the destination " + toString(SUMO_TAG_BUS_STOP));
         myTagProperties[currentTag].addAttribute(attrProperty);
-        // fill attributes
-        fillRideAttributes(currentTag);
     }
     currentTag = GNE_TAG_WALK_FIRST_EDGE;
     {
@@ -3614,8 +3610,6 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
                                               "arrival position on the destination edge",
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
-        // fill attributes
-        fillRideAttributes(currentTag);
     }
     currentTag = GNE_TAG_WALK_FIRST_BUSSTOP;
     {
@@ -3634,8 +3628,6 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "Id of the destination " + toString(SUMO_TAG_BUS_STOP));
         myTagProperties[currentTag].addAttribute(attrProperty);
-        // fill attributes
-        fillRideAttributes(currentTag);
     }
     currentTag = GNE_TAG_WALK_EDGES;
     {
