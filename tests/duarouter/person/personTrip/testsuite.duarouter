@@ -164,6 +164,12 @@ taz
 # walk past a train stop to reach  the destination edge (access both ways) and then ride a taxi
 walk_via_trainStop_ride_taxi
 
+# ride to train station and use access
+car_access_allJunctions
+
+# ride to train station and use access
+car_access_ptStops
+
 # test routing taxi trips
 taxi
 errors
