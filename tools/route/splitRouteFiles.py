@@ -36,7 +36,7 @@ from optparse import OptionParser
 import gzip
 
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools', 'detector'))
-from detector import DetectorReader  # noqa
+from detector import DetectorReader, LaneMap  # noqa
 
 
 def getFreeSpace(folder):
@@ -155,8 +155,8 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID,
         print("... in dir", os.path.dirname(typesFile), "TEXTTEST_IGNORE")
     vtypes = checkDirOpen(typesFile)
     print("""<vtypes>
-   <vType id="PKW" accel="2.6" decel="4.5" sigma="0.5" length="7" maxspeed="41.6" color="0,1,0"/>
-   <vType id="LKW" accel="2.6" decel="4.5" sigma="0.5" length="15" maxspeed="25" color="1,0,0"/>""", file=vtypes)
+    <vType id="PKW" accel="2.6" decel="4.5" sigma="0.5" length="7" maxspeed="41.6" color="0,1,0"/>
+    <vType id="LKW" accel="2.6" decel="4.5" sigma="0.5" length="15" maxspeed="25" color="1,0,0"/>""", file=vtypes)
     currentTime = 0
     out = {"mofr": None, "sa": None, "so": None}
     prefix = {"mofr": routesPrefix, "sa": None, "so": None}
@@ -214,7 +214,7 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID,
         while "</vehicle>" not in nextLine:
             nextLine = f.readline().rstrip()
             if nextLine.strip():
-                line += os.linesep + nextLine
+                line += "\n" + nextLine
         for day in out.keys():
             if out[day] and random.random() < factor[day]:
                 print(line, file=out[day])
@@ -294,11 +294,11 @@ def main(args=None):
     reader = None
     if options.detfile:
         if not options.collectfile:
-            options.collectfile = "calibrator_routes.rou.xml",
+            options.collectfile = "calibrator_routes.rou.xml"
         if options.verbose:
             print("Reading detectors")
         reader = RouteReader(options.collectfile, options.edgecount, options.pickleedge)
-        detReader = DetectorReader(options.detfile)
+        detReader = DetectorReader(options.detfile, laneMap=LaneMap())
         for edge, group in detReader.getGroups():
             reader.addEdge(edge)
     elif options.collectfile:
