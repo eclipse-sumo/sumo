@@ -73,7 +73,7 @@ The following order of steps is taken to retrieve the travel time for each edge.
 ## Routing Mode *traci.constants.ROUTING_MODE_AGGREGATED*
 
 The [smoothed travel times](../Demand/Automatic_Routing.md#edge_weights) computed for
-the *rerouting device* are used.
+the *rerouting device* are used. Note, that these can also be modified via TraCI.
 
 ## Special cases
 
