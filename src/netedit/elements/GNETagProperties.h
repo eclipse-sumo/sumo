@@ -86,13 +86,7 @@ public:
         PARAMETERSDOUBLE =          1 << 15,    // Element only accept double parameters "key1=double1|key2=double1|...|keyN=doubleN"
         RTREE =                     1 << 16,    // Element is placed in RTREE
         CENTERAFTERCREATION =       1 << 17,    // Camera is moved after element creation
-        PERSONPLAN_START_EDGE =     1 << 18,    // Person plan starts in an edge
-        PERSONPLAN_END_EDGE =       1 << 19,    // Person plan ends in an edge
-        PERSONPLAN_START_BUSSTOP =  1 << 20,    // Person plan starts in a busStop
-        PERSONPLAN_END_BUSSTOP =    1 << 21,    // Person plan ends in a busStop
-        PERSONPLAN_START_STOP =     1 << 22,    // Person plan starts in a stop
-        PERSONPLAN_END_STOP =       1 << 23,    // Person plan ends in a stop
-        EMBEDDED_ROUTE =            1 << 24,    // Element has an embedded route
+        EMBEDDED_ROUTE =            1 << 18,    // Element has an embedded route
     };
 
     /// @brief default constructor
@@ -265,24 +259,6 @@ public:
 
     /// @brief return true if tag correspond to an element that center camera after creation
     bool canCenterCameraAfterCreation() const;
-
-    /// @brief return true if tag correspond to a person plan that starts in an edge
-    bool personPlanStartEdge() const;
-
-    /// @brief return true if tag correspond to a person plan that starts in an edge
-    bool personPlanEndEdge() const;
-
-    /// @brief return true if tag correspond to a person plan that starts in a busStop
-    bool personPlanStartBusStop() const;
-
-    /// @brief return true if tag correspond to a person plan that starts in a busStop
-    bool personPlanEndBusStop() const;
-
-    /// @brief return true if tag correspond to a person plan that starts in a Stop
-    bool personPlanStartStop() const;
-
-    /// @brief return true if tag correspond to a person plan that starts in a Stop
-    bool personPlanEndStop() const;
 
     /// @brief return true if tag correspond to an element that owns a embebbed route
     bool embebbedRoute() const;

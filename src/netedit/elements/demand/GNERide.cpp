@@ -112,21 +112,20 @@ GNERide::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNERide::writeDemandElement(OutputDevice& device) const {
+    // get flags
+    const bool hasEdge = (getParentEdges().size() > 0);
+    const bool hasFromToEdge = (getParentEdges().size() > 1);
+    const bool hasBusStop = (getParentAdditionals().size() > 0);
     // open tag
     device.openTag(SUMO_TAG_RIDE);
-    // check if we have to write "from" attributes
-    if (getParentDemandElements().at(0)->getPreviousChildDemandElement(this) == nullptr) {
-        // write "to" attributes depending of start and end
-        if (myTagProperty.personPlanStartEdge()) {
-            device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
-        } else if (myTagProperty.personPlanStartBusStop()) {
-            device.writeAttr(SUMO_ATTR_FROM, getParentAdditionals().front()->getID());
-        }
+    // check if we have to write "from" attribute
+    if (hasFromToEdge || (hasEdge && hasBusStop)) {
+        device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
     }
     // write "to" attributes depending of start and end
-    if (myTagProperty.personPlanStartEdge()) {
+    if (hasEdge) {
         device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
-    } else if (myTagProperty.personPlanStartBusStop()) {
+    } else if (hasBusStop) {
         device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().back()->getID());
     }
     // only write arrivalPos if is different of -1
@@ -208,56 +207,11 @@ GNERide::updateGeometry() {
 
 void
 GNERide::computePath() {
-    // declare lane vector
-    std::vector<GNELane*> lanes;
-    // update lanes depending of walk tag
-    if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE) {
-        // get previous plan
-        const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
-        // check previousPersonPlan
-        if (previousPersonPlan) {
-            // calculate depending of previous person plan
-            if (previousPersonPlan->getTagProperty().personPlanEndEdge()) {
-                // use last edge
-                lanes = {previousPersonPlan->getLastAllowedVehicleLane(), getLastAllowedVehicleLane()};
-            } else if (previousPersonPlan->getTagProperty().personPlanEndBusStop()) {
-                // use busStop lane
-                lanes = {previousPersonPlan->getParentAdditionals().front()->getParentLanes().front(), getLastAllowedVehicleLane()};
-            } else if (previousPersonPlan->getTagProperty().personPlanEndStop()) {
-                // use stop lane
-                lanes = {previousPersonPlan->getParentLanes().front(), getLastAllowedVehicleLane()};
-            }
-        }
-    }
-    else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP) {
-        // get previous plan
-        const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
-        // check previousPersonPlan
-        if (previousPersonPlan) {
-            // calculate depending of previous person plan
-            if (previousPersonPlan->getTagProperty().personPlanEndEdge()) {
-                // use last edge
-                lanes = {previousPersonPlan->getLastAllowedVehicleLane(), getParentAdditionals().back()->getParentLanes().front()};
-            } else if (previousPersonPlan->getTagProperty().personPlanEndBusStop()) {
-                // use busStop lane
-                lanes = {previousPersonPlan->getParentAdditionals().front()->getParentLanes().front(), getParentAdditionals().back()->getParentLanes().front()};
-            } else if (previousPersonPlan->getTagProperty().personPlanEndStop()) {
-                // use stop lane
-                lanes = {previousPersonPlan->getParentLanes().front(), getParentAdditionals().back()->getParentLanes().front()};
-            }
-        }
-    } else if (myTagProperty.getTag() == GNE_TAG_RIDE_FIRST_EDGE) {
-        // use first and last edge
-        lanes = {getFirstAllowedVehicleLane(), getLastAllowedVehicleLane()};
-    } else if (myTagProperty.getTag() == GNE_TAG_RIDE_FIRST_BUSSTOP) {
-        // use first edge and busStop
-        lanes = {getFirstAllowedVehicleLane(), getParentAdditionals().back()->getParentLanes().front()};
-    }
     // calculate path
-    myNet->getPathManager()->calculateLanesPath(this, SVC_PASSENGER, lanes);
+    myNet->getPathManager()->calculateLanesPath(this, SVC_PASSENGER, {getFirstPersonPlanLane(), getLastPersonPlanLane()});
     // check path
     if (myNet->getPathManager()->getPathSize(this) == 0) {
-        myNet->getPathManager()->calculateLanesPath(this, SVC_PEDESTRIAN, lanes);
+        myNet->getPathManager()->calculateLanesPath(this, SVC_PEDESTRIAN, {getFirstPersonPlanLane(), getLastPersonPlanLane()});
         /* extend for buses, taxis, etc. */
     }
     // update geometry
@@ -359,7 +313,7 @@ GNERide::getAttributeDouble(SumoXMLAttr key) const {
             if (myArrivalPosition != -1) {
                 return myArrivalPosition;
             } else {
-                return (getLastAllowedVehicleLane()->getLaneShape().length() - POSITION_EPS);
+                return (getLastPersonPlanLane()->getLaneShape().length() - POSITION_EPS);
             }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -407,7 +361,7 @@ GNERide::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             } else if (canParse<double>(value)) {
                 const double parsedValue = canParse<double>(value);
-                if ((parsedValue < 0) || (parsedValue > getLastAllowedVehicleLane()->getLaneShape().length())) {
+                if ((parsedValue < 0) || (parsedValue > getLastPersonPlanLane()->getLaneShape().length())) {
                     return false;
                 } else {
                     return true;

@@ -473,42 +473,6 @@ GNETagProperties::canCenterCameraAfterCreation() const {
 
 
 bool
-GNETagProperties::personPlanStartEdge() const {
-    return (myTagProperty & PERSONPLAN_START_EDGE) != 0;
-}
-
-
-bool
-GNETagProperties::personPlanEndEdge() const {
-    return (myTagProperty & PERSONPLAN_END_EDGE) != 0;
-}
-
-
-bool
-GNETagProperties::personPlanStartBusStop() const {
-    return (myTagProperty & PERSONPLAN_START_BUSSTOP) != 0;
-}
-
-
-bool
-GNETagProperties::personPlanEndBusStop() const {
-    return (myTagProperty & PERSONPLAN_END_BUSSTOP) != 0;
-}
-
-
-bool
-GNETagProperties::personPlanStartStop() const {
-    return (myTagProperty & PERSONPLAN_START_STOP) != 0;
-}
-
-
-bool
-GNETagProperties::personPlanEndStop() const {
-    return (myTagProperty & PERSONPLAN_END_STOP) != 0;
-}
-
-
-bool
 GNETagProperties::embebbedRoute() const {
     return (myTagProperty & EMBEDDED_ROUTE) != 0;
 }

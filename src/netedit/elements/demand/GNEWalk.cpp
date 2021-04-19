@@ -131,19 +131,18 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
         device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getParentEdges()));
     } else {
+        // get flags
+        const bool hasEdge = (getParentEdges().size() > 0);
+        const bool hasFromToEdge = (getParentEdges().size() > 1);
+        const bool hasBusStop = (getParentAdditionals().size() > 0);
         // check if we have to write "from" attributes
-        if (getParentDemandElements().at(0)->getPreviousChildDemandElement(this) == nullptr) {
-            // write "to" attributes depending of start and end
-            if (myTagProperty.personPlanStartEdge()) {
-                device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
-            } else if (myTagProperty.personPlanStartBusStop()) {
-                device.writeAttr(SUMO_ATTR_FROM, getParentAdditionals().front()->getID());
-            }
+        if (hasFromToEdge || (hasEdge && hasBusStop)) {
+            device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
         }
         // write "to" attributes depending of start and end
-        if (myTagProperty.personPlanStartEdge()) {
+        if (hasEdge) {
             device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
-        } else if (myTagProperty.personPlanStartBusStop()) {
+        } else if (hasBusStop) {
             device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().back()->getID());
         }
     }
@@ -233,60 +232,18 @@ GNEWalk::computePath() {
     // declare lane vector
     std::vector<GNELane*> lanes;
     // update lanes depending of walk tag
-    if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE) {
-        // get previous plan
-        const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
-        // check previousPersonPlan
-        if (previousPersonPlan) {
-            // calculate depending of previous person plan
-            if (previousPersonPlan->getTagProperty().personPlanEndEdge()) {
-                // use last edge
-                lanes = { previousPersonPlan->getLastAllowedVehicleLane(), getLastAllowedVehicleLane() };
-            } else if (previousPersonPlan->getTagProperty().personPlanEndBusStop()) {
-                // use busStop lane
-                lanes = { previousPersonPlan->getParentAdditionals().front()->getParentLanes().front(), getLastAllowedVehicleLane() };
-            } else if (previousPersonPlan->getTagProperty().personPlanEndStop()) {
-                // use stop lane
-                lanes = { previousPersonPlan->getParentLanes().front(), getLastAllowedVehicleLane() };
-            }
+    if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
+        // fill lanes with parent edges
+        for (const auto &edge : getParentEdges()) {
+            lanes.push_back(edge->getLaneByAllowedVClass(getVClass()));
         }
-    } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP) {
-        // get previous plan
-        const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
-        // check previousPersonPlan
-        if (previousPersonPlan) {
-            // calculate depending of previous person plan
-            if (previousPersonPlan->getTagProperty().personPlanEndEdge()) {
-                // use last edge
-                lanes = { previousPersonPlan->getLastAllowedVehicleLane(), getParentAdditionals().back()->getParentLanes().front() };
-            } else if (previousPersonPlan->getTagProperty().personPlanEndBusStop()) {
-                // use busStop lane
-                lanes = { previousPersonPlan->getParentAdditionals().front()->getParentLanes().front(), getParentAdditionals().back()->getParentLanes().front() };
-            } else if (previousPersonPlan->getTagProperty().personPlanEndStop()) {
-                // use stop lane
-                lanes = { previousPersonPlan->getParentLanes().front(), getParentAdditionals().back()->getParentLanes().front() };
-            }
-        }
-    } else if (myTagProperty.getTag() == GNE_TAG_WALK_FIRST_EDGE) {
-        // use first and last edge
-        lanes = { getFirstAllowedVehicleLane(), getLastAllowedVehicleLane() };
-    } else if (myTagProperty.getTag() == GNE_TAG_WALK_FIRST_BUSSTOP) {
-        // use first edge and busStop
-        lanes = { getFirstAllowedVehicleLane(), getParentAdditionals().back()->getParentLanes().front() };
-    } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
-        // extract lanes from parent edges
-        lanes.push_back(getFirstAllowedVehicleLane());
-        for (int i = 1; i < ((int)getParentEdges().size() - 1); i++) {
-            lanes.push_back(getParentEdges().at(i)->getLaneByAllowedVClass(SVC_PEDESTRIAN));
-        }
-        lanes.push_back(getLastAllowedVehicleLane());
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
-        // extract lanes from parent route edges
-        lanes.push_back(getFirstAllowedVehicleLane());
-        for (int i = 1; i < ((int)getParentDemandElements().back()->getParentEdges().size() - 1); i++) {
-            lanes.push_back(getParentDemandElements().back()->getParentEdges().at(i)->getLaneByAllowedVClass(SVC_PEDESTRIAN));
+        // fill lanes with route parent edges
+        for (const auto& edge : getParentDemandElements().back()->getParentEdges()) {
+            lanes.push_back(edge->getLaneByAllowedVClass(getVClass()));
         }
-        lanes.push_back(getLastAllowedVehicleLane());
+    } else {
+        lanes = {getFirstPersonPlanLane(), getLastPersonPlanLane()};
     }
     // calculate path
     myNet->getPathManager()->calculateLanesPath(this, getVClass(), lanes);
@@ -399,7 +356,7 @@ GNEWalk::getAttributeDouble(SumoXMLAttr key) const {
             if (myArrivalPosition != -1) {
                 return myArrivalPosition;
             } else {
-                return (getLastAllowedVehicleLane()->getLaneShape().length() - POSITION_EPS);
+                return (getLastPersonPlanLane()->getLaneShape().length() - POSITION_EPS);
             }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -455,7 +412,7 @@ GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             } else if (canParse<double>(value)) {
                 const double parsedValue = canParse<double>(value);
-                if ((parsedValue < 0) || (parsedValue > getLastAllowedVehicleLane()->getLaneShape().length())) {
+                if ((parsedValue < 0) || (parsedValue > getLastPersonPlanLane()->getLaneShape().length())) {
                     return false;
                 } else {
                     return true;

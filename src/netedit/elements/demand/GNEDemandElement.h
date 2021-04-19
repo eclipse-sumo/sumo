@@ -325,8 +325,11 @@ protected:
     /// @brief check if person plan can be drawn
     bool drawPersonPlan() const;
 
-    /// @brief get first person plan edge
-    const GNEEdge* getFirstPersonPlanEdge() const;
+    /// @brief get first person plan lane (used in Computing path)
+    GNELane* getFirstPersonPlanLane() const;
+
+    /// @brief get last person plan  lane (used in Computing path)
+    GNELane* getLastPersonPlanLane() const;
 
     /// @brief get person plan depart positions
     double getPersonPlanDepartPos() const;
@@ -338,6 +341,8 @@ protected:
     /// @brief draw person plan partial junction
     void drawPersonPlanPartial(const GUIVisualizationSettings & s, const GNELane * fromLane, const GNELane * toLane, const double offsetFront, 
                                const int options, const double personPlanWidth, const RGBColor & personPlanColor) const;
+
+
 
     /// @brief person plans arrival position radius
     static const double myPersonPlanArrivalPositionDiameter;
