@@ -13,3 +13,4 @@ arrivalPos
 
 # test aborting a riding stage before pickup
 abort_riding
+trip_chain
