@@ -8,7 +8,7 @@ jobs:
   ############################
   # BUILDING THE DOCUMENTATION
   ############################
-  build (internal link check):
+  build-and-internal-link-check:
     runs-on: ubuntu-latest
     
     steps:
@@ -40,7 +40,7 @@ jobs:
   ############################
   # CHECKING EXTERNAL LINKS
   ############################
-  external link check:
+  external-link-check:
      runs-on: ubuntu-latest
      
      steps:
