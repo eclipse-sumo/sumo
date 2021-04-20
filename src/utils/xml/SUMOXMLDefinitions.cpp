@@ -247,22 +247,16 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "flowRoute",                      GNE_TAG_FLOW_ROUTE },
     { "flowWithRoute",                  GNE_TAG_FLOW_WITHROUTE },
     // GNE Person trips
-    { "personTrip: edge",               GNE_TAG_PERSONTRIP_EDGE },
-    { "personTrip: busStop",            GNE_TAG_PERSONTRIP_BUSSTOP },
-    { "personTrip: edge->edge",         GNE_TAG_PERSONTRIP_FIRST_EDGE },
-    { "personTrip: edge->busStop",      GNE_TAG_PERSONTRIP_FIRST_BUSSTOP },
+    { "personTrip: edge->edge",         GNE_TAG_PERSONTRIP_EDGE },
+    { "personTrip: edge->busStop",      GNE_TAG_PERSONTRIP_BUSSTOP },
     // GNE Walks
-    { "walk: edge",                     GNE_TAG_WALK_EDGE },
-    { "walk: busStop",                  GNE_TAG_WALK_BUSSTOP },
-    { "walk: edge->edge",               GNE_TAG_WALK_FIRST_EDGE },
-    { "walk: edge->busStop",            GNE_TAG_WALK_FIRST_BUSSTOP },
+    { "walk: edge->edge",               GNE_TAG_WALK_EDGE },
+    { "walk: edge->busStop",            GNE_TAG_WALK_BUSSTOP },
     { "walk: edges",                    GNE_TAG_WALK_EDGES },
     { "walk: route",                    GNE_TAG_WALK_ROUTE },
     // GNE Rides
-    { "ride: edge",                     GNE_TAG_RIDE_EDGE },
-    { "ride: busStop",                  GNE_TAG_RIDE_BUSSTOP },
-    { "ride: edge->edge",               GNE_TAG_RIDE_FIRST_EDGE },
-    { "ride: edge->busStop",            GNE_TAG_RIDE_FIRST_BUSSTOP },
+    { "ride: edge->edge",               GNE_TAG_RIDE_EDGE },
+    { "ride: edge->busStop",            GNE_TAG_RIDE_BUSSTOP },
     // GNE person Stops
     { "personStop: busStop",            GNE_TAG_PERSONSTOP_BUSSTOP },
     { "personStop: edge",               GNE_TAG_PERSONSTOP_EDGE },
