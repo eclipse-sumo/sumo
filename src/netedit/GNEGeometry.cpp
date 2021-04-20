@@ -880,7 +880,7 @@ GNEGeometry::drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, c
 
 
 void
-GNEGeometry::drawContourGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width, const bool drawExtremes) {
+GNEGeometry::drawContourGeometry(const Geometry& geometry, const double width, const bool drawExtremes) {
     // get shapes
     PositionVector shapeA = geometry.getShape();
     PositionVector shapeB = geometry.getShape();

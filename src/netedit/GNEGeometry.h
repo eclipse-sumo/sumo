@@ -353,7 +353,7 @@ struct GNEGeometry {
     static void drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width);
 
     /// @brief draw contour geometry
-    static void drawContourGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width, const bool drawExtremes = false);
+    static void drawContourGeometry(const Geometry& geometry, const double width, const bool drawExtremes = false);
 
     /// @brief draw geometry points
     static void drawGeometryPoints(const GUIVisualizationSettings& s, const GNEViewNet* viewNet, const PositionVector& shape,
