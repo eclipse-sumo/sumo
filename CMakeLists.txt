@@ -508,9 +508,9 @@ if (SUMO_LIBRARIES AND WIN32)
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/data/proj
                            DEPENDS ${PROJ_PATH})
     endif (PROJ_6)
-    # proj 7 needs to copy "data/proj" folder in SUMO_HOME/share
+    # proj 7 needs to copy "share/proj" folder in SUMO_HOME/share
     if (PROJ_7)
-        set(PROJ_DATA ${CMAKE_SOURCE_DIR}/data/proj/proj.db)
+        set(PROJ_DATA ${CMAKE_SOURCE_DIR}/share/proj/proj.db)
         add_custom_command(OUTPUT ${PROJ_DATA}
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/share/proj
                            DEPENDS ${PROJ_PATH})
