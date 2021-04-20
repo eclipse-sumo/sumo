@@ -294,15 +294,34 @@ double
 GNEPersonTrip::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ARRIVALPOS:
-            if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP) {
-                return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_STARTPOS);
-            } else if (myArrivalPosition != -1) {
+            if (myArrivalPosition != -1) {
                 return myArrivalPosition;
             } else {
                 return (getLastPersonPlanLane()->getLaneShape().length() - POSITION_EPS);
             }
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+Position 
+GNEPersonTrip::getAttributePosition(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_ARRIVALPOS: {
+            // get lane shape
+            const PositionVector &laneShape = getLastPersonPlanLane()->getLaneShape();
+            // continue depending of arrival position
+            if (myArrivalPosition == 0) {
+                return laneShape.front();
+            } else if ((myArrivalPosition == -1) || (myArrivalPosition >= laneShape.length2D())) {
+                return laneShape.back();
+            } else {
+                return laneShape.positionAtOffset2D(myArrivalPosition);
+            }
+        }
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a position attribute of type '" + toString(key) + "'");
     }
 }
 

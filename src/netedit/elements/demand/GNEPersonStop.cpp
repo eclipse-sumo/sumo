@@ -349,7 +349,7 @@ GNEPersonStop::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARENT:
             return getParentDemandElements().front()->getID();
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have a attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -357,12 +357,38 @@ GNEPersonStop::getAttribute(SumoXMLAttr key) const {
 double
 GNEPersonStop::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_ENDPOS:
-            return endPos;
+        // we use SUMO_ATTR_ARRIVALPOS instead SUMO_ATTR_ENDPOS due it's a person plan
         case SUMO_ATTR_ARRIVALPOS:
-            return 0;
+            return endPos;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+Position 
+GNEPersonStop::getAttributePosition(SumoXMLAttr key) const {
+    switch (key) {
+    // we use SUMO_ATTR_ARRIVALPOS instead SUMO_ATTR_ENDPOS due it's a person plan
+        case SUMO_ATTR_ARRIVALPOS: {
+            if (getParentAdditionals().size() > 0) {
+                // return first position of busStop
+                return getParentAdditionals().front()->getAdditionalGeometry().getShape().front(); 
+            } else {
+                // get lane shape
+                const PositionVector &laneShape = getLastPersonPlanLane()->getLaneShape();
+                // continue depending of arrival position
+                if (endPos == 0) {
+                    return laneShape.front();
+                } else if ((endPos == -1) || (endPos >= laneShape.length2D())) {
+                    return laneShape.back();
+                } else {
+                    return laneShape.positionAtOffset2D(endPos);
+                }
+            }
+        }
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a position attribute of type '" + toString(key) + "'");
     }
 }
 

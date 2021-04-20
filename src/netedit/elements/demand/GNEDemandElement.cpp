@@ -433,7 +433,7 @@ GNEDemandElement::getLastPersonPlanLane() const {
 
 
 double
-GNEDemandElement::getPersonPlanDepartPos() const {
+GNEDemandElement::getPersonPlanDepartValue() const {
     // get previous person Plan
     const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
     // check if this is the first person plan
@@ -441,18 +441,33 @@ GNEDemandElement::getPersonPlanDepartPos() const {
         if (previousPersonPlan->getParentAdditionals().size() > 0) {
             // use busStop end
             return previousPersonPlan->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
-        } else if (previousPersonPlan->getTagProperty().hasAttribute(SUMO_ATTR_ENDPOS)) {
-            // use end pos
-            return previousPersonPlan->getAttributeDouble(SUMO_ATTR_ENDPOS);
-        } else if (previousPersonPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+        } else {
             // use arrival pos
             return previousPersonPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
-        } else {
-            throw ProcessError("Invalid previous person plan");
         }
     } else {
         // use pedestrian departPos
         return getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
+    }
+}
+
+
+Position
+GNEDemandElement::getPersonPlanDepartPos() const {
+    // get previous person Plan
+    const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
+    // check if this is the first person plan
+    if (previousPersonPlan) {
+        if (previousPersonPlan->getParentAdditionals().size() > 0) {
+            // use busStop end
+            return previousPersonPlan->getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
+        } else {
+            // use arrival pos
+            return previousPersonPlan->getAttributePosition(SUMO_ATTR_ARRIVALPOS);
+        }
+    } else {
+        // use pedestrian departPos
+        return getParentDemandElements().at(0)->getAttributePosition(SUMO_ATTR_DEPARTPOS);
     }
 }
 
@@ -475,19 +490,24 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
         // get segment flags
         const bool firstSegment = (options & GNEPathManager::PathElement::Options::FIRST_SEGMENT) != 0;
         const bool lastSegment = (options & GNEPathManager::PathElement::Options::LAST_SEGMENT) != 0;
-        // calculate startPos
-        const double geometryDepartPos = getPersonPlanDepartPos();
-        // get endPos
-        const double geometryEndPos = getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+        // calculate startPos values (double and Positions)
+        const double geometryDepartValue = getPersonPlanDepartValue();
+        const Position geometryDeparPos = getPersonPlanDepartPos();
+        // get endPos values (double and position)
+        const double geometryEndValue = (getParentAdditionals().size() > 0)? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_STARTPOS) : getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+        const Position geometryEndPos = (getParentAdditionals().size() > 0)? getParentAdditionals().front()->getAdditionalGeometry().getShape().front() : getAttributePosition(SUMO_ATTR_ARRIVALPOS);
         // declare path geometry
         GNEGeometry::Geometry personPlanGeometry;
         // update pathGeometry depending of first and last segment
         if (firstSegment && lastSegment) {
-            personPlanGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), geometryDepartPos, geometryEndPos);
+            personPlanGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), 
+                geometryDepartValue, geometryEndValue, geometryDeparPos, geometryEndPos);
         } else if (firstSegment) {
-            personPlanGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), geometryDepartPos, -1);
+            personPlanGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), 
+                geometryDepartValue, -1, geometryDeparPos, Position::INVALID);
         } else if (lastSegment) {
-            personPlanGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), -1, geometryEndPos);
+            personPlanGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), 
+                -1, geometryEndValue, Position::INVALID, geometryEndPos);
         } else {
             personPlanGeometry = lane->getLaneGeometry();
         }
@@ -513,19 +533,17 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
         glPopName();
         // check if this is the last segment
         if (lastSegment) {
-            // calculate geometry end position circle
-            const Position endPosCircle = lane->getLaneShape().positionAtOffset2D(geometryEndPos);
             // calculate circle width
             const double circleRadius = (duplicateWidth ? myPersonPlanArrivalPositionDiameter : (myPersonPlanArrivalPositionDiameter / 2.0));
             const double circleWidth = circleRadius * MIN2((double)0.5, s.laneWidthExaggeration);
             const double circleWidthSquared = circleWidth * circleWidth;
-            if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(endPosCircle) <= (circleWidthSquared + 2))) {
+            if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= (circleWidthSquared + 2))) {
                 // push draw matrix
                 glPushMatrix();
                 // Start with the drawing of the area traslating matrix to origin
                 myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
                 // translate to pos and move to upper using GLO_PERSONTRIP (to avoid overlapping)
-                glTranslated(endPosCircle.x(), endPosCircle.y(), 0);
+                glTranslated(geometryEndPos.x(), geometryEndPos.y(), 0);
                 // Set person plan color
                 GLHelper::setColor(pathColor);
                 // resolution of drawn circle depending of the zoom (To improve smothness)

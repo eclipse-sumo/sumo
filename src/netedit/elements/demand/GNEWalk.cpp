@@ -342,7 +342,28 @@ GNEWalk::getAttributeDouble(SumoXMLAttr key) const {
                 return (getLastPersonPlanLane()->getLaneShape().length() - POSITION_EPS);
             }
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have a doubleattribute of type '" + toString(key) + "'");
+    }
+}
+
+
+Position 
+GNEWalk::getAttributePosition(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_ARRIVALPOS: {
+            // get lane shape
+            const PositionVector &laneShape = getLastPersonPlanLane()->getLaneShape();
+            // continue depending of arrival position
+            if (myArrivalPosition == 0) {
+                return laneShape.front();
+            } else if ((myArrivalPosition == -1) || (myArrivalPosition >= laneShape.length2D())) {
+                return laneShape.back();
+            } else {
+                return laneShape.positionAtOffset2D(myArrivalPosition);
+            }
+        }
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a position attribute of type '" + toString(key) + "'");
     }
 }
 

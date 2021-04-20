@@ -438,8 +438,14 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
 
 
 double
-GNERoute::getAttributeDouble(SumoXMLAttr /*key*/) const {
-    return 0;
+GNERoute::getAttributeDouble(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+}
+
+
+Position 
+GNERoute::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a Position attribute of type '" + toString(key) + "'");
 }
 
 

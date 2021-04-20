@@ -436,8 +436,14 @@ GNEStop::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_ENDPOS:
             return endPos;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
+}
+
+
+Position
+GNEStop::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a Position attribute of type '" + toString(key) + "'");
 }
 
 

@@ -255,6 +255,12 @@ public:
      */
     virtual double getAttributeDouble(SumoXMLAttr key) const = 0;
 
+    /* @brief method for getting the Attribute of an XML key in Position format (used in person plans)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    virtual Position getAttributePosition(SumoXMLAttr key) const = 0;
+
     /**@brief method for setting the attribute and letting the object perform demand element changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -331,8 +337,11 @@ protected:
     /// @brief get last person plan  lane (used in Computing path)
     GNELane* getLastPersonPlanLane() const;
 
-    /// @brief get person plan depart positions
-    double getPersonPlanDepartPos() const;
+    /// @brief get person plan depart value
+    double getPersonPlanDepartValue() const;
+
+    /// @brief get person plan depart position
+    Position getPersonPlanDepartPos() const;
 
     /// @brief draw person plan partial lane
     void drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront, const int options,

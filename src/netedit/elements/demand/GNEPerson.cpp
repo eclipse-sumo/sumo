@@ -509,6 +509,18 @@ GNEPerson::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position 
+GNEPerson::getAttributePosition(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_DEPARTPOS:
+            // just return position in view
+            return getPositionInView();
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a Position attribute of type '" + toString(key) + "'");
+    }
+}
+
+
 void
 GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {

@@ -198,6 +198,10 @@ GNERide::computePath() {
     if (myNet->getPathManager()->getPathSize(this) == 0) {
         myNet->getPathManager()->calculateLanesPath(this, SVC_BUS, lanes);
     }
+    // check path (bicycle)
+    if (myNet->getPathManager()->getPathSize(this) == 0) {
+        myNet->getPathManager()->calculateLanesPath(this, SVC_BICYCLE, lanes);
+    }
     // check path (pedestrian)
     if (myNet->getPathManager()->getPathSize(this) == 0) {
         myNet->getPathManager()->calculateLanesPath(this, SVC_PEDESTRIAN, lanes);
@@ -304,7 +308,28 @@ GNERide::getAttributeDouble(SumoXMLAttr key) const {
                 return (getLastPersonPlanLane()->getLaneShape().length() - POSITION_EPS);
             }
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+Position
+GNERide::getAttributePosition(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_ARRIVALPOS: {
+            // get lane shape
+            const PositionVector &laneShape = getLastPersonPlanLane()->getLaneShape();
+            // continue depending of arrival position
+            if (myArrivalPosition == 0) {
+                return laneShape.front();
+            } else if ((myArrivalPosition == -1) || (myArrivalPosition >= laneShape.length2D())) {
+                return laneShape.back();
+            } else {
+                return laneShape.positionAtOffset2D(myArrivalPosition);
+            }
+        }
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a position attribute of type '" + toString(key) + "'");
     }
 }
 

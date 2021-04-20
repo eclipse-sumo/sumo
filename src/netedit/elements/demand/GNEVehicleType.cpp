@@ -461,6 +461,12 @@ GNEVehicleType::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position 
+GNEVehicleType::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a Position attribute of type '" + toString(key) + "'");
+}
+
+
 void
 GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     GNEChange_Attribute* vTypeChangeAttributeForced = nullptr;
