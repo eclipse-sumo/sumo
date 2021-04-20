@@ -331,61 +331,10 @@ GNEPersonStop::getAttribute(SumoXMLAttr key) const {
             } else {
                 return "";
             }
-        case SUMO_ATTR_EXTENSION:
-            if (parametersSet & STOP_EXTENSION_SET) {
-                return time2string(extension);
-            } else {
-                return "";
-            }
-        case SUMO_ATTR_INDEX:
-            if (index == STOP_INDEX_END) {
-                return "end";
-            } else if (index == STOP_INDEX_FIT) {
-                return "fit";
-            } else {
-                return toString(index);
-            }
-        case SUMO_ATTR_TRIGGERED:
-            // this is an special case
-            if (parametersSet & STOP_TRIGGER_SET) {
-                return "1";
-            } else {
-                return "0";
-            }
-        case SUMO_ATTR_CONTAINER_TRIGGERED:
-            // this is an special case
-            if (parametersSet & STOP_CONTAINER_TRIGGER_SET) {
-                return "1";
-            } else {
-                return "0";
-            }
-        case SUMO_ATTR_EXPECTED:
-            if (parametersSet & STOP_EXPECTED_SET) {
-                return toString(awaitedPersons);
-            } else {
-                return "";
-            }
-        case SUMO_ATTR_EXPECTED_CONTAINERS:
-            if (parametersSet & STOP_EXPECTED_CONTAINERS_SET) {
-                return toString(awaitedContainers);
-            } else {
-                return "";
-            }
-        case SUMO_ATTR_PARKING:
-            return toString(parking);
         case SUMO_ATTR_ACTTYPE:
             return actType;
-        case SUMO_ATTR_TRIP_ID:
-            if (parametersSet & STOP_TRIP_ID_SET) {
-                return tripId;
-            } else {
-                return "";
-            }
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
-        case SUMO_ATTR_CONTAINER_STOP:
-        case SUMO_ATTR_CHARGING_STATION:
-        case SUMO_ATTR_PARKING_AREA:
             return getParentAdditionals().front()->getID();
         // specific of stops over edges/lanes
         case SUMO_ATTR_EDGE:
@@ -427,19 +376,9 @@ GNEPersonStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_DURATION:
         case SUMO_ATTR_UNTIL:
         case SUMO_ATTR_EXTENSION:
-        case SUMO_ATTR_INDEX:
-        case SUMO_ATTR_TRIGGERED:
-        case SUMO_ATTR_CONTAINER_TRIGGERED:
-        case SUMO_ATTR_EXPECTED:
-        case SUMO_ATTR_EXPECTED_CONTAINERS:
-        case SUMO_ATTR_PARKING:
         case SUMO_ATTR_ACTTYPE:
-        case SUMO_ATTR_TRIP_ID:
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
-        case SUMO_ATTR_CONTAINER_STOP:
-        case SUMO_ATTR_CHARGING_STATION:
-        case SUMO_ATTR_PARKING_AREA:
         // specific of stops over edges/lanes
         case SUMO_ATTR_EDGE:
         case SUMO_ATTR_ENDPOS:
@@ -472,12 +411,6 @@ GNEPersonStop::isValid(SumoXMLAttr key, const std::string& value) {
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
             return (myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
-        case SUMO_ATTR_CONTAINER_STOP:
-            return (myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value, false) != nullptr);
-        case SUMO_ATTR_CHARGING_STATION:
-            return (myNet->retrieveAdditional(SUMO_TAG_CHARGING_STATION, value, false) != nullptr);
-        case SUMO_ATTR_PARKING_AREA:
-            return (myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false) != nullptr);
         // specific of stops over edges/lanes
         case SUMO_ATTR_EDGE:
             if (myNet->retrieveEdge(value, false) != nullptr) {
@@ -555,27 +488,10 @@ GNEPersonStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 
 bool
 GNEPersonStop::isAttributeEnabled(SumoXMLAttr key) const {
-    switch (key) {
-        // Currently stops parents cannot be edited
-        case SUMO_ATTR_BUS_STOP:
-        case SUMO_ATTR_CONTAINER_STOP:
-        case SUMO_ATTR_CHARGING_STATION:
-        case SUMO_ATTR_PARKING_AREA:
-            return false;
-        case SUMO_ATTR_DURATION:
-            return (parametersSet & STOP_DURATION_SET) != 0;
-        case SUMO_ATTR_UNTIL:
-            return (parametersSet & STOP_UNTIL_SET) != 0;
-        case SUMO_ATTR_EXTENSION:
-            return (parametersSet & STOP_EXTENSION_SET) != 0;
-        case SUMO_ATTR_EXPECTED:
-            return (parametersSet & STOP_TRIGGER_SET) != 0;
-        case SUMO_ATTR_EXPECTED_CONTAINERS:
-            return (parametersSet & STOP_CONTAINER_TRIGGER_SET) != 0;
-        case SUMO_ATTR_PARKING:
-            return (parametersSet & STOP_PARKING_SET) != 0;
-        default:
-            return true;
+    if (key == SUMO_ATTR_FROM) {
+        return (getParentDemandElements().at(0)->getPreviousChildDemandElement(this) == nullptr);
+    } else {
+        return true;
     }
 }
 
@@ -638,76 +554,11 @@ GNEPersonStop::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet |= STOP_UNTIL_SET;
             }
             break;
-        case SUMO_ATTR_EXTENSION:
-            if (value.empty()) {
-                parametersSet &= ~STOP_EXTENSION_SET;
-            } else {
-                extension = string2time(value);
-                parametersSet |= STOP_EXTENSION_SET;
-            }
-            break;
-        case SUMO_ATTR_INDEX:
-            if (value == "fit") {
-                index = STOP_INDEX_FIT;
-            } else if (value == "end") {
-                index = STOP_INDEX_END;
-            } else {
-                index = parse<int>(value);
-            }
-            break;
-        case SUMO_ATTR_TRIGGERED:
-            triggered = parse<bool>(value);
-            // this is an special case: only if SUMO_ATTR_TRIGGERED is true, it will be written in XML
-            if (triggered) {
-                parametersSet |= STOP_TRIGGER_SET;
-            } else {
-                parametersSet &= ~STOP_TRIGGER_SET;
-            }
-            break;
-        case SUMO_ATTR_CONTAINER_TRIGGERED:
-            containerTriggered = parse<bool>(value);
-            // this is an special case: only if SUMO_ATTR_CONTAINER_TRIGGERED is true, it will be written in XML
-            if (containerTriggered) {
-                parametersSet |= STOP_CONTAINER_TRIGGER_SET;
-            } else {
-                parametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
-            }
-            break;
-        case SUMO_ATTR_EXPECTED:
-            if (value.empty()) {
-                parametersSet &= ~STOP_EXPECTED_SET;
-            } else {
-                awaitedPersons = parse<std::set<std::string> >(value);
-                parametersSet |= STOP_EXPECTED_SET;
-            }
-            break;
-        case SUMO_ATTR_EXPECTED_CONTAINERS:
-            if (value.empty()) {
-                parametersSet &= ~STOP_EXPECTED_CONTAINERS_SET;
-            } else {
-                awaitedContainers = parse<std::set<std::string> >(value);
-                parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
-            }
-            break;
-        case SUMO_ATTR_PARKING:
-            parking = parse<bool>(value);
-            break;
         case SUMO_ATTR_ACTTYPE:
             actType = value;
             break;
-        case SUMO_ATTR_TRIP_ID:
-            if (value.empty()) {
-                parametersSet &= ~STOP_TRIP_ID_SET;
-            } else {
-                tripId = value;
-                parametersSet |= STOP_TRIP_ID_SET;
-            }
-            break;
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
-        case SUMO_ATTR_CONTAINER_STOP:
-        case SUMO_ATTR_CHARGING_STATION:
-        case SUMO_ATTR_PARKING_AREA:
             replaceAdditionalParent(SUMO_TAG_BUS_STOP, value);
             updateGeometry();
             break;
