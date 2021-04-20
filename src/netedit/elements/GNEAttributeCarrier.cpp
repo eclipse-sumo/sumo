@@ -3488,8 +3488,16 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                               "arrival position on the destination edge",
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
-        // fill attributes
-        fillPersonTripAttributes(currentTag);
+        // vTypes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_VTYPES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "List of possible vehicle types to take");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // modes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_MODES,
+                                              GNEAttributeProperties::COMPLEX | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "List of possible traffic modes. Walking is always possible regardless of this value");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_PERSONTRIP_BUSSTOP;
     {
@@ -3508,8 +3516,16 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "Id of the destination " + toString(SUMO_TAG_BUS_STOP));
         myTagProperties[currentTag].addAttribute(attrProperty);
-        // fill attributes
-        fillPersonTripAttributes(currentTag);
+        // vTypes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_VTYPES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "List of possible vehicle types to take");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // modes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_MODES,
+                                              GNEAttributeProperties::COMPLEX | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "List of possible traffic modes. Walking is always possible regardless of this value");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }
 
@@ -3630,8 +3646,12 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                               "arrival position on the destination edge",
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
-        // fill attributes
-        fillRideAttributes(currentTag);
+        // lines
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUESTATIC,
+                                              "list of vehicle alternatives to take for the " + toString(currentTag),
+                                              "ANY");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_RIDE_BUSSTOP;
     {
@@ -3650,39 +3670,13 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "Id of the destination " + toString(SUMO_TAG_BUS_STOP));
         myTagProperties[currentTag].addAttribute(attrProperty);
-        // fill attributes
-        fillRideAttributes(currentTag);
+        // lines
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUESTATIC,
+                                              "list of vehicle alternatives to take for the " + toString(currentTag),
+                                              "ANY");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
-}
-
-
-void
-GNEAttributeCarrier::fillPersonTripAttributes(SumoXMLTag currentTag) {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties attrProperty;
-    // vTypes
-    attrProperty = GNEAttributeProperties(SUMO_ATTR_VTYPES,
-                                          GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
-                                          "List of possible vehicle types to take");
-    myTagProperties[currentTag].addAttribute(attrProperty);
-    // modes
-    attrProperty = GNEAttributeProperties(SUMO_ATTR_MODES,
-                                          GNEAttributeProperties::COMPLEX | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
-                                          "List of possible traffic modes. Walking is always possible regardless of this value");
-    myTagProperties[currentTag].addAttribute(attrProperty);
-}
-
-
-void
-GNEAttributeCarrier::fillRideAttributes(SumoXMLTag currentTag) {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties attrProperty;
-    // lines
-    attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
-                                          GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUESTATIC,
-                                          "list of vehicle alternatives to take for the " + toString(currentTag),
-                                          "ANY");
-    myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
 
@@ -3716,8 +3710,23 @@ GNEAttributeCarrier::fillPersonStopElements() {
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        // fill common stop attributes
-        fillCommonPersonStopAttributes(currentTag, true);
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DURATION,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUESTATIC,
+                                              "Minimum duration for stopping",
+                                              "60");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_UNTIL,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUESTATIC,
+                                              "The time step at which the route continues",
+                                              "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "Activity displayed for stopped person in GUI and output files ",
+                                              "waiting");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_PERSONSTOP_BUSSTOP;
     {
@@ -3733,8 +3742,23 @@ GNEAttributeCarrier::fillPersonStopElements() {
                                               "BusStop associated with this stop");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        // fill common stop attributes
-        fillCommonPersonStopAttributes(currentTag, true);
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DURATION,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUESTATIC,
+                                              "Minimum duration for stopping",
+                                              "60");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_UNTIL,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUESTATIC,
+                                              "The time step at which the route continues",
+                                              "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "Activity displayed for stopped person in GUI and output files ",
+                                              "waiting");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }
 
@@ -4285,37 +4309,13 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
                                           "waiting");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
-    /** Attribute currently disabled. It will be implemented in #6011
+    /*
+    Attribute currently disabled. It will be implemented in #6011
     attrProperty = GNEAttributeProperties(SUMO_ATTR_TRIP_ID,
         GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
         "Value used for trips that uses this stop");
     myTagProperties[currentTag].addAttribute(attrProperty);
     */
-}
-
-
-void
-GNEAttributeCarrier::fillCommonPersonStopAttributes(SumoXMLTag currentTag, const bool parking) {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties attrProperty;
-
-    attrProperty = GNEAttributeProperties(SUMO_ATTR_DURATION,
-        GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUESTATIC,
-        "Minimum duration for stopping",
-        "60");
-    myTagProperties[currentTag].addAttribute(attrProperty);
-
-    attrProperty = GNEAttributeProperties(SUMO_ATTR_UNTIL,
-        GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUESTATIC,
-        "The time step at which the route continues",
-        "0");
-    myTagProperties[currentTag].addAttribute(attrProperty);
-
-    attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
-        GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
-        "Activity displayed for stopped person in GUI and output files ",
-        "waiting");
-    myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
 

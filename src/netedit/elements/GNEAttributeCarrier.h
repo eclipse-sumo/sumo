@@ -414,12 +414,6 @@ private:
     /// @brief fill person plan rides
     static void fillPersonPlanRides();
 
-    /// @brief fill specific person trip attributes
-    static void fillPersonTripAttributes(SumoXMLTag currentTag);
-
-    /// @brief fill specific ride attributes
-    static void fillRideAttributes(SumoXMLTag currentTag);
-
     /// @brief fill personStop elements
     static void fillPersonStopElements();
 
@@ -443,9 +437,6 @@ private:
 
     /// @brief fill stop person attributes
     static void fillCommonStopAttributes(SumoXMLTag currentTag, const bool parking);
-
-    /// @brief fill person stop person attributes
-    static void fillCommonPersonStopAttributes(SumoXMLTag currentTag, const bool parking);
 
     /// @brief fill Data elements
     static void fillDataElements();
