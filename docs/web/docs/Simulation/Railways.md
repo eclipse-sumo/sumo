@@ -309,6 +309,15 @@ Furthermore the following functions are available for rail signals:
 - traci.trafficlight.getRivalVehicles(tlsID, linkIndex): Returns the list of vehicles that also wish to enter the subsequent block for the given tls-linkIndex (regardless of priority) from the perspective of the closest vehicle upstream of the signal
 - traci.trafficlight.getPriorityVehicles(tlsID, linkIndex): Returns the list of vehicles that also wish to enter the subsequent block for the given tls-linkIndex (only those with higher priority) from the perspective of the closest vehicle upstream of the signal
 
+## constraints
+
+Constraints can be queried and modified via TraCI:
+
+- getConstraints(self, tlsID, tripId=""): Returns the list of rail signal constraints for the given rail signal. If tripId is not "", only constraints with the given tripId are returned. Otherwise, all constraints are returned
+- getConstraintsByFoe(self, foeSignal, foeId=""): Returns the list of rail signal constraints that have the given rail signal id as their foeSignal. If foeId is not "", only constraints with the given foeId are returned. Otherwise, all constraints are returne
+- swapConstraints(self, tlsID, tripId, foeSignal, foeId):  Reverse the given constraint and return list of new constraints that were created (by swapping) to avoid deadlock.
+- removeConstraints(self, tlsID, tripId, foeSignal, foeId): remove constraints with the given values. Any combination of inputs may be set to "" to act as a wildcard filter """
+
 # Visualization
 
 The length of railway carriages, locomotive and the gap between the
