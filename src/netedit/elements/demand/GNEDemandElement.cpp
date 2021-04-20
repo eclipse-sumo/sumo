@@ -400,7 +400,7 @@ GNEDemandElement::getFirstPersonPlanLane() const {
             return getParentAdditionals().front()->getParentLanes().front();
         // check route walk
         case GNE_TAG_WALK_ROUTE:
-            getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
+            return getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
         default:
             throw ProcessError("Invalid person plan tag");
     }

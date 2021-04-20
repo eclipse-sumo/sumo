@@ -1946,7 +1946,7 @@ GNERouteHandler::PersonPlansValues::updateGNETag() {
             tag = GNE_TAG_WALK_EDGES;
         } else if (route) {
             // walk route
-            tag = GNE_TAG_WALK_EDGES;
+            tag = GNE_TAG_WALK_ROUTE;
         }
     } else if (edgeStop || laneStop) {
         // person stop lane
