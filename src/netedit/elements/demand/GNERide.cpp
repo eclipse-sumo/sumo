@@ -380,8 +380,12 @@ GNERide::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 
 
 bool
-GNERide::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
+GNERide::isAttributeEnabled(SumoXMLAttr key) const {
+    if (key == SUMO_ATTR_FROM) {
+        return (getParentDemandElements().at(0)->getPreviousChildDemandElement(this) == nullptr);
+    } else {
+        return true;
+    }
 }
 
 

@@ -426,8 +426,12 @@ GNEWalk::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 
 
 bool
-GNEWalk::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
+GNEWalk::isAttributeEnabled(SumoXMLAttr key) const {
+    if (key == SUMO_ATTR_FROM) {
+        return (getParentDemandElements().at(0)->getPreviousChildDemandElement(this) == nullptr);
+    } else {
+        return true;
+    }
 }
 
 
