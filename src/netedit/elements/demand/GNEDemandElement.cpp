@@ -386,36 +386,18 @@ GNELane*
 GNEDemandElement::getFirstPersonPlanLane() const {
     switch (myTagProperty.getTag()) {
         // check first edge elements
-        case GNE_TAG_PERSONTRIP_FIRST_EDGE:
-        case GNE_TAG_RIDE_FIRST_EDGE:
-        case GNE_TAG_WALK_FIRST_EDGE:
-        case GNE_TAG_PERSONTRIP_FIRST_BUSSTOP:
-        case GNE_TAG_RIDE_FIRST_BUSSTOP:
-        case GNE_TAG_WALK_FIRST_BUSSTOP:
-        case GNE_TAG_WALK_EDGES:
-        case GNE_TAG_PERSONSTOP_EDGE:
-            return getParentEdges().front()->getLaneByAllowedVClass(getVClass());
-        // check middle elements
         case GNE_TAG_PERSONTRIP_EDGE:
         case GNE_TAG_RIDE_EDGE:
         case GNE_TAG_WALK_EDGE:
         case GNE_TAG_PERSONTRIP_BUSSTOP:
         case GNE_TAG_RIDE_BUSSTOP:
-        case GNE_TAG_WALK_BUSSTOP: 
-        case GNE_TAG_PERSONSTOP_BUSSTOP: {
-            // get previous person plan
-            const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
-            // continue depending of previousPersonPlan
-            if (previousPersonPlan->getParentAdditionals().size() > 0) {
-                return previousPersonPlan->getParentAdditionals().front()->getParentLanes().front();
-            } else if (previousPersonPlan->getParentEdges().size() > 1) {
-                return previousPersonPlan->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
-            } else if (previousPersonPlan->getParentLanes().size() > 1) {
-                return previousPersonPlan->getParentLanes().front();
-            } else {
-                throw ProcessError("Invalid previous person plan");
-            }
-        }
+        case GNE_TAG_WALK_BUSSTOP:
+        case GNE_TAG_WALK_EDGES:
+        case GNE_TAG_PERSONSTOP_EDGE:
+            return getParentEdges().front()->getLaneByAllowedVClass(getVClass());
+        // check personStop (bus)
+        case GNE_TAG_PERSONSTOP_BUSSTOP:
+            return getParentAdditionals().front()->getParentLanes().front();
         // check route walk
         case GNE_TAG_WALK_ROUTE:
             getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
@@ -429,9 +411,6 @@ GNELane*
 GNEDemandElement::getLastPersonPlanLane() const {
     switch (myTagProperty.getTag()) {
         // check edge elements
-        case GNE_TAG_PERSONTRIP_FIRST_EDGE:
-        case GNE_TAG_RIDE_FIRST_EDGE:
-        case GNE_TAG_WALK_FIRST_EDGE:
         case GNE_TAG_PERSONTRIP_EDGE:
         case GNE_TAG_RIDE_EDGE:
         case GNE_TAG_WALK_EDGE:
@@ -439,9 +418,6 @@ GNEDemandElement::getLastPersonPlanLane() const {
         case GNE_TAG_PERSONSTOP_EDGE:
             return getParentEdges().back()->getLaneByAllowedVClass(getVClass());
         // check busStops elements
-        case GNE_TAG_PERSONTRIP_FIRST_BUSSTOP:
-        case GNE_TAG_RIDE_FIRST_BUSSTOP:
-        case GNE_TAG_WALK_FIRST_BUSSTOP:
         case GNE_TAG_PERSONTRIP_BUSSTOP:
         case GNE_TAG_RIDE_BUSSTOP:
         case GNE_TAG_WALK_BUSSTOP:
