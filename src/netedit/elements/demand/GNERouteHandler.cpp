@@ -1934,7 +1934,7 @@ GNERouteHandler::PersonPlansValues::updateGNETag() {
             // edge->busStop
             tag = GNE_TAG_RIDE_BUSSTOP;
         }
-    } else if (SUMO_TAG_WALK) {
+    } else if (tag == SUMO_TAG_WALK) {
         if (toEdge) {
             // edge->edge
             tag = GNE_TAG_WALK_EDGE;
