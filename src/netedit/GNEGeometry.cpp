@@ -131,9 +131,9 @@ GNEGeometry::Geometry::updateTrimGeometry(const PositionVector& shape, double be
         if (extraLastPosition != Position::INVALID) {
             myShape.push_back_noDoublePos(extraLastPosition);
         }
-        // calculate shape rotation and lenghts
-        calculateShapeRotationsAndLengths();
     }
+    // calculate shape rotation and lenghts
+    calculateShapeRotationsAndLengths();
 }
 
 
