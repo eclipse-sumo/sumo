@@ -35,7 +35,7 @@
 
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
                  double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_FIRST_EDGE,
+    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_EDGE,
         {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition),
     myLines(lines) {
@@ -46,29 +46,8 @@ GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
 
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
                  double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_FIRST_BUSSTOP,
-        {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition),
-    myLines(lines) {
-    // compute ride
-    computePath();
-}
-
-GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* toEdge,
-                 double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_EDGE,
-        {}, {toEdge}, {}, {}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition),
-    myLines(lines) {
-    // compute ride
-    computePath();
-}
-
-
-GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEAdditional* toBusStop,
-                 double arrivalPosition, const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_BUSSTOP,
-        {}, {}, {}, {toBusStop}, {}, {}, {personParent}, {}),
+        {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition),
     myLines(lines) {
     // compute ride
@@ -415,12 +394,8 @@ GNERide::getPopUpID() const {
 std::string
 GNERide::getHierarchyName() const {
     if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE) {
-        return "ride: " + getParentEdges().front()->getID();
-    } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP) {
-        return "ride: " + getParentAdditionals().front()->getID();
-    } else if (myTagProperty.getTag() == GNE_TAG_RIDE_FIRST_EDGE) {
         return "ride: " + getParentEdges().front()->getID() + " -> " + getParentEdges().back()->getID();
-    } else if (myTagProperty.getTag() == GNE_TAG_RIDE_FIRST_BUSSTOP) {
+    } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP) {
         return "ride: " + getParentEdges().front()->getID() + " -> " + getParentAdditionals().back()->getID();
     } else {
         throw ("Invalid ride tag");
