@@ -63,7 +63,7 @@ struct GNEGeometry {
         Geometry(const Geometry& geometry);
 
         /// @brief trim constructor
-        Geometry(const Geometry& geometry, double beginTrim, double endTrim);
+        Geometry(const Geometry& geometry, double beginTrim, double endTrim, const Position& extraFirstPosition, const Position& extraLastPosition);
 
         /// @brief parameter constructor
         Geometry(const PositionVector& shape);
@@ -86,10 +86,10 @@ struct GNEGeometry {
         void updateGeometry(const GNELane* lane, const double posOverLane);
 
         /// @brief update geometry (using a lane)
-        void updateGeometry(const GNELane* lane);
+        void updateGeometry(GNELane* lane);
 
         /// @brief update geometry (using geometry of another additional)
-        void updateGeometry(const GNEAdditional* additional);
+        void updateGeometry(GNEAdditional* additional);
 
         /// @brief update geometry (using a new shape, rotations and lenghts)
         void updateGeometry(const Geometry& geometry);
@@ -123,14 +123,10 @@ struct GNEGeometry {
         std::vector<double> myShapeLengths;
 
         /// @brief lane (to use lane geometry)
-        const GNELane* myLane;
+        GNELane* myLane;
 
         /// @brief additional (to use additional geometry)
-        const GNEAdditional* myAdditional;
-
-    private:
-        /// @brief Invalidated assignment operator
-        Geometry& operator=(const Geometry& other) = delete;
+        GNEAdditional* myAdditional;
     };
 
     /// @enum for dotted cotour type

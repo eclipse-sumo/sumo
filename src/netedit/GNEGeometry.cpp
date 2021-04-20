@@ -57,7 +57,8 @@ GNEGeometry::Geometry::Geometry(const Geometry& geometry) :
 }
 
 
-GNEGeometry::Geometry::Geometry(const Geometry& geometry, double beginTrim, double endTrim) :
+GNEGeometry::Geometry::Geometry(const Geometry& geometry, double beginTrim, double endTrim,
+        const Position& extraFirstPosition, const Position& extraLastPosition) :
     myShape(geometry.getShape()),
     myShapeRotations(geometry.getShapeRotations()),
     myShapeLengths(geometry.getShapeLengths()),
@@ -89,6 +90,13 @@ GNEGeometry::Geometry::Geometry(const Geometry& geometry, double beginTrim, doub
         }
         // trim shape
         myShape = myShape.getSubpart2D(beginTrim, endTrim);
+        // add extra positions
+        if (extraFirstPosition != Position::INVALID) {
+            myShape.push_front_noDoublePos(extraFirstPosition);
+        } 
+        if (extraLastPosition != Position::INVALID) {
+            myShape.push_back_noDoublePos(extraLastPosition);
+        }
         // calculate shape rotation and lenghts
         calculateShapeRotationsAndLengths();
     }
@@ -198,7 +206,7 @@ GNEGeometry::Geometry::updateGeometry(const GNELane* lane, const double posOverL
 
 
 void
-GNEGeometry::Geometry::updateGeometry(const GNELane* lane) {
+GNEGeometry::Geometry::updateGeometry(GNELane* lane) {
     // first clear geometry
     clearGeometry();
     // set lane
@@ -207,7 +215,7 @@ GNEGeometry::Geometry::updateGeometry(const GNELane* lane) {
 
 
 void
-GNEGeometry::Geometry::updateGeometry(const GNEAdditional* additional) {
+GNEGeometry::Geometry::updateGeometry(GNEAdditional* additional) {
     // first clear geometry
     clearGeometry();
     // set additional
