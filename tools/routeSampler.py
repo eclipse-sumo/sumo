@@ -654,7 +654,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                     routeCounts[routeIndex], routeIDComment))
             outf.write('\n')
         elif options.writeRouteDist:
-            outf.write('    <routeDistribution id="%s%s"/>\n' % (intervalPrefix, options.writeRouteDist))
+            outf.write('    <routeDistribution id="%s%s">\n' % (intervalPrefix, options.writeRouteDist))
             for routeIndex in sorted(set(usedRoutes)):
                 outf.write('        <route id="%s%s" edges="%s" probability="%s"/>\n' % (
                     intervalPrefix, routeIndex, ' '.join(routes.unique[routeIndex]), routeCounts[routeIndex]))
