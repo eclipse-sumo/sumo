@@ -71,7 +71,7 @@ Collisions at intersections may be caused by any of the following:
 - Unsafe [junction model
 parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#junction_model_parameters)
   - *jmDriveAfterRedTime* \> 0 (ignoring a red light)
-  - *jmIgnoreFoeProb* and *jmIgnoreFoeSpeed* (ignore foes below the
+  - *jmIgnoreFoeProb* and *jmIgnoreFoeSpeed* (ignore foes that are approaching the junction below the
     given speed with the given probability)
   - *jmTimegapMinor* < 1 (safety time gap when passing an
     intersection without priority)
