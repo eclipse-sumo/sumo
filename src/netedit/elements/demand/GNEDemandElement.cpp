@@ -479,10 +479,18 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
         const double geometryDepartPos = getPersonPlanDepartPos();
         // get endPos
         const double geometryEndPos = getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
-        // calculate geometry
-        const GNEGeometry::Geometry pathGeometry(firstSegment ? GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), geometryDepartPos, -1) :
-                                                 lastSegment ? GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), -1, geometryEndPos) :
-                                                 lane->getLaneGeometry());
+        // declare path geometry
+        GNEGeometry::Geometry personPlanGeometry;
+        // update pathGeometry depending of first and last segment
+        if (firstSegment && lastSegment) {
+            personPlanGeometry = GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), geometryDepartPos, geometryEndPos, Position::INVALID, Position::INVALID);
+        } else if (firstSegment) {
+            personPlanGeometry = GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), geometryDepartPos, -1, Position::INVALID, Position::INVALID);
+        } else if (lastSegment) {
+            personPlanGeometry = GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), -1, geometryEndPos, Position::INVALID, Position::INVALID);
+        } else {
+            personPlanGeometry = lane->getLaneGeometry();
+        }
         // get color
         const RGBColor& pathColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : personPlanColor;
         // Start drawing adding an gl identificator
@@ -494,7 +502,7 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
         // Set color
         GLHelper::setColor(pathColor);
         // draw geometry
-        GNEGeometry::drawGeometry(myNet->getViewNet(), pathGeometry, pathWidth);
+        GNEGeometry::drawGeometry(myNet->getViewNet(), personPlanGeometry, pathWidth);
         // Pop last matrix
         glPopMatrix();
         // Draw name if isn't being drawn for selecting
@@ -531,7 +539,7 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
             myNet->getViewNet()->isAttributeCarrierInspected(this) ||
             (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             // declare trim geometry to draw
-            const GNEGeometry::DottedGeometry pathDottedGeometry((firstSegment || lastSegment) ? GNEGeometry::DottedGeometry(s, pathGeometry.getShape(), false) : lane->getDottedLaneGeometry());
+            const GNEGeometry::DottedGeometry pathDottedGeometry((firstSegment || lastSegment) ? GNEGeometry::DottedGeometry(s, personPlanGeometry.getShape(), false) : lane->getDottedLaneGeometry());
             // draw inspected dotted contour
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, pathDottedGeometry, pathWidth, firstSegment, lastSegment);

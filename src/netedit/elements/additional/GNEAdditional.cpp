@@ -337,10 +337,18 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         const double geometryDepartPos = getAttributeDouble(SUMO_ATTR_POSITION) + getAttributeDouble(SUMO_ATTR_ENDPOS);
         // get endPos
         const double geometryEndPos = getAttributeDouble(SUMO_ATTR_ENDPOS);
-        // calculate geometry
-        const GNEGeometry::Geometry pathGeometry(firstSegment ? GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), geometryDepartPos, -1) :
-                                                 lastSegment ? GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), -1, geometryEndPos) :
-                                                 lane->getLaneGeometry());
+        // declare path geometry
+        GNEGeometry::Geometry E2Geometry;
+        // update pathGeometry depending of first and last segment
+        if (firstSegment && lastSegment) {
+            E2Geometry = GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), geometryDepartPos, geometryEndPos, Position::INVALID, Position::INVALID);
+        } else if (firstSegment) {
+            E2Geometry = GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), geometryDepartPos, -1, Position::INVALID, Position::INVALID);
+        } else if (lastSegment) {
+            E2Geometry = GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), -1, geometryEndPos, Position::INVALID, Position::INVALID);
+        } else {
+            E2Geometry = lane->getLaneGeometry();
+        }
         // obtain color
         const RGBColor E2Color = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.detectorSettings.E2Color;
         // Start drawing adding an gl identificator
@@ -352,7 +360,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         // Set color
         GLHelper::setColor(E2Color);
         // draw geometry
-        GNEGeometry::drawGeometry(myNet->getViewNet(), pathGeometry, E2DetectorWidth);
+        GNEGeometry::drawGeometry(myNet->getViewNet(), E2Geometry, E2DetectorWidth);
         // Pop last matrix
         glPopMatrix();
         // draw additional ID
@@ -364,7 +372,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         // check if shape dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // declare trim geometry to draw
-            const GNEGeometry::DottedGeometry pathDottedGeometry((firstSegment || lastSegment) ? GNEGeometry::DottedGeometry(s, pathGeometry.getShape(), false) : lane->getDottedLaneGeometry());
+            const GNEGeometry::DottedGeometry pathDottedGeometry((firstSegment || lastSegment) ? GNEGeometry::DottedGeometry(s, E2Geometry.getShape(), false) : lane->getDottedLaneGeometry());
             // draw inspected dotted contour
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, pathDottedGeometry, E2DetectorWidth,

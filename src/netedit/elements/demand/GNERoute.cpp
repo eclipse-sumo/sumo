@@ -316,10 +316,18 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         const double geometryDepartPos = embedded? (getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_DEPARTPOS) + getParentDemandElements().at(0)->getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH)) : -1;
         // get endPos
         const double geometryEndPos = embedded? getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_ARRIVALPOS) : -1;
-        // calculate geometry
-        const GNEGeometry::Geometry routeGeometry(firstSegment ? GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), geometryDepartPos, -1) :
-                                                lastSegment ? GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), -1, geometryEndPos) :
-                                                lane->getLaneGeometry());
+        // declare path geometry
+        GNEGeometry::Geometry routeGeometry;
+        // update pathGeometry depending of first and last segment
+        if (firstSegment && lastSegment) {
+            routeGeometry = GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), geometryDepartPos, geometryEndPos, Position::INVALID, Position::INVALID);
+        } else if (firstSegment) {
+            routeGeometry = GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), geometryDepartPos, -1, Position::INVALID, Position::INVALID);
+        } else if (lastSegment) {
+            routeGeometry = GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), -1, geometryEndPos, Position::INVALID, Position::INVALID);
+        } else {
+            routeGeometry = lane->getLaneGeometry();
+        }
         // obtain color
         const RGBColor routeColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
         // Start drawing adding an gl identificator
