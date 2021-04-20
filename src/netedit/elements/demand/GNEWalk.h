@@ -37,53 +37,37 @@ class GNEWalk : public GNEDemandElement, public Parameterised {
 
 public:
     /**@brief parameter constructor for person edge->edge
-    * @param[in] viewNet view in which this Walk is placed
-    * @param[in] personParent person parent
-    * @param[in] fromEdge from edge
-    * @param[in] toEdge to edge
-    * @param[in] arrivalPosition arrival position on the destination edge
-    */
+     * @param[in] viewNet view in which this Walk is placed
+     * @param[in] personParent person parent
+     * @param[in] fromEdge from edge
+     * @param[in] toEdge to edge
+     * @param[in] arrivalPosition arrival position on the destination edge
+     */
     GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition);
 
     /**@brief parameter constructor for person edge->busStop
-    * @param[in] viewNet view in which this Walk is placed
-    * @param[in] personParent person parent
-    * @param[in] fromEdge from edge
-    * @param[in] toBusStop to busStop
-    * @param[in] arrivalPosition arrival position on the destination edge
-    */
+     * @param[in] viewNet view in which this Walk is placed
+     * @param[in] personParent person parent
+     * @param[in] fromEdge from edge
+     * @param[in] toBusStop to busStop
+     * @param[in] arrivalPosition arrival position on the destination edge
+     */
     GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop, double arrivalPosition);
 
     /**@brief parameter constructor for person edge->edge
-    * @param[in] viewNet view in which this Walk is placed
-    * @param[in] personParent person parent
-    * @param[in] toEdge to edge
-    * @param[in] arrivalPosition arrival position on the destination edge
-    */
-    GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* toEdge, double arrivalPosition);
-
-    /**@brief parameter constructor for person edge->edge
-    * @param[in] viewNet view in which this Walk is placed
-    * @param[in] personParent person parent
-    * @param[in] toBusStop to busStop
-    * @param[in] arrivalPosition arrival position on the destination edge
-    */
-    GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* toBusStop, double arrivalPosition);
-
-    /**@brief parameter constructor for person edge->edge
-    * @param[in] viewNet view in which this Walk is placed
-    * @param[in] personParent person parent
-    * @param[in] edges list of edges
-    * @param[in] arrivalPosition arrival position on the destination edge
-    */
+     * @param[in] viewNet view in which this Walk is placed
+     * @param[in] personParent person parent
+     * @param[in] edges list of edges
+     * @param[in] arrivalPosition arrival position on the destination edge
+     */
     GNEWalk(GNENet* net, GNEDemandElement* personParent, std::vector<GNEEdge*> edges, double arrivalPosition);
 
     /**@brief parameter constructor for person edge->edge
-    * @param[in] viewNet view in which this Walk is placed
-    * @param[in] personParent person parent
-    * @param[in] route route
-    * @param[in] arrivalPosition arrival position on the destination edge
-    */
+     * @param[in] viewNet view in which this Walk is placed
+     * @param[in] personParent person parent
+     * @param[in] route route
+     * @param[in] arrivalPosition arrival position on the destination edge
+     */
     GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEDemandElement* route, double arrivalPosition);
 
     /// @brief destructor

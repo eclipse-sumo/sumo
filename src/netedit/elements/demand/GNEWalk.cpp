@@ -35,7 +35,7 @@
 // ===========================================================================
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition) :
-    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_FIRST_EDGE,
+    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGE,
         {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition) {
     // compute walk
@@ -44,25 +44,8 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop, double arrivalPosition) :
-    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_FIRST_BUSSTOP,
-        {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition) {
-    // compute walk
-    computePath();
-}
-
-GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* toEdge, double arrivalPosition) :
-    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGE,
-        {}, {toEdge}, {}, {}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition) {
-    // compute walk
-    computePath();
-}
-
-
-GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* toBusStop, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_BUSSTOP,
-        {}, {}, {}, {toBusStop}, {}, {}, {personParent}, {}),
+        {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition) {
     // compute walk
     computePath();
@@ -457,12 +440,8 @@ GNEWalk::getPopUpID() const {
 std::string
 GNEWalk::getHierarchyName() const {
     if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE) {
-        return "walk: " + getParentEdges().front()->getID();
-    } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP) {
-        return "walk: " + getParentAdditionals().front()->getID();
-    } else if (myTagProperty.getTag() == GNE_TAG_WALK_FIRST_EDGE) {
         return "walk: " + getParentEdges().front()->getID() + " -> " + getParentEdges().back()->getID();
-    } else if (myTagProperty.getTag() == GNE_TAG_WALK_FIRST_BUSSTOP) {
+    } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP) {
         return "walk: " + getParentEdges().front()->getID() + " -> " + getParentAdditionals().back()->getID();
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
         return "walk: " + getParentEdges().front()->getID() + " ... " + getParentEdges().back()->getID();
