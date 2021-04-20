@@ -5,14 +5,14 @@ title: PHEMlight
 # PHEM (Passenger Car and Heavy Duty Emission Model)
 
 [PHEM (Passenger Car and Heavy Duty Emission
-Model)](http://www.ivt.tugraz.at/index.php?option=com_content&view=article&id=69:emissions&catid=27&lang=en&Itemid=301)
+Model)](https://www.ivt.tugraz.at/assets/files/areas/em/PHEM_en.pdf)
 is an instantaneous vehicle emission model developed by the TU Graz
 since 1999. PHEM is based on an extensive European set of vehicle
 measurements and covers passenger cars, light duty vehicles and heavy
 duty vehicles from city buses up to 40 ton semi-trailers.
 
 Within [COLOMBO](https://verkehrsforschung.dlr.de/en/projects/colombo), a simplified version of PHEM,
-embedded into SUMO, was developed. The PHEMlight model is the result of
+embedded into SUMO, was developed. The [PHEMlight](https://www.ivt.tugraz.at/assets/files/areas/em/PHEMlight_en.pdf) model is the result of
 this work. An in-depth description can be found in
 [COLOMBO](https://verkehrsforschung.dlr.de/en/projects/colombo)'s deliverable
 [D4.2](https://web.archive.org/web/20170808122505/http://www.colombo-fp7.eu/results_deliverables.php). The model

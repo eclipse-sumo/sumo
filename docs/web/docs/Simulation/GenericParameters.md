@@ -31,7 +31,7 @@ Parameters support the following functionality
   files)
 - retaining custom information when [saving and loading simulation state](SaveAndLoad.md)
 - tracking the [public transport 'tripId' that may change at stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops).
-- setting [transient junction model parameters](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html#transient_parameters)
+- setting [transient junction model parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters)
 
 Parameters are always defined as child elements of the respective
 object:
