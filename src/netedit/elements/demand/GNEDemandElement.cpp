@@ -413,7 +413,7 @@ GNEDemandElement::getFirstPersonPlanLane() const {
             } else if (previousPersonPlan->getParentLanes().size() > 1) {
                 return previousPersonPlan->getParentLanes().front();
             } else {
-                ProcessError("Invalid previous person plan");
+                throw ProcessError("Invalid previous person plan");
             }
         }
         // check route walk
