@@ -84,7 +84,7 @@ GNECalibratorFlow::getMoveOperation(const double /*shapeOffset*/) {
 void
 GNECalibratorFlow::updateGeometry() {
     // use geometry of calibrator parent
-    myAdditionalGeometry.updateGeometry(getParentAdditionals().front()->getAdditionalGeometry());
+    myAdditionalGeometry = getParentAdditionals().front()->getAdditionalGeometry();
 }
 
 

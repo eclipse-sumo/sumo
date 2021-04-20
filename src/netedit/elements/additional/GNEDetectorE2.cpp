@@ -221,7 +221,9 @@ GNEDetectorE2::updateGeometry() {
         myNet->getPathManager()->calculateLanesPath(this, SVC_IGNORING, getParentLanes());
     } else {
         // Cut shape using as delimitators fixed start position and fixed end position
-        myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), startPosFixed * getParentLanes().front()->getLengthGeometryFactor(), endPosFixed * getParentLanes().back()->getLengthGeometryFactor());
+        myAdditionalGeometry.updateTrimGeometry(getParentLanes().front()->getLaneShape(), 
+                                                startPosFixed * getParentLanes().front()->getLengthGeometryFactor(), 
+                                                endPosFixed * getParentLanes().back()->getLengthGeometryFactor());
     }
 }
 

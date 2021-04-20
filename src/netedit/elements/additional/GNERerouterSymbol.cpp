@@ -58,7 +58,7 @@ GNERerouterSymbol::updateGeometry() {
         // declare geometry
         GNEGeometry::Geometry symbolGeometry;
         // update it with lane and pos over lane
-        symbolGeometry.updateGeometry(lane, lane->getLaneShape().length2D() - 6);
+        symbolGeometry.updateGeometry(lane->getLaneShape(), lane->getLaneShape().length2D() - 6);
         // add in mySymbolGeometries
         mySymbolGeometries.push_back(symbolGeometry);
     }

@@ -494,10 +494,10 @@ GNEVehicle::updateGeometry() {
             posOverLane = parse<double>(getDepartPos());
         }
         // update Geometry
-        myDemandElementGeometry.updateGeometry(lane, posOverLane);
+        myDemandElementGeometry.updateGeometry(lane->getLaneShape(), posOverLane);
     } else {
         // set vehicle in center position
-        myDemandElementGeometry.updateGeometry(Position(0, 0), 0);
+        myDemandElementGeometry.updateSinglePosGeometry(Position(0, 0), 0);
     }
     // update child demand elementss
     for (const auto& demandElement : getChildDemandElements()) {
@@ -731,11 +731,11 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         GNEGeometry::Geometry vehicleGeometry;
         // update pathGeometry depending of first and last segment
         if (firstSegment && lastSegment) {
-            vehicleGeometry = GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), geometryDepartPos, geometryEndPos, Position::INVALID, Position::INVALID);
+            vehicleGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), geometryDepartPos, geometryEndPos);
         } else if (firstSegment) {
-            vehicleGeometry = GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), geometryDepartPos, -1, Position::INVALID, Position::INVALID);
+            vehicleGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), geometryDepartPos, -1);
         } else if (lastSegment) {
-            vehicleGeometry = GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), -1, geometryEndPos, Position::INVALID, Position::INVALID);
+            vehicleGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), -1, geometryEndPos);
         } else {
             vehicleGeometry = lane->getLaneGeometry();
         }

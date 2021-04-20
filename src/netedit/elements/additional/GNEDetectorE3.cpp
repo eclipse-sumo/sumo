@@ -65,7 +65,7 @@ GNEDetectorE3::getMoveOperation(const double /*shapeOffset*/) {
 void
 GNEDetectorE3::updateGeometry() {
     // update additional geometry
-    myAdditionalGeometry.updateGeometry(myPosition, 0);
+    myAdditionalGeometry.updateSinglePosGeometry(myPosition, 0);
     // Update Hierarchical connections geometry
     myHierarchicalConnections.update();
 }

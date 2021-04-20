@@ -320,11 +320,11 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         GNEGeometry::Geometry routeGeometry;
         // update pathGeometry depending of first and last segment
         if (firstSegment && lastSegment) {
-            routeGeometry = GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), geometryDepartPos, geometryEndPos, Position::INVALID, Position::INVALID);
+            routeGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), geometryDepartPos, geometryEndPos);
         } else if (firstSegment) {
-            routeGeometry = GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), geometryDepartPos, -1, Position::INVALID, Position::INVALID);
+            routeGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), geometryDepartPos, -1);
         } else if (lastSegment) {
-            routeGeometry = GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), -1, geometryEndPos, Position::INVALID, Position::INVALID);
+            routeGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), -1, geometryEndPos);
         } else {
             routeGeometry = lane->getLaneGeometry();
         }

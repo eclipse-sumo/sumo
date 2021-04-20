@@ -158,10 +158,10 @@ GNEStop::updateGeometry() {
     //only update Stops over lanes, because other uses the geometry of stopping place parent
     if (getParentLanes().size() > 0) {
         // Cut shape using as delimitators fixed start position and fixed end position
-        myDemandElementGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
+        myDemandElementGeometry.updateTrimGeometry(getParentLanes().front()->getLaneShape(), getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
     } else if (getParentAdditionals().size() > 0) {
         // use geometry of additional (busStop)
-        myDemandElementGeometry.updateGeometry(getParentAdditionals().at(0));
+        myDemandElementGeometry = getParentAdditionals().at(0)->getAdditionalGeometry();
     }
     // recompute geometry of all Demand elements related with this this stop
     if (getParentDemandElements().front()->getTagProperty().isRoute()) {

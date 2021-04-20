@@ -59,40 +59,28 @@ struct GNEGeometry {
         /// @brief default constructor
         Geometry();
 
-        /// @brief copy constructor
-        Geometry(const Geometry& geometry);
-
-        /// @brief trim constructor
-        Geometry(const Geometry& geometry, double beginTrim, double endTrim, const Position& extraFirstPosition, const Position& extraLastPosition);
-
         /// @brief parameter constructor
         Geometry(const PositionVector& shape);
 
         /// @brief parameter constructor
         Geometry(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths);
 
+        /// @brief update entire geometry
+        void updateGeometry(const PositionVector& shape);
+
+        /// @brief update position and rotation (using a shape and a position over shape)
+        void updateGeometry(const PositionVector& shape, const double posOverShape);
+
         /**@brief update geometry shape
          * @param shape Shape to be updated
          * @param extremeGeometry ExtremeGeometry used to cut/adjust shape
          */
-        void updateGeometry(const PositionVector& shape, double startPos = -1, double endPos = -1,
-                            const Position& extraFirstPosition = Position::INVALID,
-                            const Position& extraLastPosition = Position::INVALID);
+        void updateTrimGeometry(const PositionVector& shape, double beginTrimPosition = -1, double endTrimPosition = -1,
+                                const Position& extraFirstPosition = Position::INVALID,
+                                const Position& extraLastPosition = Position::INVALID);
 
         /// @brief update position and rotation
-        void updateGeometry(const Position& position, const double rotation);
-
-        /// @brief update position and rotation (using a lane and a position over lane)
-        void updateGeometry(const GNELane* lane, const double posOverLane);
-
-        /// @brief update geometry (using a lane)
-        void updateGeometry(GNELane* lane);
-
-        /// @brief update geometry (using geometry of another additional)
-        void updateGeometry(GNEAdditional* additional);
-
-        /// @brief update geometry (using a new shape, rotations and lenghts)
-        void updateGeometry(const Geometry& geometry);
+        void updateSinglePosGeometry(const Position& position, const double rotation);
 
         /// @brief scale geometry
         void scaleGeometry(const double scale);
@@ -121,12 +109,6 @@ struct GNEGeometry {
 
         /// @brief The lengths of the shape (note: Always size = myShape.size()-1)
         std::vector<double> myShapeLengths;
-
-        /// @brief lane (to use lane geometry)
-        GNELane* myLane;
-
-        /// @brief additional (to use additional geometry)
-        GNEAdditional* myAdditional;
     };
 
     /// @enum for dotted cotour type

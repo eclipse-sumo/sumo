@@ -156,7 +156,7 @@ GNEDemandElement::getViaEdges() const {
 
 void
 GNEDemandElement::updateDemandElementGeometry(const GNELane* lane, const double posOverLane) {
-    myDemandElementGeometry.updateGeometry(lane, posOverLane);
+    myDemandElementGeometry.updateGeometry(lane->getLaneShape(), posOverLane);
 }
 
 
@@ -168,7 +168,7 @@ GNEDemandElement::updateDemandElementStackLabel(const int stack) {
 
 void
 GNEDemandElement::updateDemandElementSpreadGeometry(const GNELane* lane, const double posOverLane) {
-    mySpreadGeometry.updateGeometry(lane, posOverLane);
+    mySpreadGeometry.updateGeometry(lane->getLaneShape(), posOverLane);
 }
 
 
@@ -483,11 +483,11 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
         GNEGeometry::Geometry personPlanGeometry;
         // update pathGeometry depending of first and last segment
         if (firstSegment && lastSegment) {
-            personPlanGeometry = GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), geometryDepartPos, geometryEndPos, Position::INVALID, Position::INVALID);
+            personPlanGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), geometryDepartPos, geometryEndPos);
         } else if (firstSegment) {
-            personPlanGeometry = GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), geometryDepartPos, -1, Position::INVALID, Position::INVALID);
+            personPlanGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), geometryDepartPos, -1);
         } else if (lastSegment) {
-            personPlanGeometry = GNEGeometry::Geometry(lane->getLaneGeometry().getShape(), -1, geometryEndPos, Position::INVALID, Position::INVALID);
+            personPlanGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), -1, geometryEndPos);
         } else {
             personPlanGeometry = lane->getLaneGeometry();
         }

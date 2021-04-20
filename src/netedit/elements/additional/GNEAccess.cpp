@@ -75,7 +75,7 @@ GNEAccess::updateGeometry() {
         fixedPositionOverLane = myPositionOverLane;
     }
     // update geometry
-    myAdditionalGeometry.updateGeometry(getParentLanes().front(), fixedPositionOverLane * getParentLanes().front()->getLengthGeometryFactor());
+    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), fixedPositionOverLane * getParentLanes().front()->getLengthGeometryFactor());
 }
 
 

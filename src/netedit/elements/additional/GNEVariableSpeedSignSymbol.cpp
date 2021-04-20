@@ -52,7 +52,7 @@ GNEVariableSpeedSignSymbol::getMoveOperation(const double /*shapeOffset*/) {
 void
 GNEVariableSpeedSignSymbol::updateGeometry() {
     // update additional geometry
-    myAdditionalGeometry.updateGeometry(getParentLanes().front(), 1.5);
+    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), 1.5);
     // update boundary (needed for connections)
     // add shape boundary
     myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();

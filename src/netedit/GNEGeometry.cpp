@@ -42,54 +42,88 @@ PositionVector GNEGeometry::myCircleCoords;
 // GNEGeometry::Geometry - methods
 // ---------------------------------------------------------------------------
 
-GNEGeometry::Geometry::Geometry() :
-    myLane(nullptr),
-    myAdditional(nullptr) {
+GNEGeometry::Geometry::Geometry() {
 }
 
 
-GNEGeometry::Geometry::Geometry(const Geometry& geometry) :
-    myShape(geometry.myShape),
-    myShapeRotations(geometry.myShapeRotations),
-    myShapeLengths(geometry.myShapeLengths),
-    myLane(geometry.myLane),
-    myAdditional(geometry.myAdditional) {
+GNEGeometry::Geometry::Geometry(const PositionVector& shape) :
+    myShape(shape) {
+    // calculate shape rotation and lenghts
+    calculateShapeRotationsAndLengths();
 }
 
 
-GNEGeometry::Geometry::Geometry(const Geometry& geometry, double beginTrim, double endTrim,
-        const Position& extraFirstPosition, const Position& extraLastPosition) :
-    myShape(geometry.getShape()),
-    myShapeRotations(geometry.getShapeRotations()),
-    myShapeLengths(geometry.getShapeLengths()),
-    myLane(nullptr),
-    myAdditional(nullptr) {
+GNEGeometry::Geometry::Geometry(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths) :
+    myShape(shape),
+    myShapeRotations(shapeRotations),
+    myShapeLengths(shapeLengths) {
+}
+
+
+void
+GNEGeometry::Geometry::updateGeometry(const PositionVector& shape) {
+    // clear geometry
+    clearGeometry();
+    // update shape
+    myShape = shape;
+    // calculate shape rotation and lenghts
+    calculateShapeRotationsAndLengths();
+}
+
+
+void
+GNEGeometry::Geometry::updateGeometry(const PositionVector& shape, const double posOverShape) {
+    // first clear geometry
+    clearGeometry();
+    // get shape length
+    const double shapeLength = shape.length();
+    // calculate position and rotation
+    if (posOverShape < 0) {
+        myShape.push_back(shape.positionAtOffset(0));
+        myShapeRotations.push_back(shape.rotationDegreeAtOffset(0));
+    } else if (posOverShape > shapeLength) {
+        myShape.push_back(shape.positionAtOffset(shapeLength));
+        myShapeRotations.push_back(shape.rotationDegreeAtOffset(shapeLength));
+    } else {
+        myShape.push_back(shape.positionAtOffset(posOverShape));
+        myShapeRotations.push_back(shape.rotationDegreeAtOffset(posOverShape));
+    }
+}
+
+
+void
+GNEGeometry::Geometry::updateTrimGeometry(const PositionVector& shape, double beginTrimPosition, double endTrimPosition,
+                                          const Position& extraFirstPosition, const Position& extraLastPosition) {
+    // first clear geometry
+    clearGeometry();
+    // set new shape
+    myShape = shape;
     // check trim values
-    if ((beginTrim != -1) || (endTrim != -1)) {
+    if ((beginTrimPosition != -1) || (endTrimPosition != -1)) {
         // get shape lenght
         const double shapeLength = myShape.length2D();
         // set initial beginTrim value
-        if (beginTrim < 0) {
-            beginTrim = 0;
+        if (beginTrimPosition < 0) {
+            beginTrimPosition = 0;
         }
         // set initial endtrim value
-        if (endTrim < 0) {
-            endTrim = shapeLength;
+        if (endTrimPosition < 0) {
+            endTrimPosition = shapeLength;
         }
         // check maximum beginTrim
-        if (beginTrim > (shapeLength - POSITION_EPS)) {
-            beginTrim = (shapeLength - POSITION_EPS);
+        if (beginTrimPosition > (shapeLength - POSITION_EPS)) {
+            beginTrimPosition = (shapeLength - POSITION_EPS);
         }
         // check maximum endTrim
-        if ((endTrim > shapeLength)) {
-            endTrim = shapeLength;
+        if ((endTrimPosition > shapeLength)) {
+            endTrimPosition = shapeLength;
         }
         // check sub-vector
-        if (endTrim <= beginTrim) {
-            endTrim = beginTrim + POSITION_EPS;
+        if (endTrimPosition <= beginTrimPosition) {
+            endTrimPosition = endTrimPosition + POSITION_EPS;
         }
         // trim shape
-        myShape = myShape.getSubpart2D(beginTrim, endTrim);
+        myShape = myShape.getSubpart2D(beginTrimPosition, endTrimPosition);
         // add extra positions
         if (extraFirstPosition != Position::INVALID) {
             myShape.push_front_noDoublePos(extraFirstPosition);
@@ -103,134 +137,13 @@ GNEGeometry::Geometry::Geometry(const Geometry& geometry, double beginTrim, doub
 }
 
 
-GNEGeometry::Geometry::Geometry(const PositionVector& shape) :
-    myShape(shape),
-    myLane(nullptr),
-    myAdditional(nullptr) {
-    // calculate shape rotation and lenghts
-    calculateShapeRotationsAndLengths();
-}
-
-
-GNEGeometry::Geometry::Geometry(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths) :
-    myShape(shape),
-    myShapeRotations(shapeRotations),
-    myShapeLengths(shapeLengths),
-    myLane(nullptr),
-    myAdditional(nullptr) {
-}
-
-
 void
-GNEGeometry::Geometry::updateGeometry(const PositionVector& shape, double startPos, double endPos,
-                                      const Position& extraFirstPosition, const Position& extraLastPosition) {
-    // first clear geometry
-    clearGeometry();
-    // set new shape
-    myShape = shape;
-    // check if we have to split the lane
-    if ((startPos != -1) || (endPos != -1)) {
-        // check if both start and end position must be swapped
-        if ((startPos != -1) && (endPos != -1) && (endPos < startPos)) {
-            std::swap(startPos, endPos);
-        }
-        // check that split positions are correct
-        if (startPos <= POSITION_EPS) {
-            if (endPos == -1) {
-                // leave shape unmodified
-            } else if (endPos <= POSITION_EPS) {
-                // use only first shape position
-                myShape = PositionVector({myShape.front()});
-            } else if (endPos < (shape.length() - POSITION_EPS)) {
-                // split shape using end position and use left part
-                myShape = myShape.splitAt(endPos).first;
-            }
-        } else if (startPos >= (shape.length() - POSITION_EPS)) {
-            // use only last position
-            myShape = PositionVector({myShape.back()});
-        } else if (endPos == -1) {
-            // split shape using start position and use the right part
-            myShape = myShape.splitAt(startPos).second;
-        } else if (endPos <= POSITION_EPS) {
-            // use only first shape position
-            myShape = PositionVector({myShape.front()});
-        } else if (endPos >= (shape.length() - POSITION_EPS)) {
-            // split shape using start position and use the right part
-            myShape = myShape.splitAt(startPos).second;
-        } else {
-            // split shape using start and end position
-            myShape = myShape.getSubpart(startPos, endPos);
-        }
-    }
-    // check if we have to add an extra first position
-    if (extraFirstPosition != Position::INVALID) {
-        myShape.push_front(extraFirstPosition);
-    }
-    // check if we have to add an extra last position
-    if (extraLastPosition != Position::INVALID) {
-        myShape.push_back(extraLastPosition);
-    }
-    // calculate shape rotation and lengths
-    calculateShapeRotationsAndLengths();
-}
-
-
-void
-GNEGeometry::Geometry::updateGeometry(const Position& position, const double rotation) {
+GNEGeometry::Geometry::updateSinglePosGeometry(const Position& position, const double rotation) {
     // first clear geometry
     clearGeometry();
     // set position and rotation
     myShape.push_back(position);
     myShapeRotations.push_back(rotation);
-}
-
-
-void
-GNEGeometry::Geometry::updateGeometry(const GNELane* lane, const double posOverLane) {
-    // first clear geometry
-    clearGeometry();
-    // get lane length
-    const double laneLength = lane->getLaneShape().length();
-    // calculate position and rotation
-    if (posOverLane < 0) {
-        myShape.push_back(lane->getLaneShape().positionAtOffset(0));
-        myShapeRotations.push_back(lane->getLaneShape().rotationDegreeAtOffset(0));
-    } else if (posOverLane > laneLength) {
-        myShape.push_back(lane->getLaneShape().positionAtOffset(laneLength));
-        myShapeRotations.push_back(lane->getLaneShape().rotationDegreeAtOffset(laneLength));
-    } else {
-        myShape.push_back(lane->getLaneShape().positionAtOffset(posOverLane));
-        myShapeRotations.push_back(lane->getLaneShape().rotationDegreeAtOffset(posOverLane));
-    }
-}
-
-
-void
-GNEGeometry::Geometry::updateGeometry(GNELane* lane) {
-    // first clear geometry
-    clearGeometry();
-    // set lane
-    myLane = lane;
-}
-
-
-void
-GNEGeometry::Geometry::updateGeometry(GNEAdditional* additional) {
-    // first clear geometry
-    clearGeometry();
-    // set additional
-    myAdditional = additional;
-}
-
-
-void
-GNEGeometry::Geometry::updateGeometry(const Geometry& geometry) {
-    // first clear geometry
-    clearGeometry();
-    // set geometry
-    myShape = geometry.getShape();
-    myShapeRotations = geometry.getShapeRotations();
-    myShapeLengths = geometry.getShapeLengths();
 }
 
 
@@ -247,48 +160,27 @@ GNEGeometry::Geometry::scaleGeometry(const double scale) {
 
 const PositionVector&
 GNEGeometry::Geometry::getShape() const {
-    if (myLane) {
-        return myLane->getLaneShape();
-    } else if (myAdditional) {
-        return myAdditional->getAdditionalGeometry().getShape();
-    } else {
-        return myShape;
-    }
+    return myShape;
 }
 
 
 const std::vector<double>&
 GNEGeometry::Geometry::getShapeRotations() const {
-    if (myLane) {
-        return myLane->getShapeRotations();
-    } else if (myAdditional) {
-        return myAdditional->getAdditionalGeometry().getShapeRotations();
-    } else {
-        return myShapeRotations;
-    }
+    return myShapeRotations;
 }
 
 
 const std::vector<double>&
 GNEGeometry::Geometry::getShapeLengths() const {
-    if (myLane) {
-        return myLane->getShapeLengths();
-    } else if (myAdditional) {
-        return myAdditional->getAdditionalGeometry().getShapeLengths();
-    } else {
-        return myShapeLengths;
-    }
+    return myShapeLengths;
 }
 
 
 void GNEGeometry::Geometry::clearGeometry() {
-    // clear shapes
+    // clear geometry containers
     myShape.clear();
     myShapeRotations.clear();
     myShapeLengths.clear();
-    // clear pointers
-    myLane = nullptr;
-    myAdditional = nullptr;
 }
 
 

@@ -158,7 +158,7 @@ GNEPersonStop::updateGeometry() {
         myDemandElementGeometry.updateGeometry({frontPosition, backPosition});
     } else if (getParentAdditionals().size() > 0) {
         // update geometry using geometry of additional (busStop)
-        myDemandElementGeometry.updateGeometry(getParentAdditionals().at(0));
+        myDemandElementGeometry = getParentAdditionals().at(0)->getAdditionalGeometry();
     }
 }
 

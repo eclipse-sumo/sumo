@@ -53,7 +53,7 @@ GNEClosingReroute::getMoveOperation(const double /* shapeOffset */) {
 void
 GNEClosingReroute::updateGeometry() {
     // use geometry of rerouter parent
-    myAdditionalGeometry.updateGeometry(getParentAdditionals().front()->getAdditionalGeometry());
+    myAdditionalGeometry = getParentAdditionals().front()->getAdditionalGeometry();
 }
 
 
