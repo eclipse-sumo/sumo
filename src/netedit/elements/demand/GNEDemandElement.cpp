@@ -387,14 +387,16 @@ GNEDemandElement::getFirstPersonPlanLane() const {
     switch (myTagProperty.getTag()) {
         // check first edge elements
         case GNE_TAG_PERSONTRIP_EDGE:
-        case GNE_TAG_RIDE_EDGE:
         case GNE_TAG_WALK_EDGE:
         case GNE_TAG_PERSONTRIP_BUSSTOP:
-        case GNE_TAG_RIDE_BUSSTOP:
         case GNE_TAG_WALK_BUSSTOP:
         case GNE_TAG_WALK_EDGES:
         case GNE_TAG_PERSONSTOP_EDGE:
             return getParentEdges().front()->getLaneByAllowedVClass(getVClass());
+        // check rides
+        case GNE_TAG_RIDE_EDGE:
+        case GNE_TAG_RIDE_BUSSTOP:
+            return getParentEdges().front()->getLaneByDisallowedVClass(getVClass());
         // check personStop (bus)
         case GNE_TAG_PERSONSTOP_BUSSTOP:
             return getParentAdditionals().front()->getParentLanes().front();
@@ -412,11 +414,13 @@ GNEDemandElement::getLastPersonPlanLane() const {
     switch (myTagProperty.getTag()) {
         // check edge elements
         case GNE_TAG_PERSONTRIP_EDGE:
-        case GNE_TAG_RIDE_EDGE:
         case GNE_TAG_WALK_EDGE:
         case GNE_TAG_WALK_EDGES:
         case GNE_TAG_PERSONSTOP_EDGE:
             return getParentEdges().back()->getLaneByAllowedVClass(getVClass());
+        // check ride
+        case GNE_TAG_RIDE_EDGE:
+            return getParentEdges().back()->getLaneByDisallowedVClass(getVClass());
         // check busStops elements
         case GNE_TAG_PERSONTRIP_BUSSTOP:
         case GNE_TAG_RIDE_BUSSTOP:
@@ -472,6 +476,26 @@ GNEDemandElement::getPersonPlanDepartPos() const {
 }
 
 
+double
+GNEDemandElement::getPersonPlanArrivalValue() const {
+    if(getParentAdditionals().size() > 0) {
+        return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_STARTPOS);
+    } else {
+        return getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+    }
+}
+
+
+Position 
+GNEDemandElement::getPersonPlanArrivalPos() const {
+    if (getParentAdditionals().size() > 0) {
+        return getParentAdditionals().front()->getAdditionalGeometry().getShape().front();
+    } else {
+        return getAttributePosition(SUMO_ATTR_ARRIVALPOS);
+    }
+}
+
+
 void
 GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront, 
     const int options, const double personPlanWidth, const RGBColor& personPlanColor) const {
@@ -490,24 +514,18 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
         // get segment flags
         const bool firstSegment = (options & GNEPathManager::PathElement::Options::FIRST_SEGMENT) != 0;
         const bool lastSegment = (options & GNEPathManager::PathElement::Options::LAST_SEGMENT) != 0;
-        // calculate startPos values (double and Positions)
-        const double geometryDepartValue = getPersonPlanDepartValue();
-        const Position geometryDeparPos = getPersonPlanDepartPos();
-        // get endPos values (double and position)
-        const double geometryEndValue = (getParentAdditionals().size() > 0)? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_STARTPOS) : getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
-        const Position geometryEndPos = (getParentAdditionals().size() > 0)? getParentAdditionals().front()->getAdditionalGeometry().getShape().front() : getAttributePosition(SUMO_ATTR_ARRIVALPOS);
         // declare path geometry
         GNEGeometry::Geometry personPlanGeometry;
         // update pathGeometry depending of first and last segment
         if (firstSegment && lastSegment) {
             personPlanGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), 
-                geometryDepartValue, geometryEndValue, geometryDeparPos, geometryEndPos);
+                getPersonPlanDepartValue(), getPersonPlanArrivalValue(), getPersonPlanDepartPos(), getPersonPlanArrivalPos());
         } else if (firstSegment) {
             personPlanGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), 
-                geometryDepartValue, -1, geometryDeparPos, Position::INVALID);
+                getPersonPlanDepartValue(), -1, getPersonPlanDepartPos(), Position::INVALID);
         } else if (lastSegment) {
             personPlanGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), 
-                -1, geometryEndValue, Position::INVALID, geometryEndPos);
+                -1, getPersonPlanArrivalValue(), Position::INVALID, getPersonPlanArrivalPos());
         } else {
             personPlanGeometry = lane->getLaneGeometry();
         }
@@ -537,6 +555,9 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
             const double circleRadius = (duplicateWidth ? myPersonPlanArrivalPositionDiameter : (myPersonPlanArrivalPositionDiameter / 2.0));
             const double circleWidth = circleRadius * MIN2((double)0.5, s.laneWidthExaggeration);
             const double circleWidthSquared = circleWidth * circleWidth;
+            // get geometryEndPos
+            const Position geometryEndPos = getPersonPlanArrivalPos();
+            // check if endPos can be drawn
             if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= (circleWidthSquared + 2))) {
                 // push draw matrix
                 glPushMatrix();

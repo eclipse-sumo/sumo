@@ -343,6 +343,12 @@ protected:
     /// @brief get person plan depart position
     Position getPersonPlanDepartPos() const;
 
+    /// @brief get person plan arrival value
+    double getPersonPlanArrivalValue() const;
+
+    /// @brief get person plan arrival position
+    Position getPersonPlanArrivalPos() const;
+
     /// @brief draw person plan partial lane
     void drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront, const int options,
                                const double personPlanWidth, const RGBColor& personPlanColor) const;
@@ -350,8 +356,6 @@ protected:
     /// @brief draw person plan partial junction
     void drawPersonPlanPartial(const GUIVisualizationSettings & s, const GNELane * fromLane, const GNELane * toLane, const double offsetFront, 
                                const int options, const double personPlanWidth, const RGBColor & personPlanColor) const;
-
-
 
     /// @brief person plans arrival position radius
     static const double myPersonPlanArrivalPositionDiameter;

@@ -60,7 +60,20 @@ GNERide::~GNERide() {}
 
 GNEMoveOperation* 
 GNERide::getMoveOperation(const double /*shapeOffset*/) {
-    return nullptr;
+    // avoid move person plan that ends in busStop
+    if (getParentAdditionals().size() > 0) {
+        return nullptr;
+    }
+    // get geometry end pos
+    const Position geometryEndPos = getPersonPlanArrivalPos();
+    // calculate circle width squared
+    const double circleWidthSquared = myPersonPlanArrivalPositionDiameter * myPersonPlanArrivalPositionDiameter;
+    // check if we clicked over a geometry end pos
+    if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= ((circleWidthSquared + 2))) {
+        return new GNEMoveOperation(this, getParentEdges().back()->getLaneByDisallowedVClass(getVClass()), {myArrivalPosition});
+    } else {
+        return nullptr;
+    }
 }
 
 
@@ -498,13 +511,19 @@ GNERide::setEnabledAttribute(const int /*enabledAttributes*/) {
 
 void 
 GNERide::setMoveShape(const GNEMoveResult& moveResult) {
-    //
+    // change both position
+    myArrivalPosition = moveResult.shapeToUpdate.front().x();
+    // update geometry
+    updateGeometry();
 }
 
 
 void
 GNERide::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    //
+    undoList->p_begin("arrivalPos of " + getTagStr());
+    // now adjust start position
+    setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.shapeToUpdate.front().x()), undoList);
+    undoList->p_end();
 }
 
 /****************************************************************************/
