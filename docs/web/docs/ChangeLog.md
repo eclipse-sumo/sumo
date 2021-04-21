@@ -7,6 +7,47 @@ title: ChangeLog
 ### Bugfixes
 - Simulation
   - Statistic-output value departDelayWaiting is now in s (was in ms before).
+  - Fixed emergency braking with high-duration continuous lane changing. Issue #8489 (regression in 1.9.0)
+  - departDelayWaiting (verbose output and statistic-output) no longer includes loaded vehicles that were not scheduled to depart before simulation end. Issue #8490
+  - Person stops with duration 0 are now working. Issue #8494
+  - Fixed bug where vehicles could ignore connection permissions. Issue #8499
+  
+- netconvert
+  - Loaded road connections are no longer ignored when railway.topology.repair affects a junction. Issue #8505
+    
+- TraCI
+  - Fixed crash when calling traci.simulation.loadState. Issue #8477, #8511
+  - Fixed invalid traceFile when using traci.<domain>.unsubscribe. Issue #8491
+  
+- tools
+  - osmWebWizard.py can now import locations with negative longitude again. Issue #8521 (regression in 1.9.0)
+  - Fixed problem with sumolib.xml.parse_fast_nested when an element is missing some of the attributes to be parsed. Issue #8508
+
+### Enhancements
+- Simulation
+  - Verbose output now lists total time spent on TraCI when applicable. Issue #8478
+  - Statistic-output now includes 'totalTravelTime' and 'totalDepartDelay'. Issue #8484
+  - Added option **--tripinfo-output.write-undeparted** to ensure that the number of written tripinfos is independent of insertion success (simplify comparison of different runs). Issue #8475
+  - Vehicles can now be [configured to ignore specific foe vehicles at junctions](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters). Issue #8205
+
+- sumo-gui
+  - Updated container count icon in status bar. Issue #8479
+  
+- TraCI
+  - traci.simulation.Stage now supports function 'toXML' for python client. Issue #8517
+
+- tools
+  - Added function sumolib.route.addInternal to interpolate internal edges into a route. Issue #1322
+  - sumolib.net.getShortestPath now includes internal edges in path cost and supports parameter 'withInternal' for including internal edges in the resulting edge list edges#4994
+  - [gtfs2pt.py](Tools/Import/GTFS.md) now supports option **--osm-routes** to improve mapping of gtfs data onto the network. Issue #8251
+  - [edgeDataFromFlow](Tools/Detector.md#edgedatafromflowpy) now supports cadyts output. Issue #8516
+  - [splitRouteFiles.py](Tools/Routes.html#splitroutefilespy) now handles detector file. Issue #8462
+  - [routeSampler.py](Tools/Turns.md#routesamplerpy) now supports option **--pedestrians** to generated persons instead of vehicles. Issue #8523
+
+### Other
+
+- Documentation
+  - Documented [statistic-output](Simulation/Output/StatisticOutput.md). Issue #8188
 
 ### Enhancements
 
