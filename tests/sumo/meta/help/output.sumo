@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_9_0+0041-8aed0dc
+Eclipse SUMO sumo Version v1_9_0+0147-f1bb915
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -615,6 +615,20 @@ Taxi Device Options:
                                         [stop|randomCircling]
   --device.taxi.idle-algorithm.output FILE  Write information from the idling
                                         algorithm to FILE
+
+GLOSA Device Options:
+  --device.glosa.probability FLOAT     The probability for a vehicle to have a
+                                        'glosa' device
+  --device.glosa.explicit STR[]        Assign a 'glosa' device to named
+                                        vehicles
+  --device.glosa.deterministic         The 'glosa' devices are set
+                                        deterministic using a fraction of 1000
+  --device.glosa.range FLOAT           The communication range to the traffic
+                                        light
+  --device.glosa.max-speedfactor FLOAT  The maximum speed factor when
+                                        approaching a green light
+  --device.glosa.min-speed FLOAT       Minimum speed when coasting towards a
+                                        red light
 
 Tripinfo Device Options:
   --device.tripinfo.probability FLOAT  The probability for a vehicle to have a

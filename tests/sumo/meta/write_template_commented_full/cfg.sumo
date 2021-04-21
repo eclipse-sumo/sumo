@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 14 10:26:07 2021 by Eclipse SUMO sumo Version v1_9_0+0041-8aed0dc
+<!-- generated on Wed Apr 21 17:18:24 2021 by Eclipse SUMO sumo Version v1_9_0+0147-f1bb915
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -880,6 +880,27 @@
         <device.taxi.idle-algorithm.output value="" type="FILE"/>
 
     </taxi_device>
+
+    <glosa_device>
+        <!-- The probability for a vehicle to have a &apos;glosa&apos; device -->
+        <device.glosa.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;glosa&apos; device to named vehicles -->
+        <device.glosa.explicit value="" synonymes="device.glosa.knownveh" type="STR[]"/>
+
+        <!-- The &apos;glosa&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.glosa.deterministic value="false" type="BOOL"/>
+
+        <!-- The communication range to the traffic light -->
+        <device.glosa.range value="100" type="FLOAT"/>
+
+        <!-- The maximum speed factor when approaching a green light -->
+        <device.glosa.max-speedfactor value="1.1" type="FLOAT"/>
+
+        <!-- Minimum speed when coasting towards a red light -->
+        <device.glosa.min-speed value="5" type="FLOAT"/>
+
+    </glosa_device>
 
     <tripinfo_device>
         <!-- The probability for a vehicle to have a &apos;tripinfo&apos; device -->
