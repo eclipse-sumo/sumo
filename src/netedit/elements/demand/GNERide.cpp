@@ -487,18 +487,18 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FROM:
             // change first edge
             replaceFirstParentEdge(value);
-            // compute person trip
+            // compute ride
             computePath();
             break;
         case SUMO_ATTR_TO:
             // change last edge
             replaceLastParentEdge(value);
-            // compute person trip
+            // compute ride
             computePath();
             break;
         case GNE_ATTR_TO_BUSSTOP:
             replaceAdditionalParent(SUMO_TAG_BUS_STOP, value);
-            // compute person trip
+            // compute ride
             computePath();
             break;
         // specific person plan attributes

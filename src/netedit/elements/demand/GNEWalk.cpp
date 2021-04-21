@@ -573,27 +573,29 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FROM:
             // change first edge
             replaceFirstParentEdge(value);
-            // compute person trip
+            // compute walk
             computePath();
             break;
         case SUMO_ATTR_TO:
             // change last edge
             replaceLastParentEdge(value);
-            // compute person trip
+            // compute walk
             computePath();
             break;
         case GNE_ATTR_TO_BUSSTOP:
             replaceAdditionalParent(SUMO_TAG_BUS_STOP, value);
-            // compute person trip
+            // compute walk
             computePath();
             break;
         case SUMO_ATTR_EDGES:
             replaceDemandParentEdges(value);
-            updateGeometry();
+            // compute walk
+            computePath();
             break;
         case SUMO_ATTR_ROUTE:
             replaceDemandElementParent(SUMO_TAG_ROUTE, value, 1);
-            updateGeometry();
+            // compute walk
+            computePath();
             break;
         // specific person plan attributes
         case SUMO_ATTR_ARRIVALPOS:
