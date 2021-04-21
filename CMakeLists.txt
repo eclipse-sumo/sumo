@@ -472,7 +472,9 @@ install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
         PATTERN "__pycache__" EXCLUDE
         PATTERN "*.pyc" EXCLUDE
         PATTERN ".git" EXCLUDE)
-install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/sumo/bin)")
+if (DATA_PATH)
+    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${DATA_PATH}bin)")
+endif ()
 
 if (NOT ${SETUPTOOLS_MISSING})
     install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-sumolib.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
