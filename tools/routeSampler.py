@@ -105,6 +105,8 @@ def get_options(args=None):
                         help="write routes with ids")
     parser.add_argument("-u", "--write-route-distribution", dest="writeRouteDist",
                         help="write routeDistribution with the given ID instead of individual routes")
+    parser.add_argument("--pedestrians", action="store_true", default=False,
+                        help="write person walks instead of vehicle routes")
     parser.add_argument("-b", "--begin", help="custom begin time (seconds or H:M:S)")
     parser.add_argument("-e", "--end", help="custom end time (seconds or H:M:S)")
     parser.add_argument("-i", "--interval", help="custom aggregation interval (seconds or H:M:S)")
@@ -667,13 +669,25 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                     routeID = routeIndex
                 vehID = options.prefix + intervalPrefix + str(i)
                 if routeID is not None:
-                    outf.write('    <vehicle id="%s" depart="%.2f" route="%s%s"%s/>\n' % (
-                        vehID, depart, intervalPrefix, routeID, options.vehattrs))
+                    if options.pedestrians:
+                        outf.write('    <person id="%s" depart="%.2f"%s>\n' % (
+                            vehID, depart, options.vehattrs))
+                        outf.write('        <walk route="%s%s"/>\n' % (intervalPrefix, routeID))
+                        outf.write('    </person>\n')
+                    else:
+                        outf.write('    <vehicle id="%s" depart="%.2f" route="%s%s"%s/>\n' % (
+                            vehID, depart, intervalPrefix, routeID, options.vehattrs))
                 else:
-                    outf.write('    <vehicle id="%s" depart="%.2f"%s>\n' % (
-                        vehID, depart, options.vehattrs))
-                    outf.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
-                    outf.write('    </vehicle>\n')
+                    if options.pedestrians:
+                        outf.write('    <person id="%s" depart="%.2f"%s>\n' % (
+                            vehID, depart, options.vehattrs))
+                        outf.write('        <walk edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
+                        outf.write('    </person>\n')
+                    else:
+                        outf.write('    <vehicle id="%s" depart="%.2f"%s>\n' % (
+                            vehID, depart, options.vehattrs))
+                        outf.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
+                        outf.write('    </vehicle>\n')
                 depart += period
         else:
             routeDeparts = defaultdict(list)
@@ -711,14 +725,26 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                     else:
                         repeat = 'probability="%s"' % probability
                     if options.writeRouteIDs:
-                        outf2.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s%s"%s/>\n' % (
-                            flowID, fBegin, fEnd, repeat,
-                            intervalPrefix, routeIndex, options.vehattrs))
+                        if options.pedestrians:
+                            outf2.write('    <personFlow id="%s" begin="%.2f" end="%.2f" %s%s>\n' % (
+                                flowID, fBegin, fEnd, repeat, options.vehattrs))
+                            outf2.write('        <walk route="%s%s"/>\n' % (intervalPrefix, routeIndex))
+                            outf2.write('    </personFlow>\n')
+                        else:
+                            outf2.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s%s"%s/>\n' % (
+                                flowID, fBegin, fEnd, repeat,
+                                intervalPrefix, routeIndex, options.vehattrs))
                     else:
-                        outf2.write('    <flow id="%s" begin="%.2f" end="%.2f" %s%s>\n' % (
-                            flowID, fBegin, fEnd, repeat, options.vehattrs))
-                        outf2.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
-                        outf2.write('    </flow>\n')
+                        if options.pedestrians:
+                            outf2.write('    <personFlow id="%s" begin="%.2f" end="%.2f" %s%s>\n' % (
+                                flowID, fBegin, fEnd, repeat, options.vehattrs))
+                            outf2.write('        <walk edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
+                            outf2.write('    </personFlow>\n')
+                        else:
+                            outf2.write('    <flow id="%s" begin="%.2f" end="%.2f" %s%s>\n' % (
+                                flowID, fBegin, fEnd, repeat, options.vehattrs))
+                            outf2.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
+                            outf2.write('    </flow>\n')
                     flows.append((fBegin, outf2))
                 flows.sort()
                 for fBegin, outf2 in flows:
