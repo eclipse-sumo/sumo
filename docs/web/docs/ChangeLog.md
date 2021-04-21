@@ -34,6 +34,7 @@ title: ChangeLog
   - Updated container count icon in status bar. Issue #8479
   
 - TraCI
+  - Added traci.trafficlight functions to work with [railSignalConstraints](Simulation/Railways.md#schedule_constraints): getConstraints, getConstraintsByFoe, removeConstraints, swapConstraints. Issue #8455, #8224
   - traci.simulation.Stage now supports function 'toXML' for python client. Issue #8517
 
 - tools
