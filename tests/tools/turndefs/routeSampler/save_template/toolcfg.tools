@@ -11,6 +11,7 @@
     <optimize value="None" help="set optimization method level (full, INT boundary)"/>
     <optimize-input value="False" help="Skip resampling and run optimize directly on the input routes"/>
     <output-file value="out.rou.xml" help="Output route file"/>
+    <pedestrians value="False" help="write person walks instead of vehicle routes"/>
     <prefix value="" help="prefix for the vehicle ids"/>
     <route-files value="None" help="Input route file"/>
     <seed value="42" help="random seed"/>
