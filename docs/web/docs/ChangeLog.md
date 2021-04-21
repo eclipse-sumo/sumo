@@ -43,7 +43,7 @@ title: ChangeLog
   - [gtfs2pt.py](Tools/Import/GTFS.md) now supports option **--osm-routes** to improve mapping of gtfs data onto the network. Issue #8251
   - [edgeDataFromFlow](Tools/Detector.md#edgedatafromflowpy) now supports cadyts output. Issue #8516
   - [splitRouteFiles.py](Tools/Routes.html#splitroutefilespy) now handles detector file. Issue #8462
-  - [routeSampler.py](Tools/Turns.md#routesamplerpy) now supports option **--pedestrians** to generated persons instead of vehicles. Issue #8523
+  - [routeSampler.py](Tools/Turns.md#routesamplerpy) now supports option **--pedestrians** to generate persons instead of vehicles. Issue #8523
 
 ### Other
 
