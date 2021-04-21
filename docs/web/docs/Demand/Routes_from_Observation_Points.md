@@ -23,6 +23,7 @@ The algorithms listed above where developed to solve different problems and may 
 - flowrouter can use a blacklist to avoid implausible routes. The tool [implausibleRoutes.py](../Tools/Routes.md#implausibleroutespy) can be used to generate restrictions for routes that are implausible according to a configurable heuristic. When the set of implausible routes is very large (which is often the case due to a combinatorial explosion of possible routes), creating such a blacklist may be infeasible.
 - routeSampler uses a whitelist to restrict the set of routes that can be used to construct a solution. Generating a sufficient set of plausible routes is easier than listing all implausible routes.
 - routeSampler is the only tool that can use edge-count data together with turn-count data
+- routeSampler supports building pedestrian scenarios from counts 
 
 # dfrouter
 Since version 0.9.5, the SUMO-package contains a routing module named
