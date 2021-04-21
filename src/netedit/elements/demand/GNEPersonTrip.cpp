@@ -341,22 +341,48 @@ GNEPersonTrip::getAttributePosition(SumoXMLAttr key) const {
 
 void
 GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    if (value == getAttribute(key)) {
-        return; //avoid needless changes, later logic relies on the fact that attributes have changed
-    }
     switch (key) {
         // Common person plan attributes
         case SUMO_ATTR_FROM:
-        case SUMO_ATTR_TO:
-        case GNE_ATTR_TO_BUSSTOP:
-        // specific person plan attributes
+        case SUMO_ATTR_ARRIVALPOS:
         case SUMO_ATTR_MODES:
         case SUMO_ATTR_VTYPES:
-        case SUMO_ATTR_ARRIVALPOS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
+        // special case for "to" attributes
+        case SUMO_ATTR_TO: {
+            // get next personPlan
+            GNEDemandElement *nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+            // continue depending of nextPersonPlan
+            if (nextPersonPlan) {
+                undoList->p_begin("Change from attribute of next personPlan");
+                nextPersonPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_end();
+            } else {
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+            }
+            break;
+        }
+        case GNE_ATTR_TO_BUSSTOP: {
+            // get next person plan
+            GNEDemandElement *nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+            // continue depending of nextPersonPlan
+            if (nextPersonPlan) {
+                // obtain busStop
+                const GNEAdditional *busStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
+                // change from attribute using edge ID
+                undoList->p_begin("Change from attribute of next personPlan");
+                nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_end();
+            } else {
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+            }
+            break;
+        }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
