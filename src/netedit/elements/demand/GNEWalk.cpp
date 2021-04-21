@@ -394,16 +394,77 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
     switch (key) {
         // Common person plan attributes
         case SUMO_ATTR_FROM:
-        case SUMO_ATTR_TO:
-        case GNE_ATTR_TO_BUSSTOP:
-        case SUMO_ATTR_EDGES:
-        case SUMO_ATTR_ROUTE:
-        // specific person plan attributes
         case SUMO_ATTR_ARRIVALPOS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
+        // special case for "to" attributes
+        case SUMO_ATTR_TO: {
+            // get next personPlan
+            GNEDemandElement *nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+            // continue depending of nextPersonPlan
+            if (nextPersonPlan) {
+                undoList->p_begin("Change from attribute of next personPlan");
+                nextPersonPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_end();
+            } else {
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+            }
+            break;
+        }
+        case GNE_ATTR_TO_BUSSTOP: {
+            // get next person plan
+            GNEDemandElement *nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+            // continue depending of nextPersonPlan
+            if (nextPersonPlan) {
+                // obtain busStop
+                const GNEAdditional *busStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
+                // change from attribute using edge ID
+                undoList->p_begin("Change from attribute of next personPlan");
+                nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_end();
+            } else {
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+            }
+            break;
+        }
+        case SUMO_ATTR_EDGES: {
+            // get next person plan
+            GNEDemandElement *nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+            // continue depending of nextPersonPlan
+            if (nextPersonPlan) {
+                // obtain edges
+                const std::vector<GNEEdge*> edges = parse<std::vector<GNEEdge*> >(myNet, value);
+                // change from attribute using edge ID
+                undoList->p_begin("Change from attribute of next personPlan");
+                nextPersonPlan->setAttribute(SUMO_ATTR_FROM, edges.back()->getID(), undoList);
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_end();
+            } else {
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+            }
+            break;
+        }
+        case SUMO_ATTR_ROUTE: {
+            // get next person plan
+            GNEDemandElement *nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+            // continue depending of nextPersonPlan
+            if (nextPersonPlan) {
+                // obtain route
+                const GNEDemandElement* route = myNet->retrieveDemandElement(SUMO_TAG_ROUTE, value);
+                // change from attribute using edge ID
+                undoList->p_begin("Change from attribute of next personPlan");
+                nextPersonPlan->setAttribute(SUMO_ATTR_FROM, route->getParentEdges().back()->getID(), undoList);
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_end();
+            } else {
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+            }
+            break;
+        }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
