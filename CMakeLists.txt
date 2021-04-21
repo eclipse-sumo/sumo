@@ -14,6 +14,7 @@ set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
 set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
 set(CCACHE_SUPPORT ON CACHE BOOL "Enable ccache support if installed")
 set(TCMALLOC ON CACHE BOOL "Use tcmalloc if installed")
+set(DATA_PATH "share/sumo/" CACHE STRING "subpath where to install data files")
 
 # Set a default build type if none was specified
 # you may use -DCMAKE_BUILD_TYPE:STRING=Debug from the command line
@@ -456,8 +457,11 @@ install(DIRECTORY bin/ DESTINATION bin
         FILES_MATCHING PATTERN "*.dll"
         PATTERN "*d.dll" EXCLUDE
         PATTERN "FOXDLLD-1.6.dll" EXCLUDE)
-install(DIRECTORY data/ DESTINATION share/sumo/data)
-install(DIRECTORY tools/ DESTINATION share/sumo/tools
+install(DIRECTORY data/ DESTINATION ${DATA_PATH}data)
+if (PROJ_7)
+    install(DIRECTORY share/ DESTINATION ${DATA_PATH}share)
+endif ()
+install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
         USE_SOURCE_PERMISSIONS
         PATTERN "calibration" EXCLUDE
         PATTERN "lisum-core" EXCLUDE

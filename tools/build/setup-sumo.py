@@ -47,6 +47,7 @@ setup(
     packages=['sumo'],
     package_dir={'': 'tools/build'},
 
+    cmake_args=['-DDATA_PATH:STRING='],
     cmake_install_dir='tools/build/sumo',
 
     entry_points={
