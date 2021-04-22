@@ -1,2 +1,8 @@
 # one vehicle slows down to avoid stopping on red
 slowDown
+
+# remaining red duration is too long so no slow down is attempted (conserve road space instead)
+slowDown_no
+
+# drive a bit faster to catch the green light
+speedUp
