@@ -1,0 +1,6 @@
+<         <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="44.00 130.00 216.00 260.00"/>
+>         <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="130.00 216.00 260.00 -1"/>
+<         <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="47.00 145.00 219.00 262.00"/>
+>         <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="145.00 219.00 262.00 -1"/>
+<         <stop lane="3/1to2/1_0" duration="10.00"/>
+>         <stop lane="3/1to2/1_0" startPos="399.80" endPos="400.00" duration="10.00"/>

@@ -48,3 +48,6 @@ save_stopped
 
 # restore further lanes according to previous route when loading state
 rail_furtherLane
+
+# test vehroute-output.exit-times after loading state
+exit_times
