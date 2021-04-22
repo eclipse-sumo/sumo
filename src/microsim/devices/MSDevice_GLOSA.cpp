@@ -110,7 +110,12 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
                 if (myMaxSpeedFactor > myVeh.getChosenSpeedFactor()) {
                     const double vMax2 = vMax / myVeh.getChosenSpeedFactor() * myMaxSpeedFactor;
                     const double timetoJunction2 = earliest_arrival(myDistance, vMax2);
-                    if (timetoJunction2 <= timeToSwitch) {
+                    // reaching the signal at yellow might be sufficient
+                    const double yellowSlack = myVeh.getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, 0);
+#ifdef DEBUG_GLOSA
+                    if (DEBUG_COND) std::cout << "  vMax2=" << vMax2 << " ttJ2=" << timetoJunction2 << " yellowSlack=" << yellowSlack << "\n";
+#endif
+                    if (timetoJunction2 <= (timeToSwitch + yellowSlack)) {
                         // increase speed factor up to a maximum if necessary and useful
                         // XXX could compute optimal speed factor here
                         myVeh.setChosenSpeedFactor(myMaxSpeedFactor);
