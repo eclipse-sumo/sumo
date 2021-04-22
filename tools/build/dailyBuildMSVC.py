@@ -165,9 +165,11 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
 
     toClean = [makeLog, makeAllLog]
     toolsDir = os.path.join(options.rootDir, options.binDir.replace("bin", "tools"))
+    shareDir = os.path.join(options.rootDir, options.binDir.replace("bin", "share"))
     for ext in ("*.exe", "*.ilk", "*.pdb", "*.py", "*.pyd", "*.dll", "*.lib", "*.exp", "*.jar"):
         toClean += glob.glob(os.path.join(options.rootDir, options.binDir, ext))
     toClean += glob.glob(os.path.join(toolsDir, "lib*", "*lib*"))
+    toClean += glob.glob(os.path.join(shareDir, "*", "*"))
     for f in toClean:
         try:
             os.remove(f)
@@ -237,6 +239,8 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                 zipf.write(os.path.join(buildDir, "src", "version.h"), os.path.join(includeDir, "version.h"))
                 for f in glob.glob(os.path.join(toolsDir, "lib*", "*lib*.py*")):
                     zipf.write(f, binDir.replace("bin", "tools") + f[len(toolsDir):])
+                for f in glob.glob(os.path.join(shareDir, "*", "*")):
+                    zipf.write(f, binDir.replace("bin", "share") + f[len(shareDir):])
                 zipf.close()
                 if options.suffix == "":
                     # installers only for the vanilla build

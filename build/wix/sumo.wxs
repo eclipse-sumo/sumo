@@ -127,6 +127,10 @@
         <ComponentGroupRef Id='data' />
       </Feature>
 
+      <Feature Id='Share' Title='Share' Description='External data like Proj data.' Level='1'>
+        <ComponentGroupRef Id='share' />
+      </Feature>
+
       <Feature Id='Includes' Title='Includes' Description='Include files for libsumo.' Level='1'>
         <ComponentGroupRef Id='include' />
       </Feature>
