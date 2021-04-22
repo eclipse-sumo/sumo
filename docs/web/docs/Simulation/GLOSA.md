@@ -47,7 +47,7 @@ is set to a higher value.
 
 The speedFactor is changed back to the default after passing the traffic light.
 
-# Traffic light types
+# Traffic lights
 
 All traffic lights types supply time-to-switch information via the duration
 attribute of their phases. 
@@ -55,12 +55,21 @@ attribute of their phases.
 !!! caution
     This may cause invalid maneuvers with traffic-actuated traffic lights that
     may vary their phase duration.
+    
+The communication range may be customized by setting param "device.glosa.range" on the tlLogic. This may also be used to disable glosa functions for specific intersections.
+To update the parameter for a program that is embedded in the .net.xml file the following element can be loaded via **--additional-files**:
+
+```
+    <tlLogic id="C" programID="0">
+        <param key="device.glosa.range" value="60"/>
+    </tlLogic>
+```
 
 # Parameters
 
 The following parameters affect the operation of the glosa device.
 - device.glosa.range: (maximum range from stop line at which glosa functions
-  become active (default 100)
+  become active (default 100). If the current traffic light also sets this parameter, the minimum value of the device and tls parameter is used.
 - device.glosa.min-speed: minimum speed for slow-down maneuver (default 5m/s)
 - device.glosa.max-speedfactor: maximum speedFactor for trying to reach a green
   light (default 1.1) Setting a value of 1 will ensure perfect complience with the speed
