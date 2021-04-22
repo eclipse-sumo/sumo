@@ -553,6 +553,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "cost",                   SUMO_ATTR_COST },
     { "costs",                  SUMO_ATTR_COSTS },
     { "savings",                SUMO_ATTR_SAVINGS },
+    { "exitTimes",              SUMO_ATTR_EXITTIMES },
     { "probability",            SUMO_ATTR_PROB },
     { "count",                  SUMO_ATTR_COUNT },
     { "probabilities",          SUMO_ATTR_PROBS },

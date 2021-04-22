@@ -267,7 +267,7 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
             assert(numWritten >= (int)myExits.size());
             std::vector<std::string> missing(numWritten - (int)myExits.size(), "-1");
             exits.insert(exits.end(), missing.begin(), missing.end());
-            os.writeAttr("exitTimes", exits);
+            os.writeAttr(SUMO_ATTR_EXITTIMES, exits);
         }
     }
     os.closeTag();
@@ -447,6 +447,9 @@ MSDevice_Vehroutes::saveState(OutputDevice& out) const {
         internals.push_back(myReplacedRoutes[i].info);
     }
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
+    if (mySaveExits) {
+        out.writeAttr(SUMO_ATTR_EXITTIMES, myExits);
+    }
     out.closeTag();
 }
 
@@ -474,6 +477,11 @@ MSDevice_Vehroutes::loadState(const SUMOSAXAttributes& attrs) {
         const MSRoute* route = MSRoute::dictionary(routeID);
         route->addReference();
         myReplacedRoutes.push_back(RouteReplaceInfo(MSEdge::dictionary(edgeID), time, route, info));
+    }
+    if (mySaveExits && attrs.hasAttribute(SUMO_ATTR_EXITTIMES)) {
+        for (const std::string t : attrs.getStringVector(SUMO_ATTR_EXITTIMES)) {
+            myExits.push_back(StringUtils::toLong(t));
+        }
     }
 }
 

@@ -114,6 +114,8 @@
     <xsd:complexType name="deviceType">
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="state" type="xsd:string" use="required"/>
+        <!-- device specific attributes -->
+        <xsd:attribute name="exitTimes" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="transportablesStateType">
