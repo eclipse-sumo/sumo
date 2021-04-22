@@ -95,6 +95,5 @@ For example, setting the option **--device.vehroute.probability 0.25** will equi
 - **--vehroute-output.route-length**: Write total route length as attribute 'length'
 - **--vehroute-output.write-unfinished**:   Write vehroute output for vehicles which have not reached their destination at the end of the simulation
 - **--vehroute-output.skip-ptlines**:  Skip vehroute output for public transport vehicles (vehicles that have a 'line' attribute)
-- **--vehroute-output.incomplete**:   Include invalid routes and route stubs (from-to) in the output
-                                        in vehroute output
-  --vehroute-output.stop-edges         Include information about edges between
+- **--vehroute-output.incomplete**:   Include invalid routes and route stubs (from-to) in the vehroute output
+- **--vehroute-output.stop-edges**:   Include information about edges between stops
