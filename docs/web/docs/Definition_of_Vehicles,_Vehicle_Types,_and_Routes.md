@@ -1105,6 +1105,7 @@ placeholder `<DEVICENAME>` below
 - [tripinfo](Simulation/Output/TripInfo.md)
 - [vehroute](Simulation/Output/VehRoutes.md)
 - [taxi](Simulation/Taxi.md)
+- [glosa](Simulation/GLOSA.md)
 - [example](Developer/How_To/Device.md)
 
 ## Automatic assignment
