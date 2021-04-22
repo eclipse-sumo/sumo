@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_9_0+0147-f1bb915
+Eclipse SUMO sumo Version v1_9_0+0171-ce97ad2
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -207,7 +207,9 @@ Processing Options:
                                         teleported if they are on a
                                         non-continuing lane
   --time-to-teleport.disconnected TIME  The waiting time after which vehicles
-                                        with a disconnected route are teleported
+                                        with a disconnected route are
+                                        teleported. Negative values disable
+                                        teleporting
   --waiting-time-memory TIME           Length of time interval, over which
                                         accumulated waiting time is taken into
                                         account (default is 100s.)
