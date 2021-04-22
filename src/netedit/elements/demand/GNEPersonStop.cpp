@@ -21,8 +21,10 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/changes/GNEChange_EnableAttribute.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_EnableAttribute.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/images/GUITextureSubSys.h>
@@ -403,16 +405,57 @@ GNEPersonStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_UNTIL:
         case SUMO_ATTR_EXTENSION:
         case SUMO_ATTR_ACTTYPE:
-        // specific of Stops over stoppingPlaces
-        case SUMO_ATTR_BUS_STOP:
-        // specific of stops over edges/lanes
-        case SUMO_ATTR_EDGE:
-        case SUMO_ATTR_ENDPOS:
-        case SUMO_ATTR_FRIENDLY_POS:
-        //
         case GNE_ATTR_SELECTED:
+        case SUMO_ATTR_FRIENDLY_POS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
+        case SUMO_ATTR_EDGE: {
+            // get next personPlan
+            GNEDemandElement *nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+            // continue depending of nextPersonPlan
+            if (nextPersonPlan) {
+                undoList->p_begin("Change from attribute of next personPlan");
+                nextPersonPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_end();
+            } else {
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+            }
+            break;
+        }
+        case SUMO_ATTR_BUS_STOP: {
+            // get next person plan
+            GNEDemandElement *nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+            // continue depending of nextPersonPlan
+            if (nextPersonPlan) {
+                // obtain busStop
+                const GNEAdditional *busStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
+                // change from attribute using edge ID
+                undoList->p_begin("Change from attribute of next personPlan");
+                nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_end();
+            } else {
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+            }
+            break;
+        }
+        case SUMO_ATTR_ENDPOS: {
+            // get previous person plan
+            GNEDemandElement *previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
+            // check if leave presonStop connected is enabled
+            if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getDemandModeOptions()->getLeavePersonStopsConnected() &&
+                previousPersonPlan && previousPersonPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+                // change from attribute using edge ID
+                undoList->p_begin("Change arrivalPos attribute of previous personPlan");
+                previousPersonPlan->setAttribute(SUMO_ATTR_ARRIVALPOS, value, undoList);
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_end();
+            } else {
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+            }
+            break;
+        }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
