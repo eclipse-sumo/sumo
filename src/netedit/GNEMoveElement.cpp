@@ -83,6 +83,33 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
 GNEMoveOperation::~GNEMoveOperation() {}
 
 // ===========================================================================
+// GNEMoveOffset method definitions
+// ===========================================================================
+
+GNEMoveOffset::GNEMoveOffset() :
+    x(0),
+    y(0),
+    z(0) {
+}
+
+
+GNEMoveOffset::GNEMoveOffset(const double x_, const double y_) :
+    x(x_),
+    y(y_),
+    z(0) {
+}
+
+
+GNEMoveOffset::GNEMoveOffset(const double z_) :
+    x(0),
+    y(0),
+    z(z_) {
+}
+
+
+GNEMoveOffset::~GNEMoveOffset() {}
+
+// ===========================================================================
 // GNEMoveResult method definitions
 // ===========================================================================
 
@@ -100,7 +127,7 @@ GNEMoveElement::GNEMoveElement() {
 
 
 void
-GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const Position& offset) {
+GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const GNEMoveOffset& offset) {
     // declare move result
     GNEMoveResult moveResult;
     // set geometry points to move
@@ -116,7 +143,7 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
         for (auto& geometryPointIndex : moveResult.shapeToUpdate) {
             if (geometryPointIndex != Position::INVALID) {
                 // add offset
-                geometryPointIndex.add(offset);
+                geometryPointIndex.add(offset.x, offset.y, offset.z);
                 // apply snap to active grid
                 geometryPointIndex = viewNet->snapToActiveGrid(geometryPointIndex);
             } else {
@@ -130,7 +157,7 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
         for (const auto& geometryPointIndex : moveOperation->geometryPointsToMove) {
             if (moveResult.shapeToUpdate[geometryPointIndex] != Position::INVALID) {
                 // add offset
-                moveResult.shapeToUpdate[geometryPointIndex].add(offset);
+                moveResult.shapeToUpdate[geometryPointIndex].add(offset.x, offset.y, offset.z);
                 // apply snap to active grid
                 moveResult.shapeToUpdate[geometryPointIndex] = viewNet->snapToActiveGrid(moveResult.shapeToUpdate[geometryPointIndex]);
             } else {
@@ -144,7 +171,7 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
 
 
 void
-GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const Position& offset, GNEUndoList* undoList) {
+GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const GNEMoveOffset& offset, GNEUndoList* undoList) {
     // declare move result
     GNEMoveResult moveResult;
     // check if we're moving over a lane shape, an entire shape or only certain geometry point
@@ -179,7 +206,7 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
             for (auto& geometryPointIndex : moveResult.shapeToUpdate) {
                 if (geometryPointIndex != Position::INVALID) {
                     // add offset
-                    geometryPointIndex.add(offset);
+                    geometryPointIndex.add(offset.x, offset.y, offset.z);
                     // apply snap to active grid
                     geometryPointIndex = viewNet->snapToActiveGrid(geometryPointIndex);
                 } else {
@@ -191,7 +218,7 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
             for (const auto& geometryPointIndex : moveOperation->geometryPointsToMove) {
                 if (moveResult.shapeToUpdate[geometryPointIndex] != Position::INVALID) {
                     // add offset
-                    moveResult.shapeToUpdate[geometryPointIndex].add(offset);
+                    moveResult.shapeToUpdate[geometryPointIndex].add(offset.x, offset.y, offset.z);
                     // apply snap to active grid
                     moveResult.shapeToUpdate[geometryPointIndex] = viewNet->snapToActiveGrid(moveResult.shapeToUpdate[geometryPointIndex]);
                 } else {
@@ -210,7 +237,7 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
 
 
 const PositionVector
-GNEMoveElement::calculateMovementOverLane(const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const Position& offset) {
+GNEMoveElement::calculateMovementOverLane(const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset) {
     // declare new shape
     PositionVector newShape;
     // calculate lenght between pos over lanes
@@ -224,7 +251,7 @@ GNEMoveElement::calculateMovementOverLane(const GNEViewNet* viewNet, const GNEMo
     // calculate position at offset given by centralPosition
     Position lanePositionAtCentralPosition = moveOperation->lane->getLaneShape().positionAtOffset2D(centralPosition);
     // apply offset to positionAtCentralPosition
-    lanePositionAtCentralPosition.add(offset);
+    lanePositionAtCentralPosition.add(offset.x, offset.y, offset.z);
     // snap to grid
     lanePositionAtCentralPosition = viewNet->snapToActiveGrid(lanePositionAtCentralPosition);
     // calculate new posOverLane perpendicular

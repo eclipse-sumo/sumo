@@ -97,6 +97,31 @@ private:
     GNEMoveOperation& operator=(const GNEMoveOperation&) = delete;
 };
 
+/// @brief move offset
+class GNEMoveOffset {
+
+public:
+    /// @brief constructor
+    GNEMoveOffset();
+
+    /// @brief constructor for X-Y move
+    GNEMoveOffset(const double x, const double y);
+
+    /// @brief constructor for Z move
+    GNEMoveOffset(const double z);
+
+    /// @brief destructor
+    ~GNEMoveOffset();
+
+    /// @brief X
+    const double x;
+
+    /// @brief Y
+    const double y;
+
+    /// @brief Z
+    const double z;
+};
 
 /// @brief move result
 class GNEMoveResult {
@@ -136,10 +161,10 @@ public:
     virtual void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) = 0;
 
     /// @brief move element the for given offset (note: offset can be X-Y-0, 0-0-Z or X-Y-Z)
-    static void moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const Position& offset);
+    static void moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const GNEMoveOffset& offset);
 
     /// @brief commit move element for the given offset
-    static void commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const Position& offset, GNEUndoList* undoList);
+    static void commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const GNEMoveOffset& offset, GNEUndoList* undoList);
 
 private:
     /// @brief set move shape
@@ -149,7 +174,7 @@ private:
     virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
     /// @brief calculate movement over lane
-    static const PositionVector calculateMovementOverLane(const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const Position& offset);
+    static const PositionVector calculateMovementOverLane(const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset);
 
     /// @brief Invalidated copy constructor.
     GNEMoveElement(const GNEMoveElement&) = delete;

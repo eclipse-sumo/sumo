@@ -1100,20 +1100,20 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementDemandMode() {
 
 void
 GNEViewNetHelper::MoveSingleElementValues::moveSingleElement(const bool mouseLeftButtonPressed) {
-    // calculate offsetMovement
-    const Position offsetMovement = calculateOffset();
+    // calculate moveOffset
+    const GNEMoveOffset moveOffset = calculateMoveOffset();
     // check if mouse button is pressed
     if (mouseLeftButtonPressed) {
         // iterate over all operations
         for (const auto& moveOperation : myMoveOperations) {
             // move elements
-            GNEMoveElement::moveElement(myViewNet, moveOperation, offsetMovement);
+            GNEMoveElement::moveElement(myViewNet, moveOperation, moveOffset);
         }
     } else {
         // iterate over all operations
         for (const auto& moveOperation : myMoveOperations) {
             // commit move
-            GNEMoveElement::commitMove(myViewNet, moveOperation, offsetMovement, myViewNet->getUndoList());
+            GNEMoveElement::commitMove(myViewNet, moveOperation, moveOffset, myViewNet->getUndoList());
             // don't forget delete move operation
             delete moveOperation;
         }
@@ -1125,11 +1125,11 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement(const bool mouseLef
 
 void
 GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
-    // calculate offsetMovement
-    const Position offsetMovement = calculateOffset();
+    // calculate moveOffset
+    const GNEMoveOffset moveOffset = calculateMoveOffset();
     // finish all move operations
     for (const auto& moveOperation : myMoveOperations) {
-        GNEMoveElement::commitMove(myViewNet, moveOperation, offsetMovement, myViewNet->getUndoList());
+        GNEMoveElement::commitMove(myViewNet, moveOperation, moveOffset, myViewNet->getUndoList());
         // don't forget delete move operation
         delete moveOperation;
     }
@@ -1138,21 +1138,19 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
 }
 
 
-Position
-GNEViewNetHelper::MoveSingleElementValues::calculateOffset() const {
-    // calculate offsetMovement depending of current mouse position and relative clicked position
+const GNEMoveOffset
+GNEViewNetHelper::MoveSingleElementValues::calculateMoveOffset() const {
+    // calculate moveOffset depending of current mouse position and relative clicked position
     // @note  #3521: Add checkBox to allow moving elements... has to be implemented and used here
-    Position offsetMovement = (myViewNet->getPositionInformation() - myViewNet->myMoveSingleElementValues.myRelativeClickedPosition);
+    Position moveOffset = (myViewNet->getPositionInformation() - myViewNet->myMoveSingleElementValues.myRelativeClickedPosition);
     // calculate Z depending of moveElevation
     if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->amChecked() == TRUE) {
-        // reset offset X and Y and use Y for Z
-        offsetMovement = Position(0, 0, offsetMovement.y());
+        // use Y as Z value and return Z move offset
+        return GNEMoveOffset(moveOffset.y());
     } else {
-        // leave z empty (because in this case offset only actuates over X-Y)
-        offsetMovement.setz(0);
+        // return X-Y move offset
+        return GNEMoveOffset(moveOffset.x(), moveOffset.y());
     }
-    // return offset
-    return offsetMovement;
 }
 
 
@@ -1203,14 +1201,14 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection() {
 
 void
 GNEViewNetHelper::MoveMultipleElementValues::moveSelection(const bool mouseLeftButtonPressed) {
-    // calculate offsetMovement
-    const Position offsetMovement = calculateOffset();
+    // calculate moveOffset
+    const GNEMoveOffset moveOffset = calculateMoveOffset();
     // check if mouse button is pressed
     if (mouseLeftButtonPressed) {
         // iterate over all operations
         for (const auto& moveOperation : myMoveOperations) {
             // move elements
-            GNEMoveElement::moveElement(myViewNet, moveOperation, offsetMovement);
+            GNEMoveElement::moveElement(myViewNet, moveOperation, moveOffset);
         }
     } else if (myMoveOperations.size() > 0) {
         // begin undo list
@@ -1218,7 +1216,7 @@ GNEViewNetHelper::MoveMultipleElementValues::moveSelection(const bool mouseLeftB
         // iterate over all operations
         for (const auto& moveOperation : myMoveOperations) {
             // commit move
-            GNEMoveElement::commitMove(myViewNet, moveOperation, offsetMovement, myViewNet->getUndoList());
+            GNEMoveElement::commitMove(myViewNet, moveOperation, moveOffset, myViewNet->getUndoList());
             // don't forget delete move operation
             delete moveOperation;
         }
@@ -1232,13 +1230,13 @@ GNEViewNetHelper::MoveMultipleElementValues::moveSelection(const bool mouseLeftB
 
 void
 GNEViewNetHelper::MoveMultipleElementValues::finishMoveSelection() {
-    // calculate offsetMovement
-    const Position offsetMovement = calculateOffset();
+    // calculate moveOffset
+    const GNEMoveOffset moveOffset = calculateMoveOffset();
     // begin undo list
     myViewNet->getUndoList()->p_begin("moving selection");
     // finish all move operations
     for (const auto& moveOperation : myMoveOperations) {
-        GNEMoveElement::commitMove(myViewNet, moveOperation, offsetMovement, myViewNet->getUndoList());
+        GNEMoveElement::commitMove(myViewNet, moveOperation, moveOffset, myViewNet->getUndoList());
         // don't forget delete move operation
         delete moveOperation;
     }
@@ -1255,21 +1253,19 @@ GNEViewNetHelper::MoveMultipleElementValues::isMovingSelection() const {
 }
 
 
-Position
-GNEViewNetHelper::MoveMultipleElementValues::calculateOffset() const {
-    // calculate offsetMovement depending of current mouse position and relative clicked position
+const GNEMoveOffset
+GNEViewNetHelper::MoveMultipleElementValues::calculateMoveOffset() const {
+    // calculate moveOffset depending of current mouse position and relative clicked position
     // @note  #3521: Add checkBox to allow moving elements... has to be implemented and used here
-    Position offsetMovement = (myViewNet->getPositionInformation() - myClickedPosition);
+    Position moveOffset = (myViewNet->getPositionInformation() - myClickedPosition);
     // calculate Z depending of moveElevation
     if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->amChecked() == TRUE) {
-        // reset offset X and Y and use Y for Z
-        offsetMovement = Position(0, 0, offsetMovement.y());
+        // use Y for Z and return X move offset
+        return GNEMoveOffset(moveOffset.y());
     } else {
-        // leave z empty (because in this case offset only actuates over X-Y)
-        offsetMovement.setz(0);
+        // return X-Y move offset
+        return GNEMoveOffset(moveOffset.x(), moveOffset.y());
     }
-    // return offset
-    return offsetMovement;
 }
 
 

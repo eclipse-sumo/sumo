@@ -32,6 +32,7 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 
 #include "GNEGeometry.h"
+#include "GNEMoveElement.h"
 
 // ===========================================================================
 // enum
@@ -855,7 +856,7 @@ struct GNEViewNetHelper {
 
     protected:
         /// @brief calculate offset
-        Position calculateOffset() const;
+        const GNEMoveOffset calculateMoveOffset() const;
 
         /// @brief calculate move operation for shape
         bool calculateMoveOperationShape(GNEMoveElement* moveElement, const PositionVector& shape, const double radius);
@@ -890,8 +891,8 @@ struct GNEViewNetHelper {
         bool isMovingSelection() const;
 
     protected:
-        /// @brief calculate offset
-        Position calculateOffset() const;
+        /// @brief calculate move offset
+        const GNEMoveOffset calculateMoveOffset() const;
 
         /// @brief calculate junction selection
         void calculateJunctionSelection();
