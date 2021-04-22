@@ -25,6 +25,7 @@ title: ChangeLog
 
 ### Enhancements
 - Simulation
+  - Vehicles can now be equipped with the [glosa device](Simulation/GLOSA.md) to adapt their speed at traffic lights. Issue #7721
   - Verbose output now lists total time spent on TraCI when applicable. Issue #8478
   - Statistic-output now includes 'totalTravelTime' and 'totalDepartDelay'. Issue #8484
   - Added option **--tripinfo-output.write-undeparted** to ensure that the number of written tripinfos is independent of insertion success (simplify comparison of different runs). Issue #8475
