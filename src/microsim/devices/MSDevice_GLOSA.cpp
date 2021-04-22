@@ -132,7 +132,7 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
 
 bool
 MSDevice_GLOSA::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notification /*reason*/, const MSLane* /* enteredLane */) {
-    bool hadTLS = myNextTLSLink != nullptr;
+    const MSLink* prevLink = myNextTLSLink;
     myNextTLSLink = nullptr;
     const MSLane* lane = myVeh.getLane();
     const std::vector<MSLane*>& bestLaneConts = myVeh.getBestLanesContinuation(lane);
@@ -154,9 +154,20 @@ MSDevice_GLOSA::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifica
         seen += lane->getLength();
         linkIt = MSLane::succLinkSec(myVeh, view, *lane, bestLaneConts);
     }
-    if (hadTLS && myNextTLSLink == nullptr) {
+    if (prevLink != nullptr && myNextTLSLink == nullptr) {
         // moved passt tls
         myVeh.setChosenSpeedFactor(myOriginalSpeedFactor);
+    } else if (myNextTLSLink != nullptr && prevLink != myNextTLSLink) {
+        // approaching new tls
+        double tlsRange = 1e10;
+        const std::string val = myNextTLSLink->getTLLogic()->getParameter("device.glosa.range", "1e10");
+        try {
+            tlsRange = StringUtils::toDouble(val);
+        } catch (NumberFormatException& e) {
+            WRITE_WARNINGF("Invalid value '%' for parameter 'device.glosa.range' of traffic light '%'",
+                    val, myNextTLSLink->getTLLogic()->getID());
+        }
+        myRange = MIN2(getFloatParam(myVeh, OptionsCont::getOptions(), "glosa.range", 100, true), tlsRange);
     }
 
 #ifdef DEBUG_GLOSA
