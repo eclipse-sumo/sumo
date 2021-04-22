@@ -247,8 +247,8 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEDemandElement(vehicleID, net, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
-{}, {}, {}, {}, {}, {}, {vehicleType, route}, {}),
-SUMOVehicleParameter() {
+        {}, {}, {}, {}, {}, {}, {vehicleType, route}, {}),
+    SUMOVehicleParameter() {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleID;
     // set manually vtypeID (needed for saving)
@@ -258,8 +258,8 @@ SUMOVehicleParameter() {
 
 GNEVehicle::GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, (vehicleParameters.tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, vehicleParameters.tag,
-{}, {}, {}, {}, {}, {}, {vehicleType, route}, {}),
-SUMOVehicleParameter(vehicleParameters) {
+        {}, {}, {}, {}, {}, {}, {vehicleType, route}, {}),
+    SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // set manually vtypeID (needed for saving)
@@ -269,8 +269,8 @@ SUMOVehicleParameter(vehicleParameters) {
 
 GNEVehicle::GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, (vehicleParameters.tag == GNE_TAG_VEHICLE_WITHROUTE) ? GLO_VEHICLE : GLO_ROUTEFLOW, vehicleParameters.tag,
-{}, {}, {}, {}, {}, {}, {vehicleType}, {}),
-SUMOVehicleParameter(vehicleParameters) {
+        {}, {}, {}, {}, {}, {}, {vehicleType}, {}),
+    SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // reset routeid
@@ -283,8 +283,8 @@ SUMOVehicleParameter(vehicleParameters) {
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge,
                        const std::vector<GNEEdge*>& via) :
     GNEDemandElement(vehicleID, net, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
-{}, {fromEdge, toEdge}, {}, {}, {}, {}, {vehicleType}, {}),
-SUMOVehicleParameter() {
+        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {vehicleType}, {}),
+    SUMOVehicleParameter() {
     // set via parameter without updating references
     replaceMiddleParentEdges(toString(via), false);
     // compute vehicle
@@ -295,8 +295,8 @@ SUMOVehicleParameter() {
 GNEVehicle::GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via,
                        const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, (vehicleParameters.tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, vehicleParameters.tag,
-{}, {fromEdge, toEdge}, {}, {}, {}, {}, {vehicleType}, {}),
-SUMOVehicleParameter(vehicleParameters) {
+        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {vehicleType}, {}),
+    SUMOVehicleParameter(vehicleParameters) {
     // set via parameter without updating references
     replaceMiddleParentEdges(toString(via), false);
     // compute vehicle
@@ -309,7 +309,20 @@ GNEVehicle::~GNEVehicle() {}
 
 GNEMoveOperation* 
 GNEVehicle::getMoveOperation(const double /*shapeOffset*/) {
-    return nullptr;
+    // declare departLane
+    GNELane* lane = getFirstAllowedVehicleLane();
+    // continue depending of lane
+    if (lane) {
+        // declare departPos
+        double posOverLane = 0;
+        if (canParse<double>(getDepartPos())) {
+            posOverLane = parse<double>(getDepartPos());
+        }
+        // return move operation
+        return new GNEMoveOperation(this, lane, {posOverLane});
+    } else {
+        return nullptr;
+    }
 }
 
 
@@ -1683,13 +1696,20 @@ GNEVehicle::setEnabledAttribute(const int enabledAttributes) {
 
 void
 GNEVehicle::setMoveShape(const GNEMoveResult& moveResult) {
-    //
+    // change departPos
+    departPosProcedure = DepartPosDefinition::GIVEN;
+    departPos = moveResult.shapeToUpdate.front().x();
+    // update geometry
+    updateGeometry();
 }
 
 
 void
 GNEVehicle::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    //
+    undoList->p_begin("departPos of " + getTagStr());
+    // now set departPos
+    setAttribute(SUMO_ATTR_DEPARTPOS, toString(moveResult.shapeToUpdate.front().x()), undoList);
+    undoList->p_end();
 }
 
 
