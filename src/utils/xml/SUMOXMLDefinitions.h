@@ -1348,10 +1348,13 @@ enum class RightOfWay {
     EDGEPRIORITY
 };
 
-/// @brief algorithms for computing right of way
+/// @brief classifying boundary nodes
 enum class FringeType {
+    // outer border of the network
     OUTER,
+    // fringe edge within the network (i.e. due to pruning some road types)
     INNER,
+    // not fringe (nothing is cut off)
     DEFAULT
 };
 
