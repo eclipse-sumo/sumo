@@ -1614,14 +1614,14 @@ GNEVehicleType::setEnabledAttribute(const int /*enabledAttributes*/) {
 
 
 void 
-GNEVehicleType::setMoveShape(const GNEMoveResult& moveResult) {
-    //
+GNEVehicleType::setMoveShape(const GNEMoveResult& /*moveResult*/) {
+    // vehicleTypes cannot be moved
 }
 
 
 void
-GNEVehicleType::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    //
+GNEVehicleType::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
+    // vehicleTypes cannot be moved
 }
 
 
@@ -1667,6 +1667,5 @@ GNEVehicleType::updateDefaultVClassAttributes(const VClassDefaultValues& default
         locomotiveLength = defaultValues.locomotiveLength;
     }
 }
-
 
 /****************************************************************************/

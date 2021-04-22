@@ -616,14 +616,14 @@ GNERoute::setEnabledAttribute(const int /*enabledAttributes*/) {
 
 
 void 
-GNERoute::setMoveShape(const GNEMoveResult& moveResult) {
-    //
+GNERoute::setMoveShape(const GNEMoveResult& /*moveResult*/) {
+    // routes cannot be moved
 }
 
 
 void 
-GNERoute::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    //
+GNERoute::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
+    // routes cannot be moved
 }
 
 /****************************************************************************/
