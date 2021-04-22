@@ -173,20 +173,20 @@ GNEPersonStop::computePath() {
 
 Position
 GNEPersonStop::getPositionInView() const {
-    // get lane
-    const GNELane* const firstLane = getFirstAllowedLane();
-    if (firstLane != nullptr) {
-        if (firstLane->getLaneShape().length2D() > 1) {
-            return firstLane->getLaneShape().positionAtOffset2D(1);
-        } else if (firstLane->getLaneShape().size() > 0) {
-            return firstLane->getLaneShape().front();
-        } else {
-            return Position(0, 0);
-        }
-    } else if (getParentDemandElements().size() > 0) {
-        return getParentDemandElements().front()->getPositionInView();
+    // check if is placed over a busStop
+    if (getParentAdditionals().size() > 0) {
+        return getParentAdditionals().front()->getPositionInView();
     } else {
-        throw ProcessError("Invalid Stop parent");
+        // get lane
+        const GNELane* personLane = getParentEdges().front()->getLaneByAllowedVClass(SVC_PEDESTRIAN);
+        // get position over lane shape
+        if (endPos <= 0) {
+            return personLane->getLaneShape().front();
+        } else if (endPos >= personLane->getLaneShape().length2D()) {
+            return personLane->getLaneShape().back();
+        } else {
+            return personLane->getLaneShape().positionAtOffset2D(endPos);
+        }
     }
 }
 
@@ -212,16 +212,11 @@ GNEPersonStop::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
     if (getParentAdditionals().size() > 0) {
         return getParentAdditionals().at(0)->getCenteringBoundary();
-/*
-    } else if (myMovingGeometryBoundary.isInitialised()) {
-        return myMovingGeometryBoundary;
-*/
-    } else if (myDemandElementGeometry.getShape().size() > 0) {
-        Boundary b = myDemandElementGeometry.getShape().getBoxBoundary();
+    } else {
+        Boundary b;
+        b.add(getPositionInView());
         b.grow(20);
         return b;
-    } else {
-        return Boundary(-0.1, -0.1, 0.1, 0.1);
     }
 }
 
