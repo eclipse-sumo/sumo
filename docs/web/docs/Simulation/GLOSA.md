@@ -68,6 +68,7 @@ To update the parameter for a program that is embedded in the .net.xml file the 
 # Parameters
 
 The following parameters affect the operation of the glosa device.
+
 - device.glosa.range: (maximum range from stop line at which glosa functions
   become active (default 100). If the current traffic light also sets this parameter, the minimum value of the device and tls parameter is used.
 - device.glosa.min-speed: minimum speed for slow-down maneuver (default 5m/s)
