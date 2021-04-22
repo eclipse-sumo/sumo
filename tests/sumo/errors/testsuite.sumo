@@ -1,3 +1,15 @@
+# Tests for broken routes
+routes
+
+# Tests for duplicate structures (replacing XMLIdAlreadyUsedException)
+duplicates
+
+# Tests with broken traffic lights
+traffic_lights
+
+# error handling for person related input
+person
+
 # Tests what happens if an unknown option is passed
 unknown_option
 
@@ -44,18 +56,6 @@ too_many_teleports
 
 # the value for  key=has.rerouting.device is not a bool
 invalid_param
-
-# Tests for broken routes
-routes
-
-# Tests for duplicate structures (replacing XMLIdAlreadyUsedException)
-duplicates
-
-# Tests with broken traffic lights
-traffic_lights
-
-# error handling for person related input
-person
 
 # warn about multiple connections from one edge to the sam lane
 unsafe_connections
