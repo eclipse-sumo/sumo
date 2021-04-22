@@ -86,7 +86,6 @@ MSDevice_GLOSA::MSDevice_GLOSA(SUMOVehicle& holder, const std::string& id, doubl
     myMaxSpeedFactor(maxSpeedFactor)
     
 {
-    assert(myVeh != nullptr);
     myOriginalSpeedFactor = myVeh.getChosenSpeedFactor();
 }
 
