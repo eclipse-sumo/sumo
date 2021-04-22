@@ -49,16 +49,16 @@ python3 -m pip install texttest
 If you encounter segmentation faults on macOS Catalina, please follow the following steps (see [Issue 6242](https://github.com/eclipse/sumo/issues/6242#issuecomment-553458710)).
 
 1. Uninstall Catalina bottle of fox:
-```$ brew uninstall --ignore-dependencies fox```
+```brew uninstall --ignore-dependencies fox```
 
 2. Edit brew Formula of fox:
-```$ brew edit fox```
+```brew edit fox```
 
 3. Comment out or delete the following line:
 ```sha256 "c6697be294c9a0458580564d59f8db32791beb5e67a05a6246e0b969ffc068bc" => :catalina```
 
 4. Install Mojave bottle of fox:
-```$ brew install fox```
+```brew install fox```
 
 ## Git Cloning and Building
 The source code of SUMO can be cloned with the following command to the directory `./sumo`. The environment variable `SUMO_HOME` should also be set to this directory.
