@@ -312,8 +312,7 @@ GNEDemandElement::getLastAllowedVehicleLane() const {
         } else {
             return nullptr;
         }
-    }
-    else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_WITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
+    } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_WITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
         if (getChildDemandElements().size() > 0) {
             return getChildDemandElements().front()->getParentEdges().back()->getLaneByAllowedVClass(getVClass());
         } else {
