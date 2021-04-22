@@ -51,10 +51,6 @@ title: ChangeLog
 - Documentation
   - Documented [statistic-output](Simulation/Output/StatisticOutput.md). Issue #8188
 
-### Enhancements
-
-### Other
-
 ## Version 1.9.0 (13.04.2021)
 
 ### Bugfixes
