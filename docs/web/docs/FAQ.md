@@ -458,9 +458,9 @@ and simply type `git pull`.
   (replace /path/to/sumo/bin with the path to the bin directory of
   your sumo installation)
 
-### How do I work around missing dll errors on windows?
+### How do I work around missing dll errors on Windows?
 
-  Install [MSVC2013 Redistributable](http://www.microsoft.com/download/en/details.aspx?id=5555)
+  Install [MSVC2013 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=40784)
   (Old versions of SUMO may also require the MSVC2010 Redistributable)
 
 ### What is the meaning of the different exit codes (linux command line)
