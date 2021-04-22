@@ -47,6 +47,12 @@ public:
         /// @brief destructor
         ~NetworkModeOptions();
 
+        /// @brief show NetworkModeOptions
+        void showNetworkModeOptions();
+
+        /// @brief hide NetworkModeOptions
+        void hideNetworkModeOptions();
+
         /// @brief move whole polygons
         bool getMoveWholePolygons() const;
 
@@ -56,6 +62,36 @@ public:
 
         /// @brief checkbox for enable/disable move whole polygons
         FXCheckButton* myMoveWholePolygons;
+    };
+
+    // ===========================================================================
+    // class DemandMoveOptions
+    // ===========================================================================
+
+    class DemandModeOptions : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        DemandModeOptions(GNEMoveFrame* moveFrameParent);
+
+        /// @brief destructor
+        ~DemandModeOptions();
+
+        /// @brief show DemandModeOptions
+        void showDemandModeOptions();
+
+        /// @brief hide DemandModeOptions
+        void hideDemandModeOptions();
+
+        /// @brief check if leave personStopConnected is enabled
+        bool getLeavePersonStopsConnected() const;
+
+    private:
+        /// @brief pointer to move frame parent
+        GNEMoveFrame* myMoveFrameParent;
+
+        /// @brief checkbox for enable/disable leave personStops connected
+        FXCheckButton* myLeavePersonStopsConnected;
     };
 
     // ===========================================================================
@@ -232,9 +268,15 @@ public:
     /// @brief get network mode options
     NetworkModeOptions* getNetworkModeOptions() const;
 
+    /// @brief get demand mode options
+    DemandModeOptions* getDemandModeOptions() const;
+
 private:
     /// @brief modul for NetworkMode Options
     NetworkModeOptions* myNetworkModeOptions = nullptr;
+
+    /// @brief modul for DemandMode Options
+    DemandModeOptions* myDemandModeOptions = nullptr;
 
     /// @brief modul for shift edge geometry
     ShiftEdgeGeometry* myShiftEdgeGeometry = nullptr;
