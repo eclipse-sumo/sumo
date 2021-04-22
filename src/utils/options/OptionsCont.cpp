@@ -916,7 +916,7 @@ OptionsCont::writeXMLHeader(std::ostream& os, const bool includeConfig) const {
 
     os << "<?xml version=\"1.0\"" << SUMOSAXAttributes::ENCODING << "?>\n\n";
     time(&rawtime);
-    strftime(buffer, 80, "<!-- generated on %c by ", localtime(&rawtime));
+    strftime(buffer, 80, "<!-- generated on %F %T by ", localtime(&rawtime));
     os << buffer << myFullName << "\n";
     if (myWriteLicense) {
         os << "This data file and the accompanying materials\n";
