@@ -19,7 +19,6 @@
 /****************************************************************************/
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 
 #include "GNEMoveElement.h"

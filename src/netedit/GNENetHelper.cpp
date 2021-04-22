@@ -30,12 +30,7 @@
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/demand/GNEVehicleType.h>
-#include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNEEdgeType.h>
-#include <netedit/elements/network/GNEJunction.h>
-#include <netedit/elements/network/GNELaneType.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
-#include <utils/router/DijkstraRouter.h>
 
 #include "GNENetHelper.h"
 

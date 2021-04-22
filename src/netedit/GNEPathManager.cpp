@@ -19,24 +19,9 @@
 /****************************************************************************/
 
 #include <netbuild/NBEdgeCont.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netbuild/NBAlgorithms.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/changes/GNEChange_Shape.h>
-#include <netedit/frames/network/GNECreateEdgeFrame.h>
-#include <netedit/elements/additional/GNEPOI.h>
-#include <netedit/elements/additional/GNEPoly.h>
-#include <netedit/elements/data/GNEDataInterval.h>
-#include <netedit/elements/demand/GNEVehicleType.h>
 #include <netedit/elements/network/GNEConnection.h>
-#include <netedit/elements/network/GNEEdgeType.h>
-#include <netedit/elements/network/GNEJunction.h>
-#include <netedit/elements/network/GNELaneType.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/router/DijkstraRouter.h>
 
 #include "GNEPathManager.h"

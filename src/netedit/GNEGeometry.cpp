@@ -18,7 +18,6 @@
 // File for geometry classes and functions
 /****************************************************************************/
 #include <netedit/elements/GNEHierarchicalElement.h>
-#include <netedit/elements/network/GNEJunction.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/options/OptionsCont.h>
