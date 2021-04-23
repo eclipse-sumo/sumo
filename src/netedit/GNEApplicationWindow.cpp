@@ -246,6 +246,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES,     GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES,            GNEApplicationWindow::onCmdProcessButton),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES,            GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F7_ADJUST_PERSON_PLANS,                GNEApplicationWindow::onCmdProcessButton),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_F7_ADJUST_PERSON_PLANS,                GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,    GNEApplicationWindow::onCmdProcessButton),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,    GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F10_OPTIONSMENU,                             GNEApplicationWindow::onCmdOptions),
@@ -1591,7 +1593,7 @@ GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
                 default:
                     break;
             }
-        } else {
+        } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
             // check what FXMenuCommand was called
             switch (FXSELID(sel)) {
                 case MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND:
@@ -1609,6 +1611,11 @@ GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
                     // show extra information for tests
                     WRITE_DEBUG("Key F7 (JoinRoutes) pressed");
                     myNet->joinRoutes(myUndoList);
+                    break;
+                case MID_HOTKEY_SHIFT_F7_ADJUST_PERSON_PLANS:
+                    // show extra information for tests
+                    WRITE_DEBUG("Key F7 (AdjustPersonPlans) pressed");
+                    myNet->adjustPersonPlans(myUndoList);
                     break;
                 case MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS:
                     // show extra information for tests

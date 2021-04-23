@@ -362,22 +362,31 @@ GNEDemandElement::getBeginPosition(const double pedestrianDepartPos) const {
 
 bool 
 GNEDemandElement::drawPersonPlan() const {
-    if (myTagProperty.isPersonStop()) {
-        if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
-            myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
-            return true;
-        }
-    } else if (myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
+    // check conditions
+    if (myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
+        // show all person plans
         return true;
     } else if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front())) {
+        // person parent is inspected
         return true;
     } else if (myNet->getViewNet()->getDemandViewOptions().getLockedPerson() == getParentDemandElements().front()) {
+        // person parent is locked
         return true;
-    } else if (!myNet->getViewNet()->getInspectedAttributeCarriers().empty() && myNet->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isPersonPlan() &&
-        (myNet->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(GNE_ATTR_PARENT) == getAttribute(GNE_ATTR_PARENT))) {
-        return true;
+    } else if (myNet->getViewNet()->getInspectedAttributeCarriers().empty()) {
+        // nothing is inspected
+        return false;
+    } else {
+        // get inspected AC
+        const GNEAttributeCarrier* AC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        // check condition
+        if (AC->getTagProperty().isPersonPlan() && AC->getAttribute(GNE_ATTR_PARENT) == getAttribute(GNE_ATTR_PARENT)) {
+            // common person parent
+            return true;
+        } else {
+            // all conditions are false
+            return false;
+        }
     }
-    return false;
 }
 
 

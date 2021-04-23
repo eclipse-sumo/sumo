@@ -476,6 +476,9 @@ public:
     /// @brief join routes
     void joinRoutes(GNEUndoList* undoList);
 
+    /// @brief adjust person plans
+    void adjustPersonPlans(GNEUndoList* undoList);
+
     /// @brief clean invalid demand elements
     void cleanInvalidDemandElements(GNEUndoList* undoList);
 

@@ -2033,6 +2033,12 @@ GNENet::joinRoutes(GNEUndoList* undoList) {
 }
 
 
+void 
+GNENet::adjustPersonPlans(GNEUndoList* undoList) {
+    /*;*/
+}
+
+
 void
 GNENet::cleanInvalidDemandElements(GNEUndoList* undoList) {
     // first declare a vector to save all invalid demand elements

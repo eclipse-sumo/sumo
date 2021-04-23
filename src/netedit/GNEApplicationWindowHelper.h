@@ -625,6 +625,9 @@ struct GNEApplicationWindowHelper {
         /// @brief FXMenuCommand for join routes
         FXMenuCommand* joinRoutes;
 
+        /// @brief FXMenuCommand for adjust person plans
+        FXMenuCommand* adjustPersonPlans;
+
         /// @brief FXMenuCommand for clear invalid demand elements
         FXMenuCommand* clearInvalidDemandElements;
         /// @}

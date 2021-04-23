@@ -866,6 +866,9 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::buildProcessingMenuCommands(
     joinRoutes = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
                  "Join routes", "F7", "Joins routes with the same edges.",
                  GUIIconSubSys::getIcon(GUIIcon::JOINROUTES), myGNEApp, MID_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES);
+    adjustPersonPlans = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+                        "Adjust person plans", "Shift+F7", "Adjust person plans (start/end positions, arrival positions, etc.)",
+                        GUIIconSubSys::getIcon(GUIIcon::ADJUSTPERSONPLANS), myGNEApp, MID_HOTKEY_SHIFT_F7_ADJUST_PERSON_PLANS);
     clearInvalidDemandElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
                                  "Clean invalid route elements", "F8", "Clear elements with an invalid path (routes, Trips, Flows...).",
                                  GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), myGNEApp, MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS);
