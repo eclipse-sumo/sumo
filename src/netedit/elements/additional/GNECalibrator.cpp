@@ -73,17 +73,17 @@ GNECalibrator::updateGeometry() {
     // get shape depending of we have a edge or a lane
     if (getParentLanes().size() > 0) {
         // update geometry
-        myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), myPositionOverLane);
+        myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), myPositionOverLane, 0);
     } else if (getParentEdges().size() > 0) {
         // update geometry of first edge
-        myAdditionalGeometry.updateGeometry(getParentEdges().front()->getLanes().front()->getLaneShape(), myPositionOverLane);
+        myAdditionalGeometry.updateGeometry(getParentEdges().front()->getLanes().front()->getLaneShape(), myPositionOverLane, 0);
         // clear extra geometries
         myEdgeCalibratorGeometries.clear();
         // iterate over every lane and get point
         for (int i = 1; i < (int)getParentEdges().front()->getLanes().size(); i++) {
             // add new calibrator geometry
             GNEGeometry::Geometry calibratorGeometry;
-            calibratorGeometry.updateGeometry(getParentEdges().front()->getLanes().at(i)->getLaneShape(), myPositionOverLane);
+            calibratorGeometry.updateGeometry(getParentEdges().front()->getLanes().at(i)->getLaneShape(), myPositionOverLane, 0);
             myEdgeCalibratorGeometries.push_back(calibratorGeometry);
         }
     } else {
