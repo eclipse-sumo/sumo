@@ -1123,9 +1123,9 @@ NBNode::computeLanes2Lanes() {
         NBEdge* out = myOutgoingEdges[0];
         NBEdge* in1 = myIncomingEdges[0];
         NBEdge* in2 = myIncomingEdges[1];
-        const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
-        int in1Offset = MAX2(0, in1->getFirstNonPedestrianLaneIndex(FORWARD, true));
-        int in2Offset = MAX2(0, in2->getFirstNonPedestrianLaneIndex(FORWARD, true));
+        const int outOffset = MAX2(0, out->getFirstNonPedestrianNonBicycleLaneIndex(FORWARD, true));
+        int in1Offset = MAX2(0, in1->getFirstNonPedestrianNonBicycleLaneIndex(FORWARD, true));
+        int in2Offset = MAX2(0, in2->getFirstNonPedestrianNonBicycleLaneIndex(FORWARD, true));
         if (in1->getNumLanes() + in2->getNumLanes() - in1Offset - in2Offset == out->getNumLanes() - outOffset
                 && (in1->getStep() <= NBEdge::EdgeBuildingStep::LANES2EDGES)
                 && (in2->getStep() <= NBEdge::EdgeBuildingStep::LANES2EDGES)
@@ -1153,6 +1153,9 @@ NBNode::computeLanes2Lanes() {
             }
             in1->addLane2LaneConnections(in1Offset, out, outOffset, in1->getNumLanes() - in1Offset, NBEdge::Lane2LaneInfoType::VALIDATED, true);
             in2->addLane2LaneConnections(in2Offset, out, in1->getNumLanes() + outOffset - in1Offset, in2->getNumLanes() - in2Offset, NBEdge::Lane2LaneInfoType::VALIDATED, true);
+            if (out->getSpecialLane(SVC_BICYCLE) >= 0) {
+                recheckVClassConnections(out);
+            }
             return;
         }
     }
@@ -1163,9 +1166,9 @@ NBNode::computeLanes2Lanes() {
         NBEdge* in = myIncomingEdges[0];
         NBEdge* out1 = myOutgoingEdges[0];
         NBEdge* out2 = myOutgoingEdges[1];
-        const int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
-        int out1Offset = MAX2(0, out1->getFirstNonPedestrianLaneIndex(FORWARD, true));
-        int out2Offset = MAX2(0, out2->getFirstNonPedestrianLaneIndex(FORWARD, true));
+        const int inOffset = MAX2(0, in->getFirstNonPedestrianNonBicycleLaneIndex(FORWARD, true));
+        int out1Offset = MAX2(0, out1->getFirstNonPedestrianNonBicycleLaneIndex(FORWARD, true));
+        int out2Offset = MAX2(0, out2->getFirstNonPedestrianNonBicycleLaneIndex(FORWARD, true));
         const int deltaLaneSum = (out2->getNumLanes() + out1->getNumLanes() - out1Offset - out2Offset) - (in->getNumLanes() - inOffset);
         if ((deltaLaneSum == 0 || (deltaLaneSum == 1 && in->getPermissionVariants(inOffset, in->getNumLanes()).size() == 1))
                 && (in->getStep() <= NBEdge::EdgeBuildingStep::LANES2EDGES)
@@ -1188,6 +1191,10 @@ NBNode::computeLanes2Lanes() {
             }
             in->addLane2LaneConnections(inOffset, out1, out1Offset, out1->getNumLanes() - out1Offset, NBEdge::Lane2LaneInfoType::VALIDATED, true);
             in->addLane2LaneConnections(out1->getNumLanes() + inOffset - out1Offset - deltaLaneSum, out2, out2Offset, out2->getNumLanes() - out2Offset, NBEdge::Lane2LaneInfoType::VALIDATED, false);
+            if (in->getSpecialLane(SVC_BICYCLE) >= 0) {
+                recheckVClassConnections(out1);
+                recheckVClassConnections(out2);
+            }
             return;
         }
     }
