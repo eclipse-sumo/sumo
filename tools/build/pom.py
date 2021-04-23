@@ -13,6 +13,7 @@
 
 # @file    pom.py
 # @author  Michael Behrisch
+# @author  Robert Hilbrich
 # @date    2021-01-15
 
 """
@@ -25,10 +26,39 @@ import os
 
 import version
 
+# SUMO versioning is "backwards" - it is based on the 
+# last git tag encountered in the repository and adds 
+# the amount of additional commits at the end.
+#
+# MAVEN versioning works slightly different - 
+# 1.9.0-SNAPSHOT (according to SUMO versioning)
+# corresponds 1.10.0-SNAPSHOT in the MAVEN world.
+#
+# In #7921 we decide to make things simple by just 
+# adding 1 to the minor part of the SUMO version to
+# move it to the MAVEN world. 
+# (Except when we are precisely at a release / tagged commit,
+#  then we do not add the 1, because versions are exactly
+#  the same in both worlds here.)
+#
+#   - SUMO: 1.9.0           --> MAVEN: 1.9.0  (release)
+#   - SUMO: 1.9.1           --> MAVEN: 1.9.1  (release)
+#   - SUMO: 1.9.0.post18    --> MAVEN: 1.10.0-SNAPSHOT
+#   - SUMO: 1.9.1.post23    --> MAVEN: 1.10.0-SNAPSHOT
 
-v = version.get_pep440_version()
+v = version.get_pep440_version() # v = '1.9.0.post180'      
+
+# Are we past a release?
+# (If there is no ".post", we are exactly at a release, so we dont touch it)
 if ".post" in v:
-    v = v[:v.index(".post")] + "-SNAPSHOT"
+    v = v[:v.index(".post")] # example: v = '1.9.0'
+    (major, minor, patch) = v.split(".")
+    # Want v = '1.10.0-SNAPSHOT',
+    # but need to make sure, minor releases like 
+    # 1.9.1-SNAPSHOT work ok too!
+    # --> we just override the patch-level version with 0
+    v = f'{major}.{int(minor) + 1}.0-SNAPSHOT'
+
 root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 with open("pom.xml", "w") as pom:
