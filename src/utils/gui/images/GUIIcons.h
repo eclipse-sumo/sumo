@@ -302,6 +302,7 @@ enum class GUIIcon {
     COMPUTEDEMAND,
     CLEANROUTES,
     JOINROUTES,
+    ADJUSTPERSONPLANS,
     OPTIONS,
     /// @}
 

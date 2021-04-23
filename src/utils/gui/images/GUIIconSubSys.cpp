@@ -207,6 +207,7 @@
 #include "computedemand.xpm"
 #include "cleanroutes.xpm"
 #include "joinroutes.xpm"
+#include "adjustpersonplans.xpm"
 #include "options.xpm"
 
 #include "junction.xpm"
@@ -539,6 +540,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::COMPUTEDEMAND] = new FXXPMIcon(a, computedemand_xpm);
     myIcons[GUIIcon::CLEANROUTES] = new FXXPMIcon(a, cleanroutes_xpm);
     myIcons[GUIIcon::JOINROUTES] = new FXXPMIcon(a, joinroutes_xpm);
+    myIcons[GUIIcon::ADJUSTPERSONPLANS] = new FXXPMIcon(a, adjustpersonplans_xpm);
 
     myIcons[GUIIcon::OPTIONS] = new FXXPMIcon(a, options_xpm);
 
