@@ -156,7 +156,7 @@ GNEDemandElement::getViaEdges() const {
 
 void
 GNEDemandElement::updateDemandElementGeometry(const GNELane* lane, const double posOverLane) {
-    myDemandElementGeometry.updateGeometry(lane->getLaneShape(), posOverLane);
+    myDemandElementGeometry.updateGeometry(lane->getLaneShape(), posOverLane, myMoveElementLateralOffset);
 }
 
 
@@ -168,7 +168,7 @@ GNEDemandElement::updateDemandElementStackLabel(const int stack) {
 
 void
 GNEDemandElement::updateDemandElementSpreadGeometry(const GNELane* lane, const double posOverLane) {
-    mySpreadGeometry.updateGeometry(lane->getLaneShape(), posOverLane);
+    mySpreadGeometry.updateGeometry(lane->getLaneShape(), posOverLane, myMoveElementLateralOffset);
 }
 
 
@@ -517,14 +517,17 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
         GNEGeometry::Geometry personPlanGeometry;
         // update pathGeometry depending of first and last segment
         if (firstSegment && lastSegment) {
-            personPlanGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), 
-                getPersonPlanDepartValue(), getPersonPlanArrivalValue(), getPersonPlanDepartPos(), getPersonPlanArrivalPos());
+            personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
+                getPersonPlanDepartValue(), getPersonPlanArrivalValue(),    // extrem positions
+                getPersonPlanDepartPos(), getPersonPlanArrivalPos());       // extra positions
         } else if (firstSegment) {
-            personPlanGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), 
-                getPersonPlanDepartValue(), -1, getPersonPlanDepartPos(), Position::INVALID);
+            personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
+                getPersonPlanDepartValue(), -1,                 // extrem positions
+                getPersonPlanDepartPos(), Position::INVALID);   // extra positions
         } else if (lastSegment) {
-            personPlanGeometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), 
-                -1, getPersonPlanArrivalValue(), Position::INVALID, getPersonPlanArrivalPos());
+            personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
+                -1, getPersonPlanArrivalValue(),                // extrem positions
+                Position::INVALID, getPersonPlanArrivalPos());  // extra positions
         } else {
             personPlanGeometry = lane->getLaneGeometry();
         }
