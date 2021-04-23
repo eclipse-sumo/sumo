@@ -139,6 +139,12 @@ public:
     /// @brief shape points to move (of shapeToMove)
     std::vector<int> geometryPointsToMove;
 
+    /// @brief lane offset
+    double laneOffset;
+
+    /// @brief new Lane
+    const GNELane *newLane;
+
 private:
     /// @brief Invalidated copy constructor.
     GNEMoveResult(const GNEMoveResult&) = delete;
@@ -174,7 +180,10 @@ private:
     virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
     /// @brief calculate movement over lane
-    static const PositionVector calculateMovementOverLane(const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset);
+    static void calculateMovementOverLane(GNEMoveResult &moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset);
+
+        /// @brief calculate new lane
+    static void calculateNewLane(GNEMoveResult &moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset);
 
     /// @brief Invalidated copy constructor.
     GNEMoveElement(const GNEMoveElement&) = delete;
