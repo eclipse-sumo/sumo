@@ -1,0 +1,99 @@
+> Executing step 0
+>> Running router on input_routes.rou.xml
+>>> Begin time: 2021-04-23 08:03:29.340202
+>>> End time: 2021-04-23 08:03:29.405846
+>>> Duration: 0:00:00.065644
+<<
+>> Running simulation
+>>> Begin time: 2021-04-23 08:03:29.406011
+>>> End time: 2021-04-23 08:03:30.458093
+>>> Duration: 0:00:01.052082
+<<
+< Step 0 ended (duration: 0:00:01.118222)
+------------------
+
+> Executing step 1
+>> Running router on 0/input_routes_000.rou.alt.xml
+>>> Begin time: 2021-04-23 08:03:30.463600
+>>> End time: 2021-04-23 08:03:30.568379
+>>> Duration: 0:00:00.104779
+<<
+>> Running simulation
+>>> Begin time: 2021-04-23 08:03:30.568530
+>>> End time: 2021-04-23 08:03:30.965923
+>>> Duration: 0:00:00.397393
+<<
+< Step 1 ended (duration: 0:00:00.502566)
+------------------
+
+> Executing step 2
+>> Running router on 1/input_routes_001.rou.alt.xml
+>>> Begin time: 2021-04-23 08:03:30.971258
+>>> End time: 2021-04-23 08:03:31.082714
+>>> Duration: 0:00:00.111456
+<<
+>> Running simulation
+>>> Begin time: 2021-04-23 08:03:31.082872
+>>> End time: 2021-04-23 08:03:31.479291
+>>> Duration: 0:00:00.396419
+<<
+< Step 2 ended (duration: 0:00:00.508333)
+------------------
+
+> Executing step 3
+>> Running router on 2/input_routes_002.rou.alt.xml
+>>> Begin time: 2021-04-23 08:03:31.484938
+>>> End time: 2021-04-23 08:03:31.596391
+>>> Duration: 0:00:00.111453
+<<
+>> Running simulation
+>>> Begin time: 2021-04-23 08:03:31.596547
+>>> End time: 2021-04-23 08:03:31.995341
+>>> Duration: 0:00:00.398794
+<<
+< Step 3 ended (duration: 0:00:00.510645)
+------------------
+
+> Executing step 4
+>> Running router on 3/input_routes_003.rou.alt.xml
+>>> Begin time: 2021-04-23 08:03:32.001361
+>>> End time: 2021-04-23 08:03:32.112457
+>>> Duration: 0:00:00.111096
+<<
+>> Running simulation
+>>> Begin time: 2021-04-23 08:03:32.112613
+>>> End time: 2021-04-23 08:03:32.508651
+>>> Duration: 0:00:00.396038
+<<
+< Step 4 ended (duration: 0:00:00.507542)
+------------------
+
+> Executing step 5
+>> Running router on 4/input_routes_004.rou.alt.xml
+>>> Begin time: 2021-04-23 08:03:32.513817
+>>> End time: 2021-04-23 08:03:32.625711
+>>> Duration: 0:00:00.111894
+<<
+>> Running simulation
+>>> Begin time: 2021-04-23 08:03:32.625862
+>>> End time: 2021-04-23 08:03:33.020288
+>>> Duration: 0:00:00.394426
+<<
+< Step 5 ended (duration: 0:00:00.506717)
+------------------
+
+> Executing step 6
+>> Running router on 5/input_routes_005.rou.alt.xml
+>>> Begin time: 2021-04-23 08:03:33.025980
+>>> End time: 2021-04-23 08:03:33.139297
+>>> Duration: 0:00:00.113317
+<<
+>> Running simulation
+>>> Begin time: 2021-04-23 08:03:33.139460
+>>> End time: 2021-04-23 08:03:33.537296
+>>> Duration: 0:00:00.397836
+<<
+< Step 6 ended (duration: 0:00:00.511560)
+------------------
+
+dua-iterate ended (duration: 0:00:04.201005)

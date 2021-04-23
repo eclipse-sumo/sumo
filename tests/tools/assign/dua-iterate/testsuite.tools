@@ -1,3 +1,7 @@
+# test solutions for the braess paradox (adding a shortcut makes the traveltimes worse).
+# After 7 iterations the assignments have mostly converged
+braess
+
 # straight call of the script
 simple
 
