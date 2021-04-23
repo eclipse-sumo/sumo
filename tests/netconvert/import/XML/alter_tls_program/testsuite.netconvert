@@ -1,6 +1,9 @@
 # Test for using sumo networks as input
 basic
 
+# do not join phases with different names
+noJoin
+
 # Test for not giving program with id 0
 wrong_id
 
