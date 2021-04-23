@@ -210,7 +210,7 @@ class Statistics:
             result += setPrecision(' Q1 %.2f, median %.2f, Q3 %.2f', precision) % self.quartiles()
             if self.abs:
                 result += setPrecision(', mean_abs %.2f, median_abs %.2f', precision) % (
-                    self.avg_abs(), self.mean_abs())
+                    self.avg_abs(), self.median_abs())
             if self.counts is not None:
                 result += '\n histogram: %s' % self.histogram()
             return result
