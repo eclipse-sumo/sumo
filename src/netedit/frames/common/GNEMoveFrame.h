@@ -33,6 +33,29 @@
 class GNEMoveFrame : public GNEFrame {
 
 public:
+    // ===========================================================================
+    // class CommonModeOptions
+    // ===========================================================================
+
+    class CommonModeOptions : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        CommonModeOptions(GNEMoveFrame* moveFrameParent);
+
+        /// @brief destructor
+        ~CommonModeOptions();
+
+        /// @brief allow change lane
+        bool getAllowChangeLane() const;
+
+    private:
+        /// @brief pointer to move frame parent
+        GNEMoveFrame* myMoveFrameParent;
+
+        /// @brief checkbox for enable/disable change lanes
+        FXCheckButton* myAllowChangeLanes;
+    };
 
     // ===========================================================================
     // class NetworkModeOptions
@@ -265,6 +288,9 @@ public:
     /// @brief hide prohibition frame
     void hide();
 
+    /// @brief get common mode options
+    CommonModeOptions* getCommonModeOptions() const;
+
     /// @brief get network mode options
     NetworkModeOptions* getNetworkModeOptions() const;
 
@@ -272,6 +298,9 @@ public:
     DemandModeOptions* getDemandModeOptions() const;
 
 private:
+    /// @brief modul for CommonMode Options
+    CommonModeOptions* myCommonModeOptions = nullptr;
+
     /// @brief modul for NetworkMode Options
     NetworkModeOptions* myNetworkModeOptions = nullptr;
 

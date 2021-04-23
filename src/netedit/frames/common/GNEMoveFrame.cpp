@@ -57,6 +57,27 @@ FXIMPLEMENT(GNEMoveFrame::ShiftShapeGeometry,   FXGroupBox, ShiftShapeGeometryMa
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
+// GNEMoveFrame::CommonModeOptions - methods
+// ---------------------------------------------------------------------------
+
+GNEMoveFrame::CommonModeOptions::CommonModeOptions(GNEMoveFrame* moveFrameParent) :
+    FXGroupBox(moveFrameParent->myContentFrame, "Common move options", GUIDesignGroupBoxFrame),
+    myMoveFrameParent(moveFrameParent) {
+    // Create checkbox for enable/disable move whole polygons
+    myAllowChangeLanes = new FXCheckButton(this, "Allow change Lane", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myAllowChangeLanes->setCheck(FALSE);
+}
+
+
+GNEMoveFrame::CommonModeOptions::~CommonModeOptions() {}
+
+
+bool
+GNEMoveFrame::CommonModeOptions::getAllowChangeLane() const {
+    return (myAllowChangeLanes->getCheck() == TRUE);
+}
+
+// ---------------------------------------------------------------------------
 // GNEMoveFrame::NetworkModeOptions - methods
 // ---------------------------------------------------------------------------
 
@@ -567,6 +588,8 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
 
 GNEMoveFrame::GNEMoveFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Move") {
+    // create common mode options
+    myCommonModeOptions = new CommonModeOptions(this);
     // create network mode options
     myNetworkModeOptions = new NetworkModeOptions(this);
     // create demand mode options
@@ -642,6 +665,12 @@ void
 GNEMoveFrame::hide() {
     // hide frame
     GNEFrame::hide();
+}
+
+
+GNEMoveFrame::CommonModeOptions*
+GNEMoveFrame::getCommonModeOptions() const {
+    return myCommonModeOptions;
 }
 
 
