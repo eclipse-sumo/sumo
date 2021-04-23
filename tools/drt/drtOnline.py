@@ -74,12 +74,16 @@ def initOptions():
                     help="Step time to collect new reservations (default 30 seconds)")  # noqa
     ap.add_argument("--end-time", type=int, default=90000,
                     help="Maximum simulation time to close Traci (default 90000 sec - 25h)")  # noqa
+    ap.add_argument("--routing-algorithm", default='dijkstra',
+                    help="Algorithm for shortest path routing. Support: dijkstra (default), astar, CH and CHWrapper")  # noqa
+    ap.add_argument("--routing-mode", type=int, default=0,
+                    help="Mode for shortest path routing. Support: 0 (default) for routing with loaded or default speeds and 1 for routing with averaged historical speeds")  # noqa
     ap.add_argument("--debug", action='store_true')
 
     return ap
 
 
-def res_res_pair(res1, res2, veh_type, rv_dict):
+def res_res_pair(options, res1, res2, veh_type, rv_dict):
     """
     Search all combinations between two reservations. Notation: the first of
     the reservations is defined as 'res1' and the second as 'res2' and 'p'
@@ -95,7 +99,7 @@ def res_res_pair(res1, res2, veh_type, rv_dict):
 
         # calculate travel times for each pair
         res1p_res2p = int(findRoute(res1.fromEdge, res2.fromEdge, veh_type,
-                          routingMode=0).travelTime) + 60  # TODO default stop time ticket #6714 # noqa
+                          routingMode=options.routing_mode).travelTime) + 60  # TODO default stop time ticket #6714 # noqa
         res2p_res2d = rv_dict.get('%sy_%sz' % (res2.id, res2.id), False)
         if not res2p_res2d:
             res2p_res2d = res2.direct + 60  # TODO default stop time ticket #6714 # noqa
@@ -104,7 +108,7 @@ def res_res_pair(res1, res2, veh_type, rv_dict):
         else:
             res2p_res2d = res2p_res2d[0]
         res2d_res1d = int(findRoute(res1.toEdge, res2.toEdge, veh_type,
-                          routingMode=0).travelTime) + 60  # TODO default stop time ticket #6714 # noqa
+                          routingMode=options.routing_mode).travelTime) + 60  # TODO default stop time ticket #6714 # noqa
 
         # check if time windows constrains are fulfilled
         time_res2p = res1.tw_pickup[0] + res1p_res2p
@@ -131,13 +135,13 @@ def res_res_pair(res1, res2, veh_type, rv_dict):
         res1p_res2p = rv_dict.get('%sy_%sy' % (res1.id, res2.id), False)
         if not res1p_res2p:
             res1p_res2p = int(findRoute(res1.fromEdge, res2.fromEdge, veh_type,
-                              routingMode=0).travelTime) + 60  # TODO default stop time #6714 # noqa
+                              routingMode=options.routing_mode).travelTime) + 60  # TODO default stop time #6714 # noqa
         else:
             res1p_res2p = res1p_res2p[0]
         res2p_res1d = int(findRoute(res2.fromEdge, res1.toEdge, veh_type,
-                          routingMode=0).travelTime) + 60  # TODO default stop time ticket #6714 # noqa
+                          routingMode=options.routing_mode).travelTime) + 60  # TODO default stop time ticket #6714 # noqa
         res1d_res2d = int(findRoute(res1.toEdge, res2.toEdge, veh_type,
-                          routingMode=0).travelTime) + 60  # TODO default stop time ticket #6714 # noqa
+                          routingMode=options.routing_mode).travelTime) + 60  # TODO default stop time ticket #6714 # noqa
 
         # check if time windows constrains are fulfilled
         time_res2p = res1.tw_pickup[0] + res1p_res2p
@@ -165,14 +169,14 @@ def res_res_pair(res1, res2, veh_type, rv_dict):
 
         # calculate travel times for each pair
         res2p_res1p = int(findRoute(res2.fromEdge, res1.fromEdge, veh_type,
-                          routingMode=0).travelTime) + 60  # TODO default stop time ticket #6714 # noqa
+                          routingMode=options.routing_mode).travelTime) + 60  # TODO default stop time ticket #6714 # noqa
         res1p_res2d = int(findRoute(res1.fromEdge, res2.toEdge, veh_type,
-                          routingMode=0).travelTime) + 60  # TODO default stop time ticket #6714 # noqa
+                          routingMode=options.routing_mode).travelTime) + 60  # TODO default stop time ticket #6714 # noqa
         res2d_res1d = rv_dict.get('%sz_%sz' % (res2.id, res1.id), False)
         if not res2d_res1d:
             # if 2d1d not added to dict in steps before
             res2d_res1d = int(findRoute(res2.toEdge, res1.toEdge, veh_type,
-                              routingMode=0).travelTime) + 60  # TODO default stop time #6714 # noqa
+                              routingMode=options.routing_mode).travelTime) + 60  # TODO default stop time #6714 # noqa
         else:
             res2d_res1d = res2d_res1d[0]
 
@@ -215,12 +219,12 @@ def res_res_pair(res1, res2, veh_type, rv_dict):
             # if 2p1p 1d2d not added to dict in steps before
             if not res2p_res1p:
                 res2p_res1p = int(findRoute(res2.fromEdge, res1.fromEdge,
-                                  veh_type, routingMode=0).travelTime) + 60  # TODO default stop time #6714 # noqa
+                                  veh_type, routingMode=options.routing_mode).travelTime) + 60  # TODO default stop time #6714 # noqa
             else:
                 res2p_res1p = res2p_res1p[0]
             if not res1d_res2d:
                 res1d_res2d = int(findRoute(res1.toEdge, res2.toEdge, veh_type,
-                                  routingMode=0).travelTime) + 60  # TODO default stop time #6714 # noqa
+                                  routingMode=options.routing_mode).travelTime) + 60  # TODO default stop time #6714 # noqa
             else:
                 res1d_res2d = res1d_res2d[0]
             res1p_res1d = rv_dict.get('%sy_%sz' % (res1.id, res1.id))[0]
@@ -248,7 +252,7 @@ def res_res_pair(res1, res2, veh_type, rv_dict):
 
         # calculate travel times for each pair
         res1d_res2p = int(findRoute(res1.toEdge, res2.fromEdge, veh_type,
-                          routingMode=0).travelTime) + 60  # TODO default stop time ticket #6714 # noqa
+                          routingMode=options.routing_mode).travelTime) + 60  # TODO default stop time ticket #6714 # noqa
 
         # check if time windows constrains are fulfilled
         if (res1.tw_dropoff[0] + res1d_res2p) < res2.tw_pickup[1]:
@@ -261,7 +265,7 @@ def res_res_pair(res1, res2, veh_type, rv_dict):
 
         # calculate travel times for each pair
         res2d_res1p = int(findRoute(res2.toEdge, res1.fromEdge, veh_type,
-                          routingMode=0).travelTime) + 60  # TODO default stop time ticket #6714 # noqa
+                          routingMode=options.routing_mode).travelTime) + 60  # TODO default stop time ticket #6714 # noqa
 
         # check if time windows constrains are fulfilled
         if (res2.tw_dropoff[0] + res2d_res1p) < res1.tw_pickup[1]:
@@ -289,7 +293,7 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all, fleet, ve
                 # calculate travel time to pickup
                 pickup_time = findRoute(traci.vehicle.getRoadID(veh_id),
                                         res.fromEdge, veh_type,
-                                        routingMode=0).travelTime
+                                        routingMode=options.routing_mode).travelTime
                 if step+pickup_time <= res.tw_pickup[1]:
                     # if vehicle on time, add to rv graph
                     route_id = '%s_%sy' % (veh_id, res_id)
@@ -315,7 +319,7 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all, fleet, ve
             reservations2 = set(res_all.keys()) ^ set(res_all_remove)
             for res2 in reservations2:
                 if res2 != res_id:
-                    res_res_pair(res, res_all.get(res2), veh_type, rv_dict)
+                    res_res_pair(options, res, res_all.get(res2), veh_type, rv_dict)
 
         elif not res.vehicle:
             # if reservation not assigned
@@ -338,7 +342,7 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all, fleet, ve
                     # calculate travel time to pickup
                     pickup_time = findRoute(traci.vehicle.getRoadID(veh_id),
                                             res.fromEdge, veh_type,
-                                            routingMode=0).travelTime
+                                            routingMode=options.routing_mode).travelTime
                     if step+pickup_time <= res.tw_pickup[1]:
                         # if vehicle on time, add to rv graph
                         rv_dict[route_id][0] = pickup_time+60
@@ -362,7 +366,7 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all, fleet, ve
                 # update travel time to pickup
                 pickup_time = findRoute(traci.vehicle.getRoadID(res.vehicle),
                                         res.fromEdge, veh_type,
-                                        routingMode=0).travelTime
+                                        routingMode=options.routing_mode).travelTime
                 rv_dict[route_id][0] = pickup_time+60  # TODO default stop time ticket #6714 # noqa
                 if options.debug and step+pickup_time > res.tw_pickup[1]:  # Debug only # noqa
                     print("Time window surpassed by", step+pickup_time - res.tw_pickup[1]) # noqa
@@ -372,7 +376,7 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all, fleet, ve
             res_rv_remove.append('%sy' % res_id)
             # update travel time to drop off
             dropoff_time = int(findRoute(traci.vehicle.getRoadID(
-                res.vehicle), res.toEdge, veh_type, routingMode=0).travelTime)
+                res.vehicle), res.toEdge, veh_type, routingMode=options.routing_mode).travelTime)
             route_id = '%s_%sz' % (res.vehicle, res_id)
             rv_dict[route_id] = [dropoff_time+60, -1, [res.vehicle, res_id]]  # TODO default stop time ticket #6714 # noqa
         else:
@@ -460,13 +464,15 @@ def main():
     # start traci
     if options.sumocfg:
         run_traci = [SUMO, "-c", options.sumocfg,
-                     '--tripinfo-output.write-unfinished', "--no-step-log"]
+                     '--tripinfo-output.write-unfinished', "--no-step-log",
+                     '--routing-algorithm', options.routing_algorithm]
     else:
         run_traci = [SUMO, '--net-file', '%s' % options.network, '-r',
                      '%s,%s' % (options.reservations, options.taxis), '-l',
                      'log.txt', '--device.taxi.dispatch-algorithm', 'traci',
                      '--tripinfo-output', '%s' % options.output,
-                     '--tripinfo-output.write-unfinished', "--no-step-log"]
+                     '--tripinfo-output.write-unfinished', "--no-step-log",
+                     '--routing-algorithm', options.routing_algorithm]
         if options.gui_settings:
             run_traci.extend(['-g', '%s' % options.gui_settings])
 
@@ -490,7 +496,7 @@ def main():
 
             # search direct travel time
             direct = int(findRoute(res.fromEdge, res.toEdge, veh_type,
-                         res.depart, routingMode=0).travelTime)
+                         res.depart, routingMode=options.routing_mode).travelTime)
 
             # add new reservation attributes
             setattr(res, 'direct', direct)  # direct travel time
@@ -636,7 +642,7 @@ def main():
                         # TODO default stop time ticket #6714
                         tt_current_route += int(findRoute(edge, edges[idx+1],
                                                 veh_type, step,
-                                                routingMode=0).travelTime) + 60
+                                                routingMode=options.routing_mode).travelTime) + 60
                     # get travel time of the new route
                     tt_new_route = rtv_dict[route_id][0]
                     if tt_new_route >= tt_current_route:
