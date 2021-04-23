@@ -27,5 +27,5 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <flow id="flow_0" begin="0.00" departLane="best" departPos="last" departSpeed="max" from="start" to="end" end="3600.00" vehsPerHour="1000"/>
+    <flow id="flow_0" begin="0.00" departLane="best" departSpeed="max" from="start" to="end" end="3600.00" vehsPerHour="1000"/>
 </routes>

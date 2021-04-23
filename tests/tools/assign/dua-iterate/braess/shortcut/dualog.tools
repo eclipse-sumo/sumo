@@ -8,24 +8,16 @@ Loading configuration ... done.
 Loading net-file from '0/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '0/dua_dump_000.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_9_0+0178-68f97ee started with time: 0.00
-Simulation ended at time: 5926.00
+Simulation version v1_9_0+0181-8acf32b started with time: 0.00
+Simulation ended at time: 5977.00
 Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 1.00s
- Real time factor: 5926
- UPS: 295653.000000
-Vehicles: 
- Inserted: 1000
- Running: 0
- Waiting: 0
 Statistics (avg):
- RouteLength: 1018.75
- Speed: 3.62
- Duration: 295.65
- WaitingTime: 114.01
- TimeLoss: 247.35
- DepartDelay: 895.11
+ RouteLength: 1028.10
+ Speed: 3.45
+ Duration: 313.15
+ WaitingTime: 120.02
+ TimeLoss: 264.17
+ DepartDelay: 901.40
 
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/duarouter', '-c', '1/iteration_001_input_routes_000.duarcfg']
@@ -35,26 +27,18 @@ Success.
 ['/scr1/sumo/bin/sumo', '-c', '1/iteration_001.sumocfg']
 Loading configuration ... done.
 Loading net-file from '1/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '1/dua_dump_001.add.xml' ... done (0ms).
+Loading additional-files from '1/dua_dump_001.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_9_0+0178-68f97ee started with time: 0.00
-Simulation ended at time: 5254.00
+Simulation version v1_9_0+0181-8acf32b started with time: 0.00
+Simulation ended at time: 5247.00
 Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 1.16s
- Real time factor: 4529.31
- UPS: 378135.344828
-Vehicles: 
- Inserted: 1000
- Running: 0
- Waiting: 0
 Statistics (avg):
- RouteLength: 938.55
- Speed: 3.01
- Duration: 438.64
- WaitingTime: 210.77
- TimeLoss: 380.14
- DepartDelay: 432.94
+ RouteLength: 1010.60
+ Speed: 3.21
+ Duration: 452.65
+ WaitingTime: 214.52
+ TimeLoss: 389.06
+ DepartDelay: 404.61
 
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/duarouter', '-c', '2/iteration_002_input_routes_001.duarcfg']
@@ -63,27 +47,19 @@ Success.
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/sumo', '-c', '2/iteration_002.sumocfg']
 Loading configuration ... done.
-Loading net-file from '2/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '2/dua_dump_002.add.xml' ... done (0ms).
+Loading net-file from '2/../input_net.net.xml' ... done (2ms).
+Loading additional-files from '2/dua_dump_002.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_9_0+0178-68f97ee started with time: 0.00
-Simulation ended at time: 4201.00
+Simulation version v1_9_0+0181-8acf32b started with time: 0.00
+Simulation ended at time: 4404.00
 Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 0.62s
- Real time factor: 6754.02
- UPS: 337853.697749
-Vehicles: 
- Inserted: 1000
- Running: 0
- Waiting: 0
 Statistics (avg):
- RouteLength: 935.63
- Speed: 5.65
- Duration: 210.15
- WaitingTime: 68.97
- TimeLoss: 147.15
- DepartDelay: 56.67
+ RouteLength: 1005.93
+ Speed: 5.59
+ Duration: 231.24
+ WaitingTime: 75.17
+ TimeLoss: 163.25
+ DepartDelay: 103.89
 
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/duarouter', '-c', '3/iteration_003_input_routes_002.duarcfg']
@@ -93,26 +69,18 @@ Success.
 ['/scr1/sumo/bin/sumo', '-c', '3/iteration_003.sumocfg']
 Loading configuration ... done.
 Loading net-file from '3/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '3/dua_dump_003.add.xml' ... done (0ms).
+Loading additional-files from '3/dua_dump_003.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_9_0+0178-68f97ee started with time: 0.00
-Simulation ended at time: 4153.00
+Simulation version v1_9_0+0181-8acf32b started with time: 0.00
+Simulation ended at time: 4288.00
 Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 0.62s
- Real time factor: 6666.13
- UPS: 334226.324238
-Vehicles: 
- Inserted: 1000
- Running: 0
- Waiting: 0
 Statistics (avg):
- RouteLength: 933.83
- Speed: 5.73
- Duration: 208.22
- WaitingTime: 68.60
- TimeLoss: 145.30
- DepartDelay: 45.72
+ RouteLength: 1005.74
+ Speed: 5.85
+ Duration: 221.97
+ WaitingTime: 70.63
+ TimeLoss: 153.82
+ DepartDelay: 67.56
 
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/duarouter', '-c', '4/iteration_004_input_routes_003.duarcfg']
@@ -122,26 +90,18 @@ Success.
 ['/scr1/sumo/bin/sumo', '-c', '4/iteration_004.sumocfg']
 Loading configuration ... done.
 Loading net-file from '4/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '4/dua_dump_004.add.xml' ... done (0ms).
+Loading additional-files from '4/dua_dump_004.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_9_0+0178-68f97ee started with time: 0.00
-Simulation ended at time: 3892.00
+Simulation version v1_9_0+0181-8acf32b started with time: 0.00
+Simulation ended at time: 4049.00
 Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 0.54s
- Real time factor: 7274.77
- UPS: 339945.794393
-Vehicles: 
- Inserted: 1000
- Running: 0
- Waiting: 0
 Statistics (avg):
- RouteLength: 904.93
- Speed: 6.07
- Duration: 181.87
- WaitingTime: 57.47
- TimeLoss: 120.70
- DepartDelay: 0.40
+ RouteLength: 1005.46
+ Speed: 6.23
+ Duration: 206.21
+ WaitingTime: 62.91
+ TimeLoss: 137.86
+ DepartDelay: 13.65
 
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/duarouter', '-c', '5/iteration_005_input_routes_004.duarcfg']
@@ -150,26 +110,18 @@ Success.
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/sumo', '-c', '5/iteration_005.sumocfg']
 Loading configuration ... done.
-Loading net-file from '5/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '5/dua_dump_005.add.xml' ... done (1ms).
+Loading net-file from '5/../input_net.net.xml' ... done (2ms).
+Loading additional-files from '5/dua_dump_005.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_9_0+0178-68f97ee started with time: 0.00
-Simulation ended at time: 3736.00
+Simulation version v1_9_0+0181-8acf32b started with time: 0.00
+Simulation ended at time: 3817.00
 Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 0.41s
- Real time factor: 9112.2
- UPS: 316207.317073
-Vehicles: 
- Inserted: 1000
- Running: 0
- Waiting: 0
 Statistics (avg):
- RouteLength: 880.74
- Speed: 7.22
- Duration: 129.65
- WaitingTime: 33.28
- TimeLoss: 69.78
+ RouteLength: 1004.92
+ Speed: 6.97
+ Duration: 159.22
+ WaitingTime: 44.19
+ TimeLoss: 90.48
  DepartDelay: 0.40
 
 -------------------------------------------------------------------------------
@@ -179,25 +131,17 @@ Success.
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/sumo', '-c', '6/iteration_006.sumocfg']
 Loading configuration ... done.
-Loading net-file from '6/../input_net.net.xml' ... done (1ms).
+Loading net-file from '6/../input_net.net.xml' ... done (2ms).
 Loading additional-files from '6/dua_dump_006.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_9_0+0178-68f97ee started with time: 0.00
+Simulation version v1_9_0+0181-8acf32b started with time: 0.00
 Simulation ended at time: 3717.00
 Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 0.37s
- Real time factor: 10073.2
- UPS: 283124.661247
-Vehicles: 
- Inserted: 1000
- Running: 0
- Waiting: 0
 Statistics (avg):
- RouteLength: 880.60
- Speed: 8.74
- Duration: 104.47
- WaitingTime: 18.62
- TimeLoss: 44.38
+ RouteLength: 1004.60
+ Speed: 8.20
+ Duration: 127.95
+ WaitingTime: 26.62
+ TimeLoss: 58.96
  DepartDelay: 0.40
 
