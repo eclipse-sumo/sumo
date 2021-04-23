@@ -29,10 +29,12 @@ package de.dlr.ts.lisum.simulation;
  *
  */
 import de.dlr.ts.commons.logger.DLRLogger;
+import de.dlr.ts.lisum.enums.LISAVersion;
 import de.dlr.ts.lisum.interfaces.SimulationListener;
 import de.dlr.ts.lisum.exceptions.LisumException;
 import de.dlr.ts.lisum.interfaces.CityInterface;
 import de.dlr.ts.lisum.lisa.Lisa;
+import de.dlr.ts.lisum.lisa.WunschVector;
 import de.dlr.ts.lisum.sumo.Sumo;
 import java.io.File;
 import java.util.ArrayList;
@@ -187,7 +189,8 @@ public class LisumSimulation implements SimulationListener {
      *
      * @return
      */
-    public InitBeforePlayResponse initBeforePlay() {
+    public InitBeforePlayResponse initBeforePlay(LISAVersion lisaVersion) {
+        WunschVector.setLisaVersion(lisaVersion);
         InitBeforePlayResponse initBeforePlay = cityInterface.initBeforePlay();
 
         if (initBeforePlay != InitBeforePlayResponse.OK) {
@@ -201,6 +204,8 @@ public class LisumSimulation implements SimulationListener {
 
         return InitBeforePlayResponse.OK;
     }
+
+    public InitBeforePlayResponse initBeforePlay() { return this.initBeforePlay(LISAVersion.getDefault()); }
 
     /**
      *

@@ -20,6 +20,7 @@
 package de.dlr.ts.lisum.lisa;
 
 import de.dlr.ts.commons.logger.DLRLogger;
+import de.dlr.ts.lisum.enums.LISAVersion;
 import de.dlr.ts.lisum.exceptions.LisaRESTfulServerNotFoundException;
 import de.dlr.ts.lisum.interfaces.CityInterface;
 import de.dlr.ts.lisum.interfaces.ControlUnitInterface;
@@ -38,6 +39,7 @@ public class Lisa implements CityInterface
     private final LisaCommands lisaCommands;
     private final LisaControlUnits lisaControlUnits = new LisaControlUnits();
     private File lisaDirectory;
+    private LISAVersion lisaVersion;
 
     /**
      *

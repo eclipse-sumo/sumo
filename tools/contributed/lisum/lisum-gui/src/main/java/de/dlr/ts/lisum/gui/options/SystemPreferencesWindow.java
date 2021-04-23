@@ -24,6 +24,7 @@ import de.dlr.ts.commons.javafx.buttonspanels.OkCancelButtonsPanel;
 import de.dlr.ts.commons.javafx.messages.ConfirmationMessage;
 import de.dlr.ts.commons.logger.LogLevel;
 import de.dlr.ts.lisum.Constants;
+import de.dlr.ts.lisum.enums.LISAVersion;
 import de.dlr.ts.lisum.gui.GlobalConfig;
 import de.dlr.ts.lisum.gui.Actions;
 import de.dlr.ts.lisum.gui.MainProgram;
@@ -126,6 +127,7 @@ public class SystemPreferencesWindow {
         GlobalConfig.getInstance().setSumoExec(sumoExecFileChooser.getTextField().getText());
         GlobalConfig.getInstance().setLoggingLevel(logLevelComboBox.getValue());
         GlobalConfig.getInstance().setLisaRestFulServerDir(lisaServerFileChooser.getTextField().getText());
+        GlobalConfig.getInstance().setLisaServerVersion(lisaServerVersionComboBox.getValue());
         GlobalConfig.getInstance().setWorkspace(workspaceFileChooserCombo.getTextField().getText());
         GlobalConfig.getInstance().setFilesExplorer(filesExplorerFileChooserCombo.getTextField().getText());
         GlobalConfig.getInstance().saveProps();
@@ -288,6 +290,18 @@ public class SystemPreferencesWindow {
         lisaServerFileChooser.setDirectoryChooser(true);
         lisaServerFileChooser.setFontSize(10);
 
+        Label lisaServerVersionComboBoxLabel = new Label("Min. LISA Version:");
+        AnchorPane.setTopAnchor(lisaServerVersionComboBoxLabel, 65.);
+        AnchorPane.setLeftAnchor(lisaServerVersionComboBoxLabel, 5.);
+        lisaServerVersionComboBoxLabel.setFont(Font.font(10));
+
+        AnchorPane.setTopAnchor(lisaServerVersionComboBox, 60.);
+        AnchorPane.setLeftAnchor(lisaServerVersionComboBox, 105.);
+        lisaServerVersionComboBox.setValue(GlobalConfig.getInstance().getLisaServerVersion());
+        lisaServerVersionComboBox.valueProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            okButton.setDisable(false);
+        });
+
         Label warningLabel = new Label("System restart required!");
         warningLabel.setTextFill(Color.RED);
         AnchorPane.setTopAnchor(warningLabel, 50.);
@@ -303,7 +317,7 @@ public class SystemPreferencesWindow {
             }
         });
 
-        lisaAnchorPane.getChildren().addAll(node, warningLabel);
+        lisaAnchorPane.getChildren().addAll(node, lisaServerVersionComboBoxLabel, lisaServerVersionComboBox, warningLabel);
 
         mainTabPane.getTabs().addAll(lisaTab);
     }
@@ -338,5 +352,15 @@ public class SystemPreferencesWindow {
         logLevelComboBox.setValue(Constants.DEFAULT_LOG_LEVEL);
 
         logLevelComboBox.setTooltip(new Tooltip("Log level"));
+    }
+
+    private final ComboBox<String> lisaServerVersionComboBox = new ComboBox<>();
+    {
+        for (LISAVersion value : LISAVersion.values()) {
+            lisaServerVersionComboBox.getItems().add(value.getVersionString());
+        }
+
+        lisaServerVersionComboBox.setEditable(false);
+        lisaServerVersionComboBox.setTooltip(new Tooltip("min. LISA Version"));
     }
 }

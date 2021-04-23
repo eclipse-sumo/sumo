@@ -27,8 +27,11 @@ package de.dlr.ts.lisum;
 import de.dlr.ts.commons.logger.DLRLogger;
 import de.dlr.ts.commons.logger.LogLevel;
 import de.dlr.ts.commons.tools.FileTools;
+import de.dlr.ts.lisum.enums.LISAVersion;
 import de.dlr.ts.lisum.interfaces.ControlUnitInterface;
 import de.dlr.ts.lisum.interfaces.SignalProgramInterface;
+import de.dlr.ts.lisum.lisa.Lisa;
+import de.dlr.ts.lisum.lisa.WunschVector;
 import de.dlr.ts.lisum.simulation.LisumSimulation;
 import de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException;
 import de.dlr.ts.utils.xmladmin2.XMLAdmin2;
@@ -73,6 +76,7 @@ public class Main {
         sc.addRuntimeOption("-s or -sumoexec ", "Sumo executable", "");
         sc.addRuntimeOption("-S or -sumocfg  ", "Sumo configuration", "");
         sc.addRuntimeOption("-p              ", "Pause before starting", "");
+        sc.addRuntimeOption("-lv or -lisa-version ", "define min. Lisum version (" + LISAVersion.getVersionsList() + ")", LISAVersion.getDefault().getVersionString());
         //sc.addRuntimeOption("-l or -lisa     ", "lisa RESTful server address", "localhost");
         sc.showSplashScreen();
 
@@ -136,6 +140,17 @@ public class Main {
             if (args[i].equals("-lisa") || args[i].equals("-l")) {
                 lisaRestFulServerDir = args[i + 1];
                 DLRLogger.info("Setting Lisa Server: " + lisaRestFulServerDir);
+            }
+
+            if (args[i].equals("-lisa-version") || args[i].equals("-lv")) {
+                LISAVersion lisaVersion = LISAVersion.getPerVersionString(args[i + 1]);
+                if (lisaVersion == null) {
+                    DLRLogger.info("Lisa Version not known: " + args[i + 1]);
+                }
+                else {
+                    WunschVector.setLisaVersion(lisaVersion);
+                    DLRLogger.info("Setting Lisa Server Version: " + args[i + 1]);
+                }
             }
 
             if (args[i].equals("-log")) {

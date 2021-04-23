@@ -21,6 +21,9 @@ package de.dlr.ts.lisum.gui;
 
 import de.dlr.ts.commons.logger.DLRLogger;
 import de.dlr.ts.commons.tools.FileTools;
+import de.dlr.ts.lisum.enums.LISAVersion;
+import de.dlr.ts.lisum.lisa.WunschVector;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -61,6 +64,9 @@ public final class GlobalConfig {
     private final String defaultLisaRestFulServerDir = "OmlFgServer";
     private String lisaRestFulServerDir = defaultLisaRestFulServerDir;
 
+    private final String defaultLisaServerVersion = LISAVersion.getDefault().getVersionString();
+    private String lisaServerVersion = defaultLisaServerVersion;
+
     private String lisaServerAddress = "localhost";
     private int lisaServerPort = 9091;
 
@@ -72,6 +78,7 @@ public final class GlobalConfig {
      */
     private static final String LOGGING_LEVEL_KEY = "logging_level";
     private static final String RESTFUL_SERVER_DIR_KEY = "lisa_restFUL_server_dir";
+    private static final String LISA_SERVER_VERSION_KEY = "lisa_server_version";
     private static final String TEXT_EDITOR_KEY = "text_editor";
     private static final String TEXT_EDITOR_LINUX_KEY = "text_editor_linux";
     private static final String SUMO_EXEC_KEY = "sumo_exec";
@@ -147,6 +154,13 @@ public final class GlobalConfig {
                     this.lisaRestFulServerDir = _lisaDir;
                 }
 
+                LISAVersion _lisaServerVersion = LISAVersion.getPerVersionString(props.getProperty(LISA_SERVER_VERSION_KEY));
+                if (_lisaServerVersion != null) {
+                    this.lisaServerVersion = _lisaServerVersion.getVersionString();
+                    WunschVector.setLisaVersion(_lisaServerVersion);
+                    DLRLogger.info(this, "Change LISA Version to " + this.lisaServerVersion);
+                }
+
                 String _textEditor = props.getProperty(TEXT_EDITOR_KEY);
                 if (_textEditor != null) {
                     this.textEditor = _textEditor;
@@ -193,6 +207,14 @@ public final class GlobalConfig {
 
     /**
      *
+     * @return
+     */
+    public String getLisaServerVersion() {
+        return lisaServerVersion;
+    }
+
+    /**
+     *
      */
     public void saveProps() {
         props.put(TEXT_EDITOR_KEY, textEditor);
@@ -200,6 +222,11 @@ public final class GlobalConfig {
         props.put(FILES_EXPLORER_KEY, filesExplorer);
         props.put(LOGGING_LEVEL_KEY, loggingLevel);
         props.put(RESTFUL_SERVER_DIR_KEY, lisaRestFulServerDir);
+        props.put(LISA_SERVER_VERSION_KEY, lisaServerVersion);
+        if (WunschVector.getLisaVersion().getVersionString() != lisaServerVersion) {
+            WunschVector.setLisaVersion(LISAVersion.getPerVersionString(lisaServerVersion));
+            DLRLogger.info(this, "Change LISA Version to " + this.lisaServerVersion);
+        }
         props.put(TEXT_EDITOR_LINUX_KEY, textEditor_linux);
         props.put(SUMO_EXEC_LINUX_KEY, sumoExec_linux);
         props.put(FILES_EXPLORER_LINUX_KEY, filesExplorer_linux);
@@ -329,10 +356,18 @@ public final class GlobalConfig {
         return defaultLisaRestFulServerDir;
     }
 
+    public String getDefaultLisaServerVersion() { return defaultLisaServerVersion; }
+
     public void setLisaRestFulServerDir(String lisaRestFulServerDir) {
         if (!lisaRestFulServerDir.equals(this.lisaRestFulServerDir)) {
             this.lisaRestFulServerDir = lisaRestFulServerDir;
             updateLisaServerParameters();
+        }
+    }
+
+    public void setLisaServerVersion(String lisaServerVersion) {
+        if (!lisaServerVersion.equals(this.lisaServerVersion)) {
+            this.lisaServerVersion = lisaServerVersion;
         }
     }
 

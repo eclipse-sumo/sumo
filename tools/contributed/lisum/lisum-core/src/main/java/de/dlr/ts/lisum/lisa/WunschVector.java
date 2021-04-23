@@ -19,11 +19,16 @@
 /****************************************************************************/
 package de.dlr.ts.lisum.lisa;
 
+import de.dlr.ts.commons.logger.DLRLogger;
+import de.dlr.ts.commons.logger.LogLevel;
+import de.dlr.ts.lisum.Constants;
+import de.dlr.ts.lisum.enums.LISAVersion;
+
 /**
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-class WunschVector {
+public class WunschVector {
     private int ebene = 4;
     private int betriebsArt = 1;
     //private int signalProgram = 1;
@@ -36,6 +41,8 @@ class WunschVector {
     private int coordinated = 0;
 
     private final LisaSignalPrograms signalPrograms;
+
+    private static LISAVersion lisaVersion = LISAVersion.getDefault();
 
 
     //1;1;0;2;1;0;0;0
@@ -50,8 +57,10 @@ class WunschVector {
         sb.append(ebene).append(";");
         
         //to be compatible with LISA 7.2 and higher
-        sb.append("0;0;0;");
-        
+        if (WunschVector.lisaVersion.getVersionCode() != LISAVersion.gt0.getVersionCode()) {
+            sb.append("0;0;0;");
+        }
+
         sb.append(betriebsArt).append(";");
         sb.append(signalProg).append(";");
         sb.append(knotenEinAus).append(";");
@@ -156,5 +165,23 @@ class WunschVector {
 
     public void setCoordinated(int coordinated) {
         this.coordinated = coordinated;
+    }
+
+    /**
+     *
+     * @param lisaVersion
+     */
+    public static void setLisaVersion(LISAVersion lisaVersion) {
+        if (lisaVersion != null) {
+            WunschVector.lisaVersion = lisaVersion;
+        }
+    }
+
+    /**
+     *
+     * @return lisaVersion
+     */
+    public static LISAVersion getLisaVersion() {
+        return lisaVersion;
     }
 }
