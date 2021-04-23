@@ -71,20 +71,20 @@ GNEGeometry::Geometry::updateGeometry(const PositionVector& shape) {
 
 
 void
-GNEGeometry::Geometry::updateGeometry(const PositionVector& shape, const double posOverShape) {
+GNEGeometry::Geometry::updateGeometry(const PositionVector& shape, const double posOverShape, const double lateralOffset) {
     // first clear geometry
     clearGeometry();
     // get shape length
     const double shapeLength = shape.length();
     // calculate position and rotation
     if (posOverShape < 0) {
-        myShape.push_back(shape.positionAtOffset(0));
+        myShape.push_back(shape.positionAtOffset(0, lateralOffset));
         myShapeRotations.push_back(shape.rotationDegreeAtOffset(0));
     } else if (posOverShape > shapeLength) {
-        myShape.push_back(shape.positionAtOffset(shapeLength));
+        myShape.push_back(shape.positionAtOffset(shapeLength, lateralOffset));
         myShapeRotations.push_back(shape.rotationDegreeAtOffset(shapeLength));
     } else {
-        myShape.push_back(shape.positionAtOffset(posOverShape));
+        myShape.push_back(shape.positionAtOffset(posOverShape, lateralOffset));
         myShapeRotations.push_back(shape.rotationDegreeAtOffset(posOverShape));
     }
 }

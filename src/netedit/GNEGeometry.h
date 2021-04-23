@@ -68,8 +68,8 @@ struct GNEGeometry {
         /// @brief update entire geometry
         void updateGeometry(const PositionVector& shape);
 
-        /// @brief update position and rotation (using a shape and a position over shape)
-        void updateGeometry(const PositionVector& shape, const double posOverShape);
+        /// @brief update position and rotation (using a shape, a position over shape and a lateral offset)
+        void updateGeometry(const PositionVector& shape, const double posOverShape, const double lateralOffset);
 
         /**@brief update geometry shape
          * @param shape Shape to be updated
