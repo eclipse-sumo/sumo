@@ -98,6 +98,9 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (oc.exists("geometry.avoid-overlap") && !oc.getBool("geometry.avoid-overlap")) {
         attrs[SUMO_ATTR_AVOID_OVERLAP] = toString(oc.getBool("geometry.avoid-overlap"));
     }
+    if (oc.exists("junctions.higher-speed") && oc.getBool("junctions.higher-speed")) {
+        attrs[SUMO_ATTR_HIGHER_SPEED] = toString(oc.getBool("junctions.higher-speed"));
+    }
     device.writeXMLHeader("net", "net_file.xsd", attrs); // street names may contain non-ascii chars
     device.lf();
     // get involved container
