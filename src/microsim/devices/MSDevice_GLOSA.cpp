@@ -163,7 +163,7 @@ MSDevice_GLOSA::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifica
         const std::string val = myNextTLSLink->getTLLogic()->getParameter("device.glosa.range", "1e10");
         try {
             tlsRange = StringUtils::toDouble(val);
-        } catch (NumberFormatException& e) {
+        } catch (const NumberFormatException&) {
             WRITE_WARNINGF("Invalid value '%' for parameter 'device.glosa.range' of traffic light '%'",
                     val, myNextTLSLink->getTLLogic()->getID());
         }
@@ -181,15 +181,15 @@ MSDevice_GLOSA::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifica
 double
 MSDevice_GLOSA::getTimeToSwitch(const MSLink* tlsLink) {
     assert(tlsLink != nullptr);
-    const MSTrafficLightLogic* tl = tlsLink->getTLLogic();
+    const MSTrafficLightLogic* const tl = tlsLink->getTLLogic();
     assert(tl != nullptr);
     const auto& phases = tl->getPhases();
-    int n = phases.size();
-    int cur = tl->getCurrentPhaseIndex();
+    const int n = (int)phases.size();
+    const int cur = tl->getCurrentPhaseIndex();
     SUMOTime result = tl->getNextSwitchTime() - SIMSTEP;
     for (int i = 1; i < n; i++) {
         const auto& phase = phases[(cur + i) % n];
-        char ls = phase->getState()[tlsLink->getTLIndex()];
+        const char ls = phase->getState()[tlsLink->getTLIndex()];
         if ((tlsLink->haveRed() && (ls == 'g' || ls == 'G'))
                 || (tlsLink->haveGreen() && ls != 'g' && ls != 'G')) {
             break;
