@@ -105,3 +105,6 @@ flipY
 
 # turn a left-hand network into a right-hand network
 flipY_lefthand
+
+# build networks with higher junction speed when incoming and outgoing edge have different speeds
+junctions.higherSpeed
