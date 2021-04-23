@@ -1,5 +1,7 @@
 # test solutions for the braess paradox (adding a shortcut makes the traveltimes worse).
-# After 7 iterations the assignments have mostly converged
+# After 7 iterations the assignments have mostly converged (28s vs 44s).
+# Without the shortcut average traveltime converges to 28s and with shortcut to 55s.
+# Iteration 7 has the minimal value for shortcut.
 braess
 
 # straight call of the script
