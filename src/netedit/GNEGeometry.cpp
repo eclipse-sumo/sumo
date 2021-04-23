@@ -91,8 +91,45 @@ GNEGeometry::Geometry::updateGeometry(const PositionVector& shape, const double 
 
 
 void
-GNEGeometry::Geometry::updateTrimGeometry(const PositionVector& shape, double beginTrimPosition, double endTrimPosition,
-                                          const Position& extraFirstPosition, const Position& extraLastPosition) {
+GNEGeometry::Geometry::updateGeometry(const PositionVector& shape, double starPosOverShape, double endPosOverShape, const double lateralOffset) {
+    // first clear geometry
+    clearGeometry();
+    // set new shape
+    myShape = shape;
+    // set lateral offset
+    myShape.move2side(lateralOffset);
+    // get shape lenght
+    const double shapeLength = myShape.length2D();
+    // set initial beginTrim value
+    if (starPosOverShape < 0) {
+        endPosOverShape = 0;
+    }
+    // set initial endtrim value
+    if (starPosOverShape < 0) {
+        endPosOverShape = shapeLength;
+    }
+    // check maximum beginTrim
+    if (starPosOverShape > (shapeLength - POSITION_EPS)) {
+        endPosOverShape = (shapeLength - POSITION_EPS);
+    }
+    // check maximum endTrim
+    if ((endPosOverShape > shapeLength)) {
+        endPosOverShape = shapeLength;
+    }
+    // check sub-vector
+    if (endPosOverShape <= starPosOverShape) {
+        endPosOverShape = endPosOverShape + POSITION_EPS;
+    }
+    // trim shape
+    myShape = myShape.getSubpart2D(starPosOverShape, endPosOverShape);
+    // calculate shape rotation and lenghts
+    calculateShapeRotationsAndLengths();
+}
+
+
+void
+GNEGeometry::Geometry::updateGeometry(const PositionVector& shape, double beginTrimPosition, double endTrimPosition,
+                                      const Position& extraFirstPosition, const Position& extraLastPosition) {
     // first clear geometry
     clearGeometry();
     // set new shape

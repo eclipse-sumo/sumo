@@ -68,16 +68,17 @@ struct GNEGeometry {
         /// @brief update entire geometry
         void updateGeometry(const PositionVector& shape);
 
-        /// @brief update position and rotation (using a shape, a position over shape and a lateral offset)
+        /// @brief update geometry (using a shape, a position over shape and a lateral offset)
         void updateGeometry(const PositionVector& shape, const double posOverShape, const double lateralOffset);
+
+        /// @brief update geometry (using a shape, a starPos over shape, a endPos and a lateral offset)
+        void updateGeometry(const PositionVector& shape, double starPosOverShape, double endPosOverShape, const double lateralOffset);
 
         /**@brief update geometry shape
          * @param shape Shape to be updated
-         * @param extremeGeometry ExtremeGeometry used to cut/adjust shape
          */
-        void updateTrimGeometry(const PositionVector& shape, double beginTrimPosition = -1, double endTrimPosition = -1,
-                                const Position& extraFirstPosition = Position::INVALID,
-                                const Position& extraLastPosition = Position::INVALID);
+        void updateGeometry(const PositionVector& shape, double beginTrimPosition, double endTrimPosition,
+                            const Position& extraFirstPosition, const Position& extraLastPosition);
 
         /// @brief update position and rotation
         void updateSinglePosGeometry(const Position& position, const double rotation);
