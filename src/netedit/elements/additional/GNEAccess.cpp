@@ -75,7 +75,7 @@ GNEAccess::updateGeometry() {
         fixedPositionOverLane = myPositionOverLane;
     }
     // update geometry
-    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), fixedPositionOverLane * getParentLanes().front()->getLengthGeometryFactor());
+    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), fixedPositionOverLane * getParentLanes().front()->getLengthGeometryFactor(), myMoveElementLateralOffset);
 }
 
 
@@ -327,6 +327,8 @@ void
 GNEAccess::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
     myPositionOverLane = moveResult.shapeToUpdate.front().x();
+    // set lateral offset
+    myMoveElementLateralOffset = moveResult.laneOffset;
     // update geometry
     updateGeometry();
 }
@@ -334,9 +336,17 @@ GNEAccess::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEAccess::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    // reset lateral offset
+    myMoveElementLateralOffset = 0;
     undoList->p_begin("position of " + getTagStr());
     // now adjust start position
     setAttribute(SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front().x()), undoList);
+    // check if lane has to be changed
+    if (moveResult.newLane) {
+        // set new lane
+        setAttribute(SUMO_ATTR_LANE, moveResult.newLane->getID(), undoList);
+    }
+    // end change attribute
     undoList->p_end();
 }
 
