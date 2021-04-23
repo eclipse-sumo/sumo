@@ -313,6 +313,39 @@ def isClosedPolygon(polygon):
     return (len(polygon) >= 2) and (polygon[0] == polygon[-1])
 
 
+def splitPolygonAtLengths2D(polygon, lengths):
+    """
+    Returns the polygon segments split at the given 2D-lengths.
+    """
+    if (len(polygon) <= 1 or len(lengths) == 0):
+        return [polygon]
+    offsets = [offset for offset in sorted(lengths) if offset < polyLength(polygon)]
+    ret = []
+    seenLength = 0
+    curr = polygon[0]
+    polygonIndex = 0
+    for offset in offsets:
+        currSlice = [curr]
+        while polygonIndex < len(polygon) - 1:
+            next = polygon[polygonIndex + 1]
+            if offset < seenLength + distance(curr, next):
+                splitPos = positionAtOffset(curr, next, offset - seenLength)
+                currSlice.append(splitPos)
+                seenLength += distance(curr, splitPos)
+                curr = splitPos
+                break
+            else:
+                currSlice.append(next)
+                seenLength += distance(curr, next)
+                curr = next
+                polygonIndex += 1
+        ret.append(currSlice)
+    if polygonIndex < len(polygon) - 1:
+        finalSlice = [curr] + polygon[polygonIndex + 1:]
+        ret.append(finalSlice)
+    return ret
+
+
 def intersectsAtLengths2D(polygon1, polygon2):
     """
     Returns the 2D-length from polygon1's start to all intersections between polygon1 and polygon2.

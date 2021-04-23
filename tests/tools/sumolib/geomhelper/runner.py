@@ -73,6 +73,15 @@ class TestGeomhelper(unittest.TestCase):
         self.assertEqual(
             sumolib.geomhelper.isWithin((1.5, 1.5), concave), False)
 
+    def testSplitPolygonAtLengths2D(self):
+        singlePointPolygon = [(0, 0)]
+        polygon1 = [(0, 0), (3, 0)]
+        lengths1 = [1]
+        polygon1Slices = [[(0, 0), (1, 0)], [(1, 0), (3, 0)]]
+        self.assertEqual(sumolib.geomhelper.splitPolygonAtLengths2D(polygon1, []), [polygon1])
+        self.assertEqual(sumolib.geomhelper.splitPolygonAtLengths2D(singlePointPolygon, lengths1), [singlePointPolygon])
+        self.assertEqual(sumolib.geomhelper.splitPolygonAtLengths2D(polygon1, lengths1), polygon1Slices)
+
     def testIntersectsAtLengths2D(self):
         polygon1 = [(0, 0), (3, 0)]
         polygon2 = [(1, 0), (2, 0)]
