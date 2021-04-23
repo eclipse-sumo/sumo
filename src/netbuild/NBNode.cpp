@@ -1273,107 +1273,7 @@ NBNode::computeLanes2Lanes() {
             }
         }
 #endif
-        int bikeLaneTarget = currentOutgoing->getSpecialLane(SVC_BICYCLE);
-
-        // ensure that all modes have a connection if possible
-        for (NBEdge* incoming : myIncomingEdges) {
-            if (incoming->getConnectionLanes(currentOutgoing).size() > 0 && incoming->getStep() <= NBEdge::EdgeBuildingStep::LANES2LANES_DONE) {
-                // no connections are needed for pedestrians during this step
-                // no satisfaction is possible if the outgoing edge disallows
-                SVCPermissions unsatisfied = incoming->getPermissions() & currentOutgoing->getPermissions() & ~SVC_PEDESTRIAN;
-                //std::cout << "initial unsatisfied modes from edge=" << incoming->getID() << " toEdge=" << currentOutgoing->getID() << " deadModes=" << getVehicleClassNames(unsatisfied) << "\n";
-                const std::vector<NBEdge::Connection>& elv = incoming->getConnections();
-                for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-                    const NBEdge::Connection& c = *k;
-                    if (c.toEdge == currentOutgoing && c.toLane >= 0) {
-                        const SVCPermissions satisfied = (incoming->getPermissions(c.fromLane) & c.toEdge->getPermissions(c.toLane));
-                        //std::cout << "  from=" << incoming->getID() << "_" << c.fromLane << " to=" << c.toEdge->getID() << "_" << c.toLane << " satisfied=" << getVehicleClassNames(satisfied) << "\n";
-                        unsatisfied &= ~satisfied;
-                    }
-                }
-                if (unsatisfied != 0) {
-#ifdef DEBUG_CONNECTION_GUESSING
-                    if (DEBUGCOND) {
-                        std::cout << " unsatisfied modes from edge=" << incoming->getID() << " toEdge=" << currentOutgoing->getID() << " deadModes=" << getVehicleClassNames(unsatisfied) << "\n";
-                    }
-#endif
-                    int fromLane = 0;
-                    while (unsatisfied != 0 && fromLane < incoming->getNumLanes()) {
-                        if ((incoming->getPermissions(fromLane) & unsatisfied) != 0) {
-                            for (int toLane = 0; toLane < currentOutgoing->getNumLanes(); ++toLane) {
-                                const SVCPermissions satisfied = incoming->getPermissions(fromLane) & currentOutgoing->getPermissions(toLane) & unsatisfied;
-                                if (satisfied != 0 && !incoming->getLaneStruct(fromLane).connectionsDone) {
-                                    bool mayUseSameDestination = unsatisfied == SVC_TRAM;
-                                    incoming->setConnection((int)fromLane, currentOutgoing, toLane, NBEdge::Lane2LaneInfoType::COMPUTED, mayUseSameDestination);
-#ifdef DEBUG_CONNECTION_GUESSING
-                                    if (DEBUGCOND) {
-                                        std::cout << "  new connection from=" << fromLane << " to=" << currentOutgoing->getID() << "_" << toLane << " satisfies=" << getVehicleClassNames(satisfied) << "\n";
-                                    }
-#endif
-                                    unsatisfied &= ~satisfied;
-                                }
-                            }
-                        }
-                        fromLane++;
-                    }
-#ifdef DEBUG_CONNECTION_GUESSING
-                    if (DEBUGCOND) {
-                        if (unsatisfied != 0) {
-                            std::cout << "     still unsatisfied modes from edge=" << incoming->getID() << " toEdge=" << currentOutgoing->getID() << " deadModes=" << getVehicleClassNames(unsatisfied) << "\n";
-                        }
-                    }
-#endif
-                }
-            }
-            // prevent dead-end bicycle lanes (they were excluded by the ApproachingDivider)
-            // and the bicycle mode might already be satisfied by other lanes
-            // assume that left-turns and turn-arounds are better satisfied from lanes to the left
-            LinkDirection dir = getDirection(incoming, currentOutgoing);
-            if (incoming->getStep() <= NBEdge::EdgeBuildingStep::LANES2LANES_DONE
-                    && ((bikeLaneTarget >= 0 && dir != LinkDirection::TURN)
-                        || dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT || dir == LinkDirection::STRAIGHT)) {
-                bool builtConnection = false;
-                for (int i = 0; i < (int)incoming->getNumLanes(); i++) {
-                    if (incoming->getPermissions(i) == SVC_BICYCLE
-                            && incoming->getConnectionsFromLane(i, currentOutgoing).size() == 0) {
-                        // find a dedicated bike lane as target
-                        if (bikeLaneTarget >= 0) {
-                            incoming->setConnection(i, currentOutgoing, bikeLaneTarget, NBEdge::Lane2LaneInfoType::COMPUTED);
-                            builtConnection = true;
-                        } else {
-                            // use any lane that allows bicycles
-                            for (int i2 = 0; i2 < (int)currentOutgoing->getNumLanes(); i2++) {
-                                if ((currentOutgoing->getPermissions(i2) & SVC_BICYCLE) != 0) {
-                                    // possibly a double-connection
-                                    const bool allowDouble = (incoming->getPermissions(i) == SVC_BICYCLE
-                                                              && (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT || dir == LinkDirection::STRAIGHT));
-                                    incoming->setConnection(i, currentOutgoing, i2, NBEdge::Lane2LaneInfoType::COMPUTED, allowDouble);
-                                    builtConnection = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-                if (!builtConnection && bikeLaneTarget >= 0
-                        && incoming->getConnectionsFromLane(-1, currentOutgoing, bikeLaneTarget).size() == 0) {
-                    // find origin lane that allows bicycles
-                    int start = 0;
-                    int end = (int)incoming->getNumLanes();
-                    int inc = 1;
-                    if (dir == LinkDirection::TURN || dir == LinkDirection::LEFT || dir == LinkDirection::PARTLEFT) {
-                        std::swap(start, end);
-                        inc = -1;
-                    }
-                    for (int i = start; i < end; i += inc) {
-                        if ((incoming->getPermissions(i) & SVC_BICYCLE) != 0) {
-                            incoming->setConnection(i, currentOutgoing, bikeLaneTarget, NBEdge::Lane2LaneInfoType::COMPUTED);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
+        recheckVClassConnections(currentOutgoing);
 
         // in case of lane change restrictions on the outgoing edge, ensure that
         // all it's lane can be reached from each connected incoming edge
@@ -1457,6 +1357,110 @@ NBNode::computeLanes2Lanes() {
 #endif
 }
 
+void
+NBNode::recheckVClassConnections(NBEdge* currentOutgoing) {
+    int bikeLaneTarget = currentOutgoing->getSpecialLane(SVC_BICYCLE);
+
+    // ensure that all modes have a connection if possible
+    for (NBEdge* incoming : myIncomingEdges) {
+        if (incoming->getConnectionLanes(currentOutgoing).size() > 0 && incoming->getStep() <= NBEdge::EdgeBuildingStep::LANES2LANES_DONE) {
+            // no connections are needed for pedestrians during this step
+            // no satisfaction is possible if the outgoing edge disallows
+            SVCPermissions unsatisfied = incoming->getPermissions() & currentOutgoing->getPermissions() & ~SVC_PEDESTRIAN;
+            //std::cout << "initial unsatisfied modes from edge=" << incoming->getID() << " toEdge=" << currentOutgoing->getID() << " deadModes=" << getVehicleClassNames(unsatisfied) << "\n";
+            const std::vector<NBEdge::Connection>& elv = incoming->getConnections();
+            for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
+                const NBEdge::Connection& c = *k;
+                if (c.toEdge == currentOutgoing && c.toLane >= 0) {
+                    const SVCPermissions satisfied = (incoming->getPermissions(c.fromLane) & c.toEdge->getPermissions(c.toLane));
+                    //std::cout << "  from=" << incoming->getID() << "_" << c.fromLane << " to=" << c.toEdge->getID() << "_" << c.toLane << " satisfied=" << getVehicleClassNames(satisfied) << "\n";
+                    unsatisfied &= ~satisfied;
+                }
+            }
+            if (unsatisfied != 0) {
+#ifdef DEBUG_CONNECTION_GUESSING
+                if (DEBUGCOND) {
+                    std::cout << " unsatisfied modes from edge=" << incoming->getID() << " toEdge=" << currentOutgoing->getID() << " deadModes=" << getVehicleClassNames(unsatisfied) << "\n";
+                }
+#endif
+                int fromLane = 0;
+                while (unsatisfied != 0 && fromLane < incoming->getNumLanes()) {
+                    if ((incoming->getPermissions(fromLane) & unsatisfied) != 0) {
+                        for (int toLane = 0; toLane < currentOutgoing->getNumLanes(); ++toLane) {
+                            const SVCPermissions satisfied = incoming->getPermissions(fromLane) & currentOutgoing->getPermissions(toLane) & unsatisfied;
+                            if (satisfied != 0 && !incoming->getLaneStruct(fromLane).connectionsDone) {
+                                bool mayUseSameDestination = unsatisfied == SVC_TRAM;
+                                incoming->setConnection((int)fromLane, currentOutgoing, toLane, NBEdge::Lane2LaneInfoType::COMPUTED, mayUseSameDestination);
+#ifdef DEBUG_CONNECTION_GUESSING
+                                if (DEBUGCOND) {
+                                    std::cout << "  new connection from=" << fromLane << " to=" << currentOutgoing->getID() << "_" << toLane << " satisfies=" << getVehicleClassNames(satisfied) << "\n";
+                                }
+#endif
+                                unsatisfied &= ~satisfied;
+                            }
+                        }
+                    }
+                    fromLane++;
+                }
+#ifdef DEBUG_CONNECTION_GUESSING
+                if (DEBUGCOND) {
+                    if (unsatisfied != 0) {
+                        std::cout << "     still unsatisfied modes from edge=" << incoming->getID() << " toEdge=" << currentOutgoing->getID() << " deadModes=" << getVehicleClassNames(unsatisfied) << "\n";
+                    }
+                }
+#endif
+            }
+        }
+        // prevent dead-end bicycle lanes (they were excluded by the ApproachingDivider)
+        // and the bicycle mode might already be satisfied by other lanes
+        // assume that left-turns and turn-arounds are better satisfied from lanes to the left
+        LinkDirection dir = getDirection(incoming, currentOutgoing);
+        if (incoming->getStep() <= NBEdge::EdgeBuildingStep::LANES2LANES_DONE
+                && ((bikeLaneTarget >= 0 && dir != LinkDirection::TURN)
+                    || dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT || dir == LinkDirection::STRAIGHT)) {
+            bool builtConnection = false;
+            for (int i = 0; i < (int)incoming->getNumLanes(); i++) {
+                if (incoming->getPermissions(i) == SVC_BICYCLE
+                        && incoming->getConnectionsFromLane(i, currentOutgoing).size() == 0) {
+                    // find a dedicated bike lane as target
+                    if (bikeLaneTarget >= 0) {
+                        incoming->setConnection(i, currentOutgoing, bikeLaneTarget, NBEdge::Lane2LaneInfoType::COMPUTED);
+                        builtConnection = true;
+                    } else {
+                        // use any lane that allows bicycles
+                        for (int i2 = 0; i2 < (int)currentOutgoing->getNumLanes(); i2++) {
+                            if ((currentOutgoing->getPermissions(i2) & SVC_BICYCLE) != 0) {
+                                // possibly a double-connection
+                                const bool allowDouble = (incoming->getPermissions(i) == SVC_BICYCLE
+                                                          && (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT || dir == LinkDirection::STRAIGHT));
+                                incoming->setConnection(i, currentOutgoing, i2, NBEdge::Lane2LaneInfoType::COMPUTED, allowDouble);
+                                builtConnection = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            if (!builtConnection && bikeLaneTarget >= 0
+                    && incoming->getConnectionsFromLane(-1, currentOutgoing, bikeLaneTarget).size() == 0) {
+                // find origin lane that allows bicycles
+                int start = 0;
+                int end = (int)incoming->getNumLanes();
+                int inc = 1;
+                if (dir == LinkDirection::TURN || dir == LinkDirection::LEFT || dir == LinkDirection::PARTLEFT) {
+                    std::swap(start, end);
+                    inc = -1;
+                }
+                for (int i = start; i < end; i += inc) {
+                    if ((incoming->getPermissions(i) & SVC_BICYCLE) != 0) {
+                        incoming->setConnection(i, currentOutgoing, bikeLaneTarget, NBEdge::Lane2LaneInfoType::COMPUTED);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
 
 void
 NBNode::getReduction(const NBEdge* in, const NBEdge* out, int& inOffset, int& outOffset, int& reduction) const {

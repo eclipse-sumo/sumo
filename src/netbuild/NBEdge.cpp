@@ -3794,6 +3794,23 @@ NBEdge::getFirstNonPedestrianLaneIndex(int direction, bool exclusive) const {
 }
 
 int
+NBEdge::getFirstNonPedestrianNonBicycleLaneIndex(int direction, bool exclusive) const {
+    assert(direction == NBNode::FORWARD || direction == NBNode::BACKWARD);
+    const int start = (direction == NBNode::FORWARD ? 0 : (int)myLanes.size() - 1);
+    const int end = (direction == NBNode::FORWARD ? (int)myLanes.size() : - 1);
+    for (int i = start; i != end; i += direction) {
+        // SVCAll, does not count as a sidewalk, green verges (permissions = 0) do not count as road
+        // in the exclusive case, lanes that allow pedestrians along with any other class also count as road
+        SVCPermissions p = myLanes[i].permissions;
+        if ((exclusive && p != SVC_PEDESTRIAN && p != SVC_BICYCLE && p != (SVC_PEDESTRIAN | SVC_BICYCLE) && p != 0)
+                || (p == SVCAll || ((p & (SVC_PEDESTRIAN | SVC_BICYCLE)) == 0 && p != 0))) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+int
 NBEdge::getSpecialLane(SVCPermissions permissions) const {
     for (int i = 0; i < (int)myLanes.size(); i++) {
         if (myLanes[i].permissions == permissions) {
