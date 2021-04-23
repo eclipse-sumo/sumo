@@ -341,11 +341,17 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         GNEGeometry::Geometry E2Geometry;
         // update pathGeometry depending of first and last segment
         if (firstSegment && lastSegment) {
-            E2Geometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), geometryDepartPos, geometryEndPos);
+            E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(), 
+            geometryDepartPos, geometryEndPos,      // extrem positions
+            Position::INVALID, Position::INVALID);  // extra positions
         } else if (firstSegment) {
-            E2Geometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), geometryDepartPos, -1);
+            E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(),
+            geometryDepartPos, -1,                  // extrem positions
+            Position::INVALID, Position::INVALID);  // extra positions
         } else if (lastSegment) {
-            E2Geometry.updateTrimGeometry(lane->getLaneGeometry().getShape(), -1, geometryEndPos);
+            E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(), 
+            -1, geometryEndPos,                     // extrem positions
+            Position::INVALID, Position::INVALID);  // extra positions
         } else {
             E2Geometry = lane->getLaneGeometry();
         }
