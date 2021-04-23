@@ -19,17 +19,19 @@
 // GUIPointOfInterest and NLHandler)
 /****************************************************************************/
 #include <string>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/globjects/GUIPointOfInterest.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
+#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/globjects/GUIPointOfInterest.h>
+#include <utils/gui/images/GUITexturesHelper.h>
 
 #include "GNEPOI.h"
 
@@ -70,7 +72,8 @@ GNEPOI::getMoveOperation(const double /* shapeOffset */) {
         return nullptr;
     } else if (getTagProperty().getTag() == SUMO_TAG_POILANE) {
         // return move operation for POI placed over lane
-        return new GNEMoveOperation(this, getParentLanes().front(), { myPosOverLane });
+        return new GNEMoveOperation(this, getParentLanes().front(), {myPosOverLane},
+            myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
     } else {
         // return move operation for a position in view
         return new GNEMoveOperation(this, *this);

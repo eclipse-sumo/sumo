@@ -22,13 +22,15 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/changes/GNEChange_EnableAttribute.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_EnableAttribute.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIBaseVehicleHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEVehicle.h"
 #include "GNERouteHandler.h"
@@ -319,7 +321,8 @@ GNEVehicle::getMoveOperation(const double /*shapeOffset*/) {
             posOverLane = parse<double>(getDepartPos());
         }
         // return move operation
-        return new GNEMoveOperation(this, lane, {posOverLane});
+        return new GNEMoveOperation(this, lane, {posOverLane},
+            myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
     } else {
         return nullptr;
     }

@@ -17,15 +17,17 @@
 ///
 // A abstract class to define common parameters of lane area in which vehicles can halt (GNE version)
 /****************************************************************************/
+#include <foreign/fontstash/fontstash.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <utils/gui/globjects/GLIncludes.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMORouteHandler.h>
-#include <foreign/fontstash/fontstash.h>
 
 #include "GNEStoppingPlace.h"
 
@@ -46,11 +48,11 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObje
                                    GNELane* lane, double startPos, double endPos, int parametersSet, const std::string& name,
                                    bool friendlyPosition, bool blockMovement) :
     GNEAdditional(id, net, type, tag, name, blockMovement,
-{}, {}, {lane}, {}, {}, {}, {}, {}),
-myStartPosition(startPos),
-myEndPosition(endPos),
-myParametersSet(parametersSet),
-myFriendlyPosition(friendlyPosition) {
+        {}, {}, {lane}, {}, {}, {}, {}, {}),
+    myStartPosition(startPos),
+    myEndPosition(endPos),
+    myParametersSet(parametersSet),
+    myFriendlyPosition(friendlyPosition) {
 }
 
 
@@ -68,7 +70,8 @@ GNEStoppingPlace::getMoveOperation(const double /*shapeOffset*/) {
         return nullptr;
     } else {
         // return move operation for additional placed over shape
-        return new GNEMoveOperation(this, getParentLanes().front(), {myStartPosition, myEndPosition});
+        return new GNEMoveOperation(this, getParentLanes().front(), {myStartPosition, myEndPosition},
+            myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
     }
 }
 

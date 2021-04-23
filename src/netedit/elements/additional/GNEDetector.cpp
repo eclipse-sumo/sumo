@@ -19,10 +19,14 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netedit/elements/network/GNELane.h>
-#include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/elements/network/GNEEdge.h>
+#include <netedit/elements/network/GNELane.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
@@ -67,7 +71,8 @@ GNEDetector::getMoveOperation(const double /*shapeOffset*/) {
         return nullptr;
     } else {
         // return move operation for additional placed over shape
-        return new GNEMoveOperation(this, getParentLanes().front(), {myPositionOverLane});
+        return new GNEMoveOperation(this, getParentLanes().front(), {myPositionOverLane}, 
+            myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
     }
 }
 

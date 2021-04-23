@@ -58,7 +58,8 @@ GNEMoveOperation*
 GNEPersonStop::getMoveOperation(const double /*shapeOffset*/) {
     if (myTagProperty.getTag() == GNE_TAG_PERSONSTOP_EDGE) {
         // return move operation for additional placed over shape
-        return new GNEMoveOperation(this, getParentEdges().front()->getLanes().front(), {endPos});
+        return new GNEMoveOperation(this, getParentEdges().front()->getLanes().front(), {endPos},
+            myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
     }
     else {
         return nullptr;
