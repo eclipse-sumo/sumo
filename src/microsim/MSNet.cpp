@@ -199,6 +199,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myPersonsMoved(0),
     myHavePermissions(false),
     myHasInternalLinks(false),
+    myJunctionHigherSpeeds(false),
     myHasElevation(false),
     myHasPedestrianNetwork(false),
     myHasBidiEdges(false),
@@ -246,6 +247,7 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
                      std::vector<SUMOTime> stateDumpTimes,
                      std::vector<std::string> stateDumpFiles,
                      bool hasInternalLinks,
+                     bool junctionHigherSpeeds,
                      double version) {
     myEdges = edges;
     myJunctions = junctions;
@@ -262,6 +264,7 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
     mySimBeginMillis = SysUtils::getCurrentMillis();
     myTraCIMillis = 0;
     myHasInternalLinks = hasInternalLinks;
+    myJunctionHigherSpeeds = junctionHigherSpeeds;
     myHasElevation = checkElevation();
     myHasPedestrianNetwork = checkWalkingarea();
     myHasBidiEdges = checkBidiEdges();

@@ -1330,7 +1330,9 @@ MSEdge::inferEdgeType() {
                             const auto it = (*resAfter).find(svc);
                             if (it != (*resAfter).end()) {
                                 const double speed2 = it->second;
-                                net->addRestriction(internalType, svc, (speed + speed2) / 2);
+                                const double newSpeed = (MSNet::getInstance()->hasJunctionHigherSpeeds()
+                                        ? MAX2(speed, speed2) : (speed + speed2) / 2);
+                                net->addRestriction(internalType, svc, newSpeed);
                                 added = true;
                             }
                         }

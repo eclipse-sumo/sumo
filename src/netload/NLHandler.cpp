@@ -70,6 +70,7 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
     myAmParsingTLLogicOrJunction(false), myCurrentIsBroken(false),
     myHaveWarnedAboutInvalidTLType(false),
     myHaveSeenInternalEdge(false),
+    myHaveJunctionHigherSpeeds(false),
     myHaveSeenDefaultLength(false),
     myHaveSeenNeighs(false),
     myHaveSeenAdditionalSpeedRestrictions(false),
@@ -90,6 +91,7 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_NET: {
                 bool ok;
                 MSGlobals::gLefthand = attrs.getOpt<bool>(SUMO_ATTR_LEFTHAND, nullptr, ok, false);
+                myHaveJunctionHigherSpeeds = attrs.getOpt<bool>(SUMO_ATTR_HIGHER_SPEED, nullptr, ok, false);
                 myNetworkVersion = attrs.get<double>(SUMO_ATTR_VERSION, nullptr, ok, false);
                 break;
             }
