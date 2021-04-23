@@ -124,7 +124,8 @@ GNEMoveResult::~GNEMoveResult() {}
 // GNEMoveElement method definitions
 // ===========================================================================
 
-GNEMoveElement::GNEMoveElement() {
+GNEMoveElement::GNEMoveElement() :
+    myMoveElementLateralOffset(0) {
 }
 
 
@@ -139,7 +140,7 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
         // calculate movement over lane
         calculateMovementOverLane(moveResult, viewNet, moveOperation, offset);
         // calculate new lane
-        calculateNewLane(moveResult, viewNet, moveOperation, offset);
+        calculateNewLane(moveResult, viewNet, moveOperation);
     } else if (moveOperation->geometryPointsToMove.empty()) {
         // set values in moveResult
         moveResult.shapeToUpdate = moveOperation->shapeToMove;
@@ -194,7 +195,7 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
         // calculate movement over lane
         calculateMovementOverLane(moveResult, viewNet, moveOperation, offset);
         // calculate new lane
-        calculateNewLane(moveResult, viewNet, moveOperation, offset);
+        calculateNewLane(moveResult, viewNet, moveOperation);
     } else {
         // set original geometry points to move
         moveResult.geometryPointsToMove = moveOperation->originalGeometryPoints;
@@ -290,7 +291,7 @@ GNEMoveElement::calculateMovementOverLane(GNEMoveResult &moveResult, const GNEVi
 
 
 void
-GNEMoveElement::calculateNewLane(GNEMoveResult &moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset) {
+GNEMoveElement::calculateNewLane(GNEMoveResult &moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation) {
     // get cursor position
     const Position cursorPosition = viewNet->getPositionInformation();
     // iterate over edge lanes
@@ -302,7 +303,7 @@ GNEMoveElement::calculateNewLane(GNEMoveResult &moveResult, const GNEViewNet* vi
             // calculate position over lane shape
             const Position posOverLane = lane->getLaneShape().positionAtOffset2D(offSet);
             // check distance
-            if (posOverLane.distanceSquaredTo2D(cursorPosition) < 0.1) {
+            if (posOverLane.distanceSquaredTo2D(cursorPosition) < 1) {
                 // update newlane
                 moveResult.newLane = lane;
                 // calculate offset over moveOperation lane
@@ -311,8 +312,10 @@ GNEMoveElement::calculateNewLane(GNEMoveResult &moveResult, const GNEViewNet* vi
                 const Position posOverMoveOperationLane = moveOperation->lane->getLaneShape().positionAtOffset2D(offsetMoveOperationLane);
                 // update moveResult of laneOffset
                 moveResult.laneOffset = posOverLane.distanceTo2D(posOverMoveOperationLane);
-                
-                /* */
+                // change sign of  moveResult laneOffset depending of lane index
+                if (moveOperation->lane->getIndex() < moveResult.newLane->getIndex()) {
+                    moveResult.laneOffset *= -1;
+                }
             }
         }
     }

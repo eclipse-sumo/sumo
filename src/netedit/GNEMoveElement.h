@@ -172,6 +172,10 @@ public:
     /// @brief commit move element for the given offset
     static void commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const GNEMoveOffset& offset, GNEUndoList* undoList);
 
+protected:
+    /// @brief move element lateral offset (used by elements placed over lanes
+    double myMoveElementLateralOffset;
+
 private:
     /// @brief set move shape
     virtual void setMoveShape(const GNEMoveResult& moveResult) = 0;
@@ -182,8 +186,8 @@ private:
     /// @brief calculate movement over lane
     static void calculateMovementOverLane(GNEMoveResult &moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset);
 
-        /// @brief calculate new lane
-    static void calculateNewLane(GNEMoveResult &moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset);
+    /// @brief calculate new lane
+    static void calculateNewLane(GNEMoveResult &moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation);
 
     /// @brief Invalidated copy constructor.
     GNEMoveElement(const GNEMoveElement&) = delete;
