@@ -171,7 +171,7 @@ shortestDistance = stage.length
 
 Applications that perform routing ([sumo](../sumo.md),
 [sumo-gui](../sumo-gui.md), [duarouter](../duarouter.md),
-[marouter](../marouter.md)) support the option **--routing.algorithm** for selecting among
+[marouter](../marouter.md)) support the option **--routing-algorithm** for selecting among
 the following values:
 
 - *dijkstra*: (default)
