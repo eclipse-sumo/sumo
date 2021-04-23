@@ -247,6 +247,8 @@ void
 GNEDetector::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
     myPositionOverLane = moveResult.shapeToUpdate.front().x();
+    // set lateral offset
+    myMoveElementLateralOffset = moveResult.laneOffset;
     // update geometry
     updateGeometry();
 }
@@ -254,9 +256,18 @@ GNEDetector::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    // reset lateral offset
+    myMoveElementLateralOffset = 0;
+    // begin change attribute
     undoList->p_begin("position of " + getTagStr());
     // now adjust start position
     setAttribute(SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front().x()), undoList);
+    // check if lane has to be changed
+    if (moveResult.newLane) {
+        // set new lane
+        setAttribute(SUMO_ATTR_LANE, moveResult.newLane->getID(), undoList);
+    }
+    // end change attribute
     undoList->p_end();
 }
 

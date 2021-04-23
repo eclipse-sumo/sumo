@@ -89,7 +89,7 @@ GNEDetectorEntryExit::fixAdditionalProblem() {
 void
 GNEDetectorEntryExit::updateGeometry() {
     // update geometry
-    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getGeometryPositionOverLane());
+    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getGeometryPositionOverLane(), myMoveElementLateralOffset);
     // update E3 parent children
     getParentAdditionals().at(0)->updateHierarchicalConnections();
 }

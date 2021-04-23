@@ -85,7 +85,7 @@ GNEDetectorE1Instant::fixAdditionalProblem() {
 void
 GNEDetectorE1Instant::updateGeometry() {
     // update geometry
-    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getGeometryPositionOverLane());
+    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getGeometryPositionOverLane(), myMoveElementLateralOffset);
 }
 
 
