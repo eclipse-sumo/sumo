@@ -4,6 +4,9 @@ basic
 # do not join phases with different names
 noJoin
 
+# do not join phases with 'next'
+noJoin2
+
 # Test for not giving program with id 0
 wrong_id
 
