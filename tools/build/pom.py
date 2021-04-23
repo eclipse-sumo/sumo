@@ -51,13 +51,13 @@ v = version.get_pep440_version() # v = '1.9.0.post180'
 # Are we past a release?
 # (If there is no ".post", we are exactly at a release, so we dont touch it)
 if ".post" in v:
-    v = v[:v.index(".post")] # example: v = '1.9.0'
-    (major, minor, patch) = v.split(".")
+    # example: '1.9.0.post10' -> '1', '9', '0.post10'
+    major, minor, _ = v.split(".", 2)
     # Want v = '1.10.0-SNAPSHOT',
-    # but need to make sure, minor releases like 
+    # but need to make sure, minor releases like
     # 1.9.1-SNAPSHOT work ok too!
     # --> we just override the patch-level version with 0
-    v = f'{major}.{int(minor) + 1}.0-SNAPSHOT'
+    v = '%s.%s.0-SNAPSHOT' % (major, int(minor) + 1)
 
 root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
