@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-04-23 08:55:53 by Eclipse SUMO netconvert Version v1_9_0+0185-9be444e
+<!-- generated on 2021-04-23 09:46:33 by Eclipse SUMO netconvert Version v1_9_0+0188-b036687
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,8 +51,8 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <junction id="C" type="priority" x="100.00" y="100.00" incLanes="WC_0 WC_1 WC_2 WC_3" intLanes="" shape="108.90,100.00 108.90,92.60 108.29,92.38 108.27,92.10 108.45,91.71 108.83,91.21 109.40,90.60 107.14,88.34 106.38,88.93 105.96,89.13 105.53,89.28 105.06,89.37 104.57,89.40 104.57,100.00">
-        <request index="0" response="0000" foes="0000"/>
-        <request index="1" response="0000" foes="0000"/>
+        <request index="0" response="0000" foes="0010"/>
+        <request index="1" response="0001" foes="0001"/>
         <request index="2" response="0000" foes="0000"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
@@ -60,8 +60,8 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="S" type="dead_end" x="200.00" y="0.00" incLanes="CS_0" intLanes="" shape="197.74,-2.26 200.00,-0.00"/>
     <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,100.00 0.00,89.40"/>
 
-    <connection from="WC" to="CS" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="WC" to="CE" fromLane="1" toLane="0" dir="s" state="M"/>
+    <connection from="WC" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC" to="CS" fromLane="1" toLane="0" dir="r" state="m"/>
     <connection from="WC" to="CE" fromLane="2" toLane="1" dir="s" state="M"/>
     <connection from="WC" to="CE" fromLane="3" toLane="2" dir="s" state="M"/>
 
