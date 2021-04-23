@@ -14,7 +14,7 @@ SUMO includes the following emission models:
   emissions data base (open source);
 - [PHEMlight](../Models/Emissions/PHEMlight.md), a derivation of
   the original
-  [PHEM](http://www.ivt.tugraz.at/de/forschung/emissionen.html)
+  [PHEM](https://www.ivt.tugraz.at/en/research/areas/em/)
   emission model (closed source, commercial).
 - [Electric Vehicle
   Model](../Models/Electric.md#emission_output): an
