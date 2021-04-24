@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 24 10:13:09 2021 by Eclipse SUMO netgenerate Version v1_8_0+1363-614b854
+<!-- generated on 2021-04-24 11:44:03 by Eclipse SUMO netgenerate Version v1_9_0+0211-902d84e2bd
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -503,6 +503,9 @@
 
         <!-- Default radius for junctions that do not require wide vehicle turns -->
         <junctions.small-radius value="1.5" type="FLOAT"/>
+
+        <!-- Use maximum value of incoming and outgoing edge speed on junction instead of average -->
+        <junctions.higher-speed value="false" type="BOOL"/>
 
         <!-- Forces rectangular cuts between lanes and intersections -->
         <rectangular-lane-cut value="false" type="BOOL"/>

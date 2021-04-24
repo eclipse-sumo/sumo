@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_8_0+1363-614b854
+Eclipse SUMO netgenerate Version v1_9_0+0211-902d84e2bd
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -350,6 +350,9 @@ Junctions Options:
                                         FLOAT
   --junctions.small-radius FLOAT       Default radius for junctions that do not
                                         require wide vehicle turns
+  --junctions.higher-speed             Use maximum value of incoming and
+                                        outgoing edge speed on junction instead
+                                        of average
   --rectangular-lane-cut               Forces rectangular cuts between lanes
                                         and intersections
   --check-lane-foes.roundabout         Allow driving onto a multi-lane road if
