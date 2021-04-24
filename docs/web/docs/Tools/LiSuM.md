@@ -10,7 +10,9 @@ LiSuM is a middleware that couples
 [LISA+](https://www.schlothauer.de/en/software-systems/lisa/) and SUMO
 helping to execute more complex traffic controls on the intersections
 than SUMO originally permits. SUMO communicates with the LISA+ virtual
-controller through LiSuM.
+controller through LiSuM. Per default LiSuM needs at LISA+ version 7.2
+but can be configured via the --lisa-version option to support older
+versions as well.
 
 LISA+ is a proprietary software tool developed and commercialized by
 [Schlothauer & Wauer](https://www.schlothauer.de/) used to plan and
@@ -28,6 +30,8 @@ SUMO communicates with the LISA+ virtual controller through LiSuM
 Two versions of LiSuM are provided: A graphical version called
 [\#LiSuM-GUI](#lisum-gui) and a command line version suitable
 for batch processing called [\#LiSuM-Core](#lisum-core)
+The graphical interface needs at least Java 11 to run,
+LiSuM-Core (the commad line version) works with Java 8 as well.
 
 # LiSuM-GUI
 
