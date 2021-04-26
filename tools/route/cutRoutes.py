@@ -164,7 +164,7 @@ def _cutEdgeList(areaEdges, oldDepart, exitTimes, edges, orig_net, options, stat
             teleportFactor = len(departTimes) / float(len(edges))
             stats.teleportFactorSum += teleportFactor
             # assume teleports were spread evenly across the vehicles route
-            newDepart = float(departTimes[int(fromIndex * teleportFactor)])
+            newDepart = sumolib.miscutils.parseTime(departTimes[int(fromIndex * teleportFactor)])
         result.append((newDepart, edges[fromIndex:toIndex + 1]))
         stats.num_returned += 1
     return result
