@@ -319,7 +319,7 @@ def splitPolygonAtLengths2D(polygon, lengths):
     """
     if (len(polygon) <= 1 or len(lengths) == 0):
         return [polygon]
-    offsets = [offset for offset in sorted(lengths) if offset < polyLength(polygon)]
+    offsets = [offset for offset in sorted(lengths) if offset > 0.0 and offset < polyLength(polygon)]
     ret = []
     seenLength = 0
     curr = polygon[0]
