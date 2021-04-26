@@ -363,7 +363,11 @@ GNEDemandElement::getBeginPosition(const double pedestrianDepartPos) const {
 bool 
 GNEDemandElement::drawPersonPlan() const {
     // check conditions
-    if (myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
+     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
+        myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
+        // show all person plans in network mode
+        return true;
+    } else if (myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
         // show all person plans
         return true;
     } else if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front())) {
@@ -451,8 +455,13 @@ GNEDemandElement::getPersonPlanDepartValue() const {
     // check if this is the first person plan
     if (previousPersonPlan) {
         if (previousPersonPlan->getParentAdditionals().size() > 0) {
-            // use busStop end
-            return previousPersonPlan->getParentAdditionals().front()->getAttributeDouble(GNE_ATTR_CENTER);
+            if (previousPersonPlan->getTagProperty().isPersonStop()) {
+                // use busStop end
+                return previousPersonPlan->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
+            } else {
+                // use busStop center
+                return previousPersonPlan->getParentAdditionals().front()->getAttributeDouble(GNE_ATTR_CENTER);
+            }
         } else {
             // use arrival pos
             return previousPersonPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
@@ -471,8 +480,13 @@ GNEDemandElement::getPersonPlanDepartPos() const {
     // check if this is the first person plan
     if (previousPersonPlan) {
         if (previousPersonPlan->getParentAdditionals().size() > 0) {
-            // use busStop end
-            return previousPersonPlan->getParentAdditionals().front()->getAdditionalGeometry().getShape().getLineCenter();
+            if (previousPersonPlan->getTagProperty().isPersonStop()) {
+                // use busStop end
+                return previousPersonPlan->getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
+            } else {
+                // use busStop center
+                return previousPersonPlan->getParentAdditionals().front()->getAdditionalGeometry().getShape().getLineCenter();
+            }
         } else {
             // use arrival pos
             return previousPersonPlan->getAttributePosition(SUMO_ATTR_ARRIVALPOS);
@@ -486,8 +500,16 @@ GNEDemandElement::getPersonPlanDepartPos() const {
 
 double
 GNEDemandElement::getPersonPlanArrivalValue() const {
-    if(getParentAdditionals().size() > 0) {
-        return getParentAdditionals().front()->getAttributeDouble(GNE_ATTR_CENTER);
+    // check if this person plan ends in a busStop
+    if (getParentAdditionals().size() > 0) {
+        // get next person Plan
+        const GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+        // continue depending if is an stop or a person plan
+        if (nextPersonPlan && (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_BUSSTOP)) {
+            return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_STARTPOS);
+        } else {
+            return getParentAdditionals().front()->getAttributeDouble(GNE_ATTR_CENTER);
+        }
     } else {
         return getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
     }
@@ -496,8 +518,16 @@ GNEDemandElement::getPersonPlanArrivalValue() const {
 
 Position 
 GNEDemandElement::getPersonPlanArrivalPos() const {
+    // check if this person plan ends in a busStop
     if (getParentAdditionals().size() > 0) {
-        return getParentAdditionals().front()->getAdditionalGeometry().getShape().getLineCenter();
+        // get next person Plan
+        const GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+        // continue depending if is an stop or a person plan
+        if (nextPersonPlan && (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_BUSSTOP)) {
+            return getParentAdditionals().front()->getAdditionalGeometry().getShape().front();
+        } else {
+            return getParentAdditionals().front()->getAdditionalGeometry().getShape().getLineCenter();
+        }
     } else {
         return getAttributePosition(SUMO_ATTR_ARRIVALPOS);
     }
