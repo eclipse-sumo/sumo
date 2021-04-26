@@ -195,6 +195,12 @@ protected:
     /// @brief get first valid lane
     const GNELane* getFirstAllowedLane() const;
 
+    /// @brief draw personStop over lane
+    void drawPersonStopOverLane(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor &stopColor) const;
+
+    /// @brief draw personStop over busStop
+    void drawPersonStopOverBusStop(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor &stopColor) const;
+
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);

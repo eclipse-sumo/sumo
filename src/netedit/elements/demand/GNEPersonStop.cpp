@@ -143,7 +143,7 @@ GNEPersonStop::getColor() const {
 
 void
 GNEPersonStop::updateGeometry() {
-    // only update Stops over lanes, because other uses the geometry of stopping place parent
+    // only update Stops over edges
     if (getParentEdges().size() > 0) {
         // get lanes
         const GNELane* frontLane = getParentEdges().front()->getLanes().front();
@@ -159,16 +159,14 @@ GNEPersonStop::updateGeometry() {
         const Position backPosition = frontLane->getLaneShape().positionAtOffset2D(endPos, (length + laneDrawingConstantBack.halfWidth - laneDrawingConstantsFront.halfWidth) * -1);
         // update demand element geometry using both positions
         myDemandElementGeometry.updateGeometry({frontPosition, backPosition});
-    } else if (getParentAdditionals().size() > 0) {
-        // update geometry using geometry of additional (busStop)
-        myDemandElementGeometry = getParentAdditionals().at(0)->getAdditionalGeometry();
     }
 }
 
 
 void
 GNEPersonStop::computePath() {
-    // nothing to compute
+    // only update geometry
+    updateGeometry();
 }
 
 
@@ -234,52 +232,19 @@ GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
     if (drawPersonPlan()) {
         // Obtain exaggeration of the draw
         const double exaggeration = s.addSize.getExaggeration(s, this);
-        // declare value to save stop color
+        // declare stop color
         const RGBColor stopColor = drawUsingSelectColor()? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stops;
-        const RGBColor centralLineColor = drawUsingSelectColor() ? stopColor.changedBrightness(-32) : RGBColor::WHITE;
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add layer matrix matrix
         glPushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
-        // set base color
-        GLHelper::setColor(stopColor);
-        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GNEGeometry::drawGeometry(myNet->getViewNet(), myDemandElementGeometry, 0.3 * exaggeration);
-        // move to front
-        glTranslated(0, 0, .1);
-        // set central color
-        GLHelper::setColor(centralLineColor);
-        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GNEGeometry::drawGeometry(myNet->getViewNet(), myDemandElementGeometry, 0.05 * exaggeration);
-        // move to icon position and front
-        glTranslated(myDemandElementGeometry.getShape().front().x(), myDemandElementGeometry.getShape().front().y(), .1);
-        // rotate over lane
-        GNEGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
-        // move again
-        glTranslated(0, s.additionalSettings.vaporizerSize * exaggeration, 0);
-        // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
-            // set color
-            glColor3d(1, 1, 1);
-            // rotate texture
-            glRotated(180, 0, 0, 1);
-            // draw texture
-            if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::PERSONSTOP_SELECTED), s.additionalSettings.vaporizerSize * exaggeration);
-            } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::PERSONSTOP), s.additionalSettings.vaporizerSize * exaggeration);
-            }
+        // check if draw personStop over busStop oder over lane
+        if (getParentAdditionals().size() > 0) {
+            drawPersonStopOverBusStop(s, exaggeration, stopColor);
         } else {
-            // rotate
-            glRotated(22.5, 0, 0, 1);
-            // set stop color
-            GLHelper::setColor(stopColor);
-            // move matrix
-            glTranslated(0, 0, 0);
-            // draw filled circle
-            GLHelper::drawFilledCircle(0.1 + s.additionalSettings.vaporizerSize, 8);
+            drawPersonStopOverLane(s, exaggeration, stopColor);
         }
         // pop layer matrix
         glPopMatrix();
@@ -287,10 +252,18 @@ GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
         glPopName();
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3, exaggeration);
+            if (getParentAdditionals().size() > 0) {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, getParentAdditionals().front()->getAdditionalGeometry().getShape(), s.stoppingPlaceSettings.busStopWidth, exaggeration);
+            } else {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3, exaggeration);
+            }
         }
         if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 0.3, exaggeration);
+            if (getParentAdditionals().size() > 0) {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, getParentAdditionals().front()->getAdditionalGeometry().getShape(), s.stoppingPlaceSettings.busStopWidth, exaggeration);
+            } else {
+                    GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 0.3, exaggeration);
+            }
         }
         // draw person parent if this stop if their first person plan child
         if ((getParentDemandElements().size() == 1) && getParentDemandElements().front()->getChildDemandElements().front() == this) {
@@ -594,6 +567,87 @@ GNEPersonStop::getFirstAllowedLane() const {
         }
     }
     return getParentEdges().front()->getLanes().front();
+}
+
+
+void 
+GNEPersonStop::drawPersonStopOverLane(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor &stopColor) const {
+    // declare central line color
+    const RGBColor centralLineColor = drawUsingSelectColor() ? stopColor.changedBrightness(-32) : RGBColor::WHITE;
+    // set base color
+    GLHelper::setColor(stopColor);
+    // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+    GNEGeometry::drawGeometry(myNet->getViewNet(), myDemandElementGeometry, 0.3 * exaggeration);
+    // move to front
+    glTranslated(0, 0, .1);
+    // set central color
+    GLHelper::setColor(centralLineColor);
+    // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+    GNEGeometry::drawGeometry(myNet->getViewNet(), myDemandElementGeometry, 0.05 * exaggeration);
+    // move to icon position and front
+    glTranslated(myDemandElementGeometry.getShape().front().x(), myDemandElementGeometry.getShape().front().y(), .1);
+    // rotate over lane
+    GNEGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
+    // move again
+    glTranslated(0, s.additionalSettings.vaporizerSize * exaggeration, 0);
+    // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
+    if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+        // set color
+        glColor3d(1, 1, 1);
+        // rotate texture
+        glRotated(180, 0, 0, 1);
+        // draw texture
+        if (drawUsingSelectColor()) {
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::PERSONSTOP_SELECTED), s.additionalSettings.vaporizerSize * exaggeration);
+        } else {
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::PERSONSTOP), s.additionalSettings.vaporizerSize * exaggeration);
+        }
+    } else {
+        // rotate
+        glRotated(22.5, 0, 0, 1);
+        // set stop color
+        GLHelper::setColor(stopColor);
+        // move matrix
+        glTranslated(0, 0, 0);
+        // draw filled circle
+        GLHelper::drawFilledCircle(0.1 + s.additionalSettings.vaporizerSize, 8);
+    }
+}
+
+
+void 
+GNEPersonStop::drawPersonStopOverBusStop(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor &stopColor) const {
+    // get busStop Geometry
+    const GNEGeometry::Geometry busStopGeometry = getParentAdditionals().front()->getAdditionalGeometry();
+    // declare central line color
+    const RGBColor centralLineColor = drawUsingSelectColor() ? stopColor.changedBrightness(-32) : RGBColor::WHITE;
+    // set base color
+    GLHelper::setColor(stopColor);
+    // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+    GNEGeometry::drawGeometry(myNet->getViewNet(), busStopGeometry, s.stoppingPlaceSettings.busStopWidth * exaggeration);
+    // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
+    if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+        // calculate middle point
+        const double middlePoint = (busStopGeometry.getShape().length2D() * 0.5);
+        // calculate position
+        const Position signPosition = busStopGeometry.getShape().positionAtOffset2D(middlePoint);
+        // calculate rotation
+        const double signRotation = busStopGeometry.getShape().rotationDegreeAtOffset(middlePoint);
+        // move
+        glTranslated(signPosition.x(), signPosition.y(), .1);
+        // rotate over lane
+        GNEGeometry::rotateOverLane(signRotation);
+        // set color
+        glColor3d(1, 1, 1);
+        // rotate texture (again)
+        glRotated(180, 0, 0, 1);
+        // draw texture
+        if (drawUsingSelectColor()) {
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::PERSONSTOP_SELECTED), s.additionalSettings.vaporizerSize * exaggeration * 0.8);
+        } else {
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::PERSONSTOP), s.additionalSettings.vaporizerSize * exaggeration * 0.8);
+        }
+    }
 }
 
 // ===========================================================================
