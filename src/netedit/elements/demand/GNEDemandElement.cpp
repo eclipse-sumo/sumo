@@ -452,7 +452,7 @@ GNEDemandElement::getPersonPlanDepartValue() const {
     if (previousPersonPlan) {
         if (previousPersonPlan->getParentAdditionals().size() > 0) {
             // use busStop end
-            return previousPersonPlan->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
+            return previousPersonPlan->getParentAdditionals().front()->getAttributeDouble(GNE_ATTR_CENTER);
         } else {
             // use arrival pos
             return previousPersonPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
@@ -472,7 +472,7 @@ GNEDemandElement::getPersonPlanDepartPos() const {
     if (previousPersonPlan) {
         if (previousPersonPlan->getParentAdditionals().size() > 0) {
             // use busStop end
-            return previousPersonPlan->getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
+            return previousPersonPlan->getParentAdditionals().front()->getAdditionalGeometry().getShape().getLineCenter();
         } else {
             // use arrival pos
             return previousPersonPlan->getAttributePosition(SUMO_ATTR_ARRIVALPOS);
@@ -487,7 +487,7 @@ GNEDemandElement::getPersonPlanDepartPos() const {
 double
 GNEDemandElement::getPersonPlanArrivalValue() const {
     if(getParentAdditionals().size() > 0) {
-        return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_STARTPOS);
+        return getParentAdditionals().front()->getAttributeDouble(GNE_ATTR_CENTER);
     } else {
         return getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
     }
@@ -497,7 +497,7 @@ GNEDemandElement::getPersonPlanArrivalValue() const {
 Position 
 GNEDemandElement::getPersonPlanArrivalPos() const {
     if (getParentAdditionals().size() > 0) {
-        return getParentAdditionals().front()->getAdditionalGeometry().getShape().front();
+        return getParentAdditionals().front()->getAdditionalGeometry().getShape().getLineCenter();
     } else {
         return getAttributePosition(SUMO_ATTR_ARRIVALPOS);
     }

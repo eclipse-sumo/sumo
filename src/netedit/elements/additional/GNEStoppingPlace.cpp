@@ -377,6 +377,16 @@ GNEStoppingPlace::getAttributeDouble(SumoXMLAttr key) const {
             } else {
                 return -1;
             }
+        case GNE_ATTR_CENTER:
+            if ((myParametersSet & STOPPINGPLACE_STARTPOS_SET) && (myParametersSet & STOPPINGPLACE_ENDPOS_SET)) {
+                return (myStartPosition + myEndPosition) * 0.5;
+            } else if (myParametersSet & STOPPINGPLACE_STARTPOS_SET) {
+                return (myStartPosition + getParentLanes().front()->getLaneShape().length2D()) * 0.5;
+            } else if (myParametersSet & STOPPINGPLACE_ENDPOS_SET) {
+                return myEndPosition * 0.5;
+            } else {
+                return getParentLanes().front()->getLaneShape().length2D() * 0.5;
+            }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
