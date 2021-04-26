@@ -150,21 +150,21 @@ def _cutEdgeList(areaEdges, oldDepart, exitTimes, edges, orig_net, options, stat
             stats.too_short += 1
             continue
         # compute new departure
-        if exitTimes is None:
-            if orig_net is not None:
-                # extrapolate new departure using default speed
-                newDepart = (float(oldDepart) +
-                             sum([(orig_net.getEdge(e).getLength() /
-                                   (orig_net.getEdge(e).getSpeed() * options.speed_factor))
-                                  for e in edges[:fromIndex]]))
-            else:
-                newDepart = float(oldDepart)
-        else:
+        if exitTimes is not None:
             departTimes = [oldDepart] + exitTimes.split()[:-1]
             teleportFactor = len(departTimes) / float(len(edges))
             stats.teleportFactorSum += teleportFactor
             # assume teleports were spread evenly across the vehicles route
             newDepart = sumolib.miscutils.parseTime(departTimes[int(fromIndex * teleportFactor)])
+        if (exitTimes is None) or (newDepart == -1):
+            if orig_net is not None:
+                # extrapolate new departure using default speed
+                newDepart = (sumolib.miscutils.parseTime(oldDepart) +
+                             sum([(orig_net.getEdge(e).getLength() /
+                                   (orig_net.getEdge(e).getSpeed() * options.speed_factor))
+                                  for e in edges[:fromIndex]]))
+            else:
+                newDepart = sumolib.miscutils.parseTime(oldDepart)
         result.append((newDepart, edges[fromIndex:toIndex + 1]))
         stats.num_returned += 1
     return result
