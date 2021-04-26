@@ -37,12 +37,22 @@ from sumolib.xml import parse  # noqa
 
 pd.options.display.width = 0 # auto-detect terminal width
 
+STATS = {
+ # selector -> description, function
+ 'd' : ('departDelay',  lambda r,s: s.add(r['ended'] - r['until'], key(r))),
+ 'a' : ('arrivalDelay', lambda r,s: s.add(r['started'] - r['arrival'], key(r))),
+ 's' : ('stopDelay',    lambda r,s: s.add(r['until'] - r['arrival'] - (r['ended'] - r['started']) , key(r))), #  noqua
+ }
+
+
 def get_options(args=None):
     parser = sumolib.options.ArgumentParser(description="Compare route-file stop timing with stop-output")
     parser.add_argument("-r", "--route-file", dest="routeFile",
                         help="Input route file")
     parser.add_argument("-s", "--stop-file", dest="stopFile",
                         help="Input stop-output file")
+    parser.add_argument("-t", "--statistic-type", default="d", dest="sType",
+                        help="Code for statistic type from %s" % STATS.keys())
     parser.add_argument("-H", "--human-readable-time", dest="hrTime", action="store_true", default=False,
                         help="Write time values as hour:minute:second or day:hour:minute:second rathern than seconds")
     parser.add_argument("-v", "--verbose", action="store_true",
@@ -50,6 +60,10 @@ def get_options(args=None):
 
     options = parser.parse_args(args=args)
     if options.routeFile is None or options.stopFile is None:
+        parser.print_help()
+        sys.exit()
+
+    if options.sType not in STATS:
         parser.print_help()
         sys.exit()
 
@@ -69,6 +83,9 @@ def getStopID(stop):
         #stopinfo has no endPos, only pos
         #return "%s,%s" % (stop.lane, stop.endPos)
         return "%s" % stop.lane
+
+def key(row):
+    return "%s_%s" % (row['tripId'], row['stopID'])
 
 
 def main(options):
@@ -131,8 +148,8 @@ def main(options):
     # merge on common columns vehID, tripId, stopID
     df = pd.merge(dfSchedule, dfSim,
             on=columns[:3],
-            how="outer",
-            #how="inner",
+            #how="outer",
+            how="inner",
             )
 
     print("Found %s matches" % len(df))
@@ -142,15 +159,11 @@ def main(options):
         #print(dfSim)
         print(df)
 
-    print(departDelay(df))
 
-
-def departDelay(df):
-    s = Statistics("departDelay", abs=True)
-    for index, row in df.iterrows():
-        s.add(row["ended"] - row["until"])
-    return s
-
+    description, fun = STATS[options.sType]
+    s = Statistics(description, abs=True)
+    df.apply(fun, axis=1, args=(s,))
+    print(s)
 
 if __name__ == "__main__":
     main(get_options())
