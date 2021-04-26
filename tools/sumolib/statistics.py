@@ -195,7 +195,12 @@ class Statistics:
         else:
             return "Histogramm is deactivated"
 
-    def toString(self, precision=2):
+    def toString(self, precision=2, histStyle=1):
+        """histStyle
+            0 : not shown
+            1 : one line
+            2 : fancy
+            """
         if len(self.values) > 0:
             min = ''
             if self.printMin:
@@ -212,7 +217,13 @@ class Statistics:
                 result += setPrecision(', mean_abs %.2f, median_abs %.2f', precision) % (
                     self.avg_abs(), self.median_abs())
             if self.counts is not None:
-                result += '\n histogram: %s' % self.histogram()
+                if histStyle == 1:
+                    result += '\n histogram: %s' % self.histogram()
+                elif histStyle == 2:
+                    keylen = len("%.0f" % (self.scale * max(self.counts.keys())))
+                    formatStr = "%%%i.0f: %%s" % keylen
+                    result = 'histogram of %s:\n%s' % (self.label,
+                            '\n'.join([formatStr % x for x in self.histogram()])) + "\n" + result
             return result
         else:
             return '%s: no values' % self.label

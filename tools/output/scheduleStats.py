@@ -55,6 +55,10 @@ def get_options(args=None):
                         help="Code for statistic type from %s" % STATS.keys())
     parser.add_argument("-g", "--group-by", dest="groupBy",
                         help="Code for grouping results")
+    parser.add_argument("-i", "--histogram", dest="histogram", type=float,
+                        help="histogram bin size")
+    parser.add_argument("-p", "--precision", default=1, type=int,
+                        help="output precision")
     parser.add_argument("-H", "--human-readable-time", dest="hrTime", action="store_true", default=False,
                         help="Write time values as hour:minute:second or day:hour:minute:second rathern than seconds")
     parser.add_argument("-v", "--verbose", action="store_true",
@@ -166,18 +170,19 @@ def main(options):
 
 
     description, fun = STATS[options.sType]
+    useHist = options.histogram is not None
     if options.groupBy:
         numGroups = 0
         for name, group in df.groupby(options.groupBy):
             numGroups += 1;
-            s = Statistics("%s:%s" % (description,name), abs=True)
+            s = Statistics("%s:%s" % (description,name), abs=True, histogram=useHist, scale=options.histogram)
             group.apply(fun, axis=1, args=(s,))
-            print(s)
+            print(s.toString(precision=options.precision, histStyle=2))
         print(numGroups, "groups")
     else:
-        s = Statistics(description, abs=True)
+        s = Statistics(description, abs=True, histogram=useHist, scale=options.histogram)
         df.apply(fun, axis=1, args=(s,))
-        print(s)
+        print(s.toString(precision=options.precision, histStyle=2))
 
 if __name__ == "__main__":
     main(get_options())
