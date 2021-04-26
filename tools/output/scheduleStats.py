@@ -65,7 +65,7 @@ def get_options(args=None):
                         help="histogram bin size")
     parser.add_argument("-I", "--group-histogram", dest="gHistogram", type=float,
                         help="group histogram bin size")
-    parser.add_argument("-T", "--group-stasistic-type", dest="gType", default="mean",
+    parser.add_argument("-T", "--group-statistic-type", dest="gType", default="mean",
                         help="attribute for group statistic from %s" % GROUPSTATS.keys())
     parser.add_argument("-p", "--precision", default=1, type=int,
                         help="output precision")
@@ -184,13 +184,19 @@ def main(options):
     useGHist = options.gHistogram is not None
     if options.groupBy:
         numGroups = 0
+        stats = []
         gs = Statistics("%s %s grouped by [%s]" % (options.gType, description,','.join(options.groupBy)), abs=True, histogram=useGHist, scale=options.gHistogram)
         for name, group in df.groupby(options.groupBy):
             numGroups += 1;
             s = Statistics("%s:%s" % (description,name), abs=True, histogram=useHist, scale=options.histogram)
             group.apply(fun, axis=1, args=(s,))
-            print(s.toString(precision=options.precision, histStyle=2))
-            gs.add(GROUPSTATS[options.gType](s), name)
+            gVal = GROUPSTATS[options.gType](s)
+            gs.add(gVal, name)
+            stats.append((gVal, s))
+
+        stats.sort()
+        for s in stats:
+            print(s[1].toString(precision=options.precision, histStyle=2))
         print()
         print(gs.toString(precision=options.precision, histStyle=2))
 
