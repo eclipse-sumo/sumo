@@ -832,6 +832,7 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::ProcessingMenuCommands(GNEAp
     computeDemand(nullptr),
     cleanRoutes(nullptr),
     joinRoutes(nullptr),
+    adjustPersonPlans(nullptr),
     clearInvalidDemandElements(nullptr),
     optionMenus(nullptr),
     myGNEApp(GNEApp) {
@@ -920,11 +921,13 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::showDemandProcessingMenuComm
     computeDemand->enable();
     cleanRoutes->enable();
     joinRoutes->enable();
+    adjustPersonPlans->enable();
     clearInvalidDemandElements->enable();
     // now show it
     computeDemand->show();
     cleanRoutes->show();
     joinRoutes->show();
+    adjustPersonPlans->show();
     clearInvalidDemandElements->show();
 }
 
@@ -935,11 +938,13 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::hideDemandProcessingMenuComm
     computeDemand->disable();
     cleanRoutes->disable();
     joinRoutes->disable();
+    adjustPersonPlans->disable();
     clearInvalidDemandElements->disable();
     // now hide it
     computeDemand->hide();
     cleanRoutes->hide();
     joinRoutes->hide();
+    adjustPersonPlans->hide();
     clearInvalidDemandElements->hide();
 }
 

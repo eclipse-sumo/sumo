@@ -2035,7 +2035,44 @@ GNENet::joinRoutes(GNEUndoList* undoList) {
 
 void 
 GNENet::adjustPersonPlans(GNEUndoList* undoList) {
-    /*;*/
+    // declare personPlan-pos map
+    std::map<GNEDemandElement*, std::string> personPlanMap;
+    // iterate over persons
+    for (const auto &persontag : {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}) {
+        for (const auto &person : myAttributeCarriers->getDemandElements().at(persontag)) {
+            if (person.second->getChildDemandElements().size() > 0) {
+                // get person plan
+                GNEDemandElement *personPlan = person.second->getChildDemandElements().front();
+                // iterate over all personPlans
+                while (personPlan) {
+                    // check if personPlan is a personStop over edge
+                    if (personPlan->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_EDGE) {
+                        // get previous person plan
+                        GNEDemandElement *previousPersonPlan = person.second->getPreviousChildDemandElement(personPlan);
+                        // check if arrivalPos of previous personPlan is different of endPos of personStop
+                        if (previousPersonPlan && previousPersonPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS) &&
+                            (previousPersonPlan->getAttribute(SUMO_ATTR_ARRIVALPOS) != personPlan->getAttribute(SUMO_ATTR_ENDPOS))) {
+                            personPlanMap[previousPersonPlan] = personPlan->getAttribute(SUMO_ATTR_ENDPOS);
+                        }
+                    }
+                    // go to next person plan
+                    personPlan = person.second->getNextChildDemandElement(personPlan);
+                }
+            }
+        }
+    }
+    // continue if there is personPlanMap to adjust
+    if (personPlanMap.size() > 0) {
+        // begin undo list
+        undoList->p_begin("adjust person plans");
+        // iterate over invalidDemandElements
+        for (const auto& personPlan : personPlanMap) {
+            // set arrivalPos attribute
+            personPlan.first->setAttribute(SUMO_ATTR_ARRIVALPOS, personPlan.second, undoList);
+        }
+        // end undo list
+        undoList->p_end();
+    }
 }
 
 
@@ -2047,21 +2084,21 @@ GNENet::cleanInvalidDemandElements(GNEUndoList* undoList) {
                                   myAttributeCarriers->getDemandElements().at(SUMO_TAG_FLOW).size() +
                                   myAttributeCarriers->getDemandElements().at(SUMO_TAG_TRIP).size());
     // iterate over routes
-    for (const auto& i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
-        if (!i.second->isDemandElementValid()) {
-            invalidDemandElements.push_back(i.second);
+    for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
+        if (!route.second->isDemandElementValid()) {
+            invalidDemandElements.push_back(route.second);
         }
     }
     // iterate over flows
-    for (const auto& i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_FLOW)) {
-        if (!i.second->isDemandElementValid()) {
-            invalidDemandElements.push_back(i.second);
+    for (const auto& flow : myAttributeCarriers->getDemandElements().at(SUMO_TAG_FLOW)) {
+        if (!flow.second->isDemandElementValid()) {
+            invalidDemandElements.push_back(flow.second);
         }
     }
     // iterate over trip
-    for (const auto& i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_TRIP)) {
-        if (!i.second->isDemandElementValid()) {
-            invalidDemandElements.push_back(i.second);
+    for (const auto& trip : myAttributeCarriers->getDemandElements().at(SUMO_TAG_TRIP)) {
+        if (!trip.second->isDemandElementValid()) {
+            invalidDemandElements.push_back(trip.second);
         }
     }
     // continue if there is invalidDemandElements to remove
@@ -2069,9 +2106,9 @@ GNENet::cleanInvalidDemandElements(GNEUndoList* undoList) {
         // begin undo list
         undoList->p_begin("remove invalid demand elements");
         // iterate over invalidDemandElements
-        for (const auto& i : invalidDemandElements) {
+        for (const auto& invalidDemandElement : invalidDemandElements) {
             // simply call GNEChange_DemandElement
-            undoList->add(new GNEChange_DemandElement(i, false), true);
+            undoList->add(new GNEChange_DemandElement(invalidDemandElement, false), true);
         }
         // end undo list
         undoList->p_end();
