@@ -2985,16 +2985,16 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("routes", "routes_file.xsd");
     // first  write all vehicle types
-    for (auto i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        i.second->writeDemandElement(device);
+    for (const auto &vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
+        vType.second->writeDemandElement(device);
     }
     // first  write all person types
-    for (auto i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_PTYPE)) {
-        i.second->writeDemandElement(device);
+    for (const auto &pType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_PTYPE)) {
+        pType.second->writeDemandElement(device);
     }
     // now write all routes (and their associated stops)
-    for (auto i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
-        i.second->writeDemandElement(device);
+    for (const auto &route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
+        route.second->writeDemandElement(device);
     }
     // sort vehicles/persons by depart
     std::map<double, std::vector<GNEDemandElement*> > vehiclesSortedByDepart;
