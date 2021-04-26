@@ -39,9 +39,9 @@ pd.options.display.width = 0 # auto-detect terminal width
 
 STATS = {
  # selector -> description, function
- 'd' : ('departDelay',  lambda r,s: s.add(r['ended'] - r['until'], key(r))),
- 'a' : ('arrivalDelay', lambda r,s: s.add(r['started'] - r['arrival'], key(r))),
- 's' : ('stopDelay',    lambda r,s: s.add(r['until'] - r['arrival'] - (r['ended'] - r['started']) , key(r))), #  noqua
+ 'd' : ('depart delay',  lambda r,s: s.add(r['ended'] - r['until'], key(r))),
+ 'a' : ('arrival delay', lambda r,s: s.add(r['started'] - r['arrival'], key(r))),
+ 's' : ('stop delay',    lambda r,s: s.add(r['until'] - r['arrival'] - (r['ended'] - r['started']) , key(r))), #  noqua
  }
 
 GROUPSTATS = {
@@ -57,6 +57,8 @@ def get_options(args=None):
                         help="Input route file")
     parser.add_argument("-s", "--stop-file", dest="stopFile",
                         help="Input stop-output file")
+    parser.add_argument("-o", "--xml-output", dest="output",
+                        help="xml output file")
     parser.add_argument("-t", "--statistic-type", default="d", dest="sType",
                         help="Code for statistic type from %s" % STATS.keys())
     parser.add_argument("-g", "--group-by", dest="groupBy",
@@ -178,6 +180,10 @@ def main(options):
         #print(dfSim)
         print(df)
 
+    if options.output:
+        outf = open(options.output, 'w')
+        sumolib.writeXMLHeader(outf, "$Id$", "scheduleStats")  # noqa
+
 
     description, fun = STATS[options.sType]
     useHist = options.histogram is not None
@@ -195,15 +201,25 @@ def main(options):
             stats.append((gVal, s))
 
         stats.sort()
-        for s in stats:
-            print(s[1].toString(precision=options.precision, histStyle=2))
+        for gVal, s in stats:
+            print(s.toString(precision=options.precision, histStyle=2))
+            if options.output:
+                outf.write(s.toXML(precision=options.precision))
         print()
         print(gs.toString(precision=options.precision, histStyle=2))
+        if options.output:
+            outf.write(gs.toXML(precision=options.precision))
 
     else:
         s = Statistics(description, abs=True, histogram=useHist, scale=options.histogram)
         df.apply(fun, axis=1, args=(s,))
         print(s.toString(precision=options.precision, histStyle=2))
+        if options.output:
+            outf.write(s.toXML(precision=options.precision))
+
+    if options.output:
+        outf.write("</scheduleStats>\n")
+        outf.close()
 
 if __name__ == "__main__":
     main(get_options())

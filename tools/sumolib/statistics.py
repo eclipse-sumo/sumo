@@ -228,6 +228,23 @@ class Statistics:
         else:
             return '%s: no values' % self.label
 
+    def toXML(self, precision=2):
+        result = '    <statistic description="%s"' % self.label
+        if len(self.values) > 0:
+            result += setPrecision(' min="%.2f" minLabel="%s" max="%.2f" maxLabel="%s" mean="%.2f"', precision) % (
+                self.min, self.min_label, self.max, self.max_label, self.avg())
+            result += setPrecision(' Q1="%.2f" median="%.2f" Q3="%.2f"', precision) % self.quartiles()
+            result += setPrecision(' meanAbs="%.2f" medianAbs="%.2f"', precision) % (self.avg_abs(), self.median_abs())
+        if self.counts is not None:
+            result += '>\n'
+            for kv in self.histogram():
+                result += setPrecision(8 * ' ' + '<hist key="%.2f" value="%i"/>\n', precision) % kv
+            result += '    </statistic>\n'
+        else:
+            result += '/>\n'
+        return result
+                
+
     def __str__(self):
         return self.toString()
 
