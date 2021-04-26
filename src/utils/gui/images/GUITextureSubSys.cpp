@@ -38,8 +38,10 @@
 #include "GNETexture_LockSelected.cpp"
 #include "GNETexture_NotMoving.cpp"
 #include "GNETexture_NotMovingSelected.cpp"
-#include "GNETexture_PersonStop.cpp"
-#include "GNETexture_PersonStopSelected.cpp"
+#include "GNETexture_PersonStopLane.cpp"
+#include "GNETexture_PersonStopLaneSelected.cpp"
+#include "GNETexture_PersonStopBusStop.cpp"
+#include "GNETexture_PersonStopBusStopSelected.cpp"
 #include "GNETexture_Rerouter.cpp"
 #include "GNETexture_RerouterSelected.cpp"
 #include "GNETexture_RouteProbe.cpp"
@@ -88,8 +90,10 @@ GUITextureSubSys::GUITextureSubSys(FXApp* a) :
     myTextures[GUITexture::LANE_PEDESTRIAN] = 0;
     myTextures[GUITexture::STOP] = 0;
     myTextures[GUITexture::STOP_SELECTED] = 0;
-    myTextures[GUITexture::PERSONSTOP] = 0;
-    myTextures[GUITexture::PERSONSTOP_SELECTED] = 0;
+    myTextures[GUITexture::PERSONSTOP_LANE] = 0;
+    myTextures[GUITexture::PERSONSTOP_LANE_SELECTED] = 0;
+    myTextures[GUITexture::PERSONSTOP_BUSSTOP] = 0;
+    myTextures[GUITexture::PERSONSTOP_BUSSTOP_SELECTED] = 0;
 }
 
 
@@ -175,11 +179,17 @@ GUITextureSubSys::getTexture(GUITexture which) {
             case GUITexture::STOP_SELECTED:
                 myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_StopSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
-            case GUITexture::PERSONSTOP:
-                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_PersonStop, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+            case GUITexture::PERSONSTOP_LANE:
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_PersonStopLane, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
-            case GUITexture::PERSONSTOP_SELECTED:
-                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_PersonStopSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+            case GUITexture::PERSONSTOP_LANE_SELECTED:
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_PersonStopLaneSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case GUITexture::PERSONSTOP_BUSSTOP:
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_PersonStopBusStop, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case GUITexture::PERSONSTOP_BUSSTOP_SELECTED:
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_PersonStopBusStopSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
             default:
                 throw ProcessError("Undefined texture");

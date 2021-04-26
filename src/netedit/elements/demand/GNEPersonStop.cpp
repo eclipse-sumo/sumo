@@ -598,9 +598,9 @@ GNEPersonStop::drawPersonStopOverLane(const GUIVisualizationSettings& s, const d
         glRotated(180, 0, 0, 1);
         // draw texture
         if (drawUsingSelectColor()) {
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::PERSONSTOP_SELECTED), s.additionalSettings.vaporizerSize * exaggeration);
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::PERSONSTOP_LANE_SELECTED), s.additionalSettings.vaporizerSize * exaggeration);
         } else {
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::PERSONSTOP), s.additionalSettings.vaporizerSize * exaggeration);
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::PERSONSTOP_LANE), s.additionalSettings.vaporizerSize * exaggeration);
         }
     } else {
         // rotate
@@ -643,9 +643,9 @@ GNEPersonStop::drawPersonStopOverBusStop(const GUIVisualizationSettings& s, cons
         glRotated(180, 0, 0, 1);
         // draw texture
         if (drawUsingSelectColor()) {
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::PERSONSTOP_SELECTED), s.additionalSettings.vaporizerSize * exaggeration * 0.8);
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::PERSONSTOP_BUSSTOP_SELECTED), s.additionalSettings.vaporizerSize * exaggeration * 0.8);
         } else {
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::PERSONSTOP), s.additionalSettings.vaporizerSize * exaggeration * 0.8);
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::PERSONSTOP_BUSSTOP), s.additionalSettings.vaporizerSize * exaggeration * 0.8);
         }
     }
 }
