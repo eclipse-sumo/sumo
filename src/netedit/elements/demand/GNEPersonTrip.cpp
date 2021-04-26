@@ -108,21 +108,21 @@ GNEPersonTrip::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
-    // get flags
-    const bool hasEdge = (getParentEdges().size() > 0);
-    const bool hasFromToEdge = (getParentEdges().size() > 1);
-    const bool hasBusStop = (getParentAdditionals().size() > 0);
     // open tag
     device.openTag(SUMO_TAG_PERSONTRIP);
-    // check if we have to write "from" attributes
-    if (hasFromToEdge || (hasEdge && hasBusStop)) {
+    // check if from attribute is enabled
+    if (isAttributeEnabled(SUMO_ATTR_FROM)) {
         device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
     }
-    // write "to" attributes depending of start and end
-    if (hasEdge) {
-        device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
-    } else if (hasBusStop) {
+    // write to depending if personplan ends in a busStop
+    if (getParentAdditionals().size() > 0) {
         device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().back()->getID());
+    } else {
+        device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
+    }
+    // only write arrivalPos if is different of -1
+    if (myArrivalPosition != -1) {
+        device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
     // write modes
     if (myModes.size() > 0) {
@@ -131,10 +131,6 @@ GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
     // write vTypes
     if (myVTypes.size() > 0) {
         device.writeAttr(SUMO_ATTR_VTYPES, myVTypes);
-    }
-    // only write arrivalPos if is different of -1
-    if (myArrivalPosition != -1) {
-        device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
     // write parameters
     writeParams(device);
