@@ -2021,8 +2021,12 @@ GNERouteHandler::PersonPlansValues::isFirstPersonPlan() const {
     if (route) {
         return true;
     }
-    // edge
+    // edge stop
     if (edgeStop) {
+        return true;
+    }
+    // lane stop
+    if (laneStop) {
         return true;
     }
     return false;
