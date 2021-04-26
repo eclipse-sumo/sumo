@@ -28,6 +28,7 @@ Example:
 ```
 
 Options:
+
 - **--xml-output FILE** (**-o**): write statistics to FILE in xml format
 - **--statistic-type** (**-t**): select among statistics to be computed
   - 'd' : depart delay
