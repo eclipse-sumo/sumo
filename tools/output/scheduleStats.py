@@ -53,6 +53,8 @@ def get_options(args=None):
                         help="Input stop-output file")
     parser.add_argument("-t", "--statistic-type", default="d", dest="sType",
                         help="Code for statistic type from %s" % STATS.keys())
+    parser.add_argument("-g", "--group-by", dest="groupBy",
+                        help="Code for grouping results")
     parser.add_argument("-H", "--human-readable-time", dest="hrTime", action="store_true", default=False,
                         help="Write time values as hour:minute:second or day:hour:minute:second rathern than seconds")
     parser.add_argument("-v", "--verbose", action="store_true",
@@ -66,6 +68,9 @@ def get_options(args=None):
     if options.sType not in STATS:
         parser.print_help()
         sys.exit()
+
+    if options.groupBy:
+        options.groupBy = options.groupBy.split(',')
 
     return options
 
@@ -161,9 +166,18 @@ def main(options):
 
 
     description, fun = STATS[options.sType]
-    s = Statistics(description, abs=True)
-    df.apply(fun, axis=1, args=(s,))
-    print(s)
+    if options.groupBy:
+        numGroups = 0
+        for name, group in df.groupby(options.groupBy):
+            numGroups += 1;
+            s = Statistics("%s:%s" % (description,name), abs=True)
+            group.apply(fun, axis=1, args=(s,))
+            print(s)
+        print(numGroups, "groups")
+    else:
+        s = Statistics(description, abs=True)
+        df.apply(fun, axis=1, args=(s,))
+        print(s)
 
 if __name__ == "__main__":
     main(get_options())
