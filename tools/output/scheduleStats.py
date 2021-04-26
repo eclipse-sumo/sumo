@@ -44,6 +44,12 @@ STATS = {
  's' : ('stopDelay',    lambda r,s: s.add(r['until'] - r['arrival'] - (r['ended'] - r['started']) , key(r))), #  noqua
  }
 
+GROUPSTATS = {
+        'mean' : lambda s : s.avg(),
+        'median' : lambda s : s.median(),
+        'min' : lambda s : s.min,
+        'max' : lambda s: s.max,
+}
 
 def get_options(args=None):
     parser = sumolib.options.ArgumentParser(description="Compare route-file stop timing with stop-output")
@@ -57,6 +63,10 @@ def get_options(args=None):
                         help="Code for grouping results")
     parser.add_argument("-i", "--histogram", dest="histogram", type=float,
                         help="histogram bin size")
+    parser.add_argument("-I", "--group-histogram", dest="gHistogram", type=float,
+                        help="group histogram bin size")
+    parser.add_argument("-T", "--group-stasistic-type", dest="gType", default="mean",
+                        help="attribute for group statistic from %s" % GROUPSTATS.keys())
     parser.add_argument("-p", "--precision", default=1, type=int,
                         help="output precision")
     parser.add_argument("-H", "--human-readable-time", dest="hrTime", action="store_true", default=False,
@@ -171,14 +181,19 @@ def main(options):
 
     description, fun = STATS[options.sType]
     useHist = options.histogram is not None
+    useGHist = options.gHistogram is not None
     if options.groupBy:
         numGroups = 0
+        gs = Statistics("%s %s grouped by [%s]" % (options.gType, description,','.join(options.groupBy)), abs=True, histogram=useGHist, scale=options.gHistogram)
         for name, group in df.groupby(options.groupBy):
             numGroups += 1;
             s = Statistics("%s:%s" % (description,name), abs=True, histogram=useHist, scale=options.histogram)
             group.apply(fun, axis=1, args=(s,))
             print(s.toString(precision=options.precision, histStyle=2))
-        print(numGroups, "groups")
+            gs.add(GROUPSTATS[options.gType](s), name)
+        print()
+        print(gs.toString(precision=options.precision, histStyle=2))
+
     else:
         s = Statistics(description, abs=True, histogram=useHist, scale=options.histogram)
         df.apply(fun, axis=1, args=(s,))
