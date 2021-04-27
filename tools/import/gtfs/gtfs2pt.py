@@ -107,7 +107,7 @@ def get_options(args=None):
     if options.route_output is None:
         options.route_output = options.region + "_publictransport.rou.xml"
 
-    else:
+    if not options.osm_routes:
         if options.map_output is None:
             options.map_output = os.path.join('output', options.region)
         if options.network_split is None:
