@@ -51,18 +51,18 @@ void
 GNEBusStop::updateGeometry() {
     // Get value of option "lefthand"
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
-
     // Update common geometry of stopping place
     setStoppingPlaceGeometry(getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * 0.5);
-
     // Obtain a copy of the shape
     PositionVector tmpShape = myAdditionalGeometry.getShape();
-
     // Move shape to side
     tmpShape.move2side(myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.stoppingPlaceSignOffset * offsetSign);
-
     // Get position of the sign
     mySignPos = tmpShape.getLineCenter();
+    // update demand element children
+    for (const auto& demandElement : getChildDemandElements()) {
+        demandElement->updateGeometry();
+    }
 }
 
 

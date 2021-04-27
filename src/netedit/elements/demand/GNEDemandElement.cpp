@@ -456,8 +456,14 @@ GNEDemandElement::getPersonPlanDepartValue() const {
     if (previousPersonPlan) {
         if (previousPersonPlan->getParentAdditionals().size() > 0) {
             if (previousPersonPlan->getTagProperty().isPersonStop()) {
-                // use busStop end
-                return previousPersonPlan->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
+                // calculate busStop end
+                const double endPos = previousPersonPlan->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
+                // check endPos
+                if (endPos < 0.3) {
+                    return endPos;
+                } else {
+                    return (endPos - 0.3);
+                }
             } else {
                 // use busStop center
                 return previousPersonPlan->getParentAdditionals().front()->getAttributeDouble(GNE_ATTR_CENTER);
@@ -481,8 +487,16 @@ GNEDemandElement::getPersonPlanDepartPos() const {
     if (previousPersonPlan) {
         if (previousPersonPlan->getParentAdditionals().size() > 0) {
             if (previousPersonPlan->getTagProperty().isPersonStop()) {
-                // use busStop end
-                return previousPersonPlan->getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
+                // get busStop
+                const GNEAdditional *busStop = previousPersonPlan->getParentAdditionals().front();
+                // get length
+                const double length = busStop->getAdditionalGeometry().getShape().length2D();
+                // check length
+                if (length < 0.3) {
+                    return busStop->getAdditionalGeometry().getShape().back();
+                } else {
+                    return busStop->getAdditionalGeometry().getShape().positionAtOffset2D(length - 0.3);
+                }
             } else {
                 // use busStop center
                 return previousPersonPlan->getParentAdditionals().front()->getAdditionalGeometry().getShape().getLineCenter();
@@ -506,7 +520,14 @@ GNEDemandElement::getPersonPlanArrivalValue() const {
         const GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
         // continue depending if is an stop or a person plan
         if (nextPersonPlan && (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_BUSSTOP)) {
-            return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_STARTPOS);
+            // calculate busStop end
+            const double endPos = getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
+            // check endPos
+            if (endPos < 0.3) {
+                return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
+            } else {
+                return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS) - 0.3;
+            }
         } else {
             return getParentAdditionals().front()->getAttributeDouble(GNE_ATTR_CENTER);
         }
@@ -524,7 +545,16 @@ GNEDemandElement::getPersonPlanArrivalPos() const {
         const GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
         // continue depending if is an stop or a person plan
         if (nextPersonPlan && (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_BUSSTOP)) {
-            return getParentAdditionals().front()->getAdditionalGeometry().getShape().front();
+            // get busStop
+            const GNEAdditional *busStop = nextPersonPlan->getParentAdditionals().front();
+            // get length
+            const double length = busStop->getAdditionalGeometry().getShape().length2D();
+            // check length
+            if (length < 0.3) {
+                return busStop->getAdditionalGeometry().getShape().back();
+            } else {
+                return busStop->getAdditionalGeometry().getShape().positionAtOffset2D(length - 0.3);
+            }
         } else {
             return getParentAdditionals().front()->getAdditionalGeometry().getShape().getLineCenter();
         }
