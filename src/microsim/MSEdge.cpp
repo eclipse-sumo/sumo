@@ -1321,9 +1321,8 @@ MSEdge::inferEdgeType() {
                 auto resAfter = net->getRestrictions(typeAfter);
                 if (resBefore != nullptr && resAfter != nullptr) {
                     // create new restrictions for this type-combination
-                    const std::string internalType = typeBefore + "|" + typeAfter;
-                    if (net->getRestrictions(internalType) == nullptr) {
-                        bool added = false;
+                    myEdgeType = typeBefore + "|" + typeAfter;
+                    if (net->getRestrictions(myEdgeType) == nullptr) {
                         for (const auto& item : *resBefore) {
                             const SUMOVehicleClass svc = item.first;
                             const double speed = item.second;
@@ -1332,12 +1331,8 @@ MSEdge::inferEdgeType() {
                                 const double speed2 = it->second;
                                 const double newSpeed = (MSNet::getInstance()->hasJunctionHigherSpeeds()
                                         ? MAX2(speed, speed2) : (speed + speed2) / 2);
-                                net->addRestriction(internalType, svc, newSpeed);
-                                added = true;
+                                net->addRestriction(myEdgeType, svc, newSpeed);
                             }
-                        }
-                        if (added) {
-                            myEdgeType = internalType;
                         }
                     }
                 }
