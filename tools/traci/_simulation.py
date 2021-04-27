@@ -93,7 +93,7 @@ class Stage(object):
             if self.travelTime >= 0:
                 other += ' duration="%s"' % self.travelTime
             other += ''.join([' %s="%s"' % i for i in extra])
-            return '<stop%s%s"/>\n' % (to, other)
+            return '<stop%s%s"/>' % (to, other)
 
         elif self.type == tc.STAGE_DRIVING:
             fro = ' from="%s"' % self.edges[0] if firstStage else ''
@@ -109,7 +109,7 @@ class Stage(object):
             if self.depart != tc.INVALID_DOUBLE_VALUE:
                 other += ' depart="%s"' % self.depart
             other += ''.join([' %s="%s"' % i for i in extra])
-            return '<%s%s%s%s/>\n' % (elem, fro, to, other)
+            return '<%s%s%s%s/>' % (elem, fro, to, other)
 
         elif self.type == tc.STAGE_WALKING:
             to = ' arrivalPos="%.2f"' % self.arrivalPos
@@ -117,7 +117,7 @@ class Stage(object):
                 to = ' busStop="%s"' % self.destStop
             edges = ' edges="%s"' % ' '.join(self.edges)
             other = ''.join([' %s="%s"' % i for i in extra])
-            return '<walk%s%s%s/>\n' % (edges, to, other)
+            return '<walk%s%s%s/>' % (edges, to, other)
 
         elif self.type == tc.STAGE_TRIP:
             fro = ' from="%s"' % self.edges[0] if firstStage else ''
@@ -128,7 +128,7 @@ class Stage(object):
             if self.vType:
                 other += ' vTypes="%s"' % self.vType
             other += ''.join([' %s="%s"' % i for i in extra])
-            return '<personTrip%s%s%s/>\n' % (fro, to, other)
+            return '<personTrip%s%s%s/>' % (fro, to, other)
 
         elif self.type == tc.STAGE_TRANSHIP:
             fro = ' from="%s"' % self.edges[0] if firstStage else ''
@@ -136,7 +136,7 @@ class Stage(object):
             if self.destStop:
                 to = ' busStop="%s"' % self.destStop
             other = ''.join([' %s="%s"' % i for i in extra])
-            return '<tranship%s%s%s/>\n' % (fro, to, other)
+            return '<tranship%s%s%s/>' % (fro, to, other)
 
         else:
             # STAGE_ACCESS and STAGE_WAITING_FOR_DEPART are never read from xml
