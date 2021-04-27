@@ -38,8 +38,6 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGE,
         {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition) {
-    // compute walk
-    computePath();
 }
 
 
@@ -47,8 +45,6 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_BUSSTOP,
         {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition) {
-    // compute walk
-    computePath();
 }
 
 
@@ -56,8 +52,6 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, std::vector<GNEEdg
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGES,
         {}, {edges}, {}, {}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition) {
-    // compute walk
-    computePath();
 }
 
 
@@ -65,8 +59,6 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEDemandElement* 
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_ROUTE,
         {}, {}, {}, {}, {}, {}, {personParent, route}, {}),
     myArrivalPosition(arrivalPosition) {
-    // compute walk
-    computePath();
 }
 
 

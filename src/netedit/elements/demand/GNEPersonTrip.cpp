@@ -42,8 +42,6 @@ GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdg
     myArrivalPosition(arrivalPosition),
     myVTypes(types),
     myModes(modes) {
-    // compute person trip
-    computePath();
 }
 
 
@@ -54,8 +52,6 @@ GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdg
     myArrivalPosition(arrivalPosition),
     myVTypes(types),
     myModes(modes) {
-    // compute person trip
-    computePath();
 }
 
 

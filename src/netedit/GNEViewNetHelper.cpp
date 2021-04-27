@@ -1887,6 +1887,8 @@ GNEViewNetHelper::EditModes::setDemandEditMode(DemandEditMode mode, const bool f
         myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
         // update DijkstraRouter of RouteCalculatorInstance
         myViewNet->myNet->getPathManager()->getPathCalculator()->updatePathCalculator();
+        // compute all demand elements
+        myViewNet->myNet->computeDemandElements(myViewNet->myViewParent->getGNEAppWindows());
         // update cursors
         myViewNet->updateCursor();
         // update network mode specific controls
@@ -1924,6 +1926,8 @@ GNEViewNetHelper::EditModes::setDataEditMode(DataEditMode mode, const bool force
         myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
         // update DijkstraRouter of RouteCalculatorInstance
         myViewNet->myNet->getPathManager()->getPathCalculator()->updatePathCalculator();
+        // compute all data elements
+        myViewNet->myNet->computeDataElements(myViewNet->myViewParent->getGNEAppWindows());
         // update all datasets
         for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
             dataSet.second->updateAttributeColors();

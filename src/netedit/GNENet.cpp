@@ -1672,14 +1672,12 @@ GNENet::computeDemandElements(GNEApplicationWindow* window) {
 void
 GNENet::computeDataElements(GNEApplicationWindow* window) {
     window->setStatusBarText("Computing data elements ...");
-    /*
     // iterate over all demand elements and compute
-    for (const auto& i : myAttributeCarriers->getDemandElements()) {
-        for (const auto& j : i.second) {
-            j.second->computePath();
+    for (const auto& dataElements : myAttributeCarriers->getDemandElements()) {
+        for (const auto& dataElement : dataElements.second) {
+            dataElement.second->computePath();
         }
     }
-    */
     window->setStatusBarText("Finished computing data elements.");
 }
 

@@ -79,8 +79,6 @@ GNEChange_DemandElement::undo() {
         }
         // insert demand element into net
         myDemandElement->getNet()->getAttributeCarriers()->insertDemandElement(myDemandElement);
-        // compute demand element path
-        myDemandElement->computePath();
         // restore container
         restoreHierarchicalContainers();
     }
@@ -108,8 +106,6 @@ GNEChange_DemandElement::redo() {
         }
         // insert demand element into net
         myDemandElement->getNet()->getAttributeCarriers()->insertDemandElement(myDemandElement);
-        // compute demand element path
-        myDemandElement->computePath();
         // add demand element in parents and children
         addElementInParentsAndChildren(myDemandElement);
     } else {

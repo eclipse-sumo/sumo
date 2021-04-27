@@ -39,8 +39,6 @@ GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
         {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition),
     myLines(lines) {
-    // compute ride
-    computePath();
 }
 
 
@@ -50,8 +48,6 @@ GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
         {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition),
     myLines(lines) {
-    // compute ride
-    computePath();
 }
 
 

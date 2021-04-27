@@ -299,7 +299,7 @@ GNEPerson::updateGeometry() {
 
 void
 GNEPerson::computePath() {
-    // compute all children
+    // compute all person plan children (because aren't computed in "computeDemandElements()")
     for (const auto& demandElement : getChildDemandElements()) {
         demandElement->computePath();
     }

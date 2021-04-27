@@ -122,9 +122,14 @@ GNEEdge::updateGeometry() {
         for (const auto& childAdditionals : getChildAdditionals()) {
             childAdditionals->updateGeometry();
         }
+        // compute geometry of additionals demand elements vinculated to this edge (depending of showDemandElements)
+        if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
+            for (const auto& childDemandElements : getChildDemandElements()) {
+                childDemandElements->computePath();
+            }
+        }
         // Update geometry of additionals demand elements vinculated to this edge
         for (const auto& childDemandElements : getChildDemandElements()) {
-            childDemandElements->computePath();
             childDemandElements->updateGeometry();
         }
         // Update geometry of additionals generic datas vinculated to this edge

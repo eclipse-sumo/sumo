@@ -885,11 +885,8 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
     if (myNet->isUpdateGeometryEnabled()) {
         demandElement->updateGeometry();
     }
-    // compute path
-    demandElement->computePath();
     // demandElements has to be saved
     myNet->requireSaveDemandElements(true);
-
 }
 
 
