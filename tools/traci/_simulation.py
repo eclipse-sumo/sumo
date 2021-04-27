@@ -80,52 +80,63 @@ class Stage(object):
             self.__attr_repr__("description"),
         ] if v != ""])
 
-    def toXML(self, firstStage=True, isPerson=True):
+    def toXML(self, firstStage=True, isPerson=True, extra=[]):
         """write stage as xml element.
         If firstStage=False, the from-attribute is omitted since sumo derives it from the prior stage.
+        If extra is a list of (attrname, value) these will be added to the xml element
         """
         if self.type == tc.STAGE_WAITING:
-            to = ' edge="%s"' % self.edges[-1]
-            if self.destStop != "":
+            to = ' edge="%s" endPos="%.2f' % (self.edges[-1], self.arrivalPos)
+            if self.destStop:
                 to = ' busStop="%s"' % self.destStop
             other = ''
             if self.travelTime >= 0:
                 other += ' duration="%s"' % self.travelTime
-            return '<stop%s%s\n' % (to, other)
+            other += ''.join([' %s="%s"' % i for i in extra])
+            return '<stop%s%s"/>\n' % (to, other)
 
         elif self.type == tc.STAGE_DRIVING:
-            to = ' to="%s"' % self.edges[-1]
-            if self.destStop != "":
-                to = ' busStop="%s"' % self.destStop
             fro = ' from="%s"' % self.edges[0] if firstStage else ''
+            to = ' to="%s" arrivalPos="%.2f"' % (self.edges[-1], self.arrivalPos)
+            if self.destStop:
+                to = ' busStop="%s"' % self.destStop
             elem = "ride" if isPerson else "transport"
             other = ''
-            if self.vType:
-                other += ' vType="%s"' % self.vType
             if self.line:
                 other += ' lines="%s"' % self.line
-            return '<%s%s%s%s\n' % (elem, fro, to, other)
+            if self.intended:
+                other += ' intended="%s"' % self.intended
+            if self.depart != tc.INVALID_DOUBLE_VALUE:
+                other += ' depart="%s"' % self.depart
+            other += ''.join([' %s="%s"' % i for i in extra])
+            return '<%s%s%s%s/>\n' % (elem, fro, to, other)
 
         elif self.type == tc.STAGE_WALKING:
-            to = ''
-            if self.destStop != "":
+            to = ' arrivalPos="%.2f"' % arrivalPos
+            if self.destStop:
                 to = ' busStop="%s"' % self.destStop
             edges = ' '.join(self.edges)
-            return '<walk%s%s\n' % (edges, to)
+            other = ''.join([' %s="%s"' % i for i in extra])
+            return '<walk%s%s%s/>\n' % (edges, to, other)
 
         elif self.type == tc.STAGE_TRIP:
-            to = ' to="%s"' % self.edges[-1]
-            if self.destStop != "":
-                to = ' busStop="%s"' % self.destStop
             fro = ' from="%s"' % self.edges[0] if firstStage else ''
-            return '<personTrip%s%s\n' % (fro, to)
+            to = ' to="%s" arrivalPos="%.2f"' % (self.edges[-1], self.arrivalPos)
+            if self.destStop:
+                to = ' busStop="%s"' % self.destStop
+            other = ''
+            if self.vType:
+                other += ' vTypes="%s"' % self.vType
+            other += ''.join([' %s="%s"' % i for i in extra])
+            return '<personTrip%s%s%s/>\n' % (fro, to, other)
 
         elif self.type == tc.STAGE_TRANSHIP:
-            to = ' to="%s"' % self.edges[-1]
-            if self.destStop != "":
-                to = ' busStop="%s"' % self.destStop
             fro = ' from="%s"' % self.edges[0] if firstStage else ''
-            return '<tranship%s%s\n' % (fro, to)
+            to = ' to="%s" arrivalPos="%.2f"' % (self.edges[-1], self.arrivalPos)
+            if self.destStop:
+                to = ' busStop="%s"' % self.destStop
+            other = ''.join([' %s="%s"' % i for i in extra])
+            return '<tranship%s%s%s/>\n' % (fro, to, other)
 
         else:
             # STAGE_ACCESS and STAGE_WAITING_FOR_DEPART are never read from xml

@@ -40,7 +40,10 @@ pID = "person0"
 firstStage = True
 for i in range(0, traci.person.getRemainingStages(pID)):
     stage = traci.person.getStage(pID, i)
-    print(stage.toXML(firstStage))
+    extra = []
+    if stage.type == tc.STAGE_WAITING:
+        extra = [('actType', 'chew bubblegum')]
+    print(stage.toXML(firstStage, extra=extra))
     firstStage = False
 
 traci.close()
