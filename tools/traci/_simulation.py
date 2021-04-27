@@ -86,14 +86,14 @@ class Stage(object):
         If extra is a list of (attrname, value) these will be added to the xml element
         """
         if self.type == tc.STAGE_WAITING:
-            to = ' edge="%s" endPos="%.2f' % (self.edges[-1], self.arrivalPos)
+            to = ' edge="%s" endPos="%.2f"' % (self.edges[-1], self.arrivalPos)
             if self.destStop:
                 to = ' busStop="%s"' % self.destStop
             other = ''
             if self.travelTime >= 0:
                 other += ' duration="%s"' % self.travelTime
             other += ''.join([' %s="%s"' % i for i in extra])
-            return '<stop%s%s"/>' % (to, other)
+            return '<stop%s%s/>' % (to, other)
 
         elif self.type == tc.STAGE_DRIVING:
             fro = ' from="%s"' % self.edges[0] if firstStage else ''
