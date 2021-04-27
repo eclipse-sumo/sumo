@@ -327,31 +327,45 @@ GNEPathManager::calculateEdgesPath(PathElement* pathElement, SUMOVehicleClass vC
         // remove path element from myPaths
         myPaths.erase(pathElement);
     }
-    // calculate path
-    const std::vector<GNEEdge*> path = myPathCalculator->calculatePath(vClass, edges);
-    // continue if path isn't empty
-    if (path.size() > 0) {
+    // continue depending of number of edges
+    if (edges.size() > 0) {
         // declare segment vector
         std::vector<Segment*> segments;
-        for (int i = 0; i < (int)path.size(); i++) {
-            // get first and last segment flags
-            const bool firstSegment = (i == 0);
-            const bool lastSegment = (i == ((int)path.size() - 1));
-            // get first allowed lane
-            const GNELane* lane = path.at(i)->getLaneByAllowedVClass(vClass);
-            // create segments
-            Segment* laneSegment = new Segment(this, pathElement, lane, firstSegment, lastSegment);
-            // add it into segment vector
-            segments.push_back(laneSegment);
-            // continue if this isn't the last edge
-            if (path.at(i) != path.back()) {
-                // obtain next lane
-                const GNELane* nextLane = path.at(i + 1)->getLaneByAllowedVClass(vClass);
-                // create junction segments
-                Segment* junctionSegment = new Segment(this, pathElement, path.at(i)->getParentJunctions().at(1), lane, nextLane);
+        // calculate path
+        const std::vector<GNEEdge*> path = myPathCalculator->calculatePath(vClass, edges);
+        // continue if path isn't empty
+        if (path.size() > 0) {
+            for (int i = 0; i < (int)path.size(); i++) {
+                // get first and last segment flags
+                const bool firstSegment = (i == 0);
+                const bool lastSegment = (i == ((int)path.size() - 1));
+                // get first allowed lane
+                const GNELane* lane = path.at(i)->getLaneByAllowedVClass(vClass);
+                // create segments
+                Segment* laneSegment = new Segment(this, pathElement, lane, firstSegment, lastSegment);
                 // add it into segment vector
-                segments.push_back(junctionSegment);
+                segments.push_back(laneSegment);
+                // continue if this isn't the last edge
+                if (path.at(i) != path.back()) {
+                    // obtain next lane
+                    const GNELane* nextLane = path.at(i + 1)->getLaneByAllowedVClass(vClass);
+                    // create junction segments
+                    Segment* junctionSegment = new Segment(this, pathElement, path.at(i)->getParentJunctions().at(1), lane, nextLane);
+                    // add it into segment vector
+                    segments.push_back(junctionSegment);
+                }
             }
+        } else {
+            // create first segment
+            Segment* firstSegment = new Segment(this, pathElement, edges.front()->getLaneByAllowedVClass(vClass), true, false);
+            // add to segments
+            segments.push_back(firstSegment);
+            // create last segment
+            Segment* lastSegment = new Segment(this, pathElement, edges.back()->getLaneByAllowedVClass(vClass), false, true);
+            // add to segments
+            segments.push_back(lastSegment);
+            // vinculate first and last segment with a red line
+            firstSegment->setNextRedSegment(lastSegment);
         }
         // add segment in path
         myPaths[pathElement] = segments;
@@ -447,7 +461,7 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* eleme
     myPreviousLane(nullptr),
     myNextLane(nullptr),
     myJunction(nullptr),
-    myValid(true) {
+    myNextRedSegment(nullptr) {
     // add segment in laneSegments
     myPathManager->addSegmentInLaneSegments(this, lane);
 }
@@ -463,7 +477,7 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* eleme
     myPreviousLane(previousLane),
     myNextLane(nextLane),
     myJunction(junction),
-    myValid(true) {
+    myNextRedSegment(nullptr) {
     // add segment in junctionSegments
     myPathManager->addSegmentInJunctionSegments(this, junction);
 }
@@ -533,6 +547,18 @@ GNEPathManager::Segment::getJunction() const {
 }
 
 
+GNEPathManager::Segment*
+GNEPathManager::Segment::getNextRedSegment() const {
+    return myNextRedSegment;
+}
+
+
+void 
+GNEPathManager::Segment::setNextRedSegment(GNEPathManager::Segment *nextRedSegment) {
+    myNextRedSegment = nextRedSegment;
+}
+
+
 GNEPathManager::Segment::Segment() :
     myPathManager(nullptr),
     myPathElement(nullptr),
@@ -542,7 +568,7 @@ GNEPathManager::Segment::Segment() :
     myPreviousLane(nullptr),
     myNextLane(nullptr),
     myJunction(false),
-    myValid(false) {
+    myNextRedSegment(nullptr) {
 }
 
 

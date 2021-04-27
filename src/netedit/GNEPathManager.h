@@ -197,6 +197,12 @@ protected:
         /// @brief get junction associated with this segment
         const GNEJunction* getJunction() const;
 
+        /// @brief get next red segment
+        Segment *getNextRedSegment() const;
+
+        /// @brief set next red segment
+        void setNextRedSegment(Segment *nextRedSegment);
+
     protected:
         /// @brief path manager
         GNEPathManager* myPathManager;
@@ -222,8 +228,8 @@ protected:
         /// @brief junction associated with this segment
         const GNEJunction* myJunction;
 
-        /// @brief valid segment
-        bool myValid;
+        /// @brief pointer to next segment (use for draw a red line)
+        Segment* myNextRedSegment;
 
     private:
         /// @brief default constructor
