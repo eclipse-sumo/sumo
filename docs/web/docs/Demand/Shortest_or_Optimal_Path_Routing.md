@@ -148,6 +148,29 @@ the *weight-attribute* must be defined:
 </meandata>
 ```
 
+# Repair routes
+
+The **--repair** option intends to repair routes with connectivity problems.
+Depending on how the route is define, duarouter will try to fix it differently:
+
+- If the route is defined with the "edges" attribute, duarouter will first try
+to fix the route by repairing the connectivity between the edges. If this is not
+possible, then duarouter will search for another valid route between the edges
+with connectivity problems. This may result in some edges from the original
+route no longer being on the new route. In other words, edges defined with the
+"edges" attribute are not taken as mandatory during route repair.
+- If the route is defined with the "edges" attribute but also has "stops",
+duarouter will treat the edges of the stops as mandatory. First it will try to
+repair the route as in the previous example, but if duarouter cannot find a valid
+route that goes through the given stop edges, then the route is not possible to fix.
+- If the route is defined with the attribute "via" edges, all edges will be
+treated as mandatory. If duarouter cannot fix the connectivity problems between
+the specified edges, a warning appears and the route is not repairable.
+
+Duarouter also has the **--repair.from** and **--repair.to** options, which allow
+to fix an invalid starting or ending edge using the first or last usable edge
+of the route.
+
 # Usage Examples
 
 ```
