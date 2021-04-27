@@ -112,10 +112,10 @@ class Stage(object):
             return '<%s%s%s%s/>\n' % (elem, fro, to, other)
 
         elif self.type == tc.STAGE_WALKING:
-            to = ' arrivalPos="%.2f"' % arrivalPos
+            to = ' arrivalPos="%.2f"' % self.arrivalPos
             if self.destStop:
                 to = ' busStop="%s"' % self.destStop
-            edges = ' '.join(self.edges)
+            edges = ' edges="%s"' % ' '.join(self.edges)
             other = ''.join([' %s="%s"' % i for i in extra])
             return '<walk%s%s%s/>\n' % (edges, to, other)
 
