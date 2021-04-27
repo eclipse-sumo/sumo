@@ -188,9 +188,16 @@ Below are links to some of the most important/used tools:
 - [emissionsMap](Tools/Emissions.md#emissionsmap)
 - [emissionsDrivingCycle](Tools/Emissions.md#emissionsdrivingcycle)
 
+# Software Contributions
+Some people extended SUMO or built tools to make it more usable. Not all of these extensions are part of the "SUMO core".
+
+- [Included in the distribution](Contributed/index.md#included_in_the_distribution)
+- [External](Contributed/index.md#external_extensions)
+
 # Appendices
 
 - [ChangeLog](ChangeLog.md)
 - [Glossary](Other/Glossary.md)
 - [FAQ](FAQ.md)
 - [Known File Extensions](Other/File_Extensions.md)
+
