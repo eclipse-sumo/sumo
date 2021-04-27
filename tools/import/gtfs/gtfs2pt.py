@@ -107,12 +107,6 @@ def get_options(args=None):
     if options.route_output is None:
         options.route_output = options.region + "_publictransport.rou.xml"
 
-    if options.osm_routes:
-        if options.bbox is None:
-            # TODO implement reading coord from net file?
-            sys.exit("Please give a bounding box using --bbox W,S,E,N")
-        options.bbox = [float(coord) for coord in options.bbox.split(",")]
-
     else:
         if options.map_output is None:
             options.map_output = os.path.join('output', options.region)
@@ -348,6 +342,15 @@ def main(options):
 
     if options.osm_routes:
         # Import PT from GTFS and OSM routes
+        if not options.bbox:
+            BBoxXY = net.getBBoxXY()
+            BBoxLonLat = (net.convertXY2LonLat(BBoxXY[0][0], BBoxXY[0][1]),
+                          net.convertXY2LonLat(BBoxXY[1][0], BBoxXY[1][1]))
+            options.bbox = (BBoxLonLat[0][0], BBoxLonLat[0][1],
+                            BBoxLonLat[1][0], BBoxLonLat[1][1])
+        else:
+            options.bbox = [float(coord) for coord in options.bbox.split(",")]
+
         gtfsZip = zipfile.ZipFile(options.gtfs)
 
         (routes, trips_on_day,
