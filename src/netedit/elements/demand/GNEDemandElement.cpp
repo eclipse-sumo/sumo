@@ -567,7 +567,7 @@ GNEDemandElement::getPersonPlanArrivalPos() const {
 void
 GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront, 
     const int options, const double personPlanWidth, const RGBColor& personPlanColor) const {
-    /// @brief get person parent
+    /// get person parent
     const GNEDemandElement* personParent = getParentDemandElements().front();
     // check if draw person plan element can be drawn
     if (drawPersonPlan()) {
@@ -671,28 +671,14 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
 void
 GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront,
     const int options, const double personPlanWidth, const RGBColor& personPlanColor) const {
-    // get inspected attribute carriers
-    const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
-    // get inspected person plan
-    const GNEAttributeCarrier* personPlanInspected = (inspectedACs.size() > 0) ? inspectedACs.front() : nullptr;
-    const GNEDemandElement* personParent = getParentDemandElements().front();
-    // declare flag to enable or disable draw person plan
-    bool drawPersonPlan = false;
-    if (myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
-        // all person plan has to be drawn
-        drawPersonPlan = true;
-    } else if (myNet->getViewNet()->getDemandViewOptions().getLockedPerson() == personParent) {
-        // if person parent is locked, draw all their person plans children
-        drawPersonPlan = true;
-    } else if (personPlanInspected == personParent) {
-        // draw if we're inspecting person parent
-        drawPersonPlan = true;
-    } else if (personPlanInspected == this) {
-        // draw if we're inspecting this demand element
-        drawPersonPlan = true;
-    }
     // check if draw person plan elements can be drawn
-    if (drawPersonPlan) {
+    if (drawPersonPlan()) {
+        // get inspected attribute carriers
+        const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
+        // get person parent
+        const GNEDemandElement* personParent = getParentDemandElements().front();
+        // get inspected person plan
+        const GNEAttributeCarrier* personPlanInspected = (inspectedACs.size() > 0) ? inspectedACs.front() : nullptr;
         // flag to check if width must be duplicated
         const bool duplicateWidth = (personPlanInspected == this) || (personPlanInspected == personParent);
         // calculate path width
