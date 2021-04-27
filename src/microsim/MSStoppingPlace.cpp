@@ -189,11 +189,11 @@ MSStoppingPlace::getStoppingPosition(const SUMOVehicle* veh) const {
     }
 }
 
-std::vector<MSTransportable*>
+std::vector<const MSTransportable*>
 MSStoppingPlace::getTransportables() const {
-    std::vector<MSTransportable*> result;
-    for (std::map<MSTransportable*, int>::const_iterator it = myWaitingTransportables.begin(); it != myWaitingTransportables.end(); it++) {
-        result.push_back(it->first);
+    std::vector<const MSTransportable*> result;
+    for (auto item : myWaitingTransportables) {
+        result.push_back(item.first);
     }
     return result;
 }
@@ -204,7 +204,7 @@ MSStoppingPlace::hasSpaceForTransportable() const {
 }
 
 bool
-MSStoppingPlace::addTransportable(MSTransportable* p) {
+MSStoppingPlace::addTransportable(const MSTransportable* p) {
     int spot = -1;
     if (!hasSpaceForTransportable()) {
         return false;
@@ -217,7 +217,7 @@ MSStoppingPlace::addTransportable(MSTransportable* p) {
 
 
 void
-MSStoppingPlace::removeTransportable(MSTransportable* p) {
+MSStoppingPlace::removeTransportable(const MSTransportable* p) {
     auto i = myWaitingTransportables.find(p);
     if (i != myWaitingTransportables.end()) {
         if (i->second >= 0) {

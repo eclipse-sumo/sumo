@@ -165,7 +165,7 @@ public:
 
     /** @brief Returns the tranportables waiting on this stop
      */
-    std::vector<MSTransportable*> getTransportables() const;
+    std::vector<const MSTransportable*> getTransportables() const;
 
     /** @brief Returns the number of stopped vehicles waiting on this stop
     */
@@ -181,10 +181,10 @@ public:
     bool hasSpaceForTransportable() const;
 
     /// @brief adds a transportable to this stop
-    bool addTransportable(MSTransportable* p);
+    bool addTransportable(const MSTransportable* p);
 
     /// @brief Removes a transportable from this stop
-    void removeTransportable(MSTransportable* p);
+    void removeTransportable(const MSTransportable* p);
 
     /// @brief adds an access point to this stop
     virtual bool addAccess(MSLane* lane, const double pos, const double length);
@@ -276,7 +276,7 @@ protected:
 protected:
 
     /// @brief Persons waiting at this stop (mapped to waiting position)
-    std::map<MSTransportable*, int> myWaitingTransportables;
+    std::map<const MSTransportable*, int> myWaitingTransportables;
     std::set<int> myWaitingSpots;
 
     /// @brief lanes and positions connected to this stop

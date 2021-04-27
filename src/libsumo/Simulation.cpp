@@ -338,10 +338,9 @@ Simulation::getBusStopWaitingIDList(const std::string& stopID) {
     if (s == nullptr) {
         throw TraCIException("Unknown bus stop '" + stopID + "'.");
     }
-    std::vector<MSTransportable*> transportables = s->getTransportables();
     std::vector<std::string> result;
-    for (std::vector<MSTransportable*>::iterator it = transportables.begin(); it != transportables.end(); it++) {
-        result.push_back((*it)->getID());
+    for (const MSTransportable* t : s->getTransportables()) {
+        result.push_back(t->getID());
     }
     return result;
 }
