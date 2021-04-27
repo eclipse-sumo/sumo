@@ -179,6 +179,7 @@ def createTrips(options):
             lineRefOrig = line.line.replace(" ", "_")
             lineRefOrig = lineRefOrig.replace(";", "+")
             lineRefOrig = lineRefOrig.replace(">", "")
+            lineRefOrig = lineRefOrig.replace("<", "")
 
             if len(stop_ids) < options.min_stops:
                 sys.stderr.write("Warning: skipping line '%s' (%s_%s) because it has too few stops\n" % (
