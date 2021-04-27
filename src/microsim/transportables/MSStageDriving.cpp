@@ -411,6 +411,44 @@ MSStageDriving::getWaitingDescription() const {
 }
 
 
+bool
+MSStageDriving::canLeaveVehicle(const MSTransportable* t, const SUMOVehicle& veh) {
+    bool canLeave = false;
+    if (t->getDestination() == veh.getEdge()) {
+        // if this is the last stage, we can use the arrivalPos of the person
+        const bool unspecifiedAP = unspecifiedArrivalPos() && (
+                t->getNumRemainingStages() > 1 || !t->getParameter().wasSet(VEHPARS_ARRIVALPOS_SET));
+        const double arrivalPos = (unspecifiedArrivalPos()
+                ? SUMOVehicleParameter::interpretEdgePos(t->getParameter().arrivalPos, veh.getEdge()->getLength(),
+                    SUMO_ATTR_ARRIVALPOS, t->getID(), true)
+                : getArrivalPos());
+        if (unspecifiedAP ||
+                veh.isStoppedInRange(arrivalPos, veh.getLength() + MSGlobals::gStopTolerance)) {
+            canLeave = true;
+        }
+    }
+    if (myDestinationStop != nullptr) {
+        if (!canLeave) {
+            // check with more tolerance due to busStop size and also check
+            // access edges
+            const double accessPos = myDestinationStop->getAccessPos(veh.getEdge());
+            if (accessPos >= 0) {
+                double tolerance = veh.getLength() + MSGlobals::gStopTolerance;
+                if (&myDestinationStop->getLane().getEdge() == veh.getEdge()) {
+                    // accessPos is in the middle of the stop
+                    tolerance += (myDestinationStop->getEndLanePosition() - myDestinationStop->getBeginLanePosition()) / 2;
+                }
+                canLeave = veh.isStoppedInRange(accessPos, tolerance);
+            }
+        }
+        if (canLeave) {
+            myDestinationStop->addTransportable(t);
+        }
+    }
+    return canLeave;
+}
+
+
 void
 MSStageDriving::saveState(std::ostringstream& out) {
     const bool hasVehicle = myVehicle != nullptr;

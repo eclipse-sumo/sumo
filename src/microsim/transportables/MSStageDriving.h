@@ -163,6 +163,9 @@ public:
         myOrigin = origin;
     }
 
+    /// @brief checks whether the person may exit at the current vehicle position
+    bool canLeaveVehicle(const MSTransportable* t, const SUMOVehicle& veh);
+
     /** @brief Saves the current state into the given stream
      */
     void saveState(std::ostringstream& out);
