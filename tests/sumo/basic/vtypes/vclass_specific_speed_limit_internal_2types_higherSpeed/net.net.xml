@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-04-23 10:25:54 by Eclipse SUMO netconvert Version v1_9_0+0191-e1fbe42
+<!-- generated on 2021-04-27 15:23:39 by Eclipse SUMO netedit Version v1_9_0+0234-99f749a
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -8,7 +8,7 @@
     </input>
 
     <output>
-        <output-file value="net2.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
@@ -110,7 +110,7 @@
         <lane id="CE_0" index="0" speed="13.89" length="73.60" shape="126.40,95.20 200.00,95.20"/>
         <lane id="CE_1" index="1" speed="13.89" length="73.60" shape="126.40,98.40 200.00,98.40"/>
     </edge>
-    <edge id="CN" from="C" to="N" priority="2">
+    <edge id="CN" from="C" to="N" priority="2" type="t2">
         <lane id="CN_0" index="0" speed="13.89" length="73.60" shape="104.80,126.40 104.80,200.00"/>
         <lane id="CN_1" index="1" speed="13.89" length="73.60" shape="101.60,126.40 101.60,200.00"/>
     </edge>
