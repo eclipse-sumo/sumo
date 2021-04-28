@@ -290,16 +290,16 @@ GNEWalk::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 
 void
-GNEWalk::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront, const int options) const {
+GNEWalk::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // draw person plan over lane
-    drawPersonPlanPartial(s, lane, offsetFront, options, s.widthSettings.walk, s.colorSettings.walk);
+    drawPersonPlanPartial(s, lane, segment, offsetFront, s.widthSettings.walk, s.colorSettings.walk);
 }
 
 
 void
-GNEWalk::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront, const int options) const {
+GNEWalk::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // draw person plan over junction
-    drawPersonPlanPartial(s, fromLane, toLane, offsetFront, options, s.widthSettings.walk, s.colorSettings.walk);
+    drawPersonPlanPartial(s, fromLane, toLane, segment, offsetFront, s.widthSettings.walk, s.colorSettings.walk);
 }
 
 

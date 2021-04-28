@@ -37,132 +37,9 @@ class GNENet;
 class GNEPathManager {
 
 public:
-    /// @brief class used for path elements
-    class PathElement {
+    /// @brief class declaration
+    class PathElement;
 
-    public:
-        enum Options {
-            NETWORK_ELEMENT =    1 << 0,  // Network element
-            ADDITIONAL_ELEMENT = 1 << 1,  // Additional element
-            DEMAND_ELEMENT =     1 << 2,  // Demand element
-            DATA_ELEMENT =       1 << 3,  // Data element
-            FIRST_SEGMENT =      1 << 4,  // First segment
-            LAST_SEGMENT  =      1 << 5,  // Last segment
-        };
-
-        /// @brief constructor
-        PathElement(const Options option);
-
-        /// @brief destructor
-        ~PathElement();
-
-        /// @brief check if pathElement is a network element
-        bool isNetworkElement() const;
-
-        /// @brief check if pathElement is an additional element
-        bool isAdditionalElement() const;
-
-        /// @brief check if pathElement is a demand element
-        bool isDemandElement() const;
-
-        /// @brief check if pathElement is a data element
-        bool isDataElement() const;
-
-        /**@brief Draws partial object (lane)
-         * @param[in] s The settings for the current view (may influence drawing)
-         * @param[in] lane GNELane in which draw partial
-         * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
-         * @param[in] options partial GL Options
-         */
-        virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront, const int options) const = 0;
-
-        /**@brief Draws partial object (junction)
-         * @param[in] s The settings for the current view (may influence drawing)
-         * @param[in] fromLane from GNELane
-         * @param[in] toLane to GNELane
-         * @param[in] offsetFront offset for drawing element front (needed for selected elements)
-         * @param[in] options partial GL Options
-         */
-        virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront, const int options) const = 0;
-
-    private:
-        /// @brief default constructor
-        PathElement();
-
-        /// @brief pathElement option
-        const Options myOption;
-    };
-
-    /// @brief class used to calculate paths in nets
-    class PathCalculator {
-
-    public:
-        /// @brief constructor
-        PathCalculator(const GNENet* net);
-
-        /// @brief destructor
-        ~PathCalculator();
-
-        /// @brief update path calculator (called when SuperModes Demand or Data is selected)
-        void updatePathCalculator();
-
-        /// @brief calculate Dijkstra path between a list of partial edges
-        std::vector<GNEEdge*> calculatePath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const;
-
-        /// @brief calculate reachability for given edge
-        void calculateReachability(const SUMOVehicleClass vClass, GNEEdge* originEdge);
-
-        /// @brief check if exist a path between the two given consecutives edges for the given VClass
-        bool consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const;
-
-        /// @brief check if exist a path between the given busStop and edge (Either a valid lane or an acces) for pedestrians
-        bool busStopConnected(const GNEAdditional* busStop, const GNEEdge* edge) const;
-
-    private:
-        /// @brief pointer to net
-        const GNENet* myNet;
-
-        /// @brief SUMO Abstract myDijkstraRouter
-        SUMOAbstractRouter<NBRouterEdge, NBVehicle>* myDijkstraRouter;
-    };
-
-    /// @brief constructor
-    GNEPathManager(const GNENet* net);
-
-    /// @brief destructor
-    ~GNEPathManager();
-
-    /// @brief obtain instance of PathCalculator
-    PathCalculator* getPathCalculator();
-
-    /// @brief get path element size with the given PathElement
-    int getPathSize(PathElement * pathElement) const;
-
-    /// @brief get first lane associated with path element
-    const GNELane* getFirstLane(const PathElement* pathElement) const;
-
-    /// @brief calculate path for edges
-    void calculateEdgesPath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges);
-
-    /// @brief calculate path for lanes
-    void calculateLanesPath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNELane*> lanes);
-
-    /// @brief remove path
-    void removePath(PathElement* pathElement);
-
-    /// @brief draw lane path elements
-    void drawLanePathElements(const GUIVisualizationSettings& s, const GNELane* lane);
-
-    /// @brief draw junction path elements
-    void drawJunctionPathElements(const GUIVisualizationSettings& s, const GNEJunction* junction);
-
-    /// @brief invalidate path
-    void invalidatePath(const GNELane* lane);
-
-    /// @brief clear demand paths
-    void clearDemandPaths();
-
-protected:
     /// @brief segment
     class Segment {
 
@@ -242,6 +119,130 @@ protected:
         Segment& operator=(const Segment&) = delete;
     };
 
+    /// @brief class used for path elements
+    class PathElement {
+
+    public:
+        enum Options {
+            NETWORK_ELEMENT =    1 << 0,  // Network element
+            ADDITIONAL_ELEMENT = 1 << 1,  // Additional element
+            DEMAND_ELEMENT =     1 << 2,  // Demand element
+            DATA_ELEMENT =       1 << 3,  // Data element
+        };
+
+        /// @brief constructor
+        PathElement(const Options option);
+
+        /// @brief destructor
+        ~PathElement();
+
+        /// @brief check if pathElement is a network element
+        bool isNetworkElement() const;
+
+        /// @brief check if pathElement is an additional element
+        bool isAdditionalElement() const;
+
+        /// @brief check if pathElement is a demand element
+        bool isDemandElement() const;
+
+        /// @brief check if pathElement is a data element
+        bool isDataElement() const;
+
+        /**@brief Draws partial object (lane)
+         * @param[in] s The settings for the current view (may influence drawing)
+         * @param[in] lane GNELane in which draw partial
+         * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
+         * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+         */
+        virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
+
+        /**@brief Draws partial object (junction)
+         * @param[in] s The settings for the current view (may influence drawing)
+         * @param[in] fromLane from GNELane
+         * @param[in] toLane to GNELane
+         * @param[in] segment PathManager segment (used for segment options)
+         * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+         */
+        virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
+
+    private:
+        /// @brief default constructor
+        PathElement();
+
+        /// @brief pathElement option
+        const Options myOption;
+    };
+
+    /// @brief class used to calculate paths in nets
+    class PathCalculator {
+
+    public:
+        /// @brief constructor
+        PathCalculator(const GNENet* net);
+
+        /// @brief destructor
+        ~PathCalculator();
+
+        /// @brief update path calculator (called when SuperModes Demand or Data is selected)
+        void updatePathCalculator();
+
+        /// @brief calculate Dijkstra path between a list of partial edges
+        std::vector<GNEEdge*> calculatePath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const;
+
+        /// @brief calculate reachability for given edge
+        void calculateReachability(const SUMOVehicleClass vClass, GNEEdge* originEdge);
+
+        /// @brief check if exist a path between the two given consecutives edges for the given VClass
+        bool consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const;
+
+        /// @brief check if exist a path between the given busStop and edge (Either a valid lane or an acces) for pedestrians
+        bool busStopConnected(const GNEAdditional* busStop, const GNEEdge* edge) const;
+
+    private:
+        /// @brief pointer to net
+        const GNENet* myNet;
+
+        /// @brief SUMO Abstract myDijkstraRouter
+        SUMOAbstractRouter<NBRouterEdge, NBVehicle>* myDijkstraRouter;
+    };
+
+    /// @brief constructor
+    GNEPathManager(const GNENet* net);
+
+    /// @brief destructor
+    ~GNEPathManager();
+
+    /// @brief obtain instance of PathCalculator
+    PathCalculator* getPathCalculator();
+
+    /// @brief get path element size with the given PathElement
+    int getPathSize(PathElement * pathElement) const;
+
+    /// @brief get first lane associated with path element
+    const GNELane* getFirstLane(const PathElement* pathElement) const;
+
+    /// @brief calculate path for edges
+    void calculateEdgesPath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges);
+
+    /// @brief calculate path for lanes
+    void calculateLanesPath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNELane*> lanes);
+
+    /// @brief remove path
+    void removePath(PathElement* pathElement);
+
+    /// @brief draw lane path elements
+    void drawLanePathElements(const GUIVisualizationSettings& s, const GNELane* lane);
+
+    /// @brief draw junction path elements
+    void drawJunctionPathElements(const GUIVisualizationSettings& s, const GNEJunction* junction);
+
+    /// @brief invalidate path
+    void invalidatePath(const GNELane* lane);
+
+    /// @brief clear demand paths
+    void clearDemandPaths();
+
+protected:
     /// @brief add segments int laneSegments (called by Segment constructor)
     void addSegmentInLaneSegments(Segment *segment, const GNELane *lane);
 

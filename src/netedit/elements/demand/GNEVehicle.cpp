@@ -725,15 +725,12 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront, const int options) const {
+GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     if (!s.drawForRectangleSelection && ((s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) || isAttributeCarrierSelected())) {
         // declare flag to draw spread vehicles
         const bool drawSpreadVehicles = (myNet->getViewNet()->getNetworkViewOptions().drawSpreadVehicles() || myNet->getViewNet()->getDemandViewOptions().drawSpreadVehicles());
         // calculate width
         const double width = s.vehicleSize.getExaggeration(s, lane) * s.widthSettings.trip;
-        // get segment flags
-        const bool firstSegment = (options & GNEPathManager::PathElement::Options::FIRST_SEGMENT) != 0;
-        const bool lastSegment = (options & GNEPathManager::PathElement::Options::LAST_SEGMENT) != 0;
         // calculate startPos
         const double geometryDepartPos = getAttributeDouble(SUMO_ATTR_DEPARTPOS) + getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
         // get endPos
@@ -741,15 +738,15 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         // declare path geometry
         GNEGeometry::Geometry vehicleGeometry;
         // update pathGeometry depending of first and last segment
-        if (firstSegment && lastSegment) {
+        if (segment->isFirstSegment() && segment->isLastSegment()) {
             vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
             geometryDepartPos, geometryEndPos,      // extrem positions
             Position::INVALID, Position::INVALID);  // extra positions
-        } else if (firstSegment) {
+        } else if (segment->isFirstSegment()) {
             vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
             geometryDepartPos, -1,                  // extrem positions
             Position::INVALID, Position::INVALID);  // extra positions
-        } else if (lastSegment) {
+        } else if (segment->isLastSegment()) {
             vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
             -1, geometryEndPos,                     // extrem positions
             Position::INVALID, Position::INVALID);  // extra positions
@@ -779,14 +776,14 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             myNet->getViewNet()->isAttributeCarrierInspected(this) ||
             (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             // declare trim geometry to draw
-            const GNEGeometry::DottedGeometry pathDottedGeometry((firstSegment || lastSegment)? GNEGeometry::DottedGeometry(s, vehicleGeometry.getShape(), false) : lane->getDottedLaneGeometry());
+            const GNEGeometry::DottedGeometry pathDottedGeometry((segment->isFirstSegment() || segment->isLastSegment())? GNEGeometry::DottedGeometry(s, vehicleGeometry.getShape(), false) : lane->getDottedLaneGeometry());
             // draw inspected dotted contour
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, pathDottedGeometry, width, firstSegment, lastSegment);
+                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, pathDottedGeometry, width, segment->isFirstSegment(), segment->isLastSegment());
             }
             // draw front dotted contour
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::FRONT, s, pathDottedGeometry, width, firstSegment, lastSegment);
+                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::FRONT, s, pathDottedGeometry, width, segment->isFirstSegment(), segment->isLastSegment());
             }
         }
         // Pop name
@@ -796,7 +793,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
 
 
 void
-GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront, const int /*options*/) const {
+GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
     if (!s.drawForRectangleSelection && fromLane->getLane2laneConnections().exist(toLane) &&
             ((s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) || isAttributeCarrierSelected())) {
         // Start drawing adding an gl identificator

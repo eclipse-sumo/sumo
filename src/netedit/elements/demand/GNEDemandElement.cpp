@@ -565,8 +565,8 @@ GNEDemandElement::getPersonPlanArrivalPos() const {
 
 
 void
-GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront, 
-    const int options, const double personPlanWidth, const RGBColor& personPlanColor) const {
+GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, 
+        const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const {
     /// get person parent
     const GNEDemandElement* personParent = getParentDemandElements().front();
     // check if draw person plan element can be drawn
@@ -579,21 +579,18 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
         const bool duplicateWidth = (personPlanInspected == this) || (personPlanInspected == personParent);
         // calculate path width
         const double pathWidth = s.addSize.getExaggeration(s, lane) * personPlanWidth * (duplicateWidth? 2 : 1);
-        // get segment flags
-        const bool firstSegment = (options & GNEPathManager::PathElement::Options::FIRST_SEGMENT) != 0;
-        const bool lastSegment = (options & GNEPathManager::PathElement::Options::LAST_SEGMENT) != 0;
         // declare path geometry
         GNEGeometry::Geometry personPlanGeometry;
         // update pathGeometry depending of first and last segment
-        if (firstSegment && lastSegment) {
+        if (segment->isFirstSegment() && segment->isLastSegment()) {
             personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
                 getPersonPlanDepartValue(), getPersonPlanArrivalValue(),    // extrem positions
                 getPersonPlanDepartPos(), getPersonPlanArrivalPos());       // extra positions
-        } else if (firstSegment) {
+        } else if (segment->isFirstSegment()) {
             personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
                 getPersonPlanDepartValue(), -1,                 // extrem positions
                 getPersonPlanDepartPos(), Position::INVALID);   // extra positions
-        } else if (lastSegment) {
+        } else if (segment->isLastSegment()) {
             personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
                 -1, getPersonPlanArrivalValue(),                // extrem positions
                 Position::INVALID, getPersonPlanArrivalPos());  // extra positions
@@ -621,7 +618,7 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
         // Pop name
         glPopName();
         // check if this is the last segment
-        if (lastSegment) {
+        if (segment->isLastSegment()) {
             // calculate circle width
             const double circleRadius = (duplicateWidth ? myPersonPlanArrivalPositionDiameter : (myPersonPlanArrivalPositionDiameter / 2.0));
             const double circleWidth = circleRadius * MIN2((double)0.5, s.laneWidthExaggeration);
@@ -649,14 +646,14 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
             myNet->getViewNet()->isAttributeCarrierInspected(this) ||
             (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             // declare trim geometry to draw
-            const GNEGeometry::DottedGeometry pathDottedGeometry((firstSegment || lastSegment) ? GNEGeometry::DottedGeometry(s, personPlanGeometry.getShape(), false) : lane->getDottedLaneGeometry());
+            const GNEGeometry::DottedGeometry pathDottedGeometry((segment->isFirstSegment() || segment->isLastSegment()) ? GNEGeometry::DottedGeometry(s, personPlanGeometry.getShape(), false) : lane->getDottedLaneGeometry());
             // draw inspected dotted contour
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, pathDottedGeometry, pathWidth, firstSegment, lastSegment);
+                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, pathDottedGeometry, pathWidth, segment->isFirstSegment(), segment->isLastSegment());
             }
             // draw front dotted contour
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::FRONT, s, pathDottedGeometry, pathWidth, firstSegment, lastSegment);
+                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::FRONT, s, pathDottedGeometry, pathWidth, segment->isFirstSegment(), segment->isLastSegment());
             }
         }
     }
@@ -669,8 +666,8 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
 
 
 void
-GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront,
-    const int options, const double personPlanWidth, const RGBColor& personPlanColor) const {
+GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings & s, const GNELane * fromLane, const GNELane * toLane, const GNEPathManager::Segment* /*segment*/,
+        const double offsetFront, const double personPlanWidth, const RGBColor & personPlanColor) const {
     // check if draw person plan elements can be drawn
     if (drawPersonPlan()) {
         // get inspected attribute carriers
