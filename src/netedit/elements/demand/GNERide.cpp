@@ -196,19 +196,19 @@ GNERide::computePath() {
     // calculate path
     myNet->getPathManager()->calculateLanesPath(this, SVC_PASSENGER, lanes);
     // check path (taxis)
-    if (myNet->getPathManager()->getPathSize(this) == 0) {
+    if (!myNet->getPathManager()->isPathValid(this)) {
         myNet->getPathManager()->calculateLanesPath(this, SVC_TAXI, lanes);
     }
     // check path (bus)
-    if (myNet->getPathManager()->getPathSize(this) == 0) {
+    if (!myNet->getPathManager()->isPathValid(this)) {
         myNet->getPathManager()->calculateLanesPath(this, SVC_BUS, lanes);
     }
     // check path (bicycle)
-    if (myNet->getPathManager()->getPathSize(this) == 0) {
+    if (!myNet->getPathManager()->isPathValid(this)) {
         myNet->getPathManager()->calculateLanesPath(this, SVC_BICYCLE, lanes);
     }
     // check path (pedestrian)
-    if (myNet->getPathManager()->getPathSize(this) == 0) {
+    if (!myNet->getPathManager()->isPathValid(this)) {
         myNet->getPathManager()->calculateLanesPath(this, SVC_PEDESTRIAN, lanes);
     }
     // update geometry

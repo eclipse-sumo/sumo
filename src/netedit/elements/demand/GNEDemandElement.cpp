@@ -641,6 +641,25 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
                 glPopMatrix();
             }
         }
+        // check if we have to draw a red line to the next segment
+        if (segment->getNextRedSegment()) {
+            // push draw matrix
+            glPushMatrix();
+            // Start with the drawing of the area traslating matrix to origin
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
+            // Set red color
+            GLHelper::setColor(RGBColor::RED);
+            // get firstPosition (last position of current lane shape)
+            const Position firstPosition = lane->getLaneShape().back();
+            // get lastPosition (first position of next lane shape)
+            const Position lastPosition = segment->getNextRedSegment()->getLane()->getLaneShape().front();
+            // draw box line
+            GLHelper::drawBoxLine(lastPosition,
+                                  RAD2DEG(firstPosition.angleTo2D(lastPosition)) - 90,
+                                  firstPosition.distanceTo2D(lastPosition), .05);
+            // pop draw matrix
+            glPopMatrix();
+        }
         // check if shape dotted contour has to be drawn
         if (s.drawDottedContour() ||
             myNet->getViewNet()->isAttributeCarrierInspected(this) ||
