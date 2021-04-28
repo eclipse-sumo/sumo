@@ -9,7 +9,7 @@ For a given set of vehicles with of origin-destination relations
 of edges) that are used to reach the destination from the origin edge.
 The simplest method to find these routes is by computing shortest or
 fastest routes through the network using a routing algorithm such as
-Djikstra or A\*. These algorithms require assumptions regarding the
+Dijkstra or A\*. These algorithms require assumptions regarding the
 travel time for each network edge which is commonly not known before
 running the simulation due to the fact that travel times depend on the
 number of vehicles in the network.

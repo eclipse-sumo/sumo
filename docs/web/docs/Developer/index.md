@@ -42,7 +42,7 @@ title: Developer
 
 ## Methods, Algorithms, and Subsystems
 
-- [Developer/Implementation Notes](Implementation_Notes.md) - more information about several subtopics (error handling, options sub system)
+- [Developer/Implementation Notes](Implementation_Notes/index.md) - more information about several subtopics (error handling, options sub system)
 - [Developer/Network Building Process](Network_Building_Process.md)
 
 ## Current Development

@@ -36,10 +36,12 @@ XML-elements and attributes are shown `like this`. Their values, if variable,
 
 Complete examples of XML-Files are shown like the following:
 
-    <myType>
-       <myElem myAttr1="0" myAttr2="0.0"/>
-       <myElem myAttr1="1" myAttr2="-500.0"/>
-    </myType>
+```xml
+<myType>
+  <myElem myAttr1="0" myAttr2="0.0"/>
+  <myElem myAttr1="1" myAttr2="-500.0"/>
+</myType>
+```
 
 ## Referenced Data Types
 

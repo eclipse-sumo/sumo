@@ -92,5 +92,3 @@ if (attrs.hasAttribute(SUMO_ATTR_PERSON_CAPACITY)) {
  ret->personCapacity = attrs.getIntReporting(SUMO_ATTR_PERSON_CAPACITY, 0, ok);
 }
 ```
-
-# Usage

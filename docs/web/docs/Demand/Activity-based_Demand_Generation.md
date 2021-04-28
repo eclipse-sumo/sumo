@@ -114,7 +114,7 @@ table:
 
 These entries are different from the general information element in what
 they describe. They depend much more of the special context or state of
-the city (events, behaviour of the population...). They can also be
+the city (events, behavior of the population...). They can also be
 useful for optimization: the mean speed can be observed afterwards; all
 values can be changed in order to meet validation criteria on the
 traffic.

@@ -7,7 +7,7 @@ title: Sumo Modules
 | **module**     | **submodule**     | **submodule** | **purpose**                                                                          |
 | -------------- | ----------------- | ------------- | ------------------------------------------------------------------------------------ |
 | *foreign*      |                   |               | *some imported modules (see [Libraries Licenses](../../Libraries_Licenses.md))*    |
-|                | *mersenne*        |               | system-independant random number generator                                           |
+|                | *mersenne*        |               | system-independent random number generator                                           |
 |                | *fontstash*       |               | draws text in openGL                                                                 |
 |                | *rtree*           |               | rtree implementation                                                                 |
 |                | *tcpip*           |               | portable socket implementation                                                       |

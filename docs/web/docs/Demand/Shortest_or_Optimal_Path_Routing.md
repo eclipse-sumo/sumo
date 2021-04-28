@@ -83,7 +83,7 @@ interval described by <INTERVAL_BEGIN\> and <INTERVAL_END\>. All these
 three attributes must be integer values. Flow definitions can also be
 embedded into an interval tag. In this case one can (but does not have
 to) leave the tags `begin` and
-`end` out. So the following two snipples mean
+`end` out. So the following two snippets mean
 the same:
 
 ```
@@ -240,5 +240,5 @@ particular vehicle classes which is less obvious from the GUI. You can
 ignore these routes using the option **--ignore-errors**. However, if a large proportion of
 your routes cause this error you should definitely investigate your
 network file for problems. The tool
-[Tools/Net\#netcheck.py](../Tools/Net.md#netcheckpy) can be used
+[Tools/Net#netcheckpy](../Tools/Net.md#netcheckpy) can be used
 to pin down the connectivity gaps in your network.

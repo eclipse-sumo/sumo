@@ -55,7 +55,7 @@ topics, in German](DiplomStudArb.md).
 
 ### Traffic Simulation Models
 
-- Simulation Validation (should be concretised)
+- Simulation Validation (should be concretized)
 - Emergency Vehicle Simulation
 - Using the opposite Lane for Overtaking - a Microsim Approach
 - Left-Hand Traffic (includes both, work on the simulation and network

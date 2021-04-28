@@ -57,7 +57,7 @@ Please add the bin or tools dir to your relevant search paths.
     There is no advantage in using libtraci instead of the standard python traci
     library. The method below is mostly used for testing libtraci.
 
-```
+```py
 import libtraci
 libtraci.start(["sumo", "-c", "test.sumocfg"])
 libtraci.simulationStep()
@@ -66,7 +66,7 @@ libtraci.close()
 
 Existing traci scripts can mostly be reused by calling
 
-```
+```py
 import libtraci as traci
 ```
 
@@ -78,7 +78,7 @@ import as above.
 
 ### Example Code (test.cpp)
 
-```
+```cpp
 #include <iostream>
 #include <libsumo/libtraci.h>
 
@@ -100,6 +100,7 @@ g++ -o test -std=c++11 -I$SUMO_HOME/src test.cpp -L$SUMO_HOME/bin -ltracicpp
 ```
 
 ### running on Linux
+
 ```
 LD_LIBRARY_PATH=$SUMO_HOME/bin ./test
 ```
@@ -108,7 +109,7 @@ LD_LIBRARY_PATH=$SUMO_HOME/bin ./test
 
 ### Example Code (APITest.java)
 
-```
+```java
 import org.eclipse.sumo.libtraci.*;
 
 public class APITest {
@@ -132,6 +133,7 @@ javac -cp $SUMO_HOME/bin/libtraci-1.8.0-SNAPSHOT.jar APITest.java
 ```
 
 ### running on Linux
+
 ```
 java -Djava.library.path=$SUMO_HOME/bin -cp $SUMO_HOME/bin/libtraci-1.8.0-SNAPSHOT.jar:. APITest
 ```

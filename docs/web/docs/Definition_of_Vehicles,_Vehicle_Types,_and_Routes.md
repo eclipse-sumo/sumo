@@ -479,7 +479,7 @@ When defining a vehicle type with a *vClass*, the following default speed-deviat
 
 Instead of configuring speed distributions in a `<vType>` definition (as
 explained below), the [sumo](sumo.md)-option **--default.speeddev** {{DT_FLOAT}} can be used to set
-a global default. Seeting this value to 0 restores pre-1.0.0 behavior.
+a global default. Setting this value to 0 restores pre-1.0.0 behavior.
 
 ### Defining speed limit violations explicitly
 
@@ -895,7 +895,7 @@ values interpolate smoothly between these extremes.
 
 ### Transient Parameters
 
-Junction model parameters that are expected to change during the simulation are modelled via [generic parameters](https://sumo.dlr.de/docs/Simulation/GenericParameters.md). The following parametes are supported (via xml input and `traci.vehicle.setParameter`):
+Junction model parameters that are expected to change during the simulation are modelled via [generic parameters](https://sumo.dlr.de/docs/Simulation/GenericParameters.md). The following parameters are supported (via xml input and `traci.vehicle.setParameter`):
 
 - junctionModel.ignoreIDs : ignore foe vehicles with the given ids
 - junctionModel.ignoreTypes : ignore foe vehicles that have any of the given types
@@ -903,8 +903,9 @@ Junction model parameters that are expected to change during the simulation are 
 If multiple ignore parameters are set, they are combined with "or".
 Foes are ignored while they are approaching a junction and also while they are on the junction.
 
-Example
-```
+Example:
+
+```xml
 <vehicle id="ego" depart="0" route="r0">
    <param key="junctionModel.ignoreIDs" value="foe1 foe2"/>
    <param key="junctionModel.ignoreTypes" value="bikeType"/>
