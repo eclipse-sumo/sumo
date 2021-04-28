@@ -54,6 +54,8 @@ def get_options():
                          default=None, help="output file for histogram (gnuplot compatible)")
     optParser.add_option("-o", "--full-output", type="string",
                          default=None, help="output file for full data dump")
+    optParser.add_option("-x", "--xml-output", type="string",
+                         default=None, help="output statistic to xml file")
     optParser.add_option("-q", "--fast", action="store_true",
                          default=False, help="use fast parser (does not track missing data)")
     optParser.add_option("-p", "--precision", type="int",
@@ -121,6 +123,12 @@ def main():
             for id, data in sorted(vals.items()):
                 for x in data:
                     f.write(setPrecision("%.2f %s\n", options.precision) % (x, id))
+
+    if options.xml_output is not None:
+        with open(options.xml_output, 'w') as f:
+            sumolib.writeXMLHeader(f, "$Id$", "attributeStats")  # noqa
+            f.write(stats.toXML(options.precision))
+            f.write('</attributeStats>\n')
 
 
 if __name__ == "__main__":

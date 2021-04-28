@@ -147,6 +147,7 @@ selection1:selection.comp1.txt
 selection2:selection.comp2.txt
 histogram:histogram.dat
 fullstats:fullstats.dat
+xmlstats:stats.xml
 osmimport:*/osm.net.xml
 osmstops:*/osm_stops.add.xml
 osmlines:*/osm_ptlines.xml
@@ -241,6 +242,7 @@ shawn:<!-- generated on
 gpsdat:r[0-9]
 flows:<!-- generated on{[->]}-->
 turns:<!-- generated on{[->]}-->
+xmlstats:<!-- generated on{[->]}-->
 edgedata:<!-- generated on{[->]}-->
 net:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
