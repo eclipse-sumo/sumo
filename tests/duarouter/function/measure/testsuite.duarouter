@@ -12,6 +12,9 @@ dijkstra_custom
 dijkstra_TT
 dijkstra_edge_priority_inactive
 dijkstra_edge_priority
+
+# ensure that priority is also used with the RailwayRouter
+dijkstra_edge_priority_rail
 dijkstra_plain
 
 # Further tests for time line processing
