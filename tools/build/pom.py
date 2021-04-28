@@ -88,6 +88,13 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
             <url>https://repo.eclipse.org/content/repositories/sumo-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
+    
+    <licenses>
+        <license>
+            <name>Eclipse Public License - v 2.0</name>
+            <url>https://www.eclipse.org/legal/epl-2.0</url>
+        </license>
+    </licenses>
 
     <build>
         <plugins>
