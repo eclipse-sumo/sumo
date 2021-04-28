@@ -677,6 +677,8 @@ GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
     if (additional->getTagProperty().isPlacedInRTree()) {
         myNet->removeGLObjectFromGrid(additional);
     }
+    // delete path element
+    myNet->getPathManager()->removePath(additional);
     // additionals has to be saved
     myNet->requireSaveAdditionals(true);
 }
