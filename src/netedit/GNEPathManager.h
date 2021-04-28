@@ -215,8 +215,8 @@ public:
     /// @brief obtain instance of PathCalculator
     PathCalculator* getPathCalculator();
 
-    /// @brief get path element size with the given PathElement
-    int getPathSize(PathElement * pathElement) const;
+    /// @brief check if path element is valid
+    bool isPathValid(PathElement* pathElement) const;
 
     /// @brief get first lane associated with path element
     const GNELane* getFirstLane(const PathElement* pathElement) const;

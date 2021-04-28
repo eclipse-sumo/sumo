@@ -419,12 +419,19 @@ GNEPathManager::getPathCalculator() {
 }
 
 
-int 
-GNEPathManager::getPathSize(PathElement* pathElement) const {
+bool 
+GNEPathManager::isPathValid(PathElement* pathElement) const {
+    // first check if path element exist
     if (myPaths.count(pathElement) > 0) {
-        return (int)myPaths.at(pathElement).size();
+        // check if path hat more than one element
+        if (myPaths.at(pathElement).size() > 0) {
+            // check next red segment
+            return (myPaths.at(pathElement).front()->getNextRedSegment() == nullptr);
+        } else {
+            return false;
+        }
     } else {
-        return 0;
+        return false;
     }
 }
 
