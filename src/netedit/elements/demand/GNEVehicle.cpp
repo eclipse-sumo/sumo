@@ -737,21 +737,24 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         const double geometryEndPos = getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
         // declare path geometry
         GNEGeometry::Geometry vehicleGeometry;
-        // update pathGeometry depending of first and last segment
-        if (segment->isFirstSegment() && segment->isLastSegment()) {
-            vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
-            geometryDepartPos, geometryEndPos,      // extrem positions
-            Position::INVALID, Position::INVALID);  // extra positions
-        } else if (segment->isFirstSegment()) {
-            vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
-            geometryDepartPos, -1,                  // extrem positions
-            Position::INVALID, Position::INVALID);  // extra positions
-        } else if (segment->isLastSegment()) {
-            vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
-            -1, geometryEndPos,                     // extrem positions
-            Position::INVALID, Position::INVALID);  // extra positions
-        } else {
-            vehicleGeometry = lane->getLaneGeometry();
+        // check if segment is valid
+        if (segment->isValid()) {
+            // update pathGeometry depending of first and last segment
+            if (segment->isFirstSegment() && segment->isLastSegment()) {
+                vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
+                geometryDepartPos, geometryEndPos,      // extrem positions
+                Position::INVALID, Position::INVALID);  // extra positions
+            } else if (segment->isFirstSegment()) {
+                vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
+                geometryDepartPos, -1,                  // extrem positions
+                Position::INVALID, Position::INVALID);  // extra positions
+            } else if (segment->isLastSegment()) {
+                vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
+                -1, geometryEndPos,                     // extrem positions
+                Position::INVALID, Position::INVALID);  // extra positions
+            } else {
+                vehicleGeometry = lane->getLaneGeometry();
+            }
         }
         // obtain color
         const RGBColor pathColor = drawUsingSelectColor() ? s.colorSettings.selectedVehicleColor : s.colorSettings.vehicleTrips;
@@ -772,7 +775,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
         }
         // check if we have to draw a red line to the next segment
-        if (segment->getNextRedSegment()) {
+        if (segment->getNextSegment()) {
             // push draw matrix
             glPushMatrix();
             // Start with the drawing of the area traslating matrix to origin
@@ -782,11 +785,11 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             // get firstPosition (last position of current lane shape)
             const Position firstPosition = lane->getLaneShape().back();
             // get lastPosition (first position of next lane shape)
-            const Position lastPosition = segment->getNextRedSegment()->getLane()->getLaneShape().front();
+            const Position arrivalPos = segment->getNextSegment()->getPathElement()->getPathElementArrivalPos();
             // draw box line
-            GLHelper::drawBoxLine(lastPosition,
-                                  RAD2DEG(firstPosition.angleTo2D(lastPosition)) - 90,
-                                  firstPosition.distanceTo2D(lastPosition), .05);
+            GLHelper::drawBoxLine(arrivalPos,
+                                  RAD2DEG(firstPosition.angleTo2D(arrivalPos)) - 90,
+                                  firstPosition.distanceTo2D(arrivalPos), .05);
             // pop draw matrix
             glPopMatrix();
         }

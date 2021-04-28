@@ -45,10 +45,12 @@ public:
 
     public:
         /// @brief constructor for lanes
-        Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane, const bool firstSegment, const bool lastSegment);
+        Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane, 
+                const bool firstSegment, const bool lastSegment, const bool valid);
 
         /// @brief constructor for junctions
-        Segment(GNEPathManager* pathManager, PathElement* element, const GNEJunction* junction, const GNELane* previousLane, const GNELane* nextLane);
+        Segment(GNEPathManager* pathManager, PathElement* element, const GNEJunction* junction, 
+                const GNELane* previousLane, const GNELane* nextLane, const bool valid);
 
         /// @brief destructor
         ~Segment();
@@ -74,11 +76,14 @@ public:
         /// @brief get junction associated with this segment
         const GNEJunction* getJunction() const;
 
-        /// @brief get next red segment
-        Segment *getNextRedSegment() const;
+        /// @brief check if segment is valid
+        bool isValid() const;
 
-        /// @brief set next red segment
-        void setNextRedSegment(Segment *nextRedSegment);
+        /// @brief get next segment
+        Segment *getNextSegment() const;
+
+        /// @brief set next segment
+        void setNextSegment(Segment *nexSegment);
 
     protected:
         /// @brief path manager
@@ -105,8 +110,11 @@ public:
         /// @brief junction associated with this segment
         const GNEJunction* myJunction;
 
+        /// @brief flag for check if segment is valid
+        const bool myValid;
+
         /// @brief pointer to next segment (use for draw a red line)
-        Segment* myNextRedSegment;
+        Segment* myNextSegment;
 
     private:
         /// @brief default constructor
@@ -123,11 +131,11 @@ public:
     class PathElement {
 
     public:
-        enum Options {
-            NETWORK_ELEMENT =    1 << 0,  // Network element
-            ADDITIONAL_ELEMENT = 1 << 1,  // Additional element
-            DEMAND_ELEMENT =     1 << 2,  // Demand element
-            DATA_ELEMENT =       1 << 3,  // Data element
+        enum class Options {
+            NETWORK_ELEMENT,    // Network element
+            ADDITIONAL_ELEMENT, // Additional element
+            DEMAND_ELEMENT,     // Demand element
+            DATA_ELEMENT        //Data element
         };
 
         /// @brief constructor
@@ -164,6 +172,18 @@ public:
          * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
          */
         virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
+
+        /// @brief get path element depart lane pos
+        virtual double getPathElementDepartValue() const = 0;
+
+        /// @brief get path element depart position
+        virtual Position getPathElementDepartPos() const = 0;
+
+        /// @brief get path element arrival lane pos
+        virtual double getPathElementArrivalValue() const = 0;
+
+        /// @brief get path element arrival position
+        virtual Position getPathElementArrivalPos() const = 0;
 
     private:
         /// @brief default constructor

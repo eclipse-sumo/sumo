@@ -149,6 +149,14 @@ public:
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
 
+    //// @brief Returns the boundary to which the view shall be centered in order to show the object
+    virtual Boundary getCenteringBoundary() const = 0;
+
+    /// @}
+
+    /// @name inherited from GNEPathManager::PathElement
+    /// @{
+
     /**@brief Draws partial object (lane)
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] lane GNELane in which draw partial
@@ -166,8 +174,18 @@ public:
      */
     virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
 
-    //// @brief Returns the boundary to which the view shall be centered in order to show the object
-    virtual Boundary getCenteringBoundary() const = 0;
+    /// @brief get path element depart lane pos
+    double getPathElementDepartValue() const;
+
+    /// @brief get path element depart position
+    Position getPathElementDepartPos() const;
+
+    /// @brief get path element arrival lane pos
+    double getPathElementArrivalValue() const;
+
+    /// @brief get path element arrival position
+    Position getPathElementArrivalPos() const;
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier

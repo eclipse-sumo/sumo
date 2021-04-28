@@ -223,6 +223,11 @@ public:
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
 
+    /// @}
+
+    /// @name inherited from GNEPathManager::PathElement
+    /// @{
+
     /**@brief Draws partial object (lane)
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] lane GNELane in which draw partial
@@ -239,6 +244,19 @@ public:
      * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
      */
     virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
+    
+    /// @brief get path element depart lane pos
+    double getPathElementDepartValue() const;
+
+    /// @brief get path element depart position
+    Position getPathElementDepartPos() const;
+
+    /// @brief get path element arrival lane pos
+    double getPathElementArrivalValue() const;
+
+    /// @brief get path element arrival position
+    Position getPathElementArrivalPos() const;
+    
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -336,18 +354,6 @@ protected:
 
     /// @brief get last person plan  lane (used in Computing path)
     GNELane* getLastPersonPlanLane() const;
-
-    /// @brief get person plan depart value
-    double getPersonPlanDepartValue() const;
-
-    /// @brief get person plan depart position
-    Position getPersonPlanDepartPos() const;
-
-    /// @brief get person plan arrival value
-    double getPersonPlanArrivalValue() const;
-
-    /// @brief get person plan arrival position
-    Position getPersonPlanArrivalPos() const;
 
     /// @brief draw person plan partial lane
     void drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront,

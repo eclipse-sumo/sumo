@@ -45,7 +45,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType
                              const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, id),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
-    GNEPathManager::PathElement(GNEPathManager::PathElement::ADDITIONAL_ELEMENT),
+    GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
     mySpecialColor(nullptr) {
@@ -63,7 +63,7 @@ GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, 
                              const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, additionalParents.front()->getID()),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
-    GNEPathManager::PathElement(GNEPathManager::PathElement::ADDITIONAL_ELEMENT),
+    GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
     mySpecialColor(nullptr) {
@@ -576,6 +576,30 @@ GNEAdditional::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 void
 GNEAdditional::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     //
+}
+
+
+double
+GNEAdditional::getPathElementDepartValue() const {
+    return 0;
+}
+
+
+Position
+GNEAdditional::getPathElementDepartPos() const {
+    return Position();
+}
+
+
+double 
+GNEAdditional::getPathElementArrivalValue() const {
+    return 0;
+}
+
+
+Position 
+GNEAdditional::getPathElementArrivalPos() const {
+    return Position();
 }
 
 

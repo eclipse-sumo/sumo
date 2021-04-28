@@ -344,7 +344,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         // Pop name
         glPopName();
         // check if we have to draw a red line to the next segment
-        if (segment->getNextRedSegment()) {
+        if (segment->getNextSegment()) {
             // push draw matrix
             glPushMatrix();
             // Start with the drawing of the area traslating matrix to origin
@@ -354,11 +354,11 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
             // get firstPosition (last position of current lane shape)
             const Position firstPosition = lane->getLaneShape().back();
             // get lastPosition (first position of next lane shape)
-            const Position lastPosition = segment->getNextRedSegment()->getLane()->getLaneShape().front();
+            const Position arrivalPos = segment->getNextSegment()->getPathElement()->getPathElementArrivalPos();
             // draw box line
-            GLHelper::drawBoxLine(lastPosition,
-                                  RAD2DEG(firstPosition.angleTo2D(lastPosition)) - 90,
-                                  firstPosition.distanceTo2D(lastPosition), .05);
+            GLHelper::drawBoxLine(arrivalPos,
+                                  RAD2DEG(firstPosition.angleTo2D(arrivalPos)) - 90,
+                                  firstPosition.distanceTo2D(arrivalPos), .05);
             // pop draw matrix
             glPopMatrix();
         }

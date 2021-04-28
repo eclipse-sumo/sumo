@@ -54,7 +54,7 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObje
                                    const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, id),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
-    GNEPathManager::PathElement(GNEPathManager::PathElement::DEMAND_ELEMENT),
+    GNEPathManager::PathElement(GNEPathManager::PathElement::Options::DEMAND_ELEMENT),
     myStackedLabelNumber(0) {
 }
 
@@ -70,7 +70,7 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet
                                    const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, demandElementParent->getID()),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
-    GNEPathManager::PathElement(GNEPathManager::PathElement::DEMAND_ELEMENT),
+    GNEPathManager::PathElement(GNEPathManager::PathElement::Options::DEMAND_ELEMENT),
     myStackedLabelNumber(0) {
 }
 
@@ -245,6 +245,127 @@ GNEDemandElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     return ret;
 }
 
+
+
+
+double
+GNEDemandElement::getPathElementDepartValue() const {
+    // get previous person Plan
+    const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
+    // check if this is the first person plan
+    if (previousPersonPlan) {
+        if (previousPersonPlan->getParentAdditionals().size() > 0) {
+            if (previousPersonPlan->getTagProperty().isPersonStop()) {
+                // calculate busStop end
+                const double endPos = previousPersonPlan->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
+                // check endPos
+                if (endPos < 0.3) {
+                    return endPos;
+                } else {
+                    return (endPos - 0.3);
+                }
+            } else {
+                // use busStop center
+                return previousPersonPlan->getParentAdditionals().front()->getAttributeDouble(GNE_ATTR_CENTER);
+            }
+        } else {
+            // use arrival pos
+            return previousPersonPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+        }
+    } else {
+        // use pedestrian departPos
+        return getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
+    }
+}
+
+
+Position
+GNEDemandElement::getPathElementDepartPos() const {
+    // get previous person Plan
+    const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
+    // check if this is the first person plan
+    if (previousPersonPlan) {
+        if (previousPersonPlan->getParentAdditionals().size() > 0) {
+            if (previousPersonPlan->getTagProperty().isPersonStop()) {
+                // get busStop
+                const GNEAdditional *busStop = previousPersonPlan->getParentAdditionals().front();
+                // get length
+                const double length = busStop->getAdditionalGeometry().getShape().length2D();
+                // check length
+                if (length < 0.3) {
+                    return busStop->getAdditionalGeometry().getShape().back();
+                } else {
+                    return busStop->getAdditionalGeometry().getShape().positionAtOffset2D(length - 0.3);
+                }
+            } else {
+                // use busStop center
+                return previousPersonPlan->getParentAdditionals().front()->getAdditionalGeometry().getShape().getLineCenter();
+            }
+        } else {
+            // use arrival pos
+            return previousPersonPlan->getAttributePosition(SUMO_ATTR_ARRIVALPOS);
+        }
+    } else {
+        // use pedestrian departPos
+        return getParentDemandElements().at(0)->getAttributePosition(SUMO_ATTR_DEPARTPOS);
+    }
+}
+
+
+double
+GNEDemandElement::getPathElementArrivalValue() const {
+    // check if this person plan ends in a busStop
+    if (getParentAdditionals().size() > 0) {
+        // get next person Plan
+        const GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+        // continue depending if is an stop or a person plan
+        if (nextPersonPlan && (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_BUSSTOP)) {
+            // calculate busStop end
+            const double endPos = getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
+            // check endPos
+            if (endPos < 0.3) {
+                return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
+            } else {
+                return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS) - 0.3;
+            }
+        } else {
+            return getParentAdditionals().front()->getAttributeDouble(GNE_ATTR_CENTER);
+        }
+    } else {
+        return getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+    }
+}
+
+
+Position 
+GNEDemandElement::getPathElementArrivalPos() const {
+    // check if this person plan ends in a busStop
+    if (getParentAdditionals().size() > 0) {
+        // get next person Plan
+        const GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+        // continue depending if is an stop or a person plan
+        if (nextPersonPlan && (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_BUSSTOP)) {
+            // get busStop
+            const GNEAdditional *busStop = nextPersonPlan->getParentAdditionals().front();
+            // get length
+            const double length = busStop->getAdditionalGeometry().getShape().length2D();
+            // check length
+            if (length < 0.3) {
+                return busStop->getAdditionalGeometry().getShape().back();
+            } else {
+                return busStop->getAdditionalGeometry().getShape().positionAtOffset2D(length - 0.3);
+            }
+        } else {
+            return getParentAdditionals().front()->getAdditionalGeometry().getShape().getLineCenter();
+        }
+    } else {
+        return getAttributePosition(SUMO_ATTR_ARRIVALPOS);
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNEDemandElement - protected methods
+// ---------------------------------------------------------------------------
 
 bool
 GNEDemandElement::isValidDemandElementID(const std::string& newID) const {
@@ -448,122 +569,6 @@ GNEDemandElement::getLastPersonPlanLane() const {
 }
 
 
-double
-GNEDemandElement::getPersonPlanDepartValue() const {
-    // get previous person Plan
-    const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
-    // check if this is the first person plan
-    if (previousPersonPlan) {
-        if (previousPersonPlan->getParentAdditionals().size() > 0) {
-            if (previousPersonPlan->getTagProperty().isPersonStop()) {
-                // calculate busStop end
-                const double endPos = previousPersonPlan->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
-                // check endPos
-                if (endPos < 0.3) {
-                    return endPos;
-                } else {
-                    return (endPos - 0.3);
-                }
-            } else {
-                // use busStop center
-                return previousPersonPlan->getParentAdditionals().front()->getAttributeDouble(GNE_ATTR_CENTER);
-            }
-        } else {
-            // use arrival pos
-            return previousPersonPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
-        }
-    } else {
-        // use pedestrian departPos
-        return getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
-    }
-}
-
-
-Position
-GNEDemandElement::getPersonPlanDepartPos() const {
-    // get previous person Plan
-    const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
-    // check if this is the first person plan
-    if (previousPersonPlan) {
-        if (previousPersonPlan->getParentAdditionals().size() > 0) {
-            if (previousPersonPlan->getTagProperty().isPersonStop()) {
-                // get busStop
-                const GNEAdditional *busStop = previousPersonPlan->getParentAdditionals().front();
-                // get length
-                const double length = busStop->getAdditionalGeometry().getShape().length2D();
-                // check length
-                if (length < 0.3) {
-                    return busStop->getAdditionalGeometry().getShape().back();
-                } else {
-                    return busStop->getAdditionalGeometry().getShape().positionAtOffset2D(length - 0.3);
-                }
-            } else {
-                // use busStop center
-                return previousPersonPlan->getParentAdditionals().front()->getAdditionalGeometry().getShape().getLineCenter();
-            }
-        } else {
-            // use arrival pos
-            return previousPersonPlan->getAttributePosition(SUMO_ATTR_ARRIVALPOS);
-        }
-    } else {
-        // use pedestrian departPos
-        return getParentDemandElements().at(0)->getAttributePosition(SUMO_ATTR_DEPARTPOS);
-    }
-}
-
-
-double
-GNEDemandElement::getPersonPlanArrivalValue() const {
-    // check if this person plan ends in a busStop
-    if (getParentAdditionals().size() > 0) {
-        // get next person Plan
-        const GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
-        // continue depending if is an stop or a person plan
-        if (nextPersonPlan && (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_BUSSTOP)) {
-            // calculate busStop end
-            const double endPos = getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
-            // check endPos
-            if (endPos < 0.3) {
-                return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
-            } else {
-                return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS) - 0.3;
-            }
-        } else {
-            return getParentAdditionals().front()->getAttributeDouble(GNE_ATTR_CENTER);
-        }
-    } else {
-        return getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
-    }
-}
-
-
-Position 
-GNEDemandElement::getPersonPlanArrivalPos() const {
-    // check if this person plan ends in a busStop
-    if (getParentAdditionals().size() > 0) {
-        // get next person Plan
-        const GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
-        // continue depending if is an stop or a person plan
-        if (nextPersonPlan && (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_BUSSTOP)) {
-            // get busStop
-            const GNEAdditional *busStop = nextPersonPlan->getParentAdditionals().front();
-            // get length
-            const double length = busStop->getAdditionalGeometry().getShape().length2D();
-            // check length
-            if (length < 0.3) {
-                return busStop->getAdditionalGeometry().getShape().back();
-            } else {
-                return busStop->getAdditionalGeometry().getShape().positionAtOffset2D(length - 0.3);
-            }
-        } else {
-            return getParentAdditionals().front()->getAdditionalGeometry().getShape().getLineCenter();
-        }
-    } else {
-        return getAttributePosition(SUMO_ATTR_ARRIVALPOS);
-    }
-}
-
-
 void
 GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, 
         const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const {
@@ -581,21 +586,24 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
         const double pathWidth = s.addSize.getExaggeration(s, lane) * personPlanWidth * (duplicateWidth? 2 : 1);
         // declare path geometry
         GNEGeometry::Geometry personPlanGeometry;
-        // update pathGeometry depending of first and last segment
-        if (segment->isFirstSegment() && segment->isLastSegment()) {
-            personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
-                getPersonPlanDepartValue(), getPersonPlanArrivalValue(),    // extrem positions
-                getPersonPlanDepartPos(), getPersonPlanArrivalPos());       // extra positions
-        } else if (segment->isFirstSegment()) {
-            personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
-                getPersonPlanDepartValue(), -1,                 // extrem positions
-                getPersonPlanDepartPos(), Position::INVALID);   // extra positions
-        } else if (segment->isLastSegment()) {
-            personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
-                -1, getPersonPlanArrivalValue(),                // extrem positions
-                Position::INVALID, getPersonPlanArrivalPos());  // extra positions
-        } else {
-            personPlanGeometry = lane->getLaneGeometry();
+        // only calculate geometry if segment is valid
+        if (segment->isValid()) {
+            // update pathGeometry depending of first and last segment
+            if (segment->isFirstSegment() && segment->isLastSegment()) {
+                personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
+                    getPathElementDepartValue(), getPathElementArrivalValue(),    // extrem positions
+                    getPathElementDepartPos(), getPathElementArrivalPos());       // extra positions
+            } else if (segment->isFirstSegment()) {
+                personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
+                    getPathElementDepartValue(), -1,                 // extrem positions
+                    getPathElementDepartPos(), Position::INVALID);   // extra positions
+            } else if (segment->isLastSegment()) {
+                personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
+                    -1, getPathElementArrivalValue(),                // extrem positions
+                    Position::INVALID, getPathElementArrivalPos());  // extra positions
+            } else {
+                personPlanGeometry = lane->getLaneGeometry();
+            }
         }
         // get color
         const RGBColor& pathColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : personPlanColor;
@@ -624,7 +632,7 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
             const double circleWidth = circleRadius * MIN2((double)0.5, s.laneWidthExaggeration);
             const double circleWidthSquared = circleWidth * circleWidth;
             // get geometryEndPos
-            const Position geometryEndPos = getPersonPlanArrivalPos();
+            const Position geometryEndPos = getPathElementArrivalPos();
             // check if endPos can be drawn
             if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= (circleWidthSquared + 2))) {
                 // push draw matrix
@@ -642,7 +650,7 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
             }
         }
         // check if we have to draw a red line to the next segment
-        if (segment->getNextRedSegment()) {
+        if (segment->getNextSegment()) {
             // push draw matrix
             glPushMatrix();
             // Start with the drawing of the area traslating matrix to origin
@@ -652,11 +660,11 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
             // get firstPosition (last position of current lane shape)
             const Position firstPosition = lane->getLaneShape().back();
             // get lastPosition (first position of next lane shape)
-            const Position lastPosition = segment->getNextRedSegment()->getLane()->getLaneShape().front();
+            const Position arrivalPos = segment->getNextSegment()->getPathElement()->getPathElementArrivalPos();
             // draw box line
-            GLHelper::drawBoxLine(lastPosition,
-                                  RAD2DEG(firstPosition.angleTo2D(lastPosition)) - 90,
-                                  firstPosition.distanceTo2D(lastPosition), .05);
+            GLHelper::drawBoxLine(arrivalPos,
+                                  RAD2DEG(firstPosition.angleTo2D(arrivalPos)) - 90,
+                                  firstPosition.distanceTo2D(arrivalPos), .05);
             // pop draw matrix
             glPopMatrix();
         }
