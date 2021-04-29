@@ -94,6 +94,10 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
             <name>Eclipse Public License - v 2.0</name>
             <url>https://www.eclipse.org/legal/epl-2.0</url>
         </license>
+        <license>
+            <name>GNU General Public License, version 2 or later</name>
+            <url>https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html</url>
+        </license>
     </licenses>
 
     <build>
