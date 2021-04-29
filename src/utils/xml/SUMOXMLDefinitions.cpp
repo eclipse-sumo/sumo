@@ -674,7 +674,7 @@ StringBijection<LaneSpreadFunction>::Entry SUMOXMLDefinitions::laneSpreadFunctio
 };
 
 StringBijection<RightOfWay>::Entry SUMOXMLDefinitions::rightOfWayValuesInitializer[] = {
-    {"edgePriority", RIGHT_OF_WAY_EDGEPRIORITY }, 
+    {"edgePriority", RIGHT_OF_WAY_EDGEPRIORITY },
     {"default",      RIGHT_OF_WAY_DEFAULT } // default (must be the last one)
 };
 
@@ -937,4 +937,3 @@ SUMOXMLDefinitions::isValidGenericParameterValue(const std::string& /*value*/) {
 }
 
 /****************************************************************************/
-
