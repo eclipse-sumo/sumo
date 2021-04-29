@@ -1488,6 +1488,8 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
     if (updateTemplate) {
         templateEditor->updateEdgeTemplate(this);
     }
+    // invalidate path calculator
+    myNet->getPathManager()->getPathCalculator()->invalidatePathCalculator();
 }
 
 

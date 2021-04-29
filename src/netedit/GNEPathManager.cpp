@@ -210,6 +210,7 @@ GNEPathManager::PathElement::PathElement() :
 
 GNEPathManager::PathCalculator::PathCalculator(const GNENet* net) :
     myNet(net),
+    myPathCalculatorUpdated(false),
     myDijkstraRouter(nullptr) {
     // create myDijkstraRouter
     myDijkstraRouter = new DijkstraRouter<NBRouterEdge, NBVehicle>(
@@ -232,6 +233,8 @@ GNEPathManager::PathCalculator::updatePathCalculator() {
     myDijkstraRouter = new DijkstraRouter<NBRouterEdge, NBVehicle>(
         myNet->getNetBuilder()->getEdgeCont().getAllRouterEdges(),
         true, &NBRouterEdge::getTravelTimeStatic, nullptr, true);
+    // update flag
+    myPathCalculatorUpdated = true;
 }
 
 
@@ -244,11 +247,17 @@ GNEPathManager::PathCalculator::calculatePath(const SUMOVehicleClass vClass, con
         // partial edges empty, then return a empty vector
         return solution;
     }
+    // check if path calculator is updated
+    if (!myPathCalculatorUpdated) {
+        // use partialEdges as solution
+        solution = partialEdges;
+        return solution;
+    }
     if (partialEdges.size() == 1) {
         // if there is only one partialEdges, route has only one edge
         solution.push_back(partialEdges.front());
-    }
-    else {
+        return solution;
+    } else {
         // declare temporal vehicle
         NBVehicle tmpVehicle("temporalNBVehicle", vClass);
         // obtain pointer to GNENet
@@ -404,6 +413,18 @@ GNEPathManager::PathCalculator::busStopConnected(const GNEAdditional* busStop, c
     }
     // There isn't a valid access, then return false
     return false;
+}
+
+
+bool
+GNEPathManager::PathCalculator::isPathCalculatorUpdated() const {
+    return myPathCalculatorUpdated;
+}
+
+
+void 
+GNEPathManager::PathCalculator::invalidatePathCalculator() {
+    myPathCalculatorUpdated = false;
 }
 
 // ---------------------------------------------------------------------------

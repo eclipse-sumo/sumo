@@ -221,9 +221,18 @@ public:
         /// @brief check if exist a path between the given busStop and edge (Either a valid lane or an acces) for pedestrians
         bool busStopConnected(const GNEAdditional* busStop, const GNEEdge* edge) const;
 
+        /// @brief check if pathCalculator is updated
+        bool isPathCalculatorUpdated() const;
+
+        /// @brief invalidate pathCalculator
+        void invalidatePathCalculator();
+
     private:
         /// @brief pointer to net
         const GNENet* myNet;
+
+        /// @brief flag for checking if path calculator is updated
+        bool myPathCalculatorUpdated;
 
         /// @brief SUMO Abstract myDijkstraRouter
         SUMOAbstractRouter<NBRouterEdge, NBVehicle>* myDijkstraRouter;
