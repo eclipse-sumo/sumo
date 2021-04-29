@@ -197,7 +197,7 @@ is preprocessing-based routing algorithm. This is very efficient
 when a large number of queries is expected. The algorithm does not
 consider time-dependent weights. Instead, new preprocessing can be
 performed for time-slices of fixed size by setting the option **--weight-period** {{DT_TIME}}. 
-  - When used with [duarouter](duarouter.md), edge permissions are ignored so this should only be used in unimodal networks
-  - When used with [sumo](sumo.md), the computed routes are only valid for the default 'passenger' class.
+  - When used with [duarouter](../duarouter.md), edge permissions are ignored so this should only be used in unimodal networks
+  - When used with [sumo](../sumo.md), the computed routes are only valid for the default 'passenger' class.
 - *CHWrapper*: This works like *CH* but performs separate preprocessing for every vehicle class that is encountered, thereby
 enabling routing in multi modal scenarios
