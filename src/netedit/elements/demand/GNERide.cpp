@@ -230,7 +230,7 @@ GNERide::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 
 void
-GNERide::computePath() {
+GNERide::computePathElement() {
     // get lanes
     const std::vector<GNELane*> lanes = {getFirstPersonPlanLane(), getLastPersonPlanLane()};
     // calculate path
@@ -480,18 +480,18 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
             // change first edge
             replaceFirstParentEdge(value);
             // compute ride
-            computePath();
+            computePathElement();
             break;
         case SUMO_ATTR_TO:
             // change last edge
             replaceLastParentEdge(value);
             // compute ride
-            computePath();
+            computePathElement();
             break;
         case GNE_ATTR_TO_BUSSTOP:
             replaceAdditionalParent(SUMO_TAG_BUS_STOP, value);
             // compute ride
-            computePath();
+            computePathElement();
             break;
         // specific person plan attributes
         case SUMO_ATTR_LINES:

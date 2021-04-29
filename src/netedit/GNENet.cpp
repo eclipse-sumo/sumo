@@ -1662,7 +1662,7 @@ GNENet::computeDemandElements(GNEApplicationWindow* window) {
     // iterate over all demand elements and compute
     for (const auto& demandElements : myAttributeCarriers->getDemandElements()) {
         for (const auto& demandElement : demandElements.second) {
-            demandElement.second->computePath();
+            demandElement.second->computePathElement();
         }
     }
     window->setStatusBarText("Finished computing demand elements.");
@@ -1676,7 +1676,7 @@ GNENet::computeDataElements(GNEApplicationWindow* window) {
     for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
         for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
             for (const auto& genericData : dataInterval.second->getChildGenericDatas()) {
-                genericData->computePath();
+                genericData->computePathElement();
             }
         }
     }
@@ -2582,7 +2582,7 @@ GNENet::saveDemandElements(const std::string& filename) {
     for (const auto& demandElementSet : myAttributeCarriers->getDemandElements()) {
         for (const auto& demandElement : demandElementSet.second) {
             // compute before check if demand element is valid
-            demandElement.second->computePath();
+            demandElement.second->computePathElement();
             // check if has to be fixed
             if (!demandElement.second->isDemandElementValid()) {
                 invalidSingleLaneDemandElements.push_back(demandElement.second);

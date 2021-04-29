@@ -510,10 +510,10 @@ GNEVehicle::updateGeometry() {
         // set vehicle in center position
         myDemandElementGeometry.updateSinglePosGeometry(Position(0, 0), 0);
     }
-    // update child demand elementss
+    // compute route embedded vinculated with this vehicle
     for (const auto& demandElement : getChildDemandElements()) {
         if (demandElement->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
-            demandElement->computePath();
+            demandElement->computePathElement();
         }
         demandElement->updateGeometry();
     }
@@ -706,7 +706,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEVehicle::computePath() {
+GNEVehicle::computePathElement() {
     // calculate path (only for flows and trips)
     if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
         // extract lanes from parent edges
@@ -1631,7 +1631,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             // change first edge
             replaceFirstParentEdge(value);
             // compute vehicle
-            computePath();
+            computePathElement();
             updateSpreadStackGeometry = true;
             break;
         }
@@ -1639,7 +1639,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             // change last edge
             replaceLastParentEdge(value);
             // compute vehicle
-            computePath();
+            computePathElement();
             updateSpreadStackGeometry = true;
             break;
         }
@@ -1658,7 +1658,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             // update via
             replaceMiddleParentEdges(value, true);
             // compute vehicle
-            computePath();
+            computePathElement();
             updateSpreadStackGeometry = true;
             break;
         }

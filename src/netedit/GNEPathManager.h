@@ -62,7 +62,7 @@ public:
         bool isLastSegment() const;
 
         /// @brief get path element
-        const PathElement* getPathElement() const;
+        PathElement* getPathElement() const;
 
         /// @brief get lane associated with this segment
         const GNELane* getLane() const;
@@ -90,7 +90,7 @@ public:
         GNEPathManager* myPathManager;
 
         /// @brief path element
-        const PathElement* myPathElement;
+        PathElement* myPathElement;
 
         /// @brief first segment
         const bool myFirstSegment;
@@ -155,6 +155,9 @@ public:
 
         /// @brief check if pathElement is a data element
         bool isDataElement() const;
+
+        /// @brief compute pathElement
+        virtual void computePathElement() = 0;
 
         /**@brief Draws partial object (lane)
          * @param[in] s The settings for the current view (may influence drawing)

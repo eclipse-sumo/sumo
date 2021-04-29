@@ -390,7 +390,7 @@ GNEDemandElement::getFirstAllowedVehicleLane() const {
             return nullptr;
         }
     } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_WITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
-        if (getChildDemandElements().size() > 0) {
+        if ((getChildDemandElements().size() > 0) && (getChildDemandElements().front()->getParentEdges().size() > 0)) {
             return getChildDemandElements().front()->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
         } else {
             return nullptr;

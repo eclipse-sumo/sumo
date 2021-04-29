@@ -158,7 +158,7 @@ GNEEdgeData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 
 void 
-GNEEdgeData::computePath() {
+GNEEdgeData::computePathElement() {
     // nothing to compute
 }
 

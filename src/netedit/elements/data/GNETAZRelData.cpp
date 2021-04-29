@@ -147,7 +147,7 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 
 void 
-GNETAZRelData::computePath(){
+GNETAZRelData::computePathElement(){
     // nothing to compute
 }
 

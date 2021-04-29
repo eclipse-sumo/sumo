@@ -93,8 +93,8 @@ public:
     /// @name inherited from GNEPathManager::PathElement
     /// @{
 
-    /// @brief compute path
-    void computePath();
+    /// @brief compute pathElement
+    void computePathElement();
 
     /**@brief Draws partial object (lane)
      * @param[in] s The settings for the current view (may influence drawing)

@@ -196,17 +196,29 @@ GNELane::updateGeometry() {
     for (const auto& childAdditionals : getChildGenericDatas()) {
         childAdditionals->updateGeometry();
     }
+    // compute geometry of path elements elements vinculated with this lane (depending of showDemandElements)
+    if (myNet->getViewNet() && myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
+        for (const auto& childAdditional : getChildAdditionals()) {
+            childAdditional->computePathElement();
+        }
+        for (const auto& childDemandElement : getChildDemandElements()) {
+            childDemandElement->computePathElement();
+        }
+        for (const auto& childGenericData : getChildGenericDatas()) {
+            childGenericData->computePathElement();
+        }
+    }
     // in Move mode, connections aren't updated
     if (myNet->getViewNet() && myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
         // Update incoming connections of this lane
-        auto incomingConnections = getGNEIncomingConnections();
-        for (auto i : incomingConnections) {
-            i->updateGeometry();
+        const auto incomingConnections = getGNEIncomingConnections();
+        for (const auto& connection : incomingConnections) {
+            connection->updateGeometry();
         }
         // Update outgoings connections of this lane
-        auto outGoingConnections = getGNEOutcomingConnections();
-        for (auto i : outGoingConnections) {
-            i->updateGeometry();
+        const auto outGoingConnections = getGNEOutcomingConnections();
+        for (const auto& connection : outGoingConnections) {
+            connection->updateGeometry();
         }
     }
     // if lane has enought length for show textures of restricted lanes

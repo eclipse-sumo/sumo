@@ -274,7 +274,7 @@ GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 
 void
-GNERoute::computePath() {
+GNERoute::computePathElement() {
     if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
         // calculate path using vClass of vehicle parent
         myNet->getPathManager()->calculateEdgesPath(this, getParentDemandElements().at(0)->getVClass(), getParentEdges());

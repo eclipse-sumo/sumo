@@ -265,7 +265,7 @@ GNEWalk::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 
 void
-GNEWalk::computePath() {
+GNEWalk::computePathElement() {
     // declare lane vector
     std::vector<GNELane*> lanes;
     // update lanes depending of walk tag
@@ -562,28 +562,28 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
             // change first edge
             replaceFirstParentEdge(value);
             // compute walk
-            computePath();
+            computePathElement();
             break;
         case SUMO_ATTR_TO:
             // change last edge
             replaceLastParentEdge(value);
             // compute walk
-            computePath();
+            computePathElement();
             break;
         case GNE_ATTR_TO_BUSSTOP:
             replaceAdditionalParent(SUMO_TAG_BUS_STOP, value);
             // compute walk
-            computePath();
+            computePathElement();
             break;
         case SUMO_ATTR_EDGES:
             replaceDemandParentEdges(value);
             // compute walk
-            computePath();
+            computePathElement();
             break;
         case SUMO_ATTR_ROUTE:
             replaceDemandElementParent(SUMO_TAG_ROUTE, value, 1);
             // compute walk
-            computePath();
+            computePathElement();
             break;
         // specific person plan attributes
         case SUMO_ATTR_ARRIVALPOS:

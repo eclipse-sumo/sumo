@@ -331,7 +331,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEStop::computePath() {
+GNEStop::computePathElement() {
     // nothing to compute
 }
 

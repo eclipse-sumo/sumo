@@ -148,7 +148,7 @@ GNEVehicleType::drawGL(const GUIVisualizationSettings&) const {
 
 
 void
-GNEVehicleType::computePath() {
+GNEVehicleType::computePathElement() {
     // nothing to compute
 }
 

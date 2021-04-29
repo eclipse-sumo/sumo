@@ -415,10 +415,10 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEPerson::computePath() {
+GNEPerson::computePathElement() {
     // compute all person plan children (because aren't computed in "computeDemandElements()")
     for (const auto& demandElement : getChildDemandElements()) {
-        demandElement->computePath();
+        demandElement->computePathElement();
     }
 }
 

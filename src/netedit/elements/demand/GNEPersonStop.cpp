@@ -264,7 +264,7 @@ GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEPersonStop::computePath() {
+GNEPersonStop::computePathElement() {
     // only update geometry
     updateGeometry();
 }

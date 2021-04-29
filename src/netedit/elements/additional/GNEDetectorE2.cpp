@@ -195,7 +195,7 @@ GNEDetectorE2::updateGeometry() {
     // check E2 detector
     if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
         // compute path
-        computePath();
+        computePathElement();
     } else {
         // declare variables for start and end positions
         double startPosFixed = myPositionOverLane;
