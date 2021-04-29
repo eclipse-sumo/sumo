@@ -54,7 +54,7 @@ MaxSpeedLat 1.0
 LateralAlignment center
 width 1.1
 height 1.9
-color (255, 0, 0, 1)
+color (255, 0, 0, 255)
 Copying vType 'DEFAULT_VEHTYPE' to 'DEFAULT_VEHTYPE_copy'
 vehicletypes ('DEFAULT_BIKETYPE', 'DEFAULT_CONTAINERTYPE', 'DEFAULT_PEDTYPE', 'DEFAULT_TAXITYPE', 'DEFAULT_VEHTYPE', 'DEFAULT_VEHTYPE_copy')
 vehicletype count 6
