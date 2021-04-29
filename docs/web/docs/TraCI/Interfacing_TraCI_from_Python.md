@@ -418,6 +418,15 @@ while traci.simulation.getMinExpectedNumber() \> 0:
 
 traci.close()
 
+### Handle Exceptions
+Sometimes commands raise an (recoverable) exception to indicate an error (unknown id, route not found etc.). These exceptions
+can be handled by your code as follows:
+
+try:
+    pos = traci.vehicle.getPosition(vehID)
+except traci.TraCIException:
+    pass # or do something smarter
+
 ## Further Resources
 
 - The module [Simpla](../Simpla.md) provides a library for
