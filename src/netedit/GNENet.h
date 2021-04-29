@@ -306,34 +306,34 @@ public:
     GNEEdge* retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard = true) const;
 
     /**@brief get Connection by id
-    * @param[in] id The id of the desired Connection
-    * @param[in] failHard Whether attempts to retrieve a nonexisting Connection should result in an exception
-    * @throws UnknownElement
-    */
+     * @param[in] id The id of the desired Connection
+     * @param[in] failHard Whether attempts to retrieve a nonexisting Connection should result in an exception
+     * @throws UnknownElement
+     */
     GNEConnection* retrieveConnection(const std::string& id, bool failHard = true) const;
 
     /**@brief return all connections
-    * @param[in] onlySelected Whether to return only selected connections
-    */
+     * @param[in] onlySelected Whether to return only selected connections
+     */
     std::vector<GNEConnection*> retrieveConnections(bool onlySelected = false) const;
 
     /**@brief get Crossing by id
-    * @param[in] id The id of the desired Crossing
-    * @param[in] failHard Whether attempts to retrieve a nonexisting Crossing should result in an exception
-    * @throws UnknownElement
-    */
+     * @param[in] id The id of the desired Crossing
+     * @param[in] failHard Whether attempts to retrieve a nonexisting Crossing should result in an exception
+     * @throws UnknownElement
+     */
     GNECrossing* retrieveCrossing(const std::string& id, bool failHard = true) const;
 
     /**@brief return all crossings
-    * @param[in] onlySelected Whether to return only selected crossings
-    */
+     * @param[in] onlySelected Whether to return only selected crossings
+     */
     std::vector<GNECrossing*> retrieveCrossings(bool onlySelected = false) const;
 
     /**@brief get a single attribute carrier based on a GLID
-    * @param[in] ids the GL IDs for which to retrive the AC
-    * @param[in] failHard Whether attempts to retrieve a nonexisting AttributeCarrier should result in an exception
-    * @throws InvalidArgument if GL ID doesn't have a associated Attribute Carrier
-    */
+     * @param[in] ids the GL IDs for which to retrive the AC
+     * @param[in] failHard Whether attempts to retrieve a nonexisting AttributeCarrier should result in an exception
+     * @throws InvalidArgument if GL ID doesn't have a associated Attribute Carrier
+     */
     GNEAttributeCarrier* retrieveAttributeCarrier(const GUIGlID id, bool failHard = true) const;
 
     /**@brief get the attribute carriers based on Type
@@ -370,19 +370,19 @@ public:
     GNELane* retrieveLane(const std::string& id, bool failHard = true, bool checkVolatileChange = false);
 
     /**@brief return all junctions
-    * @param[in] onlySelected Whether to return only selected junctions
-    */
+     * @param[in] onlySelected Whether to return only selected junctions
+     */
     std::vector<GNEJunction*> retrieveJunctions(bool onlySelected = false);
 
     /**@brief return shape by type shapes
-    * @param[in] shapeTag Type of shape.
-    * @param[in] onlySelected Whether to return only selected junctions
-    */
+     * @param[in] shapeTag Type of shape.
+     * @param[in] onlySelected Whether to return only selected junctions
+     */
     std::vector<GNEShape*> retrieveShapes(SumoXMLTag shapeTag, bool onlySelected = false);
 
     /**@brief return all shapes
-    * @param[in] onlySelected Whether to return only selected junctions
-    */
+     * @param[in] onlySelected Whether to return only selected junctions
+     */
     std::vector<GNEShape*> retrieveShapes(bool onlySelected = false);
 
     /// @brief inform that net has to be saved
@@ -557,7 +557,7 @@ public:
     void requireSaveAdditionals(bool value);
 
     /**@brief save additional elements of the network
-    * @param[in] filename name of the file in wich save additionals
+     * @param[in] filename name of the file in wich save additionals
     */
     void saveAdditionals(const std::string& filename);
 
@@ -594,7 +594,7 @@ public:
     void requireSaveDemandElements(bool value);
 
     /**@brief save demand element elements of the network
-    * @param[in] filename name of the file in wich save demand elements
+     * @param[in] filename name of the file in wich save demand elements
     */
     void saveDemandElements(const std::string& filename);
 
@@ -619,7 +619,7 @@ public:
     std::vector<GNEDataSet*> retrieveDataSets() const;
 
     /**@brief return all generic datas
-    * @param[in] onlySelected Whether to return only selected generic datas
+     * @param[in] onlySelected Whether to return only selected generic datas
     */
     std::vector<GNEGenericData*> retrieveGenericDatas(bool onlySelected = false) const;
 
@@ -632,7 +632,7 @@ public:
     void requireSaveDataElements(bool value);
 
     /**@brief save data set elements of the network
-    * @param[in] filename name of the file in wich save data sets
+     * @param[in] filename name of the file in wich save data sets
     */
     void saveDataElements(const std::string& filename);
 
@@ -725,7 +725,7 @@ public:
     /// @name Functions related to TLS Programs
     /// @{
     /**@brief save edgeTypes elements of the network
-    * @param[in] filename name of the file in wich save edgeTypes
+     * @param[in] filename name of the file in wich save edgeTypes
     */
     void saveEdgeTypes(const std::string& filename);
 

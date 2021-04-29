@@ -399,47 +399,47 @@ public:
     static GNEAdditional* buildCalibrator(GNENet* net, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& name, const std::string& outfile, SUMOTime freq, const std::string& routeprobe, bool centerAfterCreation);
 
     /**@brief builds a microscopic calibrator over an edge
-    * @param[in] net net in which element will be inserted
-    * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
-    * @param[in] id The id of the calibrator
-    * @param[in] edge The edge the calibrator is placed at
-    * @param[in] pos The position on the edge the calibrator lies at
-    * @param[in] name Calibrator name
-    * @param[in] outfile te file in which write results
-    * @param[in] centerAfterCreation center camera after creation
-    * @param[in] routeProbe route probe vinculated with this calibrator
-    * @return true if was sucesfully created, false in other case
-    * @todo Is the position correct/needed
-    * @return true if was sucesfully created, false in other case
-    * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
-    */
+     * @param[in] net net in which element will be inserted
+     * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
+     * @param[in] id The id of the calibrator
+     * @param[in] edge The edge the calibrator is placed at
+     * @param[in] pos The position on the edge the calibrator lies at
+     * @param[in] name Calibrator name
+     * @param[in] outfile te file in which write results
+     * @param[in] centerAfterCreation center camera after creation
+     * @param[in] routeProbe route probe vinculated with this calibrator
+     * @return true if was sucesfully created, false in other case
+     * @todo Is the position correct/needed
+     * @return true if was sucesfully created, false in other case
+     * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
+     */
     static GNEAdditional* buildCalibrator(GNENet* net, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double pos, const std::string& name, const std::string& outfile, SUMOTime freq, const std::string& routeprobe, bool centerAfterCreation);
 
     /**@brief builds a calibrator flow
-    * @param[in] net net in which element will be inserted
-    * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
-    * @param[in] type The id of the vehicle's flow type to use for this vehicle's flow.
-    * @param[in] route The id of the route the vehicle's flow shall drive along
-    * @param[in] vehsPerHour number of vehicles per hour, equally spaced (not together with period or probability)
-    * @param[in] speed 	The speed with which the vehicles shall enter the network. NOTE: this attribute is exclusive of CalibratorFlows!
-    * @param[in] color This vehicle's flow's color
-    * @param[in] departLane The lane on which the vehicle's flow shall be inserted; see #departLane. default: "first"
-    * @param[in] departPos The position at which the vehicle's flow shall enter the net; see #departPos. default: "base"
-    * @param[in] departSpeed The speed with which the vehicle's flow shall enter the network; see #departSpeed. default: 0
-    * @param[in] arrivalLane The lane at which the vehicle's flow shall leave the network; see #arrivalLane. default: "current"
-    * @param[in] arrivalPos The position at which the vehicle's flow shall leave the network; see #arrivalPos. default: "max"
-    * @param[in] arrivalSpeed The speed with which the vehicle's flow shall leave the network; see #arrivalSpeed. default: "current"
-    * @param[in] line A string specifying the id of a public transport line which can be used when specifying person rides
-    * @param[in] personNumber The number of occupied seats when the vehicle's flow is inserted. default: 0
-    * @param[in] containerNumber The number of occupied container places when the vehicle's flow is inserted. default: 0
-    * @param[in] reroute List of intermediate edges that shall be passed on rerouting.
-    * @param[in] via List of intermediate edges that shall be passed on rerouting.
-    * @param[in] departPosLat The lateral position on the departure lane at which the vehicle's flow shall enter the net; see Simulation/SublaneModel. default: "center"
-    * @param[in] arrivalPosLat The lateral position on the arrival lane at which the vehicle's flow shall arrive; see Simulation/SublaneModel. by default the vehicle's flow does not care about lateral arrival position
-    * @param[in] begin first vehicle's flow departure time
-    * @param[in] end end of departure interval (if undefined, defaults to 24 hours)
-    * @return true if was sucesfully created, false in other case
-    */
+     * @param[in] net net in which element will be inserted
+     * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
+     * @param[in] type The id of the vehicle's flow type to use for this vehicle's flow.
+     * @param[in] route The id of the route the vehicle's flow shall drive along
+     * @param[in] vehsPerHour number of vehicles per hour, equally spaced (not together with period or probability)
+     * @param[in] speed 	The speed with which the vehicles shall enter the network. NOTE: this attribute is exclusive of CalibratorFlows!
+     * @param[in] color This vehicle's flow's color
+     * @param[in] departLane The lane on which the vehicle's flow shall be inserted; see #departLane. default: "first"
+     * @param[in] departPos The position at which the vehicle's flow shall enter the net; see #departPos. default: "base"
+     * @param[in] departSpeed The speed with which the vehicle's flow shall enter the network; see #departSpeed. default: 0
+     * @param[in] arrivalLane The lane at which the vehicle's flow shall leave the network; see #arrivalLane. default: "current"
+     * @param[in] arrivalPos The position at which the vehicle's flow shall leave the network; see #arrivalPos. default: "max"
+     * @param[in] arrivalSpeed The speed with which the vehicle's flow shall leave the network; see #arrivalSpeed. default: "current"
+     * @param[in] line A string specifying the id of a public transport line which can be used when specifying person rides
+     * @param[in] personNumber The number of occupied seats when the vehicle's flow is inserted. default: 0
+     * @param[in] containerNumber The number of occupied container places when the vehicle's flow is inserted. default: 0
+     * @param[in] reroute List of intermediate edges that shall be passed on rerouting.
+     * @param[in] via List of intermediate edges that shall be passed on rerouting.
+     * @param[in] departPosLat The lateral position on the departure lane at which the vehicle's flow shall enter the net; see Simulation/SublaneModel. default: "center"
+     * @param[in] arrivalPosLat The lateral position on the arrival lane at which the vehicle's flow shall arrive; see Simulation/SublaneModel. by default the vehicle's flow does not care about lateral arrival position
+     * @param[in] begin first vehicle's flow departure time
+     * @param[in] end end of departure interval (if undefined, defaults to 24 hours)
+     * @return true if was sucesfully created, false in other case
+     */
     static GNEAdditional* buildCalibratorFlow(GNENet* net, bool allowUndoRedo, GNEAdditional* calibratorParent, GNEDemandElement* route, GNEDemandElement* vType,
             const std::string& vehsPerHour, const std::string& speed, const RGBColor& color, const std::string& departLane, const std::string& departPos,
             const std::string& departSpeed, const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed,
@@ -461,13 +461,13 @@ public:
     static GNEAdditional* buildRerouter(GNENet* net, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, double prob, const std::string& name, const std::string& file, bool off, SUMOTime timeThreshold, const std::string& vTypes, bool blockMovement);
 
     /**@brief builds a rerouter interval
-    * @param[in] net net in which element will be inserted
-    * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
-    * @param[in] rerouterParent rerouter in which interval is placed
-    * @param[in] begin begin of interval
-    * @param[in] end end of interval
-    * @return true if was sucesfully created, false in other case
-    */
+     * @param[in] net net in which element will be inserted
+     * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
+     * @param[in] rerouterParent rerouter in which interval is placed
+     * @param[in] begin begin of interval
+     * @param[in] end end of interval
+     * @return true if was sucesfully created, false in other case
+     */
     static GNEAdditional* buildRerouterInterval(GNENet* net, bool allowUndoRedo, GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end);
 
     /**
@@ -523,14 +523,14 @@ public:
     static GNEAdditional* buildVariableSpeedSign(GNENet* net, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNELane*>& destLanes, const std::string& name, bool blockMovement);
 
     /**@brief Builds a VariableSpeedSign Step
-    * @param[in] net net in which element will be inserted
-    * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
-    * @param[in] VSSParent Variable Speed Sign parent
-    * @param[in] time step's time
-    * @param[in] speed step's speed
-    * @return true if was sucesfully created, false in other case
-    * @exception InvalidArgument If the Variable Speed Sign Step can not be added to the net (is duplicate)
-    */
+     * @param[in] net net in which element will be inserted
+     * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
+     * @param[in] VSSParent Variable Speed Sign parent
+     * @param[in] time step's time
+     * @param[in] speed step's speed
+     * @return true if was sucesfully created, false in other case
+     * @exception InvalidArgument If the Variable Speed Sign Step can not be added to the net (is duplicate)
+     */
     static GNEAdditional* buildVariableSpeedSignStep(GNENet* net, bool allowUndoRedo, GNEAdditional* VSSParent, double time, double speed);
 
     /**@brief Builds a vaporizer (lane speed additional)
@@ -590,20 +590,20 @@ public:
     double getPosition(double pos, GNELane& lane, bool friendlyPos, const std::string& additionalID);
 
     /**@brief check if the position of a detector over a lane is valid
-    * @param[in] pos pos position of detector
-    * @param[in] laneLength Length of the lane
-    * @param[in] friendlyPos Attribute of detector
-    * @return true if the detector position is valid, false in otherweise
-    */
+     * @param[in] pos pos position of detector
+     * @param[in] laneLength Length of the lane
+     * @param[in] friendlyPos Attribute of detector
+     * @return true if the detector position is valid, false in otherweise
+     */
     static bool checkAndFixDetectorPosition(double& pos, const double laneLength, const bool friendlyPos);
 
     /**@brief check if the position of a detector over a lane is valid
-    * @param[in] startPos Start position of detector
-    * @param[in] length length of detector
-    * @param[in] laneLength Length of the lane
-    * @param[in] friendlyPos Attribute of detector
-    * @return true if the detector position is valid, false in otherweise
-    */
+     * @param[in] startPos Start position of detector
+     * @param[in] length length of detector
+     * @param[in] laneLength Length of the lane
+     * @param[in] friendlyPos Attribute of detector
+     * @return true if the detector position is valid, false in otherweise
+     */
     static bool fixE2DetectorPosition(double& pos, double& length, const double laneLength, const bool friendlyPos);
 
     /// @brief check if a GNEAccess can be created in a certain Edge
@@ -644,43 +644,43 @@ protected:
     static bool parseAndBuildVariableSpeedSign(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a Variable Speed Signal Step
-    * @param[in] attrs SAX-attributes which define the additional
-    */
+     * @param[in] attrs SAX-attributes which define the additional
+     */
     static bool parseAndBuildVariableSpeedSignStep(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a rerouter
      * @param[in] attrs SAX-attributes which define the additional
-     */
+      */
     static bool parseAndBuildRerouter(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a Rerouter Interval
-    * @param[in] attrs SAX-attributes which define the additional
-    */
+     * @param[in] attrs SAX-attributes which define the additional
+     */
     static bool parseAndBuildRerouterInterval(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a Closing Lane reroute
-    * @param[in] attrs SAX-attributes which define the additional
-    */
+     * @param[in] attrs SAX-attributes which define the additional
+     */
     static bool parseAndBuildRerouterClosingLaneReroute(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a Closing Reroute
-    * @param[in] attrs SAX-attributes which define the additional
-    */
+     * @param[in] attrs SAX-attributes which define the additional
+     */
     static bool parseAndBuildRerouterClosingReroute(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a Destiny Prob Reroute
-    * @param[in] attrs SAX-attributes which define the additional
-    */
+     * @param[in] attrs SAX-attributes which define the additional
+     */
     static bool parseAndBuildRerouterDestProbReroute(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a parkingAreaReroute
-    * @param[in] attrs SAX-attributes which define the additional
-    */
+     * @param[in] attrs SAX-attributes which define the additional
+     */
     static bool parseAndBuildRerouterParkingAreaReroute(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a Route Prob Reroute
-    * @param[in] attrs SAX-attributes which define the additional
-    */
+     * @param[in] attrs SAX-attributes which define the additional
+     */
     static bool parseAndBuildRerouterRouteProbReroute(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a bus stop

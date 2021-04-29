@@ -379,24 +379,24 @@ public:
     void hide();
 
     /**@brief process click over Viewnet in Supermode Network
-    * @param[in] clickedPosition clicked position over ViewNet
-    * @param[in] objectsUnderCursor objects under cursors
-    * @return true if something was sucefully done
-    */
+     * @param[in] clickedPosition clicked position over ViewNet
+     * @param[in] objectsUnderCursor objects under cursors
+     * @return true if something was sucefully done
+     */
     bool processNetworkSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /**@brief process click over Viewnet in Supermode Demand
-    * @param[in] clickedPosition clicked position over ViewNet
-    * @param[in] objectsUnderCursor objects under cursors
-    * @return true if something was sucefully done
-    */
+     * @param[in] clickedPosition clicked position over ViewNet
+     * @param[in] objectsUnderCursor objects under cursors
+     * @return true if something was sucefully done
+     */
     bool processDemandSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /**@brief process click over Viewnet in Supermode Data
-    * @param[in] clickedPosition clicked position over ViewNet
-    * @param[in] objectsUnderCursor objects under cursors
-    * @return true if something was sucefully done
-    */
+     * @param[in] clickedPosition clicked position over ViewNet
+     * @param[in] objectsUnderCursor objects under cursors
+     * @return true if something was sucefully done
+     */
     bool processDataSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief Inspect a single element

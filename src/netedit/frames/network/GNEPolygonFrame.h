@@ -112,10 +112,10 @@ public:
     void show();
 
     /**@brief process click over Viewnet
-    * @param[in] clickedPosition clicked position over ViewNet
-    * @param[in] ObjectsUnderCursor objects under cursor after click over view
-    * @return AddShapeStatus with the result of operation
-    */
+     * @param[in] clickedPosition clicked position over ViewNet
+     * @param[in] ObjectsUnderCursor objects under cursor after click over view
+     * @return AddShapeStatus with the result of operation
+     */
     GNEPolygonFrame::AddShape processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief get list of selecte id's in string format

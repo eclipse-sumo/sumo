@@ -64,21 +64,21 @@ public:
            double layer, double angle, const std::string& imgFile, bool relativePath, double width, double height, bool movementBlocked);
 
     /** @brief Constructor
-    * @param[in] net net in which this polygon is placed
-    * @param[in] id The name of the POI
-    * @param[in] type The (abstract) type of the POI
-    * @param[in] color The color of the POI
-    * @param[in] layer The layer of the POI
-    * @param[in] angle The rotation of the POI
-    * @param[in] imgFile The raster image of the shape
-    * @param[in] relativePath set image file as relative path
-    * @param[in] lane lane in which this POILane is placed
-    * @param[in] posOverLane Position over lane in which this POILane is placed
-    * @param[in] posLat Lateral position over lane
-    * @param[in] width The width of the POI image
-    * @param[in] height The height of the POI image
-    * @param[in] movementBlocked if movement of POI is blocked
-    */
+     * @param[in] net net in which this polygon is placed
+     * @param[in] id The name of the POI
+     * @param[in] type The (abstract) type of the POI
+     * @param[in] color The color of the POI
+     * @param[in] layer The layer of the POI
+     * @param[in] angle The rotation of the POI
+     * @param[in] imgFile The raster image of the shape
+     * @param[in] relativePath set image file as relative path
+     * @param[in] lane lane in which this POILane is placed
+     * @param[in] posOverLane Position over lane in which this POILane is placed
+     * @param[in] posLat Lateral position over lane
+     * @param[in] width The width of the POI image
+     * @param[in] height The height of the POI image
+     * @param[in] movementBlocked if movement of POI is blocked
+     */
     GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
            double layer, double angle, const std::string& imgFile, bool relativePath, GNELane* lane, double posOverLane,
            double posLat, double width, double height, bool movementBlocked);
@@ -112,8 +112,8 @@ public:
     void updateCenteringBoundary(const bool updateGrid);
 
     /**@brief writte shape element into a xml file
-    * @param[in] device device in which write parameters of additional element
-    */
+     * @param[in] device device in which write parameters of additional element
+     */
     void writeShape(OutputDevice& device);
 
     /// @brief Returns the numerical id of the object

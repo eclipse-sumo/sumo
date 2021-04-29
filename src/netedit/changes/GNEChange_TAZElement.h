@@ -34,9 +34,9 @@ class GNEChange_TAZElement : public GNEChange {
 
 public:
     /**@brief Constructor
-    * @param[in] TAZElement the TAZElement to be changed
-    * @param[in] forward Whether to create/delete (true/false)
-    */
+     * @param[in] TAZElement the TAZElement to be changed
+     * @param[in] forward Whether to create/delete (true/false)
+     */
     GNEChange_TAZElement(GNETAZElement* TAZElement, bool forward);
 
     /// @brief Destructor

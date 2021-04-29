@@ -94,8 +94,8 @@ public:
     void updateCenteringBoundary(const bool updateGrid);
 
     /**@brief writte shape element into a xml file
-    * @param[in] device device in which write parameters of additional element
-    */
+     * @param[in] device device in which write parameters of additional element
+     */
     void writeShape(OutputDevice& device);
 
     /// @brief Returns the numerical id of the object

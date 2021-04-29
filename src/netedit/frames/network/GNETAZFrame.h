@@ -510,10 +510,10 @@ public:
     void hide();
 
     /**@brief process click over Viewnet
-    * @param[in] clickedPosition clicked position over ViewNet
-    * @param[in] objectsUnderCursor objects under cursors
-    * @return true if something (select TAZ or add edge) was sucefully done
-    */
+     * @param[in] clickedPosition clicked position over ViewNet
+     * @param[in] objectsUnderCursor objects under cursors
+     * @return true if something (select TAZ or add edge) was sucefully done
+     */
     bool processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief process selection of edges in view net

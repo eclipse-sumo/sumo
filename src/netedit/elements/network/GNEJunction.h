@@ -277,9 +277,9 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /**@brief reposition the node at pos without updating GRID and informs the edges
-    * @param[in] pos The new position
-    * @note: those operations are not added to the undoList.
-    */
+     * @param[in] pos The new position
+     * @note: those operations are not added to the undoList.
+     */
     void moveJunctionGeometry(const Position& pos, const bool updateEdgeBoundaries);
 
     /// @brief sets junction color depending on circumstances

@@ -40,9 +40,9 @@ public:
     GNELaneType(GNEEdgeType* edgeTypeParent);
 
     /**@brief Constructor
-    * @param[in] edgeTypeParent GNEEdgeType parent
-    * @param[in] laneType laneType Definition
-    */
+     * @param[in] edgeTypeParent GNEEdgeType parent
+     * @param[in] laneType laneType Definition
+     */
     GNELaneType(GNEEdgeType* edgeTypeParent, const NBTypeCont::LaneTypeDefinition& laneType);
 
     /// @brief Destructor.
@@ -76,48 +76,48 @@ public:
     /// @{
     /**@brief Returns an own popup-menu
     *
-    * @param[in] app The application needed to build the popup-menu
-    * @param[in] parent The parent window needed to build the popup-menu
-    * @return The built popup-menu
-    * @see GUIGlObject::getPopUpMenu
-    */
+     * @param[in] app The application needed to build the popup-menu
+     * @param[in] parent The parent window needed to build the popup-menu
+     * @return The built popup-menu
+     * @see GUIGlObject::getPopUpMenu
+     */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
     /**@brief Draws the object
-    * @param[in] s The settings for the current view (may influence drawing)
-    * @see GUIGlObject::drawGL
-    */
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @see GUIGlObject::drawGL
+     */
     void drawGL(const GUIVisualizationSettings& s) const;
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
     /* @brief method for getting the Attribute of an XML key
-    * @param[in] key The attribute key
-    * @return string with the value associated to key
-    */
+     * @param[in] key The attribute key
+     * @return string with the value associated to key
+     */
     std::string getAttribute(SumoXMLAttr key) const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
-    * @param[in] key The attribute key
-    * @param[in] value The new value
-    * @param[in] undoList The undoList on which to register changes
-    */
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
     void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
     /* @brief method for checking if the key and their conrrespond attribute are valids
-    * @param[in] key The attribute key
-    * @param[in] value The value asociated to key key
-    * @return true if the value is valid, false in other case
-    */
+     * @param[in] key The attribute key
+     * @param[in] value The value asociated to key key
+     * @return true if the value is valid, false in other case
+     */
     bool isValid(SumoXMLAttr key, const std::string& value);
 
     /* @brief method for check if the value for certain attribute is set
-    * @param[in] key The attribute key
-    */
+     * @param[in] key The attribute key
+     */
     bool isAttributeEnabled(SumoXMLAttr key) const;
     /// @}
 

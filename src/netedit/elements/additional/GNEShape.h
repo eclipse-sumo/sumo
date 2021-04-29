@@ -88,8 +88,8 @@ public:
     virtual void setParameter(const std::string& key, const std::string& value) = 0;
 
     /**@brief writte shape element into a xml file
-    * @param[in] device device in which write parameters of additional element
-    */
+     * @param[in] device device in which write parameters of additional element
+     */
     virtual void writeShape(OutputDevice& device) = 0;
 
     /// @brief Returns the numerical id of the object

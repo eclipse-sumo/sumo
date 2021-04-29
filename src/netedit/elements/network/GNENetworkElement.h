@@ -99,11 +99,11 @@ public:
 
     /**@brief Returns an own parameter window
     *
-    * @param[in] app The application needed to build the parameter window
-    * @param[in] parent The parent window needed to build the parameter window
-    * @return The built parameter window
-    * @see GUIGlObject::getParameterWindow
-    */
+     * @param[in] app The application needed to build the parameter window
+     * @param[in] parent The parent window needed to build the parameter window
+     * @return The built parameter window
+     * @see GUIGlObject::getParameterWindow
+     */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
     /**@brief Returns an own popup-menu

@@ -202,20 +202,20 @@ public:
     void computePathElement();
 
     /**@brief Draws partial object (lane)
-    * @param[in] s The settings for the current view (may influence drawing)
-    * @param[in] lane GNELane in which draw partial
-    * @param[in] segment segment geometry
-    * @note currently only E2Multilane detectors use drawPartialGL
-    */
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @param[in] lane GNELane in which draw partial
+     * @param[in] segment segment geometry
+     * @note currently only E2Multilane detectors use drawPartialGL
+     */
     void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
     /**@brief Draws partial object (junction)
-    * @param[in] s The settings for the current view (may influence drawing)
-    * @param[in] fromLane from GNELane
-    * @param[in] toLane to GNELane
-    * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
-    * @note currently only E2Multilane detectors use drawPartialGL
-    */
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @param[in] fromLane from GNELane
+     * @param[in] toLane to GNELane
+     * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
+     * @note currently only E2Multilane detectors use drawPartialGL
+     */
     void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
     /// @brief get path element depart lane pos

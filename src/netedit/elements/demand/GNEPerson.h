@@ -211,9 +211,9 @@ public:
     /// @brief inherited from GNEAttributeCarrier
     /// @{
     /* @brief method for getting the Attribute of an XML key
-    * @param[in] key The attribute key
-    * @return string with the value associated to key
-    */
+     * @param[in] key The attribute key
+     * @return string with the value associated to key
+     */
     std::string getAttribute(SumoXMLAttr key) const;
 
     /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
@@ -229,18 +229,18 @@ public:
     Position getAttributePosition(SumoXMLAttr key) const;
 
     /* @brief method for setting the attribute and letting the object perform demand element changes
-    * @param[in] key The attribute key
-    * @param[in] value The new value
-    * @param[in] undoList The undoList on which to register changes
-    * @param[in] net optionally the GNENet to inform about gui updates
-    */
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     * @param[in] net optionally the GNENet to inform about gui updates
+     */
     void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
     /* @brief method for setting the attribute and letting the object perform demand element changes
-    * @param[in] key The attribute key
-    * @param[in] value The new value
-    * @param[in] undoList The undoList on which to register changes
-    */
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
     bool isValid(SumoXMLAttr key, const std::string& value);
 
     /* @brief method for enable attribute
