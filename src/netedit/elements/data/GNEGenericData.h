@@ -157,6 +157,9 @@ public:
     /// @name inherited from GNEPathManager::PathElement
     /// @{
 
+    /// @brief compute path
+    virtual void computePath() = 0;
+
     /**@brief Draws partial object (lane)
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] lane GNELane in which draw partial
