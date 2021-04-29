@@ -444,6 +444,9 @@ private:
     /// @brief toolbar redo button
     FXButton* myRedoButton;
 
+    /// @brief compute Path manager button
+    FXButton* myComputePathManagerButton;
+
     /// @brief Splitter to divide ViewNet und GNEFrames
     FXSplitter* myFramesSplitter;
 

@@ -95,6 +95,12 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     myUndoButton = new FXButton(myGripNavigationToolbar, "\tUndo\tUndo the last change. (Ctrl+Z)", GUIIconSubSys::getIcon(GUIIcon::UNDO), parentWindow, MID_HOTKEY_CTRL_Z_UNDO, GUIDesignButtonToolbar);
     myRedoButton = new FXButton(myGripNavigationToolbar, "\tRedo\tRedo the last change. (Ctrl+Y)", GUIIconSubSys::getIcon(GUIIcon::REDO), parentWindow, MID_HOTKEY_CTRL_Y_REDO, GUIDesignButtonToolbar);
 
+    // Create Vertical separator
+    new FXVerticalSeparator(myGripNavigationToolbar, GUIDesignVerticalSeparator);
+
+    // create compute path manager button
+    myComputePathManagerButton = new FXButton(myGripNavigationToolbar, "\tCompute path manager\tCompute path manager", GUIIconSubSys::getIcon(GUIIcon::COMPUTEPATHMANAGER), parentWindow, MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER, GUIDesignButtonToolbar);
+
     // Create Frame Splitter
     myFramesSplitter = new FXSplitter(myContentFrame, this, MID_GNE_VIEWPARENT_FRAMEAREAWIDTH, GUIDesignSplitter | SPLITTER_HORIZONTAL);
 

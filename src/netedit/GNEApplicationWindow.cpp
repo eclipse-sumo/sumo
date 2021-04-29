@@ -171,6 +171,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_Z_UNDO,                         GNEApplicationWindow::onUpdUndo),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Y_REDO,                         GNEApplicationWindow::onCmdRedo),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_Y_REDO,                         GNEApplicationWindow::onUpdRedo),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER,         GNEApplicationWindow::onCmdComputePathManager),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER,         GNEApplicationWindow::onUpdComputePathManager),
     // Network view options
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID,           GNEApplicationWindow::onCmdToggleViewOption),
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID,           GNEApplicationWindow::onUpdToggleViewOption),
@@ -2013,6 +2015,16 @@ GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
 }
 
 
+long 
+GNEApplicationWindow::onCmdComputePathManager(FXObject*, FXSelector, void*) {
+    // first check viewNet
+    if (myViewNet) {
+        // update path calculator
+        myViewNet->getNet()->getPathManager()->getPathCalculator()->updatePathCalculator();
+    }
+    return 1;
+}
+
 
 long
 GNEApplicationWindow::onCmdCut(FXObject*, FXSelector, void*) {
@@ -2291,6 +2303,28 @@ GNEApplicationWindow::onUpdUndo(FXObject* obj, FXSelector sel, void* ptr) {
 long
 GNEApplicationWindow::onUpdRedo(FXObject* obj, FXSelector sel, void* ptr) {
     return myUndoList->p_onUpdRedo(obj, sel, ptr);
+}
+
+
+long
+GNEApplicationWindow::onUpdComputePathManager(FXObject* sender, FXSelector sel, void* ptr) {
+    // first check viewNet
+    if (myViewNet) {
+        // check supermode network
+        if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
+            // disable
+            return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        } else if (myViewNet->getNet()->getPathManager()->getPathCalculator()->isPathCalculatorUpdated()) {
+            // disable
+            return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        } else {
+            // enable
+            return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        }
+    } else {
+        // disable
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    }
 }
 
 
