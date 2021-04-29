@@ -253,11 +253,17 @@ public:
     /// @brief get first lane associated with path element
     const GNELane* getFirstLane(const PathElement* pathElement) const;
 
-    /// @brief calculate path for edges
-    void calculateEdgesPath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges);
+    /// @brief calculate path edges (using dijkstra, requiere path calculator updated)
+    void calculatePathEdges(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges);
 
-    /// @brief calculate path for lanes
-    void calculateLanesPath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNELane*> lanes);
+    /// @brief calculate path lanes (using dijkstra, requiere path calculator updated)
+    void calculatePathLanes(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNELane*> lanes);
+
+    /// @brief calculate consecutive path edges
+    void calculateConsecutivePathEdges(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges);
+
+    /// @brief calculate consecutivepath lanes
+    void calculateConsecutivePathLanes(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNELane*> lanes);
 
     /// @brief remove path
     void removePath(PathElement* pathElement);

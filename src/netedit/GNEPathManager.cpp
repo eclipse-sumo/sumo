@@ -478,7 +478,7 @@ GNEPathManager::getFirstLane(const PathElement* pathElement) const {
 
 
 void
-GNEPathManager::calculateEdgesPath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges) {
+GNEPathManager::calculatePathEdges(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges) {
     // check if path element exist already in myPaths
     if (myPaths.find(pathElement) != myPaths.end()) {
         // delete segments
@@ -507,7 +507,7 @@ GNEPathManager::calculateEdgesPath(PathElement* pathElement, SUMOVehicleClass vC
                 // add it into segment vector
                 segments.push_back(laneSegment);
                 // continue if this isn't the last edge
-                if (path.at(i) != path.back()) {
+                if (!lastSegment) {
                     // obtain next lane
                     const GNELane* nextLane = path.at(i + 1)->getLaneByAllowedVClass(vClass);
                     // create junction segments
@@ -535,7 +535,7 @@ GNEPathManager::calculateEdgesPath(PathElement* pathElement, SUMOVehicleClass vC
 
 
 void 
-GNEPathManager::calculateLanesPath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNELane*> lanes) {
+GNEPathManager::calculatePathLanes(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNELane*> lanes) {
     // declare edges
     std::vector<GNEEdge*> edges;
     // reserve edges
@@ -544,8 +544,78 @@ GNEPathManager::calculateLanesPath(PathElement* pathElement, SUMOVehicleClass vC
     for (const auto& lane : lanes) {
         edges.push_back(lane->getParentEdge());
     }
-    // calculate edges path
-    calculateEdgesPath(pathElement, vClass, edges);
+    // calculate path edges
+    calculatePathEdges(pathElement, vClass, edges);
+}
+
+
+void 
+GNEPathManager::calculateConsecutivePathEdges(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges) {
+    // declare lane vector
+    std::vector<GNELane*> lanes;
+    // reserve lanes
+    lanes.reserve(edges.size());
+    // get first allowed edge
+    for (const auto& edge : edges) {
+        lanes.push_back(edge->getLaneByAllowedVClass(vClass));
+    }
+    // calculate consecutive path lanes
+    calculateConsecutivePathLanes(pathElement, vClass, lanes);
+}
+
+
+void 
+GNEPathManager::calculateConsecutivePathLanes(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNELane*> lanes) {
+    // check if path element exist already in myPaths
+    if (myPaths.find(pathElement) != myPaths.end()) {
+        // delete segments
+        for (const auto& segment : myPaths.at(pathElement)) {
+            delete segment;
+        }
+        // remove path element from myPaths
+        myPaths.erase(pathElement);
+    }
+    // continue depending of number of lanes
+    if (lanes.size() > 0) {
+        // declare segment vector
+        std::vector<Segment*> segments;
+        // iterate over lanes
+        for (int i = 0; i < (int)lanes.size(); i++) {
+            // get first and last segment flags
+            const bool firstSegment = (i == 0);
+            const bool lastSegment = (i == ((int)lanes.size() - 1));
+            // create segments
+            Segment* laneSegment = new Segment(this, pathElement, lanes.at(i), firstSegment, lastSegment, true);
+            // add it into segment vector
+            segments.push_back(laneSegment);
+            // continue if this isn't the last lane
+            if (!lastSegment) {
+                // obtain next lane
+                const GNELane* nextLane = lanes.at(i + 1);
+                // create junction segments
+                Segment* junctionSegment = new Segment(this, pathElement, lanes.at(i)->getParentEdge()->getParentJunctions().at(1), lanes.at(i), nextLane, true);
+                // add it into segment vector
+                segments.push_back(junctionSegment);
+            }
+        }
+
+/*
+        } else {
+            // create first segment
+            Segment* firstSegment = new Segment(this, pathElement, edges.front()->getLaneByAllowedVClass(vClass), true, false, true);
+            // add to segments
+            segments.push_back(firstSegment);
+            // create last segment
+            Segment* lastSegment = new Segment(this, pathElement, edges.back()->getLaneByAllowedVClass(vClass), false, true, false);
+            // add to segments
+            segments.push_back(lastSegment);
+            // set next segment for vinculating first and last segment with a red line
+            firstSegment->setNextSegment(lastSegment);
+        }
+*/
+        // add segment in path
+        myPaths[pathElement] = segments;
+    }
 }
 
 

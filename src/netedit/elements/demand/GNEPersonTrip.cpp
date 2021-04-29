@@ -238,7 +238,7 @@ GNEPersonTrip::drawGL(const GUIVisualizationSettings& /*s*/) const {
 void
 GNEPersonTrip::computePathElement() {
     // calculate path
-    myNet->getPathManager()->calculateLanesPath(this, SVC_PEDESTRIAN, {getFirstPersonPlanLane(), getLastPersonPlanLane()});
+    myNet->getPathManager()->calculatePathLanes(this, SVC_PEDESTRIAN, {getFirstPersonPlanLane(), getLastPersonPlanLane()});
     // update geometry
     updateGeometry();
 }

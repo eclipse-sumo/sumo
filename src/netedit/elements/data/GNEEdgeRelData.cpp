@@ -121,7 +121,7 @@ GNEEdgeRelData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 void 
 GNEEdgeRelData::computePathElement() {
     // calculate path
-    myNet->getPathManager()->calculateEdgesPath(this, SVC_IGNORING, getParentEdges());
+    myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_IGNORING, getParentEdges());
 }
 
 

@@ -274,16 +274,21 @@ GNEWalk::computePathElement() {
         for (const auto &edge : getParentEdges()) {
             lanes.push_back(edge->getLaneByAllowedVClass(getVClass()));
         }
+        // calculate consecutive path
+        myNet->getPathManager()->calculateConsecutivePathLanes(this, getVClass(), lanes);
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
         // fill lanes with route parent edges
         for (const auto& edge : getParentDemandElements().back()->getParentEdges()) {
             lanes.push_back(edge->getLaneByAllowedVClass(getVClass()));
         }
+        // calculate consecutive path
+        myNet->getPathManager()->calculateConsecutivePathLanes(this, getVClass(), lanes);
     } else {
+        // get first and last person plane
         lanes = {getFirstPersonPlanLane(), getLastPersonPlanLane()};
+        // calculate path
+        myNet->getPathManager()->calculatePathLanes(this, getVClass(), lanes);
     }
-    // calculate path
-    myNet->getPathManager()->calculateLanesPath(this, getVClass(), lanes);
     // update geometry
     updateGeometry();
 }

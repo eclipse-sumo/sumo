@@ -107,7 +107,7 @@ GNEEdgeData::isGenericDataVisible() const {
 void
 GNEEdgeData::updateGeometry() {
     // calculate path
-    myNet->getPathManager()->calculateEdgesPath(this, SVC_IGNORING, getParentEdges());
+    myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_IGNORING, getParentEdges());
 }
 
 

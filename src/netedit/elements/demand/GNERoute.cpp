@@ -276,14 +276,14 @@ GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
 void
 GNERoute::computePathElement() {
     if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
-        // calculate path using vClass of vehicle parent
-        myNet->getPathManager()->calculateEdgesPath(this, getParentDemandElements().at(0)->getVClass(), getParentEdges());
+        // calculate consecutive path using vClass of vehicle parent
+        myNet->getPathManager()->calculateConsecutivePathEdges(this, getParentDemandElements().at(0)->getVClass(), getParentEdges());
     } else {
         // calculate path using SVC_PASSENGER
-        myNet->getPathManager()->calculateEdgesPath(this, SVC_PASSENGER, getParentEdges());
+        myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_PASSENGER, getParentEdges());
         // if path is empty, then calculate path again using SVC_IGNORING
         if (!myNet->getPathManager()->isPathValid(this)) {
-            myNet->getPathManager()->calculateEdgesPath(this, SVC_IGNORING, getParentEdges());
+            myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_IGNORING, getParentEdges());
         }
     }
     // update geometry
