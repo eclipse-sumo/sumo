@@ -134,6 +134,7 @@
 #include "bigarrowright.xpm"
 
 #include "frontelement.xpm"
+#include "computepathmanager.xpm"
 
 #include "checkbox_askformerge.xpm"
 #include "checkbox_autoselectjunctions.xpm"
@@ -461,6 +462,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::BIGARROWLEFT] = new FXXPMIcon(a, bigarrowleft_xpm);
     myIcons[GUIIcon::BIGARROWRIGHT] = new FXXPMIcon(a, bigarrowright_xpm);
     myIcons[GUIIcon::FRONTELEMENT] = new FXXPMIcon(a, frontelement_xpm);
+    myIcons[GUIIcon::COMPUTEPATHMANAGER] = new FXXPMIcon(a, computepathmanager_xpm);
 
     myIcons[GUIIcon::COMMONMODE_CHECKBOX_TOGGLEGRID] = new FXXPMIcon(a, checkbox_grid_xpm);
     myIcons[GUIIcon::COMMONMODE_CHECKBOX_SPREADVEHICLE] = new FXXPMIcon(a, checkbox_spreadvehicle_xpm);

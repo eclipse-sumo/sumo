@@ -630,6 +630,8 @@ enum {
     MID_GNE_TOOLBAREDIT_LOADADDITIONALS,
     /// @brief load demand in SUMO-GUI after press ctrl+T
     MID_GNE_TOOLBAREDIT_LOADDEMAND,
+    /// @brief compute path manager
+    MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER,
 
     /// @}
 
