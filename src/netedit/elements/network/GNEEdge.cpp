@@ -119,22 +119,28 @@ GNEEdge::updateGeometry() {
             connection->updateGeometry();
         }
         // Update geometry of additionals children vinculated to this edge
-        for (const auto& childAdditionals : getChildAdditionals()) {
-            childAdditionals->updateGeometry();
+        for (const auto& childAdditional : getChildAdditionals()) {
+            childAdditional->updateGeometry();
         }
-        // compute geometry of additionals demand elements vinculated to this edge (depending of showDemandElements)
-        if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
-            for (const auto& childDemandElements : getChildDemandElements()) {
-                childDemandElements->computePath();
-            }
-        }
-        // Update geometry of additionals demand elements vinculated to this edge
-        for (const auto& childDemandElements : getChildDemandElements()) {
-            childDemandElements->updateGeometry();
+                // Update geometry of additionals demand elements vinculated to this edge
+        for (const auto& childDemandElement : getChildDemandElements()) {
+            childDemandElement->updateGeometry();
         }
         // Update geometry of additionals generic datas vinculated to this edge
         for (const auto& childGenericData : getChildGenericDatas()) {
             childGenericData->updateGeometry();
+        }
+        // compute geometry of path elements elements vinculated with this edge (depending of showDemandElements)
+        if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
+            for (const auto& childAdditional : getChildAdditionals()) {
+                childAdditional->computePath();
+            }
+            for (const auto& childDemandElement : getChildDemandElements()) {
+                childDemandElement->computePath();
+            }
+            for (const auto& childGenericData : getChildGenericDatas()) {
+                childGenericData->computePath();
+            }
         }
     }
     // update vehicle geometry
