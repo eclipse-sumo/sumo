@@ -564,13 +564,31 @@ GNEPathManager::drawJunctionPathElements(const GUIVisualizationSettings& s, cons
 
 
 void
-GNEPathManager::invalidatePath(const GNELane* lane) {
+GNEPathManager::invalidateLanePath(const GNELane* lane) {
     // declare vector for path elements to compute
     std::vector<PathElement*> pathElementsToCompute;
     // check lane in laneSegments
     if (myLaneSegments.count(lane) > 0) {
         // obtain affected path elements
         for (const auto &segment: myLaneSegments.at(lane)) {
+            pathElementsToCompute.push_back(segment->getPathElement());
+        }
+    }
+    // compute path elements
+    for (const auto &pathElement : pathElementsToCompute) {
+        pathElement->computePathElement();
+    }
+}
+
+
+void
+GNEPathManager::invalidateJunctionPath(const GNEJunction* junction) {
+    // declare vector for path elements to compute
+    std::vector<PathElement*> pathElementsToCompute;
+    // check junction in junctionSegments
+    if (myJunctionSegments.count(junction) > 0) {
+        // obtain affected path elements
+        for (const auto &segment: myJunctionSegments.at(junction)) {
             pathElementsToCompute.push_back(segment->getPathElement());
         }
     }

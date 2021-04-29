@@ -259,8 +259,11 @@ public:
     /// @brief draw junction path elements
     void drawJunctionPathElements(const GUIVisualizationSettings& s, const GNEJunction* junction);
 
-    /// @brief invalidate path
-    void invalidatePath(const GNELane* lane);
+    /// @brief invalidate lane path
+    void invalidateLanePath(const GNELane* lane);
+
+    /// @brief invalidate junction path
+    void invalidateJunctionPath(const GNEJunction* junction);
 
     /// @brief clear demand paths
     void clearDemandPaths();

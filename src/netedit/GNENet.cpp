@@ -274,6 +274,8 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
     // all deletions must be undone/redone together so we start a new command group
     // @todo if any of those edges are dead-ends should we remove their orphan junctions as well?
     undoList->p_begin("delete " + toString(SUMO_TAG_JUNCTION));
+    // invalidate junction path elements
+    myPathManager->invalidateJunctionPath(junction);
     // delete all crossings vinculated with junction
     while (junction->getGNECrossings().size() > 0) {
         deleteCrossing(junction->getGNECrossings().front(), undoList);
@@ -312,8 +314,8 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
     undoList->p_begin("delete " + toString(SUMO_TAG_EDGE));
     // iterate over lanes
     for (const auto& lane : edge->getLanes()) {
-        // invalidate path elements
-        myPathManager->invalidatePath(lane);
+        // invalidate lane path elements
+        myPathManager->invalidateLanePath(lane);
         // delete lane additionals
         while (lane->getChildAdditionals().size() > 0) {
             deleteAdditional(lane->getChildAdditionals().front(), undoList);
@@ -449,8 +451,8 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnectio
         deleteEdge(edge, undoList, recomputeConnections);
     } else {
         undoList->p_begin("delete " + toString(SUMO_TAG_LANE));
-        // invalidate path elements
-        myPathManager->invalidatePath(lane);
+        // invalidate lane path elements
+        myPathManager->invalidateLanePath(lane);
         // delete lane additional children
         while (lane->getChildAdditionals().size() > 0) {
             deleteAdditional(lane->getChildAdditionals().front(), undoList);
