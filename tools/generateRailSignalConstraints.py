@@ -367,8 +367,7 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
         for i, (edgesBefore, stop) in enumerate(stopRoute):
             if not (stop.hasAttribute("arrival") and stop.hasAttribute("until")):
                 continue
-            if not overtaken and options.skipParking and parseBool(stop.getAttributeSecure("parking", "false")):
-                continue
+            parking = parseBool(stop.getAttributeSecure("parking", "false"))
             if not overtaken:
                 arrival = parseTime(stop.arrival)
                 until = parseTime(stop.until)
@@ -377,10 +376,14 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                         continue
                     if not stop2.hasAttribute("arrival") or not stop2.hasAttribute("until"):
                         continue
-                    if options.skipParking and parseBool(stop2.getAttributeSecure("parking", "false")):
-                        continue
+                    parking2 =  parseBool(stop2.getAttributeSecure("parking", "false"))
+                    hasParking = parking or parking2
                     arrival2 = parseTime(stop2.arrival)
                     until2 = parseTime(stop2.until)
+                    # if parking stops have the same until-time their depart order
+                    # is undefined so we could get deadlocks
+                    if options.skipParking and hasParking and until != until2:
+                        continue
                     if arrival2 > arrival and until2 < until:
                         overtaken = True
                         print(("Vehicle %s (%s, %s) overtaken by %s (%s, %s) " +
@@ -390,6 +393,23 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                                stop.busStop, i),
                               file=sys.stderr)
                         break
+                    elif until == until2 and hasParking:
+                        overtaken = True
+                        if stop.vehID < stop2.vehID:
+                            # only warn once
+                            print(("Undefined departure at stop %s" +
+                                " (index %s) for %svehicle %s (%s, %s)" +
+                                " and %svehicle %s (%s, %s)." +
+                                " No constraints will be generated for them afterwards") % (
+                                    stop.busStop, i,
+                                    'parking ' if parking else ' ',
+                                    stop.vehID, humanReadableTime(arrival), humanReadableTime(until),
+                                    'parking ' if parking2 else ' ',
+                                    stop2.vehID, humanReadableTime(arrival2), humanReadableTime(until2),
+                                   ),
+                                  file=sys.stderr)
+                        break
+
             if overtaken:
                 #print("invalid veh=%s stop=%s arrival=%s until=%s" %
                 #        (stop.vehID, stop.busStop,
