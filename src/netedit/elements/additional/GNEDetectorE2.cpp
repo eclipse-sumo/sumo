@@ -36,15 +36,13 @@
 
 GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const std::string& freq, const std::string& trafficLight, const std::string& filename,
                              const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement, {
-    lane
-}),
-myLength(length),
-myEndPositionOverLane(0.),
-myTimeThreshold(timeThreshold),
-mySpeedThreshold(speedThreshold),
-myJamThreshold(jamThreshold),
-myTrafficLight(trafficLight) {
+    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement, {lane}),
+    myLength(length),
+    myEndPositionOverLane(0.),
+    myTimeThreshold(timeThreshold),
+    mySpeedThreshold(speedThreshold),
+    myJamThreshold(jamThreshold),
+    myTrafficLight(trafficLight) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -194,32 +192,33 @@ GNEDetectorE2::fixAdditionalProblem() {
 
 void
 GNEDetectorE2::updateGeometry() {
-    // declare variables for start and end positions
-    double startPosFixed = myPositionOverLane;
-    double endPosFixed = myPositionOverLane + myLength;
-    // adjust start and end pos
-    if (startPosFixed < 0) {
-        startPosFixed += myPositionOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-    }
-    if (endPosFixed < 0) {
-        endPosFixed += myPositionOverLane > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
-    }
-    // set start position
-    if (myPositionOverLane < 0) {
-        startPosFixed = 0;
-    } else if (myPositionOverLane > (getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength() - myLength)) {
-        startPosFixed = (getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength() - myLength);
-    }
-    // set end position
-    if ((myPositionOverLane + myLength) < 0) {
-        endPosFixed = 0;
-    } else if ((myPositionOverLane + myLength) > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
-        endPosFixed = getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
-    }
+    // check E2 detector
     if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
-        // calculate path
-        myNet->getPathManager()->calculateLanesPath(this, SVC_IGNORING, getParentLanes());
+        // compute path
+        computePath();
     } else {
+        // declare variables for start and end positions
+        double startPosFixed = myPositionOverLane;
+        double endPosFixed = myPositionOverLane + myLength;
+        // adjust start and end pos
+        if (startPosFixed < 0) {
+            startPosFixed += myPositionOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+        }
+        if (endPosFixed < 0) {
+            endPosFixed += myPositionOverLane > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
+        }
+        // set start position
+        if (myPositionOverLane < 0) {
+            startPosFixed = 0;
+        } else if (myPositionOverLane > (getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength() - myLength)) {
+            startPosFixed = (getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength() - myLength);
+        }
+        // set end position
+        if ((myPositionOverLane + myLength) < 0) {
+            endPosFixed = 0;
+        } else if ((myPositionOverLane + myLength) > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
+            endPosFixed = getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
+        }
         // Cut shape using as delimitators fixed start position and fixed end position
         myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), 
                                             (startPosFixed * getParentLanes().front()->getLengthGeometryFactor()), 

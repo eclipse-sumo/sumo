@@ -324,6 +324,16 @@ GNEAdditional::getOptionalAdditionalName() const {
 }
 
 
+void 
+GNEAdditional::computePath() {
+    // currently onle for E2 multilane detectors
+    if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
+        // calculate path
+        myNet->getPathManager()->calculateLanesPath(this, SVC_IGNORING, getParentLanes());
+    }
+}
+
+
 void
 GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // calculate E2Detector width
