@@ -144,6 +144,16 @@ def start(cmd, port=None, numRetries=tc.DEFAULT_NUM_RETRIES, label="default", ve
     """
     Start a sumo server using cmd, establish a connection to it and
     store it under the given label. This method is not thread-safe.
+
+    - cmd (list): uses the Popen syntax. i.e. ['sumo', '-c', 'run.sumocfg']. The remote
+      port option will be added automatically
+    - numRetries (int): retries on failing to connect to sumo (more retries are needed
+      if a big .net.xml file must be loaded)
+    - label (string) : distinguish multiple traci connections used in the same script
+    - verbose (bool): print complete cmd
+    - traceFile (string): write all traci commands to FILE for debugging
+    - traceGetters (bool): whether to include get-commands in traceFile
+    - stdout (iostream): where to pipe sumo process stdout
     """
     if label in _connections:
         raise TraCIException("Connection '%s' is already active." % label)
