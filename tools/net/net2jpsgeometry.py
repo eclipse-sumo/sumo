@@ -31,17 +31,47 @@ import sumolib  # noqa
 
 
 # defines
+KEY_JPS_TYPE = "jps-type"
+KEY_TRANSITION_ID = "transition-id"
+KEY_FROM_ID = "from-object-id"
+KEY_TO_ID = "to-object-id"
+KEY_SUMO_ID = "sumo-object-id"
+
+JPS_BOUNDARY_TYPE_ID = "boundary"
 JPS_BOUNDARY_ID_SUFFIX = "_boundary"
-JPS_BOUNDARY_TYPE_NAME = "jps-boundary"
+JPS_BOUNDARY_SLICE_DELIMITER = "_slice_"
 JPS_BOUNDARY_COLOR = sumolib.color.RGBAColor(255, 0, 0)
 JPS_BOUNDARY_LAYER = 10
+
+JPS_DOOR_TYPE_ID = "door"
 JPS_DOOR_ID_DELIMITER = "_door_"
-JPS_DOOR_TYPE_NAME = "jps-door"
 JPS_DOOR_COLOR = sumolib.color.RGBAColor(0, 0, 255)
 JPS_DOOR_LAYER = 11
+
 DXF_LAYER_NAME_BOUNDARY = "SUMONetBoundary"
 DXF_LAYER_NAME_DOOR = "SUMONetDoors"
+
 DEBUG = True
+
+
+class DoorInfo:
+    def __init__(self,
+                 id=None,
+                 shape=None,
+                 parentPolygon=None,
+                 atLengthsOfParent=None):
+        assert (len(shape) == 2), "expected two positions for door (got %d instead)" % len(shape)  # noqa
+        self._id = id
+        self._shape = shape
+        self._width = sumolib.geomhelper.polyLength(shape)
+        self._parentPolygon = parentPolygon
+        self._atLengthsOfParent = atLengthsOfParent
+
+    _id = None
+    _shape = None
+    _width = 0
+    _parentPolygon = None
+    _atLengthsOfParent = None
 
 
 def parse_args():
@@ -58,6 +88,8 @@ def parse_args():
     # see https://sumo.dlr.de/docs/Simulation/Pedestrians.html#non-exclusive_sidewalks
     argParser.add_argument("-x", "--exclusive-sidewalks", action="store_true", default=True,
                            help="Choose exclusive sidewalk lane in case of ambiguities")
+    argParser.add_argument("--exclude-junctions", action="store_true", default=True,
+                           help="Exclude junctions as feasible pedestrian areas for JuPedSim")
 
     options = argParser.parse_args()
     if not options.netFile or not options.selectedObjectsFile:
@@ -86,33 +118,76 @@ def calculateBoundingPolygon(shape, width):
     return polyShape
 
 
-def addIncidentEdgeToDoorList(polygon, edge, net, doorPositions, doorIDs):
+def addIncidentEdgeToDoorList(polygon, edge, net, doorInfoList):
     assert net.hasEdge(edge.getID())
-    # print("DEBUG: incident edge \'%s\' for node \'%s\'" % (edge.getID(), polygon.attributes['sumo-object-id']))
+    # print("DEBUG: incident edge \'%s\' for node \'%s\'" % (edge.getID(), polygon.attributes[KEY_SUMO_ID]))
     lane = getExclusiveSidewalkLane(edge)
     if lane is None:
         return
     shape = calculateBoundingPolygon(lane.getShape(includeJunctions=False), lane.getWidth())
     lengths = sumolib.geomhelper.intersectsAtLengths2D(polygon.shape, shape)
-    for offset in lengths:
-        doorPositions.append(sumolib.geomhelper.positionAtShapeOffset(polygon.shape, offset))
-    doorIDs.append(polygon.attributes['sumo-object-id'] + JPS_DOOR_ID_DELIMITER + lane.getID())
+    positions = [sumolib.geomhelper.positionAtShapeOffset(polygon.shape, offset) for offset in lengths]
+    doorId = polygon.attributes[KEY_SUMO_ID] + JPS_DOOR_ID_DELIMITER + lane.getID()
+    doorInfoList.append(DoorInfo(doorId, positions, polygon, lengths))
+
+
+def subtractDoorsFromPolygon(polygon, doorInfoList):
+    result = []
+    lengths = []
+    for doorInfo in doorInfoList:
+        print("DEBUG: doorInfo._atLengthsOfParent:", doorInfo._atLengthsOfParent)
+        # if doorInfo._atLengthsOfParent[-1] == 0:
+        #     doorInfo._atLengthsOfParent[-1] == sumolib.geomhelper.polyLength(polygon.shape)
+        len1 = doorInfo._atLengthsOfParent[0]
+        len2 = doorInfo._atLengthsOfParent[-1]
+        assert (len1 < len2), "len1 should be smaller than len2 (len1=%d, len2=%d)" % (len1, len2)  # noqa
+        if len2 - len1 > doorInfo._width:
+            # corner case with inversely oriented door and closed parent polygon
+            len1 = len2
+            len2 = sumolib.geomhelper.polyLength(polygon.shape)
+        if len1 in lengths and len2 in lengths:
+            # ignore duplicates
+            continue
+        elif len1 not in lengths and len2 not in lengths:
+            lengths.append(len1)
+            lengths.append(len2)
+        else:
+            print("ERROR: only one of (len1, len2) found in length list, aborting...")
+            sys.exit(1)
+    print("DEBUG: lengths:", lengths)
+    lengths.sort()
+    print("DEBUG: lengths.sorted:", lengths)
+    polySlices = sumolib.geomhelper.splitPolygonAtLengths2D(polygon.shape, lengths)
+    # start at second slice if first door is at beginning of polygon
+    startSliceIdx = 1 if lengths[0] == 0.0 else 0
+    # stop at penultimate slice if last door is at end of polygon
+    endSliceIdx = len(polySlices) - 1 if lengths[-1] == sumolib.geomhelper.polyLength(polygon.shape) else len(polySlices)  # noqa
+    # intersectsAtLengths2D() filters out duplicate lengths -> no two doors are directly adjacent to each other
+    for i in range(startSliceIdx, endSliceIdx, 2):
+        p = sumolib.shapes.polygon.Polygon(id=polygon.id + JPS_BOUNDARY_SLICE_DELIMITER + str(i),
+                                           color=JPS_BOUNDARY_COLOR,
+                                           layer=JPS_BOUNDARY_LAYER,
+                                           shape=polySlices[i])
+        p.attributes[KEY_JPS_TYPE] = polygon.attributes[KEY_JPS_TYPE]
+        p.attributes[KEY_SUMO_ID] = polygon.attributes[KEY_SUMO_ID]
+        result.append(p)
+    return result
 
 
 def calculateDoors(polygons, net):
     result = []
+    myPolygonSlices = []
     myLastTransitionId = 0
     for p in polygons:
-        isLane = net.hasEdge(p.attributes['sumo-object-id'][:-2])
-        isNode = net.hasNode(p.attributes['sumo-object-id'])
+        isLane = net.hasEdge(p.attributes[KEY_SUMO_ID][:-2])
+        isNode = net.hasNode(p.attributes[KEY_SUMO_ID])
         if not isLane and not isNode:
             print("ERROR: objID \'%s\' not found as lane or node in network, aborting..." %
-                  p.attributes['sumo-object-id'])
+                  p.attributes[KEY_SUMO_ID])
             sys.exit(1)
-        doorPositions = []
-        doorIDs = []
+        doorInfoList = []
         if isLane:
-            lane = net.getLane(p.attributes['sumo-object-id'])
+            lane = net.getLane(p.attributes[KEY_SUMO_ID])
             print("DEBUG: calculateDoors() lane \'%s\'" % lane.getID())
             for inc in lane.getIncoming(onlyDirect=True):
                 # print("DEBUG: incoming lane \'%s\' for lane \'%s\'" % (inc.getID(), lane.getID()))
@@ -120,47 +195,45 @@ def calculateDoors(polygons, net):
                 if inc.getID()[0] == ":":
                     shape = inc.getConnection(lane).getJunction().getShape()
                 lengths = sumolib.geomhelper.intersectsAtLengths2D(p.shape, shape)
-                for offset in lengths:
-                    doorPositions.append(sumolib.geomhelper.positionAtShapeOffset(p.shape, offset))
-                doorIDs.append(p.attributes['sumo-object-id'] + JPS_DOOR_ID_DELIMITER + inc.getID())
+                positions = [sumolib.geomhelper.positionAtShapeOffset(p.shape, offset) for offset in lengths]
+                doorId = p.attributes[KEY_SUMO_ID] + JPS_DOOR_ID_DELIMITER + inc.getID()
+                doorInfoList.append(DoorInfo(doorId, positions, p, lengths))
                 # print("DEBUG: calculateDoors() p.shape: \'%s\'" % p.shape)
                 # print("DEBUG: calculateDoors() shape: \'%s\'" % shape)
                 # print("DEBUG: calculateDoors() lengths: \'%s\'" % lengths)
-                # print("DEBUG: calculateDoors() doorPositions: \'%s\'" % doorPositions)
+                # print("DEBUG: calculateDoors() positions: \'%s\'" % positions)
             for out in lane.getOutgoing():
                 # print("DEBUG: outgoing node \'%s\' for lane \'%s\'" % (out.getJunction().getID(), lane.getID()))
                 shape = out.getJunction().getShape()
                 lengths = sumolib.geomhelper.intersectsAtLengths2D(p.shape, shape)
-                for offset in lengths:
-                    doorPositions.append(sumolib.geomhelper.positionAtShapeOffset(p.shape, offset))
-                doorIDs.append(p.attributes['sumo-object-id'] + JPS_DOOR_ID_DELIMITER + out.getViaLaneID())
+                positions = [sumolib.geomhelper.positionAtShapeOffset(p.shape, offset) for offset in lengths]
+                doorId = p.attributes[KEY_SUMO_ID] + JPS_DOOR_ID_DELIMITER + out.getViaLaneID()
+                doorInfoList.append(DoorInfo(doorId, positions, p, lengths))
         elif isNode:
-            node = net.getNode(p.attributes['sumo-object-id'])
+            node = net.getNode(p.attributes[KEY_SUMO_ID])
             print("DEBUG: calculateDoors() node \'%s\'" % node.getID())
             for inc in node.getIncoming():
                 if inc.getID()[0] == ":":
                     continue
-                addIncidentEdgeToDoorList(p, inc, net, doorPositions, doorIDs)
+                addIncidentEdgeToDoorList(p, inc, net, doorInfoList)
             for out in node.getOutgoing():
                 if out.getID()[0] == ":":
                     continue
-                addIncidentEdgeToDoorList(p, out, net, doorPositions, doorIDs)
-        # sanity check
-        assert (len(doorPositions) % 2 == 0), "ERROR: len(doorPositions) is not even (%d), aborting..." % len(doorPositions)  # noqa
-        for i in range(0, len(doorPositions), 2):
-            door = sumolib.shapes.polygon.Polygon(
-                id=doorIDs[int(i / 2)],
-                type=JPS_DOOR_TYPE_NAME,
-                color=JPS_DOOR_COLOR,
-                layer=JPS_DOOR_LAYER,
-                shape=[doorPositions[i], doorPositions[i + 1]])
-            door.attributes['from-object-id'] = door.id.split(JPS_DOOR_ID_DELIMITER)[0]
-            door.attributes['to-object-id'] = door.id.split(JPS_DOOR_ID_DELIMITER)[1]
-            door.attributes['transition-id'] = myLastTransitionId
-            myLastTransitionId += 1
+                addIncidentEdgeToDoorList(p, out, net, doorInfoList)
+        for doorInfo in doorInfoList:
+            door = sumolib.shapes.polygon.Polygon(id=doorInfo._id,
+                                                  color=JPS_DOOR_COLOR,
+                                                  layer=JPS_DOOR_LAYER,
+                                                  shape=doorInfo._shape)
+            door.attributes[KEY_JPS_TYPE] = JPS_DOOR_TYPE_ID
+            door.attributes[KEY_FROM_ID] = door.id.split(JPS_DOOR_ID_DELIMITER)[0]
+            door.attributes[KEY_TO_ID] = door.id.split(JPS_DOOR_ID_DELIMITER)[1]
+            door.attributes[KEY_TRANSITION_ID] = myLastTransitionId
             if not isDuplicate(door, result):
                 result.append(door)
-    return result
+                myLastTransitionId += 1
+        myPolygonSlices += subtractDoorsFromPolygon(p, doorInfoList)
+    return result, myPolygonSlices
 
 
 def addLaneToPolygons(lane, polygons):
@@ -169,11 +242,11 @@ def addLaneToPolygons(lane, polygons):
         return
     polyShape = calculateBoundingPolygon(lane.getShape(includeJunctions=False), lane.getWidth())
     polygon = sumolib.shapes.polygon.Polygon(id=lane.getID() + JPS_BOUNDARY_ID_SUFFIX,
-                                             type=JPS_BOUNDARY_TYPE_NAME,
                                              color=JPS_BOUNDARY_COLOR,
                                              layer=JPS_BOUNDARY_LAYER,
                                              shape=polyShape)
-    polygon.attributes['sumo-object-id'] = lane.getID()
+    polygon.attributes[KEY_JPS_TYPE] = JPS_BOUNDARY_TYPE_ID
+    polygon.attributes[KEY_SUMO_ID] = lane.getID()
     if not isDuplicate(polygon, polygons):
         polygons.append(polygon)
     return
@@ -183,11 +256,11 @@ def addNodeToPolygons(node, polygons):
     polyShape = node.getShape()
     polyShape.append(polyShape[0])
     polygon = sumolib.shapes.polygon.Polygon(id=node.getID() + JPS_BOUNDARY_ID_SUFFIX,
-                                             type=JPS_BOUNDARY_TYPE_NAME,
                                              color=JPS_BOUNDARY_COLOR,
                                              layer=JPS_BOUNDARY_LAYER,
                                              shape=polyShape)
-    polygon.attributes['sumo-object-id'] = node.getID()
+    polygon.attributes[KEY_JPS_TYPE] = JPS_BOUNDARY_TYPE_ID
+    polygon.attributes[KEY_SUMO_ID] = node.getID()
     if not isDuplicate(polygon, polygons):
         polygons.append(polygon)
     return
@@ -211,10 +284,10 @@ def writeToDxf(polygons, doors, options):
     doc.layers.new(name=DXF_LAYER_NAME_BOUNDARY, dxfattribs={'linetype': 'SOLID', 'color': 7})
     for p in polygons:
         msp.add_lwpolyline(p.shape, dxfattribs={'layer': DXF_LAYER_NAME_BOUNDARY})
-    doc.layers.new(name=DXF_LAYER_NAME_DOOR, dxfattribs={'linetype': 'DASHED', 'color': 9})
+    doc.layers.new(name=DXF_LAYER_NAME_DOOR, dxfattribs={'linetype': 'DASHED'})
     for d in doors:
-        msp.add_lwpolyline(d.shape, dxfattribs={'layer': DXF_LAYER_NAME_DOOR})
-        # TODO: add transition ID to dxf attributes
+        # use color attribute to encode transition id
+        msp.add_lwpolyline(d.shape, dxfattribs={'layer': DXF_LAYER_NAME_DOOR, 'color': d.attributes[KEY_TRANSITION_ID]})
     doc.saveas(options.outFile)
 
 
@@ -256,7 +329,7 @@ if __name__ == "__main__":
                     print("WARNING: lane \'%s\' is not the exclusive sidewalk lane, skipping..." % (laneId))
                     continue
             addLaneToPolygons(lane, polygons)
-    if "junction" in selectedObjects.keys():
+    if not options.exclude_junctions and "junction" in selectedObjects.keys():
         for nodeId in selectedObjects["junction"]:
             try:
                 node = net.getNode(nodeId)
@@ -265,10 +338,10 @@ if __name__ == "__main__":
                 continue
             addNodeToPolygons(node, polygons)
 
-    doors = calculateDoors(polygons, net)
+    doors, polygonSlices = calculateDoors(polygons, net)
     if not options.outFile:
         options.outFile = options.netFile[:options.netFile.rfind(".net.xml")] + ".dxf"
     if options.debug:
         debugOutFile = options.outFile[:options.outFile.rfind(".dxf")] + ".poly.xml"
-        sumolib.files.additional.write(debugOutFile, doors + polygons)
-    writeToDxf(polygons, doors, options)
+        sumolib.files.additional.write(debugOutFile, doors + polygonSlices)
+    writeToDxf(polygonSlices, doors, options)
