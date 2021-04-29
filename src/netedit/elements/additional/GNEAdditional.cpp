@@ -487,9 +487,9 @@ GNEAdditional::drawAdditionalID(const GUIVisualizationSettings& s) const {
         const double rot = (myAdditionalGeometry.getShape().size() == 1) ? myAdditionalGeometry.getShapeRotations().front() : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
         // draw additional ID
         if (myTagProperty.hasAttribute(SUMO_ATTR_LANE)) {
-            GLHelper::drawText(getMicrosimID(), pos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, s.getTextAngle(rot - 90));
+            GLHelper::drawText(getMicrosimID(), pos, GLO_MAX - getType(), s.addName.scaledSize(s.scale), s.addName.color, s.getTextAngle(rot - 90));
         } else {
-            GLHelper::drawText(getMicrosimID(), pos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, 0);
+            GLHelper::drawText(getMicrosimID(), pos, GLO_MAX - getType(), s.addName.scaledSize(s.scale), s.addName.color, 0);
         }
     }
 }
