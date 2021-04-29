@@ -203,9 +203,6 @@ public:
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
-    /// @brief compute path
-    void computePath();
-
     /// @brief Returns position of demand element in view
     Position getPositionInView() const;
     /// @}
@@ -239,6 +236,14 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
+    /// @}
+
+    /// @name inherited from GNEPathManager::PathElement
+    /// @{
+
+    /// @brief compute path
+    void computePath();
 
     /**@brief Draws partial object
      * @param[in] s The settings for the current view (may influence drawing)

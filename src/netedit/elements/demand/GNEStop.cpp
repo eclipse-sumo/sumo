@@ -173,12 +173,6 @@ GNEStop::updateGeometry() {
 }
 
 
-void
-GNEStop::computePath() {
-    // nothing to compute
-}
-
-
 Position
 GNEStop::getPositionInView() const {
     if (getParentLanes().size() > 0) {
@@ -333,6 +327,12 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             getParentDemandElements().front()->drawGL(s);
         }
     }
+}
+
+
+void
+GNEStop::computePath() {
+    // nothing to compute
 }
 
 

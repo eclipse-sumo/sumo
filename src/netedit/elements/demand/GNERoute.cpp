@@ -228,24 +228,6 @@ GNERoute::updateGeometry() {
 }
 
 
-void
-GNERoute::computePath() {
-    if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
-        // calculate path using vClass of vehicle parent
-        myNet->getPathManager()->calculateEdgesPath(this, getParentDemandElements().at(0)->getVClass(), getParentEdges());
-    } else {
-        // calculate path using SVC_PASSENGER
-        myNet->getPathManager()->calculateEdgesPath(this, SVC_PASSENGER, getParentEdges());
-        // if path is empty, then calculate path again using SVC_IGNORING
-        if (!myNet->getPathManager()->isPathValid(this)) {
-            myNet->getPathManager()->calculateEdgesPath(this, SVC_IGNORING, getParentEdges());
-        }
-    }
-    // update geometry
-    updateGeometry();
-}
-
-
 Position
 GNERoute::getPositionInView() const {
     return Position();
@@ -288,6 +270,24 @@ GNERoute::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElem
 void
 GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // Routes are drawn in drawPartialGL
+}
+
+
+void
+GNERoute::computePath() {
+    if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+        // calculate path using vClass of vehicle parent
+        myNet->getPathManager()->calculateEdgesPath(this, getParentDemandElements().at(0)->getVClass(), getParentEdges());
+    } else {
+        // calculate path using SVC_PASSENGER
+        myNet->getPathManager()->calculateEdgesPath(this, SVC_PASSENGER, getParentEdges());
+        // if path is empty, then calculate path again using SVC_IGNORING
+        if (!myNet->getPathManager()->isPathValid(this)) {
+            myNet->getPathManager()->calculateEdgesPath(this, SVC_IGNORING, getParentEdges());
+        }
+    }
+    // update geometry
+    updateGeometry();
 }
 
 

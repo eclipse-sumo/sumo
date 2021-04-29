@@ -168,13 +168,6 @@ GNEPersonStop::updateGeometry() {
 }
 
 
-void
-GNEPersonStop::computePath() {
-    // only update geometry
-    updateGeometry();
-}
-
-
 Position
 GNEPersonStop::getPositionInView() const {
     // check if is placed over a busStop
@@ -267,6 +260,13 @@ GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
             getParentDemandElements().front()->drawGL(s);
         }
     }
+}
+
+
+void
+GNEPersonStop::computePath() {
+    // only update geometry
+    updateGeometry();
 }
 
 

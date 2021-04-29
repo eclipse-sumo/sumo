@@ -520,25 +520,6 @@ GNEVehicle::updateGeometry() {
 }
 
 
-void
-GNEVehicle::computePath() {
-    // calculate path (only for flows and trips)
-    if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
-        // extract lanes from parent edges
-        std::vector<GNELane*> lanes;
-        lanes.push_back(getFirstAllowedVehicleLane());
-        for (int i = 1; i < ((int)getParentEdges().size() - 1); i++) {
-            lanes.push_back(getParentEdges().at(i)->getLaneByAllowedVClass(getVClass()));
-        }
-        lanes.push_back(getLastAllowedVehicleLane());
-        // calculate path
-        myNet->getPathManager()->calculateLanesPath(this, getVClass(), lanes);
-    }
-    // update geometry
-    updateGeometry();
-}
-
-
 Position
 GNEVehicle::getPositionInView() const {
     return myDemandElementGeometry.getShape().front();
@@ -721,6 +702,25 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             glPopName();
         }
     }
+}
+
+
+void
+GNEVehicle::computePath() {
+    // calculate path (only for flows and trips)
+    if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
+        // extract lanes from parent edges
+        std::vector<GNELane*> lanes;
+        lanes.push_back(getFirstAllowedVehicleLane());
+        for (int i = 1; i < ((int)getParentEdges().size() - 1); i++) {
+            lanes.push_back(getParentEdges().at(i)->getLaneByAllowedVClass(getVClass()));
+        }
+        lanes.push_back(getLastAllowedVehicleLane());
+        // calculate path
+        myNet->getPathManager()->calculateLanesPath(this, getVClass(), lanes);
+    }
+    // update geometry
+    updateGeometry();
 }
 
 

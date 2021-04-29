@@ -216,31 +216,6 @@ GNEWalk::updateGeometry() {
 }
 
 
-void
-GNEWalk::computePath() {
-    // declare lane vector
-    std::vector<GNELane*> lanes;
-    // update lanes depending of walk tag
-    if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
-        // fill lanes with parent edges
-        for (const auto &edge : getParentEdges()) {
-            lanes.push_back(edge->getLaneByAllowedVClass(getVClass()));
-        }
-    } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
-        // fill lanes with route parent edges
-        for (const auto& edge : getParentDemandElements().back()->getParentEdges()) {
-            lanes.push_back(edge->getLaneByAllowedVClass(getVClass()));
-        }
-    } else {
-        lanes = {getFirstPersonPlanLane(), getLastPersonPlanLane()};
-    }
-    // calculate path
-    myNet->getPathManager()->calculateLanesPath(this, getVClass(), lanes);
-    // update geometry
-    updateGeometry();
-}
-
-
 Position
 GNEWalk::getPositionInView() const {
     return Position();
@@ -286,6 +261,31 @@ GNEWalk::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEleme
 void
 GNEWalk::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // Walks are drawn in drawPartialGL
+}
+
+
+void
+GNEWalk::computePath() {
+    // declare lane vector
+    std::vector<GNELane*> lanes;
+    // update lanes depending of walk tag
+    if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
+        // fill lanes with parent edges
+        for (const auto &edge : getParentEdges()) {
+            lanes.push_back(edge->getLaneByAllowedVClass(getVClass()));
+        }
+    } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
+        // fill lanes with route parent edges
+        for (const auto& edge : getParentDemandElements().back()->getParentEdges()) {
+            lanes.push_back(edge->getLaneByAllowedVClass(getVClass()));
+        }
+    } else {
+        lanes = {getFirstPersonPlanLane(), getLastPersonPlanLane()};
+    }
+    // calculate path
+    myNet->getPathManager()->calculateLanesPath(this, getVClass(), lanes);
+    // update geometry
+    updateGeometry();
 }
 
 

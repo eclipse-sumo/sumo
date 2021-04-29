@@ -195,15 +195,6 @@ GNEPersonTrip::updateGeometry() {
 }
 
 
-void
-GNEPersonTrip::computePath() {
-    // calculate path
-    myNet->getPathManager()->calculateLanesPath(this, SVC_PEDESTRIAN, {getFirstPersonPlanLane(), getLastPersonPlanLane()});
-    // update geometry
-    updateGeometry();
-}
-
-
 Position
 GNEPersonTrip::getPositionInView() const {
     return Position();
@@ -241,6 +232,15 @@ GNEPersonTrip::splitEdgeGeometry(const double /*splitPosition*/, const GNENetwor
 void
 GNEPersonTrip::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // PersonTrips are drawn in drawPartialGL
+}
+
+
+void
+GNEPersonTrip::computePath() {
+    // calculate path
+    myNet->getPathManager()->calculateLanesPath(this, SVC_PEDESTRIAN, {getFirstPersonPlanLane(), getLastPersonPlanLane()});
+    // update geometry
+    updateGeometry();
 }
 
 

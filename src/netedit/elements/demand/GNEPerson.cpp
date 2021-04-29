@@ -297,15 +297,6 @@ GNEPerson::updateGeometry() {
 }
 
 
-void
-GNEPerson::computePath() {
-    // compute all person plan children (because aren't computed in "computeDemandElements()")
-    for (const auto& demandElement : getChildDemandElements()) {
-        demandElement->computePath();
-    }
-}
-
-
 Position
 GNEPerson::getPositionInView() const {
     return getAttributePosition(SUMO_ATTR_DEPARTPOS);
@@ -419,6 +410,15 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
                 GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }
         }
+    }
+}
+
+
+void
+GNEPerson::computePath() {
+    // compute all person plan children (because aren't computed in "computeDemandElements()")
+    for (const auto& demandElement : getChildDemandElements()) {
+        demandElement->computePath();
     }
 }
 

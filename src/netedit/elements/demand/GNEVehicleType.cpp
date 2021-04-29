@@ -116,12 +116,6 @@ GNEVehicleType::updateGeometry() {
 }
 
 
-void
-GNEVehicleType::computePath() {
-    // nothing to compute
-}
-
-
 Position
 GNEVehicleType::getPositionInView() const {
     return Position();
@@ -150,6 +144,12 @@ GNEVehicleType::splitEdgeGeometry(const double /*splitPosition*/, const GNENetwo
 void
 GNEVehicleType::drawGL(const GUIVisualizationSettings&) const {
     // Vehicle Types aren't draw
+}
+
+
+void
+GNEVehicleType::computePath() {
+    // nothing to compute
 }
 
 

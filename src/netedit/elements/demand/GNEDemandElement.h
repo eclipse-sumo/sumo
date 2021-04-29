@@ -181,9 +181,6 @@ public:
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 
-    /// @brief compute path
-    virtual void computePath() = 0;
-
     /// @brief Returns position of demand element in view
     virtual Position getPositionInView() const = 0;
 
@@ -227,6 +224,8 @@ public:
 
     /// @name inherited from GNEPathManager::PathElement
     /// @{
+    /// @brief compute path
+    virtual void computePath() = 0;
 
     /**@brief Draws partial object (lane)
      * @param[in] s The settings for the current view (may influence drawing)
