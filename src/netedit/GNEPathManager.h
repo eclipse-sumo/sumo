@@ -210,7 +210,7 @@ public:
         void updatePathCalculator();
 
         /// @brief calculate Dijkstra path between a list of partial edges
-        std::vector<GNEEdge*> calculatePath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const;
+        std::vector<GNEEdge*> calculateDijkstraPath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const;
 
         /// @brief calculate reachability for given edge
         void calculateReachability(const SUMOVehicleClass vClass, GNEEdge* originEdge);

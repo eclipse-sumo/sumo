@@ -239,7 +239,7 @@ GNEPathManager::PathCalculator::updatePathCalculator() {
 
 
 std::vector<GNEEdge*>
-GNEPathManager::PathCalculator::calculatePath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const {
+GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const {
     // declare a solution vector
     std::vector<GNEEdge*> solution;
     // calculate route depending of number of partial myEdges
@@ -496,6 +496,9 @@ GNEPathManager::calculatePathEdges(PathElement* pathElement, SUMOVehicleClass vC
         const std::vector<GNEEdge*> path = myPathCalculator->calculatePath(vClass, edges);
         // continue if path isn't empty
         if (path.size() > 0) {
+            // reserve
+            segments.reserve(2 * (int)path.size() - 1);
+            // iterate over path
             for (int i = 0; i < (int)path.size(); i++) {
                 // get first and last segment flags
                 const bool firstSegment = (i == 0);
@@ -579,6 +582,8 @@ GNEPathManager::calculateConsecutivePathLanes(PathElement* pathElement, SUMOVehi
     if (lanes.size() > 0) {
         // declare segment vector
         std::vector<Segment*> segments;
+        // reserve
+        segments.reserve(2 * (int)lanes.size() - 1);
         // iterate over lanes
         for (int i = 0; i < (int)lanes.size(); i++) {
             // get first and last segment flags
