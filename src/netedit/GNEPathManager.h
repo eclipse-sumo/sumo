@@ -46,11 +46,11 @@ public:
     public:
         /// @brief constructor for lanes
         Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane, 
-                const bool firstSegment, const bool lastSegment, const bool valid);
+                const bool firstSegment, const bool lastSegment);
 
         /// @brief constructor for junctions
         Segment(GNEPathManager* pathManager, PathElement* element, const GNEJunction* junction, 
-                const GNELane* previousLane, const GNELane* nextLane, const bool valid);
+                const GNELane* previousLane, const GNELane* nextLane);
 
         /// @brief destructor
         ~Segment();
@@ -79,11 +79,20 @@ public:
         /// @brief check if segment is valid
         bool isValid() const;
 
+        /// @brief mark segment as invalid
+        void markSegmentInvalid();
+
         /// @brief get next segment
         Segment *getNextSegment() const;
 
         /// @brief set next segment
         void setNextSegment(Segment *nexSegment);
+
+        /// @brief check if segment is label segment
+        bool isLabelSegment() const;
+
+        /// @brief mark segment as middle segment
+        void markSegmentLabel();
 
     protected:
         /// @brief path manager
@@ -111,10 +120,13 @@ public:
         const GNEJunction* myJunction;
 
         /// @brief flag for check if segment is valid
-        const bool myValid;
+        bool myValid;
 
         /// @brief pointer to next segment (use for draw a red line)
         Segment* myNextSegment;
+
+        /// @brief flag for check if this segment is a label segment
+        bool myLabelSegment;
 
     private:
         /// @brief default constructor
