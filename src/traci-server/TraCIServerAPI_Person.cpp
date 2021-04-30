@@ -136,6 +136,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             && variable != libsumo::MOVE_TO_XY
             && variable != libsumo::VAR_SPEED
             && variable != libsumo::VAR_TYPE
+            && variable != libsumo::VAR_SPEED_FACTOR
             && variable != libsumo::VAR_LENGTH
             && variable != libsumo::VAR_WIDTH
             && variable != libsumo::VAR_HEIGHT
@@ -177,6 +178,14 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 libsumo::Person::setType(id, vTypeID);
                 break;
             }
+            case libsumo::VAR_SPEED_FACTOR: {
+                double speedfactor = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, speedfactor)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Setting SpeedFactor requires a double.", outputStorage);
+                }
+                libsumo::Person::setSpeedFactor(id, speedfactor);
+            }
+            break;
             case libsumo::VAR_COLOR: {
                 libsumo::TraCIColor col;
                 if (!server.readTypeCheckingColor(inputStorage, col)) {

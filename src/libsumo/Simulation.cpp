@@ -709,6 +709,14 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
         } else {
             throw TraCIException("Invalid overhead wire parameter '" + attrName + "'");
         }
+    } else if (StringUtils::startsWith(key, "net.")) {
+        const std::string attrName = key.substr(4);
+        Position b = GeoConvHelper::getFinal().getOffsetBase();
+        if (attrName == toString(SUMO_ATTR_NET_OFFSET)) {
+            return toString(GeoConvHelper::getFinal().getOffsetBase());
+        } else {
+            throw TraCIException("Invalid net parameter '" + attrName + "'");
+        }
     } else if (StringUtils::startsWith(key, "parkingArea.")) {
         const std::string attrName = key.substr(12);
         MSParkingArea* pa = static_cast<MSParkingArea*>(MSNet::getInstance()->getStoppingPlace(objectID, SUMO_TAG_PARKING_AREA));
