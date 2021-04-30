@@ -501,13 +501,21 @@ GNEPerson::getAttributeDouble(SumoXMLAttr key) const {
 Position 
 GNEPerson::getAttributePosition(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_DEPARTPOS:
+        case SUMO_ATTR_DEPARTPOS: {
+            // get person plan
+            const GNEDemandElement *personPlan = getChildDemandElements().front();
             // first check if first person plan is a stop
-            if (getChildDemandElements().front()->getTagProperty().isPersonStop()) {
-                return getChildDemandElements().front()->getPositionInView();
+            if (personPlan->getTagProperty().isPersonStop()) {
+                return personPlan->getPositionInView();
             } else {
-                // get lane
-                const GNELane *lane = getChildDemandElements().front()->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
+                // declare lane lane
+                GNELane *lane = nullptr;
+                // update lane
+                if (personPlan->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
+                    lane = personPlan->getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
+                } else {
+                    lane = personPlan->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
+                }
                 // get position over lane shape
                 if (departPos <= 0) {
                     return lane->getLaneShape().front();
@@ -517,6 +525,7 @@ GNEPerson::getAttributePosition(SumoXMLAttr key) const {
                     return lane->getLaneShape().positionAtOffset2D(departPos);
                 }
             }
+        }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a Position attribute of type '" + toString(key) + "'");
     }
