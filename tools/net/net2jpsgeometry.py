@@ -51,7 +51,7 @@ JPS_DOOR_LAYER = 11
 DXF_LAYER_NAME_BOUNDARY = "SUMONetBoundary"
 DXF_LAYER_NAME_DOOR = "SUMONetDoors"
 
-DEBUG = True
+DEBUG = False
 
 
 class DoorInfo:
@@ -83,8 +83,8 @@ def parse_args():
                            help="The txt file including the line-by-line list of objects to select")
     argParser.add_argument("-o", "--output-file", dest="outFile",
                            help="The JuPedSim dxf output file name")
-    argParser.add_argument("-d", "--debug", action="store_true", default=True,
-                           help="Export outer borders and handoff lines to debug file")
+    argParser.add_argument("-a", "--write-additional-file", action="store_true", default=False,
+                           help="Export boundaries and doors to XML additional file")
     # see https://sumo.dlr.de/docs/Simulation/Pedestrians.html#non-exclusive_sidewalks
     argParser.add_argument("-x", "--exclusive-sidewalks", action="store_true", default=True,
                            help="Choose exclusive sidewalk lane in case of ambiguities")
@@ -120,7 +120,8 @@ def calculateBoundingPolygon(shape, width):
 
 def addIncidentEdgeToDoorList(polygon, edge, net, doorInfoList):
     assert net.hasEdge(edge.getID())
-    # print("DEBUG: incident edge \'%s\' for node \'%s\'" % (edge.getID(), polygon.attributes[KEY_SUMO_ID]))
+    if DEBUG:
+        print("DEBUG: incident edge \'%s\' for node \'%s\'" % (edge.getID(), polygon.attributes[KEY_SUMO_ID]))
     lane = getExclusiveSidewalkLane(edge)
     if lane is None:
         return
@@ -135,9 +136,8 @@ def subtractDoorsFromPolygon(polygon, doorInfoList):
     result = []
     lengths = []
     for doorInfo in doorInfoList:
-        print("DEBUG: doorInfo._atLengthsOfParent:", doorInfo._atLengthsOfParent)
-        # if doorInfo._atLengthsOfParent[-1] == 0:
-        #     doorInfo._atLengthsOfParent[-1] == sumolib.geomhelper.polyLength(polygon.shape)
+        if DEBUG:
+            print("DEBUG: doorInfo._atLengthsOfParent:", doorInfo._atLengthsOfParent)
         len1 = doorInfo._atLengthsOfParent[0]
         len2 = doorInfo._atLengthsOfParent[-1]
         assert (len1 < len2), "len1 should be smaller than len2 (len1=%d, len2=%d)" % (len1, len2)  # noqa
@@ -154,9 +154,11 @@ def subtractDoorsFromPolygon(polygon, doorInfoList):
         else:
             print("ERROR: only one of (len1, len2) found in length list, aborting...")
             sys.exit(1)
-    print("DEBUG: lengths:", lengths)
+    if DEBUG:
+        print("DEBUG: lengths:", lengths)
     lengths.sort()
-    print("DEBUG: lengths.sorted:", lengths)
+    if DEBUG:
+        print("DEBUG: lengths.sorted:", lengths)
     polySlices = sumolib.geomhelper.splitPolygonAtLengths2D(polygon.shape, lengths)
     # start at second slice if first door is at beginning of polygon
     startSliceIdx = 1 if lengths[0] == 0.0 else 0
@@ -188,9 +190,11 @@ def calculateDoors(polygons, net):
         doorInfoList = []
         if isLane:
             lane = net.getLane(p.attributes[KEY_SUMO_ID])
-            print("DEBUG: calculateDoors() lane \'%s\'" % lane.getID())
+            if DEBUG:
+                print("DEBUG: calculateDoors() lane \'%s\'" % lane.getID())
             for inc in lane.getIncoming(onlyDirect=True):
-                # print("DEBUG: incoming lane \'%s\' for lane \'%s\'" % (inc.getID(), lane.getID()))
+                if DEBUG:
+                    print("DEBUG: incoming lane \'%s\' for lane \'%s\'" % (inc.getID(), lane.getID()))
                 shape = inc.getShape()
                 if inc.getID()[0] == ":":
                     shape = inc.getConnection(lane).getJunction().getShape()
@@ -198,12 +202,14 @@ def calculateDoors(polygons, net):
                 positions = [sumolib.geomhelper.positionAtShapeOffset(p.shape, offset) for offset in lengths]
                 doorId = p.attributes[KEY_SUMO_ID] + JPS_DOOR_ID_DELIMITER + inc.getID()
                 doorInfoList.append(DoorInfo(doorId, positions, p, lengths))
-                # print("DEBUG: calculateDoors() p.shape: \'%s\'" % p.shape)
-                # print("DEBUG: calculateDoors() shape: \'%s\'" % shape)
-                # print("DEBUG: calculateDoors() lengths: \'%s\'" % lengths)
-                # print("DEBUG: calculateDoors() positions: \'%s\'" % positions)
+                if DEBUG:
+                    print("DEBUG: calculateDoors() p.shape: \'%s\'" % p.shape)
+                    print("DEBUG: calculateDoors() shape: \'%s\'" % shape)
+                    print("DEBUG: calculateDoors() lengths: \'%s\'" % lengths)
+                    print("DEBUG: calculateDoors() positions: \'%s\'" % positions)
             for out in lane.getOutgoing():
-                # print("DEBUG: outgoing node \'%s\' for lane \'%s\'" % (out.getJunction().getID(), lane.getID()))
+                if DEBUG:
+                    print("DEBUG: outgoing node \'%s\' for lane \'%s\'" % (out.getJunction().getID(), lane.getID()))
                 shape = out.getJunction().getShape()
                 lengths = sumolib.geomhelper.intersectsAtLengths2D(p.shape, shape)
                 positions = [sumolib.geomhelper.positionAtShapeOffset(p.shape, offset) for offset in lengths]
@@ -211,7 +217,8 @@ def calculateDoors(polygons, net):
                 doorInfoList.append(DoorInfo(doorId, positions, p, lengths))
         elif isNode:
             node = net.getNode(p.attributes[KEY_SUMO_ID])
-            print("DEBUG: calculateDoors() node \'%s\'" % node.getID())
+            if DEBUG:
+                print("DEBUG: calculateDoors() node \'%s\'" % node.getID())
             for inc in node.getIncoming():
                 if inc.getID()[0] == ":":
                     continue
@@ -341,7 +348,7 @@ if __name__ == "__main__":
     doors, polygonSlices = calculateDoors(polygons, net)
     if not options.outFile:
         options.outFile = options.netFile[:options.netFile.rfind(".net.xml")] + ".dxf"
-    if options.debug:
-        debugOutFile = options.outFile[:options.outFile.rfind(".dxf")] + ".poly.xml"
-        sumolib.files.additional.write(debugOutFile, doors + polygonSlices)
+    if options.write_additional_file:
+        additionalFile = options.outFile[:options.outFile.rfind(".dxf")] + ".poly.xml"
+        sumolib.files.additional.write(additionalFile, doors + polygonSlices)
     writeToDxf(polygonSlices, doors, options)
