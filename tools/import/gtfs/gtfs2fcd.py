@@ -66,7 +66,7 @@ def time2sec(s):
 
 def main(options):
 
-    gtfsZip = zipfile.ZipFile(options.gtfs)
+    gtfsZip = zipfile.ZipFile(sumolib.open(options.gtfs, False))
     routes, trips_on_day, shapes, stops, stop_times = gtfs2osm.import_gtfs(options, gtfsZip)
 
     stop_times['arrival_time'] = stop_times['arrival_time'].map(time2sec)

@@ -351,7 +351,7 @@ def main(options):
         else:
             options.bbox = [float(coord) for coord in options.bbox.split(",")]
 
-        gtfsZip = zipfile.ZipFile(options.gtfs)
+        gtfsZip = zipfile.ZipFile(sumolib.open(options.gtfs, False))
 
         (routes, trips_on_day,
          shapes, stops, stop_times) = gtfs2osm.import_gtfs(options, gtfsZip)
