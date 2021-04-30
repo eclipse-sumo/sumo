@@ -1201,6 +1201,8 @@ GNEGeometry::updateGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, 
 
 void
 GNEGeometry::drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width, const bool onlyContour,  const bool drawExtremes) {
+    // get visualiaztion settings
+    GUIVisualizationSettings& s = viewNet->getVisualisationSettings();
     // first check if we're in draw contour or for selecting cliking mode
     if (onlyContour) {
         // get shapes
@@ -1225,7 +1227,7 @@ GNEGeometry::drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, c
             // draw box lines using shapeA
             GLHelper::drawBoxLines(shapeB, 0.1);
         }
-    } else if (viewNet->getVisualisationSettings().drawForPositionSelection) {
+    } else if (s.drawForPositionSelection) {
         // obtain mouse Position
         const Position mousePosition = viewNet->getPositionInformation();
         // obtain position over lane relative to mouse position
@@ -1237,11 +1239,15 @@ GNEGeometry::drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, c
             // translate to position over lane
             glTranslated(posOverLane.x(), posOverLane.y(), 0);
             // Draw circle
-            GLHelper::drawFilledCircle(width, viewNet->getVisualisationSettings().getCircleResolution());
+            GLHelper::drawFilledCircle(width, s.getCircleResolution());
             // pop draw matrix
             glPopMatrix();
         }
+    } else if (s.scale * width < 1) {
+        // draw line (needed for zoom out)
+        GLHelper::drawLine(geometry.getShape());
     } else {
+        // draw geometry
         GLHelper::drawBoxLines(geometry.getShape(), geometry.getShapeRotations(), geometry.getShapeLengths(), width);
     }
 }
