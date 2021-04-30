@@ -405,6 +405,8 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
     const double E2DetectorWidth = s.addSize.getExaggeration(s, fromLane);
     // check if E2 can be drawn
     if (s.drawAdditionals(E2DetectorWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // get flag for show only contour
+        const bool onlyContour = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()? myNet->getViewNet()->getNetworkViewOptions().showConnections() : false;
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix
@@ -419,12 +421,24 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
         }
         // draw lane2lane
         if (fromLane->getLane2laneConnections().exist(toLane)) {
-            GNEGeometry::drawGeometry(myNet->getViewNet(), fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), E2DetectorWidth);
+            // check if draw only contour
+            if (onlyContour) {
+                GNEGeometry::drawContourGeometry(fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), E2DetectorWidth);
+            } else {
+                GNEGeometry::drawGeometry(myNet->getViewNet(), fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), E2DetectorWidth);
+            }
         } else {
             // Set invalid person plan color
             GLHelper::setColor(RGBColor::RED);
-            // draw line between end of first shape and first position of second shape
-            GLHelper::drawBoxLines({fromLane->getLaneShape().back(), toLane->getLaneShape().front()}, (0.5 * E2DetectorWidth));
+            // calculate invalid geometry
+            const GNEGeometry::Geometry invalidGeometry({fromLane->getLaneShape().back(), toLane->getLaneShape().front()});
+            // check if draw only contour
+            if (onlyContour) {
+                GNEGeometry::drawContourGeometry(invalidGeometry, (0.5 * E2DetectorWidth));
+            } else {
+                // draw invalid geometry
+                GNEGeometry::drawGeometry(myNet->getViewNet(), invalidGeometry, (0.5 * E2DetectorWidth));
+            }
         }
         // Pop last matrix
         glPopMatrix();
