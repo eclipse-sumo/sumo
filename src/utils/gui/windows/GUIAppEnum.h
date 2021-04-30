@@ -157,6 +157,8 @@ enum {
     MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,
     /// @brief save TLS Programs
     MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,
+    /// @brief Open a New Window
+    MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW,
     /// @brief save network as
     MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS,
     /// @brief Force save network (flag)
@@ -252,8 +254,6 @@ enum {
     /// @name Main Window File Menu - IDs
     /// @{
 
-    /// @brief Open a New Window
-    MID_NEW_WINDOW,
     /// @brief Open configuration - ID
     MID_OPEN_CONFIG,
     /// @brief Open network - ID

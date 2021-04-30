@@ -186,7 +186,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
                                            GUIIconSubSys::getIcon(GUIIcon::NEW_NET), myGNEApp, MID_HOTKEY_CTRL_N_NEWNETWORK);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
                                            "New Window", "Ctrl+Shift+N", "Open a new netedit window.",
-                                           nullptr, myGNEApp, MID_NEW_WINDOW);
+                                           nullptr, myGNEApp, MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW);
     new FXMenuSeparator(fileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
                                            "&Open Network...", "Ctrl+O", "Open a SUMO network.",
