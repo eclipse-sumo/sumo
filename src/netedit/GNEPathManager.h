@@ -250,6 +250,23 @@ public:
         SUMOAbstractRouter<NBRouterEdge, NBVehicle>* myDijkstraRouter;
     };
 
+    /// @brief class used to mark path draw
+    class PathDraw {
+
+    public:
+        /// @brief constructor
+        PathDraw();
+
+        /// @brief destructor
+        ~PathDraw();
+
+        /// @brief clear path draw
+        void clear();
+
+    private:
+
+    };
+
     /// @brief constructor
     GNEPathManager(const GNENet* net);
 
@@ -258,6 +275,9 @@ public:
 
     /// @brief obtain instance of PathCalculator
     PathCalculator* getPathCalculator();
+
+    /// @brief obtain instance of PathDraw
+    PathDraw* getPathDraw();
 
     /// @brief check if path element is valid
     bool isPathValid(PathElement* pathElement) const;
@@ -310,6 +330,9 @@ protected:
 
     /// @brief PathCalculator instance
     PathCalculator* myPathCalculator;
+
+    /// @brief PathDraw instance
+    PathDraw* myPathDraw;
 
     /// @brief map with path element and their asociated segments
     std::map<const PathElement*, std::vector<Segment*> > myPaths;

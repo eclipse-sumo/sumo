@@ -448,11 +448,31 @@ GNEPathManager::PathCalculator::invalidatePathCalculator() {
 }
 
 // ---------------------------------------------------------------------------
-// GNEPathManager::PathCalculator - methods
+// GNEPathManager::PathDraw - methods
+// ---------------------------------------------------------------------------
+
+GNEPathManager::PathDraw::PathDraw() {
+
+}
+
+
+GNEPathManager::PathDraw::~PathDraw() {
+
+}
+
+
+void
+GNEPathManager::PathDraw::clear() {
+    //
+}
+
+// ---------------------------------------------------------------------------
+// GNEPathManager - methods
 // ---------------------------------------------------------------------------
 
 GNEPathManager::GNEPathManager(const GNENet* net) :
-    myPathCalculator(new PathCalculator(net)) {
+    myPathCalculator(new PathCalculator(net)),
+    myPathDraw(new PathDraw()) {
 }
 
 
@@ -461,12 +481,20 @@ GNEPathManager::~GNEPathManager() {
     clearSegments();
     // delete route calculator Instance
     delete myPathCalculator;
+    // delete path draw
+    delete myPathDraw;
 }
 
 
 GNEPathManager::PathCalculator*
 GNEPathManager::getPathCalculator() {
     return myPathCalculator;
+}
+
+
+GNEPathManager::PathDraw*
+GNEPathManager::getPathDraw() {
+    return myPathDraw;
 }
 
 
@@ -543,8 +571,10 @@ GNEPathManager::calculatePathEdges(PathElement* pathElement, SUMOVehicleClass vC
                     segments.push_back(junctionSegment);
                 }
             }
+            // get lane segment index
+            const int laneSegmentIndex = (int)((double)laneSegments.size() * 0.5);
             // mark middle label as label segment
-            laneSegments.at(std::floor((double)laneSegments.size() * 0.5))->markSegmentLabel();
+            laneSegments.at(laneSegmentIndex)->markSegmentLabel();
         } else {
             // create first segment
             Segment* firstSegment = new Segment(this, pathElement, edges.front()->getLaneByAllowedVClass(vClass), true, false);
