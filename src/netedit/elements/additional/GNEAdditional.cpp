@@ -376,12 +376,35 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         GNEGeometry::drawGeometry(myNet->getViewNet(), E2Geometry, E2DetectorWidth);
         // Pop last matrix
         glPopMatrix();
+        // Pop name
+        glPopName();
         // draw additional ID
         if (!s.drawForRectangleSelection) {
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+            // check if this is the label segment
+            if (segment->isLabelSegment()) {
+                // calculate middle point
+                const double middlePoint = (E2Geometry.getShape().length2D() * 0.5);
+                // calculate position
+                const Position pos = E2Geometry.getShape().positionAtOffset2D(middlePoint);
+                // calculate rotation
+                const double rot = E2Geometry.getShape().rotationDegreeAtOffset(middlePoint);
+                // Start pushing matrix
+                glPushMatrix();
+                // Traslate to position
+                glTranslated(pos.x(), pos.y(), getType() + offsetFront + 0.1);
+                // rotate over lane
+                GNEGeometry::rotateOverLane(rot);
+                // move
+                glTranslated(-1, 0, 0);
+                // scale text
+                glScaled(E2DetectorWidth, E2DetectorWidth, 1);
+                // draw E1 logo
+                GLHelper::drawText("E2 Multilane", Position(), .1, 1.5, RGBColor::BLACK);
+                // pop matrix
+                glPopMatrix();
+            }
         }
-        // Pop name
-        glPopName();
         // check if shape dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // declare trim geometry to draw
