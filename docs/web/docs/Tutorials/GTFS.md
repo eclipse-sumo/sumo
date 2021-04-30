@@ -20,7 +20,8 @@ The creation of PT simulation consists of three steps:
 !!! note
     Using the [osmWebWizard tool](OSMWebWizard.md), may be the easiest way to get a network but the process works with every (geo referenced) SUMO network.
 
-The process works best with a network which comes from OpenStreetMap.
+The process works best with a network which comes from OpenStreetMap and also
+has public transport lines data (see [ptLines output](../Networks/Further_Outputs.md#public_transport_lines)).
 The network should contain edges for all traffic types (modes) you want
 to model and the relevant edge types. The script currently supports
 the following mapping:
@@ -34,7 +35,9 @@ the following mapping:
 
 If the network does not contain edge types only a bus mapping is possible which will use all available edges.
 
-For this tutorial we will use the example network of Eichwalde.
+For this tutorial we imported the network of Eichwalde with the osmWebWizard tool:
+
+<img src="../images/Eichwalde_net.png" alt="Eichwalde_net" width="600">
 
 # Finding a data source for GTFS
 
@@ -45,29 +48,45 @@ transit agency. [Some examples from Germany](https://gist.github.com/highsource/
 - [Lower Saxony and Bremen](https://www.vbn.de/service/entwicklerinfos/)
 - [Hamburg](https://suche.transparenz.hamburg.de/?q=gtfs)
 
-The GTFS file should be in zip format and contain at least routes.txt, stops.txt, stop_times.txt, trips.txt and calendar_dates.txt.
-
-This tutorial uses the [June 2016 dataset by VBB](https://www.vbb.de/media/download/5068). You can either download the data
-or give the URL of the file directly to the script. To keep this tutorial stable, the file has been mirrored at https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip.
+This tutorial uses the [June 2019 dataset by VBB](https://www.vbb.de/media/download/5347).
+You can either download the data or give the URL of the file directly to the script.
 
 # Mapping GTFS data to the network
 
 If you have all the data available you need to decide on the date you want to model. The script cannot find a representative date
 by itself, you need to find one yourself. It is usually advisable to check the calendar for school (and other) holidays in advance.
 
-For this tutorial we choose 13.07.2016 (a Wednesday).
+For this tutorial we choose 04.09.2019 (a Wednesday).
+
+Additionally, you can choose which public transport modes should be imported 
+(bus, tram, train, subway and/or ferry). By default, all modes will be imported. For
+this tutorial we will only import buses.
+
+Depending of the input files available, you can choose between two different ways
+of generating the routes.
+
+The GTFS files should be in zip format and contain at least routes.txt, stops.txt,
+stop_times.txt, trips.txt calendar.txt and calendar_dates.txt. If your GTFS data
+doesn't have the shapes.txt file and/or you don't count with the ptLine definitions 
+from OSM, follow the steps of [Routes from shortest path](GTFS.md#routes_from_shortest_path).
+If you do count with the mentioned files, then you can follow the steps of [Routes from OSM](GTFS.md#routes_from_osm).
+
+## Routes from shortest path
+
+In this case, the route for each public transport vehicle will be defined by
+finding the fastest path between stops.
 
 If you have downloaded the network and the GTFS data (or have the URL) it is as easy as
 
 ```
-tools/import/gtfs/gtfs2pt.py -n eichwalde.net.xml.gz --gtfs https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip --date 20160713 --vtype-output pt_vtypes.xml
+python tools/import/gtfs/gtfs2pt.py -n osm.net.xml --gtfs GTFS_VBB_Juni-Dezember-2019.zip --date 20190904 --modes bus --vtype-output pt_vtypes.xml
 ```
 
 The script runs for about five minutes and generates several subdirectories but in the end it provides three output files:
 
 - pt_vtypes.xml
-- GTFS_VBB_Juni-Dezember-2016_publictransport.add.xml (defining the static routes and stops)
-- GTFS_VBB_Juni-Dezember-2016_publictransport.rou.xml (defining the single public transport vehicles)
+- gtfs_publictransport.add.xml (defining the static routes and stops)
+- gtfs_publictransport.rou.xml (defining the single public transport vehicles)
 
 The vtypes output generates very simple vehicle type definitions for the different public transport modes in use. You are encouraged to modify this file and adapt
 it to the real situation especially concerning capacity (number of seats) for the different modes. You may of course also use vehicle types from another source and skip this output.
@@ -75,5 +94,40 @@ it to the real situation especially concerning capacity (number of seats) for th
 In order to use them in a simulation you should pass them as additional files (not route files!) in the order given above.
 
 ```
-sumo-gui -n eichwalde.net.xml.gz --additional pt_vtypes.xml,GTFS_VBB_Juni-Dezember-2016_publictransport.add.xml,GTFS_VBB_Juni-Dezember-2016_publictransport.rou.xml
+sumo-gui -n osm.net.xml --additional pt_vtypes.xml,gtfs_publictransport.add.xml,gtfs_publictransport.rou.xml
 ```
+
+## Routes from OSM
+
+In this case, the route for each vehicle is taken from OSM. When we imported the
+net with the osmWebWizard tool, we enable the option of "import public transport",
+which automatically generate the "osm_ptlines.xml" file with the public transport lines.
+
+The call is:
+
+```
+python tools/import/gtfs/gtfs2pt.py -n osm.net.xml --gtfs GTFS_VBB_Juni-Dezember-2019.zip --date 20190904 --osm-routes osm_ptlines.xml --repair --modes bus
+```
+
+The option **--repair** is not mandatory but helpful. It takes the given ptLines
+and try to repair them using duarouter before the mapping. If some routes of the
+ptLines are not valid, then they won't be used for the mapping.
+
+The script generates four output files:
+
+- gtfs_publictransport.add.xml (defining the stops)
+- gtfs_publictransport.rou.xml (defining the single public transport vehicles)
+- gtfs_missing.xml contains the elements (stops and ptLines) of the GTFS data that could not be imported
+- invalid_osm_routes.txt contains the warnings and errors from the repair of the ptLines
+
+To run the simulation call:
+
+```
+sumo-gui -n osm.net.xml --additional gtfs_publictransport.add.xml --routes gtfs_publictransport.rou.xml
+```
+
+# Using the outputs in a simulation
+
+Below an example of using the mapped stops and buses in a simulation by calling sumo-gui:
+
+<img src="../images/tutorialGTFS.gif" alt="tutorialGTFS" width="600">
