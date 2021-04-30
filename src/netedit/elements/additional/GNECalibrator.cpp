@@ -138,18 +138,20 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     // get values
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // begin push name
-        glPushName(getGlID());
-        // draw first symbol
-        drawCalibratorSymbol(s, exaggeration, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front());
-        // continue with the other symbols
-        for (const auto& edgeCalibratorGeometry : myEdgeCalibratorGeometries) {
-            drawCalibratorSymbol(s, exaggeration, edgeCalibratorGeometry.getShape().front(), edgeCalibratorGeometry.getShapeRotations().front());
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        if (s.drawAdditionals(exaggeration)) {
+            // begin push name
+            glPushName(getGlID());
+            // draw first symbol
+            drawCalibratorSymbol(s, exaggeration, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front());
+            // continue with the other symbols
+            for (const auto& edgeCalibratorGeometry : myEdgeCalibratorGeometries) {
+                drawCalibratorSymbol(s, exaggeration, edgeCalibratorGeometry.getShape().front(), edgeCalibratorGeometry.getShapeRotations().front());
+            }
+            // pop name
+            glPopName();
         }
-        // pop name
-        glPopName();
-        // draw name
+        // draw additional ID
         drawAdditionalID(s);
     }
 }

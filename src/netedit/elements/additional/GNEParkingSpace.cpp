@@ -100,61 +100,64 @@ void
 GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // Set initial values
     const double parkingAreaExaggeration = s.addSize.getExaggeration(s, this);
-    // obtain values with exaggeration
-    const double widthExaggeration = myWidth * parkingAreaExaggeration;
-    const double lengthExaggeration = myLength * parkingAreaExaggeration;
     // first check if additional has to be drawn
-    if (s.drawAdditionals(parkingAreaExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // push name
-        glPushName(getGlID());
-        // push later matrix
-        glPushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
-        // translate to position
-        glTranslated(myPosition.x(), myPosition.y(), 0);
-        // rotate
-        glRotated(myAngle, 0, 0, 1);
-        // only drawn small box if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection) {
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // obtain values with exaggeration
+        const double widthExaggeration = myWidth * parkingAreaExaggeration;
+        const double lengthExaggeration = myLength * parkingAreaExaggeration;
+        // check exaggeration
+        if (s.drawAdditionals(parkingAreaExaggeration)) {
+            // push name
+            glPushName(getGlID());
+            // push later matrix
+            glPushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
+            // translate to position
+            glTranslated(myPosition.x(), myPosition.y(), 0);
+            // rotate
+            glRotated(myAngle, 0, 0, 1);
+            // only drawn small box if isn't being drawn for selecting
+            if (!s.drawForRectangleSelection) {
+                // Set Color depending of selection
+                if (drawUsingSelectColor()) {
+                    GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+                } else {
+                    GLHelper::setColor(s.stoppingPlaceSettings.parkingSpaceColorContour);
+                }
+                GLHelper::drawBoxLine(Position(0, lengthExaggeration + 0.05), 0, lengthExaggeration + 0.1, (widthExaggeration * 0.5) + 0.05);
+            }
+            // Traslate matrix and draw blue innen
+            glTranslated(0, 0, 0.1);
             // Set Color depending of selection
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
             } else {
-                GLHelper::setColor(s.stoppingPlaceSettings.parkingSpaceColorContour);
+                GLHelper::setColor(s.stoppingPlaceSettings.parkingSpaceColor);
             }
-            GLHelper::drawBoxLine(Position(0, lengthExaggeration + 0.05), 0, lengthExaggeration + 0.1, (widthExaggeration * 0.5) + 0.05);
+            GLHelper::drawBoxLine(Position(0, lengthExaggeration), 0, lengthExaggeration, widthExaggeration * 0.5);
+            // Traslate matrix and draw lock icon if isn't being drawn for selecting
+            glTranslated(0, lengthExaggeration * 0.5, 0.1);
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, parkingAreaExaggeration, 0, 0, false);
+            // pop layer matrix
+            glPopMatrix();
+            // pop name
+            glPopName();
+            // check if dotted contours has to be drawn
+            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+                // draw using drawDottedContourClosedShape
+                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, myAngle, 1);
+            }
+            if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                // draw using drawDottedContourClosedShape
+                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, myAngle, 1);
+            }
         }
-        // Traslate matrix and draw blue innen
-        glTranslated(0, 0, 0.1);
-        // Set Color depending of selection
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-        } else {
-            GLHelper::setColor(s.stoppingPlaceSettings.parkingSpaceColor);
-        }
-        GLHelper::drawBoxLine(Position(0, lengthExaggeration), 0, lengthExaggeration, widthExaggeration * 0.5);
-        // Traslate matrix and draw lock icon if isn't being drawn for selecting
-        glTranslated(0, lengthExaggeration * 0.5, 0.1);
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, parkingAreaExaggeration, 0, 0, false);
-        // pop layer matrix
-        glPopMatrix();
-        // pop name
-        glPopName();
         // Draw additional ID
         drawAdditionalID(s);
         // draw additional name
         drawAdditionalName(s);
-        // check if dotted contours has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            // draw using drawDottedContourClosedShape
-            GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, myAngle, 1);
-        }
-        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            // draw using drawDottedContourClosedShape
-            GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, myAngle, 1);
-        }
     }
 }
 

@@ -244,49 +244,52 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double E2Exaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if ((myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) && s.drawAdditionals(E2Exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // declare color
-        RGBColor E2Color, textColor;
-        // set color
-        if (drawUsingSelectColor()) {
-            E2Color = s.colorSettings.selectedAdditionalColor;
-            textColor = E2Color.changedBrightness(-32);
-        } else if (areLaneConsecutives()) {
-            E2Color = s.detectorSettings.E2Color;
-            textColor = RGBColor::BLACK;
+    if ((myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // check exaggeration
+        if (s.drawAdditionals(E2Exaggeration)) {
+            // declare color
+            RGBColor E2Color, textColor;
+            // set color
+            if (drawUsingSelectColor()) {
+                E2Color = s.colorSettings.selectedAdditionalColor;
+                textColor = E2Color.changedBrightness(-32);
+            } else if (areLaneConsecutives()) {
+                E2Color = s.detectorSettings.E2Color;
+                textColor = RGBColor::BLACK;
+            }
+            // Start drawing adding an gl identificator
+            glPushName(getGlID());
+            // push layer matrix
+            glPushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E2DETECTOR);
+            // set color
+            GLHelper::setColor(E2Color);
+            // draw geometry
+            GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.detectorSettings.E2Width * E2Exaggeration);
+            // Check if the distance is enought to draw details
+            if (s.drawDetail(s.detailSettings.detectorDetails, E2Exaggeration)) {
+                // draw E2 Logo
+                drawDetectorLogo(s, E2Exaggeration, "E2", textColor);
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, E2Exaggeration, -1, 0, true);
+            }
+            // pop layer matrix
+            glPopMatrix();
+            // Pop name
+            glPopName();
+            // check if dotted contours has to be drawn
+            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration);
+            }
+            if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration);
+            }
         }
-        // Start drawing adding an gl identificator
-        glPushName(getGlID());
-        // push layer matrix
-        glPushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E2DETECTOR);
-        // set color
-        GLHelper::setColor(E2Color);
-        // draw geometry
-        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.detectorSettings.E2Width * E2Exaggeration);
-        // Check if the distance is enought to draw details
-        if (s.drawDetail(s.detailSettings.detectorDetails, E2Exaggeration)) {
-            // draw E2 Logo
-            drawDetectorLogo(s, E2Exaggeration, "E2", textColor);
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, E2Exaggeration, -1, 0, true);
-        }
-        // pop layer matrix
-        glPopMatrix();
-        // Pop name
-        glPopName();
         // Draw additional ID
         drawAdditionalID(s);
         // draw additional name
         drawAdditionalName(s);
-        // check if dotted contours has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration);
-        }
-        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration);
-        }
     }
 }
 

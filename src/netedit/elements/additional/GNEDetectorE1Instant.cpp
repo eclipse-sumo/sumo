@@ -94,51 +94,54 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double E1InstantExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(E1InstantExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // obtain scaledSize
-        const double scaledWidth = s.detectorSettings.E1InstantWidth * 0.5 * s.scale;
-        // declare colors
-        RGBColor mainColor, secondColor, textColor;
-        // set color
-        if (drawUsingSelectColor()) {
-            mainColor = s.colorSettings.selectedAdditionalColor;
-            secondColor = mainColor.changedBrightness(-32);
-            textColor = mainColor.changedBrightness(32);
-        } else {
-            mainColor = s.detectorSettings.E1InstantColor;
-            secondColor = RGBColor::WHITE;
-            textColor = RGBColor::BLACK;
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // check exaggeration
+        if (s.drawAdditionals(E1InstantExaggeration)) {
+            // obtain scaledSize
+            const double scaledWidth = s.detectorSettings.E1InstantWidth * 0.5 * s.scale;
+            // declare colors
+            RGBColor mainColor, secondColor, textColor;
+            // set color
+            if (drawUsingSelectColor()) {
+                mainColor = s.colorSettings.selectedAdditionalColor;
+                secondColor = mainColor.changedBrightness(-32);
+                textColor = mainColor.changedBrightness(32);
+            } else {
+                mainColor = s.detectorSettings.E1InstantColor;
+                secondColor = RGBColor::WHITE;
+                textColor = RGBColor::BLACK;
+            }
+            // start drawing
+            glPushName(getGlID());
+            // push layer matrix
+            glPushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR_INSTANT);
+            // draw E1Instant shape
+            drawE1Shape(s, E1InstantExaggeration, scaledWidth, mainColor, secondColor);
+            // Check if the distance is enought to draw details
+            if (s.drawDetail(s.detailSettings.detectorDetails, E1InstantExaggeration)) {
+                // draw E1 Logo
+                drawDetectorLogo(s, E1InstantExaggeration, "E1", textColor);
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, E1InstantExaggeration, 1, 0, true);
+            }
+            // pop layer matrix
+            glPopMatrix();
+            // Pop name
+            glPopName();
+            // check if dotted contours has to be drawn
+            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
+            }
+            if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
+            }
         }
-        // start drawing
-        glPushName(getGlID());
-        // push layer matrix
-        glPushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR_INSTANT);
-        // draw E1Instant shape
-        drawE1Shape(s, E1InstantExaggeration, scaledWidth, mainColor, secondColor);
-        // Check if the distance is enought to draw details
-        if (s.drawDetail(s.detailSettings.detectorDetails, E1InstantExaggeration)) {
-            // draw E1 Logo
-            drawDetectorLogo(s, E1InstantExaggeration, "E1", textColor);
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, E1InstantExaggeration, 1, 0, true);
-        }
-        // pop layer matrix
-        glPopMatrix();
-        // Pop name
-        glPopName();
         // Draw additional ID
         drawAdditionalID(s);
         // draw additional name
         drawAdditionalName(s);
-        // check if dotted contours has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
-        }
-        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
-        }
     }
 }
 
