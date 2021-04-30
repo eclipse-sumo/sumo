@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the

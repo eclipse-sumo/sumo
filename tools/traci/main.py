@@ -170,7 +170,7 @@ def start(cmd, port=None, numRetries=tc.DEFAULT_NUM_RETRIES, label="default", ve
         except TraCIException as e:
             if port is not None:
                 break
-            warnings.warn(("Could not connect to TraCI server using port %s (%s)." + 
+            warnings.warn(("Could not connect to TraCI server using port %s (%s)." +
                            " Retrying with different port.") % (sumoPort, e))
             numRetries -= 1
     raise FatalTraCIError("Could not connect.")

@@ -117,8 +117,8 @@ def main(options):
 
             if options.cadyts:
                 for edge in sorted(edges.keys()):
-                    outf.write('    <singlelink link="%s" start="%s" end="%s" value="%s" stddev="8" type="COUNT_VEH"/>\n' %
-                               (edge, beginM * 60, iEndM * 60, sum(edges[edge].values())))
+                    print('    <singlelink link="%s" start="%s" end="%s" value="%s" stddev="8" type="COUNT_VEH"/>' %
+                          (edge, beginM * 60, iEndM * 60, sum(edges[edge].values())), file=outf)
             else:
                 outf.write('    <interval id="flowdata" begin="%s" end="%s">\n' % (beginM * 60, iEndM * 60))
                 for edge in sorted(edges.keys()):

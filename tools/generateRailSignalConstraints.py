@@ -110,8 +110,8 @@ def get_options(args=None):
                         help="Ignore unordered timing if the vehicle which arrives first is parking")
     parser.add_argument("-P", "--skip-parking", dest="skipParking", action="store_true", default=False,
                         help="Do not generate constraints for a vehicle that parks at the next stop")
-    parser.add_argument("--redundant", default=-1,
-                        help="Add redundant constraint within given time range (reduces impact of modifying constraints at runtime)")
+    parser.add_argument("--redundant", default=-1, help="Add redundant constraint within given time range " +
+                                                        "(reduces impact of modifying constraints at runtime)")
     parser.add_argument("--comment.line", action="store_true", dest="commentLine", default=False,
                         help="add lines of involved trains in comment")
     parser.add_argument("--comment.id", action="store_true", dest="commentId", default=False,
@@ -376,7 +376,7 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                         continue
                     if not stop2.hasAttribute("arrival") or not stop2.hasAttribute("until"):
                         continue
-                    parking2 =  parseBool(stop2.getAttributeSecure("parking", "false"))
+                    parking2 = parseBool(stop2.getAttributeSecure("parking", "false"))
                     hasParking = parking or parking2
                     arrival2 = parseTime(stop2.arrival)
                     until2 = parseTime(stop2.until)
@@ -398,20 +398,20 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                         if stop.vehID < stop2.vehID:
                             # only warn once
                             print(("Undefined departure at stop %s" +
-                                " (index %s) for %svehicle %s (%s, %s)" +
-                                " and %svehicle %s (%s, %s)." +
-                                " No constraints will be generated for them afterwards") % (
-                                    stop.busStop, i,
-                                    'parking ' if parking else ' ',
-                                    stop.vehID, humanReadableTime(arrival), humanReadableTime(until),
-                                    'parking ' if parking2 else ' ',
-                                    stop2.vehID, humanReadableTime(arrival2), humanReadableTime(until2),
-                                   ),
-                                  file=sys.stderr)
+                                   " (index %s) for %svehicle %s (%s, %s)" +
+                                   " and %svehicle %s (%s, %s)." +
+                                   " No constraints will be generated for them afterwards") % (
+                                stop.busStop, i,
+                                'parking ' if parking else ' ',
+                                stop.vehID, humanReadableTime(arrival), humanReadableTime(until),
+                                'parking ' if parking2 else ' ',
+                                stop2.vehID, humanReadableTime(arrival2), humanReadableTime(until2),
+                            ),
+                                file=sys.stderr)
                         break
 
             if overtaken:
-                #print("invalid veh=%s stop=%s arrival=%s until=%s" %
+                # print("invalid veh=%s stop=%s arrival=%s until=%s" %
                 #        (stop.vehID, stop.busStop,
                 #            humanReadableTime(parseTime(stop.arrival)),
                 #            humanReadableTime(parseTime(stop.until))))
@@ -431,7 +431,7 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
 
     for switch, stopRoutes2 in switchRoutes.items():
         numSwitchConflicts = 0
-        numRedudantSwitchConflicts = 0
+        numRedundantSwitchConflicts = 0
         numIgnoredSwitchConflicts = 0
         numIgnoredSwitchStops = 0
         if switch == options.debugSwitch:
@@ -499,10 +499,11 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
                             if pArrival - p2Arrival > options.redundant:
                                 break
                             numRedundant += 1
-                            numRedudantSwitchConflicts += 1
+                            numRedundantSwitchConflicts += 1
                             p2TimeAtSignal = p2Arrival - pTimeSiSt
                             limit += 1
-                            limit += countPassingTrainsToOtherStops(options, pSignal, busStop, p2TimeAtSignal, prevBegin, signalTimes)
+                            limit += countPassingTrainsToOtherStops(options, pSignal,
+                                                                    busStop, p2TimeAtSignal, prevBegin, signalTimes)
                             conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, p2Stop.prevTripId, limit,
                                                                # attributes for adding comments
                                                                nStop.prevLine, p2Stop.prevLine,
@@ -516,7 +517,7 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
 
         if options.verbose:
             print("Found %s conflicts at switch %s" % (numSwitchConflicts, switch))
-            if numRedudantSwitchConflicts > 0:
+            if numRedundantSwitchConflicts > 0:
                 print("Found %s redundant conflicts at switch %s" % (numRedundantSwitchConflicts, switch))
 
             if numIgnoredSwitchConflicts > 0 or numIgnoredSwitchStops > 0:

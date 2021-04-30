@@ -173,7 +173,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
     for f in toClean:
         try:
             os.remove(f)
-        except Exception as e:
+        except Exception:
             pass
     # we need to use io.open here due to http://bugs.python.org/issue16273
     with io.open(makeLog, 'a') as log:
