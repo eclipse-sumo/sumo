@@ -96,7 +96,7 @@ def get_options(args=None):
     ap.add_argument("--min-stops", default=3, type=int,
                     help="minimum number of stops a public transport line must have to be imported")  # noqa
 
-    options = ap.parse_args()
+    options = ap.parse_args(args)
 
     options = gtfs2fcd.check_options(options)
 
