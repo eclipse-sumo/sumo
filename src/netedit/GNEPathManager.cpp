@@ -467,7 +467,7 @@ GNEPathManager::PathDraw::clearPathDraw() {
 
 
 bool 
-GNEPathManager::PathDraw::drawPathGeometry(GNELane *lane, SumoXMLTag tag) {
+GNEPathManager::PathDraw::drawPathGeometry(const GNELane *lane, SumoXMLTag tag) {
     // check lane
     if (myLaneDrawedElements.count(lane) > 0) {
         // check tag
@@ -490,7 +490,7 @@ GNEPathManager::PathDraw::drawPathGeometry(GNELane *lane, SumoXMLTag tag) {
 
 
 bool 
-GNEPathManager::PathDraw::drawPathGeometry(GNEJunction *junction, SumoXMLTag tag) {
+GNEPathManager::PathDraw::drawPathGeometry(const GNEJunction *junction, SumoXMLTag tag) {
     // check junction
     if (myJunctionDrawedElements.count(junction) > 0) {
         // check tag

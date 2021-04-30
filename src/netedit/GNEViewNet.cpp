@@ -812,6 +812,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             myDemandViewOptions.menuCheckShowAllPersonPlans->enable();
         }
     }
+    // clear pathDraw
+    myNet->getPathManager()->getPathDraw()->clearPathDraw();
     // draw elements
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

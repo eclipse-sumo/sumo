@@ -296,7 +296,8 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
     // check if route can be drawn
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
-            myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
+            myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
+            myNet->getPathManager()->getPathDraw()->drawPathGeometry(lane, myTagProperty.getTag())) {
         // get embedded route flag
         const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width
@@ -384,8 +385,10 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
 void
 GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
     // only drawn in super mode demand
-    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
-            fromLane->getLane2laneConnections().exist(toLane) && myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
+    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && 
+            myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
+            fromLane->getLane2laneConnections().exist(toLane) && 
+            myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
         // get embedded route flag
         const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width

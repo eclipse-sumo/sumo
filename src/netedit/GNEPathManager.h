@@ -264,17 +264,17 @@ public:
         void clearPathDraw();
 
         /// @brief check if path element geometry must be drawn in the given lane
-        bool drawPathGeometry(GNELane *lane, SumoXMLTag tag);
+        bool drawPathGeometry(const GNELane *lane, SumoXMLTag tag);
 
         /// @brief check if path element geometry must be drawn in the given junction
-        bool drawPathGeometry(GNEJunction *junction, SumoXMLTag tag);
+        bool drawPathGeometry(const GNEJunction *junction, SumoXMLTag tag);
 
     private:
         /// @brief map for saving tags drawn in lanes
-        std::map<GNELane*, std::set<SumoXMLTag> > myLaneDrawedElements;
+        std::map<const GNELane*, std::set<SumoXMLTag> > myLaneDrawedElements;
 
         /// @brief map for saving tags drawn in junctions
-        std::map<GNEJunction*, std::set<SumoXMLTag> > myJunctionDrawedElements;
+        std::map<const GNEJunction*, std::set<SumoXMLTag> > myJunctionDrawedElements;
     };
 
     /// @brief constructor
