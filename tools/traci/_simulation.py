@@ -140,9 +140,8 @@ class Stage(object):
 
         else:
             # STAGE_ACCESS and STAGE_WAITING_FOR_DEPART are never read from xml
-            #print("unwritten stage: ", self.type)
+            # print("unwritten stage: ", self.type)
             return ""
-
 
 
 def _readStage(result):

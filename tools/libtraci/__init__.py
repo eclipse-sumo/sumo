@@ -18,7 +18,7 @@ import sys
 
 from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation, _gui  # noqa
 from traci.connection import StepListener  # noqa
-from .libtraci import vehicle, simulation, person, trafficlight
+from .libtraci import vehicle, simulation, person, trafficlight, gui
 from .libtraci import *  # noqa
 from .libtraci import TraCIStage, TraCINextStopData, TraCIReservation, TraCILogic, TraCIPhase, TraCIException
 from .libtraci import TraCICollision, TraCISignalConstraint
@@ -28,7 +28,7 @@ _DOMAINS = [
     calibrator,  # noqa
     chargingstation,  # noqa
     edge,  # noqa
-    # gui,  # noqa
+    gui,
     inductionloop,  # noqa
     junction,  # noqa
     lanearea,  # noqa

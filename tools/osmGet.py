@@ -36,6 +36,7 @@ from os import path
 import sumolib  # noqa
 import gzip
 
+
 def readCompressed(conn, urlpath, query, filename):
     conn.request("POST", "/" + urlpath, """
     <osm-script timeout="240" element-limit="1073741824">
@@ -142,7 +143,7 @@ def get(args=None):
         osmFile = path.join(os.getcwd(), options.prefix + "_bbox.osm.xml")
         codeSet = set()
         # deal with invalid characters
-        bad_chars = [';', ':', '!', "*", ')', '(', '-', '_', '%', '&', '/', '=', '?', '$','//','\\','#','<','>']
+        bad_chars = [';', ':', '!', "*", ')', '(', '-', '_', '%', '&', '/', '=', '?', '$', '//', '\\', '#', '<', '>']
         for line in open(osmFile, encoding='utf8'):
             subSet = set()
             if 'wikidata' in line and line.split('"')[3][0] == 'Q':
@@ -157,7 +158,7 @@ def get(args=None):
 
         # make and save query results iteratively
         codeList = list(codeSet)
-        interval = 50 # the maximal number of query items
+        interval = 50  # the maximal number of query items
         outf = gzip.open(path.join(os.getcwd(), filename), "wb")
         for i in range(0, len(codeSet), interval):
             j = i + interval
@@ -165,10 +166,11 @@ def get(args=None):
                 j = len(codeSet)
             subList = codeList[i:j]
             content = urlopen("https://www.wikidata.org/w/api.php?action=wbgetentities&ids=%s&format=json" %
-                          ("|".join(subList))).read()
+                              ("|".join(subList))).read()
             print(type(content))
             outf.write(content + b"\n")
         outf.close()
+
 
 if __name__ == "__main__":
     get()

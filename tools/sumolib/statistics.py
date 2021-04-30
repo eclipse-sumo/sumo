@@ -222,8 +222,9 @@ class Statistics:
                 elif histStyle == 2:
                     keylen = len("%.0f" % (self.scale * max(self.counts.keys())))
                     formatStr = "%%%i.0f: %%s" % keylen
-                    result = 'histogram of %s:\n%s' % (self.label,
-                            '\n'.join([formatStr % x for x in self.histogram()])) + "\n" + result
+                    result = 'histogram of %s:\n%s\n%s' % (self.label,
+                                                          '\n'.join([formatStr % x for x in self.histogram()]),
+                                                          result)
             return result
         else:
             return '%s: no values' % self.label
@@ -243,7 +244,6 @@ class Statistics:
         else:
             result += '/>\n'
         return result
-                
 
     def __str__(self):
         return self.toString()

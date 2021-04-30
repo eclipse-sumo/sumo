@@ -25,7 +25,7 @@ from __future__ import print_function
 
 import os
 import sys
-from collections import defaultdict
+
 import pandas as pd
 
 if 'SUMO_HOME' in os.environ:
@@ -35,21 +35,22 @@ from sumolib.miscutils import parseTime, humanReadableTime  # noqa
 from sumolib.statistics import Statistics  # noqa
 from sumolib.xml import parse  # noqa
 
-pd.options.display.width = 0 # auto-detect terminal width
+pd.options.display.width = 0  # auto-detect terminal width
 
 STATS = {
- # selector -> description, function
- 'd' : ('depart delay',  lambda r,s: s.add(r['ended'] - r['until'], key(r))),
- 'a' : ('arrival delay', lambda r,s: s.add(r['started'] - r['arrival'], key(r))),
- 's' : ('stop delay',    lambda r,s: s.add(r['until'] - r['arrival'] - (r['ended'] - r['started']) , key(r))), #  noqua
- }
+    # selector -> description, function
+    'd': ('depart delay', lambda r, s: s.add(r['ended'] - r['until'], key(r))),
+    'a': ('arrival delay', lambda r, s: s.add(r['started'] - r['arrival'], key(r))),
+    's': ('stop delay', lambda r, s: s.add(r['until'] - r['arrival'] - (r['ended'] - r['started']), key(r))),  # noqua
+}
 
 GROUPSTATS = {
-        'mean' : lambda s : s.avg(),
-        'median' : lambda s : s.median(),
-        'min' : lambda s : s.min,
-        'max' : lambda s: s.max,
+    'mean': lambda s: s.avg(),
+    'median': lambda s: s.median(),
+    'min': lambda s: s.min,
+    'max': lambda s: s.max,
 }
+
 
 def get_options(args=None):
     parser = sumolib.options.ArgumentParser(description="Compare route-file stop timing with stop-output")
@@ -90,20 +91,23 @@ def get_options(args=None):
 
     return options
 
-ATTR_CONVERSIONS = { 
-    'arrival' : parseTime,
-    'until' : parseTime,
-    'started' : parseTime,
-    'ended' : parseTime,
-    }
+
+ATTR_CONVERSIONS = {
+    'arrival': parseTime,
+    'until': parseTime,
+    'started': parseTime,
+    'ended': parseTime,
+}
+
 
 def getStopID(stop):
     if stop.hasAttribute("busStop"):
         return stop.busStop
     else:
-        #stopinfo has no endPos, only pos
-        #return "%s,%s" % (stop.lane, stop.endPos)
+        # stopinfo has no endPos, only pos
+        # return "%s,%s" % (stop.lane, stop.endPos)
         return "%s" % stop.lane
+
 
 def key(row):
     return "%s_%s" % (row['tripId'], row['stopID'])
@@ -113,24 +117,24 @@ def main(options):
     nan = float("nan")
 
     columns = [
-            'vehID',
-            'tripId',   # tripId of current stop or set by earlier stop
-            'stopID',   # busStop id or lane,pos
-            'priorStop', # busStop id or lane,pos
-            'arrival',  # route-input
-            'until',    # route-input   
-            ]
+        'vehID',
+        'tripId',   # tripId of current stop or set by earlier stop
+        'stopID',   # busStop id or lane,pos
+        'priorStop',  # busStop id or lane,pos
+        'arrival',  # route-input
+        'until',    # route-input
+    ]
 
     columns2 = columns[:3] + [
-            'started',  # stop-output
-            'ended',    # stop-input   
-            ]
+        'started',  # stop-output
+        'ended',    # stop-input
+    ]
 
     stops = []
-    tripIds = dict() # vehID -> lastTripId
-    priorStops = dict() # vehID -> lastStopID
+    tripIds = dict()  # vehID -> lastTripId
+    priorStops = dict()  # vehID -> lastStopID
     for vehicle in parse(options.routeFile, ['vehicle', 'trip'],
-            heterogeneous=True, attr_conversions=ATTR_CONVERSIONS):
+                         heterogeneous=True, attr_conversions=ATTR_CONVERSIONS):
         if vehicle.stop is not None:
             for stop in vehicle.stop:
                 vehID = vehicle.id
@@ -141,16 +145,16 @@ def main(options):
                 priorStops[vehID] = stopID
 
                 stops.append((vehID, tripId, stopID, priorStop,
-                    stop.getAttributeSecure("arrival", nan),
-                    stop.getAttributeSecure("until", nan)))
+                              stop.getAttributeSecure("arrival", nan),
+                              stop.getAttributeSecure("until", nan)))
 
     print("Parsed %s stops" % len(stops))
 
     simStops = []
-    tripIds = dict() # vehID -> lastTripId
-    priorStops = dict() # vehID -> lastStopID
+    tripIds = dict()  # vehID -> lastTripId
+    priorStops = dict()  # vehID -> lastStopID
     for stop in parse(options.stopFile, "stopinfo", heterogeneous=True,
-            attr_conversions=ATTR_CONVERSIONS):
+                      attr_conversions=ATTR_CONVERSIONS):
         vehID = stop.id
         tripId = stop.getAttributeSecure("tripId", tripIds.get(vehID))
         tripIds[vehID] = tripId
@@ -158,9 +162,9 @@ def main(options):
         priorStop = priorStops.get(vehID)
         priorStops[vehID] = stopID
 
-        simStops.append((vehID, tripId, stopID, #  priorStop,
-            stop.getAttributeSecure("started", nan),
-            stop.getAttributeSecure("ended", nan)))
+        simStops.append((vehID, tripId, stopID,  # priorStop,
+                         stop.getAttributeSecure("started", nan),
+                         stop.getAttributeSecure("ended", nan)))
 
     print("Parsed %s stopinfos" % len(simStops))
 
@@ -168,22 +172,21 @@ def main(options):
     dfSim = pd.DataFrame.from_records(simStops, columns=columns2)
     # merge on common columns vehID, tripId, stopID
     df = pd.merge(dfSchedule, dfSim,
-            on=columns[:3],
-            #how="outer",
-            how="inner",
-            )
+                  on=columns[:3],
+                  # how="outer",
+                  how="inner",
+                  )
 
     print("Found %s matches" % len(df))
 
     if options.verbose:
-        #print(dfSchedule)
-        #print(dfSim)
+        # print(dfSchedule)
+        # print(dfSim)
         print(df)
 
     if options.output:
         outf = open(options.output, 'w')
         sumolib.writeXMLHeader(outf, "$Id$", "scheduleStats")  # noqa
-
 
     description, fun = STATS[options.sType]
     useHist = options.histogram is not None
@@ -191,10 +194,11 @@ def main(options):
     if options.groupBy:
         numGroups = 0
         stats = []
-        gs = Statistics("%s %s grouped by [%s]" % (options.gType, description,','.join(options.groupBy)), abs=True, histogram=useGHist, scale=options.gHistogram)
+        gs = Statistics("%s %s grouped by [%s]" % (options.gType, description, ','.join(
+            options.groupBy)), abs=True, histogram=useGHist, scale=options.gHistogram)
         for name, group in df.groupby(options.groupBy):
-            numGroups += 1;
-            s = Statistics("%s:%s" % (description,name), abs=True, histogram=useHist, scale=options.histogram)
+            numGroups += 1
+            s = Statistics("%s:%s" % (description, name), abs=True, histogram=useHist, scale=options.histogram)
             group.apply(fun, axis=1, args=(s,))
             gVal = GROUPSTATS[options.gType](s)
             gs.add(gVal, name)
@@ -220,6 +224,7 @@ def main(options):
     if options.output:
         outf.write("</scheduleStats>\n")
         outf.close()
+
 
 if __name__ == "__main__":
     main(get_options())
