@@ -261,10 +261,20 @@ public:
         ~PathDraw();
 
         /// @brief clear path draw
-        void clear();
+        void clearPathDraw();
+
+        /// @brief check if path element geometry must be drawn in the given lane
+        bool drawPathGeometry(GNELane *lane, SumoXMLTag tag);
+
+        /// @brief check if path element geometry must be drawn in the given junction
+        bool drawPathGeometry(GNEJunction *junction, SumoXMLTag tag);
 
     private:
+        /// @brief map for saving tags drawn in lanes
+        std::map<GNELane*, std::set<SumoXMLTag> > myLaneDrawedElements;
 
+        /// @brief map for saving tags drawn in junctions
+        std::map<GNEJunction*, std::set<SumoXMLTag> > myJunctionDrawedElements;
     };
 
     /// @brief constructor

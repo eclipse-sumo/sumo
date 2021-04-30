@@ -451,19 +451,64 @@ GNEPathManager::PathCalculator::invalidatePathCalculator() {
 // GNEPathManager::PathDraw - methods
 // ---------------------------------------------------------------------------
 
-GNEPathManager::PathDraw::PathDraw() {
-
-}
+GNEPathManager::PathDraw::PathDraw() {}
 
 
-GNEPathManager::PathDraw::~PathDraw() {
-
-}
+GNEPathManager::PathDraw::~PathDraw() {}
 
 
 void
-GNEPathManager::PathDraw::clear() {
-    //
+GNEPathManager::PathDraw::clearPathDraw() {
+    // just clear myDrawedElements
+    myLaneDrawedElements.clear();
+    myJunctionDrawedElements.clear();
+
+}
+
+
+bool 
+GNEPathManager::PathDraw::drawPathGeometry(GNELane *lane, SumoXMLTag tag) {
+    // check lane
+    if (myLaneDrawedElements.count(lane) > 0) {
+        // check tag
+        if (myLaneDrawedElements.at(lane).count(tag) > 0) {
+            // element type was already inserted, then don't draw geometry
+            return false;
+        } else {
+            // insert tag for the given lane
+            myLaneDrawedElements.at(lane).insert(tag);
+            // draw geometry
+            return true;
+        }
+    } else {
+        // insert lane and tag
+        myLaneDrawedElements[lane].insert(tag);
+        // draw geometry
+        return true;
+    }
+}
+
+
+bool 
+GNEPathManager::PathDraw::drawPathGeometry(GNEJunction *junction, SumoXMLTag tag) {
+    // check junction
+    if (myJunctionDrawedElements.count(junction) > 0) {
+        // check tag
+        if (myJunctionDrawedElements.at(junction).count(tag) > 0) {
+            // element type was already inserted, then don't draw geometry
+            return false;
+        } else {
+            // insert tag for the given junction
+            myJunctionDrawedElements.at(junction).insert(tag);
+            // draw geometry
+            return true;
+        }
+    } else {
+        // insert junction and tag
+        myJunctionDrawedElements[junction].insert(tag);
+        // draw geometry
+        return true;
+    }
 }
 
 // ---------------------------------------------------------------------------
