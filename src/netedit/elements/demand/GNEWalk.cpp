@@ -157,7 +157,7 @@ GNEWalk::isDemandElementValid() const {
             return true;
         } else {
             // check if exist a route between parent edges
-            return (myNet->getPathManager()->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), getParentEdges()).size() > 0);
+            return (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getParentEdges()).size() > 0);
         }
 /*
     } else if (getPath().size() > 0) {

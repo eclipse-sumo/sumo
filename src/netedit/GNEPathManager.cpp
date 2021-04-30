@@ -492,8 +492,8 @@ GNEPathManager::calculatePathEdges(PathElement* pathElement, SUMOVehicleClass vC
     if (edges.size() > 0) {
         // declare segment vector
         std::vector<Segment*> segments;
-        // calculate path
-        const std::vector<GNEEdge*> path = myPathCalculator->calculatePath(vClass, edges);
+        // calculate Dijkstra path
+        const std::vector<GNEEdge*> path = myPathCalculator->calculateDijkstraPath(vClass, edges);
         // continue if path isn't empty
         if (path.size() > 0) {
             // reserve

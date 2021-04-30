@@ -2021,10 +2021,10 @@ GNEFrameModuls::PathCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleCl
     myConflictVClass(false),
     myConflictDisconnected(false) {
     // calculate subpath
-    mySubPath = viewNet->getNet()->getPathManager()->getPathCalculator()->calculatePath(vClass, {edgeFrom, edgeTo});
+    mySubPath = viewNet->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(vClass, {edgeFrom, edgeTo});
     // if subPath is empty, try it with pedestrian (i.e. ignoring vCass)
     if (mySubPath.empty()) {
-        mySubPath = viewNet->getNet()->getPathManager()->getPathCalculator()->calculatePath(SVC_PEDESTRIAN, {edgeFrom, edgeTo});
+        mySubPath = viewNet->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(SVC_PEDESTRIAN, {edgeFrom, edgeTo});
         if (mySubPath.empty()) {
             mySubPath = { edgeFrom, edgeTo };
             myConflictDisconnected = true;
