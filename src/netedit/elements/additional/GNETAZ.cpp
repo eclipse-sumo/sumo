@@ -353,8 +353,16 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 glPopName();
             }
         }
+        // get name position
+        const Position& namePos = myTAZGeometry.getShape().getPolygonCenter();
+        // draw name
+        drawName(namePos, s.scale, s.polyName, s.angle);
+        // check if draw poly type
+        if (s.polyType.show) {
+            const Position p = namePos + Position(0, -0.6 * s.polyType.size / s.scale);
+            GLHelper::drawTextSettings(s.polyType, getShapeType(), p, s.scale, s.angle);
+        }
     }
-    /* temporal */
 }
 
 
