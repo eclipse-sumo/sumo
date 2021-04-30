@@ -253,10 +253,12 @@ GNEPersonFrame::createPath() {
     } else {
         // begin undo-redo operation
         myViewNet->getUndoList()->p_begin("create " + myPersonTagSelector->getCurrentTagProperties().getTagStr() + " and " + myPersonPlanTagSelector->getCurrentTagProperties().getTagStr());
+        // create person
+        GNEDemandElement* person = buildPerson();
         // check if person and person plan can be created
         if (GNERouteHandler::buildPersonPlan(
                     myPersonPlanTagSelector->getCurrentTagProperties().getTag(),
-                    buildPerson(), myPersonPlanAttributes, myPathCreator)) {
+                    person, myPersonPlanAttributes, myPathCreator)) {
             // end undo-redo operation
             myViewNet->getUndoList()->p_end();
             // abort path creation
@@ -264,6 +266,8 @@ GNEPersonFrame::createPath() {
             // refresh person and personPlan attributes
             myPersonAttributes->refreshRows();
             myPersonPlanAttributes->refreshRows();
+            // compute person
+            person->computePathElement();
         } else {
             // abort person creation
             myViewNet->getUndoList()->p_abort();
