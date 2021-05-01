@@ -210,7 +210,7 @@ private:
                      const std::string& action);
 
     /// @brief determine stopping lane for taxi
-    MSLane* getStopLane(const MSEdge* edge);
+    MSLane* getStopLane(const MSEdge* edge, const std::string& action);
 
     /// @brief whether the taxi has another pickup scheduled
     bool hasFuturePickup();

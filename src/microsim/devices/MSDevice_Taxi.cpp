@@ -457,7 +457,7 @@ MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
     }
     lastPos = stopPos;
     SUMOVehicleParameter::Stop stop;
-    stop.lane = getStopLane(stopEdge)->getID();
+    stop.lane = getStopLane(stopEdge, action)->getID();
     stop.startPos = stopPos;
     stop.endPos = MAX2(stopPos, MIN2(myHolder.getVehicleType().getLength(), stopEdge->getLength()));
     stop.parking = getBoolParam(myHolder, OptionsCont::getOptions(), "taxi.parking", true, false);
@@ -468,10 +468,10 @@ MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
 
 
 MSLane*
-MSDevice_Taxi::getStopLane(const MSEdge* edge) {
+MSDevice_Taxi::getStopLane(const MSEdge* edge, const std::string& action) {
     const std::vector<MSLane*>* allowedLanes = edge->allowedLanes(myHolder.getVClass());
     if (allowedLanes == nullptr) {
-        throw ProcessError("Taxi '" + myHolder.getID() + "' cannot pick up person on edge '" + edge->getID() + "'");
+        throw ProcessError("Taxi vehicle '" + myHolder.getID() + "' cannot stop on edge '" + edge->getID() + "' (" + action + ")");
     }
     return allowedLanes->front();
 }
