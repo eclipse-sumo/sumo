@@ -32,6 +32,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSStop.h>
+#include <microsim/MSStoppingPlace.h>
 
 #include "MSDispatch.h"
 #include "MSDispatch_Greedy.h"
@@ -156,8 +157,28 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
                               SUMOTime pickupTime,
                               const MSEdge* from, double fromPos,
                               const MSEdge* to, double toPos,
-                              const std::string& group) {
+                              const std::string& group,
+                              MSStoppingPlace* destStop) {
     if (lines.size() == 1 && *lines.begin() == TAXI_SERVICE) {
+        if ((to->getPermissions() & SVC_TAXI) == 0) {
+            if (destStop != nullptr) {
+                // try to find usable access edge
+                for (const auto& tuple : destStop->getAllAccessPos()) {
+                    const MSEdge* access = &std::get<0>(tuple)->getEdge();
+                    if ((access->getPermissions() & SVC_TAXI) != 0) {
+                        to = access;
+                        toPos = std::get<1>(tuple);
+                        break;
+                    }
+                }
+            }
+            if ((to->getPermissions() & SVC_TAXI) == 0) {
+                throw ProcessError("Cannot add taxi reservation for " + std::string(person->isPerson() ? "person" : "container")
+                        + " '" + person->getID() + "' because destination edge '" + to->getID() + "'"
+                        + (destStop == nullptr ? "" : " and busStop '" + destStop->getID() + "'")
+                        + " do not permit taxi access");
+            }
+        }
         if (myDispatchCommand == nullptr) {
             initDispatch();
         }

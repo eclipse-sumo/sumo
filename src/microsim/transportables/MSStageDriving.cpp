@@ -237,7 +237,7 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
             myWaitingEdge->addContainer(transportable);
         }
         // check if the ride can be conducted and reserve it
-        MSDevice_Taxi::addReservation(transportable, getLines(), now, now, myWaitingEdge, myWaitingPos, getDestination(), getArrivalPos(), myGroup);
+        MSDevice_Taxi::addReservation(transportable, getLines(), now, now, myWaitingEdge, myWaitingPos, getDestination(), getArrivalPos(), myGroup, getDestinationStop());
     }
 }
 

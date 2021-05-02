@@ -79,7 +79,8 @@ public:
                                SUMOTime pickupTime,
                                const MSEdge* from, double fromPos,
                                const MSEdge* to, double toPos,
-                               const std::string& group);
+                               const std::string& group,
+                               MSStoppingPlace* destStop = nullptr);
 
     /// @brief retract reservation
     static void removeReservation(MSTransportable* person,
