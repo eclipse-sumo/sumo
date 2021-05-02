@@ -6,8 +6,14 @@
     </trip>
     
    <person id="p0" depart="0" departPos="80">
-        <ride from="a" busStop="stopE" lines="taxi"/>
-        <ride to="e" lines="train"/>
+       <ride from="a" busStop="stopE" lines="taxi"/>
+       <ride to="e" lines="train"/>
+    </person>
+
+   <person id="p1" depart="0">
+       <stop busStop="stopE" duration="1"/>
+       <ride to="d" lines="taxi"/>
+       <stop duration="20"/>
     </person>
 
 
