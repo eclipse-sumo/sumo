@@ -72,6 +72,9 @@ public:
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
+    /// @brief whether the given lines description is a taxi call
+    static bool isReservation(const std::set<std::string>& lines);
+
     /// add new reservation
     static void addReservation(MSTransportable* person,
                                const std::set<std::string>& lines,
@@ -79,8 +82,7 @@ public:
                                SUMOTime pickupTime,
                                const MSEdge* from, double fromPos,
                                const MSEdge* to, double toPos,
-                               const std::string& group,
-                               MSStoppingPlace* destStop = nullptr);
+                               const std::string& group);
 
     /// @brief retract reservation
     static void removeReservation(MSTransportable* person,

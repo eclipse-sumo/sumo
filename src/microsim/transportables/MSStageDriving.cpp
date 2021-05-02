@@ -237,7 +237,35 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
             myWaitingEdge->addContainer(transportable);
         }
         // check if the ride can be conducted and reserve it
-        MSDevice_Taxi::addReservation(transportable, getLines(), now, now, myWaitingEdge, myWaitingPos, getDestination(), getArrivalPos(), myGroup, getDestinationStop());
+        if (MSDevice_Taxi::isReservation(getLines())) {
+            const MSEdge* from = myWaitingEdge;
+            const MSEdge* to = getDestination();
+            double fromPos = myWaitingPos;
+            double toPos = getArrivalPos();
+            if ((to->getPermissions() & SVC_TAXI) == 0 && getDestinationStop() != nullptr) {
+                // try to find usable access edge
+                for (const auto& tuple : getDestinationStop()->getAllAccessPos()) {
+                    const MSEdge* access = &std::get<0>(tuple)->getEdge();
+                    if ((access->getPermissions() & SVC_TAXI) != 0) {
+                        to = access;
+                        toPos = std::get<1>(tuple);
+                        break;
+                    }
+                }
+            }
+            if ((from->getPermissions() & SVC_TAXI) == 0 && myOriginStop != nullptr) {
+                // try to find usable access edge
+                for (const auto& tuple : myOriginStop->getAllAccessPos()) {
+                    const MSEdge* access = &std::get<0>(tuple)->getEdge();
+                    if ((access->getPermissions() & SVC_TAXI) != 0) {
+                        from = access;
+                        fromPos = std::get<1>(tuple);
+                        break;
+                    }
+                }
+            }
+            MSDevice_Taxi::addReservation(transportable, getLines(), now, now, from, fromPos, to, toPos, myGroup);
+        }
     }
 }
 

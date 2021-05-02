@@ -150,6 +150,11 @@ MSDevice_Taxi::initDispatch() {
     MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myDispatchCommand, now + delay);
 }
 
+bool
+MSDevice_Taxi::isReservation(const std::set<std::string>& lines) {
+    return lines.size() == 1 && *lines.begin() == TAXI_SERVICE;
+}
+
 void
 MSDevice_Taxi::addReservation(MSTransportable* person,
                               const std::set<std::string>& lines,
@@ -157,33 +162,24 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
                               SUMOTime pickupTime,
                               const MSEdge* from, double fromPos,
                               const MSEdge* to, double toPos,
-                              const std::string& group,
-                              MSStoppingPlace* destStop) {
-    if (lines.size() == 1 && *lines.begin() == TAXI_SERVICE) {
-        if ((to->getPermissions() & SVC_TAXI) == 0) {
-            if (destStop != nullptr) {
-                // try to find usable access edge
-                for (const auto& tuple : destStop->getAllAccessPos()) {
-                    const MSEdge* access = &std::get<0>(tuple)->getEdge();
-                    if ((access->getPermissions() & SVC_TAXI) != 0) {
-                        to = access;
-                        toPos = std::get<1>(tuple);
-                        break;
-                    }
-                }
-            }
-            if ((to->getPermissions() & SVC_TAXI) == 0) {
-                throw ProcessError("Cannot add taxi reservation for " + std::string(person->isPerson() ? "person" : "container")
-                        + " '" + person->getID() + "' because destination edge '" + to->getID() + "'"
-                        + (destStop == nullptr ? "" : " and busStop '" + destStop->getID() + "'")
-                        + " do not permit taxi access");
-            }
-        }
-        if (myDispatchCommand == nullptr) {
-            initDispatch();
-        }
-        myDispatcher->addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group, myMaxCapacity, myMaxContainerCapacity);
+                              const std::string& group) {
+    if (!isReservation(lines)) {
+        return;
     }
+    if ((to->getPermissions() & SVC_TAXI) == 0) {
+        throw ProcessError("Cannot add taxi reservation for " + std::string(person->isPerson() ? "person" : "container")
+                + " '" + person->getID() + "' because destination edge '" + to->getID() + "'"
+                + " does not permit taxi access");
+    }
+    if ((from->getPermissions() & SVC_TAXI) == 0) {
+        throw ProcessError("Cannot add taxi reservation for " + std::string(person->isPerson() ? "person" : "container")
+                + " '" + person->getID() + "' because origin edge '" + from->getID() + "'"
+                + " does not permit taxi access");
+    }
+    if (myDispatchCommand == nullptr) {
+        initDispatch();
+    }
+    myDispatcher->addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group, myMaxCapacity, myMaxContainerCapacity);
 }
 
 void
