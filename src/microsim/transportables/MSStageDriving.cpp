@@ -229,18 +229,9 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
         myWaitingEdge->removeWaiting(myVehicle);
         net->getVehicleControl().unregisterOneWaiting();
     } else {
-        if (isPerson) {
-            net->getPersonControl().addWaiting(myWaitingEdge, transportable);
-            myWaitingEdge->addPerson(transportable);
-        } else {
-            net->getContainerControl().addWaiting(myWaitingEdge, transportable);
-            myWaitingEdge->addContainer(transportable);
-        }
         // check if the ride can be conducted and reserve it
         if (MSDevice_Taxi::isReservation(getLines())) {
-            const MSEdge* from = myWaitingEdge;
             const MSEdge* to = getDestination();
-            double fromPos = myWaitingPos;
             double toPos = getArrivalPos();
             if ((to->getPermissions() & SVC_TAXI) == 0 && getDestinationStop() != nullptr) {
                 // try to find usable access edge
@@ -253,18 +244,26 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
                     }
                 }
             }
-            if ((from->getPermissions() & SVC_TAXI) == 0 && myOriginStop != nullptr) {
+            if ((myWaitingEdge->getPermissions() & SVC_TAXI) == 0 && myOriginStop != nullptr) {
                 // try to find usable access edge
                 for (const auto& tuple : myOriginStop->getAllAccessPos()) {
                     const MSEdge* access = &std::get<0>(tuple)->getEdge();
                     if ((access->getPermissions() & SVC_TAXI) != 0) {
-                        from = access;
-                        fromPos = std::get<1>(tuple);
+                        myWaitingEdge = access;
+                        myStopWaitPos = Position::INVALID;
+                        myWaitingPos = std::get<1>(tuple);
                         break;
                     }
                 }
             }
-            MSDevice_Taxi::addReservation(transportable, getLines(), now, now, from, fromPos, to, toPos, myGroup);
+            MSDevice_Taxi::addReservation(transportable, getLines(), now, now, myWaitingEdge, myWaitingPos, to, toPos, myGroup);
+        }
+        if (isPerson) {
+            net->getPersonControl().addWaiting(myWaitingEdge, transportable);
+            myWaitingEdge->addPerson(transportable);
+        } else {
+            net->getContainerControl().addWaiting(myWaitingEdge, transportable);
+            myWaitingEdge->addContainer(transportable);
         }
     }
 }
