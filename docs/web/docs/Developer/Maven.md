@@ -11,8 +11,9 @@ More information on the repository hosted by the Eclipse Foundation can be found
 ## Pulling Artifacts
 
 You can decide, if you want to use *release* or *snapshot* builds of `libsumo` or `libtraci`.
-- Release builds: [](https://repo.eclipse.org/content/repositories/sumo-releases/)
-- Snapshot builds: [](https://repo.eclipse.org/content/repositories/sumo-snapshots/)
+
+ - Release builds: https://repo.eclipse.org/content/repositories/sumo-releases/
+ - Snapshot builds: https://repo.eclipse.org/content/repositories/sumo-snapshots/
 
 In order to use those repositories in your `pom.xml` file, you just have to add one of the repositories to your configuration inside the `<project>` element.
 
