@@ -2307,7 +2307,7 @@ GNEApplicationWindow::onUpdRedo(FXObject* obj, FXSelector sel, void* ptr) {
 
 
 long
-GNEApplicationWindow::onUpdComputePathManager(FXObject* sender, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onUpdComputePathManager(FXObject* sender, FXSelector /*sel*/, void* /*ptr*/) {
     // first check viewNet
     if (myViewNet) {
         // check supermode network
