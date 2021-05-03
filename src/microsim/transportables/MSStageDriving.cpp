@@ -444,11 +444,11 @@ MSStageDriving::canLeaveVehicle(const MSTransportable* t, const SUMOVehicle& veh
     if (t->getDestination() == veh.getEdge()) {
         // if this is the last stage, we can use the arrivalPos of the person
         const bool unspecifiedAP = unspecifiedArrivalPos() && (
-                t->getNumRemainingStages() > 1 || !t->getParameter().wasSet(VEHPARS_ARRIVALPOS_SET));
+                                       t->getNumRemainingStages() > 1 || !t->getParameter().wasSet(VEHPARS_ARRIVALPOS_SET));
         const double arrivalPos = (unspecifiedArrivalPos()
-                ? SUMOVehicleParameter::interpretEdgePos(t->getParameter().arrivalPos, veh.getEdge()->getLength(),
-                    SUMO_ATTR_ARRIVALPOS, t->getID(), true)
-                : getArrivalPos());
+                                   ? SUMOVehicleParameter::interpretEdgePos(t->getParameter().arrivalPos, veh.getEdge()->getLength(),
+                                           SUMO_ATTR_ARRIVALPOS, t->getID(), true)
+                                   : getArrivalPos());
         if (unspecifiedAP ||
                 veh.isStoppedInRange(arrivalPos, veh.getLength() + MSGlobals::gStopTolerance)) {
             canLeave = true;

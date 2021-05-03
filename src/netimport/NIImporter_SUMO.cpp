@@ -86,8 +86,7 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myTlsIgnoreInternalJunctionJam(false),
       myDefaultSpreadType(toString(LaneSpreadFunction::RIGHT)),
       myGeomAvoidOverlap(true),
-      myJunctionsHigherSpeed(false)
-{
+      myJunctionsHigherSpeed(false) {
 }
 
 

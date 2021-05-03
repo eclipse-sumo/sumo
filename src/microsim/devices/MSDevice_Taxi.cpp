@@ -168,13 +168,13 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
     }
     if ((to->getPermissions() & SVC_TAXI) == 0) {
         throw ProcessError("Cannot add taxi reservation for " + std::string(person->isPerson() ? "person" : "container")
-                + " '" + person->getID() + "' because destination edge '" + to->getID() + "'"
-                + " does not permit taxi access");
+                           + " '" + person->getID() + "' because destination edge '" + to->getID() + "'"
+                           + " does not permit taxi access");
     }
     if ((from->getPermissions() & SVC_TAXI) == 0) {
         throw ProcessError("Cannot add taxi reservation for " + std::string(person->isPerson() ? "person" : "container")
-                + " '" + person->getID() + "' because origin edge '" + from->getID() + "'"
-                + " does not permit taxi access");
+                           + " '" + person->getID() + "' because origin edge '" + from->getID() + "'"
+                           + " does not permit taxi access");
     }
     if (myDispatchCommand == nullptr) {
         initDispatch();

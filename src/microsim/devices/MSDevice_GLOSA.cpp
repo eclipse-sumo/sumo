@@ -84,7 +84,7 @@ MSDevice_GLOSA::MSDevice_GLOSA(SUMOVehicle& holder, const std::string& id, doubl
     myMinSpeed(minSpeed),
     myRange(range),
     myMaxSpeedFactor(maxSpeedFactor)
-    
+
 {
     myOriginalSpeedFactor = myVeh.getChosenSpeedFactor();
 }
@@ -96,14 +96,16 @@ MSDevice_GLOSA::~MSDevice_GLOSA() {
 
 bool
 MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
-                             double newPos, double /*newSpeed*/) {
+                           double newPos, double /*newSpeed*/) {
     myDistance -= (newPos - oldPos);
     if (myNextTLSLink != nullptr && myDistance <= myRange) {
         const double vMax = myVeh.getLane()->getVehicleMaxSpeed(&myVeh);
         const double timeToJunction = earliest_arrival(myDistance, vMax);
         const double timeToSwitch = getTimeToSwitch(myNextTLSLink);
 #ifdef DEBUG_GLOSA
-        if (DEBUG_COND) std::cout << SIMTIME << " veh=" << myVeh.getID() << " d=" << myDistance << " ttJ=" << timeToJunction << " ttS=" << timeToSwitch << "\n";
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " veh=" << myVeh.getID() << " d=" << myDistance << " ttJ=" << timeToJunction << " ttS=" << timeToSwitch << "\n";
+        }
 #endif
         if (myNextTLSLink->haveGreen()) {
             if (timeToJunction > timeToSwitch) {
@@ -113,7 +115,9 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
                     // reaching the signal at yellow might be sufficient
                     const double yellowSlack = myVeh.getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, 0);
 #ifdef DEBUG_GLOSA
-                    if (DEBUG_COND) std::cout << "  vMax2=" << vMax2 << " ttJ2=" << timetoJunction2 << " yellowSlack=" << yellowSlack << "\n";
+                    if (DEBUG_COND) {
+                        std::cout << "  vMax2=" << vMax2 << " ttJ2=" << timetoJunction2 << " yellowSlack=" << yellowSlack << "\n";
+                    }
 #endif
                     if (timetoJunction2 <= (timeToSwitch + yellowSlack)) {
                         // increase speed factor up to a maximum if necessary and useful
@@ -165,14 +169,14 @@ MSDevice_GLOSA::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifica
             tlsRange = StringUtils::toDouble(val);
         } catch (const NumberFormatException&) {
             WRITE_WARNINGF("Invalid value '%' for parameter 'device.glosa.range' of traffic light '%'",
-                    val, myNextTLSLink->getTLLogic()->getID());
+                           val, myNextTLSLink->getTLLogic()->getID());
         }
         myRange = MIN2(getFloatParam(myVeh, OptionsCont::getOptions(), "glosa.range", 100, true), tlsRange);
     }
 
 #ifdef DEBUG_GLOSA
-    if (DEBUG_COND) std::cout << SIMTIME << " veh=" << myVeh.getID() << " enter=" << myVeh.getLane()->getID() << " hadTLS=" << hadTLS 
-        << " tls=" << (myNextTLSLink == nullptr ? "NULL" : myNextTLSLink->getTLLogic()->getID()) << " dist=" << myDistance << "\n";
+    if (DEBUG_COND) std::cout << SIMTIME << " veh=" << myVeh.getID() << " enter=" << myVeh.getLane()->getID() << " hadTLS=" << hadTLS
+                                  << " tls=" << (myNextTLSLink == nullptr ? "NULL" : myNextTLSLink->getTLLogic()->getID()) << " dist=" << myDistance << "\n";
 #endif
     return true; // keep the device
 }
@@ -219,7 +223,7 @@ MSDevice_GLOSA::latest_arrival(speed, distance, earliest) {
     speed = max(speed, GLOSA_MIN_SPEED)
     potential_decel_dist = min(distance, GLOSA_RANGE)
     decel_time = (speed - GLOSA_MIN_SPEED) / GLOSA_DECEL
-    avg_decel_speed = (speed + GLOSA_MIN_SPEED) / 2.0 
+    avg_decel_speed = (speed + GLOSA_MIN_SPEED) / 2.0
     decel_dist = decel_time * avg_decel_speed
     if decel_dist > potential_decel_dist:
         decel_dist = potential_decel_dist
@@ -253,8 +257,8 @@ MSDevice_GLOSA::time_to_junction_at_continuous_accel(double d, double v) {
     // see distance_at_continuous_accel
     // t^2 + (2v/a)t - 2d/a = 0
     const double a = myVeh.getCarFollowModel().getMaxAccel();
-    const double p_half = v/a;
-    const double t = -p_half + sqrt(p_half * p_half + 2*d/a);
+    const double p_half = v / a;
+    const double t = -p_half + sqrt(p_half * p_half + 2 * d / a);
     return t;
 }
 
@@ -287,25 +291,27 @@ MSDevice_GLOSA::adaptSpeed(double distance, double timeToJunction, double timeTo
         // y = t - (w-x)/d
         // solution for x curtesy of mathomatic.org
         const double sign0 = -1; // XXX hack
-        const double root_argument = a*d*((2.0*d*(s - (w*t))) - ((v - w)*(v - w)) + (a*((d*(t*t)) + (2.0*(s - (t*v))))));
+        const double root_argument = a * d * ((2.0 * d * (s - (w * t))) - ((v - w) * (v - w)) + (a * ((d * (t * t)) + (2.0 * (s - (t * v))))));
         if (root_argument < 0) {
 #ifdef DEBUG_GLOSA
-            WRITE_WARNINGF("GLOSA error 1 root_argument=% s=% t=% v=%",root_argument, s,t,v);
+            WRITE_WARNINGF("GLOSA error 1 root_argument=% s=% t=% v=%", root_argument, s, t, v);
 #endif
             return;
         }
-        const double x = (((a*(v - (d*t))) + (d*w) - sign0*sqrt(root_argument))/(d + a));
-        const double y = t - (w-x)/d;
+        const double x = (((a * (v - (d * t))) + (d * w) - sign0 * sqrt(root_argument)) / (d + a));
+        const double y = t - (w - x) / d;
         if (!(x >= u && x <= w && y > 0 && y < t)) {
 #ifdef DEBUG_GLOSA
-            WRITE_WARNINGF("GLOSA error 2 x=% y=% s=% t=% v=%",x,y,s,t,v);
+            WRITE_WARNINGF("GLOSA error 2 x=% y=% s=% t=% v=%", x, y, s, t, v);
 #endif
             return;
         }
         const double targetSpeed = x;
         const double duration = y;
 #ifdef DEBUG_GLOSA
-        if (DEBUG_COND) std::cout << "  targetSpeed=" << targetSpeed << " duration=" << duration << "\n";
+        if (DEBUG_COND) {
+            std::cout << "  targetSpeed=" << targetSpeed << " duration=" << duration << "\n";
+        }
 #endif
         std::vector<std::pair<SUMOTime, double> > speedTimeLine;
         speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), myVeh.getSpeed()));

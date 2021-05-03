@@ -125,20 +125,20 @@ public:
 private:
 
     /// @brief compute time to next (relevant) switch
-    static double getTimeToSwitch(const MSLink* tlsLink); 
+    static double getTimeToSwitch(const MSLink* tlsLink);
 
     /// @brief return minimum number of seconds to reach the junction
-    double earliest_arrival(double speed, double distance); 
+    double earliest_arrival(double speed, double distance);
 
     /// @brief return maximum number of seconds to reach the junction
-    double latest_arrival(double speed, double distance, double earliest); 
+    double latest_arrival(double speed, double distance, double earliest);
 
     double distance_at_continuous_accel(double speed, double time);
 
     double time_to_junction_at_continuous_accel(double d, double v);
 
     /// @brief adapt speed to reach junction at green
-    void adaptSpeed(double distance, double timeToJunction, double timeToSwitch); 
+    void adaptSpeed(double distance, double timeToJunction, double timeToSwitch);
 
     /** @brief Constructor
      *

@@ -1330,7 +1330,7 @@ MSEdge::inferEdgeType() {
                             if (it != (*resAfter).end()) {
                                 const double speed2 = it->second;
                                 const double newSpeed = (MSNet::getInstance()->hasJunctionHigherSpeeds()
-                                        ? MAX2(speed, speed2) : (speed + speed2) / 2);
+                                                         ? MAX2(speed, speed2) : (speed + speed2) / 2);
                                 net->addRestriction(myEdgeType, svc, newSpeed);
                             }
                         }

@@ -71,7 +71,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check exaggeration
-        if (s.drawAdditionals(containerStopExaggeration)){
+        if (s.drawAdditionals(containerStopExaggeration)) {
             // declare colors
             RGBColor baseColor, signColor;
             // set colors
