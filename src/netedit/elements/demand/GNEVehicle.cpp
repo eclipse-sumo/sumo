@@ -726,7 +726,12 @@ GNEVehicle::computePathElement() {
 
 void
 GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
-    if (!s.drawForRectangleSelection && ((s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) || isAttributeCarrierSelected())) {
+    // get inspected and front flags
+    const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this);
+    // check conditions
+    if (!s.drawForRectangleSelection && 
+        (s.drawDottedContour() || dottedElement || isAttributeCarrierSelected()) &&
+        myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myTagProperty.getTag())) {
         // declare flag to draw spread vehicles
         const bool drawSpreadVehicles = (myNet->getViewNet()->getNetworkViewOptions().drawSpreadVehicles() || myNet->getViewNet()->getDemandViewOptions().drawSpreadVehicles());
         // calculate width
@@ -796,9 +801,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         // Pop name
         glPopName();
         // check if shape dotted contour has to be drawn
-        if (s.drawDottedContour() ||
-            myNet->getViewNet()->isAttributeCarrierInspected(this) ||
-            (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+        if (s.drawDottedContour() || dottedElement) {
             // declare trim geometry to draw
             const GNEGeometry::DottedGeometry pathDottedGeometry((segment->isFirstSegment() || segment->isLastSegment())? GNEGeometry::DottedGeometry(s, vehicleGeometry.getShape(), false) : lane->getDottedLaneGeometry());
             // draw inspected dotted contour
@@ -816,8 +819,13 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
 
 void
 GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
-    if (!s.drawForRectangleSelection && fromLane->getLane2laneConnections().exist(toLane) &&
-            ((s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) || isAttributeCarrierSelected())) {
+    // get inspected and front flags
+    const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this);
+    // check conditions
+    if (!s.drawForRectangleSelection && 
+        fromLane->getLane2laneConnections().exist(toLane) &&
+        (s.drawDottedContour() || dottedElement || isAttributeCarrierSelected()) &&
+        myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, fromLane, toLane, myTagProperty.getTag())) {
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // obtain lane2lane geometry
@@ -839,9 +847,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
         // Pop last matrix
         glPopMatrix();
         // check if shape dotted contour has to be drawn
-        if (s.drawDottedContour() ||
-            myNet->getViewNet()->isAttributeCarrierInspected(this) ||
-            (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+        if (s.drawDottedContour() || dottedElement) {
             // check if exist lane2lane connection
             if (fromLane->getLane2laneConnections().exist(toLane)) {
                 // draw inspected dotted contour

@@ -293,11 +293,13 @@ GNERoute::computePathElement() {
 
 void
 GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
-    // check if route can be drawn
+    // get inspected and front flags
+    const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this);
+    // check conditions
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
-            myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
-            myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
-            myNet->getPathManager()->getPathDraw()->drawPathGeometry(lane, myTagProperty.getTag())) {
+        myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
+        myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
+        myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myTagProperty.getTag())) {
         // get embedded route flag
         const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width
@@ -364,9 +366,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
             glPopMatrix();
         }
         // check if shape dotted contour has to be drawn
-        if (s.drawDottedContour() || 
-            myNet->getViewNet()->isAttributeCarrierInspected(this) || 
-            (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+        if (s.drawDottedContour() || dottedElement){
             // declare trim geometry to draw
             const GNEGeometry::DottedGeometry pathDottedGeometry((segment->isFirstSegment() || segment->isLastSegment()) ? GNEGeometry::DottedGeometry(s, routeGeometry.getShape(), false) : lane->getDottedLaneGeometry());
             // draw inspected dotted contour
@@ -384,11 +384,14 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
 
 void
 GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
-    // only drawn in super mode demand
+    // get inspected and front flags
+    const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this);
+    // check conditions
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && 
-            myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
-            fromLane->getLane2laneConnections().exist(toLane) && 
-            myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
+        myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
+        fromLane->getLane2laneConnections().exist(toLane) && 
+        myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
+        myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, fromLane, toLane, myTagProperty.getTag())) {
         // get embedded route flag
         const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width
@@ -412,9 +415,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
         // Pop name
         glPopName();
         // check if shape dotted contour has to be drawn
-        if (s.drawDottedContour() ||
-            myNet->getViewNet()->isAttributeCarrierInspected(this) ||
-            (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+        if (s.drawDottedContour() || dottedElement) {
             // check if exist lane2lane connection
             if (fromLane->getLane2laneConnections().exist(toLane)) {
                 // draw inspected dotted contour

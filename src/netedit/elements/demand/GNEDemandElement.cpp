@@ -572,10 +572,13 @@ GNEDemandElement::getLastPersonPlanLane() const {
 void
 GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, 
         const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const {
-    /// get person parent
+    // get inspected and front flags
+    const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this);
+    // get person parent
     const GNEDemandElement* personParent = getParentDemandElements().front();
     // check if draw person plan element can be drawn
-    if (drawPersonPlan()) {
+    if (drawPersonPlan() && 
+        myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myTagProperty.getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
         // get inspected person plan
@@ -669,9 +672,7 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
             glPopMatrix();
         }
         // check if shape dotted contour has to be drawn
-        if (s.drawDottedContour() ||
-            myNet->getViewNet()->isAttributeCarrierInspected(this) ||
-            (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+        if (s.drawDottedContour() || dottedElement) {
             // declare trim geometry to draw
             const GNEGeometry::DottedGeometry pathDottedGeometry((segment->isFirstSegment() || segment->isLastSegment()) ? GNEGeometry::DottedGeometry(s, personPlanGeometry.getShape(), false) : lane->getDottedLaneGeometry());
             // draw inspected dotted contour
@@ -695,8 +696,11 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
 void
 GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings & s, const GNELane * fromLane, const GNELane * toLane, const GNEPathManager::Segment* /*segment*/,
         const double offsetFront, const double personPlanWidth, const RGBColor & personPlanColor) const {
+    // get inspected and front flags
+    const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this);
     // check if draw person plan elements can be drawn
-    if (drawPersonPlan()) {
+    if (drawPersonPlan() && 
+        myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, fromLane, toLane, myTagProperty.getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
         // get person parent
@@ -734,10 +738,14 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings & s, cons
         // Pop name
         glPopName();
         // check if shape dotted contour has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            // draw lane2lane dotted geometry
-            if (fromLane->getLane2laneConnections().exist(toLane)) {
+        if (fromLane->getLane2laneConnections().exist(toLane) && (s.drawDottedContour() || dottedElement)) {
+            // draw lane2lane inspected dotted geometry
+            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneDottedGeometry(toLane), pathWidth, false, false);
+            }
+            // draw lane2lane front dotted geometry
+            if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneDottedGeometry(toLane), pathWidth, false, false);
             }
         }
     }
