@@ -559,7 +559,7 @@ GNEPathManager::getPathDraw() {
 
 
 bool 
-GNEPathManager::isPathValid(PathElement* pathElement) const {
+GNEPathManager::isPathValid(const PathElement* pathElement) const {
     // first check if path element exist
     if (myPaths.count(pathElement) > 0) {
         // check if path hat more than one element

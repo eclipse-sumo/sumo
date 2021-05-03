@@ -290,7 +290,7 @@ public:
     PathDraw* getPathDraw();
 
     /// @brief check if path element is valid
-    bool isPathValid(PathElement* pathElement) const;
+    bool isPathValid(const PathElement* pathElement) const;
 
     /// @brief get first lane associated with path element
     const GNELane* getFirstLane(const PathElement* pathElement) const;

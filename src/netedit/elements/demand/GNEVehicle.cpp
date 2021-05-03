@@ -207,37 +207,37 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::~GNESelectedVehiclesPopupMenu() {}
 long
 GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelector, void*) {
     // iterate over all selected vehicles
-    for (const auto& i : mySelectedVehicles) {
+    for (const auto& vehicle : mySelectedVehicles) {
         if ((obj == myTransformToVehicle) &&
-                (i->getTagProperty().getTag() == myVehicleTag)) {
-            GNERouteHandler::transformToVehicle(i, false);
+                (vehicle->getTagProperty().getTag() == myVehicleTag)) {
+            GNERouteHandler::transformToVehicle(vehicle, false);
         } else if ((obj == myTransformToVehicleWithEmbeddedRoute) &&
-                   (i->getTagProperty().getTag() == myVehicleTag)) {
-            GNERouteHandler::transformToVehicle(i, true);
+                   (vehicle->getTagProperty().getTag() == myVehicleTag)) {
+            GNERouteHandler::transformToVehicle(vehicle, true);
         } else if ((obj == myTransformToRouteFlow) &&
-                   (i->getTagProperty().getTag() == myVehicleTag)) {
-            GNERouteHandler::transformToRouteFlow(i, false);
+                   (vehicle->getTagProperty().getTag() == myVehicleTag)) {
+            GNERouteHandler::transformToRouteFlow(vehicle, false);
         } else if ((obj == myTransformToRouteFlowWithEmbeddedRoute) &&
-                   (i->getTagProperty().getTag() == myVehicleTag)) {
-            GNERouteHandler::transformToRouteFlow(i, true);
+                   (vehicle->getTagProperty().getTag() == myVehicleTag)) {
+            GNERouteHandler::transformToRouteFlow(vehicle, true);
         } else if ((obj == myTransformToTrip) &&
-                   (i->getTagProperty().getTag() == myVehicleTag)) {
-            GNERouteHandler::transformToTrip(i);
+                   (vehicle->getTagProperty().getTag() == myVehicleTag)) {
+            GNERouteHandler::transformToTrip(vehicle);
         } else if ((obj == myTransformToFlow) &&
-                   (i->getTagProperty().getTag() == myVehicleTag)) {
-            GNERouteHandler::transformToFlow(i);
+                   (vehicle->getTagProperty().getTag() == myVehicleTag)) {
+            GNERouteHandler::transformToFlow(vehicle);
         } else if (obj == myTransformAllVehiclesToVehicle) {
-            GNERouteHandler::transformToVehicle(i, false);
+            GNERouteHandler::transformToVehicle(vehicle, false);
         } else if (obj == myTransformAllVehiclesToVehicleWithEmbeddedRoute) {
-            GNERouteHandler::transformToVehicle(i, true);
+            GNERouteHandler::transformToVehicle(vehicle, true);
         } else if (obj == myTransformAllVehiclesToRouteFlow) {
-            GNERouteHandler::transformToRouteFlow(i, false);
+            GNERouteHandler::transformToRouteFlow(vehicle, false);
         } else if (obj == myTransformAllVehiclesToRouteFlowWithEmbeddedRoute) {
-            GNERouteHandler::transformToRouteFlow(i, true);
+            GNERouteHandler::transformToRouteFlow(vehicle, true);
         } else if (obj == myTransformAllVehiclesToTrip) {
-            GNERouteHandler::transformToTrip(i);
+            GNERouteHandler::transformToTrip(vehicle);
         } else if (obj == myTransformAllVehiclesToFlow) {
-            GNERouteHandler::transformToFlow(i);
+            GNERouteHandler::transformToFlow(vehicle);
         }
     }
     return 1;
@@ -404,17 +404,8 @@ bool
 GNEVehicle::isDemandElementValid() const {
     // only trips or flows can have problems
     if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
-        // check if from and to are the same edges
-        if ((getParentEdges().size() == 2) && (getParentEdges().at(0) == getParentEdges().at(1))) {
-            return true;
-        /*
-        } else if (getPath().size() > 0) {
-            // if path edges isn't empty, then there is a valid route
-            return true;
-        */
-        } else {
-            return false;
-        }
+        // check path
+        return myNet->getPathManager()->isPathValid(this);
     } else if (getParentDemandElements().size() == 2) {
         // check if exist a valid path using route parent edges
         if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getParentDemandElements().at(1)->getParentEdges()).size() > 0) {
