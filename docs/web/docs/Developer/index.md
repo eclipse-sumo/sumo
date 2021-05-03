@@ -15,6 +15,7 @@ title: Developer
 - [Developer/Used Tools](Used_Tools.md) - tools used for developing SUMO
 - [Developer/Managing Publications](Managing_Publications.md) - how to work with the publications bibtex-file
 - [Developer/FMI](FMI.md) - information about the current state of the FMI 2.0 support in SUMO
+- [Developer/Maven](Maven.md) - informtion about using libsumo/libtraci in maven builds
 
 ## Build instructions
 
