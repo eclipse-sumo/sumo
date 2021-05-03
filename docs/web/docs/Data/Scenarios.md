@@ -64,7 +64,9 @@ Italy.
 A large-scale mesoscopic traffic simulation of a 400-sqkm area around the Municipality of Turin.
 
 - [Main Page](https://github.com/marcorapelli/TuSTScenario)
-- Publication: M. Rapelli, C. Casetti and G. Gagliardi, "TuST: from Raw Data to Vehicular Traffic Simulation in Turin," 2019 IEEE/ACM 23rd International Symposium on Distributed Simulation and Real Time Applications (DS-RT), Cosenza, Italy, 2019, pp. 1-8, doi: 10.1109/DS-RT47707.2019.8958652. [pre-print](https://ieeexplore.ieee.org/document/8958652)
+- Publications
+  - : M. Rapelli, C. Casetti and G. Gagliardi, “Vehicular Traffic Simulation in the City of Turin from Raw Data” in IEEE Transactions on Mobile Computing, April 2021. DOI: 10.1109/TMC.2021.3075985
+  - M. Rapelli, C. Casetti and G. Gagliardi, "TuST: from Raw Data to Vehicular Traffic Simulation in Turin," 2019 IEEE/ACM 23rd International Symposium on Distributed Simulation and Real Time Applications (DS-RT), Cosenza, Italy, 2019, pp. 1-8, doi: 10.1109/DS-RT47707.2019.8958652. [pre-print](https://ieeexplore.ieee.org/document/8958652)
 
 !!! note
     It requires [git-lfs](https://git-lfs.github.com/) to download
