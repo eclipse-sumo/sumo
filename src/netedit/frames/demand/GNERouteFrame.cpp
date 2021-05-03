@@ -285,6 +285,8 @@ GNERouteFrame::createPath() {
         myPathCreator->abortPathCreation();
         // refresh route attributes
         myRouteAttributes->refreshRows();
+        // compute path route
+        route->computePathElement();
     }
 }
 
