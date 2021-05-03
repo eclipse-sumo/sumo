@@ -48,8 +48,8 @@ for i in range(0, traci.person.getRemainingStages(pID)):
 
 print("")
 firstStage = True
-for stage in traci.simulation.findIntermodalRoute(fromEdge="2/3to1/3",
-    toEdge="1/3to0/3", destStop="busStop0", departPos="12", modes="bicycle"):
+for stage in traci.simulation.findIntermodalRoute("2/3to1/3", "1/3to0/3",
+                                                  destStop="busStop0", departPos="12", modes="bicycle"):
     print(stage.toXML(firstStage))
     firstStage = False
 
