@@ -11,17 +11,41 @@ title: ChangeLog
   - departDelayWaiting (verbose output and statistic-output) no longer includes loaded vehicles that were not scheduled to depart before simulation end. Issue #8490
   - Person stops with duration 0 are now working. Issue #8494
   - Fixed bug where vehicles could ignore connection permissions. Issue #8499
+  - Fixed invalid jamming of persons and vehicles on a shared walkingarea. Issue #8417
+  - Fixed invalid vehroute.exit-times after loading state. Issue #8536
+  - Fixed missing vehicle-class-specific speed limits on internal lane. Issue #8556
+  - Fixed bug where person did not exit ride on access edge of destination stop. Issue #8558
+  - Fixed error when taxi ride starts or ends at a busStop only reachable via access. Issue #8578
   
 - netconvert
   - Loaded road connections are no longer ignored when railway.topology.repair affects a junction. Issue #8505
-    
+  - Fixed invalid connections at ramp-like junctions with bike lanes. Issue #8538
+  - Phases with identical states are no longer merged if their names differ. Issue #8544
+  
+- duarouter
+  - Option **--weights.priority-factor** is no longer ignored in rail networks with bidirectional tracks. Issue #8561
+
+- netedit
+  - Restored polygon exaggeration so that it increases line width rather than growing the whole shape. Issue #8568 (regression in 1.7.0) 
+  - Polygon ids can be shown again. Issue #8575 (regression in 1.7.0)
+  - Setting size of additional ids is now working. #8574 (regression in 1.8.0)
+  - Ids of additional objects are now shown when zoomed out. Issue #8571
+
 - TraCI
   - Fixed crash when calling traci.simulation.loadState. Issue #8477, #8511
   - Fixed invalid traceFile when using traci.<domain>.unsubscribe. Issue #8491
+  - Added LiSum option **--lisa-version** to allow compatibility with version below 7.2. Issue #8065
+  - Fixed LiSum crash. Issue #8104
   
 - tools
   - osmWebWizard.py can now import locations with negative longitude again. Issue #8521 (regression in 1.9.0)
   - Fixed problem with sumolib.xml.parse_fast_nested when an element is missing some of the attributes to be parsed. Issue #8508
+  - Fixed invalid characters in ptlines2flow.py output. Issue #8557
+  - Fixed invalid constraint output of generateRailSignalCosntraints.py when two vehicles stop with parking=true and the same until time at the same stop. Issue #8246
+
+- Miscellaneous
+  - Fixed invalid xml output when writing file creation timestamp in exotic locales. Issue #8533
+  - Fixed proj.db error message when starting applications with geo-conversion capability (sumo, netconvert, polyconvert) on windows (commonly used functionality was not affected). Issue #8497 (regression in 1.9.0)
 
 ### Enhancements
 - Simulation
@@ -30,10 +54,14 @@ title: ChangeLog
   - Statistic-output now includes 'totalTravelTime' and 'totalDepartDelay'. Issue #8484
   - Added option **--tripinfo-output.write-undeparted** to ensure that the number of written tripinfos is independent of insertion success (simplify comparison of different runs). Issue #8475
   - Vehicles can now be [configured to ignore specific foe vehicles at junctions](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters). Issue #8205
+  - Option **--time-to-teleport.disconnect** now supports value 0 for teleporting without waiting. Issue #8537
 
 - sumo-gui
   - Updated container count icon in status bar. Issue #8479
-  
+
+- netconvert
+  - Added option **--junctions.higher-speed** to allow higher speed on internal lanes when the speed limit changes between incoming and outgoing edge. When set, speed on junction will be set to the maximum of both edges rather than the average. Issue #8535
+
 - TraCI
   - Added traci.trafficlight functions to work with [railSignalConstraints](Simulation/Railways.md#schedule_constraints): getConstraints, getConstraintsByFoe, removeConstraints, swapConstraints. Issue #8455, #8224
   - traci.simulation.Stage now supports function 'toXML' for python client. Issue #8517
@@ -48,6 +76,8 @@ title: ChangeLog
 
 ### Other
 
+- Miscellaneous
+  - Fixed pip package contents. Issue #8513, #8514
 - Documentation
   - Documented [statistic-output](Simulation/Output/StatisticOutput.md). Issue #8188
 
