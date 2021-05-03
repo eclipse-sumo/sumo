@@ -67,6 +67,7 @@ title: ChangeLog
   - traci.simulation.Stage now supports function 'toXML' for python client. Issue #8517
 
 - tools
+  - Added new tool [drtOnline.py](Tools/Drt.md) for simulationg of demand responsive transport (DRT). It uses the [taxi API](Simulation/Taxi.md#traci) with an LP-Solver to optimze shared dispatch. Issue #8256
   - Added function sumolib.route.addInternal to interpolate internal edges into a route. Issue #1322
   - sumolib.net.getShortestPath now includes internal edges in path cost and supports parameter 'withInternal' for including internal edges in the resulting edge list edges#4994
   - [gtfs2pt.py](Tools/Import/GTFS.md) now supports option **--osm-routes** to improve mapping of gtfs data onto the network. Issue #8251
