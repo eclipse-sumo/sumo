@@ -708,7 +708,7 @@ GNEVehicle::computePathElement() {
         }
         lanes.push_back(getLastAllowedVehicleLane());
         // calculate path
-        myNet->getPathManager()->calculateConsecutivePathLanes(this, getVClass(), lanes);
+        myNet->getPathManager()->calculatePathLanes(this, getVClass(), lanes);
     }
     // update geometry
     updateGeometry();
