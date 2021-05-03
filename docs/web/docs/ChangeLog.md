@@ -79,7 +79,7 @@ title: ChangeLog
 
 - Miscellaneous
   - Fixed pip package contents. Issue #8513, #8514
-  - You can use libsumo and libtraci as a dependency in your maven builds by the using package repository https://repo.eclipse.org/content/repositories/sumo-releases/". Issue #7921
+  - You can use libsumo and libtraci as a dependency in your maven builds by the using package repository https://repo.eclipse.org/content/repositories/sumo-releases/. Issue #7921
 - Documentation
   - Documented [statistic-output](Simulation/Output/StatisticOutput.md). Issue #8188
 
