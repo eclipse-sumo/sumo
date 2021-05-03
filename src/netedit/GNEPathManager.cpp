@@ -21,6 +21,7 @@
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <utils/router/DijkstraRouter.h>
 
@@ -461,15 +462,19 @@ void
 GNEPathManager::PathDraw::clearPathDraw() {
     // just clear myDrawedElements
     myLaneDrawedElements.clear();
-    myJunctionDrawedElements.clear();
-
+    myLane2laneDrawedElements.clear();
 }
 
 
 bool 
-GNEPathManager::PathDraw::drawPathGeometry(const GNELane *lane, SumoXMLTag tag) {
-    // check lane
-    if (myLaneDrawedElements.count(lane) > 0) {
+GNEPathManager::PathDraw::drawPathGeometry(const bool dottedElement, const GNELane *lane, SumoXMLTag tag) {
+    // check conditions
+    if (dottedElement) {
+        return true;
+    } else if (lane->getNet()->getViewNet()->getVisualisationSettings().drawForPositionSelection || 
+               lane->getNet()->getViewNet()->getVisualisationSettings().drawForRectangleSelection) {
+        return true;
+    } else if (myLaneDrawedElements.count(lane) > 0) {
         // check tag
         if (myLaneDrawedElements.at(lane).count(tag) > 0) {
             // element type was already inserted, then don't draw geometry
@@ -490,24 +495,34 @@ GNEPathManager::PathDraw::drawPathGeometry(const GNELane *lane, SumoXMLTag tag) 
 
 
 bool 
-GNEPathManager::PathDraw::drawPathGeometry(const GNEJunction *junction, SumoXMLTag tag) {
-    // check junction
-    if (myJunctionDrawedElements.count(junction) > 0) {
-        // check tag
-        if (myJunctionDrawedElements.at(junction).count(tag) > 0) {
-            // element type was already inserted, then don't draw geometry
-            return false;
+GNEPathManager::PathDraw::drawPathGeometry(const bool dottedElement, const GNELane *fromLane, const GNELane *toLane, SumoXMLTag tag) {
+    // check conditions
+    if (dottedElement) {
+        return true;
+    } else if (fromLane->getNet()->getViewNet()->getVisualisationSettings().drawForPositionSelection || 
+               fromLane->getNet()->getViewNet()->getVisualisationSettings().drawForRectangleSelection) {
+        return true;
+    } else {
+        // declare lane2lane
+        const std::pair<const GNELane*, const GNELane*> lane2lane(fromLane, toLane);
+        // check lane2lane
+        if (myLane2laneDrawedElements.count(lane2lane) > 0) {
+            // check tag
+            if (myLane2laneDrawedElements.at(lane2lane).count(tag) > 0) {
+                // element type was already inserted, then don't draw geometry
+                return false;
+            } else {
+                // insert tag for the given lane2lane
+                myLane2laneDrawedElements.at(lane2lane).insert(tag);
+                // draw geometry
+                return true;
+            }
         } else {
-            // insert tag for the given junction
-            myJunctionDrawedElements.at(junction).insert(tag);
+            // insert lane2lane and tag
+            myLane2laneDrawedElements[lane2lane].insert(tag);
             // draw geometry
             return true;
         }
-    } else {
-        // insert junction and tag
-        myJunctionDrawedElements[junction].insert(tag);
-        // draw geometry
-        return true;
     }
 }
 
