@@ -348,6 +348,24 @@ GNEStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*f
 }
 
 
+GNELane*
+GNEStop::getFirstPathLane() const {
+    // check if stop is placed over a busStop
+    if (getParentAdditionals().size() > 0) {
+        return getParentAdditionals().front()->getParentLanes().front();
+    } else {
+        return getParentLanes().front();
+    }
+}
+
+
+GNELane* 
+GNEStop::getLastPathLane() const {
+    // first and last path lane are the same
+    return getFirstPathLane();
+}
+
+
 std::string
 GNEStop::getAttribute(SumoXMLAttr key) const {
     switch (key) {

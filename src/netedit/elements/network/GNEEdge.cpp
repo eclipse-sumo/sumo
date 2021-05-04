@@ -1976,7 +1976,7 @@ GNEEdge::getVehiclesOverEdgeMap() const {
     }
     // now split vehicles by lanes
     for (const auto& vehicle : vehiclesOverEdge) {
-        const GNELane* vehicleLane = vehicle->getFirstAllowedVehicleLane();
+        const GNELane* vehicleLane = vehicle->getFirstPathLane();
         if (vehicleLane) {
             vehiclesOverEdgeMap[vehicleLane].push_back(vehicle);
         }

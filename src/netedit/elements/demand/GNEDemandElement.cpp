@@ -377,94 +377,6 @@ GNEDemandElement::isValidDemandElementID(const std::string& newID) const {
 }
 
 
-GNELane*
-GNEDemandElement::getFirstAllowedVehicleLane() const {
-    // check demand element
-    if (!myTagProperty.isVehicle()) {
-        throw ProcessError("Only allowed for vehicles");
-    } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
-        // check if vehicle use a embedded route
-        if (getParentDemandElements().size() == 2) {
-            return getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
-        } else {
-            return nullptr;
-        }
-    } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_WITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
-        if ((getChildDemandElements().size() > 0) && (getChildDemandElements().front()->getParentEdges().size() > 0)) {
-            return getChildDemandElements().front()->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
-        } else {
-            return nullptr;
-        }
-    } else if (getParentEdges().size() > 0) {
-        if (myTagProperty.hasAttribute(SUMO_ATTR_DEPARTLANE)) {
-            // obtain Lane depending of attribute "departLane"
-            std::string departLane = getAttribute(SUMO_ATTR_DEPARTLANE);
-            //  check depart lane
-            if ((departLane == "random") || (departLane == "free") || (departLane == "allowed") || (departLane == "best") || (departLane == "first")) {
-                return getParentEdges().front()->getLaneByAllowedVClass(getVClass());
-            }
-            // obtain index
-            const int departLaneIndex = parse<int>(getAttribute(SUMO_ATTR_DEPARTLANE));
-            // if index is correct, return lane. In other case, return nullptr;
-            if ((departLaneIndex >= 0) && (departLaneIndex < getParentEdges().front()->getNBEdge()->getNumLanes())) {
-                return getParentEdges().front()->getLanes().at(departLaneIndex);
-            } else {
-                return nullptr;
-            }
-        } else {
-            // in other case, always return the first allowed
-            return getParentEdges().front()->getLaneByAllowedVClass(getVClass());
-        }
-    } else {
-        return nullptr;
-    }
-}
-
-
-GNELane*
-GNEDemandElement::getLastAllowedVehicleLane() const {
-    // check demand element
-    if (!myTagProperty.isVehicle()) {
-        throw ProcessError("Only allowed for vehicles");
-    } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
-        // check if vehicle use a embedded route
-        if (getParentDemandElements().size() == 2) {
-            return getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(getVClass());
-        } else {
-            return nullptr;
-        }
-    } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_WITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
-        if (getChildDemandElements().size() > 0) {
-            return getChildDemandElements().front()->getParentEdges().back()->getLaneByAllowedVClass(getVClass());
-        } else {
-            return nullptr;
-        }
-    } else if (getParentEdges().size() > 0) {
-        if (myTagProperty.hasAttribute(SUMO_ATTR_ARRIVALLANE)) {
-            // obtain Lane depending of attribute "arrivalLane"
-            std::string arrivalLane = getAttribute(SUMO_ATTR_ARRIVALLANE);
-            //  check depart lane
-            if (arrivalLane == "current") {
-                return getParentEdges().back()->getLaneByAllowedVClass(getVClass());
-            }
-            // obtain index
-            const int arrivalLaneIndex = parse<int>(getAttribute(SUMO_ATTR_ARRIVALLANE));
-            // if index is correct, return lane. In other case, return nullptr;
-            if ((arrivalLaneIndex >= 0) && (arrivalLaneIndex < getParentEdges().back()->getNBEdge()->getNumLanes())) {
-                return getParentEdges().back()->getLanes().at(arrivalLaneIndex);
-            } else {
-                return nullptr;
-            }
-        } else {
-            // in other case, always return the first allowed
-            return getParentEdges().back()->getLaneByAllowedVClass(getVClass());
-        }
-    } else {
-        return nullptr;
-    }
-}
-
-
 const Position
 GNEDemandElement::getBeginPosition(const double pedestrianDepartPos) const {
     if (myTagProperty.isPersonStop()) {
@@ -511,60 +423,6 @@ GNEDemandElement::drawPersonPlan() const {
             // all conditions are false
             return false;
         }
-    }
-}
-
-
-GNELane*
-GNEDemandElement::getFirstPersonPlanLane() const {
-    switch (myTagProperty.getTag()) {
-        // check first edge elements
-        case GNE_TAG_PERSONTRIP_EDGE:
-        case GNE_TAG_WALK_EDGE:
-        case GNE_TAG_PERSONTRIP_BUSSTOP:
-        case GNE_TAG_WALK_BUSSTOP:
-        case GNE_TAG_WALK_EDGES:
-        case GNE_TAG_PERSONSTOP_EDGE:
-            return getParentEdges().front()->getLaneByAllowedVClass(getVClass());
-        // check rides
-        case GNE_TAG_RIDE_EDGE:
-        case GNE_TAG_RIDE_BUSSTOP:
-            return getParentEdges().front()->getLaneByDisallowedVClass(getVClass());
-        // check personStop (bus)
-        case GNE_TAG_PERSONSTOP_BUSSTOP:
-            return getParentAdditionals().front()->getParentLanes().front();
-        // check route walk
-        case GNE_TAG_WALK_ROUTE:
-            return getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
-        default:
-            throw ProcessError("Invalid person plan tag");
-    }
-}
-
-
-GNELane* 
-GNEDemandElement::getLastPersonPlanLane() const {
-    switch (myTagProperty.getTag()) {
-        // check edge elements
-        case GNE_TAG_PERSONTRIP_EDGE:
-        case GNE_TAG_WALK_EDGE:
-        case GNE_TAG_WALK_EDGES:
-        case GNE_TAG_PERSONSTOP_EDGE:
-            return getParentEdges().back()->getLaneByAllowedVClass(getVClass());
-        // check ride
-        case GNE_TAG_RIDE_EDGE:
-            return getParentEdges().back()->getLaneByDisallowedVClass(getVClass());
-        // check busStops elements
-        case GNE_TAG_PERSONTRIP_BUSSTOP:
-        case GNE_TAG_RIDE_BUSSTOP:
-        case GNE_TAG_WALK_BUSSTOP:
-        case GNE_TAG_PERSONSTOP_BUSSTOP:
-            return getParentAdditionals().front()->getParentLanes().front();
-        // check route walks
-        case GNE_TAG_WALK_ROUTE:
-            return getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(getVClass());
-        default:
-            throw ProcessError("Invalid person plan tag");
     }
 }
 
@@ -686,7 +544,7 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
         }
     }
     // draw person parent if this is the edge first edge and this is the first plan
-    if ((getFirstPersonPlanLane()->getParentEdge() == lane->getParentEdge()) && 
+    if ((getFirstPathLane()->getParentEdge() == lane->getParentEdge()) && 
         (personParent->getChildDemandElements().front() == this)) {
         personParent->drawGL(s);
     }

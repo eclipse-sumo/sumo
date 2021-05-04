@@ -244,6 +244,12 @@ public:
      */
     virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
     
+    /// @brief get first path lane
+    virtual GNELane* getFirstPathLane() const = 0;
+
+    /// @brief get last path lane 
+    virtual GNELane* getLastPathLane() const = 0;
+
     /// @brief get path element depart lane pos
     double getPathElementDepartValue() const;
 
@@ -321,12 +327,6 @@ public:
     virtual std::string getHierarchyName() const = 0;
     /// @}
 
-    /// @brief get first allowed vehicle lane
-    GNELane* getFirstAllowedVehicleLane() const;
-
-    /// @brief get first allowed vehicle lane
-    GNELane* getLastAllowedVehicleLane() const;
-
     /// @brief get personPlan start position
     const Position getBeginPosition(const double pedestrianDepartPos) const;
 
@@ -347,12 +347,6 @@ protected:
     /// @{
     /// @brief check if person plan can be drawn
     bool drawPersonPlan() const;
-
-    /// @brief get first person plan lane (used in Computing path)
-    GNELane* getFirstPersonPlanLane() const;
-
-    /// @brief get last person plan  lane (used in Computing path)
-    GNELane* getLastPersonPlanLane() const;
 
     /// @brief draw person plan partial lane
     void drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront,

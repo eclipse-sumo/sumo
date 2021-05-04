@@ -165,6 +165,20 @@ GNEVehicleType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELa
 }
 
 
+GNELane*
+GNEVehicleType::getFirstPathLane() const {
+    // vehicle types don't use lanes
+    return nullptr;
+}
+
+
+GNELane* 
+GNEVehicleType::getLastPathLane() const {
+    // vehicle types don't use lanes
+    return nullptr;
+}
+
+
 std::string
 GNEVehicleType::getAttribute(SumoXMLAttr key) const {
     // obtain default values depending of vehicle class
