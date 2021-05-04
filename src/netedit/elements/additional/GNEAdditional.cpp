@@ -626,27 +626,39 @@ GNEAdditional::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) 
 }
 
 
+GNELane* 
+GNEAdditional::getFirstPathLane() const {
+    return getParentLanes().front();
+}
+
+
+GNELane* 
+GNEAdditional::getLastPathLane() const {
+    return getParentLanes().back();
+}
+
+
 double
 GNEAdditional::getPathElementDepartValue() const {
-    return 0;
+    return 0;   // CHECK
 }
 
 
 Position
 GNEAdditional::getPathElementDepartPos() const {
-    return Position();
+    return Position();  // CHECK
 }
 
 
 double 
 GNEAdditional::getPathElementArrivalValue() const {
-    return 0;
+    return 0;   // CHECK
 }
 
 
 Position 
 GNEAdditional::getPathElementArrivalPos() const {
-    return Position();
+    return Position();  /// CHECK
 }
 
 
