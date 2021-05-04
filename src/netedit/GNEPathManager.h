@@ -188,6 +188,12 @@ public:
          */
         virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
 
+        /// @brief get first path lane
+        virtual GNELane* getFirstPathLane() const = 0;
+
+        /// @brief get last path lane 
+        virtual GNELane* getLastPathLane() const = 0;
+
         /// @brief get path element depart lane pos
         virtual double getPathElementDepartValue() const = 0;
 

@@ -678,7 +678,7 @@ GNEPathManager::calculateConsecutivePathEdges(PathElement* pathElement, SUMOVehi
     std::vector<GNELane*> lanes;
     // reserve lanes
     lanes.reserve(edges.size());
-    // get first allowed edge
+    // get first allowed lane of every edge
     for (const auto& edge : edges) {
         lanes.push_back(edge->getLaneByAllowedVClass(vClass));
     }
