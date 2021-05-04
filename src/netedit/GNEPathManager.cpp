@@ -683,12 +683,12 @@ GNEPathManager::calculateConsecutivePathEdges(PathElement* pathElement, SUMOVehi
         lanes.push_back(edge->getLaneByAllowedVClass(vClass));
     }
     // calculate consecutive path lanes
-    calculateConsecutivePathLanes(pathElement, vClass, lanes);
+    calculateConsecutivePathLanes(pathElement, lanes);
 }
 
 
 void 
-GNEPathManager::calculateConsecutivePathLanes(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNELane*> lanes) {
+GNEPathManager::calculateConsecutivePathLanes(PathElement* pathElement, const std::vector<GNELane*> lanes) {
     // check if path element exist already in myPaths
     if (myPaths.find(pathElement) != myPaths.end()) {
         // delete segments

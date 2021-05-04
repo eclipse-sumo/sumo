@@ -304,8 +304,8 @@ public:
     /// @brief calculate consecutive path edges
     void calculateConsecutivePathEdges(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges);
 
-    /// @brief calculate consecutivepath lanes
-    void calculateConsecutivePathLanes(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNELane*> lanes);
+    /// @brief calculate consecutive path lanes
+    void calculateConsecutivePathLanes(PathElement* pathElement, const std::vector<GNELane*> lanes);
 
     /// @brief remove path
     void removePath(PathElement* pathElement);

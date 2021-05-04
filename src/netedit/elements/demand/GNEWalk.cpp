@@ -270,19 +270,11 @@ GNEWalk::computePathElement() {
     std::vector<GNELane*> lanes;
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
-        // fill lanes with parent edges
-        for (const auto &edge : getParentEdges()) {
-            lanes.push_back(edge->getLaneByAllowedVClass(getVClass()));
-        }
-        // calculate consecutive path
-        myNet->getPathManager()->calculateConsecutivePathLanes(this, getVClass(), lanes);
+        // calculate consecutive path using parent edges
+        myNet->getPathManager()->calculateConsecutivePathEdges(this, getVClass(), getParentEdges());
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
-        // fill lanes with route parent edges
-        for (const auto& edge : getParentDemandElements().back()->getParentEdges()) {
-            lanes.push_back(edge->getLaneByAllowedVClass(getVClass()));
-        }
-        // calculate consecutive path
-        myNet->getPathManager()->calculateConsecutivePathLanes(this, getVClass(), lanes);
+        // calculate consecutive path using route edges
+        myNet->getPathManager()->calculateConsecutivePathEdges(this, getVClass(), getParentDemandElements().back()->getParentEdges());
     } else {
         // get first and last person plane
         lanes = {getFirstPersonPlanLane(), getLastPersonPlanLane()};
