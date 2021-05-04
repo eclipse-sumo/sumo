@@ -166,6 +166,13 @@ class PersonDomain(Domain):
         """
         return self._getUniversal(tc.VAR_LENGTH, personID)
 
+    def getSpeedFactor(self, personID):
+        """getSpeedFactor(string) -> double
+
+        Returns the quotient of this persons maximum speed and the maximum speed of its type
+        """
+        return self._getUniversal(tc.VAR_SPEED_FACTOR, personID)
+
     def getWaitingTime(self, personID):
         """getWaitingTime() -> double
         The waiting time of a person is defined as the time (in seconds) spent with a
@@ -387,6 +394,12 @@ class PersonDomain(Domain):
         Sets the length in m for the given person.
         """
         self._setCmd(tc.VAR_LENGTH, personID, "d", length)
+
+    def setSpeedFactor(self, personID, factor):
+        """setSpeedFactor(string, double) -> None
+        Sets the speed factor (multiplier on the maximum speed of the type of this person).
+        """
+        self._setCmd(tc.VAR_SPEED_FACTOR, personID, "d", factor)
 
     def setMinGap(self, personID, minGap):
         """setMinGap(string, double) -> None
