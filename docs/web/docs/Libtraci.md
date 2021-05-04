@@ -21,8 +21,7 @@ same header files as Libsumo.
   classes for results which can be linked directly to the client code
 - Pre-built language bindings for Java and Python (using
   [SWIG](http://www.swig.org/))
-- Support for other programming languages via
-  [SWIG](http://www.swig.org/)
+- Future support for other programming languages via SWIG
 
 Unlike Libsumo, Libtraci allows
 
@@ -37,7 +36,6 @@ The following things currently do not work (or work differently than with the Tr
 - stricter type checking
   - the pure Python TraCI client sometimes accepts any iterable object where Libtraci wants a list
   - pure Python may accept any object where Libtraci needs a boolean value
-- Exception handling does not work yet
 - there is no cleanup / waiting for the started subprocess (sumo)
 
 # Building it
@@ -106,6 +104,8 @@ LD_LIBRARY_PATH=$SUMO_HOME/bin ./test
 ```
 
 ## Java
+
+You might want to use the available [Maven package](Developer/Maven.md).
 
 ### Example Code (APITest.java)
 
