@@ -508,12 +508,6 @@ MSStageWaiting::routeOutput(const bool /* isPerson */, OutputDevice& os, const b
 }
 
 
-SUMOTime
-MSStageWaiting::getWaitingTime(SUMOTime now) const {
-    return now - myDeparted;
-}
-
-
 void
 MSStageWaiting::abort(MSTransportable* t) {
     MSTransportableControl& tc = (t->isPerson() ?
