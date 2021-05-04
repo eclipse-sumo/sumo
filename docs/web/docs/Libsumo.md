@@ -100,6 +100,8 @@ LD_LIBRARY_PATH=$SUMO_HOME/bin ./test
 
 ## Java
 
+You might want to use the available [Maven package](Developer/Maven.md).
+
 ### Example Code (Test.java)
 
 ```java
