@@ -723,11 +723,12 @@ GNEPathManager::calculateConsecutivePathLanes(PathElement* pathElement, SUMOVehi
                 const GNELane* nextLane = lanes.at(i + 1);
                 // create junction segments
                 Segment* junctionSegment = new Segment(this, pathElement, lanes.at(i)->getParentEdge()->getParentJunctions().at(1), lanes.at(i), nextLane);
+                // check if both lanes are connected
+                if (!connectedLanes(lanes.at(i), nextLane)) {
+                    junctionSegment->markSegmentInvalid();
+                }
                 // add it into segment vector
                 segments.push_back(junctionSegment);
-
-                /* CHECK IF CONNECTION TO NEXT LANE EXIST */
-
             }
         }
         // get lane segment index
@@ -893,6 +894,22 @@ GNEPathManager::clearSegments() {
     }
     // clear paths
     myPaths.clear();
+}
+
+
+bool
+GNEPathManager::connectedLanes(const GNELane* fromLane, const GNELane* toLane) const {
+    // get from and to NBEdges
+    NBEdge* fromNBEdge = fromLane->getParentEdge()->getNBEdge();
+    NBEdge* toNBEdge = toLane->getParentEdge()->getNBEdge();
+    // get connections vinculated with from Lane
+    const std::vector<NBEdge::Connection> connections = fromNBEdge->getConnectionsFromLane(fromLane->getIndex());
+    // find connection
+    std::vector<NBEdge::Connection>::const_iterator con_it = find_if(
+                connections.begin(), connections.end(),
+                NBEdge::connections_finder(fromLane->getIndex(), toNBEdge, toLane->getIndex()));
+    // check if connection was found
+    return (con_it != connections.end());
 }
 
 /****************************************************************************/

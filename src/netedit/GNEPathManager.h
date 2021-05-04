@@ -338,6 +338,9 @@ protected:
     /// @brief clear segments
     void clearSegments();
 
+    /// @brief check if given lanes are connected
+    bool connectedLanes(const GNELane* fromLane, const GNELane* toLane) const;
+
     /// @brief PathCalculator instance
     PathCalculator* myPathCalculator;
 
