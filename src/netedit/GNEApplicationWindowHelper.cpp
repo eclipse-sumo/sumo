@@ -298,15 +298,38 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
 }
 
 // ---------------------------------------------------------------------------
+// GNEApplicationWindowHelper::ModesMenuCommands::CommonMenuCommands - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindowHelper::ModesMenuCommands::CommonMenuCommands::CommonMenuCommands(const ModesMenuCommands* modesMenuCommandsParent) :
+    deleteMode(nullptr),
+    inspectMode(nullptr),
+    selectMode(nullptr),
+    myModesMenuCommandsParent(modesMenuCommandsParent) {
+}
+
+
+void
+GNEApplicationWindowHelper::ModesMenuCommands::CommonMenuCommands::buildCommonMenuCommands(FXMenuPane* modesMenu) {
+    // build every FXMenuCommand giving it a shortcut
+    inspectMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+                  "&Inspect mode", "I", "Inspect elements and change their attributes.",
+                  GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_I_MODES_INSPECT);
+    deleteMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+                 "&Delete mode", "D", "Delete elements.",
+                 GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_D_MODES_DELETE);
+    selectMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+                 "&Select mode", "S", "Select elements.",
+                 GUIIconSubSys::getIcon(GUIIcon::MODESELECT), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_S_MODES_SELECT);
+}
+
+// ---------------------------------------------------------------------------
 // GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands - methods
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::NetworkMenuCommands(const ModesMenuCommands* modesMenuCommandsParent) :
     createEdgeMode(nullptr),
     moveMode(nullptr),
-    deleteMode(nullptr),
-    inspectMode(nullptr),
-    selectMode(nullptr),
     connectMode(nullptr),
     prohibitionMode(nullptr),
     TLSMode(nullptr),
@@ -322,9 +345,6 @@ void
 GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::showNetworkMenuCommands() {
     createEdgeMode->show();
     moveMode->show();
-    deleteMode->show();
-    inspectMode->show();
-    selectMode->show();
     connectMode->show();
     prohibitionMode->show();
     TLSMode->show();
@@ -339,9 +359,6 @@ void
 GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::hideNetworkMenuCommands() {
     createEdgeMode->hide();
     moveMode->hide();
-    deleteMode->hide();
-    inspectMode->hide();
-    selectMode->hide();
     connectMode->hide();
     prohibitionMode->hide();
     TLSMode->hide();
@@ -355,15 +372,6 @@ GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::hideNetworkM
 void
 GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::buildNetworkMenuCommands(FXMenuPane* modesMenu) {
     // build every FXMenuCommand giving it a shortcut
-    inspectMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                  "&Inspect mode", "I", "Inspect elements and change their attributes.",
-                  GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_I_MODES_INSPECT);
-    deleteMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                 "&Delete mode", "D", "Delete elements.",
-                 GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_D_MODES_DELETE);
-    selectMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                 "&Select mode", "S", "Select elements.",
-                 GUIIconSubSys::getIcon(GUIIcon::MODESELECT), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_S_MODES_SELECT);
     moveMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                "&Move mode", "M", "Move elements.",
                GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_M_MODES_MOVE);
@@ -398,6 +406,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::buildNetwork
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::DemandMenuCommands(const ModesMenuCommands* modesMenuCommandsParent) :
+    moveMode(nullptr),
     routeMode(nullptr),
     vehicleMode(nullptr),
     vehicleTypeMode(nullptr),
@@ -411,6 +420,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::DemandMenuCom
 
 void
 GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::showDemandMenuCommands() {
+    moveMode->show();
     routeMode->show();
     vehicleMode->show();
     vehicleTypeMode->show();
@@ -423,6 +433,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::showDemandMen
 
 void
 GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::hideDemandMenuCommands() {
+    moveMode->hide();
     routeMode->hide();
     vehicleMode->hide();
     vehicleTypeMode->hide();
@@ -436,6 +447,9 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::hideDemandMen
 void
 GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::buildDemandMenuCommands(FXMenuPane* modesMenu) {
     // build every FXMenuCommand giving it a shortcut
+    moveMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+               "&Move mode", "M", "Move elements.",
+               GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_M_MODES_MOVE);
     routeMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                 "Route mode", "R", "Create Routes.",
                 GUIIconSubSys::getIcon(GUIIcon::MODEROUTE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA);
@@ -506,15 +520,18 @@ GNEApplicationWindowHelper::ModesMenuCommands::DataMenuCommands::buildDataMenuCo
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindowHelper::ModesMenuCommands::ModesMenuCommands(GNEApplicationWindow* GNEApp) :
+    commonMenuCommands(this),
     networkMenuCommands(this),
     demandMenuCommands(this),
     dataMenuCommands(this),
-    myGNEApp(GNEApp)
-{ }
+    myGNEApp(GNEApp) { 
+}
 
 
 void
 GNEApplicationWindowHelper::ModesMenuCommands::buildModesMenuCommands(FXMenuPane* modesMenu) {
+    // build Common modes commands and hide it
+    commonMenuCommands.buildCommonMenuCommands(modesMenu);
     // build Network modes commands and hide it
     networkMenuCommands.buildNetworkMenuCommands(modesMenu);
     networkMenuCommands.hideNetworkMenuCommands();
