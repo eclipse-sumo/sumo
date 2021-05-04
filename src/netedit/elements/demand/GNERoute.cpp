@@ -276,8 +276,20 @@ GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
 void
 GNERoute::computePathElement() {
     if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+        // get parent vehicle
+        const GNEDemandElement *parentVehicle = getParentDemandElements().at(0);
+        // declare lane vector
+        std::vector<GNELane*> lanes;
+        // insert first vehicle lane
+        lanes.push_back(parentVehicle->getFirstPathLane());
+        // add middle lanes
+        for (int i = 1; i < ((int)getParentEdges().size() - 1); i++) {
+            lanes.push_back(getParentEdges().at(i)->getLaneByAllowedVClass(getVClass()));
+        }
+        // insert last vehicle lane
+        lanes.push_back(parentVehicle->getLastPathLane());
         // calculate consecutive path using vClass of vehicle parent
-        myNet->getPathManager()->calculateConsecutivePathEdges(this, getParentDemandElements().at(0)->getVClass(), getParentEdges());
+        myNet->getPathManager()->calculateConsecutivePathLanes(this, lanes);
     } else {
         // calculate path using SVC_PASSENGER
         myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_PASSENGER, getParentEdges());
@@ -428,6 +440,26 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
                 }
             }
         }
+    }
+}
+
+
+GNELane*
+GNERoute::getFirstPathLane() const {
+    if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
+        return getParentEdges().front()->getLaneByAllowedVClass(SVC_PASSENGER);
+    } else {
+        return getParentDemandElements().at(0)->getFirstPathLane();
+    }
+}
+
+
+GNELane* 
+GNERoute::getLastPathLane() const {
+    if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
+        return getParentEdges().back()->getLaneByAllowedVClass(SVC_PASSENGER);
+    } else {
+        return getParentDemandElements().at(0)->getLastPathLane();
     }
 }
 

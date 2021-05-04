@@ -307,21 +307,14 @@ GNEVehicle::~GNEVehicle() {}
 
 GNEMoveOperation* 
 GNEVehicle::getMoveOperation(const double /*shapeOffset*/) {
-    // declare departLane
-    GNELane* lane = getFirstAllowedVehicleLane();
-    // continue depending of lane
-    if (lane) {
-        // declare departPos
-        double posOverLane = 0;
-        if (canParse<double>(getDepartPos())) {
-            posOverLane = parse<double>(getDepartPos());
-        }
-        // return move operation
-        return new GNEMoveOperation(this, lane, {posOverLane},
-            myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
-    } else {
-        return nullptr;
+    // declare departPos
+    double posOverLane = 0;
+    if (canParse<double>(getDepartPos())) {
+        posOverLane = parse<double>(getDepartPos());
     }
+    // return move operation
+    return new GNEMoveOperation(this, getFirstPathLane(), {posOverLane},
+        myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
 }
 
 
@@ -486,27 +479,24 @@ GNEVehicle::getColor() const {
 
 void
 GNEVehicle::updateGeometry() {
-    // declare departLane
-    GNELane* lane = getFirstAllowedVehicleLane();
-    // continue depending of lane
-    if (lane) {
+    // get first path lane
+    const GNELane *firstPathLane = getFirstPathLane();
+    // check path lane
+    if (firstPathLane) {
         // declare departPos
         double posOverLane = 0;
         if (canParse<double>(getDepartPos())) {
             posOverLane = parse<double>(getDepartPos());
         }
         // update Geometry
-        myDemandElementGeometry.updateGeometry(lane->getLaneShape(), posOverLane, myMoveElementLateralOffset);
-    } else {
-        // set vehicle in center position
-        myDemandElementGeometry.updateSinglePosGeometry(Position(0, 0), 0);
-    }
-    // compute route embedded vinculated with this vehicle
-    for (const auto& demandElement : getChildDemandElements()) {
-        if (demandElement->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
-            demandElement->computePathElement();
+        myDemandElementGeometry.updateGeometry(firstPathLane->getLaneShape(), posOverLane, myMoveElementLateralOffset);
+        // compute route embedded vinculated with this vehicle
+        for (const auto& demandElement : getChildDemandElements()) {
+            if (demandElement->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+                demandElement->computePathElement();
+            }
+            demandElement->updateGeometry();
         }
-        demandElement->updateGeometry();
     }
 }
 
@@ -713,24 +703,30 @@ GNEVehicle::computePathElement() {
         }
         // declare lane vector
         std::vector<GNELane*> lanes;
-        // add first lane
-        lanes.push_back(getFirstAllowedVehicleLane());
-        // noch check if there are lane Stops
-        if (laneStops.size() > 0) {
-            // add stop lanes
-            for (const auto &laneStop : laneStops) {
-                lanes.push_back(laneStop);
+        // get first and last lanes
+        GNELane* firstLane = getFirstPathLane();
+        GNELane* lastLane = getLastPathLane();
+        // check first and last lanes
+        if (firstLane && lastLane) {
+            // add first lane
+            lanes.push_back(getFirstPathLane());
+            // noch check if there are lane Stops
+            if (laneStops.size() > 0) {
+                // add stop lanes
+                for (const auto &laneStop : laneStops) {
+                    lanes.push_back(laneStop);
+                }
+            } else {
+                // add via lanes
+                for (int i = 1; i < ((int)getParentEdges().size() - 1); i++) {
+                    lanes.push_back(getParentEdges().at(i)->getLaneByAllowedVClass(getVClass()));
+                }
             }
-        } else {
-            // add via lanes
-            for (int i = 1; i < ((int)getParentEdges().size() - 1); i++) {
-                lanes.push_back(getParentEdges().at(i)->getLaneByAllowedVClass(getVClass()));
-            }
+            // add last lane
+            lanes.push_back(getLastPathLane());
+            // calculate path
+            myNet->getPathManager()->calculatePathLanes(this, getVClass(), lanes);
         }
-        // add last lane
-        lanes.push_back(getLastAllowedVehicleLane());
-        // calculate path
-        myNet->getPathManager()->calculatePathLanes(this, getVClass(), lanes);
     }
     // update geometry
     updateGeometry();
@@ -875,6 +871,68 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
         }
         // Pop name
         glPopName();
+    }
+}
+
+
+GNELane*
+GNEVehicle::getFirstPathLane() const {
+    // declare first edge
+    GNEEdge* firstEdge = nullptr;
+    // continue depending of tags
+    if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
+        // use first route edge
+        firstEdge = getParentDemandElements().at(1)->getParentEdges().front();
+    } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_WITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
+        // check if embebbed route exist (due during loading embedded route doesn't exist
+        if (getChildDemandElements().empty()) {
+            return nullptr;
+        }
+        // use first embedded route edge
+        firstEdge = getChildDemandElements().front()->getParentEdges().front();
+    } else {
+        // use first parent edge
+        firstEdge = getParentEdges().front();
+    }
+    // get departLane index
+    const int departLaneIndex = canParse<int>(getAttribute(SUMO_ATTR_DEPARTLANE))? parse<int>(getAttribute(SUMO_ATTR_DEPARTLANE)) : -1;
+    // check departLane index
+    if ((departLaneIndex >= 0) && (departLaneIndex < firstEdge->getLanes().size())) {
+        return firstEdge->getLanes().at(departLaneIndex);
+    } else {
+        // get first allowed VClass
+        return firstEdge->getLaneByAllowedVClass(getVClass());
+    }
+}
+
+
+GNELane* 
+GNEVehicle::getLastPathLane() const {
+    // declare last edge
+    GNEEdge* lastEdge = nullptr;
+    // continue depending of tags
+    if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
+        // use last route edge
+        lastEdge = getParentDemandElements().at(1)->getParentEdges().back();
+    } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_WITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
+        // check if embebbed route exist (due during loading embedded route doesn't exist
+        if (getChildDemandElements().empty()) {
+            return nullptr;
+        }
+        // use last embedded route edge
+        lastEdge = getChildDemandElements().front()->getParentEdges().back();
+    } else {
+        // use last parent edge
+        lastEdge = getParentEdges().back();
+    }
+    // get arrivalLane index
+    const int arrivalLaneIndex = canParse<int>(getAttribute(SUMO_ATTR_ARRIVALLANE))? parse<int>(getAttribute(SUMO_ATTR_ARRIVALLANE)) : -1;
+    // check arrivalLane index
+    if ((arrivalLaneIndex >= 0) && (arrivalLaneIndex < lastEdge->getLanes().size())) {
+        return lastEdge->getLanes().at(arrivalLaneIndex);
+    } else {
+        // get last allowed VClass
+        return lastEdge->getLaneByAllowedVClass(getVClass());
     }
 }
 
@@ -1113,13 +1171,10 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             parseDepartLane(value, toString(SUMO_TAG_VEHICLE), id, dummyDepartLane, dummyDepartLaneProcedure, error);
             // if error is empty, check if depart lane is correct
             if (error.empty()) {
-                const GNELane* lane = getFirstAllowedVehicleLane();
-                if (lane == nullptr) {
-                    return false;
-                } else if (dummyDepartLaneProcedure != DepartLaneDefinition::GIVEN) {
+                if (dummyDepartLaneProcedure != DepartLaneDefinition::GIVEN) {
                     return true;
                 } else {
-                    return dummyDepartLane < (int)lane->getParentEdge()->getLanes().size();
+                    return dummyDepartLane < (int)getFirstPathLane()->getParentEdge()->getLanes().size();
                 }
             } else {
                 return false;
