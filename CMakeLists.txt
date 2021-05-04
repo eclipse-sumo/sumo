@@ -295,6 +295,8 @@ if (SUMO_LIBRARIES AND WIN32)
     endif()
     # set GoogleTest only if compiler isn't mingw32
     if (USE_GOOGLETEST)
+        #show info
+        message(STATUS "Found Google test: " ${GTEST_ROOT})
         # Prevent GoogleTest from overriding our compiler/linker options
         set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
         add_subdirectory("${GTEST_ROOT}" "${CMAKE_BINARY_DIR}/googletest-build")
