@@ -164,6 +164,18 @@ GNETAZRelData::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELan
 }
 
 
+GNELane* 
+GNETAZRelData::getFirstPathLane() const {
+    return nullptr;
+}
+
+
+GNELane*
+GNETAZRelData::getLastPathLane() const {
+    return nullptr;
+}
+
+
 Boundary
 GNETAZRelData::getCenteringBoundary() const {
     return getParentTAZElements().front()->getCenteringBoundary();

@@ -216,6 +216,20 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane*
 }
 
 
+GNELane* 
+GNEEdgeData::getFirstPathLane() const {
+    /* temporal */
+    return nullptr;
+}
+
+
+GNELane*
+GNEEdgeData::getLastPathLane() const {
+    /* temporal */
+    return nullptr;
+}
+
+
 Boundary
 GNEEdgeData::getCenteringBoundary() const {
     return getParentEdges().front()->getCenteringBoundary();

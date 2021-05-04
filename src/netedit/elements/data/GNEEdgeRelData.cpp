@@ -309,6 +309,20 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
 }
 
 
+GNELane* 
+GNEEdgeRelData::getFirstPathLane() const {
+    /* temporal */
+    return nullptr;
+}
+
+
+GNELane*
+GNEEdgeRelData::getLastPathLane() const {
+    /* temporal */
+    return nullptr;
+}
+
+
 Position
 GNEEdgeRelData::getPositionInView() const {
     return getParentEdges().front()->getPositionInView();

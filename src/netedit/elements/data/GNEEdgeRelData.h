@@ -88,6 +88,9 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
 
+    //// @brief Returns the boundary to which the view shall be centered in order to show the object
+    Boundary getCenteringBoundary() const;
+
     /// @}
 
     /// @name inherited from GNEPathManager::PathElement
@@ -113,9 +116,11 @@ public:
      */
     void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
-    //// @brief Returns the boundary to which the view shall be centered in order to show the object
-    Boundary getCenteringBoundary() const;
+    /// @brief get first path lane
+    GNELane* getFirstPathLane() const;
 
+    /// @brief get last path lane 
+    GNELane* getLastPathLane() const;
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
