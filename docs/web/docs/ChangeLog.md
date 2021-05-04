@@ -32,7 +32,7 @@ title: ChangeLog
 - netedit
   - Restored polygon exaggeration so that it increases line width rather than growing the whole shape. Issue #8568 (regression in 1.7.0) 
   - Polygon ids can be shown again. Issue #8575 (regression in 1.7.0)
-  - Setting size of additional ids is now working. #8574 (regression in 1.8.0)
+  - Setting size of additional ids is now working. Issue #8574 (regression in 1.8.0)
   - Ids of additional objects are now shown when zoomed out. Issue #8571
 
 - TraCI
@@ -45,7 +45,7 @@ title: ChangeLog
   - osmWebWizard.py can now import locations with negative longitude again. Issue #8521 (regression in 1.9.0)
   - Fixed problem with sumolib.xml.parse_fast_nested when an element is missing some of the attributes to be parsed. Issue #8508
   - Fixed invalid characters in ptlines2flow.py output. Issue #8557
-  - Fixed invalid constraint output of generateRailSignalCosntraints.py when two vehicles stop with parking=true and the same until time at the same stop. Issue #8246
+  - Fixed invalid constraint output of generateRailSignalConstraints.py when two vehicles stop with parking=true and the same until time at the same stop. Issue #8246
 
 - Miscellaneous
   - Fixed invalid xml output when writing file creation timestamp in exotic locales. Issue #8533
@@ -71,7 +71,7 @@ title: ChangeLog
   - traci.simulation.Stage now supports function 'toXML' for python client. Issue #8517
 
 - tools
-  - Added new tool [drtOnline.py](Tools/Drt.md) for simulation of demand responsive transport (DRT). It uses the [taxi API](Simulation/Taxi.md#traci) with an LP-Solver to optimze shared dispatch. Issue #8256
+  - Added new tool [drtOnline.py](Tools/Drt.md) for simulation of demand responsive transport (DRT). It uses the [taxi API](Simulation/Taxi.md#traci) with an LP-Solver to optimize shared dispatch. Issue #8256
   - Added function sumolib.route.addInternal to interpolate internal edges into a route. Issue #1322
   - sumolib.net.getShortestPath now includes internal edges in path cost and supports parameter 'withInternal' for including internal edges in the resulting edge list edges#4994
   - [gtfs2pt.py](Tools/Import/GTFS.md) now supports option **--osm-routes** to improve mapping of gtfs data onto the network. Issue #8251
