@@ -363,7 +363,7 @@ Person::getLength(const std::string& personID) {
 
 double
 Person::getSpeedFactor(const std::string& personID) {
-    return getPerson(personID)->getVehicleType().getSpeedFactor().getParameter()[0];
+    return getPerson(personID)->getSpeedFactor();
 }
 
 
@@ -1086,7 +1086,7 @@ Person::setLateralAlignment(const std::string& personID, const std::string& latA
 
 void
 Person::setSpeedFactor(const std::string& personID, double factor) {
-    getPerson(personID)->getSingularType().setSpeedFactor(factor);
+    getPerson(personID)->setSpeedFactor(factor);
 }
 
 
@@ -1154,6 +1154,8 @@ Person::handleVariable(const std::string& objID, const int variable, VariableWra
             return wrapper->wrapDouble(objID, variable, getWaitingTime(objID));
         case VAR_TYPE:
             return wrapper->wrapString(objID, variable, getTypeID(objID));
+        case VAR_SPEED_FACTOR:
+            return wrapper->wrapDouble(objID, variable, getSpeedFactor(objID));
         case VAR_NEXT_EDGE:
             return wrapper->wrapString(objID, variable, getNextEdge(objID));
         case VAR_STAGES_REMAINING:

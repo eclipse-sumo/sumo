@@ -3206,6 +3206,11 @@ TraCIAPI::PersonScope::getTypeID(const std::string& personID) const {
 }
 
 double
+TraCIAPI::PersonScope::getSpeedFactor(const std::string& personID) const {
+    return getDouble(libsumo::VAR_SPEED_FACTOR, personID);
+}
+
+double
 TraCIAPI::PersonScope::getWaitingTime(const std::string& personID) const {
     return getDouble(libsumo::VAR_WAITING_TIME, personID);
 }
@@ -3379,6 +3384,37 @@ TraCIAPI::PersonScope::removeStage(const std::string& personID, int nextStageInd
     myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
 }
 
+void
+TraCIAPI::PersonScope::moveTo(const std::string& personID, const std::string& edgeID, double position) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
+    content.writeInt(2);
+    content.writeUnsignedByte(libsumo::TYPE_STRING);
+    content.writeString(edgeID);
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(position);
+    myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::VAR_MOVE_TO, personID, &content);
+    myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
+}
+
+void
+TraCIAPI::PersonScope::moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int keepRoute) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
+    content.writeInt(5);
+    content.writeUnsignedByte(libsumo::TYPE_STRING);
+    content.writeString(edgeID);
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(x);
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(y);
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(angle);
+    content.writeUnsignedByte(libsumo::TYPE_BYTE);
+    content.writeByte(keepRoute);
+    myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::MOVE_TO_XY, personID, &content);
+    myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
+}
 
 void
 TraCIAPI::PersonScope::setSpeed(const std::string& personID, double speed) const {
@@ -3396,6 +3432,15 @@ TraCIAPI::PersonScope::setType(const std::string& personID, const std::string& t
     content.writeUnsignedByte(libsumo::TYPE_STRING);
     content.writeString(typeID);
     myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::VAR_TYPE, personID, &content);
+    myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
+}
+
+void
+TraCIAPI::PersonScope::setSpeedFactor(const std::string& personID, double factor) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(factor);
+    myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::VAR_SPEED_FACTOR, personID, &content);
     myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
 }
 
