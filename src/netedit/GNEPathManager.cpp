@@ -177,10 +177,10 @@ GNEPathManager::Segment::Segment() :
     myPathElement(nullptr),
     myFirstSegment(false),
     myLastSegment(false),
-    myLane(false),
+    myLane(nullptr),
     myPreviousLane(nullptr),
     myNextLane(nullptr),
-    myJunction(false),
+    myJunction(nullptr),
     myValid(false),
     myNextSegment(nullptr) {
 }
