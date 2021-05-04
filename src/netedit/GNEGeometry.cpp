@@ -802,11 +802,11 @@ GNEGeometry::drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, c
             // translate to position over lane
             glTranslated(posOverLane.x(), posOverLane.y(), 0);
             // Draw circle
-            GLHelper::drawFilledCircle(width, s.getCircleResolution());
+            GLHelper::drawFilledCircle(width, viewNet->getVisualisationSettings().getCircleResolution());
             // pop draw matrix
             glPopMatrix();
         }
-    } else if (s.scale * width < 1) {
+    } else if (viewNet->getVisualisationSettings().scale * width < 1) {
         // draw line (needed for zoom out)
         GLHelper::drawLine(geometry.getShape());
     } else {
