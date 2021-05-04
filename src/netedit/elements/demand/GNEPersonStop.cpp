@@ -282,6 +282,24 @@ GNEPersonStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELan
 }
 
 
+GNELane*
+GNEPersonStop::getFirstPathLane() const {
+    // check if stop is placed over a busStop
+    if (getParentAdditionals().size() > 0) {
+        return getParentAdditionals().front()->getParentLanes().front();
+    } else {
+        return getParentEdges().front()->getLaneByAllowedVClass(SVC_PEDESTRIAN);
+    }
+}
+
+
+GNELane* 
+GNEPersonStop::getLastPathLane() const {
+    // first and last path lane are the same
+    return getFirstPathLane();
+}
+
+
 std::string
 GNEPersonStop::getAttribute(SumoXMLAttr key) const {
     switch (key) {
@@ -348,7 +366,7 @@ GNEPersonStop::getAttributePosition(SumoXMLAttr key) const {
                 return getParentAdditionals().front()->getAdditionalGeometry().getShape().front(); 
             } else {
                 // get lane shape
-                const PositionVector &laneShape = getLastPersonPlanLane()->getLaneShape();
+                const PositionVector &laneShape = getLastPathLane()->getLaneShape();
                 // continue depending of arrival position
                 if (endPos == 0) {
                     return laneShape.front();

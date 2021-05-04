@@ -277,7 +277,7 @@ GNEWalk::computePathElement() {
         myNet->getPathManager()->calculateConsecutivePathEdges(this, getVClass(), getParentDemandElements().back()->getParentEdges());
     } else {
         // get first and last person plane
-        lanes = {getFirstPersonPlanLane(), getLastPersonPlanLane()};
+        lanes = {getFirstPathLane(), getLastPathLane()};
         // calculate path
         myNet->getPathManager()->calculatePathLanes(this, getVClass(), lanes);
     }
@@ -297,6 +297,30 @@ void
 GNEWalk::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // draw person plan over junction
     drawPersonPlanPartial(s, fromLane, toLane, segment, offsetFront, s.widthSettings.walk, s.colorSettings.walk);
+}
+
+
+GNELane*
+GNEWalk::getFirstPathLane() const {
+    // check if this walk is over a route
+    if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
+        return getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(SVC_PEDESTRIAN);
+    } else {
+        return getParentEdges().front()->getLaneByAllowedVClass(SVC_PEDESTRIAN);
+    }
+}
+
+
+GNELane* 
+GNEWalk::getLastPathLane() const {
+    // check if this walk is over a route
+    if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
+        return getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(SVC_PEDESTRIAN);
+    } else if (getParentAdditionals().size() > 0) {
+        return getParentAdditionals().front()->getParentLanes().front();
+    } else {
+        return getParentEdges().back()->getLaneByDisallowedVClass(SVC_PEDESTRIAN);
+    }
 }
 
 
@@ -342,7 +366,7 @@ GNEWalk::getAttributeDouble(SumoXMLAttr key) const {
             if (myArrivalPosition != -1) {
                 return myArrivalPosition;
             } else {
-                return (getLastPersonPlanLane()->getLaneShape().length() - POSITION_EPS);
+                return (getLastPathLane()->getLaneShape().length() - POSITION_EPS);
             }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a doubleattribute of type '" + toString(key) + "'");
@@ -355,7 +379,7 @@ GNEWalk::getAttributePosition(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ARRIVALPOS: {
             // get lane shape
-            const PositionVector &laneShape = getLastPersonPlanLane()->getLaneShape();
+            const PositionVector &laneShape = getLastPathLane()->getLaneShape();
             // continue depending of arrival position
             if (myArrivalPosition == 0) {
                 return laneShape.front();
@@ -480,7 +504,7 @@ GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             } else if (canParse<double>(value)) {
                 const double parsedValue = canParse<double>(value);
-                if ((parsedValue < 0) || (parsedValue > getLastPersonPlanLane()->getLaneShape().length())) {
+                if ((parsedValue < 0) || (parsedValue > getLastPathLane()->getLaneShape().length())) {
                     return false;
                 } else {
                     return true;

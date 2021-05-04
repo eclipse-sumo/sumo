@@ -435,6 +435,20 @@ GNEPerson::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /
 }
 
 
+GNELane*
+GNEPerson::getFirstPathLane() const {
+    // use path lane of first person plan
+    return getChildDemandElements().front()->getFirstPathLane();
+}
+
+
+GNELane* 
+GNEPerson::getLastPathLane() const {
+    // use path lane of first person plan
+    return getChildDemandElements().front()->getLastPathLane();
+}
+
+
 std::string
 GNEPerson::getAttribute(SumoXMLAttr key) const {
     // declare string error

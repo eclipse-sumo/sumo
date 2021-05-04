@@ -232,7 +232,7 @@ GNERide::drawGL(const GUIVisualizationSettings& /*s*/) const {
 void
 GNERide::computePathElement() {
     // get lanes
-    const std::vector<GNELane*> lanes = {getFirstPersonPlanLane(), getLastPersonPlanLane()};
+    const std::vector<GNELane*> lanes = {getFirstPathLane(), getLastPathLane()};
     // calculate path
     myNet->getPathManager()->calculatePathLanes(this, SVC_PASSENGER, lanes);
     // check path (taxis)
@@ -267,6 +267,23 @@ void
 GNERide::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // draw person plan over junction
     drawPersonPlanPartial(s, fromLane, toLane, segment, offsetFront, s.widthSettings.ride, s.colorSettings.ride);
+}
+
+
+GNELane*
+GNERide::getFirstPathLane() const {
+    return getParentEdges().front()->getLaneByDisallowedVClass(SVC_PEDESTRIAN);
+}
+
+
+GNELane* 
+GNERide::getLastPathLane() const {
+    // check if personPlan ends in a BusStop
+    if (getParentAdditionals().size() > 0) {
+        return getParentAdditionals().front()->getParentLanes().front();
+    } else {
+        return getParentEdges().back()->getLaneByDisallowedVClass(SVC_PEDESTRIAN);
+    }
 }
 
 
@@ -310,7 +327,7 @@ GNERide::getAttributeDouble(SumoXMLAttr key) const {
             if (myArrivalPosition != -1) {
                 return myArrivalPosition;
             } else {
-                return (getLastPersonPlanLane()->getLaneShape().length() - POSITION_EPS);
+                return (getLastPathLane()->getLaneShape().length() - POSITION_EPS);
             }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
@@ -323,7 +340,7 @@ GNERide::getAttributePosition(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ARRIVALPOS: {
             // get lane shape
-            const PositionVector &laneShape = getLastPersonPlanLane()->getLaneShape();
+            const PositionVector &laneShape = getLastPathLane()->getLaneShape();
             // continue depending of arrival position
             if (myArrivalPosition == 0) {
                 return laneShape.front();
@@ -405,7 +422,7 @@ GNERide::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             } else if (canParse<double>(value)) {
                 const double parsedValue = canParse<double>(value);
-                if ((parsedValue < 0) || (parsedValue > getLastPersonPlanLane()->getLaneShape().length())) {
+                if ((parsedValue < 0) || (parsedValue > getLastPathLane()->getLaneShape().length())) {
                     return false;
                 } else {
                     return true;
