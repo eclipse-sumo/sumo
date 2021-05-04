@@ -35,7 +35,7 @@ Options:
   - 'a' : arrival delay
   - 's' : stop duration difference
   
-- **--group-by** (**-g**): group results by one or more attributes (vehID,tripId,stopID)
+- **--group-by** (**-g**): group results by one or more attributes (vehID,tripId,stopID,priorStop)
 - **--group-statistic-type** (**-T**): select among statistics over the group values (i.e. to compore the groups by their mean depart delay). permitted values are mean, median, min, max
 - **--histogram FLOAT** (**-i**): add a histogram with the given bin width
 - **--group-histogram FLOAT** (**-I**): add a histogram over the group values (when using **-g**) with the given bin width
