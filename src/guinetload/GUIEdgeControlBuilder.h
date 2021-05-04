@@ -71,13 +71,13 @@ public:
      * @see SUMOVehicleClass
      * @see MSLane
      */
-    virtual MSLane* addLane(const std::string& id,
+    MSLane* addLane(const std::string& id,
                             double maxSpeed, double length,
                             const PositionVector& shape, double width,
                             SVCPermissions permissions,
                             SVCPermissions changeLeft, SVCPermissions changeRight,
                             int index, bool isRampAccel,
-                            const std::string& type);
+                            const std::string& type) override;
 
 
 
@@ -90,7 +90,7 @@ public:
      * @param[in] id The id of the edge to build
      */
     MSEdge* buildEdge(const std::string& id, const SumoXMLEdgeFunc function,
-                      const std::string& streetName, const std::string& edgeType, const int priority, const double distance);
+                      const std::string& streetName, const std::string& edgeType, const int priority, const double distance) override;
 
 
 private:
