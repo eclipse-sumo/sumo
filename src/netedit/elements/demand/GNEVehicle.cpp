@@ -700,12 +700,34 @@ void
 GNEVehicle::computePathElement() {
     // calculate path (only for flows and trips)
     if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
-        // extract lanes from parent edges
-        std::vector<GNELane*> lanes;
-        lanes.push_back(getFirstAllowedVehicleLane());
-        for (int i = 1; i < ((int)getParentEdges().size() - 1); i++) {
-            lanes.push_back(getParentEdges().at(i)->getLaneByAllowedVClass(getVClass()));
+        // declare lane stops
+        std::vector<GNELane*> laneStops;
+        // iterate over child demand elements
+        for (const auto &demandElement : getChildDemandElements()) {
+            // extract lanes
+            if (demandElement->getTagProperty().getTag() == SUMO_TAG_STOP_LANE) {
+                laneStops.push_back(demandElement->getParentLanes().front());
+            } else if (demandElement->getTagProperty().getTag() == SUMO_TAG_STOP_BUSSTOP) {
+                laneStops.push_back(demandElement->getParentAdditionals().front()->getParentLanes().front());
+            }
         }
+        // declare lane vector
+        std::vector<GNELane*> lanes;
+        // add first lane
+        lanes.push_back(getFirstAllowedVehicleLane());
+        // noch check if there are lane Stops
+        if (laneStops.size() > 0) {
+            // add stop lanes
+            for (const auto &laneStop : laneStops) {
+                lanes.push_back(laneStop);
+            }
+        } else {
+            // add via lanes
+            for (int i = 1; i < ((int)getParentEdges().size() - 1); i++) {
+                lanes.push_back(getParentEdges().at(i)->getLaneByAllowedVClass(getVClass()));
+            }
+        }
+        // add last lane
         lanes.push_back(getLastAllowedVehicleLane());
         // calculate path
         myNet->getPathManager()->calculatePathLanes(this, getVClass(), lanes);
