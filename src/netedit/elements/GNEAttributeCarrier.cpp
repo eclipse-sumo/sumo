@@ -3127,6 +3127,16 @@ GNEAttributeCarrier::fillVehicleElements() {
                                               "The id of the route the " + toString(currentTag) + " shall drive along");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPARTEDGE,
+                                              GNEAttributeProperties::INT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "The index of the edge within route the " + toString(currentTag) + " starts at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALEDGE,
+                                              GNEAttributeProperties::INT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "The index of the edge within route the " + toString(currentTag) + " ends at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         // add common attributes
         fillCommonVehicleAttributes(currentTag);
 
@@ -3153,6 +3163,16 @@ GNEAttributeCarrier::fillVehicleElements() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "The id of the vehicle type to use for this " + toString(SUMO_TAG_VEHICLE),
                                               DEFAULT_VTYPE_ID);
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPARTEDGE,
+                                              GNEAttributeProperties::INT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "The index of the edge within route the " + toString(currentTag) + " starts at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALEDGE,
+                                              GNEAttributeProperties::INT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "The index of the edge within route the " + toString(currentTag) + " ends at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // add common attributes
@@ -3188,6 +3208,16 @@ GNEAttributeCarrier::fillVehicleElements() {
                                               "The id of the route the " + toString(currentTag) + " shall drive along");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPARTEDGE,
+                                              GNEAttributeProperties::INT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "The index of the edge within route the " + toString(currentTag) + " starts at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALEDGE,
+                                              GNEAttributeProperties::INT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "The index of the edge within route the " + toString(currentTag) + " ends at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         // add common attributes
         fillCommonVehicleAttributes(currentTag);
 
@@ -3211,6 +3241,16 @@ GNEAttributeCarrier::fillVehicleElements() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "The id of the " + toString(currentTag) + " type to use for this " + toString(SUMO_TAG_FLOW),
                                               DEFAULT_VTYPE_ID);
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPARTEDGE,
+                                              GNEAttributeProperties::INT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "The index of the edge within route the " + toString(currentTag) + " starts at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALEDGE,
+                                              GNEAttributeProperties::INT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "The index of the edge within route the " + toString(currentTag) + " ends at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // add common attributes
