@@ -881,15 +881,27 @@ GNEVehicle::getFirstPathLane() const {
     GNEEdge* firstEdge = nullptr;
     // continue depending of tags
     if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
-        // use first route edge
-        firstEdge = getParentDemandElements().at(1)->getParentEdges().front();
+        // check departEdge
+        if ((departEdge > 0) && (departEdge < getParentDemandElements().at(1)->getParentEdges().size())) {
+            // use departEdge
+            firstEdge = getParentDemandElements().at(1)->getParentEdges().at(departEdge);
+        } else {
+            // use first route edge
+            firstEdge = getParentDemandElements().at(1)->getParentEdges().front();
+        }
     } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_WITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
         // check if embebbed route exist (due during loading embedded route doesn't exist
         if (getChildDemandElements().empty()) {
             return nullptr;
         }
-        // use first embedded route edge
-        firstEdge = getChildDemandElements().front()->getParentEdges().front();
+        // check departEdge
+        if ((departEdge > 0) && (departEdge < getChildDemandElements().front()->getParentEdges().size())) {
+            // use depart edge
+            firstEdge = getChildDemandElements().front()->getParentEdges().at(departEdge);
+        } else {
+            // use first embedded route edge
+            firstEdge = getChildDemandElements().front()->getParentEdges().front();
+        }
     } else {
         // use first parent edge
         firstEdge = getParentEdges().front();
@@ -912,15 +924,27 @@ GNEVehicle::getLastPathLane() const {
     GNEEdge* lastEdge = nullptr;
     // continue depending of tags
     if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
-        // use last route edge
-        lastEdge = getParentDemandElements().at(1)->getParentEdges().back();
+        // check arrivalEdge
+        if ((arrivalEdge > 0) && (arrivalEdge < getParentDemandElements().at(1)->getParentEdges().size())) {
+            // use arrival edge
+            lastEdge = getParentDemandElements().at(1)->getParentEdges().at(arrivalEdge);
+        } else {
+            // use last route edge
+            lastEdge = getParentDemandElements().at(1)->getParentEdges().back();
+        }
     } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_WITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
-        // check if embebbed route exist (due during loading embedded route doesn't exist
+        // check if embebbed route exist (due during loading embedded route doesn't exist)
         if (getChildDemandElements().empty()) {
             return nullptr;
         }
-        // use last embedded route edge
-        lastEdge = getChildDemandElements().front()->getParentEdges().back();
+            // check arrivalEdge
+        if ((arrivalEdge > 0) && (arrivalEdge < getChildDemandElements().front()->getParentEdges().size())) {
+            // use arrival edge
+            lastEdge = getChildDemandElements().front()->getParentEdges().at(arrivalEdge);
+        } else {
+            // use last route edge
+            lastEdge = getChildDemandElements().front()->getParentEdges().back();
+        }
     } else {
         // use last parent edge
         lastEdge = getParentEdges().back();
@@ -1038,6 +1062,18 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             return getParentEdges().back()->getID();
         case SUMO_ATTR_VIA:
             return toString(via);
+        case SUMO_ATTR_DEPARTEDGE:
+            if (departEdge == -1) {
+                return "";
+            } else {
+                return toString(departEdge);
+            }
+        case SUMO_ATTR_ARRIVALEDGE:
+            if (arrivalEdge == -1) {
+                return "";
+            } else {
+                return toString(arrivalEdge);
+            }
         // Specific of routeFlows
         case SUMO_ATTR_BEGIN:
             return time2string(depart);
@@ -1051,7 +1087,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             return toString(repetitionProbability);
         case SUMO_ATTR_NUMBER:
             return toString(repetitionNumber);
-        //
+        // other
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -1126,7 +1162,8 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
         case SUMO_ATTR_VIA:
-        //
+        case SUMO_ATTR_DEPARTEDGE:
+        case SUMO_ATTR_ARRIVALEDGE:
         // Specific of routeFlows
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
@@ -1134,7 +1171,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_VEHSPERHOUR:
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_PROB:
-        //
+        // other
         case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SELECTED:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -1263,6 +1300,25 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
             return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveEdge(value, false) != nullptr);
+        case SUMO_ATTR_DEPARTEDGE:
+        case SUMO_ATTR_ARRIVALEDGE: {
+            if (value.empty()) {
+                return "";
+            } else if (canParse<int>(value)) {
+                // get index
+                const int index = parse<int>(value);
+                // check conditions
+                if (index < 0) {
+                    return false;
+                } else if (myTagProperty.getTag() == SUMO_TAG_VEHICLE || myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) {
+                    // check parent route
+                    return (index < getParentDemandElements().at(1)->getParentEdges().size());
+                } else {
+                    // check embedded route
+                    return (index < getChildDemandElements().front()->getParentEdges().size());
+                }
+            }
+        }
         case SUMO_ATTR_VIA:
             if (value.empty()) {
                 return true;
@@ -1314,7 +1370,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        //
+        // other
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -1736,6 +1792,30 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateSpreadStackGeometry = true;
             break;
         }
+        case SUMO_ATTR_DEPARTEDGE: {
+            // update depart edge
+            if (value.empty()) {
+                departEdge = -1;
+            } else {
+                departEdge = parse<int>(value);
+            }
+            // compute vehicle
+            computePathElement();
+            updateSpreadStackGeometry = true;
+            break;
+        }
+        case SUMO_ATTR_ARRIVALEDGE: {
+            // update arrival edge
+            if (value.empty()) {
+                arrivalEdge = 0;
+            } else {
+                arrivalEdge = parse<int>(value);
+            }
+            // compute vehicle
+            computePathElement();
+            updateSpreadStackGeometry = true;
+            break;
+        }
         // Specific of routeFlows
         case SUMO_ATTR_BEGIN: {
             depart = string2time(value);
@@ -1756,7 +1836,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_NUMBER:
             repetitionNumber = parse<int>(value);
             break;
-        //
+        // other
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();
