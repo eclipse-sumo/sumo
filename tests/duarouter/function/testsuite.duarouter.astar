@@ -1,6 +1,3 @@
-# no calculation of new routes
-skip_new_routes
-
 # Testing loop removal
 remove_loops
 

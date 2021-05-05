@@ -1,0 +1,11 @@
+# no calculation of new routes
+skip_new_routes
+
+# no calculation of new routes
+skip_new_routes.probability_1
+
+# calculation of new routes for all
+skip_new_routes.probability_0
+
+# calculation of new routes for half input
+skip_new_routes.probability_0.5
