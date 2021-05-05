@@ -57,19 +57,23 @@ connections are guessed during network import, all connections for an
 edge must be included in the patch file if any of them were changed. This
 is accomplished by setting **-i** (**--patch-on-import**).
 
-## only considering created elements when updating network
+## patching a network different from the original
 
-Following the above described way to use netDiff.py 4 files 
-(*.nod.xml. *.edg.xml, con.xml and till.xml). If only created elements need
-to be considered, open the above metioned 4 files, only keep the contents under 
-"<!-- Created Elements -->", and then save the files or save the contents as
-new files. Then use the above metioned command with "netconvert" to update network.
-This way also applies when only considering "deleted elements" or/and "changed elements".
+Sometimes it may be useful to apply the difference between networks *A* and *B* to another network *C* than differs slightly from *A*.
+In this case it may be useful to only consider some of the changes (i.e. only created elements).
 
-Sometimes, errors may occur due to inconsistent connections/TLS. It is suggested to
-only use *.nod.xml and *.edg.xml to update network firstly, where netconvert will guess
-the respective connections and TLS. Then manually check if connections/TLS in the updated
-network are correct.
+If only the newly created elements in *B* (relative to *A*) shall be considered, open each of the difference files (ie. diff.edg.xml, diff.nod.xml, diff.con.xml, diff.tll.xml) and keep only the elements below the heading
+
+```
+<!-- Created Elements -->"
+```
+
+This way the patch should be applicable to network *C* regardless of how it differs from the original *A*.
+
+Sometimes, errors may occur due to inconsistent connections or traffic lights. In this case, it may be useful to only update *C* with 'diff.nod.xml and 'diff.edg.xml' and let netconvert guess
+the respective connections and traffic lights.
+
+In the end all regions where the area of *C* and *B* borders each other should be checked manually for consistency.
 
 # createRoundaboutConnections.py
 
