@@ -300,7 +300,18 @@ MEVehicle::processStop() {
 
 bool
 MEVehicle::mayProceed() const {
-    return mySegment == nullptr || mySegment->isOpen(this);
+    if (mySegment == nullptr) {
+        return true;
+    }
+    for (const MSStop& stop : myStops) {
+        if (!stop.reached) {
+            break;
+        }
+        if (stop.triggered || stop.containerTriggered || stop.joinTriggered) {
+            return false;
+        }
+    }
+    return mySegment->isOpen(this);
 }
 
 

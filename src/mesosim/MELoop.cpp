@@ -80,6 +80,9 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
     int qIdx = 0;
     MESegment* const onSegment = veh->getSegment();
     if (MESegment::isInvalid(toSegment)) {
+        if (veh->isStoppedTriggered()) {
+            return leaveTime + MAX2(SUMOTime(1), myLinkRecheckInterval);
+        }
         if (onSegment != nullptr) {
             onSegment->send(veh, toSegment, qIdx, leaveTime, reason);
         } else {
@@ -125,7 +128,7 @@ MELoop::checkCar(MEVehicle* veh) {
     if (nextEntry == leaveTime) {
         return;
     }
-    if (MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock) {
+    if (!veh->isStopped() && MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock) {
         teleportVehicle(veh, toSegment);
         return;
     }
