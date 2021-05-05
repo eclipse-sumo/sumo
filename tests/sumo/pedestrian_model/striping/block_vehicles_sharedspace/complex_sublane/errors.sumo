@@ -1,6 +1,6 @@
 Warning: Unused states in tlLogic 'C', program '0' in phase 0 after tl-index 18
-Warning: Vehicle 'veh.1' collision with person 'pEW.5', lane='CE_0', gap=-4.28, time=63.00 stage=move.
-Warning: Vehicle 'veh.11' collision with person 'pEW.8', lane='CEa_0', gap=-8.47, time=146.00 stage=move.
+Warning: Vehicle 'veh.1' collision with person 'pEW.5', lane='CE_0', gap=-4.28, time=63.00, stage=move.
+Warning: Vehicle 'veh.11' collision with person 'pEW.8', lane='CEa_0', gap=-8.47, time=146.00, stage=move.
 Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=147.00.
 Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=148.00.
 Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=149.00.
@@ -14,7 +14,7 @@ Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=156.
 Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=157.00.
 Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=158.00.
 Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=159.00.
-Warning: Vehicle 'veh.15' collision with person 'pEW.3', lane=':C_9_0', gap=-0.04, time=159.00 stage=move.
+Warning: Vehicle 'veh.15' collision with person 'pEW.3', lane=':C_9_0', gap=-0.04, time=159.00, stage=move.
 Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=160.00.
 Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=161.00.
 Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=162.00.
@@ -24,9 +24,9 @@ Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=165.
 Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=166.00.
 Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=167.00.
 Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=168.00.
-Warning: Vehicle 'veh.16' collision with person 'pEW.4', lane='WC.48_0', gap=-8.27, time=168.00 stage=laneChange.
+Warning: Vehicle 'veh.16' collision with person 'pEW.4', lane='WC.48_0', gap=-8.27, time=168.00, stage=laneChange.
 Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=169.00.
-Warning: Vehicle 'veh.16' collision with person 'pEW.4', lane='WC.48_0', gap=-8.27, time=169.00 stage=move.
+Warning: Vehicle 'veh.16' collision with person 'pEW.4', lane='WC.48_0', gap=-8.27, time=169.00, stage=move.
 Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=170.00.
 Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=171.00.
 Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=172.00.
@@ -50,10 +50,10 @@ Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=189.
 Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=190.00.
 Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=191.00.
 Warning: Collision of person 'pEW.8' and person 'pEW.5', lane='CEa_0', time=192.00.
-Warning: Vehicle 'veh.20' collision with person 'pEW.3', lane='WC.48_0', gap=-0.84, time=211.00 stage=laneChange.
-Warning: Vehicle 'veh.20' collision with person 'pEW.4', lane='WC.48_0', gap=-4.80, time=212.00 stage=move.
-Warning: Vehicle 'veh.20' collision with person 'pEW.3', lane='WC_0', gap=-7.19, time=212.00 stage=laneChange.
-Warning: Vehicle 'veh.20' collision with person 'pEW.4', lane='WC.48_0', gap=-9.80, time=213.00 stage=move.
+Warning: Vehicle 'veh.20' collision with person 'pEW.3', lane='WC.48_0', gap=-0.84, time=211.00, stage=laneChange.
+Warning: Vehicle 'veh.20' collision with person 'pEW.4', lane='WC.48_0', gap=-4.80, time=212.00, stage=move.
+Warning: Vehicle 'veh.20' collision with person 'pEW.3', lane='WC_0', gap=-7.19, time=212.00, stage=laneChange.
+Warning: Vehicle 'veh.20' collision with person 'pEW.4', lane='WC.48_0', gap=-9.80, time=213.00, stage=move.
 Warning: Collision of person 'pEW.5' and person 'pEW.6', lane=':C_9_0', time=233.00.
 Warning: Collision of person 'pEW.14' and person 'pEW.12', lane=':C_9_0', time=233.00.
 Warning: Collision of person 'pEW.5' and person 'pEW.6', lane=':C_9_0', time=234.00.
@@ -62,10 +62,10 @@ Warning: Collision of person 'pEW.5' and person 'pEW.6', lane=':C_9_0', time=235
 Warning: Collision of person 'pEW.14' and person 'pEW.12', lane=':C_9_0', time=235.00.
 Warning: Collision of person 'pEW.5' and person 'pEW.6', lane=':C_9_0', time=236.00.
 Warning: Collision of person 'pEW.14' and person 'pEW.12', lane=':C_9_0', time=236.00.
-Warning: Vehicle 'veh.21' collision with person 'pEW.10', lane='WC.48_0', gap=-4.32, time=236.00 stage=laneChange.
+Warning: Vehicle 'veh.21' collision with person 'pEW.10', lane='WC.48_0', gap=-4.32, time=236.00, stage=laneChange.
 Warning: Collision of person 'pEW.5' and person 'pEW.6', lane=':C_9_0', time=237.00.
 Warning: Collision of person 'pEW.14' and person 'pEW.12', lane=':C_9_0', time=237.00.
-Warning: Vehicle 'veh.21' collision with person 'pEW.10', lane='WC.48_0', gap=-6.98, time=237.00 stage=move.
+Warning: Vehicle 'veh.21' collision with person 'pEW.10', lane='WC.48_0', gap=-6.98, time=237.00, stage=move.
 Warning: Collision of person 'pEW.5' and person 'pEW.6', lane=':C_9_0', time=238.00.
 Warning: Collision of person 'pEW.14' and person 'pEW.12', lane=':C_9_0', time=238.00.
 Warning: Collision of person 'pEW.5' and person 'pEW.6', lane=':C_9_0', time=239.00.
@@ -76,14 +76,14 @@ Warning: Collision of person 'pEW.5' and person 'pEW.6', lane=':C_9_0', time=241
 Warning: Collision of person 'pEW.14' and person 'pEW.12', lane=':C_9_0', time=241.00.
 Warning: Collision of person 'pEW.5' and person 'pEW.6', lane=':C_9_0', time=242.00.
 Warning: Collision of person 'pEW.14' and person 'pEW.12', lane=':C_9_0', time=242.00.
-Warning: Vehicle 'veh.24' collision with person 'pEW.3', lane='WC_0', gap=-1.50, time=242.00 stage=laneChange.
+Warning: Vehicle 'veh.24' collision with person 'pEW.3', lane='WC_0', gap=-1.50, time=242.00, stage=laneChange.
 Warning: Collision of person 'pEW.5' and person 'pEW.6', lane=':C_9_0', time=243.00.
 Warning: Collision of person 'pEW.14' and person 'pEW.12', lane=':C_9_0', time=243.00.
 Warning: Collision of person 'pEW.5' and person 'pEW.6', lane=':C_9_0', time=244.00.
 Warning: Collision of person 'pEW.14' and person 'pEW.12', lane=':C_9_0', time=244.00.
 Warning: Collision of person 'pEW.5' and person 'pEW.6', lane=':C_9_0', time=245.00.
 Warning: Collision of person 'pEW.14' and person 'pEW.12', lane=':C_9_0', time=245.00.
-Warning: Vehicle 'veh.20' collision with person 'pEW.21', lane='CE_0', gap=-6.56, time=250.00 stage=laneChange.
+Warning: Vehicle 'veh.20' collision with person 'pEW.21', lane='CE_0', gap=-6.56, time=250.00, stage=laneChange.
 Warning: Collision of person 'pEW.20' and person 'pEW.19', lane=':C_9_0', time=348.00.
 Warning: Collision of person 'pEW.20' and person 'pEW.19', lane=':C_9_0', time=349.00.
 Warning: Collision of person 'pEW.20' and person 'pEW.19', lane=':C_9_0', time=350.00.
@@ -186,7 +186,7 @@ Warning: Collision of person 'pEW.32' and person 'pWE.23', lane=':C_9_0', time=4
 Warning: Collision of person 'pEW.32' and person 'pEW.26', lane=':C_9_0', time=411.00.
 Warning: Collision of person 'pEW.23' and person 'pEW.36', lane='CEa_0', time=411.00.
 Warning: Collision of person 'pEW.34' and person 'pEW.28', lane='CEa_0', time=411.00.
-Warning: Vehicle 'veh.38' collision with person 'pEW.37', lane='CEa_0', gap=-6.83, time=411.00 stage=laneChange.
+Warning: Vehicle 'veh.38' collision with person 'pEW.37', lane='CEa_0', gap=-6.83, time=411.00, stage=laneChange.
 Warning: Collision of person 'pWE.23' and person 'pEW.32', lane=':C_9_0', time=412.00.
 Warning: Collision of person 'pWE.23' and person 'pEW.26', lane=':C_9_0', time=412.00.
 Warning: Collision of person 'pEW.20' and person 'pEW.19', lane=':C_9_0', time=412.00.
@@ -196,7 +196,7 @@ Warning: Collision of person 'pEW.32' and person 'pWE.23', lane=':C_9_0', time=4
 Warning: Collision of person 'pEW.32' and person 'pEW.26', lane=':C_9_0', time=412.00.
 Warning: Collision of person 'pEW.23' and person 'pEW.36', lane='CEa_0', time=412.00.
 Warning: Collision of person 'pEW.34' and person 'pEW.28', lane='CEa_0', time=412.00.
-Warning: Vehicle 'veh.38' collision with person 'pEW.38', lane='CEa_0', gap=-6.01, time=412.00 stage=move.
+Warning: Vehicle 'veh.38' collision with person 'pEW.38', lane='CEa_0', gap=-6.01, time=412.00, stage=move.
 Warning: Collision of person 'pWE.23' and person 'pEW.32', lane=':C_9_0', time=413.00.
 Warning: Collision of person 'pWE.23' and person 'pEW.26', lane=':C_9_0', time=413.00.
 Warning: Collision of person 'pEW.20' and person 'pEW.19', lane=':C_9_0', time=413.00.
@@ -206,7 +206,7 @@ Warning: Collision of person 'pEW.32' and person 'pWE.23', lane=':C_9_0', time=4
 Warning: Collision of person 'pEW.32' and person 'pEW.26', lane=':C_9_0', time=413.00.
 Warning: Collision of person 'pEW.23' and person 'pEW.36', lane='CEa_0', time=413.00.
 Warning: Collision of person 'pEW.34' and person 'pEW.28', lane='CEa_0', time=413.00.
-Warning: Vehicle 'veh.38' collision with person 'pEW.41', lane='CEa_0', gap=-6.78, time=413.00 stage=move.
+Warning: Vehicle 'veh.38' collision with person 'pEW.41', lane='CEa_0', gap=-6.78, time=413.00, stage=move.
 Warning: Collision of person 'pWE.23' and person 'pEW.32', lane=':C_9_0', time=414.00.
 Warning: Collision of person 'pWE.23' and person 'pEW.26', lane=':C_9_0', time=414.00.
 Warning: Collision of person 'pEW.20' and person 'pEW.19', lane=':C_9_0', time=414.00.
@@ -293,7 +293,7 @@ Warning: Collision of person 'pEW.32' and person 'pWE.23', lane=':C_9_0', time=4
 Warning: Collision of person 'pEW.32' and person 'pEW.26', lane=':C_9_0', time=423.00.
 Warning: Collision of person 'pEW.23' and person 'pEW.36', lane='CEa_0', time=423.00.
 Warning: Collision of person 'pEW.34' and person 'pEW.28', lane='CEa_0', time=423.00.
-Warning: Vehicle 'veh.38' collision with person 'pEW.46', lane='CE_0', gap=-2.73, time=423.00 stage=laneChange.
+Warning: Vehicle 'veh.38' collision with person 'pEW.46', lane='CE_0', gap=-2.73, time=423.00, stage=laneChange.
 Warning: Collision of person 'pWE.23' and person 'pEW.32', lane=':C_9_0', time=424.00.
 Warning: Collision of person 'pWE.23' and person 'pEW.26', lane=':C_9_0', time=424.00.
 Warning: Collision of person 'pEW.26' and person 'pWE.23', lane=':C_9_0', time=424.00.
@@ -306,38 +306,38 @@ Warning: Collision of person 'pEW.17' and person 'pEW.21', lane='WC.48_0', time=
 Warning: Collision of person 'pEW.18' and person 'pEW.30', lane='WC.48_0', time=455.00.
 Warning: Collision of person 'pEW.18' and person 'pEW.30', lane='WC.48_0', time=456.00.
 Warning: Collision of person 'pEW.18' and person 'pEW.30', lane='WC.48_0', time=457.00.
-Warning: Vehicle 'veh.48' collision with person 'pEW.15', lane='WC.48_0', gap=-8.60, time=457.00 stage=laneChange.
+Warning: Vehicle 'veh.48' collision with person 'pEW.15', lane='WC.48_0', gap=-8.60, time=457.00, stage=laneChange.
 Warning: Collision of person 'pEW.18' and person 'pEW.30', lane='WC.48_0', time=458.00.
-Warning: Vehicle 'veh.48' collision with person 'pEW.21', lane='WC.48_0', gap=-9.99, time=458.00 stage=move.
-Warning: Vehicle 'veh.48' collision with person 'pWE.46', lane='WC.48_0', gap=-0.44, time=466.00 stage=laneChange.
+Warning: Vehicle 'veh.48' collision with person 'pEW.21', lane='WC.48_0', gap=-9.99, time=458.00, stage=move.
+Warning: Vehicle 'veh.48' collision with person 'pWE.46', lane='WC.48_0', gap=-0.44, time=466.00, stage=laneChange.
 Warning: Collision of person 'pEW.32' and person 'pEW.26', lane='WC.48_0', time=481.00.
 Warning: Collision of person 'pEW.32' and person 'pEW.26', lane='WC.48_0', time=482.00.
 Warning: Collision of person 'pEW.32' and person 'pEW.26', lane='WC.48_0', time=483.00.
 Warning: Collision of person 'pEW.32' and person 'pEW.26', lane='WC.48_0', time=484.00.
-Warning: Vehicle 'veh.48' collision with person 'pWE.47', lane='WC.48_0', gap=-4.80, time=496.00 stage=move.
-Warning: Vehicle 'veh.51' collision with person 'pEW.35', lane='WC.48_0', gap=-3.77, time=496.00 stage=laneChange.
-Warning: Vehicle 'veh.51' collision with person 'pEW.35', lane='WC.48_0', gap=-4.91, time=497.00 stage=move.
-Warning: Vehicle 'veh.51' collision with person 'pEW.26', lane='WC.48_0', gap=-9.48, time=497.00 stage=laneChange.
-Warning: Vehicle 'veh.51' collision with person 'pEW.36', lane='WC.48_0', gap=-9.86, time=498.00 stage=move.
-Warning: Vehicle 'veh.53' collision with person 'pEW.37', lane='WC_0', gap=-7.49, time=502.00 stage=laneChange.
-Warning: Vehicle 'veh.53' collision with person 'pEW.33', lane='WC.48_0', gap=-3.22, time=504.00 stage=move.
-Warning: Vehicle 'veh.51' collision with person 'pEW.51', lane='CEa_0', gap=-6.53, time=515.00 stage=move.
-Warning: Vehicle 'veh.51' collision with person 'pEW.52', lane='CEa_0', gap=-8.59, time=517.00 stage=laneChange.
-Warning: Vehicle 'veh.51' collision with person 'pEW.53', lane='CEa_0', gap=-5.33, time=518.00 stage=move.
-Warning: Vehicle 'veh.51' collision with person 'pEW.54', lane='CEa_0', gap=-9.80, time=519.00 stage=move.
+Warning: Vehicle 'veh.48' collision with person 'pWE.47', lane='WC.48_0', gap=-4.80, time=496.00, stage=move.
+Warning: Vehicle 'veh.51' collision with person 'pEW.35', lane='WC.48_0', gap=-3.77, time=496.00, stage=laneChange.
+Warning: Vehicle 'veh.51' collision with person 'pEW.35', lane='WC.48_0', gap=-4.91, time=497.00, stage=move.
+Warning: Vehicle 'veh.51' collision with person 'pEW.26', lane='WC.48_0', gap=-9.48, time=497.00, stage=laneChange.
+Warning: Vehicle 'veh.51' collision with person 'pEW.36', lane='WC.48_0', gap=-9.86, time=498.00, stage=move.
+Warning: Vehicle 'veh.53' collision with person 'pEW.37', lane='WC_0', gap=-7.49, time=502.00, stage=laneChange.
+Warning: Vehicle 'veh.53' collision with person 'pEW.33', lane='WC.48_0', gap=-3.22, time=504.00, stage=move.
+Warning: Vehicle 'veh.51' collision with person 'pEW.51', lane='CEa_0', gap=-6.53, time=515.00, stage=move.
+Warning: Vehicle 'veh.51' collision with person 'pEW.52', lane='CEa_0', gap=-8.59, time=517.00, stage=laneChange.
+Warning: Vehicle 'veh.51' collision with person 'pEW.53', lane='CEa_0', gap=-5.33, time=518.00, stage=move.
+Warning: Vehicle 'veh.51' collision with person 'pEW.54', lane='CEa_0', gap=-9.80, time=519.00, stage=move.
 Warning: Collision of person 'pWE.50' and person 'pWE.49', lane='WC.48_0', time=554.00.
 Warning: Collision of person 'pWE.50' and person 'pWE.49', lane='WC.48_0', time=555.00.
 Warning: Collision of person 'pWE.50' and person 'pWE.49', lane='WC.48_0', time=556.00.
 Warning: Collision of person 'pWE.49' and person 'pWE.50', lane=':C_9_0', time=588.00.
 Warning: Collision of person 'pWE.52' and person 'pWE.53', lane=':C_9_0', time=588.00.
 Warning: Collision of person 'pEW.53' and person 'pEW.52', lane=':C_9_0', time=588.00.
-Warning: Vehicle 'veh.55' collision with person 'pEW.50', lane=':C_9_0', gap=-3.18, time=588.00 stage=move.
-Warning: Vehicle 'veh.55' collision with person 'pEW.52', lane=':C_9_0', gap=-9.44, time=589.00 stage=move.
+Warning: Vehicle 'veh.55' collision with person 'pEW.50', lane=':C_9_0', gap=-3.18, time=588.00, stage=move.
+Warning: Vehicle 'veh.55' collision with person 'pEW.52', lane=':C_9_0', gap=-9.44, time=589.00, stage=move.
 Warning: Collision of person 'pEW.52' and person 'pEW.54', lane=':C_9_0', time=593.00.
-Warning: Vehicle 'veh.62' collision with person 'pEW.48', lane='WC_0', gap=-5.70, time=604.00 stage=laneChange.
+Warning: Vehicle 'veh.62' collision with person 'pEW.48', lane='WC_0', gap=-5.70, time=604.00, stage=laneChange.
 Warning: Collision of person 'pEW.53' and person 'pEW.55', lane=':C_9_0', time=605.00.
 Warning: Collision of person 'pEW.56' and person 'pEW.57', lane=':C_9_0', time=605.00.
-Warning: Vehicle 'veh.62' collision with person 'pEW.49', lane='WC_0', gap=-4.91, time=605.00 stage=laneChange.
+Warning: Vehicle 'veh.62' collision with person 'pEW.49', lane='WC_0', gap=-4.91, time=605.00, stage=laneChange.
 Warning: Collision of person 'pEW.53' and person 'pEW.55', lane=':C_9_0', time=606.00.
 Warning: Collision of person 'pEW.56' and person 'pEW.57', lane=':C_9_0', time=606.00.
 Warning: Collision of person 'pEW.53' and person 'pEW.55', lane=':C_9_0', time=607.00.
@@ -355,16 +355,16 @@ Warning: Collision of person 'pEW.56' and person 'pEW.57', lane=':C_9_0', time=6
 Warning: Collision of person 'pEW.53' and person 'pEW.55', lane=':C_9_0', time=613.00.
 Warning: Collision of person 'pEW.56' and person 'pEW.57', lane=':C_9_0', time=613.00.
 Warning: Collision of person 'pEW.51' and person 'pEW.52', lane='WC.48_0', time=614.00.
-Warning: Vehicle 'veh.59' collision with person 'pEW.60', lane=':C_9_0', gap=-9.93, time=614.00 stage=laneChange.
+Warning: Vehicle 'veh.59' collision with person 'pEW.60', lane=':C_9_0', gap=-9.93, time=614.00, stage=laneChange.
 Warning: Collision of person 'pEW.54' and person 'pEW.55', lane='WC.48_0', time=615.00.
 Warning: Collision of person 'pEW.51' and person 'pEW.52', lane='WC.48_0', time=615.00.
-Warning: Vehicle 'veh.59' collision with person 'pEW.63', lane=':C_9_0', gap=-8.71, time=615.00 stage=move.
-Warning: Vehicle 'veh.59' collision with person 'pEW.68', lane='CEa_0', gap=-2.33, time=621.00 stage=move.
-Warning: Vehicle 'veh.59' collision with person 'pEW.68', lane='CEa_0', gap=-9.59, time=622.00 stage=move.
-Warning: Vehicle 'veh.61' collision with person 'pEW.64', lane='CEa_0', gap=-3.15, time=622.00 stage=laneChange.
-Warning: Vehicle 'veh.61' collision with person 'pEW.64', lane='CEa_0', gap=-4.33, time=623.00 stage=laneChange.
-Warning: Vehicle 'veh.61' collision with person 'pEW.64', lane='CEa_0', gap=-5.65, time=624.00 stage=move.
-Warning: Vehicle 'veh.63' collision with person 'pEW.51', lane='WC.48_0', gap=-9.53, time=635.00 stage=laneChange.
+Warning: Vehicle 'veh.59' collision with person 'pEW.63', lane=':C_9_0', gap=-8.71, time=615.00, stage=move.
+Warning: Vehicle 'veh.59' collision with person 'pEW.68', lane='CEa_0', gap=-2.33, time=621.00, stage=move.
+Warning: Vehicle 'veh.59' collision with person 'pEW.68', lane='CEa_0', gap=-9.59, time=622.00, stage=move.
+Warning: Vehicle 'veh.61' collision with person 'pEW.64', lane='CEa_0', gap=-3.15, time=622.00, stage=laneChange.
+Warning: Vehicle 'veh.61' collision with person 'pEW.64', lane='CEa_0', gap=-4.33, time=623.00, stage=laneChange.
+Warning: Vehicle 'veh.61' collision with person 'pEW.64', lane='CEa_0', gap=-5.65, time=624.00, stage=move.
+Warning: Vehicle 'veh.63' collision with person 'pEW.51', lane='WC.48_0', gap=-9.53, time=635.00, stage=laneChange.
 Warning: Collision of person 'pEW.62' and person 'pEW.63', lane='WC.48_0', time=637.00.
 Warning: Collision of person 'pEW.64' and person 'pEW.66', lane=':C_9_0', time=677.00.
 Warning: Collision of person 'pEW.64' and person 'pEW.66', lane=':C_9_0', time=678.00.
@@ -375,24 +375,24 @@ Warning: Collision of person 'pEW.64' and person 'pEW.66', lane=':C_9_0', time=6
 Warning: Collision of person 'pEW.64' and person 'pEW.66', lane=':C_9_0', time=683.00.
 Warning: Collision of person 'pEW.64' and person 'pEW.66', lane=':C_9_0', time=684.00.
 Warning: Collision of person 'pEW.64' and person 'pEW.66', lane=':C_9_0', time=685.00.
-Warning: Vehicle 'veh.66' collision with person 'pEW.76', lane='CE_0', gap=-0.63, time=696.00 stage=move.
-Warning: Vehicle 'veh.66' collision with person 'pEW.76', lane='CE_0', gap=-5.76, time=697.00 stage=move.
-Warning: Vehicle 'veh.66' collision with person 'pEW.77', lane='CE_0', gap=-9.32, time=699.00 stage=laneChange.
-Warning: Vehicle 'veh.66' collision with person 'pEW.79', lane='CE_0', gap=-4.09, time=700.00 stage=move.
-Warning: Vehicle 'veh.66' collision with person 'pEW.79', lane='CE_0', gap=-9.22, time=701.00 stage=move.
-Warning: Vehicle 'veh.66' collision with person 'pEW.81', lane='CE_0', gap=-5.15, time=704.00 stage=move.
-Warning: Vehicle 'veh.71' collision with person 'pEW.62', lane='WC_0', gap=-6.55, time=713.00 stage=laneChange.
+Warning: Vehicle 'veh.66' collision with person 'pEW.76', lane='CE_0', gap=-0.63, time=696.00, stage=move.
+Warning: Vehicle 'veh.66' collision with person 'pEW.76', lane='CE_0', gap=-5.76, time=697.00, stage=move.
+Warning: Vehicle 'veh.66' collision with person 'pEW.77', lane='CE_0', gap=-9.32, time=699.00, stage=laneChange.
+Warning: Vehicle 'veh.66' collision with person 'pEW.79', lane='CE_0', gap=-4.09, time=700.00, stage=move.
+Warning: Vehicle 'veh.66' collision with person 'pEW.79', lane='CE_0', gap=-9.22, time=701.00, stage=move.
+Warning: Vehicle 'veh.66' collision with person 'pEW.81', lane='CE_0', gap=-5.15, time=704.00, stage=move.
+Warning: Vehicle 'veh.71' collision with person 'pEW.62', lane='WC_0', gap=-6.55, time=713.00, stage=laneChange.
 Warning: Collision of person 'pEW.69' and person 'pEW.67', lane='WC.48_0', time=746.00.
 Warning: Collision of person 'pEW.69' and person 'pEW.67', lane='WC.48_0', time=747.00.
 Warning: Collision of person 'pEW.69' and person 'pEW.67', lane='WC.48_0', time=748.00.
-Warning: Vehicle 'veh.70' collision with person 'pEW.73', lane=':C_9_0', gap=-0.27, time=768.00 stage=laneChange.
+Warning: Vehicle 'veh.70' collision with person 'pEW.73', lane=':C_9_0', gap=-0.27, time=768.00, stage=laneChange.
 Warning: Collision of person 'pWE.66' and person 'pWE.65', lane=':C_9_0', time=769.00.
 Warning: Collision of person 'pWE.64' and person 'pWE.66', lane=':C_9_0', time=769.00.
-Warning: Vehicle 'veh.70' collision with person 'pEW.73', lane=':C_9_0', gap=-6.38, time=769.00 stage=move.
-Warning: Vehicle 'veh.70' collision with person 'pEW.77', lane=':C_9_0', gap=-9.44, time=770.00 stage=move.
-Warning: Vehicle 'veh.78' collision with person 'pEW.81', lane='CEa_0', gap=-0.95, time=790.00 stage=laneChange.
-Warning: Vehicle 'veh.78' collision with person 'pEW.81', lane='CEa_0', gap=-5.97, time=791.00 stage=move.
-Warning: Vehicle 'veh.81' collision with person 'pEW.71', lane='WC_0', gap=-6.84, time=799.00 stage=laneChange.
+Warning: Vehicle 'veh.70' collision with person 'pEW.73', lane=':C_9_0', gap=-6.38, time=769.00, stage=move.
+Warning: Vehicle 'veh.70' collision with person 'pEW.77', lane=':C_9_0', gap=-9.44, time=770.00, stage=move.
+Warning: Vehicle 'veh.78' collision with person 'pEW.81', lane='CEa_0', gap=-0.95, time=790.00, stage=laneChange.
+Warning: Vehicle 'veh.78' collision with person 'pEW.81', lane='CEa_0', gap=-5.97, time=791.00, stage=move.
+Warning: Vehicle 'veh.81' collision with person 'pEW.71', lane='WC_0', gap=-6.84, time=799.00, stage=laneChange.
 Warning: Collision of person 'pEW.89' and person 'pEW.83', lane=':C_9_0', time=857.00.
 Warning: Collision of person 'pEW.94' and person 'pEW.91', lane=':C_9_0', time=857.00.
 Warning: Collision of person 'pEW.89' and person 'pEW.83', lane=':C_9_0', time=858.00.
@@ -454,13 +454,13 @@ Warning: Collision of person 'pEW.84' and person 'pEW.94', lane=':C_9_0', time=8
 Warning: Collision of person 'pEW.84' and person 'pEW.94', lane=':C_9_0', time=872.00.
 Warning: Collision of person 'pEW.88' and person 'pEW.91', lane=':C_9_0', time=884.00.
 Warning: Collision of person 'pEW.88' and person 'pEW.91', lane=':C_9_0', time=885.00.
-Warning: Vehicle 'veh.87' collision with person 'pEW.88', lane=':C_9_0', gap=-0.52, time=885.00 stage=laneChange.
+Warning: Vehicle 'veh.87' collision with person 'pEW.88', lane=':C_9_0', gap=-0.52, time=885.00, stage=laneChange.
 Warning: Collision of person 'pEW.88' and person 'pEW.91', lane=':C_9_0', time=886.00.
-Warning: Vehicle 'veh.87' collision with person 'pEW.88', lane=':C_9_0', gap=-0.52, time=886.00 stage=move.
+Warning: Vehicle 'veh.87' collision with person 'pEW.88', lane=':C_9_0', gap=-0.52, time=886.00, stage=move.
 Warning: Collision of person 'pEW.88' and person 'pEW.91', lane=':C_9_0', time=887.00.
-Warning: Vehicle 'veh.87' collision with person 'pEW.88', lane=':C_9_0', gap=-0.52, time=887.00 stage=move.
+Warning: Vehicle 'veh.87' collision with person 'pEW.88', lane=':C_9_0', gap=-0.52, time=887.00, stage=move.
 Warning: Collision of person 'pEW.88' and person 'pEW.91', lane=':C_9_0', time=888.00.
-Warning: Vehicle 'veh.87' collision with person 'pEW.88', lane=':C_9_0', gap=-0.52, time=888.00 stage=move.
+Warning: Vehicle 'veh.87' collision with person 'pEW.88', lane=':C_9_0', gap=-0.52, time=888.00, stage=move.
 Warning: Collision of person 'pEW.88' and person 'pEW.84', lane=':C_9_0', time=946.00.
 Warning: Collision of person 'pEW.94' and person 'pEW.84', lane=':C_9_0', time=946.00.
 Warning: Collision of person 'pEW.94' and person 'pEW.88', lane=':C_9_0', time=946.00.
@@ -486,18 +486,18 @@ Warning: Collision of person 'pEW.102' and person 'pEW.96', lane=':C_9_0', time=
 Warning: Collision of person 'pEW.102' and person 'pEW.96', lane=':C_9_0', time=957.00.
 Warning: Collision of person 'pEW.102' and person 'pEW.96', lane=':C_9_0', time=958.00.
 Warning: Collision of person 'pEW.102' and person 'pEW.96', lane=':C_9_0', time=959.00.
-Warning: Vehicle 'veh.94' collision with person 'pEW.78', lane='WC.48_0', gap=-9.08, time=959.00 stage=laneChange.
+Warning: Vehicle 'veh.94' collision with person 'pEW.78', lane='WC.48_0', gap=-9.08, time=959.00, stage=laneChange.
 Warning: Collision of person 'pEW.102' and person 'pEW.96', lane=':C_9_0', time=960.00.
-Warning: Vehicle 'veh.94' collision with person 'pEW.78', lane='WC.48_0', gap=-9.08, time=960.00 stage=move.
+Warning: Vehicle 'veh.94' collision with person 'pEW.78', lane='WC.48_0', gap=-9.08, time=960.00, stage=move.
 Warning: Collision of person 'pWE.85' and person 'pWE.84', lane='WC.48_0', time=961.00.
 Warning: Collision of person 'pWE.88' and person 'pWE.87', lane='WC.48_0', time=961.00.
-Warning: Vehicle 'veh.89' collision with person 'pEW.111', lane='CE_0', gap=-4.35, time=962.00 stage=move.
-Warning: Vehicle 'veh.98' collision with person 'pEW.75', lane='WC_0', gap=-9.92, time=968.00 stage=laneChange.
-Warning: Vehicle 'veh.95' collision with person 'pEW.111', lane='CE_0', gap=-4.06, time=975.00 stage=move.
-Warning: Vehicle 'veh.95' collision with person 'pEW.111', lane='CE_0', gap=-9.72, time=976.00 stage=move.
-Warning: Vehicle 'veh.99' collision with person 'pEW.80', lane='WC.48_0', gap=-1.36, time=979.00 stage=move.
-Warning: Vehicle 'veh.97' collision with person 'pEW.82', lane='WC.48_0', gap=-6.97, time=985.00 stage=move.
-Warning: Vehicle 'veh.97' collision with person 'pEW.103', lane='WC.48_0', gap=-3.42, time=986.00 stage=move.
+Warning: Vehicle 'veh.89' collision with person 'pEW.111', lane='CE_0', gap=-4.35, time=962.00, stage=move.
+Warning: Vehicle 'veh.98' collision with person 'pEW.75', lane='WC_0', gap=-9.92, time=968.00, stage=laneChange.
+Warning: Vehicle 'veh.95' collision with person 'pEW.111', lane='CE_0', gap=-4.06, time=975.00, stage=move.
+Warning: Vehicle 'veh.95' collision with person 'pEW.111', lane='CE_0', gap=-9.72, time=976.00, stage=move.
+Warning: Vehicle 'veh.99' collision with person 'pEW.80', lane='WC.48_0', gap=-1.36, time=979.00, stage=move.
+Warning: Vehicle 'veh.97' collision with person 'pEW.82', lane='WC.48_0', gap=-6.97, time=985.00, stage=move.
+Warning: Vehicle 'veh.97' collision with person 'pEW.103', lane='WC.48_0', gap=-3.42, time=986.00, stage=move.
 Warning: Collision of person 'pEW.92' and person 'pEW.103', lane='WC.48_0', time=987.00.
 Warning: Collision of person 'pEW.92' and person 'pEW.103', lane='WC.48_0', time=988.00.
 Warning: Collision of person 'pEW.92' and person 'pEW.103', lane='WC.48_0', time=989.00.
