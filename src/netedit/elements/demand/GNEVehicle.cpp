@@ -897,7 +897,7 @@ GNEVehicle::getFirstPathLane() const {
     // get departLane index
     const int departLaneIndex = canParse<int>(getAttribute(SUMO_ATTR_DEPARTLANE))? parse<int>(getAttribute(SUMO_ATTR_DEPARTLANE)) : -1;
     // check departLane index
-    if ((departLaneIndex >= 0) && (departLaneIndex < firstEdge->getLanes().size())) {
+    if ((departLaneIndex >= 0) && (departLaneIndex < (int)firstEdge->getLanes().size())) {
         return firstEdge->getLanes().at(departLaneIndex);
     } else {
         // get first allowed VClass
@@ -928,7 +928,7 @@ GNEVehicle::getLastPathLane() const {
     // get arrivalLane index
     const int arrivalLaneIndex = canParse<int>(getAttribute(SUMO_ATTR_ARRIVALLANE))? parse<int>(getAttribute(SUMO_ATTR_ARRIVALLANE)) : -1;
     // check arrivalLane index
-    if ((arrivalLaneIndex >= 0) && (arrivalLaneIndex < lastEdge->getLanes().size())) {
+    if ((arrivalLaneIndex >= 0) && (arrivalLaneIndex < (int)lastEdge->getLanes().size())) {
         return lastEdge->getLanes().at(arrivalLaneIndex);
     } else {
         // get last allowed VClass
