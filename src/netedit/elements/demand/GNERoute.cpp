@@ -520,7 +520,6 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
     }
     switch (key) {
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_EDGES:
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_REPEAT:
         case SUMO_ATTR_CYCLETIME:
@@ -528,6 +527,36 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
+        // special case due depart and arrival edge vehicles
+        case SUMO_ATTR_EDGES: {
+            // extract all vehicle childrens
+            std::vector<GNEDemandElement*> vehicles;
+            for (const auto &childDemandElement : getChildDemandElements()) {
+                if (childDemandElement->getTagProperty().isVehicle()) {
+                    vehicles.push_back(childDemandElement);
+                }
+            }
+            // check vehicles
+            if (vehicles.size() > 0) {
+                undoList->p_begin("reset start and end edges");
+                for (const auto &vehicle : vehicles) {
+                    undoList->p_add(new GNEChange_Attribute(vehicle, SUMO_ATTR_DEPARTEDGE, ""));
+                    undoList->p_add(new GNEChange_Attribute(vehicle, SUMO_ATTR_ARRIVALEDGE, ""));
+                }
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_end();
+            } else if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+                undoList->p_begin("reset start and end edges");
+                undoList->p_add(new GNEChange_Attribute(getParentDemandElements().front(), SUMO_ATTR_DEPARTEDGE, ""));
+                undoList->p_add(new GNEChange_Attribute(getParentDemandElements().front(), SUMO_ATTR_ARRIVALEDGE, ""));
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_end();
+            } else {
+                // just change edges
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+            }
+            break;
+        }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -646,7 +675,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_EDGES:
             replaceDemandParentEdges(value);
             // compute route
-            updateGeometry();
+            computePathElement();
             break;
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);
