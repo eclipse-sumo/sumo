@@ -27,6 +27,7 @@
 #include <cmath>
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/RandHelper.h>
 #include <utils/options/OptionsCont.h>
 
 
@@ -61,7 +62,13 @@ public:
     }
 
     bool skipRouteCalculation() const {
-        return mySkipRouteCalculation;
+        if (mySkipRouteCalculationProbability == 1) {
+            return true;
+        } else if (mySkipRouteCalculationProbability == 0) {
+            return false;
+        } else {
+            return RandHelper::rand() < mySkipRouteCalculationProbability;
+        }
     }
 
 protected:
@@ -70,7 +77,9 @@ protected:
         OptionsCont& oc = OptionsCont::getOptions();
         myMaxRouteNumber = oc.getInt("max-alternatives");
         myKeepRoutes = oc.getBool("keep-all-routes");
-        mySkipRouteCalculation = oc.getBool("skip-new-routes");
+        mySkipRouteCalculationProbability = (oc.getBool("skip-new-routes")
+                ? (oc.exists("skip-new-routes.probability") ? oc.getFloat("skip-new-routes.probability") : 1)
+                : 0);
     }
 
     /// @brief Destructor
@@ -86,7 +95,7 @@ private:
     bool myKeepRoutes;
 
     /// @brief Information whether new routes should be calculated
-    bool mySkipRouteCalculation;
+    double mySkipRouteCalculationProbability;
 
 };
 
