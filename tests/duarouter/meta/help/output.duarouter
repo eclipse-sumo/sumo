@@ -1,4 +1,4 @@
-Eclipse SUMO duarouter Version v1_8_0+0635-4f1a99aa91
+Eclipse SUMO duarouter Version v1_9_1+0213-3fe1bed
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic, multi-modal traffic
  simulation SUMO.
@@ -121,6 +121,7 @@ Processing Options:
   --keep-all-routes                   Save routes with near zero probability
   --skip-new-routes                   Only reuse routes from input, do not
                                        calculate new ones
+  --skip-new-routes.probability FLOAT  The probability of keeping the old route
   --ptline-routing                    Route all public transport input
   --logit                             Use c-logit model (deprecated in favor of
                                        --route-choice-method logit)

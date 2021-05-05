@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan 22 15:27:32 2021 by Eclipse SUMO duarouter Version v1_8_0+0678-194dd5d
+<!-- generated on 2021-05-05 08:39:10 by Eclipse SUMO duarouter Version v1_9_1+0213-3fe1bed
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -185,6 +185,9 @@
 
         <!-- Only reuse routes from input, do not calculate new ones -->
         <skip-new-routes value="false" type="BOOL"/>
+
+        <!-- The probability of keeping the old route -->
+        <skip-new-routes.probability value="0" type="FLOAT"/>
 
         <!-- Route all public transport input -->
         <ptline-routing value="false" type="BOOL"/>
