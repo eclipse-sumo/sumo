@@ -176,7 +176,7 @@ MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment) {
         if (!teleporting) {
             int qIdx = 0;
             // announce start of multi-step teleport, arrival will be announced in changeSegment()
-            WRITE_WARNINGF("Teleporting vehicle '%'; waited too long, from edge, time %.",
+            WRITE_WARNINGF("Teleporting vehicle '%'; waited too long, from edge '%':%, time %.",
                            veh->getID(), onSegment->getEdge().getID(), onSegment->getIndex(), time2string(leaveTime));
             MSNet::getInstance()->getVehicleControl().registerTeleportJam();
             // remove from current segment
