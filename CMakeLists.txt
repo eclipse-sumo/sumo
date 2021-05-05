@@ -277,8 +277,12 @@ if (SUMO_LIBRARIES AND WIN32)
                                           "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/sqlite-?.?.?/*.dll")
         list(APPEND SUMO_LIBRARIES_DLL ${MORE_SUMO_LIBRARIES_DLL})
     endif ()
-    # set google test root
-    file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-?.?.?/googletest")
+    # set google test root depending of directory
+    if(EXISTS "${SUMO_LIBRARIES}/googletest-1.8.0/googletest")
+        file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-1.8.0/googletest")
+    else ()
+        file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-?.??.?")
+    endif ()
     # declare flag for use google test
     set(USE_GOOGLETEST true)
     # check if use google test
@@ -297,12 +301,24 @@ if (SUMO_LIBRARIES AND WIN32)
     if (USE_GOOGLETEST)
         #show info
         message(STATUS "Found Google test: " ${GTEST_ROOT})
-        # Prevent GoogleTest from overriding our compiler/linker options
-        set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-        add_subdirectory("${GTEST_ROOT}" "${CMAKE_BINARY_DIR}/googletest-build")
-        include_directories("${GTEST_ROOT}/include")
-        set(GTEST_BOTH_LIBRARIES "gtest" "gtest_main")
-        set(GTEST_FOUND true)
+        #check if we're using google test 1.8
+        if (EXISTS "${SUMO_LIBRARIES}/googletest-1.8.0/googletest")
+            # Prevent GoogleTest from overriding our compiler/linker options
+            set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+            add_subdirectory("${GTEST_ROOT}" "${CMAKE_BINARY_DIR}/googletest-build")
+            include_directories("${GTEST_ROOT}/include")
+            set(GTEST_BOTH_LIBRARIES "gtest" "gtest_main")
+        else()
+            # include google test directory
+            include_directories("${GTEST_ROOT}/include")
+            # set both google test library
+            set(GTEST_BOTH_LIBRARIES "${GTEST_ROOT}/lib/gtest.lib" "${GTEST_ROOT}/lib/gtest_main.lib")
+            # set google test DLLs
+            file(GLOB SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL}"
+                                         "${GTEST_ROOT}/bin/*.dll")
+        endif()
+        # set gtest found
+        set(GTEST_FOUND true)   
     endif ()
     file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-?.?.?")
     file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-?.?.?")
