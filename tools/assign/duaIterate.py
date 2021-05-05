@@ -152,6 +152,8 @@ def initOptions():
     argParser.add_argument("-i", "--logitgamma", type=float, default=1., help="use the c-logit model for route choice")
     argParser.add_argument("-G", "--logittheta", type=float, help="parameter to adapt the cost unit")
     argParser.add_argument("-J", "--addweights", help="Additional weightes for duarouter")
+    argParser.add_argument("--logit-convergence-steps", dest="logitConvergence", type=int,
+                           help="Given x, if x > 0 Reduce probability to change route by 1/x per step. If x < 0 set probability of rerouting to 1/step after step |x|")
     argParser.add_argument("--addweights.once", dest="addweightsOnce", action="store_true",
                            default=False, help="use added weights only on the first iteration")
     argParser.add_argument("--router-verbose", action="store_true",
@@ -223,6 +225,13 @@ def writeRouteConf(duarouterBinary, step, options, dua_args, file,
         args += ['--additional-files', options.districts]
     if options.logit:
         args += ['--route-choice-method', 'logit']
+        if options.logitConvergence:
+            if options.logitConvergence > 0:
+                probKeepRoute = max(0, min(step / float(options.logitConvergence), 1))
+            else:
+                startStep = -x;
+                probKeepRoute = 0 if step > startStep else 1 - 1.0 / (step - startStep)
+            args += ['--skip-new-routes.probability', str(probKeepRoute)]
 
     if step > 0 or options.addweights:
         weightpath = ""
