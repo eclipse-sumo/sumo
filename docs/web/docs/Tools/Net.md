@@ -57,6 +57,20 @@ connections are guessed during network import, all connections for an
 edge must be included in the patch file if any of them were changed. This
 is accomplished by setting **-i** (**--patch-on-import**).
 
+## only considering created elements when updating network
+
+Following the above described way to use netDiff.py 4 files 
+(*.nod.xml. *.edg.xml, con.xml and till.xml). If only created elements need
+to be considered, open the above metioned 4 files, only keep the contents under 
+"<!-- Created Elements -->", and then save the files or save the contents as
+new files. Then use the above metioned command with "netconvert" to update network.
+This way also applies when only considering "deleted elements" or/and "changed elements".
+
+Sometimes, errors may occur due to inconsistent connections/TLS. It is suggested to
+only use *.nod.xml and *.edg.xml to update network firstly, where netconvert will guess
+the respective connections and TLS. Then manually check if connections/TLS in the updated
+network are correct.
+
 # createRoundaboutConnections.py
 
 This script generates additional connections for roundabouts from a
