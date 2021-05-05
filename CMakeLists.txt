@@ -314,8 +314,8 @@ if (SUMO_LIBRARIES AND WIN32)
             # set both google test library
             set(GTEST_BOTH_LIBRARIES "${GTEST_ROOT}/lib/gtest.lib" "${GTEST_ROOT}/lib/gtest_main.lib")
             # set google test DLLs
-            file(GLOB SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL}"
-                                         "${GTEST_ROOT}/bin/*.dll")
+            file(GLOB GTEST_DLL "${GTEST_ROOT}/bin/*.dll")
+            list(APPEND SUMO_LIBRARIES_DLL ${GTEST_DLL})
         endif()
         # set gtest found
         set(GTEST_FOUND true)   
