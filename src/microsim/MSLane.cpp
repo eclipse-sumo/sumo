@@ -257,8 +257,7 @@ MSLane::addNeigh(const std::string& id) {
     myNeighs.push_back(id);
     // warn about lengths after loading the second lane of the pair
     if (getOpposite() != nullptr && getLength() != getOpposite()->getLength()) {
-        WRITE_WARNING("Unequal lengths of neigh lane '" + getID() + "' and lane '" + id + "' (" + toString(getLength())
-                      + ", " + toString(getOpposite()->getLength()) + ")");
+        WRITE_WARNINGF("Unequal lengths of neigh lane '%' and lane '%' (% != %).", getID(), id, getLength(), getOpposite()->getLength());
     }
 }
 
@@ -658,7 +657,7 @@ MSLane::checkFailure(const MSVehicle* aVehicle, double& speed, double& dist, con
                 if (emergencyBrakeGap <= dist) {
                     // Vehicle may stop in time with emergency deceleration
                     // stil, emit a warning
-                    WRITE_WARNING("Vehicle '" + aVehicle->getID() + "' is inserted in emergency situation.");
+                    WRITE_WARNINGF("Vehicle '%' is inserted in emergency situation.", aVehicle->getID());
                     return false;
                 }
             }
@@ -680,8 +679,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                            MSMoveReminder::Notification notification) {
     if (pos < 0 || pos > myLength) {
         // we may not start there
-        WRITE_WARNING("Invalid departPos " + toString(pos) + " given for vehicle '" +
-                      aVehicle->getID() + "'. Inserting at lane end instead.");
+        WRITE_WARNINGF("Invalid departPos % given for vehicle '%'. Inserting at lane end instead.",
+                       pos, aVehicle->getID());
         pos = myLength;
     }
 
@@ -865,7 +864,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                     dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
                 } else {
                     if (!MSGlobals::gCheckRoutes) {
-                        WRITE_WARNING("Vehicle '" + aVehicle->getID() + "' is inserted too fast and will violate the speed limit on a lane '" + nextLane->getID() + "'.");
+                        WRITE_WARNINGF("Vehicle '%' is inserted too fast and will violate the speed limit on a lane '%'.",
+                                       aVehicle->getID(), nextLane->getID());
                     } else {
                         // we may not drive with the given velocity - we would be too fast on the next lane
                         WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using the given velocity (slow lane ahead)!");
@@ -1509,13 +1509,8 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
             if (leader.first != 0 && leader.second < length) {
                 const bool newCollision = MSNet::getInstance()->registerCollision(v, leader.first, "sharedLane", this, leader.first->getEdgePos());
                 if (newCollision) {
-                    WRITE_WARNING(
-                        "Vehicle '" + v->getID()
-                        + "' collision with person '" + leader.first->getID()
-                        + "', lane='" + getID()
-                        + "', gap=" + toString(leader.second - length)
-                        + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
-                        + " stage=" + stage + ".");
+                    WRITE_WARNINGF("Vehicle '%' collision with person '%', lane='%', gap=%, time=%, stage=%.",
+                                   v->getID(), leader.first->getID(), getID(), leader.second - length, time2string(timestep), stage);
                     MSNet::getInstance()->getVehicleControl().registerCollision();
                 }
             }
@@ -1566,12 +1561,8 @@ MSLane::detectPedestrianJunctionCollision(const MSVehicle* collider, const Posit
                 }
                 const bool newCollision = MSNet::getInstance()->registerCollision(collider, *it_p, collisionType, foeLane, (*it_p)->getEdgePos());
                 if (newCollision) {
-                    WRITE_WARNING(
-                        "Vehicle '" + collider->getID()
-                        + "' collision with person '" + (*it_p)->getID()
-                        + "', lane='" + getID()
-                        + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
-                        + " stage=" + stage + ".");
+                    WRITE_WARNINGF("Vehicle '%' collision with person '%', lane='%', time=%, stage=%.",
+                                   collider->getID(), (*it_p)->getID(), getID(), time2string(timestep), stage);
                     MSNet::getInstance()->getVehicleControl().registerCollision();
                 }
             }
@@ -1831,20 +1822,20 @@ MSLane::executeMovements(const SUMOTime t) {
             // for any reasons the vehicle is beyond its lane...
             // this should never happen because it is handled in MSVehicle::executeMove
             assert(false);
-            WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; beyond end of lane, target lane='" + getID() + "', time=" +
-                          time2string(t) + ".");
+            WRITE_WARNINGF("Teleporting vehicle '%'; beyond end of lane, target lane='%', time=%.",
+                           veh->getID(), getID(), time2string(t));
             MSNet::getInstance()->getVehicleControl().registerCollision();
             MSVehicleTransfer::getInstance()->add(t, veh);
         } else if (veh->collisionStopTime() == 0) {
             veh->resumeFromStopping();
             if (getCollisionAction() == COLLISION_ACTION_REMOVE) {
-                WRITE_WARNING("Removing vehicle '" + veh->getID() + "' after earlier collision, lane='" + veh->getLane()->getID() + ", time=" +
-                              time2string(t) + ".");
+                WRITE_WARNINGF("Removing vehicle '%' after earlier collision, lane='%', time=%.",
+                               veh->getID(), veh->getLane()->getID(), time2string(t));
                 veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED_COLLISION);
                 MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
             } else if (getCollisionAction() == COLLISION_ACTION_TELEPORT) {
-                WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "' after earlier collision, lane='" + veh->getLane()->getID() + ", time=" +
-                              time2string(t) + ".");
+                WRITE_WARNINGF("Teleporting vehicle '%' after earlier collision, lane='%', time=%.",
+                               veh->getID(), veh->getLane()->getID(), time2string(t));
                 MSVehicleTransfer::getInstance()->add(t, veh);
             } else {
                 ++i;
@@ -1876,11 +1867,10 @@ MSLane::executeMovements(const SUMOTime t) {
                     myBruttoVehicleLengthSumToRemove += veh->getVehicleType().getLengthWithGap();
                     myNettoVehicleLengthSumToRemove += veh->getVehicleType().getLength();
                     myVehicles.erase(myVehicles.end() - 1);
-                    WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; waited too long"
-                                  + reason
-                                  + (r2 ? " (highway)" : "")
-                                  + (r3 ? " (disconnected)" : "")
-                                  + ", lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                    WRITE_WARNINGF("Teleporting vehicle '%'; waited too long" + reason
+                                   + (r2 ? " (highway)" : "")
+                                   + (r3 ? " (disconnected)" : "")
+                                   + ", lane='%', time=%.", veh->getID(), getID(), time2string(t));
                     if (wrongLane) {
                         MSNet::getInstance()->getVehicleControl().registerTeleportWrongLane();
                     } else if (minorLink) {
@@ -2274,7 +2264,8 @@ MSLane::addApproachingLane(MSLane* lane, bool warnMultiCon) {
     } else if (!approachingEdge->isInternal() && warnMultiCon) {
         // whenever a normal edge connects twice, there is a corresponding
         // internal edge wich connects twice, one warning is sufficient
-        WRITE_WARNING("Lane '" + getID() + "' is approached multiple times from edge '" + approachingEdge->getID() + "'. This may cause collisions.");
+        WRITE_WARNINGF("Lane '%' is approached multiple times from edge '%'. This may cause collisions.",
+                       getID(), approachingEdge->getID());
     }
     myApproachingLanes[approachingEdge].push_back(lane);
 }

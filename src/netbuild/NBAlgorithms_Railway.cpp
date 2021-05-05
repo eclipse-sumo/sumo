@@ -957,7 +957,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
                                     }
                                 } else {
                                     if (isStop) {
-                                        WRITE_WARNING("Stop on edge " + fromEdge->getID() + " can only be reached in reverse but edge has the wrong spreadType");
+                                        WRITE_WARNINGF("Stop on edge '%' can only be reached in reverse but edge has the wrong spreadType.", fromEdge->getID());
                                     }
                                 }
                             }
@@ -965,7 +965,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
                     }
                 }
             } else {
-                WRITE_WARNING("No connection found between stops on edge '" + fromEdge->getID() + "' and edge '" + toEdge->getID() + "'");
+                WRITE_WARNINGF("No connection found between stops on edge '%' and edge '%'.", fromEdge->getID(), toEdge->getID());
                 numDisconnected++;
             }
         }
@@ -1096,6 +1096,7 @@ NBRailwayTopologyAnalyzer::getTravelTimeStatic(const Track* const track, const N
     return NBEdge::getTravelTimeStatic(track->edge, veh, time);
 }
 
+
 void
 NBRailwayTopologyAnalyzer::assignDirectionPriority(NBNetBuilder& nb) {
     // assign priority value for each railway edge:
@@ -1119,7 +1120,7 @@ NBRailwayTopologyAnalyzer::assignDirectionPriority(NBNetBuilder& nb) {
     }
     if (uni.size() == 0) {
         if (bidi.size() != 0) {
-            WRITE_WARNING("Cannot assign track direction priority because there are no unidirectional tracks");
+            WRITE_WARNING("Cannot assign track direction priority because there are no unidirectional tracks.");
         }
         return;
     }
