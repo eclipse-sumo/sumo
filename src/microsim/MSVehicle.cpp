@@ -6452,7 +6452,7 @@ MSVehicle::saveState(OutputDevice& out) {
     // save past stops
     for (SUMOVehicleParameter::Stop stop : myPastStops) {
         stop.write(out, false);
-        out.writeAttr("actualArrival", time2string(stop.actualArrival));
+        out.writeAttr(SUMO_ATTR_ACTUALARRIVAL, time2string(stop.actualArrival));
         out.writeAttr(SUMO_ATTR_DEPART, time2string(stop.depart));
         out.closeTag();
     }
