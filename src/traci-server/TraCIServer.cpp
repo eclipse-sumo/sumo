@@ -292,10 +292,10 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     myExecutors[libsumo::CMD_GET_OVERHEADWIRE_VARIABLE] = &TraCIServerAPI_OverheadWire::processGet;
     myExecutors[libsumo::CMD_SET_OVERHEADWIRE_VARIABLE] = &TraCIServerAPI_OverheadWire::processSet;
 
-    myParameterized.insert(libsumo::VAR_LEADER);
-    myParameterized.insert(libsumo::VAR_FOLLOWER);
-    myParameterized.insert(libsumo::VAR_PARAMETER);
-    myParameterized.insert(libsumo::VAR_PARAMETER_WITH_KEY);
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_LEADER));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_FOLLOWER));
+    myParameterized.insert(std::make_pair(0, libsumo::VAR_PARAMETER));
+    myParameterized.insert(std::make_pair(0, libsumo::VAR_PARAMETER_WITH_KEY));
 
     myDoCloseConnection = false;
 
@@ -1271,7 +1271,7 @@ TraCIServer::addObjectVariableSubscription(const int commandId, const bool hasCo
         const int varID = myInputStorage.readUnsignedByte();
         variables.push_back(varID);
         parameters.push_back(std::make_shared<tcpip::Storage>());
-        if (myParameterized.count(varID) > 0) {
+        if ((myParameterized.count(std::make_pair(0, varID)) > 0) || (myParameterized.count(std::make_pair(commandId, varID)) > 0)) {
             const int parType = myInputStorage.readUnsignedByte();
             parameters.back()->writeUnsignedByte(parType);
             if (parType == libsumo::TYPE_DOUBLE) {

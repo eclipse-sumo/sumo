@@ -387,7 +387,7 @@ private:
     std::map<int, CmdExecutor> myExecutors;
 
     /// @brief Set of variables which have parameters
-    std::set<int> myParameterized;
+    std::set<std::pair<int, int>> myParameterized;
 
     std::vector<std::string> myLoadArgs;
 
