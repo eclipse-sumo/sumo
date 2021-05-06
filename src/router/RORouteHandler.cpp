@@ -1038,15 +1038,11 @@ RORouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
     }
 
     busStopID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, nullptr, ok, "");
-    if (busStopID != "") {
-        const SUMOVehicleParameter::Stop* bs = myNet.getStoppingPlace(busStopID, SUMO_TAG_BUS_STOP);
-        if (bs == nullptr) {
-            myErrorOutput->inform("Unknown bus stop '" + busStopID + "' for " + description);
-            ok = false;
-        } else {
-            toEdge = myNet.getEdge(bs->lane.substr(0, bs->lane.rfind('_')));
-            arrivalPos = (bs->startPos + bs->endPos) / 2;
-        }
+
+    const SUMOVehicleParameter::Stop* bs = retrieveStoppingPlace(attrs, description, busStopID);
+    if (bs != nullptr) {
+        toEdge = myNet.getEdge(bs->lane.substr(0, bs->lane.rfind('_')));
+        arrivalPos = (bs->startPos + bs->endPos) / 2;
     }
     if (toEdge != nullptr) {
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
@@ -1153,9 +1149,11 @@ RORouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
             arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, myHardFail, objId, myActiveRoute.back()->getLength(), attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, objId, ok));
         }
-        const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, objId, ok, "");
+        std::string stoppingPlaceID;
+        const std::string errorSuffix = " for walk of person '" + myVehicleParameter->id + "'";
+        retrieveStoppingPlace(attrs, errorSuffix, stoppingPlaceID);
         if (ok) {
-            myActivePerson->addWalk(myActiveRoute, duration, speed, departPos, arrivalPos, busStop);
+            myActivePerson->addWalk(myActiveRoute, duration, speed, departPos, arrivalPos, stoppingPlaceID);
         }
     } else {
         addPersonTrip(attrs);
