@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-06 14:43:02 by Eclipse SUMO duarouter Version v1_9_1+0249-ed948cf
+<!-- generated on 2021-05-06 15:35:13 by Eclipse SUMO duarouter Version v1_9_1+0251-ca0a15b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -74,5 +74,35 @@ SPDX-License-Identifier: EPL-2.0
     </person>
     <person id="p25" depart="0.00">
         <walk edges="beg middle end" chargingStation="cc"/>
+    </person>
+    <person id="p31" depart="0.00">
+        <stop busStop="bs" duration="10.00"/>
+    </person>
+    <person id="p32" depart="0.00">
+        <stop busStop="ts" duration="10.00"/>
+    </person>
+    <person id="p33" depart="0.00">
+        <stop containerStop="cs" duration="10.00"/>
+    </person>
+    <person id="p34" depart="0.00">
+        <stop parkingArea="pa" duration="10.00"/>
+    </person>
+    <person id="p35" depart="0.00">
+        <stop chargingStation="cc" duration="10.00"/>
+    </person>
+    <person id="p41" depart="0.00">
+        <personTrip from="beg" to="end" arrivalPos="15.00" busStop="bs" walkFactor="0.75" costs="1454.40"/>
+    </person>
+    <person id="p42" depart="0.00">
+        <personTrip from="beg" to="end" arrivalPos="80.00" busStop="ts" walkFactor="0.75" costs="1516.80"/>
+    </person>
+    <person id="p43" depart="0.00">
+        <personTrip from="beg" to="end" arrivalPos="145.00" busStop="cs" walkFactor="0.75" costs="1579.20"/>
+    </person>
+    <person id="p44" depart="0.00">
+        <personTrip from="beg" to="end" arrivalPos="205.00" busStop="pa" walkFactor="0.75" costs="1636.80"/>
+    </person>
+    <person id="p45" depart="0.00">
+        <personTrip from="beg" to="end" arrivalPos="265.00" busStop="cc" walkFactor="0.75" costs="1694.40"/>
     </person>
 </routes>
