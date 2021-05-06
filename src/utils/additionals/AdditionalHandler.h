@@ -24,14 +24,7 @@
 #include <utils/geom/Position.h>
 #include <utils/xml/SUMOSAXHandler.h>
 
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class AdditionalContainer;
-class Parameterised;
-class GeoConvHelper;
-
+#include "CommonXMLStructure.h"
 
 // ===========================================================================
 // class definitions
@@ -48,19 +41,11 @@ class AdditionalHandler : public SUMOSAXHandler {
 public:
     /** @brief Constructor
      * @param[in] file Name of the parsed file
-     * @param[in, out] net The network to fill
-     * @param[in] detBuilder The detector builder to use
-     * @param[in] triggerBuilder The trigger builder to use
-     * @param[in] edgeBuilder The builder of edges to use
-     * @param[in] junctionBuilder The builder of junctions to use
      */
-    AdditionalHandler(const std::string& file, AdditionalContainer& sc, const GeoConvHelper* = nullptr);
+    AdditionalHandler(const std::string& file);
 
     /// @brief Destructor
     virtual ~AdditionalHandler();
-
-    /// @brief loads all of the given files
-    static bool loadFiles(const std::vector<std::string>& files, AdditionalHandler& sh);
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -85,47 +70,17 @@ protected:
     virtual void myEndElement(int element);
     //@}
 
-    /// @brief get position for a given laneID (Has to be implemented in all child)
-    virtual Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat) = 0;
-
-    /// @brief Whether some input attributes shall be automatically added as params  (Can be implemented in all child)
-    virtual bool addLanePosParams();
-
 protected:
-    /// @brief set default values
-    void setDefaults(const std::string& prefix, const RGBColor& color, const double layer, const bool fill = false);
+    /// @brief common XML Structure
+    CommonXMLStructure myCommonXMLStructure;
 
-    /// @brief adds a POI
-    void addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing);
+    /// @brief parse E1 attributes
+    void parseE1Attributes(const SUMOSAXAttributes& attrs);
 
-    /// @brief adds a polygon
-    void addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing);
+    /// @brief parse parameters
+    void parseParameters(const SUMOSAXAttributes& attrs);
 
-    /// @brief get last parameterised object
-    Parameterised* getLastParameterised() const;
-
-protected:
-    /// @brief reference to additional container in which all Shares are being added
-    AdditionalContainer& myAdditionalContainer;
-
-    /// @brief The prefix to use
-    std::string myPrefix;
-
-    /// @brief The default color to use
-    RGBColor myDefaultColor;
-
-    /// @brief The default layer to use
-    double myDefaultLayer;
-
-    /// @brief Information whether polygons should be filled
-    bool myDefaultFill;
-
-    /// @brief element to receive parameters
-    Parameterised* myLastParameterised;
-
-    /// @brief geo-conversion to use during loading
-    const GeoConvHelper* myGeoConvHelper;
-
+private:
     /// @brief invalidate copy constructor
     AdditionalHandler(const AdditionalHandler& s) = delete;
 
