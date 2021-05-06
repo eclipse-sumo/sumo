@@ -639,6 +639,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "uncontrolled",           SUMO_ATTR_UNCONTROLLED },
     { "pass",                   SUMO_ATTR_PASS },
     { "busStop",                SUMO_ATTR_BUS_STOP },
+    { "trainStop",              SUMO_ATTR_TRAIN_STOP },
     { "containerStop",          SUMO_ATTR_CONTAINER_STOP },
     { "parkingArea",            SUMO_ATTR_PARKING_AREA },
     { "roadsideCapacity",       SUMO_ATTR_ROADSIDE_CAPACITY },

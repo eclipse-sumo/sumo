@@ -149,6 +149,9 @@ protected:
     /// @brief Ends the processing of a trip
     void closeTrip();
 
+    /// @brief Parse destination stop
+    MSStoppingPlace* retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std::string& errorSuffix, SUMOVehicleParameter::Stop* stopParam = nullptr);
+
     /// @brief Processing of a stop
     void addStop(const SUMOSAXAttributes& attrs);
 

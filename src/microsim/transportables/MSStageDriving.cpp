@@ -301,7 +301,7 @@ MSStageDriving::routeOutput(const bool isPerson, OutputDevice& os, const bool wi
     os.writeAttr(SUMO_ATTR_TO, getDestination()->getID());
     std::string comment = "";
     if (myDestinationStop != nullptr) {
-        os.writeAttr(SUMO_ATTR_BUS_STOP, myDestinationStop->getID());
+        os.writeAttr(toString(myDestinationStop->getElement()), myDestinationStop->getID());
         if (myDestinationStop->getMyName() != "") {
             comment = " <!-- " + StringUtils::escapeXML(myDestinationStop->getMyName(), true) + " -->";
         }
