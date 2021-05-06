@@ -485,6 +485,10 @@ def main():
     while rerouting:
         traci.simulationStep(step)
 
+        if not traci.vehicle.getTaxiFleet(-1):
+            step += options.sim_step
+            continue
+
         # get vType for route calculation
         if not veh_type:
             fleet = traci.vehicle.getTaxiFleet(-1)
