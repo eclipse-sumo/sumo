@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 
 // ===========================================================================
@@ -30,16 +31,40 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class AdditionalHandler
- * @brief The XML-Handler for network loading
- *
- * The SAX2-handler responsible for parsing networks and routes to load.
- * This is an extension of the MSRouteHandler as routes and vehicles may also
- *  be loaded from network descriptions.
- */
+
 class CommonXMLStructure {
+
 public:
+    /// @brief XMLNode
+    class XMLNode {
+
+    public:
+        /// @brief constructor
+        XMLNode(const SumoXMLTag tag);
+
+        /// @brief destructor
+        ~XMLNode();
+
+        /// @brief XML tag
+        const SumoXMLTag tag;
+
+        /// @brief attributes
+        std::map<SumoXMLAttr, std::string> attributes;
+
+        /// @brief parameters
+        std::map<std::string, std::string> parameters;
+
+        /// @brief child XML nodes
+        std::vector<XMLNode*> children;
+
+    private:
+        /// @brief invalidate copy constructor
+        XMLNode(const XMLNode& s) = delete;
+
+        /// @brief invalidate assignment operator
+        XMLNode& operator=(const XMLNode& s) = delete;
+    };
+
     /// @brief Constructor
     CommonXMLStructure();
 

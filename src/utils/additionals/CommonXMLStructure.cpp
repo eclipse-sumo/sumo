@@ -40,6 +40,19 @@
 // method definitions
 // ===========================================================================
 
+CommonXMLStructure::XMLNode::XMLNode(const SumoXMLTag _tag) :
+	tag(_tag) {
+}
+
+
+CommonXMLStructure::XMLNode::~XMLNode() {
+	// delete all childrens
+	for (const auto &node : children) {
+		delete node;
+	}
+}
+
+
 CommonXMLStructure::CommonXMLStructure() {
 
 }
