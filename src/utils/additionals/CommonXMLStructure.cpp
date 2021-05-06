@@ -40,23 +40,101 @@
 // method definitions
 // ===========================================================================
 
-CommonXMLStructure::SumoBaseObject::SumoBaseObject(SumoBaseObject* _parent, const SumoXMLTag _tag) :
-	parent(_parent),
-	tag(_tag) {
+/*****************************/
+
+CommonXMLStructure::SumoBaseObject::SumoBaseObject(SumoBaseObject* parent, const SumoXMLTag tag) :
+	mySumoBaseObjectParent(parent),
+	myTag(tag) {
 }
 
 
 CommonXMLStructure::SumoBaseObject::~SumoBaseObject() {
 	// delete all SumoBaseObjectChildrens
-	for (const auto &sumoBaseObject : SumoBaseObjectChildren) {
+	for (const auto &sumoBaseObject : mySumoBaseObjectChildren) {
 		delete sumoBaseObject;
 	}
 }
 
 
+CommonXMLStructure::SumoBaseObject* 
+CommonXMLStructure::SumoBaseObject::getParentSumoBaseObject() const {
+	return mySumoBaseObjectParent;
+}
+
+
+void 
+CommonXMLStructure::SumoBaseObject::addAttribute(const SumoXMLAttr attr, const std::string &value) {
+	// check if attribute was already inserted
+	if (checkDuplicatedAttribute(attr)) {
+		myStringAttributes[attr] = value;
+	} else {
+		throw InvalidArgument("duplicated attribute");
+	}
+}
+
+
+void 
+CommonXMLStructure::SumoBaseObject::addAttribute(const SumoXMLAttr attr, const int value) {
+	// check if attribute was already inserted
+	if (checkDuplicatedAttribute(attr)) {
+		myIntAttributes[attr] = value;
+	} else {
+		throw InvalidArgument("duplicated attribute");
+	}
+}
+
+
+void 
+CommonXMLStructure::SumoBaseObject::addAttribute(const SumoXMLAttr attr, const double value) {
+	// check if attribute was already inserted
+	if (checkDuplicatedAttribute(attr)) {
+		myDoubleAttributes[attr] = value;
+	} else {
+		throw InvalidArgument("duplicated attribute");
+	}
+}
+
+
+void 
+CommonXMLStructure::SumoBaseObject::addAttribute(const SumoXMLAttr attr, const SUMOTime value) {
+	// check if attribute was already inserted
+	if (checkDuplicatedAttribute(attr)) {
+		mySUMOTimeAttributes[attr] = value;
+	} else {
+		throw InvalidArgument("duplicated attribute");
+	}
+}
+
+
+void 
+CommonXMLStructure::SumoBaseObject::addAttribute(const SumoXMLAttr attr, const bool value) {
+	// check if attribute was already inserted
+	if (checkDuplicatedAttribute(attr)) {
+		myBoolAttributes[attr] = value;
+	} else {
+		throw InvalidArgument("duplicated attribute");
+	}
+}
+
+
+void 
+CommonXMLStructure::SumoBaseObject::addParameter(const std::string &attr, const std::string &value) {
+	myParameters[attr] = value;
+}
+
+
+bool 
+CommonXMLStructure::SumoBaseObject::checkDuplicatedAttribute(const SumoXMLAttr attr) const {
+	return ((myStringAttributes.count(attr) + myIntAttributes.count(attr) + 
+			 myDoubleAttributes.count(attr) + mySUMOTimeAttributes.count(attr) + 
+			 myBoolAttributes.count(attr)) == 0);
+}
+
+/*****************************/
+
 CommonXMLStructure::CommonXMLStructure() :
 	mySumoBaseObjectRoot(nullptr),
-	myLastInsertedSumoBaseObjectRoot(nullptr) {
+	myLastInsertedSumoBaseObject(nullptr) {
 
 }
 
@@ -68,77 +146,35 @@ CommonXMLStructure::~CommonXMLStructure() {
 
 
 void
-CommonXMLStructure::openTag(const SumoXMLTag tag) {
+CommonXMLStructure::openTag(const SumoXMLTag myTag) {
 	// first check if root is empty
 	if (mySumoBaseObjectRoot == nullptr) {
 		// create root
-		mySumoBaseObjectRoot = new SumoBaseObject(nullptr, tag);
+		mySumoBaseObjectRoot = new SumoBaseObject(nullptr, myTag);
 		// update last inserted Root
-		myLastInsertedSumoBaseObjectRoot = mySumoBaseObjectRoot;
+		myLastInsertedSumoBaseObject = mySumoBaseObjectRoot;
 	} else {
 		// create new node
-		SumoBaseObject* newSumoBaseObject = new SumoBaseObject(myLastInsertedSumoBaseObjectRoot, tag);
+		SumoBaseObject* newSumoBaseObject = new SumoBaseObject(myLastInsertedSumoBaseObject, myTag);
 		// update last inserted node
-		myLastInsertedSumoBaseObjectRoot = newSumoBaseObject; 
+		myLastInsertedSumoBaseObject = newSumoBaseObject; 
 	}
 }
 
 
 void 
 CommonXMLStructure::closeTag() {
-	// check that myLastInsertedNode is valid
-	if (myLastInsertedSumoBaseObjectRoot) {
-		// just update last inserted node
-		myLastInsertedSumoBaseObjectRoot = myLastInsertedSumoBaseObjectRoot->parent;
+	// check that myLastInsertedSumoBaseObject is valid
+	if (myLastInsertedSumoBaseObject) {
+		// just update last inserted SumoBaseObject
+		myLastInsertedSumoBaseObject = myLastInsertedSumoBaseObject->getParentSumoBaseObject();
 	}
 }
 
 
-void 
-CommonXMLStructure::addAttribute(const SumoXMLAttr attr, const std::string &value) {
-	if (myLastInsertedSumoBaseObjectRoot) {
-		myLastInsertedSumoBaseObjectRoot->stringAttributes[attr] = value;
-	}
-}
-
-
-void 
-CommonXMLStructure::addAttribute(const SumoXMLAttr attr, const int value) {
-	if (myLastInsertedSumoBaseObjectRoot) {
-		myLastInsertedSumoBaseObjectRoot->intAttributes[attr] = value;
-	}
-}
-
-
-void 
-CommonXMLStructure::addAttribute(const SumoXMLAttr attr, const double value) {
-	if (myLastInsertedSumoBaseObjectRoot) {
-		myLastInsertedSumoBaseObjectRoot->doubleAttributes[attr] = value;
-	}
-}
-
-
-void 
-CommonXMLStructure::addAttribute(const SumoXMLAttr attr, const SUMOTime value) {
-	if (myLastInsertedSumoBaseObjectRoot) {
-		myLastInsertedSumoBaseObjectRoot->SUMOTimeAttributes[attr] = value;
-	}
-}
-
-
-void 
-CommonXMLStructure::addAttribute(const SumoXMLAttr attr, const bool value) {
-	if (myLastInsertedSumoBaseObjectRoot) {
-		myLastInsertedSumoBaseObjectRoot->boolAttributes[attr] = value;
-	}
-}
-
-
-void 
-CommonXMLStructure::addParameter(const std::string &attr, const std::string &value) {
-	if (myLastInsertedSumoBaseObjectRoot) {
-		myLastInsertedSumoBaseObjectRoot->parameters[attr] = value;
-	}
+CommonXMLStructure::SumoBaseObject* 
+CommonXMLStructure::getLastInsertedSumoBaseObject() const {
+	return myLastInsertedSumoBaseObject;
 }
 
 /****************************************************************************/

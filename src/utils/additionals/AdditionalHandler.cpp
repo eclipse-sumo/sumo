@@ -95,18 +95,18 @@ AdditionalHandler::parseE1Attributes(const SUMOSAXAttributes& attrs) {
     const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, false);
     const bool friendlyPos = attrs.get<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
     // continue if flag is ok
-    if (parsedOk) {
+    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
         // first open tag
         myCommonXMLStructure.openTag(SUMO_TAG_E1DETECTOR);
         // add all attributes
-        myCommonXMLStructure.addAttribute(SUMO_ATTR_ID, id);
-        myCommonXMLStructure.addAttribute(SUMO_ATTR_LANE, laneId);
-        myCommonXMLStructure.addAttribute(SUMO_ATTR_POSITION, position);
-        myCommonXMLStructure.addAttribute(SUMO_ATTR_FREQUENCY, frequency);
-        myCommonXMLStructure.addAttribute(SUMO_ATTR_FILE, file);
-        myCommonXMLStructure.addAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
-        myCommonXMLStructure.addAttribute(SUMO_ATTR_NAME, name);
-        myCommonXMLStructure.addAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addAttribute(SUMO_ATTR_LANE, laneId);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addAttribute(SUMO_ATTR_POSITION, position);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addAttribute(SUMO_ATTR_FREQUENCY, frequency);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addAttribute(SUMO_ATTR_FILE, file);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addAttribute(SUMO_ATTR_NAME, name);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
     }
 }
 

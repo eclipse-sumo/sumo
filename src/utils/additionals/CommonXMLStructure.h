@@ -35,36 +35,62 @@ public:
 
     public:
         /// @brief constructor
-        SumoBaseObject(SumoBaseObject* parent, const SumoXMLTag tag);
+        SumoBaseObject(SumoBaseObject* sumoBaseObjectParent, const SumoXMLTag tag);
 
         /// @brief destructor
         ~SumoBaseObject();
 
-        SumoBaseObject* parent;
+        /// @brief get pointer to mySumoBaseObjectParent SumoBaseObject (if is null, then is the root)
+        SumoBaseObject* getParentSumoBaseObject() const;
 
-        /// @brief XML tag
-        const SumoXMLTag tag;
+        /// @brief add string attribute into current SumoBaseObject node
+        void addAttribute(const SumoXMLAttr attr, const std::string &value);
+
+        /// @brief add int attribute into current SumoBaseObject node
+        void addAttribute(const SumoXMLAttr attr, const int value);
+
+        /// @brief add double attribute into current SumoBaseObject node
+        void addAttribute(const SumoXMLAttr attr, const double value);
+
+        /// @brief add SUMOTime attribute into current SumoBaseObject node
+        void addAttribute(const SumoXMLAttr attr, const SUMOTime value);
+
+        /// @brief add bool attribute into current SumoBaseObject node
+        void addAttribute(const SumoXMLAttr attr, const bool value);
+
+        /// @brief add parameter into current SumoBaseObject node
+        void addParameter(const std::string &attr, const std::string &value);
+
+    protected:
+        /// @brief pointer to SumoBaseObject parent (If is null, then is the root)
+        SumoBaseObject* mySumoBaseObjectParent;
+
+        /// @brief XML myTag
+        const SumoXMLTag myTag;
 
         /// @brief attributes string
-        std::map<const SumoXMLAttr, std::string> stringAttributes;
+        std::map<const SumoXMLAttr, std::string> myStringAttributes;
 
         /// @brief attributes int
-        std::map<const SumoXMLAttr, int> intAttributes;
+        std::map<const SumoXMLAttr, int> myIntAttributes;
 
         /// @brief attributes double
-        std::map<const SumoXMLAttr, double> doubleAttributes;
+        std::map<const SumoXMLAttr, double> myDoubleAttributes;
 
         /// @brief attributes SUMOTime
-        std::map<const SumoXMLAttr, SUMOTime> SUMOTimeAttributes;
+        std::map<const SumoXMLAttr, SUMOTime> mySUMOTimeAttributes;
 
         /// @brief attributes bool
-        std::map<const SumoXMLAttr, bool> boolAttributes;
+        std::map<const SumoXMLAttr, bool> myBoolAttributes;
 
-        /// @brief parameters
-        std::map<std::string, std::string> parameters;
+        /// @brief myParameters
+        std::map<std::string, std::string> myParameters;
 
         /// @brief SumoBaseObject children
-        std::vector<SumoBaseObject*> SumoBaseObjectChildren;
+        std::vector<SumoBaseObject*> mySumoBaseObjectChildren;
+
+        /// @brief check duplicated attribute
+        bool checkDuplicatedAttribute(const SumoXMLAttr attr) const;
 
     private:
         /// @brief invalidate copy constructor
@@ -80,36 +106,21 @@ public:
     /// @brief Destructor
     ~CommonXMLStructure();
 
-    /// @brief open tag
-    void openTag(const SumoXMLTag tag);
+    /// @brief open myTag
+    void openTag(const SumoXMLTag myTag);
 
-    /// @brief close tag
+    /// @brief close myTag
     void closeTag();
 
-    /// @brief add string attribute into current SumoBaseObject node
-    void addAttribute(const SumoXMLAttr attr, const std::string &value);
-
-    /// @brief add int attribute into current SumoBaseObject node
-    void addAttribute(const SumoXMLAttr attr, const int value);
-
-    /// @brief add double attribute into current SumoBaseObject node
-    void addAttribute(const SumoXMLAttr attr, const double value);
-
-    /// @brief add SUMOTime attribute into current SumoBaseObject node
-    void addAttribute(const SumoXMLAttr attr, const SUMOTime value);
-
-    /// @brief add bool attribute into current SumoBaseObject node
-    void addAttribute(const SumoXMLAttr attr, const bool value);
-
-    /// @brief add parameter into current SumoBaseObject node
-    void addParameter(const std::string &attr, const std::string &value);
+    /// @brief get last inserted SumoBaseObject
+    CommonXMLStructure::SumoBaseObject* getLastInsertedSumoBaseObject() const;
 
 protected:
     /// @brief SumoBaseObject root
     CommonXMLStructure::SumoBaseObject* mySumoBaseObjectRoot;
 
     /// @brief last inserted SumoBaseObject
-    CommonXMLStructure::SumoBaseObject* myLastInsertedSumoBaseObjectRoot;
+    CommonXMLStructure::SumoBaseObject* myLastInsertedSumoBaseObject;
 
 private:
     /// @brief invalidate copy constructor
