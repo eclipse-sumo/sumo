@@ -414,10 +414,10 @@ public:
         double speed = 0.;
 
         /// @brief the time at which this stop was reached
-        mutable SUMOTime actualArrival = -1;
+        mutable SUMOTime started = -1;
 
         /// @brief the time at which this stop was ended
-        SUMOTime depart = -1;
+        SUMOTime ended = -1;
 
         /// @brief lanes and positions connected to this stop (only used by duarouter where Stop is used to store stopping places)
         std::vector<std::tuple<std::string, double, double> > accessPos;

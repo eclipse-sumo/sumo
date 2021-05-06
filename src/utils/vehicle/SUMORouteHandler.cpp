@@ -523,8 +523,8 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
             return false;
         }
     }
-    stop.depart = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DEPART, nullptr, ok, -1);
-    stop.actualArrival = attrs.getOptSUMOTimeReporting(SUMO_ATTR_ACTUALARRIVAL, nullptr, ok, -1);
+    stop.started = attrs.getOptSUMOTimeReporting(SUMO_ATTR_STARTED, nullptr, ok, -1);
+    stop.ended = attrs.getOptSUMOTimeReporting(SUMO_ATTR_ENDED, nullptr, ok, -1);
     return true;
 }
 

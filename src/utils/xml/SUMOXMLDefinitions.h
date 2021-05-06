@@ -852,9 +852,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_DURATION,
     SUMO_ATTR_UNTIL,
     SUMO_ATTR_ARRIVAL,
-    SUMO_ATTR_ACTUALARRIVAL,
     SUMO_ATTR_EXTENSION,
     SUMO_ATTR_ROUTEPROBE,
+    SUMO_ATTR_STARTED,
+    SUMO_ATTR_ENDED,
     /// @}
 
     /// @brief the edges crossed by a pedestrian crossing

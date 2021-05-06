@@ -80,8 +80,8 @@ MSStop::write(OutputDevice& dev) const {
         tmp.parametersSet |= STOP_START_SET | STOP_END_SET;
     }
     tmp.write(dev, false);
-    if (pars.actualArrival >= 0) {
-        dev.writeAttr(SUMO_ATTR_ACTUALARRIVAL, time2string(pars.actualArrival));
+    if (pars.started >= 0) {
+        dev.writeAttr(SUMO_ATTR_STARTED, time2string(pars.started));
     }
     dev.closeTag();
 }

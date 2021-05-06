@@ -1650,8 +1650,8 @@ MSVehicle::processNextStop(double currentVelocity) {
                     && (!MSGlobals::gModelParkingManoeuver || myManoeuvre.entryManoeuvreIsComplete(this))) {
                 // ok, we may stop (have reached the stop)  and either we are not modelling manoeuvering or have completed entry
                 stop.reached = true;
-                if (stop.pars.actualArrival == -1) { // if not we are probably loading a state
-                    stop.pars.actualArrival = time;
+                if (stop.pars.started == -1) { // if not we are probably loading a state
+                    stop.pars.started = time;
                 }
 #ifdef DEBUG_STOPS
                 if (DEBUG_COND) {
@@ -6162,7 +6162,7 @@ MSVehicle::resumeFromStopping() {
             myCollisionImmunity = TIME2STEPS(5); // leave the conflict area
         }
         SUMOVehicleParameter::Stop pars = myStops.front().pars;
-        pars.depart = MSNet::getInstance()->getCurrentTimeStep();
+        pars.ended = MSNet::getInstance()->getCurrentTimeStep();
         myPastStops.push_back(pars);
         myStops.pop_front();
         // do not count the stopping time towards gridlock time.
@@ -6452,8 +6452,8 @@ MSVehicle::saveState(OutputDevice& out) {
     // save past stops
     for (SUMOVehicleParameter::Stop stop : myPastStops) {
         stop.write(out, false);
-        out.writeAttr(SUMO_ATTR_ACTUALARRIVAL, time2string(stop.actualArrival));
-        out.writeAttr(SUMO_ATTR_DEPART, time2string(stop.depart));
+        out.writeAttr(SUMO_ATTR_STARTED, time2string(stop.started));
+        out.writeAttr(SUMO_ATTR_ENDED, time2string(stop.ended));
         out.closeTag();
     }
     // save upcoming stops
@@ -6851,7 +6851,7 @@ MSVehicle::getStopArrivalDelay() const {
     if (hasStops() && myStops.front().pars.arrival >= 0) {
         const MSStop& stop = myStops.front();
         if (stop.reached) {
-            return STEPS2TIME(stop.pars.actualArrival - stop.pars.arrival);
+            return STEPS2TIME(stop.pars.started - stop.pars.arrival);
         } else {
             return STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) + estimateTimeToNextStop() - STEPS2TIME(stop.pars.arrival);
         }
