@@ -291,8 +291,13 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all, fleet, ve
             # add vehicle-reservation pairs
             for veh_id in fleet:
                 # calculate travel time to pickup
-                pickup_time = findRoute(traci.vehicle.getRoadID(veh_id),
-                                        res.fromEdge, veh_type,
+                if traci.vehicle.getRoadID(veh_id).startswith(':'):
+                    # avoid routing error when in intersection TODO #5829
+                    edge_index = traci.vehicle.getRouteIndex(veh_id) + 1
+                    from_edge = traci.vehicle.getRoute(veh_id)[edge_index]
+                else:
+                    from_edge = traci.vehicle.getRoadID(veh_id)
+                pickup_time = findRoute(from_edge, res.fromEdge, veh_type,
                                         routingMode=options.routing_mode).travelTime
                 if step+pickup_time <= res.tw_pickup[1]:
                     # if vehicle on time, add to rv graph
@@ -340,8 +345,13 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all, fleet, ve
                 route_id = '%s_%sy' % (veh_id, res_id)
                 if rv_dict.get(route_id, False):
                     # calculate travel time to pickup
-                    pickup_time = findRoute(traci.vehicle.getRoadID(veh_id),
-                                            res.fromEdge, veh_type,
+                    if traci.vehicle.getRoadID(veh_id).startswith(':'):
+                        # avoid routing error when in intersection TODO #5829
+                        edge_index = traci.vehicle.getRouteIndex(veh_id) + 1
+                        from_edge = traci.vehicle.getRoute(veh_id)[edge_index]
+                    else:
+                        from_edge = traci.vehicle.getRoadID(veh_id)
+                    pickup_time = findRoute(from_edge, res.fromEdge, veh_type,
                                             routingMode=options.routing_mode).travelTime
                     if step+pickup_time <= res.tw_pickup[1]:
                         # if vehicle on time, add to rv graph
@@ -364,8 +374,13 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all, fleet, ve
             route_id = '%s_%sy' % (res.vehicle, res_id)
             if rv_dict.get(route_id, False):
                 # update travel time to pickup
-                pickup_time = findRoute(traci.vehicle.getRoadID(res.vehicle),
-                                        res.fromEdge, veh_type,
+                if traci.vehicle.getRoadID(res.vehicle).startswith(':'):
+                    # avoid routing error when in intersection TODO #5829
+                    edge_index = traci.vehicle.getRouteIndex(res.vehicle) + 1
+                    from_edge = traci.vehicle.getRoute(res.vehicle)[edge_index]
+                else:
+                    from_edge = traci.vehicle.getRoadID(res.vehicle)
+                pickup_time = findRoute(from_edge, res.fromEdge, veh_type,
                                         routingMode=options.routing_mode).travelTime
                 rv_dict[route_id][0] = pickup_time+60  # TODO default stop time ticket #6714 # noqa
                 if options.debug and step+pickup_time > res.tw_pickup[1]:  # Debug only # noqa
@@ -375,8 +390,14 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all, fleet, ve
             # if reservation picked up, delete pick-up pair
             res_rv_remove.append('%sy' % res_id)
             # update travel time to drop off
-            dropoff_time = int(findRoute(traci.vehicle.getRoadID(
-                res.vehicle), res.toEdge, veh_type, routingMode=options.routing_mode).travelTime)
+            if traci.vehicle.getRoadID(res.vehicle).startswith(':'):
+                # avoid routing error when in intersection TODO #5829
+                edge_index = traci.vehicle.getRouteIndex(res.vehicle) + 1
+                from_edge = traci.vehicle.getRoute(res.vehicle)[edge_index]
+            else:
+                from_edge = traci.vehicle.getRoadID(res.vehicle)
+            dropoff_time = int(findRoute(from_edge, res.toEdge, veh_type,
+                               routingMode=options.routing_mode).travelTime)
             route_id = '%s_%sz' % (res.vehicle, res_id)
             rv_dict[route_id] = [dropoff_time+60, -1, [res.vehicle, res_id]]  # TODO default stop time ticket #6714 # noqa
         else:
@@ -640,7 +661,14 @@ def main():
                     edges = [taxi_stop.lane.split("_")[0] for taxi_stop
                              in traci.vehicle.getStops(veh_id)]
                     # add current edge to list
-                    edges.insert(0, traci.vehicle.getLaneID(veh_id).split("_")[0])  # noqa
+                    if traci.vehicle.getRoadID(veh_id).startswith(':'):
+                        # avoid routing error when in intersection TODO #5829
+                        edge_index = traci.vehicle.getRouteIndex(veh_id) + 1
+                        veh_edge = traci.vehicle.getRoute(veh_id)[edge_index]
+                    else:
+                        veh_edge = traci.vehicle.getRoadID(veh_id)
+
+                    edges.insert(0, veh_edge)  # noqa
                     # calculate travel time
                     for idx, edge in enumerate(edges[:-1]):
                         # TODO default stop time ticket #6714
