@@ -936,7 +936,7 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXML
         const MSEdge* from = nullptr;
         const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, aid.c_str(), ok);
         StringTokenizer st(desc);
-        MSStoppingPlace* s = retrieveStoppingPlace(attrs, "in " + agent + " '" + aid + "'"); 
+        MSStoppingPlace* s = retrieveStoppingPlace(attrs, "in " + agent + " '" + aid + "'");
         MSEdge* to = nullptr;
         if (s != nullptr) {
             to = &s->getLane().getEdge();
@@ -1216,15 +1216,11 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
             }
         }
 
-        std::string bsID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, nullptr, ok, "");
-        if (bsID != "") {
-            bs = MSNet::getInstance()->getStoppingPlace(bsID, SUMO_TAG_BUS_STOP);
-            if (bs == nullptr) {
-                throw ProcessError("Unknown bus stop '" + bsID + "' for " + description + ".");
-            }
+        bs = retrieveStoppingPlace(attrs, description);
+        if (bs != nullptr) {
             arrivalPos = bs->getAccessPos(toEdge != nullptr ? toEdge : &bs->getLane().getEdge());
             if (arrivalPos < 0) {
-                throw ProcessError("Bus stop '" + bsID + "' is not connected to arrival edge '" + toEdge->getID() + "' for " + description + ".");
+                throw ProcessError("Bus stop '" + bs->getID() + "' is not connected to arrival edge '" + toEdge->getID() + "' for " + description + ".");
             }
             if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
                 const double length = toEdge != nullptr ? toEdge->getLength() : bs->getLane().getLength();
