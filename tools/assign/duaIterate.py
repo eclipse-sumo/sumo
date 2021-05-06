@@ -32,6 +32,7 @@ import subprocess
 import glob
 import argparse
 import xml.etree.ElementTree as ET
+import math
 from datetime import datetime
 
 from costMemory import CostMemory
@@ -39,6 +40,8 @@ from costMemory import CostMemory
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
 from sumolib.options import get_long_option_names  # noqa
+
+DEBUGLOG = None
 
 
 def addGenericOptions(argParser):
@@ -446,6 +449,8 @@ def get_basename(demand_file):
 
 def calcMarginalCost(step, options):
     if step > 1:
+        if DEBUGLOG:
+            log = open("marginal_cost2.log", "w" if step == 2 else "a")
         tree_sumo_cur = ET.parse(os.path.join(str(step - 1), get_weightfilename(options, step - 1, "dump")))
         tree_sumo_prv = ET.parse(os.path.join(str(step - 2), get_weightfilename(options, step - 2, "dump")))
         for interval_cur in tree_sumo_cur.getroot():
@@ -460,13 +465,32 @@ def calcMarginalCost(step, options):
                                 veh_cur = float(edge_cur.get("left")) + float(edge_cur.get("arrived"))
                                 veh_prv = float(edge_prv.get("left")) + float(edge_prv.get("arrived"))
                                 tt_cur = float(edge_cur.get("traveltime"))
-                                tt_prv = float(edge_prv.get("traveltime"))
+                                tt_prv = float(edge_prv.get("overlapTraveltime"))
+                                mc_prv = float(edge_prv.get("traveltime"))
                                 dif_tt = abs(tt_cur - tt_prv)
                                 dif_veh = abs(veh_cur - veh_prv)
                                 if dif_veh != 0:
-                                    edge_cur.set("traveltime", str(dif_tt / dif_veh + tt_cur))
+                                    #mc_cur = dif_tt / dif_veh + tt_cur
+                                    #mc_cur = (dif_tt / dif_veh) * math.sqrt(veh_cur) + tt_cur
+                                    mc_cur = (dif_tt / dif_veh) * veh_cur + tt_cur
+                                else:
+                                    # previous marginal cost
+                                    mc_cur = mc_prv
+
+                                edge_cur.set("traveltime", str(mc_cur))
+                                edge_cur.set("overlapTraveltime", str(tt_cur))
+                                edgeID = edge_cur.get("id")
+                                if DEBUGLOG:
+                                    if begin_cur == "1800.00":
+                                        log.write("step=%s beg=%s e=%s tt=%s ttprev=%s n=%s nPrev=%s mC=%s mCPrev=%s\n" % (
+                                            step, begin_cur, edgeID, tt_cur, tt_prv, veh_cur, veh_prv,
+                                            mc_cur, mc_prv
+                                            ))
         tree_sumo_cur.write(
             os.path.join(str(step - 1), get_weightfilename(options, step - 1, "dump")))
+
+        if DEBUGLOG:
+            log.close()
 
 
 def main(args=None):
