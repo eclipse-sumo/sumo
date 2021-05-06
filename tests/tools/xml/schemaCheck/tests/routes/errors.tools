@@ -685,10 +685,6 @@ netedit/demandElements/vehicletype/load/width/input_routes.rou.xml:44:0:ERROR:SC
 netedit/demandElements/vehicletype/load/width/input_routes.rou.xml:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'width': '-3' is not a valid value of the atomic type 'positiveFloatType'.
 netedit/demandElements/vehicletype/load/width/input_routes.rou.xml:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'vType', attribute 'width': [facet 'minExclusive'] The value '0' must be greater than '0'.
 netedit/demandElements/vehicletype/load/width/input_routes.rou.xml:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'width': '0' is not a valid value of the atomic type 'positiveFloatType'.
-sumo/basic/container/permitted/vehroutes.sumo:38:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'transport', attribute 'arrivalPos': The attribute 'arrivalPos' is not allowed.
-sumo/basic/container/permitted/vehroutes.sumo:42:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'transport', attribute 'arrivalPos': The attribute 'arrivalPos' is not allowed.
-sumo/basic/container/permitted/vehroutes.sumo.meso:43:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'transport', attribute 'arrivalPos': The attribute 'arrivalPos' is not allowed.
-sumo/basic/container/permitted/vehroutes.sumo.meso:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'transport', attribute 'arrivalPos': The attribute 'arrivalPos' is not allowed.
 sumo/basic/networks/input_routes.rou.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'color': '-1,-1,-1' is not a valid value of the union type 'colorType'.
 sumo/basic/person/walk_0/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'walk', attribute 'duration': [facet 'minExclusive'] The value '0' must be greater than '0'.
 sumo/basic/person/walk_0/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'walk', attribute 'duration': '0' is not a valid value of the atomic type 'positiveFloatType'.
@@ -941,8 +937,6 @@ sumo/devices/rerouting/input_routes.rou.xml:376:0:ERROR:SCHEMASV:SCHEMAV_CVC_DAT
 sumo/devices/rerouting/input_routes.rou.xml:379:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'color': '-1,-1,-1' is not a valid value of the union type 'colorType'.
 sumo/devices/rerouting/input_routes.rou.xml:382:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'color': '-1,-1,-1' is not a valid value of the union type 'colorType'.
 sumo/devices/rerouting/input_routes.rou.xml:385:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'color': '-1,-1,-1' is not a valid value of the union type 'colorType'.
-sumo/devices/taxi/bugs/ticket7893_container/input_routes.rou.xml:12:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'transport', attribute 'arrivalPos': The attribute 'arrivalPos' is not allowed.
-sumo/devices/taxi/idling/stop/1container/vehroutes.sumo:39:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'transport', attribute 'arrivalPos': The attribute 'arrivalPos' is not allowed.
 sumo/spec/arrival/arrivalEdge/edge_negative/input_routes.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'arrivalEdge': '-1' is not a valid value of the union type 'routeIndexType'.
 sumo/spec/departure/departEdge/edge_negative/input_routes.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'departEdge': '-1' is not a valid value of the union type 'routeIndexType'.
 tools/route/routecheck/missing_edges_attribute/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_2_3: Element 'route': Character content other than whitespace is not allowed because the content type is 'element-only'.

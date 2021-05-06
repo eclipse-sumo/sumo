@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-06 09:59:51 by Eclipse SUMO sumo Version v1_9_1+0235-6ddfa9a
+<!-- generated on 2021-05-06 12:43:30 by Eclipse SUMO sumo Version v1_9_1+0242-7657709
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ SPDX-License-Identifier: EPL-2.0
         <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
         <vehroute-output.exit-times value="true"/>
-        <vehroute-output.skip-ptlines value="true"/>
     </output>
 
     <processing>
@@ -36,14 +35,15 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="p0" depart="0.00" arrival="660.00">
-        <walk edges="beg" busStop="beg_0" exitTimes="201.00"/> <!-- blubber -->
-        <ride from="beg" to="end" busStop="end_0" lines="bus" intended="bus.1" depart="310.00" exitTime="459.00"/>
-        <walk edges="end" exitTimes="660.00"/>
+    <person id="p0" depart="0.00" arrival="159.00">
+        <ride from="beg" to="end" parkingArea="pEnd" lines="car" exitTime="159.00"/>
     </person>
 
-    <person id="p1" depart="0.00" arrival="999.00">
-        <walk edges="end middle beg" exitTimes="1.00 801.00 999.00"/>
-    </person>
+    <vehicle id="car" depart="0.00" arrival="210.00">
+        <route edges="beg beg2left left left2end end" exitTimes="33.00 58.00 111.00 135.00 210.00"/>
+        <stop busStop="beg_0" until="10.00"/>
+        <stop busStop="left_0" until="110.00"/>
+        <stop busStop="end_0" until="210.00"/>
+    </vehicle>
 
 </routes>
