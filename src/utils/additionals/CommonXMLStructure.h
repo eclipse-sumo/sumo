@@ -30,48 +30,48 @@
 class CommonXMLStructure {
 
 public:
-    /// @brief XMLNode
-    class XMLNode {
+    /// @brief SumoBaseObject
+    class SumoBaseObject {
 
     public:
         /// @brief constructor
-        XMLNode(const XMLNode* parent, const SumoXMLTag tag);
+        SumoBaseObject(SumoBaseObject* parent, const SumoXMLTag tag);
 
         /// @brief destructor
-        ~XMLNode();
+        ~SumoBaseObject();
 
-        const XMLNode* parent;
+        SumoBaseObject* parent;
 
         /// @brief XML tag
         const SumoXMLTag tag;
 
         /// @brief attributes string
-        std::map<const SumoXMLAttr, std::string> attributesStr;
+        std::map<const SumoXMLAttr, std::string> stringAttributes;
 
         /// @brief attributes int
-        std::map<const SumoXMLAttr, int> attributesInt;
+        std::map<const SumoXMLAttr, int> intAttributes;
 
         /// @brief attributes double
-        std::map<const SumoXMLAttr, double> attributesDouble;
+        std::map<const SumoXMLAttr, double> doubleAttributes;
 
         /// @brief attributes SUMOTime
-        std::map<const SumoXMLAttr, SUMOTime> attributesSUMOTime;
+        std::map<const SumoXMLAttr, SUMOTime> SUMOTimeAttributes;
 
         /// @brief attributes bool
-        std::map<const SumoXMLAttr, bool> attributesBool;
+        std::map<const SumoXMLAttr, bool> boolAttributes;
 
         /// @brief parameters
         std::map<std::string, std::string> parameters;
 
-        /// @brief child XML nodes
-        std::vector<XMLNode*> children;
+        /// @brief SumoBaseObject children
+        std::vector<SumoBaseObject*> SumoBaseObjectChildren;
 
     private:
         /// @brief invalidate copy constructor
-        XMLNode(const XMLNode& s) = delete;
+        SumoBaseObject(const SumoBaseObject& s) = delete;
 
         /// @brief invalidate assignment operator
-        XMLNode& operator=(const XMLNode& s) = delete;
+        SumoBaseObject& operator=(const SumoBaseObject& s) = delete;
     };
 
     /// @brief Constructor
@@ -86,30 +86,30 @@ public:
     /// @brief close tag
     void closeTag();
 
-    /// @brief add string attribute into current node
+    /// @brief add string attribute into current SumoBaseObject node
     void addAttribute(const SumoXMLAttr attr, const std::string &value);
 
-    /// @brief add int attribute into current node
+    /// @brief add int attribute into current SumoBaseObject node
     void addAttribute(const SumoXMLAttr attr, const int value);
 
-    /// @brief add double attribute into current node
+    /// @brief add double attribute into current SumoBaseObject node
     void addAttribute(const SumoXMLAttr attr, const double value);
 
-    /// @brief add SUMOTime attribute into current node
+    /// @brief add SUMOTime attribute into current SumoBaseObject node
     void addAttribute(const SumoXMLAttr attr, const SUMOTime value);
 
-    /// @brief add bool attribute into current node
+    /// @brief add bool attribute into current SumoBaseObject node
     void addAttribute(const SumoXMLAttr attr, const bool value);
 
-    /// @brief add parameter into current node
+    /// @brief add parameter into current SumoBaseObject node
     void addParameter(const std::string &attr, const std::string &value);
 
 protected:
-    /// @brief root
-    CommonXMLStructure::XMLNode* myRoot;
+    /// @brief SumoBaseObject root
+    CommonXMLStructure::SumoBaseObject* mySumoBaseObjectRoot;
 
-    /// @brief last inserted node
-    CommonXMLStructure::XMLNode* myLastInsertedNode;
+    /// @brief last inserted SumoBaseObject
+    CommonXMLStructure::SumoBaseObject* myLastInsertedSumoBaseObjectRoot;
 
 private:
     /// @brief invalidate copy constructor

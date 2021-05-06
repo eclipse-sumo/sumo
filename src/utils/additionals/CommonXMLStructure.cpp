@@ -40,46 +40,46 @@
 // method definitions
 // ===========================================================================
 
-CommonXMLStructure::XMLNode::XMLNode(const XMLNode* _parent, const SumoXMLTag _tag) :
+CommonXMLStructure::SumoBaseObject::SumoBaseObject(SumoBaseObject* _parent, const SumoXMLTag _tag) :
 	parent(_parent),
 	tag(_tag) {
 }
 
 
-CommonXMLStructure::XMLNode::~XMLNode() {
-	// delete all childrens
-	for (const auto &node : children) {
-		delete node;
+CommonXMLStructure::SumoBaseObject::~SumoBaseObject() {
+	// delete all SumoBaseObjectChildrens
+	for (const auto &sumoBaseObject : SumoBaseObjectChildren) {
+		delete sumoBaseObject;
 	}
 }
 
 
 CommonXMLStructure::CommonXMLStructure() :
-	myRoot(nullptr),
-	myLastInsertedNode(nullptr) {
+	mySumoBaseObjectRoot(nullptr),
+	myLastInsertedSumoBaseObjectRoot(nullptr) {
 
 }
 
 
 CommonXMLStructure::~CommonXMLStructure() {
-	// delete root (this will also delete all childrens)
-	delete myRoot;
+	// delete mySumoBaseObjectRoot (this will also delete all SumoBaseObjectChildrens)
+	delete mySumoBaseObjectRoot;
 }
 
 
 void
 CommonXMLStructure::openTag(const SumoXMLTag tag) {
 	// first check if root is empty
-	if (myRoot == nullptr) {
+	if (mySumoBaseObjectRoot == nullptr) {
 		// create root
-		myRoot = new XMLNode(nullptr, tag);
-		// update last inserted node
-		myLastInsertedNode = myRoot;
+		mySumoBaseObjectRoot = new SumoBaseObject(nullptr, tag);
+		// update last inserted Root
+		myLastInsertedSumoBaseObjectRoot = mySumoBaseObjectRoot;
 	} else {
 		// create new node
-		XMLNode* newNode = new XMLNode(myLastInsertedNode, tag);
+		SumoBaseObject* newSumoBaseObject = new SumoBaseObject(myLastInsertedSumoBaseObjectRoot, tag);
 		// update last inserted node
-		myLastInsertedNode = newNode; 
+		myLastInsertedSumoBaseObjectRoot = newSumoBaseObject; 
 	}
 }
 
@@ -87,57 +87,57 @@ CommonXMLStructure::openTag(const SumoXMLTag tag) {
 void 
 CommonXMLStructure::closeTag() {
 	// check that myLastInsertedNode is valid
-	if (myLastInsertedNode) {
+	if (myLastInsertedSumoBaseObjectRoot) {
 		// just update last inserted node
-		myLastInsertedNode = myLastInsertedNode->parent;
+		myLastInsertedSumoBaseObjectRoot = myLastInsertedSumoBaseObjectRoot->parent;
 	}
 }
 
 
 void 
 CommonXMLStructure::addAttribute(const SumoXMLAttr attr, const std::string &value) {
-	if (myLastInsertedNode) {
-		myLastInsertedNode->attributesStr[attr] = value;
+	if (myLastInsertedSumoBaseObjectRoot) {
+		myLastInsertedSumoBaseObjectRoot->stringAttributes[attr] = value;
 	}
 }
 
 
 void 
 CommonXMLStructure::addAttribute(const SumoXMLAttr attr, const int value) {
-	if (myLastInsertedNode) {
-		myLastInsertedNode->attributesInt[attr] = value;
+	if (myLastInsertedSumoBaseObjectRoot) {
+		myLastInsertedSumoBaseObjectRoot->intAttributes[attr] = value;
 	}
 }
 
 
 void 
 CommonXMLStructure::addAttribute(const SumoXMLAttr attr, const double value) {
-	if (myLastInsertedNode) {
-		myLastInsertedNode->attributesDouble[attr] = value;
+	if (myLastInsertedSumoBaseObjectRoot) {
+		myLastInsertedSumoBaseObjectRoot->doubleAttributes[attr] = value;
 	}
 }
 
 
 void 
 CommonXMLStructure::addAttribute(const SumoXMLAttr attr, const SUMOTime value) {
-	if (myLastInsertedNode) {
-		myLastInsertedNode->attributesSUMOTime[attr] = value;
+	if (myLastInsertedSumoBaseObjectRoot) {
+		myLastInsertedSumoBaseObjectRoot->SUMOTimeAttributes[attr] = value;
 	}
 }
 
 
 void 
 CommonXMLStructure::addAttribute(const SumoXMLAttr attr, const bool value) {
-	if (myLastInsertedNode) {
-		myLastInsertedNode->attributesBool[attr] = value;
+	if (myLastInsertedSumoBaseObjectRoot) {
+		myLastInsertedSumoBaseObjectRoot->boolAttributes[attr] = value;
 	}
 }
 
 
 void 
 CommonXMLStructure::addParameter(const std::string &attr, const std::string &value) {
-	if (myLastInsertedNode) {
-		myLastInsertedNode->parameters[attr] = value;
+	if (myLastInsertedSumoBaseObjectRoot) {
+		myLastInsertedSumoBaseObjectRoot->parameters[attr] = value;
 	}
 }
 
