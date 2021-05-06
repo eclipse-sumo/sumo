@@ -1,0 +1,8 @@
+<routes>
+    <person id="p1" depart="0"> <ride from="beg" lines="ANY" busStop="bs" /> </person>
+    <person id="p2" depart="0"> <ride from="beg" lines="ANY" trainStop="ts" /> </person>
+    <person id="p3" depart="0"> <ride from="beg" lines="ANY" containerStop="cs" /> </person>
+    <person id="p4" depart="0"> <ride from="beg" lines="ANY" parkingArea="pa" /> </person>
+    <person id="p5" depart="0"> <ride from="beg" lines="ANY" chargingStation="cc" /> </person>
+
+</routes>
