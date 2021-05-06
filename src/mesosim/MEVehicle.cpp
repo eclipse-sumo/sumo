@@ -278,18 +278,18 @@ MEVehicle::processStop() {
         if (net->hasContainers()) {
             net->getContainerControl().loadAnyWaiting(edge, this, stop.pars, dummy, dummy);
         }
+        SUMOVehicleParameter::Stop pars = stop.pars;
+        pars.ended = MSNet::getInstance()->getCurrentTimeStep();
         MSDevice_Vehroutes* vehroutes = static_cast<MSDevice_Vehroutes*>(getDevice(typeid(MSDevice_Vehroutes)));
         if (vehroutes != nullptr) {
-            vehroutes->stopEnded(stop.pars);
+            vehroutes->stopEnded(pars);
         }
         if (MSStopOut::active()) {
             if (hadStop) {
                 MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
             }
-            MSStopOut::getInstance()->stopEnded(this, stop.pars, mySegment->getEdge().getID());
+            MSStopOut::getInstance()->stopEnded(this, pars, mySegment->getEdge().getID());
         }
-        SUMOVehicleParameter::Stop pars = stop.pars;
-        pars.ended = MSNet::getInstance()->getCurrentTimeStep();
         myPastStops.emplace_back(pars);
         it = myStops.erase(it);
         hadStop = true;

@@ -6151,18 +6151,18 @@ MSVehicle::resumeFromStopping() {
         }
         // the current stop is no longer valid
         myLane->getEdge().removeWaiting(this);
+        SUMOVehicleParameter::Stop pars = myStops.front().pars;
+        pars.ended = MSNet::getInstance()->getCurrentTimeStep();
         MSDevice_Vehroutes* vehroutes = static_cast<MSDevice_Vehroutes*>(getDevice(typeid(MSDevice_Vehroutes)));
         if (vehroutes != nullptr) {
-            vehroutes->stopEnded(myStops.front().pars);
+            vehroutes->stopEnded(pars);
         }
         if (MSStopOut::active()) {
-            MSStopOut::getInstance()->stopEnded(this, myStops.front().pars, myStops.front().lane->getID());
+            MSStopOut::getInstance()->stopEnded(this, pars, myStops.front().lane->getID());
         }
         if (myStops.front().collision && MSLane::getCollisionAction() == MSLane::COLLISION_ACTION_WARN) {
             myCollisionImmunity = TIME2STEPS(5); // leave the conflict area
         }
-        SUMOVehicleParameter::Stop pars = myStops.front().pars;
-        pars.ended = MSNet::getInstance()->getCurrentTimeStep();
         myPastStops.push_back(pars);
         myStops.pop_front();
         // do not count the stopping time towards gridlock time.

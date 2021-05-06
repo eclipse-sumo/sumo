@@ -187,10 +187,17 @@ MSDevice_Vehroutes::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMo
 
 void
 MSDevice_Vehroutes::stopEnded(const SUMOVehicleParameter::Stop& stop) {
-    stop.write(myStopOut, !myWriteStopPriorEdges);
+    const bool closeLater = myWriteStopPriorEdges || mySaveExits;
+    stop.write(myStopOut, !closeLater);
     if (myWriteStopPriorEdges) {
         myStopOut.writeAttr("priorEdges", myPriorEdges);
         myPriorEdges.clear();
+    }
+    if (mySaveExits) {
+        myStopOut.writeAttr(SUMO_ATTR_STARTED, time2string(stop.started));
+        myStopOut.writeAttr(SUMO_ATTR_ENDED, stop.ended < 0 ? "-1" : time2string(stop.ended));
+    }
+    if (closeLater) {
         myStopOut.closeTag();
     }
 }
