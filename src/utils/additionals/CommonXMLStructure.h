@@ -40,16 +40,18 @@ public:
 
     public:
         /// @brief constructor
-        XMLNode(const SumoXMLTag tag);
+        XMLNode(XMLNode* parent, const SumoXMLTag tag);
 
         /// @brief destructor
         ~XMLNode();
+
+        XMLNode* parent;
 
         /// @brief XML tag
         const SumoXMLTag tag;
 
         /// @brief attributes
-        std::map<SumoXMLAttr, std::string> attributes;
+        std::map<const SumoXMLAttr, std::string> attributes;
 
         /// @brief parameters
         std::map<std::string, std::string> parameters;
@@ -71,8 +73,24 @@ public:
     /// @brief Destructor
     ~CommonXMLStructure();
 
-protected:
+    /// @brief open tag
+    void openTag(const SumoXMLTag tag);
 
+    /// @brief close tag
+    void closeTag();
+
+    /// @brief add attribute into current node
+    void addAttribute(const SumoXMLAttr attr, const std::string &value);
+
+    /// @brief add parameter into current node
+    void addParameter(const std::string &attr, const std::string &value);
+
+protected:
+    /// @brief root
+    CommonXMLStructure::XMLNode* myRoot;
+
+    /// @brief last inserted node
+    CommonXMLStructure::XMLNode* myLastInsertedNode;
 
 private:
     /// @brief invalidate copy constructor

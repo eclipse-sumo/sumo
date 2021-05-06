@@ -40,7 +40,8 @@
 // method definitions
 // ===========================================================================
 
-CommonXMLStructure::XMLNode::XMLNode(const SumoXMLTag _tag) :
+CommonXMLStructure::XMLNode::XMLNode(XMLNode* _parent, const SumoXMLTag _tag) :
+	parent(_parent),
 	tag(_tag) {
 }
 
@@ -53,12 +54,59 @@ CommonXMLStructure::XMLNode::~XMLNode() {
 }
 
 
-CommonXMLStructure::CommonXMLStructure() {
+CommonXMLStructure::CommonXMLStructure() :
+	myRoot(nullptr),
+	myLastInsertedNode(nullptr) {
 
 }
 
 
-CommonXMLStructure::~CommonXMLStructure() {}
+CommonXMLStructure::~CommonXMLStructure() {
+	// delete root (this will also delete all childrens)
+	delete myRoot;
+}
 
+
+void
+CommonXMLStructure::openTag(const SumoXMLTag tag) {
+	// first check if root is empty
+	if (myRoot == nullptr) {
+		// create root
+		myRoot = new XMLNode(nullptr, tag);
+		// update last inserted node
+		myLastInsertedNode = myRoot;
+	} else {
+		// create new node
+		XMLNode* newNode = new XMLNode(myLastInsertedNode, tag);
+		// update last inserted node
+		myLastInsertedNode = newNode; 
+	}
+}
+
+
+void 
+CommonXMLStructure::closeTag() {
+	// check that myLastInsertedNode is valid
+	if (myLastInsertedNode) {
+		// just update last inserted node
+		myLastInsertedNode = myLastInsertedNode->parent;
+	}
+}
+
+
+void 
+CommonXMLStructure::addAttribute(const SumoXMLAttr attr, const std::string &value) {
+	if (myLastInsertedNode) {
+		myLastInsertedNode->attributes[attr] = value;
+	}
+}
+
+
+void 
+CommonXMLStructure::addParameter(const std::string &attr, const std::string &value) {
+	if (myLastInsertedNode) {
+		myLastInsertedNode->parameters[attr] = value;
+	}
+}
 
 /****************************************************************************/
