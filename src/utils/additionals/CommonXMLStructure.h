@@ -24,11 +24,6 @@
 
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -40,18 +35,30 @@ public:
 
     public:
         /// @brief constructor
-        XMLNode(XMLNode* parent, const SumoXMLTag tag);
+        XMLNode(const XMLNode* parent, const SumoXMLTag tag);
 
         /// @brief destructor
         ~XMLNode();
 
-        XMLNode* parent;
+        const XMLNode* parent;
 
         /// @brief XML tag
         const SumoXMLTag tag;
 
-        /// @brief attributes
-        std::map<const SumoXMLAttr, std::string> attributes;
+        /// @brief attributes string
+        std::map<const SumoXMLAttr, std::string> attributesStr;
+
+        /// @brief attributes int
+        std::map<const SumoXMLAttr, int> attributesInt;
+
+        /// @brief attributes double
+        std::map<const SumoXMLAttr, double> attributesDouble;
+
+        /// @brief attributes SUMOTime
+        std::map<const SumoXMLAttr, SUMOTime> attributesSUMOTime;
+
+        /// @brief attributes bool
+        std::map<const SumoXMLAttr, bool> attributesBool;
 
         /// @brief parameters
         std::map<std::string, std::string> parameters;
@@ -79,8 +86,20 @@ public:
     /// @brief close tag
     void closeTag();
 
-    /// @brief add attribute into current node
+    /// @brief add string attribute into current node
     void addAttribute(const SumoXMLAttr attr, const std::string &value);
+
+    /// @brief add int attribute into current node
+    void addAttribute(const SumoXMLAttr attr, const int value);
+
+    /// @brief add double attribute into current node
+    void addAttribute(const SumoXMLAttr attr, const double value);
+
+    /// @brief add SUMOTime attribute into current node
+    void addAttribute(const SumoXMLAttr attr, const SUMOTime value);
+
+    /// @brief add bool attribute into current node
+    void addAttribute(const SumoXMLAttr attr, const bool value);
 
     /// @brief add parameter into current node
     void addParameter(const std::string &attr, const std::string &value);

@@ -40,7 +40,7 @@
 // method definitions
 // ===========================================================================
 
-CommonXMLStructure::XMLNode::XMLNode(XMLNode* _parent, const SumoXMLTag _tag) :
+CommonXMLStructure::XMLNode::XMLNode(const XMLNode* _parent, const SumoXMLTag _tag) :
 	parent(_parent),
 	tag(_tag) {
 }
@@ -97,7 +97,39 @@ CommonXMLStructure::closeTag() {
 void 
 CommonXMLStructure::addAttribute(const SumoXMLAttr attr, const std::string &value) {
 	if (myLastInsertedNode) {
-		myLastInsertedNode->attributes[attr] = value;
+		myLastInsertedNode->attributesStr[attr] = value;
+	}
+}
+
+
+void 
+CommonXMLStructure::addAttribute(const SumoXMLAttr attr, const int value) {
+	if (myLastInsertedNode) {
+		myLastInsertedNode->attributesInt[attr] = value;
+	}
+}
+
+
+void 
+CommonXMLStructure::addAttribute(const SumoXMLAttr attr, const double value) {
+	if (myLastInsertedNode) {
+		myLastInsertedNode->attributesDouble[attr] = value;
+	}
+}
+
+
+void 
+CommonXMLStructure::addAttribute(const SumoXMLAttr attr, const SUMOTime value) {
+	if (myLastInsertedNode) {
+		myLastInsertedNode->attributesSUMOTime[attr] = value;
+	}
+}
+
+
+void 
+CommonXMLStructure::addAttribute(const SumoXMLAttr attr, const bool value) {
+	if (myLastInsertedNode) {
+		myLastInsertedNode->attributesBool[attr] = value;
 	}
 }
 
