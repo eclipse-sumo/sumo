@@ -203,28 +203,26 @@ RORouteHandler::myStartElement(int element,
                 throw ProcessError("The start edge for person '" + pid + "' is not known.");
             }
             ROEdge* to = nullptr;
-            const SUMOVehicleParameter::Stop* stop = nullptr;
-            const std::string toID = attrs.getOpt<std::string>(SUMO_ATTR_TO, pid.c_str(), ok, "");
-            const std::string busStopID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, pid.c_str(), ok, "");
-            if (toID != "") {
-                to = myNet.getEdge(toID);
-                if (to == nullptr) {
-                    throw ProcessError("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
-                }
-            } else if (busStopID != "") {
-                stop = myNet.getStoppingPlace(busStopID, SUMO_TAG_BUS_STOP);
-                if (stop == nullptr) {
-                    throw ProcessError("Unknown bus stop '" + busStopID + "' within a ride of '" + myVehicleParameter->id + "'.");
-                }
+            std::string stoppingPlaceID;
+            const SUMOVehicleParameter::Stop* stop = retrieveStoppingPlace(attrs, " for ride of person '" + myVehicleParameter->id + "'", stoppingPlaceID);
+            if (stop != nullptr) {
                 to = myNet.getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(stop->lane));
             } else {
-                throw ProcessError("The to edge '' within a ride of '" + myVehicleParameter->id + "' is not known.");
+                const std::string toID = attrs.getOpt<std::string>(SUMO_ATTR_TO, pid.c_str(), ok, "");
+                if (toID != "") {
+                    to = myNet.getEdge(toID);
+                    if (to == nullptr) {
+                        throw ProcessError("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
+                    }
+                } else {
+                    throw ProcessError("The to edge is missing within a ride of '" + myVehicleParameter->id + "'.");
+                }
             }
             double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok,
                                 stop == nullptr ? std::numeric_limits<double>::infinity() : stop->endPos);
             const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
             const std::string group = attrs.getOpt<std::string>(SUMO_ATTR_GROUP, pid.c_str(), ok, "");
-            myActivePerson->addRide(from, to, desc, arrivalPos, busStopID, group);
+            myActivePerson->addRide(from, to, desc, arrivalPos, stoppingPlaceID, group);
             break;
         }
         case SUMO_TAG_CONTAINER:
@@ -737,6 +735,57 @@ RORouteHandler::closeTrip() {
     closeVehicle();
 }
 
+const SUMOVehicleParameter::Stop*
+RORouteHandler::retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std::string& errorSuffix, std::string& id, const SUMOVehicleParameter::Stop* stopParam) {
+    // dummy stop parameter to hold the attributes
+    SUMOVehicleParameter::Stop stop;
+    if (stopParam != nullptr) {
+        stop = *stopParam;
+    } else {
+        bool ok = true;
+        stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, nullptr, ok, "");
+        stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_TRAIN_STOP, nullptr, ok, stop.busstop); // alias
+        stop.chargingStation = attrs.getOpt<std::string>(SUMO_ATTR_CHARGING_STATION, nullptr, ok, "");
+        stop.overheadWireSegment = attrs.getOpt<std::string>(SUMO_ATTR_OVERHEAD_WIRE_SEGMENT, nullptr, ok, "");
+        stop.containerstop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, nullptr, ok, "");
+        stop.parkingarea = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, nullptr, ok, "");
+    }
+    const SUMOVehicleParameter::Stop* toStop = nullptr;
+    if (stop.busstop != "") {
+        toStop = myNet.getStoppingPlace(stop.busstop, SUMO_TAG_BUS_STOP);
+        id = stop.busstop;
+        if (toStop == nullptr) {
+            WRITE_ERROR("The busStop '" + stop.busstop + "' is not known" + errorSuffix);
+        }
+    } else if (stop.containerstop != "") {
+        toStop = myNet.getStoppingPlace(stop.containerstop, SUMO_TAG_CONTAINER_STOP);
+        id = stop.containerstop;
+        if (toStop == nullptr) {
+            WRITE_ERROR("The containerStop '" + stop.containerstop + "' is not known" + errorSuffix);
+        }
+    } else if (stop.parkingarea != "") {
+        toStop = myNet.getStoppingPlace(stop.parkingarea, SUMO_TAG_PARKING_AREA);
+        id = stop.parkingarea;
+        if (toStop == nullptr) {
+            WRITE_ERROR("The parkingArea '" + stop.parkingarea + "' is not known" + errorSuffix);
+        }
+    } else if (stop.chargingStation != "") {
+        // ok, we have a charging station
+        toStop = myNet.getStoppingPlace(stop.chargingStation, SUMO_TAG_CHARGING_STATION);
+        id = stop.chargingStation;
+        if (toStop == nullptr) {
+            WRITE_ERROR("The chargingStation '" + stop.chargingStation + "' is not known" + errorSuffix);
+        }
+    } else if (stop.overheadWireSegment != "") {
+        // ok, we have an overhead wire segment
+        toStop = myNet.getStoppingPlace(stop.overheadWireSegment, SUMO_TAG_OVERHEAD_WIRE_SEGMENT);
+        id = stop.overheadWireSegment;
+        if (toStop == nullptr) {
+            WRITE_ERROR("The overhead wire segment '" + stop.overheadWireSegment + "' is not known" + errorSuffix);
+        }
+    }
+    return toStop;
+}
 
 void
 RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
@@ -764,37 +813,12 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     }
     // try to parse the assigned bus stop
     ROEdge* edge = nullptr;
-    if (stop.busstop != "") {
-        const SUMOVehicleParameter::Stop* busstop = myNet.getStoppingPlace(stop.busstop, SUMO_TAG_BUS_STOP);
-        if (busstop == nullptr) {
-            myErrorOutput->inform("Unknown bus stop '" + stop.busstop + "'" + errorSuffix);
-            return;
-        }
-        stop.lane = busstop->lane;
-        stop.endPos = busstop->endPos;
-        stop.startPos = busstop->startPos;
-        edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
-    } // try to parse the assigned container stop
-    else if (stop.containerstop != "") {
-        const SUMOVehicleParameter::Stop* containerstop = myNet.getStoppingPlace(stop.containerstop, SUMO_TAG_CONTAINER_STOP);
-        if (containerstop == nullptr) {
-            myErrorOutput->inform("Unknown container stop '" + stop.containerstop + "'" + errorSuffix);
-            return;
-        }
-        stop.lane = containerstop->lane;
-        stop.endPos = containerstop->endPos;
-        stop.startPos = containerstop->startPos;
-        edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
-    } // try to parse the assigned parking area
-    else if (stop.parkingarea != "") {
-        const SUMOVehicleParameter::Stop* parkingarea = myNet.getStoppingPlace(stop.parkingarea, SUMO_TAG_PARKING_AREA);
-        if (parkingarea == nullptr) {
-            myErrorOutput->inform("Unknown parking area '" + stop.parkingarea + "'" + errorSuffix);
-            return;
-        }
-        stop.lane = parkingarea->lane;
-        stop.endPos = parkingarea->endPos;
-        stop.startPos = parkingarea->startPos;
+    std::string stoppingPlaceID;
+    const SUMOVehicleParameter::Stop* stoppingPlace = retrieveStoppingPlace(attrs, errorSuffix, stoppingPlaceID, &stop);
+    if (stoppingPlace != nullptr) {
+        stop.lane = stoppingPlace->lane;
+        stop.endPos = stoppingPlace->endPos;
+        stop.startPos = stoppingPlace->startPos;
         edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
     } else {
         // no, the lane and the position should be given

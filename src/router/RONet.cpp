@@ -792,6 +792,19 @@ RONet::getStoppingPlaceName(const std::string& id) const {
     return "";
 }
 
+const std::string
+RONet::getStoppingPlaceElement(const std::string& id) const {
+    for (const auto& mapItem : myStoppingPlaces) {
+        SUMOVehicleParameter::Stop* stop = mapItem.second.get(id);
+        if (stop != nullptr) {
+            // see RONetHandler::parseStoppingPlace
+            return stop->actType;
+        }
+    }
+    return toString(SUMO_TAG_BUS_STOP);
+}
+
+
 #ifdef HAVE_FOX
 // ---------------------------------------------------------------------------
 // RONet::RoutingTask-methods

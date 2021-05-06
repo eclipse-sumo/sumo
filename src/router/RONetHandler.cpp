@@ -89,6 +89,8 @@ RONetHandler::myStartElement(int element,
         case SUMO_TAG_TRAIN_STOP:
         case SUMO_TAG_CONTAINER_STOP:
         case SUMO_TAG_PARKING_AREA:
+        case SUMO_TAG_CHARGING_STATION:
+        case SUMO_TAG_OVERHEAD_WIRE_SEGMENT:
             parseStoppingPlace(attrs, (SumoXMLTag)element);
             break;
         case SUMO_TAG_ACCESS:
@@ -348,6 +350,8 @@ RONetHandler::parseStoppingPlace(const SUMOSAXAttributes& attrs, const SumoXMLTa
     }
     // this is a hack: the busstop attribute is meant to hold the id within the simulation context but this is not used within the router context
     myCurrentStoppingPlace->busstop = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
+    // this is a hack: the actType is not used when using this to encode a stopping place 
+    myCurrentStoppingPlace->actType = toString(element);
     myNet.addStoppingPlace(id, element, myCurrentStoppingPlace);
 }
 
