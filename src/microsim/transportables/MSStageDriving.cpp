@@ -318,6 +318,9 @@ MSStageDriving::routeOutput(const bool isPerson, OutputDevice& os, const bool wi
     if (withRouteLength) {
         os.writeAttr("routeLength", myVehicleDistance);
     }
+    if (OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
+        os.writeAttr("exitTime", myArrived >= 0 ? time2string(myArrived) : "-1");
+    }
     os.closeTag(comment);
 }
 

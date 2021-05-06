@@ -847,6 +847,7 @@
                     <xsd:attribute name="depart" type="timeType" use="optional"/>
                     <xsd:attribute name="routeLength" type="xsd:float"/>
                     <xsd:attribute name="group" type="xsd:string" use="optional"/>
+                    <xsd:attribute name="exitTime" type="timeType"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="walk">
@@ -913,6 +914,7 @@
                     <xsd:attribute name="from" type="xsd:string"/>
                     <xsd:attribute name="to" type="xsd:string" use="required"/>
                     <xsd:attribute name="lines" type="xsd:string" use="required"/>
+                    <xsd:attribute name="exitTime" type="timeType"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="tranship">
