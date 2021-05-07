@@ -66,6 +66,8 @@ public:
         /// @brief get parameters
         const std::map<std::string, std::string> &getParameters() const;
 
+        /// @brief get SumoBaseObject children
+        const std::vector<SumoBaseObject*> &getSumoBaseObjectChildren() const;
         /// @}
 
         /// @name add functions
@@ -86,7 +88,7 @@ public:
         void addSUMOTimeAttribute(const SumoXMLAttr attr, const SUMOTime value);
 
         /// @brief add parameter into current SumoBaseObject node
-        void addParameter(const std::string &attr, const std::string &value);
+        void addParameter(const std::string &key, const std::string &value);
         /// @}
 
     protected:
@@ -139,6 +141,9 @@ public:
 
     /// @brief close myTag
     void closeTag();
+
+    /// @brief get SumoBaseObject root
+    CommonXMLStructure::SumoBaseObject* getSumoBaseObjectRoot() const;
 
     /// @brief get last inserted SumoBaseObject
     CommonXMLStructure::SumoBaseObject* getLastInsertedSumoBaseObject() const;

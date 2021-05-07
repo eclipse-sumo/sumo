@@ -115,6 +115,12 @@ CommonXMLStructure::SumoBaseObject::getParameters() const {
 }
 
 
+const std::vector<CommonXMLStructure::SumoBaseObject*>&
+CommonXMLStructure::SumoBaseObject::getSumoBaseObjectChildren() const {
+    return mySumoBaseObjectChildren;
+}
+
+
 void 
 CommonXMLStructure::SumoBaseObject::addStringAttribute(const SumoXMLAttr attr, const std::string &value) {
     // check if attribute was already inserted
@@ -171,8 +177,8 @@ CommonXMLStructure::SumoBaseObject::addSUMOTimeAttribute(const SumoXMLAttr attr,
 
 
 void 
-CommonXMLStructure::SumoBaseObject::addParameter(const std::string &attr, const std::string &value) {
-    myParameters[attr] = value;
+CommonXMLStructure::SumoBaseObject::addParameter(const std::string &key, const std::string &value) {
+    myParameters[key] = value;
 }
 
 
@@ -224,6 +230,12 @@ CommonXMLStructure::closeTag() {
         // just update last inserted SumoBaseObject
         myLastInsertedSumoBaseObject = myLastInsertedSumoBaseObject->getParentSumoBaseObject();
     }
+}
+
+
+CommonXMLStructure::SumoBaseObject* 
+CommonXMLStructure::getSumoBaseObjectRoot() const {
+    return mySumoBaseObjectRoot;
 }
 
 
