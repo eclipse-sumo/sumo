@@ -277,14 +277,17 @@ if (SUMO_LIBRARIES AND WIN32)
                                           "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/sqlite-?.?.?/*.dll")
         list(APPEND SUMO_LIBRARIES_DLL ${MORE_SUMO_LIBRARIES_DLL})
     endif ()
+    # declare flag for use google test
+    set(USE_GOOGLETEST true)
     # set google test root depending of directory
-    if(EXISTS "${SUMO_LIBRARIES}/googletest-1.8.0/googletest")
+    if (EXISTS "${SUMO_LIBRARIES}/googletest-1.8.0/googletest")
         file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-1.8.0/googletest")
     else ()
         file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-?.??.?")
+        if ("${MSVC_VERSION}" STREQUAL "1800")
+            set(USE_GOOGLETEST false)
+        endif ()
     endif ()
-    # declare flag for use google test
-    set(USE_GOOGLETEST true)
     # check if use google test
     if (WIN32)
         if (GNU_COMPILER AND NOT USE_MINGW_64BITS)
