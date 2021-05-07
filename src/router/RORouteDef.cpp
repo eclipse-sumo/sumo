@@ -309,7 +309,7 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
     }
     assert(myAlternatives.size() != 0);
     RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().calculateProbabilities(myAlternatives, veh, veh->getDepartureTime());
-    if (!RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().keepRoutes()) {
+    if (!RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().keepAllRoutes()) {
         // remove with probability of 0 (not mentioned in Gawron)
         for (std::vector<RORoute*>::iterator i = myAlternatives.begin(); i != myAlternatives.end();) {
             if ((*i)->getProbability() == 0) {
@@ -343,13 +343,15 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
 
     // find the route to use
     double chosen = RandHelper::rand();
-    myLastUsed = 0;
-    for (const RORoute* const alt : myAlternatives) {
-        chosen -= alt->getProbability();
-        if (chosen <= 0) {
-            return;
+    if (!RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().keepRoute()) {
+        myLastUsed = 0;
+        for (const RORoute* const alt : myAlternatives) {
+            chosen -= alt->getProbability();
+            if (chosen <= 0) {
+                return;
+            }
+            myLastUsed++;
         }
-        myLastUsed++;
     }
 }
 

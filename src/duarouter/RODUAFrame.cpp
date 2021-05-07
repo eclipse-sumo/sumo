@@ -147,8 +147,8 @@ RODUAFrame::addDUAOptions() {
     oc.doRegister("skip-new-routes", new Option_Bool(false));
     oc.addDescription("skip-new-routes", "Processing", "Only reuse routes from input, do not calculate new ones");
 
-    oc.doRegister("skip-new-routes.probability", new Option_Float(0));
-    oc.addDescription("skip-new-routes.probability", "Processing", "The probability of keeping the old route");
+    oc.doRegister("keep-route-probability", new Option_Float(0));
+    oc.addDescription("keep-route-probability", "Processing", "The probability of keeping the old route");
 
     oc.doRegister("ptline-routing", new Option_Bool(false));
     oc.addDescription("ptline-routing", "Processing", "Route all public transport input");
@@ -243,13 +243,6 @@ RODUAFrame::checkOptions() {
     if (oc.getBool("logit")) {
         WRITE_WARNING("The --logit option is deprecated, please use --route-choice-method logit.");
         oc.set("route-choice-method", "logit");
-    }
-
-    if (oc.getBool("skip-new-routes") && oc.isDefault("skip-new-routes.probability")) {
-        oc.set("skip-new-routes.probability", "1");
-    }
-    if (oc.isDefault("skip-new-routes") && !oc.isDefault("skip-new-routes.probability")) {
-        oc.set("skip-new-routes", "true");
     }
 
     if (oc.isSet("output-file") && !oc.isSet("alternatives-output")) {

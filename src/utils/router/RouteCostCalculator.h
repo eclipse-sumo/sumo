@@ -57,17 +57,21 @@ public:
         return myMaxRouteNumber;
     }
 
-    bool keepRoutes() const {
+    bool keepAllRoutes() const {
         return myKeepRoutes;
     }
 
     bool skipRouteCalculation() const {
-        if (mySkipRouteCalculationProbability == 1) {
+        return mySkipNewRoutes;
+    }
+
+    bool keepRoute() const {
+        if (myKeepRouteProb == 1) {
             return true;
-        } else if (mySkipRouteCalculationProbability == 0) {
+        } else if (myKeepRouteProb == 0) {
             return false;
         } else {
-            return RandHelper::rand() < mySkipRouteCalculationProbability;
+            return RandHelper::rand() < myKeepRouteProb;
         }
     }
 
@@ -77,9 +81,8 @@ protected:
         OptionsCont& oc = OptionsCont::getOptions();
         myMaxRouteNumber = oc.getInt("max-alternatives");
         myKeepRoutes = oc.getBool("keep-all-routes");
-        mySkipRouteCalculationProbability = (oc.getBool("skip-new-routes")
-                ? (oc.exists("skip-new-routes.probability") ? oc.getFloat("skip-new-routes.probability") : 1)
-                : 0);
+        mySkipNewRoutes = oc.getBool("skip-new-routes");
+        myKeepRouteProb = oc.exists("keep-route-probability") ? oc.getFloat("keep-route-probability") : 0;
     }
 
     /// @brief Destructor
@@ -94,8 +97,11 @@ private:
     /// @brief Information whether all routes should be saved
     bool myKeepRoutes;
 
-    /// @brief Information whether new routes should be calculated
-    double mySkipRouteCalculationProbability;
+    /// @brief Information whether new routes shall be computed
+    double mySkipNewRoutes;
+
+    /// @brief Information whether the old route shall be kept
+    double myKeepRouteProb;
 
 };
 
