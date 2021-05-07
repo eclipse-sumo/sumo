@@ -40,26 +40,54 @@ public:
         /// @brief destructor
         ~SumoBaseObject();
 
+        /// @name get functions
+        /// @{
+        /// @brief get XML myTag
+        const SumoXMLTag getTag() const;
+
         /// @brief get pointer to mySumoBaseObjectParent SumoBaseObject (if is null, then is the root)
         SumoBaseObject* getParentSumoBaseObject() const;
 
+        /// @brief get string attribute
+        const std::string &getStringAttribute(const SumoXMLAttr attr) const;
+
+        /// @brief get int attribute
+        int getIntAttribute(const SumoXMLAttr attr) const;
+
+        /// @brief get double attribute
+        double getDoubleAttribute(const SumoXMLAttr attr) const;
+
+        /// @brief get bool attribute
+        bool getBoolAttribute(const SumoXMLAttr attr) const;
+
+        /// @brief get SUMOTime attribute
+        SUMOTime getSUMOTimeAttribute(const SumoXMLAttr attr) const;
+
+        /// @brief get parameters
+        const std::map<std::string, std::string> &getParameters() const;
+
+        /// @}
+
+        /// @name add functions
+        /// @{
         /// @brief add string attribute into current SumoBaseObject node
-        void addAttribute(const SumoXMLAttr attr, const std::string &value);
+        void addStringAttribute(const SumoXMLAttr attr, const std::string &value);
 
         /// @brief add int attribute into current SumoBaseObject node
-        void addAttribute(const SumoXMLAttr attr, const int value);
+        void addIntAttribute(const SumoXMLAttr attr, const int value);
 
         /// @brief add double attribute into current SumoBaseObject node
-        void addAttribute(const SumoXMLAttr attr, const double value);
-
-        /// @brief add SUMOTime attribute into current SumoBaseObject node
-        void addAttribute(const SumoXMLAttr attr, const SUMOTime value);
+        void addDoubleAttribute(const SumoXMLAttr attr, const double value);
 
         /// @brief add bool attribute into current SumoBaseObject node
-        void addAttribute(const SumoXMLAttr attr, const bool value);
+        void addBoolAttribute(const SumoXMLAttr attr, const bool value);
+
+        /// @brief add SUMOTime attribute into current SumoBaseObject node
+        void addSUMOTimeAttribute(const SumoXMLAttr attr, const SUMOTime value);
 
         /// @brief add parameter into current SumoBaseObject node
         void addParameter(const std::string &attr, const std::string &value);
+        /// @}
 
     protected:
         /// @brief pointer to SumoBaseObject parent (If is null, then is the root)
@@ -77,11 +105,11 @@ public:
         /// @brief attributes double
         std::map<const SumoXMLAttr, double> myDoubleAttributes;
 
-        /// @brief attributes SUMOTime
-        std::map<const SumoXMLAttr, SUMOTime> mySUMOTimeAttributes;
-
         /// @brief attributes bool
         std::map<const SumoXMLAttr, bool> myBoolAttributes;
+
+        /// @brief attributes SUMOTime
+        std::map<const SumoXMLAttr, SUMOTime> mySUMOTimeAttributes;
 
         /// @brief myParameters
         std::map<std::string, std::string> myParameters;
