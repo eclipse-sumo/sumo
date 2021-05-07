@@ -8,3 +8,6 @@ shortcut_logit
 
 # the forbidden shortcut edge is now open for traffic
 shortcut_gawron_marginal
+
+# the forbidden shortcut edge is now open for traffic
+shortcut_gawron_marginal_default
