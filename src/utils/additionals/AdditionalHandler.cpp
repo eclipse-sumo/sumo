@@ -50,15 +50,6 @@ AdditionalHandler::parse() {
 }
 
 
-void 
-AdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-    const std::string &id, const std::string &laneId, const double position,
-    const SUMOTime frequency, const std::string &file, const std::string &vehicleTypes,
-    const std::string &name, const bool friendlyPos) {
-
-}
-
-
 void
 AdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // obtain tag
@@ -86,9 +77,27 @@ AdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
 
 
 void
-AdditionalHandler::myEndElement(int /*element*/) {
-    // just close node
-    myCommonXMLStructure.closeTag();
+AdditionalHandler::myEndElement(int element) {
+    // obtain tag
+    const SumoXMLTag tag = static_cast<SumoXMLTag> (element);
+    // check tag
+    switch (tag) {
+        case SUMO_TAG_E1DETECTOR: {
+            // get object
+            CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getLastInsertedSumoBaseObject();
+            // parse object
+            parseSumoBaseObject(obj);
+            // just close node
+            myCommonXMLStructure.closeTag();
+            // delete object
+            delete obj;
+            break;
+        }
+        default:
+        // just close node
+        myCommonXMLStructure.closeTag();
+    }
+
 }
 
 
@@ -106,7 +115,9 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getStringAttribute(SUMO_ATTR_FILE),
                 obj->getStringAttribute(SUMO_ATTR_VTYPES),
                 obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS));
+                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                obj->getParameters());
+                delete obj;
             break;
         default:
             break;
