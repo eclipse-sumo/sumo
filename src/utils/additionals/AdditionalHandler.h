@@ -47,6 +47,15 @@ public:
     /// @brief Destructor
     virtual ~AdditionalHandler();
 
+    /// @brief parse
+    bool parse();
+
+    /// @brief build E1 detector
+    void buildE1Detector(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
+        const std::string &id, const std::string &laneId, const double position,
+        const SUMOTime frequency, const std::string &file, const std::string &vehicleTypes,
+        const std::string &name, const bool friendlyPos);
+
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
@@ -69,6 +78,8 @@ protected:
      */
     virtual void myEndElement(int element);
     //@}
+
+    void parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj);
 
 protected:
     /// @brief common XML Structure

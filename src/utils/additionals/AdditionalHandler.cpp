@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <utils/common/MsgHandler.h>
+#include <utils/xml/XMLSubSys.h>
 
 #include "AdditionalHandler.h"
 
@@ -34,6 +35,28 @@ AdditionalHandler::AdditionalHandler(const std::string& file) :
 
 
 AdditionalHandler::~AdditionalHandler() {}
+
+
+bool
+AdditionalHandler::parse() {
+    // run parser and save result
+    const bool parserResult = XMLSubSys::runParser(*this, getFileName());
+    // now parse over SumoBaseObjects
+    if (myCommonXMLStructure.getSumoBaseObjectRoot()) {
+        parseSumoBaseObject(myCommonXMLStructure.getSumoBaseObjectRoot());
+    }
+
+    return parserResult;
+}
+
+
+void 
+AdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
+    const std::string &id, const std::string &laneId, const double position,
+    const SUMOTime frequency, const std::string &file, const std::string &vehicleTypes,
+    const std::string &name, const bool friendlyPos) {
+
+}
 
 
 void
@@ -69,6 +92,33 @@ AdditionalHandler::myEndElement(int /*element*/) {
 }
 
 
+void 
+AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
+    // switch tag
+    switch (obj->getTag()) {
+        case SUMO_TAG_E1DETECTOR:
+            // build E1
+            buildE1Detector(obj,
+                obj->getStringAttribute(SUMO_ATTR_ID),
+                obj->getStringAttribute(SUMO_ATTR_LANE),
+                obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                obj->getSUMOTimeAttribute(SUMO_ATTR_FREQUENCY),
+                obj->getStringAttribute(SUMO_ATTR_FILE),
+                obj->getStringAttribute(SUMO_ATTR_VTYPES),
+                obj->getStringAttribute(SUMO_ATTR_NAME),
+                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS));
+            break;
+        default:
+            break;
+    }
+    // now iterate over childrens
+    for (const auto &child : obj->getSumoBaseObjectChildren()) {
+        // call this function recursively
+        parseSumoBaseObject(child);
+    }
+}
+
+
 void
 AdditionalHandler::parseE1Attributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
@@ -101,7 +151,27 @@ AdditionalHandler::parseE1Attributes(const SUMOSAXAttributes& attrs) {
 
 void 
 AdditionalHandler::parseParameters(const SUMOSAXAttributes& attrs) {
-
+    // declare Ok Flag
+    bool parsedOk = true;
+    // get key
+    const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, parsedOk);
+    // continue if key was sucesfully loaded
+    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+        // get tag str
+        const std::string tagStr = toString(myCommonXMLStructure.getLastInsertedSumoBaseObject()->getTag());
+        // circumventing empty string value
+        const std::string value = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+        // show warnings if values are invalid
+        if (key.empty()) {
+            WRITE_WARNING("Error parsing key from " + tagStr + " generic parameter. Key cannot be empty");
+        } else if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
+            WRITE_WARNING("Error parsing key from " + tagStr + " generic parameter. Key contains invalid characters");
+        } else {
+            WRITE_DEBUG("Inserting generic parameter '" + key + "|" + value + "' into " + tagStr);
+            // insert parameter
+            myCommonXMLStructure.getLastInsertedSumoBaseObject()->addParameter(key, value);
+        }
+    }
 }
 
 /****************************************************************************/
