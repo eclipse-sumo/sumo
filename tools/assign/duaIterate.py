@@ -175,6 +175,8 @@ def initOptions():
     argParser.add_argument("--log", default="stdout.log", help="log file path (default 'dua.log')")
     argParser.add_argument("--marginal-cost", action="store_true", default=False,
                            help="use marginal cost to perform system optimal traffic assignment")
+    argParser.add_argument("--marginal-cost.exp", type=float, default=0, dest="mcExp",
+                           help="apply the given exponent on the current traffic count when computing marginal cost")
     argParser.add_argument("remaining_args", nargs='*')
     return argParser
 
@@ -470,9 +472,7 @@ def calcMarginalCost(step, options):
                                 dif_tt = abs(tt_cur - tt_prv)
                                 dif_veh = abs(veh_cur - veh_prv)
                                 if dif_veh != 0:
-                                    #mc_cur = dif_tt / dif_veh + tt_cur
-                                    #mc_cur = (dif_tt / dif_veh) * math.sqrt(veh_cur) + tt_cur
-                                    mc_cur = (dif_tt / dif_veh) * veh_cur + tt_cur
+                                    mc_cur = (dif_tt / dif_veh) * (veh_cur ** options.mcExp) + tt_cur
                                 else:
                                     # previous marginal cost
                                     mc_cur = mc_prv
