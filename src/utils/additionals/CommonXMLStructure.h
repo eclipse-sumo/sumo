@@ -119,8 +119,14 @@ public:
         /// @brief SumoBaseObject children
         std::vector<SumoBaseObject*> mySumoBaseObjectChildren;
 
-        /// @brief check duplicated attribute
+        /// @brief check duplicated attribute (probably we can delete this function)
         bool checkDuplicatedAttribute(const SumoXMLAttr attr) const;
+
+        /// @brief add SumoBaseObject child
+        void addSumoBaseObjectChild(SumoBaseObject* sumoBaseObject);
+
+        /// @brief remove SumoBaseObject child
+        void removeSumoBaseObjectChild(SumoBaseObject* sumoBaseObject);
 
     private:
         /// @brief invalidate copy constructor

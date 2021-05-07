@@ -35,13 +35,15 @@
 CommonXMLStructure::SumoBaseObject::SumoBaseObject(SumoBaseObject* parent, const SumoXMLTag tag) :
     mySumoBaseObjectParent(parent),
     myTag(tag) {
+    // add this SumoBaseObject into parent children
+    parent->addSumoBaseObjectChild(this);
 }
 
 
 CommonXMLStructure::SumoBaseObject::~SumoBaseObject() {
     // delete all SumoBaseObjectChildrens
-    for (const auto &sumoBaseObject : mySumoBaseObjectChildren) {
-        delete sumoBaseObject;
+    while(mySumoBaseObjectChildren.size() > 0) {
+        delete mySumoBaseObjectChildren.front();
     }
 }
 
@@ -187,6 +189,24 @@ CommonXMLStructure::SumoBaseObject::checkDuplicatedAttribute(const SumoXMLAttr a
     return ((myStringAttributes.count(attr) + myIntAttributes.count(attr) + 
              myDoubleAttributes.count(attr) + mySUMOTimeAttributes.count(attr) + 
              myBoolAttributes.count(attr)) == 0);
+}
+
+
+void 
+CommonXMLStructure::SumoBaseObject::addSumoBaseObjectChild(SumoBaseObject* sumoBaseObject) {
+    // just add it into mySumoBaseObjectChildren
+    mySumoBaseObjectChildren.push_back(sumoBaseObject);
+}
+
+
+void
+CommonXMLStructure::SumoBaseObject::removeSumoBaseObjectChild(SumoBaseObject* sumoBaseObject) {
+    // find sumoBaseObject
+    auto it = std::find(mySumoBaseObjectChildren.begin(), mySumoBaseObjectChildren.end(), sumoBaseObject);
+    // check iterator
+    if (it != mySumoBaseObjectChildren.end()) {
+        mySumoBaseObjectChildren.erase(it);
+    }
 }
 
 // ---------------------------------------------------------------------------
