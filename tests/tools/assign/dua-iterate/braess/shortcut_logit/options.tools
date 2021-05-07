@@ -1,2 +1,2 @@
 --logit
---logit-convergence-steps 10
+--convergence-steps 10
