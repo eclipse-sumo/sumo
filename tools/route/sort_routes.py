@@ -48,7 +48,7 @@ def get_options(args=None):
 
 
 def sort_departs(routefilename, outfile):
-    routes_doc = pulldom.parse(sys.argv[1])
+    routes_doc = pulldom.parse(routefilename)
     vehicles = []
     root = None
     for event, parsenode in routes_doc:
