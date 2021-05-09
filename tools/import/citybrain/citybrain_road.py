@@ -80,9 +80,9 @@ def main(options):
                 edg.write('    <edge id="%s" from="%s" to="%s" speed="%s" numLanes="%s"/>\n' % (
                     edgeID2, toID, fromID, speed, nLanes2));
             elif edgeLine == 1:
-                connections[edgeID1] = map(int, line.split())
+                connections[edgeID1] = list(map(int, line.split()))
             elif edgeLine == 2:
-                connections[edgeID2] = map(int, line.split())
+                connections[edgeID2] = list(map(int, line.split()))
             edgeLine = (edgeLine + 1) % 3
         elif i == lastEdge:
             # extract traffic signal approach ids
