@@ -55,12 +55,13 @@ def main(options):
     sumolib.writeXMLHeader(edg, "$Id$", "edges")  # noqa
 
     numNodes = 0
+    numEdges = 0
     lastEdge = 0
     edgeLine = 0
     edgeID1 = ""
     edgeID2 = ""
     connections = { } # edge -> laneDirections
-    for i, line in enumerate(open(options.netfile)): 
+    for i, line in enumerate(open(options.netfile)):
         if i == 0:
             numNodes = int(line)
         elif i <= numNodes:
@@ -97,18 +98,20 @@ def main(options):
 
     NETCONVERT = sumolib.checkBinary('netconvert')
 
+    # the sample route data didn't include a single turn-around so let's not build any
     args = [NETCONVERT,
         '-e', edgefile,
         '-n', nodefile,
         '--proj.utm',
         '--junctions.corner-detail', '0',
+        '--no-turnarounds',
         '--no-internal-links',
         ]
 
     if options.ignoreCons:
         subprocess.call(args + ['-o', options.output])
     else:
-        # connections are encoded relative to driving direction. 
+        # connections are encoded relative to driving direction.
         # We build the network once to obtain directions and then build again with the connections
         subprocess.call(args + ['-o', options.tmp, '--no-warnings',])
 
@@ -117,29 +120,33 @@ def main(options):
         con = open(connfile, "w")
         sumolib.writeXMLHeader(con, "$Id$", "connections")  # noqa
 
+        numIgnored = 0
+
         for edgeID in sorted(connections.keys()):
             edge = net.getEdge(edgeID)
             directionTargets = 3 * [None]
             directionTargetLanes = [[], [], []]
 
+            targetIndex = []
             for target, cons in edge.getOutgoing().items():
-                linkDir = cons[0].getDirection()
-                index = None
-                if linkDir in "rR":
-                    index = 0
-                elif linkDir in "s":
-                    index = 1
-                elif linkDir in "lL":
-                    index = 2
-                if index is None:
-                    # ignore turnaround
-                    continue
+                targetLanes = []
                 for c in cons:
-                    directionTargetLanes[index].append(c.getToLane().getIndex())
-                if directionTargets[index] is None:
-                    directionTargets[index] = target.getID()
-                else:
-                    sys.stderr.write("Warning: Ambiguous directions (index %s) from edge %s\n" % (index, edge))
+                    targetLanes.append(c.getToLane().getIndex())
+                targetIndex.append([cons[0].getJunctionIndex(), target, targetLanes])
+            targetIndex.sort()
+
+            numTargets = len(targetIndex)
+            if numTargets < 3:
+                # we don't know how to interpret the connection information here
+                # fall back to netconvert settings
+                numIgnored += 1
+                continue
+
+            for i, [linkIndex, target, targetLanes] in enumerate(targetIndex):
+                if i == 3:
+                    break;
+                directionTargets[i] = target.getID()
+                directionTargetLanes[i] = targetLanes
 
             code = connections[edgeID]
             lanes = edge.getLanes()
@@ -162,6 +169,10 @@ def main(options):
         con.close()
 
         subprocess.call(args + ['-o', options.output, '-x', connfile])
+
+        print("Built network with %s nodes and %s edges" % (numNodes, numEdges * 2))
+        if numIgnored > 0:
+            print("Ignored connection information at %s edges" % numIgnored)
 
 
 if __name__ == "__main__":
