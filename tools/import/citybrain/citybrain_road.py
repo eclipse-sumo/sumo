@@ -31,6 +31,8 @@ def get_options(args=None):
                            default="net.net.xml", help="define the output sumo network filename")
     optParser.add_argument("-p", "--prefix", dest="prefix",
                            default="net", help="prefix for plain xml files")
+    optParser.add_argument("-j", "--junction-type", dest="junctionType",
+                           default="allway_stop", help="the default type for junctions without traffic light")
     optParser.add_argument("-t", "--temp-network", dest="tmp",
                            default="tmp.net.xml", help="intermediate network file")
     optParser.add_argument("-x", "--ignore-connections", dest="ignoreCons", action="store_true",
@@ -68,7 +70,7 @@ def main(options):
             lat, lon, nodeID, signalized = line.split()
             nod.write('    <node id="%s" x="%s" y="%s" type="%s"/>\n' % (
                 nodeID, lon, lat,
-                "traffic_light" if signalized == "1" else "priority"))
+                "traffic_light" if signalized == "1" else options.junctionType))
         elif i == numNodes + 1:
             numEdges = int(line)
             lastEdge = numNodes + 2 + numEdges * 3
