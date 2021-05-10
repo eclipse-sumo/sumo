@@ -3,6 +3,9 @@
 # Iteration 10 has the minimal value of 114s for shortcut.
 braess
 
+# a network with a known optimal assignment solution that is hard to find
+optimum
+
 # straight call of the script
 simple
 
