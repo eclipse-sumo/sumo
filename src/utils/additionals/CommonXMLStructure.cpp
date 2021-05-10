@@ -101,6 +101,16 @@ CommonXMLStructure::SumoBaseObject::getBoolAttribute(const SumoXMLAttr attr) con
 }
 
 
+const Position&
+CommonXMLStructure::SumoBaseObject::getPositionAttribute(const SumoXMLAttr attr) const {
+    if (myPositionAttributes.count(attr) > 0) {
+        return myPositionAttributes.at(attr);
+    } else {
+        throw ProcessError("Attr doesn't exist");
+    }
+}
+
+
 SUMOTime
 CommonXMLStructure::SumoBaseObject::getSUMOTimeAttribute(const SumoXMLAttr attr) const {
     if (mySUMOTimeAttributes.count(attr) > 0) {
@@ -135,81 +145,49 @@ CommonXMLStructure::SumoBaseObject::getSumoBaseObjectChildren() const {
 
 void 
 CommonXMLStructure::SumoBaseObject::addStringAttribute(const SumoXMLAttr attr, const std::string &value) {
-    // check if attribute was already inserted
-    if (checkDuplicatedAttribute(attr)) {
-        myStringAttributes[attr] = value;
-    } else {
-        throw InvalidArgument("duplicated attribute");
-    }
+    myStringAttributes[attr] = value;
 }
 
 
 void 
 CommonXMLStructure::SumoBaseObject::addIntAttribute(const SumoXMLAttr attr, const int value) {
-    // check if attribute was already inserted
-    if (checkDuplicatedAttribute(attr)) {
-        myIntAttributes[attr] = value;
-    } else {
-        throw InvalidArgument("duplicated attribute");
-    }
+    myIntAttributes[attr] = value;
 }
 
 
 void 
 CommonXMLStructure::SumoBaseObject::addDoubleAttribute(const SumoXMLAttr attr, const double value) {
-    // check if attribute was already inserted
-    if (checkDuplicatedAttribute(attr)) {
-        myDoubleAttributes[attr] = value;
-    } else {
-        throw InvalidArgument("duplicated attribute");
-    }
+    myDoubleAttributes[attr] = value;
 }
 
 
 void 
 CommonXMLStructure::SumoBaseObject::addBoolAttribute(const SumoXMLAttr attr, const bool value) {
-    // check if attribute was already inserted
-    if (checkDuplicatedAttribute(attr)) {
-        myBoolAttributes[attr] = value;
-    } else {
-        throw InvalidArgument("duplicated attribute");
-    }
+    myBoolAttributes[attr] = value;
+}
+
+
+void 
+CommonXMLStructure::SumoBaseObject::addPositionAttribute(const SumoXMLAttr attr, const Position &value) {
+    myPositionAttributes[attr] = value;
 }
 
 
 void 
 CommonXMLStructure::SumoBaseObject::addSUMOTimeAttribute(const SumoXMLAttr attr, const SUMOTime value) {
-    // check if attribute was already inserted
-    if (checkDuplicatedAttribute(attr)) {
-        mySUMOTimeAttributes[attr] = value;
-    } else {
-        throw InvalidArgument("duplicated attribute");
-    }
+    mySUMOTimeAttributes[attr] = value;
 }
 
 
 void 
 CommonXMLStructure::SumoBaseObject::addStringListAttribute(const SumoXMLAttr attr, const std::vector<std::string> &value) {
-    // check if attribute was already inserted
-    if (checkDuplicatedAttribute(attr)) {
-        myStringListAttributes[attr] = value;
-    } else {
-        throw InvalidArgument("duplicated attribute");
-    }
+    myStringListAttributes[attr] = value;
 }
 
 
 void 
 CommonXMLStructure::SumoBaseObject::addParameter(const std::string &key, const std::string &value) {
     myParameters[key] = value;
-}
-
-
-bool 
-CommonXMLStructure::SumoBaseObject::checkDuplicatedAttribute(const SumoXMLAttr attr) const {
-    return ((myStringAttributes.count(attr) + myIntAttributes.count(attr) + 
-             myDoubleAttributes.count(attr) + mySUMOTimeAttributes.count(attr) + 
-             myBoolAttributes.count(attr)) == 0);
 }
 
 

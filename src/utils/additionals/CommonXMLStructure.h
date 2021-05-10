@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <utils/geom/Position.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 
@@ -60,6 +61,9 @@ public:
         /// @brief get bool attribute
         bool getBoolAttribute(const SumoXMLAttr attr) const;
 
+        /// @brief get Position attribute
+        const Position &getPositionAttribute(const SumoXMLAttr attr) const;
+
         /// @brief get SUMOTime attribute
         SUMOTime getSUMOTimeAttribute(const SumoXMLAttr attr) const;
 
@@ -86,6 +90,9 @@ public:
 
         /// @brief add bool attribute into current SumoBaseObject node
         void addBoolAttribute(const SumoXMLAttr attr, const bool value);
+
+        /// @brief add Position attribute into current SumoBaseObject node
+        void addPositionAttribute(const SumoXMLAttr attr, const Position &value);
 
         /// @brief add SUMOTime attribute into current SumoBaseObject node
         void addSUMOTimeAttribute(const SumoXMLAttr attr, const SUMOTime value);
@@ -116,6 +123,9 @@ public:
         /// @brief bool attributes
         std::map<const SumoXMLAttr, bool> myBoolAttributes;
 
+        /// @brief Position attributes
+        std::map<const SumoXMLAttr, Position> myPositionAttributes;
+
         /// @brief SUMOTime attributes
         std::map<const SumoXMLAttr, SUMOTime> mySUMOTimeAttributes;
 
@@ -127,9 +137,6 @@ public:
 
         /// @brief SumoBaseObject children
         std::vector<SumoBaseObject*> mySumoBaseObjectChildren;
-
-        /// @brief check duplicated attribute (probably we can delete this function)
-        bool checkDuplicatedAttribute(const SumoXMLAttr attr) const;
 
         /// @brief add SumoBaseObject child
         void addSumoBaseObjectChild(SumoBaseObject* sumoBaseObject);
