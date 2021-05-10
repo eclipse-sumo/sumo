@@ -131,6 +131,16 @@ CommonXMLStructure::SumoBaseObject::getStringListAttribute(const SumoXMLAttr att
 }
 
 
+const PositionVector&
+CommonXMLStructure::SumoBaseObject::getPositionVectorAttribute(const SumoXMLAttr attr) const {
+    if (myPositionVectorAttributes.count(attr) > 0) {
+        return myPositionVectorAttributes.at(attr);
+    } else {
+        throw ProcessError("Attr doesn't exist");
+    }
+}
+
+
 const std::map<std::string, std::string>&
 CommonXMLStructure::SumoBaseObject::getParameters() const {
     return myParameters;
@@ -182,6 +192,13 @@ CommonXMLStructure::SumoBaseObject::addSUMOTimeAttribute(const SumoXMLAttr attr,
 void 
 CommonXMLStructure::SumoBaseObject::addStringListAttribute(const SumoXMLAttr attr, const std::vector<std::string> &value) {
     myStringListAttributes[attr] = value;
+}
+
+
+void 
+CommonXMLStructure::SumoBaseObject::addPositionVectorAttribute(const SumoXMLAttr attr, const PositionVector &value) {
+    myPositionVectorAttributes[attr] = PositionVector();
+
 }
 
 

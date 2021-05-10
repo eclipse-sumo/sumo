@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/geom/Position.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 
@@ -70,6 +70,9 @@ public:
         /// @brief get string list attribute
         const std::vector<std::string> &getStringListAttribute(const SumoXMLAttr attr) const;
 
+        /// @brief get PositionVector attribute
+        const PositionVector &getPositionVectorAttribute(const SumoXMLAttr attr) const;
+
         /// @brief get parameters
         const std::map<std::string, std::string> &getParameters() const;
 
@@ -99,6 +102,9 @@ public:
 
         /// @brief add string list attribute into current SumoBaseObject node
         void addStringListAttribute(const SumoXMLAttr attr, const std::vector<std::string> &value);
+
+        /// @brief add PositionVector attribute into current SumoBaseObject node
+        void addPositionVectorAttribute(const SumoXMLAttr attr, const PositionVector &value);
 
         /// @brief add parameter into current SumoBaseObject node
         void addParameter(const std::string &key, const std::string &value);
@@ -131,6 +137,9 @@ public:
 
         /// @brief stringList attributes
         std::map<const SumoXMLAttr, std::vector<std::string> > myStringListAttributes;
+
+        /// @brief PositionVector attributes
+        std::map<const SumoXMLAttr, PositionVector> myPositionVectorAttributes;
 
         /// @brief myParameters
         std::map<std::string, std::string> myParameters;
