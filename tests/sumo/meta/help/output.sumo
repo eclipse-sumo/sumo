@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_9_0+0171-ce97ad2
+Eclipse SUMO sumo Version v1_9_1+0283-37cbe6e
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -266,6 +266,8 @@ Processing Options:
   --parking.maneuver                   Whether parking simulation includes
                                         manoeuvering time and associated lane
                                         blocking
+  --use-stop-ended                     Override stop until times with stop
+                                        ended times when given
   --pedestrian.model STR               Select among pedestrian models
                                         ['nonInteracting', 'striping', 'remote']
   --pedestrian.striping.stripe-width FLOAT  Width of parallel stripes for

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-04-22 14:57:32 by Eclipse SUMO sumo Version v1_9_0+0171-ce97ad2
+<!-- generated on 2021-05-10 15:23:09 by Eclipse SUMO sumo Version v1_9_1+0283-37cbe6e
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -392,6 +392,9 @@
 
         <!-- Whether parking simulation includes manoeuvering time and associated lane blocking -->
         <parking.maneuver value="false" type="BOOL"/>
+
+        <!-- Override stop until times with stop ended times when given -->
+        <use-stop-ended value="false" type="BOOL"/>
 
         <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;remote&apos;] -->
         <pedestrian.model value="striping" type="STR"/>
