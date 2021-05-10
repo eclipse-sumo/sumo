@@ -216,11 +216,15 @@ MEVehicle::checkStop(SUMOTime time) {
         if (stop.edge != myCurrEdge || stop.segment != mySegment) {
             return time;
         }
+        const SUMOTime cur = time;
         time += stop.duration;
         if (stop.pars.until > time) {
             // @note: this assumes the stop is reached at time. With the way this is called in MESegment (time == entryTime),
             // travel time is overestimated of the stop is not at the start of the segment
             time = stop.pars.until;
+        }
+        if (MSGlobals::gUseStopEnded && stop.pars.ended >= 0) {
+            time = MAX2(cur, stop.pars.ended);
         }
         stop.reached = true;
         stop.pars.started = myLastEntryTime;

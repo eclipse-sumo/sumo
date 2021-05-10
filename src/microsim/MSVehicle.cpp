@@ -1672,6 +1672,9 @@ MSVehicle::processNextStop(double currentVelocity) {
                         stop.duration = MAX2(stop.duration, stop.pars.until - time);
                     }
                 }
+                if (MSGlobals::gUseStopEnded && stop.pars.ended ) {
+                    stop.duration = stop.pars.ended - time;
+                }
                 stop.endBoarding = stop.pars.extension >= 0 ? time + stop.duration + stop.pars.extension : SUMOTime_MAX;
                 if (stop.pars.speed > 0) {
                     // ignore duration and until in waypoint mode

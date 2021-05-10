@@ -89,6 +89,7 @@ const int STOP_SPLIT_SET = 2 << 12;
 const int STOP_JOIN_SET = 2 << 13;
 const int STOP_ARRIVAL_SET = 2 << 14;
 const int STOP_PERMITTED_SET = 2 << 15;
+const int STOP_ENDED_SET = 2 << 16;
 
 const double MIN_STOP_LENGTH = 2 * POSITION_EPS;
 
