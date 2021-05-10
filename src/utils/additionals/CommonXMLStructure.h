@@ -63,6 +63,9 @@ public:
         /// @brief get SUMOTime attribute
         SUMOTime getSUMOTimeAttribute(const SumoXMLAttr attr) const;
 
+        /// @brief get string list attribute
+        const std::vector<std::string> &getStringListAttribute(const SumoXMLAttr attr) const;
+
         /// @brief get parameters
         const std::map<std::string, std::string> &getParameters() const;
 
@@ -87,6 +90,9 @@ public:
         /// @brief add SUMOTime attribute into current SumoBaseObject node
         void addSUMOTimeAttribute(const SumoXMLAttr attr, const SUMOTime value);
 
+        /// @brief add string list attribute into current SumoBaseObject node
+        void addStringListAttribute(const SumoXMLAttr attr, const std::vector<std::string> &value);
+
         /// @brief add parameter into current SumoBaseObject node
         void addParameter(const std::string &key, const std::string &value);
         /// @}
@@ -98,20 +104,23 @@ public:
         /// @brief XML myTag
         const SumoXMLTag myTag;
 
-        /// @brief attributes string
+        /// @brief string attributes
         std::map<const SumoXMLAttr, std::string> myStringAttributes;
 
-        /// @brief attributes int
+        /// @brief int attributes
         std::map<const SumoXMLAttr, int> myIntAttributes;
 
-        /// @brief attributes double
+        /// @brief double attributes
         std::map<const SumoXMLAttr, double> myDoubleAttributes;
 
-        /// @brief attributes bool
+        /// @brief bool attributes
         std::map<const SumoXMLAttr, bool> myBoolAttributes;
 
-        /// @brief attributes SUMOTime
+        /// @brief SUMOTime attributes
         std::map<const SumoXMLAttr, SUMOTime> mySUMOTimeAttributes;
+
+        /// @brief stringList attributes
+        std::map<const SumoXMLAttr, std::vector<std::string> > myStringListAttributes;
 
         /// @brief myParameters
         std::map<std::string, std::string> myParameters;

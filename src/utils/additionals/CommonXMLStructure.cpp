@@ -111,6 +111,16 @@ CommonXMLStructure::SumoBaseObject::getSUMOTimeAttribute(const SumoXMLAttr attr)
 }
 
 
+const std::vector<std::string>&
+CommonXMLStructure::SumoBaseObject::getStringListAttribute(const SumoXMLAttr attr) const {
+    if (myStringListAttributes.count(attr) > 0) {
+        return myStringListAttributes.at(attr);
+    } else {
+        throw ProcessError("Attr doesn't exist");
+    }
+}
+
+
 const std::map<std::string, std::string>&
 CommonXMLStructure::SumoBaseObject::getParameters() const {
     return myParameters;
@@ -172,6 +182,17 @@ CommonXMLStructure::SumoBaseObject::addSUMOTimeAttribute(const SumoXMLAttr attr,
     // check if attribute was already inserted
     if (checkDuplicatedAttribute(attr)) {
         mySUMOTimeAttributes[attr] = value;
+    } else {
+        throw InvalidArgument("duplicated attribute");
+    }
+}
+
+
+void 
+CommonXMLStructure::SumoBaseObject::addStringListAttribute(const SumoXMLAttr attr, const std::vector<std::string> &value) {
+    // check if attribute was already inserted
+    if (checkDuplicatedAttribute(attr)) {
+        myStringListAttributes[attr] = value;
     } else {
         throw InvalidArgument("duplicated attribute");
     }
