@@ -222,20 +222,16 @@ public:
      * @param[in] laneID The lane in which the entry detector is placed on
      * @param[in] pos position of the entry detector on the lane
      * @param[in] friendlyPos enable or disable friendly position
-     * @param[in] parameters generic parameters
      */
-    void buildDetectorEntry(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, 
-                            double pos, bool friendlyPos, const std::map<std::string, std::string> &parameters) {}
+    void buildDetectorEntry(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, double pos, bool friendlyPos) {}
 
     /**@brief Builds a exit detector (E3)
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] laneID The lane in which the exit detector is placed on
      * @param[in] pos position of the exit detector on the lane
      * @param[in] friendlyPos enable or disable friendly position
-     * @param[in] parameters generic parameters
      */
-    void buildDetectorExit(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, 
-                           double pos, bool friendlyPos, const std::map<std::string, std::string> &parameters) {}
+    void buildDetectorExit(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, double pos, bool friendlyPos) {}
 
     /**@brief Builds a Instant Induction Loop Detector (E1Instant)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -327,45 +323,34 @@ public:
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] begin begin of interval
      * @param[in] end end of interval
-     * @param[in] parameters generic parameters
      */
-    void buildRerouterInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SUMOTime begin, SUMOTime end, 
-                               const std::map<std::string, std::string> &parameters) {}
+    void buildRerouterInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SUMOTime begin, SUMOTime end) {}
+
+    /**
+     * @param[in] sumoBaseObject sumo base object used for build
+     */
+    void buildClosingLaneReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &closedLane, SVCPermissions permissions) {}
+
+    /**
+     * @param[in] sumoBaseObject sumo base object used for build
+     */
+    void buildClosingReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &closedEdgeID, SVCPermissions permissions) {}
 
     /**
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] parameters generic parameters
      */
-    void buildClosingLaneReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &closedLane, SVCPermissions permissions, 
-                                 const std::map<std::string, std::string> &parameters) {}
+    void builDestProbReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &newEdgeDestinationID, double probability) {}
 
     /**
      * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] parameters generic parameters
      */
-    void buildClosingReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &closedEdgeID, SVCPermissions permissions, 
-                             const std::map<std::string, std::string> &parameters) {}
+    void builParkingAreaReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &newParkignAreaID, double probability, bool visible) {}
 
     /**
      * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] parameters generic parameters
      */
-    void builDestProbReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &newEdgeDestinationID, double probability,
-                             const std::map<std::string, std::string> &parameters) {}
-
-    /**
-     * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] parameters generic parameters
-     */
-    void builParkingAreaReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &newParkignAreaID, double probability, 
-                                bool visible, const std::map<std::string, std::string> &parameters) {}
-
-    /**
-     * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] parameters generic parameters
-     */
-    void buildRouteProbReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& newRouteID, double probability, 
-                               const std::map<std::string, std::string> &parameters) {}
+    void buildRouteProbReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& newRouteID, double probability) {}
 
     /**@brief builds a Route probe
      * @param[in] sumoBaseObject sumo base object used for build
