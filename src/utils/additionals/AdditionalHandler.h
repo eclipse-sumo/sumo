@@ -70,7 +70,7 @@ private:
     CommonXMLStructure myCommonXMLStructure;
 
     /// @name inherited from GenericSAXHandler
-    //@{
+    /// @{
     /** @brief Called on the opening of a tag;
      *
      * @param[in] element ID of the currently opened element
@@ -89,16 +89,102 @@ private:
      * @todo Refactor/describe
      */
     virtual void myEndElement(int element);
-    //@}
+    /// @}
 
-    /// @brief parse SumoBaseObject (it's called recursivelly)
-    void parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj);
+    /// @name parse additional attributes
+    /// @{
+
+    /// @brief parse busStop attributes
+    void parseBusStopAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse access attributes
+    void parseAccessAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse containerStop attributes
+    void parseContainerStopAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse chargingStation attributes
+    void parseChargingStationAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse parking area attributes
+    void parseParkingAreaAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse parking space attributes
+    void parseParkingSpaceAttributes(const SUMOSAXAttributes& attrs);
 
     /// @brief parse E1 attributes
     void parseE1Attributes(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse parameters
+    /// @brief parse E2 attributes
+    void parseE2Attributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse E3 attributes
+    void parseE3Attributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse entry attributes
+    void parseEntryAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse exist attributes
+    void parseExitAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse E1 instant attributes
+    void parseE1InstantAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse TAZ attributes
+    void parseTAZAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse TAZ source attributes
+    void parseTAZSourceAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse TAZ sink attributes
+    void parseTAZSinkAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse variable speed sign attributes
+    void parseVariableSpeedSignAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse variable speed sign step attributes
+    void parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse calibrator attributes
+    void parseCalibratorAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse calibrator flow attributes
+    void parseCalibratorFlowAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse rerouter attributes
+    void parseRerouterAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse rerouter interval attributes
+    void parseRerouterIntervalAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse closing lane reroute attributes
+    void parseClosingLaneRerouteAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse closing reroute attributes
+    void parseClosingRerouteAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse dest prob reroute attributes
+    void parseDestProbRerouteAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse parking area reroute attributes
+    void parseParkingAreaRerouteAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse route prob reroute attributes
+    void parseRouteProbRerouteAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse route probe attributes
+    void parseRouteProbeAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse vaporizer attributes
+    void parseVaporizerAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse generic parameters
     void parseParameters(const SUMOSAXAttributes& attrs);
+
+    /// @}
+
+    /// @brief parse SumoBaseObject (it's called recursivelly)
+    void parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj);
 
     /// @brief invalidate copy constructor
     AdditionalHandler(const AdditionalHandler& s) = delete;
