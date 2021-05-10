@@ -178,10 +178,36 @@ AdditionalHandler::myEndElement(int element) {
         const SumoXMLTag tag = static_cast<SumoXMLTag> (element);
         // check tag
         switch (tag) {
+            // Stopping Places
             case SUMO_TAG_BUS_STOP:
+            case SUMO_TAG_TRAIN_STOP:
+            case SUMO_TAG_ACCESS:
+            case SUMO_TAG_CONTAINER_STOP:
             case SUMO_TAG_CHARGING_STATION:
+            case SUMO_TAG_PARKING_AREA:
+            // detectors
             case SUMO_TAG_E1DETECTOR:
-                // parse object
+            case SUMO_TAG_INDUCTION_LOOP:
+            case SUMO_TAG_E2DETECTOR:
+            case SUMO_TAG_E2DETECTOR_MULTILANE:
+            case SUMO_TAG_LANE_AREA_DETECTOR:
+            case SUMO_TAG_E3DETECTOR:
+            case SUMO_TAG_ENTRY_EXIT_DETECTOR:
+            case SUMO_TAG_INSTANT_INDUCTION_LOOP:
+            // TAZs
+            case SUMO_TAG_TAZ:
+            // Variable Speed Sign
+            case SUMO_TAG_VSS:
+            // Calibrator
+            case SUMO_TAG_CALIBRATOR:
+            case SUMO_TAG_LANECALIBRATOR:
+            // Rerouter
+            case SUMO_TAG_REROUTER:
+            // Route probe
+            case SUMO_TAG_ROUTEPROBE:
+            // Vaporizer (deprecated)
+            case SUMO_TAG_VAPORIZER:
+                // parse object and all their childrens
                 parseSumoBaseObject(obj);
                 // just close node
                 myCommonXMLStructure.closeTag();
@@ -191,6 +217,7 @@ AdditionalHandler::myEndElement(int element) {
             default:
                 // just close node
                 myCommonXMLStructure.closeTag();
+                break;
         }
     }
 }
@@ -496,7 +523,29 @@ void
 AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
     // switch tag
     switch (obj->getTag()) {
+        // Stopping Places
+        case SUMO_TAG_BUS_STOP:
+        case SUMO_TAG_TRAIN_STOP:
+            buildBusStop(attrs);
+            break;
+        case SUMO_TAG_ACCESS:
+            buildAccess(attrs);
+            break;
+        case SUMO_TAG_CONTAINER_STOP:
+            buildContainerStop(attrs);
+            break;
+        case SUMO_TAG_CHARGING_STATION:
+            buildChargingStation(attrs);
+            break;
+        case SUMO_TAG_PARKING_AREA:
+            buildParkingArea(attrs);
+            break;
+        case SUMO_TAG_PARKING_SPACE:
+            buildParkingSpace(attrs);
+            break;
+        // Detectors
         case SUMO_TAG_E1DETECTOR:
+        case SUMO_TAG_INDUCTION_LOOP:
             // build E1
             buildE1Detector(obj,
                 obj->getStringAttribute(SUMO_ATTR_ID),
@@ -508,6 +557,83 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getStringAttribute(SUMO_ATTR_NAME),
                 obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
                 obj->getParameters());
+            break;
+        case SUMO_TAG_E2DETECTOR:
+        case SUMO_TAG_LANE_AREA_DETECTOR:
+            buildSingleLaneDetectorE2(attrs);
+            break;
+        case SUMO_TAG_E2DETECTOR_MULTILANE:
+            buildMultiLaneDetectorE2(attrs);
+            break;
+        case SUMO_TAG_E3DETECTOR:
+        case SUMO_TAG_ENTRY_EXIT_DETECTOR:
+            buildDetectorE3(attrs);
+            break;
+        case SUMO_TAG_DET_ENTRY:
+            buildDetectorEntry(attrs);
+            break;
+        case SUMO_TAG_DET_EXIT:
+            buildDetectorExit(attrs);
+            break;
+        case SUMO_TAG_INSTANT_INDUCTION_LOOP:
+            buildDetectorE1Instant(attrs);
+            break;
+        // TAZs
+        case SUMO_TAG_TAZ:
+            buildTAZ(attrs);
+            break;
+        case SUMO_TAG_TAZSOURCE:
+            buildTAZSource(attrs);
+            break;
+        case SUMO_TAG_TAZSINK:
+            buildTAZSink(attrs);
+            break;
+        // Variable Speed Sign
+        case SUMO_TAG_VSS:
+            buildVariableSpeedSign(attrs);
+            break;
+        case SUMO_TAG_STEP:
+            buildVariableSpeedSignStep(attrs);
+            break;
+        // Calibrator
+        case SUMO_TAG_CALIBRATOR:
+            buildEdgeCalibrator(attrs);
+            break;
+        case SUMO_TAG_LANECALIBRATOR:
+            buildLaneCalibrator(attrs);
+            break;
+        case SUMO_TAG_FLOW_CALIBRATOR:
+            buildCalibratorFlow(attrs);
+            break;
+        // Rerouter
+        case SUMO_TAG_REROUTER:
+            buildRerouter(attrs);
+            break;
+        case SUMO_TAG_INTERVAL:
+            buildRerouterInterval(attrs);
+            break;
+        case SUMO_TAG_CLOSING_LANE_REROUTE:
+            buildClosingLaneReroute(attrs);
+            break;
+        case SUMO_TAG_CLOSING_REROUTE:
+            buildClosingReroute(attrs);
+            break;
+        case SUMO_TAG_DEST_PROB_REROUTE:
+            builDestProbReroute(attrs);
+            break;
+        case SUMO_TAG_PARKING_ZONE_REROUTE:
+            builParkingAreaReroute(attrs);
+            break;
+        case SUMO_TAG_ROUTE_PROB_REROUTE:
+            buildRouteProbReroute(attrs);
+            break;
+        // Route probe
+        case SUMO_TAG_ROUTEPROBE:
+            buildRouteProbe(attrs);
+            break;
+        // Vaporizer (deprecated)
+        case SUMO_TAG_VAPORIZER:
+            buildVaporizer(attrs);
             break;
         default:
             break;
