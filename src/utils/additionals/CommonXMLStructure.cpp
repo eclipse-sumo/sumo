@@ -63,7 +63,7 @@ CommonXMLStructure::SumoBaseObject::getParentSumoBaseObject() const {
 
 const std::string&
 CommonXMLStructure::SumoBaseObject::getStringAttribute(const SumoXMLAttr attr) const {
-    if (myStringAttributes.count(attr) > 0) {
+    if (hasStringAttribute(attr)) {
         return myStringAttributes.at(attr);
     } else {
         throw ProcessError("Attr doesn't exist");
@@ -73,7 +73,7 @@ CommonXMLStructure::SumoBaseObject::getStringAttribute(const SumoXMLAttr attr) c
 
 int
 CommonXMLStructure::SumoBaseObject::getIntAttribute(const SumoXMLAttr attr) const {
-    if (myIntAttributes.count(attr) > 0) {
+    if (hasIntAttribute(attr)) {
         return myIntAttributes.at(attr);
     } else {
         throw ProcessError("Attr doesn't exist");
@@ -83,7 +83,7 @@ CommonXMLStructure::SumoBaseObject::getIntAttribute(const SumoXMLAttr attr) cons
 
 double
 CommonXMLStructure::SumoBaseObject::getDoubleAttribute(const SumoXMLAttr attr) const {
-    if (myDoubleAttributes.count(attr) > 0) {
+    if (hasDoubleAttribute(attr)) {
         return myDoubleAttributes.at(attr);
     } else {
         throw ProcessError("Attr doesn't exist");
@@ -93,7 +93,7 @@ CommonXMLStructure::SumoBaseObject::getDoubleAttribute(const SumoXMLAttr attr) c
 
 bool
 CommonXMLStructure::SumoBaseObject::getBoolAttribute(const SumoXMLAttr attr) const {
-    if (myBoolAttributes.count(attr) > 0) {
+    if (hasBoolAttribute(attr)) {
         return myBoolAttributes.at(attr);
     } else {
         throw ProcessError("Attr doesn't exist");
@@ -103,7 +103,7 @@ CommonXMLStructure::SumoBaseObject::getBoolAttribute(const SumoXMLAttr attr) con
 
 const Position&
 CommonXMLStructure::SumoBaseObject::getPositionAttribute(const SumoXMLAttr attr) const {
-    if (myPositionAttributes.count(attr) > 0) {
+    if (hasPositionAttribute(attr)) {
         return myPositionAttributes.at(attr);
     } else {
         throw ProcessError("Attr doesn't exist");
@@ -113,7 +113,7 @@ CommonXMLStructure::SumoBaseObject::getPositionAttribute(const SumoXMLAttr attr)
 
 SUMOTime
 CommonXMLStructure::SumoBaseObject::getSUMOTimeAttribute(const SumoXMLAttr attr) const {
-    if (mySUMOTimeAttributes.count(attr) > 0) {
+    if (hasSUMOTimeAttribute(attr)) {
         return mySUMOTimeAttributes.at(attr);
     } else {
         throw ProcessError("Attr doesn't exist");
@@ -123,7 +123,7 @@ CommonXMLStructure::SumoBaseObject::getSUMOTimeAttribute(const SumoXMLAttr attr)
 
 const std::vector<std::string>&
 CommonXMLStructure::SumoBaseObject::getStringListAttribute(const SumoXMLAttr attr) const {
-    if (myStringListAttributes.count(attr) > 0) {
+    if (hasStringListAttribute(attr)) {
         return myStringListAttributes.at(attr);
     } else {
         throw ProcessError("Attr doesn't exist");
@@ -133,7 +133,7 @@ CommonXMLStructure::SumoBaseObject::getStringListAttribute(const SumoXMLAttr att
 
 const PositionVector&
 CommonXMLStructure::SumoBaseObject::getPositionVectorAttribute(const SumoXMLAttr attr) const {
-    if (myPositionVectorAttributes.count(attr) > 0) {
+    if (hasPositionVectorAttribute(attr)) {
         return myPositionVectorAttributes.at(attr);
     } else {
         throw ProcessError("Attr doesn't exist");
@@ -150,6 +150,54 @@ CommonXMLStructure::SumoBaseObject::getParameters() const {
 const std::vector<CommonXMLStructure::SumoBaseObject*>&
 CommonXMLStructure::SumoBaseObject::getSumoBaseObjectChildren() const {
     return mySumoBaseObjectChildren;
+}
+
+
+bool
+CommonXMLStructure::SumoBaseObject::hasStringAttribute(const SumoXMLAttr attr) const {
+    return myStringAttributes.count(attr) > 0;
+}
+
+
+bool
+CommonXMLStructure::SumoBaseObject::hasIntAttribute(const SumoXMLAttr attr) const {
+    return myIntAttributes.count(attr) > 0;
+}
+
+
+bool 
+CommonXMLStructure::SumoBaseObject::hasDoubleAttribute(const SumoXMLAttr attr) const {
+    return myDoubleAttributes.count(attr) > 0;
+}
+
+
+bool
+CommonXMLStructure::SumoBaseObject::hasBoolAttribute(const SumoXMLAttr attr) const {
+    return myBoolAttributes.count(attr) > 0;
+}
+
+
+bool
+CommonXMLStructure::SumoBaseObject::hasPositionAttribute(const SumoXMLAttr attr) const {
+    return myPositionAttributes.count(attr) > 0;
+}
+
+
+bool
+CommonXMLStructure::SumoBaseObject::hasSUMOTimeAttribute(const SumoXMLAttr attr) const {
+    return mySUMOTimeAttributes.count(attr) > 0;
+}
+
+
+bool 
+CommonXMLStructure::SumoBaseObject::hasStringListAttribute(const SumoXMLAttr attr) const {
+    return myStringListAttributes.count(attr) > 0;
+}
+
+
+bool 
+CommonXMLStructure::SumoBaseObject::hasPositionVectorAttribute(const SumoXMLAttr attr) const {
+    return myPositionVectorAttributes.count(attr) > 0;
 }
 
 

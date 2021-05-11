@@ -80,6 +80,35 @@ public:
         const std::vector<SumoBaseObject*> &getSumoBaseObjectChildren() const;
         /// @}
 
+        /// @brief has function
+        /// @{
+        
+        /// @brief check if current SumoBaseObject has the given string attribute
+        bool hasStringAttribute(const SumoXMLAttr attr) const;
+
+        /// @brief check if current SumoBaseObject has the given int attribute
+        bool hasIntAttribute(const SumoXMLAttr attr) const;
+
+        /// @brief check if current SumoBaseObject has the given double attribute
+        bool hasDoubleAttribute(const SumoXMLAttr attr) const;
+
+        /// @brief check if current SumoBaseObject has the given bool attribute
+        bool hasBoolAttribute(const SumoXMLAttr attr) const;
+
+        /// @brief check if current SumoBaseObject has the given bool attribute
+        bool hasPositionAttribute(const SumoXMLAttr attr) const;
+
+        /// @brief check if current SumoBaseObject has the given SUMOTime attribute
+        bool hasSUMOTimeAttribute(const SumoXMLAttr attr) const;
+
+        /// @brief check if current SumoBaseObject has the given string list attribute
+        bool hasStringListAttribute(const SumoXMLAttr attr) const;
+
+        /// @brief check if current SumoBaseObject has the given positionVector attribute
+        bool hasPositionVectorAttribute(const SumoXMLAttr attr) const;
+
+        /// @}
+
         /// @name add functions
         /// @{
         /// @brief add string attribute into current SumoBaseObject node
