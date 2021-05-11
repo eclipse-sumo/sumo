@@ -51,7 +51,7 @@ JPS_DOOR_LAYER = 11
 DXF_LAYER_NAME_BOUNDARY = "SUMONetBoundary"
 DXF_LAYER_NAME_DOOR = "SUMONetDoors"
 
-DEBUG = False
+DEBUG = True
 
 
 class DoorInfo:
@@ -83,13 +83,13 @@ def parse_args():
                            help="The txt file including the line-by-line list of objects to select")
     argParser.add_argument("-o", "--output-file", dest="outFile",
                            help="The JuPedSim dxf output file name")
-    argParser.add_argument("-a", "--write-additional-file", action="store_true", default=False,
+    argParser.add_argument("-a", "--write-additional-file", action="store_true",
                            help="Export boundaries and doors to XML additional file")
     # see https://sumo.dlr.de/docs/Simulation/Pedestrians.html#non-exclusive_sidewalks
-    argParser.add_argument("-x", "--exclusive-sidewalks", action="store_true", default=True,
-                           help="Choose exclusive sidewalk lane in case of ambiguities")
-    argParser.add_argument("--exclude-junctions", action="store_true", default=True,
-                           help="Exclude junctions as feasible pedestrian areas for JuPedSim")
+    argParser.add_argument("--no-exclusive-sidewalks", action="store_true",
+                           help="Choose all lanes allowing pedestrians in case of ambiguities (experimental)")
+    argParser.add_argument("--allow-junctions", action="store_true",
+                           help="Allow junctions as feasible pedestrian areas for JuPedSim (experimental)")
 
     options = argParser.parse_args()
     if not options.netFile or not options.selectedObjectsFile:
@@ -118,10 +118,44 @@ def calculateBoundingPolygon(shape, width):
     return polyShape
 
 
+def addInOutLaneToDoorList(polygon, inOutLane, net, doorInfoList, direction='in'):
+    assert (direction == 'in' or direction == 'out')
+    lane = net.getLane(polygon.attributes[KEY_SUMO_ID])
+    if DEBUG:
+        print("DEBUG: lane (%s) \'%s\' for current lane \'%s\'" % (direction, inOutLane.getID(), lane.getID()))
+    shape = inOutLane.getShape()
+    # handle special edges
+    if inOutLane.getEdge().isSpecial():
+        edgeFunc = inOutLane.getEdge().getFunction()
+        if DEBUG:
+            print("DEBUG: edge (%s) \'%s\' has special function \'%s\'" % (
+                  direction, inOutLane.getEdge().getID(), edgeFunc))
+        if edgeFunc == "internal":
+            if direction == 'in':
+                shape = inOutLane.getConnection(lane).getJunction().getShape()
+            else:
+                shape = lane.getConnection(inOutLane).getJunction().getShape()
+    if DEBUG:
+        inOutPolygon = sumolib.shapes.polygon.Polygon(id=inOutLane.getID(),
+                                                      color=JPS_BOUNDARY_COLOR,
+                                                      layer=JPS_BOUNDARY_LAYER,
+                                                      shape=shape)
+        print(inOutPolygon.toXML())
+    lengths = sumolib.geomhelper.intersectsAtLengths2D(polygon.shape, shape)
+    positions = [sumolib.geomhelper.positionAtShapeOffset(polygon.shape, offset) for offset in lengths]
+    doorId = polygon.attributes[KEY_SUMO_ID] + JPS_DOOR_ID_DELIMITER + inOutLane.getID()
+    doorInfoList.append(DoorInfo(doorId, positions, polygon, lengths))
+    if DEBUG:
+        print("DEBUG: calculateDoors() p.shape: \'%s\'" % polygon.shape)
+        print("DEBUG: calculateDoors() shape: \'%s\'" % shape)
+        print("DEBUG: calculateDoors() lengths: \'%s\'" % lengths)
+        print("DEBUG: calculateDoors() positions: \'%s\'" % positions)
+
+
 def addIncidentEdgeToDoorList(polygon, edge, net, doorInfoList):
     assert net.hasEdge(edge.getID())
     if DEBUG:
-        print("DEBUG: incident edge \'%s\' for node \'%s\'" % (edge.getID(), polygon.attributes[KEY_SUMO_ID]))
+        print("DEBUG: incident edge \'%s\' for current node \'%s\'" % (edge.getID(), polygon.attributes[KEY_SUMO_ID]))
     lane = getExclusiveSidewalkLane(edge)
     if lane is None:
         return
@@ -192,29 +226,10 @@ def calculateDoors(polygons, net):
             lane = net.getLane(p.attributes[KEY_SUMO_ID])
             if DEBUG:
                 print("DEBUG: calculateDoors() lane \'%s\'" % lane.getID())
-            for inc in lane.getIncoming(onlyDirect=True):
-                if DEBUG:
-                    print("DEBUG: incoming lane \'%s\' for lane \'%s\'" % (inc.getID(), lane.getID()))
-                shape = inc.getShape()
-                if inc.getID()[0] == ":":
-                    shape = inc.getConnection(lane).getJunction().getShape()
-                lengths = sumolib.geomhelper.intersectsAtLengths2D(p.shape, shape)
-                positions = [sumolib.geomhelper.positionAtShapeOffset(p.shape, offset) for offset in lengths]
-                doorId = p.attributes[KEY_SUMO_ID] + JPS_DOOR_ID_DELIMITER + inc.getID()
-                doorInfoList.append(DoorInfo(doorId, positions, p, lengths))
-                if DEBUG:
-                    print("DEBUG: calculateDoors() p.shape: \'%s\'" % p.shape)
-                    print("DEBUG: calculateDoors() shape: \'%s\'" % shape)
-                    print("DEBUG: calculateDoors() lengths: \'%s\'" % lengths)
-                    print("DEBUG: calculateDoors() positions: \'%s\'" % positions)
-            for out in lane.getOutgoing():
-                if DEBUG:
-                    print("DEBUG: outgoing node \'%s\' for lane \'%s\'" % (out.getJunction().getID(), lane.getID()))
-                shape = out.getJunction().getShape()
-                lengths = sumolib.geomhelper.intersectsAtLengths2D(p.shape, shape)
-                positions = [sumolib.geomhelper.positionAtShapeOffset(p.shape, offset) for offset in lengths]
-                doorId = p.attributes[KEY_SUMO_ID] + JPS_DOOR_ID_DELIMITER + out.getViaLaneID()
-                doorInfoList.append(DoorInfo(doorId, positions, p, lengths))
+            for inLane in lane.getIncoming(onlyDirect=True):
+                addInOutLaneToDoorList(p, inLane, net, doorInfoList, direction='in')
+            for outCon in lane.getOutgoing():
+                addInOutLaneToDoorList(p, outCon.getToLane(), net, doorInfoList, direction='out')
         elif isNode:
             node = net.getNode(p.attributes[KEY_SUMO_ID])
             if DEBUG:
@@ -314,7 +329,7 @@ if __name__ == "__main__":
             if not edge.allows("pedestrian"):
                 print("WARNING: edge \'%s\' does not allow pedestrians, skipping..." % (edgeId))
                 continue
-            if options.exclusive_sidewalks:
+            if not options.no_exclusive_sidewalks:
                 addLaneToPolygons(getExclusiveSidewalkLane(edge), polygons)
             else:
                 for lane in edge.getLanes():
@@ -330,13 +345,13 @@ if __name__ == "__main__":
                 print("WARNING: lane \'%s\' does not exist in the network (please check lane index), skipping..." % (
                     laneId))
                 continue
-            if options.exclusive_sidewalks:
+            if not options.no_exclusive_sidewalks:
                 sidewalkLane = getExclusiveSidewalkLane(lane.getEdge())
                 if laneId != sidewalkLane.getID():
                     print("WARNING: lane \'%s\' is not the exclusive sidewalk lane, skipping..." % (laneId))
                     continue
             addLaneToPolygons(lane, polygons)
-    if not options.exclude_junctions and "junction" in selectedObjects.keys():
+    if options.allow_junctions and "junction" in selectedObjects.keys():
         for nodeId in selectedObjects["junction"]:
             try:
                 node = net.getNode(nodeId)
