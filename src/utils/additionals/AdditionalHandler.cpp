@@ -23,6 +23,7 @@
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/RGBColor.h>
+#include <utils/geom/GeomConvHelper.h>
 
 #include "AdditionalHandler.h"
 
@@ -85,9 +86,11 @@ AdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 parseE1Attributes(attrs);
                 break;
             case SUMO_TAG_E2DETECTOR:
-            case SUMO_TAG_E2DETECTOR_MULTILANE:
             case SUMO_TAG_LANE_AREA_DETECTOR:
-                parseE2Attributes(attrs);
+                parseE2SingleLaneAttributes(attrs);
+                break;
+            case SUMO_TAG_E2DETECTOR_MULTILANE:
+                parseE2MultiLanesAttributes(attrs);
                 break;
             case SUMO_TAG_E3DETECTOR:
             case SUMO_TAG_ENTRY_EXIT_DETECTOR:
@@ -259,7 +262,23 @@ AdditionalHandler::parseBusStopAttributes(const SUMOSAXAttributes& attrs) {
 
 void
 AdditionalHandler::parseAccessAttributes(const SUMOSAXAttributes& attrs) {
-
+    // declare Ok Flag
+    bool parsedOk = true;
+    // now obtain attributes
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, "", parsedOk, false);
+    const std::string position = attrs.get<std::string>(SUMO_ATTR_POSITION, "", parsedOk, false);
+    const std::string length = attrs.get<std::string>(SUMO_ATTR_LENGTH, "", parsedOk, false);
+    const bool friendlyPos = attrs.get<bool>(SUMO_ATTR_FRIENDLY_POS, "", parsedOk, false);
+    // continue if flag is ok
+    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+        // first open tag
+        myCommonXMLStructure.openTag(SUMO_TAG_ACCESS);
+        // add all attributes
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_POSITION, position);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LENGTH, length);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+    }
 }
 
 
@@ -329,13 +348,67 @@ AdditionalHandler::parseChargingStationAttributes(const SUMOSAXAttributes& attrs
 
 void
 AdditionalHandler::parseParkingAreaAttributes(const SUMOSAXAttributes& attrs) {
-
+    // declare Ok Flag
+    bool parsedOk = true;
+    // now obtain attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, false);
+    const std::string startPos = attrs.get<std::string>(SUMO_ATTR_STARTPOS, id.c_str(), parsedOk, false);
+    const std::string endPos = attrs.get<std::string>(SUMO_ATTR_ENDPOS, id.c_str(), parsedOk, false);
+    const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, false);
+    const bool friendlyPos = attrs.get<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
+    const int roadSideCapacity = attrs.get<int>(SUMO_ATTR_ROADSIDE_CAPACITY, id.c_str(), parsedOk, false);
+    const bool onRoad = attrs.get<bool>(SUMO_ATTR_ONROAD, id.c_str(), parsedOk, false);
+    const double width = attrs.get<double>(SUMO_ATTR_WIDTH, id.c_str(), parsedOk, false);
+    const std::string length = attrs.get<std::string>(SUMO_ATTR_LENGTH, id.c_str(), parsedOk, false);
+    const double angle = attrs.get<double>(SUMO_ATTR_ANGLE, id.c_str(), parsedOk, false);
+    // continue if flag is ok
+    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+        // first open tag
+        myCommonXMLStructure.openTag(SUMO_TAG_PARKING_AREA);
+        // add all attributes
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_STARTPOS, startPos);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ENDPOS, endPos);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addIntAttribute(SUMO_ATTR_ROADSIDE_CAPACITY, roadSideCapacity);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_ONROAD, onRoad);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_WIDTH, width);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LENGTH, length);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ANGLE, angle);
+    }
 }
 
 
 void
 AdditionalHandler::parseParkingSpaceAttributes(const SUMOSAXAttributes& attrs) {
-
+    // declare Ok Flag
+    bool parsedOk = true;
+    // now obtain attributes
+    const std::string posStr = attrs.get<std::string>(SUMO_ATTR_POSITION, "", parsedOk, false);
+    const double width = attrs.get<double>(SUMO_ATTR_WIDTH, "", parsedOk, false);
+    const double length = attrs.get<double>(SUMO_ATTR_LENGTH, "", parsedOk, false);
+    const double angle = attrs.get<double>(SUMO_ATTR_ANGLE, "", parsedOk, false);
+    const double slope = attrs.get<double>(SUMO_ATTR_SLOPE, "", parsedOk, false);
+    // parse position as positionVector
+    const PositionVector pos = GeomConvHelper::parseShapeReporting(posStr, "user-supplied position", 0, parsedOk, false, true);
+    // check position vector
+    if (!parsedOk || (pos.size() != 1)) {
+        throw NumberFormatException("(Position) " + posStr);
+    }
+    // continue if flag is ok
+    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+        // first open tag
+        myCommonXMLStructure.openTag(SUMO_TAG_PARKING_SPACE);
+        // add all attributes
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addPositionAttribute(SUMO_ATTR_POSITION, pos.front());
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_WIDTH, width);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LENGTH, length);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ANGLE, angle);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_SLOPE, slope);
+    } 
 }
 
 
@@ -370,32 +443,185 @@ AdditionalHandler::parseE1Attributes(const SUMOSAXAttributes& attrs) {
 
 
 void
-AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
+AdditionalHandler::parseE2SingleLaneAttributes(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // now obtain attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, false);
+    const double length = attrs.get<double>(SUMO_ATTR_LENGTH, id.c_str(), parsedOk, false);
+    const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, false);
+    const SUMOTime frequency = attrs.get<SUMOTime>(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, false);
+    const std::string trafficLight = attrs.get<std::string>(SUMO_ATTR_TLID, id.c_str(), parsedOk, false);
+    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, false);
+    const std::string vehicleTypes = attrs.get<std::string>(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, false);
+    const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, false);
+    const SUMOTime haltingTimeThreshold = attrs.get<SUMOTime>(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), parsedOk, false);
+    const double haltingSpeedThreshold = attrs.get<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), parsedOk, false);
+    const double jamDistThreshold = attrs.get<double>(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), parsedOk, false);
+    const bool friendlyPos = attrs.get<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
+    // continue if flag is ok
+    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+        // first open tag
+        myCommonXMLStructure.openTag(SUMO_TAG_E2DETECTOR);
+        // add all attributes
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LENGTH, length);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, position);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addSUMOTimeAttribute(SUMO_ATTR_FREQUENCY, frequency);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_TLID, file);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addSUMOTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD, haltingTimeThreshold);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD, haltingSpeedThreshold);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD, jamDistThreshold);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+    }
+}
 
+
+void
+AdditionalHandler::parseE2MultiLanesAttributes(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // now obtain attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
+    const std::vector<std::string> laneIds = attrs.get<std::vector<std::string> >(SUMO_ATTR_LANES, id.c_str(), parsedOk, false);
+    const double endPos = attrs.get<double>(SUMO_ATTR_ENDPOS, id.c_str(), parsedOk, false);
+    const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, false);
+    const SUMOTime frequency = attrs.get<SUMOTime>(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, false);
+    const std::string trafficLight = attrs.get<std::string>(SUMO_ATTR_TLID, id.c_str(), parsedOk, false);
+    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, false);
+    const std::string vehicleTypes = attrs.get<std::string>(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, false);
+    const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, false);
+    const SUMOTime haltingTimeThreshold = attrs.get<SUMOTime>(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), parsedOk, false);
+    const double haltingSpeedThreshold = attrs.get<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), parsedOk, false);
+    const double jamDistThreshold = attrs.get<double>(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), parsedOk, false);
+    const bool friendlyPos = attrs.get<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
+    // continue if flag is ok
+    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+        // first open tag
+        myCommonXMLStructure.openTag(SUMO_TAG_E2DETECTOR_MULTILANE);
+        // add all attributes
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LANE, laneIds);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LENGTH, endPos);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, position);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addSUMOTimeAttribute(SUMO_ATTR_FREQUENCY, frequency);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_TLID, trafficLight);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addSUMOTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD, haltingTimeThreshold);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD, haltingSpeedThreshold);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD, jamDistThreshold);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+    }
 }
 
 
 void
 AdditionalHandler::parseE3Attributes(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // now obtain attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
+    const std::string posStr = attrs.get<std::string>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, false);
+    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, false);
+    const std::string vehicleTypes = attrs.get<std::string>(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, false);
+    const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, false);
+    const SUMOTime haltingTimeThreshold = attrs.get<SUMOTime>(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), parsedOk, false);
+    const double haltingSpeedThreshold = attrs.get<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), parsedOk, false);
+    // parse position as positionVector
+    const PositionVector pos = GeomConvHelper::parseShapeReporting(posStr, "user-supplied position", 0, parsedOk, false, true);
+    // check position vector
+    if (!parsedOk || (pos.size() != 1)) {
+        throw NumberFormatException("(Position) " + posStr);
+    }
+    // continue if flag is ok
+    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+        // first open tag
+        myCommonXMLStructure.openTag(SUMO_TAG_E1DETECTOR);
+        // add all attributes
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addPositionAttribute(SUMO_ATTR_POSITION, pos.front());
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addSUMOTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD, haltingTimeThreshold);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD, haltingSpeedThreshold);
+    }
 
 }
 
 
 void
 AdditionalHandler::parseEntryAttributes(const SUMOSAXAttributes& attrs) {
-
+    // declare Ok Flag
+    bool parsedOk = true;
+    // now obtain attributes
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, "", parsedOk, false);
+    const double position = attrs.get<double>(SUMO_ATTR_POSITION, "", parsedOk, false);
+    const bool friendlyPos = attrs.get<bool>(SUMO_ATTR_FRIENDLY_POS, "", parsedOk, false);
+    // continue if flag is ok
+    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+        // first open tag
+        myCommonXMLStructure.openTag(SUMO_TAG_DET_ENTRY);
+        // add all attributes
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, position);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+    }
 }
 
 
 void
 AdditionalHandler::parseExitAttributes(const SUMOSAXAttributes& attrs) {
-
+    // declare Ok Flag
+    bool parsedOk = true;
+    // now obtain attributes
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, "", parsedOk, false);
+    const double position = attrs.get<double>(SUMO_ATTR_POSITION, "", parsedOk, false);
+    const bool friendlyPos = attrs.get<bool>(SUMO_ATTR_FRIENDLY_POS, "", parsedOk, false);
+    // continue if flag is ok
+    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+        // first open tag
+        myCommonXMLStructure.openTag(SUMO_TAG_DET_EXIT);
+        // add all attributes
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, position);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+    }
 }
 
 
 void
 AdditionalHandler::parseE1InstantAttributes(const SUMOSAXAttributes& attrs) {
-
+    // declare Ok Flag
+    bool parsedOk = true;
+    // now obtain attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, false);
+    const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, false);
+    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, false);
+    const std::string vehicleTypes = attrs.get<std::string>(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, false);
+    const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, false);
+    const bool friendlyPos = attrs.get<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
+    // continue if flag is ok
+    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+        // first open tag
+        myCommonXMLStructure.openTag(SUMO_TAG_INSTANT_INDUCTION_LOOP);
+        // add all attributes
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, position);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+    }
 }
 
 
@@ -425,7 +651,19 @@ AdditionalHandler::parseVariableSpeedSignAttributes(const SUMOSAXAttributes& att
 
 void
 AdditionalHandler::parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes& attrs) {
-
+    // declare Ok Flag
+    bool parsedOk = true;
+    // now obtain attributes
+    const SUMOTime time = attrs.get<SUMOTime>(SUMO_ATTR_TIME, "", parsedOk, false);
+    const double speed = attrs.get<double>(SUMO_ATTR_SPEED, "", parsedOk, false);
+    // continue if flag is ok
+    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+        // first open tag
+        myCommonXMLStructure.openTag(SUMO_TAG_INTERVAL);
+        // add all attributes
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addSUMOTimeAttribute(SUMO_ATTR_TIME, time);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_SPEED, speed);
+    }
 }
 
 
@@ -449,19 +687,59 @@ AdditionalHandler::parseRerouterAttributes(const SUMOSAXAttributes& attrs) {
 
 void
 AdditionalHandler::parseRerouterIntervalAttributes(const SUMOSAXAttributes& attrs) {
-
+    // declare Ok Flag
+    bool parsedOk = true;
+    // now obtain attributes
+    const SUMOTime begin = attrs.get<SUMOTime>(SUMO_ATTR_BEGIN, "", parsedOk, false);
+    const SUMOTime end = attrs.get<SUMOTime>(SUMO_ATTR_END, "", parsedOk, false);
+    // continue if flag is ok
+    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+        // first open tag
+        myCommonXMLStructure.openTag(SUMO_TAG_INTERVAL);
+        // add all attributes
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addSUMOTimeAttribute(SUMO_ATTR_BEGIN, begin);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addSUMOTimeAttribute(SUMO_ATTR_END, end);
+    }
 }
 
 
 void
 AdditionalHandler::parseClosingLaneRerouteAttributes(const SUMOSAXAttributes& attrs) {
-
+    // declare Ok Flag
+    bool parsedOk = true;
+    // now obtain attributes
+    const std::string laneID = attrs.get<std::string>(SUMO_ATTR_LANE, "", parsedOk, false);
+    const std::string allow = attrs.get<std::string>(SUMO_ATTR_ALLOW, "", parsedOk, false);
+    const std::string disallow = attrs.get<std::string>(SUMO_ATTR_DISALLOW, "", parsedOk, false);
+    // continue if flag is ok
+    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+        // first open tag
+        myCommonXMLStructure.openTag(SUMO_TAG_CLOSING_LANE_REROUTE);
+        // add all attributes
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneID);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ALLOW, allow);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_DISALLOW, disallow);
+    }
 }
 
 
 void
 AdditionalHandler::parseClosingRerouteAttributes(const SUMOSAXAttributes& attrs) {
-
+    // declare Ok Flag
+    bool parsedOk = true;
+    // now obtain attributes
+    const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_EDGE, "", parsedOk, false);
+    const std::string allow = attrs.get<std::string>(SUMO_ATTR_ALLOW, "", parsedOk, false);
+    const std::string disallow = attrs.get<std::string>(SUMO_ATTR_DISALLOW, "", parsedOk, false);
+    // continue if flag is ok
+    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+        // first open tag
+        myCommonXMLStructure.openTag(SUMO_TAG_CLOSING_LANE_REROUTE);
+        // add all attributes
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_EDGE, edgeID);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ALLOW, allow);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_DISALLOW, disallow);
+    }
 }
 
 
