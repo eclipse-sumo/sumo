@@ -47,7 +47,7 @@ class GNEAdditionalHandlerBeta : public AdditionalHandler {
 public:
 
     /// @brief Constructor
-    GNEAdditionalHandlerBeta(const std::string& file, GNENet* net, GNEAdditional* additionalParent = nullptr);
+    GNEAdditionalHandlerBeta(const std::string& file, GNENet* net);
 
     /// @brief Destructor
     ~GNEAdditionalHandlerBeta();
@@ -490,12 +490,41 @@ public:
     static bool checkOverlappingRerouterIntervals(GNEAdditional* rerouter, SUMOTime newBegin, SUMOTime newEnd);
 
 protected:
-    
+    /// @brief struct for Netedit parameters
+    struct NeteditParameters {
+        /// @brief parameter constructor
+        NeteditParameters(const CommonXMLStructure::SumoBaseObject* sumoBaseObject);
 
-private:
-    /// @brief pointer to net
+        /// @brief destructor
+        ~NeteditParameters();
+
+        /// @brief block movement
+        const bool blockMovement;
+
+        /// @brief select
+        const bool select;
+        
+        /// @brief center view after creation
+        const bool centerAfterCreation;
+
+    private:
+        /// @brief default constructor
+        NeteditParameters();
+
+        /// @brief invalidate copy constructor
+        NeteditParameters(const NeteditParameters& s) = delete;
+
+        /// @brief invalidate assignment operator
+        NeteditParameters& operator=(const NeteditParameters& s) = delete;
+    };
+
+    /// @brief pointer to GNENet
     GNENet* myNet;
 
+    /// @brief allow undo/redo
+    bool myAllowUndoRedo;
+
+private:
     /// @brief invalidate copy constructor
     GNEAdditionalHandlerBeta(const GNEAdditionalHandlerBeta& s) = delete;
 

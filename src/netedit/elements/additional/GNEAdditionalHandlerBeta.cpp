@@ -62,7 +62,7 @@
 // GNEAdditionalHandlerBeta method definitions
 // ===========================================================================
 
-GNEAdditionalHandlerBeta::GNEAdditionalHandlerBeta(const std::string& file, GNENet* net, GNEAdditional* additionalParent) :
+GNEAdditionalHandlerBeta::GNEAdditionalHandlerBeta(const std::string& file, GNENet* net) :
     AdditionalHandler(file),
     myNet(net) {
 }
@@ -77,7 +77,26 @@ GNEAdditionalHandlerBeta::buildBusStop(const CommonXMLStructure::SumoBaseObject*
     const std::string &laneID, const std::string &startPos, const std::string &endPos, const std::string& name, 
     const std::vector<std::string>& lines, const int personCapacity, const double parkingLength, const bool friendlyPosition, 
     const std::map<std::string, std::string> &parameters) {
-    //
+    // first check if busStop exist
+    if (myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, id, false) == nullptr) {
+        // get NETEDIT parameters
+        NeteditParameters neteditParameters(sumoBaseObject);
+        // get lane
+        GNELane *lane = myNet->retrieveLane(laneID);
+        // build busStop
+        GNEAdditional* busStop = new GNEBusStop(id, lane, myNet, /*startPos*/ 0, /*endPos*/ 1, /*parametersSet*/ 0, name, lines, personCapacity, parkingLength, friendlyPosition, neteditParameters.blockMovement);
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_BUS_STOP));
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(busStop, true), true);
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            myNet->getAttributeCarriers()->insertAdditional(busStop);
+            lane->addChildElement(busStop);
+            busStop->incRef("buildBusStop");
+        }
+    } else {
+        throw ProcessError("Could not build " + toString(SUMO_TAG_BUS_STOP) + " with ID '" + id + "' in netedit; probably declared twice.");
+    }
 }
 
 
@@ -346,6 +365,26 @@ GNEAdditionalHandlerBeta::checkOverlappingRerouterIntervals(GNEAdditional* rerou
         }
     }
     return true;
+}
+
+// ===========================================================================
+// GNEAdditionalHandlerBeta::NeteditParameters method definitions
+// ===========================================================================
+
+GNEAdditionalHandlerBeta::NeteditParameters::NeteditParameters(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) :
+    blockMovement(sumoBaseObject->hasBoolAttribute(GNE_ATTR_BLOCK_MOVEMENT)? sumoBaseObject->getBoolAttribute(GNE_ATTR_BLOCK_MOVEMENT) : false),
+    select(sumoBaseObject->hasBoolAttribute(GNE_ATTR_SELECTED)? sumoBaseObject->getBoolAttribute(GNE_ATTR_SELECTED) : false),
+    centerAfterCreation(sumoBaseObject->hasBoolAttribute(GNE_ATTR_CENTER_AFTER_CREATION)? sumoBaseObject->getBoolAttribute(GNE_ATTR_CENTER_AFTER_CREATION) : false) {
+}
+
+
+GNEAdditionalHandlerBeta::NeteditParameters::~NeteditParameters() {}
+
+
+GNEAdditionalHandlerBeta::NeteditParameters::NeteditParameters() :
+    blockMovement(false),
+    select(false),
+    centerAfterCreation(false) {
 }
 
 /****************************************************************************/
