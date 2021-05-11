@@ -1150,12 +1150,12 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 parseVehicleClasses(obj->getStringAttribute(SUMO_ATTR_ALLOW), obj->getStringAttribute(SUMO_ATTR_DISALLOW)));
             break;
         case SUMO_TAG_DEST_PROB_REROUTE:
-            builDestProbReroute(obj,
+            buildDestProbReroute(obj,
                 obj->getStringAttribute(SUMO_ATTR_EDGE),
                 obj->getDoubleAttribute(SUMO_ATTR_PROB));
             break;
         case SUMO_TAG_PARKING_ZONE_REROUTE:
-            builParkingAreaReroute(obj,
+            buildParkingAreaReroute(obj,
                 obj->getStringAttribute(SUMO_ATTR_PARKING),
                 obj->getDoubleAttribute(SUMO_ATTR_PROB),
                 obj->getBoolAttribute(SUMO_ATTR_VISIBLE));
