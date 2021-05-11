@@ -111,6 +111,10 @@ The following extensions are managed and supported by other parties.
 - [TETCOS NetSim](https://www.tetcos.com/vanets.html)
 
     supports VANET simulations by interfacing with SUMO
+    
+- [SumoNetVis](https://pypi.org/project/SumoNetVis/)
+
+    A python library to render Sumo network files and trajectories with matplotlib or as an OBJ file.
 
 # Purgatory
 
