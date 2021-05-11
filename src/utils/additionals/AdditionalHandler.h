@@ -449,11 +449,11 @@ public:
      * @param[in] geo specify if shape was loaded as GEO coordinate
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth Line width when drawing unfilled polygon
-     * @return whether the polygon could be added
+     * @param[in] parameters generic parameters
      */
     virtual void buildPolygon(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
                       const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, 
-                      const PositionVector& shape, bool geo, bool fill, double lineWidth) = 0;
+                      const PositionVector& shape, bool geo, bool fill, double lineWidth, const std::map<std::string, std::string> &parameters) = 0;
 
     /**@brief Builds a POI using the given values
      * @param[in] sumoBaseObject sumo base object used for build
@@ -471,11 +471,12 @@ public:
      * @param[in] relativePath set image file as relative path
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
-     * @return whether the poi could be added
+     * @param[in] parameters generic parameters
      */
     virtual void buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
                   const RGBColor& color, const Position& pos, bool geo, const std::string& lane, double posOverLane, double posLat, 
-                  double layer, double angle, const std::string& imgFile, bool relativePath, double width, double height) = 0;
+                  double layer, double angle, const std::string& imgFile, bool relativePath, double width, double height,
+                  const std::map<std::string, std::string> &parameters) = 0;
     /// @}
 
 private:

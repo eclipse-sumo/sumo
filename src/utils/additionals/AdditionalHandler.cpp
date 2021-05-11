@@ -1198,7 +1198,8 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
                 obj->getBoolAttribute(SUMO_ATTR_GEO),
                 obj->getBoolAttribute(SUMO_ATTR_FILL),
-                obj->getDoubleAttribute(SUMO_ATTR_LINEWIDTH));
+                obj->getDoubleAttribute(SUMO_ATTR_LINEWIDTH),
+                obj->getParameters());
 
             break;
         // POI
@@ -1217,7 +1218,8 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getStringAttribute(SUMO_ATTR_IMGFILE),
                 obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
                 obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
-                obj->getDoubleAttribute(SUMO_ATTR_HEIGHT));
+                obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
+                obj->getParameters());
             break;
         default:
             break;
