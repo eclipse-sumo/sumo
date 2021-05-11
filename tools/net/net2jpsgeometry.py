@@ -142,6 +142,7 @@ def addInOutLaneToDoorList(polygon, inOutLane, net, doorInfoList, direction='in'
                                                       shape=shape)
         print(inOutPolygon.toXML())
     lengths = sumolib.geomhelper.intersectsAtLengths2D(polygon.shape, shape)
+    lengths.sort()
     positions = [sumolib.geomhelper.positionAtShapeOffset(polygon.shape, offset) for offset in lengths]
     doorId = polygon.attributes[KEY_SUMO_ID] + JPS_DOOR_ID_DELIMITER + inOutLane.getID()
     doorInfoList.append(DoorInfo(doorId, positions, polygon, lengths))
@@ -161,6 +162,7 @@ def addIncidentEdgeToDoorList(polygon, edge, net, doorInfoList):
         return
     shape = calculateBoundingPolygon(lane.getShape(includeJunctions=False), lane.getWidth())
     lengths = sumolib.geomhelper.intersectsAtLengths2D(polygon.shape, shape)
+    lengths.sort()
     positions = [sumolib.geomhelper.positionAtShapeOffset(polygon.shape, offset) for offset in lengths]
     doorId = polygon.attributes[KEY_SUMO_ID] + JPS_DOOR_ID_DELIMITER + lane.getID()
     doorInfoList.append(DoorInfo(doorId, positions, polygon, lengths))
