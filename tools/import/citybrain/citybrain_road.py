@@ -50,10 +50,8 @@ def main(options):
     nodefile = options.prefix + ".nod.xml"
     edgefile = options.prefix + ".edg.xml"
 
-    nod = open(nodefile, "w")
     edg = open(edgefile, "w")
 
-    sumolib.writeXMLHeader(nod, "$Id$", "nodes")  # noqa
     sumolib.writeXMLHeader(edg, "$Id$", "edges")  # noqa
 
     numNodes = 0
@@ -62,15 +60,14 @@ def main(options):
     edgeLine = 0
     edgeID1 = ""
     edgeID2 = ""
+    nodes = []
+    nodeEdges = defaultdict(lambda : 0)
     connections = { } # edge -> laneDirections
     for i, line in enumerate(open(options.netfile)):
         if i == 0:
             numNodes = int(line)
         elif i <= numNodes:
-            lat, lon, nodeID, signalized = line.split()
-            nod.write('    <node id="%s" x="%s" y="%s" type="%s"/>\n' % (
-                nodeID, lon, lat,
-                "traffic_light" if signalized == "1" else options.junctionType))
+            nodes.append(line)
         elif i == numNodes + 1:
             numEdges = int(line)
             lastEdge = numNodes + 2 + numEdges * 3
@@ -78,10 +75,12 @@ def main(options):
         elif i < lastEdge:
             if edgeLine == 0:
                 fromID, toID, length, speed, nLanes1, nLanes2, edgeID1, edgeID2 = line.split()
-                edg.write('    <edge id="%s" from="%s" to="%s" speed="%s" numLanes="%s"/>\n' % (
-                    edgeID1, fromID, toID, speed, nLanes1));
-                edg.write('    <edge id="%s" from="%s" to="%s" speed="%s" numLanes="%s"/>\n' % (
-                    edgeID2, toID, fromID, speed, nLanes2));
+                nodeEdges[toID] += 1
+                nodeEdges[fromID] += 1
+                edg.write('    <edge id="%s" from="%s" to="%s" speed="%s" numLanes="%s" length="%s"/>\n' % (
+                    edgeID1, fromID, toID, speed, nLanes1, length));
+                edg.write('    <edge id="%s" from="%s" to="%s" speed="%s" numLanes="%s" length="%s"/>\n' % (
+                    edgeID2, toID, fromID, speed, nLanes2, length));
             elif edgeLine == 1:
                 connections[edgeID1] = list(map(int, line.split()))
             elif edgeLine == 2:
@@ -91,12 +90,23 @@ def main(options):
             # extract traffic signal approach ids
             break;
 
-
-    nod.write('</nodes>\n')
     edg.write('</edges>\n')
-
-    nod.close()
     edg.close()
+
+    with open(nodefile, "w") as nod:
+        sumolib.writeXMLHeader(nod, "$Id$", "nodes")  # noqa
+        for line in nodes:
+            lat, lon, nodeID, signalized = line.split()
+            nodeType = options.junctionType
+            if signalized == "1":
+                nodeType = "traffic_light"
+            elif nodeEdges[nodeID] < 4:
+                nodeType = "priority"
+            nod.write('    <node id="%s" x="%s" y="%s" type="%s"/>\n' % (
+                nodeID, lon, lat, nodeType))
+
+        nod.write('</nodes>\n')
+
 
     NETCONVERT = sumolib.checkBinary('netconvert')
 
