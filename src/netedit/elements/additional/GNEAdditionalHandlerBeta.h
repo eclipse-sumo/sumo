@@ -47,7 +47,7 @@ class GNEAdditionalHandlerBeta : public AdditionalHandler {
 public:
 
     /// @brief Constructor
-    GNEAdditionalHandlerBeta(const std::string& file, GNENet* net);
+    GNEAdditionalHandlerBeta(GNENet* net, const std::string& file, const bool allowUndoRedo);
 
     /// @brief Destructor
     ~GNEAdditionalHandlerBeta();
@@ -522,7 +522,7 @@ protected:
     GNENet* myNet;
 
     /// @brief allow undo/redo
-    bool myAllowUndoRedo;
+    const bool myAllowUndoRedo;
 
 private:
     /// @brief invalidate copy constructor
