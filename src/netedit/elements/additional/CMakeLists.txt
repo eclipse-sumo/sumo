@@ -5,6 +5,8 @@ set(netedit_elements_additional_SRCS
    GNEPoly.cpp
    GNEAdditionalHandler.h
    GNEAdditionalHandler.cpp
+   GNEAdditionalHandlerBeta.h
+   GNEAdditionalHandlerBeta.cpp
    GNEAdditional.h
    GNEAdditional.cpp
    GNEShape.h
