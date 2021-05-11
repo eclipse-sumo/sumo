@@ -1,0 +1,8 @@
+# test lane attributes changeLeft, changeRight
+lane_prohibit_changing
+
+# test lane attributes changeLeft, changeRight
+lane_prohibit_changing_discard
+
+# test updateing lane attributes changeLeft, changeRight
+lane_prohibit_changing_modify
