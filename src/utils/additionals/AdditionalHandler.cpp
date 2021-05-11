@@ -625,7 +625,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getStringAttribute(SUMO_ATTR_VTYPES),
                 obj->getStringAttribute(SUMO_ATTR_NAME),
                 obj->getSUMOTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
-                obj->getSUMOTimeAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
+                obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
                 obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
                 obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
                 obj->getParameters());
@@ -641,7 +641,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getStringAttribute(SUMO_ATTR_FILE),
                 obj->getStringAttribute(SUMO_ATTR_VTYPES),
                 obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getDoubleAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
+                obj->getSUMOTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
                 obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
                 obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
                 obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
@@ -656,7 +656,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getStringAttribute(SUMO_ATTR_FREQUENCY),
                 obj->getStringAttribute(SUMO_ATTR_VTYPES),
                 obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getDoubleAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
+                obj->getSUMOTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
                 obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
                 obj->getParameters());
             break;
@@ -742,7 +742,27 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getParameters());
             break;
         case SUMO_TAG_FLOW_CALIBRATOR:
-            buildCalibratorFlow();
+            buildCalibratorFlow(obj,
+                obj->getStringAttribute(SUMO_ATTR_TYPE),
+                obj->getStringAttribute(SUMO_ATTR_ROUTE),
+                obj->getStringAttribute(SUMO_ATTR_VEHSPERHOUR),
+                obj->getStringAttribute(SUMO_ATTR_SPEED),
+                RGBColor::parseColor(obj->getStringAttribute(SUMO_ATTR_COLOR)),
+                obj->getStringAttribute(SUMO_ATTR_DEPARTLANE),
+                obj->getStringAttribute(SUMO_ATTR_DEPARTPOS),
+                obj->getStringAttribute(SUMO_ATTR_DEPARTSPEED),
+                obj->getStringAttribute(SUMO_ATTR_ARRIVALLANE),
+                obj->getStringAttribute(SUMO_ATTR_ARRIVALPOS),
+                obj->getStringAttribute(SUMO_ATTR_ARRIVALSPEED),
+                obj->getStringAttribute(SUMO_ATTR_LINE),
+                obj->getIntAttribute(SUMO_ATTR_NUMBER),
+                obj->getIntAttribute(SUMO_ATTR_CONTAINER_NUMBER),
+                obj->getBoolAttribute(SUMO_ATTR_REROUTE),
+                obj->getStringAttribute(SUMO_ATTR_DEPARTPOS_LAT),
+                obj->getStringAttribute(SUMO_ATTR_ARRIVALPOS_LAT),
+                obj->getSUMOTimeAttribute(SUMO_ATTR_BEGIN),
+                obj->getSUMOTimeAttribute(SUMO_ATTR_END),
+                obj->getParameters());
             break;
         // Rerouter
         case SUMO_TAG_REROUTER:
