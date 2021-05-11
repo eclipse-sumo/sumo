@@ -2579,6 +2579,23 @@ NBEdge::recheckLanes() {
             }
         }
     }
+    // avoid deadend due to change prohibitions
+    if (getNumLanes() > 1 && myConnections.size() > 0) {
+        for (int i = 0; i < (int)myLanes.size(); i++) {
+            if (connNumbersPerLane[i] == 0 && getPermissions(i) != SVC_PEDESTRIAN && !isForbidden(getPermissions(i))) {
+                Lane& lane = myLanes[i];
+                const bool forbiddenLeft = lane.changeLeft != SVCAll && lane.changeLeft != SVC_IGNORING && lane.changeLeft != SVC_UNSPECIFIED;
+                const bool forbiddenRight = lane.changeRight != SVCAll && lane.changeRight != SVC_IGNORING && lane.changeRight != SVC_UNSPECIFIED;
+                if (forbiddenLeft && (i == 0 || forbiddenRight)) {
+                    lane.changeLeft = SVC_UNSPECIFIED;
+                    WRITE_WARNING("Ignoring changeLeft prohibition for '" + getLaneID(i) + "' to avoid dead-end");
+                } else if (forbiddenRight && i == getNumLanes() - 1) {
+                    lane.changeRight = SVC_UNSPECIFIED;
+                    WRITE_WARNING("Ignoring changeRight prohibition for '" + getLaneID(i) + "' to avoid dead-end");
+                }
+            }
+        }
+    }
 #ifdef ADDITIONAL_WARNINGS
     // check for connections with bad access permissions
     for (const Connection& c : myConnections) {
