@@ -187,7 +187,7 @@ public:
     /**@brief Builds a multi-lane Area Detector (E2)
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] id The id of the detector
-     * @param[in] lanes The lanes the detector is placed on
+     * @param[in] laneIDs The lanes the detector is placed on
      * @param[in] pos position of the detector on the first lane
      * @param[in] endPos position of the detector on the last lane
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
@@ -201,7 +201,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
-    void buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::vector<std::string>& lanes, 
+    void buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::vector<std::string>& laneIDs, 
                                   const double pos, const double endPos, const std::string& freq, const std::string& trafficLight, const std::string& filename, 
                                   const std::string& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold,
                                   const bool friendlyPos, const std::map<std::string, std::string> &parameters);
