@@ -434,6 +434,47 @@ public:
     void buildTAZSink(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, 
                       const double arrivalWeight, const std::map<std::string, std::string> &parameters) {}
 
+    /**@brief Builds a polygon using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the polygon
+     * @param[in] type The (abstract) type of the polygon
+     * @param[in] color The color of the polygon
+     * @param[in] layer The layer of the polygon
+     * @param[in] angle The rotation of the polygon
+     * @param[in] imgFile The raster image of the polygon
+     * @param[in] relativePath set image file as relative path
+     * @param[in] shape The shape of the polygon
+     * @param[in] geo specify if shape was loaded as GEO coordinate
+     * @param[in] fill Whether the polygon shall be filled
+     * @param[in] lineWidth Line width when drawing unfilled polygon
+     * @return whether the polygon could be added
+     */
+    void buildPolygon(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
+                      const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, 
+                      const PositionVector& shape, bool geo, bool fill, double lineWidth) {}
+
+    /**@brief Builds a POI using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the POI
+     * @param[in] type The (abstract) type of the POI
+     * @param[in] color The color of the POI
+     * @param[in] pos The position of the POI
+     * @param[in[ geo use GEO coordinates (lon/lat)
+     * @param[in] lane The Lane in which this POI is placed
+     * @param[in] posOverLane The position over Lane
+     * @param[in] posLat The position lateral over Lane
+     * @param[in] layer The layer of the POI
+     * @param[in] angle The rotation of the POI
+     * @param[in] imgFile The raster image of the POI
+     * @param[in] relativePath set image file as relative path
+     * @param[in] width The width of the POI image
+     * @param[in] height The height of the POI image
+     * @return whether the poi could be added
+     */
+    void buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
+                  const RGBColor& color, const Position& pos, bool geo, const std::string& lane, double posOverLane, double posLat, 
+                  double layer, double angle, const std::string& imgFile, bool relativePath, double width, double height) {}
+
 private:
     /// @brief common XML Structure
     CommonXMLStructure myCommonXMLStructure;
@@ -549,6 +590,12 @@ private:
 
     /// @brief parse vaporizer attributes
     void parseVaporizerAttributes(const SUMOSAXAttributes& attrs);
+
+    // @brief parse poly attributes
+    void parsePolyAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse POI attributes
+    void parsePOIAttributes(const SUMOSAXAttributes& attrs);
 
     /// @brief parse generic parameters
     void parseParameters(const SUMOSAXAttributes& attrs);
