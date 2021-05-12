@@ -1204,22 +1204,39 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             break;
         // POI
         case SUMO_TAG_POI:
-            buildPOI(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_TYPE),
-                RGBColor::parseColor(obj->getStringAttribute(SUMO_ATTR_COLOR)),
-                obj->getPositionAttribute(SUMO_ATTR_POSITION),
-                obj->getBoolAttribute(SUMO_ATTR_GEO),
-                obj->getStringAttribute(SUMO_ATTR_LANE),
-                obj->getDoubleAttribute(SUMO_ATTR_POSONLANE),
-                obj->getDoubleAttribute(SUMO_ATTR_POSITION_LAT),
-                obj->getDoubleAttribute(SUMO_ATTR_LAYER),
-                obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
-                obj->getStringAttribute(SUMO_ATTR_IMGFILE),
-                obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
-                obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
-                obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
-                obj->getParameters());
+            // check if we want to create a POI or POILane
+            if (obj->hasStringAttribute(SUMO_ATTR_LANE)) {
+                // build POI over Lane
+                buildPOILane(obj,
+                    obj->getStringAttribute(SUMO_ATTR_ID),
+                    obj->getStringAttribute(SUMO_ATTR_TYPE),
+                    RGBColor::parseColor(obj->getStringAttribute(SUMO_ATTR_COLOR)),
+                    obj->getStringAttribute(SUMO_ATTR_LANE),
+                    obj->getDoubleAttribute(SUMO_ATTR_POSONLANE),
+                    obj->getDoubleAttribute(SUMO_ATTR_POSITION_LAT),
+                    obj->getDoubleAttribute(SUMO_ATTR_LAYER),
+                    obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
+                    obj->getStringAttribute(SUMO_ATTR_IMGFILE),
+                    obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
+                    obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
+                    obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
+                    obj->getParameters());
+            } else {
+                // build POI
+                buildPOI(obj,
+                    obj->getStringAttribute(SUMO_ATTR_ID),
+                    obj->getStringAttribute(SUMO_ATTR_TYPE),
+                    RGBColor::parseColor(obj->getStringAttribute(SUMO_ATTR_COLOR)),
+                    obj->getPositionAttribute(SUMO_ATTR_POSITION),
+                    obj->getBoolAttribute(SUMO_ATTR_GEO),
+                    obj->getDoubleAttribute(SUMO_ATTR_LAYER),
+                    obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
+                    obj->getStringAttribute(SUMO_ATTR_IMGFILE),
+                    obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
+                    obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
+                    obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
+                    obj->getParameters());
+            }
             break;
         default:
             break;
