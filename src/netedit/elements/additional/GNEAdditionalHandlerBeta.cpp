@@ -361,7 +361,7 @@ void
 GNEAdditionalHandlerBeta::buildDetectorEntry(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, const double pos, const bool friendlyPos) {
     // get lane
     GNELane *lane = myNet->retrieveLane(laneID);
-    // get lane
+    // get E3 parent
     GNEAdditional *E3 = myNet->retrieveAdditional(SUMO_TAG_E3DETECTOR, sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
     // get NETEDIT parameters
     NeteditParameters neteditParameters(sumoBaseObject);
@@ -392,7 +392,7 @@ void
 GNEAdditionalHandlerBeta::buildDetectorExit(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, const double pos, const bool friendlyPos) {
     // get lane
     GNELane *lane = myNet->retrieveLane(laneID);
-    // get lane
+    // get E3 parent
     GNEAdditional *E3 = myNet->retrieveAdditional(SUMO_TAG_E3DETECTOR, sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
     // get NETEDIT parameters
     NeteditParameters neteditParameters(sumoBaseObject);
@@ -449,14 +449,64 @@ GNEAdditionalHandlerBeta::buildDetectorE1Instant(const CommonXMLStructure::SumoB
 void 
 GNEAdditionalHandlerBeta::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, const double pos, 
     const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe, const std::map<std::string, std::string> &parameters) {
-    //
+    // check if lane calibrator exist
+    if ((myNet->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) == nullptr) && 
+        (myNet->retrieveAdditional(SUMO_TAG_LANECALIBRATOR, id, false) == nullptr)) {
+        // get NETEDIT parameters
+        NeteditParameters neteditParameters(sumoBaseObject);
+        // get lane
+        GNELane *lane = myNet->retrieveLane(laneID);
+        // build Calibrator
+        GNEAdditional* calibrator = new GNECalibrator(id, myNet, lane, pos, freq, name, outfile, routeprobe);
+        // insert depending of allowUndoRedo
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_CALIBRATOR));
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(calibrator, true), true);
+            myNet->getViewNet()->getUndoList()->p_end();
+            // center after creation
+            if (neteditParameters.centerAfterCreation) {
+                myNet->getViewNet()->centerTo(calibrator->getPositionInView(), false);
+            }
+        } else {
+            myNet->getAttributeCarriers()->insertAdditional(calibrator);
+            lane->addChildElement(calibrator);
+            calibrator->incRef("buildCalibrator");
+        }
+    } else {
+        throw ProcessError("Could not build " + toString(SUMO_TAG_CALIBRATOR) + " with ID '" + id + "' in netedit; probably declared twice.");
+    }
 }
 
 
 void
 GNEAdditionalHandlerBeta::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &edgeID, const double pos, 
     const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe, const std::map<std::string, std::string> &parameters) {
-    //
+    // check if lane calibrator exist
+    if ((myNet->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) == nullptr) && 
+        (myNet->retrieveAdditional(SUMO_TAG_LANECALIBRATOR, id, false) == nullptr)) {
+        // get NETEDIT parameters
+        NeteditParameters neteditParameters(sumoBaseObject);
+        // get edge
+        GNEEdge *edge = myNet->retrieveEdge(edgeID);
+        // build Calibrator
+        GNEAdditional* calibrator = new GNECalibrator(id, myNet, edge, pos, freq, name, outfile, routeprobe);
+        // insert depending of allowUndoRedo
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_CALIBRATOR));
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(calibrator, true), true);
+            myNet->getViewNet()->getUndoList()->p_end();
+            // center after creation
+            if (neteditParameters.centerAfterCreation) {
+                myNet->getViewNet()->centerTo(calibrator->getPositionInView(), false);
+            }
+        } else {
+            myNet->getAttributeCarriers()->insertAdditional(calibrator);
+            edge->addChildElement(calibrator);
+            calibrator->incRef("buildCalibrator");
+        }
+    } else {
+        throw ProcessError("Could not build " + toString(SUMO_TAG_CALIBRATOR) + " with ID '" + id + "' in netedit; probably declared twice.");
+    }
 }
 
 
@@ -465,7 +515,26 @@ GNEAdditionalHandlerBeta::buildCalibratorFlow(const CommonXMLStructure::SumoBase
     const std::string& vehsPerHour, const std::string& speed, const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, 
     const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, const int personNumber, const int containerNumber, 
     const bool reroute, const std::string& departPosLat, const std::string& arrivalPosLat, const SUMOTime begin, const SUMOTime end, const std::map<std::string, std::string> &parameters) {
-    //
+    // get vType
+    GNEDemandElement *vType = myNet->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeID);
+    // get route
+    GNEDemandElement *route = myNet->retrieveDemandElement(SUMO_TAG_VTYPE, routeID);
+    // get calibrator parent
+    GNEAdditional *calibrator = myNet->retrieveAdditional(sumoBaseObject->getTag(), sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
+    // get NETEDIT parameters
+    NeteditParameters neteditParameters(sumoBaseObject);
+    // create calibrator flow
+    GNEAdditional* flow = new GNECalibratorFlow(calibrator, vType, route, vehsPerHour, speed, color, departLane, departPos, departSpeed,
+            arrivalLane, arrivalPos, arrivalSpeed, line, personNumber, containerNumber, reroute, departPosLat, arrivalPosLat, begin, end);
+    // insert depending of allowUndoRedo
+    if (myAllowUndoRedo) {
+        myNet->getViewNet()->getUndoList()->p_begin("add " + flow->getTagStr());
+        myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(flow, true), true);
+        myNet->getViewNet()->getUndoList()->p_end();
+    } else {
+        calibrator->addChildElement(flow);
+        flow->incRef("buildCalibratorFlow");
+    }
 }
 
 
@@ -473,42 +542,190 @@ void
 GNEAdditionalHandlerBeta::buildRerouter(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, 
     const std::vector<std::string>& edgeIDs, const double prob, const std::string& name, const std::string& file, const bool off, const SUMOTime timeThreshold, 
     const std::string& vTypes, const std::map<std::string, std::string> &parameters) {
-    //
+    // check if lane calibrator exist
+    if (myNet->retrieveAdditional(SUMO_TAG_REROUTER, id, false) == nullptr) {
+        // parse edges
+        std::vector<GNEEdge*> edges;
+        for (const auto &edge : edgeIDs) {
+            edges.push_back(myNet->retrieveEdge(edge));
+        }
+        // get NETEDIT parameters
+        NeteditParameters neteditParameters(sumoBaseObject);
+        // create reroute
+        GNEAdditional* rerouter = new GNERerouter(id, myNet, pos, name, file, prob, off, timeThreshold, vTypes, neteditParameters.blockMovement);
+        // create rerouter Symbols
+        std::vector<GNEAdditional*> rerouterSymbols;
+        for (const auto& edge : edges) {
+            rerouterSymbols.push_back(new GNERerouterSymbol(rerouter, edge));
+        }
+        // insert depending of allowUndoRedo
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_REROUTER));
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(rerouter, true), true);
+            // add symbols
+            for (const auto& rerouterSymbol : rerouterSymbols) {
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(rerouterSymbol, true), true);
+            }
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            myNet->getAttributeCarriers()->insertAdditional(rerouter);
+            // add symbols
+            for (int i = 0; i < (int)edges.size(); i++) {
+                edges.at(i)->addChildElement(rerouterSymbols.at(i));
+                rerouterSymbols.at(i)->incRef("buildRerouterSymbol");
+            }
+            rerouter->incRef("buildRerouter");
+        }
+/*
+        // parse rerouter children
+        if (!file.empty()) {
+            // we assume that rerouter values files is placed in the same folder as the additional file
+            std::string currentAdditionalFilename = FileHelpers::getFilePath(OptionsCont::getOptions().getString("additional-files"));
+            // Create additional handler for parse rerouter values
+            GNEAdditionalHandler rerouterValuesHandler(currentAdditionalFilename + file, net, rerouter);
+            // disable validation for rerouters
+            XMLSubSys::setValidation("never", "auto", "auto");
+            // Run parser
+            if (!XMLSubSys::runParser(rerouterValuesHandler, currentAdditionalFilename + file, false)) {
+                WRITE_MESSAGE("Loading of " + file + " failed.");
+            }
+            // enable validation for rerouters
+            XMLSubSys::setValidation("auto", "auto", "auto");
+        }
+*/
+    } else {
+        throw ProcessError("Could not build " + toString(SUMO_TAG_REROUTER) + " with ID '" + id + "' in netedit; probably declared twice.");
+    }
 }
 
 
 void 
 GNEAdditionalHandlerBeta::buildRerouterInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOTime begin, const SUMOTime end) {
-    //
+    // get rerouter parent
+    GNEAdditional *rerouter = myNet->retrieveAdditional(SUMO_TAG_REROUTER, sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
+    // check if new interval will produce a overlapping
+    if (checkOverlappingRerouterIntervals(rerouter, begin, end)) {
+        // create rerouter interval and add it into rerouter parent
+        GNEAdditional* rerouterInterval = new GNERerouterInterval(rerouter, begin, end);
+        // insert depending of allowUndoRedo
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->p_begin("add " + rerouterInterval->getTagStr());
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(rerouterInterval, true), true);
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            rerouter->addChildElement(rerouterInterval);
+            rerouterInterval->incRef("buildRerouterInterval");
+        }
+    } else {
+        throw ProcessError("Could not build " + toString(SUMO_TAG_INTERVAL) + " with begin '" + toString(begin) + "' and '" + toString(end) + "' in '" + rerouter->getID() + "' due overlapping.");
+    }
 }
 
 
 void 
-GNEAdditionalHandlerBeta::buildClosingLaneReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &closedLane, SVCPermissions permissions) {
-    //
+GNEAdditionalHandlerBeta::buildClosingLaneReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &closedLaneID, SVCPermissions permissions) {
+    // get rerouter id
+    const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
+    // get rerouter interval parent
+    GNEAdditional *rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getSUMOTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getSUMOTimeAttribute(SUMO_ATTR_END));
+    // get closed lane
+    GNELane *lane = myNet->retrieveLane(closedLaneID);
+    // create closing lane reorute
+    GNEAdditional* closingLaneReroute = new GNEClosingLaneReroute(rerouterInterval, lane, permissions);
+    // add it to interval parent depending of allowUndoRedo
+    if (myAllowUndoRedo) {
+        myNet->getViewNet()->getUndoList()->p_begin("add " + closingLaneReroute->getTagStr());
+        myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingLaneReroute, true), true);
+        myNet->getViewNet()->getUndoList()->p_end();
+    } else {
+        rerouterInterval->addChildElement(closingLaneReroute);
+        closingLaneReroute->incRef("buildClosingLaneReroute");
+    }
 }
 
 
 void 
 GNEAdditionalHandlerBeta::buildClosingReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &closedEdgeID, SVCPermissions permissions) {
-    //
+    // get rerouter id
+    const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
+    // get rerouter interval parent
+    GNEAdditional *rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getSUMOTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getSUMOTimeAttribute(SUMO_ATTR_END));
+    // get closed edge
+    GNEEdge *edge = myNet->retrieveEdge(closedEdgeID);
+    // create closing reroute
+    GNEAdditional* closingLaneReroute = new GNEClosingReroute(rerouterInterval, edge, permissions);
+    // add it to interval parent depending of allowUndoRedo
+    if (myAllowUndoRedo) {
+        myNet->getViewNet()->getUndoList()->p_begin("add " + closingLaneReroute->getTagStr());
+        myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingLaneReroute, true), true);
+        myNet->getViewNet()->getUndoList()->p_end();
+    } else {
+        rerouterInterval->addChildElement(closingLaneReroute);
+        closingLaneReroute->incRef("buildClosingLaneReroute");
+    }
 }
 
 void 
 GNEAdditionalHandlerBeta::buildDestProbReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &newEdgeDestinationID, const double probability) {
-    //
+    // get rerouter id
+    const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
+    // get rerouter interval parent
+    GNEAdditional *rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getSUMOTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getSUMOTimeAttribute(SUMO_ATTR_END));
+    // get edge
+    GNEEdge *edge = myNet->retrieveEdge(newEdgeDestinationID);
+    // create dest probability reroute
+    GNEAdditional* destProbReroute = new GNEDestProbReroute(rerouterInterval, edge, probability);
+    // add it to interval parent depending of allowUndoRedo
+    if (myAllowUndoRedo) {
+        myNet->getViewNet()->getUndoList()->p_begin("add " + destProbReroute->getTagStr());
+        myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(destProbReroute, true), true);
+        myNet->getViewNet()->getUndoList()->p_end();
+    } else {
+        rerouterInterval->addChildElement(destProbReroute);
+        destProbReroute->incRef("builDestProbReroute");
+    }
 }
 
 
 void 
 GNEAdditionalHandlerBeta::buildParkingAreaReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &newParkignAreaID, const double probability, const bool visible) {
-    //
+    // get rerouter id
+    const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
+    // get rerouter interval parent
+    GNEAdditional *rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getSUMOTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getSUMOTimeAttribute(SUMO_ATTR_END));
+    // get parking area
+    GNEAdditional *parkingArea = myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, newParkignAreaID);
+    // create parking area reroute
+    GNEAdditional* parkingAreaReroute = new GNEParkingAreaReroute(rerouterInterval, parkingArea, probability, visible);
+    // add it to interval parent depending of allowUndoRedo
+    if (myAllowUndoRedo) {
+        myNet->getViewNet()->getUndoList()->p_begin("add " + parkingAreaReroute->getTagStr());
+        myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingAreaReroute, true), true);
+        myNet->getViewNet()->getUndoList()->p_end();
+    } else {
+        rerouterInterval->addChildElement(parkingAreaReroute);
+        parkingAreaReroute->incRef("builParkingAreaReroute");
+    }
 }
 
 
 void
 GNEAdditionalHandlerBeta::buildRouteProbReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& newRouteID, const double probability) {
-    //
+    // get rerouter id
+    const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
+    // get rerouter interval parent
+    GNEAdditional *rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getSUMOTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getSUMOTimeAttribute(SUMO_ATTR_END));
+    // create rout prob reroute
+    GNEAdditional* routeProbReroute = new GNERouteProbReroute(rerouterInterval, newRouteID, probability);
+    // add it to interval parent depending of allowUndoRedo
+    if (myAllowUndoRedo) {
+        myNet->getViewNet()->getUndoList()->p_begin("add " + routeProbReroute->getTagStr());
+        myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(routeProbReroute, true), true);
+        myNet->getViewNet()->getUndoList()->p_end();
+    } else {
+        rerouterInterval->addChildElement(routeProbReroute);
+        routeProbReroute->incRef("buildRouteProbReroute");
+    }
 }
 
 
