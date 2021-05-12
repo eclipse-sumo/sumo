@@ -39,7 +39,7 @@ class GNEVariableSpeedSignStep : public GNEAdditional {
 
 public:
     /// @brief constructor
-    GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, double time, double speed);
+    GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, double speed);
 
     /// @brief destructor
     ~GNEVariableSpeedSignStep();
@@ -121,7 +121,7 @@ public:
 
 protected:
     /// @brief timeStep
-    double myTime;
+    SUMOTime myTime;
 
     /// @brief speed in this timeStep
     double mySpeed;

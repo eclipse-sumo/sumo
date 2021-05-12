@@ -29,7 +29,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, double time, double speed) :
+GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, double speed) :
     GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS, SUMO_TAG_STEP, "", false,
 {}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {}),
 myTime(time),
@@ -92,7 +92,7 @@ GNEVariableSpeedSignStep::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getID();
         case SUMO_ATTR_TIME:
-            return toString(myTime);
+            return time2string(myTime);
         case SUMO_ATTR_SPEED:
             return toString(mySpeed);
         case GNE_ATTR_PARENT:
@@ -109,7 +109,7 @@ double
 GNEVariableSpeedSignStep::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_TIME:
-            return myTime;
+            return (double)myTime;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
@@ -190,7 +190,7 @@ void
 GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_TIME:
-            myTime = parse<double>(value);
+            myTime = string2time(value);
             break;
         case SUMO_ATTR_SPEED:
             mySpeed = parse<double>(value);
