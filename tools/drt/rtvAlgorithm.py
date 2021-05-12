@@ -475,77 +475,77 @@ def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all, fleet,
 
         # find routes for unique vehicles
         for veh_id in set(vehicles_unique):
-        veh_bin = [0] * len(fleet)  # list of assigned vehicles for ILP
-        veh_bin[fleet.index(veh_id)] = 1
-        veh_capacity = (traci.vehicle.getPersonCapacity(veh_id)
-                        - traci.vehicle.getPersonNumber(veh_id))
+            veh_bin = [0] * len(fleet)  # list of assigned vehicles for ILP
+            veh_bin[fleet.index(veh_id)] = 1
+            veh_capacity = (traci.vehicle.getPersonCapacity(veh_id)
+                            - traci.vehicle.getPersonNumber(veh_id))
 
-        # search possible pairs to consider
-        # filter valid reservations id and vehicle id
-        res_assigned_veh = [res_id for res_id, res in res_all.items()
-                            if res.vehicle == veh_id]
+            # search possible pairs to consider
+            # filter valid reservations id and vehicle id
+            res_assigned_veh = [res_id for res_id, res in res_all.items()
+                                if res.vehicle == veh_id]
 
-        filter_valid = res_id_unassigned.copy()  # add unassigned
-        filter_valid.append(veh_id)  # add vehicle
-        filter_valid.extend(res_assigned_veh)  # add assigned reservations
+            filter_valid = res_id_unassigned.copy()  # add unassigned
+            filter_valid.append(veh_id)  # add vehicle
+            filter_valid.extend(res_assigned_veh)  # add assigned reservations
 
-        # select only pairs with valid elements
-        pairs = [pair_id for pair_id, pair in
-                 sorted(rv_dict.items(), key=lambda pair: pair[1][0])
-                 if pair[2][0] in filter_valid and pair[2][1] in filter_valid]
+            # select only pairs with valid elements
+            pairs = [pair_id for pair_id, pair in
+                     sorted(rv_dict.items(), key=lambda pair: pair[1][0])
+                     if pair[2][0] in filter_valid and pair[2][1] in filter_valid]
 
-        # reservations already picked up by the vehicle
-        res_picked_veh = list(set(res_assigned_veh) & set(res_id_picked))
+            # reservations already picked up by the vehicle
+            res_picked_veh = list(set(res_assigned_veh) & set(res_id_picked))
 
-        trips_tree = [[]]  # list with incomplete trips
-        i = 0
-        # get first pairs
-        if res_assigned_veh:
-            # if requests assigned, changes only possible after second stops to
-            # avoid detours. # TODO a better way for allow small detours should
-            # be consider. for example: tt 1 2 equivalent to tt 3 1 2
-            for next_stop in traci.vehicle.getStops(veh_id):
-                next_act = next_stop.actType.split(",")[0].split(" ")[0]
-                next_id = next_stop.actType.split(",")[0].split(" ")[-1][1:-1]
-                if next_act == 'pickup' and next_id in res_id_picked:
-                    # person already picked up, consider next stop
-                    continue
-                elif next_act == 'dropOff' and next_id not in res_all.keys():
-                    # person already dropped off, consider next stop
-                    continue
-                else:
-                    # next stop valid
-                    if next_act == 'pickup':
-                        trip_id = "%s_%sy" % (veh_id, next_id)
-                        trip_time = rv_dict[trip_id][0]
-                        trips_tree[i] = [[trip_id, trip_time+step, 1]]
-                        break
-                    else:
-                        trip_id = "%s_%sz" % (veh_id, next_id)
-                        trip_time = rv_dict[trip_id][0]
-                        trips_tree[i] = [[trip_id, trip_time+step, -1]]
-                        break
-                    if not rv_dict.get(trip_id, False):
-                        # TODO manage teleports
+            trips_tree = [[]]  # list with incomplete trips
+            i = 0
+            # get first pairs
+            if res_assigned_veh:
+                # if requests assigned, changes only possible after second stops to
+                # avoid detours. # TODO a better way for allow small detours should
+                # be consider. for example: tt 1 2 equivalent to tt 3 1 2
+                for next_stop in traci.vehicle.getStops(veh_id):
+                    next_act = next_stop.actType.split(",")[0].split(" ")[0]
+                    next_id = next_stop.actType.split(",")[0].split(" ")[-1][1:-1]
+                    if next_act == 'pickup' and next_id in res_id_picked:
+                        # person already picked up, consider next stop
                         continue
-        if not trips_tree[i]:
-            # if vehicle not assigned or no valid stop found, consider all
-            trips_tree[i] = [[pair, rv_dict[pair][0]+step, 1] for pair in pairs
-                             if pair.split("_")[0] == veh_id]
+                    elif next_act == 'dropOff' and next_id not in res_all.keys():
+                        # person already dropped off, consider next stop
+                        continue
+                    else:
+                        # next stop valid
+                        if next_act == 'pickup':
+                            trip_id = "%s_%sy" % (veh_id, next_id)
+                            trip_time = rv_dict[trip_id][0]
+                            trips_tree[i] = [[trip_id, trip_time+step, 1]]
+                            break
+                        else:
+                            trip_id = "%s_%sz" % (veh_id, next_id)
+                            trip_time = rv_dict[trip_id][0]
+                            trips_tree[i] = [[trip_id, trip_time+step, -1]]
+                            break
+                        if not rv_dict.get(trip_id, False):
+                            # TODO manage teleports
+                            continue
+            if not trips_tree[i]:
+                # if vehicle not assigned or no valid stop found, consider all
+                trips_tree[i] = [[pair, rv_dict[pair][0]+step, 1] for pair in pairs
+                                 if pair.split("_")[0] == veh_id]
 
-        start_time = time.perf_counter()
-        while trips_tree[i]:
-            # exhaustive search
-            trips_tree.append([])
-            for trip in trips_tree[i]:
-                trips_tree[i + 1], rtv_dict = search_trips(trip, pairs, res_assigned_veh, res_picked_veh, res_all,  # noqa
-                                                           rv_dict, rtv_res, veh_capacity, veh_bin, rtv_dict,  # noqa
-                                                           trips_tree[i + 1], options, start_time)  # noqa
-                if (time.perf_counter() - start_time) > options.rtv_time:
-                    memory_problems.append(1)
-                    break
-            del trips_tree[i][:]
-            i = i + 1  # next tree depth
+            start_time = time.perf_counter()
+            while trips_tree[i]:
+                # exhaustive search
+                trips_tree.append([])
+                for trip in trips_tree[i]:
+                    trips_tree[i + 1], rtv_dict = search_trips(trip, pairs, res_assigned_veh, res_picked_veh, res_all,  # noqa
+                                                            rv_dict, rtv_res, veh_capacity, veh_bin, rtv_dict,  # noqa
+                                                            trips_tree[i + 1], options, start_time)  # noqa
+                    if (time.perf_counter() - start_time) > options.rtv_time:
+                        memory_problems.append(1)
+                        break
+                del trips_tree[i][:]
+                i = i + 1  # next tree depth
 
         # copy the routes found for vehicles with same characteristics
         for veh_idx, veh_id in enumerate(vehicles):

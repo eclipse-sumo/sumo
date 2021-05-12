@@ -295,7 +295,7 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all, fleet, ve
                 if step+pickup_time > res.tw_pickup[1]:
                     # if vehicle arrives to late
                     continue
-                    # if vehicle on time, add to rv graph
+                # if vehicle on time, add to rv graph
                 for veh_id in vehicles:
                     route_id = '%s_%sy' % (veh_id, res_id)
                     rv_dict[route_id] = [pickup_time+60, 1, [veh_id, res_id]]  # TODO default stop time ticket #6714 # noqa
@@ -339,20 +339,20 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all, fleet, ve
             remove = True
             for edge, vehicles in veh_edges.items():
                 pickup_time = findRoute(edge, res.fromEdge, veh_type,
-                                            routingMode=options.routing_mode).travelTime
-                    if step+pickup_time <= res.tw_pickup[1]:
-                        # if vehicle on time, add to rv graph
+                                        routingMode=options.routing_mode).travelTime
+                if step+pickup_time <= res.tw_pickup[1]:
+                    # if vehicle on time, add to rv graph
                     for veh_id in vehicles:
                         route_id = '%s_%sy' % (veh_id, res_id)
                         if rv_dict.get(route_id, False):
-                        rv_dict[route_id][0] = pickup_time+60
-                        remove = False
-                    else:
-                        # remove pair if pick-up not possible
+                            rv_dict[route_id][0] = pickup_time+60
+                            remove = False
+                else:
+                    # remove pair if pick-up not possible
                     for veh_id in vehicles:
                         route_id = '%s_%sy' % (veh_id, res_id)
                         if rv_dict.get(route_id, False):
-                        rv_dict.pop(route_id)
+                            rv_dict.pop(route_id)
 
             if remove:
                 # if no vehicles can pick up on time -> reject reservation
