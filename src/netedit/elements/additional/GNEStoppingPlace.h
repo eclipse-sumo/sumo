@@ -41,10 +41,12 @@ public:
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] name Name of stoppingPlace
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] parameters generic parameters
      * @param[in] block movement enable or disable additional movement
      */
     GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, const std::string& startPos, 
-                     const std::string& endPos, const std::string& name, bool friendlyPosition, bool blockMovement);
+                     const std::string& endPos, const std::string& name, bool friendlyPosition, const std::map<std::string, std::string> &parameters,
+                     bool blockMovement);
 
     /// @brief Destructor
     ~GNEStoppingPlace();

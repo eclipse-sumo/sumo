@@ -42,11 +42,12 @@ public:
      * @param[in] name Name of busStop
      * @param[in] lines lines of the busStop
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] parameters generic parameters
      * @param[in] block movement enable or disable additional movement
      */
     GNEBusStop(const std::string& id, GNELane* lane, GNENet* net, const std::string &startPos, const std::string &endPos,
                const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength,
-               bool friendlyPosition, bool blockMovement);
+               bool friendlyPosition, const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /// @brief Destructor
     ~GNEBusStop();

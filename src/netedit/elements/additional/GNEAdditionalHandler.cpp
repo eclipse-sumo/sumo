@@ -246,7 +246,11 @@ GNEAdditionalHandler::buildBusStop(GNENet* net, bool allowUndoRedo, const std::s
                                    const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength,
                                    bool friendlyPosition, bool blockMovement) {
     if (net->retrieveAdditional(SUMO_TAG_BUS_STOP, id, false) == nullptr) {
-        GNEAdditional* busStop = new GNEBusStop(id, lane, net, toString(startPos), toString(endPos), name, lines, personCapacity, parkingLength, friendlyPosition, blockMovement);
+        // declare parameters (temporal)
+        const std::map<std::string, std::string> parameters;
+        // buil busStop
+        GNEAdditional* busStop = new GNEBusStop(id, lane, net, toString(startPos), toString(endPos), name, lines, personCapacity, 
+                                                parkingLength, friendlyPosition, parameters, blockMovement);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_BUS_STOP));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(busStop, true), true);
@@ -295,7 +299,10 @@ GNEAdditional*
 GNEAdditionalHandler::buildContainerStop(GNENet* net, bool allowUndoRedo, const std::string& id, GNELane* lane, const double startPos, const double endPos, const int parametersSet,
         const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) {
     if (net->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, id, false) == nullptr) {
-        GNEAdditional* containerStop = new GNEContainerStop(id, lane, net, toString(startPos), toString(endPos), name, lines, friendlyPosition, blockMovement);
+        // declare parameters (temporal)
+        const std::map<std::string, std::string> parameters;
+        // buil containerStop
+        GNEAdditional* containerStop = new GNEContainerStop(id, lane, net, toString(startPos), toString(endPos), name, lines, friendlyPosition, parameters, blockMovement);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_CONTAINER_STOP));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(containerStop, true), true);
@@ -316,7 +323,11 @@ GNEAdditional*
 GNEAdditionalHandler::buildChargingStation(GNENet* net, bool allowUndoRedo, const std::string& id, GNELane* lane, const double startPos, const double endPos, const int parametersSet,
         const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay, bool friendlyPosition, bool blockMovement) {
     if (net->retrieveAdditional(SUMO_TAG_CHARGING_STATION, id, false) == nullptr) {
-        GNEAdditional* chargingStation = new GNEChargingStation(id, lane, net, toString(startPos), toString(endPos), name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition, blockMovement);
+        // declare parameters (temporal)
+        const std::map<std::string, std::string> parameters;
+        // buil chargingStation
+        GNEAdditional* chargingStation = new GNEChargingStation(id, lane, net, toString(startPos), toString(endPos), name, chargingPower, efficiency, 
+                                                                chargeInTransit, chargeDelay, friendlyPosition, parameters, blockMovement);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_CHARGING_STATION));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(chargingStation, true), true);
@@ -337,7 +348,11 @@ GNEAdditional*
 GNEAdditionalHandler::buildParkingArea(GNENet* net, bool allowUndoRedo, const std::string& id, GNELane* lane, const double startPos, const double endPos, const int parametersSet,
                                        const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, const std::string& length, double angle, bool blockMovement) {
     if (net->retrieveAdditional(SUMO_TAG_PARKING_AREA, id, false) == nullptr) {
-        GNEAdditional* parkingArea = new GNEParkingArea(id, lane, net, toString(startPos), toString(endPos), name, friendlyPosition, roadSideCapacity, onRoad, width, length, angle, blockMovement);
+        // declare parameters (temporal)
+        const std::map<std::string, std::string> parameters;
+        // buil parkingArea
+        GNEAdditional* parkingArea = new GNEParkingArea(id, lane, net, toString(startPos), toString(endPos), name, friendlyPosition, 
+                                                        roadSideCapacity, onRoad, width, length, angle, parameters, blockMovement);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_PARKING_AREA));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingArea, true), true);

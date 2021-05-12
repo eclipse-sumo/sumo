@@ -33,9 +33,10 @@
 // method definitions
 // ===========================================================================
 
-GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNENet* net, const std::string &startPos, const std::string &endPos, const std::string& name, 
-        const std::vector<std::string>& lines, int personCapacity, double parkingLength, bool friendlyPosition, bool blockMovement) :
-    GNEStoppingPlace(id, net, GLO_BUS_STOP, SUMO_TAG_BUS_STOP, lane, startPos, endPos, name, friendlyPosition, blockMovement),
+GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNENet* net, const std::string &startPos, const std::string &endPos, 
+        const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength, bool friendlyPosition, 
+        const std::map<std::string, std::string> &parameters, bool blockMovement) :
+    GNEStoppingPlace(id, net, GLO_BUS_STOP, SUMO_TAG_BUS_STOP, lane, startPos, endPos, name, friendlyPosition, parameters, blockMovement),
     myLines(lines),
     myPersonCapacity(personCapacity),
     myParkingLength(parkingLength) {
