@@ -62,7 +62,7 @@ def main(options):
                 if vehLine == 0:
                     vehID = line.split()[-1]
                 elif vehLine == 1:
-                    pos = line.split()[-1]
+                    pos = float(line.split()[-1])
                 elif vehLine == 2:
                     # assume 3-lane roads
                     lane = 2 - (int(float(line.split()[-1])) % 100)
@@ -74,7 +74,7 @@ def main(options):
                     seenVehs += 1
                     # skip vehicles on their arrival edge
                     if len(edges) > 1:
-                        if options.lastpos:
+                        if pos == 0 or options.lastpos:
                             pos = "last"
                         writtenVehs += 1
                         outf.write('    <vehicle id="%s" depart="0" departPos="%s" departSpeed="%s" departLane="%s">\n' % (
