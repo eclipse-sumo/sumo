@@ -88,7 +88,7 @@ GNEAdditionalHandlerBeta::buildBusStop(const CommonXMLStructure::SumoBaseObject*
         // get lane
         GNELane *lane = myNet->retrieveLane(laneID);
         // build busStop
-        GNEAdditional* busStop = new GNEBusStop(id, lane, myNet, /*startPos*/ 0, /*endPos*/ 1, /*parametersSet*/ 0, name, lines, 
+        GNEAdditional* busStop = new GNEBusStop(id, lane, myNet, startPos, endPos, name, lines, 
                                                 personCapacity, parkingLength, friendlyPosition, neteditParameters.blockMovement);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
@@ -153,7 +153,7 @@ GNEAdditionalHandlerBeta::buildContainerStop(const CommonXMLStructure::SumoBaseO
         // get lane
         GNELane *lane = myNet->retrieveLane(laneID);
         // build containerStop
-        GNEAdditional* containerStop = new GNEContainerStop(id, lane, myNet, /*startPos*/ 0, /*endPos*/ 1, /*parametersSet*/ 0, name, lines, 
+        GNEAdditional* containerStop = new GNEContainerStop(id, lane, myNet, startPos, endPos, name, lines, 
                                                             friendlyPosition, neteditParameters.blockMovement);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
@@ -183,9 +183,8 @@ GNEAdditionalHandlerBeta::buildChargingStation(const CommonXMLStructure::SumoBas
         // get lane
         GNELane *lane = myNet->retrieveLane(laneID);
         // build chargingStation
-        GNEAdditional* chargingStation = new GNEChargingStation(id, lane, myNet, /*startPos*/ 0, /*endPos*/ 1, /*parametersSet*/ 0, 
-                                                                name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition,
-                                                                neteditParameters.blockMovement);
+        GNEAdditional* chargingStation = new GNEChargingStation(id, lane, myNet, startPos, endPos, name, chargingPower, efficiency, chargeInTransit, 
+                                                                chargeDelay, friendlyPosition, neteditParameters.blockMovement);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_CHARGING_STATION));
@@ -214,9 +213,8 @@ GNEAdditionalHandlerBeta::buildParkingArea(const CommonXMLStructure::SumoBaseObj
         // get lane
         GNELane *lane = myNet->retrieveLane(laneID);
         // build parkingArea
-        GNEAdditional* parkingArea = new GNEParkingArea(id, lane, myNet, /*startPos*/ 0, /*endPos*/ 1, /*parametersSet*/ 0, name, 
-                                                        friendlyPosition, roadSideCapacity, onRoad, width, length, angle, 
-                                                        neteditParameters.blockMovement);
+        GNEAdditional* parkingArea = new GNEParkingArea(id, lane, myNet, startPos, endPos, name, friendlyPosition, roadSideCapacity,
+                                                        onRoad, width, length, angle, neteditParameters.blockMovement);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_PARKING_AREA));
