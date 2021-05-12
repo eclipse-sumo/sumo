@@ -440,7 +440,7 @@ def search_trips(trip, pairs, res_assigned_veh, res_picked_veh, res_all, rv_dict
     return trips_tree, rtv_dict
 
 
-def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all, fleet, veh_type, rv_dict, step, memory_problems):  # noqa
+def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all, fleet, veh_type, rv_dict, step, memory_problems, veh_edges):  # noqa
     """
     Search all possible trips for each vehicle allowing dynamic rerouting.
     If the maximum search time given is not surpass, the method is exact.
@@ -452,7 +452,29 @@ def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all, fleet,
     # TODO allow checking for vehicles with same characteristics and copy the
     # rtv for them. To be the same -> no trip assigned, same position and
     # same capacity
-    for veh_id in fleet:
+    idle_veh = traci.vehicle.getTaxiFleet(0)
+    for edge, vehicles in veh_edges.items():
+        if len(vehicles) > 1:
+            vehicles_capacity = [traci.vehicle.getPersonCapacity(veh_id) for veh_id in vehicles]
+            vehicles_idle = [veh_id in idle_veh for veh_id in vehicles]
+            vehicles_unique = []
+            for veh_idx, veh_id in enumerate(vehicles):
+                if veh_idx == 0:
+                    vehicles_unique.append(veh_id)
+                    continue
+                if not vehicles_idle[veh_idx]:
+                    vehicles_unique.append(veh_id)
+                    continue
+                for compare_veh in range(veh_idx+1):
+                    if (vehicles_idle[compare_veh] and
+                       vehicles_capacity[veh_idx] == vehicles_capacity[compare_veh]):
+                        vehicles_unique.append(vehicles[compare_veh])
+                        break
+        else:
+            vehicles_unique = vehicles
+
+        # find routes for unique vehicles
+        for veh_id in set(vehicles_unique):
         veh_bin = [0] * len(fleet)  # list of assigned vehicles for ILP
         veh_bin[fleet.index(veh_id)] = 1
         veh_capacity = (traci.vehicle.getPersonCapacity(veh_id)
@@ -524,6 +546,25 @@ def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all, fleet,
                     break
             del trips_tree[i][:]
             i = i + 1  # next tree depth
+
+        # copy the routes found for vehicles with same characteristics
+        for veh_idx, veh_id in enumerate(vehicles):
+            if veh_id in vehicles_unique:
+                # rtv graph already found
+                continue
+
+            equal_veh_id = vehicles_unique[veh_idx]
+
+            veh_bin = [0] * len(fleet)  # list of assigned vehicles for ILP
+            veh_bin[fleet.index(veh_id)] = 1
+            copy_rtv_keys = [key for key in rtv_dict.keys() if key.split("_")[0] == equal_veh_id]
+            for key in copy_rtv_keys:
+                new_trip_id = key.replace(equal_veh_id, veh_id)
+                trip_time = rtv_dict[key][0]
+                res_bin = rtv_dict[key][2]
+                trip_cost = rtv_dict[key][3]
+
+                rtv_dict[new_trip_id] = [trip_time, veh_bin, res_bin, trip_cost]
 
     if len(fleet) == 1 and rtv_dict:
         # if one vehicle problem, assign the fastest trip with

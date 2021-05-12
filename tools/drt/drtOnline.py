@@ -273,7 +273,7 @@ def res_res_pair(options, res1, res2, veh_type, rv_dict):
             rv_dict[pair] = [res2d_res1p, 1, [res2.id, res1.id]]
 
 
-def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all, fleet, veh_type, rv_dict, step):  # noqa
+def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all, fleet, veh_type, rv_dict, step, veh_edges):  # noqa
     """
     Generates the reservation-vehicle graph, which has the possible
     combinations between two reservations and between a reservation and a
@@ -289,18 +289,14 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all, fleet, ve
             # check if reservation can be serve for a vehicle on time
             res_possible = False
             # add vehicle-reservation pairs
-            for veh_id in fleet:
-                # calculate travel time to pickup
-                if traci.vehicle.getRoadID(veh_id).startswith(':'):
-                    # avoid routing error when in intersection TODO #5829
-                    edge_index = traci.vehicle.getRouteIndex(veh_id) + 1
-                    from_edge = traci.vehicle.getRoute(veh_id)[edge_index]
-                else:
-                    from_edge = traci.vehicle.getRoadID(veh_id)
-                pickup_time = findRoute(from_edge, res.fromEdge, veh_type,
+            for edge, vehicles in veh_edges.items():
+                pickup_time = findRoute(edge, res.fromEdge, veh_type,
                                         routingMode=options.routing_mode).travelTime
-                if step+pickup_time <= res.tw_pickup[1]:
+                if step+pickup_time > res.tw_pickup[1]:
+                    # if vehicle arrives to late
+                    continue
                     # if vehicle on time, add to rv graph
+                for veh_id in vehicles:
                     route_id = '%s_%sy' % (veh_id, res_id)
                     rv_dict[route_id] = [pickup_time+60, 1, [veh_id, res_id]]  # TODO default stop time ticket #6714 # noqa
                     res_possible = True
@@ -341,25 +337,23 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all, fleet, ve
                 continue
 
             remove = True
-            for veh_id in fleet:
-                route_id = '%s_%sy' % (veh_id, res_id)
-                if rv_dict.get(route_id, False):
-                    # calculate travel time to pickup
-                    if traci.vehicle.getRoadID(veh_id).startswith(':'):
-                        # avoid routing error when in intersection TODO #5829
-                        edge_index = traci.vehicle.getRouteIndex(veh_id) + 1
-                        from_edge = traci.vehicle.getRoute(veh_id)[edge_index]
-                    else:
-                        from_edge = traci.vehicle.getRoadID(veh_id)
-                    pickup_time = findRoute(from_edge, res.fromEdge, veh_type,
+            for edge, vehicles in veh_edges.items():
+                pickup_time = findRoute(edge, res.fromEdge, veh_type,
                                             routingMode=options.routing_mode).travelTime
                     if step+pickup_time <= res.tw_pickup[1]:
                         # if vehicle on time, add to rv graph
+                    for veh_id in vehicles:
+                        route_id = '%s_%sy' % (veh_id, res_id)
+                        if rv_dict.get(route_id, False):
                         rv_dict[route_id][0] = pickup_time+60
                         remove = False
                     else:
                         # remove pair if pick-up not possible
+                    for veh_id in vehicles:
+                        route_id = '%s_%sy' % (veh_id, res_id)
+                        if rv_dict.get(route_id, False):
                         rv_dict.pop(route_id)
+
             if remove:
                 # if no vehicles can pick up on time -> reject reservation
                 print("Reservation %s (person %s) cannot be served" %
@@ -564,6 +558,20 @@ def main():
                 step += options.sim_step
                 continue  # if a vehicle is being teleported skip to next step
 
+            # find unique vehicles to avoid same calculation if vehicle are equal
+            veh_edges = {}
+            for veh_id in fleet:
+                if traci.vehicle.getRoadID(veh_id).startswith(':'):
+                    # avoid routing error when in intersection TODO #5829
+                    edge_index = traci.vehicle.getRouteIndex(veh_id) + 1
+                    veh_edge = traci.vehicle.getRoute(veh_id)[edge_index]
+                else:
+                    veh_edge = traci.vehicle.getRoadID(veh_id)
+                if veh_edges.get(veh_edge):
+                    veh_edges[veh_edge].append(veh_id)
+                else:
+                    veh_edges[veh_edge] = [veh_id]
+
             # remove reservations already served
             res_id_current = [res.id for res in traci.person.getTaxiReservations(0)]  # noqa
             res_id_served = list(set(res_all.keys()) - set(res_id_current))
@@ -578,7 +586,7 @@ def main():
             if options.debug:
                 print('Calculate RV-Graph')
             get_rv(options, res_id_new, res_id_picked, res_id_served, res_all,
-                   fleet, veh_type, rv_dict, step)
+                   fleet, veh_type, rv_dict, step, veh_edges)
 
             # search trips (rtv graph)
             if options.debug:
@@ -586,7 +594,7 @@ def main():
             if options.rtv_algorithm == '0':
                 rtv_dict, rtv_res, exact_sol = rtvAlgorithm.exhaustive_search(
                     options, res_id_unassigned, res_id_picked, res_all, fleet,
-                    veh_type, rv_dict, step, exact_sol)
+                    veh_type, rv_dict, step, exact_sol, veh_edges)
             elif options.rtv_algorithm == '1':
                 rtv_dict, rtv_res = rtvAlgorithm.simple(
                     options, res_id_unassigned, res_id_picked, res_id_served,
