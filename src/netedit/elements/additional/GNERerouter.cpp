@@ -23,9 +23,6 @@
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNERerouterDialog.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNERerouter.h"
 #include "GNERerouterSymbol.h"

@@ -19,7 +19,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -27,7 +26,6 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GLHelper.h>
 
 #include "GNEAdditional.h"
 
