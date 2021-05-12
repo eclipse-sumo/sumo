@@ -234,8 +234,8 @@ GNEAdditionalHandlerBeta::buildParkingArea(const CommonXMLStructure::SumoBaseObj
 
 
 void 
-GNEAdditionalHandlerBeta::buildParkingSpace(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const Position &pos, const double width, 
-    const double length, const double angle, const double slope, const std::map<std::string, std::string> &parameters) {
+GNEAdditionalHandlerBeta::buildParkingSpace(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const Position &pos, const std::string& name,
+    const double width, const double length, const double angle, const double slope) {
     // get lane
     GNEAdditional *parkingArea = myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
     // get NETEDIT parameters
@@ -258,7 +258,7 @@ GNEAdditionalHandlerBeta::buildParkingSpace(const CommonXMLStructure::SumoBaseOb
 
 
 void 
-GNEAdditionalHandlerBeta::buildE1Detector(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id, const std::string &laneId, 
+GNEAdditionalHandlerBeta::buildE1Detector(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id, const std::string &laneID, 
     const double position, const SUMOTime frequency, const std::string &file, const std::string &vehicleTypes, const std::string &name, const bool friendlyPos, 
     const std::map<std::string, std::string> &parameters) {
     // first check if E1 exist
@@ -266,7 +266,7 @@ GNEAdditionalHandlerBeta::buildE1Detector(const CommonXMLStructure::SumoBaseObje
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
-        GNELane *lane = myNet->retrieveLane(laneId);
+        GNELane *lane = myNet->retrieveLane(laneID);
         // build E1
         GNEAdditional* detectorE1 = new GNEDetectorE1(id, lane, myNet, position, frequency, file, vehicleTypes, name, friendlyPos, neteditParameters.blockMovement);
         // insert depending of allowUndoRedo
@@ -851,7 +851,7 @@ GNEAdditionalHandlerBeta::buildVaporizer(const CommonXMLStructure::SumoBaseObjec
 
 void 
 GNEAdditionalHandlerBeta::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape, 
-    const RGBColor& color, const std::vector<std::string>& edgeIDs, const std::map<std::string, std::string> &parameters) {
+    const RGBColor& color, const std::vector<std::string>& edgeIDs, const std::string& name, const std::map<std::string, std::string> &parameters) {
     // check if VSS exist
     if (myNet->retrieveTAZElement(SUMO_TAG_TAZ, id, false) == nullptr) {
         // get NETEDIT parameters
@@ -903,8 +903,7 @@ GNEAdditionalHandlerBeta::buildTAZ(const CommonXMLStructure::SumoBaseObject* sum
 
 
 void 
-GNEAdditionalHandlerBeta::buildTAZSource(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const double departWeight, 
-    const std::map<std::string, std::string> &parameters) {
+GNEAdditionalHandlerBeta::buildTAZSource(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const double departWeight) {
     // get TAZ parent
     GNETAZElement *TAZ = myNet->retrieveTAZElement(SUMO_TAG_TAG, sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
     // get edge
@@ -967,8 +966,7 @@ GNEAdditionalHandlerBeta::buildTAZSource(const CommonXMLStructure::SumoBaseObjec
 
 
 void 
-GNEAdditionalHandlerBeta::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const double arrivalWeight, 
-    const std::map<std::string, std::string> &parameters) {
+GNEAdditionalHandlerBeta::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const double arrivalWeight) {
     // get TAZ parent
     GNETAZElement *TAZ = myNet->retrieveTAZElement(SUMO_TAG_TAG, sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
     // get edge
@@ -1032,7 +1030,7 @@ GNEAdditionalHandlerBeta::buildTAZSink(const CommonXMLStructure::SumoBaseObject*
 void 
 GNEAdditionalHandlerBeta::buildPolygon(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
     const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape, bool geo, bool fill, 
-    double lineWidth, const std::map<std::string, std::string> &parameters) {
+    double lineWidth, const std::string& name, const std::map<std::string, std::string> &parameters) {
     // check if poly exist
     if (myNet->retrieveShape(SUMO_TAG_POLY, id, false) == nullptr) {
         // create poly
@@ -1056,7 +1054,7 @@ GNEAdditionalHandlerBeta::buildPolygon(const CommonXMLStructure::SumoBaseObject*
 void 
 GNEAdditionalHandlerBeta::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
     const RGBColor& color, const Position& pos, bool geo, double layer, double angle, const std::string& imgFile, bool relativePath, 
-    double width, double height, const std::map<std::string, std::string> &parameters) {
+    double width, double height, const std::string& name, const std::map<std::string, std::string> &parameters) {
     // check if ID is duplicated
     if ((myNet->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) && 
         (myNet->retrieveShape(SUMO_TAG_POLY, id, false) == nullptr)) {
@@ -1081,7 +1079,7 @@ GNEAdditionalHandlerBeta::buildPOI(const CommonXMLStructure::SumoBaseObject* sum
 void 
 GNEAdditionalHandlerBeta::buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
     const RGBColor& color, const std::string& laneID, double posOverLane, double posLat, double layer, double angle, const std::string& imgFile, 
-    bool relativePath, double width, double height, const std::map<std::string, std::string> &parameters) {
+    bool relativePath, double width, double height, const std::string& name, const std::map<std::string, std::string> &parameters) {
     // check if ID is duplicated
     if ((myNet->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) && 
         (myNet->retrieveShape(SUMO_TAG_POLY, id, false) == nullptr)) {

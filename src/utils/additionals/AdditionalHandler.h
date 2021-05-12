@@ -134,14 +134,14 @@ public:
     /**@brief Builds a Parking Space
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] pos ParkingSpace's X-Y position
+     * @param[in] name Name of Parking Area
      * @param[in] width ParkingArea's width
      * @param[in] length ParkingArea's length
      * @param[in] angle ParkingArea's angle
      * @param[in] slope ParkingArea's slope (of this space)
-     * @param[in] parameters generic parameters
      */
-    virtual void buildParkingSpace(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const Position &pos, const double width, const double length, 
-                                   const double angle, const double slope, const std::map<std::string, std::string> &parameters) = 0;
+    virtual void buildParkingSpace(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const Position &pos, const std::string& name,
+                                   const double width, const double length, const double angle, const double slope) = 0;
 
     /**@brief Builds a induction loop detector (E1)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -155,7 +155,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
-    virtual void buildE1Detector(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id, const std::string &laneId, 
+    virtual void buildE1Detector(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id, const std::string &laneID, 
                                  const double position, const SUMOTime frequency, const std::string &file, const std::string &vehicleTypes,
                                  const std::string &name, const bool friendlyPos, const std::map<std::string, std::string> &parameters) = 0;
 
@@ -177,9 +177,9 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
-                                   const double pos, const double length, const std::string& freq, const std::string& trafficLight, const std::string& filename, 
-                                   const std::string& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold,
-                                   const double jamThreshold, const bool friendlyPos, const std::map<std::string, std::string> &parameters) = 0;
+                                           const double pos, const double length, const std::string& freq, const std::string& trafficLight, const std::string& filename, 
+                                           const std::string& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold,
+                                           const double jamThreshold, const bool friendlyPos, const std::map<std::string, std::string> &parameters) = 0;
 
     /**@brief Builds a multi-lane Area Detector (E2)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -199,9 +199,9 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::vector<std::string>& lanes, 
-                                  const double pos, const double endPos, const std::string& freq, const std::string& trafficLight, const std::string& filename, 
-                                  const std::string& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold,
-                                  const bool friendlyPos, const std::map<std::string, std::string> &parameters) = 0;
+                                          const double pos, const double endPos, const std::string& freq, const std::string& trafficLight, const std::string& filename, 
+                                          const std::string& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold,
+                                          const bool friendlyPos, const std::map<std::string, std::string> &parameters) = 0;
 
     /**@brief Builds a multi entry exit detector (E3)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -216,7 +216,7 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, const SUMOTime freq, 
-                                 const std::string& filename, const std::string& vehicleTypes, const std::string& name,  SUMOTime timeThreshold, 
+                                 const std::string& filename, const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, 
                                  const double speedThreshold, const std::map<std::string, std::string> &parameters) = 0;
 
     /**@brief Builds a entry detector (E3)
@@ -349,7 +349,7 @@ public:
      */
     virtual void buildDestProbReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &newEdgeDestinationID, const double probability) = 0;
 
-    /**@brief builds a parkng area reroute
+    /**@brief builds a parking area reroute
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] newParkignAreaID new parkingArea ID
      * @param[in] probability rerouting probability
@@ -410,20 +410,19 @@ public:
      * @param[in] id TAZ ID
      * @param[in] shape TAZ shape
      * @param[in] edgeIDs list of edges (note: This will create GNETAZSourceSinks/Sinks with default values)
+     * @param[in] name Vaporizer name
      * @param[in] parameters generic parameters
      */
     virtual void buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape, const RGBColor& color, 
-                         const std::vector<std::string>& edgeIDs, const std::map<std::string, std::string> &parameters) = 0;
+                         const std::vector<std::string>& edgeIDs, const std::string& name, const std::map<std::string, std::string> &parameters) = 0;
 
     /**@brief Builds a TAZSource (Traffic Assignment Zone)
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] TAZ Traffic Assignment Zone in which this TAZSource is palced
      * @param[in] edgeID edge in which TAZSource is placed
      * @param[in] departWeight depart weight of TAZSource
-     * @param[in] parameters generic parameters
      */
-    virtual void buildTAZSource(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, 
-                                const double departWeight, const std::map<std::string, std::string> &parameters) = 0;
+    virtual void buildTAZSource(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const double departWeight) = 0;
 
     /**@brief Builds a TAZSink (Traffic Assignment Zone)
      * @param[in] net net in which element will be inserted
@@ -431,10 +430,8 @@ public:
      * @param[in] TAZ Traffic Assignment Zone in which this TAZSink is palced
      * @param[in] edgeID edge in which TAZSink is placed
      * @param[in] arrivalWeight arrival weight of TAZSink
-     * @param[in] parameters generic parameters
      */
-    virtual void buildTAZSink(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, 
-                              const double arrivalWeight, const std::map<std::string, std::string> &parameters) = 0;
+    virtual void buildTAZSink(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const double arrivalWeight) = 0;
 
     /**@brief Builds a polygon using the given values
      * @param[in] sumoBaseObject sumo base object used for build
@@ -449,11 +446,13 @@ public:
      * @param[in] geo specify if shape was loaded as GEO coordinate
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth Line width when drawing unfilled polygon
+     * @param[in] name polygon name
      * @param[in] parameters generic parameters
      */
     virtual void buildPolygon(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
                               const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, 
-                              const PositionVector& shape, bool geo, bool fill, double lineWidth, const std::map<std::string, std::string> &parameters) = 0;
+                              const PositionVector& shape, bool geo, bool fill, double lineWidth, const std::string& name, 
+                              const std::map<std::string, std::string> &parameters) = 0;
 
     /**@brief Builds a POI using the given values
      * @param[in] sumoBaseObject sumo base object used for build
@@ -468,11 +467,13 @@ public:
      * @param[in] relativePath set image file as relative path
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
+     * @param[in] name POI name
      * @param[in] parameters generic parameters
      */
     virtual void buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
                           const RGBColor& color, const Position& pos, bool geo, double layer, double angle, const std::string& imgFile, 
-                          bool relativePath, double width, double height, const std::map<std::string, std::string> &parameters) = 0;
+                          bool relativePath, double width, double height, const std::string& name, 
+                          const std::map<std::string, std::string> &parameters) = 0;
 
     /**@brief Builds a POI over laneusing the given values
      * @param[in] sumoBaseObject sumo base object used for build
@@ -488,11 +489,13 @@ public:
      * @param[in] relativePath set image file as relative path
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
+     * @param[in] name POI name
      * @param[in] parameters generic parameters
      */
     virtual void buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
                               const RGBColor& color, const std::string& lane, double posOverLane, double posLat, double layer, double angle, 
-                              const std::string& imgFile, bool relativePath, double width, double height, const std::map<std::string, std::string> &parameters) = 0;
+                              const std::string& imgFile, bool relativePath, double width, double height, const std::string& name, 
+                              const std::map<std::string, std::string> &parameters) = 0;
     /// @}
 
 private:

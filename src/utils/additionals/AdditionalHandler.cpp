@@ -947,11 +947,11 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
         case SUMO_TAG_PARKING_SPACE:
             buildParkingSpace(obj,
                 obj->getPositionAttribute(SUMO_ATTR_POSITION),
+                obj->getStringAttribute(SUMO_ATTR_NAME),
                 obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
                 obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
                 obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
-                obj->getDoubleAttribute(SUMO_ATTR_SLOPE),
-                obj->getParameters());
+                obj->getDoubleAttribute(SUMO_ATTR_SLOPE));
             break;
         // Detectors
         case SUMO_TAG_E1DETECTOR:
@@ -1046,19 +1046,18 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
                 RGBColor::parseColor(obj->getStringAttribute(SUMO_ATTR_COLOR)),
                 obj->getStringListAttribute(SUMO_ATTR_EDGES),
+                obj->getStringAttribute(SUMO_ATTR_NAME),
                 obj->getParameters());
             break;
         case SUMO_TAG_TAZSOURCE:
             buildTAZSource(obj,
                 obj->getStringAttribute(SUMO_ATTR_EDGE),
-                obj->getDoubleAttribute(SUMO_ATTR_WEIGHT),
-                obj->getParameters());
+                obj->getDoubleAttribute(SUMO_ATTR_WEIGHT));
             break;
         case SUMO_TAG_TAZSINK:
             buildTAZSink(obj,
                 obj->getStringAttribute(SUMO_ATTR_EDGE),
-                obj->getDoubleAttribute(SUMO_ATTR_WEIGHT),
-                obj->getParameters());
+                obj->getDoubleAttribute(SUMO_ATTR_WEIGHT));
             break;
         // Variable Speed Sign
         case SUMO_TAG_VSS:
@@ -1199,6 +1198,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getBoolAttribute(SUMO_ATTR_GEO),
                 obj->getBoolAttribute(SUMO_ATTR_FILL),
                 obj->getDoubleAttribute(SUMO_ATTR_LINEWIDTH),
+                obj->getStringAttribute(SUMO_ATTR_NAME),
                 obj->getParameters());
 
             break;
@@ -1220,6 +1220,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                     obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
                     obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
                     obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
+                    obj->getStringAttribute(SUMO_ATTR_NAME),
                     obj->getParameters());
             } else {
                 // build POI
@@ -1235,6 +1236,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                     obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
                     obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
                     obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
+                    obj->getStringAttribute(SUMO_ATTR_NAME),
                     obj->getParameters());
             }
             break;
