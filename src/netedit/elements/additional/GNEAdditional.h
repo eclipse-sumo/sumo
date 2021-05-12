@@ -27,6 +27,7 @@
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/images/GUITextureSubSys.h>
 
 // ===========================================================================
 // class declarations
@@ -351,6 +352,9 @@ protected:
 
     /// @brief calculate perpendicular line between lane parents
     void calculatePerpendicularLine(const double endLaneposition);
+
+    /// @brief draw squared additional
+    void drawSquaredAdditional(const GUIVisualizationSettings& s, const Position &pos, const double size, GUITexture texture, GUITexture selectedTexture) const;
 
 private:
     /**@brief check restriction with the number of children

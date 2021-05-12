@@ -27,6 +27,7 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GLHelper.h>
 
 #include "GNEAdditional.h"
 
@@ -610,6 +611,65 @@ GNEAdditional::calculatePerpendicularLine(const double endLaneposition) {
         const double lanePosition = firstLaneShape.length2D() >= endLaneposition ? endLaneposition : firstLaneShape.length2D();
         // update geometry
         myAdditionalGeometry.updateGeometry({firstLaneShape.positionAtOffset2D(lanePosition), lastLaneShape.positionAtOffset2D(lanePosition)});
+    }
+}
+
+
+void 
+GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Position &pos, const double size, GUITexture texture, GUITexture selectedTexture) const {
+    // Obtain drawing exaggeration
+    const double exaggeration = s.addSize.getExaggeration(s, this);
+    // first check if additional has to be drawn
+    if (s.drawAdditionals(exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // check if boundary has to be drawn
+        if (s.drawBoundaries) {
+            GLHelper::drawBoundary(getCenteringBoundary());
+        }
+        // Start drawing adding an gl identificator
+        glPushName(getGlID());
+        // Add layer matrix
+        glPushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E3DETECTOR);
+        // translate to position
+        glTranslated(pos.x(), pos.y(), 0);
+        // scale
+        glScaled(exaggeration, exaggeration, 1);
+        // set White color
+        glColor3d(1, 1, 1);
+        // rotate
+        glRotated(180, 0, 0, 1);
+        // draw texture
+        if (drawUsingSelectColor()) {
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(selectedTexture), size);
+        } else {
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(texture), size);
+        }
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, exaggeration, -0.5, -0.5, false, 0.4);
+        // Pop layer matrix
+        glPopMatrix();
+        // Pop name
+        glPopName();
+        // push connection matrix
+        glPushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E3DETECTOR, -0.1);
+        // Draw child connections
+        drawHierarchicalConnections(s, this, exaggeration);
+        // Pop connection matrix
+        glPopMatrix();
+        // check if dotted contour has to be drawn
+        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+            GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, pos, size, size, 0, 0, 0, exaggeration);
+        }
+        if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+            GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, pos, size, size, 0, 0, 0, exaggeration);
+        }
+        // Draw additional ID
+        drawAdditionalID(s);
+        // draw additional name
+        drawAdditionalName(s);
     }
 }
 
