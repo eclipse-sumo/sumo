@@ -547,6 +547,13 @@ public:
      */
     std::vector<GNEAdditional*> retrieveAdditionals(bool onlySelected = false) const;
 
+    /**@brief Returns the rerouter interval defined by given begin and end
+     * @param[in] rerouter ID
+     * @param[in] begin SUMOTime begin
+     * @param[in] end SUMOTime begin
+     */
+    GNEAdditional* retrieveRerouterInterval(const std::string& rerouterID, const SUMOTime begin, const SUMOTime end) const;
+
     /**@brief Returns the number of additionals of the net
      * @param[in] type type of additional to count. SUMO_TAG_NOTHING will count all additionals
      * @return Number of additionals of the net

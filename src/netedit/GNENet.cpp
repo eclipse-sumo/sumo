@@ -2438,6 +2438,29 @@ GNENet::retrieveAdditionals(bool onlySelected) const {
 }
 
 
+GNEAdditional*
+GNENet::retrieveRerouterInterval(const std::string& rerouterID, const SUMOTime begin, const SUMOTime end) const {
+    // first retrieve rerouter
+    GNEAdditional* rerouter = retrieveAdditional(SUMO_TAG_REROUTER, rerouterID);
+    // parse begin and end
+    const std::string beginStr = time2string(begin);
+    const std::string endStr = time2string(end);
+    // now iterate over all children and check begin and end
+    for (const auto &interval : rerouter->getChildAdditionals()) {
+        // check tag
+        if (interval->getTagProperty().getTag() == SUMO_TAG_INTERVAL) {
+            // check begin and end
+            if ((interval->getAttribute(SUMO_ATTR_BEGIN) == beginStr) &&
+                (interval->getAttribute(SUMO_ATTR_END) == endStr)) {
+                return interval;
+            }
+        }
+    }
+    // throw exception
+    throw ProcessError("Attempted to retrieve non-existant rerouter interval");
+}
+
+
 int
 GNENet::getNumberOfAdditionals(SumoXMLTag type) const {
     int counter = 0;
