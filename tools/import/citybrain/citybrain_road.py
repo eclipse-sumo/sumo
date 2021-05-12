@@ -132,8 +132,6 @@ def main(options):
         con = open(connfile, "w")
         sumolib.writeXMLHeader(con, "$Id$", "connections")  # noqa
 
-        numIgnored = 0
-
         for edgeID in sorted(connections.keys()):
             edge = net.getEdge(edgeID)
             directionTargets = 3 * [None]
@@ -144,20 +142,27 @@ def main(options):
                 targetLanes = []
                 for c in cons:
                     targetLanes.append(c.getToLane().getIndex())
-                targetIndex.append([cons[0].getJunctionIndex(), target, targetLanes])
+                targetIndex.append([cons[0].getJunctionIndex(), target.getID(), targetLanes,
+                    cons[0].getDirection()])
             targetIndex.sort()
 
             numTargets = len(targetIndex)
-            if numTargets < 3:
-                # we don't know how to interpret the connection information here
-                # fall back to netconvert settings
-                numIgnored += 1
-                continue
 
-            for i, [linkIndex, target, targetLanes] in enumerate(targetIndex):
+            if numTargets == 1:
+                # interpret the single target as "straight"
+                targetIndex = [[None] * 4] + targetIndex
+            elif numTargets == 2:
+                if targetIndex[0][-1] == 's':
+                    targetIndex.insert(0, [None] * 4)
+                elif targetIndex[1][-1] != 's':
+                    targetIndex.insert(1, [None] * 4)
+
+                # check which direction is missing
+
+            for i, [linkIndex, target, targetLanes, targetDir] in enumerate(targetIndex):
                 if i == 3:
                     break;
-                directionTargets[i] = target.getID()
+                directionTargets[i] = target
                 directionTargetLanes[i] = targetLanes
 
             code = connections[edgeID]
@@ -174,8 +179,8 @@ def main(options):
                                 directionTargetLanes[index] = targetLanes[1:]
                             con.write('    <connection from="%s" to="%s" fromLane="%s" toLane="%s"/>\n' % (
                                 edgeID, directionTargets[index], laneIndex, toLane));
-                        else:
-                            sys.stderr.write("Warning: Could not find target from edge %s laneIndex %s for direction index %s\n" % (edgeID, laneIndex, index))
+                        #else:
+                        #    sys.stderr.write("Warning: Could not find target from edge %s laneIndex %s for direction index %s\n" % (edgeID, laneIndex, index))
 
         con.write('</connections>\n')
         con.close()
@@ -183,8 +188,6 @@ def main(options):
         subprocess.call(args + ['-o', options.output, '-x', connfile])
 
         print("Built network with %s nodes and %s edges" % (numNodes, numEdges * 2))
-        if numIgnored > 0:
-            print("Ignored connection information at %s edges" % numIgnored)
 
 
 if __name__ == "__main__":
