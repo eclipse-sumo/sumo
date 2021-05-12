@@ -107,7 +107,7 @@ def res_res_pair(options, res1, res2, veh_type, rv_dict):
             rv_dict[pair] = [res2p_res2d, -1, [res2.id, res2.id]]
         else:
             res2p_res2d = res2p_res2d[0]
-        res2d_res1d = int(findRoute(res1.toEdge, res2.toEdge, veh_type,
+        res2d_res1d = int(findRoute(res2.toEdge, res1.toEdge, veh_type,
                           routingMode=options.routing_mode).travelTime) + 60  # TODO default stop time ticket #6714 # noqa
 
         # check if time windows constrains are fulfilled
