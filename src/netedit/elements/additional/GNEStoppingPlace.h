@@ -22,12 +22,6 @@
 #include "GNEAdditional.h"
 
 // ===========================================================================
-// value definitions
-// ===========================================================================
-const int STOPPINGPLACE_STARTPOS_SET = 1;
-const int STOPPINGPLACE_ENDPOS_SET = 2;
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -45,13 +39,12 @@ public:
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
-     * @param[in] parametersSet Variable used to save flags STOPPINGPLACE_STARTPOS_SET and STOPPINGPLACE_ENDPOS_SET
      * @param[in] name Name of stoppingPlace
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] block movement enable or disable additional movement
      */
-    GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, double startPos, double endPos,
-                     int parametersSet, const std::string& name, bool friendlyPosition, bool blockMovement);
+    GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, const std::string& startPos, 
+                     const std::string& endPos, const std::string& name, bool friendlyPosition, bool blockMovement);
 
     /// @brief Destructor
     ~GNEStoppingPlace();
@@ -146,13 +139,10 @@ public:
 
 protected:
     /// @brief The relative start position this stopping place is located at (optional, if empty takes 0)
-    double myStartPosition;
+    std::string myStartPosition;
 
     /// @brief The  position this stopping place is located at (optional, if empty takes the lane length)
-    double myEndPosition;
-
-    /// @brief Variable used for set/unset start/endPositions
-    int myParametersSet;
+    std::string myEndPosition;
 
     /// @brief Flag for friendly position
     bool myFriendlyPosition;
