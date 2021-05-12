@@ -21,6 +21,7 @@
 #include <utils/xml/XMLSubSys.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_TAZElement.h>
+#include <netedit/changes/GNEChange_Shape.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
@@ -28,8 +29,8 @@
 #include <utils/vehicle/SUMORouteHandler.h>
 
 #include "GNEAdditionalHandlerBeta.h"
-#include "GNEBusStop.h"
 #include "GNEAccess.h"
+#include "GNEBusStop.h"
 #include "GNECalibrator.h"
 #include "GNECalibratorFlow.h"
 #include "GNEChargingStation.h"
@@ -38,24 +39,26 @@
 #include "GNEContainerStop.h"
 #include "GNEDestProbReroute.h"
 #include "GNEDetectorE1.h"
+#include "GNEDetectorE1Instant.h"
 #include "GNEDetectorE2.h"
 #include "GNEDetectorE3.h"
 #include "GNEDetectorEntryExit.h"
-#include "GNEDetectorE1Instant.h"
+#include "GNEPOI.h"
 #include "GNEParkingArea.h"
-#include "GNEParkingSpace.h"
-#include "GNERerouter.h"
-#include "GNERerouterSymbol.h"
-#include "GNERerouterInterval.h"
-#include "GNERouteProbReroute.h"
 #include "GNEParkingAreaReroute.h"
+#include "GNEParkingSpace.h"
+#include "GNEPoly.h"
+#include "GNERerouter.h"
+#include "GNERerouterInterval.h"
+#include "GNERerouterSymbol.h"
+#include "GNERouteProbReroute.h"
 #include "GNERouteProbe.h"
-#include "GNEVaporizer.h"
-#include "GNEVariableSpeedSign.h"
-#include "GNEVariableSpeedSignSymbol.h"
-#include "GNEVariableSpeedSignStep.h"
 #include "GNETAZ.h"
 #include "GNETAZSourceSink.h"
+#include "GNEVaporizer.h"
+#include "GNEVariableSpeedSign.h"
+#include "GNEVariableSpeedSignStep.h"
+#include "GNEVariableSpeedSignSymbol.h"
 
 
 // ===========================================================================
@@ -732,48 +735,297 @@ GNEAdditionalHandlerBeta::buildRouteProbReroute(const CommonXMLStructure::SumoBa
 void 
 GNEAdditionalHandlerBeta::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &edgeID, const std::string& freq, 
     const std::string& name, const std::string& file, const SUMOTime begin, const std::map<std::string, std::string> &parameters) {
-    //
+    // check if routeprobe exist
+    if (myNet->retrieveAdditional(SUMO_TAG_ROUTEPROBE, id, false) == nullptr) {
+        // get NETEDIT parameters
+        NeteditParameters neteditParameters(sumoBaseObject);
+        // get edge
+        GNEEdge *edge = myNet->retrieveEdge(edgeID);
+        // build route probe
+        GNEAdditional* routeProbe = new GNERouteProbe(id, myNet, edge, freq, name, file, begin);
+        // insert depending of allowUndoRedo
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_ROUTEPROBE));
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(routeProbe, true), true);
+            myNet->getViewNet()->getUndoList()->p_end();
+            // center after creation
+            if (neteditParameters.centerAfterCreation) {
+                myNet->getViewNet()->centerTo(routeProbe->getPositionInView(), false);
+            }
+        } else {
+            myNet->getAttributeCarriers()->insertAdditional(routeProbe);
+            edge->addChildElement(routeProbe);
+            routeProbe->incRef("buildRouteProbe");
+        }
+    } else {
+        throw ProcessError("Could not build " + toString(SUMO_TAG_ROUTEPROBE) + " with ID '" + id + "' in netedit; probably declared twice.");
+    }
 }
 
 
 void
 GNEAdditionalHandlerBeta::buildVariableSpeedSign(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, 
-    const std::vector<std::string>& destLaneIDs, const std::string& name, const std::map<std::string, std::string> &parameters) {
-    //
+    const std::vector<std::string>& laneIDs, const std::string& name, const std::map<std::string, std::string> &parameters) {
+    // check if VSS exist
+    if (myNet->retrieveAdditional(SUMO_TAG_VSS, id, false) == nullptr) {
+        // parse lanes
+        std::vector<GNELane*> lanes;
+        for (const auto &lane : laneIDs) {
+            lanes.push_back(myNet->retrieveLane(lane));
+        }
+        // get NETEDIT parameters
+        NeteditParameters neteditParameters(sumoBaseObject);
+        // create VSS
+        GNEAdditional* variableSpeedSign = new GNEVariableSpeedSign(id, myNet, pos, name, neteditParameters.blockMovement);
+        // create VSS Symbols
+        std::vector<GNEAdditional*> VSSSymbols;
+        for (const auto& lane : lanes) {
+            VSSSymbols.push_back(new GNEVariableSpeedSignSymbol(variableSpeedSign, lane));
+        }
+        // insert depending of allowUndoRedo
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_VSS));
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(variableSpeedSign, true), true);
+            for (const auto& VSSSymbol : VSSSymbols) {
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(VSSSymbol, true), true);
+            }
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            myNet->getAttributeCarriers()->insertAdditional(variableSpeedSign);
+            // add symbols
+            for (int i = 0; i < (int)lanes.size(); i++) {
+                lanes.at(i)->addChildElement(VSSSymbols.at(i));
+                VSSSymbols.at(i)->incRef("buildVariableSpeedSignSymbol");
+            }
+            variableSpeedSign->incRef("buildVariableSpeedSign");
+        }
+    } else {
+        throw ProcessError("Could not build " + toString(SUMO_TAG_VSS) + " with ID '" + id + "' in netedit; probably declared twice.");
+    }
 }
 
 
 void 
 GNEAdditionalHandlerBeta::buildVariableSpeedSignStep(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOTime time, const double speed) {
-    //
+    // get VSS parent
+    GNEAdditional *VSS = myNet->retrieveAdditional(SUMO_TAG_VSS, sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
+    // create Variable Speed Sign
+    GNEAdditional* variableSpeedSignStep = new GNEVariableSpeedSignStep(VSS, time, speed);
+    // add it depending of allow undoRedo
+    if (myAllowUndoRedo) {
+        myNet->getViewNet()->getUndoList()->p_begin("add " + variableSpeedSignStep->getTagStr());
+        myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(variableSpeedSignStep, true), true);
+        myNet->getViewNet()->getUndoList()->p_end();
+    } else {
+        VSS->addChildElement(variableSpeedSignStep);
+        variableSpeedSignStep->incRef("buildVariableSpeedSignStep");
+    }
 }
 
 
 void 
-GNEAdditionalHandlerBeta::buildVaporizer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const SUMOTime start, 
+GNEAdditionalHandlerBeta::buildVaporizer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const SUMOTime startTime, 
     const SUMOTime endTime, const std::string& name, const std::map<std::string, std::string> &parameters) {
-    //
+    // get edge
+    GNEEdge *edge = myNet->retrieveEdge(edgeID);
+    // get NETEDIT parameters
+    NeteditParameters neteditParameters(sumoBaseObject);
+    // build vaporizer
+    GNEAdditional* vaporizer = new GNEVaporizer(myNet, edge, startTime, endTime, name);
+    // add it depending of allow undoRed
+    if (myAllowUndoRedo) {
+        myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_VAPORIZER));
+        myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(vaporizer, true), true);
+        myNet->getViewNet()->getUndoList()->p_end();
+        // center after creation
+        if (neteditParameters.centerAfterCreation) {
+            myNet->getViewNet()->centerTo(vaporizer->getPositionInView(), false);
+        }
+    } else {
+        myNet->getAttributeCarriers()->insertAdditional(vaporizer);
+        edge->addChildElement(vaporizer);
+        vaporizer->incRef("buildVaporizer");
+    }
 }
 
 
 void 
 GNEAdditionalHandlerBeta::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape, 
     const RGBColor& color, const std::vector<std::string>& edgeIDs, const std::map<std::string, std::string> &parameters) {
-    //
+    // check if VSS exist
+    if (myNet->retrieveTAZElement(SUMO_TAG_TAZ, id, false) == nullptr) {
+        // get NETEDIT parameters
+        NeteditParameters neteditParameters(sumoBaseObject);
+        // parse edges
+        std::vector<GNEEdge*> edges;
+        for (const auto &edge : edgeIDs) {
+            edges.push_back(myNet->retrieveEdge(edge));
+        }
+        // build TAZ
+        GNETAZElement* TAZ = new GNETAZ(id, myNet, shape, color, neteditParameters.blockMovement);
+        // disable updating geometry of TAZ children during insertion (because in large nets provokes slowdowns)
+        myNet->disableUpdateGeometry();
+        // add it depending of allow undoRed
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZ));
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZ, true), true);
+            // create TAZEdges
+            for (const auto& edge : edges) {
+                // create TAZ Source using GNEChange_Additional
+                GNETAZElement* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSource, true), true);
+                // create TAZ Sink using GNEChange_Additional
+                GNETAZElement* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSink, true), true);
+            }
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            myNet->getAttributeCarriers()->insertTAZElement(TAZ);
+            TAZ->incRef("buildTAZ");
+            for (const auto& edge : edges) {
+                // create TAZ Source
+                GNETAZElement* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
+                TAZSource->incRef("buildTAZ");
+                TAZ->addChildElement(TAZSource);
+                // create TAZ Sink
+                GNETAZElement* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
+                TAZSink->incRef("buildTAZ");
+                TAZ->addChildElement(TAZSink);
+            }
+        }
+        // enable updating geometry again and update geometry of TAZ
+        myNet->enableUpdateGeometry();
+        // update TAZ Frame
+        TAZ->updateGeometry();
+        TAZ->updateParentAdditional();
+    }
 }
 
 
 void 
 GNEAdditionalHandlerBeta::buildTAZSource(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const double departWeight, 
     const std::map<std::string, std::string> &parameters) {
-    //
+    // get TAZ parent
+    GNETAZElement *TAZ = myNet->retrieveTAZElement(SUMO_TAG_TAG, sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
+    // get edge
+    GNEEdge *edge = myNet->retrieveEdge(edgeID);
+    // declare TAZ Sink
+    GNETAZElement* TAZSink = nullptr;
+    // first check if a TAZSink in the same edge for the same TAZ
+    for (const auto& TAZElement : TAZ->getChildTAZElements()) {
+        if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
+            TAZSink = TAZElement;
+        }
+    }
+    // check if TAZSink has to be created
+    if (TAZSink == nullptr) {
+        // Create TAZ with weight 0 (default)
+        TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
+        // add it depending of allow undoRed
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZSINK));
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSink, true), true);
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            myNet->getAttributeCarriers()->insertTAZElement(TAZSink);
+            TAZSink->incRef("buildTAZSource");
+        }
+    }
+    // now check check if TAZSource exist
+    GNETAZElement* TAZSource = nullptr;
+    // first check if a TAZSink in the same edge for the same TAZ
+    for (const auto& TAZElement : TAZ->getChildTAZElements()) {
+        if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
+            TAZSource = TAZElement;
+        }
+    }
+    // check if TAZSource has to be created
+    if (TAZSource == nullptr) {
+        // Create TAZ only with departWeight
+        TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, departWeight);
+        // add it depending of allow undoRed
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZSOURCE));
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSource, true), true);
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            myNet->getAttributeCarriers()->insertTAZElement(TAZSource);
+            TAZSource->incRef("buildTAZSource");
+        }
+    } else {
+        // update TAZ Attribute depending of allow undoRed
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->p_begin("update " + toString(SUMO_TAG_TAZSOURCE));
+            TAZSource->setAttribute(SUMO_ATTR_WEIGHT, toString(departWeight), myNet->getViewNet()->getUndoList());
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            TAZSource->setAttribute(SUMO_ATTR_WEIGHT, toString(departWeight), nullptr);
+            TAZSource->incRef("buildTAZSource");
+        }
+    }
 }
 
 
 void 
 GNEAdditionalHandlerBeta::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const double arrivalWeight, 
     const std::map<std::string, std::string> &parameters) {
-    //
+    // get TAZ parent
+    GNETAZElement *TAZ = myNet->retrieveTAZElement(SUMO_TAG_TAG, sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
+    // get edge
+    GNEEdge *edge = myNet->retrieveEdge(edgeID);
+    // declare TAZ source
+    GNETAZElement* TAZSource = nullptr;
+    // first check if a TAZSink in the same edge for the same TAZ
+    for (const auto& TAZElement : TAZ->getChildTAZElements()) {
+        if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
+            TAZSource = TAZElement;
+        }
+    }
+    // check if TAZSource has to be created
+    if (TAZSource == nullptr) {
+        // Create TAZ with empty value
+        TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
+        // add it depending of allow undoRed
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZSOURCE));
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSource, true), true);
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            myNet->getAttributeCarriers()->insertTAZElement(TAZSource);
+            TAZSource->incRef("buildTAZSink");
+        }
+    }
+    GNETAZElement* TAZSink = nullptr;
+    // first check if a TAZSink in the same edge for the same TAZ
+    for (const auto& TAZElement : TAZ->getChildTAZElements()) {
+        if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
+            TAZSink = TAZElement;
+        }
+    }
+    // check if TAZSink has to be created
+    if (TAZSink == nullptr) {
+        // Create TAZ only with arrivalWeight
+        TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, arrivalWeight);
+        // add it depending of allow undoRed
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZSINK));
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSink, true), true);
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            myNet->getAttributeCarriers()->insertTAZElement(TAZSink);
+            TAZSink->incRef("buildTAZSink");
+        }
+    } else {
+        // update TAZ Attribute depending of allow undoRed
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->p_begin("update " + toString(SUMO_TAG_TAZSINK));
+            TAZSink->setAttribute(SUMO_ATTR_WEIGHT, toString(arrivalWeight), myNet->getViewNet()->getUndoList());
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            TAZSink->setAttribute(SUMO_ATTR_WEIGHT, toString(arrivalWeight), nullptr);
+            TAZSink->incRef("buildTAZSink");
+        }
+    }
 }
 
 
@@ -781,15 +1033,74 @@ void
 GNEAdditionalHandlerBeta::buildPolygon(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
     const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape, bool geo, bool fill, 
     double lineWidth, const std::map<std::string, std::string> &parameters) {
-    //
+    // check if poly exist
+    if (myNet->retrieveShape(SUMO_TAG_POLY, id, false) == nullptr) {
+        // create poly
+        GNEPoly* poly = new GNEPoly(myNet, id, type, shape, geo, fill, lineWidth, color, layer, angle, imgFile, relativePath, false, false);
+        // add it depending of allow undoRed
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_POLY));
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_Shape(poly, true), true);
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            // insert shape without allowing undo/redo
+            myNet->getAttributeCarriers()->insertShape(poly);
+            poly->incRef("addPolygon");
+        }
+    } else {
+        throw ProcessError("Could not build " + toString(SUMO_TAG_POLY) + " with ID '" + id + "' in netedit; probably declared twice.");
+    }
 }
 
 
 void 
 GNEAdditionalHandlerBeta::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
-    const RGBColor& color, const Position& pos, bool geo, const std::string& lane, double posOverLane, double posLat, double layer, double angle,
-    const std::string& imgFile, bool relativePath, double width, double height, const std::map<std::string, std::string> &parameters) {
-    //
+    const RGBColor& color, const Position& pos, bool geo, double layer, double angle, const std::string& imgFile, bool relativePath, 
+    double width, double height, const std::map<std::string, std::string> &parameters) {
+    // check if ID is duplicated
+    if ((myNet->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) && 
+        (myNet->retrieveShape(SUMO_TAG_POLY, id, false) == nullptr)) {
+        // create POI
+        GNEPOI* POI = new GNEPOI(myNet, id, type, color, pos, geo, layer, angle, imgFile, relativePath, width, height, false);
+        // add it depending of allow undoRed
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->p_begin("add " + POI->getTagStr());
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_Shape(POI, true), true);
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            // insert shape without allowing undo/redo
+            myNet->getAttributeCarriers()->insertShape(POI);
+            POI->incRef("addPOI");
+        }
+    } else {
+        throw ProcessError("Could not build " + toString(SUMO_TAG_POI) + " with ID '" + id + "' in netedit; probably declared twice.");
+    }
+}
+
+
+void 
+GNEAdditionalHandlerBeta::buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
+    const RGBColor& color, const std::string& laneID, double posOverLane, double posLat, double layer, double angle, const std::string& imgFile, 
+    bool relativePath, double width, double height, const std::map<std::string, std::string> &parameters) {
+    // check if ID is duplicated
+    if ((myNet->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) && 
+        (myNet->retrieveShape(SUMO_TAG_POLY, id, false) == nullptr)) {
+        // get lane
+        GNELane *lane = myNet->retrieveLane(laneID);
+        // create POI
+        GNEShape* POILane = new GNEPOI(myNet, id, type, color, layer, angle, imgFile, relativePath, lane, posOverLane, posLat, width, height, false);
+        // add it depending of allow undoRed
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->p_begin("add " + POILane->getTagStr());
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_Shape(POILane, true), true);
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            // insert shape without allowing undo/redo
+            myNet->getAttributeCarriers()->insertShape(POILane);
+            lane->addChildElement(POILane);
+            POILane->incRef("addPOILane");
+        }
+    }
 }
 
 
