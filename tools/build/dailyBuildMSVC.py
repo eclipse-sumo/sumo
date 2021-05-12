@@ -258,7 +258,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                 except ImportError:
                     subprocess.call(["cmake", "--build", ".", "--target", "game"],
                                     cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
-                    shutil.move("sumo-game.zip", binaryZip.replace("sumo-", "sumo-game-"))
+                    shutil.move(os.path.join(buildDir, "sumo-game.zip"), binaryZip.replace("sumo-", "sumo-game-"))
             except Exception as e:
                 status.printLog("Warning: Could not create nightly sumo-game.zip! (%s)" % e, log)
         with open(makeAllLog, 'a') as debugLog:
