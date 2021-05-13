@@ -14,7 +14,6 @@ set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
 set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
 set(CCACHE_SUPPORT ON CACHE BOOL "Enable ccache support if installed")
 set(TCMALLOC ON CACHE BOOL "Use tcmalloc if installed")
-set(DATA_PATH "share/sumo/" CACHE STRING "subpath where to install data files")
 
 # Set a default build type if none was specified
 # you may use -DCMAKE_BUILD_TYPE:STRING=Debug from the command line
@@ -473,7 +472,12 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 # installation
-include(GNUInstallDirs)
+if (SKBUILD)
+    set(DATA_PATH "")
+else ()
+    set(DATA_PATH "share/sumo/")
+    include(GNUInstallDirs)
+endif ()
 install(DIRECTORY bin/ DESTINATION bin
         FILES_MATCHING PATTERN "*.dll"
         PATTERN "*d.dll" EXCLUDE
