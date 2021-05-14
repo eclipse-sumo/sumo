@@ -472,11 +472,11 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 # installation
+include(GNUInstallDirs)
 if (SKBUILD)
     set(DATA_PATH "")
 else ()
     set(DATA_PATH "share/sumo/")
-    include(GNUInstallDirs)
 endif ()
 install(DIRECTORY bin/ DESTINATION bin
         FILES_MATCHING PATTERN "*.dll"
@@ -488,6 +488,7 @@ if (PROJ_7)
 endif ()
 install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
         USE_SOURCE_PERMISSIONS
+        PATTERN "build/sumo" EXCLUDE  # needed for the scikit build
         PATTERN "calibration" EXCLUDE
         PATTERN "lisum-core" EXCLUDE
         PATTERN "lisum-gui" EXCLUDE
