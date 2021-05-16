@@ -128,20 +128,20 @@ def connect(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", proc
     raise FatalTraCIError("Could not connect in %s tries" % (numRetries + 1))
 
 
-def init(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", label="default", proc=None, switch=True):
+def init(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", label="default", proc=None, doSwitch=True):
     """
     Establish a connection to a TraCI-Server and store it under the given
     label. This method is not thread-safe. It accesses the connection
     pool concurrently.
     """
     _connections[label] = connect(port, numRetries, host, proc)
-    if switch:
+    if doSwitch:
         switch(label)
     return _connections[label].getVersion()
 
 
 def start(cmd, port=None, numRetries=tc.DEFAULT_NUM_RETRIES, label="default", verbose=False,
-          traceFile=None, traceGetters=True, stdout=None, switch=True):
+          traceFile=None, traceGetters=True, stdout=None, doSwitch=True):
     """
     Start a sumo server using cmd, establish a connection to it and
     store it under the given label. This method is not thread-safe.
@@ -167,7 +167,7 @@ def start(cmd, port=None, numRetries=tc.DEFAULT_NUM_RETRIES, label="default", ve
             print("Calling " + ' '.join(cmd2))
         sumoProcess = subprocess.Popen(cmd2, stdout=stdout)
         try:
-            return init(sumoPort, numRetries, "localhost", label, sumoProcess, switch)
+            return init(sumoPort, numRetries, "localhost", label, sumoProcess, doSwitch)
         except TraCIException as e:
             if port is not None:
                 break
