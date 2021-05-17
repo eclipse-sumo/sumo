@@ -6456,7 +6456,10 @@ MSVehicle::saveState(OutputDevice& out) {
     for (SUMOVehicleParameter::Stop stop : myPastStops) {
         stop.write(out, false);
         out.writeAttr(SUMO_ATTR_STARTED, time2string(stop.started));
-        out.writeAttr(SUMO_ATTR_ENDED, time2string(stop.ended));
+        if ((stop.parametersSet & STOP_ENDED_SET) == 0) {
+            // do not write ended twice
+            out.writeAttr(SUMO_ATTR_ENDED, time2string(stop.ended));
+        }
         out.closeTag();
     }
     // save upcoming stops
