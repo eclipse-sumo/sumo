@@ -169,19 +169,19 @@ GNEGenericData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /* p
 }
 
 
-double 
+double
 GNEGenericData::getPathElementDepartValue() const {
     return 0;
 }
 
 
-Position 
+Position
 GNEGenericData::getPathElementDepartPos() const {
     return Position();
 }
 
 
-double 
+double
 GNEGenericData::getPathElementArrivalValue() const {
     return 0;
 }

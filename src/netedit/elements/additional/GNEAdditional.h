@@ -222,7 +222,7 @@ public:
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;
 
-    /// @brief get last path lane 
+    /// @brief get last path lane
     GNELane* getLastPathLane() const;
 
     /// @brief get path element depart lane pos
@@ -354,7 +354,7 @@ protected:
     void calculatePerpendicularLine(const double endLaneposition);
 
     /// @brief draw squared additional
-    void drawSquaredAdditional(const GUIVisualizationSettings& s, const Position &pos, const double size, GUITexture texture, GUITexture selectedTexture) const;
+    void drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size, GUITexture texture, GUITexture selectedTexture) const;
 
 private:
     /**@brief check restriction with the number of children

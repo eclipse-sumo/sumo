@@ -32,9 +32,9 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const Position _originalPosition) :
     moveElement(_moveElement),
     originalShape({_originalPosition}),
-    shapeToMove({_originalPosition}),
-    lane(nullptr),
-    allowChangeLane(false) {
+              shapeToMove({_originalPosition}),
+              lane(nullptr),
+allowChangeLane(false) {
 }
 
 
@@ -250,7 +250,7 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
 
 
 void
-GNEMoveElement::calculateMovementOverLane(GNEMoveResult &moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset) {
+GNEMoveElement::calculateMovementOverLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset) {
     // calculate lenght between pos over lanes
     const double centralPosition = (moveOperation->originalPosOverLanes.front() + moveOperation->originalPosOverLanes.back()) * 0.5;
     // calculate middle lenght between first and last pos over lanes
@@ -297,13 +297,13 @@ GNEMoveElement::calculateMovementOverLane(GNEMoveResult &moveResult, const GNEVi
 
 
 void
-GNEMoveElement::calculateNewLane(GNEMoveResult &moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation) {
+GNEMoveElement::calculateNewLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation) {
     // first check if change lane is allowed
     if (moveOperation->allowChangeLane) {
         // get cursor position
         const Position cursorPosition = viewNet->getPositionInformation();
         // iterate over edge lanes
-        for (const auto &lane : moveOperation->lane->getParentEdge()->getLanes()) {
+        for (const auto& lane : moveOperation->lane->getParentEdge()->getLanes()) {
             // avoid moveOperation lane
             if (lane != moveOperation->lane) {
                 // calculate offset over lane shape

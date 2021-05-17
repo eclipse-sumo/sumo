@@ -350,7 +350,7 @@ RONetHandler::parseStoppingPlace(const SUMOSAXAttributes& attrs, const SumoXMLTa
     }
     // this is a hack: the busstop attribute is meant to hold the id within the simulation context but this is not used within the router context
     myCurrentStoppingPlace->busstop = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
-    // this is a hack: the actType is not used when using this to encode a stopping place 
+    // this is a hack: the actType is not used when using this to encode a stopping place
     myCurrentStoppingPlace->actType = toString(element);
     myNet.addStoppingPlace(id, element, myCurrentStoppingPlace);
 }

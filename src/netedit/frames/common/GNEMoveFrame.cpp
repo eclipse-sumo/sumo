@@ -93,14 +93,14 @@ GNEMoveFrame::NetworkModeOptions::NetworkModeOptions(GNEMoveFrame* moveFramePare
 GNEMoveFrame::NetworkModeOptions::~NetworkModeOptions() {}
 
 
-void 
+void
 GNEMoveFrame::NetworkModeOptions::showNetworkModeOptions() {
     recalc();
     show();
 }
 
 
-void 
+void
 GNEMoveFrame::NetworkModeOptions::hideNetworkModeOptions() {
     hide();
 }
@@ -132,14 +132,14 @@ GNEMoveFrame::DemandModeOptions::DemandModeOptions(GNEMoveFrame* moveFrameParent
 GNEMoveFrame::DemandModeOptions::~DemandModeOptions() {}
 
 
-void 
+void
 GNEMoveFrame::DemandModeOptions::showDemandModeOptions() {
     recalc();
     show();
 }
 
 
-void 
+void
 GNEMoveFrame::DemandModeOptions::hideDemandModeOptions() {
     hide();
 }
@@ -148,7 +148,7 @@ GNEMoveFrame::DemandModeOptions::hideDemandModeOptions() {
 bool
 GNEMoveFrame::DemandModeOptions::getLeavePersonStopsConnected() const {
     if (myMoveFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
-        (myMoveFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_MOVE)) {
+            (myMoveFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_MOVE)) {
         return (myLeavePersonStopsConnected->getCheck() == TRUE);
     } else {
         return false;

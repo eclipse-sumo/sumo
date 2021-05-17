@@ -76,7 +76,7 @@ myDefaultVehicleTypeModified(false) {
 GNEVehicleType::~GNEVehicleType() {}
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEVehicleType::getMoveOperation(const double /*shapeOffset*/) {
     return nullptr;
 }
@@ -172,7 +172,7 @@ GNEVehicleType::getFirstPathLane() const {
 }
 
 
-GNELane* 
+GNELane*
 GNEVehicleType::getLastPathLane() const {
     // vehicle types don't use lanes
     return nullptr;
@@ -475,7 +475,7 @@ GNEVehicleType::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-Position 
+Position
 GNEVehicleType::getAttributePosition(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a Position attribute of type '" + toString(key) + "'");
 }
@@ -1627,7 +1627,7 @@ GNEVehicleType::setEnabledAttribute(const int /*enabledAttributes*/) {
 }
 
 
-void 
+void
 GNEVehicleType::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // vehicleTypes cannot be moved
 }

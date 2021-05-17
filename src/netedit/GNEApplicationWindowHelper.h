@@ -195,7 +195,7 @@ struct GNEApplicationWindowHelper {
 
         /// @brief struct for common menu commands
         struct CommonMenuCommands {
-        
+
             /// @brief constructor
             CommonMenuCommands(const ModesMenuCommands* modesMenuCommandsParent);
 

@@ -48,11 +48,11 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObje
                                    GNELane* lane, double startPos, double endPos, int parametersSet, const std::string& name,
                                    bool friendlyPosition, bool blockMovement) :
     GNEAdditional(id, net, type, tag, name, blockMovement,
-        {}, {}, {lane}, {}, {}, {}, {}, {}),
-    myStartPosition(startPos),
-    myEndPosition(endPos),
-    myParametersSet(parametersSet),
-    myFriendlyPosition(friendlyPosition) {
+{}, {}, {lane}, {}, {}, {}, {}, {}),
+myStartPosition(startPos),
+myEndPosition(endPos),
+myParametersSet(parametersSet),
+myFriendlyPosition(friendlyPosition) {
 }
 
 
@@ -71,7 +71,7 @@ GNEStoppingPlace::getMoveOperation(const double /*shapeOffset*/) {
     } else {
         // return move operation for additional placed over shape
         return new GNEMoveOperation(this, getParentLanes().front(), {myStartPosition, myEndPosition},
-            myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
+                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
     }
 }
 

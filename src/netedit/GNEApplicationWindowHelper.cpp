@@ -524,7 +524,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::ModesMenuCommands(GNEApplicationW
     networkMenuCommands(this),
     demandMenuCommands(this),
     dataMenuCommands(this),
-    myGNEApp(GNEApp) { 
+    myGNEApp(GNEApp) {
 }
 
 

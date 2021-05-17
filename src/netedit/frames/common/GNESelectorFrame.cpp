@@ -1438,30 +1438,30 @@ GNESelectorFrame::ACsToSelected() const {
         // check persontrips
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSONTRIP)) {
             if ((demandElementsMap.at(GNE_TAG_PERSONTRIP_EDGE).size() > 0) ||
-                (demandElementsMap.at(GNE_TAG_PERSONTRIP_BUSSTOP).size() > 0)) {
+                    (demandElementsMap.at(GNE_TAG_PERSONTRIP_BUSSTOP).size() > 0)) {
                 return true;
             }
         }
         // check ride
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_RIDE)) {
             if ((demandElementsMap.at(GNE_TAG_RIDE_EDGE).size() > 0) ||
-                (demandElementsMap.at(GNE_TAG_RIDE_BUSSTOP).size() > 0)) {
+                    (demandElementsMap.at(GNE_TAG_RIDE_BUSSTOP).size() > 0)) {
                 return true;
             }
         }
         // check walks
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_WALK)) {
             if ((demandElementsMap.at(GNE_TAG_WALK_EDGE).size() > 0) ||
-                (demandElementsMap.at(GNE_TAG_WALK_BUSSTOP).size() > 0) ||
-                (demandElementsMap.at(GNE_TAG_WALK_EDGES).size() > 0) ||
-                (demandElementsMap.at(GNE_TAG_WALK_ROUTE).size() > 0)) {
+                    (demandElementsMap.at(GNE_TAG_WALK_BUSSTOP).size() > 0) ||
+                    (demandElementsMap.at(GNE_TAG_WALK_EDGES).size() > 0) ||
+                    (demandElementsMap.at(GNE_TAG_WALK_ROUTE).size() > 0)) {
                 return true;
             }
         }
         // check person stops
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSONSTOP)) {
             if ((demandElementsMap.at(GNE_TAG_PERSONSTOP_EDGE).size() > 0) ||
-                (demandElementsMap.at(GNE_TAG_PERSONSTOP_BUSSTOP).size() > 0)) {
+                    (demandElementsMap.at(GNE_TAG_PERSONSTOP_BUSSTOP).size() > 0)) {
                 return true;
             }
         }
@@ -1470,7 +1470,7 @@ GNESelectorFrame::ACsToSelected() const {
             for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
                 for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
                     if ((!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGEDATA) && (genericData->getType() == GLO_EDGEDATA)) ||
-                        (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGERELDATA) && (genericData->getType() == GLO_EDGERELDATA))) {
+                            (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGERELDATA) && (genericData->getType() == GLO_EDGERELDATA))) {
                         return true;
                     }
                 }

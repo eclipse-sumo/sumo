@@ -201,7 +201,7 @@ public:
     double getAccessDistance(const MSEdge* edge) const;
 
     const std::string& getMyName() const;
-    
+
     /// @brief return the type of this stopping place
     SumoXMLTag getElement() const {
         return myElement;

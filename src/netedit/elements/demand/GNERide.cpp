@@ -36,25 +36,25 @@
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
                  double arrivalPosition, const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_EDGE,
-        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition),
-    myLines(lines) {
+{}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
+myArrivalPosition(arrivalPosition),
+myLines(lines) {
 }
 
 
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
                  double arrivalPosition, const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_BUSSTOP,
-        {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition),
-    myLines(lines) {
+{}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
+myArrivalPosition(arrivalPosition),
+myLines(lines) {
 }
 
 
 GNERide::~GNERide() {}
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNERide::getMoveOperation(const double /*shapeOffset*/) {
     // avoid move person plan that ends in busStop
     if (getParentAdditionals().size() > 0) {
@@ -111,7 +111,7 @@ GNERide::writeDemandElement(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().back()->getID());
     } else {
         device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
-    } 
+    }
     // only write arrivalPos if is different of -1
     if (myArrivalPosition != -1) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
@@ -134,11 +134,11 @@ GNERide::isDemandElementValid() const {
     if ((getParentEdges().size() == 2) && (getParentEdges().at(0) == getParentEdges().at(1))) {
         // from and to are the same edges
         return true;
-/*
-    } else if (getPath().size() > 0) {
-        // if path edges isn't empty, then there is a valid route
-        return true;
-*/
+        /*
+            } else if (getPath().size() > 0) {
+                // if path edges isn't empty, then there is a valid route
+                return true;
+        */
     } else {
         return false;
     }
@@ -276,7 +276,7 @@ GNERide::getFirstPathLane() const {
 }
 
 
-GNELane* 
+GNELane*
 GNERide::getLastPathLane() const {
     // check if personPlan ends in a BusStop
     if (getParentAdditionals().size() > 0) {
@@ -340,7 +340,7 @@ GNERide::getAttributePosition(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ARRIVALPOS: {
             // get lane shape
-            const PositionVector &laneShape = getLastPathLane()->getLaneShape();
+            const PositionVector& laneShape = getLastPathLane()->getLaneShape();
             // continue depending of arrival position
             if (myArrivalPosition == 0) {
                 return laneShape.front();
@@ -370,7 +370,7 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         // special case for "to" attributes
         case SUMO_ATTR_TO: {
             // get next personPlan
-            GNEDemandElement *nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+            GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
             // continue depending of nextPersonPlan
             if (nextPersonPlan) {
                 undoList->p_begin("Change from attribute of next personPlan");
@@ -384,11 +384,11 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         }
         case GNE_ATTR_TO_BUSSTOP: {
             // get next person plan
-            GNEDemandElement *nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+            GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
             // continue depending of nextPersonPlan
             if (nextPersonPlan) {
                 // obtain busStop
-                const GNEAdditional *busStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
+                const GNEAdditional* busStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
                 // change from attribute using edge ID
                 undoList->p_begin("Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
@@ -544,7 +544,7 @@ GNERide::setEnabledAttribute(const int /*enabledAttributes*/) {
 }
 
 
-void 
+void
 GNERide::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
     myArrivalPosition = moveResult.shapeToUpdate.front().x();

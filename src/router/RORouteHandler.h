@@ -146,7 +146,7 @@ protected:
     void closeTrip();
 
     /// @brief retrieve stopping place element
-    const SUMOVehicleParameter::Stop* retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std::string& errorSuffix, std::string& id, const SUMOVehicleParameter::Stop* stopParam = nullptr); 
+    const SUMOVehicleParameter::Stop* retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std::string& errorSuffix, std::string& id, const SUMOVehicleParameter::Stop* stopParam = nullptr);
 
     /// @brief Processing of a stop
     void addStop(const SUMOSAXAttributes& attrs);

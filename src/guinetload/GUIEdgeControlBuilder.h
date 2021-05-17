@@ -72,12 +72,12 @@ public:
      * @see MSLane
      */
     MSLane* addLane(const std::string& id,
-                            double maxSpeed, double length,
-                            const PositionVector& shape, double width,
-                            SVCPermissions permissions,
-                            SVCPermissions changeLeft, SVCPermissions changeRight,
-                            int index, bool isRampAccel,
-                            const std::string& type) override;
+                    double maxSpeed, double length,
+                    const PositionVector& shape, double width,
+                    SVCPermissions permissions,
+                    SVCPermissions changeLeft, SVCPermissions changeRight,
+                    int index, bool isRampAccel,
+                    const std::string& type) override;
 
 
 

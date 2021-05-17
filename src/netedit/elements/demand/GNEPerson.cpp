@@ -162,8 +162,8 @@ GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector
 
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters) :
     GNEDemandElement(personparameters.id, net, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag,
-        {}, {}, {}, {}, {}, {}, {pType}, {}),
-    SUMOVehicleParameter(personparameters) {
+{}, {}, {}, {}, {}, {}, {pType}, {}),
+SUMOVehicleParameter(personparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
 }
@@ -172,7 +172,7 @@ GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const
 GNEPerson::~GNEPerson() {}
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEPerson::getMoveOperation(const double /*shapeOffset*/) {
     // check first person plan
     if (getChildDemandElements().front()->getTagProperty().isPersonStop()) {
@@ -442,7 +442,7 @@ GNEPerson::getFirstPathLane() const {
 }
 
 
-GNELane* 
+GNELane*
 GNEPerson::getLastPathLane() const {
     // use path lane of first person plan
     return getChildDemandElements().front()->getLastPathLane();
@@ -512,18 +512,18 @@ GNEPerson::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-Position 
+Position
 GNEPerson::getAttributePosition(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_DEPARTPOS: {
             // get person plan
-            const GNEDemandElement *personPlan = getChildDemandElements().front();
+            const GNEDemandElement* personPlan = getChildDemandElements().front();
             // first check if first person plan is a stop
             if (personPlan->getTagProperty().isPersonStop()) {
                 return personPlan->getPositionInView();
             } else {
                 // declare lane lane
-                GNELane *lane = nullptr;
+                GNELane* lane = nullptr;
                 // update lane
                 if (personPlan->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
                     lane = personPlan->getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(getVClass());

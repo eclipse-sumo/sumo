@@ -166,11 +166,11 @@ public:
      * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
      */
     void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const;
-    
+
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;
 
-    /// @brief get last path lane 
+    /// @brief get last path lane
     GNELane* getLastPathLane() const;
     /// @}
 

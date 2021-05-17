@@ -39,29 +39,28 @@
 
 GNEPersonStop::GNEPersonStop(GNENet* net, GNEDemandElement* personParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter) :
     GNEDemandElement(personParent, net, GLO_PERSONSTOP, GNE_TAG_PERSONSTOP_BUSSTOP,
-        {}, {}, {}, {stoppingPlace}, {}, {}, {personParent}, {}),
-    SUMOVehicleParameter::Stop(stopParameter) {
+{}, {}, {}, {stoppingPlace}, {}, {}, {personParent}, {}),
+SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
 GNEPersonStop::GNEPersonStop(GNENet* net, GNEDemandElement* personParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter) :
     GNEDemandElement(personParent, net, GLO_PERSONSTOP, GNE_TAG_PERSONSTOP_EDGE,
-        {}, {edge}, {}, {}, {}, {}, {personParent}, {}),
-    SUMOVehicleParameter::Stop(stopParameter) {
+{}, {edge}, {}, {}, {}, {}, {personParent}, {}),
+SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
 GNEPersonStop::~GNEPersonStop() {}
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEPersonStop::getMoveOperation(const double /*shapeOffset*/) {
     if (myTagProperty.getTag() == GNE_TAG_PERSONSTOP_EDGE) {
         // return move operation for additional placed over shape
         return new GNEMoveOperation(this, getParentEdges().front()->getLanes().front(), {endPos},
-            myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
-    }
-    else {
+                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
+    } else {
         return nullptr;
     }
 }
@@ -93,7 +92,7 @@ GNEPersonStop::isDemandElementValid() const {
         // obtain lane length
         const double laneLength = getParentEdges().front()->getNBEdge()->getFinalLength() * firstLane->getLengthGeometryFactor();
         // declare end pos fixed
-        const double endPosFixed = (endPos < 0)? (endPos + laneLength) : endPos;
+        const double endPosFixed = (endPos < 0) ? (endPos + laneLength) : endPos;
         // check values
         return (endPosFixed <= getParentEdges().front()->getNBEdge()->getFinalLength()) && (endPosFixed > 0);
     } else {
@@ -146,13 +145,13 @@ GNEPersonStop::updateGeometry() {
     // only update Stops over edges
     if (getParentAdditionals().size() > 0) {
         // get busStop shape
-        const PositionVector &busStopShape = getParentAdditionals().front()->getAdditionalGeometry().getShape();
+        const PositionVector& busStopShape = getParentAdditionals().front()->getAdditionalGeometry().getShape();
         // update demand element geometry using both positions
         myDemandElementGeometry.updateGeometry(busStopShape, busStopShape.length2D() - 0.6, busStopShape.length2D(), 0);
     } else {
         // get front and back lane
-        const GNELane*frontLane = getParentEdges().front()->getLanes().front();
-        const GNELane*backLane = getParentEdges().front()->getLanes().back();
+        const GNELane* frontLane = getParentEdges().front()->getLanes().front();
+        const GNELane* backLane = getParentEdges().front()->getLanes().back();
         // get lane drawing constants
         GNELane::LaneDrawingConstants laneDrawingConstantsFront(myNet->getViewNet()->getVisualisationSettings(), frontLane);
         GNELane::LaneDrawingConstants laneDrawingConstantBack(myNet->getViewNet()->getVisualisationSettings(), backLane);
@@ -231,7 +230,7 @@ GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
         // Obtain exaggeration of the draw
         const double exaggeration = s.addSize.getExaggeration(s, this);
         // declare stop color
-        const RGBColor stopColor = drawUsingSelectColor()? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stops;
+        const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stops;
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add layer matrix matrix
@@ -293,7 +292,7 @@ GNEPersonStop::getFirstPathLane() const {
 }
 
 
-GNELane* 
+GNELane*
 GNEPersonStop::getLastPathLane() const {
     // first and last path lane are the same
     return getFirstPathLane();
@@ -356,17 +355,17 @@ GNEPersonStop::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-Position 
+Position
 GNEPersonStop::getAttributePosition(SumoXMLAttr key) const {
     switch (key) {
-    // we use SUMO_ATTR_ARRIVALPOS instead SUMO_ATTR_ENDPOS due it's a person plan
+        // we use SUMO_ATTR_ARRIVALPOS instead SUMO_ATTR_ENDPOS due it's a person plan
         case SUMO_ATTR_ARRIVALPOS: {
             if (getParentAdditionals().size() > 0) {
                 // return first position of busStop
-                return getParentAdditionals().front()->getAdditionalGeometry().getShape().front(); 
+                return getParentAdditionals().front()->getAdditionalGeometry().getShape().front();
             } else {
                 // get lane shape
-                const PositionVector &laneShape = getLastPathLane()->getLaneShape();
+                const PositionVector& laneShape = getLastPathLane()->getLaneShape();
                 // continue depending of arrival position
                 if (endPos == 0) {
                     return laneShape.front();
@@ -399,7 +398,7 @@ GNEPersonStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             break;
         case SUMO_ATTR_EDGE: {
             // get next personPlan
-            GNEDemandElement *nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+            GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
             // continue depending of nextPersonPlan
             if (nextPersonPlan) {
                 undoList->p_begin("Change from attribute of next personPlan");
@@ -413,11 +412,11 @@ GNEPersonStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         }
         case SUMO_ATTR_BUS_STOP: {
             // get next person plan
-            GNEDemandElement *nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+            GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
             // continue depending of nextPersonPlan
             if (nextPersonPlan) {
                 // obtain busStop
-                const GNEAdditional *busStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
+                const GNEAdditional* busStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
                 // change from attribute using edge ID
                 undoList->p_begin("Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
@@ -430,10 +429,10 @@ GNEPersonStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         }
         case SUMO_ATTR_ENDPOS: {
             // get previous person plan
-            GNEDemandElement *previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
+            GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
             // check if leave presonStop connected is enabled
             if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getDemandModeOptions()->getLeavePersonStopsConnected() &&
-                previousPersonPlan && previousPersonPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+                    previousPersonPlan && previousPersonPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
                 // change from attribute using edge ID
                 undoList->p_begin("Change arrivalPos attribute of previous personPlan");
                 previousPersonPlan->setAttribute(SUMO_ATTR_ARRIVALPOS, value, undoList);
@@ -589,8 +588,8 @@ GNEPersonStop::getFirstAllowedLane() const {
 }
 
 
-void 
-GNEPersonStop::drawPersonStopOverLane(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor &stopColor) const {
+void
+GNEPersonStop::drawPersonStopOverLane(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& stopColor) const {
     // declare central line color
     const RGBColor centralLineColor = drawUsingSelectColor() ? stopColor.changedBrightness(-32) : RGBColor::WHITE;
     // set base color
@@ -634,8 +633,8 @@ GNEPersonStop::drawPersonStopOverLane(const GUIVisualizationSettings& s, const d
 }
 
 
-void 
-GNEPersonStop::drawPersonStopOverBusStop(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor &stopColor) const {
+void
+GNEPersonStop::drawPersonStopOverBusStop(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& stopColor) const {
     // set base color
     GLHelper::setColor(stopColor);
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration

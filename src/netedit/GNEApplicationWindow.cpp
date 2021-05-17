@@ -2015,7 +2015,7 @@ GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onCmdComputePathManager(FXObject*, FXSelector, void*) {
     // first check viewNet
     if (myViewNet) {

@@ -118,7 +118,7 @@ GNEEdgeRelData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 }
 
 
-void 
+void
 GNEEdgeRelData::computePathElement() {
     // calculate path
     myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_IGNORING, getParentEdges());
@@ -309,7 +309,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
 }
 
 
-GNELane* 
+GNELane*
 GNEEdgeRelData::getFirstPathLane() const {
     /* temporal */
     return nullptr;

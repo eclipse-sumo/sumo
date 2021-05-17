@@ -146,8 +146,8 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 }
 
 
-void 
-GNETAZRelData::computePathElement(){
+void
+GNETAZRelData::computePathElement() {
     // nothing to compute
 }
 
@@ -164,7 +164,7 @@ GNETAZRelData::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELan
 }
 
 
-GNELane* 
+GNELane*
 GNETAZRelData::getFirstPathLane() const {
     return nullptr;
 }

@@ -116,7 +116,7 @@ public:
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;
 
-    /// @brief get last path lane 
+    /// @brief get last path lane
     GNELane* getLastPathLane() const;
     /// @}
 

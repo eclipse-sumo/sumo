@@ -324,7 +324,7 @@ GNEAdditional::getOptionalAdditionalName() const {
 }
 
 
-void 
+void
 GNEAdditional::computePathElement() {
     // currently onle for E2 multilane detectors
     if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
@@ -348,17 +348,17 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         GNEGeometry::Geometry E2Geometry;
         // update pathGeometry depending of first and last segment
         if (segment->isFirstSegment() && segment->isLastSegment()) {
-            E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(), 
-            geometryDepartPos, geometryEndPos,      // extrem positions
-            Position::INVALID, Position::INVALID);  // extra positions
+            E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(),
+                                      geometryDepartPos, geometryEndPos,      // extrem positions
+                                      Position::INVALID, Position::INVALID);  // extra positions
         } else if (segment->isFirstSegment()) {
             E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(),
-            geometryDepartPos, -1,                  // extrem positions
-            Position::INVALID, Position::INVALID);  // extra positions
+                                      geometryDepartPos, -1,                  // extrem positions
+                                      Position::INVALID, Position::INVALID);  // extra positions
         } else if (segment->isLastSegment()) {
-            E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(), 
-            -1, geometryEndPos,                     // extrem positions
-            Position::INVALID, Position::INVALID);  // extra positions
+            E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(),
+                                      -1, geometryEndPos,                     // extrem positions
+                                      Position::INVALID, Position::INVALID);  // extra positions
         } else {
             E2Geometry = lane->getLaneGeometry();
         }
@@ -429,7 +429,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
     // check if E2 can be drawn
     if (s.drawAdditionals(E2DetectorWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // get flag for show only contour
-        const bool onlyContour = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()? myNet->getViewNet()->getNetworkViewOptions().showConnections() : false;
+        const bool onlyContour = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() ? myNet->getViewNet()->getNetworkViewOptions().showConnections() : false;
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix
@@ -614,8 +614,8 @@ GNEAdditional::calculatePerpendicularLine(const double endLaneposition) {
 }
 
 
-void 
-GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Position &pos, const double size, GUITexture texture, GUITexture selectedTexture) const {
+void
+GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size, GUITexture texture, GUITexture selectedTexture) const {
     // Obtain drawing exaggeration
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
@@ -685,13 +685,13 @@ GNEAdditional::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) 
 }
 
 
-GNELane* 
+GNELane*
 GNEAdditional::getFirstPathLane() const {
     return getParentLanes().front();
 }
 
 
-GNELane* 
+GNELane*
 GNEAdditional::getLastPathLane() const {
     return getParentLanes().back();
 }
@@ -709,13 +709,13 @@ GNEAdditional::getPathElementDepartPos() const {
 }
 
 
-double 
+double
 GNEAdditional::getPathElementArrivalValue() const {
     return 0;   // CHECK
 }
 
 
-Position 
+Position
 GNEAdditional::getPathElementArrivalPos() const {
     return Position();  /// CHECK
 }

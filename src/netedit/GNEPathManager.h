@@ -45,11 +45,11 @@ public:
 
     public:
         /// @brief constructor for lanes
-        Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane, 
+        Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane,
                 const bool firstSegment, const bool lastSegment);
 
         /// @brief constructor for junctions
-        Segment(GNEPathManager* pathManager, PathElement* element, const GNEJunction* junction, 
+        Segment(GNEPathManager* pathManager, PathElement* element, const GNEJunction* junction,
                 const GNELane* previousLane, const GNELane* nextLane);
 
         /// @brief destructor
@@ -83,10 +83,10 @@ public:
         void markSegmentInvalid();
 
         /// @brief get next segment
-        Segment *getNextSegment() const;
+        Segment* getNextSegment() const;
 
         /// @brief set next segment
-        void setNextSegment(Segment *nexSegment);
+        void setNextSegment(Segment* nexSegment);
 
         /// @brief check if segment is label segment
         bool isLabelSegment() const;
@@ -103,7 +103,7 @@ public:
 
         /// @brief first segment
         const bool myFirstSegment;
-        
+
         /// @brief lastSegment
         const bool myLastSegment;
 
@@ -111,8 +111,8 @@ public:
         const GNELane* myLane;
 
         /// @brief previous lane
-        const GNELane *myPreviousLane;
-        
+        const GNELane* myPreviousLane;
+
         /// @brief next lane
         const GNELane* myNextLane;
 
@@ -191,7 +191,7 @@ public:
         /// @brief get first path lane
         virtual GNELane* getFirstPathLane() const = 0;
 
-        /// @brief get last path lane 
+        /// @brief get last path lane
         virtual GNELane* getLastPathLane() const = 0;
 
         /// @brief get path element depart lane pos
@@ -270,10 +270,10 @@ public:
         void clearPathDraw();
 
         /// @brief check if path element geometry must be drawn in the given lane
-        bool drawPathGeometry(const bool dottedElement, const GNELane *lane, SumoXMLTag tag);
+        bool drawPathGeometry(const bool dottedElement, const GNELane* lane, SumoXMLTag tag);
 
         /// @brief check if path element geometry must be drawn in the given junction
-        bool drawPathGeometry(const bool dottedElement, const GNELane *fromLane, const GNELane *toLane, SumoXMLTag tag);
+        bool drawPathGeometry(const bool dottedElement, const GNELane* fromLane, const GNELane* toLane, SumoXMLTag tag);
 
     private:
         /// @brief map for saving tags drawn in lanes
@@ -333,7 +333,7 @@ public:
 
 protected:
     /// @brief add segments int laneSegments (called by Segment constructor)
-    void addSegmentInLaneSegments(Segment *segment, const GNELane *lane);
+    void addSegmentInLaneSegments(Segment* segment, const GNELane* lane);
 
     /// @brief add segments int junctionSegments (called by Segment constructor)
     void addSegmentInJunctionSegments(Segment* segment, const GNEJunction* junction);

@@ -243,7 +243,7 @@ GNEDetectorEntryExit::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNEDetectorEntryExit::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_POSITION:

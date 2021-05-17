@@ -177,7 +177,7 @@ GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
 }
 
 
-double 
+double
 GNEDetectorE1::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_POSITION:

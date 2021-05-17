@@ -163,7 +163,7 @@ GNEGeometry::Geometry::updateGeometry(const PositionVector& shape, double beginT
         // add extra positions
         if (extraFirstPosition != Position::INVALID) {
             myShape.push_front_noDoublePos(extraFirstPosition);
-        } 
+        }
         if (extraLastPosition != Position::INVALID) {
             myShape.push_back_noDoublePos(extraLastPosition);
         }

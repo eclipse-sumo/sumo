@@ -157,7 +157,7 @@ GNEEdgeData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 }
 
 
-void 
+void
 GNEEdgeData::computePathElement() {
     // nothing to compute
 }
@@ -216,7 +216,7 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane*
 }
 
 
-GNELane* 
+GNELane*
 GNEEdgeData::getFirstPathLane() const {
     /* temporal */
     return nullptr;

@@ -3667,9 +3667,9 @@ GNEAttributeCarrier::fillPersonPlanRides() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-            GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::RIDE,
-            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE,
-            GUIIcon::RIDE_BUSSTOP, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW });
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::RIDE,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE,
+                                      GUIIcon::RIDE_BUSSTOP, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW });
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,

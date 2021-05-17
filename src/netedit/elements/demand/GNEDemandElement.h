@@ -107,7 +107,7 @@ public:
      * @note returned GNEMoveOperation can be nullptr
      */
     virtual GNEMoveOperation* getMoveOperation(const double shapeOffset) = 0;
-    
+
     /// @brief remove geometry point in the clicked position (Currently unused in shapes)
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
@@ -243,11 +243,11 @@ public:
      * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
      */
     virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
-    
+
     /// @brief get first path lane
     virtual GNELane* getFirstPathLane() const = 0;
 
-    /// @brief get last path lane 
+    /// @brief get last path lane
     virtual GNELane* getLastPathLane() const = 0;
 
     /// @brief get path element depart lane pos
@@ -261,7 +261,7 @@ public:
 
     /// @brief get path element arrival position
     Position getPathElementArrivalPos() const;
-    
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -353,8 +353,8 @@ protected:
                                const double personPlanWidth, const RGBColor& personPlanColor) const;
 
     /// @brief draw person plan partial junction
-    void drawPersonPlanPartial(const GUIVisualizationSettings & s, const GNELane * fromLane, const GNELane * toLane, const GNEPathManager::Segment* segment,
-                               const double offsetFront, const double personPlanWidth, const RGBColor & personPlanColor) const;
+    void drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment,
+                               const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const;
 
     /// @brief person plans arrival position radius
     static const double myPersonPlanArrivalPositionDiameter;

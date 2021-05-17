@@ -37,27 +37,27 @@
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag,
-        {}, {}, {}, {stoppingPlace}, {}, {}, {stopParent}, {}),
-    SUMOVehicleParameter::Stop(stopParameter) {
+{}, {}, {}, {stoppingPlace}, {}, {}, {stopParent}, {}),
+SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
 GNEStop::GNEStop(GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, net, GLO_STOP, SUMO_TAG_STOP_LANE,
-        {}, {}, {lane}, {}, {}, {}, {stopParent}, {}),
-    SUMOVehicleParameter::Stop(stopParameter) {
+{}, {}, {lane}, {}, {}, {}, {stopParent}, {}),
+SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
 GNEStop::~GNEStop() {}
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEStop::getMoveOperation(const double /*shapeOffset*/) {
     if (myTagProperty.getTag() == SUMO_TAG_STOP_LANE) {
         // return move operation for additional placed over shape
         return new GNEMoveOperation(this, getParentLanes().front(), {startPos, endPos},
-            myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
+                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
     } else {
         return nullptr;
     }
@@ -359,7 +359,7 @@ GNEStop::getFirstPathLane() const {
 }
 
 
-GNELane* 
+GNELane*
 GNEStop::getLastPathLane() const {
     // first and last path lane are the same
     return getFirstPathLane();
@@ -856,7 +856,7 @@ GNEStop::setEnabledAttribute(const int enabledAttributes) {
 }
 
 
-void 
+void
 GNEStop::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
     startPos = moveResult.shapeToUpdate.front().x();

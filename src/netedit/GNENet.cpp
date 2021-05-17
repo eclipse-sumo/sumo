@@ -2035,25 +2035,27 @@ GNENet::joinRoutes(GNEUndoList* undoList) {
 }
 
 
-void 
+void
 GNENet::adjustPersonPlans(GNEUndoList* undoList) {
     // declare personPlan-pos map
     std::map<GNEDemandElement*, std::string> personPlanMap;
     // iterate over persons
-    for (const auto &persontag : {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}) {
-        for (const auto &person : myAttributeCarriers->getDemandElements().at(persontag)) {
+    for (const auto& persontag : {
+                SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW
+            }) {
+        for (const auto& person : myAttributeCarriers->getDemandElements().at(persontag)) {
             if (person.second->getChildDemandElements().size() > 0) {
                 // get person plan
-                GNEDemandElement *personPlan = person.second->getChildDemandElements().front();
+                GNEDemandElement* personPlan = person.second->getChildDemandElements().front();
                 // iterate over all personPlans
                 while (personPlan) {
                     // check if personPlan is a personStop over edge
                     if (personPlan->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_EDGE) {
                         // get previous person plan
-                        GNEDemandElement *previousPersonPlan = person.second->getPreviousChildDemandElement(personPlan);
+                        GNEDemandElement* previousPersonPlan = person.second->getPreviousChildDemandElement(personPlan);
                         // check if arrivalPos of previous personPlan is different of endPos of personStop
                         if (previousPersonPlan && previousPersonPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS) &&
-                            (previousPersonPlan->getAttribute(SUMO_ATTR_ARRIVALPOS) != personPlan->getAttribute(SUMO_ATTR_ENDPOS))) {
+                                (previousPersonPlan->getAttribute(SUMO_ATTR_ARRIVALPOS) != personPlan->getAttribute(SUMO_ATTR_ENDPOS))) {
                             personPlanMap[previousPersonPlan] = personPlan->getAttribute(SUMO_ATTR_ENDPOS);
                         }
                     }
@@ -2987,15 +2989,15 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("routes", "routes_file.xsd");
     // first  write all vehicle types
-    for (const auto &vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
+    for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
         vType.second->writeDemandElement(device);
     }
     // first  write all person types
-    for (const auto &pType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_PTYPE)) {
+    for (const auto& pType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_PTYPE)) {
         pType.second->writeDemandElement(device);
     }
     // now write all routes (and their associated stops)
-    for (const auto &route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
+    for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
         route.second->writeDemandElement(device);
     }
     // sort vehicles/persons by depart

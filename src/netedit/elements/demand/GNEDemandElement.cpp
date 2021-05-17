@@ -288,7 +288,7 @@ GNEDemandElement::getPathElementDepartPos() const {
         if (previousPersonPlan->getParentAdditionals().size() > 0) {
             if (previousPersonPlan->getTagProperty().isPersonStop()) {
                 // get busStop
-                const GNEAdditional *busStop = previousPersonPlan->getParentAdditionals().front();
+                const GNEAdditional* busStop = previousPersonPlan->getParentAdditionals().front();
                 // get length
                 const double length = busStop->getAdditionalGeometry().getShape().length2D();
                 // check length
@@ -337,7 +337,7 @@ GNEDemandElement::getPathElementArrivalValue() const {
 }
 
 
-Position 
+Position
 GNEDemandElement::getPathElementArrivalPos() const {
     // check if this person plan ends in a busStop
     if (getParentAdditionals().size() > 0) {
@@ -346,7 +346,7 @@ GNEDemandElement::getPathElementArrivalPos() const {
         // continue depending if is an stop or a person plan
         if (nextPersonPlan && (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_BUSSTOP)) {
             // get busStop
-            const GNEAdditional *busStop = nextPersonPlan->getParentAdditionals().front();
+            const GNEAdditional* busStop = nextPersonPlan->getParentAdditionals().front();
             // get length
             const double length = busStop->getAdditionalGeometry().getShape().length2D();
             // check length
@@ -393,11 +393,11 @@ GNEDemandElement::getBeginPosition(const double pedestrianDepartPos) const {
 }
 
 
-bool 
+bool
 GNEDemandElement::drawPersonPlan() const {
     // check conditions
-     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
-        myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+            myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
         // show all person plans in network mode
         return true;
     } else if (myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
@@ -428,15 +428,15 @@ GNEDemandElement::drawPersonPlan() const {
 
 
 void
-GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, 
-        const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const {
+GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
+                                        const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const {
     // get inspected and front flags
     const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this);
     // get person parent
     const GNEDemandElement* personParent = getParentDemandElements().front();
     // check if draw person plan element can be drawn
-    if (drawPersonPlan() && 
-        myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myTagProperty.getTag())) {
+    if (drawPersonPlan() &&
+            myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myTagProperty.getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
         // get inspected person plan
@@ -444,24 +444,24 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
         // flag to check if width must be duplicated
         const bool duplicateWidth = (personPlanInspected == this) || (personPlanInspected == personParent);
         // calculate path width
-        const double pathWidth = s.addSize.getExaggeration(s, lane) * personPlanWidth * (duplicateWidth? 2 : 1);
+        const double pathWidth = s.addSize.getExaggeration(s, lane) * personPlanWidth * (duplicateWidth ? 2 : 1);
         // declare path geometry
         GNEGeometry::Geometry personPlanGeometry;
         // only calculate geometry if segment is valid
         if (segment->isValid()) {
             // update pathGeometry depending of first and last segment
             if (segment->isFirstSegment() && segment->isLastSegment()) {
-                personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
-                    getPathElementDepartValue(), getPathElementArrivalValue(),    // extrem positions
-                    getPathElementDepartPos(), getPathElementArrivalPos());       // extra positions
+                personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+                                                  getPathElementDepartValue(), getPathElementArrivalValue(),    // extrem positions
+                                                  getPathElementDepartPos(), getPathElementArrivalPos());       // extra positions
             } else if (segment->isFirstSegment()) {
-                personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
-                    getPathElementDepartValue(), -1,                 // extrem positions
-                    getPathElementDepartPos(), Position::INVALID);   // extra positions
+                personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+                                                  getPathElementDepartValue(), -1,                 // extrem positions
+                                                  getPathElementDepartPos(), Position::INVALID);   // extra positions
             } else if (segment->isLastSegment()) {
-                personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(), 
-                    -1, getPathElementArrivalValue(),                // extrem positions
-                    Position::INVALID, getPathElementArrivalPos());  // extra positions
+                personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+                                                  -1, getPathElementArrivalValue(),                // extrem positions
+                                                  Position::INVALID, getPathElementArrivalPos());  // extra positions
             } else {
                 personPlanGeometry = lane->getLaneGeometry();
             }
@@ -544,21 +544,21 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
         }
     }
     // draw person parent if this is the edge first edge and this is the first plan
-    if ((getFirstPathLane()->getParentEdge() == lane->getParentEdge()) && 
-        (personParent->getChildDemandElements().front() == this)) {
+    if ((getFirstPathLane()->getParentEdge() == lane->getParentEdge()) &&
+            (personParent->getChildDemandElements().front() == this)) {
         personParent->drawGL(s);
     }
 }
 
 
 void
-GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings & s, const GNELane * fromLane, const GNELane * toLane, const GNEPathManager::Segment* /*segment*/,
-        const double offsetFront, const double personPlanWidth, const RGBColor & personPlanColor) const {
+GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/,
+                                        const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const {
     // get inspected and front flags
     const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this);
     // check if draw person plan elements can be drawn
-    if (drawPersonPlan() && 
-        myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, fromLane, toLane, myTagProperty.getTag())) {
+    if (drawPersonPlan() &&
+            myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, fromLane, toLane, myTagProperty.getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
         // get person parent

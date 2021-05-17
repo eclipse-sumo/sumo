@@ -130,11 +130,11 @@ public:
      * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
      */
     void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const;
-    
+
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;
 
-    /// @brief get last path lane 
+    /// @brief get last path lane
     GNELane* getLastPathLane() const;
     /// @}
 
@@ -207,10 +207,10 @@ protected:
     const GNELane* getFirstAllowedLane() const;
 
     /// @brief draw personStop over lane
-    void drawPersonStopOverLane(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor &stopColor) const;
+    void drawPersonStopOverLane(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& stopColor) const;
 
     /// @brief draw personStop over busStop
-    void drawPersonStopOverBusStop(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor &stopColor) const;
+    void drawPersonStopOverBusStop(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& stopColor) const;
 
 private:
     /// @brief method for setting the attribute and nothing else
