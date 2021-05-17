@@ -57,3 +57,6 @@ ticket8219
 
 # invalid shifted change prohibitions
 ticket8393
+
+# signals.guess in left-hand network
+ticket8635

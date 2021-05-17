@@ -1,0 +1,6 @@
+--tls.guess-signals
+--tls.discard-simple
+--osm-files osm.xml
+-R
+--keep-edges.by-vclass passenger
+--lefthand
