@@ -567,6 +567,9 @@ NBEdge::mirrorX() {
         c.viaShape.mirrorX();
         c.customShape.mirrorX();
     }
+    if (mySignalPosition != Position::INVALID) {
+        mySignalPosition.sety(-mySignalPosition.y());
+    }
     computeAngle(); // update angles because they are numerically sensitive (especially where based on centroids)
 }
 
