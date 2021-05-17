@@ -1909,8 +1909,8 @@ GNERouteHandler::PersonPlansValues::PersonPlansValues() :
     toBusStop(nullptr),
     route(nullptr),
     arrivalPos(-1),
-    edgeStop(nullptr),
     busStop(nullptr),
+    edgeStop(nullptr),
     laneStop(nullptr) {
 }
 

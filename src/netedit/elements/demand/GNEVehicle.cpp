@@ -882,7 +882,7 @@ GNEVehicle::getFirstPathLane() const {
     // continue depending of tags
     if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
         // check departEdge
-        if ((departEdge > 0) && (departEdge < getParentDemandElements().at(1)->getParentEdges().size())) {
+        if ((departEdge > 0) && (departEdge < (int)getParentDemandElements().at(1)->getParentEdges().size())) {
             // use departEdge
             firstEdge = getParentDemandElements().at(1)->getParentEdges().at(departEdge);
         } else {
@@ -895,7 +895,7 @@ GNEVehicle::getFirstPathLane() const {
             return nullptr;
         }
         // check departEdge
-        if ((departEdge > 0) && (departEdge < getChildDemandElements().front()->getParentEdges().size())) {
+        if ((departEdge > 0) && (departEdge < (int)getChildDemandElements().front()->getParentEdges().size())) {
             // use depart edge
             firstEdge = getChildDemandElements().front()->getParentEdges().at(departEdge);
         } else {
@@ -925,7 +925,7 @@ GNEVehicle::getLastPathLane() const {
     // continue depending of tags
     if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
         // check arrivalEdge
-        if ((arrivalEdge > 0) && (arrivalEdge < getParentDemandElements().at(1)->getParentEdges().size())) {
+        if ((arrivalEdge > 0) && (arrivalEdge < (int)getParentDemandElements().at(1)->getParentEdges().size())) {
             // use arrival edge
             lastEdge = getParentDemandElements().at(1)->getParentEdges().at(arrivalEdge);
         } else {
@@ -938,7 +938,7 @@ GNEVehicle::getLastPathLane() const {
             return nullptr;
         }
         // check arrivalEdge
-        if ((arrivalEdge > 0) && (arrivalEdge < getChildDemandElements().front()->getParentEdges().size())) {
+        if ((arrivalEdge > 0) && (arrivalEdge < (int)getChildDemandElements().front()->getParentEdges().size())) {
             // use arrival edge
             lastEdge = getChildDemandElements().front()->getParentEdges().at(arrivalEdge);
         } else {
@@ -1312,10 +1312,10 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                     return false;
                 } else if (myTagProperty.getTag() == SUMO_TAG_VEHICLE || myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) {
                     // check parent route
-                    return (index < getParentDemandElements().at(1)->getParentEdges().size());
+                    return (index < (int)getParentDemandElements().at(1)->getParentEdges().size());
                 } else {
                     // check embedded route
-                    return (index < getChildDemandElements().front()->getParentEdges().size());
+                    return (index < (int)getChildDemandElements().front()->getParentEdges().size());
                 }
             }
         }
