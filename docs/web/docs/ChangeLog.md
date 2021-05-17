@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Git Master
+## Version 1.9.2 (18.05.2021)
 
 ### Bugfixes
 
