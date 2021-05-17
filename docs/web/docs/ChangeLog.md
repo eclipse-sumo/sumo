@@ -6,6 +6,45 @@ title: ChangeLog
 
 ### Bugfixes
 
+- simulation
+  - Vehroute output for persons now writes the correct stopping place type (i.e. parkingArea, busStop, etc.) Issue #8597
+
+- sumo-gui
+  - Coloring *by waitingTime* now uses value 0 for stopped persons, consistent with stopped vehicles. Issue #8585
+  
+- netedit
+  - When adding stops to a trip, the route now changes as necessary to pass the stop location. Issue #7364
+  - Person stages that end at a busStop can now be defined. Issue #6903
+  - Flows and vehicles are now drawn on their configured departLane. Issue #7888
+  - Fixed missing 'modes' menu entries in Demand- and Data-supermode. Issue #8486
+  
+- netconvert
+  - Added automated check to prevent disconnected routes due to invalid lane-change permissions in OSM input. Issue #8603
+  - Fixed invalid network output when setting **--ignore-change-restrictions ignoring**. Issue #8616
+  
+- marouter
+  - Input attributes fromJunction and toJunction are now working. Issue #8631
+
+- traci
+  - Fixed crash when trying to read parameters for subscriptions that don't have them. Issue #8601 (regression in 1.9.1)
+  
+### Enhancements
+
+- simulation
+  - Vehroute-output now includes stop attributes 'started' and 'ended' and ride attribute 'ended' if option **--vehroute-output.exit-times** is set. Issue #8415, #8600
+  - Added option **--use-stop-ended** to use the new stop attribute 'ended' instead of 'until'. Issue #8611
+
+- netedit
+  - Vehicle attributes departEdge and arrivalEdge are now supported. Issue #8452
+
+- duarouter
+  - Added option **--keep-route-probability** which lets a given proportion of vehicles keep their old routes (selected at random). #8550
+
+- tools
+  - [duaIterate.py](Demand/Dynamic_User_Assignment.md#iterative_assignment_dynamic_user_equilibrium) now supports option **--convergence-steps** which forces route choices to converge in the given number of stops (via duarouter option **--keep-route-probability**). This is recommended when usiong option **--logit** which otherwise may not converge at all. Issue #8550
+  - [countEdgeUsage.py](Tools/Routes.md#countedgeusagepy) now allows filtering and grouping counts by vehicle departure time. Issue #8621
+  
+
 ## Version 1.9.1 (04.05.2021)
 
 ### Bugfixes
