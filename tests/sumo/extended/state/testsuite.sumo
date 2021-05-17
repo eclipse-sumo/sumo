@@ -74,3 +74,6 @@ load_shifted
 
 # save routeProbe data as part of state
 save_routeProbe
+
+# save started and ended times if loaded from input
+save_stopTimes
