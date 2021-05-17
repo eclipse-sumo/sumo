@@ -9,3 +9,6 @@ keep-route-probability_0
 
 # calculation of new routes for half input
 keep-route-probability_0.5
+
+# no calculation of new routes
+keep-route-probability_trips
