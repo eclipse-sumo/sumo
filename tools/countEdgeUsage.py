@@ -75,8 +75,9 @@ def parse_args():
             options.elements2 = DEFAULT_ELEMENTS2
         else:
             for elem in options.elements:
-                if elements not in DEFAULT_ELEMENTS2:
-                    sys.stderr.write("Element '%s' does not supply departure time. Use one of %s instead" % (elem, DEFAULT_ELEMENTS2))
+                if elem not in DEFAULT_ELEMENTS2:
+                    sys.stderr.write("Element '%s' does not supply departure time. Use one of %s instead.\n" %
+                                     (elem, DEFAULT_ELEMENTS2))
                 else:
                     options.elements2.append(elem)
             options.elements = []
@@ -95,6 +96,7 @@ def hasSubpart(edges, subparts):
             if edges[i:i + len(subpart)] == subpart:
                 return True
     return False
+
 
 def writeInterval(outf, options, departCounts, arrivalCounts, intermediateCounts, begin=0, end="10000", prefix=""):
     departStats = Statistics(prefix + "departEdges")
@@ -161,6 +163,7 @@ def parseSimple(outf, options):
 
     writeInterval(outf, options, departCounts, arrivalCounts, intermediateCounts)
 
+
 def parseTimed(outf, options):
     departCounts = defaultdict(lambda: 0)
     arrivalCounts = defaultdict(lambda: 0)
@@ -183,7 +186,8 @@ def parseTimed(outf, options):
                 continue
             if depart >= periodEnd or depart >= options.end:
                 description = "%s-%s " % (begin, periodEnd)
-                writeInterval(outf, options, departCounts, arrivalCounts, intermediateCounts, begin, periodEnd, description)
+                writeInterval(outf, options, departCounts, arrivalCounts,
+                              intermediateCounts, begin, periodEnd, description)
                 periodEnd += period
                 begin += period
             if depart >= options.end:

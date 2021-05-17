@@ -11,18 +11,18 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    citybrain_road.py
+# @file    citybrain_flow.py
 # @author  Jakob Erdmann
 # @date    2021-05-07
 
-import os,sys
-import subprocess
-from collections import defaultdict
+import os
+import sys
+
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools', 'route'))
 import sumolib  # noqa
-from sort_routes import sort_departs
+from sort_routes import sort_departs  # noqa
 
 
 def get_options(args=None):
@@ -48,18 +48,15 @@ def main(options):
     with open(tmpfile, "w") as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
         outf.write('    <vType id="DEFAULT_VEHTYPE" length="4" minGap="1"/>\n\n')
-        numFlows = 0
         flowLine = 0
         flowIndex = 0
-        for i, line in enumerate(open(options.flowfile)): 
-            if i == 0:
-                numFlows = int(line)
-            else:
+        for i, line in enumerate(open(options.flowfile)):
+            if i > 0:
                 if flowLine == 0:
                     flowID = "%s%s" % (options.prefix, flowIndex)
                     begin, end, period = line.split()
                     outf.write('    <flow id="%s" begin="%s" end="%s" period="%s">\n' % (
-                        flowID, begin, end, period));
+                        flowID, begin, end, period))
                 elif flowLine == 2:
                     edges = line.strip()
                     outf.write('        <route edges="%s"/>\n' % edges)
@@ -68,12 +65,11 @@ def main(options):
                 flowLine = (flowLine + 1) % 3
         outf.write('</routes>\n')
 
-    
     with open(options.output, "w") as outf:
         sort_departs(tmpfile, outf)
     os.remove(tmpfile)
 
+
 if __name__ == "__main__":
     if not main(get_options()):
         sys.exit(1)
-

@@ -15,9 +15,11 @@
 # @author  Jakob Erdmann
 # @date    2021-05-07
 
-import os,sys
+import os
+import sys
 import subprocess
 from collections import defaultdict
+
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
@@ -35,8 +37,8 @@ def get_options(args=None):
                            default="allway_stop", help="the default type for junctions without traffic light")
     optParser.add_argument("-t", "--temp-network", dest="tmp",
                            default="tmp.net.xml", help="intermediate network file")
-    optParser.add_argument("-x", "--ignore-connections", dest="ignoreCons", action="store_true",
-                           default=False, help="use connections guessed by netconvert instead of the specified connections")
+    optParser.add_argument("-x", "--ignore-connections", dest="ignoreCons", action="store_true", default=False,
+                           help="use connections guessed by netconvert instead of the specified connections")
     options = optParser.parse_args(args=args)
     if not options.netfile:
         optParser.print_help()
@@ -61,8 +63,8 @@ def main(options):
     edgeID1 = ""
     edgeID2 = ""
     nodes = []
-    nodeEdges = defaultdict(lambda : 0)
-    connections = { } # edge -> laneDirections
+    nodeEdges = defaultdict(lambda: 0)
+    connections = {}  # edge -> laneDirections
     for i, line in enumerate(open(options.netfile)):
         if i == 0:
             numNodes = int(line)
@@ -78,9 +80,9 @@ def main(options):
                 nodeEdges[toID] += 1
                 nodeEdges[fromID] += 1
                 edg.write('    <edge id="%s" from="%s" to="%s" speed="%s" numLanes="%s" length="%s"/>\n' % (
-                    edgeID1, fromID, toID, speed, nLanes1, length));
+                    edgeID1, fromID, toID, speed, nLanes1, length))
                 edg.write('    <edge id="%s" from="%s" to="%s" speed="%s" numLanes="%s" length="%s"/>\n' % (
-                    edgeID2, toID, fromID, speed, nLanes2, length));
+                    edgeID2, toID, fromID, speed, nLanes2, length))
             elif edgeLine == 1:
                 connections[edgeID1] = list(map(int, line.split()))
             elif edgeLine == 2:
@@ -88,7 +90,7 @@ def main(options):
             edgeLine = (edgeLine + 1) % 3
         elif i == lastEdge:
             # extract traffic signal approach ids
-            break;
+            break
 
     edg.write('</edges>\n')
     edg.close()
@@ -107,25 +109,24 @@ def main(options):
 
         nod.write('</nodes>\n')
 
-
     NETCONVERT = sumolib.checkBinary('netconvert')
 
     # the sample route data didn't include a single turn-around so let's not build any
     args = [NETCONVERT,
-        '-e', edgefile,
-        '-n', nodefile,
-        '--proj.utm',
-        '--junctions.corner-detail', '0',
-        '--no-turnarounds',
-        '--no-internal-links',
-        ]
+            '-e', edgefile,
+            '-n', nodefile,
+            '--proj.utm',
+            '--junctions.corner-detail', '0',
+            '--no-turnarounds',
+            '--no-internal-links',
+            ]
 
     if options.ignoreCons:
         subprocess.call(args + ['-o', options.output])
     else:
         # connections are encoded relative to driving direction.
         # We build the network once to obtain directions and then build again with the connections
-        subprocess.call(args + ['-o', options.tmp, '--no-warnings',])
+        subprocess.call(args + ['-o', options.tmp, '--no-warnings', ])
 
         net = sumolib.net.readNet(options.tmp)
         connfile = options.prefix + ".con.xml"
@@ -143,7 +144,7 @@ def main(options):
                 for c in cons:
                     targetLanes.append(c.getToLane().getIndex())
                 targetIndex.append([cons[0].getJunctionIndex(), target.getID(), targetLanes,
-                    cons[0].getDirection()])
+                                    cons[0].getDirection()])
             targetIndex.sort()
 
             numTargets = len(targetIndex)
@@ -161,7 +162,7 @@ def main(options):
 
             for i, [linkIndex, target, targetLanes, targetDir] in enumerate(targetIndex):
                 if i == 3:
-                    break;
+                    break
                 directionTargets[i] = target
                 directionTargetLanes[i] = targetLanes
 
@@ -178,9 +179,9 @@ def main(options):
                             if len(targetLanes) > 1:
                                 directionTargetLanes[index] = targetLanes[1:]
                             con.write('    <connection from="%s" to="%s" fromLane="%s" toLane="%s"/>\n' % (
-                                edgeID, directionTargets[index], laneIndex, toLane));
-                        #else:
-                        #    sys.stderr.write("Warning: Could not find target from edge %s laneIndex %s for direction index %s\n" % (edgeID, laneIndex, index))
+                                edgeID, directionTargets[index], laneIndex, toLane))
+                        # else:
+                        #    sys.stderr.write("Warning: Could not find target from edge %s laneIndex %s for direction index %s\n" % (edgeID, laneIndex, index))  # noqa
 
         con.write('</connections>\n')
         con.close()
@@ -193,4 +194,3 @@ def main(options):
 if __name__ == "__main__":
     if not main(get_options()):
         sys.exit(1)
-

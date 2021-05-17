@@ -11,18 +11,18 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    citybrain_road.py
+# @file    citybrain_infostep.py
 # @author  Jakob Erdmann
 # @date    2021-05-07
 
-import os,sys
-import subprocess
-from collections import defaultdict
+import os
+import sys
+
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools', 'route'))
 import sumolib  # noqa
-from sort_routes import sort_departs
+from sort_routes import sort_departs  # noqa
 
 
 def get_options(args=None):
@@ -40,13 +40,13 @@ def get_options(args=None):
 
     return options
 
+
 def main(options):
     # unsorted temporary file
 
     with open(options.output, "w") as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
         outf.write('    <vType id="DEFAULT_VEHTYPE" length="4" minGap="1"/>\n\n')
-        numVehs = 0
         vehLine = 0
         vehID = None
         pos = None
@@ -55,10 +55,8 @@ def main(options):
         lane = None
         seenVehs = 0
         writtenVehs = 0
-        for i, line in enumerate(open(options.infofile)): 
-            if i == 0:
-                numVehs = int(line)
-            else:
+        for i, line in enumerate(open(options.infofile)):
+            if i > 0:
                 if vehLine == 0:
                     vehID = line.split()[-1]
                 elif vehLine == 1:
@@ -77,8 +75,8 @@ def main(options):
                         if pos == 0 or options.lastpos:
                             pos = "last"
                         writtenVehs += 1
-                        outf.write('    <vehicle id="%s" depart="0" departPos="%s" departSpeed="%s" departLane="%s">\n' % (
-                            vehID, pos, speed, lane))
+                        print('    <vehicle id="%s" depart="0" departPos="%s" departSpeed="%s" departLane="%s">' %
+                              (vehID, pos, speed, lane), file=outf)
                         outf.write('        <route edges="%s"/>\n' % ' '.join(edges))
                         outf.write('    </vehicle>\n')
 
@@ -86,9 +84,8 @@ def main(options):
         outf.write('</routes>\n')
 
     print("loaded %s vehicles and wrote %s" % (seenVehs, writtenVehs))
-    
+
 
 if __name__ == "__main__":
     if not main(get_options()):
         sys.exit(1)
-

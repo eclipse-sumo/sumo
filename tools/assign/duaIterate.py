@@ -22,7 +22,6 @@
 
 """
 Run duarouter and sumo alternating to perform a dynamic user assignment or a dynamic system optimal assignment
-Based on the Perl script dua_iterate.pl.
 """
 from __future__ import print_function
 from __future__ import absolute_import
@@ -32,7 +31,6 @@ import subprocess
 import glob
 import argparse
 import xml.etree.ElementTree as ET
-import math
 from datetime import datetime
 
 from costMemory import CostMemory
@@ -156,7 +154,8 @@ def initOptions():
     argParser.add_argument("-G", "--logittheta", type=float, help="parameter to adapt the cost unit")
     argParser.add_argument("-J", "--addweights", help="Additional weightes for duarouter")
     argParser.add_argument("--convergence-steps", dest="convergenceSteps", type=int,
-                           help="Given x, if x > 0 Reduce probability to change route by 1/x per step. If x < 0 set probability of rerouting to 1/step after step |x|")
+                           help="Given x, if x > 0 Reduce probability to change route by 1/x per step. " +
+                                "If x < 0 set probability of rerouting to 1/step after step |x|")
     argParser.add_argument("--addweights.once", dest="addweightsOnce", action="store_true",
                            default=False, help="use added weights only on the first iteration")
     argParser.add_argument("--router-verbose", action="store_true",
@@ -234,7 +233,7 @@ def writeRouteConf(duarouterBinary, step, options, dua_args, file,
             if options.convergenceSteps > 0:
                 probKeepRoute = max(0, min(step / float(options.convergenceSteps), 1))
             else:
-                startStep = -x;
+                startStep = -options.convergenceSteps
                 probKeepRoute = 0 if step > startStep else 1 - 1.0 / (step - startStep)
             args += ['--keep-route-probability', str(probKeepRoute)]
 
@@ -482,10 +481,9 @@ def calcMarginalCost(step, options):
                                 edgeID = edge_cur.get("id")
                                 if DEBUGLOG:
                                     if begin_cur == "1800.00":
-                                        log.write("step=%s beg=%s e=%s tt=%s ttprev=%s n=%s nPrev=%s mC=%s mCPrev=%s\n" % (
-                                            step, begin_cur, edgeID, tt_cur, tt_prv, veh_cur, veh_prv,
-                                            mc_cur, mc_prv
-                                            ))
+                                        print("step=%s beg=%s e=%s tt=%s ttprev=%s n=%s nPrev=%s mC=%s mCPrev=%s" %
+                                              (step, begin_cur, edgeID, tt_cur, tt_prv, veh_cur, veh_prv,
+                                               mc_cur, mc_prv), file=log)
         tree_sumo_cur.write(
             os.path.join(str(step - 1), get_weightfilename(options, step - 1, "dump")))
 
