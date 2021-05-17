@@ -21,6 +21,7 @@ title: ChangeLog
 - netconvert
   - Added automated check to prevent disconnected routes due to invalid lane-change permissions in OSM input. Issue #8603
   - Fixed invalid network output when setting **--ignore-change-restrictions ignoring**. Issue #8616
+  - Fixed failure of **--tls.guess-signals** in lefthand network. Issue #8635
   
 - marouter
   - Input attributes fromJunction and toJunction are now working. Issue #8631
