@@ -105,6 +105,9 @@ parameter <img src="http://latex.codecogs.com/gif.latex?\theta" border="0" style
 
 <img src="http://latex.codecogs.com/gif.latex?p_r' = \frac{\exp(\theta c_r')}{\sum_{s\in R}\exp(\theta c_s')}" border="0" style="margin:0;"/>
 
+!!! caution
+    It is recommended to set option **--convergence-steps** (i.e. to the same number as **-last-step**) to ensure convergence. Otherwise Logit route choice may keep oscillating, especially with higher values of **--logittheta**.
+
 ## Termination
 
 The option **--max-convergence-deviation** may be used to detect convergence and abort iterations
