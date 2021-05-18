@@ -135,7 +135,8 @@ protected:
                                   double frompos, double topos,
                                   unsigned int capacity,
                                   double width, double length, double angle, const std::string& name,
-                                  bool onRoad) override;
+                                  bool onRoad,
+                                  const std::string& departPos) override;
 
 
     /** @brief Builds a charging station

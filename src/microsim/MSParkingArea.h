@@ -26,6 +26,7 @@
 #include <string>
 #include <utils/geom/PositionVector.h>
 #include <utils/common/Named.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 #include "MSStoppingPlace.h"
 
 
@@ -74,7 +75,8 @@ public:
                   const std::vector<std::string>& lines, MSLane& lane,
                   double begPos, double endPos, int capacity,
                   double width, double length, double angle, const std::string& name,
-                  bool onRoad);
+                  bool onRoad,
+                  const std::string& departPos);
 
     /// @brief Destructor
     virtual ~MSParkingArea();
@@ -299,6 +301,10 @@ protected:
 
     /// @brief Changes to the occupancy in the current time step
     int myLastStepOccupancy;
+
+    /// @brief custom departPos
+    double myDepartPos;
+    DepartPosDefinition myDepartPosDefinition;
 
     /// @brief Event for updating the occupancy
     Command* myUpdateEvent;
