@@ -39,10 +39,10 @@ title: ChangeLog
   - Vehicle attributes departEdge and arrivalEdge are now supported. Issue #8452
 
 - duarouter
-  - Added option **--keep-route-probability** which lets a given proportion of vehicles keep their old routes (selected at random). #8550
+  - Added option **--keep-route-probability** which lets a given proportion of vehicles keep their old routes (selected at random). Issue #8550
 
 - tools
-  - [duaIterate.py](Demand/Dynamic_User_Assignment.md#iterative_assignment_dynamic_user_equilibrium) now supports option **--convergence-steps** which forces route choices to converge in the given number of stops (via duarouter option **--keep-route-probability**). This is recommended when usiong option **--logit** which otherwise may not converge at all. Issue #8550
+  - [duaIterate.py](Demand/Dynamic_User_Assignment.md#iterative_assignment_dynamic_user_equilibrium) now supports option **--convergence-steps** which forces route choices to converge in the given number of steps (via duarouter option **--keep-route-probability**). This is recommended when using option **--logit** which otherwise may not converge at all. Issue #8550
   - [countEdgeUsage.py](Tools/Routes.md#countedgeusagepy) now allows filtering and grouping counts by vehicle departure time. Issue #8621
   
 
