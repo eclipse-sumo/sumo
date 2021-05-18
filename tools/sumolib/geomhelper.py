@@ -330,12 +330,14 @@ def splitPolygonAtLengths2D(polygon, lengths):
             next = polygon[polygonIndex + 1]
             if offset < seenLength + distance(curr, next):
                 splitPos = positionAtOffset(curr, next, offset - seenLength)
-                currSlice.append(splitPos)
+                if not isclose(distance(currSlice[-1], splitPos), 0):
+                    currSlice.append(splitPos)
                 seenLength += distance(curr, splitPos)
                 curr = splitPos
                 break
             else:
-                currSlice.append(next)
+                if not isclose(distance(currSlice[-1], next), 0):
+                    currSlice.append(next)
                 seenLength += distance(curr, next)
                 curr = next
                 polygonIndex += 1
