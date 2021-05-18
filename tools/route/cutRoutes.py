@@ -39,7 +39,8 @@ if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(tools))
     from sumolib.xml import parse, parse_fast, writeHeader  # noqa
     from sumolib.net import readNet  # noqa
-    import sumolib
+    from sumolib.miscutils import parseTime  # noqa
+    import sumolib  # noqa
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
@@ -373,14 +374,15 @@ def cut_stops(vehicle, busStopEdges, remaining, departShift=0, defaultDuration=0
         skippedStopDuration = 0
         haveStop = False
         for stop in list(vehicle.stop):
+            until = None if stop.until is None else parseTime(stop.until)
             if stop.busStop:
                 if not busStopEdges:
                     print("No bus stop locations parsed, skipping bus stop '%s'." % stop.busStop)
                 elif stop.busStop not in busStopEdges:
                     print("Skipping bus stop '%s', which could not be located." % stop.busStop)
                 elif busStopEdges[stop.busStop] in remaining:
-                    if departShift > 0 and stop.until is not None:
-                        stop.until = max(0, float(stop.until) - departShift)
+                    if departShift > 0 and until is not None:
+                        stop.until = max(0, until - departShift)
                     haveStop = True
                     continue
                 elif stop.duration is not None:
@@ -390,9 +392,9 @@ def cut_stops(vehicle, busStopEdges, remaining, departShift=0, defaultDuration=0
             elif stop.lane[:-2] in remaining:
                 haveStop = True
                 continue
-            if stop.until is not None and not haveStop:
-                if departShift < float(stop.until):
-                    departShift = float(stop.until)
+            if until is not None and not haveStop:
+                if departShift < until:
+                    departShift = until
             vehicle.removeChild(stop)
     return departShift
 
