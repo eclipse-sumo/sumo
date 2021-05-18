@@ -4,6 +4,23 @@ title: ChangeLog
 
 ## Git Master
 
+### Bugfixes
+
+- simulation
+  - fixed invalid state file when using option **--vehroute-output.exit-times** and saved vehicles are still on their first edge. Issue #8536 (regression in 1.9.1)
+
+- sumo-gui
+  - Drawing parkingAreas with large roadsideCapacity no longer causes the gui to slow down. Issue #8400
+
+- tools
+  - sumolib function 'parse_fast_nested' can now (again) ignore intermediate child elements (i.e. to parse vehicle and route if the route is inside a routeDistribution element). Issue #8508 (regression in 1.9.2)
+
+### Enhancements
+
+- simulation
+  - ParkingAreas now support attribute 'departPos' to set a custom position for vehicles when exiting the parkingArea. Issue #8634
+
+
 ## Version 1.9.2 (18.05.2021)
 
 ### Bugfixes
