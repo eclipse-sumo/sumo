@@ -454,7 +454,7 @@ MSDevice_Vehroutes::saveState(OutputDevice& out) const {
         internals.push_back(myReplacedRoutes[i].info);
     }
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
-    if (mySaveExits) {
+    if (mySaveExits && myExits.size() > 0) {
         out.writeAttr(SUMO_ATTR_EXITTIMES, myExits);
     }
     out.closeTag();
