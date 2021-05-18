@@ -47,6 +47,10 @@ def get_options(args=None):
                          help="define the parking areas seperated by comma")
     optParser.add_option("-d", "--parking-duration", dest="duration",
                          help="define the parking duration (in seconds)", default=3600)
+    optParser.add_option("-b", "--parking-duration-begin", dest="durationBegin",
+                         help="define the minimum parking duration (in seconds)")
+    optParser.add_option("-e", "--parking-duration-end", dest="durationEnd",
+                         help="define the maximum parking duration (in seconds)")
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true", default=False,
                          help="tell me what you are doing")
     optParser.add_option("--random", action="store_true", default=False,
@@ -72,6 +76,10 @@ def main(options):
     # save all parkings in a list
     for parking in sumolib.xml.parse(options.parking, "parkingArea"):
         parkings.append(parking)
+    
+    n = random.randint(0,22)
+
+        
     # open file
     with open(options.outfile, 'w') as outf:
         # write header
@@ -82,7 +90,13 @@ def main(options):
         for trip in sumolib.xml.parse(infile, "trip"):
             # obtain random parking
             random_parking = random.choice(parkings)
-            trip.addChild("stop", {"parkingArea": random_parking.id, "duration": int(options.duration)})
+            # add child depending of durations
+            if (options.durationBegin and options.durationEnd) :
+                #obtain random duration
+                duration = random.randint(int(options.durationBegin), int(options.durationEnd))
+                trip.addChild("stop", {"parkingArea": random_parking.id, "duration": duration})
+            else:
+                trip.addChild("stop", {"parkingArea": random_parking.id, "duration": int(options.duration)})
             # write trip
             outf.write(trip.toXML(initialIndent="    "))
         # close route tag
