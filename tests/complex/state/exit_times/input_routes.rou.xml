@@ -5,4 +5,5 @@
     <vehicle id="1" depart="5" departSpeed="10" departPos="100" route="r1">
         <stop lane="3/1to2/1_0" duration="10"/>
     </vehicle>
+    <vehicle id="2" depart="49" route="r1"/>
 </routes>
