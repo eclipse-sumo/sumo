@@ -131,8 +131,21 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale * exaggeration >= 1) {
         // draw the lots
         glTranslated(0, 0, .1);
-        for (const auto& lsd : mySpaceOccupancies) {
-            GLHelper::drawSpaceOccupancies(exaggeration, lsd.position, lsd.rotation, lsd.width, lsd.length, lsd.vehicle ? true : false);
+        // calculate shape lengt
+        double ShapeLength = 0;
+        for (const auto &length : myShapeLengths) {
+            ShapeLength += length;
+        }
+        // calculate index Updater
+        int indexUpdater = (int)((double)mySpaceOccupancies.size() / ShapeLength * 0.2);
+        // check if indexUpdater is 0
+        if (indexUpdater == 0) {
+            indexUpdater = 1;
+        }
+        // draw spaceOccupancies
+        for (int i = 0; i < (int)mySpaceOccupancies.size(); i += indexUpdater) {
+            GLHelper::drawSpaceOccupancies(exaggeration, mySpaceOccupancies.at(i).position, mySpaceOccupancies.at(i).rotation, 
+                mySpaceOccupancies.at(i).width, mySpaceOccupancies.at(i).length, mySpaceOccupancies.at(i).vehicle ? true : false);
         }
         GLHelper::setColor(blue);
         // draw the lines
