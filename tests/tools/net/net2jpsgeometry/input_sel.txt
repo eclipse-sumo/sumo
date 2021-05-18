@@ -1,0 +1,9 @@
+lane:NC_0
+lane:NC_1
+lane:CW_0
+lane:foobar_0
+edge:WC
+edge:CE
+edge:foobar
+junction:C
+junction:foobar

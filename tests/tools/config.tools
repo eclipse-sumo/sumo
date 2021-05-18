@@ -130,6 +130,8 @@ kml:output.kml
 trj:output.trj
 ipg:ipg.txt
 geojson:output.geojson
+dxf:output.dxf
+poly_additional:output.poly.xml
 match:match.txt
 dualog:dua.log
 image:image.svg
