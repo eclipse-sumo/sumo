@@ -30,5 +30,8 @@ xml
 # parsing nested XML
 xml.parse_nested
 
+# parsing nested XML with ignored lines
+xml.parse_nested2
+
 # testing statistics 
 statistics
