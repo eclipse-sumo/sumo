@@ -137,7 +137,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             ShapeLength += length;
         }
         // calculate index Updater
-        int indexUpdater = (int)((double)mySpaceOccupancies.size() / ShapeLength * 0.2);
+        int indexUpdater = (int)((double)mySpaceOccupancies.size() / ShapeLength);
         // check if indexUpdater is 0
         if (indexUpdater == 0) {
             indexUpdater = 1;
@@ -189,7 +189,6 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         static_cast<const GUIVehicle*>(*v)->drawGL(s);
     }
     myLane.releaseVehicles();
-
 }
 
 void
