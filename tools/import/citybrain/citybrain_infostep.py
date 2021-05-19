@@ -33,6 +33,8 @@ def get_options(args=None):
                            help="define the output sumo route filename")
     optParser.add_argument("-l", "--lastpos", dest="lastpos", action="store_true",
                            default=False, help="use departPos 'last' to include more vehicles")
+    optParser.add_argument("--length", default=4, help="default vehicle length")
+    optParser.add_argument("--mingap", default=1, help="default vehicle mingap")
     options = optParser.parse_args(args=args)
     if not options.infofile or not options.output:
         optParser.print_help()
@@ -46,7 +48,8 @@ def main(options):
 
     with open(options.output, "w") as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
-        outf.write('    <vType id="DEFAULT_VEHTYPE" length="4" minGap="1"/>\n\n')
+        outf.write('    <vType id="DEFAULT_VEHTYPE" length="%s" minGap="%s"/>\n\n' % (
+            options.length, options.mingap))
         vehLine = 0
         vehID = None
         pos = None
