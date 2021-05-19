@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
@@ -64,8 +65,11 @@ public:
         /// @brief get Position attribute
         const Position &getPositionAttribute(const SumoXMLAttr attr) const;
 
-        /// @brief get SUMOTime attribute
-        SUMOTime getSUMOTimeAttribute(const SumoXMLAttr attr) const;
+        /// @brief get time attribute
+        SUMOTime getTimeAttribute(const SumoXMLAttr attr) const;
+
+        /// @brief get color attribute
+        const RGBColor &getColorAttribute(const SumoXMLAttr attr) const;
 
         /// @brief get string list attribute
         const std::vector<std::string> &getStringListAttribute(const SumoXMLAttr attr) const;
@@ -98,8 +102,11 @@ public:
         /// @brief check if current SumoBaseObject has the given bool attribute
         bool hasPositionAttribute(const SumoXMLAttr attr) const;
 
-        /// @brief check if current SumoBaseObject has the given SUMOTime attribute
-        bool hasSUMOTimeAttribute(const SumoXMLAttr attr) const;
+        /// @brief check if current SumoBaseObject has the given time attribute
+        bool hasTimeAttribute(const SumoXMLAttr attr) const;
+
+        /// @brief check if current SumoBaseObject has the given color attribute
+        bool hasColorAttribute(const SumoXMLAttr attr) const;
 
         /// @brief check if current SumoBaseObject has the given string list attribute
         bool hasStringListAttribute(const SumoXMLAttr attr) const;
@@ -126,8 +133,11 @@ public:
         /// @brief add Position attribute into current SumoBaseObject node
         void addPositionAttribute(const SumoXMLAttr attr, const Position &value);
 
-        /// @brief add SUMOTime attribute into current SumoBaseObject node
-        void addSUMOTimeAttribute(const SumoXMLAttr attr, const SUMOTime value);
+        /// @brief add time attribute into current SumoBaseObject node
+        void addTimeAttribute(const SumoXMLAttr attr, const SUMOTime value);
+
+        /// @brief add color attribute into current SumoBaseObject node
+        void addColorAttribute(const SumoXMLAttr attr, const RGBColor &value);
 
         /// @brief add string list attribute into current SumoBaseObject node
         void addStringListAttribute(const SumoXMLAttr attr, const std::vector<std::string> &value);
@@ -162,7 +172,10 @@ public:
         std::map<const SumoXMLAttr, Position> myPositionAttributes;
 
         /// @brief SUMOTime attributes
-        std::map<const SumoXMLAttr, SUMOTime> mySUMOTimeAttributes;
+        std::map<const SumoXMLAttr, SUMOTime> myTimeAttributes;
+
+        /// @brief RGBColor attributes
+        std::map<const SumoXMLAttr, RGBColor> myColorAttributes;
 
         /// @brief stringList attributes
         std::map<const SumoXMLAttr, std::vector<std::string> > myStringListAttributes;

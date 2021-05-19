@@ -112,9 +112,19 @@ CommonXMLStructure::SumoBaseObject::getPositionAttribute(const SumoXMLAttr attr)
 
 
 SUMOTime
-CommonXMLStructure::SumoBaseObject::getSUMOTimeAttribute(const SumoXMLAttr attr) const {
-    if (hasSUMOTimeAttribute(attr)) {
-        return mySUMOTimeAttributes.at(attr);
+CommonXMLStructure::SumoBaseObject::getTimeAttribute(const SumoXMLAttr attr) const {
+    if (hasTimeAttribute(attr)) {
+        return myTimeAttributes.at(attr);
+    } else {
+        throw ProcessError("Attr doesn't exist");
+    }
+}
+
+
+const RGBColor &
+CommonXMLStructure::SumoBaseObject::getColorAttribute(const SumoXMLAttr attr) const {
+    if (hasColorAttribute(attr)) {
+        return myColorAttributes.at(attr);
     } else {
         throw ProcessError("Attr doesn't exist");
     }
@@ -184,8 +194,14 @@ CommonXMLStructure::SumoBaseObject::hasPositionAttribute(const SumoXMLAttr attr)
 
 
 bool
-CommonXMLStructure::SumoBaseObject::hasSUMOTimeAttribute(const SumoXMLAttr attr) const {
-    return mySUMOTimeAttributes.count(attr) > 0;
+CommonXMLStructure::SumoBaseObject::hasTimeAttribute(const SumoXMLAttr attr) const {
+    return myTimeAttributes.count(attr) > 0;
+}
+
+
+bool
+CommonXMLStructure::SumoBaseObject::hasColorAttribute(const SumoXMLAttr attr) const {
+    return myColorAttributes.count(attr) > 0;
 }
 
 
@@ -232,8 +248,14 @@ CommonXMLStructure::SumoBaseObject::addPositionAttribute(const SumoXMLAttr attr,
 
 
 void 
-CommonXMLStructure::SumoBaseObject::addSUMOTimeAttribute(const SumoXMLAttr attr, const SUMOTime value) {
-    mySUMOTimeAttributes[attr] = value;
+CommonXMLStructure::SumoBaseObject::addTimeAttribute(const SumoXMLAttr attr, const SUMOTime value) {
+    myTimeAttributes[attr] = value;
+}
+
+
+void 
+CommonXMLStructure::SumoBaseObject::addColorAttribute(const SumoXMLAttr attr, const RGBColor &value) {
+    myColorAttributes[attr] = value;
 }
 
 

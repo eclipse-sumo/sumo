@@ -628,7 +628,7 @@ GNEAdditionalHandlerBeta::buildClosingLaneReroute(const CommonXMLStructure::Sumo
     // get rerouter id
     const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
     // get rerouter interval parent
-    GNEAdditional *rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getSUMOTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getSUMOTimeAttribute(SUMO_ATTR_END));
+    GNEAdditional *rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getTimeAttribute(SUMO_ATTR_END));
     // get closed lane
     GNELane *lane = myNet->retrieveLane(closedLaneID);
     // create closing lane reorute
@@ -650,7 +650,7 @@ GNEAdditionalHandlerBeta::buildClosingReroute(const CommonXMLStructure::SumoBase
     // get rerouter id
     const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
     // get rerouter interval parent
-    GNEAdditional *rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getSUMOTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getSUMOTimeAttribute(SUMO_ATTR_END));
+    GNEAdditional *rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getTimeAttribute(SUMO_ATTR_END));
     // get closed edge
     GNEEdge *edge = myNet->retrieveEdge(closedEdgeID);
     // create closing reroute
@@ -671,7 +671,7 @@ GNEAdditionalHandlerBeta::buildDestProbReroute(const CommonXMLStructure::SumoBas
     // get rerouter id
     const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
     // get rerouter interval parent
-    GNEAdditional *rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getSUMOTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getSUMOTimeAttribute(SUMO_ATTR_END));
+    GNEAdditional *rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getTimeAttribute(SUMO_ATTR_END));
     // get edge
     GNEEdge *edge = myNet->retrieveEdge(newEdgeDestinationID);
     // create dest probability reroute
@@ -693,7 +693,7 @@ GNEAdditionalHandlerBeta::buildParkingAreaReroute(const CommonXMLStructure::Sumo
     // get rerouter id
     const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
     // get rerouter interval parent
-    GNEAdditional *rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getSUMOTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getSUMOTimeAttribute(SUMO_ATTR_END));
+    GNEAdditional *rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getTimeAttribute(SUMO_ATTR_END));
     // get parking area
     GNEAdditional *parkingArea = myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, newParkignAreaID);
     // create parking area reroute
@@ -715,7 +715,7 @@ GNEAdditionalHandlerBeta::buildRouteProbReroute(const CommonXMLStructure::SumoBa
     // get rerouter id
     const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
     // get rerouter interval parent
-    GNEAdditional *rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getSUMOTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getSUMOTimeAttribute(SUMO_ATTR_END));
+    GNEAdditional *rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getTimeAttribute(SUMO_ATTR_END));
     // create rout prob reroute
     GNEAdditional* routeProbReroute = new GNERouteProbReroute(rerouterInterval, newRouteID, probability);
     // add it to interval parent depending of allowUndoRedo

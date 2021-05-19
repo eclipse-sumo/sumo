@@ -340,7 +340,7 @@ AdditionalHandler::parseChargingStationAttributes(const SUMOSAXAttributes& attrs
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_CHARGINGPOWER, chargingPower);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_EFFICIENCY, efficiency);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_CHARGEINTRANSIT, chargeInTransit);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addSUMOTimeAttribute(SUMO_ATTR_CHARGEDELAY, chargeDelay);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_CHARGEDELAY, chargeDelay);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
     }
 }
@@ -433,7 +433,7 @@ AdditionalHandler::parseE1Attributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, position);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addSUMOTimeAttribute(SUMO_ATTR_FREQUENCY, frequency);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_FREQUENCY, frequency);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
@@ -469,12 +469,12 @@ AdditionalHandler::parseE2SingleLaneAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LENGTH, length);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, position);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addSUMOTimeAttribute(SUMO_ATTR_FREQUENCY, frequency);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_FREQUENCY, frequency);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_TLID, file);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addSUMOTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD, haltingTimeThreshold);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD, haltingTimeThreshold);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD, haltingSpeedThreshold);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD, jamDistThreshold);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
@@ -509,12 +509,12 @@ AdditionalHandler::parseE2MultiLanesAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LANE, laneIds);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LENGTH, endPos);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, position);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addSUMOTimeAttribute(SUMO_ATTR_FREQUENCY, frequency);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_FREQUENCY, frequency);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_TLID, trafficLight);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addSUMOTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD, haltingTimeThreshold);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD, haltingTimeThreshold);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD, haltingSpeedThreshold);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD, jamDistThreshold);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
@@ -550,7 +550,7 @@ AdditionalHandler::parseE3Attributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addSUMOTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD, haltingTimeThreshold);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD, haltingTimeThreshold);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD, haltingSpeedThreshold);
     }
 
@@ -632,7 +632,7 @@ AdditionalHandler::parseTAZAttributes(const SUMOSAXAttributes& attrs) {
     // now obtain attributes
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
     const PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), parsedOk, false);
-    const std::string color = attrs.get<std::string>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, false);
+    const RGBColor color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, false);
     const std::vector<std::string> edges = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk, false);
     const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, false);
     // continue if flag is ok
@@ -642,7 +642,7 @@ AdditionalHandler::parseTAZAttributes(const SUMOSAXAttributes& attrs) {
         // add all attributes
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shape);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_COLOR, color);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringListAttribute(SUMO_ATTR_EDGES, edges);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
     }
@@ -719,7 +719,7 @@ AdditionalHandler::parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes&
         // first open tag
         myCommonXMLStructure.openTag(SUMO_TAG_INTERVAL);
         // add all attributes
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addSUMOTimeAttribute(SUMO_ATTR_TIME, time);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_TIME, time);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_SPEED, speed);
     }
 }
@@ -755,8 +755,8 @@ AdditionalHandler::parseRerouterIntervalAttributes(const SUMOSAXAttributes& attr
         // first open tag
         myCommonXMLStructure.openTag(SUMO_TAG_INTERVAL);
         // add all attributes
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addSUMOTimeAttribute(SUMO_ATTR_BEGIN, begin);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addSUMOTimeAttribute(SUMO_ATTR_END, end);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_BEGIN, begin);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_END, end);
     }
 }
 
@@ -880,7 +880,7 @@ AdditionalHandler::parsePolyAttributes(const SUMOSAXAttributes& attrs) {
     const bool fill = attrs.get<bool>(SUMO_ATTR_FILL, polygonID.c_str(), parsedOk, false);
     const double lineWidth = attrs.get<double>(SUMO_ATTR_LINEWIDTH, polygonID.c_str(), parsedOk, false);
     const std::string type = attrs.get<std::string>(SUMO_ATTR_TYPE, polygonID.c_str(), parsedOk, false);
-    const std::string color = attrs.get<std::string>(SUMO_ATTR_COLOR, polygonID.c_str(), parsedOk, false);
+    const RGBColor color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, polygonID.c_str(), parsedOk, false);
     const double angle = attrs.get<double>(SUMO_ATTR_ANGLE, polygonID.c_str(), parsedOk, false);
     const std::string imgFile = attrs.get<std::string>(SUMO_ATTR_IMGFILE, polygonID.c_str(), parsedOk, false);
     const bool relativePath = attrs.get<bool>(SUMO_ATTR_RELATIVEPATH, polygonID.c_str(), parsedOk, false);
@@ -895,7 +895,7 @@ AdditionalHandler::parsePolyAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FILL, fill);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LINEWIDTH, lineWidth);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_TYPE, type);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_COLOR, color);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ANGLE, angle);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_IMGFILE, imgFile);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_RELATIVEPATH, relativePath);
@@ -983,7 +983,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getDoubleAttribute(SUMO_ATTR_CHARGINGPOWER),
                 obj->getDoubleAttribute(SUMO_ATTR_EFFICIENCY),
                 obj->getBoolAttribute(SUMO_ATTR_CHARGEINTRANSIT),
-                obj->getSUMOTimeAttribute(SUMO_ATTR_CHARGEDELAY),
+                obj->getTimeAttribute(SUMO_ATTR_CHARGEDELAY),
                 obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
                 obj->getParameters());
             break;
@@ -1019,7 +1019,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getStringAttribute(SUMO_ATTR_ID),
                 obj->getStringAttribute(SUMO_ATTR_LANE),
                 obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                obj->getSUMOTimeAttribute(SUMO_ATTR_FREQUENCY),
+                obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
                 obj->getStringAttribute(SUMO_ATTR_FILE),
                 obj->getStringAttribute(SUMO_ATTR_VTYPES),
                 obj->getStringAttribute(SUMO_ATTR_NAME),
@@ -1038,7 +1038,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getStringAttribute(SUMO_ATTR_FILE),
                 obj->getStringAttribute(SUMO_ATTR_VTYPES),
                 obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getSUMOTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
+                obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
                 obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
                 obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
                 obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
@@ -1055,7 +1055,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getStringAttribute(SUMO_ATTR_FILE),
                 obj->getStringAttribute(SUMO_ATTR_VTYPES),
                 obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getSUMOTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
+                obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
                 obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
                 obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
                 obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
@@ -1066,11 +1066,11 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             buildDetectorE3(obj,
                 obj->getStringAttribute(SUMO_ATTR_ID),
                 obj->getPositionAttribute(SUMO_ATTR_POSITION),
-                obj->getSUMOTimeAttribute(SUMO_ATTR_FREQUENCY),
+                obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
                 obj->getStringAttribute(SUMO_ATTR_FREQUENCY),
                 obj->getStringAttribute(SUMO_ATTR_VTYPES),
                 obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getSUMOTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
+                obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
                 obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
                 obj->getParameters());
             break;
@@ -1102,7 +1102,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             buildTAZ(obj,
                 obj->getStringAttribute(SUMO_ATTR_ID),
                 obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
-                RGBColor::parseColor(obj->getStringAttribute(SUMO_ATTR_COLOR)),
+                obj->getColorAttribute(SUMO_ATTR_COLOR),
                 obj->getStringListAttribute(SUMO_ATTR_EDGES),
                 obj->getStringAttribute(SUMO_ATTR_NAME),
                 obj->getParameters());
@@ -1128,7 +1128,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             break;
         case SUMO_TAG_STEP:
             buildVariableSpeedSignStep(obj,
-                obj->getSUMOTimeAttribute(SUMO_ATTR_TIME),
+                obj->getTimeAttribute(SUMO_ATTR_TIME),
                 obj->getDoubleAttribute(SUMO_ATTR_SPEED));
             break;
         // Calibrator
@@ -1139,7 +1139,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getDoubleAttribute(SUMO_ATTR_POSITION),
                 obj->getStringAttribute(SUMO_ATTR_NAME),
                 obj->getStringAttribute(SUMO_ATTR_OUTPUT),
-                obj->getSUMOTimeAttribute(SUMO_ATTR_FREQUENCY),
+                obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
                 obj->getStringAttribute(SUMO_ATTR_ROUTEPROBE),
                 obj->getParameters());
             break;
@@ -1150,7 +1150,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getDoubleAttribute(SUMO_ATTR_POSITION),
                 obj->getStringAttribute(SUMO_ATTR_NAME),
                 obj->getStringAttribute(SUMO_ATTR_OUTPUT),
-                obj->getSUMOTimeAttribute(SUMO_ATTR_FREQUENCY),
+                obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
                 obj->getStringAttribute(SUMO_ATTR_ROUTEPROBE),
                 obj->getParameters());
             break;
@@ -1160,7 +1160,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getStringAttribute(SUMO_ATTR_ROUTE),
                 obj->getStringAttribute(SUMO_ATTR_VEHSPERHOUR),
                 obj->getStringAttribute(SUMO_ATTR_SPEED),
-                RGBColor::parseColor(obj->getStringAttribute(SUMO_ATTR_COLOR)),
+                obj->getColorAttribute(SUMO_ATTR_COLOR),
                 obj->getStringAttribute(SUMO_ATTR_DEPARTLANE),
                 obj->getStringAttribute(SUMO_ATTR_DEPARTPOS),
                 obj->getStringAttribute(SUMO_ATTR_DEPARTSPEED),
@@ -1173,8 +1173,8 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getBoolAttribute(SUMO_ATTR_REROUTE),
                 obj->getStringAttribute(SUMO_ATTR_DEPARTPOS_LAT),
                 obj->getStringAttribute(SUMO_ATTR_ARRIVALPOS_LAT),
-                obj->getSUMOTimeAttribute(SUMO_ATTR_BEGIN),
-                obj->getSUMOTimeAttribute(SUMO_ATTR_END),
+                obj->getTimeAttribute(SUMO_ATTR_BEGIN),
+                obj->getTimeAttribute(SUMO_ATTR_END),
                 obj->getParameters());
             break;
         // Rerouter
@@ -1187,14 +1187,14 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getStringAttribute(SUMO_ATTR_NAME),
                 obj->getStringAttribute(SUMO_ATTR_FILE),
                 obj->getBoolAttribute(SUMO_ATTR_OFF),
-                obj->getSUMOTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
+                obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
                 obj->getStringAttribute(SUMO_ATTR_VTYPES),
                 obj->getParameters());
             break;
         case SUMO_TAG_INTERVAL:
             buildRerouterInterval(obj,
-                obj->getSUMOTimeAttribute(SUMO_ATTR_BEGIN),
-                obj->getSUMOTimeAttribute(SUMO_ATTR_END));
+                obj->getTimeAttribute(SUMO_ATTR_BEGIN),
+                obj->getTimeAttribute(SUMO_ATTR_END));
             break;
         case SUMO_TAG_CLOSING_LANE_REROUTE:
             buildClosingLaneReroute(obj,
@@ -1230,15 +1230,15 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             obj->getStringAttribute(SUMO_ATTR_FREQUENCY),
             obj->getStringAttribute(SUMO_ATTR_NAME),
             obj->getStringAttribute(SUMO_ATTR_FILE),
-            obj->getSUMOTimeAttribute(SUMO_ATTR_BEGIN),
+            obj->getTimeAttribute(SUMO_ATTR_BEGIN),
             obj->getParameters());
             break;
         // Vaporizer (deprecated)
         case SUMO_TAG_VAPORIZER:
             buildVaporizer(obj,
                 obj->getStringAttribute(SUMO_ATTR_EDGE),
-                obj->getSUMOTimeAttribute(SUMO_ATTR_STARTTIME),
-                obj->getSUMOTimeAttribute(SUMO_ATTR_END),
+                obj->getTimeAttribute(SUMO_ATTR_STARTTIME),
+                obj->getTimeAttribute(SUMO_ATTR_END),
                 obj->getStringAttribute(SUMO_ATTR_NAME),
                 obj->getParameters());
             break;
@@ -1247,7 +1247,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             buildPolygon(obj,
                 obj->getStringAttribute(SUMO_ATTR_ID),
                 obj->getStringAttribute(SUMO_ATTR_TYPE),
-                RGBColor::parseColor(obj->getStringAttribute(SUMO_ATTR_COLOR)),
+                obj->getColorAttribute(SUMO_ATTR_COLOR),
                 obj->getDoubleAttribute(SUMO_ATTR_LAYER),
                 obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
                 obj->getStringAttribute(SUMO_ATTR_IMGFILE),
@@ -1268,7 +1268,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 buildPOILane(obj,
                     obj->getStringAttribute(SUMO_ATTR_ID),
                     obj->getStringAttribute(SUMO_ATTR_TYPE),
-                    RGBColor::parseColor(obj->getStringAttribute(SUMO_ATTR_COLOR)),
+                    obj->getColorAttribute(SUMO_ATTR_COLOR),
                     obj->getStringAttribute(SUMO_ATTR_LANE),
                     obj->getDoubleAttribute(SUMO_ATTR_POSONLANE),
                     obj->getDoubleAttribute(SUMO_ATTR_POSITION_LAT),
@@ -1285,7 +1285,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 buildPOI(obj,
                     obj->getStringAttribute(SUMO_ATTR_ID),
                     obj->getStringAttribute(SUMO_ATTR_TYPE),
-                    RGBColor::parseColor(obj->getStringAttribute(SUMO_ATTR_COLOR)),
+                    obj->getColorAttribute(SUMO_ATTR_COLOR),
                     obj->getPositionAttribute(SUMO_ATTR_POSITION),
                     obj->getBoolAttribute(SUMO_ATTR_GEO),
                     obj->getDoubleAttribute(SUMO_ATTR_LAYER),
