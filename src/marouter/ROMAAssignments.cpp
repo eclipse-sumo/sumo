@@ -46,10 +46,10 @@ std::map<const ROEdge* const, double> ROMAAssignments::myPenalties;
 // ===========================================================================
 
 ROMAAssignments::ROMAAssignments(const SUMOTime begin, const SUMOTime end, const bool additiveTraffic,
-                                 const double adaptionFactor, const int maxAlternatives, RONet& net, ODMatrix& matrix,
-                                 SUMOAbstractRouter<ROEdge, ROVehicle>& router)
+                                 const double adaptionFactor, const int maxAlternatives, const bool defaultCapacities,
+                                 RONet& net, ODMatrix& matrix, SUMOAbstractRouter<ROEdge, ROVehicle>& router)
     : myBegin(begin), myEnd(end), myAdditiveTraffic(additiveTraffic), myAdaptionFactor(adaptionFactor),
-      myMaxAlternatives(maxAlternatives), myNet(net), myMatrix(matrix), myRouter(router) {
+      myMaxAlternatives(maxAlternatives), myUseDefaultCapacities(defaultCapacities), myNet(net), myMatrix(matrix), myRouter(router) {
     myDefaultVehicle = new ROVehicle(SUMOVehicleParameter(), nullptr, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
 }
 
@@ -60,11 +60,11 @@ ROMAAssignments::~ROMAAssignments() {
 
 // based on the definitions in PTV-Validate and in the VISUM-Cologne network
 double
-ROMAAssignments::getCapacity(const ROEdge* edge) {
+ROMAAssignments::getCapacity(const ROEdge* edge) const {
     if (edge->isTazConnector()) {
         return 0;
     }
-    const int roadClass = -edge->getPriority();
+    const int roadClass = myUseDefaultCapacities ? -1 : -edge->getPriority();
     // TODO: differ road class 1 from the unknown road class 1!!!
     if (edge->getNumLanes() == 0) {
         // TAZ have no cost
@@ -116,7 +116,7 @@ ROMAAssignments::capacityConstraintFunction(const ROEdge* edge, const double flo
     if (edge->isTazConnector()) {
         return 0;
     }
-    const int roadClass = -edge->getPriority();
+    const int roadClass = myUseDefaultCapacities ? -1 : -edge->getPriority();
     const double capacity = getCapacity(edge);
     // TODO: differ road class 1 from the unknown road class 1!!!
     if (edge->getNumLanes() == 0) {

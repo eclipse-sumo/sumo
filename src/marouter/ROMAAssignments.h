@@ -49,18 +49,18 @@ class ROMAAssignments {
 public:
     /// Constructor
     ROMAAssignments(const SUMOTime begin, const SUMOTime end, const bool additiveTraffic,
-                    const double adaptionFactor, const int maxAlternatives,
+                    const double adaptionFactor, const int maxAlternatives, const bool defaultCapacities,
                     RONet& net, ODMatrix& matrix, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
 
     /// Destructor
     ~ROMAAssignments();
 
-    ROVehicle* getDefaultVehicle() {
+    ROVehicle* getDefaultVehicle() const {
         return myDefaultVehicle;
     }
 
     // @brief calculate edge capacity for the given edge
-    static double getCapacity(const ROEdge* edge);
+    double getCapacity(const ROEdge* edge) const;
 
     // @brief calculate edge travel time for the given edge and number of vehicles per hour
     double capacityConstraintFunction(const ROEdge* edge, const double flow) const;
@@ -131,6 +131,7 @@ private:
     const bool myAdditiveTraffic;
     const double myAdaptionFactor;
     const int myMaxAlternatives;
+    const bool myUseDefaultCapacities;
     RONet& myNet;
     ODMatrix& myMatrix;
     SUMOAbstractRouter<ROEdge, ROVehicle>& myRouter;
