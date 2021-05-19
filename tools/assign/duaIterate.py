@@ -469,8 +469,8 @@ def calcMarginalCost(step, options):
                                 tt_prv = float(edge_prv.get("overlapTraveltime"))
                                 mc_prv = float(edge_prv.get("traveltime"))
                                 dif_tt = abs(tt_cur - tt_prv)
-                                dif_veh = abs(veh_cur - veh_prv)
-                                if dif_veh != 0:
+                                dif_veh = veh_cur - veh_prv
+                                if dif_veh > 0:
                                     mc_cur = (dif_tt / dif_veh) * (veh_cur ** options.mcExp) + tt_cur
                                 else:
                                     # previous marginal cost
