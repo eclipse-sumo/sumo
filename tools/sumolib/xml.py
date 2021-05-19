@@ -223,7 +223,7 @@ def compound_object(element_name, attrnames, warn=False):
 
 
 def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
-          heterogeneous=False, warn=False):
+          heterogeneous=True, warn=False):
     """
     Parses the given element_names from xmlfile and yield compound objects for
     their xml subtrees (no extra objects are returned if element_names appear in
