@@ -4,4 +4,4 @@ search_string:DEBUG
 search_file:output
 ignore_other_errors:1
 full_description:waiting to be debugged
-brief_description:see #6291
+brief_description:see #7785
