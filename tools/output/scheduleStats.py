@@ -39,9 +39,9 @@ pd.options.display.width = 0  # auto-detect terminal width
 
 STATS = {
     # selector -> description, function
-    'd': ('depart delay', lambda r, s: s.add(r['ended'] - r['until'], key(r))),
-    'a': ('arrival delay', lambda r, s: s.add(r['started'] - r['arrival'], key(r))),
-    's': ('stop delay', lambda r, s: s.add(r['until'] - r['arrival'] - (r['ended'] - r['started']), key(r))),  # noqua
+    'd': ('depart delay', lambda r, s: s.add(r['sim_ended'] - r['until'], key(r))),
+    'a': ('arrival delay', lambda r, s: s.add(r['sim_started'] - r['arrival'], key(r))),
+    's': ('stop delay', lambda r, s: s.add(r['until'] - r['arrival'] - (r['sim_ended'] - r['sim_started']), key(r))),  # noqua
 }
 
 GROUPSTATS = {
@@ -123,11 +123,13 @@ def main(options):
         'priorStop',  # busStop id or lane,pos
         'arrival',  # route-input
         'until',    # route-input
+        'started',  # route-input
+        'ended',    # route-input
     ]
 
     columns2 = columns[:3] + [
-        'started',  # stop-output
-        'ended',    # stop-input
+        'sim_started',  # stop-output
+        'sim_ended',    # stop-input
     ]
 
     stops = []
@@ -146,7 +148,10 @@ def main(options):
 
                 stops.append((vehID, tripId, stopID, priorStop,
                               stop.getAttributeSecure("arrival", nan),
-                              stop.getAttributeSecure("until", nan)))
+                              stop.getAttributeSecure("until", nan),
+                              stop.getAttributeSecure("started", nan),
+                              stop.getAttributeSecure("ended", nan),
+                              ))
 
     print("Parsed %s stops" % len(stops))
 
