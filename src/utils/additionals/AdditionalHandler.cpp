@@ -627,25 +627,83 @@ AdditionalHandler::parseE1InstantAttributes(const SUMOSAXAttributes& attrs) {
 
 void
 AdditionalHandler::parseTAZAttributes(const SUMOSAXAttributes& attrs) {
-
+    // declare Ok Flag
+    bool parsedOk = true;
+    // now obtain attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
+    const PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), parsedOk, false);
+    const std::string color = attrs.get<std::string>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, false);
+    const std::vector<std::string> edges = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk, false);
+    const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, false);
+    // continue if flag is ok
+    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+        // first open tag
+        myCommonXMLStructure.openTag(SUMO_TAG_INSTANT_INDUCTION_LOOP);
+        // add all attributes
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shape);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_COLOR, color);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringListAttribute(SUMO_ATTR_EDGES, edges);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+    }
 }
 
 
 void
 AdditionalHandler::parseTAZSourceAttributes(const SUMOSAXAttributes& attrs) {
-
+    // declare Ok Flag
+    bool parsedOk = true;
+    // now obtain attributes
+    const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_EDGE, "", parsedOk, false);
+    const double weight = attrs.get<double>(SUMO_ATTR_WEIGHT, edgeID.c_str(), parsedOk, false);
+    // continue if flag is ok
+    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+        // first open tag
+        myCommonXMLStructure.openTag(SUMO_TAG_INSTANT_INDUCTION_LOOP);
+        // add all attributes
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_EDGE, edgeID);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_WEIGHT, weight);
+    }
 }
 
 
 void
 AdditionalHandler::parseTAZSinkAttributes(const SUMOSAXAttributes& attrs) {
-
+    // declare Ok Flag
+    bool parsedOk = true;
+    // now obtain attributes
+    const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_EDGE, "", parsedOk, false);
+    const double weight = attrs.get<double>(SUMO_ATTR_WEIGHT, edgeID.c_str(), parsedOk, false);
+    // continue if flag is ok
+    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+        // first open tag
+        myCommonXMLStructure.openTag(SUMO_TAG_INSTANT_INDUCTION_LOOP);
+        // add all attributes
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_EDGE, edgeID);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_WEIGHT, weight);
+    }
 }
 
 
 void
 AdditionalHandler::parseVariableSpeedSignAttributes(const SUMOSAXAttributes& attrs) {
-
+    // declare Ok Flag
+    bool parsedOk = true;
+    // now obtain attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
+    const Position pos = attrs.get<Position>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, false);
+    const std::vector<std::string> lanes = attrs.get<std::vector<std::string> >(SUMO_ATTR_LANES, id.c_str(), parsedOk, false);
+    const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, false);
+    // continue if flag is ok
+    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+        // first open tag
+        myCommonXMLStructure.openTag(SUMO_TAG_INSTANT_INDUCTION_LOOP);
+        // add all attributes
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addPositionAttribute(SUMO_ATTR_POSITION, pos);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LANES, lanes);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+    }
 }
 
 
