@@ -209,7 +209,7 @@ def main(options):
             gs.add(gVal, name)
             stats.append((gVal, s))
 
-        stats.sort()
+        stats.sort(key=lambda x: x[0])
         for gVal, s in stats:
             print(s.toString(precision=options.precision, histStyle=2))
             if options.output:
