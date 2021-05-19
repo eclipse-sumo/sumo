@@ -57,7 +57,7 @@ public:
     }
 
     std::vector<NBPTStop*> getStops();
-    void write(OutputDevice& device, NBEdgeCont& ec);
+    void write(OutputDevice& device);
     void addWayNode(long long int way, long long int node);
 
     void setMyNumOfStops(int numStops);
@@ -79,6 +79,10 @@ public:
     /// @brief return last valid edge of myRoute (if it doest not lie before the last stop)
     NBEdge* getRouteEnd(const NBEdgeCont& ec) const;
 
+    SUMOVehicleClass getVClass() const {
+        return myVClass;
+    }
+
     /// @brief replace the given stop
     void replaceStop(NBPTStop* oldStop, NBPTStop* newStop);
 
@@ -88,6 +92,9 @@ public:
     /// @brief remove invalid stops from the line
     void deleteInvalidStops(const NBEdgeCont& ec, const NBPTStopCont& sc);
     void deleteDuplicateStops();
+
+    /// @brief remove invalid edges from the line
+    void removeInvalidEdges(const NBEdgeCont& ec);
 
     void setName(const std::string& name) {
         myName = name;

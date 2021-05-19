@@ -54,6 +54,12 @@ public:
     /// @brief select the correct stop on superposed rail edges
     void fixBidiStops(const NBEdgeCont& ec);
 
+    /// @brief filter out edges that were removed due to --geometry.remove
+    void removeInvalidEdges(const NBEdgeCont& ec);
+
+    /// @brief ensure that all turn lanes have sufficient permissions
+    void fixPermissions();
+
     std::set<std::string>& getServedPTStops();
 private:
 

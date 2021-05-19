@@ -440,7 +440,7 @@ void NWWriter_XML::writePTLines(const OptionsCont& oc, NBPTLineCont& lc, NBEdgeC
     OutputDevice& device = OutputDevice::getDevice(oc.getString("ptline-output"));
     device.writeXMLHeader("ptLines", "ptlines_file.xsd");
     for (const auto& item : lc.getLines()) {
-        item.second->write(device, ec);
+        item.second->write(device);
     }
     device.close();
 }
