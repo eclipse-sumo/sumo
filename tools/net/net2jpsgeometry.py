@@ -51,7 +51,7 @@ JPS_DOOR_LAYER = 11
 DXF_LAYER_NAME_BOUNDARY = "SUMONetBoundary"
 DXF_LAYER_NAME_DOOR = "SUMONetDoors"
 
-DEBUG = True
+DEBUG = False
 
 
 class DoorInfo:
