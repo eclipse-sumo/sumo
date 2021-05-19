@@ -1,0 +1,7 @@
+<?xml version= "1.0" encoding="UTF-8"?>
+
+<routes>
+    <trip depart="0.00" from="WC" id="vehicle_0" to="CN">
+        <stop duration="3600" parkingArea="parkingArea_WC_3_0"/>
+    </trip>
+</routes>
