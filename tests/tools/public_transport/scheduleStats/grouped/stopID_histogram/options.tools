@@ -1,0 +1,2 @@
+-r input_routes.rou.xml -s input_stops.xml -g stopID --xml-output out.xml
+--group-histogram 5
