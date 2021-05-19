@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 11 09:05:08 2021 by Eclipse SUMO marouter Version v1_8_0+1567-230a699
+<!-- generated on 2021-05-19 13:48:39 by Eclipse SUMO marouter Version v1_9_2+0021-08879bef84
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -45,6 +45,7 @@
     <processing>
         <aggregation-interval value="3600" type="TIME" help="Defines the time interval when aggregating single vehicle input; Defaults to one hour"/>
         <max-alternatives value="5" type="INT" help="Prune the number of alternatives to INT"/>
+        <capacities.default value="false" type="BOOL" help="Ignore edge priorities when calculating capacities and restraints"/>
         <weights.interpolate value="false" synonymes="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
         <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand weights behind the simulation&apos;s end"/>
         <weights.priority-factor value="0" type="FLOAT" help="Consider edge priorities in addition to travel times, weighted by factor"/>
