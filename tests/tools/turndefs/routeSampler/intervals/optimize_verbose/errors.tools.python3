@@ -1,2 +1,0 @@
-/home/kobo/.local/lib/python3.6/site-packages/scipy/optimize/_linprog.py:514: OptimizeWarning: x0 is used only when method is 'revised simplex'. 
-  warn(warning_message, OptimizeWarning)
