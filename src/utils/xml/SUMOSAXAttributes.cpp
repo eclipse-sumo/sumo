@@ -224,6 +224,14 @@ RGBColor SUMOSAXAttributes::getInternal(const int /* attr */) const {
 }
 
 
+const Position invalid_return<Position>::value = Position();
+const std::string invalid_return<Position>::type = "Position";
+template<>
+Position SUMOSAXAttributes::getInternal(const int attr) const {
+    return getPosition(attr);
+}
+
+
 const PositionVector invalid_return<PositionVector>::value = PositionVector();
 const std::string invalid_return<PositionVector>::type = "PositionVector";
 template<>

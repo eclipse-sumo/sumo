@@ -197,6 +197,35 @@ SUMOSAXAttributesImpl_Xerces::getColor() const {
 }
 
 
+Position
+SUMOSAXAttributesImpl_Xerces::getPosition(int attr) const {
+    // declare string tokenizer
+    StringTokenizer st(getString(attr));
+    // check StringTokenizer
+    while (st.hasNext()) {
+        // obtain position
+        StringTokenizer pos(st.next(), ",");
+        // check that position has X-Y or X-Y-Z
+        if ((pos.size() != 2) && (pos.size() != 3)) {
+            throw FormatException("position format");
+        }
+        // obtain x and y
+        double x = StringUtils::toDouble(pos.next());
+        double y = StringUtils::toDouble(pos.next());
+        // check if return a X-Y or a X-Y-Z Position
+        if (pos.size() == 2) {
+            return Position(x, y);
+        } else {
+            // obtain z
+            double z = StringUtils::toDouble(pos.next());
+            return Position(x, y, z);
+        }
+    }
+    // empty positions aren't allowed
+    throw FormatException("position format");
+}
+
+
 PositionVector
 SUMOSAXAttributesImpl_Xerces::getShape(int attr) const {
     StringTokenizer st(getString(attr));
