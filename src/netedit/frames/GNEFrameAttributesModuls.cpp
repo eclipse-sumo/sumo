@@ -1295,20 +1295,26 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
         if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
             myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_begin("Change multiple attributes");
         }
-        // open GNEAllowDisallow (also used to modify SUMO_ATTR_CHANGE_LEFT etc
+        // get attribute to modify
         SumoXMLAttr modifiedAttr = myACAttr.getAttr() == SUMO_ATTR_DISALLOW ? SUMO_ATTR_ALLOW : myACAttr.getAttr();
-        GNEAllowDisallow(myAttributesEditorParent->getFrameParent()->myViewNet, myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front(), modifiedAttr).execute();
-        std::string allowed = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(modifiedAttr);
-        // Set new value of attribute in all selected ACs
-        for (const auto& it_ac : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-            it_ac->setAttribute(modifiedAttr, allowed, myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList());
+        // declare accept changes
+        bool acceptChanges = false;
+        // open GNEAllowDisallow (also used to modify SUMO_ATTR_CHANGE_LEFT etc
+        GNEAllowDisallow(myAttributesEditorParent->getFrameParent()->myViewNet, myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front(), modifiedAttr, &acceptChanges).execute();
+        // continue depending of acceptChanges
+        if (acceptChanges) {
+            std::string allowed = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(modifiedAttr);
+            // Set new value of attribute in all selected ACs
+            for (const auto& it_ac : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+                it_ac->setAttribute(modifiedAttr, allowed, myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList());
+            }
+            // finish change multiple attributes
+            if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
+                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_end();
+            }   
+            // update frame parent after attribute sucesfully set
+            myAttributesEditorParent->getFrameParent()->attributeUpdated();
         }
-        // finish change multiple attributes
-        if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
-            myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_end();
-        }
-        // update frame parent after attribute sucesfully set
-        myAttributesEditorParent->getFrameParent()->attributeUpdated();
         return 1;
     } else {
         throw ProcessError("Invalid call to onCmdOpenAttributeDialog");

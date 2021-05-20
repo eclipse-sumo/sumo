@@ -656,16 +656,21 @@ GNECreateEdgeFrame::LaneTypeParameters::onCmdOpenAttributeDialog(FXObject* obj, 
         // declare strings
         std::string allow = myAllow->getText().text();
         std::string disallow = myDisallow->getText().text();
+        // declare accept changes
+        bool acceptChanges = false;
         // open allow/disallow
-        GNEAllowDisallow(myCreateEdgeFrameParent->getViewNet(), &allow, &disallow).execute();
-        // update allow/disallow
-        myAllow->setText(allow.c_str(), FALSE);
-        myDisallow->setText(disallow.c_str(), FALSE);
-        // set attribute
-        if (myCreateEdgeFrameParent->myEdgeTypeSelector->useDefaultEdgeType()) {
-            myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType()->getLaneTypes().at(myLaneIndex->getCurrentItem())->setAttribute(SUMO_ATTR_ALLOW, allow.c_str());
-        } else if (myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()) {
-            myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()->getLaneTypes().at(myLaneIndex->getCurrentItem())->setAttribute(SUMO_ATTR_ALLOW, allow.c_str());
+        GNEAllowDisallow(myCreateEdgeFrameParent->getViewNet(), &allow, &disallow, &acceptChanges).execute();
+        // continue depending of acceptChanges
+        if (acceptChanges) {
+            // update allow/disallow
+            myAllow->setText(allow.c_str(), FALSE);
+            myDisallow->setText(disallow.c_str(), FALSE);
+            // set attribute
+            if (myCreateEdgeFrameParent->myEdgeTypeSelector->useDefaultEdgeType()) {
+                myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType()->getLaneTypes().at(myLaneIndex->getCurrentItem())->setAttribute(SUMO_ATTR_ALLOW, allow.c_str());
+            } else if (myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()) {
+                myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()->getLaneTypes().at(myLaneIndex->getCurrentItem())->setAttribute(SUMO_ATTR_ALLOW, allow.c_str());
+            }
         }
     }
     return 1;
@@ -1078,16 +1083,21 @@ GNECreateEdgeFrame::EdgeTypeParameters::onCmdOpenAttributeDialog(FXObject* obj, 
         // declare strings
         std::string allow = myAllow->getText().text();
         std::string disallow = myDisallow->getText().text();
+        // declare accept changes
+        bool acceptChanges = false;
         // open allow/disallow
-        GNEAllowDisallow(myCreateEdgeFrameParent->getViewNet(), &allow, &disallow).execute();
-        // update allow/disallow
-        myAllow->setText(allow.c_str(), FALSE);
-        myDisallow->setText(disallow.c_str(), FALSE);
-        // set attribute
-        if (myCreateEdgeFrameParent->myEdgeTypeSelector->useDefaultEdgeType()) {
-            myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType()->setAttribute(SUMO_ATTR_ALLOW, allow.c_str());
-        } else if (myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()) {
-            myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()->setAttribute(SUMO_ATTR_ALLOW, allow.c_str());
+        GNEAllowDisallow(myCreateEdgeFrameParent->getViewNet(), &allow, &disallow, &acceptChanges).execute();
+        // continue depending of acceptChanges
+        if (acceptChanges) {
+            // update allow/disallow
+            myAllow->setText(allow.c_str(), FALSE);
+            myDisallow->setText(disallow.c_str(), FALSE);
+            // set attribute
+            if (myCreateEdgeFrameParent->myEdgeTypeSelector->useDefaultEdgeType()) {
+                myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType()->setAttribute(SUMO_ATTR_ALLOW, allow.c_str());
+            } else if (myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()) {
+                myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()->setAttribute(SUMO_ATTR_ALLOW, allow.c_str());
+            }
         }
     }
     return 1;

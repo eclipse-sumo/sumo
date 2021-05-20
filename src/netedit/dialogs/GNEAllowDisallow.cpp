@@ -50,11 +50,12 @@ FXIMPLEMENT(GNEAllowDisallow, FXDialogBox, GNEAllowDisallowMap, ARRAYNUMBER(GNEA
 // member method definitions
 // ===========================================================================
 
-GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC, SumoXMLAttr attr) :
+GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC, SumoXMLAttr attr, bool *acceptChanges) :
     FXDialogBox(viewNet->getApp(), ("Edit " + toString(attr) + " " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox),
     myViewNet(viewNet),
     myAC(AC),
     myEditedAttr(attr),
+    myAcceptChanges(acceptChanges),
     myAllow(nullptr),
     myDisAllow(nullptr) {
     // call constructor
@@ -62,11 +63,12 @@ GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC,
 }
 
 
-GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, std::string* allow, std::string* disallow) :
+GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, std::string* allow, std::string* disallow, bool *acceptChanges) :
     FXDialogBox(viewNet->getApp(), ("Edit " + toString(SUMO_ATTR_ALLOW) + " " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox),
     myViewNet(viewNet),
     myAC(nullptr),
     myEditedAttr(SUMO_ATTR_ALLOW),
+    myAcceptChanges(acceptChanges),
     myAllow(allow),
     myDisAllow(disallow) {
     // call constructor
@@ -150,6 +152,8 @@ GNEAllowDisallow::onCmdAccept(FXObject*, FXSelector, void*) {
         *myAllow = joinToString(allowedVehicles, " ");
         *myDisAllow = joinToString(disallowedVehicles, " ");
     }
+    // enable accept flag
+    *myAcceptChanges = true;
     // Stop Modal
     getApp()->stopModal(this, TRUE);
     return 1;
@@ -158,6 +162,8 @@ GNEAllowDisallow::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNEAllowDisallow::onCmdCancel(FXObject*, FXSelector, void*) {
+    // disable accept flag
+    *myAcceptChanges = false;
     // Stop Modal
     getApp()->stopModal(this, FALSE);
     return 1;
