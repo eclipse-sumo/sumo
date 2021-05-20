@@ -169,6 +169,8 @@ GNEParkingArea::getAttribute(SumoXMLAttr key) const {
             return myStartPosition;
         case SUMO_ATTR_ENDPOS:
             return myEndPosition;
+        case SUMO_ATTR_DEPARTPOS:
+            return myDepartPos;
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_FRIENDLY_POS:
@@ -205,6 +207,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_ENDPOS:
+        case SUMO_ATTR_DEPARTPOS:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_FRIENDLY_POS:
         case SUMO_ATTR_ROADSIDE_CAPACITY:
@@ -247,6 +250,20 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             } else if (canParse<double>(value)) {
                 return SUMORouteHandler::isStopPosValid(getStartPosition(), parse<double>(value), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_DEPARTPOS:
+            if (value.empty()) {
+                return true;
+            } else if (canParse<double>(value)) {
+                // parse value
+                const double departPos = parse<double>(value);
+                if ((departPos >= 0) && (departPos <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength())) {
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
                 return false;
             }
@@ -323,6 +340,9 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             myEndPosition = value;
             // update boundary
             updateCenteringBoundary(true);
+            break;
+        case SUMO_ATTR_DEPARTPOS:
+            myDepartPos = value;
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;
