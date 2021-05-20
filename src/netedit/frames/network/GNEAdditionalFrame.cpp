@@ -25,7 +25,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 #include <netedit/elements/network/GNEConnection.h>
-#include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/elements/additional/GNEAdditionalHandlerBeta.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -164,7 +164,7 @@ GNEAdditionalFrame::SelectorParentLanes::stopConsecutiveLaneSelector() {
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, myAdditionalFrameParent->getPredefinedTagsMML(), toString(tagValues.getTag()));
         // try to build additional
-        if (GNEAdditionalHandler::buildAdditional(myAdditionalFrameParent->getViewNet()->getNet(), true, myAdditionalFrameParent->myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+        if (false /*GNEAdditionalHandler::buildAdditional(myAdditionalFrameParent->getViewNet()->getNet(), true, myAdditionalFrameParent->myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)*/) {
             // abort consecutive lane selector
             abortConsecutiveLaneSelector();
             // refresh additional attributes
@@ -858,7 +858,7 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::createPath() {
     // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
     SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, myAdditionalFrameParent->getPredefinedTagsMML(), toString(SUMO_TAG_E2DETECTOR_MULTILANE));
     // try to build additional
-    if (GNEAdditionalHandler::buildAdditional(myAdditionalFrameParent->myViewNet->getNet(), true, SUMO_TAG_E2DETECTOR_MULTILANE, SUMOSAXAttrs, nullptr)) {
+    if (false /*GNEAdditionalHandler::buildAdditional(myAdditionalFrameParent->myViewNet->getNet(), true, SUMO_TAG_E2DETECTOR_MULTILANE, SUMOSAXAttrs, nullptr)*/) {
         // Refresh additional Parent Selector (For additionals that have a limited number of children)
         myAdditionalFrameParent->myParentAdditional->refreshSelectorParentModul();
         // abort E2 creation
@@ -1261,7 +1261,7 @@ GNEAdditionalFrame::buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string>& 
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(tagValues.getTag()));
         // try to build additional
-        if (GNEAdditionalHandler::buildAdditional(myViewNet->getNet(), true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+        if (false /*GNEAdditionalHandler::buildAdditional(myViewNet->getNet(), true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)*/) {
             // Refresh additional Parent Selector (For additionals that have a limited number of children)
             myParentAdditional->refreshSelectorParentModul();
             // clear selected eddges and lanes
@@ -1306,7 +1306,7 @@ GNEAdditionalFrame::buildAdditionalOverLane(std::map<SumoXMLAttr, std::string>& 
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(tagValues.getTag()));
         // try to build additional
-        if (GNEAdditionalHandler::buildAdditional(myViewNet->getNet(), true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+        if (false /*GNEAdditionalHandler::buildAdditional(myViewNet->getNet(), true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)*/) {
             // Refresh additional Parent Selector (For additionals that have a limited number of children)
             myParentAdditional->refreshSelectorParentModul();
             // clear selected eddges and lanes
@@ -1342,7 +1342,7 @@ GNEAdditionalFrame::buildAdditionalOverView(std::map<SumoXMLAttr, std::string>& 
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(tagValues.getTag()));
         // try to build additional
-        if (GNEAdditionalHandler::buildAdditional(myViewNet->getNet(), true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+        if (false /*GNEAdditionalHandler::buildAdditional(myViewNet->getNet(), true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)*/) {
             // Refresh additional Parent Selector (For additionals that have a limited number of children)
             myParentAdditional->refreshSelectorParentModul();
             // clear selected eddges and lanes

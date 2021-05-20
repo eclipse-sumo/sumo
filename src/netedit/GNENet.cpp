@@ -42,7 +42,7 @@
 #include <netedit/changes/GNEChange_Shape.h>
 #include <netedit/dialogs/GNEFixAdditionalElements.h>
 #include <netedit/dialogs/GNEFixDemandElements.h>
-#include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/elements/additional/GNEAdditionalHandlerBeta.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/elements/network/GNEConnection.h>
@@ -1627,9 +1627,9 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load additionals if was recomputed with volatile options
     if (additionalPath != "") {
         // Create additional handler
-        GNEAdditionalHandler additionalHandler(additionalPath, this);
+        GNEAdditionalHandlerBeta additionalHandler(this, additionalPath, false);
         // Run parser
-        if (!XMLSubSys::runParser(additionalHandler, additionalPath, false)) {
+        if (!additionalHandler.parse()) {
             WRITE_MESSAGE("Loading of " + additionalPath + " failed.");
         }
         // clear myEdgesAndNumberOfLanes after reload additionals

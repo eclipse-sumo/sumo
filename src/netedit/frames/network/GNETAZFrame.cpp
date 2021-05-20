@@ -27,7 +27,7 @@
 #include <netedit/changes/GNEChange_TAZElement.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/additional/GNETAZSourceSink.h>
-#include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/elements/additional/GNEAdditionalHandlerBeta.h>
 #include <netedit/GNEUndoList.h>
 
 #include "GNETAZFrame.h"
@@ -1486,7 +1486,7 @@ GNETAZFrame::shapeDrawed() {
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesOfElement, getPredefinedTagsMML(), toString(SUMO_TAG_TAZ));
         // return true if TAZ was successfully created
-        return GNEAdditionalHandler::buildAdditional(myViewNet->getNet(), true, SUMO_TAG_TAZ, SUMOSAXAttrs, nullptr);
+        return false /*GNEAdditionalHandler::buildAdditional(myViewNet->getNet(), true, SUMO_TAG_TAZ, SUMOSAXAttrs, nullptr)*/;
     }
 }
 
