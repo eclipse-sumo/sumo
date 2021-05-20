@@ -966,7 +966,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         for (const auto& additionalFile : additionalFiles) {
             WRITE_MESSAGE("Loading additionals and shapes from '" + additionalFile + "'");
             // declare additional handler
-            GNEAdditionalHandlerBeta additionalHandler(myNet, additionalFile, true);
+            GNEAdditionalHandler additionalHandler(myNet, additionalFile, true);
             // disable validation for additionals
             XMLSubSys::setValidation("never", "auto", "auto");
             // Run parser
@@ -2797,7 +2797,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
-        GNEAdditionalHandlerBeta additionalHandler(myNet, file, true);
+        GNEAdditionalHandler additionalHandler(myNet, file, true);
         // begin undoList operation
         myUndoList->p_begin("Loading additionals from '" + file + "'");
         // Run parser
@@ -2824,7 +2824,7 @@ GNEApplicationWindow::onCmdReloadAdditionals(FXObject*, FXSelector, void*) {
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create additional handler
-    GNEAdditionalHandlerBeta additionalHandler(myNet, file, true);
+    GNEAdditionalHandler additionalHandler(myNet, file, true);
     // begin undoList operation
     myUndoList->p_begin("Reloading additionals from '" + file + "'");
     // clear additionals

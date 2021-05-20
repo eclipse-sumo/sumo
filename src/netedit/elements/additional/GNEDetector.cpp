@@ -130,7 +130,7 @@ GNEDetector::getGeometryPositionOverLane() const {
     if (fixedPos < 0) {
         fixedPos += len;
     }
-    GNEAdditionalHandlerBeta::checkAndFixDetectorPosition(fixedPos, len, true);
+    GNEAdditionalHandler::checkAndFixDetectorPosition(fixedPos, len, true);
     return fixedPos * getLane()->getLengthGeometryFactor();
 }
 

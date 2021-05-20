@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEAdditionalHandlerBeta.cpp
+/// @file    GNEAdditionalHandler.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
 ///
@@ -62,22 +62,22 @@
 
 
 // ===========================================================================
-// GNEAdditionalHandlerBeta method definitions
+// GNEAdditionalHandler method definitions
 // ===========================================================================
 
-GNEAdditionalHandlerBeta::GNEAdditionalHandlerBeta(GNENet* net, const std::string& file, const bool allowUndoRedo) :
+GNEAdditionalHandler::GNEAdditionalHandler(GNENet* net, const std::string& file, const bool allowUndoRedo) :
     AdditionalHandler(file),
     myNet(net),
     myAllowUndoRedo(allowUndoRedo) {
 }
 
 
-GNEAdditionalHandlerBeta::~GNEAdditionalHandlerBeta() {
+GNEAdditionalHandler::~GNEAdditionalHandler() {
 }
 
 
 void 
-GNEAdditionalHandlerBeta::buildBusStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, 
+GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, 
     const std::string &laneID, const std::string &startPos, const std::string &endPos, const std::string& name, 
     const std::vector<std::string>& lines, const int personCapacity, const double parkingLength, const bool friendlyPosition, 
     const std::map<std::string, std::string> &parameters) {
@@ -107,7 +107,7 @@ GNEAdditionalHandlerBeta::buildBusStop(const CommonXMLStructure::SumoBaseObject*
 
 
 void 
-GNEAdditionalHandlerBeta::buildAccess(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, 
+GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, 
     const double pos, const std::string& length, const bool friendlyPos, const std::map<std::string, std::string> &parameters) {
     // get lane
     GNELane *lane = myNet->retrieveLane(laneID);
@@ -143,7 +143,7 @@ GNEAdditionalHandlerBeta::buildAccess(const CommonXMLStructure::SumoBaseObject* 
 
 
 void 
-GNEAdditionalHandlerBeta::buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, 
+GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, 
     const std::string &laneID, const std::string &startPos, const std::string &endPos, const std::string& name, 
     const std::vector<std::string>& lines, const bool friendlyPosition, const std::map<std::string, std::string> &parameters) {
     // first check if containerStop exist
@@ -172,7 +172,7 @@ GNEAdditionalHandlerBeta::buildContainerStop(const CommonXMLStructure::SumoBaseO
 
 
 void
-GNEAdditionalHandlerBeta::buildChargingStation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, 
+GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, 
     const std::string &laneID, const std::string &startPos, const std::string &endPos, const std::string& name, const double chargingPower, 
     const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const bool friendlyPosition, 
     const std::map<std::string, std::string> &parameters) {
@@ -203,7 +203,7 @@ GNEAdditionalHandlerBeta::buildChargingStation(const CommonXMLStructure::SumoBas
 
 
 void 
-GNEAdditionalHandlerBeta::buildParkingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
+GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
     const std::string &startPos, const std::string &endPos, const std::string &departPos, const std::string& name, const bool friendlyPosition, 
     const int roadSideCapacity, const bool onRoad, const double width, const std::string &length, const double angle, const std::map<std::string, std::string> &parameters) {
     // first check if parkingArea exist
@@ -232,7 +232,7 @@ GNEAdditionalHandlerBeta::buildParkingArea(const CommonXMLStructure::SumoBaseObj
 
 
 void 
-GNEAdditionalHandlerBeta::buildParkingSpace(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const double x, const double y, const double z, 
+GNEAdditionalHandler::buildParkingSpace(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const double x, const double y, const double z, 
     const std::string& name, const std::string &width, const std::string &length, const std::string &angle, const double slope, 
     const std::map<std::string, std::string> &parameters) {
     // get lane
@@ -257,7 +257,7 @@ GNEAdditionalHandlerBeta::buildParkingSpace(const CommonXMLStructure::SumoBaseOb
 
 
 void 
-GNEAdditionalHandlerBeta::buildE1Detector(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id, const std::string &laneID, 
+GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id, const std::string &laneID, 
     const double position, const SUMOTime frequency, const std::string &file, const std::string &vehicleTypes, const std::string &name, const bool friendlyPos, 
     const std::map<std::string, std::string> &parameters) {
     // first check if E1 exist
@@ -285,7 +285,7 @@ GNEAdditionalHandlerBeta::buildE1Detector(const CommonXMLStructure::SumoBaseObje
 
 
 void 
-GNEAdditionalHandlerBeta::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
+GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
     const double pos, const double length, const std::string& freq, const std::string& trafficLight, const std::string& filename, const std::string& vehicleTypes, 
     const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold, const bool friendlyPos, 
     const std::map<std::string, std::string> &parameters) {
@@ -316,7 +316,7 @@ GNEAdditionalHandlerBeta::buildSingleLaneDetectorE2(const CommonXMLStructure::Su
 
 
 void 
-GNEAdditionalHandlerBeta::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::vector<std::string>& laneIDs, 
+GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::vector<std::string>& laneIDs, 
     const double pos, const double endPos, const std::string& freq, const std::string& trafficLight, const std::string& filename, const std::string& vehicleTypes, 
     const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold, const bool friendlyPos, 
     const std::map<std::string, std::string> &parameters) {
@@ -355,7 +355,7 @@ GNEAdditionalHandlerBeta::buildMultiLaneDetectorE2(const CommonXMLStructure::Sum
 
 
 void 
-GNEAdditionalHandlerBeta::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, const SUMOTime freq, 
+GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, const SUMOTime freq, 
     const std::string& filename, const std::string& vehicleTypes, const std::string& name,  SUMOTime timeThreshold, const double speedThreshold, 
     const std::map<std::string, std::string> &parameters) {
     //
@@ -363,7 +363,7 @@ GNEAdditionalHandlerBeta::buildDetectorE3(const CommonXMLStructure::SumoBaseObje
 
 
 void 
-GNEAdditionalHandlerBeta::buildDetectorEntry(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, const double pos, 
+GNEAdditionalHandler::buildDetectorEntry(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, const double pos, 
         const bool friendlyPos, const std::map<std::string, std::string> &parameters) {
     // get lane
     GNELane *lane = myNet->retrieveLane(laneID);
@@ -395,7 +395,7 @@ GNEAdditionalHandlerBeta::buildDetectorEntry(const CommonXMLStructure::SumoBaseO
 
 
 void 
-GNEAdditionalHandlerBeta::buildDetectorExit(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, const double pos,
+GNEAdditionalHandler::buildDetectorExit(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, const double pos,
         const bool friendlyPos, const std::map<std::string, std::string> &parameters) {
     // get lane
     GNELane *lane = myNet->retrieveLane(laneID);
@@ -427,7 +427,7 @@ GNEAdditionalHandlerBeta::buildDetectorExit(const CommonXMLStructure::SumoBaseOb
 
 
 void 
-GNEAdditionalHandlerBeta::buildDetectorE1Instant(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, double pos, 
+GNEAdditionalHandler::buildDetectorE1Instant(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, double pos, 
     const std::string& filename, const std::string& vehicleTypes, const std::string& name, const bool friendlyPos, const std::map<std::string, std::string> &parameters) {
     // check if E1 instant exist
     if (myNet->retrieveAdditional(SUMO_TAG_INSTANT_INDUCTION_LOOP, id, false) == nullptr) {
@@ -454,7 +454,7 @@ GNEAdditionalHandlerBeta::buildDetectorE1Instant(const CommonXMLStructure::SumoB
 
 
 void 
-GNEAdditionalHandlerBeta::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, const double pos, 
+GNEAdditionalHandler::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, const double pos, 
     const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe, const std::map<std::string, std::string> &parameters) {
     // check if lane calibrator exist
     if ((myNet->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) == nullptr) && 
@@ -486,7 +486,7 @@ GNEAdditionalHandlerBeta::buildLaneCalibrator(const CommonXMLStructure::SumoBase
 
 
 void
-GNEAdditionalHandlerBeta::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &edgeID, const double pos, 
+GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &edgeID, const double pos, 
     const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe, const std::map<std::string, std::string> &parameters) {
     // check if lane calibrator exist
     if ((myNet->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) == nullptr) && 
@@ -518,7 +518,7 @@ GNEAdditionalHandlerBeta::buildEdgeCalibrator(const CommonXMLStructure::SumoBase
 
 
 void
-GNEAdditionalHandlerBeta::buildCalibratorFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &vTypeID, const std::string &routeID,
+GNEAdditionalHandler::buildCalibratorFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &vTypeID, const std::string &routeID,
     const std::string& vehsPerHour, const std::string& speed, const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, 
     const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, const int personNumber, const int containerNumber, 
     const bool reroute, const std::string& departPosLat, const std::string& arrivalPosLat, const SUMOTime begin, const SUMOTime end, const std::map<std::string, std::string> &parameters) {
@@ -544,7 +544,7 @@ GNEAdditionalHandlerBeta::buildCalibratorFlow(const CommonXMLStructure::SumoBase
 
 
 void 
-GNEAdditionalHandlerBeta::buildRerouter(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, 
+GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, 
     const std::vector<std::string>& edgeIDs, const double prob, const std::string& name, const std::string& file, const bool off, const SUMOTime timeThreshold, 
     const std::string& vTypes, const std::map<std::string, std::string> &parameters) {
     // check if lane calibrator exist
@@ -605,7 +605,7 @@ GNEAdditionalHandlerBeta::buildRerouter(const CommonXMLStructure::SumoBaseObject
 
 
 void 
-GNEAdditionalHandlerBeta::buildRerouterInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOTime begin, const SUMOTime end) {
+GNEAdditionalHandler::buildRerouterInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOTime begin, const SUMOTime end) {
     // get rerouter parent
     GNEAdditional *rerouter = myNet->retrieveAdditional(SUMO_TAG_REROUTER, sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
     // check if new interval will produce a overlapping
@@ -628,7 +628,7 @@ GNEAdditionalHandlerBeta::buildRerouterInterval(const CommonXMLStructure::SumoBa
 
 
 void 
-GNEAdditionalHandlerBeta::buildClosingLaneReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &closedLaneID, SVCPermissions permissions) {
+GNEAdditionalHandler::buildClosingLaneReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &closedLaneID, SVCPermissions permissions) {
     // get rerouter id
     const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
     // get rerouter interval parent
@@ -650,7 +650,7 @@ GNEAdditionalHandlerBeta::buildClosingLaneReroute(const CommonXMLStructure::Sumo
 
 
 void 
-GNEAdditionalHandlerBeta::buildClosingReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &closedEdgeID, SVCPermissions permissions) {
+GNEAdditionalHandler::buildClosingReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &closedEdgeID, SVCPermissions permissions) {
     // get rerouter id
     const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
     // get rerouter interval parent
@@ -671,7 +671,7 @@ GNEAdditionalHandlerBeta::buildClosingReroute(const CommonXMLStructure::SumoBase
 }
 
 void 
-GNEAdditionalHandlerBeta::buildDestProbReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &newEdgeDestinationID, const double probability) {
+GNEAdditionalHandler::buildDestProbReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &newEdgeDestinationID, const double probability) {
     // get rerouter id
     const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
     // get rerouter interval parent
@@ -693,7 +693,7 @@ GNEAdditionalHandlerBeta::buildDestProbReroute(const CommonXMLStructure::SumoBas
 
 
 void 
-GNEAdditionalHandlerBeta::buildParkingAreaReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &newParkignAreaID, const double probability, const bool visible) {
+GNEAdditionalHandler::buildParkingAreaReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &newParkignAreaID, const double probability, const bool visible) {
     // get rerouter id
     const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
     // get rerouter interval parent
@@ -715,7 +715,7 @@ GNEAdditionalHandlerBeta::buildParkingAreaReroute(const CommonXMLStructure::Sumo
 
 
 void
-GNEAdditionalHandlerBeta::buildRouteProbReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& newRouteID, const double probability) {
+GNEAdditionalHandler::buildRouteProbReroute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& newRouteID, const double probability) {
     // get rerouter id
     const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
     // get rerouter interval parent
@@ -735,7 +735,7 @@ GNEAdditionalHandlerBeta::buildRouteProbReroute(const CommonXMLStructure::SumoBa
 
 
 void 
-GNEAdditionalHandlerBeta::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &edgeID, const std::string& freq, 
+GNEAdditionalHandler::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &edgeID, const std::string& freq, 
     const std::string& name, const std::string& file, const SUMOTime begin, const std::map<std::string, std::string> &parameters) {
     // check if routeprobe exist
     if (myNet->retrieveAdditional(SUMO_TAG_ROUTEPROBE, id, false) == nullptr) {
@@ -766,7 +766,7 @@ GNEAdditionalHandlerBeta::buildRouteProbe(const CommonXMLStructure::SumoBaseObje
 
 
 void
-GNEAdditionalHandlerBeta::buildVariableSpeedSign(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, 
+GNEAdditionalHandler::buildVariableSpeedSign(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, 
     const std::vector<std::string>& laneIDs, const std::string& name, const std::map<std::string, std::string> &parameters) {
     // check if VSS exist
     if (myNet->retrieveAdditional(SUMO_TAG_VSS, id, false) == nullptr) {
@@ -808,7 +808,7 @@ GNEAdditionalHandlerBeta::buildVariableSpeedSign(const CommonXMLStructure::SumoB
 
 
 void 
-GNEAdditionalHandlerBeta::buildVariableSpeedSignStep(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOTime time, const double speed) {
+GNEAdditionalHandler::buildVariableSpeedSignStep(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOTime time, const double speed) {
     // get VSS parent
     GNEAdditional *VSS = myNet->retrieveAdditional(SUMO_TAG_VSS, sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
     // create Variable Speed Sign
@@ -826,7 +826,7 @@ GNEAdditionalHandlerBeta::buildVariableSpeedSignStep(const CommonXMLStructure::S
 
 
 void 
-GNEAdditionalHandlerBeta::buildVaporizer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const SUMOTime startTime, 
+GNEAdditionalHandler::buildVaporizer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const SUMOTime startTime, 
     const SUMOTime endTime, const std::string& name, const std::map<std::string, std::string> &parameters) {
     // get edge
     GNEEdge *edge = myNet->retrieveEdge(edgeID);
@@ -852,7 +852,7 @@ GNEAdditionalHandlerBeta::buildVaporizer(const CommonXMLStructure::SumoBaseObjec
 
 
 void 
-GNEAdditionalHandlerBeta::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape, 
+GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape, 
     const RGBColor& color, const std::vector<std::string>& edgeIDs, const std::string& name, const std::map<std::string, std::string> &parameters) {
     // check if VSS exist
     if (myNet->retrieveTAZElement(SUMO_TAG_TAZ, id, false) == nullptr) {
@@ -905,7 +905,7 @@ GNEAdditionalHandlerBeta::buildTAZ(const CommonXMLStructure::SumoBaseObject* sum
 
 
 void 
-GNEAdditionalHandlerBeta::buildTAZSource(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const double departWeight) {
+GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const double departWeight) {
     // get TAZ parent
     GNETAZElement *TAZ = myNet->retrieveTAZElement(SUMO_TAG_TAG, sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
     // get edge
@@ -968,7 +968,7 @@ GNEAdditionalHandlerBeta::buildTAZSource(const CommonXMLStructure::SumoBaseObjec
 
 
 void 
-GNEAdditionalHandlerBeta::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const double arrivalWeight) {
+GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const double arrivalWeight) {
     // get TAZ parent
     GNETAZElement *TAZ = myNet->retrieveTAZElement(SUMO_TAG_TAG, sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
     // get edge
@@ -1030,7 +1030,7 @@ GNEAdditionalHandlerBeta::buildTAZSink(const CommonXMLStructure::SumoBaseObject*
 
 
 void 
-GNEAdditionalHandlerBeta::buildPolygon(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
+GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
     const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape, bool geo, bool fill, 
     double lineWidth, const std::string& name, const std::map<std::string, std::string> &parameters) {
     // check if poly exist
@@ -1054,7 +1054,7 @@ GNEAdditionalHandlerBeta::buildPolygon(const CommonXMLStructure::SumoBaseObject*
 
 
 void 
-GNEAdditionalHandlerBeta::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
+GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
     const RGBColor& color, const Position& pos, bool geo, double layer, double angle, const std::string& imgFile, bool relativePath, 
     double width, double height, const std::string& name, const std::map<std::string, std::string> &parameters) {
     // check if ID is duplicated
@@ -1079,7 +1079,7 @@ GNEAdditionalHandlerBeta::buildPOI(const CommonXMLStructure::SumoBaseObject* sum
 
 
 void 
-GNEAdditionalHandlerBeta::buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
+GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
     const RGBColor& color, const std::string& laneID, double posOverLane, double posLat, double layer, double angle, const std::string& imgFile, 
     bool relativePath, double width, double height, const std::string& name, const std::map<std::string, std::string> &parameters) {
     // check if ID is duplicated
@@ -1107,7 +1107,7 @@ GNEAdditionalHandlerBeta::buildPOILane(const CommonXMLStructure::SumoBaseObject*
 
 
 bool
-GNEAdditionalHandlerBeta::accessCanBeCreated(GNEAdditional* busStopParent, GNEEdge* edge) {
+GNEAdditionalHandler::accessCanBeCreated(GNEAdditional* busStopParent, GNEEdge* edge) {
     // check if exist another acces for the same busStop in the given edge
     for (const auto & additional: busStopParent->getChildAdditionals()) {
         for (const auto &lane : edge->getLanes()) {
@@ -1121,7 +1121,7 @@ GNEAdditionalHandlerBeta::accessCanBeCreated(GNEAdditional* busStopParent, GNEEd
 
 
 bool
-GNEAdditionalHandlerBeta::checkOverlappingRerouterIntervals(GNEAdditional* rerouter, SUMOTime newBegin, SUMOTime newEnd) {
+GNEAdditionalHandler::checkOverlappingRerouterIntervals(GNEAdditional* rerouter, SUMOTime newBegin, SUMOTime newEnd) {
     // declare a vector to keep sorted rerouter children
     std::vector<std::pair<SUMOTime, SUMOTime>> sortedIntervals;
     // iterate over child additional
@@ -1148,7 +1148,7 @@ GNEAdditionalHandlerBeta::checkOverlappingRerouterIntervals(GNEAdditional* rerou
 
 
 bool 
-GNEAdditionalHandlerBeta::checkAndFixDetectorPosition(double& pos, const double laneLength, const bool friendlyPos) {
+GNEAdditionalHandler::checkAndFixDetectorPosition(double& pos, const double laneLength, const bool friendlyPos) {
     if (fabs(pos) > laneLength) {
         if (!friendlyPos) {
             return false;
@@ -1163,7 +1163,7 @@ GNEAdditionalHandlerBeta::checkAndFixDetectorPosition(double& pos, const double 
 
 
 bool 
-GNEAdditionalHandlerBeta::fixE2DetectorPosition(double& pos, double& length, const double laneLength, const bool friendlyPos) {
+GNEAdditionalHandler::fixE2DetectorPosition(double& pos, double& length, const double laneLength, const bool friendlyPos) {
     if ((pos < 0) || ((pos + length) > laneLength)) {
         if (!friendlyPos) {
             return false;
@@ -1180,20 +1180,20 @@ GNEAdditionalHandlerBeta::fixE2DetectorPosition(double& pos, double& length, con
 }
 
 // ===========================================================================
-// GNEAdditionalHandlerBeta::NeteditParameters method definitions
+// GNEAdditionalHandler::NeteditParameters method definitions
 // ===========================================================================
 
-GNEAdditionalHandlerBeta::NeteditParameters::NeteditParameters(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) :
+GNEAdditionalHandler::NeteditParameters::NeteditParameters(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) :
     blockMovement(sumoBaseObject->hasBoolAttribute(GNE_ATTR_BLOCK_MOVEMENT)? sumoBaseObject->getBoolAttribute(GNE_ATTR_BLOCK_MOVEMENT) : false),
     select(sumoBaseObject->hasBoolAttribute(GNE_ATTR_SELECTED)? sumoBaseObject->getBoolAttribute(GNE_ATTR_SELECTED) : false),
     centerAfterCreation(sumoBaseObject->hasBoolAttribute(GNE_ATTR_CENTER_AFTER_CREATION)? sumoBaseObject->getBoolAttribute(GNE_ATTR_CENTER_AFTER_CREATION) : false) {
 }
 
 
-GNEAdditionalHandlerBeta::NeteditParameters::~NeteditParameters() {}
+GNEAdditionalHandler::NeteditParameters::~NeteditParameters() {}
 
 
-GNEAdditionalHandlerBeta::NeteditParameters::NeteditParameters() :
+GNEAdditionalHandler::NeteditParameters::NeteditParameters() :
     blockMovement(false),
     select(false),
     centerAfterCreation(false) {

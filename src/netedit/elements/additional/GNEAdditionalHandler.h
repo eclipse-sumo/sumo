@@ -41,16 +41,16 @@ class GNEDemandElement;
 // class definitions
 // ===========================================================================
 
-/// @class GNEAdditionalHandlerBeta
+/// @class GNEAdditionalHandler
 /// @brief Builds additional objects for GNENet (busStops, chargingStations, detectors, etc..)
-class GNEAdditionalHandlerBeta : public AdditionalHandler {
+class GNEAdditionalHandler : public AdditionalHandler {
 public:
 
     /// @brief Constructor
-    GNEAdditionalHandlerBeta(GNENet* net, const std::string& file, const bool allowUndoRedo);
+    GNEAdditionalHandler(GNENet* net, const std::string& file, const bool allowUndoRedo);
 
     /// @brief Destructor
-    ~GNEAdditionalHandlerBeta();
+    ~GNEAdditionalHandler();
 
     /// @name build functions
     /// @{
@@ -570,10 +570,10 @@ protected:
 
 private:
     /// @brief invalidate copy constructor
-    GNEAdditionalHandlerBeta(const GNEAdditionalHandlerBeta& s) = delete;
+    GNEAdditionalHandler(const GNEAdditionalHandler& s) = delete;
 
     /// @brief invalidate assignment operator
-    GNEAdditionalHandlerBeta& operator=(const GNEAdditionalHandlerBeta& s) = delete;
+    GNEAdditionalHandler& operator=(const GNEAdditionalHandler& s) = delete;
 };
 
 

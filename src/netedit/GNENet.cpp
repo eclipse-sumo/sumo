@@ -1627,7 +1627,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load additionals if was recomputed with volatile options
     if (additionalPath != "") {
         // Create additional handler
-        GNEAdditionalHandlerBeta additionalHandler(this, additionalPath, false);
+        GNEAdditionalHandler additionalHandler(this, additionalPath, false);
         // Run parser
         if (!additionalHandler.parse()) {
             WRITE_MESSAGE("Loading of " + additionalPath + " failed.");

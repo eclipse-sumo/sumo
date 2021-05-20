@@ -75,7 +75,7 @@ struct GNENetHelper {
 
         /// @brief declare friend class
         friend class GNEAdditionalHandler;
-        friend class GNEAdditionalHandlerBeta;
+        friend class GNEAdditionalHandler;
         friend class GNERouteHandler;
         friend class GNEChange_Junction;
         friend class GNEChange_EdgeType;
