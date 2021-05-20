@@ -23,7 +23,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/elements/additional/GNEAdditionalHandlerBeta.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
@@ -37,26 +37,26 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
-                         double pos, const std::string& freq, const std::string& filename, const std::string& vehicleTypes,
-                         const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*>& parentLanes) :
-    GNEAdditional(id, net, type, tag, name, blockMovement, {}, {}, parentLanes, {}, {}, {}, {}, {}),
-              myPositionOverLane(pos),
-              myFreq(freq),
-              myFilename(filename),
-              myVehicleTypes(vehicleTypes),
-myFriendlyPosition(friendlyPos) {
+GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, double pos, const std::string& freq, 
+        const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& vehicleTypes, const std::string& name, 
+        bool friendlyPos, const std::map<std::string, std::string> &parameters, bool blockMovement) :
+    GNEAdditional(id, net, type, tag, name, parameters, blockMovement, {}, {}, parentLanes, {}, {}, {}, {}, {}),
+    myPositionOverLane(pos),
+    myFreq(freq),
+    myFilename(filename),
+    myVehicleTypes(vehicleTypes),
+    myFriendlyPosition(friendlyPos) {
 }
 
 
-GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
-                         double pos, const std::string& freq, const std::string& filename, const std::string& name, bool friendlyPos,
-                         bool blockMovement, const std::vector<GNELane*>& parentLanes) :
-    GNEAdditional(net, type, tag, name, blockMovement, {}, {}, parentLanes, {additionalParent}, {}, {}, {}, {}),
-myPositionOverLane(pos),
-myFreq(freq),
-myFilename(filename),
-myFriendlyPosition(friendlyPos) {
+GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, double pos, const std::string& freq, 
+        const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name, bool friendlyPos, 
+        const std::map<std::string, std::string> &parameters, bool blockMovement) :
+    GNEAdditional(net, type, tag, name, parameters, blockMovement, {}, {}, parentLanes, {additionalParent}, {}, {}, {}, {}),
+    myPositionOverLane(pos),
+    myFreq(freq),
+    myFilename(filename),
+    myFriendlyPosition(friendlyPos) {
 }
 
 
@@ -126,7 +126,7 @@ GNEDetector::getGeometryPositionOverLane() const {
     if (fixedPos < 0) {
         fixedPos += len;
     }
-    GNEAdditionalHandler::checkAndFixDetectorPosition(fixedPos, len, true);
+    GNEAdditionalHandlerBeta::checkAndFixDetectorPosition(fixedPos, len, true);
     return fixedPos * getLane()->getLengthGeometryFactor();
 }
 
