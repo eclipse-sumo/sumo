@@ -36,7 +36,9 @@ CommonXMLStructure::SumoBaseObject::SumoBaseObject(SumoBaseObject* parent, const
     mySumoBaseObjectParent(parent),
     myTag(tag) {
     // add this SumoBaseObject into parent children
-    parent->addSumoBaseObjectChild(this);
+    if (parent) {
+        parent->addSumoBaseObjectChild(this);
+    }
 }
 
 
