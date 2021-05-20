@@ -39,6 +39,7 @@ public:
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
+     * @param[in] departPos lane position in that vehicle must depart when leaves parkingArea
      * @param[in] name Name of ParkingArea
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] roadSideCapacity road side capacity of ParkingArea
@@ -49,7 +50,7 @@ public:
      * @param[in] blockMovement enable or disable additional movement
      */
     GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const std::string &startPos, const std::string &endPos, 
-                   const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, 
+                   const std::string &departPos, const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, 
                    const std::string& length, double angle, const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /// @brief Destructor
@@ -120,6 +121,9 @@ protected:
         /// @brief Invalidated assignment operator.
         GNELotSpaceDefinition& operator=(const GNELotSpaceDefinition&) = delete;
     };
+
+    /// @brief departPos
+    std::string myDepartPos;
 
     /// @brief roadside capacity of Parking Area
     int myRoadSideCapacity;

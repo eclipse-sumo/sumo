@@ -204,8 +204,8 @@ GNEAdditionalHandlerBeta::buildChargingStation(const CommonXMLStructure::SumoBas
 
 void 
 GNEAdditionalHandlerBeta::buildParkingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
-    const std::string &startPos, const std::string &endPos, const std::string& name, const bool friendlyPosition, const int roadSideCapacity, 
-    const bool onRoad, const double width, const std::string &length, const double angle, const std::map<std::string, std::string> &parameters) {
+    const std::string &startPos, const std::string &endPos, const std::string &departPos, const std::string& name, const bool friendlyPosition, 
+    const int roadSideCapacity, const bool onRoad, const double width, const std::string &length, const double angle, const std::map<std::string, std::string> &parameters) {
     // first check if parkingArea exist
     if (myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, id, false) == nullptr) {
         // get NETEDIT parameters
@@ -213,7 +213,7 @@ GNEAdditionalHandlerBeta::buildParkingArea(const CommonXMLStructure::SumoBaseObj
         // get lane
         GNELane *lane = myNet->retrieveLane(laneID);
         // build parkingArea
-        GNEAdditional* parkingArea = new GNEParkingArea(id, lane, myNet, startPos, endPos, name, friendlyPosition, roadSideCapacity,
+        GNEAdditional* parkingArea = new GNEParkingArea(id, lane, myNet, startPos, endPos, departPos, name, friendlyPosition, roadSideCapacity,
                                                         onRoad, width, length, angle, parameters, neteditParameters.blockMovement);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
