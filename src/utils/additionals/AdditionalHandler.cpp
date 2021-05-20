@@ -23,7 +23,6 @@
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/RGBColor.h>
-#include <utils/geom/GeomConvHelper.h>
 
 #include "AdditionalHandler.h"
 
@@ -48,7 +47,6 @@ AdditionalHandler::parse() {
     if (myCommonXMLStructure.getSumoBaseObjectRoot()) {
         parseSumoBaseObject(myCommonXMLStructure.getSumoBaseObjectRoot());
     }
-
     return parserResult;
 }
 
@@ -223,6 +221,11 @@ AdditionalHandler::myEndElement(int element) {
                 parseSumoBaseObject(obj);
                 // just close node
                 myCommonXMLStructure.closeTag();
+                // check if obj is the root
+                if (obj == myCommonXMLStructure.getSumoBaseObjectRoot()) {
+                    // clear root
+                    myCommonXMLStructure.clearSumoBaseObjectRoot();
+                }
                 // delete object
                 delete obj;
                 break;
@@ -340,7 +343,7 @@ AdditionalHandler::parseChargingStationAttributes(const SUMOSAXAttributes& attrs
     // continue if flag is ok
     if (parsedOk) {
         // first open tag
-        myCommonXMLStructure.openTag(SUMO_TAG_BUS_STOP);
+        myCommonXMLStructure.openTag(SUMO_TAG_CHARGING_STATION);
         // add all attributes
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);
@@ -403,6 +406,7 @@ AdditionalHandler::parseParkingSpaceAttributes(const SUMOSAXAttributes& attrs) {
     const double y = attrs.get<double>(SUMO_ATTR_Y, "", parsedOk, false);
     // optional attributes
     const double z = attrs.getOpt<double>(SUMO_ATTR_Z, "", parsedOk, 0, false);
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, "", parsedOk, "", false);
     const std::string width = attrs.getOpt<std::string>(SUMO_ATTR_WIDTH, "", parsedOk, "", false);
     const std::string length = attrs.getOpt<std::string>(SUMO_ATTR_LENGTH, "", parsedOk, "", false);
     const std::string angle = attrs.getOpt<std::string>(SUMO_ATTR_ANGLE, "", parsedOk, "", false);
@@ -415,6 +419,7 @@ AdditionalHandler::parseParkingSpaceAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_X, x);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_Y, y);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_Z, z);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_WIDTH, width);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LENGTH, length);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ANGLE, angle);
@@ -540,25 +545,19 @@ AdditionalHandler::parseE3Attributes(const SUMOSAXAttributes& attrs) {
     bool parsedOk = true;
     // now obtain attributes
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const std::string posStr = attrs.get<std::string>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, false);
+    const Position pos= attrs.get<Position>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, false);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, false);
     const std::string vehicleTypes = attrs.get<std::string>(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, false);
     const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, false);
     const SUMOTime haltingTimeThreshold = attrs.getSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), parsedOk, false);
     const double haltingSpeedThreshold = attrs.get<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), parsedOk, false);
-    // parse position as positionVector
-    const PositionVector pos = GeomConvHelper::parseShapeReporting(posStr, "user-supplied position", 0, parsedOk, false, true);
-    // check position vector
-    if (!parsedOk || (pos.size() != 1)) {
-        throw NumberFormatException("(Position) " + posStr);
-    }
     // continue if flag is ok
     if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
         // first open tag
         myCommonXMLStructure.openTag(SUMO_TAG_E1DETECTOR);
         // add all attributes
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addPositionAttribute(SUMO_ATTR_POSITION, pos.front());
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addPositionAttribute(SUMO_ATTR_POSITION, pos);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
@@ -1082,11 +1081,13 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             break;
         case SUMO_TAG_PARKING_SPACE:
             buildParkingSpace(obj,
-                obj->getPositionAttribute(SUMO_ATTR_POSITION),
+                obj->getDoubleAttribute(SUMO_ATTR_X),
+                obj->getDoubleAttribute(SUMO_ATTR_Y),
+                obj->getDoubleAttribute(SUMO_ATTR_Z),
                 obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
-                obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
-                obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
+                obj->getStringAttribute(SUMO_ATTR_WIDTH),
+                obj->getStringAttribute(SUMO_ATTR_LENGTH),
+                obj->getStringAttribute(SUMO_ATTR_ANGLE),
                 obj->getDoubleAttribute(SUMO_ATTR_SLOPE),
                 obj->getParameters());
             break;
