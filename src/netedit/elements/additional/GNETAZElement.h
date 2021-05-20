@@ -50,6 +50,7 @@ public:
      * @param[in] net pointer to GNENet of this TAZElement element belongs
      * @param[in] type GUIGlObjectType of TAZElement
      * @param[in] tag Type of xml tag that define the TAZElement element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
+     * @param[in] parameters generic parameters
      * @param[in] block movement enable or disable TAZElement movement
      * @param[in] junctionParents vector of junction parents
      * @param[in] edgeParents vector of edge parents
@@ -60,7 +61,8 @@ public:
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      */
-    GNETAZElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, bool blockMovement,
+    GNETAZElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, 
+                  const std::map<std::string, std::string> &parameters, bool blockMovement,
                   const std::vector<GNEJunction*>& junctionParents,
                   const std::vector<GNEEdge*>& edgeParents,
                   const std::vector<GNELane*>& laneParents,
@@ -85,7 +87,8 @@ public:
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
     */
-    GNETAZElement(GNETAZElement* TAZElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, bool blockMovement,
+    GNETAZElement(GNETAZElement* TAZElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
+                  const std::map<std::string, std::string> &parameters, bool blockMovement,
                   const std::vector<GNEJunction*>& junctionParents,
                   const std::vector<GNEEdge*>& edgeParents,
                   const std::vector<GNELane*>& laneParents,
