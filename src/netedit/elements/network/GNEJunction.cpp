@@ -274,8 +274,13 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
                 mcRoundabout->disable();
             }
         }
-        FXMenuCommand* mcClearConnections = GUIDesigns::buildFXMenuCommand(ret, "Clear connections", nullptr, &parent, MID_GNE_JUNCTION_CLEAR_CONNECTIONS);
-        FXMenuCommand* mcResetConnections = GUIDesigns::buildFXMenuCommand(ret, "Reset connections", nullptr, &parent, MID_GNE_JUNCTION_RESET_CONNECTIONS);
+        std::string multi;
+        const int junctionSelSize = (int)myNet->retrieveJunctions(true).size();
+        if (junctionSelSize > 1 && isAttributeCarrierSelected()) {
+            multi = " of " + toString(junctionSelSize) + " junctions";
+        }
+        FXMenuCommand* mcClearConnections = GUIDesigns::buildFXMenuCommand(ret, "Clear connections" + multi, nullptr, &parent, MID_GNE_JUNCTION_CLEAR_CONNECTIONS);
+        FXMenuCommand* mcResetConnections = GUIDesigns::buildFXMenuCommand(ret, "Reset connections" + multi, nullptr, &parent, MID_GNE_JUNCTION_RESET_CONNECTIONS);
         // check if current mode  is correct
         if (wrongMode) {
             mcCustomShape->disable();
