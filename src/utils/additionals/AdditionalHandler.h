@@ -139,9 +139,10 @@ public:
      * @param[in] length ParkingArea's length
      * @param[in] angle ParkingArea's angle
      * @param[in] slope ParkingArea's slope (of this space)
+     * @param[in] parameters generic parameters
      */
-    virtual void buildParkingSpace(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const Position &pos, const std::string& name,
-                                   const double width, const double length, const double angle, const double slope) = 0;
+    virtual void buildParkingSpace(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const Position &pos, const std::string& name, const double width, 
+                                   const double length, const double angle, const double slope, const std::map<std::string, std::string> &parameters) = 0;
 
     /**@brief Builds a induction loop detector (E1)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -224,16 +225,20 @@ public:
      * @param[in] laneID The lane in which the entry detector is placed on
      * @param[in] pos position of the entry detector on the lane
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] parameters generic parameters
      */
-    virtual void buildDetectorEntry(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, const double pos, const bool friendlyPos) = 0;
+    virtual void buildDetectorEntry(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, const double pos, const bool friendlyPos,
+                                    const std::map<std::string, std::string> &parameters) = 0;
 
     /**@brief Builds a exit detector (E3)
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] laneID The lane in which the exit detector is placed on
      * @param[in] pos position of the exit detector on the lane
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] parameters generic parameters
      */
-    virtual void buildDetectorExit(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, const double pos, const bool friendlyPos) = 0;
+    virtual void buildDetectorExit(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, const double pos, const bool friendlyPos,
+                                   const std::map<std::string, std::string> &parameters) = 0;
 
     /**@brief Builds a Instant Induction Loop Detector (E1Instant)
      * @param[in] sumoBaseObject sumo base object used for build

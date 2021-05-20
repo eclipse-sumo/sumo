@@ -331,7 +331,7 @@ AdditionalHandler::parseChargingStationAttributes(const SUMOSAXAttributes& attrs
     const double chargingPower = attrs.get<double>(SUMO_ATTR_CHARGINGPOWER, id.c_str(), parsedOk, false);
     const double efficiency = attrs.get<double>(SUMO_ATTR_EFFICIENCY, id.c_str(), parsedOk, false);
     const bool chargeInTransit = attrs.get<bool>(SUMO_ATTR_CHARGEINTRANSIT, id.c_str(), parsedOk, false);
-    const SUMOTime chargeDelay = attrs.get<SUMOTime>(SUMO_ATTR_CHARGEDELAY, id.c_str(), parsedOk, false);
+    const SUMOTime chargeDelay = attrs.getSUMOTimeReporting(SUMO_ATTR_CHARGEDELAY, id.c_str(), parsedOk, false);
     const bool friendlyPos = attrs.get<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
     // continue if flag is ok
     if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
@@ -427,7 +427,7 @@ AdditionalHandler::parseE1Attributes(const SUMOSAXAttributes& attrs) {
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
     const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, false);
     const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, false);
-    const SUMOTime frequency = attrs.get<SUMOTime>(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, false);
+    const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, false);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, false);
     const std::string vehicleTypes = attrs.get<std::string>(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, false);
     const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, false);
@@ -458,12 +458,12 @@ AdditionalHandler::parseE2SingleLaneAttributes(const SUMOSAXAttributes& attrs) {
     const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, false);
     const double length = attrs.get<double>(SUMO_ATTR_LENGTH, id.c_str(), parsedOk, false);
     const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, false);
-    const SUMOTime frequency = attrs.get<SUMOTime>(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, false);
+    const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, false);
     const std::string trafficLight = attrs.get<std::string>(SUMO_ATTR_TLID, id.c_str(), parsedOk, false);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, false);
     const std::string vehicleTypes = attrs.get<std::string>(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, false);
     const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, false);
-    const SUMOTime haltingTimeThreshold = attrs.get<SUMOTime>(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), parsedOk, false);
+    const SUMOTime haltingTimeThreshold = attrs.getSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), parsedOk, false);
     const double haltingSpeedThreshold = attrs.get<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), parsedOk, false);
     const double jamDistThreshold = attrs.get<double>(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), parsedOk, false);
     const bool friendlyPos = attrs.get<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
@@ -498,12 +498,12 @@ AdditionalHandler::parseE2MultiLanesAttributes(const SUMOSAXAttributes& attrs) {
     const std::vector<std::string> laneIds = attrs.get<std::vector<std::string> >(SUMO_ATTR_LANES, id.c_str(), parsedOk, false);
     const double endPos = attrs.get<double>(SUMO_ATTR_ENDPOS, id.c_str(), parsedOk, false);
     const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, false);
-    const SUMOTime frequency = attrs.get<SUMOTime>(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, false);
+    const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, false);
     const std::string trafficLight = attrs.get<std::string>(SUMO_ATTR_TLID, id.c_str(), parsedOk, false);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, false);
     const std::string vehicleTypes = attrs.get<std::string>(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, false);
     const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, false);
-    const SUMOTime haltingTimeThreshold = attrs.get<SUMOTime>(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), parsedOk, false);
+    const SUMOTime haltingTimeThreshold = attrs.getSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), parsedOk, false);
     const double haltingSpeedThreshold = attrs.get<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), parsedOk, false);
     const double jamDistThreshold = attrs.get<double>(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), parsedOk, false);
     const bool friendlyPos = attrs.get<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
@@ -539,7 +539,7 @@ AdditionalHandler::parseE3Attributes(const SUMOSAXAttributes& attrs) {
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, false);
     const std::string vehicleTypes = attrs.get<std::string>(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, false);
     const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, false);
-    const SUMOTime haltingTimeThreshold = attrs.get<SUMOTime>(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), parsedOk, false);
+    const SUMOTime haltingTimeThreshold = attrs.getSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), parsedOk, false);
     const double haltingSpeedThreshold = attrs.get<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), parsedOk, false);
     // parse position as positionVector
     const PositionVector pos = GeomConvHelper::parseShapeReporting(posStr, "user-supplied position", 0, parsedOk, false, true);
@@ -719,7 +719,7 @@ AdditionalHandler::parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes&
     // declare Ok Flag
     bool parsedOk = true;
     // now obtain attributes
-    const SUMOTime time = attrs.get<SUMOTime>(SUMO_ATTR_TIME, "", parsedOk, false);
+    const SUMOTime time = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, "", parsedOk, false);
     const double speed = attrs.get<double>(SUMO_ATTR_SPEED, "", parsedOk, false);
     // continue if flag is ok
     if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
@@ -755,8 +755,8 @@ AdditionalHandler::parseRerouterIntervalAttributes(const SUMOSAXAttributes& attr
     // declare Ok Flag
     bool parsedOk = true;
     // now obtain attributes
-    const SUMOTime begin = attrs.get<SUMOTime>(SUMO_ATTR_BEGIN, "", parsedOk, false);
-    const SUMOTime end = attrs.get<SUMOTime>(SUMO_ATTR_END, "", parsedOk, false);
+    const SUMOTime begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, "", parsedOk, false);
+    const SUMOTime end = attrs.getSUMOTimeReporting(SUMO_ATTR_END, "", parsedOk, false);
     // continue if flag is ok
     if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
         // first open tag
@@ -873,7 +873,7 @@ AdditionalHandler::parseRouteProbeAttributes(const SUMOSAXAttributes& attrs) {
     const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, false);
     const double pos = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, false);
     const std::string outfile = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, false);
-    const SUMOTime time = attrs.get<SUMOTime>(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, false);
+    const SUMOTime time = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, false);
     const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, false);
     // continue if flag is ok
     if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
@@ -896,8 +896,8 @@ AdditionalHandler::parseVaporizerAttributes(const SUMOSAXAttributes& attrs) {
     bool parsedOk = true;
     // now obtain attributes
     const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_EDGE, "", parsedOk, false);
-    const SUMOTime from = attrs.get<SUMOTime>(SUMO_ATTR_FROM, edgeID.c_str(), parsedOk, false);
-    const SUMOTime end = attrs.get<SUMOTime>(SUMO_ATTR_END, edgeID.c_str(), parsedOk, false);
+    const SUMOTime from = attrs.getSUMOTimeReporting(SUMO_ATTR_FROM, edgeID.c_str(), parsedOk, false);
+    const SUMOTime end = attrs.getSUMOTimeReporting(SUMO_ATTR_END, edgeID.c_str(), parsedOk, false);
     const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, edgeID.c_str(), parsedOk, false);
     // continue if flag is ok
     if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
@@ -1082,7 +1082,8 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
                 obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
                 obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
-                obj->getDoubleAttribute(SUMO_ATTR_SLOPE));
+                obj->getDoubleAttribute(SUMO_ATTR_SLOPE),
+                obj->getParameters());
             break;
         // Detectors
         case SUMO_TAG_E1DETECTOR:
@@ -1151,13 +1152,15 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             buildDetectorEntry(obj,
             obj->getStringAttribute(SUMO_ATTR_LANE),
             obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-            obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS));
+            obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+            obj->getParameters());
             break;
         case SUMO_TAG_DET_EXIT:
             buildDetectorExit(obj,
             obj->getStringAttribute(SUMO_ATTR_LANE),
             obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-            obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS));
+            obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+            obj->getParameters());
             break;
         case SUMO_TAG_INSTANT_INDUCTION_LOOP:
             buildDetectorE1Instant(obj,
