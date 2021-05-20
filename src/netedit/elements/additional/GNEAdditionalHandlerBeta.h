@@ -124,19 +124,21 @@ public:
      * @param[in] name Name of Parking Area
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] roadSideCapacity road side capacity of ParkingArea
-     * @param[in] width ParkingArea's length
+     * @param[in] width ParkingArea's width
      * @param[in] length ParkingArea's length
      * @param[in] angle ParkingArea's angle
      * @param[in] parameters generic parameters
      */
     void buildParkingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
                           const std::string &startPos, const std::string &endPos, const std::string& name, const bool friendlyPosition, 
-                          const int roadSideCapacity, const bool onRoad, const double width, const std::string& length, const double angle, 
-                          const std::map<std::string, std::string> &parameters);
+                          const int roadSideCapacity, const bool onRoad, const double width, const std::string& length, 
+                          const double angle, const std::map<std::string, std::string> &parameters);
 
     /**@brief Builds a Parking Space
      * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] pos ParkingSpace's X-Y position
+     * @param[in] x Position X
+     * @param[in] y Position Y
+     * @param[in] z Position Z
      * @param[in] name Name of Parking Area
      * @param[in] width ParkingArea's width
      * @param[in] length ParkingArea's length
@@ -144,8 +146,9 @@ public:
      * @param[in] slope ParkingArea's slope (of this space)
      * @param[in] parameters generic parameters
      */
-    void buildParkingSpace(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const Position &pos, const std::string& name, const double width, 
-                           const double length, const double angle, const double slope, const std::map<std::string, std::string> &parameters);
+    void buildParkingSpace(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const double x, const double y, const double z, 
+                           const std::string& name, const std::string &width, const std::string &length, const std::string &angle, 
+                           const double slope, const std::map<std::string, std::string> &parameters);
 
     /**@brief Builds a induction loop detector (E1)
      * @param[in] sumoBaseObject sumo base object used for build
