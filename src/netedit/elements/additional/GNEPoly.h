@@ -59,11 +59,13 @@ public:
      * @param[in] relativePath set image file as relative path
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth Line width when drawing unfilled polygon
-     * @param[in] movementBlocked if movement of POI is blocked
-     * @param[in] shapeBlocked if shape of POI is blocked
+     * @param[in] parameters generic parameters
+     * @param[in] blockMovement enable or disable shape movement
+     * @param[in] blockMovement enable or disable shape blocking
      */
-    GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
-            const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool shapeBlocked);
+    GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, 
+            double lineWidth, const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, 
+            const std::map<std::string, std::string> &parameters, bool movementBlocked, bool shapeBlocked);
 
     /// @brief Destructor
     ~GNEPoly();

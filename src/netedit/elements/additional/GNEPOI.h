@@ -58,10 +58,12 @@ public:
      * @param[in] relativePath set image file as relative path
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
-     * @param[in] movementBlocked if movement of POI is blocked
+     * @param[in] parameters generic parameters
+     * @param[in] blockMovement enable or disable shape movement
      */
     GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-           double layer, double angle, const std::string& imgFile, bool relativePath, double width, double height, bool movementBlocked);
+           double layer, double angle, const std::string& imgFile, bool relativePath, double width, double height, 
+           const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /** @brief Constructor
      * @param[in] net net in which this polygon is placed
@@ -77,11 +79,12 @@ public:
      * @param[in] posLat Lateral position over lane
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
+     * @param[in] parameters generic parameters
      * @param[in] movementBlocked if movement of POI is blocked
      */
     GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
            double layer, double angle, const std::string& imgFile, bool relativePath, GNELane* lane, double posOverLane,
-           double posLat, double width, double height, bool movementBlocked);
+           double posLat, double width, double height, const std::map<std::string, std::string> &parameters, bool movementBlocked);
 
     /// @brief Destructor
     ~GNEPOI();

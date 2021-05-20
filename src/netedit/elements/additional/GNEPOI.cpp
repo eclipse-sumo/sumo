@@ -40,11 +40,11 @@
 // method definitions
 // ===========================================================================
 
-GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
-               const Position& pos, bool geo, double layer, double angle, const std::string& imgFile,
-               bool relativePath, double width, double height, bool movementBlocked) :
+GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const Position& pos,
+        bool geo, double layer, double angle, const std::string& imgFile, bool relativePath, double width, double height, 
+        const std::map<std::string, std::string> &parameters, bool movementBlocked) :
     PointOfInterest(id, type, color, pos, geo, "", 0, 0, layer, angle, imgFile, relativePath, width, height),
-    GNEShape(id, net, GLO_POI, SUMO_TAG_POI, movementBlocked, {}, {}, {}, {}, {}, {}, {}, {}) {
+    GNEShape(id, net, GLO_POI, SUMO_TAG_POI, parameters, movementBlocked, {}, {}, {}, {}, {}, {}, {}, {}) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // set GEO Position
@@ -53,11 +53,11 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 }
 
 
-GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
-               double layer, double angle, const std::string& imgFile, bool relativePath, GNELane* lane, double posOverLane, double posLat,
-               double width, double height, bool movementBlocked) :
+GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
+        const std::string& imgFile, bool relativePath, GNELane* lane, double posOverLane, double posLat, double width, 
+        double height, const std::map<std::string, std::string> &parameters, bool movementBlocked) :
     PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, posLat, layer, angle, imgFile, relativePath, width, height),
-    GNEShape(id, net, GLO_POI, SUMO_TAG_POILANE, movementBlocked, {}, {}, {lane}, {}, {}, {}, {}, {}) {
+    GNEShape(id, net, GLO_POI, SUMO_TAG_POILANE, parameters, movementBlocked, {}, {}, {lane}, {}, {}, {}, {}, {}) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
