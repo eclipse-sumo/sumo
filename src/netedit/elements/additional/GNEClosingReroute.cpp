@@ -31,10 +31,10 @@
 // ===========================================================================
 
 GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions) :
-    GNEAdditional(rerouterIntervalParent->getNet(), GLO_CALIBRATOR, SUMO_TAG_CLOSING_REROUTE, "", false,
-{}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}),
-myClosedEdge(closedEdge),
-myPermissions(permissions) {
+    GNEAdditional(rerouterIntervalParent->getNet(), GLO_CALIBRATOR, SUMO_TAG_CLOSING_REROUTE, "", std::map<std::string, std::string>(), false,
+        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}),
+    myClosedEdge(closedEdge),
+    myPermissions(permissions) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

@@ -142,9 +142,10 @@ public:
      * @param[in] length ParkingArea's length
      * @param[in] angle ParkingArea's angle
      * @param[in] slope ParkingArea's slope (of this space)
+     * @param[in] parameters generic parameters
      */
-    void buildParkingSpace(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const Position &pos, const std::string& name,
-                           const double width, const double length, const double angle, const double slope);
+    void buildParkingSpace(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const Position &pos, const std::string& name, const double width, 
+                           const double length, const double angle, const double slope, const std::map<std::string, std::string> &parameters);
 
     /**@brief Builds a induction loop detector (E1)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -203,8 +204,8 @@ public:
      */
     void buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::vector<std::string>& lanes, 
                                   const double pos, const double endPos, const std::string& freq, const std::string& trafficLight, const std::string& filename, 
-                                  const std::string& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold,
-                                  const bool friendlyPos, const std::map<std::string, std::string> &parameters);
+                                  const std::string& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, 
+                                  const double jamThreshold, const bool friendlyPos, const std::map<std::string, std::string> &parameters);
 
     /**@brief Builds a multi entry exit detector (E3)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -227,16 +228,20 @@ public:
      * @param[in] laneID The lane in which the entry detector is placed on
      * @param[in] pos position of the entry detector on the lane
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] parameters generic parameters
      */
-    void buildDetectorEntry(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, const double pos, const bool friendlyPos);
+    void buildDetectorEntry(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, const double pos, const bool friendlyPos,
+                            const std::map<std::string, std::string> &parameters);
 
     /**@brief Builds a exit detector (E3)
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] laneID The lane in which the exit detector is placed on
      * @param[in] pos position of the exit detector on the lane
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] parameters generic parameters
      */
-    void buildDetectorExit(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, const double pos, const bool friendlyPos);
+    void buildDetectorExit(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, const double pos, const bool friendlyPos,
+                           const std::map<std::string, std::string> &parameters);
 
     /**@brief Builds a Instant Induction Loop Detector (E1Instant)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -506,6 +511,23 @@ public:
 
     /// @brief check if an overlapping is produced in rerouter if a interval with certain begin and end is inserted
     static bool checkOverlappingRerouterIntervals(GNEAdditional* rerouter, SUMOTime newBegin, SUMOTime newEnd);
+
+    /**@brief check if the position of a detector over a lane is valid
+     * @param[in] pos pos position of detector
+     * @param[in] laneLength Length of the lane
+     * @param[in] friendlyPos Attribute of detector
+     * @return true if the detector position is valid, false in otherweise
+     */
+    static bool checkAndFixDetectorPosition(double& pos, const double laneLength, const bool friendlyPos);
+
+    /**@brief check if the position of a detector over a lane is valid
+     * @param[in] startPos Start position of detector
+     * @param[in] length length of detector
+     * @param[in] laneLength Length of the lane
+     * @param[in] friendlyPos Attribute of detector
+     * @return true if the detector position is valid, false in otherweise
+     */
+    static bool fixE2DetectorPosition(double& pos, double& length, const double laneLength, const bool friendlyPos);
 
 protected:
     /// @brief struct for Netedit parameters

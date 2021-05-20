@@ -30,10 +30,10 @@
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent) :
-    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW_CALIBRATOR, "", false,
-{}, {}, {}, {calibratorParent}, {}, {}, {}, {}),
-myVehicleType(calibratorParent->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID)),
-myRoute(calibratorParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).begin()->second) {
+    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW_CALIBRATOR, "", std::map<std::string, std::string>(), false,
+        {}, {}, {}, {calibratorParent}, {}, {}, {}, {}),
+    myVehicleType(calibratorParent->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID)),
+    myRoute(calibratorParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).begin()->second) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // fill calibrator flows with default values
@@ -41,31 +41,31 @@ myRoute(calibratorParent->getNet()->getAttributeCarriers()->getDemandElements().
 }
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const std::string& vehsPerHour, const std::string& speed,
-                                     const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
-                                     const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
-                                     const std::string& departPosLat, const std::string& arrivalPosLat, SUMOTime begin, SUMOTime end) :
-    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW_CALIBRATOR, "", false,
-{}, {}, {}, {calibratorParent}, {}, {}, {}, {}),
-myVehicleType(vehicleType),
-myRoute(route),
-myVehsPerHour(vehsPerHour),
-mySpeed(speed),
-myColor(color),
-myDepartLane(departLane),
-myDepartPos(departPos),
-myDepartSpeed(departSpeed),
-myArrivalLane(arrivalLane),
-myArrivalPos(arrivalPos),
-myArrivalSpeed(arrivalSpeed),
-myLine(line),
-myPersonNumber(personNumber),
-myContainerNumber(containerNumber),
-myReroute(reroute),
-myDepartPosLat(departPosLat),
-myArrivalPosLat(arrivalPosLat),
-myBegin(begin),
-myEnd(end) {
+GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const std::string& vehsPerHour, 
+        const std::string& speed, const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, 
+        const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, 
+        bool reroute, const std::string& departPosLat, const std::string& arrivalPosLat, SUMOTime begin, SUMOTime end, const std::map<std::string, std::string> &parameters) :
+    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW_CALIBRATOR, "", parameters, false,
+        {}, {}, {}, {calibratorParent}, {}, {}, {}, {}),
+    myVehicleType(vehicleType),
+    myRoute(route),
+    myVehsPerHour(vehsPerHour),
+    mySpeed(speed),
+    myColor(color),
+    myDepartLane(departLane),
+    myDepartPos(departPos),
+    myDepartSpeed(departSpeed),
+    myArrivalLane(arrivalLane),
+    myArrivalPos(arrivalPos),
+    myArrivalSpeed(arrivalSpeed),
+    myLine(line),
+    myPersonNumber(personNumber),
+    myContainerNumber(containerNumber),
+    myReroute(reroute),
+    myDepartPosLat(departPosLat),
+    myArrivalPosLat(arrivalPosLat),
+    myBegin(begin),
+    myEnd(end) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

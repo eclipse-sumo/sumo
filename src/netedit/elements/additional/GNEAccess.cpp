@@ -31,18 +31,19 @@
 #include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEAccess.h"
-#include "GNEAdditionalHandler.h"
+#include "GNEAdditionalHandlerBeta.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const std::string& length, bool friendlyPos, bool blockMovement) :
-    GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, "", blockMovement,
-{}, {}, {lane}, {busStop}, {}, {}, {}, {}),
-myPositionOverLane(pos),
-myLength(length),
-myFriendlyPosition(friendlyPos) {
+GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const std::string& length, bool friendlyPos, 
+        const std::map<std::string, std::string> &parameters, bool blockMovement) :
+    GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, "", parameters, blockMovement,
+        {}, {}, {lane}, {busStop}, {}, {}, {}, {}),
+    myPositionOverLane(pos),
+    myLength(length),
+    myFriendlyPosition(friendlyPos) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -239,7 +240,7 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
             GNELane* lane = myNet->retrieveLane(value, false);
             if (lane != nullptr) {
                 if (getParentLanes().front()->getParentEdge()->getID() != lane->getParentEdge()->getID()) {
-                    return GNEAdditionalHandler::accessCanBeCreated(getParentAdditionals().at(0), lane->getParentEdge());
+                    return GNEAdditionalHandlerBeta::accessCanBeCreated(getParentAdditionals().at(0), lane->getParentEdge());
                 } else {
                     return true;
                 }

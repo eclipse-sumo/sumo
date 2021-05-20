@@ -51,8 +51,10 @@ public:
      * @param[in] routeprobe route probe vinculated with this calibrator
      * @param[in] calibratorRoutes vector with the calibratorRoutes of calibrator
      * @param[in] calibratorFlows vector with the calibratorFlows of calibrator
+     * @param[in] block movement enable or disable additional movement
      */
-    GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name, const std::string& output, const std::string& routeprobe);
+    GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name, const std::string& output, 
+                  const std::string& routeprobe, const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /**@brief Constructor using lane
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
@@ -65,8 +67,10 @@ public:
      * @param[in] output The output file for writing calibrator information
      * @param[in] calibratorRoutes vector with the calibratorRoutes of calibrator
      * @param[in] calibratorFlows vector with the calibratorFlows of calibrator
+     * @param[in] block movement enable or disable additional movement
      */
-    GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name, const std::string& output, const std::string& routeprobe);
+    GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name, const std::string& output, 
+                  const std::string& routeprobe, const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /// @brief Destructor
     ~GNECalibrator();

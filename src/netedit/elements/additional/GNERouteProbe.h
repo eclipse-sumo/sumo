@@ -40,8 +40,10 @@ public:
      * @oaran[in] name Route Probe Name
      * @param[in] filename The file for generated output
      * @param[in] begin The time at which to start generating output
+     * @param[in] parameters generic parameters
      */
-    GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const std::string& frequency, const std::string& name, const std::string& filename, SUMOTime begin);
+    GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const std::string& frequency, const std::string& name, 
+                  const std::string& filename, SUMOTime begin, const std::map<std::string, std::string> &parameters);
 
     /// @brief Destructor
     ~GNERouteProbe();
