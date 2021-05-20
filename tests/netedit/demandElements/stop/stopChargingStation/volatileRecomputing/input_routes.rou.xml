@@ -44,9 +44,9 @@
         <stop chargingStation="chargingStationE" duration="60.00"/>
         <stop chargingStation="chargingStationD" duration="60.00"/>
         <stop chargingStation="chargingStationC" duration="60.00"/>
-    </flow>
+    </trip>
 	<trip id="trip1" depart="0.00" from="gneE0" to="gneE1">
         <stop chargingStation="chargingStationB" duration="60.00"/>
         <stop chargingStation="chargingStationA" duration="60.00"/>
-    </flow>
+    </trip>
 </routes>
