@@ -34,8 +34,9 @@
 
 GNEVaporizer::GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name,
         const std::map<std::string, std::string> &parameters) :
-    GNEAdditional(edge->getID(), net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, parameters, false,
-        {}, {edge}, {}, {}, {}, {}, {}, {}),
+    GNEAdditional(edge->getID(), net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name,
+        {}, {edge}, {}, {}, {}, {}, {}, {},
+        parameters, false),
     myBegin(begin),
     myEnd(end) {
     // update centering boundary without updating grid

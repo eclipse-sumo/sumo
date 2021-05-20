@@ -43,7 +43,7 @@ public:
      * @param[in] lines lines of the busStop
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
-     * @param[in] block movement enable or disable additional movement
+     * @param[in] blockMovement enable or disable additional movement
      */
     GNEContainerStop(const std::string& id, GNELane* lane, GNENet* net, const std::string &startPos, const std::string &endPos,
                      const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, 

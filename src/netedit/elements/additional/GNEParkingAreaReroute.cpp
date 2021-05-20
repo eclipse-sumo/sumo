@@ -30,8 +30,9 @@
 // ===========================================================================
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible):
-    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, "", std::map<std::string, std::string>(), false,
-        {}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}, {}, {}),
+    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, "",
+        {}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}, {}, {},
+        std::map<std::string, std::string>(), false),
     myProbability(probability),
     myVisible(visible) {
     // update centering boundary without updating grid

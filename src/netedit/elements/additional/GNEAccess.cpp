@@ -39,8 +39,9 @@
 
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const std::string& length, bool friendlyPos, 
         const std::map<std::string, std::string> &parameters, bool blockMovement) :
-    GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, "", parameters, blockMovement,
-        {}, {}, {lane}, {busStop}, {}, {}, {}, {}),
+    GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, "",
+        {}, {}, {lane}, {busStop}, {}, {}, {}, {},
+        parameters, blockMovement),
     myPositionOverLane(pos),
     myLength(length),
     myFriendlyPosition(friendlyPos) {

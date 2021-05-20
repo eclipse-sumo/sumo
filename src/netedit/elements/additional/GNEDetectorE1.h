@@ -43,7 +43,7 @@ public:
      * @param[in] vehicleTypes space separated list of vehicle type ids to consider
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
-     * @param[in] block movement enable or disable additional movement
+     * @param[in] blockMovement enable or disable additional movement
      */
     GNEDetectorE1(const std::string& id, GNELane* lane, GNENet* net, double pos, SUMOTime freq, const std::string& filename, 
                   const std::string& vehicleTypes, const std::string& name, bool friendlyPos, 

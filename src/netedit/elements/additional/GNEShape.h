@@ -38,8 +38,6 @@ public:
      * @param[in] net pointer to GNENet of this shape element belongs
      * @param[in] type GUIGlObjectType of shape
      * @param[in] tag Type of xml tag that define the shape element
-     * @param[in] parameters generic parameters
-     * @param[in] block movement enable or disable additional movement
      * @param[in] net The net to inform about gui updates
      * @param[in] tag sumo xml tag of the element
      * @param[in] parameters generic parameters
@@ -52,9 +50,10 @@ public:
      * @param[in] TAZElementParents vector of TAZElement parents
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
+     * @param[in] parameters generic parameters
+     * @param[in] blockMovement enable or disable shape movement
      */
-    GNEShape(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, 
-             const std::map<std::string, std::string> &parameters, bool movementBlocked,
+    GNEShape(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
              const std::vector<GNEJunction*>& junctionParents,
              const std::vector<GNEEdge*>& edgeParents,
              const std::vector<GNELane*>& laneParents,
@@ -62,7 +61,8 @@ public:
              const std::vector<GNEShape*>& shapeParents,
              const std::vector<GNETAZElement*>& TAZElementParents,
              const std::vector<GNEDemandElement*>& demandElementParents,
-             const std::vector<GNEGenericData*>& genericDataParents);
+             const std::vector<GNEGenericData*>& genericDataParents,
+             const std::map<std::string, std::string> &parameters, bool movementBlocked);
 
     /// @brief Destructor
     virtual ~GNEShape();

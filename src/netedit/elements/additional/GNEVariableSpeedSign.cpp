@@ -36,8 +36,9 @@
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
         const std::map<std::string, std::string> &parameters, bool blockMovement) :
-    GNEAdditional(id, net, GLO_VSS, SUMO_TAG_VSS, name, parameters, blockMovement,
-        {}, {}, {}, {}, {}, {}, {}, {}),
+    GNEAdditional(id, net, GLO_VSS, SUMO_TAG_VSS, name,
+        {}, {}, {}, {}, {}, {}, {}, {},
+        parameters, blockMovement),
     myPosition(pos) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);

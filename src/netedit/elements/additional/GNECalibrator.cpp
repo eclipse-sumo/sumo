@@ -34,8 +34,9 @@
 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name, 
         const std::string& output, const std::string& routeprobe, const std::map<std::string, std::string> &parameters, bool blockMovement) :
-    GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, parameters, blockMovement,
-        {}, {edge}, {}, {}, {}, {}, {}, {}),
+    GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name,
+        {}, {edge}, {}, {}, {}, {}, {}, {},
+        parameters, blockMovement),
     myPositionOverLane(pos),
     myFrequency(frequency),
     myOutput(output),
@@ -47,8 +48,9 @@ GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, 
 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name, 
         const std::string& output, const std::string& routeprobe, const std::map<std::string, std::string> &parameters, bool blockMovement) :
-    GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name, parameters, blockMovement,
-        {}, {}, {lane}, {}, {}, {}, {}, {}),
+    GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name,
+        {}, {}, {lane}, {}, {}, {}, {}, {},
+        parameters, blockMovement),
     myPositionOverLane(pos),
     myFrequency(frequency),
     myOutput(output),

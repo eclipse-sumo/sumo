@@ -46,7 +46,7 @@ public:
      * @param[in] length ParkingArea's length
      * @param[in] angle ParkingArea's angle
      * @param[in] parameters generic parameters
-     * @param[in] block movement enable or disable additional movement
+     * @param[in] blockMovement enable or disable additional movement
      */
     GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const std::string &startPos, const std::string &endPos, 
                    const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, 

@@ -41,7 +41,7 @@ public:
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] parameters generic parameters
-     * @param[in] block movement enable or disable additional movement
+     * @param[in] blockMovement enable or disable additional movement
      */
     GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color,
            const std::map<std::string, std::string> &parameters, bool blockMovement);

@@ -42,7 +42,9 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
         const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, const std::map<std::string, std::string> &parameters, 
         bool movementBlocked, bool /* shapeBlocked */) :
     SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
-    GNEShape(id, net, GLO_POLYGON, SUMO_TAG_POLY, parameters, movementBlocked, {}, {}, {}, {}, {}, {}, {}, {}),
+    GNEShape(id, net, GLO_POLYGON, SUMO_TAG_POLY, 
+        {}, {}, {}, {}, {}, {}, {}, {},
+        parameters, movementBlocked),
     mySimplifiedShape(false) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);

@@ -35,8 +35,9 @@
 // ===========================================================================
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNETAZElement* TAZParent, GNEEdge* edge, double departWeight) :
-    GNETAZElement(TAZParent, TAZParent->getNet(), GLO_TAZ, sourceSinkTag, std::map<std::string, std::string>(), false,
-        {}, {edge}, {}, {}, {}, {TAZParent}, {}, {}),
+    GNETAZElement(TAZParent, TAZParent->getNet(), GLO_TAZ, sourceSinkTag,
+        {}, {edge}, {}, {}, {}, {TAZParent}, {}, {},
+        std::map<std::string, std::string>(), false),
     myDepartWeight(departWeight) {
     //check that this is a TAZ Source OR a TAZ Sink
     if ((sourceSinkTag != SUMO_TAG_TAZSOURCE) && (sourceSinkTag != SUMO_TAG_TAZSINK)) {

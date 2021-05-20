@@ -30,8 +30,9 @@
 // ===========================================================================
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, double speed) :
-    GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS, SUMO_TAG_STEP, "", std::map<std::string, std::string>(), false,
-        {}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {}),
+    GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS, SUMO_TAG_STEP, "",
+        {}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {},
+        std::map<std::string, std::string>(), false),
     myTime(time),
     mySpeed(speed) {
     // update centering boundary without updating grid

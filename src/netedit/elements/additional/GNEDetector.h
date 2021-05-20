@@ -44,7 +44,7 @@ public:
      * @param[in] name detector name
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
-     * @param[in] block movement enable or disable additional movement
+     * @param[in] blockMovement enable or disable additional movement
      */
     GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, double pos, const std::string& freq, 
                 const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& vehicleTypes, 
@@ -62,7 +62,7 @@ public:
      * @param[in] name detector name
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
-     * @param[in] block movement enable or disable additional movement
+     * @param[in] blockMovement enable or disable additional movement
      */
     GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, double pos, const std::string& freq, 
                 const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name, bool friendlyPos, 
