@@ -31,12 +31,13 @@
 // method definitions
 // ===========================================================================
 
-GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos, double width, 
-    double length, double angle, double slope, const std::map<std::string, std::string> &parameters, bool blockMovement) :
+GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const double x, const double y, 
+    const double z, const std::string &width, const std::string &length, const std::string &angle, double slope, 
+    const std::map<std::string, std::string> &parameters, bool blockMovement) :
     GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "",
         {}, {}, {}, {parkingAreaParent}, {}, {}, {}, {},
         parameters, blockMovement),
-    myPosition(pos),
+    myPosition(x, y, z),
     myWidth(width),
     myLength(length),
     myAngle(angle),
@@ -69,15 +70,18 @@ GNEParkingSpace::updateGeometry() {
 
 void
 GNEParkingSpace::updateCenteringBoundary(const bool /*updateGrid*/) {
+    // obtain double values (temporal)
+    const double width = myWidth.empty()? 3.20 : parse<double>(myWidth);
+    const double length = myLength.empty()? 5.00 : parse<double>(myLength);
     // first reset boundary
     myBoundary.reset();
     // add position
     myBoundary.add(myPosition);
     // grow width and lenght
     if (myWidth > myLength) {
-        myBoundary.grow(myWidth);
+        myBoundary.grow(width);
     } else {
-        myBoundary.grow(myLength);
+        myBoundary.grow(length);
     }
     // grow
     myBoundary.grow(10);
@@ -104,9 +108,13 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     const double parkingAreaExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // obtain double values (temporal)
+        const double width = myWidth.empty()? 3.20 : parse<double>(myWidth);
+        const double length = myLength.empty()? 5.00 : parse<double>(myLength);
+        const double angle = myAngle.empty()? 0 : parse<double>(myAngle);
         // obtain values with exaggeration
-        const double widthExaggeration = myWidth * parkingAreaExaggeration;
-        const double lengthExaggeration = myLength * parkingAreaExaggeration;
+        const double widthExaggeration = width * parkingAreaExaggeration;
+        const double lengthExaggeration = length * parkingAreaExaggeration;
         // check exaggeration
         if (s.drawAdditionals(parkingAreaExaggeration)) {
             // push name
@@ -118,7 +126,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             // translate to position
             glTranslated(myPosition.x(), myPosition.y(), 0);
             // rotate
-            glRotated(myAngle, 0, 0, 1);
+            glRotated(angle, 0, 0, 1);
             // only drawn small box if isn't being drawn for selecting
             if (!s.drawForRectangleSelection) {
                 // Set Color depending of selection
@@ -149,11 +157,11 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // draw using drawDottedContourClosedShape
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, myAngle, 1);
+                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, angle, 1);
             }
             if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 // draw using drawDottedContourClosedShape
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, myAngle, 1);
+                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, angle, 1);
             }
         }
         // Draw additional ID
@@ -172,11 +180,11 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_WIDTH:
-            return toString(myWidth);
+            return myWidth;
         case SUMO_ATTR_LENGTH:
-            return toString(myLength);
+            return myLength;
         case SUMO_ATTR_ANGLE:
-            return toString(myAngle);
+            return myAngle;
         case SUMO_ATTR_SLOPE:
             return toString(mySlope);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -279,17 +287,17 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_WIDTH:
-            myWidth = parse<double>(value);
+            myWidth = value;
             // update boundary
             updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_LENGTH:
-            myLength = parse<double>(value);
+            myLength = value;
             // update boundary
             updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_ANGLE:
-            myAngle = parse<double>(value);
+            myAngle = value;
             // update boundary
             updateCenteringBoundary(true);
             break;

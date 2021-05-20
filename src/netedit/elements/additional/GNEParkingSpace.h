@@ -40,7 +40,9 @@ public:
     /**@brief Constructor
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] parkingAreaParent pointer to Parking Area parent
-     * @param[in] pos ParkingSpace's X-Y position
+     * @param[in] x position X
+     * @param[in] x position Y
+     * @param[in] z position Z
      * @param[in] width ParkingArea's width
      * @param[in] length ParkingArea's length
      * @param[in] angle ParkingArea's angle
@@ -48,8 +50,9 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos, double width, double length, double angle, 
-                    double slope, const std::map<std::string, std::string> &parameters, bool blockMovement);
+    GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const double x, const double y, 
+                    const double z, const std::string &width, const std::string &length, const std::string &angle, double slope, 
+                    const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /// @brief Destructor
     ~GNEParkingSpace();
@@ -129,13 +132,13 @@ protected:
     Position myPosition;
 
     /// @brief width of Parking Space
-    double myWidth;
+    std::string myWidth;
 
     /// @brief Length of Parking Space
-    double myLength;
+    std::string myLength;
 
     /// @brief Angle of Parking Space
-    double myAngle;
+    std::string myAngle;
 
     /// @brief Slope of Parking Space
     double mySlope;
