@@ -21,7 +21,7 @@
 #include <netedit/dialogs/GNEAbout.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/elements/network/GNELaneType.h>
-#include <netedit/elements/additional/GNEAdditionalHandlerBeta.h>
+#include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>

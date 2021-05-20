@@ -28,7 +28,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMORouteHandler.h>
 
-#include "GNEAdditionalHandlerBeta.h"
+#include "GNEAdditionalHandler.h"
 #include "GNEAccess.h"
 #include "GNEBusStop.h"
 #include "GNECalibrator.h"

@@ -27,7 +27,7 @@
 #include <netedit/changes/GNEChange_TAZElement.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/additional/GNETAZSourceSink.h>
-#include <netedit/elements/additional/GNEAdditionalHandlerBeta.h>
+#include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/GNEUndoList.h>
 
 #include "GNETAZFrame.h"

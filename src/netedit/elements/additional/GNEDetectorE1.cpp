@@ -24,7 +24,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEDetectorE1.h"
-#include "GNEAdditionalHandlerBeta.h"
+#include "GNEAdditionalHandler.h"
 
 
 // ===========================================================================

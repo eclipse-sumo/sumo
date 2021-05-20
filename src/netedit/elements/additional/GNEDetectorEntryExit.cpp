@@ -25,7 +25,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEDetectorEntryExit.h"
-#include "GNEAdditionalHandlerBeta.h"
+#include "GNEAdditionalHandler.h"
 
 
 // ===========================================================================

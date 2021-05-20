@@ -42,7 +42,7 @@
 #include <netedit/changes/GNEChange_Shape.h>
 #include <netedit/dialogs/GNEFixAdditionalElements.h>
 #include <netedit/dialogs/GNEFixDemandElements.h>
-#include <netedit/elements/additional/GNEAdditionalHandlerBeta.h>
+#include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/elements/network/GNEConnection.h>

@@ -25,7 +25,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 #include <netedit/elements/network/GNEConnection.h>
-#include <netedit/elements/additional/GNEAdditionalHandlerBeta.h>
+#include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>

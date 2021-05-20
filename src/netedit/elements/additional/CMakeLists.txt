@@ -3,8 +3,8 @@ set(netedit_elements_additional_SRCS
    GNEPOI.cpp
    GNEPoly.h
    GNEPoly.cpp
-   GNEAdditionalHandlerBeta.h
-   GNEAdditionalHandlerBeta.cpp
+   GNEAdditionalHandler.h
+   GNEAdditionalHandler.cpp
    GNEAdditional.h
    GNEAdditional.cpp
    GNEShape.h

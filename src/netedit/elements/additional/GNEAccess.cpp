@@ -31,7 +31,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEAccess.h"
-#include "GNEAdditionalHandlerBeta.h"
+#include "GNEAdditionalHandler.h"
 
 // ===========================================================================
 // member method definitions
