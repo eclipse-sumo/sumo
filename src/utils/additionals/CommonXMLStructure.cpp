@@ -45,7 +45,8 @@ CommonXMLStructure::SumoBaseObject::SumoBaseObject(SumoBaseObject* parent, const
 CommonXMLStructure::SumoBaseObject::~SumoBaseObject() {
     // delete all SumoBaseObjectChildrens
     while(mySumoBaseObjectChildren.size() > 0) {
-        delete mySumoBaseObjectChildren.front();
+        delete mySumoBaseObjectChildren.back();
+        mySumoBaseObjectChildren.pop_back();
     }
 }
 
@@ -269,7 +270,7 @@ CommonXMLStructure::SumoBaseObject::addStringListAttribute(const SumoXMLAttr att
 
 void 
 CommonXMLStructure::SumoBaseObject::addPositionVectorAttribute(const SumoXMLAttr attr, const PositionVector &value) {
-    myPositionVectorAttributes[attr] = PositionVector();
+    myPositionVectorAttributes[attr] = value;
 
 }
 
@@ -310,7 +311,9 @@ CommonXMLStructure::CommonXMLStructure() :
 
 CommonXMLStructure::~CommonXMLStructure() {
     // delete mySumoBaseObjectRoot (this will also delete all SumoBaseObjectChildrens)
-    delete mySumoBaseObjectRoot;
+    if (mySumoBaseObjectRoot) {
+        delete mySumoBaseObjectRoot;
+    }
 }
 
 
@@ -338,6 +341,12 @@ CommonXMLStructure::closeTag() {
         // just update last inserted SumoBaseObject
         myLastInsertedSumoBaseObject = myLastInsertedSumoBaseObject->getParentSumoBaseObject();
     }
+}
+
+
+void 
+CommonXMLStructure::clearSumoBaseObjectRoot() {
+    mySumoBaseObjectRoot = nullptr;
 }
 
 

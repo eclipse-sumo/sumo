@@ -215,6 +215,9 @@ public:
     /// @brief close myTag
     void closeTag();
 
+    /// @brief clear root
+    void clearSumoBaseObjectRoot();
+
     /// @brief get SumoBaseObject root
     CommonXMLStructure::SumoBaseObject* getSumoBaseObjectRoot() const;
 
