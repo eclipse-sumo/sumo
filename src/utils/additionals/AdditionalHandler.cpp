@@ -779,7 +779,7 @@ AdditionalHandler::parseCalibratorAttributes(const SUMOSAXAttributes& attrs) {
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "", false);
     const SUMOTime freq = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, 1, false);
     const std::string routeProbe = attrs.getOpt<std::string>(SUMO_ATTR_ROUTEPROBE, id.c_str(), parsedOk, "", false);
-    const double jamThreshold = attrs.getOpt<double>(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), parsedOk, 1, false);
+    const double jamThreshold = attrs.getOpt<double>(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), parsedOk, 0.5, false);
     const std::string output = attrs.getOpt<std::string>(SUMO_ATTR_OUTPUT, id.c_str(), parsedOk, "", false);
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, "", false);
     // continue if flag is ok
@@ -803,6 +803,7 @@ AdditionalHandler::parseCalibratorAttributes(const SUMOSAXAttributes& attrs) {
     }
 }
 
+/* */
 
 void
 AdditionalHandler::parseCalibratorFlowAttributes(const SUMOSAXAttributes& attrs) {
