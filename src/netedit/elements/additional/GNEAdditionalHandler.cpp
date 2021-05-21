@@ -331,7 +331,7 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
             lanes.push_back(myNet->retrieveLane(lane));
         }
         // build E2 multilane detector
-        GNEDetectorE2* detectorE2 = new GNEDetectorE2(id, lanes, myNet, pos, endPos, freq, trafficLight, filename, 
+        GNEAdditional* detectorE2 = new GNEDetectorE2(id, lanes, myNet, pos, endPos, freq, trafficLight, filename, 
                                                       vehicleTypes, name, timeThreshold, speedThreshold, jamThreshold, 
                                                       friendlyPos, parameters, neteditParameters.blockMovement);
         // insert depending of allowUndoRedo
@@ -619,7 +619,7 @@ GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* su
 void 
 GNEAdditionalHandler::buildRerouterInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOTime begin, const SUMOTime end) {
     // get rerouter parent
-    GNEAdditional *rerouter = myNet->retrieveAdditional(SUMO_TAG_REROUTER, sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
+    GNEAdditional *rerouter = myNet->retrieveAdditional(SUMO_TAG_REROUTER, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
     // check if new interval will produce a overlapping
     if (checkOverlappingRerouterIntervals(rerouter, begin, end)) {
         // create rerouter interval and add it into rerouter parent

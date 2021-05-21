@@ -803,7 +803,6 @@ AdditionalHandler::parseCalibratorAttributes(const SUMOSAXAttributes& attrs) {
     }
 }
 
-/* */
 
 void
 AdditionalHandler::parseCalibratorFlowAttributes(const SUMOSAXAttributes& attrs) {
@@ -843,6 +842,7 @@ AdditionalHandler::parseRerouterAttributes(const SUMOSAXAttributes& attrs) {
     }
 }
 
+/*************************************************/
 
 void
 AdditionalHandler::parseRerouterIntervalAttributes(const SUMOSAXAttributes& attrs) {
