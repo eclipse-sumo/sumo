@@ -356,9 +356,21 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
 
 void 
 GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, const SUMOTime freq, 
-    const std::string& filename, const std::string& vehicleTypes, const std::string& name,  SUMOTime timeThreshold, const double speedThreshold, 
+    const std::string& filename, const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, const double speedThreshold, 
     const std::map<std::string, std::string> &parameters) {
-    //
+    // get NETEDIT parameters
+    NeteditParameters neteditParameters(sumoBaseObject);
+    // build E3
+    GNEAdditional* E3 = new GNEDetectorE3(id, myNet, pos, freq, filename, vehicleTypes, name, timeThreshold, speedThreshold, parameters, neteditParameters.blockMovement);
+    // insert depending of allowUndoRedo
+    if (myAllowUndoRedo) {
+        myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_E3DETECTOR));
+        myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(E3, true), true);
+        myNet->getViewNet()->getUndoList()->p_end();
+    } else {
+        myNet->getAttributeCarriers()->insertAdditional(E3);
+        E3->incRef("buildDetectorE3");
+    }
 }
 
 
@@ -368,15 +380,15 @@ GNEAdditionalHandler::buildDetectorEntry(const CommonXMLStructure::SumoBaseObjec
     // get lane
     GNELane *lane = myNet->retrieveLane(laneID);
     // get E3 parent
-    GNEAdditional *E3 = myNet->retrieveAdditional(SUMO_TAG_E3DETECTOR, sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
-    // get NETEDIT parameters
-    NeteditParameters neteditParameters(sumoBaseObject);
+    GNEAdditional *E3 = myNet->retrieveAdditional(SUMO_TAG_E3DETECTOR, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
     // Check if Detector E3 parent and lane is correct
     if (lane == nullptr) {
         throw ProcessError("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_LANE) + " doesn't exist.");
     } else if (E3 == nullptr) {
         throw ProcessError("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_E3DETECTOR) + " parent doesn't exist.");
     } else {
+        // get NETEDIT parameters
+        NeteditParameters neteditParameters(sumoBaseObject);
         // build entry instant
         GNEAdditional* entry = new GNEDetectorEntryExit(SUMO_TAG_DET_ENTRY, myNet, E3, lane, pos, friendlyPos, parameters, neteditParameters.blockMovement);
         // insert depending of allowUndoRedo
@@ -400,15 +412,15 @@ GNEAdditionalHandler::buildDetectorExit(const CommonXMLStructure::SumoBaseObject
     // get lane
     GNELane *lane = myNet->retrieveLane(laneID);
     // get E3 parent
-    GNEAdditional *E3 = myNet->retrieveAdditional(SUMO_TAG_E3DETECTOR, sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
-    // get NETEDIT parameters
-    NeteditParameters neteditParameters(sumoBaseObject);
+    GNEAdditional *E3 = myNet->retrieveAdditional(SUMO_TAG_E3DETECTOR, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
     // Check if Detector E3 parent and lane is correct
     if (lane == nullptr) {
         throw ProcessError("Could not build " + toString(SUMO_TAG_DET_EXIT) + " in netedit; " +  toString(SUMO_TAG_LANE) + " doesn't exist.");
     } else if (E3 == nullptr) {
         throw ProcessError("Could not build " + toString(SUMO_TAG_DET_EXIT) + " in netedit; " +  toString(SUMO_TAG_E3DETECTOR) + " parent doesn't exist.");
     } else {
+        // get NETEDIT parameters
+        NeteditParameters neteditParameters(sumoBaseObject);
         // build exit instant
         GNEAdditional* exit = new GNEDetectorEntryExit(SUMO_TAG_DET_EXIT, myNet, E3, lane, pos, friendlyPos, parameters, neteditParameters.blockMovement);
         // insert depending of allowUndoRedo
