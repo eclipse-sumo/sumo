@@ -759,11 +759,48 @@ AdditionalHandler::parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes&
     }
 }
 
-/* */
 
 void
 AdditionalHandler::parseCalibratorAttributes(const SUMOSAXAttributes& attrs) {
-
+    // check that frecuency and trafficLight were defined together
+    if ((attrs.hasAttribute(SUMO_ATTR_EDGE) && attrs.hasAttribute(SUMO_ATTR_LANE)) ||
+        (!attrs.hasAttribute(SUMO_ATTR_EDGE) && !attrs.hasAttribute(SUMO_ATTR_LANE))) {
+        throw FormatException("Calibrators need either an edge or a lane");
+    }
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
+    const double pos = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, false);
+    // special attributes
+    const std::string edge = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), parsedOk, false);
+    const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, false);
+    // optional attributes
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "", false);
+    const SUMOTime freq = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, 1, false);
+    const std::string routeProbe = attrs.getOpt<std::string>(SUMO_ATTR_ROUTEPROBE, id.c_str(), parsedOk, "", false);
+    const double jamThreshold = attrs.getOpt<double>(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), parsedOk, 1, false);
+    const std::string output = attrs.getOpt<std::string>(SUMO_ATTR_OUTPUT, id.c_str(), parsedOk, "", false);
+    const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, "", false);
+    // continue if flag is ok
+    if (parsedOk) {
+        // first open tag depending of edge/lane
+        if (attrs.hasAttribute(SUMO_ATTR_EDGE)) {
+            myCommonXMLStructure.openTag(SUMO_TAG_CALIBRATOR);
+            myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_EDGE, edge);
+        } else {
+            myCommonXMLStructure.openTag(SUMO_TAG_LANECALIBRATOR);
+            myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, lane);
+        }
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, pos);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_FREQUENCY, freq);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ROUTEPROBE, routeProbe);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD, jamThreshold);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_OUTPUT, output);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_VTYPES, vTypes);
+    }
 }
 
 
@@ -1249,6 +1286,8 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getStringAttribute(SUMO_ATTR_OUTPUT),
                 obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
                 obj->getStringAttribute(SUMO_ATTR_ROUTEPROBE),
+                obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
+                obj->getStringAttribute(SUMO_ATTR_VTYPES),
                 obj->getParameters());
             break;
         case SUMO_TAG_LANECALIBRATOR:
@@ -1260,6 +1299,8 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getStringAttribute(SUMO_ATTR_OUTPUT),
                 obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
                 obj->getStringAttribute(SUMO_ATTR_ROUTEPROBE),
+                obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
+                obj->getStringAttribute(SUMO_ATTR_VTYPES),
                 obj->getParameters());
             break;
         case SUMO_TAG_FLOW_CALIBRATOR:
