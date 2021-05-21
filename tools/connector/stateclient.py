@@ -37,22 +37,22 @@ def read(client):
 
 def main():
     parser = sumolib.options.ArgumentParser()
-    parser.add_argument("--net-file", dest="net", default="net.net.xml", help="network file")
+    parser.add_argument("--sumo-config", default="sumo.sumocfg", help="sumo config file")
     parser.add_argument("--state-file", dest="state", default="state.xml", help="filename for the temporary local state file")
     parser.add_argument("--host", default="localhost", help="host of the state server to connect to")
     parser.add_argument("--port", type=int, default=stateserver.PORT, help="Port for the state server.")
     options = parser.parse_args()
 
-    traci.start([sumoBinary, "-n", options.net, "-S"])
+    traci.start([sumoBinary, "-c", options.sumo_config, "-S"])
     while True:
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client.connect((options.host, options.port))
         with open(options.state, "wb") as clientstate:
             clientstate.write(read(client))
         traci.simulation.loadState(options.state)
-        for _ in range(10):
+        for _ in range(100):
             traci.simulationStep()
-        time.sleep(1)
+            time.sleep(0.1)
 
 
 if __name__ == "__main__":
