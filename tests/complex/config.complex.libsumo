@@ -11,3 +11,8 @@ log:***Starting server on port
 log:TraCI {REPLACE Libsumo }
 log:via Libsumo {REPLACE }
 log:Requested command not implemented
+log:traci.simulation.step(0){REPLACE traci.simulationStep()}
+log:traci.simulation.close(){REPLACE traci.close()}
+log:traci\.(.*)\.subscribe\((.*), \[\]\){REPLACE traci.\1.unsubscribe(\2)}
+log2:traci.simulation.step(0){REPLACE traci.simulationStep()}
+log2:traci.simulation.close(){REPLACE traci.close()}

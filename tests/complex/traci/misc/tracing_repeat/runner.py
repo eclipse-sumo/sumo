@@ -40,9 +40,9 @@ def setGetParam(objectType, object, objectID):
     print(objectType, 'foo="%s"' % object.getParameter(objectID, "foo"))
 
 
-def traceTest(label, log):
+def traceTest(log):
     traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:],
-                label=label, traceFile=log)
+                traceFile=log)
     print("step", step())
 
     # XXX test PoI, Polygon
@@ -62,5 +62,5 @@ def traceTest(label, log):
     traci.close()
 
 
-traceTest("default", "log.txt")
-traceTest("default2", "log2.txt")
+traceTest("log.txt")
+traceTest("log2.txt")
