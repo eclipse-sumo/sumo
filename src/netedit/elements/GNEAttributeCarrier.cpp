@@ -2122,6 +2122,17 @@ GNEAttributeCarrier::fillAdditionals() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
                                               "The output file for writing calibrator information or NULL");
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_JAM_DIST_THRESHOLD,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "A threshold value to detect and clear unexpected jamming",
+                                              "0.5");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_VTYPES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "space separated list of vehicle type ids to consider (empty to affect all types)");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_LANECALIBRATOR;
     {
@@ -2166,6 +2177,17 @@ GNEAttributeCarrier::fillAdditionals() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_OUTPUT,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
                                               "The output file for writing calibrator information or NULL");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_JAM_DIST_THRESHOLD,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "A threshold value to detect and clear unexpected jamming",
+                                              "0.5");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_VTYPES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "space separated list of vehicle type ids to consider (empty to affect all types)");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_FLOW_CALIBRATOR;

@@ -33,28 +33,34 @@
 // ===========================================================================
 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name, 
-        const std::string& output, const std::string& routeprobe, const std::map<std::string, std::string> &parameters, bool blockMovement) :
+        const std::string& output, const std::string& routeprobe, const double jamThreshold, const std::string &vTypes, 
+        const std::map<std::string, std::string> &parameters, bool blockMovement) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name,
         {}, {edge}, {}, {}, {}, {}, {}, {},
         parameters, blockMovement),
     myPositionOverLane(pos),
     myFrequency(frequency),
     myOutput(output),
-    myRouteProbe(routeprobe) {
+    myRouteProbe(routeprobe),
+    myJamThreshold(jamThreshold),
+    myVTypes(vTypes){
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
 
 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name, 
-        const std::string& output, const std::string& routeprobe, const std::map<std::string, std::string> &parameters, bool blockMovement) :
+        const std::string& output, const std::string& routeprobe, const double jamThreshold, const std::string &vTypes, 
+        const std::map<std::string, std::string> &parameters, bool blockMovement) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name,
         {}, {}, {lane}, {}, {}, {}, {}, {},
         parameters, blockMovement),
     myPositionOverLane(pos),
     myFrequency(frequency),
     myOutput(output),
-    myRouteProbe(routeprobe) {
+    myRouteProbe(routeprobe),
+    myJamThreshold(jamThreshold),
+    myVTypes(vTypes){
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -185,6 +191,10 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
             return myOutput;
         case SUMO_ATTR_ROUTEPROBE:
             return myRouteProbe;
+        case SUMO_ATTR_JAM_DIST_THRESHOLD:
+            return toString(myJamThreshold);
+        case SUMO_ATTR_VTYPES:
+            return myVTypes;
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -215,6 +225,8 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_OUTPUT:
         case SUMO_ATTR_ROUTEPROBE:
+        case SUMO_ATTR_JAM_DIST_THRESHOLD:
+        case SUMO_ATTR_VTYPES:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -264,6 +276,14 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_ROUTEPROBE:
             return SUMOXMLDefinitions::isValidAdditionalID(value);
+        case SUMO_ATTR_JAM_DIST_THRESHOLD:
+            return canParse<double>(value)? (parse<double>(value) >= 0) : false;
+        case SUMO_ATTR_VTYPES:
+            if (value.empty()) {
+                return true;
+            } else {
+                return SUMOXMLDefinitions::isValidListOfTypeID(value);
+            }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -375,6 +395,12 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ROUTEPROBE:
             myRouteProbe = value;
+            break;
+        case SUMO_ATTR_JAM_DIST_THRESHOLD:
+            myJamThreshold = parse<double>(value);
+            break;
+        case SUMO_ATTR_VTYPES:
+            myVTypes = value;
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
