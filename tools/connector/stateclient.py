@@ -25,7 +25,6 @@ import glob
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib
 import traci
-import stateserver
 
 sumoBinary = sumolib.checkBinary("sumo-gui")
 
@@ -45,7 +44,7 @@ def main():
         fileSteps.sort()
         lastState = fileSteps[-2][1]
         print(os.path.basename(lastState))
-        traci.simulationStep()
+        #traci.simulationStep()
         traci.simulation.loadState(lastState)
         time.sleep(1)
 
