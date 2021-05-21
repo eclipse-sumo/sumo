@@ -657,27 +657,27 @@ AdditionalHandler::parseE1InstantAttributes(const SUMOSAXAttributes& attrs) {
     }
 }
 
-/**/
 
 void
 AdditionalHandler::parseTAZAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // now obtain attributes
+    // needed attributes
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
     const PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), parsedOk, false);
-    const RGBColor color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, false);
-    const std::vector<std::string> edges = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk, false);
-    const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, false);
+    // optional attributes
+    const std::vector<std::string> edges = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk, std::vector<std::string>(), false);
+    const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::RED, false);
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "", false);
     // continue if flag is ok
-    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+    if (parsedOk) {
         // first open tag
         myCommonXMLStructure.openTag(SUMO_TAG_TAZ);
         // add all attributes
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shape);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringListAttribute(SUMO_ATTR_EDGES, edges);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
     }
 }
@@ -687,7 +687,7 @@ void
 AdditionalHandler::parseTAZSourceAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // now obtain attributes
+    // needed attributes
     const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_EDGE, "", parsedOk, false);
     const double weight = attrs.get<double>(SUMO_ATTR_WEIGHT, edgeID.c_str(), parsedOk, false);
     // continue if flag is ok
@@ -705,7 +705,7 @@ void
 AdditionalHandler::parseTAZSinkAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // now obtain attributes
+    // needed attributes
     const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_EDGE, "", parsedOk, false);
     const double weight = attrs.get<double>(SUMO_ATTR_WEIGHT, edgeID.c_str(), parsedOk, false);
     // continue if flag is ok
@@ -723,19 +723,20 @@ void
 AdditionalHandler::parseVariableSpeedSignAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // now obtain attributes
+    // needed attributes
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const Position pos = attrs.get<Position>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, false);
     const std::vector<std::string> lanes = attrs.get<std::vector<std::string> >(SUMO_ATTR_LANES, id.c_str(), parsedOk, false);
-    const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, false);
+    // optional attributes
+    const Position pos = attrs.getOpt<Position>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, Position(), false);
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "", false);
     // continue if flag is ok
-    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+    if (parsedOk) {
         // first open tag
         myCommonXMLStructure.openTag(SUMO_TAG_VSS);
         // add all attributes
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addPositionAttribute(SUMO_ATTR_POSITION, pos);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LANES, lanes);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addPositionAttribute(SUMO_ATTR_POSITION, pos);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
     }
 }
@@ -745,7 +746,7 @@ void
 AdditionalHandler::parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // now obtain attributes
+    // needed attributes
     const SUMOTime time = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, "", parsedOk, false);
     const double speed = attrs.get<double>(SUMO_ATTR_SPEED, "", parsedOk, false);
     // continue if flag is ok
@@ -758,6 +759,7 @@ AdditionalHandler::parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes&
     }
 }
 
+/* */
 
 void
 AdditionalHandler::parseCalibratorAttributes(const SUMOSAXAttributes& attrs) {
@@ -1297,11 +1299,6 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getStringAttribute(SUMO_ATTR_VTYPES),
                 obj->getParameters());
             break;
-        case SUMO_TAG_INTERVAL:
-            buildRerouterInterval(obj,
-                obj->getTimeAttribute(SUMO_ATTR_BEGIN),
-                obj->getTimeAttribute(SUMO_ATTR_END));
-            break;
         case SUMO_TAG_CLOSING_LANE_REROUTE:
             buildClosingLaneReroute(obj,
                 obj->getStringAttribute(SUMO_ATTR_LANE),
@@ -1327,6 +1324,18 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             buildRouteProbReroute(obj,
                 obj->getStringAttribute(SUMO_ATTR_ROUTE),
                 obj->getDoubleAttribute(SUMO_ATTR_PROB));
+            break;
+        case SUMO_TAG_INTERVAL:
+            // check if is VSS or a REROUTER interval
+            if (obj->getParentSumoBaseObject()->getTag() == SUMO_TAG_REROUTER) {
+                buildRerouterInterval(obj,
+                    obj->getTimeAttribute(SUMO_ATTR_BEGIN),
+                    obj->getTimeAttribute(SUMO_ATTR_END));
+            } else {
+                buildVariableSpeedSignStep(obj,
+                    obj->getTimeAttribute(SUMO_ATTR_TIME),
+                    obj->getDoubleAttribute(SUMO_ATTR_SPEED));
+            }
             break;
         // Route probe
         case SUMO_TAG_ROUTEPROBE:
