@@ -561,11 +561,8 @@ private:
     /// @brief parse E1 attributes
     void parseE1Attributes(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse E2 single lane attributes
-    void parseE2SingleLaneAttributes(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse E2 multilane attributes
-    void parseE2MultiLanesAttributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse E2 attributes
+    void parseE2Attributes(const SUMOSAXAttributes& attrs);
 
     /// @brief parse E3 attributes
     void parseE3Attributes(const SUMOSAXAttributes& attrs);

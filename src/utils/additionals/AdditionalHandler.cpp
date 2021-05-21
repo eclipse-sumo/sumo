@@ -85,10 +85,8 @@ AdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 break;
             case SUMO_TAG_E2DETECTOR:
             case SUMO_TAG_LANE_AREA_DETECTOR:
-                parseE2SingleLaneAttributes(attrs);
-                break;
-            case SUMO_TAG_E2DETECTOR_MULTILANE:
-                parseE2MultiLanesAttributes(attrs);
+
+                parseE2Attributes(attrs);
                 break;
             case SUMO_TAG_E3DETECTOR:
             case SUMO_TAG_ENTRY_EXIT_DETECTOR:
@@ -199,7 +197,7 @@ AdditionalHandler::myEndElement(int element) {
             case SUMO_TAG_E1DETECTOR:
             case SUMO_TAG_INDUCTION_LOOP:
             case SUMO_TAG_E2DETECTOR:
-            case SUMO_TAG_E2DETECTOR_MULTILANE:
+            case GNE_TAG_E2DETECTOR_MULTILANE:
             case SUMO_TAG_LANE_AREA_DETECTOR:
             case SUMO_TAG_E3DETECTOR:
             case SUMO_TAG_ENTRY_EXIT_DETECTOR:
@@ -462,21 +460,31 @@ AdditionalHandler::parseE1Attributes(const SUMOSAXAttributes& attrs) {
 
 
 void
-AdditionalHandler::parseE2SingleLaneAttributes(const SUMOSAXAttributes& attrs) {
-    // check that frecuency and trafficLight were defined together
+AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
+    // check that frecuency and trafficLight aren't defined together
     if ((attrs.hasAttribute(SUMO_ATTR_FREQUENCY) && attrs.hasAttribute(SUMO_ATTR_TLID)) ||
         (!attrs.hasAttribute(SUMO_ATTR_FREQUENCY) && !attrs.hasAttribute(SUMO_ATTR_TLID))) {
-        throw FormatException("define either Frecuency or traffic light ID in E2 detector");
+        throw FormatException("define either Lanes or traffic light ID in E2 detector");
+    }
+    // check that lane and length are defined together
+    if (attrs.hasAttribute(SUMO_ATTR_LANE) && !attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
+        throw FormatException("lane and length must be defined together in E2 detector");
+    }
+    // check that lanes and endPos are defined together
+    if (attrs.hasAttribute(SUMO_ATTR_LANES) && !attrs.hasAttribute(SUMO_ATTR_ENDPOS)) {
+        throw FormatException("lanes and endPos must be defined together in E2 detector");
     }
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, false);
     const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, false);
-    const double length = attrs.get<double>(SUMO_ATTR_LENGTH, id.c_str(), parsedOk, false);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, false);
     // special attributes
+    const std::string laneId = attrs.getOpt<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, "", false);
+    const std::vector<std::string> laneIds = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LANES, id.c_str(), parsedOk, std::vector<std::string>(), false);
+    const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), parsedOk, 0, false);
+    const double endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), parsedOk, 0, false);
     const std::string frequency = attrs.getOpt<std::string>(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, "", false);
     const std::string trafficLight = attrs.getOpt<std::string>(SUMO_ATTR_TLID, id.c_str(), parsedOk, "", false);
     // optional attributes
@@ -488,63 +496,21 @@ AdditionalHandler::parseE2SingleLaneAttributes(const SUMOSAXAttributes& attrs) {
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false, false);
     // continue if flag is ok
     if (parsedOk) {
-        // first open tag
-        myCommonXMLStructure.openTag(SUMO_TAG_E2DETECTOR);
+        // first open tag depending of E2 detector
+        if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
+            myCommonXMLStructure.openTag(SUMO_TAG_E2DETECTOR);
+            myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);
+            myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LENGTH, length);
+        } else {
+            myCommonXMLStructure.openTag(GNE_TAG_E2DETECTOR_MULTILANE);
+            myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LANES, laneIds);
+            myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ENDPOS, endPos);
+        }
         // add all attributes
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LENGTH, length);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, position);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_FREQUENCY, frequency);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_TLID, file);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD, haltingTimeThreshold);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD, haltingSpeedThreshold);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD, jamDistThreshold);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
-    }
-}
-
-
-void
-AdditionalHandler::parseE2MultiLanesAttributes(const SUMOSAXAttributes& attrs) {
-    // check that frecuency and trafficLight were defined together
-    if ((attrs.hasAttribute(SUMO_ATTR_FREQUENCY) && attrs.hasAttribute(SUMO_ATTR_TLID)) ||
-        (!attrs.hasAttribute(SUMO_ATTR_FREQUENCY) && !attrs.hasAttribute(SUMO_ATTR_TLID))) {
-        throw FormatException("define either Frecuency or traffic light ID in E2 detector");
-    }
-    // declare Ok Flag
-    bool parsedOk = true;
-    // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const std::vector<std::string> laneIds = attrs.get<std::vector<std::string> >(SUMO_ATTR_LANES, id.c_str(), parsedOk, false);
-    const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, false);
-    const double endPos = attrs.get<double>(SUMO_ATTR_ENDPOS, id.c_str(), parsedOk, false);
-    const double length = attrs.get<double>(SUMO_ATTR_LENGTH, id.c_str(), parsedOk, false);
-    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, false);
-    // special attributes
-    const std::string frequency = attrs.getOpt<std::string>(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, "", false);
-    const std::string trafficLight = attrs.getOpt<std::string>(SUMO_ATTR_TLID, id.c_str(), parsedOk, "", false);
-    // optional attributes
-    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "", false);
-    const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), parsedOk, 1, false);
-    const double haltingSpeedThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), parsedOk, 0.13, false);
-    const double jamDistThreshold = attrs.getOpt<double>(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), parsedOk, 10, false);
-    const std::string vehicleTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, "", false);
-    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false, false);
-    // continue if flag is ok
-    if (parsedOk) {
-        // first open tag
-        myCommonXMLStructure.openTag(SUMO_TAG_E2DETECTOR_MULTILANE);
-        // add all attributes
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LANE, laneIds);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, position);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ENDPOS, endPos);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_FREQUENCY, frequency);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_TLID, trafficLight);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
@@ -762,7 +728,7 @@ AdditionalHandler::parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes&
 
 void
 AdditionalHandler::parseCalibratorAttributes(const SUMOSAXAttributes& attrs) {
-    // check that frecuency and trafficLight were defined together
+    // check that frecuency and trafficLight aren't defined together
     if ((attrs.hasAttribute(SUMO_ATTR_EDGE) && attrs.hasAttribute(SUMO_ATTR_LANE)) ||
         (!attrs.hasAttribute(SUMO_ATTR_EDGE) && !attrs.hasAttribute(SUMO_ATTR_LANE))) {
         throw FormatException("Calibrators need either an edge or a lane");
@@ -1215,12 +1181,12 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
                 obj->getParameters());
             break;
-        case SUMO_TAG_E2DETECTOR_MULTILANE:
+        case GNE_TAG_E2DETECTOR_MULTILANE:
             buildMultiLaneDetectorE2(obj,
                 obj->getStringAttribute(SUMO_ATTR_ID),
                 obj->getStringListAttribute(SUMO_ATTR_LANES),
                 obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
+                obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
                 obj->getStringAttribute(SUMO_ATTR_FREQUENCY),
                 obj->getStringAttribute(SUMO_ATTR_TLID),
                 obj->getStringAttribute(SUMO_ATTR_FILE),
