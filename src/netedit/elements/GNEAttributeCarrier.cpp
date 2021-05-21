@@ -2073,7 +2073,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUESTATIC,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC,
                                               "Speed",
                                               "13.89");
         myTagProperties[currentTag].addAttribute(attrProperty);

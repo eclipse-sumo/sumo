@@ -85,7 +85,6 @@ AdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 break;
             case SUMO_TAG_E2DETECTOR:
             case SUMO_TAG_LANE_AREA_DETECTOR:
-
                 parseE2Attributes(attrs);
                 break;
             case SUMO_TAG_E3DETECTOR:
@@ -714,14 +713,15 @@ AdditionalHandler::parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes&
     bool parsedOk = true;
     // needed attributes
     const SUMOTime time = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, "", parsedOk, false);
-    const double speed = attrs.get<double>(SUMO_ATTR_SPEED, "", parsedOk, false);
+     // optional attributes
+    const std::string speed = attrs.getOpt<std::string>(SUMO_ATTR_SPEED, "", parsedOk, "", false);
     // continue if flag is ok
     if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
         // first open tag
-        myCommonXMLStructure.openTag(SUMO_TAG_INTERVAL);
+        myCommonXMLStructure.openTag(SUMO_TAG_STEP);
         // add all attributes
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_TIME, time);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_SPEED, speed);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_SPEED, speed);
     }
 }
 
@@ -1268,7 +1268,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
         case SUMO_TAG_STEP:
             buildVariableSpeedSignStep(obj,
                 obj->getTimeAttribute(SUMO_ATTR_TIME),
-                obj->getDoubleAttribute(SUMO_ATTR_SPEED));
+                obj->getStringAttribute(SUMO_ATTR_SPEED));
             break;
         // Calibrator
         case SUMO_TAG_CALIBRATOR:
@@ -1369,7 +1369,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             } else {
                 buildVariableSpeedSignStep(obj,
                     obj->getTimeAttribute(SUMO_ATTR_TIME),
-                    obj->getDoubleAttribute(SUMO_ATTR_SPEED));
+                    obj->getStringAttribute(SUMO_ATTR_SPEED));
             }
             break;
         // Route probe

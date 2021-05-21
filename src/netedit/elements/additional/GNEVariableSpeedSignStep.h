@@ -39,7 +39,7 @@ class GNEVariableSpeedSignStep : public GNEAdditional {
 
 public:
     /// @brief constructor
-    GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, double speed);
+    GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, const std::string &speed);
 
     /// @brief destructor
     ~GNEVariableSpeedSignStep();
@@ -124,7 +124,7 @@ protected:
     SUMOTime myTime;
 
     /// @brief speed in this timeStep
-    double mySpeed;
+    std::string mySpeed;
 
 private:
     /// @brief method for setting the attribute and nothing else

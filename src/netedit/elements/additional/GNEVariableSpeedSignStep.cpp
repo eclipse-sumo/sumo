@@ -29,7 +29,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, double speed) :
+GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, const std::string &speed) :
     GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS, SUMO_TAG_STEP, "",
         {}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {},
         std::map<std::string, std::string>(), false),
@@ -95,7 +95,7 @@ GNEVariableSpeedSignStep::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TIME:
             return time2string(myTime);
         case SUMO_ATTR_SPEED:
-            return toString(mySpeed);
+            return mySpeed;
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         case GNE_ATTR_PARAMETERS:
@@ -157,7 +157,11 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_SPEED:
-            return canParse<double>(value);
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<double>(value);
+            }
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
@@ -194,7 +198,7 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
             myTime = string2time(value);
             break;
         case SUMO_ATTR_SPEED:
-            mySpeed = parse<double>(value);
+            mySpeed = value;
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);

@@ -401,11 +401,10 @@ public:
 
     /**@brief Builds a VariableSpeedSign Step
      * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] VSSParent Variable Speed Sign parent
      * @param[in] time step's time
-     * @param[in] speed step's speed
+     * @param[in] speed new step's speed
      */
-    virtual void buildVariableSpeedSignStep(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOTime time, const double speed) = 0;
+    virtual void buildVariableSpeedSignStep(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOTime time, const std::string &speed) = 0;
 
     /**@brief Builds a vaporizer (lane speed additional)
      * @param[in] sumoBaseObject sumo base object used for build
