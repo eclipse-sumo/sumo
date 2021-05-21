@@ -812,9 +812,10 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         return;
     }
     // try to parse the assigned bus stop
-    ROEdge* edge = nullptr;
+    const ROEdge* edge = nullptr;
     std::string stoppingPlaceID;
     const SUMOVehicleParameter::Stop* stoppingPlace = retrieveStoppingPlace(attrs, errorSuffix, stoppingPlaceID, &stop);
+    bool hasPos = false;
     if (stoppingPlace != nullptr) {
         stop.lane = stoppingPlace->lane;
         stop.endPos = stoppingPlace->endPos;
@@ -836,11 +837,35 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 myErrorOutput->inform("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
                 return;
             }
+        } else if (ok && ((attrs.hasAttribute(SUMO_ATTR_X) && attrs.hasAttribute(SUMO_ATTR_Y))
+                    || (attrs.hasAttribute(SUMO_ATTR_LON) && attrs.hasAttribute(SUMO_ATTR_LAT)))) {
+            Position pos;
+            bool geo = false;
+            if (attrs.hasAttribute(SUMO_ATTR_X) && attrs.hasAttribute(SUMO_ATTR_Y)) {
+                pos = Position(attrs.get<double>(SUMO_ATTR_X, myVehicleParameter->id.c_str(), ok), attrs.get<double>(SUMO_ATTR_Y, myVehicleParameter->id.c_str(), ok));
+            } else {
+                pos = Position(attrs.get<double>(SUMO_ATTR_LON, myVehicleParameter->id.c_str(), ok), attrs.get<double>(SUMO_ATTR_LAT, myVehicleParameter->id.c_str(), ok));
+                geo = true;
+            }
+            PositionVector positions;
+            positions.push_back(pos);
+            ConstROEdgeVector geoEdges;
+            parseGeoEdges(positions, geo, geoEdges, myVehicleParameter->id, true, ok);
+            if (ok) {
+                edge = geoEdges.front();
+                hasPos = true;
+                stop.parametersSet |= STOP_END_SET;
+                stop.endPos = edge->getLanes()[0]->getShape().nearest_offset_to_point2D(pos, false);
+            } else {
+                return;
+            }
         } else if (!ok || (stop.lane == "" && stop.edge == "")) {
             myErrorOutput->inform("A stop must be placed on a bus stop, a container stop, a parking area, an edge or a lane" + errorSuffix);
             return;
         }
-        stop.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, nullptr, ok, edge->getLength());
+        if (!hasPos) {
+            stop.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, nullptr, ok, edge->getLength());
+        }
         stop.startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, nullptr, ok, stop.endPos - 2 * POSITION_EPS);
         const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, nullptr, ok, !attrs.hasAttribute(SUMO_ATTR_STARTPOS) && !attrs.hasAttribute(SUMO_ATTR_ENDPOS));
         const double endPosOffset = edge->isInternal() ? edge->getNormalBefore()->getLength() : 0;
