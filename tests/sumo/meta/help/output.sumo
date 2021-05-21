@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_9_1+0283-37cbe6e
+Eclipse SUMO sumo Version v1_9_2+0045-34c5379
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -139,6 +139,8 @@ Output Options:
   --save-state.times STR[]             Use TIME[] as times at which a network
                                         state written
   --save-state.period TIME             save state repeatedly after TIME period
+  --save-state.period.keep INT         Keep only the last INT periodic state
+                                        files
   --save-state.prefix FILE             Prefix for network states
   --save-state.suffix STR              Suffix for network states (.xml.gz or
                                         .xml)
