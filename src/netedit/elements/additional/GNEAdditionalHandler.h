@@ -268,11 +268,13 @@ public:
      * @param[in] pos The position on the edge the calibrator lies at
      * @param[in] name Calibrator name
      * @param[in] outfile te file in which write results
+     * @param[in] jamThreshold A threshold value to detect and clear unexpected jamming
+     * @param[in] vTypes space separated list of vehicle type ids to consider
      * @param[in] parameters generic parameters
      */
     void buildLaneCalibrator(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
                              const double pos, const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe, 
-                             const std::map<std::string, std::string> &parameters);
+                             const double jamThreshold, const std::string &vTypes, const std::map<std::string, std::string> &parameters);
 
     /**@brief builds a microscopic calibrator over an edge
      * @param[in] sumoBaseObject sumo base object used for build
@@ -281,13 +283,14 @@ public:
      * @param[in] pos The position on the edge the calibrator lies at
      * @param[in] name Calibrator name
      * @param[in] outfile te file in which write results
-     * @param[in] centerAfterCreation center camera after creation
      * @param[in] routeProbe route probe vinculated with this calibrator
+     * @param[in] jamThreshold A threshold value to detect and clear unexpected jamming
+     * @param[in] vTypes space separated list of vehicle type ids to consider
      * @param[in] parameters generic parameters
      */
     void buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &edgeID, 
                              const double pos, const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe,
-                             const std::map<std::string, std::string> &parameters);
+                             const double jamThreshold, const std::string &vTypes, const std::map<std::string, std::string> &parameters);
 
     /**@brief builds a calibrator flow
      * @param[in] sumoBaseObject sumo base object used for build
