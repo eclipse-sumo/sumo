@@ -920,6 +920,8 @@ protected:
     std::vector<SUMOTime> myStateDumpTimes;
     /// @brief The names for the state files
     std::vector<std::string> myStateDumpFiles;
+    /// @brief The names of the last K periodic state files (only only K shall be kept)
+    std::vector<std::string> myPeriodicStateFiles;
     /// @brief The period for writing state
     SUMOTime myStateDumpPeriod;
     /// @brief name components for periodic state

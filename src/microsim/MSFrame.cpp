@@ -286,6 +286,8 @@ MSFrame::fillOptions() {
     oc.addDescription("save-state.times", "Output", "Use TIME[] as times at which a network state written");
     oc.doRegister("save-state.period", new Option_String("-1", "TIME"));
     oc.addDescription("save-state.period", "Output", "save state repeatedly after TIME period");
+    oc.doRegister("save-state.period.keep", new Option_Integer(0));
+    oc.addDescription("save-state.period.keep", "Output", "Keep only the last INT periodic state files");
     oc.doRegister("save-state.prefix", new Option_FileName(StringVector({ "state" })));
     oc.addDescription("save-state.prefix", "Output", "Prefix for network states");
     oc.doRegister("save-state.suffix", new Option_String(".xml.gz"));

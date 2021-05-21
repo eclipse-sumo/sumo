@@ -612,7 +612,14 @@ MSNet::simulationStep() {
     if (myStateDumpPeriod > 0 && myStep % myStateDumpPeriod == 0) {
         std::string timeStamp = time2string(myStep);
         std::replace(timeStamp.begin(), timeStamp.end(), ':', '-');
-        MSStateHandler::saveState(myStateDumpPrefix + "_" + timeStamp + myStateDumpSuffix, myStep);
+        const std::string filename = myStateDumpPrefix + "_" + timeStamp + myStateDumpSuffix;
+        MSStateHandler::saveState(filename, myStep);
+        myPeriodicStateFiles.push_back(filename);
+        int keep = OptionsCont::getOptions().getInt("save-state.period.keep");
+        if (keep > 0 && (int)myPeriodicStateFiles.size() > keep) {
+            std::remove(myPeriodicStateFiles.front().c_str());
+            myPeriodicStateFiles.erase(myPeriodicStateFiles.begin());
+        }
     }
     myBeginOfTimestepEvents->execute(myStep);
     MSRailSignal::recheckGreen();
