@@ -854,6 +854,9 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             if (ok) {
                 edge = geoEdges.front();
                 hasPos = true;
+                if (geo) {
+                    GeoConvHelper::getFinal().x2cartesian_const(pos);
+                }
                 stop.parametersSet |= STOP_END_SET;
                 stop.endPos = edge->getLanes()[0]->getShape().nearest_offset_to_point2D(pos, false);
             } else {
