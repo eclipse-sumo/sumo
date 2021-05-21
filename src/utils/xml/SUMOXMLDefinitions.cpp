@@ -49,7 +49,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "e1Detector",                     SUMO_TAG_E1DETECTOR },
     { "inductionLoop",                  SUMO_TAG_INDUCTION_LOOP },
     { "e2Detector",                     SUMO_TAG_E2DETECTOR },
-    { "e2MultilaneDetector",            SUMO_TAG_E2DETECTOR_MULTILANE },
     { "laneAreaDetector",               SUMO_TAG_LANE_AREA_DETECTOR },
     { "e3Detector",                     SUMO_TAG_E3DETECTOR },
     { "entryExitDetector",              SUMO_TAG_ENTRY_EXIT_DETECTOR },
@@ -239,6 +238,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "entrance",                       AGEN_TAG_ENTRANCE },
     { "parameters",                     AGEN_TAG_PARAM },
     // NETEDIT
+    { "e2MultilaneDetector",            GNE_TAG_E2DETECTOR_MULTILANE },
     { "internalLane",                   GNE_TAG_INTERNAL_LANE },
     { "rerouterSymbol",                 GNE_TAG_REROUTER_SYMBOL },
     { "variableSpeedSignSymbol",        GNE_TAG_VSS_SYMBOL },

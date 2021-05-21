@@ -1793,7 +1793,7 @@ GNEAttributeCarrier::fillAdditionals() {
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = SUMO_TAG_E2DETECTOR_MULTILANE;
+    currentTag = GNE_TAG_E2DETECTOR_MULTILANE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,

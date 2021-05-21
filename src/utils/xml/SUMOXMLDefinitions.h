@@ -65,8 +65,6 @@ enum SumoXMLTag {
     SUMO_TAG_INDUCTION_LOOP,
     /// @brief an e2 detector
     SUMO_TAG_E2DETECTOR,
-    /// @brief an e2 detector over multiple lanes (used by Netedit)
-    SUMO_TAG_E2DETECTOR_MULTILANE,
     /// @brief alternative tag for e2 detector
     SUMO_TAG_LANE_AREA_DETECTOR,
     /// @brief an e3 detector
@@ -381,8 +379,10 @@ enum SumoXMLTag {
     /// @brief parameters
     AGEN_TAG_PARAM,
 
-    /// @name NETEDIT internal elements
+    /// @name NETEDIT elements
     /// @{
+    /// @brief an e2 detector over multiple lanes
+    GNE_TAG_E2DETECTOR_MULTILANE,
     /// @brief internal lane
     GNE_TAG_INTERNAL_LANE,
     /// @brief Rerouter Symbol

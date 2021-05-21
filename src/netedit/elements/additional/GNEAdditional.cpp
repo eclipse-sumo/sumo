@@ -331,7 +331,7 @@ GNEAdditional::getOptionalAdditionalName() const {
 void
 GNEAdditional::computePathElement() {
     // currently onle for E2 multilane detectors
-    if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
+    if (myTagProperty.getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
         // calculate path
         myNet->getPathManager()->calculateConsecutivePathLanes(this, getParentLanes());
     }

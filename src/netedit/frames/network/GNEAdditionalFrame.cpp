@@ -819,7 +819,7 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::drawTemporalE2Multilane(const GUIVi
 bool
 GNEAdditionalFrame::E2MultilaneLaneSelector::createPath() {
     // first check that current tag is valid
-    if (myAdditionalFrameParent->myAdditionalTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_E2DETECTOR_MULTILANE) {
+    if (myAdditionalFrameParent->myAdditionalTagSelector->getCurrentTagProperties().getTag() != GNE_TAG_E2DETECTOR_MULTILANE) {
         return false;
     }
     // now check number of lanes
@@ -835,7 +835,7 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::createPath() {
     }
     // Check if ID has to be generated
     if (valuesMap.count(SUMO_ATTR_ID) == 0) {
-        valuesMap[SUMO_ATTR_ID] = myAdditionalFrameParent->myViewNet->getNet()->generateAdditionalID(SUMO_TAG_E2DETECTOR_MULTILANE);
+        valuesMap[SUMO_ATTR_ID] = myAdditionalFrameParent->myViewNet->getNet()->generateAdditionalID(GNE_TAG_E2DETECTOR_MULTILANE);
     }
     // obtain lane IDs
     std::vector<std::string> laneIDs;
@@ -856,7 +856,7 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::createPath() {
         return false;
     }
     // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-    SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, myAdditionalFrameParent->getPredefinedTagsMML(), toString(SUMO_TAG_E2DETECTOR_MULTILANE));
+    SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, myAdditionalFrameParent->getPredefinedTagsMML(), toString(GNE_TAG_E2DETECTOR_MULTILANE));
     // try to build additional
     if (false /*GNEAdditionalHandler::buildAdditional(myAdditionalFrameParent->myViewNet->getNet(), true, SUMO_TAG_E2DETECTOR_MULTILANE, SUMOSAXAttrs, nullptr)*/) {
         // Refresh additional Parent Selector (For additionals that have a limited number of children)
@@ -1064,7 +1064,7 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& ob
         return buildAdditionalOverEdge(valuesMap, objectsUnderCursor.getLaneFront(), tagValues);
     } else if (tagValues.hasAttribute(SUMO_ATTR_LANE)) {
         return buildAdditionalOverLane(valuesMap, objectsUnderCursor.getLaneFront(), tagValues);
-    } else if (tagValues.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
+    } else if (tagValues.getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
         return myE2MultilaneLaneSelector->addLane(objectsUnderCursor.getLaneFront());
     } else {
         return buildAdditionalOverView(valuesMap, tagValues);
@@ -1115,7 +1115,7 @@ GNEAdditionalFrame::tagSelected() {
             mySelectorChildEdges->hideSelectorChildEdgesModul();
         }
         // check if we must show E2 multilane lane selector
-        if (myAdditionalTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
+        if (myAdditionalTagSelector->getCurrentTagProperties().getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
             myE2MultilaneLaneSelector->showE2MultilaneLaneSelectorModul();
         } else if (myAdditionalTagSelector->getCurrentTagProperties().hasAttribute(SUMO_ATTR_LANES)) {
             myE2MultilaneLaneSelector->hideE2MultilaneLaneSelectorModul();
