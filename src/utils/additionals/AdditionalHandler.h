@@ -409,12 +409,12 @@ public:
     /**@brief Builds a vaporizer (lane speed additional)
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] edgeID edge in which this vaporizer is placed
-     * @param[in] startTime time in which this vaporizer start
+     * @param[in] from time in which this vaporizer start
      * @param[in] endTime time in which this vaporizer ends
      * @param[in] name Vaporizer name
      * @param[in] parameters generic parameters
      */
-    virtual void buildVaporizer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const SUMOTime start, 
+    virtual void buildVaporizer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const SUMOTime from, 
                                 const SUMOTime endTime, const std::string& name, const std::map<std::string, std::string> &parameters) = 0;
 
     /**@brief Builds a TAZ (Traffic Assignment Zone)

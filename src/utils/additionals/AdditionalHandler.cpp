@@ -808,13 +808,12 @@ AdditionalHandler::parseRerouterAttributes(const SUMOSAXAttributes& attrs) {
     }
 }
 
-/*************************************************/
 
 void
 AdditionalHandler::parseRerouterIntervalAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // now obtain attributes
+    // needed attributes
     const SUMOTime begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, "", parsedOk, false);
     const SUMOTime end = attrs.getSUMOTimeReporting(SUMO_ATTR_END, "", parsedOk, false);
     // continue if flag is ok
@@ -832,10 +831,11 @@ void
 AdditionalHandler::parseClosingLaneRerouteAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // now obtain attributes
+    // needed attributes
     const std::string laneID = attrs.get<std::string>(SUMO_ATTR_LANE, "", parsedOk, false);
-    const std::string allow = attrs.get<std::string>(SUMO_ATTR_ALLOW, "", parsedOk, false);
-    const std::string disallow = attrs.get<std::string>(SUMO_ATTR_DISALLOW, "", parsedOk, false);
+    // optional attributes
+    const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, "", parsedOk, "", false);
+    const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, "", parsedOk, "", false);
     // continue if flag is ok
     if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
         // first open tag
@@ -852,10 +852,11 @@ void
 AdditionalHandler::parseClosingRerouteAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // now obtain attributes
+    // needed attributes
     const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_EDGE, "", parsedOk, false);
-    const std::string allow = attrs.get<std::string>(SUMO_ATTR_ALLOW, "", parsedOk, false);
-    const std::string disallow = attrs.get<std::string>(SUMO_ATTR_DISALLOW, "", parsedOk, false);
+    // optional attributes
+    const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, "", parsedOk, "", false);
+    const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, "", parsedOk, "", false);
     // continue if flag is ok
     if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
         // first open tag
@@ -872,7 +873,7 @@ void
 AdditionalHandler::parseDestProbRerouteAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // now obtain attributes
+    // needed attributes
     const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
     const double probability = attrs.get<double>(SUMO_ATTR_PROB, "", parsedOk, false);
     // continue if flag is ok
@@ -890,10 +891,11 @@ void
 AdditionalHandler::parseParkingAreaRerouteAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // now obtain attributes
+    // needed attributes
     const std::string parkingAreaID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const double probability = attrs.get<double>(SUMO_ATTR_PROB, "", parsedOk, false);
-    const bool visible = attrs.get<bool>(SUMO_ATTR_VISIBLE, "", parsedOk, false);
+    // optional attributes
+    const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, "", parsedOk, 1, false);
+    const bool visible = attrs.getOpt<bool>(SUMO_ATTR_VISIBLE, "", parsedOk, 1, false);
     // continue if flag is ok
     if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
         // first open tag
@@ -910,9 +912,10 @@ void
 AdditionalHandler::parseRouteProbRerouteAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // now obtain attributes
+    // needed attributes
     const std::string routeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const double probability = attrs.get<double>(SUMO_ATTR_PROB, "", parsedOk, false);
+    // optional attributes
+    const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, "", parsedOk, 1, false);
     // continue if flag is ok
     if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
         // first open tag
@@ -928,22 +931,21 @@ void
 AdditionalHandler::parseRouteProbeAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // now obtain attributes
+    // needed attributes
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, false);
-    const double pos = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, false);
-    const std::string outfile = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, false);
+    const std::string edge = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), parsedOk, false);
+    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, false);
     const SUMOTime time = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, false);
-    const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, false);
+    // optional attributes
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "", false);
     // continue if flag is ok
-    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+    if (parsedOk) {
         // first open tag
         myCommonXMLStructure.openTag(SUMO_TAG_ROUTEPROBE);
         // add all attributes
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, lane);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, pos);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, outfile);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_EDGE, edge);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_FREQUENCY, time);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
     }
@@ -955,16 +957,17 @@ AdditionalHandler::parseVaporizerAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // now obtain attributes
-    const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_EDGE, "", parsedOk, false);
+    const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
     const SUMOTime from = attrs.getSUMOTimeReporting(SUMO_ATTR_FROM, edgeID.c_str(), parsedOk, false);
     const SUMOTime end = attrs.getSUMOTimeReporting(SUMO_ATTR_END, edgeID.c_str(), parsedOk, false);
-    const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, edgeID.c_str(), parsedOk, false);
+    // optional attributes
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, edgeID.c_str(), parsedOk, "", false);
     // continue if flag is ok
-    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+    if (parsedOk) {
         // first open tag
-        myCommonXMLStructure.openTag(SUMO_TAG_INSTANT_INDUCTION_LOOP);
+        myCommonXMLStructure.openTag(SUMO_TAG_VAPORIZER);
         // add all attributes
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_EDGE, edgeID);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, edgeID);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_FROM, end);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_END, end);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
@@ -1374,20 +1377,22 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             break;
         // Route probe
         case SUMO_TAG_ROUTEPROBE:
+/*
             buildRouteProbe(obj,
-            obj->getStringAttribute(SUMO_ATTR_ID),
-            obj->getStringAttribute(SUMO_ATTR_EDGE),
-            obj->getStringAttribute(SUMO_ATTR_FREQUENCY),
-            obj->getStringAttribute(SUMO_ATTR_NAME),
-            obj->getStringAttribute(SUMO_ATTR_FILE),
-            obj->getTimeAttribute(SUMO_ATTR_BEGIN),
+                obj->getStringAttribute(SUMO_ATTR_ID),
+                obj->getStringAttribute(SUMO_ATTR_EDGE),
+                obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
+                obj->getStringAttribute(SUMO_ATTR_NAME),
+                obj->getStringAttribute(SUMO_ATTR_FILE),
+                obj->getTimeAttribute(SUMO_ATTR_BEGIN),
             obj->getParameters());
+*/
             break;
         // Vaporizer (deprecated)
         case SUMO_TAG_VAPORIZER:
             buildVaporizer(obj,
-                obj->getStringAttribute(SUMO_ATTR_EDGE),
-                obj->getTimeAttribute(SUMO_ATTR_STARTTIME),
+                obj->getStringAttribute(SUMO_ATTR_ID),
+                obj->getTimeAttribute(SUMO_ATTR_FROM),
                 obj->getTimeAttribute(SUMO_ATTR_END),
                 obj->getStringAttribute(SUMO_ATTR_NAME),
                 obj->getParameters());
@@ -1408,7 +1413,6 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getDoubleAttribute(SUMO_ATTR_LINEWIDTH),
                 obj->getStringAttribute(SUMO_ATTR_NAME),
                 obj->getParameters());
-
             break;
         // POI
         case SUMO_TAG_POI:
