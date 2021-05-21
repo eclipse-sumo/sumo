@@ -32,12 +32,12 @@
 // member method definitions
 // ===========================================================================
 
-GNEVaporizer::GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name,
+GNEVaporizer::GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime from, SUMOTime end, const std::string& name,
         const std::map<std::string, std::string> &parameters) :
     GNEAdditional(edge->getID(), net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name,
         {}, {edge}, {}, {}, {}, {}, {}, {},
         parameters, false),
-    myBegin(begin),
+    myFrom(from),
     myEnd(end) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -162,8 +162,8 @@ GNEVaporizer::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
             return getID();
-        case SUMO_ATTR_BEGIN:
-            return time2string(myBegin);
+        case SUMO_ATTR_FROM:
+            return time2string(myFrom);
         case SUMO_ATTR_END:
             return time2string(myEnd);
         case SUMO_ATTR_NAME:
@@ -181,8 +181,8 @@ GNEVaporizer::getAttribute(SumoXMLAttr key) const {
 double
 GNEVaporizer::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_BEGIN:
-            return STEPS2TIME(myBegin);
+        case SUMO_ATTR_FROM:
+            return STEPS2TIME(myFrom);
         case SUMO_ATTR_END:
             return STEPS2TIME(myEnd);
         default:
@@ -199,7 +199,7 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
-        case SUMO_ATTR_BEGIN:
+        case SUMO_ATTR_FROM:
         case SUMO_ATTR_END:
         case SUMO_ATTR_NAME:
         case GNE_ATTR_SELECTED:
@@ -222,7 +222,7 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        case SUMO_ATTR_BEGIN:
+        case SUMO_ATTR_FROM:
             if (canParse<SUMOTime>(value)) {
                 return (parse<SUMOTime>(value) <= myEnd);
             } else {
@@ -230,7 +230,7 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_END:
             if (canParse<SUMOTime>(value)) {
-                return (myBegin <= parse<SUMOTime>(value));
+                return (myFrom <= parse<SUMOTime>(value));
             } else {
                 return false;
             }
@@ -260,7 +260,7 @@ GNEVaporizer::getPopUpID() const {
 
 std::string
 GNEVaporizer::getHierarchyName() const {
-    return getTagStr() + ": " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
+    return getTagStr() + ": " + getAttribute(SUMO_ATTR_FROM) + " -> " + getAttribute(SUMO_ATTR_END);
 }
 
 // ===========================================================================
@@ -275,8 +275,8 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getAttributeCarriers()->updateID(this, value);
             replaceAdditionalParentEdges(value);
             break;
-        case SUMO_ATTR_BEGIN:
-            myBegin = parse<SUMOTime>(value);
+        case SUMO_ATTR_FROM:
+            myFrom = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_END:
             myEnd = parse<SUMOTime>(value);

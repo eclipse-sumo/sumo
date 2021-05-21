@@ -839,14 +839,14 @@ GNEAdditionalHandler::buildVariableSpeedSignStep(const CommonXMLStructure::SumoB
 
 
 void 
-GNEAdditionalHandler::buildVaporizer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const SUMOTime startTime, 
+GNEAdditionalHandler::buildVaporizer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const SUMOTime from, 
     const SUMOTime endTime, const std::string& name, const std::map<std::string, std::string> &parameters) {
     // get edge
     GNEEdge *edge = myNet->retrieveEdge(edgeID);
     // get NETEDIT parameters
     NeteditParameters neteditParameters(sumoBaseObject);
     // build vaporizer
-    GNEAdditional* vaporizer = new GNEVaporizer(myNet, edge, startTime, endTime, name, parameters);
+    GNEAdditional* vaporizer = new GNEVaporizer(myNet, edge, from, endTime, name, parameters);
     // add it depending of allow undoRed
     if (myAllowUndoRedo) {
         myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_VAPORIZER));
