@@ -193,11 +193,12 @@ def isLibtraci():
 
 
 def hasGUI():
-    try:
-        gui.getIDList()
-        return True
-    except TraCIException:
-        return False
+    """
+    Return whether a GUI and the corresponding GUI commands are available for the current connection.
+    """
+    if "" not in _connections:
+        raise FatalTraCIError("Not connected.")
+    return _connections[""].hasGUI()
 
 
 def load(args):

@@ -286,6 +286,13 @@ class Connection:
             self._sendCmd(tc.CMD_ADD_SUBSCRIPTION_FILTER, None, None,
                           (len(lanes) + 2) * "u", filterType, len(lanes), *lanes)
 
+    def hasGUI(self):
+        try:
+            self.gui.getIDList()
+            return True
+        except TraCIException:
+            return False
+
     def load(self, args):
         """
         Load a simulation from the given arguments.
