@@ -53,7 +53,7 @@ GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, 
 GNEDetectorE2::GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const std::string& freq, 
         const std::string& trafficLight, const std::string& filename, const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, 
         double speedThreshold, double jamThreshold, bool friendlyPos, const std::map<std::string, std::string> &parameters, bool blockMovement) :
-    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR_MULTILANE, pos, freq, lanes, filename, vehicleTypes, name, friendlyPos, parameters, blockMovement),
+    GNEDetector(id, net, GLO_E2DETECTOR, GNE_TAG_E2DETECTOR_MULTILANE, pos, freq, lanes, filename, vehicleTypes, name, friendlyPos, parameters, blockMovement),
     myLength(0),
     myEndPositionOverLane(endPos),
     myTimeThreshold(timeThreshold),
@@ -196,7 +196,7 @@ GNEDetectorE2::fixAdditionalProblem() {
 void
 GNEDetectorE2::updateGeometry() {
     // check E2 detector
-    if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
+    if (myTagProperty.getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
         // compute path
         computePathElement();
     } else {
@@ -385,7 +385,15 @@ bool
 GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidDetectorID(value);
+            if (isValidDetectorID(value)) {
+                if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) {
+                    return (myNet->retrieveAdditional(GNE_TAG_E2DETECTOR_MULTILANE, value, false) == nullptr);
+                } else {
+                    return (myNet->retrieveAdditional(SUMO_TAG_E2DETECTOR, value, false) == nullptr);
+                }
+            } else {
+                return false;
+            }
         case SUMO_ATTR_LANE:
             if (value.empty()) {
                 return false;
