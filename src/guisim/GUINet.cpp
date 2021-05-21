@@ -57,6 +57,7 @@
 #include <guisim/GUIJunctionWrapper.h>
 #include <guisim/GUIVehicleControl.h>
 #include <gui/GUIGlobals.h>
+#include <gui/GUIApplicationWindow.h>
 #include "GUINet.h"
 
 #include <mesogui/GUIMEVehicleControl.h>
@@ -667,6 +668,17 @@ GUINet::isSelected(const MSTrafficLightLogic* tll) const {
     const auto it = myLogics2Wrapper.find(const_cast<MSTrafficLightLogic*>(tll));
     return it != myLogics2Wrapper.end() && gSelected.isSelected(GLO_TLLOGIC, it->second->getGlID());
 }
+
+void GUINet::updateGUI() const {
+    try {
+        // gui only
+        GUIApplicationWindow* aw = static_cast<GUIApplicationWindow*>(GUIMainWindow::getInstance());
+        // update the view
+        aw->handleEvent_SimulationStep(nullptr);
+    } catch (ProcessError&) { }
+}
+
+
 
 #ifdef HAVE_OSG
 void

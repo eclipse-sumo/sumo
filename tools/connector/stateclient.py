@@ -44,8 +44,10 @@ def main():
         fileSteps.sort()
         lastState = fileSteps[-2][1]
         print(os.path.basename(lastState))
-        #traci.simulationStep()
         traci.simulation.loadState(lastState)
+        # a phantom step makes the client respond to gui-close but adds invalid
+        # info (as long as the traffic lights are not in sync)
+        # traci.simulationStep()
         time.sleep(1)
 
 

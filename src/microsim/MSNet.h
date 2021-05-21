@@ -600,6 +600,8 @@ public:
     virtual bool isSelected(const MSTrafficLightLogic*) const {
         return false;
     }
+    /// @brief update view after simulation.loadState
+    virtual void updateGUI() const { }
 
     /// @name Notification about vehicle state changes
     /// @{

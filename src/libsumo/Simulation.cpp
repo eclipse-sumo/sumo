@@ -799,6 +799,7 @@ Simulation::loadState(const std::string& fileName) {
     Helper::clearTransportableStates();
     Helper::clearSubscriptions();
     PROGRESS_TIME_MESSAGE(before);
+    MSNet::getInstance()->updateGUI();
     return STEPS2TIME(newTime);
 }
 
