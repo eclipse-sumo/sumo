@@ -1,0 +1,3 @@
+--net-file=input_net.net.xml --route-files=input_trips.trips.xml
+--write-trips
+-o routes.rou.xml 
