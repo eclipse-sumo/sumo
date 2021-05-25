@@ -50,14 +50,8 @@ def get_options(args=None):
                     help="file to write the generated public transport vehicles to")  # noqa
     ap.add_argument("--additional-output",
                     help="file to write the generated public transport stops and routes to")  # noqa
-    ap.add_argument("--network-split",
-                    help="directory to write generated networks to")
-    # ap.add_argument("--network-split.vclass", action="store_true", default=False,
-    #                        help="use the allowed vclass instead of the edge type to split the network")
     ap.add_argument("--duration", default=10,
                     type=int, help="minimum time to wait on a stop")
-    ap.add_argument("--warn-unmapped", action="store_true", default=False,
-                    help="warn about unmapped routes")
     ap.add_argument("--bus-stop-length", default=13, type=float,
                     help="length for a bus stop")
     ap.add_argument("--train-stop-length", default=110, type=float,
@@ -70,6 +64,12 @@ def get_options(args=None):
                     type=int, help="Defines the begin time to export")
     ap.add_argument("-e", "--end", default=86400,
                     type=int, help="Defines the end time for the export")
+    ap.add_argument("--network-split",
+                    help="directory to write generated networks to")
+    # ap.add_argument("--network-split.vclass", action="store_true", default=False,
+    #                        help="use the allowed vclass instead of the edge type to split the network")
+    ap.add_argument("--warn-unmapped", action="store_true", default=False,
+                    help="warn about unmapped routes")
     ap.add_argument("--mapperlib", default="lib/fcd-process-chain-2.2.2.jar",
                     help="mapping library to use")
     ap.add_argument("--map-output",
