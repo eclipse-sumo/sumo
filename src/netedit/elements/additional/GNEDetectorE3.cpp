@@ -29,7 +29,7 @@
 // ===========================================================================
 
 GNEDetectorE3::GNEDetectorE3(const std::string& id, GNENet* net, Position pos, SUMOTime freq, const std::string& filename,
-        const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, 
+        const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, 
         const std::map<std::string, std::string> &parameters, bool blockMovement) :
     GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name,
         {}, {}, {}, {}, {}, {}, {}, {},
@@ -121,7 +121,7 @@ GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_FILE:
             return myFilename;
         case SUMO_ATTR_VTYPES:
-            return myVehicleTypes;
+            return toString(myVehicleTypes);
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             return time2string(myTimeThreshold);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
@@ -274,7 +274,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFilename = value;
             break;
         case SUMO_ATTR_VTYPES:
-            myVehicleTypes = value;
+            myVehicleTypes = parse<std::vector<std::string> >(value);
             break;
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             myTimeThreshold = parse<SUMOTime>(value);

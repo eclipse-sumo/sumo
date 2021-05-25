@@ -45,8 +45,8 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNEDetectorE3(const std::string& id, GNENet* net, Position pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, 
-                  SUMOTime timeThreshold, double speedThreshold, const std::map<std::string, std::string> &parameters, bool blockMovement);
+    GNEDetectorE3(const std::string& id, GNENet* net, Position pos, SUMOTime freq, const std::string& filename, const std::vector<std::string>& vehicleTypes, 
+                  const std::string& name, SUMOTime timeThreshold, double speedThreshold, const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /// @brief GNEDetectorE3 Destructor
     ~GNEDetectorE3();
@@ -132,7 +132,7 @@ protected:
     std::string myFilename;
 
     /// @brief attribute vehicle types
-    std::string myVehicleTypes;
+    std::vector<std::string> myVehicleTypes;
 
     /// @brief The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
     SUMOTime myTimeThreshold;

@@ -35,7 +35,7 @@
 // ===========================================================================
 
 GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const std::string& freq, 
-        const std::string& trafficLight, const std::string& filename, const std::string& vehicleTypes, const std::string& name, 
+        const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, 
         SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, 
         const std::map<std::string, std::string> &parameters, bool blockMovement) :
     GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, {lane}, filename, vehicleTypes, name, friendlyPos, parameters, blockMovement),
@@ -51,7 +51,7 @@ GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, 
 
 
 GNEDetectorE2::GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const std::string& freq, 
-        const std::string& trafficLight, const std::string& filename, const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, 
+        const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, 
         double speedThreshold, double jamThreshold, bool friendlyPos, const std::map<std::string, std::string> &parameters, bool blockMovement) :
     GNEDetector(id, net, GLO_E2DETECTOR, GNE_TAG_E2DETECTOR_MULTILANE, pos, freq, lanes, filename, vehicleTypes, name, friendlyPos, parameters, blockMovement),
     myLength(0),
@@ -315,7 +315,7 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_FILE:
             return myFilename;
         case SUMO_ATTR_VTYPES:
-            return myVehicleTypes;
+            return toString(myVehicleTypes);
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             return time2string(myTimeThreshold);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
@@ -491,7 +491,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFilename = value;
             break;
         case SUMO_ATTR_VTYPES:
-            myVehicleTypes = value;
+            myVehicleTypes = parse<std::vector<std::string> >(value);
             break;
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             myTimeThreshold = parse<SUMOTime>(value);

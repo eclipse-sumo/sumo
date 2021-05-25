@@ -45,7 +45,7 @@ public:
      * @param[in] blockMovement enable or disable additional movement
      */
     GNEDetectorE1Instant(const std::string& id, GNELane* lane, GNENet* net, double pos, const std::string& filename, 
-                         const std::string& vehicleTypes, const std::string& name, bool friendlyPos, 
+                         const std::vector<std::string>& vehicleTypes, const std::string& name, bool friendlyPos, 
                          const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /// @brief Destructor

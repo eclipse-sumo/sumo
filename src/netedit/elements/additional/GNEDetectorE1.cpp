@@ -31,7 +31,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNENet* net, double pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes, 
+GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNENet* net, double pos, SUMOTime freq, const std::string& filename, const std::vector<std::string> &vehicleTypes, 
         const std::string& name, bool friendlyPos, const std::map<std::string, std::string> &parameters, bool blockMovement) :
     GNEDetector(id, net, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, pos, time2string(freq), {lane}, filename, vehicleTypes, name, friendlyPos, parameters, blockMovement) {
     // update centering boundary without updating grid
@@ -161,7 +161,7 @@ GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_FILE:
             return myFilename;
         case SUMO_ATTR_VTYPES:
-            return myVehicleTypes;
+            return toString(myVehicleTypes);
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -283,7 +283,7 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
             myAdditionalName = value;
             break;
         case SUMO_ATTR_VTYPES:
-            myVehicleTypes = value;
+            myVehicleTypes = parse<std::vector<std::string> >(value);
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);

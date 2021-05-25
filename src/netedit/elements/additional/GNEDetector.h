@@ -47,7 +47,7 @@ public:
      * @param[in] blockMovement enable or disable additional movement
      */
     GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, double pos, const std::string& freq, 
-                const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& vehicleTypes, 
+                const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::vector<std::string>& vehicleTypes, 
                 const std::string& name, bool friendlyPos, const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /**@brief Constructor.
@@ -174,7 +174,7 @@ protected:
     std::string myFilename;
 
     /// @brief attribute vehicle types
-    std::string myVehicleTypes;
+    std::vector<std::string> myVehicleTypes;
 
     /// @brief Flag for friendly position
     bool myFriendlyPosition;

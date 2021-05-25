@@ -38,7 +38,7 @@
 // ===========================================================================
 
 GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, double pos, const std::string& freq, 
-        const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& vehicleTypes, const std::string& name, 
+        const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, 
         bool friendlyPos, const std::map<std::string, std::string> &parameters, bool blockMovement) :
     GNEAdditional(id, net, type, tag, name, 
         {}, {}, parentLanes, {}, {}, {}, {}, {},
