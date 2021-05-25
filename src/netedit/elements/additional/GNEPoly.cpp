@@ -39,8 +39,8 @@
 // method definitions
 // ===========================================================================
 GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
-        const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, const std::map<std::string, std::string> &parameters, 
-        bool movementBlocked, bool /* shapeBlocked */) :
+        const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, const std::string &name,
+        const std::map<std::string, std::string> &parameters, bool movementBlocked, bool /* shapeBlocked */) :
     SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
     GNEShape(id, net, GLO_POLYGON, SUMO_TAG_POLY, 
         {}, {}, {}, {}, {}, {}, {}, {},

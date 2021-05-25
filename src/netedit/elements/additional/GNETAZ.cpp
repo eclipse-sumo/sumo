@@ -45,12 +45,12 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // member method definitions
 // ===========================================================================
 
-GNETAZ::GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, 
+GNETAZ::GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, const std::string &name,
         const std::map<std::string, std::string> &parameters, bool blockMovement) :
     GNETAZElement(id, net, GLO_TAZ, SUMO_TAG_TAZ,
         {}, {}, {}, {}, {}, {}, {}, {},
         parameters, blockMovement),
-    SUMOPolygon(id, "", color, shape, false, false, 1),
+    SUMOPolygon(id, name, color, shape, false, false, 1),
     myMaxWeightSource(0),
     myMinWeightSource(0),
     myAverageWeightSource(0),

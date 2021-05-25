@@ -47,12 +47,13 @@ public:
      * @param[in] length ParkingArea's length
      * @param[in] angle ParkingArea's angle
      * @param[in] slope ParkingArea's slope (of this space)
+     * @param[in] name ParkingArea's name
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const double x, const double y, 
-                    const double z, const std::string &width, const std::string &length, const std::string &angle, double slope, 
-                    const std::map<std::string, std::string> &parameters, bool blockMovement);
+    GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const double x, const double y, const double z, 
+                    const std::string &width, const std::string &length, const std::string &angle, double slope, 
+                    const std::string &name, const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /// @brief Destructor
     ~GNEParkingSpace();

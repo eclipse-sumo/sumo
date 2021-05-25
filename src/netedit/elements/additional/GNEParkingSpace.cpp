@@ -33,8 +33,8 @@
 
 GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const double x, const double y, 
     const double z, const std::string &width, const std::string &length, const std::string &angle, double slope, 
-    const std::map<std::string, std::string> &parameters, bool blockMovement) :
-    GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "",
+    const std::string &name, const std::map<std::string, std::string> &parameters, bool blockMovement) :
+    GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, name,
         {}, {}, {}, {parkingAreaParent}, {}, {}, {}, {},
         parameters, blockMovement),
     myPosition(x, y, z),

@@ -435,8 +435,8 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
 void
 GNEStoppingPlace::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
-    myStartPosition = moveResult.shapeToUpdate.front().x();
-    myEndPosition = moveResult.shapeToUpdate.back().x();
+    myStartPosition = toString(moveResult.shapeToUpdate.front().x());
+    myEndPosition = toString(moveResult.shapeToUpdate.back().x());
     // set lateral offset
     myMoveElementLateralOffset = moveResult.laneOffset;
     // update geometry

@@ -30,7 +30,7 @@
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent) :
-    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW_CALIBRATOR, "",
+    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
         {}, {}, {}, {calibratorParent}, {}, {}, {}, {},
         std::map<std::string, std::string>(), false),
     myVehicleType(calibratorParent->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID)),
@@ -46,7 +46,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
         const std::string& speed, const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, 
         const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, 
         bool reroute, const std::string& departPosLat, const std::string& arrivalPosLat, SUMOTime begin, SUMOTime end, const std::map<std::string, std::string> &parameters) :
-    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW_CALIBRATOR, "",
+    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
         {}, {}, {}, {calibratorParent}, {}, {}, {}, {},
         parameters, false),
     myVehicleType(vehicleType),

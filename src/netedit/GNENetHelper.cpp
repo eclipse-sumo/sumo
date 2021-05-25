@@ -250,7 +250,7 @@ GNENetHelper::AttributeCarriers::addPolygon(const std::string& id, const std::st
     // check if ID is duplicated
     if (myShapes.at(SUMO_TAG_POLY).count(id) == 0) {
         // create poly
-        GNEPoly* poly = new GNEPoly(myNet, id, type, shape, geo, fill, lineWidth, color, layer, angle, imgFile, relativePath, std::map<std::string, std::string>(), false, false);
+        GNEPoly* poly = new GNEPoly(myNet, id, type, shape, geo, fill, lineWidth, color, layer, angle, imgFile, relativePath, "", std::map<std::string, std::string>(), false, false);
         if (myAllowUndoShapes) {
             myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_POLY));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Shape(poly, true), true);
@@ -276,7 +276,7 @@ GNENetHelper::AttributeCarriers::addPOI(const std::string& id, const std::string
         // create POI or POILane depending of parameter lane
         if (lane.empty()) {
             // create POI
-            GNEPOI* POI = new GNEPOI(myNet, id, type, color, pos, geo, layer, angle, imgFile, relativePath, width, height, std::map<std::string, std::string>(), false);
+            GNEPOI* POI = new GNEPOI(myNet, id, type, color, pos, geo, layer, angle, imgFile, relativePath, width, height, "", std::map<std::string, std::string>(), false);
             if (myAllowUndoShapes) {
                 myNet->getViewNet()->getUndoList()->p_begin("add " + POI->getTagStr());
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Shape(POI, true), true);
@@ -293,7 +293,7 @@ GNENetHelper::AttributeCarriers::addPOI(const std::string& id, const std::string
             if (retrievedLane == nullptr) {
                 WRITE_ERROR("invalid lane to use within POI " + id);
             } else {
-                GNEShape* POILane = new GNEPOI(myNet, id, type, color, layer, angle, imgFile, relativePath, retrievedLane, posOverLane, posLat, width, height, std::map<std::string, std::string>(), false);
+                GNEShape* POILane = new GNEPOI(myNet, id, type, color, layer, angle, imgFile, relativePath, retrievedLane, posOverLane, posLat, width, height, "", std::map<std::string, std::string>(), false);
                 if (myAllowUndoShapes) {
                     myNet->getViewNet()->getUndoList()->p_begin("add " + POILane->getTagStr());
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_Shape(POILane, true), true);

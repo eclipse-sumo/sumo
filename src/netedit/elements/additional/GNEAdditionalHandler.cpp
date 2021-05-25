@@ -240,7 +240,7 @@ GNEAdditionalHandler::buildParkingSpace(const CommonXMLStructure::SumoBaseObject
     // get NETEDIT parameters
     NeteditParameters neteditParameters(sumoBaseObject);
     // build parkingSpace
-    GNEAdditional* parkingSpace = new GNEParkingSpace(myNet, parkingArea, x, y, z, width, length, angle, slope, parameters, neteditParameters.blockMovement);
+    GNEAdditional* parkingSpace = new GNEParkingSpace(myNet, parkingArea, x, y, z, width, length, angle, slope, name, parameters, neteditParameters.blockMovement);
     // insert depending of allowUndoRedo
     if (myAllowUndoRedo) {
         myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_PARKING_SPACE));
@@ -877,7 +877,7 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
             edges.push_back(myNet->retrieveEdge(edge));
         }
         // build TAZ
-        GNETAZElement* TAZ = new GNETAZ(id, myNet, shape, color, parameters, neteditParameters.blockMovement);
+        GNETAZElement* TAZ = new GNETAZ(id, myNet, shape, color,name, parameters, neteditParameters.blockMovement);
         // disable updating geometry of TAZ children during insertion (because in large nets provokes slowdowns)
         myNet->disableUpdateGeometry();
         // add it depending of allow undoRed
@@ -1049,7 +1049,7 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
     // check if poly exist
     if (myNet->retrieveShape(SUMO_TAG_POLY, id, false) == nullptr) {
         // create poly
-        GNEPoly* poly = new GNEPoly(myNet, id, type, shape, geo, fill, lineWidth, color, layer, angle, imgFile, relativePath, parameters, false, false);
+        GNEPoly* poly = new GNEPoly(myNet, id, type, shape, geo, fill, lineWidth, color, layer, angle, imgFile, relativePath, name, parameters, false, false);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_POLY));
@@ -1074,7 +1074,7 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
     if ((myNet->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) && 
         (myNet->retrieveShape(SUMO_TAG_POLY, id, false) == nullptr)) {
         // create POI
-        GNEPOI* POI = new GNEPOI(myNet, id, type, color, pos, geo, layer, angle, imgFile, relativePath, width, height, parameters, false);
+        GNEPOI* POI = new GNEPOI(myNet, id, type, color, pos, geo, layer, angle, imgFile, relativePath, width, height, name, parameters, false);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->p_begin("add " + POI->getTagStr());
@@ -1103,7 +1103,7 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
         // get lane
         GNELane *lane = myNet->retrieveLane(laneID);
         // create POI
-        GNEShape* POILane = new GNEPOI(myNet, id, type, color, layer, angle, imgFile, relativePath, lane, posOverLane, posLat, width, height, parameters, neteditParameters.blockMovement);
+        GNEShape* POILane = new GNEPOI(myNet, id, type, color, layer, angle, imgFile, relativePath, lane, posOverLane, posLat, width, height, name, parameters, neteditParameters.blockMovement);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->p_begin("add " + POILane->getTagStr());
