@@ -2190,7 +2190,7 @@ GNEAttributeCarrier::fillAdditionals() {
                                               "space separated list of vehicle type ids to consider (empty to affect all types)");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = SUMO_TAG_FLOW_CALIBRATOR;
+    currentTag = GNE_TAG_FLOW_CALIBRATOR;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,

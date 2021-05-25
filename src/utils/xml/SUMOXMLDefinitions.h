@@ -151,8 +151,6 @@ enum SumoXMLTag {
     SUMO_TAG_TRIP_TAZ,
     /// @brief a flow definitio nusing a from-to edges instead of a route (used by router)
     SUMO_TAG_FLOW,
-    /// @brief a flow definition within in Calibrator (used in NETEDIT)
-    SUMO_TAG_FLOW_CALIBRATOR,
     /// @brief a flow state definition (used when saving and loading simulatino state)
     SUMO_TAG_FLOWSTATE,
     /// @brief trigger: a step description
@@ -385,6 +383,8 @@ enum SumoXMLTag {
     GNE_TAG_E2DETECTOR_MULTILANE,
     /// @brief internal lane
     GNE_TAG_INTERNAL_LANE,
+    /// @brief a flow definition within in Calibrator (used in NETEDIT)
+    GNE_TAG_FLOW_CALIBRATOR,
     /// @brief Rerouter Symbol
     GNE_TAG_REROUTER_SYMBOL,
     /// @brief VSS Symbol

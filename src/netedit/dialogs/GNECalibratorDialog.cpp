@@ -89,7 +89,7 @@ GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* editedCalibrator) :
     // create add buton and label for flows in right frame
     FXHorizontalFrame* buttonAndLabelFlow = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
     myAddFlow = new FXButton(buttonAndLabelFlow, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_CALIBRATORDIALOG_ADD_FLOW, GUIDesignButtonIcon);
-    myLabelFlow = new FXLabel(buttonAndLabelFlow, ("Add new " + toString(SUMO_TAG_FLOW_CALIBRATOR) + "s").c_str(), nullptr, GUIDesignLabelThick);
+    myLabelFlow = new FXLabel(buttonAndLabelFlow, ("Add new " + toString(GNE_TAG_FLOW_CALIBRATOR) + "s").c_str(), nullptr, GUIDesignLabelThick);
 
     // Create table in right frame
     myFlowList = new FXTable(columnRight, this, MID_GNE_CALIBRATORDIALOG_TABLE_FLOW, GUIDesignTableAdditionals);
@@ -175,8 +175,8 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
                 WRITE_DEBUG("Opening FXMessageBox of type 'question'");
                 // open question dialog box
                 const std::string msg = ("Deletion of " + toString(SUMO_TAG_ROUTE) + " '" + myRouteList->getItem(i, 0)->getText().text() + "' will remove " +
-                                         toString(calibratorFlowsToErase.size()) + " " + toString(SUMO_TAG_FLOW_CALIBRATOR) + (calibratorFlowsToErase.size() > 1 ? ("s") : ("")) + ". Continue?");
-                FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, ("Remove " + toString(SUMO_TAG_FLOW_CALIBRATOR) + "s").c_str(), "%s", msg.c_str());
+                                         toString(calibratorFlowsToErase.size()) + " " + toString(GNE_TAG_FLOW_CALIBRATOR) + (calibratorFlowsToErase.size() > 1 ? ("s") : ("")) + ". Continue?");
+                FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, ("Remove " + toString(GNE_TAG_FLOW_CALIBRATOR) + "s").c_str(), "%s", msg.c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
                     if (answer == 2) {
@@ -293,8 +293,8 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
             // if there are flows that has vehicle type to remove as "vehicle type" parameter
             if (calibratorFlowsToErase.size() > 0) {
                 const std::string msg = ("Deletion of " + toString(SUMO_TAG_VTYPE) + " '" + myVehicleTypeList->getItem(i, 0)->getText().text() + "' will remove " +
-                                         toString(calibratorFlowsToErase.size()) + " " + toString(SUMO_TAG_FLOW_CALIBRATOR) + (calibratorFlowsToErase.size() > 1 ? ("s") : ("")) + ". Continue?");
-                FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, ("Remove " + toString(SUMO_TAG_FLOW_CALIBRATOR) + "s").c_str(), "%s", msg.c_str());
+                                         toString(calibratorFlowsToErase.size()) + " " + toString(GNE_TAG_FLOW_CALIBRATOR) + (calibratorFlowsToErase.size() > 1 ? ("s") : ("")) + ". Continue?");
+                FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, ("Remove " + toString(GNE_TAG_FLOW_CALIBRATOR) + "s").c_str(), "%s", msg.c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
                     if (answer == 2) {
@@ -471,7 +471,7 @@ GNECalibratorDialog::updateFlowAndLabelButton() {
     } else {
         myAddFlow->enable();
         myFlowList->enable();
-        myLabelFlow->setText(("Add new " + toString(SUMO_TAG_FLOW_CALIBRATOR) + "s").c_str());
+        myLabelFlow->setText(("Add new " + toString(GNE_TAG_FLOW_CALIBRATOR) + "s").c_str());
     }
 }
 

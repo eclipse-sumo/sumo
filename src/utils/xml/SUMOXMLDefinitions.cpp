@@ -92,7 +92,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "trip",                           SUMO_TAG_TRIP },
     { "tripTAZ",                        SUMO_TAG_TRIP_TAZ },
     { "flow",                           SUMO_TAG_FLOW },
-    { "flowCalibrator",                 SUMO_TAG_FLOW_CALIBRATOR },
     { "flowState",                      SUMO_TAG_FLOWSTATE },
     { "step",                           SUMO_TAG_STEP },
     { "interval",                       SUMO_TAG_INTERVAL },
@@ -240,6 +239,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     // NETEDIT
     { "e2MultilaneDetector",            GNE_TAG_E2DETECTOR_MULTILANE },
     { "internalLane",                   GNE_TAG_INTERNAL_LANE },
+    { "flowCalibrator",                 GNE_TAG_FLOW_CALIBRATOR },
     { "rerouterSymbol",                 GNE_TAG_REROUTER_SYMBOL },
     { "variableSpeedSignSymbol",        GNE_TAG_VSS_SYMBOL },
     { "vehicleWithRoute",               GNE_TAG_VEHICLE_WITHROUTE },
