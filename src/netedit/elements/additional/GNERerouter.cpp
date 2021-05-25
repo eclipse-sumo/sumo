@@ -33,7 +33,7 @@
 // ===========================================================================
 
 GNERerouter::GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::string& name, 
-    const std::string& filename, double probability, bool off, SUMOTime timeThreshold, const std::string& vTypes, 
+    const std::string& filename, double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes, 
     const std::map<std::string, std::string> &parameters, bool blockMovement) :
     GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, name,
         {}, {}, {}, {}, {}, {}, {}, {},
@@ -146,7 +146,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             return time2string(myTimeThreshold);
         case SUMO_ATTR_VTYPES:
-            return myVTypes;
+            return toString(myVTypes);
         case SUMO_ATTR_OFF:
             return toString(myOff);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -286,7 +286,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             myTimeThreshold = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_VTYPES:
-            myVTypes = value;
+            myVTypes = parse<std::vector<std::string> >(value);
             break;
         case SUMO_ATTR_OFF:
             myOff = parse<bool>(value);

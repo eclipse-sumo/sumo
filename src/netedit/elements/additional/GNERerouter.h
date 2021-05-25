@@ -49,7 +49,7 @@ public:
      * @param[in] blockMovement enable or disable additional movement
      */
     GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::string& name, const std::string& filename, 
-                double probability, bool off, SUMOTime timeThreshold, const std::string& vTypes, 
+                double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string> &vTypes, 
                 const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /// @brief Destructor
@@ -145,7 +145,7 @@ protected:
     SUMOTime myTimeThreshold;
 
     /// @brief optional vehicle types for restricting the rerouter
-    std::string myVTypes;
+    std::vector<std::string> myVTypes;
 
 private:
     /// @brief set attribute after validation
