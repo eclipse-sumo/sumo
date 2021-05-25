@@ -125,6 +125,12 @@ public:
     GNEFrameModuls::DrawingShape* getDrawingShapeModul() const;
 
 protected:
+    /// @brief SumoBaseObject used for create shape
+    CommonXMLStructure::SumoBaseObject* myBaseShape;
+
+    // @brief create baseShapeObject
+    void createBaseShapeObject(const SumoXMLTag tag);
+
     /**@brief build a shaped element using the drawed shape
      * return true if was successfully created
      * @note called when user stop drawing polygon
@@ -134,14 +140,8 @@ protected:
     /// @brief Tag selected in TagSelector
     void tagSelected();
 
-    /// @brief add Polygon
-    bool addPolygon(const std::map<SumoXMLAttr, std::string>& POIValues);
-
-    /// @brief add POI
-    bool addPOI(const std::map<SumoXMLAttr, std::string>& POIValues);
-
-    /// @brief add POILane
-    bool addPOILane(const std::map<SumoXMLAttr, std::string>& POIValues);
+    /// @brief add shape (using base shape)
+    void addShape();
 
 private:
     /// @brief shape tag selector
