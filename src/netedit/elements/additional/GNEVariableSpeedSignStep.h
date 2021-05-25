@@ -50,7 +50,7 @@ public:
     GNEMoveOperation* getMoveOperation(const double shapeOffset);
 
     /// @brief get time
-    double getTime() const;
+    SUMOTime getTime() const;
 
     /// @name Functions related with geometry of element
     /// @{

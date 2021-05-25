@@ -50,7 +50,7 @@ GNEVariableSpeedSignStep::getMoveOperation(const double /*shapeOffset*/) {
 }
 
 
-double
+SUMOTime
 GNEVariableSpeedSignStep::getTime() const {
     return myTime;
 }
