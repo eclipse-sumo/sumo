@@ -1351,7 +1351,7 @@ GNEAdditionalFrame::buildAdditionalOverLane(GNELane* lane, const GNETagPropertie
 bool
 GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagProperties) {
     // Check if ID has to be generated
-    if (myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
+    if (!myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
         myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, generateID(nullptr));
     }
     // Obtain position as the clicked position over view
