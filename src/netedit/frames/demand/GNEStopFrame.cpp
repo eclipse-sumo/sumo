@@ -279,10 +279,10 @@ GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTa
         return false;
     }
     // declare map to keep attributes from Frames from Frame
-    std::map<SumoXMLAttr, std::string> valuesMap = stopAttributes->getAttributesAndValues(false);
+    std::map<SumoXMLAttr, std::string> valuesMap = stopAttributes->getAttributesAndValuesTemporal(false);
     // add netedit values
     if (!stop.lane.empty()) {
-        myNeteditAttributes->getNeteditAttributesAndValues(valuesMap, lane);
+        myNeteditAttributes->getNeteditAttributesAndValuesTemporal(valuesMap, lane);
         // check if start position can be parsed
         if (GNEAttributeCarrier::canParse<double>(valuesMap[SUMO_ATTR_STARTPOS])) {
             stop.startPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_STARTPOS]);

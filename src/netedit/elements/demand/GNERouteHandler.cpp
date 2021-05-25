@@ -640,7 +640,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
     // get view net
     GNEViewNet* viewNet = personParent->getNet()->getViewNet();
     // Declare map to keep attributes from myPersonPlanAttributes
-    std::map<SumoXMLAttr, std::string> valuesMap = personPlanAttributes->getAttributesAndValues(true);
+    std::map<SumoXMLAttr, std::string> valuesMap = personPlanAttributes->getAttributesAndValuesTemporal(true);
     // get attributes
     const std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
     const std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);

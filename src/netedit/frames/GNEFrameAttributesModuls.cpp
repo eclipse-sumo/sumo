@@ -697,8 +697,7 @@ GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(CommonXMLStr
             // check if flags configuration allow to include values
             if (rowEnabled && (includeAll || hasDefaultStaticValue || isFlowDefinitionAttribute || isActivatableAttribute)) {
                 // add attribute depending of type
-                if (attrProperties.isBool()) {
-                } else if (attrProperties.isInt()) {
+                if (attrProperties.isInt()) {
                     baseObject->addIntAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<int>(myAttributesCreatorRows.at(i)->getValue()));
                 } else if (attrProperties.isFloat()) {
                     baseObject->addDoubleAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<double>(myAttributesCreatorRows.at(i)->getValue()));
@@ -724,6 +723,33 @@ GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(CommonXMLStr
     }
     // add extra flow attributes (only will updated if myAttributesCreatorFlow is shown)
     myAttributesCreatorFlow->setFlowParameters(baseObject);
+}
+
+
+std::map<SumoXMLAttr, std::string> 
+GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValuesTemporal(bool includeAll) const {
+    std::map<SumoXMLAttr, std::string> values;
+    // get standard parameters
+    for (int i = 0; i < (int)myAttributesCreatorRows.size(); i++) {
+        if (myAttributesCreatorRows.at(i) && myAttributesCreatorRows.at(i)->getAttrProperties().getAttr() != SUMO_ATTR_NOTHING) {
+            // flag for row enabled
+            bool rowEnabled = myAttributesCreatorRows.at(i)->isAttributesCreatorRowEnabled();
+            // flag for default attributes
+            bool hasDefaultStaticValue = !myAttributesCreatorRows.at(i)->getAttrProperties().hasStaticDefaultValue() || (myAttributesCreatorRows.at(i)->getAttrProperties().getDefaultValue() != myAttributesCreatorRows.at(i)->getValue());
+            // flag for enablitables attributes
+            bool isFlowDefinitionAttribute = myAttributesCreatorRows.at(i)->getAttrProperties().isFlowDefinition();
+            // flag for optional attributes
+            bool isActivatableAttribute = myAttributesCreatorRows.at(i)->getAttrProperties().isActivatable() && myAttributesCreatorRows.at(i)->getAttributeCheckButtonCheck();
+            // check if flags configuration allow to include values
+            if (rowEnabled && (includeAll || hasDefaultStaticValue || isFlowDefinitionAttribute || isActivatableAttribute)) {
+                values[myAttributesCreatorRows.at(i)->getAttrProperties().getAttr()] = myAttributesCreatorRows.at(i)->getValue();
+            }
+        }
+    }
+    // add extra flow attributes (only will updated if myAttributesCreatorFlow is shown)
+    // myAttributesCreatorFlow->setFlowParameters(values);
+    // return values
+    return values;
 }
 
 
@@ -2555,8 +2581,8 @@ GNEFrameAttributesModuls::NeteditAttributes::getNeteditAttributesAndValues(Commo
                 // obtain length
                 double length = GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
                 // set start and end position
-                baseObject->addDoubleAttribute(SUMO_ATTR_STARTPOS, setStartPosition(mousePositionOverLane, length));
-                baseObject->addDoubleAttribute(SUMO_ATTR_ENDPOS, setEndPosition(mousePositionOverLane, length));
+                baseObject->addStringAttribute(SUMO_ATTR_STARTPOS, toString(setStartPosition(mousePositionOverLane, length)));
+                baseObject->addStringAttribute(SUMO_ATTR_ENDPOS, toString(setEndPosition(mousePositionOverLane, length)));
             }
         } else {
             return false;
@@ -2573,6 +2599,59 @@ GNEFrameAttributesModuls::NeteditAttributes::getNeteditAttributesAndValues(Commo
     // check center element after creation
     if (myCenterViewAfterCreationButton->shown()) {
         baseObject->addBoolAttribute(GNE_ATTR_CENTER_AFTER_CREATION, myCenterViewAfterCreationButton->getCheck() == 1);
+    }
+    // all ok, then return true to continue creating element
+    return true;
+}
+
+
+bool
+GNEFrameAttributesModuls::NeteditAttributes::getNeteditAttributesAndValuesTemporal(std::map<SumoXMLAttr, std::string>& valuesMap, const GNELane* lane) const {
+    // check if we need to obtain a start and end position over an edge
+    if (myReferencePointMatchBox->shown()) {
+        // we need a valid lane to calculate position over lane
+        if (lane == nullptr) {
+            return false;
+        } else if (myCurrentLengthValid) {
+            // Obtain position of the mouse over lane (limited over grid)
+            double mousePositionOverLane = lane->getLaneShape().nearest_offset_to_point2D(myFrameParent->myViewNet->snapToActiveGrid(myFrameParent->myViewNet->getPositionInformation())) / lane->getLengthGeometryFactor();
+            // check if current reference point is valid
+            if (myActualAdditionalReferencePoint == GNE_ADDITIONALREFERENCEPOINT_INVALID) {
+                std::string errorMessage = "Current selected reference point isn't valid";
+                myFrameParent->myViewNet->setStatusBarText(errorMessage);
+                // Write Warning in console if we're in testing mode
+                WRITE_DEBUG(errorMessage);
+                return false;
+            } else {
+                // obtain length
+                double length = GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
+                // set start and end position
+                valuesMap[SUMO_ATTR_STARTPOS] = toString(setStartPosition(mousePositionOverLane, length));
+                valuesMap[SUMO_ATTR_ENDPOS] = toString(setEndPosition(mousePositionOverLane, length));
+            }
+        } else {
+            return false;
+        }
+    }
+    // Save block value if element can be blocked
+    if (myBlockMovementCheckButton->shown()) {
+        if (myBlockMovementCheckButton->getCheck() == 1) {
+            valuesMap[GNE_ATTR_BLOCK_MOVEMENT] = "1";
+        } else {
+            valuesMap[GNE_ATTR_BLOCK_MOVEMENT] = "0";
+        }
+    }
+    // Save close shape value if shape's element can be closed
+    if (myCloseShapeCheckButton->shown()) {
+        if (myCloseShapeCheckButton->getCheck() == 1) {
+            valuesMap[GNE_ATTR_CLOSE_SHAPE] = "1";
+        } else {
+            valuesMap[GNE_ATTR_CLOSE_SHAPE] = "0";
+        }
+    }
+    // check center element after creation
+    if (myCenterViewAfterCreationButton->shown() && (myCenterViewAfterCreationButton->getCheck() == 1)) {
+        valuesMap[GNE_ATTR_CENTER_AFTER_CREATION] = "1";
     }
     // all ok, then return true to continue creating element
     return true;

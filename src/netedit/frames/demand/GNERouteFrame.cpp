@@ -251,7 +251,7 @@ GNERouteFrame::createPath() {
         myRouteAttributes->showWarningMessage();
     } else if (myPathCreator->getSelectedEdges().size() > 0) {
         // obtain attributes
-        std::map<SumoXMLAttr, std::string> valuesMap = myRouteAttributes->getAttributesAndValues(true);
+        std::map<SumoXMLAttr, std::string> valuesMap = myRouteAttributes->getAttributesAndValuesTemporal(true);
         // declare a route parameter
         GNERouteHandler::RouteParameter routeParameters;
         for (const auto& path : myPathCreator->getPath()) {
