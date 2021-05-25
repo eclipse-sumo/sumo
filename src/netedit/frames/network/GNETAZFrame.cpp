@@ -1112,7 +1112,7 @@ GNETAZFrame::TAZParameters::isAddEdgesWithinEnabled() const {
 }
 
 
-std::map<SumoXMLAttr, std::string>
+void
 GNETAZFrame::TAZParameters::getAttributesAndValues() const {
     // check if baseTAZ exist, and if yes, delete it
     if (myTAZFrameParent->myBaseTAZ) {
@@ -1487,7 +1487,7 @@ GNETAZFrame::shapeDrawed() {
             myBaseTAZ->addStringListAttribute(SUMO_ATTR_EDGES, edgeIDs);
         } else {
             // TAZ is created without edges
-            myBaseTAZ->addStringListAttribute(SUMO_ATTR_EDGES, const std::vector<std::string>());
+            myBaseTAZ->addStringListAttribute(SUMO_ATTR_EDGES, std::vector<std::string>());
         }
         // declare additional handler
         GNEAdditionalHandler additionalHandler(myViewNet->getNet(), "", true);

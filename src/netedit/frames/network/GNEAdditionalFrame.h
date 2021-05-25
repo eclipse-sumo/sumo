@@ -370,11 +370,11 @@ public:
     GNEAdditionalFrame::E2MultilaneLaneSelector* getE2MultilaneLaneSelector() const;
 
 protected:
+    /// @brief SumoBaseObject used for create additional
+    CommonXMLStructure::SumoBaseObject* myBaseAdditional;
+
     /// @brief Tag selected in TagSelector
     void tagSelected();
-
-    /// @brief SumoBaseObject used for creating additional
-    CommonXMLStructure::SumoBaseObject* myBaseAdditional;
 
 private:
     // @brief create baseAdditionalObject
