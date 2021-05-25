@@ -532,6 +532,9 @@ public:
     TAZSaveChanges* getTAZSaveChangesModul() const;
 
 protected:
+    /// @brief SumoBaseObject used for creating TAZ
+    CommonXMLStructure::SumoBaseObject* myBaseTAZ;
+
     /**@brief build a shaped element using the drawed shape
      * return true if was sucesfully created
      * @note called when user stop drawing shape
