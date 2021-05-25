@@ -122,7 +122,8 @@ AdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             case SUMO_TAG_LANECALIBRATOR:
                 parseCalibratorAttributes(attrs);
                 break;
-            case SUMO_TAG_FLOW_CALIBRATOR:
+            // flow (calibrator)
+            case SUMO_TAG_FLOW:
                 parseCalibratorFlowAttributes(attrs);
                 break;
             // Rerouter
@@ -772,7 +773,59 @@ AdditionalHandler::parseCalibratorAttributes(const SUMOSAXAttributes& attrs) {
 
 void
 AdditionalHandler::parseCalibratorFlowAttributes(const SUMOSAXAttributes& attrs) {
-
+    // check that frecuency and trafficLight aren't defined together
+    if (!attrs.hasAttribute(SUMO_ATTR_TYPE) && !attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR) && !attrs.hasAttribute(SUMO_ATTR_SPEED)) {
+        throw FormatException("CalibratorFlows need either the attribute vehsPerHour or speed or type (or any combination of these)");
+    }
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string route = attrs.get<std::string>(SUMO_ATTR_ROUTE, "", parsedOk, false);
+    const SUMOTime begin = attrs.get<SUMOTime>(SUMO_ATTR_BEGIN, "", parsedOk, false);
+    const SUMOTime end = attrs.get<SUMOTime>(SUMO_ATTR_BEGIN, "", parsedOk, false);
+    // special attributes
+    const std::string vType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, "", parsedOk, "", false);
+    const std::string vehsPerHour = attrs.getOpt<std::string>(SUMO_ATTR_VEHSPERHOUR, "", parsedOk, "", false);
+    const std::string speed = attrs.getOpt<std::string>(SUMO_ATTR_SPEED, "", parsedOk, "", false);
+    // optional attributes
+    const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, "", parsedOk, RGBColor::YELLOW, false);
+    const std::string departLane = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTLANE, "", parsedOk, "first", false);
+    const std::string departPos = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS, "", parsedOk, "base", false);
+    const std::string departSpeed = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTSPEED, "", parsedOk, "0", false);
+    const std::string arrivalLane = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALLANE, "", parsedOk, "current", false);
+    const std::string arrivalPos = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, "max", false);
+    const std::string arrivalSpeed = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALSPEED, "", parsedOk, "current", false);
+    const std::string line = attrs.getOpt<std::string>(SUMO_ATTR_LINE, "", parsedOk, "", false);
+    const int personNumber = attrs.getOpt<int>(SUMO_ATTR_PERSON_NUMBER, "", parsedOk, 0, false);
+    const int containerNumber = attrs.getOpt<int>(SUMO_ATTR_CONTAINER_NUMBER, "", parsedOk, 0, false);
+    const bool reroute = attrs.getOpt<bool>(SUMO_ATTR_REROUTE, "", parsedOk, false, false);
+    const std::string departPosLat = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS_LAT, "", parsedOk, "center", false);
+    const std::string arrivalPosLat = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALPOS_LAT, "", parsedOk, "", false);
+    // continue if flag is ok
+    if (parsedOk) {
+        // first open tag
+        myCommonXMLStructure.openTag(GNE_TAG_FLOW_CALIBRATOR);
+        // add all attributes
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ROUTE, route);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_BEGIN, begin);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_END, end);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_TYPE, vType);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_VEHSPERHOUR, vehsPerHour);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_SPEED, speed);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_DEPARTLANE, departLane);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_DEPARTPOS, departPos);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_DEPARTSPEED, departSpeed);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ARRIVALLANE, arrivalLane);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ARRIVALPOS, arrivalPos);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ARRIVALSPEED, arrivalSpeed);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LINE, line);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addIntAttribute(SUMO_ATTR_PERSON_NUMBER, personNumber);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addIntAttribute(SUMO_ATTR_CONTAINER_NUMBER, containerNumber);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_REROUTE, reroute);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_DEPARTPOS_LAT, departPosLat);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ARRIVALPOS_LAT, arrivalPosLat);
+    }
 }
 
 
@@ -1302,7 +1355,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getStringAttribute(SUMO_ATTR_VTYPES),
                 obj->getParameters());
             break;
-        case SUMO_TAG_FLOW_CALIBRATOR:
+        case GNE_TAG_FLOW_CALIBRATOR:
             buildCalibratorFlow(obj,
                 obj->getStringAttribute(SUMO_ATTR_TYPE),
                 obj->getStringAttribute(SUMO_ATTR_ROUTE),
