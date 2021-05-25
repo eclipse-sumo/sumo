@@ -936,6 +936,7 @@ AdditionalHandler::parseRouteProbeAttributes(const SUMOSAXAttributes& attrs) {
     const std::string edge = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), parsedOk, false);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, false);
     const SUMOTime time = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, false);
+    const SUMOTime begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), parsedOk, false);
     // optional attributes
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "", false);
     // continue if flag is ok
@@ -948,6 +949,7 @@ AdditionalHandler::parseRouteProbeAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_FREQUENCY, time);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_BEGIN, begin);
     }
 }
 
@@ -1377,7 +1379,6 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             break;
         // Route probe
         case SUMO_TAG_ROUTEPROBE:
-/*
             buildRouteProbe(obj,
                 obj->getStringAttribute(SUMO_ATTR_ID),
                 obj->getStringAttribute(SUMO_ATTR_EDGE),
@@ -1386,7 +1387,6 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getStringAttribute(SUMO_ATTR_FILE),
                 obj->getTimeAttribute(SUMO_ATTR_BEGIN),
             obj->getParameters());
-*/
             break;
         // Vaporizer (deprecated)
         case SUMO_TAG_VAPORIZER:

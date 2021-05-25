@@ -388,7 +388,7 @@ public:
      * @param[in] begin The time at which to start generating output
      * @param[in] parameters generic parameters
      */
-    void buildRouteProbe(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &edgeID, const std::string& freq, 
+    void buildRouteProbe(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &edgeID, const SUMOTime freq, 
                          const std::string& name, const std::string& file, const SUMOTime begin, const std::map<std::string, std::string> &parameters);
 
     /**@brief Builds a VariableSpeedSign (lane speed additional)

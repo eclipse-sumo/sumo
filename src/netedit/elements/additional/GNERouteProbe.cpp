@@ -34,7 +34,7 @@
 // member method definitions
 // ===========================================================================
 
-GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const std::string& frequency, const std::string& name, 
+GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const SUMOTime frequency, const std::string& name, 
         const std::string& filename, SUMOTime begin, const std::map<std::string, std::string> &parameters) :
     GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name,
         {}, {edge}, {}, {}, {}, {}, {}, {},
@@ -287,7 +287,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFilename = value;
             break;
         case SUMO_ATTR_FREQUENCY:
-            myFrequency = value;
+            myFrequency = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_BEGIN:
             myBegin = parse<SUMOTime>(value);
