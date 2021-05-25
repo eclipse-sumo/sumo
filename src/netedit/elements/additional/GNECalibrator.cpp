@@ -33,7 +33,7 @@
 // ===========================================================================
 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name, 
-        const std::string& output, const std::string& routeprobe, const double jamThreshold, const std::string &vTypes, 
+        const std::string& output, const std::string& routeprobe, const double jamThreshold, const std::vector<std::string> &vTypes, 
         const std::map<std::string, std::string> &parameters, bool blockMovement) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name,
         {}, {edge}, {}, {}, {}, {}, {}, {},
@@ -50,7 +50,7 @@ GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, 
 
 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name, 
-        const std::string& output, const std::string& routeprobe, const double jamThreshold, const std::string &vTypes, 
+        const std::string& output, const std::string& routeprobe, const double jamThreshold, const std::vector<std::string> &vTypes, 
         const std::map<std::string, std::string> &parameters, bool blockMovement) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name,
         {}, {}, {lane}, {}, {}, {}, {}, {},
@@ -194,7 +194,7 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
             return toString(myJamThreshold);
         case SUMO_ATTR_VTYPES:
-            return myVTypes;
+            return toString(myVTypes);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -400,7 +400,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             myJamThreshold = parse<double>(value);
             break;
         case SUMO_ATTR_VTYPES:
-            myVTypes = value;
+            myVTypes = parse<std::vector<std::string> >(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
