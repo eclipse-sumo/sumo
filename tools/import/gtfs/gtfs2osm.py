@@ -561,7 +561,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
 
     stop_output = options.additional_output
     with open(stop_output, 'w', encoding="utf8") as output_file:
-        sumolib.xml.writeHeader(output_file, stop_output, "additional")
+        sumolib.xml.writeHeader(output_file, root="additional")
         for stop, value in map_stops.items():
             name, lane, start_pos, end_pos, v_type = value[:5]
             if v_type == "bus":
@@ -599,12 +599,10 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
             vout.write(u'</additional>\n')
 
     with open(route_output, 'w', encoding="utf8") as output_file:
-        sumolib.xml.writeHeader(output_file, route_output, "routes")
-        if not options.vtype_output:
-            for osm_type, sumo_class in OSM2SUMO_MODES.items():
-                if osm_type in options.modes:
-                    output_file.write('    <vType id="%s" vClass="%s"/>\n' %
-                                    (osm_type, sumo_class))
+        sumolib.xml.writeHeader(output_file, root="routes")
+        numDays = options.end // 86400
+        if options.end % 86400 != 0:
+            numDays += 1
 
         for row in trip_list.sort_values("departure").itertuples():
 
@@ -624,33 +622,41 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
             if len(set(stop_index)) < options.min_stops:
                 # Not enough stops mapped
                 continue
-            veh_attr = (row.route_short_name, row.trip_id, row.route_id,
-                        row.direction_id, row.arrival_time, min(stop_index),
-                        max(stop_index), pt_type, row.trip_headsign)
-            output_file.write('    <vehicle id="%s_%s" line="%s_%s" depart="%s" departEdge="%s" arrivalEdge="%s" type="%s"><!--%s-->\n'  # noqa
-                              % veh_attr)
-            output_file.write('        <route edges="%s"/>\n' % (" ".join(edges_list)))  # noqa
+            for d in range(numDays):
+                depart = sumolib.miscutils.parseTime(row.arrival_time) + d * 86400
+                if options.begin <= depart < options.end:
+                    if d > 0:
+                        veh_id = "%s_%s.%s" % (row.route_short_name, row.trip_id, d)
+                        day = "%s:" % d
+                    else:
+                        veh_id = "%s_%s" % (row.route_short_name, row.trip_id)
+                        day = ""
+                    
+                    output_file.write('    <vehicle id="%s" line="%s_%s" depart="%s%s" departEdge="%s" arrivalEdge="%s" type="%s"><!--%s-->\n'  # noqa
+                                    % (veh_id, row.route_id, row.direction_id, day, row.arrival_time,
+                                       min(stop_index), max(stop_index), pt_type, row.trip_headsign))
+                    output_file.write('        <route edges="%s"/>\n' % (" ".join(edges_list)))  # noqa
 
-            check_seq = -1
-            for stop in stop_list.itertuples():
-                if not stop.stop_item_id:
-                    # if stop not mapped
-                    continue
-                stop_index = edges_list.index(stop.edge_id)
-                if stop_index > check_seq:
-                    check_seq = stop_index
-                    stop_attr = (stop.stop_item_id, stop.arrival_time,
-                                 options.duration, stop.departure_time,
-                                 stop.stop_name)
-                    output_file.write('        <stop busStop="%s" arrival="%s" duration="%s" until="%s"/><!--%s-->\n'  # noqa
-                                      % stop_attr)
-                elif stop_index < check_seq:
-                    # stop not downstream
-                    sequence_errors.append((stop.stop_item_id,
-                                            row.route_short_name,
-                                            row.trip_headsign, stop.trip_id))
+                    check_seq = -1
+                    for stop in stop_list.itertuples():
+                        if not stop.stop_item_id:
+                            # if stop not mapped
+                            continue
+                        s_index = edges_list.index(stop.edge_id)
+                        if s_index > check_seq:
+                            check_seq = s_index
+                            stop_attr = (stop.stop_item_id, day, stop.arrival_time,
+                                        options.duration, day, stop.departure_time,
+                                        stop.stop_name)
+                            output_file.write('        <stop busStop="%s" arrival="%s%s" duration="%s" until="%s%s"/><!--%s-->\n'  # noqa
+                                            % stop_attr)
+                        elif s_index < check_seq:
+                            # stop not downstream
+                            sequence_errors.append((stop.stop_item_id,
+                                                    row.route_short_name,
+                                                    row.trip_headsign, stop.trip_id))
 
-            output_file.write('    </vehicle>\n')
+                    output_file.write('    </vehicle>\n')
         output_file.write('</routes>\n')
 
     # -----------------------   Save missing data ------------------
