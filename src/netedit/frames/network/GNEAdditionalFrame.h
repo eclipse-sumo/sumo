@@ -386,9 +386,6 @@ private:
     /// @brief build common additional attributes
     bool buildAdditionalCommonAttributes(const GNETagProperties& tagValues);
 
-    /// @brief build slave additional
-    bool buildSlaveAdditional(GNEAdditional* parent, const GNETagProperties& tagValues);
-
     /// @brief build additional over an edge (parent of lane)
     bool buildAdditionalOverEdge(GNELane* lane, const GNETagProperties& tagValues);
 
