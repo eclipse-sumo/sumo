@@ -49,6 +49,9 @@ public:
     /// @brief parse
     bool parse();
 
+    /// @brief parse SumoBaseObject (it's called recursivelly)
+    void parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj);
+
     /// @name build functions
     /// @{
     /**@brief Builds a bus stop
@@ -633,9 +636,6 @@ private:
     void parseParameters(const SUMOSAXAttributes& attrs);
 
     /// @}
-
-    /// @brief parse SumoBaseObject (it's called recursivelly)
-    void parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj);
 
     /// @brief invalidate copy constructor
     AdditionalHandler(const AdditionalHandler& s) = delete;
