@@ -589,12 +589,22 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
     sequence_errors = []
     route_output = options.route_output
 
+    if options.vtype_output:
+        with open(options.vtype_output, 'w', encoding="utf8") as vout:
+            sumolib.xml.writeHeader(vout, root="additional")
+            for osm_type, sumo_class in OSM2SUMO_MODES.items():
+                if osm_type in options.modes:
+                    vout.write('    <vType id="%s" vClass="%s"/>\n' %
+                                    (osm_type, sumo_class))
+            vout.write(u'</additional>\n')
+
     with open(route_output, 'w', encoding="utf8") as output_file:
         sumolib.xml.writeHeader(output_file, route_output, "routes")
-        for osm_type, sumo_class in OSM2SUMO_MODES.items():
-            if osm_type in options.modes:
-                output_file.write('    <vType id="%s" vClass="%s"/>\n' %
-                                  (osm_type, sumo_class))
+        if not options.vtype_output:
+            for osm_type, sumo_class in OSM2SUMO_MODES.items():
+                if osm_type in options.modes:
+                    output_file.write('    <vType id="%s" vClass="%s"/>\n' %
+                                    (osm_type, sumo_class))
 
         for row in trip_list.sort_values("departure").itertuples():
 
