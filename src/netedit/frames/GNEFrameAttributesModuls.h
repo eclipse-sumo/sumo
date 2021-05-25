@@ -23,6 +23,7 @@
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/GNEViewNetHelper.h>
 #include <utils/common/Parameterised.h>
+#include <utils/additionals/CommonXMLStructure.h>
 
 // ===========================================================================
 // class declaration
@@ -172,7 +173,7 @@ public:
         GNEFrame* getFrameParent() const;
 
         /// @brief get attributes and their values
-        std::map<SumoXMLAttr, std::string> getAttributesAndValues(bool includeAll) const;
+        void getAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, bool includeAll) const;
 
         /// @brief get current edited Tag Properties
         GNETagProperties getCurrentTagProperties() const;
@@ -237,7 +238,7 @@ public:
         void refreshAttributesCreatorFlow();
 
         /// @brief set parameters
-        void setFlowParameters(std::map<SumoXMLAttr, std::string>& parameters);
+        void setFlowParameters(CommonXMLStructure::SumoBaseObject* baseObject);
 
         /// @brief check if parameters of attributes are valid
         bool areValuesValid() const;
@@ -722,7 +723,7 @@ public:
         void hideNeteditAttributesModul();
 
         /// @brief fill valuesMap with netedit attributes
-        bool getNeteditAttributesAndValues(std::map<SumoXMLAttr, std::string>& valuesMap, const GNELane* lane) const;
+        bool getNeteditAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, const GNELane* lane) const;
 
         /// @name FOX-callbacks
         /// @{
