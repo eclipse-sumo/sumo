@@ -156,16 +156,16 @@ def _cutEdgeList(areaEdges, oldDepart, exitTimes, edges, orig_net, options, stat
             teleportFactor = len(departTimes) / float(len(edges))
             stats.teleportFactorSum += teleportFactor
             # assume teleports were spread evenly across the vehicles route
-            newDepart = sumolib.miscutils.parseTime(departTimes[int(fromIndex * teleportFactor)])
+            newDepart = parseTime(departTimes[int(fromIndex * teleportFactor)])
         if (exitTimes is None) or (newDepart == -1):
             if orig_net is not None:
                 # extrapolate new departure using default speed
-                newDepart = (sumolib.miscutils.parseTime(oldDepart) +
+                newDepart = (parseTime(oldDepart) +
                              sum([(orig_net.getEdge(e).getLength() /
                                    (orig_net.getEdge(e).getSpeed() * options.speed_factor))
                                   for e in edges[:fromIndex]]))
             else:
-                newDepart = sumolib.miscutils.parseTime(oldDepart)
+                newDepart = parseTime(oldDepart)
         result.append((newDepart, edges[fromIndex:toIndex + 1]))
         stats.num_returned += 1
     return result
@@ -273,16 +273,16 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                 if not moving.getChildList():
                     continue
                 if newDepart is None:
-                    newDepart = float(moving.depart)
+                    newDepart = parseTime(moving.depart)
                 moving.depart = "%.2f" % newDepart
                 yield newDepart, moving
             else:
                 if moving.name == 'vehicle':
                     stats.num_vehicles += 1
-                    oldDepart = moving.depart
+                    oldDepart = parseTime(moving.depart)
                 else:
                     stats.num_flows += 1
-                    oldDepart = moving.begin
+                    oldDepart = parseTime(moving.begin)
                 if moving.routeDistribution is not None:
                     old_route = moving.addChild("route", {"edges": moving.routeDistribution[0].route[-1].edges})
                     moving.removeChild(moving.routeDistribution[0])
@@ -298,11 +298,11 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                     elif newDepart is not None:
                         # route was already treated
                         if moving.name == 'vehicle':
-                            newDepart += float(moving.depart)
+                            newDepart += oldDepart
                             moving.depart = "%.2f" % newDepart
                         else:
-                            moving.end = "%.2f" % (newDepart + float(moving.end))
-                            newDepart += float(moving.begin)
+                            moving.end = "%.2f" % (newDepart + parseTime(moving.end))
+                            newDepart += oldDepart
                             moving.begin = "%.2f" % newDepart
                         if collectPT and moving.line:
                             oldPTRoutes[moving.line] = standaloneRoutes[moving.route].edges.split()
@@ -328,9 +328,9 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                     departShift = None
                     if routeRef:
                         departShift = cut_stops(routeRef, busStopEdges, remaining,
-                                                newDepart - float(oldDepart), options.defaultStopDuration)
+                                                newDepart - oldDepart, options.defaultStopDuration, True)
                         standaloneRoutesDepart[moving.route] = departShift
-                        newDepart = float(oldDepart) + departShift
+                        newDepart = oldDepart + departShift
                         routeRef.edges = " ".join(remaining)
                         yield -1, routeRef
                     else:
@@ -339,7 +339,9 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                         moving.depart = "%.2f" % newDepart
                     else:
                         moving.begin = "%.2f" % newDepart
-                        moving.end = "%.2f" % (newDepart - float(oldDepart) + float(moving.end))
+                        moving.end = "%.2f" % (newDepart - oldDepart + parseTime(moving.end))
+                    moving.departEdge = None  # TODO this is just a workaround
+                    moving.arrivalEdge = None  # TODO this is just a workaround
                     if len(routeParts) > 1:
                         # return copies of the vehicle for each route part
                         yield_mov = copy.deepcopy(moving)
@@ -369,7 +371,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
             print(count, edge)
 
 
-def cut_stops(vehicle, busStopEdges, remaining, departShift=0, defaultDuration=0):
+def cut_stops(vehicle, busStopEdges, remaining, departShift=0, defaultDuration=0, isStandalone=False):
     if vehicle.stop:
         skippedStopDuration = 0
         haveStop = False
@@ -381,12 +383,12 @@ def cut_stops(vehicle, busStopEdges, remaining, departShift=0, defaultDuration=0
                 elif stop.busStop not in busStopEdges:
                     print("Skipping bus stop '%s', which could not be located." % stop.busStop)
                 elif busStopEdges[stop.busStop] in remaining:
-                    if departShift > 0 and until is not None:
+                    if departShift > 0 and until is not None and isStandalone:
                         stop.until = max(0, until - departShift)
                     haveStop = True
                     continue
                 elif stop.duration is not None:
-                    skippedStopDuration += float(stop.duration)
+                    skippedStopDuration += parseTime(stop.duration)
                 else:
                     skippedStopDuration += defaultDuration
             elif stop.lane[:-2] in remaining:
