@@ -841,25 +841,28 @@ GNEAdditionalHandler::buildVariableSpeedSignStep(const CommonXMLStructure::SumoB
 void 
 GNEAdditionalHandler::buildVaporizer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const SUMOTime from, 
     const SUMOTime endTime, const std::string& name, const std::map<std::string, std::string> &parameters) {
-    // get edge
-    GNEEdge *edge = myNet->retrieveEdge(edgeID);
-    // get NETEDIT parameters
-    NeteditParameters neteditParameters(sumoBaseObject);
-    // build vaporizer
-    GNEAdditional* vaporizer = new GNEVaporizer(myNet, edge, from, endTime, name, parameters);
-    // add it depending of allow undoRed
-    if (myAllowUndoRedo) {
-        myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_VAPORIZER));
-        myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(vaporizer, true), true);
-        myNet->getViewNet()->getUndoList()->p_end();
-        // center after creation
-        if (neteditParameters.centerAfterCreation) {
-            myNet->getViewNet()->centerTo(vaporizer->getPositionInView(), false);
+    // check if Vaporizer exist
+    if (myNet->retrieveAdditional(SUMO_TAG_VAPORIZER, edgeID, false) == nullptr) {
+        // get edge
+        GNEEdge *edge = myNet->retrieveEdge(edgeID);
+        // get NETEDIT parameters
+        NeteditParameters neteditParameters(sumoBaseObject);
+        // build vaporizer
+        GNEAdditional* vaporizer = new GNEVaporizer(myNet, edge, from, endTime, name, parameters);
+        // add it depending of allow undoRed
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_VAPORIZER));
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(vaporizer, true), true);
+            myNet->getViewNet()->getUndoList()->p_end();
+            // center after creation
+            if (neteditParameters.centerAfterCreation) {
+                myNet->getViewNet()->centerTo(vaporizer->getPositionInView(), false);
+            }
+        } else {
+            myNet->getAttributeCarriers()->insertAdditional(vaporizer);
+            edge->addChildElement(vaporizer);
+            vaporizer->incRef("buildVaporizer");
         }
-    } else {
-        myNet->getAttributeCarriers()->insertAdditional(vaporizer);
-        edge->addChildElement(vaporizer);
-        vaporizer->incRef("buildVaporizer");
     }
 }
 
