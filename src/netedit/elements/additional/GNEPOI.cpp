@@ -59,7 +59,7 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
         const std::string& imgFile, bool relativePath, GNELane* lane, double posOverLane, double posLat, double width, 
         double height, const std::string &name, const std::map<std::string, std::string> &parameters, bool movementBlocked) :
     PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, posLat, layer, angle, imgFile, relativePath, width, height),
-    GNEShape(id, net, GLO_POI, SUMO_TAG_POILANE, 
+    GNEShape(id, net, GLO_POI, GNE_TAG_POILANE, 
         {}, {}, {lane}, {}, {}, {}, {}, {},
         parameters, movementBlocked) {
     // update centering boundary without updating grid
@@ -74,7 +74,7 @@ GNEMoveOperation*
 GNEPOI::getMoveOperation(const double /* shapeOffset */) {
     if (myBlockMovement) {
         return nullptr;
-    } else if (getTagProperty().getTag() == SUMO_TAG_POILANE) {
+    } else if (getTagProperty().getTag() == GNE_TAG_POILANE) {
         // return move operation for POI placed over lane
         return new GNEMoveOperation(this, getParentLanes().front(), {myPosOverLane},
                                     myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
@@ -523,7 +523,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNEPOI::setMoveShape(const GNEMoveResult& moveResult) {
     // set geometry
-    if (getTagProperty().getTag() == SUMO_TAG_POILANE) {
+    if (getTagProperty().getTag() == GNE_TAG_POILANE) {
         myPosOverLane = moveResult.shapeToUpdate.front().x();
     } else {
         set(moveResult.shapeToUpdate.front());
@@ -535,7 +535,7 @@ GNEPOI::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNEPOI::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("position of " + getTagStr());
-    if (getTagProperty().getTag() == SUMO_TAG_POILANE) {
+    if (getTagProperty().getTag() == GNE_TAG_POILANE) {
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front().x())));
     } else {
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));

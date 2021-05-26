@@ -41,7 +41,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "lane",                           SUMO_TAG_LANE },
     { "neigh",                          SUMO_TAG_NEIGH },
     { "poi",                            SUMO_TAG_POI },
-    { "poiLane",                        SUMO_TAG_POILANE },
+    { "poiLane",                        GNE_TAG_POILANE },
     { "poly",                           SUMO_TAG_POLY },
     { "junction",                       SUMO_TAG_JUNCTION },
     { "restriction",                    SUMO_TAG_RESTRICTION },

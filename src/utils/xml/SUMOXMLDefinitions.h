@@ -49,8 +49,8 @@ enum SumoXMLTag {
     SUMO_TAG_NEIGH,
     /// @brief begin/end of the description of a Point of interest
     SUMO_TAG_POI,
-    /// @brief begin/end of the description of a Point of interest over Lane (used by Netedit)
-    SUMO_TAG_POILANE,
+    /// @brief begin/end of the description of a Point of interest over Lane (placed here due create Shape Frame)
+    GNE_TAG_POILANE,
     /// @brief begin/end of the description of a polygon
     SUMO_TAG_POLY,
     /// @brief begin/end of the description of a junction
