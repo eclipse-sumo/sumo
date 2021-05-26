@@ -143,38 +143,39 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             break;
         case SUMO_TAG_E2DETECTOR:
         case SUMO_TAG_LANE_AREA_DETECTOR:
-            buildSingleLaneDetectorE2(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_LANE),
-                obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
-                obj->getStringAttribute(SUMO_ATTR_FREQUENCY),
-                obj->getStringAttribute(SUMO_ATTR_TLID),
-                obj->getStringAttribute(SUMO_ATTR_FILE),
-                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
-                obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
-                obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
-                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                obj->getParameters());
-            break;
-        case GNE_TAG_E2DETECTOR_MULTILANE:
-            buildMultiLaneDetectorE2(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringListAttribute(SUMO_ATTR_LANES),
-                obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
-                obj->getStringAttribute(SUMO_ATTR_FREQUENCY),
-                obj->getStringAttribute(SUMO_ATTR_TLID),
-                obj->getStringAttribute(SUMO_ATTR_FILE),
-                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
-                obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
-                obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
-                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                obj->getParameters());
+            if (obj->hasStringAttribute(SUMO_ATTR_LANE)) {
+                buildSingleLaneDetectorE2(obj,
+                    obj->getStringAttribute(SUMO_ATTR_ID),
+                    obj->getStringAttribute(SUMO_ATTR_LANE),
+                    obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                    obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
+                    obj->getStringAttribute(SUMO_ATTR_FREQUENCY),
+                    obj->getStringAttribute(SUMO_ATTR_TLID),
+                    obj->getStringAttribute(SUMO_ATTR_FILE),
+                    obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                    obj->getStringAttribute(SUMO_ATTR_NAME),
+                    obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
+                    obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
+                    obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
+                    obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                    obj->getParameters());
+            } else {
+                buildMultiLaneDetectorE2(obj,
+                    obj->getStringAttribute(SUMO_ATTR_ID),
+                    obj->getStringListAttribute(SUMO_ATTR_LANES),
+                    obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                    obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
+                    obj->getStringAttribute(SUMO_ATTR_FREQUENCY),
+                    obj->getStringAttribute(SUMO_ATTR_TLID),
+                    obj->getStringAttribute(SUMO_ATTR_FILE),
+                    obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                    obj->getStringAttribute(SUMO_ATTR_NAME),
+                    obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
+                    obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
+                    obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
+                    obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                    obj->getParameters());
+            }
             break;
         case SUMO_TAG_E3DETECTOR:
         case SUMO_TAG_ENTRY_EXIT_DETECTOR:
@@ -275,7 +276,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getStringListAttribute(SUMO_ATTR_VTYPES),
                 obj->getParameters());
             break;
-        case GNE_TAG_FLOW_CALIBRATOR:
+        case SUMO_TAG_FLOW:
             buildCalibratorFlow(obj,
                 obj->getStringAttribute(SUMO_ATTR_TYPE),
                 obj->getStringAttribute(SUMO_ATTR_ROUTE),
@@ -582,7 +583,6 @@ AdditionalHandler::myEndElement(int element) {
             case SUMO_TAG_E1DETECTOR:
             case SUMO_TAG_INDUCTION_LOOP:
             case SUMO_TAG_E2DETECTOR:
-            case GNE_TAG_E2DETECTOR_MULTILANE:
             case SUMO_TAG_LANE_AREA_DETECTOR:
             case SUMO_TAG_E3DETECTOR:
             case SUMO_TAG_ENTRY_EXIT_DETECTOR:
@@ -881,13 +881,13 @@ AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false, false);
     // continue if flag is ok
     if (parsedOk) {
-        // first open tag depending of E2 detector
+        // first open tag
+        myCommonXMLStructure.openTag(SUMO_TAG_E2DETECTOR);
+        // add attributes depending of Lane/Lanes
         if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
-            myCommonXMLStructure.openTag(SUMO_TAG_E2DETECTOR);
             myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);
             myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LENGTH, length);
         } else {
-            myCommonXMLStructure.openTag(GNE_TAG_E2DETECTOR_MULTILANE);
             myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LANES, laneIds);
             myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ENDPOS, endPos);
         }
@@ -1189,7 +1189,7 @@ AdditionalHandler::parseCalibratorFlowAttributes(const SUMOSAXAttributes& attrs)
     // continue if flag is ok
     if (parsedOk) {
         // first open tag
-        myCommonXMLStructure.openTag(GNE_TAG_FLOW_CALIBRATOR);
+        myCommonXMLStructure.openTag(SUMO_TAG_FLOW);
         // add all attributes
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ROUTE, route);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addTimeAttribute(SUMO_ATTR_BEGIN, begin);
@@ -1396,7 +1396,7 @@ void
 AdditionalHandler::parseVaporizerAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // now obtain attributes
+    // needed attributes
     const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
     const SUMOTime from = attrs.getSUMOTimeReporting(SUMO_ATTR_FROM, edgeID.c_str(), parsedOk, false);
     const SUMOTime end = attrs.getSUMOTimeReporting(SUMO_ATTR_END, edgeID.c_str(), parsedOk, false);
@@ -1468,7 +1468,7 @@ AdditionalHandler::parsePOIAttributes(const SUMOSAXAttributes& attrs) {
     // continue if flag is ok
     if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
         // first open tag
-        myCommonXMLStructure.openTag(SUMO_TAG_POLY);
+        myCommonXMLStructure.openTag(SUMO_TAG_POI);
         // add all attributes
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_TYPE, type);
