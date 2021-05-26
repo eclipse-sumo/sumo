@@ -23,6 +23,7 @@
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/RGBColor.h>
+#include <utils/shapes/Shape.h>
 
 #include "AdditionalHandler.h"
 
@@ -330,7 +331,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             break;
         case SUMO_TAG_PARKING_ZONE_REROUTE:
             buildParkingAreaReroute(obj,
-                obj->getStringAttribute(SUMO_ATTR_PARKING),
+                obj->getStringAttribute(SUMO_ATTR_ID),
                 obj->getDoubleAttribute(SUMO_ATTR_PROB),
                 obj->getBoolAttribute(SUMO_ATTR_VISIBLE));
             break;
@@ -390,15 +391,31 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             break;
         // POI
         case SUMO_TAG_POI:
-            // check if we want to create a POI or POILane
-            if (obj->hasStringAttribute(SUMO_ATTR_LANE)) {
+            // check if we want to create a POI, POILane or POIGEO
+            if (obj->hasStringAttribute(SUMO_ATTR_X)) {
+                // build PO
+                buildPOI(obj,
+                    obj->getStringAttribute(SUMO_ATTR_ID),
+                    obj->getStringAttribute(SUMO_ATTR_TYPE),
+                    obj->getColorAttribute(SUMO_ATTR_COLOR),
+                    obj->getDoubleAttribute(SUMO_ATTR_X),
+                    obj->getDoubleAttribute(SUMO_ATTR_Y),
+                    obj->getDoubleAttribute(SUMO_ATTR_LAYER),
+                    obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
+                    obj->getStringAttribute(SUMO_ATTR_IMGFILE),
+                    obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
+                    obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
+                    obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
+                    obj->getStringAttribute(SUMO_ATTR_NAME),
+                    obj->getParameters());
+            } else if (obj->hasStringAttribute(SUMO_ATTR_LANE)) {
                 // build POI over Lane
                 buildPOILane(obj,
                     obj->getStringAttribute(SUMO_ATTR_ID),
                     obj->getStringAttribute(SUMO_ATTR_TYPE),
                     obj->getColorAttribute(SUMO_ATTR_COLOR),
                     obj->getStringAttribute(SUMO_ATTR_LANE),
-                    obj->getDoubleAttribute(SUMO_ATTR_POSONLANE),
+                    obj->getDoubleAttribute(SUMO_ATTR_POSITION),
                     obj->getDoubleAttribute(SUMO_ATTR_POSITION_LAT),
                     obj->getDoubleAttribute(SUMO_ATTR_LAYER),
                     obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
@@ -409,13 +426,13 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                     obj->getStringAttribute(SUMO_ATTR_NAME),
                     obj->getParameters());
             } else {
-                // build POI
-                buildPOI(obj,
+                // build POIGEO
+                buildPOIGeo(obj,
                     obj->getStringAttribute(SUMO_ATTR_ID),
                     obj->getStringAttribute(SUMO_ATTR_TYPE),
                     obj->getColorAttribute(SUMO_ATTR_COLOR),
-                    obj->getPositionAttribute(SUMO_ATTR_POSITION),
-                    obj->getBoolAttribute(SUMO_ATTR_GEO),
+                    obj->getDoubleAttribute(SUMO_ATTR_LON),
+                    obj->getDoubleAttribute(SUMO_ATTR_LAT),
                     obj->getDoubleAttribute(SUMO_ATTR_LAYER),
                     obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
                     obj->getStringAttribute(SUMO_ATTR_IMGFILE),
@@ -600,6 +617,9 @@ AdditionalHandler::myEndElement(int element) {
             case SUMO_TAG_ROUTEPROBE:
             // Vaporizer (deprecated)
             case SUMO_TAG_VAPORIZER:
+            // Shapes
+            case SUMO_TAG_POLY:
+            case SUMO_TAG_POI:
                 // parse object and all their childrens
                 parseSumoBaseObject(obj);
                 // just close node
@@ -613,8 +633,6 @@ AdditionalHandler::myEndElement(int element) {
                 delete obj;
                 break;
             default:
-                // just close node
-                myCommonXMLStructure.closeTag();
                 break;
         }
     }
@@ -1419,31 +1437,36 @@ void
 AdditionalHandler::parsePolyAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // now obtain attributes
+    // needed attributes
     const std::string polygonID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const std::string shapeStr = attrs.get<std::string>(SUMO_ATTR_SHAPE, polygonID.c_str(), parsedOk, false);
-    const double layer = attrs.get<double>(SUMO_ATTR_LAYER, polygonID.c_str(), parsedOk, false);
-    const bool fill = attrs.get<bool>(SUMO_ATTR_FILL, polygonID.c_str(), parsedOk, false);
-    const double lineWidth = attrs.get<double>(SUMO_ATTR_LINEWIDTH, polygonID.c_str(), parsedOk, false);
-    const std::string type = attrs.get<std::string>(SUMO_ATTR_TYPE, polygonID.c_str(), parsedOk, false);
-    const RGBColor color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, polygonID.c_str(), parsedOk, false);
-    const double angle = attrs.get<double>(SUMO_ATTR_ANGLE, polygonID.c_str(), parsedOk, false);
-    const std::string imgFile = attrs.get<std::string>(SUMO_ATTR_IMGFILE, polygonID.c_str(), parsedOk, false);
-    const bool relativePath = attrs.get<bool>(SUMO_ATTR_RELATIVEPATH, polygonID.c_str(), parsedOk, false);
+    const PositionVector shapeStr = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, polygonID.c_str(), parsedOk, false);
+    // optional attributes
+    const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, polygonID.c_str(), parsedOk, RGBColor::RED, false);
+    const bool geo = attrs.getOpt<bool>(SUMO_ATTR_GEO, polygonID.c_str(), parsedOk, false, false);
+    const bool fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, polygonID.c_str(), parsedOk, false, false);
+    const double lineWidth = attrs.getOpt<double>(SUMO_ATTR_LINEWIDTH, polygonID.c_str(), parsedOk, Shape::DEFAULT_LINEWIDTH, false);
+    const double layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, polygonID.c_str(), parsedOk, Shape::DEFAULT_LAYER, false);
+    const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, polygonID.c_str(), parsedOk, Shape::DEFAULT_TYPE, false);
+    const std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, polygonID.c_str(), parsedOk, Shape::DEFAULT_IMG_FILE, false);
+    const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, polygonID.c_str(), parsedOk, Shape::DEFAULT_ANGLE, false);
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, polygonID.c_str(), parsedOk, "", false);
+    const bool relativePath = attrs.getOpt<bool>(SUMO_ATTR_RELATIVEPATH, polygonID.c_str(), parsedOk, Shape::DEFAULT_RELATIVEPATH, false);
     // continue if flag is ok
-    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+    if (parsedOk) {
         // first open tag
         myCommonXMLStructure.openTag(SUMO_TAG_POLY);
         // add all attributes
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, polygonID);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_SHAPE, shapeStr);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LAYER, layer);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shapeStr);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_GEO, geo);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FILL, fill);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LINEWIDTH, lineWidth);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LAYER, layer);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_TYPE, type);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ANGLE, angle);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_IMGFILE, imgFile);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ANGLE, angle);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_RELATIVEPATH, relativePath);
     }
 }
@@ -1451,36 +1474,70 @@ AdditionalHandler::parsePolyAttributes(const SUMOSAXAttributes& attrs) {
 
 void 
 AdditionalHandler::parsePOIAttributes(const SUMOSAXAttributes& attrs) {
+    // check that x and y are defined together
+    if ((attrs.hasAttribute(SUMO_ATTR_X) && !attrs.hasAttribute(SUMO_ATTR_Y)) ||
+        (!attrs.hasAttribute(SUMO_ATTR_X) && attrs.hasAttribute(SUMO_ATTR_Y))) {
+        throw FormatException("X and Y must be be defined together in POIs");
+    }
+    // check that lane and pos are defined together
+    if ((attrs.hasAttribute(SUMO_ATTR_LANE) && !attrs.hasAttribute(SUMO_ATTR_POSITION)) ||
+        (!attrs.hasAttribute(SUMO_ATTR_LANE) && attrs.hasAttribute(SUMO_ATTR_POSITION))) {
+        throw FormatException("lane and position must be be defined together in POIs");
+    }
+    // check that lon and lat are defined together
+    if ((attrs.hasAttribute(SUMO_ATTR_LON) && !attrs.hasAttribute(SUMO_ATTR_LAT)) ||
+        (!attrs.hasAttribute(SUMO_ATTR_LON) && attrs.hasAttribute(SUMO_ATTR_LAT))) {
+        throw FormatException("lon and lat must be be defined together in POIs");
+    }
     // declare Ok Flag
     bool parsedOk = true;
-    // now obtain attributes
+    // needed attributes
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const std::string type = attrs.get<std::string>(SUMO_ATTR_TYPE, "", parsedOk, false);
     const RGBColor color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, false);
-    const Position pos = attrs.get<Position>(SUMO_ATTR_POSITION, "", parsedOk, false);
-    const bool geo = attrs.get<bool>(SUMO_ATTR_GEO, id.c_str(), parsedOk, false);
-    const double layer = attrs.get<double>(SUMO_ATTR_LAYER, id.c_str(), parsedOk, false);
-    const double angle = attrs.get<double>(SUMO_ATTR_ANGLE, id.c_str(), parsedOk, false);
-    const std::string imgFile = attrs.get<std::string>(SUMO_ATTR_IMGFILE, "", parsedOk, false);
-    const double width = attrs.get<double>(SUMO_ATTR_WIDTH, id.c_str(), parsedOk, false);
-    const double height = attrs.get<double>(SUMO_ATTR_HEIGHT, id.c_str(), parsedOk, false);
-    const std::string name = attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, false);
+    // special attributes
+    const double x = attrs.getOpt<double>(SUMO_ATTR_X, id.c_str(), parsedOk, 0, false);
+    const double y = attrs.getOpt<double>(SUMO_ATTR_Y, id.c_str(), parsedOk, 0, false);
+    const std::string lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, "", parsedOk, "", false);
+    const double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, 0, false);
+    const double posLat = attrs.getOpt<double>(SUMO_ATTR_POSITION_LAT, id.c_str(), parsedOk, 0, false);
+    const double lon = attrs.getOpt<double>(SUMO_ATTR_LON, id.c_str(), parsedOk, 0, false);
+    const double lat = attrs.getOpt<double>(SUMO_ATTR_LAT, id.c_str(), parsedOk, 0, false);
+    // optional attributes
+    const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, "", parsedOk, Shape::DEFAULT_TYPE, false);
+    const double layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, id.c_str(), parsedOk, Shape::DEFAULT_LAYER_POI, false);
+    const std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, "", parsedOk, Shape::DEFAULT_IMG_FILE, false);
+    const double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, id.c_str(), parsedOk, Shape::DEFAULT_IMG_WIDTH, false);
+    const double height = attrs.getOpt<double>(SUMO_ATTR_HEIGHT, id.c_str(), parsedOk, Shape::DEFAULT_IMG_HEIGHT, false);
+    const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), parsedOk, Shape::DEFAULT_ANGLE, false);
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "", false);
+    const bool relativePath = attrs.getOpt<bool>(SUMO_ATTR_RELATIVEPATH, id.c_str(), parsedOk, Shape::DEFAULT_RELATIVEPATH, false);
     // continue if flag is ok
-    if (parsedOk && myCommonXMLStructure.getLastInsertedSumoBaseObject()) {
+    if (parsedOk) {
         // first open tag
         myCommonXMLStructure.openTag(SUMO_TAG_POI);
-        // add all attributes
+        // add attributes depending of Lane/Lanes
+        if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
+            myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_X, x);
+            myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_Y, y);
+        } else if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
+            myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, lane);
+            myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, pos);
+            myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION_LAT, posLat);
+        } else {
+            myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LON, lon);
+            myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LAT, lat);
+        }
+        // add rest attributes
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_TYPE, type);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addPositionAttribute(SUMO_ATTR_POSITION, pos);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_GEO, geo);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_TYPE, type);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LAYER, layer);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ANGLE, angle);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_IMGFILE, imgFile);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_WIDTH, width);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_HEIGHT, height);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ANGLE, angle);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_RELATIVEPATH, relativePath);
     }
 }
 

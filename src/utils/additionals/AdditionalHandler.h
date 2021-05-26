@@ -474,8 +474,8 @@ public:
      * @param[in] id The name of the POI
      * @param[in] type The (abstract) type of the POI
      * @param[in] color The color of the POI
-     * @param[in] pos The position of the POI
-     * @param[in[ geo use GEO coordinates (lon/lat)
+     * @param[in] x POI's x position
+     * @param[in] y POI's y position
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the POI
@@ -486,11 +486,11 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
-                          const RGBColor& color, const Position& pos, bool geo, double layer, double angle, const std::string& imgFile, 
+                          const RGBColor& color, const double x, const double y, double layer, double angle, const std::string& imgFile, 
                           bool relativePath, double width, double height, const std::string& name, 
                           const std::map<std::string, std::string> &parameters) = 0;
 
-    /**@brief Builds a POI over laneusing the given values
+    /**@brief Builds a POI over lane using the given values
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] id The name of the POI
      * @param[in] type The (abstract) type of the POI
@@ -511,6 +511,27 @@ public:
                               const RGBColor& color, const std::string& lane, double posOverLane, double posLat, double layer, double angle, 
                               const std::string& imgFile, bool relativePath, double width, double height, const std::string& name, 
                               const std::map<std::string, std::string> &parameters) = 0;
+
+    /**@brief Builds a POI in GEO coordinaten using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the POI
+     * @param[in] type The (abstract) type of the POI
+     * @param[in] color The color of the POI
+     * @param[in] lon POI's longitud
+     * @param[in] lat POI's latitud
+     * @param[in] layer The layer of the POI
+     * @param[in] angle The rotation of the POI
+     * @param[in] imgFile The raster image of the POI
+     * @param[in] relativePath set image file as relative path
+     * @param[in] width The width of the POI image
+     * @param[in] height The height of the POI image
+     * @param[in] name POI name
+     * @param[in] parameters generic parameters
+     */
+    virtual void buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
+                             const RGBColor& color, const double lon, const double lat, double layer, double angle, const std::string& imgFile, 
+                             bool relativePath, double width, double height, const std::string& name, 
+                             const std::map<std::string, std::string> &parameters) = 0;
     /// @}
 
 private:
