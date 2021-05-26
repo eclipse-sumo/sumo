@@ -110,7 +110,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getIntAttribute(SUMO_ATTR_ROADSIDE_CAPACITY),
                 obj->getBoolAttribute(SUMO_ATTR_ONROAD),
                 obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
-                obj->getStringAttribute(SUMO_ATTR_LENGTH),
+                obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
                 obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
                 obj->getParameters());
             break;
@@ -759,7 +759,7 @@ AdditionalHandler::parseParkingAreaAttributes(const SUMOSAXAttributes& attrs) {
     const int roadSideCapacity = attrs.getOpt<int>(SUMO_ATTR_ROADSIDE_CAPACITY, id.c_str(), parsedOk, 0, false);
     const bool onRoad = attrs.getOpt<bool>(SUMO_ATTR_ONROAD, id.c_str(), parsedOk, false, false);
     const double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, id.c_str(), parsedOk, 3.2, false);
-    const std::string length = attrs.getOpt<std::string>(SUMO_ATTR_LENGTH, id.c_str(), parsedOk, "", false);
+    const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), parsedOk, 0, false);
     const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), parsedOk, 0, false);
     // continue if flag is ok
     if (parsedOk) {
@@ -776,7 +776,7 @@ AdditionalHandler::parseParkingAreaAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addIntAttribute(SUMO_ATTR_ROADSIDE_CAPACITY, roadSideCapacity);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addBoolAttribute(SUMO_ATTR_ONROAD, onRoad);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_WIDTH, width);
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LENGTH, length);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LENGTH, length);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ANGLE, angle);
     }
 }
