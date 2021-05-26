@@ -1172,6 +1172,8 @@ GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties& tagProper
         }
         // delete baseAdditional (and all children)
         delete myBaseAdditional;
+        // reset baseAdditional
+        myBaseAdditional = nullptr;
     }
     // check if additional is slave
     if (tagProperty.isSlave()) {
@@ -1361,7 +1363,14 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagPropertie
         myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, generateID(nullptr));
     }
     // Obtain position as the clicked position over view
-    myBaseAdditional->addPositionAttribute(SUMO_ATTR_POSITION, myViewNet->snapToActiveGrid(myViewNet->getPositionInformation()));
+    const Position viewPos = myViewNet->snapToActiveGrid(myViewNet->getPositionInformation());
+    if (tagProperties.hasAttribute(SUMO_ATTR_POSITION)) {
+        myBaseAdditional->addPositionAttribute(SUMO_ATTR_POSITION, viewPos);
+    } else {
+        myBaseAdditional->addDoubleAttribute(SUMO_ATTR_X, viewPos.x());
+        myBaseAdditional->addDoubleAttribute(SUMO_ATTR_Y, viewPos.y());
+        myBaseAdditional->addDoubleAttribute(SUMO_ATTR_Z, viewPos.z());
+    }
     // parse common attributes
     if (!buildAdditionalCommonAttributes(tagProperties)) {
         return false;
