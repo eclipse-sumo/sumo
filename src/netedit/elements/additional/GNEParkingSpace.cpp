@@ -177,8 +177,14 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getID();
-        case SUMO_ATTR_POSITION:
-            return toString(myPosition);
+        case SUMO_ATTR_X:
+            return toString(myPosition.x());
+        case SUMO_ATTR_Y:
+            return toString(myPosition.y());
+        case SUMO_ATTR_Z:
+            return toString(myPosition.z());
+        case SUMO_ATTR_NAME:
+            return myAdditionalName;
         case SUMO_ATTR_WIDTH:
             return myWidth;
         case SUMO_ATTR_LENGTH:
@@ -213,7 +219,10 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_X:
+        case SUMO_ATTR_Y:
+        case SUMO_ATTR_Z:
+        case SUMO_ATTR_NAME:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_ANGLE:
@@ -233,8 +242,12 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
 bool
 GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_POSITION:
-            return canParse<Position>(value);
+        case SUMO_ATTR_X:
+        case SUMO_ATTR_Y:
+        case SUMO_ATTR_Z:
+            return canParse<double>(value);
+        case SUMO_ATTR_NAME:
+            return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_LENGTH:
@@ -271,7 +284,7 @@ GNEParkingSpace::getPopUpID() const {
 
 std::string
 GNEParkingSpace::getHierarchyName() const {
-    return getTagStr() + ": " + getAttribute(SUMO_ATTR_POSITION);
+    return getTagStr() + ": " + getAttribute(SUMO_ATTR_X) + ", "+ getAttribute(SUMO_ATTR_Y) + ", "+ getAttribute(SUMO_ATTR_Z);
 }
 
 // ===========================================================================
@@ -281,10 +294,23 @@ GNEParkingSpace::getHierarchyName() const {
 void
 GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_POSITION:
-            myPosition = parse<Position>(value);
+        case SUMO_ATTR_X:
+            myPosition.setx(parse<double>(value));
             // update boundary
             updateCenteringBoundary(true);
+            break;
+        case SUMO_ATTR_Y:
+            myPosition.sety(parse<double>(value));
+            // update boundary
+            updateCenteringBoundary(true);
+            break;
+        case SUMO_ATTR_Z:
+            myPosition.setz(parse<double>(value));
+            // update boundary
+            updateCenteringBoundary(true);
+            break;
+        case SUMO_ATTR_NAME:
+            myAdditionalName = value;
             break;
         case SUMO_ATTR_WIDTH:
             myWidth = value;
@@ -303,8 +329,6 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_SLOPE:
             mySlope = parse<double>(value);
-            // update boundary
-            updateCenteringBoundary(true);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);
@@ -340,9 +364,10 @@ GNEParkingSpace::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNEParkingSpace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_X, toString(moveResult.shapeToUpdate.front().x())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_Y, toString(moveResult.shapeToUpdate.front().y())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_Z, toString(moveResult.shapeToUpdate.front().z())));
     undoList->p_end();
 }
-
 
 /****************************************************************************/
