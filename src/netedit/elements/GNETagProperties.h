@@ -71,22 +71,21 @@ public:
         DRAWABLE =                  1 << 0,     // Element can be drawed in view
         BLOCKMOVEMENT =             1 << 1,     // Element can block their movement
         CLOSESHAPE =                1 << 2,     // Element can close their shape
-        GEOPOSITION =               1 << 3,     // Element's position can be defined using a GEO position
-        GEOSHAPE =                  1 << 4,     // Element's shape acn be defined using a GEO Shape
-        DIALOG =                    1 << 5,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        SLAVE =                     1 << 6,     // Element is slave and will be writed in XML without id as child of another element (E3Entry -> E3Detector...)
-        MINIMUMCHILDREN =           1 << 7,     // Element will be only writed in XML if has a minimum number of children
-        REPARENT =                  1 << 8,     // Element can be reparent
-        SYNONYM =                   1 << 9,    // Element will be written with a different name in der XML
-        SELECTABLE =                1 << 10,    // Element is selectable
-        MASKSTARTENDPOS =           1 << 11,    // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
-        MASKXYZPOSITION =           1 << 12,    // Element mask attributes X, Y and Z as "Position"
-        WRITECHILDRENSEPARATE =     1 << 13,    // Element writes their children in a separated filename
-        NOPARAMETERS =              1 << 14,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
-        PARAMETERSDOUBLE =          1 << 15,    // Element only accept double parameters "key1=double1|key2=double1|...|keyN=doubleN"
-        RTREE =                     1 << 16,    // Element is placed in RTREE
-        CENTERAFTERCREATION =       1 << 17,    // Camera is moved after element creation
-        EMBEDDED_ROUTE =            1 << 18,    // Element has an embedded route
+        GEOSHAPE =                  1 << 3,     // Element's shape acn be defined using a GEO Shape
+        DIALOG =                    1 << 4,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
+        SLAVE =                     1 << 5,     // Element is slave and will be writed in XML without id as child of another element (E3Entry -> E3Detector...)
+        MINIMUMCHILDREN =           1 << 6,     // Element will be only writed in XML if has a minimum number of children
+        REPARENT =                  1 << 7,     // Element can be reparent
+        SYNONYM =                   1 << 8,    // Element will be written with a different name in der XML
+        SELECTABLE =                1 << 9,     // Element is selectable
+        MASKSTARTENDPOS =           1 << 10,    // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
+        MASKXYZPOSITION =           1 << 11,    // Element mask attributes X, Y and Z as "Position"
+        WRITECHILDRENSEPARATE =     1 << 12,    // Element writes their children in a separated filename
+        NOPARAMETERS =              1 << 13,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
+        PARAMETERSDOUBLE =          1 << 14,    // Element only accept double parameters "key1=double1|key2=double1|...|keyN=doubleN"
+        RTREE =                     1 << 15,    // Element is placed in RTREE
+        CENTERAFTERCREATION =       1 << 16,    // Camera is moved after element creation
+        EMBEDDED_ROUTE =            1 << 17,    // Element has an embedded route
     };
 
     /// @brief default constructor
@@ -220,9 +219,6 @@ public:
 
     /// @brief return true if tag correspond to an element that can close their shape
     bool canCloseShape() const;
-
-    /// @brief return true if tag correspond to an element that can use a geo position
-    bool hasGEOPosition() const;
 
     /// @brief return true if tag correspond to an element that can use a geo shape
     bool hasGEOShape() const;

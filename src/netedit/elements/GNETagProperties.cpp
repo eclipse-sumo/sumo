@@ -394,12 +394,6 @@ GNETagProperties::canCloseShape() const {
 
 
 bool
-GNETagProperties::hasGEOPosition() const {
-    return (myTagProperty & GEOPOSITION) != 0;
-}
-
-
-bool
 GNETagProperties::hasGEOShape() const {
     return (myTagProperty & GEOSHAPE) != 0;
 }

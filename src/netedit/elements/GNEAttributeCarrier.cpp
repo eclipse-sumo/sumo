@@ -2602,7 +2602,7 @@ GNEAttributeCarrier::fillShapes() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::SHAPE,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::MASKXYZPOSITION | GNETagProperties::GEOPOSITION,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::MASKXYZPOSITION,
                                       GUIIcon::LOCATEPOI /* temporal */);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
