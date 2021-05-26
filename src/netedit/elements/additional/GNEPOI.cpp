@@ -40,24 +40,22 @@
 // method definitions
 // ===========================================================================
 
-GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const Position& pos,
-        bool geo, double layer, double angle, const std::string& imgFile, bool relativePath, double width, double height, 
-        const std::string &name, const std::map<std::string, std::string> &parameters, bool movementBlocked) :
-    PointOfInterest(id, type, color, pos, geo, "", 0, 0, layer, angle, imgFile, relativePath, width, height),
+GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const double xLon,
+        const double yLat, const bool geo, const double layer, const double angle, const std::string& imgFile, 
+        const bool relativePath, const double width, const double height, const std::string &name, 
+        const std::map<std::string, std::string> &parameters, const bool blockMovement) :
+    PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, 0, layer, angle, imgFile, relativePath, width, height),
     GNEShape(id, net, GLO_POI, SUMO_TAG_POI, 
         {}, {}, {}, {}, {}, {}, {}, {},
-        parameters, movementBlocked) {
+        parameters, blockMovement) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
-    // set GEO Position
-    myGEOPosition = pos;
-    GeoConvHelper::getFinal().cartesian2geo(myGEOPosition);
 }
 
 
-GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
-        const std::string& imgFile, bool relativePath, GNELane* lane, double posOverLane, double posLat, double width, 
-        double height, const std::string &name, const std::map<std::string, std::string> &parameters, bool movementBlocked) :
+GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, GNELane* lane, const double posOverLane,
+        const double posLat, const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width, 
+        const double height, const std::string &name, const std::map<std::string, std::string> &parameters, const bool movementBlocked) :
     PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, posLat, layer, angle, imgFile, relativePath, width, height),
     GNEShape(id, net, GLO_POI, GNE_TAG_POILANE, 
         {}, {}, {lane}, {}, {}, {}, {}, {},
@@ -268,8 +266,6 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_POSITION_LAT:
             return toString(myPosLat);
-        case SUMO_ATTR_GEOPOSITION:
-            return toString(myGEOPosition, gPrecisionGeo);
         case SUMO_ATTR_GEO:
             return toString(myGeo);
         case SUMO_ATTR_TYPE:
@@ -313,7 +309,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_POSITION_LAT:
-        case SUMO_ATTR_GEOPOSITION:
         case SUMO_ATTR_GEO:
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_LAYER:
@@ -351,9 +346,6 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_POSITION_LAT:
             return canParse<double>(value);
-        case SUMO_ATTR_GEOPOSITION: {
-            return canParse<Position>(value);
-        }
         case SUMO_ATTR_GEO:
             return canParse<bool>(value);
         case SUMO_ATTR_TYPE:
@@ -436,11 +428,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 // set position
                 set(parse<Position>(value));
-                // set GEO Position
-                myGEOPosition.setx(this->x());
-                myGEOPosition.sety(this->y());
-                myGEOPosition.setz(this->z());
-                GeoConvHelper::getFinal().cartesian2geo(myGEOPosition);
             }
             // update centering boundary
             updateCenteringBoundary(true);
@@ -451,6 +438,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             // update centering boundary
             updateCenteringBoundary(true);
             break;
+/*
         case SUMO_ATTR_GEOPOSITION: {
             // set new position
             myGEOPosition = parse<Position>(value);
@@ -461,6 +449,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateCenteringBoundary(true);
             break;
         }
+*/
         case SUMO_ATTR_GEO:
             myGeo = parse<bool>(value);
             break;

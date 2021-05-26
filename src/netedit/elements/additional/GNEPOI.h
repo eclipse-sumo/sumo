@@ -50,7 +50,8 @@ public:
      * @param[in] id The name of the POI
      * @param[in] type The (abstract) type of the POI
      * @param[in] color The color of the POI
-     * @param[in] pos The position of the POI
+     * @param[in] lon The position X or Lon of the POI
+     * @param[in] lat The position Y or Lat of the POI
      * @param[in[ geo use GEO coordinates (lon/lat)
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
@@ -62,9 +63,10 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable shape movement
      */
-    GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-           double layer, double angle, const std::string& imgFile, bool relativePath, double width, double height, 
-           const std::string &name, const std::map<std::string, std::string> &parameters, bool blockMovement);
+    GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const double xLon,
+           const double yLat, const bool geo, const double layer, const double angle, const std::string& imgFile, 
+           const bool relativePath, const double width, const double height, const std::string &name, 
+           const std::map<std::string, std::string> &parameters, const bool blockMovement);
 
     /** @brief Constructor
      * @param[in] net net in which this polygon is placed
@@ -84,9 +86,9 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] movementBlocked if movement of POI is blocked
      */
-    GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
-           const std::string& imgFile, bool relativePath, GNELane* lane, double posOverLane, double posLat, double width, 
-           double height, const std::string &name, const std::map<std::string, std::string> &parameters, bool movementBlocked);
+    GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, GNELane* lane, const double posOverLane,
+           const double posLat, const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width, 
+           const double height, const std::string &name, const std::map<std::string, std::string> &parameters, const bool movementBlocked);
 
     /// @brief Destructor
     ~GNEPOI();
@@ -188,10 +190,6 @@ public:
 
     /// @brief get parameters map
     const std::map<std::string, std::string>& getACParametersMap() const;
-
-protected:
-    /// @brief Position of POI in GEO coordinates (Only used by POIs that aren't placed over lanes)
-    Position myGEOPosition;
 
 private:
     /// @brief set attribute after validation
