@@ -131,11 +131,17 @@ def hasMinLength(fromIndex, toIndex, edges, orig_net, options):
     return True
 
 
-def _cutEdgeList(areaEdges, oldDepart, exitTimes, edges, orig_net, options, stats, disconnected_action):
-    firstIndex = getFirstIndex(areaEdges, edges)
-    if firstIndex is None:
+def _cutEdgeList(areaEdges, oldDepart, exitTimes, edges, orig_net, options, stats, disconnected_action,
+                 startIdx=None, endIdx=None):
+    startIdx = 0 if startIdx is None else int(startIdx)
+    endIdx = len(edges) - 1 if endIdx is None else int(endIdx)
+    firstIndex = getFirstIndex(areaEdges, edges[startIdx:endIdx + 1])
+    if firstIndex is None or firstIndex > endIdx:
         return []  # route does not touch the area
-    lastIndex = len(edges) - 1 - getFirstIndex(areaEdges, reversed(edges))
+    lastIndex = endIdx - getFirstIndex(areaEdges, reversed(edges[:endIdx + 1]))
+    if lastIndex < startIdx:
+        return []  # route does not touch the area
+    firstIndex += startIdx
     # check for connectivity
     route_parts = [(firstIndex + i, firstIndex + j)
                    for i, j in missingEdges(areaEdges, edges[firstIndex:(lastIndex + 1)],
@@ -163,7 +169,7 @@ def _cutEdgeList(areaEdges, oldDepart, exitTimes, edges, orig_net, options, stat
                 newDepart = (parseTime(oldDepart) +
                              sum([(orig_net.getEdge(e).getLength() /
                                    (orig_net.getEdge(e).getSpeed() * options.speed_factor))
-                                  for e in edges[:fromIndex]]))
+                                  for e in edges[startIdx:fromIndex]]))
             else:
                 newDepart = parseTime(oldDepart)
         result.append((newDepart, edges[fromIndex:toIndex + 1]))
@@ -316,7 +322,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                     oldPTRoutes[moving.line] = old_route.edges.split()
                 routeParts = _cutEdgeList(areaEdges, oldDepart, old_route.exitTimes,
                                           old_route.edges.split(), orig_net, options,
-                                          stats, options.disconnected_action)
+                                          stats, options.disconnected_action, moving.departEdge, moving.arrivalEdge)
                 if routeParts and old_route.exitTimes is None and orig_net is None:
                     print("Could not reconstruct new departure time for %s '%s'. Using old departure time." %
                           (moving.name, moving.id))
@@ -340,8 +346,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                     else:
                         moving.begin = "%.2f" % newDepart
                         moving.end = "%.2f" % (newDepart - oldDepart + parseTime(moving.end))
-                    moving.departEdge = None  # TODO this is just a workaround
-                    moving.arrivalEdge = None  # TODO this is just a workaround
+                    moving.departEdge = None  # the cut already removed the unused edges
+                    moving.arrivalEdge = None  # the cut already removed the unused edges
                     if len(routeParts) > 1:
                         # return copies of the vehicle for each route part
                         yield_mov = copy.deepcopy(moving)
