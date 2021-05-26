@@ -1433,7 +1433,8 @@ GNEAttributeCarrier::fillAdditionals() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LENGTH,
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
-                                              "The walking length of the access in meters");
+                                              "The walking length of the access in meters",
+                                              "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
