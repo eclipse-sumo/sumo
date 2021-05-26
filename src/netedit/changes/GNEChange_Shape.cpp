@@ -43,7 +43,7 @@ GNEChange_Shape::~GNEChange_Shape() {
     myShape->decRef("GNEChange_Shape");
     if (myShape->unreferenced()) {
         // get tag (due POIs)
-        SumoXMLTag shapeTag = (myShape->getTagProperty().getTag() == SUMO_TAG_POILANE) ? SUMO_TAG_POI : myShape->getTagProperty().getTag();
+        SumoXMLTag shapeTag = (myShape->getTagProperty().getTag() == GNE_TAG_POILANE) ? SUMO_TAG_POI : myShape->getTagProperty().getTag();
         // make sure that shape are removed of ShapeContainer (net) AND grid
         if (myShape->getNet()->retrieveShape(shapeTag, myShape->getID(), false) != nullptr) {
             // show extra information for tests

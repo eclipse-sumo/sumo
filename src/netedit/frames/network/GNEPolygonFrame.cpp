@@ -282,10 +282,10 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
         myShapeAttributes->refreshRows();
         // shape added, then return true
         return AddShape::SUCCESS;
-    } else if (myShapeTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POILANE) {
+    } else if (myShapeTagSelector->getCurrentTagProperties().getTag() == GNE_TAG_POILANE) {
         // abort if lane is nullptr
         if (objectsUnderCursor.getLaneFront() == nullptr) {
-            WRITE_WARNING(toString(SUMO_TAG_POILANE) + " can be only placed over lanes");
+            WRITE_WARNING(toString(GNE_TAG_POILANE) + " can be only placed over lanes");
             return AddShape::INVALID;
         }
         // show warning dialogbox and stop if input parameters are invalid
@@ -294,14 +294,14 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
             return AddShape::INVALID;
         }
         // create baseShape object
-        createBaseShapeObject(SUMO_TAG_POILANE);
+        createBaseShapeObject(SUMO_TAG_POI);
         // obtain shape attributes and values
         myShapeAttributes->getAttributesAndValues(myBaseShape, true);
         // obtain netedit attributes and values
         myNeteditAttributes->getNeteditAttributesAndValues(myBaseShape, objectsUnderCursor.getLaneFront());
         // Check if ID has to be generated
         if (!myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
-            myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->generateShapeID(SUMO_TAG_POILANE));
+            myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->generateShapeID(GNE_TAG_POILANE));
         }
         // obtain Lane
         myBaseShape->addStringAttribute(SUMO_ATTR_LANE, objectsUnderCursor.getLaneFront()->getID());

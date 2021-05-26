@@ -625,7 +625,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI)) {
                         ACsToLocate.push_back(POI.second);
                     }
-                    for (const auto& POILane : viewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POILANE)) {
+                    for (const auto& POILane : viewNet->getNet()->getAttributeCarriers()->getShapes().at(GNE_TAG_POILANE)) {
                         ACsToLocate.push_back(POILane.second);
                     }
                     myACChoosers.ACChooserPOI = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), "POI Chooser", ACsToLocate);

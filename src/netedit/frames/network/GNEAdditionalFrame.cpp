@@ -1175,6 +1175,14 @@ GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties& tagProper
         // reset baseAdditional
         myBaseAdditional = nullptr;
     }
+    // declare tag for base additional
+    SumoXMLTag baseAdditionalTag = tagProperty.getTag();
+    // check if has to be updated
+    if (baseAdditionalTag == GNE_TAG_E2DETECTOR_MULTILANE) {
+        baseAdditionalTag = SUMO_TAG_E2DETECTOR;
+    } else if (baseAdditionalTag == GNE_TAG_FLOW_CALIBRATOR) {
+        baseAdditionalTag = SUMO_TAG_FLOW;
+    }
     // check if additional is slave
     if (tagProperty.isSlave()) {
         // get additional under cursor
@@ -1193,13 +1201,13 @@ GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties& tagProper
             myBaseAdditional = new CommonXMLStructure::SumoBaseObject(nullptr, tagProperty.getMasterTags().front());
             // add ID
             myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myParentAdditional->getIdSelected());
-            // create baseAdditional again as child of current myBaseAdditional
-            myBaseAdditional = new CommonXMLStructure::SumoBaseObject(myBaseAdditional, tagProperty.getTag());
+            // create baseAdditional again as child of current myBaseAdditional using baseAdditionalTag
+            myBaseAdditional = new CommonXMLStructure::SumoBaseObject(myBaseAdditional, baseAdditionalTag);
             return true;
         }
     } else {
-        // just create a base additional
-        myBaseAdditional = new CommonXMLStructure::SumoBaseObject(nullptr, tagProperty.getTag());
+        // just create a base additional using baseAdditionalTag
+        myBaseAdditional = new CommonXMLStructure::SumoBaseObject(nullptr, baseAdditionalTag);
         return true;
     }
 }
