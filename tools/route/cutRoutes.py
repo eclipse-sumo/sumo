@@ -330,8 +330,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                 if routeRef and not routeParts:
                     standaloneRoutesDepart[moving.route] = 'discard'
                 for ix_part, (newDepart, remaining) in enumerate(routeParts):
-                    cut_stops(moving, busStopEdges, remaining)
-                    departShift = None
+                    departShift = cut_stops(moving, busStopEdges, remaining)
                     if routeRef:
                         departShift = cut_stops(routeRef, busStopEdges, remaining,
                                                 newDepart - oldDepart, options.defaultStopDuration, True)
@@ -340,6 +339,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                         routeRef.edges = " ".join(remaining)
                         yield -1, routeRef
                     else:
+                        newDepart = max(newDepart, departShift)
                         old_route.edges = " ".join(remaining)
                     if moving.name == 'vehicle':
                         moving.depart = "%.2f" % newDepart
