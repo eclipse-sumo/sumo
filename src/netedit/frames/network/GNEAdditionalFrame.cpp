@@ -135,7 +135,9 @@ GNEAdditionalFrame::SelectorParentLanes::stopConsecutiveLaneSelector() {
         return false;
     }
     // create base additional
-    myAdditionalFrameParent->createBaseAdditionalObject(tagProperties);
+    if (!myAdditionalFrameParent->createBaseAdditionalObject(tagProperties)) {
+        return false;
+    }
     // get attributes and values
     myAdditionalFrameParent->myAdditionalAttributes->getAttributesAndValues(myAdditionalFrameParent->myBaseAdditional, true);
     // fill valuesOfElement with Netedit attributes from Frame
@@ -829,7 +831,9 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::createPath() {
         return false;
     }
     // create base additional
-    myAdditionalFrameParent->createBaseAdditionalObject(tagProperties);
+    if (!myAdditionalFrameParent->createBaseAdditionalObject(tagProperties)) {
+        return false;
+    }
     // get attributes and values
     myAdditionalFrameParent->myAdditionalAttributes->getAttributesAndValues(myAdditionalFrameParent->myBaseAdditional, true);
     // fill netedit attributes
@@ -1060,7 +1064,9 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& ob
     // obtain tagproperty (only for improve code legibility)
     const auto& tagProperties = myAdditionalTagSelector->getCurrentTagProperties();
     // create base additional
-    createBaseAdditionalObject(tagProperties);
+    if (!createBaseAdditionalObject(tagProperties)) {
+        return false;
+    }
     // obtain attributes and values
     myAdditionalAttributes->getAttributesAndValues(myBaseAdditional, true);
     // fill netedit attributes
@@ -1187,13 +1193,13 @@ GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties& tagProper
             myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myParentAdditional->getIdSelected());
             // create baseAdditional again as child of current myBaseAdditional
             myBaseAdditional = new CommonXMLStructure::SumoBaseObject(myBaseAdditional, tagProperty.getTag());
+            return true;
         }
-        return false;
     } else {
         // just create a base additional
         myBaseAdditional = new CommonXMLStructure::SumoBaseObject(nullptr, tagProperty.getTag());
+        return true;
     }
-    return true;
 }
 
 
