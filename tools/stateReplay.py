@@ -11,10 +11,17 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    stateclient.py
+# @file    stateReplay.py
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2021-05-20
+
+"""
+Synchronizes saved state files from a (remote) simulation and replays them in a
+local sumo-gui instance to observe the remote simulation
+
+requirements: rsync
+"""
 
 import os
 import sys
@@ -31,15 +38,16 @@ sumoBinary = sumolib.checkBinary("sumo-gui")
 def main():
     parser = sumolib.options.ArgumentParser()
     parser.add_argument("--sumo-config", default="sumo.sumocfg", help="sumo config file")
-    parser.add_argument("--state-file", dest="state", default="state.xml", help="filename for the temporary local state file")
+    parser.add_argument("--state-prefix", dest="statePrefix", default="state", help="prefix for synchronized state files")
     parser.add_argument("--src", help="the remote directory to sync")
     parser.add_argument("--dst", default="states", help="the subdirectory for the synced files")
+    parser.add_argument("--delay", default=1, type=float, help="the delay between simulation states")
     options = parser.parse_args()
 
     traci.start([sumoBinary, "-c", options.sumo_config, "-S"])
     while True:
         call(['rsync', '-a', options.src, options.dst])
-        files = glob.glob(options.dst + "state*")
+        files = glob.glob(options.dst + options.statePrefix + "*")
         fileSteps = [(int(os.path.basename(f).split('.')[0].split('_')[1]), f) for f in files]
         fileSteps.sort()
         lastState = fileSteps[-2][1]
@@ -48,7 +56,7 @@ def main():
         # a phantom step makes the client respond to gui-close but adds invalid
         # info (as long as the traffic lights are not in sync)
         # traci.simulationStep()
-        time.sleep(1)
+        time.sleep(options.delay)
 
 
 if __name__ == "__main__":
