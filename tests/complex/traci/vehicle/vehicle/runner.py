@@ -98,6 +98,8 @@ def check(vehID):
     print("width", traci.vehicle.getWidth(vehID))
     print("height", traci.vehicle.getHeight(vehID))
     print("stopDelay", traci.vehicle.getStopDelay(vehID))
+    print("stopArrivalDelay", traci.vehicle.getStopArrivalDelay(vehID))
+    print("timeLoss", traci.vehicle.getTimeLoss(vehID))
     try:
         print("lcStrategic", traci.vehicle.getParameter(vehID, "laneChangeModel.lcStrategic"))
         print("lcCooperative", traci.vehicle.getParameter(vehID, "laneChangeModel.lcCooperative"))

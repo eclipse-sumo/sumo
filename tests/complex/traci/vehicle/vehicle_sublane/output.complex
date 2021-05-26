@@ -56,6 +56,8 @@ MinGap 2.5
 width 1.8
 height 1.5
 stopDelay -1.0
+stopArrivalDelay -1073741824.0
+timeLoss 1.50790337508
 lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
@@ -140,6 +142,8 @@ MinGap 1.1
 width 1.1
 height 1.6
 stopDelay -1.0
+stopArrivalDelay -1073741824.0
+timeLoss 2.22304966151
 lcStrategic 2.00
 lcCooperative 1.00
 lcSpeedGain 1.00
@@ -224,6 +228,8 @@ MinGap 2.5
 width 1.8
 height 1.5
 stopDelay -1.0
+stopArrivalDelay -1073741824.0
+timeLoss 0.0
 lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
@@ -328,6 +334,8 @@ MinGap 2.5
 width 1.8
 height 1.5
 stopDelay -1.0
+stopArrivalDelay -1073741824.0
+timeLoss 1.37728671814
 lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
@@ -663,6 +671,8 @@ MinGap 2.5
 width 1.8
 height 1.5
 stopDelay -1.0
+stopArrivalDelay -1073741824.0
+timeLoss -0.250225022502
 lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
@@ -799,6 +809,8 @@ MinGap 2.5
 width 1.8
 height 1.5
 stopDelay -1.0
+stopArrivalDelay -1073741824.0
+timeLoss 0.0
 lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
@@ -875,6 +887,8 @@ MinGap 2.5
 width 1.8
 height 1.5
 stopDelay -1.0
+stopArrivalDelay -1073741824.0
+timeLoss 0.0
 lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
@@ -951,6 +965,8 @@ MinGap 2.5
 width 1.8
 height 1.5
 stopDelay -1.0
+stopArrivalDelay -1073741824.0
+timeLoss 0.0
 lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
@@ -1027,6 +1043,8 @@ MinGap 2.5
 width 1.8
 height 1.5
 stopDelay -1.0
+stopArrivalDelay -1073741824.0
+timeLoss 0.0
 lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
