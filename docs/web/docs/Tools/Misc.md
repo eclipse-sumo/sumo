@@ -195,3 +195,21 @@ The generated setting file can be loaded in sumo-gui with:
 ```
 sumo-gui -n test.net.xml -g settings.xml
 ```
+
+# stateReplay.py
+
+Synchronizes saved state files from a (remote) simulation and replays them in a
+local sumo-gui instance to observe the remote simulation (requires rsync).
+
+To observer every step in a simulation with step length 1s, the remote simulation must be started with option **--save-states.period 1**.
+In order to conserve disk space, the option **--save-state.period.keep 3** is recommended. (i.e. to retain only the last 3 simulation state files at any time).
+
+To replay the state files the following call can be used:
+```
+python tools/stateReplay --sumo-config replay.sumocfg --src REMOTE_FOLDER --dst LOCAL_FOLDER
+```
+
+The given .sumocfg file only needs to include the network and any additional infrastructure referenced by the remote simulation. The value of REMOTE_FOLDER can be any folder as understood by rsync (i.e. remotehost:~/myfolder)
+
+
+
