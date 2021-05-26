@@ -1073,7 +1073,7 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
 
 void 
 GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
-    const RGBColor& color, const Position& pos, bool geo, double layer, double angle, const std::string& imgFile, bool relativePath, 
+    const RGBColor& color, const double x, const double y, double layer, double angle, const std::string& imgFile, bool relativePath, 
     double width, double height, const std::string& name, const std::map<std::string, std::string> &parameters) {
     // check if ID is duplicated
     if ((myNet->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) && (myNet->retrieveShape(GNE_TAG_POILANE, id, false) == nullptr)) {
@@ -1099,7 +1099,7 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
 
 void 
 GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
-    const RGBColor& color, const std::string& laneID, double posOverLane, double posLat, double layer, double angle, const std::string& imgFile, 
+    const RGBColor& color, const std::string& lane, double posOverLane, double posLat, double layer, double angle, const std::string& imgFile, 
     bool relativePath, double width, double height, const std::string& name, const std::map<std::string, std::string> &parameters) {
     // check if ID is duplicated
     if ((myNet->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) && 
@@ -1122,6 +1122,13 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
             POILane->incRef("addPOILane");
         }
     }
+}
+
+
+GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
+    const RGBColor& color, const double lon, const double lat, double layer, double angle, const std::string& imgFile, bool relativePath, 
+    double width, double height, const std::string& name, const std::map<std::string, std::string> &parameters) {
+
 }
 
 
