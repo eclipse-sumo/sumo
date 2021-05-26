@@ -589,7 +589,7 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
     // - search forward recursive from outgoing lane until controlled railSignal link found
     //   -> add all found lanes to conflictLanes
     //
-    // bidiBlock (if any forwardBlock edge edge has bidi edge)
+    // bidiBlock (if any forwardBlock edge has bidi edge)
     // - search bidi backward recursive until first switch
     //   - from switch search backward recursive all other incoming until controlled rail signal link
     //     -> add final links to conflictLinks
