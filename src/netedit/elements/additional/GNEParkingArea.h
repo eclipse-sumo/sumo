@@ -51,7 +51,7 @@ public:
      */
     GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const std::string &startPos, const std::string &endPos, 
                    const std::string &departPos, const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, 
-                   const std::string& length, double angle, const std::map<std::string, std::string> &parameters, bool blockMovement);
+                   const double length, double angle, const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /// @brief Destructor
     ~GNEParkingArea();
@@ -135,7 +135,7 @@ protected:
     double myWidth;
 
     /// @brief Length of Parking Area (by default (endPos - startPos) / roadsideCapacity
-    std::string myLength;
+    double myLength;
 
     /// @brief Angle of Parking Area
     double myAngle;
