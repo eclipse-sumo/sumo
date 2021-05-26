@@ -356,14 +356,14 @@ GNEPolygonFrame::getDrawingShapeModul() const {
 
 
 void 
-GNEPolygonFrame::createBaseShapeObject(const SumoXMLTag tag) {
+GNEPolygonFrame::createBaseShapeObject(const SumoXMLTag shapeTag) {
     // check if baseShape exist, and if yes, delete it
     if (myBaseShape) {
         // delete baseShape (and all children)
         delete myBaseShape;
     }
     // just create a base shape
-    myBaseShape = new CommonXMLStructure::SumoBaseObject(nullptr, tag);
+    myBaseShape = new CommonXMLStructure::SumoBaseObject(nullptr, shapeTag);
 }
 
 
@@ -402,7 +402,6 @@ GNEPolygonFrame::shapeDrawed() {
         // shape added, then return true;
         return true;
     }
-    return false;
 }
 
 

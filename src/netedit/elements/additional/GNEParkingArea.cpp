@@ -37,7 +37,7 @@ GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net
         const std::string& departPos, const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, 
         const double length, double angle, const std::map<std::string, std::string> &parameters, bool blockMovement) :
     GNEStoppingPlace(id, net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, lane, startPos, endPos, name, friendlyPosition, parameters, blockMovement),
-    myDepartPos(myDepartPos),
+    myDepartPos(departPos),
     myRoadSideCapacity(roadSideCapacity),
     myOnRoad(onRoad),
     myWidth(width),

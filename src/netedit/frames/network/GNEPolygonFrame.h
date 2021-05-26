@@ -129,7 +129,7 @@ protected:
     CommonXMLStructure::SumoBaseObject* myBaseShape;
 
     // @brief create baseShapeObject
-    void createBaseShapeObject(const SumoXMLTag tag);
+    void createBaseShapeObject(const SumoXMLTag shapeTag);
 
     /**@brief build a shaped element using the drawed shape
      * return true if was successfully created
