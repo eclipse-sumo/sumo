@@ -1051,8 +1051,10 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
     double lineWidth, const std::string& name, const std::map<std::string, std::string> &parameters) {
     // check if poly exist
     if (myNet->retrieveShape(SUMO_TAG_POLY, id, false) == nullptr) {
+        // get NETEDIT parameters
+        NeteditParameters neteditParameters(sumoBaseObject);
         // create poly
-        GNEPoly* poly = new GNEPoly(myNet, id, type, shape, geo, fill, lineWidth, color, layer, angle, imgFile, relativePath, name, parameters, false, false);
+        GNEPoly* poly = new GNEPoly(myNet, id, type, shape, geo, fill, lineWidth, color, layer, angle, imgFile, relativePath, name, parameters, neteditParameters.blockMovement);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_POLY));
@@ -1074,10 +1076,11 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
     const RGBColor& color, const Position& pos, bool geo, double layer, double angle, const std::string& imgFile, bool relativePath, 
     double width, double height, const std::string& name, const std::map<std::string, std::string> &parameters) {
     // check if ID is duplicated
-    if ((myNet->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) && 
-        (myNet->retrieveShape(SUMO_TAG_POLY, id, false) == nullptr)) {
+    if ((myNet->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) && (myNet->retrieveShape(GNE_TAG_POILANE, id, false) == nullptr)) {
+         // get NETEDIT parameters
+        NeteditParameters neteditParameters(sumoBaseObject);
         // create POI
-        GNEPOI* POI = new GNEPOI(myNet, id, type, color, pos, geo, layer, angle, imgFile, relativePath, width, height, name, parameters, false);
+        GNEPOI* POI = new GNEPOI(myNet, id, type, color, pos, geo, layer, angle, imgFile, relativePath, width, height, name, parameters, neteditParameters.blockMovement);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->p_begin("add " + POI->getTagStr());

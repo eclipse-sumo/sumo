@@ -62,11 +62,10 @@ public:
      * @param[in] name Poly's name
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable shape movement
-     * @param[in] shapeBlocked enable or disable shape blocking
      */
     GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, 
             double lineWidth, const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, 
-            const std::string &name, const std::map<std::string, std::string> &parameters, bool movementBlocked, bool shapeBlocked);
+            const std::string &name, const std::map<std::string, std::string> &parameters, bool movementBlocked);
 
     /// @brief Destructor
     ~GNEPoly();
