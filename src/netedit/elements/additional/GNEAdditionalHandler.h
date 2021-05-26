@@ -494,7 +494,7 @@ public:
      * @param[in] id The name of the POI
      * @param[in] type The (abstract) type of the POI
      * @param[in] color The color of the POI
-     * @param[in] lane The Lane in which this POI is placed
+     * @param[in] laneID The Lane in which this POI is placed
      * @param[in] posOverLane The position over Lane
      * @param[in] posLat The position lateral over Lane
      * @param[in] layer The layer of the POI
@@ -507,7 +507,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
-                      const RGBColor& color, const std::string& lane, double posOverLane, double posLat, double layer, double angle, 
+                      const RGBColor& color, const std::string& laneID, double posOverLane, double posLat, double layer, double angle, 
                       const std::string& imgFile, bool relativePath, double width, double height, const std::string& name, 
                       const std::map<std::string, std::string> &parameters);
 
