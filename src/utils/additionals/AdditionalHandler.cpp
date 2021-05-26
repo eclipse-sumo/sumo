@@ -392,7 +392,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
         // POI
         case SUMO_TAG_POI:
             // check if we want to create a POI, POILane or POIGEO
-            if (obj->hasStringAttribute(SUMO_ATTR_X)) {
+            if (obj->hasDoubleAttribute(SUMO_ATTR_X)) {
                 // build PO
                 buildPOI(obj,
                     obj->getStringAttribute(SUMO_ATTR_ID),
@@ -1516,10 +1516,10 @@ AdditionalHandler::parsePOIAttributes(const SUMOSAXAttributes& attrs) {
         // first open tag
         myCommonXMLStructure.openTag(SUMO_TAG_POI);
         // add attributes depending of Lane/Lanes
-        if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
+        if (attrs.hasAttribute(SUMO_ATTR_X) && attrs.hasAttribute(SUMO_ATTR_Y)) {
             myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_X, x);
             myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_Y, y);
-        } else if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
+        } else if (attrs.hasAttribute(SUMO_ATTR_LANE) && attrs.hasAttribute(SUMO_ATTR_POSITION)) {
             myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, lane);
             myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, pos);
             myCommonXMLStructure.getLastInsertedSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION_LAT, posLat);
