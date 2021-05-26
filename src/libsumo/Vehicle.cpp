@@ -764,6 +764,11 @@ Vehicle::getStopArrivalDelay(const std::string& vehID) {
     }
 }
 
+double
+Vehicle::getTimeLoss(const std::string& vehID) {
+    return Helper::getVehicle(vehID)->getTimeLossSeconds();
+}
+
 std::vector<std::string>
 Vehicle::getTaxiFleet(int taxiState) {
     std::vector<std::string> result;
@@ -2256,6 +2261,8 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapDouble(objID, variable, getStopDelay(objID));
         case VAR_STOP_ARRIVALDELAY:
             return wrapper->wrapDouble(objID, variable, getStopArrivalDelay(objID));
+        case VAR_TIMELOSS:
+            return wrapper->wrapDouble(objID, variable, getTimeLoss(objID));
         case VAR_LEADER: {
             paramData->readUnsignedByte();
             const double dist = paramData->readDouble();
