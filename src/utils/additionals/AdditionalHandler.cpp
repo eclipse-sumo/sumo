@@ -69,7 +69,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             buildAccess(obj,
                 obj->getStringAttribute(SUMO_ATTR_LANE),
                 obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                obj->getStringAttribute(SUMO_ATTR_LENGTH),
+                obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
                 obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
                 obj->getParameters());
             break;

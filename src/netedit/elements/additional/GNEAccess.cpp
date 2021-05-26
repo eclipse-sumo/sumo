@@ -37,7 +37,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const std::string& length, bool friendlyPos, 
+GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length, bool friendlyPos, 
         const std::map<std::string, std::string> &parameters, bool blockMovement) :
     GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, "",
         {}, {}, {lane}, {busStop}, {}, {}, {}, {},
@@ -256,11 +256,7 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
                 return canParse<double>(value);
             }
         case SUMO_ATTR_LENGTH:
-            if (value.empty()) {
-                return true;
-            } else {
-                return (canParse<double>(value) && (parse<double>(value) >= 0));
-            }
+            return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -306,7 +302,7 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             myPositionOverLane = parse<double>(value);
             break;
         case SUMO_ATTR_LENGTH:
-            myLength = value;
+            myLength = parse<double>(value);
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);

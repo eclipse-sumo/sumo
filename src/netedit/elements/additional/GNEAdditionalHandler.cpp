@@ -108,11 +108,11 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sum
 
 void 
 GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, 
-    const double pos, const std::string& length, const bool friendlyPos, const std::map<std::string, std::string> &parameters) {
+    const double pos, const double length, const bool friendlyPos, const std::map<std::string, std::string> &parameters) {
     // get lane
     GNELane *lane = myNet->retrieveLane(laneID);
     // get lane
-    GNEAdditional *busStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
+    GNEAdditional *busStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
     // get NETEDIT parameters
     NeteditParameters neteditParameters(sumoBaseObject);
     // Check if busStop parent and lane is correct

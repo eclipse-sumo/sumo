@@ -79,7 +79,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildAccess(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, const double pos, 
-                     const std::string& length, const bool friendlyPos, const std::map<std::string, std::string> &parameters);
+                     const double length, const bool friendlyPos, const std::map<std::string, std::string> &parameters);
 
     /**@brief Builds a container stop
      * @param[in] sumoBaseObject sumo base object used for build
