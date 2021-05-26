@@ -276,7 +276,7 @@ Rail signals perform the following safety functions automatically
 - prevent deadlocks on bidirectional sections
 
 ## Schedule Constraints
-Additionally rail signals can enforce train ordering to ensure that a scheduled order at stations can be kept.
+Additionally, rail signals can enforce train ordering to ensure that a scheduled order at stations can be kept.
 To make use of this, the following elements can be loaded from an additional file:
 
 ```
