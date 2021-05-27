@@ -56,7 +56,7 @@ GNEParkingArea::updateGeometry() {
     // Get value of option "lefthand"
     const double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
     // calculate spaceDim
-    const double spaceDim = myRoadSideCapacity > 0 ? (getEndPosition() - getStartPosition()) / myRoadSideCapacity * getParentLanes().front()->getLengthGeometryFactor() : 7.5;
+    const double spaceDim = myRoadSideCapacity > 0 ? (getAttributeDouble(SUMO_ATTR_ENDPOS) - getAttributeDouble(SUMO_ATTR_STARTPOS)) / myRoadSideCapacity * getParentLanes().front()->getLengthGeometryFactor() : 7.5;
     // calculate lenght
     const double length = (myLength > 0)? myLength : spaceDim;
     // Update common geometry of stopping place
@@ -242,7 +242,7 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return SUMORouteHandler::isStopPosValid(parse<double>(value), getEndPosition(), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
+                return SUMORouteHandler::isStopPosValid(parse<double>(value), getAttributeDouble(SUMO_ATTR_ENDPOS), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
             } else {
                 return false;
             }
@@ -250,7 +250,7 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return SUMORouteHandler::isStopPosValid(getStartPosition(), parse<double>(value), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
+                return SUMORouteHandler::isStopPosValid(getAttributeDouble(SUMO_ATTR_STARTPOS), parse<double>(value), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
             } else {
                 return false;
             }

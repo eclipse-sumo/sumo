@@ -243,26 +243,6 @@ GNEStoppingPlace::splitEdgeGeometry(const double splitPosition, const GNENetwork
 }
 
 
-double
-GNEStoppingPlace::getStartPosition() const {
-    if (GNEAttributeCarrier::canParse<double>(myStartPosition)) {
-        return GNEAttributeCarrier::parse<double>(myStartPosition);
-    } else {
-        return 0;
-    }
-}
-
-
-double
-GNEStoppingPlace::getEndPosition() const {
-    if (GNEAttributeCarrier::canParse<double>(myEndPosition)) {
-        return GNEAttributeCarrier::parse<double>(myEndPosition);
-    } else {
-        return getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength() * getParentLanes().front()->getLengthGeometryFactor();
-    }
-}
-
-
 std::string
 GNEStoppingPlace::getParentName() const {
     return getParentLanes().front()->getID();
@@ -284,46 +264,23 @@ GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
     myAdditionalGeometry.updateGeometry(laneShape, getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane(), myMoveElementLateralOffset);
 }
 
-
-double
-GNEStoppingPlace::getStartGeometryPositionOverLane() const {
-    if (GNEAttributeCarrier::canParse<double>(myStartPosition)) {
-        double fixedPos = GNEAttributeCarrier::parse<double>(myStartPosition);
-        const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-        if (fixedPos < 0) {
-            fixedPos += len;
-        }
-        return fixedPos * getParentLanes().front()->getLengthGeometryFactor();
-    } else {
-        return 0;
-    }
-}
-
-
-double
-GNEStoppingPlace::getEndGeometryPositionOverLane() const {
-    if (GNEAttributeCarrier::canParse<double>(myEndPosition)) {
-        double fixedPos = GNEAttributeCarrier::parse<double>(myEndPosition);
-        const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-        if (fixedPos < 0) {
-            fixedPos += len;
-        }
-        return fixedPos * getParentLanes().front()->getLengthGeometryFactor();
-    } else {
-        return getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-    }
-}
-
-
 double
 GNEStoppingPlace::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_STARTPOS:
-            return getStartPosition();
+            if (GNEAttributeCarrier::canParse<double>(myStartPosition)) {
+                return GNEAttributeCarrier::parse<double>(myStartPosition);
+            } else {
+                return 0;
+            }
         case SUMO_ATTR_ENDPOS:
-            return getEndPosition();
+            if (GNEAttributeCarrier::canParse<double>(myEndPosition)) {
+                return GNEAttributeCarrier::parse<double>(myEndPosition);
+            } else {
+                return getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+            }
         case GNE_ATTR_CENTER:
-            return getStartPosition() * getEndPosition() * 0.5;
+            return getAttributeDouble(SUMO_ATTR_STARTPOS) * getAttributeDouble(SUMO_ATTR_ENDPOS) * 0.5;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
@@ -428,6 +385,56 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
         }
         // pop draw matrix
         glPopMatrix();
+    }
+}
+
+
+double
+GNEStoppingPlace::getStartGeometryPositionOverLane() const {
+    if (GNEAttributeCarrier::canParse<double>(myStartPosition)) {
+        // get lane final length
+        const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+        // get startPosition
+        double fixedPos = GNEAttributeCarrier::parse<double>(myStartPosition);
+        // adjust fixedPos
+        if (fixedPos < 0) {
+            fixedPos += len;
+        }
+        // return depending of fixedPos
+        if (fixedPos < 0) {
+            return 0;
+        } else if (fixedPos > (getParentLanes().front()->getLaneShapeLength() - POSITION_EPS)) {
+            return (fixedPos > getParentLanes().front()->getLaneShapeLength() - POSITION_EPS);
+        } else {
+            return fixedPos * getParentLanes().front()->getLengthGeometryFactor();
+        }
+    } else {
+        return 0;
+    }
+}
+
+
+double
+GNEStoppingPlace::getEndGeometryPositionOverLane() const {
+    if (GNEAttributeCarrier::canParse<double>(myEndPosition)) {
+        // get lane final length
+        const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+        // get endPosition
+        double fixedPos = GNEAttributeCarrier::parse<double>(myEndPosition);
+        // adjust fixedPos
+        if (fixedPos < 0) {
+            fixedPos += len;
+        }
+        // return depending of fixedPos
+        if (fixedPos < 0) {
+            return POSITION_EPS;
+        } else if (fixedPos > getParentLanes().front()->getLaneShapeLength()) {
+            return fixedPos > getParentLanes().front()->getLaneShapeLength();
+        } else {
+            return fixedPos * getParentLanes().front()->getLengthGeometryFactor();
+        }
+    } else {
+        return getParentLanes().front()->getLaneShapeLength();
     }
 }
 

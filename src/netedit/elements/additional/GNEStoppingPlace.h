@@ -68,12 +68,6 @@ public:
     void fixAdditionalProblem();
     /// @}
 
-    /// @brief get start Position
-    double getStartPosition() const;
-
-    /// @brief get end Position
-    double getEndPosition() const;
-
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
@@ -167,12 +161,6 @@ protected:
     /// @brief set geometry common to all stopping places
     void setStoppingPlaceGeometry(double movingToSide);
 
-    /// @brief get start position over lane that is applicable to the shape
-    double getStartGeometryPositionOverLane() const;
-
-    /// @brief get end position over lane that is applicable to the shape
-    double getEndGeometryPositionOverLane() const;
-
     /// @brief draw lines
     void drawLines(const GUIVisualizationSettings& s, const std::vector<std::string>& lines, const RGBColor& color) const;
 
@@ -183,6 +171,12 @@ protected:
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
+
+    /// @brief get start position over lane that is applicable to the shape
+    double getStartGeometryPositionOverLane() const;
+
+    /// @brief get end position over lane that is applicable to the shape
+    double getEndGeometryPositionOverLane() const;
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);
