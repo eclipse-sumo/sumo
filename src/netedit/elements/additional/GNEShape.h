@@ -40,6 +40,7 @@ public:
      * @param[in] tag Type of xml tag that define the shape element
      * @param[in] net The net to inform about gui updates
      * @param[in] tag sumo xml tag of the element
+     * @param[in] name Shape name
      * @param[in] parameters generic parameters
      * @param[in] movementBlocked if movement of POI is blocked
      * @param[in] junctionParents vector of junction parents
@@ -53,7 +54,7 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable shape movement
      */
-    GNEShape(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
+    GNEShape(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const std::string& name,
              const std::vector<GNEJunction*>& junctionParents,
              const std::vector<GNEEdge*>& edgeParents,
              const std::vector<GNELane*>& laneParents,
@@ -62,10 +63,10 @@ public:
              const std::vector<GNETAZElement*>& TAZElementParents,
              const std::vector<GNEDemandElement*>& demandElementParents,
              const std::vector<GNEGenericData*>& genericDataParents,
-             const std::map<std::string, std::string> &parameters, bool movementBlocked);
+             bool movementBlocked);
 
     /// @brief Destructor
-    virtual ~GNEShape();
+    ~GNEShape();
 
     /**@brief get move operation for the given shapeOffset
     * @note returned GNEMoveOperation can be nullptr
@@ -205,6 +206,9 @@ public:
 protected:
     /// @brief object boundary
     Boundary myBoundary;
+
+    /// @brief shape name
+    std::string myShapeName;
 
     /// @brief flag to block movement
     bool myBlockMovement;
