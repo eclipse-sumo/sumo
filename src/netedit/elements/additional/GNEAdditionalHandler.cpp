@@ -923,7 +923,7 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
 void 
 GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const double departWeight) {
     // get TAZ parent
-    GNETAZElement *TAZ = myNet->retrieveTAZElement(SUMO_TAG_TAG, sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
+    GNETAZElement *TAZ = myNet->retrieveTAZElement(SUMO_TAG_TAZ, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
     // get edge
     GNEEdge *edge = myNet->retrieveEdge(edgeID);
     // declare TAZ Sink
@@ -986,7 +986,7 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
 void 
 GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const double arrivalWeight) {
     // get TAZ parent
-    GNETAZElement *TAZ = myNet->retrieveTAZElement(SUMO_TAG_TAG, sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
+    GNETAZElement *TAZ = myNet->retrieveTAZElement(SUMO_TAG_TAZ, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
     // get edge
     GNEEdge *edge = myNet->retrieveEdge(edgeID);
     // declare TAZ source
