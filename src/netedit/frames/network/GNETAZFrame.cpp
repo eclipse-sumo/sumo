@@ -1119,8 +1119,10 @@ GNETAZFrame::TAZParameters::getAttributesAndValues() const {
         // delete baseTAZ (and all children)
         delete myTAZFrameParent->myBaseTAZ;
     }
-    // just create a base TAZ
-    myTAZFrameParent->myBaseTAZ = new CommonXMLStructure::SumoBaseObject(nullptr, SUMO_TAG_TAZ);
+    // create a base TAZ
+    myTAZFrameParent->myBaseTAZ = new CommonXMLStructure::SumoBaseObject(nullptr);
+    // set tag
+    myTAZFrameParent->myBaseTAZ->setTag(SUMO_TAG_TAZ);
     // get color (currently the only editable attribute)
     myTAZFrameParent->myBaseTAZ->addColorAttribute(SUMO_ATTR_COLOR, GNEAttributeCarrier::parse<RGBColor>(myTextFieldColor->getText().text()));
 }

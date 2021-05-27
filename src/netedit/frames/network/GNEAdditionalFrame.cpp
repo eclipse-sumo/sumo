@@ -1197,19 +1197,24 @@ GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties& tagProper
             myAdditionalAttributes->showWarningMessage("A " + toString(tagProperty.getMasterTags().front()) + " must be selected before insertion of " + myAdditionalTagSelector->getCurrentTagProperties().getTagStr() + ".");
             return false;
         } else {
-            // create baseAdditional with parent tag
-            myBaseAdditional = new CommonXMLStructure::SumoBaseObject(nullptr, tagProperty.getMasterTags().front());
+            // create baseAdditional parent
+            myBaseAdditional = new CommonXMLStructure::SumoBaseObject(nullptr);
+            // set parent tag
+            myBaseAdditional->setTag(tagProperty.getMasterTags().front());
             // add ID
             myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myParentAdditional->getIdSelected());
-            // create baseAdditional again as child of current myBaseAdditional using baseAdditionalTag
-            myBaseAdditional = new CommonXMLStructure::SumoBaseObject(myBaseAdditional, baseAdditionalTag);
+            // create baseAdditional again as child of current myBaseAdditional
+            myBaseAdditional = new CommonXMLStructure::SumoBaseObject(myBaseAdditional);
+            // set tag
             return true;
         }
     } else {
-        // just create a base additional using baseAdditionalTag
-        myBaseAdditional = new CommonXMLStructure::SumoBaseObject(nullptr, baseAdditionalTag);
+        // just create a base additional
+        myBaseAdditional = new CommonXMLStructure::SumoBaseObject(nullptr);
         return true;
     }
+    // set baseAdditionalTag
+    myBaseAdditional->setTag(baseAdditionalTag);
 }
 
 

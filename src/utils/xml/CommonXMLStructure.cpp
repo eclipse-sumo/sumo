@@ -32,22 +32,31 @@
 // CommonXMLStructure::SumoBaseObject - methods
 // ---------------------------------------------------------------------------
 
-CommonXMLStructure::SumoBaseObject::SumoBaseObject(SumoBaseObject* parent, const SumoXMLTag tag) :
+CommonXMLStructure::SumoBaseObject::SumoBaseObject(SumoBaseObject* parent) :
     mySumoBaseObjectParent(parent),
-    myTag(tag) {
+    myTag(SUMO_TAG_NOTHING) {
     // add this SumoBaseObject into parent children
-    if (parent) {
-        parent->addSumoBaseObjectChild(this);
+    if (mySumoBaseObjectParent) {
+        mySumoBaseObjectParent->addSumoBaseObjectChild(this);
     }
 }
 
 
 CommonXMLStructure::SumoBaseObject::~SumoBaseObject() {
+    // remove this SumoBaseObject from parent children
+    if (mySumoBaseObjectParent) {
+        mySumoBaseObjectParent->removeSumoBaseObjectChild(this);
+    }
     // delete all SumoBaseObjectChildrens
     while(mySumoBaseObjectChildren.size() > 0) {
         delete mySumoBaseObjectChildren.back();
-        mySumoBaseObjectChildren.pop_back();
     }
+}
+
+
+void 
+CommonXMLStructure::SumoBaseObject::setTag(const SumoXMLTag tag) {
+    myTag = tag;
 }
 
 
@@ -317,16 +326,16 @@ CommonXMLStructure::~CommonXMLStructure() {
 
 
 void
-CommonXMLStructure::openTag(const SumoXMLTag myTag) {
+CommonXMLStructure::openSUMOBaseOBject() {
     // first check if root is empty
     if (mySumoBaseObjectRoot == nullptr) {
         // create root
-        mySumoBaseObjectRoot = new SumoBaseObject(nullptr, myTag);
+        mySumoBaseObjectRoot = new SumoBaseObject(nullptr);
         // update last inserted Root
         myLastInsertedSumoBaseObject = mySumoBaseObjectRoot;
     } else {
         // create new node
-        SumoBaseObject* newSumoBaseObject = new SumoBaseObject(myLastInsertedSumoBaseObject, myTag);
+        SumoBaseObject* newSumoBaseObject = new SumoBaseObject(myLastInsertedSumoBaseObject);
         // update last inserted node
         myLastInsertedSumoBaseObject = newSumoBaseObject; 
     }
@@ -334,11 +343,11 @@ CommonXMLStructure::openTag(const SumoXMLTag myTag) {
 
 
 void 
-CommonXMLStructure::closeTag() {
+CommonXMLStructure::closeSUMOBaseOBject() {
     // check that myLastInsertedSumoBaseObject is valid
     if (myLastInsertedSumoBaseObject) {
         // check if last inserted SumoBaseObject is the root
-        if (myLastInsertedSumoBaseObject == mySumoBaseObjectRoot) {
+        if (myLastInsertedSumoBaseObject->getParentSumoBaseObject() == nullptr) {
             // reset both pointers
             myLastInsertedSumoBaseObject = nullptr;
             mySumoBaseObjectRoot = nullptr;

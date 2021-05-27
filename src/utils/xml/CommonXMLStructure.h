@@ -38,10 +38,13 @@ public:
 
     public:
         /// @brief constructor
-        SumoBaseObject(SumoBaseObject* sumoBaseObjectParent, const SumoXMLTag tag);
+        SumoBaseObject(SumoBaseObject* sumoBaseObjectParent);
 
         /// @brief destructor
         ~SumoBaseObject();
+
+        /// @brief set SumoBaseObject tag
+        void setTag(const SumoXMLTag tag);
 
         /// @name get functions
         /// @{
@@ -155,7 +158,7 @@ public:
         SumoBaseObject* mySumoBaseObjectParent;
 
         /// @brief XML myTag
-        const SumoXMLTag myTag;
+        SumoXMLTag myTag;
 
         /// @brief string attributes
         std::map<const SumoXMLAttr, std::string> myStringAttributes;
@@ -210,11 +213,11 @@ public:
     /// @brief Destructor
     ~CommonXMLStructure();
 
-    /// @brief open myTag
-    void openTag(const SumoXMLTag myTag);
+    /// @brief open SUMOBaseOBject
+    void openSUMOBaseOBject();
 
     /// @brief close myTag
-    void closeTag();
+    void closeSUMOBaseOBject();
 
     /// @brief get SumoBaseObject root
     CommonXMLStructure::SumoBaseObject* getSumoBaseObjectRoot() const;

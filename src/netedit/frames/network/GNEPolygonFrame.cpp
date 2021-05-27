@@ -398,7 +398,9 @@ GNEPolygonFrame::createBaseShapeObject(const SumoXMLTag shapeTag) {
         delete myBaseShape;
     }
     // just create a base shape
-    myBaseShape = new CommonXMLStructure::SumoBaseObject(nullptr, shapeTag);
+    myBaseShape = new CommonXMLStructure::SumoBaseObject(nullptr);
+    // set tag
+    myBaseShape->setTag(shapeTag);
 }
 
 
