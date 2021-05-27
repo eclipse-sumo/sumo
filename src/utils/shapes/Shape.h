@@ -22,6 +22,7 @@
 #include <config.h>
 
 #include <string>
+#include <map>
 #include <utils/common/Named.h>
 #include <utils/common/RGBColor.h>
 
@@ -46,6 +47,7 @@ public:
     static const bool DEFAULT_RELATIVEPATH;
     static const double DEFAULT_IMG_WIDTH;
     static const double DEFAULT_IMG_HEIGHT;
+    static const std::map<std::string, std::string> DEFAULT_PARAMETERS;
     /// @}
 
     /** @brief Constructor

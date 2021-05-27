@@ -35,6 +35,7 @@ const std::string Shape::DEFAULT_IMG_FILE = "";
 const bool Shape::DEFAULT_RELATIVEPATH = false;
 const double Shape::DEFAULT_IMG_WIDTH = 1;
 const double Shape::DEFAULT_IMG_HEIGHT = 1;
+const std::map<std::string, std::string> Shape::DEFAULT_PARAMETERS = std::map<std::string, std::string>();
 
 // ===========================================================================
 // member definitions
