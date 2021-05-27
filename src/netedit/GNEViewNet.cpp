@@ -4474,11 +4474,14 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // avoid create shapes if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 if (!myObjectsUnderCursor.getPOIFront()) {
-                    GNEPolygonFrame::AddShape result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor);
+                    // declare processClick flag
+                    bool updateTemporalShape = false;
+                    // process click
+                    myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor, updateTemporalShape);
                     // view net must be always update
                     updateViewNet();
                     // process click depending of the result of "process click"
-                    if ((result != GNEPolygonFrame::AddShape::UPDATEDTEMPORALSHAPE)) {
+                    if (!updateTemporalShape) {
                         // process click
                         processClick(eventData);
                     }

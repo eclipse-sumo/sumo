@@ -253,14 +253,16 @@ GNEPolygonFrame::show() {
 }
 
 
-GNEPolygonFrame::AddShape
-GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+bool
+GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool &updateTemporalShape) {
+    // reset updateTemporalShape
+    updateTemporalShape = false;
     // check if current selected shape is valid
     if (myShapeTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POI) {
         // show warning dialogbox and stop if input parameters are invalid
         if (myShapeAttributes->areValuesValid() == false) {
             myShapeAttributes->showWarningMessage();
-            return AddShape::INVALID;
+            return false;
         }
         // create baseShape object
         createBaseShapeObject(SUMO_TAG_POI);
@@ -281,17 +283,17 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
         // refresh shape attributes
         myShapeAttributes->refreshRows();
         // shape added, then return true
-        return AddShape::SUCCESS;
+        return true;
     } else if (myShapeTagSelector->getCurrentTagProperties().getTag() == GNE_TAG_POILANE) {
         // abort if lane is nullptr
         if (objectsUnderCursor.getLaneFront() == nullptr) {
             WRITE_WARNING(toString(GNE_TAG_POILANE) + " can be only placed over lanes");
-            return AddShape::INVALID;
+            return false;
         }
         // show warning dialogbox and stop if input parameters are invalid
         if (myShapeAttributes->areValuesValid() == false) {
             myShapeAttributes->showWarningMessage();
-            return AddShape::INVALID;
+            return false;
         }
         // create baseShape object
         createBaseShapeObject(SUMO_TAG_POI);
@@ -312,7 +314,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
         // refresh shape attributes
         myShapeAttributes->refreshRows();
         // shape added, then return true
-        return AddShape::SUCCESS;
+        return true;
     } else if (myShapeTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POLY) {
         if (myDrawingShape->isDrawing()) {
             // add or delete a new point depending of flag "delete last created point"
@@ -321,14 +323,15 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
             } else {
                 myDrawingShape->addNewPoint(clickedPosition);
             }
-            return AddShape::UPDATEDTEMPORALSHAPE;
+            // set temporal shape
+            updateTemporalShape = true;
+            return true;
         } else {
-            // return AddShape::NOTHING if is drawing isn't enabled
-            return AddShape::NOTHING;
+            return false;
         }
     } else {
         myViewNet->setStatusBarText("Current selected shape isn't valid.");
-        return AddShape::INVALID;
+        return false;
     }
 }
 
