@@ -312,7 +312,7 @@ CommonXMLStructure::SumoBaseObject::removeSumoBaseObjectChild(SumoBaseObject* su
 
 CommonXMLStructure::CommonXMLStructure() :
     mySumoBaseObjectRoot(nullptr),
-    myLastInsertedSumoBaseObject(nullptr) {
+    myCurrentSumoBaseObject(nullptr) {
 
 }
 
@@ -332,28 +332,28 @@ CommonXMLStructure::openSUMOBaseOBject() {
         // create root
         mySumoBaseObjectRoot = new SumoBaseObject(nullptr);
         // update last inserted Root
-        myLastInsertedSumoBaseObject = mySumoBaseObjectRoot;
+        myCurrentSumoBaseObject = mySumoBaseObjectRoot;
     } else {
         // create new node
-        SumoBaseObject* newSumoBaseObject = new SumoBaseObject(myLastInsertedSumoBaseObject);
+        SumoBaseObject* newSumoBaseObject = new SumoBaseObject(myCurrentSumoBaseObject);
         // update last inserted node
-        myLastInsertedSumoBaseObject = newSumoBaseObject; 
+        myCurrentSumoBaseObject = newSumoBaseObject; 
     }
 }
 
 
 void 
 CommonXMLStructure::closeSUMOBaseOBject() {
-    // check that myLastInsertedSumoBaseObject is valid
-    if (myLastInsertedSumoBaseObject) {
+    // check that myCurrentSumoBaseObject is valid
+    if (myCurrentSumoBaseObject) {
         // check if last inserted SumoBaseObject is the root
-        if (myLastInsertedSumoBaseObject->getParentSumoBaseObject() == nullptr) {
+        if (myCurrentSumoBaseObject->getParentSumoBaseObject() == nullptr) {
             // reset both pointers
-            myLastInsertedSumoBaseObject = nullptr;
+            myCurrentSumoBaseObject = nullptr;
             mySumoBaseObjectRoot = nullptr;
         } else {
             // update last inserted SumoBaseObject
-            myLastInsertedSumoBaseObject = myLastInsertedSumoBaseObject->getParentSumoBaseObject();
+            myCurrentSumoBaseObject = myCurrentSumoBaseObject->getParentSumoBaseObject();
         }
     }
 }
@@ -366,8 +366,8 @@ CommonXMLStructure::getSumoBaseObjectRoot() const {
 
 
 CommonXMLStructure::SumoBaseObject* 
-CommonXMLStructure::getLastInsertedSumoBaseObject() const {
-    return myLastInsertedSumoBaseObject;
+CommonXMLStructure::getCurrentSumoBaseObject() const {
+    return myCurrentSumoBaseObject;
 }
 
 /****************************************************************************/

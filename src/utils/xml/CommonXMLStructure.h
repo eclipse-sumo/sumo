@@ -222,15 +222,15 @@ public:
     /// @brief get SumoBaseObject root
     CommonXMLStructure::SumoBaseObject* getSumoBaseObjectRoot() const;
 
-    /// @brief get last inserted SumoBaseObject
-    CommonXMLStructure::SumoBaseObject* getLastInsertedSumoBaseObject() const;
+    /// @brief get current editedSumoBaseObject
+    CommonXMLStructure::SumoBaseObject* getCurrentSumoBaseObject() const;
 
 protected:
     /// @brief SumoBaseObject root
     CommonXMLStructure::SumoBaseObject* mySumoBaseObjectRoot;
 
     /// @brief last inserted SumoBaseObject
-    CommonXMLStructure::SumoBaseObject* myLastInsertedSumoBaseObject;
+    CommonXMLStructure::SumoBaseObject* myCurrentSumoBaseObject;
 
 private:
     /// @brief invalidate copy constructor
