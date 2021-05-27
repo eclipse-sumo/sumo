@@ -45,9 +45,15 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
         const bool relativePath, const double width, const double height, const std::string &name, 
         const std::map<std::string, std::string> &parameters, const bool blockMovement) :
     PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, 0, layer, angle, imgFile, relativePath, width, height, name, parameters),
-    GNEShape(id, net, GLO_POI, SUMO_TAG_POI,
+    GNEShape(id, net, GLO_POI, geo? GNE_TAG_POIGEO : SUMO_TAG_POI,
         {}, {}, {}, {}, {}, {}, {}, {},
-        blockMovement) {
+    blockMovement) {
+    // update position
+    if (GNE_TAG_POIGEO) {
+        Position cartesian(x(), y());
+        GeoConvHelper::getFinal().x2cartesian_const(cartesian);
+        set(cartesian.x(), cartesian.y());
+    }
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -266,12 +272,20 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_POSITION_LAT:
             return toString(myPosLat);
-        case SUMO_ATTR_LON:
-            return toString(x());
-        case SUMO_ATTR_LAT:
-            return toString(y());
-        case SUMO_ATTR_Z:
-            return toString(z());
+        case SUMO_ATTR_LON: {
+            // calculate geo position
+            Position GEOPosition(x(), y());
+            GeoConvHelper::getFinal().cartesian2geo(GEOPosition);
+            // return lon
+            return toString(GEOPosition.x());
+        }
+        case SUMO_ATTR_LAT: {
+            // calculate geo position
+            Position GEOPosition(x(), y());
+            GeoConvHelper::getFinal().cartesian2geo(GEOPosition);
+            // return lat
+            return toString(GEOPosition.y());
+        }
         case SUMO_ATTR_TYPE:
             return getShapeType();
         case SUMO_ATTR_LAYER:
@@ -317,7 +331,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_POSITION_LAT:
         case SUMO_ATTR_LON:
         case SUMO_ATTR_LAT:
-        case SUMO_ATTR_Z:
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_LAYER:
         case SUMO_ATTR_IMGFILE:
@@ -356,8 +369,8 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION_LAT:
             return canParse<double>(value);
         case SUMO_ATTR_LON:
+            return canParse<double>(value);
         case SUMO_ATTR_LAT:
-        case SUMO_ATTR_Z:
             return canParse<double>(value);
         case SUMO_ATTR_TYPE:
             return true;
@@ -451,15 +464,26 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             // update centering boundary
             updateCenteringBoundary(true);
             break;
-        case SUMO_ATTR_LON:
-            setx(parse<Position>(value).x());
+        case SUMO_ATTR_LON: {
+            // calculate cartesian
+            Position cartesian(parse<double>(value), parse<double>(getAttribute(SUMO_ATTR_LAT)));
+            GeoConvHelper::getFinal().x2cartesian_const(cartesian);
+            // set cartesian
+            set(cartesian);
+            // update centering boundary
+            updateCenteringBoundary(true);
             break;
-        case SUMO_ATTR_LAT:
-            sety(parse<Position>(value).y());
+        }
+        case SUMO_ATTR_LAT: {
+            // calculate cartesian
+            Position cartesian(parse<double>(getAttribute(SUMO_ATTR_LON)), parse<double>(value));
+            GeoConvHelper::getFinal().x2cartesian_const(cartesian);
+            // set cartesian
+            set(cartesian);
+            // update centering boundary
+            updateCenteringBoundary(true);
             break;
-        case SUMO_ATTR_Z:
-            setz(parse<Position>(value).z());
-            break;
+        }
         case SUMO_ATTR_TYPE:
             setShapeType(value);
             break;
