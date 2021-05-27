@@ -316,12 +316,12 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             break;
         case SUMO_TAG_CLOSING_LANE_REROUTE:
             buildClosingLaneReroute(obj,
-                obj->getStringAttribute(SUMO_ATTR_LANE),
+                obj->getStringAttribute(SUMO_ATTR_ID),
                 parseVehicleClasses(obj->getStringAttribute(SUMO_ATTR_ALLOW), obj->getStringAttribute(SUMO_ATTR_DISALLOW)));
             break;
         case SUMO_TAG_CLOSING_REROUTE:
             buildClosingReroute(obj,
-                obj->getStringAttribute(SUMO_ATTR_EDGE),
+                obj->getStringAttribute(SUMO_ATTR_ID),
                 parseVehicleClasses(obj->getStringAttribute(SUMO_ATTR_ALLOW), obj->getStringAttribute(SUMO_ATTR_DISALLOW)));
             break;
         case SUMO_TAG_DEST_PROB_REROUTE:
@@ -581,59 +581,64 @@ AdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
 
 void
 AdditionalHandler::myEndElement(int element) {
+    // obtain tag
+    const SumoXMLTag tag = static_cast<SumoXMLTag> (element);
     // get object
     CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getLastInsertedSumoBaseObject();
     // check object
     if (obj) {
-        // obtain tag
-        const SumoXMLTag tag = static_cast<SumoXMLTag> (element);
-        // check tag
-        switch (tag) {
-            // Stopping Places
-            case SUMO_TAG_BUS_STOP:
-            case SUMO_TAG_TRAIN_STOP:
-            case SUMO_TAG_ACCESS:
-            case SUMO_TAG_CONTAINER_STOP:
-            case SUMO_TAG_CHARGING_STATION:
-            case SUMO_TAG_PARKING_AREA:
-            // detectors
-            case SUMO_TAG_E1DETECTOR:
-            case SUMO_TAG_INDUCTION_LOOP:
-            case SUMO_TAG_E2DETECTOR:
-            case SUMO_TAG_LANE_AREA_DETECTOR:
-            case SUMO_TAG_E3DETECTOR:
-            case SUMO_TAG_ENTRY_EXIT_DETECTOR:
-            case SUMO_TAG_INSTANT_INDUCTION_LOOP:
-            // TAZs
-            case SUMO_TAG_TAZ:
-            // Variable Speed Sign
-            case SUMO_TAG_VSS:
-            // Calibrator
-            case SUMO_TAG_CALIBRATOR:
-            case SUMO_TAG_LANECALIBRATOR:
-            // Rerouter
-            case SUMO_TAG_REROUTER:
-            // Route probe
-            case SUMO_TAG_ROUTEPROBE:
-            // Vaporizer (deprecated)
-            case SUMO_TAG_VAPORIZER:
-            // Shapes
-            case SUMO_TAG_POLY:
-            case SUMO_TAG_POI:
-                // parse object and all their childrens
-                parseSumoBaseObject(obj);
-                // just close node
-                myCommonXMLStructure.closeTag();
-                // check if obj is the root
-                if (obj == myCommonXMLStructure.getSumoBaseObjectRoot()) {
-                    // clear root
-                    myCommonXMLStructure.clearSumoBaseObjectRoot();
-                }
-                // delete object
-                delete obj;
-                break;
-            default:
-                break;
+        // check object tag
+        if (obj->getTag() == tag) {
+            // check tag
+            switch (tag) {
+                // Stopping Places
+                case SUMO_TAG_BUS_STOP:
+                case SUMO_TAG_TRAIN_STOP:
+                case SUMO_TAG_ACCESS:
+                case SUMO_TAG_CONTAINER_STOP:
+                case SUMO_TAG_CHARGING_STATION:
+                case SUMO_TAG_PARKING_AREA:
+                // detectors
+                case SUMO_TAG_E1DETECTOR:
+                case SUMO_TAG_INDUCTION_LOOP:
+                case SUMO_TAG_E2DETECTOR:
+                case SUMO_TAG_LANE_AREA_DETECTOR:
+                case SUMO_TAG_E3DETECTOR:
+                case SUMO_TAG_ENTRY_EXIT_DETECTOR:
+                case SUMO_TAG_INSTANT_INDUCTION_LOOP:
+                // TAZs
+                case SUMO_TAG_TAZ:
+                // Variable Speed Sign
+                case SUMO_TAG_VSS:
+                // Calibrator
+                case SUMO_TAG_CALIBRATOR:
+                case SUMO_TAG_LANECALIBRATOR:
+                // Rerouter
+                case SUMO_TAG_REROUTER:
+                // Route probe
+                case SUMO_TAG_ROUTEPROBE:
+                // Vaporizer (deprecated)
+                case SUMO_TAG_VAPORIZER:
+                // Shapes
+                case SUMO_TAG_POLY:
+                case SUMO_TAG_POI:
+                    // parse object and all their childrens
+                    parseSumoBaseObject(obj);
+                    // close node
+                    myCommonXMLStructure.closeTag();
+                    // delete object
+                    delete obj;
+                    break;
+                default:
+                    // close node
+                    myCommonXMLStructure.closeTag();
+                    break;
+            }
+        } else {
+            // close node
+            myCommonXMLStructure.closeTag();
+            // delete object
+            delete obj;
         }
     }
 }
@@ -1288,7 +1293,7 @@ AdditionalHandler::parseClosingLaneRerouteAttributes(const SUMOSAXAttributes& at
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string laneID = attrs.get<std::string>(SUMO_ATTR_LANE, "", parsedOk, false);
+    const std::string laneID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
     // optional attributes
     const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, "", parsedOk, "", false);
     const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, "", parsedOk, "", false);
@@ -1297,7 +1302,7 @@ AdditionalHandler::parseClosingLaneRerouteAttributes(const SUMOSAXAttributes& at
         // first open tag
         myCommonXMLStructure.openTag(SUMO_TAG_CLOSING_LANE_REROUTE);
         // add all attributes
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneID);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, laneID);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ALLOW, allow);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_DISALLOW, disallow);
     }
@@ -1309,7 +1314,7 @@ AdditionalHandler::parseClosingRerouteAttributes(const SUMOSAXAttributes& attrs)
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_EDGE, "", parsedOk, false);
+    const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
     // optional attributes
     const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, "", parsedOk, "", false);
     const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, "", parsedOk, "", false);
@@ -1318,7 +1323,7 @@ AdditionalHandler::parseClosingRerouteAttributes(const SUMOSAXAttributes& attrs)
         // first open tag
         myCommonXMLStructure.openTag(SUMO_TAG_CLOSING_LANE_REROUTE);
         // add all attributes
-        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_EDGE, edgeID);
+        myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, edgeID);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_ALLOW, allow);
         myCommonXMLStructure.getLastInsertedSumoBaseObject()->addStringAttribute(SUMO_ATTR_DISALLOW, disallow);
     }
