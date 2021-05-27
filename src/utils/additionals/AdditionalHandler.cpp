@@ -326,7 +326,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             break;
         case SUMO_TAG_DEST_PROB_REROUTE:
             buildDestProbReroute(obj,
-                obj->getStringAttribute(SUMO_ATTR_EDGE),
+                obj->getStringAttribute(SUMO_ATTR_ID),
                 obj->getDoubleAttribute(SUMO_ATTR_PROB));
             break;
         case SUMO_TAG_PARKING_ZONE_REROUTE:
