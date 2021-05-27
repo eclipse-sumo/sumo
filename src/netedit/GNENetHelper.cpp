@@ -667,7 +667,7 @@ GNENetHelper::AttributeCarriers::shapeExist(const GNEShape* shape) const {
 void
 GNENetHelper::AttributeCarriers::insertShape(GNEShape* shape) {
     // get tag (due POIs)
-    SumoXMLTag shapeTag = (shape->getTagProperty().getTag() == GNE_TAG_POILANE) ? SUMO_TAG_POI : shape->getTagProperty().getTag();
+    SumoXMLTag shapeTag = (shape->getTagProperty().getTag() == GNE_TAG_POILANE || shape->getTagProperty().getTag() == GNE_TAG_POIGEO) ? SUMO_TAG_POI : shape->getTagProperty().getTag();
     // Check if shape element exists before insertion
     if (!shapeExist(shape)) {
         myShapes.at(shapeTag).insert(std::make_pair(shape->getID(), shape));

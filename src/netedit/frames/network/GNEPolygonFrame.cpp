@@ -27,6 +27,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
+#include <utils/geom/GeoConvHelper.h>
 
 #include "GNEPolygonFrame.h"
 
@@ -274,10 +275,41 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
         if (!myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
             myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->generateShapeID(SUMO_TAG_POI));
         }
-        // obtain position
-        myBaseShape->addPositionAttribute(SUMO_ATTR_POSITION, clickedPosition);
+        // add X-Y
+        myBaseShape->addDoubleAttribute(SUMO_ATTR_X, clickedPosition.x());
+        myBaseShape->addDoubleAttribute(SUMO_ATTR_Y, clickedPosition.y());
         // set GEO Position as false (because we have created POI clicking over View
         myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, "false");
+        // add shape
+        addShape();
+        // refresh shape attributes
+        myShapeAttributes->refreshRows();
+        // shape added, then return true
+        return true;
+    } else if (myShapeTagSelector->getCurrentTagProperties().getTag() == GNE_TAG_POIGEO) {
+        // show warning dialogbox and stop if input parameters are invalid
+        if (myShapeAttributes->areValuesValid() == false) {
+            myShapeAttributes->showWarningMessage();
+            return false;
+        }
+        // create baseShape object
+        createBaseShapeObject(SUMO_TAG_POI);
+        // obtain shape attributes and values
+        myShapeAttributes->getAttributesAndValues(myBaseShape, true);
+        // obtain netedit attributes and values
+        myNeteditAttributes->getNeteditAttributesAndValues(myBaseShape, objectsUnderCursor.getLaneFront());
+        // Check if ID has to be generated
+        if (!myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
+            myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->generateShapeID(GNE_TAG_POIGEO));
+        }
+        // convert position to cartesian
+        Position GEOPos = clickedPosition;
+        GeoConvHelper::getFinal().cartesian2geo(GEOPos);
+        // add X-Y in geo format
+        myBaseShape->addDoubleAttribute(SUMO_ATTR_LON, GEOPos.x());
+        myBaseShape->addDoubleAttribute(SUMO_ATTR_LAT, GEOPos.y());
+        // set GEO Position as false (because we have created POI clicking over View
+        myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, "true");
         // add shape
         addShape();
         // refresh shape attributes
@@ -422,7 +454,7 @@ GNEPolygonFrame::tagSelected() {
             myDrawingShape->hideDrawingShape();
         }
         // Check if GEO POI Creator has to be shown
-        if (myShapeTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POI) {
+        if (myShapeTagSelector->getCurrentTagProperties().getTag() == GNE_TAG_POIGEO) {
             myGEOPOICreator->showGEOPOICreatorModul();
         } else {
             myGEOPOICreator->hideGEOPOICreatorModul();
