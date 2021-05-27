@@ -59,6 +59,7 @@ public:
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth The line with for drawing an unfilled polygon
      * @param[in] relativePath set image file as relative path
+     * @param[in] parameters generic parameters
      */
     SUMOPolygon(const std::string& id, const std::string& type,
                 const RGBColor& color, const PositionVector& shape,
@@ -66,7 +67,8 @@ public:
                 double layer = DEFAULT_LAYER,
                 double angle = DEFAULT_ANGLE,
                 const std::string& imgFile = DEFAULT_IMG_FILE,
-                bool relativePath = DEFAULT_RELATIVEPATH);
+                bool relativePath = DEFAULT_RELATIVEPATH,
+                const std::map<std::string, std::string>& parameters = DEFAULT_PARAMETERS);
 
 
     /// @brief Destructor

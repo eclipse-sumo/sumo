@@ -31,10 +31,12 @@
 // ===========================================================================
 // member definitions
 // ===========================================================================
-SUMOPolygon::SUMOPolygon(const std::string& id, const std::string& type,
-                         const RGBColor& color, const PositionVector& shape, bool geo, bool fill, double lineWidth,
-                         double layer, double angle, const std::string& imgFile, bool relativePath) :
+SUMOPolygon::SUMOPolygon(const std::string& id, const std::string& type, const RGBColor& color, 
+                         const PositionVector& shape, bool geo, bool fill, double lineWidth,
+                         double layer, double angle, const std::string& imgFile, bool relativePath,
+                         const std::map<std::string, std::string>& parameters) :
     Shape(id, type, color, layer, angle, imgFile, relativePath),
+    Parameterised(parameters),
     myShape(shape),
     myGEO(geo),
     myFill(fill),
