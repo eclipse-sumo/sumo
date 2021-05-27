@@ -1,5 +1,8 @@
 # tests for multiple vehicle problem
 2taxis_10persons
 
+# tests for travel times pre-calculation with duarouter
+dua_pairs
+
 # tests for one vehicle problem
 oneVehicle
