@@ -3,4 +3,5 @@ Reservation 1 (person ('1',)) cannot be served
 Reservation 5 (person ('5',)) cannot be served
 Reservation 7 (person ('7',)) cannot be served
 Reservation 9 (person ('9',)) cannot be served
+Approximate solution found.
 DRT simulation ended
