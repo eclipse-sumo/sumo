@@ -1177,7 +1177,7 @@ GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties& tagProper
     }
     // declare tag for base additional
     SumoXMLTag baseAdditionalTag = tagProperty.getTag();
-    // check if has to be updated
+    // check if baseAdditionalTag has to be updated
     if (baseAdditionalTag == GNE_TAG_E2DETECTOR_MULTILANE) {
         baseAdditionalTag = SUMO_TAG_E2DETECTOR;
     } else if (baseAdditionalTag == GNE_TAG_FLOW_CALIBRATOR) {
@@ -1205,16 +1205,15 @@ GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties& tagProper
             myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myParentAdditional->getIdSelected());
             // create baseAdditional again as child of current myBaseAdditional
             myBaseAdditional = new CommonXMLStructure::SumoBaseObject(myBaseAdditional);
-            // set tag
-            return true;
         }
     } else {
         // just create a base additional
         myBaseAdditional = new CommonXMLStructure::SumoBaseObject(nullptr);
-        return true;
     }
     // set baseAdditionalTag
     myBaseAdditional->setTag(baseAdditionalTag);
+    // BaseAdditional created, then return true
+    return true;
 }
 
 
