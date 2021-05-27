@@ -48,8 +48,8 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
     GNEShape(id, net, GLO_POI, geo? GNE_TAG_POIGEO : SUMO_TAG_POI,
         {}, {}, {}, {}, {}, {}, {}, {},
     blockMovement) {
-    // update position
-    if (GNE_TAG_POIGEO) {
+    // update position depending of GEO
+    if (geo) {
         Position cartesian(x(), y());
         GeoConvHelper::getFinal().x2cartesian_const(cartesian);
         set(cartesian.x(), cartesian.y());
