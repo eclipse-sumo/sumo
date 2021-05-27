@@ -228,12 +228,12 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             break;
         case SUMO_TAG_TAZSOURCE:
             buildTAZSource(obj,
-                obj->getStringAttribute(SUMO_ATTR_EDGE),
+                obj->getStringAttribute(SUMO_ATTR_ID),
                 obj->getDoubleAttribute(SUMO_ATTR_WEIGHT));
             break;
         case SUMO_TAG_TAZSINK:
             buildTAZSink(obj,
-                obj->getStringAttribute(SUMO_ATTR_EDGE),
+                obj->getStringAttribute(SUMO_ATTR_ID),
                 obj->getDoubleAttribute(SUMO_ATTR_WEIGHT));
             break;
         // Variable Speed Sign
@@ -638,8 +638,8 @@ AdditionalHandler::parseBusStopAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, false);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, true);
     // optional attributes
     const std::string startPos = attrs.getOpt<std::string>(SUMO_ATTR_STARTPOS, id.c_str(), parsedOk, "", false);
     const std::string endPos = attrs.getOpt<std::string>(SUMO_ATTR_ENDPOS, id.c_str(), parsedOk, "", false);
@@ -671,8 +671,8 @@ AdditionalHandler::parseAccessAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, "", parsedOk, false);
-    const std::string position = attrs.get<std::string>(SUMO_ATTR_POSITION, "", parsedOk, false);
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, "", parsedOk, true);
+    const std::string position = attrs.get<std::string>(SUMO_ATTR_POSITION, "", parsedOk, true);
     // optional attributes
     const std::string length = attrs.getOpt<std::string>(SUMO_ATTR_LENGTH, "", parsedOk, "", false);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "", parsedOk, "", false);
@@ -696,8 +696,8 @@ AdditionalHandler::parseContainerStopAttributes(const SUMOSAXAttributes& attrs) 
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, false);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, true);
     // optional attributes
     const std::string startPos = attrs.getOpt<std::string>(SUMO_ATTR_STARTPOS, id.c_str(), parsedOk, "", false);
     const std::string endPos = attrs.getOpt<std::string>(SUMO_ATTR_ENDPOS, id.c_str(), parsedOk, "", false);
@@ -725,8 +725,8 @@ AdditionalHandler::parseChargingStationAttributes(const SUMOSAXAttributes& attrs
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, false);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, true);
     // optional attributes
     const std::string startPos = attrs.getOpt<std::string>(SUMO_ATTR_STARTPOS, id.c_str(), parsedOk, "", false);
     const std::string endPos = attrs.getOpt<std::string>(SUMO_ATTR_ENDPOS, id.c_str(), parsedOk, "", false);
@@ -762,8 +762,8 @@ AdditionalHandler::parseParkingAreaAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, false);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, true);
     // optional attributes
     const std::string startPos = attrs.getOpt<std::string>(SUMO_ATTR_STARTPOS, id.c_str(), parsedOk, "", false);
     const std::string endPos = attrs.getOpt<std::string>(SUMO_ATTR_ENDPOS, id.c_str(), parsedOk, "", false);
@@ -801,8 +801,8 @@ AdditionalHandler::parseParkingSpaceAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const double x = attrs.get<double>(SUMO_ATTR_X, "", parsedOk, false);
-    const double y = attrs.get<double>(SUMO_ATTR_Y, "", parsedOk, false);
+    const double x = attrs.get<double>(SUMO_ATTR_X, "", parsedOk, true);
+    const double y = attrs.get<double>(SUMO_ATTR_Y, "", parsedOk, true);
     // optional attributes
     const double z = attrs.getOpt<double>(SUMO_ATTR_Z, "", parsedOk, 0, false);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, "", parsedOk, "", false);
@@ -834,11 +834,11 @@ AdditionalHandler::parseE1Attributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, false);
-    const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, false);
-    const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, false);
-    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, false);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, true);
+    const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, true);
+    const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, true);
+    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, true);
     // optional attributes
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "", false);
     const std::vector<std::string> vehicleTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, std::vector<std::string>(), false);
@@ -878,9 +878,9 @@ AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, false);
-    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, false);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
+    const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, true);
+    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, true);
     // special attributes
     const std::string laneId = attrs.getOpt<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, "", false);
     const std::vector<std::string> laneIds = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LANES, id.c_str(), parsedOk, std::vector<std::string>(), false);
@@ -928,9 +928,9 @@ AdditionalHandler::parseE3Attributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, false);
-    const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, false);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
+    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, true);
+    const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, true);
     // optional attributes
     const Position pos = attrs.getOpt<Position>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, Position(), false);
     const std::vector<std::string> vehicleTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, std::vector<std::string>(), false);
@@ -959,8 +959,8 @@ AdditionalHandler::parseEntryAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, "", parsedOk, false);
-    const double position = attrs.get<double>(SUMO_ATTR_POSITION, "", parsedOk, false);
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, "", parsedOk, true);
+    const double position = attrs.get<double>(SUMO_ATTR_POSITION, "", parsedOk, true);
     // optional attributes
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "", parsedOk, false, false);
     // check parent
@@ -982,8 +982,8 @@ AdditionalHandler::parseExitAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, "", parsedOk, false);
-    const double position = attrs.get<double>(SUMO_ATTR_POSITION, "", parsedOk, false);
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, "", parsedOk, true);
+    const double position = attrs.get<double>(SUMO_ATTR_POSITION, "", parsedOk, true);
     // optional attributes
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "", parsedOk, false, false);
     // check parent
@@ -1005,10 +1005,10 @@ AdditionalHandler::parseE1InstantAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, false);
-    const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, false);
-    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, false);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, true);
+    const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, true);
+    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, true);
     // optional attributes
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "", false);
     const std::vector<std::string> vehicleTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, std::vector<std::string>(), false);
@@ -1034,8 +1034,8 @@ AdditionalHandler::parseTAZAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), parsedOk, false);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
+    const PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), parsedOk, true);
     // optional attributes
     const std::vector<std::string> edges = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk, std::vector<std::string>(), false);
     const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::RED, false);
@@ -1059,8 +1059,8 @@ AdditionalHandler::parseTAZSourceAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_EDGE, "", parsedOk, false);
-    const double weight = attrs.get<double>(SUMO_ATTR_WEIGHT, edgeID.c_str(), parsedOk, false);
+    const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
+    const double weight = attrs.get<double>(SUMO_ATTR_WEIGHT, edgeID.c_str(), parsedOk, true);
     // check parent
     checkParent(SUMO_TAG_TAZSOURCE, SUMO_TAG_TAZ);
     // continue if flag is ok
@@ -1068,7 +1068,7 @@ AdditionalHandler::parseTAZSourceAttributes(const SUMOSAXAttributes& attrs) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_TAZSOURCE);
         // add all attributes
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_EDGE, edgeID);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, edgeID);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_WEIGHT, weight);
     }
 }
@@ -1079,8 +1079,8 @@ AdditionalHandler::parseTAZSinkAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_EDGE, "", parsedOk, false);
-    const double weight = attrs.get<double>(SUMO_ATTR_WEIGHT, edgeID.c_str(), parsedOk, false);
+    const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
+    const double weight = attrs.get<double>(SUMO_ATTR_WEIGHT, edgeID.c_str(), parsedOk, true);
     // check parent
     checkParent(SUMO_TAG_TAZSINK, SUMO_TAG_TAZ);
     // continue if flag is ok
@@ -1088,7 +1088,7 @@ AdditionalHandler::parseTAZSinkAttributes(const SUMOSAXAttributes& attrs) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_TAZSINK);
         // add all attributes
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_EDGE, edgeID);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, edgeID);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_WEIGHT, weight);
     }
 }
@@ -1099,8 +1099,8 @@ AdditionalHandler::parseVariableSpeedSignAttributes(const SUMOSAXAttributes& att
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const std::vector<std::string> lanes = attrs.get<std::vector<std::string> >(SUMO_ATTR_LANES, id.c_str(), parsedOk, false);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
+    const std::vector<std::string> lanes = attrs.get<std::vector<std::string> >(SUMO_ATTR_LANES, id.c_str(), parsedOk, true);
     // optional attributes
     const Position pos = attrs.getOpt<Position>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, Position(), false);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "", false);
@@ -1122,7 +1122,7 @@ AdditionalHandler::parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes&
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const SUMOTime time = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, "", parsedOk, false);
+    const SUMOTime time = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, "", parsedOk, true);
      // optional attributes
     const std::string speed = attrs.getOpt<std::string>(SUMO_ATTR_SPEED, "", parsedOk, "", false);
     // check parent
@@ -1148,8 +1148,8 @@ AdditionalHandler::parseCalibratorAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const double pos = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, false);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
+    const double pos = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, true);
     // special attributes
     const std::string edge = attrs.getOpt<std::string>(SUMO_ATTR_EDGE, id.c_str(), parsedOk, "", false);
     const std::string lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, "", false);
@@ -1191,9 +1191,9 @@ AdditionalHandler::parseCalibratorFlowAttributes(const SUMOSAXAttributes& attrs)
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string route = attrs.get<std::string>(SUMO_ATTR_ROUTE, "", parsedOk, false);
-    const SUMOTime begin = attrs.get<SUMOTime>(SUMO_ATTR_BEGIN, "", parsedOk, false);
-    const SUMOTime end = attrs.get<SUMOTime>(SUMO_ATTR_BEGIN, "", parsedOk, false);
+    const std::string route = attrs.get<std::string>(SUMO_ATTR_ROUTE, "", parsedOk, true);
+    const SUMOTime begin = attrs.get<SUMOTime>(SUMO_ATTR_BEGIN, "", parsedOk, true);
+    const SUMOTime end = attrs.get<SUMOTime>(SUMO_ATTR_BEGIN, "", parsedOk, true);
     // special attributes
     const std::string vType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, "", parsedOk, "", false);
     const std::string vehsPerHour = attrs.getOpt<std::string>(SUMO_ATTR_VEHSPERHOUR, "", parsedOk, "", false);
@@ -1245,8 +1245,8 @@ AdditionalHandler::parseRerouterAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const std::vector<std::string> edges = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk, false);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
+    const std::vector<std::string> edges = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk, true);
     // optional attributes
     const Position pos = attrs.getOpt<Position>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, Position(), false);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "", false);
@@ -1278,8 +1278,8 @@ AdditionalHandler::parseRerouterIntervalAttributes(const SUMOSAXAttributes& attr
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const SUMOTime begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, "", parsedOk, false);
-    const SUMOTime end = attrs.getSUMOTimeReporting(SUMO_ATTR_END, "", parsedOk, false);
+    const SUMOTime begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, "", parsedOk, true);
+    const SUMOTime end = attrs.getSUMOTimeReporting(SUMO_ATTR_END, "", parsedOk, true);
     // check parent
     checkParent(SUMO_TAG_INTERVAL, SUMO_TAG_REROUTER);
     // continue if flag is ok
@@ -1298,7 +1298,7 @@ AdditionalHandler::parseClosingLaneRerouteAttributes(const SUMOSAXAttributes& at
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string laneID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
+    const std::string laneID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
     // optional attributes
     const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, "", parsedOk, "", false);
     const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, "", parsedOk, "", false);
@@ -1321,7 +1321,7 @@ AdditionalHandler::parseClosingRerouteAttributes(const SUMOSAXAttributes& attrs)
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
+    const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
     // optional attributes
     const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, "", parsedOk, "", false);
     const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, "", parsedOk, "", false);
@@ -1344,8 +1344,8 @@ AdditionalHandler::parseDestProbRerouteAttributes(const SUMOSAXAttributes& attrs
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const double probability = attrs.get<double>(SUMO_ATTR_PROB, "", parsedOk, false);
+    const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
+    const double probability = attrs.get<double>(SUMO_ATTR_PROB, "", parsedOk, true);
     // check parent
     checkParent(SUMO_TAG_DEST_PROB_REROUTE, SUMO_TAG_INTERVAL);
     // continue if flag is ok
@@ -1364,7 +1364,7 @@ AdditionalHandler::parseParkingAreaRerouteAttributes(const SUMOSAXAttributes& at
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string parkingAreaID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
+    const std::string parkingAreaID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
     // optional attributes
     const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, "", parsedOk, 1, false);
     const bool visible = attrs.getOpt<bool>(SUMO_ATTR_VISIBLE, "", parsedOk, 1, false);
@@ -1387,7 +1387,7 @@ AdditionalHandler::parseRouteProbRerouteAttributes(const SUMOSAXAttributes& attr
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string routeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
+    const std::string routeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
     // optional attributes
     const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, "", parsedOk, 1, false);
     // check parent
@@ -1408,11 +1408,11 @@ AdditionalHandler::parseRouteProbeAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const std::string edge = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), parsedOk, false);
-    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, false);
-    const SUMOTime time = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, false);
-    const SUMOTime begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), parsedOk, false);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
+    const std::string edge = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), parsedOk, true);
+    const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk, true);
+    const SUMOTime time = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, true);
+    const SUMOTime begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), parsedOk, true);
     // optional attributes
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "", false);
     // continue if flag is ok
@@ -1435,9 +1435,9 @@ AdditionalHandler::parseVaporizerAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const SUMOTime from = attrs.getSUMOTimeReporting(SUMO_ATTR_FROM, edgeID.c_str(), parsedOk, false);
-    const SUMOTime end = attrs.getSUMOTimeReporting(SUMO_ATTR_END, edgeID.c_str(), parsedOk, false);
+    const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
+    const SUMOTime from = attrs.getSUMOTimeReporting(SUMO_ATTR_FROM, edgeID.c_str(), parsedOk, true);
+    const SUMOTime end = attrs.getSUMOTimeReporting(SUMO_ATTR_END, edgeID.c_str(), parsedOk, true);
     // optional attributes
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, edgeID.c_str(), parsedOk, "", false);
     // continue if flag is ok
@@ -1458,8 +1458,8 @@ AdditionalHandler::parsePolyAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string polygonID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const PositionVector shapeStr = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, polygonID.c_str(), parsedOk, false);
+    const std::string polygonID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
+    const PositionVector shapeStr = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, polygonID.c_str(), parsedOk, true);
     // optional attributes
     const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, polygonID.c_str(), parsedOk, RGBColor::RED, false);
     const bool geo = attrs.getOpt<bool>(SUMO_ATTR_GEO, polygonID.c_str(), parsedOk, false, false);
@@ -1512,8 +1512,8 @@ AdditionalHandler::parsePOIAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, false);
-    const RGBColor color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, false);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
+    const RGBColor color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, true);
     // special attributes
     const double x = attrs.getOpt<double>(SUMO_ATTR_X, id.c_str(), parsedOk, 0, false);
     const double y = attrs.getOpt<double>(SUMO_ATTR_Y, id.c_str(), parsedOk, 0, false);
