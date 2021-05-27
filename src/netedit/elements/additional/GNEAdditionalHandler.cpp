@@ -1000,12 +1000,13 @@ GNEAdditionalHandler::buildTAZSink(GNENet* net, bool allowUndoRedo, GNETAZElemen
 
 double
 GNEAdditionalHandler::getPosition(double pos, GNELane& lane, bool friendlyPos, const std::string& additionalID) {
+    const double length = lane.getParentEdge()->getNBEdge()->getFinalLength();
     if (pos < 0) {
-        pos = lane.getLaneShapeLength() + pos;
+        pos = length + pos;
     }
-    if (pos > lane.getLaneShapeLength()) {
+    if (pos > length) {
         if (friendlyPos) {
-            pos = lane.getLaneShapeLength() - (double) 0.1;
+            pos = length - (double) 0.1;
         } else {
             WRITE_WARNING("The position of additional '" + additionalID + "' lies beyond the lane's '" + lane.getID() + "' length.");
         }
@@ -1869,7 +1870,7 @@ GNEAdditionalHandler::parseAndBuildAccess(GNENet* net, bool allowUndoRedo, const
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_ACCESS) + " is not known.");
         } else if (busStop == nullptr) {
             WRITE_WARNING("A " + toString(SUMO_TAG_ACCESS) + " must be declared within the definition of a " + toString(SUMO_TAG_BUS_STOP) + ".");
-        } else if (!checkAndFixDetectorPosition(posDouble, lane->getLaneShapeLength(), friendlyPos)) {
+        } else if (!checkAndFixDetectorPosition(posDouble, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_ACCESS) + ".");
         } else if (!accessCanBeCreated(busStop, lane->getParentEdge())) {
             WRITE_WARNING("Edge '" + lane->getParentEdge()->getID() + "' already has an Access for busStop '" + busStop->getID() + "'");
@@ -2172,7 +2173,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(GNENet* net, bool allowUndoRedo, c
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_E1DETECTOR) + " '" + id + "' is not known.");
-        } else if (!checkAndFixDetectorPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
+        } else if (!checkAndFixDetectorPosition(position, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_E1DETECTOR) + " with ID = '" + id + "'.");
         } else {
             // save ID of last created element
@@ -2352,7 +2353,7 @@ GNEAdditionalHandler::parseAndBuildDetectorEntry(GNENet* net, bool allowUndoRedo
         // check that all parameters are valid
         if (lane == nullptr) {
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_DET_ENTRY) + " is not known.");
-        } else if (!checkAndFixDetectorPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
+        } else if (!checkAndFixDetectorPosition(position, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_DET_ENTRY) + ".");
         } else if (E3Parent) {
             // save ID of last created element
@@ -2395,7 +2396,7 @@ GNEAdditionalHandler::parseAndBuildDetectorExit(GNENet* net, bool allowUndoRedo,
         // check that all parameters are valid
         if (lane == nullptr) {
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_DET_EXIT) + " is not known.");
-        } else if (!checkAndFixDetectorPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
+        } else if (!checkAndFixDetectorPosition(position, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_DET_EXIT) + ".");
         } else if (E3Parent) {
             // save ID of last created element
@@ -2437,7 +2438,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE1Instant(GNENet* net, bool allowUndo
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_INSTANT_INDUCTION_LOOP) + " '" + id + "' is not known.");
-        } else if (!checkAndFixDetectorPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
+        } else if (!checkAndFixDetectorPosition(position, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_INSTANT_INDUCTION_LOOP) + " with ID = '" + id + "'.");
         } else {
             // save ID of last created element
