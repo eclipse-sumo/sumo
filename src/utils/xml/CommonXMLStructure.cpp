@@ -63,7 +63,6 @@ CommonXMLStructure::SumoBaseObject::getParentSumoBaseObject() const {
 }
 
 
-
 const std::string&
 CommonXMLStructure::SumoBaseObject::getStringAttribute(const SumoXMLAttr attr) const {
     if (hasStringAttribute(attr)) {
@@ -338,15 +337,16 @@ void
 CommonXMLStructure::closeTag() {
     // check that myLastInsertedSumoBaseObject is valid
     if (myLastInsertedSumoBaseObject) {
-        // just update last inserted SumoBaseObject
-        myLastInsertedSumoBaseObject = myLastInsertedSumoBaseObject->getParentSumoBaseObject();
+        // check if last inserted SumoBaseObject is the root
+        if (myLastInsertedSumoBaseObject == mySumoBaseObjectRoot) {
+            // reset both pointers
+            myLastInsertedSumoBaseObject = nullptr;
+            mySumoBaseObjectRoot = nullptr;
+        } else {
+            // update last inserted SumoBaseObject
+            myLastInsertedSumoBaseObject = myLastInsertedSumoBaseObject->getParentSumoBaseObject();
+        }
     }
-}
-
-
-void 
-CommonXMLStructure::clearSumoBaseObjectRoot() {
-    mySumoBaseObjectRoot = nullptr;
 }
 
 
