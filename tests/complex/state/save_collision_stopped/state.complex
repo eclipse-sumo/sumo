@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-06 16:26:43 by Eclipse SUMO sumo Version v1_9_1+0257-435dafc
+<!-- generated on 2021-05-27 16:28:25 by Eclipse SUMO sumo Version v1_9_2+0085-7da2bb1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -34,7 +34,7 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_9_1+0257-435dafc" time="50.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_9_2+0085-7da2bb1" time="50.00" type="micro">
     <route id="always_right" state="1" edges="3si 2o"/>
     <route id="horizontal" state="1" edges="1si 2o"/>
     <flowState id="always_right" index="50"/>
@@ -169,4 +169,6 @@
     <lane id="3si_0">
         <vehicles value="always_right.12 always_right.11 always_right.10 always_right.9 always_right.8 always_right.7 always_right.6 always_right.5 always_right.4"/>
     </lane>
+    <tlLogic id="0" programID="0" phase="4" duration="5000"/>
+    <tlLogic id="0" programID="freaky" phase="0" duration="50000"/>
 </snapshot>
