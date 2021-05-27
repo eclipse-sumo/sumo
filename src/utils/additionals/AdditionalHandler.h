@@ -658,6 +658,9 @@ private:
 
     /// @}
 
+    /// @brief check parents
+    void checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag) const;
+
     /// @brief invalidate copy constructor
     AdditionalHandler(const AdditionalHandler& s) = delete;
 
