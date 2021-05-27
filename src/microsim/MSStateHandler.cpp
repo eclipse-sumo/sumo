@@ -361,6 +361,26 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         case SUMO_TAG_INSERTION_PREDECESSOR:
             NLHandler::addPredecessorConstraint(element, attrs, myConstrainedSignal);
             break;
+        case SUMO_TAG_TLLOGIC: {
+            bool ok;
+            const std::string tlID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+            const std::string programID = attrs.get<std::string>(SUMO_ATTR_PROGRAMID, tlID.c_str(), ok);
+            const int phase = attrs.get<int>(SUMO_ATTR_PHASE, tlID.c_str(), ok);
+            const SUMOTime spentDuration = attrs.get<SUMOTime>(SUMO_ATTR_DURATION, tlID.c_str(), ok);
+            MSTLLogicControl& tlc = MSNet::getInstance()->getTLSControl();
+            MSTrafficLightLogic* tl = tlc.get(tlID, programID);
+            if (tl == nullptr) {
+                throw ProcessError("Unknown program '" + programID + "' for traffic light '" + tlID + "'");
+            }
+            if (phase >= tl->getPhaseNumber()) {
+                throw ProcessError("Invalid phase '" + toString(phase) + "' for traffic light '" + tlID + "'");
+            }
+            const SUMOTime remaining = tl->getPhase(phase).duration - spentDuration;
+            tl->changeStepAndDuration(tlc, myTime, phase, remaining);
+            // might not be set if the phase happens to match and there are multiple programs
+            tl->setTrafficLightSignals(myTime - spentDuration);
+            break;
+        }
         default:
             break;
     }
