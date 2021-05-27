@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <utils/common/SUMOTime.h>
 #include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/xml/SUMOXMLDefinitions.h>

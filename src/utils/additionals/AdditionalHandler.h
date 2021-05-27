@@ -20,9 +20,9 @@
 #pragma once
 #include <config.h>
 
+#include <utils/xml/CommonXMLStructure.h>
 #include <utils/xml/SUMOSAXHandler.h>
 
-#include "CommonXMLStructure.h"
 
 // ===========================================================================
 // class definitions

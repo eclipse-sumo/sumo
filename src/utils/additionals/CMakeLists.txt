@@ -1,6 +1,4 @@
 set(utils_additionals_STAT_SRCS
-   CommonXMLStructure.h
-   CommonXMLStructure.cpp
    AdditionalHandler.h
    AdditionalHandler.cpp
 )
