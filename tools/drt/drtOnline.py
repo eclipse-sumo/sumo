@@ -28,7 +28,7 @@ import subprocess
 import shutil
 
 import pulp as pl
-import rtvAlgorithm
+import darpSolvers
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -58,8 +58,8 @@ def initOptions():
                     help="Load visualization settings from FILE")
     ap.add_argument("-o", dest="output", default='tripinfos.xml',
                     help="Name of output file")
-    ap.add_argument("--rtv", dest="rtv_algorithm", default='0',
-                    help="Method to search for possible routes (rtv). Available: 0: exhaustive search, 1: simple, 2: simple_rerouting")  # noqa
+    ap.add_argument("--darp-solver", default='exhaustive_search',
+                    help="Method to solve the DARP problem. Available: exhaustive_search and simple_rerouting")  # noqa
     ap.add_argument("--rtv-time", type=float, default=5,
                     help="Timeout for exhaustive search (default 5 seconds)")
     ap.add_argument("--ilp-time", type=float, default=5,
@@ -99,8 +99,8 @@ def find_dua_times(options):
 
     # define trips between all edge combinations
     route_edges = []
-    for person, reservation in parse_fast_nested(options.reservations, 
-                                                 "person", "depart", "ride", 
+    for person, reservation in parse_fast_nested(options.reservations,
+                                                 "person", "depart", "ride",
                                                  ("from", "to", "lines")):
         route_edges.extend((reservation.attr_from, reservation.to))
 
@@ -108,10 +108,10 @@ def find_dua_times(options):
     with open("temp_dua/dua_file.xml", "w+") as dua_file:
         dua_file.write("<routes>\n")
         for comb_edges in list(combination_edges):
-            dua_file.write("""\t<trip id="%s_%s" depart="0" from="%s" to="%s"/>\n"""
+            dua_file.write("""\t<trip id="%s_%s" depart="0" from="%s" to="%s"/>\n""" # noqa
                            % (comb_edges[0], comb_edges[1],
                               comb_edges[0], comb_edges[1]))
-            dua_file.write("""\t<trip id="%s_%s" depart="0" from="%s" to="%s"/>\n"""
+            dua_file.write("""\t<trip id="%s_%s" depart="0" from="%s" to="%s"/>\n""" # noqa
                            % (comb_edges[1], comb_edges[0],
                               comb_edges[1], comb_edges[0]))
         dua_file.write("</routes>\n")
@@ -138,395 +138,6 @@ def find_dua_times(options):
     shutil.rmtree('temp_dua')
 
     return edge_pair_time
-
-
-def res_res_pair(options, res1, res2, veh_type, rv_dict, pairs_dua_times):
-    """
-    Search all combinations between two reservations. Notation: the first of
-    the reservations is defined as 'res1' and the second as 'res2' and 'p'
-    refers to pick up and 'd' to drop off a reservation. Then 'res2p_res1d'
-    means pickup reservation 2 and then drop off reservation 1.
-    """
-
-    # combination 1p2p 2p2d 2d1d
-    if (res1.tw_pickup[0] <= res2.tw_pickup[1] and
-       res2.tw_dropoff[0] <= res1.tw_dropoff[1]):
-        # if earliest pick up of req 1 before latest pick up of req 2 and
-        # if earliest drop off of req 2 before latest drop off of req 1
-
-        # calculate travel times for each pair
-        res1p_res2p = pairs_dua_times.get("%s_%s" % (res1.fromEdge,
-                                          res2.fromEdge))
-        if res1p_res2p is None:
-            res1p_res2p = int(findRoute(res1.fromEdge, res2.fromEdge, veh_type,
-                              routingMode=options.routing_mode).travelTime)
-        res1p_res2p += 60  # TODO default stop time ticket #6714
-        res2p_res2d = rv_dict.get('%sy_%sz' % (res2.id, res2.id))
-        if res2p_res2d is None:
-            res2p_res2d = res2.direct + 60  # TODO default stop time ticket #6714 # noqa
-            pair = '%sy_%sz' % (res2.id, res2.id)  # 2p2d
-            rv_dict[pair] = [res2p_res2d, -1, [res2.id, res2.id]]
-        else:
-            res2p_res2d = res2p_res2d[0]
-
-        res2d_res1d = pairs_dua_times.get("%s_%s" % (res2.toEdge, res1.toEdge))
-        if res2d_res1d is None:
-            res2d_res1d = int(findRoute(res2.toEdge, res1.toEdge, veh_type,
-                              routingMode=options.routing_mode).travelTime)
-        res2d_res1d += 60  # TODO default stop time ticket #6714 # noqa
-
-        # check if time windows constrains are fulfilled
-        time_res2p = res1.tw_pickup[0] + res1p_res2p
-        if time_res2p > res2.tw_pickup[1]:
-            pass  # not possible
-        elif (time_res2p + res2p_res2d) > res2.tw_dropoff[1]:
-            pass  # not possible
-        elif (time_res2p + res2p_res2d + res2d_res1d) > res1.tw_dropoff[1]:
-            pass  # not possible
-        else:
-            # pairs are possible
-            pair = '%sy_%sy' % (res1.id, res2.id)  # 1p2p
-            rv_dict[pair] = [res1p_res2p, 1, [res1.id, res2.id]]
-            pair = '%sz_%sz' % (res2.id, res1.id)  # 2d1d
-            rv_dict[pair] = [res2d_res1d, -1, [res2.id, res1.id]]
-
-    # combination 1p2p 2p1d 1d2d
-    if (res1.tw_pickup[0] <= res2.tw_pickup[1] and
-       res1.tw_dropoff[0] <= res2.tw_dropoff[1]):
-        # if earliest pick up of req 1 before latest pick up of req 2 and
-        # if earliest drop off of req 1 before latest drop off of req 2
-
-        # calculate travel times for each pair
-        res1p_res2p = rv_dict.get('%sy_%sy' % (res1.id, res2.id))
-        if res1p_res2p is None:
-            res1p_res2p = pairs_dua_times.get("%s_%s" % (res1.fromEdge,
-                                              res2.fromEdge))
-            if res1p_res2p is None:
-                res1p_res2p = int(findRoute(res1.fromEdge, res2.fromEdge,
-                                            veh_type,
-                                            routingMode=options.routing_mode).travelTime) # noqa
-            res1p_res2p += 60  # TODO default stop time #6714
-        else:
-            res1p_res2p = res1p_res2p[0]
-
-        res2p_res1d = pairs_dua_times.get("%s_%s" % (res2.fromEdge,
-                                                     res1.toEdge))
-        if res2p_res1d is None:
-            res2p_res1d = int(findRoute(res2.fromEdge, res1.toEdge, veh_type,
-                                        routingMode=options.routing_mode).travelTime) # noqa
-        res2p_res1d += 60  # TODO default stop time ticket #6714
-
-        res1d_res2d = pairs_dua_times.get("%s_%s" % (res1.toEdge, res2.toEdge))
-        if res1d_res2d is None:
-            res1d_res2d = int(findRoute(res1.toEdge, res2.toEdge, veh_type,
-                                        routingMode=options.routing_mode).travelTime) # noqa
-        res1d_res2d += 60  # TODO default stop time ticket #6714
-
-        # check if time windows constrains are fulfilled
-        time_res2p = res1.tw_pickup[0] + res1p_res2p
-        if time_res2p > res2.tw_pickup[1]:
-            pass  # not possible
-        elif (time_res2p + res2p_res1d) > res1.tw_dropoff[1]:
-            pass  # not possible
-        elif (time_res2p + res2p_res1d + res1d_res2d) > res2.tw_dropoff[1]:
-            pass  # not possible
-        else:
-            # pairs are possible
-            pair = '%sy_%sy' % (res1.id, res2.id)  # 1p2p
-            if rv_dict.get(pair) is None:
-                rv_dict[pair] = [res1p_res2p, 1, [res1.id, res2.id]]
-            pair = '%sy_%sz' % (res2.id, res1.id)  # 2p1d
-            rv_dict[pair] = [res2p_res1d, -1, [res2.id, res1.id]]
-            pair = '%sz_%sz' % (res1.id, res2.id)  # 1d2d
-            rv_dict[pair] = [res1d_res2d, -1, [res1.id, res2.id]]
-
-    # combination 2p1p 1p2d 2d1d
-    if (res2.tw_pickup[0] <= res1.tw_pickup[1] and
-       res2.tw_dropoff[0] <= res1.tw_dropoff[1]):
-        # if earliest pick up of req 2 before latest pick up of req 1 and
-        # if earliest drop off of req 2 before latest drop off of req 1
-
-        # calculate travel times for each pair
-        res2p_res1p = pairs_dua_times.get("%s_%s" % (res2.fromEdge,
-                                          res1.fromEdge))
-        if res2p_res1p is None:
-            res2p_res1p = int(findRoute(res2.fromEdge, res1.fromEdge, veh_type,
-                              routingMode=options.routing_mode).travelTime)
-        res2p_res1p += 60  # TODO default stop time ticket #6714
-
-        res1p_res2d = pairs_dua_times.get("%s_%s" % (res1.fromEdge,
-                                          res2.toEdge))
-        if res1p_res2d is None:
-            res1p_res2d = int(findRoute(res1.fromEdge, res2.toEdge, veh_type,
-                              routingMode=options.routing_mode).travelTime) 
-        res1p_res2d += 60  # TODO default stop time ticket #6714 # noqa
-
-        res2d_res1d = rv_dict.get('%sz_%sz' % (res2.id, res1.id))
-        if res2d_res1d is None:
-            # if 2d1d not added to dict in steps before
-            res2d_res1d = pairs_dua_times.get("%s_%s" % (res2.toEdge,
-                                              res1.toEdge))
-            if res2d_res1d is None:
-                res2d_res1d = int(findRoute(res2.toEdge, res1.toEdge, veh_type,
-                                  routingMode=options.routing_mode).travelTime)
-            res2d_res1d += 60  # TODO default stop time #6714 # noqa
-        else:
-            res2d_res1d = res2d_res1d[0]
-
-        # check if time windows constrains are fulfilled
-        time_res1p = res2.tw_pickup[0] + res2p_res1p
-        if time_res1p > res1.tw_pickup[1]:
-            pass  # not possible
-        elif (time_res1p + res1p_res2d) > res2.tw_dropoff[1]:
-            pass  # not possible
-        elif (time_res1p + res1p_res2d + res2d_res1d) > res1.tw_dropoff[1]:
-            pass  # not possible
-        else:
-            # pairs are possible
-            pair = '%sy_%sy' % (res2.id, res1.id)  # 2p1p
-            rv_dict[pair] = [res2p_res1p, 1, [res2.id, res1.id]]
-            pair = '%sy_%sz' % (res1.id, res2.id)  # 1p2d
-            rv_dict[pair] = [res1p_res2d, -1, [res1.id, res2.id]]
-            pair = '%sz_%sz' % (res1.id, res2.id)  # 2d1d
-            if rv_dict.get(pair) is None:
-                rv_dict[pair] = [res2d_res1d, -1, [res2.id, res1.id]]
-
-    # combination 2p1p 1p1d 1d2d
-    if (res2.tw_pickup[0] <= res1.tw_pickup[1] and
-       res1.tw_dropoff[0] <= res2.tw_dropoff[1]):
-        # if earliest pick up of req 2 before latest pick up of req 1 and
-        # if earliest drop off of req 1 before latest drop off of req 2
-
-        # calculate travel times for each pair
-        res2p_res1p = rv_dict.get('%sy_%sy' % (res2.id, res1.id), False)
-        res1d_res2d = rv_dict.get('%sz_%sz' % (res1.id, res2.id), False)
-        res1p_res1d = rv_dict.get('%sy_%sz' % (res1.id, res1.id), False)
-        if not res1p_res1d:
-            res1p_res1d = res1.direct + 60  # TODO default stop time ticket #6714 # noqa
-            pair = '%sy_%sz' % (res1.id, res1.id)  # 1p1d
-            rv_dict[pair] = [res1p_res1d, -1, [res1.id, res1.id]]
-        else:
-            res1p_res1d = res1p_res1d[0]
-
-        if not res2p_res1p or not res1d_res2d:
-            # if 2p1p 1d2d not added to dict in steps before
-            if not res2p_res1p:
-                res2p_res1p = pairs_dua_times.get("%s_%s" % (res2.fromEdge,
-                                                  res1.fromEdge))
-                if res2p_res1p is None:
-                    res2p_res1p = int(findRoute(res2.fromEdge, res1.fromEdge,
-                                      veh_type, routingMode=options.routing_mode).travelTime) # noqa
-                res2p_res1p += 60  # TODO default stop time #6714
-            else:
-                res2p_res1p = res2p_res1p[0]
-            if not res1d_res2d:
-                res1d_res2d = pairs_dua_times.get("%s_%s" % (res1.toEdge,
-                                                  res2.toEdge))
-                if res1d_res2d is None:
-                    res1d_res2d = int(findRoute(res1.toEdge, res2.toEdge,
-                                      veh_type, routingMode=options.routing_mode).travelTime) # noqa
-                res1d_res2d += 60  # TODO default stop time #6714
-            else:
-                res1d_res2d = res1d_res2d[0]
-            res1p_res1d = rv_dict.get('%sy_%sz' % (res1.id, res1.id))[0]
-
-            # check if time windows constrains are fulfilled
-            time_res1p = res2.tw_pickup[0] + res2p_res1p
-            if time_res1p > res1.tw_pickup[1]:
-                pass  # not possible
-            elif (time_res1p + res1p_res1d) > res1.tw_dropoff[1]:
-                pass  # not possible
-            elif (time_res1p + res1p_res1d + res1d_res2d) > res2.tw_dropoff[1]:
-                pass  # not possible
-            else:
-                # pairs are possible
-                pair = '%sy_%sy' % (res2.id, res1.id)  # 2p1p
-                if not rv_dict.get(pair, False):
-                    rv_dict[pair] = [res2p_res1p, 1, [res2.id, res1.id]]
-                pair = '%sz_%sz' % (res1.id, res2.id)  # 1d2d
-                if not rv_dict.get(pair, False):
-                    rv_dict[pair] = [res1d_res2d, -1, [res1.id, res2.id]]
-
-    # pair 1d2p
-    if res1.tw_dropoff[0] <= res2.tw_pickup[1]:
-        # if earliest drop off of req 1 before latest pick up of req 2
-
-        # calculate travel times for each pair
-        res1d_res2p = pairs_dua_times.get("%s_%s" % (res1.toEdge,
-                                          res2.fromEdge))
-        if res1d_res2p is None:
-            res1d_res2p = int(findRoute(res1.toEdge, res2.fromEdge, veh_type,
-                                        routingMode=options.routing_mode).travelTime) # noqa
-        res1d_res2p += 60  # TODO default stop time ticket #6714 # noqa
-
-        # check if time windows constrains are fulfilled
-        if (res1.tw_dropoff[0] + res1d_res2p) < res2.tw_pickup[1]:
-            pair = '%sz_%sy' % (res1.id, res2.id)  # 1d2p
-            rv_dict[pair] = [res1d_res2p, 1, [res1.id, res2.id]]
-
-    # pair 2d1p
-    if res2.tw_dropoff[0] <= res1.tw_pickup[1]:
-        # if earliest drop off of req 2 before latest pick up of req 1
-
-        # calculate travel times for each pair
-        res2d_res1p = pairs_dua_times.get("%s_%s" % (res2.toEdge,
-                                          res1.fromEdge))
-        if res2d_res1p is None:
-            res2d_res1p = int(findRoute(res2.toEdge, res1.fromEdge, veh_type,
-                                        routingMode=options.routing_mode).travelTime)  # noqa
-        res2d_res1p += 60  # TODO default stop time ticket #6714
-
-        # check if time windows constrains are fulfilled
-        if (res2.tw_dropoff[0] + res2d_res1p) < res1.tw_pickup[1]:
-            pair = '%sz_%sy' % (res2.id, res1.id)  # 2d1p
-            rv_dict[pair] = [res2d_res1p, 1, [res2.id, res1.id]]
-
-
-def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all, fleet,
-           veh_type, rv_dict, step, veh_edges, pairs_dua_times):
-    """
-    Generates the reservation-vehicle graph, which has the possible
-    combinations between two reservations and between a reservation and a
-    vehicle with the required travel time, the number of passengers picked up
-    or dropped off and the reservation id and/or vehicle id of the pair.
-    """
-    res_rv_remove = []
-    res_all_remove = []
-    for res_id, res in res_all.items():
-        if res_id in res_id_new:
-            # if reservation is new
-
-            # check if reservation can be serve for a vehicle on time
-            res_possible = False
-            # add vehicle-reservation pairs
-            for edge, vehicles in veh_edges.items():
-                pickup_time = pairs_dua_times.get("%s_%s" % (edge,
-                                                  res.fromEdge))
-                if pickup_time is None:
-                    pickup_time = findRoute(edge, res.fromEdge, veh_type,
-                                            routingMode=options.routing_mode).travelTime # noqa
-                if step+pickup_time > res.tw_pickup[1]:
-                    # if vehicle arrives to late
-                    continue
-                # if vehicle on time, add to rv graph
-                for veh_id in vehicles:
-                    route_id = '%s_%sy' % (veh_id, res_id)
-                    rv_dict[route_id] = [pickup_time+60, 1, [veh_id, res_id]]  # TODO default stop time ticket #6714 # noqa
-                    res_possible = True
-
-            if not res_possible:
-                # reject reservation and remove person from simulation
-                # TODO no rejection option should be implemented in future
-                print("Reservation %s (person %s) cannot be served" %
-                      (res_id, res.persons))
-                res_all_remove.append(res_id)
-                res_rv_remove.extend(['%sy' % res_id, '%sz' % res_id])
-                for person in res.persons:
-                    traci.person.removeStages(person)
-                continue
-
-            # add direct route pair
-            route_id = '%sy_%sz' % (res_id, res_id)  # y: pickup / z: drop off
-            rv_dict[route_id] = [res.direct+60, -1, [res_id, res_id]]  # TODO default stop time ticket #6714 # noqa
-
-            # add reservation-reservation pairs
-            reservations2 = set(res_all.keys()) ^ set(res_all_remove)
-            for res2 in reservations2:
-                if res2 != res_id:
-                    res_res_pair(options, res, res_all.get(res2), veh_type,
-                                 rv_dict, pairs_dua_times)
-
-        elif not res.vehicle:
-            # if reservation not assigned
-            # check if pick-up still possible
-            if res.tw_pickup[1] < step:
-                # latest pickup time exceed simulation time, reject reservation
-                # TODO no rejection option should be implemented in future
-                print("Reservation %s (person %s) cannot be served" %
-                      (res_id, res.persons))
-                res_all_remove.append(res_id)
-                res_rv_remove.extend(['%sy' % res_id, '%sz' % res_id])
-                for person in res.persons:
-                    traci.person.removeStages(person)
-                continue
-
-            remove = True
-            for edge, vehicles in veh_edges.items():
-                pickup_time = pairs_dua_times.get("%s_%s" % (edge,
-                                                  res.fromEdge))
-                if pickup_time is None:
-                    pickup_time = findRoute(edge, res.fromEdge, veh_type,
-                                            routingMode=options.routing_mode).travelTime # noqa
-                if step+pickup_time <= res.tw_pickup[1]:
-                    # if vehicle on time, add to rv graph
-                    for veh_id in vehicles:
-                        route_id = '%s_%sy' % (veh_id, res_id)
-                        if rv_dict.get(route_id, False):
-                            rv_dict[route_id][0] = pickup_time+60
-                            remove = False
-                else:
-                    # remove pair if pick-up not possible
-                    for veh_id in vehicles:
-                        route_id = '%s_%sy' % (veh_id, res_id)
-                        if rv_dict.get(route_id, False):
-                            rv_dict.pop(route_id)
-
-            if remove:
-                # if no vehicles can pick up on time -> reject reservation
-                print("Reservation %s (person %s) cannot be served" %
-                      (res_id, res.persons))
-                res_all_remove.append(res_id)
-                res_rv_remove.extend(['%sy' % res_id, '%sz' % res_id])
-                for person in res.persons:
-                    traci.person.removeStages(person)
-
-        elif res_id not in res_id_picked:
-            # if reservation assigned but not picked up
-            route_id = '%s_%sy' % (res.vehicle, res_id)
-            if rv_dict.get(route_id, False):
-                # update travel time to pickup
-                if traci.vehicle.getRoadID(res.vehicle).startswith(':'):
-                    # avoid routing error when in intersection TODO #5829
-                    edge_index = traci.vehicle.getRouteIndex(res.vehicle) + 1
-                    from_edge = traci.vehicle.getRoute(res.vehicle)[edge_index]
-                else:
-                    from_edge = traci.vehicle.getRoadID(res.vehicle)
-                pickup_time = pairs_dua_times.get("%s_%s" % (from_edge,
-                                                  res.fromEdge))
-                if pickup_time is None:
-                    pickup_time = findRoute(from_edge, res.fromEdge, veh_type,
-                                            routingMode=options.routing_mode).travelTime # noqa
-                rv_dict[route_id][0] = pickup_time+60  # TODO default stop time ticket #6714 # noqa
-                if options.debug and step+pickup_time > res.tw_pickup[1]:  # Debug only # noqa
-                    print("Time window surpassed by", step+pickup_time - res.tw_pickup[1]) # noqa
-
-        elif res_id in res_id_picked:
-            # if reservation picked up, delete pick-up pair
-            res_rv_remove.append('%sy' % res_id)
-            # update travel time to drop off
-            if traci.vehicle.getRoadID(res.vehicle).startswith(':'):
-                # avoid routing error when in intersection TODO #5829
-                edge_index = traci.vehicle.getRouteIndex(res.vehicle) + 1
-                from_edge = traci.vehicle.getRoute(res.vehicle)[edge_index]
-            else:
-                from_edge = traci.vehicle.getRoadID(res.vehicle)
-            dropoff_time = pairs_dua_times.get("%s_%s" % (from_edge,
-                                               res.toEdge))
-            if dropoff_time is None:
-                dropoff_time = int(findRoute(from_edge, res.toEdge, veh_type,
-                                             routingMode=options.routing_mode).travelTime) # noqa
-            route_id = '%s_%sz' % (res.vehicle, res_id)
-            rv_dict[route_id] = [dropoff_time+60, -1, [res.vehicle, res_id]]  # TODO default stop time ticket #6714 # noqa
-        else:
-            print("Error: Reservation state not considered")
-
-    # remove rejected, served and picked up reservations from rv graph
-    if res_rv_remove:
-        [rv_dict.pop(key) for key in list(rv_dict) if set(res_rv_remove) & set(key.split("_"))] # noqa
-
-    # remove rejected reservations from res_all
-    if res_all_remove:
-        [res_all.pop(key) for key in res_all_remove]
 
 
 def ilp_solve(options, veh_num, res_num, costs, veh_constraints,
@@ -592,8 +203,6 @@ def main():
     options = ap.parse_args()
 
     res_all = {}
-    rv_dict = {}
-    exact_sol = [0]
 
     if options.sumo == 'sumo':
         SUMO = checkBinary('sumo')
@@ -672,7 +281,7 @@ def main():
             res_all[res.id] = res
 
         # unassigned reservations
-        res_id_unassigned = [res.id for res_id, res in res_all.items()
+        res_id_unassigned = [res.id for res in res_all.values()
                              if not res.vehicle]
 
         # if reservations pending
@@ -692,7 +301,7 @@ def main():
                 step += options.sim_step
                 continue  # if a vehicle is being teleported skip to next step
 
-            # find unique vehicles to avoid same calculation if vehicle are equal
+            # find vehicle in same edge, avoid calculating same routes twice
             veh_edges = {}
             for veh_id in fleet:
                 if traci.vehicle.getRoadID(veh_id).startswith(':'):
@@ -710,72 +319,61 @@ def main():
             res_id_current = [res.id for res in traci.person.getTaxiReservations(0)]  # noqa
             res_id_served = list(set(res_all.keys()) - set(res_id_current))
             [res_all.pop(key) for key in res_id_served]
-            [rv_dict.pop(key) for key in list(rv_dict)
-             if set(res_id_served) & set(rv_dict[key][2])]
 
             # reservations already picked up
             res_id_picked = [res.id for res in traci.person.getTaxiReservations(8)]  # noqa
 
-            # search reservation-vehicles pairs
+            # call DARP solver to find the best routes
             if options.debug:
-                print('Calculate RV-Graph')
-            get_rv(options, res_id_new, res_id_picked, res_id_served, res_all,
-                   fleet, veh_type, rv_dict, step, veh_edges, pairs_dua_times)
+                print('Solve DARP with %s' % options.darp_solver)
 
-            # search trips (rtv graph)
-            if options.debug:
-                print('Calculate RTV-Graph')
-            if options.rtv_algorithm == '0':
-                rtv_dict, rtv_res, exact_sol = rtvAlgorithm.exhaustive_search(
-                    options, res_id_unassigned, res_id_picked, res_all, fleet,
-                    veh_type, rv_dict, step, exact_sol, veh_edges)
-            elif options.rtv_algorithm == '1':
-                rtv_dict, rtv_res = rtvAlgorithm.simple(
-                    options, res_id_unassigned, res_id_picked, res_id_served,
-                    res_all, fleet, veh_type, rv_dict, step)
-            elif options.rtv_algorithm == '2':
-                rtv_dict, rtv_res = rtvAlgorithm.simple_rerouting(
-                    options, res_id_unassigned, res_id_picked, res_id_served,
-                    res_all, fleet, veh_type, rv_dict, step)
+            darp_solution = darpSolvers.main(options, step, fleet, veh_type,
+                                             res_all, res_id_new,
+                                             res_id_unassigned, res_id_picked,
+                                             res_id_served, veh_edges,
+                                             pairs_dua_times)
+            routes, ilp_res_cons, exact_sol = darp_solution
 
-            if len(rtv_dict) == 0:
+            if len(routes) == 0:
                 step += options.sim_step
                 continue  # if no routes found
 
-            elif len(rtv_dict.keys()) == 1:
-                # if one vehicle darp, assign route
-                best_routes = list(rtv_dict.keys())
+            elif ilp_res_cons is None:
+                # if DARP solver found optimal routes, this is, no ILP needed
+                best_routes = list(routes.keys())
 
             else:
-                # if multiple vehicle darp, solve ILP with pulp
+                # if DARP solver not optimized routes, run Integer Linear
+                # Programming with pulp
                 veh_constraints = {}
                 res_constraints = {}
                 costs = {}
-                trips = list(rtv_dict.keys())  # trips for parsing ILP solution
+                trips = list(routes.keys())  # trips for parsing ILP solution
 
                 # add bonus_cost to trip cost (makes trips with more served
                 # reservations cheaper than splitting the reservations to more
                 # vehicles with smaller trips if both strategies would yield
                 # a similar cost)
                 for idx, trip_id in enumerate(trips):
-                    # rtv_dict[route] = [travel_time, veh_bin, res_bin, value]
+                    # routes[route] = [travel_time, veh_bin, res_bin, value]
                     # TODO specific cost for vehicle can be consider here
-                    bonus_cost = (sum(rtv_dict[trip_id][2]) + 1) * \
+                    bonus_cost = (sum(routes[trip_id][2]) + 1) * \
                                   options.cost_per_trip
                     # generate dict with costs
-                    costs.update({idx: rtv_dict[trip_id][0] + bonus_cost})
+                    costs.update({idx: routes[trip_id][0] + bonus_cost})
                     # generate dict with vehicle used in the trip
-                    veh_constraints.update({idx: rtv_dict[trip_id][1]})
+                    veh_constraints.update({idx: routes[trip_id][1]})
                     # generate dict with served reservations in the trip
-                    res_constraints.update({idx: rtv_dict[trip_id][2]})
+                    res_constraints.update({idx: routes[trip_id][2]})
 
                 if options.debug:
                     print('Solve ILP')
-                ilp_result = ilp_solve(options, len(fleet), len(rtv_res),
+                ilp_result = ilp_solve(options, len(fleet), len(ilp_res_cons),
                                        costs, veh_constraints, res_constraints)
 
                 # parse ILP result
-                best_routes = [trips[int(route_index)] for route_index in ilp_result]  # noqa
+                best_routes = [trips[int(route_index)]
+                               for route_index in ilp_result]
 
             # assign routes to vehicles
             for route_id in best_routes:
@@ -821,7 +419,7 @@ def main():
                                           veh_type, step, routingMode=options.routing_mode).travelTime) # noqa
                         tt_current_route += tt_pair + 60
                     # get travel time of the new route
-                    tt_new_route = rtv_dict[route_id][0]
+                    tt_new_route = routes[route_id][0]
                     if tt_new_route >= tt_current_route:
                         continue  # current route better than new found
                 if options.debug:
@@ -841,11 +439,10 @@ def main():
 
         step += options.sim_step
 
-    if options.rtv_algorithm == 0:  # if exhaustive search
-        if sum(exact_sol) == 0:
-            print('Optimal solution found.')
-        else:
-            print('The maximal specified calculation time has been exceeded. Solution could be not optimal.')  # noqa
+    if all(exact_sol):
+        print('Exact solution found.')
+    else:
+        print('Approximate solution found.')
     print('DRT simulation ended')
     traci.close()
 
