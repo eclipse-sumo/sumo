@@ -266,8 +266,12 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_POSITION_LAT:
             return toString(myPosLat);
-        case SUMO_ATTR_GEO:
-            return toString(myGeo);
+        case SUMO_ATTR_LON:
+            return toString(x());
+        case SUMO_ATTR_LAT:
+            return toString(y());
+        case SUMO_ATTR_Z:
+            return toString(z());
         case SUMO_ATTR_TYPE:
             return getShapeType();
         case SUMO_ATTR_LAYER:
@@ -309,7 +313,9 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_POSITION_LAT:
-        case SUMO_ATTR_GEO:
+        case SUMO_ATTR_LON:
+        case SUMO_ATTR_LAT:
+        case SUMO_ATTR_Z:
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_LAYER:
         case SUMO_ATTR_IMGFILE:
@@ -346,8 +352,10 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_POSITION_LAT:
             return canParse<double>(value);
-        case SUMO_ATTR_GEO:
-            return canParse<bool>(value);
+        case SUMO_ATTR_LON:
+        case SUMO_ATTR_LAT:
+        case SUMO_ATTR_Z:
+            return canParse<double>(value);
         case SUMO_ATTR_TYPE:
             return true;
         case SUMO_ATTR_LAYER:
@@ -438,20 +446,14 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             // update centering boundary
             updateCenteringBoundary(true);
             break;
-/*
-        case SUMO_ATTR_GEOPOSITION: {
-            // set new position
-            myGEOPosition = parse<Position>(value);
-            // set cartesian Position
-            set(myGEOPosition);
-            GeoConvHelper::getFinal().x2cartesian_const(*this);
-            // update centering boundary
-            updateCenteringBoundary(true);
+        case SUMO_ATTR_LON:
+            setx(parse<Position>(value).x());
             break;
-        }
-*/
-        case SUMO_ATTR_GEO:
-            myGeo = parse<bool>(value);
+        case SUMO_ATTR_LAT:
+            sety(parse<Position>(value).y());
+            break;
+        case SUMO_ATTR_Z:
+            setz(parse<Position>(value).z());
             break;
         case SUMO_ATTR_TYPE:
             setShapeType(value);
