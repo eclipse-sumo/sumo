@@ -358,6 +358,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "request",                SUMO_ATTR_REQUEST },
     { "response",               SUMO_ATTR_RESPONSE },
     { "programID",              SUMO_ATTR_PROGRAMID },
+    { "phase",                  SUMO_ATTR_PHASE },
     { "offset",                 SUMO_ATTR_OFFSET },
     { "endOffset",              SUMO_ATTR_ENDOFFSET },
     { "incLanes",               SUMO_ATTR_INCLANES },

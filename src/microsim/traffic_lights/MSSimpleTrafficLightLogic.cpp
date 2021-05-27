@@ -214,5 +214,15 @@ MSSimpleTrafficLightLogic::deletePhases() {
     }
 }
 
+void
+MSSimpleTrafficLightLogic::saveState(OutputDevice& out) const {
+    out.openTag(SUMO_TAG_TLLOGIC);
+    out.writeAttr(SUMO_ATTR_ID, getID());
+    out.writeAttr(SUMO_ATTR_PROGRAMID, getProgramID());
+    out.writeAttr(SUMO_ATTR_PHASE, getCurrentPhaseIndex());
+    out.writeAttr(SUMO_ATTR_DURATION, getSpentDuration());
+    out.closeTag();
+}
+
 
 /****************************************************************************/
