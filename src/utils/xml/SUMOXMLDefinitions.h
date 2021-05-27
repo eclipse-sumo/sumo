@@ -47,12 +47,10 @@ enum SumoXMLTag {
     SUMO_TAG_LANE,
     /// @brief begin/end of the description of a neighboring lane
     SUMO_TAG_NEIGH,
-    /// @brief begin/end of the description of a Point of interest
-    SUMO_TAG_POI,
-    /// @brief begin/end of the description of a Point of interest over Lane (placed here due create Shape Frame)
-    GNE_TAG_POILANE,
     /// @brief begin/end of the description of a polygon
     SUMO_TAG_POLY,
+    /// @brief begin/end of the description of a Point of interest
+    SUMO_TAG_POI,
     /// @brief begin/end of the description of a junction
     SUMO_TAG_JUNCTION,
     /// @brief begin/end of the description of an edge restriction
@@ -383,8 +381,12 @@ enum SumoXMLTag {
     /// @{
     /// @brief internal lane
     GNE_TAG_INTERNAL_LANE,
-    /// @brief a flow definition within in Calibrator (used in NETEDIT)
+    /// @brief a flow definition within in Calibrator
     GNE_TAG_FLOW_CALIBRATOR,
+    /// @brief Point of interest over Lane
+    GNE_TAG_POILANE,
+    /// @brief Point of interest over view with GEO attributes
+    GNE_TAG_POIGEO,
     /// @brief Rerouter Symbol
     GNE_TAG_REROUTER_SYMBOL,
     /// @brief VSS Symbol
