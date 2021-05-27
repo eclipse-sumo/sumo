@@ -44,8 +44,8 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
         const double yLat, const bool geo, const double layer, const double angle, const std::string& imgFile, 
         const bool relativePath, const double width, const double height, const std::string &name, 
         const std::map<std::string, std::string> &parameters, const bool blockMovement) :
-    PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, 0, layer, angle, imgFile, relativePath, width, height, parameters),
-    GNEShape(id, net, GLO_POI, SUMO_TAG_POI, name,
+    PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, 0, layer, angle, imgFile, relativePath, width, height, name, parameters),
+    GNEShape(id, net, GLO_POI, SUMO_TAG_POI,
         {}, {}, {}, {}, {}, {}, {}, {},
         blockMovement) {
     // update centering boundary without updating grid
@@ -56,8 +56,8 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, GNELane* lane, const double posOverLane,
         const double posLat, const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width, 
         const double height, const std::string &name, const std::map<std::string, std::string> &parameters, const bool movementBlocked) :
-    PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, posLat, layer, angle, imgFile, relativePath, width, height, parameters),
-    GNEShape(id, net, GLO_POI, GNE_TAG_POILANE, name,
+    PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters),
+    GNEShape(id, net, GLO_POI, GNE_TAG_POILANE,
         {}, {}, {lane}, {}, {}, {}, {}, {},
         movementBlocked) {
     // update centering boundary without updating grid
@@ -291,7 +291,7 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ANGLE:
             return toString(getShapeNaviDegree());
         case SUMO_ATTR_NAME:
-            return myShapeName;
+            return getShapeName();
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
@@ -498,7 +498,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             setShapeNaviDegree(parse<double>(value));
             break;
         case SUMO_ATTR_NAME:
-            myShapeName = value;
+            setShapeName(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);

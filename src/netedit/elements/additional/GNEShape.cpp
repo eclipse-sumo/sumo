@@ -31,7 +31,7 @@
 // method definitions
 // ===========================================================================
 
-GNEShape::GNEShape(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const std::string& name,
+GNEShape::GNEShape(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
         const std::vector<GNEJunction*>& junctionParents,
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
@@ -43,7 +43,6 @@ GNEShape::GNEShape(const std::string& id, GNENet* net, GUIGlObjectType type, Sum
         bool movementBlocked) :
     GUIGlObject(type, id),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
-    myShapeName(name),
     myBlockMovement(movementBlocked) {
 }
 

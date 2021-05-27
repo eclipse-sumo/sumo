@@ -41,8 +41,8 @@
 GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
         const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, const std::string &name,
         const std::map<std::string, std::string> &parameters, bool movementBlocked) :
-    SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, parameters),
-    GNEShape(id, net, GLO_POLYGON, SUMO_TAG_POLY, name,
+    SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters),
+    GNEShape(id, net, GLO_POLYGON, SUMO_TAG_POLY,
         {}, {}, {}, {}, {}, {}, {}, {},
         movementBlocked),
     mySimplifiedShape(false) {
@@ -558,7 +558,7 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_GEO:
             return toString(myGEO);
         case SUMO_ATTR_NAME:
-            return myShapeName;
+            return getShapeName();
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_CLOSE_SHAPE:
@@ -770,7 +770,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_NAME:
-            myShapeName = value;
+            setShapeName(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);
