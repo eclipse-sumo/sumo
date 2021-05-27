@@ -294,10 +294,10 @@ def repair_routes(options, net):
                                '-n', options.network,
                                '--route-files', 'dua_input.xml', '--repair',
                                '-o', 'dua_output.xml', '--ignore-errors',
-                               '--error-log', 'invalid_osm_routes.txt'])
+                               '--error-log', options.dua_repair_output])
     if run_dua == 1:
         # exit the program
-        sys.exit("Traying to repair OSM routes failed. Duarouter quits with error, see 'invalid_osm_routes.txt'")  # noqa
+        sys.exit("Traying to repair OSM routes failed. Duarouter quits with error, see %s" % options.dua_repair_output)  # noqa
 
     # parse repaired routes
     n_routes = len(osm_routes)
@@ -559,8 +559,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
     if options.verbose:
         print("Generates stops and routes output")
 
-    stop_output = options.additional_output
-    with open(stop_output, 'w', encoding="utf8") as output_file:
+    with open(options.additional_output, 'w', encoding="utf8") as output_file:
         sumolib.xml.writeHeader(output_file, root="additional")
         for stop, value in map_stops.items():
             name, lane, start_pos, end_pos, v_type = value[:5]
@@ -587,7 +586,6 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
         output_file.write('</additional>\n')
 
     sequence_errors = []
-    route_output = options.route_output
 
     if options.vtype_output:
         with open(options.vtype_output, 'w', encoding="utf8") as vout:
@@ -598,7 +596,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                                     (osm_type, sumo_class))
             vout.write(u'</additional>\n')
 
-    with open(route_output, 'w', encoding="utf8") as output_file:
+    with open(options.route_output, 'w', encoding="utf8") as output_file:
         sumolib.xml.writeHeader(output_file, root="routes")
         numDays = options.end // 86400
         if options.end % 86400 != 0:
@@ -661,8 +659,8 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
 
     # -----------------------   Save missing data ------------------
     if any([missing_stops, missing_lines, sequence_errors]):
-        print("Not all given gtfs elements have been mapped, see 'gtfs_missing.xml' for more information")  # noqa
-        with open("gtfs_missing.xml", 'w', encoding="utf8") as output_file:
+        print("Not all given gtfs elements have been mapped, see %s for more information" % options.warning_output)  # noqa
+        with open(options.warning_output, 'w', encoding="utf8") as output_file:
             output_file.write('<missingElements>\n')
             for stop in sorted(set(missing_stops)):
                 output_file.write('    <stop id="%s" name="%s" ptLine="%s"/>\n'

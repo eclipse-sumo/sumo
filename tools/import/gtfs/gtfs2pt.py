@@ -90,6 +90,10 @@ def get_options(args=None):
 
     # ----------------------- osm options -------------------------------------
     ap.add_argument("--osm-routes", help="osm routes file")
+    ap.add_argument("--warning-output",
+                    help="file to write the unmapped elements from gtfs")
+    ap.add_argument("--dua-repair-output",
+                    help="file to write the osm routes with errors")
     ap.add_argument("--bbox",
                     help="define the bounding box to filter the gtfs data, format: W,S,E,N")  # noqa
     ap.add_argument("--repair", help="repair osm routes", action='store_true')
@@ -106,6 +110,10 @@ def get_options(args=None):
         options.additional_output = options.region + "_publictransport.add.xml"
     if options.route_output is None:
         options.route_output = options.region + "_publictransport.rou.xml"
+    if options.warning_output is None:
+        options.warning_output = options.region + "_missing.xml"
+    if options.dua_repair_output is None:
+        options.dua_repair_output = options.region + "_repair_errors.txt"
 
     if not options.osm_routes:
         if options.map_output is None:
