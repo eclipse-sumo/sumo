@@ -49,7 +49,7 @@ public:
         /// @name get functions
         /// @{
         /// @brief get XML myTag
-        const SumoXMLTag getTag() const;
+        SumoXMLTag getTag() const;
 
         /// @brief get pointer to mySumoBaseObjectParent SumoBaseObject (if is null, then is the root)
         SumoBaseObject* getParentSumoBaseObject() const;

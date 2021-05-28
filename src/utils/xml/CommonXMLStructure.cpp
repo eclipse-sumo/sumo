@@ -60,7 +60,7 @@ CommonXMLStructure::SumoBaseObject::setTag(const SumoXMLTag tag) {
 }
 
 
-const SumoXMLTag 
+SumoXMLTag 
 CommonXMLStructure::SumoBaseObject::getTag() const {
     return myTag;
 }

@@ -74,7 +74,7 @@ struct GNENetHelper {
     class AttributeCarriers : ShapeContainer {
 
         /// @brief declare friend class
-        friend class GNEAdditionalHandler;
+        //friend class GNEAdditionalHandler;
         friend class GNEAdditionalHandler;
         friend class GNERouteHandler;
         friend class GNEChange_Junction;
