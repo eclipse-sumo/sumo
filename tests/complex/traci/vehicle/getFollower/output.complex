@@ -9,7 +9,7 @@
 7.0: egoLane=a_0 followerAuto=('f1', 43.99971428571429) followerShort=('f1', 43.99971428571429)
 8.0: egoLane=a_0 followerAuto=('f1', 40.32459523809523) followerShort=('f1', 40.32459523809523)
 9.0: egoLane=a_0 followerAuto=('f1', 35.149996031746014) followerShort=('f1', 35.149996031746014)
-10.0: egoLane=:gneJ1_0_0 followerAuto=('', -1.0) followerShort=('', -1.0)
+10.0: egoLane=:gneJ1_0_0 followerAuto=('f1', 27.745830026454996) followerShort=('f1', 27.745830026454996)
 11.0: egoLane=b_0 followerAuto=('f1', 20.341664021163993) followerShort=('f1', 20.341664021163993)
 12.0: egoLane=b_0 followerAuto=('f1', 17.43749801587301) followerShort=('', -1.0)
 13.0: egoLane=b_0 followerAuto=('f1', 15.329332010581986) followerShort=('f1', 15.329332010581986)
