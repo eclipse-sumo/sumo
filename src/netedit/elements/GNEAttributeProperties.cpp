@@ -80,7 +80,7 @@ GNEAttributeProperties::~GNEAttributeProperties() {}
 
 
 void
-GNEAttributeProperties::checkAttributeIntegrity() {
+GNEAttributeProperties::checkAttributeIntegrity() const {
     // check that positive attributes correspond only to a int, floats or SUMOTimes
     if (isPositive() && !(isInt() || isFloat() || isSUMOTime())) {
         throw FormatException("Only int, floats or SUMOTimes can be positive");
