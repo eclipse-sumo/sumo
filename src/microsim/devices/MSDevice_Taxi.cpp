@@ -634,6 +634,10 @@ MSDevice_Taxi::getParameter(const std::string& key) const {
         return toString(myState);
     } else if (key == "currentCustomers") {
         return joinNamedToStringSorting(myCustomers, " ");
+    } else if (key == "pickUpDuration") {
+        return getStringParam(myHolder, OptionsCont::getOptions(), "taxi.pickUpDuration", "0", false);
+    } else if (key == "dropOffDuration") {
+        return getStringParam(myHolder, OptionsCont::getOptions(), "taxi.dropOffDuration", "60", false);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -647,8 +651,13 @@ MSDevice_Taxi::setParameter(const std::string& key, const std::string& value) {
     } catch (NumberFormatException&) {
         throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
     }
-    UNUSED_PARAMETER(doubleValue);
-    throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
+    if (key == "pickUpDuration" || key == "dropOffDuration") {
+        // store as generic vehicle parameters
+        ((SUMOVehicleParameter&)myHolder.getParameter()).setParameter("device.taxi." + key, value);
+    } else {
+        UNUSED_PARAMETER(doubleValue);
+        throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
+    }
 }
 
 
