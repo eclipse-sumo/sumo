@@ -811,10 +811,6 @@ MSNet::clearAll() {
 
 void
 MSNet::clearState(const SUMOTime step) {
-    myInserter->clearState();
-    myVehicleControl->clearState();
-    MSVehicleTransfer::getInstance()->clearState();
-    MSRoute::dict_clearState(); // delete all routes after vehicles are deleted
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet->clearState();
         for (int i = 0; i < MSEdge::dictSize(); i++) {
@@ -825,11 +821,17 @@ MSNet::clearState(const SUMOTime step) {
     } else {
         for (int i = 0; i < MSEdge::dictSize(); i++) {
             const std::vector<MSLane*>& lanes = MSEdge::getAllEdges()[i]->getLanes();
-            for (std::vector<MSLane*>::const_iterator it = lanes.begin(); it != lanes.end(); ++it) {
-                (*it)->clearState();
+            for (MSLane* lane : lanes) {
+                lane->getVehiclesSecure();
+                lane->clearState();
+                lane->releaseVehicles();
             }
         }
     }
+    myInserter->clearState();
+    myVehicleControl->clearState();
+    MSVehicleTransfer::getInstance()->clearState();
+    MSRoute::dict_clearState(); // delete all routes after vehicles are deleted
     myLogics->clearState();
     myDetectorControl->updateDetectors(myStep);
     myDetectorControl->writeOutput(myStep, true);
