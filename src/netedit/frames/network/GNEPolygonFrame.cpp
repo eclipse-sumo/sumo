@@ -300,7 +300,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
         myNeteditAttributes->getNeteditAttributesAndValues(myBaseShape, objectsUnderCursor.getLaneFront());
         // Check if ID has to be generated
         if (!myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
-            myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->generateShapeID(GNE_TAG_POIGEO));
+            myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->generateShapeID(SUMO_TAG_POI));
         }
         // convert position to cartesian
         Position GEOPos = clickedPosition;
@@ -335,7 +335,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
         myNeteditAttributes->getNeteditAttributesAndValues(myBaseShape, objectsUnderCursor.getLaneFront());
         // Check if ID has to be generated
         if (!myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
-            myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->generateShapeID(GNE_TAG_POILANE));
+            myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->generateShapeID(SUMO_TAG_POI));
         }
         // obtain Lane
         myBaseShape->addStringAttribute(SUMO_ATTR_LANE, objectsUnderCursor.getLaneFront()->getID());

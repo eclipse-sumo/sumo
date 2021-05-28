@@ -96,12 +96,8 @@ GNEPOI::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*u
 
 
 std::string
-GNEPOI::generateChildID(SumoXMLTag childTag) {
-    int counter = (int)myNet->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI).size();
-    while (myNet->retrieveShape(SUMO_TAG_POI, getID() + toString(childTag) + toString(counter), false) != nullptr) {
-        counter++;
-    }
-    return (getID() + toString(childTag) + toString(counter));
+GNEPOI::generateChildID(SumoXMLTag /*childTag*/) {
+    return "";
 }
 
 

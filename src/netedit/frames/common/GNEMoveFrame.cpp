@@ -554,7 +554,7 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
     const double shiftValueX = GNEAttributeCarrier::parse<double>(myShiftValueXTextField->getText().text());
     const double shiftValueY = GNEAttributeCarrier::parse<double>(myShiftValueYTextField->getText().text());
     const Position shiftValue(shiftValueX, shiftValueY);
-    // get selected polygons and POIs (avoid POILanes)
+    // get selected polygons and POIs
     const auto polygons = myMoveFrameParent->getViewNet()->getNet()->retrieveShapes(SUMO_TAG_POLY, true);
     const auto POIs = myMoveFrameParent->getViewNet()->getNet()->retrieveShapes(SUMO_TAG_POI, true);
     // begin undo-redo
@@ -570,12 +570,15 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
     }
     // iterate over POIs
     for (const auto& POI : POIs) {
-        // get shape geometry
-        Position position = GNEAttributeCarrier::parse<Position>(POI->getAttribute(SUMO_ATTR_POSITION));
-        // shift shape geometry
-        position.add(shiftValue);
-        // set new shape again
-        POI->setAttribute(SUMO_ATTR_POSITION, toString(position), undoList);
+        // currently only for POIs (not for POILanes or POIGEOs
+        if (POI->getTagProperty().hasAttribute(SUMO_ATTR_POSITION)) {
+            // get shape geometry
+            Position position = GNEAttributeCarrier::parse<Position>(POI->getAttribute(SUMO_ATTR_POSITION));
+            // shift shape geometry
+            position.add(shiftValue);
+            // set new shape again
+            POI->setAttribute(SUMO_ATTR_POSITION, toString(position), undoList);
+        }
     }
     // end undo-redo
     myMoveFrameParent->getViewNet()->getUndoList()->p_end();

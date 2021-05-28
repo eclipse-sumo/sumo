@@ -130,12 +130,8 @@ GNEPoly::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
 
 
 std::string
-GNEPoly::generateChildID(SumoXMLTag childTag) {
-    int counter = (int)myNet->getAttributeCarriers()->getShapes().at(SUMO_TAG_POLY).size();
-    while (myNet->retrieveShape(SUMO_TAG_POLY, getID() + toString(childTag) + toString(counter), false) != nullptr) {
-        counter++;
-    }
-    return (getID() + toString(childTag) + toString(counter));
+GNEPoly::generateChildID(SumoXMLTag /*childTag*/) {
+    return "";
 }
 
 

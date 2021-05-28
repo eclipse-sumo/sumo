@@ -403,7 +403,7 @@ struct GNENetHelper {
         /// @brief map with the ID and pointer to additional elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> > myAdditionals;
 
-        /// @brief map with the ID and pointer to shape elements of net
+/// @brief map with the ID and pointer to shape elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEShape*> > myShapes;
 
         /// @brief map with the ID and pointer to TAZElement elements of net

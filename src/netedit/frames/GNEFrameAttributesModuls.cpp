@@ -567,7 +567,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::checkComplexAttribute(const std:
 std::string
 GNEFrameAttributesModuls::AttributesCreatorRow::generateID() const {
     if (myAttrProperties.getTagPropertyParent().isShape()) {
-        return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateShapeID(myAttrProperties.getTagPropertyParent().getTag());
+        return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateShapeID(myAttrProperties.getTagPropertyParent().getXMLTag());
     } else if (myAttrProperties.getTagPropertyParent().isAdditionalElement()) {
         return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateAdditionalID(myAttrProperties.getTagPropertyParent().getTag());
     } else if (myAttrProperties.getTagPropertyParent().isDemandElement()) {

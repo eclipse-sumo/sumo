@@ -672,7 +672,7 @@ public:
      * @param[in] id The id of the shape to return.
      * @param[in] failHard Whether attempts to retrieve a nonexisting shape should result in an exception
      */
-    GNEShape* retrieveShape(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
+    GNEShape* retrieveShape(SumoXMLTag, const std::string& id, bool hardFail = true) const;
 
     /**@brief return all shapes
      * @param[in] onlySelected Whether to return only selected shapes

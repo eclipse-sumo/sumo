@@ -2996,12 +2996,8 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
         poly.second->writeShape(device);
     }
     // write POIs
-    for (const auto& shape : myAttributeCarriers->getShapes()) {
-        for (const auto& POI : shape.second) {
-            if (POI.second->getTagProperty().getTag() != SUMO_TAG_POLY) {
-                POI.second->writeShape(device);
-            }
-        }
+    for (const auto& poly : myAttributeCarriers->getShapes().at(SUMO_TAG_POI)) {
+        poly.second->writeShape(device);
     }
     device.close();
 }
@@ -3087,17 +3083,10 @@ std::string
 GNENet::generateShapeID(SumoXMLTag tag) const {
     int counter = 0;
     // generate tag depending of shape type
-    if (tag == SUMO_TAG_POLY) {
-        while (myAttributeCarriers->getShapes().at(tag).count(toString(tag) + "_" + toString(counter)) != 0) {
-            counter++;
-        }
-        return (toString(tag) + "_" + toString(counter));
-    } else {
-        while (myAttributeCarriers->getShapes().at(SUMO_TAG_POI).count(toString(SUMO_TAG_POI) + "_" + toString(counter)) != 0) {
-            counter++;
-        }
-        return (toString(SUMO_TAG_POI) + "_" + toString(counter));
+    while (myAttributeCarriers->getShapes().at(tag).count(toString(tag) + "_" + toString(counter)) != 0) {
+        counter++;
     }
+    return (toString(tag) + "_" + toString(counter));
 }
 
 
