@@ -76,23 +76,22 @@ public:
         SLAVE =                     1 << 5,     // Element is slave and will be writed in XML without id as child of another element (E3Entry -> E3Detector...)
         MINIMUMCHILDREN =           1 << 6,     // Element will be only writed in XML if has a minimum number of children
         REPARENT =                  1 << 7,     // Element can be reparent
-        SYNONYM =                   1 << 8,    // Element will be written with a different name in der XML
-        SELECTABLE =                1 << 9,     // Element is selectable
-        MASKSTARTENDPOS =           1 << 10,    // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
-        MASKXYZPOSITION =           1 << 11,    // Element mask attributes X, Y and Z as "Position"
-        WRITECHILDRENSEPARATE =     1 << 12,    // Element writes their children in a separated filename
-        NOPARAMETERS =              1 << 13,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
-        PARAMETERSDOUBLE =          1 << 14,    // Element only accept double parameters "key1=double1|key2=double1|...|keyN=doubleN"
-        RTREE =                     1 << 15,    // Element is placed in RTREE
-        CENTERAFTERCREATION =       1 << 16,    // Camera is moved after element creation
-        EMBEDDED_ROUTE =            1 << 17,    // Element has an embedded route
+        SELECTABLE =                1 << 8,     // Element is selectable
+        MASKSTARTENDPOS =           1 << 9,    // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
+        MASKXYZPOSITION =           1 << 10,    // Element mask attributes X, Y and Z as "Position"
+        WRITECHILDRENSEPARATE =     1 << 11,    // Element writes their children in a separated filename
+        NOPARAMETERS =              1 << 12,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
+        PARAMETERSDOUBLE =          1 << 13,    // Element only accept double parameters "key1=double1|key2=double1|...|keyN=doubleN"
+        RTREE =                     1 << 14,    // Element is placed in RTREE
+        CENTERAFTERCREATION =       1 << 15,    // Camera is moved after element creation
+        EMBEDDED_ROUTE =            1 << 16,    // Element has an embedded route
     };
 
     /// @brief default constructor
     GNETagProperties();
 
     /// @brief parameter constructor
-    GNETagProperties(SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const std::vector<SumoXMLTag>& master_tag = {}, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
+    GNETagProperties(const SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const SumoXMLTag XMLTag, const std::vector<SumoXMLTag>& masterTags = {});
 
     /// @brief destructor
     ~GNETagProperties();
@@ -133,11 +132,11 @@ public:
     /// @brief get GUI icon associated to this Tag
     GUIIcon getGUIIcon() const;
 
+    /// @brief get XML tag
+    SumoXMLTag getXMLTag() const;
+
     /// @brief get master tags
     const std::vector<SumoXMLTag>& getMasterTags() const;
-
-    /// @brief get tag synonym
-    SumoXMLTag getTagSynonym() const;
 
     /// @brief check if current TagProperties owns the attribute "attr"
     bool hasAttribute(SumoXMLAttr attr) const;
@@ -223,9 +222,6 @@ public:
     /// @brief return true if tag correspond to an element that can use a geo shape
     bool hasGEOShape() const;
 
-    /// @brief return true if tag correspond to an element that will be written in XML with another tag
-    bool hasTagSynonym() const;
-
     /// @brief return true if tag correspond to an element that can be edited using a dialog
     bool hasDialog() const;
 
@@ -281,11 +277,11 @@ private:
     /// @brief icon associated to this Tag
     GUIIcon myIcon;
 
+    /// @brief Tag written in XML and used in GNENetHelper::AttributeCarriers
+    SumoXMLTag myXMLTag;
+
     /// @brief vector with master tags (used by slave elements)
     std::vector<SumoXMLTag> myMasterTags;
-
-    /// @brief Tag written in XML (If is SUMO_TAG_NOTHING), original Tag name will be written)
-    SumoXMLTag myTagSynonym;
 
     /// @brief List with the deprecated Attributes
     std::vector<SumoXMLAttr> myDeprecatedAttributes;

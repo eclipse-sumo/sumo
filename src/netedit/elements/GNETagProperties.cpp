@@ -41,18 +41,18 @@ GNETagProperties::GNETagProperties() :
     myTagType(0),
     myTagProperty(0),
     myIcon(GUIIcon::EMPTY),
-    myTagSynonym(SUMO_TAG_NOTHING) {
+    myXMLTag(SUMO_TAG_NOTHING) {
 }
 
 
-GNETagProperties::GNETagProperties(SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const std::vector<SumoXMLTag>& masterTags, SumoXMLTag tagSynonym) :
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const SumoXMLTag XMLTag, const std::vector<SumoXMLTag>& masterTags) :
     myTag(tag),
     myTagStr(toString(tag)),
     myTagType(tagType),
     myTagProperty(tagProperty),
     myIcon(icon),
-    myMasterTags(masterTags),
-    myTagSynonym(tagSynonym) {
+    myXMLTag(XMLTag),
+    myMasterTags(masterTags) {
 }
 
 
@@ -85,14 +85,6 @@ GNETagProperties::checkTagIntegrity() const {
     if (canMaskStartEndPos() && (!hasAttribute(SUMO_ATTR_STARTPOS) || !hasAttribute(SUMO_ATTR_ENDPOS))) {
         throw ProcessError("If attribute mask the start and end position, bot attribute has to be defined");
     }
-    // check that synonym tag isn't nothing
-    if (hasTagSynonym() && (myTagSynonym == SUMO_TAG_NOTHING)) {
-        throw FormatException("Synonym tag cannot be nothing");
-    }
-    // check that synonym was defined
-    if (!hasTagSynonym() && (myTagSynonym != SUMO_TAG_NOTHING)) {
-        throw FormatException("Tag doesn't support synonyms");
-    }
     // check that master tag is valid
     if (isSlave() && myMasterTags.empty()) {
         throw FormatException("Master tags cannot be empty");
@@ -102,7 +94,7 @@ GNETagProperties::checkTagIntegrity() const {
         throw FormatException("Tag doesn't support master elements");
     }
     // check integrity of all attributes
-    for (auto attributeProperty : myAttributeProperties) {
+    for (const auto &attributeProperty : myAttributeProperties) {
         attributeProperty.checkAttributeIntegrity();
         // check that if attribute is vehicle classes, own a combination of Allow/disallow attibute
         if (attributeProperty.isVClasses()) {
@@ -122,12 +114,12 @@ GNETagProperties::checkTagIntegrity() const {
 const std::string&
 GNETagProperties::getDefaultValue(SumoXMLAttr attr) const {
     // iterate over attribute properties
-    for (const auto& i : myAttributeProperties) {
-        if (i.getAttr() == attr) {
-            if (!i.hasStaticDefaultValue()) {
-                throw ProcessError("attribute '" + i.getAttrStr() + "' doesn't have a default value");
+    for (const auto& attributeProperty : myAttributeProperties) {
+        if (attributeProperty.getAttr() == attr) {
+            if (!attributeProperty.hasStaticDefaultValue()) {
+                throw ProcessError("attribute '" + attributeProperty.getAttrStr() + "' doesn't have a default value");
             } else {
-                return i.getDefaultValue();
+                return attributeProperty.getDefaultValue();
             }
         }
     }
@@ -143,8 +135,8 @@ GNETagProperties::addAttribute(const GNEAttributeProperties& attributeProperty) 
         throw ProcessError("Maximum number of attributes for tag " + attributeProperty.getAttrStr() + " exceeded");
     } else {
         // Check that attribute wasn't already inserted
-        for (auto i : myAttributeProperties) {
-            if (i.getAttr() == attributeProperty.getAttr()) {
+        for (const auto &attributeProperty : myAttributeProperties) {
+            if (attributeProperty.getAttr() == attributeProperty.getAttr()) {
                 throw ProcessError("Attribute '" + attributeProperty.getAttrStr() + "' already inserted");
             }
         }
@@ -158,8 +150,8 @@ GNETagProperties::addAttribute(const GNEAttributeProperties& attributeProperty) 
 void
 GNETagProperties::addDeprecatedAttribute(SumoXMLAttr attr) {
     // Check that attribute wasn't already inserted
-    for (auto i : myAttributeProperties) {
-        if (i.getAttr() == attr) {
+    for (const auto &attributeProperty : myAttributeProperties) {
+        if (attributeProperty.getAttr() == attr) {
             throw ProcessError("Attribute '" + toString(attr) + "' is deprecated but was inserted in list of attributes");
         }
     }
@@ -171,9 +163,9 @@ GNETagProperties::addDeprecatedAttribute(SumoXMLAttr attr) {
 const GNEAttributeProperties&
 GNETagProperties::getAttributeProperties(SumoXMLAttr attr) const {
     // iterate over attribute properties
-    for (const auto& i : myAttributeProperties) {
-        if ((i.getAttr() == attr) || (i.hasAttrSynonym() && (i.getAttrSynonym() == attr))) {
-            return i;
+    for (const auto& attributeProperty : myAttributeProperties) {
+        if ((attributeProperty.getAttr() == attr) || (attributeProperty.hasAttrSynonym() && (attributeProperty.getAttrSynonym() == attr))) {
+            return attributeProperty;
         }
     }
     // throw error if these attribute doesn't exist
@@ -211,27 +203,22 @@ GNETagProperties::getGUIIcon() const {
 }
 
 
+SumoXMLTag
+GNETagProperties::getXMLTag() const {
+    return myXMLTag;
+}
+
 const std::vector<SumoXMLTag>&
 GNETagProperties::getMasterTags() const {
     return myMasterTags;
 }
 
 
-SumoXMLTag
-GNETagProperties::getTagSynonym() const {
-    if (hasTagSynonym()) {
-        return myTagSynonym;
-    } else {
-        throw ProcessError("Tag doesn't have synonym");
-    }
-}
-
-
 bool
 GNETagProperties::hasAttribute(SumoXMLAttr attr) const {
     // iterate over attribute properties
-    for (const auto& i : myAttributeProperties) {
-        if (i.getAttr() == attr) {
+    for (const auto& attributeProperty : myAttributeProperties) {
+        if (attributeProperty.getAttr() == attr) {
             return true;
         }
     }
@@ -396,12 +383,6 @@ GNETagProperties::canCloseShape() const {
 bool
 GNETagProperties::hasGEOShape() const {
     return (myTagProperty & GEOSHAPE) != 0;
-}
-
-
-bool
-GNETagProperties::hasTagSynonym() const {
-    return (myTagProperty & SYNONYM) != 0;
 }
 
 
