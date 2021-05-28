@@ -677,7 +677,7 @@ AdditionalHandler::parseAccessAttributes(const SUMOSAXAttributes& attrs) {
     const std::string length = attrs.getOpt<std::string>(SUMO_ATTR_LENGTH, "", parsedOk, "", false);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "", parsedOk, "", false);
     // check parent
-    checkParent(SUMO_TAG_ACCESS, SUMO_TAG_BUS_STOP);
+    checkParent(SUMO_TAG_ACCESS, SUMO_TAG_BUS_STOP, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -811,7 +811,7 @@ AdditionalHandler::parseParkingSpaceAttributes(const SUMOSAXAttributes& attrs) {
     const std::string angle = attrs.getOpt<std::string>(SUMO_ATTR_ANGLE, "", parsedOk, "", false);
     const double slope = attrs.getOpt<double>(SUMO_ATTR_SLOPE, "", parsedOk, 0, false);
     // check parent
-    checkParent(SUMO_TAG_PARKING_SPACE, SUMO_TAG_PARKING_AREA);
+    checkParent(SUMO_TAG_PARKING_SPACE, SUMO_TAG_PARKING_AREA, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -862,21 +862,24 @@ AdditionalHandler::parseE1Attributes(const SUMOSAXAttributes& attrs) {
 
 void
 AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
     // check that frecuency and trafficLight aren't defined together
     if ((attrs.hasAttribute(SUMO_ATTR_FREQUENCY) && attrs.hasAttribute(SUMO_ATTR_TLID)) ||
         (!attrs.hasAttribute(SUMO_ATTR_FREQUENCY) && !attrs.hasAttribute(SUMO_ATTR_TLID))) {
-        throw FormatException("define either Lanes or traffic light ID in E2 detector");
+        WRITE_ERROR("define either Lanes or traffic light ID in E2 detector");
+        parsedOk = false;
     }
     // check that lane and length are defined together
     if (attrs.hasAttribute(SUMO_ATTR_LANE) && !attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
-        throw FormatException("lane and length must be defined together in E2 detector");
+        WRITE_ERROR("lane and length must be defined together in E2 detector");
+        parsedOk = false;
     }
     // check that lanes and endPos are defined together
     if (attrs.hasAttribute(SUMO_ATTR_LANES) && !attrs.hasAttribute(SUMO_ATTR_ENDPOS)) {
-        throw FormatException("lanes and endPos must be defined together in E2 detector");
+        WRITE_ERROR("lanes and endPos must be defined together in E2 detector");
+        parsedOk = false;
     }
-    // declare Ok Flag
-    bool parsedOk = true;
     // needed attributes
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
     const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, true);
@@ -964,7 +967,7 @@ AdditionalHandler::parseEntryAttributes(const SUMOSAXAttributes& attrs) {
     // optional attributes
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "", parsedOk, false, false);
     // check parent
-    checkParent(SUMO_TAG_DET_ENTRY, SUMO_TAG_E3DETECTOR);
+    checkParent(SUMO_TAG_DET_ENTRY, SUMO_TAG_E3DETECTOR, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -987,7 +990,7 @@ AdditionalHandler::parseExitAttributes(const SUMOSAXAttributes& attrs) {
     // optional attributes
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "", parsedOk, false, false);
     // check parent
-    checkParent(SUMO_TAG_DET_EXIT, SUMO_TAG_E3DETECTOR);
+    checkParent(SUMO_TAG_DET_EXIT, SUMO_TAG_E3DETECTOR, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1062,7 +1065,7 @@ AdditionalHandler::parseTAZSourceAttributes(const SUMOSAXAttributes& attrs) {
     const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
     const double weight = attrs.get<double>(SUMO_ATTR_WEIGHT, edgeID.c_str(), parsedOk, true);
     // check parent
-    checkParent(SUMO_TAG_TAZSOURCE, SUMO_TAG_TAZ);
+    checkParent(SUMO_TAG_TAZSOURCE, SUMO_TAG_TAZ, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1082,7 +1085,7 @@ AdditionalHandler::parseTAZSinkAttributes(const SUMOSAXAttributes& attrs) {
     const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
     const double weight = attrs.get<double>(SUMO_ATTR_WEIGHT, edgeID.c_str(), parsedOk, true);
     // check parent
-    checkParent(SUMO_TAG_TAZSINK, SUMO_TAG_TAZ);
+    checkParent(SUMO_TAG_TAZSINK, SUMO_TAG_TAZ, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1126,7 +1129,7 @@ AdditionalHandler::parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes&
      // optional attributes
     const std::string speed = attrs.getOpt<std::string>(SUMO_ATTR_SPEED, "", parsedOk, "", false);
     // check parent
-    checkParent(SUMO_TAG_STEP, SUMO_TAG_VSS);
+    checkParent(SUMO_TAG_STEP, SUMO_TAG_VSS, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1140,13 +1143,14 @@ AdditionalHandler::parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes&
 
 void
 AdditionalHandler::parseCalibratorAttributes(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
     // check that frecuency and trafficLight aren't defined together
     if ((attrs.hasAttribute(SUMO_ATTR_EDGE) && attrs.hasAttribute(SUMO_ATTR_LANE)) ||
         (!attrs.hasAttribute(SUMO_ATTR_EDGE) && !attrs.hasAttribute(SUMO_ATTR_LANE))) {
-        throw FormatException("Calibrators need either an edge or a lane");
+        WRITE_ERROR("Calibrators need either an edge or a lane");
+        parsedOk = false;
     }
-    // declare Ok Flag
-    bool parsedOk = true;
     // needed attributes
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
     const double pos = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, true);
@@ -1184,12 +1188,13 @@ AdditionalHandler::parseCalibratorAttributes(const SUMOSAXAttributes& attrs) {
 
 void
 AdditionalHandler::parseCalibratorFlowAttributes(const SUMOSAXAttributes& attrs) {
-    // check that frecuency and trafficLight aren't defined together
-    if (!attrs.hasAttribute(SUMO_ATTR_TYPE) && !attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR) && !attrs.hasAttribute(SUMO_ATTR_SPEED)) {
-        throw FormatException("CalibratorFlows need either the attribute vehsPerHour or speed or type (or any combination of these)");
-    }
     // declare Ok Flag
     bool parsedOk = true;
+    // check that frecuency and trafficLight aren't defined together
+    if (!attrs.hasAttribute(SUMO_ATTR_TYPE) && !attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR) && !attrs.hasAttribute(SUMO_ATTR_SPEED)) {
+        WRITE_ERROR("CalibratorFlows need either the attribute vehsPerHour or speed or type (or any combination of these)");
+        parsedOk = false;
+    }
     // needed attributes
     const std::string route = attrs.get<std::string>(SUMO_ATTR_ROUTE, "", parsedOk, true);
     const SUMOTime begin = attrs.get<SUMOTime>(SUMO_ATTR_BEGIN, "", parsedOk, true);
@@ -1281,7 +1286,7 @@ AdditionalHandler::parseRerouterIntervalAttributes(const SUMOSAXAttributes& attr
     const SUMOTime begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, "", parsedOk, true);
     const SUMOTime end = attrs.getSUMOTimeReporting(SUMO_ATTR_END, "", parsedOk, true);
     // check parent
-    checkParent(SUMO_TAG_INTERVAL, SUMO_TAG_REROUTER);
+    checkParent(SUMO_TAG_INTERVAL, SUMO_TAG_REROUTER, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1303,7 +1308,7 @@ AdditionalHandler::parseClosingLaneRerouteAttributes(const SUMOSAXAttributes& at
     const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, "", parsedOk, "", false);
     const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, "", parsedOk, "", false);
     // check parent
-    checkParent(SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_TAG_INTERVAL);
+    checkParent(SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_TAG_INTERVAL, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1326,7 +1331,7 @@ AdditionalHandler::parseClosingRerouteAttributes(const SUMOSAXAttributes& attrs)
     const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, "", parsedOk, "", false);
     const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, "", parsedOk, "", false);
     // check parent
-    checkParent(SUMO_TAG_CLOSING_REROUTE, SUMO_TAG_INTERVAL);
+    checkParent(SUMO_TAG_CLOSING_REROUTE, SUMO_TAG_INTERVAL, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1347,7 +1352,7 @@ AdditionalHandler::parseDestProbRerouteAttributes(const SUMOSAXAttributes& attrs
     const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
     const double probability = attrs.get<double>(SUMO_ATTR_PROB, "", parsedOk, true);
     // check parent
-    checkParent(SUMO_TAG_DEST_PROB_REROUTE, SUMO_TAG_INTERVAL);
+    checkParent(SUMO_TAG_DEST_PROB_REROUTE, SUMO_TAG_INTERVAL, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1369,7 +1374,7 @@ AdditionalHandler::parseParkingAreaRerouteAttributes(const SUMOSAXAttributes& at
     const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, "", parsedOk, 1, false);
     const bool visible = attrs.getOpt<bool>(SUMO_ATTR_VISIBLE, "", parsedOk, 1, false);
     // check parent
-    checkParent(SUMO_TAG_PARKING_ZONE_REROUTE, SUMO_TAG_INTERVAL);
+    checkParent(SUMO_TAG_PARKING_ZONE_REROUTE, SUMO_TAG_INTERVAL, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1391,7 +1396,7 @@ AdditionalHandler::parseRouteProbRerouteAttributes(const SUMOSAXAttributes& attr
     // optional attributes
     const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, "", parsedOk, 1, false);
     // check parent
-    checkParent(SUMO_TAG_ROUTE_PROB_REROUTE, SUMO_TAG_INTERVAL);
+    checkParent(SUMO_TAG_ROUTE_PROB_REROUTE, SUMO_TAG_INTERVAL, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1494,23 +1499,26 @@ AdditionalHandler::parsePolyAttributes(const SUMOSAXAttributes& attrs) {
 
 void 
 AdditionalHandler::parsePOIAttributes(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
     // check that x and y are defined together
     if ((attrs.hasAttribute(SUMO_ATTR_X) && !attrs.hasAttribute(SUMO_ATTR_Y)) ||
         (!attrs.hasAttribute(SUMO_ATTR_X) && attrs.hasAttribute(SUMO_ATTR_Y))) {
-        throw FormatException("X and Y must be be defined together in POIs");
+        WRITE_ERROR("X and Y must be be defined together in POIs");
+        parsedOk = false;
     }
     // check that lane and pos are defined together
     if ((attrs.hasAttribute(SUMO_ATTR_LANE) && !attrs.hasAttribute(SUMO_ATTR_POSITION)) ||
         (!attrs.hasAttribute(SUMO_ATTR_LANE) && attrs.hasAttribute(SUMO_ATTR_POSITION))) {
-        throw FormatException("lane and position must be be defined together in POIs");
+        WRITE_ERROR("lane and position must be be defined together in POIs");
+        parsedOk = false;
     }
     // check that lon and lat are defined together
     if ((attrs.hasAttribute(SUMO_ATTR_LON) && !attrs.hasAttribute(SUMO_ATTR_LAT)) ||
         (!attrs.hasAttribute(SUMO_ATTR_LON) && attrs.hasAttribute(SUMO_ATTR_LAT))) {
-        throw FormatException("lon and lat must be be defined together in POIs");
+        WRITE_ERROR("lon and lat must be be defined together in POIs");
+        parsedOk = false;
     }
-    // declare Ok Flag
-    bool parsedOk = true;
     // needed attributes
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
     const RGBColor color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, true);
@@ -1572,11 +1580,11 @@ AdditionalHandler::parseParameters(const SUMOSAXAttributes& attrs) {
     CommonXMLStructure::SumoBaseObject* SumoBaseObjectParent = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
     // check parent
     if (SumoBaseObjectParent == nullptr) {
-        throw FormatException("Parameters must be defined within an object");
+        WRITE_ERROR("Parameters must be defined within an object");
     }
     // check tag
     if (SumoBaseObjectParent->getTag() == SUMO_TAG_NOTHING) {
-        throw FormatException("Parameters cannot be defined in either the additional file's root nor another parameter");
+        WRITE_ERROR("Parameters cannot be defined in either the additional file's root nor another parameter");
     }
     // continue if key was sucesfully loaded
     if (parsedOk) {
@@ -1599,11 +1607,12 @@ AdditionalHandler::parseParameters(const SUMOSAXAttributes& attrs) {
 
 
 void
-AdditionalHandler::checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag) const {
+AdditionalHandler::checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok) const {
     // check that parent SUMOBaseObject's tag is the parentTag
     if ((myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject() && 
         (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getTag() == parentTag)) == false) {
-        throw FormatException(toString(currentTag) + " must be defined within the definition of a " + toString(parentTag));
+        WRITE_ERROR(toString(currentTag) + " must be defined within the definition of a " + toString(parentTag));
+        ok = false;
     }
 }
 
