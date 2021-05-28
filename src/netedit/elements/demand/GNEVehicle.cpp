@@ -334,19 +334,17 @@ GNEVehicle::getBegin() const {
 
 void
 GNEVehicle::writeDemandElement(OutputDevice& device) const {
-    // obtain tag depending if tagProperty has a synonym
-    SumoXMLTag synonymTag = myTagProperty.hasTagSynonym() ? myTagProperty.getTagSynonym() : myTagProperty.getTag();
     // attribute VType musn't be written if is DEFAULT_VTYPE_ID
     if (getParentDemandElements().at(0)->getID() == DEFAULT_VTYPE_ID) {
         // unset VType parameter
         parametersSet &= ~VEHPARS_VTYPE_SET;
         // write vehicle attributes (VType will not be written)
-        write(device, OptionsCont::getOptions(), synonymTag);
+        write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag());
         // set VType parameter again
         parametersSet |= VEHPARS_VTYPE_SET;
     } else {
         // write vehicle attributes, including VType
-        write(device, OptionsCont::getOptions(), synonymTag, getParentDemandElements().at(0)->getID());
+        write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag(), getParentDemandElements().at(0)->getID());
     }
     // write specific attribute depeding of tag property
     if (myTagProperty.getTag() == SUMO_TAG_VEHICLE || myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) {

@@ -113,12 +113,8 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
     if ((myTagProperty.hasMinimumNumberOfChildren() || myTagProperty.hasMinimumNumberOfChildren()) && !checkChildAdditionalRestriction()) {
         WRITE_WARNING(getTagStr() + " with ID='" + getID() + "' cannot be written");
     } else {
-        // Open Tag or synonym Tag
-        if (myTagProperty.hasTagSynonym()) {
-            device.openTag(myTagProperty.getTagSynonym());
-        } else {
-            device.openTag(myTagProperty.getTag());
-        }
+        // Open XML Tag or synonym Tag
+        device.openTag(myTagProperty.getXMLTag());
         // iterate over attribute properties
         for (const auto& attrProperty : myTagProperty) {
             // obtain attribute value
