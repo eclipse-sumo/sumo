@@ -315,7 +315,7 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all,
 
             if not res_possible:
                 # reject reservation and remove person from simulation
-                # TODO no rejection option should be implemented in future
+                # TODO add no rejection option #8705
                 print("Reservation %s (person %s) cannot be served" %
                       (res_id, res.persons))
                 res_all_remove.append(res_id)
@@ -340,7 +340,7 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all,
             # check if pick-up still possible
             if res.tw_pickup[1] < step:
                 # latest pickup time exceed simulation time, reject reservation
-                # TODO no rejection option should be implemented in future
+                # TODO add no rejection option #8705
                 print("Reservation %s (person %s) cannot be served" %
                       (res_id, res.persons))
                 res_all_remove.append(res_id)
@@ -715,11 +715,11 @@ def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all,
     rtv_dict = {}
     # list with all requests needed for res_bin for ILP
     rtv_res = list(res_all.keys())
-    # TODO allow checking for vehicles with same characteristics and copy the
-    # rtv for them. To be the same -> no trip assigned, same position and
-    # same capacity
+
+    # find unique vehicles to avoid calculating same trips multiple times
     idle_veh = traci.vehicle.getTaxiFleet(0)
     for vehicles in veh_edges.values():
+        # equivalent vehicles must be on same edge
         if len(vehicles) > 1:
             vehicles_capacity = [traci.vehicle.getPersonCapacity(veh_id) for veh_id in vehicles] # noqa
             vehicles_idle = [veh_id in idle_veh for veh_id in vehicles]
@@ -729,11 +729,13 @@ def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all,
                     vehicles_unique.append(veh_id)
                     continue
                 if not vehicles_idle[veh_idx]:
+                    # if veh not idle, then is unique
                     vehicles_unique.append(veh_id)
                     continue
                 for compare_veh in range(veh_idx+1):
                     if (vehicles_idle[compare_veh] and
                        vehicles_capacity[veh_idx] == vehicles_capacity[compare_veh]): # noqa
+                        # if vehicles idle and same capacity -> equivalent
                         vehicles_unique.append(vehicles[compare_veh])
                         break
         else:
@@ -792,9 +794,6 @@ def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all,
                             trip_time = rv_dict[trip_id][0]
                             trips_tree[i] = [[trip_id, trip_time+step, -1]]
                             break
-                        if not rv_dict.get(trip_id, False):
-                            # TODO manage teleports
-                            continue
             if not trips_tree[i]:
                 # if vehicle not assigned or no valid stop found, consider all
                 trips_tree[i] = [[pair, rv_dict[pair][0]+step, 1] for pair in pairs # noqa
