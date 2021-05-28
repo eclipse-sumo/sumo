@@ -180,9 +180,6 @@ def ilp_solve(options, veh_num, res_num, costs, veh_constraints,
     prob += pl.lpSum([sum(veh_constraints[i]) * Trips_vars[i]
                      for i in order_trips]) >= 1, "Assing_at_least_one_vehicle"
 
-    # The problem data is written into following file
-    prob.writeLP("DRT_ilp.txt")  # TODO write as temporary
-
     # The problem is solved using PuLP's Solver choice
     prob.solve(pl.PULP_CBC_CMD(msg=0, timeLimit=options.ilp_time))
 
