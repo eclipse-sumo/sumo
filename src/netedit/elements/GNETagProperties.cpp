@@ -135,8 +135,8 @@ GNETagProperties::addAttribute(const GNEAttributeProperties& attributeProperty) 
         throw ProcessError("Maximum number of attributes for tag " + attributeProperty.getAttrStr() + " exceeded");
     } else {
         // Check that attribute wasn't already inserted
-        for (const auto &attributeProperty : myAttributeProperties) {
-            if (attributeProperty.getAttr() == attributeProperty.getAttr()) {
+        for (const auto &attrProperty : myAttributeProperties) {
+            if (attributeProperty.getAttr() == attrProperty.getAttr()) {
                 throw ProcessError("Attribute '" + attributeProperty.getAttrStr() + "' already inserted");
             }
         }
