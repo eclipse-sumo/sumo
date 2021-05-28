@@ -69,6 +69,21 @@ public:
                       const std::string &startPos, const std::string &endPos, const std::string& name, const std::vector<std::string>& lines, 
                       const int personCapacity, const double parkingLength, const bool friendlyPosition, const std::map<std::string, std::string> &parameters);
 
+    /**@brief Builds a train stop
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The id of the train stop
+     * @param[in] laneID The lane the train stop is placed on
+     * @param[in] startPos Begin position of the train stop on the lane
+     * @param[in] endPos End position of the train stop on the lane
+     * @param[in] name Name of trainStop
+     * @param[in] lines Names of the train lines that halt on this train stop
+     * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] parameters generic parameters
+     */
+    void buildTrainStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID,
+                        const std::string &startPos, const std::string &endPos, const std::string& name, const std::vector<std::string>& lines, 
+                        const int personCapacity, const double parkingLength, const bool friendlyPosition, const std::map<std::string, std::string> &parameters);
+
     /**@brief Builds an Access
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] busStop GNEAdditional of this Access belongs

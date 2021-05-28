@@ -53,8 +53,20 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
     switch (obj->getTag()) {
         // Stopping Places
         case SUMO_TAG_BUS_STOP:
-        case SUMO_TAG_TRAIN_STOP:
             buildBusStop(obj,
+                obj->getStringAttribute(SUMO_ATTR_ID),
+                obj->getStringAttribute(SUMO_ATTR_LANE),
+                obj->getStringAttribute(SUMO_ATTR_STARTPOS),
+                obj->getStringAttribute(SUMO_ATTR_ENDPOS),
+                obj->getStringAttribute(SUMO_ATTR_NAME),
+                obj->getStringListAttribute(SUMO_ATTR_LINES),
+                obj->getIntAttribute(SUMO_ATTR_PERSON_CAPACITY),
+                obj->getDoubleAttribute(SUMO_ATTR_PARKING_LENGTH),
+                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                obj->getParameters());
+            break;
+        case SUMO_TAG_TRAIN_STOP:
+            buildTrainStop(obj,
                 obj->getStringAttribute(SUMO_ATTR_ID),
                 obj->getStringAttribute(SUMO_ATTR_LANE),
                 obj->getStringAttribute(SUMO_ATTR_STARTPOS),
@@ -465,8 +477,10 @@ AdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         switch (tag) {
             // Stopping Places
             case SUMO_TAG_BUS_STOP:
-            case SUMO_TAG_TRAIN_STOP:
                 parseBusStopAttributes(attrs);
+                break;
+            case SUMO_TAG_TRAIN_STOP:
+                parseTrainStopAttributes(attrs);
                 break;
             case SUMO_TAG_ACCESS:
                 parseAccessAttributes(attrs);
@@ -652,6 +666,39 @@ AdditionalHandler::parseBusStopAttributes(const SUMOSAXAttributes& attrs) {
     if (parsedOk) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_BUS_STOP);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_STARTPOS, startPos);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ENDPOS, endPos);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LINES, lines);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_PERSON_CAPACITY, personCapacity);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PARKING_LENGTH, parkingLength);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+    }
+}
+
+
+void
+AdditionalHandler::parseTrainStopAttributes(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk, true);
+    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, true);
+    // optional attributes
+    const std::string startPos = attrs.getOpt<std::string>(SUMO_ATTR_STARTPOS, id.c_str(), parsedOk, "", false);
+    const std::string endPos = attrs.getOpt<std::string>(SUMO_ATTR_ENDPOS, id.c_str(), parsedOk, "", false);
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "", false);
+    const std::vector<std::string> lines = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LINES, id.c_str(), parsedOk, std::vector<std::string>(), false);
+    const int personCapacity = attrs.getOpt<int>(SUMO_ATTR_PERSON_CAPACITY, id.c_str(), parsedOk, 6, false);
+    const double parkingLength = attrs.getOpt<double>(SUMO_ATTR_PARKING_LENGTH, id.c_str(), parsedOk, 0, false);
+    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false, false);
+    // continue if flag is ok
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_TRAIN_STOP);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);

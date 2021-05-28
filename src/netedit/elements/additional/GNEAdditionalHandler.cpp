@@ -107,6 +107,15 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sum
 
 
 void 
+GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& /*id*/, 
+    const std::string &/*laneID*/, const std::string &/*startPos*/, const std::string &/*endPos*/, const std::string& /*name*/, 
+    const std::vector<std::string>& /*lines*/, const int /*personCapacity*/, const double /*parkingLength*/, const bool /*friendlyPosition*/, 
+    const std::map<std::string, std::string> &/*parameters*/) {
+    ///
+}
+
+
+void 
 GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &laneID, 
     const double pos, const double length, const bool friendlyPos, const std::map<std::string, std::string> &parameters) {
     // get lane
