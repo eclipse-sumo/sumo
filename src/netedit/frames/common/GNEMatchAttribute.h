@@ -107,8 +107,8 @@ private:
     /// @brief match string button
     FXButton* myMatchStringButton;
 
-    /// @brief vector with pairs of tags and strings
-    std::vector<std::pair<SumoXMLTag, const std::string> > myTagStringVector;
+    /// @brief vector with tagProperties and strings
+    std::vector<std::pair<GNETagProperties, std::string> > myTagPropertiesString;
 
     /// @brief Invalidated copy constructor.
     GNEMatchAttribute(const GNEMatchAttribute&) = delete;
