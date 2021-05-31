@@ -571,6 +571,18 @@ public:
     static bool fixE2DetectorPosition(double& pos, double& length, const double laneLength, const bool friendlyPos);
 
 protected:
+    /// @brief write error "duplicated additional"
+    void writeErrorDuplicated(const SumoXMLTag tag, const std::string &id) const;
+
+    /// @brief write error invalid parent element
+    void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent) const;
+
+    /// @brief parse edges
+    std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::vector<std::string>& edgeIDs) const;
+
+    /// @brief parse lanes
+    std::vector<GNELane*> parseLanes(const SumoXMLTag tag, const std::vector<std::string>& laneIDs) const;
+
     /// @brief struct for Netedit parameters
     struct NeteditParameters {
         /// @brief parameter constructor
