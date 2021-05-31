@@ -56,17 +56,23 @@ GNEDetectorE1Instant::isAdditionalValid() const {
 
 std::string
 GNEDetectorE1Instant::getAdditionalProblem() const {
-    // declare variable for error position
-    std::string errorPosition;
+    // obtain final lenght
     const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-    // check positions over lane
-    if (myPositionOverLane < -len) {
-        errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
+    // check if detector has a problem
+    if (GNEAdditionalHandler::checkSinglePositionOverLane(myPositionOverLane, len, myFriendlyPosition)) {
+        return "";
+    } else {
+        // declare variable for error position
+        std::string errorPosition;
+        // check positions over lane
+        if (myPositionOverLane < 0) {
+            errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
+        }
+        if (myPositionOverLane > len) {
+            errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
+        }
+        return errorPosition;
     }
-    if (myPositionOverLane > len) {
-        errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
-    }
-    return errorPosition;
 }
 
 
@@ -75,7 +81,7 @@ GNEDetectorE1Instant::fixAdditionalProblem() {
     // declare new position
     double newPositionOverLane = myPositionOverLane;
     // fix pos and length checkAndFixDetectorPosition
-    GNEAdditionalHandler::checkAndFixDetectorPosition(newPositionOverLane, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), true);
+    GNEAdditionalHandler::fixSinglePositionOverLane(newPositionOverLane, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
     // set new position
     setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
 }
