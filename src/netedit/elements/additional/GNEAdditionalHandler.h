@@ -66,7 +66,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildBusStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID,
-                      const std::string &startPos, const std::string &endPos, const std::string& name, const std::vector<std::string>& lines, 
+                      const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines, 
                       const int personCapacity, const double parkingLength, const bool friendlyPosition, const std::map<std::string, std::string> &parameters);
 
     /**@brief Builds a train stop
@@ -81,7 +81,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildTrainStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID,
-                        const std::string &startPos, const std::string &endPos, const std::string& name, const std::vector<std::string>& lines, 
+                        const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines, 
                         const int personCapacity, const double parkingLength, const bool friendlyPosition, const std::map<std::string, std::string> &parameters);
 
     /**@brief Builds an Access
@@ -108,7 +108,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
-                            const std::string &startPos, const std::string &endPos, const std::string& name, const std::vector<std::string>& lines, 
+                            const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines, 
                             const bool friendlyPosition, const std::map<std::string, std::string> &parameters);
 
     /**@brief Builds a charging Station
@@ -126,7 +126,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildChargingStation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
-                              const std::string &startPos, const std::string &endPos, const std::string& name, const double chargingPower, 
+                              const double startPos, const double endPos, const std::string& name, const double chargingPower, 
                               const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const bool friendlyPosition, 
                               const std::map<std::string, std::string> &parameters);
 
@@ -146,7 +146,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildParkingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
-                          const std::string &startPos, const std::string &endPos, const std::string &departPos, const std::string& name, 
+                          const double startPos, const double endPos, const std::string &departPos, const std::string& name, 
                           const bool friendlyPosition, const int roadSideCapacity, const bool onRoad, const double width, 
                           const double length, const double angle, const std::map<std::string, std::string> &parameters);
 
@@ -553,13 +553,36 @@ public:
     /// @brief check if an overlapping is produced in rerouter if a interval with certain begin and end is inserted
     static bool checkOverlappingRerouterIntervals(GNEAdditional* rerouter, SUMOTime newBegin, SUMOTime newEnd);
 
-    /**@brief check if the position of a detector over a lane is valid
-     * @param[in] pos pos position of detector
+    /**@brief check if the given position over a lane is valid
+     * @param[in] pos pos position of element over lane
      * @param[in] laneLength Length of the lane
-     * @param[in] friendlyPos Attribute of detector
-     * @return true if the detector position is valid, false in otherweise
+     * @param[in] friendlyPos Attribute of element
+     * @return true if the element position is valid, false in otherweise
      */
-    static bool checkAndFixDetectorPosition(double& pos, const double laneLength, const bool friendlyPos);
+    static bool checkSinglePositionOverLane(double pos, const double laneLength, const bool friendlyPos);
+
+    /**@brief fix given position over lane
+     * @param[in] pos pos position of element over lane
+     * @param[in] laneLength Length of the lane
+     */
+    /// @brief fix single position over lane
+    static void fixSinglePositionOverLane(double& pos, const double laneLength);
+
+    /**@brief check if the given positions over a lane is valid
+     * @param[in] from begin position of element over lane
+     * @param[in] to end position of element over lane
+     * @param[in] laneLength Length of the lane
+     * @param[in] friendlyPos Attribute of element
+     * @return true if the element positions is valid, false in otherweise
+     */
+    static bool checkDoublePositionOverLane(double from, double to, const double laneLength, const bool friendlyPos);
+
+    /**@brief fix the given positions over lane
+     * @param[in] from begin position of element over lane
+     * @param[in] to end position of element over lane
+     * @param[in] laneLength Length of the lane
+     */
+    static void fixDoublePositionOverLane(double& from, double to, const double laneLengt);
 
     /**@brief check if the position of a detector over a lane is valid
      * @param[in] startPos Start position of detector
@@ -573,6 +596,9 @@ public:
 protected:
     /// @brief write invalid id
     void writeInvalidID(const SumoXMLTag tag, const std::string &id) const;
+
+    /// @brief write error "invalid position"
+    void writeErrorInvalidPosition(const SumoXMLTag tag, const std::string &id) const;
 
     /// @brief write error "duplicated additional"
     void writeErrorDuplicated(const SumoXMLTag tag, const std::string &id) const;
