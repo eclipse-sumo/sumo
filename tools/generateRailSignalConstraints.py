@@ -397,12 +397,15 @@ def countPassingTrainsToOtherStops(options, signal, currentStop, begin, end, sig
 
 
 def markOvertaken(options, vehicleStopRoutes, stopRoutes):
-    # mark stops that should not participate in constraint generation
-    # once a vehice appears to be "overtaken" (based on inconsistent
-    # arrival/until timing), all subsequent stops of that vehicle should no
-    # longer be used for contraint generation
+    """
+    mark stops that should not participate in constraint generation
+    once a vehice appears to be "overtaken" (based on inconsistent
+    arrival/until timing), all subsequent stops of that vehicle should no
+    longer be used for contraint generation
+    """
     for vehicle, stopRoute in vehicleStopRoutes.items():
         overtaken = False
+        ignored = False
         for i, (edgesBefore, stop) in enumerate(stopRoute):
             if not (stop.hasAttribute("arrival") and stop.hasAttribute("until")):
                 continue
@@ -436,26 +439,29 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                                     # vehicle arrived after schedule follower
                                     or started2 < started)))):
                         overtaken = True
+                        ignored = started is None
+                        ignoredInfo = " and ignored afterwards" if started is None else ""
                         print(("Vehicle %s %s overtaken by %s %s " +
-                               "at stop %s (index %s) and ignored afterwards") %
+                               "at stop %s (index %s)%s") %
                               (stop.vehID, formatStopTimes(arrival, until, started, ended),
                                stop2.vehID, formatStopTimes(arrival2, until2, started2, ended2),
-                               stop.busStop, i),
+                               stop.busStop, i, ignoredInfo),
                               file=sys.stderr)
                         break
-                    elif until == until2 and hasParking:
+                    elif hasParking and (until == until2 or (ended is not None and ended == ended2)):
                         overtaken = True
+                        ignored = True
                         if stop.vehID < stop2.vehID:
                             # only warn once
                             print(("Ambiguous departure order at stop %s" +
-                                   " (index %s) for %svehicle %s (%s, %s)" +
-                                   " and %svehicle %s (%s, %s)." +
+                                   " (index %s) for %svehicle %s %s" +
+                                   " and %svehicle %s %s." +
                                    " No constraints will be generated for them afterwards") % (
                                 stop.busStop, i,
                                 'parking ' if parking else ' ',
-                                stop.vehID, humanReadableTime(arrival), humanReadableTime(until),
+                                stop.vehID, formatStopTimes(arrival, until, started, ended),
                                 'parking ' if parking2 else ' ',
-                                stop2.vehID, humanReadableTime(arrival2), humanReadableTime(until2),
+                                stop2.vehID,formatStopTimes(arrival2, until2, started2, ended2),
                             ),
                                 file=sys.stderr)
                         break
@@ -465,8 +471,51 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                 #        (stop.vehID, stop.busStop,
                 #            humanReadableTime(parseTime(stop.arrival)),
                 #            humanReadableTime(parseTime(stop.until))))
-                stop.setAttribute("invalid", True)
+                if not stop.hasAttribute("started"):
+                    stop.setAttribute("invalid", True)
+                    if not ignored:
+                        print("Vehicle %s was overtaken and starts to ignore schedule at stop %s (index %s)" %
+                            (stop.vehID, stop.busStop, i),
+                            file=sys.stderr)
+                        ignored = True
 
+def updateStartedEnded(options, stopRoutes):
+    """
+    replace arrival,until information with started,ended
+    """
+
+    maxShift = 0
+    for busStop, stops in stopRoutes.items():
+        latestKnownTime = 0
+        shift = 0
+        for edgesBefore, stop in stops:
+            if stop.hasAttribute("ended") and stop.hasAttribute("until"):
+                ended = parseTime(stop.ended)
+                if ended > latestKnownTime:
+                    latestKnownTime = ended
+                    shift = max(shift, ended - parseTime(stop.until))
+            elif stop.hasAttribute("started") and stop.hasAttribute("arrival"):
+                started = parseTime(stop.started)
+                if started > latestKnownTime:
+                    latestKnownTime = started
+                    shift = max(shift, started - parseTime(stop.arrival))
+        maxShift = max(maxShift, shift)
+
+        for edgesBefore, stop in stops:
+            if stop.hasAttribute("started"):
+                stop.arrival = stop.started
+            elif stop.hasAttribute("arrival"):
+                stop.arrival = str(parseTime(stop.arrival) + shift)
+            if stop.hasAttribute("ended"):
+                stop.until = stop.ended
+            elif stop.hasAttribute("until"):
+                stop.until = str(parseTime(stop.until) + shift)
+
+        if busStop == options.debugStop and shift > 0:
+            print("Shifted stop times at %s by %s" % (busStop, shift))
+
+    if options.verbose and maxShift > 0:
+        print("Shifted stop times by up to %s" % maxShift)
 
 def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
     """find stops that target the same busStop from different branches of the
@@ -842,11 +891,12 @@ def main(options):
     net = sumolib.net.readNet(options.netFile)
     stopEdges = getStopEdges(options.addFile)
     uniqueRoutes, stopRoutes, vehicleStopRoutes = getStopRoutes(options, stopEdges)
+    if options.abortUnordered:
+        markOvertaken(options, vehicleStopRoutes, stopRoutes)
+    updateStartedEnded(options, stopRoutes)
     mergeSwitches = findMergingSwitches(options, uniqueRoutes, net)
     signalTimes = computeSignalTimes(options, net, stopRoutes)
     switchRoutes, mergeSignals = findStopsAfterMerge(net, stopRoutes, mergeSwitches)
-    if options.abortUnordered:
-        markOvertaken(options, vehicleStopRoutes, stopRoutes)
     conflicts = findConflicts(options, switchRoutes, mergeSignals, signalTimes)
     foeInsertionConflicts = findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoutes)
     insertionConflicts = findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoutes)
