@@ -1,15 +1,14 @@
-# only schedule information
-basic
+# two trains
+simple
 
-# started and ended information is available for the first of two trains
-first_ended
+# two trains
+# 
+# test old style handing of post-facto timing data:
+# ended information is written as until, started is ignored
+simple_oldStyle
 
-# started and ended information is available for the second of two trains.
-# This implies an order swap.
-second_ended
+# with a train that is scheduled to wait for 3 others and is waited on by 3 more
+3stops
 
-# started and ended information is available for both trains
-both_ended
-
-# started and ended information is available for both trains and indicates swapped order
-both_ended_swapped
+# with a train that is scheduled to wait for 3 others and is waited on by 3 more (ended replaces until)
+3stops_oldStyle

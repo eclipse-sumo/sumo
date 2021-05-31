@@ -23,8 +23,3 @@ redundant
 # integrate schedule information with post-facto timing information 
 # arrival,until + started,ended
 started_ended
-
-# test old style handing of post-facto timing data:
-# ended information is written as until, started is ignored
-# 
-started_ended_oldStyle
