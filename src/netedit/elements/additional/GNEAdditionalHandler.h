@@ -571,6 +571,9 @@ public:
     static bool fixE2DetectorPosition(double& pos, double& length, const double laneLength, const bool friendlyPos);
 
 protected:
+    /// @brief write invalid id
+    void writeInvalidID(const SumoXMLTag tag, const std::string &id) const;
+
     /// @brief write error "duplicated additional"
     void writeErrorDuplicated(const SumoXMLTag tag, const std::string &id) const;
 

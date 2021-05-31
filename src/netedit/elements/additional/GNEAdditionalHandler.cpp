@@ -81,8 +81,10 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sum
     const std::string &laneID, const std::string &startPos, const std::string &endPos, const std::string& name, 
     const std::vector<std::string>& lines, const int personCapacity, const double parkingLength, const bool friendlyPosition, 
     const std::map<std::string, std::string> &parameters) {
-    // first check if busStop exist
-    if (myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, id, false) == nullptr) {
+    // check conditions
+    if (SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_BUS_STOP, id);
+    } else if (myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
@@ -160,8 +162,10 @@ void
 GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, 
     const std::string &laneID, const std::string &startPos, const std::string &endPos, const std::string& name, 
     const std::vector<std::string>& lines, const bool friendlyPosition, const std::map<std::string, std::string> &parameters) {
-    // first check if containerStop exist
-    if (myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, id, false) == nullptr) {
+    // check conditions
+    if (SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_CONTAINER_STOP, id);
+    } else if (myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
@@ -195,8 +199,10 @@ GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObj
     const std::string &laneID, const std::string &startPos, const std::string &endPos, const std::string& name, const double chargingPower, 
     const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const bool friendlyPosition, 
     const std::map<std::string, std::string> &parameters) {
-    // first check if containerStop exist
-    if (myNet->retrieveAdditional(SUMO_TAG_CHARGING_STATION, id, false) == nullptr) {
+    // check conditions
+    if (SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_CHARGING_STATION, id);
+    } else if (myNet->retrieveAdditional(SUMO_TAG_CHARGING_STATION, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
@@ -230,8 +236,10 @@ void
 GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
     const std::string &startPos, const std::string &endPos, const std::string &departPos, const std::string& name, const bool friendlyPosition, 
     const int roadSideCapacity, const bool onRoad, const double width, const double length, const double angle, const std::map<std::string, std::string> &parameters) {
-    // first check if parkingArea exist
-    if (myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, id, false) == nullptr) {
+    // check conditions
+    if (SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_PARKING_AREA, id);
+    } else if (myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
@@ -294,8 +302,10 @@ void
 GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id, const std::string &laneID, 
     const double position, const SUMOTime frequency, const std::string &file, const std::vector<std::string> &vehicleTypes, const std::string &name, const bool friendlyPos, 
     const std::map<std::string, std::string> &parameters) {
-    // first check if E1 exist
-    if (myNet->retrieveAdditional(SUMO_TAG_E1DETECTOR, id, false) == nullptr) {
+    // check conditions
+    if (SUMOXMLDefinitions::isValidDetectorID(id)) {
+        writeInvalidID(SUMO_TAG_E1DETECTOR, id);
+    } else if (myNet->retrieveAdditional(SUMO_TAG_E1DETECTOR, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
@@ -328,8 +338,10 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
     const double pos, const double length, const std::string& freq, const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, 
     const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold, const bool friendlyPos, 
     const std::map<std::string, std::string> &parameters) {
-    // first check if E2 exist
-    if ((myNet->retrieveAdditional(SUMO_TAG_E2DETECTOR, id, false) == nullptr) && 
+    // check conditions
+    if (SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_E2DETECTOR, id);
+    } else if ((myNet->retrieveAdditional(SUMO_TAG_E2DETECTOR, id, false) == nullptr) && 
         (myNet->retrieveAdditional(GNE_TAG_E2DETECTOR_MULTILANE, id, false) == nullptr)) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -365,8 +377,10 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
     const double pos, const double endPos, const std::string& freq, const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, 
     const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold, const bool friendlyPos, 
     const std::map<std::string, std::string> &parameters) {
-    // first check if Multilane E2 exist
-    if ((myNet->retrieveAdditional(SUMO_TAG_E2DETECTOR, id, false) == nullptr) && 
+    // check conditions
+    if (SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_E2DETECTOR, id);
+    } else if ((myNet->retrieveAdditional(SUMO_TAG_E2DETECTOR, id, false) == nullptr) && 
         (myNet->retrieveAdditional(GNE_TAG_E2DETECTOR_MULTILANE, id, false) == nullptr)) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -401,8 +415,10 @@ void
 GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, const SUMOTime freq, 
     const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, const double speedThreshold, 
     const std::map<std::string, std::string> &parameters) {
-    // first check if E1 exist
-    if (myNet->retrieveAdditional(SUMO_TAG_E3DETECTOR, id, false) == nullptr) {
+    // check conditions
+    if (SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_E3DETECTOR, id);
+    } else if (myNet->retrieveAdditional(SUMO_TAG_E3DETECTOR, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // build E3
@@ -489,8 +505,10 @@ GNEAdditionalHandler::buildDetectorExit(const CommonXMLStructure::SumoBaseObject
 void 
 GNEAdditionalHandler::buildDetectorE1Instant(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, double pos, 
     const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, const bool friendlyPos, const std::map<std::string, std::string> &parameters) {
-    // check if E1 instant exist
-    if (myNet->retrieveAdditional(SUMO_TAG_INSTANT_INDUCTION_LOOP, id, false) == nullptr) {
+    // check conditions
+    if (SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_INSTANT_INDUCTION_LOOP, id);
+    } else if (myNet->retrieveAdditional(SUMO_TAG_INSTANT_INDUCTION_LOOP, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
@@ -522,8 +540,10 @@ void
 GNEAdditionalHandler::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, const double pos, 
     const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe, const double jamThreshold, const std::vector<std::string> &vTypes, 
     const std::map<std::string, std::string> &parameters) {
-    // check if lane calibrator exist
-    if ((myNet->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) == nullptr) && 
+    // check conditions
+    if (SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_CALIBRATOR, id);
+    } else if ((myNet->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) == nullptr) && 
         (myNet->retrieveAdditional(SUMO_TAG_LANECALIBRATOR, id, false) == nullptr)) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -560,8 +580,10 @@ void
 GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &edgeID, const double pos, 
     const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe, const double jamThreshold, const std::vector<std::string> &vTypes, 
     const std::map<std::string, std::string> &parameters) {
-    // check if lane calibrator exist
-    if ((myNet->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) == nullptr) && 
+    // check conditions
+    if (SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_CALIBRATOR, id);
+    } else if ((myNet->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) == nullptr) && 
         (myNet->retrieveAdditional(SUMO_TAG_LANECALIBRATOR, id, false) == nullptr)) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -635,8 +657,10 @@ void
 GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, 
     const std::vector<std::string>& edgeIDs, const double prob, const std::string& name, const std::string& file, const bool off, const SUMOTime timeThreshold, 
     const std::vector<std::string>& vTypes, const std::map<std::string, std::string> &parameters) {
-    // check if lane calibrator exist
-    if (myNet->retrieveAdditional(SUMO_TAG_REROUTER, id, false) == nullptr) {
+    // check conditions
+    if (SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_REROUTER, id);
+    } else if (myNet->retrieveAdditional(SUMO_TAG_REROUTER, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // parse edges
@@ -863,8 +887,10 @@ GNEAdditionalHandler::buildRouteProbReroute(const CommonXMLStructure::SumoBaseOb
 void 
 GNEAdditionalHandler::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &edgeID, const SUMOTime freq, 
     const std::string& name, const std::string& file, const SUMOTime begin, const std::map<std::string, std::string> &parameters) {
-    // check if routeprobe exist
-    if (myNet->retrieveAdditional(SUMO_TAG_ROUTEPROBE, id, false) == nullptr) {
+    // check conditions
+    if (SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_ROUTEPROBE, id);
+    } else if (myNet->retrieveAdditional(SUMO_TAG_ROUTEPROBE, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get edge
@@ -899,8 +925,10 @@ GNEAdditionalHandler::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* 
 void
 GNEAdditionalHandler::buildVariableSpeedSign(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, 
     const std::vector<std::string>& laneIDs, const std::string& name, const std::map<std::string, std::string> &parameters) {
-    // check if VSS exist
-    if (myNet->retrieveAdditional(SUMO_TAG_VSS, id, false) == nullptr) {
+    /// check conditions
+    if (SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_VSS, id);
+    } else if (myNet->retrieveAdditional(SUMO_TAG_VSS, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // parse lanes
@@ -964,8 +992,10 @@ GNEAdditionalHandler::buildVariableSpeedSignStep(const CommonXMLStructure::SumoB
 void 
 GNEAdditionalHandler::buildVaporizer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, const SUMOTime from, 
     const SUMOTime endTime, const std::string& name, const std::map<std::string, std::string> &parameters) {
-    // check if Vaporizer exist
-    if (myNet->retrieveAdditional(SUMO_TAG_VAPORIZER, edgeID, false) == nullptr) {
+    // check conditions
+    if (SUMOXMLDefinitions::isValidAdditionalID(edgeID)) {
+        writeInvalidID(SUMO_TAG_VAPORIZER, edgeID);
+    } else if (myNet->retrieveAdditional(SUMO_TAG_VAPORIZER, edgeID, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get edge
@@ -1000,8 +1030,10 @@ GNEAdditionalHandler::buildVaporizer(const CommonXMLStructure::SumoBaseObject* s
 void 
 GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape, 
     const RGBColor& color, const std::vector<std::string>& edgeIDs, const std::string& name, const std::map<std::string, std::string> &parameters) {
-    // check if VSS exist
-    if (myNet->retrieveTAZElement(SUMO_TAG_TAZ, id, false) == nullptr) {
+    // check TAZ
+    if (SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_TAZ, id);
+    } else if (myNet->retrieveTAZElement(SUMO_TAG_TAZ, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // parse edges
@@ -1192,8 +1224,10 @@ void
 GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
     const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape, bool geo, bool fill, 
     double lineWidth, const std::string& name, const std::map<std::string, std::string> &parameters) {
-    // check if poly exist
-    if (myNet->retrieveShape(SUMO_TAG_POLY, id, false) == nullptr) {
+    // check conditions
+    if (SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_POLY, id);
+    } else if (myNet->retrieveShape(SUMO_TAG_POLY, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create poly
@@ -1218,8 +1252,10 @@ void
 GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
     const RGBColor& color, const double x, const double y, double layer, double angle, const std::string& imgFile, bool relativePath, 
     double width, double height, const std::string& name, const std::map<std::string, std::string> &parameters) {
-    // check if ID is duplicated
-    if (myNet->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) {
+    // check conditions
+    if (SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_POI, id);
+    } else if (myNet->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) {
          // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create POI
@@ -1244,8 +1280,10 @@ void
 GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
     const RGBColor& color, const std::string& laneID, double posOverLane, double posLat, double layer, double angle, const std::string& imgFile, 
     bool relativePath, double width, double height, const std::string& name, const std::map<std::string, std::string> &parameters) {
-    // check if ID is duplicated
-    if (myNet->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) {
+    // check conditions
+    if (SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_POI, id);
+    } else if (myNet->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
@@ -1278,8 +1316,10 @@ void
 GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
     const RGBColor& color, const double lon, const double lat, double layer, double angle, const std::string& imgFile, bool relativePath, 
     double width, double height, const std::string& name, const std::map<std::string, std::string> &parameters) {
-    // check if ID is duplicated
-    if (myNet->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) {
+    // check conditions
+    if (SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_POI, id);
+    } else if (myNet->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) {
          // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create POIGEO
@@ -1373,6 +1413,11 @@ GNEAdditionalHandler::fixE2DetectorPosition(double& pos, double& length, const d
     return true;
 }
 
+
+void 
+GNEAdditionalHandler::writeInvalidID(const SumoXMLTag tag, const std::string &id) const {
+    WRITE_ERROR("Could not build " + toString(tag) + " with ID '" + id + "' in netedit; ID contains invalid characters.");
+}
 
 void
 GNEAdditionalHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string &id) const {
