@@ -102,7 +102,7 @@ A vehicle may be defined using the following attributes:
 ## Repeated vehicles (Flows)
 
 It is possible to define repeated vehicle emissions ("flow"s), which
-have the same parameters as the vehicle except for the departure time.
+have the same parameters as the vehicle or trip definitions except for the departure time.
 The id of the created vehicles is "flowId.runningNumber" and they are
 distributed either equally or randomly in the given interval. The
 following additional parameters are known:
@@ -116,9 +116,20 @@ following additional parameters are known:
 | probability    | float(\[0,1\]) | probability for emitting a vehicle each second (not together with vehsPerHour or period), see also [Simulation/Randomness](Simulation/Randomness.md#flows_with_a_random_number_of_vehicles) |
 | number         | int(\#)        | total number of vehicles, equally spaced                                                                                                                                                            |
 
+Flow can define their route explicitly (like vehicles) or with from,to,via (like trips):
+
 ```xml
 <flow id="type1" color="1,1,0"  begin="0" end= "7200" period="900" type="BUS">
     <route edges="beg middle end rend"/>
+    <stop busStop="station1" duration="30"/>
+</flow>
+
+<route id="route1" edges="beg middle end rend"/>
+<flow id="type2" color="1,1,0"  begin="0" end= "7200" period="900" type="BUS" route="route1">
+    <stop busStop="station1" duration="30"/>
+</flow>
+
+<flow id="type3" color="1,1,0"  begin="0" end= "7200" period="900" type="BUS" from="beg" to="end">    
     <stop busStop="station1" duration="30"/>
 </flow>
 ```
