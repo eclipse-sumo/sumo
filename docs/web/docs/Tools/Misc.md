@@ -211,5 +211,6 @@ python tools/stateReplay --sumo-config replay.sumocfg --src REMOTE_FOLDER --dst 
 
 The given .sumocfg file only needs to include the network and any additional infrastructure referenced by the remote simulation. The value of REMOTE_FOLDER can be any folder as understood by rsync (i.e. remotehost:~/myfolder)
 
-
+!!! caution
+    Option **--save-state.period 1** can slow down a simulation significantly.
 
