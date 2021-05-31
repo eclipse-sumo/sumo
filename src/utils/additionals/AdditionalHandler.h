@@ -66,7 +66,7 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildBusStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID,
-                              const std::string &startPos, const std::string &endPos, const std::string& name, const std::vector<std::string>& lines, 
+                              const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines, 
                               const int personCapacity, const double parkingLength, const bool friendlyPosition, const std::map<std::string, std::string> &parameters) = 0;
 
     /**@brief Builds a train stop
@@ -81,7 +81,7 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildTrainStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID,
-                                const std::string &startPos, const std::string &endPos, const std::string& name, const std::vector<std::string>& lines, 
+                                const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines, 
                                 const int personCapacity, const double parkingLength, const bool friendlyPosition, const std::map<std::string, std::string> &parameters) = 0;
 
     /**@brief Builds an Access
@@ -108,7 +108,7 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
-                                    const std::string &startPos, const std::string &endPos, const std::string& name, const std::vector<std::string>& lines, 
+                                    const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines, 
                                     const bool friendlyPosition, const std::map<std::string, std::string> &parameters) = 0;
 
     /**@brief Builds a charging Station
@@ -126,7 +126,7 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildChargingStation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
-                                      const std::string &startPos, const std::string &endPos, const std::string& name, const double chargingPower, 
+                                      const double startPos, const double endPos, const std::string& name, const double chargingPower, 
                                       const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const bool friendlyPosition, 
                                       const std::map<std::string, std::string> &parameters) = 0;
 
@@ -146,7 +146,7 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual void buildParkingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
-                                  const std::string &startPos, const std::string &endPos, const std::string &departPos, const std::string& name, 
+                                  const double startPos, const double endPos, const std::string &departPos, const std::string& name, 
                                   const bool friendlyPosition, const int roadSideCapacity, const bool onRoad, const double width, 
                                   const double length, const double angle, const std::map<std::string, std::string> &parameters) = 0;
 
