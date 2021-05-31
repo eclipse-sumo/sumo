@@ -1401,7 +1401,7 @@ GNEAttributeCarrier::fillAdditionals() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_PERSON_CAPACITY,
                                               GNEAttributeProperties::INT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
                                               "Meant to be the names of the bus lines that stop at this bus stop. This is only used for visualization purposes",
-                                              "-1");
+                                              "6");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING_LENGTH,
