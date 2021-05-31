@@ -75,6 +75,15 @@ The following order of steps is taken to retrieve the travel time for each edge.
 The [smoothed travel times](../Demand/Automatic_Routing.md#edge_weights) computed for
 the *rerouting device* are used. Note, that these can also be modified via TraCI.
 
+## Randomimzed travel times
+
+[Sumo](../sumo.md) and [duarouter](../duarouter.md) support option **--weights.random-factor FLOAT**. When this option is set, edge weights (i.e. traveltimes) for routing are dynamically disturbed by a random factor drawn uniformly from `[1,FLOAT)`. The value of FLOAT thereby sets an upper bound on the difference in travel time between the actual fastest path and the routing result. With a value of `2`. The result will have twice the travel time / cost of the optimal path in the worst case (In the unlikely event where all edges of the fastest path happen to get a disturbance factor of 2). 
+
+Randomized edge weights can be useful in grid networks where there are many paths have the same (or almost the same) travel cost and the default routing algorithm would send all vehicles on the same path. It can also be used to model imperfection in travel time estimation.
+
+!!! caution
+    By default, runs with the same inputs will still yield the same outcome. To vary the randomness between runs, options [--seed or --random](Randomness.md#random_number_generation_rng) must be used.
+
 ## Special cases
 
 - When rerouting with the *rerouting device* the travel time always
