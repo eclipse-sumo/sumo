@@ -60,8 +60,22 @@ arrival and until times:
 
 Given two vehicles A and B which stop at the same location, if A arrives at the
 stop later than B, but A also leaves earlier than B, then B is "overtaken" by A.
-In this case no constraints will be generated for B for this stop and any
-subsequent stops (neither predecessor nor insertionPredecessor)
+The stop of A and all subsequent stops of A are marked as invalid and will not
+participate in constraint generation.
+
+If two vehicles have a 'parking'-stop with the same 'until' time at the same
+location, their stops will also be marked as invalid since the simulation cannot
+enforce an order in this case (and local desired order is ambiguous).
+
+
+== Further Options ==
+If constraints shall be modified during the simulation (traci.trafficlight.swapConstraints)
+it may be useful to add additional constraints which would otherwise be
+redundant. This can be accomplished by setting option --redundant with a time
+range. When set, trains that follow a constrained train within the given time
+range (and which would normally be constrained implicitly by their leading
+train) will also receive a constraint. In this case option --limit must be used
+to ensure that all constraint foe vehicles are recorded during the simulation.
 
 """
 
