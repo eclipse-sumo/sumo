@@ -67,6 +67,23 @@ If two vehicles have a 'parking'-stop with the same 'until' time at the same
 location, their stops will also be marked as invalid since the simulation cannot
 enforce an order in this case (and local desired order is ambiguous).
 
+== Post-Facto Stop Timings ==
+
+When simulating the past (i.e. to predict the future), additional timing data
+besides the scheduled arrival and until times may be available and included in
+the 'started' and 'ended' attributes for each stop.
+They can be used to detect changes in train order that occured during the actual
+train operation and which must be taken into account during constraint
+generation to avoid deadlock.
+If train A has 'started' information for a
+stop while train B has not, this implies that A has reached the stop ahead of B.
+Likewise, both trains may have 'started' information but in the reverse order
+compared to the schedule.
+For all stops with complete started,ended information, those times can be used
+as an updated schedule (replacing arrival and until). However, if an order
+reversal was detected for a train, no constraints based on the old schedule
+should be generated anymore (stops are ignored after started,ended information ends)
+
 
 == Further Options ==
 If constraints shall be modified during the simulation (traci.trafficlight.swapConstraints)
@@ -162,6 +179,14 @@ def get_options(args=None):
 
     return options
 
+def formatStopTimes(arrival, until, started, ended):
+    times = [arrival, until]
+    if started is not None:
+        times.append(started)
+    if ended is not None:
+        assert(started is not None)
+        times.append(ended)
+    return "(%s)" % ', '.join(map(humanReadableTime, times))
 
 class Conflict:
     def __init__(self, tripID, otherSignal, otherTripID, limit, line, otherLine,
@@ -385,6 +410,8 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
             if not overtaken:
                 arrival = parseTime(stop.arrival)
                 until = parseTime(stop.until)
+                started = parseTime(stop.started) if stop.hasAttribute("started") else None
+                ended = parseTime(stop.ended) if stop.hasAttribute("ended") else None
                 for edgesBefore2, stop2 in stopRoutes[stop.busStop]:
                     if stop2.vehID == stop.vehID:
                         continue
@@ -394,16 +421,25 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                     hasParking = parking or parking2
                     arrival2 = parseTime(stop2.arrival)
                     until2 = parseTime(stop2.until)
+                    started2 = parseTime(stop2.started) if stop2.hasAttribute("started") else None
+                    ended2 = parseTime(stop2.ended) if stop2.hasAttribute("ended") else None
                     # if parking stops have the same until-time their depart order
                     # is undefined so we could get deadlocks
                     if options.skipParking and hasParking and until != until2:
                         continue
-                    if arrival2 > arrival and until2 < until:
+                    if (arrival2 > arrival and (
+                            # legacy: until replaced by ended
+                            until2 < until or
+                            (started2 is not None
+                                # vehicle had not arrived but it's schedule follower had
+                                and (started is None
+                                    # vehicle arrived after schedule follower
+                                    or started2 < started)))):
                         overtaken = True
-                        print(("Vehicle %s (%s, %s) overtaken by %s (%s, %s) " +
+                        print(("Vehicle %s %s overtaken by %s %s " +
                                "at stop %s (index %s) and ignored afterwards") %
-                              (stop.vehID, humanReadableTime(arrival), humanReadableTime(until),
-                               stop2.vehID, humanReadableTime(arrival2), humanReadableTime(until2),
+                              (stop.vehID, formatStopTimes(arrival, until, started, ended),
+                               stop2.vehID, formatStopTimes(arrival2, until2, started2, ended2),
                                stop.busStop, i),
                               file=sys.stderr)
                         break
@@ -411,7 +447,7 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                         overtaken = True
                         if stop.vehID < stop2.vehID:
                             # only warn once
-                            print(("Undefined departure at stop %s" +
+                            print(("Ambiguous departure order at stop %s" +
                                    " (index %s) for %svehicle %s (%s, %s)" +
                                    " and %svehicle %s (%s, %s)." +
                                    " No constraints will be generated for them afterwards") % (
