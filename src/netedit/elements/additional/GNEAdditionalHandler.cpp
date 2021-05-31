@@ -1505,7 +1505,7 @@ GNEAdditionalHandler::fixDoublePositionOverLane(double& from, double &to, const 
 
 bool 
 GNEAdditionalHandler::checkE2SingleLanePosition(double from, double to, const double laneLength, const bool friendlyPos) {
-
+    return false;
 }
 
 
@@ -1517,7 +1517,7 @@ GNEAdditionalHandler::fixE2SingleLanePosition(double &pos, double &length, const
 
 bool 
 GNEAdditionalHandler::checkE2MultiLanePosition(double from, const double fromLaneLength, double to, const double TolaneLength, const bool friendlyPos) {
-
+    return false;
 }
 
 
