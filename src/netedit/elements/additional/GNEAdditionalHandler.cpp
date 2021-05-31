@@ -94,11 +94,11 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sum
         // check lane
         if (lane == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_BUS_STOP, SUMO_TAG_LANE);
-        } else if (!checkDoublePositionOverLane(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
+        } else if (!checkDoublePositionOverLane((startPos), (endPos), lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
             writeErrorInvalidPosition(SUMO_TAG_BUS_STOP, id);
         } else {
             // build busStop
-            GNEAdditional* busStop = new GNEBusStop(id, lane, myNet, startPos, endPos, name, lines, personCapacity, 
+            GNEAdditional* busStop = new GNEBusStop(id, lane, myNet, toString(startPos), toString(endPos), name, lines, personCapacity, 
                                                     parkingLength, friendlyPosition, parameters, neteditParameters.blockMovement);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
@@ -179,11 +179,11 @@ GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObjec
         // check lane
         if (lane == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_CONTAINER_STOP, SUMO_TAG_LANE);
-        } else if (!checkDoublePositionOverLane(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
+        } else if (!checkDoublePositionOverLane((startPos), (endPos), lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
             writeErrorInvalidPosition(SUMO_TAG_CONTAINER_STOP, id);
         } else {
             // build containerStop
-            GNEAdditional* containerStop = new GNEContainerStop(id, lane, myNet, startPos, endPos, name, lines, friendlyPosition, 
+            GNEAdditional* containerStop = new GNEContainerStop(id, lane, myNet, toString(startPos), toString(endPos), name, lines, friendlyPosition, 
                                                                 parameters, neteditParameters.blockMovement);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
@@ -218,11 +218,11 @@ GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObj
         // check lane
         if (lane == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_CHARGING_STATION, SUMO_TAG_LANE);
-        } else if (!checkDoublePositionOverLane(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
+        } else if (!checkDoublePositionOverLane((startPos), (endPos), lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
             writeErrorInvalidPosition(SUMO_TAG_CHARGING_STATION, id);
         } else {
             // build chargingStation
-            GNEAdditional* chargingStation = new GNEChargingStation(id, lane, myNet, startPos, endPos, name, chargingPower, efficiency, chargeInTransit, 
+            GNEAdditional* chargingStation = new GNEChargingStation(id, lane, myNet, toString(startPos), toString(endPos), name, chargingPower, efficiency, chargeInTransit, 
                                                                     chargeDelay, friendlyPosition, parameters, neteditParameters.blockMovement);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
@@ -257,11 +257,11 @@ GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject*
         // check lane
         if (lane == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_PARKING_AREA, SUMO_TAG_LANE);
-        } else if (!checkDoublePositionOverLane(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
+        } else if (!checkDoublePositionOverLane((startPos), (endPos), lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
             writeErrorInvalidPosition(SUMO_TAG_PARKING_AREA, id);
         } else {
             // build parkingArea
-            GNEAdditional* parkingArea = new GNEParkingArea(id, lane, myNet, startPos, endPos, departPos, name, friendlyPosition, roadSideCapacity,
+            GNEAdditional* parkingArea = new GNEParkingArea(id, lane, myNet, toString(startPos), toString(endPos), departPos, name, friendlyPosition, roadSideCapacity,
                                                             onRoad, width, length, angle, parameters, neteditParameters.blockMovement);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
@@ -364,7 +364,7 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
         // check lane
         if (lane == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_E2DETECTOR, SUMO_TAG_LANE);
-        } else if (!checkSinglePositionOverLane(pos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
+        } else if (!checkE2SingleLanePosition(pos, length, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
             writeErrorInvalidPosition(SUMO_TAG_E2DETECTOR, id);
         } else {
             // build E2 single lane
@@ -404,24 +404,28 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
         std::vector<GNELane*> lanes = parseLanes(SUMO_TAG_E2DETECTOR, laneIDs);
         // chek lanes
         if (lanes.size() > 0) {
-
-/* CHECK E2 Multilane Position*/
+            if (!checkE2MultiLanePosition(
+                pos, lanes.front()->getParentEdge()->getNBEdge()->getFinalLength(), 
+                endPos, lanes.back()->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
+                writeErrorInvalidPosition(SUMO_TAG_E2DETECTOR, id);
+            } else {
 
             // build E2 multilane detector
             GNEAdditional* detectorE2 = new GNEDetectorE2(id, lanes, myNet, pos, endPos, freq, trafficLight, filename, 
                                                           vehicleTypes, name, timeThreshold, speedThreshold, jamThreshold, 
                                                           friendlyPos, parameters, neteditParameters.blockMovement);
-            // insert depending of allowUndoRedo
-            if (myAllowUndoRedo) {
+                // insert depending of allowUndoRedo
+                if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_E2DETECTOR_MULTILANE));
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(detectorE2, true), true);
                 myNet->getViewNet()->getUndoList()->p_end();
-            } else {
+                } else {
                 myNet->getAttributeCarriers()->insertAdditional(detectorE2);
                 for (const auto& lane : lanes) {
-                    lane->addChildElement(detectorE2);
+                lane->addChildElement(detectorE2);
                 }
                 detectorE2->incRef("buildDetectorE2Multilane");
+                }
             }
         }
     } else {
@@ -1468,7 +1472,7 @@ GNEAdditionalHandler::checkDoublePositionOverLane(double from, double to, const 
 
 
 void 
-GNEAdditionalHandler::fixDoublePositionOverLane(double& from, double to, const double laneLength) {
+GNEAdditionalHandler::fixDoublePositionOverLane(double& from, double &to, const double laneLength) {
     // adjust from (negative means that start at the end of lane and count backward)
     if (from < 0) {
         from += laneLength;
@@ -1500,20 +1504,26 @@ GNEAdditionalHandler::fixDoublePositionOverLane(double& from, double to, const d
 
 
 bool 
-GNEAdditionalHandler::fixE2DetectorPosition(double& pos, double& length, const double laneLength, const bool friendlyPos) {
-    if ((pos < 0) || ((pos + length) > laneLength)) {
-        if (!friendlyPos) {
-            return false;
-        } else if (pos < 0) {
-            pos = 0;
-        } else if (pos > laneLength) {
-            pos = laneLength - 0.01;
-            length = 0;
-        } else if ((pos + length) > laneLength) {
-            length = laneLength - pos - 0.01;
-        }
-    }
-    return true;
+GNEAdditionalHandler::checkE2SingleLanePosition(double from, double to, const double laneLength, const bool friendlyPos) {
+
+}
+
+
+void 
+GNEAdditionalHandler::fixE2SingleLanePosition(double &pos, double &length, const double laneLengt) {
+
+}
+
+
+bool 
+GNEAdditionalHandler::checkE2MultiLanePosition(double from, const double fromLaneLength, double to, const double TolaneLength, const bool friendlyPos) {
+
+}
+
+
+void
+GNEAdditionalHandler::fixE2MultiLanePosition(double &from, const double fromLaneLength, double &to, const double TolaneLength, const double laneLengt) {
+
 }
 
 

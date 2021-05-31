@@ -582,16 +582,39 @@ public:
      * @param[in] to end position of element over lane
      * @param[in] laneLength Length of the lane
      */
-    static void fixDoublePositionOverLane(double& from, double to, const double laneLengt);
+    static void fixDoublePositionOverLane(double& from, double &to, const double laneLengt);
 
-    /**@brief check if the position of a detector over a lane is valid
-     * @param[in] startPos Start position of detector
-     * @param[in] length length of detector
+    /**@brief check if the given positions over a lane is valid
+     * @param[in] from begin position of element over lane
+     * @param[in] to end position of element over lane
      * @param[in] laneLength Length of the lane
-     * @param[in] friendlyPos Attribute of detector
-     * @return true if the detector position is valid, false in otherweise
+     * @param[in] friendlyPos Attribute of element
+     * @return true if the element positions is valid, false in otherweise
      */
-    static bool fixE2DetectorPosition(double& pos, double& length, const double laneLength, const bool friendlyPos);
+    static bool checkE2SingleLanePosition(double from, double to, const double laneLength, const bool friendlyPos);
+
+    /**@brief fix the given positions over lane
+     * @param[in] from begin position of element over lane
+     * @param[in] to end position of element over lane
+     * @param[in] laneLength Length of the lane
+     */
+    static void fixE2SingleLanePosition(double &pos, double &length, const double laneLengt);
+
+    /**@brief check if the given positions over a lane is valid
+     * @param[in] from begin position of element over lane
+     * @param[in] to end position of element over lane
+     * @param[in] laneLength Length of the lane
+     * @param[in] friendlyPos Attribute of element
+     * @return true if the element positions is valid, false in otherweise
+     */
+    static bool checkE2MultiLanePosition(double from, const double fromLaneLength, double to, const double TolaneLength, const bool friendlyPos);
+
+    /**@brief fix the given positions over lane
+     * @param[in] from begin position of element over lane
+     * @param[in] to end position of element over lane
+     * @param[in] laneLength Length of the lane
+     */
+    static void fixE2MultiLanePosition(double &from, const double fromLaneLength, double &to, const double TolaneLength, const double laneLengt);
 
 protected:
     /// @brief write invalid id
