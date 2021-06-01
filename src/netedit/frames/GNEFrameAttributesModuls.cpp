@@ -2581,8 +2581,8 @@ GNEFrameAttributesModuls::NeteditAttributes::getNeteditAttributesAndValues(Commo
                 // obtain length
                 double length = GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
                 // set start and end position
-                baseObject->addStringAttribute(SUMO_ATTR_STARTPOS, toString(setStartPosition(mousePositionOverLane, length)));
-                baseObject->addStringAttribute(SUMO_ATTR_ENDPOS, toString(setEndPosition(mousePositionOverLane, length)));
+                baseObject->addDoubleAttribute(SUMO_ATTR_STARTPOS, setStartPosition(mousePositionOverLane, length));
+                baseObject->addDoubleAttribute(SUMO_ATTR_ENDPOS, setEndPosition(mousePositionOverLane, length));
             }
         } else {
             return false;
