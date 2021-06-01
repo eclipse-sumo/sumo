@@ -524,6 +524,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         const int offsetFactor = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
         LaneSpreadFunction lsf = (addBackward || OptionsCont::getOptions().getBool("osm.oneway-spread-right")) &&
                                  e->myRailDirection == WAY_UNKNOWN ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
+        if (addBackward && lsf == LaneSpreadFunction::RIGHT && OptionsCont::getOptions().getString("default.spreadtype") == toString(LaneSpreadFunction::ROADCENTER)) {
+            lsf = LaneSpreadFunction::ROADCENTER;
+        }
 
         id = StringUtils::escapeXML(id);
         const std::string reverseID = "-" + id;
