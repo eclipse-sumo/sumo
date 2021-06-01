@@ -44,8 +44,8 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, const std::string& startPos, 
-                     const std::string& endPos, const std::string& name, bool friendlyPosition, const std::map<std::string, std::string> &parameters,
+    GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, const double startPos, 
+                     const double endPos, const std::string& name, bool friendlyPosition, const std::map<std::string, std::string> &parameters,
                      bool blockMovement);
 
     /// @brief Destructor
@@ -134,11 +134,11 @@ public:
     /// @}
 
 protected:
-    /// @brief The relative start position this stopping place is located at (optional, if empty takes 0)
-    std::string myStartPosition;
+    /// @brief The relative start position this stopping place is located at (-1 means empty)
+    double myStartPosition;
 
-    /// @brief The  position this stopping place is located at (optional, if empty takes the lane length)
-    std::string myEndPosition;
+    /// @brief The  position this stopping place is located at (-1 means empty)
+    double myEndPosition;
 
     /// @brief Flag for friendly position
     bool myFriendlyPosition;
