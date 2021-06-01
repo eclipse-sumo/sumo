@@ -137,4 +137,7 @@ ticket8155_orig
 # import vehicle:lanes, vehicle:lanes:forward, vehicle:lanes:backward
 vehicle_lanes
 motorway_ramp_prohibitChange
+
+# change default to roadCenter
+spreadType
 bugs
