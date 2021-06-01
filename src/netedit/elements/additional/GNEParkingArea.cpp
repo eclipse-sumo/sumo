@@ -33,7 +33,7 @@
 // method definitions
 // ===========================================================================
 
-GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const std::string &startPos, const std::string &endPos,
+GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
         const std::string& departPos, const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, 
         const double length, double angle, const std::map<std::string, std::string> &parameters, bool blockMovement) :
     GNEStoppingPlace(id, net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, lane, startPos, endPos, name, friendlyPosition, parameters, blockMovement),
@@ -167,9 +167,17 @@ GNEParkingArea::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         case SUMO_ATTR_STARTPOS:
-            return myStartPosition;
+            if (myStartPosition != INVALID_DOUBLE) {
+                return toString(myStartPosition);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_ENDPOS:
-            return myEndPosition;
+            if (myEndPosition != INVALID_DOUBLE) {
+                return toString(myEndPosition);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_DEPARTPOS:
             return myDepartPos;
         case SUMO_ATTR_NAME:
@@ -333,12 +341,20 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_STARTPOS:
-            myStartPosition = value;
+            if (value == "") {
+                myStartPosition = INVALID_DOUBLE;
+            } else {
+                myStartPosition = parse<double>(value);
+            }
             // update boundary
             updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_ENDPOS:
-            myEndPosition = value;
+            if (value == "") {
+                myEndPosition = INVALID_DOUBLE;
+            } else {
+                myEndPosition = parse<double>(value);
+            }
             // update boundary
             updateCenteringBoundary(true);
             break;

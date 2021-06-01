@@ -146,7 +146,7 @@ GNEDetectorE2::fixAdditionalProblem() {
         double newPositionOverLane = myPositionOverLane;
         double newLength = myLength;
         // fix pos and length using fixE2DetectorPosition
-        GNEAdditionalHandler::fixE2SingleLanePosition(newPositionOverLane, newLength, getParentLanes().at(0)->getParentEdge()->getNBEdge()->getFinalLength(), true);
+        GNEAdditionalHandler::fixE2SingleLanePosition(newPositionOverLane, newLength, getParentLanes().at(0)->getParentEdge()->getNBEdge()->getFinalLength());
         // set new position and length
         setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
         setAttribute(SUMO_ATTR_LENGTH, toString(myLength), myNet->getViewNet()->getUndoList());

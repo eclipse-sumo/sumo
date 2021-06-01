@@ -33,7 +33,7 @@
 // method definitions
 // ===========================================================================
 
-GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNENet* net, const std::string &startPos, const std::string &endPos, 
+GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos, 
         const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength, bool friendlyPosition, 
         const std::map<std::string, std::string> &parameters, bool blockMovement) :
     GNEStoppingPlace(id, net, GLO_BUS_STOP, SUMO_TAG_BUS_STOP, lane, startPos, endPos, name, friendlyPosition, parameters, blockMovement),
@@ -143,9 +143,17 @@ GNEBusStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         case SUMO_ATTR_STARTPOS:
-            return myStartPosition;
+            if (myStartPosition != INVALID_DOUBLE) {
+                return toString(myStartPosition);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_ENDPOS:
-            return myEndPosition;
+            if (myEndPosition != INVALID_DOUBLE) {
+                return toString(myEndPosition);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_FRIENDLY_POS:
@@ -260,10 +268,18 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_STARTPOS:
-            myStartPosition = value;
+            if (value == "") {
+                myStartPosition = INVALID_DOUBLE;
+            } else {
+                myStartPosition = parse<double>(value);
+            }
             break;
         case SUMO_ATTR_ENDPOS:
-            myEndPosition = value;
+            if (value == "") {
+                myEndPosition = INVALID_DOUBLE;
+            } else {
+                myEndPosition = parse<double>(value);
+            }
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;

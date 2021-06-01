@@ -45,7 +45,7 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNEBusStop(const std::string& id, GNELane* lane, GNENet* net, const std::string &startPos, const std::string &endPos,
+    GNEBusStop(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength,
                bool friendlyPosition, const std::map<std::string, std::string> &parameters, bool blockMovement);
 
