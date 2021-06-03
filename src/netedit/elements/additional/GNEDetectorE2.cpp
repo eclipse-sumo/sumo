@@ -225,6 +225,8 @@ GNEDetectorE2::updateGeometry() {
                                             (startPosFixed * getParentLanes().front()->getLengthGeometryFactor()),
                                             (endPosFixed * getParentLanes().back()->getLengthGeometryFactor()),
                                             myMoveElementLateralOffset);
+        // update centering boundary without updating grid
+        updateCenteringBoundary(false);
     }
 }
 

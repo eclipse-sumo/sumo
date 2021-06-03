@@ -95,8 +95,6 @@ GNEDetector::getLane() const {
 
 void
 GNEDetector::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // now update geometry
-    updateGeometry();
     // add shape boundary
     myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
     // grow

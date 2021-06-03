@@ -91,6 +91,8 @@ void
 GNEDetectorE1Instant::updateGeometry() {
     // update geometry
     myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getGeometryPositionOverLane(), myMoveElementLateralOffset);
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
 }
 
 
