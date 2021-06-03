@@ -722,7 +722,7 @@ AdditionalHandler::parseAccessAttributes(const SUMOSAXAttributes& attrs) {
     const std::string position = attrs.get<std::string>(SUMO_ATTR_POSITION, "", parsedOk);
     // optional attributes
     const std::string length = attrs.getOpt<std::string>(SUMO_ATTR_LENGTH, "", parsedOk, "");
-    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "", parsedOk, "");
+    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "", parsedOk, false);
     // check parent
     checkParent(SUMO_TAG_ACCESS, SUMO_TAG_BUS_STOP, parsedOk);
     // continue if flag is ok
