@@ -114,3 +114,6 @@ ticket7057
 
 # crash when switching to cfmodel with vehicle variables
 ticket7949
+
+# crash during lane-changing after calling moveTo with an internal lane
+ticket8714
