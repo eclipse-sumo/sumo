@@ -44,10 +44,12 @@ public:
      * @param[in] pos position (center) of the variable speed sign in the map
      * @param[in] name VSS name
      * @param[in] parameters generic parameters
+     * @param[in] vTypes list of vehicle types to be affected
      * @param[in] blockMovement enable or disable additional movement
      */
     GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name, 
-                         const std::map<std::string, std::string> &parameters, bool blockMovement);
+                         const std::vector<std::string> &vTypes, const std::map<std::string, std::string> &parameters,
+                         bool blockMovement);
 
     /// @brief Destructor
     ~GNEVariableSpeedSign();
@@ -129,6 +131,9 @@ public:
 protected:
     /// @brief position of VSS in view
     Position myPosition;
+
+    /// @brief attribute vehicle types
+    std::vector<std::string> myVehicleTypes;
 
 private:
     /// @brief set attribute after validation
