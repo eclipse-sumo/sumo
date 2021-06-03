@@ -95,6 +95,8 @@ void
 GNEDetectorEntryExit::updateGeometry() {
     // update geometry
     myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getGeometryPositionOverLane(), myMoveElementLateralOffset);
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
     // update E3 parent children
     getParentAdditionals().at(0)->updateHierarchicalConnections();
 }
@@ -125,7 +127,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
         // rotate over lane
-        GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() - 90);
+        GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
         // scale
         glScaled(entryExitExaggeration, entryExitExaggeration, 1);
         // draw details if isn't being drawn for selecting
@@ -167,7 +169,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             // Traslate to center of detector
             glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), getType() + 0.1);
             // rotate over lane
-            GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 180);
+            GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front());
             //move to logo position
             glTranslated(1.9, 0, 0);
             // scale
