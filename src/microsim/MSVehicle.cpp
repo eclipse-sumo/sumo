@@ -4937,6 +4937,10 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             assert(startLane != 0);
         }
     }
+    if (forceRebuild) {
+        myLastBestLanesEdge = nullptr;
+        myLastBestLanesInternalLane = nullptr;
+    }
     if (myBestLanes.size() > 0 && !forceRebuild && myLastBestLanesEdge == &startLane->getEdge()) {
         updateOccupancyAndCurrentBestLane(startLane);
 #ifdef DEBUG_BESTLANES
