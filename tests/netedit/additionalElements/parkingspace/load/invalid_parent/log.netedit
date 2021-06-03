@@ -1,2 +1,3 @@
-Warning: Essential unique string attribute 'id' of parkingArea is missing; parkingArea cannot be created
-Warning: parkingArea parent of space was not loaded sucesfully.
+Error: Attribute 'id' is missing in definition of a parkingArea.
+Error: space must be defined within the definition of a parkingArea
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun110255.19140\netedit.gui\additionalElements\parkingspace\load\invalid_parent\input_additionals.add.xml failed.
