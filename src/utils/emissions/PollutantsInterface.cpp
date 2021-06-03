@@ -102,25 +102,12 @@ PollutantsInterface::Helper::getClassByName(const std::string& eClass, const SUM
     if (myEmissionClassStrings.hasString(eClass)) {
         return myEmissionClassStrings.get(eClass);
     }
-    std::string eclower = eClass;
-    /*
-    For some compilers, std::tolower cannot be resolved correctly, resulting in error messages
-    like "No matching function found ... unresolved overloaded function type.", see e.g.
-    https://stackoverflow.com/questions/5539249. The problem may be fixed by specifying ::tolower,
-    the global namespace version of the function that has no overloads.
-
-    Similarly, https://en.cppreference.com/w/cpp/string/byte/tolower suggests that one should not
-    use any of the functions defined in <cctype> with standard algorithms (like `transform`) when
-    the iterator type is `char` or `signed char` -- we shall convert the value to `unsigned char`
-    first:
-
-    std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c){ return std::tolower(c); });
-
-    This, however, still generates an ugly warning in VS2017. Go figure ...
-    */
-    std::transform(eclower.begin(), eclower.end(), eclower.begin(), [](unsigned char c) {
-        return std::tolower(c);
-        });
+    // transform all characters of eClass toLower
+    std::string eclower;
+    eclower.reserve(eClass.size());
+    for (const auto &character : eClass) {
+        eclower.push_back(asciiToLower(character));
+    }
     return myEmissionClassStrings.get(eclower);
 }
 
