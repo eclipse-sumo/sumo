@@ -1,0 +1,4 @@
+Error: Attribute 'personCapacity' in definition of busStop 'busStop_02' is not of type int.
+Error: Could not build busStop in netedit; attribute personCapacity cannot be negative.
+Error: Attribute 'personCapacity' in definition of busStop 'busStop_04' is not of type int.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun093911.1396\netedit.gui\additionalElements\busstop\load\personcapacity\input_additionals.add.xml failed.
