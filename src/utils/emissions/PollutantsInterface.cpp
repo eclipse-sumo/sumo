@@ -51,6 +51,174 @@ std::vector<std::string> PollutantsInterface::myAllClassesStr;
 // method definitions
 // ===========================================================================
 
+// ---------------------------------------------------------------------------
+// PollutantsInterface::Emissions - methods
+// ---------------------------------------------------------------------------
+
+PollutantsInterface::Emissions::Emissions(double co2, double co, double hc, double f, double nox, double pmx, double elec) : 
+    CO2(co2), 
+    CO(co), 
+    HC(hc), 
+    fuel(f),
+    NOx(nox), 
+    PMx(pmx),
+    electricity(elec) {
+}
+
+
+void PollutantsInterface::Emissions::addScaled(const Emissions& a, const double scale) {
+    CO2 += scale * a.CO2;
+    CO += scale * a.CO;
+    HC += scale * a.HC;
+    fuel += scale * a.fuel;
+    NOx += scale * a.NOx;
+    PMx += scale * a.PMx;
+    electricity += scale * a.electricity;
+}
+
+// ---------------------------------------------------------------------------
+// PollutantsInterface::Helper - methods
+// ---------------------------------------------------------------------------
+
+PollutantsInterface::Helper::Helper(std::string name, const int baseIndex, const int defaultClass) :
+    myName(name),
+    myBaseIndex(baseIndex) {
+    if (defaultClass != -1) {
+        myEmissionClassStrings.insert("default", defaultClass);
+        myEmissionClassStrings.addAlias("unknown", defaultClass);
+    }
+}
+
+
+const 
+std::string& PollutantsInterface::Helper::getName() const {
+    return myName;
+}
+
+
+SUMOEmissionClass 
+PollutantsInterface::Helper::getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
+    UNUSED_PARAMETER(vc);
+    if (myEmissionClassStrings.hasString(eClass)) {
+        return myEmissionClassStrings.get(eClass);
+    }
+    std::string eclower = eClass;
+    /*
+    For some compilers, std::tolower cannot be resolved correctly, resulting in error messages
+    like "No matching function found ... unresolved overloaded function type.", see e.g.
+    https://stackoverflow.com/questions/5539249. The problem may be fixed by specifying ::tolower,
+    the global namespace version of the function that has no overloads.
+
+    Similarly, https://en.cppreference.com/w/cpp/string/byte/tolower suggests that one should not
+    use any of the functions defined in <cctype> with standard algorithms (like `transform`) when
+    the iterator type is `char` or `signed char` -- we shall convert the value to `unsigned char`
+    first:
+
+    std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c){ return std::tolower(c); });
+
+    This, however, still generates an ugly warning in VS2017. Go figure ...
+    */
+    std::transform(eclower.begin(), eclower.end(), eclower.begin(), [](unsigned char c) {
+        return std::tolower(c);
+        });
+    return myEmissionClassStrings.get(eclower);
+}
+
+
+const std::string
+PollutantsInterface::Helper::getClassName(const SUMOEmissionClass c) const {
+    return myName + "/" + myEmissionClassStrings.getString(c);
+}
+
+
+bool
+PollutantsInterface::Helper::isSilent(const SUMOEmissionClass c) {
+    return (c & 0xffffffff & ~HEAVY_BIT) == 0;
+}
+
+
+SUMOEmissionClass 
+PollutantsInterface::Helper::getClass(const SUMOEmissionClass base, const std::string& vClass, const std::string& fuel, const std::string& eClass, const double weight) const {
+    UNUSED_PARAMETER(vClass);
+    UNUSED_PARAMETER(fuel);
+    UNUSED_PARAMETER(eClass);
+    UNUSED_PARAMETER(weight);
+    return base;
+}
+
+
+std::string
+PollutantsInterface::Helper::getAmitranVehicleClass(const SUMOEmissionClass c) const {
+    UNUSED_PARAMETER(c);
+    return "Passenger";
+}
+
+
+std::string 
+PollutantsInterface::Helper::getFuel(const SUMOEmissionClass c) const {
+    UNUSED_PARAMETER(c);
+    return "Gasoline";
+}
+
+
+int 
+PollutantsInterface::Helper::getEuroClass(const SUMOEmissionClass c) const {
+    UNUSED_PARAMETER(c);
+    return 0;
+}
+
+
+double 
+PollutantsInterface::Helper::getWeight(const SUMOEmissionClass c) const {
+    UNUSED_PARAMETER(c);
+    return -1.;
+}
+
+
+double 
+PollutantsInterface::Helper::compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) const {
+    UNUSED_PARAMETER(c);
+    UNUSED_PARAMETER(e);
+    UNUSED_PARAMETER(v);
+    UNUSED_PARAMETER(a);
+    UNUSED_PARAMETER(slope);
+    UNUSED_PARAMETER(param);
+    return 0.;
+}
+
+
+double 
+PollutantsInterface::Helper::getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const {
+    UNUSED_PARAMETER(c);
+    UNUSED_PARAMETER(v);
+    UNUSED_PARAMETER(slope);
+    return a;
+}
+
+
+void 
+PollutantsInterface::Helper::addAllClassesInto(std::vector<SUMOEmissionClass>& list) const {
+    myEmissionClassStrings.addKeysInto(list);
+}
+
+
+bool 
+PollutantsInterface::Helper::includesClass(const SUMOEmissionClass c) const {
+    return (c >> 16) == (myBaseIndex >> 16);
+}
+
+
+unsigned char 
+PollutantsInterface::Helper::asciiToLower(char in) {
+    if (in <= 'Z' && in >= 'A')
+        return in - ('Z' - 'z');
+    return in;
+}
+
+// ---------------------------------------------------------------------------
+// PollutantsInterface - methods
+// ---------------------------------------------------------------------------
+
 SUMOEmissionClass
 PollutantsInterface::getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
     const std::string::size_type sep = eClass.find("/");
@@ -203,5 +371,10 @@ PollutantsInterface::getModifiedAccel(const SUMOEmissionClass c, const double v,
     return myHelpers[c >> 16]->getModifiedAccel(c, v, a, slope);
 }
 
+
+const HelpersEnergy&
+PollutantsInterface::getEnergyHelper() {
+    return myEnergyHelper;
+}
 
 /****************************************************************************/
