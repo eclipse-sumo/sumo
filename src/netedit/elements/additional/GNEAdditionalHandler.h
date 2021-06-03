@@ -629,6 +629,9 @@ protected:
     /// @brief write error invalid parent element
     void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent) const;
 
+    /// @brief write error invalid negative element
+    void writeErrorInvalidNegativeValue(const SumoXMLTag tag, const std::string &id, const SumoXMLAttr attribute) const;
+
     /// @brief parse edges
     std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::vector<std::string>& edgeIDs) const;
 

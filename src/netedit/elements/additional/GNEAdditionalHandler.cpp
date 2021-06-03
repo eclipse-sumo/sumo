@@ -96,6 +96,10 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sum
             writeErrorInvalidParent(SUMO_TAG_BUS_STOP, SUMO_TAG_LANE);
         } else if (!checkDoublePositionOverLane(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
             writeErrorInvalidPosition(SUMO_TAG_BUS_STOP, id);
+        } else if (personCapacity < 0) {
+            writeErrorInvalidNegativeValue(SUMO_TAG_BUS_STOP, id, SUMO_ATTR_PERSON_CAPACITY);
+        } else if (parkingLength < 0) {
+            writeErrorInvalidNegativeValue(SUMO_TAG_BUS_STOP, id, SUMO_ATTR_PARKING_LENGTH);
         } else {
             // build busStop
             GNEAdditional* busStop = new GNEBusStop(id, lane, myNet, startPos, endPos, name, lines, personCapacity, 
@@ -1453,6 +1457,12 @@ GNEAdditionalHandler::checkDoublePositionOverLane(double from, double to, const 
         return true;
     }
     // adjust from and to (negative means that start at the end of lane and count backward)
+    if (from == INVALID_DOUBLE) {
+        from = 0;
+    }
+    if (to == INVALID_DOUBLE) {
+        to = laneLength;
+    }
     if (from < 0) {
         from += laneLength;
     }
@@ -1475,6 +1485,12 @@ GNEAdditionalHandler::checkDoublePositionOverLane(double from, double to, const 
 void 
 GNEAdditionalHandler::fixDoublePositionOverLane(double& from, double &to, const double laneLength) {
     // adjust from (negative means that start at the end of lane and count backward)
+    if (from == INVALID_DOUBLE) {
+        from = 0;
+    }
+    if (to == INVALID_DOUBLE) {
+        to = laneLength;
+    }
     if (from < 0) {
         from += laneLength;
     }
@@ -1583,6 +1599,12 @@ GNEAdditionalHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::stri
 void
 GNEAdditionalHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent) const {
     WRITE_ERROR("Could not build " + toString(tag) + " in netedit; " +  toString(parent) + " doesn't exist.");
+}
+
+
+void 
+GNEAdditionalHandler::writeErrorInvalidNegativeValue(const SumoXMLTag tag, const std::string &id, const SumoXMLAttr attribute) const {
+    WRITE_ERROR("Could not build " + toString(tag) + " in netedit; attribute " +  toString(attribute) + " cannot be negative.");
 }
 
 
