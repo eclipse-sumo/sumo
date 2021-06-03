@@ -963,7 +963,7 @@ GNEAdditionalHandler::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* 
 
 void
 GNEAdditionalHandler::buildVariableSpeedSign(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, 
-    const std::vector<std::string>& laneIDs, const std::string& name, const std::map<std::string, std::string> &parameters) {
+    const std::vector<std::string>& laneIDs, const std::string& name, const std::vector<std::string> &vTypes, const std::map<std::string, std::string> &parameters) {
     /// check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_VSS, id);
@@ -974,29 +974,34 @@ GNEAdditionalHandler::buildVariableSpeedSign(const CommonXMLStructure::SumoBaseO
         std::vector<GNELane*> lanes = parseLanes(SUMO_TAG_VSS, laneIDs);
         // check lane
         if (lanes.size() > 0) {
-            // create VSS
-            GNEAdditional* variableSpeedSign = new GNEVariableSpeedSign(id, myNet, pos, name, parameters, neteditParameters.blockMovement);
-            // create VSS Symbols
-            std::vector<GNEAdditional*> VSSSymbols;
-            for (const auto& lane : lanes) {
-                VSSSymbols.push_back(new GNEVariableSpeedSignSymbol(variableSpeedSign, lane));
-            }
-            // insert depending of allowUndoRedo
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_VSS));
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(variableSpeedSign, true), true);
-                for (const auto& VSSSymbol : VSSSymbols) {
-                    myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(VSSSymbol, true), true);
-                }
-                myNet->getViewNet()->getUndoList()->p_end();
+            // check vTypes
+            if (!checkListOfVehicleTypes(vTypes)) {
+                writeErrorInvalidVTypes(SUMO_TAG_VSS, id);
             } else {
-                myNet->getAttributeCarriers()->insertAdditional(variableSpeedSign);
-                // add symbols
-                for (int i = 0; i < (int)lanes.size(); i++) {
-                    lanes.at(i)->addChildElement(VSSSymbols.at(i));
-                    VSSSymbols.at(i)->incRef("buildVariableSpeedSignSymbol");
+                // create VSS
+                GNEAdditional* variableSpeedSign = new GNEVariableSpeedSign(id, myNet, pos, name, parameters, neteditParameters.blockMovement);
+                // create VSS Symbols
+                std::vector<GNEAdditional*> VSSSymbols;
+                for (const auto& lane : lanes) {
+                    VSSSymbols.push_back(new GNEVariableSpeedSignSymbol(variableSpeedSign, lane));
                 }
-                variableSpeedSign->incRef("buildVariableSpeedSign");
+                // insert depending of allowUndoRedo
+                if (myAllowUndoRedo) {
+                    myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_VSS));
+                    myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(variableSpeedSign, true), true);
+                    for (const auto& VSSSymbol : VSSSymbols) {
+                        myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(VSSSymbol, true), true);
+                    }
+                    myNet->getViewNet()->getUndoList()->p_end();
+                } else {
+                    myNet->getAttributeCarriers()->insertAdditional(variableSpeedSign);
+                    // add symbols
+                    for (int i = 0; i < (int)lanes.size(); i++) {
+                        lanes.at(i)->addChildElement(VSSSymbols.at(i));
+                        VSSSymbols.at(i)->incRef("buildVariableSpeedSignSymbol");
+                    }
+                    variableSpeedSign->incRef("buildVariableSpeedSign");
+                }
             }
         }
     } else {
@@ -1606,7 +1611,24 @@ GNEAdditionalHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXM
 
 void 
 GNEAdditionalHandler::writeErrorInvalidNegativeValue(const SumoXMLTag tag, const std::string &id, const SumoXMLAttr attribute) const {
-    WRITE_ERROR("Could not build " + toString(tag) + " in netedit; attribute " +  toString(attribute) + " cannot be negative.");
+    WRITE_ERROR("Could not build " + toString(tag) + " with ID '" + id + "' in netedit; attribute " +  toString(attribute) + " cannot be negative.");
+}
+
+
+void
+GNEAdditionalHandler::writeErrorInvalidVTypes(const SumoXMLTag tag, const std::string &id) const {
+    WRITE_ERROR("Could not build " + toString(tag) + " with ID '" + id + "' in netedit; list of VTypes isn't valid.");
+}
+
+
+bool 
+GNEAdditionalHandler::checkListOfVehicleTypes(const std::vector<std::string>& vTypeIDs) const {
+    for (const auto & vTypeID : vTypeIDs) {
+        if (!SUMOXMLDefinitions::isValidTypeID(vTypeID)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 

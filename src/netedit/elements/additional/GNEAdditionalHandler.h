@@ -410,11 +410,13 @@ public:
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] id The id of the lane speed additional
      * @param[in] destLanes List of lanes affected by this speed additional
-     * @param[in] name Calibrator name
+     * @param[in] name VSS name
+     * @param[in] vTypes list of vehicle types to be affected
      * @param[in] parameters generic parameters
      */
-    void buildVariableSpeedSign(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, const std::vector<std::string>& destLaneIDs, 
-                                const std::string& name, const std::map<std::string, std::string> &parameters);
+    void buildVariableSpeedSign(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, 
+                                const std::vector<std::string>& laneIDs, const std::string& name, const std::vector<std::string> &vTypes, 
+                                const std::map<std::string, std::string> &parameters);
 
     /**@brief Builds a VariableSpeedSign Step
      * @param[in] sumoBaseObject sumo base object used for build
@@ -626,11 +628,17 @@ protected:
     /// @brief write error "duplicated additional"
     void writeErrorDuplicated(const SumoXMLTag tag, const std::string &id) const;
 
-    /// @brief write error invalid parent element
+    /// @brief write error "invalid parent element"
     void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent) const;
 
-    /// @brief write error invalid negative element
+    /// @brief write error "invalid negative element"
     void writeErrorInvalidNegativeValue(const SumoXMLTag tag, const std::string &id, const SumoXMLAttr attribute) const;
+
+    /// @brief write error "invalid list of vehicle types"
+    void writeErrorInvalidVTypes(const SumoXMLTag tag, const std::string &id) const;
+
+    /// @brief check list of IDs
+    bool checkListOfVehicleTypes(const std::vector<std::string>& vTypeIDs) const;
 
     /// @brief parse edges
     std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::vector<std::string>& edgeIDs) const;
