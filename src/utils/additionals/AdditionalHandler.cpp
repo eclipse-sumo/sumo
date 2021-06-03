@@ -255,6 +255,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getPositionAttribute(SUMO_ATTR_POSITION),
                 obj->getStringListAttribute(SUMO_ATTR_LANES),
                 obj->getStringAttribute(SUMO_ATTR_NAME),
+                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
                 obj->getParameters());
             break;
         case SUMO_TAG_STEP:
@@ -1153,6 +1154,7 @@ AdditionalHandler::parseVariableSpeedSignAttributes(const SUMOSAXAttributes& att
     // optional attributes
     const Position pos = attrs.getOpt<Position>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, Position());
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
+    const std::vector<std::string> vehicleTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, std::vector<std::string>());
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1162,6 +1164,7 @@ AdditionalHandler::parseVariableSpeedSignAttributes(const SUMOSAXAttributes& att
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LANES, lanes);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionAttribute(SUMO_ATTR_POSITION, pos);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
     }
 }
 

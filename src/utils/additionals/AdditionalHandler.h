@@ -411,11 +411,13 @@ public:
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] id The id of the lane speed additional
      * @param[in] destLanes List of lanes affected by this speed additional
-     * @param[in] name Calibrator name
+     * @param[in] name VSS name
+     * @param[in] vtypes list of vehicle types to be affected
      * @param[in] parameters generic parameters
      */
-    virtual void buildVariableSpeedSign(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, const std::vector<std::string>& destLaneIDs, 
-                                        const std::string& name, const std::map<std::string, std::string> &parameters) = 0;
+    virtual void buildVariableSpeedSign(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, 
+                                        const std::vector<std::string>& laneIDs, const std::string& name, const std::vector<std::string> &vTypes, 
+                                        const std::map<std::string, std::string> &parameters) = 0;
 
     /**@brief Builds a VariableSpeedSign Step
      * @param[in] sumoBaseObject sumo base object used for build
