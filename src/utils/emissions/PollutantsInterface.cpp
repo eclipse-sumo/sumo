@@ -23,7 +23,9 @@
 #include <limits>
 #include <cmath>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
+
 #include "HelpersHBEFA.h"
 #include "HelpersHBEFA3.h"
 #include "HelpersPHEMlight.h"
@@ -102,13 +104,7 @@ PollutantsInterface::Helper::getClassByName(const std::string& eClass, const SUM
     if (myEmissionClassStrings.hasString(eClass)) {
         return myEmissionClassStrings.get(eClass);
     }
-    // transform all characters of eClass toLower
-    std::string eclower;
-    eclower.reserve(eClass.size());
-    for (const auto &character : eClass) {
-        eclower.push_back(asciiToLower(character));
-    }
-    return myEmissionClassStrings.get(eclower);
+    return myEmissionClassStrings.get(StringUtils::to_lower_case(eClass));
 }
 
 
@@ -192,14 +188,6 @@ PollutantsInterface::Helper::addAllClassesInto(std::vector<SUMOEmissionClass>& l
 bool 
 PollutantsInterface::Helper::includesClass(const SUMOEmissionClass c) const {
     return (c >> 16) == (myBaseIndex >> 16);
-}
-
-
-unsigned char 
-PollutantsInterface::Helper::asciiToLower(char in) {
-    if (in <= 'Z' && in >= 'A')
-        return in - ('Z' - 'z');
-    return in;
 }
 
 // ---------------------------------------------------------------------------

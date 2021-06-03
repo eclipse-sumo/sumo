@@ -1251,7 +1251,7 @@ NIImporter_VISUM::getPermissions(const std::string& name, bool warn, SVCPermissi
     for (std::string v : StringTokenizer(myLineParser.get(name), ",").getVector()) {
         // common values in english and german
         // || v == "funiculaire-telecabine" ---> no matching
-        std::transform(v.begin(), v.end(), v.begin(), tolower);
+        v = StringUtils::to_lower_case(v);
         if (v == "bus" || v == "tcsp" || v == "acces tc" || v == "Accès tc" || v == "accès tc") {
             result |= SVC_BUS;
         } else if (v == "walk" || v == "w" || v == "f" || v == "ped" || v == "map") {

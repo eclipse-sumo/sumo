@@ -21,7 +21,6 @@
 #pragma once
 #include <config.h>
 
-#include <cctype>  // defines std::tolower
 #include <vector>
 #include <limits>
 #include <cmath>
@@ -211,9 +210,6 @@ public:
         StringBijection<SUMOEmissionClass> myEmissionClassStrings;
 
     private:
-        /// @brief convert ascii to lower (please DONT't use here std::tolower, due a Warning in VS20XX)
-        unsigned char asciiToLower(char in);
-
         /// @brief invalidate copy constructor
         Helper& operator=(const Helper&) = delete;
     };
