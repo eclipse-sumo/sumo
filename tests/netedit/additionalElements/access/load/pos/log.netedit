@@ -1,4 +1,5 @@
-Warning: Edge '3' already has an Access for busStop 'busStop_0'
-Warning: Edge '3' already has an Access for busStop 'busStop_0'
-Warning: Invalid position for access.
-Warning: Edge '3' already has an Access for busStop 'busStop_0'
+Error: Attribute 'pos' in definition of a access is not of type float.
+Error: Attribute 'pos' in definition of a access is empty.
+Error: Could not build access with ID 'busStop_0' in netedit; Invalid position over lane.
+Warning: Could not build access in netedit; busStop parent already owns a Acces in the edge '3'
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun101725.18492\netedit.gui\additionalElements\access\load\pos\input_additionals.add.xml failed.

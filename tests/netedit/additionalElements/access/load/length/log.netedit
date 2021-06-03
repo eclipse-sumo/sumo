@@ -1,0 +1,3 @@
+Error: Attribute 'length' in definition of a access is not of type float.
+Error: Could not build access in netedit; attribute length cannot be negative.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun102453.14984\netedit.gui\additionalElements\access\load\length\input_additionals.add.xml failed.

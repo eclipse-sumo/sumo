@@ -28,13 +28,12 @@ GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,20.00,60.00,41.60
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary -10.00,18.40,60.00,40.00
 GLDebug: 	Inserted edge:9 into SUMORTree with boundary -10.00,10.00,60.00,31.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Error: Attribute 'length' in definition of a access is not of type float.
 Debug: Adding busStop 'busStop_0' in GNEChange_Additional
 Debug: Adding access 'busStop_0' in GNEChange_Additional
-Debug: Format of optional positive optional float attribute 'length' of access is invalid; Cannot be parsed to float; Default value will be used.
+Error: Could not build access in netedit; attribute length cannot be negative.
 Debug: Adding access 'busStop_0' in GNEChange_Additional
-Debug: Format of optional positive optional float attribute 'length' of access is invalid; Cannot be negative; Default value will be used.
-Debug: Adding access 'busStop_0' in GNEChange_Additional
-Debug: Adding access 'busStop_0' in GNEChange_Additional
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun102453.14984\netedit.gui\additionalElements\access\load\length\input_additionals.add.xml failed.
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,18.00,12.00,42.00
@@ -98,8 +97,6 @@ GLDebug: 	Inserted edge:8 into SUMORTree with boundary -10.00,18.40,60.00,40.00
 GLDebug: 	Inserted edge:9 into SUMORTree with boundary -10.00,10.00,60.00,31.60
 Debug: Created connection 'from7_0to8_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_0to7_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced access 'busStop_0'
-Debug: Deleting unreferenced access 'busStop_0'
 Debug: Deleting unreferenced access 'busStop_0'
 Debug: Deleting unreferenced access 'busStop_0'
 Debug: Deleting unreferenced busStop 'busStop_0'
