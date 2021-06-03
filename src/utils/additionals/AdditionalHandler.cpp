@@ -608,7 +608,6 @@ AdditionalHandler::myEndElement(int element) {
         // Stopping Places
         case SUMO_TAG_BUS_STOP:
         case SUMO_TAG_TRAIN_STOP:
-        case SUMO_TAG_ACCESS:
         case SUMO_TAG_CONTAINER_STOP:
         case SUMO_TAG_CHARGING_STATION:
         case SUMO_TAG_PARKING_AREA:
@@ -719,9 +718,9 @@ AdditionalHandler::parseAccessAttributes(const SUMOSAXAttributes& attrs) {
     bool parsedOk = true;
     // needed attributes
     const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, "", parsedOk);
-    const std::string position = attrs.get<std::string>(SUMO_ATTR_POSITION, "", parsedOk);
+    const double position = attrs.get<double>(SUMO_ATTR_POSITION, "", parsedOk);
     // optional attributes
-    const std::string length = attrs.getOpt<std::string>(SUMO_ATTR_LENGTH, "", parsedOk, "");
+    const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, "", parsedOk, INVALID_DOUBLE);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "", parsedOk, false);
     // check parent
     checkParent(SUMO_TAG_ACCESS, SUMO_TAG_BUS_STOP, parsedOk);
@@ -731,8 +730,8 @@ AdditionalHandler::parseAccessAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ACCESS);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_POSITION, position);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_LENGTH, length);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, position);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LENGTH, length);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
     }
 }
