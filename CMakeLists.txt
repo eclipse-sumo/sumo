@@ -90,10 +90,6 @@ elseif (MSVC)
     if (MULTITHREADED_BUILD)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
     endif ()
-    if (MSVC_VERSION GREATER 1914)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /experimental:external /external:W2")
-        set(CMAKE_INCLUDE_SYSTEM_FLAG_CXX "/external:I ")
-    endif ()
     # exporting symbols for shared libraries needs to enabled explicitly
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
     # add option for enabling console in release mode
