@@ -171,9 +171,9 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
 
 
 void 
-GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, 
-    const std::string &laneID, const double startPos, const double endPos, const std::string& name, 
-    const std::vector<std::string>& lines, const bool friendlyPosition, const std::map<std::string, std::string> &parameters) {
+GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
+    const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines, const int containerCapacity, 
+    const double parkingLength, const bool friendlyPosition, const std::map<std::string, std::string> &parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_CONTAINER_STOP, id);

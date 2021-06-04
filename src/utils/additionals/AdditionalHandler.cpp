@@ -94,6 +94,8 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
                 obj->getStringAttribute(SUMO_ATTR_NAME),
                 obj->getStringListAttribute(SUMO_ATTR_LINES),
+                obj->getIntAttribute(SUMO_ATTR_CONTAINER_CAPACITY),
+                obj->getDoubleAttribute(SUMO_ATTR_PARKING_LENGTH),
                 obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
                 obj->getParameters());
             break;
@@ -750,6 +752,8 @@ AdditionalHandler::parseContainerStopAttributes(const SUMOSAXAttributes& attrs) 
     const double endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), parsedOk, INVALID_DOUBLE);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
     const std::vector<std::string> lines = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LINES, id.c_str(), parsedOk, std::vector<std::string>());
+    const int containerCapacity = attrs.getOpt<int>(SUMO_ATTR_CONTAINER_CAPACITY, id.c_str(), parsedOk, 6);
+    const double parkingLength = attrs.getOpt<double>(SUMO_ATTR_PARKING_LENGTH, id.c_str(), parsedOk, 0);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
     // continue if flag is ok
     if (parsedOk) {
@@ -762,6 +766,8 @@ AdditionalHandler::parseContainerStopAttributes(const SUMOSAXAttributes& attrs) 
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ENDPOS, endPos);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LINES, lines);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_PERSON_CAPACITY, containerCapacity);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PARKING_LENGTH, parkingLength);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
     }
 }
