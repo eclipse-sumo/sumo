@@ -31,6 +31,7 @@ a = sys.argv[1:]
 
 key = ""
 key += "L" if "--logit" in a else "G"
+key += "_meso" if ("--mesosim" in a or "-m" in a) else ""
 key += "_dso" if "--marginal-cost" in a else "_due"
 if "--marginal-cost.exp" in a:
     key += "_e%s" % a[a.index("--marginal-cost.exp") + 1]
