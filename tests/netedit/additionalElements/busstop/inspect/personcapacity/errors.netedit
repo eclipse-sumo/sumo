@@ -1,7 +1,6 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'busStop' in TagSelector
-Debug: Format of optional positive optional integer attribute 'personCapacity' of busStop with ID 'busStop_gneE2_1_0' is invalid; Cannot be negative; Default value will be used.
 Debug: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Value 'dummyPersonCapacity' for attribute personCapacity of busStop isn't valid
 Debug: Value '-7' for attribute personCapacity of busStop isn't valid
@@ -9,7 +8,7 @@ Debug: Value '' for attribute personCapacity of busStop isn't valid
 Debug: Setting new attribute personCapacity '10' into busStop 'busStop_gneE2_1_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute personCapacity '-1' into busStop 'busStop_gneE2_1_0'
+Debug: Setting previous attribute personCapacity '6' into busStop 'busStop_gneE2_1_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing busStop 'busStop_gneE2_1_0' in GNEChange_Additional

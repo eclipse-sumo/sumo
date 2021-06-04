@@ -1,7 +1,6 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'busStop' in TagSelector
-Debug: Format of optional positive optional integer attribute 'personCapacity' of busStop with ID 'busStop_gneE0_0_0' is invalid; Cannot be negative; Default value will be used.
 Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Debug: Setting new attribute startPos '22.00' into busStop 'busStop_gneE0_0_0'
 Debug: Setting new attribute endPos '32.00' into busStop 'busStop_gneE0_0_0'
@@ -11,8 +10,8 @@ Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute blockMovement '0' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute endPos '22.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting previous attribute startPos '12.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute endPos '0.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute startPos '0.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing busStop 'busStop_gneE0_0_0' in GNEChange_Additional
