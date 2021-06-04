@@ -8,22 +8,28 @@ title: ChangeLog
 
 - simulation
   - fixed invalid state file when using option **--vehroute-output.exit-times** and saved vehicles are still on their first edge. Issue #8536 (regression in 1.9.1)
-
+  - Saved simulation state now restores traffic light phase and phase duration. Issue #7020
 
 - sumo-gui
   - Drawing parkingAreas with large roadsideCapacity no longer causes the gui to slow down. Issue #8400
 
 - netedit
   - Fixed unwanted modification of lane/edge permissions after leaving the dialog with 'Cancel'. Issue #8657
+  - Fixed invalid error when trying to place additional objects on edges with length/geometry mismatch. Issue #8692
+  - Fixed invalid restriction when trying to move additional objects on edges with length/geometry mismatch. Issue #8694
+  - Fixed invalid rendering of detEntry and detExit direction. Issue #8693
 
 - netconvert
   - Fixed missing bus permissions in OSM import. Issue #8587
 
 - traci
   - Call tracing is now reset properly on restart in the python client for libsumo. Issue #8671
+  - Fixed sumo-gui crash when calling loadState. Issue #8698
+  - Fixed crash when calling vehicle.moveTo. Issue #8714
 
 - tools
   - sumolib function 'parse_fast_nested' can now (again) ignore intermediate child elements (i.e. to parse vehicle and route if the route is inside a routeDistribution element). Issue #8508 (regression in 1.9.2)
+
   
 
 ### Enhancements
@@ -31,9 +37,12 @@ title: ChangeLog
 - simulation
   - ParkingAreas now support attribute 'departPos' to set a custom position for vehicles when exiting the parkingArea. Issue #8634
   - Added option **--save-state.period.keep INT** which allows saving state with constant space requirements (combined with option **--save-state.period**).
-
+  
 - netedit
   - Connection mode button 'Reset connections' now immediately recomputes connections at the affected junctions. Issue #8658
+
+- neconvert
+  - Option **--default.spreadtype roadCenter** can now be used to improve the geometry of edges with different lane numbers per direction when importing OSM. Issue #8713
 
 - duarouter
   - Attributes fromLonLat and toLonLat are now supported for personTrip. Issue #8665
@@ -41,9 +50,15 @@ title: ChangeLog
 
 - traci
   - Added function 'traci.vehicle.getTimeLoss' to retrieve the timeLoss since departure. Issue #8679
+  - Added function 'traci.vehicle.setPreviousSpeed' to modify the speed assumed by Sumo during the prior step (i.e. for computation of possible acceleration). This can be combined with 'traci.vehicle.moveTo' to override the behavior in the previous step. Issue #7190
+  - Fixed missing follower information when calling 'traci.vehicle.getFollower' while on an internal edge. Issue #8701
 
 - tools
-  - cutRoutes.py now handles vehicle attributes 'arrivalEdge' and 'departEdge'. Issue #8644
+  - [cutRoutes.py](Tools/Routes.md#cutroutespy) now handles vehicle attributes 'arrivalEdge' and 'departEdge'. Issue #8644  
+  - Added new tool [stateReplay.py](Tools/Misc.md#statereplaypy) to visually observe a simulation that is running without gui (i.e. on a remote server).
+  - [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy) can now make use of post-facto stop timing data (attribuet 'started', 'ended'). Issue #8610
+  - Added netdiff.py option **--remove-plain** to automatically clean up temporary files. Issue #8712
+  
 
 ### Miscelaneous
 - tools
