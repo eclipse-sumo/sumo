@@ -187,10 +187,14 @@ GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObjec
             writeErrorInvalidParent(SUMO_TAG_CONTAINER_STOP, SUMO_TAG_LANE);
         } else if (!checkDoublePositionOverLane(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
             writeErrorInvalidPosition(SUMO_TAG_CONTAINER_STOP, id);
+        } else if (containerCapacity < 0) {
+            writeErrorInvalidNegativeValue(SUMO_TAG_CONTAINER_STOP, id, SUMO_ATTR_PERSON_CAPACITY);
+        } else if (parkingLength < 0) {
+            writeErrorInvalidNegativeValue(SUMO_TAG_CONTAINER_STOP, id, SUMO_ATTR_PARKING_LENGTH);
         } else {
             // build containerStop
-            GNEAdditional* containerStop = new GNEContainerStop(id, lane, myNet, startPos, endPos, name, lines, friendlyPosition, 
-                                                                parameters, neteditParameters.blockMovement);
+            GNEAdditional* containerStop = new GNEContainerStop(id, lane, myNet, startPos, endPos, name, lines, containerCapacity, parkingLength,
+                                                                friendlyPosition, parameters, neteditParameters.blockMovement);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_CONTAINER_STOP));

@@ -41,6 +41,8 @@ public:
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] name Name of busStop
      * @param[in] lines lines of the busStop
+     * @param[in] personCapacity larger numbers of persons trying to enter will create an upstream jam on the sidewalk.
+     * @param[in] parkingLength parking length
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement

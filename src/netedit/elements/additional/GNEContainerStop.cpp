@@ -34,10 +34,12 @@
 // ===========================================================================
 
 GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
-        const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, const std::map<std::string, std::string> &parameters, 
-        bool blockMovement) :
+        const std::string& name, const std::vector<std::string>& lines, int containerCapacity, double parkingLength, bool friendlyPosition, 
+        const std::map<std::string, std::string> &parameters, bool blockMovement) :
     GNEStoppingPlace(id, net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, lane, startPos, endPos, name, friendlyPosition, parameters, blockMovement),
-    myLines(lines) {
+    myLines(lines),
+    myContainerCapacity(containerCapacity),
+    myParkingLength(parkingLength) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -156,6 +158,10 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
             return toString(myFriendlyPosition);
         case SUMO_ATTR_LINES:
             return joinToString(myLines, " ");
+        case SUMO_ATTR_CONTAINER_CAPACITY:
+            return toString(myContainerCapacity);
+        case SUMO_ATTR_PARKING_LENGTH:
+            return toString(myParkingLength);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
@@ -181,6 +187,8 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_FRIENDLY_POS:
         case SUMO_ATTR_LINES:
+        case SUMO_ATTR_CONTAINER_CAPACITY:
+        case SUMO_ATTR_PARKING_LENGTH:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
@@ -225,6 +233,10 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_LINES:
             return canParse<std::vector<std::string> >(value);
+        case SUMO_ATTR_CONTAINER_CAPACITY:
+            return canParse<int>(value) && (parse<int>(value) > 0 || parse<int>(value) == -1);
+        case SUMO_ATTR_PARKING_LENGTH:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
@@ -271,6 +283,12 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_LINES:
             myLines = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
+            break;
+        case SUMO_ATTR_CONTAINER_CAPACITY:
+            myContainerCapacity = GNEAttributeCarrier::parse<int>(value);
+            break;
+        case SUMO_ATTR_PARKING_LENGTH:
+            myParkingLength = GNEAttributeCarrier::parse<double>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);

@@ -1400,7 +1400,7 @@ GNEAttributeCarrier::fillAdditionals() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_PERSON_CAPACITY,
                                               GNEAttributeProperties::INT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
-                                              "Meant to be the names of the bus lines that stop at this bus stop. This is only used for visualization purposes",
+                                              "Larger numbers of persons trying to enter will create an upstream jam on the sidewalk",
                                               "6");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1485,6 +1485,18 @@ GNEAttributeCarrier::fillAdditionals() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
                                               "meant to be the names of the bus lines that stop at this container stop. This is only used for visualization purposes");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_CONTAINER_CAPACITY,
+                                              GNEAttributeProperties::INT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "Larger numbers of container trying to enter will create an upstream jam on the sidewalk",
+                                              "6");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING_LENGTH,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "Optional space definition for vehicles that park at this stop",
+                                              "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_CHARGING_STATION;
