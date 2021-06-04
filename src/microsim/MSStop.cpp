@@ -80,7 +80,9 @@ MSStop::write(OutputDevice& dev) const {
         tmp.parametersSet |= STOP_START_SET | STOP_END_SET;
     }
     tmp.write(dev, false);
-    if (pars.started >= 0) {
+    // if the stop has already started but hasn't ended yet we are writing it in
+    // the context of saveState (but we do not want to write the attribute twice
+    if (pars.started >= 0 && (pars.parametersSet & STOP_STARTED_SET) == 0) {
         dev.writeAttr(SUMO_ATTR_STARTED, time2string(pars.started));
     }
     dev.closeTag();
