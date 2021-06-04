@@ -9,17 +9,45 @@ title: ChangeLog
 - simulation
   - fixed invalid state file when using option **--vehroute-output.exit-times** and saved vehicles are still on their first edge. Issue #8536 (regression in 1.9.1)
 
+
 - sumo-gui
   - Drawing parkingAreas with large roadsideCapacity no longer causes the gui to slow down. Issue #8400
 
+- netedit
+  - Fixed unwanted modification of lane/edge permissions after leaving the dialog with 'Cancel'. Issue #8657
+
+- netconvert
+  - Fixed missing bus permissions in OSM import. Issue #8587
+
+- traci
+  - Call tracing is now reset properly on restart in the python client for libsumo. Issue #8671
+
 - tools
   - sumolib function 'parse_fast_nested' can now (again) ignore intermediate child elements (i.e. to parse vehicle and route if the route is inside a routeDistribution element). Issue #8508 (regression in 1.9.2)
+  
 
 ### Enhancements
 
 - simulation
   - ParkingAreas now support attribute 'departPos' to set a custom position for vehicles when exiting the parkingArea. Issue #8634
+  - Added option **--save-state.period.keep INT** which allows saving state with constant space requirements (combined with option **--save-state.period**).
 
+- netedit
+  - Connection mode button 'Reset connections' now immediately recomputes connections at the affected junctions. Issue #8658
+
+- duarouter
+  - Attributes fromLonLat and toLonLat are now supported for personTrip. Issue #8665
+  - Attributes 'x', 'y' and 'lon', 'lat' can now be used in place of stop attribute 'edge' and 'endPos'. Issue #8666
+
+- traci
+  - Added function 'traci.vehicle.getTimeLoss' to retrieve the timeLoss since departure. Issue #8679
+
+- tools
+  - cutRoutes.py now handles vehicle attributes 'arrivalEdge' and 'departEdge'. Issue #8644
+
+### Miscelaneous
+- tools
+  - Function sumolib.xml.parse now sets the attribute `heterogeneous=True` by default. This enables parsing of all attributes even not all elements have the same set of attributes. The value `heterogeneous=False` is useful for conserving memory when all elements are known to have the same set of attributes. Issue #8651
 
 ## Version 1.9.2 (18.05.2021)
 
