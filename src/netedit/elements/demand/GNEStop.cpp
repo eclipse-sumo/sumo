@@ -56,7 +56,7 @@ GNEMoveOperation*
 GNEStop::getMoveOperation(const double /*shapeOffset*/) {
     if (myTagProperty.getTag() == SUMO_TAG_STOP_LANE) {
         // return move operation for additional placed over shape
-        return new GNEMoveOperation(this, getParentLanes().front(), {startPos, endPos},
+        return new GNEMoveOperation(this, getParentLanes().front(), startPos, endPos,
                                     myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
     } else {
         return nullptr;

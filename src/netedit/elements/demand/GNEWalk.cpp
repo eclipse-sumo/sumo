@@ -79,9 +79,9 @@ GNEWalk::getMoveOperation(const double /*shapeOffset*/) {
     if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= ((circleWidthSquared + 2))) {
         // continue depending of parent edges
         if (getParentEdges().size() > 0) {
-            return new GNEMoveOperation(this, getParentEdges().back()->getLaneByAllowedVClass(getVClass()), {myArrivalPosition}, false);
+            return new GNEMoveOperation(this, getParentEdges().back()->getLaneByAllowedVClass(getVClass()), myArrivalPosition, false);
         } else {
-            return new GNEMoveOperation(this, getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(getVClass()), {myArrivalPosition}, false);
+            return new GNEMoveOperation(this, getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(getVClass()), myArrivalPosition, false);
         }
     } else {
         return nullptr;

@@ -80,7 +80,7 @@ GNEPOI::getMoveOperation(const double /* shapeOffset */) {
         return nullptr;
     } else if (getTagProperty().getTag() == GNE_TAG_POILANE) {
         // return move operation for POI placed over lane
-        return new GNEMoveOperation(this, getParentLanes().front(), {myPosOverLane},
+        return new GNEMoveOperation(this, getParentLanes().front(), myPosOverLane,
                                     myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
     } else {
         // return move operation for a position in view

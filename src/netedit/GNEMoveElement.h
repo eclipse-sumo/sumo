@@ -52,17 +52,18 @@ public:
                      const PositionVector shapeToMove,
                      const std::vector<int> geometryPointsToMove);
 
-    /// @brief constructor for elements placed over lanes (StoppingPlaces, detectors, vehicles...)
+    /// @brief constructor for elements placed over lanes with one position (detectors, vehicles...)
     GNEMoveOperation(GNEMoveElement* moveElement,
                      const GNELane* lane,
-                     const std::vector<double> originalPosOverLanes,
+                     const double originalStarPos,
                      const bool allowChangeLane);
 
-    /// @brief constructor for edit elements placed over lanes (start/end of StoppingPlaces, detectors...)
+    /// @brief constructor for elements placed over lanes with two positions (StoppingPlaces)
     GNEMoveOperation(GNEMoveElement* moveElement,
                      const GNELane* lane,
-                     const std::vector<double> originalPosOverLanes,
-                     const std::vector<int> geometryPointsToMove);
+                     const double originalStarPos,
+                     const double originalEndPos,
+                     const bool allowChangeLane);
 
     /// @brief destructor
     ~GNEMoveOperation();
@@ -76,6 +77,12 @@ public:
     /// @brief original shape points to move (of original shape)
     const std::vector<int> originalGeometryPoints;
 
+    /// @brief original start Position
+    const double originalStarPos;
+
+    /// @brief original end Position
+    const double originalEndPos;
+
     /**@brief shape to move
      * @note: it can be different of originalShape, for example due a new geometry point
      */
@@ -86,9 +93,6 @@ public:
 
     /// @brief original lane
     const GNELane* lane;
-
-    /// @brief original position over lanes
-    const std::vector<double> originalPosOverLanes;
 
     /// @brief allow change lane
     const bool allowChangeLane;
@@ -187,8 +191,11 @@ private:
     /// @brief commit move shape
     virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
-    /// @brief calculate movement over lane
-    static void calculateMovementOverLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset);
+    /// @brief calculate single movement over lane
+    static void calculateSingleMovementOverLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, const double pos, const GNEMoveOffset& offset);
+
+    /// @brief calculate double movement over lane
+    static void calculateDoubleMovementOverLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, const double startPos, const double endPos, const GNEMoveOffset& offset);
 
     /// @brief calculate new lane
     static void calculateNewLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation);

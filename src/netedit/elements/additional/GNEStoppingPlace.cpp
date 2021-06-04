@@ -71,7 +71,7 @@ GNEStoppingPlace::getMoveOperation(const double /*shapeOffset*/) {
         return nullptr;
     } else {
         // return move operation for additional placed over shape
-        return new GNEMoveOperation(this, getParentLanes().front(), {getAttributeDouble(SUMO_ATTR_STARTPOS), getAttributeDouble(SUMO_ATTR_ENDPOS)},
+        return new GNEMoveOperation(this, getParentLanes().front(), getAttributeDouble(SUMO_ATTR_STARTPOS), getAttributeDouble(SUMO_ATTR_ENDPOS),
                                     myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
     }
 }
@@ -410,8 +410,8 @@ GNEStoppingPlace::getEndGeometryPositionOverLane() const {
 void
 GNEStoppingPlace::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
-    myStartPosition = moveResult.shapeToUpdate.front().x();
-    myEndPosition = moveResult.shapeToUpdate.back().x();
+    myStartPosition = moveResult.shapeToUpdate.front().x() / getParentLanes().front()->getLengthGeometryFactor();
+    myEndPosition = moveResult.shapeToUpdate.back().x() / getParentLanes().front()->getLengthGeometryFactor();
     // set lateral offset
     myMoveElementLateralOffset = moveResult.laneOffset;
     // update geometry
@@ -427,11 +427,11 @@ GNEStoppingPlace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* 
         undoList->p_begin("position of " + getTagStr());
         // set startPos
         if (myStartPosition != INVALID_DOUBLE) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.shapeToUpdate.front().x())));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.shapeToUpdate.front().x() / getParentLanes().front()->getLengthGeometryFactor())));
         }
         // set endPos
         if (myEndPosition != INVALID_DOUBLE) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.shapeToUpdate.back().x())));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.shapeToUpdate.back().x() / getParentLanes().front()->getLengthGeometryFactor())));
         }
         // check if lane has to be changed
         if (moveResult.newLane) {

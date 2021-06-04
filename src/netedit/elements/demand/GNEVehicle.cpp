@@ -313,7 +313,7 @@ GNEVehicle::getMoveOperation(const double /*shapeOffset*/) {
         posOverLane = parse<double>(getDepartPos());
     }
     // return move operation
-    return new GNEMoveOperation(this, getFirstPathLane(), {posOverLane},
+    return new GNEMoveOperation(this, getFirstPathLane(), posOverLane,
                                 myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
 }
 
