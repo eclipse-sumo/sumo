@@ -48,7 +48,7 @@ transit agency. [Some examples from Germany](https://gist.github.com/highsource/
 - [Lower Saxony and Bremen](https://www.vbn.de/service/entwicklerinfos/)
 - [Hamburg](https://suche.transparenz.hamburg.de/?q=gtfs)
 
-This tutorial uses the [June 2019 dataset by VBB](https://www.vbb.de/media/download/5347).
+This tutorial uses the [June 2019 dataset by VBB](https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2019.zip).
 You can either download the data or give the URL of the file directly to the script.
 
 # Mapping GTFS data to the network
