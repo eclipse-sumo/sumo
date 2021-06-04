@@ -2505,7 +2505,7 @@ GNEAttributeCarrier::fillAdditionals() {
                                               "Edge in which vaporizer is placed");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_BEGIN,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUESTATIC,
                                               "Start Time",
                                               "0");

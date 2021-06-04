@@ -119,7 +119,7 @@ public:
 
 protected:
     /// @brief begin time of vaporizer
-    SUMOTime myFrom;
+    SUMOTime myBegin;
 
     /// @brief end time in which this vaporizer is placed
     SUMOTime myEnd;
