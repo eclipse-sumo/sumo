@@ -59,12 +59,12 @@ title: ChangeLog
   - [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy) can now make use of post-facto stop timing data (attribuet 'started', 'ended'). Issue #8610
   - Added netdiff.py option **--remove-plain** to automatically clean up temporary files. Issue #8712
   - [gtfs2pt.py](Tools/Import/GTFS.md) vTypes are now written as a separated output file. The name of the file can be defined with **--vtype-output**. Issue #8646
-  - Now the tool [drtOnline.py](Tools/Drt.md) contains only the information for DRT scheduling (read fleet and requests, call a DARP solver and dispatch). To find the best routes, different methods can be used to solve the DialARideProblem (DARP), which are defined in the script "darpSolvers.py". Issue #8700
   
 
 ### Miscelaneous
 - tools
   - Function sumolib.xml.parse now sets the attribute `heterogeneous=True` by default. This enables parsing of all attributes even not all elements have the same set of attributes. The value `heterogeneous=False` is useful for conserving memory when all elements are known to have the same set of attributes. Issue #8651
+  - Now the tool [drtOnline.py](Tools/Drt.md) contains only the information for DRT scheduling (read fleet and requests, call a DARP solver and dispatch). To find the best routes, different methods can be used to solve the DialARideProblem (DARP), which are defined in the script "darpSolvers.py". Issue #8700
 
 ## Version 1.9.2 (18.05.2021)
 
