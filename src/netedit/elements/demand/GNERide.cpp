@@ -547,7 +547,7 @@ GNERide::setEnabledAttribute(const int /*enabledAttributes*/) {
 void
 GNERide::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
-    myArrivalPosition = moveResult.shapeToUpdate.front().x();
+    myArrivalPosition = moveResult.newEndPos;
     // update geometry
     updateGeometry();
 }
@@ -557,7 +557,7 @@ void
 GNERide::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("arrivalPos of " + getTagStr());
     // now adjust start position
-    setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.shapeToUpdate.front().x()), undoList);
+    setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newStartPos), undoList);
     undoList->p_end();
 }
 

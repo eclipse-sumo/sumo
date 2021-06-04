@@ -410,8 +410,8 @@ GNEStoppingPlace::getEndGeometryPositionOverLane() const {
 void
 GNEStoppingPlace::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
-    myStartPosition = moveResult.shapeToUpdate.front().x() / getParentLanes().front()->getLengthGeometryFactor();
-    myEndPosition = moveResult.shapeToUpdate.back().x() / getParentLanes().front()->getLengthGeometryFactor();
+    myStartPosition = moveResult.newStartPos;
+    myEndPosition = moveResult.newEndPos;
     // set lateral offset
     myMoveElementLateralOffset = moveResult.laneOffset;
     // update geometry
@@ -427,11 +427,11 @@ GNEStoppingPlace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* 
         undoList->p_begin("position of " + getTagStr());
         // set startPos
         if (myStartPosition != INVALID_DOUBLE) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.shapeToUpdate.front().x() / getParentLanes().front()->getLengthGeometryFactor())));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newStartPos)));
         }
         // set endPos
         if (myEndPosition != INVALID_DOUBLE) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.shapeToUpdate.back().x() / getParentLanes().front()->getLengthGeometryFactor())));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newEndPos)));
         }
         // check if lane has to be changed
         if (moveResult.newLane) {

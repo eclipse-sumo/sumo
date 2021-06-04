@@ -150,6 +150,12 @@ public:
     /// @brief lane offset
     double laneOffset;
 
+    /// @brief newStartPos
+    double newStartPos;
+
+    /// @brief newEndPos
+    double newEndPos;
+
     /// @brief new Lane
     const GNELane* newLane;
 

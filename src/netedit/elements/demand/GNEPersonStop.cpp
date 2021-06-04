@@ -736,7 +736,7 @@ GNEPersonStop::setEnabledAttribute(const int enabledAttributes) {
 void
 GNEPersonStop::setMoveShape(const GNEMoveResult& moveResult) {
     // change endPos
-    endPos = moveResult.shapeToUpdate.front().x();
+    endPos = moveResult.newStartPos;
     // update geometry
     updateGeometry();
 }
@@ -746,7 +746,7 @@ void
 GNEPersonStop::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("endPos of " + getTagStr());
     // now adjust endPos position
-    setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.shapeToUpdate.front().x()), undoList);
+    setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newStartPos), undoList);
     undoList->p_end();
 }
 

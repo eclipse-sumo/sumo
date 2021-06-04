@@ -75,7 +75,7 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const bool _allowChangeLane) :
     moveElement(_moveElement),
     lane(_lane),
-    originalStarPos(_originalStarPos),
+    originalStarPos(_originalStarPos * _lane->getLengthGeometryFactor()),
     originalEndPos(INVALID_DOUBLE),
     allowChangeLane(_allowChangeLane) {
 }
@@ -88,27 +88,11 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const bool _allowChangeLane) :
     moveElement(_moveElement),
     lane(_lane),
-    originalStarPos(_originalStarPos),
-    originalEndPos(_originalEndPos),
+    originalStarPos(_originalStarPos * _lane->getLengthGeometryFactor()),
+    originalEndPos(_originalEndPos * _lane->getLengthGeometryFactor()),
     allowChangeLane(_allowChangeLane) {
 }
 
-/*
-GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
-                                   const GNELane* _lane,
-                                   const double _originalStarPos,
-                                   const double _originalEndPos,
-                                   const bool _moveStartPos,
-                                   const bool _moveEndPos) :
-    moveElement(_moveElement),
-    lane(_lane),
-    originalStarPos(_originalStarPos),
-    originalEndPos(_originalEndPos),
-    moveStartPos(_moveStartPos),
-    moveEndPos(_moveEndPos),
-    allowChangeLane(false) {
-}
-*/
 
 GNEMoveOperation::~GNEMoveOperation() {}
 
@@ -145,6 +129,8 @@ GNEMoveOffset::~GNEMoveOffset() {}
 
 GNEMoveResult::GNEMoveResult() :
     laneOffset(0),
+    newStartPos(0),
+    newEndPos(0),
     newLane(nullptr) {}
 
 
@@ -316,10 +302,8 @@ GNEMoveElement::calculateSingleMovementOverLane(GNEMoveResult& moveResult, const
             posOverLaneOffset = pos - newPosOverLanePerpendicular;
         }
     }
-    // clear moveResult shape
-    moveResult.shapeToUpdate.clear();
-    // apply posOverLaneOffset to all posOverLanes and generate new shape
-    moveResult.shapeToUpdate.push_back(Position(pos - posOverLaneOffset, 0));
+    // update moveResult
+    moveResult.newStartPos = (pos - posOverLaneOffset) / lane->getLengthGeometryFactor();
 }
 
 
@@ -361,13 +345,9 @@ GNEMoveElement::calculateDoubleMovementOverLane(GNEMoveResult& moveResult, const
             posOverLaneOffset = centralPosition - newPosOverLanePerpendicular;
         }
     }
-    // clear moveResult shape
-    moveResult.shapeToUpdate.clear();
-    // apply posOverLaneOffset to shapeToUpdate
-    moveResult.shapeToUpdate.push_back(Position(startPos - posOverLaneOffset, 0));
-    if (endPos != INVALID_DOUBLE) {
-        moveResult.shapeToUpdate.push_back(Position(endPos - posOverLaneOffset, 0));
-    }
+    // update moveResult
+    moveResult.newStartPos = (startPos - posOverLaneOffset) / lane->getLengthGeometryFactor();
+    moveResult.newEndPos = (endPos - posOverLaneOffset) / lane->getLengthGeometryFactor();
 }
 
 
