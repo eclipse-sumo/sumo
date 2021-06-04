@@ -1,0 +1,17 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <route id="r0" edges="beg middle end"/>
+
+    <vehicle id="v0" type="t0" route="r0" depart="0">
+        <!-- this stop is already completed when saving state -->
+        <stop lane="middle_0" duration="2" endPos="10" parking="false" line="testLine" tripId="testTripID" started="5" ended="42"/>
+        <!-- the vehicle is stopped here when saving state -->
+        <stop lane="middle_0" duration="20" endPos="60" parking="false" started="5" ended="42"/>
+        <!-- this stop is yet to come when saving state -->
+        <stop lane="middle_0" duration="20" endPos="150" parking="false" line="testLine2" tripId="testTripID2" started="5" ended="42"/>
+        <stop busStop="busstop" duration="20" parking="true" started="5" ended="42"/>
+    </vehicle>
+
+    <vehicle id="v1" type="t0" route="r0" depart="3"/>
+
+</routes>

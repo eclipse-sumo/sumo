@@ -46,6 +46,9 @@ save_rng
 save_routeDistribution
 save_stopped
 
+# like save_stopped but the input already containts started/ended information
+save_stopped_started_ended
+
 # restore further lanes according to previous route when loading state
 rail_furtherLane
 
