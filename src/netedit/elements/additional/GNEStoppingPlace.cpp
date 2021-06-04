@@ -358,21 +358,22 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
 double
 GNEStoppingPlace::getStartGeometryPositionOverLane() const {
     if (myStartPosition != INVALID_DOUBLE) {
-        // get lane final length
-        const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+        // get lane final and shape length
+        const double laneLength = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
         // get startPosition
         double fixedPos = myStartPosition;
         // adjust fixedPos
         if (fixedPos < 0) {
-            fixedPos += len;
+            fixedPos += laneLength;
         }
+        fixedPos *= getParentLanes().front()->getLengthGeometryFactor();
         // return depending of fixedPos
         if (fixedPos < 0) {
             return 0;
         } else if (fixedPos > (getParentLanes().front()->getLaneShapeLength() - POSITION_EPS)) {
-            return (fixedPos > getParentLanes().front()->getLaneShapeLength() - POSITION_EPS);
+            return (getParentLanes().front()->getLaneShapeLength() - POSITION_EPS);
         } else {
-            return fixedPos * getParentLanes().front()->getLengthGeometryFactor();
+            return fixedPos;
         }
     } else {
         return 0;
@@ -383,21 +384,22 @@ GNEStoppingPlace::getStartGeometryPositionOverLane() const {
 double
 GNEStoppingPlace::getEndGeometryPositionOverLane() const {
     if (myEndPosition != INVALID_DOUBLE) {
-        // get lane final length
-        const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+        // get lane final and shape length
+        const double laneLength = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
         // get endPosition
         double fixedPos = myEndPosition;
         // adjust fixedPos
         if (fixedPos < 0) {
-            fixedPos += len;
+            fixedPos += laneLength;
         }
+        fixedPos *= getParentLanes().front()->getLengthGeometryFactor();
         // return depending of fixedPos
-        if (fixedPos < 0) {
+        if (fixedPos < POSITION_EPS) {
             return POSITION_EPS;
         } else if (fixedPos > getParentLanes().front()->getLaneShapeLength()) {
-            return fixedPos > getParentLanes().front()->getLaneShapeLength();
+            return getParentLanes().front()->getLaneShapeLength();
         } else {
-            return fixedPos * getParentLanes().front()->getLengthGeometryFactor();
+            return fixedPos;
         }
     } else {
         return getParentLanes().front()->getLaneShapeLength();
