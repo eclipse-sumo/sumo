@@ -76,8 +76,8 @@ jobs:
         cd fmuChecker
         mkdir build
         cd build
-        cmake ../ -Wno-dev
-        cmake --build . --target install -Wno-dev
+        cmake -Wno-dev .. 
+        cmake -Wno-dev --build . --target install
 
     - name: Checking sumo-fmi2.fmu
       run: |
