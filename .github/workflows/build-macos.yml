@@ -77,7 +77,7 @@ jobs:
         mkdir build
         cd build
         cmake -Wno-dev .. 
-        cmake -Wno-dev --build . --target install
+        cmake --build . --target install
 
     - name: Checking sumo-fmi2.fmu
       run: |
