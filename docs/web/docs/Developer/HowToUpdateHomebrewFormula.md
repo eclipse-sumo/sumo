@@ -22,11 +22,12 @@ After a new SUMO release (see [HowToRelease](HowToRelease.md)), follow these ste
     `<SUMO_SRC_URL>` is the URL to the respective source code archive **with examples**
     (e.g., `https://sumo.dlr.de/releases/1.9.2/sumo-src-1.9.2.tar.gz`).
     This script automates (including local git commits)
-    1. Archiving the old formula (for the previous sumo version)
-    2. Creating a new temporary `sumo` git branch (**same name as the formula**)
-    3. Bumping the formula version (via `brew bump-formula-pr`)
-    4. Removing the (now obsolete) bottle block in the formula
-    5. Updating the symlink in `Aliases/`
+    
+    1. Archiving the old formula (for the previous sumo version)   
+    2. Creating a new temporary `sumo` git branch (**same name as the formula**)   
+    3. Bumping the formula version (via `brew bump-formula-pr`)   
+    4. Removing the (now obsolete) bottle block in the formula   
+    5. Updating the symlink in `Aliases/`   
     6. Updating the version number in `README.md`
 
 2. Push the local commits to upstream:
