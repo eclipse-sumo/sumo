@@ -57,7 +57,6 @@
 #include "GNERouteProbe.h"
 #include "GNETAZ.h"
 #include "GNETAZSourceSink.h"
-#include "GNETrainStop.h"
 #include "GNEVaporizer.h"
 #include "GNEVariableSpeedSign.h"
 #include "GNEVariableSpeedSignStep.h"
@@ -103,7 +102,7 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sum
             writeErrorInvalidNegativeValue(SUMO_TAG_BUS_STOP, id, SUMO_ATTR_PARKING_LENGTH);
         } else {
             // build busStop
-            GNEAdditional* busStop = new GNEBusStop(id, lane, myNet, startPos, endPos, name, lines, personCapacity, 
+            GNEAdditional* busStop = new GNEBusStop(SUMO_TAG_BUS_STOP, id, lane, myNet, startPos, endPos, name, lines, personCapacity, 
                                                     parkingLength, friendlyPosition, parameters, neteditParameters.blockMovement);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
@@ -146,7 +145,7 @@ GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* s
             writeErrorInvalidNegativeValue(SUMO_TAG_TRAIN_STOP, id, SUMO_ATTR_PARKING_LENGTH);
         } else {
             // build trainStop
-            GNEAdditional* trainStop = new GNETrainStop(id, lane, myNet, startPos, endPos, name, lines, personCapacity, 
+            GNEAdditional* trainStop = new GNEBusStop(SUMO_TAG_TRAIN_STOP, id, lane, myNet, startPos, endPos, name, lines, personCapacity, 
                                                     parkingLength, friendlyPosition, parameters, neteditParameters.blockMovement);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {

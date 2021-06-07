@@ -33,10 +33,10 @@
 // method definitions
 // ===========================================================================
 
-GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos, 
+GNEBusStop::GNEBusStop(SumoXMLTag tag, const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos, 
         const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength, bool friendlyPosition, 
         const std::map<std::string, std::string> &parameters, bool blockMovement) :
-    GNEStoppingPlace(id, net, GLO_BUS_STOP, SUMO_TAG_BUS_STOP, lane, startPos, endPos, name, friendlyPosition, parameters, blockMovement),
+    GNEStoppingPlace(id, net, GLO_BUS_STOP, tag, lane, startPos, endPos, name, friendlyPosition, parameters, blockMovement),
     myLines(lines),
     myPersonCapacity(personCapacity),
     myParkingLength(parkingLength) {
@@ -75,6 +75,8 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check exaggeration
         if (s.drawAdditionals(busStopExaggeration)) {
+            // get width
+            const double stopWidth = (myTagProperty.getTag() == SUMO_TAG_BUS_STOP)? s.stoppingPlaceSettings.busStopWidth : s.stoppingPlaceSettings.trainStopWidth;
             // declare colors
             RGBColor baseColor, signColor;
             // set colors
@@ -97,15 +99,15 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // set base color
             GLHelper::setColor(baseColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.stoppingPlaceSettings.busStopWidth * busStopExaggeration);
+            GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, stopWidth * busStopExaggeration);
             // draw detail
             if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, busStopExaggeration)) {
                 // draw lines
                 drawLines(s, myLines, baseColor);
                 // draw sign
-                drawSign(s, busStopExaggeration, baseColor, signColor, "H");
+                drawSign(s, busStopExaggeration, baseColor, signColor, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP)? "H" : "T");
                 // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, busStopExaggeration, 0, 0, true);
+                GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, busStopExaggeration, 0, 0, true, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP)? 0.5 : 0.25);
             }
             // pop draw matrix
             glPopMatrix();
@@ -115,10 +117,10 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             drawConnectionAccess(s, baseColor);
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.busStopWidth, busStopExaggeration);
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), stopWidth, busStopExaggeration);
             }
             if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.busStopWidth, busStopExaggeration);
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), stopWidth, busStopExaggeration);
             }
             // draw child demand elements
             for (const auto& demandElement : getChildDemandElements()) {
