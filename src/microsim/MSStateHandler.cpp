@@ -370,7 +370,12 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             MSTLLogicControl& tlc = MSNet::getInstance()->getTLSControl();
             MSTrafficLightLogic* tl = tlc.get(tlID, programID);
             if (tl == nullptr) {
-                throw ProcessError("Unknown program '" + programID + "' for traffic light '" + tlID + "'");
+                if (programID == "online") {
+                    WRITE_WARNING("Ignoring program '" + programID + "' for traffic light '" + tlID + "' in loaded state");
+                    return;
+                } else {
+                    throw ProcessError("Unknown program '" + programID + "' for traffic light '" + tlID + "'");
+                }
             }
             if (phase >= tl->getPhaseNumber()) {
                 throw ProcessError("Invalid phase '" + toString(phase) + "' for traffic light '" + tlID + "'");
