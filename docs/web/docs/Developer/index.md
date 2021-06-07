@@ -40,7 +40,7 @@ title: Developer
 - [How To implement an own car-following model](How_To/Car-Following_Model.md)
 - [How To implement a new device](How_To/Device.md)
 - [How To contribute to this documentation](../FAQ.md#how_do_i_contribute_to_the_documentation)
-- [How to contribute to SUMO in general](../FAQ.md#how_can_i_contribute_to_sumo)
+- [How To contribute to SUMO in general](../FAQ.md#how_can_i_contribute_to_sumo)
 
 ## Methods, Algorithms, and Subsystems
 
