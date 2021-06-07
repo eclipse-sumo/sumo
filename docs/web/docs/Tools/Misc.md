@@ -201,7 +201,7 @@ sumo-gui -n test.net.xml -g settings.xml
 Synchronizes saved state files from a (remote) simulation and replays them in a
 local sumo-gui instance to observe the remote simulation (requires rsync).
 
-To observer every step in a simulation with step length 1s, the remote simulation must be started with option **--save-states.period 1**.
+To observer every step in a simulation with step length 1s, the remote simulation must be started with option **--save-state.period 1**.
 In order to conserve disk space, the option **--save-state.period.keep 3** is recommended. (i.e. to retain only the last 3 simulation state files at any time).
 
 To replay the state files the following call can be used:
