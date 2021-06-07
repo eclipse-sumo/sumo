@@ -249,7 +249,7 @@ phases*.
 Generally, actuated traffic lights switch in response to traffic (or lack thereof). The different controllers and their features are described below.
 
 !!! note
-    [Mesoscipic simulation](Meso.md) does not support actuated traffic lights.
+    [Mesoscopic simulation](Meso.md) does not support actuated traffic lights.
 
 ### Based on Time Gaps
 
