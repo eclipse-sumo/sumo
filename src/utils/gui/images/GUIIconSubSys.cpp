@@ -150,6 +150,7 @@
 #include "checkbox_showconnections.xpm"
 #include "checkbox_showdemandelements.xpm"
 #include "checkbox_showpersonplans.xpm"
+#include "checkbox_showtrips.xpm"
 #include "checkbox_spreadvehicle.xpm"
 #include "checkbox_twoway.xpm"
 #include "checkbox_applytoallphases.xpm"
@@ -481,6 +482,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_APPLYTOALLPHASES] = new FXXPMIcon(a, checkbox_applytoallphases_xpm);
 
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_HIDESHAPES] = new FXXPMIcon(a, checkbox_hideshapes_xpm);
+    myIcons[GUIIcon::DEMANDMODE_CHECKBOX_SHOWTRIPS] = new FXXPMIcon(a, checkbox_showtrips_xpm);
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS] = new FXXPMIcon(a, checkbox_hidenoninspecteddemandelements_xpm);
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_SHOWPERSONPLANS] = new FXXPMIcon(a, checkbox_showpersonplans_xpm);
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_LOCKPERSON] = new FXXPMIcon(a, checkbox_lockperson_xpm);
