@@ -349,6 +349,15 @@ struct GUIVisualizationStoppingPlaceSettings {
     /// @brief color for busStops signs
     static const RGBColor busStopColorSign;
 
+    /// @brief trainStop width
+    static const double trainStopWidth;
+
+    /// @brief color for trainStops
+    static const RGBColor trainStopColor;
+
+    /// @brief color for trainStops signs
+    static const RGBColor trainStopColorSign;
+
     /// @brief containerStop width
     static const double containerStopWidth;
 
