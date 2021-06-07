@@ -733,11 +733,12 @@ GNEVehicle::computePathElement() {
 
 void
 GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
-    // get inspected and front flags
+    // get flags
     const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this);
+    const bool drawPathOption = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() && myNet->getViewNet()->getDemandViewOptions().showAllTrips();
     // check conditions
     if (!s.drawForRectangleSelection &&
-            (s.drawDottedContour() || dottedElement || isAttributeCarrierSelected()) &&
+            (drawPathOption || s.drawDottedContour() || dottedElement || isAttributeCarrierSelected()) &&
             myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myTagProperty.getTag())) {
         // declare flag to draw spread vehicles
         const bool drawSpreadVehicles = (myNet->getViewNet()->getNetworkViewOptions().drawSpreadVehicles() || myNet->getViewNet()->getDemandViewOptions().drawSpreadVehicles());
@@ -826,12 +827,13 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
 
 void
 GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
-    // get inspected and front flags
+    // get flags
     const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this);
+    const bool drawPathOption = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() && myNet->getViewNet()->getDemandViewOptions().showAllTrips();
     // check conditions
     if (!s.drawForRectangleSelection &&
             fromLane->getLane2laneConnections().exist(toLane) &&
-            (s.drawDottedContour() || dottedElement || isAttributeCarrierSelected()) &&
+            (drawPathOption || s.drawDottedContour() || dottedElement || isAttributeCarrierSelected()) &&
             myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, fromLane, toLane, myTagProperty.getTag())) {
         // Start drawing adding an gl identificator
         glPushName(getGlID());
