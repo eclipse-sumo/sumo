@@ -68,7 +68,7 @@ NWWriter_XML::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         writePTStops(oc, nb.getPTStopCont());
     }
     if (oc.exists("ptline-output") && oc.isSet("ptline-output")) {
-        writePTLines(oc, nb.getPTLineCont(), nb.getEdgeCont());
+        writePTLines(oc, nb.getPTLineCont());
     }
 
     if (oc.exists("parking-output") && oc.isSet("parking-output")) {
@@ -436,7 +436,7 @@ NWWriter_XML::writePTStops(const OptionsCont& oc, NBPTStopCont& sc) {
     }
     device.close();
 }
-void NWWriter_XML::writePTLines(const OptionsCont& oc, NBPTLineCont& lc, NBEdgeCont& ec) {
+void NWWriter_XML::writePTLines(const OptionsCont& oc, NBPTLineCont& lc) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("ptline-output"));
     device.writeXMLHeader("ptLines", "ptlines_file.xsd");
     for (const auto& item : lc.getLines()) {
