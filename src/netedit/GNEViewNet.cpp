@@ -110,6 +110,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES,    GNEViewNet::onCmdToggleDrawSpreadVehicles),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED,      GNEViewNet::onCmdToggleHideNonInspecteDemandElements),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES,            GNEViewNet::onCmdToggleHideShapes),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS,             GNEViewNet::onCmdToggleShowTrips),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,    GNEViewNet::onCmdToggleShowAllPersonPlans),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON,            GNEViewNet::onCmdToggleLockPerson),
     // Data view options
@@ -3101,6 +3102,25 @@ GNEViewNet::onCmdToggleHideShapes(FXObject*, FXSelector sel, void*) {
 
 
 long
+GNEViewNet::onCmdToggleShowTrips(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckHideShapes
+    if (myDemandViewOptions.menuCheckShowAllTrips->amChecked() == TRUE) {
+        myDemandViewOptions.menuCheckShowAllTrips->setChecked(FALSE);
+    } else {
+        myDemandViewOptions.menuCheckShowAllTrips->setChecked(TRUE);
+    }
+    myDemandViewOptions.menuCheckShowAllTrips->update();
+    // Only update view
+    updateViewNet();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS)) {
+        myDemandViewOptions.menuCheckShowAllTrips->setFocus();
+    }
+    return 1;
+}
+
+
+long
 GNEViewNet::onCmdToggleShowAllPersonPlans(FXObject*, FXSelector sel, void*) {
     // Toggle menuCheckShowAllPersonPlans
     if (myDemandViewOptions.menuCheckShowAllPersonPlans->amChecked() == TRUE) {
@@ -3587,9 +3607,11 @@ GNEViewNet::updateDemandModeSpecificControls() {
     myDemandViewOptions.menuCheckToggleGrid->show();
     myDemandViewOptions.menuCheckDrawSpreadVehicles->show();
     myDemandViewOptions.menuCheckHideShapes->show();
+    myDemandViewOptions.menuCheckShowAllTrips->show();
     menuChecks.menuCheckToggleGrid->show();
     menuChecks.menuCheckDrawSpreadVehicles->show();
     menuChecks.menuCheckHideShapes->show();
+    menuChecks.menuCheckShowAllTrips->show();
     // show separator
     menuChecks.separator->show();
     // enable selected controls
