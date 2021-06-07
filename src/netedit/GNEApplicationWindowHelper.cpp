@@ -665,6 +665,7 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::DemandViewOptio
     menuCheckToggleGrid(nullptr),
     menuCheckDrawSpreadVehicles(nullptr),
     menuCheckHideShapes(nullptr),
+    menuCheckShowAllTrips(nullptr),
     menuCheckHideNonInspectedDemandElements(nullptr),
     menuCheckShowAllPersonPlans(nullptr),
     menuCheckLockPerson(nullptr),
@@ -691,18 +692,23 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::buildDemandView
                           GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDESHAPES),
                           myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES);
 
+    menuCheckShowAllTrips = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+                          "Toggle show all trips", "Alt+4", "",
+                          GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWTRIPS),
+                          myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS);
+
     menuCheckShowAllPersonPlans = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                                  "Show all person plans", "Alt+4", "",
+                                  "Show all person plans", "Alt+5", "",
                                   GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWPERSONPLANS),
                                   myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS);
 
     menuCheckLockPerson = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                          "Lock selected person", "Alt+5", "",
+                          "Lock selected person", "Alt+6", "",
                           GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_LOCKPERSON),
                           myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON);
 
     menuCheckHideNonInspectedDemandElements = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-            "Toggle show non-inspected demand elements", "Alt+6", "",
+            "Toggle show non-inspected demand elements", "Alt+7", "",
             GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS),
             myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED);
 
@@ -716,6 +722,7 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::hideDemandViewO
     menuCheckToggleGrid->hide();
     menuCheckDrawSpreadVehicles->hide();
     menuCheckHideShapes->hide();
+    menuCheckShowAllTrips->hide();
     menuCheckHideNonInspectedDemandElements->hide();
     menuCheckShowAllPersonPlans->hide();
     menuCheckLockPerson->hide();
@@ -1276,8 +1283,19 @@ GNEApplicationWindowHelper::toggleEditOptionsDemand(GNEViewNet* viewNet, const M
             // show extra information for tests
             WRITE_DEBUG("Enabled hide shapes throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToggleHideNonInspecteDemandElements
+        // Call manually onCmdToggleHideShapes
         viewNet->onCmdToggleHideShapes(obj, sel, nullptr);
+    } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckShowAllTrips) {
+        // Toggle menuCheckShowAllTrips
+        if (viewNet->getDemandViewOptions().menuCheckShowAllTrips->amChecked() == TRUE) {
+            // show extra information for tests
+            WRITE_DEBUG("Disabled show all trips throught alt + " + toString(numericalKeyPressed + 1));
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Enabled show all trips throught alt + " + toString(numericalKeyPressed + 1));
+        }
+        // Call manually onCmdToggleShowTrips
+        viewNet->onCmdToggleShowTrips(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckShowAllPersonPlans) {
         // Toggle menuCheckShowAllPersonPlans
         if (viewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->amChecked() == TRUE) {
