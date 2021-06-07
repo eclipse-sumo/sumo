@@ -1,5 +1,5 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'trainStop' in TagSelector
+Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'trainStop' in TagSelector
 Debug: Invalid input parameter of trainStop: 'parkingLength' doesn't have a valid 'float' format
 Error: Could not build trainStop with ID 'trainStop_gneE0_0_0' in netedit; attribute parkingLength cannot be negative.

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 21.08.2020 15:42:57 by Eclipse SUMO netedit Version v1_6_0+1715-1ccaaec835
+<!-- generated on 2021-06-07 10:48:39 by Eclipse SUMO netedit Version v1_9_2+0361-7fd03266c0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug154153.15792\netedit.gui\additionalElements\trainstop\create\id\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Jun104710.5968\netedit.gui\additionalElements\trainstop\create\id\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug154153.15792\netedit.gui\additionalElements\trainstop\create\id\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Jun104710.5968\netedit.gui\additionalElements\trainstop\create\id\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,33 +30,33 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug154153.15792\netedit.gui\additionalElements\trainstop\create\id\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug154153.15792\netedit.gui\additionalElements\trainstop\create\id\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug154153.15792\netedit.gui\additionalElements\trainstop\create\id\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug154153.15792\netedit.gui\additionalElements\trainstop\create\id\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug154153.15792\netedit.gui\additionalElements\trainstop\create\id\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug154153.15792\netedit.gui\additionalElements\trainstop\create\id\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Jun104710.5968\netedit.gui\additionalElements\trainstop\create\id\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Jun104710.5968\netedit.gui\additionalElements\trainstop\create\id\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Jun104710.5968\netedit.gui\additionalElements\trainstop\create\id\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Jun104710.5968\netedit.gui\additionalElements\trainstop\create\id\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Jun104710.5968\netedit.gui\additionalElements\trainstop\create\id\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Jun104710.5968\netedit.gui\additionalElements\trainstop\create\id\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug154153.15792\netedit.gui\additionalElements\trainstop\create\id\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Jun104710.5968\netedit.gui\additionalElements\trainstop\create\id\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug154153.15792\netedit.gui\additionalElements\trainstop\create\id\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Jun104710.5968\netedit.gui\additionalElements\trainstop\create\id\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug154153.15792\netedit.gui\additionalElements\trainstop\create\id\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Jun104710.5968\netedit.gui\additionalElements\trainstop\create\id\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <trainStop id="trainStop_gneE0_0_0" lane="gneE0_0" startPos="16.00" endPos="26.00"/>
     <trainStop id="custom_ID" lane="gneE0_0" startPos="16.00" endPos="26.00"/>
+    <trainStop id="trainStop_gneE0_0_0" lane="gneE0_0" startPos="16.00" endPos="26.00"/>
 </additional>

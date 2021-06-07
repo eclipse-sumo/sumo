@@ -1,5 +1,5 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'trainStop' in TagSelector
+Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'trainStop' in TagSelector
 Debug: Invalid input parameter of trainStop: 'personCapacity' cannot be negative
 Debug: Invalid input parameter of trainStop: 'personCapacity' doesn't have a valid 'int' format

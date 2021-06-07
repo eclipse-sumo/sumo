@@ -1,5 +1,5 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'trainStop' in TagSelector
+Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'trainStop' in TagSelector
 Debug: Adding trainStop 'trainStop_gneE2_1_0' in GNEChange_Additional
 Debug: Setting new attribute friendlyPos 'true' into trainStop 'trainStop_gneE2_1_0'

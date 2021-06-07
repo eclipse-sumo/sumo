@@ -44,22 +44,22 @@ netedit.leftClick(referencePosition, 250, 235)
 netedit.moveMode()
 
 # move trainStop to right
-netedit.moveElement(referencePosition, 250, 250, 350, 250)
+netedit.moveElement(referencePosition, 250, 260, 350, 260)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect trainStop
-netedit.leftClick(referencePosition, 350, 250)
+netedit.leftClick(referencePosition, 350, 260)
 
 # unblock additional
-netedit.modifyBoolAttribute(13, True)
+netedit.modifyBoolAttribute(13, False)
 
 # change to move mode
 netedit.moveMode()
 
 # move trainStop to right
-netedit.moveElement(referencePosition, 350, 250, 250, 250)
+netedit.moveElement(referencePosition, 350, 260, 250, 260)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)
