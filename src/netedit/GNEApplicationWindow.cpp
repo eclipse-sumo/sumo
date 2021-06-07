@@ -207,6 +207,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED,      GNEApplicationWindow::onUpdToggleViewOption),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES,            GNEApplicationWindow::onCmdToggleViewOption),
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES,            GNEApplicationWindow::onUpdToggleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS,             GNEApplicationWindow::onCmdToggleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS,             GNEApplicationWindow::onUpdToggleViewOption),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,    GNEApplicationWindow::onCmdToggleViewOption),
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,    GNEApplicationWindow::onUpdToggleViewOption),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON,            GNEApplicationWindow::onCmdToggleViewOption),
@@ -2367,6 +2369,8 @@ GNEApplicationWindow::onCmdToggleViewOption(FXObject* obj, FXSelector sel, void*
                 return myViewNet->onCmdToggleHideNonInspecteDemandElements(obj, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES:
                 return myViewNet->onCmdToggleHideShapes(obj, sel, ptr);
+            case MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS:
+                return myViewNet->onCmdToggleShowTrips(obj, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS:
                 return myViewNet->onCmdToggleShowAllPersonPlans(obj, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON:
@@ -2494,6 +2498,13 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void*
                 break;
             case MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES:
                 if (myViewNet->getDemandViewOptions().menuCheckHideShapes->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS:
+                if (myViewNet->getDemandViewOptions().menuCheckShowAllTrips->amChecked()) {
                     menuCheck->setCheck(TRUE);
                 } else {
                     menuCheck->setCheck(FALSE);
