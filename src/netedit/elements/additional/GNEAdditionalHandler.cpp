@@ -57,6 +57,7 @@
 #include "GNERouteProbe.h"
 #include "GNETAZ.h"
 #include "GNETAZSourceSink.h"
+#include "GNETrainStop.h"
 #include "GNEVaporizer.h"
 #include "GNEVariableSpeedSign.h"
 #include "GNEVariableSpeedSignStep.h"
@@ -122,11 +123,45 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sum
 
 
 void 
-GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& /*id*/, 
-    const std::string &/*laneID*/, const double /*startPos*/, double /*endPos*/, const std::string& /*name*/, 
-    const std::vector<std::string>& /*lines*/, const int /*personCapacity*/, const double /*parkingLength*/, const bool /*friendlyPosition*/, 
-    const std::map<std::string, std::string> &/*parameters*/) {
-    ///
+GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, 
+    const std::string &laneID, const double startPos, const double endPos, const std::string& name, 
+    const std::vector<std::string>& lines, const int personCapacity, const double parkingLength, const bool friendlyPosition, 
+    const std::map<std::string, std::string> &parameters) {
+    // check conditions
+    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(SUMO_TAG_TRAIN_STOP, id);
+    } else if (myNet->retrieveAdditional(SUMO_TAG_TRAIN_STOP, id, false) == nullptr) {
+        // get NETEDIT parameters
+        NeteditParameters neteditParameters(sumoBaseObject);
+        // get lane
+        GNELane *lane = myNet->retrieveLane(laneID, false);
+        // check lane
+        if (lane == nullptr) {
+            writeErrorInvalidParent(SUMO_TAG_TRAIN_STOP, SUMO_TAG_LANE);
+        } else if (!checkDoublePositionOverLane(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
+            writeErrorInvalidPosition(SUMO_TAG_TRAIN_STOP, id);
+        } else if (personCapacity < 0) {
+            writeErrorInvalidNegativeValue(SUMO_TAG_TRAIN_STOP, id, SUMO_ATTR_PERSON_CAPACITY);
+        } else if (parkingLength < 0) {
+            writeErrorInvalidNegativeValue(SUMO_TAG_TRAIN_STOP, id, SUMO_ATTR_PARKING_LENGTH);
+        } else {
+            // build trainStop
+            GNEAdditional* trainStop = new GNETrainStop(id, lane, myNet, startPos, endPos, name, lines, personCapacity, 
+                                                    parkingLength, friendlyPosition, parameters, neteditParameters.blockMovement);
+            // insert depending of allowUndoRedo
+            if (myAllowUndoRedo) {
+                myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_TRAIN_STOP));
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(trainStop, true), true);
+                myNet->getViewNet()->getUndoList()->p_end();
+            } else {
+                myNet->getAttributeCarriers()->insertAdditional(trainStop);
+                lane->addChildElement(trainStop);
+                trainStop->incRef("buildTrainStop");
+            }
+        }
+    } else {
+        writeErrorDuplicated(SUMO_TAG_TRAIN_STOP, id);
+    }
 }
 
 
