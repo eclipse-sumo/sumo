@@ -221,6 +221,7 @@
 #include "crossing.xpm"
 
 #include "busstop.xpm"
+#include "trainstop.xpm"
 #include "access.xpm"
 #include "chargingstation.xpm"
 #include "containerstop.xpm"
@@ -556,6 +557,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::CROSSING] = new FXXPMIcon(a, crossing_xpm);
 
     myIcons[GUIIcon::BUSSTOP] = new FXXPMIcon(a, busstop_xpm);
+    myIcons[GUIIcon::TRAINSTOP] = new FXXPMIcon(a, trainstop_xpm);
     myIcons[GUIIcon::ACCESS] = new FXXPMIcon(a, access_xpm);
     myIcons[GUIIcon::CONTAINERSTOP] = new FXXPMIcon(a, containerstop_xpm);
     myIcons[GUIIcon::CHARGINGSTATION] = new FXXPMIcon(a, chargingstation_xpm);

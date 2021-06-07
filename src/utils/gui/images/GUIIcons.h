@@ -322,6 +322,7 @@ enum class GUIIcon {
     /// @name NETEDIT additional elements icons
     /// @{
     BUSSTOP,
+    TRAINSTOP,
     ACCESS,
     CONTAINERSTOP,
     CHARGINGSTATION,
