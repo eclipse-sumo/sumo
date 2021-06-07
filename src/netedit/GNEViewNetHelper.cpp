@@ -2203,6 +2203,7 @@ GNEViewNetHelper::DemandViewOptions::DemandViewOptions(GNEViewNet* viewNet) :
     menuCheckToggleGrid(nullptr),
     menuCheckDrawSpreadVehicles(nullptr),
     menuCheckHideShapes(nullptr),
+    menuCheckShowAllTrips(nullptr),
     menuCheckShowAllPersonPlans(nullptr),
     menuCheckLockPerson(nullptr),
     menuCheckHideNonInspectedDemandElements(nullptr),
@@ -2235,6 +2236,13 @@ GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
     menuCheckHideShapes->setChecked(false);
     menuCheckHideShapes->create();
 
+    menuCheckShowAllTrips = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+            ("\t\tToggle show all trips."),
+            GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWTRIPS),
+            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS, GUIDesignMFXCheckableButton);
+    menuCheckShowAllTrips->setChecked(false);
+    menuCheckShowAllTrips->create();
+
     menuCheckShowAllPersonPlans = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             ("\t\tShow all person plans."),
             GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWPERSONPLANS),
@@ -2266,6 +2274,7 @@ GNEViewNetHelper::DemandViewOptions::hideDemandViewOptionsMenuChecks() {
     menuCheckToggleGrid->hide();
     menuCheckDrawSpreadVehicles->hide();
     menuCheckHideShapes->hide();
+    menuCheckShowAllTrips->hide();
     menuCheckShowAllPersonPlans->hide();
     menuCheckLockPerson->hide();
     menuCheckHideNonInspectedDemandElements->hide();
@@ -2285,6 +2294,9 @@ GNEViewNetHelper::DemandViewOptions::getVisibleDemandMenuCommands(std::vector<MF
     }
     if (menuCheckHideShapes->shown()) {
         commands.push_back(menuCheckHideShapes);
+    }
+    if (menuCheckShowAllTrips->shown()) {
+        commands.push_back(menuCheckShowAllTrips);
     }
     if (menuCheckShowAllPersonPlans->shown() && menuCheckShowAllPersonPlans->isEnabled()) {
         commands.push_back(menuCheckShowAllPersonPlans);
@@ -2346,6 +2358,16 @@ bool
 GNEViewNetHelper::DemandViewOptions::showShapes() const {
     if (menuCheckHideShapes->shown()) {
         return (menuCheckHideShapes->amChecked() == FALSE);
+    } else {
+        return true;
+    }
+}
+
+
+bool
+GNEViewNetHelper::DemandViewOptions::showAllTrips() const {
+    if (menuCheckShowAllTrips->shown()) {
+        return (menuCheckShowAllTrips->amChecked() == FALSE);
     } else {
         return true;
     }

@@ -617,6 +617,9 @@ struct GNEViewNetHelper {
         /// @brief check if shapes has to be drawn
         bool showShapes() const;
 
+        /// @brief check if trips has to be drawn
+        bool showAllTrips() const;
+
         /// @brief check all person plans has to be show
         bool showAllPersonPlans() const;
 
@@ -637,6 +640,9 @@ struct GNEViewNetHelper {
 
         /// @brief Hide shapes (Polygons and POIs)
         MFXCheckableButton* menuCheckHideShapes;
+
+        /// @brief show all trips
+        MFXCheckableButton* menuCheckShowAllTrips;
 
         /// @brief show all person plans
         MFXCheckableButton* menuCheckShowAllPersonPlans;
