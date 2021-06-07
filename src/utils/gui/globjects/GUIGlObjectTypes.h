@@ -79,46 +79,44 @@ enum GUIGlObjectType {
     GLO_ADDITIONALELEMENT = 100,
     /// @brief a busStop
     GLO_BUS_STOP = 101,
-    /// @brief a trainStop
-    GLO_TRAIN_STOP = 102,
     /// @brief a containerStop
-    GLO_CONTAINER_STOP = 103,
+    GLO_CONTAINER_STOP = 102,
     /// @brief a chargingStation
-    GLO_CHARGING_STATION = 104,
+    GLO_CHARGING_STATION = 103,
     /// @brief a ParkingArea
-    GLO_PARKING_AREA = 105,
+    GLO_PARKING_AREA = 104,
     /// @brief a ParkingSpace
-    GLO_PARKING_SPACE = 106,
+    GLO_PARKING_SPACE = 105,
     /// @brief a E1 detector
-    GLO_E1DETECTOR = 107,
+    GLO_E1DETECTOR = 106,
     /// @brief a E1 detector
-    GLO_E1DETECTOR_ME = 108,
+    GLO_E1DETECTOR_ME = 107,
     /// @brief a E1 detector
-    GLO_E1DETECTOR_INSTANT = 109,
+    GLO_E1DETECTOR_INSTANT = 108,
     /// @brief a E2 detector
-    GLO_E2DETECTOR = 110,
+    GLO_E2DETECTOR = 109,
     /// @brief a E3 detector
-    GLO_E3DETECTOR = 111,
+    GLO_E3DETECTOR = 110,
     /// @brief a DetEntry detector
-    GLO_DET_ENTRY = 112,
+    GLO_DET_ENTRY = 111,
     /// @brief a DetExit detector
-    GLO_DET_EXIT = 113,
+    GLO_DET_EXIT = 112,
     /// @brief a Rerouter
-    GLO_REROUTER = 114,
+    GLO_REROUTER = 113,
     /// @brief a Rerouter
-    GLO_REROUTER_EDGE = 115,
+    GLO_REROUTER_EDGE = 114,
     /// @brief a Variable Speed Sign
-    GLO_VSS = 116,
+    GLO_VSS = 115,
     /// @brief a Calibrator
-    GLO_CALIBRATOR = 117,
+    GLO_CALIBRATOR = 116,
     /// @brief a RouteProbe
-    GLO_ROUTEPROBE = 118,
+    GLO_ROUTEPROBE = 117,
     /// @brief a Vaporizer
-    GLO_VAPORIZER = 119,
+    GLO_VAPORIZER = 118,
     /// @brief a Acces
-    GLO_ACCESS = 120,
+    GLO_ACCESS = 119,
     /// @brief a segment of an overhead line
-    GLO_OVERHEAD_WIRE_SEGMENT = 121,
+    GLO_OVERHEAD_WIRE_SEGMENT = 120,
 
     /// @}
 
