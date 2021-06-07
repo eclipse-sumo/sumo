@@ -63,6 +63,6 @@ title: Developer
 - [Packages on the open build service](https://software.opensuse.org/package/sumo)
 - [Nightly builds on the open build service](https://build.opensuse.org/package/show/home:behrisch/sumo_nightly)
 - [SUMO on Travis](https://travis-ci.org/eclipse/sumo) (legacy)
-- [SUMO brew formula on Travis](https://travis-ci.org/dlr-ts/homebrew-sumo)
+- [SUMO brew formula on Github Actions](https://github.com/DLR-TS/homebrew-sumo/actions)
 - [SUMO on OpenHub](https://www.openhub.net/p/sumo/)
 - [SUMO on codeclimate](https://codeclimate.com/github/DLR-TS/sumo)
