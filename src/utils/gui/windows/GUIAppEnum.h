@@ -690,6 +690,8 @@ enum {
     MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED,
     /// @brief hide shapes
     MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES,
+    /// @brief show all trips
+    MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS,
     /// @brief show all person plans
     MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,
     /// @brief lock person
