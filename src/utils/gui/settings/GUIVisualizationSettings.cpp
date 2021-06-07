@@ -142,9 +142,7 @@ const double GUIVisualizationStoppingPlaceSettings::stoppingPlaceSignOffset(1.5)
 const double GUIVisualizationStoppingPlaceSettings::busStopWidth(1);
 const RGBColor GUIVisualizationStoppingPlaceSettings::busStopColor(76, 170, 50);
 const RGBColor GUIVisualizationStoppingPlaceSettings::busStopColorSign(255, 235, 0);
-const double GUIVisualizationStoppingPlaceSettings::trainStopWidth(1);
-const RGBColor GUIVisualizationStoppingPlaceSettings::trainStopColor(76, 170, 50);
-const RGBColor GUIVisualizationStoppingPlaceSettings::trainStopColorSign(255, 235, 0);
+const double GUIVisualizationStoppingPlaceSettings::trainStopWidth(0.5);
 const double GUIVisualizationStoppingPlaceSettings::containerStopWidth(1);
 const RGBColor GUIVisualizationStoppingPlaceSettings::containerStopColor(83, 89, 172);
 const RGBColor GUIVisualizationStoppingPlaceSettings::containerStopColorSign(177, 184, 186, 171);
