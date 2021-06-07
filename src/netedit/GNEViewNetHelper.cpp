@@ -2367,7 +2367,7 @@ GNEViewNetHelper::DemandViewOptions::showShapes() const {
 bool
 GNEViewNetHelper::DemandViewOptions::showAllTrips() const {
     if (menuCheckShowAllTrips->shown()) {
-        return (menuCheckShowAllTrips->amChecked() == FALSE);
+        return (menuCheckShowAllTrips->amChecked() == TRUE);
     } else {
         return true;
     }
