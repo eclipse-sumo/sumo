@@ -1646,8 +1646,7 @@ GNEFrameModuls::DrawingShape::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
 
 GNEFrameModuls::SelectorParent::SelectorParent(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Parent selector", GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent),
-    myParentTag(SUMO_TAG_NOTHING) {
+    myFrameParent(frameParent) {
     // Create label with the type of SelectorParent
     myParentsLabel = new FXLabel(this, "No additional selected", nullptr, GUIDesignLabelLeftThick);
     // Create list
@@ -1689,12 +1688,12 @@ GNEFrameModuls::SelectorParent::setIDSelected(const std::string& id) {
 
 
 bool
-GNEFrameModuls::SelectorParent::showSelectorParentModul(SumoXMLTag additionalType) {
+GNEFrameModuls::SelectorParent::showSelectorParentModul(const std::vector<SumoXMLTag> &additionalTypeParents) {
     // make sure that we're editing an additional tag
     const auto listOfTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, false);
     for (const auto& tagIt : listOfTags) {
-        if (tagIt.first.getTag() == additionalType) {
-            myParentTag = additionalType;
+        if (std::find(additionalTypeParents.begin(), additionalTypeParents.end(), tagIt.first.getTag()) != additionalTypeParents.end()) {
+            myParentTags = additionalTypeParents;
             myParentsLabel->setText(("Parent type: " + tagIt.second).c_str());
             refreshSelectorParentModul();
             show();
@@ -1707,7 +1706,7 @@ GNEFrameModuls::SelectorParent::showSelectorParentModul(SumoXMLTag additionalTyp
 
 void
 GNEFrameModuls::SelectorParent::hideSelectorParentModul() {
-    myParentTag = SUMO_TAG_NOTHING;
+    myParentTags.clear();
     hide();
 }
 
@@ -1715,10 +1714,12 @@ GNEFrameModuls::SelectorParent::hideSelectorParentModul() {
 void
 GNEFrameModuls::SelectorParent::refreshSelectorParentModul() {
     myParentsList->clearItems();
-    if (myParentTag != SUMO_TAG_NOTHING) {
+    if (myParentTags.size() > 0) {
         // fill list with IDs of additionals
-        for (const auto& i : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(myParentTag)) {
-            myParentsList->appendItem(i.first.c_str());
+        for (const auto &tag : myParentTags) {
+            for (const auto& additional : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(tag)) {
+                myParentsList->appendItem(additional.first.c_str());
+            }
         }
     }
 }

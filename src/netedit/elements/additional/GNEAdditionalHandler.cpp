@@ -171,8 +171,11 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
     NeteditParameters neteditParameters(sumoBaseObject);
     // get lane
     GNELane *lane = myNet->retrieveLane(laneID, false);
-    // get lane
+    // get busStop (or trainStop)
     GNEAdditional *busStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    if (busStop == nullptr) {
+        busStop = myNet->retrieveAdditional(SUMO_TAG_TRAIN_STOP, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    }
     // Check if busStop parent and lane is correct
     if (lane == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_BUS_STOP, SUMO_TAG_LANE);

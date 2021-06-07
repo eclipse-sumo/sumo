@@ -1118,7 +1118,7 @@ GNEAdditionalFrame::tagSelected() {
         myNeteditAttributes->showNeteditAttributesModul(myAdditionalTagSelector->getCurrentTagProperties());
         // Show myAdditionalFrameParent if we're adding an slave element
         if (myAdditionalTagSelector->getCurrentTagProperties().isSlave()) {
-            myParentAdditional->showSelectorParentModul(myAdditionalTagSelector->getCurrentTagProperties().getMasterTags().front());
+            myParentAdditional->showSelectorParentModul(myAdditionalTagSelector->getCurrentTagProperties().getMasterTags());
         } else {
             myParentAdditional->hideSelectorParentModul();
         }

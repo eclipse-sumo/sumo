@@ -397,7 +397,7 @@ public:
         void setIDSelected(const std::string& id);
 
         /// @brief Show list of SelectorParent Modul
-        bool showSelectorParentModul(SumoXMLTag additionalTypeParent);
+        bool showSelectorParentModul(const std::vector<SumoXMLTag> &additionalTypeParents);
 
         /// @brief hide SelectorParent Modul
         void hideSelectorParentModul();
@@ -410,7 +410,7 @@ public:
         GNEFrame* myFrameParent;
 
         /// @brief current parent additional tag
-        SumoXMLTag myParentTag;
+        std::vector<SumoXMLTag> myParentTags;
 
         /// @brief Label with parent name
         FXLabel* myParentsLabel;
