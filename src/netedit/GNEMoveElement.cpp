@@ -32,10 +32,6 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const Position _originalPosition) :
     moveElement(_moveElement),
     originalShape({_originalPosition}),
-    firstLane(nullptr),
-    firstPosition(INVALID_DOUBLE),
-    secondLane(nullptr),
-    secondPosition(INVALID_DOUBLE),
     shapeToMove({_originalPosition}),
     allowChangeLane(false) {
 }
@@ -46,10 +42,6 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     moveElement(_moveElement),
     originalShape(_originalShape),
     shapeToMove(_originalShape),
-    firstLane(nullptr),
-    firstPosition(INVALID_DOUBLE),
-    secondLane(nullptr),
-    secondPosition(INVALID_DOUBLE),
     allowChangeLane(false) {
 }
 
@@ -62,10 +54,6 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     moveElement(_moveElement),
     originalShape(_originalShape),
     originalGeometryPoints(_originalgeometryPoints),
-    firstLane(nullptr),
-    firstPosition(INVALID_DOUBLE),
-    secondLane(nullptr),
-    secondPosition(INVALID_DOUBLE),
     shapeToMove(_shapeToMove),
     geometryPointsToMove(_geometryPointsToMove),
     allowChangeLane(false) {
@@ -79,8 +67,6 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     moveElement(_moveElement),
     firstLane(_lane),
     firstPosition(_firstPosition * _lane->getLengthGeometryFactor()),
-    secondLane(nullptr),
-    secondPosition(INVALID_DOUBLE),
     allowChangeLane(_allowChangeLane) {
 }
 
@@ -93,7 +79,6 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     moveElement(_moveElement),
     firstLane(_lane),
     firstPosition(_firstPosition * _lane->getLengthGeometryFactor()),
-    secondLane(nullptr),
     secondPosition(_secondPosition * _lane->getLengthGeometryFactor()),
     allowChangeLane(_allowChangeLane) {
 }
@@ -148,8 +133,8 @@ GNEMoveOffset::~GNEMoveOffset() {}
 
 GNEMoveResult::GNEMoveResult() :
     laneOffset(0),
-    newStartPos(0),
-    newEndPos(0),
+    newFirstPos(0),
+    newSecondPos(0),
     newLane(nullptr) {}
 
 
@@ -326,7 +311,7 @@ GNEMoveElement::calculateSingleMovementOverOneLane(GNEMoveResult& moveResult, co
         }
     }
     // update moveResult
-    moveResult.newStartPos = (moveOperation->firstPosition - posOverLaneOffset) / moveOperation->firstLane->getLengthGeometryFactor();
+    moveResult.newFirstPos = (moveOperation->firstPosition - posOverLaneOffset) / moveOperation->firstLane->getLengthGeometryFactor();
 }
 
 
@@ -369,13 +354,17 @@ GNEMoveElement::calculateDoubleMovementOverOneLane(GNEMoveResult& moveResult, co
         }
     }
     // update moveResult
-    moveResult.newStartPos = (moveOperation->firstPosition - posOverLaneOffset) / moveOperation->firstLane->getLengthGeometryFactor();
-    moveResult.newEndPos = (moveOperation->secondPosition - posOverLaneOffset) / moveOperation->firstLane->getLengthGeometryFactor();
+    moveResult.newFirstPos = (moveOperation->firstPosition - posOverLaneOffset) / moveOperation->firstLane->getLengthGeometryFactor();
+    moveResult.newSecondPos = (moveOperation->secondPosition - posOverLaneOffset) / moveOperation->firstLane->getLengthGeometryFactor();
 }
 
 
 void 
 GNEMoveElement::calculateDoubleMovementOverTwoLanes(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset) {
+    GNEMoveOperation *moveOp;
+    calculateSingleMovementOverOneLane(moveResult, viewNet, moveOp, offset);
+
+
 
 }
 

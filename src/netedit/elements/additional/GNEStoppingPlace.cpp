@@ -408,8 +408,8 @@ GNEStoppingPlace::getEndGeometryPositionOverLane() const {
 void
 GNEStoppingPlace::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
-    myStartPosition = moveResult.newStartPos;
-    myEndPosition = moveResult.newEndPos;
+    myStartPosition = moveResult.newFirstPos;
+    myEndPosition = moveResult.newSecondPos;
     // set lateral offset
     myMoveElementLateralOffset = moveResult.laneOffset;
     // update geometry
@@ -425,11 +425,11 @@ GNEStoppingPlace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* 
         undoList->p_begin("position of " + getTagStr());
         // set startPos
         if (myStartPosition != INVALID_DOUBLE) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newStartPos)));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
         }
         // set endPos
         if (myEndPosition != INVALID_DOUBLE) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newEndPos)));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos)));
         }
         // check if lane has to be changed
         if (moveResult.newLane) {

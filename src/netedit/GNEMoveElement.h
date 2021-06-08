@@ -85,16 +85,16 @@ public:
     const std::vector<int> originalGeometryPoints;
 
     /// @brief original first lane
-    const GNELane* firstLane;
+    const GNELane* firstLane = nullptr;
 
     /// @brief original first Position
-    const double firstPosition;
+    const double firstPosition = INVALID_DOUBLE;
 
     /// @brief original second lane
-    const GNELane* secondLane;
+    const GNELane* secondLane = nullptr;
 
     /// @brief original second Position
-    const double secondPosition;
+    const double secondPosition = INVALID_DOUBLE;
 
     /**@brief shape to move
      * @note: it can be different of originalShape, for example due a new geometry point
@@ -160,11 +160,11 @@ public:
     /// @brief lane offset
     double laneOffset;
 
-    /// @brief newStartPos
-    double newStartPos;
+    /// @brief new first position
+    double newFirstPos;
 
-    /// @brief newEndPos
-    double newEndPos;
+    /// @brief new second position
+    double newSecondPos;
 
     /// @brief new Lane
     const GNELane* newLane;

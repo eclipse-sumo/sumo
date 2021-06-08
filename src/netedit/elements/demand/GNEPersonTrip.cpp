@@ -548,7 +548,7 @@ GNEPersonTrip::setEnabledAttribute(const int /*enabledAttributes*/) {
 void
 GNEPersonTrip::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
-    myArrivalPosition = moveResult.newStartPos;
+    myArrivalPosition = moveResult.newFirstPos;
     // update geometry
     updateGeometry();
 }
@@ -558,7 +558,7 @@ void
 GNEPersonTrip::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("arrivalPos of " + getTagStr());
     // now adjust start position
-    setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newStartPos), undoList);
+    setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->p_end();
 }
 

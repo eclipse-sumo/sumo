@@ -1884,7 +1884,7 @@ void
 GNEVehicle::setMoveShape(const GNEMoveResult& moveResult) {
     // change departPos
     departPosProcedure = DepartPosDefinition::GIVEN;
-    departPos = moveResult.newStartPos;
+    departPos = moveResult.newFirstPos;
     // set lateral offset
     myMoveElementLateralOffset = moveResult.laneOffset;
     // update geometry
@@ -1899,7 +1899,7 @@ GNEVehicle::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoLi
     // begin change attribute
     undoList->p_begin("departPos of " + getTagStr());
     // now set departPos
-    setAttribute(SUMO_ATTR_DEPARTPOS, toString(moveResult.newStartPos), undoList);
+    setAttribute(SUMO_ATTR_DEPARTPOS, toString(moveResult.newFirstPos), undoList);
     // check if depart lane has to be changed
     if (moveResult.newLane) {
         // set new lane

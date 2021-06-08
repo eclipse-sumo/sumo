@@ -905,7 +905,7 @@ GNEPerson::setEnabledAttribute(const int enabledAttributes) {
 void GNEPerson::setMoveShape(const GNEMoveResult& moveResult) {
     // change departPos
     departPosProcedure = DepartPosDefinition::GIVEN;
-    departPos = moveResult.newStartPos;
+    departPos = moveResult.newFirstPos;
     // update geometry
     updateGeometry();
 }
@@ -915,7 +915,7 @@ void
 GNEPerson::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("departPos of " + getTagStr());
     // now set departPos
-    setAttribute(SUMO_ATTR_DEPARTPOS, toString(moveResult.newStartPos), undoList);
+    setAttribute(SUMO_ATTR_DEPARTPOS, toString(moveResult.newFirstPos), undoList);
     undoList->p_end();
 }
 
