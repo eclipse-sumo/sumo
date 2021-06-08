@@ -307,14 +307,25 @@ GNEVehicle::~GNEVehicle() {}
 
 GNEMoveOperation*
 GNEVehicle::getMoveOperation(const double /*shapeOffset*/) {
-    // declare departPos
-    double posOverLane = 0;
-    if (canParse<double>(getDepartPos())) {
-        posOverLane = parse<double>(getDepartPos());
+    // get first and last lanes
+    const GNELane* firstLane = getFirstPathLane();
+    const GNELane* lastLane = getLastPathLane();
+    // get depart and arrival positions (doubles)
+    const double departPosDouble = getAttributeDouble(SUMO_ATTR_DEPARTPOS);
+    const double arrivalPosDouble = (getAttributeDouble(SUMO_ATTR_ARRIVALPOS) < 0)? lastLane->getLaneShape().length2D() : getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+    // obtain departPosition and arrivalPosition
+    const Position departPosition = firstLane->getLaneShape().positionAtOffset2D(departPosDouble);
+    const Position arrivalPosition = lastLane->getLaneShape().positionAtOffset2D(arrivalPosDouble);
+    // return move operation depending if we're editing departPos or arrivalPos
+    if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(departPosition) < 1) {
+        return new GNEMoveOperation(this, firstLane, departPosDouble, lastLane, INVALID_DOUBLE);
+                                    /*myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());*/
+    } else if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(arrivalPosition) < 1) {
+        return new GNEMoveOperation(this, firstLane, INVALID_DOUBLE, lastLane, arrivalPosDouble);
+                                    /*myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());*/
+    } else {
+        return nullptr;
     }
-    // return move operation
-    return new GNEMoveOperation(this, getFirstPathLane(), posOverLane,
-                                myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
 }
 
 
@@ -1882,9 +1893,16 @@ GNEVehicle::setEnabledAttribute(const int enabledAttributes) {
 
 void
 GNEVehicle::setMoveShape(const GNEMoveResult& moveResult) {
-    // change departPos
-    departPosProcedure = DepartPosDefinition::GIVEN;
-    departPos = moveResult.newFirstPos;
+    // check departPos
+    if (moveResult.newFirstPos != INVALID_DOUBLE) {
+        departPosProcedure = DepartPosDefinition::GIVEN;
+        departPos = moveResult.newFirstPos;
+    }
+    // check arrivalPos
+    if (moveResult.newSecondPos != INVALID_DOUBLE) {
+        arrivalPosProcedure = ArrivalPosDefinition::GIVEN;
+        arrivalPos = moveResult.newSecondPos;
+    }
     // set lateral offset
     myMoveElementLateralOffset = moveResult.laneOffset;
     // update geometry
@@ -1896,15 +1914,27 @@ void
 GNEVehicle::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // reset lateral offset
     myMoveElementLateralOffset = 0;
-    // begin change attribute
-    undoList->p_begin("departPos of " + getTagStr());
-    // now set departPos
-    setAttribute(SUMO_ATTR_DEPARTPOS, toString(moveResult.newFirstPos), undoList);
+    // check departPos
+    if (moveResult.newFirstPos != INVALID_DOUBLE) {
+        // begin change attribute
+        undoList->p_begin("departPos of " + getTagStr());
+        // now set departPos
+        setAttribute(SUMO_ATTR_DEPARTPOS, toString(moveResult.newFirstPos), undoList);
+    }
+    // check arrivalPos
+    if (moveResult.newSecondPos != INVALID_DOUBLE) {
+        // begin change attribute
+        undoList->p_begin("arrivalPos of " + getTagStr());
+        // now set arrivalPos
+        setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newSecondPos), undoList);
+    }
+/*
     // check if depart lane has to be changed
     if (moveResult.newLane) {
         // set new lane
         setAttribute(SUMO_ATTR_DEPARTLANE, toString(moveResult.newLane->getIndex()), undoList);
     }
+*/
     // end change attribute
     undoList->p_end();
 }
