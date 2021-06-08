@@ -117,14 +117,20 @@ def import_gtfs(options, gtfsZip):
                                    else x
                                    for x in stop_times['departure_timedelta']])
 
-    start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
-    if options.end < 86400:
+    time_interval = options.end - options.begin
+    # if time_interval >= 86400 (24 hs), no filter needed
+    if time_interval < 86400 and options.end <= 86400:
+        # if simulation time end on the same day
+        start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
         end_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.end)))
-    else:
-        end_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(86399)))
-
-    stop_times = stop_times[(start_time <= stop_times['departure_fixed']) &
-                            (stop_times['departure_fixed'] <= end_time)]
+        stop_times = stop_times[(start_time <= stop_times['departure_fixed']) &
+                                (stop_times['departure_fixed'] <= end_time)]
+    elif time_interval < 86400 and options.end > 86400:
+        # if simulation time includes next day trips
+        start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
+        end_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.end - 86400)))
+        stop_times = stop_times[~((stop_times['departure_fixed'] > end_time) &
+                                (stop_times['departure_fixed'] < start_time))]
 
     # filter trips for a representative date
     weekday = 'monday tuesday wednesday thursday friday saturday sunday'.split(
@@ -620,6 +626,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
     with open(options.route_output, 'w', encoding="utf8") as output_file:
         sumolib.xml.writeHeader(output_file, root="routes")
         numDays = options.end // 86401
+        start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
 
         for day in range(numDays+1):
             if day == numDays and options.end % 86400 > 0:
@@ -628,6 +635,10 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                 trip_list = trip_list[trip_list["arrival_fixed"] <= end_time]
 
             for row in trip_list.sort_values("arrival_fixed").itertuples():
+
+                if day == 0 and row.arrival_fixed < start_time:
+                    # avoid writing first day trips that not applied
+                    continue
 
                 main_shape = shapes_dict.get(row.shape_id, None)
                 if not map_routes.get(main_shape, None):
