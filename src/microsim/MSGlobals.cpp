@@ -66,6 +66,8 @@ bool MSGlobals::gUnitTests(false);
 
 bool MSGlobals::gComputeLC;
 
+bool MSGlobals::gClearState(false);
+
 int MSGlobals::gNumSimThreads;
 int MSGlobals::gNumThreads;
 

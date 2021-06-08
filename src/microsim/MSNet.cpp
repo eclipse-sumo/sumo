@@ -811,6 +811,7 @@ MSNet::clearAll() {
 
 void
 MSNet::clearState(const SUMOTime step) {
+    MSGlobals::gClearState = true;
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet->clearState();
         for (int i = 0; i < MSEdge::dictSize(); i++) {
@@ -846,6 +847,7 @@ MSNet::clearState(const SUMOTime step) {
     myEndOfTimestepEvents->clearState(myStep, step);
     myInsertionEvents->clearState(myStep, step);
     myStep = step;
+    MSGlobals::gClearState = false;
 }
 
 

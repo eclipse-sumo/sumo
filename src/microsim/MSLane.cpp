@@ -310,7 +310,7 @@ MSLane::resetPartialOccupation(MSVehicle* v) {
             return;
         }
     }
-    assert(false);
+    assert(false || MSGlobals::gClearState);
 }
 
 
