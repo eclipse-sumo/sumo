@@ -32,11 +32,7 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const Position _originalPosition) :
     moveElement(_moveElement),
     originalShape({_originalPosition}),
-    originalStarPos(INVALID_DOUBLE),
-    originalEndPos(INVALID_DOUBLE),
-    shapeToMove({_originalPosition}),
-    lane(nullptr),
-    allowChangeLane(false) {
+    shapeToMove({_originalPosition}) {
 }
 
 
@@ -44,11 +40,7 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const PositionVector _originalShape) :
     moveElement(_moveElement),
     originalShape(_originalShape),
-    shapeToMove(_originalShape),
-    originalStarPos(INVALID_DOUBLE),
-    originalEndPos(INVALID_DOUBLE),
-    lane(nullptr),
-    allowChangeLane(false) {
+    shapeToMove(_originalShape) {
 }
 
 
@@ -60,35 +52,30 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     moveElement(_moveElement),
     originalShape(_originalShape),
     originalGeometryPoints(_originalgeometryPoints),
-    originalStarPos(INVALID_DOUBLE),
-    originalEndPos(INVALID_DOUBLE),
     shapeToMove(_shapeToMove),
-    geometryPointsToMove(_geometryPointsToMove),
-    lane(nullptr),
-    allowChangeLane(false) {
+    geometryPointsToMove(_geometryPointsToMove) {
 }
 
 
 GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const GNELane* _lane,
-                                   const double _originalStarPos,
+                                   const double _originalStartPos,
                                    const bool _allowChangeLane) :
     moveElement(_moveElement),
     lane(_lane),
-    originalStarPos(_originalStarPos * _lane->getLengthGeometryFactor()),
-    originalEndPos(INVALID_DOUBLE),
+    originalStartPos(_originalStartPos * _lane->getLengthGeometryFactor()),
     allowChangeLane(_allowChangeLane) {
 }
 
 
 GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const GNELane* _lane,
-                                   const double _originalStarPos,
+                                   const double _originalStartPos,
                                    const double _originalEndPos,
                                    const bool _allowChangeLane) :
     moveElement(_moveElement),
     lane(_lane),
-    originalStarPos(_originalStarPos * _lane->getLengthGeometryFactor()),
+    originalStartPos(_originalStartPos * _lane->getLengthGeometryFactor()),
     originalEndPos(_originalEndPos * _lane->getLengthGeometryFactor()),
     allowChangeLane(_allowChangeLane) {
 }
@@ -155,9 +142,9 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
     if (moveOperation->lane) {
         // calculate movement over lane
         if (moveOperation->originalEndPos != INVALID_DOUBLE) {
-            calculateDoubleMovementOverLane(moveResult, viewNet, moveOperation->lane, moveOperation->originalStarPos, moveOperation->originalEndPos, offset);
+            calculateDoubleMovementOverLane(moveResult, viewNet, moveOperation->lane, moveOperation->originalStartPos, moveOperation->originalEndPos, offset);
         } else {
-            calculateSingleMovementOverLane(moveResult, viewNet, moveOperation->lane, moveOperation->originalStarPos, offset);
+            calculateSingleMovementOverLane(moveResult, viewNet, moveOperation->lane, moveOperation->originalStartPos, offset);
         }
         // calculate new lane
         calculateNewLane(moveResult, viewNet, moveOperation);
@@ -205,7 +192,7 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
         moveResult.geometryPointsToMove = moveOperation->geometryPointsToMove;
         // restore original position over lanes
         PositionVector originalPosOverLanes;
-        originalPosOverLanes.push_back(Position(moveOperation->originalStarPos, 0));
+        originalPosOverLanes.push_back(Position(moveOperation->originalStartPos, 0));
         if (moveOperation->originalEndPos != INVALID_DOUBLE) {
             originalPosOverLanes.push_back(Position(moveOperation->originalEndPos, 0));
         }
@@ -215,9 +202,9 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
         moveOperation->moveElement->setMoveShape(moveResult);
         // calculate movement over lane
         if (moveOperation->originalEndPos != INVALID_DOUBLE) {
-            calculateDoubleMovementOverLane(moveResult, viewNet, moveOperation->lane, moveOperation->originalStarPos, moveOperation->originalEndPos, offset);
+            calculateDoubleMovementOverLane(moveResult, viewNet, moveOperation->lane, moveOperation->originalStartPos, moveOperation->originalEndPos, offset);
         } else {
-            calculateSingleMovementOverLane(moveResult, viewNet, moveOperation->lane, moveOperation->originalStarPos, offset);
+            calculateSingleMovementOverLane(moveResult, viewNet, moveOperation->lane, moveOperation->originalStartPos, offset);
         }
         // calculate new lane
         calculateNewLane(moveResult, viewNet, moveOperation);

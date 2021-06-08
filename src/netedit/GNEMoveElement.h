@@ -55,13 +55,13 @@ public:
     /// @brief constructor for elements placed over lanes with one position (detectors, vehicles...)
     GNEMoveOperation(GNEMoveElement* moveElement,
                      const GNELane* lane,
-                     const double originalStarPos,
+                     const double originalStartPos,
                      const bool allowChangeLane);
 
     /// @brief constructor for elements placed over lanes with two positions (StoppingPlaces)
     GNEMoveOperation(GNEMoveElement* moveElement,
                      const GNELane* lane,
-                     const double originalStarPos,
+                     const double originalStartPos,
                      const double originalEndPos,
                      const bool allowChangeLane);
 
@@ -78,10 +78,10 @@ public:
     const std::vector<int> originalGeometryPoints;
 
     /// @brief original start Position
-    const double originalStarPos;
+    const double originalStartPos = INVALID_DOUBLE;
 
     /// @brief original end Position
-    const double originalEndPos;
+    const double originalEndPos = INVALID_DOUBLE;
 
     /**@brief shape to move
      * @note: it can be different of originalShape, for example due a new geometry point
@@ -92,10 +92,10 @@ public:
     const std::vector<int> geometryPointsToMove;
 
     /// @brief original lane
-    const GNELane* lane;
+    const GNELane* lane = nullptr;
 
     /// @brief allow change lane
-    const bool allowChangeLane;
+    const bool allowChangeLane = false;
 
 private:
     /// @brief Invalidated copy constructor.
