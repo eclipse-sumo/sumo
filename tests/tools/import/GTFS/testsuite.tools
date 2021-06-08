@@ -1,2 +1,5 @@
 # import bus lines of brunswick innenstadt
 import_bus_routes
+
+# import pt till 10am of the second day
+import_days
