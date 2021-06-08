@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-12 12:14:53 by Eclipse SUMO sumo Version v1_9_1+0296-a497b88781
+<!-- generated on 2021-06-08 18:23:39 by Eclipse SUMO sumo Version v1_9_2+0400-c3b663db05
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -11,6 +11,7 @@
     <output>
         <tripinfo-output value="tripinfos.xml"/>
         <tripinfo-output.write-unfinished value="true"/>
+        <stop-output value="stops_tripinfos.xml"/>
     </output>
 
     <routing>
@@ -27,49 +28,49 @@
     </taxi_device>
 
     <traci_server>
-        <remote-port value="59201"/>
+        <remote-port value="55276"/>
     </traci_server>
 
 </configuration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="0" depart="0.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="61.00" vehicle="taxiA" depart="61.00" arrival="211.00" arrivalPos="285.60" duration="150.00" routeLength="1465.91" timeLoss="39.80"/>
+    <personinfo id="3" depart="30.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="190.00" vehicle="NULL" depart="-1" arrival="220.00" arrivalPos="285.60" duration="220.00" routeLength="-1.00" timeLoss="-0.00"/>
+        <stop duration="0.00" arrival="220.00" arrivalPos="0.00" actType="last stage removed"/>
+    </personinfo>
+    <personinfo id="4" depart="40.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="180.00" vehicle="NULL" depart="-1" arrival="220.00" arrivalPos="87.60" duration="220.00" routeLength="-1.00" timeLoss="-0.00"/>
+        <stop duration="0.00" arrival="220.00" arrivalPos="0.00" actType="last stage removed"/>
+    </personinfo>
+    <personinfo id="2" depart="20.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="56.00" vehicle="taxiA" depart="76.00" arrival="247.00" arrivalPos="85.60" duration="171.00" routeLength="1754.20" timeLoss="38.16"/>
     </personinfo>
     <personinfo id="6" depart="60.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="220.00" vehicle="NULL" depart="-1" arrival="280.00" arrivalPos="285.60" duration="280.00" routeLength="-1.00" timeLoss="-0.00"/>
-        <stop duration="0.00" arrival="280.00" arrivalPos="0.00" actType="last stage removed"/>
-    </personinfo>
-    <personinfo id="3" depart="30.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="87.00" vehicle="taxiA" depart="117.00" arrival="286.00" arrivalPos="85.60" duration="169.00" routeLength="1556.17" timeLoss="42.33"/>
+        <ride waitingTime="280.00" vehicle="NULL" depart="-1" arrival="340.00" arrivalPos="285.60" duration="340.00" routeLength="-1.00" timeLoss="-0.00"/>
+        <stop duration="0.00" arrival="340.00" arrivalPos="0.00" actType="last stage removed"/>
     </personinfo>
     <personinfo id="8" depart="80.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="172.00" vehicle="taxiA" depart="252.00" arrival="286.00" arrivalPos="85.60" duration="34.00" routeLength="270.88" timeLoss="13.58"/>
-    </personinfo>
-    <personinfo id="1" depart="10.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="300.00" vehicle="NULL" depart="-1" arrival="310.00" arrivalPos="85.60" duration="310.00" routeLength="-1.00" timeLoss="-0.00"/>
-        <stop duration="0.00" arrival="310.00" arrivalPos="0.00" actType="last stage removed"/>
-    </personinfo>
-    <personinfo id="5" depart="50.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="260.00" vehicle="NULL" depart="-1" arrival="310.00" arrivalPos="85.60" duration="310.00" routeLength="-1.00" timeLoss="-0.00"/>
-        <stop duration="0.00" arrival="310.00" arrivalPos="0.00" actType="last stage removed"/>
-    </personinfo>
-    <personinfo id="7" depart="70.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="240.00" vehicle="NULL" depart="-1" arrival="310.00" arrivalPos="85.60" duration="310.00" routeLength="-1.00" timeLoss="-0.00"/>
-        <stop duration="0.00" arrival="310.00" arrivalPos="0.00" actType="last stage removed"/>
+        <ride waitingTime="260.00" vehicle="NULL" depart="-1" arrival="340.00" arrivalPos="85.60" duration="340.00" routeLength="-1.00" timeLoss="-0.00"/>
+        <stop duration="0.00" arrival="340.00" arrivalPos="0.00" actType="last stage removed"/>
     </personinfo>
     <personinfo id="9" depart="90.00" type="DEFAULT_PEDTYPE">
         <ride waitingTime="250.00" vehicle="NULL" depart="-1" arrival="340.00" arrivalPos="285.60" duration="340.00" routeLength="-1.00" timeLoss="-0.00"/>
         <stop duration="0.00" arrival="340.00" arrivalPos="0.00" actType="last stage removed"/>
     </personinfo>
-    <personinfo id="2" depart="20.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="56.00" vehicle="taxiA" depart="76.00" arrival="400.00" arrivalPos="85.60" duration="324.00" routeLength="2950.42" timeLoss="69.59"/>
+    <personinfo id="7" depart="70.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="228.00" vehicle="taxiA" depart="298.00" arrival="359.00" arrivalPos="85.60" duration="61.00" routeLength="560.23" timeLoss="18.20"/>
     </personinfo>
-    <personinfo id="4" depart="40.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="109.00" vehicle="taxiA" depart="149.00" arrival="479.00" arrivalPos="85.60" duration="330.00" routeLength="2346.28" timeLoss="61.27"/>
+    <personinfo id="0" depart="0.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="61.00" vehicle="taxiA" depart="61.00" arrival="486.00" arrivalPos="285.60" duration="425.00" routeLength="3578.71" timeLoss="89.42"/>
     </personinfo>
-    <tripinfo id="taxiA" depart="0.00" departLane="A0B0_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="490.00" routeLength="3832.58" waitingTime="14.00" waitingCount="4" stopTime="112.00" timeLoss="96.36" rerouteNo="13" devices="tripinfo_taxiA routing_taxiA taxi_taxiA person_taxiA" vType="taxi" speedFactor="1.01" vaporized="">
-        <taxi customers="5" occupiedDistance="3130.94" occupiedTime="328.00"/>
+    <personinfo id="5" depart="50.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="149.00" vehicle="taxiA" depart="199.00" arrival="646.00" arrivalPos="87.60" duration="447.00" routeLength="3302.15" timeLoss="77.50"/>
+    </personinfo>
+    <personinfo id="1" depart="10.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="119.00" vehicle="taxiA" depart="129.00" arrival="824.00" arrivalPos="285.60" duration="695.00" routeLength="5484.38" timeLoss="105.57"/>
+    </personinfo>
+    <tripinfo id="taxiA" depart="0.00" departLane="A0B0_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="850.00" routeLength="6755.87" waitingTime="18.00" waitingCount="5" stopTime="216.00" timeLoss="135.86" rerouteNo="11" devices="tripinfo_taxiA routing_taxiA taxi_taxiA person_taxiA" vType="taxi" speedFactor="1.01" vaporized="">
+        <taxi customers="5" occupiedDistance="6054.23" occupiedTime="585.00"/>
     </tripinfo>
 </tripinfos>
