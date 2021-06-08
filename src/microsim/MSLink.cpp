@@ -1608,12 +1608,12 @@ MSLink::ignoreFoe(const SUMOTrafficObject* ego, const SUMOVehicle* foe) {
         return false;
     }
     const SUMOVehicleParameter& param = ego->getParameter();
-    for (const std::string typeID : StringTokenizer(param.getParameter(toString(SUMO_ATTR_JM_IGNORE_TYPES), "")).getVector()) {
+    for (const std::string& typeID : StringTokenizer(param.getParameter(toString(SUMO_ATTR_JM_IGNORE_TYPES), "")).getVector()) {
         if (typeID == foe->getVehicleType().getID()) {
             return true;
         }
     }
-    for (const std::string id : StringTokenizer(param.getParameter(toString(SUMO_ATTR_JM_IGNORE_IDS), "")).getVector()) {
+    for (const std::string& id : StringTokenizer(param.getParameter(toString(SUMO_ATTR_JM_IGNORE_IDS), "")).getVector()) {
         if (id == foe->getID()) {
             return true;
         }

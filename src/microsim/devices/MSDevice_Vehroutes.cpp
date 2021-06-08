@@ -486,7 +486,7 @@ MSDevice_Vehroutes::loadState(const SUMOSAXAttributes& attrs) {
         myReplacedRoutes.push_back(RouteReplaceInfo(MSEdge::dictionary(edgeID), time, route, info));
     }
     if (mySaveExits && attrs.hasAttribute(SUMO_ATTR_EXITTIMES)) {
-        for (const std::string t : attrs.getStringVector(SUMO_ATTR_EXITTIMES)) {
+        for (const std::string& t : attrs.getStringVector(SUMO_ATTR_EXITTIMES)) {
             myExits.push_back(StringUtils::toLong(t));
         }
     }

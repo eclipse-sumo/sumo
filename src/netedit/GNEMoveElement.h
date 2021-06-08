@@ -77,12 +77,6 @@ public:
     /// @brief original shape points to move (of original shape)
     const std::vector<int> originalGeometryPoints;
 
-    /// @brief original start Position
-    const double originalStartPos = INVALID_DOUBLE;
-
-    /// @brief original end Position
-    const double originalEndPos = INVALID_DOUBLE;
-
     /**@brief shape to move
      * @note: it can be different of originalShape, for example due a new geometry point
      */
@@ -93,6 +87,12 @@ public:
 
     /// @brief original lane
     const GNELane* lane = nullptr;
+
+    /// @brief original start Position
+    const double originalStartPos = INVALID_DOUBLE;
+
+    /// @brief original end Position
+    const double originalEndPos = INVALID_DOUBLE;
 
     /// @brief allow change lane
     const bool allowChangeLane = false;

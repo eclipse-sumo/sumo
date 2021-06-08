@@ -1178,7 +1178,7 @@ int
 NIImporter_OpenStreetMap::EdgesHandler::interpretChangeType(const std::string& value) const {
     int result = 0;
     const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
-    for (const std::string val : values) {
+    for (const std::string& val : values) {
         if (val == "no") {
             result += CHANGE_NO;
         } else if (val == "not_left") {
@@ -1203,7 +1203,7 @@ void
 NIImporter_OpenStreetMap::EdgesHandler::interpretLaneUse(const std::string& value, SUMOVehicleClass svc, std::vector<SVCPermissions>& result) const {
     const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
     int i = 0;
-    for (const std::string val : values) {
+    for (const std::string& val : values) {
         SVCPermissions use = SVC_IGNORING;
         if (val == "yes" || val == "lane" || val == "designated") {
             use = svc;
