@@ -51,6 +51,11 @@ FXIMPLEMENT(GNEVehicle::GNESingleVehiclePopupMenu,      GUIGLObjectPopupMenu,   
 FXIMPLEMENT(GNEVehicle::GNESelectedVehiclesPopupMenu,   GUIGLObjectPopupMenu,   GNESelectedVehiclesPopupMenuMap,    ARRAYNUMBER(GNESelectedVehiclesPopupMenuMap))
 
 // ===========================================================================
+// static defintions
+// ===========================================================================
+const double GNEVehicle::myArrivalPositionDiameter = SUMO_const_halfLaneWidth * 0.5;
+
+// ===========================================================================
 // GNEVehicle::GNESingleVehiclePopupMenu
 // ===========================================================================
 
@@ -313,14 +318,13 @@ GNEVehicle::getMoveOperation(const double /*shapeOffset*/) {
     // get depart and arrival positions (doubles)
     const double departPosDouble = getAttributeDouble(SUMO_ATTR_DEPARTPOS);
     const double arrivalPosDouble = (getAttributeDouble(SUMO_ATTR_ARRIVALPOS) < 0)? lastLane->getLaneShape().length2D() : getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
-    // obtain departPosition and arrivalPosition
-    const Position departPosition = firstLane->getLaneShape().positionAtOffset2D(departPosDouble);
-    const Position arrivalPosition = lastLane->getLaneShape().positionAtOffset2D(arrivalPosDouble);
+    // obtain diameter
+    const double diameter = getAttributeDouble(SUMO_ATTR_WIDTH) > getAttributeDouble(SUMO_ATTR_LENGTH)? getAttributeDouble(SUMO_ATTR_WIDTH) : getAttributeDouble(SUMO_ATTR_LENGTH);
     // return move operation depending if we're editing departPos or arrivalPos
-    if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(departPosition) < 1) {
+    if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(getAttributePosition(SUMO_ATTR_DEPARTPOS)) < (diameter * diameter)) {
         return new GNEMoveOperation(this, firstLane, departPosDouble, lastLane, INVALID_DOUBLE);
                                     /*myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());*/
-    } else if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(arrivalPosition) < 1) {
+    } else if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(getAttributePosition(SUMO_ATTR_ARRIVALPOS)) < (myArrivalPositionDiameter * myArrivalPositionDiameter)) {
         return new GNEMoveOperation(this, firstLane, INVALID_DOUBLE, lastLane, arrivalPosDouble);
                                     /*myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());*/
     } else {
@@ -819,6 +823,26 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             // pop draw matrix
             glPopMatrix();
         }
+        // check if this is the last segment
+        if (segment->isLastSegment()) {
+            // get geometryEndPos
+            const Position geometryEndPosition = getPathElementArrivalPos();
+            // check if endPos can be drawn
+            if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPosition) <= ((myArrivalPositionDiameter * myArrivalPositionDiameter) + 2))) {
+                // push draw matrix
+                glPushMatrix();
+                // Start with the drawing of the area traslating matrix to origin
+                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
+                // translate to geometryEndPos
+                glTranslated(geometryEndPosition.x(), geometryEndPosition.y(), 0);
+                // Set person plan color
+                GLHelper::setColor(pathColor);
+                // resolution of drawn circle depending of the zoom (To improve smothness)
+                GLHelper::drawFilledCircle(myArrivalPositionDiameter, s.getCircleResolution());
+                // pop draw matrix
+                glPopMatrix();
+            }
+        }
         // Pop name
         glPopName();
         // check if shape dotted contour has to be drawn
@@ -1147,7 +1171,42 @@ GNEVehicle::getAttributeDouble(SumoXMLAttr key) const {
 
 Position
 GNEVehicle::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a Position attribute of type '" + toString(key) + "'");
+    switch (key) {
+        case SUMO_ATTR_DEPARTPOS: {
+            // get first path lane shape
+            const PositionVector &laneShape = getFirstPathLane()->getLaneShape();
+            // check arrivalPosProcedure
+            if (departPosProcedure == DepartPosDefinition::GIVEN) {
+                if (departPos < 0) {
+                    return laneShape.front();
+                } else if (departPos > laneShape.length2D()) {
+                    return laneShape.back();
+                } else {
+                    return laneShape.positionAtOffset2D(departPos);
+                }
+            } else {
+                return laneShape.front();
+            }
+        }
+        case SUMO_ATTR_ARRIVALPOS: {
+            // get last path lane shape
+            const PositionVector &laneShape = getLastPathLane()->getLaneShape();
+            // check arrivalPosProcedure
+            if (arrivalPosProcedure == ArrivalPosDefinition::GIVEN) {
+                if (arrivalPos < 0) {
+                    return laneShape.front();
+                } else if (arrivalPos > laneShape.length2D()) {
+                    return laneShape.back();
+                } else {
+                    return laneShape.positionAtOffset2D(arrivalPos);
+                }
+            } else {
+                return laneShape.back();
+            }
+        }
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
 }
 
 
