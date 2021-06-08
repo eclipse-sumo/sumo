@@ -1672,7 +1672,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                         stop.duration = MAX2(stop.duration, stop.pars.until - time);
                     }
                 }
-                if (MSGlobals::gUseStopEnded && stop.pars.ended) {
+                if (MSGlobals::gUseStopEnded && stop.pars.ended >= 0) {
                     stop.duration = stop.pars.ended - time;
                 }
                 stop.endBoarding = stop.pars.extension >= 0 ? time + stop.duration + stop.pars.extension : SUMOTime_MAX;
