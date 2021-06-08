@@ -169,8 +169,6 @@ GNEStoppingPlace::splitEdgeGeometry(const double splitPosition, const GNENetwork
     if ((originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) &&
         (newElement->getTagProperty().getTag() == SUMO_TAG_LANE) &&
         (getParentLanes().front() == originalElement)) {
-        // obtain lane length
-        double laneLength = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
         // check if we have to change additional lane depending of split position
         if ((myStartPosition != INVALID_DOUBLE) && (myEndPosition != INVALID_DOUBLE)) {
             // calculate middle position

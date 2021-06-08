@@ -88,12 +88,12 @@ protected:
     /// @brief the attribute being edited
     SumoXMLAttr myEditedAttr;
 
+    /// @brief accept changes
+    bool* myAcceptChanges;
+
     std::string* myAllow;
 
     std::string* myDisAllow;
-
-    /// @brief accept changes
-    bool *myAcceptChanges;
 
     /// @brief select all VClass
     FXButton* mySelectAllVClassButton;

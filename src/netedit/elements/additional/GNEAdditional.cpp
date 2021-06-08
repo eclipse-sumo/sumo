@@ -49,8 +49,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
     Parameterised(parameters),
     myAdditionalName(additionalName),
-    myBlockMovement(blockMovement),
-    mySpecialColor(nullptr) {
+    myBlockMovement(blockMovement) {
 }
 
 
@@ -69,8 +68,7 @@ GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, 
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
     Parameterised(parameters),
     myAdditionalName(additionalName),
-    myBlockMovement(blockMovement),
-    mySpecialColor(nullptr) {
+    myBlockMovement(blockMovement) {
 }
 
 

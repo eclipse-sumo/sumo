@@ -744,8 +744,6 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
     if (!s.drawForRectangleSelection &&
             (drawNetworkMode || drawDemandMode || s.drawDottedContour() || dottedElement || isAttributeCarrierSelected()) &&
             myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myTagProperty.getTag())) {
-        // declare flag to draw spread vehicles
-        const bool drawSpreadVehicles = (myNet->getViewNet()->getNetworkViewOptions().drawSpreadVehicles() || myNet->getViewNet()->getDemandViewOptions().drawSpreadVehicles());
         // calculate width
         const double width = s.vehicleSize.getExaggeration(s, lane) * s.widthSettings.trip;
         // calculate startPos
@@ -1311,7 +1309,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DEPARTEDGE:
         case SUMO_ATTR_ARRIVALEDGE: {
             if (value.empty()) {
-                return "";
+                return true;
             } else if (canParse<int>(value)) {
                 // get index
                 const int index = parse<int>(value);
@@ -1325,6 +1323,8 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                     // check embedded route
                     return (index < (int)getChildDemandElements().front()->getParentEdges().size());
                 }
+            } else {
+                return false;
             }
         }
         case SUMO_ATTR_VIA:
