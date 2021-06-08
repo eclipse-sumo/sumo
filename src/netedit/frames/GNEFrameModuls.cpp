@@ -1716,8 +1716,8 @@ GNEFrameModuls::SelectorParent::refreshSelectorParentModul() {
     myParentsList->clearItems();
     if (myParentTags.size() > 0) {
         // fill list with IDs of additionals
-        for (const auto &tag : myParentTags) {
-            for (const auto& additional : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(tag)) {
+        for (const auto &ptag : myParentTags) {
+            for (const auto& additional : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(ptag)) {
                 myParentsList->appendItem(additional.first.c_str());
             }
         }
