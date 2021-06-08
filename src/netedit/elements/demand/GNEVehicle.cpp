@@ -1963,7 +1963,7 @@ GNEVehicle::setMoveShape(const GNEMoveResult& moveResult) {
         arrivalPos = moveResult.newSecondPos;
     }
     // set lateral offset
-    myMoveElementLateralOffset = moveResult.laneOffset;
+    myMoveElementLateralOffset = moveResult.firstLaneOffset;
     // update geometry
     updateGeometry();
 }
@@ -1979,6 +1979,11 @@ GNEVehicle::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoLi
         undoList->p_begin("departPos of " + getTagStr());
         // now set departPos
         setAttribute(SUMO_ATTR_DEPARTPOS, toString(moveResult.newFirstPos), undoList);
+        // check if depart lane has to be changed
+        if (moveResult.newFirstLane) {
+            // set new depart lane
+            setAttribute(SUMO_ATTR_DEPARTLANE, toString(moveResult.newFirstLane->getIndex()), undoList);
+        }
     }
     // check arrivalPos
     if (moveResult.newSecondPos != INVALID_DOUBLE) {
@@ -1986,14 +1991,12 @@ GNEVehicle::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoLi
         undoList->p_begin("arrivalPos of " + getTagStr());
         // now set arrivalPos
         setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newSecondPos), undoList);
+        // check if arrival lane has to be changed
+        if (moveResult.newSecondLane) {
+            // set new arrival lane
+            setAttribute(SUMO_ATTR_ARRIVALLANE, toString(moveResult.newSecondLane->getIndex()), undoList);
+        }
     }
-/*
-    // check if depart lane has to be changed
-    if (moveResult.newLane) {
-        // set new lane
-        setAttribute(SUMO_ATTR_DEPARTLANE, toString(moveResult.newLane->getIndex()), undoList);
-    }
-*/
     // end change attribute
     undoList->p_end();
 }

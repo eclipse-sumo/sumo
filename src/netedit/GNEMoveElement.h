@@ -152,6 +152,9 @@ public:
     /// @brief destructor
     ~GNEMoveResult();
 
+    /// @brief clear lanes
+    void clearLanes();
+
     /// @brief shape to update (edited in moveElement)
     PositionVector shapeToUpdate;
 
@@ -159,13 +162,16 @@ public:
     std::vector<int> geometryPointsToMove;
 
     /// @brief lane offset
-    double laneOffset;
+    double firstLaneOffset;
 
     /// @brief new first Lane
     const GNELane* newFirstLane;
 
     /// @brief new first position
     double newFirstPos;
+
+    /// @brief lane offset
+    double secondLaneOffset;
 
     /// @brief new second Lane
     const GNELane* newSecondLane;
@@ -221,7 +227,7 @@ private:
     static void calculateDoubleMovementOverTwoLanes(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset);
 
     /// @brief calculate new lane
-    static void calculateNewLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* originalLane);
+    static void calculateNewLane(const GNEViewNet* viewNet, const GNELane* originalLane, const GNELane* &newLane, double &laneOffset);
 
     /// @brief Invalidated copy constructor.
     GNEMoveElement(const GNEMoveElement&) = delete;

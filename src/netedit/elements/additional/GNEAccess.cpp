@@ -331,7 +331,7 @@ GNEAccess::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
     myPositionOverLane = moveResult.newFirstPos;
     // set lateral offset
-    myMoveElementLateralOffset = moveResult.laneOffset;
+    myMoveElementLateralOffset = moveResult.firstLaneOffset;
     // update geometry
     updateGeometry();
 }

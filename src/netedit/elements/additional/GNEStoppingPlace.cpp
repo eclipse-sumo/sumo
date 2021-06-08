@@ -411,7 +411,7 @@ GNEStoppingPlace::setMoveShape(const GNEMoveResult& moveResult) {
     myStartPosition = moveResult.newFirstPos;
     myEndPosition = moveResult.newSecondPos;
     // set lateral offset
-    myMoveElementLateralOffset = moveResult.laneOffset;
+    myMoveElementLateralOffset = moveResult.firstLaneOffset;
     // update geometry
     updateGeometry();
 }
