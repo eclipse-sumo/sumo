@@ -55,14 +55,14 @@ public:
     /// @brief constructor for elements placed over lanes with one position (detectors, vehicles...)
     GNEMoveOperation(GNEMoveElement* moveElement,
                      const GNELane* lane,
-                     const double originalStarPos,
+                     const double firstPosition,
                      const bool allowChangeLane);
 
     /// @brief constructor for elements placed over same lanes with two positions (StoppingPlaces)
     GNEMoveOperation(GNEMoveElement* moveElement,
                      const GNELane* lane,
-                     const double originalStarPos,
-                     const double originalEndPos,
+                     const double firstPosition,
+                     const double secondPosition,
                      const bool allowChangeLane);
 
     /// @brief constructor for elements placed over two lanes with two positions (E2 Multilane, vehicles..)
@@ -87,14 +87,14 @@ public:
     /// @brief original first lane
     const GNELane* firstLane;
 
-    /// @brief original start Position
-    const double originalStarPos;
+    /// @brief original first Position
+    const double firstPosition;
 
     /// @brief original second lane
     const GNELane* secondLane;
 
-    /// @brief original end Position
-    const double originalEndPos;
+    /// @brief original second Position
+    const double secondPosition;
 
     /**@brief shape to move
      * @note: it can be different of originalShape, for example due a new geometry point
