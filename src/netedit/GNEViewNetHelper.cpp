@@ -2366,17 +2366,13 @@ GNEViewNetHelper::DemandViewOptions::showShapes() const {
 
 bool
 GNEViewNetHelper::DemandViewOptions::showAllTrips() const {
-    if (menuCheckShowAllTrips->shown()) {
-        return (menuCheckShowAllTrips->amChecked() == TRUE);
-    } else {
-        return true;
-    }
+    return (menuCheckShowAllTrips->amChecked() == TRUE);
 }
 
 
 bool
 GNEViewNetHelper::DemandViewOptions::showAllPersonPlans() const {
-    if (menuCheckShowAllPersonPlans->shown() && menuCheckShowAllPersonPlans->isEnabled()) {
+    if (menuCheckShowAllPersonPlans->isEnabled()) {
         return (menuCheckShowAllPersonPlans->amChecked() == TRUE);
     } else {
         return false;

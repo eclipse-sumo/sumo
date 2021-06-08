@@ -397,10 +397,12 @@ bool
 GNEDemandElement::drawPersonPlan() const {
     // check conditions
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-            myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
+        myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
+        myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
         // show all person plans in network mode
         return true;
-    } else if (myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
+    } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
+               myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
         // show all person plans
         return true;
     } else if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front())) {
