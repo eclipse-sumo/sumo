@@ -753,13 +753,17 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
             break;
         }
-        if (isRail && !hadRailSignal && MSRailSignal::hasInsertionConstraint(*link, aVehicle)) {
+        if (isRail && !hadRailSignal) {
+            std::string constraintInfo;
+            if (MSRailSignal::hasInsertionConstraint(*link, aVehicle, constraintInfo)) {
+                setParameter("insertionConstraint:" + aVehicle->getID(), constraintInfo);
 #ifdef DEBUG_INSERTION
-            if DEBUG_COND2(aVehicle) {
-                std::cout << " insertion constraint at link " << (*link)->getDescription() << " not cleared \n";
-            }
+                if DEBUG_COND2(aVehicle) {
+                    std::cout << " insertion constraint at link " << (*link)->getDescription() << " not cleared \n";
+                }
 #endif
-            return false;
+                return false;
+            }
         }
         hadRailSignal |= (*link)->getTLLogic() != nullptr;
 
@@ -1067,6 +1071,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                                              << "\n leaders=" << leaders.toString()
                                              << "\n success!\n";
 #endif
+    if (isRail) {
+        unsetParameter("insertionConstraint:" + aVehicle->getID());
+    }
     return true;
 }
 
