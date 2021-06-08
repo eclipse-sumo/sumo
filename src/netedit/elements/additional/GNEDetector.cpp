@@ -267,9 +267,9 @@ GNEDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
     // now adjust start position
     setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
     // check if lane has to be changed
-    if (moveResult.newLane) {
+    if (moveResult.newFirstLane) {
         // set new lane
-        setAttribute(SUMO_ATTR_LANE, moveResult.newLane->getID(), undoList);
+        setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
     }
     // end change attribute
     undoList->p_end();

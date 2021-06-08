@@ -432,9 +432,9 @@ GNEStoppingPlace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* 
             undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos)));
         }
         // check if lane has to be changed
-        if (moveResult.newLane) {
+        if (moveResult.newFirstLane) {
             // set new lane
-            setAttribute(SUMO_ATTR_LANE, moveResult.newLane->getID(), undoList);
+            setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
         }
         // end change attribute
         undoList->p_end();

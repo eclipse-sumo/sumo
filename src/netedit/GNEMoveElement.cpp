@@ -88,13 +88,14 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const GNELane* _firstLane,
                                    const double _firstStartPos,
                                    const GNELane* _secondLane,
-                                   const double _secondStartPos) :
+                                   const double _secondStartPos,
+                                   const bool _allowChangeLane) :
     moveElement(_moveElement),
     firstLane(_firstLane),
     firstPosition((_firstStartPos != INVALID_DOUBLE)? _firstStartPos * _firstLane->getLengthGeometryFactor() : INVALID_DOUBLE),
     secondLane(_secondLane),
     secondPosition((_secondStartPos != INVALID_DOUBLE)? _secondStartPos * _secondLane->getLengthGeometryFactor() : INVALID_DOUBLE),
-    allowChangeLane(false) {
+    allowChangeLane(_allowChangeLane) {
 }
 
 
@@ -133,9 +134,10 @@ GNEMoveOffset::~GNEMoveOffset() {}
 
 GNEMoveResult::GNEMoveResult() :
     laneOffset(0),
+    newFirstLane(nullptr),
     newFirstPos(0),
-    newSecondPos(0),
-    newLane(nullptr) {}
+    newSecondLane(nullptr),
+    newSecondPos(0) {}
 
 
 GNEMoveResult::~GNEMoveResult() {}
@@ -166,7 +168,14 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
             calculateSingleMovementOverOneLane(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset);
         }
         // calculate new lane
-        calculateNewLane(moveResult, viewNet, moveOperation);
+        if (moveOperation->allowChangeLane) {
+            calculateNewLane(moveResult, viewNet, moveOperation->firstLane);
+        } else {
+            // reset values
+            moveResult.newFirstLane = nullptr;
+            moveResult.newSecondLane = nullptr;
+            moveResult.laneOffset = 0;
+        }
     } else if (moveOperation->geometryPointsToMove.empty()) {
         // set values in moveResult
         moveResult.shapeToUpdate = moveOperation->shapeToMove;
@@ -208,8 +217,9 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
     // check if we're moving over a lane shape, an entire shape or only certain geometry point
     if (moveOperation->firstLane) {
         // calculate original move result
-        moveResult.newLane = moveOperation->firstLane;
+        moveResult.newFirstLane = moveOperation->firstLane;
         moveResult.newFirstPos = moveOperation->firstPosition;
+        moveResult.newSecondLane = moveOperation->secondLane;
         moveResult.newSecondPos = moveOperation->secondPosition;
         // set original positions in element
         moveOperation->moveElement->setMoveShape(moveResult);
@@ -222,7 +232,14 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
             calculateSingleMovementOverOneLane(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset);
         }
         // calculate new lane
-        calculateNewLane(moveResult, viewNet, moveOperation);
+        if (moveOperation->allowChangeLane) {
+            calculateNewLane(moveResult, viewNet, moveOperation->firstLane);
+        } else {
+            // reset values
+            moveResult.newFirstLane = nullptr;
+            moveResult.newSecondLane = nullptr;
+            moveResult.laneOffset = 0;
+        }
     } else {
         // set original geometry points to move
         moveResult.geometryPointsToMove = moveOperation->originalGeometryPoints;
@@ -374,40 +391,33 @@ GNEMoveElement::calculateDoubleMovementOverTwoLanes(GNEMoveResult& moveResult, c
 
 
 void
-GNEMoveElement::calculateNewLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation) {
-    // first check if change lane is allowed
-    if (moveOperation->allowChangeLane) {
-        // get cursor position
-        const Position cursorPosition = viewNet->getPositionInformation();
-        // iterate over edge lanes
-        for (const auto& lane : moveOperation->firstLane->getParentEdge()->getLanes()) {
-            // avoid moveOperation lane
-            if (lane != moveOperation->firstLane) {
-                // calculate offset over lane shape
-                const double offSet = lane->getLaneShape().nearest_offset_to_point2D(cursorPosition, true);
-                // calculate position over lane shape
-                const Position posOverLane = lane->getLaneShape().positionAtOffset2D(offSet);
-                // check distance
-                if (posOverLane.distanceSquaredTo2D(cursorPosition) < 1) {
-                    // update newlane
-                    moveResult.newLane = lane;
-                    // calculate offset over moveOperation lane
-                    const double offsetMoveOperationLane = moveOperation->firstLane->getLaneShape().nearest_offset_to_point2D(cursorPosition, true);
-                    // calculate position over moveOperation lane
-                    const Position posOverMoveOperationLane = moveOperation->firstLane->getLaneShape().positionAtOffset2D(offsetMoveOperationLane);
-                    // update moveResult of laneOffset
-                    moveResult.laneOffset = posOverLane.distanceTo2D(posOverMoveOperationLane);
-                    // change sign of  moveResult laneOffset depending of lane index
-                    if (moveOperation->firstLane->getIndex() < moveResult.newLane->getIndex()) {
-                        moveResult.laneOffset *= -1;
-                    }
+GNEMoveElement::calculateNewLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* originalLane) {
+    // get cursor position
+    const Position cursorPosition = viewNet->getPositionInformation();
+    // iterate over edge lanes
+    for (const auto& lane : originalLane->getParentEdge()->getLanes()) {
+        // avoid moveOperation lane
+        if (lane != originalLane) {
+            // calculate offset over lane shape
+            const double offSet = lane->getLaneShape().nearest_offset_to_point2D(cursorPosition, true);
+            // calculate position over lane shape
+            const Position posOverLane = lane->getLaneShape().positionAtOffset2D(offSet);
+            // check distance
+            if (posOverLane.distanceSquaredTo2D(cursorPosition) < 1) {
+                // update newlane
+                moveResult.newFirstLane = lane;
+                // calculate offset over moveOperation lane
+                const double offsetMoveOperationLane = originalLane->getLaneShape().nearest_offset_to_point2D(cursorPosition, true);
+                // calculate position over moveOperation lane
+                const Position posOverMoveOperationLane = originalLane->getLaneShape().positionAtOffset2D(offsetMoveOperationLane);
+                // update moveResult of laneOffset
+                moveResult.laneOffset = posOverLane.distanceTo2D(posOverMoveOperationLane);
+                // change sign of  moveResult laneOffset depending of lane index
+                if (originalLane->getIndex() < moveResult.newFirstLane->getIndex()) {
+                    moveResult.laneOffset *= -1;
                 }
             }
         }
-    } else {
-        // reset values
-        moveResult.newLane = nullptr;
-        moveResult.laneOffset = 0;
     }
 }
 

@@ -70,7 +70,8 @@ public:
                      const GNELane* firstLane,
                      const double firstStartPos,
                      const GNELane* secondLane,
-                     const double secondStartPos);
+                     const double secondStartPos,
+                     const bool allowChangeLane);
 
     /// @brief destructor
     ~GNEMoveOperation();
@@ -160,14 +161,17 @@ public:
     /// @brief lane offset
     double laneOffset;
 
+    /// @brief new first Lane
+    const GNELane* newFirstLane;
+
     /// @brief new first position
     double newFirstPos;
 
+    /// @brief new second Lane
+    const GNELane* newSecondLane;
+
     /// @brief new second position
     double newSecondPos;
-
-    /// @brief new Lane
-    const GNELane* newLane;
 
 private:
     /// @brief Invalidated copy constructor.
@@ -217,7 +221,7 @@ private:
     static void calculateDoubleMovementOverTwoLanes(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset);
 
     /// @brief calculate new lane
-    static void calculateNewLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation);
+    static void calculateNewLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* originalLane);
 
     /// @brief Invalidated copy constructor.
     GNEMoveElement(const GNEMoveElement&) = delete;
