@@ -475,7 +475,7 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnectio
             edge->getParentJunctions().back()->setLogicValid(false, undoList);
         } else {
             edge->getParentJunctions().front()->removeConnectionsTo(edge, undoList, true, lane->getIndex());
-            edge->getParentJunctions().front()->removeConnectionsFrom(edge, undoList, true, lane->getIndex());
+            edge->getParentJunctions().back()->removeConnectionsFrom(edge, undoList, true, lane->getIndex());
         }
         // delete lane
         const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
