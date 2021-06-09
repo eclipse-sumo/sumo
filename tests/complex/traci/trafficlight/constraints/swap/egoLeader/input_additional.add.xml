@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <railSignalConstraints id="C">
+        <predecessor tripId="t1" tl="H" foes="t0" limit="3"/>
+        <predecessor tripId="t2" tl="H" foes="t0" limit="3"/>
+    </railSignalConstraints>
+</additional>
