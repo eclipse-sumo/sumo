@@ -149,7 +149,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                 obj->getStringAttribute(SUMO_ATTR_ID),
                 obj->getStringAttribute(SUMO_ATTR_LANE),
                 obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
+                obj->getDoubleAttribute(SUMO_ATTR_FREQUENCY),
                 obj->getStringAttribute(SUMO_ATTR_FILE),
                 obj->getStringListAttribute(SUMO_ATTR_VTYPES),
                 obj->getStringAttribute(SUMO_ATTR_NAME),
@@ -164,7 +164,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                     obj->getStringAttribute(SUMO_ATTR_LANE),
                     obj->getDoubleAttribute(SUMO_ATTR_POSITION),
                     obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
-                    obj->getStringAttribute(SUMO_ATTR_FREQUENCY),
+                    obj->getDoubleAttribute(SUMO_ATTR_FREQUENCY),
                     obj->getStringAttribute(SUMO_ATTR_TLID),
                     obj->getStringAttribute(SUMO_ATTR_FILE),
                     obj->getStringListAttribute(SUMO_ATTR_VTYPES),
@@ -180,7 +180,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                     obj->getStringListAttribute(SUMO_ATTR_LANES),
                     obj->getDoubleAttribute(SUMO_ATTR_POSITION),
                     obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
-                    obj->getStringAttribute(SUMO_ATTR_FREQUENCY),
+                    obj->getDoubleAttribute(SUMO_ATTR_FREQUENCY),
                     obj->getStringAttribute(SUMO_ATTR_TLID),
                     obj->getStringAttribute(SUMO_ATTR_FILE),
                     obj->getStringListAttribute(SUMO_ATTR_VTYPES),
@@ -197,7 +197,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             buildDetectorE3(obj,
                 obj->getStringAttribute(SUMO_ATTR_ID),
                 obj->getPositionAttribute(SUMO_ATTR_POSITION),
-                obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
+                obj->getDoubleAttribute(SUMO_ATTR_FREQUENCY),
                 obj->getStringAttribute(SUMO_ATTR_FILE),
                 obj->getStringListAttribute(SUMO_ATTR_VTYPES),
                 obj->getStringAttribute(SUMO_ATTR_NAME),
@@ -890,7 +890,7 @@ AdditionalHandler::parseE1Attributes(const SUMOSAXAttributes& attrs) {
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk);
     const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk);
-    const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk);
+    const double frequency = attrs.get<double>(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk);
     // optional attributes
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
@@ -904,7 +904,7 @@ AdditionalHandler::parseE1Attributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, position);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_FREQUENCY, frequency);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_FREQUENCY, frequency);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
@@ -918,9 +918,8 @@ AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // check that frecuency and trafficLight aren't defined together
-    if ((attrs.hasAttribute(SUMO_ATTR_FREQUENCY) && attrs.hasAttribute(SUMO_ATTR_TLID)) ||
-        (!attrs.hasAttribute(SUMO_ATTR_FREQUENCY) && !attrs.hasAttribute(SUMO_ATTR_TLID))) {
-        WRITE_ERROR("define either Lanes or traffic light ID in E2 detector");
+    if (!attrs.hasAttribute(SUMO_ATTR_FREQUENCY) && !attrs.hasAttribute(SUMO_ATTR_TLID)) {
+        WRITE_ERROR("define either frequency or traffic light ID in E2 detector");
         parsedOk = false;
     }
     // check that lane and length are defined together
@@ -942,11 +941,11 @@ AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
     const std::vector<std::string> laneIds = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LANES, id.c_str(), parsedOk, std::vector<std::string>());
     const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), parsedOk, 0);
     const double endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), parsedOk, 0);
-    const std::string frequency = attrs.getOpt<std::string>(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, "");
+    const double frequency = attrs.getOpt<double>(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, -1);
     const std::string trafficLight = attrs.getOpt<std::string>(SUMO_ATTR_TLID, id.c_str(), parsedOk, "");
     // optional attributes
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
-    const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), parsedOk, 1);
+    const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), parsedOk, TIME2STEPS(1));
     const double haltingSpeedThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), parsedOk, 0.13);
     const double jamDistThreshold = attrs.getOpt<double>(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), parsedOk, 10);
     const std::vector<std::string> vehicleTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, std::vector<std::string>());
@@ -966,7 +965,7 @@ AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, position);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FREQUENCY, frequency);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_FREQUENCY, frequency);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TLID, file);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
@@ -986,7 +985,7 @@ AdditionalHandler::parseE3Attributes(const SUMOSAXAttributes& attrs) {
     // needed attributes
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk);
-    const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk);
+    const double frequency = attrs.get<double>(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk);
     // optional attributes
     const Position pos = attrs.getOpt<Position>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, Position());
     const std::vector<std::string> vehicleTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, std::vector<std::string>());
@@ -1000,7 +999,7 @@ AdditionalHandler::parseE3Attributes(const SUMOSAXAttributes& attrs) {
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_FREQUENCY, frequency);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_FREQUENCY, frequency);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionAttribute(SUMO_ATTR_POSITION, pos);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vehicleTypes);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
@@ -1214,7 +1213,7 @@ AdditionalHandler::parseCalibratorAttributes(const SUMOSAXAttributes& attrs) {
     const std::string lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk, "");
     // optional attributes
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
-    const SUMOTime freq = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, 1);
+    const double freq = attrs.getOpt<double>(SUMO_ATTR_FREQUENCY, id.c_str(), parsedOk, 1);
     const std::string routeProbe = attrs.getOpt<std::string>(SUMO_ATTR_ROUTEPROBE, id.c_str(), parsedOk, "");
     const double jamThreshold = attrs.getOpt<double>(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), parsedOk, 0.5);
     const std::string output = attrs.getOpt<std::string>(SUMO_ATTR_OUTPUT, id.c_str(), parsedOk, "");
@@ -1232,7 +1231,7 @@ AdditionalHandler::parseCalibratorAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, pos);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_FREQUENCY, freq);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_FREQUENCY, freq);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ROUTEPROBE, routeProbe);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD, jamThreshold);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_OUTPUT, output);
