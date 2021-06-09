@@ -186,7 +186,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildE1Detector(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id, const std::string &laneID, 
-                         const double position, const SUMOTime frequency, const std::string &file, const std::vector<std::string> &vehicleTypes,
+                         const double position, const double frequency, const std::string &file, const std::vector<std::string> &vehicleTypes,
                          const std::string &name, const bool friendlyPos, const std::map<std::string, std::string> &parameters);
 
     /**@brief Builds a single-lane Area Detector (E2)
@@ -207,7 +207,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
-                                   const double pos, const double length, const std::string& freq, const std::string& trafficLight, const std::string& filename, 
+                                   const double pos, const double length, const double freq, const std::string& trafficLight, const std::string& filename, 
                                    const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold,
                                    const double jamThreshold, const bool friendlyPos, const std::map<std::string, std::string> &parameters);
 
@@ -229,7 +229,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::vector<std::string>& lanes, 
-                                  const double pos, const double endPos, const std::string& freq, const std::string& trafficLight, const std::string& filename, 
+                                  const double pos, const double endPos, const double freq, const std::string& trafficLight, const std::string& filename, 
                                   const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, 
                                   const double jamThreshold, const bool friendlyPos, const std::map<std::string, std::string> &parameters);
 
@@ -245,7 +245,7 @@ public:
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      * @param[in] parameters generic parameters
      */
-    void buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, const SUMOTime freq, 
+    void buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, const double freq, 
                          const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, 
                          const double speedThreshold, const std::map<std::string, std::string> &parameters);
 
@@ -281,7 +281,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildDetectorE1Instant(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
-                                double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, 
+                                const double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, 
                                 const bool friendlyPos, const std::map<std::string, std::string> &parameters);
 
     /**@brief builds a microscopic calibrator over a lane
