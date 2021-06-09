@@ -34,6 +34,8 @@ traci.start([sumolib.checkBinary('sumo'),
              '--no-step-log',
              ] + sys.argv[1:])
 
+# ensure that vehicles have departed and all routes are computed
+traci.simulationStep()
 print("constraints before swap")
 for tlsID in traci.trafficlight.getIDList():
     for c in traci.trafficlight.getConstraints(tlsID):
