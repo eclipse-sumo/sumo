@@ -494,7 +494,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             myVehicleTypes = parse<std::vector<std::string> >(value);
             break;
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            myTimeThreshold = TIME2STEPS(parse<SUMOTime>(value));
+            myTimeThreshold = TIME2STEPS(parse<double>(value));
             break;
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             mySpeedThreshold = parse<double>(value);
