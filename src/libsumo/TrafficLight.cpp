@@ -408,8 +408,8 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
         // in this case foe must be on the route of foe2 between its current position and foeSignal
 
         // we have to check this first because it also affects foeInsertion
-        // constraints if the foe is already inserted but hasn't yet passed to
-        // single (cleared == false).
+        // constraints if the foe is already inserted but hasn't yet passed the
+        // signal (cleared == false).
         SUMOVehicle* foe = getVehicleByTripId(foeId);
         if (foe != nullptr) {
             const MSEdge* foeEdge = foe->getEdge();
