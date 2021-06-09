@@ -256,6 +256,10 @@ The [Emission model](../Models/Emissions.md#outputs)-outputs of
 SUMO can be used together with the battery device when setting the
 `<vType>`-parameter `emissionClass="Energy/unknown"`.
 
+## Tracking fuel consumption for non-electrical vehicles
+
+By setting option **--device.battery.track-fuel**, equipped vehicles will monitor their fuel level based on the fuel consumption of their respective emission class. All capacity values are then interpreted as ml instead of Wh. Also, the chargingStation power is re-interpreted as ml/s when charging fuel.
+
 ## TraCI
 
 The internal state of the battery device can be accessed directly using
