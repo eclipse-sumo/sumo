@@ -29,9 +29,13 @@ Debug: Setting new attribute selected 'false' into containerStop 'containerStopB
 Debug: Setting new attribute selected 'false' into containerStop 'containerStopC'
 Debug: Setting new attribute selected 'false' into containerStop 'containerStopD'
 Debug: Setting new attribute selected 'true' into containerStop 'containerStopA'
+Debug: Setting new attribute selected 'true' into containerStop 'containerStopB'
+Debug: Setting new attribute selected 'true' into containerStop 'containerStopD'
 Debug: Additionals saving aborted
 Debug: Key DEL (delete) pressed
 Debug: Removing containerStop 'containerStopA' in GNEChange_Additional
+Debug: Removing containerStop 'containerStopB' in GNEChange_Additional
+Debug: Removing containerStop 'containerStopD' in GNEChange_Additional
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-06-03 09:47:31 by Eclipse SUMO netedit Version v1_9_2+0304-09105bc1d7
+<!-- generated on 2021-06-03 08:48:48 by Eclipse SUMO netedit Version v1_9_2+0304-09105bc1d7
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun094537.21748\netedit.gui\additionalElements\containerstop\load\friendlypos\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun084654.18268\netedit.gui\additionalElements\containerstop\load\friendlypos\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun094537.21748\netedit.gui\additionalElements\containerstop\load\friendlypos\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun084654.18268\netedit.gui\additionalElements\containerstop\load\friendlypos\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,28 +30,28 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun094537.21748\netedit.gui\additionalElements\containerstop\load\friendlypos\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun094537.21748\netedit.gui\additionalElements\containerstop\load\friendlypos\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun094537.21748\netedit.gui\additionalElements\containerstop\load\friendlypos\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun094537.21748\netedit.gui\additionalElements\containerstop\load\friendlypos\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun094537.21748\netedit.gui\additionalElements\containerstop\load\friendlypos\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun094537.21748\netedit.gui\additionalElements\containerstop\load\friendlypos\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun084654.18268\netedit.gui\additionalElements\containerstop\load\friendlypos\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun084654.18268\netedit.gui\additionalElements\containerstop\load\friendlypos\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun084654.18268\netedit.gui\additionalElements\containerstop\load\friendlypos\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun084654.18268\netedit.gui\additionalElements\containerstop\load\friendlypos\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun084654.18268\netedit.gui\additionalElements\containerstop\load\friendlypos\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun084654.18268\netedit.gui\additionalElements\containerstop\load\friendlypos\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun094537.21748\netedit.gui\additionalElements\containerstop\load\friendlypos\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun084654.18268\netedit.gui\additionalElements\containerstop\load\friendlypos\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun094537.21748\netedit.gui\additionalElements\containerstop\load\friendlypos\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun084654.18268\netedit.gui\additionalElements\containerstop\load\friendlypos\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun094537.21748\netedit.gui\additionalElements\containerstop\load\friendlypos\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun084654.18268\netedit.gui\additionalElements\containerstop\load\friendlypos\log.txt"/>
     </report>
 
 </configuration>

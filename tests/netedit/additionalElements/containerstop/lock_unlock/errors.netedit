@@ -15,6 +15,7 @@ Debug: Setting previous attribute startPos '12.00' into containerStop 'container
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing containerStop 'containerStop_gneE0_0_0' in GNEChange_Additional
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding containerStop 'containerStop_gneE0_0_0' in GNEChange_Additional
@@ -25,6 +26,7 @@ Debug: Setting new attribute endPos '32.00' into containerStop 'containerStop_gn
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute blockMovement 'true' into containerStop 'containerStop_gneE0_0_0'
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
