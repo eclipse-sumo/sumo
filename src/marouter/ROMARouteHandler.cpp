@@ -52,11 +52,20 @@ void
 ROMARouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     if (element == SUMO_TAG_TRIP || element == SUMO_TAG_VEHICLE) {
         myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(element, attrs, true);
-        if ((!myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) || myIgnoreTaz) && attrs.hasAttribute(SUMO_ATTR_FROM)) {
-            myVehicleParameter->fromTaz = attrs.getString(SUMO_ATTR_FROM);
+        if (!myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) || myIgnoreTaz) {
+            if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
+                myVehicleParameter->fromTaz = attrs.getString(SUMO_ATTR_FROM);
+            } else if (attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION)) {
+                myVehicleParameter->fromTaz = attrs.getString(SUMO_ATTR_FROMJUNCTION) + "-source";
+            }
+
         }
-        if ((!myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET) || myIgnoreTaz) && attrs.hasAttribute(SUMO_ATTR_TO)) {
-            myVehicleParameter->toTaz = attrs.getString(SUMO_ATTR_TO);
+        if (!myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET) || myIgnoreTaz) {
+            if (attrs.hasAttribute(SUMO_ATTR_TO)) {
+                myVehicleParameter->toTaz = attrs.getString(SUMO_ATTR_TO);
+            } else if (attrs.hasAttribute(SUMO_ATTR_TOJUNCTION)) {
+                myVehicleParameter->toTaz = attrs.getString(SUMO_ATTR_TOJUNCTION) + "-sink";
+            }
         }
     } else if (element == SUMO_TAG_PARAM && !myTazParamKeys.empty()) {
         if (attrs.getString(SUMO_ATTR_KEY) == myTazParamKeys[0]) {

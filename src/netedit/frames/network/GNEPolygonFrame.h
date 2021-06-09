@@ -32,14 +32,6 @@ class GNEPolygonFrame : public GNEFrame {
 
 public:
 
-    /// @brief enum with all possible values after try to create an shape using frame
-    enum class AddShape {
-        SUCCESS,                // Shape was successfully created
-        UPDATEDTEMPORALSHAPE,   // Added or removed a new point to temporal shape
-        INVALID,                // Shape wasn't created
-        NOTHING                 // Nothing to do
-    };
-
     // ===========================================================================
     // class GEOPOICreator
     // ===========================================================================
@@ -112,11 +104,11 @@ public:
     void show();
 
     /**@brief process click over Viewnet
-    * @param[in] clickedPosition clicked position over ViewNet
-    * @param[in] ObjectsUnderCursor objects under cursor after click over view
-    * @return AddShapeStatus with the result of operation
-    */
-    GNEPolygonFrame::AddShape processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+     * @param[in] clickedPosition clicked position over ViewNet
+     * @param[in] ObjectsUnderCursor objects under cursor after click over view
+     * @return AddShapeStatus with the result of operation
+     */
+    bool processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool &updateTemporalShape);
 
     /// @brief get list of selecte id's in string format
     static std::string getIdsSelected(const FXList* list);
@@ -125,6 +117,12 @@ public:
     GNEFrameModuls::DrawingShape* getDrawingShapeModul() const;
 
 protected:
+    /// @brief SumoBaseObject used for create shape
+    CommonXMLStructure::SumoBaseObject* myBaseShape;
+
+    // @brief create baseShapeObject
+    void createBaseShapeObject(const SumoXMLTag shapeTag);
+
     /**@brief build a shaped element using the drawed shape
      * return true if was successfully created
      * @note called when user stop drawing polygon
@@ -134,14 +132,8 @@ protected:
     /// @brief Tag selected in TagSelector
     void tagSelected();
 
-    /// @brief add Polygon
-    bool addPolygon(const std::map<SumoXMLAttr, std::string>& POIValues);
-
-    /// @brief add POI
-    bool addPOI(const std::map<SumoXMLAttr, std::string>& POIValues);
-
-    /// @brief add POILane
-    bool addPOILane(const std::map<SumoXMLAttr, std::string>& POIValues);
+    /// @brief add shape (using base shape)
+    void addShape();
 
 private:
     /// @brief shape tag selector

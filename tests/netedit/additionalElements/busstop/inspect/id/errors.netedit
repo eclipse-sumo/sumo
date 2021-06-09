@@ -1,9 +1,7 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'busStop' in TagSelector
-Debug: Format of optional positive optional integer attribute 'personCapacity' of busStop with ID 'busStop_gneE2_1_0' is invalid; Cannot be negative; Default value will be used.
 Debug: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
-Debug: Format of optional positive optional integer attribute 'personCapacity' of busStop with ID 'busStop_gneE2_1_1' is invalid; Cannot be negative; Default value will be used.
 Debug: Adding busStop 'busStop_gneE2_1_1' in GNEChange_Additional
 Debug: Value 'busStop_gneE2_1_1' for attribute id of busStop isn't valid
 Debug: Value 'Id with spaces' for attribute id of busStop isn't valid

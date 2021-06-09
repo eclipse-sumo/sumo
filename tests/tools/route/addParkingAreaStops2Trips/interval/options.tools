@@ -1,0 +1,1 @@
+-p input_additional.add.xml -r input_routes.rou.xml -o out.rou.xml -b 1800 -e 3600 tools/route/addParkingAreaStops2Trips.py

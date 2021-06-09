@@ -734,6 +734,7 @@
         <xsd:attribute name="lane" type="xsd:string"/>
         <xsd:attribute name="edge" type="xsd:string"/>
         <xsd:attribute name="busStop" type="xsd:string"/>
+        <xsd:attribute name="trainStop" type="xsd:string"/>
         <xsd:attribute name="containerStop" type="xsd:string"/>
         <xsd:attribute name="chargingStation" type="xsd:string"/>
         <xsd:attribute name="parkingArea" type="xsd:string"/>
@@ -758,6 +759,9 @@
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="speed" type="nonNegativeFloatType"/>
         <xsd:attribute name="priorEdges" type="xsd:string"/>
+        <xsd:attribute name="started" type="timeType"/>
+        <xsd:attribute name="ended" type="timeType"/>
+        <!-- save-state backward compatibility -->
         <xsd:attribute name="actualArrival" type="timeType"/>
         <xsd:attribute name="depart" type="timeType"/>
     </xsd:complexType>
@@ -826,6 +830,10 @@
                     <xsd:attribute name="toJunction" type="xsd:string"/>
                     <xsd:attribute name="viaJunctions" type="xsd:string"/>
                     <xsd:attribute name="busStop" type="xsd:string"/>
+                    <xsd:attribute name="trainStop" type="xsd:string"/>
+                    <xsd:attribute name="parkingArea" type="xsd:string"/>
+                    <xsd:attribute name="containerStop" type="xsd:string"/>
+                    <xsd:attribute name="chargingStation" type="xsd:string"/>
                     <xsd:attribute name="modes" type="xsd:string"/>
                     <xsd:attribute name="vTypes" type="xsd:string"/>
                     <xsd:attribute name="departPos" type="departPosType"/>
@@ -840,6 +848,10 @@
                     <xsd:attribute name="from" type="xsd:string"/>
                     <xsd:attribute name="to" type="xsd:string"/>
                     <xsd:attribute name="busStop" type="xsd:string"/>
+                    <xsd:attribute name="trainStop" type="xsd:string"/>
+                    <xsd:attribute name="parkingArea" type="xsd:string"/>
+                    <xsd:attribute name="containerStop" type="xsd:string"/>
+                    <xsd:attribute name="chargingStation" type="xsd:string"/>
                     <xsd:attribute name="lines" type="xsd:string" use="required"/>
                     <xsd:attribute name="arrivalPos" type="xsd:float"/>
                     <xsd:attribute name="cost" type="xsd:float"/>
@@ -847,6 +859,7 @@
                     <xsd:attribute name="depart" type="timeType" use="optional"/>
                     <xsd:attribute name="routeLength" type="xsd:float"/>
                     <xsd:attribute name="group" type="xsd:string" use="optional"/>
+                    <xsd:attribute name="ended" type="timeType"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="walk">
@@ -861,6 +874,10 @@
                     <xsd:attribute name="toJunction" type="xsd:string"/>
                     <xsd:attribute name="viaJunctions" type="xsd:string"/>
                     <xsd:attribute name="busStop" type="xsd:string"/>
+                    <xsd:attribute name="trainStop" type="xsd:string"/>
+                    <xsd:attribute name="parkingArea" type="xsd:string"/>
+                    <xsd:attribute name="containerStop" type="xsd:string"/>
+                    <xsd:attribute name="chargingStation" type="xsd:string"/>
                     <xsd:attribute name="speed" type="positiveFloatType"/>
                     <xsd:attribute name="duration" type="positiveFloatType"/>
                     <xsd:attribute name="departPos" type="departPosType"/>
@@ -911,8 +928,20 @@
             <xsd:element name="transport">
                 <xsd:complexType>
                     <xsd:attribute name="from" type="xsd:string"/>
-                    <xsd:attribute name="to" type="xsd:string" use="required"/>
+                    <xsd:attribute name="to" type="xsd:string"/>
+                    <xsd:attribute name="busStop" type="xsd:string"/>
+                    <xsd:attribute name="trainStop" type="xsd:string"/>
+                    <xsd:attribute name="parkingArea" type="xsd:string"/>
+                    <xsd:attribute name="containerStop" type="xsd:string"/>
+                    <xsd:attribute name="chargingStation" type="xsd:string"/>
                     <xsd:attribute name="lines" type="xsd:string" use="required"/>
+                    <xsd:attribute name="arrivalPos" type="xsd:float"/>
+                    <xsd:attribute name="cost" type="xsd:float"/>
+                    <xsd:attribute name="intended" type="xsd:string" use="optional"/>
+                    <xsd:attribute name="depart" type="timeType" use="optional"/>
+                    <xsd:attribute name="routeLength" type="xsd:float"/>
+                    <xsd:attribute name="group" type="xsd:string" use="optional"/>
+                    <xsd:attribute name="ended" type="timeType"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="tranship">

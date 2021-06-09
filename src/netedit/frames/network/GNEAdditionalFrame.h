@@ -126,7 +126,7 @@ public:
         ~SelectorChildEdges();
 
         /// @brief get list of selecte id's in string format
-        std::string getEdgeIdsSelected() const;
+        std::vector<std::string> getEdgeIdsSelected() const;
 
         /// @brief Show SelectorChildEdges Modul
         void showSelectorChildEdgesModul(std::string search = "");
@@ -194,7 +194,7 @@ public:
         ~SelectorChildLanes();
 
         /// @brief get list of selecte lane ids in string format
-        std::string getLaneIdsSelected() const;
+        std::vector<std::string> getLaneIdsSelected() const;
 
         /// @brief Show list of SelectorChildLanes Modul
         void showSelectorChildLanesModul(std::string search = "");
@@ -370,27 +370,30 @@ public:
     GNEAdditionalFrame::E2MultilaneLaneSelector* getE2MultilaneLaneSelector() const;
 
 protected:
+    /// @brief SumoBaseObject used for create additional
+    CommonXMLStructure::SumoBaseObject* myBaseAdditional;
+
     /// @brief Tag selected in TagSelector
     void tagSelected();
 
 private:
+    // @brief create baseAdditionalObject
+    bool createBaseAdditionalObject(const GNETagProperties& tagProperty);
+
     /// @brief generate a ID for an additiona element
     std::string generateID(GNENetworkElement* networkElement) const;
 
     /// @brief build common additional attributes
-    bool buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::string>& valuesMap, const GNETagProperties& tagValues);
-
-    /// @brief build slave additional
-    bool buildSlaveAdditional(std::map<SumoXMLAttr, std::string>& valuesMap, GNEAdditional* parent, const GNETagProperties& tagValues);
+    bool buildAdditionalCommonAttributes(const GNETagProperties& tagValues);
 
     /// @brief build additional over an edge (parent of lane)
-    bool buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNETagProperties& tagValues);
+    bool buildAdditionalOverEdge(GNELane* lane, const GNETagProperties& tagValues);
 
     /// @brief build additional over a single lane
-    bool buildAdditionalOverLane(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNETagProperties& tagValues);
+    bool buildAdditionalOverLane(GNELane* lane, const GNETagProperties& tagValues);
 
     /// @brief build additional over view
-    bool buildAdditionalOverView(std::map<SumoXMLAttr, std::string>& valuesMap, const GNETagProperties& tagValues);
+    bool buildAdditionalOverView(const GNETagProperties& tagValues);
 
     /// @brief item selector
     GNEFrameModuls::TagSelector* myAdditionalTagSelector;

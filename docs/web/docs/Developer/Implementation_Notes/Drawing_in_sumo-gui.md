@@ -23,7 +23,7 @@ three places:
 
 As all objects are drawn in the order they are stored within the rtree,
 no z-ordering is done before. Due to this, the objects must be draw in
-"layers". This is realised by using glTranslated. Each object type is
+"layers". This is realized by using glTranslated. Each object type is
 also an integer value (enum type) which is used as the layer in which to
 draw objects of this type. Since GLO_VEHICLE has the integer value of
 256 it is drawn on top of GLO_LANE which has the lower value 2. Some

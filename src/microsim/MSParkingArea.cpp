@@ -43,7 +43,8 @@
 // ===========================================================================
 MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::string>& lines,
                              MSLane& lane, double begPos, double endPos, int capacity, double width, double length,
-                             double angle, const std::string& name, bool onRoad) :
+                             double angle, const std::string& name, bool onRoad,
+                             const std::string& departPos) :
     MSStoppingPlace(id, SUMO_TAG_PARKING_AREA, lines, lane, begPos, endPos, name),
     myCapacity(0),
     myOnRoad(onRoad),
@@ -56,6 +57,8 @@ MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::strin
     myReservationMaxLength(0),
     myNumAlternatives(0),
     myLastStepOccupancy(0),
+    myDepartPos(-1),
+    myDepartPosDefinition(DepartPosDefinition::DEFAULT),
     myUpdateEvent(nullptr) {
     // initialize unspecified defaults
     if (myWidth == 0) {
@@ -64,6 +67,18 @@ MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::strin
     const double spaceDim = capacity > 0 ? myLane.interpolateLanePosToGeometryPos((myEndPos - myBegPos) / capacity) : 7.5;
     if (myLength == 0) {
         myLength = spaceDim;
+    }
+    if (departPos != "") {
+        std::string error;
+        if (!SUMOVehicleParameter::parseDepartPos(departPos, toString(myElement), getID(), myDepartPos, myDepartPosDefinition, error)) {
+            throw ProcessError(error);
+        }
+        if (myDepartPosDefinition != DepartPosDefinition::GIVEN) {
+            // maybe allow other methods at a later time
+            throw ProcessError("Only a numerical departPos is supported for " + toString(myElement) + " '" + getID() + "'");
+        } else if (myDepartPos < 0 || myDepartPos > lane.getLength()) {
+            throw ProcessError("Invalid departPos for " + toString(myElement) + " '" + getID() + "'");
+        }
     }
 
     const double offset = MSGlobals::gLefthand ? -1 : 1;
@@ -188,6 +203,9 @@ MSParkingArea::getVehiclePosition(const SUMOVehicle& forVehicle) const {
 
 double
 MSParkingArea::getInsertionPosition(const SUMOVehicle& forVehicle) const {
+    if (myDepartPosDefinition == DepartPosDefinition::GIVEN) {
+        return myDepartPos;
+    }
     for (const auto& lsd : mySpaceOccupancies) {
         if (lsd.vehicle == &forVehicle) {
             return lsd.endPos;

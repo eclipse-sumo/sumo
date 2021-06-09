@@ -56,6 +56,8 @@ public:
      * @param[in] relativePath set image file as relative path
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
+     * @param[in] name POI name
+     * @param[in] parameters generic parameters
      */
     PointOfInterest(const std::string& id, const std::string& type,
                     const RGBColor& color, const Position& pos, bool geo,
@@ -65,9 +67,12 @@ public:
                     const std::string& imgFile = DEFAULT_IMG_FILE,
                     bool relativePath = DEFAULT_RELATIVEPATH,
                     double width = DEFAULT_IMG_WIDTH,
-                    double height = DEFAULT_IMG_HEIGHT) :
-        Shape(id, type, color, layer, angle, imgFile, relativePath),
+                    double height = DEFAULT_IMG_HEIGHT,
+                    const std::string& name = DEFAULT_NAME,
+                    const std::map<std::string, std::string>& parameters = DEFAULT_PARAMETERS) :
+        Shape(id, type, color, layer, angle, imgFile, name, relativePath),
         Position(pos),
+        Parameterised(parameters),
         myGeo(geo),
         myLane(lane),
         myPosOverLane(posOverLane),

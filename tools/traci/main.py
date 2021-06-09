@@ -128,22 +128,33 @@ def connect(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", proc
     raise FatalTraCIError("Could not connect in %s tries" % (numRetries + 1))
 
 
-def init(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", label="default", proc=None):
+def init(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", label="default", proc=None, doSwitch=True):
     """
     Establish a connection to a TraCI-Server and store it under the given
     label. This method is not thread-safe. It accesses the connection
     pool concurrently.
     """
     _connections[label] = connect(port, numRetries, host, proc)
-    switch(label)
-    return getVersion()
+    if doSwitch:
+        switch(label)
+    return _connections[label].getVersion()
 
 
 def start(cmd, port=None, numRetries=tc.DEFAULT_NUM_RETRIES, label="default", verbose=False,
-          traceFile=None, traceGetters=True, stdout=None):
+          traceFile=None, traceGetters=True, stdout=None, doSwitch=True):
     """
     Start a sumo server using cmd, establish a connection to it and
     store it under the given label. This method is not thread-safe.
+
+    - cmd (list): uses the Popen syntax. i.e. ['sumo', '-c', 'run.sumocfg']. The remote
+      port option will be added automatically
+    - numRetries (int): retries on failing to connect to sumo (more retries are needed
+      if a big .net.xml file must be loaded)
+    - label (string) : distinguish multiple traci connections used in the same script
+    - verbose (bool): print complete cmd
+    - traceFile (string): write all traci commands to FILE for debugging
+    - traceGetters (bool): whether to include get-commands in traceFile
+    - stdout (iostream): where to pipe sumo process stdout
     """
     if label in _connections:
         raise TraCIException("Connection '%s' is already active." % label)
@@ -156,11 +167,12 @@ def start(cmd, port=None, numRetries=tc.DEFAULT_NUM_RETRIES, label="default", ve
             print("Calling " + ' '.join(cmd2))
         sumoProcess = subprocess.Popen(cmd2, stdout=stdout)
         try:
-            return init(sumoPort, numRetries, "localhost", label, sumoProcess)
+            return init(sumoPort, numRetries, "localhost", label, sumoProcess, doSwitch)
         except TraCIException as e:
             if port is not None:
                 break
-            warnings.warn("Could not connect to TraCI server using port %s (%s). Retrying with different port." % (sumoPort, e))
+            warnings.warn(("Could not connect to TraCI server using port %s (%s)." +
+                           " Retrying with different port.") % (sumoPort, e))
             numRetries -= 1
     raise FatalTraCIError("Could not connect.")
 
@@ -181,11 +193,12 @@ def isLibtraci():
 
 
 def hasGUI():
-    try:
-        gui.getIDList()
-        return True
-    except TraCIException:
-        return False
+    """
+    Return whether a GUI and the corresponding GUI commands are available for the current connection.
+    """
+    if "" not in _connections:
+        raise FatalTraCIError("Not connected.")
+    return _connections[""].hasGUI()
 
 
 def load(args):

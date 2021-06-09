@@ -45,16 +45,18 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // member method definitions
 // ===========================================================================
 
-GNETAZ::GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, bool blockMovement) :
-    GNETAZElement(id, net, GLO_TAZ, SUMO_TAG_TAZ, blockMovement,
-{}, {}, {}, {}, {}, {}, {}, {}),
-SUMOPolygon(id, "", color, shape, false, false, 1),
-myMaxWeightSource(0),
-myMinWeightSource(0),
-myAverageWeightSource(0),
-myMaxWeightSink(0),
-myMinWeightSink(0),
-myAverageWeightSink(0) {
+GNETAZ::GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, const std::string &name,
+        const std::map<std::string, std::string> &parameters, bool blockMovement) :
+    GNETAZElement(id, net, GLO_TAZ, SUMO_TAG_TAZ,
+        {}, {}, {}, {}, {}, {}, {}, {},
+        parameters, blockMovement),
+    SUMOPolygon(id, name, color, shape, false, false, 1),
+    myMaxWeightSource(0),
+    myMinWeightSource(0),
+    myAverageWeightSource(0),
+    myMaxWeightSink(0),
+    myMinWeightSink(0),
+    myAverageWeightSink(0) {
     // update geometry
     updateGeometry();
 }
@@ -251,11 +253,6 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         const RGBColor color = isAttributeCarrierSelected() ? s.colorSettings.selectionColor : getShapeColor();
         const RGBColor invertedColor = color.invertedColor();
         const RGBColor darkerColor = color.changedBrightness(-32);
-        // obtain scaled geometryte
-        GNEGeometry::Geometry scaledGeometry = myTAZGeometry;
-        if (TAZExaggeration != 1) {
-            scaledGeometry.scaleGeometry(TAZExaggeration);
-        }
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         glPushName(GNETAZElement::getGlID());
         // push layer matrix
@@ -266,7 +263,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         if (getFill()) {
             if (s.drawForPositionSelection) {
                 // check if mouse is within geometry
-                if (scaledGeometry.getShape().around(mousePosition)) {
+                if (myTAZGeometry.getShape().around(mousePosition)) {
                     // push matrix
                     glPushMatrix();
                     // move to mouse position
@@ -280,7 +277,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 }
             } else {
                 // draw inner polygon
-                GUIPolygon::drawInnerPolygon(s, this, this, scaledGeometry.getShape(), 0, drawUsingSelectColor());
+                GUIPolygon::drawInnerPolygon(s, this, this, myTAZGeometry.getShape(), 0, drawUsingSelectColor());
             }
         } else {
             // push matrix
@@ -288,7 +285,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             // set color
             GLHelper::setColor(color);
             // draw geometry (polyline)
-            GNEGeometry::drawGeometry(myNet->getViewNet(), scaledGeometry, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
+            GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZGeometry, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
             // pop matrix
             glPopMatrix();
         }
@@ -301,35 +298,35 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             // set color
             GLHelper::setColor(darkerColor);
             // draw polygon contour
-            GNEGeometry::drawGeometry(myNet->getViewNet(), scaledGeometry, s.neteditSizeSettings.polygonContourWidth);
+            GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZGeometry, s.neteditSizeSettings.polygonContourWidth * TAZExaggeration);
             // pop contour matrix
             glPopMatrix();
             // draw shape points only in Network supemode
             if (s.drawMovingGeometryPoint(TAZExaggeration, s.neteditSizeSettings.polygonGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
                 // draw geometry points
-                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), scaledGeometry.getShape(), darkerColor, invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
+                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myTAZGeometry.getShape(), darkerColor, invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
                 // draw moving hint points
                 if (myBlockMovement == false) {
-                    GNEGeometry::drawMovingHint(s, myNet->getViewNet(), scaledGeometry.getShape(), invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
+                    GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myTAZGeometry.getShape(), invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
                 }
             }
         }
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw depending if is closed
-            if (getFill() || scaledGeometry.getShape().isClosed()) {
-                GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::INSPECT, s, scaledGeometry.getShape(), 1);
+            if (getFill() || myTAZGeometry.getShape().isClosed()) {
+                GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZGeometry.getShape(), 1);
             } else {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, scaledGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
             }
         }
         // check if front dotted contour has to be drawn
         if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             // draw depending if is closed
-            if (getFill() || scaledGeometry.getShape().isClosed()) {
-                GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::FRONT, s, scaledGeometry.getShape(), 1);
+            if (getFill() || myTAZGeometry.getShape().isClosed()) {
+                GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), 1);
             } else {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, scaledGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
             }
         }
         // pop layer matrix
@@ -358,8 +355,16 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 glPopName();
             }
         }
+        // get name position
+        const Position& namePos = myTAZGeometry.getShape().getPolygonCenter();
+        // draw name
+        drawName(namePos, s.scale, s.polyName, s.angle);
+        // check if draw poly type
+        if (s.polyType.show) {
+            const Position p = namePos + Position(0, -0.6 * s.polyType.size / s.scale);
+            GLHelper::drawTextSettings(s.polyType, getShapeType(), p, s.scale, s.angle);
+        }
     }
-    /* temporal */
 }
 
 

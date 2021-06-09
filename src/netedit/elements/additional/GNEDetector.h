@@ -38,15 +38,17 @@ public:
      * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_E1DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
      * @param[in] pos position of the detector on the lane
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
+     * @param[in] parentLanes vector of parent lanes
      * @param[in] vehicleTypes space separated list of vehicle type ids to consider
      * @param[in] filename The path to the output file.
      * @param[in] name detector name
      * @param[in] friendlyPos enable or disable friendly positions
-     * @param[in] block movement enable or disable additional movement
-     * @param[in] parentLanes vector of parent lanes
+     * @param[in] parameters generic parameters
+     * @param[in] blockMovement enable or disable additional movement
      */
-    GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, double pos, const std::string& freq, const std::string& filename,
-                const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*>& parentLanes);
+    GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, double pos, const std::string& freq, 
+                const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::vector<std::string>& vehicleTypes, 
+                const std::string& name, bool friendlyPos, const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /**@brief Constructor.
      * @param[in] additionalParent parent additional of this detector (ID will be generated automatically)
@@ -55,14 +57,16 @@ public:
      * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_E1DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
      * @param[in] pos position of the detector on the lane
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
+     * @param[in] parentLanes vector of parent lanes
      * @param[in] filename The path to the output file.
      * @param[in] name detector name
      * @param[in] friendlyPos enable or disable friendly positions
-     * @param[in] block movement enable or disable additional movement
-     * @param[in] parentLanes vector of parent lanes
+     * @param[in] parameters generic parameters
+     * @param[in] blockMovement enable or disable additional movement
      */
-    GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, double pos, const std::string& freq, const std::string& filename,
-                const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*>& parentLanes);
+    GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, double pos, const std::string& freq, 
+                const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name, bool friendlyPos, 
+                const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /// @brief Destructor
     ~GNEDetector();
@@ -131,7 +135,7 @@ public:
      * @param[in] key The attribute key
      * @return double with the value associated to key
      */
-    double getAttributeDouble(SumoXMLAttr key) const;
+    virtual double getAttributeDouble(SumoXMLAttr key) const = 0;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -170,7 +174,7 @@ protected:
     std::string myFilename;
 
     /// @brief attribute vehicle types
-    std::string myVehicleTypes;
+    std::vector<std::string> myVehicleTypes;
 
     /// @brief Flag for friendly position
     bool myFriendlyPosition;

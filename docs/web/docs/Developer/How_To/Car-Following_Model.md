@@ -127,6 +127,16 @@ virtual int getModelID() const {
 }
 ```
 
+## Using Custom Parameters via TraCI
+
+A carFollowModel can override the functions getParameter and setParameter inherited from MSCFModel. 
+Any calls to 'traci.vehicle.setParameter' and 'traci.vehicle.getParameter' where the key starts with "carFollowModel." will then be forwarded to these methods (without the prefix).
+The call
+`traci.vehicle.setParameter(vehID, "carFollowModel.XYZ", "42")`
+will be mapped onto the call
+`MSCFModel::setParameter(MSVehicle* veh, "XYZ" , "42")` which is called on the current carFollowModel of the vehicle.
+
+
 ## XML Validation
 
 Sumo performs [xml validation](../../XMLValidation.md). If you add new

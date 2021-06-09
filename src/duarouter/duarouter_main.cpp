@@ -100,6 +100,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     const double priorityFactor = oc.getFloat("weights.priority-factor");
     const SUMOTime begin = string2time(oc.getString("begin"));
     const SUMOTime end = string2time(oc.getString("end"));
+    DijkstraRouter<ROEdge, ROVehicle>::Operation op = &ROEdge::getTravelTimeStatic;
     if (measure == "traveltime" && priorityFactor == 0) {
         if (routingAlgorithm == "dijkstra") {
             router = new DijkstraRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction, nullptr, false, nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
@@ -143,12 +144,9 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
         }
     } else {
-        DijkstraRouter<ROEdge, ROVehicle>::Operation op;
         if (measure == "traveltime") {
             if (ROEdge::initPriorityFactor(priorityFactor)) {
                 op = &ROEdge::getTravelTimeStaticPriorityFactor;
-            } else {
-                op = &ROEdge::getTravelTimeStatic;
             }
         } else if (measure == "CO") {
             op = &ROEdge::getEmissionEffort<PollutantsInterface::CO>;
@@ -203,7 +201,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
 
     RailwayRouter<ROEdge, ROVehicle>* railRouter = nullptr;
     if (net.hasBidiEdges()) {
-        railRouter = new RailwayRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), true, ttFunction, nullptr, false, net.hasPermissions(),
+        railRouter = new RailwayRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), true, op, ttFunction, false, net.hasPermissions(),
                 oc.isSet("restriction-params"),
                 oc.getFloat("railway.max-train-length"));
     }

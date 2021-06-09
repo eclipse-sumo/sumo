@@ -152,7 +152,7 @@ def getVersion():
 
 def close():
     simulation.close()
-    if _traceFile[0]:
+    if _traceFile[0] is not None and not _traceFile[0].closed:
         _traceFile[0].close()
 
 
@@ -169,38 +169,38 @@ def setLegacyGetLeader(enabled):
 
 
 def _startTracing(traceFile, cmd, traceGetters):
+    if _traceFile[0] is None:
+        for domain in _DOMAINS:
+            for attrName in dir(domain):
+                if not attrName.startswith("_"):
+                    attr = getattr(domain, attrName)
+                    if (callable(attr)
+                            and attrName not in [
+                                "wrapper",
+                                "getAllSubscriptionResults",
+                                "getAllContextSubscriptionResults",
+                    ]
+                            and not attrName.endswith('makeWrapper')
+                            and (traceGetters or not attrName.startswith("get"))):
+                        setattr(domain, attrName, _addTracing(attr, domain.__name__))
+        # simulationStep shows up as simulation.step
+        global _libsumo_step
+        _libsumo_step = _addTracing(_libsumo_step, "simulation")
     _traceFile[0] = open(traceFile, 'w')
     _traceFile[0].write("traci.start(%s)\n" % repr(cmd))
-    for domain in _DOMAINS:
-        for attrName in dir(domain):
-            if not attrName.startswith("_"):
-                attr = getattr(domain, attrName)
-                if (callable(attr)
-                        and attrName not in [
-                            "wrapper",
-                            "getAllSubscriptionResults",
-                            "getAllContextSubscriptionResults",
-                ]
-                        and not attrName.endswith('makeWrapper')
-                        and (traceGetters or not attrName.startswith("get"))):
-                    setattr(domain, attrName, _addTracing(attr, domain.__name__))
-    # simulationStep shows up as simulation.step
-    global _libsumo_step
-    _libsumo_step = _addTracing(_libsumo_step, "simulation")
 
 
 def _addTracing(method, domain=None):
     if domain:
-        # replace first underscore with '.' because the methods name includes
-        # the domain as prefix
-        name = method.__name__.replace('_', '.', 1)
+        name = "%s.%s" % (domain, method.__name__)
     else:
         name = method.__name__
 
     @wraps(method)
     def tracingWrapper(*args, **kwargs):
-        _traceFile[0].write("traci.%s(%s)\n" % (
-            name,
-            ', '.join(list(map(repr, args)) + ["%s=%s" % (n, repr(v)) for n, v in kwargs.items()])))
+        if _traceFile[0] is not None and not _traceFile[0].closed:
+            _traceFile[0].write("traci.%s(%s)\n" % (
+                name,
+                ', '.join(list(map(repr, args)) + ["%s=%s" % (n, repr(v)) for n, v in kwargs.items()])))
         return method(*args, **kwargs)
     return tracingWrapper

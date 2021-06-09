@@ -43,10 +43,10 @@ class GNEAllowDisallow : public FXDialogBox {
 
 public:
     /// @brief Constructor (for AC)
-    GNEAllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC, SumoXMLAttr attr);
+    GNEAllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC, SumoXMLAttr attr, bool *acceptChanges);
 
     /// @brief Constructor (For
-    GNEAllowDisallow(GNEViewNet* viewNet, std::string* allow, std::string* disallow);
+    GNEAllowDisallow(GNEViewNet* viewNet, std::string* allow, std::string* disallow, bool *acceptChanges);
 
     /// @brief destructor
     ~GNEAllowDisallow();
@@ -87,6 +87,9 @@ protected:
 
     /// @brief the attribute being edited
     SumoXMLAttr myEditedAttr;
+
+    /// @brief accept changes
+    bool* myAcceptChanges;
 
     std::string* myAllow;
 

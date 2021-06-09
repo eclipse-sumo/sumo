@@ -407,7 +407,7 @@ public:
         bool isAddEdgesWithinEnabled() const;
 
         /// @brief get a map with attributes and their values
-        std::map<SumoXMLAttr, std::string> getAttributesAndValues() const;
+        void getAttributesAndValues() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -510,10 +510,10 @@ public:
     void hide();
 
     /**@brief process click over Viewnet
-    * @param[in] clickedPosition clicked position over ViewNet
-    * @param[in] objectsUnderCursor objects under cursors
-    * @return true if something (select TAZ or add edge) was sucefully done
-    */
+     * @param[in] clickedPosition clicked position over ViewNet
+     * @param[in] objectsUnderCursor objects under cursors
+     * @return true if something (select TAZ or add edge) was sucefully done
+     */
     bool processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief process selection of edges in view net
@@ -532,6 +532,9 @@ public:
     TAZSaveChanges* getTAZSaveChangesModul() const;
 
 protected:
+    /// @brief SumoBaseObject used for creating TAZ
+    CommonXMLStructure::SumoBaseObject* myBaseTAZ;
+
     /**@brief build a shaped element using the drawed shape
      * return true if was sucesfully created
      * @note called when user stop drawing shape

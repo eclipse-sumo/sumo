@@ -18,7 +18,6 @@
 // File for geometry classes and functions
 /****************************************************************************/
 #include <netedit/elements/GNEHierarchicalElement.h>
-#include <netedit/elements/network/GNEJunction.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/options/OptionsCont.h>
@@ -39,30 +38,15 @@ PositionVector GNEGeometry::myCircleCoords;
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNEGeometry::ExtremeGeometry - methods
-// ---------------------------------------------------------------------------
-
-GNEGeometry::ExtremeGeometry::ExtremeGeometry() :
-    laneStartPosition(-1),
-    laneEndPosition(-1),
-    viewStartPos(Position::INVALID),
-    viewEndPos(Position::INVALID) {
-}
-
-// ---------------------------------------------------------------------------
 // GNEGeometry::Geometry - methods
 // ---------------------------------------------------------------------------
 
-GNEGeometry::Geometry::Geometry() :
-    myLane(nullptr),
-    myAdditional(nullptr) {
+GNEGeometry::Geometry::Geometry() {
 }
 
 
 GNEGeometry::Geometry::Geometry(const PositionVector& shape) :
-    myShape(shape),
-    myLane(nullptr),
-    myAdditional(nullptr) {
+    myShape(shape) {
     // calculate shape rotation and lenghts
     calculateShapeRotationsAndLengths();
 }
@@ -71,122 +55,131 @@ GNEGeometry::Geometry::Geometry(const PositionVector& shape) :
 GNEGeometry::Geometry::Geometry(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths) :
     myShape(shape),
     myShapeRotations(shapeRotations),
-    myShapeLengths(shapeLengths),
-    myLane(nullptr),
-    myAdditional(nullptr) {
+    myShapeLengths(shapeLengths) {
 }
 
 
 void
-GNEGeometry::Geometry::updateGeometry(const PositionVector& shape, double startPos, double endPos,
-                                      const Position& extraFirstPosition, const Position& extraLastPosition) {
-    // first clear geometry
+GNEGeometry::Geometry::updateGeometry(const PositionVector& shape) {
+    // clear geometry
     clearGeometry();
-    // set new shape
+    // update shape
     myShape = shape;
-    // check if we have to split the lane
-    if ((startPos != -1) || (endPos != -1)) {
-        // check if both start and end position must be swapped
-        if ((startPos != -1) && (endPos != -1) && (endPos < startPos)) {
-            std::swap(startPos, endPos);
-        }
-        // check that split positions are correct
-        if (startPos <= POSITION_EPS) {
-            if (endPos == -1) {
-                // leave shape unmodified
-            } else if (endPos <= POSITION_EPS) {
-                // use only first shape position
-                myShape = PositionVector({myShape.front()});
-            } else if (endPos < (shape.length() - POSITION_EPS)) {
-                // split shape using end position and use left part
-                myShape = myShape.splitAt(endPos).first;
-            }
-        } else if (startPos >= (shape.length() - POSITION_EPS)) {
-            // use only last position
-            myShape = PositionVector({myShape.back()});
-        } else if (endPos == -1) {
-            // split shape using start position and use the right part
-            myShape = myShape.splitAt(startPos).second;
-        } else if (endPos <= POSITION_EPS) {
-            // use only first shape position
-            myShape = PositionVector({myShape.front()});
-        } else if (endPos >= (shape.length() - POSITION_EPS)) {
-            // split shape using start position and use the right part
-            myShape = myShape.splitAt(startPos).second;
-        } else {
-            // split shape using start and end position
-            myShape = myShape.getSubpart(startPos, endPos);
-        }
-    }
-    // check if we have to add an extra first position
-    if (extraFirstPosition != Position::INVALID) {
-        myShape.push_front(extraFirstPosition);
-    }
-    // check if we have to add an extra last position
-    if (extraLastPosition != Position::INVALID) {
-        myShape.push_back(extraLastPosition);
-    }
-    // calculate shape rotation and lengths
+    // calculate shape rotation and lenghts
     calculateShapeRotationsAndLengths();
 }
 
 
 void
-GNEGeometry::Geometry::updateGeometry(const Position& position, const double rotation) {
+GNEGeometry::Geometry::updateGeometry(const PositionVector& shape, const double posOverShape, const double lateralOffset) {
     // first clear geometry
     clearGeometry();
-    // set position and rotation
-    myShape.push_back(position);
-    myShapeRotations.push_back(rotation);
-}
-
-
-void
-GNEGeometry::Geometry::updateGeometry(const GNELane* lane, const double posOverLane) {
-    // first clear geometry
-    clearGeometry();
-    // get lane length
-    const double laneLength = lane->getLaneShape().length();
+    // get shape length
+    const double shapeLength = shape.length();
     // calculate position and rotation
-    if (posOverLane < 0) {
-        myShape.push_back(lane->getLaneShape().positionAtOffset(0));
-        myShapeRotations.push_back(lane->getLaneShape().rotationDegreeAtOffset(0));
-    } else if (posOverLane > laneLength) {
-        myShape.push_back(lane->getLaneShape().positionAtOffset(laneLength));
-        myShapeRotations.push_back(lane->getLaneShape().rotationDegreeAtOffset(laneLength));
+    if (posOverShape < 0) {
+        myShape.push_back(shape.positionAtOffset(0, lateralOffset));
+        myShapeRotations.push_back(shape.rotationDegreeAtOffset(0));
+    } else if (posOverShape > shapeLength) {
+        myShape.push_back(shape.positionAtOffset(shapeLength, lateralOffset));
+        myShapeRotations.push_back(shape.rotationDegreeAtOffset(shapeLength));
     } else {
-        myShape.push_back(lane->getLaneShape().positionAtOffset(posOverLane));
-        myShapeRotations.push_back(lane->getLaneShape().rotationDegreeAtOffset(posOverLane));
+        myShape.push_back(shape.positionAtOffset(posOverShape, lateralOffset));
+        myShapeRotations.push_back(shape.rotationDegreeAtOffset(posOverShape));
     }
 }
 
 
 void
-GNEGeometry::Geometry::updateGeometry(const GNELane* lane) {
+GNEGeometry::Geometry::updateGeometry(const PositionVector& shape, double starPosOverShape, double endPosOverShape, const double lateralOffset) {
     // first clear geometry
     clearGeometry();
-    // set lane
-    myLane = lane;
+    // set new shape
+    myShape = shape;
+    // set lateral offset
+    myShape.move2side(lateralOffset);
+    // get shape lenght
+    const double shapeLength = myShape.length2D();
+    // set initial beginTrim value
+    if (starPosOverShape < 0) {
+        endPosOverShape = 0;
+    }
+    // set initial endtrim value
+    if (starPosOverShape < 0) {
+        endPosOverShape = shapeLength;
+    }
+    // check maximum beginTrim
+    if (starPosOverShape > (shapeLength - POSITION_EPS)) {
+        endPosOverShape = (shapeLength - POSITION_EPS);
+    }
+    // check maximum endTrim
+    if ((endPosOverShape > shapeLength)) {
+        endPosOverShape = shapeLength;
+    }
+    // check sub-vector
+    if (endPosOverShape <= starPosOverShape) {
+        endPosOverShape = endPosOverShape + POSITION_EPS;
+    }
+    // trim shape
+    myShape = myShape.getSubpart2D(starPosOverShape, endPosOverShape);
+    // calculate shape rotation and lenghts
+    calculateShapeRotationsAndLengths();
 }
 
 
 void
-GNEGeometry::Geometry::updateGeometry(const GNEAdditional* additional) {
+GNEGeometry::Geometry::updateGeometry(const PositionVector& shape, double beginTrimPosition, double endTrimPosition,
+                                      const Position& extraFirstPosition, const Position& extraLastPosition) {
     // first clear geometry
     clearGeometry();
-    // set additional
-    myAdditional = additional;
+    // set new shape
+    myShape = shape;
+    // check trim values
+    if ((beginTrimPosition != -1) || (endTrimPosition != -1)) {
+        // get shape lenght
+        const double shapeLength = myShape.length2D();
+        // set initial beginTrim value
+        if (beginTrimPosition < 0) {
+            beginTrimPosition = 0;
+        }
+        // set initial endtrim value
+        if (endTrimPosition < 0) {
+            endTrimPosition = shapeLength;
+        }
+        // check maximum beginTrim
+        if (beginTrimPosition > (shapeLength - POSITION_EPS)) {
+            beginTrimPosition = (shapeLength - POSITION_EPS);
+        }
+        // check maximum endTrim
+        if ((endTrimPosition > shapeLength)) {
+            endTrimPosition = shapeLength;
+        }
+        // check sub-vector
+        if (endTrimPosition <= beginTrimPosition) {
+            endTrimPosition = endTrimPosition + POSITION_EPS;
+        }
+        // trim shape
+        myShape = myShape.getSubpart2D(beginTrimPosition, endTrimPosition);
+        // add extra positions
+        if (extraFirstPosition != Position::INVALID) {
+            myShape.push_front_noDoublePos(extraFirstPosition);
+        }
+        if (extraLastPosition != Position::INVALID) {
+            myShape.push_back_noDoublePos(extraLastPosition);
+        }
+    }
+    // calculate shape rotation and lenghts
+    calculateShapeRotationsAndLengths();
 }
 
 
 void
-GNEGeometry::Geometry::updateGeometry(const Geometry& geometry) {
+GNEGeometry::Geometry::updateSinglePosGeometry(const Position& position, const double rotation) {
     // first clear geometry
     clearGeometry();
-    // set geometry
-    myShape = geometry.getShape();
-    myShapeRotations = geometry.getShapeRotations();
-    myShapeLengths = geometry.getShapeLengths();
+    // set position and rotation
+    myShape.push_back(position);
+    myShapeRotations.push_back(rotation);
 }
 
 
@@ -203,48 +196,27 @@ GNEGeometry::Geometry::scaleGeometry(const double scale) {
 
 const PositionVector&
 GNEGeometry::Geometry::getShape() const {
-    if (myLane) {
-        return myLane->getLaneShape();
-    } else if (myAdditional) {
-        return myAdditional->getAdditionalGeometry().getShape();
-    } else {
-        return myShape;
-    }
+    return myShape;
 }
 
 
 const std::vector<double>&
 GNEGeometry::Geometry::getShapeRotations() const {
-    if (myLane) {
-        return myLane->getShapeRotations();
-    } else if (myAdditional) {
-        return myAdditional->getAdditionalGeometry().getShapeRotations();
-    } else {
-        return myShapeRotations;
-    }
+    return myShapeRotations;
 }
 
 
 const std::vector<double>&
 GNEGeometry::Geometry::getShapeLengths() const {
-    if (myLane) {
-        return myLane->getShapeLengths();
-    } else if (myAdditional) {
-        return myAdditional->getAdditionalGeometry().getShapeLengths();
-    } else {
-        return myShapeLengths;
-    }
+    return myShapeLengths;
 }
 
 
 void GNEGeometry::Geometry::clearGeometry() {
-    // clear shapes
+    // clear geometry containers
     myShape.clear();
     myShapeRotations.clear();
     myShapeLengths.clear();
-    // clear pointers
-    myLane = nullptr;
-    myAdditional = nullptr;
 }
 
 
@@ -532,255 +504,6 @@ GNEGeometry::DottedGeometry::calculateShapeRotationsAndLengths() {
 }
 
 // ---------------------------------------------------------------------------
-// GNEGeometry::SegmentGeometry::Segment - methods
-// ---------------------------------------------------------------------------
-
-GNEGeometry::SegmentGeometry::Segment::Segment(const GNELane* lane, const bool valid) :
-    myLane(lane),
-    myNextLane(nullptr),
-    myValid(valid),
-    myUseLaneShape(true) {
-}
-
-
-GNEGeometry::SegmentGeometry::Segment::Segment(const GNELane* lane, const Geometry& geometry, const bool valid) :
-    myLane(lane),
-    myNextLane(nullptr),
-    myValid(valid),
-    myUseLaneShape(false),
-    mySegmentGeometry(geometry) {
-}
-
-
-GNEGeometry::SegmentGeometry::Segment::Segment(const GNELane* lane, const GNELane* nextLane, const bool valid) :
-    myLane(lane),
-    myNextLane(nextLane),
-    myValid(valid),
-    myUseLaneShape(false) {
-}
-
-
-void
-GNEGeometry::SegmentGeometry::Segment::update(const GNEGeometry::Geometry& geometry) {
-    // disable use lane shape
-    myUseLaneShape = false;
-    // update geometry
-    mySegmentGeometry.updateGeometry(geometry);
-}
-
-
-void
-GNEGeometry::SegmentGeometry::Segment::update(const GNELane* lane) {
-    // enable use lane shape
-    myUseLaneShape = true;
-    // update geometry
-    mySegmentGeometry.updateGeometry(lane);
-}
-
-
-const PositionVector&
-GNEGeometry::SegmentGeometry::Segment::getShape() const {
-    if (myNextLane) {
-        return myLane->getLane2laneConnections().getLane2laneGeometry(myNextLane).getShape();
-    } else if (myUseLaneShape) {
-        return myLane->getLaneShape();
-    } else {
-        return mySegmentGeometry.getShape();
-    }
-}
-
-
-const std::vector<double>&
-GNEGeometry::SegmentGeometry::Segment::getShapeRotations() const {
-    if (myNextLane) {
-        return myLane->getLane2laneConnections().getLane2laneGeometry(myNextLane).getShapeRotations();
-    } else if (myUseLaneShape) {
-        return myLane->getShapeRotations();
-    } else {
-        return mySegmentGeometry.getShapeRotations();
-    }
-}
-
-
-const std::vector<double>&
-GNEGeometry::SegmentGeometry::Segment::getShapeLengths() const {
-    if (myNextLane) {
-        return myLane->getLane2laneConnections().getLane2laneGeometry(myNextLane).getShapeLengths();
-    } else if (myUseLaneShape) {
-        return myLane->getShapeLengths();
-    } else {
-        return mySegmentGeometry.getShapeLengths();
-    }
-}
-
-
-const GNELane*
-GNEGeometry::SegmentGeometry::Segment::getLane() const {
-    return myLane;
-}
-
-
-const GNEJunction*
-GNEGeometry::SegmentGeometry::Segment::getJunction() const {
-    return myLane->getParentEdge()->getParentJunctions().back();
-}
-
-
-bool
-GNEGeometry::SegmentGeometry::Segment::getValid() const {
-    return myValid;
-}
-
-
-bool
-GNEGeometry::SegmentGeometry::Segment::isLaneSegment() const {
-    return (myNextLane == nullptr);
-}
-
-// ---------------------------------------------------------------------------
-// GNEGeometry::SegmentGeometry::SegmentToUpdate - methods
-// ---------------------------------------------------------------------------
-
-GNEGeometry::SegmentGeometry::SegmentToUpdate::SegmentToUpdate(const int segmentIndex, const GNELane* lane, const GNELane* nextLane) :
-    mySegmentIndex(segmentIndex),
-    myLane(lane),
-    myNextLane(nextLane) {
-}
-
-
-int
-GNEGeometry::SegmentGeometry::SegmentToUpdate::getSegmentIndex() const {
-    return mySegmentIndex;
-}
-
-
-const GNELane*
-GNEGeometry::SegmentGeometry::SegmentToUpdate::getLane() const {
-    return myLane;
-}
-
-
-const GNELane*
-GNEGeometry::SegmentGeometry::SegmentToUpdate::getNextLane() const {
-    return myNextLane;
-}
-
-// ---------------------------------------------------------------------------
-// GNEGeometry::Geometry - methods
-// ---------------------------------------------------------------------------
-
-GNEGeometry::SegmentGeometry::SegmentGeometry() {}
-
-
-void
-GNEGeometry::SegmentGeometry::insertLaneSegment(const GNELane* lane, const bool valid) {
-    // add segment in myShapeSegments
-    myShapeSegments.push_back(Segment(lane, valid));
-}
-
-
-void
-GNEGeometry::SegmentGeometry::insertCustomSegment(const GNELane* lane, const Geometry& geometry, const bool valid) {
-    // add segment in myShapeSegments
-    myShapeSegments.push_back(Segment(lane, geometry, valid));
-}
-
-
-void
-GNEGeometry::SegmentGeometry::insertLane2LaneSegment(const GNELane* currentLane, const GNELane* nextLane, const bool valid) {
-    // add segment in myShapeSegments
-    myShapeSegments.push_back(Segment(currentLane, nextLane, valid));
-}
-
-
-void
-GNEGeometry::SegmentGeometry::updateCustomSegment(const int segmentIndex, const Geometry& geometry) {
-    myShapeSegments.at(segmentIndex).update(geometry);
-}
-
-
-void
-GNEGeometry::SegmentGeometry::updateLane2LaneSegment(const int segmentIndex, const GNELane* lane, const GNELane* nextLane) {
-    myShapeSegments.at(segmentIndex + 1).update(lane->getLane2laneConnections().getLane2laneGeometry(nextLane));
-}
-
-
-void
-GNEGeometry::SegmentGeometry::clearSegmentGeometry() {
-    // clear segments
-    myShapeSegments.clear();
-}
-
-
-const Position&
-GNEGeometry::SegmentGeometry::getFirstPosition() const {
-    if ((myShapeSegments.size() > 0) && (myShapeSegments.front().getShape().size() > 0)) {
-        return myShapeSegments.front().getShape().front();
-    } else {
-        return Position::INVALID;
-    }
-}
-
-const Position&
-GNEGeometry::SegmentGeometry::getLastPosition() const {
-    if ((myShapeSegments.size() > 0) && (myShapeSegments.back().getShape().size() > 0)) {
-        return myShapeSegments.back().getShape().back();
-    } else {
-        return Position::INVALID;
-    }
-}
-
-
-double
-GNEGeometry::SegmentGeometry::getFirstRotation() const {
-    if ((myShapeSegments.size() > 0) && (myShapeSegments.front().getShapeRotations().size() > 0)) {
-        return myShapeSegments.front().getShapeRotations().front();
-    } else {
-        return 0;
-    }
-}
-
-
-Boundary
-GNEGeometry::SegmentGeometry::getBoxBoundary() const {
-    Boundary b;
-    for (const auto& i : myShapeSegments) {
-        b.add(i.getShape().getBoxBoundary());
-    }
-    return b;
-}
-
-
-std::vector<GNEGeometry::SegmentGeometry::Segment>::const_iterator
-GNEGeometry::SegmentGeometry::begin() const {
-    return myShapeSegments.cbegin();
-}
-
-
-std::vector<GNEGeometry::SegmentGeometry::Segment>::const_iterator
-GNEGeometry::SegmentGeometry::end() const {
-    return myShapeSegments.cend();
-}
-
-
-const GNEGeometry::SegmentGeometry::Segment&
-GNEGeometry::SegmentGeometry::front() const {
-    return myShapeSegments.front();
-}
-
-
-const GNEGeometry::SegmentGeometry::Segment&
-GNEGeometry::SegmentGeometry::back() const {
-    return myShapeSegments.back();
-}
-
-
-int
-GNEGeometry::SegmentGeometry::size() const {
-    return (int)myShapeSegments.size();
-}
-
-// ---------------------------------------------------------------------------
 // GNEGeometry::Lane2laneConnection - methods
 // ---------------------------------------------------------------------------
 
@@ -1010,8 +733,8 @@ GNEGeometry::HierarchicalConnections::drawDottedConnection(const DottedContourTy
         }
         // change default width
         dottedGeometry.setWidth(0.1);
-        // use drawDottedContourLane to draw it
-        GNEGeometry::drawDottedContourLane(type, s, dottedGeometry, exaggeration * 0.1, false, false);
+        // use drawDottedContourGeometry to draw it
+        GNEGeometry::drawDottedContourGeometry(type, s, dottedGeometry, exaggeration * 0.1, false, false);
         // Pop draw matrix
         glPopMatrix();
     }
@@ -1065,167 +788,9 @@ GNEGeometry::adjustStartPosGeometricPath(double& startPos, const GNELane* startL
 
 
 void
-GNEGeometry::calculateLaneGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, const std::vector<GNEPathElements::PathElement>& path, GNEGeometry::ExtremeGeometry& extremeGeometry) {
-    // clear geometry
-    segmentGeometry.clearSegmentGeometry();
-    // first check that there is parent edges
-    if (path.size() > 0) {
-        // calculate depending if both from and to edges are the same
-        if (path.size() == 1) {
-            // filter start and end pos
-            adjustStartPosGeometricPath(extremeGeometry.laneStartPosition, path.front().getLane(), extremeGeometry.laneEndPosition, path.front().getLane());
-            // check if we have to define a new custom Segment, or we can use the commonLane shape
-            if ((extremeGeometry.laneStartPosition != -1) || (extremeGeometry.laneEndPosition != -1) || (extremeGeometry.viewStartPos != Position::INVALID) || (extremeGeometry.viewEndPos != Position::INVALID)) {
-                // declare a lane to be trimmed
-                Geometry trimmedLane;
-                // update geometry
-                trimmedLane.updateGeometry(path.front().getLane()->getLaneShape(), extremeGeometry.laneStartPosition, extremeGeometry.laneEndPosition, extremeGeometry.viewStartPos, extremeGeometry.viewEndPos);
-                // add sublane geometry
-                segmentGeometry.insertCustomSegment(path.front().getLane(), trimmedLane, true);
-            } else {
-                // add entire lane geometry geometry
-                segmentGeometry.insertLaneSegment(path.front().getLane(), true);
-            }
-        } else {
-            // iterate over path
-            for (int i = 0; i < (int)path.size(); i++) {
-                // get lane (only for code readability)
-                const GNELane* lane = path.at(i).getLane();
-                // first check that lane shape isn't empty
-                if (lane->getLaneShape().size() > 0) {
-                    // check if first or last lane must be splitted
-                    if ((path.at(i).getLane() == path.front().getLane()) && (extremeGeometry.laneStartPosition != -1)) {
-                        // filter start position
-                        adjustStartPosGeometricPath(extremeGeometry.laneStartPosition, path.at(i).getLane(), extremeGeometry.laneEndPosition, nullptr);
-                        // declare a lane to be trimmed
-                        Geometry frontTrimmedLane;
-                        // update geometry
-                        frontTrimmedLane.updateGeometry(path.at(i).getLane()->getLaneShape(), extremeGeometry.laneStartPosition, -1, extremeGeometry.viewStartPos, Position::INVALID);
-                        // add sublane geometry
-                        segmentGeometry.insertCustomSegment(lane, frontTrimmedLane, true);
-                    } else if ((lane == path.back().getLane()) && (extremeGeometry.laneEndPosition != -1)) {
-                        // filter end position
-                        adjustStartPosGeometricPath(extremeGeometry.laneStartPosition, nullptr, extremeGeometry.laneEndPosition, lane);
-                        // declare a lane to be trimmed
-                        Geometry backTrimmedLane;
-                        // update geometry
-                        backTrimmedLane.updateGeometry(path.at(i).getLane()->getLaneShape(), -1, extremeGeometry.laneEndPosition, Position::INVALID, extremeGeometry.viewEndPos);
-                        // add sublane geometry
-                        segmentGeometry.insertCustomSegment(lane, backTrimmedLane, true);
-                    } else {
-                        // add entire lane geometry
-                        segmentGeometry.insertLaneSegment(path.at(i).getLane(), true);
-                    }
-                }
-                // now continue with connection
-                if ((i + 1) < (int)path.size()) {
-                    // obtain next lane
-                    const GNELane* nextLane = path.at(i + 1).getLane();
-                    // check that next lane exist
-                    if (lane->getLane2laneConnections().exist(nextLane)) {
-                        // add lane2laneConnection segment geometry
-                        segmentGeometry.insertLane2LaneSegment(lane, nextLane, true);
-                    }
-                }
-            }
-        }
-    }
-}
-
-
-void
-GNEGeometry::updateGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, const GNELane* lane, GNEGeometry::ExtremeGeometry& extremeGeometry) {
-    // calculate depending if both from and to edges are the same
-    if ((segmentGeometry.size() == 1) && (segmentGeometry.front().getLane() == lane)) {
-        // filter start and end pos
-        adjustStartPosGeometricPath(extremeGeometry.laneStartPosition, segmentGeometry.front().getLane(), extremeGeometry.laneEndPosition, segmentGeometry.front().getLane());
-        // check if we have to define a new custom Segment, or we can use the commonLane shape
-        if ((extremeGeometry.laneStartPosition != -1) || (extremeGeometry.laneEndPosition != -1) || (extremeGeometry.viewStartPos != Position::INVALID) || (extremeGeometry.viewEndPos != Position::INVALID)) {
-            // declare a lane to be trimmed
-            Geometry trimmedLane;
-            // update geometry
-            trimmedLane.updateGeometry(segmentGeometry.front().getLane()->getLaneShape(), extremeGeometry.laneStartPosition, extremeGeometry.laneEndPosition, extremeGeometry.viewStartPos, extremeGeometry.viewEndPos);
-            // add sublane geometry
-            segmentGeometry.updateCustomSegment(0, trimmedLane);
-        }
-    } else {
-        // declare a vector to save segments to update
-        std::vector<GNEGeometry::SegmentGeometry::SegmentToUpdate> segmentsToUpdate;
-        // iterate over all segments
-        for (auto segment = segmentGeometry.begin(); segment != segmentGeometry.end(); segment++) {
-            if (segment->getLane() == lane) {
-                // obtain segment index
-                const int index = (int)(segment - segmentGeometry.begin());
-                // add SegmentToUpdate in vector
-                segmentsToUpdate.push_back(GNEGeometry::SegmentGeometry::SegmentToUpdate(index, segment->getLane(), nullptr));
-                // check if we have to add the next segment (it correspond to a lane2lane
-                if (((segment + 1) != segmentGeometry.end()) && (segment + 1)->getJunction()) {
-                    segmentsToUpdate.push_back(GNEGeometry::SegmentGeometry::SegmentToUpdate(index, segment->getLane(), (segment + 1)->getLane()));
-                }
-            }
-        }
-        // iterate over segments to update
-        for (const auto& segmentToUpdate : segmentsToUpdate) {
-            // first check that lane shape isn't empty
-            if (segmentToUpdate.getLane()->getLaneShape().size() > 0) {
-                // check if first or last lane must be splitted
-                if ((segmentToUpdate.getSegmentIndex() == 0) && (extremeGeometry.laneStartPosition != -1)) {
-                    // filter start position
-                    adjustStartPosGeometricPath(extremeGeometry.laneStartPosition, segmentToUpdate.getLane(), extremeGeometry.laneEndPosition, nullptr);
-                    // declare a lane to be trimmed
-                    Geometry frontTrimmedLane;
-                    // update geometry
-                    frontTrimmedLane.updateGeometry(segmentToUpdate.getLane()->getLaneShape(), extremeGeometry.laneStartPosition, -1, extremeGeometry.viewStartPos, Position::INVALID);
-                    // update segment
-                    segmentGeometry.updateCustomSegment(segmentToUpdate.getSegmentIndex(), frontTrimmedLane);
-                } else if ((segmentToUpdate.getSegmentIndex() == (segmentGeometry.size() - 1)) && (extremeGeometry.laneEndPosition != -1)) {
-                    // filter end position
-                    adjustStartPosGeometricPath(extremeGeometry.laneStartPosition, nullptr, extremeGeometry.laneEndPosition, segmentToUpdate.getLane());
-                    // declare a lane to be trimmed
-                    Geometry backTrimmedLane;
-                    // update geometry
-                    backTrimmedLane.updateGeometry(segmentToUpdate.getLane()->getLaneShape(), -1, extremeGeometry.laneEndPosition, Position::INVALID, extremeGeometry.viewEndPos);
-                    // update segment
-                    segmentGeometry.updateCustomSegment(segmentToUpdate.getSegmentIndex(), backTrimmedLane);
-                }
-            }
-            // check that next lane exist
-            if (segmentToUpdate.getLane()->getLane2laneConnections().exist(segmentToUpdate.getNextLane())) {
-                // update lane2laneConnection shape
-                segmentGeometry.updateLane2LaneSegment(segmentToUpdate.getSegmentIndex(), segmentToUpdate.getLane(), segmentToUpdate.getNextLane());
-            }
-        }
-    }
-}
-
-
-void
-GNEGeometry::drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width, const bool onlyContour,  const bool drawExtremes) {
-    // first check if we're in draw contour or for selecting cliking mode
-    if (onlyContour) {
-        // get shapes
-        PositionVector shapeA = geometry.getShape();
-        PositionVector shapeB = geometry.getShape();
-        // move both shapes
-        shapeA.move2side((width - 0.1));
-        shapeB.move2side((width - 0.1) * -1);
-        // check if we have to drawn extremes
-        if (drawExtremes) {
-            // reverse shape B
-            shapeB = shapeB.reverse();
-            // append shape B to shape A
-            shapeA.append(shapeB, 0);
-            // close shape A
-            shapeA.closePolygon();
-            // draw box lines using shapeA
-            GLHelper::drawBoxLines(shapeA, 0.1);
-        } else {
-            // draw box lines using shapeA
-            GLHelper::drawBoxLines(shapeA, 0.1);
-            // draw box lines using shapeA
-            GLHelper::drawBoxLines(shapeB, 0.1);
-        }
-    } else if (viewNet->getVisualisationSettings().drawForPositionSelection) {
+GNEGeometry::drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width) {
+    // continue depending of draw for position selection
+    if (viewNet->getVisualisationSettings().drawForPositionSelection) {
         // obtain mouse Position
         const Position mousePosition = viewNet->getPositionInformation();
         // obtain position over lane relative to mouse position
@@ -1241,8 +806,38 @@ GNEGeometry::drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, c
             // pop draw matrix
             glPopMatrix();
         }
+    } else if (viewNet->getVisualisationSettings().scale * width < 1) {
+        // draw line (needed for zoom out)
+        GLHelper::drawLine(geometry.getShape());
     } else {
         GLHelper::drawBoxLines(geometry.getShape(), geometry.getShapeRotations(), geometry.getShapeLengths(), width);
+    }
+}
+
+
+void
+GNEGeometry::drawContourGeometry(const Geometry& geometry, const double width, const bool drawExtremes) {
+    // get shapes
+    PositionVector shapeA = geometry.getShape();
+    PositionVector shapeB = geometry.getShape();
+    // move both shapes
+    shapeA.move2side((width - 0.1));
+    shapeB.move2side((width - 0.1) * -1);
+    // check if we have to drawn extremes
+    if (drawExtremes) {
+        // reverse shape B
+        shapeB = shapeB.reverse();
+        // append shape B to shape A
+        shapeA.append(shapeB, 0);
+        // close shape A
+        shapeA.closePolygon();
+        // draw box lines using shapeA
+        GLHelper::drawBoxLines(shapeA, 0.1);
+    } else {
+        // draw box lines using shapeA
+        GLHelper::drawBoxLines(shapeA, 0.1);
+        // draw box lines using shapeA
+        GLHelper::drawBoxLines(shapeB, 0.1);
     }
 }
 
@@ -1392,33 +987,7 @@ GNEGeometry::drawLaneGeometry(const GNEViewNet* viewNet, const PositionVector& s
 
 
 void
-GNEGeometry::drawSegmentGeometry(const GNEViewNet* viewNet, const SegmentGeometry::Segment& segment, const double width) {
-    // first check if we're in draw for selecting mode
-    if (viewNet->getVisualisationSettings().drawForPositionSelection) {
-        // obtain mouse Position
-        const Position mousePosition = viewNet->getPositionInformation();
-        // obtain position over lane relative to mouse position
-        const Position posOverLane = segment.getShape().positionAtOffset2D(segment.getShape().nearest_offset_to_point2D(mousePosition));
-        // if mouse is over segment
-        if (posOverLane.distanceSquaredTo2D(mousePosition) <= (width * width)) {
-            // push matrix
-            glPushMatrix();
-            // translate to position over lane
-            glTranslated(posOverLane.x(), posOverLane.y(), 0);
-            // Draw circle
-            GLHelper::drawFilledCircle(width, viewNet->getVisualisationSettings().getCircleResolution());
-            // pop draw matrix
-            glPopMatrix();
-        }
-    } else {
-        // draw a boxline as usual
-        GLHelper::drawBoxLines(segment.getShape(), segment.getShapeRotations(), segment.getShapeLengths(), width);
-    }
-}
-
-
-void
-GNEGeometry::drawDottedContourLane(const DottedContourType type, const GUIVisualizationSettings& s, const DottedGeometry& dottedGeometry, const double width, const bool drawFirstExtrem, const bool drawLastExtrem) {
+GNEGeometry::drawDottedContourGeometry(const DottedContourType type, const GUIVisualizationSettings& s, const DottedGeometry& dottedGeometry, const double width, const bool drawFirstExtrem, const bool drawLastExtrem) {
     // declare DottedGeometryColor
     DottedGeometryColor dottedGeometryColor(s);
     // make a copy of dotted geometry
@@ -1470,7 +1039,7 @@ void
 GNEGeometry::drawDottedContourEdge(const DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFrontExtreme, const bool drawBackExtreme) {
     if (edge->getLanes().size() == 1) {
         GNELane::LaneDrawingConstants laneDrawingConstants(s, edge->getLanes().front());
-        GNEGeometry::drawDottedContourLane(type, s, edge->getLanes().front()->getDottedLaneGeometry(), laneDrawingConstants.halfWidth, drawFrontExtreme, drawBackExtreme);
+        GNEGeometry::drawDottedContourGeometry(type, s, edge->getLanes().front()->getDottedLaneGeometry(), laneDrawingConstants.halfWidth, drawFrontExtreme, drawBackExtreme);
     } else {
         // set left hand flag
         const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
@@ -1563,8 +1132,8 @@ void
 GNEGeometry::drawDottedContourShape(const DottedContourType type, const GUIVisualizationSettings& s, const PositionVector& shape, const double width, const double exaggeration) {
     // calculate dotted geometry
     GNEGeometry::DottedGeometry dottedGeometry(s, shape, false);
-    // use drawDottedContourLane to draw it
-    drawDottedContourLane(type, s, dottedGeometry, width * exaggeration, true, true);
+    // use drawDottedContourGeometry to draw it
+    drawDottedContourGeometry(type, s, dottedGeometry, width * exaggeration, true, true);
 }
 
 

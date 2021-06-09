@@ -37,8 +37,8 @@ The generated file look like this:
     </vehicle>
 
     <person id="<PERSON_ID>" depart="<INSERTION_TIME>" arrival="<ARRIVAL_TIME>">
-        <ride from="..." to="..." lines="..."/>
-        <walk edges="..." speed="..."/>
+        <ride from="..." to="..." lines="..." [ended="<END_TIME>"]/>
+        <walk edges="..." speed="..." [exitTimes="<EXIT_TIMES>"]/>
     </person>
 
     ... information about further vehicles and persons ...
@@ -46,18 +46,19 @@ The generated file look like this:
 </routes>
 ```
 
-| Name             | Type            | Description                                                                                 |
-| ---------------- | --------------- | ------------------------------------------------------------------------------------------- |
-| id               | (vehicle) id    | The id of the vehicle this entry describes                                                  |
-| type             | vehicle type id | The id of the vehicle type if different from the default                                    |
-| depart           | s               | The time the vehicle was emitted into the network                                           |
-| arrival          | s               | The time the vehicle was removed from the simulation (due to arriving at the route end)     |
-| routeLength      | m               | The total length of the vehicle's route (if activated by the vehroutes.route-length option) |
-| replacedOnEdge   | (edge) id       | The edge the vehicle was on when the described route was replaced                           |
-| replacedAtTime   | s               | The time step of this replacement                                                           |
+| Name              | Type            | Description                                                                                 |
+| ----------------- | --------------- | ------------------------------------------------------------------------------------------- |
+| id                | (vehicle) id    | The id of the vehicle this entry describes                                                  |
+| type              | vehicle type id | The id of the vehicle type if different from the default                                    |
+| depart            | s               | The time the vehicle was emitted into the network                                           |
+| arrival           | s               | The time the vehicle was removed from the simulation (due to arriving at the route end)     |
+| routeLength       | m               | The total length of the vehicle's route (if activated by the vehroutes.route-length option) |
+| replacedOnEdge    | (edge) id       | The edge the vehicle was on when the described route was replaced                           |
+| replacedAtTime    | s               | The time step of this replacement                                                           |
 | <PREVIOUS_ROUTE\> | \[(edge) id\]+  | The replaced route                                                                          |
 | <LAST_ROUTE\>     | \[(edge) id\]+  | The final vehicle route                                                                     |
-| <EXIT_TIMES\>     | \[time in s\]+  | The leave time for every edge in the route, if enabled with the option **--vehroute-output.exit-times**  |
+| <EXIT_TIMES\>     | \[time in s\]+  | The leave time for every edge in the route or walk, if enabled with the option **--vehroute-output.exit-times**  |
+| <END_TIME\>       | s               | The leave time for the edge in the ride (or transport for containers), if enabled with the option **--vehroute-output.exit-times**  |
 
 !!! note
     Additional attributes of the vehicle are also included if they were set.
@@ -86,7 +87,7 @@ For example, setting the option **--device.vehroute.probability 0.25** will equi
 
 ## Further Options
 
-- **--vehroute-output.exit-times**: Write the exit times for all edges
+- **--vehroute-output.exit-times**: Write the exit times for all edges, the attributes 'started' and 'ended' for stops and include attribute 'ended' for rides.
 - **--vehroute-output.last-route**: Only write the final route (if the vehicle was rerouted during the simulation)
 - **--vehroute-output.sorted**:     Sorts the written vehicles by departure time
 - **--vehroute-output.dua**:        Write the output in the duarouter-alternatives format
@@ -95,6 +96,5 @@ For example, setting the option **--device.vehroute.probability 0.25** will equi
 - **--vehroute-output.route-length**: Write total route length as attribute 'length'
 - **--vehroute-output.write-unfinished**:   Write vehroute output for vehicles which have not reached their destination at the end of the simulation
 - **--vehroute-output.skip-ptlines**:  Skip vehroute output for public transport vehicles (vehicles that have a 'line' attribute)
-- **--vehroute-output.incomplete**:   Include invalid routes and route stubs (from-to) in the output
-                                        in vehroute output
-  --vehroute-output.stop-edges         Include information about edges between
+- **--vehroute-output.incomplete**:   Include invalid routes and route stubs (from-to) in the vehroute output
+- **--vehroute-output.stop-edges**:   Include information about edges between stops

@@ -1,6 +1,3 @@
-# no calculation of new routes
-skip_new_routes
-
 # go on even if the route is defect
 ignore_errors
 ignore_errors_invalid_depart_edge
@@ -23,3 +20,6 @@ measure
 # shortest path finding related tests
 routing
 repair
+
+# keep some or all of the old routes
+keep_routes

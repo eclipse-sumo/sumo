@@ -42,16 +42,18 @@ public:
      * @param[in] name E3 detector name
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
-     * @param[in] block movement enable or disable additional movement
+     * @param[in] parameters generic parameters
+     * @param[in] blockMovement enable or disable additional movement
      */
-    GNEDetectorE3(const std::string& id, GNENet* net, Position pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, bool blockMovement);
+    GNEDetectorE3(const std::string& id, GNENet* net, Position pos, SUMOTime freq, const std::string& filename, const std::vector<std::string>& vehicleTypes, 
+                  const std::string& name, SUMOTime timeThreshold, double speedThreshold, const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /// @brief GNEDetectorE3 Destructor
     ~GNEDetectorE3();
 
     /**@brief get move operation for the given shapeOffset
-    * @note returned GNEMoveOperation can be nullptr
-    */
+     * @note returned GNEMoveOperation can be nullptr
+     */
     GNEMoveOperation* getMoveOperation(const double shapeOffset);
 
     /// @name Functions related with geometry of element
@@ -130,7 +132,7 @@ protected:
     std::string myFilename;
 
     /// @brief attribute vehicle types
-    std::string myVehicleTypes;
+    std::vector<std::string> myVehicleTypes;
 
     /// @brief The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
     SUMOTime myTimeThreshold;

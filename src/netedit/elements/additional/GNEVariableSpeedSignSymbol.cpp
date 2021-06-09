@@ -31,8 +31,9 @@
 // ===========================================================================
 
 GNEVariableSpeedSignSymbol::GNEVariableSpeedSignSymbol(GNEAdditional* VSSParent, GNELane* lane) :
-    GNEAdditional(VSSParent->getNet(), GLO_VSS, GNE_TAG_VSS_SYMBOL, "", false,
-{}, {}, {lane}, {VSSParent}, {}, {}, {}, {}) {
+    GNEAdditional(VSSParent->getNet(), GLO_VSS, GNE_TAG_VSS_SYMBOL, "",
+        {}, {}, {lane}, {VSSParent}, {}, {}, {}, {},
+        std::map<std::string, std::string>(), false) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -52,7 +53,7 @@ GNEVariableSpeedSignSymbol::getMoveOperation(const double /*shapeOffset*/) {
 void
 GNEVariableSpeedSignSymbol::updateGeometry() {
     // update additional geometry
-    myAdditionalGeometry.updateGeometry(getParentLanes().front(), 1.5);
+    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), 1.5, 0);
     // update boundary (needed for connections)
     // add shape boundary
     myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-05-19 10:37:12 by Eclipse SUMO netconvert Version v1_9_2+0019-e9eff88
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <geometry.remove value="true"/>
+    </processing>
+
+    <edge_removal>
+        <remove-edges.by-vclass value="pedestrian,bicycle"/>
+    </edge_removal>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <junctions.join value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-7307151972" name="Albertusstraße" lane="-5067106#3_0" startPos="14.72" endPos="29.72" friendlyPos="true" lines="737"/>
+    <busStop id="1234643991" name="Chausseestraße" lane="26216780#2_0" startPos="84.34" endPos="99.34" friendlyPos="true" lines="737 738"/>
+    <busStop id="1643085195" name="A10 Center" lane="782661618#3_0" startPos="40.03" endPos="55.03" friendlyPos="true" lines="737 738"/>
+    <busStop id="32500319" name="Chausseestraße" lane="4935299#0_0" startPos="2.78" endPos="17.78" friendlyPos="true"/>
+    <busStop id="7307151973" name="Albertusstraße" lane="5067106#4_0" startPos="19.94" endPos="34.94" friendlyPos="true"/>
+</additional>

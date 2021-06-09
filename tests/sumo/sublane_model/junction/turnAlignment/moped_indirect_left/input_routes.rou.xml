@@ -47,7 +47,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vTypeDistribution id="tDist">
         <vType id="car" vClass="passenger" sigma="0"/>
-        <vType id="scooter" vClass="moped" sigma="0" minGap="1" lcTurnAlignment="20"/>
+        <vType id="scooter" vClass="moped" sigma="0" minGap="1" lcTurnAlignmentDistance="20"/>
     </vTypeDistribution>
 
     <flow id="flow_0" type="tDist" from="SC" to="CN" begin="0.00" end="1000" period="7"/>

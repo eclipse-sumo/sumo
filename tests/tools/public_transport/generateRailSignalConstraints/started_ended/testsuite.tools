@@ -1,0 +1,14 @@
+# two trains
+simple
+
+# two trains
+# 
+# test old style handing of post-facto timing data:
+# ended information is written as until, started is ignored
+simple_oldStyle
+
+# with a train that is scheduled to wait for 3 others and is waited on by 3 more
+3stops
+
+# with a train that is scheduled to wait for 3 others and is waited on by 3 more (ended replaces until)
+3stops_oldStyle

@@ -31,10 +31,11 @@
 // ===========================================================================
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNEAdditional* rerouterIntervalParent, GNELane* closedLane, SVCPermissions permissions) :
-    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_CLOSING_LANE_REROUTE, "", false,
-{}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}),
-myClosedLane(closedLane),
-myPermissions(permissions) {
+    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_CLOSING_LANE_REROUTE, "",
+        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {},
+        std::map<std::string, std::string>(), false),
+    myClosedLane(closedLane),
+    myPermissions(permissions) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -53,7 +54,7 @@ GNEClosingLaneReroute::getMoveOperation(const double /*shapeOffset*/) {
 void
 GNEClosingLaneReroute::updateGeometry() {
     // use geometry of rerouter parent
-    myAdditionalGeometry.updateGeometry(getParentAdditionals().front()->getAdditionalGeometry());
+    myAdditionalGeometry = getParentAdditionals().front()->getAdditionalGeometry();
 }
 
 

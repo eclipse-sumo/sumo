@@ -83,29 +83,43 @@ public:
     /// @{
 
     /**@brief Draws the object
-    * @param[in] s The settings for the current view (may influence drawing)
-    * @see GUIGlObject::drawGL
-    */
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @see GUIGlObject::drawGL
+     */
     void drawGL(const GUIVisualizationSettings& s) const;
-
-    /**@brief Draws partial object (lane)
-    * @param[in] s The settings for the current view (may influence drawing)
-    * @param[in] lane GNELane in which draw partial
-    * @param[in] offsetFront offset for drawing element front (needed for selected elements)
-    */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const;
-
-    /**@brief Draws partial object (junction)
-    * @param[in] s The settings for the current view (may influence drawing)
-    * @param[in] fromLane from GNELane
-    * @param[in] toLane to GNELane
-    * @param[in] offsetFront offset for drawing element front (needed for selected elements)
-    */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const;
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;
+    /// @}
 
+    /// @name inherited from GNEPathManager::PathElement
+    /// @{
+
+    /// @brief compute pathElement
+    void computePathElement();
+
+    /**@brief Draws partial object (lane)
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @param[in] lane GNELane in which draw partial
+     * @param[in] segment PathManager segment (used for segment options)
+     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     */
+    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+
+    /**@brief Draws partial object (junction)
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @param[in] fromLane from GNELane
+     * @param[in] toLane to GNELane
+     * @param[in] segment PathManager segment (used for segment options)
+     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     */
+    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+
+    /// @brief get first path lane
+    GNELane* getFirstPathLane() const;
+
+    /// @brief get last path lane
+    GNELane* getLastPathLane() const;
     /// @}
 
     /// @name inherited from GNEAttributeCarrier

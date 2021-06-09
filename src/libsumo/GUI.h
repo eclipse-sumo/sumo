@@ -52,11 +52,11 @@ public:
     static void setBoundary(const std::string& viewID, double xmin, double ymin, double xmax, double ymax);
     static void screenshot(const std::string& viewID, const std::string& filename, const int width = -1, const int height = -1);
     static void trackVehicle(const std::string& viewID, const std::string& vehID);
-    static bool hasView(const std::string& viewID=DEFAULT_VIEW);
-    static std::string getTrackedVehicle(const std::string& viewID=DEFAULT_VIEW);
-    static void track(const std::string& objID, const std::string& viewID=DEFAULT_VIEW);
-    static bool isSelected(const std::string& objID, const std::string& objType="vehicle");
-    static void toggleSelection(const std::string& objID, const std::string& objType="vehicle");
+    static bool hasView(const std::string& viewID = DEFAULT_VIEW);
+    static std::string getTrackedVehicle(const std::string& viewID = DEFAULT_VIEW);
+    static void track(const std::string& objID, const std::string& viewID = DEFAULT_VIEW);
+    static bool isSelected(const std::string& objID, const std::string& objType = "vehicle");
+    static void toggleSelection(const std::string& objID, const std::string& objType = "vehicle");
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API

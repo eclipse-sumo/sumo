@@ -28,13 +28,16 @@ GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,20.00,60.00,41.60
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary -10.00,18.40,60.00,40.00
 GLDebug: 	Inserted edge:9 into SUMORTree with boundary -10.00,10.00,60.00,31.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Inserting generic parameter 'key1|value1' into access
+Error: Attribute 'key' is missing in definition of a param.
+Debug: Inserting generic parameter 'key1|value4' into access
+Debug: Inserting generic parameter 'key2|' into access
+Debug: Inserting generic parameter 'key3|$$value with spaces%%' into access
+Debug: Inserting generic parameter 'key4|value5' into access
+Error: Attribute 'key' is missing in definition of a param.
 Debug: Adding busStop 'busStop' in GNEChange_Additional
 Debug: Adding access 'busStop' in GNEChange_Additional
-Debug: Inserting parameter 'key1|value1' into additional access.
-Debug: Inserting parameter 'key1|value4' into additional access.
-Debug: Inserting parameter 'key2|' into additional access.
-Debug: Inserting parameter 'key3|$$value with spaces%%' into additional access.
-Debug: Inserting parameter 'key4|value5' into additional access.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun101725.18492\netedit.gui\additionalElements\access\load\parameters\input_additionals.add.xml failed.
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,18.00,12.00,42.00

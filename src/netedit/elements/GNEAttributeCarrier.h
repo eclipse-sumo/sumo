@@ -204,10 +204,10 @@ public:
     static const GNETagProperties& getTagProperties(SumoXMLTag tag);
 
     /// @brief get tags of all editable element types
-    static std::vector<SumoXMLTag> allowedTags(const bool onlyDrawables);
+    static const std::vector<GNETagProperties> allowedAttributeProperties(const bool onlyDrawables);
 
-    /// @brief get tags of all editable element types using TagProperty Type (NetworkEditMode::NETWORKELEMENT, ADDITIONALELEMENT, etc.)
-    static std::vector<std::pair<SumoXMLTag, const std::string> > getAllowedTagsByCategory(const int tagPropertyCategory, const bool onlyDrawables);
+    /// @brief get tagProperties of all editable element types using TagProperty Type (NetworkEditMode::NETWORKELEMENT, ADDITIONALELEMENT, etc.)
+    static const std::vector<std::pair<GNETagProperties, std::string> > getAllowedTagPropertiesByCategory(const int tagPropertyCategory, const bool onlyDrawables);
 
     /// @brief true if a value of type T can be parsed from string
     template<typename T>
@@ -296,27 +296,6 @@ public:
             } else {
                 throw ProcessError("Trying to parsing block movement attribute in an AC that cannot be moved");
             }
-        }
-        // now check if we're parsing a GEO Attribute
-        if (tagProperties.hasGEOPosition() && ((attribute == SUMO_ATTR_LON) || (attribute == SUMO_ATTR_LAT))) {
-            // first check if GEO Attribute is defined
-            if (attrs.hasAttribute(attribute)) {
-                // First check if attribute can be parsed to string
-                parsedAttribute = attrs.get<std::string>(attribute, objectID.c_str(), parsedOk, false);
-                // check that sucesfully parsed attribute can be converted to type double
-                if (!canParse<double>(parsedAttribute)) {
-                    WRITE_WARNING("Format of GEO attribute '" + toString(attribute) + "' of " +
-                                  warningMessage + " is invalid; Cannot be parsed to float; " + tagProperties.getTagStr() + " cannot be created");
-                    // return default value
-                    return parse<T>("0");
-                } else {
-                    // return readed value
-                    return parse<T>(parsedAttribute);
-                }
-            }
-            parsedOk = false;
-            // return default value
-            return parse<T>("0");
         }
         // obtain attribute properties (Only for improving efficiency)
         const auto& attrProperties = tagProperties.getAttributeProperties(attribute);
@@ -414,39 +393,6 @@ private:
     /// @brief fill person plan rides
     static void fillPersonPlanRides();
 
-    /// @brief fill person plan edge -> edge
-    static void fillPersonPlanEdgeEdge(SumoXMLTag currentTag);
-
-    /// @brief fill person plan edge -> edge
-    static void fillPersonPlanEdgeBusStop(SumoXMLTag currentTag);
-
-    /// @brief fill person plan edge -> stop
-    static void fillPersonPlanEdgeStop(SumoXMLTag currentTag);
-
-    /// @brief fill person plan busStop -> edge
-    static void fillPersonPlanBusStopEdge(SumoXMLTag currentTag);
-
-    /// @brief fill person plan busStop -> edge
-    static void fillPersonPlanBusStopBusStop(SumoXMLTag currentTag);
-
-    /// @brief fill person plan busStop -> stop
-    static void fillPersonPlanBusStopStop(SumoXMLTag currentTag);
-
-    /// @brief fill person plan stop -> edge
-    static void fillPersonPlanStopEdge(SumoXMLTag currentTag);
-
-    /// @brief fill person plan stop -> edge
-    static void fillPersonPlanStopBusStop(SumoXMLTag currentTag);
-
-    /// @brief fill person plan stop -> stop
-    static void fillPersonPlanStopStop(SumoXMLTag currentTag);
-
-    /// @brief fill specific person trip attributes
-    static void fillPersonTripAttributes(SumoXMLTag currentTag);
-
-    /// @brief fill specific ride attributes
-    static void fillRideAttributes(SumoXMLTag currentTag);
-
     /// @brief fill personStop elements
     static void fillPersonStopElements();
 
@@ -468,7 +414,7 @@ private:
     /// @brief fill common person attributes (used by person and personFlows)
     static void fillCommonPersonAttributes(SumoXMLTag currentTag);
 
-    /// @brief fill stop person attributes (used by stops and personStps)
+    /// @brief fill stop person attributes
     static void fillCommonStopAttributes(SumoXMLTag currentTag, const bool parking);
 
     /// @brief fill Data elements

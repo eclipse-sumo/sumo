@@ -24,7 +24,7 @@
   exit time) for each edge and traffic measurements.
 - Edges' exit-time information can be obtained by setting the option "exit-times" True when
   running DUARouter/duaIterate.py
-- The file format of the route alternatives (together with exit-times info) corresponds to 
+- The file format of the route alternatives (together with exit-times info) corresponds to
   the DUAROUTER assignment result (*.alt.xml)
 - Respective traffic zones information has to exist in the given route files.
 """
@@ -146,7 +146,7 @@ def main():
             output = "%s_%03i.cal.xml" % (routname[:routname.find('.')], step)
 
         call(calibrator + ["CHOICE", "-choicesetfile",
-                           options.routes, "-choicefile", "%s/%s" % (step,output)], log)
+                           options.routes, "-choicefile", "%s/%s" % (step, output)], log)
         files.append(output)
 
         # simulation

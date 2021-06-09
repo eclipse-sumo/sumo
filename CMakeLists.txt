@@ -90,10 +90,6 @@ elseif (MSVC)
     if (MULTITHREADED_BUILD)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
     endif ()
-    if (MSVC_VERSION GREATER 1914)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /experimental:external /external:W2")
-        set(CMAKE_INCLUDE_SYSTEM_FLAG_CXX "/external:I ")
-    endif ()
     # exporting symbols for shared libraries needs to enabled explicitly
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
     # add option for enabling console in release mode
@@ -276,10 +272,17 @@ if (SUMO_LIBRARIES AND WIN32)
                                           "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/sqlite-?.?.?/*.dll")
         list(APPEND SUMO_LIBRARIES_DLL ${MORE_SUMO_LIBRARIES_DLL})
     endif ()
-    # set google test root
-    file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-?.?.?/googletest")
     # declare flag for use google test
     set(USE_GOOGLETEST true)
+    # set google test root depending of directory
+    if (EXISTS "${SUMO_LIBRARIES}/googletest-1.8.0/googletest")
+        file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-1.8.0/googletest")
+    else ()
+        file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-?.??.?")
+        if ("${MSVC_VERSION}" STREQUAL "1800")
+            set(USE_GOOGLETEST false)
+        endif ()
+    endif ()
     # check if use google test
     if (WIN32)
         if (GNU_COMPILER AND NOT USE_MINGW_64BITS)
@@ -294,12 +297,26 @@ if (SUMO_LIBRARIES AND WIN32)
     endif()
     # set GoogleTest only if compiler isn't mingw32
     if (USE_GOOGLETEST)
-        # Prevent GoogleTest from overriding our compiler/linker options
-        set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-        add_subdirectory("${GTEST_ROOT}" "${CMAKE_BINARY_DIR}/googletest-build")
-        include_directories("${GTEST_ROOT}/include")
-        set(GTEST_BOTH_LIBRARIES "gtest" "gtest_main")
-        set(GTEST_FOUND true)
+        #show info
+        message(STATUS "Found Google test: " ${GTEST_ROOT})
+        #check if we're using google test 1.8
+        if (EXISTS "${SUMO_LIBRARIES}/googletest-1.8.0/googletest")
+            # Prevent GoogleTest from overriding our compiler/linker options
+            set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+            add_subdirectory("${GTEST_ROOT}" "${CMAKE_BINARY_DIR}/googletest-build")
+            include_directories("${GTEST_ROOT}/include")
+            set(GTEST_BOTH_LIBRARIES "gtest" "gtest_main")
+        else()
+            # include google test directory
+            include_directories("${GTEST_ROOT}/include")
+            # set both google test library
+            set(GTEST_BOTH_LIBRARIES "${GTEST_ROOT}/lib/gtest.lib" "${GTEST_ROOT}/lib/gtest_main.lib")
+            # set google test DLLs
+            file(GLOB GTEST_DLL "${GTEST_ROOT}/bin/*.dll")
+            list(APPEND SUMO_LIBRARIES_DLL ${GTEST_DLL})
+        endif()
+        # set gtest found
+        set(GTEST_FOUND true)   
     endif ()
     file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-?.?.?")
     file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-?.?.?")
@@ -434,7 +451,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/src)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 set(commonlibs
-        utils_distribution utils_shapes utils_options
+        utils_distribution utils_additionals utils_shapes utils_options
         utils_xml utils_geom utils_common utils_importio utils_iodevices utils_traction_wire foreign_tcpip
         ${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY} ${TCMALLOC_LIBRARY})
 if (MSVC)
@@ -452,13 +469,22 @@ set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 # installation
 include(GNUInstallDirs)
+if (SKBUILD)
+    set(DATA_PATH "")
+else ()
+    set(DATA_PATH "share/sumo/")
+endif ()
 install(DIRECTORY bin/ DESTINATION bin
         FILES_MATCHING PATTERN "*.dll"
         PATTERN "*d.dll" EXCLUDE
         PATTERN "FOXDLLD-1.6.dll" EXCLUDE)
-install(DIRECTORY data/ DESTINATION share/sumo/data)
-install(DIRECTORY tools/ DESTINATION share/sumo/tools
+install(DIRECTORY data/ DESTINATION ${DATA_PATH}data)
+if (PROJ_7)
+    install(DIRECTORY share/ DESTINATION ${DATA_PATH}share)
+endif ()
+install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
         USE_SOURCE_PERMISSIONS
+        PATTERN "build/sumo" EXCLUDE  # needed for the scikit build
         PATTERN "calibration" EXCLUDE
         PATTERN "lisum-core" EXCLUDE
         PATTERN "lisum-gui" EXCLUDE
@@ -468,7 +494,9 @@ install(DIRECTORY tools/ DESTINATION share/sumo/tools
         PATTERN "__pycache__" EXCLUDE
         PATTERN "*.pyc" EXCLUDE
         PATTERN ".git" EXCLUDE)
-install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/sumo/bin)")
+if (DATA_PATH)
+    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${DATA_PATH}bin)")
+endif ()
 
 if (NOT ${SETUPTOOLS_MISSING})
     install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-sumolib.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
@@ -508,9 +536,9 @@ if (SUMO_LIBRARIES AND WIN32)
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/data/proj
                            DEPENDS ${PROJ_PATH})
     endif (PROJ_6)
-    # proj 7 needs to copy "data/proj" folder in SUMO_HOME/share
+    # proj 7 needs to copy "share/proj" folder in SUMO_HOME/share
     if (PROJ_7)
-        set(PROJ_DATA ${CMAKE_SOURCE_DIR}/data/proj/proj.db)
+        set(PROJ_DATA ${CMAKE_SOURCE_DIR}/share/proj/proj.db)
         add_custom_command(OUTPUT ${PROJ_DATA}
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/share/proj
                            DEPENDS ${PROJ_PATH})

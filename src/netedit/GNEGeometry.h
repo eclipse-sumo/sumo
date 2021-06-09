@@ -31,8 +31,6 @@
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
-#include <netedit/elements/GNEPathElements.h>
-
 #include "GNEReferenceCounter.h"
 
 
@@ -54,29 +52,11 @@ class GNEHierarchicalElement;
 
 struct GNEGeometry {
 
-    /// @brief struct for variables used in Geometry extremes
-    struct ExtremeGeometry {
-        /// @brief constructor
-        ExtremeGeometry();
-
-        /// @brief depart position over lane
-        double laneStartPosition;
-
-        /// @brief arrival position over lane
-        double laneEndPosition;
-
-        /// @brief start position over view
-        Position viewStartPos;
-
-        /// @brief end position over view
-        Position viewEndPos;
-    };
-
     /// @brief class for NETEDIT geometries over lanes
     class Geometry {
 
     public:
-        /// @brief constructor
+        /// @brief default constructor
         Geometry();
 
         /// @brief parameter constructor
@@ -85,28 +65,23 @@ struct GNEGeometry {
         /// @brief parameter constructor
         Geometry(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths);
 
+        /// @brief update entire geometry
+        void updateGeometry(const PositionVector& shape);
+
+        /// @brief update geometry (using a shape, a position over shape and a lateral offset)
+        void updateGeometry(const PositionVector& shape, const double posOverShape, const double lateralOffset);
+
+        /// @brief update geometry (using a shape, a starPos over shape, a endPos and a lateral offset)
+        void updateGeometry(const PositionVector& shape, double starPosOverShape, double endPosOverShape, const double lateralOffset);
+
         /**@brief update geometry shape
          * @param shape Shape to be updated
-         * @param extremeGeometry ExtremeGeometry used to cut/adjust shape
          */
-        void updateGeometry(const PositionVector& shape, double startPos = -1, double endPos = -1,
-                            const Position& extraFirstPosition = Position::INVALID,
-                            const Position& extraLastPosition = Position::INVALID);
+        void updateGeometry(const PositionVector& shape, double beginTrimPosition, double endTrimPosition,
+                            const Position& extraFirstPosition, const Position& extraLastPosition);
 
         /// @brief update position and rotation
-        void updateGeometry(const Position& position, const double rotation);
-
-        /// @brief update position and rotation (using a lane and a position over lane)
-        void updateGeometry(const GNELane* lane, const double posOverLane);
-
-        /// @brief update geometry (using a lane)
-        void updateGeometry(const GNELane* lane);
-
-        /// @brief update geometry (using geometry of another additional)
-        void updateGeometry(const GNEAdditional* additional);
-
-        /// @brief update geometry (using a new shape, rotations and lenghts)
-        void updateGeometry(const Geometry& geometry);
+        void updateSinglePosGeometry(const Position& position, const double rotation);
 
         /// @brief scale geometry
         void scaleGeometry(const double scale);
@@ -120,7 +95,7 @@ struct GNEGeometry {
         /// @brief The lengths of the single shape parts
         const std::vector<double>& getShapeLengths() const;
 
-    private:
+    protected:
         /// @brief clear geometry
         void clearGeometry();
 
@@ -135,15 +110,6 @@ struct GNEGeometry {
 
         /// @brief The lengths of the shape (note: Always size = myShape.size()-1)
         std::vector<double> myShapeLengths;
-
-        /// @brief lane (to use lane geometry)
-        const GNELane* myLane;
-
-        /// @brief additional (to use additional geometry)
-        const GNEAdditional* myAdditional;
-
-        /// @brief Invalidated assignment operator
-        Geometry& operator=(const Geometry& other) = delete;
     };
 
     /// @enum for dotted cotour type
@@ -257,157 +223,6 @@ struct GNEGeometry {
         DottedGeometry& operator=(const DottedGeometry& other) = delete;
     };
 
-    /// @brief struct for pack all variables related with geometry of elemements divided in segments
-    struct SegmentGeometry {
-
-        /// @brief struct used for represent segments of element geometry
-        class Segment {
-
-        public:
-            /// @brief parameter constructor for lanes (geometry will be taked from lane)
-            Segment(const GNELane* lane, const bool valid);
-
-            /// @brief parameter constructor for segments which geometry will be storaged in segment
-            Segment(const GNELane* lane, const Geometry& geometry, const bool valid);
-
-            /// @brief parameter constructor for lane2lane connections
-            Segment(const GNELane* lane, const GNELane* nextLane, const bool valid);
-
-            /// @brief update segment using geometry
-            void update(const Geometry& geometry);
-
-            /// @brief update segment using lane
-            void update(const GNELane* lane);
-
-            /// @brief get lane/lane2lane shape
-            const PositionVector& getShape() const;
-
-            /// @brief get lane/lane2lane shape rotations
-            const std::vector<double>& getShapeRotations() const;
-
-            /// @brief get lane/lane2lane shape lengths
-            const std::vector<double>& getShapeLengths() const;
-
-            /// @brief lane (only for lane segments)
-            const GNELane* getLane() const;
-
-            /// @brief junction
-            const GNEJunction* getJunction() const;
-
-            /// @brief valid
-            bool getValid() const;
-
-            /// @brief return true if this is a lane segment (i.e. myNextLane is nullptr)
-            bool isLaneSegment() const;
-
-        protected:
-            /// @brief lane
-            const GNELane* myLane;
-
-            /// @brief nextLane
-            const GNELane* myNextLane;
-
-            /// @brief valid
-            const bool myValid;
-
-            /// @brief flag to use lane shape
-            bool myUseLaneShape;
-
-        private:
-            /// @brief geometry used in segment
-            Geometry mySegmentGeometry;
-
-            /// @brief Invalidated assignment operator
-            Segment& operator=(const Segment& other) = delete;
-        };
-
-        /// @brief struct used for represent segments that must be updated
-        class SegmentToUpdate {
-
-        public:
-            /// @brief constructor
-            SegmentToUpdate(const int segmentIndex, const GNELane* lane, const GNELane* nextLane);
-
-            /// @brief get segment index
-            int getSegmentIndex() const;
-
-            // @brief get lane segment
-            const GNELane* getLane() const;
-
-            /// @brief get lane segment (used for updating lane2lane segments)
-            const GNELane* getNextLane() const;
-
-        private:
-            /// @brief segment index
-            const int mySegmentIndex;
-
-            // @brief lane segment
-            const GNELane* myLane;
-
-            /// @brief lane segment (used for updating lane2lane segments)
-            const GNELane* myNextLane;
-
-        private:
-            /// @brief Invalidated assignment operator
-            SegmentToUpdate& operator=(const SegmentToUpdate& other) = delete;
-        };
-
-        /// @brief constructor
-        SegmentGeometry();
-
-        /// @brief insert entire lane segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
-        void insertLaneSegment(const GNELane* lane, const bool valid);
-
-        /// @brief insert custom segment
-        void insertCustomSegment(const GNELane* lane, const Geometry& geometry, const bool valid);
-
-        /// @brief insert entire lane2lane segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
-        void insertLane2LaneSegment(const GNELane* currentLane, const GNELane* nextLane, const bool valid);
-
-        /// @brief update custom segment
-        void updateCustomSegment(const int segmentIndex, const Geometry& geometry);
-
-        /// @brief update lane2Lane segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
-        void updateLane2LaneSegment(const int segmentIndex, const GNELane* lane, const GNELane* nextLane);
-
-        /// @brief clear element geometry
-        void clearSegmentGeometry();
-
-        /// @brief get first position (or Invalid position if segments are empty)
-        const Position& getFirstPosition() const;
-
-        /// @brief get first position (or Invalid position if segments are empty)
-        const Position& getLastPosition() const;
-
-        /// @brief get first rotation (or Invalid position if segments are empty)
-        double getFirstRotation() const;
-
-        /// @brief Returns a boundary enclosing all segments
-        Boundary getBoxBoundary() const;
-
-        /// @brief begin iterator
-        std::vector<Segment>::const_iterator begin() const;
-
-        /// @brief end iterator
-        std::vector<Segment>::const_iterator end() const;
-
-        /// @brief front segment
-        const Segment& front() const;
-
-        /// @brief back segment
-        const Segment& back() const;
-
-        /// @brief number of segments
-        int size() const;
-
-    private:
-        /// @brief vector of segments that constitutes the shape
-        std::vector<Segment> myShapeSegments;
-
-        /// @brief Invalidated assignment operator
-        SegmentGeometry& operator=(const SegmentGeometry& other) = delete;
-    };
-
     /// @brief class lane2lane connection geometry
     class Lane2laneConnection {
 
@@ -509,29 +324,15 @@ struct GNEGeometry {
     /// @brief adjust start and end positions in geometric path
     static void adjustStartPosGeometricPath(double& startPos, const GNELane* startLane, double& endPos, const GNELane* endLane);
 
-    /**@brief calculate route between lanes
-     * @brief segmentGeometry segment geometry to be updated
-     * @brief path list of pathElements (lanes)
-     * @param extremeGeometry ExtremeGeometry used to cut/adjust shape
-     */
-    static void calculateLaneGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry,
-                                           const std::vector<GNEPathElements::PathElement>& path,
-                                           GNEGeometry::ExtremeGeometry& extremeGeometry);
-
-    /**@brief calculate route between edges
-     * @brief segmentGeometry segment geometry to be updated
-     * @brief lane GNELane that called this function
-     * @param extremeGeometry ExtremeGeometry used to cut/adjust shape
-     */
-    static void updateGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, const GNELane* lane,
-                                    GNEGeometry::ExtremeGeometry& extremeGeometry);
-
     /// @brief draw lane geometry (use their own function due colors)
     static void drawLaneGeometry(const GNEViewNet* viewNet, const PositionVector& shape, const std::vector<double>& rotations,
                                  const std::vector<double>& lengths, const std::vector<RGBColor>& colors, double width, const bool onlyContour = false);
 
     /// @brief draw geometry
-    static void drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width, const bool onlyContour = false, const bool drawExtremes = false);
+    static void drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width);
+
+    /// @brief draw contour geometry
+    static void drawContourGeometry(const Geometry& geometry, const double width, const bool drawExtremes = false);
 
     /// @brief draw geometry points
     static void drawGeometryPoints(const GUIVisualizationSettings& s, const GNEViewNet* viewNet, const PositionVector& shape,
@@ -541,11 +342,8 @@ struct GNEGeometry {
     static void drawMovingHint(const GUIVisualizationSettings& s, const GNEViewNet* viewNet, const PositionVector& shape,
                                const RGBColor& hintColor, const double radius, const double exaggeration);
 
-    /// @brief draw geometry segment
-    static void drawSegmentGeometry(const GNEViewNet* viewNet, const SegmentGeometry::Segment& segment, const double width);
-
-    /// @brief draw dotted contour for the given dottedGeometry (used by lanes, routes, etc.)
-    static void drawDottedContourLane(const DottedContourType type, const GUIVisualizationSettings& s, const DottedGeometry& dottedGeometry, const double width, const bool drawFirstExtrem, const bool drawLastExtrem);
+    /// @brief draw dotted contour for the given dotted geometry (used by lanes, routes, etc.)
+    static void drawDottedContourGeometry(const DottedContourType type, const GUIVisualizationSettings& s, const DottedGeometry& dottedGeometry, const double width, const bool drawFirstExtrem, const bool drawLastExtrem);
 
     /// @brief draw dotted contour for the given dottedGeometries (used by edges)
     static void drawDottedContourEdge(const DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFrontExtreme, const bool drawBackExtreme);

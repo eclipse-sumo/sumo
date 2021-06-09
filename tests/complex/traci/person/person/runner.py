@@ -72,7 +72,7 @@ traci.person.appendWalkingStage("newPerson", ["3si", "2si"], -20)
 traci.person.appendWaitingStage("newPerson", 10, "twiddling thumbs")
 traci.person.appendWalkingStage("newPerson", ["2si", "2o"], 20)
 traci.person.appendWaitingStage("newPerson", 20, "arrived")
-traci.person.setSpeed("newPerson", 1.2)
+traci.person.setSpeedFactor("newPerson", 1.3)
 
 for i in range(3):
     checkStateChanges()
@@ -107,6 +107,7 @@ def check(personID):
     print("person count", traci.person.getIDCount())
     print("examining", personID)
     print("speed", traci.person.getSpeed(personID))
+    print("speedFactor", traci.person.getSpeedFactor(personID))
     print("pos", traci.person.getPosition(personID))
     print("pos3D", traci.person.getPosition3D(personID))
     print("angle", traci.person.getAngle(personID))
@@ -132,6 +133,8 @@ print(traci.person.getSubscriptionResults(personID))
 for i in range(3):
     print("step", step())
     print(traci.person.getSubscriptionResults(personID))
+
+traci.person.setSpeedFactor(personID, 1.2)
 check(personID)
 try:
     check("bla")

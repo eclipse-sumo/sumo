@@ -55,7 +55,7 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type,
     GUIGlObject(type, dataIntervalParent->getID()),
     Parameterised(ParameterisedAttrType::DOUBLE, parameters),
     GNEHierarchicalElement(dataIntervalParent->getNet(), tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
-    GNEPathElements(this),
+    GNEPathManager::PathElement(GNEPathManager::PathElement::Options::DATA_ELEMENT),
     myDataIntervalParent(dataIntervalParent) {
 }
 
@@ -169,11 +169,38 @@ GNEGenericData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /* p
 }
 
 
+double
+GNEGenericData::getPathElementDepartValue() const {
+    return 0;
+}
+
+
+Position
+GNEGenericData::getPathElementDepartPos() const {
+    return Position();
+}
+
+
+double
+GNEGenericData::getPathElementArrivalValue() const {
+    return 0;
+}
+
+
+Position
+GNEGenericData::getPathElementArrivalPos() const {
+    return Position();
+}
+
+
 const std::map<std::string, std::string>&
 GNEGenericData::getACParametersMap() const {
     return getParametersMap();
 }
 
+// ---------------------------------------------------------------------------
+// GNEGenericData - protected methods
+// ---------------------------------------------------------------------------
 
 void
 GNEGenericData::drawFilteredAttribute(const GUIVisualizationSettings& s, const PositionVector& laneShape, const std::string& attribute) const {

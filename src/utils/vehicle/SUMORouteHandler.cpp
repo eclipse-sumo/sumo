@@ -386,6 +386,12 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     if (attrs.hasAttribute(SUMO_ATTR_UNTIL)) {
         stop.parametersSet |= STOP_UNTIL_SET;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_STARTED)) {
+        stop.parametersSet |= STOP_STARTED_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_ENDED)) {
+        stop.parametersSet |= STOP_ENDED_SET;
+    }
     if (attrs.hasAttribute(SUMO_ATTR_EXTENSION)) {
         stop.parametersSet |= STOP_EXTENSION_SET;
     }
@@ -431,6 +437,7 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     }
     bool ok = true;
     stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, nullptr, ok, "");
+    stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_TRAIN_STOP, nullptr, ok, stop.busstop);
     stop.chargingStation = attrs.getOpt<std::string>(SUMO_ATTR_CHARGING_STATION, nullptr, ok, "");
     stop.overheadWireSegment = attrs.getOpt<std::string>(SUMO_ATTR_OVERHEAD_WIRE_SEGMENT, nullptr, ok, "");
     stop.containerstop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, nullptr, ok, "");
@@ -522,8 +529,8 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
             return false;
         }
     }
-    stop.depart = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DEPART, nullptr, ok, -1);
-    stop.actualArrival = attrs.getOptSUMOTimeReporting(SUMO_ATTR_ACTUALARRIVAL, nullptr, ok, -1);
+    stop.started = attrs.getOptSUMOTimeReporting(SUMO_ATTR_STARTED, nullptr, ok, -1);
+    stop.ended = attrs.getOptSUMOTimeReporting(SUMO_ATTR_ENDED, nullptr, ok, -1);
     return true;
 }
 

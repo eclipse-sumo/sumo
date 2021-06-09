@@ -410,6 +410,8 @@ private:
     std::string myDefaultSpreadType;
     /// @brief overlap option for loaded network
     bool myGeomAvoidOverlap;
+    /// @brief higherSpeed  option for loaded network
+    bool myJunctionsHigherSpeed;
 
     /// @brief loaded roundabout edges
     std::vector<std::vector<std::string> > myRoundabouts;

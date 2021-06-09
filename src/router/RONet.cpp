@@ -721,15 +721,17 @@ RONet::getInternalEdgeNumber() const {
 void
 RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {
     double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
-    // add access to all parking areas
-    for (const auto& i : myInstance->myStoppingPlaces[SUMO_TAG_PARKING_AREA]) {
-        router.getNetwork()->addAccess(i.first, myInstance->getEdgeForLaneID(i.second->lane), (i.second->startPos + i.second->endPos) / 2., 0., SUMO_TAG_PARKING_AREA, false, taxiWait);
-    }
-    // add access to all public transport stops
-    for (const auto& stop : myInstance->myStoppingPlaces[SUMO_TAG_BUS_STOP]) {
-        router.getNetwork()->addAccess(stop.first, myInstance->getEdgeForLaneID(stop.second->lane), (stop.second->startPos + stop.second->endPos) / 2., 0., SUMO_TAG_BUS_STOP, false, taxiWait);
-        for (const auto& a : stop.second->accessPos) {
-            router.getNetwork()->addAccess(stop.first, myInstance->getEdgeForLaneID(std::get<0>(a)), std::get<1>(a), std::get<2>(a), SUMO_TAG_BUS_STOP, true, taxiWait);
+    for (const auto& stopType : myInstance->myStoppingPlaces) {
+        // add access to all stopping places
+        const SumoXMLTag element = stopType.first;
+        for (const auto& stop : stopType.second) {
+            router.getNetwork()->addAccess(stop.first, myInstance->getEdgeForLaneID(stop.second->lane), (stop.second->startPos + stop.second->endPos) / 2., 0., element, false, taxiWait);
+            // add access to all public transport stops
+            if (element == SUMO_TAG_BUS_STOP) {
+                for (const auto& a : stop.second->accessPos) {
+                    router.getNetwork()->addAccess(stop.first, myInstance->getEdgeForLaneID(std::get<0>(a)), std::get<1>(a), std::get<2>(a), SUMO_TAG_BUS_STOP, true, taxiWait);
+                }
+            }
         }
     }
     // fill the public transport router with pre-parsed public transport lines
@@ -791,6 +793,19 @@ RONet::getStoppingPlaceName(const std::string& id) const {
     }
     return "";
 }
+
+const std::string
+RONet::getStoppingPlaceElement(const std::string& id) const {
+    for (const auto& mapItem : myStoppingPlaces) {
+        SUMOVehicleParameter::Stop* stop = mapItem.second.get(id);
+        if (stop != nullptr) {
+            // see RONetHandler::parseStoppingPlace
+            return stop->actType;
+        }
+    }
+    return toString(SUMO_TAG_BUS_STOP);
+}
+
 
 #ifdef HAVE_FOX
 // ---------------------------------------------------------------------------

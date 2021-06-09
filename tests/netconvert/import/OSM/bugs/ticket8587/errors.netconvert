@@ -1,0 +1,13 @@
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 1571844 are ignored
+Warning: PT stop '7307151972' has been moved to edge '-5067106#3'.
+Warning: Ambiguity in turnarounds computation at junction '2289508334'.
+Warning: Ambiguity in turnarounds computation at junction '2289508776'.
+Warning: Found angle of 177.81 degrees at edge '-27778180#1', segment 1.
+Warning: Found angle of 177.28 degrees at edge '-27778180#1', segment 2.
+Warning: Found sharp turn with radius 2.21 at the end of edge '-27778180#1'.
+Warning: Found angle of 136.94 degrees at edge '-36825527#0', segment 0.
+Warning: Found angle of 136.94 degrees at edge '156640650#4', segment 0.
+Warning: Found sharp turn with radius 8.37 at the start of edge '156775063#3'.
+Warning: Found angle of 177.28 degrees at edge '27778180#0', segment 0.
+Warning: Found sharp turn with radius 2.21 at the start of edge '27778180#0'.
+Warning: 6 total messages of type: Found angle of % degrees at edge '%', segment %.

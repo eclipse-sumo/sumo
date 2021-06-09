@@ -268,7 +268,7 @@ GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTa
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_CHARGING_STATION) + " to create a stop placed in a " + toString(SUMO_TAG_CHARGING_STATION));
         } else if (stopTag == SUMO_TAG_STOP_PARKINGAREA) {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_PARKING_AREA) + " to create a stop placed in a " + toString(SUMO_TAG_PARKING_AREA));
-        } else if (stopTag == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) {
+        } else if (stopTag == GNE_TAG_PERSONTRIP_BUSSTOP) {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_STOP_BUSSTOP) + " to create a person stop placed in a " + toString(SUMO_TAG_STOP_BUSSTOP));
         }
         return false;
@@ -279,10 +279,10 @@ GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTa
         return false;
     }
     // declare map to keep attributes from Frames from Frame
-    std::map<SumoXMLAttr, std::string> valuesMap = stopAttributes->getAttributesAndValues(false);
+    std::map<SumoXMLAttr, std::string> valuesMap = stopAttributes->getAttributesAndValuesTemporal(false);
     // add netedit values
     if (!stop.lane.empty()) {
-        myNeteditAttributes->getNeteditAttributesAndValues(valuesMap, lane);
+        myNeteditAttributes->getNeteditAttributesAndValuesTemporal(valuesMap, lane);
         // check if start position can be parsed
         if (GNEAttributeCarrier::canParse<double>(valuesMap[SUMO_ATTR_STARTPOS])) {
             stop.startPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_STARTPOS]);

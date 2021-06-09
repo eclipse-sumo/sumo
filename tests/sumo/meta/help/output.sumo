@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_9_0+0041-8aed0dc
+Eclipse SUMO sumo Version v1_9_2+0045-34c5379
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -139,6 +139,8 @@ Output Options:
   --save-state.times STR[]             Use TIME[] as times at which a network
                                         state written
   --save-state.period TIME             save state repeatedly after TIME period
+  --save-state.period.keep INT         Keep only the last INT periodic state
+                                        files
   --save-state.prefix FILE             Prefix for network states
   --save-state.suffix STR              Suffix for network states (.xml.gz or
                                         .xml)
@@ -207,7 +209,9 @@ Processing Options:
                                         teleported if they are on a
                                         non-continuing lane
   --time-to-teleport.disconnected TIME  The waiting time after which vehicles
-                                        with a disconnected route are teleported
+                                        with a disconnected route are
+                                        teleported. Negative values disable
+                                        teleporting
   --waiting-time-memory TIME           Length of time interval, over which
                                         accumulated waiting time is taken into
                                         account (default is 100s.)
@@ -264,6 +268,8 @@ Processing Options:
   --parking.maneuver                   Whether parking simulation includes
                                         manoeuvering time and associated lane
                                         blocking
+  --use-stop-ended                     Override stop until times with stop
+                                        ended times when given
   --pedestrian.model STR               Select among pedestrian models
                                         ['nonInteracting', 'striping', 'remote']
   --pedestrian.striping.stripe-width FLOAT  Width of parallel stripes for
@@ -615,6 +621,20 @@ Taxi Device Options:
                                         [stop|randomCircling]
   --device.taxi.idle-algorithm.output FILE  Write information from the idling
                                         algorithm to FILE
+
+GLOSA Device Options:
+  --device.glosa.probability FLOAT     The probability for a vehicle to have a
+                                        'glosa' device
+  --device.glosa.explicit STR[]        Assign a 'glosa' device to named
+                                        vehicles
+  --device.glosa.deterministic         The 'glosa' devices are set
+                                        deterministic using a fraction of 1000
+  --device.glosa.range FLOAT           The communication range to the traffic
+                                        light
+  --device.glosa.max-speedfactor FLOAT  The maximum speed factor when
+                                        approaching a green light
+  --device.glosa.min-speed FLOAT       Minimum speed when coasting towards a
+                                        red light
 
 Tripinfo Device Options:
   --device.tripinfo.probability FLOAT  The probability for a vehicle to have a

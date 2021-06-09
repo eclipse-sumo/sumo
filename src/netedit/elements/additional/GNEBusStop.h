@@ -34,6 +34,7 @@ class GNEBusStop : public GNEStoppingPlace {
 
 public:
     /**@brief Constructor
+     * @param[in] tag busStop or trainStop tag
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] net pointer to GNENet of this additional element belongs
@@ -41,11 +42,15 @@ public:
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] name Name of busStop
      * @param[in] lines lines of the busStop
+     * @param[in] personCapacity larger numbers of persons trying to enter will create an upstream jam on the sidewalk.
+     * @param[in] parkingLength parking length
      * @param[in] friendlyPos enable or disable friendly position
-     * @param[in] block movement enable or disable additional movement
+     * @param[in] parameters generic parameters
+     * @param[in] blockMovement enable or disable additional movement
      */
-    GNEBusStop(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos, const int parametersSet,
-               const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength, bool friendlyPosition, bool blockMovement);
+    GNEBusStop(SumoXMLTag tag, const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
+               const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength,
+               bool friendlyPosition, const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /// @brief Destructor
     ~GNEBusStop();

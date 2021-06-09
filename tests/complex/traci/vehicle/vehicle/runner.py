@@ -98,6 +98,8 @@ def check(vehID):
     print("width", traci.vehicle.getWidth(vehID))
     print("height", traci.vehicle.getHeight(vehID))
     print("stopDelay", traci.vehicle.getStopDelay(vehID))
+    print("stopArrivalDelay", traci.vehicle.getStopArrivalDelay(vehID))
+    print("timeLoss", traci.vehicle.getTimeLoss(vehID))
     try:
         print("lcStrategic", traci.vehicle.getParameter(vehID, "laneChangeModel.lcStrategic"))
         print("lcCooperative", traci.vehicle.getParameter(vehID, "laneChangeModel.lcCooperative"))
@@ -145,6 +147,7 @@ traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg",
              '--ignore-route-errors',
              '--vehroute-output', 'vehroutes.xml',
              '--tripinfo-output', 'tripinfo.xml',
+             '--tripinfo-output.write-undeparted',
              '--additional-files',
              'input_additional.add.xml,input_additional2.add.xml',
              "--default.speeddev", "0"] + sys.argv[1:])
@@ -298,6 +301,7 @@ for i in range(9):
     print("step", step())
     print("vehicles", traci.vehicle.getIDList())
 # XXX this doesn't work. see #1721
+print("added triggered vehicle at t=%s" % traci.simulation.getTime())
 traci.vehicle.addLegacy("departTriggered", "horizontal", "triggered")
 print("step", step())
 print("vehicles", traci.vehicle.getIDList())

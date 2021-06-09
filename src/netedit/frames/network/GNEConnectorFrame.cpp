@@ -299,6 +299,11 @@ GNEConnectorFrame::ConnectionOperations::onCmdResetSelectedConnections(FXObject*
         i->setLogicValid(false, myConnectorFrameParent->getViewNet()->getUndoList());
     }
     myConnectorFrameParent->getViewNet()->getUndoList()->p_end();
+    if (junctions.size() > 0) {
+        auto viewNet = myConnectorFrameParent->getViewNet();
+        viewNet->getNet()->requireRecompute();
+        viewNet->getNet()->computeNetwork(viewNet->getViewParent()->getGNEAppWindows());
+    }
     return 1;
 }
 

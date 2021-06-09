@@ -20,9 +20,13 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
@@ -33,12 +37,14 @@
 // member method definitions
 // ===========================================================================
 
-GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const std::string& length, bool friendlyPos, bool blockMovement) :
-    GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, "", blockMovement,
-{}, {}, {lane}, {busStop}, {}, {}, {}, {}),
-myPositionOverLane(pos),
-myLength(length),
-myFriendlyPosition(friendlyPos) {
+GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length, bool friendlyPos, 
+        const std::map<std::string, std::string> &parameters, bool blockMovement) :
+    GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, "",
+        {}, {}, {lane}, {busStop}, {}, {}, {}, {},
+        parameters, blockMovement),
+    myPositionOverLane(pos),
+    myLength(length),
+    myFriendlyPosition(friendlyPos) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -56,7 +62,8 @@ GNEAccess::getMoveOperation(const double /*shapeOffset*/) {
         return nullptr;
     } else {
         // return move operation for additional placed over shape
-        return new GNEMoveOperation(this, getParentLanes().front(), {myPositionOverLane});
+        return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
+                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
     }
 }
 
@@ -75,7 +82,7 @@ GNEAccess::updateGeometry() {
         fixedPositionOverLane = myPositionOverLane;
     }
     // update geometry
-    myAdditionalGeometry.updateGeometry(getParentLanes().front(), fixedPositionOverLane * getParentLanes().front()->getLengthGeometryFactor());
+    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), fixedPositionOverLane * getParentLanes().front()->getLengthGeometryFactor(), myMoveElementLateralOffset);
 }
 
 
@@ -249,10 +256,11 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
                 return canParse<double>(value);
             }
         case SUMO_ATTR_LENGTH:
-            if (value.empty()) {
-                return true;
+            if (canParse<double>(value)) {
+                const double valueDouble = parse<double>(value);
+                return (valueDouble == -1) || (valueDouble >= 0);
             } else {
-                return (canParse<double>(value) && (parse<double>(value) >= 0));
+                return false;
             }
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
@@ -299,7 +307,7 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             myPositionOverLane = parse<double>(value);
             break;
         case SUMO_ATTR_LENGTH:
-            myLength = value;
+            myLength = parse<double>(value);
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);
@@ -326,7 +334,9 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNEAccess::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
-    myPositionOverLane = moveResult.shapeToUpdate.front().x();
+    myPositionOverLane = moveResult.newFirstPos;
+    // set lateral offset
+    myMoveElementLateralOffset = moveResult.firstLaneOffset;
     // update geometry
     updateGeometry();
 }
@@ -334,9 +344,17 @@ GNEAccess::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEAccess::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    // reset lateral offset
+    myMoveElementLateralOffset = 0;
     undoList->p_begin("position of " + getTagStr());
     // now adjust start position
-    setAttribute(SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front().x()), undoList);
+    setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
+    // check if lane has to be changed
+    if (moveResult.newFirstLane) {
+        // set new lane
+        setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
+    }
+    // end change attribute
     undoList->p_end();
 }
 

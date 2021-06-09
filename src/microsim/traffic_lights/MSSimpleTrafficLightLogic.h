@@ -190,6 +190,9 @@ public:
     void setPhases(const Phases& phases, int index);
     /// @}
 
+    /** @brief Saves the current tls states into the given stream
+        */
+    virtual void saveState(OutputDevice& /*out*/) const;
 
 protected:
     /// @brief The list of phases this logic uses

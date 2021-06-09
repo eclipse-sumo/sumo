@@ -22,12 +22,6 @@
 #include "GNEAdditional.h"
 
 // ===========================================================================
-// value definitions
-// ===========================================================================
-const int STOPPINGPLACE_STARTPOS_SET = 1;
-const int STOPPINGPLACE_ENDPOS_SET = 2;
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -45,13 +39,14 @@ public:
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
-     * @param[in] parametersSet Variable used to save flags STOPPINGPLACE_STARTPOS_SET and STOPPINGPLACE_ENDPOS_SET
      * @param[in] name Name of stoppingPlace
      * @param[in] friendlyPos enable or disable friendly position
-     * @param[in] block movement enable or disable additional movement
+     * @param[in] parameters generic parameters
+     * @param[in] blockMovement enable or disable additional movement
      */
-    GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, double startPos, double endPos,
-                     int parametersSet, const std::string& name, bool friendlyPosition, bool blockMovement);
+    GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, const double startPos, 
+                     const double endPos, const std::string& name, bool friendlyPosition, const std::map<std::string, std::string> &parameters,
+                     bool blockMovement);
 
     /// @brief Destructor
     ~GNEStoppingPlace();
@@ -72,12 +67,6 @@ public:
     /// @brief fix additional problem
     void fixAdditionalProblem();
     /// @}
-
-    /// @brief get start Position
-    double getStartPosition() const;
-
-    /// @brief get end Position
-    double getEndPosition() const;
 
     /// @name Functions related with geometry of element
     /// @{
@@ -145,14 +134,11 @@ public:
     /// @}
 
 protected:
-    /// @brief The relative start position this stopping place is located at (optional, if empty takes 0)
+    /// @brief The relative start position this stopping place is located at (-1 means empty)
     double myStartPosition;
 
-    /// @brief The  position this stopping place is located at (optional, if empty takes the lane length)
+    /// @brief The  position this stopping place is located at (-1 means empty)
     double myEndPosition;
-
-    /// @brief Variable used for set/unset start/endPositions
-    int myParametersSet;
 
     /// @brief Flag for friendly position
     bool myFriendlyPosition;
@@ -175,12 +161,6 @@ protected:
     /// @brief set geometry common to all stopping places
     void setStoppingPlaceGeometry(double movingToSide);
 
-    /// @brief get start position over lane that is applicable to the shape
-    double getStartGeometryPositionOverLane() const;
-
-    /// @brief get end position over lane that is applicable to the shape
-    double getEndGeometryPositionOverLane() const;
-
     /// @brief draw lines
     void drawLines(const GUIVisualizationSettings& s, const std::vector<std::string>& lines, const RGBColor& color) const;
 
@@ -191,6 +171,12 @@ protected:
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
+
+    /// @brief get start position over lane that is applicable to the shape
+    double getStartGeometryPositionOverLane() const;
+
+    /// @brief get end position over lane that is applicable to the shape
+    double getEndGeometryPositionOverLane() const;
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);

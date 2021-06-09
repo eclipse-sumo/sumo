@@ -187,10 +187,17 @@ MSDevice_Vehroutes::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMo
 
 void
 MSDevice_Vehroutes::stopEnded(const SUMOVehicleParameter::Stop& stop) {
-    stop.write(myStopOut, !myWriteStopPriorEdges);
+    const bool closeLater = myWriteStopPriorEdges || mySaveExits;
+    stop.write(myStopOut, !closeLater);
     if (myWriteStopPriorEdges) {
         myStopOut.writeAttr("priorEdges", myPriorEdges);
         myPriorEdges.clear();
+    }
+    if (mySaveExits) {
+        myStopOut.writeAttr(SUMO_ATTR_STARTED, time2string(stop.started));
+        myStopOut.writeAttr(SUMO_ATTR_ENDED, stop.ended < 0 ? "-1" : time2string(stop.ended));
+    }
+    if (closeLater) {
         myStopOut.closeTag();
     }
 }
@@ -267,7 +274,7 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
             assert(numWritten >= (int)myExits.size());
             std::vector<std::string> missing(numWritten - (int)myExits.size(), "-1");
             exits.insert(exits.end(), missing.begin(), missing.end());
-            os.writeAttr("exitTimes", exits);
+            os.writeAttr(SUMO_ATTR_EXITTIMES, exits);
         }
     }
     os.closeTag();
@@ -447,6 +454,9 @@ MSDevice_Vehroutes::saveState(OutputDevice& out) const {
         internals.push_back(myReplacedRoutes[i].info);
     }
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
+    if (mySaveExits && myExits.size() > 0) {
+        out.writeAttr(SUMO_ATTR_EXITTIMES, myExits);
+    }
     out.closeTag();
 }
 
@@ -474,6 +484,11 @@ MSDevice_Vehroutes::loadState(const SUMOSAXAttributes& attrs) {
         const MSRoute* route = MSRoute::dictionary(routeID);
         route->addReference();
         myReplacedRoutes.push_back(RouteReplaceInfo(MSEdge::dictionary(edgeID), time, route, info));
+    }
+    if (mySaveExits && attrs.hasAttribute(SUMO_ATTR_EXITTIMES)) {
+        for (const std::string& t : attrs.getStringVector(SUMO_ATTR_EXITTIMES)) {
+            myExits.push_back(StringUtils::toLong(t));
+        }
     }
 }
 

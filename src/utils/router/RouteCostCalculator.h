@@ -27,6 +27,7 @@
 #include <cmath>
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/RandHelper.h>
 #include <utils/options/OptionsCont.h>
 
 
@@ -56,12 +57,22 @@ public:
         return myMaxRouteNumber;
     }
 
-    bool keepRoutes() const {
+    bool keepAllRoutes() const {
         return myKeepRoutes;
     }
 
     bool skipRouteCalculation() const {
-        return mySkipRouteCalculation;
+        return mySkipNewRoutes;
+    }
+
+    bool keepRoute() const {
+        if (myKeepRouteProb == 1) {
+            return true;
+        } else if (myKeepRouteProb == 0) {
+            return false;
+        } else {
+            return RandHelper::rand() < myKeepRouteProb;
+        }
     }
 
 protected:
@@ -70,7 +81,8 @@ protected:
         OptionsCont& oc = OptionsCont::getOptions();
         myMaxRouteNumber = oc.getInt("max-alternatives");
         myKeepRoutes = oc.getBool("keep-all-routes");
-        mySkipRouteCalculation = oc.getBool("skip-new-routes");
+        mySkipNewRoutes = oc.getBool("skip-new-routes");
+        myKeepRouteProb = oc.exists("keep-route-probability") ? oc.getFloat("keep-route-probability") : 0;
     }
 
     /// @brief Destructor
@@ -85,8 +97,11 @@ private:
     /// @brief Information whether all routes should be saved
     bool myKeepRoutes;
 
-    /// @brief Information whether new routes should be calculated
-    bool mySkipRouteCalculation;
+    /// @brief Information whether new routes shall be computed
+    double mySkipNewRoutes;
+
+    /// @brief Information whether the old route shall be kept
+    double myKeepRouteProb;
 
 };
 

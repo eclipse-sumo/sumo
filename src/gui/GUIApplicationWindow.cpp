@@ -100,7 +100,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_F4_CLOSE,    GUIApplicationWindow::onCmdQuit),
     FXMAPFUNC(SEL_CLOSE,    MID_WINDOW,                 GUIApplicationWindow::onCmdQuit),
 
-    FXMAPFUNC(SEL_COMMAND,  MID_NEW_WINDOW,                                     GUIApplicationWindow::onCmdNewWindow),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW,                  GUIApplicationWindow::onCmdNewWindow),
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_CONFIG,                                    GUIApplicationWindow::onCmdOpenConfiguration),
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_NETWORK,                                   GUIApplicationWindow::onCmdOpenNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_P,                                  GUIApplicationWindow::onCmdOpenShapes),
@@ -382,7 +382,7 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuTitle(myMenuBar, "&File", nullptr, myFileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
                                            "New Window", "Ctrl+Shift+N", "Open a new sumo-gui window.",
-                                           nullptr, this, MID_NEW_WINDOW);
+                                           nullptr, this, MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW);
     new FXMenuSeparator(myFileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
                                            "&Open Simulation...", "Ctrl+O", "Open a simulation (Configuration file).",

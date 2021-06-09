@@ -35,19 +35,21 @@ const std::string Shape::DEFAULT_IMG_FILE = "";
 const bool Shape::DEFAULT_RELATIVEPATH = false;
 const double Shape::DEFAULT_IMG_WIDTH = 1;
 const double Shape::DEFAULT_IMG_HEIGHT = 1;
+const std::string Shape::DEFAULT_NAME = "";
+const std::map<std::string, std::string> Shape::DEFAULT_PARAMETERS = std::map<std::string, std::string>();
 
 // ===========================================================================
 // member definitions
 // ===========================================================================
-Shape::Shape(const std::string& id, const std::string& type,
-             const RGBColor& color, double layer,
-             double angle, const std::string& imgFile, bool relativePath) :
+Shape::Shape(const std::string& id, const std::string& type, const RGBColor& color, double layer,
+             double angle, const std::string& imgFile, const std::string& name, bool relativePath) :
     Named(id),
     myType(type),
     myColor(color),
     myLayer(layer),
     myNaviDegreeAngle(angle),
     myImgFile(imgFile),
+    myName(name),
     myRelativePath(relativePath) {
 }
 

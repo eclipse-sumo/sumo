@@ -428,14 +428,14 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
                                  || (!foe->hasDeparted() && !foe2->hasDeparted() &&
                                      (foe->getParameter().depart < foe2->getParameter().depart
                                       || (foe->getParameter().depart == foe2->getParameter().depart && foe->getNumericalID() < foe2->getNumericalID())))
-                                 )) {
+                                )) {
                             constrainedByFoe = true;
 #ifdef DEBUG_CONSTRAINT_DEADLOCK
                             std::cout << "findConstraintsDeadLocks foeId=" << foeId << " tripId=" << tripId << " foeSignal=" << foeSignal << "\n";
                             std::cout << "  foeLeaderDeadlock foeEdge=" << foeEdge->getID() << " foe2=" << foe2->getParameter().getParameter("tripId", foe2->getID())
-                                << " routePos=" << foe2->getRoutePosition() << " futureRPos=" << i << " e=" << e->getID()
-                                //<< " foePos=" << foePos << " foe2Pos=" << foe2->getPositionOnLane()
-                                << " " << constraintsOnTripId[foeId2].getString() << "\n";
+                                      << " routePos=" << foe2->getRoutePosition() << " futureRPos=" << i << " e=" << e->getID()
+                                      //<< " foePos=" << foePos << " foe2Pos=" << foe2->getPositionOnLane()
+                                      << " " << constraintsOnTripId[foeId2].getString() << "\n";
 #endif
                             break;
                         }
@@ -471,9 +471,9 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
     // find deadlock in explicit constraints
     std::vector<std::string> foeIds2;
     std::set_intersection(
-            foeId2Cands1.begin(), foeId2Cands1.end(),
-            foeId2Cands2.begin(), foeId2Cands2.end(),
-            std::back_inserter(foeIds2));
+        foeId2Cands1.begin(), foeId2Cands1.end(),
+        foeId2Cands2.begin(), foeId2Cands2.end(),
+        std::back_inserter(foeIds2));
 #ifdef DEBUG_CONSTRAINT_DEADLOCK
     std::cout << "findConstraintsDeadLocks foeId=" << foeId << " tripId=" << tripId << " foeSignal=" << foeSignal << "\n";
     for (const std::string& foeId2 : foeIds2) {

@@ -1,0 +1,71 @@
+> Executing step 0
+>> Running router on input_routes.rou.xml
+>>> Begin time: 2021-05-10 12:13:09.371821
+>>> End time: 2021-05-10 12:13:09.416702
+>>> Duration: 0:00:00.044881
+<<
+>> Running simulation
+>>> Begin time: 2021-05-10 12:13:09.416857
+>>> End time: 2021-05-10 12:13:09.540593
+>>> Duration: 0:00:00.123736
+<<
+< Step 0 ended (duration: 0:00:00.169060)
+------------------
+
+> Executing step 1
+>> Running router on 0/input_routes_000.rou.alt.xml
+>>> Begin time: 2021-05-10 12:13:09.546251
+>>> End time: 2021-05-10 12:13:09.599752
+>>> Duration: 0:00:00.053501
+<<
+>> Running simulation
+>>> Begin time: 2021-05-10 12:13:09.599910
+>>> End time: 2021-05-10 12:13:09.721170
+>>> Duration: 0:00:00.121260
+<<
+< Step 1 ended (duration: 0:00:00.175163)
+------------------
+
+> Executing step 2
+>> Running router on 1/input_routes_001.rou.alt.xml
+>>> Begin time: 2021-05-10 12:13:09.726510
+>>> End time: 2021-05-10 12:13:09.779029
+>>> Duration: 0:00:00.052519
+<<
+>> Running simulation
+>>> Begin time: 2021-05-10 12:13:09.779195
+>>> End time: 2021-05-10 12:13:09.901022
+>>> Duration: 0:00:00.121827
+<<
+< Step 2 ended (duration: 0:00:00.174772)
+------------------
+
+> Executing step 3
+>> Running router on 2/input_routes_002.rou.alt.xml
+>>> Begin time: 2021-05-10 12:13:09.906528
+>>> End time: 2021-05-10 12:13:09.959739
+>>> Duration: 0:00:00.053211
+<<
+>> Running simulation
+>>> Begin time: 2021-05-10 12:13:09.959892
+>>> End time: 2021-05-10 12:13:10.094384
+>>> Duration: 0:00:00.134492
+<<
+< Step 3 ended (duration: 0:00:00.188101)
+------------------
+
+> Executing step 4
+>> Running router on 3/input_routes_003.rou.alt.xml
+>>> Begin time: 2021-05-10 12:13:10.099803
+>>> End time: 2021-05-10 12:13:10.153767
+>>> Duration: 0:00:00.053964
+<<
+>> Running simulation
+>>> Begin time: 2021-05-10 12:13:10.153922
+>>> End time: 2021-05-10 12:13:10.272566
+>>> Duration: 0:00:00.118644
+<<
+< Step 4 ended (duration: 0:00:00.173009)
+------------------
+
+dua-iterate ended (duration: 0:00:00.906342)

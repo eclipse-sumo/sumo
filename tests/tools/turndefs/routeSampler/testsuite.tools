@@ -2,6 +2,10 @@
 # 
 output-styles
 
+# 
+# 
+output-styles_pedestrians
+
 # test loading data with multiple intervals
 intervals
 

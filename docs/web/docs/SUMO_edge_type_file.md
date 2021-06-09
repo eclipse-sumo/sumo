@@ -56,7 +56,7 @@ The names of the SUMO vehicle classes are:
 
 So an example of a SUMO edge type file is:
 
-```
+```xml
 <types>
     <type id="highway.motorway" priority="13" numLanes="2" speed="44.0" />
     <type id="highway.residential" priority="4" numLanes="1" speed="13.889" />

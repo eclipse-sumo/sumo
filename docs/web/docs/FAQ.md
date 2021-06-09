@@ -458,9 +458,9 @@ and simply type `git pull`.
   (replace /path/to/sumo/bin with the path to the bin directory of
   your sumo installation)
 
-### How do I work around missing dll errors on windows?
+### How do I work around missing dll errors on Windows?
 
-  Install [MSVC2013 Redistributable](http://www.microsoft.com/download/en/details.aspx?id=5555)
+  Install [MSVC2013 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=40784)
   (Old versions of SUMO may also require the MSVC2010 Redistributable)
 
 ### What is the meaning of the different exit codes (linux command line)
@@ -649,16 +649,6 @@ use the Linux version or download the [nightly-extra version](https://sumo.dlr.d
   There are different methods for accomplishing this. In either case
   the simulation itself should be constraint using options **--begin**, **--end**.
 
-- You can use [rerouters](Simulation/Rerouter.md) in the
-  simulation. Rerouters, assign a new route for vehicles driving
-  across them and thus prevent them from leaving the network. For an
-  example with a simple circle see [{{SUMO}}/tests/sumo/cf_model/drive_in_circles]({{Source}}tests/sumo/cf_model/drive_in_circles)
-  - The tool [generateContinuousRerouters.py](Tools/Misc.md#generatecontinuousrerouterspy) can be used to generate
-    rerouters for continuous operation with configurable turning ratios.
-  - If the network is not circular to begin with (i.e a single
-    road) you can make the network circular in a non-geometrical way
-    by adding a return edge and declaring it's length to be very
-    short (minimum 0.1m). The return edge should have a sensible geometry (i.e. a detour loop) but the length can be made very short so that it does not affect vehicle routes.
 - You can generate long trips going around the network with lots of
   detours. This can be accomplished using
   [randomTrips.py](Tools/Trip.md#randomtripspy) by setting
@@ -682,6 +672,17 @@ use the Linux version or download the [nightly-extra version](https://sumo.dlr.d
   whole simulation is much larger the specified value because some
   vehicles leave the simulation and new vehicles with distinct IDs are
   inserted to replace them.
+  
+- You can use [rerouters](Simulation/Rerouter.md) in the
+  simulation. Rerouters, assign a new route for vehicles driving
+  across them and thus prevent them from leaving the network. For an
+  example with a simple circle see [{{SUMO}}/tests/sumo/cf_model/drive_in_circles]({{Source}}tests/sumo/cf_model/drive_in_circles)
+  - The tool [generateContinuousRerouters.py](Tools/Misc.md#generatecontinuousrerouterspy) can be used to generate
+    rerouters for continuous operation with configurable turning ratios.
+  - If the network is not circular to begin with (i.e a single
+    road) you can make the network circular in a non-geometrical way
+    by adding a return edge and declaring it's length to be very
+    short (minimum 0.1m). The return edge should have a sensible geometry (i.e. a detour loop) but the length can be made very short so that it does not affect vehicle routes.
 
 !!! caution
     Up to version 0.24.0, option **--max-num-vehicles** terminates the simulation when exceeding the specified number

@@ -147,6 +147,9 @@ RODUAFrame::addDUAOptions() {
     oc.doRegister("skip-new-routes", new Option_Bool(false));
     oc.addDescription("skip-new-routes", "Processing", "Only reuse routes from input, do not calculate new ones");
 
+    oc.doRegister("keep-route-probability", new Option_Float(0));
+    oc.addDescription("keep-route-probability", "Processing", "The probability of keeping the old route");
+
     oc.doRegister("ptline-routing", new Option_Bool(false));
     oc.addDescription("ptline-routing", "Processing", "Route all public transport input");
 

@@ -186,7 +186,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
                                            GUIIconSubSys::getIcon(GUIIcon::NEW_NET), myGNEApp, MID_HOTKEY_CTRL_N_NEWNETWORK);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
                                            "New Window", "Ctrl+Shift+N", "Open a new netedit window.",
-                                           nullptr, myGNEApp, MID_NEW_WINDOW);
+                                           nullptr, myGNEApp, MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW);
     new FXMenuSeparator(fileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
                                            "&Open Network...", "Ctrl+O", "Open a SUMO network.",
@@ -298,15 +298,38 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
 }
 
 // ---------------------------------------------------------------------------
+// GNEApplicationWindowHelper::ModesMenuCommands::CommonMenuCommands - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindowHelper::ModesMenuCommands::CommonMenuCommands::CommonMenuCommands(const ModesMenuCommands* modesMenuCommandsParent) :
+    deleteMode(nullptr),
+    inspectMode(nullptr),
+    selectMode(nullptr),
+    myModesMenuCommandsParent(modesMenuCommandsParent) {
+}
+
+
+void
+GNEApplicationWindowHelper::ModesMenuCommands::CommonMenuCommands::buildCommonMenuCommands(FXMenuPane* modesMenu) {
+    // build every FXMenuCommand giving it a shortcut
+    inspectMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+                  "&Inspect mode", "I", "Inspect elements and change their attributes.",
+                  GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_I_MODES_INSPECT);
+    deleteMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+                 "&Delete mode", "D", "Delete elements.",
+                 GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_D_MODES_DELETE);
+    selectMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+                 "&Select mode", "S", "Select elements.",
+                 GUIIconSubSys::getIcon(GUIIcon::MODESELECT), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_S_MODES_SELECT);
+}
+
+// ---------------------------------------------------------------------------
 // GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands - methods
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::NetworkMenuCommands(const ModesMenuCommands* modesMenuCommandsParent) :
     createEdgeMode(nullptr),
     moveMode(nullptr),
-    deleteMode(nullptr),
-    inspectMode(nullptr),
-    selectMode(nullptr),
     connectMode(nullptr),
     prohibitionMode(nullptr),
     TLSMode(nullptr),
@@ -322,9 +345,6 @@ void
 GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::showNetworkMenuCommands() {
     createEdgeMode->show();
     moveMode->show();
-    deleteMode->show();
-    inspectMode->show();
-    selectMode->show();
     connectMode->show();
     prohibitionMode->show();
     TLSMode->show();
@@ -339,9 +359,6 @@ void
 GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::hideNetworkMenuCommands() {
     createEdgeMode->hide();
     moveMode->hide();
-    deleteMode->hide();
-    inspectMode->hide();
-    selectMode->hide();
     connectMode->hide();
     prohibitionMode->hide();
     TLSMode->hide();
@@ -355,18 +372,9 @@ GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::hideNetworkM
 void
 GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::buildNetworkMenuCommands(FXMenuPane* modesMenu) {
     // build every FXMenuCommand giving it a shortcut
-    inspectMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                "&Inspect mode", "I", "Inspect elements and change their attributes.",
-                GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_I_MODES_INSPECT);
-    deleteMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                "&Delete mode", "D", "Delete elements.",
-                GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_D_MODES_DELETE);
-    selectMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                "&Select mode", "S", "Select elements.",
-                GUIIconSubSys::getIcon(GUIIcon::MODESELECT), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_S_MODES_SELECT);
     moveMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                "&Move mode", "M", "Move elements.",
-                GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_M_MODES_MOVE);
+               "&Move mode", "M", "Move elements.",
+               GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_M_MODES_MOVE);
     createEdgeMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                      "&Edge mode", "E", "Create junction and edges.",
                      GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_E_MODES_EDGE_EDGEDATA);
@@ -398,6 +406,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::buildNetwork
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::DemandMenuCommands(const ModesMenuCommands* modesMenuCommandsParent) :
+    moveMode(nullptr),
     routeMode(nullptr),
     vehicleMode(nullptr),
     vehicleTypeMode(nullptr),
@@ -411,6 +420,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::DemandMenuCom
 
 void
 GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::showDemandMenuCommands() {
+    moveMode->show();
     routeMode->show();
     vehicleMode->show();
     vehicleTypeMode->show();
@@ -423,6 +433,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::showDemandMen
 
 void
 GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::hideDemandMenuCommands() {
+    moveMode->hide();
     routeMode->hide();
     vehicleMode->hide();
     vehicleTypeMode->hide();
@@ -436,6 +447,9 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::hideDemandMen
 void
 GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::buildDemandMenuCommands(FXMenuPane* modesMenu) {
     // build every FXMenuCommand giving it a shortcut
+    moveMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+               "&Move mode", "M", "Move elements.",
+               GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_M_MODES_MOVE);
     routeMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                 "Route mode", "R", "Create Routes.",
                 GUIIconSubSys::getIcon(GUIIcon::MODEROUTE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA);
@@ -506,15 +520,18 @@ GNEApplicationWindowHelper::ModesMenuCommands::DataMenuCommands::buildDataMenuCo
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindowHelper::ModesMenuCommands::ModesMenuCommands(GNEApplicationWindow* GNEApp) :
+    commonMenuCommands(this),
     networkMenuCommands(this),
     demandMenuCommands(this),
     dataMenuCommands(this),
-    myGNEApp(GNEApp)
-{ }
+    myGNEApp(GNEApp) {
+}
 
 
 void
 GNEApplicationWindowHelper::ModesMenuCommands::buildModesMenuCommands(FXMenuPane* modesMenu) {
+    // build Common modes commands and hide it
+    commonMenuCommands.buildCommonMenuCommands(modesMenu);
     // build Network modes commands and hide it
     networkMenuCommands.buildNetworkMenuCommands(modesMenu);
     networkMenuCommands.hideNetworkMenuCommands();
@@ -648,6 +665,7 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::DemandViewOptio
     menuCheckToggleGrid(nullptr),
     menuCheckDrawSpreadVehicles(nullptr),
     menuCheckHideShapes(nullptr),
+    menuCheckShowAllTrips(nullptr),
     menuCheckHideNonInspectedDemandElements(nullptr),
     menuCheckShowAllPersonPlans(nullptr),
     menuCheckLockPerson(nullptr),
@@ -674,20 +692,25 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::buildDemandView
                           GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDESHAPES),
                           myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES);
 
+    menuCheckShowAllTrips = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+                          "Toggle show all trips", "Alt+4", "",
+                          GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWTRIPS),
+                          myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS);
+
     menuCheckShowAllPersonPlans = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                                  "Show all person plans", "Alt+4", "",
+                                  "Show all person plans", "Alt+5", "",
                                   GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWPERSONPLANS),
                                   myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS);
 
     menuCheckLockPerson = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                          "Lock selected person", "Alt+5", "",
+                          "Lock selected person", "Alt+6", "",
                           GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_LOCKPERSON),
                           myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON);
 
     menuCheckHideNonInspectedDemandElements = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-        "Toggle show non-inspected demand elements", "Alt+6", "",
-        GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS),
-        myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED);
+            "Toggle show non-inspected demand elements", "Alt+7", "",
+            GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS),
+            myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED);
 
     // build separator
     separator = new FXMenuSeparator(editMenu);
@@ -699,6 +722,7 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::hideDemandViewO
     menuCheckToggleGrid->hide();
     menuCheckDrawSpreadVehicles->hide();
     menuCheckHideShapes->hide();
+    menuCheckShowAllTrips->hide();
     menuCheckHideNonInspectedDemandElements->hide();
     menuCheckShowAllPersonPlans->hide();
     menuCheckLockPerson->hide();
@@ -832,6 +856,7 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::ProcessingMenuCommands(GNEAp
     computeDemand(nullptr),
     cleanRoutes(nullptr),
     joinRoutes(nullptr),
+    adjustPersonPlans(nullptr),
     clearInvalidDemandElements(nullptr),
     optionMenus(nullptr),
     myGNEApp(GNEApp) {
@@ -855,7 +880,7 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::buildProcessingMenuCommands(
                     GUIIconSubSys::getIcon(GUIIcon::JOINJUNCTIONS), myGNEApp, MID_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES);
     clearInvalidCrossings = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
                             "Clean invalid crossings", "F8", "Clear invalid crossings.",
-                            GUIIconSubSys::getIcon(GUIIcon::JOINJUNCTIONS), myGNEApp, MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS);
+                            GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), myGNEApp, MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS);
     // build demand  processing menu commands
     computeDemand = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
                     "Compute demand", "F5", "Computes demand elements.",
@@ -866,9 +891,12 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::buildProcessingMenuCommands(
     joinRoutes = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
                  "Join routes", "F7", "Joins routes with the same edges.",
                  GUIIconSubSys::getIcon(GUIIcon::JOINROUTES), myGNEApp, MID_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES);
+    adjustPersonPlans = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+                        "Adjust person plans", "Shift+F7", "Adjust person plans (start/end positions, arrival positions, etc.)",
+                        GUIIconSubSys::getIcon(GUIIcon::ADJUSTPERSONPLANS), myGNEApp, MID_HOTKEY_SHIFT_F7_ADJUST_PERSON_PLANS);
     clearInvalidDemandElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
                                  "Clean invalid route elements", "F8", "Clear elements with an invalid path (routes, Trips, Flows...).",
-                                 GUIIconSubSys::getIcon(GUIIcon::JOINJUNCTIONS), myGNEApp, MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS);
+                                 GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), myGNEApp, MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS);
     // add separator (because optionsmenu is commmon for Network and Demand modes
     new FXMenuSeparator(fileMenu);
     optionMenus = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
@@ -917,11 +945,13 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::showDemandProcessingMenuComm
     computeDemand->enable();
     cleanRoutes->enable();
     joinRoutes->enable();
+    adjustPersonPlans->enable();
     clearInvalidDemandElements->enable();
     // now show it
     computeDemand->show();
     cleanRoutes->show();
     joinRoutes->show();
+    adjustPersonPlans->show();
     clearInvalidDemandElements->show();
 }
 
@@ -932,11 +962,13 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::hideDemandProcessingMenuComm
     computeDemand->disable();
     cleanRoutes->disable();
     joinRoutes->disable();
+    adjustPersonPlans->disable();
     clearInvalidDemandElements->disable();
     // now hide it
     computeDemand->hide();
     cleanRoutes->hide();
     joinRoutes->hide();
+    adjustPersonPlans->hide();
     clearInvalidDemandElements->hide();
 }
 
@@ -1251,8 +1283,19 @@ GNEApplicationWindowHelper::toggleEditOptionsDemand(GNEViewNet* viewNet, const M
             // show extra information for tests
             WRITE_DEBUG("Enabled hide shapes throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToggleHideNonInspecteDemandElements
+        // Call manually onCmdToggleHideShapes
         viewNet->onCmdToggleHideShapes(obj, sel, nullptr);
+    } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckShowAllTrips) {
+        // Toggle menuCheckShowAllTrips
+        if (viewNet->getDemandViewOptions().menuCheckShowAllTrips->amChecked() == TRUE) {
+            // show extra information for tests
+            WRITE_DEBUG("Disabled show all trips throught alt + " + toString(numericalKeyPressed + 1));
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Enabled show all trips throught alt + " + toString(numericalKeyPressed + 1));
+        }
+        // Call manually onCmdToggleShowTrips
+        viewNet->onCmdToggleShowTrips(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckShowAllPersonPlans) {
         // Toggle menuCheckShowAllPersonPlans
         if (viewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->amChecked() == TRUE) {

@@ -1112,12 +1112,19 @@ GNETAZFrame::TAZParameters::isAddEdgesWithinEnabled() const {
 }
 
 
-std::map<SumoXMLAttr, std::string>
+void
 GNETAZFrame::TAZParameters::getAttributesAndValues() const {
-    std::map<SumoXMLAttr, std::string> parametersAndValues;
+    // check if baseTAZ exist, and if yes, delete it
+    if (myTAZFrameParent->myBaseTAZ) {
+        // delete baseTAZ (and all children)
+        delete myTAZFrameParent->myBaseTAZ;
+    }
+    // create a base TAZ
+    myTAZFrameParent->myBaseTAZ = new CommonXMLStructure::SumoBaseObject(nullptr);
+    // set tag
+    myTAZFrameParent->myBaseTAZ->setTag(SUMO_TAG_TAZ);
     // get color (currently the only editable attribute)
-    parametersAndValues[SUMO_ATTR_COLOR] = myTextFieldColor->getText().text();
-    return parametersAndValues;
+    myTAZFrameParent->myBaseTAZ->addColorAttribute(SUMO_ATTR_COLOR, GNEAttributeCarrier::parse<RGBColor>(myTextFieldColor->getText().text()));
 }
 
 
@@ -1291,7 +1298,8 @@ GNETAZFrame::TAZEdgesGraphic::onCmdChoosenBy(FXObject* obj, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "TAZs") {
+    GNEFrame(horizontalFrameParent, viewNet, "TAZs"),
+    myBaseTAZ(nullptr) {
 
     // create current TAZ modul
     myTAZCurrent = new TAZCurrent(this);
@@ -1326,6 +1334,10 @@ GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* v
 
 
 GNETAZFrame::~GNETAZFrame() {
+    // check if we have to delete base TAZ object
+    if (myBaseTAZ) {
+        delete myBaseTAZ;
+    }
 }
 
 
@@ -1455,38 +1467,36 @@ GNETAZFrame::shapeDrawed() {
         WRITE_WARNING("TAZ shape cannot be empty");
         return false;
     } else {
-        // Declare map to keep TAZ Parameters values
-        std::map<SumoXMLAttr, std::string> valuesOfElement = myTAZParameters->getAttributesAndValues();
-
+        // get attributes and values
+        myTAZParameters->getAttributesAndValues();
         // obtain Netedit attributes
-        myNeteditAttributes->getNeteditAttributesAndValues(valuesOfElement, nullptr);
-
+        myNeteditAttributes->getNeteditAttributesAndValues(myBaseTAZ, nullptr);
         // generate new ID
-        valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generateTAZElementID(SUMO_TAG_TAZ);
-
+        myBaseTAZ->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->generateTAZElementID(SUMO_TAG_TAZ));
         // obtain shape and close it
         PositionVector shape = myDrawingShape->getTemporalShape();
         shape.closePolygon();
-        valuesOfElement[SUMO_ATTR_SHAPE] = toString(shape);
-
+        myBaseTAZ->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shape);
         // check if TAZ has to be created with edges
         if (myTAZParameters->isAddEdgesWithinEnabled()) {
             std::vector<std::string> edgeIDs;
             auto ACsInBoundary = myViewNet->getAttributeCarriersInBoundary(shape.getBoxBoundary(), true);
-            for (auto i : ACsInBoundary) {
-                if (i.second->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                    edgeIDs.push_back(i.first);
+            for (const auto &AC : ACsInBoundary) {
+                if (AC.second->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+                    edgeIDs.push_back(AC.first);
                 }
             }
-            valuesOfElement[SUMO_ATTR_EDGES] = toString(edgeIDs);
+            myBaseTAZ->addStringListAttribute(SUMO_ATTR_EDGES, edgeIDs);
         } else {
             // TAZ is created without edges
-            valuesOfElement[SUMO_ATTR_EDGES] = "";
+            myBaseTAZ->addStringListAttribute(SUMO_ATTR_EDGES, std::vector<std::string>());
         }
-        // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-        SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesOfElement, getPredefinedTagsMML(), toString(SUMO_TAG_TAZ));
-        // return true if TAZ was successfully created
-        return GNEAdditionalHandler::buildAdditional(myViewNet->getNet(), true, SUMO_TAG_TAZ, SUMOSAXAttrs, nullptr);
+        // declare additional handler
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), "", true);
+        // build TAZ
+        additionalHandler.parseSumoBaseObject(myBaseTAZ);
+        // TAZ created, then return true
+        return true;
     }
 }
 

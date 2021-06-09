@@ -49,7 +49,15 @@ fleet = traci.vehicle.getTaxiFleet(0)
 print("taxiFleet", fleet)
 reservations = traci.person.getTaxiReservations(0)
 print("reservations", reservations)
-traci.vehicle.dispatchTaxi(fleet[0], [reservations[0].id])
+taxi = fleet[0]
+
+print("pickUpDuration", traci.vehicle.getParameter(taxi, "device.taxi.pickUpDuration"))
+print("dropOffDuration", traci.vehicle.getParameter(taxi, "device.taxi.dropOffDuration"))
+traci.vehicle.setParameter(taxi, "device.taxi.pickUpDuration", "10")
+traci.vehicle.setParameter(taxi, "device.taxi.dropOffDuration", "20")
+print("pickUpDuration", traci.vehicle.getParameter(taxi, "device.taxi.pickUpDuration"))
+print("dropOffDuration", traci.vehicle.getParameter(taxi, "device.taxi.dropOffDuration"))
+traci.vehicle.dispatchTaxi(taxi, [reservations[0].id])
 
 while traci.simulation.getMinExpectedNumber() > 0:
     print("%s all=%s empty=%s pickup=%s dropoff=%s pickup+dropoff=%s" % (

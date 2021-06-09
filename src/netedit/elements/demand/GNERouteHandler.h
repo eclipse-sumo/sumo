@@ -154,16 +154,16 @@ public:
     static bool buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent, GNEFrameAttributesModuls::AttributesCreator* personPlanAttributes, GNEFrameModuls::PathCreator* pathCreator);
 
     /// @brief build person trip
-    static void buildPersonTrip(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                                GNEAdditional* busStopFrom, GNEAdditional* busStopTo, double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes);
+    static void buildPersonTrip(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, GNEAdditional* toBusStop,
+                                double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes);
 
     /// @brief build walk
     static void buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                          GNEAdditional* busStopFrom, GNEAdditional* busStopTo, const std::vector<GNEEdge*>& edges, GNEDemandElement* route, double arrivalPos);
+                          GNEAdditional* toBusStop, const std::vector<GNEEdge*>& edges, GNEDemandElement* route, double arrivalPos);
 
     /// @brief build ride
-    static void buildRide(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                          GNEAdditional* busStopFrom, GNEAdditional* busStopTo, double arrivalPos, const std::vector<std::string>& lines);
+    static void buildRide(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, GNEAdditional* toBusStop,
+                          double arrivalPos, const std::vector<std::string>& lines);
 
     /// @brief build stop
     static void buildPersonStop(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* edge, GNEAdditional* busStop, const SUMOVehicleParameter::Stop& stopParameters);
@@ -309,17 +309,17 @@ private:
         /// @brief to edge
         GNEEdge* toEdge;
 
-        /// @brief list of edges
-        std::vector<GNEEdge*> edges;
-
-        /// @brief from busStop
-        GNEAdditional* fromBusStop;
-
         /// @brief to busStop
         GNEAdditional* toBusStop;
 
+        /// @brief list of edges
+        std::vector<GNEEdge*> edges;
+
         /// @brief arrival route
         GNEDemandElement* route;
+
+        /// @brief arrival pos
+        double arrivalPos;
 
         /// @brief vehicle types
         std::vector<std::string> vTypes;
@@ -330,29 +330,17 @@ private:
         /// @brief lines
         std::vector<std::string> lines;
 
-        /// @brief arrival pos
-        double arrivalPos;
-
-        /// @brief edge stop
-        GNEEdge* edgeStop;
-
         /// @brief stop parameters
         SUMOVehicleParameter::Stop stopParameters;
 
         /// @brief bus stop (stop)
         GNEAdditional* busStop;
 
-        /// @brief container stop (stop)
-        GNEAdditional* containerStop;
+        /// @brief edge stop
+        GNEEdge* edgeStop;
 
-        /// @brief charging station (stop)
-        GNEAdditional* chargingStation;
-
-        /// @brief parking area (stop)
-        GNEAdditional* parkingArea;
-
-        /// @brief lane (stop)
-        GNELane* lane;
+        /// @brief lane stop
+        GNELane* laneStop;
 
     private:
         /// @brief Invalidated copy constructor.

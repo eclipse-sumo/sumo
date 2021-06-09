@@ -104,3 +104,6 @@ setRoute_internal
 
 # test ignoring specific foes ids and foe types
 junctionModel.ignore
+
+# add a vehicle with triggered departure
+departTriggered

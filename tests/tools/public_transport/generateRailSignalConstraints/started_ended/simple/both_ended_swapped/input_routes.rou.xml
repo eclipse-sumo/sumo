@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Sep  9 10:11:50 2020 by Eclipse SUMO duarouter Version v1_7_0+0007-9073c1719d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_routes.rou.xml.rou.xml"/>
+        <alternatives-output value="input_routes.rou.xml.rou.alt.xml"/>
+    </output>
+
+    <report>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="train" length="50.00" vClass="rail"/>
+    <vehicle id="t0" type="train" depart="0.00" departSpeed="max">
+        <route edges="a b c"/>
+        <stop busStop="stop_c" arrival="10" until="20" duration="10" started="45" ended="55"/>
+    </vehicle>
+    <vehicle id="t1" type="train" depart="20.00" departSpeed="max">
+        <route edges="d e c"/>
+        <stop busStop="stop_c" arrival="30" until="40" duration="10" started="30" ended="40"/>
+    </vehicle>
+</routes>

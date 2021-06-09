@@ -34,25 +34,26 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const std::string& freq, const std::string& trafficLight, const std::string& filename,
-                             const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement, {
-    lane
-}),
-myLength(length),
-myEndPositionOverLane(0.),
-myTimeThreshold(timeThreshold),
-mySpeedThreshold(speedThreshold),
-myJamThreshold(jamThreshold),
-myTrafficLight(trafficLight) {
+GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const std::string& freq, 
+        const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, 
+        SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, 
+        const std::map<std::string, std::string> &parameters, bool blockMovement) :
+    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, {lane}, filename, vehicleTypes, name, friendlyPos, parameters, blockMovement),
+    myLength(length),
+    myEndPositionOverLane(0.),
+    myTimeThreshold(timeThreshold),
+    mySpeedThreshold(speedThreshold),
+    myJamThreshold(jamThreshold),
+    myTrafficLight(trafficLight) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
 
 
-GNEDetectorE2::GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const std::string& freq, const std::string& trafficLight, const std::string& filename,
-                             const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR_MULTILANE, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement, lanes),
+GNEDetectorE2::GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const std::string& freq, 
+        const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, 
+        double speedThreshold, double jamThreshold, bool friendlyPos, const std::map<std::string, std::string> &parameters, bool blockMovement) :
+    GNEDetector(id, net, GLO_E2DETECTOR, GNE_TAG_E2DETECTOR_MULTILANE, pos, freq, lanes, filename, vehicleTypes, name, friendlyPos, parameters, blockMovement),
     myLength(0),
     myEndPositionOverLane(endPos),
     myTimeThreshold(timeThreshold),
@@ -145,7 +146,7 @@ GNEDetectorE2::fixAdditionalProblem() {
         double newPositionOverLane = myPositionOverLane;
         double newLength = myLength;
         // fix pos and length using fixE2DetectorPosition
-        GNEAdditionalHandler::fixE2DetectorPosition(newPositionOverLane, newLength, getParentLanes().at(0)->getParentEdge()->getNBEdge()->getFinalLength(), true);
+        GNEAdditionalHandler::fixE2SingleLanePosition(newPositionOverLane, newLength, getParentLanes().at(0)->getParentEdge()->getNBEdge()->getFinalLength());
         // set new position and length
         setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
         setAttribute(SUMO_ATTR_LENGTH, toString(myLength), myNet->getViewNet()->getUndoList());
@@ -175,17 +176,15 @@ GNEDetectorE2::fixAdditionalProblem() {
                 i++;
             }
         } else {
-            // declare new position
+            // declare new positions
             double newPositionOverLane = myPositionOverLane;
-            // fix pos and length  checkAndFixDetectorPosition
-            GNEAdditionalHandler::checkAndFixDetectorPosition(newPositionOverLane, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), true);
-            // set new position
-            setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
-            // declare new end position
             double newEndPositionOverLane = myEndPositionOverLane;
-            // fix pos and length  checkAndFixDetectorPosition
-            GNEAdditionalHandler::checkAndFixDetectorPosition(newEndPositionOverLane, getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength(), true);
-            // set new position
+            // fix pos and length checkAndFixDetectorPosition
+            GNEAdditionalHandler::fixE2MultiLanePosition(
+                newPositionOverLane, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(),
+                newEndPositionOverLane, getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
+            // set new position and endPosition
+            setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
             setAttribute(SUMO_ATTR_ENDPOS, toString(newEndPositionOverLane), myNet->getViewNet()->getUndoList());
         }
     }
@@ -194,41 +193,40 @@ GNEDetectorE2::fixAdditionalProblem() {
 
 void
 GNEDetectorE2::updateGeometry() {
-    // declare variables for start and end positions
-    double startPosFixed = myPositionOverLane;
-    double endPosFixed = myPositionOverLane + myLength;
-    // adjust start and end pos
-    if (startPosFixed < 0) {
-        startPosFixed += myPositionOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-    }
-    if (endPosFixed < 0) {
-        endPosFixed += myPositionOverLane > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
-    }
-    // set start position
-    if (myPositionOverLane < 0) {
-        startPosFixed = 0;
-    } else if (myPositionOverLane > (getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength() - myLength)) {
-        startPosFixed = (getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength() - myLength);
-    }
-    // set end position
-    if ((myPositionOverLane + myLength) < 0) {
-        endPosFixed = 0;
-    } else if ((myPositionOverLane + myLength) > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
-        endPosFixed = getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
-    }
-    if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
-        // declare extreme geometry
-        GNEGeometry::ExtremeGeometry extremeGeometry;
-        // set extremes
-        extremeGeometry.laneStartPosition = startPosFixed;
-        extremeGeometry.laneEndPosition = endPosFixed;
-        // calculate consecutive path using parent lanes
-        calculateConsecutivePathLanes(getParentLanes());
-        // calculate edge geometry path using path
-        GNEGeometry::calculateLaneGeometricPath(myAdditionalSegmentGeometry, getPath(), extremeGeometry);
+    // check E2 detector
+    if (myTagProperty.getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
+        // compute path
+        computePathElement();
     } else {
+        // declare variables for start and end positions
+        double startPosFixed = myPositionOverLane;
+        double endPosFixed = myPositionOverLane + myLength;
+        // adjust start and end pos
+        if (startPosFixed < 0) {
+            startPosFixed += myPositionOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+        }
+        if (endPosFixed < 0) {
+            endPosFixed += myPositionOverLane > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
+        }
+        // set start position
+        if (myPositionOverLane < 0) {
+            startPosFixed = 0;
+        } else if (myPositionOverLane > (getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength() - myLength)) {
+            startPosFixed = (getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength() - myLength);
+        }
+        // set end position
+        if ((myPositionOverLane + myLength) < 0) {
+            endPosFixed = 0;
+        } else if ((myPositionOverLane + myLength) > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
+            endPosFixed = getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
+        }
         // Cut shape using as delimitators fixed start position and fixed end position
-        myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), startPosFixed * getParentLanes().front()->getLengthGeometryFactor(), endPosFixed * getParentLanes().back()->getLengthGeometryFactor());
+        myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(),
+                                            (startPosFixed * getParentLanes().front()->getLengthGeometryFactor()),
+                                            (endPosFixed * getParentLanes().back()->getLengthGeometryFactor()),
+                                            myMoveElementLateralOffset);
+        // update centering boundary without updating grid
+        updateCenteringBoundary(false);
     }
 }
 
@@ -244,49 +242,52 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double E2Exaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if ((myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) && s.drawAdditionals(E2Exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // declare color
-        RGBColor E2Color, textColor;
-        // set color
-        if (drawUsingSelectColor()) {
-            E2Color = s.colorSettings.selectedAdditionalColor;
-            textColor = E2Color.changedBrightness(-32);
-        } else if (areLaneConsecutives()) {
-            E2Color = s.detectorSettings.E2Color;
-            textColor = RGBColor::BLACK;
+    if ((myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // check exaggeration
+        if (s.drawAdditionals(E2Exaggeration)) {
+            // declare color
+            RGBColor E2Color, textColor;
+            // set color
+            if (drawUsingSelectColor()) {
+                E2Color = s.colorSettings.selectedAdditionalColor;
+                textColor = E2Color.changedBrightness(-32);
+            } else if (areLaneConsecutives()) {
+                E2Color = s.detectorSettings.E2Color;
+                textColor = RGBColor::BLACK;
+            }
+            // Start drawing adding an gl identificator
+            glPushName(getGlID());
+            // push layer matrix
+            glPushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E2DETECTOR);
+            // set color
+            GLHelper::setColor(E2Color);
+            // draw geometry
+            GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.detectorSettings.E2Width * E2Exaggeration);
+            // Check if the distance is enought to draw details
+            if (s.drawDetail(s.detailSettings.detectorDetails, E2Exaggeration)) {
+                // draw E2 Logo
+                drawDetectorLogo(s, E2Exaggeration, "E2", textColor);
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, E2Exaggeration, -1, 0, true);
+            }
+            // pop layer matrix
+            glPopMatrix();
+            // Pop name
+            glPopName();
+            // check if dotted contours has to be drawn
+            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration);
+            }
+            if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration);
+            }
         }
-        // Start drawing adding an gl identificator
-        glPushName(getGlID());
-        // push layer matrix
-        glPushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E2DETECTOR);
-        // set color
-        GLHelper::setColor(E2Color);
-        // draw geometry
-        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.detectorSettings.E2Width * E2Exaggeration);
-        // Check if the distance is enought to draw details
-        if (s.drawDetail(s.detailSettings.detectorDetails, E2Exaggeration)) {
-            // draw E2 Logo
-            drawDetectorLogo(s, E2Exaggeration, "E2", textColor);
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, E2Exaggeration, -1, 0, true);
-        }
-        // pop layer matrix
-        glPopMatrix();
-        // Pop name
-        glPopName();
         // Draw additional ID
         drawAdditionalID(s);
         // draw additional name
         drawAdditionalName(s);
-        // check if dotted contours has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration);
-        }
-        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration);
-        }
     }
 }
 
@@ -314,7 +315,7 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_FILE:
             return myFilename;
         case SUMO_ATTR_VTYPES:
-            return myVehicleTypes;
+            return toString(myVehicleTypes);
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             return time2string(myTimeThreshold);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
@@ -329,6 +330,19 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+double
+GNEDetectorE2::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_POSITION:
+            return myPositionOverLane;
+        case SUMO_ATTR_ENDPOS:
+            return myEndPositionOverLane;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -371,7 +385,15 @@ bool
 GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidDetectorID(value);
+            if (isValidDetectorID(value)) {
+                if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) {
+                    return (myNet->retrieveAdditional(GNE_TAG_E2DETECTOR_MULTILANE, value, false) == nullptr);
+                } else {
+                    return (myNet->retrieveAdditional(SUMO_TAG_E2DETECTOR, value, false) == nullptr);
+                }
+            } else {
+                return false;
+            }
         case SUMO_ATTR_LANE:
             if (value.empty()) {
                 return false;
@@ -469,7 +491,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFilename = value;
             break;
         case SUMO_ATTR_VTYPES:
-            myVehicleTypes = value;
+            myVehicleTypes = parse<std::vector<std::string> >(value);
             break;
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             myTimeThreshold = parse<SUMOTime>(value);

@@ -157,6 +157,8 @@ enum {
     MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,
     /// @brief save TLS Programs
     MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,
+    /// @brief Open a New Window
+    MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW,
     /// @brief save network as
     MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS,
     /// @brief Force save network (flag)
@@ -212,6 +214,8 @@ enum {
     MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR,
     /// @brief compute junctions with volatile options
     MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE,
+    /// @brief Adjust person plans (start und end positions, arrival positions, etc.)
+    MID_HOTKEY_SHIFT_F7_ADJUST_PERSON_PLANS,
     /// @brief focus upper element of current frame (only used in NETEDIT)
     MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,
     /// @}
@@ -252,8 +256,6 @@ enum {
     /// @name Main Window File Menu - IDs
     /// @{
 
-    /// @brief Open a New Window
-    MID_NEW_WINDOW,
     /// @brief Open configuration - ID
     MID_OPEN_CONFIG,
     /// @brief Open network - ID
@@ -628,6 +630,8 @@ enum {
     MID_GNE_TOOLBAREDIT_LOADADDITIONALS,
     /// @brief load demand in SUMO-GUI after press ctrl+T
     MID_GNE_TOOLBAREDIT_LOADDEMAND,
+    /// @brief compute path manager
+    MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER,
 
     /// @}
 
@@ -686,6 +690,8 @@ enum {
     MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED,
     /// @brief hide shapes
     MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES,
+    /// @brief show all trips
+    MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS,
     /// @brief show all person plans
     MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,
     /// @brief lock person

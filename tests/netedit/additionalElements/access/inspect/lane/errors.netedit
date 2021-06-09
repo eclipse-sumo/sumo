@@ -11,12 +11,9 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Current Viewport values: 25.00, 20.00, 25.00. Zoom = '296.00'
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'busStop' in TagSelector
-Debug: Format of optional positive optional integer attribute 'personCapacity' of busStop with ID 'busStop_gneE2_1_0' is invalid; Cannot be negative; Default value will be used.
 Debug: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Selected item 'access' in TagSelector
-Debug: Format of optional positive optional float attribute 'length' of access is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding access 'busStop_gneE2_1_0' in GNEChange_Additional
-Debug: Format of optional positive optional float attribute 'length' of access is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding access 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Value 'dummyLane' for attribute lane of access isn't valid
 Debug: Value '' for attribute lane of access isn't valid

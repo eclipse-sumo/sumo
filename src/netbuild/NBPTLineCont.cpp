@@ -572,6 +572,43 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
 }
 
 
+void
+NBPTLineCont::removeInvalidEdges(const NBEdgeCont& ec) {
+    for (auto& item : myPTLines) {
+        item.second->removeInvalidEdges(ec);
+    }
+}
+
+
+void
+NBPTLineCont::fixPermissions() {
+    for (auto& item : myPTLines) {
+        NBPTLine* line = item.second;
+        const std::vector<NBEdge*>& route = line->getRoute();
+        const SUMOVehicleClass svc = line->getVClass();
+        for (int i = 1; i < (int)route.size(); i++) {
+            NBEdge* e1 = route[i - 1];
+            NBEdge* e2 = route[i];
+            std::vector<NBEdge::Connection> cons = e1->getConnectionsFromLane(-1, e2, -1);
+            if (cons.size() == 0) {
+                //WRITE_WARNINGF("Disconnected ptline '%' between edge '%' and edge '%'", line->getLineID(), e1->getID(), e2->getID());
+            } else {
+                bool ok = false;
+                for (const auto& c : cons) {
+                    if ((e1->getPermissions(c.fromLane) & svc) == svc) {
+                        ok = true;
+                        break;
+                    }
+                }
+                if (!ok) {
+                    int lane = cons[0].fromLane;
+                    e1->setPermissions(e1->getPermissions(lane) | svc);
+                }
+            }
+        }
+    }
+}
+
 double
 NBPTLineCont::getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBRouterEdge, NBVehicle>& router,
                       const NBPTStop* from, const NBPTStop* to, const NBVehicle* veh) {

@@ -47,6 +47,12 @@ def get_options(args=None):
                          help="define the parking areas seperated by comma")
     optParser.add_option("-d", "--parking-duration", dest="duration",
                          help="define the parking duration (in seconds)", default=3600)
+    optParser.add_option("-u", "--parking-until", dest="until",
+                         help="define the parking until duration (in seconds)")
+    optParser.add_option("-b", "--parking-duration-begin", dest="durationBegin",
+                         help="define the minimum parking duration (in seconds)")
+    optParser.add_option("-e", "--parking-duration-end", dest="durationEnd",
+                         help="define the maximum parking duration (in seconds)")
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true", default=False,
                          help="tell me what you are doing")
     optParser.add_option("--random", action="store_true", default=False,
@@ -54,6 +60,7 @@ def get_options(args=None):
     optParser.add_option("-s", "--seed", type="int", default=42,
                          help="random seed")
     (options, args) = optParser.parse_args(args=args)
+    # check route file and parkings
     if not options.routefile or not options.parking:
         optParser.print_help()
         sys.exit()
@@ -79,10 +86,18 @@ def main(options):
         # open route rag
         outf.write("<routes>\n")
         # iterate over trips
-        for trip in sumolib.xml.parse(infile, "trip"):
+        for trip in sumolib.xml.parse(infile, "trip", heterogeneous=True):
             # obtain random parking
             random_parking = random.choice(parkings)
-            trip.addChild("stop", {"parkingArea": random_parking.id, "duration": int(options.duration)})
+            # add child depending of durations
+            if (options.durationBegin and options.durationEnd):
+                #obtain random duration
+                duration = random.randint(int(options.durationBegin), int(options.durationEnd))
+                trip.addChild("stop", {"parkingArea": random_parking.id, "duration": duration})
+            elif options.until:
+                trip.addChild("stop", {"parkingArea": random_parking.id, "until": options.until})
+            else:
+                trip.addChild("stop", {"parkingArea": random_parking.id, "duration": int(options.duration)})
             # write trip
             outf.write(trip.toXML(initialIndent="    "))
         # close route tag

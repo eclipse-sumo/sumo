@@ -5,12 +5,191 @@ title: ChangeLog
 ## Git Master
 
 ### Bugfixes
-- Simulation
-  - Statistic-output value departDelayWaiting is now in s (was in ms before).
+
+- simulation
+  - fixed invalid state file when using option **--vehroute-output.exit-times** and saved vehicles are still on their first edge. Issue #8536 (regression in 1.9.1)
+  - Saved simulation state now restores traffic light phase and phase duration. Issue #7020
+
+- sumo-gui
+  - Drawing parkingAreas with large roadsideCapacity no longer causes the gui to slow down. Issue #8400
+
+- netedit
+  - Fixed unwanted modification of lane/edge permissions after leaving the dialog with 'Cancel'. Issue #8657
+  - Fixed invalid error when trying to place additional objects on edges with length/geometry mismatch. Issue #8692
+  - Fixed invalid restriction when trying to move additional objects on edges with length/geometry mismatch. Issue #8694
+  - Fixed invalid rendering of detEntry and detExit direction. Issue #8693
+
+- netconvert
+  - Fixed missing bus permissions in OSM import. Issue #8587
+
+- traci
+  - Call tracing is now reset properly on restart in the python client for libsumo. Issue #8671
+  - Fixed sumo-gui crash when calling loadState. Issue #8698
+  - Fixed crash when calling vehicle.moveTo. Issue #8714
+
+- tools
+  - sumolib function 'parse_fast_nested' can now (again) ignore intermediate child elements (i.e. to parse vehicle and route if the route is inside a routeDistribution element). Issue #8508 (regression in 1.9.2)
+
+  
 
 ### Enhancements
 
+- simulation
+  - ParkingAreas now support attribute 'departPos' to set a custom position for vehicles when exiting the parkingArea. Issue #8634
+  - Added option **--save-state.period.keep INT** which allows saving state with constant space requirements (combined with option **--save-state.period**).
+  
+- netedit
+  - Connection mode button 'Reset connections' now immediately recomputes connections at the affected junctions. Issue #8658
+
+- neconvert
+  - Option **--default.spreadtype roadCenter** can now be used to improve the geometry of edges with different lane numbers per direction when importing OSM. Issue #8713
+
+- duarouter
+  - Attributes fromLonLat and toLonLat are now supported for personTrip. Issue #8665
+  - Attributes 'x', 'y' and 'lon', 'lat' can now be used in place of stop attribute 'edge' and 'endPos'. Issue #8666
+
+- traci
+  - Added function 'traci.vehicle.getTimeLoss' to retrieve the timeLoss since departure. Issue #8679
+  - Added function 'traci.vehicle.setPreviousSpeed' to modify the speed assumed by Sumo during the prior step (i.e. for computation of possible acceleration). This can be combined with 'traci.vehicle.moveTo' to override the behavior in the previous step. Issue #7190
+  - Fixed missing follower information when calling 'traci.vehicle.getFollower' while on an internal edge. Issue #8701
+
+- tools
+  - [cutRoutes.py](Tools/Routes.md#cutroutespy) now handles vehicle attributes 'arrivalEdge' and 'departEdge'. Issue #8644  
+  - Added new tool [stateReplay.py](Tools/Misc.md#statereplaypy) to visually observe a simulation that is running without gui (i.e. on a remote server).
+  - [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy) can now make use of post-facto stop timing data (attribute 'started', 'ended'). Issue #8610
+  - Added netdiff.py option **--remove-plain** to automatically clean up temporary files. Issue #8712
+  - [gtfs2pt.py](Tools/Import/GTFS.md) vTypes are now written as a separated output file. The name of the file can be defined with **--vtype-output**. Issue #8646
+  
+
+### Miscelaneous
+- tools
+  - Function sumolib.xml.parse now sets the attribute `heterogeneous=True` by default. This enables parsing of all attributes even not all elements have the same set of attributes. The value `heterogeneous=False` is useful for conserving memory when all elements are known to have the same set of attributes. Issue #8651
+  - Now the tool [drtOnline.py](Tools/Drt.md) contains only the information for DRT scheduling (read fleet and requests, call a DARP solver and dispatch). To find the best routes, different methods can be used to solve the DialARideProblem (DARP), which are defined in the script "darpSolvers.py". Issue #8700
+
+## Version 1.9.2 (18.05.2021)
+
+### Bugfixes
+
+- simulation
+  - Vehroute output for persons now writes the correct stopping place type (i.e. parkingArea, busStop, etc.) Issue #8597
+
+- sumo-gui
+  - Coloring *by waitingTime* now uses value 0 for stopped persons, consistent with stopped vehicles. Issue #8585
+  
+- netedit
+  - When adding stops to a trip, the route now changes as necessary to pass the stop location. Issue #7364
+  - Person stages that end at a busStop can now be defined. Issue #6903
+  - Flows and vehicles are now drawn on their configured departLane. Issue #7888
+  - Fixed missing 'modes' menu entries in Demand- and Data-supermode. Issue #8486
+  
+- netconvert
+  - Added automated check to prevent disconnected routes due to invalid lane-change permissions in OSM input. Issue #8603
+  - Fixed invalid network output when setting **--ignore-change-restrictions ignoring**. Issue #8616
+  - Fixed failure of **--tls.guess-signals** in lefthand network. Issue #8635
+  
+- marouter
+  - Input attributes fromJunction and toJunction are now working. Issue #8631
+
+- traci
+  - Fixed crash when trying to read parameters for subscriptions that don't have them. Issue #8601 (regression in 1.9.1)
+  
+### Enhancements
+
+- simulation
+  - Vehroute-output now includes stop attributes 'started' and 'ended' and ride attribute 'ended' if option **--vehroute-output.exit-times** is set. Issue #8415, #8600
+  - Added option **--use-stop-ended** to use the new stop attribute 'ended' instead of 'until'. Issue #8611
+
+- netedit
+  - Vehicle attributes departEdge and arrivalEdge are now supported. Issue #8452
+
+- duarouter
+  - Added option **--keep-route-probability** which lets a given proportion of vehicles keep their old routes (selected at random). Issue #8550
+
+- tools
+  - [duaIterate.py](Demand/Dynamic_User_Assignment.md#iterative_assignment_dynamic_user_equilibrium) now supports option **--convergence-steps** which forces route choices to converge in the given number of steps (via duarouter option **--keep-route-probability**). This is recommended when using option **--logit** which otherwise may not converge at all. Issue #8550
+  - [countEdgeUsage.py](Tools/Routes.md#countedgeusagepy) now allows filtering and grouping counts by vehicle departure time. Issue #8621
+  
+
+## Version 1.9.1 (04.05.2021)
+
+### Bugfixes
+- Simulation
+  - Statistic-output value departDelayWaiting is now in s (was in ms before).
+  - Fixed emergency braking with high-duration continuous lane changing. Issue #8489 (regression in 1.9.0)
+  - departDelayWaiting (verbose output and statistic-output) no longer includes loaded vehicles that were not scheduled to depart before simulation end. Issue #8490
+  - Person stops with duration 0 are now working. Issue #8494
+  - Fixed bug where vehicles could ignore connection permissions. Issue #8499
+  - Fixed invalid jamming of persons and vehicles on a shared walkingarea. Issue #8417
+  - Fixed invalid vehroute.exit-times after loading state. Issue #8536
+  - Fixed missing vehicle-class-specific speed limits on internal lane. Issue #8556
+  - Fixed bug where person did not exit ride on access edge of destination stop. Issue #8558
+  - Fixed error when taxi ride starts or ends at a busStop only reachable via access. Issue #8578
+  
+- netconvert
+  - Loaded road connections are no longer ignored when railway.topology.repair affects a junction. Issue #8505
+  - Fixed invalid connections at ramp-like junctions with bike lanes. Issue #8538
+  - Phases with identical states are no longer merged if their names differ. Issue #8544
+  
+- duarouter
+  - Option **--weights.priority-factor** is no longer ignored in rail networks with bidirectional tracks. Issue #8561
+
+- netedit
+  - Restored polygon exaggeration so that it increases line width rather than growing the whole shape. Issue #8568 (regression in 1.7.0) 
+  - Polygon ids can be shown again. Issue #8575 (regression in 1.7.0)
+  - Setting size of additional ids is now working. Issue #8574 (regression in 1.8.0)
+  - Ids of additional objects are now shown when zoomed out. Issue #8571
+
+- TraCI
+  - Fixed crash when calling traci.simulation.loadState. Issue #8477, #8511
+  - Fixed invalid traceFile when using traci.<domain>.unsubscribe. Issue #8491
+  - Added LiSum option **--lisa-version** to allow compatibility with version below 7.2. Issue #8065
+  - Fixed LiSum crash. Issue #8104
+  
+- tools
+  - osmWebWizard.py can now import locations with negative longitude again. Issue #8521 (regression in 1.9.0)
+  - Fixed problem with sumolib.xml.parse_fast_nested when an element is missing some of the attributes to be parsed. Issue #8508
+  - Fixed invalid characters in ptlines2flow.py output. Issue #8557
+  - Fixed invalid constraint output of generateRailSignalConstraints.py when two vehicles stop with parking=true and the same until time at the same stop. Issue #8246
+
+- Miscellaneous
+  - Fixed invalid xml output when writing file creation timestamp in exotic locales. Issue #8533
+  - Fixed proj.db error message when starting applications with geo-conversion capability (sumo, netconvert, polyconvert) on windows (commonly used functionality was not affected). Issue #8497 (regression in 1.9.0)
+
+### Enhancements
+- Simulation
+  - Vehicles can now be equipped with the [glosa device](Simulation/GLOSA.md) to adapt their speed at traffic lights. Issue #7721
+  - Verbose output now lists total time spent on TraCI when applicable. Issue #8478
+  - Statistic-output now includes 'totalTravelTime' and 'totalDepartDelay'. Issue #8484
+  - Added option **--tripinfo-output.write-undeparted** to ensure that the number of written tripinfos is independent of insertion success (simplify comparison of different runs). Issue #8475
+  - Vehicles can now be [configured to ignore specific foe vehicles at junctions](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters). Issue #8205
+  - Option **--time-to-teleport.disconnect** now supports value 0 for teleporting without waiting. Issue #8537
+
+- sumo-gui
+  - Updated container count icon in status bar. Issue #8479
+
+- netconvert
+  - Added option **--junctions.higher-speed** to allow higher speed on internal lanes when the speed limit changes between incoming and outgoing edge. When set, speed on junction will be set to the maximum of both edges rather than the average. Issue #8535
+
+- TraCI
+  - Added traci.trafficlight functions to work with [railSignalConstraints](Simulation/Railways.md#schedule_constraints): getConstraints, getConstraintsByFoe, removeConstraints, swapConstraints. Issue #8455, #8224
+  - traci.simulation.Stage now supports function 'toXML' for python client. Issue #8517
+
+- tools
+  - Added new tool [drtOnline.py](Tools/Drt.md) for simulation of demand responsive transport (DRT). It uses the [taxi API](Simulation/Taxi.md#traci) with an LP-Solver to optimize shared dispatch. Issue #8256
+  - Added function sumolib.route.addInternal to interpolate internal edges into a route. Issue #1322
+  - sumolib.net.getShortestPath now includes internal edges in path cost and supports parameter 'withInternal' for including internal edges in the resulting edge list edges#4994
+  - [gtfs2pt.py](Tools/Import/GTFS.md) now supports option **--osm-routes** to improve mapping of gtfs data onto the network. Issue #8251
+  - [edgeDataFromFlow](Tools/Detector.md#edgedatafromflowpy) now supports cadyts output. Issue #8516
+  - [splitRouteFiles.py](Tools/Routes.md#splitroutefilespy) now handles detector file. Issue #8462
+  - [routeSampler.py](Tools/Turns.md#routesamplerpy) now supports option **--pedestrians** to generate persons instead of vehicles. Issue #8523
+
 ### Other
+
+- Miscellaneous
+  - Fixed pip package contents. Issue #8513, #8514
+  - You can use libsumo and libtraci as a dependency in your maven builds by the using package repository https://repo.eclipse.org/content/repositories/sumo-releases/. Issue #7921
+- Documentation
+  - Documented [statistic-output](Simulation/Output/StatisticOutput.md). Issue #8188
 
 ## Version 1.9.0 (13.04.2021)
 

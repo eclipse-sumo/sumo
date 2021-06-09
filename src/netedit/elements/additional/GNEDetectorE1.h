@@ -42,9 +42,12 @@ public:
      * @param[in] name E1 detector name
      * @param[in] vehicleTypes space separated list of vehicle type ids to consider
      * @param[in] friendlyPos enable or disable friendly positions
-     * @param[in] block movement enable or disable additional movement
+     * @param[in] parameters generic parameters
+     * @param[in] blockMovement enable or disable additional movement
      */
-    GNEDetectorE1(const std::string& id, GNELane* lane, GNENet* net, double pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement);
+    GNEDetectorE1(const std::string& id, GNELane* lane, GNENet* net, double pos, SUMOTime freq, const std::string& filename, 
+                  const std::vector<std::string>& vehicleTypes, const std::string& name, bool friendlyPos, 
+                  const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /// @brief Destructor
     ~GNEDetectorE1();
@@ -80,6 +83,12 @@ public:
      * @return string with the value associated to key
      */
     std::string getAttribute(SumoXMLAttr key) const;
+
+    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    double getAttributeDouble(SumoXMLAttr key) const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

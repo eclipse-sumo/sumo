@@ -68,6 +68,8 @@ giving it an id. The vehicles using the route refer it using the
 </routes>
 ```
 
+## Available Vehicle attributes
+
 A vehicle may be defined using the following attributes:
 
 | Attribute Name  | Value Type                                                                    | Description                            |
@@ -92,6 +94,7 @@ A vehicle may be defined using the following attributes:
 | via             | id list                                                                       | List of intermediate edges that shall be passed on [rerouting](Simulation/Routing.md#features_that_cause_rerouting) <br><br>**Note:** when via is not set, any `<stop>`-elements that belong to this route will automatically be used as intermediate edges. Otherwise via takes precedence.                                                                                                                                     |
 | departPosLat    | float(m)/string ("random", "free", "random_free", "left", "right", "center") | The lateral position on the departure lane at which the vehicle shall enter the net; see [Simulation/SublaneModel](Simulation/SublaneModel.md). *default: "center"*                                                                                      |
 | arrivalPosLat   | float(m)/string ("left", "right", "center")                                   | The lateral position on the arrival lane at which the vehicle shall arrive; see [Simulation/SublaneModel](Simulation/SublaneModel.md). by default the vehicle does not care about lateral arrival position                                               |
+| speedFactor   | float > 0                                   | Sets custom speedFactor (factor on road speed limit) and overrides the [speedFactor distribution](#speed_distributions) of the vehicle type                                               |
 
 !!! caution
     Any vehicle types or routes referenced by the attributes **type** or **route** must be defined **before** they are used. [Loading order is described here.](sumo.md#loading_order_of_input_files)
@@ -99,7 +102,7 @@ A vehicle may be defined using the following attributes:
 ## Repeated vehicles (Flows)
 
 It is possible to define repeated vehicle emissions ("flow"s), which
-have the same parameters as the vehicle except for the departure time.
+have the same parameters as the vehicle or trip definitions except for the departure time.
 The id of the created vehicles is "flowId.runningNumber" and they are
 distributed either equally or randomly in the given interval. The
 following additional parameters are known:
@@ -113,9 +116,20 @@ following additional parameters are known:
 | probability    | float(\[0,1\]) | probability for emitting a vehicle each second (not together with vehsPerHour or period), see also [Simulation/Randomness](Simulation/Randomness.md#flows_with_a_random_number_of_vehicles) |
 | number         | int(\#)        | total number of vehicles, equally spaced                                                                                                                                                            |
 
+Flow can define their route explicitly (like vehicles) or with from,to,via (like trips):
+
 ```xml
 <flow id="type1" color="1,1,0"  begin="0" end= "7200" period="900" type="BUS">
     <route edges="beg middle end rend"/>
+    <stop busStop="station1" duration="30"/>
+</flow>
+
+<route id="route1" edges="beg middle end rend"/>
+<flow id="type2" color="1,1,0"  begin="0" end= "7200" period="900" type="BUS" route="route1">
+    <stop busStop="station1" duration="30"/>
+</flow>
+
+<flow id="type3" color="1,1,0"  begin="0" end= "7200" period="900" type="BUS" from="beg" to="end">    
     <stop busStop="station1" duration="30"/>
 </flow>
 ```
@@ -479,7 +493,7 @@ When defining a vehicle type with a *vClass*, the following default speed-deviat
 
 Instead of configuring speed distributions in a `<vType>` definition (as
 explained below), the [sumo](sumo.md)-option **--default.speeddev** {{DT_FLOAT}} can be used to set
-a global default. Seeting this value to 0 restores pre-1.0.0 behavior.
+a global default. Setting this value to 0 restores pre-1.0.0 behavior.
 
 ### Defining speed limit violations explicitly
 
@@ -755,15 +769,15 @@ lists which parameter are used by which model(s). [Details on car-following mode
 | gapControlGainGapDot         | 0.0125                                                  |          | The control gain determining the rate of the positioning deviation derivative (Gap control mode)          | CACC      |
 | collisionAvoidanceGainGap    | 0.45                                                    |          | The control gain determining the rate of positioning deviation (Collision avoidance mode)                 | CACC      |
 | collisionAvoidanceGainGapDot | 0.05                                                    |          | The control gain determining the rate of the positioning deviation derivative (Collision avoidance mode)  | CACC      |
-| CC1                          |                                                       |          | Spacing Time - s                                                                                          | W99       |
-| CC2                          |                                                       |          | Following Variation - m                                                                                   | W99       |
-| CC3                          |                                                       |          | Threshold for Entering "Following" - s                                                                    | W99       |
-| CC4                          |                                                       |          | Negative "Following" Threshold - m/s                                                                      | W99       |
-| CC5                          |                                                       |          | Positive "Following" Threshold - m/s                                                                      | W99       |
-| CC6                          |                                                       |          | Speed Dependency of Oscillation - 10^-4 rad/s                                                             | W99       |
-| CC7                          |                                                       |          | Oscillation Acceleration - m/s^2                                                                          | W99       |
-| CC8                          |                                                       |          | Standstill Acceleration - m/s^2                                                                           | W99       |
-| CC9                          |                                                       |          | Acceleration at 80km/h - m/s^2                                                                            | W99       |
+| cc1                          |                                                       |          | Spacing Time - s                                                                                          | W99       |
+| cc2                          |                                                       |          | Following Variation - m                                                                                   | W99       |
+| cc3                          |                                                       |          | Threshold for Entering "Following" - s                                                                    | W99       |
+| cc4                          |                                                       |          | Negative "Following" Threshold - m/s                                                                      | W99       |
+| cc5                          |                                                       |          | Positive "Following" Threshold - m/s                                                                      | W99       |
+| cc6                          |                                                       |          | Speed Dependency of Oscillation - 10^-4 rad/s                                                             | W99       |
+| cc7                          |                                                       |          | Oscillation Acceleration - m/s^2                                                                          | W99       |
+| cc8                          |                                                       |          | Standstill Acceleration - m/s^2                                                                           | W99       |
+| cc9                          |                                                       |          | Acceleration at 80km/h - m/s^2                                                                            | W99       |
 | trainType                    |                                                       |          | [string id for pre-defined train type](Simulation/Railways.md#modelling_trains)                           | Rail      |
 
 To select a car following model the following syntax should be used:
@@ -895,7 +909,7 @@ values interpolate smoothly between these extremes.
 
 ### Transient Parameters
 
-Junction model parameters that are expected to change during the simulation are modelled via [generic parameters](https://sumo.dlr.de/docs/Simulation/GenericParameters.md). The following parametes are supported (via xml input and `traci.vehicle.setParameter`):
+Junction model parameters that are expected to change during the simulation are modelled via [generic parameters](https://sumo.dlr.de/docs/Simulation/GenericParameters.md). The following parameters are supported (via xml input and `traci.vehicle.setParameter`):
 
 - junctionModel.ignoreIDs : ignore foe vehicles with the given ids
 - junctionModel.ignoreTypes : ignore foe vehicles that have any of the given types
@@ -903,8 +917,9 @@ Junction model parameters that are expected to change during the simulation are 
 If multiple ignore parameters are set, they are combined with "or".
 Foes are ignored while they are approaching a junction and also while they are on the junction.
 
-Example
-```
+Example:
+
+```xml
 <vehicle id="ego" depart="0" route="r0">
    <param key="junctionModel.ignoreIDs" value="foe1 foe2"/>
    <param key="junctionModel.ignoreTypes" value="bikeType"/>
@@ -1021,6 +1036,8 @@ Stops can be childs of vehicles, routes, persons or containers.
 | duration           | float(s)          | ≥0                                                                                           | \-                 | minimum duration for stopping                                                                                          |
 | until              | float(s)          | ≥0                                                                                           | \-                 | the time step at which the route continues                                                                             |
 | arrival            | float(s)          | ≥0                                                                                           | \-                 | the expected time of arrival for the stop. If this value is set, [stop-output]() will include the attribute ''arrivalDelay''.                                                                           |
+| ended              | float(s)          | ≥0                                                                                           | \-                 | the time step at which the stop ended (i.e. as recorded by a prior simulation). Can be used to overrule 'until' by setting option **--use-stop-ended** (i.e. when trying to reproduce known timings)                                                                            |
+| started            | float(s)          | ≥0                                                                                           | \-                 | the known time of arrival for the stop (i.e. as recorded by a prior simulation).                                                                           |
 | extension          | float(s)          | ≥0                                                                                           | \-                 | the maximum time by which to extend the stop duration due to boarding persons and when waiting for expected persons / triggered stopping
 | index              | int, "end", "fit" | 0≤index≤number of stops in the route                                                         | "end"              | where to insert the stop in the vehicle's list of stops                                                                |
 | triggered          | bool              | true,false                                                                                   | false              | whether a person may end the stop                                                                                      |
@@ -1105,6 +1122,7 @@ placeholder `<DEVICENAME>` below
 - [tripinfo](Simulation/Output/TripInfo.md)
 - [vehroute](Simulation/Output/VehRoutes.md)
 - [taxi](Simulation/Taxi.md)
+- [glosa](Simulation/GLOSA.md)
 - [example](Developer/How_To/Device.md)
 
 ## Automatic assignment

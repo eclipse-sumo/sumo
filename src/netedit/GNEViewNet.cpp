@@ -26,9 +26,7 @@
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
-#include <netedit/elements/network/GNEJunction.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
@@ -112,6 +110,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES,    GNEViewNet::onCmdToggleDrawSpreadVehicles),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED,      GNEViewNet::onCmdToggleHideNonInspecteDemandElements),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES,            GNEViewNet::onCmdToggleHideShapes),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS,             GNEViewNet::onCmdToggleShowTrips),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,    GNEViewNet::onCmdToggleShowAllPersonPlans),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON,            GNEViewNet::onCmdToggleLockPerson),
     // Data view options
@@ -814,6 +813,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             myDemandViewOptions.menuCheckShowAllPersonPlans->enable();
         }
     }
+    // clear pathDraw
+    myNet->getPathManager()->getPathDraw()->clearPathDraw();
     // draw elements
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -2184,7 +2185,7 @@ GNEViewNet::onCmdLaneReachability(FXObject* menu, FXSelector, void*) {
         // obtain vClass
         const SUMOVehicleClass vClass = SumoVehicleClassStrings.get(dynamic_cast<FXMenuCommand*>(menu)->getText().text());
         // calculate reachability
-        myNet->getPathCalculator()->calculateReachability(vClass, clickedLane->getParentEdge());
+        myNet->getPathManager()->getPathCalculator()->calculateReachability(vClass, clickedLane->getParentEdge());
         // select all lanes with reachablility greather than 0
         myUndoList->p_begin("select lane reachability");
         for (const auto& edge : myNet->getAttributeCarriers()->getEdges()) {
@@ -3101,6 +3102,25 @@ GNEViewNet::onCmdToggleHideShapes(FXObject*, FXSelector sel, void*) {
 
 
 long
+GNEViewNet::onCmdToggleShowTrips(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckHideShapes
+    if (myDemandViewOptions.menuCheckShowAllTrips->amChecked() == TRUE) {
+        myDemandViewOptions.menuCheckShowAllTrips->setChecked(FALSE);
+    } else {
+        myDemandViewOptions.menuCheckShowAllTrips->setChecked(TRUE);
+    }
+    myDemandViewOptions.menuCheckShowAllTrips->update();
+    // Only update view
+    updateViewNet();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS)) {
+        myDemandViewOptions.menuCheckShowAllTrips->setFocus();
+    }
+    return 1;
+}
+
+
+long
 GNEViewNet::onCmdToggleShowAllPersonPlans(FXObject*, FXSelector sel, void*) {
     // Toggle menuCheckShowAllPersonPlans
     if (myDemandViewOptions.menuCheckShowAllPersonPlans->amChecked() == TRUE) {
@@ -3587,9 +3607,11 @@ GNEViewNet::updateDemandModeSpecificControls() {
     myDemandViewOptions.menuCheckToggleGrid->show();
     myDemandViewOptions.menuCheckDrawSpreadVehicles->show();
     myDemandViewOptions.menuCheckHideShapes->show();
+    myDemandViewOptions.menuCheckShowAllTrips->show();
     menuChecks.menuCheckToggleGrid->show();
     menuChecks.menuCheckDrawSpreadVehicles->show();
     menuChecks.menuCheckHideShapes->show();
+    menuChecks.menuCheckShowAllTrips->show();
     // show separator
     menuChecks.separator->show();
     // enable selected controls
@@ -4474,11 +4496,14 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // avoid create shapes if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 if (!myObjectsUnderCursor.getPOIFront()) {
-                    GNEPolygonFrame::AddShape result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor);
+                    // declare processClick flag
+                    bool updateTemporalShape = false;
+                    // process click
+                    myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor, updateTemporalShape);
                     // view net must be always update
                     updateViewNet();
                     // process click depending of the result of "process click"
-                    if ((result != GNEPolygonFrame::AddShape::UPDATEDTEMPORALSHAPE)) {
+                    if (!updateTemporalShape) {
                         // process click
                         processClick(eventData);
                     }

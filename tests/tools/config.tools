@@ -19,6 +19,7 @@ copy_test_path:input_routes2.rou.xml
 copy_test_path:input_flows.flows.xml
 copy_test_path:input_turns.xml
 copy_test_path:input_detectors.det.xml
+copy_test_path:input_stops.xml
 copy_test_path:tracefile.txt
 copy_test_path:input_weights.dump.xml
 copy_test_path:e2_output.xml
@@ -129,6 +130,8 @@ kml:output.kml
 trj:output.trj
 ipg:ipg.txt
 geojson:output.geojson
+dxf:output.dxf
+poly_additional:output.poly.xml
 match:match.txt
 dualog:dua.log
 image:image.svg
@@ -146,6 +149,7 @@ selection1:selection.comp1.txt
 selection2:selection.comp2.txt
 histogram:histogram.dat
 fullstats:fullstats.dat
+xmlstats:stats.xml
 osmimport:*/osm.net.xml
 osmstops:*/osm_stops.add.xml
 osmlines:*/osm_ptlines.xml
@@ -209,6 +213,7 @@ dualog:.*'-c',{REPLACE '-c',}
 dualog:\\\\{REPLACE /}
 
 trips:<!-- generated on{[->]}-->
+vehtypes:<!-- generated on{[->]}-->
 osmtrips:<!-- generated on{[->]}-->
 districts:<!-- generated on{[->]}-->
 pois:<!--
@@ -240,6 +245,7 @@ shawn:<!-- generated on
 gpsdat:r[0-9]
 flows:<!-- generated on{[->]}-->
 turns:<!-- generated on{[->]}-->
+xmlstats:<!-- generated on{[->]}-->
 edgedata:<!-- generated on{[->]}-->
 net:<!--{[->]}-->
 tripinfos:<!--{[->]}-->

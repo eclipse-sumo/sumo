@@ -19,11 +19,7 @@
 /****************************************************************************/
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEDetectorE3.h"
 
@@ -33,15 +29,17 @@
 // ===========================================================================
 
 GNEDetectorE3::GNEDetectorE3(const std::string& id, GNENet* net, Position pos, SUMOTime freq, const std::string& filename,
-                             const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, bool blockMovement) :
-    GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name, blockMovement,
-{}, {}, {}, {}, {}, {}, {}, {}),
-myPosition(pos),
-myFreq(freq),
-myFilename(filename),
-myVehicleTypes(vehicleTypes),
-myTimeThreshold(timeThreshold),
-mySpeedThreshold(speedThreshold) {
+        const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, 
+        const std::map<std::string, std::string> &parameters, bool blockMovement) :
+    GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name,
+        {}, {}, {}, {}, {}, {}, {}, {},
+        parameters, blockMovement),
+    myPosition(pos),
+    myFreq(freq),
+    myFilename(filename),
+    myVehicleTypes(vehicleTypes),
+    myTimeThreshold(timeThreshold),
+    mySpeedThreshold(speedThreshold) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -65,7 +63,7 @@ GNEDetectorE3::getMoveOperation(const double /*shapeOffset*/) {
 void
 GNEDetectorE3::updateGeometry() {
     // update additional geometry
-    myAdditionalGeometry.updateGeometry(myPosition, 0);
+    myAdditionalGeometry.updateSinglePosGeometry(myPosition, 0);
     // Update Hierarchical connections geometry
     myHierarchicalConnections.update();
 }
@@ -104,74 +102,8 @@ GNEDetectorE3::getParentName() const {
 
 void
 GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
-    // Obtain exaggeration of the draw
-    const double E3Exaggeration = s.addSize.getExaggeration(s, this);
-    // first check if additional has to be drawn
-    if (s.drawAdditionals(E3Exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // check if boundary has to be drawn
-        if (s.drawBoundaries) {
-            GLHelper::drawBoundary(getCenteringBoundary());
-        }
-        // Start drawing adding an gl identificator
-        glPushName(getGlID());
-        // Add layer matrix
-        glPushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E3DETECTOR);
-        // Add texture matrix
-        glPushMatrix();
-        // translate to position
-        glTranslated(myPosition.x(), myPosition.y(), 0);
-        // scale
-        glScaled(E3Exaggeration, E3Exaggeration, 1);
-        // set color
-        glColor3d(1, 1, 1);
-        // rotate
-        glRotated(180, 0, 0, 1);
-        // draw depending
-        if (s.drawForRectangleSelection || !s.drawDetail(s.detailSettings.laneTextures, E3Exaggeration)) {
-            // set color
-            GLHelper::setColor(RGBColor::GREY);
-            // just draw a box
-            GLHelper::drawBoxLine(Position(0, s.detectorSettings.E3Size), 0, 2 * s.detectorSettings.E3Size, s.detectorSettings.E3Size);
-        } else {
-            // draw texture
-            if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_E3SELECTED), s.detectorSettings.E3Size);
-            } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_E3), s.detectorSettings.E3Size);
-            }
-        }
-        // Pop texture matrix
-        glPopMatrix();
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, E3Exaggeration, -0.5, -0.5, false, 0.4);
-        // Pop layer matrix
-        glPopMatrix();
-        // Pop name
-        glPopName();
-        // Pop name
-        glPopName();
-        // push connection matrix
-        glPushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E3DETECTOR, -0.1);
-        // Draw child connections
-        drawHierarchicalConnections(s, this, E3Exaggeration);
-        // Pop connection matrix
-        glPopMatrix();
-        // Draw additional ID
-        drawAdditionalID(s);
-        // draw additional name
-        drawAdditionalName(s);
-        // check if dotted contours has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, myPosition, s.detectorSettings.E3Size, s.detectorSettings.E3Size, 0, 0, 0, E3Exaggeration);
-        }
-        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, myPosition, s.detectorSettings.E3Size, s.detectorSettings.E3Size, 0, 0, 0, E3Exaggeration);
-        }
-    }
+    // draw E3
+    drawSquaredAdditional(s, myPosition, s.detectorSettings.E3Size, GUITexture::E3, GUITexture::E3_SELECTED);
 }
 
 
@@ -189,7 +121,7 @@ GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_FILE:
             return myFilename;
         case SUMO_ATTR_VTYPES:
-            return myVehicleTypes;
+            return toString(myVehicleTypes);
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             return time2string(myTimeThreshold);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
@@ -342,7 +274,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFilename = value;
             break;
         case SUMO_ATTR_VTYPES:
-            myVehicleTypes = value;
+            myVehicleTypes = parse<std::vector<std::string> >(value);
             break;
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             myTimeThreshold = parse<SUMOTime>(value);

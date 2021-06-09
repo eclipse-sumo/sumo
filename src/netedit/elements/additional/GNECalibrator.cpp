@@ -32,27 +32,35 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency,
-                             const std::string& name, const std::string& output, const std::string& routeprobe) :
-    GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false,
-{}, {edge}, {}, {}, {}, {}, {}, {}),
-myPositionOverLane(pos),
-myFrequency(frequency),
-myOutput(output),
-myRouteProbe(routeprobe) {
+GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name, 
+        const std::string& output, const std::string& routeprobe, const double jamThreshold, const std::vector<std::string> &vTypes, 
+        const std::map<std::string, std::string> &parameters, bool blockMovement) :
+    GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name,
+        {}, {edge}, {}, {}, {}, {}, {}, {},
+        parameters, blockMovement),
+    myPositionOverLane(pos),
+    myFrequency(frequency),
+    myOutput(output),
+    myRouteProbe(routeprobe),
+    myJamThreshold(jamThreshold),
+    myVTypes(vTypes){
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
 
 
-GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency,
-                             const std::string& name, const std::string& output, const std::string& routeprobe) :
-    GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name, false,
-{}, {}, {lane}, {}, {}, {}, {}, {}),
-myPositionOverLane(pos),
-myFrequency(frequency),
-myOutput(output),
-myRouteProbe(routeprobe) {
+GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name, 
+        const std::string& output, const std::string& routeprobe, const double jamThreshold, const std::vector<std::string> &vTypes, 
+        const std::map<std::string, std::string> &parameters, bool blockMovement) :
+    GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name,
+        {}, {}, {lane}, {}, {}, {}, {}, {},
+        parameters, blockMovement),
+    myPositionOverLane(pos),
+    myFrequency(frequency),
+    myOutput(output),
+    myRouteProbe(routeprobe),
+    myJamThreshold(jamThreshold),
+    myVTypes(vTypes){
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -73,17 +81,17 @@ GNECalibrator::updateGeometry() {
     // get shape depending of we have a edge or a lane
     if (getParentLanes().size() > 0) {
         // update geometry
-        myAdditionalGeometry.updateGeometry(getParentLanes().front(), myPositionOverLane);
+        myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), myPositionOverLane, 0);
     } else if (getParentEdges().size() > 0) {
         // update geometry of first edge
-        myAdditionalGeometry.updateGeometry(getParentEdges().front()->getLanes().front(), myPositionOverLane);
+        myAdditionalGeometry.updateGeometry(getParentEdges().front()->getLanes().front()->getLaneShape(), myPositionOverLane, 0);
         // clear extra geometries
         myEdgeCalibratorGeometries.clear();
         // iterate over every lane and get point
         for (int i = 1; i < (int)getParentEdges().front()->getLanes().size(); i++) {
             // add new calibrator geometry
             GNEGeometry::Geometry calibratorGeometry;
-            calibratorGeometry.updateGeometry(getParentEdges().front()->getLanes().at(i), myPositionOverLane);
+            calibratorGeometry.updateGeometry(getParentEdges().front()->getLanes().at(i)->getLaneShape(), myPositionOverLane, 0);
             myEdgeCalibratorGeometries.push_back(calibratorGeometry);
         }
     } else {
@@ -138,18 +146,20 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     // get values
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // begin push name
-        glPushName(getGlID());
-        // draw first symbol
-        drawCalibratorSymbol(s, exaggeration, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front());
-        // continue with the other symbols
-        for (const auto& edgeCalibratorGeometry : myEdgeCalibratorGeometries) {
-            drawCalibratorSymbol(s, exaggeration, edgeCalibratorGeometry.getShape().front(), edgeCalibratorGeometry.getShapeRotations().front());
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        if (s.drawAdditionals(exaggeration)) {
+            // begin push name
+            glPushName(getGlID());
+            // draw first symbol
+            drawCalibratorSymbol(s, exaggeration, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front());
+            // continue with the other symbols
+            for (const auto& edgeCalibratorGeometry : myEdgeCalibratorGeometries) {
+                drawCalibratorSymbol(s, exaggeration, edgeCalibratorGeometry.getShape().front(), edgeCalibratorGeometry.getShapeRotations().front());
+            }
+            // pop name
+            glPopName();
         }
-        // pop name
-        glPopName();
-        // draw name
+        // draw additional ID
         drawAdditionalID(s);
     }
 }
@@ -181,6 +191,10 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
             return myOutput;
         case SUMO_ATTR_ROUTEPROBE:
             return myRouteProbe;
+        case SUMO_ATTR_JAM_DIST_THRESHOLD:
+            return toString(myJamThreshold);
+        case SUMO_ATTR_VTYPES:
+            return toString(myVTypes);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -211,6 +225,8 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_OUTPUT:
         case SUMO_ATTR_ROUTEPROBE:
+        case SUMO_ATTR_JAM_DIST_THRESHOLD:
+        case SUMO_ATTR_VTYPES:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -260,6 +276,14 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_ROUTEPROBE:
             return SUMOXMLDefinitions::isValidAdditionalID(value);
+        case SUMO_ATTR_JAM_DIST_THRESHOLD:
+            return canParse<double>(value)? (parse<double>(value) >= 0) : false;
+        case SUMO_ATTR_VTYPES:
+            if (value.empty()) {
+                return true;
+            } else {
+                return SUMOXMLDefinitions::isValidListOfTypeID(value);
+            }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -371,6 +395,12 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ROUTEPROBE:
             myRouteProbe = value;
+            break;
+        case SUMO_ATTR_JAM_DIST_THRESHOLD:
+            myJamThreshold = parse<double>(value);
+            break;
+        case SUMO_ATTR_VTYPES:
+            myVTypes = parse<std::vector<std::string> >(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

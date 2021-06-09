@@ -84,7 +84,7 @@ public:
     ~GNEAttributeProperties();
 
     /// @brief check Attribute integrity (For example, throw an exception if tag has a Float default value, but given default value cannot be parse to float)
-    void checkAttributeIntegrity();
+    void checkAttributeIntegrity() const;
 
     /// @brief set discrete values
     void setDiscreteValues(const std::vector<std::string>& discreteValues);

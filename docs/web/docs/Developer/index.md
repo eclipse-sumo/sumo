@@ -15,6 +15,8 @@ title: Developer
 - [Developer/Used Tools](Used_Tools.md) - tools used for developing SUMO
 - [Developer/Managing Publications](Managing_Publications.md) - how to work with the publications bibtex-file
 - [Developer/FMI](FMI.md) - information about the current state of the FMI 2.0 support in SUMO
+- [Developer/Maven](Maven.md) - information about using libsumo/libtraci in maven builds
+- [Developer/How to Update Homebrew Formula](HowToUpdateHomebrewFormula.md) - how to update the macOS Homebrew Formula for a new SUMO release
 
 ## Build instructions
 
@@ -38,11 +40,11 @@ title: Developer
 - [How To implement an own car-following model](How_To/Car-Following_Model.md)
 - [How To implement a new device](How_To/Device.md)
 - [How To contribute to this documentation](../FAQ.md#how_do_i_contribute_to_the_documentation)
-- [How to contribute to SUMO in general](../FAQ.md#how_can_i_contribute_to_sumo)
+- [How To contribute to SUMO in general](../FAQ.md#how_can_i_contribute_to_sumo)
 
 ## Methods, Algorithms, and Subsystems
 
-- [Developer/Implementation Notes](Implementation_Notes.md) - more information about several subtopics (error handling, options sub system)
+- [Developer/Implementation Notes](Implementation_Notes/index.md) - more information about several subtopics (error handling, options sub system)
 - [Developer/Network Building Process](Network_Building_Process.md)
 
 ## Current Development
@@ -61,6 +63,6 @@ title: Developer
 - [Packages on the open build service](https://software.opensuse.org/package/sumo)
 - [Nightly builds on the open build service](https://build.opensuse.org/package/show/home:behrisch/sumo_nightly)
 - [SUMO on Travis](https://travis-ci.org/eclipse/sumo) (legacy)
-- [SUMO brew formula on Travis](https://travis-ci.org/dlr-ts/homebrew-sumo)
+- [SUMO brew formula on Github Actions](https://github.com/DLR-TS/homebrew-sumo/actions)
 - [SUMO on OpenHub](https://www.openhub.net/p/sumo/)
 - [SUMO on codeclimate](https://codeclimate.com/github/DLR-TS/sumo)

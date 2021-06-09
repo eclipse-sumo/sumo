@@ -699,6 +699,12 @@ public:
      */
     int getFirstNonPedestrianLaneIndex(int direction, bool exclusive = false) const;
 
+    /** @brief return the first lane with permissions other than SVC_PEDESTRIAN, SVC_BICYCLE and 0
+     * @param[in] direction The direction in which the lanes shall be checked
+     * @param[in] exclusive Whether lanes that allow pedestrians along with other classes shall be counted as non-pedestrian
+     */
+    int getFirstNonPedestrianNonBicycleLaneIndex(int direction, bool exclusive = false) const;
+
     /// @brief return index of the first lane that allows the given permissions
     int getSpecialLane(SVCPermissions permissions) const;
 

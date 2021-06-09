@@ -47,12 +47,10 @@ enum SumoXMLTag {
     SUMO_TAG_LANE,
     /// @brief begin/end of the description of a neighboring lane
     SUMO_TAG_NEIGH,
-    /// @brief begin/end of the description of a Point of interest
-    SUMO_TAG_POI,
-    /// @brief begin/end of the description of a Point of interest over Lane (used by Netedit)
-    SUMO_TAG_POILANE,
     /// @brief begin/end of the description of a polygon
     SUMO_TAG_POLY,
+    /// @brief begin/end of the description of a Point of interest
+    SUMO_TAG_POI,
     /// @brief begin/end of the description of a junction
     SUMO_TAG_JUNCTION,
     /// @brief begin/end of the description of an edge restriction
@@ -65,8 +63,8 @@ enum SumoXMLTag {
     SUMO_TAG_INDUCTION_LOOP,
     /// @brief an e2 detector
     SUMO_TAG_E2DETECTOR,
-    /// @brief an e2 detector over multiple lanes (used by Netedit)
-    SUMO_TAG_E2DETECTOR_MULTILANE,
+    /// @brief an e2 detector over multiple lanes (placed here due create Additional Frame)
+    GNE_TAG_E2DETECTOR_MULTILANE,
     /// @brief alternative tag for e2 detector
     SUMO_TAG_LANE_AREA_DETECTOR,
     /// @brief an e3 detector
@@ -153,8 +151,6 @@ enum SumoXMLTag {
     SUMO_TAG_TRIP_TAZ,
     /// @brief a flow definitio nusing a from-to edges instead of a route (used by router)
     SUMO_TAG_FLOW,
-    /// @brief a flow definition within in Calibrator (used in NETEDIT)
-    SUMO_TAG_FLOW_CALIBRATOR,
     /// @brief a flow state definition (used when saving and loading simulatino state)
     SUMO_TAG_FLOWSTATE,
     /// @brief trigger: a step description
@@ -381,10 +377,16 @@ enum SumoXMLTag {
     /// @brief parameters
     AGEN_TAG_PARAM,
 
-    /// @name NETEDIT internal elements
+    /// @name NETEDIT elements
     /// @{
     /// @brief internal lane
     GNE_TAG_INTERNAL_LANE,
+    /// @brief a flow definition within in Calibrator
+    GNE_TAG_FLOW_CALIBRATOR,
+    /// @brief Point of interest over Lane
+    GNE_TAG_POILANE,
+    /// @brief Point of interest over view with GEO attributes
+    GNE_TAG_POIGEO,
     /// @brief Rerouter Symbol
     GNE_TAG_REROUTER_SYMBOL,
     /// @brief VSS Symbol
@@ -402,37 +404,16 @@ enum SumoXMLTag {
     /// @brief description of a vehicle with an embedded route (used in NETEDIT)
     GNE_TAG_FLOW_WITHROUTE,
     // person trips
-    GNE_TAG_PERSONTRIP_EDGE_EDGE,
-    GNE_TAG_PERSONTRIP_EDGE_BUSSTOP,
-    GNE_TAG_PERSONTRIP_EDGE_STOP,
-    GNE_TAG_PERSONTRIP_BUSSTOP_EDGE,
-    GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP,
-    GNE_TAG_PERSONTRIP_BUSSTOP_STOP,
-    GNE_TAG_PERSONTRIP_STOP_EDGE,
-    GNE_TAG_PERSONTRIP_STOP_BUSSTOP,
-    GNE_TAG_PERSONTRIP_STOP_STOP,
+    GNE_TAG_PERSONTRIP_EDGE,
+    GNE_TAG_PERSONTRIP_BUSSTOP,
     // walks
-    GNE_TAG_WALK_EDGE_EDGE,
-    GNE_TAG_WALK_EDGE_BUSSTOP,
-    GNE_TAG_WALK_EDGE_STOP,
-    GNE_TAG_WALK_BUSSTOP_EDGE,
-    GNE_TAG_WALK_BUSSTOP_BUSSTOP,
-    GNE_TAG_WALK_BUSSTOP_STOP,
-    GNE_TAG_WALK_STOP_EDGE,
-    GNE_TAG_WALK_STOP_BUSSTOP,
-    GNE_TAG_WALK_STOP_STOP,
+    GNE_TAG_WALK_EDGE,
+    GNE_TAG_WALK_BUSSTOP,
     GNE_TAG_WALK_EDGES,
     GNE_TAG_WALK_ROUTE,
     // rides
-    GNE_TAG_RIDE_EDGE_EDGE,
-    GNE_TAG_RIDE_EDGE_BUSSTOP,
-    GNE_TAG_RIDE_EDGE_STOP,
-    GNE_TAG_RIDE_BUSSTOP_EDGE,
-    GNE_TAG_RIDE_BUSSTOP_BUSSTOP,
-    GNE_TAG_RIDE_BUSSTOP_STOP,
-    GNE_TAG_RIDE_STOP_EDGE,
-    GNE_TAG_RIDE_STOP_BUSSTOP,
-    GNE_TAG_RIDE_STOP_STOP,
+    GNE_TAG_RIDE_EDGE,
+    GNE_TAG_RIDE_BUSSTOP,
     // person stops
     GNE_TAG_PERSONSTOP_BUSSTOP,
     GNE_TAG_PERSONSTOP_EDGE,
@@ -552,6 +533,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_REQUEST,
     SUMO_ATTR_RESPONSE,
     SUMO_ATTR_PROGRAMID,
+    SUMO_ATTR_PHASE,
     SUMO_ATTR_OFFSET,
     SUMO_ATTR_ENDOFFSET,
     SUMO_ATTR_INCLANES,
@@ -827,6 +809,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_COST,
     SUMO_ATTR_COSTS,
     SUMO_ATTR_SAVINGS,
+    SUMO_ATTR_EXITTIMES,
     SUMO_ATTR_PROB,
     SUMO_ATTR_COUNT,
     SUMO_ATTR_PROBS,
@@ -872,9 +855,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_DURATION,
     SUMO_ATTR_UNTIL,
     SUMO_ATTR_ARRIVAL,
-    SUMO_ATTR_ACTUALARRIVAL,
     SUMO_ATTR_EXTENSION,
     SUMO_ATTR_ROUTEPROBE,
+    SUMO_ATTR_STARTED,
+    SUMO_ATTR_ENDED,
     /// @}
 
     /// @brief the edges crossed by a pedestrian crossing
@@ -978,6 +962,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_UNCONTROLLED,
     SUMO_ATTR_PASS,
     SUMO_ATTR_BUS_STOP,
+    SUMO_ATTR_TRAIN_STOP,
     SUMO_ATTR_CONTAINER_STOP,
     SUMO_ATTR_PARKING_AREA,
     SUMO_ATTR_ROADSIDE_CAPACITY,
@@ -1034,7 +1019,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_LAT,
     SUMO_ATTR_GEO,
     SUMO_ATTR_GEOSHAPE,
-    SUMO_ATTR_GEOPOSITION,
     SUMO_ATTR_K,
     SUMO_ATTR_V,
     SUMO_ATTR_REF,
@@ -1101,6 +1085,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_CHECKLANEFOES_ROUNDABOUT,
     SUMO_ATTR_TLS_IGNORE_INTERNAL_JUNCTION_JAM,
     SUMO_ATTR_AVOID_OVERLAP,
+    SUMO_ATTR_HIGHER_SPEED,
     SUMO_ATTR_COMMAND,
 
     SUMO_ATTR_ACTORCONFIG,
@@ -1226,8 +1211,6 @@ enum SumoXMLAttr {
     GNE_ATTR_DEFAULT_VTYPE_MODIFIED,
     /// @brief flag to center camera after element creation
     GNE_ATTR_CENTER_AFTER_CREATION,
-    /// @brief from busStop (used by personPlans)
-    GNE_ATTR_FROM_BUSSTOP,
     /// @brief to busStop (used by personPlans)
     GNE_ATTR_TO_BUSSTOP,
     /// @brief from stop (used by personPlans)
@@ -1236,6 +1219,8 @@ enum SumoXMLAttr {
     GNE_ATTR_TO_STOP,
     /// @brief neighboring lane, simplified lane attr instead of child element
     GNE_ATTR_OPPOSITE,
+    /// @brief center (used in stoppingPlaces)
+    GNE_ATTR_CENTER,
 
     // @}
 
@@ -1348,10 +1333,13 @@ enum class RightOfWay {
     EDGEPRIORITY
 };
 
-/// @brief algorithms for computing right of way
+/// @brief classifying boundary nodes
 enum class FringeType {
+    // outer border of the network
     OUTER,
+    // fringe edge within the network (i.e. due to pruning some road types)
     INNER,
+    // not fringe (nothing is cut off)
     DEFAULT
 };
 

@@ -419,7 +419,7 @@ GNEInspectorFrame::GEOAttributesEditor::showGEOAttributesEditor() {
         // obtain tag property (only for improve code legibility)
         const auto& tagProperty = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty();
         // check if item can use a geo position
-        if (tagProperty.hasGEOPosition() || tagProperty.hasGEOShape()) {
+        if (tagProperty.hasGEOShape()) {
             // show GEOAttributesEditor
             show();
             // Iterate over AC to obtain values
@@ -442,20 +442,7 @@ GNEInspectorFrame::GEOAttributesEditor::showGEOAttributesEditor() {
             } else {
                 myUseGEOCheckButton->disable();
             }
-            // now specify if a single position or an entire shape must be shown (note: cannot be shown both at the same time, and GEO Shape/Position only works for single selections)
-            if (tagProperty.hasGEOPosition() && myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-                myGEOAttributeFrame->show();
-                myGEOAttributeLabel->setText(toString(SUMO_ATTR_GEOPOSITION).c_str());
-                myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
-                // only allow edit if geo conversion is defined
-                if (GeoConvHelper::getFinal().getProjString() != "!") {
-                    myGEOAttributeTextField->enable();
-                    myGEOAttributeTextField->setText(myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(SUMO_ATTR_GEOPOSITION).c_str());
-                } else {
-                    myGEOAttributeTextField->disable();
-                    myGEOAttributeTextField->setText("No geo-conversion defined");
-                }
-            } else if (tagProperty.hasGEOShape() && myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+            if (tagProperty.hasGEOShape() && myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
                 myGEOAttributeFrame->show();
                 myGEOAttributeLabel->setText(toString(SUMO_ATTR_GEOSHAPE).c_str());
                 myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
@@ -494,9 +481,7 @@ GNEInspectorFrame::GEOAttributesEditor::refreshGEOAttributesEditor(bool forceRef
     const auto& tagProperty = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty();
     // Check that myGEOAttributeFrame is shown
     if ((GeoConvHelper::getFinal().getProjString() != "!") && myGEOAttributeFrame->shown() && ((myGEOAttributeTextField->getTextColor() == FXRGB(0, 0, 0)) || forceRefresh)) {
-        if (tagProperty.hasGEOPosition()) {
-            myGEOAttributeTextField->setText(myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(SUMO_ATTR_GEOPOSITION).c_str());
-        } else if (tagProperty.hasGEOShape()) {
+        if (tagProperty.hasGEOShape()) {
             myGEOAttributeTextField->setText(myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(SUMO_ATTR_GEOSHAPE).c_str());
         }
         myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
@@ -512,15 +497,7 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSe
             // obtain tag property (only for improve code legibility)
             const auto& tagProperty = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty();
             // Change GEO Attribute depending of type (Position or shape)
-            if (tagProperty.hasGEOPosition()) {
-                if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->isValid(SUMO_ATTR_GEOPOSITION, myGEOAttributeTextField->getText().text())) {
-                    myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->setAttribute(SUMO_ATTR_GEOPOSITION, myGEOAttributeTextField->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());
-                    myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
-                    myGEOAttributeTextField->killFocus();
-                } else {
-                    myGEOAttributeTextField->setTextColor(FXRGB(255, 0, 0));
-                }
-            } else if (tagProperty.hasGEOShape()) {
+            if (tagProperty.hasGEOShape()) {
                 if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->isValid(SUMO_ATTR_GEOSHAPE, myGEOAttributeTextField->getText().text())) {
                     myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->setAttribute(SUMO_ATTR_GEOSHAPE, myGEOAttributeTextField->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());
                     myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));

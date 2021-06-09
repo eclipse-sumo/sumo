@@ -534,6 +534,11 @@ Vehicle::getStopArrivalDelay(const std::string& vehID) {
     return Dom::getDouble(libsumo::VAR_STOP_ARRIVALDELAY, vehID);
 }
 
+double
+Vehicle::getTimeLoss(const std::string& vehID) {
+    return Dom::getDouble(libsumo::VAR_TIMELOSS, vehID);
+}
+
 std::vector<std::string>
 Vehicle::getTaxiFleet(int taxiState) {
     tcpip::Storage content;

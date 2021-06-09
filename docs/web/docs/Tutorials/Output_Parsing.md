@@ -62,7 +62,7 @@ Finally we define the edges connecting the nodes (circular.edg.xml):
 The netconvert call is very straightforward
 
 ```
-netconvert -n circular.nod.xml -t circular.typ.xml -e circular.nod.xml -o circular.net.xml
+netconvert -n circular.nod.xml -t circular.typ.xml -e circular.edg.xml -o circular.net.xml
 ```
 
 In order to simplify the resulting net (and get the highest speed out of

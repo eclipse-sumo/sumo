@@ -103,6 +103,7 @@ public:
     static double getStopSpeed(const std::string& vehID, double speed, double gap);
     static double getStopDelay(const std::string& vehID);
     static double getStopArrivalDelay(const std::string& vehID);
+    static double getTimeLoss(const std::string& vehID);
     static std::vector<std::string> getTaxiFleet(int taxiState = 0);
     /// @}
 

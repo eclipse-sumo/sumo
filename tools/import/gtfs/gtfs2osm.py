@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
@@ -23,13 +22,13 @@ import os
 import sys
 import subprocess
 import datetime
+import time
 import math
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
 
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-from sumolib.options import ArgumentParser  # noqa
 from sumolib.xml import parse_fast_nested  # noqa
 
 # ----------------------- gtfs, osm and sumo modes ----------------------------
@@ -105,6 +104,34 @@ def import_gtfs(options, gtfsZip):
 
     stop_times['stop_sequence'] = stop_times['stop_sequence'].astype(float)
 
+    # filter trips within given begin and end time
+    # first adapt stop times to a single day (from 00:00:00 to 23:59:59)
+    stop_times['arrival_timedelta'] = pd.to_timedelta(stop_times['arrival_time'])
+    stop_times = stop_times.assign(arrival_fixed=[x - pd.to_timedelta("24:00:00")
+                                   if x >= pd.to_timedelta("24:00:00")
+                                   else x
+                                   for x in stop_times['arrival_timedelta']])
+    stop_times['departure_timedelta'] = pd.to_timedelta(stop_times['departure_time'])
+    stop_times = stop_times.assign(departure_fixed=[x - pd.to_timedelta("24:00:00")
+                                   if x >= pd.to_timedelta("24:00:00")
+                                   else x
+                                   for x in stop_times['departure_timedelta']])
+
+    time_interval = options.end - options.begin
+    # if time_interval >= 86400 (24 hs), no filter needed
+    if time_interval < 86400 and options.end <= 86400:
+        # if simulation time end on the same day
+        start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
+        end_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.end)))
+        stop_times = stop_times[(start_time <= stop_times['departure_fixed']) &
+                                (stop_times['departure_fixed'] <= end_time)]
+    elif time_interval < 86400 and options.end > 86400:
+        # if simulation time includes next day trips
+        start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
+        end_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.end - 86400)))
+        stop_times = stop_times[~((stop_times['departure_fixed'] > end_time) &
+                                (stop_times['departure_fixed'] < start_time))]
+
     # filter trips for a representative date
     weekday = 'monday tuesday wednesday thursday friday saturday sunday'.split(
     )[datetime.datetime.strptime(options.date, "%Y%m%d").weekday()]
@@ -150,7 +177,7 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
     gtfs_data = gtfs_data[['route_id', 'shape_id', 'trip_id', 'stop_id',
                            'route_short_name', 'route_type', 'trip_headsign',
                            'direction_id', 'stop_name', 'stop_lat', 'stop_lon',
-                           'stop_sequence', 'arrival_time', 'departure_time']]
+                           'stop_sequence', 'arrival_fixed', 'departure_fixed']]
 
     # replace characters
     gtfs_data['stop_name'] = gtfs_data['stop_name'].str.replace('[/|\'\";,!<>&*?\t\n\r]', ' ')  # noqa
@@ -168,7 +195,6 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
 
     # get list of trips with departure time to allow a sorted output
     trip_list = gtfs_data[gtfs_data["stop_sequence"] == 0]
-    trip_list['departure'] = pd.to_timedelta(trip_list['arrival_time'])
 
     # add new column for unambiguous stop_id and edge in sumo
     gtfs_data["stop_item_id"] = None
@@ -295,10 +321,10 @@ def repair_routes(options, net):
                                '-n', options.network,
                                '--route-files', 'dua_input.xml', '--repair',
                                '-o', 'dua_output.xml', '--ignore-errors',
-                               '--error-log', 'invalid_osm_routes.txt'])
+                               '--error-log', options.dua_repair_output])
     if run_dua == 1:
         # exit the program
-        sys.exit("Traying to repair OSM routes failed. Duarouter quits with error, see 'invalid_osm_routes.txt'")  # noqa
+        sys.exit("Traying to repair OSM routes failed. Duarouter quits with error, see %s" % options.dua_repair_output)  # noqa
 
     # parse repaired routes
     n_routes = len(osm_routes)
@@ -560,9 +586,8 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
     if options.verbose:
         print("Generates stops and routes output")
 
-    stop_output = options.additional_output
-    with open(stop_output, 'w', encoding="utf8") as output_file:
-        sumolib.xml.writeHeader(output_file, stop_output, "additional")
+    with open(options.additional_output, 'w', encoding="utf8") as output_file:
+        sumolib.xml.writeHeader(output_file, root="additional")
         for stop, value in map_stops.items():
             name, lane, start_pos, end_pos, v_type = value[:5]
             if v_type == "bus":
@@ -588,66 +613,85 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
         output_file.write('</additional>\n')
 
     sequence_errors = []
-    route_output = options.route_output
 
-    with open(route_output, 'w', encoding="utf8") as output_file:
-        sumolib.xml.writeHeader(output_file, route_output, "routes")
-        for osm_type, sumo_class in OSM2SUMO_MODES.items():
-            if osm_type in options.modes:
-                output_file.write('    <vType id="%s" vClass="%s"/>\n' %
-                                  (osm_type, sumo_class))
+    if options.vtype_output:
+        with open(options.vtype_output, 'w', encoding="utf8") as vout:
+            sumolib.xml.writeHeader(vout, root="additional")
+            for osm_type, sumo_class in OSM2SUMO_MODES.items():
+                if osm_type in options.modes:
+                    vout.write('    <vType id="%s" vClass="%s"/>\n' %
+                               (osm_type, sumo_class))
+            vout.write(u'</additional>\n')
 
-        for row in trip_list.sort_values("departure").itertuples():
+    with open(options.route_output, 'w', encoding="utf8") as output_file:
+        sumolib.xml.writeHeader(output_file, root="routes")
+        numDays = options.end // 86401
+        start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
 
-            main_shape = shapes_dict.get(row.shape_id, None)
-            if not map_routes.get(main_shape, None):
-                # if route not mapped
-                continue
+        for day in range(numDays+1):
+            if day == numDays and options.end % 86400 > 0:
+                # if last day, filter trips until given end time
+                end_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.end-86400*numDays)))  # noqa
+                trip_list = trip_list[trip_list["arrival_fixed"] <= end_time]
 
-            pt_type = GTFS2OSM_MODES[row.route_type]
-            edges_list = map_routes[main_shape][1]
-            stop_list = gtfs_data[gtfs_data["trip_id"] ==
-                                  row.trip_id].sort_values("stop_sequence")
-            stop_index = [edges_list.index(stop.edge_id)
-                          for stop in stop_list.itertuples()
-                          if stop.edge_id in edges_list]
+            for row in trip_list.sort_values("arrival_fixed").itertuples():
 
-            if len(set(stop_index)) < options.min_stops:
-                # Not enough stops mapped
-                continue
-            veh_attr = (row.route_short_name, row.trip_id, row.route_id,
-                        row.direction_id, row.arrival_time, min(stop_index),
-                        max(stop_index), pt_type, row.trip_headsign)
-            output_file.write('    <vehicle id="%s_%s" line="%s_%s" depart="%s" departEdge="%s" arrivalEdge="%s" type="%s"><!--%s-->\n'  # noqa
-                              % veh_attr)
-            output_file.write('        <route edges="%s"/>\n' % (" ".join(edges_list)))  # noqa
-
-            check_seq = -1
-            for stop in stop_list.itertuples():
-                if not stop.stop_item_id:
-                    # if stop not mapped
+                if day == 0 and row.arrival_fixed < start_time:
+                    # avoid writing first day trips that not applied
                     continue
-                stop_index = edges_list.index(stop.edge_id)
-                if stop_index > check_seq:
-                    check_seq = stop_index
-                    stop_attr = (stop.stop_item_id, stop.arrival_time,
-                                 options.duration, stop.departure_time,
-                                 stop.stop_name)
-                    output_file.write('        <stop busStop="%s" arrival="%s" duration="%s" until="%s"/><!--%s-->\n'  # noqa
-                                      % stop_attr)
-                elif stop_index < check_seq:
-                    # stop not downstream
-                    sequence_errors.append((stop.stop_item_id,
-                                            row.route_short_name,
-                                            row.trip_headsign, stop.trip_id))
 
-            output_file.write('    </vehicle>\n')
+                main_shape = shapes_dict.get(row.shape_id, None)
+                if not map_routes.get(main_shape, None):
+                    # if route not mapped
+                    continue
+
+                pt_type = GTFS2OSM_MODES[row.route_type]
+                edges_list = map_routes[main_shape][1]
+                stop_list = gtfs_data[gtfs_data["trip_id"] ==
+                                      row.trip_id].sort_values("stop_sequence")
+                stop_index = [edges_list.index(stop.edge_id)
+                              for stop in stop_list.itertuples()
+                              if stop.edge_id in edges_list]
+
+                if len(set(stop_index)) < options.min_stops:
+                    # Not enough stops mapped
+                    continue
+                veh_attr = (row.route_short_name, row.trip_id, day,
+                            row.route_id, row.direction_id, day,
+                            str(row.arrival_fixed).split(' ')[2],
+                            min(stop_index), max(stop_index), pt_type,
+                            row.trip_headsign)
+                output_file.write('    <vehicle id="%s_%s.%s" line="%s_%s" depart="%s:%s" departEdge="%s" arrivalEdge="%s" type="%s"><!--%s-->\n' % veh_attr)  # noqa
+                output_file.write('        <route edges="%s"/>\n' % (" ".join(edges_list)))  # noqa
+
+                check_seq = -1
+                for stop in stop_list.itertuples():
+                    if not stop.stop_item_id:
+                        # if stop not mapped
+                        continue
+                    stop_index = edges_list.index(stop.edge_id)
+                    if stop_index > check_seq:
+                        check_seq = stop_index
+                        stop_attr = (stop.stop_item_id, day,
+                                     str(stop.arrival_fixed).split(' ')[2],
+                                     options.duration, day,
+                                     str(stop.departure_fixed).split(' ')[2],
+                                     stop.stop_name)
+                        output_file.write('        <stop busStop="%s" arrival="%s:%s" duration="%s" until="%s:%s"/><!--%s-->\n' % stop_attr)  # noqa
+                    elif stop_index < check_seq:
+                        # stop not downstream
+                        sequence_errors.append((stop.stop_item_id,
+                                                row.route_short_name,
+                                                row.trip_headsign,
+                                                stop.trip_id))
+
+                output_file.write('    </vehicle>\n')
         output_file.write('</routes>\n')
 
     # -----------------------   Save missing data ------------------
     if any([missing_stops, missing_lines, sequence_errors]):
-        print("Not all given gtfs elements have been mapped, see 'gtfs_missing.xml' for more information")  # noqa
-        with open("gtfs_missing.xml", 'w', encoding="utf8") as output_file:
+        print("Not all given gtfs elements have been mapped, see %s for more information" % options.warning_output)  # noqa
+        with open(options.warning_output, 'w', encoding="utf8") as output_file:
             output_file.write('<missingElements>\n')
             for stop in sorted(set(missing_stops)):
                 output_file.write('    <stop id="%s" name="%s" ptLine="%s"/>\n'

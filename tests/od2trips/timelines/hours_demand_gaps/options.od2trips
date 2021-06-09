@@ -1,0 +1,3 @@
+--timeline.day-in-hours 
+--timeline 1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1
+-n input_taz.taz.xml -d input_od_v.fma -o trips.trips.xml

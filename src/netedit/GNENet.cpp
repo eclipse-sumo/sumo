@@ -47,11 +47,8 @@
 #include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
-#include <netedit/elements/network/GNEJunction.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/elements/network/GNELaneType.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
-#include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netwrite/NWFrame.h>
 #include <netwrite/NWWriter_SUMO.h>
 #include <netwrite/NWWriter_XML.h>
@@ -90,7 +87,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myViewNet(nullptr),
     myNetBuilder(netBuilder),
     myAttributeCarriers(new GNENetHelper::AttributeCarriers(this)),
-    myPathCalculator(new GNENetHelper::PathCalculator(this)),
+    myPathManager(new GNEPathManager(this)),
     myEdgeIDSupplier("gneE", netBuilder->getEdgeCont().getAllNames()),
     myJunctionIDSupplier("gneJ", netBuilder->getNodeCont().getAllNames()),
     myNeedRecompute(true),
@@ -116,8 +113,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
 
 
 GNENet::~GNENet() {
-    // delete route calculator Instance
-    delete myPathCalculator;
+    // delete path manager
+    delete myPathManager;
     // delete AttributeCarriers
     delete myAttributeCarriers;
     // show extra information for tests
@@ -132,9 +129,9 @@ GNENet::getAttributeCarriers() const {
 }
 
 
-GNENetHelper::PathCalculator*
-GNENet::getPathCalculator() {
-    return myPathCalculator;
+GNEPathManager*
+GNENet::getPathManager() {
+    return myPathManager;
 }
 
 
@@ -277,8 +274,8 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
     // all deletions must be undone/redone together so we start a new command group
     // @todo if any of those edges are dead-ends should we remove their orphan junctions as well?
     undoList->p_begin("delete " + toString(SUMO_TAG_JUNCTION));
-    // invalidate path elements
-    junction->invalidatePathElements();
+    // invalidate junction path elements
+    myPathManager->invalidateJunctionPath(junction);
     // delete all crossings vinculated with junction
     while (junction->getGNECrossings().size() > 0) {
         deleteCrossing(junction->getGNECrossings().front(), undoList);
@@ -317,8 +314,8 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
     undoList->p_begin("delete " + toString(SUMO_TAG_EDGE));
     // iterate over lanes
     for (const auto& lane : edge->getLanes()) {
-        // invalidate path elements
-        lane->invalidatePathElements();
+        // invalidate lane path elements
+        myPathManager->invalidateLanePath(lane);
         // delete lane additionals
         while (lane->getChildAdditionals().size() > 0) {
             deleteAdditional(lane->getChildAdditionals().front(), undoList);
@@ -454,8 +451,8 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnectio
         deleteEdge(edge, undoList, recomputeConnections);
     } else {
         undoList->p_begin("delete " + toString(SUMO_TAG_LANE));
-        // invalidate path elements
-        lane->invalidatePathElements();
+        // invalidate lane path elements
+        myPathManager->invalidateLanePath(lane);
         // delete lane additional children
         while (lane->getChildAdditionals().size() > 0) {
             deleteAdditional(lane->getChildAdditionals().front(), undoList);
@@ -1630,9 +1627,9 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load additionals if was recomputed with volatile options
     if (additionalPath != "") {
         // Create additional handler
-        GNEAdditionalHandler additionalHandler(additionalPath, this);
+        GNEAdditionalHandler additionalHandler(this, additionalPath, false);
         // Run parser
-        if (!XMLSubSys::runParser(additionalHandler, additionalPath, false)) {
+        if (!additionalHandler.parse()) {
             WRITE_MESSAGE("Loading of " + additionalPath + " failed.");
         }
         // clear myEdgesAndNumberOfLanes after reload additionals
@@ -1660,12 +1657,14 @@ GNENet::computeDemandElements(GNEApplicationWindow* window) {
     window->setStatusBarText("Computing demand elements ...");
     // if we aren't in Demand mode, update path calculator
     if (!myViewNet->getEditModes().isCurrentSupermodeDemand())  {
-        myPathCalculator->updatePathCalculator();
+        myPathManager->getPathCalculator()->updatePathCalculator();
     }
+    // clear demand paths
+    myPathManager->clearDemandPaths();
     // iterate over all demand elements and compute
-    for (const auto& i : myAttributeCarriers->getDemandElements()) {
-        for (const auto& j : i.second) {
-            j.second->computePath();
+    for (const auto& demandElements : myAttributeCarriers->getDemandElements()) {
+        for (const auto& demandElement : demandElements.second) {
+            demandElement.second->computePathElement();
         }
     }
     window->setStatusBarText("Finished computing demand elements.");
@@ -1675,14 +1674,14 @@ GNENet::computeDemandElements(GNEApplicationWindow* window) {
 void
 GNENet::computeDataElements(GNEApplicationWindow* window) {
     window->setStatusBarText("Computing data elements ...");
-    /*
     // iterate over all demand elements and compute
-    for (const auto& i : myAttributeCarriers->getDemandElements()) {
-        for (const auto& j : i.second) {
-            j.second->computePath();
+    for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
+        for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
+            for (const auto& genericData : dataInterval.second->getChildGenericDatas()) {
+                genericData->computePathElement();
+            }
         }
     }
-    */
     window->setStatusBarText("Finished computing data elements.");
 }
 
@@ -2037,6 +2036,51 @@ GNENet::joinRoutes(GNEUndoList* undoList) {
 
 
 void
+GNENet::adjustPersonPlans(GNEUndoList* undoList) {
+    // declare personPlan-pos map
+    std::map<GNEDemandElement*, std::string> personPlanMap;
+    // iterate over persons
+    for (const auto& persontag : {
+                SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW
+            }) {
+        for (const auto& person : myAttributeCarriers->getDemandElements().at(persontag)) {
+            if (person.second->getChildDemandElements().size() > 0) {
+                // get person plan
+                GNEDemandElement* personPlan = person.second->getChildDemandElements().front();
+                // iterate over all personPlans
+                while (personPlan) {
+                    // check if personPlan is a personStop over edge
+                    if (personPlan->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_EDGE) {
+                        // get previous person plan
+                        GNEDemandElement* previousPersonPlan = person.second->getPreviousChildDemandElement(personPlan);
+                        // check if arrivalPos of previous personPlan is different of endPos of personStop
+                        if (previousPersonPlan && previousPersonPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS) &&
+                                (previousPersonPlan->getAttribute(SUMO_ATTR_ARRIVALPOS) != personPlan->getAttribute(SUMO_ATTR_ENDPOS))) {
+                            personPlanMap[previousPersonPlan] = personPlan->getAttribute(SUMO_ATTR_ENDPOS);
+                        }
+                    }
+                    // go to next person plan
+                    personPlan = person.second->getNextChildDemandElement(personPlan);
+                }
+            }
+        }
+    }
+    // continue if there is personPlanMap to adjust
+    if (personPlanMap.size() > 0) {
+        // begin undo list
+        undoList->p_begin("adjust person plans");
+        // iterate over invalidDemandElements
+        for (const auto& personPlan : personPlanMap) {
+            // set arrivalPos attribute
+            personPlan.first->setAttribute(SUMO_ATTR_ARRIVALPOS, personPlan.second, undoList);
+        }
+        // end undo list
+        undoList->p_end();
+    }
+}
+
+
+void
 GNENet::cleanInvalidDemandElements(GNEUndoList* undoList) {
     // first declare a vector to save all invalid demand elements
     std::vector<GNEDemandElement*> invalidDemandElements;
@@ -2044,21 +2088,21 @@ GNENet::cleanInvalidDemandElements(GNEUndoList* undoList) {
                                   myAttributeCarriers->getDemandElements().at(SUMO_TAG_FLOW).size() +
                                   myAttributeCarriers->getDemandElements().at(SUMO_TAG_TRIP).size());
     // iterate over routes
-    for (const auto& i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
-        if (!i.second->isDemandElementValid()) {
-            invalidDemandElements.push_back(i.second);
+    for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
+        if (!route.second->isDemandElementValid()) {
+            invalidDemandElements.push_back(route.second);
         }
     }
     // iterate over flows
-    for (const auto& i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_FLOW)) {
-        if (!i.second->isDemandElementValid()) {
-            invalidDemandElements.push_back(i.second);
+    for (const auto& flow : myAttributeCarriers->getDemandElements().at(SUMO_TAG_FLOW)) {
+        if (!flow.second->isDemandElementValid()) {
+            invalidDemandElements.push_back(flow.second);
         }
     }
     // iterate over trip
-    for (const auto& i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_TRIP)) {
-        if (!i.second->isDemandElementValid()) {
-            invalidDemandElements.push_back(i.second);
+    for (const auto& trip : myAttributeCarriers->getDemandElements().at(SUMO_TAG_TRIP)) {
+        if (!trip.second->isDemandElementValid()) {
+            invalidDemandElements.push_back(trip.second);
         }
     }
     // continue if there is invalidDemandElements to remove
@@ -2066,9 +2110,9 @@ GNENet::cleanInvalidDemandElements(GNEUndoList* undoList) {
         // begin undo list
         undoList->p_begin("remove invalid demand elements");
         // iterate over invalidDemandElements
-        for (const auto& i : invalidDemandElements) {
+        for (const auto& invalidDemandElement : invalidDemandElements) {
             // simply call GNEChange_DemandElement
-            undoList->add(new GNEChange_DemandElement(i, false), true);
+            undoList->add(new GNEChange_DemandElement(invalidDemandElement, false), true);
         }
         // end undo list
         undoList->p_end();
@@ -2394,6 +2438,29 @@ GNENet::retrieveAdditionals(bool onlySelected) const {
 }
 
 
+GNEAdditional*
+GNENet::retrieveRerouterInterval(const std::string& rerouterID, const SUMOTime begin, const SUMOTime end) const {
+    // first retrieve rerouter
+    GNEAdditional* rerouter = retrieveAdditional(SUMO_TAG_REROUTER, rerouterID);
+    // parse begin and end
+    const std::string beginStr = time2string(begin);
+    const std::string endStr = time2string(end);
+    // now iterate over all children and check begin and end
+    for (const auto &interval : rerouter->getChildAdditionals()) {
+        // check tag
+        if (interval->getTagProperty().getTag() == SUMO_TAG_INTERVAL) {
+            // check begin and end
+            if ((interval->getAttribute(SUMO_ATTR_BEGIN) == beginStr) &&
+                (interval->getAttribute(SUMO_ATTR_END) == endStr)) {
+                return interval;
+            }
+        }
+    }
+    // throw exception
+    throw ProcessError("Attempted to retrieve non-existant rerouter interval");
+}
+
+
 int
 GNENet::getNumberOfAdditionals(SumoXMLTag type) const {
     int counter = 0;
@@ -2542,7 +2609,7 @@ GNENet::saveDemandElements(const std::string& filename) {
     for (const auto& demandElementSet : myAttributeCarriers->getDemandElements()) {
         for (const auto& demandElement : demandElementSet.second) {
             // compute before check if demand element is valid
-            demandElement.second->computePath();
+            demandElement.second->computePathElement();
             // check if has to be fixed
             if (!demandElement.second->isDemandElementValid()) {
                 invalidSingleLaneDemandElements.push_back(demandElement.second);
@@ -2929,12 +2996,8 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
         poly.second->writeShape(device);
     }
     // write POIs
-    for (const auto& shape : myAttributeCarriers->getShapes()) {
-        for (const auto& POI : shape.second) {
-            if (POI.second->getTagProperty().getTag() != SUMO_TAG_POLY) {
-                POI.second->writeShape(device);
-            }
-        }
+    for (const auto& poly : myAttributeCarriers->getShapes().at(SUMO_TAG_POI)) {
+        poly.second->writeShape(device);
     }
     device.close();
 }
@@ -2945,16 +3008,16 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("routes", "routes_file.xsd");
     // first  write all vehicle types
-    for (auto i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        i.second->writeDemandElement(device);
+    for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
+        vType.second->writeDemandElement(device);
     }
     // first  write all person types
-    for (auto i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_PTYPE)) {
-        i.second->writeDemandElement(device);
+    for (const auto& pType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_PTYPE)) {
+        pType.second->writeDemandElement(device);
     }
     // now write all routes (and their associated stops)
-    for (auto i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
-        i.second->writeDemandElement(device);
+    for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
+        route.second->writeDemandElement(device);
     }
     // sort vehicles/persons by depart
     std::map<double, std::vector<GNEDemandElement*> > vehiclesSortedByDepart;
@@ -3020,17 +3083,10 @@ std::string
 GNENet::generateShapeID(SumoXMLTag tag) const {
     int counter = 0;
     // generate tag depending of shape type
-    if (tag == SUMO_TAG_POLY) {
-        while (myAttributeCarriers->getShapes().at(tag).count(toString(tag) + "_" + toString(counter)) != 0) {
-            counter++;
-        }
-        return (toString(tag) + "_" + toString(counter));
-    } else {
-        while (myAttributeCarriers->getShapes().at(SUMO_TAG_POI).count(toString(SUMO_TAG_POI) + "_" + toString(counter)) != 0) {
-            counter++;
-        }
-        return (toString(SUMO_TAG_POI) + "_" + toString(counter));
+    while (myAttributeCarriers->getShapes().at(tag).count(toString(tag) + "_" + toString(counter)) != 0) {
+        counter++;
     }
+    return (toString(tag) + "_" + toString(counter));
 }
 
 

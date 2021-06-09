@@ -33,9 +33,10 @@
 // member method definitions
 // ===========================================================================
 
-GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos, const int parametersSet,
-                                       const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay, bool friendlyPosition, bool blockMovement) :
-    GNEStoppingPlace(id, net, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, lane, startPos, endPos, parametersSet, name, friendlyPosition, blockMovement),
+GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
+        const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay, bool friendlyPosition, 
+        const std::map<std::string, std::string> &parameters, bool blockMovement) :
+    GNEStoppingPlace(id, net, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, lane, startPos, endPos, name, friendlyPosition, parameters, blockMovement),
     myChargingPower(chargingPower),
     myEfficiency(efficiency),
     myChargeInTransit(chargeInTransit),
@@ -72,60 +73,63 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double chargingStationExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(chargingStationExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // declare colors
-        RGBColor baseColor, signColor;
-        // set colors
-        if (mySpecialColor) {
-            baseColor = *mySpecialColor;
-            signColor = baseColor.changedBrightness(-32);
-        } else if (drawUsingSelectColor()) {
-            baseColor = s.colorSettings.selectedAdditionalColor;
-            signColor = baseColor.changedBrightness(-32);
-        } else {
-            baseColor = s.stoppingPlaceSettings.chargingStationColor;
-            signColor = s.stoppingPlaceSettings.chargingStationColorSign;
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // check exaggeration
+        if (s.drawAdditionals(chargingStationExaggeration)) {
+            // declare colors
+            RGBColor baseColor, signColor;
+            // set colors
+            if (mySpecialColor) {
+                baseColor = *mySpecialColor;
+                signColor = baseColor.changedBrightness(-32);
+            } else if (drawUsingSelectColor()) {
+                baseColor = s.colorSettings.selectedAdditionalColor;
+                signColor = baseColor.changedBrightness(-32);
+            } else {
+                baseColor = s.stoppingPlaceSettings.chargingStationColor;
+                signColor = s.stoppingPlaceSettings.chargingStationColorSign;
+            }
+            // Start drawing adding an gl identificator
+            glPushName(getGlID());
+            // Add a draw matrix
+            glPushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CHARGING_STATION);
+            // set base color
+            GLHelper::setColor(baseColor);
+            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+            GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.stoppingPlaceSettings.chargingStationWidth * chargingStationExaggeration);
+            // draw detail
+            if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, chargingStationExaggeration)) {
+                // draw charging power and efficiency
+                drawLines(s, {toString(myChargingPower)}, baseColor);
+                // draw sign
+                drawSign(s, chargingStationExaggeration, baseColor, signColor, "C");
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, chargingStationExaggeration, 0, 0, true);
+            }
+            // pop draw matrix
+            glPopMatrix();
+            // Pop name
+            glPopName();
+            // check if dotted contours has to be drawn
+            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, chargingStationExaggeration);
+            }
+            if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, chargingStationExaggeration);
+            }
+            // draw child demand elements
+            for (const auto& demandElement : getChildDemandElements()) {
+                if (!demandElement->getTagProperty().isPlacedInRTree()) {
+                    demandElement->drawGL(s);
+                }
+            }
         }
-        // Start drawing adding an gl identificator
-        glPushName(getGlID());
-        // Add a draw matrix
-        glPushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CHARGING_STATION);
-        // set base color
-        GLHelper::setColor(baseColor);
-        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.stoppingPlaceSettings.chargingStationWidth * chargingStationExaggeration);
-        // draw detail
-        if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, chargingStationExaggeration)) {
-            // draw charging power and efficiency
-            drawLines(s, {toString(myChargingPower)}, baseColor);
-            // draw sign
-            drawSign(s, chargingStationExaggeration, baseColor, signColor, "C");
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, chargingStationExaggeration, 0, 0, true);
-        }
-        // pop draw matrix
-        glPopMatrix();
-        // Pop name
-        glPopName();
         // Draw additional ID
         drawAdditionalID(s);
         // draw additional name
         drawAdditionalName(s);
-        // check if dotted contours has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, chargingStationExaggeration);
-        }
-        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, chargingStationExaggeration);
-        }
-        // draw child demand elements
-        for (const auto& demandElement : getChildDemandElements()) {
-            if (!demandElement->getTagProperty().isPlacedInRTree()) {
-                demandElement->drawGL(s);
-            }
-        }
     }
 }
 
@@ -138,13 +142,13 @@ GNEChargingStation::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         case SUMO_ATTR_STARTPOS:
-            if (myParametersSet & STOPPINGPLACE_STARTPOS_SET) {
+            if (myStartPosition != INVALID_DOUBLE) {
                 return toString(myStartPosition);
             } else {
                 return "";
             }
         case SUMO_ATTR_ENDPOS:
-            if (myParametersSet & STOPPINGPLACE_ENDPOS_SET) {
+            if (myEndPosition != INVALID_DOUBLE) {
                 return toString(myEndPosition);
             } else {
                 return "";
@@ -215,7 +219,7 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return SUMORouteHandler::isStopPosValid(parse<double>(value), myEndPosition, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
+                return SUMORouteHandler::isStopPosValid(parse<double>(value), getAttributeDouble(SUMO_ATTR_ENDPOS), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
             } else {
                 return false;
             }
@@ -223,7 +227,7 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return SUMORouteHandler::isStopPosValid(myStartPosition, parse<double>(value), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
+                return SUMORouteHandler::isStopPosValid(getAttributeDouble(SUMO_ATTR_STARTPOS), parse<double>(value), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
             } else {
                 return false;
             }
@@ -264,19 +268,17 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_STARTPOS:
-            if (!value.empty()) {
-                myStartPosition = parse<double>(value);
-                myParametersSet |= STOPPINGPLACE_STARTPOS_SET;
+            if (value == "") {
+                myStartPosition = INVALID_DOUBLE;
             } else {
-                myParametersSet &= ~STOPPINGPLACE_STARTPOS_SET;
+                myStartPosition = parse<double>(value);
             }
             break;
         case SUMO_ATTR_ENDPOS:
-            if (!value.empty()) {
-                myEndPosition = parse<double>(value);
-                myParametersSet |= STOPPINGPLACE_ENDPOS_SET;
+            if (value == "") {
+                myEndPosition = INVALID_DOUBLE;
             } else {
-                myParametersSet &= ~STOPPINGPLACE_ENDPOS_SET;
+                myEndPosition = parse<double>(value);
             }
             break;
         case SUMO_ATTR_NAME:

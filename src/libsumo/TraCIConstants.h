@@ -733,11 +733,14 @@ TRACI_CONST int VAR_STOP_SPEED = 0x1d;
 // carFollowModel function getSecureGap (get: vehicle)
 TRACI_CONST int VAR_SECURE_GAP = 0x1e;
 
-// estimated (depart) delay for next stop
+// estimated (depart) delay for next stop (get: vehicle)
 TRACI_CONST int VAR_STOP_DELAY = 0x1f;
 
-// estimated arrival delay for next stop
+// estimated arrival delay for next stop (get: vehicle)
 TRACI_CONST int VAR_STOP_ARRIVALDELAY = 0x22;
+
+// collected timeLoss since departure (get: vehicle)
+TRACI_CONST int VAR_TIMELOSS = 0x8c;
 
 //  begin time(get: calibrator)
 TRACI_CONST int VAR_BEGIN = 0x1c;

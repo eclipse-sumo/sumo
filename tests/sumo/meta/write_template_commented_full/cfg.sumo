@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 14 10:26:07 2021 by Eclipse SUMO sumo Version v1_9_0+0041-8aed0dc
+<!-- generated on 2021-05-21 08:53:44 by Eclipse SUMO sumo Version v1_9_2+0045-34c5379
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -240,6 +240,9 @@
         <!-- save state repeatedly after TIME period -->
         <save-state.period value="-1" type="TIME"/>
 
+        <!-- Keep only the last INT periodic state files -->
+        <save-state.period.keep value="0" type="INT"/>
+
         <!-- Prefix for network states -->
         <save-state.prefix value="state" type="FILE"/>
 
@@ -333,8 +336,8 @@
         <!-- The waiting time after which vehicles on a fast road (speed &gt; 69km/h) are teleported if they are on a non-continuing lane -->
         <time-to-teleport.highways value="0" type="TIME"/>
 
-        <!-- The waiting time after which vehicles with a disconnected route are teleported -->
-        <time-to-teleport.disconnected value="0" type="TIME"/>
+        <!-- The waiting time after which vehicles with a disconnected route are teleported. Negative values disable teleporting -->
+        <time-to-teleport.disconnected value="-1" type="TIME"/>
 
         <!-- Length of time interval, over which accumulated waiting time is taken into account (default is 100s.) -->
         <waiting-time-memory value="100" type="TIME"/>
@@ -392,6 +395,9 @@
 
         <!-- Whether parking simulation includes manoeuvering time and associated lane blocking -->
         <parking.maneuver value="false" type="BOOL"/>
+
+        <!-- Override stop until times with stop ended times when given -->
+        <use-stop-ended value="false" type="BOOL"/>
 
         <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;remote&apos;] -->
         <pedestrian.model value="striping" type="STR"/>
@@ -880,6 +886,27 @@
         <device.taxi.idle-algorithm.output value="" type="FILE"/>
 
     </taxi_device>
+
+    <glosa_device>
+        <!-- The probability for a vehicle to have a &apos;glosa&apos; device -->
+        <device.glosa.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;glosa&apos; device to named vehicles -->
+        <device.glosa.explicit value="" synonymes="device.glosa.knownveh" type="STR[]"/>
+
+        <!-- The &apos;glosa&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.glosa.deterministic value="false" type="BOOL"/>
+
+        <!-- The communication range to the traffic light -->
+        <device.glosa.range value="100" type="FLOAT"/>
+
+        <!-- The maximum speed factor when approaching a green light -->
+        <device.glosa.max-speedfactor value="1.1" type="FLOAT"/>
+
+        <!-- Minimum speed when coasting towards a red light -->
+        <device.glosa.min-speed value="5" type="FLOAT"/>
+
+    </glosa_device>
 
     <tripinfo_device>
         <!-- The probability for a vehicle to have a &apos;tripinfo&apos; device -->

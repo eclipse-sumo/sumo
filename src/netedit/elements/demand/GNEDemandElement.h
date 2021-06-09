@@ -21,8 +21,9 @@
 #include <config.h>
 
 #include <netedit/elements/GNEHierarchicalElement.h>
-#include <netedit/elements/GNEPathElements.h>
 #include <netedit/GNEGeometry.h>
+#include <netedit/GNEMoveElement.h>
+#include <netedit/GNEPathManager.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -48,24 +49,9 @@ class GNEJunction;
  * @class GNEDemandElement
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEDemandElement : public GUIGlObject, public GNEHierarchicalElement, public GNEPathElements {
+class GNEDemandElement : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement, public GNEPathManager::PathElement {
 
 public:
-    /// @brief struct for pack all variables related with Demand Element moving
-    struct DemandElementMove {
-        /// @brief boundary used during moving of elements (to avoid insertion in RTREE)
-        Boundary movingGeometryBoundary;
-
-        /// @brief value for saving first original position over lane before moving
-        Position originalViewPosition;
-
-        /// @brief value for saving first original position over lane before moving
-        std::string firstOriginalLanePosition;
-
-        /// @brief value for saving second original position over lane before moving
-        std::string secondOriginalPosition;
-    };
-
     /**@brief Constructor
      * @param[in] id Gl-id of the demand element element (Must be unique)
      * @param[in] net pointer to GNEViewNet of this demand element element belongs
@@ -117,6 +103,14 @@ public:
     /// @brief Destructor
     virtual ~GNEDemandElement();
 
+    /**@brief get move operation for the given shapeOffset
+     * @note returned GNEMoveOperation can be nullptr
+     */
+    virtual GNEMoveOperation* getMoveOperation(const double shapeOffset) = 0;
+
+    /// @brief remove geometry point in the clicked position (Currently unused in shapes)
+    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
+
     /// @brief get ID
     const std::string& getID() const;
 
@@ -125,9 +119,6 @@ public:
 
     /// @brief get demand element geometry (stacked)
     const GNEGeometry::Geometry& getDemandElementGeometry();
-
-    /// @brief get demand element segment geometry (stacked)
-    const GNEGeometry::SegmentGeometry& getDemandElementSegmentGeometry() const;
 
     /// @brief get previous child demand element to the given demand element
     GNEDemandElement* getPreviousChildDemandElement(const GNEDemandElement* demandElement) const;
@@ -146,9 +137,6 @@ public:
 
     /// @brief update element spread geometry
     void updateDemandElementSpreadGeometry(const GNELane* lane, const double posOverLane);
-
-    /// @brief partial update pre-computed geometry information
-    void updatePartialGeometry(const GNELane* lane);
 
     /// @name members and functions relative to elements common to all demand elements
     /// @{
@@ -190,30 +178,8 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
-    /// @brief begin geometry movement
-    virtual void startGeometryMoving() = 0;
-
-    /// @brief end geometry movement
-    virtual void endGeometryMoving() = 0;
-
-    /**@brief change the position of the element geometry without saving in undoList
-     * @param[in] offset Position used for calculate new position of geometry without updating RTree
-     */
-    virtual void moveGeometry(const Position& offset) = 0;
-
-    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-     * @param[in] undoList The undoList on which to register changes
-     */
-    virtual void commitGeometryMoving(GNEUndoList* undoList) = 0;
-
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
-
-    /// @brief compute path
-    virtual void computePath() = 0;
-
-    /// @brief invalidate path
-    virtual void invalidatePath() = 0;
 
     /// @brief Returns position of demand element in view
     virtual Position getPositionInView() const = 0;
@@ -254,20 +220,48 @@ public:
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
 
+    /// @}
+
+    /// @name inherited from GNEPathManager::PathElement
+    /// @{
+    /// @brief compute pathElement
+    virtual void computePathElement() = 0;
+
     /**@brief Draws partial object (lane)
-    * @param[in] s The settings for the current view (may influence drawing)
-    * @param[in] lane GNELane in which draw partial
-    * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
-    */
-    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const = 0;
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @param[in] lane GNELane in which draw partial
+     * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
+     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     */
+    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
 
     /**@brief Draws partial object (junction)
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] fromLane from GNELane
      * @param[in] toLane to GNELane
-     * @param[in] offsetFront offset for drawing element front (needed for selected elements)
+     * @param[in] segment PathManager segment (used for segment options)
+     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
      */
-    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const = 0;
+    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
+
+    /// @brief get first path lane
+    virtual GNELane* getFirstPathLane() const = 0;
+
+    /// @brief get last path lane
+    virtual GNELane* getLastPathLane() const = 0;
+
+    /// @brief get path element depart lane pos
+    double getPathElementDepartValue() const;
+
+    /// @brief get path element depart position
+    Position getPathElementDepartPos() const;
+
+    /// @brief get path element arrival lane pos
+    double getPathElementArrivalValue() const;
+
+    /// @brief get path element arrival position
+    Position getPathElementArrivalPos() const;
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -283,6 +277,12 @@ public:
      * @return double with the value associated to key
      */
     virtual double getAttributeDouble(SumoXMLAttr key) const = 0;
+
+    /* @brief method for getting the Attribute of an XML key in Position format (used in person plans)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    virtual Position getAttributePosition(SumoXMLAttr key) const = 0;
 
     /**@brief method for setting the attribute and letting the object perform demand element changes
      * @param[in] key The attribute key
@@ -327,18 +327,12 @@ public:
     virtual std::string getHierarchyName() const = 0;
     /// @}
 
-    /// @brief get first allowed vehicle lane
-    GNELane* getFirstAllowedVehicleLane() const;
-
-    /// @brief get first allowed vehicle lane
-    GNELane* getLastAllowedVehicleLane() const;
+    /// @brief get personPlan start position
+    const Position getBeginPosition(const double pedestrianDepartPos) const;
 
 protected:
     /// @brief demand element geometry (also called "stacked geometry")
     GNEGeometry::Geometry myDemandElementGeometry;
-
-    /// @brief demand element segment geometry (also called "stacked geometry")
-    GNEGeometry::SegmentGeometry myDemandElementSegmentGeometry;
 
     /// @brief demand element spread geometry (Only used by vehicles and pedestrians)
     GNEGeometry::Geometry mySpreadGeometry;
@@ -349,22 +343,18 @@ protected:
     /// @brief check if a new demand element ID is valid
     bool isValidDemandElementID(const std::string& newID) const;
 
-    /// @brief get first person plan edge
-    const GNEEdge* getFirstPersonPlanEdge() const;
-
     /// @name Only for person plans
     /// @{
-
-    /// @brief calculate extreme geometry
-    GNEGeometry::ExtremeGeometry calculatePersonPlanLaneStartEndPos() const;
+    /// @brief check if person plan can be drawn
+    bool drawPersonPlan() const;
 
     /// @brief draw person plan partial lane
-    void drawPersonPlanPartialLane(const GUIVisualizationSettings& s, const GNELane* lane,
-                                   const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const;
+    void drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront,
+                               const double personPlanWidth, const RGBColor& personPlanColor) const;
 
     /// @brief draw person plan partial junction
-    void drawPersonPlanPartialJunction(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane,
-                                       const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const;
+    void drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment,
+                               const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const;
 
     /// @brief person plans arrival position radius
     static const double myPersonPlanArrivalPositionDiameter;
@@ -387,7 +377,7 @@ protected:
     void replaceLastParentEdge(const std::string& value);
 
     /// @brief replace additional parent
-    void replaceAdditionalParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
+    void replaceAdditionalParent(SumoXMLTag tag, const std::string& value);
 
     /// @brief replace demand element parent
     void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
@@ -400,6 +390,12 @@ private:
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
+
+    /// @brief set move shape
+    virtual void setMoveShape(const GNEMoveResult& moveResult) = 0;
+
+    /// @brief commit move shape
+    virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
     /// @brief Invalidated copy constructor.
     GNEDemandElement(const GNEDemandElement&) = delete;

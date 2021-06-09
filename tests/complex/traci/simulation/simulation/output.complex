@@ -1,8 +1,8 @@
 Loading configuration ... done.
 loaded? False
  Retrying in 1 seconds
-version at start (20, 'SUMO v1_8_0+1723-ac2556e')
-version (20, 'SUMO v1_8_0+1723-ac2556e')
+version at start (20, 'SUMO v1_9_1+0262-3f18272')
+version (20, 'SUMO v1_9_1+0262-3f18272')
 loaded? True
 {114: ('horiz', 'horiz1'), 116: ()}
 step 0
@@ -86,7 +86,7 @@ findRoute Stage(type=3, edges=('o', '2o'), travelTime=1088.96043165, cost=1088.9
 findRoute with routing mode Stage(type=3, edges=('o', '2o'), travelTime=1681.83638465, cost=1681.83638465, length=15136.55, depart=INVALID, departPos=INVALID, arrivalPos=INVALID)
 findIntermodalRoute (Stage(type=2, edges=('footpath', 'footpath2'), travelTime=144.0, cost=144.0, length=250.0, depart=6.0, departPos=0.0, arrivalPos=50.0),)
 findIntermodalRoute (walk)
-  Stage(type=2, edges=('o', '2o'), travelTime=4804.48416, cost=4804.48416, length=14979.671, depart=6.0, departPos=25.0, arrivalPos=5000.0)
+  Stage(type=2, edges=('o', '2o'), travelTime=4804.48416, cost=4804.48416, length=14979.671, depart=6.0, departPos=10.0, arrivalPos=5000.0)
 
 findIntermodalRoute (bike)
   Stage(type=3, vType=DEFAULT_BIKETYPE, line=bicycle, edges=('o', '2o'), travelTime=1824.579, cost=1824.579, length=20111.55, intended=bicycle, depart=6.00096, departPos=0.0, arrivalPos=5000.0)

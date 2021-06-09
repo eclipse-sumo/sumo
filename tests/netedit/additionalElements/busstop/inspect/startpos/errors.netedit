@@ -10,7 +10,6 @@ GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,10.00,60.00,34
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'busStop' in TagSelector
-Debug: Format of optional positive optional integer attribute 'personCapacity' of busStop with ID 'busStop_gneE2_1_0' is invalid; Cannot be negative; Default value will be used.
 Debug: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Setting new attribute startPos '' into busStop 'busStop_gneE2_1_0'
 Debug: Value '-5' for attribute startPos of busStop isn't valid

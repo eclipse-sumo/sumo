@@ -29,13 +29,13 @@ Warning: Vehicle 'vehicle.1070' performs emergency braking with decel=-9.00 wish
 Warning: Vehicle 'vehicle.1017' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3379.00.
 Warning: Teleporting vehicle 'vehicle.982'; waited too long (jam), lane='i3_0', time=3439.00.
 Warning: Vehicle 'vehicle.982' ends teleporting on edge 'i4', time 3439.00.
-Warning: Teleporting vehicle 'vehicle.1750'; waited too long (jam), lane='i4_1', time=5214.00.
-Warning: Vehicle 'vehicle.1714' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=5241.00.
-Warning: Vehicle 'vehicle.1567' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=5242.00.
-Warning: Vehicle 'vehicle.1778' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=5243.00.
-Warning: Vehicle 'vehicle.1637' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=5244.00.
-Warning: Vehicle 'vehicle.1599' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=5245.00.
-Warning: Vehicle 'vehicle.1678' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=5246.00.
-Warning: Vehicle 'vehicle.1750' ends teleporting on edge 'i5', time 5298.00.
-Warning: Teleporting vehicle 'vehicle.1958'; waited too long (jam), lane='i2_0', time=5957.00.
-Warning: Vehicle 'vehicle.1958' ends teleporting on edge 'i3', time 5957.00.
+Warning: Teleporting vehicle 'vehicle.1046'; waited too long (jam), lane='i4_1', time=3757.00.
+Warning: Vehicle 'vehicle.1046' ends teleporting on edge 'i5', time 3757.00.
+Warning: Vehicle 'vehicle.1728' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=5256.00.
+Warning: Vehicle 'vehicle.1599' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=5257.00.
+Warning: Vehicle 'vehicle.1730' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=5258.00.
+Warning: Vehicle 'vehicle.1762' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=5259.00.
+Warning: Vehicle 'vehicle.1671' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=5260.00.
+Warning: Vehicle 'vehicle.2085' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=6379.00.
+Warning: Teleporting vehicle 'vehicle.2871'; waited too long (jam), lane='i1_1', time=8259.00.
+Warning: Vehicle 'vehicle.2871' ends teleporting on edge 'i3', time 8274.00.

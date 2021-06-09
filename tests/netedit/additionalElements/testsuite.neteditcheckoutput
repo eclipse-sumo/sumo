@@ -4,6 +4,9 @@ basic
 # bus stops
 busstop
 
+# train stops
+trainstop
+
 # access
 access
 

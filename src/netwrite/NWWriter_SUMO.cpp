@@ -98,6 +98,9 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (oc.exists("geometry.avoid-overlap") && !oc.getBool("geometry.avoid-overlap")) {
         attrs[SUMO_ATTR_AVOID_OVERLAP] = toString(oc.getBool("geometry.avoid-overlap"));
     }
+    if (oc.exists("junctions.higher-speed") && oc.getBool("junctions.higher-speed")) {
+        attrs[SUMO_ATTR_HIGHER_SPEED] = toString(oc.getBool("junctions.higher-speed"));
+    }
     device.writeXMLHeader("net", "net_file.xsd", attrs); // street names may contain non-ascii chars
     device.lf();
     // get involved container
@@ -531,10 +534,10 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
     if (type != "") {
         into.writeAttr(SUMO_ATTR_TYPE, type);
     }
-    if (changeLeft != SVC_UNSPECIFIED && changeLeft != SVCAll) {
+    if (changeLeft != SVC_UNSPECIFIED && changeLeft != SVCAll && changeLeft != SVC_IGNORING) {
         into.writeAttr(SUMO_ATTR_CHANGE_LEFT, getVehicleClassNames(changeLeft));
     }
-    if (changeRight != SVC_UNSPECIFIED && changeRight != SVCAll) {
+    if (changeRight != SVC_UNSPECIFIED && changeRight != SVCAll && changeRight != SVC_IGNORING) {
         into.writeAttr(SUMO_ATTR_CHANGE_RIGHT, getVehicleClassNames(changeRight));
     }
     if (stopOffsets.size() != 0) {
@@ -710,10 +713,10 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
         if (c.permissions != SVC_UNSPECIFIED) {
             writePermissions(into, c.permissions);
         }
-        if (c.changeLeft != SVC_UNSPECIFIED && c.changeLeft != SVCAll) {
+        if (c.changeLeft != SVC_UNSPECIFIED && c.changeLeft != SVCAll && c.changeLeft != SVC_IGNORING) {
             into.writeAttr(SUMO_ATTR_CHANGE_LEFT, getVehicleClassNames(c.changeLeft));
         }
-        if (c.changeRight != SVC_UNSPECIFIED && c.changeRight != SVCAll) {
+        if (c.changeRight != SVC_UNSPECIFIED && c.changeRight != SVCAll && c.changeRight != SVC_IGNORING) {
             into.writeAttr(SUMO_ATTR_CHANGE_RIGHT, getVehicleClassNames(c.changeRight));
         }
         if (c.speed != NBEdge::UNSPECIFIED_SPEED) {

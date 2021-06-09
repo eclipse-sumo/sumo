@@ -205,6 +205,12 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, bool close) const {
     if ((parametersSet & STOP_UNTIL_SET) && (until >= 0)) {
         dev.writeAttr(SUMO_ATTR_UNTIL, time2string(until));
     }
+    if ((parametersSet & STOP_STARTED_SET) && (started >= 0)) {
+        dev.writeAttr(SUMO_ATTR_STARTED, time2string(started));
+    }
+    if ((parametersSet & STOP_ENDED_SET) && (ended >= 0)) {
+        dev.writeAttr(SUMO_ATTR_ENDED, time2string(ended));
+    }
     if ((parametersSet & STOP_EXTENSION_SET) && (extension >= 0)) {
         dev.writeAttr(SUMO_ATTR_EXTENSION, time2string(extension));
     }

@@ -513,7 +513,7 @@ Helper::getVehicleType(const std::string& vehicleID) {
 
 SUMOVehicleParameter::Stop
 Helper::buildStopParameters(const std::string& edgeOrStoppingPlaceID,
-                             double pos, int laneIndex, double startPos, int flags, double duration, double until) {
+                            double pos, int laneIndex, double startPos, int flags, double duration, double until) {
     SUMOVehicleParameter::Stop newStop;
     newStop.duration = duration == INVALID_DOUBLE_VALUE ? SUMOTime_MAX : TIME2STEPS(duration);
     newStop.until = until == INVALID_DOUBLE_VALUE ? -1 : TIME2STEPS(until);
@@ -649,8 +649,8 @@ Helper::buildStopData(const SUMOVehicleParameter::Stop& stopPar) {
                              stopPar.duration != -1 ? STEPS2TIME(stopPar.duration) : INVALID_DOUBLE_VALUE,
                              stopPar.until >= 0 ? STEPS2TIME(stopPar.until) : INVALID_DOUBLE_VALUE,
                              stopPar.arrival >= 0 ? STEPS2TIME(stopPar.arrival) : INVALID_DOUBLE_VALUE,
-                             stopPar.actualArrival >= 0 ? STEPS2TIME(stopPar.actualArrival) : INVALID_DOUBLE_VALUE,
-                             stopPar.depart >= 0 ? STEPS2TIME(stopPar.depart) : INVALID_DOUBLE_VALUE,
+                             stopPar.started >= 0 ? STEPS2TIME(stopPar.started) : INVALID_DOUBLE_VALUE,
+                             stopPar.ended >= 0 ? STEPS2TIME(stopPar.ended) : INVALID_DOUBLE_VALUE,
                              stopPar.split,
                              stopPar.join,
                              stopPar.actType,

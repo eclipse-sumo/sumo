@@ -232,6 +232,12 @@ public:
      */
     RGBColor getColor() const;
 
+    /** @brief Tries to read given attribute assuming it is a Position
+     *
+     * @param[in] attr The id of the attribute to read
+     * @return The read value if given and not empty; "" if an error occurred
+     */
+    Position getPosition(int attr) const;
 
     /** @brief Tries to read given attribute assuming it is a PositionVector
      *

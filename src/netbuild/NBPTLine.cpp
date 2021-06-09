@@ -49,7 +49,7 @@ std::vector<NBPTStop*> NBPTLine::getStops() {
     return myPTStops;
 }
 
-void NBPTLine::write(OutputDevice& device, NBEdgeCont& ec) {
+void NBPTLine::write(OutputDevice& device) {
     device.openTag(SUMO_TAG_PT_LINE);
     device.writeAttr(SUMO_ATTR_ID, myPTLineId);
     if (!myName.empty()) {
@@ -68,17 +68,9 @@ void NBPTLine::write(OutputDevice& device, NBEdgeCont& ec) {
     }
     device.writeAttr("completeness", toString((double)myPTStops.size() / (double)myNumOfStops));
 
-    std::vector<std::string> validEdgeIDs;
-    // filter out edges that have been removed due to joining junctions
-    // (the rest of the route is valid)
-    for (NBEdge* e : myRoute) {
-        if (ec.retrieve(e->getID())) {
-            validEdgeIDs.push_back(e->getID());
-        }
-    }
     if (!myRoute.empty()) {
         device.openTag(SUMO_TAG_ROUTE);
-        device.writeAttr(SUMO_ATTR_EDGES, validEdgeIDs);
+        device.writeAttr(SUMO_ATTR_EDGES, myRoute);
         device.closeTag();
     }
 
@@ -267,5 +259,17 @@ NBPTLine::deleteDuplicateStops() {
             it++;
         }
         lastAreaID = stop->getAreaID();
+    }
+}
+
+void
+NBPTLine::removeInvalidEdges(const NBEdgeCont& ec) {
+    for (auto it = myRoute.begin(); it != myRoute.end(); ) {
+        NBEdge* e = *it;
+        if (ec.retrieve(e->getID())) {
+            it++;
+        } else {
+            it = myRoute.erase(it);
+        }
     }
 }

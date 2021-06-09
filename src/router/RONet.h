@@ -218,6 +218,9 @@ public:
 
     /// @brief return the name for the given stopping place id
     const std::string getStoppingPlaceName(const std::string& id) const;
+
+    /// @brief return the element name for the given stopping place id
+    const std::string getStoppingPlaceElement(const std::string& id) const;
     //@}
 
 

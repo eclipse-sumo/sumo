@@ -814,6 +814,12 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_STOP_ARRIVALDELAY, vehID)
 
+    def getTimeLoss(self, vehID):
+        """getTimeLoss(string) -> double
+        Returns the time loss since departure
+        """
+        return self._getUniversal(tc.VAR_TIMELOSS, vehID)
+
     def getNextTLS(self, vehID):
         """getNextTLS(string) ->
 

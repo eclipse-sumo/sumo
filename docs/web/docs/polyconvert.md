@@ -33,8 +33,12 @@ position of the file. So
 ```
 polyconvert --visum mynet.net -o converted.poi.xml
 ```
-
 imports from a VISUM-net file.
+
+Furthermore, if you have already projected SHP-files, you can directly set the options
+shapefile.traditional-axis-mapping and proj-utm with true in order to avoid polygons to
+be projected in Polyconvert again.
+
 
 ## Options
 

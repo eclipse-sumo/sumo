@@ -32,6 +32,7 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 
 #include "GNEGeometry.h"
+#include "GNEMoveElement.h"
 
 // ===========================================================================
 // enum
@@ -616,6 +617,9 @@ struct GNEViewNetHelper {
         /// @brief check if shapes has to be drawn
         bool showShapes() const;
 
+        /// @brief check if trips has to be drawn
+        bool showAllTrips() const;
+
         /// @brief check all person plans has to be show
         bool showAllPersonPlans() const;
 
@@ -636,6 +640,9 @@ struct GNEViewNetHelper {
 
         /// @brief Hide shapes (Polygons and POIs)
         MFXCheckableButton* menuCheckHideShapes;
+
+        /// @brief show all trips
+        MFXCheckableButton* menuCheckShowAllTrips;
 
         /// @brief show all person plans
         MFXCheckableButton* menuCheckShowAllPersonPlans;
@@ -855,7 +862,7 @@ struct GNEViewNetHelper {
 
     protected:
         /// @brief calculate offset
-        Position calculateOffset() const;
+        const GNEMoveOffset calculateMoveOffset() const;
 
         /// @brief calculate move operation for shape
         bool calculateMoveOperationShape(GNEMoveElement* moveElement, const PositionVector& shape, const double radius);
@@ -866,9 +873,6 @@ struct GNEViewNetHelper {
 
         /// @brief relative position of Clicked Position regarding to originalGeometryPointPosition (Used when user doesn't click exactly over the center of element)
         Position myRelativeClickedPosition;
-
-        /// @brief the demand element which position is being moved
-        GNEDemandElement* myDemandElementToMove;
 
         /// @brief move operations
         std::vector<GNEMoveOperation*> myMoveOperations;
@@ -893,8 +897,8 @@ struct GNEViewNetHelper {
         bool isMovingSelection() const;
 
     protected:
-        /// @brief calculate offset
-        Position calculateOffset() const;
+        /// @brief calculate move offset
+        const GNEMoveOffset calculateMoveOffset() const;
 
         /// @brief calculate junction selection
         void calculateJunctionSelection();

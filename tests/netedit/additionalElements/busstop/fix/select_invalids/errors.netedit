@@ -29,9 +29,13 @@ Debug: Setting new attribute selected 'false' into busStop 'busStopB'
 Debug: Setting new attribute selected 'false' into busStop 'busStopC'
 Debug: Setting new attribute selected 'false' into busStop 'busStopD'
 Debug: Setting new attribute selected 'true' into busStop 'busStopA'
+Debug: Setting new attribute selected 'true' into busStop 'busStopB'
+Debug: Setting new attribute selected 'true' into busStop 'busStopD'
 Debug: Additionals saving aborted
 Debug: Key DEL (delete) pressed
 Debug: Removing busStop 'busStopA' in GNEChange_Additional
+Debug: Removing busStop 'busStopB' in GNEChange_Additional
+Debug: Removing busStop 'busStopD' in GNEChange_Additional
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

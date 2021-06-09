@@ -567,7 +567,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::checkComplexAttribute(const std:
 std::string
 GNEFrameAttributesModuls::AttributesCreatorRow::generateID() const {
     if (myAttrProperties.getTagPropertyParent().isShape()) {
-        return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateShapeID(myAttrProperties.getTagPropertyParent().getTag());
+        return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateShapeID(myAttrProperties.getTagPropertyParent().getXMLTag());
     } else if (myAttrProperties.getTagPropertyParent().isAdditionalElement()) {
         return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateAdditionalID(myAttrProperties.getTagPropertyParent().getTag());
     } else if (myAttrProperties.getTagPropertyParent().isDemandElement()) {
@@ -680,8 +680,54 @@ GNEFrameAttributesModuls::AttributesCreator::getFrameParent() const {
 }
 
 
-std::map<SumoXMLAttr, std::string>
-GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(bool includeAll) const {
+void
+GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, bool includeAll) const {
+    // get standard parameters
+    for (int i = 0; i < (int)myAttributesCreatorRows.size(); i++) {
+        if (myAttributesCreatorRows.at(i) && myAttributesCreatorRows.at(i)->getAttrProperties().getAttr() != SUMO_ATTR_NOTHING) {
+            const auto &attrProperties = myAttributesCreatorRows.at(i)->getAttrProperties();
+            // flag for row enabled
+            bool rowEnabled = myAttributesCreatorRows.at(i)->isAttributesCreatorRowEnabled();
+            // flag for default attributes
+            bool hasDefaultStaticValue = !attrProperties.hasStaticDefaultValue() || (attrProperties.getDefaultValue() != myAttributesCreatorRows.at(i)->getValue());
+            // flag for enablitables attributes
+            bool isFlowDefinitionAttribute = attrProperties.isFlowDefinition();
+            // flag for optional attributes
+            bool isActivatableAttribute = attrProperties.isActivatable() && myAttributesCreatorRows.at(i)->getAttributeCheckButtonCheck();
+            // check if flags configuration allow to include values
+            if (rowEnabled && (includeAll || hasDefaultStaticValue || isFlowDefinitionAttribute || isActivatableAttribute)) {
+                // add attribute depending of type
+                if (attrProperties.isInt()) {
+                    baseObject->addIntAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<int>(myAttributesCreatorRows.at(i)->getValue()));
+                } else if (attrProperties.isFloat()) {
+                    baseObject->addDoubleAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<double>(myAttributesCreatorRows.at(i)->getValue()));
+                } else if (attrProperties.isBool()) {
+                    baseObject->addBoolAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<bool>(myAttributesCreatorRows.at(i)->getValue()));
+                } else if (attrProperties.isposition()) {
+                    baseObject->addPositionAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<Position>(myAttributesCreatorRows.at(i)->getValue()));
+                } else if (attrProperties.isSUMOTime()) {
+                    baseObject->addTimeAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<SUMOTime>(myAttributesCreatorRows.at(i)->getValue()));
+                } else if (attrProperties.isColor()) {
+                    baseObject->addColorAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<RGBColor>(myAttributesCreatorRows.at(i)->getValue()));
+                } else if (attrProperties.isList()) {
+                    if (attrProperties.isposition()) {
+                        baseObject->addPositionVectorAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<PositionVector>(myAttributesCreatorRows.at(i)->getValue()));
+                    } else {
+                        baseObject->addStringListAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<std::vector<std::string> >(myAttributesCreatorRows.at(i)->getValue()));
+                    }
+                } else {
+                    baseObject->addStringAttribute(attrProperties.getAttr(), myAttributesCreatorRows.at(i)->getValue());
+                }
+            }
+        }
+    }
+    // add extra flow attributes (only will updated if myAttributesCreatorFlow is shown)
+    myAttributesCreatorFlow->setFlowParameters(baseObject);
+}
+
+
+std::map<SumoXMLAttr, std::string> 
+GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValuesTemporal(bool includeAll) const {
     std::map<SumoXMLAttr, std::string> values;
     // get standard parameters
     for (int i = 0; i < (int)myAttributesCreatorRows.size(); i++) {
@@ -701,7 +747,7 @@ GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(bool include
         }
     }
     // add extra flow attributes (only will updated if myAttributesCreatorFlow is shown)
-    myAttributesCreatorFlow->setFlowParameters(values);
+    // myAttributesCreatorFlow->setFlowParameters(values);
     // return values
     return values;
 }
@@ -871,25 +917,25 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::refreshAttributesCreatorFlow() 
 
 
 void
-GNEFrameAttributesModuls::AttributesCreatorFlow::setFlowParameters(std::map<SumoXMLAttr, std::string>& parameters) {
+GNEFrameAttributesModuls::AttributesCreatorFlow::setFlowParameters(CommonXMLStructure::SumoBaseObject* baseObject) {
     if (myFlowParameters & VEHPARS_END_SET) {
-        parameters[SUMO_ATTR_END] = myValueEndTextField->getText().text();
+        baseObject->addDoubleAttribute(SUMO_ATTR_END, GNEAttributeCarrier::parse<double>(myValueEndTextField->getText().text()));
     }
     if (myFlowParameters & VEHPARS_NUMBER_SET) {
-        parameters[SUMO_ATTR_NUMBER] = myValueNumberTextField->getText().text();
+        baseObject->addDoubleAttribute(SUMO_ATTR_NUMBER, GNEAttributeCarrier::parse<double>(myValueNumberTextField->getText().text()));
     }
     if (myFlowParameters & VEHPARS_VPH_SET) {
         if (myAttributeVehsPerHourRadioButton->getText().text() == toString(SUMO_ATTR_VEHSPERHOUR)) {
-            parameters[SUMO_ATTR_VEHSPERHOUR] = myValueVehsPerHourTextField->getText().text();
+            baseObject->addDoubleAttribute(SUMO_ATTR_VEHSPERHOUR, GNEAttributeCarrier::parse<double>(myValueVehsPerHourTextField->getText().text()));
         } else {
-            parameters[SUMO_ATTR_PERSONSPERHOUR] = myValueVehsPerHourTextField->getText().text();
+            baseObject->addDoubleAttribute(SUMO_ATTR_PERSONSPERHOUR, GNEAttributeCarrier::parse<double>(myValueVehsPerHourTextField->getText().text()));
         }
     }
     if (myFlowParameters & VEHPARS_PERIOD_SET) {
-        parameters[SUMO_ATTR_PERIOD] = myValuePeriodTextField->getText().text();
+        baseObject->addDoubleAttribute(SUMO_ATTR_PERIOD, GNEAttributeCarrier::parse<double>(myValuePeriodTextField->getText().text()));
     }
     if (myFlowParameters & VEHPARS_PROB_SET) {
-        parameters[SUMO_ATTR_PROB] = myValueProbabilityTextField->getText().text();
+        baseObject->addDoubleAttribute(SUMO_ATTR_PROB, GNEAttributeCarrier::parse<double>(myValueProbabilityTextField->getText().text()));
     }
 }
 
@@ -1295,20 +1341,26 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
         if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
             myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_begin("Change multiple attributes");
         }
-        // open GNEAllowDisallow (also used to modify SUMO_ATTR_CHANGE_LEFT etc
+        // get attribute to modify
         SumoXMLAttr modifiedAttr = myACAttr.getAttr() == SUMO_ATTR_DISALLOW ? SUMO_ATTR_ALLOW : myACAttr.getAttr();
-        GNEAllowDisallow(myAttributesEditorParent->getFrameParent()->myViewNet, myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front(), modifiedAttr).execute();
-        std::string allowed = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(modifiedAttr);
-        // Set new value of attribute in all selected ACs
-        for (const auto& it_ac : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-            it_ac->setAttribute(modifiedAttr, allowed, myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList());
+        // declare accept changes
+        bool acceptChanges = false;
+        // open GNEAllowDisallow (also used to modify SUMO_ATTR_CHANGE_LEFT etc
+        GNEAllowDisallow(myAttributesEditorParent->getFrameParent()->myViewNet, myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front(), modifiedAttr, &acceptChanges).execute();
+        // continue depending of acceptChanges
+        if (acceptChanges) {
+            std::string allowed = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(modifiedAttr);
+            // Set new value of attribute in all selected ACs
+            for (const auto& it_ac : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+                it_ac->setAttribute(modifiedAttr, allowed, myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList());
+            }
+            // finish change multiple attributes
+            if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
+                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_end();
+            }   
+            // update frame parent after attribute sucesfully set
+            myAttributesEditorParent->getFrameParent()->attributeUpdated();
         }
-        // finish change multiple attributes
-        if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
-            myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_end();
-        }
-        // update frame parent after attribute sucesfully set
-        myAttributesEditorParent->getFrameParent()->attributeUpdated();
         return 1;
     } else {
         throw ProcessError("Invalid call to onCmdOpenAttributeDialog");
@@ -2509,7 +2561,52 @@ GNEFrameAttributesModuls::NeteditAttributes::hideNeteditAttributesModul() {
 
 
 bool
-GNEFrameAttributesModuls::NeteditAttributes::getNeteditAttributesAndValues(std::map<SumoXMLAttr, std::string>& valuesMap, const GNELane* lane) const {
+GNEFrameAttributesModuls::NeteditAttributes::getNeteditAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, const GNELane* lane) const {
+    // check if we need to obtain a start and end position over an edge
+    if (myReferencePointMatchBox->shown()) {
+        // we need a valid lane to calculate position over lane
+        if (lane == nullptr) {
+            return false;
+        } else if (myCurrentLengthValid) {
+            // Obtain position of the mouse over lane (limited over grid)
+            double mousePositionOverLane = lane->getLaneShape().nearest_offset_to_point2D(myFrameParent->myViewNet->snapToActiveGrid(myFrameParent->myViewNet->getPositionInformation())) / lane->getLengthGeometryFactor();
+            // check if current reference point is valid
+            if (myActualAdditionalReferencePoint == GNE_ADDITIONALREFERENCEPOINT_INVALID) {
+                std::string errorMessage = "Current selected reference point isn't valid";
+                myFrameParent->myViewNet->setStatusBarText(errorMessage);
+                // Write Warning in console if we're in testing mode
+                WRITE_DEBUG(errorMessage);
+                return false;
+            } else {
+                // obtain length
+                double length = GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
+                // set start and end position
+                baseObject->addDoubleAttribute(SUMO_ATTR_STARTPOS, setStartPosition(mousePositionOverLane, length));
+                baseObject->addDoubleAttribute(SUMO_ATTR_ENDPOS, setEndPosition(mousePositionOverLane, length));
+            }
+        } else {
+            return false;
+        }
+    }
+    // Save block value if element can be blocked
+    if (myBlockMovementCheckButton->shown()) {
+        baseObject->addBoolAttribute(GNE_ATTR_BLOCK_MOVEMENT, myBlockMovementCheckButton->getCheck() == 1);
+    }
+    // Save close shape value if shape's element can be closed
+    if (myCloseShapeCheckButton->shown()) {
+        baseObject->addBoolAttribute(GNE_ATTR_CLOSE_SHAPE, myCloseShapeCheckButton->getCheck() == 1);
+    }
+    // check center element after creation
+    if (myCenterViewAfterCreationButton->shown()) {
+        baseObject->addBoolAttribute(GNE_ATTR_CENTER_AFTER_CREATION, myCenterViewAfterCreationButton->getCheck() == 1);
+    }
+    // all ok, then return true to continue creating element
+    return true;
+}
+
+
+bool
+GNEFrameAttributesModuls::NeteditAttributes::getNeteditAttributesAndValuesTemporal(std::map<SumoXMLAttr, std::string>& valuesMap, const GNELane* lane) const {
     // check if we need to obtain a start and end position over an edge
     if (myReferencePointMatchBox->shown()) {
         // we need a valid lane to calculate position over lane

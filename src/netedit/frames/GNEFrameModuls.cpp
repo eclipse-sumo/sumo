@@ -148,7 +148,6 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
         default:
             throw ProcessError("invalid tag property");
     }
-
     // Create FXComboBox
     myTagTypesMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_TAGTYPE_SELECTED, GUIDesignComboBox);
     // Create FXComboBox
@@ -161,15 +160,15 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
         }
         // Set visible items
         myTagTypesMatchBox->setNumVisible((int)myTagTypesMatchBox->getNumItems());
-        // fill myListOfTags with personTrips (the first Tag Type)
-        myListOfTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::PERSONTRIP, onlyDrawables);
+        // fill myTagPropertiesString with personTrips (the first Tag Type)
+        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::PERSONTRIP, onlyDrawables);
     } else {
         myTagTypesMatchBox->hide();
-        // fill myListOfTags
-        myListOfTags = GNEAttributeCarrier::getAllowedTagsByCategory(type, onlyDrawables);
+        // fill myTagPropertiesString
+        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(type, onlyDrawables);
     }
     // fill myTypeMatchBox with list of tags
-    for (const auto& tagIt : myListOfTags) {
+    for (const auto& tagIt : myTagPropertiesString) {
         myTagsMatchBox->appendItem(tagIt.second.c_str());
     }
     // Set visible items
@@ -208,12 +207,12 @@ GNEFrameModuls::TagSelector::setCurrentTagType(GNETagProperties::TagType tagType
     for (int i = 0; i < (int)myTagsMatchBox->getNumItems(); i++) {
         if (myTagsMatchBox->getItem(i).text() == toString(tagType)) {
             myTagsMatchBox->setCurrentItem(i);
-            // fill myListOfTags with personTrips (the first Tag Type)
-            myListOfTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::PERSONTRIP, true);
+            // fill myTagPropertiesString with personTrips (the first Tag Type)
+            myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::PERSONTRIP, true);
             // clear myTagsMatchBox
             myTagsMatchBox->clearItems();
             // fill myTypeMatchBox with list of tags
-            for (const auto& tagIt : myListOfTags) {
+            for (const auto& tagIt : myTagPropertiesString) {
                 myTagsMatchBox->appendItem(tagIt.second.c_str());
             }
             // Set visible items
@@ -255,13 +254,13 @@ long GNEFrameModuls::TagSelector::onCmdSelectTagType(FXObject*, FXSelector, void
         if (i.first == myTagTypesMatchBox->getText().text()) {
             // set color of myTagTypesMatchBox to black (valid)
             myTagTypesMatchBox->setTextColor(FXRGB(0, 0, 0));
-            // fill myListOfTags with personTrips (the first Tag Type)
-            myListOfTags = GNEAttributeCarrier::getAllowedTagsByCategory(i.second, true);
+            // fill myTagPropertiesString with personTrips (the first Tag Type)
+            myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(i.second, true);
             // show and clear myTagsMatchBox
             myTagsMatchBox->show();
             myTagsMatchBox->clearItems();
             // fill myTypeMatchBox with list of tags
-            for (const auto& tagIt : myListOfTags) {
+            for (const auto& tagIt : myTagPropertiesString) {
                 myTagsMatchBox->appendItem(tagIt.second.c_str());
             }
             // Set visible items
@@ -289,12 +288,12 @@ long GNEFrameModuls::TagSelector::onCmdSelectTagType(FXObject*, FXSelector, void
 long
 GNEFrameModuls::TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    for (const auto& tagIt : myListOfTags) {
-        if (tagIt.second == myTagsMatchBox->getText().text()) {
+    for (const auto& tagProperty : myTagPropertiesString) {
+        if (tagProperty.second == myTagsMatchBox->getText().text()) {
             // set color of myTypeMatchBox to black (valid)
             myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
             // Set new current type
-            myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(tagIt.first);
+            myCurrentTagProperties = tagProperty.first;
             // call tag selected function
             myFrameParent->tagSelected();
             // Write Warning in console if we're in testing mode
@@ -337,9 +336,9 @@ GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* framePare
     myCurrentDemandElement(nullptr) {
     // fill myDemandElementTags
     for (const auto& tagType : tagTypes) {
-        const auto tagsByCategory = GNEAttributeCarrier::getAllowedTagsByCategory(tagType, false);
-        for (const auto& tagByCategory : tagsByCategory) {
-            myDemandElementTags.push_back(tagByCategory.first);
+        const auto tagProperties = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(tagType, false);
+        for (const auto& tagProperty : tagProperties) {
+            myDemandElementTags.push_back(tagProperty.first.getTag());
         }
     }
     // Create FXComboBox
@@ -496,17 +495,26 @@ GNEFrameModuls::DemandElementSelector::getPersonPlanPreviousEdge() const {
     const GNEDemandElement* lastPersonPlan = myCurrentDemandElement->getChildDemandElements().back();
     // check tag
     switch (lastPersonPlan->getTagProperty().getTag()) {
-        case GNE_TAG_PERSONTRIP_EDGE_EDGE:
+        // person trips
+        case GNE_TAG_PERSONTRIP_EDGE:
+        // rides
+        case GNE_TAG_RIDE_EDGE:
+        // walks
+        case GNE_TAG_WALK_EDGE:
         case GNE_TAG_WALK_EDGES:
-        case GNE_TAG_WALK_EDGE_EDGE:
-        case GNE_TAG_RIDE_EDGE_EDGE:
+        // stops
         case GNE_TAG_PERSONSTOP_EDGE:
             return lastPersonPlan->getParentEdges().back();
-        case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
-        case GNE_TAG_WALK_EDGE_BUSSTOP:
-        case GNE_TAG_RIDE_EDGE_BUSSTOP:
+        // person trips
+        case GNE_TAG_PERSONTRIP_BUSSTOP:
+        // person trips
+        case GNE_TAG_RIDE_BUSSTOP:
+        // walks
+        case GNE_TAG_WALK_BUSSTOP:
+        // stops
         case GNE_TAG_PERSONSTOP_BUSSTOP:
             return lastPersonPlan->getParentAdditionals().back()->getParentLanes().front()->getParentEdge();
+        // route walks
         case GNE_TAG_WALK_ROUTE:
             return lastPersonPlan->getParentDemandElements().back()->getParentEdges().back();
         default:
@@ -973,9 +981,9 @@ GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
             default:
                 break;
         }
-    } else if (myHE->getTagProperty().getTag() == SUMO_TAG_POILANE) {
+    } else if (myHE->getTagProperty().getTag() == GNE_TAG_POILANE) {
         // Obtain POILane
-        GNEShape* POILane = myFrameParent->myViewNet->getNet()->retrieveShape(SUMO_TAG_POILANE, myHE->getID(), false);
+        GNEShape* POILane = myFrameParent->myViewNet->getNet()->retrieveShape(SUMO_TAG_POI, myHE->getID(), false);
         if (POILane) {
             // obtain parent lane
             GNELane* lane = myFrameParent->myViewNet->getNet()->retrieveLane(POILane->getParentLanes().at(0)->getID());
@@ -1638,8 +1646,7 @@ GNEFrameModuls::DrawingShape::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
 
 GNEFrameModuls::SelectorParent::SelectorParent(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Parent selector", GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent),
-    myParentTag(SUMO_TAG_NOTHING) {
+    myFrameParent(frameParent) {
     // Create label with the type of SelectorParent
     myParentsLabel = new FXLabel(this, "No additional selected", nullptr, GUIDesignLabelLeftThick);
     // Create list
@@ -1681,12 +1688,12 @@ GNEFrameModuls::SelectorParent::setIDSelected(const std::string& id) {
 
 
 bool
-GNEFrameModuls::SelectorParent::showSelectorParentModul(SumoXMLTag additionalType) {
+GNEFrameModuls::SelectorParent::showSelectorParentModul(const std::vector<SumoXMLTag> &additionalTypeParents) {
     // make sure that we're editing an additional tag
-    const auto listOfTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, false);
+    const auto listOfTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, false);
     for (const auto& tagIt : listOfTags) {
-        if (tagIt.first == additionalType) {
-            myParentTag = additionalType;
+        if (std::find(additionalTypeParents.begin(), additionalTypeParents.end(), tagIt.first.getTag()) != additionalTypeParents.end()) {
+            myParentTags = additionalTypeParents;
             myParentsLabel->setText(("Parent type: " + tagIt.second).c_str());
             refreshSelectorParentModul();
             show();
@@ -1699,7 +1706,7 @@ GNEFrameModuls::SelectorParent::showSelectorParentModul(SumoXMLTag additionalTyp
 
 void
 GNEFrameModuls::SelectorParent::hideSelectorParentModul() {
-    myParentTag = SUMO_TAG_NOTHING;
+    myParentTags.clear();
     hide();
 }
 
@@ -1707,10 +1714,12 @@ GNEFrameModuls::SelectorParent::hideSelectorParentModul() {
 void
 GNEFrameModuls::SelectorParent::refreshSelectorParentModul() {
     myParentsList->clearItems();
-    if (myParentTag != SUMO_TAG_NOTHING) {
+    if (myParentTags.size() > 0) {
         // fill list with IDs of additionals
-        for (const auto& i : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(myParentTag)) {
-            myParentsList->appendItem(i.first.c_str());
+        for (const auto &ptag : myParentTags) {
+            for (const auto& additional : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(ptag)) {
+                myParentsList->appendItem(additional.first.c_str());
+            }
         }
     }
 }
@@ -2012,10 +2021,10 @@ GNEFrameModuls::PathCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleCl
     myConflictVClass(false),
     myConflictDisconnected(false) {
     // calculate subpath
-    mySubPath = viewNet->getNet()->getPathCalculator()->calculatePath(vClass, {edgeFrom, edgeTo});
+    mySubPath = viewNet->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(vClass, {edgeFrom, edgeTo});
     // if subPath is empty, try it with pedestrian (i.e. ignoring vCass)
     if (mySubPath.empty()) {
-        mySubPath = viewNet->getNet()->getPathCalculator()->calculatePath(SVC_PEDESTRIAN, {edgeFrom, edgeTo});
+        mySubPath = viewNet->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(SVC_PEDESTRIAN, {edgeFrom, edgeTo});
         if (mySubPath.empty()) {
             mySubPath = { edgeFrom, edgeTo };
             myConflictDisconnected = true;
@@ -2067,7 +2076,6 @@ GNEFrameModuls::PathCreator::PathCreator(GNEFrame* frameParent) :
     myFrameParent(frameParent),
     myVClass(SVC_PASSENGER),
     myCreationMode(0),
-    myFromStoppingPlace(nullptr),
     myToStoppingPlace(nullptr),
     myRoute(nullptr) {
     // create label for route info
@@ -2148,51 +2156,33 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag element, const bool
             myCreationMode |= START_EDGE;
             myCreationMode |= END_EDGE;
             break;
-        // edges
+        // walk edges
         case GNE_TAG_WALK_EDGES:
             myCreationMode |= SHOW_CANDIDATE_EDGES;
             myCreationMode |= START_EDGE;
             myCreationMode |= END_EDGE;
             break;
         // edge->edge
-        case GNE_TAG_PERSONTRIP_EDGE_EDGE:
-        case GNE_TAG_WALK_EDGE_EDGE:
-        case GNE_TAG_RIDE_EDGE_EDGE:
+        case GNE_TAG_PERSONTRIP_EDGE:
+        case GNE_TAG_RIDE_EDGE:
+        case GNE_TAG_WALK_EDGE:
             myCreationMode |= SHOW_CANDIDATE_EDGES;
             myCreationMode |= ONLY_FROMTO;
             myCreationMode |= START_EDGE;
             myCreationMode |= END_EDGE;
             break;
         // edge->busStop
-        case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
-        case GNE_TAG_WALK_EDGE_BUSSTOP:
-        case GNE_TAG_RIDE_EDGE_BUSSTOP:
+        case GNE_TAG_PERSONTRIP_BUSSTOP:
+        case GNE_TAG_RIDE_BUSSTOP:
+        case GNE_TAG_WALK_BUSSTOP:
             myCreationMode |= SHOW_CANDIDATE_EDGES;
             myCreationMode |= ONLY_FROMTO;
-            myCreationMode |= START_BUSSTOP;
-            myCreationMode |= END_BUSSTOP;
-            break;
-        // busStop->edge
-        case GNE_TAG_PERSONTRIP_BUSSTOP_EDGE:
-        case GNE_TAG_WALK_BUSSTOP_EDGE:
-        case GNE_TAG_RIDE_BUSSTOP_EDGE:
-            myCreationMode |= SHOW_CANDIDATE_EDGES;
-            myCreationMode |= ONLY_FROMTO;
-            myCreationMode |= START_BUSSTOP;
-            myCreationMode |= END_EDGE;
-            break;
-        // busStop->busStop
-        case GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP:
-        case GNE_TAG_WALK_BUSSTOP_BUSSTOP:
-        case GNE_TAG_RIDE_BUSSTOP_BUSSTOP:
-            myCreationMode |= ONLY_FROMTO;
-            myCreationMode |= START_BUSSTOP;
             myCreationMode |= END_BUSSTOP;
             break;
         // stops
         case GNE_TAG_PERSONSTOP_BUSSTOP:
             myCreationMode |= SINGLE_ELEMENT;
-            myCreationMode |= START_BUSSTOP;
+            myCreationMode |= END_BUSSTOP;
             break;
         case GNE_TAG_PERSONSTOP_EDGE:
             myCreationMode |= SINGLE_ELEMENT;
@@ -2336,33 +2326,14 @@ GNEFrameModuls::PathCreator::getSelectedEdges() const {
 bool
 GNEFrameModuls::PathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
     // check if stoppingPlaces aren allowed
-    if (((myCreationMode & START_BUSSTOP) + (myCreationMode & END_BUSSTOP)) == 0) {
+    if ((myCreationMode & END_BUSSTOP) == 0) {
         return false;
     }
-    // check if only a busStop is allowed
-    if ((myCreationMode & SINGLE_ELEMENT) && myFromStoppingPlace) {
+    // check if previously stopping place from was set
+    if (myToStoppingPlace) {
         return false;
-    }
-    // first add startBusStop
-    if (myCreationMode & START_BUSSTOP) {
-        // check if previously stopping place from was set
-        if (myFromStoppingPlace) {
-            // check if previously stopping place to was set
-            if ((myCreationMode & END_BUSSTOP) && myToStoppingPlace) {
-                return false;
-            } else {
-                myToStoppingPlace = stoppingPlace;
-            }
-        } else {
-            myFromStoppingPlace = stoppingPlace;
-        }
-    } else if (myCreationMode & END_BUSSTOP) {
-        // check if previously stopping place from was set
-        if (myToStoppingPlace) {
-            return false;
-        } else {
-            myToStoppingPlace = stoppingPlace;
-        }
+    } else {
+        myToStoppingPlace = stoppingPlace;
     }
     // enable abort route button
     myAbortCreationButton->enable();
@@ -2371,7 +2342,7 @@ GNEFrameModuls::PathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, cons
     // disable undo/redo
     myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
     // enable or disable remove last stoppingPlace button
-    if (myFromStoppingPlace || myToStoppingPlace) {
+    if (myToStoppingPlace) {
         myRemoveLastInsertedElement->enable();
     } else {
         myRemoveLastInsertedElement->disable();
@@ -2383,16 +2354,6 @@ GNEFrameModuls::PathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, cons
     // update stoppingPlace colors
     updateEdgeColors();
     return true;
-}
-
-
-GNEAdditional*
-GNEFrameModuls::PathCreator::getFromStoppingPlace(SumoXMLTag expectedTag) const {
-    if (myFromStoppingPlace && (myFromStoppingPlace->getTagProperty().getTag() == expectedTag)) {
-        return myFromStoppingPlace;
-    } else {
-        return nullptr;
-    }
 }
 
 
@@ -2577,7 +2538,7 @@ GNEFrameModuls::PathCreator::createPath() {
 void
 GNEFrameModuls::PathCreator::abortPathCreation() {
     // first check that there is elements
-    if ((mySelectedEdges.size() > 0) || myFromStoppingPlace || myToStoppingPlace || myRoute) {
+    if ((mySelectedEdges.size() > 0) || myToStoppingPlace || myRoute) {
         // unblock undo/redo
         myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
         // clear edges
@@ -2705,7 +2666,6 @@ GNEFrameModuls::PathCreator::clearPath() {
     }
     // clear edges, additionals and route
     mySelectedEdges.clear();
-    myFromStoppingPlace = nullptr;
     myToStoppingPlace = nullptr;
     myRoute = nullptr;
     // clear path
@@ -2725,10 +2685,6 @@ GNEFrameModuls::PathCreator::recalculatePath() {
     if (myRoute) {
         edges = myRoute->getParentEdges();
     } else {
-        // add from stopping place edge
-        if (myFromStoppingPlace) {
-            edges.push_back(myFromStoppingPlace->getParentLanes().front()->getParentEdge());
-        }
         // add selected edges
         for (const auto& edge : mySelectedEdges) {
             edges.push_back(edge);
@@ -2753,7 +2709,7 @@ GNEFrameModuls::PathCreator::recalculatePath() {
 void
 GNEFrameModuls::PathCreator::setSpecialCandidates(GNEEdge* originEdge) {
     // first calculate reachability for pedestrians (we use it, because pedestran can walk in almost all edges)
-    myFrameParent->getViewNet()->getNet()->getPathCalculator()->calculateReachability(SVC_PEDESTRIAN, originEdge);
+    myFrameParent->getViewNet()->getNet()->getPathManager()->getPathCalculator()->calculateReachability(SVC_PEDESTRIAN, originEdge);
     // change flags
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         for (const auto& lane : edge.second->getLanes()) {
@@ -2768,7 +2724,7 @@ GNEFrameModuls::PathCreator::setSpecialCandidates(GNEEdge* originEdge) {
 void
 GNEFrameModuls::PathCreator::setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClass vClass) {
     // first calculate reachability for pedestrians
-    myFrameParent->getViewNet()->getNet()->getPathCalculator()->calculateReachability(vClass, originEdge);
+    myFrameParent->getViewNet()->getNet()->getPathManager()->getPathCalculator()->calculateReachability(vClass, originEdge);
     // change flags
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         for (const auto& lane : edge.second->getLanes()) {

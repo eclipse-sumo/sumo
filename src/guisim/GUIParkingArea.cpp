@@ -54,8 +54,9 @@
 GUIParkingArea::GUIParkingArea(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
                                double frompos, double topos, unsigned int capacity,
                                double width, double length, double angle, const std::string& name,
-                               bool onRoad) :
-    MSParkingArea(id, lines, lane, frompos, topos, capacity, width, length, angle, name, onRoad),
+                               bool onRoad,
+                               const std::string& departPos) :
+    MSParkingArea(id, lines, lane, frompos, topos, capacity, width, length, angle, name, onRoad, departPos),
     GUIGlObject_AbstractAdd(GLO_PARKING_AREA, id) {
     const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
     myShapeRotations.reserve(myShape.size() - 1);
@@ -131,8 +132,21 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale * exaggeration >= 1) {
         // draw the lots
         glTranslated(0, 0, .1);
-        for (const auto& lsd : mySpaceOccupancies) {
-            GLHelper::drawSpaceOccupancies(exaggeration, lsd.position, lsd.rotation, lsd.width, lsd.length, lsd.vehicle ? true : false);
+        // calculate shape lengt
+        double ShapeLength = 0;
+        for (const auto &length : myShapeLengths) {
+            ShapeLength += length;
+        }
+        // calculate index Updater
+        int indexUpdater = (int)((double)mySpaceOccupancies.size() / ShapeLength);
+        // check if indexUpdater is 0
+        if (indexUpdater == 0) {
+            indexUpdater = 1;
+        }
+        // draw spaceOccupancies
+        for (int i = 0; i < (int)mySpaceOccupancies.size(); i += indexUpdater) {
+            GLHelper::drawSpaceOccupancies(exaggeration, mySpaceOccupancies.at(i).position, mySpaceOccupancies.at(i).rotation, 
+                mySpaceOccupancies.at(i).width, mySpaceOccupancies.at(i).length, mySpaceOccupancies.at(i).vehicle ? true : false);
         }
         GLHelper::setColor(blue);
         // draw the lines
@@ -176,7 +190,6 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         static_cast<const GUIVehicle*>(*v)->drawGL(s);
     }
     myLane.releaseVehicles();
-
 }
 
 void

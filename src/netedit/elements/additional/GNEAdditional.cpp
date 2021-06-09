@@ -34,39 +34,41 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-                             const std::vector<GNEJunction*>& junctionParents,
-                             const std::vector<GNEEdge*>& edgeParents,
-                             const std::vector<GNELane*>& laneParents,
-                             const std::vector<GNEAdditional*>& additionalParents,
-                             const std::vector<GNEShape*>& shapeParents,
-                             const std::vector<GNETAZElement*>& TAZElementParents,
-                             const std::vector<GNEDemandElement*>& demandElementParents,
-                             const std::vector<GNEGenericData*>& genericDataParents) :
+GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, 
+        const std::vector<GNEJunction*>& junctionParents,
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEAdditional*>& additionalParents,
+        const std::vector<GNEShape*>& shapeParents,
+        const std::vector<GNETAZElement*>& TAZElementParents,
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEGenericData*>& genericDataParents,
+        const std::map<std::string, std::string> &parameters, bool blockMovement) :
     GUIGlObject(type, id),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
-    GNEPathElements(this),
+    GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
+    Parameterised(parameters),
     myAdditionalName(additionalName),
-    myBlockMovement(blockMovement),
-    mySpecialColor(nullptr) {
+    myBlockMovement(blockMovement) {
 }
 
 
-GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-                             const std::vector<GNEJunction*>& junctionParents,
-                             const std::vector<GNEEdge*>& edgeParents,
-                             const std::vector<GNELane*>& laneParents,
-                             const std::vector<GNEAdditional*>& additionalParents,
-                             const std::vector<GNEShape*>& shapeParents,
-                             const std::vector<GNETAZElement*>& TAZElementParents,
-                             const std::vector<GNEDemandElement*>& demandElementParents,
-                             const std::vector<GNEGenericData*>& genericDataParents) :
+GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, 
+        const std::vector<GNEJunction*>& junctionParents,
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEAdditional*>& additionalParents,
+        const std::vector<GNEShape*>& shapeParents,
+        const std::vector<GNETAZElement*>& TAZElementParents,
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEGenericData*>& genericDataParents,
+        const std::map<std::string, std::string> &parameters, bool blockMovement) :
     GUIGlObject(type, additionalParents.front()->getID()),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
-    GNEPathElements(this),
+    GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
+    Parameterised(parameters),
     myAdditionalName(additionalName),
-    myBlockMovement(blockMovement),
-    mySpecialColor(nullptr) {
+    myBlockMovement(blockMovement) {
 }
 
 
@@ -97,12 +99,6 @@ GNEAdditional::getAdditionalGeometry() const {
 }
 
 
-const GNEGeometry::SegmentGeometry&
-GNEAdditional::getAdditionalSegmentGeometry() const {
-    return myAdditionalSegmentGeometry;
-}
-
-
 void
 GNEAdditional::setSpecialColor(const RGBColor* color) {
     mySpecialColor = color;
@@ -115,12 +111,8 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
     if ((myTagProperty.hasMinimumNumberOfChildren() || myTagProperty.hasMinimumNumberOfChildren()) && !checkChildAdditionalRestriction()) {
         WRITE_WARNING(getTagStr() + " with ID='" + getID() + "' cannot be written");
     } else {
-        // Open Tag or synonym Tag
-        if (myTagProperty.hasTagSynonym()) {
-            device.openTag(myTagProperty.getTagSynonym());
-        } else {
-            device.openTag(myTagProperty.getTag());
-        }
+        // Open XML Tag or synonym Tag
+        device.openTag(myTagProperty.getXMLTag());
         // iterate over attribute properties
         for (const auto& attrProperty : myTagProperty) {
             // obtain attribute value
@@ -257,21 +249,6 @@ GNEAdditional::isAdditionalBlocked() const {
 }
 
 
-void
-GNEAdditional::updatePartialGeometry(const GNELane* lane) {
-    // currently only for E2 Multilane Detectors
-    if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
-        // declare extreme geometry
-        GNEGeometry::ExtremeGeometry extremeGeometry;
-        // get extremes
-        extremeGeometry.laneStartPosition = GNEAttributeCarrier::parse<double>(getAttribute(SUMO_ATTR_POSITION));
-        extremeGeometry.laneEndPosition = GNEAttributeCarrier::parse<double>(getAttribute(SUMO_ATTR_ENDPOS));
-        // update geometry path for the given lane
-        GNEGeometry::updateGeometricPath(myAdditionalSegmentGeometry, lane, extremeGeometry);
-    }
-}
-
-
 GUIGLObjectPopupMenu*
 GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -346,54 +323,97 @@ GNEAdditional::getOptionalAdditionalName() const {
 
 
 void
-GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const {
+GNEAdditional::computePathElement() {
+    // currently onle for E2 multilane detectors
+    if (myTagProperty.getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
+        // calculate path
+        myNet->getPathManager()->calculateConsecutivePathLanes(this, getParentLanes());
+    }
+}
+
+
+void
+GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // calculate E2Detector width
     const double E2DetectorWidth = s.addSize.getExaggeration(s, lane);
     // check if E2 can be drawn
     if (s.drawAdditionals(E2DetectorWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // calculate startPos
+        const double geometryDepartPos = getAttributeDouble(SUMO_ATTR_POSITION) + getAttributeDouble(SUMO_ATTR_ENDPOS);
+        // get endPos
+        const double geometryEndPos = getAttributeDouble(SUMO_ATTR_ENDPOS);
+        // declare path geometry
+        GNEGeometry::Geometry E2Geometry;
+        // update pathGeometry depending of first and last segment
+        if (segment->isFirstSegment() && segment->isLastSegment()) {
+            E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(),
+                                      geometryDepartPos, geometryEndPos,      // extrem positions
+                                      Position::INVALID, Position::INVALID);  // extra positions
+        } else if (segment->isFirstSegment()) {
+            E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(),
+                                      geometryDepartPos, -1,                  // extrem positions
+                                      Position::INVALID, Position::INVALID);  // extra positions
+        } else if (segment->isLastSegment()) {
+            E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(),
+                                      -1, geometryEndPos,                     // extrem positions
+                                      Position::INVALID, Position::INVALID);  // extra positions
+        } else {
+            E2Geometry = lane->getLaneGeometry();
+        }
         // obtain color
-        const RGBColor routeColor = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.detectorSettings.E2Color;
+        const RGBColor E2Color = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.detectorSettings.E2Color;
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix
         glPushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         glTranslated(0, 0, getType() + offsetFront);
-        // iterate over segments
-        for (const auto& segment : myAdditionalSegmentGeometry) {
-            // draw partial segment
-            if (segment.isLaneSegment() && (segment.getLane() == lane)) {
-                // Set route color (needed due drawShapeDottedContour)
-                GLHelper::setColor(routeColor);
-                // draw box lines
-                GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, E2DetectorWidth);
-            }
-        }
+        // Set color
+        GLHelper::setColor(E2Color);
+        // draw geometry
+        GNEGeometry::drawGeometry(myNet->getViewNet(), E2Geometry, E2DetectorWidth);
         // Pop last matrix
         glPopMatrix();
+        // Pop name
+        glPopName();
         // draw additional ID
         if (!s.drawForRectangleSelection) {
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+            // check if this is the label segment
+            if (segment->isLabelSegment()) {
+                // calculate middle point
+                const double middlePoint = (E2Geometry.getShape().length2D() * 0.5);
+                // calculate position
+                const Position pos = E2Geometry.getShape().positionAtOffset2D(middlePoint);
+                // calculate rotation
+                const double rot = E2Geometry.getShape().rotationDegreeAtOffset(middlePoint);
+                // Start pushing matrix
+                glPushMatrix();
+                // Traslate to position
+                glTranslated(pos.x(), pos.y(), getType() + offsetFront + 0.1);
+                // rotate over lane
+                GNEGeometry::rotateOverLane(rot);
+                // move
+                glTranslated(-1, 0, 0);
+                // scale text
+                glScaled(E2DetectorWidth, E2DetectorWidth, 1);
+                // draw E1 logo
+                GLHelper::drawText("E2 Multilane", Position(), .1, 1.5, RGBColor::BLACK);
+                // pop matrix
+                glPopMatrix();
+            }
         }
-        // Pop name
-        glPopName();
         // check if shape dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            // iterate over segments
-            for (const auto& segment : myAdditionalSegmentGeometry) {
-                if (segment.isLaneSegment() && (segment.getLane() == lane)) {
-                    // draw partial segment
-                    if (getParentLanes().front() == lane) {
-                        // draw front dotted contour
-                        GNEGeometry::drawDottedContourLane(GNEGeometry::DottedContourType::INSPECT, s, GNEGeometry::DottedGeometry(s, segment.getShape(), false), E2DetectorWidth, true, false);
-                    } else if (getParentLanes().back() == lane) {
-                        // draw back dotted contour
-                        GNEGeometry::drawDottedContourLane(GNEGeometry::DottedContourType::INSPECT, s, GNEGeometry::DottedGeometry(s, segment.getShape(), false), E2DetectorWidth, false, true);
-                    } else {
-                        // draw dotted contour
-                        GNEGeometry::drawDottedContourLane(GNEGeometry::DottedContourType::INSPECT, s, lane->getDottedLaneGeometry(), E2DetectorWidth, false, false);
-                    }
-                }
+            // declare trim geometry to draw
+            const GNEGeometry::DottedGeometry pathDottedGeometry((segment->isFirstSegment() || segment->isLastSegment()) ? GNEGeometry::DottedGeometry(s, E2Geometry.getShape(), false) : lane->getDottedLaneGeometry());
+            // draw inspected dotted contour
+            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, pathDottedGeometry, E2DetectorWidth, segment->isFirstSegment(), segment->isLastSegment());
+            }
+            // draw front dotted contour
+            if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::FRONT, s, pathDottedGeometry, E2DetectorWidth, segment->isFirstSegment(), segment->isLastSegment());
             }
         }
     }
@@ -401,11 +421,13 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
 
 
 void
-GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const {
+GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
     // calculate E2Detector width
     const double E2DetectorWidth = s.addSize.getExaggeration(s, fromLane);
     // check if E2 can be drawn
     if (s.drawAdditionals(E2DetectorWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // get flag for show only contour
+        const bool onlyContour = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() ? myNet->getViewNet()->getNetworkViewOptions().showConnections() : false;
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix
@@ -420,12 +442,24 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
         }
         // draw lane2lane
         if (fromLane->getLane2laneConnections().exist(toLane)) {
-            GNEGeometry::drawGeometry(myNet->getViewNet(), fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), E2DetectorWidth);
+            // check if draw only contour
+            if (onlyContour) {
+                GNEGeometry::drawContourGeometry(fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), E2DetectorWidth);
+            } else {
+                GNEGeometry::drawGeometry(myNet->getViewNet(), fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), E2DetectorWidth);
+            }
         } else {
             // Set invalid person plan color
             GLHelper::setColor(RGBColor::RED);
-            // draw line between end of first shape and first position of second shape
-            GLHelper::drawBoxLines({fromLane->getLaneShape().back(), toLane->getLaneShape().front()}, (0.5 * E2DetectorWidth));
+            // calculate invalid geometry
+            const GNEGeometry::Geometry invalidGeometry({fromLane->getLaneShape().back(), toLane->getLaneShape().front()});
+            // check if draw only contour
+            if (onlyContour) {
+                GNEGeometry::drawContourGeometry(invalidGeometry, (0.5 * E2DetectorWidth));
+            } else {
+                // draw invalid geometry
+                GNEGeometry::drawGeometry(myNet->getViewNet(), invalidGeometry, (0.5 * E2DetectorWidth));
+            }
         }
         // Pop last matrix
         glPopMatrix();
@@ -435,7 +469,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw lane2lane dotted geometry
             if (fromLane->getLane2laneConnections().exist(toLane)) {
-                GNEGeometry::drawDottedContourLane(GNEGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneDottedGeometry(toLane), E2DetectorWidth, false, false);
+                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneDottedGeometry(toLane), E2DetectorWidth, false, false);
             }
         }
     }
@@ -487,9 +521,9 @@ GNEAdditional::drawAdditionalID(const GUIVisualizationSettings& s) const {
         const double rot = (myAdditionalGeometry.getShape().size() == 1) ? myAdditionalGeometry.getShapeRotations().front() : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
         // draw additional ID
         if (myTagProperty.hasAttribute(SUMO_ATTR_LANE)) {
-            GLHelper::drawText(getMicrosimID(), pos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, s.getTextAngle(rot - 90));
+            GLHelper::drawText(getMicrosimID(), pos, GLO_MAX - getType(), s.addName.scaledSize(s.scale), s.addName.color, s.getTextAngle(rot - 90));
         } else {
-            GLHelper::drawText(getMicrosimID(), pos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, 0);
+            GLHelper::drawText(getMicrosimID(), pos, GLO_MAX - getType(), s.addName.scaledSize(s.scale), s.addName.color, 0);
         }
     }
 }
@@ -579,6 +613,65 @@ GNEAdditional::calculatePerpendicularLine(const double endLaneposition) {
 
 
 void
+GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size, GUITexture texture, GUITexture selectedTexture) const {
+    // Obtain drawing exaggeration
+    const double exaggeration = s.addSize.getExaggeration(s, this);
+    // first check if additional has to be drawn
+    if (s.drawAdditionals(exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // check if boundary has to be drawn
+        if (s.drawBoundaries) {
+            GLHelper::drawBoundary(getCenteringBoundary());
+        }
+        // Start drawing adding an gl identificator
+        glPushName(getGlID());
+        // Add layer matrix
+        glPushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E3DETECTOR);
+        // translate to position
+        glTranslated(pos.x(), pos.y(), 0);
+        // scale
+        glScaled(exaggeration, exaggeration, 1);
+        // set White color
+        glColor3d(1, 1, 1);
+        // rotate
+        glRotated(180, 0, 0, 1);
+        // draw texture
+        if (drawUsingSelectColor()) {
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(selectedTexture), size);
+        } else {
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(texture), size);
+        }
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, exaggeration, -0.5, -0.5, false, 0.4);
+        // Pop layer matrix
+        glPopMatrix();
+        // Pop name
+        glPopName();
+        // push connection matrix
+        glPushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E3DETECTOR, -0.1);
+        // Draw child connections
+        drawHierarchicalConnections(s, this, exaggeration);
+        // Pop connection matrix
+        glPopMatrix();
+        // check if dotted contour has to be drawn
+        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+            GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, pos, size, size, 0, 0, 0, exaggeration);
+        }
+        if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+            GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, pos, size, size, 0, 0, 0, exaggeration);
+        }
+        // Draw additional ID
+        drawAdditionalID(s);
+        // draw additional name
+        drawAdditionalName(s);
+    }
+}
+
+
+void
 GNEAdditional::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     //
 }
@@ -587,6 +680,42 @@ GNEAdditional::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 void
 GNEAdditional::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     //
+}
+
+
+GNELane*
+GNEAdditional::getFirstPathLane() const {
+    return getParentLanes().front();
+}
+
+
+GNELane*
+GNEAdditional::getLastPathLane() const {
+    return getParentLanes().back();
+}
+
+
+double
+GNEAdditional::getPathElementDepartValue() const {
+    return 0;   // CHECK
+}
+
+
+Position
+GNEAdditional::getPathElementDepartPos() const {
+    return Position();  // CHECK
+}
+
+
+double
+GNEAdditional::getPathElementArrivalValue() const {
+    return 0;   // CHECK
+}
+
+
+Position
+GNEAdditional::getPathElementArrivalPos() const {
+    return Position();  /// CHECK
 }
 
 

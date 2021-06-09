@@ -219,6 +219,12 @@ public:
         return *myCurrEdge;
     }
 
+    /** @brief Returns the time loss in seconds
+     */
+    virtual double getTimeLossSeconds() const {
+        // better timeLoss for meso?
+        return 0;
+    }
 
     /** @brief Returns an iterator pointing to the current edge in this vehicles route
      * @return The current route pointer

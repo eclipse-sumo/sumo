@@ -104,6 +104,10 @@ public:
         return myHaveSeenInternalEdge;
     }
 
+    bool hasJunctionHigherSpeeds() const {
+        return myHaveJunctionHigherSpeeds;
+    }
+
     bool haveSeenDefaultLength() const {
         return myHaveSeenDefaultLength;
     }
@@ -339,6 +343,9 @@ protected:
 
     /// @brief whether the loaded network contains internal lanes
     bool myHaveSeenInternalEdge;
+
+    /// @brief Whether the network was built with higher speed on junctions
+    bool myHaveJunctionHigherSpeeds;
 
     /// @brief whether the loaded network contains edges with default lengths
     bool myHaveSeenDefaultLength;

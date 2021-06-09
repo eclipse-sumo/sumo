@@ -156,6 +156,22 @@ lanePos, dist = sumolib.geomhelper.polygonOffsetAndDistanceToPoint((x,y), la
 see also
 [TraCI/Interfacing_TraCI_from_Python\#coordinate_transformations](../TraCI/Interfacing_TraCI_from_Python.md#coordinate_transformations)
 
+## Manipulating and writing xml
+
+```
+with open("patched.nod.xml", 'w') as outf:
+    # setting attrs is optional, it results in a cleaner patch file
+    attrs = {'node': ['id', 'x', 'y']}  # other attrs are not needed for patching
+    # parse always returns a generator but there is only one root element
+    nodes = list(sumolib.xml.parse('plain.nod.xml', 'nodes', attrs))[0]
+    for node in nodes.node:
+        node.addChild("param", { "key": "origPos", "value" : "%s %s" % (node.x, node.y) } )
+        node.x = float(node.x) + random.randint(-20, 20)
+        node.y = float(node.y) + random.randint(-20, 20)
+    outf.write(nodes.toXML())
+
+```
+
 # Further Examples
 
 The *runner.py* files in the test subfolders of [{{SUMO}}/tests/tools/sumolib]({{Source}}tests/tools/sumolib) provide additional

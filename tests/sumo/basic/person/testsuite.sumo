@@ -144,4 +144,7 @@ atJunction_ride_walk
 
 # specify the persons that may enter
 permitted
+
+# ride directly to access edge of destination stop
+ride_access_busstop
 errors

@@ -1,0 +1,2 @@
+-n input_net.net.xml -r input_routes.rou.xml -l 5 sumo--duration-log.statistics
+sumo--duration-log.disable

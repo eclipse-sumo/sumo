@@ -31,10 +31,9 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE1Instant::GNEDetectorE1Instant(const std::string& id, GNELane* lane, GNENet* net, double pos, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, net, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, pos, "", filename, vehicleTypes, name, friendlyPos, blockMovement, {
-    lane
-}) {
+GNEDetectorE1Instant::GNEDetectorE1Instant(const std::string& id, GNELane* lane, GNENet* net, double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes, 
+        const std::string& name, bool friendlyPos, const std::map<std::string, std::string> &parameters, bool blockMovement) :
+    GNEDetector(id, net, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, pos, "", {lane}, filename, vehicleTypes, name, friendlyPos, parameters, blockMovement) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -57,17 +56,23 @@ GNEDetectorE1Instant::isAdditionalValid() const {
 
 std::string
 GNEDetectorE1Instant::getAdditionalProblem() const {
-    // declare variable for error position
-    std::string errorPosition;
+    // obtain final lenght
     const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-    // check positions over lane
-    if (myPositionOverLane < -len) {
-        errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
+    // check if detector has a problem
+    if (GNEAdditionalHandler::checkSinglePositionOverLane(myPositionOverLane, len, myFriendlyPosition)) {
+        return "";
+    } else {
+        // declare variable for error position
+        std::string errorPosition;
+        // check positions over lane
+        if (myPositionOverLane < 0) {
+            errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
+        }
+        if (myPositionOverLane > len) {
+            errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
+        }
+        return errorPosition;
     }
-    if (myPositionOverLane > len) {
-        errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
-    }
-    return errorPosition;
 }
 
 
@@ -75,8 +80,8 @@ void
 GNEDetectorE1Instant::fixAdditionalProblem() {
     // declare new position
     double newPositionOverLane = myPositionOverLane;
-    // fix pos and length  checkAndFixDetectorPosition
-    GNEAdditionalHandler::checkAndFixDetectorPosition(newPositionOverLane, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), true);
+    // fix pos and length checkAndFixDetectorPosition
+    GNEAdditionalHandler::fixSinglePositionOverLane(newPositionOverLane, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
     // set new position
     setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
 }
@@ -85,7 +90,9 @@ GNEDetectorE1Instant::fixAdditionalProblem() {
 void
 GNEDetectorE1Instant::updateGeometry() {
     // update geometry
-    myAdditionalGeometry.updateGeometry(getParentLanes().front(), getGeometryPositionOverLane());
+    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getGeometryPositionOverLane(), myMoveElementLateralOffset);
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
 }
 
 
@@ -94,51 +101,54 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double E1InstantExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(E1InstantExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // obtain scaledSize
-        const double scaledWidth = s.detectorSettings.E1InstantWidth * 0.5 * s.scale;
-        // declare colors
-        RGBColor mainColor, secondColor, textColor;
-        // set color
-        if (drawUsingSelectColor()) {
-            mainColor = s.colorSettings.selectedAdditionalColor;
-            secondColor = mainColor.changedBrightness(-32);
-            textColor = mainColor.changedBrightness(32);
-        } else {
-            mainColor = s.detectorSettings.E1InstantColor;
-            secondColor = RGBColor::WHITE;
-            textColor = RGBColor::BLACK;
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // check exaggeration
+        if (s.drawAdditionals(E1InstantExaggeration)) {
+            // obtain scaledSize
+            const double scaledWidth = s.detectorSettings.E1InstantWidth * 0.5 * s.scale;
+            // declare colors
+            RGBColor mainColor, secondColor, textColor;
+            // set color
+            if (drawUsingSelectColor()) {
+                mainColor = s.colorSettings.selectedAdditionalColor;
+                secondColor = mainColor.changedBrightness(-32);
+                textColor = mainColor.changedBrightness(32);
+            } else {
+                mainColor = s.detectorSettings.E1InstantColor;
+                secondColor = RGBColor::WHITE;
+                textColor = RGBColor::BLACK;
+            }
+            // start drawing
+            glPushName(getGlID());
+            // push layer matrix
+            glPushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR_INSTANT);
+            // draw E1Instant shape
+            drawE1Shape(s, E1InstantExaggeration, scaledWidth, mainColor, secondColor);
+            // Check if the distance is enought to draw details
+            if (s.drawDetail(s.detailSettings.detectorDetails, E1InstantExaggeration)) {
+                // draw E1 Logo
+                drawDetectorLogo(s, E1InstantExaggeration, "E1", textColor);
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, E1InstantExaggeration, 1, 0, true);
+            }
+            // pop layer matrix
+            glPopMatrix();
+            // Pop name
+            glPopName();
+            // check if dotted contours has to be drawn
+            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
+            }
+            if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
+            }
         }
-        // start drawing
-        glPushName(getGlID());
-        // push layer matrix
-        glPushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR_INSTANT);
-        // draw E1Instant shape
-        drawE1Shape(s, E1InstantExaggeration, scaledWidth, mainColor, secondColor);
-        // Check if the distance is enought to draw details
-        if (s.drawDetail(s.detailSettings.detectorDetails, E1InstantExaggeration)) {
-            // draw E1 Logo
-            drawDetectorLogo(s, E1InstantExaggeration, "E1", textColor);
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, E1InstantExaggeration, 1, 0, true);
-        }
-        // pop layer matrix
-        glPopMatrix();
-        // Pop name
-        glPopName();
         // Draw additional ID
         drawAdditionalID(s);
         // draw additional name
         drawAdditionalName(s);
-        // check if dotted contours has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
-        }
-        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
-        }
     }
 }
 
@@ -157,7 +167,7 @@ GNEDetectorE1Instant::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_FILE:
             return myFilename;
         case SUMO_ATTR_VTYPES:
-            return myVehicleTypes;
+            return toString(myVehicleTypes);
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -166,6 +176,17 @@ GNEDetectorE1Instant::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+double
+GNEDetectorE1Instant::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_POSITION:
+            return myPositionOverLane;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -262,7 +283,7 @@ GNEDetectorE1Instant::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFilename = value;
             break;
         case SUMO_ATTR_VTYPES:
-            myVehicleTypes = value;
+            myVehicleTypes = parse<std::vector<std::string> >(value);
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);

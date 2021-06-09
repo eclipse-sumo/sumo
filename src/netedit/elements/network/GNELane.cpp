@@ -119,6 +119,12 @@ GNELane::allowPedestrians() const {
 }
 
 
+const GNEGeometry::Geometry&
+GNELane::getLaneGeometry() const {
+    return myLaneGeometry;
+}
+
+
 const PositionVector&
 GNELane::getLaneShape() const {
     return myParentEdge->getNBEdge()->getLaneShape(myIndex);
@@ -169,22 +175,18 @@ GNELane::updateGeometry() {
     // update additionals children associated with this lane
     for (const auto& additional : getParentAdditionals()) {
         additional->updateGeometry();
-        additional->updatePartialGeometry(this);
     }
     // update additionals parents associated with this lane
     for (const auto& additional : getChildAdditionals()) {
         additional->updateGeometry();
-        additional->updatePartialGeometry(this);
     }
     // update partial demand elements parents associated with this lane
     for (const auto& demandElement : getParentDemandElements()) {
         demandElement->updateGeometry();
-        demandElement->updatePartialGeometry(this);
     }
     // update partial demand elements children associated with this lane
     for (const auto& demandElement : getChildDemandElements()) {
         demandElement->updateGeometry();
-        demandElement->updatePartialGeometry(this);
     }
     // Update geometry of parent generic datas that have this edge as parent
     for (const auto& additionalParent : getParentGenericDatas()) {
@@ -194,17 +196,29 @@ GNELane::updateGeometry() {
     for (const auto& childAdditionals : getChildGenericDatas()) {
         childAdditionals->updateGeometry();
     }
+    // compute geometry of path elements elements vinculated with this lane (depending of showDemandElements)
+    if (myNet->getViewNet() && myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
+        for (const auto& childAdditional : getChildAdditionals()) {
+            childAdditional->computePathElement();
+        }
+        for (const auto& childDemandElement : getChildDemandElements()) {
+            childDemandElement->computePathElement();
+        }
+        for (const auto& childGenericData : getChildGenericDatas()) {
+            childGenericData->computePathElement();
+        }
+    }
     // in Move mode, connections aren't updated
     if (myNet->getViewNet() && myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
         // Update incoming connections of this lane
-        auto incomingConnections = getGNEIncomingConnections();
-        for (auto i : incomingConnections) {
-            i->updateGeometry();
+        const auto incomingConnections = getGNEIncomingConnections();
+        for (const auto& connection : incomingConnections) {
+            connection->updateGeometry();
         }
         // Update outgoings connections of this lane
-        auto outGoingConnections = getGNEOutcomingConnections();
-        for (auto i : outGoingConnections) {
-            i->updateGeometry();
+        const auto outGoingConnections = getGNEOutcomingConnections();
+        for (const auto& connection : outGoingConnections) {
+            connection->updateGeometry();
         }
     }
     // if lane has enought length for show textures of restricted lanes
@@ -536,21 +550,17 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         if (!drawRailway) {
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
                     (myNet->getViewNet()->isAttributeCarrierInspected(myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
-                GNEGeometry::drawDottedContourLane(GNEGeometry::DottedContourType::INSPECT, s, myDottedLaneGeometry, laneDrawingConstants.halfWidth, true, true);
+                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, myDottedLaneGeometry, laneDrawingConstants.halfWidth, true, true);
             }
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
                     ((myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
-                GNEGeometry::drawDottedContourLane(GNEGeometry::DottedContourType::FRONT, s, myDottedLaneGeometry, laneDrawingConstants.halfWidth, true, true);
+                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::FRONT, s, myDottedLaneGeometry, laneDrawingConstants.halfWidth, true, true);
             }
         }
         // draw children
         drawChildren(s);
         // draw path additional elements
-        drawPathAdditionalElements(s);
-        // draw path demand elements
-        drawPathDemandElements(s);
-        // draw path generic dataelements
-        drawPathGenericDataElements(s);
+        myNet->getPathManager()->drawLanePathElements(s, this);
     }
 }
 
@@ -572,39 +582,6 @@ GNELane::drawChildren(const GUIVisualizationSettings& s) const {
     for (const auto& demandElement : getChildDemandElements()) {
         if (!demandElement->getTagProperty().isPlacedInRTree()) {
             demandElement->drawGL(s);
-        }
-    }
-}
-
-
-void
-GNELane::drawPathAdditionalElements(const GUIVisualizationSettings& s) const {
-    // draw child path additionals
-    for (const auto& tag : myPathAdditionalElements) {
-        for (const GNEAdditional* element : tag.second) {
-            element->drawLanePathChildren(s, this, 0);
-        }
-    }
-}
-
-
-void
-GNELane::drawPathDemandElements(const GUIVisualizationSettings& s) const {
-    // draw child path demand elements
-    for (const auto& tag : myPathDemandElements) {
-        for (const GNEDemandElement* const element : tag.second) {
-            element->drawLanePathChildren(s, this, 0);
-        }
-    }
-}
-
-
-void
-GNELane::drawPathGenericDataElements(const GUIVisualizationSettings& s) const {
-    // draw child path generic datas
-    for (const auto& tag : myPathGenericDatas) {
-        for (const GNEGenericData* element : tag.second) {
-            element->drawLanePathChildren(s, this, 0);
         }
     }
 }
@@ -963,103 +940,6 @@ GNELane::getACParametersMap() const {
 
 
 void
-GNELane::addPathAdditionalElement(GNEAdditional* additionalElement) {
-    // get tag
-    SumoXMLTag tag = additionalElement->getTagProperty().getTag();
-    // avoid insert duplicated path element childs
-    if (std::find(myPathAdditionalElements[tag].begin(), myPathAdditionalElements[tag].end(), additionalElement) == myPathAdditionalElements[tag].end()) {
-        myPathAdditionalElements[tag].push_back(additionalElement);
-    }
-}
-
-
-void
-GNELane::removePathAdditionalElement(GNEAdditional* additionalElement) {
-    // get tag
-    SumoXMLTag tag = additionalElement->getTagProperty().getTag();
-    // search and remove pathElementChild
-    auto it = std::find(myPathAdditionalElements[tag].begin(), myPathAdditionalElements[tag].end(), additionalElement);
-    if (it != myPathAdditionalElements[tag].end()) {
-        myPathAdditionalElements[tag].erase(it);
-    }
-}
-
-
-void
-GNELane::addPathDemandElement(GNEDemandElement* demandElement) {
-    // get tag
-    SumoXMLTag tag = demandElement->getTagProperty().getTag();
-    // avoid insert duplicated path element childs
-    if (std::find(myPathDemandElements[tag].begin(), myPathDemandElements[tag].end(), demandElement) == myPathDemandElements[tag].end()) {
-        myPathDemandElements[tag].push_back(demandElement);
-    }
-}
-
-
-void
-GNELane::removePathDemandElement(GNEDemandElement* demandElement) {
-    // get tag
-    SumoXMLTag tag = demandElement->getTagProperty().getTag();
-    // search and remove pathElementChild
-    auto it = std::find(myPathDemandElements[tag].begin(), myPathDemandElements[tag].end(), demandElement);
-    if (it != myPathDemandElements[tag].end()) {
-        myPathDemandElements[tag].erase(it);
-    }
-}
-
-
-void
-GNELane::addPathGenericData(GNEGenericData* genericData) {
-    // get tag
-    SumoXMLTag tag = genericData->getTagProperty().getTag();
-    // avoid insert duplicated path element childs
-    if (std::find(myPathGenericDatas[tag].begin(), myPathGenericDatas[tag].end(), genericData) == myPathGenericDatas[tag].end()) {
-        myPathGenericDatas[tag].push_back(genericData);
-    }
-}
-
-
-void
-GNELane::removePathGenericData(GNEGenericData* genericData) {
-    // get tag
-    SumoXMLTag tag = genericData->getTagProperty().getTag();
-    // search and remove pathElementChild
-    auto it = std::find(myPathGenericDatas[tag].begin(), myPathGenericDatas[tag].end(), genericData);
-    if (it != myPathGenericDatas[tag].end()) {
-        myPathGenericDatas[tag].erase(it);
-    }
-}
-
-
-void
-GNELane::invalidatePathElements() {
-    // make a copy of myPathAdditionalElements
-    auto copyOfPathAdditionalElements = myPathAdditionalElements;
-    for (const auto& tag : copyOfPathAdditionalElements) {
-        for (const auto& additionalElement : tag.second) {
-            // note: currently additional elements don't use compute/invalidate paths
-            additionalElement->updateGeometry();
-        }
-    }
-    // make a copy of myPathDemandElements
-    auto copyOfPathDemandElements = myPathDemandElements;
-    for (const auto& tag : copyOfPathDemandElements) {
-        for (const auto& demandElement : tag.second) {
-            demandElement->invalidatePath();
-        }
-    }
-    // make a copy of myPathGenericDatas
-    auto copyOfPathGenericDatas = myPathGenericDatas;
-    for (const auto& tag : copyOfPathGenericDatas) {
-        for (const auto& genericData : tag.second) {
-            // note: currently generic datas don't use compute/invalidate paths
-            genericData->updateGeometry();
-        }
-    }
-}
-
-
-void
 GNELane::setSpecialColor(const RGBColor* color, double colorValue) {
     mySpecialColor = color;
     mySpecialColorValue = colorValue;
@@ -1140,6 +1020,8 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // invalidate path calculator
+    myNet->getPathManager()->getPathCalculator()->invalidatePathCalculator();
 }
 
 
@@ -1514,11 +1396,11 @@ GNELane::drawTextures(const GUIVisualizationSettings& s, const LaneDrawingConsta
             glRotated(90, 0, 0, 1);
             // draw texture box depending of type of restriction
             if (isRestricted(SVC_PEDESTRIAN)) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LANEPEDESTRIAN), iconWidth);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::LANE_PEDESTRIAN), iconWidth);
             } else if (isRestricted(SVC_BICYCLE)) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LANEBIKE), iconWidth);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::LANE_BIKE), iconWidth);
             } else if (isRestricted(SVC_BUS)) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LANEBUS), iconWidth);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::LANE_BUS), iconWidth);
             }
             // Pop draw matrix 2
             glPopMatrix();
@@ -1716,9 +1598,9 @@ GNELane::buildEdgeOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
 void
 GNELane::buildLaneOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret) {
     // Get icons
-    FXIcon* pedestrianIcon = GUIIconSubSys::getIcon(GUIIcon::LANEPEDESTRIAN);
-    FXIcon* bikeIcon = GUIIconSubSys::getIcon(GUIIcon::LANEBIKE);
-    FXIcon* busIcon = GUIIconSubSys::getIcon(GUIIcon::LANEBUS);
+    FXIcon* pedestrianIcon = GUIIconSubSys::getIcon(GUIIcon::LANE_PEDESTRIAN);
+    FXIcon* bikeIcon = GUIIconSubSys::getIcon(GUIIcon::LANE_BIKE);
+    FXIcon* busIcon = GUIIconSubSys::getIcon(GUIIcon::LANE_BUS);
     FXIcon* greenVergeIcon = GUIIconSubSys::getIcon(GUIIcon::LANEGREENVERGE);
     // if lane is selected, calculate number of restricted lanes
     bool edgeHasSidewalk = false;

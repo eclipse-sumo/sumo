@@ -164,7 +164,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
         return false;
     }
     // Declare map to keep attributes from Frames from Frame
-    std::map<SumoXMLAttr, std::string> valuesMap = myVehicleAttributes->getAttributesAndValues(false);
+    std::map<SumoXMLAttr, std::string> valuesMap = myVehicleAttributes->getAttributesAndValuesTemporal(false);
     // Check if ID has to be generated
     if (valuesMap.count(SUMO_ATTR_ID) == 0) {
         valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID(vehicleTag);
@@ -303,7 +303,7 @@ GNEVehicleFrame::createPath() {
     // check number of edges
     if ((myPathCreator->getSelectedEdges().size() > 1) || (myPathCreator->getSelectedEdges().size() > 0 && embebbedRoute)) {
         // Declare map to keep attributes from Frames from Frame
-        std::map<SumoXMLAttr, std::string> valuesMap = myVehicleAttributes->getAttributesAndValues(false);
+        std::map<SumoXMLAttr, std::string> valuesMap = myVehicleAttributes->getAttributesAndValuesTemporal(false);
         // Check if ID has to be generated
         if (valuesMap.count(SUMO_ATTR_ID) == 0) {
             valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID(vehicleTag);

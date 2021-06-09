@@ -1,0 +1,6 @@
+--osm-files osm.xml
+--default.spreadtype roadCenter
+--keep-edges.by-vclass passenger
+--tls.guess-signals
+--tls.discard-simple
+-R

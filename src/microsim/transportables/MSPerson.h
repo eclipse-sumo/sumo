@@ -271,6 +271,10 @@ public:
         return myChosenSpeedFactor;
     }
 
+    inline void setSpeedFactor(const double factor) {
+        myChosenSpeedFactor = factor;
+    }
+
     /// @brief set new walk and replace the stages with relative indices in the interval [firstIndex, nextIndex[
     void reroute(ConstMSEdgeVector& newEdges, double departPos, int firstIndex, int nextIndex);
 
@@ -334,7 +338,7 @@ private:
     /// @brief An instance of a speed/position influencing instance; built in "getInfluencer"
     Influencer* myInfluencer;
 
-    const double myChosenSpeedFactor;
+    double myChosenSpeedFactor;
 
 private:
     /// @brief Invalidated copy constructor.

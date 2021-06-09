@@ -172,6 +172,25 @@ SUMOVehicleParameter(personparameters) {
 GNEPerson::~GNEPerson() {}
 
 
+GNEMoveOperation*
+GNEPerson::getMoveOperation(const double /*shapeOffset*/) {
+    // check first person plan
+    if (getChildDemandElements().front()->getTagProperty().isPersonStop()) {
+        return nullptr;
+    } else {
+        // get lane
+        const GNELane* lane = getChildDemandElements().front()->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
+        // declare departPos
+        double posOverLane = 0;
+        if (canParse<double>(getDepartPos())) {
+            posOverLane = parse<double>(getDepartPos());
+        }
+        // return move operation
+        return new GNEMoveOperation(this, lane, {posOverLane}, false);
+    }
+}
+
+
 std::string
 GNEPerson::getBegin() const {
     // obtain depart depending if is a Person, trip or routeFlow
@@ -193,19 +212,17 @@ GNEPerson::getBegin() const {
 
 void
 GNEPerson::writeDemandElement(OutputDevice& device) const {
-    // obtain tag depending if tagProperty has a synonym
-    SumoXMLTag synonymTag = myTagProperty.hasTagSynonym() ? myTagProperty.getTagSynonym() : myTagProperty.getTag();
     // attribute VType musn't be written if is DEFAULT_PEDTYPE_ID
     if (getParentDemandElements().at(0)->getID() == DEFAULT_PEDTYPE_ID) {
         // unset VType parameter
         parametersSet &= ~VEHPARS_VTYPE_SET;
         // write person attributes (VType will not be written)
-        write(device, OptionsCont::getOptions(), synonymTag);
+        write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag());
         // set VType parameter again
         parametersSet |= VEHPARS_VTYPE_SET;
     } else {
         // write person attributes, including VType
-        write(device, OptionsCont::getOptions(), synonymTag, getParentDemandElements().at(0)->getID());
+        write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag(), getParentDemandElements().at(0)->getID());
     }
     // write specific flow attributes
     if (myTagProperty.getTag() == SUMO_TAG_PERSONFLOW) {
@@ -270,73 +287,17 @@ GNEPerson::getColor() const {
 
 
 void
-GNEPerson::startGeometryMoving() {
-    // Persons cannot be moved
-}
-
-
-void
-GNEPerson::endGeometryMoving() {
-    // Persons cannot be moved
-}
-
-
-void
-GNEPerson::moveGeometry(const Position&) {
-    // Persons cannot be moved
-}
-
-
-void
-GNEPerson::commitGeometryMoving(GNEUndoList*) {
-    // Persons cannot be moved
-}
-
-
-void
 GNEPerson::updateGeometry() {
     // only update geometry of childrens
-    for (const auto& i : getChildDemandElements()) {
-        i->updateGeometry();
+    for (const auto& demandElement : getChildDemandElements()) {
+        demandElement->updateGeometry();
     }
-}
-
-
-void
-GNEPerson::computePath() {
-    // nothing to compute
-}
-
-
-void
-GNEPerson::invalidatePath() {
-    // nothing to invalidate
 }
 
 
 Position
 GNEPerson::getPositionInView() const {
-    // Position in view depend of first child element
-    if (getChildDemandElements().size() > 0) {
-        if (getChildDemandElements().at(0)->getTagProperty().isPersonStop()) {
-            return getChildDemandElements().at(0)->getDemandElementGeometry().getShape().getLineCenter();
-        } else {
-            // obtain lane (special case for rides)
-            SUMOVehicleClass vClassEdgeFrom = getChildDemandElements().front()->getTagProperty().isRide() ? SVC_PASSENGER : SVC_PEDESTRIAN;
-            GNELane* lane = getChildDemandElements().at(0)->getParentEdges().at(0)->getLaneByAllowedVClass(vClassEdgeFrom);
-            // return position in view depending of lane
-            if (lane->getLaneShape().length() < 2.5) {
-                return lane->getLaneShape().front();
-            } else {
-                Position A = lane->getLaneShape().positionAtOffset(2.5);
-                Position B = lane->getLaneShape().positionAtOffset(2.5);
-                // return Middle point
-                return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
-            }
-        }
-    } else {
-        return Position(0, 0);
-    }
+    return getAttributePosition(SUMO_ATTR_DEPARTPOS);
 }
 
 
@@ -361,8 +322,7 @@ GNEPerson::getCenteringBoundary() const {
             // use boundary of stop center
             return getChildDemandElements().front()->getCenteringBoundary();
         } else {
-            // obtain boundary of first position over edge
-            personBoundary.add(getChildDemandElements().front()->getDemandElementSegmentGeometry().getFirstPosition());
+            personBoundary.add(getPositionInView());
         }
     } else {
         personBoundary = Boundary(-0.1, -0.1, 0.1, 0.1);
@@ -402,18 +362,10 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
         const double distanceSquared = pow(exaggeration * std::max(length, width), 2);
         // obtain img file
         const std::string file = getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_IMGFILE);
-        Position personPosition;
-        // obtain position depending of first PersonPlan child
-        if (getChildDemandElements().front()->getTagProperty().isPersonStop()) {
-            // obtain position of stop center
-            personPosition = getChildDemandElements().front()->getPositionInView();
-        } else {
-            // obtain position of first edge
-            personPosition = getChildDemandElements().front()->getDemandElementSegmentGeometry().getFirstPosition();
-        }
-        // check that position is valid and person can be drawn
-        if ((personPosition != Position::INVALID) &&
-                !(s.drawForPositionSelection && (personPosition.distanceSquaredTo(myNet->getViewNet()->getPositionInformation()) > distanceSquared))) {
+        // obtain position
+        const Position personPosition = getAttributePosition(SUMO_ATTR_DEPARTPOS);
+        // check if person can be drawn
+        if (!(s.drawForPositionSelection && (personPosition.distanceSquaredTo(myNet->getViewNet()->getPositionInformation()) > distanceSquared))) {
             // push GL ID
             glPushName(getGlID());
             // push draw matrix
@@ -461,14 +413,37 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEPerson::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const double /*offsetFront*/) const {
+GNEPerson::computePathElement() {
+    // compute all person plan children (because aren't computed in "computeDemandElements()")
+    for (const auto& demandElement : getChildDemandElements()) {
+        demandElement->computePathElement();
+    }
+}
+
+
+void
+GNEPerson::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
     // Stops don't use drawPartialGL
 }
 
 
 void
-GNEPerson::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const double /*offsetFront*/) const {
+GNEPerson::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
     // Stops don't use drawPartialGL
+}
+
+
+GNELane*
+GNEPerson::getFirstPathLane() const {
+    // use path lane of first person plan
+    return getChildDemandElements().front()->getFirstPathLane();
+}
+
+
+GNELane*
+GNEPerson::getLastPathLane() const {
+    // use path lane of first person plan
+    return getChildDemandElements().front()->getLastPathLane();
 }
 
 
@@ -535,11 +510,42 @@ GNEPerson::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNEPerson::getAttributePosition(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_DEPARTPOS: {
+            // get person plan
+            const GNEDemandElement* personPlan = getChildDemandElements().front();
+            // first check if first person plan is a stop
+            if (personPlan->getTagProperty().isPersonStop()) {
+                return personPlan->getPositionInView();
+            } else {
+                // declare lane lane
+                GNELane* lane = nullptr;
+                // update lane
+                if (personPlan->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
+                    lane = personPlan->getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
+                } else {
+                    lane = personPlan->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
+                }
+                // get position over lane shape
+                if (departPos <= 0) {
+                    return lane->getLaneShape().front();
+                } else if (departPos >= lane->getLaneShape().length2D()) {
+                    return lane->getLaneShape().back();
+                } else {
+                    return lane->getLaneShape().positionAtOffset2D(departPos);
+                }
+            }
+        }
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a Position attribute of type '" + toString(key) + "'");
+    }
+}
+
+
 void
 GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    if (value == getAttribute(key)) {
-        return; //avoid needless changes, later logic relies on the fact that attributes have changed
-    }
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_TYPE:
@@ -895,5 +901,22 @@ GNEPerson::setEnabledAttribute(const int enabledAttributes) {
     parametersSet = enabledAttributes;
 }
 
+
+void GNEPerson::setMoveShape(const GNEMoveResult& moveResult) {
+    // change departPos
+    departPosProcedure = DepartPosDefinition::GIVEN;
+    departPos = moveResult.newFirstPos;
+    // update geometry
+    updateGeometry();
+}
+
+
+void
+GNEPerson::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    undoList->p_begin("departPos of " + getTagStr());
+    // now set departPos
+    setAttribute(SUMO_ATTR_DEPARTPOS, toString(moveResult.newFirstPos), undoList);
+    undoList->p_end();
+}
 
 /****************************************************************************/

@@ -33,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="0" depart="0.00" fromXY="0.00,-4.95" toXY="2500.00,-4.95">
-        <stop busStop="busStop#1" duration="10.00"/>
+        <stop x="1000" y="-4.95" duration="10.00"/>
     </trip>
     <trip id="2" depart="0.00" fromXY="0.00,-4.95" toXY="2500.00,-4.95" viaXY="1000.00,506.15"/>
 </routes>

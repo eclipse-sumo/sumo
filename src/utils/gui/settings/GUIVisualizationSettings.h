@@ -349,6 +349,9 @@ struct GUIVisualizationStoppingPlaceSettings {
     /// @brief color for busStops signs
     static const RGBColor busStopColorSign;
 
+    /// @brief trainStop width
+    static const double trainStopWidth;
+
     /// @brief containerStop width
     static const double containerStopWidth;
 
@@ -412,6 +415,9 @@ struct GUIVisualizationWidthSettings {
 
     /// @brief width for routes
     static const double route;
+
+    /// @brief width for embeddedroutes
+    static const double embeddedRoute;
 
     /// @brief width for trips
     static const double trip;

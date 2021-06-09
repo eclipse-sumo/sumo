@@ -8,7 +8,6 @@ Debug: Adding busStop 'busStop_0' in GNEChange_Additional
 Debug: Adding busStop 'busStop_1' in GNEChange_Additional
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'busStop' in TagSelector
-Debug: Format of optional positive optional integer attribute 'personCapacity' of busStop with ID 'busStop_gneE0_0_2' is invalid; Cannot be negative; Default value will be used.
 Debug: Adding busStop 'busStop_gneE0_0_2' in GNEChange_Additional
 Debug: Removing busStop 'busStop_gneE0_0_2' in GNEChange_Additional
 Debug: Removing busStop 'busStop_0' in GNEChange_Additional

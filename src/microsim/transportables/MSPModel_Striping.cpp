@@ -976,13 +976,13 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                             if (angleDiff > M_PI / 2) {
                                 angleDiff = M_PI - angleDiff;
                             }
-                            double xWidth; // extend of car in x direction (= carWidth at 90 degrees)
+                            double xWidth; // extent of car in x direction (= carWidth at 90 degrees)
                             const double b = tan(angleDiff) * veh->getVehicleType().getWidth();
                             if (b <= veh->getVehicleType().getLength()) {
                                 const double a = veh->getVehicleType().getWidth();
                                 xWidth = sqrt(a * a + b * b);
                             } else {
-                                // XXX actually xWidth shrints towards car length while angleDiff approachess 90
+                                // XXX actually xWidth shrinks towards car length while angleDiff approachess 90
                                 xWidth = veh->getVehicleType().getLength();
                             }
                             // distort y to account for angleDiff
@@ -996,24 +996,27 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                                 relPos.sety(relPos.y() + correctY);
                                 relPos2.sety(relPos2.y() - correctY);
                             }
-                            const bool addFront = addVehicleFoe(veh, lane, relPos, xWidth, lateral_offset, minY, maxY, toDelete, transformedPeds);
-                            const bool addBack = addVehicleFoe(veh, lane, relPos2, xWidth, lateral_offset, minY, maxY, toDelete, transformedPeds);
                             if (path == debugPath) {
                                 std::cout << "  veh=" << veh->getID()
                                           << " pos=" << veh->getPosition() << " back=" << veh->getBackPosition()
                                           << " vehAngle=" << RAD2DEG(veh->getAngle())
                                           << " shapeAngle=" << RAD2DEG(shapeAngle)
-                                          << " angleDiff=" << RAD2DEG(angleDiff) << " xWidth=" << xWidth
+                                          << " angleDiff=" << RAD2DEG(angleDiff) << " b=" << b << " xWidth=" << xWidth
                                           << " correctY=" << correctY
                                           << " vecCoord=" << relPos << " vecCoordBack=" << relPos2 << "\n";
                             }
+                            const bool addFront = addVehicleFoe(veh, lane, relPos, xWidth, 0, lateral_offset, minY, maxY, toDelete, transformedPeds);
+                            const bool addBack = addVehicleFoe(veh, lane, relPos2, xWidth, 0, lateral_offset, minY, maxY, toDelete, transformedPeds);
                             if (addFront && addBack) {
                                 // add in-between positions
                                 const double length = veh->getVehicleType().getLength();
                                 for (double dist = stripeWidth; dist < length; dist += stripeWidth) {
                                     const double relDist = dist / length;
                                     Position between = (relPos * relDist) + (relPos2 * (1 - relDist));
-                                    addVehicleFoe(veh, lane, between, xWidth, lateral_offset, minY, maxY, toDelete, transformedPeds);
+                                    if (path == debugPath) {
+                                        std::cout << "  vehBetween=" << veh->getID() << " pos=" << between << "\n";
+                                    }
+                                    addVehicleFoe(veh, lane, between, xWidth, stripeWidth, lateral_offset, minY, maxY, toDelete, transformedPeds);
                                 }
                             }
                         }
@@ -1035,12 +1038,12 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
 
 
 bool
-MSPModel_Striping::addVehicleFoe(const MSVehicle* veh, const MSLane* walkingarea, const Position& relPos, double xWidth, double lateral_offset,
+MSPModel_Striping::addVehicleFoe(const MSVehicle* veh, const MSLane* walkingarea, const Position& relPos, double xWidth, double yWidth, double lateral_offset,
                                  double minY, double maxY, Pedestrians& toDelete, Pedestrians& transformedPeds) {
     if (relPos != Position::INVALID) {
         const double newY = relPos.y() + lateral_offset;
         if (newY >= minY && newY <= maxY) {
-            PState* tp = new PStateVehicle(veh, walkingarea, relPos.x(), newY, xWidth);
+            PState* tp = new PStateVehicle(veh, walkingarea, relPos.x(), newY, xWidth, yWidth);
             //std::cout << SIMTIME << " addVehicleFoe=" << veh->getID() << " rx=" << relPos.x() << " ry=" << newY << " s=" << tp->stripe() << " o=" << tp->otherStripe() << "\n";
             toDelete.push_back(tp);
             transformedPeds.push_back(tp);
@@ -2241,8 +2244,8 @@ MSPModel_Striping::PState::isRemoteControlled() const {
 // MSPModel_Striping::PStateVehicle method definitions
 // ===========================================================================
 
-MSPModel_Striping::PStateVehicle::PStateVehicle(const MSVehicle* veh, const MSLane* walkingarea, double relX, double relY, double xWidth):
-    myVehicle(veh), myXWidth(xWidth) {
+MSPModel_Striping::PStateVehicle::PStateVehicle(const MSVehicle* veh, const MSLane* walkingarea, double relX, double relY, double xWidth, double yWidth):
+    myVehicle(veh), myXWidth(xWidth), myYWidth(yWidth) {
     myLane = walkingarea; // to ensure correct limits when calling otherStripe()
     myRelX = relX;
     myRelY = relY;
@@ -2255,7 +2258,7 @@ MSPModel_Striping::PStateVehicle::getID() const {
 
 double
 MSPModel_Striping::PStateVehicle::getWidth() const {
-    return myXWidth;
+    return myYWidth;
 }
 
 double

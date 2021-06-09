@@ -107,8 +107,8 @@ GNEEdgeRelData::isGenericDataVisible() const {
 
 void
 GNEEdgeRelData::updateGeometry() {
-    // calculate generic data path
-    calculateGenericDataLanePath(getParentEdges());
+    // just compute path
+    computePathElement();
 }
 
 
@@ -119,7 +119,14 @@ GNEEdgeRelData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 
 void
-GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const {
+GNEEdgeRelData::computePathElement() {
+    // calculate path
+    myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_IGNORING, getParentEdges());
+}
+
+
+void
+GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         // get flag for only draw contour
         const bool onlyDrawContour = !isGenericDataVisible();
@@ -170,7 +177,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
 
 
 void
-GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const {
+GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         // get flag for only draw contour
         const bool onlyDrawContour = !isGenericDataVisible();
@@ -200,7 +207,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                 GLHelper::setColor(RGBColor::BLACK);
                 if (from->getLane2laneConnections().exist(to)) {
                     // draw box lines
-                    GNEGeometry::drawGeometry(myNet->getViewNet(), from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth, onlyDrawContour, false);
+                    GNEGeometry::drawContourGeometry(from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth);
                     // translate to top
                     glTranslated(0, 0, 0.01);
                     // Set color
@@ -210,7 +217,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                         GLHelper::setColor(getColor());
                     }
                     // draw interne box lines
-                    GNEGeometry::drawGeometry(myNet->getViewNet(), from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth - 0.1, onlyDrawContour, false);
+                    GNEGeometry::drawContourGeometry(from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth - 0.1);
                 } else {
                     // draw line between end of first shape and first position of second shape
                     GLHelper::drawBoxLines({from->getLaneShape().back(), to->getLaneShape().front()}, laneWidth);
@@ -299,6 +306,20 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
             }
         }
     }
+}
+
+
+GNELane*
+GNEEdgeRelData::getFirstPathLane() const {
+    /* temporal */
+    return nullptr;
+}
+
+
+GNELane*
+GNEEdgeRelData::getLastPathLane() const {
+    /* temporal */
+    return nullptr;
 }
 
 

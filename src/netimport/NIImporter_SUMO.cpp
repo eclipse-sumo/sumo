@@ -85,7 +85,8 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myCheckLaneFoesRoundabout(true),
       myTlsIgnoreInternalJunctionJam(false),
       myDefaultSpreadType(toString(LaneSpreadFunction::RIGHT)),
-      myGeomAvoidOverlap(true) {
+      myGeomAvoidOverlap(true),
+      myJunctionsHigherSpeed(false) {
 }
 
 
@@ -334,6 +335,9 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     if (oc.isDefault("geometry.avoid-overlap") && oc.getBool("geometry.avoid-overlap") != myGeomAvoidOverlap) {
         oc.set("geometry.avoid-overlap", toString(myGeomAvoidOverlap));
     }
+    if (oc.isDefault("junctions.higher-speed") && oc.getBool("junctions.higher-speed") != myJunctionsHigherSpeed) {
+        oc.set("junctions.higher-speed", toString(myJunctionsHigherSpeed));
+    }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
         deprecatedVehicleClassesSeen.clear();
@@ -437,6 +441,7 @@ NIImporter_SUMO::myStartElement(int element,
             myTlsIgnoreInternalJunctionJam = attrs.getOpt<bool>(SUMO_ATTR_TLS_IGNORE_INTERNAL_JUNCTION_JAM, nullptr, ok, false);
             myDefaultSpreadType = attrs.getOpt<std::string>(SUMO_ATTR_SPREADTYPE, nullptr, ok, myDefaultSpreadType);
             myGeomAvoidOverlap = attrs.getOpt<bool>(SUMO_ATTR_AVOID_OVERLAP, nullptr, ok, myGeomAvoidOverlap);
+            myJunctionsHigherSpeed = attrs.getOpt<bool>(SUMO_ATTR_HIGHER_SPEED, nullptr, ok, myJunctionsHigherSpeed);
             // derived
             const OptionsCont& oc = OptionsCont::getOptions();
             myChangeLefthand = !oc.isDefault("lefthand") && (oc.getBool("lefthand") != myAmLefthand);

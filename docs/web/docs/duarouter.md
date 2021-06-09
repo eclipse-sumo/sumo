@@ -137,6 +137,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--gawron.a** {{DT_FLOAT}} | Use FLOAT as Gawron's a; *default:* **0.05** |
 | **--keep-all-routes** {{DT_BOOL}} | Save routes with near zero probability; *default:* **false** |
 | **--skip-new-routes** {{DT_BOOL}} | Only reuse routes from input, do not calculate new ones; *default:* **false** |
+| **--keep-route-probability** {{DT_FLOAT}} | The probability of keeping the old route; *default:* **0** |
 | **--ptline-routing** {{DT_BOOL}} | Route all public transport input; *default:* **false** |
 | **--logit** {{DT_BOOL}} | Use c-logit model (deprecated in favor of --route-choice-method logit); *default:* **false** |
 | **--route-choice-method** {{DT_STR}} | Choose a route choice method: gawron, logit, or lohse; *default:* **gawron** |

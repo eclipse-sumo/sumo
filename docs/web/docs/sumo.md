@@ -107,6 +107,7 @@ configuration:
 | **--person-summary-output** {{DT_FILE}} | Save aggregated person counts into FILE |
 | **--tripinfo-output** {{DT_FILE}} | Save single vehicle trip info into FILE |
 | **--tripinfo-output.write-unfinished** {{DT_BOOL}} | Write tripinfo output for vehicles which have not arrived at simulation end; *default:* **false** |
+| **--tripinfo-output.write-undeparted** {{DT_BOOL}} | Write tripinfo output for vehicles which have not departed at simulation end because of depart delay; *default:* **false** |
 | **--vehroute-output** {{DT_FILE}} | Save single vehicle route info into FILE |
 | **--vehroute-output.exit-times** {{DT_BOOL}} | Write the exit times for all edges; *default:* **false** |
 | **--vehroute-output.last-route** {{DT_BOOL}} | Write the last route only; *default:* **false** |
@@ -171,7 +172,7 @@ configuration:
 | **--scale** {{DT_FLOAT}} | Scale demand by the given factor (by discarding or duplicating vehicles); *default:* **1** |
 | **--time-to-teleport** {{DT_TIME}} | Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting; *default:* **300** |
 | **--time-to-teleport.highways** {{DT_TIME}} | The waiting time after which vehicles on a fast road (speed > 69km/h) are teleported if they are on a non-continuing lane; *default:* **0** |
-| **--time-to-teleport.disconnected** {{DT_TIME}} | The waiting time after which vehicles with a disconnected route are teleported; *default:* **0** |
+| **--time-to-teleport.disconnected** {{DT_TIME}} | The waiting time after which vehicles with a disconnected route are teleported. Negative values disable teleporting; *default:* **-1** |
 | **--waiting-time-memory** {{DT_TIME}} | Length of time interval, over which accumulated waiting time is taken into account (default is 100s.); *default:* **100** |
 | **--max-depart-delay** {{DT_TIME}} | How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped; *default:* **-1** |
 | **--sloppy-insert** {{DT_BOOL}} | Whether insertion on an edge shall not be repeated in same step once failed; *default:* **false** |
@@ -191,6 +192,7 @@ configuration:
 | **--overhead-wire-solver** {{DT_BOOL}} | Use Kirchhoff's laws for solving overhead wire circuit; *default:* **true** |
 | **--emergencydecel.warning-threshold** {{DT_FLOAT}} | Sets the fraction of emergency decel capability that must be used to trigger a warning.; *default:* **1** |
 | **--parking.maneuver** {{DT_BOOL}} | Whether parking simulation includes manoeuvering time and associated lane blocking; *default:* **false** |
+| **--use-stop-ended** {{DT_BOOL}} | Override stop until times with stop ended times when given; *default:* **false** |
 | **--pedestrian.model** {{DT_STR}} | Select among pedestrian models ['nonInteracting', 'striping', 'remote']; *default:* **striping** |
 | **--pedestrian.striping.stripe-width** {{DT_FLOAT}} | Width of parallel stripes for segmenting a sidewalk (meters) for use with model 'striping'; *default:* **0.64** |
 | **--pedestrian.striping.dawdling** {{DT_FLOAT}} | Factor for random slow-downs [0,1] for use with model 'striping'; *default:* **0.2** |
@@ -403,6 +405,16 @@ configuration:
 | **--device.taxi.dispatch-period** {{DT_TIME}} | The period between successive calls to the dispatcher; *default:* **60** |
 | **--device.taxi.idle-algorithm** {{DT_STR}} | The behavior of idle taxis [stop,randomCircling]; *default:* **stop** |
 | **--device.taxi.idle-algorithm.output** {{DT_FILE}} | Write information from the idling algorithm to FILE |
+
+### Glosa Device
+| Option | Description |
+|--------|-------------|
+| **--device.glosa.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'glosa' device; *default:* **-1** |
+| **--device.glosa.explicit** {{DT_STR[]}} | Assign a 'glosa' device to named vehicles |
+| **--device.glosa.deterministic** {{DT_BOOL}} | The 'glosa' devices are set deterministic using a fraction of 1000; *default:* **false** |
+| **--device.glosa.range** {{DT_FLOAT}} | The communication range to the traffic light; *default:* **100** |
+| **--device.glosa.max-speedfactor** {{DT_FLOAT}} | The maximum speed factor when approaching a green light; *default:* **1.1** |
+| **--device.glosa.min-speed** {{DT_FLOAT}} | Minimum speed when coasting towards a red light; *default:* **5** |
 
 ### Tripinfo Device
 | Option | Description |

@@ -1,0 +1,1 @@
+Ambiguous departure order at stop stop_c (index 0) for  vehicle t0 (00:00:20, 00:00:40) and parking vehicle t1 (00:00:50, 00:00:40). No constraints will be generated for them afterwards

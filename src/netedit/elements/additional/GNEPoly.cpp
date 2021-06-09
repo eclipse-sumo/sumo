@@ -39,10 +39,13 @@
 // method definitions
 // ===========================================================================
 GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
-                 const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool /* shapeBlocked */) :
-    SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
-    GNEShape(id, net, GLO_POLYGON, SUMO_TAG_POLY, movementBlocked, {}, {}, {}, {}, {}, {}, {}, {}),
-mySimplifiedShape(false) {
+        const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, const std::string &name,
+        const std::map<std::string, std::string> &parameters, bool movementBlocked) :
+    SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters),
+    GNEShape(id, net, GLO_POLYGON, SUMO_TAG_POLY,
+        {}, {}, {}, {}, {}, {}, {}, {},
+        movementBlocked),
+    mySimplifiedShape(false) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // check if imgFile is valid
@@ -127,12 +130,8 @@ GNEPoly::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
 
 
 std::string
-GNEPoly::generateChildID(SumoXMLTag childTag) {
-    int counter = (int)myNet->getAttributeCarriers()->getShapes().at(SUMO_TAG_POLY).size();
-    while (myNet->retrieveShape(SUMO_TAG_POLY, getID() + toString(childTag) + toString(counter), false) != nullptr) {
-        counter++;
-    }
-    return (getID() + toString(childTag) + toString(counter));
+GNEPoly::generateChildID(SumoXMLTag /*childTag*/) {
+    return "";
 }
 
 
@@ -255,11 +254,6 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         const RGBColor color = isAttributeCarrierSelected() ? s.colorSettings.selectionColor : getShapeColor();
         const RGBColor invertedColor = color.invertedColor();
         const RGBColor darkerColor = color.changedBrightness(-32);
-        // obtain scaled geometry
-        GNEGeometry::Geometry scaledGeometry = myPolygonGeometry;
-        if (polyExaggeration != 1) {
-            scaledGeometry.scaleGeometry(polyExaggeration);
-        }
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         glPushName(getGlID());
         // push layer matrix
@@ -270,7 +264,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         if (getFill()) {
             if (s.drawForPositionSelection) {
                 // check if mouse is within geometry
-                if (scaledGeometry.getShape().around(mousePosition)) {
+                if (myPolygonGeometry.getShape().around(mousePosition)) {
                     // push matrix
                     glPushMatrix();
                     // move to mouse position
@@ -284,7 +278,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 }
             } else {
                 // draw inner polygon
-                GUIPolygon::drawInnerPolygon(s, this, this, scaledGeometry.getShape(), 0, drawUsingSelectColor());
+                GUIPolygon::drawInnerPolygon(s, this, this, myPolygonGeometry.getShape(), 0, drawUsingSelectColor());
             }
         } else {
             // push matrix
@@ -292,7 +286,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             // set color
             GLHelper::setColor(color);
             // draw geometry (polyline)
-            GNEGeometry::drawGeometry(myNet->getViewNet(), scaledGeometry, s.neteditSizeSettings.polylineWidth * polyExaggeration);
+            GNEGeometry::drawGeometry(myNet->getViewNet(), myPolygonGeometry, s.neteditSizeSettings.polylineWidth * polyExaggeration);
             // pop matrix
             glPopMatrix();
         }
@@ -305,41 +299,50 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             // set color
             GLHelper::setColor(darkerColor);
             // draw polygon contour
-            GNEGeometry::drawGeometry(myNet->getViewNet(), scaledGeometry, s.neteditSizeSettings.polygonContourWidth);
+            GNEGeometry::drawGeometry(myNet->getViewNet(), myPolygonGeometry, s.neteditSizeSettings.polygonContourWidth * polyExaggeration);
             // pop contour matrix
             glPopMatrix();
             // draw shape points only in Network supemode
             if (s.drawMovingGeometryPoint(polyExaggeration, s.neteditSizeSettings.polygonGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
                 // draw geometry points
-                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), scaledGeometry.getShape(), darkerColor, invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
+                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myPolygonGeometry.getShape(), darkerColor, invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
                 // draw moving hint points
                 if (myBlockMovement == false) {
-                    GNEGeometry::drawMovingHint(s, myNet->getViewNet(), scaledGeometry.getShape(), invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
+                    GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myPolygonGeometry.getShape(), invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
                 }
             }
         }
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw depending if is closed
-            if (getFill() || scaledGeometry.getShape().isClosed()) {
-                GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::INSPECT, s, scaledGeometry.getShape(), 1);
+            if (getFill() || myPolygonGeometry.getShape().isClosed()) {
+                GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), 1);
             } else {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, scaledGeometry.getShape(), s.neteditSizeSettings.polylineWidth, polyExaggeration);
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, polyExaggeration);
             }
         }
         // check if front dotted contour has to be drawn
         if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             // draw depending if is closed
-            if (getFill() || scaledGeometry.getShape().isClosed()) {
-                GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::FRONT, s, scaledGeometry.getShape(), 1);
+            if (getFill() || myPolygonGeometry.getShape().isClosed()) {
+                GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), 1);
             } else {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, scaledGeometry.getShape(), s.neteditSizeSettings.polylineWidth, polyExaggeration);
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, polyExaggeration);
             }
         }
         // pop layer matrix
         glPopMatrix();
         // pop name
         glPopName();
+        // get name position
+        const Position& namePos = myPolygonGeometry.getShape().getPolygonCenter();
+        // draw name
+        drawName(namePos, s.scale, s.polyName, s.angle);
+        // check if draw poly type
+        if (s.polyType.show) {
+            const Position p = namePos + Position(0, -0.6 * s.polyType.size / s.scale);
+            GLHelper::drawTextSettings(s.polyType, getShapeType(), p, s.scale, s.angle);
+        }
     }
 }
 
@@ -550,6 +553,8 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
             return toString(getShapeNaviDegree());
         case SUMO_ATTR_GEO:
             return toString(myGEO);
+        case SUMO_ATTR_NAME:
+            return getShapeName();
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_CLOSE_SHAPE:
@@ -582,6 +587,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_RELATIVEPATH:
         case SUMO_ATTR_ANGLE:
         case SUMO_ATTR_GEO:
+        case SUMO_ATTR_NAME:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_CLOSE_SHAPE:
         case GNE_ATTR_SELECTED:
@@ -634,6 +640,8 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case SUMO_ATTR_GEO:
             return canParse<bool>(value);
+        case SUMO_ATTR_NAME:
+            return SUMOXMLDefinitions::isValidAttribute(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_CLOSE_SHAPE:
@@ -756,6 +764,9 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             myGEO = parse<bool>(value);
             // update centering boundary
             updateCenteringBoundary(true);
+            break;
+        case SUMO_ATTR_NAME:
+            setShapeName(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);

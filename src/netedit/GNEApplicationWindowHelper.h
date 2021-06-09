@@ -193,6 +193,35 @@ struct GNEApplicationWindowHelper {
     /// @brief struct for modes menu commands
     struct ModesMenuCommands {
 
+        /// @brief struct for common menu commands
+        struct CommonMenuCommands {
+
+            /// @brief constructor
+            CommonMenuCommands(const ModesMenuCommands* modesMenuCommandsParent);
+
+            /// @brief build menu commands
+            void buildCommonMenuCommands(FXMenuPane* modesMenu);
+
+            /// @brief menu command for delete mode
+            FXMenuCommand* deleteMode;
+
+            /// @brief menu command for inspect mode
+            FXMenuCommand* inspectMode;
+
+            /// @brief menu command for select mode
+            FXMenuCommand* selectMode;
+
+        private:
+            /// @brief reference to ModesMenuCommands
+            const ModesMenuCommands* myModesMenuCommandsParent;
+
+            /// @brief Invalidated copy constructor.
+            CommonMenuCommands(const CommonMenuCommands&) = delete;
+
+            /// @brief Invalidated assignment operator.
+            CommonMenuCommands& operator=(const CommonMenuCommands&) = delete;
+        };
+
         /// @brief struct for network menu commands
         struct NetworkMenuCommands {
 
@@ -211,17 +240,8 @@ struct GNEApplicationWindowHelper {
             /// @brief menu command for create edge
             FXMenuCommand* createEdgeMode;
 
-            /// @brief menu command for move mode
+            /// @brief menu command for move mode (network)
             FXMenuCommand* moveMode;
-
-            /// @brief menu command for delete mode
-            FXMenuCommand* deleteMode;
-
-            /// @brief menu command for inspect mode
-            FXMenuCommand* inspectMode;
-
-            /// @brief menu command for select mode
-            FXMenuCommand* selectMode;
 
             /// @brief menu command for connect mode
             FXMenuCommand* connectMode;
@@ -269,6 +289,9 @@ struct GNEApplicationWindowHelper {
 
             /// @brief hide all menu commands
             void hideDemandMenuCommands();
+
+            /// @brief menu command for move mode (demand)
+            FXMenuCommand* moveMode;
 
             /// @brief menu command for route mode
             FXMenuCommand* routeMode;
@@ -342,6 +365,9 @@ struct GNEApplicationWindowHelper {
 
         /// @brief build modes menu commands
         void buildModesMenuCommands(FXMenuPane* modesMenu);
+
+        /// @brief Common Menu Commands
+        CommonMenuCommands commonMenuCommands;
 
         /// @brief Network Menu Commands
         NetworkMenuCommands networkMenuCommands;
@@ -451,6 +477,9 @@ struct GNEApplicationWindowHelper {
 
             /// @brief menu check for hide shapes (Polygons and POIs)
             FXMenuCheckIcon* menuCheckHideShapes;
+
+            /// @brief menu check for show all trips plans
+            FXMenuCheckIcon* menuCheckShowAllTrips;
 
             /// @brief menu check for hide non inspected demand elements
             FXMenuCheckIcon* menuCheckHideNonInspectedDemandElements;
@@ -624,6 +653,9 @@ struct GNEApplicationWindowHelper {
 
         /// @brief FXMenuCommand for join routes
         FXMenuCommand* joinRoutes;
+
+        /// @brief FXMenuCommand for adjust person plans
+        FXMenuCommand* adjustPersonPlans;
 
         /// @brief FXMenuCommand for clear invalid demand elements
         FXMenuCommand* clearInvalidDemandElements;

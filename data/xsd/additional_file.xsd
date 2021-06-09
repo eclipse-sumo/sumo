@@ -279,6 +279,7 @@
         <xsd:attribute name="lanes" type="xsd:string" use="required"/>
         <xsd:attribute name="file" type="xsd:string" use="optional"/>
         <xsd:attribute name="pos" type="xsd:string" use="optional"/>
+        <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="routeProbeType">
@@ -480,6 +481,7 @@
         <xsd:attribute name="length" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="angle" type="xsd:float" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
+        <xsd:attribute name="departPos" type="xsd:float" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="parkingSpaceType">

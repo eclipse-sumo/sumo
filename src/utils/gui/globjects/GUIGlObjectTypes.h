@@ -116,7 +116,7 @@ enum GUIGlObjectType {
     /// @brief a Acces
     GLO_ACCESS = 119,
     /// @brief a segment of an overhead line
-    GLO_OVERHEAD_WIRE_SEGMENT = 121,
+    GLO_OVERHEAD_WIRE_SEGMENT = 120,
 
     /// @}
 

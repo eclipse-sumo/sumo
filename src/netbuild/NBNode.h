@@ -839,6 +839,9 @@ private:
 
     NBEdge* getNextCompatibleOutgoing(const NBEdge* incoming, SVCPermissions vehPerm, EdgeVector::const_iterator start, bool clockwise) const;
 
+    /// @brief ensure connectivity for all vClasses
+    void recheckVClassConnections(NBEdge* currentOutgoing);
+
     /// @brief get the reduction in driving lanes at this junction
     void getReduction(const NBEdge* in, const NBEdge* out, int& inOffset, int& outOffset, int& reduction) const;
 

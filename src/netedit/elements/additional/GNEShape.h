@@ -38,9 +38,9 @@ public:
      * @param[in] net pointer to GNENet of this shape element belongs
      * @param[in] type GUIGlObjectType of shape
      * @param[in] tag Type of xml tag that define the shape element
-     * @param[in] block movement enable or disable additional movement
      * @param[in] net The net to inform about gui updates
      * @param[in] tag sumo xml tag of the element
+     * @param[in] parameters generic parameters
      * @param[in] movementBlocked if movement of POI is blocked
      * @param[in] junctionParents vector of junction parents
      * @param[in] edgeParents vector of edge parents
@@ -50,8 +50,10 @@ public:
      * @param[in] TAZElementParents vector of TAZElement parents
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
+     * @param[in] parameters generic parameters
+     * @param[in] blockMovement enable or disable shape movement
      */
-    GNEShape(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, bool movementBlocked,
+    GNEShape(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
              const std::vector<GNEJunction*>& junctionParents,
              const std::vector<GNEEdge*>& edgeParents,
              const std::vector<GNELane*>& laneParents,
@@ -59,10 +61,11 @@ public:
              const std::vector<GNEShape*>& shapeParents,
              const std::vector<GNETAZElement*>& TAZElementParents,
              const std::vector<GNEDemandElement*>& demandElementParents,
-             const std::vector<GNEGenericData*>& genericDataParents);
+             const std::vector<GNEGenericData*>& genericDataParents,
+             bool movementBlocked);
 
     /// @brief Destructor
-    virtual ~GNEShape();
+    ~GNEShape();
 
     /**@brief get move operation for the given shapeOffset
     * @note returned GNEMoveOperation can be nullptr
@@ -88,8 +91,8 @@ public:
     virtual void setParameter(const std::string& key, const std::string& value) = 0;
 
     /**@brief writte shape element into a xml file
-    * @param[in] device device in which write parameters of additional element
-    */
+     * @param[in] device device in which write parameters of additional element
+     */
     virtual void writeShape(OutputDevice& device) = 0;
 
     /// @brief Returns the numerical id of the object

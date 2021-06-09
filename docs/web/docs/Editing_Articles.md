@@ -108,7 +108,7 @@ Here are some expressions that need an escape character:
 # **Images**
 
 All images must be saved in the [images directory]({{Source}}docs/web/docs/images).
-To insert an image, just use the usual Markdown sytax: 
+To insert an image, just use the usual Markdown syntax: 
 
 ```
 ![<alt>](images/Wikicommons_rail_fast.jpg "<title>")

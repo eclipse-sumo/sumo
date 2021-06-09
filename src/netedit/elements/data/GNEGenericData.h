@@ -27,8 +27,8 @@
 #include <config.h>
 
 #include <netedit/elements/GNEHierarchicalElement.h>
-#include <netedit/elements/GNEPathElements.h>
 #include <netedit/GNEGeometry.h>
+#include <netedit/GNEPathManager.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -51,7 +51,7 @@ class GNEDataInterval;
  * @class GNEGenericData
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEGenericData : public GUIGlObject, public Parameterised, public GNEHierarchicalElement, public GNEPathElements {
+class GNEGenericData : public GUIGlObject, public Parameterised, public GNEHierarchicalElement, public GNEPathManager::PathElement {
 
 public:
     /**@brief Constructor
@@ -149,23 +149,52 @@ public:
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
 
+    //// @brief Returns the boundary to which the view shall be centered in order to show the object
+    virtual Boundary getCenteringBoundary() const = 0;
+
+    /// @}
+
+    /// @name inherited from GNEPathManager::PathElement
+    /// @{
+
+    /// @brief compute pathElement
+    virtual void computePathElement() = 0;
+
     /**@brief Draws partial object (lane)
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] lane GNELane in which draw partial
-     * @param[in] offsetFront offset for drawing element front (needed for selected elements)
+     * @param[in] segment PathManager segment (used for segment options)
+     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
      */
-    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const = 0;
+    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
 
     /**@brief Draws partial object (junction)
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] fromLane from GNELane
      * @param[in] toLane to GNELane
-     * @param[in] offsetFront offset for drawing element front (needed for selected elements)
+     * @param[in] segment PathManager segment (used for segment options)
+     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
      */
-    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const = 0;
+    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
 
-    //// @brief Returns the boundary to which the view shall be centered in order to show the object
-    virtual Boundary getCenteringBoundary() const = 0;
+    /// @brief get first path lane
+    virtual GNELane* getFirstPathLane() const = 0;
+
+    /// @brief get last path lane
+    virtual GNELane* getLastPathLane() const = 0;
+
+    /// @brief get path element depart lane pos
+    double getPathElementDepartValue() const;
+
+    /// @brief get path element depart position
+    Position getPathElementDepartPos() const;
+
+    /// @brief get path element arrival lane pos
+    double getPathElementArrivalValue() const;
+
+    /// @brief get path element arrival position
+    Position getPathElementArrivalPos() const;
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier

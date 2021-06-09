@@ -216,14 +216,18 @@ MEVehicle::checkStop(SUMOTime time) {
         if (stop.edge != myCurrEdge || stop.segment != mySegment) {
             return time;
         }
+        const SUMOTime cur = time;
         time += stop.duration;
         if (stop.pars.until > time) {
             // @note: this assumes the stop is reached at time. With the way this is called in MESegment (time == entryTime),
             // travel time is overestimated of the stop is not at the start of the segment
             time = stop.pars.until;
         }
+        if (MSGlobals::gUseStopEnded && stop.pars.ended >= 0) {
+            time = MAX2(cur, stop.pars.ended);
+        }
         stop.reached = true;
-        stop.pars.actualArrival = myLastEntryTime;
+        stop.pars.started = myLastEntryTime;
 
         if (MSStopOut::active()) {
             if (!hadStop) {
@@ -278,18 +282,18 @@ MEVehicle::processStop() {
         if (net->hasContainers()) {
             net->getContainerControl().loadAnyWaiting(edge, this, stop.pars, dummy, dummy);
         }
+        SUMOVehicleParameter::Stop pars = stop.pars;
+        pars.ended = MSNet::getInstance()->getCurrentTimeStep();
         MSDevice_Vehroutes* vehroutes = static_cast<MSDevice_Vehroutes*>(getDevice(typeid(MSDevice_Vehroutes)));
         if (vehroutes != nullptr) {
-            vehroutes->stopEnded(stop.pars);
+            vehroutes->stopEnded(pars);
         }
         if (MSStopOut::active()) {
             if (hadStop) {
                 MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
             }
-            MSStopOut::getInstance()->stopEnded(this, stop.pars, mySegment->getEdge().getID());
+            MSStopOut::getInstance()->stopEnded(this, pars, mySegment->getEdge().getID());
         }
-        SUMOVehicleParameter::Stop pars = stop.pars;
-        pars.depart = MSNet::getInstance()->getCurrentTimeStep();
         myPastStops.emplace_back(pars);
         it = myStops.erase(it);
         hadStop = true;
@@ -300,7 +304,18 @@ MEVehicle::processStop() {
 
 bool
 MEVehicle::mayProceed() const {
-    return mySegment == nullptr || mySegment->isOpen(this);
+    if (mySegment == nullptr) {
+        return true;
+    }
+    for (const MSStop& stop : myStops) {
+        if (!stop.reached) {
+            break;
+        }
+        if (stop.triggered || stop.containerTriggered || stop.joinTriggered) {
+            return false;
+        }
+    }
+    return mySegment->isOpen(this);
 }
 
 
@@ -411,8 +426,8 @@ MEVehicle::saveState(OutputDevice& out) {
     // save past stops
     for (SUMOVehicleParameter::Stop stop : myPastStops) {
         stop.write(out, false);
-        out.writeAttr("actualArrival", time2string(stop.actualArrival));
-        out.writeAttr(SUMO_ATTR_DEPART, time2string(stop.depart));
+        out.writeAttr(SUMO_ATTR_STARTED, time2string(stop.started));
+        out.writeAttr(SUMO_ATTR_ENDED, time2string(stop.ended));
         out.closeTag();
     }
     // save upcoming stops

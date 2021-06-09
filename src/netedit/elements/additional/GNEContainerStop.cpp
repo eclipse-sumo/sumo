@@ -33,10 +33,13 @@
 // method definitions
 // ===========================================================================
 
-GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos, const int parametersSet,
-                                   const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) :
-    GNEStoppingPlace(id, net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, lane, startPos, endPos, parametersSet, name, friendlyPosition, blockMovement),
-    myLines(lines) {
+GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
+        const std::string& name, const std::vector<std::string>& lines, int containerCapacity, double parkingLength, bool friendlyPosition, 
+        const std::map<std::string, std::string> &parameters, bool blockMovement) :
+    GNEStoppingPlace(id, net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, lane, startPos, endPos, name, friendlyPosition, parameters, blockMovement),
+    myLines(lines),
+    myContainerCapacity(containerCapacity),
+    myParkingLength(parkingLength) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -69,60 +72,63 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double containerStopExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(containerStopExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // declare colors
-        RGBColor baseColor, signColor;
-        // set colors
-        if (mySpecialColor) {
-            baseColor = *mySpecialColor;
-            signColor = baseColor.changedBrightness(-32);
-        } else if (drawUsingSelectColor()) {
-            baseColor = s.colorSettings.selectedAdditionalColor;
-            signColor = baseColor.changedBrightness(-32);
-        } else {
-            baseColor = s.stoppingPlaceSettings.containerStopColor;
-            signColor = s.stoppingPlaceSettings.containerStopColorSign;
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // check exaggeration
+        if (s.drawAdditionals(containerStopExaggeration)) {
+            // declare colors
+            RGBColor baseColor, signColor;
+            // set colors
+            if (mySpecialColor) {
+                baseColor = *mySpecialColor;
+                signColor = baseColor.changedBrightness(-32);
+            } else if (drawUsingSelectColor()) {
+                baseColor = s.colorSettings.selectedAdditionalColor;
+                signColor = baseColor.changedBrightness(-32);
+            } else {
+                baseColor = s.stoppingPlaceSettings.containerStopColor;
+                signColor = s.stoppingPlaceSettings.containerStopColorSign;
+            }
+            // Start drawing adding an gl identificator
+            glPushName(getGlID());
+            // Add a draw matrix
+            glPushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CONTAINER_STOP);
+            // set base color
+            GLHelper::setColor(baseColor);
+            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+            GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.stoppingPlaceSettings.containerStopWidth * containerStopExaggeration);
+            // draw detail
+            if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, containerStopExaggeration)) {
+                // draw lines
+                drawLines(s, myLines, baseColor);
+                // draw sign
+                drawSign(s, containerStopExaggeration, baseColor, signColor, "C");
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, containerStopExaggeration, 0, 0, true);
+            }
+            // pop draw matrix
+            glPopMatrix();
+            // Pop name
+            glPopName();
+            // check if dotted contours has to be drawn
+            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth, containerStopExaggeration);
+            }
+            if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth, containerStopExaggeration);
+            }
+            // draw child demand elements
+            for (const auto& demandElement : getChildDemandElements()) {
+                if (!demandElement->getTagProperty().isPlacedInRTree()) {
+                    demandElement->drawGL(s);
+                }
+            }
         }
-        // Start drawing adding an gl identificator
-        glPushName(getGlID());
-        // Add a draw matrix
-        glPushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CONTAINER_STOP);
-        // set base color
-        GLHelper::setColor(baseColor);
-        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.stoppingPlaceSettings.containerStopWidth * containerStopExaggeration);
-        // draw detail
-        if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, containerStopExaggeration)) {
-            // draw lines
-            drawLines(s, myLines, baseColor);
-            // draw sign
-            drawSign(s, containerStopExaggeration, baseColor, signColor, "C");
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, containerStopExaggeration, 0, 0, true);
-        }
-        // pop draw matrix
-        glPopMatrix();
-        // Pop name
-        glPopName();
         // Draw additional ID
         drawAdditionalID(s);
         // draw additional name
         drawAdditionalName(s);
-        // check if dotted contours has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth, containerStopExaggeration);
-        }
-        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth, containerStopExaggeration);
-        }
-        // draw child demand elements
-        for (const auto& demandElement : getChildDemandElements()) {
-            if (!demandElement->getTagProperty().isPlacedInRTree()) {
-                demandElement->drawGL(s);
-            }
-        }
     }
 }
 
@@ -135,13 +141,13 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         case SUMO_ATTR_STARTPOS:
-            if (myParametersSet & STOPPINGPLACE_STARTPOS_SET) {
+            if (myStartPosition != INVALID_DOUBLE) {
                 return toString(myStartPosition);
             } else {
                 return "";
             }
         case SUMO_ATTR_ENDPOS:
-            if (myParametersSet & STOPPINGPLACE_ENDPOS_SET) {
+            if (myEndPosition != INVALID_DOUBLE) {
                 return toString(myEndPosition);
             } else {
                 return "";
@@ -152,6 +158,10 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
             return toString(myFriendlyPosition);
         case SUMO_ATTR_LINES:
             return joinToString(myLines, " ");
+        case SUMO_ATTR_CONTAINER_CAPACITY:
+            return toString(myContainerCapacity);
+        case SUMO_ATTR_PARKING_LENGTH:
+            return toString(myParkingLength);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
@@ -177,6 +187,8 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_FRIENDLY_POS:
         case SUMO_ATTR_LINES:
+        case SUMO_ATTR_CONTAINER_CAPACITY:
+        case SUMO_ATTR_PARKING_LENGTH:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
@@ -203,7 +215,7 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return SUMORouteHandler::isStopPosValid(parse<double>(value), myEndPosition, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
+                return SUMORouteHandler::isStopPosValid(parse<double>(value), getAttributeDouble(SUMO_ATTR_ENDPOS), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
             } else {
                 return false;
             }
@@ -211,7 +223,7 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return SUMORouteHandler::isStopPosValid(myStartPosition, parse<double>(value), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
+                return SUMORouteHandler::isStopPosValid(getAttributeDouble(SUMO_ATTR_STARTPOS), parse<double>(value), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
             } else {
                 return false;
             }
@@ -221,6 +233,10 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_LINES:
             return canParse<std::vector<std::string> >(value);
+        case SUMO_ATTR_CONTAINER_CAPACITY:
+            return canParse<int>(value) && (parse<int>(value) > 0 || parse<int>(value) == -1);
+        case SUMO_ATTR_PARKING_LENGTH:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
@@ -246,19 +262,17 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_STARTPOS:
-            if (!value.empty()) {
-                myStartPosition = parse<double>(value);
-                myParametersSet |= STOPPINGPLACE_STARTPOS_SET;
+            if (value == "") {
+                myStartPosition = INVALID_DOUBLE;
             } else {
-                myParametersSet &= ~STOPPINGPLACE_STARTPOS_SET;
+                myStartPosition = parse<double>(value);
             }
             break;
         case SUMO_ATTR_ENDPOS:
-            if (!value.empty()) {
-                myEndPosition = parse<double>(value);
-                myParametersSet |= STOPPINGPLACE_ENDPOS_SET;
+            if (value == "") {
+                myEndPosition = INVALID_DOUBLE;
             } else {
-                myParametersSet &= ~STOPPINGPLACE_ENDPOS_SET;
+                myEndPosition = parse<double>(value);
             }
             break;
         case SUMO_ATTR_NAME:
@@ -269,6 +283,12 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_LINES:
             myLines = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
+            break;
+        case SUMO_ATTR_CONTAINER_CAPACITY:
+            myContainerCapacity = GNEAttributeCarrier::parse<int>(value);
+            break;
+        case SUMO_ATTR_PARKING_LENGTH:
+            myParkingLength = GNEAttributeCarrier::parse<double>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);

@@ -76,6 +76,12 @@ myDefaultVehicleTypeModified(false) {
 GNEVehicleType::~GNEVehicleType() {}
 
 
+GNEMoveOperation*
+GNEVehicleType::getMoveOperation(const double /*shapeOffset*/) {
+    return nullptr;
+}
+
+
 void
 GNEVehicleType::writeDemandElement(OutputDevice& device) const {
     // only write default vehicle types if it was modified
@@ -102,47 +108,11 @@ GNEVehicleType::getColor() const {
 
 
 void
-GNEVehicleType::startGeometryMoving() {
-    // VTypes cannot be moved
-}
-
-
-void
-GNEVehicleType::endGeometryMoving() {
-    // VTypes cannot be moved
-}
-
-
-void
-GNEVehicleType::moveGeometry(const Position&) {
-    // VTypes cannot be moved
-}
-
-
-void
-GNEVehicleType::commitGeometryMoving(GNEUndoList*) {
-    // VTypes cannot be moved
-}
-
-
-void
 GNEVehicleType::updateGeometry() {
     // update geometry of all childrens
     for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();
     }
-}
-
-
-void
-GNEVehicleType::computePath() {
-    // nothing to compute
-}
-
-
-void
-GNEVehicleType::invalidatePath() {
-    // nothing to invalidate
 }
 
 
@@ -178,14 +148,34 @@ GNEVehicleType::drawGL(const GUIVisualizationSettings&) const {
 
 
 void
-GNEVehicleType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const double /*offsetFront*/) const {
+GNEVehicleType::computePathElement() {
+    // nothing to compute
+}
+
+
+void
+GNEVehicleType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
     // vehicleTypes don't use drawPartialGL
 }
 
 
 void
-GNEVehicleType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /* fromLane */, const GNELane* /* toLane */, const double /*offsetFront*/) const {
+GNEVehicleType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
     // vehicleTypes don't use drawPartialGL
+}
+
+
+GNELane*
+GNEVehicleType::getFirstPathLane() const {
+    // vehicle types don't use lanes
+    return nullptr;
+}
+
+
+GNELane*
+GNEVehicleType::getLastPathLane() const {
+    // vehicle types don't use lanes
+    return nullptr;
 }
 
 
@@ -482,6 +472,12 @@ GNEVehicleType::getAttributeDouble(SumoXMLAttr key) const {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
+}
+
+
+Position
+GNEVehicleType::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a Position attribute of type '" + toString(key) + "'");
 }
 
 
@@ -1632,6 +1628,18 @@ GNEVehicleType::setEnabledAttribute(const int /*enabledAttributes*/) {
 
 
 void
+GNEVehicleType::setMoveShape(const GNEMoveResult& /*moveResult*/) {
+    // vehicleTypes cannot be moved
+}
+
+
+void
+GNEVehicleType::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
+    // vehicleTypes cannot be moved
+}
+
+
+void
 GNEVehicleType::updateDefaultVClassAttributes(const VClassDefaultValues& defaultValues) {
     if (!wasSet(VTYPEPARS_LENGTH_SET)) {
         length = defaultValues.length;
@@ -1673,6 +1681,5 @@ GNEVehicleType::updateDefaultVClassAttributes(const VClassDefaultValues& default
         locomotiveLength = defaultValues.locomotiveLength;
     }
 }
-
 
 /****************************************************************************/

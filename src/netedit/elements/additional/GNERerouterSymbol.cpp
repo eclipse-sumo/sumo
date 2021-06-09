@@ -31,8 +31,9 @@
 // ===========================================================================
 
 GNERerouterSymbol::GNERerouterSymbol(GNEAdditional* rerouterParent, GNEEdge* edge) :
-    GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, "", false,
-{}, {edge}, {}, {rerouterParent}, {}, {}, {}, {}) {
+    GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, "",
+        {}, {edge}, {}, {rerouterParent}, {}, {}, {}, {},
+        std::map<std::string, std::string>(), false) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -58,7 +59,7 @@ GNERerouterSymbol::updateGeometry() {
         // declare geometry
         GNEGeometry::Geometry symbolGeometry;
         // update it with lane and pos over lane
-        symbolGeometry.updateGeometry(lane, lane->getLaneShape().length2D() - 6);
+        symbolGeometry.updateGeometry(lane->getLaneShape(), lane->getLaneShape().length2D() - 6, 0);
         // add in mySymbolGeometries
         mySymbolGeometries.push_back(symbolGeometry);
     }

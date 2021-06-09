@@ -1,0 +1,8 @@
+# simulation ends before stop is finished
+early_end
+
+# simulation ends before stop is finished
+early_end_write
+
+# used attribute 'ended'
+use_ended

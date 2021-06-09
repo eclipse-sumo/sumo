@@ -99,7 +99,7 @@ definitions.
 | to         | string   | valid edge ids                     | \-      | id of the destination edge                        |
 | busStop    | string   | valid bus stop ids                 | \-      | id of the destination stop                        |
 | lines      | list     | valid line or vehicle ids or *ANY* | \-      | list of vehicle alternatives to take for the ride |
-| arrivalPos | float(m) |                                    | \-1     | arrival position on the destination edge          |
+| arrivalPos | float(m) |                                    | end of edge  | arrival position on the destination edge          |
 
 The vehicle to use has to exist already (either public transport or some
 existing passenger car) and the route to take is defined by the vehicle.
@@ -137,7 +137,7 @@ They are child elements of plan definitions.
 | _duration_ | float(s)   | \>0                | \-      | (deprecated, determined by the person type and the pedestrian dynamics)         |
 | _speed_    | float(m/s) | \>0                | \-      | (deprecated, determined by the person type and the pedestrian dynamics)         |
 | _departPos_| float(m)   |                    | 0       | initial position on the starting edge (deprecated, determined by the departPos of the person or the arrival pos of the previous step) |
-| arrivalPos | float(m)   |                    | \-1     | arrival position on the destination edge                                        |
+| arrivalPos | float(m)   |                    | middle of edge  | arrival position on the destination edge                                        |
 
 You can define either a `route`-id, or a list of `edges` to travel or a `from` and a `to` edge.
 In the first and second case the route edges are traveled in the listed
@@ -265,7 +265,7 @@ If the computed plan starts with a car or bicycle, a vehicle for use by the pers
 | vTypes     | list     | valid vType ids                               | \-      | list of possible vehicle types to take                        |
 | modes      | list     | any combination of "public", "car", "bicycle", ["taxi"](../Simulation/Taxi.md) | \-      | list of possible traffic modes (separated by ' '). Walking is always possible regardless of this value.     |
 | departPos  | float(m) |                                               | 0       | initial position on the starting edge (deprecated, determined by the departPos of the person or the arrival pos of the previous step) |
-| arrivalPos | float(m) |                                               | \-eps   | arrival position on the destination edge                      |
+| arrivalPos | float(m) |                                               | middle of edge | arrival position on the destination edge                      |
 
 !!! note
     It is an error for subsequent trips to be unconnected.

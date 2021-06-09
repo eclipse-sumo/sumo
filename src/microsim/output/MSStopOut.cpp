@@ -113,7 +113,7 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
         delay = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - stop.until);
     }
     if (stop.arrival >= 0) {
-        arrivalDelay = STEPS2TIME(stop.actualArrival - stop.arrival);
+        arrivalDelay = STEPS2TIME(stop.started - stop.arrival);
     }
     myDevice.openTag("stopinfo");
     myDevice.writeAttr(SUMO_ATTR_ID, veh->getID());
@@ -125,7 +125,7 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
     }
     myDevice.writeAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane());
     myDevice.writeAttr(SUMO_ATTR_PARKING, stop.parking);
-    myDevice.writeAttr("started", time2string(stop.actualArrival));
+    myDevice.writeAttr("started", time2string(stop.started));
     myDevice.writeAttr("ended", simEnd ? "-1" : time2string(MSNet::getInstance()->getCurrentTimeStep()));
     myDevice.writeAttr("delay", delay);
     if (stop.arrival >= 0) {

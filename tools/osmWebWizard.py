@@ -187,7 +187,7 @@ class Builder(object):
         else:
             self.report("Downloading map data")
             osmGet.get(
-                ["-b", ",".join(map(str, self.data["coords"])), "-p", self.prefix, "-d", self.tmp])
+                ["-b=" + (",".join(map(str, self.data["coords"]))), "-p", self.prefix, "-d", self.tmp])
 
         options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp]
         self.additionalFiles = []

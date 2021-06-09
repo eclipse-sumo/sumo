@@ -128,3 +128,6 @@ departPos_arrivalPos
 
 # long stopping times should not trigger teleport, but teleports should possible after the stop
 long_stop
+
+# custom departPos at parkingArea
+parkingArea_departPos

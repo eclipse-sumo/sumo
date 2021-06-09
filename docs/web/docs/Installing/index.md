@@ -65,7 +65,7 @@ system is not listed here or you need to modify the sources, [you have to build 
 
 # macOS
 
-SUMO can be easily installed on macOS by using [Homebrew](http://brew.sh). If you did not already install homebrew, you can do so by invoking
+SUMO can be easily installed on macOS by using [Homebrew](http://brew.sh). If you did not already install homebrew, you can do so by invoking te following command in a macOS Terminal:
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
@@ -98,12 +98,15 @@ After the installation you need to log out/in in order to let X11 start automati
 
 Additionally, SUMO provides native **macOS application bundles** for its graphical applications, so they can be added to the macOS dock. There is a separate brew cask that will copy these bundles to the `Applications` folder:
 ```
-brew cask install sumo-gui
+brew install --cask sumo-gui
 ```
 
-In case this process fails, it can also be manually achieved by copying these application bundles from `$SUMO_HOME/build/osx/sumo-gui`, `$SUMO_HOME/build/osx/netedit` and `$SUMO_HOME/build/osx/osm-web-wizard` to the `/Applications` folder. 
+In case this process fails, it can also be manually achieved by copying these application bundles from `$SUMO_HOME/build/osx/sumo-gui`, `$SUMO_HOME/build/osx/netedit` and `$SUMO_HOME/build/osx/osm-web-wizard` to the `/Applications` folder. Another alternative is to download the application launchers from [here](../Downloads.md#application_launchers).
 
 These application bundles determine the location of your SUMO installation by evaluating your `$SUMO_HOME` variable setting and start the programs accordingly. Multiple SUMO installations may be used by changing the `$SUMO_HOME` variable.
+
+!!! note
+    When using these launchers for the first time, macOS may need you to authorize them to run.
 
 ## macOS Troubleshooting
 
@@ -111,21 +114,21 @@ These application bundles determine the location of your SUMO installation by ev
 If you encounter segmentation faults on macOS Catalina, please follow the following steps (see [Issue 6242](https://github.com/eclipse/sumo/issues/6242#issuecomment-553458710)).
 
 1. Uninstall Catalina bottle of fox:
-```$ brew uninstall --ignore-dependencies fox```
+```brew uninstall --ignore-dependencies fox```
 
 2. Edit brew Formula of fox:
-```$ brew edit fox```
+```brew edit fox```
 
 3. Comment out or delete the following line:
 ```sha256 "c6697be294c9a0458580564d59f8db32791beb5e67a05a6246e0b969ffc068bc" => :catalina```
 
 4. Install Mojave bottle of fox:
-```$ brew install fox```
+```brew install fox```
 
 ### Blank screen after update to XQuartz 2.8.0_beta3
 If you encounter a blank screen after opening sumo-gui (cf. https://github.com/eclipse/sumo/issues/8208), try resetting your DISPLAY environment variable:
 
-```% export DISPLAY=:0.0```
+```export DISPLAY=:0.0```
 
 
 # via Docker

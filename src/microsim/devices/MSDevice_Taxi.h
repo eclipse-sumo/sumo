@@ -72,6 +72,9 @@ public:
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
+    /// @brief whether the given lines description is a taxi call
+    static bool isReservation(const std::set<std::string>& lines);
+
     /// add new reservation
     static void addReservation(MSTransportable* person,
                                const std::set<std::string>& lines,
@@ -210,7 +213,7 @@ private:
                      const std::string& action);
 
     /// @brief determine stopping lane for taxi
-    MSLane* getStopLane(const MSEdge* edge);
+    MSLane* getStopLane(const MSEdge* edge, const std::string& action);
 
     /// @brief whether the taxi has another pickup scheduled
     bool hasFuturePickup();

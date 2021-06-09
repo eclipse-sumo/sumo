@@ -40,6 +40,7 @@
 #include "MSDevice_Bluelight.h"
 #include "MSDevice_FCD.h"
 #include "MSDevice_Taxi.h"
+#include "MSDevice_GLOSA.h"
 #include "MSDevice_ElecHybrid.h"
 #include "MSTransportableDevice_Routing.h"
 #include "MSTransportableDevice_FCD.h"
@@ -79,6 +80,7 @@ MSDevice::insertOptions(OptionsCont& oc) {
     MSDevice_FCD::insertOptions(oc);
     MSDevice_ElecHybrid::insertOptions(oc);
     MSDevice_Taxi::insertOptions(oc);
+    MSDevice_GLOSA::insertOptions(oc);
     MSDevice_Tripinfo::insertOptions(oc);
     MSDevice_Vehroutes::insertOptions(oc);
 
@@ -112,6 +114,7 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& int
     MSDevice_FCD::buildVehicleDevices(v, into);
     MSDevice_ElecHybrid::buildVehicleDevices(v, into);
     MSDevice_Taxi::buildVehicleDevices(v, into);
+    MSDevice_GLOSA::buildVehicleDevices(v, into);
 }
 
 

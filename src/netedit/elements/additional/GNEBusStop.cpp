@@ -33,9 +33,10 @@
 // method definitions
 // ===========================================================================
 
-GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos, const int parametersSet,
-                       const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength, bool friendlyPosition, bool blockMovement) :
-    GNEStoppingPlace(id, net, GLO_BUS_STOP, SUMO_TAG_BUS_STOP, lane, startPos, endPos, parametersSet, name, friendlyPosition, blockMovement),
+GNEBusStop::GNEBusStop(SumoXMLTag tag, const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos, 
+        const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength, bool friendlyPosition, 
+        const std::map<std::string, std::string> &parameters, bool blockMovement) :
+    GNEStoppingPlace(id, net, GLO_BUS_STOP, tag, lane, startPos, endPos, name, friendlyPosition, parameters, blockMovement),
     myLines(lines),
     myPersonCapacity(personCapacity),
     myParkingLength(parkingLength) {
@@ -51,34 +52,17 @@ void
 GNEBusStop::updateGeometry() {
     // Get value of option "lefthand"
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
-
     // Update common geometry of stopping place
     setStoppingPlaceGeometry(getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * 0.5);
-
     // Obtain a copy of the shape
     PositionVector tmpShape = myAdditionalGeometry.getShape();
-
     // Move shape to side
     tmpShape.move2side(myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.stoppingPlaceSignOffset * offsetSign);
-
     // Get position of the sign
     mySignPos = tmpShape.getLineCenter();
-
-    // update child demand elements geometry
+    // update demand element children
     for (const auto& demandElement : getChildDemandElements()) {
-        // special case for person trips
-        if (demandElement->getTagProperty().isPersonTrip()) {
-            // update previous and next person plan
-            GNEDemandElement* previousDemandElement = demandElement->getParentDemandElements().front()->getPreviousChildDemandElement(demandElement);
-            if (previousDemandElement) {
-                previousDemandElement->updatePartialGeometry(getParentLanes().front());
-            }
-            GNEDemandElement* nextDemandElement = demandElement->getParentDemandElements().front()->getNextChildDemandElement(demandElement);
-            if (nextDemandElement) {
-                nextDemandElement->updatePartialGeometry(getParentLanes().front());
-            }
-        }
-        demandElement->updatePartialGeometry(getParentLanes().front());
+        demandElement->updateGeometry();
     }
 }
 
@@ -88,62 +72,67 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double busStopExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(busStopExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // declare colors
-        RGBColor baseColor, signColor;
-        // set colors
-        if (mySpecialColor) {
-            baseColor = *mySpecialColor;
-            signColor = baseColor.changedBrightness(-32);
-        } else if (drawUsingSelectColor()) {
-            baseColor = s.colorSettings.selectedAdditionalColor;
-            signColor = baseColor.changedBrightness(-32);
-        } else {
-            baseColor = s.stoppingPlaceSettings.busStopColor;
-            signColor = s.stoppingPlaceSettings.busStopColorSign;
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // check exaggeration
+        if (s.drawAdditionals(busStopExaggeration)) {
+            // get width
+            const double stopWidth = (myTagProperty.getTag() == SUMO_TAG_BUS_STOP)? s.stoppingPlaceSettings.busStopWidth : s.stoppingPlaceSettings.trainStopWidth;
+            // declare colors
+            RGBColor baseColor, signColor;
+            // set colors
+            if (mySpecialColor) {
+                baseColor = *mySpecialColor;
+                signColor = baseColor.changedBrightness(-32);
+            } else if (drawUsingSelectColor()) {
+                baseColor = s.colorSettings.selectedAdditionalColor;
+                signColor = baseColor.changedBrightness(-32);
+            } else {
+                baseColor = s.stoppingPlaceSettings.busStopColor;
+                signColor = s.stoppingPlaceSettings.busStopColorSign;
+            }
+            // Start drawing adding an gl identificator
+            glPushName(getGlID());
+            // Add a draw matrix
+            glPushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_BUS_STOP);
+            // set base color
+            GLHelper::setColor(baseColor);
+            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+            GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, stopWidth * busStopExaggeration);
+            // draw detail
+            if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, busStopExaggeration)) {
+                // draw lines
+                drawLines(s, myLines, baseColor);
+                // draw sign
+                drawSign(s, busStopExaggeration, baseColor, signColor, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP)? "H" : "T");
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, busStopExaggeration, 0, 0, true, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP)? 0.5 : 0.25);
+            }
+            // pop draw matrix
+            glPopMatrix();
+            // Pop name
+            glPopName();
+            // draw connection betwen access
+            drawConnectionAccess(s, baseColor);
+            // check if dotted contours has to be drawn
+            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), stopWidth, busStopExaggeration);
+            }
+            if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), stopWidth, busStopExaggeration);
+            }
+            // draw child demand elements
+            for (const auto& demandElement : getChildDemandElements()) {
+                if (!demandElement->getTagProperty().isPlacedInRTree()) {
+                    demandElement->drawGL(s);
+                }
+            }
         }
-        // Start drawing adding an gl identificator
-        glPushName(getGlID());
-        // Add a draw matrix
-        glPushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_BUS_STOP);
-        // set base color
-        GLHelper::setColor(baseColor);
-        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.stoppingPlaceSettings.busStopWidth * busStopExaggeration);
-        // draw detail
-        if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, busStopExaggeration)) {
-            // draw lines
-            drawLines(s, myLines, baseColor);
-            // draw sign
-            drawSign(s, busStopExaggeration, baseColor, signColor, "H");
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, busStopExaggeration, 0, 0, true);
-        }
-        // pop draw matrix
-        glPopMatrix();
-        // Pop name
-        glPopName();
-        // draw connection betwen access
-        drawConnectionAccess(s, baseColor);
         // Draw additional ID
         drawAdditionalID(s);
         // draw additional name
         drawAdditionalName(s);
-        // check if dotted contours has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.busStopWidth, busStopExaggeration);
-        }
-        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.busStopWidth, busStopExaggeration);
-        }
-        // draw child demand elements
-        for (const auto& demandElement : getChildDemandElements()) {
-            if (!demandElement->getTagProperty().isPlacedInRTree()) {
-                demandElement->drawGL(s);
-            }
-        }
     }
 }
 
@@ -156,13 +145,13 @@ GNEBusStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         case SUMO_ATTR_STARTPOS:
-            if (myParametersSet & STOPPINGPLACE_STARTPOS_SET) {
+            if (myStartPosition != INVALID_DOUBLE) {
                 return toString(myStartPosition);
             } else {
                 return "";
             }
         case SUMO_ATTR_ENDPOS:
-            if (myParametersSet & STOPPINGPLACE_ENDPOS_SET) {
+            if (myEndPosition != INVALID_DOUBLE) {
                 return toString(myEndPosition);
             } else {
                 return "";
@@ -230,7 +219,7 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return SUMORouteHandler::isStopPosValid(parse<double>(value), myEndPosition, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
+                return SUMORouteHandler::isStopPosValid(parse<double>(value), getAttributeDouble(SUMO_ATTR_ENDPOS), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
             } else {
                 return false;
             }
@@ -238,7 +227,7 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return SUMORouteHandler::isStopPosValid(myStartPosition, parse<double>(value), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
+                return SUMORouteHandler::isStopPosValid(getAttributeDouble(SUMO_ATTR_STARTPOS), parse<double>(value), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
             } else {
                 return false;
             }
@@ -281,19 +270,17 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_STARTPOS:
-            if (!value.empty()) {
-                myStartPosition = parse<double>(value);
-                myParametersSet |= STOPPINGPLACE_STARTPOS_SET;
+            if (value == "") {
+                myStartPosition = INVALID_DOUBLE;
             } else {
-                myParametersSet &= ~STOPPINGPLACE_STARTPOS_SET;
+                myStartPosition = parse<double>(value);
             }
             break;
         case SUMO_ATTR_ENDPOS:
-            if (!value.empty()) {
-                myEndPosition = parse<double>(value);
-                myParametersSet |= STOPPINGPLACE_ENDPOS_SET;
+            if (value == "") {
+                myEndPosition = INVALID_DOUBLE;
             } else {
-                myParametersSet &= ~STOPPINGPLACE_ENDPOS_SET;
+                myEndPosition = parse<double>(value);
             }
             break;
         case SUMO_ATTR_NAME:

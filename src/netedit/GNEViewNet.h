@@ -308,6 +308,9 @@ public:
     /// @brief toggle hide shapes in super mode demand
     long onCmdToggleHideShapes(FXObject*, FXSelector, void*);
 
+    /// @brief toggle show all trips in super mode demand
+    long onCmdToggleShowTrips(FXObject*, FXSelector, void*);
+
     /// @brief toggle show all person plans in super mode demand
     long onCmdToggleShowAllPersonPlans(FXObject*, FXSelector, void*);
 

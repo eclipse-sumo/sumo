@@ -179,6 +179,7 @@ def createTrips(options):
             lineRefOrig = line.line.replace(" ", "_")
             lineRefOrig = lineRefOrig.replace(";", "+")
             lineRefOrig = lineRefOrig.replace(">", "")
+            lineRefOrig = lineRefOrig.replace("<", "")
 
             if len(stop_ids) < options.min_stops:
                 sys.stderr.write("Warning: skipping line '%s' (%s_%s) because it has too few stops\n" % (
@@ -266,7 +267,8 @@ def runSimulation(options):
                      "-a", options.ptstops,
                      "--device.rerouting.adaptation-interval", "0",  # ignore tls and traffic effects
                      "--vehroute-output", options.routes,
-                     "--stop-output", options.stopinfos, ])
+                     "--stop-output", options.stopinfos,
+                     "--aggregate-warnings", "5"])
     print("done.")
     sys.stdout.flush()
 

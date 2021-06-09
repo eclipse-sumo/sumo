@@ -476,7 +476,7 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link) {
 }
 
 bool
-MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh) {
+MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh, std::string& info) {
     if (link->getJunction() != nullptr && link->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
         const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
         if (rs != nullptr && rs->myInsertionConstraints.size() > 0) {
@@ -490,6 +490,7 @@ MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh) {
                             std::cout << SIMTIME << " rsl=" << rs->getID() << " insertion constraint '" << c->getDescription() << "' for vehicle '" << veh->getID() << "' not cleared\n";
                         }
 #endif
+                        info = c->getDescription();
                         return true;
                     }
                 }
@@ -589,7 +590,7 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
     // - search forward recursive from outgoing lane until controlled railSignal link found
     //   -> add all found lanes to conflictLanes
     //
-    // bidiBlock (if any forwardBlock edge edge has bidi edge)
+    // bidiBlock (if any forwardBlock edge has bidi edge)
     // - search bidi backward recursive until first switch
     //   - from switch search backward recursive all other incoming until controlled rail signal link
     //     -> add final links to conflictLinks

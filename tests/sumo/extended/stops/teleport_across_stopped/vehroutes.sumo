@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 11 22:22:48 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
+<!-- generated on 2021-05-06 16:49:35 by Eclipse SUMO sumo Version v1_9_1+0260-d131a25
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -39,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <vehicle id="0" depart="0.00" arrivalPos="400.00" arrival="1021.00">
         <route edges="middle end" exitTimes="1002.00 1021.00"/>
-        <stop lane="middle_0" endPos="2.00" duration="1000.00"/>
+        <stop lane="middle_0" endPos="2.00" duration="1000.00" started="1.00" ended="1001.00"/>
     </vehicle>
 
 </routes>

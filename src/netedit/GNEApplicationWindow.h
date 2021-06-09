@@ -236,6 +236,9 @@ public:
     /// @brief called when the update/FXCall redo is executed
     long onUpdRedo(FXObject* obj, FXSelector sel, void* ptr);
 
+    /// @brief called when the update/FXCall compute path manager is executed
+    long onUpdComputePathManager(FXObject* obj, FXSelector sel, void* ptr);
+
     /// @brief toggle viewOption
     long onCmdToggleViewOption(FXObject*, FXSelector, void*);
 
@@ -345,6 +348,9 @@ public:
 
     // @brief called when user press Ctrl+Y
     long onCmdRedo(FXObject*, FXSelector, void*);
+
+    // @brief called when user press compute path manager
+    long onCmdComputePathManager(FXObject*, FXSelector, void*);
 
     /// @brief called when user press Ctrl+Z
     long onCmdCut(FXObject*, FXSelector, void*);

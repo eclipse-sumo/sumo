@@ -21,8 +21,7 @@ same header files as Libsumo.
   classes for results which can be linked directly to the client code
 - Pre-built language bindings for Java and Python (using
   [SWIG](http://www.swig.org/))
-- Support for other programming languages via
-  [SWIG](http://www.swig.org/)
+- Future support for other programming languages via SWIG
 
 Unlike Libsumo, Libtraci allows
 
@@ -37,7 +36,6 @@ The following things currently do not work (or work differently than with the Tr
 - stricter type checking
   - the pure Python TraCI client sometimes accepts any iterable object where Libtraci wants a list
   - pure Python may accept any object where Libtraci needs a boolean value
-- Exception handling does not work yet
 - there is no cleanup / waiting for the started subprocess (sumo)
 
 # Building it
@@ -57,7 +55,7 @@ Please add the bin or tools dir to your relevant search paths.
     There is no advantage in using libtraci instead of the standard python traci
     library. The method below is mostly used for testing libtraci.
 
-```
+```py
 import libtraci
 libtraci.start(["sumo", "-c", "test.sumocfg"])
 libtraci.simulationStep()
@@ -66,7 +64,7 @@ libtraci.close()
 
 Existing traci scripts can mostly be reused by calling
 
-```
+```py
 import libtraci as traci
 ```
 
@@ -78,7 +76,7 @@ import as above.
 
 ### Example Code (test.cpp)
 
-```
+```cpp
 #include <iostream>
 #include <libsumo/libtraci.h>
 
@@ -100,15 +98,18 @@ g++ -o test -std=c++11 -I$SUMO_HOME/src test.cpp -L$SUMO_HOME/bin -ltracicpp
 ```
 
 ### running on Linux
+
 ```
 LD_LIBRARY_PATH=$SUMO_HOME/bin ./test
 ```
 
 ## Java
 
+You might want to use the available [Maven package](Developer/Maven.md).
+
 ### Example Code (APITest.java)
 
-```
+```java
 import org.eclipse.sumo.libtraci.*;
 
 public class APITest {
@@ -132,6 +133,7 @@ javac -cp $SUMO_HOME/bin/libtraci-1.8.0-SNAPSHOT.jar APITest.java
 ```
 
 ### running on Linux
+
 ```
 java -Djava.library.path=$SUMO_HOME/bin -cp $SUMO_HOME/bin/libtraci-1.8.0-SNAPSHOT.jar:. APITest
 ```

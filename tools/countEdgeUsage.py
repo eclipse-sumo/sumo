@@ -19,11 +19,15 @@ from __future__ import print_function
 import sys
 from optparse import OptionParser
 from collections import defaultdict
-from sumolib.output import parse_fast
-from sumolib.miscutils import Statistics
+from sumolib.output import parse_fast, parse
+from sumolib.miscutils import Statistics, parseTime
 
 
 def parse_args():
+    DEFAULT_ELEMENTS = ['trip', 'route', 'walk']
+    # when departure time must be known
+    DEFAULT_ELEMENTS2 = ['vehicle']
+
     USAGE = "Usage: " + sys.argv[0] + " <routefile> [options]"
     optParser = OptionParser()
     optParser.add_option("-o", "--output-file", dest="outfile",
@@ -37,8 +41,11 @@ def parse_args():
                          help="count all edges of a route")
     optParser.add_option("--taz", action="store_true", default=False,
                          help="use fromTaz and toTaz instead of from and to")
-    optParser.add_option("--elements",  default="trip,route,walk",
+    optParser.add_option("--elements",  default=','.join(DEFAULT_ELEMENTS),
                          help="include edges for the given elements in output")
+    optParser.add_option("-b", "--begin", default=0, help="collect departures after begin time")
+    optParser.add_option("-e", "--end", help="collect departures up to end time (default unlimited)")
+    optParser.add_option("--period", help="create data intervals of the given period duration")
     options, args = optParser.parse_args()
     try:
         options.routefile, = args
@@ -56,6 +63,28 @@ def parse_args():
 
     options.elements = options.elements.split(',')
 
+    options.begin = parseTime(options.begin)
+    if options.end is not None:
+        options.end = parseTime(options.end)
+    if options.period is not None:
+        options.period = parseTime(options.period)
+
+    options.elements2 = []
+    if options.begin != 0 or options.end is not None or options.period:
+        if options.elements == DEFAULT_ELEMENTS:
+            options.elements2 = DEFAULT_ELEMENTS2
+        else:
+            for elem in options.elements:
+                if elem not in DEFAULT_ELEMENTS2:
+                    sys.stderr.write("Element '%s' does not supply departure time. Use one of %s instead.\n" %
+                                     (elem, DEFAULT_ELEMENTS2))
+                else:
+                    options.elements2.append(elem)
+            options.elements = []
+
+    if options.end is None:
+        options.end = 1e100
+
     return options
 
 
@@ -69,8 +98,38 @@ def hasSubpart(edges, subparts):
     return False
 
 
-def main():
-    options = parse_args()
+def writeInterval(outf, options, departCounts, arrivalCounts, intermediateCounts, begin=0, end="10000", prefix=""):
+    departStats = Statistics(prefix + "departEdges")
+    arrivalStats = Statistics(prefix + "arrivalEdges")
+    intermediateStats = Statistics(prefix + "intermediateEdges")
+    for e in sorted(departCounts.keys()):
+        departStats.add(departCounts[e], e)
+    for e in sorted(arrivalCounts.keys()):
+        arrivalStats.add(arrivalCounts[e], e)
+    print(departStats)
+    print(arrivalStats)
+    if options.intermediate:
+        for e in sorted(intermediateCounts.keys()):
+            intermediateStats.add(intermediateCounts[e], e)
+        print(intermediateStats)
+
+    outf.write('   <interval begin="%s" end="%s" id="routeStats">\n' % (begin, end))
+    allEdges = set(departCounts.keys())
+    allEdges.update(arrivalCounts.keys())
+    if options.intermediate:
+        allEdges.update(intermediateCounts.keys())
+    for e in sorted(allEdges):
+        intermediate = ' intermediate="%s"' % intermediateCounts[e] if options.intermediate else ''
+        outf.write('      <edge id="%s" departed="%s" arrived="%s" delta="%s"%s/>\n' %
+                   (e, departCounts[e], arrivalCounts[e], arrivalCounts[e] - departCounts[e], intermediate))
+    outf.write("   </interval>\n")
+    departCounts.clear()
+    arrivalCounts.clear()
+    intermediateCounts.clear()
+
+
+def parseSimple(outf, options):
+    """parse elements without checking time"""
     departCounts = defaultdict(lambda: 0)
     arrivalCounts = defaultdict(lambda: 0)
     intermediateCounts = defaultdict(lambda: 0)
@@ -102,33 +161,63 @@ def main():
             departCounts[walk.attr_from] += 1
             arrivalCounts[walk.to] += 1
 
-    departStats = Statistics("departEdges")
-    arrivalStats = Statistics("arrivalEdges")
-    intermediateStats = Statistics("intermediateEdges")
-    for e in sorted(departCounts.keys()):
-        departStats.add(departCounts[e], e)
-    for e in sorted(arrivalCounts.keys()):
-        arrivalStats.add(arrivalCounts[e], e)
-    print(departStats)
-    print(arrivalStats)
-    if options.intermediate:
-        for e in sorted(intermediateCounts.keys()):
-            intermediateStats.add(intermediateCounts[e], e)
-        print(intermediateStats)
+    writeInterval(outf, options, departCounts, arrivalCounts, intermediateCounts)
 
-    with open(options.outfile, 'w') as outf:
-        outf.write("<edgedata>\n")
-        outf.write('   <interval begin="0" end="10000" id="routeStats">\n')
-        allEdges = set(departCounts.keys())
-        allEdges.update(arrivalCounts.keys())
-        if options.intermediate:
-            allEdges.update(intermediateCounts.keys())
-        for e in sorted(allEdges):
-            intermediate = ' intermediate="%s"' % intermediateCounts[e] if options.intermediate else ''
-            outf.write('      <edge id="%s" departed="%s" arrived="%s" delta="%s"%s/>\n' %
-                       (e, departCounts[e], arrivalCounts[e], arrivalCounts[e] - departCounts[e], intermediate))
-        outf.write("   </interval>\n")
-        outf.write("</edgedata>\n")
+
+def parseTimed(outf, options):
+    departCounts = defaultdict(lambda: 0)
+    arrivalCounts = defaultdict(lambda: 0)
+    intermediateCounts = defaultdict(lambda: 0)
+    lastDepart = 0
+    period = options.period if options.period else options.end
+    begin = options.begin
+    periodEnd = options.period if options.period else options.end
+
+    for elem in parse(options.routefile, options.elements2):
+        depart = elem.depart
+        if depart != "triggered":
+            depart = parseTime(depart)
+            lastDepart = depart
+            if depart < lastDepart:
+                sys.stderr.write("Unsorted departure %s for %s '%s'" % (
+                    depart, elem.tag, elem.id))
+                lastDepart = depart
+            if depart < begin:
+                continue
+            if depart >= periodEnd or depart >= options.end:
+                description = "%s-%s " % (begin, periodEnd)
+                writeInterval(outf, options, departCounts, arrivalCounts,
+                              intermediateCounts, begin, periodEnd, description)
+                periodEnd += period
+                begin += period
+            if depart >= options.end:
+                break
+        if elem.route:
+            edges = elem.route[0].edges.split()
+            if not hasSubpart(edges, options.subparts):
+                continue
+            departCounts[edges[0]] += 1
+            arrivalCounts[edges[-1]] += 1
+            for e in edges:
+                intermediateCounts[e] += 1
+
+    description = "%s-%s " % (begin, periodEnd)
+    if len(departCounts) > 0:
+        writeInterval(outf, options, departCounts, arrivalCounts, intermediateCounts, begin, lastDepart, description)
+
+
+def main():
+    options = parse_args()
+    outf = open(options.outfile, 'w')
+    outf.write("<edgedata>\n")
+
+    if options.elements2:
+        parseTimed(outf, options)
+    else:
+        parseSimple(outf, options)
+
+    outf.write("</edgedata>\n")
+    outf.close()
 
 
 if __name__ == "__main__":

@@ -27,7 +27,6 @@
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEInternalLane.h>
-#include <netedit/elements/network/GNEJunction.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
@@ -928,8 +927,7 @@ GNEViewNetHelper::MouseButtonKeyPressed::mouseRightButtonPressed() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::MoveSingleElementValues::MoveSingleElementValues(GNEViewNet* viewNet) :
-    myViewNet(viewNet),
-    myDemandElementToMove(nullptr) {
+    myViewNet(viewNet) {
 }
 
 
@@ -1079,15 +1077,20 @@ bool
 GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementDemandMode() {
     // first obtain moving reference (common for all)
     myRelativeClickedPosition = myViewNet->getPositionInformation();
-    // check what type of AC will be moved
-    if (myViewNet->myObjectsUnderCursor.getDemandElementFront() &&
-            (myViewNet->myObjectsUnderCursor.getAttributeCarrierFront() == myViewNet->myObjectsUnderCursor.getDemandElementFront())) {
-        // set additionals moved object
-        myDemandElementToMove = myViewNet->myObjectsUnderCursor.getDemandElementFront();
-        // start demand element geometry moving
-        myDemandElementToMove->startGeometryMoving();
-        // there is moved items, then return true
-        return true;
+    // get front AC
+    const GNEAttributeCarrier* frontAC = myViewNet->myObjectsUnderCursor.getAttributeCarrierFront();
+    // check demand element
+    if (myViewNet->myObjectsUnderCursor.getDemandElementFront() && (frontAC == myViewNet->myObjectsUnderCursor.getDemandElementFront())) {
+        // get move operation
+        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getDemandElementFront()->getMoveOperation(0);
+        // continue if move operation is valid
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
+            return true;
+        } else {
+            return false;
+        }
+
     } else {
         // there isn't moved items, then return false
         return false;
@@ -1097,25 +1100,20 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementDemandMode() {
 
 void
 GNEViewNetHelper::MoveSingleElementValues::moveSingleElement(const bool mouseLeftButtonPressed) {
-    // calculate offsetMovement
-    const Position offsetMovement = calculateOffset();
-    // calculate movement for demand (temporal)
-    if (myDemandElementToMove/* && (myDemandElementToMove->isDemandElementBlocked() == false)*/) {
-        // Move DemandElement geometry without commiting changes
-        myDemandElementToMove->moveGeometry(offsetMovement);
-    }
+    // calculate moveOffset
+    const GNEMoveOffset moveOffset = calculateMoveOffset();
     // check if mouse button is pressed
     if (mouseLeftButtonPressed) {
         // iterate over all operations
         for (const auto& moveOperation : myMoveOperations) {
             // move elements
-            GNEMoveElement::moveElement(myViewNet, moveOperation, offsetMovement);
+            GNEMoveElement::moveElement(myViewNet, moveOperation, moveOffset);
         }
     } else {
         // iterate over all operations
         for (const auto& moveOperation : myMoveOperations) {
             // commit move
-            GNEMoveElement::commitMove(myViewNet, moveOperation, offsetMovement, myViewNet->getUndoList());
+            GNEMoveElement::commitMove(myViewNet, moveOperation, moveOffset, myViewNet->getUndoList());
             // don't forget delete move operation
             delete moveOperation;
         }
@@ -1127,17 +1125,11 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement(const bool mouseLef
 
 void
 GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
-    // calculate offsetMovement
-    const Position offsetMovement = calculateOffset();
-    // finish demand (temporal)
-    if (myDemandElementToMove) {
-        myDemandElementToMove->commitGeometryMoving(myViewNet->getUndoList());
-        myDemandElementToMove->endGeometryMoving();
-        myDemandElementToMove = nullptr;
-    }
+    // calculate moveOffset
+    const GNEMoveOffset moveOffset = calculateMoveOffset();
     // finish all move operations
     for (const auto& moveOperation : myMoveOperations) {
-        GNEMoveElement::commitMove(myViewNet, moveOperation, offsetMovement, myViewNet->getUndoList());
+        GNEMoveElement::commitMove(myViewNet, moveOperation, moveOffset, myViewNet->getUndoList());
         // don't forget delete move operation
         delete moveOperation;
     }
@@ -1146,21 +1138,19 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
 }
 
 
-Position
-GNEViewNetHelper::MoveSingleElementValues::calculateOffset() const {
-    // calculate offsetMovement depending of current mouse position and relative clicked position
+const GNEMoveOffset
+GNEViewNetHelper::MoveSingleElementValues::calculateMoveOffset() const {
+    // calculate moveOffset depending of current mouse position and relative clicked position
     // @note  #3521: Add checkBox to allow moving elements... has to be implemented and used here
-    Position offsetMovement = (myViewNet->getPositionInformation() - myViewNet->myMoveSingleElementValues.myRelativeClickedPosition);
+    Position moveOffset = (myViewNet->getPositionInformation() - myViewNet->myMoveSingleElementValues.myRelativeClickedPosition);
     // calculate Z depending of moveElevation
     if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->amChecked() == TRUE) {
-        // reset offset X and Y and use Y for Z
-        offsetMovement = Position(0, 0, offsetMovement.y());
+        // use Y as Z value and return Z move offset
+        return GNEMoveOffset(moveOffset.y());
     } else {
-        // leave z empty (because in this case offset only actuates over X-Y)
-        offsetMovement.setz(0);
+        // return X-Y move offset
+        return GNEMoveOffset(moveOffset.x(), moveOffset.y());
     }
-    // return offset
-    return offsetMovement;
 }
 
 
@@ -1211,14 +1201,14 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection() {
 
 void
 GNEViewNetHelper::MoveMultipleElementValues::moveSelection(const bool mouseLeftButtonPressed) {
-    // calculate offsetMovement
-    const Position offsetMovement = calculateOffset();
+    // calculate moveOffset
+    const GNEMoveOffset moveOffset = calculateMoveOffset();
     // check if mouse button is pressed
     if (mouseLeftButtonPressed) {
         // iterate over all operations
         for (const auto& moveOperation : myMoveOperations) {
             // move elements
-            GNEMoveElement::moveElement(myViewNet, moveOperation, offsetMovement);
+            GNEMoveElement::moveElement(myViewNet, moveOperation, moveOffset);
         }
     } else if (myMoveOperations.size() > 0) {
         // begin undo list
@@ -1226,7 +1216,7 @@ GNEViewNetHelper::MoveMultipleElementValues::moveSelection(const bool mouseLeftB
         // iterate over all operations
         for (const auto& moveOperation : myMoveOperations) {
             // commit move
-            GNEMoveElement::commitMove(myViewNet, moveOperation, offsetMovement, myViewNet->getUndoList());
+            GNEMoveElement::commitMove(myViewNet, moveOperation, moveOffset, myViewNet->getUndoList());
             // don't forget delete move operation
             delete moveOperation;
         }
@@ -1240,13 +1230,13 @@ GNEViewNetHelper::MoveMultipleElementValues::moveSelection(const bool mouseLeftB
 
 void
 GNEViewNetHelper::MoveMultipleElementValues::finishMoveSelection() {
-    // calculate offsetMovement
-    const Position offsetMovement = calculateOffset();
+    // calculate moveOffset
+    const GNEMoveOffset moveOffset = calculateMoveOffset();
     // begin undo list
     myViewNet->getUndoList()->p_begin("moving selection");
     // finish all move operations
     for (const auto& moveOperation : myMoveOperations) {
-        GNEMoveElement::commitMove(myViewNet, moveOperation, offsetMovement, myViewNet->getUndoList());
+        GNEMoveElement::commitMove(myViewNet, moveOperation, moveOffset, myViewNet->getUndoList());
         // don't forget delete move operation
         delete moveOperation;
     }
@@ -1263,21 +1253,19 @@ GNEViewNetHelper::MoveMultipleElementValues::isMovingSelection() const {
 }
 
 
-Position
-GNEViewNetHelper::MoveMultipleElementValues::calculateOffset() const {
-    // calculate offsetMovement depending of current mouse position and relative clicked position
+const GNEMoveOffset
+GNEViewNetHelper::MoveMultipleElementValues::calculateMoveOffset() const {
+    // calculate moveOffset depending of current mouse position and relative clicked position
     // @note  #3521: Add checkBox to allow moving elements... has to be implemented and used here
-    Position offsetMovement = (myViewNet->getPositionInformation() - myClickedPosition);
+    Position moveOffset = (myViewNet->getPositionInformation() - myClickedPosition);
     // calculate Z depending of moveElevation
     if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->amChecked() == TRUE) {
-        // reset offset X and Y and use Y for Z
-        offsetMovement = Position(0, 0, offsetMovement.y());
+        // use Y for Z and return X move offset
+        return GNEMoveOffset(moveOffset.y());
     } else {
-        // leave z empty (because in this case offset only actuates over X-Y)
-        offsetMovement.setz(0);
+        // return X-Y move offset
+        return GNEMoveOffset(moveOffset.x(), moveOffset.y());
     }
-    // return offset
-    return offsetMovement;
 }
 
 
@@ -1898,7 +1886,9 @@ GNEViewNetHelper::EditModes::setDemandEditMode(DemandEditMode mode, const bool f
         // demand modes require ALWAYS a recomputing
         myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
         // update DijkstraRouter of RouteCalculatorInstance
-        myViewNet->myNet->getPathCalculator()->updatePathCalculator();
+        myViewNet->myNet->getPathManager()->getPathCalculator()->updatePathCalculator();
+        // compute all demand elements
+        myViewNet->myNet->computeDemandElements(myViewNet->myViewParent->getGNEAppWindows());
         // update cursors
         myViewNet->updateCursor();
         // update network mode specific controls
@@ -1935,7 +1925,9 @@ GNEViewNetHelper::EditModes::setDataEditMode(DataEditMode mode, const bool force
         // data modes require ALWAYS a recomputing
         myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
         // update DijkstraRouter of RouteCalculatorInstance
-        myViewNet->myNet->getPathCalculator()->updatePathCalculator();
+        myViewNet->myNet->getPathManager()->getPathCalculator()->updatePathCalculator();
+        // compute all data elements
+        myViewNet->myNet->computeDataElements(myViewNet->myViewParent->getGNEAppWindows());
         // update all datasets
         for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
             dataSet.second->updateAttributeColors();
@@ -2211,6 +2203,7 @@ GNEViewNetHelper::DemandViewOptions::DemandViewOptions(GNEViewNet* viewNet) :
     menuCheckToggleGrid(nullptr),
     menuCheckDrawSpreadVehicles(nullptr),
     menuCheckHideShapes(nullptr),
+    menuCheckShowAllTrips(nullptr),
     menuCheckShowAllPersonPlans(nullptr),
     menuCheckLockPerson(nullptr),
     menuCheckHideNonInspectedDemandElements(nullptr),
@@ -2243,6 +2236,13 @@ GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
     menuCheckHideShapes->setChecked(false);
     menuCheckHideShapes->create();
 
+    menuCheckShowAllTrips = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+            ("\t\tToggle show all trips."),
+            GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWTRIPS),
+            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS, GUIDesignMFXCheckableButton);
+    menuCheckShowAllTrips->setChecked(false);
+    menuCheckShowAllTrips->create();
+
     menuCheckShowAllPersonPlans = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             ("\t\tShow all person plans."),
             GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWPERSONPLANS),
@@ -2258,9 +2258,9 @@ GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
     menuCheckLockPerson->create();
 
     menuCheckHideNonInspectedDemandElements = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tToggle show non-inspected demand elements."),
-        GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS),
-        myViewNet, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED, GUIDesignMFXCheckableButton);
+            ("\t\tToggle show non-inspected demand elements."),
+            GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS),
+            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED, GUIDesignMFXCheckableButton);
     menuCheckHideNonInspectedDemandElements->setChecked(false);
     menuCheckHideNonInspectedDemandElements->create();
 
@@ -2274,6 +2274,7 @@ GNEViewNetHelper::DemandViewOptions::hideDemandViewOptionsMenuChecks() {
     menuCheckToggleGrid->hide();
     menuCheckDrawSpreadVehicles->hide();
     menuCheckHideShapes->hide();
+    menuCheckShowAllTrips->hide();
     menuCheckShowAllPersonPlans->hide();
     menuCheckLockPerson->hide();
     menuCheckHideNonInspectedDemandElements->hide();
@@ -2293,6 +2294,9 @@ GNEViewNetHelper::DemandViewOptions::getVisibleDemandMenuCommands(std::vector<MF
     }
     if (menuCheckHideShapes->shown()) {
         commands.push_back(menuCheckHideShapes);
+    }
+    if (menuCheckShowAllTrips->shown()) {
+        commands.push_back(menuCheckShowAllTrips);
     }
     if (menuCheckShowAllPersonPlans->shown() && menuCheckShowAllPersonPlans->isEnabled()) {
         commands.push_back(menuCheckShowAllPersonPlans);
@@ -2361,8 +2365,14 @@ GNEViewNetHelper::DemandViewOptions::showShapes() const {
 
 
 bool
+GNEViewNetHelper::DemandViewOptions::showAllTrips() const {
+    return (menuCheckShowAllTrips->amChecked() == TRUE);
+}
+
+
+bool
 GNEViewNetHelper::DemandViewOptions::showAllPersonPlans() const {
-    if (menuCheckShowAllPersonPlans->shown() && menuCheckShowAllPersonPlans->isEnabled()) {
+    if (menuCheckShowAllPersonPlans->isEnabled()) {
         return (menuCheckShowAllPersonPlans->amChecked() == TRUE);
     } else {
         return false;
@@ -2636,7 +2646,7 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
                 myGenericDataTypesComboBox->appendItem(myAllGenericDatas);
                 myDataSetsComboBox->appendItem(myAllDataSets);
                 // get all generic data types
-                const auto genericDataTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::GENERICDATA, false);
+                const auto genericDataTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::GENERICDATA, false);
                 // add all generic data types
                 for (const auto& dataTag : genericDataTags) {
                     myGenericDataTypesComboBox->appendItem(dataTag.second.c_str());
@@ -2727,7 +2737,7 @@ GNEViewNetHelper::IntervalBar::setGenericDataType() {
         myGenericDataTypesComboBox->setText(myAllGenericDatas);
     } else {
         // get all generic data types
-        const auto genericDataTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::GENERICDATA, false);
+        const auto genericDataTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::GENERICDATA, false);
         // set invalid color
         myGenericDataTypesComboBox->setTextColor(FXRGB(255, 0, 0));
         // set valid color depending of myGenericDataTypesComboBox
@@ -3359,24 +3369,24 @@ GNEViewNetHelper::LockIcon::getLockIcon(const GNEAttributeCarrier* AC) {
     if (AC->drawUsingSelectColor()) {
         if (!AC->getTagProperty().canBlockMovement()) {
             // Draw not movable texture if additional isn't movable and is selected
-            return GUITextureSubSys::getTexture(GNETEXTURE_NOTMOVINGSELECTED);
+            return GUITextureSubSys::getTexture(GUITexture::NOTMOVING_SELECTED);
         } else if (AC->getAttribute(GNE_ATTR_BLOCK_MOVEMENT) == toString(true)) {
             // Draw lock texture if additional is movable, is blocked and is selected
-            return GUITextureSubSys::getTexture(GNETEXTURE_LOCKSELECTED);
+            return GUITextureSubSys::getTexture(GUITexture::LOCK_SELECTED);
         } else {
             // Draw empty texture if additional is movable, isn't blocked and is selected
-            return GUITextureSubSys::getTexture(GNETEXTURE_EMPTYSELECTED);
+            return GUITextureSubSys::getTexture(GUITexture::EMPTY_SELECTED);
         }
     } else {
         if (!AC->getTagProperty().canBlockMovement()) {
             // Draw not movable texture if additional isn't movable
-            return GUITextureSubSys::getTexture(GNETEXTURE_NOTMOVING);
+            return GUITextureSubSys::getTexture(GUITexture::NOTMOVING);
         } else if (AC->getAttribute(GNE_ATTR_BLOCK_MOVEMENT) == toString(true)) {
             // Draw lock texture if additional is movable and is blocked
-            return GUITextureSubSys::getTexture(GNETEXTURE_LOCK);
+            return GUITextureSubSys::getTexture(GUITexture::LOCK);
         } else {
             // Draw empty texture if additional is movable and isn't blocked
-            return GUITextureSubSys::getTexture(GNETEXTURE_EMPTY);
+            return GUITextureSubSys::getTexture(GUITexture::EMPTY);
         }
     }
 }

@@ -40,6 +40,16 @@ pID = "person0"
 firstStage = True
 for i in range(0, traci.person.getRemainingStages(pID)):
     stage = traci.person.getStage(pID, i)
+    extra = []
+    if stage.type == tc.STAGE_WAITING:
+        extra = [('actType', 'chew bubblegum')]
+    print(stage.toXML(firstStage, extra=extra))
+    firstStage = False
+
+print("")
+firstStage = True
+for stage in traci.simulation.findIntermodalRoute("2/3to1/3", "1/3to0/3",
+                                                  destStop="busStop0", departPos="12", modes="bicycle"):
     print(stage.toXML(firstStage))
     firstStage = False
 

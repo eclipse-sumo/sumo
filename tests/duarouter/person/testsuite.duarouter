@@ -28,3 +28,6 @@ unknown_to
 
 # parsing an existing plan
 full_plan
+
+# test stages that end at a stopping place (busStop etc)
+stoppingPlace

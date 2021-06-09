@@ -567,6 +567,9 @@ NBEdge::mirrorX() {
         c.viaShape.mirrorX();
         c.customShape.mirrorX();
     }
+    if (mySignalPosition != Position::INVALID) {
+        mySignalPosition.sety(-mySignalPosition.y());
+    }
     computeAngle(); // update angles because they are numerically sensitive (especially where based on centroids)
 }
 
@@ -1576,13 +1579,15 @@ NBEdge::moveConnectionToRight(int lane) {
 
 void
 NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex, int& splitIndex) {
-    const int numPoints = OptionsCont::getOptions().getInt("junctions.internal-link-detail");
-    const bool joinTurns = OptionsCont::getOptions().getBool("junctions.join-turns");
-    const double limitTurnSpeed = OptionsCont::getOptions().getFloat("junctions.limit-turn-speed");
-    const double limitTurnSpeedMinAngle = DEG2RAD(OptionsCont::getOptions().getFloat("junctions.limit-turn-speed.min-angle"));
-    const double limitTurnSpeedMinAngleRail = DEG2RAD(OptionsCont::getOptions().getFloat("junctions.limit-turn-speed.min-angle.railway"));
-    const double limitTurnSpeedWarnStraight = OptionsCont::getOptions().getFloat("junctions.limit-turn-speed.warn.straight");
-    const double limitTurnSpeedWarnTurn = OptionsCont::getOptions().getFloat("junctions.limit-turn-speed.warn.turn");
+    const OptionsCont& oc = OptionsCont::getOptions();
+    const int numPoints = oc.getInt("junctions.internal-link-detail");
+    const bool joinTurns = oc.getBool("junctions.join-turns");
+    const double limitTurnSpeed = oc.getFloat("junctions.limit-turn-speed");
+    const double limitTurnSpeedMinAngle = DEG2RAD(oc.getFloat("junctions.limit-turn-speed.min-angle"));
+    const double limitTurnSpeedMinAngleRail = DEG2RAD(oc.getFloat("junctions.limit-turn-speed.min-angle.railway"));
+    const double limitTurnSpeedWarnStraight = oc.getFloat("junctions.limit-turn-speed.warn.straight");
+    const double limitTurnSpeedWarnTurn = oc.getFloat("junctions.limit-turn-speed.warn.turn");
+    const bool higherSpeed = oc.getBool("junctions.higher-speed");
     const bool fromRail = isRailway(getPermissions());
     std::string innerID = ":" + n.getID();
     NBEdge* toEdge = nullptr;
@@ -1791,7 +1796,11 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         vmax = MIN2(vmax, ((getSpeed() + con.toEdge->getSpeed()) / (double) 2.0));
         */
         if (con.speed == UNSPECIFIED_SPEED) {
-            con.vmax = (myLanes[con.fromLane].speed + con.toEdge->getLanes()[con.toLane].speed) / (double) 2.0;
+            if (higherSpeed) {
+                con.vmax = MAX2(myLanes[con.fromLane].speed, con.toEdge->getLanes()[con.toLane].speed);
+            } else {
+                con.vmax = (myLanes[con.fromLane].speed + con.toEdge->getLanes()[con.toLane].speed) / (double) 2.0;
+            }
             if (limitTurnSpeed > 0) {
                 // see [Odhams and Cole, Models of Driver Speed Choice in Curves, 2004]
                 const double angleRaw = fabs(GeomHelper::angleDiff(
@@ -2569,6 +2578,23 @@ NBEdge::recheckLanes() {
                     if (!connected) {
                         WRITE_WARNINGF("Lane '%' is not connected from any incoming edge at junction '%'.", getLaneID(i), myFrom->getID());
                     }
+                }
+            }
+        }
+    }
+    // avoid deadend due to change prohibitions
+    if (getNumLanes() > 1 && myConnections.size() > 0) {
+        for (int i = 0; i < (int)myLanes.size(); i++) {
+            if (connNumbersPerLane[i] == 0 && getPermissions(i) != SVC_PEDESTRIAN && !isForbidden(getPermissions(i))) {
+                Lane& lane = myLanes[i];
+                const bool forbiddenLeft = lane.changeLeft != SVCAll && lane.changeLeft != SVC_IGNORING && lane.changeLeft != SVC_UNSPECIFIED;
+                const bool forbiddenRight = lane.changeRight != SVCAll && lane.changeRight != SVC_IGNORING && lane.changeRight != SVC_UNSPECIFIED;
+                if (forbiddenLeft && (i == 0 || forbiddenRight)) {
+                    lane.changeLeft = SVC_UNSPECIFIED;
+                    WRITE_WARNING("Ignoring changeLeft prohibition for '" + getLaneID(i) + "' to avoid dead-end");
+                } else if (forbiddenRight && i == getNumLanes() - 1) {
+                    lane.changeRight = SVC_UNSPECIFIED;
+                    WRITE_WARNING("Ignoring changeRight prohibition for '" + getLaneID(i) + "' to avoid dead-end");
                 }
             }
         }
@@ -3787,6 +3813,23 @@ NBEdge::getFirstNonPedestrianLaneIndex(int direction, bool exclusive) const {
         // in the exclusive case, lanes that allow pedestrians along with any other class also count as road
         if ((exclusive && myLanes[i].permissions != SVC_PEDESTRIAN && myLanes[i].permissions != 0)
                 || (myLanes[i].permissions == SVCAll || ((myLanes[i].permissions & SVC_PEDESTRIAN) == 0 && myLanes[i].permissions != 0))) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+int
+NBEdge::getFirstNonPedestrianNonBicycleLaneIndex(int direction, bool exclusive) const {
+    assert(direction == NBNode::FORWARD || direction == NBNode::BACKWARD);
+    const int start = (direction == NBNode::FORWARD ? 0 : (int)myLanes.size() - 1);
+    const int end = (direction == NBNode::FORWARD ? (int)myLanes.size() : - 1);
+    for (int i = start; i != end; i += direction) {
+        // SVCAll, does not count as a sidewalk, green verges (permissions = 0) do not count as road
+        // in the exclusive case, lanes that allow pedestrians along with any other class also count as road
+        SVCPermissions p = myLanes[i].permissions;
+        if ((exclusive && p != SVC_PEDESTRIAN && p != SVC_BICYCLE && p != (SVC_PEDESTRIAN | SVC_BICYCLE) && p != 0)
+                || (p == SVCAll || ((p & (SVC_PEDESTRIAN | SVC_BICYCLE)) == 0 && p != 0))) {
             return i;
         }
     }

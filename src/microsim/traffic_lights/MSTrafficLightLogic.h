@@ -372,6 +372,11 @@ public:
         return VehicleVector();
     }
 
+    /** @brief Saves the current tls states into the given stream
+        */
+    virtual void saveState(OutputDevice& /*out*/) const {};
+
+
 protected:
     /**
      * @class SwitchCommand

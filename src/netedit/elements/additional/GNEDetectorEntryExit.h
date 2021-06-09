@@ -43,9 +43,11 @@ public:
      * @param[in] lane Lane of this detector is placed
      * @param[in] pos position of the detector on the lane
      * @param[in] friendlyPos enable or disable friendly positions
-     * @param[in] block movement enable or disable additional movement
+     * @param[in] parameters generic parameters
+     * @param[in] blockMovement enable or disable additional movement
      */
-    GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement);
+    GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, double pos, bool friendlyPos, 
+                         const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /// @brief destructor
     ~GNEDetectorEntryExit();
@@ -81,6 +83,12 @@ public:
      * @return string with the value associated to key
      */
     std::string getAttribute(SumoXMLAttr key) const;
+
+    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    double getAttributeDouble(SumoXMLAttr key) const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

@@ -524,6 +524,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         const int offsetFactor = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
         LaneSpreadFunction lsf = (addBackward || OptionsCont::getOptions().getBool("osm.oneway-spread-right")) &&
                                  e->myRailDirection == WAY_UNKNOWN ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
+        if (addBackward && lsf == LaneSpreadFunction::RIGHT && OptionsCont::getOptions().getString("default.spreadtype") == toString(LaneSpreadFunction::ROADCENTER)) {
+            lsf = LaneSpreadFunction::ROADCENTER;
+        }
 
         id = StringUtils::escapeXML(id);
         const std::string reverseID = "-" + id;
@@ -1049,28 +1052,24 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                         myCurrentEdge->myNoLanes = minLanes;
                         WRITE_WARNINGF("Using minimum lane number from list (%) for edge '%'.", value, toString(myCurrentEdge->id));
                     } catch (NumberFormatException&) {
-                        WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
-                                      toString(myCurrentEdge->id) + "'.");
+                        WRITE_WARNINGF("Value of key '%' is not numeric ('%') in edge '%'.", key, value, myCurrentEdge->id);
                     }
                 }
             } catch (EmptyData&) {
-                WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
-                              toString(myCurrentEdge->id) + "'.");
+                WRITE_WARNINGF("Value of key '%' is not numeric ('%') in edge '%'.", key, value, myCurrentEdge->id);
             }
         } else if (key == "lanes:forward") {
             try {
                 myCurrentEdge->myNoLanesForward = StringUtils::toInt(value);
             } catch (...) {
-                WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
-                              toString(myCurrentEdge->id) + "'.");
+                WRITE_WARNINGF("Value of key '%' is not numeric ('%') in edge '%'.", key, value, myCurrentEdge->id);
             }
         } else if (key == "lanes:backward") {
             try {
                 // denote backwards count with a negative sign
                 myCurrentEdge->myNoLanesForward = -StringUtils::toInt(value);
             } catch (...) {
-                WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
-                              toString(myCurrentEdge->id) + "'.");
+                WRITE_WARNINGF("Value of key '%' is not numeric ('%') in edge '%'.", key, value, myCurrentEdge->id);
             }
         } else if (myCurrentEdge->myMaxSpeed == MAXSPEED_UNGIVEN &&
                    (key == "maxspeed" || key == "maxspeed:type" || key == "maxspeed:forward")) {
@@ -1093,19 +1092,17 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             try {
                 myCurrentEdge->myLayer = StringUtils::toInt(value);
             } catch (...) {
-                WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
-                              toString(myCurrentEdge->id) + "'.");
+                WRITE_WARNINGF("Value of key '%' is not numeric ('%') in edge '%'.", key, value, myCurrentEdge->id);
             }
         } else if (key == "tracks") {
             try {
                 if (StringUtils::toInt(value) == 1) {
                     myCurrentEdge->myIsOneWay = "true";
                 } else {
-                    WRITE_WARNING("Ignoring track count " + value + " for edge '" + toString(myCurrentEdge->id) + "'.");
+                    WRITE_WARNINGF("Ignoring track count % for edge '%'.", value, myCurrentEdge->id);
                 }
             } catch (...) {
-                WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
-                              toString(myCurrentEdge->id) + "'.");
+                WRITE_WARNINGF("Value of key '%' is not numeric ('%') in edge '%'.", key, value, myCurrentEdge->id);
             }
         } else if (key == "railway:preferred_direction") {
             if (value == "both") {
@@ -1181,7 +1178,7 @@ int
 NIImporter_OpenStreetMap::EdgesHandler::interpretChangeType(const std::string& value) const {
     int result = 0;
     const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
-    for (const std::string val : values) {
+    for (const std::string& val : values) {
         if (val == "no") {
             result += CHANGE_NO;
         } else if (val == "not_left") {
@@ -1206,7 +1203,7 @@ void
 NIImporter_OpenStreetMap::EdgesHandler::interpretLaneUse(const std::string& value, SUMOVehicleClass svc, std::vector<SVCPermissions>& result) const {
     const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
     int i = 0;
-    for (const std::string val : values) {
+    for (const std::string& val : values) {
         SVCPermissions use = SVC_IGNORING;
         if (val == "yes" || val == "lane" || val == "designated") {
             use = svc;
