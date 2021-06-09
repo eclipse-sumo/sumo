@@ -1,8 +1,8 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e2Detector' in TagSelector
-Debug: Invalid input parameter of e2Detector: 'freq' doesn't have a valid 'float' or empty format
-Debug: Invalid input parameter of e2Detector: 'freq' cannot be negative
+Debug: Invalid input parameter of e2Detector: 'freq' doesn't have a valid 'float' format
+Error: Could not build e2Detector with ID 'e2Detector_gneE0_0_0' in netedit; attribute freq cannot be negative.
 Debug: Adding e2Detector 'e2Detector_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

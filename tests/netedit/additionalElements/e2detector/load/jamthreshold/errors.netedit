@@ -5,11 +5,10 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding e2Detector 'E2_01' in GNEChange_Additional
-Debug: Format of optional positive optional float attribute 'jamThreshold' of e2Detector with ID 'E2_02' is invalid; Cannot be parsed to float; Default value will be used.
-Debug: Adding e2Detector 'E2_02' in GNEChange_Additional
-Debug: Format of optional positive optional float attribute 'jamThreshold' of e2Detector with ID 'E2_03' is invalid; Cannot be negative; Default value will be used.
-Debug: Adding e2Detector 'E2_03' in GNEChange_Additional
+Error: Attribute 'jamThreshold' in definition of e2Detector 'E2_02' is not of type float.
+Error: Could not build e2Detector with ID 'E2_03' in netedit; attribute jamThreshold cannot be negative.
 Debug: Adding e2Detector 'E2_04' in GNEChange_Additional
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun141735.8512\netedit.gui\additionalElements\e2detector\load\jamthreshold\input_additionals.add.xml failed.
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -26,8 +25,6 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced e2Detector 'E2_04'
-Debug: Deleting unreferenced e2Detector 'E2_03'
-Debug: Deleting unreferenced e2Detector 'E2_02'
 Debug: Deleting unreferenced e2Detector 'E2_01'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07.08.2019 10:29:00 by Eclipse SUMO netedit Version v1_2_0+1449-4e81e5b6f5
+<!-- generated on 2021-06-09 14:58:15 by Eclipse SUMO netedit Version v1_9_2+0429-8218a3ee18
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/volatileRecomputing\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun141735.8512\netedit.gui\additionalElements\e2detector\volatileRecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/volatileRecomputing\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun141735.8512\netedit.gui\additionalElements\e2detector\volatileRecomputing\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -31,36 +32,40 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/volatileRecomputing\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/volatileRecomputing\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/volatileRecomputing\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/volatileRecomputing\routes.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun141735.8512\netedit.gui\additionalElements\e2detector\volatileRecomputing\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun141735.8512\netedit.gui\additionalElements\e2detector\volatileRecomputing\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun141735.8512\netedit.gui\additionalElements\e2detector\volatileRecomputing\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun141735.8512\netedit.gui\additionalElements\e2detector\volatileRecomputing\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun141735.8512\netedit.gui\additionalElements\e2detector\volatileRecomputing\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun141735.8512\netedit.gui\additionalElements\e2detector\volatileRecomputing\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/volatileRecomputing\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun141735.8512\netedit.gui\additionalElements\e2detector\volatileRecomputing\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun141735.8512\netedit.gui\additionalElements\e2detector\volatileRecomputing\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/volatileRecomputing\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun141735.8512\netedit.gui\additionalElements\e2detector\volatileRecomputing\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e2Detector id="e2Detector_gneE0_0_7" lane="gneE0_1" pos="15.80" length="10.00" freq="100.00" file="e2Detector_gneE0_0_7.txt"/>
-    <e2Detector id="e2Detector_gneE1_0_6" lane="gneE1_1" pos="32.82" length="10.00" freq="100.00" file="e2Detector_gneE1_0_6.txt"/>
-    <e2Detector id="e2Detector_gneE2_0_0" lane="gneE2_1" pos="14.62" length="10.00" freq="100.00" file="e2Detector_gneE2_0_0.txt"/>
-    <e2Detector id="e2Detector_gneE2_1_1" lane="gneE2_2" pos="18.91" length="10.00" freq="100.00" file="e2Detector_gneE2_1_1.txt"/>
-    <e2Detector id="e2Detector_gneE2_2_2" lane="gneE2_3" pos="26.30" length="10.00" freq="100.00" file="e2Detector_gneE2_2_2.txt"/>
-    <e2Detector id="e2Detector_gneE2_3_3" lane="gneE2_4" pos="30.42" length="10.00" freq="100.00" file="e2Detector_gneE2_3_3.txt"/>
-    <e2Detector id="e2Detector_gneE2_4_4" lane="gneE2_5" pos="31.79" length="10.00" freq="100.00" file="e2Detector_gneE2_4_4.txt"/>
-    <e2Detector id="e2Detector_gneE4_0_5" lane="gneE4_0" pos="22.42" length="10.00" freq="100.00" file="e2Detector_gneE4_0_5.txt"/>
+    <e2Detector id="e2Detector_gneE0_0_7" lane="gneE0_0" pos="15.80" length="10.00" freq="100.00" file="e2Detector_gneE0_0_7.txt" speedThreshold="0.13"/>
+    <e2Detector id="e2Detector_gneE1_0_6" lane="gneE1_0" pos="32.82" length="10.00" freq="100.00" file="e2Detector_gneE1_0_6.txt" speedThreshold="0.13"/>
+    <e2Detector id="e2Detector_gneE2_0_0" lane="gneE2_0" pos="14.62" length="10.00" freq="100.00" file="e2Detector_gneE2_0_0.txt" speedThreshold="0.13"/>
+    <e2Detector id="e2Detector_gneE2_1_1" lane="gneE2_1" pos="18.91" length="10.00" freq="100.00" file="e2Detector_gneE2_1_1.txt" speedThreshold="0.13"/>
+    <e2Detector id="e2Detector_gneE2_2_2" lane="gneE2_2" pos="26.30" length="10.00" freq="100.00" file="e2Detector_gneE2_2_2.txt" speedThreshold="0.13"/>
+    <e2Detector id="e2Detector_gneE2_3_3" lane="gneE2_3" pos="30.42" length="10.00" freq="100.00" file="e2Detector_gneE2_3_3.txt" speedThreshold="0.13"/>
+    <e2Detector id="e2Detector_gneE2_4_4" lane="gneE2_4" pos="31.79" length="10.00" freq="100.00" file="e2Detector_gneE2_4_4.txt" speedThreshold="0.13"/>
+    <e2Detector id="e2Detector_gneE4_0_5" lane="gneE4_0" pos="22.42" length="10.00" freq="100.00" file="e2Detector_gneE4_0_5.txt" speedThreshold="0.13"/>
 </additional>

@@ -1,2 +1,4 @@
-Warning: Invalid E2 Frequency.
-Warning: Invalid E2 Frequency.
+Error: define either frequency or traffic light ID in E2 detector
+Error: Attribute 'freq' in definition of e2Detector 'E2_02' is not of type float.
+Error: Could not build e2Detector with ID 'E2_03' in netedit; attribute freq cannot be negative.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun141735.8512\netedit.gui\additionalElements\e2detector\load\freq\input_additionals.add.xml failed.

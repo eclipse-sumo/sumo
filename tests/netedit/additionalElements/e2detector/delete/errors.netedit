@@ -8,88 +8,76 @@ Debug: Adding e2Detector 'E2_01' in GNEChange_Additional
 Debug: Adding e2Detector 'E2_02' in GNEChange_Additional
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e2Detector' in TagSelector
-Debug: Adding e2Detector 'e2Detector_gneE0_0_2' in GNEChange_Additional
-Debug: Removing e2Detector 'e2Detector_gneE0_0_2' in GNEChange_Additional
 Debug: Removing e2Detector 'E2_01' in GNEChange_Additional
-Debug: Removing e2Detector 'E2_02' in GNEChange_Additional
-Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
-Debug: Deleting TLS from junction 'gneJ1'
-Debug: Adding TLS into junction 'gneJ1'
 Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
-Debug: Deleting TLS from junction 'gneJ1'
-Debug: Adding TLS into junction 'gneJ1'
-Debug: Deleting TLS from junction 'gneJ1'
-Debug: Setting new attribute type 'priority' into junction 'gneJ1'
+Debug: Deleting TLS from junction 'gneJ0'
+Debug: Adding TLS into junction 'gneJ0'
+Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
+Debug: Deleting TLS from junction 'gneJ0'
+Debug: Adding TLS into junction 'gneJ0'
 Debug: Deleting TLS from junction 'gneJ0'
 Debug: Setting new attribute type 'priority' into junction 'gneJ0'
-Debug: Removing edge 'gneE1' from net
-GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
+Debug: Deleting TLS from junction 'gneJ1'
+Debug: Setting new attribute type 'priority' into junction 'gneJ1'
+Debug: Removing edge 'gneE0' from net
+GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding edge 'gneE1' from net
-GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
-Debug: Setting previous attribute type 'traffic_light' into junction 'gneJ0'
-Debug: Adding TLS into junction 'gneJ0'
+Debug: Adding edge 'gneE0' from net
+GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 Debug: Setting previous attribute type 'traffic_light' into junction 'gneJ1'
 Debug: Adding TLS into junction 'gneJ1'
-Debug: Removing TLS from junction 'gneJ1'
-Debug: Adding TLS into junction 'gneJ1'
-Debug: Adding connection 'gneE1_0->gneE0_0' into edge 'gneE1'
-Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Removing TLS from junction 'gneJ1'
-Debug: Adding TLS into junction 'gneJ1'
+Debug: Setting previous attribute type 'traffic_light' into junction 'gneJ0'
+Debug: Adding TLS into junction 'gneJ0'
+Debug: Removing TLS from junction 'gneJ0'
+Debug: Adding TLS into junction 'gneJ0'
 Debug: Adding connection 'gneE0_0->gneE1_0' into edge 'gneE0'
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-Debug: Adding e2Detector 'E2_02' in GNEChange_Additional
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
+Debug: Removing TLS from junction 'gneJ0'
+Debug: Adding TLS into junction 'gneJ0'
+Debug: Adding connection 'gneE1_0->gneE0_0' into edge 'gneE1'
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Adding e2Detector 'E2_01' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding e2Detector 'e2Detector_gneE0_0_2' in GNEChange_Additional
-Debug: Opened FXMessageBox Problem deleting edge 'gneE1'
-Debug: Closed FXMessageBox Problem deleting edge 'gneE1'
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Removing e2Detector 'e2Detector_gneE0_0_2' in GNEChange_Additional
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Removing e2Detector 'E2_01' in GNEChange_Additional
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
 Debug: Removing e2Detector 'E2_02' in GNEChange_Additional
-Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
-Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in removeConnection()
-Debug: Deleting TLS from junction 'gneJ1'
-Debug: Adding TLS into junction 'gneJ1'
+Debug: Removing e2Detector 'E2_01' in GNEChange_Additional
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Deleting unreferenced e2Detector 'E2_02'
+Debug: Deleting unreferenced e2Detector 'E2_01'
 Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in removeConnection()
-Debug: Deleting TLS from junction 'gneJ1'
-Debug: Adding TLS into junction 'gneJ1'
-Debug: Deleting TLS from junction 'gneJ1'
-Debug: Setting new attribute type 'priority' into junction 'gneJ1'
+Debug: Deleting TLS from junction 'gneJ0'
+Debug: Adding TLS into junction 'gneJ0'
+Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in removeConnection()
+Debug: Deleting TLS from junction 'gneJ0'
+Debug: Adding TLS into junction 'gneJ0'
 Debug: Deleting TLS from junction 'gneJ0'
 Debug: Setting new attribute type 'priority' into junction 'gneJ0'
-Debug: Removing edge 'gneE1' from net
-GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
+Debug: Deleting TLS from junction 'gneJ1'
+Debug: Setting new attribute type 'priority' into junction 'gneJ1'
+Debug: Removing edge 'gneE0' from net
+GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
+Debug: Key ENTER pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
 GLDebug: Removing edges during recomputing
-GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
+GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
-GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-13.20,10.00,10.00
-GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-13.20,60.00,10.00
+GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-10.00,10.00,13.20
+GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-10.00,60.00,13.20
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
-GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
-Debug: Deleting unreferenced edge 'gneE1' GNEChange_Edge
-Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced e2Detector 'e2Detector_gneE0_0_2'
-Debug: Deleting unreferenced e2Detector 'E2_02'
-Debug: Deleting unreferenced e2Detector 'E2_01'
-Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
+GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
+Debug: Deleting unreferenced edge 'gneE0' GNEChange_Edge
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor

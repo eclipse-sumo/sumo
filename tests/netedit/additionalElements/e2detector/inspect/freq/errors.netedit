@@ -7,7 +7,7 @@ Debug: Value '-100' for attribute freq of e2Detector isn't valid
 Debug: Setting new attribute freq '120.5' into e2Detector 'e2Detector_gneE2_1_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute freq '900.00' into e2Detector 'e2Detector_gneE2_1_0'
+Debug: Setting previous attribute freq '300.00' into e2Detector 'e2Detector_gneE2_1_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e2Detector 'e2Detector_gneE2_1_0' in GNEChange_Additional

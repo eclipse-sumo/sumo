@@ -1,7 +1,5 @@
-Warning: Error parsing key from additional parameter. Key doesn't exist
-Warning: Error parsing key from additional parameter. Key doesn't exist
+Error: Attribute 'key' is missing in definition of a param.
+Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' in definition of a param is empty.
-Warning: Error parsing key from additional parameter. Key cannot be empty
-Warning: Error parsing key from additional parameter. Key contains invalid characters
-Warning: Error parsing key from additional parameter. Key contains invalid characters
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug153440.16864\netedit.gui\additionalElements\e2detector\load\parameters\input_additionals.add.xml failed.
+Warning: Error parsing key from e2Detector generic parameter. Key contains invalid characters
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun141735.8512\netedit.gui\additionalElements\e2detector\load\parameters\input_additionals.add.xml failed.

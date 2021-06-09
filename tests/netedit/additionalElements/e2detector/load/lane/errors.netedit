@@ -4,7 +4,9 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.0
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Error: Could not build e2Detector in netedit; lane doesn't exist.
 Debug: Adding e2Detector 'E2_03' in GNEChange_Additional
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun141735.8512\netedit.gui\additionalElements\e2detector\load\lane\input_additionals.add.xml failed.
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

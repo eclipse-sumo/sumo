@@ -4,14 +4,14 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.0
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Inserting generic parameter 'KeyA1|valueA1' into e2Detector
+Debug: Inserting generic parameter 'KeyA3|valueA2' into e2Detector
+Debug: Inserting generic parameter 'KeyA2|valueA3' into e2Detector
 Debug: Adding e2Detector 'E2_A' in GNEChange_Additional
-Debug: Inserting parameter 'KeyA1|valueA1' into additional e2Detector.
-Debug: Inserting parameter 'KeyA3|valueA2' into additional e2Detector.
-Debug: Inserting parameter 'KeyA2|valueA3' into additional e2Detector.
+Debug: Inserting generic parameter 'KeyB1|valueB1' into e2Detector
+Debug: Inserting generic parameter 'KeyB3|valueB2' into e2Detector
+Debug: Inserting generic parameter 'KeyB2|valueB3' into e2Detector
 Debug: Adding e2Detector 'E2_B' in GNEChange_Additional
-Debug: Inserting parameter 'KeyB1|valueB1' into additional e2Detector.
-Debug: Inserting parameter 'KeyB3|valueB2' into additional e2Detector.
-Debug: Inserting parameter 'KeyB2|valueB3' into additional e2Detector.
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'

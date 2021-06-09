@@ -4,15 +4,17 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.0
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Adding e2Detector 'E2_01' in GNEChange_Additional
-Debug: Inserting parameter 'key1|value1' into additional e2Detector.
+Debug: Inserting generic parameter 'key1|value1' into e2Detector
+Error: Attribute 'key' is missing in definition of a param.
+Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' in definition of a param is empty.
-Debug: Inserting parameter 'key1|value5' into additional e2Detector.
-Debug: Inserting parameter 'key2|' into additional e2Detector.
-Debug: Inserting parameter 'key2|' into additional e2Detector.
-Debug: Inserting parameter 'key3|$$value with spaces%%' into additional e2Detector.
-Debug: Inserting parameter 'keyFinal|valueFinal' into additional e2Detector.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug153440.16864\netedit.gui\additionalElements\e2detector\load\parameters\input_additionals.add.xml failed.
+Debug: Inserting generic parameter 'key1|value5' into e2Detector
+Debug: Inserting generic parameter 'key2|' into e2Detector
+Debug: Inserting generic parameter 'key2|' into e2Detector
+Debug: Inserting generic parameter 'key3|$$value with spaces%%' into e2Detector
+Debug: Inserting generic parameter 'keyFinal|valueFinal' into e2Detector
+Debug: Adding e2Detector 'E2_01' in GNEChange_Additional
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun141735.8512\netedit.gui\additionalElements\e2detector\load\parameters\input_additionals.add.xml failed.
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
