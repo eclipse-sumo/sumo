@@ -301,7 +301,8 @@ Several optional parameters can be used to control the behavior of actuated traf
 - **detector-gap**: determines the time distance between the (automatically generated) detector and the stop line in seconds (at
 each lanes maximum speed). 
 - **passing-time**: estimates the headway between vehicles when passing the stop line. This sets an upper bound on the distance between detector and stop line according to the formula `(minDur / passingTime + 0.5) / 7.5`. The intent of this bound is to allow all vehicles between the detector and the stop line to pass the intersection within the minDur time. A warning will be issued if the minDur gives insufficient clearing time.
-- **linkMaxDur:X** (where X is a traffic light index): This sets an additional maximum duration criterion based on individual signals rather than phase duration.
+- **linkMaxDur:X** (where X is a traffic light index): This sets an additional maximum duration criterion based on individual signals green duration rather than phase duration.
+- **linkMinDur:X** (where X is a traffic light index): This sets an additional minimum duration criterion based on individual signals green duration rather than phase duration.
 - **show-detectors** controls whether generated detectors will be visible or hidden in [sumo-gui](../sumo-gui.md). The default for all traffic lights can be set with option **--tls.actuated.show-detectors**. It is also possible to toggle this value from within the GUI by right-clicking on a traffic light.
 - parameters **vTypes**, **file** and **freq** have the same meaning as for [regular
 induction loop detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md).
