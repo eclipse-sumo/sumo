@@ -1,1 +1,1 @@
-Warning: Edge 'gneE1' already has an Access for busStop 'busStop_gneE0_0_0'
+Warning: Could not build access in netedit; busStop parent already owns an access in the edge 'gneE1'

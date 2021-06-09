@@ -31,9 +31,9 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Error: Attribute 'length' in definition of a access is not of type float.
 Debug: Adding busStop 'busStop_0' in GNEChange_Additional
 Debug: Adding access 'busStop_0' in GNEChange_Additional
-Error: Could not build access in netedit; attribute length cannot be negative.
+Error: Could not build access with ID 'busStop_0' in netedit; attribute length cannot be negative.
 Debug: Adding access 'busStop_0' in GNEChange_Additional
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun102453.14984\netedit.gui\additionalElements\access\load\length\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Jun100858.6532\netedit.gui\additionalElements\access\load\length\input_additionals.add.xml failed.
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,18.00,12.00,42.00
