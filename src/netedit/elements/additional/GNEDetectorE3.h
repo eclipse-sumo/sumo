@@ -45,7 +45,7 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNEDetectorE3(const std::string& id, GNENet* net, Position pos, SUMOTime freq, const std::string& filename, const std::vector<std::string>& vehicleTypes, 
+    GNEDetectorE3(const std::string& id, GNENet* net, const Position pos, const double freq, const std::string& filename, const std::vector<std::string>& vehicleTypes, 
                   const std::string& name, SUMOTime timeThreshold, double speedThreshold, const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /// @brief GNEDetectorE3 Destructor
@@ -126,7 +126,7 @@ protected:
     Position myPosition;
 
     /// @brief frequency of E3 detector
-    SUMOTime myFreq;
+    double myFreq;
 
     /// @brief fielname of E3 detector
     std::string myFilename;

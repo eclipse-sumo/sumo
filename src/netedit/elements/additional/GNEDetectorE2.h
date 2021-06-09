@@ -50,7 +50,7 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const std::string& freq, const std::string& trafficLight, 
+    GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const double freq, const std::string& trafficLight, 
                   const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, 
                   double jamThreshold, bool friendlyPos, const std::map<std::string, std::string> &parameters, bool blockMovement);
 
@@ -72,7 +72,7 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const std::string& freq, const std::string& trafficLight, 
+    GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const double freq, const std::string& trafficLight, 
                   const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, 
                   bool friendlyPos, const std::map<std::string, std::string> &parameters, bool blockMovement);
 

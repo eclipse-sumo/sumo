@@ -31,9 +31,9 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNENet* net, double pos, SUMOTime freq, const std::string& filename, const std::vector<std::string> &vehicleTypes, 
+GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNENet* net, const double pos, const double freq, const std::string& filename, const std::vector<std::string> &vehicleTypes, 
         const std::string& name, bool friendlyPos, const std::map<std::string, std::string> &parameters, bool blockMovement) :
-    GNEDetector(id, net, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, pos, time2string(freq), {lane}, filename, vehicleTypes, name, friendlyPos, parameters, blockMovement) {
+    GNEDetector(id, net, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, pos, freq, {lane}, filename, vehicleTypes, name, friendlyPos, parameters, blockMovement) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -163,7 +163,7 @@ GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_POSITION:
             return toString(myPositionOverLane);
         case SUMO_ATTR_FREQUENCY:
-            return myFreq;
+            return toString(myFreq);
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_FILE:
@@ -282,7 +282,7 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
             myPositionOverLane = parse<double>(value);
             break;
         case SUMO_ATTR_FREQUENCY:
-            myFreq = value;
+            myFreq = parse<double>(value);
             break;
         case SUMO_ATTR_FILE:
             myFilename = value;

@@ -45,7 +45,7 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNEDetectorE1(const std::string& id, GNELane* lane, GNENet* net, double pos, SUMOTime freq, const std::string& filename, 
+    GNEDetectorE1(const std::string& id, GNELane* lane, GNENet* net, const double pos, const double freq, const std::string& filename, 
                   const std::vector<std::string>& vehicleTypes, const std::string& name, bool friendlyPos, 
                   const std::map<std::string, std::string> &parameters, bool blockMovement);
 
