@@ -190,7 +190,11 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_POSITION:
             return toString(myPositionOverLane);
         case SUMO_ATTR_LENGTH:
-            return toString(myLength);
+            if (myLength == -1) {
+                return "";
+            } else {
+                return toString(myLength);
+            }
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -256,7 +260,14 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
                 return canParse<double>(value);
             }
         case SUMO_ATTR_LENGTH:
-            return (canParse<double>(value) && (parse<double>(value) >= 0));
+            if (value.empty()) {
+                return true;
+            } else if (canParse<double>(value)) {
+                const double valueDouble = parse<double>(value);
+                return (valueDouble == -1) || (valueDouble >= 0);
+            } else {
+                return false;
+            }
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -302,7 +313,11 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             myPositionOverLane = parse<double>(value);
             break;
         case SUMO_ATTR_LENGTH:
-            myLength = parse<double>(value);
+            if (value.empty()) {
+                myLength = -1;
+            } else {
+                myLength = parse<double>(value);
+            }
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);

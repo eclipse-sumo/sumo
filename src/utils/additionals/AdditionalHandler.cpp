@@ -723,7 +723,7 @@ AdditionalHandler::parseAccessAttributes(const SUMOSAXAttributes& attrs) {
     const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, "", parsedOk);
     const double position = attrs.get<double>(SUMO_ATTR_POSITION, "", parsedOk);
     // optional attributes
-    const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, "", parsedOk, INVALID_DOUBLE);
+    const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, "", parsedOk, -1); /* in future updates, INVALID_DOUBLE */
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "", parsedOk, false);
     // check parent
     checkParent(SUMO_TAG_ACCESS, SUMO_TAG_BUS_STOP, parsedOk);
