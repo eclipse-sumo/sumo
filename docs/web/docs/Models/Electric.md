@@ -77,6 +77,10 @@ be set in the vehicle definitions
 </routes>
 ```
 
+## Vehicle behavior
+
+Vehicle behavior will not be affected by battery level. Car will keep driving even when their battery capacity is at 0. To avoid this [TraCI](#traci) must be used to change speed or route based on the current battery level.
+
 ## Charging Stations
 
 A charging station is a surface defined on a lane in which the vehicles
