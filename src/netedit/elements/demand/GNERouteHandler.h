@@ -39,6 +39,7 @@ class GNETAZ;
 class GNEDemandElement;
 class GNEVehicle;
 class GNEPerson;
+class GNEContainer;
 class GNEUndoList;
 
 // ===========================================================================
@@ -195,6 +196,17 @@ public:
 
     /// @brief transform routeFlow over an existent route
     static void transformToPersonFlow(GNEPerson* originalPerson);
+
+    /// @}
+
+    /// @brief transform container functions
+    /// @{
+
+    /// @brief transform to vehicle over an existent route
+    static void transformToContainer(GNEContainer* originalContainer);
+
+    /// @brief transform routeFlow over an existent route
+    static void transformToContainerFlow(GNEContainer* originalContainer);
 
     /// @}
 

@@ -1286,6 +1286,18 @@ GNERouteHandler::transformToPersonFlow(GNEPerson* /*originalPerson*/) {
 
 
 void
+GNERouteHandler::transformToContainer(GNEContainer* /*originalContainer*/) {
+    //
+}
+
+
+void
+GNERouteHandler::transformToContainerFlow(GNEContainer* /*originalContainer*/) {
+    //
+}
+
+
+void
 GNERouteHandler::setFlowParameters(const SumoXMLAttr attribute, int& parameters) {
     // modify parametersSetCopy depending of given Flow attribute
     switch (attribute) {
