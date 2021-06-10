@@ -96,9 +96,12 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"ride",                GLO_RIDE},
     {"walk",                GLO_WALK},
     {"personTrip",          GLO_PERSONTRIP},
+    {"transport",           GLO_TRANSPORT},
+    {"tranship",            GLO_TRANSHIP},
     //
     {"stop",                GLO_STOP},
     {"personStop",          GLO_PERSONSTOP},
+    {"containerStop",       GLO_CONTAINERSTOP},
     //
     {"vehicle",             GLO_VEHICLE},
     {"trip",                GLO_TRIP},
@@ -106,6 +109,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"routeFlow",           GLO_ROUTEFLOW},
     //
     {"container",           GLO_CONTAINER},
+    {"containerFlow",       GLO_CONTAINERFLOW},
     //
     {"person",              GLO_PERSON},
     {"personFlow",          GLO_PERSONFLOW},
