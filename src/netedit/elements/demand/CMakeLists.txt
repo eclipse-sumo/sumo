@@ -27,8 +27,8 @@ set(netedit_elements_demand_SRCS
    GNETranship.cpp
    GNETransport.h
    GNETransport.cpp
-   GNEContainerStop.h
-   GNEContainerStop.cpp
+   GNEStopContainer.h
+   GNEStopContainer.cpp
    )
 
 add_library(netedit_elements_demand STATIC ${netedit_elements_demand_SRCS})
