@@ -1,5 +1,5 @@
 /* XPM */
-static const char *transhipbusstop_xpm[] = {
+static const char *transhipcontainerstop_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 1 1",
 "U c None",

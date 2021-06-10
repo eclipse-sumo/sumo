@@ -269,10 +269,10 @@
 #include "ridebusstop.xpm"
 #include "container.xpm"
 #include "containerflow.xpm"
-#include "transhipbusstop.xpm"
+#include "transhipcontainerstop.xpm"
 #include "transhipedges.xpm"
 #include "transhipfromto.xpm"
-#include "transportbusstop.xpm"
+#include "transportcontainerstop.xpm"
 #include "transportfromto.xpm"
 
 
@@ -613,10 +613,10 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::CONTAINER] = new FXXPMIcon(a, container_xpm);
     myIcons[GUIIcon::CONTAINERFLOW] = new FXXPMIcon(a, containerflow_xpm);
     myIcons[GUIIcon::TRANSPORT_FROMTO] = new FXXPMIcon(a, transportfromto_xpm);
-    myIcons[GUIIcon::TRANSPORT_BUSSTOP] = new FXXPMIcon(a, transportbusstop_xpm);
+    myIcons[GUIIcon::TRANSPORT_CONTAINERSTOP] = new FXXPMIcon(a, transportcontainerstop_xpm);
     myIcons[GUIIcon::TRANSHIP_EDGES] = new FXXPMIcon(a, transhipedges_xpm);
     myIcons[GUIIcon::TRANSHIP_FROMTO] = new FXXPMIcon(a, transhipfromto_xpm);
-    myIcons[GUIIcon::TRANSHIP_BUSSTOP] = new FXXPMIcon(a, transhipbusstop_xpm);
+    myIcons[GUIIcon::TRANSHIP_CONTAINERSTOP] = new FXXPMIcon(a, transhipcontainerstop_xpm);
 
     myIcons[GUIIcon::DATASET] = new FXXPMIcon(a, dataset_xpm);
     myIcons[GUIIcon::DATAINTERVAL] = new FXXPMIcon(a, datainterval_xpm);
