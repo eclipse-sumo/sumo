@@ -269,7 +269,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "tranship: edge->containerStop",  GNE_TAG_TRANSHIP_CONTAINERSTOP },
     { "tranship: edges",                GNE_TAG_TRANSHIP_EDGES },
     // GNE container Stops
-    { "stopContainer: containerStop",   GNE_TAG_STOPCONTAINER_STOP },
+    { "stopContainer: containerStop",   GNE_TAG_STOPCONTAINER_CONTAINERSTOP },
     { "stopContainer: edge",            GNE_TAG_STOPCONTAINER_EDGE },
     // Last element
     { "",                               SUMO_TAG_NOTHING }  // -> must be the last one

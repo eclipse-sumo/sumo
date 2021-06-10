@@ -3964,7 +3964,7 @@ GNEAttributeCarrier::fillContainerStopElements() {
                                               "waiting");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = GNE_TAG_STOPCONTAINER_STOP;
+    currentTag = GNE_TAG_STOPCONTAINER_CONTAINERSTOP;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,

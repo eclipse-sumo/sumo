@@ -38,7 +38,7 @@
 // ===========================================================================
 
 GNEStopContainer::GNEStopContainer(GNENet* net, GNEDemandElement* containerParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(containerParent, net, GLO_STOP_CONTAINER, GNE_TAG_STOPCONTAINER_STOP,
+    GNEDemandElement(containerParent, net, GLO_STOP_CONTAINER, GNE_TAG_STOPCONTAINER_CONTAINERSTOP,
 {}, {}, {}, {stoppingPlace}, {}, {}, {containerParent}, {}),
 SUMOVehicleParameter::Stop(stopParameter) {
 }

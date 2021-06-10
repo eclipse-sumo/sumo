@@ -1162,7 +1162,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
             }
             break;
         }
-        case GNE_TAG_STOPCONTAINER_STOP: {
+        case GNE_TAG_STOPCONTAINER_CONTAINERSTOP: {
             // check if ride busStop->busStop can be created
             if (toBusStop) {
                 stopParameters.busstop = toBusStop->getID();
