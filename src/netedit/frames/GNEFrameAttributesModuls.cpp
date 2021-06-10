@@ -747,7 +747,7 @@ GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValuesTemporal(bool
         }
     }
     // add extra flow attributes (only will updated if myAttributesCreatorFlow is shown)
-    // myAttributesCreatorFlow->setFlowParameters(values);
+    myAttributesCreatorFlow->setFlowParametersTemporal(values);
     // return values
     return values;
 }
@@ -936,6 +936,32 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::setFlowParameters(CommonXMLStru
     }
     if (myFlowParameters & VEHPARS_PROB_SET) {
         baseObject->addDoubleAttribute(SUMO_ATTR_PROB, GNEAttributeCarrier::parse<double>(myValueProbabilityTextField->getText().text()));
+    }
+}
+
+
+void
+GNEFrameAttributesModuls::AttributesCreatorFlow::setFlowParametersTemporal(std::map<SumoXMLAttr, std::string>& valuesMap) const {
+    if (shown()) {
+        if (myFlowParameters & VEHPARS_END_SET) {
+            valuesMap[SUMO_ATTR_END] = myValueEndTextField->getText().text();
+        }
+        if (myFlowParameters & VEHPARS_NUMBER_SET) {
+            valuesMap[SUMO_ATTR_NUMBER] = myValueNumberTextField->getText().text();
+        }
+        if (myFlowParameters & VEHPARS_VPH_SET) {
+            if (myAttributeVehsPerHourRadioButton->getText().text() == toString(SUMO_ATTR_VEHSPERHOUR)) {
+                valuesMap[SUMO_ATTR_VEHSPERHOUR] = myValueVehsPerHourTextField->getText().text();
+            } else {
+                valuesMap[SUMO_ATTR_PERSONSPERHOUR] = myValueVehsPerHourTextField->getText().text();
+            }
+        }
+        if (myFlowParameters & VEHPARS_PERIOD_SET) {
+            valuesMap[SUMO_ATTR_PERIOD] = myValuePeriodTextField->getText().text();
+        }
+        if (myFlowParameters & VEHPARS_PROB_SET) {
+            valuesMap[SUMO_ATTR_PROB] = myValueProbabilityTextField->getText().text();
+        }
     }
 }
 
