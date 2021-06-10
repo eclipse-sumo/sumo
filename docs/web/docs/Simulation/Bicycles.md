@@ -165,8 +165,8 @@ The second part can be controlled by [setting the optional attribute 'linkIndex2
  
 Sometimes, bicycles/motorpads do not wait side by side properly. The following parameters can help to solve/improve this issue.
     
-  - latAlignment="nice"
-  - minGapLat="0.1"
+- latAlignment="nice"
+- minGapLat="0.1"
     
 # Bicycle routing
 
