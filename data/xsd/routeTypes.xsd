@@ -483,6 +483,7 @@
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
+        <xsd:attribute name="speedFactor" type="positiveFloatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="flowIntervalType">
