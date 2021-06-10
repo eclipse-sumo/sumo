@@ -28,6 +28,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -717,6 +718,11 @@ RONet::getInternalEdgeNumber() const {
     return myNumInternalEdges;
 }
 
+ROLane*
+RONet::getLane(const std::string& laneID) const {
+    int laneIndex = StringUtils::toInt(laneID.substr(laneID.rfind("_") + 1));
+    return getEdgeForLaneID(laneID)->getLanes()[laneIndex];
+}
 
 void
 RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {

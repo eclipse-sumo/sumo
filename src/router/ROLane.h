@@ -55,8 +55,9 @@ public:
      * @param[in] permissions Vehicle classes that may pass this lane
      */
     ROLane(const std::string& id, ROEdge* edge, double length, double maxSpeed, SVCPermissions permissions, const PositionVector& shape) :
-        Named(id), myEdge(edge), myLength(length), myMaxSpeed(maxSpeed), myPermissions(permissions), myShape(shape) {
-    }
+        Named(id), myEdge(edge), myLength(length), myMaxSpeed(maxSpeed), myPermissions(permissions), myShape(shape),
+        myLengthGeometryFactor(MAX2(NUMERICAL_EPS, myShape.length() / myLength)) // factor should not be 0
+    { }
 
 
     /// @brief Destructor
@@ -115,6 +116,18 @@ public:
         return myShape;
     }
 
+    /* @brief fit the given lane position to a visibly suitable geometry position
+     * (lane length might differ from geometry length) */
+    inline double interpolateLanePosToGeometryPos(double lanePos) const {
+        return lanePos * myLengthGeometryFactor;
+    }
+
+    /* @brief fit the given lane position to a visibly suitable geometry position
+     * and return the coordinates */
+    inline const Position geometryPositionAtOffset(double offset, double lateralOffset = 0) const {
+        return myShape.positionAtOffset(interpolateLanePosToGeometryPos(offset), lateralOffset);
+    }
+
 private:
     /// @brief The parent edge of this lane
     ROEdge* myEdge;
@@ -132,6 +145,9 @@ private:
 
     /// @brief shape for this lane
     const PositionVector myShape;
+
+    /// @brief precomputed myShape.length / myLength
+    const double myLengthGeometryFactor;
 
 
 private:
