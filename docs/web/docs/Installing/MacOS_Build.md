@@ -36,7 +36,7 @@ brew install cmake
 ## Dependencies
 In order to compile and execute SUMO, there are several libraries that need to be installed. You can install these dependencies with homebrew with the following commands:
 ```
-brew cask install xquartz
+brew install --cask xquartz
 brew install xerces-c fox proj gdal gl2ps
 ```
 Depending on the SUMO features you want to enable during compilation, you may want to additional libraries. Most libraries are available in homebrew and should be recognized with CMake. Here is what you need to prepare some more features such as libsumo and the testing environment:
