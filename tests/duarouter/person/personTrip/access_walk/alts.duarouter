@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-06 14:24:07 by Eclipse SUMO duarouter Version v1_9_1+0246-dc3018a
+<!-- generated on 2021-06-10 09:08:41 by Eclipse SUMO duarouter Version v1_9_2+0439-960336d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,6 +34,6 @@ SPDX-License-Identifier: EPL-2.0
         <walk edges="beg2left" trainStop="beg2left"/>
     </person>
     <person id="p1" depart="0.00">
-        <personTrip from="beg2left" to="train" arrivalPos="240.00" busStop="beg2left" walkFactor="0.75" costs="240.00"/>
+        <personTrip from="beg2left" to="train" arrivalPos="240.00" busStop="beg2left" walkFactor="0.75" costs="251.24"/>
     </person>
 </routes>
