@@ -261,7 +261,17 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     // GNE person Stops
     { "personStop: busStop",            GNE_TAG_PERSONSTOP_BUSSTOP },
     { "personStop: edge",               GNE_TAG_PERSONSTOP_EDGE },
-    // Other
+    // GNE transports
+    { "transport: edge->edge",          GNE_TAG_TRANSPORT_EDGE },
+    { "transport: edge->contStop",      GNE_TAG_TRANSPORT_CONTAINERSTOP },
+    // GNE tranships
+    { "tranship: edge->edge",           GNE_TAG_TRANSHIP_EDGE },
+    { "tranship: edge->contStop",       GNE_TAG_TRANSHIP_CONTAINERSTOP },
+    { "tranship: edges",                GNE_TAG_TRANSHIP_EDGES },
+    // GNE container Stops
+    { "containerStop: contStop",        GNE_TAG_CONTAINERSTOP_CONTAINERSTOP },
+    { "containerStop: edge",            GNE_TAG_CONTAINERSTOP_EDGE },
+    // Last element
     { "",                               SUMO_TAG_NOTHING }  // -> must be the last one
 };
 

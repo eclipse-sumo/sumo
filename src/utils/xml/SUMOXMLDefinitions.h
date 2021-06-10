@@ -391,10 +391,6 @@ enum SumoXMLTag {
     GNE_TAG_REROUTER_SYMBOL,
     /// @brief VSS Symbol
     GNE_TAG_VSS_SYMBOL,
-    /// @}
-
-    /// @name Persons plans (used by Netedit)
-    /// @{
     /// @brief description of a vehicle with an embedded route (used in NETEDIT)
     GNE_TAG_VEHICLE_WITHROUTE,
     /// @brief embedded route (used in NETEDIT)
@@ -417,8 +413,16 @@ enum SumoXMLTag {
     // person stops
     GNE_TAG_PERSONSTOP_BUSSTOP,
     GNE_TAG_PERSONSTOP_EDGE,
-    /// @brief description of a person with an embedded route (used in NETEDIT)
-    GNE_TAG_PERSON_EMBEDDED
+    // person trips
+    GNE_TAG_TRANSPORT_EDGE,
+    GNE_TAG_TRANSPORT_CONTAINERSTOP,
+    // walks
+    GNE_TAG_TRANSHIP_EDGE,
+    GNE_TAG_TRANSHIP_CONTAINERSTOP,
+    GNE_TAG_TRANSHIP_EDGES,
+    // container stops
+    GNE_TAG_CONTAINERSTOP_CONTAINERSTOP,
+    GNE_TAG_CONTAINERSTOP_EDGE,
     /// @}
 };
 
