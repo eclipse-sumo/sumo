@@ -70,6 +70,10 @@ const RGBColor GUIVisualizationColorSettings::personStops(255, 0, 0);
 const RGBColor GUIVisualizationColorSettings::personTrip(200, 0, 255);
 const RGBColor GUIVisualizationColorSettings::walk(0, 255, 0);
 const RGBColor GUIVisualizationColorSettings::ride(0, 0, 255);
+const RGBColor GUIVisualizationColorSettings::containerStops(255, 0, 0);
+const RGBColor GUIVisualizationColorSettings::transport(100, 200, 0);
+const RGBColor GUIVisualizationColorSettings::tranship(100, 0, 200);
+
 
 // -------------------------------------------------------------------------
 // color constants for other objects
@@ -176,6 +180,8 @@ const double GUIVisualizationWidthSettings::trip(0.2);
 const double GUIVisualizationWidthSettings::personTrip(0.25);
 const double GUIVisualizationWidthSettings::walk(0.25);
 const double GUIVisualizationWidthSettings::ride(0.25);
+const double GUIVisualizationWidthSettings::transport(0.25);
+const double GUIVisualizationWidthSettings::tranship(0.25);
 
 // -------------------------------------------------------------------------
 // details of certain NETEDIT objects (0 = drawn always)
@@ -349,6 +355,8 @@ GUIVisualizationColorSettings::GUIVisualizationColorSettings() :
     selectedVehicleColor(0, 0, 100, 255),
     selectedPersonColor(0, 0, 120, 255),
     selectedPersonPlanColor(0, 0, 130, 255),
+    selectedContainerColor(0, 0, 120, 255),
+    selectedContainerPlanColor(0, 0, 130, 255),
     selectedEdgeDataColor(0, 0, 150, 255) {
 }
 
@@ -365,6 +373,7 @@ GUIVisualizationColorSettings::operator==(const GUIVisualizationColorSettings& v
            (selectedRouteColor == v2.selectedRouteColor) &&
            (selectedVehicleColor == v2.selectedVehicleColor) &&
            (selectedPersonColor == v2.selectedPersonColor) &&
+           (selectedContainerColor == v2.selectedContainerColor) &&
            (selectedPersonPlanColor == v2.selectedPersonPlanColor) &&
            (selectedEdgeDataColor == v2.selectedEdgeDataColor);
 }
@@ -382,6 +391,7 @@ GUIVisualizationColorSettings::operator!=(const GUIVisualizationColorSettings& v
            (selectedRouteColor != v2.selectedRouteColor) ||
            (selectedVehicleColor != v2.selectedVehicleColor) ||
            (selectedPersonColor != v2.selectedPersonColor) ||
+           (selectedContainerColor != v2.selectedContainerColor) ||
            (selectedPersonPlanColor != v2.selectedPersonPlanColor) ||
            (selectedEdgeDataColor != v2.selectedEdgeDataColor);
 }

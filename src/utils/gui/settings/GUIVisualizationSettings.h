@@ -150,11 +150,17 @@ struct GUIVisualizationColorSettings {
     /// @brief vehicle selection color
     RGBColor selectedVehicleColor;
 
-    /// @brief person  selection color
+    /// @brief person selection color
     RGBColor selectedPersonColor;
 
     /// @brief person plan selection color (Rides, Walks, personStops...)
     RGBColor selectedPersonPlanColor;
+
+    /// @brief container selection color
+    RGBColor selectedContainerColor;
+
+    /// @brief container plan selection color (Rides, Walks, containerStops...)
+    RGBColor selectedContainerPlanColor;
 
     /// @brief edge data selection color
     RGBColor selectedEdgeDataColor;
@@ -194,6 +200,15 @@ struct GUIVisualizationColorSettings {
 
     /// @brief color for rides
     static const RGBColor ride;
+
+    /// @brief color for containerStops
+    static const RGBColor containerStops;
+
+    /// @brief color for transport
+    static const RGBColor transport;
+
+    /// @brief color for tranships
+    static const RGBColor tranship;
 };
 
 
@@ -430,6 +445,12 @@ struct GUIVisualizationWidthSettings {
 
     /// @brief width for rides
     static const double ride;
+
+    /// @brief width for rides
+    static const double transport;
+
+    /// @brief width for rides
+    static const double tranship;
 };
 
 
