@@ -1118,6 +1118,8 @@ enum {
     MID_GNE_VEHICLE_TRANSFORM,
     /// @brief transform person to another person type (ej: person to personflow)
     MID_GNE_PERSON_TRANSFORM,
+    /// @brief transform container to another container type (ej: container to containerflow)
+    MID_GNE_CONTAINER_TRANSFORM,
     /// @}
 
     /// @name Netedit Dialogs
