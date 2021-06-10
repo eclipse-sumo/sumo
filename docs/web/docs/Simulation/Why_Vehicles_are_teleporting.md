@@ -28,7 +28,23 @@ stays below 0.1m/s. These steps are the "waiting time". In the case the
 vehicle moves with a larger speed, this counter is reset. In the case
 the vehicle waited longer than a certain threshold value (default 300
 seconds), the vehicle is assumed to be in grid-lock and teleported onto
-the next free edge on its route. The threshold value can be configure
+the next free edge on its route. If there is enough space on the next 
+adjecent edge, the vehicle will be directly assigned to the respective
+available space. If it is not the case, the vehicle will be put in a 
+edge-based pool of the next edge (e.g. E0) and (virtully) travel with
+travel speed (1 m/s) in order to representatively calculating his edge
+travel time. When a space (default: 7.5 m/space) on the next edge is
+available, the first vehicle on the current edge (E0) will move to it
+at the corresponding time step. After that, the teleported vehicle in
+the "pool" can move to the edge (E0) from the pool and the position is
+decided by the calculated edge travel time, mentioned above. If there is
+no space and the aforemetioned calculated edge trave time is reached,
+the corresponding vehicle will move to the pool of the next edge and
+the respective edge travel time will be calculated. The rules, mentioned
+above, apply continuously. A simple illustratoion about how congestion
+resolves stepwise is shown below.
+
+The threshold value can be configure
 using the option **--time-to-teleport** {{DT_INT}} which sets the time in seconds. If the value is not
 positive, teleporting due to grid-lock is disabled. Note that for
 vehicles which have a stop as part of their route, the time spent
