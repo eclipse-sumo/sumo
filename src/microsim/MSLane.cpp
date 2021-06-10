@@ -638,7 +638,9 @@ MSLane::insertVehicle(MSVehicle& veh) {
                                           leader->getCarFollowModel().getMaxDecel());
             dist = MIN2(dist, leaderInfo.second - frontGapNeeded);
         }
-        veh.executeFractionalMove(dist);
+        if (dist > 0) {
+            veh.executeFractionalMove(dist);
+        }
     }
     return success;
 }
