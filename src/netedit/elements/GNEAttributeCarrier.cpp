@@ -737,10 +737,10 @@ GNEAttributeCarrier::getAllowedTagPropertiesByCategory(const int tagPropertyCate
             }
         }
     }
-    if (tagPropertyCategory & GNETagProperties::PERSONSTOP) {
+    if (tagPropertyCategory & GNETagProperties::STOPPERSON) {
         // fill demand tags
         for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isPersonStop() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+            if (tagProperty.second.isStopPerson() && (!onlyDrawables || tagProperty.second.isDrawable())) {
                 allowedTags.push_back(std::make_pair(tagProperty.second, tagProperty.second.getTagStr()));
             }
         }
@@ -776,7 +776,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     fillPersonPlanTrips();
     fillPersonPlanWalks();
     fillPersonPlanRides();
-    fillPersonStopElements();
+    fillStopPersonElements();
     // containers
     fillContainerElements();
     fillContainerTransportElements();
@@ -4220,15 +4220,15 @@ GNEAttributeCarrier::fillPersonPlanRides() {
 
 
 void
-GNEAttributeCarrier::fillPersonStopElements() {
+GNEAttributeCarrier::fillStopPersonElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
     // fill vehicle ACs
-    SumoXMLTag currentTag = GNE_TAG_PERSONSTOP_EDGE;
+    SumoXMLTag currentTag = GNE_TAG_STOPPERSON_EDGE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONSTOP,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::STOPPERSON,
                                       GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::NOPARAMETERS,
                                       GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
 
@@ -4267,11 +4267,11 @@ GNEAttributeCarrier::fillPersonStopElements() {
                                               "waiting");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = GNE_TAG_PERSONSTOP_BUSSTOP;
+    currentTag = GNE_TAG_STOPPERSON_BUSSTOP;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONSTOP,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::STOPPERSON,
                                       GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::NOPARAMETERS,
                                       GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
 

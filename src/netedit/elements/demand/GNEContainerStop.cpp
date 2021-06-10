@@ -431,7 +431,7 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
             // get previous container plan
             GNEDemandElement* previousContainerPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
             // check if leave presonStop connected is enabled
-            if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getDemandModeOptions()->getLeavePersonStopsConnected() &&
+            if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getDemandModeOptions()->getLeaveStopPersonsConnected() &&
                     previousContainerPlan && previousContainerPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
                 // change from attribute using edge ID
                 undoList->p_begin("Change arrivalPos attribute of previous containerPlan");

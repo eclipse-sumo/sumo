@@ -255,7 +255,7 @@ GNEDemandElement::getPathElementDepartValue() const {
     // check if this is the first person plan
     if (previousPersonPlan) {
         if (previousPersonPlan->getParentAdditionals().size() > 0) {
-            if (previousPersonPlan->getTagProperty().isPersonStop()) {
+            if (previousPersonPlan->getTagProperty().isStopPerson()) {
                 // calculate busStop end
                 const double endPos = previousPersonPlan->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
                 // check endPos
@@ -286,7 +286,7 @@ GNEDemandElement::getPathElementDepartPos() const {
     // check if this is the first person plan
     if (previousPersonPlan) {
         if (previousPersonPlan->getParentAdditionals().size() > 0) {
-            if (previousPersonPlan->getTagProperty().isPersonStop()) {
+            if (previousPersonPlan->getTagProperty().isStopPerson()) {
                 // get busStop
                 const GNEAdditional* busStop = previousPersonPlan->getParentAdditionals().front();
                 // get length
@@ -319,7 +319,7 @@ GNEDemandElement::getPathElementArrivalValue() const {
         // get next person Plan
         const GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
         // continue depending if is an stop or a person plan
-        if (nextPersonPlan && (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_BUSSTOP)) {
+        if (nextPersonPlan && (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_STOPPERSON_BUSSTOP)) {
             // calculate busStop end
             const double endPos = getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
             // check endPos
@@ -344,7 +344,7 @@ GNEDemandElement::getPathElementArrivalPos() const {
         // get next person Plan
         const GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
         // continue depending if is an stop or a person plan
-        if (nextPersonPlan && (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_BUSSTOP)) {
+        if (nextPersonPlan && (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_STOPPERSON_BUSSTOP)) {
             // get busStop
             const GNEAdditional* busStop = nextPersonPlan->getParentAdditionals().front();
             // get length
@@ -379,7 +379,7 @@ GNEDemandElement::isValidDemandElementID(const std::string& newID) const {
 
 const Position
 GNEDemandElement::getBeginPosition(const double pedestrianDepartPos) const {
-    if (myTagProperty.isPersonStop()) {
+    if (myTagProperty.isStopPerson()) {
         return getPositionInView();
     } else {
         // get first lane

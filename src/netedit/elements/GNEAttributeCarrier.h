@@ -393,8 +393,8 @@ private:
     /// @brief fill person plan rides
     static void fillPersonPlanRides();
 
-    /// @brief fill personStop elements
-    static void fillPersonStopElements();
+    /// @brief fill stopPerson elements
+    static void fillStopPersonElements();
 
     /// @brief fill container elements
     static void fillContainerElements();

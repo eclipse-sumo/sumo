@@ -2049,11 +2049,11 @@ GNENet::adjustPersonPlans(GNEUndoList* undoList) {
                 GNEDemandElement* personPlan = person.second->getChildDemandElements().front();
                 // iterate over all personPlans
                 while (personPlan) {
-                    // check if personPlan is a personStop over edge
-                    if (personPlan->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_EDGE) {
+                    // check if personPlan is a stopPerson over edge
+                    if (personPlan->getTagProperty().getTag() == GNE_TAG_STOPPERSON_EDGE) {
                         // get previous person plan
                         GNEDemandElement* previousPersonPlan = person.second->getPreviousChildDemandElement(personPlan);
-                        // check if arrivalPos of previous personPlan is different of endPos of personStop
+                        // check if arrivalPos of previous personPlan is different of endPos of stopPerson
                         if (previousPersonPlan && previousPersonPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS) &&
                                 (previousPersonPlan->getAttribute(SUMO_ATTR_ARRIVALPOS) != personPlan->getAttribute(SUMO_ATTR_ENDPOS))) {
                             personPlanMap[previousPersonPlan] = personPlan->getAttribute(SUMO_ATTR_ENDPOS);

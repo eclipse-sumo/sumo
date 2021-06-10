@@ -56,11 +56,11 @@ public:
         STOP =              1 << 11, // Stops
         // persons
         PERSON =            1 << 12, // Persons (Persons and personFlows)
-        PERSONPLAN =        1 << 13, // Person plans (Walks, rides, personTrips and personStops)
+        PERSONPLAN =        1 << 13, // Person plans (Walks, rides, personTrips and stopPersons)
         PERSONTRIP =        1 << 14, // Person Trips
         WALK =              1 << 15, // Walks
         RIDE =              1 << 16, // Rides
-        PERSONSTOP =        1 << 17, // Person stops
+        STOPPERSON =        1 << 17, // Person stops
         // containers
         CONTAINER =         1 << 18, // Containers (Containers and personFlows)
         CONTAINERPLAN =     1 << 19, // Container plans (tranship and transport)
@@ -200,7 +200,7 @@ public:
     bool isRide() const;
 
     /// @brief return true if tag correspond to a person stop element
-    bool isPersonStop() const;
+    bool isStopPerson() const;
 
     /// @brief return true if tag correspond to a container element
     bool isContainer() const;

@@ -26,7 +26,7 @@
 #include "GNEContainer.h"
 #include "GNEContainerStop.h"
 #include "GNEPerson.h"
-#include "GNEPersonStop.h"
+#include "GNEStopPerson.h"
 #include "GNEPersonTrip.h"
 #include "GNERide.h"
 #include "GNERoute.h"
@@ -524,7 +524,7 @@ GNERouteHandler::buildStop(GNENet* net, bool undoDemandElements, const SUMOVehic
         stoppingPlace = net->retrieveAdditional(SUMO_TAG_BUS_STOP, stopParameters.busstop, false);
         // distinguish between stop for vehicles and stops for persons
         if (stopParent->getTagProperty().isPerson()) {
-            stopTagType = GNE_TAG_PERSONSTOP_BUSSTOP;
+            stopTagType = GNE_TAG_STOPPERSON_BUSSTOP;
         } else {
             stopTagType = SUMO_TAG_STOP_BUSSTOP;
         }
@@ -764,22 +764,22 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
             break;
         }
         // stops
-        case GNE_TAG_PERSONSTOP_EDGE: {
+        case GNE_TAG_STOPPERSON_EDGE: {
             // check if ride busStop->busStop can be created
             if (fromEdge) {
                 stopParameters.edge = fromEdge->getID();
-                buildPersonStop(viewNet->getNet(), true, personParent, fromEdge, nullptr, stopParameters);
+                buildStopPerson(viewNet->getNet(), true, personParent, fromEdge, nullptr, stopParameters);
                 return true;
             } else {
                 viewNet->setStatusBarText("A stop has to be placed over an edge");
             }
             break;
         }
-        case GNE_TAG_PERSONSTOP_BUSSTOP: {
+        case GNE_TAG_STOPPERSON_BUSSTOP: {
             // check if ride busStop->busStop can be created
             if (toBusStop) {
                 stopParameters.busstop = toBusStop->getID();
-                buildPersonStop(viewNet->getNet(), true, personParent, nullptr, toBusStop, stopParameters);
+                buildStopPerson(viewNet->getNet(), true, personParent, nullptr, toBusStop, stopParameters);
                 return true;
             } else {
                 viewNet->setStatusBarText("A stop has to be placed over a busStop");
@@ -975,43 +975,43 @@ GNERouteHandler::buildRide(GNENet* net, bool undoDemandElements, GNEDemandElemen
 
 
 void
-GNERouteHandler::buildPersonStop(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* edge, GNEAdditional* busStop, const SUMOVehicleParameter::Stop& stopParameters) {
-    // declare personStop
-    GNEDemandElement* personStop = nullptr;
-    // create personStop depending of parameters
+GNERouteHandler::buildStopPerson(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* edge, GNEAdditional* busStop, const SUMOVehicleParameter::Stop& stopParameters) {
+    // declare stopPerson
+    GNEDemandElement* stopPerson = nullptr;
+    // create stopPerson depending of parameters
     if (edge) {
-        // create personStop over edge
-        personStop = new GNEPersonStop(net, personParent, edge, stopParameters);
+        // create stopPerson over edge
+        stopPerson = new GNEStopPerson(net, personParent, edge, stopParameters);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
-            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_PERSONSTOP_EDGE) + " within person '" + personParent->getID() + "'");
-            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personStop, true), true);
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_STOPPERSON_EDGE) + " within person '" + personParent->getID() + "'");
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stopPerson, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // insert personStop
-            net->getAttributeCarriers()->insertDemandElement(personStop);
+            // insert stopPerson
+            net->getAttributeCarriers()->insertDemandElement(stopPerson);
             // set references in children
-            personParent->addChildElement(personStop);
-            edge->addChildElement(personStop);
+            personParent->addChildElement(stopPerson);
+            edge->addChildElement(stopPerson);
             // include reference
-            personStop->incRef("buildPersonStop");
+            stopPerson->incRef("buildStopPerson");
         }
     } else if (busStop) {
-        // create personStop over busStop
-        personStop = new GNEPersonStop(net, personParent, busStop, stopParameters);
+        // create stopPerson over busStop
+        stopPerson = new GNEStopPerson(net, personParent, busStop, stopParameters);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
-            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_PERSONSTOP_BUSSTOP) + " within person '" + personParent->getID() + "'");
-            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personStop, true), true);
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_STOPPERSON_BUSSTOP) + " within person '" + personParent->getID() + "'");
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stopPerson, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // insert personStop
-            net->getAttributeCarriers()->insertDemandElement(personStop);
+            // insert stopPerson
+            net->getAttributeCarriers()->insertDemandElement(stopPerson);
             // set references in children
-            personParent->addChildElement(personStop);
-            busStop->addChildElement(personStop);
+            personParent->addChildElement(stopPerson);
+            busStop->addChildElement(stopPerson);
             // include reference
-            personStop->incRef("buildPersonStop");
+            stopPerson->incRef("buildStopPerson");
         }
     }
     // update geometry
@@ -1960,15 +1960,15 @@ GNERouteHandler::closePerson() {
                             break;
                         }
                         // Stops
-                        case GNE_TAG_PERSONSTOP_BUSSTOP: {
-                            buildPersonStop(myNet, true, person, nullptr, personPlanValue.busStop, personPlanValue.stopParameters);
+                        case GNE_TAG_STOPPERSON_BUSSTOP: {
+                            buildStopPerson(myNet, true, person, nullptr, personPlanValue.busStop, personPlanValue.stopParameters);
                             break;
                         }
-                        case GNE_TAG_PERSONSTOP_EDGE: {
+                        case GNE_TAG_STOPPERSON_EDGE: {
                             if (personPlanValue.laneStop) {
-                                buildPersonStop(myNet, true, person, personPlanValue.laneStop->getParentEdge(), nullptr, personPlanValue.stopParameters);
+                                buildStopPerson(myNet, true, person, personPlanValue.laneStop->getParentEdge(), nullptr, personPlanValue.stopParameters);
                             } else {
-                                buildPersonStop(myNet, true, person, personPlanValue.edgeStop, nullptr, personPlanValue.stopParameters);
+                                buildStopPerson(myNet, true, person, personPlanValue.edgeStop, nullptr, personPlanValue.stopParameters);
                             }
                             break;
                         }
@@ -2050,8 +2050,8 @@ GNERouteHandler::closePersonFlow() {
                             break;
                         }
                         // stops
-                        case GNE_TAG_PERSONSTOP_BUSSTOP:
-                        case GNE_TAG_PERSONSTOP_EDGE: {
+                        case GNE_TAG_STOPPERSON_BUSSTOP:
+                        case GNE_TAG_STOPPERSON_EDGE: {
                             buildStop(myNet, true, personPlanValue.stopParameters, person);
                             break;
                         }
@@ -2129,7 +2129,7 @@ GNERouteHandler::closeTrip() {
 
 void
 GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
-    // declare a personStop
+    // declare a stopPerson
     PersonPlansValues stop;
     std::string errorSuffix;
     if (myVehicleParameter != nullptr) {
@@ -2158,7 +2158,7 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         stop.tag = SUMO_TAG_STOP_BUSSTOP;
         // special case for persons
         if ((myVehicleParameter != nullptr) && ((myVehicleParameter->tag == SUMO_TAG_PERSON) || (myVehicleParameter->tag == SUMO_TAG_PERSONFLOW))) {
-            stop.tag = GNE_TAG_PERSONSTOP_BUSSTOP;
+            stop.tag = GNE_TAG_STOPPERSON_BUSSTOP;
         }
     } else {
         // no, the lane and the position should be given
@@ -2192,7 +2192,7 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         stop.tag = SUMO_TAG_STOP_LANE;
         // special case for persons
         if ((myVehicleParameter != nullptr) && ((myVehicleParameter->tag == SUMO_TAG_PERSON) || (myVehicleParameter->tag == SUMO_TAG_PERSONFLOW))) {
-            stop.tag = GNE_TAG_PERSONSTOP_EDGE;
+            stop.tag = GNE_TAG_STOPPERSON_EDGE;
         }
     }
     // now create or store stop
@@ -2302,10 +2302,10 @@ GNERouteHandler::PersonPlansValues::updateGNETag() {
         }
     } else if (edgeStop || laneStop) {
         // person stop lane
-        tag = GNE_TAG_PERSONSTOP_EDGE;
+        tag = GNE_TAG_STOPPERSON_EDGE;
     } else if (busStop) {
         // person stop lane
-        tag = GNE_TAG_PERSONSTOP_BUSSTOP;
+        tag = GNE_TAG_STOPPERSON_BUSSTOP;
     } else {
         throw ProcessError("invalid combination");
     }

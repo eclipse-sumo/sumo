@@ -175,7 +175,7 @@ GNEPerson::~GNEPerson() {}
 GNEMoveOperation*
 GNEPerson::getMoveOperation(const double /*shapeOffset*/) {
     // check first person plan
-    if (getChildDemandElements().front()->getTagProperty().isPersonStop()) {
+    if (getChildDemandElements().front()->getTagProperty().isStopPerson()) {
         return nullptr;
     } else {
         // get lane
@@ -318,7 +318,7 @@ Boundary
 GNEPerson::getCenteringBoundary() const {
     Boundary personBoundary;
     if (getChildDemandElements().size() > 0) {
-        if (getChildDemandElements().front()->getTagProperty().isPersonStop()) {
+        if (getChildDemandElements().front()->getTagProperty().isStopPerson()) {
             // use boundary of stop center
             return getChildDemandElements().front()->getCenteringBoundary();
         } else {
@@ -517,7 +517,7 @@ GNEPerson::getAttributePosition(SumoXMLAttr key) const {
             // get person plan
             const GNEDemandElement* personPlan = getChildDemandElements().front();
             // first check if first person plan is a stop
-            if (personPlan->getTagProperty().isPersonStop()) {
+            if (personPlan->getTagProperty().isStopPerson()) {
                 return personPlan->getPositionInView();
             } else {
                 // declare lane lane

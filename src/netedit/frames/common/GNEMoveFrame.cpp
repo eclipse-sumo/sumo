@@ -124,8 +124,8 @@ GNEMoveFrame::DemandModeOptions::DemandModeOptions(GNEMoveFrame* moveFrameParent
     FXGroupBox(moveFrameParent->myContentFrame, "Demand move options", GUIDesignGroupBoxFrame),
     myMoveFrameParent(moveFrameParent) {
     // Create checkbox for enable/disable move whole polygons
-    myLeavePersonStopsConnected = new FXCheckButton(this, "Leave personStops connected", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
-    myLeavePersonStopsConnected->setCheck(FALSE);
+    myLeaveStopPersonsConnected = new FXCheckButton(this, "Leave stopPersons connected", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myLeaveStopPersonsConnected->setCheck(FALSE);
 }
 
 
@@ -146,10 +146,10 @@ GNEMoveFrame::DemandModeOptions::hideDemandModeOptions() {
 
 
 bool
-GNEMoveFrame::DemandModeOptions::getLeavePersonStopsConnected() const {
+GNEMoveFrame::DemandModeOptions::getLeaveStopPersonsConnected() const {
     if (myMoveFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
             (myMoveFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_MOVE)) {
-        return (myLeavePersonStopsConnected->getCheck() == TRUE);
+        return (myLeaveStopPersonsConnected->getCheck() == TRUE);
     } else {
         return false;
     }

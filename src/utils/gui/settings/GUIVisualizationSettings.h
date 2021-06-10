@@ -153,7 +153,7 @@ struct GUIVisualizationColorSettings {
     /// @brief person selection color
     RGBColor selectedPersonColor;
 
-    /// @brief person plan selection color (Rides, Walks, personStops...)
+    /// @brief person plan selection color (Rides, Walks, stopPersons...)
     RGBColor selectedPersonPlanColor;
 
     /// @brief container selection color
@@ -189,10 +189,10 @@ struct GUIVisualizationColorSettings {
     /// @brief color for vehicle trips
     static const RGBColor vehicleTrips;
 
-    /// @brief color for personStops
-    static const RGBColor personStops;
+    /// @brief color for stopPersons
+    static const RGBColor stopPersons;
 
-    /// @brief color for personStops
+    /// @brief color for stopPersons
     static const RGBColor personTrip;
 
     /// @brief color for walks

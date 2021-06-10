@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEPersonStop.h
+/// @file    GNEStopPerson.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2020
 ///
@@ -27,19 +27,19 @@
 // class definitions
 // ===========================================================================
 /**
- * @class GNEPersonStop
+ * @class GNEStopPerson
  */
-class GNEPersonStop : public GNEDemandElement, public SUMOVehicleParameter::Stop {
+class GNEStopPerson : public GNEDemandElement, public SUMOVehicleParameter::Stop {
 
 public:
     /// @brief constructor used for stops over busStops
-    GNEPersonStop(GNENet* net, GNEDemandElement* personParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter);
+    GNEStopPerson(GNENet* net, GNEDemandElement* personParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter);
 
     /// @brief constructor used for stops over lanes
-    GNEPersonStop(GNENet* net, GNEDemandElement* personParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter);
+    GNEStopPerson(GNENet* net, GNEDemandElement* personParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter);
 
     /// @brief destructor
-    ~GNEPersonStop();
+    ~GNEStopPerson();
 
     /**@brief get move operation for the given shapeOffset
      * @note returned GNEMoveOperation can be nullptr
@@ -206,11 +206,11 @@ protected:
     /// @brief get first valid lane
     const GNELane* getFirstAllowedLane() const;
 
-    /// @brief draw personStop over lane
-    void drawPersonStopOverLane(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& stopColor) const;
+    /// @brief draw stopPerson over lane
+    void drawStopPersonOverLane(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& stopColor) const;
 
-    /// @brief draw personStop over busStop
-    void drawPersonStopOverBusStop(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& stopColor) const;
+    /// @brief draw stopPerson over busStop
+    void drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& stopColor) const;
 
 private:
     /// @brief method for setting the attribute and nothing else
@@ -226,8 +226,8 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
-    GNEPersonStop(const GNEPersonStop&) = delete;
+    GNEStopPerson(const GNEStopPerson&) = delete;
 
     /// @brief Invalidated assignment operator
-    GNEPersonStop& operator=(const GNEPersonStop&) = delete;
+    GNEStopPerson& operator=(const GNEStopPerson&) = delete;
 };

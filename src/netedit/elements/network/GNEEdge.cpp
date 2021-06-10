@@ -412,9 +412,9 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     // draw person stops
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements()) {
-        for (const auto& personStopEdge : getChildDemandElements()) {
-            if (personStopEdge->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_EDGE) {
-                personStopEdge->drawGL(s);
+        for (const auto& stopPersonEdge : getChildDemandElements()) {
+            if (stopPersonEdge->getTagProperty().getTag() == GNE_TAG_STOPPERSON_EDGE) {
+                stopPersonEdge->drawGL(s);
             }
         }
     }

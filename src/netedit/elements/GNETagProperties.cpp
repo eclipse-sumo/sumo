@@ -327,8 +327,8 @@ GNETagProperties::isRide() const {
 
 
 bool
-GNETagProperties::isPersonStop() const {
-    return (myTagType & PERSONSTOP) != 0;
+GNETagProperties::isStopPerson() const {
+    return (myTagType & STOPPERSON) != 0;
 }
 
 

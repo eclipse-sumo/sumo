@@ -66,7 +66,7 @@ const RGBColor GUIVisualizationColorSettings::crossingPriority(229, 229, 229);
 const RGBColor GUIVisualizationColorSettings::crossingInvalid(255, 25, 25);
 const RGBColor GUIVisualizationColorSettings::stops(220, 20, 30);
 const RGBColor GUIVisualizationColorSettings::vehicleTrips(255, 128, 0);
-const RGBColor GUIVisualizationColorSettings::personStops(255, 0, 0);
+const RGBColor GUIVisualizationColorSettings::stopPersons(255, 0, 0);
 const RGBColor GUIVisualizationColorSettings::personTrip(200, 0, 255);
 const RGBColor GUIVisualizationColorSettings::walk(0, 255, 0);
 const RGBColor GUIVisualizationColorSettings::ride(0, 0, 255);

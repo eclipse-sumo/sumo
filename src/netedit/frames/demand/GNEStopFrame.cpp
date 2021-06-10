@@ -214,7 +214,7 @@ GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTa
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_LANE) + " to create a stop placed in a " + toString(SUMO_TAG_LANE));
             return false;
         }
-    } else if (stopTag == GNE_TAG_PERSONSTOP_EDGE) {
+    } else if (stopTag == GNE_TAG_STOPPERSON_EDGE) {
         if (lane) {
             stop.edge = lane->getParentEdge()->getID();
         } else {
@@ -223,7 +223,7 @@ GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTa
         }
     } else if (stoppingPlace) {
         if (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
-            if ((stopTag != SUMO_TAG_STOP_BUSSTOP) && (stopTag != GNE_TAG_PERSONSTOP_BUSSTOP)) {
+            if ((stopTag != SUMO_TAG_STOP_BUSSTOP) && (stopTag != GNE_TAG_STOPPERSON_BUSSTOP)) {
                 WRITE_WARNING("Invalid clicked stopping place to create a stop placed in a " + stoppingPlace->getTagProperty().getTagStr());
                 return false;
             } else {
