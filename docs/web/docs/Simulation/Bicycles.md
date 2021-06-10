@@ -154,14 +154,18 @@ Likewise, left-turning bicycles one a bicycle lane (on the right side of
 the road) must yield to straight-going vehicles.
     
 ## Indirect left turn
-In reality, left-turning bicycles may move in two stages
-1. move straight across
+In reality, left-turning bicycles may move in two stages:
+1. move straight across, and then 
 2. turn 90° left and then move straight across
 
 By default, [netconvert](../netconvert.md) generates a wide curve rather than going straight twice as above. Currently, this can only be remedied by setting [custom shapes for these internal lanes](../Netedit/index.md#connection). To adjust the waiting position of the bicycle (the point where the first stage ends), [connection attribute 'contPos' must be set](../Netedit/index.md#setting_connection_attributes).
 
-To define a controlled in direct turn where both stages respect the traffic light corresponding to the current movement direction another custom setting is needed. The first part of the left-turn connection will be controlled automatically by the traffic ligh according to the 'linkIndex' attribute of the connection.
-The second part can be controlled by [setting the optional attribute 'linkIndex2'](../Netedit/index.md#setting_connection_attributes). The easiest setup is to copy the linkIndex that controlls the movement of vehicles (or pedestrians) going straight from right to left.
+To define a controlled indirect turn where both stages respect the traffic light corresponding to the current movement direction another custom setting is needed. The first part of the left-turn connection will be controlled automatically by the traffic ligh according to the 'linkIndex' attribute of the connection.
+The second part can be controlled by [setting the optional attribute 'linkIndex2'](../Netedit/index.md#setting_connection_attributes). The easiest setup is to copy the linkIndex that controls the movement of vehicles (or pedestrians) going straight from right to left. In addition, parallel waiting of bicycles/motorpads in front of an intersection can be achived by activating the [Sublane-Model](../Simulation/SublaneModel.md). 
+ 
+Sometimes, bicycles/motorpads do not wait side by side properly. The following parameters can help to solve/improve this issue.
+  - latAlignment="nice"
+  - minGapLat="0.1"
     
 # Bicycle routing
 
