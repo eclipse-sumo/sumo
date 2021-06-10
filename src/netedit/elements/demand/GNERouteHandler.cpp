@@ -23,13 +23,17 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 
+#include "GNEContainer.h"
+#include "GNEContainerStop.h"
 #include "GNEPerson.h"
+#include "GNEPersonStop.h"
 #include "GNEPersonTrip.h"
 #include "GNERide.h"
 #include "GNERoute.h"
 #include "GNERouteHandler.h"
 #include "GNEStop.h"
-#include "GNEPersonStop.h"
+#include "GNETranship.h"
+#include "GNETransport.h"
 #include "GNEVehicle.h"
 #include "GNEVehicleType.h"
 #include "GNEWalk.h"
@@ -149,6 +153,18 @@ GNERouteHandler::isPersonIdDuplicated(GNENet* net, const std::string& id) {
     for (SumoXMLTag personTag : std::vector<SumoXMLTag>({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW})) {
         if (net->retrieveDemandElement(personTag, id, false) != nullptr) {
             WRITE_ERROR("There is another " + toString(personTag) + " with the same ID='" + id + "'.");
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
+GNERouteHandler::isContainerIdDuplicated(GNENet* net, const std::string& id) {
+    for (SumoXMLTag containerTag : std::vector<SumoXMLTag>({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW})) {
+        if (net->retrieveDemandElement(containerTag, id, false) != nullptr) {
+            WRITE_ERROR("There is another " + toString(containerTag) + " with the same ID='" + id + "'.");
             return true;
         }
     }
@@ -1000,6 +1016,330 @@ GNERouteHandler::buildPersonStop(GNENet* net, bool undoDemandElements, GNEDemand
     }
     // update geometry
     personParent->updateGeometry();
+}
+
+
+void
+GNERouteHandler::buildContainer(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& containerParameters) {
+    // first check if ID is duplicated
+    if (!isContainerIdDuplicated(net, containerParameters.id)) {
+        // obtain routes and vtypes
+        GNEDemandElement* pType = net->retrieveDemandElement(SUMO_TAG_PTYPE, containerParameters.vtypeid, false);
+        if (pType == nullptr) {
+            WRITE_ERROR("Invalid container type '" + containerParameters.vtypeid + "' used in " + toString(containerParameters.tag) + " '" + containerParameters.id + "'.");
+        } else {
+            // create container using containerParameters
+            GNEDemandElement* container = new GNEContainer(SUMO_TAG_CONTAINER, net, pType, containerParameters);
+            if (undoDemandElements) {
+                net->getViewNet()->getUndoList()->p_begin("add " + container->getTagStr());
+                net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(container, true), true);
+                net->getViewNet()->getUndoList()->p_end();
+            } else {
+                net->getAttributeCarriers()->insertDemandElement(container);
+                // set container as child of pType and Route
+                pType->addChildElement(container);
+                container->incRef("buildContainer");
+            }
+        }
+    }
+}
+
+
+void
+GNERouteHandler::buildContainerFlow(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& containerFlowParameters) {
+    // first check if ID is duplicated
+    if (!isContainerIdDuplicated(net, containerFlowParameters.id)) {
+        // obtain routes and vtypes
+        GNEDemandElement* pType = net->retrieveDemandElement(SUMO_TAG_PTYPE, containerFlowParameters.vtypeid, false);
+        if (pType == nullptr) {
+            WRITE_ERROR("Invalid containerFlow type '" + containerFlowParameters.vtypeid + "' used in " + toString(containerFlowParameters.tag) + " '" + containerFlowParameters.id + "'.");
+        } else {
+            // create containerFlow using containerFlowParameters
+            GNEDemandElement* containerFlow = new GNEContainer(SUMO_TAG_CONTAINERFLOW, net, pType, containerFlowParameters);
+            if (undoDemandElements) {
+                net->getViewNet()->getUndoList()->p_begin("add " + containerFlow->getTagStr());
+                net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(containerFlow, true), true);
+                net->getViewNet()->getUndoList()->p_end();
+            } else {
+                net->getAttributeCarriers()->insertDemandElement(containerFlow);
+                // set containerFlow as child of pType and Route
+                pType->addChildElement(containerFlow);
+                containerFlow->incRef("buildContainerFlow");
+            }
+        }
+    }
+}
+
+
+bool
+GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerParent, GNEFrameAttributesModuls::AttributesCreator* containerPlanAttributes, GNEFrameModuls::PathCreator* pathCreator) {
+    // get view net
+    GNEViewNet* viewNet = containerParent->getNet()->getViewNet();
+    // Declare map to keep attributes from myContainerPlanAttributes
+    std::map<SumoXMLAttr, std::string> valuesMap = containerPlanAttributes->getAttributesAndValuesTemporal(true);
+    // get attributes
+    const std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
+    const std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
+    const std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
+    const double arrivalPos = (valuesMap.count(SUMO_ATTR_ARRIVALPOS) > 0) ? GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]) : 0;
+    // get stop parameters
+    SUMOVehicleParameter::Stop stopParameters;
+    // get edges
+    GNEEdge* fromEdge = (pathCreator->getSelectedEdges().size() > 0) ? pathCreator->getSelectedEdges().front() : nullptr;
+    GNEEdge* toEdge = (pathCreator->getSelectedEdges().size() > 0) ? pathCreator->getSelectedEdges().back() : nullptr;
+    // get busStop
+    GNEAdditional* toBusStop = pathCreator->getToStoppingPlace(SUMO_TAG_CONTAINER_STOP);
+    // get path edges
+    std::vector<GNEEdge*> edges;
+    for (const auto& path : pathCreator->getPath()) {
+        for (const auto& edge : path.getSubPath()) {
+            edges.push_back(edge);
+        }
+    }
+    // check what ContainerPlan we're creating
+    switch (tag) {
+        // Transports
+        case GNE_TAG_TRANSPORT_EDGE: {
+            // check if transport busStop->edge can be created
+            if (fromEdge && toEdge) {
+                buildTransport(viewNet->getNet(), true, containerParent, fromEdge, toEdge, nullptr, arrivalPos);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A ride from busStop to edge needs a busStop and an edge");
+            }
+            break;
+        }
+        case GNE_TAG_TRANSPORT_CONTAINERSTOP: {
+            // check if transport busStop->busStop can be created
+            if (fromEdge && toBusStop) {
+                buildTransport(viewNet->getNet(), true, containerParent, fromEdge, nullptr, toBusStop, arrivalPos);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A transport from busStop to busStop needs two busStops");
+            }
+            break;
+        }
+        // Tranships
+        case GNE_TAG_TRANSHIP_EDGE: {
+            // check if tranship busStop->edge can be created
+            if (fromEdge && toEdge) {
+                buildTranship(viewNet->getNet(), true, containerParent, fromEdge, toEdge, nullptr, {}, arrivalPos);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A ride from busStop to edge needs a busStop and an edge");
+            }
+            break;
+        }
+        case GNE_TAG_TRANSHIP_CONTAINERSTOP: {
+            // check if tranship busStop->busStop can be created
+            if (fromEdge && toBusStop) {
+                buildTranship(viewNet->getNet(), true, containerParent, fromEdge, nullptr, toBusStop, {}, arrivalPos);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A tranship from busStop to busStop needs two busStops");
+            }
+            break;
+        }
+        case GNE_TAG_TRANSHIP_EDGES: {
+            // check if tranship edges can be created
+            if (edges.size() > 0) {
+                buildTranship(viewNet->getNet(), true, containerParent, nullptr, nullptr, nullptr, edges, arrivalPos);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A tranship with edges attribute needs a list of edges");
+            }
+            break;
+        }
+        // stops
+        case GNE_TAG_CONTAINERSTOP_EDGE: {
+            // check if ride busStop->busStop can be created
+            if (fromEdge) {
+                stopParameters.edge = fromEdge->getID();
+                buildContainerStop(viewNet->getNet(), true, containerParent, fromEdge, nullptr, stopParameters);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A stop has to be placed over an edge");
+            }
+            break;
+        }
+        case GNE_TAG_CONTAINERSTOP_STOP: {
+            // check if ride busStop->busStop can be created
+            if (toBusStop) {
+                stopParameters.busstop = toBusStop->getID();
+                buildContainerStop(viewNet->getNet(), true, containerParent, nullptr, toBusStop, stopParameters);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A stop has to be placed over a busStop");
+            }
+            break;
+        }
+        default:
+            throw InvalidArgument("Invalid container plan tag");
+    }
+    // container plan wasn't created, then return false
+    return false;
+}
+
+
+void
+GNERouteHandler::buildTransport(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,
+                           GNEAdditional* toBusStop, double arrivalPos) {
+    // declare transport
+    GNEDemandElement* transport = nullptr;
+    // create transport depending of parameters
+    if (fromEdge && toEdge) {
+        // create transport edge->edge
+        transport = new GNETransport(net, containerParent, fromEdge, toEdge, arrivalPos);
+        // add element using undo list or directly, depending of undoDemandElements flag
+        if (undoDemandElements) {
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_TRANSPORT_EDGE) + " within container '" + containerParent->getID() + "'");
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(transport, true), true);
+            net->getViewNet()->getUndoList()->p_end();
+        } else {
+            // insert transport
+            net->getAttributeCarriers()->insertDemandElement(transport);
+            // set references in children
+            containerParent->addChildElement(transport);
+            fromEdge->addChildElement(transport);
+            toEdge->addChildElement(transport);
+            // include reference
+            transport->incRef("buildTransport");
+        }
+    } else if (fromEdge && toBusStop) {
+        // create transport edge->busStop
+        transport = new GNETransport(net, containerParent, fromEdge, toBusStop, arrivalPos);
+        // add element using undo list or directly, depending of undoDemandElements flag
+        if (undoDemandElements) {
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_TRANSPORT_CONTAINERSTOP) + " within container '" + containerParent->getID() + "'");
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(transport, true), true);
+            net->getViewNet()->getUndoList()->p_end();
+        } else {
+            // insert transport
+            net->getAttributeCarriers()->insertDemandElement(transport);
+            // set references in children
+            containerParent->addChildElement(transport);
+            fromEdge->addChildElement(transport);
+            toBusStop->addChildElement(transport);
+            // include reference
+            transport->incRef("buildTransport");
+        }
+    }
+    // update geometry
+    containerParent->updateGeometry();
+}
+
+
+void
+GNERouteHandler::buildTranship(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,
+                           GNEAdditional* toBusStop, const std::vector<GNEEdge*>& edges, double arrivalPos) {
+    // declare tranship
+    GNEDemandElement* tranship = nullptr;
+    // create tranship depending of parameters
+    if (fromEdge && toEdge) {
+        // create tranship edge->edge
+        tranship = new GNETranship(net, containerParent, fromEdge, toEdge, arrivalPos);
+        // add element using undo list or directly, depending of undoDemandElements flag
+        if (undoDemandElements) {
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_TRANSHIP_EDGE) + " within container '" + containerParent->getID() + "'");
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(tranship, true), true);
+            net->getViewNet()->getUndoList()->p_end();
+        } else {
+            // insert tranship
+            net->getAttributeCarriers()->insertDemandElement(tranship);
+            // set references in children
+            containerParent->addChildElement(tranship);
+            fromEdge->addChildElement(tranship);
+            toEdge->addChildElement(tranship);
+            // include reference
+            tranship->incRef("buildTranship");
+        }
+    } else if (fromEdge && toBusStop) {
+        // create tranship edge->busStop
+        tranship = new GNETranship(net, containerParent, fromEdge, toBusStop, arrivalPos);
+        // add element using undo list or directly, depending of undoDemandElements flag
+        if (undoDemandElements) {
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_TRANSHIP_CONTAINERSTOP) + " within container '" + containerParent->getID() + "'");
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(tranship, true), true);
+            net->getViewNet()->getUndoList()->p_end();
+        } else {
+            // insert tranship
+            net->getAttributeCarriers()->insertDemandElement(tranship);
+            // set references in children
+            containerParent->addChildElement(tranship);
+            fromEdge->addChildElement(tranship);
+            toBusStop->addChildElement(tranship);
+            // include reference
+            tranship->incRef("buildTranship");
+        }
+    } else if (edges.size() > 0) {
+        // create tranship edges
+        tranship = new GNETranship(net, containerParent, edges, arrivalPos);
+        // add element using undo list or directly, depending of undoDemandElements flag
+        if (undoDemandElements) {
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_TRANSHIP_EDGES) + " within container '" + containerParent->getID() + "'");
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(tranship, true), true);
+            net->getViewNet()->getUndoList()->p_end();
+        } else {
+            // insert tranship
+            net->getAttributeCarriers()->insertDemandElement(tranship);
+            // set references in children
+            containerParent->addChildElement(tranship);
+            for (const auto& edge : edges) {
+                edge->addChildElement(tranship);
+            }
+            // include reference
+            tranship->incRef("buildTranship");
+        }
+    }
+    // update geometry
+    containerParent->updateGeometry();
+}
+
+
+
+
+void
+GNERouteHandler::buildContainerStop(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* edge, GNEAdditional* busStop, const SUMOVehicleParameter::Stop& stopParameters) {
+    // declare containerStop
+    GNEDemandElement* containerStop = nullptr;
+    // create containerStop depending of parameters
+    if (edge) {
+        // create containerStop over edge
+        containerStop = new GNEContainerStop(net, containerParent, edge, stopParameters);
+        // add element using undo list or directly, depending of undoDemandElements flag
+        if (undoDemandElements) {
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_CONTAINERSTOP_EDGE) + " within container '" + containerParent->getID() + "'");
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(containerStop, true), true);
+            net->getViewNet()->getUndoList()->p_end();
+        } else {
+            // insert containerStop
+            net->getAttributeCarriers()->insertDemandElement(containerStop);
+            // set references in children
+            containerParent->addChildElement(containerStop);
+            edge->addChildElement(containerStop);
+            // include reference
+            containerStop->incRef("buildContainerStop");
+        }
+    } else if (busStop) {
+        // create containerStop over busStop
+        containerStop = new GNEContainerStop(net, containerParent, busStop, stopParameters);
+        // add element using undo list or directly, depending of undoDemandElements flag
+        if (undoDemandElements) {
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_STOP_CONTAINERSTOP) + " within container '" + containerParent->getID() + "'");
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(containerStop, true), true);
+            net->getViewNet()->getUndoList()->p_end();
+        } else {
+            // insert containerStop
+            net->getAttributeCarriers()->insertDemandElement(containerStop);
+            // set references in children
+            containerParent->addChildElement(containerStop);
+            busStop->addChildElement(containerStop);
+            // include reference
+            containerStop->incRef("buildContainerStop");
+        }
+    }
+    // update geometry
+    containerParent->updateGeometry();
 }
 
 
