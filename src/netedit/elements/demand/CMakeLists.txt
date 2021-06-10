@@ -19,8 +19,8 @@ set(netedit_elements_demand_SRCS
    GNEWalk.cpp
    GNERide.h
    GNERide.cpp
-   GNEPersonStop.h
-   GNEPersonStop.cpp
+   GNEStopPerson.h
+   GNEStopPerson.cpp
    GNEContainer.h
    GNEContainer.cpp
    GNETranship.h
