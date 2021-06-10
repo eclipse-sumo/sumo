@@ -371,6 +371,13 @@ enum class GUIIcon {
     WALK_ROUTE,
     RIDE_FROMTO,
     RIDE_BUSSTOP,
+    CONTAINER,
+    CONTAINERFLOW,
+    TRANSPORT_FROMTO,
+    TRANSPORT_BUSSTOP,
+    TRANSHIP_EDGES,
+    TRANSHIP_FROMTO,
+    TRANSHIP_BUSSTOP,
     /// @}
 
     /// @name NETEDIT data elements icons

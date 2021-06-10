@@ -267,6 +267,14 @@
 #include "walkroute.xpm"
 #include "ridefromto.xpm"
 #include "ridebusstop.xpm"
+#include "container.xpm"
+#include "containerflow.xpm"
+#include "transhipbusstop.xpm"
+#include "transhipedges.xpm"
+#include "transhipfromto.xpm"
+#include "transportbusstop.xpm"
+#include "transportfromto.xpm"
+
 
 #include "dataset.xpm"
 #include "datainterval.xpm"
@@ -601,6 +609,14 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::WALK_ROUTE] = new FXXPMIcon(a, walkroute_xpm);
     myIcons[GUIIcon::RIDE_FROMTO] = new FXXPMIcon(a, ridefromto_xpm);
     myIcons[GUIIcon::RIDE_BUSSTOP] = new FXXPMIcon(a, ridebusstop_xpm);
+
+    myIcons[GUIIcon::CONTAINER] = new FXXPMIcon(a, container_xpm);
+    myIcons[GUIIcon::CONTAINERFLOW] = new FXXPMIcon(a, containerflow_xpm);
+    myIcons[GUIIcon::TRANSPORT_FROMTO] = new FXXPMIcon(a, transportfromto_xpm);
+    myIcons[GUIIcon::TRANSPORT_BUSSTOP] = new FXXPMIcon(a, transportbusstop_xpm);
+    myIcons[GUIIcon::TRANSHIP_EDGES] = new FXXPMIcon(a, transhipedges_xpm);
+    myIcons[GUIIcon::TRANSHIP_FROMTO] = new FXXPMIcon(a, transhipfromto_xpm);
+    myIcons[GUIIcon::TRANSHIP_BUSSTOP] = new FXXPMIcon(a, transhipbusstop_xpm);
 
     myIcons[GUIIcon::DATASET] = new FXXPMIcon(a, dataset_xpm);
     myIcons[GUIIcon::DATAINTERVAL] = new FXXPMIcon(a, datainterval_xpm);
