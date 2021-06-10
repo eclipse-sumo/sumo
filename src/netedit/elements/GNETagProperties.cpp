@@ -333,6 +333,24 @@ GNETagProperties::isPersonStop() const {
 
 
 bool
+GNETagProperties::isContainer() const {
+    return (myTagType & CONTAINER) != 0;
+}
+
+
+bool
+GNETagProperties::isContainerPlan() const {
+    return (myTagType & CONTAINERPLAN) != 0;
+}
+
+
+bool
+GNETagProperties::isContainerStop() const {
+    return (myTagType & CONTAINERSTOP) != 0;
+}
+
+
+bool
 GNETagProperties::isGenericData() const {
     return (myTagType & GENERICDATA) != 0;
 }

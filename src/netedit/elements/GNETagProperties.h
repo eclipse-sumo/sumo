@@ -54,17 +54,22 @@ public:
         VEHICLE =           1 << 9,  // Vehicles (Vehicles, trips, flows, and routeFlows)
         ROUTE =             1 << 10, // Routes and embedded routes
         STOP =              1 << 11, // Stops
+        // persons
         PERSON =            1 << 12, // Persons (Persons and personFlows)
         PERSONPLAN =        1 << 13, // Person plans (Walks, rides, personTrips and personStops)
         PERSONTRIP =        1 << 14, // Person Trips
         WALK =              1 << 15, // Walks
         RIDE =              1 << 16, // Rides
         PERSONSTOP =        1 << 17, // Person stops
+        // containers
+        CONTAINER =         1 << 18, // Containers (Containers and personFlows)
+        CONTAINERPLAN =     1 << 19, // Container plans (tranship and transport )
+        CONTAINERSTOP =     1 << 20, // Container stops
         // sub data elements
-        GENERICDATA =       1 << 18, // Generic data (GNEEdgeData, GNELaneData...)
+        GENERICDATA =       1 << 21, // Generic data (GNEEdgeData, GNELaneData...)
         // other
-        SYMBOL =            1 << 19, // Symbol elements (VSSSymbols, RerouterSymbols...)
-        INTERNALLANE =      1 << 20, // Internal Lane
+        SYMBOL =            1 << 22, // Symbol elements (VSSSymbols, RerouterSymbols...)
+        INTERNALLANE =      1 << 23, // Internal Lane
     };
 
     enum TagProperty {
@@ -194,6 +199,15 @@ public:
 
     /// @brief return true if tag correspond to a person stop element
     bool isPersonStop() const;
+
+    /// @brief return true if tag correspond to a container element
+    bool isContainer() const;
+
+    /// @brief return true if tag correspond to a container plan
+    bool isContainerPlan() const;
+
+    /// @brief return true if tag correspond to a container stop element
+    bool isContainerStop() const;
 
     /// @brief return true if tag correspond to a generic data element
     bool isGenericData() const;
