@@ -3921,7 +3921,7 @@ GNEAttributeCarrier::fillContainerStopElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
     // fill vehicle ACs
-    SumoXMLTag currentTag = GNE_TAG_CONTAINERSTOP_EDGE;
+    SumoXMLTag currentTag = GNE_TAG_STOPCONTAINER_EDGE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
@@ -3964,7 +3964,7 @@ GNEAttributeCarrier::fillContainerStopElements() {
                                               "waiting");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = GNE_TAG_CONTAINERSTOP_STOP;
+    currentTag = GNE_TAG_STOPCONTAINER_STOP;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,

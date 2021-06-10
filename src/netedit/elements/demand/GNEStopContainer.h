@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEContainerStop.h
+/// @file    GNEStopContainer.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2021
 ///
@@ -27,19 +27,19 @@
 // class definitions
 // ===========================================================================
 /**
- * @class GNEContainerStop
+ * @class GNEStopContainer
  */
-class GNEContainerStop : public GNEDemandElement, public SUMOVehicleParameter::Stop {
+class GNEStopContainer : public GNEDemandElement, public SUMOVehicleParameter::Stop {
 
 public:
-    /// @brief constructor used for stops over containerStops
-    GNEContainerStop(GNENet* net, GNEDemandElement* containerParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter);
+    /// @brief constructor used for stops over stopContainers
+    GNEStopContainer(GNENet* net, GNEDemandElement* containerParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter);
 
     /// @brief constructor used for stops over lanes
-    GNEContainerStop(GNENet* net, GNEDemandElement* containerParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter);
+    GNEStopContainer(GNENet* net, GNEDemandElement* containerParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter);
 
     /// @brief destructor
-    ~GNEContainerStop();
+    ~GNEStopContainer();
 
     /**@brief get move operation for the given shapeOffset
      * @note returned GNEMoveOperation can be nullptr
@@ -206,11 +206,11 @@ protected:
     /// @brief get first valid lane
     const GNELane* getFirstAllowedLane() const;
 
-    /// @brief draw containerStop over lane
-    void drawContainerStopOverLane(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& stopColor) const;
+    /// @brief draw stopContainer over lane
+    void drawStopContainerOverLane(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& stopColor) const;
 
-    /// @brief draw containerStop over containerStop
-    void drawContainerStopOverContainerStop(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& stopColor) const;
+    /// @brief draw stopContainer over stopContainer
+    void drawStopContainerOverStopContainer(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& stopColor) const;
 
 private:
     /// @brief method for setting the attribute and nothing else
@@ -226,8 +226,8 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
-    GNEContainerStop(const GNEContainerStop&) = delete;
+    GNEStopContainer(const GNEStopContainer&) = delete;
 
     /// @brief Invalidated assignment operator
-    GNEContainerStop& operator=(const GNEContainerStop&) = delete;
+    GNEStopContainer& operator=(const GNEStopContainer&) = delete;
 };

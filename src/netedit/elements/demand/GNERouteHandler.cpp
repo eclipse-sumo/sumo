@@ -24,7 +24,7 @@
 #include <netedit/changes/GNEChange_DemandElement.h>
 
 #include "GNEContainer.h"
-#include "GNEContainerStop.h"
+#include "GNEStopContainer.h"
 #include "GNEPerson.h"
 #include "GNEStopPerson.h"
 #include "GNEPersonTrip.h"
@@ -1151,22 +1151,22 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
             break;
         }
         // stops
-        case GNE_TAG_CONTAINERSTOP_EDGE: {
+        case GNE_TAG_STOPCONTAINER_EDGE: {
             // check if ride busStop->busStop can be created
             if (fromEdge) {
                 stopParameters.edge = fromEdge->getID();
-                buildContainerStop(viewNet->getNet(), true, containerParent, fromEdge, nullptr, stopParameters);
+                buildStopContainer(viewNet->getNet(), true, containerParent, fromEdge, nullptr, stopParameters);
                 return true;
             } else {
                 viewNet->setStatusBarText("A stop has to be placed over an edge");
             }
             break;
         }
-        case GNE_TAG_CONTAINERSTOP_STOP: {
+        case GNE_TAG_STOPCONTAINER_STOP: {
             // check if ride busStop->busStop can be created
             if (toBusStop) {
                 stopParameters.busstop = toBusStop->getID();
-                buildContainerStop(viewNet->getNet(), true, containerParent, nullptr, toBusStop, stopParameters);
+                buildStopContainer(viewNet->getNet(), true, containerParent, nullptr, toBusStop, stopParameters);
                 return true;
             } else {
                 viewNet->setStatusBarText("A stop has to be placed over a busStop");
@@ -1299,43 +1299,43 @@ GNERouteHandler::buildTranship(GNENet* net, bool undoDemandElements, GNEDemandEl
 
 
 void
-GNERouteHandler::buildContainerStop(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* edge, GNEAdditional* busStop, const SUMOVehicleParameter::Stop& stopParameters) {
-    // declare containerStop
-    GNEDemandElement* containerStop = nullptr;
-    // create containerStop depending of parameters
+GNERouteHandler::buildStopContainer(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* edge, GNEAdditional* busStop, const SUMOVehicleParameter::Stop& stopParameters) {
+    // declare stopContainer
+    GNEDemandElement* stopContainer = nullptr;
+    // create stopContainer depending of parameters
     if (edge) {
-        // create containerStop over edge
-        containerStop = new GNEContainerStop(net, containerParent, edge, stopParameters);
+        // create stopContainer over edge
+        stopContainer = new GNEStopContainer(net, containerParent, edge, stopParameters);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
-            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_CONTAINERSTOP_EDGE) + " within container '" + containerParent->getID() + "'");
-            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(containerStop, true), true);
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_STOPCONTAINER_EDGE) + " within container '" + containerParent->getID() + "'");
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stopContainer, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // insert containerStop
-            net->getAttributeCarriers()->insertDemandElement(containerStop);
+            // insert stopContainer
+            net->getAttributeCarriers()->insertDemandElement(stopContainer);
             // set references in children
-            containerParent->addChildElement(containerStop);
-            edge->addChildElement(containerStop);
+            containerParent->addChildElement(stopContainer);
+            edge->addChildElement(stopContainer);
             // include reference
-            containerStop->incRef("buildContainerStop");
+            stopContainer->incRef("buildStopContainer");
         }
     } else if (busStop) {
-        // create containerStop over busStop
-        containerStop = new GNEContainerStop(net, containerParent, busStop, stopParameters);
+        // create stopContainer over busStop
+        stopContainer = new GNEStopContainer(net, containerParent, busStop, stopParameters);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_STOP_CONTAINERSTOP) + " within container '" + containerParent->getID() + "'");
-            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(containerStop, true), true);
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stopContainer, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // insert containerStop
-            net->getAttributeCarriers()->insertDemandElement(containerStop);
+            // insert stopContainer
+            net->getAttributeCarriers()->insertDemandElement(stopContainer);
             // set references in children
-            containerParent->addChildElement(containerStop);
-            busStop->addChildElement(containerStop);
+            containerParent->addChildElement(stopContainer);
+            busStop->addChildElement(stopContainer);
             // include reference
-            containerStop->incRef("buildContainerStop");
+            stopContainer->incRef("buildStopContainer");
         }
     }
     // update geometry

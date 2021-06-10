@@ -198,7 +198,7 @@ public:
                           GNEAdditional* toBusStop, const std::vector<GNEEdge*>& edges, double arrivalPos);
 
     /// @brief build container stop
-    static void buildContainerStop(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* edge, GNEAdditional* busStop, const SUMOVehicleParameter::Stop& stopParameters);
+    static void buildStopContainer(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* edge, GNEAdditional* busStop, const SUMOVehicleParameter::Stop& stopParameters);
 
     /// @}
 

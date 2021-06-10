@@ -70,7 +70,7 @@ const RGBColor GUIVisualizationColorSettings::stopPersons(255, 0, 0);
 const RGBColor GUIVisualizationColorSettings::personTrip(200, 0, 255);
 const RGBColor GUIVisualizationColorSettings::walk(0, 255, 0);
 const RGBColor GUIVisualizationColorSettings::ride(0, 0, 255);
-const RGBColor GUIVisualizationColorSettings::containerStops(255, 0, 0);
+const RGBColor GUIVisualizationColorSettings::stopContainers(255, 0, 0);
 const RGBColor GUIVisualizationColorSettings::transport(100, 200, 0);
 const RGBColor GUIVisualizationColorSettings::tranship(100, 0, 200);
 

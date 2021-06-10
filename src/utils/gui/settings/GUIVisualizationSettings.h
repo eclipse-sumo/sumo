@@ -202,7 +202,7 @@ struct GUIVisualizationColorSettings {
     static const RGBColor ride;
 
     /// @brief color for containerStops
-    static const RGBColor containerStops;
+    static const RGBColor stopContainers;
 
     /// @brief color for transport
     static const RGBColor transport;

@@ -27,8 +27,8 @@
 
 #include "GUITextureSubSys.h"
 
-#include "GNETexture_ContainerStop.cpp"
-#include "GNETexture_ContainerStopSelected.cpp"
+#include "GNETexture_StopContainer.cpp"
+#include "GNETexture_StopContainerSelected.cpp"
 #include "GNETexture_E3.cpp"
 #include "GNETexture_E3Selected.cpp"
 #include "GNETexture_Empty.cpp"
@@ -183,11 +183,11 @@ GUITextureSubSys::getTexture(GUITexture which) {
             case GUITexture::STOPPERSON_SELECTED:
                 myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_StopPersonSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
-            case GUITexture::CONTAINERSTOP:
-                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_ContainerStop, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+            case GUITexture::STOPCONTAINER:
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_StopContainer, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
-            case GUITexture::CONTAINERSTOP_SELECTED:
-                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_ContainerStopSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+            case GUITexture::STOPCONTAINER_SELECTED:
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_StopContainerSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
             default:
                 throw ProcessError("Undefined texture");

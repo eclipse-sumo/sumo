@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEContainerStop.cpp
+/// @file    GNEStopContainer.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2021
 ///
@@ -30,33 +30,33 @@
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/vehicle/SUMORouteHandler.h>
 
-#include "GNEContainerStop.h"
+#include "GNEStopContainer.h"
 
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEContainerStop::GNEContainerStop(GNENet* net, GNEDemandElement* containerParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(containerParent, net, GLO_STOP_CONTAINER, GNE_TAG_CONTAINERSTOP_STOP,
+GNEStopContainer::GNEStopContainer(GNENet* net, GNEDemandElement* containerParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter) :
+    GNEDemandElement(containerParent, net, GLO_STOP_CONTAINER, GNE_TAG_STOPCONTAINER_STOP,
 {}, {}, {}, {stoppingPlace}, {}, {}, {containerParent}, {}),
 SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
-GNEContainerStop::GNEContainerStop(GNENet* net, GNEDemandElement* containerParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(containerParent, net, GLO_STOP_CONTAINER, GNE_TAG_CONTAINERSTOP_EDGE,
+GNEStopContainer::GNEStopContainer(GNENet* net, GNEDemandElement* containerParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter) :
+    GNEDemandElement(containerParent, net, GLO_STOP_CONTAINER, GNE_TAG_STOPCONTAINER_EDGE,
 {}, {edge}, {}, {}, {}, {}, {containerParent}, {}),
 SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
-GNEContainerStop::~GNEContainerStop() {}
+GNEStopContainer::~GNEStopContainer() {}
 
 
 GNEMoveOperation*
-GNEContainerStop::getMoveOperation(const double /*shapeOffset*/) {
-    if (myTagProperty.getTag() == GNE_TAG_CONTAINERSTOP_EDGE) {
+GNEStopContainer::getMoveOperation(const double /*shapeOffset*/) {
+    if (myTagProperty.getTag() == GNE_TAG_STOPCONTAINER_EDGE) {
         // return move operation for additional placed over shape
         return new GNEMoveOperation(this, getParentEdges().front()->getLanes().front(), {endPos},
                                     myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
@@ -67,19 +67,19 @@ GNEContainerStop::getMoveOperation(const double /*shapeOffset*/) {
 
 
 std::string
-GNEContainerStop::getBegin() const {
+GNEStopContainer::getBegin() const {
     return "";
 }
 
 
 void
-GNEContainerStop::writeDemandElement(OutputDevice& device) const {
+GNEStopContainer::writeDemandElement(OutputDevice& device) const {
     write(device);
 }
 
 
 bool
-GNEContainerStop::isDemandElementValid() const {
+GNEStopContainer::isDemandElementValid() const {
     // get lane
     const GNELane* firstLane = getFirstAllowedLane();
     // only Stops placed over lanes can be invalid
@@ -102,7 +102,7 @@ GNEContainerStop::isDemandElementValid() const {
 
 
 std::string
-GNEContainerStop::getDemandElementProblem() const {
+GNEStopContainer::getDemandElementProblem() const {
     if (friendlyPos) {
         return "";
     } else {
@@ -123,31 +123,31 @@ GNEContainerStop::getDemandElementProblem() const {
 
 
 void
-GNEContainerStop::fixDemandElementProblem() {
+GNEStopContainer::fixDemandElementProblem() {
     //
 }
 
 
 SUMOVehicleClass
-GNEContainerStop::getVClass() const {
+GNEStopContainer::getVClass() const {
     return getParentDemandElements().front()->getVClass();
 }
 
 
 const RGBColor&
-GNEContainerStop::getColor() const {
-    return myNet->getViewNet()->getVisualisationSettings().colorSettings.containerStops;
+GNEStopContainer::getColor() const {
+    return myNet->getViewNet()->getVisualisationSettings().colorSettings.stopContainers;
 }
 
 
 void
-GNEContainerStop::updateGeometry() {
+GNEStopContainer::updateGeometry() {
     // only update Stops over edges
     if (getParentAdditionals().size() > 0) {
-        // get containerStop shape
-        const PositionVector& containerStopShape = getParentAdditionals().front()->getAdditionalGeometry().getShape();
+        // get stopContainer shape
+        const PositionVector& stopContainerShape = getParentAdditionals().front()->getAdditionalGeometry().getShape();
         // update demand element geometry using both positions
-        myDemandElementGeometry.updateGeometry(containerStopShape, containerStopShape.length2D() - 0.6, containerStopShape.length2D(), 0);
+        myDemandElementGeometry.updateGeometry(stopContainerShape, stopContainerShape.length2D() - 0.6, stopContainerShape.length2D(), 0);
     } else {
         // get front and back lane
         const GNELane* frontLane = getParentEdges().front()->getLanes().front();
@@ -168,8 +168,8 @@ GNEContainerStop::updateGeometry() {
 
 
 Position
-GNEContainerStop::getPositionInView() const {
-    // check if is placed over a containerStop
+GNEStopContainer::getPositionInView() const {
+    // check if is placed over a stopContainer
     if (getParentAdditionals().size() > 0) {
         return getParentAdditionals().front()->getPositionInView();
     } else {
@@ -188,7 +188,7 @@ GNEContainerStop::getPositionInView() const {
 
 
 std::string
-GNEContainerStop::getParentName() const {
+GNEStopContainer::getParentName() const {
     // get lane
     const GNELane* const firstLane = getFirstAllowedLane();
     if (getParentDemandElements().size() > 0) {
@@ -204,7 +204,7 @@ GNEContainerStop::getParentName() const {
 
 
 Boundary
-GNEContainerStop::getCenteringBoundary() const {
+GNEStopContainer::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
     if (getParentAdditionals().size() > 0) {
         return getParentAdditionals().at(0)->getCenteringBoundary();
@@ -218,13 +218,13 @@ GNEContainerStop::getCenteringBoundary() const {
 
 
 void
-GNEContainerStop::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
+GNEStopContainer::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
 
 
 void
-GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
+GNEStopContainer::drawGL(const GUIVisualizationSettings& s) const {
     // check if stop can be drawn
     if (drawPersonPlan()) {
         // Obtain exaggeration of the draw
@@ -237,11 +237,11 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
-        // check if draw containerStop over containerStop oder over lane
+        // check if draw stopContainer over stopContainer oder over lane
         if (getParentAdditionals().size() > 0) {
-            drawContainerStopOverContainerStop(s, exaggeration, stopColor);
+            drawStopContainerOverStopContainer(s, exaggeration, stopColor);
         } else {
-            drawContainerStopOverLane(s, exaggeration, stopColor);
+            drawStopContainerOverLane(s, exaggeration, stopColor);
         }
         // pop layer matrix
         glPopMatrix();
@@ -263,27 +263,27 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEContainerStop::computePathElement() {
+GNEStopContainer::computePathElement() {
     // only update geometry
     updateGeometry();
 }
 
 
 void
-GNEContainerStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // containerStops don't use drawPartialGL
+GNEStopContainer::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // stopContainers don't use drawPartialGL
 }
 
 
 void
-GNEContainerStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // containerStops don't use drawPartialGL
+GNEStopContainer::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // stopContainers don't use drawPartialGL
 }
 
 
 GNELane*
-GNEContainerStop::getFirstPathLane() const {
-    // check if stop is placed over a containerStop
+GNEStopContainer::getFirstPathLane() const {
+    // check if stop is placed over a stopContainer
     if (getParentAdditionals().size() > 0) {
         return getParentAdditionals().front()->getParentLanes().front();
     } else {
@@ -293,14 +293,14 @@ GNEContainerStop::getFirstPathLane() const {
 
 
 GNELane*
-GNEContainerStop::getLastPathLane() const {
+GNEStopContainer::getLastPathLane() const {
     // first and last path lane are the same
     return getFirstPathLane();
 }
 
 
 std::string
-GNEContainerStop::getAttribute(SumoXMLAttr key) const {
+GNEStopContainer::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getParentDemandElements().front()->getID();
@@ -340,7 +340,7 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
 
 
 double
-GNEContainerStop::getAttributeDouble(SumoXMLAttr key) const {
+GNEStopContainer::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         // we use SUMO_ATTR_ARRIVALPOS instead SUMO_ATTR_ENDPOS due it's a container plan
         case SUMO_ATTR_ARRIVALPOS:
@@ -356,12 +356,12 @@ GNEContainerStop::getAttributeDouble(SumoXMLAttr key) const {
 
 
 Position
-GNEContainerStop::getAttributePosition(SumoXMLAttr key) const {
+GNEStopContainer::getAttributePosition(SumoXMLAttr key) const {
     switch (key) {
         // we use SUMO_ATTR_ARRIVALPOS instead SUMO_ATTR_ENDPOS due it's a container plan
         case SUMO_ATTR_ARRIVALPOS: {
             if (getParentAdditionals().size() > 0) {
-                // return first position of containerStop
+                // return first position of stopContainer
                 return getParentAdditionals().front()->getAdditionalGeometry().getShape().front();
             } else {
                 // get lane shape
@@ -383,7 +383,7 @@ GNEContainerStop::getAttributePosition(SumoXMLAttr key) const {
 
 
 void
-GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+GNEStopContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
@@ -415,11 +415,11 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
             GNEDemandElement* nextContainerPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
             // continue depending of nextContainerPlan
             if (nextContainerPlan) {
-                // obtain containerStop
-                const GNEAdditional* containerStop = myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value);
+                // obtain stopContainer
+                const GNEAdditional* stopContainer = myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value);
                 // change from attribute using edge ID
                 undoList->p_begin("Change from attribute of next containerPlan");
-                nextContainerPlan->setAttribute(SUMO_ATTR_FROM, containerStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
+                nextContainerPlan->setAttribute(SUMO_ATTR_FROM, stopContainer->getParentLanes().front()->getParentEdge()->getID(), undoList);
                 undoList->p_add(new GNEChange_Attribute(this, key, value));
                 undoList->p_end();
             } else {
@@ -450,7 +450,7 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
 
 
 bool
-GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
+GNEStopContainer::isValid(SumoXMLAttr key, const std::string& value) {
     // declare string error
     std::string error;
     switch (key) {
@@ -488,7 +488,7 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEContainerStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+GNEStopContainer::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     // obtain a copy of parameter sets
     int newParametersSet = parametersSet;
     // modify parametersSetCopy depending of attr
@@ -520,7 +520,7 @@ GNEContainerStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 
 
 void
-GNEContainerStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+GNEStopContainer::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     // obtain a copy of parameter sets
     int newParametersSet = parametersSet;
     // modify parametersSetCopy depending of attr
@@ -543,7 +543,7 @@ GNEContainerStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 
 
 bool
-GNEContainerStop::isAttributeEnabled(SumoXMLAttr key) const {
+GNEStopContainer::isAttributeEnabled(SumoXMLAttr key) const {
     if (key == SUMO_ATTR_FROM) {
         return (getParentDemandElements().at(0)->getPreviousChildDemandElement(this) == nullptr);
     } else {
@@ -553,13 +553,13 @@ GNEContainerStop::isAttributeEnabled(SumoXMLAttr key) const {
 
 
 std::string
-GNEContainerStop::getPopUpID() const {
+GNEStopContainer::getPopUpID() const {
     return getTagStr();
 }
 
 
 std::string
-GNEContainerStop::getHierarchyName() const {
+GNEStopContainer::getHierarchyName() const {
     if (getParentAdditionals().size() > 0) {
         return "container stop: " + getParentAdditionals().front()->getTagStr();
     } else {
@@ -569,13 +569,13 @@ GNEContainerStop::getHierarchyName() const {
 
 
 const std::map<std::string, std::string>&
-GNEContainerStop::getACParametersMap() const {
+GNEStopContainer::getACParametersMap() const {
     return getParametersMap();
 }
 
 
 const GNELane*
-GNEContainerStop::getFirstAllowedLane() const {
+GNEStopContainer::getFirstAllowedLane() const {
     if (getParentEdges().empty()) {
         return nullptr;
     }
@@ -589,7 +589,7 @@ GNEContainerStop::getFirstAllowedLane() const {
 
 
 void
-GNEContainerStop::drawContainerStopOverLane(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& stopColor) const {
+GNEStopContainer::drawStopContainerOverLane(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& stopColor) const {
     // declare central line color
     const RGBColor centralLineColor = drawUsingSelectColor() ? stopColor.changedBrightness(-32) : RGBColor::WHITE;
     // set base color
@@ -616,9 +616,9 @@ GNEContainerStop::drawContainerStopOverLane(const GUIVisualizationSettings& s, c
         glRotated(180, 0, 0, 1);
         // draw texture
         if (drawUsingSelectColor()) {
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::CONTAINERSTOP_SELECTED), s.additionalSettings.vaporizerSize * exaggeration);
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPCONTAINER_SELECTED), s.additionalSettings.vaporizerSize * exaggeration);
         } else {
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::CONTAINERSTOP), s.additionalSettings.vaporizerSize * exaggeration);
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPCONTAINER), s.additionalSettings.vaporizerSize * exaggeration);
         }
     } else {
         // rotate
@@ -634,7 +634,7 @@ GNEContainerStop::drawContainerStopOverLane(const GUIVisualizationSettings& s, c
 
 
 void
-GNEContainerStop::drawContainerStopOverContainerStop(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& stopColor) const {
+GNEStopContainer::drawStopContainerOverStopContainer(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& stopColor) const {
     // set base color
     GLHelper::setColor(stopColor);
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
@@ -653,9 +653,9 @@ GNEContainerStop::drawContainerStopOverContainerStop(const GUIVisualizationSetti
         glRotated(-90, 0, 0, 1);
         // draw texture
         if (drawUsingSelectColor()) {
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::CONTAINERSTOP_SELECTED), s.additionalSettings.vaporizerSize * exaggeration);
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPCONTAINER_SELECTED), s.additionalSettings.vaporizerSize * exaggeration);
         } else {
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::CONTAINERSTOP), s.additionalSettings.vaporizerSize * exaggeration);
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPCONTAINER), s.additionalSettings.vaporizerSize * exaggeration);
         }
     } else {
         // rotate
@@ -674,7 +674,7 @@ GNEContainerStop::drawContainerStopOverContainerStop(const GUIVisualizationSetti
 // ===========================================================================
 
 void
-GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
+GNEStopContainer::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_DURATION:
             if (value.empty()) {
@@ -728,13 +728,13 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEContainerStop::setEnabledAttribute(const int enabledAttributes) {
+GNEStopContainer::setEnabledAttribute(const int enabledAttributes) {
     parametersSet = enabledAttributes;
 }
 
 
 void
-GNEContainerStop::setMoveShape(const GNEMoveResult& moveResult) {
+GNEStopContainer::setMoveShape(const GNEMoveResult& moveResult) {
     // change endPos
     endPos = moveResult.newFirstPos;
     // update geometry
@@ -743,7 +743,7 @@ GNEContainerStop::setMoveShape(const GNEMoveResult& moveResult) {
 
 
 void
-GNEContainerStop::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+GNEStopContainer::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("endPos of " + getTagStr());
     // now adjust endPos position
     setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
