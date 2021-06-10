@@ -396,6 +396,18 @@ private:
     /// @brief fill personStop elements
     static void fillPersonStopElements();
 
+    /// @brief fill container elements
+    static void fillContainerElements();
+
+    /// @brief fill container transport elements
+    static void fillContainerTransportElements();
+
+    /// @brief fill container tranship elements
+    static void fillContainerTranshipElements();
+
+    /// @brief fill container stop elements
+    static void fillContainerStopElements();
+
     /// @brief fill common vehicle attributes (used by vehicles, trips, routeFlows and flows)
     static void fillCommonVehicleAttributes(SumoXMLTag currentTag);
 
@@ -413,6 +425,9 @@ private:
 
     /// @brief fill common person attributes (used by person and personFlows)
     static void fillCommonPersonAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill common container attributes (used by container and containerFlows)
+    static void fillCommonContainerAttributes(SumoXMLTag currentTag);
 
     /// @brief fill stop person attributes
     static void fillCommonStopAttributes(SumoXMLTag currentTag, const bool parking);
