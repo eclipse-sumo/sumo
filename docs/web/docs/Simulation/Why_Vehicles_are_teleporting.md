@@ -43,6 +43,8 @@ the corresponding vehicle will move to the pool of the next edge and
 the respective edge travel time will be calculated. The rules, mentioned
 above, apply continuously. A simple illustratoion about how congestion
 resolves stepwise is shown below.
+![grafik](https://user-images.githubusercontent.com/26454969/121517586-d900b100-c9ef-11eb-943a-69e410814bcf.png)
+
 
 The threshold value can be configure
 using the option **--time-to-teleport** {{DT_INT}} which sets the time in seconds. If the value is not
