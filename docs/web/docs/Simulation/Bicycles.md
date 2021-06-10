@@ -164,6 +164,7 @@ To define a controlled indirect turn where both stages respect the traffic light
 The second part can be controlled by [setting the optional attribute 'linkIndex2'](../Netedit/index.md#setting_connection_attributes). The easiest setup is to copy the linkIndex that controls the movement of vehicles (or pedestrians) going straight from right to left. In addition, parallel waiting of bicycles/motorpads in front of an intersection can be achived by activating the [Sublane-Model](../Simulation/SublaneModel.md). 
  
 Sometimes, bicycles/motorpads do not wait side by side properly. The following parameters can help to solve/improve this issue.
+    
   - latAlignment="nice"
   - minGapLat="0.1"
     
