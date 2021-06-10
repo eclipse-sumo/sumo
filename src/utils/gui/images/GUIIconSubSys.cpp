@@ -267,9 +267,6 @@
 #include "walkroute.xpm"
 #include "ridefromto.xpm"
 #include "ridebusstop.xpm"
-#include "personbusstop.xpm"
-#include "personcontainerstop.xpm"
-#include "personlanestop.xpm"
 
 #include "dataset.xpm"
 #include "datainterval.xpm"
@@ -604,9 +601,6 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::WALK_ROUTE] = new FXXPMIcon(a, walkroute_xpm);
     myIcons[GUIIcon::RIDE_FROMTO] = new FXXPMIcon(a, ridefromto_xpm);
     myIcons[GUIIcon::RIDE_BUSSTOP] = new FXXPMIcon(a, ridebusstop_xpm);
-    myIcons[GUIIcon::PERSON_BUSSTOP] = new FXXPMIcon(a, personbusstop_xpm);
-    myIcons[GUIIcon::PERSON_CONTAINERSTOP] = new FXXPMIcon(a, personcontainerstop_xpm);
-    myIcons[GUIIcon::PERSON_LANESTOP] = new FXXPMIcon(a, personlanestop_xpm);
 
     myIcons[GUIIcon::DATASET] = new FXXPMIcon(a, dataset_xpm);
     myIcons[GUIIcon::DATAINTERVAL] = new FXXPMIcon(a, datainterval_xpm);

@@ -371,9 +371,6 @@ enum class GUIIcon {
     WALK_ROUTE,
     RIDE_FROMTO,
     RIDE_BUSSTOP,
-    PERSON_BUSSTOP,
-    PERSON_CONTAINERSTOP,
-    PERSON_LANESTOP,
     /// @}
 
     /// @name NETEDIT data elements icons
