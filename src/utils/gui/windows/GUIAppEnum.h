@@ -47,6 +47,10 @@ enum {
     MID_HOTKEY_D_MODES_DELETE,
     /// @brief hotkey for mode adding edges AND edgeDatas
     MID_HOTKEY_E_MODES_EDGE_EDGEDATA,
+    /// @brief hotkey for mode container
+    MID_HOTKEY_G_MODE_CONTAINER,
+    /// @brief hotkey for mode containerData
+    MID_HOTKEY_H_MODE_CONTAINERDATA,
     /// @brief hotkey for mode inspecting object attributes
     MID_HOTKEY_I_MODES_INSPECT,
     /// @brief hotkey for mode moving element
