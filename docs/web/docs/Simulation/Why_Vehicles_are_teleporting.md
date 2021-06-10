@@ -28,20 +28,17 @@ stays below 0.1m/s. These steps are the "waiting time". In the case the
 vehicle moves with a larger speed, this counter is reset. In the case
 the vehicle waited longer than a certain threshold value (default 300
 seconds), the vehicle is assumed to be in grid-lock and teleported onto
-the next free edge on its route. If there is enough space on the next 
-adjecent edge, the vehicle will be directly assigned to the respective
-available space. If it is not the case, the vehicle will be put in a 
-edge-based pool of the next edge (e.g. E0) and (virtully) travel with
-travel speed (1 m/s) in order to representatively calculating his edge
-travel time. When a space (default: 7.5 m/space) on the next edge is
-available, the first vehicle on the current edge (E0) will move to it
-at the corresponding time step. After that, the teleported vehicle in
-the "pool" can move to the edge (E0) from the pool and the position is
-decided by the calculated edge travel time, mentioned above. If there is
-no space and the aforemetioned calculated edge trave time is reached,
-the corresponding vehicle will move to the pool of the next edge and
-the respective edge travel time will be calculated. The rules, mentioned
-above, apply continuously. A simple illustratoion about how congestion
+the next free edge on its route. If there is enough space on the subsequent edge of
+the vehicle's route, the vehicle will be directly assigned to the respective
+available space. Vehicle insertion will use depart method "free" (anywhere on the lane with the least traffic)
+and attempt to insert the vehicle with it's maximum allowed speed.
+The insertion space must allow for all necessary safety gaps of the vehicle itself and it's follower vehicle, though the speed may be reduced if it helps with insertion.
+
+If the vehicle cannot be inserted immediately,it will be held outside the road network in a special 'teleporting-buffer'and (virtully) traverse the next edge with
+the average speed of that edge (minimum  m/s). After this virtual travel time has passend, the next attempt at re-inserting the vehicle into the network is made one edge further along it's route. This procedure repeats until the vehicle has been re-inserted or the end of the route is reached.
+In the latter case, the vehicle is removed from the simulation.
+
+A simple illustration about how congestion
 resolves stepwise is shown below.
 ![grafik](https://user-images.githubusercontent.com/26454969/121517586-d900b100-c9ef-11eb-943a-69e410814bcf.png)
 
@@ -62,6 +59,11 @@ following reasons is given:
   find a gap in the prioritized traffic
 - **jam** The vehicle is stuck on a priority road and there is no
   space on the next edge.
+  
+Related options are
+
+- **--time-to-teleport.highways** (teleport earlier when stuck on the wrong lane of a road with speed above 19.167 m/s
+- **--time-to-teleport.disconnected** (teleport earlier when the route is disconnected)
 
 Unfortunately, grid-locks are rather common in congested simulation
 scenarios. You can solve this only by [improving traffic flow, either by
