@@ -364,6 +364,7 @@ MSVehicle::Influencer::Influencer() :
     myConsiderMaxDeceleration(true),
     myRespectJunctionPriority(true),
     myEmergencyBrakeRedLight(true),
+    myRespectJunctionLeaderPriority(true),
     myLastRemoteAccess(-TIME2STEPS(20)),
     myStrategicLC(LC_NOCONFLICT),
     myCooperativeLC(LC_NOCONFLICT),
@@ -433,7 +434,9 @@ MSVehicle::Influencer::getSpeedMode() const {
             2 * myConsiderMaxAcceleration +
             4 * myConsiderMaxDeceleration +
             8 * myRespectJunctionPriority +
-            16 * myEmergencyBrakeRedLight);
+            16 * myEmergencyBrakeRedLight +
+            32 * !myRespectJunctionLeaderPriority // inverted!
+            );
 }
 
 
@@ -767,6 +770,7 @@ MSVehicle::Influencer::setSpeedMode(int speedMode) {
     myConsiderMaxDeceleration = ((speedMode & 4) != 0);
     myRespectJunctionPriority = ((speedMode & 8) != 0);
     myEmergencyBrakeRedLight = ((speedMode & 16) != 0);
+    myRespectJunctionLeaderPriority = ((speedMode & 32) == 0); // inverted!
 }
 
 
@@ -2747,7 +2751,7 @@ MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
 void
 MSVehicle::checkLinkLeaderCurrentAndParallel(const MSLink* link, const MSLane* lane, double seen,
         DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest) const {
-    if (MSGlobals::gUsingInternalLanes) {
+    if (MSGlobals::gUsingInternalLanes && (myInfluencer == nullptr || myInfluencer->getRespectJunctionLeaderPriority())) {
         // we want to pass the link but need to check for foes on internal lanes
         checkLinkLeader(link, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest);
         if (myLaneChangeModel->getShadowLane() != nullptr) {
