@@ -3731,14 +3731,6 @@ GNEAttributeCarrier::fillContainerElements() {
 
         // add flow attributes
         fillCommonContainerAttributes(currentTag);
-
-        // set specific attribute depart (note: Containers doesn't support triggered and containerTriggered values)
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPART,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC,
-                                              "The time step at which the " + toString(currentTag) + " shall enter the network",
-                                              "0.00");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
     }
     currentTag = SUMO_TAG_CONTAINERFLOW;
     {
@@ -3748,7 +3740,7 @@ GNEAttributeCarrier::fillContainerElements() {
                                       GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE,
                                       GUIIcon::CONTAINERFLOW, currentTag);
 
-        // add flow attributes
+        // add common container attribute
         fillCommonContainerAttributes(currentTag);
 
         // add flow attributes
