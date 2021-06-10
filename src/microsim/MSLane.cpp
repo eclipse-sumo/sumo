@@ -202,7 +202,7 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double length, MSEdge* co
     myFollowerInfo(this, nullptr, 0),
     myLeaderInfoTime(SUMOTime_MIN),
     myFollowerInfoTime(SUMOTime_MIN),
-    myLengthGeometryFactor(MAX2(NUMERICAL_EPS, myShape.length() / myLength)), // factor should not be 0
+    myLengthGeometryFactor(MAX2(POSITION_EPS, myShape.length()) / myLength), // factor should not be 0
     myIsRampAccel(isRampAccel),
     myLaneType(type),
     myRightSideOnEdge(0), // initialized in MSEdge::initialize
