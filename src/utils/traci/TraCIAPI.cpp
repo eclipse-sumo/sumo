@@ -1588,6 +1588,23 @@ TraCIAPI::SimulationScope::findRoute(const std::string& fromEdge, const std::str
     return getTraCIStage(libsumo::FIND_ROUTE, "", &content);
 }
 
+void 
+TraCIAPI::SimulationScope::loadState(const std::string& path) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_STRING);
+    content.writeString(path);
+    myParent.createCommand(libsumo::CMD_SET_SIM_VARIABLE, libsumo::CMD_LOAD_SIMSTATE, "", &content);
+    myParent.processSet(libsumo::CMD_SET_SIM_VARIABLE);
+}
+
+void
+TraCIAPI::SimulationScope::saveState(const std::string& destination) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_STRING);
+    content.writeString(destination);
+    myParent.createCommand(libsumo::CMD_SET_SIM_VARIABLE, libsumo::CMD_SAVE_SIMSTATE, "", &content);
+    myParent.processSet(libsumo::CMD_SET_SIM_VARIABLE);
+}
 
 void
 TraCIAPI::SimulationScope::writeMessage(const std::string msg) {
