@@ -100,8 +100,8 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"tranship",            GLO_TRANSHIP},
     //
     {"stop",                GLO_STOP},
-    {"personStop",          GLO_PERSONSTOP},
-    {"containerStop",       GLO_CONTAINERSTOP},
+    {"stopPerson",          GLO_STOP_PERSON},
+    {"stopContainer",       GLO_STOP_CONTAINER},
     //
     {"vehicle",             GLO_VEHICLE},
     {"trip",                GLO_TRIP},

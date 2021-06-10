@@ -38,14 +38,14 @@
 // ===========================================================================
 
 GNEPersonStop::GNEPersonStop(GNENet* net, GNEDemandElement* personParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(personParent, net, GLO_PERSONSTOP, GNE_TAG_PERSONSTOP_BUSSTOP,
+    GNEDemandElement(personParent, net, GLO_STOP_PERSON, GNE_TAG_PERSONSTOP_BUSSTOP,
 {}, {}, {}, {stoppingPlace}, {}, {}, {personParent}, {}),
 SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
 GNEPersonStop::GNEPersonStop(GNENet* net, GNEDemandElement* personParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(personParent, net, GLO_PERSONSTOP, GNE_TAG_PERSONSTOP_EDGE,
+    GNEDemandElement(personParent, net, GLO_STOP_PERSON, GNE_TAG_PERSONSTOP_EDGE,
 {}, {edge}, {}, {}, {}, {}, {personParent}, {}),
 SUMOVehicleParameter::Stop(stopParameter) {
 }

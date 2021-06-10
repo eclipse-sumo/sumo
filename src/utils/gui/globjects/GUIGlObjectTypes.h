@@ -172,9 +172,9 @@ enum GUIGlObjectType {
     /// @brief a stop
     GLO_STOP = 330,
     /// @brief a person stop
-    GLO_PERSONSTOP = 331,
+    GLO_STOP_PERSON = 331,
     /// @brief a container stop
-    GLO_CONTAINERSTOP = 332,
+    GLO_STOP_CONTAINER = 332,
 
     /// @}
 
