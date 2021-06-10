@@ -838,8 +838,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "defaultVTypeModified",               GNE_ATTR_DEFAULT_VTYPE_MODIFIED },
     { "centerAfterCreation",                GNE_ATTR_CENTER_AFTER_CREATION },
     { "toBusStop",                          GNE_ATTR_TO_BUSSTOP },
-    { "fromStop",                           GNE_ATTR_FROM_STOP },
-    { "toStop",                             GNE_ATTR_TO_STOP },
+    { "toContainerStop",                    GNE_ATTR_TO_CONTAINERSTOP },
     { "opposite",                           GNE_ATTR_OPPOSITE },
     { "center",                             GNE_ATTR_CENTER },
 

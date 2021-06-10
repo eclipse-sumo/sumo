@@ -1217,10 +1217,8 @@ enum SumoXMLAttr {
     GNE_ATTR_CENTER_AFTER_CREATION,
     /// @brief to busStop (used by personPlans)
     GNE_ATTR_TO_BUSSTOP,
-    /// @brief from stop (used by personPlans)
-    GNE_ATTR_FROM_STOP,
-    /// @brief to stop (used by personPlans)
-    GNE_ATTR_TO_STOP,
+    /// @brief to busStop (used by containerPlans)
+    GNE_ATTR_TO_CONTAINERSTOP,
     /// @brief neighboring lane, simplified lane attr instead of child element
     GNE_ATTR_OPPOSITE,
     /// @brief center (used in stoppingPlaces)
