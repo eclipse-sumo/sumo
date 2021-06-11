@@ -198,7 +198,7 @@ public:
                           GNEAdditional* toBusStop, const std::vector<GNEEdge*>& edges, double arrivalPos);
 
     /// @brief build container stop
-    static void buildStopContainer(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* edge, GNEAdditional* busStop, const SUMOVehicleParameter::Stop& stopParameters);
+    static void buildStopContainer(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* edge, GNEAdditional* containerStop, const SUMOVehicleParameter::Stop& stopParameters);
 
     /// @}
 
@@ -406,11 +406,84 @@ private:
         std::vector<PersonPlansValues> myPersonPlanValues;
     };
 
+    /// @brief struct used for load container plans (Rides, Walks, etc.)
+    struct ContainerPlansValues {
+        /// @brief default constructor
+        ContainerPlansValues();
+
+        /// @brief update tag
+        void updateGNETag();
+
+        /// @brief check integrity
+        bool checkIntegrity() const;
+
+        /// @brief is first container plan
+        bool isFirstContainerPlan() const;
+
+        /// @brief return last valid edge (used to create consecutive container plans)
+        GNEEdge* getLastEdge() const;
+
+        /// @brief walk tag
+        SumoXMLTag tag;
+
+        /// @brief from edge
+        GNEEdge* fromEdge;
+
+        /// @brief to edge
+        GNEEdge* toEdge;
+
+        /// @brief to containerStop
+        GNEAdditional* toContainerStop;
+
+        /// @brief list of edges
+        std::vector<GNEEdge*> edges;
+
+        /// @brief arrival pos
+        double arrivalPos;
+
+        /// @brief lines
+        std::vector<std::string> lines;
+
+        /// @brief stop parameters
+        SUMOVehicleParameter::Stop stopParameters;
+
+        /// @brief container stop (stop)
+        GNEAdditional* containerStop;
+
+        /// @brief edge stop
+        GNEEdge* edgeStop;
+
+        /// @brief lane stop
+        GNELane* laneStop;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        ContainerPlansValues(ContainerPlansValues*) = delete;
+
+        /// @brief Invalidated assignment operator.
+        ContainerPlansValues& operator=(ContainerPlansValues*) = delete;
+    };
+
+    /// @brief container value
+    struct ContainerValue {
+        /// @brief add container plan value (
+        bool addContainerValue(GNENet* net, SumoXMLTag tag, const SUMOSAXAttributes& attrs);
+
+        /// @brief check container plan loaded (this will change tags, set begin and end elements, etc.)
+        bool checkContainerPlanValues();
+
+        /// @brief container for container trips loaded values
+        std::vector<ContainerPlansValues> myContainerPlanValues;
+    };
+
     /// @brief pointer to GNENet
     GNENet* myNet;
 
     /// @brief NETEDIT person values
     PersonValue myPersonValues;
+
+    /// @brief NETEDIT container values
+    ContainerValue myContainerValues;
 
     /// @brief NETEDIT Route Parameters
     RouteParameter myRouteParameter;
