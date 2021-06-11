@@ -669,6 +669,8 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::DemandViewOptio
     menuCheckHideNonInspectedDemandElements(nullptr),
     menuCheckShowAllPersonPlans(nullptr),
     menuCheckLockPerson(nullptr),
+    menuCheckShowAllContainerPlans(nullptr),
+    menuCheckLockContainer(nullptr),
     separator(nullptr),
     myGNEApp(GNEApp) {
 }
@@ -706,6 +708,16 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::buildDemandView
                           "Lock selected person", "Alt+6", "",
                           GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_LOCKPERSON),
                           myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON);
+    
+    menuCheckShowAllContainerPlans = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+                                  "Show all container plans", "Alt+5", "",
+                                  GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWCONTAINERPLANS),
+                                  myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLCONTAINERPLANS);
+
+    menuCheckLockContainer = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+                          "Lock selected container", "Alt+6", "",
+                          GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_LOCKCONTAINER),
+                          myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER);
 
     menuCheckHideNonInspectedDemandElements = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
             "Toggle show non-inspected demand elements", "Alt+7", "",
@@ -726,6 +738,8 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::hideDemandViewO
     menuCheckHideNonInspectedDemandElements->hide();
     menuCheckShowAllPersonPlans->hide();
     menuCheckLockPerson->hide();
+    menuCheckShowAllContainerPlans->hide();
+    menuCheckLockContainer->hide();
     separator->hide();
 }
 
@@ -1318,6 +1332,28 @@ GNEApplicationWindowHelper::toggleEditOptionsDemand(GNEViewNet* viewNet, const M
         }
         // Call manually onCmdToggleLockPerson
         viewNet->onCmdToggleLockPerson(obj, sel, nullptr);
+    } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckShowAllContainerPlans) {
+        // Toggle menuCheckShowAllContainerPlans
+        if (viewNet->getDemandViewOptions().menuCheckShowAllContainerPlans->amChecked() == TRUE) {
+            // show extra information for tests
+            WRITE_DEBUG("Disabled show all container plans throught alt + " + toString(numericalKeyPressed + 1));
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Enabled show all container plans throught alt + " + toString(numericalKeyPressed + 1));
+        }
+        // Call manually onCmdToggleShowAllContainerPlans
+        viewNet->onCmdToggleShowAllContainerPlans(obj, sel, nullptr);
+    } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckLockContainer) {
+        // Toggle menuCheckShowAllContainerPlans
+        if (viewNet->getDemandViewOptions().menuCheckLockContainer->amChecked() == TRUE) {
+            // show extra information for tests
+            WRITE_DEBUG("Disabled lock container plan throught alt + " + toString(numericalKeyPressed + 1));
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Enabled lock container plan throught alt + " + toString(numericalKeyPressed + 1));
+        }
+        // Call manually onCmdToggleLockContainer
+        viewNet->onCmdToggleLockContainer(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckHideNonInspectedDemandElements) {
         // Toggle menuCheckHideNonInspectedDemandElements
         if (viewNet->getDemandViewOptions().menuCheckHideNonInspectedDemandElements->amChecked() == TRUE) {

@@ -490,6 +490,12 @@ struct GNEApplicationWindowHelper {
             /// @brief menu check for lock Person
             FXMenuCheckIcon* menuCheckLockPerson;
 
+            /// @brief menu check for show all container plans
+            FXMenuCheckIcon* menuCheckShowAllContainerPlans;
+
+            /// @brief menu check for lock Container
+            FXMenuCheckIcon* menuCheckLockContainer;
+
             /// @brief separator
             FXMenuSeparator* separator;
 
