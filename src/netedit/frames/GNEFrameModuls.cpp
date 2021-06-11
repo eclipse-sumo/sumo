@@ -523,6 +523,42 @@ GNEFrameModuls::DemandElementSelector::getPersonPlanPreviousEdge() const {
 }
 
 
+GNEEdge*
+GNEFrameModuls::DemandElementSelector::getContainerPlanPreviousEdge() const {
+    if (myCurrentDemandElement == nullptr) {
+        return nullptr;
+    }
+    if (!myCurrentDemandElement->getTagProperty().isContainer()) {
+        return nullptr;
+    }
+    if (myCurrentDemandElement->getChildDemandElements().empty()) {
+        return nullptr;
+    }
+    // get last container plan
+    const GNEDemandElement* lastContainerPlan = myCurrentDemandElement->getChildDemandElements().back();
+    // check tag
+    switch (lastContainerPlan->getTagProperty().getTag()) {
+        // transport
+        case GNE_TAG_TRANSPORT_EDGE:
+        // tranship
+        case GNE_TAG_TRANSHIP_EDGE:
+        case GNE_TAG_TRANSHIP_EDGES:
+        // stop
+        case GNE_TAG_STOPCONTAINER_EDGE:
+            return lastContainerPlan->getParentEdges().back();
+        // transport
+        case GNE_TAG_TRANSPORT_CONTAINERSTOP:
+        // tranship
+        case GNE_TAG_TRANSHIP_CONTAINERSTOP:
+        // stop
+        case GNE_TAG_STOPCONTAINER_CONTAINERSTOP:
+            return lastContainerPlan->getParentAdditionals().back()->getParentLanes().front()->getParentEdge();
+        default:
+            return nullptr;
+    }
+}
+
+
 long
 GNEFrameModuls::DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond to a demand element

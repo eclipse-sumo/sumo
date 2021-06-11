@@ -144,8 +144,11 @@ public:
         /// @brief refresh demand element selector
         void refreshDemandElementSelector();
 
-        /// @brief get previous edge for the current selected demand elemnt
+        /// @brief get previous edge for the current person plan
         GNEEdge* getPersonPlanPreviousEdge() const;
+
+        /// @brief get previous edge for the current container plan
+        GNEEdge* getContainerPlanPreviousEdge() const;
 
         /// @name FOX-callbacks
         /// @{
