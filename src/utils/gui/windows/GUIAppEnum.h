@@ -700,6 +700,10 @@ enum {
     MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,
     /// @brief lock person
     MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON,
+    /// @brief show all container plans
+    MID_GNE_DEMANDVIEWOPTIONS_SHOWALLCONTAINERPLANS,
+    /// @brief lock container
+    MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER,
 
     /// @}
 
