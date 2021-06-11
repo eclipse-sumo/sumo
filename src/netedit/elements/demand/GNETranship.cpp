@@ -34,24 +34,27 @@
 // method definitions
 // ===========================================================================
 
-GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition) :
+GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
+    const double speed, const double departPosition, const double arrivalPosition) :
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_EDGE,
-{}, {fromEdge, toEdge}, {}, {}, {}, {}, {containerParent}, {}),
-myArrivalPosition(arrivalPosition) {
+    {}, {fromEdge, toEdge}, {}, {}, {}, {}, {containerParent}, {}),
+    myArrivalPosition(arrivalPosition) {
 }
 
 
-GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEAdditional* toContainerStop, double arrivalPosition) :
+GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEAdditional* toContainerStop, 
+    const double speed, const double departPosition, const double arrivalPosition) :
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_CONTAINERSTOP,
-{}, {fromEdge}, {}, {toContainerStop}, {}, {}, {containerParent}, {}),
-myArrivalPosition(arrivalPosition) {
+    {}, {fromEdge}, {}, {toContainerStop}, {}, {}, {containerParent}, {}),
+    myArrivalPosition(arrivalPosition) {
 }
 
 
-GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, std::vector<GNEEdge*> edges, double arrivalPosition) :
+GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, std::vector<GNEEdge*> edges, 
+    const double speed, const double departPosition, const double arrivalPosition) :
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_EDGES,
-{}, {edges}, {}, {}, {}, {}, {containerParent}, {}),
-myArrivalPosition(arrivalPosition) {
+    {}, {edges}, {}, {}, {}, {}, {containerParent}, {}),
+    myArrivalPosition(arrivalPosition) {
 }
 
 
@@ -310,6 +313,14 @@ GNETranship::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGES:
             return parseIDs(getParentEdges());
         // specific container plan attributes
+        case SUMO_ATTR_SPEED:
+            return toString(mySpeed);
+        case SUMO_ATTR_DEPARTPOS:
+            if (myDepartPosition == -1) {
+                return "";
+            } else {
+                return toString(myDepartPosition);
+            }
         case SUMO_ATTR_ARRIVALPOS:
             if (myArrivalPosition == -1) {
                 return "";
@@ -372,6 +383,8 @@ GNETranship::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
     switch (key) {
         // Common container plan attributes
         case SUMO_ATTR_FROM:
+        case SUMO_ATTR_SPEED:
+        case SUMO_ATTR_DEPARTPOS:
         case SUMO_ATTR_ARRIVALPOS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
@@ -449,6 +462,21 @@ GNETranship::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         // specific container plan attributes
+        case SUMO_ATTR_SPEED:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_DEPARTPOS:
+            if (value.empty()) {
+                return true;
+            } else if (canParse<double>(value)) {
+                const double parsedValue = canParse<double>(value);
+                if ((parsedValue < 0) || (parsedValue > getFirstPathLane()->getLaneShape().length())) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
         case SUMO_ATTR_ARRIVALPOS:
             if (value.empty()) {
                 return true;
@@ -550,6 +578,17 @@ GNETranship::setAttribute(SumoXMLAttr key, const std::string& value) {
             computePathElement();
             break;
         // specific container plan attributes
+        case SUMO_ATTR_SPEED:
+            mySpeed = parse<double>(value);
+            break;
+        case SUMO_ATTR_DEPARTPOS:
+            if (value.empty()) {
+                myDepartPosition = -1;
+            } else {
+                myDepartPosition = parse<double>(value);
+            }
+            updateGeometry();
+            break;
         case SUMO_ATTR_ARRIVALPOS:
             if (value.empty()) {
                 myArrivalPosition = -1;

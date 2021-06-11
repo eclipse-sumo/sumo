@@ -1079,6 +1079,8 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
     std::map<SumoXMLAttr, std::string> valuesMap = containerPlanAttributes->getAttributesAndValuesTemporal(true);
     // get attributes
     const std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
+    const double speed = (valuesMap.count(SUMO_ATTR_SPEED) > 0) ? GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_SPEED]) : 0;
+    const double departPos = (valuesMap.count(SUMO_ATTR_DEPARTPOS) > 0) ? GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_DEPARTPOS]) : 0;
     const double arrivalPos = (valuesMap.count(SUMO_ATTR_ARRIVALPOS) > 0) ? GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]) : 0;
     // get stop parameters
     SUMOVehicleParameter::Stop stopParameters;
@@ -1121,7 +1123,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
         case GNE_TAG_TRANSHIP_EDGE: {
             // check if tranship busStop->edge can be created
             if (fromEdge && toEdge) {
-                buildTranship(viewNet->getNet(), true, containerParent, fromEdge, toEdge, nullptr, {}, arrivalPos);
+                buildTranship(viewNet->getNet(), true, containerParent, fromEdge, toEdge, nullptr, {}, speed, departPos, arrivalPos);
                 return true;
             } else {
                 viewNet->setStatusBarText("A ride from busStop to edge needs a busStop and an edge");
@@ -1131,7 +1133,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
         case GNE_TAG_TRANSHIP_CONTAINERSTOP: {
             // check if tranship busStop->busStop can be created
             if (fromEdge && toBusStop) {
-                buildTranship(viewNet->getNet(), true, containerParent, fromEdge, nullptr, toBusStop, {}, arrivalPos);
+                buildTranship(viewNet->getNet(), true, containerParent, fromEdge, nullptr, toBusStop, {}, speed, departPos, arrivalPos);
                 return true;
             } else {
                 viewNet->setStatusBarText("A tranship from busStop to busStop needs two busStops");
@@ -1141,7 +1143,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
         case GNE_TAG_TRANSHIP_EDGES: {
             // check if tranship edges can be created
             if (edges.size() > 0) {
-                buildTranship(viewNet->getNet(), true, containerParent, nullptr, nullptr, nullptr, edges, arrivalPos);
+                buildTranship(viewNet->getNet(), true, containerParent, nullptr, nullptr, nullptr, edges, speed, departPos, arrivalPos);
                 return true;
             } else {
                 viewNet->setStatusBarText("A tranship with edges attribute needs a list of edges");
@@ -1181,7 +1183,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
 
 void
 GNERouteHandler::buildTransport(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                           GNEAdditional* toBusStop, const std::vector<std::string>& lines, double arrivalPos) {
+                           GNEAdditional* toBusStop, const std::vector<std::string>& lines, const double arrivalPos) {
     // declare transport
     GNEDemandElement* transport = nullptr;
     // create transport depending of parameters
@@ -1229,13 +1231,13 @@ GNERouteHandler::buildTransport(GNENet* net, bool undoDemandElements, GNEDemandE
 
 void
 GNERouteHandler::buildTranship(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                           GNEAdditional* toBusStop, const std::vector<GNEEdge*>& edges, double arrivalPos) {
+                           GNEAdditional* toBusStop, const std::vector<GNEEdge*>& edges, const double speed, double departPosition, double arrivalPosition) {
     // declare tranship
     GNEDemandElement* tranship = nullptr;
     // create tranship depending of parameters
     if (fromEdge && toEdge) {
         // create tranship edge->edge
-        tranship = new GNETranship(net, containerParent, fromEdge, toEdge, arrivalPos);
+        tranship = new GNETranship(net, containerParent, fromEdge, toEdge, speed, departPosition, arrivalPosition);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_TRANSHIP_EDGE) + " within container '" + containerParent->getID() + "'");
@@ -1253,7 +1255,7 @@ GNERouteHandler::buildTranship(GNENet* net, bool undoDemandElements, GNEDemandEl
         }
     } else if (fromEdge && toBusStop) {
         // create tranship edge->busStop
-        tranship = new GNETranship(net, containerParent, fromEdge, toBusStop, arrivalPos);
+        tranship = new GNETranship(net, containerParent, fromEdge, toBusStop, speed, departPosition, arrivalPosition);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_TRANSHIP_CONTAINERSTOP) + " within container '" + containerParent->getID() + "'");
@@ -1271,7 +1273,7 @@ GNERouteHandler::buildTranship(GNENet* net, bool undoDemandElements, GNEDemandEl
         }
     } else if (edges.size() > 0) {
         // create tranship edges
-        tranship = new GNETranship(net, containerParent, edges, arrivalPos);
+        tranship = new GNETranship(net, containerParent, edges, speed, departPosition, arrivalPosition);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_TRANSHIP_EDGES) + " within container '" + containerParent->getID() + "'");
@@ -2098,15 +2100,15 @@ GNERouteHandler::closeContainer() {
                         }
                         // Tranships
                         case GNE_TAG_TRANSHIP_EDGE: {
-                            buildTranship(myNet, true, container, containerPlanValue.fromEdge, containerPlanValue.toEdge, nullptr, {}, containerPlanValue.arrivalPos);
+                            buildTranship(myNet, true, container, containerPlanValue.fromEdge, containerPlanValue.toEdge, nullptr, {}, containerPlanValue.speed, containerPlanValue.departPos, containerPlanValue.arrivalPos);
                             break;
                         }
                         case GNE_TAG_TRANSHIP_CONTAINERSTOP: {
-                            buildTranship(myNet, true, container, containerPlanValue.fromEdge, nullptr, containerPlanValue.toContainerStop, {}, containerPlanValue.arrivalPos);
+                            buildTranship(myNet, true, container, containerPlanValue.fromEdge, nullptr, containerPlanValue.toContainerStop, {}, containerPlanValue.speed, containerPlanValue.departPos, containerPlanValue.arrivalPos);
                             break;
                         }
                         case GNE_TAG_TRANSHIP_EDGES: {
-                            buildTranship(myNet, true, container, nullptr, nullptr, nullptr, containerPlanValue.edges, containerPlanValue.arrivalPos);
+                            buildTranship(myNet, true, container, nullptr, nullptr, nullptr, containerPlanValue.edges, containerPlanValue.speed, containerPlanValue.arrivalPos, containerPlanValue.arrivalPos);
                             break;
                         }
                         // Stops
@@ -2167,15 +2169,15 @@ GNERouteHandler::closeContainerFlow() {
                         }
                         // Tranship
                         case GNE_TAG_TRANSHIP_EDGE: {
-                            buildTranship(myNet, true, container, containerPlanValue.fromEdge, containerPlanValue.toEdge, nullptr, {}, containerPlanValue.arrivalPos);
+                            buildTranship(myNet, true, container, containerPlanValue.fromEdge, containerPlanValue.toEdge, nullptr, {}, containerPlanValue.speed, containerPlanValue.arrivalPos, containerPlanValue.arrivalPos);
                             break;
                         }
                         case GNE_TAG_TRANSHIP_CONTAINERSTOP: {
-                            buildTranship(myNet, true, container, containerPlanValue.fromEdge, nullptr, containerPlanValue.toContainerStop, {}, containerPlanValue.arrivalPos);
+                            buildTranship(myNet, true, container, containerPlanValue.fromEdge, nullptr, containerPlanValue.toContainerStop, {}, containerPlanValue.speed, containerPlanValue.arrivalPos, containerPlanValue.arrivalPos);
                             break;
                         }
                         case GNE_TAG_TRANSHIP_EDGES: {
-                            buildTranship(myNet, true, container, nullptr, nullptr, nullptr, containerPlanValue.edges, containerPlanValue.arrivalPos);
+                            buildTranship(myNet, true, container, nullptr, nullptr, nullptr, containerPlanValue.edges, containerPlanValue.speed, containerPlanValue.arrivalPos, containerPlanValue.arrivalPos);
                             break;
                         }
                         // stops
@@ -2703,6 +2705,8 @@ GNERouteHandler::ContainerPlansValues::ContainerPlansValues() :
     fromEdge(nullptr),
     toEdge(nullptr),
     toContainerStop(nullptr),
+    speed(0),
+    departPos(0),
     arrivalPos(-1),
     containerStop(nullptr),
     edgeStop(nullptr),
@@ -2882,28 +2886,32 @@ GNERouteHandler::ContainerValue::addContainerValue(GNENet* net, SumoXMLTag tag, 
             return false;
         }
     }
-/*
-    // get vTypes
-    if (attrs.hasAttribute(SUMO_ATTR_VTYPES)) {
-        const std::string vTypes = attrs.get<std::string>(SUMO_ATTR_VTYPES, "", abort, false);
-        if (!abort) {
-            containerPlansValuesLoaded.vTypes = GNEAttributeCarrier::parse<std::vector<std::string> >(vTypes);
-        }
-    }
-    // get modes
-    if (attrs.hasAttribute(SUMO_ATTR_MODES)) {
-        const std::string modes = attrs.get<std::string>(SUMO_ATTR_MODES, "", abort, false);
-        if (!abort) {
-            containerPlansValuesLoaded.modes = GNEAttributeCarrier::parse<std::vector<std::string> >(modes);
-        }
-    }
-*/
     // get lines
     if (attrs.hasAttribute(SUMO_ATTR_LINES)) {
         const std::string lines = attrs.get<std::string>(SUMO_ATTR_LINES, "", abort, false);
         if (!abort) {
             containerPlansValuesLoaded.lines = GNEAttributeCarrier::parse<std::vector<std::string> >(lines);
-            /* check modes */
+        }
+    }
+    // get speed
+    if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
+        const std::string speedStr = attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, "", abort, false);
+        if (!abort && GNEAttributeCarrier::canParse<double>(speedStr)) {
+            containerPlansValuesLoaded.speed = GNEAttributeCarrier::parse<double>(speedStr);
+        }
+    }
+    // get depart position
+    if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
+        const std::string departPosStr = attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, "", abort, false);
+        if (!abort && GNEAttributeCarrier::canParse<double>(departPosStr)) {
+            containerPlansValuesLoaded.departPos = GNEAttributeCarrier::parse<double>(departPosStr);
+        }
+    }
+    // get arrival position
+    if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+        const std::string arrivalPosStr = attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, "", abort, false);
+        if (!abort && GNEAttributeCarrier::canParse<double>(arrivalPosStr)) {
+            containerPlansValuesLoaded.arrivalPos = GNEAttributeCarrier::parse<double>(arrivalPosStr);
         }
     }
     // get arrival position

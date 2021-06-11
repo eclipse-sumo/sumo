@@ -42,9 +42,12 @@ public:
      * @param[in] containerParent container parent
      * @param[in] fromEdge from edge
      * @param[in] toEdge to edge
+     * @param[in] speed depart position of from edge
+     * @param[in] departPosition arrival position on the destination edge
      * @param[in] arrivalPosition arrival position on the destination edge
      */
-    GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition);
+    GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
+                const double speed, const double departPosition, const double arrivalPosition);
 
     /**@brief parameter constructor for container edge->containerStop
      * @param[in] viewNet view in which this Tranship is placed
@@ -52,16 +55,24 @@ public:
      * @param[in] fromEdge from edge
      * @param[in] toContainerStop to containerStop
      * @param[in] arrivalPosition arrival position on the destination edge
+     * @param[in] speed depart position of from edge
+     * @param[in] departPosition arrival position on the destination edge
+     * @param[in] arrivalPosition arrival position on the destination edge
      */
-    GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEAdditional* toContainerStop, double arrivalPosition);
+    GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEAdditional* toContainerStop,
+                const double speed, const double departPosition, const double arrivalPosition);
 
     /**@brief parameter constructor for container edge->edge
      * @param[in] viewNet view in which this Tranship is placed
      * @param[in] containerParent container parent
      * @param[in] edges list of edges
      * @param[in] arrivalPosition arrival position on the destination edge
+     * @param[in] speed depart position of from edge
+     * @param[in] departPosition arrival position on the destination edge
+     * @param[in] arrivalPosition arrival position on the destination edge
      */
-    GNETranship(GNENet* net, GNEDemandElement* containerParent, std::vector<GNEEdge*> edges, double arrivalPosition);
+    GNETranship(GNENet* net, GNEDemandElement* containerParent, std::vector<GNEEdge*> edges, 
+                const double speed, const double departPosition, const double arrivalPosition);
 
     /// @brief destructor
     ~GNETranship();
@@ -232,6 +243,12 @@ public:
     const std::map<std::string, std::string>& getACParametersMap() const;
 
 protected:
+    /// @brief speed
+    double mySpeed;
+
+    /// @brief depart position
+    double myDepartPosition;
+
     /// @brief arrival position
     double myArrivalPosition;
 

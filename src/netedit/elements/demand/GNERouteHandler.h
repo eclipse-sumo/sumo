@@ -191,11 +191,11 @@ public:
 
     /// @brief build transport
     static void buildTransport(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                          GNEAdditional* toBusStop, const std::vector<std::string>& lines, double arrivalPos);
+                          GNEAdditional* toBusStop, const std::vector<std::string>& lines, const double arrivalPos);
 
     /// @brief build tranship
     static void buildTranship(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                          GNEAdditional* toBusStop, const std::vector<GNEEdge*>& edges, double arrivalPos);
+                          GNEAdditional* toBusStop, const std::vector<GNEEdge*>& edges, const double speed, const double departPosition, const double arrivalPosition);
 
     /// @brief build container stop
     static void buildStopContainer(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* edge, GNEAdditional* containerStop, const SUMOVehicleParameter::Stop& stopParameters);
@@ -437,6 +437,12 @@ private:
 
         /// @brief list of edges
         std::vector<GNEEdge*> edges;
+
+        /// @brief speed
+        double speed;
+
+        /// @brief depart pos
+        double departPos;
 
         /// @brief arrival pos
         double arrivalPos;
