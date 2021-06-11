@@ -3681,15 +3681,23 @@ GNEViewNet::updateDemandModeSpecificControls() {
     myViewParent->getGNEAppWindows()->getEditMenuCommands().networkViewOptions.hideNetworkViewOptionsMenuChecks();
     myViewParent->getGNEAppWindows()->getEditMenuCommands().demandViewOptions.hideDemandViewOptionsMenuChecks();
     myViewParent->getGNEAppWindows()->getEditMenuCommands().dataViewOptions.hideDataViewOptionsMenuChecks();
-    // always show "hide shapes", "show grid" and "draw spread vehicles"
+    // always show "hide shapes", "show grid", "draw spread vehicles" and show/lock persons and containers
     myDemandViewOptions.menuCheckToggleGrid->show();
     myDemandViewOptions.menuCheckDrawSpreadVehicles->show();
     myDemandViewOptions.menuCheckHideShapes->show();
     myDemandViewOptions.menuCheckShowAllTrips->show();
+    myDemandViewOptions.menuCheckShowAllPersonPlans->show();
+    myDemandViewOptions.menuCheckLockPerson->show();
+    myDemandViewOptions.menuCheckShowAllContainerPlans->show();
+    myDemandViewOptions.menuCheckLockContainer->show();
     menuChecks.menuCheckToggleGrid->show();
     menuChecks.menuCheckDrawSpreadVehicles->show();
     menuChecks.menuCheckHideShapes->show();
     menuChecks.menuCheckShowAllTrips->show();
+    menuChecks.menuCheckShowAllPersonPlans->show();
+    menuChecks.menuCheckLockPerson->show();
+    menuChecks.menuCheckShowAllContainerPlans->show();
+    menuChecks.menuCheckLockContainer->show();
     // show separator
     menuChecks.separator->show();
     // enable selected controls
@@ -3703,12 +3711,8 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCommonCheckableButtons.inspectButton->setChecked(true);
             // show view options
             myDemandViewOptions.menuCheckHideNonInspectedDemandElements->show();
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
             // show menu checks
             menuChecks.menuCheckHideNonInspectedDemandElements->show();
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_DELETE:
             myViewParent->getDeleteFrame()->show();
@@ -3716,12 +3720,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getDeleteFrame();
             // set checkable button
             myCommonCheckableButtons.deleteButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_SELECT:
             myViewParent->getSelectorFrame()->show();
@@ -3729,12 +3727,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getSelectorFrame();
             // set checkable button
             myCommonCheckableButtons.selectButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_MOVE:
             myViewParent->getMoveFrame()->show();
@@ -3742,12 +3734,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getMoveFrame();
             // set checkable button
             myDemandCheckableButtons.moveDemandElementsButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         // specific modes
         case DemandEditMode::DEMAND_ROUTE:
@@ -3756,12 +3742,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getRouteFrame();
             // set checkable button
             myDemandCheckableButtons.routeButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_VEHICLE:
             myViewParent->getVehicleFrame()->show();
@@ -3769,12 +3749,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getVehicleFrame();
             // set checkable button
             myDemandCheckableButtons.vehicleButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_VEHICLETYPES:
             myViewParent->getVehicleTypeFrame()->show();
@@ -3782,12 +3756,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getVehicleTypeFrame();
             // set checkable button
             myDemandCheckableButtons.vehicleTypeButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_STOP:
             myViewParent->getStopFrame()->show();
@@ -3795,12 +3763,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getStopFrame();
             // set checkable button
             myDemandCheckableButtons.stopButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_PERSONTYPES:
             myViewParent->getPersonTypeFrame()->show();
@@ -3808,12 +3770,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getPersonTypeFrame();
             // set checkable button
             myDemandCheckableButtons.personTypeButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_PERSON:
             myViewParent->getPersonFrame()->show();
@@ -3821,12 +3777,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getPersonFrame();
             // set checkable button
             myDemandCheckableButtons.personButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_PERSONPLAN:
             myViewParent->getPersonPlanFrame()->show();
@@ -3834,12 +3784,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getPersonPlanFrame();
             // set checkable button
             myDemandCheckableButtons.personPlanButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_CONTAINER:
             myViewParent->getContainerFrame()->show();
@@ -3847,12 +3791,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getContainerFrame();
             // set checkable button
             myDemandCheckableButtons.containerButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllContainerPlans->show();
-            myDemandViewOptions.menuCheckLockContainer->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllContainerPlans->show();
-            menuChecks.menuCheckLockContainer->show();
             break;
         case DemandEditMode::DEMAND_CONTAINERPLAN:
             myViewParent->getContainerPlanFrame()->show();
@@ -3860,12 +3798,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getContainerPlanFrame();
             // set checkable button
             myDemandCheckableButtons.containerPlanButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllContainerPlans->show();
-            myDemandViewOptions.menuCheckLockContainer->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllContainerPlans->show();
-            menuChecks.menuCheckLockContainer->show();
             break;
         default:
             break;
