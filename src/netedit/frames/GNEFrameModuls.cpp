@@ -133,6 +133,16 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
             myListOfTagTypes.push_back(std::make_pair("rides", GNETagProperties::TagType::RIDE));
             myListOfTagTypes.push_back(std::make_pair("stops", GNETagProperties::TagType::STOPPERSON));
             break;
+        case GNETagProperties::TagType::CONTAINER:
+            setText("Container");
+            break;
+        case GNETagProperties::TagType::CONTAINERPLAN:
+            setText("Container plans");
+            // container plan type has four sub-groups
+            myListOfTagTypes.push_back(std::make_pair("transport", GNETagProperties::TagType::TRANSPORT));
+            myListOfTagTypes.push_back(std::make_pair("tranship", GNETagProperties::TagType::TRANSHIP));
+            myListOfTagTypes.push_back(std::make_pair("stops", GNETagProperties::TagType::STOPCONTAINER));
+            break;
         case GNETagProperties::TagType::PERSONTRIP:
             setText("Person trips");
             break;
