@@ -175,7 +175,7 @@ GNEContainer::~GNEContainer() {}
 GNEMoveOperation*
 GNEContainer::getMoveOperation(const double /*shapeOffset*/) {
     // check first container plan
-    if (getChildDemandElements().front()->getTagProperty().isContainerStop()) {
+    if (getChildDemandElements().front()->getTagProperty().isStopContainer()) {
         return nullptr;
     } else {
         // get lane
@@ -318,7 +318,7 @@ Boundary
 GNEContainer::getCenteringBoundary() const {
     Boundary containerBoundary;
     if (getChildDemandElements().size() > 0) {
-        if (getChildDemandElements().front()->getTagProperty().isContainerStop()) {
+        if (getChildDemandElements().front()->getTagProperty().isStopContainer()) {
             // use boundary of stop center
             return getChildDemandElements().front()->getCenteringBoundary();
         } else {
@@ -517,7 +517,7 @@ GNEContainer::getAttributePosition(SumoXMLAttr key) const {
             // get container plan
             const GNEDemandElement* containerPlan = getChildDemandElements().front();
             // first check if first container plan is a stop
-            if (containerPlan->getTagProperty().isContainerStop()) {
+            if (containerPlan->getTagProperty().isStopContainer()) {
                 return containerPlan->getPositionInView();
             } else {
                 // declare lane lane

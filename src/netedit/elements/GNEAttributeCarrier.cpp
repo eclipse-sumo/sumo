@@ -3925,7 +3925,7 @@ GNEAttributeCarrier::fillContainerStopElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::CONTAINERSTOP,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::STOPCONTAINER,
                                       GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::NOPARAMETERS,
                                       GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW});
 
@@ -3968,7 +3968,7 @@ GNEAttributeCarrier::fillContainerStopElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::CONTAINERSTOP,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::STOPCONTAINER,
                                       GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::NOPARAMETERS,
                                       GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW});
 

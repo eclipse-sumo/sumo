@@ -66,7 +66,7 @@ public:
         CONTAINERPLAN =     1 << 19, // Container plans (tranship and transport)
         TRANSPORT =         1 << 20, // Transport
         TRANSHIP =          1 << 21, // Tranship
-        CONTAINERSTOP =     1 << 22, // Container stops
+        STOPCONTAINER =     1 << 22, // Container stops
         // sub data elements
         GENERICDATA =       1 << 23, // Generic data (GNEEdgeData, GNELaneData...)
         // other
@@ -215,7 +215,7 @@ public:
     bool isTranshipPlan() const;
 
     /// @brief return true if tag correspond to a container stop element
-    bool isContainerStop() const;
+    bool isStopContainer() const;
 
     /// @brief return true if tag correspond to a generic data element
     bool isGenericData() const;

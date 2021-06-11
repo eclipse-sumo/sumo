@@ -357,8 +357,8 @@ GNETagProperties::isTranshipPlan() const {
 
 
 bool
-GNETagProperties::isContainerStop() const {
-    return (myTagType & CONTAINERSTOP) != 0;
+GNETagProperties::isStopContainer() const {
+    return (myTagType & STOPCONTAINER) != 0;
 }
 
 
