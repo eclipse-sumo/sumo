@@ -317,6 +317,12 @@ public:
     /// @brief toggle lock person in super mode demand
     long onCmdToggleLockPerson(FXObject*, FXSelector, void*);
 
+    /// @brief toggle show all container plans in super mode demand
+    long onCmdToggleShowAllContainerPlans(FXObject*, FXSelector, void*);
+
+    /// @brief toggle lock container in super mode demand
+    long onCmdToggleLockContainer(FXObject*, FXSelector, void*);
+
     /// @brief toggle show additionals in super mode data
     long onCmdToggleShowAdditionals(FXObject*, FXSelector, void*);
 
