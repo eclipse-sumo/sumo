@@ -429,16 +429,51 @@ GNEDemandElement::drawPersonPlan() const {
 }
 
 
+bool
+GNEDemandElement::drawContainerPlan() const {
+    // check conditions
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+        myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
+        myNet->getViewNet()->getDemandViewOptions().showAllContainerPlans()) {
+        // show all container plans in network mode
+        return true;
+    } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
+               myNet->getViewNet()->getDemandViewOptions().showAllContainerPlans()) {
+        // show all container plans
+        return true;
+    } else if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front())) {
+        // container parent is inspected
+        return true;
+    } else if (myNet->getViewNet()->getDemandViewOptions().getLockedContainer() == getParentDemandElements().front()) {
+        // container parent is locked
+        return true;
+    } else if (myNet->getViewNet()->getInspectedAttributeCarriers().empty()) {
+        // nothing is inspected
+        return false;
+    } else {
+        // get inspected AC
+        const GNEAttributeCarrier* AC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        // check condition
+        if (AC->getTagProperty().isContainerPlan() && AC->getAttribute(GNE_ATTR_PARENT) == getAttribute(GNE_ATTR_PARENT)) {
+            // common container parent
+            return true;
+        } else {
+            // all conditions are false
+            return false;
+        }
+    }
+}
+
+
 void
-GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
+GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
                                         const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const {
     // get inspected and front flags
     const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this);
     // get person parent
     const GNEDemandElement* personParent = getParentDemandElements().front();
     // check if draw person plan element can be drawn
-    if (drawPersonPlan() &&
-            myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myTagProperty.getTag())) {
+    if (drawPlan && myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myTagProperty.getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
         // get inspected person plan
@@ -554,13 +589,12 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
 
 
 void
-GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/,
+GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/,
                                         const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const {
     // get inspected and front flags
     const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this);
     // check if draw person plan elements can be drawn
-    if (drawPersonPlan() &&
-            myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, fromLane, toLane, myTagProperty.getTag())) {
+    if (drawPlan && myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, fromLane, toLane, myTagProperty.getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
         // get person parent

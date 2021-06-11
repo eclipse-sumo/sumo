@@ -259,14 +259,14 @@ GNERide::computePathElement() {
 void
 GNERide::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // draw person plan over lane
-    drawPersonPlanPartial(s, lane, segment, offsetFront, s.widthSettings.ride, s.colorSettings.ride);
+    drawPersonPlanPartial(drawPersonPlan(), s, lane, segment, offsetFront, s.widthSettings.ride, s.colorSettings.ride);
 }
 
 
 void
 GNERide::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // draw person plan over junction
-    drawPersonPlanPartial(s, fromLane, toLane, segment, offsetFront, s.widthSettings.ride, s.colorSettings.ride);
+    drawPersonPlanPartial(drawPersonPlan(), s, fromLane, toLane, segment, offsetFront, s.widthSettings.ride, s.colorSettings.ride);
 }
 
 
