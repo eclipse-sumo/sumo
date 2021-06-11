@@ -713,6 +713,22 @@ GNEAttributeCarrier::getAllowedTagPropertiesByCategory(const int tagPropertyCate
             }
         }
     }
+    if (tagPropertyCategory & GNETagProperties::CONTAINER) {
+        // fill container tags
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isContainer() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(std::make_pair(tagProperty.second, tagProperty.second.getTagStr()));
+            }
+        }
+    }
+    if (tagPropertyCategory & GNETagProperties::CONTAINERPLAN) {
+        // fill container plan tags
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isContainerPlan() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(std::make_pair(tagProperty.second, tagProperty.second.getTagStr()));
+            }
+        }
+    }
     if (tagPropertyCategory & GNETagProperties::PERSONTRIP) {
         // fill demand tags
         for (const auto& tagProperty : myTagProperties) {
@@ -3758,7 +3774,7 @@ GNEAttributeCarrier::fillContainerTransportElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::TRANSPORT,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::CONTAINERPLAN | GNETagProperties::TRANSPORT,
                                       GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE,
                                       GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW });
         // from edge
@@ -3788,7 +3804,7 @@ GNEAttributeCarrier::fillContainerTransportElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::TRANSPORT,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::CONTAINERPLAN | GNETagProperties::TRANSPORT,
                                       GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE,
                                       GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW });
         // from edge
@@ -3820,7 +3836,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::TRANSHIP,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::CONTAINERPLAN | GNETagProperties::TRANSHIP,
                                       GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE,
                                       GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW });
         // from edge
@@ -3856,7 +3872,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::TRANSHIP,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::CONTAINERPLAN | GNETagProperties::TRANSHIP,
                                       GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE,
                                       GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW });
         // from edge
@@ -3886,7 +3902,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::TRANSHIP,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::CONTAINERPLAN | GNETagProperties::TRANSHIP,
                                       GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE,
                                       GUIIcon::TRANSHIP_EDGES, SUMO_TAG_TRANSHIP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // edges
