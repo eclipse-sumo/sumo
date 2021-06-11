@@ -34,17 +34,19 @@
 // method definitions
 // ===========================================================================
 
-GNETransport::GNETransport(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition) :
+GNETransport::GNETransport(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<std::string>& lines, const double arrivalPosition) :
     GNEDemandElement(containerParent, net, GLO_TRANSPORT, GNE_TAG_TRANSPORT_EDGE,
-{}, {fromEdge, toEdge}, {}, {}, {}, {}, {containerParent}, {}),
-myArrivalPosition(arrivalPosition) {
+    {}, {fromEdge, toEdge}, {}, {}, {}, {}, {containerParent}, {}),
+    myLines(lines),
+    myArrivalPosition(arrivalPosition) {
 }
 
 
-GNETransport::GNETransport(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEAdditional* toContainerStop, double arrivalPosition) :
+GNETransport::GNETransport(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEAdditional* toContainerStop, const std::vector<std::string>& lines, const double arrivalPosition) :
     GNEDemandElement(containerParent, net, GLO_TRANSPORT, GNE_TAG_TRANSPORT_CONTAINERSTOP,
-{}, {fromEdge}, {}, {toContainerStop}, {}, {}, {containerParent}, {}),
-myArrivalPosition(arrivalPosition) {
+    {}, {fromEdge}, {}, {toContainerStop}, {}, {}, {containerParent}, {}),
+    myLines(lines),
+    myArrivalPosition(arrivalPosition) {
 }
 
 
@@ -288,6 +290,8 @@ GNETransport::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(myArrivalPosition);
             }
+        case SUMO_ATTR_LINES:
+            return joinToString(myLines, " ");
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -345,6 +349,7 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
         // Common container plan attributes
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_ARRIVALPOS:
+        case SUMO_ATTR_LINES:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -410,6 +415,8 @@ GNETransport::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
+        case SUMO_ATTR_LINES:
+            return canParse<std::vector<std::string> >(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -498,6 +505,9 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value) {
                 myArrivalPosition = parse<double>(value);
             }
             updateGeometry();
+            break;
+        case SUMO_ATTR_LINES:
+            myLines = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

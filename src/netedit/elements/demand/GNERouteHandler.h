@@ -191,7 +191,7 @@ public:
 
     /// @brief build transport
     static void buildTransport(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                          GNEAdditional* toBusStop, double arrivalPos);
+                          GNEAdditional* toBusStop, const std::vector<std::string>& lines, double arrivalPos);
 
     /// @brief build tranship
     static void buildTranship(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,

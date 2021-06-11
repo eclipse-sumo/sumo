@@ -41,18 +41,20 @@ public:
      * @param[in] containerParent container parent
      * @param[in] fromEdge from edge
      * @param[in] toEdge to edge
+     * @param[in] lines transport lines
      * @param[in] arrivalPosition arrival position on the destination edge
      */
-    GNETransport(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition);
+    GNETransport(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<std::string>& lines, const double arrivalPosition);
 
     /**@brief parameter constructor for container edge->containerStop
      * @param[in] viewNet view in which this Transport is placed
      * @param[in] containerParent container parent
      * @param[in] fromEdge from edge
      * @param[in] toContainerStop to containerStop
+     * @param[in] lines transport lines
      * @param[in] arrivalPosition arrival position on the destination edge
      */
-    GNETransport(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEAdditional* toContainerStop, double arrivalPosition);
+    GNETransport(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEAdditional* toContainerStop, const std::vector<std::string>& lines, const double arrivalPosition);
 
     /// @brief destructor
     ~GNETransport();
@@ -223,6 +225,9 @@ public:
     const std::map<std::string, std::string>& getACParametersMap() const;
 
 protected:
+    /// @brief The list of lines that are assigned to this stop
+    std::vector<std::string> myLines;
+
     /// @brief arrival position
     double myArrivalPosition;
 

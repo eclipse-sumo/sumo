@@ -1078,8 +1078,6 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
     // Declare map to keep attributes from myContainerPlanAttributes
     std::map<SumoXMLAttr, std::string> valuesMap = containerPlanAttributes->getAttributesAndValuesTemporal(true);
     // get attributes
-    const std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
-    const std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
     const std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
     const double arrivalPos = (valuesMap.count(SUMO_ATTR_ARRIVALPOS) > 0) ? GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]) : 0;
     // get stop parameters
@@ -1102,7 +1100,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
         case GNE_TAG_TRANSPORT_EDGE: {
             // check if transport busStop->edge can be created
             if (fromEdge && toEdge) {
-                buildTransport(viewNet->getNet(), true, containerParent, fromEdge, toEdge, nullptr, arrivalPos);
+                buildTransport(viewNet->getNet(), true, containerParent, fromEdge, toEdge, nullptr, lines, arrivalPos);
                 return true;
             } else {
                 viewNet->setStatusBarText("A ride from busStop to edge needs a busStop and an edge");
@@ -1112,7 +1110,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
         case GNE_TAG_TRANSPORT_CONTAINERSTOP: {
             // check if transport busStop->busStop can be created
             if (fromEdge && toBusStop) {
-                buildTransport(viewNet->getNet(), true, containerParent, fromEdge, nullptr, toBusStop, arrivalPos);
+                buildTransport(viewNet->getNet(), true, containerParent, fromEdge, nullptr, toBusStop, lines, arrivalPos);
                 return true;
             } else {
                 viewNet->setStatusBarText("A transport from busStop to busStop needs two busStops");
@@ -1183,13 +1181,13 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
 
 void
 GNERouteHandler::buildTransport(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                           GNEAdditional* toBusStop, double arrivalPos) {
+                           GNEAdditional* toBusStop, const std::vector<std::string>& lines, double arrivalPos) {
     // declare transport
     GNEDemandElement* transport = nullptr;
     // create transport depending of parameters
     if (fromEdge && toEdge) {
         // create transport edge->edge
-        transport = new GNETransport(net, containerParent, fromEdge, toEdge, arrivalPos);
+        transport = new GNETransport(net, containerParent, fromEdge, toEdge, lines, arrivalPos);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_TRANSPORT_EDGE) + " within container '" + containerParent->getID() + "'");
@@ -1207,7 +1205,7 @@ GNERouteHandler::buildTransport(GNENet* net, bool undoDemandElements, GNEDemandE
         }
     } else if (fromEdge && toBusStop) {
         // create transport edge->busStop
-        transport = new GNETransport(net, containerParent, fromEdge, toBusStop, arrivalPos);
+        transport = new GNETransport(net, containerParent, fromEdge, toBusStop, lines, arrivalPos);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_TRANSPORT_CONTAINERSTOP) + " within container '" + containerParent->getID() + "'");
@@ -2091,11 +2089,11 @@ GNERouteHandler::closeContainer() {
                     switch (containerPlanValue.tag) {
                         // Transport
                         case GNE_TAG_TRANSPORT_EDGE: {
-                            buildTransport(myNet, true, container, containerPlanValue.fromEdge, containerPlanValue.toEdge, nullptr, containerPlanValue.arrivalPos);
+                            buildTransport(myNet, true, container, containerPlanValue.fromEdge, containerPlanValue.toEdge, nullptr, containerPlanValue.lines, containerPlanValue.arrivalPos);
                             break;
                         }
                         case GNE_TAG_TRANSPORT_CONTAINERSTOP: {
-                            buildTransport(myNet, true, container, containerPlanValue.fromEdge, nullptr, containerPlanValue.toContainerStop, containerPlanValue.arrivalPos);
+                            buildTransport(myNet, true, container, containerPlanValue.fromEdge, nullptr, containerPlanValue.toContainerStop, containerPlanValue.lines, containerPlanValue.arrivalPos);
                             break;
                         }
                         // Tranships
@@ -2160,11 +2158,11 @@ GNERouteHandler::closeContainerFlow() {
                     switch (containerPlanValue.tag) {
                         // Transport
                         case GNE_TAG_TRANSPORT_EDGE: {
-                            buildTransport(myNet, true, container, containerPlanValue.fromEdge, containerPlanValue.toEdge, nullptr, containerPlanValue.arrivalPos);
+                            buildTransport(myNet, true, container, containerPlanValue.fromEdge, containerPlanValue.toEdge, nullptr, containerPlanValue.lines, containerPlanValue.arrivalPos);
                             break;
                         }
                         case GNE_TAG_TRANSPORT_CONTAINERSTOP: {
-                            buildTransport(myNet, true, container, containerPlanValue.fromEdge, nullptr, containerPlanValue.toContainerStop, containerPlanValue.arrivalPos);
+                            buildTransport(myNet, true, container, containerPlanValue.fromEdge, nullptr, containerPlanValue.toContainerStop, containerPlanValue.lines, containerPlanValue.arrivalPos);
                             break;
                         }
                         // Tranship
