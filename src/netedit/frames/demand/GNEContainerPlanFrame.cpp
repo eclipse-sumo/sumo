@@ -116,14 +116,12 @@ GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ObjectsUn
     // Obtain current container plan tag (only for improve code legibility)
     SumoXMLTag containerPlanTag = myContainerPlanTagSelector->getCurrentTagProperties().getTag();
     // declare flags for requierements
-    const bool requireBusStop = ((containerPlanTag == GNE_TAG_CONTAINERTRIP_BUSSTOP) || (containerPlanTag == GNE_TAG_WALK_BUSSTOP) ||
-                                 (containerPlanTag == GNE_TAG_RIDE_BUSSTOP) || (containerPlanTag == GNE_TAG_STOPCONTAINER_BUSSTOP));
-    const bool requireEdge = ((containerPlanTag == GNE_TAG_CONTAINERTRIP_EDGE) || (containerPlanTag == GNE_TAG_WALK_EDGE) ||
-                              (containerPlanTag == GNE_TAG_RIDE_EDGE) || (containerPlanTag == GNE_TAG_WALK_EDGES));
+    const bool requireContainerStop = ((containerPlanTag == GNE_TAG_TRANSPORT_CONTAINERSTOP) || (containerPlanTag == GNE_TAG_TRANSHIP_CONTAINERSTOP) ||
+                                       (containerPlanTag == GNE_TAG_STOPCONTAINER_CONTAINERSTOP));
+    const bool requireEdge = ((containerPlanTag == GNE_TAG_TRANSPORT_EDGE) || (containerPlanTag == GNE_TAG_TRANSHIP_EDGE) ||
+                              (containerPlanTag == GNE_TAG_TRANSHIP_EDGES) || (containerPlanTag == GNE_TAG_STOPCONTAINER_EDGE));
     // continue depending of tag
-    if ((containerPlanTag == GNE_TAG_WALK_ROUTE) && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
-        return myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
-    } else if (requireBusStop && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
+    if (requireContainerStop && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP)) {
         return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (requireEdge && objectsUnderCursor.getEdgeFront()) {
         return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
