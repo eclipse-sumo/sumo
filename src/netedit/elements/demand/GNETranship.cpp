@@ -38,6 +38,8 @@ GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge
     const double speed, const double departPosition, const double arrivalPosition) :
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_EDGE,
     {}, {fromEdge, toEdge}, {}, {}, {}, {}, {containerParent}, {}),
+    mySpeed(speed),
+    myDepartPosition(departPosition),
     myArrivalPosition(arrivalPosition) {
 }
 
@@ -46,6 +48,8 @@ GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge
     const double speed, const double departPosition, const double arrivalPosition) :
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_CONTAINERSTOP,
     {}, {fromEdge}, {}, {toContainerStop}, {}, {}, {containerParent}, {}),
+    mySpeed(speed),
+    myDepartPosition(departPosition),
     myArrivalPosition(arrivalPosition) {
 }
 
@@ -54,6 +58,8 @@ GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, std::ve
     const double speed, const double departPosition, const double arrivalPosition) :
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_EDGES,
     {}, {edges}, {}, {}, {}, {}, {containerParent}, {}),
+    mySpeed(speed),
+    myDepartPosition(departPosition),
     myArrivalPosition(arrivalPosition) {
 }
 
