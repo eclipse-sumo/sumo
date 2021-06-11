@@ -171,7 +171,7 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
         // Set visible items
         myTagTypesMatchBox->setNumVisible((int)myTagTypesMatchBox->getNumItems());
         // fill myTagPropertiesString with personTrips (the first Tag Type)
-        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::PERSONTRIP, onlyDrawables);
+        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(type, onlyDrawables);
     } else {
         myTagTypesMatchBox->hide();
         // fill myTagPropertiesString
@@ -218,7 +218,7 @@ GNEFrameModuls::TagSelector::setCurrentTagType(GNETagProperties::TagType tagType
         if (myTagsMatchBox->getItem(i).text() == toString(tagType)) {
             myTagsMatchBox->setCurrentItem(i);
             // fill myTagPropertiesString with personTrips (the first Tag Type)
-            myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::PERSONTRIP, true);
+            myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(tagType, true);
             // clear myTagsMatchBox
             myTagsMatchBox->clearItems();
             // fill myTypeMatchBox with list of tags
