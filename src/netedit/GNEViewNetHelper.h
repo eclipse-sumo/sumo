@@ -103,7 +103,11 @@ enum class DemandEditMode {
     ///@brief Mode for editing person
     DEMAND_PERSON,
     ///@brief Mode for editing person plan
-    DEMAND_PERSONPLAN
+    DEMAND_PERSONPLAN,
+    ///@brief Mode for editing container
+    DEMAND_CONTAINER,
+    ///@brief Mode for editing container plan
+    DEMAND_CONTAINERPLAN
 };
 
 /// @brie enum for data edit modes
@@ -632,6 +636,18 @@ struct GNEViewNetHelper {
         /// @brief get locked person
         const GNEDemandElement* getLockedPerson() const;
 
+        /// @brief check all container plans has to be show
+        bool showAllContainerPlans() const;
+
+        /// @brief lock container
+        void lockContainer(const GNEDemandElement* container);
+
+        /// @brief unlock container
+        void unlockContainer();
+
+        /// @brief get locked container
+        const GNEDemandElement* getLockedContainer() const;
+
         /// @brief menu check to show grid button
         MFXCheckableButton* menuCheckToggleGrid;
 
@@ -650,6 +666,12 @@ struct GNEViewNetHelper {
         /// @brief Lock Person
         MFXCheckableButton* menuCheckLockPerson;
 
+        /// @brief show all container plans
+        MFXCheckableButton* menuCheckShowAllContainerPlans;
+
+        /// @brief Lock Container
+        MFXCheckableButton* menuCheckLockContainer;
+
         /// @brief Hide non inspected demand elements
         MFXCheckableButton* menuCheckHideNonInspectedDemandElements;
 
@@ -659,6 +681,9 @@ struct GNEViewNetHelper {
 
         /// @brief pointer to locked person
         const GNEDemandElement* myLockedPerson;
+
+        /// @brief pointer to locked container
+        const GNEDemandElement* myLockedContainer;
 
         /// @brief Invalidated copy constructor.
         DemandViewOptions(const DemandViewOptions&) = delete;
@@ -1160,6 +1185,12 @@ struct GNEViewNetHelper {
 
         /// @brief chekable button for edit mode create person plans
         MFXCheckableButton* personPlanButton;
+
+        /// @brief chekable button for edit mode create containers
+        MFXCheckableButton* containerButton;
+
+        /// @brief chekable button for edit mode create container plans
+        MFXCheckableButton* containerPlanButton;
 
     private:
         /// @brief pointer to net
