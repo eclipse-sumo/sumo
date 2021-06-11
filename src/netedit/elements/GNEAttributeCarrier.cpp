@@ -713,22 +713,6 @@ GNEAttributeCarrier::getAllowedTagPropertiesByCategory(const int tagPropertyCate
             }
         }
     }
-    if (tagPropertyCategory & GNETagProperties::CONTAINER) {
-        // fill container tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isContainer() && (!onlyDrawables || tagProperty.second.isDrawable())) {
-                allowedTags.push_back(std::make_pair(tagProperty.second, tagProperty.second.getTagStr()));
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::CONTAINERPLAN) {
-        // fill container plan tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isContainerPlan() && (!onlyDrawables || tagProperty.second.isDrawable())) {
-                allowedTags.push_back(std::make_pair(tagProperty.second, tagProperty.second.getTagStr()));
-            }
-        }
-    }
     if (tagPropertyCategory & GNETagProperties::PERSONTRIP) {
         // fill demand tags
         for (const auto& tagProperty : myTagProperties) {
@@ -765,6 +749,46 @@ GNEAttributeCarrier::getAllowedTagPropertiesByCategory(const int tagPropertyCate
         // fill generic data tags
         for (const auto& tagProperty : myTagProperties) {
             if (tagProperty.second.isGenericData() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(std::make_pair(tagProperty.second, tagProperty.second.getTagStr()));
+            }
+        }
+    }
+     if (tagPropertyCategory & GNETagProperties::CONTAINER) {
+        // fill container tags
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isContainer() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(std::make_pair(tagProperty.second, tagProperty.second.getTagStr()));
+            }
+        }
+    }
+    if (tagPropertyCategory & GNETagProperties::CONTAINERPLAN) {
+        // fill container plan tags
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isContainerPlan() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(std::make_pair(tagProperty.second, tagProperty.second.getTagStr()));
+            }
+        }
+    }
+    if (tagPropertyCategory & GNETagProperties::TRANSPORT) {
+        // fill demand tags
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isTransportPlan() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(std::make_pair(tagProperty.second, tagProperty.second.getTagStr()));
+            }
+        }
+    }
+    if (tagPropertyCategory & GNETagProperties::TRANSHIP) {
+        // fill demand tags
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isTranshipPlan() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+                allowedTags.push_back(std::make_pair(tagProperty.second, tagProperty.second.getTagStr()));
+            }
+        }
+    }
+    if (tagPropertyCategory & GNETagProperties::STOPCONTAINER) {
+        // fill demand tags
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isStopContainer() && (!onlyDrawables || tagProperty.second.isDrawable())) {
                 allowedTags.push_back(std::make_pair(tagProperty.second, tagProperty.second.getTagStr()));
             }
         }
@@ -3789,13 +3813,13 @@ GNEAttributeCarrier::fillContainerTransportElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
         // lines
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUESTATIC,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
                                               "list of vehicle alternatives to take for the " + toString(currentTag),
-                                              "ANY");
+                                              "");
         myTagProperties[currentTag].addAttribute(attrProperty);
         // arrival position
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
                                               "arrival position on the destination edge",
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3814,9 +3838,9 @@ GNEAttributeCarrier::fillContainerTransportElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
         // lines
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUESTATIC,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
                                               "list of vehicle alternatives to take for the " + toString(currentTag),
-                                              "ANY");
+                                              "");
         myTagProperties[currentTag].addAttribute(attrProperty);
         // to busStop
         attrProperty = GNEAttributeProperties(GNE_ATTR_TO_CONTAINERSTOP,
@@ -3851,19 +3875,19 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
         // speed
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
-                                                GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC,
-                                                "speed of the container for this tranship in m/s",
-                                                "1,39");
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "speed of the container for this tranship in m/s",
+                                              "1.39");
         myTagProperties[currentTag].addAttribute(attrProperty);
         // depart pos
         attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPARTPOS,
-                                        GNEAttributeProperties::COMPLEX | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL |  GNEAttributeProperties::UPDATEGEOMETRY /* GNEAttributeProperties::MULTIDISCRETE (Currently disabled) */,
-                                        "The position at which the " + toString(currentTag) + " shall enter the net",
-                                        "base");
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "The position at which the " + toString(currentTag) + " shall enter the net",
+                                              "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
         // arrival position
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
                                               "arrival position on the destination edge",
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3887,15 +3911,15 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
         // speed
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
-                                                GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC,
-                                                "speed of the container for this tranship in m/s",
-                                                "1,39");
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "speed of the container for this tranship in m/s",
+                                              "1.39");
         myTagProperties[currentTag].addAttribute(attrProperty);
         // depart pos
         attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPARTPOS,
-                                        GNEAttributeProperties::COMPLEX | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL |  GNEAttributeProperties::UPDATEGEOMETRY /* GNEAttributeProperties::MULTIDISCRETE (Currently disabled) */,
-                                        "The position at which the " + toString(currentTag) + " shall enter the net",
-                                        "base");
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "The position at which the " + toString(currentTag) + " shall enter the net",
+                                              "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_TRANSHIP_EDGES;
@@ -3912,19 +3936,19 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
         // speed
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
-                                                GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC,
-                                                "speed of the container for this tranship in m/s",
-                                                "1,39");
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "speed of the container for this tranship in m/s",
+                                              "1.39");
         myTagProperties[currentTag].addAttribute(attrProperty);
         // depart pos
         attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPARTPOS,
-                                        GNEAttributeProperties::COMPLEX | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL |  GNEAttributeProperties::UPDATEGEOMETRY /* GNEAttributeProperties::MULTIDISCRETE (Currently disabled) */,
-                                        "The position at which the " + toString(currentTag) + " shall enter the net",
-                                        "base");
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "The position at which the " + toString(currentTag) + " shall enter the net",
+                                              "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
         // arrival pos
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
                                               "Arrival position on the destination edge",
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
