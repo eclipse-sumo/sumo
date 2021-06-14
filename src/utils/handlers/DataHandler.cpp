@@ -142,16 +142,16 @@ DataHandler::parseInterval(const SUMOSAXAttributes& attrs) {
     bool parsedOk = true;
     // needed attributes
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
-    const double begin = attrs.get<double>(SUMO_ATTR_FROM, "", parsedOk);
-    const double end = attrs.get<double>(SUMO_ATTR_TO, "", parsedOk);
+    const double begin = attrs.get<double>(SUMO_ATTR_BEGIN, "", parsedOk);
+    const double end = attrs.get<double>(SUMO_ATTR_END, "", parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_INTERVAL);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_FROM, begin);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_TO, end);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_BEGIN, begin);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_END, end);
     }
 }
 
@@ -176,7 +176,7 @@ DataHandler::parseEdgeData(const SUMOSAXAttributes& attrs) {
     // continue if flag is ok
     if (parsedOk) {
         // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_MEANDATA_EDGE);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
     }
@@ -194,7 +194,7 @@ DataHandler::parseEdgeRelationData(const SUMOSAXAttributes& attrs) {
     const std::vector<std::string> attributes = attrs.getAttributeNames();
     // iterate over attributes and fill parameters map
     for (const auto& attribute : attributes) {
-        if (attribute != toString(SUMO_ATTR_ID)) {
+        if ((attribute != toString(SUMO_ATTR_FROM)) && (attribute != toString(SUMO_ATTR_TO))) {
             const std::string value = attrs.getStringSecure(attribute, "");
             if (parseStringToDouble(value) != INVALID_DOUBLE) {
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addParameter(attribute, value);
@@ -204,7 +204,7 @@ DataHandler::parseEdgeRelationData(const SUMOSAXAttributes& attrs) {
     // continue if flag is ok
     if (parsedOk) {
         // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_EDGEREL);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
@@ -223,7 +223,7 @@ DataHandler::parseTAZRelationData(const SUMOSAXAttributes& attrs) {
     const std::vector<std::string> attributes = attrs.getAttributeNames();
     // iterate over attributes and fill parameters map
     for (const auto& attribute : attributes) {
-        if (attribute != toString(SUMO_ATTR_ID)) {
+        if ((attribute != toString(SUMO_ATTR_FROM)) && (attribute != toString(SUMO_ATTR_TO))) {
             const std::string value = attrs.getStringSecure(attribute, "");
             if (parseStringToDouble(value) != INVALID_DOUBLE) {
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addParameter(attribute, value);
@@ -233,7 +233,7 @@ DataHandler::parseTAZRelationData(const SUMOSAXAttributes& attrs) {
     // continue if flag is ok
     if (parsedOk) {
         // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_TAZREL);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
