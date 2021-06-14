@@ -12,10 +12,10 @@
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    AdditionalHandler.cpp
-/// @author  Jakob Erdmann
-/// @date    Feb 2015
+/// @author  Pablo Alvarez Lopez
+/// @date    Jun 2021
 ///
-// The XML-Handler for network loading
+// The XML-Handler for additionals loading
 /****************************************************************************/
 #include <config.h>
 
