@@ -103,8 +103,8 @@ GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* sumo
 
 
 void
-GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, 
-    const std::string &edgeID, const std::map<std::string, double>& parameters) {
+GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, 
+    const std::map<std::string, std::string>& parameters) {
     // get dataSet
     GNEDataSet* dataSet = myNet->retrieveDataSet(sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     if (dataSet != nullptr) {
@@ -139,8 +139,8 @@ GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBase
 
 
 void
-GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, 
-    const std::string &fromEdgeID, const std::string &toEdgeID, const std::map<std::string, double>& parameters) {
+GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdgeID, 
+    const std::string &toEdgeID, const std::map<std::string, std::string>& parameters) {
     // get dataSet
     GNEDataSet* dataSet = myNet->retrieveDataSet(sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     if (dataSet != nullptr) {
@@ -177,8 +177,8 @@ GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* 
 
 
 void 
-GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, 
-    const std::string &fromTAZID, const std::string &toTAZID, const std::map<std::string, double>& parameters) {
+GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromTAZID, 
+    const std::string &toTAZID, const std::map<std::string, std::string>& parameters) {
     // get dataSet
     GNEDataSet* dataSet = myNet->retrieveDataSet(sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     if (dataSet != nullptr) {

@@ -56,7 +56,7 @@ public:
      * @param[in] end interval end
      */
     void buildDataInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& dataSetID, 
-                                   const double begin, const double end);
+                           const double begin, const double end);
 
     /**@brief Builds edgeData
      * @param[in] sumoBaseObject sumo base object used for build
@@ -64,7 +64,7 @@ public:
      * @param[in] parameters parameters map
      */
     void buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, 
-                               const std::map<std::string, double>& parameters);
+                       const std::map<std::string, std::string>& parameters);
 
     /**@brief Builds edgeRelationData
      * @param[in] sumoBaseObject sumo base object used for build
@@ -73,7 +73,7 @@ public:
      * @param[in] parameters parameters map
      */
     void buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdgeID, 
-                                       const std::string &toEdgeID, const std::map<std::string, double>& parameters);
+                               const std::string &toEdgeID, const std::map<std::string, std::string>& parameters);
 
     /**@brief Builds TAZRelationData
      * @param[in] sumoBaseObject sumo base object used for build
@@ -82,7 +82,7 @@ public:
      * @param[in] parameters parameters map
      */
     void buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromTAZID, 
-                                      const std::string &toTAZID, const std::map<std::string, double>& parameters);
+                              const std::string &toTAZID, const std::map<std::string, std::string>& parameters);
     /// @}
 
 protected:
