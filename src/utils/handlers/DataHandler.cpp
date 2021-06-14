@@ -59,19 +59,19 @@ DataHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         case SUMO_TAG_EDGE:
             buildEdgeData(obj,
                 obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getDoubleParameters());
+                obj->getParameters());
             break;
         case SUMO_TAG_EDGEREL:
             buildEdgeRelationData(obj,
                 obj->getStringAttribute(SUMO_ATTR_FROM),
                 obj->getStringAttribute(SUMO_ATTR_TO),
-                obj->getDoubleParameters());
+                obj->getParameters());
             break;
         case SUMO_TAG_TAZREL:
             buildTAZRelationData(obj,
                 obj->getStringAttribute(SUMO_ATTR_FROM),
                 obj->getStringAttribute(SUMO_ATTR_TO),
-                obj->getDoubleParameters());
+                obj->getParameters());
             break;
         default:
             break;
@@ -167,9 +167,9 @@ DataHandler::parseEdgeData(const SUMOSAXAttributes& attrs) {
     // iterate over attributes and fill parameters map
     for (const auto& attribute : attributes) {
         if (attribute != toString(SUMO_ATTR_ID)) {
-            const double value = parseStringToDouble(attrs.getStringSecure(attribute, ""));
-            if (value != INVALID_DOUBLE) {
-                myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleParameter(attribute, value);
+            const std::string value = attrs.getStringSecure(attribute, "");
+            if (parseStringToDouble(value) != INVALID_DOUBLE) {
+                myCommonXMLStructure.getCurrentSumoBaseObject()->addParameter(attribute, value);
             }
         }
     }
@@ -195,9 +195,9 @@ DataHandler::parseEdgeRelationData(const SUMOSAXAttributes& attrs) {
     // iterate over attributes and fill parameters map
     for (const auto& attribute : attributes) {
         if (attribute != toString(SUMO_ATTR_ID)) {
-            const double value = parseStringToDouble(attrs.getStringSecure(attribute, ""));
-            if (value != INVALID_DOUBLE) {
-                myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleParameter(attribute, value);
+            const std::string value = attrs.getStringSecure(attribute, "");
+            if (parseStringToDouble(value) != INVALID_DOUBLE) {
+                myCommonXMLStructure.getCurrentSumoBaseObject()->addParameter(attribute, value);
             }
         }
     }
@@ -224,9 +224,9 @@ DataHandler::parseTAZRelationData(const SUMOSAXAttributes& attrs) {
     // iterate over attributes and fill parameters map
     for (const auto& attribute : attributes) {
         if (attribute != toString(SUMO_ATTR_ID)) {
-            const double value = parseStringToDouble(attrs.getStringSecure(attribute, ""));
-            if (value != INVALID_DOUBLE) {
-                myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleParameter(attribute, value);
+            const std::string value = attrs.getStringSecure(attribute, "");
+            if (parseStringToDouble(value) != INVALID_DOUBLE) {
+                myCommonXMLStructure.getCurrentSumoBaseObject()->addParameter(attribute, value);
             }
         }
     }
