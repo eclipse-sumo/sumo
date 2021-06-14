@@ -22,9 +22,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
 #include <utils/xml/XMLSubSys.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/RGBColor.h>
-#include <utils/shapes/Shape.h>
 
 #include "DataHandler.h"
 
