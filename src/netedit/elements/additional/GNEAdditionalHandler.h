@@ -24,18 +24,13 @@
 #include <utils/handlers/AdditionalHandler.h>
 
 
-
 // ===========================================================================
 // class declarations
 // ===========================================================================
-
 class GNENet;
 class GNEEdge;
 class GNELane;
 class GNEAdditional;
-class GNEShape;
-class GNETAZElement;
-class GNEDemandElement;
 
 // ===========================================================================
 // class definitions
@@ -44,8 +39,8 @@ class GNEDemandElement;
 /// @class GNEAdditionalHandler
 /// @brief Builds additional objects for GNENet (busStops, chargingStations, detectors, etc..)
 class GNEAdditionalHandler : public AdditionalHandler {
-public:
 
+public:
     /// @brief Constructor
     GNEAdditionalHandler(GNENet* net, const std::string& file, const bool allowUndoRedo);
 
