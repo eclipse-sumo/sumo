@@ -162,13 +162,13 @@ public:
    * \brief Callback function which updates the vehicle's current power
    *        consumption every time it moves.
    *
-   * \param[in] ref_vehicle The vehicle this device belongs to
+   * \param[in] ref_trafficObj The object this device belongs to
    * \param[in] oldPos Previous vehicle position [m]
    * \param[in] newPos New vehicle position [m]
    * \param[in] newSpeed New velocity [m/s]
    * \returns true
    */
-  bool notifyMove(SUMOVehicle& ref_vehicle, double /* oldPos */,
+  bool notifyMove(SUMOTrafficObject& ref_trafficObj, double /* oldPos */,
       double /* newPos */, double /* newSpeed */);
   
   /**

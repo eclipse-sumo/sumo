@@ -191,15 +191,19 @@ void MSDevice_EVPowertrain::buildVehicleDevices(SUMOVehicle& ref_vehicle,
  * \brief Callback function which updates the vehicle's current power
  *        consumption every time it moves.
  *
- * \param[in] ref_vehicle The vehicle this device belongs to
+ * \param[in] ref_trafficObj The object this device belongs to
  * \param[in] oldPos Previous vehicle position [m]
  * \param[in] newPos New vehicle position [m]
  * \param[in] newSpeed New velocity [m/s]
  * \returns true
  */
-bool MSDevice_EVPowertrain::notifyMove(SUMOVehicle& ref_vehicle,
+bool MSDevice_EVPowertrain::notifyMove(SUMOTrafficObject& ref_trafficObj,
     double /* oldPos */, double /* newPos */, double /* newSpeed */)
 {
+  if(!ref_trafficObj.isVehicle())
+    return true;
+  SUMOVehicle& ref_vehicle = static_cast<SUMOVehicle&>(ref_trafficObj);
+
   b_stateValid = model.calcPowerConsumption(TS, ref_vehicle.getSpeed(),
       ref_vehicle.getAcceleration(), ref_vehicle.getSlope(), P);
   if(!b_stateValid)
