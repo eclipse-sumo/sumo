@@ -1892,7 +1892,7 @@ MSLane::executeMovements(const SUMOTime t) {
             } // else look for a (waiting) vehicle that isn't stopped?
         }
     }
-    if (MSGlobals::gLateralResolution > 0) {
+    if (MSGlobals::gSublane) {
         // trigger sorting of vehicles as their order may have changed
         MSNet::getInstance()->getEdgeControl().needsVehicleIntegration(this);
     }
