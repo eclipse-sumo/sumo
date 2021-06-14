@@ -1,6 +1,7 @@
 ##
 # \file EvPowertrainXml2Csv.py
 # \author Kevin Badalian (badalian_k@vka.rwth-aachen.de)
+# \author Sven Schönberg (sven.schoenberg@c-lab.de)
 # \copyright Eclipse Public License v2.0
 #            (https://www.eclipse.org/legal/epl-2.0/)
 # \brief This application converts the XML output of the VKA EV powertrain to a
@@ -35,25 +36,27 @@ with open(parsedArguments.csv_file, "w") as csvFile:
   dictWriter.writeheader()
 
   # Parse the XML file
-  evPowertrainExport = ET.parse(parsedArguments.xml_file).getroot()
-  for timestep in evPowertrainExport:
-    if timestep.tag != "timestep":
-      continue
-    t = float(timestep.attrib["time"])
+  evPowertrainExport = ET.iterparse(parsedArguments.xml_file,
+      events=("start",))
+  event, root = next(evPowertrainExport)
+  for event, elem in evPowertrainExport:
+    if elem.tag == "timestep":
+      t = float(elem.attrib["time"])
 
-    for vehicle in timestep:
-      if vehicle.tag != "vehicle":
-        continue
-      dictWriter.writerow({ "t" : t, "ID" : str(vehicle.attrib["id"]),
-          "x" : float(vehicle.attrib["x"]),
-          "y" : float(vehicle.attrib["y"]),
-          "z" : float(vehicle.attrib["z"]),
-          "edgeID" : str(vehicle.attrib["edge"]),
-          "laneID" : str(vehicle.attrib["lane"]),
-          "v" : float(vehicle.attrib["speed"]),
-          "a" : float(vehicle.attrib["acceleration"]),
-          "slope" : float(vehicle.attrib["slope"]),
-          "P" : float(vehicle.attrib["powerConsumption"]),
-          "E" : float(vehicle.attrib["energyConsumption"]),
-          "state_valid" : int(vehicle.attrib["stateValid"]) })
+    if elem.tag == "vehicle":
+      dictWriter.writerow({ "t" : t, "ID" : str(elem.attrib["id"]),
+          "x" : float(elem.attrib["x"]),
+          "y" : float(elem.attrib["y"]),
+          "z" : float(elem.attrib["z"]),
+          "edgeID" : str(elem.attrib["edge"]),
+          "laneID" : str(elem.attrib["lane"]),
+          "v" : float(elem.attrib["speed"]),
+          "a" : float(elem.attrib["acceleration"]),
+          "slope" : float(elem.attrib["slope"]),
+          "P" : float(elem.attrib["powerConsumption"]),
+          "E" : float(elem.attrib["energyConsumption"]),
+          "state_valid" : int(elem.attrib["stateValid"]) })
+
+    elem.clear()
+    root.clear()
 
