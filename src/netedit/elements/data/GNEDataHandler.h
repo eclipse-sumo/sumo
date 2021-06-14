@@ -44,6 +44,11 @@ public:
 
     /// @name build functions
     /// @{
+    /**@brief Builds DataSet (exlcusive of NETEDIT)
+     * @param[in] dataSetID new dataSet
+     */
+    void buildDataSet(const std::string& dataSetID);
+
     /**@brief Builds DataInterval
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] dataSetID interval's dataSet
@@ -67,8 +72,8 @@ public:
      * @param[in] toEdge edge to
      * @param[in] parameters parameters map
      */
-    void buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, 
-                                       const std::string &toEdge, const std::map<std::string, double>& parameters);
+    void buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdgeID, 
+                                       const std::string &toEdgeID, const std::map<std::string, double>& parameters);
 
     /**@brief Builds TAZRelationData
      * @param[in] sumoBaseObject sumo base object used for build
@@ -86,6 +91,12 @@ protected:
 
     /// @brief allow undo/redo
     const bool myAllowUndoRedo;
+
+    /// @brief write error "duplicated additional"
+    void writeErrorDuplicated(const SumoXMLTag tag, const std::string &id) const;
+
+    /// @brief write error "invalid parent element"
+    void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent) const;
 
 private:
     /// @brief invalidate copy constructor
