@@ -38,9 +38,6 @@ If the vehicle cannot be inserted immediately,it will be held outside the road n
 In the latter case, the vehicle is removed from the simulation.
 While the vehicle is in the teleporting buffer it remains invisble.
 
-A simple illustration about how congestion
-resolves stepwise is shown below.
-
 The threshold value can be configure
 using the option **--time-to-teleport** {{DT_INT}} which sets the time in seconds. If the value is not
 positive, teleporting due to grid-lock is disabled. Note that for
