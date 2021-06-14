@@ -145,9 +145,10 @@ GNEGenericDataFrame::DataSetSelector::onCmdCreateDataSet(FXObject*, FXSelector, 
         WRITE_WARNING("Invalid duplicated dataSet ID");
     } else {
         // build data set
-        const GNEDataSet* dataSet = GNEDataHandler::buildDataSet(myGenericDataFrameParent->getViewNet()->getNet(), true, dataSetID);
+        GNEDataHandler dataHandler(myGenericDataFrameParent->getViewNet()->getNet(), "", true);
+        dataHandler.buildDataSet(dataSetID);
         // refresh tag selector
-        refreshDataSetSelector(dataSet);
+        refreshDataSetSelector(myGenericDataFrameParent->getViewNet()->getNet()->retrieveDataSet(dataSetID));
         // change check button
         myNewDataSetCheckButton->setCheck(FALSE, TRUE);
     }
@@ -280,14 +281,17 @@ long
 GNEGenericDataFrame::IntervalSelector::onCmdCreateInterval(FXObject*, FXSelector, void*) {
     // first check that begin and end are valid
     if (GNEAttributeCarrier::canParse<double>(myBeginTextField->getText().text()) &&
-            GNEAttributeCarrier::canParse<double>(myEndTextField->getText().text())) {
+        GNEAttributeCarrier::canParse<double>(myEndTextField->getText().text())) {
         // obtain begin and end
         const double begin = GNEAttributeCarrier::parse<double>(myBeginTextField->getText().text());
         const double end = GNEAttributeCarrier::parse<double>(myEndTextField->getText().text());
         // get data set parent
         GNEDataSet* dataSet = myGenericDataFrameParent->myDataSetSelector->getDataSet();
         if (dataSet && dataSet->checkNewInterval(begin, end)) {
-            GNEDataHandler::buildDataInterval(myGenericDataFrameParent->getViewNet()->getNet(), true, dataSet, begin, end);
+            // declare dataHandler
+            GNEDataHandler dataHandler(myGenericDataFrameParent->getViewNet()->getNet(), "", true);
+            // build data interval
+            dataHandler.buildDataInterval(nullptr, dataSet->getID(), begin, end);
         }
         // disable select interval check button
         myNewIntervalCheckButton->setCheck(FALSE, TRUE);
