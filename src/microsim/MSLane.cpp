@@ -1822,6 +1822,10 @@ MSLane::executeMovements(const SUMOTime t) {
                 // vehicle has entered a new lane (leaveLane and workOnMoveReminders were already called in MSVehicle::executeMove)
                 target->myVehBuffer.push_back(veh);
                 MSNet::getInstance()->getEdgeControl().needsVehicleIntegration(target);
+                if (MSGlobals::gSublane && veh->getLaneChangeModel().getShadowLane() != nullptr) {
+                    // trigger sorting of partial vehicles as their order may have changed (lane might not be active and only contain partial vehicles)
+                    MSNet::getInstance()->getEdgeControl().needsVehicleIntegration(veh->getLaneChangeModel().getShadowLane());
+                }
             }
         } else if (veh->isParking()) {
             // vehicle started to park
