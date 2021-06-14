@@ -256,10 +256,13 @@ def closeFigure(fig, ax, options, haveLabels=True, optOut=None):
     applyPlotOptions(fig, ax, options)
     if options.output or optOut is not None:
         n = options.output
+        myDpi = options.dpi
+        if myDpi is not None:
+            myDpi = float(myDpi)
         if optOut is not None:
             n = optOut
         for o in n.split(","):
-            savefig(o)
+            savefig(o, dpi=myDpi)
     if not options.blind:
         show()
     fig.clf()
