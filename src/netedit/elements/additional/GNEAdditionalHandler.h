@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <utils/common/SUMOVehicleClass.h>
-#include <utils/additionals/AdditionalHandler.h>
+#include <utils/handlers/AdditionalHandler.h>
 
 
 
