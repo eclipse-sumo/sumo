@@ -86,6 +86,7 @@
 #include <microsim/output/MSXMLRawOut.h>
 #include <microsim/output/MSAmitranTrajectories.h>
 #include <microsim/output/MSStopOut.h>
+#include <microsim/output/MSEVPowertrainExport.h>
 #include <microsim/transportables/MSPModel.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
@@ -892,6 +893,14 @@ MSNet::writeOutput() {
     if (OptionsCont::getOptions().isSet("battery-output")) {
         MSBatteryExport::write(OutputDevice::getDeviceByOption("battery-output"), myStep,
                                oc.getInt("battery-output.precision"));
+    }
+
+    // EV powertrain
+    if(OptionsCont::getOptions().isSet("ev_powertrain-output"))
+    {
+      MSEVPowertrainExport::write(
+          OutputDevice::getDeviceByOption("ev_powertrain-output"), myStep,
+          oc.getInt("ev_powertrain-output.precision"));
     }
 
     // elecHybrid dumps

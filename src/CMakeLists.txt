@@ -3,7 +3,7 @@ set(netconvertlibs
 
 set(sumolibs
         traciserver netload microsim_cfmodels microsim_engine microsim_lcmodels microsim_devices microsim_trigger microsim_output microsim_transportables microsim_actions
-        microsim_traffic_lights microsim mesosim ${commonvehiclelibs} ${PYTHON_LIBRARIES})
+        microsim_traffic_lights microsim mesosim vka ${commonvehiclelibs} ${PYTHON_LIBRARIES})
 
 add_subdirectory(activitygen)
 add_subdirectory(dfrouter)
@@ -34,6 +34,7 @@ add_subdirectory(tools)
 add_subdirectory(traci-server)
 add_subdirectory(traci_testclient)
 add_subdirectory(utils)
+add_subdirectory(vka)
 if (FOX_FOUND)
     add_subdirectory(gui)
     add_subdirectory(guinetload)

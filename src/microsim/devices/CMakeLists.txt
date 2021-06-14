@@ -55,6 +55,8 @@ set(microsim_devices_STAT_SRCS
    MSIdling.cpp
    MSIdling.h
    MSVehicleDevice.h
+   MSDevice_EVPowertrain.cpp
+   MSDevice_EVPowertrain.h
 )
 
 add_library(microsim_devices STATIC ${microsim_devices_STAT_SRCS})

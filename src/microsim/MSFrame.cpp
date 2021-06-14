@@ -137,6 +137,15 @@ MSFrame::fillOptions() {
     oc.doRegister("battery-output.precision", new Option_Integer(2));
     oc.addDescription("battery-output.precision", "Output", "Write battery values with the given precision (default 2)");
 
+    oc.doRegister("ev_powertrain-output", new Option_FileName());
+    oc.addDescription("ev_powertrain-output", "Output",
+        "Save the power and energy consumption of vehicles with an EV"
+        " powertrain");
+
+    oc.doRegister("ev_powertrain-output.precision", new Option_Integer(2));
+    oc.addDescription("ev_powertrain-output.precision", "Output",
+        "Write EV powertrain values with the given precision (default 2)");
+
     oc.doRegister("elechybrid-output", new Option_FileName());
     oc.addDescription("elechybrid-output", "Output", "Save the elecHybrid values of each vehicle");
     oc.doRegister("elechybrid-output.precision", new Option_Integer(2));
@@ -679,6 +688,8 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("fcd-output", "fcd-export", "fcd_file.xsd");
     OutputDevice::createDeviceByOption("emission-output", "emission-export", "emission_file.xsd");
     OutputDevice::createDeviceByOption("battery-output", "battery-export");
+    OutputDevice::createDeviceByOption("ev_powertrain-output",
+        "ev_powertrain-export");
     if (OptionsCont::getOptions().getBool("elechybrid-output.aggregated")) {
         OutputDevice::createDeviceByOption("elechybrid-output", "elecHybrid-export-aggregated");
     }

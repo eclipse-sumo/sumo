@@ -46,6 +46,8 @@ set(microsim_output_STAT_SRCS
    MSQueueExport.h
    MSElecHybridExport.cpp
    MSElecHybridExport.h
+   MSEVPowertrainExport.cpp
+   MSEVPowertrainExport.h
 )
 
 add_library(microsim_output STATIC ${microsim_output_STAT_SRCS})

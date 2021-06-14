@@ -468,6 +468,21 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "energyChargedStopped",   SUMO_ATTR_ENERGYCHARGEDSTOPPED },
     { "posOnLane",              SUMO_ATTR_POSONLANE },
     { "timeStopped",            SUMO_ATTR_TIMESTOPPED },
+    // MSDevice_EVPowertrain
+    { "wheelRadius",               SUMO_ATTR_WHEELRADIUS },
+    { "maximumTorque",             SUMO_ATTR_MAXIMUMTORQUE },
+    { "maximumSpeed",              SUMO_ATTR_MAXIMUMSPEED },
+    { "gearEfficiency",            SUMO_ATTR_GEAREFFICIENCY },
+    { "gearRatio",                 SUMO_ATTR_GEARRATIO },
+    { "maximumRecuperationTorque", SUMO_ATTR_MAXIMUMRECUPERATIONTORQUE },
+    { "maximumRecuperationPower",  SUMO_ATTR_MAXIMUMRECUPERATIONPOWER },
+    { "internalBatteryResistance", SUMO_ATTR_INTERNALBATTERYRESISTANCE },
+    { "nominalBatteryVoltage",     SUMO_ATTR_NOMINALBATTERYVOLTAGE },
+    { "powerLossMap",              SUMO_ATTR_POWERLOSSMAP },
+    // EV powertrain export
+    { "powerConsumption",  SUMO_ATTR_POWERCONSUMPTION },
+    { "energyConsumption", SUMO_ATTR_ENERGYCONSUMPTION },
+    { "stateValid",        SUMO_ATTR_STATEVALID },
     // ChargingStation output
     { "chargingStatus",                 SUMO_ATTR_CHARGING_STATUS },
     { "totalEnergyCharged",             SUMO_ATTR_TOTALENERGYCHARGED },
