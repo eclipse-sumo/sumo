@@ -168,6 +168,12 @@ CommonXMLStructure::SumoBaseObject::getParameters() const {
 }
 
 
+const std::map<std::string, double>&
+CommonXMLStructure::SumoBaseObject::getDoubleParameters() const {
+    return myDoubleParameters;
+}
+
+
 const std::vector<CommonXMLStructure::SumoBaseObject*>&
 CommonXMLStructure::SumoBaseObject::getSumoBaseObjectChildren() const {
     return mySumoBaseObjectChildren;
@@ -286,6 +292,12 @@ CommonXMLStructure::SumoBaseObject::addPositionVectorAttribute(const SumoXMLAttr
 void 
 CommonXMLStructure::SumoBaseObject::addParameter(const std::string &key, const std::string &value) {
     myParameters[key] = value;
+}
+
+
+void 
+CommonXMLStructure::SumoBaseObject::addDoubleParameter(const std::string &key, const double value) {
+    myDoubleParameters[key] = value;
 }
 
 
