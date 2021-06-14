@@ -68,7 +68,7 @@ public:
      * @param[in] parameters parameters map
      */
     virtual void buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, 
-                               const std::map<std::string, std::string>& parameters) = 0;
+                               const std::map<std::string, double>& parameters) = 0;
 
     /**@brief Builds edgeRelationData
      * @param[in] sumoBaseObject sumo base object used for build
@@ -77,7 +77,7 @@ public:
      * @param[in] parameters parameters map
      */
     virtual void buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, 
-                                       const std::string &toEdge, const std::map<std::string, std::string>& parameters) = 0;
+                                       const std::string &toEdge, const std::map<std::string, double>& parameters) = 0;
 
     /**@brief Builds TAZRelationData
      * @param[in] sumoBaseObject sumo base object used for build
@@ -86,7 +86,7 @@ public:
      * @param[in] parameters parameters map
      */
     virtual void buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromTAZID, 
-                                      const std::string &toTAZID, const std::map<std::string, std::string>& parameters) = 0;
+                                      const std::string &toTAZID, const std::map<std::string, double>& parameters) = 0;
     /// @}
 
 private:
@@ -118,23 +118,23 @@ private:
     /// @name parse data attributes
     /// @{
     /// @brief parse interval attributes
-    static void parseInterval(const SUMOSAXAttributes& attrs);
+    void parseInterval(const SUMOSAXAttributes& attrs);
 
     /// @brief parse edgeData attributes
-    static void parseEdgeData(const SUMOSAXAttributes& attrs);
+    void parseEdgeData(const SUMOSAXAttributes& attrs);
 
     /// @brief parse edgeRelationData attributes
-    static void parseEdgeRelationData(const SUMOSAXAttributes& attrs);
+    void parseEdgeRelationData(const SUMOSAXAttributes& attrs);
 
     /// @brief parse TAZRelationData attributes
-    static void parseTAZRelationData(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse generic parameters
-    void parseParameters(const SUMOSAXAttributes& attrs);
+    void parseTAZRelationData(const SUMOSAXAttributes& attrs);
     /// @}
 
     /// @brief check parents
     void checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok) const;
+
+    /// @brief parse string to double
+    static double parseStringToDouble(const std::string &string);
 
     /// @brief invalidate copy constructor
     DataHandler(const DataHandler& s) = delete;

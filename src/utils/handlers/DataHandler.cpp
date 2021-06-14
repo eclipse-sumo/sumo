@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringUtils.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/RGBColor.h>
@@ -61,19 +62,19 @@ DataHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         case SUMO_TAG_EDGE:
             buildEdgeData(obj,
                 obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getParameters());
+                obj->getDoubleParameters());
             break;
         case SUMO_TAG_EDGEREL:
             buildEdgeRelationData(obj,
                 obj->getStringAttribute(SUMO_ATTR_FROM),
                 obj->getStringAttribute(SUMO_ATTR_TO),
-                obj->getParameters());
+                obj->getDoubleParameters());
             break;
         case SUMO_TAG_TAZREL:
             buildTAZRelationData(obj,
                 obj->getStringAttribute(SUMO_ATTR_FROM),
                 obj->getStringAttribute(SUMO_ATTR_TO),
-                obj->getParameters());
+                obj->getDoubleParameters());
             break;
         default:
             break;
@@ -107,10 +108,6 @@ DataHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             case SUMO_TAG_TAZREL:
                 parseTAZRelationData(attrs);
                 break;
-            // parameters
-            case SUMO_TAG_PARAM:
-                parseParameters(attrs);
-                break;
             default:
                 break;
         }
@@ -141,97 +138,108 @@ DataHandler::myEndElement(int element) {
     }
 }
 
-/*
+
 void
-DataHandler::parseBusStopAttributes(const SUMOSAXAttributes& attrs) {
+DataHandler::parseInterval(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
-    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk);
-    // optional attributes
-    const double startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, id.c_str(), parsedOk, INVALID_DOUBLE);
-    const double endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), parsedOk, INVALID_DOUBLE);
-    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
-    const std::vector<std::string> lines = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LINES, id.c_str(), parsedOk, std::vector<std::string>());
-    const int personCapacity = attrs.getOpt<int>(SUMO_ATTR_PERSON_CAPACITY, id.c_str(), parsedOk, 6);
-    const double parkingLength = attrs.getOpt<double>(SUMO_ATTR_PARKING_LENGTH, id.c_str(), parsedOk, 0);
-    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
+    const double begin = attrs.get<double>(SUMO_ATTR_FROM, "", parsedOk);
+    const double end = attrs.get<double>(SUMO_ATTR_TO, "", parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_BUS_STOP);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_STARTPOS, startPos);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ENDPOS, endPos);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LINES, lines);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_PERSON_CAPACITY, personCapacity);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PARKING_LENGTH, parkingLength);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_FROM, begin);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_TO, end);
     }
-}
-*/
-
-
-void
-DataHandler::parseInterval(const SUMOSAXAttributes& attrs) {
-
 }
 
 
 void
 DataHandler::parseEdgeData(const SUMOSAXAttributes& attrs) {
-
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    // obtain all attributes
+    const std::vector<std::string> attributes = attrs.getAttributeNames();
+    // iterate over attributes and fill parameters map
+    for (const auto& attribute : attributes) {
+        if (attribute != toString(SUMO_ATTR_ID)) {
+            const double value = parseStringToDouble(attrs.getStringSecure(attribute, ""));
+            if (value != INVALID_DOUBLE) {
+                myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleParameter(attribute, value);
+            }
+        }
+    }
+    // continue if flag is ok
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+    }
 }
 
 
 void
 DataHandler::parseEdgeRelationData(const SUMOSAXAttributes& attrs) {
-
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, "", parsedOk);
+    const std::string to = attrs.get<std::string>(SUMO_ATTR_TO, "", parsedOk);
+    // obtain all attributes
+    const std::vector<std::string> attributes = attrs.getAttributeNames();
+    // iterate over attributes and fill parameters map
+    for (const auto& attribute : attributes) {
+        if (attribute != toString(SUMO_ATTR_ID)) {
+            const double value = parseStringToDouble(attrs.getStringSecure(attribute, ""));
+            if (value != INVALID_DOUBLE) {
+                myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleParameter(attribute, value);
+            }
+        }
+    }
+    // continue if flag is ok
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
+    }
 }
 
 
 void
 DataHandler::parseTAZRelationData(const SUMOSAXAttributes& attrs) {
-
-}
-
-
-void 
-DataHandler::parseParameters(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // get key
-    const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, parsedOk);
-    // get SumoBaseObject parent
-    CommonXMLStructure::SumoBaseObject* SumoBaseObjectParent = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
-    // check parent
-    if (SumoBaseObjectParent == nullptr) {
-        WRITE_ERROR("Parameters must be defined within an object");
-    }
-    // check tag
-    if (SumoBaseObjectParent->getTag() == SUMO_TAG_NOTHING) {
-        WRITE_ERROR("Parameters cannot be defined in either the data file's root nor another parameter");
-    }
-    // continue if key was sucesfully loaded
-    if (parsedOk) {
-        // get tag str
-        const std::string parentTagStr = toString(SumoBaseObjectParent->getTag());
-        // circumventing empty string value
-        const std::string value = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-        // show warnings if values are invalid
-        if (key.empty()) {
-            WRITE_WARNING("Error parsing key from " + parentTagStr + " generic parameter. Key cannot be empty");
-        } else if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
-            WRITE_WARNING("Error parsing key from " + parentTagStr + " generic parameter. Key contains invalid characters");
-        } else {
-            WRITE_DEBUG("Inserting generic parameter '" + key + "|" + value + "' into " + parentTagStr);
-            // insert parameter in SumoBaseObjectParent
-            SumoBaseObjectParent->addParameter(key, value);
+    // needed attributes
+    const std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, "", parsedOk);
+    const std::string to = attrs.get<std::string>(SUMO_ATTR_TO, "", parsedOk);
+    // obtain all attributes
+    const std::vector<std::string> attributes = attrs.getAttributeNames();
+    // iterate over attributes and fill parameters map
+    for (const auto& attribute : attributes) {
+        if (attribute != toString(SUMO_ATTR_ID)) {
+            const double value = parseStringToDouble(attrs.getStringSecure(attribute, ""));
+            if (value != INVALID_DOUBLE) {
+                myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleParameter(attribute, value);
+            }
         }
+    }
+    // continue if flag is ok
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
     }
 }
 
@@ -243,6 +251,17 @@ DataHandler::checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag
         (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getTag() == parentTag)) == false) {
         WRITE_ERROR(toString(currentTag) + " must be defined within the definition of a " + toString(parentTag));
         ok = false;
+    }
+}
+
+
+double 
+DataHandler::parseStringToDouble(const std::string& string) {
+    try {
+        return StringUtils::toDouble(string);
+    } catch (FormatException&) {
+        WRITE_ERROR(string + "cannot be reinterpeted as float");
+        return INVALID_DOUBLE;
     }
 }
 
