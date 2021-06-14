@@ -84,9 +84,6 @@ public:
         /// @brief get parameters
         const std::map<std::string, std::string> &getParameters() const;
 
-        /// @brief get double parameters
-        const std::map<std::string, double> &getDoubleParameters() const;
-
         /// @brief get SumoBaseObject children
         const std::vector<SumoBaseObject*> &getSumoBaseObjectChildren() const;
         /// @}
@@ -154,9 +151,6 @@ public:
 
         /// @brief add parameter into current SumoBaseObject node
         void addParameter(const std::string &key, const std::string &value);
-
-        /// @brief add parameter into current SumoBaseObject node
-        void addDoubleParameter(const std::string &key, const double value);
         /// @}
 
     protected:
@@ -193,11 +187,8 @@ public:
         /// @brief PositionVector attributes
         std::map<const SumoXMLAttr, PositionVector> myPositionVectorAttributes;
 
-        /// @brief parameters
+        /// @brief myParameters
         std::map<std::string, std::string> myParameters;
-
-        /// @brief double parameters
-        std::map<std::string, double> myDoubleParameters;
 
         /// @brief SumoBaseObject children
         std::vector<SumoBaseObject*> mySumoBaseObjectChildren;
