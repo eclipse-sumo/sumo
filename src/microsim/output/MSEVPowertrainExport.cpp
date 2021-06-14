@@ -13,7 +13,9 @@
 #include <microsim/output/MSEVPowertrainExport.h>
 #include <microsim/devices/MSDevice_EVPowertrain.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSEdge.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/geom/Position.h>
 
 
 
@@ -49,9 +51,31 @@ void MSEVPowertrainExport::write(OutputDevice& ref_outputDevice,
           = dynamic_cast<MSDevice_EVPowertrain*>(ptr_vehicle->getDevice(
           typeid(MSDevice_EVPowertrain)));
       assert(ptr_evPowertrain != nullptr);
-      
+
+      // Current position
+      double x = 0;
+      double y = 0;
+      double z = 0;
+      std::string edgeId = "";
+      std::string laneId = "";
+      const MSLane* ptr_lane = ptr_vehicle->getLane();
+      if(ptr_lane != nullptr)
+      {
+        Position pos = ptr_vehicle->getPosition();
+        x = pos.x();
+        y = pos.y();
+        z = pos.z();
+        edgeId = ptr_lane->getEdge().getID();
+        laneId = ptr_lane->getID();
+      }
+
       ref_outputDevice.openTag(SUMO_TAG_VEHICLE);
       ref_outputDevice.writeAttr(SUMO_ATTR_ID, ptr_vehicle->getID());
+      ref_outputDevice.writeAttr(SUMO_ATTR_X, x);
+      ref_outputDevice.writeAttr(SUMO_ATTR_Y, y);
+      ref_outputDevice.writeAttr(SUMO_ATTR_Z, z);
+      ref_outputDevice.writeAttr(SUMO_ATTR_EDGE, edgeId);
+      ref_outputDevice.writeAttr(SUMO_ATTR_LANE, laneId);
       ref_outputDevice.writeAttr(SUMO_ATTR_SPEED, ptr_vehicle->getSpeed());
       ref_outputDevice.writeAttr(SUMO_ATTR_ACCELERATION,
           ptr_vehicle->getAcceleration());

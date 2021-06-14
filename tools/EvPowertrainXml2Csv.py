@@ -29,7 +29,8 @@ parsedArguments = argumentParser.parse_args(sys.argv[1:])
 # Convert
 with open(parsedArguments.csv_file, "w") as csvFile:
   # Create the CSV file
-  fieldnames = ["t", "ID", "v", "a", "slope", "P", "E", "state_valid"]
+  fieldnames = ["t", "ID", "x", "y", "z", "edgeID", "laneID", "v", "a",
+      "slope", "P", "E", "state_valid"]
   dictWriter = csv.DictWriter(csvFile, delimiter=";", fieldnames=fieldnames)
   dictWriter.writeheader()
 
@@ -44,6 +45,11 @@ with open(parsedArguments.csv_file, "w") as csvFile:
       if vehicle.tag != "vehicle":
         continue
       dictWriter.writerow({ "t" : t, "ID" : str(vehicle.attrib["id"]),
+          "x" : float(vehicle.attrib["x"]),
+          "y" : float(vehicle.attrib["y"]),
+          "z" : float(vehicle.attrib["z"]),
+          "edgeID" : str(vehicle.attrib["edge"]),
+          "laneID" : str(vehicle.attrib["lane"]),
           "v" : float(vehicle.attrib["speed"]),
           "a" : float(vehicle.attrib["acceleration"]),
           "slope" : float(vehicle.attrib["slope"]),
