@@ -77,8 +77,8 @@ public:
      * @param[in] toEdge edge to
      * @param[in] parameters parameters map
      */
-    virtual void buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, 
-                                       const std::string &toEdge, const std::map<std::string, double>& parameters) = 0;
+    virtual void buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdgeID, 
+                                       const std::string &toEdgeID, const std::map<std::string, double>& parameters) = 0;
 
     /**@brief Builds TAZRelationData
      * @param[in] sumoBaseObject sumo base object used for build
