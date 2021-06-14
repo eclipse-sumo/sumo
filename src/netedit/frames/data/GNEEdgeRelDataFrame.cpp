@@ -20,6 +20,8 @@
 #include <config.h>
 
 #include <netedit/elements/data/GNEDataHandler.h>
+#include <netedit/elements/data/GNEDataInterval.h>
+#include <netedit/elements/network/GNEEdge.h>
 #include <netedit/GNEViewNet.h>
 
 #include "GNEEdgeRelDataFrame.h"
@@ -53,11 +55,17 @@ void
 GNEEdgeRelDataFrame::createPath() {
     // first check that we have at least two edges
     if (myPathCreator->getSelectedEdges().size() > 1) {
-        // just create EdgeRelationData
-        GNEDataHandler::buildEdgeRelationData(myViewNet->getNet(), true, myIntervalSelector->getDataInterval(), myPathCreator->getSelectedEdges().front(),
-                                              myPathCreator->getSelectedEdges().back(), myParametersEditorCreator->getParametersMap());
+        GNEDataHandler dataHandler(myViewNet->getNet(), "", true);
+        // create data interval object and fill it
+        CommonXMLStructure::SumoBaseObject* dataIntervalObject = new CommonXMLStructure::SumoBaseObject(nullptr);
+        dataIntervalObject->addStringAttribute(SUMO_ATTR_ID, myIntervalSelector->getDataInterval()->getID());
+        CommonXMLStructure::SumoBaseObject* edgeRelationData = new CommonXMLStructure::SumoBaseObject(dataIntervalObject);
+        // create EdgeRelationData
+        dataHandler.buildEdgeRelationData(edgeRelationData, myPathCreator->getSelectedEdges().front()->getID(),
+                                          myPathCreator->getSelectedEdges().back()->getID(), myParametersEditorCreator->getParametersMap());
         // abort path creation
         myPathCreator->abortPathCreation();
+        delete dataIntervalObject;
     }
 }
 
