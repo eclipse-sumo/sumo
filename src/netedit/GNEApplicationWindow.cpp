@@ -1025,10 +1025,10 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // iterate over every data file
         for (const auto& dataElementsFile : dataElementsFiles) {
             WRITE_MESSAGE("Loading data elements from '" + dataElementsFile + "'");
-            GNEDataHandler dataHandler(dataElementsFile, myNet);
+            GNEDataHandler dataHandler(myNet, dataElementsFile, true);
             // disable validation for data elements
             XMLSubSys::setValidation("never", "auto", "auto");
-            if (!XMLSubSys::runParser(dataHandler, dataElementsFile, false)) {
+            if (!dataHandler.parse()) {
                 WRITE_ERROR("Loading of " + dataElementsFile + " failed.");
             }
             // disable validation for data elements
@@ -3173,14 +3173,14 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         myViewNet->getIntervalBar().disableIntervalBarUpdate();
         // disable update data
         myViewNet->getNet()->disableUpdateData();
-        // disable validation for additionals
+        // disable validation for data elements
         XMLSubSys::setValidation("never", "auto", "auto");
-        // Create additional handler
-        GNEDataHandler dataHandler(file, myNet);
+        // Create data handler
+        GNEDataHandler dataHandler(myNet, file, true);
         // begin undoList operation
         myUndoList->p_begin("Loading data elements from '" + file + "'");
-        // Run parser for additionals
-        if (!XMLSubSys::runParser(dataHandler, file, false)) {
+        // Run data parser
+        if (!dataHandler.parse()) {
             WRITE_ERROR("Loading of " + file + " failed.");
         }
         // restore validation for data
@@ -3212,13 +3212,13 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create additional handler
-    GNEDataHandler dataHandler(file, myNet);
+    GNEDataHandler dataHandler(myNet, file, true);
     // begin undoList operation
     myUndoList->p_begin("Reloading data elements from '" + file + "'");
     // clear data elements
     myNet->clearDemandElements(myUndoList);
-    // Run parser for additionals
-    if (!XMLSubSys::runParser(dataHandler, file, false)) {
+    // Run data parser
+    if (!dataHandler.parse()) {
         WRITE_ERROR("Reloading of " + file + " failed.");
     }
     // restore validation for data
