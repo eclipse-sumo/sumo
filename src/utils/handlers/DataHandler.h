@@ -60,7 +60,8 @@ public:
      * @param[in] begin interval begin
      * @param[in] end interval end
      */
-    virtual void buildDataInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& dataSetID, const double begin, const double end) = 0;
+    virtual void buildDataInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& dataSetID, 
+                                   const double begin, const double end) = 0;
 
     /**@brief Builds edgeData
      * @param[in] sumoBaseObject sumo base object used for build
