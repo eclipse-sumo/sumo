@@ -146,7 +146,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                                            SUMOTime_MAX);
             router = new CHRouterWrapper<ROEdge, ROVehicle>(
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic,
-                begin, end, weightPeriod, oc.getInt("routing-threads"));
+                begin, end, weightPeriod, net.hasPermissions(), oc.getInt("routing-threads"));
         } else {
             throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
         }
