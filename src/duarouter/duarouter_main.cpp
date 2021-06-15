@@ -101,6 +101,12 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     const SUMOTime begin = string2time(oc.getString("begin"));
     const SUMOTime end = string2time(oc.getString("end"));
     DijkstraRouter<ROEdge, ROVehicle>::Operation op = &ROEdge::getTravelTimeStatic;
+
+    if (oc.isSet("restriction-params") &&
+            (routingAlgorithm == "CH" || routingAlgorithm == "CHWrapper")) {
+        throw ProcessError("Routing algorithm '" + routingAlgorithm + "' does not support restriction-params");
+    }
+
     if (measure == "traveltime" && priorityFactor == 0) {
         if (routingAlgorithm == "dijkstra") {
             router = new DijkstraRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction, nullptr, false, nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
@@ -127,13 +133,14 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                          oc.isSet("astar.save-landmark-distances") ? oc.getString("astar.save-landmark-distances") : "", oc.getInt("routing-threads"));
             }
             router = new AStar(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction, lookup, net.hasPermissions(), oc.isSet("restriction-params"));
-        } else if (routingAlgorithm == "CH") {
+        } else if (routingAlgorithm == "CH" && !net.hasPermissions()) {
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
                                            SUMOTime_MAX);
             router = new CHRouter<ROEdge, ROVehicle>(
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, SVC_IGNORING, weightPeriod, net.hasPermissions(), oc.isSet("restriction-params"));
-        } else if (routingAlgorithm == "CHWrapper") {
+        } else if (routingAlgorithm == "CHWrapper" || routingAlgorithm == "CH") {
+            // use CHWrapper instead of CH if the net has permissions
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
                                            SUMOTime_MAX);
