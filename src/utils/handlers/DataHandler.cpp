@@ -176,7 +176,7 @@ DataHandler::parseEdgeData(const SUMOSAXAttributes& attrs) {
     // continue if flag is ok
     if (parsedOk) {
         // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_MEANDATA_EDGE);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_EDGE);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
     }

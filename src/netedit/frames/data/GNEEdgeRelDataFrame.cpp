@@ -59,6 +59,8 @@ GNEEdgeRelDataFrame::createPath() {
         // create data interval object and fill it
         CommonXMLStructure::SumoBaseObject* dataIntervalObject = new CommonXMLStructure::SumoBaseObject(nullptr);
         dataIntervalObject->addStringAttribute(SUMO_ATTR_ID, myIntervalSelector->getDataInterval()->getID());
+        dataIntervalObject->addDoubleAttribute(SUMO_ATTR_BEGIN, myIntervalSelector->getDataInterval()->getAttributeDouble(SUMO_ATTR_BEGIN));
+        dataIntervalObject->addDoubleAttribute(SUMO_ATTR_END, myIntervalSelector->getDataInterval()->getAttributeDouble(SUMO_ATTR_END));
         CommonXMLStructure::SumoBaseObject* edgeRelationData = new CommonXMLStructure::SumoBaseObject(dataIntervalObject);
         // create EdgeRelationData
         dataHandler.buildEdgeRelationData(edgeRelationData, myPathCreator->getSelectedEdges().front()->getID(),
