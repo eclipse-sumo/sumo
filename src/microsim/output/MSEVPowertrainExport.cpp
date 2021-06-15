@@ -13,6 +13,7 @@
 #include <microsim/output/MSEVPowertrainExport.h>
 #include <microsim/devices/MSDevice_EVPowertrain.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/geom/Position.h>
