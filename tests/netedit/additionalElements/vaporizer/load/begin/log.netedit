@@ -1,4 +1,5 @@
-Warning: Essential SUMOTime attribute 'begin' of vaporizer is missing; vaporizer cannot be created
-Warning: Essential SUMOTime attribute 'begin' of vaporizer is missing; vaporizer cannot be created
-Warning: Format of essential SUMOTime attribute 'begin' of vaporizer is invalid; Cannot be parsed to SUMOTime; vaporizer cannot be created
-Warning: Format of essential SUMOTime attribute 'begin' of vaporizer is invalid; Cannot be parsed to SUMOTime; vaporizer cannot be created
+Error: Attribute 'begin' is missing in definition of a vaporizer.
+Error: Attribute 'begin' is missing in definition of a vaporizer.
+Error: Attribute 'begin' in definition of a vaporizer is not a time value.
+Error: Could not build vaporizer with ID '4' in netedit; attribute begin cannot be negative.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_15Jun150745.2416\netedit.gui\additionalElements\vaporizer\load\begin\input_additionals.add.xml failed.

@@ -1,0 +1,4 @@
+Error: Attribute 'timeThreshold' in definition of e3Detector 'e3Detector_1' is not a real number.
+Error: detEntry must be defined within the definition of a e3Detector
+Error: detExit must be defined within the definition of a e3Detector
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Jun141421.868\netedit.gui\additionalElements\e3detector\load\timethreshold\input_additionals.add.xml failed.
