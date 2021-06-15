@@ -1,5 +1,2 @@
 Warning: busStop '-stopBranch' on lane '-i_0' is too short for vehicle 'light_rail_S46:0.0'.
 Warning: Vehicle 'light_rail_S46:0.0' skips stop on lane '-i_0' time=60.00.
-Warning: Vehicle 'light_rail_S46:0.0' performs emergency stop at the end of lane ':11_2_0' for unknown reasons (decel=0.00, offset=60.05), time=60.00.
-Warning: Teleporting vehicle 'light_rail_S46:0.0'; junction collision with vehicle 'light_rail_S46:0.0', lane=':11_2_0', gap=-1.00, time=60.00 stage=move.
-Warning: Vehicle 'light_rail_S46:0.0' ends teleporting on edge '-h2', time 60.00.
