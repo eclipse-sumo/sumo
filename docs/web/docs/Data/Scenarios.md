@@ -102,7 +102,7 @@ connected driving in Hamburg.
 
 # Further real-world scenarios
 
-- [Bologna Ringway](http://www.cs.unibo.it/projects/bolognaringway/).
+- [Bologna Ringway](http://academic.lucabedogni.it/the-bologna-ringway-dataset/).
     Scenario built within the [COLOMBO R&D
     project](https://web.archive.org/web/20170716120720/http://www.colombo-fp7.eu/).
 
