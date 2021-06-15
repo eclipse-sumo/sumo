@@ -48,7 +48,7 @@ def _run_func(args):
 
 
 def multi_process(cpu_num, seed, interval_list, func, outf, mismatchf, **kwargs):
-    cpu_count = min(cpu_num, multiprocessing.cpu_count()-1)
+    cpu_count = min(cpu_num, multiprocessing.cpu_count()-1, len(interval_list))
     interval_split = np.array_split(interval_list, cpu_count)
     # pool = multiprocessing.Pool(processes=cpu_count)
     with multiprocessing.get_context("spawn").Pool() as pool:
