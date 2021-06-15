@@ -359,8 +359,8 @@ GNEAdditionalHandler::buildParkingSpace(const CommonXMLStructure::SumoBaseObject
 
 void 
 GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id, const std::string &laneID, 
-    const double position, const double frequency, const std::string &file, const std::vector<std::string> &vehicleTypes, const std::string &name, const bool friendlyPos, 
-    const std::map<std::string, std::string> &parameters) {
+    const double position, const SUMOTime frequency, const std::string &file, const std::vector<std::string> &vehicleTypes, const std::string &name, 
+    const bool friendlyPos, const std::map<std::string, std::string> &parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidDetectorID(id)) {
         writeInvalidID(SUMO_TAG_E1DETECTOR, id);
@@ -396,7 +396,7 @@ GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* 
 
 void 
 GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
-    const double pos, const double length, const double freq, const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, 
+    const double pos, const double length, const SUMOTime freq, const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, 
     const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold, const bool friendlyPos, 
     const std::map<std::string, std::string> &parameters) {
     // check conditions
@@ -450,7 +450,7 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
 
 void 
 GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::vector<std::string>& laneIDs, 
-    const double pos, const double endPos, const double freq, const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, 
+    const double pos, const double endPos, const SUMOTime freq, const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, 
     const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold, const bool friendlyPos, 
     const std::map<std::string, std::string> &parameters) {
     // check conditions
@@ -495,8 +495,8 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
 
 
 void 
-GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, const double freq, 
-    const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, const double speedThreshold, 
+GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, const SUMOTime freq, 
+    const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, 
     const std::map<std::string, std::string> &parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidDetectorID(id)) {

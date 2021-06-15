@@ -46,7 +46,7 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const double freq, 
+    GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const SUMOTime freq, 
                 const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::vector<std::string>& vehicleTypes, 
                 const std::string& name, const bool friendlyPos, const std::map<std::string, std::string> &parameters, const bool blockMovement);
 
@@ -64,7 +64,7 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const double freq, 
+    GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const SUMOTime freq, 
                 const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name, const bool friendlyPos, 
                 const std::map<std::string, std::string> &parameters, bool blockMovement);
 
@@ -168,7 +168,7 @@ protected:
     double myPositionOverLane;
 
     /// @brief The aggregation period the values the detector collects shall be summed up.
-    double myFreq;
+    SUMOTime myFreq;
 
     /// @brief The path to the output file
     std::string myFilename;
