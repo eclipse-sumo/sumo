@@ -97,7 +97,7 @@ def get_options(args=None):
     parser.add_argument("--minimize-vehicles", dest="minimizeVehs", type=float, default=0,
                         help="Set optimization factor from [0, 1[ for reducing the number of vehicles"
                         + "(prefer routes that pass multiple counting locations over routes that pass fewer)")
-    parser.add_argument("--geh-ok", dest="gehOk", default=5,
+    parser.add_argument("--geh-ok", dest="gehOk", type=float, default=5,
                         help="threshold for acceptable GEH values")
     parser.add_argument("-f", "--write-flows", dest="writeFlows",
                         help="write flows with the give style instead of vehicles [number|probability]")
