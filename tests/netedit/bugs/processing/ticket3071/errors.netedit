@@ -1,7 +1,19 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Error: Could not build busStop in netedit; lane doesn't exist.
+Error: Could not build busStop in netedit; lane doesn't exist.
+Error: Could not build busStop in netedit; lane doesn't exist.
+Error: Could not build busStop in netedit; lane doesn't exist.
+Error: Could not build busStop in netedit; lane doesn't exist.
+Error: Could not build busStop in netedit; lane doesn't exist.
+Error: Could not build busStop in netedit; lane doesn't exist.
+Error: Could not build busStop in netedit; lane doesn't exist.
+Error: Could not build busStop in netedit; lane doesn't exist.
+Error: Could not build busStop in netedit; lane doesn't exist.
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun114656.2916\netedit.gui\bugs\processing\ticket3071\input_additionals.add.xml failed.
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE10_1to-gneE9_1' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE10_1to-gneE17_1' in retrieveGNEConnection()

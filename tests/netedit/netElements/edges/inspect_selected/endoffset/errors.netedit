@@ -1,4 +1,5 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop1' in GNEChange_Additional
 Debug: Adding busStop 'busStop2' in GNEChange_Additional
 Debug: Adding busStop 'busStop3' in GNEChange_Additional
@@ -21,12 +22,6 @@ Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
 Debug: Value 'dummyEndOffset' for attribute endOffset of edge isn't valid
-Debug: Setting new attribute endOffset '0' into lane 'gneE2_0'
-Debug: Setting new attribute endOffset '0' into lane 'gneE2_1'
-Debug: Setting new attribute endOffset '0' into edge 'gneE2'
-Debug: Setting new attribute endOffset '0' into lane 'gneE3_0'
-Debug: Setting new attribute endOffset '0' into lane 'gneE3_1'
-Debug: Setting new attribute endOffset '0' into edge 'gneE3'
 Debug: Value '-3' for attribute endOffset of edge isn't valid
 Debug: Setting new attribute endOffset '12' into lane 'gneE2_0'
 Debug: Setting new attribute endOffset '12' into lane 'gneE2_1'
