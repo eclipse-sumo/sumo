@@ -87,6 +87,7 @@
 #include <vka/CharacteristicMap.hh>
 #include <vka/Helper.hh>
 
+#include <cmath>
 #include <stdexcept>
 
 
