@@ -1664,7 +1664,7 @@ GNEAttributeCarrier::fillAdditionals() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CHARGEDELAY,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
                                               "Time delay after the vehicles has reached / stopped on the charging station, before the energy transfer (charging) begins",
-                                              "0");
+                                              "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_PARKING_AREA;
