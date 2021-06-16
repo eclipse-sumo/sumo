@@ -155,6 +155,7 @@ with *maxSpeedLat* this constrains lateral movement speed.
   - compact: stay close to the neighboring vehicle on the right
   - nice: align with the nearest sublane boundary to the right. (to
     avoid using more sublanes than necessary)
+- **lcMaxSpeedLatStanding**, **lcMaxSpeedLatFactor**: Compute a boundary on lateral speed using lcMaxSpeedLatStanding + lcMaxSpeedLatFactor * speed. If factor > 0 this is an upper bound on lateral speed and if factor < it acts as a lower bound.
 
 ### Misc
 
