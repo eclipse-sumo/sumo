@@ -1202,13 +1202,18 @@ SUMOXMLDefinitions::isValidListOfNetIDs(const std::string& value) {
 
 bool
 SUMOXMLDefinitions::isValidListOfTypeID(const std::string& value) {
-    const std::vector<std::string>& typeIDs = StringTokenizer(value).getVector();
+    return isValidListOfTypeID(StringTokenizer(value).getVector());
+}
+
+
+bool
+SUMOXMLDefinitions::isValidListOfTypeID(const std::vector<std::string>& typeIDs) {
     if (typeIDs.empty()) {
         return false;
     } else {
         // check that gives IDs are valid
-        for (const auto& i : typeIDs) {
-            if (!SUMOXMLDefinitions::isValidTypeID(i)) {
+        for (const auto& typeID : typeIDs) {
+            if (!SUMOXMLDefinitions::isValidTypeID(typeID)) {
                 return false;
             }
         }

@@ -1681,6 +1681,9 @@ public:
     /// @brief whether the given string is a valid list of ids for an edge or vehicle type (empty aren't allowed)
     static bool isValidListOfTypeID(const std::string& value);
 
+    /// @brief whether the given list of strings is a valid list of ids for an edge or vehicle type (empty aren't allowed)
+    static bool isValidListOfTypeID(const std::vector<std::string>& typeIDs);
+
     /// @brief whether the given string is a valid key for a parameter
     static bool isValidParameterKey(const std::string& value);
 
