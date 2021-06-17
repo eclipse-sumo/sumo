@@ -21,7 +21,8 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <time>
-        <end value="10"/>
+        <end value="5"/>
+        <step-length value="0.2"/>
     </time>
 
     <processing>
@@ -39,6 +40,10 @@ SPDX-License-Identifier: EPL-2.0
         <device.fcd.explicit value="ego"/>
     </fcd_device>
 
+    <gui_only>
+        <tracker-interval value="0.2"/>
+    </gui_only>
+
 </configuration>
 -->
 
@@ -46,31 +51,76 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="0.00">
         <vehicle id="ego" acceleration="0.00"/>
     </timestep>
+    <timestep time="0.20">
+        <vehicle id="ego" acceleration="2.00"/>
+    </timestep>
+    <timestep time="0.40">
+        <vehicle id="ego" acceleration="2.00"/>
+    </timestep>
+    <timestep time="0.60">
+        <vehicle id="ego" acceleration="2.00"/>
+    </timestep>
+    <timestep time="0.80">
+        <vehicle id="ego" acceleration="2.00"/>
+    </timestep>
     <timestep time="1.00">
         <vehicle id="ego" acceleration="2.00"/>
     </timestep>
-    <timestep time="2.00">
+    <timestep time="1.20">
         <vehicle id="ego" acceleration="2.00"/>
     </timestep>
-    <timestep time="3.00">
+    <timestep time="1.40">
         <vehicle id="ego" acceleration="2.00"/>
     </timestep>
-    <timestep time="4.00">
+    <timestep time="1.60">
         <vehicle id="ego" acceleration="2.00"/>
     </timestep>
-    <timestep time="5.00">
+    <timestep time="1.80">
         <vehicle id="ego" acceleration="-5.00"/>
     </timestep>
-    <timestep time="6.00">
-        <vehicle id="ego" acceleration="-1.87"/>
+    <timestep time="2.00">
+        <vehicle id="ego" acceleration="-4.96"/>
     </timestep>
-    <timestep time="7.00">
+    <timestep time="2.20">
         <vehicle id="ego" acceleration="-0.50"/>
     </timestep>
-    <timestep time="8.00">
-        <vehicle id="ego" acceleration="2.00"/>
+    <timestep time="2.40">
+        <vehicle id="ego" acceleration="-0.50"/>
     </timestep>
-    <timestep time="9.00">
-        <vehicle id="ego" acceleration="2.00"/>
+    <timestep time="2.60">
+        <vehicle id="ego" acceleration="-0.50"/>
+    </timestep>
+    <timestep time="2.80">
+        <vehicle id="ego" acceleration="-0.50"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="ego" acceleration="-0.50"/>
+    </timestep>
+    <timestep time="3.20">
+        <vehicle id="ego" acceleration="-0.50"/>
+    </timestep>
+    <timestep time="3.40">
+        <vehicle id="ego" acceleration="-0.50"/>
+    </timestep>
+    <timestep time="3.60">
+        <vehicle id="ego" acceleration="-0.50"/>
+    </timestep>
+    <timestep time="3.80">
+        <vehicle id="ego" acceleration="-0.50"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="ego" acceleration="-0.50"/>
+    </timestep>
+    <timestep time="4.20">
+        <vehicle id="ego" acceleration="-0.50"/>
+    </timestep>
+    <timestep time="4.40">
+        <vehicle id="ego" acceleration="-0.50"/>
+    </timestep>
+    <timestep time="4.60">
+        <vehicle id="ego" acceleration="-0.04"/>
+    </timestep>
+    <timestep time="4.80">
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
 </fcd-export>

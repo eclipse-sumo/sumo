@@ -3,4 +3,5 @@
 --device.fcd.explicit ego
 --fcd-output.acceleration
 --fcd-output.attributes acceleration
--e 10
+--step-length 0.2
+-e 5
