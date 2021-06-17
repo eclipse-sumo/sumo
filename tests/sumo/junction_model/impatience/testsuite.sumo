@@ -8,3 +8,6 @@ impatience_zero_ttt_60
 
 # disable growing impatience
 impatience_off
+
+# see #8507
+impatience_1_visibility
