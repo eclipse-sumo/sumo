@@ -1,5 +1,8 @@
 # pedestrians should block vehicle movements while crossing the street
 block_vehicles
+
+# pedestrians have to find a gap in traffic
+crossing_noPrio
 block_vehicles_sharedspace
 
 # vehicles on the same lane or vehicles standing on a crossing should block pedestrian movements
