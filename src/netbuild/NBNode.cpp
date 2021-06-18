@@ -2494,6 +2494,13 @@ NBNode::guessCrossings() {
             std::cout << "  edges=" << toString(crossing->edges) << "\n";
         }
     }
+    if (numGuessed > 0 && isSimpleContinuation(true, true)) {
+        // avoid narrow node shape when there is a crossing
+        computeNodeShape(-1);
+        for (NBEdge* e : myAllEdges) {
+            e->computeEdgeShape();
+        }
+    }
     return numGuessed;
 }
 
