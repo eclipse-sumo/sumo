@@ -49,3 +49,6 @@ roundabout
 
 # test option --ignore-junction-blocker
 ignoreJunctionBlocker
+
+# test behavior when a minor road has an internal junction
+minor_internalJunction
