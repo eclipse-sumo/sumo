@@ -1044,6 +1044,7 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
                                const PositionVector& customShape,
                                bool uncontrolled,
                                SVCPermissions permissions,
+                               bool indirectLeft,
                                SVCPermissions changeLeft,
                                SVCPermissions changeRight,
                                bool postProcess) {
@@ -1060,7 +1061,7 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
         return false;
     }
     return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed, length,
-                         customShape, uncontrolled, permissions, changeLeft, changeRight, postProcess);
+                         customShape, uncontrolled, permissions, indirectLeft, changeLeft, changeRight, postProcess);
 }
 
 
@@ -1094,6 +1095,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
                       const PositionVector& customShape,
                       bool uncontrolled,
                       SVCPermissions permissions,
+                      bool indirectLeft,
                       SVCPermissions changeLeft,
                       SVCPermissions changeRight,
                       bool postProcess) {
@@ -1135,6 +1137,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
     myConnections.back().contPos = contPos;
     myConnections.back().visibility = visibility;
     myConnections.back().permissions = permissions;
+    myConnections.back().indirectLeft = indirectLeft;
     myConnections.back().changeLeft = changeLeft;
     myConnections.back().changeRight = changeRight;
     myConnections.back().speed = speed;

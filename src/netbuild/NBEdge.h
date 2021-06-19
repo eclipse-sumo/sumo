@@ -261,6 +261,9 @@ public:
         /// @brief List of vehicle types that are allowed to change right from this connections internal lane(s)
         SVCPermissions changeRight;
 
+        /// @brief Whether this connection is an indirect left turn
+        bool indirectLeft;
+
         /// @brief id of Connection
         std::string id;
 
@@ -885,6 +888,7 @@ public:
                                 const PositionVector& customShape = PositionVector::EMPTY,
                                 const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED,
                                 SVCPermissions permissions = SVC_UNSPECIFIED,
+                                const bool indirectLeft = false,
                                 SVCPermissions changeLeft = SVC_UNSPECIFIED,
                                 SVCPermissions changeRight = SVC_UNSPECIFIED,
                                 bool postProcess = false);
@@ -934,6 +938,7 @@ public:
                        const PositionVector& customShape = PositionVector::EMPTY,
                        const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED,
                        SVCPermissions permissions = SVC_UNSPECIFIED,
+                       bool indirectLeft = false,
                        SVCPermissions changeLeft = SVC_UNSPECIFIED,
                        SVCPermissions changeRight = SVC_UNSPECIFIED,
                        bool postProcess = false);

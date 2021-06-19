@@ -603,6 +603,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "radius",                 SUMO_ATTR_RADIUS },
     { "customShape",            SUMO_ATTR_CUSTOMSHAPE },
     { "keepClear",              SUMO_ATTR_KEEP_CLEAR },
+    { "indirectLeft",           SUMO_ATTR_INDIRECT_LEFT },
     { "rightOfWay",             SUMO_ATTR_RIGHT_OF_WAY },
     { "fringe",                 SUMO_ATTR_FRINGE },
     { "color",                  SUMO_ATTR_COLOR },
