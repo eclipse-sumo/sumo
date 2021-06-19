@@ -16,6 +16,7 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.6
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding flow 'flowA' in GNEChange_DemandElement
 Debug: Adding flow 'flowB' in GNEChange_DemandElement
 GLDebug: Removing junctions during recomputing
@@ -67,15 +68,15 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Setting new attribute selected 'true' into flow 'flowA'
 Debug: Setting new attribute selected 'true' into flow 'flowB'
-Debug: Setting new attribute departSpeed '0' into flow 'flowA'
-Debug: Setting new attribute departSpeed '0' into flow 'flowB'
+Debug: Setting new attribute departSpeed '0.00' into flow 'flowA'
+Debug: Setting new attribute departSpeed '0.00' into flow 'flowB'
 Debug: Value 'dummySpeed' for attribute departSpeed of flow isn't valid
 Debug: Setting new attribute departSpeed 'desired' into flow 'flowA'
 Debug: Setting new attribute departSpeed 'desired' into flow 'flowB'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute departSpeed '0' into flow 'flowB'
-Debug: Setting previous attribute departSpeed '0' into flow 'flowA'
+Debug: Setting previous attribute departSpeed '0.00' into flow 'flowB'
+Debug: Setting previous attribute departSpeed '0.00' into flow 'flowA'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute departSpeed 'speedLimit' into flow 'flowB'
@@ -99,8 +100,8 @@ Debug: Setting new attribute selected 'true' into flow 'flowA'
 Debug: Setting new attribute selected 'true' into flow 'flowB'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute departSpeed '0' into flow 'flowA'
-Debug: Setting new attribute departSpeed '0' into flow 'flowB'
+Debug: Setting new attribute departSpeed '0.00' into flow 'flowA'
+Debug: Setting new attribute departSpeed '0.00' into flow 'flowB'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute departSpeed 'desired' into flow 'flowA'
