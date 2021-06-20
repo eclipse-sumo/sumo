@@ -85,6 +85,7 @@ const int NBNode::AVOID_WIDE_RIGHT_TURN(2);
 const int NBNode::FOUR_CONTROL_POINTS(4);
 const int NBNode::AVOID_INTERSECTING_LEFT_TURNS(8);
 const int NBNode::SCURVE_IGNORE(16);
+const int NBNode::INDIRECT_LEFT(32);
 
 // ===========================================================================
 // method definitions
@@ -520,6 +521,9 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
                            int shapeFlag) const {
 
     bool ok = true;
+    if ((shapeFlag & INDIRECT_LEFT) != 0) {
+        return indirectLeftShape(begShape, endShape, numPoints);
+    }
     PositionVector init = bezierControlPoints(begShape, endShape, isTurnaround, extrapolateBeg, extrapolateEnd, ok, recordError, DEG2RAD(5), shapeFlag);
 #ifdef DEBUG_SMOOTH_GEOM
     if (DEBUGCOND) {
@@ -700,6 +704,30 @@ NBNode::bezierControlPoints(
     return init;
 }
 
+PositionVector
+NBNode::indirectLeftShape(const PositionVector& begShape, const PositionVector& endShape, int numPoints) const {
+    UNUSED_PARAMETER(numPoints);
+    PositionVector result;
+    result.push_back(begShape.back());
+    //const double angle = GeomHelper::angleDiff(begShape.angleAt2D(-2), endShape.angleAt2D(0));
+    PositionVector endShapeBegLine(endShape[0], endShape[1]);
+    PositionVector begShapeEndLineRev(begShape[-1], begShape[-2]);
+    endShapeBegLine.extrapolate2D(100, true);
+    begShapeEndLineRev.extrapolate2D(100, true);
+    Position intersect = endShapeBegLine.intersectionPosition2D(begShapeEndLineRev);
+    if (intersect == Position::INVALID) {
+        WRITE_WARNING("Could not compute indirect left turn shape at node '" + getID()  + "'");
+    } else {
+        Position dir = intersect;
+        dir.sub(endShape[0]);
+        dir.norm2d();
+        const double radius = myRadius == NBNode::UNSPECIFIED_RADIUS ? OptionsCont::getOptions().getFloat("default.junctions.radius") : myRadius;
+        dir.mul(radius);
+        result.push_back(intersect + dir);
+    }
+    result.push_back(endShape.front());
+    return result;
+}
 
 PositionVector
 NBNode::computeInternalLaneShape(const NBEdge* fromE, const NBEdge::Connection& con, int numPoints, NBNode* recordError, int shapeFlag) const {
@@ -759,6 +787,9 @@ NBNode::computeInternalLaneShape(const NBEdge* fromE, const NBEdge::Connection& 
         LinkDirection dir = getDirection(fromE, con.toEdge);
         if (dir == LinkDirection::LEFT || dir == LinkDirection::TURN) {
             shapeFlag += AVOID_WIDE_LEFT_TURN;
+        }
+        if (con.indirectLeft) {
+            shapeFlag += INDIRECT_LEFT;
         }
 #ifdef DEBUG_SMOOTH_GEOM
         if (DEBUGCOND) {
