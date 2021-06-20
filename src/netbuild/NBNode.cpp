@@ -887,6 +887,9 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
     if (thisRight && !rightTurnConflict) {
         return false;
     }
+    if (myRequest && myRequest->indirectLeftTurnConflict(fromE, c, otherFromE, otherC, false)) {
+        return true;
+    }
     if (!(foes(otherFromE, otherToE, fromE, toE) || myRequest == nullptr || rightTurnConflict)) {
         // if they do not cross, no waiting place is needed
         return false;

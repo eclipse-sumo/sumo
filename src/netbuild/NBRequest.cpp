@@ -672,6 +672,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                             || rightTurnConflict(from, queryCon, *i, connected[k])
                             || mergeConflict(from, queryCon, *i, connected[k], zipper)
                             || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], zipper)
+                            || indirectLeftTurnConflict(from, queryCon, *i, connected[k], zipper)
                             || myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
                             || (myJunction->tlsContConflict(from, c, *i, connected[k]) && hasLaneConflict
                                 && !OptionsCont::getOptions().getBool("tls.ignore-internal-junction-jam"))
@@ -725,6 +726,7 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
                         || myJunction->turnFoes(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
                         || mergeConflict(from, queryCon, *i, connected[k], true)
                         || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], true)
+                        || indirectLeftTurnConflict(from, queryCon, *i, connected[k], true)
                    ) {
                     result += '1';
                 } else {
@@ -828,6 +830,21 @@ NBRequest::oppositeLeftTurnConflict(const NBEdge* from, const NBEdge::Connection
     } else {
         return false;
     }
+}
+
+bool
+NBRequest::indirectLeftTurnConflict(const NBEdge* from, const NBEdge::Connection& con,
+                                    const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
+    if (from == prohibitorFrom) {
+        if (con.indirectLeft) {
+            LinkDirection dir = myJunction->getDirection(prohibitorFrom, prohibitorCon.toEdge);
+            return (dir == LinkDirection::STRAIGHT);
+        } else if (foes && prohibitorCon.indirectLeft) {
+            LinkDirection dir = myJunction->getDirection(from, con.toEdge);
+            return (dir == LinkDirection::STRAIGHT);
+        }
+    }
+    return false;
 }
 
 bool
