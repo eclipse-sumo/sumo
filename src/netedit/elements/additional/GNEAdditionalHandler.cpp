@@ -412,7 +412,7 @@ GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* 
             writeErrorInvalidNegativeValue(SUMO_TAG_E1DETECTOR, id, SUMO_ATTR_FREQUENCY);
         } else if (!SUMOXMLDefinitions::isValidFilename(file)) {
             writeErrorInvalidFilename(SUMO_TAG_E1DETECTOR, id);
-        } else if (!SUMOXMLDefinitions::isValidListOfTypeID(vehicleTypes)) {
+        } else if (!vehicleTypes.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(vehicleTypes)) {
             writeErrorInvalidVTypes(SUMO_TAG_E1DETECTOR, id);
         } else {
             // build E1
@@ -475,7 +475,7 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
             writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
         } else if (!SUMOXMLDefinitions::isValidFilename(filename)) {
             writeErrorInvalidFilename(SUMO_TAG_E2DETECTOR, id);
-        } else if (!SUMOXMLDefinitions::isValidListOfTypeID(vehicleTypes)) {
+        } else if (!vehicleTypes.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(vehicleTypes)) {
             writeErrorInvalidVTypes(SUMO_TAG_E2DETECTOR, id);
         } else {
             // build E2 single lane
@@ -532,7 +532,7 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
                 writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
             } else if (!SUMOXMLDefinitions::isValidFilename(filename)) {
                 writeErrorInvalidFilename(SUMO_TAG_E2DETECTOR, id);
-            } else if (!SUMOXMLDefinitions::isValidListOfTypeID(vehicleTypes)) {
+            } else if (!vehicleTypes.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(vehicleTypes)) {
                 writeErrorInvalidVTypes(SUMO_TAG_E2DETECTOR, id);
             } else {
                 // build E2 multilane detector
@@ -577,7 +577,7 @@ GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* 
         writeErrorInvalidNegativeValue(SUMO_TAG_E3DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
     } else if (!SUMOXMLDefinitions::isValidFilename(filename)) {
         writeErrorInvalidFilename(SUMO_TAG_E3DETECTOR, id);
-    } else if (!SUMOXMLDefinitions::isValidListOfTypeID(vehicleTypes)) {
+    } else if (!vehicleTypes.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(vehicleTypes)) {
         writeErrorInvalidVTypes(SUMO_TAG_E3DETECTOR, id);
     } else if (myNet->retrieveAdditional(SUMO_TAG_E3DETECTOR, id, false) == nullptr) {
         // get NETEDIT parameters
@@ -831,7 +831,7 @@ GNEAdditionalHandler::buildCalibratorFlow(const CommonXMLStructure::SumoBaseObje
     writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
 } else if (!SUMOXMLDefinitions::isValidFilename(filename)) {
     writeErrorInvalidFilename(SUMO_TAG_E2DETECTOR, id);
-} else if (!SUMOXMLDefinitions::isValidListOfTypeID(vehicleTypes)) {
+} else if (!vehicleTypes.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(vehicleTypes)) {
     writeErrorInvalidVTypes(SUMO_TAG_E2DETECTOR, id);
 */
     } else {
@@ -868,7 +868,7 @@ GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* su
         writeErrorInvalidNegativeValue(SUMO_TAG_REROUTER, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
     } else if (!SUMOXMLDefinitions::isValidFilename(file)) {
         writeErrorInvalidFilename(SUMO_TAG_REROUTER, id);
-    } else if (!SUMOXMLDefinitions::isValidListOfTypeID(vTypes)) {
+    } else if (!vTypes.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(vTypes)) {
         writeErrorInvalidVTypes(SUMO_TAG_REROUTER, id);
     } else if (myNet->retrieveAdditional(SUMO_TAG_REROUTER, id, false) == nullptr) {
         // get NETEDIT parameters
@@ -1160,12 +1160,10 @@ GNEAdditionalHandler::buildVariableSpeedSign(const CommonXMLStructure::SumoBaseO
         // check lane
         if (lanes.size() > 0) {
             // check vTypes
-            if (!checkListOfVehicleTypes(vTypes)) {
+            if (!vTypes.empty() && !checkListOfVehicleTypes(vTypes)) {
                 writeErrorInvalidVTypes(SUMO_TAG_VSS, id);
             } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
                 writeErrorInvalidName(SUMO_TAG_VSS, id, SUMO_ATTR_NAME);
-            } else if (!SUMOXMLDefinitions::isValidListOfTypeID(vTypes)) {
-                writeErrorInvalidVTypes(SUMO_TAG_VSS, id);
             } else {
                 // create VSS
                 GNEAdditional* variableSpeedSign = new GNEVariableSpeedSign(id, myNet, pos, name, vTypes, parameters, neteditParameters.blockMovement);
