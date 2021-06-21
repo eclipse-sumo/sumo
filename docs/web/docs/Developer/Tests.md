@@ -34,7 +34,7 @@ For Windows you should download and run the installer from the
 
 It might not pull in all the dependencies, so in some cases you need
 to follow the [TextTest installation
-instructions](http://texttest.org/index.php?page=documentation_trunk&n=install_texttest)
+instructions](http://texttest.sourceforge.net/index.php?page=documentation_trunk&n=install_texttest)
 and the additional info there.
 
 For MacOS the following command should install all dependencies:
