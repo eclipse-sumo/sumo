@@ -891,8 +891,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_RADIUS,
     /// @brief Whether vehicles must keep the junction clear
     SUMO_ATTR_KEEP_CLEAR,
-    /// @brief Whether this connection is an indirect left turn
-    SUMO_ATTR_INDIRECT_LEFT,
+    /// @brief Whether this connection is an indirect (left) turn
+    SUMO_ATTR_INDIRECT,
     /// @brief How to compute right of way
     SUMO_ATTR_RIGHT_OF_WAY,
     /// @brief Fringe type of node
