@@ -100,3 +100,6 @@ parallel_left_turns
 
 # indirect left turn for bicycles at traffic light
 indirect_left
+
+# indirect left turn for bicycles at uncontrolled intersection
+indirect_left_priority
