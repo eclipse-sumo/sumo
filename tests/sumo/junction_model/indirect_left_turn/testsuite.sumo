@@ -27,6 +27,9 @@ internal_junction_controlled_moped
 priority_sameStraight
 
 # bikes make an indirect left turn and wait at the internal junction for straight traffic from the same and the opposite direction
+priority_sameStraight_defaultShape
+
+# bikes make an indirect left turn and wait at the internal junction for straight traffic from the same and the opposite direction
 priority_oncoming
 
 # bikes make an indirect left turn and wait at the internal junction for straight traffic from the same and the opposite direction. bike road has priority
