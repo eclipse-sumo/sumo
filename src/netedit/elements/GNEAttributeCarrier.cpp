@@ -1373,6 +1373,12 @@ GNEAttributeCarrier::fillNetworkElements() {
         attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_INDIRECT,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUESTATIC,
+                                              "if set to true, vehicles will make a turn in 2 steps",
+                                              "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_DIR,
                                               GNEAttributeProperties::STRING,

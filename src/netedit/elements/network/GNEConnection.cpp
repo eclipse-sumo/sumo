@@ -475,6 +475,8 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
             return toString(nbCon.toLane);
         case SUMO_ATTR_PASS:
             return toString(nbCon.mayDefinitelyPass);
+        case SUMO_ATTR_INDIRECT:
+            return toString(nbCon.indirectLeft);
         case SUMO_ATTR_KEEP_CLEAR:
             return toString(nbCon.keepClear);
         case SUMO_ATTR_CONTPOS:
@@ -544,6 +546,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_FROM_LANE:
         case SUMO_ATTR_TO_LANE:
         case SUMO_ATTR_PASS:
+        case SUMO_ATTR_INDIRECT:
         case SUMO_ATTR_KEEP_CLEAR:
         case SUMO_ATTR_CONTPOS:
         case SUMO_ATTR_UNCONTROLLED:
@@ -617,6 +620,8 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TO_LANE:
             return false;
         case SUMO_ATTR_PASS:
+            return canParse<bool>(value);
+        case SUMO_ATTR_INDIRECT:
             return canParse<bool>(value);
         case SUMO_ATTR_KEEP_CLEAR:
             return canParse<bool>(value);
@@ -712,6 +717,9 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_PASS:
             nbCon.mayDefinitelyPass = parse<bool>(value);
+            break;
+        case SUMO_ATTR_INDIRECT:
+            nbCon.indirectLeft = parse<bool>(value);
             break;
         case SUMO_ATTR_KEEP_CLEAR:
             nbCon.keepClear = parse<bool>(value) ? KEEPCLEAR_TRUE : KEEPCLEAR_FALSE;
