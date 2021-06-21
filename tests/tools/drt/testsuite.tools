@@ -6,3 +6,6 @@ dua_pairs
 
 # tests for one vehicle problem
 oneVehicle
+
+# test for setting different stop duration for pickup/dropoff passengers
+stop_duration

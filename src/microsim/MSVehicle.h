@@ -1467,6 +1467,7 @@ public:
         double changeRequestRemainingSeconds(const SUMOTime currentTime) const;
 
         /** @brief Returns whether junction priority rules shall be respected
+         * (concerns approaching vehicles outside the junction)
          * @return Whether junction priority rules be respected
          */
         inline bool getRespectJunctionPriority() const {
@@ -1479,6 +1480,14 @@ public:
          */
         inline bool getEmergencyBrakeRedLight() const {
             return myEmergencyBrakeRedLight;
+        }
+
+        /** @brief Returns whether junction priority rules within the junction shall be respected
+         * (concerns vehicles within the junction)
+         * @return Whether within-junction priority rules be respected
+         */
+        inline bool getRespectJunctionLeaderPriority() const {
+            return myRespectJunctionLeaderPriority;
         }
 
 
@@ -1571,11 +1580,14 @@ public:
         /// @brief Whether the maximum deceleration shall be regarded
         bool myConsiderMaxDeceleration;
 
-        /// @brief Whether the junction priority rules are respected
+        /// @brief Whether the junction priority rules are respected (approaching)
         bool myRespectJunctionPriority;
 
         /// @brief Whether red lights are a reason to brake
         bool myEmergencyBrakeRedLight;
+
+        /// @brief Whether the junction priority rules are respected (within)
+        bool myRespectJunctionLeaderPriority;
 
         Position myRemoteXYPos;
         MSLane* myRemoteLane;

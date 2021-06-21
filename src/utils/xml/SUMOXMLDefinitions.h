@@ -391,10 +391,6 @@ enum SumoXMLTag {
     GNE_TAG_REROUTER_SYMBOL,
     /// @brief VSS Symbol
     GNE_TAG_VSS_SYMBOL,
-    /// @}
-
-    /// @name Persons plans (used by Netedit)
-    /// @{
     /// @brief description of a vehicle with an embedded route (used in NETEDIT)
     GNE_TAG_VEHICLE_WITHROUTE,
     /// @brief embedded route (used in NETEDIT)
@@ -415,10 +411,18 @@ enum SumoXMLTag {
     GNE_TAG_RIDE_EDGE,
     GNE_TAG_RIDE_BUSSTOP,
     // person stops
-    GNE_TAG_PERSONSTOP_BUSSTOP,
-    GNE_TAG_PERSONSTOP_EDGE,
-    /// @brief description of a person with an embedded route (used in NETEDIT)
-    GNE_TAG_PERSON_EMBEDDED
+    GNE_TAG_STOPPERSON_BUSSTOP,
+    GNE_TAG_STOPPERSON_EDGE,
+    // person trips
+    GNE_TAG_TRANSPORT_EDGE,
+    GNE_TAG_TRANSPORT_CONTAINERSTOP,
+    // walks
+    GNE_TAG_TRANSHIP_EDGE,
+    GNE_TAG_TRANSHIP_CONTAINERSTOP,
+    GNE_TAG_TRANSHIP_EDGES,
+    // container stops
+    GNE_TAG_STOPCONTAINER_CONTAINERSTOP,
+    GNE_TAG_STOPCONTAINER_EDGE,
     /// @}
 };
 
@@ -887,6 +891,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_RADIUS,
     /// @brief Whether vehicles must keep the junction clear
     SUMO_ATTR_KEEP_CLEAR,
+    /// @brief Whether this connection is an indirect left turn
+    SUMO_ATTR_INDIRECT_LEFT,
     /// @brief How to compute right of way
     SUMO_ATTR_RIGHT_OF_WAY,
     /// @brief Fringe type of node
@@ -1213,10 +1219,8 @@ enum SumoXMLAttr {
     GNE_ATTR_CENTER_AFTER_CREATION,
     /// @brief to busStop (used by personPlans)
     GNE_ATTR_TO_BUSSTOP,
-    /// @brief from stop (used by personPlans)
-    GNE_ATTR_FROM_STOP,
-    /// @brief to stop (used by personPlans)
-    GNE_ATTR_TO_STOP,
+    /// @brief to busStop (used by containerPlans)
+    GNE_ATTR_TO_CONTAINERSTOP,
     /// @brief neighboring lane, simplified lane attr instead of child element
     GNE_ATTR_OPPOSITE,
     /// @brief center (used in stoppingPlaces)
@@ -1678,6 +1682,9 @@ public:
 
     /// @brief whether the given string is a valid list of ids for an edge or vehicle type (empty aren't allowed)
     static bool isValidListOfTypeID(const std::string& value);
+
+    /// @brief whether the given list of strings is a valid list of ids for an edge or vehicle type (empty aren't allowed)
+    static bool isValidListOfTypeID(const std::vector<std::string>& typeIDs);
 
     /// @brief whether the given string is a valid key for a parameter
     static bool isValidParameterKey(const std::string& value);

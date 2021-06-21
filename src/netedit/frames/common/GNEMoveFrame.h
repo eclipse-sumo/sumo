@@ -106,15 +106,15 @@ public:
         /// @brief hide DemandModeOptions
         void hideDemandModeOptions();
 
-        /// @brief check if leave personStopConnected is enabled
-        bool getLeavePersonStopsConnected() const;
+        /// @brief check if leave stopPersonConnected is enabled
+        bool getLeaveStopPersonsConnected() const;
 
     private:
         /// @brief pointer to move frame parent
         GNEMoveFrame* myMoveFrameParent;
 
-        /// @brief checkbox for enable/disable leave personStops connected
-        FXCheckButton* myLeavePersonStopsConnected;
+        /// @brief checkbox for enable/disable leave stopPersons connected
+        FXCheckButton* myLeaveStopPersonsConnected;
     };
 
     // ===========================================================================

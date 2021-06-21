@@ -859,8 +859,8 @@ GNEStop::setEnabledAttribute(const int enabledAttributes) {
 void
 GNEStop::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
-    startPos = moveResult.newStartPos;
-    endPos = moveResult.newEndPos;
+    startPos = moveResult.newFirstPos;
+    endPos = moveResult.newSecondPos;
     // update geometry
     updateGeometry();
 }
@@ -869,8 +869,8 @@ GNEStop::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNEStop::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newStartPos)));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newEndPos)));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos)));
     undoList->p_end();
 }
 

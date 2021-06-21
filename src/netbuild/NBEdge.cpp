@@ -1044,6 +1044,7 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
                                const PositionVector& customShape,
                                bool uncontrolled,
                                SVCPermissions permissions,
+                               bool indirectLeft,
                                SVCPermissions changeLeft,
                                SVCPermissions changeRight,
                                bool postProcess) {
@@ -1060,7 +1061,7 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
         return false;
     }
     return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed, length,
-                         customShape, uncontrolled, permissions, changeLeft, changeRight, postProcess);
+                         customShape, uncontrolled, permissions, indirectLeft, changeLeft, changeRight, postProcess);
 }
 
 
@@ -1094,6 +1095,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
                       const PositionVector& customShape,
                       bool uncontrolled,
                       SVCPermissions permissions,
+                      bool indirectLeft,
                       SVCPermissions changeLeft,
                       SVCPermissions changeRight,
                       bool postProcess) {
@@ -1135,6 +1137,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
     myConnections.back().contPos = contPos;
     myConnections.back().visibility = visibility;
     myConnections.back().permissions = permissions;
+    myConnections.back().indirectLeft = indirectLeft;
     myConnections.back().changeLeft = changeLeft;
     myConnections.back().changeRight = changeRight;
     myConnections.back().speed = speed;
@@ -1650,8 +1653,9 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                             width2 *= 0.5;
                         }
                         const bool foes = n.foes(this, con.toEdge, i2, k2.toEdge);
+                        LinkDirection dir2 = n.getDirection(i2, k2.toEdge);
                         bool needsCont = !isRailway(conPermissions) && n.needsCont(this, i2, con, k2);
-                        const bool avoidIntersectCandidate = !foes && bothLeftTurns(n, dir, i2, k2);
+                        const bool avoidIntersectCandidate = !foes && bothLeftTurns(dir, i2, dir2);
                         bool oppositeLeftIntersect = avoidIntersectCandidate && haveIntersection(n, shape, i2, k2, numPoints, width2);
                         int shapeFlag = 0;
                         SVCPermissions warn = SVCAll & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_DELIVERY | SVC_RAIL_CLASSES);
@@ -1675,8 +1679,9 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                                 if (avoidedIntersectingLeftOriginLane == std::numeric_limits<int>::max()
                                         || avoidedIntersectingLeftOriginLane < con.fromLane) {
                                     for (const PositionVector& otherShape : otherShapes) {
+                                        const bool secondIntersection = con.indirectLeft && this == i2 && con.fromLane == k2.fromLane;
                                         const double minDV = firstIntersection(shape, otherShape, width2,
-                                                                               "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'");
+                                                                               "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'", secondIntersection);
                                         if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
                                             assert(minDV >= 0);
                                             if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
@@ -1692,12 +1697,13 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         const bool bothPrio = getJunctionPriority(&n) > 0 && i2->getJunctionPriority(&n) > 0;
                         //std::cout << "n=" << n.getID() << " e1=" << getID() << " prio=" << getJunctionPriority(&n) << " e2=" << i2->getID() << " prio2=" << i2->getJunctionPriority(&n) << " both=" << bothPrio << " bothLeftIntersect=" << bothLeftIntersect(n, shape, dir, i2, k2, numPoints, width2) << " needsCont=" << needsCont << "\n";
                         // compute the crossing point
-                        if (needsCont || (bothPrio && oppositeLeftIntersect)) {
+                        if ((needsCont || (bothPrio && oppositeLeftIntersect)) && (!con.indirectLeft || dir2 == LinkDirection::STRAIGHT)) {
                             crossingPositions.second.push_back(index);
                             const PositionVector otherShape = n.computeInternalLaneShape(i2, k2, numPoints, 0, shapeFlag);
                             otherShapes.push_back(otherShape);
+                            const bool secondIntersection = con.indirectLeft && this == i2 && con.fromLane == k2.fromLane;
                             const double minDV = firstIntersection(shape, otherShape, width2,
-                                                                   "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'");
+                                                                   "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'", secondIntersection);
                             if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
                                 assert(minDV >= 0);
                                 if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
@@ -1901,7 +1907,7 @@ NBEdge::assignInternalLaneLength(std::vector<Connection>::iterator i, int numLan
 }
 
 double
-NBEdge::firstIntersection(const PositionVector& v1, const PositionVector& v2, double width2, const std::string& error) {
+NBEdge::firstIntersection(const PositionVector& v1, const PositionVector& v2, double width2, const std::string& error, bool secondIntersection) {
     double intersect = std::numeric_limits<double>::max();
     if (v2.length() < POSITION_EPS) {
         return intersect;
@@ -1914,10 +1920,20 @@ NBEdge::firstIntersection(const PositionVector& v1, const PositionVector& v2, do
         v2Left.move2side(-width2);
 
         // intersect center line of v1 with left and right border of v2
+        bool skip = secondIntersection;
         for (double cand : v1.intersectsAtLengths2D(v2Right)) {
+            if (skip) {
+                skip = false;
+                continue;
+            }
             intersect = MIN2(intersect, cand);
         }
+        skip = secondIntersection;
         for (double cand : v1.intersectsAtLengths2D(v2Left)) {
+            if (skip) {
+                skip = false;
+                continue;
+            }
             intersect = MIN2(intersect, cand);
         }
     } catch (InvalidArgument&) {
@@ -1933,12 +1949,11 @@ NBEdge::firstIntersection(const PositionVector& v1, const PositionVector& v2, do
 
 
 bool
-NBEdge::bothLeftTurns(const NBNode& n, LinkDirection dir, const NBEdge* otherFrom, const NBEdge::Connection& otherCon) const {
+NBEdge::bothLeftTurns(LinkDirection dir, const NBEdge* otherFrom, LinkDirection dir2) const {
     if (otherFrom == this) {
         // not an opposite pair
         return false;
     }
-    LinkDirection dir2 = n.getDirection(otherFrom, otherCon.toEdge);
     return (dir == LinkDirection::LEFT || dir == LinkDirection::PARTLEFT) && (dir2 == LinkDirection::LEFT || dir2 == LinkDirection::PARTLEFT);
 }
 

@@ -32,9 +32,9 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, double pos,
-        bool friendlyPos, const std::map<std::string, std::string> &parameters,  bool blockMovement) :
-    GNEDetector(parent, net, GLO_DET_ENTRY, entryExitTag, pos, "", {lane}, "", "", friendlyPos, parameters, blockMovement) {
+GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, const double pos,
+        const bool friendlyPos, const std::map<std::string, std::string> &parameters,  bool blockMovement) :
+    GNEDetector(parent, net, GLO_DET_ENTRY, entryExitTag, pos, 0, {lane}, "", "", friendlyPos, parameters, blockMovement) {
     // check that this is a Entry/Exit
     if ((entryExitTag != SUMO_TAG_DET_ENTRY) && (entryExitTag != SUMO_TAG_DET_EXIT)) {
         throw InvalidArgument("Invalid E3 Child Tag");

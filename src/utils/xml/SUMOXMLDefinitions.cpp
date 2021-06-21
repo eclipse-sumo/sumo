@@ -259,9 +259,19 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "ride: edge->edge",               GNE_TAG_RIDE_EDGE },
     { "ride: edge->busStop",            GNE_TAG_RIDE_BUSSTOP },
     // GNE person Stops
-    { "personStop: busStop",            GNE_TAG_PERSONSTOP_BUSSTOP },
-    { "personStop: edge",               GNE_TAG_PERSONSTOP_EDGE },
-    // Other
+    { "stopPerson: busStop",            GNE_TAG_STOPPERSON_BUSSTOP },
+    { "stopPerson: edge",               GNE_TAG_STOPPERSON_EDGE },
+    // GNE transports
+    { "transport: edge->edge",          GNE_TAG_TRANSPORT_EDGE },
+    { "transport: edge->containerStop", GNE_TAG_TRANSPORT_CONTAINERSTOP },
+    // GNE tranships
+    { "tranship: edge->edge",           GNE_TAG_TRANSHIP_EDGE },
+    { "tranship: edge->containerStop",  GNE_TAG_TRANSHIP_CONTAINERSTOP },
+    { "tranship: edges",                GNE_TAG_TRANSHIP_EDGES },
+    // GNE container Stops
+    { "stopContainer: containerStop",   GNE_TAG_STOPCONTAINER_CONTAINERSTOP },
+    { "stopContainer: edge",            GNE_TAG_STOPCONTAINER_EDGE },
+    // Last element
     { "",                               SUMO_TAG_NOTHING }  // -> must be the last one
 };
 
@@ -593,6 +603,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "radius",                 SUMO_ATTR_RADIUS },
     { "customShape",            SUMO_ATTR_CUSTOMSHAPE },
     { "keepClear",              SUMO_ATTR_KEEP_CLEAR },
+    { "indirectLeft",           SUMO_ATTR_INDIRECT_LEFT },
     { "rightOfWay",             SUMO_ATTR_RIGHT_OF_WAY },
     { "fringe",                 SUMO_ATTR_FRINGE },
     { "color",                  SUMO_ATTR_COLOR },
@@ -828,8 +839,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "defaultVTypeModified",               GNE_ATTR_DEFAULT_VTYPE_MODIFIED },
     { "centerAfterCreation",                GNE_ATTR_CENTER_AFTER_CREATION },
     { "toBusStop",                          GNE_ATTR_TO_BUSSTOP },
-    { "fromStop",                           GNE_ATTR_FROM_STOP },
-    { "toStop",                             GNE_ATTR_TO_STOP },
+    { "toContainerStop",                    GNE_ATTR_TO_CONTAINERSTOP },
     { "opposite",                           GNE_ATTR_OPPOSITE },
     { "center",                             GNE_ATTR_CENTER },
 
@@ -1193,13 +1203,18 @@ SUMOXMLDefinitions::isValidListOfNetIDs(const std::string& value) {
 
 bool
 SUMOXMLDefinitions::isValidListOfTypeID(const std::string& value) {
-    const std::vector<std::string>& typeIDs = StringTokenizer(value).getVector();
+    return isValidListOfTypeID(StringTokenizer(value).getVector());
+}
+
+
+bool
+SUMOXMLDefinitions::isValidListOfTypeID(const std::vector<std::string>& typeIDs) {
     if (typeIDs.empty()) {
         return false;
     } else {
         // check that gives IDs are valid
-        for (const auto& i : typeIDs) {
-            if (!SUMOXMLDefinitions::isValidTypeID(i)) {
+        for (const auto& typeID : typeIDs) {
+            if (!SUMOXMLDefinitions::isValidTypeID(typeID)) {
                 return false;
             }
         }

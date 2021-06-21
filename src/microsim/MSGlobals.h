@@ -117,6 +117,9 @@ public:
     /// whether the simulationLoop is in the lane changing phase
     static bool gComputeLC;
 
+    /// whether the simulation is in the process of clearing state (MSNet::clearState)
+    static bool gClearState;
+
     /// how many threads to use for simulation
     static int gNumSimThreads;
 

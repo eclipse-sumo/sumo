@@ -207,7 +207,7 @@ MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
     output.writeAttr(SUMO_ATTR_CHARGINGSTEPS, chargingSteps);
     // start writting
     if (myChargeValues.size() > 0) {
-        for (const std::string vehID : myChargedVehicles) {
+        for (const std::string& vehID : myChargedVehicles) {
             int iStart = 0;
             const auto& chargeSteps = myChargeValues[vehID];
             while (iStart < (int)chargeSteps.size()) {

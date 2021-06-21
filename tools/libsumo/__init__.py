@@ -17,6 +17,13 @@
 
 from functools import wraps
 import sys
+import os
+if hasattr(os, "add_dll_directory"):
+    # since Python 3.8 the DLL search path has to be set explicitly see https://bugs.python.org/issue43173
+    if "SUMO_HOME" in os.environ:
+        os.add_dll_directory(os.path.join(os.environ["SUMO_HOME"], "bin"))
+    os.add_dll_directory(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "bin")))
+
 from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation  # noqa
 from traci.connection import StepListener  # noqa
 from .libsumo import vehicle, simulation, person, trafficlight

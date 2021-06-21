@@ -242,10 +242,14 @@ def main():
             step += options.sim_step
             continue
 
-        # get vType for route calculation
+        # get vType and its parameters for route calculation
         if not veh_type:
             fleet = traci.vehicle.getTaxiFleet(-1)
             veh_type = traci.vehicle.getTypeID(fleet[0])
+            veh_time_pickup = float(traci.vehicle.getParameter(fleet[0],
+                                    'device.taxi.pickUpDuration'))
+            veh_time_dropoff = float(traci.vehicle.getParameter(fleet[0],
+                                     'device.taxi.dropOffDuration'))
 
         # get new reservations
         res_id_new = []
@@ -325,6 +329,7 @@ def main():
                 print('Solve DARP with %s' % options.darp_solver)
 
             darp_solution = darpSolvers.main(options, step, fleet, veh_type,
+                                             veh_time_pickup, veh_time_dropoff,
                                              res_all, res_id_new,
                                              res_id_unassigned, res_id_picked,
                                              res_id_served, veh_edges,
@@ -397,6 +402,8 @@ def main():
                     tt_current_route = 0
                     edges = [taxi_stop.lane.split("_")[0] for taxi_stop
                              in traci.vehicle.getStops(veh_id)]
+                    stop_types = [taxi_stop.actType for taxi_stop
+                                  in traci.vehicle.getStops(veh_id)]
                     # add current edge to list
                     if traci.vehicle.getRoadID(veh_id).startswith(':'):
                         # avoid routing error when in intersection TODO #5829
@@ -405,16 +412,19 @@ def main():
                     else:
                         veh_edge = traci.vehicle.getRoadID(veh_id)
 
-                    edges.insert(0, veh_edge)  # noqa
+                    edges.insert(0, veh_edge)
                     # calculate travel time
                     for idx, edge in enumerate(edges[:-1]):
-                        # TODO default stop time ticket #6714
                         tt_pair = pairs_dua_times.get("%s_%s" % (edge,
                                                       edges[idx+1]))
                         if tt_pair is None:
                             tt_pair = int(findRoute(edge, edges[idx+1],
                                           veh_type, step, routingMode=options.routing_mode).travelTime) # noqa
-                        tt_current_route += tt_pair + 60
+
+                        if 'pickup' in stop_types[idx]:
+                            tt_current_route += tt_pair + veh_time_pickup
+                        else:
+                            tt_current_route += tt_pair + veh_time_dropoff
                     # get travel time of the new route
                     tt_new_route = routes[route_id][0]
                     if tt_new_route >= tt_current_route:

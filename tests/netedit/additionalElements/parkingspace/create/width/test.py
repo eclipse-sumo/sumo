@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, 250, 250)
 netedit.changeElement("space")
 
 # set invalid width (dummy)
-netedit.selectAdditionalChild(8, 0)
+netedit.selectAdditionalChild(10, 0)
 netedit.changeDefaultValue(2, "dummyWidth")
 
 # try to create area

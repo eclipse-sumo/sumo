@@ -443,6 +443,8 @@ public:
         double getDistance2D(double x1, double y1, double x2, double y2, bool isGeo = false, bool isDriving = false);
         double getDistanceRoad(const std::string& edgeID1, double pos1, const std::string& edgeID2, double pos2, bool isDriving = false);
         libsumo::TraCIStage findRoute(const std::string& fromEdge, const std::string& toEdge, const std::string& vType = "", double pos = -1., int routingMode = 0) const;
+        void loadState(const std::string& path) const;
+        void saveState(const std::string& destination) const;
         void writeMessage(const std::string msg);
     };
 

@@ -479,27 +479,51 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                             file=sys.stderr)
                         ignored = True
 
-def updateStartedEnded(options, stopRoutes):
+def updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
     """
     replace arrival,until information with started,ended
+    At stops with parking=true, additional constraints are needed so that
+    vehicles without 'ended' delay their re-insertion until all vehicles with 'ended' have passed
     """
+    # signal -> [(tripID, otherSignal, otherTripID, limit, line, otherLine, vehID, otherVehID), ...]
+    limit = 1 + options.limit
+    conflicts = defaultdict(list)
+    numConflicts = 0
 
     maxShift = 0
     for busStop, stops in stopRoutes.items():
         latestKnownTime = 0
         shift = 0
+        stopEdge = stopEdges[busStop]
+        node = net.getEdge(stopEdge).getToNode()
+        signal = node.getID()
+
+        parkingEnded = []
+
         for edgesBefore, stop in stops:
             if stop.hasAttribute("ended") and stop.hasAttribute("until"):
                 ended = parseTime(stop.ended)
                 if ended > latestKnownTime:
                     latestKnownTime = ended
                     shift = max(shift, ended - parseTime(stop.until))
+
+                if parseBool(stop.getAttributeSecure("parking", "false")):
+                    vehStops = vehicleStopRoutes[stop.vehID]
+                    index = vehStops.index((edgesBefore, stop))
+                    isPassing = index < len(vehStops) - 1
+                    if isPassing:
+                        # prevent overtaking by a vehicle without "ended" and earlier "until"
+                        nextEdges = vehStops[index + 1][0]
+                        parkingEnded.append((ended, stop, nextEdges))
+
             elif stop.hasAttribute("started") and stop.hasAttribute("arrival"):
                 started = parseTime(stop.started)
                 if started > latestKnownTime:
                     latestKnownTime = started
                     shift = max(shift, started - parseTime(stop.arrival))
+
         maxShift = max(maxShift, shift)
+        parkingEnded.sort(key=itemgetter(0))
 
         for edgesBefore, stop in stops:
             if stop.hasAttribute("started"):
@@ -511,11 +535,58 @@ def updateStartedEnded(options, stopRoutes):
             elif stop.hasAttribute("until"):
                 stop.until = str(parseTime(stop.until) + shift)
 
+                if len(parkingEnded) > 0:
+                    ended, pStop, pNextEdges = parkingEnded[-1]
+
+                    vehStops = vehicleStopRoutes[stop.vehID]
+                    index = vehStops.index((edgesBefore, stop))
+                    isPassing = index < len(vehStops) - 1
+                    if isPassing:
+                        nNextEdges = vehStops[index + 1][0]
+
+                        if parseBool(stop.getAttributeSecure("parking", "false")):
+                            # we need an insertion constraint for insertion after parking
+
+                            pSignal = signal
+                            nSignal = signal
+                            if node.getType() != "rail_signal":
+                                # find signal in nextEdges
+                                pSignal = findSignal(net, pNextEdges)
+                                nSignal = findSignal(net, nNextEdges)
+                                if pSignal is None or nSignal is None:
+                                    print(("Ignoring parking insertion conflict between %s and %s at stop '%s' " +
+                                        "because no rail signal was found after the stop") % (
+                                            stop.prevTripId, pStop.prevTripId, busStop), file=sys.stderr)
+                                    continue
+
+                            # vehicles have already stopped so the new tripId applies
+                            nTripID = stop.getAttributeSecure("tripId", stop.vehID)
+                            pTripID = pStop.getAttributeSecure("tripId", pStop.vehID)
+                            conflicts[nSignal].append(Conflict(nTripID, pSignal, pTripID, limit,
+                                                               # attributes for adding comments
+                                                               stop.line,
+                                                               pStop.line,
+                                                               stop.vehID, pStop.vehID, ended))
+                            numConflicts += 1
+
+                        else:
+                            # this is a foeInsertionConflicts and we need a normal constraint
+                            print(("Warning: constraint for non-parking vehicle '%s'" % stop.vehID)
+                                + (" after ended parking vehicle '%s' not implemented yet." % pStop.vehID)
+                                + (" Possible deadlock at '%s' " % busStop), file=sys.stderr)
+
         if busStop == options.debugStop and shift > 0:
             print("Shifted stop times at %s by %s" % (busStop, shift))
 
+
     if options.verbose and maxShift > 0:
         print("Shifted stop times by up to %s" % maxShift)
+
+    if options.verbose and numConflicts > 0:
+        print("Found %s parking insertion conflicts" % numConflicts)
+
+    return conflicts
+
 
 def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
     """find stops that target the same busStop from different branches of the
@@ -893,7 +964,7 @@ def main(options):
     uniqueRoutes, stopRoutes, vehicleStopRoutes = getStopRoutes(options, stopEdges)
     if options.abortUnordered:
         markOvertaken(options, vehicleStopRoutes, stopRoutes)
-    updateStartedEnded(options, stopRoutes)
+    parkingConflicts = updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes)
     mergeSwitches = findMergingSwitches(options, uniqueRoutes, net)
     signalTimes = computeSignalTimes(options, net, stopRoutes)
     switchRoutes, mergeSignals = findStopsAfterMerge(net, stopRoutes, mergeSwitches)
@@ -903,7 +974,8 @@ def main(options):
 
     signals = sorted(set(list(conflicts.keys())
                          + list(foeInsertionConflicts.keys())
-                         + list(insertionConflicts.keys())))
+                         + list(insertionConflicts.keys())
+                         + list(parkingConflicts.keys())))
 
     with open(options.out, "w") as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "additional")  # noqa
@@ -911,7 +983,7 @@ def main(options):
             outf.write('    <railSignalConstraints id="%s">\n' % signal)
             for conflict in conflicts[signal] + foeInsertionConflicts[signal]:
                 writeConstraint(options, outf, "predecessor", conflict)
-            for conflict in insertionConflicts[signal]:
+            for conflict in insertionConflicts[signal] + parkingConflicts[signal]:
                 writeConstraint(options, outf, "insertionPredecessor", conflict)
             outf.write('    </railSignalConstraints>\n')
         outf.write('</additional>\n')

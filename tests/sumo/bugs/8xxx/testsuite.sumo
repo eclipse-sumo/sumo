@@ -6,3 +6,6 @@ ticket8397
 
 # invalid departPos when using departPos="stop"
 ticket8404
+
+# vehicle briefly invisible (at time 1.2)
+ticket8749

@@ -77,6 +77,10 @@ be set in the vehicle definitions
 </routes>
 ```
 
+## Vehicle behavior
+
+Vehicle behavior will not be affected by battery level. Car will keep driving even when their battery capacity is at 0. To avoid this [TraCI](#traci) must be used to change speed or route based on the current battery level.
+
 ## Charging Stations
 
 A charging station is a surface defined on a lane in which the vehicles
@@ -255,6 +259,10 @@ The battery-output generates a file with this structure:
 The [Emission model](../Models/Emissions.md#outputs)-outputs of
 SUMO can be used together with the battery device when setting the
 `<vType>`-parameter `emissionClass="Energy/unknown"`.
+
+## Tracking fuel consumption for non-electrical vehicles
+
+By setting option **--device.battery.track-fuel**, equipped vehicles will monitor their fuel level based on the fuel consumption of their respective emission class. All capacity values are then interpreted as ml instead of Wh. Also, the chargingStation power is re-interpreted as ml/s when charging fuel.
 
 ## TraCI
 

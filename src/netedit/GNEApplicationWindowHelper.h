@@ -478,6 +478,9 @@ struct GNEApplicationWindowHelper {
             /// @brief menu check for hide shapes (Polygons and POIs)
             FXMenuCheckIcon* menuCheckHideShapes;
 
+            /// @brief menu check for show all trips plans
+            FXMenuCheckIcon* menuCheckShowAllTrips;
+
             /// @brief menu check for hide non inspected demand elements
             FXMenuCheckIcon* menuCheckHideNonInspectedDemandElements;
 
@@ -486,6 +489,12 @@ struct GNEApplicationWindowHelper {
 
             /// @brief menu check for lock Person
             FXMenuCheckIcon* menuCheckLockPerson;
+
+            /// @brief menu check for show all container plans
+            FXMenuCheckIcon* menuCheckShowAllContainerPlans;
+
+            /// @brief menu check for lock Container
+            FXMenuCheckIcon* menuCheckLockContainer;
 
             /// @brief separator
             FXMenuSeparator* separator;

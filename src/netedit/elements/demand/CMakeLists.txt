@@ -11,16 +11,24 @@ set(netedit_elements_demand_SRCS
    GNEVehicle.cpp
    GNEStop.h
    GNEStop.cpp
-   GNEPersonStop.h
-   GNEPersonStop.cpp
+   GNEPerson.h
+   GNEPerson.cpp
+   GNEPersonTrip.h
+   GNEPersonTrip.cpp
    GNEWalk.h
    GNEWalk.cpp
    GNERide.h
    GNERide.cpp
-   GNEPersonTrip.h
-   GNEPersonTrip.cpp
-   GNEPerson.h
-   GNEPerson.cpp
+   GNEStopPerson.h
+   GNEStopPerson.cpp
+   GNEContainer.h
+   GNEContainer.cpp
+   GNETranship.h
+   GNETranship.cpp
+   GNETransport.h
+   GNETransport.cpp
+   GNEStopContainer.h
+   GNEStopContainer.cpp
    )
 
 add_library(netedit_elements_demand STATIC ${netedit_elements_demand_SRCS})

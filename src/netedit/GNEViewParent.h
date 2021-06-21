@@ -51,9 +51,11 @@ class GNEProhibitionFrame;
 class GNETAZFrame;
 class GNETLSEditorFrame;
 // demand frames
+class GNEPersonTypeFrame;
 class GNEPersonFrame;
 class GNEPersonPlanFrame;
-class GNEPersonTypeFrame;
+class GNEContainerFrame;
+class GNEContainerPlanFrame;
 class GNERouteFrame;
 class GNEStopFrame;
 class GNEVehicleFrame;
@@ -169,6 +171,12 @@ public:
 
     /// @brief get frame for DEMAND_PERSONFRAME
     GNEPersonPlanFrame* getPersonPlanFrame() const;
+
+    /// @brief get frame for DEMAND_CONTAINER
+    GNEContainerFrame* getContainerFrame() const;
+
+    /// @brief get frame for DEMAND_CONTAINERFRAME
+    GNEContainerPlanFrame* getContainerPlanFrame() const;
 
     /// @brief get frame for DATA_EDGEDATA
     GNEEdgeDataFrame* getEdgeDataFrame() const;
@@ -342,14 +350,20 @@ protected:
         /// @brief frame for DEMAND_STOP
         GNEStopFrame* stopFrame;
 
-        /// @brief frame for DEMAND_PERSON
-        GNEPersonFrame* personFrame;
-
         /// @brief frame for DEMAND_PERSONTYPE
         GNEPersonTypeFrame* personTypeFrame;
 
+        /// @brief frame for DEMAND_PERSON
+        GNEPersonFrame* personFrame;
+
         /// @brief frame for DEMAND_PERSONPLAN
         GNEPersonPlanFrame* personPlanFrame;
+
+        /// @brief frame for DEMAND_CONTAINER
+        GNEContainerFrame* containerFrame;
+
+        /// @brief frame for DEMAND_CONTAINERPLAN
+        GNEContainerPlanFrame* containerPlanFrame;
     };
 
     /// @brief class for data frames

@@ -475,7 +475,7 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnectio
             edge->getParentJunctions().back()->setLogicValid(false, undoList);
         } else {
             edge->getParentJunctions().front()->removeConnectionsTo(edge, undoList, true, lane->getIndex());
-            edge->getParentJunctions().front()->removeConnectionsFrom(edge, undoList, true, lane->getIndex());
+            edge->getParentJunctions().back()->removeConnectionsFrom(edge, undoList, true, lane->getIndex());
         }
         // delete lane
         const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
@@ -2049,11 +2049,11 @@ GNENet::adjustPersonPlans(GNEUndoList* undoList) {
                 GNEDemandElement* personPlan = person.second->getChildDemandElements().front();
                 // iterate over all personPlans
                 while (personPlan) {
-                    // check if personPlan is a personStop over edge
-                    if (personPlan->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_EDGE) {
+                    // check if personPlan is a stopPerson over edge
+                    if (personPlan->getTagProperty().getTag() == GNE_TAG_STOPPERSON_EDGE) {
                         // get previous person plan
                         GNEDemandElement* previousPersonPlan = person.second->getPreviousChildDemandElement(personPlan);
-                        // check if arrivalPos of previous personPlan is different of endPos of personStop
+                        // check if arrivalPos of previous personPlan is different of endPos of stopPerson
                         if (previousPersonPlan && previousPersonPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS) &&
                                 (previousPersonPlan->getAttribute(SUMO_ATTR_ARRIVALPOS) != personPlan->getAttribute(SUMO_ATTR_ENDPOS))) {
                             personPlanMap[previousPersonPlan] = personPlan->getAttribute(SUMO_ATTR_ENDPOS);
@@ -3023,13 +3023,13 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     std::map<double, std::vector<GNEDemandElement*> > vehiclesSortedByDepart;
     for (const auto& demandElementTag : myAttributeCarriers->getDemandElements()) {
         for (const auto& demandElement : demandElementTag.second) {
-            if (demandElement.second->getTagProperty().isPerson() || demandElement.second->getTagProperty().isVehicle()) {
+            if (demandElement.second->getTagProperty().isVehicle() || demandElement.second->getTagProperty().isPerson() || demandElement.second->getTagProperty().isContainer()) {
                 // save it in myVehiclesSortedByDepart
                 vehiclesSortedByDepart[GNEAttributeCarrier::parse<double>(demandElement.second->getBegin())].push_back(demandElement.second);
             }
         }
     }
-    // finally write all vehicles and persons sorted by depart time (and their associated stops, personPlans, etc.)
+    // finally write all vehicles, persons and containers sorted by depart time (and their associated stops, personPlans, etc.)
     for (const auto& vehicleTag : vehiclesSortedByDepart) {
         for (const auto& vehicle : vehicleTag.second) {
             vehicle->writeDemandElement(device);

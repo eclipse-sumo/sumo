@@ -21,21 +21,16 @@
 #include <config.h>
 
 #include <utils/common/SUMOVehicleClass.h>
-#include <utils/additionals/AdditionalHandler.h>
-
+#include <utils/handlers/AdditionalHandler.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-
 class GNENet;
 class GNEEdge;
 class GNELane;
 class GNEAdditional;
-class GNEShape;
-class GNETAZElement;
-class GNEDemandElement;
 
 // ===========================================================================
 // class definitions
@@ -44,8 +39,8 @@ class GNEDemandElement;
 /// @class GNEAdditionalHandler
 /// @brief Builds additional objects for GNENet (busStops, chargingStations, detectors, etc..)
 class GNEAdditionalHandler : public AdditionalHandler {
-public:
 
+public:
     /// @brief Constructor
     GNEAdditionalHandler(GNENet* net, const std::string& file, const bool allowUndoRedo);
 
@@ -207,7 +202,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
-                                   const double pos, const double length, const std::string& freq, const std::string& trafficLight, const std::string& filename, 
+                                   const double pos, const double length, const SUMOTime freq, const std::string& trafficLight, const std::string& filename, 
                                    const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold,
                                    const double jamThreshold, const bool friendlyPos, const std::map<std::string, std::string> &parameters);
 
@@ -229,7 +224,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::vector<std::string>& lanes, 
-                                  const double pos, const double endPos, const std::string& freq, const std::string& trafficLight, const std::string& filename, 
+                                  const double pos, const double endPos, const SUMOTime freq, const std::string& trafficLight, const std::string& filename, 
                                   const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, 
                                   const double jamThreshold, const bool friendlyPos, const std::map<std::string, std::string> &parameters);
 
@@ -246,7 +241,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position &pos, const SUMOTime freq, 
-                         const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, 
+                         const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, 
                          const double speedThreshold, const std::map<std::string, std::string> &parameters);
 
     /**@brief Builds a entry detector (E3)
@@ -281,7 +276,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildDetectorE1Instant(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
-                                double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, 
+                                const double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, 
                                 const bool friendlyPos, const std::map<std::string, std::string> &parameters);
 
     /**@brief builds a microscopic calibrator over a lane
@@ -488,8 +483,8 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildPolygon(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
-                      const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, 
-                      const PositionVector& shape, bool geo, bool fill, double lineWidth, const std::string& name, 
+                      const RGBColor& color, const double layer, const double angle, const std::string& imgFile, const bool relativePath, 
+                      const PositionVector& shape, const bool geo, const bool fill, const double lineWidth, const std::string& name, 
                       const std::map<std::string, std::string> &parameters);
 
     /**@brief Builds a POI using the given values
@@ -509,8 +504,8 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
-                  const RGBColor& color, const double x, const double y, double layer, double angle, const std::string& imgFile, 
-                  bool relativePath, double width, double height, const std::string& name, 
+                  const RGBColor& color, const double x, const double y, const double layer, const double angle, const std::string& imgFile, 
+                  bool relativePath, const double width, const double height, const std::string& name, 
                   const std::map<std::string, std::string> &parameters);
 
     /**@brief Builds a POI over lane using the given values
@@ -531,8 +526,8 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
-                      const RGBColor& color, const std::string& laneID, double posOverLane, double posLat, double layer, double angle, 
-                      const std::string& imgFile, bool relativePath, double width, double height, const std::string& name, 
+                      const RGBColor& color, const std::string& laneID, const double posOverLane, const double posLat, const double layer, const double angle, 
+                      const std::string& imgFile, const bool relativePath, const double width, const double height, const std::string& name, 
                       const std::map<std::string, std::string> &parameters);
 
     /**@brief Builds a POI in GEO coordinaten using the given values
@@ -552,15 +547,15 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
-                     const RGBColor& color, const double lon, const double lat, double layer, double angle, const std::string& imgFile, 
-                     bool relativePath, double width, double height, const std::string& name, const std::map<std::string, std::string> &parameters);
+                     const RGBColor& color, const double lon, const double lat, const double layer, const double angle, const std::string& imgFile, 
+                     bool relativePath, const double width, const double height, const std::string& name, const std::map<std::string, std::string> &parameters);
     /// @}
 
     /// @brief check if a GNEAccess can be created in a certain Edge
     static bool accessCanBeCreated(GNEAdditional* busStopParent, GNEEdge* edge);
 
     /// @brief check if an overlapping is produced in rerouter if a interval with certain begin and end is inserted
-    static bool checkOverlappingRerouterIntervals(GNEAdditional* rerouter, SUMOTime newBegin, SUMOTime newEnd);
+    static bool checkOverlappingRerouterIntervals(GNEAdditional* rerouter, const SUMOTime newBegin, const SUMOTime newEnd);
 
     /**@brief check if the given position over a lane is valid
      * @param[in] pos pos position of element over lane
@@ -584,7 +579,7 @@ public:
      * @param[in] friendlyPos Attribute of element
      * @return true if the element positions is valid, false in otherweise
      */
-    static bool checkDoublePositionOverLane(double from, double to, const double laneLength, const bool friendlyPos);
+    static bool checkDoublePositionOverLane(double from, const double to, const double laneLength, const bool friendlyPos);
 
     /**@brief fix the given positions over lane
      * @param[in] from begin position of element over lane
@@ -600,7 +595,7 @@ public:
      * @param[in] friendlyPos Attribute of element
      * @return true if the element positions is valid, false in otherweise
      */
-    static bool checkE2SingleLanePosition(double pos, double length, const double laneLength, const bool friendlyPos);
+    static bool checkE2SingleLanePosition(double pos, const double length, const double laneLength, const bool friendlyPos);
 
     /**@brief fix the given positions over lane
      * @param[in] from begin position of element over lane
@@ -616,7 +611,7 @@ public:
      * @param[in] friendlyPos Attribute of element
      * @return true if the element positions is valid, false in otherweise
      */
-    static bool checkE2MultiLanePosition(double pos, const double fromLaneLength, double to, const double TolaneLength, const bool friendlyPos);
+    static bool checkE2MultiLanePosition(double pos, const double fromLaneLength, const double to, const double TolaneLength, const bool friendlyPos);
 
     /**@brief fix the given positions over lane
      * @param[in] from begin position of element over lane
@@ -641,8 +636,14 @@ protected:
     /// @brief write error "invalid negative element"
     void writeErrorInvalidNegativeValue(const SumoXMLTag tag, const std::string &id, const SumoXMLAttr attribute) const;
 
+    /// @brief write error "invalid attribute" (used by name and types)
+    void writeErrorInvalidName(const SumoXMLTag tag, const std::string &id, const SumoXMLAttr attribute) const;
+
     /// @brief write error "invalid list of vehicle types"
     void writeErrorInvalidVTypes(const SumoXMLTag tag, const std::string &id) const;
+
+    /// @brief write error "invalid filename"
+    void writeErrorInvalidFilename(const SumoXMLTag tag, const std::string &id) const;
 
     /// @brief check list of IDs
     bool checkListOfVehicleTypes(const std::vector<std::string>& vTypeIDs) const;

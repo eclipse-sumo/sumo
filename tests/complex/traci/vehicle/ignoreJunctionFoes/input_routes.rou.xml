@@ -1,0 +1,23 @@
+<routes>
+    <vType id="t0" sigma="0" speedDev="0.1">
+        <param key="has.tripinfo.device" value="false"/>
+    </vType>
+
+    <flow id="foe" type="t0" begin="0" end="45" period="1.9" departPos="10" departSpeed="max" arrivalPos="50" departLane="free">
+        <route edges="SC CN"/>
+    </flow>
+    <flow id="foe2" type="t0" begin="0" end="45" period="4.7" departPos="10" departSpeed="max" arrivalPos="50" departLane="free">
+        <route edges="NC CS"/>
+    </flow>
+    <flow id="foe3" type="t0" begin="0" end="45" period="1.2" departPos="10" departSpeed="max" arrivalPos="50" departLane="free">
+        <route edges="SC CW"/>
+    </flow>
+    <vehicle id="ego" type="t0" depart="7" departPos="10" departSpeed="0" arrivalPos="50">
+        <route edges="EC CW"/>
+        <param key="has.tripinfo.device" value="true"/>
+    </vehicle>
+    <vehicle id="ego2" type="t0" depart="10" departPos="10" departSpeed="0" arrivalPos="50" arrivalLane="1">
+        <route edges="EC CW"/>
+        <param key="has.tripinfo.device" value="true"/>
+    </vehicle>
+</routes>

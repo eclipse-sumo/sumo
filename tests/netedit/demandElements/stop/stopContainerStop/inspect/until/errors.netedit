@@ -4,6 +4,7 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 13.00,-12.00,37.0
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding containerStop 'containerStopB' in GNEChange_Additional
 Debug: Adding trip 'trip' in GNEChange_DemandElement
 GLDebug: Removing junctions during recomputing
@@ -25,12 +26,10 @@ Debug: Selected item 'stopLane' in TagSelector
 Debug: Selected item 'stopContainerStop' in TagSelector
 Debug: Adding stopContainerStop 'trip' in GNEChange_DemandElement
 Debug: Setting new attribute into stopContainerStop 'trip'
-Debug: Setting new attribute until '0' into stopContainerStop 'trip'
+Debug: Setting new attribute until '0.00' into stopContainerStop 'trip'
 Debug: Setting new attribute into stopContainerStop 'trip'
 Debug: Setting new attribute into stopContainerStop 'trip'
-Debug: Setting new attribute until '0' into stopContainerStop 'trip'
 Debug: Value 'dummyValue' for attribute until of stopContainerStop isn't valid
-Debug: Setting new attribute until '0' into stopContainerStop 'trip'
 Debug: Value '-5' for attribute until of stopContainerStop isn't valid
 Debug: Setting new attribute until '0' into stopContainerStop 'trip'
 Debug: Setting new attribute until '3.5' into stopContainerStop 'trip'
@@ -42,10 +41,6 @@ Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute until '0.00' into stopContainerStop 'trip'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute until '0.00' into stopContainerStop 'trip'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute until '0.00' into stopContainerStop 'trip'
 Debug: Setting previous attribute into stopContainerStop 'trip'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
@@ -54,20 +49,22 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute until '-0.00' into stopContainerStop 'trip'
 Debug: Setting previous attribute into stopContainerStop 'trip'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing stopContainerStop 'trip' in GNEChange_DemandElement
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding stopContainerStop 'trip' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute into stopContainerStop 'trip'
-Debug: Setting new attribute until '0' into stopContainerStop 'trip'
+Debug: Setting new attribute until '0.00' into stopContainerStop 'trip'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute into stopContainerStop 'trip'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute into stopContainerStop 'trip'
-Debug: Setting new attribute until '0' into stopContainerStop 'trip'
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute until '0' into stopContainerStop 'trip'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute until '0' into stopContainerStop 'trip'

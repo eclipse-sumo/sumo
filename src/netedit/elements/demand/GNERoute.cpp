@@ -221,7 +221,7 @@ void
 GNERoute::updateGeometry() {
     // update child demand elementss
     for (const auto& demandElement : getChildDemandElements()) {
-        if (!demandElement->getTagProperty().isPersonStop() && !demandElement->getTagProperty().isStop()) {
+        if (!demandElement->getTagProperty().isStopPerson() && !demandElement->getTagProperty().isStop()) {
             demandElement->updateGeometry();
         }
     }

@@ -1,4 +1,5 @@
-Warning: Essential unique float attribute 'pos' of e2Detector with ID 'E2_01' is missing; e2Detector cannot be created
-Warning: Format of essential unique float attribute 'pos' of e2Detector with ID 'E2_02' is invalid; Cannot be parsed to float; e2Detector cannot be created
-Warning: Invalid position for e2Detector with ID = 'E2_03'.
-Warning: Invalid position for e2Detector with ID = 'E2_04'.
+Error: Attribute 'pos' is missing in definition of e2Detector 'E2_01'.
+Error: Attribute 'pos' in definition of e2Detector 'E2_02' is not of type float.
+Error: Could not build e2Detector with ID 'E2_03' in netedit; Invalid position over lane.
+Error: Could not build e2Detector with ID 'E2_04' in netedit; Invalid position over lane.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun141735.8512\netedit.gui\additionalElements\e2detector\load\pos\input_additionals.add.xml failed.

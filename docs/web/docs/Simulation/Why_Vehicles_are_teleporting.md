@@ -28,7 +28,17 @@ stays below 0.1m/s. These steps are the "waiting time". In the case the
 vehicle moves with a larger speed, this counter is reset. In the case
 the vehicle waited longer than a certain threshold value (default 300
 seconds), the vehicle is assumed to be in grid-lock and teleported onto
-the next free edge on its route. The threshold value can be configure
+the next free edge on its route. If there is enough space on the subsequent edge of
+the vehicle's route, the vehicle will be directly assigned to the respective
+available space. Vehicle insertion will use depart method "free" (anywhere on the lane with the least traffic)
+and attempt to insert the vehicle with it's maximum allowed speed.
+The insertion space must allow for all necessary safety gaps of the vehicle itself and it's follower vehicle, though the speed may be reduced if it helps with insertion.
+
+If the vehicle cannot be inserted immediately,it will be held outside the road network in a special 'teleporting-buffer' and (virtually) traverse the next edge with the average speed of that edge (minimum  m/s). After this virtual travel time has passend, the next attempt at re-inserting the vehicle into the network is made one edge further along it's route. This procedure repeats until the vehicle has been re-inserted or the end of the route is reached.
+In the latter case, the vehicle is removed from the simulation.
+While the vehicle is in the teleporting buffer it remains invisble.
+
+The threshold value can be configure
 using the option **--time-to-teleport** {{DT_INT}} which sets the time in seconds. If the value is not
 positive, teleporting due to grid-lock is disabled. Note that for
 vehicles which have a stop as part of their route, the time spent
@@ -44,6 +54,11 @@ following reasons is given:
   find a gap in the prioritized traffic
 - **jam** The vehicle is stuck on a priority road and there is no
   space on the next edge.
+  
+Related options are
+
+- **--time-to-teleport.highways** (teleport earlier when stuck on the wrong lane of a road with speed above 19.167 m/s
+- **--time-to-teleport.disconnected** (teleport earlier when the route is disconnected)
 
 Unfortunately, grid-locks are rather common in congested simulation
 scenarios. You can solve this only by [improving traffic flow, either by

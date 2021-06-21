@@ -1,8 +1,10 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'containerStop' in TagSelector
 Debug: Adding containerStop 'containerStop_gneE0_0_0' in GNEChange_Additional
 Debug: Invalid input parameter of containerStop: invalid id used in id
+Error: Could not build containerStop with ID 'containerStop_gneE0_0_0' in netedit; declared twice.
 Debug: Adding containerStop 'custom_ID' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

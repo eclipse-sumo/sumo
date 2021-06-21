@@ -36,3 +36,8 @@ foeInsertion
 
 # prevent false positive foeLeader deadlock check in looped network
 looped
+
+# the ego vehicle isn't yet at the signal and the deadlock which must be resolved has foe2 between ego and the ego-signal:
+# 
+# foe2 waits for foe, ego is behind foe2
+egoLeader

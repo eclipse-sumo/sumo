@@ -30,8 +30,12 @@ GLDebug: 	Inserted edge:8 into SUMORTree with boundary -10.00,18.40,60.00,40.00
 GLDebug: 	Inserted edge:9 into SUMORTree with boundary -10.00,10.00,60.00,31.60
 GLDebug: 	Inserted edge:gneE13 into SUMORTree with boundary -10.00,-11.13,11.23,10.10
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding vaporizer '1' in GNEChange_Additional
+Error: Attribute 'id' is missing in definition of a vaporizer.
+Error: Could not build vaporizer in netedit; edge doesn't exist.
 Debug: Adding vaporizer '2' in GNEChange_Additional
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_15Jun142414.5460\netedit.gui\additionalElements\vaporizer\load\id\input_additionals.add.xml failed.
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,18.00,12.00,42.00

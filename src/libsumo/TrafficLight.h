@@ -96,7 +96,7 @@ public:
 private:
     static libsumo::TraCISignalConstraint buildConstraint(const std::string& tlsID, const std::string& tripId, MSRailSignalConstraint* constraint, bool insertionConstraint);
     /// @brief perform swapConstraints to resolve deadlocks and return the new constraints
-    static std::vector<libsumo::TraCISignalConstraint> findConstraintsDeadLocks(const std::string& tripId, const std::string& foeId, const std::string& foeSignal);
+    static std::vector<libsumo::TraCISignalConstraint> findConstraintsDeadLocks(const std::string& foeId, const std::string& tripId, const std::string& foeSignal, const std::string& tlsID);
     static SUMOVehicle* getVehicleByTripId(const std::string tripOrVehID);
 
 private:

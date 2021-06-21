@@ -169,8 +169,6 @@ GNEStoppingPlace::splitEdgeGeometry(const double splitPosition, const GNENetwork
     if ((originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) &&
         (newElement->getTagProperty().getTag() == SUMO_TAG_LANE) &&
         (getParentLanes().front() == originalElement)) {
-        // obtain lane length
-        double laneLength = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
         // check if we have to change additional lane depending of split position
         if ((myStartPosition != INVALID_DOUBLE) && (myEndPosition != INVALID_DOUBLE)) {
             // calculate middle position
@@ -410,10 +408,10 @@ GNEStoppingPlace::getEndGeometryPositionOverLane() const {
 void
 GNEStoppingPlace::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
-    myStartPosition = moveResult.newStartPos;
-    myEndPosition = moveResult.newEndPos;
+    myStartPosition = moveResult.newFirstPos;
+    myEndPosition = moveResult.newSecondPos;
     // set lateral offset
-    myMoveElementLateralOffset = moveResult.laneOffset;
+    myMoveElementLateralOffset = moveResult.firstLaneOffset;
     // update geometry
     updateGeometry();
 }
@@ -427,16 +425,16 @@ GNEStoppingPlace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* 
         undoList->p_begin("position of " + getTagStr());
         // set startPos
         if (myStartPosition != INVALID_DOUBLE) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newStartPos)));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
         }
         // set endPos
         if (myEndPosition != INVALID_DOUBLE) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newEndPos)));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos)));
         }
         // check if lane has to be changed
-        if (moveResult.newLane) {
+        if (moveResult.newFirstLane) {
             // set new lane
-            setAttribute(SUMO_ATTR_LANE, moveResult.newLane->getID(), undoList);
+            setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
         }
         // end change attribute
         undoList->p_end();

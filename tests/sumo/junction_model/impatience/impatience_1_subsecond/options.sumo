@@ -1,0 +1,7 @@
+--no-step-log --no-duration-log --net-file=net.net.xml -r input_routes.rou.xml
+--fcd-output fcd.xml
+--device.fcd.explicit ego
+--fcd-output.acceleration
+--fcd-output.attributes acceleration
+--step-length 0.2
+-e 5

@@ -37,11 +37,11 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect containerStops
-netedit.leftClick(referencePosition, 160, 280)
+# inspect containerstops
+netedit.leftClick(referencePosition, 160, 270)
 
 # check parameters
-netedit.checkParameters(referencePosition, 4, False)
+netedit.checkParameters(referencePosition, 6, False)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

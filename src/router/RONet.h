@@ -168,6 +168,12 @@ public:
         return getEdge(laneID.substr(0, laneID.rfind("_")));
     }
 
+    /** @brief Retrieves a lane rom the network given it's id
+     *
+     * @param[in] laneID The name of the lane to retrieve the edge for
+     * @return The lane object
+     */
+    ROLane* getLane(const std::string& laneID) const;
 
     /* @brief Adds a read node to the network
      *

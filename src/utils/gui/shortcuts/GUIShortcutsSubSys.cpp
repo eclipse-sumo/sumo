@@ -135,6 +135,12 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow* GNEApp) {
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_e), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_E_MODES_EDGE_EDGEDATA));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_E), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_E_MODES_EDGE_EDGEDATA));
 
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_g), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_G_MODE_CONTAINER));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_G), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_G_MODE_CONTAINER));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_h), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_H_MODE_CONTAINERDATA));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_H), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_H_MODE_CONTAINERDATA));
+
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_i), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_I_MODES_INSPECT));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_I), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_I_MODES_INSPECT));
 

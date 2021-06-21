@@ -67,7 +67,7 @@ following:
 
 ```xml
 <meandata>
-    <interval begin="<INTERVAL_BEGIN>" end="<INTERVAL_END>" id="<DETECTOR_ID>">
+    <interval begin="<INTERVAL_BEGIN>" end="<INTERVAL_END>" id="<MEASUREMENT_ID>">
       <edge id="<EDGE_ID>" sampledSeconds="<COLLECTED_VEHICLE_SECONDS>" \
             traveltime="<MEAN_TRAVEL_TIME>" \
             density="<MEAN_DENSITY>" occupancy="<MEAN_OCCUPANCY>" \
@@ -94,7 +94,7 @@ The generated output looks like the following:
 
 ```xml
 <meandata>
-    <interval begin="<INTERVAL_BEGIN>" end="<INTERVAL_END>" id="<DETECTOR_ID>">
+    <interval begin="<INTERVAL_BEGIN>" end="<INTERVAL_END>" id="<MEASUREMENT_ID>">
       <edge id="<EDGE_ID>">
           <lane id="<LANE_ID>" sampledSeconds="<COLLECTED_VEHICLE_SECONDS>" \
                 traveltime="<MEAN_TRAVEL_TIME>" \

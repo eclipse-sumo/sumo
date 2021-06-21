@@ -53,8 +53,17 @@ GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& object
                 return false;
             }
         }
+        // build baseObjects
+        CommonXMLStructure::SumoBaseObject* intervalBaseObject = new CommonXMLStructure::SumoBaseObject(nullptr);
+        intervalBaseObject->addStringAttribute(SUMO_ATTR_ID, myIntervalSelector->getDataInterval()->getID());
+        intervalBaseObject->addDoubleAttribute(SUMO_ATTR_BEGIN, myIntervalSelector->getDataInterval()->getAttributeDouble(SUMO_ATTR_BEGIN));
+        intervalBaseObject->addDoubleAttribute(SUMO_ATTR_END, myIntervalSelector->getDataInterval()->getAttributeDouble(SUMO_ATTR_END));
+        CommonXMLStructure::SumoBaseObject* genericDataBaseObject = new CommonXMLStructure::SumoBaseObject(intervalBaseObject);
         // finally create edgeData
-        GNEDataHandler::buildEdgeData(myViewNet->getNet(), true, myIntervalSelector->getDataInterval(), objectsUnderCursor.getEdgeFront(), myParametersEditorCreator->getParametersMap());
+        GNEDataHandler dataHandler(myViewNet->getNet(), "", true);
+        dataHandler.buildEdgeData(genericDataBaseObject, objectsUnderCursor.getEdgeFront()->getID(), myParametersEditorCreator->getParametersMap());
+        // delete intervalBaseObject (and genericDataBaseObject)
+        delete intervalBaseObject;
         // edgeData created, then return true
         return true;
     } else {

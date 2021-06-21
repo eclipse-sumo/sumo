@@ -22,6 +22,9 @@ save_template
 # using edgedata as input
 edgedata
 
+# using another GEH threshold
+geh
+
 # test option --od-files
 od_files
 

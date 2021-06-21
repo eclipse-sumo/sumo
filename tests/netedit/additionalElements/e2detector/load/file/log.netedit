@@ -1,3 +1,3 @@
-Warning: Essential filename attribute 'file' of e2Detector with ID 'E2_01' is missing; e2Detector cannot be created
-Warning: Format of essential filename attribute 'file' of e2Detector with ID 'E2_02' is invalid; Filename contains invalid characters; e2Detector cannot be created
-Warning: Format of essential filename attribute 'file' of e2Detector with ID 'E2_03' is invalid; Filename cannot be empty; e2Detector cannot be created
+Error: Attribute 'file' is missing in definition of e2Detector 'E2_01'.
+Error: Attribute 'file' in definition of e2Detector 'E2_03' is empty.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun141735.8512\netedit.gui\additionalElements\e2detector\load\file\input_additionals.add.xml failed.

@@ -255,7 +255,7 @@ GNEDemandElement::getPathElementDepartValue() const {
     // check if this is the first person plan
     if (previousPersonPlan) {
         if (previousPersonPlan->getParentAdditionals().size() > 0) {
-            if (previousPersonPlan->getTagProperty().isPersonStop()) {
+            if (previousPersonPlan->getTagProperty().isStopPerson()) {
                 // calculate busStop end
                 const double endPos = previousPersonPlan->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
                 // check endPos
@@ -286,7 +286,7 @@ GNEDemandElement::getPathElementDepartPos() const {
     // check if this is the first person plan
     if (previousPersonPlan) {
         if (previousPersonPlan->getParentAdditionals().size() > 0) {
-            if (previousPersonPlan->getTagProperty().isPersonStop()) {
+            if (previousPersonPlan->getTagProperty().isStopPerson()) {
                 // get busStop
                 const GNEAdditional* busStop = previousPersonPlan->getParentAdditionals().front();
                 // get length
@@ -319,7 +319,7 @@ GNEDemandElement::getPathElementArrivalValue() const {
         // get next person Plan
         const GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
         // continue depending if is an stop or a person plan
-        if (nextPersonPlan && (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_BUSSTOP)) {
+        if (nextPersonPlan && (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_STOPPERSON_BUSSTOP)) {
             // calculate busStop end
             const double endPos = getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
             // check endPos
@@ -344,7 +344,7 @@ GNEDemandElement::getPathElementArrivalPos() const {
         // get next person Plan
         const GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
         // continue depending if is an stop or a person plan
-        if (nextPersonPlan && (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_BUSSTOP)) {
+        if (nextPersonPlan && (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_STOPPERSON_BUSSTOP)) {
             // get busStop
             const GNEAdditional* busStop = nextPersonPlan->getParentAdditionals().front();
             // get length
@@ -379,7 +379,7 @@ GNEDemandElement::isValidDemandElementID(const std::string& newID) const {
 
 const Position
 GNEDemandElement::getBeginPosition(const double pedestrianDepartPos) const {
-    if (myTagProperty.isPersonStop()) {
+    if (myTagProperty.isStopPerson()) {
         return getPositionInView();
     } else {
         // get first lane
@@ -397,10 +397,12 @@ bool
 GNEDemandElement::drawPersonPlan() const {
     // check conditions
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-            myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
+        myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
+        myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
         // show all person plans in network mode
         return true;
-    } else if (myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
+    } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
+               myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
         // show all person plans
         return true;
     } else if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front())) {
@@ -427,16 +429,51 @@ GNEDemandElement::drawPersonPlan() const {
 }
 
 
+bool
+GNEDemandElement::drawContainerPlan() const {
+    // check conditions
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+        myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
+        myNet->getViewNet()->getDemandViewOptions().showAllContainerPlans()) {
+        // show all container plans in network mode
+        return true;
+    } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
+               myNet->getViewNet()->getDemandViewOptions().showAllContainerPlans()) {
+        // show all container plans
+        return true;
+    } else if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front())) {
+        // container parent is inspected
+        return true;
+    } else if (myNet->getViewNet()->getDemandViewOptions().getLockedContainer() == getParentDemandElements().front()) {
+        // container parent is locked
+        return true;
+    } else if (myNet->getViewNet()->getInspectedAttributeCarriers().empty()) {
+        // nothing is inspected
+        return false;
+    } else {
+        // get inspected AC
+        const GNEAttributeCarrier* AC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        // check condition
+        if (AC->getTagProperty().isContainerPlan() && AC->getAttribute(GNE_ATTR_PARENT) == getAttribute(GNE_ATTR_PARENT)) {
+            // common container parent
+            return true;
+        } else {
+            // all conditions are false
+            return false;
+        }
+    }
+}
+
+
 void
-GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
+GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
                                         const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const {
     // get inspected and front flags
     const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this);
     // get person parent
     const GNEDemandElement* personParent = getParentDemandElements().front();
     // check if draw person plan element can be drawn
-    if (drawPersonPlan() &&
-            myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myTagProperty.getTag())) {
+    if (drawPlan && myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myTagProperty.getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
         // get inspected person plan
@@ -552,13 +589,12 @@ GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const
 
 
 void
-GNEDemandElement::drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/,
+GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/,
                                         const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const {
     // get inspected and front flags
     const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this);
     // check if draw person plan elements can be drawn
-    if (drawPersonPlan() &&
-            myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, fromLane, toLane, myTagProperty.getTag())) {
+    if (drawPlan && myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, fromLane, toLane, myTagProperty.getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
         // get person parent

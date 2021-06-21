@@ -20,6 +20,8 @@
 #include <config.h>
 
 #include <netedit/elements/data/GNEDataHandler.h>
+#include <netedit/elements/data/GNEDataInterval.h>
+#include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/GNEViewNet.h>
 
 #include "GNETAZRelDataFrame.h"
@@ -43,8 +45,16 @@ GNETAZRelDataFrame::addTAZRelationData(const GNEViewNetHelper::ObjectsUnderCurso
     // check if myFirstTAZElement is empty
     if (myFirstTAZElement) {
         if (objectsUnderCursor.getTAZElementFront()) {
+            GNEDataHandler dataHandler(myViewNet->getNet(), "", true);
+            // create data interval object and fill it
+            CommonXMLStructure::SumoBaseObject* dataIntervalObject = new CommonXMLStructure::SumoBaseObject(nullptr);
+            dataIntervalObject->addStringAttribute(SUMO_ATTR_ID, myIntervalSelector->getDataInterval()->getID());
+            dataIntervalObject->addDoubleAttribute(SUMO_ATTR_BEGIN, myIntervalSelector->getDataInterval()->getAttributeDouble(SUMO_ATTR_BEGIN));
+            dataIntervalObject->addDoubleAttribute(SUMO_ATTR_END, myIntervalSelector->getDataInterval()->getAttributeDouble(SUMO_ATTR_END));
+            CommonXMLStructure::SumoBaseObject* edgeRelationData = new CommonXMLStructure::SumoBaseObject(dataIntervalObject);
             // finally create TAZRelationData
-            GNEDataHandler::buildTAZRelationData(myViewNet->getNet(), true, myIntervalSelector->getDataInterval(), myFirstTAZElement, objectsUnderCursor.getTAZElementFront(), myParametersEditorCreator->getParametersMap());
+            dataHandler.buildTAZRelationData(edgeRelationData, myFirstTAZElement->getID(), objectsUnderCursor.getTAZElementFront()->getID(), myParametersEditorCreator->getParametersMap());
+            delete dataIntervalObject;
             // TAZRelationData created, then return true
             return true;
         } else {

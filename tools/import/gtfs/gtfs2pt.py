@@ -31,7 +31,7 @@ import zipfile
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
 
-sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"), os.path.join(os.environ['SUMO_HOME'], 'tools', 'route')]
+sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"), os.path.join(os.environ['SUMO_HOME'], 'tools', 'route')]  # noqa
 import route2poly  # noqa
 import sumolib  # noqa
 import tracemapper  # noqa
@@ -60,10 +60,6 @@ def get_options(args=None):
                     help="length for a tram stop")
 
     # ----------------------- fcd options -------------------------------------
-    ap.add_argument("-b", "--begin", default=0,
-                    type=int, help="Defines the begin time to export")
-    ap.add_argument("-e", "--end", default=86400,
-                    type=int, help="Defines the end time for the export")
     ap.add_argument("--network-split",
                     help="directory to write generated networks to")
     # ap.add_argument("--network-split.vclass", action="store_true", default=False,

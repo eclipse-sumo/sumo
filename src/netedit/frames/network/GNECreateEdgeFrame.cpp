@@ -1090,8 +1090,8 @@ GNECreateEdgeFrame::EdgeTypeParameters::onCmdOpenAttributeDialog(FXObject* obj, 
         // continue depending of acceptChanges
         if (acceptChanges) {
             // update allow/disallow
-            myAllow->setText(allow.c_str(), FALSE);
-            myDisallow->setText(disallow.c_str(), FALSE);
+            myAllow->setText(allow.c_str(), TRUE);
+            myDisallow->setText(disallow.c_str(), TRUE);
             // set attribute
             if (myCreateEdgeFrameParent->myEdgeTypeSelector->useDefaultEdgeType()) {
                 myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType()->setAttribute(SUMO_ATTR_ALLOW, allow.c_str());

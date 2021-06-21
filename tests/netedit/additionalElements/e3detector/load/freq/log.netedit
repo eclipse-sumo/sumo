@@ -1,6 +1,4 @@
-Warning: Format of essential SUMOTime attribute 'freq' of e3Detector with ID 'e3Detector_0' is invalid; Cannot be parsed to SUMOTime; e3Detector cannot be created
-Warning: e3Detector parent of detEntry was not loaded sucesfully.
-Warning: e3Detector parent of detExit was not loaded sucesfully.
-Warning: Format of essential SUMOTime attribute 'freq' of e3Detector with ID 'e3Detector_1' is invalid; Cannot be parsed to SUMOTime; e3Detector cannot be created
-Warning: e3Detector parent of detEntry was not loaded sucesfully.
-Warning: e3Detector parent of detExit was not loaded sucesfully.
+Error: Attribute 'freq' in definition of e3Detector 'e3Detector_0' is not a time value.
+Error: detEntry must be defined within the definition of a e3Detector
+Error: detExit must be defined within the definition of a e3Detector
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Jun141421.868\netedit.gui\additionalElements\e3detector\load\freq\input_additionals.add.xml failed.

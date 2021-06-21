@@ -364,6 +364,7 @@ MSVehicle::Influencer::Influencer() :
     myConsiderMaxDeceleration(true),
     myRespectJunctionPriority(true),
     myEmergencyBrakeRedLight(true),
+    myRespectJunctionLeaderPriority(true),
     myLastRemoteAccess(-TIME2STEPS(20)),
     myStrategicLC(LC_NOCONFLICT),
     myCooperativeLC(LC_NOCONFLICT),
@@ -433,7 +434,9 @@ MSVehicle::Influencer::getSpeedMode() const {
             2 * myConsiderMaxAcceleration +
             4 * myConsiderMaxDeceleration +
             8 * myRespectJunctionPriority +
-            16 * myEmergencyBrakeRedLight);
+            16 * myEmergencyBrakeRedLight +
+            32 * !myRespectJunctionLeaderPriority // inverted!
+            );
 }
 
 
@@ -767,6 +770,7 @@ MSVehicle::Influencer::setSpeedMode(int speedMode) {
     myConsiderMaxDeceleration = ((speedMode & 4) != 0);
     myRespectJunctionPriority = ((speedMode & 8) != 0);
     myEmergencyBrakeRedLight = ((speedMode & 16) != 0);
+    myRespectJunctionLeaderPriority = ((speedMode & 32) == 0); // inverted!
 }
 
 
@@ -1672,7 +1676,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                         stop.duration = MAX2(stop.duration, stop.pars.until - time);
                     }
                 }
-                if (MSGlobals::gUseStopEnded && stop.pars.ended) {
+                if (MSGlobals::gUseStopEnded && stop.pars.ended >= 0) {
                     stop.duration = stop.pars.ended - time;
                 }
                 stop.endBoarding = stop.pars.extension >= 0 ? time + stop.duration + stop.pars.extension : SUMOTime_MAX;
@@ -2045,6 +2049,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     int view = 0;
     DriveProcessItem* lastLink = nullptr;
     bool slowedDownForMinor = false; // whether the vehicle already had to slow down on approach to a minor link
+    double mustSeeBeforeReversal = 0;
     // iterator over subsequent lanes and fill lfLinks until stopping distance or stopped
     const MSLane* lane = opposite ? myLane->getOpposite() : myLane;
     assert(lane != 0);
@@ -2359,6 +2364,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 && lane->getBidiLane() != nullptr
                 && (*link)->getLane()->getBidiLane() == lane) {
             double vMustReverse = getCarFollowModel().stopSpeed(this, getSpeed(), seen - POSITION_EPS);
+            if (seen < 1 ) {
+                mustSeeBeforeReversal = 2 * seen + getLength();
+            }
             v = MIN2(v, vMustReverse);
         }
 
@@ -2427,7 +2435,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 
         // TODO: Consider option on the CFModel side to allow red/yellow light violation
 
-        if (yellowOrRed && canBrakeBeforeStopLine && !ignoreRed(*link, canBrakeBeforeStopLine) && !canReverseEventually) {
+        if (yellowOrRed && canBrakeBeforeStopLine && !ignoreRed(*link, canBrakeBeforeStopLine) && seen >= mustSeeBeforeReversal) {
             if (lane->isInternal()) {
                 checkLinkLeaderCurrentAndParallel(*link, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest);
             }
@@ -2747,7 +2755,7 @@ MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
 void
 MSVehicle::checkLinkLeaderCurrentAndParallel(const MSLink* link, const MSLane* lane, double seen,
         DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest) const {
-    if (MSGlobals::gUsingInternalLanes) {
+    if (MSGlobals::gUsingInternalLanes && (myInfluencer == nullptr || myInfluencer->getRespectJunctionLeaderPriority())) {
         // we want to pass the link but need to check for foes on internal lanes
         checkLinkLeader(link, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest);
         if (myLaneChangeModel->getShadowLane() != nullptr) {
@@ -3534,6 +3542,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
                                   << " pos=" << myState.myPos
                                   << " speed=" << std::setprecision(6) << getPreviousSpeed() << std::setprecision(gPrecision)
                                   << " speedThreshold=" << speedThreshold
+                                  << " seen=" << seen
                                   << " isRail=" << ((getVClass() & SVC_RAIL_CLASSES) != 0)
                                   << " speedOk=" << (getPreviousSpeed() <= speedThreshold)
                                   << " posOK=" << (myState.myPos <= myLane->getLength())
