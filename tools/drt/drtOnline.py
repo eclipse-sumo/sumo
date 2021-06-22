@@ -265,16 +265,62 @@ def main():
             setattr(res, 'direct', direct)  # direct travel time
             setattr(res, 'vehicle', False)  # id of assigned vehicle
             setattr(res, 'delay', 0)  # real pick up time - assigned time
-            # pickup time window
-            setattr(res, 'tw_pickup',
-                    [res.depart, res.depart+options.max_wait])
-            # drop off time window
-            if res.direct*options.drf < options.drf_min:
-                setattr(res, 'tw_dropoff', [res.tw_pickup[0]+direct,
-                        res.tw_pickup[1]+direct+options.drf_min])
+
+            # read extra attributes
+            person_id = res.persons[0]
+            pickup_earliest = traci.person.getParameter(person_id,
+                                                        "pickup_earliest")
+            if pickup_earliest:
+                pickup_earliest = float(pickup_earliest)
+            dropoff_latest = traci.person.getParameter(person_id,
+                                                       "dropoff_latest")
+            if dropoff_latest:
+                dropoff_latest = float(dropoff_latest)
+            max_waiting = traci.person.getParameter(person_id, "max_waiting")
+            if max_waiting:
+                max_waiting = float(max_waiting)
+
+            # calculates time windows
+            if not max_waiting:
+                # take global value
+                max_waiting = options.max_wait
+            if pickup_earliest and dropoff_latest:
+                # set latest pickup based on waiting time or latest drop off
+                pickup_latest = min(pickup_earliest + max_waiting,
+                                    dropoff_latest - direct)
+                # if drop off time given, set time window based on waiting time
+                dropoff_earliest = max(pickup_earliest + direct,
+                                       dropoff_latest - max_waiting)
+            elif dropoff_latest:
+                # if latest drop off given, calculate pickup window based
+                # on max. travel time with drf
+                if res.direct*options.drf < options.drf_min:
+                    pickup_earliest = max(res.depart,
+                                          dropoff_latest - options.drf_min)
+                else:
+                    pickup_earliest = max(res.depart,
+                                          dropoff_latest - direct*options.drf)
+                pickup_latest = max(pickup_earliest, dropoff_latest - direct)
+                dropoff_earliest = max(pickup_earliest + direct,
+                                       dropoff_latest - max_waiting)
             else:
-                setattr(res, 'tw_dropoff', [res.tw_pickup[0]+direct,
-                        res.tw_pickup[1]+direct*options.drf])
+                if not pickup_earliest:
+                    # if no time was given
+                    pickup_earliest = res.depart
+                # set earliest drop off based on pickup and max. travel time
+                dropoff_earliest = pickup_earliest + direct
+                # check if min travel time or drf must be applied
+                if res.direct*options.drf < options.drf_min:
+                    dropoff_latest = pickup_earliest + direct + options.drf_min
+                else:
+                    dropoff_latest = pickup_earliest + direct*options.drf
+                # set latest pickup based on waiting time
+                pickup_latest = min(dropoff_latest - direct,
+                                    pickup_earliest + max_waiting)
+
+            # add time window attributes
+            setattr(res, 'tw_pickup', [pickup_earliest, pickup_latest])
+            setattr(res, 'tw_dropoff', [dropoff_earliest, dropoff_latest])
 
             # add reservation id to new reservations
             res_id_new.append(res.id)
