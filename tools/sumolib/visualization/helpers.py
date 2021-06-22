@@ -98,6 +98,8 @@ def addPlotOptions(optParser):
                          default=False, help="Disables the legend")
     optParser.add_option("--legend-position", dest="legendposition",
                          default=None, help="Sets the legend position")
+    optParser.add_option("--dpi", dest="dpi", type="float",
+                         default=None, help="Define dpi resolution for figures")
 
 
 def addInteractionOptions(optParser):
