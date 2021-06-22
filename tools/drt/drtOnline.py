@@ -13,7 +13,7 @@
 
 # @file    drtOnline.py
 # @author  Giuliana Armellini
-# @date    2020-02-15
+# @date    2021-02-15
 
 """
 Simulate Demand Responsive Transport via TraCi
@@ -385,8 +385,19 @@ def main():
                 veh_id = stops[0]
                 # first check if new route is better than the current one
                 current_route = []
-                if len(traci.vehicle.getStops(veh_id)) > 1:
+                if traci.vehicle.getStops(veh_id):
                     for taxi_stop in traci.vehicle.getStops(veh_id):
+                        next_act = taxi_stop.actType.split(",")[0].split(" ")[0]
+                        if not next_act:
+                            # vehicle doesn't have a current route
+                            continue
+                        next_id = taxi_stop.actType.split(",")[0].split(" ")[-1][1:-1]
+                        if next_act == 'pickup' and next_id in res_id_picked:
+                            # person already picked up, consider next stop
+                            continue
+                        elif next_act == 'dropOff' and next_id not in res_all.keys():
+                            # person already dropped off, consider next stop
+                            continue
                         # get reservations served at each stop
                         sub_stops = taxi_stop.actType.split(",")
                         # if more than 1 reservation in stop
@@ -399,7 +410,7 @@ def main():
                       len(current_route) == len(stops[1:])):
                     # if route serve same reservations and have the same stops
                     # get travel time of current route
-                    tt_current_route = 0
+                    tt_current_route = step
                     edges = [taxi_stop.lane.split("_")[0] for taxi_stop
                              in traci.vehicle.getStops(veh_id)]
                     stop_types = [taxi_stop.actType for taxi_stop
