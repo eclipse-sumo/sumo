@@ -153,7 +153,17 @@ public:
      * @param[in] state The state of this link
      * @param[in] length The length of this link
      */
-    MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, double length, double foeVisibilityDistance, bool keepClear, MSTrafficLightLogic* logic, int tlLinkIdx);
+    MSLink(MSLane* predLane,
+            MSLane* succLane,
+            MSLane* via,
+            LinkDirection dir,
+            LinkState state,
+            double length,
+            double foeVisibilityDistance,
+            bool keepClear,
+            MSTrafficLightLogic* logic,
+            int tlLinkIdx,
+            bool indirect);
 
 
     /// @brief Destructor
@@ -722,6 +732,9 @@ private:
 
     MSLink* myParallelRight;
     MSLink* myParallelLeft;
+
+    /// @brief whether this connection is an indirect turning movement
+    const bool myAmIndirect;
 
     /// @brief the junction to which this link belongs
     MSJunction* myJunction;

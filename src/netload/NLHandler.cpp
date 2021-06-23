@@ -1256,7 +1256,8 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         LinkDirection dir = parseLinkDir(attrs.get<std::string>(SUMO_ATTR_DIR, nullptr, ok));
         LinkState state = parseLinkState(attrs.get<std::string>(SUMO_ATTR_STATE, nullptr, ok));
         const double foeVisibilityDistance = attrs.getOpt<double>(SUMO_ATTR_VISIBILITY_DISTANCE, nullptr, ok, state == LINKSTATE_ZIPPER ? 100 : 4.5);
-        bool keepClear = attrs.getOpt<bool>(SUMO_ATTR_KEEP_CLEAR, nullptr, ok, true);
+        const bool keepClear = attrs.getOpt<bool>(SUMO_ATTR_KEEP_CLEAR, nullptr, ok, true);
+        const bool indirect = attrs.getOpt<bool>(SUMO_ATTR_INDIRECT, nullptr, ok, false);
         std::string tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, nullptr, ok, "");
         std::string viaID = attrs.getOpt<std::string>(SUMO_ATTR_VIA, nullptr, ok, "");
 
@@ -1313,7 +1314,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         } else {
             length = fromLane->getShape()[-1].distanceTo(toLane->getShape()[0]);
         }
-        link = new MSLink(fromLane, toLane, via, dir, state, length, foeVisibilityDistance, keepClear, logic, tlLinkIdx);
+        link = new MSLink(fromLane, toLane, via, dir, state, length, foeVisibilityDistance, keepClear, logic, tlLinkIdx, indirect);
         if (via != nullptr) {
             via->addIncomingLane(fromLane, link);
         } else {
