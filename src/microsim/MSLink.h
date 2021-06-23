@@ -436,6 +436,11 @@ public:
         return myKeepClear;
     }
 
+    /// @brief whether this link is the start of an indirect turn
+    bool isIndirect() const {
+        return myAmIndirect;
+    }
+
     /// @brief whether this is a link past an internal junction which currently has priority
     bool lastWasContMajor() const;
 
