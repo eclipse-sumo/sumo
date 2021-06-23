@@ -103,7 +103,7 @@ Simulation::getLabel() {
 
 void
 Simulation::setOrder(int order) {
-    Connection::getActive().send_commandSetOrder(order);
+    Connection::getActive().setOrder(order);
 }
 
 
