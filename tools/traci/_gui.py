@@ -93,7 +93,8 @@ class GuiDomain(Domain):
     def screenshot(self, viewID, filename, width=-1, height=-1):
         """screenshot(string, string, int, int) -> None
 
-        Save a screenshot for the given view to the given filename.
+        Save a screenshot for the given view to the given filename
+        at the next call to simulationStep.
         The fileformat is guessed from the extension, the available
         formats differ from platform to platform but should at least
         include ps, svg and pdf, on linux probably gif, png and jpg as well.
