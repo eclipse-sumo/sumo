@@ -171,7 +171,7 @@ GNERouteProbe::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_FILE:
             return myFilename;
         case SUMO_ATTR_FREQUENCY:
-            return toString(myFrequency);
+            return time2string(myFrequency);
         case SUMO_ATTR_BEGIN:
             return time2string(myBegin);
         case GNE_ATTR_SELECTED:
