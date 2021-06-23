@@ -2992,6 +2992,11 @@ GNEAttributeCarrier::fillTAZElements() {
                                               "An information whether the TAZ shall be filled (Only in NETEDIT)",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
+                                        GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                        "Name of " + toString(currentTag));
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_TAZSOURCE;
     {

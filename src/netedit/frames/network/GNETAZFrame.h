@@ -434,6 +434,12 @@ public:
         /// @brief textField to modify the default value of color parameter
         FXTextField* myTextFieldColor;
 
+        /// @brief Button for open name editor
+        FXLabel* myNameEditor;
+
+        /// @brief textField to modify the default value of name parameter
+        FXTextField* myTextFieldName;
+
         /// @brief CheckButton to enable or disable use edges within TAZ after creation
         FXCheckButton* myAddEdgesWithinCheckButton;
 
