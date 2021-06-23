@@ -70,6 +70,8 @@ const SUMOTime MSLink::myLookaheadTimeZipper = TIME2STEPS(4);
 // minimim width between sibling lanes to qualify as non-overlapping
 #define DIVERGENCE_MIN_WIDTH 2.5
 
+#define NO_INTERSECTION 10000.0
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
@@ -181,7 +183,17 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 const double minDist = MIN2(DIVERGENCE_MIN_WIDTH, 0.5 * (lane->getWidth() + sibling->getWidth()));
                 if (lane->getShape().back().distanceTo2D(sibling->getShape().back()) >= minDist) {
                     // account for lateral shift by the entry links
-                    myLengthsBehindCrossing.push_back(std::make_pair(0, 0)); // dummy value, never used
+                    if (sibling->getEntryLink()->isIndirect()) {
+                        myLengthsBehindCrossing.push_back(std::make_pair(-NO_INTERSECTION, -NO_INTERSECTION)); // dummy value, never used
+#ifdef MSLink_DEBUG_CROSSING_POINTS
+                        std::cout << " " << lane->getID() << " dummy merge with indirect" << (*it_lane)->getID() << "\n";
+#endif
+                    } else {
+                        myLengthsBehindCrossing.push_back(std::make_pair(0, 0)); // dummy value, never used
+#ifdef MSLink_DEBUG_CROSSING_POINTS
+                        std::cout << " " << lane->getID() << " dummy merge with " << (*it_lane)->getID() << "\n";
+#endif
+                    }
                 } else {
                     const double distAfterDivergence = computeDistToDivergence(lane, sibling, minDist, false);
                     const double lbcLane = lane->interpolateGeometryPosToLanePos(distAfterDivergence);
@@ -204,7 +216,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
 #endif
                 bool haveIntersection = true;
                 if (intersections1.size() == 0) {
-                    intersections1.push_back(-10000.0); // disregard this foe (using maxdouble leads to nasty problems down the line)
+                    intersections1.push_back(-NO_INTERSECTION); // disregard this foe (using maxdouble leads to nasty problems down the line)
                     haveIntersection = false;
                 } else if (intersections1.size() > 1) {
                     std::sort(intersections1.begin(), intersections1.end());
@@ -1080,6 +1092,12 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 // ignore vehicles before an internaljunction as long as they are still in green minor mode
                 ignoreGreenCont = true;
             }
+        }
+        if (foeIndirect && distToCrossing >= NO_INTERSECTION) {
+            if (gDebugFlag1) {
+                std::cout << " ignore:noIntersection\n";
+            }
+            continue;
         }
         const double foeDistToCrossing = foeLane->getLength() - myLengthsBehindCrossing[i].second;
         // it is not sufficient to return the last vehicle on the foeLane because ego might be its leader
