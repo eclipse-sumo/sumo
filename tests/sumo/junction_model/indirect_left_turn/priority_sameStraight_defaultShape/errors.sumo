@@ -1,18 +1,29 @@
-Warning: Teleporting vehicle 'SW.2'; waited too long (yield), lane=':C_10_0', time=328.00.
-Warning: Vehicle 'SW.2' ends teleporting on edge 'CW', time 328.00.
-Warning: Teleporting vehicle 'SW.46'; waited too long (yield), lane=':C_10_0', time=898.00.
-Warning: Vehicle 'SW.46' ends teleporting on edge 'CW', time 898.00.
-Warning: Teleporting vehicle 'SW.48'; waited too long (yield), lane=':C_10_0', time=1201.00.
-Warning: Vehicle 'SW.48' ends teleporting on edge 'CW', time 1201.00.
-Warning: Teleporting vehicle 'SW.72'; junction collision with vehicle 'SW.85', lane=':C_5_0', gap=-1.00, time=1337.00 stage=move.
-Warning: Vehicle 'SW.72' ends teleporting on edge 'CW', time 1337.00.
-Warning: Teleporting vehicle 'SW.76'; junction collision with vehicle 'SW.89', lane=':C_5_1', gap=-1.00, time=1342.00 stage=move.
-Warning: Vehicle 'SW.76' ends teleporting on edge 'CW', time 1342.00.
-Warning: Teleporting vehicle 'SW.79'; junction collision with vehicle 'SW.90', lane=':C_5_1', gap=-1.00, time=1347.00 stage=move.
-Warning: Vehicle 'SW.79' ends teleporting on edge 'CW', time 1347.00.
-Warning: Teleporting vehicle 'SW.77'; junction collision with vehicle 'SW.93', lane=':C_5_0', gap=-1.00, time=1351.00 stage=move.
-Warning: Vehicle 'SW.77' ends teleporting on edge 'CW', time 1351.00.
-Warning: Teleporting vehicle 'SW.82'; junction collision with vehicle 'SW.100', lane=':C_5_1', gap=-1.00, time=1354.00 stage=move.
-Warning: Vehicle 'SW.82' ends teleporting on edge 'CW', time 1354.00.
-Warning: Teleporting vehicle 'SW.83'; junction collision with vehicle 'SW.108', lane=':C_5_0', gap=-1.00, time=1365.00 stage=move.
-Warning: Vehicle 'SW.83' ends teleporting on edge 'CW', time 1365.00.
+Warning: Teleporting vehicle 'SN.39'; junction collision with vehicle 'SW.25', lane=':C_9_0', gap=-1.00, time=320.00 stage=move.
+Warning: Vehicle 'SN.39' ends teleporting on edge 'CN', time 320.00.
+Warning: Teleporting vehicle 'SW.49'; waited too long (yield), lane=':C_10_0', time=640.00.
+Warning: Vehicle 'SW.49' ends teleporting on edge 'CW', time 640.00.
+Warning: Teleporting vehicle 'SW.53'; waited too long (yield), lane=':C_10_0', time=943.00.
+Warning: Vehicle 'SW.53' ends teleporting on edge 'CW', time 943.00.
+Warning: Teleporting vehicle 'SW.64'; waited too long (yield), lane='SC_0', time=950.00.
+Warning: Vehicle 'SW.64' ends teleporting on edge 'CE', time 950.00.
+Warning: Teleporting vehicle 'SW.54'; waited too long (yield), lane=':C_10_0', time=1246.00.
+Warning: Vehicle 'SW.54' ends teleporting on edge 'CW', time 1246.00.
+Warning: Teleporting vehicle 'SW.55'; waited too long (yield), lane=':C_10_0', time=1549.00.
+Warning: Vehicle 'SW.55' ends teleporting on edge 'CW', time 1549.00.
+Warning: Teleporting vehicle 'SW.67'; junction collision with vehicle 'SW.61', lane=':C_5_1', gap=-1.00, time=1573.00 stage=move.
+Warning: Vehicle 'SW.67' ends teleporting on edge 'CW', time 1573.00.
+Warning: Teleporting vehicle 'SW.68'; junction collision with vehicle 'SW.61', lane=':C_5_1', gap=-1.00, time=1575.00 stage=move.
+Warning: Vehicle 'SW.68' ends teleporting on edge 'CW', time 1575.00.
+Warning: Teleporting vehicle 'SW.72'; junction collision with vehicle 'SW.59', lane=':C_5_0', gap=-1.00, time=1593.00 stage=move.
+Warning: Teleporting vehicle 'SW.72'; junction collision with vehicle 'SW.57', lane=':C_5_0', gap=-1.00, time=1593.00 stage=move.
+Warning: Vehicle 'SW.72' ends teleporting on edge 'CW', time 1593.00.
+Warning: Teleporting vehicle 'SW.69'; junction collision with vehicle 'SW.57', lane=':C_5_0', gap=-1.00, time=1599.00 stage=move.
+Warning: Vehicle 'SW.69' ends teleporting on edge 'CW', time 1600.00.
+Warning: Teleporting vehicle 'SW.70'; junction collision with vehicle 'SW.57', lane=':C_5_0', gap=-1.00, time=1603.00 stage=move.
+Warning: Vehicle 'SW.70' ends teleporting on edge 'CW', time 1603.00.
+Warning: Teleporting vehicle 'SW.312'; junction collision with vehicle 'SW.324', lane=':C_5_1', gap=-1.00, time=1789.00 stage=move.
+Warning: Vehicle 'SW.312' ends teleporting on edge 'CW', time 1789.00.
+Warning: Teleporting vehicle 'SW.320'; junction collision with vehicle 'SW.333', lane=':C_5_1', gap=-1.00, time=1804.00 stage=move.
+Warning: Teleporting vehicle 'SW.300'; junction collision with vehicle 'SW.333', lane=':C_5_0', gap=-1.00, time=1805.00 stage=move.
+Warning: Vehicle 'SW.300' ends teleporting on edge 'CW', time 1805.00.
+Warning: Vehicle 'SW.320' ends teleporting on edge 'CW', time 1805.00.
