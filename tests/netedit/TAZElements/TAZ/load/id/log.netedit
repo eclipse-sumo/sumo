@@ -1,3 +1,4 @@
-Warning: Essential unique string attribute 'id' of taz is missing; taz cannot be created
-Warning: Format of essential unique string attribute 'id' of taz is invalid; ID contains invalid characters; taz cannot be created
-Warning: There is another taz with the same ID='TAZ_0'.
+Error: Attribute 'id' is missing in definition of a taz.
+Error: Could not build taz with ID '%%%%;;$$$%' in netedit; ID contains invalid characters.
+Error: Could not build tag with ID 'TAZ_0' in netedit; declared twice.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun134415.5740\netedit.gui\TAZElements\TAZ\load\id\input_additionals.add.xml failed.
