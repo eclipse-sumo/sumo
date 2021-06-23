@@ -73,7 +73,7 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt build/$FILEPREFIX/Makefile
     tests/runTests.sh -b $FILEPREFIX -name $TESTLABEL &> $TESTLOG
     if which Xvfb &>/dev/null; then
       tests/runTests.sh -a sumo.gui -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
-      tests/runTests.sh -a netedit.gui -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
+      tests/runTestsAuxNetedit.sh -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
 #      for suite in tests/netedit/testsuite.netedit.daily.*; do
 #        tests/runTests.sh -a ${suite:24} -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1 &
 #      done
