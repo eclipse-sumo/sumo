@@ -33,17 +33,29 @@ export MAROUTER_BINARY="$SUMO_BINDIR/marouter"
 export PYTHON="python"
 
 if which texttest &> /dev/null; then
-  texttest -a netedit.daily.additional "$@" & 
-  texttest -a netedit.daily.basic "$@" & 
+  texttest -a netedit.daily.common "$@" & 
+  texttest -a netedit.daily.net1 "$@" & 
+  texttest -a netedit.daily.net2 "$@" & 
+  texttest -a netedit.daily.additional1 "$@" & 
+  texttest -a netedit.daily.additional2 "$@" & 
+  texttest -a netedit.daily.additional3 "$@" & 
+  texttest -a netedit.daily.additional4 "$@" & 
   texttest -a netedit.daily.demand1 "$@" & 
   texttest -a netedit.daily.demand2 "$@" & 
   texttest -a netedit.daily.demand3 "$@" & 
-  texttest -a netedit.daily.net "$@"
+  texttest -a netedit.daily.demand4 "$@" & 
+  texttest -a netedit.daily.data "$@"
 else
-  texttest.py -a netedit.daily.additional "$@" & 
-  texttest.py -a netedit.daily.basic "$@" & 
+  texttest.py -a netedit.daily.common "$@" & 
+  texttest.py -a netedit.daily.net1 "$@" & 
+  texttest.py -a netedit.daily.net2 "$@" & 
+  texttest.py -a netedit.daily.additional1 "$@" & 
+  texttest.py -a netedit.daily.additional2 "$@" & 
+  texttest.py -a netedit.daily.additional3 "$@" & 
+  texttest.py -a netedit.daily.additional4 "$@" & 
   texttest.py -a netedit.daily.demand1 "$@" & 
   texttest.py -a netedit.daily.demand2 "$@" & 
   texttest.py -a netedit.daily.demand3 "$@" & 
-  texttest.py -a netedit.daily.net "$@"
+  texttest.py -a netedit.daily.demand4 "$@" & 
+  texttest.py -a netedit.daily.data "$@"
 fi
