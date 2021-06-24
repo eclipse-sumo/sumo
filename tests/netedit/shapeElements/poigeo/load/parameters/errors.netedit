@@ -15,8 +15,8 @@ Debug: Inserting generic parameter 'key2|' into poi
 Debug: Inserting generic parameter 'key3|$$value with spaces%%' into poi
 Debug: Inserting generic parameter 'keyFinal|valueFinal' into poi
 Debug: Adding poiGeo 'POI_0' into viewNet
-GLDebug: 	Inserted poi:POI_0 into SUMORTree with boundary -15.00,20.00,5.00,40.00
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Jun101617.8824\netedit.gui\shapeElements\poigeo\load\parameters\input_additionals.add.xml failed.
+GLDebug: 	Inserted poi:POI_0 into SUMORTree with boundary -4048866.84,4348764.84,-4048846.84,4348784.84
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.24Jun160554.1588\netedit.gui\shapeElements\poigeo\load\parameters\input_additionals.add.xml failed.
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -33,7 +33,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poiGeo 'POI_0' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object poi:POI_0 from SUMORTree with boundary -15.00,20.00,5.00,40.00
+GLDebug: 	Removed object poi:POI_0 from SUMORTree with boundary -4048866.84,4348764.84,-4048846.84,4348784.84
 Debug: delete poiGeo 'POI_0' in ~GNEChange_Shape()
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

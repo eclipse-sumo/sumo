@@ -6,11 +6,11 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding poiGeo 'POI_0' into viewNet
-GLDebug: 	Inserted poi:POI_0 into SUMORTree with boundary 14.00,19.00,36.00,41.00
+GLDebug: 	Inserted poi:POI_0 into SUMORTree with boundary -954994.50,3415402.85,-954972.50,3415424.85
 Error: Attribute 'height' in definition of poi 'POI_1' is not of type float.
 Debug: Adding poiGeo 'POI_2' into viewNet
-GLDebug: 	Inserted poi:POI_2 into SUMORTree with boundary 33.00,18.00,57.00,42.00
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Jun100037.14604\netedit.gui\shapeElements\poigeo\load\height\input_additionals.add.xml failed.
+GLDebug: 	Inserted poi:POI_2 into SUMORTree with boundary 982559.67,3329317.80,982583.67,3329341.80
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.24Jun160554.1588\netedit.gui\shapeElements\poigeo\load\height\input_additionals.add.xml failed.
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -27,10 +27,10 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poiGeo 'POI_2' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object poi:POI_2 from SUMORTree with boundary 33.00,18.00,57.00,42.00
+GLDebug: 	Removed object poi:POI_2 from SUMORTree with boundary 982559.67,3329317.80,982583.67,3329341.80
 Debug: delete poiGeo 'POI_2' in ~GNEChange_Shape()
 Debug: Removing poiGeo 'POI_0' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object poi:POI_0 from SUMORTree with boundary 14.00,19.00,36.00,41.00
+GLDebug: 	Removed object poi:POI_0 from SUMORTree with boundary -954994.50,3415402.85,-954972.50,3415424.85
 Debug: delete poiGeo 'POI_0' in ~GNEChange_Shape()
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
