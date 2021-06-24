@@ -1,1 +1,2 @@
-Warning: The lane 'gneE23_0' to use within the detEntry is not known.
+Error: Could not build entry in netedit; lane doesn't exist.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.24Jun110431.6956\netedit.gui\netElements\junctions\load\input_additionals.add.xml failed.

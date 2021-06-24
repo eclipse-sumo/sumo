@@ -1,4 +1,5 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Setting new attribute selected 'true' into lane 'gneE13_0'
 Debug: Key DEL (delete) pressed
 Debug: Removing connection 'gneE12_0->gneE13_0' from edge 'gneE12'
