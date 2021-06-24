@@ -4,31 +4,41 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.0
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'poly' in TagSelector
-Debug: Selected item 'poi' in TagSelector
-Debug: Adding poi 'poi_0' into viewNet
+Debug: Selected item 'poiGeo' in TagSelector
+Debug: Adding poiGeo 'poi_0' into viewNet
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -9.00,7.00,13.00,29.00
-Debug: Setting new attribute lon/lat '3.73,74.30' into poi 'poi_0'
+Debug: Value 'dummyLayer' for attribute layer of poiGeo isn't valid
+Debug: Setting new attribute layer '-2' into poiGeo 'poi_0'
+Debug: Setting new attribute layer 'default' into poiGeo 'poi_0'
+Debug: Setting new attribute layer '2' into poiGeo 'poi_0'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute layer 'default' into poiGeo 'poi_0'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute layer '-2.00' into poiGeo 'poi_0'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute layer 'default' into poiGeo 'poi_0'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing poiGeo 'poi_0' from viewNet
 GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -9.00,7.00,13.00,29.00
-GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary 161479.74,8277668.01,161501.74,8277690.01
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute lon/lat '10.511050,0.000162' into poi 'poi_0'
-GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary 161479.74,8277668.01,161501.74,8277690.01
-GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -9.01,6.96,12.99,28.96
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing poi 'poi_0' from viewNet
-GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -9.01,6.96,12.99,28.96
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding poi 'poi_0' into viewNet
-GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -9.01,6.96,12.99,28.96
+Debug: Adding poiGeo 'poi_0' into viewNet
+GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -9.00,7.00,13.00,29.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute lon/lat '3.73,74.30' into poi 'poi_0'
-GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -9.01,6.96,12.99,28.96
-GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary 161479.74,8277668.01,161501.74,8277690.01
+Debug: Setting new attribute layer '-2' into poiGeo 'poi_0'
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute layer 'default' into poiGeo 'poi_0'
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute layer '2' into poiGeo 'poi_0'
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -44,9 +54,9 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Removing poi 'poi_0' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary 161479.74,8277668.01,161501.74,8277690.01
-Debug: delete poi 'poi_0' in ~GNEChange_Shape()
+Debug: Removing poiGeo 'poi_0' from net in ~GNEChange_Shape()
+GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -9.00,7.00,13.00,29.00
+Debug: delete poiGeo 'poi_0' in ~GNEChange_Shape()
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

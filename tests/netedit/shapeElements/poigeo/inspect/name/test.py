@@ -43,18 +43,12 @@ netedit.inspectMode()
 # inspect first POI
 netedit.leftClick(referencePosition, 108, 50)
 
-# Change parameter 10 with a non valid value (dummy)
-netedit.modifyAttribute(12, "dummyGEO", False)
-
-# Change parameter 9 with a non valid value (empty)
-netedit.modifyAttribute(12, "", False)
-
-# Change parameter 9 with a valid value
-netedit.modifyAttribute(12, "3.73,74.30", False)
+# Change parameter 6 with a non valid value
+netedit.modifyAttribute(6, "customName", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save shapes
 netedit.saveAdditionals(referencePosition)
