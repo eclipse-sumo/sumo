@@ -1,3 +1,5 @@
-vehicletype
+vehicle
 
-stop
+trip
+
+vehicle_embedded 

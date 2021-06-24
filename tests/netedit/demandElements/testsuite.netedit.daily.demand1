@@ -2,8 +2,6 @@ basic
 
 route
 
-vehicle
+vehicletype
 
-routeflow
-
-trip
+stop
