@@ -31,29 +31,26 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to select mode
 netedit.selectMode()
 
-# select first POI
-netedit.leftClick(referencePosition, 346, 62)
-
-# select second POI
-netedit.leftClick(referencePosition, 392, 62)
+# invert selection
+netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 346, 62)
+netedit.leftClick(referencePosition, 149, 53)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(1, "dummyColor", False)
+netedit.modifyAttribute(1, "dummyColor", True)
 
 # Change parameter 2 with a non valid value (invalid format)
-netedit.modifyAttribute(1, "255,255,500", False)
+netedit.modifyAttribute(1, "255,255,500", True)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(1, "blue", False)
+netedit.modifyAttribute(1, "blue", True)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(1, "125,60,200", False)
+netedit.modifyAttribute(1, "125,60,200", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

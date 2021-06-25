@@ -31,29 +31,26 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to select mode
 netedit.selectMode()
 
-# select first POI
-netedit.leftClick(referencePosition, 346, 62)
-
-# select second POI
-netedit.leftClick(referencePosition, 392, 62)
+# invert selection
+netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 346, 62)
+netedit.leftClick(referencePosition, 149, 53)
 
 # Change parameter 4 with a non valid value
-netedit.modifyAttribute(4, "dummyLayer", False)
+netedit.modifyAttribute(4, "dummyLayer", True)
 
 # Change parameter 4 with a valid value (negative)
-netedit.modifyAttribute(4, "-2", False)
+netedit.modifyAttribute(4, "-2", True)
 
 # Change parameter 4 with a valid value (default)
-netedit.modifyAttribute(4, "default", False)
+netedit.modifyAttribute(4, "default", True)
 
 # Change parameter 4 with a valid value
-netedit.modifyAttribute(4, "2", False)
+netedit.modifyAttribute(4, "2", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

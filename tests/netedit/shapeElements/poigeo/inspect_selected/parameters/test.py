@@ -31,20 +31,17 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to select mode
 netedit.selectMode()
 
-# select first POI
-netedit.leftClick(referencePosition, 346, 62)
-
-# select second POI
-netedit.leftClick(referencePosition, 392, 62)
+# invert selection
+netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 346, 62)
+netedit.leftClick(referencePosition, 149, 53)
 
 # check parameters
-netedit.checkParameters(referencePosition, 11, False)
+netedit.checkParameters(referencePosition, 11, True)
 
 # save shapes
 netedit.saveAdditionals(referencePosition)
