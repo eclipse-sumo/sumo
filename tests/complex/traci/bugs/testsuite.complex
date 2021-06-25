@@ -117,3 +117,6 @@ ticket7949
 
 # crash during lane-changing after calling moveTo with an internal lane
 ticket8714
+
+# lateral distance subscription filter with takeover on opposite lane leads to wrong filtering
+ticket8789

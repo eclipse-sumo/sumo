@@ -17,11 +17,14 @@ v10
 v8
 v9
 [04s] Context results for veh 'ego':
+ERROR: 'ego' not in results
 v10
 v8
 [05s] Context results for veh 'ego':
+ERROR: 'ego' not in results
 v10
 [06s] Context results for veh 'ego':
+ERROR: 'ego' not in results
 v10
 [07s] Context results for veh 'ego':
 ego
@@ -29,7 +32,9 @@ v10
 v6
 v9
 [08s] Context results for veh 'ego':
+ERROR: results empty
 [09s] Context results for veh 'ego':
+ERROR: results empty
 [10s] Context results for veh 'ego':
 ego
 v9
