@@ -4,6 +4,7 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.0
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'poly' in TagSelector
 Debug: Selected item 'poly' in TagSelector
 Debug: Key ENTER pressed
@@ -19,6 +20,7 @@ Debug: Key ENTER pressed
 Debug: Invalid input parameter of poly: invalid id used in id
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed
+Error: Could not build poly with ID 'poly_0' in netedit; declared twice.
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding poly 'custom_ID' into viewNet
