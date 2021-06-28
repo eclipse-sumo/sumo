@@ -44,10 +44,27 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.net.junctions "$@" & 
   texttest -a netedit.daily.net.lanes "$@" & 
   texttest -a netedit.daily.net.trafficlights "$@" & 
-  texttest -a netedit.daily.additional1 "$@" & 
-  texttest -a netedit.daily.additional2 "$@" & 
-  texttest -a netedit.daily.additional3 "$@" & 
-  texttest -a netedit.daily.additional4 "$@" & 
+  texttest -a netedit.daily.additional.access "$@" & 
+  texttest -a netedit.daily.additional.basic "$@" & 
+  texttest -a netedit.daily.additional.busstop "$@" & 
+  texttest -a netedit.daily.additional.calibrator "$@" & 
+  texttest -a netedit.daily.additional.chargingstation "$@" & 
+  texttest -a netedit.daily.additional.containerstop "$@" & 
+  texttest -a netedit.daily.additional.detentry "$@" & 
+  texttest -a netedit.daily.additional.detexit "$@" & 
+  texttest -a netedit.daily.additional.e1detector "$@" & 
+  texttest -a netedit.daily.additional.e1InstantDetector "$@" & 
+  texttest -a netedit.daily.additional.e2detector "$@" & 
+  texttest -a netedit.daily.additional.e2MultiLaneDetector "$@" & 
+  texttest -a netedit.daily.additional.e3detector "$@" & 
+  texttest -a netedit.daily.additional.lanecalibrator "$@" & 
+  texttest -a netedit.daily.additional.parkingarea "$@" & 
+  texttest -a netedit.daily.additional.parkingspace "$@" & 
+  texttest -a netedit.daily.additional.rerouter "$@" & 
+  texttest -a netedit.daily.additional.routeprobe "$@" & 
+  texttest -a netedit.daily.additional.trainstop "$@" & 
+  texttest -a netedit.daily.additional.vaporizer "$@" & 
+  texttest -a netedit.daily.additional.variablespeedsign "$@" & 
   texttest -a netedit.daily.demand1 "$@" & 
   texttest -a netedit.daily.demand2 "$@" & 
   texttest -a netedit.daily.demand3 "$@" & 
@@ -66,10 +83,27 @@ else
   texttest.py -a netedit.daily.net.junctions "$@" & 
   texttest.py -a netedit.daily.net.lanes "$@" & 
   texttest.py -a netedit.daily.net.trafficlights "$@" & 
-  texttest.py -a netedit.daily.additional1 "$@" & 
-  texttest.py -a netedit.daily.additional2 "$@" & 
-  texttest.py -a netedit.daily.additional3 "$@" & 
-  texttest.py -a netedit.daily.additional4 "$@" & 
+  texttest.py -a netedit.daily.additional.access "$@" & 
+  texttest.py -a netedit.daily.additional.basic "$@" & 
+  texttest.py -a netedit.daily.additional.busstop "$@" & 
+  texttest.py -a netedit.daily.additional.calibrator "$@" & 
+  texttest.py -a netedit.daily.additional.chargingstation "$@" & 
+  texttest.py -a netedit.daily.additional.containerstop "$@" & 
+  texttest.py -a netedit.daily.additional.detentry "$@" & 
+  texttest.py -a netedit.daily.additional.detexit "$@" & 
+  texttest.py -a netedit.daily.additional.e1detector "$@" & 
+  texttest.py -a netedit.daily.additional.e1InstantDetector "$@" & 
+  texttest.py -a netedit.daily.additional.e2detector "$@" & 
+  texttest.py -a netedit.daily.additional.e2MultiLaneDetector "$@" & 
+  texttest.py -a netedit.daily.additional.e3detector "$@" & 
+  texttest.py -a netedit.daily.additional.lanecalibrator "$@" & 
+  texttest.py -a netedit.daily.additional.parkingarea "$@" & 
+  texttest.py -a netedit.daily.additional.parkingspace "$@" & 
+  texttest.py -a netedit.daily.additional.rerouter "$@" & 
+  texttest.py -a netedit.daily.additional.routeprobe "$@" & 
+  texttest.py -a netedit.daily.additional.trainstop "$@" & 
+  texttest.py -a netedit.daily.additional.vaporizer "$@" & 
+  texttest.py -a netedit.daily.additional.variablespeedsign "$@" & 
   texttest.py -a netedit.daily.demand1 "$@" & 
   texttest.py -a netedit.daily.demand2 "$@" & 
   texttest.py -a netedit.daily.demand3 "$@" & 
