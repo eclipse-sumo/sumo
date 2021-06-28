@@ -213,6 +213,7 @@ public:
     static const int FOUR_CONTROL_POINTS;
     static const int AVOID_INTERSECTING_LEFT_TURNS;
     static const int SCURVE_IGNORE;
+    static const int INDIRECT_LEFT;
 
 public:
     /**@brief Constructor
@@ -607,6 +608,8 @@ public:
             bool& ok, NBNode* recordError = 0, double straightThresh = DEG2RAD(5),
             int shapeFlag = 0);
 
+    /// @brief compute shape of indirect left turn
+    PositionVector indirectLeftShape(const PositionVector& begShape, const PositionVector& endShape, int numPoints) const;
 
     /// @brief compute the displacement error during s-curve computation
     double getDisplacementError() const {

@@ -55,6 +55,8 @@ def main(options):
         pos = None
         edges = []
         speed = None
+        startTime = None
+        ttFF = None
         lane = None
         seenVehs = 0
         writtenVehs = 0
@@ -71,6 +73,10 @@ def main(options):
                     edges = [str(int(float(e))) for e in line.split(":")[-1].split()]
                 elif vehLine == 5:
                     speed = line.split()[-1]
+                elif vehLine == 6:
+                    startTime = line.split()[-1]
+                elif vehLine == 7:
+                    ttFF = line.split()[-1]
 
                     seenVehs += 1
                     # skip vehicles on their arrival edge
@@ -81,6 +87,8 @@ def main(options):
                         print('    <vehicle id="%s" depart="0" departPos="%s" departSpeed="%s" departLane="%s">' %
                               (vehID, pos, speed, lane), file=outf)
                         outf.write('        <route edges="%s"/>\n' % ' '.join(edges))
+                        #outf.write('        <param key="startTime" value="%s"/>\n' % startTime)
+                        outf.write('        <param key="ttFF" value="%s"/>\n' % ttFF)
                         outf.write('    </vehicle>\n')
 
                 vehLine = (vehLine + 1) % 10

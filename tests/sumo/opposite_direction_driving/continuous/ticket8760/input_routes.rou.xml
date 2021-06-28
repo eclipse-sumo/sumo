@@ -1,0 +1,11 @@
+<routes>
+    <vType id="normal_car" vClass="passenger" maxSpeed="40" speedFactor="0.9" speedDev="0.4" sigma="0.5"/>
+
+    <flow id="WE" type="normal_car" begin="0" end="500" number="10" from="west" to="east" departPos="last" departLane="best"/>
+    <flow id="EW" type="normal_car" begin="0" end="500" number="50" from="-east" to="-west" departPos="last" departLane="best"/>
+	
+	<vehicle id="stopping" depart="0">
+	    <route edges="-east -center -west"/>
+		<stop lane="-center_0" endPos="1000" duration="1000"/>
+	</vehicle>
+</routes>

@@ -737,6 +737,9 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
         if (c.uncontrolled != false) {
             into.writeAttr(SUMO_ATTR_UNCONTROLLED, c.uncontrolled);
         }
+        if (c.indirectLeft != false) {
+            into.writeAttr(SUMO_ATTR_INDIRECT, c.indirectLeft);
+        }
     }
     if (style != PLAIN) {
         if (includeInternal) {

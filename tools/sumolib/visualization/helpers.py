@@ -98,6 +98,8 @@ def addPlotOptions(optParser):
                          default=False, help="Disables the legend")
     optParser.add_option("--legend-position", dest="legendposition",
                          default=None, help="Sets the legend position")
+    optParser.add_option("--dpi", dest="dpi", type="float",
+                         default=None, help="Define dpi resolution for figures")
 
 
 def addInteractionOptions(optParser):
@@ -256,10 +258,13 @@ def closeFigure(fig, ax, options, haveLabels=True, optOut=None):
     applyPlotOptions(fig, ax, options)
     if options.output or optOut is not None:
         n = options.output
+        myDpi = options.dpi
+        if myDpi is not None:
+            myDpi = float(myDpi)
         if optOut is not None:
             n = optOut
         for o in n.split(","):
-            savefig(o)
+            savefig(o, dpi=myDpi)
     if not options.blind:
         show()
     fig.clf()

@@ -54,6 +54,7 @@ markdown_extensions:
       user: eclipse
       repo: sumo
   - plantuml_markdown
+  - codehilite
 
 extra:
     Version: 1.9.2

@@ -20,6 +20,7 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,10.00,60.00,31
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -11.60,-10.00,10.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 38.40,-10.00,60.00,30.00
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_1' in GNEChange_Additional
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_2' in GNEChange_Additional
@@ -102,7 +103,6 @@ Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved after dialog
-Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -13.20,-13.20,13.20,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 36.80,-13.20,63.20,13.20
@@ -161,11 +161,6 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,5.80,60.00,30.
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,10.00,60.00,34.20
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -14.20,-10.00,10.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 35.80,-10.00,60.00,30.00
-Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
-Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_1' in GNEChange_Additional
-Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_2' in GNEChange_Additional
-Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_3' in GNEChange_Additional
-Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_4' in GNEChange_Additional
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -15.20,-15.20,15.20,15.20
@@ -316,11 +311,6 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,5.80,60.00,30.
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,10.00,60.00,34.20
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -14.20,-10.00,10.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 35.80,-10.00,60.00,30.00
-Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_4'
-Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_3'
-Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_2'
-Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_1'
-Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
@@ -426,5 +416,13 @@ Debug: Deleting unreferenced junction 'gneJ5' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ5_c0' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ5_c1' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ5_c2' in GNEJunction destructor
+Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_0' in AttributeCarriers destructor
+Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_1' in AttributeCarriers destructor
+Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_2' in AttributeCarriers destructor
+Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_3' in AttributeCarriers destructor
+Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_4' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 20

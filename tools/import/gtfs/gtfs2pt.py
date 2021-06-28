@@ -31,7 +31,7 @@ import zipfile
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
 
-sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"), os.path.join(os.environ['SUMO_HOME'], 'tools', 'route')]
+sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"), os.path.join(os.environ['SUMO_HOME'], 'tools', 'route')]  # noqa
 import route2poly  # noqa
 import sumolib  # noqa
 import tracemapper  # noqa
@@ -62,10 +62,6 @@ def get_options(args=None):
                     help="sorting the output-file")
 
     # ----------------------- fcd options -------------------------------------
-    ap.add_argument("-b", "--begin", default=0,
-                    type=int, help="Defines the begin time to export")
-    ap.add_argument("-e", "--end", default=86400,
-                    type=int, help="Defines the end time for the export")
     ap.add_argument("--network-split",
                     help="directory to write generated networks to")
     # ap.add_argument("--network-split.vclass", action="store_true", default=False,
@@ -99,7 +95,7 @@ def get_options(args=None):
     ap.add_argument("--bbox",
                     help="define the bounding box to filter the gtfs data, format: W,S,E,N")  # noqa
     ap.add_argument("--repair", help="repair osm routes", action='store_true')
-    ap.add_argument("--min-stops", default=3, type=int,
+    ap.add_argument("--min-stops", default=1, type=int,
                     help="minimum number of stops a public transport line must have to be imported")  # noqa
 
     options = ap.parse_args(args)

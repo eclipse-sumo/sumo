@@ -39,6 +39,7 @@ class GNETAZ;
 class GNEDemandElement;
 class GNEVehicle;
 class GNEPerson;
+class GNEContainer;
 class GNEUndoList;
 
 // ===========================================================================
@@ -104,6 +105,9 @@ public:
     /// @brief check if there is already a person (Person or PersonFlow) with the given ID
     static bool isPersonIdDuplicated(GNENet* net, const std::string& id);
 
+    /// @brief check if there is already a container (Container or ContainerFlow) with the given ID
+    static bool isContainerIdDuplicated(GNENet* net, const std::string& id);
+
     /// @name build routes
     /// @{
 
@@ -165,10 +169,39 @@ public:
     static void buildRide(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, GNEAdditional* toBusStop,
                           double arrivalPos, const std::vector<std::string>& lines);
 
-    /// @brief build stop
-    static void buildPersonStop(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* edge, GNEAdditional* busStop, const SUMOVehicleParameter::Stop& stopParameters);
+    /// @brief build person stop
+    static void buildStopPerson(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* edge, GNEAdditional* busStop, const SUMOVehicleParameter::Stop& stopParameters);
 
     /// @}
+
+    /// @name build container
+    /// @{
+    /// @brief build container
+    static void buildContainer(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& containerParameters);
+
+    /// @brief build container flow
+    static void buildContainerFlow(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& containerFlowParameters);
+
+    /// @}
+
+    /// @name build containerPlan
+    /// @{
+    /// @brief build container plan functions (used in Container / ContainerPlan frames)
+    static bool buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerParent, GNEFrameAttributesModuls::AttributesCreator* containerPlanAttributes, GNEFrameModuls::PathCreator* pathCreator);
+
+    /// @brief build transport
+    static void buildTransport(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,
+                          GNEAdditional* toBusStop, const std::vector<std::string>& lines, const double arrivalPos);
+
+    /// @brief build tranship
+    static void buildTranship(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,
+                          GNEAdditional* toBusStop, const std::vector<GNEEdge*>& edges, const double speed, const double departPosition, const double arrivalPosition);
+
+    /// @brief build container stop
+    static void buildStopContainer(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* edge, GNEAdditional* containerStop, const SUMOVehicleParameter::Stop& stopParameters);
+
+    /// @}
+
 
     /// @brief transform vehicle functions
     /// @{
@@ -195,6 +228,17 @@ public:
 
     /// @brief transform routeFlow over an existent route
     static void transformToPersonFlow(GNEPerson* originalPerson);
+
+    /// @}
+
+    /// @brief transform container functions
+    /// @{
+
+    /// @brief transform to vehicle over an existent route
+    static void transformToContainer(GNEContainer* originalContainer);
+
+    /// @brief transform routeFlow over an existent route
+    static void transformToContainerFlow(GNEContainer* originalContainer);
 
     /// @}
 
@@ -362,11 +406,90 @@ private:
         std::vector<PersonPlansValues> myPersonPlanValues;
     };
 
+    /// @brief struct used for load container plans (Rides, Walks, etc.)
+    struct ContainerPlansValues {
+        /// @brief default constructor
+        ContainerPlansValues();
+
+        /// @brief update tag
+        void updateGNETag();
+
+        /// @brief check integrity
+        bool checkIntegrity() const;
+
+        /// @brief is first container plan
+        bool isFirstContainerPlan() const;
+
+        /// @brief return last valid edge (used to create consecutive container plans)
+        GNEEdge* getLastEdge() const;
+
+        /// @brief walk tag
+        SumoXMLTag tag;
+
+        /// @brief from edge
+        GNEEdge* fromEdge;
+
+        /// @brief to edge
+        GNEEdge* toEdge;
+
+        /// @brief to containerStop
+        GNEAdditional* toContainerStop;
+
+        /// @brief list of edges
+        std::vector<GNEEdge*> edges;
+
+        /// @brief speed
+        double speed;
+
+        /// @brief depart pos
+        double departPos;
+
+        /// @brief arrival pos
+        double arrivalPos;
+
+        /// @brief lines
+        std::vector<std::string> lines;
+
+        /// @brief stop parameters
+        SUMOVehicleParameter::Stop stopParameters;
+
+        /// @brief container stop (stop)
+        GNEAdditional* containerStop;
+
+        /// @brief edge stop
+        GNEEdge* edgeStop;
+
+        /// @brief lane stop
+        GNELane* laneStop;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        ContainerPlansValues(ContainerPlansValues*) = delete;
+
+        /// @brief Invalidated assignment operator.
+        ContainerPlansValues& operator=(ContainerPlansValues*) = delete;
+    };
+
+    /// @brief container value
+    struct ContainerValue {
+        /// @brief add container plan value (
+        bool addContainerValue(GNENet* net, SumoXMLTag tag, const SUMOSAXAttributes& attrs);
+
+        /// @brief check container plan loaded (this will change tags, set begin and end elements, etc.)
+        bool checkContainerPlanValues();
+
+        /// @brief container for container trips loaded values
+        std::vector<ContainerPlansValues> myContainerPlanValues;
+    };
+
     /// @brief pointer to GNENet
     GNENet* myNet;
 
     /// @brief NETEDIT person values
     PersonValue myPersonValues;
+
+    /// @brief NETEDIT container values
+    ContainerValue myContainerValues;
 
     /// @brief NETEDIT Route Parameters
     RouteParameter myRouteParameter;

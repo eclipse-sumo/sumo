@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 28.11.2018 14:27:23 by Eclipse SUMO netedit Version v1_0_0+1123-7e66fbd65e
+<!-- generated on 2021-06-23 08:50:22 by Eclipse SUMO netedit Version v1_9_2+0632-d66d78bf07
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Nov142137.9884/netedit.gui/additionalElements/lanecalibrator/load/edge\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\edge\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Nov142137.9884/netedit.gui/additionalElements/lanecalibrator/load/edge\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\edge\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,28 +30,33 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Nov142137.9884/netedit.gui/additionalElements/lanecalibrator/load/edge\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Nov142137.9884/netedit.gui/additionalElements/lanecalibrator/load/edge\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Nov142137.9884/netedit.gui/additionalElements/lanecalibrator/load/edge\shapes.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\edge\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\edge\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\edge\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\edge\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\edge\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\edge\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Nov142137.9884/netedit.gui/additionalElements/lanecalibrator/load/edge\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\edge\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\edge\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Nov142137.9884/netedit.gui/additionalElements/lanecalibrator/load/edge\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\edge\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <calibrator id="calibrator03" lane="gneE1_0" pos="16.00" output="calibrator03.txt"/>
+    <calibrator id="calibrator03" lane="gneE1_0" pos="16.00" freq="100.00" output="calibrator03.txt"/>
 </additional>

@@ -45,7 +45,7 @@ class GUIGLObjectPopupMenu;
  * @class GNEAdditional
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEAdditional : public GUIGlObject, public Parameterised, public GNEHierarchicalElement, public GNEMoveElement, public GNEPathManager::PathElement {
+class GNEAdditional : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement, public GNEPathManager::PathElement, public Parameterised {
 
 public:
     /**@brief Constructor
@@ -314,7 +314,7 @@ protected:
     bool myBlockMovement;
 
     /// @brief pointer to special color (used for drawing Additional with a certain color, mainly used for selections)
-    const RGBColor* mySpecialColor;
+    const RGBColor* mySpecialColor = nullptr;
 
     /// @brief change all attributes of additional with their default values (note: this cannot be undo)
     void setDefaultValues();

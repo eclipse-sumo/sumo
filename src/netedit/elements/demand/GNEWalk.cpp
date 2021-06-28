@@ -289,14 +289,14 @@ GNEWalk::computePathElement() {
 void
 GNEWalk::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // draw person plan over lane
-    drawPersonPlanPartial(s, lane, segment, offsetFront, s.widthSettings.walk, s.colorSettings.walk);
+    drawPersonPlanPartial(drawPersonPlan(), s, lane, segment, offsetFront, s.widthSettings.walk, s.colorSettings.walk);
 }
 
 
 void
 GNEWalk::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // draw person plan over junction
-    drawPersonPlanPartial(s, fromLane, toLane, segment, offsetFront, s.widthSettings.walk, s.colorSettings.walk);
+    drawPersonPlanPartial(drawPersonPlan(), s, fromLane, toLane, segment, offsetFront, s.widthSettings.walk, s.colorSettings.walk);
 }
 
 
@@ -640,7 +640,7 @@ GNEWalk::setEnabledAttribute(const int /*enabledAttributes*/) {
 void
 GNEWalk::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
-    myArrivalPosition = moveResult.newStartPos;
+    myArrivalPosition = moveResult.newFirstPos;
     // update geometry
     updateGeometry();
 }
@@ -650,7 +650,7 @@ void
 GNEWalk::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("arrivalPos of " + getTagStr());
     // now adjust start position
-    setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newStartPos), undoList);
+    setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->p_end();
 }
 

@@ -40,7 +40,7 @@ title: Developer
 - [How To implement an own car-following model](How_To/Car-Following_Model.md)
 - [How To implement a new device](How_To/Device.md)
 - [How To contribute to this documentation](../FAQ.md#how_do_i_contribute_to_the_documentation)
-- [How to contribute to SUMO in general](../FAQ.md#how_can_i_contribute_to_sumo)
+- [How To contribute to SUMO in general](../FAQ.md#how_can_i_contribute_to_sumo)
 
 ## Methods, Algorithms, and Subsystems
 
@@ -53,6 +53,7 @@ title: Developer
 - [Progress on implementing an XML validation](XML_Validation.md)
 - [Developer/HowToRelease](HowToRelease.md) - how to build a release
 - [Developer/Docker](Docker.md) - projects using Dockerised SUMO
+- [How To create a CI Test with GitHub Actions](Github_Actions_CI_Test.md) - projects depending on SUMO
 - [Git](GitStuff.md)
 - [Visual Studio Code](VisualStudioCode.md) - how to use Visual Studio Code with the SUMO code base
 
@@ -63,6 +64,6 @@ title: Developer
 - [Packages on the open build service](https://software.opensuse.org/package/sumo)
 - [Nightly builds on the open build service](https://build.opensuse.org/package/show/home:behrisch/sumo_nightly)
 - [SUMO on Travis](https://travis-ci.org/eclipse/sumo) (legacy)
-- [SUMO brew formula on Travis](https://travis-ci.org/dlr-ts/homebrew-sumo)
+- [SUMO brew formula on Github Actions](https://github.com/DLR-TS/homebrew-sumo/actions)
 - [SUMO on OpenHub](https://www.openhub.net/p/sumo/)
 - [SUMO on codeclimate](https://codeclimate.com/github/DLR-TS/sumo)

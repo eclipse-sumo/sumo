@@ -348,12 +348,15 @@ protected:
     /// @brief check if person plan can be drawn
     bool drawPersonPlan() const;
 
+    /// @brief check if container plan can be drawn
+    bool drawContainerPlan() const;
+
     /// @brief draw person plan partial lane
-    void drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront,
+    void drawPersonPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront,
                                const double personPlanWidth, const RGBColor& personPlanColor) const;
 
     /// @brief draw person plan partial junction
-    void drawPersonPlanPartial(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment,
+    void drawPersonPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment,
                                const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const;
 
     /// @brief person plans arrival position radius

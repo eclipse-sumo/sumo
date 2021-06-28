@@ -54,17 +54,24 @@ public:
         VEHICLE =           1 << 9,  // Vehicles (Vehicles, trips, flows, and routeFlows)
         ROUTE =             1 << 10, // Routes and embedded routes
         STOP =              1 << 11, // Stops
+        // persons
         PERSON =            1 << 12, // Persons (Persons and personFlows)
-        PERSONPLAN =        1 << 13, // Person plans (Walks, rides, personTrips and personStops)
+        PERSONPLAN =        1 << 13, // Person plans (Walks, rides, personTrips and stopPersons)
         PERSONTRIP =        1 << 14, // Person Trips
         WALK =              1 << 15, // Walks
         RIDE =              1 << 16, // Rides
-        PERSONSTOP =        1 << 17, // Person stops
+        STOPPERSON =        1 << 17, // Person stops
+        // containers
+        CONTAINER =         1 << 18, // Containers (Containers and personFlows)
+        CONTAINERPLAN =     1 << 19, // Container plans (tranship and transport)
+        TRANSPORT =         1 << 20, // Transport
+        TRANSHIP =          1 << 21, // Tranship
+        STOPCONTAINER =     1 << 22, // Container stops
         // sub data elements
-        GENERICDATA =       1 << 18, // Generic data (GNEEdgeData, GNELaneData...)
+        GENERICDATA =       1 << 23, // Generic data (GNEEdgeData, GNELaneData...)
         // other
-        SYMBOL =            1 << 19, // Symbol elements (VSSSymbols, RerouterSymbols...)
-        INTERNALLANE =      1 << 20, // Internal Lane
+        SYMBOL =            1 << 24, // Symbol elements (VSSSymbols, RerouterSymbols...)
+        INTERNALLANE =      1 << 25, // Internal Lane
     };
 
     enum TagProperty {
@@ -193,7 +200,22 @@ public:
     bool isRide() const;
 
     /// @brief return true if tag correspond to a person stop element
-    bool isPersonStop() const;
+    bool isStopPerson() const;
+
+    /// @brief return true if tag correspond to a container element
+    bool isContainer() const;
+
+    /// @brief return true if tag correspond to a container plan
+    bool isContainerPlan() const;
+
+    /// @brief return true if tag correspond to a transport
+    bool isTransportPlan() const;
+
+    /// @brief return true if tag correspond to a tranship
+    bool isTranshipPlan() const;
+
+    /// @brief return true if tag correspond to a container stop element
+    bool isStopContainer() const;
 
     /// @brief return true if tag correspond to a generic data element
     bool isGenericData() const;

@@ -1,1 +1,3 @@
-Warning: Format of essential positive float attribute 'length' of e2Detector with ID 'E2_06' is invalid; Cannot be negative; e2Detector cannot be created
+Error: Attribute 'friendlyPos' in definition of e2Detector 'E2_02' is not of type bool.
+Error: Could not build e2Detector with ID 'E2_06' in netedit; attribute length cannot be negative.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun141735.8512\netedit.gui\additionalElements\e2detector\load\friendlypos\input_additionals.add.xml failed.

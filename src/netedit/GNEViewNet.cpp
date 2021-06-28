@@ -32,6 +32,8 @@
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
 #include <netedit/frames/data/GNEEdgeRelDataFrame.h>
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
+#include <netedit/frames/demand/GNEContainerFrame.h>
+#include <netedit/frames/demand/GNEContainerPlanFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNEPersonTypeFrame.h>
@@ -78,19 +80,21 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_DEMAND,                  GNEViewNet::onCmdSetSupermode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DATA,                    GNEViewNet::onCmdSetSupermode),
     // Modes
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_E_MODES_EDGE_EDGEDATA,                GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_M_MODES_MOVE,                         GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_D_MODES_DELETE,                       GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_I_MODES_INSPECT,                      GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_S_MODES_SELECT,                       GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_C_MODES_CONNECT_PERSONPLAN,           GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_T_MODES_TLS_VTYPE,                    GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_G_MODE_CONTAINER,                     GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_H_MODE_CONTAINERDATA,                 GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_A_MODES_ADDITIONAL_STOP,              GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA,   GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_Z_MODES_TAZ_TAZREL,                   GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_C_MODES_CONNECT_PERSONPLAN,           GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_D_MODES_DELETE,                       GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_E_MODES_EDGE_EDGEDATA,                GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_I_MODES_INSPECT,                      GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_M_MODES_MOVE,                         GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_P_MODES_POLYGON_PERSON,               GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA,   GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_S_MODES_SELECT,                       GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_T_MODES_TLS_VTYPE,                    GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_V_MODES_VEHICLE,                      GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_MODES_PROHIBITION_PERSONTYPE,       GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_Z_MODES_TAZ_TAZREL,                   GNEViewNet::onCmdSetMode),
     // Network view options
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID,           GNEViewNet::onCmdToggleShowGrid),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES,   GNEViewNet::onCmdToggleDrawSpreadVehicles),
@@ -110,8 +114,11 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES,    GNEViewNet::onCmdToggleDrawSpreadVehicles),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED,      GNEViewNet::onCmdToggleHideNonInspecteDemandElements),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES,            GNEViewNet::onCmdToggleHideShapes),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS,             GNEViewNet::onCmdToggleShowTrips),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,    GNEViewNet::onCmdToggleShowAllPersonPlans),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON,            GNEViewNet::onCmdToggleLockPerson),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLCONTAINERPLANS, GNEViewNet::onCmdToggleShowAllContainerPlans),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER,         GNEViewNet::onCmdToggleLockContainer),
     // Data view options
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,         GNEViewNet::onCmdToggleShowAdditionals),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES,              GNEViewNet::onCmdToggleShowShapes),
@@ -1047,6 +1054,10 @@ GNEViewNet::abortOperation(bool clearSelection) {
             myViewParent->getPersonFrame()->getPathCreator()->abortPathCreation();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
             myViewParent->getPersonPlanFrame()->getPathCreator()->abortPathCreation();
+        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
+            myViewParent->getContainerFrame()->getPathCreator()->abortPathCreation();
+        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
+            myViewParent->getContainerPlanFrame()->getPathCreator()->abortPathCreation();
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
         // abort operation depending of current mode
@@ -1151,6 +1162,10 @@ GNEViewNet::hotkeyEnter() {
             myViewParent->getPersonFrame()->getPathCreator()->createPath();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
             myViewParent->getPersonPlanFrame()->getPathCreator()->createPath();
+        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
+            myViewParent->getContainerFrame()->getPathCreator()->createPath();
+        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
+            myViewParent->getContainerPlanFrame()->getPathCreator()->createPath();
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
         if (myEditModes.dataEditMode == DataEditMode::DATA_EDGERELDATA) {
@@ -1176,6 +1191,10 @@ GNEViewNet::hotkeyBackSpace() {
             myViewParent->getPersonFrame()->getPathCreator()->removeLastElement();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
             myViewParent->getPersonPlanFrame()->getPathCreator()->removeLastElement();
+        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
+            myViewParent->getContainerFrame()->getPathCreator()->removeLastElement();
+        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
+            myViewParent->getContainerPlanFrame()->getPathCreator()->removeLastElement();
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
         if (myEditModes.dataEditMode == DataEditMode::DATA_EDGERELDATA) {
@@ -1515,6 +1534,12 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
     } else if (myEditModes.isCurrentSupermodeDemand()) {
         // check what demand mode will be set
         switch (FXSELID(sel)) {
+            case MID_HOTKEY_G_MODE_CONTAINER:
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_CONTAINER);
+                break;
+            case MID_HOTKEY_H_MODE_CONTAINERDATA:
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_CONTAINERPLAN);
+                break;
             case MID_HOTKEY_I_MODES_INSPECT:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_INSPECT);
                 break;
@@ -3101,6 +3126,25 @@ GNEViewNet::onCmdToggleHideShapes(FXObject*, FXSelector sel, void*) {
 
 
 long
+GNEViewNet::onCmdToggleShowTrips(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckHideShapes
+    if (myDemandViewOptions.menuCheckShowAllTrips->amChecked() == TRUE) {
+        myDemandViewOptions.menuCheckShowAllTrips->setChecked(FALSE);
+    } else {
+        myDemandViewOptions.menuCheckShowAllTrips->setChecked(TRUE);
+    }
+    myDemandViewOptions.menuCheckShowAllTrips->update();
+    // Only update view
+    updateViewNet();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS)) {
+        myDemandViewOptions.menuCheckShowAllTrips->setFocus();
+    }
+    return 1;
+}
+
+
+long
 GNEViewNet::onCmdToggleShowAllPersonPlans(FXObject*, FXSelector sel, void*) {
     // Toggle menuCheckShowAllPersonPlans
     if (myDemandViewOptions.menuCheckShowAllPersonPlans->amChecked() == TRUE) {
@@ -3149,6 +3193,60 @@ GNEViewNet::onCmdToggleLockPerson(FXObject*, FXSelector sel, void*) {
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON)) {
         myDemandViewOptions.menuCheckLockPerson->setFocus();
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdToggleShowAllContainerPlans(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckShowAllContainerPlans
+    if (myDemandViewOptions.menuCheckShowAllContainerPlans->amChecked() == TRUE) {
+        myDemandViewOptions.menuCheckShowAllContainerPlans->setChecked(FALSE);
+    } else {
+        myDemandViewOptions.menuCheckShowAllContainerPlans->setChecked(TRUE);
+    }
+    myDemandViewOptions.menuCheckShowAllContainerPlans->update();
+    // Only update view
+    updateViewNet();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLCONTAINERPLANS)) {
+        myDemandViewOptions.menuCheckShowAllContainerPlans->setFocus();
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdToggleLockContainer(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckLockContainer
+    if (myDemandViewOptions.menuCheckLockContainer->amChecked() == TRUE) {
+        myDemandViewOptions.menuCheckLockContainer->setChecked(FALSE);
+    } else if ((myInspectedAttributeCarriers.size() > 0) && myInspectedAttributeCarriers.front()->getTagProperty().isContainer()) {
+        myDemandViewOptions.menuCheckLockContainer->setChecked(TRUE);
+    }
+    myDemandViewOptions.menuCheckLockContainer->update();
+    // lock or unlock current inspected container depending of menuCheckLockContainer value
+    if (myDemandViewOptions.menuCheckLockContainer->amChecked()) {
+        // obtan locked container or container plan
+        const GNEDemandElement* containerOrContainerPlan = dynamic_cast<const GNEDemandElement*>(myInspectedAttributeCarriers.front());
+        if (containerOrContainerPlan) {
+            // lock container depending if casted demand element is either a container or a container plan
+            if (containerOrContainerPlan->getTagProperty().isContainer()) {
+                myDemandViewOptions.lockContainer(containerOrContainerPlan);
+            } else {
+                myDemandViewOptions.lockContainer(containerOrContainerPlan->getParentDemandElements().front());
+            }
+        }
+    } else {
+        // unlock current container
+        myDemandViewOptions.unlockContainer();
+    }
+    // update view
+    updateViewNet();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER)) {
+        myDemandViewOptions.menuCheckLockContainer->setFocus();
     }
     return 1;
 }
@@ -3583,13 +3681,23 @@ GNEViewNet::updateDemandModeSpecificControls() {
     myViewParent->getGNEAppWindows()->getEditMenuCommands().networkViewOptions.hideNetworkViewOptionsMenuChecks();
     myViewParent->getGNEAppWindows()->getEditMenuCommands().demandViewOptions.hideDemandViewOptionsMenuChecks();
     myViewParent->getGNEAppWindows()->getEditMenuCommands().dataViewOptions.hideDataViewOptionsMenuChecks();
-    // always show "hide shapes", "show grid" and "draw spread vehicles"
+    // always show "hide shapes", "show grid", "draw spread vehicles" and show/lock persons and containers
     myDemandViewOptions.menuCheckToggleGrid->show();
     myDemandViewOptions.menuCheckDrawSpreadVehicles->show();
     myDemandViewOptions.menuCheckHideShapes->show();
+    myDemandViewOptions.menuCheckShowAllTrips->show();
+    myDemandViewOptions.menuCheckShowAllPersonPlans->show();
+    myDemandViewOptions.menuCheckLockPerson->show();
+    myDemandViewOptions.menuCheckShowAllContainerPlans->show();
+    myDemandViewOptions.menuCheckLockContainer->show();
     menuChecks.menuCheckToggleGrid->show();
     menuChecks.menuCheckDrawSpreadVehicles->show();
     menuChecks.menuCheckHideShapes->show();
+    menuChecks.menuCheckShowAllTrips->show();
+    menuChecks.menuCheckShowAllPersonPlans->show();
+    menuChecks.menuCheckLockPerson->show();
+    menuChecks.menuCheckShowAllContainerPlans->show();
+    menuChecks.menuCheckLockContainer->show();
     // show separator
     menuChecks.separator->show();
     // enable selected controls
@@ -3603,12 +3711,8 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCommonCheckableButtons.inspectButton->setChecked(true);
             // show view options
             myDemandViewOptions.menuCheckHideNonInspectedDemandElements->show();
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
             // show menu checks
             menuChecks.menuCheckHideNonInspectedDemandElements->show();
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_DELETE:
             myViewParent->getDeleteFrame()->show();
@@ -3616,12 +3720,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getDeleteFrame();
             // set checkable button
             myCommonCheckableButtons.deleteButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_SELECT:
             myViewParent->getSelectorFrame()->show();
@@ -3629,12 +3727,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getSelectorFrame();
             // set checkable button
             myCommonCheckableButtons.selectButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_MOVE:
             myViewParent->getMoveFrame()->show();
@@ -3642,12 +3734,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getMoveFrame();
             // set checkable button
             myDemandCheckableButtons.moveDemandElementsButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         // specific modes
         case DemandEditMode::DEMAND_ROUTE:
@@ -3656,12 +3742,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getRouteFrame();
             // set checkable button
             myDemandCheckableButtons.routeButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_VEHICLE:
             myViewParent->getVehicleFrame()->show();
@@ -3669,12 +3749,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getVehicleFrame();
             // set checkable button
             myDemandCheckableButtons.vehicleButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_VEHICLETYPES:
             myViewParent->getVehicleTypeFrame()->show();
@@ -3682,12 +3756,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getVehicleTypeFrame();
             // set checkable button
             myDemandCheckableButtons.vehicleTypeButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_STOP:
             myViewParent->getStopFrame()->show();
@@ -3695,12 +3763,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getStopFrame();
             // set checkable button
             myDemandCheckableButtons.stopButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_PERSONTYPES:
             myViewParent->getPersonTypeFrame()->show();
@@ -3708,12 +3770,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getPersonTypeFrame();
             // set checkable button
             myDemandCheckableButtons.personTypeButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_PERSON:
             myViewParent->getPersonFrame()->show();
@@ -3721,12 +3777,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getPersonFrame();
             // set checkable button
             myDemandCheckableButtons.personButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
             break;
         case DemandEditMode::DEMAND_PERSONPLAN:
             myViewParent->getPersonPlanFrame()->show();
@@ -3734,12 +3784,20 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getPersonPlanFrame();
             // set checkable button
             myDemandCheckableButtons.personPlanButton->setChecked(true);
-            // show view options
-            myDemandViewOptions.menuCheckShowAllPersonPlans->show();
-            myDemandViewOptions.menuCheckLockPerson->show();
-            // show menu checks
-            menuChecks.menuCheckShowAllPersonPlans->show();
-            menuChecks.menuCheckLockPerson->show();
+            break;
+        case DemandEditMode::DEMAND_CONTAINER:
+            myViewParent->getContainerFrame()->show();
+            myViewParent->getContainerFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getContainerFrame();
+            // set checkable button
+            myDemandCheckableButtons.containerButton->setChecked(true);
+            break;
+        case DemandEditMode::DEMAND_CONTAINERPLAN:
+            myViewParent->getContainerPlanFrame()->show();
+            myViewParent->getContainerPlanFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getContainerPlanFrame();
+            // set checkable button
+            myDemandCheckableButtons.containerPlanButton->setChecked(true);
             break;
         default:
             break;
@@ -4681,6 +4739,20 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         case DemandEditMode::DEMAND_PERSONPLAN: {
             // Handle person plan click
             myViewParent->getPersonPlanFrame()->addPersonPlanElement(myObjectsUnderCursor, myMouseButtonKeyPressed);
+            // process click
+            processClick(eventData);
+            break;
+        }
+        case DemandEditMode::DEMAND_CONTAINER: {
+            // Handle click
+            myViewParent->getContainerFrame()->addContainer(myObjectsUnderCursor, myMouseButtonKeyPressed);
+            // process click
+            processClick(eventData);
+            break;
+        }
+        case DemandEditMode::DEMAND_CONTAINERPLAN: {
+            // Handle container plan click
+            myViewParent->getContainerPlanFrame()->addContainerPlanElement(myObjectsUnderCursor, myMouseButtonKeyPressed);
             // process click
             processClick(eventData);
             break;

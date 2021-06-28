@@ -136,6 +136,7 @@
 #include "frontelement.xpm"
 #include "computepathmanager.xpm"
 
+#include "checkbox_applytoallphases.xpm"
 #include "checkbox_askformerge.xpm"
 #include "checkbox_autoselectjunctions.xpm"
 #include "checkbox_bubbles.xpm"
@@ -143,18 +144,20 @@
 #include "checkbox_elevation.xpm"
 #include "checkbox_grid.xpm"
 #include "checkbox_hideconnections.xpm"
-#include "checkbox_hideshapes.xpm"
 #include "checkbox_hidenoninspecteddemandelements.xpm"
+#include "checkbox_hideshapes.xpm"
+#include "checkbox_lockcontainer.xpm"
 #include "checkbox_lockperson.xpm"
 #include "checkbox_selectededges.xpm"
+#include "checkbox_showadditionals.xpm"
 #include "checkbox_showconnections.xpm"
+#include "checkbox_showcontainerplans.xpm"
 #include "checkbox_showdemandelements.xpm"
 #include "checkbox_showpersonplans.xpm"
+#include "checkbox_showshapes.xpm"
+#include "checkbox_showtrips.xpm"
 #include "checkbox_spreadvehicle.xpm"
 #include "checkbox_twoway.xpm"
-#include "checkbox_applytoallphases.xpm"
-#include "checkbox_showadditionals.xpm"
-#include "checkbox_showshapes.xpm"
 
 #include "lanebike.xpm"
 #include "lanebus.xpm"
@@ -190,13 +193,15 @@
 #include "modepolygon.xpm"
 #include "modeprohibition.xpm"
 
-#include "moderoute.xpm"
-#include "modevehicle.xpm"
-#include "modevehicletype.xpm"
-#include "modestop.xpm"
-#include "modepersontype.xpm"
+#include "modecontainer.xpm"
+#include "modecontainerplan.xpm"
 #include "modeperson.xpm"
 #include "modepersonplan.xpm"
+#include "modepersontype.xpm"
+#include "moderoute.xpm"
+#include "modestop.xpm"
+#include "modevehicle.xpm"
+#include "modevehicletype.xpm"
 
 #include "modeedgedata.xpm"
 #include "modeedgereldata.xpm"
@@ -266,9 +271,14 @@
 #include "walkroute.xpm"
 #include "ridefromto.xpm"
 #include "ridebusstop.xpm"
-#include "personbusstop.xpm"
-#include "personcontainerstop.xpm"
-#include "personlanestop.xpm"
+#include "container.xpm"
+#include "containerflow.xpm"
+#include "transhipcontainerstop.xpm"
+#include "transhipedges.xpm"
+#include "transhipfromto.xpm"
+#include "transportcontainerstop.xpm"
+#include "transportfromto.xpm"
+
 
 #include "dataset.xpm"
 #include "datainterval.xpm"
@@ -481,9 +491,12 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_APPLYTOALLPHASES] = new FXXPMIcon(a, checkbox_applytoallphases_xpm);
 
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_HIDESHAPES] = new FXXPMIcon(a, checkbox_hideshapes_xpm);
+    myIcons[GUIIcon::DEMANDMODE_CHECKBOX_SHOWTRIPS] = new FXXPMIcon(a, checkbox_showtrips_xpm);
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS] = new FXXPMIcon(a, checkbox_hidenoninspecteddemandelements_xpm);
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_SHOWPERSONPLANS] = new FXXPMIcon(a, checkbox_showpersonplans_xpm);
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_LOCKPERSON] = new FXXPMIcon(a, checkbox_lockperson_xpm);
+    myIcons[GUIIcon::DEMANDMODE_CHECKBOX_SHOWCONTAINERPLANS] = new FXXPMIcon(a, checkbox_showcontainerplans_xpm);
+    myIcons[GUIIcon::DEMANDMODE_CHECKBOX_LOCKCONTAINER] = new FXXPMIcon(a, checkbox_lockcontainer_xpm);
 
     myIcons[GUIIcon::DATAMODE_CHECKBOX_SHOWADDITIONALS] = new FXXPMIcon(a, checkbox_showadditionals_xpm);
     myIcons[GUIIcon::DATAMODE_CHECKBOX_SHOWSHAPES] = new FXXPMIcon(a, checkbox_showshapes_xpm);
@@ -532,6 +545,8 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::MODEPERSONTYPE] = new FXXPMIcon(a, modepersontype_xpm);
     myIcons[GUIIcon::MODEPERSON] = new FXXPMIcon(a, modeperson_xpm);
     myIcons[GUIIcon::MODEPERSONPLAN] = new FXXPMIcon(a, modepersonplan_xpm);
+    myIcons[GUIIcon::MODECONTAINER] = new FXXPMIcon(a, modecontainer_xpm);
+    myIcons[GUIIcon::MODECONTAINERPLAN] = new FXXPMIcon(a, modecontainerplan_xpm);
 
     myIcons[GUIIcon::MODEEDGEDATA] = new FXXPMIcon(a, modeedgedata_xpm);
     myIcons[GUIIcon::MODEEDGERELDATA] = new FXXPMIcon(a, modeedgereldata_xpm);
@@ -602,9 +617,14 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::WALK_ROUTE] = new FXXPMIcon(a, walkroute_xpm);
     myIcons[GUIIcon::RIDE_FROMTO] = new FXXPMIcon(a, ridefromto_xpm);
     myIcons[GUIIcon::RIDE_BUSSTOP] = new FXXPMIcon(a, ridebusstop_xpm);
-    myIcons[GUIIcon::PERSON_BUSSTOP] = new FXXPMIcon(a, personbusstop_xpm);
-    myIcons[GUIIcon::PERSON_CONTAINERSTOP] = new FXXPMIcon(a, personcontainerstop_xpm);
-    myIcons[GUIIcon::PERSON_LANESTOP] = new FXXPMIcon(a, personlanestop_xpm);
+
+    myIcons[GUIIcon::CONTAINER] = new FXXPMIcon(a, container_xpm);
+    myIcons[GUIIcon::CONTAINERFLOW] = new FXXPMIcon(a, containerflow_xpm);
+    myIcons[GUIIcon::TRANSPORT_FROMTO] = new FXXPMIcon(a, transportfromto_xpm);
+    myIcons[GUIIcon::TRANSPORT_CONTAINERSTOP] = new FXXPMIcon(a, transportcontainerstop_xpm);
+    myIcons[GUIIcon::TRANSHIP_EDGES] = new FXXPMIcon(a, transhipedges_xpm);
+    myIcons[GUIIcon::TRANSHIP_FROMTO] = new FXXPMIcon(a, transhipfromto_xpm);
+    myIcons[GUIIcon::TRANSHIP_CONTAINERSTOP] = new FXXPMIcon(a, transhipcontainerstop_xpm);
 
     myIcons[GUIIcon::DATASET] = new FXXPMIcon(a, dataset_xpm);
     myIcons[GUIIcon::DATAINTERVAL] = new FXXPMIcon(a, datainterval_xpm);

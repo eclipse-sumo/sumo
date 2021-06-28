@@ -41,7 +41,7 @@
 
 //#define DEBUG_RESPONSE
 //#define DEBUG_SETBLOCKING
-#define DEBUGCOND (myJunction->getID() == "F")
+#define DEBUGCOND (myJunction->getID() == "C")
 
 // ===========================================================================
 // static member variables
@@ -640,7 +640,19 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
 #endif
                 } else if ((*i) == from && fromLane == j) {
                     // do not prohibit a connection by others from same lane
-                    result += '0';
+                    // except for indirect turns
+#ifdef DEBUG_RESPONSE
+                    if (DEBUGCOND) {
+                        std::cout << " c=" << queryCon.getDescription(from) << " prohibitC=" << connected[k].getDescription(*i)
+                            << " itc=" <<  indirectLeftTurnConflict(from, queryCon, *i, connected[k], false)
+                            << "\n";
+                    }
+#endif
+                    if (indirectLeftTurnConflict(from, queryCon, *i, connected[k], false)) {
+                        result += '1';
+                    } else {
+                        result += '0';
+                    }
                 } else {
                     assert(connected[k].toEdge != 0);
                     const int idx2 = getIndex(*i, connected[k].toEdge);
@@ -660,6 +672,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                                   << " rtc2=" << rightTurnConflict(from, queryCon, *i, connected[k])
                                   << " mc=" << mergeConflict(from, queryCon, *i, connected[k], false)
                                   << " oltc=" << oppositeLeftTurnConflict(from, queryCon, *i, connected[k], false)
+                                  << " itc=" <<  indirectLeftTurnConflict(from, queryCon, *i, connected[k], zipper)
                                   << " rorc=" << myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
                                   << " tlscc=" << myJunction->tlsContConflict(from, c, *i, connected[k])
                                   << "\n";
@@ -672,6 +685,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                             || rightTurnConflict(from, queryCon, *i, connected[k])
                             || mergeConflict(from, queryCon, *i, connected[k], zipper)
                             || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], zipper)
+                            || indirectLeftTurnConflict(from, queryCon, *i, connected[k], zipper)
                             || myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
                             || (myJunction->tlsContConflict(from, c, *i, connected[k]) && hasLaneConflict
                                 && !OptionsCont::getOptions().getBool("tls.ignore-internal-junction-jam"))
@@ -725,6 +739,7 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
                         || myJunction->turnFoes(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
                         || mergeConflict(from, queryCon, *i, connected[k], true)
                         || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], true)
+                        || indirectLeftTurnConflict(from, queryCon, *i, connected[k], true)
                    ) {
                     result += '1';
                 } else {
@@ -828,6 +843,21 @@ NBRequest::oppositeLeftTurnConflict(const NBEdge* from, const NBEdge::Connection
     } else {
         return false;
     }
+}
+
+bool
+NBRequest::indirectLeftTurnConflict(const NBEdge* from, const NBEdge::Connection& con,
+                                    const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
+    if (from == prohibitorFrom) {
+        if (con.indirectLeft) {
+            LinkDirection dir = myJunction->getDirection(prohibitorFrom, prohibitorCon.toEdge);
+            return (dir == LinkDirection::STRAIGHT);
+        } else if (foes && prohibitorCon.indirectLeft) {
+            LinkDirection dir = myJunction->getDirection(from, con.toEdge);
+            return (dir == LinkDirection::STRAIGHT);
+        }
+    }
+    return false;
 }
 
 bool

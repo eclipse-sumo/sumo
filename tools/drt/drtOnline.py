@@ -13,7 +13,7 @@
 
 # @file    drtOnline.py
 # @author  Giuliana Armellini
-# @date    2020-02-15
+# @date    2021-02-15
 
 """
 Simulate Demand Responsive Transport via TraCi
@@ -242,10 +242,14 @@ def main():
             step += options.sim_step
             continue
 
-        # get vType for route calculation
+        # get vType and its parameters for route calculation
         if not veh_type:
             fleet = traci.vehicle.getTaxiFleet(-1)
             veh_type = traci.vehicle.getTypeID(fleet[0])
+            veh_time_pickup = float(traci.vehicle.getParameter(fleet[0],
+                                    'device.taxi.pickUpDuration'))
+            veh_time_dropoff = float(traci.vehicle.getParameter(fleet[0],
+                                     'device.taxi.dropOffDuration'))
 
         # get new reservations
         res_id_new = []
@@ -261,16 +265,62 @@ def main():
             setattr(res, 'direct', direct)  # direct travel time
             setattr(res, 'vehicle', False)  # id of assigned vehicle
             setattr(res, 'delay', 0)  # real pick up time - assigned time
-            # pickup time window
-            setattr(res, 'tw_pickup',
-                    [res.depart, res.depart+options.max_wait])
-            # drop off time window
-            if res.direct*options.drf < options.drf_min:
-                setattr(res, 'tw_dropoff', [res.tw_pickup[0]+direct,
-                        res.tw_pickup[1]+direct+options.drf_min])
+
+            # read extra attributes
+            person_id = res.persons[0]
+            pickup_earliest = traci.person.getParameter(person_id,
+                                                        "pickup_earliest")
+            if pickup_earliest:
+                pickup_earliest = float(pickup_earliest)
+            dropoff_latest = traci.person.getParameter(person_id,
+                                                       "dropoff_latest")
+            if dropoff_latest:
+                dropoff_latest = float(dropoff_latest)
+            max_waiting = traci.person.getParameter(person_id, "max_waiting")
+            if max_waiting:
+                max_waiting = float(max_waiting)
+
+            # calculates time windows
+            if not max_waiting:
+                # take global value
+                max_waiting = options.max_wait
+            if pickup_earliest and dropoff_latest:
+                # set latest pickup based on waiting time or latest drop off
+                pickup_latest = min(pickup_earliest + max_waiting,
+                                    dropoff_latest - direct)
+                # if drop off time given, set time window based on waiting time
+                dropoff_earliest = max(pickup_earliest + direct,
+                                       dropoff_latest - max_waiting)
+            elif dropoff_latest:
+                # if latest drop off given, calculate pickup window based
+                # on max. travel time with drf
+                if res.direct*options.drf < options.drf_min:
+                    pickup_earliest = max(res.depart,
+                                          dropoff_latest - options.drf_min)
+                else:
+                    pickup_earliest = max(res.depart,
+                                          dropoff_latest - direct*options.drf)
+                pickup_latest = max(pickup_earliest, dropoff_latest - direct)
+                dropoff_earliest = max(pickup_earliest + direct,
+                                       dropoff_latest - max_waiting)
             else:
-                setattr(res, 'tw_dropoff', [res.tw_pickup[0]+direct,
-                        res.tw_pickup[1]+direct*options.drf])
+                if not pickup_earliest:
+                    # if no time was given
+                    pickup_earliest = res.depart
+                # set earliest drop off based on pickup and max. travel time
+                dropoff_earliest = pickup_earliest + direct
+                # check if min travel time or drf must be applied
+                if res.direct*options.drf < options.drf_min:
+                    dropoff_latest = pickup_earliest + direct + options.drf_min
+                else:
+                    dropoff_latest = pickup_earliest + direct*options.drf
+                # set latest pickup based on waiting time
+                pickup_latest = min(dropoff_latest - direct,
+                                    pickup_earliest + max_waiting)
+
+            # add time window attributes
+            setattr(res, 'tw_pickup', [pickup_earliest, pickup_latest])
+            setattr(res, 'tw_dropoff', [dropoff_earliest, dropoff_latest])
 
             # add reservation id to new reservations
             res_id_new.append(res.id)
@@ -325,6 +375,7 @@ def main():
                 print('Solve DARP with %s' % options.darp_solver)
 
             darp_solution = darpSolvers.main(options, step, fleet, veh_type,
+                                             veh_time_pickup, veh_time_dropoff,
                                              res_all, res_id_new,
                                              res_id_unassigned, res_id_picked,
                                              res_id_served, veh_edges,
@@ -380,8 +431,19 @@ def main():
                 veh_id = stops[0]
                 # first check if new route is better than the current one
                 current_route = []
-                if len(traci.vehicle.getStops(veh_id)) > 1:
+                if traci.vehicle.getStops(veh_id):
                     for taxi_stop in traci.vehicle.getStops(veh_id):
+                        next_act = taxi_stop.actType.split(",")[0].split(" ")[0]
+                        if not next_act:
+                            # vehicle doesn't have a current route
+                            continue
+                        next_id = taxi_stop.actType.split(",")[0].split(" ")[-1][1:-1]
+                        if next_act == 'pickup' and next_id in res_id_picked:
+                            # person already picked up, consider next stop
+                            continue
+                        elif next_act == 'dropOff' and next_id not in res_all.keys():
+                            # person already dropped off, consider next stop
+                            continue
                         # get reservations served at each stop
                         sub_stops = taxi_stop.actType.split(",")
                         # if more than 1 reservation in stop
@@ -394,9 +456,11 @@ def main():
                       len(current_route) == len(stops[1:])):
                     # if route serve same reservations and have the same stops
                     # get travel time of current route
-                    tt_current_route = 0
+                    tt_current_route = step
                     edges = [taxi_stop.lane.split("_")[0] for taxi_stop
                              in traci.vehicle.getStops(veh_id)]
+                    stop_types = [taxi_stop.actType for taxi_stop
+                                  in traci.vehicle.getStops(veh_id)]
                     # add current edge to list
                     if traci.vehicle.getRoadID(veh_id).startswith(':'):
                         # avoid routing error when in intersection TODO #5829
@@ -405,16 +469,19 @@ def main():
                     else:
                         veh_edge = traci.vehicle.getRoadID(veh_id)
 
-                    edges.insert(0, veh_edge)  # noqa
+                    edges.insert(0, veh_edge)
                     # calculate travel time
                     for idx, edge in enumerate(edges[:-1]):
-                        # TODO default stop time ticket #6714
                         tt_pair = pairs_dua_times.get("%s_%s" % (edge,
                                                       edges[idx+1]))
                         if tt_pair is None:
                             tt_pair = int(findRoute(edge, edges[idx+1],
                                           veh_type, step, routingMode=options.routing_mode).travelTime) # noqa
-                        tt_current_route += tt_pair + 60
+
+                        if 'pickup' in stop_types[idx]:
+                            tt_current_route += tt_pair + veh_time_pickup
+                        else:
+                            tt_current_route += tt_pair + veh_time_dropoff
                     # get travel time of the new route
                     tt_new_route = routes[route_id][0]
                     if tt_new_route >= tt_current_route:

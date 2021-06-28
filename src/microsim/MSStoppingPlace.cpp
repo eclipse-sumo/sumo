@@ -269,13 +269,7 @@ MSStoppingPlace::getAccessDistance(const MSEdge* edge) const {
     for (const auto& access : myAccessPos) {
         const MSLane* const accLane = std::get<0>(access);
         if (edge == &accLane->getEdge()) {
-            const double length = std::get<2>(access);
-            if (length >= 0.) {
-                return length;
-            }
-            const Position accPos = accLane->geometryPositionAtOffset(std::get<1>(access));
-            const Position stopPos = myLane.geometryPositionAtOffset((myBegPos + myEndPos) / 2.);
-            return accPos.distanceTo(stopPos);
+            return std::get<2>(access);
         }
     }
     return -1.;
@@ -295,12 +289,17 @@ MSStoppingPlace::getColor() const {
 
 
 bool
-MSStoppingPlace::addAccess(MSLane* lane, const double pos, const double length) {
+MSStoppingPlace::addAccess(MSLane* lane, const double pos, double length) {
     // prevent multiple accesss on the same lane
     for (const auto& access : myAccessPos) {
         if (lane == std::get<0>(access)) {
             return false;
         }
+    }
+    if (length < 0.) {
+        const Position accPos = lane->geometryPositionAtOffset(pos);
+        const Position stopPos = myLane.geometryPositionAtOffset((myBegPos + myEndPos) / 2.);
+        length  = accPos.distanceTo(stopPos);
     }
     myAccessPos.push_back(std::make_tuple(lane, pos, length));
     return true;

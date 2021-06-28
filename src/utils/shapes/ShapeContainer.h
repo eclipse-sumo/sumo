@@ -75,7 +75,8 @@ public:
                             const RGBColor& color, double layer,
                             double angle, const std::string& imgFile,
                             bool relativePath, const PositionVector& shape, bool geo,
-                            bool fill, double lineWidth, bool ignorePruning = false);
+                            bool fill, double lineWidth, bool ignorePruning = false,
+                            const std::string& name = Shape::DEFAULT_NAME);
 
     /**
      * @brief Adds dynamics (animation / tracking) to the given polygon

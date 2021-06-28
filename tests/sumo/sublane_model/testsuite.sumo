@@ -20,6 +20,9 @@ depart_random_last
 # narrow vehicle behavior on a single edge with 2 lanes
 1edge_2lanes_mopeds
 
+# narrow vehicle behavior on a single edge with 1 lane
+1edge_1lane_mopeds
+
 # vehicle behavior on a single edge with 2 lanes (compact alignment)
 1edge_2lanes_compact_cars
 

@@ -51,6 +51,11 @@ FXIMPLEMENT(GNEVehicle::GNESingleVehiclePopupMenu,      GUIGLObjectPopupMenu,   
 FXIMPLEMENT(GNEVehicle::GNESelectedVehiclesPopupMenu,   GUIGLObjectPopupMenu,   GNESelectedVehiclesPopupMenuMap,    ARRAYNUMBER(GNESelectedVehiclesPopupMenuMap))
 
 // ===========================================================================
+// static defintions
+// ===========================================================================
+const double GNEVehicle::myArrivalPositionDiameter = SUMO_const_halfLaneWidth * 0.5;
+
+// ===========================================================================
 // GNEVehicle::GNESingleVehiclePopupMenu
 // ===========================================================================
 
@@ -307,14 +312,24 @@ GNEVehicle::~GNEVehicle() {}
 
 GNEMoveOperation*
 GNEVehicle::getMoveOperation(const double /*shapeOffset*/) {
-    // declare departPos
-    double posOverLane = 0;
-    if (canParse<double>(getDepartPos())) {
-        posOverLane = parse<double>(getDepartPos());
+    // get first and last lanes
+    const GNELane* firstLane = getFirstPathLane();
+    const GNELane* lastLane = getLastPathLane();
+    // get depart and arrival positions (doubles)
+    const double departPosDouble = getAttributeDouble(SUMO_ATTR_DEPARTPOS);
+    const double arrivalPosDouble = (getAttributeDouble(SUMO_ATTR_ARRIVALPOS) < 0)? lastLane->getLaneShape().length2D() : getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+    // obtain diameter
+    const double diameter = getAttributeDouble(SUMO_ATTR_WIDTH) > getAttributeDouble(SUMO_ATTR_LENGTH)? getAttributeDouble(SUMO_ATTR_WIDTH) : getAttributeDouble(SUMO_ATTR_LENGTH);
+    // return move operation depending if we're editing departPos or arrivalPos
+    if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(getAttributePosition(SUMO_ATTR_DEPARTPOS)) < (diameter * diameter)) {
+        return new GNEMoveOperation(this, firstLane, departPosDouble, lastLane, INVALID_DOUBLE,
+                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
+    } else if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(getAttributePosition(SUMO_ATTR_ARRIVALPOS)) < (myArrivalPositionDiameter * myArrivalPositionDiameter)) {
+        return new GNEMoveOperation(this, firstLane, INVALID_DOUBLE, lastLane, arrivalPosDouble,
+                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
+    } else {
+        return nullptr;
     }
-    // return move operation
-    return new GNEMoveOperation(this, getFirstPathLane(), posOverLane,
-                                myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
 }
 
 
@@ -733,14 +748,17 @@ GNEVehicle::computePathElement() {
 
 void
 GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
-    // get inspected and front flags
+    // get flags
     const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this);
+    const bool drawNetworkMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
+                                 myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && 
+                                 myNet->getViewNet()->getDemandViewOptions().showAllTrips();
+    const bool drawDemandMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() && 
+                                myNet->getViewNet()->getDemandViewOptions().showAllTrips();
     // check conditions
     if (!s.drawForRectangleSelection &&
-            (s.drawDottedContour() || dottedElement || isAttributeCarrierSelected()) &&
+            (drawNetworkMode || drawDemandMode || s.drawDottedContour() || dottedElement || isAttributeCarrierSelected()) &&
             myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myTagProperty.getTag())) {
-        // declare flag to draw spread vehicles
-        const bool drawSpreadVehicles = (myNet->getViewNet()->getNetworkViewOptions().drawSpreadVehicles() || myNet->getViewNet()->getDemandViewOptions().drawSpreadVehicles());
         // calculate width
         const double width = s.vehicleSize.getExaggeration(s, lane) * s.widthSettings.trip;
         // calculate startPos
@@ -805,6 +823,26 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             // pop draw matrix
             glPopMatrix();
         }
+        // check if this is the last segment
+        if (segment->isLastSegment()) {
+            // get geometryEndPos
+            const Position geometryEndPosition = getPathElementArrivalPos();
+            // check if endPos can be drawn
+            if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPosition) <= ((myArrivalPositionDiameter * myArrivalPositionDiameter) + 2))) {
+                // push draw matrix
+                glPushMatrix();
+                // Start with the drawing of the area traslating matrix to origin
+                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
+                // translate to geometryEndPos
+                glTranslated(geometryEndPosition.x(), geometryEndPosition.y(), 0);
+                // Set person plan color
+                GLHelper::setColor(pathColor);
+                // resolution of drawn circle depending of the zoom (To improve smothness)
+                GLHelper::drawFilledCircle(myArrivalPositionDiameter, s.getCircleResolution());
+                // pop draw matrix
+                glPopMatrix();
+            }
+        }
         // Pop name
         glPopName();
         // check if shape dotted contour has to be drawn
@@ -826,12 +864,17 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
 
 void
 GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
-    // get inspected and front flags
+    // get flags
     const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this);
+    const bool drawNetworkMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
+                                 myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && 
+                                 myNet->getViewNet()->getDemandViewOptions().showAllTrips();
+    const bool drawDemandMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() && 
+                                myNet->getViewNet()->getDemandViewOptions().showAllTrips();
     // check conditions
     if (!s.drawForRectangleSelection &&
             fromLane->getLane2laneConnections().exist(toLane) &&
-            (s.drawDottedContour() || dottedElement || isAttributeCarrierSelected()) &&
+            (drawNetworkMode || drawDemandMode || s.drawDottedContour() || dottedElement || isAttributeCarrierSelected()) &&
             myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, fromLane, toLane, myTagProperty.getTag())) {
         // Start drawing adding an gl identificator
         glPushName(getGlID());
@@ -1128,7 +1171,42 @@ GNEVehicle::getAttributeDouble(SumoXMLAttr key) const {
 
 Position
 GNEVehicle::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a Position attribute of type '" + toString(key) + "'");
+    switch (key) {
+        case SUMO_ATTR_DEPARTPOS: {
+            // get first path lane shape
+            const PositionVector &laneShape = getFirstPathLane()->getLaneShape();
+            // check arrivalPosProcedure
+            if (departPosProcedure == DepartPosDefinition::GIVEN) {
+                if (departPos < 0) {
+                    return laneShape.front();
+                } else if (departPos > laneShape.length2D()) {
+                    return laneShape.back();
+                } else {
+                    return laneShape.positionAtOffset2D(departPos);
+                }
+            } else {
+                return laneShape.front();
+            }
+        }
+        case SUMO_ATTR_ARRIVALPOS: {
+            // get last path lane shape
+            const PositionVector &laneShape = getLastPathLane()->getLaneShape();
+            // check arrivalPosProcedure
+            if (arrivalPosProcedure == ArrivalPosDefinition::GIVEN) {
+                if (arrivalPos < 0) {
+                    return laneShape.front();
+                } else if (arrivalPos > laneShape.length2D()) {
+                    return laneShape.back();
+                } else {
+                    return laneShape.positionAtOffset2D(arrivalPos);
+                }
+            } else {
+                return laneShape.back();
+            }
+        }
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
 }
 
 
@@ -1301,7 +1379,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DEPARTEDGE:
         case SUMO_ATTR_ARRIVALEDGE: {
             if (value.empty()) {
-                return "";
+                return true;
             } else if (canParse<int>(value)) {
                 // get index
                 const int index = parse<int>(value);
@@ -1315,6 +1393,8 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                     // check embedded route
                     return (index < (int)getChildDemandElements().front()->getParentEdges().size());
                 }
+            } else {
+                return false;
             }
         }
         case SUMO_ATTR_VIA:
@@ -1872,11 +1952,18 @@ GNEVehicle::setEnabledAttribute(const int enabledAttributes) {
 
 void
 GNEVehicle::setMoveShape(const GNEMoveResult& moveResult) {
-    // change departPos
-    departPosProcedure = DepartPosDefinition::GIVEN;
-    departPos = moveResult.newStartPos;
+    // check departPos
+    if (moveResult.newFirstPos != INVALID_DOUBLE) {
+        departPosProcedure = DepartPosDefinition::GIVEN;
+        departPos = moveResult.newFirstPos;
+    }
+    // check arrivalPos
+    if (moveResult.newSecondPos != INVALID_DOUBLE) {
+        arrivalPosProcedure = ArrivalPosDefinition::GIVEN;
+        arrivalPos = moveResult.newSecondPos;
+    }
     // set lateral offset
-    myMoveElementLateralOffset = moveResult.laneOffset;
+    myMoveElementLateralOffset = moveResult.firstLaneOffset;
     // update geometry
     updateGeometry();
 }
@@ -1886,14 +1973,29 @@ void
 GNEVehicle::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // reset lateral offset
     myMoveElementLateralOffset = 0;
-    // begin change attribute
-    undoList->p_begin("departPos of " + getTagStr());
-    // now set departPos
-    setAttribute(SUMO_ATTR_DEPARTPOS, toString(moveResult.newStartPos), undoList);
-    // check if depart lane has to be changed
-    if (moveResult.newLane) {
-        // set new lane
-        setAttribute(SUMO_ATTR_DEPARTLANE, toString(moveResult.newLane->getIndex()), undoList);
+    // check departPos
+    if (moveResult.newFirstPos != INVALID_DOUBLE) {
+        // begin change attribute
+        undoList->p_begin("departPos of " + getTagStr());
+        // now set departPos
+        setAttribute(SUMO_ATTR_DEPARTPOS, toString(moveResult.newFirstPos), undoList);
+        // check if depart lane has to be changed
+        if (moveResult.newFirstLane) {
+            // set new depart lane
+            setAttribute(SUMO_ATTR_DEPARTLANE, toString(moveResult.newFirstLane->getIndex()), undoList);
+        }
+    }
+    // check arrivalPos
+    if (moveResult.newSecondPos != INVALID_DOUBLE) {
+        // begin change attribute
+        undoList->p_begin("arrivalPos of " + getTagStr());
+        // now set arrivalPos
+        setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newSecondPos), undoList);
+        // check if arrival lane has to be changed
+        if (moveResult.newSecondLane) {
+            // set new arrival lane
+            setAttribute(SUMO_ATTR_ARRIVALLANE, toString(moveResult.newSecondLane->getIndex()), undoList);
+        }
     }
     // end change attribute
     undoList->p_end();

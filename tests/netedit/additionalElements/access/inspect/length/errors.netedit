@@ -1,18 +1,17 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Current Viewport values: 25.00, 20.00, 25.00. Zoom = '296.00'
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'busStop' in TagSelector
-Debug: Format of optional positive optional integer attribute 'personCapacity' of busStop with ID 'busStop_gneE2_1_0' is invalid; Cannot be negative; Default value will be used.
 Debug: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Selected item 'access' in TagSelector
-Debug: Format of optional positive optional float attribute 'length' of access is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding access 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Value 'dummyLenght' for attribute length of access isn't valid
 Debug: Value '-30' for attribute length of access isn't valid
 Debug: Setting new attribute length '5' into access 'busStop_gneE2_1_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute length '' into access 'busStop_gneE2_1_0'
+Debug: Setting previous attribute length '-1.00' into access 'busStop_gneE2_1_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing access 'busStop_gneE2_1_0' in GNEChange_Additional

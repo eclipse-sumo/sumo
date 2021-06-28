@@ -48,7 +48,7 @@ def _run_func(args):
 
 
 def multi_process(cpu_num, seed, interval_list, func, outf, mismatchf, **kwargs):
-    cpu_count = min(cpu_num, multiprocessing.cpu_count()-1)
+    cpu_count = min(cpu_num, multiprocessing.cpu_count()-1, len(interval_list))
     interval_split = np.array_split(interval_list, cpu_count)
     # pool = multiprocessing.Pool(processes=cpu_count)
     with multiprocessing.get_context("spawn").Pool() as pool:
@@ -97,7 +97,7 @@ def get_options(args=None):
     parser.add_argument("--minimize-vehicles", dest="minimizeVehs", type=float, default=0,
                         help="Set optimization factor from [0, 1[ for reducing the number of vehicles"
                         + "(prefer routes that pass multiple counting locations over routes that pass fewer)")
-    parser.add_argument("--geh-ok", dest="gehOk", default=5,
+    parser.add_argument("--geh-ok", dest="gehOk", type=float, default=5,
                         help="threshold for acceptable GEH values")
     parser.add_argument("-f", "--write-flows", dest="writeFlows",
                         help="write flows with the give style instead of vehicles [number|probability]")

@@ -16,6 +16,7 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.6
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Error: At most one of 'period' and 'vehsPerHour' has to be given in the definition of flow 'flow_0'.
 Error: route needs a valid ID.
 Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'flow_1'.
@@ -34,7 +35,7 @@ Debug: Adding flowWithRoute 'flow_6' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'flow_6' in GNEChange_DemandElement
 Debug: Adding flowWithRoute 'flow_7' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'flow_7' in GNEChange_DemandElement
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb155102.13048\netedit.gui\demandElements\flow_embedded\load\vehsperhour\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun124909.1060\netedit.gui\demandElements\flow_embedded\load\vehsperhour\input_routes.rou.xml failed.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeEmbedded 'flow_7' in GNEChange_DemandElement

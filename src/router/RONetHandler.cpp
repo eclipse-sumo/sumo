@@ -369,13 +369,19 @@ RONetHandler::parseAccess(const SUMOSAXAttributes& attrs) {
         return;
     }
     double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0.);
-    const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, "access", ok, -1);
+    double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, "access", ok, -1);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "access", ok, false);
     if (!ok || (SUMORouteHandler::checkStopPos(pos, pos, edge->getLength(), 0., friendlyPos) != SUMORouteHandler::StopPos::STOPPOS_VALID)) {
         throw InvalidArgument("Invalid position " + toString(pos) + " for access on lane '" + lane + "'.");
     }
     if (!ok) {
         throw ProcessError();
+    }
+    if (length < 0) {
+        const Position accPos = myNet.getLane(lane)->geometryPositionAtOffset(pos);
+        const double stopCenter = (myCurrentStoppingPlace->startPos + myCurrentStoppingPlace->endPos) / 2;
+        const Position stopPos = myNet.getLane(myCurrentStoppingPlace->lane)->geometryPositionAtOffset(stopCenter);
+        length  = accPos.distanceTo(stopPos);
     }
     myCurrentStoppingPlace->accessPos.push_back(std::make_tuple(lane, pos, length));
 }

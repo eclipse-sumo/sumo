@@ -1256,7 +1256,8 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         LinkDirection dir = parseLinkDir(attrs.get<std::string>(SUMO_ATTR_DIR, nullptr, ok));
         LinkState state = parseLinkState(attrs.get<std::string>(SUMO_ATTR_STATE, nullptr, ok));
         const double foeVisibilityDistance = attrs.getOpt<double>(SUMO_ATTR_VISIBILITY_DISTANCE, nullptr, ok, state == LINKSTATE_ZIPPER ? 100 : 4.5);
-        bool keepClear = attrs.getOpt<bool>(SUMO_ATTR_KEEP_CLEAR, nullptr, ok, true);
+        const bool keepClear = attrs.getOpt<bool>(SUMO_ATTR_KEEP_CLEAR, nullptr, ok, true);
+        const bool indirect = attrs.getOpt<bool>(SUMO_ATTR_INDIRECT, nullptr, ok, false);
         std::string tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, nullptr, ok, "");
         std::string viaID = attrs.getOpt<std::string>(SUMO_ATTR_VIA, nullptr, ok, "");
 
@@ -1313,7 +1314,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         } else {
             length = fromLane->getShape()[-1].distanceTo(toLane->getShape()[0]);
         }
-        link = new MSLink(fromLane, toLane, via, dir, state, length, foeVisibilityDistance, keepClear, logic, tlLinkIdx);
+        link = new MSLink(fromLane, toLane, via, dir, state, length, foeVisibilityDistance, keepClear, logic, tlLinkIdx, indirect);
         if (via != nullptr) {
             via->addIncomingLane(fromLane, link);
         } else {
@@ -1421,13 +1422,14 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
             }
         }
         RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, myCurrentDistrictID.c_str(), ok, RGBColor::parseColor("1.0,.33,.33"));
+        const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, myCurrentDistrictID.c_str(), ok, "");
         source->setParameter("tazColor", toString(color));
         sink->setParameter("tazColor", toString(color));
 
         if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
             PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, myCurrentDistrictID.c_str(), ok);
             if (shape.size() != 0) {
-                if (!myNet.getShapeContainer().addPolygon(myCurrentDistrictID, "taz", color, 0, 0, "", false, shape, false, false, 1.0)) {
+                if (!myNet.getShapeContainer().addPolygon(myCurrentDistrictID, "taz", color, 0, 0, "", false, shape, false, false, 1.0, false, name)) {
                     WRITE_WARNING("Skipping visualization of taz '" + myCurrentDistrictID + "', polygon already exists.");
                 }
             }

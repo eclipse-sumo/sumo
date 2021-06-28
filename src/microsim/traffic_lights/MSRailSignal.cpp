@@ -476,7 +476,7 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link) {
 }
 
 bool
-MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh) {
+MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh, std::string& info) {
     if (link->getJunction() != nullptr && link->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
         const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
         if (rs != nullptr && rs->myInsertionConstraints.size() > 0) {
@@ -490,6 +490,7 @@ MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh) {
                             std::cout << SIMTIME << " rsl=" << rs->getID() << " insertion constraint '" << c->getDescription() << "' for vehicle '" << veh->getID() << "' not cleared\n";
                         }
 #endif
+                        info = c->getDescription();
                         return true;
                     }
                 }

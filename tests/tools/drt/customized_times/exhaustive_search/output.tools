@@ -1,0 +1,5 @@
+Reservation 1 (person ('1',)) cannot be served
+Reservation 0 (person ('0',)) cannot be served
+Reservation 9 (person ('9',)) cannot be served
+Exact solution found.
+DRT simulation ended

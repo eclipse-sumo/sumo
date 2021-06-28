@@ -202,7 +202,7 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double length, MSEdge* co
     myFollowerInfo(this, nullptr, 0),
     myLeaderInfoTime(SUMOTime_MIN),
     myFollowerInfoTime(SUMOTime_MIN),
-    myLengthGeometryFactor(MAX2(NUMERICAL_EPS, myShape.length() / myLength)), // factor should not be 0
+    myLengthGeometryFactor(MAX2(POSITION_EPS, myShape.length()) / myLength), // factor should not be 0
     myIsRampAccel(isRampAccel),
     myLaneType(type),
     myRightSideOnEdge(0), // initialized in MSEdge::initialize
@@ -310,7 +310,7 @@ MSLane::resetPartialOccupation(MSVehicle* v) {
             return;
         }
     }
-    assert(false);
+    assert(false || MSGlobals::gClearState);
 }
 
 
@@ -638,7 +638,9 @@ MSLane::insertVehicle(MSVehicle& veh) {
                                           leader->getCarFollowModel().getMaxDecel());
             dist = MIN2(dist, leaderInfo.second - frontGapNeeded);
         }
-        veh.executeFractionalMove(dist);
+        if (dist > 0) {
+            veh.executeFractionalMove(dist);
+        }
     }
     return success;
 }
@@ -753,13 +755,17 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
             break;
         }
-        if (isRail && !hadRailSignal && MSRailSignal::hasInsertionConstraint(*link, aVehicle)) {
+        if (isRail && !hadRailSignal) {
+            std::string constraintInfo;
+            if (MSRailSignal::hasInsertionConstraint(*link, aVehicle, constraintInfo)) {
+                setParameter("insertionConstraint:" + aVehicle->getID(), constraintInfo);
 #ifdef DEBUG_INSERTION
-            if DEBUG_COND2(aVehicle) {
-                std::cout << " insertion constraint at link " << (*link)->getDescription() << " not cleared \n";
-            }
+                if DEBUG_COND2(aVehicle) {
+                    std::cout << " insertion constraint at link " << (*link)->getDescription() << " not cleared \n";
+                }
 #endif
-            return false;
+                return false;
+            }
         }
         hadRailSignal |= (*link)->getTLLogic() != nullptr;
 
@@ -1067,6 +1073,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                                              << "\n leaders=" << leaders.toString()
                                              << "\n success!\n";
 #endif
+    if (isRail) {
+        unsetParameter("insertionConstraint:" + aVehicle->getID());
+    }
     return true;
 }
 
@@ -1813,6 +1822,10 @@ MSLane::executeMovements(const SUMOTime t) {
                 // vehicle has entered a new lane (leaveLane and workOnMoveReminders were already called in MSVehicle::executeMove)
                 target->myVehBuffer.push_back(veh);
                 MSNet::getInstance()->getEdgeControl().needsVehicleIntegration(target);
+                if (MSGlobals::gSublane && veh->getLaneChangeModel().getShadowLane() != nullptr) {
+                    // trigger sorting of partial vehicles as their order may have changed (lane might not be active and only contain partial vehicles)
+                    MSNet::getInstance()->getEdgeControl().needsVehicleIntegration(veh->getLaneChangeModel().getShadowLane());
+                }
             }
         } else if (veh->isParking()) {
             // vehicle started to park
@@ -1883,7 +1896,7 @@ MSLane::executeMovements(const SUMOTime t) {
             } // else look for a (waiting) vehicle that isn't stopped?
         }
     }
-    if (MSGlobals::gLateralResolution > 0) {
+    if (MSGlobals::gSublane) {
         // trigger sorting of vehicles as their order may have changed
         MSNet::getInstance()->getEdgeControl().needsVehicleIntegration(this);
     }

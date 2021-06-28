@@ -327,8 +327,38 @@ GNETagProperties::isRide() const {
 
 
 bool
-GNETagProperties::isPersonStop() const {
-    return (myTagType & PERSONSTOP) != 0;
+GNETagProperties::isStopPerson() const {
+    return (myTagType & STOPPERSON) != 0;
+}
+
+
+bool
+GNETagProperties::isContainer() const {
+    return (myTagType & CONTAINER) != 0;
+}
+
+
+bool
+GNETagProperties::isContainerPlan() const {
+    return (myTagType & CONTAINERPLAN) != 0;
+}
+
+
+bool
+GNETagProperties::isTransportPlan() const {
+    return (myTagType & TRANSPORT) != 0;
+}
+
+bool
+GNETagProperties::isTranshipPlan() const {
+    return (myTagType & TRANSHIP) != 0;
+}
+
+
+
+bool
+GNETagProperties::isStopContainer() const {
+    return (myTagType & STOPCONTAINER) != 0;
 }
 
 

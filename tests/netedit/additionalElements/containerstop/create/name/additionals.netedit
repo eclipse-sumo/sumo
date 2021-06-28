@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 21.08.2020 16:40:57 by Eclipse SUMO netedit Version v1_6_0+1715-1ccaaec835
+<!-- generated on 21.08.2020 15:43:25 by Eclipse SUMO netedit Version v1_6_0+1715-1ccaaec835
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -57,5 +57,5 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <containerStop id="containerStop_gneE0_0_0" lane="gneE0_0" startPos="16.00" endPos="26.00" name="custom bus stop name"/>
+    <containerStop id="containerStop_gneE0_0_0" lane="gneE0_0" startPos="16.00" endPos="26.00" name="custom container stop name"/>
 </additional>

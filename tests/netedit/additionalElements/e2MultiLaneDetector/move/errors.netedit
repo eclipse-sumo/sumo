@@ -7,6 +7,7 @@ GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary 15.00,-11.60,60.00,10
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 15.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -33,52 +34,20 @@ Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e2MultilaneDetector' in TagSelector
 Debug: Key ENTER pressed
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
-Debug: Setting new attribute pos '0.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting new attribute endPos '1.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting new attribute pos '21.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting new attribute endPos '22.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting new attribute pos '24.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting new attribute endPos '25.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting new attribute pos '13.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting new attribute endPos '14.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute endPos '25.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting previous attribute pos '24.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute endPos '22.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting previous attribute pos '21.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute endPos '1.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting previous attribute pos '0.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute endPos '12.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting previous attribute pos '11.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '0.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting new attribute endPos '1.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '21.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting new attribute endPos '22.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '24.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting new attribute endPos '25.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '13.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting new attribute endPos '14.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20

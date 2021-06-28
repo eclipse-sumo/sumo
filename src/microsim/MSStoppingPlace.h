@@ -187,7 +187,7 @@ public:
     void removeTransportable(const MSTransportable* p);
 
     /// @brief adds an access point to this stop
-    virtual bool addAccess(MSLane* lane, const double pos, const double length);
+    virtual bool addAccess(MSLane* lane, const double pos, double length);
 
     /// @brief lanes and positions connected to this stop
     const std::vector<std::tuple<MSLane*, double, double> >& getAllAccessPos() const {

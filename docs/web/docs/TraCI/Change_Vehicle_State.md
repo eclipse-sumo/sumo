@@ -320,19 +320,24 @@ bit) with the following fields:
 - bit0: Regard safe speed
 - bit1: Regard maximum acceleration
 - bit2: Regard maximum deceleration
-- bit3: Regard right of way at intersections
+- bit3: Regard right of way at intersections (only applies to approaching foe vehicles outside the intersection)
 - bit4: Brake hard to avoid passing a red light
+- bit5: **Disregard** right of way within intersections (only applies to foe vehicles that have entered the intersection). 
 
 Setting the bit enables the check (the according value is regarded),
 keeping the bit==zero disables the check.
 
 Examples:
 
-- all checks off -\> \[0 0 0 0 0\] -\> Speed Mode = 0
-- disable right of way check -\> \[1 0 1 1 1\] -\> Speed Mode = 23
-- all checks on -\> \[1 1 1 1 1\] -\> Speed Mode = 31
-- run a red light \[0 0 1 1 1\] = 7 (also requires setSpeed or
-  slowDown)
+- default (all checks on) -\> \[0 1 1 1 1 1\] -\> Speed Mode = 31
+- most checks off (legacy) -\> \[0 0 0 0 0 0\] -\> Speed Mode = 0
+- all checks off  -\> \[1 0 0 0 0 0\] -\> Speed Mode = 32
+- disable right of way check -\> \[1 1 0 1 1 1\] -\> Speed Mode = 55
+- run a red light \[0 0 0 1 1 1\] = 7 (also requires setSpeed or slowDown)
+- run a red light even if the intersection is occupied \[1 0 0 1 1 1\] = 39 (also requires setSpeed or slowDown)
+  
+!!! caution
+    bit5 has inverted semantics and must be set to '1' in order to disable the safety function. This achieves backward compatibility with earlier versions of SUMO where this bit was not defined and right of way within intersection could not be ignored explicitly.
 
 ### lane change mode (0xb6)
 

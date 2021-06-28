@@ -243,6 +243,9 @@ public:
         /// @brief set parameters
         void setFlowParameters(CommonXMLStructure::SumoBaseObject* baseObject);
 
+        /// @brief set parameters (temporal)
+        void setFlowParametersTemporal(std::map<SumoXMLAttr, std::string>& valuesMap) const;
+
         /// @brief check if parameters of attributes are valid
         bool areValuesValid() const;
 

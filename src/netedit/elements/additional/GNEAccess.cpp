@@ -256,7 +256,12 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
                 return canParse<double>(value);
             }
         case SUMO_ATTR_LENGTH:
-            return (canParse<double>(value) && (parse<double>(value) >= 0));
+            if (canParse<double>(value)) {
+                const double valueDouble = parse<double>(value);
+                return (valueDouble == -1) || (valueDouble >= 0);
+            } else {
+                return false;
+            }
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -329,9 +334,9 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNEAccess::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
-    myPositionOverLane = moveResult.newStartPos;
+    myPositionOverLane = moveResult.newFirstPos;
     // set lateral offset
-    myMoveElementLateralOffset = moveResult.laneOffset;
+    myMoveElementLateralOffset = moveResult.firstLaneOffset;
     // update geometry
     updateGeometry();
 }
@@ -343,11 +348,11 @@ GNEAccess::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoLis
     myMoveElementLateralOffset = 0;
     undoList->p_begin("position of " + getTagStr());
     // now adjust start position
-    setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newStartPos), undoList);
+    setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
     // check if lane has to be changed
-    if (moveResult.newLane) {
+    if (moveResult.newFirstLane) {
         // set new lane
-        setAttribute(SUMO_ATTR_LANE, moveResult.newLane->getID(), undoList);
+        setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
     }
     // end change attribute
     undoList->p_end();

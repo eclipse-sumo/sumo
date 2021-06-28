@@ -66,7 +66,8 @@ public:
      */
     virtual bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
                             double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape, bool geo,
-                            bool fill, double lineWidth, bool ignorePruning = false) override;
+                            bool fill, double lineWidth, bool ignorePruning = false,
+                            const std::string& name = Shape::DEFAULT_NAME) override;
 
     /// @brief Adds dynamics to the given Polygon, @see ShapeContainer addPolygonDynamics
     /// @note  Supplies the visualisation RTree to the dynamics for updating the object when moving

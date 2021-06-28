@@ -55,14 +55,22 @@ public:
     /// @brief constructor for elements placed over lanes with one position (detectors, vehicles...)
     GNEMoveOperation(GNEMoveElement* moveElement,
                      const GNELane* lane,
-                     const double originalStarPos,
+                     const double firstPosition,
                      const bool allowChangeLane);
 
-    /// @brief constructor for elements placed over lanes with two positions (StoppingPlaces)
+    /// @brief constructor for elements placed over same lanes with two positions (StoppingPlaces)
     GNEMoveOperation(GNEMoveElement* moveElement,
                      const GNELane* lane,
-                     const double originalStarPos,
-                     const double originalEndPos,
+                     const double firstPosition,
+                     const double secondPosition,
+                     const bool allowChangeLane);
+
+    /// @brief constructor for elements placed over two lanes with two positions (E2 Multilane, vehicles..)
+    GNEMoveOperation(GNEMoveElement* moveElement,
+                     const GNELane* firstLane,
+                     const double firstStartPos,
+                     const GNELane* secondLane,
+                     const double secondStartPos,
                      const bool allowChangeLane);
 
     /// @brief destructor
@@ -77,11 +85,17 @@ public:
     /// @brief original shape points to move (of original shape)
     const std::vector<int> originalGeometryPoints;
 
-    /// @brief original start Position
-    const double originalStarPos;
+    /// @brief original first lane
+    const GNELane* firstLane = nullptr;
 
-    /// @brief original end Position
-    const double originalEndPos;
+    /// @brief original first Position
+    const double firstPosition = INVALID_DOUBLE;
+
+    /// @brief original second lane
+    const GNELane* secondLane = nullptr;
+
+    /// @brief original second Position
+    const double secondPosition = INVALID_DOUBLE;
 
     /**@brief shape to move
      * @note: it can be different of originalShape, for example due a new geometry point
@@ -90,9 +104,6 @@ public:
 
     /// @brief shape points to move (of shapeToMove)
     const std::vector<int> geometryPointsToMove;
-
-    /// @brief original lane
-    const GNELane* lane;
 
     /// @brief allow change lane
     const bool allowChangeLane;
@@ -141,6 +152,9 @@ public:
     /// @brief destructor
     ~GNEMoveResult();
 
+    /// @brief clear lanes
+    void clearLanes();
+
     /// @brief shape to update (edited in moveElement)
     PositionVector shapeToUpdate;
 
@@ -148,16 +162,22 @@ public:
     std::vector<int> geometryPointsToMove;
 
     /// @brief lane offset
-    double laneOffset;
+    double firstLaneOffset;
 
-    /// @brief newStartPos
-    double newStartPos;
+    /// @brief new first Lane
+    const GNELane* newFirstLane;
 
-    /// @brief newEndPos
-    double newEndPos;
+    /// @brief new first position
+    double newFirstPos;
 
-    /// @brief new Lane
-    const GNELane* newLane;
+    /// @brief lane offset
+    double secondLaneOffset;
+
+    /// @brief new second Lane
+    const GNELane* newSecondLane;
+
+    /// @brief new second position
+    double newSecondPos;
 
 private:
     /// @brief Invalidated copy constructor.
@@ -197,14 +217,17 @@ private:
     /// @brief commit move shape
     virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
-    /// @brief calculate single movement over lane
-    static void calculateSingleMovementOverLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, const double pos, const GNEMoveOffset& offset);
+    /// @brief calculate single movement over one lane
+    static void calculateSingleMovementOverOneLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, const double pos, const GNEMoveOffset& offset);
 
-    /// @brief calculate double movement over lane
-    static void calculateDoubleMovementOverLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, const double startPos, const double endPos, const GNEMoveOffset& offset);
+    /// @brief calculate double movement over one lane
+    static void calculateDoubleMovementOverOneLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset);
+
+    /// @brief calculate double movement over two lanes
+    static void calculateDoubleMovementOverTwoLanes(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset);
 
     /// @brief calculate new lane
-    static void calculateNewLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation);
+    static void calculateNewLane(const GNEViewNet* viewNet, const GNELane* originalLane, const GNELane* &newLane, double &laneOffset);
 
     /// @brief Invalidated copy constructor.
     GNEMoveElement(const GNEMoveElement&) = delete;

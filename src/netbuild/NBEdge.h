@@ -261,6 +261,9 @@ public:
         /// @brief List of vehicle types that are allowed to change right from this connections internal lane(s)
         SVCPermissions changeRight;
 
+        /// @brief Whether this connection is an indirect left turn
+        bool indirectLeft;
+
         /// @brief id of Connection
         std::string id;
 
@@ -885,6 +888,7 @@ public:
                                 const PositionVector& customShape = PositionVector::EMPTY,
                                 const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED,
                                 SVCPermissions permissions = SVC_UNSPECIFIED,
+                                const bool indirectLeft = false,
                                 SVCPermissions changeLeft = SVC_UNSPECIFIED,
                                 SVCPermissions changeRight = SVC_UNSPECIFIED,
                                 bool postProcess = false);
@@ -934,6 +938,7 @@ public:
                        const PositionVector& customShape = PositionVector::EMPTY,
                        const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED,
                        SVCPermissions permissions = SVC_UNSPECIFIED,
+                       bool indirectLeft = false,
                        SVCPermissions changeLeft = SVC_UNSPECIFIED,
                        SVCPermissions changeRight = SVC_UNSPECIFIED,
                        bool postProcess = false);
@@ -1399,7 +1404,7 @@ public:
     void debugPrintConnections(bool outgoing = true, bool incoming = false) const;
 
     /// @brief compute the first intersection point between the given lane geometries considering their rspective widths
-    static double firstIntersection(const PositionVector& v1, const PositionVector& v2, double width2, const std::string& error = "");
+    static double firstIntersection(const PositionVector& v1, const PositionVector& v2, double width2, const std::string& error = "", bool secondIntersection=false);
 
     /** returns a modified version of laneShape which starts at the outside of startNode. laneShape may be shorted or extended
      * @note see [wiki:Developer/Network_Building_Process]
@@ -1608,7 +1613,7 @@ private:
     void computeAngle();
 
     /// @brief determine conflict between opposite left turns
-    bool bothLeftTurns(const NBNode& n, LinkDirection dir, const NBEdge* otherFrom, const NBEdge::Connection& otherCon) const;
+    bool bothLeftTurns(LinkDirection dir, const NBEdge* otherFrom, LinkDirection dir2) const;
     bool haveIntersection(const NBNode& n, const PositionVector& shape, const NBEdge* otherFrom, const NBEdge::Connection& otherCon,
                           int numPoints, double width2, int shapeFlag = 0) const;
 

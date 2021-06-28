@@ -37,9 +37,9 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, double pos, const std::string& freq, 
+GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, double pos, const SUMOTime freq, 
         const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, 
-        bool friendlyPos, const std::map<std::string, std::string> &parameters, bool blockMovement) :
+        const bool friendlyPos, const std::map<std::string, std::string> &parameters, const bool blockMovement) :
     GNEAdditional(id, net, type, tag, name, 
         {}, {}, parentLanes, {}, {}, {}, {}, {},
         parameters, blockMovement),
@@ -51,9 +51,9 @@ GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType typ
 }
 
 
-GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, double pos, const std::string& freq, 
-        const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name, bool friendlyPos, 
-        const std::map<std::string, std::string> &parameters, bool blockMovement) :
+GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const SUMOTime freq, 
+        const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name, const bool friendlyPos, 
+        const std::map<std::string, std::string> &parameters, const bool blockMovement) :
     GNEAdditional(net, type, tag, name, 
         {}, {}, parentLanes, {additionalParent}, {}, {}, {}, {},
         parameters, blockMovement),
@@ -250,9 +250,9 @@ GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double ex
 void
 GNEDetector::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
-    myPositionOverLane = moveResult.newStartPos;
+    myPositionOverLane = moveResult.newFirstPos;
     // set lateral offset
-    myMoveElementLateralOffset = moveResult.laneOffset;
+    myMoveElementLateralOffset = moveResult.firstLaneOffset;
     // update geometry
     updateGeometry();
 }
@@ -265,11 +265,11 @@ GNEDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
     // begin change attribute
     undoList->p_begin("position of " + getTagStr());
     // now adjust start position
-    setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newStartPos), undoList);
+    setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
     // check if lane has to be changed
-    if (moveResult.newLane) {
+    if (moveResult.newFirstLane) {
         // set new lane
-        setAttribute(SUMO_ATTR_LANE, moveResult.newLane->getID(), undoList);
+        setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
     }
     // end change attribute
     undoList->p_end();

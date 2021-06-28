@@ -364,7 +364,7 @@ GNEParkingSpace::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNEParkingSpace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_X, toString(moveResult.newStartPos)));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_X, toString(moveResult.newFirstPos)));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_Y, toString(moveResult.shapeToUpdate.front().y())));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_Z, toString(moveResult.shapeToUpdate.front().z())));
     undoList->p_end();

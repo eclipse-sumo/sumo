@@ -6,9 +6,9 @@ constraints before swap
  tls=H Constraint(signalId=H tripId=t2, foeId=t0, foeSignal=C, limit=3, type=0, mustWait=True)
  tls=H Constraint(signalId=H tripId=t2, foeId=t1, foeSignal=C, limit=3, type=0, mustWait=True)
 constraints added to avoid deadlock
- tls=H Constraint(signalId=D tripId=t1, foeId=t3, foeSignal=A, limit=3, type=0, mustWait=True)
- tls=H Constraint(signalId=C tripId=t1, foeId=t2, foeSignal=H, limit=3, type=0, mustWait=True)
- tls=H Constraint(signalId=C tripId=t0, foeId=t2, foeSignal=H, limit=3, type=0, mustWait=True)
+       Constraint(signalId=D tripId=t1, foeId=t3, foeSignal=A, limit=3, type=0, mustWait=True)
+       Constraint(signalId=C tripId=t1, foeId=t2, foeSignal=H, limit=3, type=0, mustWait=True)
+       Constraint(signalId=C tripId=t0, foeId=t2, foeSignal=H, limit=3, type=0, mustWait=True)
 constraints after swap
  tls=C Constraint(signalId=C tripId=t0, foeId=t2, foeSignal=H, limit=3, type=0, mustWait=True)
  tls=C Constraint(signalId=C tripId=t1, foeId=t2, foeSignal=H, limit=3, type=0, mustWait=True)

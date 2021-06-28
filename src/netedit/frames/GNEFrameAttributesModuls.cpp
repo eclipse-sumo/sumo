@@ -127,7 +127,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
     myValueCheckButton = new FXCheckButton(this, "Disabled", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myValueCheckButton->hide();
     // by default attribute check button is true (except for until)
-    if ((attrProperties.getTagPropertyParent().isStop() || attrProperties.getTagPropertyParent().isPersonStop()) && (attrProperties.getAttr() == SUMO_ATTR_UNTIL)) {
+    if ((attrProperties.getTagPropertyParent().isStop() || attrProperties.getTagPropertyParent().isStopPerson()) && (attrProperties.getAttr() == SUMO_ATTR_UNTIL)) {
         myAttributeCheckButton->setCheck(FALSE);
     } else {
         myAttributeCheckButton->setCheck(TRUE);
@@ -161,7 +161,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
                 myAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
                 myAttributeCheckButton->show();
                 // special case for attributes "Parking", "until" and "duration" (by default disabled)
-                if ((myAttrProperties.getTagPropertyParent().isStop() || myAttrProperties.getTagPropertyParent().isPersonStop()) &&
+                if ((myAttrProperties.getTagPropertyParent().isStop() || myAttrProperties.getTagPropertyParent().isStopPerson()) &&
                         (myAttrProperties.getAttr() == SUMO_ATTR_UNTIL || myAttrProperties.getAttr() == SUMO_ATTR_EXTENSION ||
                          myAttrProperties.getAttr() == SUMO_ATTR_PARKING)) {
                     myAttributeCheckButton->setCheck(FALSE);
@@ -747,7 +747,7 @@ GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValuesTemporal(bool
         }
     }
     // add extra flow attributes (only will updated if myAttributesCreatorFlow is shown)
-    // myAttributesCreatorFlow->setFlowParameters(values);
+    myAttributesCreatorFlow->setFlowParametersTemporal(values);
     // return values
     return values;
 }
@@ -936,6 +936,32 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::setFlowParameters(CommonXMLStru
     }
     if (myFlowParameters & VEHPARS_PROB_SET) {
         baseObject->addDoubleAttribute(SUMO_ATTR_PROB, GNEAttributeCarrier::parse<double>(myValueProbabilityTextField->getText().text()));
+    }
+}
+
+
+void
+GNEFrameAttributesModuls::AttributesCreatorFlow::setFlowParametersTemporal(std::map<SumoXMLAttr, std::string>& valuesMap) const {
+    if (shown()) {
+        if (myFlowParameters & VEHPARS_END_SET) {
+            valuesMap[SUMO_ATTR_END] = myValueEndTextField->getText().text();
+        }
+        if (myFlowParameters & VEHPARS_NUMBER_SET) {
+            valuesMap[SUMO_ATTR_NUMBER] = myValueNumberTextField->getText().text();
+        }
+        if (myFlowParameters & VEHPARS_VPH_SET) {
+            if (myAttributeVehsPerHourRadioButton->getText().text() == toString(SUMO_ATTR_VEHSPERHOUR)) {
+                valuesMap[SUMO_ATTR_VEHSPERHOUR] = myValueVehsPerHourTextField->getText().text();
+            } else {
+                valuesMap[SUMO_ATTR_PERSONSPERHOUR] = myValueVehsPerHourTextField->getText().text();
+            }
+        }
+        if (myFlowParameters & VEHPARS_PERIOD_SET) {
+            valuesMap[SUMO_ATTR_PERIOD] = myValuePeriodTextField->getText().text();
+        }
+        if (myFlowParameters & VEHPARS_PROB_SET) {
+            valuesMap[SUMO_ATTR_PROB] = myValueProbabilityTextField->getText().text();
+        }
     }
 }
 
@@ -1630,7 +1656,7 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(bool includ
                 }
                 // extra check for Triggered and container Triggered
                 if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isStop() ||
-                        myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isPersonStop()) {
+                        myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isStopPerson()) {
                     if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED) && (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
                         attributeEnabled = false;
                     } else if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
@@ -1716,7 +1742,7 @@ GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRef
                 }
                 // extra check for Triggered and container Triggered
                 if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isStop() ||
-                        myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isPersonStop()) {
+                        myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isStopPerson()) {
                     if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED) && (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
                         attributeEnabled = false;
                     } else if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {

@@ -1,3 +1,4 @@
-Warning: Essential filename attribute 'file' of routeProbe with ID 'routeProbe_0' is missing; routeProbe cannot be created
-Warning: Format of essential filename attribute 'file' of routeProbe with ID 'routeProbe_1' is invalid; Filename contains invalid characters; routeProbe cannot be created
-Warning: Format of essential filename attribute 'file' of routeProbe with ID 'routeProbe_2' is invalid; Filename cannot be empty; routeProbe cannot be created
+Error: Attribute 'file' is missing in definition of routeProbe 'routeProbe_0'.
+Error: Could not build routeProbe with ID 'routeProbe_1' in netedit; filename is invalid.
+Error: Attribute 'file' in definition of routeProbe 'routeProbe_2' is empty.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun142428.2364\netedit.gui\additionalElements\routeprobe\load\file\input_additionals.add.xml failed.

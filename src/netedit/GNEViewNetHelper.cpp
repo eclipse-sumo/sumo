@@ -2203,11 +2203,15 @@ GNEViewNetHelper::DemandViewOptions::DemandViewOptions(GNEViewNet* viewNet) :
     menuCheckToggleGrid(nullptr),
     menuCheckDrawSpreadVehicles(nullptr),
     menuCheckHideShapes(nullptr),
+    menuCheckShowAllTrips(nullptr),
     menuCheckShowAllPersonPlans(nullptr),
     menuCheckLockPerson(nullptr),
+    menuCheckShowAllContainerPlans(nullptr),
+    menuCheckLockContainer(nullptr),
     menuCheckHideNonInspectedDemandElements(nullptr),
     myViewNet(viewNet),
-    myLockedPerson(nullptr) {
+    myLockedPerson(nullptr),
+    myLockedContainer(nullptr) {
 }
 
 
@@ -2235,6 +2239,13 @@ GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
     menuCheckHideShapes->setChecked(false);
     menuCheckHideShapes->create();
 
+    menuCheckShowAllTrips = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+            ("\t\tToggle show all trips."),
+            GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWTRIPS),
+            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS, GUIDesignMFXCheckableButton);
+    menuCheckShowAllTrips->setChecked(false);
+    menuCheckShowAllTrips->create();
+
     menuCheckShowAllPersonPlans = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             ("\t\tShow all person plans."),
             GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWPERSONPLANS),
@@ -2248,6 +2259,20 @@ GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
             myViewNet, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON, GUIDesignMFXCheckableButton);
     menuCheckLockPerson->setChecked(false);
     menuCheckLockPerson->create();
+
+    menuCheckShowAllContainerPlans = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+            ("\t\tShow all container plans."),
+            GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWCONTAINERPLANS),
+            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLCONTAINERPLANS, GUIDesignMFXCheckableButton);
+    menuCheckShowAllContainerPlans->setChecked(false);
+    menuCheckShowAllContainerPlans->create();
+
+    menuCheckLockContainer = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+            ("\t\tLock selected container."),
+            GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_LOCKCONTAINER),
+            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER, GUIDesignMFXCheckableButton);
+    menuCheckLockContainer->setChecked(false);
+    menuCheckLockContainer->create();
 
     menuCheckHideNonInspectedDemandElements = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             ("\t\tToggle show non-inspected demand elements."),
@@ -2266,8 +2291,11 @@ GNEViewNetHelper::DemandViewOptions::hideDemandViewOptionsMenuChecks() {
     menuCheckToggleGrid->hide();
     menuCheckDrawSpreadVehicles->hide();
     menuCheckHideShapes->hide();
+    menuCheckShowAllTrips->hide();
     menuCheckShowAllPersonPlans->hide();
     menuCheckLockPerson->hide();
+    menuCheckShowAllContainerPlans->hide();
+    menuCheckLockContainer->hide();
     menuCheckHideNonInspectedDemandElements->hide();
     // Also hide toolbar grip
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->show();
@@ -2286,11 +2314,20 @@ GNEViewNetHelper::DemandViewOptions::getVisibleDemandMenuCommands(std::vector<MF
     if (menuCheckHideShapes->shown()) {
         commands.push_back(menuCheckHideShapes);
     }
+    if (menuCheckShowAllTrips->shown()) {
+        commands.push_back(menuCheckShowAllTrips);
+    }
     if (menuCheckShowAllPersonPlans->shown() && menuCheckShowAllPersonPlans->isEnabled()) {
         commands.push_back(menuCheckShowAllPersonPlans);
     }
     if (menuCheckLockPerson->shown() && menuCheckLockPerson->isEnabled()) {
         commands.push_back(menuCheckLockPerson);
+    }
+    if (menuCheckShowAllContainerPlans->shown() && menuCheckShowAllContainerPlans->isEnabled()) {
+        commands.push_back(menuCheckShowAllContainerPlans);
+    }
+    if (menuCheckLockContainer->shown() && menuCheckLockContainer->isEnabled()) {
+        commands.push_back(menuCheckLockContainer);
     }
     if (menuCheckHideNonInspectedDemandElements->shown()) {
         commands.push_back(menuCheckHideNonInspectedDemandElements);
@@ -2353,8 +2390,14 @@ GNEViewNetHelper::DemandViewOptions::showShapes() const {
 
 
 bool
+GNEViewNetHelper::DemandViewOptions::showAllTrips() const {
+    return (menuCheckShowAllTrips->amChecked() == TRUE);
+}
+
+
+bool
 GNEViewNetHelper::DemandViewOptions::showAllPersonPlans() const {
-    if (menuCheckShowAllPersonPlans->shown() && menuCheckShowAllPersonPlans->isEnabled()) {
+    if (menuCheckShowAllPersonPlans->isEnabled()) {
         return (menuCheckShowAllPersonPlans->amChecked() == TRUE);
     } else {
         return false;
@@ -2377,6 +2420,34 @@ GNEViewNetHelper::DemandViewOptions::unlockPerson() {
 const GNEDemandElement*
 GNEViewNetHelper::DemandViewOptions::getLockedPerson() const {
     return myLockedPerson;
+}
+
+
+bool
+GNEViewNetHelper::DemandViewOptions::showAllContainerPlans() const {
+    if (menuCheckShowAllContainerPlans->isEnabled()) {
+        return (menuCheckShowAllContainerPlans->amChecked() == TRUE);
+    } else {
+        return false;
+    }
+}
+
+
+void
+GNEViewNetHelper::DemandViewOptions::lockContainer(const GNEDemandElement* container) {
+    myLockedContainer = container;
+}
+
+
+void
+GNEViewNetHelper::DemandViewOptions::unlockContainer() {
+    myLockedContainer = nullptr;
+}
+
+
+const GNEDemandElement*
+GNEViewNetHelper::DemandViewOptions::getLockedContainer() const {
+    return myLockedContainer;
 }
 
 // ---------------------------------------------------------------------------
@@ -3043,6 +3114,8 @@ GNEViewNetHelper::DemandCheckableButtons::DemandCheckableButtons(GNEViewNet* vie
     personTypeButton(nullptr),
     personButton(nullptr),
     personPlanButton(nullptr),
+    containerButton(nullptr),
+    containerPlanButton(nullptr),
     myViewNet(viewNet) {
 }
 
@@ -3089,6 +3162,16 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
             "\tcreate person plan mode\tMode for creating person plans. (C)",
             GUIIconSubSys::getIcon(GUIIcon::MODEPERSONPLAN), myViewNet, MID_HOTKEY_C_MODES_CONNECT_PERSONPLAN, GUIDesignMFXCheckableButton);
     personPlanButton->create();
+    // container mode
+    containerButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+                                          "\tcreate container mode\tMode for creating containers. (P)",
+                                          GUIIconSubSys::getIcon(GUIIcon::MODECONTAINER), myViewNet, MID_HOTKEY_G_MODE_CONTAINER, GUIDesignMFXCheckableButton);
+    containerButton->create();
+    // container plan mode
+    containerPlanButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+            "\tcreate container plan mode\tMode for creating container plans. (C)",
+            GUIIconSubSys::getIcon(GUIIcon::MODECONTAINERPLAN), myViewNet, MID_HOTKEY_H_MODE_CONTAINERDATA, GUIDesignMFXCheckableButton);
+    containerPlanButton->create();
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
 }
@@ -3104,6 +3187,8 @@ GNEViewNetHelper::DemandCheckableButtons::showDemandCheckableButtons() {
     personTypeButton->show();
     personButton->show();
     personPlanButton->show();
+    containerButton->show();
+    containerPlanButton->show();
 }
 
 
@@ -3117,6 +3202,8 @@ GNEViewNetHelper::DemandCheckableButtons::hideDemandCheckableButtons() {
     personTypeButton->hide();
     personButton->hide();
     personPlanButton->hide();
+    containerButton->hide();
+    containerPlanButton->hide();
 }
 
 
@@ -3130,6 +3217,8 @@ GNEViewNetHelper::DemandCheckableButtons::disableDemandCheckableButtons() {
     personTypeButton->setChecked(false);
     personButton->setChecked(false);
     personPlanButton->setChecked(false);
+    containerButton->setChecked(false);
+    containerPlanButton->setChecked(false);
 }
 
 
@@ -3143,6 +3232,8 @@ GNEViewNetHelper::DemandCheckableButtons::updateDemandCheckableButtons() {
     personTypeButton->update();
     personButton->update();
     personPlanButton->update();
+    containerButton->update();
+    containerPlanButton->update();
 }
 
 // ---------------------------------------------------------------------------

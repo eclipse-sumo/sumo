@@ -131,7 +131,17 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
             myListOfTagTypes.push_back(std::make_pair("person trips", GNETagProperties::TagType::PERSONTRIP));
             myListOfTagTypes.push_back(std::make_pair("walks", GNETagProperties::TagType::WALK));
             myListOfTagTypes.push_back(std::make_pair("rides", GNETagProperties::TagType::RIDE));
-            myListOfTagTypes.push_back(std::make_pair("stops", GNETagProperties::TagType::PERSONSTOP));
+            myListOfTagTypes.push_back(std::make_pair("stops", GNETagProperties::TagType::STOPPERSON));
+            break;
+        case GNETagProperties::TagType::CONTAINER:
+            setText("Container");
+            break;
+        case GNETagProperties::TagType::CONTAINERPLAN:
+            setText("Container plans");
+            // container plan type has four sub-groups
+            myListOfTagTypes.push_back(std::make_pair("transport", GNETagProperties::TagType::TRANSPORT));
+            myListOfTagTypes.push_back(std::make_pair("tranship", GNETagProperties::TagType::TRANSHIP));
+            myListOfTagTypes.push_back(std::make_pair("stops", GNETagProperties::TagType::STOPCONTAINER));
             break;
         case GNETagProperties::TagType::PERSONTRIP:
             setText("Person trips");
@@ -142,7 +152,7 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
         case GNETagProperties::TagType::RIDE:
             setText("Rides");
             break;
-        case GNETagProperties::TagType::PERSONSTOP:
+        case GNETagProperties::TagType::STOPPERSON:
             setText("Person stops");
             break;
         default:
@@ -161,7 +171,7 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
         // Set visible items
         myTagTypesMatchBox->setNumVisible((int)myTagTypesMatchBox->getNumItems());
         // fill myTagPropertiesString with personTrips (the first Tag Type)
-        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::PERSONTRIP, onlyDrawables);
+        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(type, onlyDrawables);
     } else {
         myTagTypesMatchBox->hide();
         // fill myTagPropertiesString
@@ -208,7 +218,7 @@ GNEFrameModuls::TagSelector::setCurrentTagType(GNETagProperties::TagType tagType
         if (myTagsMatchBox->getItem(i).text() == toString(tagType)) {
             myTagsMatchBox->setCurrentItem(i);
             // fill myTagPropertiesString with personTrips (the first Tag Type)
-            myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::PERSONTRIP, true);
+            myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(tagType, true);
             // clear myTagsMatchBox
             myTagsMatchBox->clearItems();
             // fill myTypeMatchBox with list of tags
@@ -503,7 +513,7 @@ GNEFrameModuls::DemandElementSelector::getPersonPlanPreviousEdge() const {
         case GNE_TAG_WALK_EDGE:
         case GNE_TAG_WALK_EDGES:
         // stops
-        case GNE_TAG_PERSONSTOP_EDGE:
+        case GNE_TAG_STOPPERSON_EDGE:
             return lastPersonPlan->getParentEdges().back();
         // person trips
         case GNE_TAG_PERSONTRIP_BUSSTOP:
@@ -512,11 +522,47 @@ GNEFrameModuls::DemandElementSelector::getPersonPlanPreviousEdge() const {
         // walks
         case GNE_TAG_WALK_BUSSTOP:
         // stops
-        case GNE_TAG_PERSONSTOP_BUSSTOP:
+        case GNE_TAG_STOPPERSON_BUSSTOP:
             return lastPersonPlan->getParentAdditionals().back()->getParentLanes().front()->getParentEdge();
         // route walks
         case GNE_TAG_WALK_ROUTE:
             return lastPersonPlan->getParentDemandElements().back()->getParentEdges().back();
+        default:
+            return nullptr;
+    }
+}
+
+
+GNEEdge*
+GNEFrameModuls::DemandElementSelector::getContainerPlanPreviousEdge() const {
+    if (myCurrentDemandElement == nullptr) {
+        return nullptr;
+    }
+    if (!myCurrentDemandElement->getTagProperty().isContainer()) {
+        return nullptr;
+    }
+    if (myCurrentDemandElement->getChildDemandElements().empty()) {
+        return nullptr;
+    }
+    // get last container plan
+    const GNEDemandElement* lastContainerPlan = myCurrentDemandElement->getChildDemandElements().back();
+    // check tag
+    switch (lastContainerPlan->getTagProperty().getTag()) {
+        // transport
+        case GNE_TAG_TRANSPORT_EDGE:
+        // tranship
+        case GNE_TAG_TRANSHIP_EDGE:
+        case GNE_TAG_TRANSHIP_EDGES:
+        // stop
+        case GNE_TAG_STOPCONTAINER_EDGE:
+            return lastContainerPlan->getParentEdges().back();
+        // transport
+        case GNE_TAG_TRANSPORT_CONTAINERSTOP:
+        // tranship
+        case GNE_TAG_TRANSHIP_CONTAINERSTOP:
+        // stop
+        case GNE_TAG_STOPCONTAINER_CONTAINERSTOP:
+            return lastContainerPlan->getParentAdditionals().back()->getParentLanes().front()->getParentEdge();
         default:
             return nullptr;
     }
@@ -845,7 +891,7 @@ GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttrib
             FXMenuCommand* moveUpMenuCommand = GUIDesigns::buildFXMenuCommand(pane, "Move up", GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), this, MID_GNE_ACHIERARCHY_MOVEUP);
             FXMenuCommand* moveDownMenuCommand = GUIDesigns::buildFXMenuCommand(pane, "Move down", GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), this, MID_GNE_ACHIERARCHY_MOVEDOWN);
             // check if both commands has to be disabled
-            if (myClickedDemandElement->getTagProperty().isPersonStop()) {
+            if (myClickedDemandElement->getTagProperty().isStopPerson()) {
                 moveUpMenuCommand->setText("Move up (Stops cannot be moved)");
                 moveDownMenuCommand->setText("Move down (Stops cannot be moved)");
                 moveUpMenuCommand->disable();
@@ -855,7 +901,7 @@ GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttrib
                 if (myClickedDemandElement->getParentDemandElements().front()->getChildDemandElements().front() == myClickedDemandElement) {
                     moveUpMenuCommand->setText("Move up (It's already the first element)");
                     moveUpMenuCommand->disable();
-                } else if (myClickedDemandElement->getParentDemandElements().front()->getPreviousChildDemandElement(myClickedDemandElement)->getTagProperty().isPersonStop()) {
+                } else if (myClickedDemandElement->getParentDemandElements().front()->getPreviousChildDemandElement(myClickedDemandElement)->getTagProperty().isStopPerson()) {
                     moveUpMenuCommand->setText("Move up (Previous element is a Stop)");
                     moveUpMenuCommand->disable();
                 }
@@ -863,7 +909,7 @@ GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttrib
                 if (myClickedDemandElement->getParentDemandElements().front()->getChildDemandElements().back() == myClickedDemandElement) {
                     moveDownMenuCommand->setText("Move down (It's already the last element)");
                     moveDownMenuCommand->disable();
-                } else if (myClickedDemandElement->getParentDemandElements().front()->getNextChildDemandElement(myClickedDemandElement)->getTagProperty().isPersonStop()) {
+                } else if (myClickedDemandElement->getParentDemandElements().front()->getNextChildDemandElement(myClickedDemandElement)->getTagProperty().isStopPerson()) {
                     moveDownMenuCommand->setText("Move down (Next element is a Stop)");
                     moveDownMenuCommand->disable();
                 }
@@ -1716,8 +1762,8 @@ GNEFrameModuls::SelectorParent::refreshSelectorParentModul() {
     myParentsList->clearItems();
     if (myParentTags.size() > 0) {
         // fill list with IDs of additionals
-        for (const auto &tag : myParentTags) {
-            for (const auto& additional : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(tag)) {
+        for (const auto &ptag : myParentTags) {
+            for (const auto& additional : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(ptag)) {
                 myParentsList->appendItem(additional.first.c_str());
             }
         }
@@ -2180,11 +2226,11 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag element, const bool
             myCreationMode |= END_BUSSTOP;
             break;
         // stops
-        case GNE_TAG_PERSONSTOP_BUSSTOP:
+        case GNE_TAG_STOPPERSON_BUSSTOP:
             myCreationMode |= SINGLE_ELEMENT;
             myCreationMode |= END_BUSSTOP;
             break;
-        case GNE_TAG_PERSONSTOP_EDGE:
+        case GNE_TAG_STOPPERSON_EDGE:
             myCreationMode |= SINGLE_ELEMENT;
             myCreationMode |= START_EDGE;
             break;

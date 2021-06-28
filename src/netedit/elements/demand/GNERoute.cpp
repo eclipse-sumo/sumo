@@ -219,9 +219,11 @@ GNERoute::getColor() const {
 
 void
 GNERoute::updateGeometry() {
+    // compute geometry
+    computePathElement();
     // update child demand elementss
     for (const auto& demandElement : getChildDemandElements()) {
-        if (!demandElement->getTagProperty().isPersonStop() && !demandElement->getTagProperty().isStop()) {
+        if (!demandElement->getTagProperty().isStopPerson() && !demandElement->getTagProperty().isStop()) {
             demandElement->updateGeometry();
         }
     }
@@ -280,14 +282,21 @@ GNERoute::computePathElement() {
         const GNEDemandElement* parentVehicle = getParentDemandElements().at(0);
         // declare lane vector
         std::vector<GNELane*> lanes;
+        // get first and last path lane
+        GNELane *firstLane = parentVehicle->getFirstPathLane();
+        GNELane *lastLane = parentVehicle->getLastPathLane();
         // insert first vehicle lane
-        lanes.push_back(parentVehicle->getFirstPathLane());
+        if (firstLane) {
+            lanes.push_back(firstLane);
+        }
         // add middle lanes
         for (int i = 1; i < ((int)getParentEdges().size() - 1); i++) {
             lanes.push_back(getParentEdges().at(i)->getLaneByAllowedVClass(getVClass()));
         }
         // insert last vehicle lane
-        lanes.push_back(parentVehicle->getLastPathLane());
+        if (lastLane) {
+            lanes.push_back(lastLane);
+        }
         // calculate consecutive path using vClass of vehicle parent
         myNet->getPathManager()->calculateConsecutivePathLanes(this, lanes);
     } else {
@@ -298,8 +307,6 @@ GNERoute::computePathElement() {
             myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_IGNORING, getParentEdges());
         }
     }
-    // update geometry
-    updateGeometry();
 }
 
 

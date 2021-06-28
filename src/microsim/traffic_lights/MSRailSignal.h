@@ -243,7 +243,7 @@ public:
     void updateDriveway(int numericalID);
 
     static bool hasOncomingRailTraffic(MSLink* link);
-    static bool hasInsertionConstraint(MSLink* link, const MSVehicle* veh);
+    static bool hasInsertionConstraint(MSLink* link, const MSVehicle* veh, std::string& info);
 
     /// @brief final check for driveway compatibility of signals that switched green in this step
     static void recheckGreen();

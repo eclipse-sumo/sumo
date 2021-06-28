@@ -205,6 +205,7 @@ class Builder(object):
         # misinterpreted as options
         netconvertOptions = " " + osmBuild.DEFAULT_NETCONVERT_OPTS
         netconvertOptions += ",--tls.default-type,actuated"
+        #netconvertOptions += ",--default.spreadtype,roadCenter"
         if "pedestrian" in self.data["vehicles"]:
             # sidewalks are already included via typefile
             netconvertOptions += ",--crossings.guess"
