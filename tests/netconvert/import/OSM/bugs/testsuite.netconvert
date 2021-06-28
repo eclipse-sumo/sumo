@@ -63,3 +63,6 @@ ticket8635
 
 # broken public transport routes due to missing permissions
 ticket8587
+
+# superfluous stops
+ticket8791
