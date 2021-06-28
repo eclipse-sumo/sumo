@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:41 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2021-06-28 13:19:17 by Eclipse SUMO netconvert Version v1_9_2+0642-094e94aeb8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -81,13 +81,13 @@ SPDX-License-Identifier: EPL-2.0
     <type id="railway.tram" priority="17" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
 
     <edge id="154767104#0" from="15752219" to="1672520349" priority="13" type="highway.trunk" spreadType="center" shape="39.73,214.60 35.28,196.83 35.06,173.40 32.90,126.70 30.81,96.26 28.85,71.53 27.15,61.19 23.70,42.16 17.27,15.59 12.96,-0.00">
-        <lane id="154767104#0_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="17.88" length="217.14" shape="39.47,206.97 36.88,196.63 36.66,173.36 34.50,126.60 32.41,96.14 30.44,71.34 28.73,60.92 25.27,41.83 18.82,15.19 14.50,-0.43"/>
-        <lane id="154767104#0_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="17.88" length="217.14" shape="36.37,207.75 33.69,197.04 33.46,173.44 31.30,126.79 29.22,96.38 27.26,71.72 25.58,61.46 22.14,42.49 15.72,15.99 11.42,0.43"/>
+        <lane id="154767104#0_0" index="0" disallow="bicycle tram rail_urban rail rail_electric rail_fast ship" speed="17.88" length="217.14" shape="39.47,206.97 36.88,196.63 36.66,173.36 34.50,126.60 32.41,96.14 30.44,71.34 28.73,60.92 25.27,41.83 18.82,15.19 14.50,-0.43"/>
+        <lane id="154767104#0_1" index="1" disallow="bicycle tram rail_urban rail rail_electric rail_fast ship" speed="17.88" length="217.14" shape="36.37,207.75 33.69,197.04 33.46,173.44 31.30,126.79 29.22,96.38 27.26,71.72 25.58,61.46 22.14,42.49 15.72,15.99 11.42,0.43"/>
         <param key="ref" value="A24"/>
     </edge>
     <edge id="154767156#0" from="1672520353" to="492911487" priority="13" type="highway.trunk" spreadType="center" shape="0.00,14.12 12.68,58.53 17.60,98.80 18.36,146.84 19.79,186.44 18.12,197.24 16.82,208.13 14.43,215.53">
-        <lane id="154767156#0_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="17.88" length="204.10" shape="-1.54,14.56 11.11,58.85 16.00,98.91 16.76,146.88 18.19,186.34 16.54,197.02 15.36,206.80"/>
-        <lane id="154767156#0_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="17.88" length="204.10" shape="1.54,13.68 14.25,58.21 19.20,98.69 19.96,146.80 21.40,186.53 19.71,197.46 18.47,207.80"/>
+        <lane id="154767156#0_0" index="0" disallow="bicycle tram rail_urban rail rail_electric rail_fast ship" speed="17.88" length="204.10" shape="-1.54,14.56 11.11,58.85 16.00,98.91 16.76,146.88 18.19,186.34 16.54,197.02 15.36,206.80"/>
+        <lane id="154767156#0_1" index="1" disallow="bicycle tram rail_urban rail rail_electric rail_fast ship" speed="17.88" length="204.10" shape="1.54,13.68 14.25,58.21 19.20,98.69 19.96,146.80 21.40,186.53 19.71,197.46 18.47,207.80"/>
         <param key="ref" value="A24"/>
     </edge>
     <edge id="2954360" from="13810638" to="3153558815" priority="13" type="highway.trunk" spreadType="center" shape="18.68,256.56 22.27,270.07 26.95,296.08">
