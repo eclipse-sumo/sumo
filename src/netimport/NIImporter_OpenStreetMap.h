@@ -277,9 +277,6 @@ private:
     /** @brief the map from OSM way ids to platform shapes */
     std::map<long long int, Edge*> myPlatformShapes;
 
-    /** @brief the map from stop_area relations to member node */
-    std::map<long long int, std::set<long long int> > myStopAreas;
-
     /// @brief The compounds types that do not contain known types
     std::set<std::string> myUnusableTypes;
 
@@ -663,6 +660,10 @@ protected:
 
         /// @brief night service information of the pt line
         std::string myNightService;
+
+        /** @brief the map from stop area member to stop_area id */
+        std::map<long long int, long long int > myStopAreas;
+
     };
 
 };

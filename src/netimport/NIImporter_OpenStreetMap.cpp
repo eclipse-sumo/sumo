@@ -1479,6 +1479,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
             }
         } else if (myIsStopArea && OptionsCont::getOptions().isSet("ptstop-output")) {
             for (long long ref : myStops) {
+                myStopAreas[ref] = myCurrentRelation;
                 if (myOSMNodes.find(ref) == myOSMNodes.end()) {
                     //WRITE_WARNING(
                     //    "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
@@ -1573,6 +1574,9 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                     }
                     ptStop = new NBPTStop(toString(n->id), ptPos, "", "", n->ptStopLength, n->name, n->permissions);
                     myNBPTStopCont->insert(ptStop);
+                    if (myStopAreas.count(n->id)) {
+                        ptStop->setIsMultipleStopPositions(false, myStopAreas[n->id]);
+                    }
                 }
                 ptLine->addPTStop(ptStop);
             }
