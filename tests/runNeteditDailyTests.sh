@@ -33,7 +33,11 @@ export MAROUTER_BINARY="$SUMO_BINDIR/marouter"
 export PYTHON="python"
 
 if which texttest &> /dev/null; then
-  texttest -a netedit.daily.common "$@" & 
+  texttest -a netedit.daily.common.basic "$@" & 
+  texttest -a netedit.daily.common.bugs "$@" & 
+  texttest -a netedit.daily.common.complex "$@" & 
+  texttest -a netedit.daily.common.selection "$@" & 
+  texttest -a netedit.daily.common.volatileRecomputing "$@" & 
   texttest -a netedit.daily.net1 "$@" & 
   texttest -a netedit.daily.net2 "$@" & 
   texttest -a netedit.daily.additional1 "$@" & 
@@ -47,7 +51,11 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.data "$@"
   wait
 else
-  texttest.py -a netedit.daily.common "$@" & 
+  texttest.py -a netedit.daily.common.basic "$@" & 
+  texttest.py -a netedit.daily.common.bugs "$@" & 
+  texttest.py -a netedit.daily.common.complex "$@" & 
+  texttest.py -a netedit.daily.common.selection "$@" & 
+  texttest.py -a netedit.daily.common.volatileRecomputing "$@" & 
   texttest.py -a netedit.daily.net1 "$@" & 
   texttest.py -a netedit.daily.net2 "$@" & 
   texttest.py -a netedit.daily.additional1 "$@" & 
