@@ -77,7 +77,8 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.demand.vehicle "$@" & 
   texttest -a netedit.daily.demand.vehicle_embedded "$@" & 
   texttest -a netedit.daily.demand.vehicletype "$@" & 
-  texttest -a netedit.daily.data "$@"
+  texttest -a netedit.daily.data.edgeData "$@" & 
+  texttest -a netedit.daily.data.edgeRelData "$@"
   wait
 else
   texttest.py -a netedit.daily.common.basic "$@" & 
@@ -124,6 +125,7 @@ else
   texttest.py -a netedit.daily.demand.vehicle "$@" & 
   texttest.py -a netedit.daily.demand.vehicle_embedded "$@" & 
   texttest.py -a netedit.daily.demand.vehicletype "$@" & 
-  texttest.py -a netedit.daily.data "$@"
+  texttest.py -a netedit.daily.data.edgeData "$@" & 
+  texttest.py -a netedit.daily.data.edgeRelData "$@"
   wait
 fi
