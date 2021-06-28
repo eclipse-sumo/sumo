@@ -140,4 +140,7 @@ motorway_ramp_prohibitChange
 
 # change default to roadCenter
 spreadType
+
+# additional bike access
+bike_access
 bugs
