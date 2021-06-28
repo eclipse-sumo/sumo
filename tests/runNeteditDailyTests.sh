@@ -65,6 +65,13 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.additional.trainstop "$@" & 
   texttest -a netedit.daily.additional.vaporizer "$@" & 
   texttest -a netedit.daily.additional.variablespeedsign "$@" & 
+  texttest -a netedit.daily.shapeElements.basic "$@" & 
+  texttest -a netedit.daily.shapeElements.poi "$@" & 
+  texttest -a netedit.daily.shapeElements.poigeo "$@" & 
+  texttest -a netedit.daily.shapeElements.poilane "$@" & 
+  texttest -a netedit.daily.shapeElements.poly "$@" & 
+  texttest -a netedit.daily.TAZElements.basic "$@" & 
+  texttest -a netedit.daily.TAZElements.taz "$@" & 
   texttest -a netedit.daily.demand.basic "$@" & 
   texttest -a netedit.daily.demand.flow "$@" & 
   texttest -a netedit.daily.demand.flow_embedded "$@" & 
@@ -113,6 +120,13 @@ else
   texttest.py -a netedit.daily.additional.trainstop "$@" & 
   texttest.py -a netedit.daily.additional.vaporizer "$@" & 
   texttest.py -a netedit.daily.additional.variablespeedsign "$@" & 
+  texttest.py -a netedit.daily.shapeElements.basic "$@" & 
+  texttest.py -a netedit.daily.shapeElements.poi "$@" & 
+  texttest.py -a netedit.daily.shapeElements.poigeo "$@" & 
+  texttest.py -a netedit.daily.shapeElements.poilane "$@" & 
+  texttest.py -a netedit.daily.shapeElements.poly "$@" & 
+  texttest.py -a netedit.daily.TAZElements.basic "$@" & 
+  texttest.py -a netedit.daily.TAZElements.taz "$@" & 
   texttest.py -a netedit.daily.demand.basic "$@" & 
   texttest.py -a netedit.daily.demand.flow "$@" & 
   texttest.py -a netedit.daily.demand.flow_embedded "$@" & 
