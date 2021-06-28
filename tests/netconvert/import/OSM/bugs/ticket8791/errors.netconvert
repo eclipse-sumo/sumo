@@ -15,6 +15,7 @@ Warning: Incomplete route for pt line '12151739' (Nachtbus 669: U Ahrensburg Wes
 Warning: Incomplete route for pt line '12151739' (Nachtbus 669: U Ahrensburg West => U Ahrensburg West).
 Warning: Incomplete route for pt line '12151739' (Nachtbus 669: U Ahrensburg West => U Ahrensburg West).
 Warning: PT stop '1792502642' has been moved to edge '-76424358'.
+Warning: Removed duplicate stop '1792502643' at area '2238874' from line '12151739'.
 Warning: PT stop '8341032348' has been moved to edge '-19431426#9'.
 Warning: PT stop '2705494849' has been moved to edge '-39546438'.
 Warning: Removed duplicate stop '472613740' at area '2130029' from line '12218240'.
@@ -22,7 +23,6 @@ Warning: PT stop '1711953916' has been moved to edge '-11646390'.
 Warning: Removed duplicate stop '472613733' at area '2130019' from line '12235869'.
 Warning: Removed duplicate stop '472613741' at area '2130029' from line '12235869'.
 Warning: Removed duplicate stop '472613740' at area '2130029' from line '12235870'.
-Warning: Removed duplicate stop '472613732' at area '2130019' from line '12235870'.
 Warning: PT stop '1711953916' has been moved to edge '11646390'.
 Warning: Cannot assign stop 1711974496 on edge '206357901' to pt line '3651123'. Ignoring!
 Warning: Found sharp turn with radius 6.32 at the start of edge '-387523449'.
@@ -35,4 +35,4 @@ Warning: Could not build program '0' for traffic light '665421850'
 Warning: 23 total messages of type: Done reading first coherent chunk of pt stops. Further stops in relation % are ignored
 Warning: 26 total messages of type: Incomplete route for pt line '%'%.
 Warning: 9 total messages of type: PT stop '%' has been moved to edge '%'.
-Warning: 24 total messages of type: Removed duplicate stop '%' at area '%' from line '%'.
+Warning: 33 total messages of type: Removed duplicate stop '%' at area '%' from line '%'.
