@@ -23,8 +23,7 @@ from __future__ import print_function
 import os
 import sys
 
-sumoHome = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', ".."))
-sys.path.append(os.path.join(sumoHome, "tools"))
+sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 import traci  # noqa
 
