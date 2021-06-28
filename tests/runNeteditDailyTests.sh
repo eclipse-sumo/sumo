@@ -45,6 +45,7 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.demand3 "$@" & 
   texttest -a netedit.daily.demand4 "$@" & 
   texttest -a netedit.daily.data "$@"
+  wait
 else
   texttest.py -a netedit.daily.common "$@" & 
   texttest.py -a netedit.daily.net1 "$@" & 
@@ -58,4 +59,5 @@ else
   texttest.py -a netedit.daily.demand3 "$@" & 
   texttest.py -a netedit.daily.demand4 "$@" & 
   texttest.py -a netedit.daily.data "$@"
+  wait
 fi
