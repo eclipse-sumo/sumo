@@ -91,8 +91,9 @@ static const GLfloat yPlane[] = {0.0, INV_POLY_TEX_DIM, 0.0, 0.0};
 GUIPolygon::GUIPolygon(const std::string& id, const std::string& type,
                        const RGBColor& color, const PositionVector& shape, bool geo,
                        bool fill, double lineWidth, double layer, double angle, const std::string& imgFile,
-                       bool relativePath):
-    SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
+                       bool relativePath,
+                       const std::string& name):
+    SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name),
     GUIGlObject_AbstractAdd(GLO_POLYGON, id),
     myDisplayList(0),
     myRotatedShape(nullptr) {
@@ -130,6 +131,7 @@ GUIPolygon::getParameterWindow(GUIMainWindow& app,
     // add items
     ret->mkItem("type", false, getShapeType());
     ret->mkItem("layer", false, toString(getShapeLayer()));
+    ret->mkItem("name", false, toString(getShapeName()));
     ret->closeBuilding(this);
     return ret;
 }
