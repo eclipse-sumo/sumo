@@ -53,9 +53,9 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.additional.detentry "$@" & 
   texttest -a netedit.daily.additional.detexit "$@" & 
   texttest -a netedit.daily.additional.e1detector "$@" & 
-  texttest -a netedit.daily.additional.e1InstantDetector "$@" & 
+  texttest -a netedit.daily.additional.e1instantdetector "$@" & 
   texttest -a netedit.daily.additional.e2detector "$@" & 
-  texttest -a netedit.daily.additional.e2MultiLaneDetector "$@" & 
+  texttest -a netedit.daily.additional.e2multilanedetector "$@" & 
   texttest -a netedit.daily.additional.e3detector "$@" & 
   texttest -a netedit.daily.additional.lanecalibrator "$@" & 
   texttest -a netedit.daily.additional.parkingarea "$@" & 
@@ -76,7 +76,7 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.demand.flow "$@" & 
   texttest -a netedit.daily.demand.flow_embedded "$@" & 
   texttest -a netedit.daily.demand.person "$@" & 
-  texttest -a netedit.daily.demand.personFlow "$@" & 
+  texttest -a netedit.daily.demand.personflow "$@" & 
   texttest -a netedit.daily.demand.route "$@" & 
   texttest -a netedit.daily.demand.routeflow "$@" & 
   texttest -a netedit.daily.demand.stop "$@" & 
