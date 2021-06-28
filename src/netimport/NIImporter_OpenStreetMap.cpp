@@ -1371,10 +1371,8 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
                     myPlatforms.push_back(platform);
                 }
             } else if (memberType == "node") {
-                if (!myIsStopArea) {
-                    // for routes, a mix of stop and platform members is permitted
-                    myStops.push_back(ref);
-                }
+                // myIsStopArea may not be set yet
+                myStops.push_back(ref);
                 NIIPTPlatform platform;
                 platform.isWay = false;
                 platform.ref = ref;
