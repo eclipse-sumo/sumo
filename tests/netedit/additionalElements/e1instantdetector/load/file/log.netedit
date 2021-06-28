@@ -1,3 +1,4 @@
-Warning: Essential filename attribute 'file' of instantInductionLoop with ID 'E1_01' is missing; instantInductionLoop cannot be created
-Warning: Format of essential filename attribute 'file' of instantInductionLoop with ID 'E1_02' is invalid; Filename contains invalid characters; instantInductionLoop cannot be created
-Warning: Format of essential filename attribute 'file' of instantInductionLoop with ID 'E1_03' is invalid; Filename cannot be empty; instantInductionLoop cannot be created
+Error: Attribute 'file' is missing in definition of instantInductionLoop 'E1_01'.
+Error: Could not build instantInductionLoop with ID 'E1_02' in netedit; filename is invalid.
+Error: Attribute 'file' in definition of instantInductionLoop 'E1_03' is empty.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e1instantdetector.28Jun132936.2425/netedit.daily.additional.e1instantdetector/additionalElements/e1instantdetector/load/file/input_additionals.add.xml failed.

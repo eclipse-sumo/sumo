@@ -3,14 +3,14 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
-Debug: Setting new attribute startPos '22.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '32.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute startPos '23.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '33.00' into busStop 'busStop_gneE0_0_0'
 Debug: Setting new attribute startPos '12.00' into busStop 'busStop_gneE0_0_0'
 Debug: Setting new attribute endPos '22.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute endPos '32.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting previous attribute startPos '22.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute endPos '33.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute startPos '23.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute endPos '22.00' into busStop 'busStop_gneE0_0_0'
@@ -23,8 +23,8 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute startPos '22.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '32.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute startPos '23.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '33.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute startPos '12.00' into busStop 'busStop_gneE0_0_0'
@@ -45,3 +45,4 @@ Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destr
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
+X connection to :2619.0 broken (explicit kill or server shutdown).

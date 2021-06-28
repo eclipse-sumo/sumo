@@ -1,8 +1,10 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'instantInductionLoop' in TagSelector
 Debug: Adding instantInductionLoop 'instantInductionLoop_gneE1_0_0' in GNEChange_Additional
 Debug: Adding instantInductionLoop 'instantInductionLoop_0' in GNEChange_Additional
+Error: Could not build instantInductionLoop with ID 'instantInductionLoop_gneE1_0_0' in netedit; declared twice.
 Debug: Invalid input parameter of instantInductionLoop: invalid id used in id
 Debug: Adding instantInductionLoop 'customID' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed

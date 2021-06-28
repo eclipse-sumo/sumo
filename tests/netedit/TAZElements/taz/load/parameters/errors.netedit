@@ -16,7 +16,7 @@ Debug: Inserting generic parameter 'key3|$$value with spaces%%' into taz
 Debug: Inserting generic parameter 'keyFinal|valueFinal' into taz
 Debug: Adding taz 'TAZ_0' into viewNet
 GLDebug: 	Inserted taz:TAZ_0 into SUMORTree with boundary -70.00,10.00,-20.00,60.00
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun134415.5740\netedit.gui\TAZElements\TAZ\load\parameters\input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.TAZ.taz.28Jun132936.2443/netedit.daily.TAZ.taz/TAZElements/taz/load/parameters/input_additionals.add.xml failed.
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

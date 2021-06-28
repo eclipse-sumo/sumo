@@ -11,17 +11,17 @@ Debug: Adding poi 'poi_0' into viewNet
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -9.00,7.00,13.00,29.00
 Debug: Value 'dummyColor' for attribute color of poi isn't valid
 Debug: Setting new attribute color '255,255,500' into poi 'poi_0'
-Debug: Setting new attribute color 'blue' into poi 'poi_0'
+Debug: Setting new attribute color '255,255,500' into poi 'poi_0'
 Debug: Setting new attribute color '125,60,200' into poi 'poi_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute color 'blue' into poi 'poi_0'
+Debug: Setting previous attribute color '255,255,244' into poi 'poi_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute color '255,255,244' into poi 'poi_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute color 'blue' into poi 'poi_0'
+Debug: Setting new attribute color '255,255,500' into poi 'poi_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute color '125,60,200' into poi 'poi_0'

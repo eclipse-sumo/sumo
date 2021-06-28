@@ -8,6 +8,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,10.00,60.00,44.40
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: Adding stopLane 'route_0' in GNEChange_DemandElement
 Debug: Adding stopLane 'route_0' in GNEChange_DemandElement

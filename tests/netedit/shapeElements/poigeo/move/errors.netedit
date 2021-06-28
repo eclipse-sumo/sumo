@@ -4,8 +4,8 @@ Debug: Selected item 'poly' in TagSelector
 Debug: Selected item 'poiGeo' in TagSelector
 Debug: Adding poiGeo 'poi_0' into viewNet
 Debug: Adding poiGeo 'poi_1' into viewNet
-Debug: Setting new attribute pos '28.00,8.00' into poiGeo 'poi_0'
-Debug: Setting new attribute pos '26.00,-2.00' into poiGeo 'poi_1'
+Debug: Setting new attribute pos '30.00,8.00' into poiGeo 'poi_0'
+Debug: Setting new attribute pos '28.00,-2.00' into poiGeo 'poi_1'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute pos '2.00,-14.00' into poiGeo 'poi_1'
@@ -14,10 +14,10 @@ Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute pos '2.00,14.00' into poiGeo 'poi_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '28.00,8.00' into poiGeo 'poi_0'
+Debug: Setting new attribute pos '30.00,8.00' into poiGeo 'poi_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '26.00,-2.00' into poiGeo 'poi_1'
+Debug: Setting new attribute pos '28.00,-2.00' into poiGeo 'poi_1'
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
@@ -37,3 +37,4 @@ Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destr
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
+X connection to :2789.0 broken (explicit kill or server shutdown).
