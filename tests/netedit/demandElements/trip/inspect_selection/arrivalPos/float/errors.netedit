@@ -70,7 +70,6 @@ Debug: Setting new attribute selected 'true' into trip 'tripA'
 Debug: Setting new attribute selected 'true' into trip 'tripB'
 Debug: Setting new attribute arrivalPos 'max' into trip 'tripA'
 Debug: Setting new attribute arrivalPos 'max' into trip 'tripB'
-Debug: Value 'dummyPos' for attribute arrivalPos of trip isn't valid
 Debug: Setting new attribute arrivalPos '500' into trip 'tripA'
 Debug: Setting new attribute arrivalPos '500' into trip 'tripB'
 Debug: Setting new attribute arrivalPos '-10' into trip 'tripA'
