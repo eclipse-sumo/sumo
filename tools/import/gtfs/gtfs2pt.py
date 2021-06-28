@@ -58,6 +58,8 @@ def get_options(args=None):
                     help="length for a train stop")
     ap.add_argument("--tram-stop-length", default=60, type=float,
                     help="length for a tram stop")
+    ap.add_argument("--sort",action="store_true", default=False,
+                    help="sorting the output-file")
 
     # ----------------------- fcd options -------------------------------------
     ap.add_argument("-b", "--begin", default=0,
@@ -341,13 +343,14 @@ def filter_trips(options, routes, stops, outfile, begin, end):
                             outf.write('    <vehicle id="%s.%s" route="%s" type="%s" depart="%s" line="%s"/>\n' %
                                        (veh.id, d, veh.route, veh.type, depart, veh.line))
         outf.write('</routes>\n')
-    path = os.path.join(os.environ["SUMO_HOME"], "tools","route", "sort_routes.py")
-    call = "python {} {} -o temp.xml ".format(path, outfile)
-    subprocess.call(call)
-    path_temp = os.path.join(os.getcwd(), "temp.xml")
-    path_old = os.path.join(os.getcwd(), outfile)
-    os.remove(path_old)
-    os.rename(path_temp, path_old)
+    if options.sort:
+        path = os.path.join(os.environ["SUMO_HOME"], "tools","route", "sort_routes.py")
+        call = "python {} {} -o temp.xml ".format(path, outfile)
+        subprocess.call(call)
+        path_temp = os.path.join(os.getcwd(), "temp.xml")
+        path_old = os.path.join(os.getcwd(), outfile)
+        os.remove(path_old)
+        os.rename(path_temp, path_old)
 
 
 def main(options):
