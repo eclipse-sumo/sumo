@@ -33,11 +33,11 @@ export MAROUTER_BINARY="$SUMO_BINDIR/marouter"
 export PYTHON="python"
 
 if which texttest &> /dev/null; then
-  texttest -a netedit.daily.common.basic "$@" & 
-  texttest -a netedit.daily.common.bugs "$@" & 
-  texttest -a netedit.daily.common.complex "$@" & 
-  texttest -a netedit.daily.common.selection "$@" & 
-  texttest -a netedit.daily.common.volatileRecomputing "$@" & 
+  texttest -a netedit.daily.basic "$@" & 
+  texttest -a netedit.daily.bugs "$@" & 
+  texttest -a netedit.daily.complex "$@" & 
+  texttest -a netedit.daily.selection "$@" & 
+  texttest -a netedit.daily.volatileRecomputing "$@" & 
   texttest -a netedit.daily.net.connections "$@" & 
   texttest -a netedit.daily.net.crossings "$@" & 
   texttest -a netedit.daily.net.edges "$@" & 
@@ -65,13 +65,13 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.additional.trainstop "$@" & 
   texttest -a netedit.daily.additional.vaporizer "$@" & 
   texttest -a netedit.daily.additional.variablespeedsign "$@" & 
-  texttest -a netedit.daily.shapeElements.basic "$@" & 
-  texttest -a netedit.daily.shapeElements.poi "$@" & 
-  texttest -a netedit.daily.shapeElements.poigeo "$@" & 
-  texttest -a netedit.daily.shapeElements.poilane "$@" & 
-  texttest -a netedit.daily.shapeElements.poly "$@" & 
-  texttest -a netedit.daily.TAZElements.basic "$@" & 
-  texttest -a netedit.daily.TAZElements.taz "$@" & 
+  texttest -a netedit.daily.shape.basic "$@" & 
+  texttest -a netedit.daily.shape.poi "$@" & 
+  texttest -a netedit.daily.shape.poigeo "$@" & 
+  texttest -a netedit.daily.shape.poilane "$@" & 
+  texttest -a netedit.daily.shape.poly "$@" & 
+  texttest -a netedit.daily.TAZ.basic "$@" & 
+  texttest -a netedit.daily.TAZ.taz "$@" & 
   texttest -a netedit.daily.demand.basic "$@" & 
   texttest -a netedit.daily.demand.flow "$@" & 
   texttest -a netedit.daily.demand.flow_embedded "$@" & 
@@ -88,11 +88,11 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.data.edgeRelData "$@"
   wait
 else
-  texttest.py -a netedit.daily.common.basic "$@" & 
-  texttest.py -a netedit.daily.common.bugs "$@" & 
-  texttest.py -a netedit.daily.common.complex "$@" & 
-  texttest.py -a netedit.daily.common.selection "$@" & 
-  texttest.py -a netedit.daily.common.volatileRecomputing "$@" & 
+  texttest.py -a netedit.daily.basic "$@" & 
+  texttest.py -a netedit.daily.bugs "$@" & 
+  texttest.py -a netedit.daily.complex "$@" & 
+  texttest.py -a netedit.daily.selection "$@" & 
+  texttest.py -a netedit.daily.volatileRecomputing "$@" & 
   texttest.py -a netedit.daily.net.connections "$@" & 
   texttest.py -a netedit.daily.net.crossings "$@" & 
   texttest.py -a netedit.daily.net.edges "$@" & 
@@ -108,9 +108,9 @@ else
   texttest.py -a netedit.daily.additional.detentry "$@" & 
   texttest.py -a netedit.daily.additional.detexit "$@" & 
   texttest.py -a netedit.daily.additional.e1detector "$@" & 
-  texttest.py -a netedit.daily.additional.e1InstantDetector "$@" & 
+  texttest.py -a netedit.daily.additional.e1instantdetector "$@" & 
   texttest.py -a netedit.daily.additional.e2detector "$@" & 
-  texttest.py -a netedit.daily.additional.e2MultiLaneDetector "$@" & 
+  texttest.py -a netedit.daily.additional.e2multilanedetector "$@" & 
   texttest.py -a netedit.daily.additional.e3detector "$@" & 
   texttest.py -a netedit.daily.additional.lanecalibrator "$@" & 
   texttest.py -a netedit.daily.additional.parkingarea "$@" & 
@@ -120,18 +120,18 @@ else
   texttest.py -a netedit.daily.additional.trainstop "$@" & 
   texttest.py -a netedit.daily.additional.vaporizer "$@" & 
   texttest.py -a netedit.daily.additional.variablespeedsign "$@" & 
-  texttest.py -a netedit.daily.shapeElements.basic "$@" & 
-  texttest.py -a netedit.daily.shapeElements.poi "$@" & 
-  texttest.py -a netedit.daily.shapeElements.poigeo "$@" & 
-  texttest.py -a netedit.daily.shapeElements.poilane "$@" & 
-  texttest.py -a netedit.daily.shapeElements.poly "$@" & 
-  texttest.py -a netedit.daily.TAZElements.basic "$@" & 
-  texttest.py -a netedit.daily.TAZElements.taz "$@" & 
+  texttest.py -a netedit.daily.shape.basic "$@" & 
+  texttest.py -a netedit.daily.shape.poi "$@" & 
+  texttest.py -a netedit.daily.shape.poigeo "$@" & 
+  texttest.py -a netedit.daily.shape.poilane "$@" & 
+  texttest.py -a netedit.daily.shape.poly "$@" & 
+  texttest.py -a netedit.daily.TAZ.basic "$@" & 
+  texttest.py -a netedit.daily.TAZ.taz "$@" & 
   texttest.py -a netedit.daily.demand.basic "$@" & 
   texttest.py -a netedit.daily.demand.flow "$@" & 
   texttest.py -a netedit.daily.demand.flow_embedded "$@" & 
   texttest.py -a netedit.daily.demand.person "$@" & 
-  texttest.py -a netedit.daily.demand.personFlow "$@" & 
+  texttest.py -a netedit.daily.demand.personflow "$@" & 
   texttest.py -a netedit.daily.demand.route "$@" & 
   texttest.py -a netedit.daily.demand.routeflow "$@" & 
   texttest.py -a netedit.daily.demand.stop "$@" & 
