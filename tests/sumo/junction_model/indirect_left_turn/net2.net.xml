@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-06-18 10:59:10 by Eclipse SUMO netedit Version v1_9_2+0589-449bf4c
+<!-- generated on 2021-06-21 16:50:01 by Eclipse SUMO netedit Version v1_9_2+0619-dab67b0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="net.net.xml"/>
+        <sumo-net-file value="net2.net.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="net2.net.xml"/>
     </output>
 
     <processing>
@@ -150,8 +150,8 @@
         <request index="6"  response="00000000000000000" foes="10001111000001111" cont="0"/>
         <request index="7"  response="01100000000000000" foes="01101111000001110" cont="1"/>
         <request index="8"  response="01100000000000000" foes="01100000000000000" cont="0"/>
-        <request index="9"  response="11100000011110000" foes="11100000011111000" cont="0"/>
-        <request index="10" response="11100100011100111" foes="11100100011101111" cont="1"/>
+        <request index="9"  response="11100000011110000" foes="11100010011111000" cont="0"/>
+        <request index="10" response="11100101011100111" foes="11100101011101111" cont="1"/>
         <request index="11" response="11100000011110000" foes="11100010011111000" cont="0"/>
         <request index="12" response="11100000011100111" foes="11100000011100111" cont="0"/>
         <request index="13" response="00000000000000000" foes="00000000000000110" cont="0"/>
@@ -173,7 +173,7 @@
     </junction>
 
     <junction id=":C_17_0" type="internal" x="103.73" y="100.00" incLanes=":C_7_0 WC_0 WC_1" intLanes=":C_1_0 :C_1_1 :C_3_0 :C_9_0 :C_10_0 :C_11_0 :C_12_0 :C_13_0 :C_14_0 :C_14_1"/>
-    <junction id=":C_18_0" type="internal" x="108.85" y="104.84" incLanes=":C_10_0" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_3_0 :C_5_0 :C_5_1 :C_7_0 :C_11_0 :C_14_0 :C_14_1 :C_16_0"/>
+    <junction id=":C_18_0" type="internal" x="108.85" y="104.84" incLanes=":C_10_0 SC_0 SC_1" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_3_0 :C_5_0 :C_5_1 :C_7_0 :C_9_0 :C_11_0 :C_14_0 :C_14_1 :C_16_0"/>
     <junction id=":C_19_0" type="internal" x="96.27" y="100.00" incLanes=":C_16_0 EC_0 EC_1" intLanes=":C_1_0 :C_1_1 :C_3_0 :C_4_0 :C_5_0 :C_5_1 :C_9_0 :C_10_0 :C_11_0 :C_12_0"/>
 
     <connection from="CE" to="EC" fromLane="1" toLane="1" via=":E_0_0" dir="t" state="M"/>
@@ -190,7 +190,7 @@
     <connection from="NC" to="CE" fromLane="1" toLane="1" via=":C_3_0" dir="l" state="m"/>
     <connection from="SC" to="CE" fromLane="0" toLane="0" via=":C_8_0" dir="r" state="m"/>
     <connection from="SC" to="CN" fromLane="0" toLane="0" via=":C_9_0" dir="s" state="m"/>
-    <connection from="SC" to="CW" fromLane="0" toLane="0" contPos="18.00" allow="bicycle" shape="104.80,89.60 110.31,100.86 110.33,104.84 89.60,104.80" via=":C_10_0" dir="l" state="m"/>
+    <connection from="SC" to="CW" fromLane="0" toLane="0" contPos="18.00" allow="bicycle" shape="104.80,89.60 110.31,100.86 110.33,104.84 89.60,104.80" indirect="1" via=":C_10_0" dir="l" state="m"/>
     <connection from="SC" to="CN" fromLane="1" toLane="1" via=":C_11_0" dir="s" state="m"/>
     <connection from="SC" to="CW" fromLane="1" toLane="1" allow="passenger" via=":C_12_0" dir="l" state="m"/>
     <connection from="WC" to="CS" fromLane="0" toLane="0" via=":C_13_0" dir="r" state="M"/>

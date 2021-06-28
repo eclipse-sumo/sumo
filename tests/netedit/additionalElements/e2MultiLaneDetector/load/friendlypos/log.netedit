@@ -1,0 +1,2 @@
+Error: Attribute 'friendlyPos' in definition of e2Detector 'e2MultilaneDetector_1' is not of type bool.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.25Jun114037.7588\netedit.gui\additionalElements\e2MultiLaneDetector\load\friendlypos\input_additionals.add.xml failed.

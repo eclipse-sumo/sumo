@@ -18,8 +18,8 @@ Debug: Setting new attribute name 'commonName' into chargingStation 'chargingSta
 Debug: Setting new attribute name 'commonName' into chargingStation 'chargingStationB'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute name 'chargingStation' into chargingStation 'chargingStationB'
-Debug: Setting previous attribute name 'chargingStation' into chargingStation 'chargingStationA'
+Debug: Setting previous attribute name 'chargingStationNameB' into chargingStation 'chargingStationB'
+Debug: Setting previous attribute name 'chargingStationNameA' into chargingStation 'chargingStationA'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into chargingStation 'chargingStationB'

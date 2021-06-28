@@ -1,3 +1,4 @@
-Warning: Essential unique string attribute 'id' of e2MultilaneDetector is missing; e2MultilaneDetector cannot be created
-Warning: Format of essential unique string attribute 'id' of e2MultilaneDetector is invalid; Detector ID contains invalid characters; e2MultilaneDetector cannot be created
-Warning: There is another e2MultilaneDetector with the same ID='e2MultilaneDetector_1'.
+Error: Attribute 'id' is missing in definition of a e2Detector.
+Error: Could not build e2Detector with ID ';;%%$$$$$$%' in netedit; ID contains invalid characters.
+Error: Could not build e2Detector with ID 'e2MultilaneDetector_1' in netedit; declared twice.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.25Jun114037.7588\netedit.gui\additionalElements\e2MultiLaneDetector\load\id\input_additionals.add.xml failed.

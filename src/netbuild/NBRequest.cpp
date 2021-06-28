@@ -41,7 +41,7 @@
 
 //#define DEBUG_RESPONSE
 //#define DEBUG_SETBLOCKING
-#define DEBUGCOND (myJunction->getID() == "F")
+#define DEBUGCOND (myJunction->getID() == "C")
 
 // ===========================================================================
 // static member variables
@@ -640,7 +640,19 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
 #endif
                 } else if ((*i) == from && fromLane == j) {
                     // do not prohibit a connection by others from same lane
-                    result += '0';
+                    // except for indirect turns
+#ifdef DEBUG_RESPONSE
+                    if (DEBUGCOND) {
+                        std::cout << " c=" << queryCon.getDescription(from) << " prohibitC=" << connected[k].getDescription(*i)
+                            << " itc=" <<  indirectLeftTurnConflict(from, queryCon, *i, connected[k], false)
+                            << "\n";
+                    }
+#endif
+                    if (indirectLeftTurnConflict(from, queryCon, *i, connected[k], false)) {
+                        result += '1';
+                    } else {
+                        result += '0';
+                    }
                 } else {
                     assert(connected[k].toEdge != 0);
                     const int idx2 = getIndex(*i, connected[k].toEdge);
@@ -660,6 +672,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                                   << " rtc2=" << rightTurnConflict(from, queryCon, *i, connected[k])
                                   << " mc=" << mergeConflict(from, queryCon, *i, connected[k], false)
                                   << " oltc=" << oppositeLeftTurnConflict(from, queryCon, *i, connected[k], false)
+                                  << " itc=" <<  indirectLeftTurnConflict(from, queryCon, *i, connected[k], zipper)
                                   << " rorc=" << myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
                                   << " tlscc=" << myJunction->tlsContConflict(from, c, *i, connected[k])
                                   << "\n";

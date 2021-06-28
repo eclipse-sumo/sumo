@@ -1,14 +1,14 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'laneCalibrator' in TagSelector
-Debug: Format of optional optional string attribute 'routeProbe' of laneCalibrator with ID 'laneCalibrator_gneE3_1_0' is invalid; RouteProbe ID contains invalid characters; Default value will be used.
 Debug: Adding laneCalibrator 'laneCalibrator_gneE3_1_0' in GNEChange_Additional
 Debug: Value 'dummyFreq' for attribute freq of laneCalibrator isn't valid
 Debug: Value '-12' for attribute freq of laneCalibrator isn't valid
 Debug: Setting new attribute freq '12.5' into laneCalibrator 'laneCalibrator_gneE3_1_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute freq '100.00' into laneCalibrator 'laneCalibrator_gneE3_1_0'
+Debug: Setting previous attribute freq '1.00' into laneCalibrator 'laneCalibrator_gneE3_1_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing laneCalibrator 'laneCalibrator_gneE3_1_0' in GNEChange_Additional

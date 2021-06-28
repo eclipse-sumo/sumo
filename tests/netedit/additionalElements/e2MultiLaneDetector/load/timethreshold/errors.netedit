@@ -7,13 +7,13 @@ GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary 15.00,-11.60,60.00,10
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 15.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
-Debug: Format of optional optional SUMOTime attribute 'timeThreshold' of e2MultilaneDetector with ID 'e2MultilaneDetector_1' is invalid; Cannot be parsed to SUMOTime; Default value will be used.
-Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_1' in GNEChange_Additional
-Debug: Format of optional optional SUMOTime attribute 'timeThreshold' of e2MultilaneDetector with ID 'e2MultilaneDetector_2' is invalid; Cannot be parsed to SUMOTime; Default value will be used.
-Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_2' in GNEChange_Additional
+Error: Attribute 'timeThreshold' in definition of e2Detector 'e2MultilaneDetector_1' is not a real number.
+Error: Could not build e2Detector with ID 'e2MultilaneDetector_2' in netedit; attribute timeThreshold cannot be negative.
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_3' in GNEChange_Additional
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_4' in GNEChange_Additional
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.25Jun114037.7588\netedit.gui\additionalElements\e2MultiLaneDetector\load\timethreshold\input_additionals.add.xml failed.
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -40,14 +40,10 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e2MultilaneDetector 'e2MultilaneDetector_4' in GNEChange_Additional
 Debug: Removing e2MultilaneDetector 'e2MultilaneDetector_3' in GNEChange_Additional
-Debug: Removing e2MultilaneDetector 'e2MultilaneDetector_2' in GNEChange_Additional
-Debug: Removing e2MultilaneDetector 'e2MultilaneDetector_1' in GNEChange_Additional
 Debug: Removing e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
-Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_1' in GNEChange_Additional
-Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_2' in GNEChange_Additional
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_3' in GNEChange_Additional
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_4' in GNEChange_Additional
 Debug: Additionals saved
@@ -71,8 +67,6 @@ GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 15.00,-10.00,60.00,11
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_4'
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_3'
-Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_2'
-Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_1'
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Deleting unreferenced edge 'gneE2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor

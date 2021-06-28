@@ -377,6 +377,8 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
             return toString(myShape);
         case SUMO_ATTR_COLOR:
             return toString(getShapeColor());
+        case SUMO_ATTR_NAME:
+            return getShapeName();
         case SUMO_ATTR_FILL:
             return toString(myFill);
         case SUMO_ATTR_EDGES: {
@@ -440,6 +442,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_ID:
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_COLOR:
+        case SUMO_ATTR_NAME:
         case SUMO_ATTR_FILL:
         case SUMO_ATTR_EDGES:
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -462,6 +465,8 @@ GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<PositionVector>(value);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
+        case SUMO_ATTR_NAME:
+            return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_FILL:
             return canParse<bool>(value);
         case SUMO_ATTR_EDGES:
@@ -570,6 +575,9 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_COLOR:
             setShapeColor(parse<RGBColor>(value));
+            break;
+        case SUMO_ATTR_NAME:
+            setShapeName(value);
             break;
         case SUMO_ATTR_FILL:
             myFill = parse<bool>(value);

@@ -42,7 +42,7 @@
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
         <xsd:attribute name="changeRight" type="xsd:string" use="optional"/>
         <xsd:attribute name="changeLeft" type="xsd:string" use="optional"/>
-        <xsd:attribute name="indirectLeft" type="boolType" use="optional"/>
+        <xsd:attribute name="indirect" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="prohibitionType">

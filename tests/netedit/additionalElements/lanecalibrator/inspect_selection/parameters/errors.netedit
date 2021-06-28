@@ -1,12 +1,13 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Inserting generic parameter 'KeyA1|valueA1' into laneCalibrator
+Debug: Inserting generic parameter 'KeyA3|valueA2' into laneCalibrator
+Debug: Inserting generic parameter 'KeyA2|valueA3' into laneCalibrator
 Debug: Adding laneCalibrator 'calibratorA' in GNEChange_Additional
-Debug: Inserting parameter 'KeyA1|valueA1' into additional laneCalibrator.
-Debug: Inserting parameter 'KeyA3|valueA2' into additional laneCalibrator.
-Debug: Inserting parameter 'KeyA2|valueA3' into additional laneCalibrator.
+Debug: Inserting generic parameter 'KeyB1|valueB1' into laneCalibrator
+Debug: Inserting generic parameter 'KeyB3|valueB2' into laneCalibrator
+Debug: Inserting generic parameter 'KeyB2|valueB3' into laneCalibrator
 Debug: Adding laneCalibrator 'calibratorB' in GNEChange_Additional
-Debug: Inserting parameter 'KeyB1|valueB1' into additional laneCalibrator.
-Debug: Inserting parameter 'KeyB3|valueB2' into additional laneCalibrator.
-Debug: Inserting parameter 'KeyB2|valueB3' into additional laneCalibrator.
 Debug: Adding routeProbe 'RouteProbeA' in GNEChange_Additional
 Debug: Adding routeProbe 'RouteProbeB' in GNEChange_Additional
 Debug: Adding routeProbe 'customRouteProbeName' in GNEChange_Additional
@@ -23,48 +24,27 @@ Debug: Setting new attribute selected 'true' into laneCalibrator 'calibratorB'
 Debug: Setting new attribute selected 'true' into routeProbe 'RouteProbeA'
 Debug: Setting new attribute selected 'true' into routeProbe 'RouteProbeB'
 Debug: Setting new attribute selected 'true' into routeProbe 'customRouteProbeName'
-Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into laneCalibrator 'calibratorA'
-Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into laneCalibrator 'calibratorB'
-Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into laneCalibrator 'calibratorA'
-Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into laneCalibrator 'calibratorB'
-Debug: Setting new attribute genericParameter '' into laneCalibrator 'calibratorA'
-Debug: Setting new attribute genericParameter '' into laneCalibrator 'calibratorB'
-Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into laneCalibrator 'calibratorA'
-Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into laneCalibrator 'calibratorB'
-Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into laneCalibrator 'calibratorA'
-Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into laneCalibrator 'calibratorB'
-Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into laneCalibrator 'calibratorA'
-Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into laneCalibrator 'calibratorB'
-Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into laneCalibrator 'calibratorA'
-Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into laneCalibrator 'calibratorB'
+Debug: Setting new attribute vTypes 'dummyGenericParameters' into laneCalibrator 'calibratorA'
+Debug: Setting new attribute vTypes 'dummyGenericParameters' into laneCalibrator 'calibratorB'
+Debug: Value 'key1|key2|key3' for attribute vTypes of laneCalibrator isn't valid
+Debug: Value 'key1=value1|key2=value2|key3=value3' for attribute vTypes of laneCalibrator isn't valid
+Debug: Value 'key1=|key2=|key3=' for attribute vTypes of laneCalibrator isn't valid
+Debug: Setting new attribute vTypes '' into laneCalibrator 'calibratorA'
+Debug: Setting new attribute vTypes '' into laneCalibrator 'calibratorB'
+Debug: Value 'key1duplicated=value1|key1duplicated=value2|key3=value3' for attribute vTypes of laneCalibrator isn't valid
+Debug: Value 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' for attribute vTypes of laneCalibrator isn't valid
+Debug: Value 'keyInvalid.;%>%$$=value1|key2=value2|key3=value3' for attribute vTypes of laneCalibrator isn't valid
+Debug: Value 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' for attribute vTypes of laneCalibrator isn't valid
+Debug: Value 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' for attribute vTypes of laneCalibrator isn't valid
+Debug: Value 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3i' for attribute vTypes of laneCalibrator isn't valid
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into laneCalibrator 'calibratorB'
-Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into laneCalibrator 'calibratorA'
+Debug: Setting previous attribute vTypes 'dummyGenericParameters' into laneCalibrator 'calibratorB'
+Debug: Setting previous attribute vTypes 'dummyGenericParameters' into laneCalibrator 'calibratorA'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into laneCalibrator 'calibratorB'
-Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into laneCalibrator 'calibratorA'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into laneCalibrator 'calibratorB'
-Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into laneCalibrator 'calibratorA'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter '' into laneCalibrator 'calibratorB'
-Debug: Setting previous attribute genericParameter '' into laneCalibrator 'calibratorA'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into laneCalibrator 'calibratorB'
-Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into laneCalibrator 'calibratorA'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into laneCalibrator 'calibratorB'
-Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into laneCalibrator 'calibratorA'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'KeyB1=valueB1|KeyB2=valueB3|KeyB3=valueB2' into laneCalibrator 'calibratorB'
-Debug: Setting previous attribute genericParameter 'KeyA1=valueA1|KeyA2=valueA3|KeyA3=valueA2' into laneCalibrator 'calibratorA'
+Debug: Setting previous attribute vTypes '' into laneCalibrator 'calibratorB'
+Debug: Setting previous attribute vTypes '' into laneCalibrator 'calibratorA'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into routeProbe 'customRouteProbeName'
@@ -80,6 +60,24 @@ Debug: Setting previous attribute selected '0' into edge 'gneE0'
 Debug: Setting previous attribute selected '0' into junction 'gneJ1'
 Debug: Setting previous attribute selected '0' into edge 'gneE1'
 Debug: Setting previous attribute selected '0' into junction 'gneJ0'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing routeProbe 'customRouteProbeName' in GNEChange_Additional
+Debug: Removing routeProbe 'RouteProbeB' in GNEChange_Additional
+Debug: Removing routeProbe 'RouteProbeA' in GNEChange_Additional
+Debug: Removing laneCalibrator 'calibratorB' in GNEChange_Additional
+Debug: Removing laneCalibrator 'calibratorA' in GNEChange_Additional
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding laneCalibrator 'calibratorA' in GNEChange_Additional
+Debug: Adding laneCalibrator 'calibratorB' in GNEChange_Additional
+Debug: Adding routeProbe 'RouteProbeA' in GNEChange_Additional
+Debug: Adding routeProbe 'RouteProbeB' in GNEChange_Additional
+Debug: Adding routeProbe 'customRouteProbeName' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
@@ -97,32 +95,16 @@ Debug: Setting new attribute selected 'true' into routeProbe 'RouteProbeB'
 Debug: Setting new attribute selected 'true' into routeProbe 'customRouteProbeName'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into laneCalibrator 'calibratorA'
-Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into laneCalibrator 'calibratorB'
+Debug: Setting new attribute vTypes 'dummyGenericParameters' into laneCalibrator 'calibratorA'
+Debug: Setting new attribute vTypes 'dummyGenericParameters' into laneCalibrator 'calibratorB'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into laneCalibrator 'calibratorA'
-Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into laneCalibrator 'calibratorB'
+Debug: Setting new attribute vTypes '' into laneCalibrator 'calibratorA'
+Debug: Setting new attribute vTypes '' into laneCalibrator 'calibratorB'
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter '' into laneCalibrator 'calibratorA'
-Debug: Setting new attribute genericParameter '' into laneCalibrator 'calibratorB'
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into laneCalibrator 'calibratorA'
-Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into laneCalibrator 'calibratorB'
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into laneCalibrator 'calibratorA'
-Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into laneCalibrator 'calibratorB'
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into laneCalibrator 'calibratorA'
-Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into laneCalibrator 'calibratorB'
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into laneCalibrator 'calibratorA'
-Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into laneCalibrator 'calibratorB'
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

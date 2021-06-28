@@ -93,7 +93,7 @@ def get_options(args=None):
     ap.add_argument("--bbox",
                     help="define the bounding box to filter the gtfs data, format: W,S,E,N")  # noqa
     ap.add_argument("--repair", help="repair osm routes", action='store_true')
-    ap.add_argument("--min-stops", default=3, type=int,
+    ap.add_argument("--min-stops", default=1, type=int,
                     help="minimum number of stops a public transport line must have to be imported")  # noqa
 
     options = ap.parse_args(args)

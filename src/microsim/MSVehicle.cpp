@@ -6353,6 +6353,9 @@ MSVehicle::isLeader(const MSLink* link, const MSVehicle* veh) const {
                 // we are entering the junction from the same lane
                 egoET = myJunctionEntryTimeNeverYield;
                 foeET = veh->myJunctionEntryTimeNeverYield;
+                if (link->isExitLinkAfterInternalJunction() && link->getInternalLaneBefore()->getLogicalPredecessorLane()->getEntryLink()->isIndirect()) {
+                    egoET = myJunctionConflictEntryTime;
+                }
             } else {
                 const MSLink* foeLink = foeLane->getIncomingLanes()[0].viaLink;
                 const MSJunctionLogic* logic = link->getJunction()->getLogic();

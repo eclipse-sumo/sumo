@@ -46,8 +46,6 @@ def main(args=None):
                          default=False, help="If set, the script says what it's doing")
     optParser.add_option("-m", "--measure", dest="measure",
                          default="running", help="Define which measure to plot")
-    optParser.add_option("--dpi", dest="dpi", type="float",
-                         default=None, help="Define dpi resolution for figures")
     # standard plot options
     helpers.addInteractionOptions(optParser)
     helpers.addPlotOptions(optParser)

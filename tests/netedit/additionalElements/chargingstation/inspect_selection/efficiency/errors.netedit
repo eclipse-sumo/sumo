@@ -21,7 +21,7 @@ Debug: Setting new attribute efficiency '0.5' into chargingStation 'chargingStat
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute efficiency '0.85' into chargingStation 'chargingStationB'
-Debug: Setting previous attribute efficiency '0.95' into chargingStation 'chargingStationA'
+Debug: Setting previous attribute efficiency '0.65' into chargingStation 'chargingStationA'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into chargingStation 'chargingStationB'

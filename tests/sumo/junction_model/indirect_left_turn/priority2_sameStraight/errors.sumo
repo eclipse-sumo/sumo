@@ -1,18 +1,8 @@
-Warning: Teleporting vehicle 'SN.137'; junction collision with vehicle 'SW.87', lane=':C_11_0', gap=-1.00, time=297.00 stage=move.
-Warning: Vehicle 'SN.137' ends teleporting on edge 'CN', time 297.00.
-Warning: Teleporting vehicle 'SN.143'; junction collision with vehicle 'SW.93', lane=':C_11_0', gap=-1.00, time=305.00 stage=move.
-Warning: Vehicle 'SN.143' ends teleporting on edge 'CN', time 305.00.
-Warning: Teleporting vehicle 'SN.204'; junction collision with vehicle 'SW.131', lane=':C_11_0', gap=-1.00, time=432.00 stage=move.
-Warning: Vehicle 'SN.204' ends teleporting on edge 'CN', time 432.00.
-Warning: Teleporting vehicle 'SN.313'; junction collision with vehicle 'SW.199', lane=':C_11_0', gap=-1.00, time=653.00 stage=move.
-Warning: Vehicle 'SN.313' ends teleporting on edge 'CN', time 653.00.
-Warning: Teleporting vehicle 'SN.326'; junction collision with vehicle 'SW.213', lane=':C_11_0', gap=-1.00, time=676.00 stage=move.
-Warning: Vehicle 'SN.326' ends teleporting on edge 'CN', time 676.00.
-Warning: Teleporting vehicle 'SN.357'; junction collision with vehicle 'SW.231', lane=':C_11_0', gap=-1.00, time=734.00 stage=move.
-Warning: Vehicle 'SN.357' ends teleporting on edge 'CN', time 734.00.
-Warning: Teleporting vehicle 'SN.390'; junction collision with vehicle 'SW.247', lane=':C_11_0', gap=-1.00, time=796.00 stage=move.
-Warning: Vehicle 'SN.390' ends teleporting on edge 'CN', time 796.00.
-Warning: Teleporting vehicle 'SN.428'; junction collision with vehicle 'SW.264', lane=':C_11_0', gap=-1.00, time=890.00 stage=move.
-Warning: Vehicle 'SN.428' ends teleporting on edge 'CN', time 890.00.
-Warning: Teleporting vehicle 'SN.455'; junction collision with vehicle 'SW.278', lane=':C_11_0', gap=-1.00, time=966.00 stage=move.
-Warning: Vehicle 'SN.455' ends teleporting on edge 'CN', time 966.00.
+Warning: Teleporting vehicle 'SW.49'; waited too long (yield), lane=':C_10_0', time=642.00.
+Warning: Vehicle 'SW.49' ends teleporting on edge 'CW', time 642.00.
+Warning: Teleporting vehicle 'SW.53'; waited too long (yield), lane=':C_10_0', time=945.00.
+Warning: Vehicle 'SW.53' ends teleporting on edge 'CW', time 945.00.
+Warning: Teleporting vehicle 'SW.54'; waited too long (yield), lane=':C_10_0', time=1248.00.
+Warning: Vehicle 'SW.54' ends teleporting on edge 'CW', time 1248.00.
+Warning: Teleporting vehicle 'SW.55'; waited too long (yield), lane=':C_10_0', time=1551.00.
+Warning: Vehicle 'SW.55' ends teleporting on edge 'CW', time 1551.00.

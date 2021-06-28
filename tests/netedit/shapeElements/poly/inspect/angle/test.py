@@ -42,17 +42,17 @@ netedit.inspectMode()
 # inspect first polygon
 netedit.leftClick(referencePosition, 182, 130)
 
-# Change parameter 10 with a non valid value (dummy)
-netedit.modifyAttribute(10, "dummyAngle", False)
+# Change parameter 11 with a non valid value (dummy)
+netedit.modifyAttribute(11, "dummyAngle", False)
 
-# Change parameter 10 with a valid value (negative)
-netedit.modifyAttribute(10, "-5", False)
+# Change parameter 11 with a valid value (negative)
+netedit.modifyAttribute(11, "-5", False)
 
-# Change parameter 10 with a valid value (> 360)
-netedit.modifyAttribute(10, "365", False)
+# Change parameter 11 with a valid value (> 360)
+netedit.modifyAttribute(11, "365", False)
 
-# Change parameter 10 with a valid value
-netedit.modifyAttribute(10, "10", False)
+# Change parameter 11 with a valid value
+netedit.modifyAttribute(11, "10", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

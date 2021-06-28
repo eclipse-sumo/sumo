@@ -7,14 +7,18 @@ GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary 15.00,-11.60,60.00,10
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 15.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
-Debug: Inserting parameter 'key1|value1' into additional e2MultilaneDetector.
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Inserting generic parameter 'key1|value1' into e2Detector
+Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' in definition of a param is empty.
-Debug: Inserting parameter 'key1|value5' into additional e2MultilaneDetector.
-Debug: Inserting parameter 'key2|' into additional e2MultilaneDetector.
-Debug: Inserting parameter 'key2|' into additional e2MultilaneDetector.
-Debug: Inserting parameter 'key3|$$value with spaces%%' into additional e2MultilaneDetector.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug122131.11864\netedit.gui\additionalElements\e2MultiLaneDetector\load\parameters\input_additionals.add.xml failed.
+Debug: Inserting generic parameter 'key1|value5' into e2Detector
+Debug: Inserting generic parameter 'key2|' into e2Detector
+Debug: Inserting generic parameter 'key2|' into e2Detector
+Debug: Inserting generic parameter 'key3|$$value with spaces%%' into e2Detector
+Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
+Error: Parameters cannot be defined in either the additional file's root nor another parameter
+Debug: Inserting generic parameter 'keyOut|valueOut' into 
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.25Jun114037.7588\netedit.gui\additionalElements\e2MultiLaneDetector\load\parameters\input_additionals.add.xml failed.
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

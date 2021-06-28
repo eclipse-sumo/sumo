@@ -1,4 +1,5 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'routeProbe' in TagSelector
 Debug: Adding routeProbe 'routeProbe_gneE3_0' in GNEChange_Additional
@@ -16,7 +17,7 @@ Debug: Value '-50' for attribute freq of routeProbe isn't valid
 Debug: Setting new attribute freq '150' into routeProbe 'routeProbe_gneE3_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute freq '3600' into routeProbe 'routeProbe_gneE3_0'
+Debug: Setting previous attribute freq '3600.00' into routeProbe 'routeProbe_gneE3_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeProbe 'routeProbe_gneE3_0' in GNEChange_Additional

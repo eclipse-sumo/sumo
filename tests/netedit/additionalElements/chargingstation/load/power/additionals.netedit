@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-06-16 15:52:03 by Eclipse SUMO netedit Version v1_9_2+0584-04bc4eacab
+<!-- generated on 2021-06-28 10:46:48 by Eclipse SUMO netedit Version v1_9_2+0675-46e90d9cd9
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun150511.14604\netedit.gui\additionalElements\chargingstation\load\power\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun095940.2828\netedit.gui\additionalElements\chargingstation\load\power\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun150511.14604\netedit.gui\additionalElements\chargingstation\load\power\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun095940.2828\netedit.gui\additionalElements\chargingstation\load\power\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,34 +30,34 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun150511.14604\netedit.gui\additionalElements\chargingstation\load\power\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun150511.14604\netedit.gui\additionalElements\chargingstation\load\power\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun150511.14604\netedit.gui\additionalElements\chargingstation\load\power\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun150511.14604\netedit.gui\additionalElements\chargingstation\load\power\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun150511.14604\netedit.gui\additionalElements\chargingstation\load\power\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun150511.14604\netedit.gui\additionalElements\chargingstation\load\power\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun095940.2828\netedit.gui\additionalElements\chargingstation\load\power\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun095940.2828\netedit.gui\additionalElements\chargingstation\load\power\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun095940.2828\netedit.gui\additionalElements\chargingstation\load\power\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun095940.2828\netedit.gui\additionalElements\chargingstation\load\power\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun095940.2828\netedit.gui\additionalElements\chargingstation\load\power\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun095940.2828\netedit.gui\additionalElements\chargingstation\load\power\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun150511.14604\netedit.gui\additionalElements\chargingstation\load\power\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun095940.2828\netedit.gui\additionalElements\chargingstation\load\power\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun150511.14604\netedit.gui\additionalElements\chargingstation\load\power\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun095940.2828\netedit.gui\additionalElements\chargingstation\load\power\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun150511.14604\netedit.gui\additionalElements\chargingstation\load\power\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun095940.2828\netedit.gui\additionalElements\chargingstation\load\power\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <chargingStation id="chargingStation_0" lane="gneE1_0" startPos="0.00" endPos="2.00" name="chargingStation" power="0.00"/>
+    <chargingStation id="chargingStation_0" lane="gneE1_0" startPos="0.00" endPos="2.00" name="chargingStation"/>
     <chargingStation id="chargingStation_2" lane="gneE1_0" startPos="8.00" endPos="10.00" name="chargingStation" power="5000.50"/>
 </additional>

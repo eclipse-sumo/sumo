@@ -1713,9 +1713,10 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         }
                         const bool rightTurnConflict = NBNode::rightTurnConflict(
                                                            this, con.toEdge, con.fromLane, i2, k2.toEdge, k2.fromLane);
+                        const bool indirectTurnConflit = con.indirectLeft && this == i2 && dir2 == LinkDirection::STRAIGHT;
                         const bool mergeConflict = myTo->mergeConflict(this, con, i2, k2, true);
                         // compute foe internal lanes
-                        if (foes || rightTurnConflict || oppositeLeftIntersect || mergeConflict) {
+                        if (foes || rightTurnConflict || oppositeLeftIntersect || mergeConflict || indirectTurnConflit) {
                             foeInternalLinks.push_back(index);
                         }
                         // only warn once per pair of intersecting turns
@@ -1732,7 +1733,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         }
                         // compute foe incoming lanes
                         const bool signalised = hasSignalisedConnectionTo(con.toEdge);
-                        if ((n.forbids(i2, k2.toEdge, this, con.toEdge, signalised) || rightTurnConflict) && (needsCont || dir == LinkDirection::TURN)) {
+                        if ((n.forbids(i2, k2.toEdge, this, con.toEdge, signalised) || rightTurnConflict || indirectTurnConflit) && (needsCont || dir == LinkDirection::TURN)) {
                             tmpFoeIncomingLanes.insert(i2->getID() + "_" + toString(k2.fromLane));
                         }
                         if (bothPrio && oppositeLeftIntersect && getID() < i2->getID()) {

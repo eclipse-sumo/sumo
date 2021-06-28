@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01.09.2020 13:42:28 by Eclipse SUMO netedit Version v1_6_0+1866-3a89286b31
+<!-- generated on 2021-06-19 11:11:36 by Eclipse SUMO netedit Version v1_9_2+0572-e90aded036
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep133959.7564\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainer\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun124909.1060\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainers\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep133959.7564\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainer\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun124909.1060\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainers\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,28 +30,28 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep133959.7564\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainer\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep133959.7564\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainer\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep133959.7564\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainer\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep133959.7564\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainer\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep133959.7564\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainer\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep133959.7564\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainer\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun124909.1060\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainers\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun124909.1060\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainers\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun124909.1060\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainers\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun124909.1060\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainers\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun124909.1060\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainers\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun124909.1060\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainers\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep133959.7564\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainer\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun124909.1060\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainers\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep133959.7564\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainer\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun124909.1060\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainers\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep133959.7564\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainer\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun124909.1060\netedit.gui\demandElements\stop\stopBusStop\load\expectedContainers\log.txt"/>
     </report>
 
 </configuration>
@@ -59,9 +59,9 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="gneE0 gneE1" color="yellow" id="route_0">
-        <stop busStop="busStop" triggered="container"/>
-        <stop busStop="busStop" triggered="container"/>
-        <stop busStop="busStop" triggered="container"/>
-        <stop busStop="busStop" triggered="container"/>
+        <stop busStop="busStop" triggered="container" expectedContainers=""/>
+        <stop busStop="busStop" triggered="container" expectedContainers=";;;;"/>
+        <stop busStop="busStop" triggered="container" expectedContainers="ID1"/>
+        <stop busStop="busStop" triggered="container" expectedContainers="ID1 ID2"/>
     </route>
 </routes>

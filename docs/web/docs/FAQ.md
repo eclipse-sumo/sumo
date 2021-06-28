@@ -663,6 +663,8 @@ use the Linux version or download the [nightly-extra version](https://sumo.dlr.d
 
 - You can use [jtrrouter](jtrrouter.md) to [generate vehicles which drive randomly around the network with configurable turning ratios](Tutorials/Manhattan.md#generating_vehicles)
 
+- You can define a circular route with attribute `repeat="X"` where X is sufficiently large to cover the intended simulation time.
+
 - You can use the option **--max-num-vehicles** to set the desired number. Vehicle
   insertions are delayed whenever this number would be exceeded. To
   avoid a large number of delayed vehicles it is recommended to also

@@ -1,3 +1,4 @@
-Warning: Essential SUMOTime attribute 'freq' of routeProbe with ID 'routeProbe_0' is missing; routeProbe cannot be created
-Warning: Format of essential SUMOTime attribute 'freq' of routeProbe with ID 'routeProbe_1' is invalid; Cannot be parsed to SUMOTime; routeProbe cannot be created
-Warning: Format of essential SUMOTime attribute 'freq' of routeProbe with ID 'routeProbe_2' is invalid; Cannot be parsed to SUMOTime; routeProbe cannot be created
+Error: Attribute 'freq' is missing in definition of routeProbe 'routeProbe_0'.
+Error: Attribute 'freq' in definition of routeProbe 'routeProbe_1' is not a time value.
+Error: Could not build routeProbe with ID 'routeProbe_2' in netedit; attribute freq cannot be negative.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun142428.2364\netedit.gui\additionalElements\routeprobe\load\freq\input_additionals.add.xml failed.
