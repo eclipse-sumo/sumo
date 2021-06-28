@@ -65,10 +65,18 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.additional.trainstop "$@" & 
   texttest -a netedit.daily.additional.vaporizer "$@" & 
   texttest -a netedit.daily.additional.variablespeedsign "$@" & 
-  texttest -a netedit.daily.demand1 "$@" & 
-  texttest -a netedit.daily.demand2 "$@" & 
-  texttest -a netedit.daily.demand3 "$@" & 
-  texttest -a netedit.daily.demand4 "$@" & 
+  texttest -a netedit.daily.demand.basic "$@" & 
+  texttest -a netedit.daily.demand.flow "$@" & 
+  texttest -a netedit.daily.demand.flow_embedded "$@" & 
+  texttest -a netedit.daily.demand.person "$@" & 
+  texttest -a netedit.daily.demand.personFlow "$@" & 
+  texttest -a netedit.daily.demand.route "$@" & 
+  texttest -a netedit.daily.demand.routeflow "$@" & 
+  texttest -a netedit.daily.demand.stop "$@" & 
+  texttest -a netedit.daily.demand.trip "$@" & 
+  texttest -a netedit.daily.demand.vehicle "$@" & 
+  texttest -a netedit.daily.demand.vehicle_embedded "$@" & 
+  texttest -a netedit.daily.demand.vehicletype "$@" & 
   texttest -a netedit.daily.data "$@"
   wait
 else
@@ -104,10 +112,18 @@ else
   texttest.py -a netedit.daily.additional.trainstop "$@" & 
   texttest.py -a netedit.daily.additional.vaporizer "$@" & 
   texttest.py -a netedit.daily.additional.variablespeedsign "$@" & 
-  texttest.py -a netedit.daily.demand1 "$@" & 
-  texttest.py -a netedit.daily.demand2 "$@" & 
-  texttest.py -a netedit.daily.demand3 "$@" & 
-  texttest.py -a netedit.daily.demand4 "$@" & 
+  texttest.py -a netedit.daily.demand.basic "$@" & 
+  texttest.py -a netedit.daily.demand.flow "$@" & 
+  texttest.py -a netedit.daily.demand.flow_embedded "$@" & 
+  texttest.py -a netedit.daily.demand.person "$@" & 
+  texttest.py -a netedit.daily.demand.personFlow "$@" & 
+  texttest.py -a netedit.daily.demand.route "$@" & 
+  texttest.py -a netedit.daily.demand.routeflow "$@" & 
+  texttest.py -a netedit.daily.demand.stop "$@" & 
+  texttest.py -a netedit.daily.demand.trip "$@" & 
+  texttest.py -a netedit.daily.demand.vehicle "$@" & 
+  texttest.py -a netedit.daily.demand.vehicle_embedded "$@" & 
+  texttest.py -a netedit.daily.demand.vehicletype "$@" & 
   texttest.py -a netedit.daily.data "$@"
   wait
 fi
