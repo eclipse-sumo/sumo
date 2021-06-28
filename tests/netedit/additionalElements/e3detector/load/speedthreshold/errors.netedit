@@ -12,15 +12,14 @@ Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
 Error: Attribute 'speedThreshold' in definition of e3Detector 'e3Detector_1' is not of type float.
 Error: detEntry must be defined within the definition of a e3Detector
 Error: detExit must be defined within the definition of a e3Detector
-Debug: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
-GLDebug: 	Inserted e3Detector:e3Detector_2 into SUMORTree with boundary 20.00,0.00,40.00,20.00
-Debug: Adding detEntry 'e3Detector_2' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_2' in GNEChange_Additional
+Error: Could not build e3Detector with ID 'e3Detector_2' in netedit; attribute speedThreshold cannot be negative.
+Error: Could not build entry in netedit; e3Detector doesn't exist.
+Error: Could not build detExit in netedit; e3Detector doesn't exist.
 Debug: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3Detector_3 into SUMORTree with boundary 22.00,0.00,42.00,20.00
 Debug: Adding detEntry 'e3Detector_3' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_3' in GNEChange_Additional
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Jun141421.868\netedit.gui\additionalElements\e3detector\load\speedthreshold\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun150256.7928\netedit.gui\additionalElements\e3detector\load\speedthreshold\input_additionals.add.xml failed.
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -40,10 +39,6 @@ Debug: Deleting unreferenced detExit 'e3Detector_3'
 Debug: Deleting unreferenced detEntry 'e3Detector_3'
 Debug: Deleting unreferenced e3Detector 'e3Detector_3'
 GLDebug: 	Removed object e3Detector:e3Detector_3 from SUMORTree with boundary 22.00,0.00,42.00,20.00
-Debug: Deleting unreferenced detExit 'e3Detector_2'
-Debug: Deleting unreferenced detEntry 'e3Detector_2'
-Debug: Deleting unreferenced e3Detector 'e3Detector_2'
-GLDebug: 	Removed object e3Detector:e3Detector_2 from SUMORTree with boundary 20.00,0.00,40.00,20.00
 Debug: Deleting unreferenced detExit 'e3Detector_0'
 Debug: Deleting unreferenced detEntry 'e3Detector_0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
