@@ -21,7 +21,7 @@ Debug: Setting new attribute power '11000' into chargingStation 'chargingStation
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute power '13000.00' into chargingStation 'chargingStationB'
-Debug: Setting previous attribute power '22000.00' into chargingStation 'chargingStationA'
+Debug: Setting previous attribute power '21000.00' into chargingStation 'chargingStationA'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into chargingStation 'chargingStationB'
