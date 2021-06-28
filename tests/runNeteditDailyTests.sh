@@ -38,8 +38,12 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.common.complex "$@" & 
   texttest -a netedit.daily.common.selection "$@" & 
   texttest -a netedit.daily.common.volatileRecomputing "$@" & 
-  texttest -a netedit.daily.net1 "$@" & 
-  texttest -a netedit.daily.net2 "$@" & 
+  texttest -a netedit.daily.net.connections "$@" & 
+  texttest -a netedit.daily.net.crossings "$@" & 
+  texttest -a netedit.daily.net.edges "$@" & 
+  texttest -a netedit.daily.net.junctions "$@" & 
+  texttest -a netedit.daily.net.lanes "$@" & 
+  texttest -a netedit.daily.net.trafficlights "$@" & 
   texttest -a netedit.daily.additional1 "$@" & 
   texttest -a netedit.daily.additional2 "$@" & 
   texttest -a netedit.daily.additional3 "$@" & 
@@ -56,8 +60,12 @@ else
   texttest.py -a netedit.daily.common.complex "$@" & 
   texttest.py -a netedit.daily.common.selection "$@" & 
   texttest.py -a netedit.daily.common.volatileRecomputing "$@" & 
-  texttest.py -a netedit.daily.net1 "$@" & 
-  texttest.py -a netedit.daily.net2 "$@" & 
+  texttest.py -a netedit.daily.net.connections "$@" & 
+  texttest.py -a netedit.daily.net.crossings "$@" & 
+  texttest.py -a netedit.daily.net.edges "$@" & 
+  texttest.py -a netedit.daily.net.junctions "$@" & 
+  texttest.py -a netedit.daily.net.lanes "$@" & 
+  texttest.py -a netedit.daily.net.trafficlights "$@" & 
   texttest.py -a netedit.daily.additional1 "$@" & 
   texttest.py -a netedit.daily.additional2 "$@" & 
   texttest.py -a netedit.daily.additional3 "$@" & 
