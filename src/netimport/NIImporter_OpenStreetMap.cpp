@@ -858,6 +858,7 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
         // import all
         myExtraAttributes.clear();
     }
+    myImportBikeAccess = OptionsCont::getOptions().getBool("osm.bike-access");
 }
 
 NIImporter_OpenStreetMap::EdgesHandler::~EdgesHandler() = default;
@@ -959,6 +960,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 && key != "electrified"
                 && key != "bus"
                 && key != "psv"
+                && key != "foot"
+                && key != "bicycle"
+                && key != "oneway:bicycle"
                 && key != "public_transport") {
             return;
         }
@@ -1029,11 +1033,46 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 myCurrentEdge->myHighWayType = singleTypeID;
             }
         } else if (key == "bus" || key == "psv") {
-            // 'psv' inclures taxi in the UK but not in germany
-            if (value == "no") {
-                myCurrentEdge->myExtraDisallowed |= SVC_BUS;
-            } else {
+            // 'psv' includes taxi in the UK but not in germany
+            try {
+                if (StringUtils::toBool(value)) {
+                    myCurrentEdge->myExtraAllowed |= SVC_BUS;
+                } else {
+                    myCurrentEdge->myExtraDisallowed |= SVC_BUS;
+                }
+            } catch (const BoolFormatException&) {
                 myCurrentEdge->myExtraAllowed |= SVC_BUS;
+            }
+        } else if (key == "foot") {
+            try {
+                if (StringUtils::toBool(value)) {
+                    myCurrentEdge->myExtraAllowed |= SVC_PEDESTRIAN;
+                } else {
+                    myCurrentEdge->myExtraDisallowed |= SVC_PEDESTRIAN;
+                }
+            } catch (const BoolFormatException&) {}
+        } else if (key == "bicycle") {
+            if (myImportBikeAccess) {
+                try {
+                    if (StringUtils::toBool(value)) {
+                        myCurrentEdge->myExtraAllowed |= SVC_BICYCLE;
+                    } else {
+                        myCurrentEdge->myExtraDisallowed |= SVC_BICYCLE;
+                    }
+                } catch (const BoolFormatException&) {}
+            }
+        } else if (key == "oneway:bicycle") {
+            if (myImportBikeAccess) {
+                if (value == "true" || value == "yes" || value == "1") {
+                    myCurrentEdge->myCyclewayType = WAY_FORWARD;
+                }
+                if (value == "-1" || value == "reverse") {
+                    // one-way in reversed direction of way
+                    myCurrentEdge->myCyclewayType = WAY_BACKWARD;
+                }
+                if (value == "no" || value == "false" || value == "0") {
+                    myCurrentEdge->myCyclewayType = WAY_BOTH;
+                }
             }
         } else if (key == "lanes") {
             try {

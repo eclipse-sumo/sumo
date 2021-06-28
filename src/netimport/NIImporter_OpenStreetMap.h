@@ -286,9 +286,8 @@ private:
     /// @brief The compound types that have already been mapped to other known types
     std::map<std::string, std::string> myKnownCompoundTypes;
 
-    /// @brief import lane specifc access restrictions
+    /// @brief import lane specific access restrictions
     bool myImportLaneAccess;
-
 
     /** @brief Builds an NBNode
      *
@@ -349,7 +348,6 @@ protected:
      * @class NodesHandler
      * @brief A class which extracts OSM-nodes from a parsed OSM-file
      */
-    friend class NodesHandler;
     class NodesHandler : public SUMOSAXHandler {
     public:
         /** @brief Contructor
@@ -500,6 +498,9 @@ protected:
         bool myAllAttributes;
         /// @brief extra attributes to import
         std::set<std::string> myExtraAttributes;
+
+        /// @brief import bike path specific permissions and directions
+        bool myImportBikeAccess;
 
 
     private:
