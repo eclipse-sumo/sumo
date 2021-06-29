@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-06-28 16:30:27 by Eclipse SUMO netedit Version v1_9_2+0625-4a9c25012a
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <output>
+        <plain-output-prefix value="D:\dev\svn\Simulation\scenarios\test"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="98.99,95.69,201.82,117.10" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <node id="gneJ1" x="100.00" y="100.00" type="dead_end"/>
+    <node id="gneJ2" x="139.53" y="103.50" type="priority"/>
+    <node id="gneJ3" x="201.82" y="95.69" type="dead_end"/>
+    <node id="gneJ4" x="201.01" y="111.96" type="dead_end"/>
+    <node id="gneJ5" x="156.42" y="112.61" type="priority"/>
+    <node id="gneJ6" x="98.99" y="117.10" type="dead_end"/>
+</nodes>
