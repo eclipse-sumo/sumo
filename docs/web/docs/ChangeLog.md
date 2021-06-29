@@ -50,7 +50,7 @@ title: ChangeLog
 
 - tools
   - sumolib function 'parse_fast_nested' can now (again) ignore intermediate child elements (i.e. to parse vehicle and route if the route is inside a routeDistribution element). Issue #8508 (regression in 1.9.2)
-  - routeSampler.py: Fixec crashing when using **--geh-ok** or when setting more threads than intervals. Issue #8755
+  - routeSampler.py: Fixed crashing when using **--geh-ok** or when setting more threads than intervals. Issue #8755
 
   
 
