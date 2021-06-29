@@ -41,7 +41,7 @@ NBPTLine::NBPTLine(const std::string& id, const std::string& name, const std::st
 { }
 
 void NBPTLine::addPTStop(NBPTStop* pStop, bool isPlatform) {
-    if (!myPTStops.empty() && myPTStops.back()->getName() == pStop->getName()) {
+    if (!myPTStops.empty() && pStop->getName() != "" && myPTStops.back()->getName() == pStop->getName()) {
         // avoid duplicate stop when both platform and stop_position are given as nodes
         if (!isPlatform) {
             myPTStops.pop_back();
