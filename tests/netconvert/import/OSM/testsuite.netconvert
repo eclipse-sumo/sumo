@@ -143,4 +143,7 @@ spreadType
 
 # additional bike access
 bike_access
+
+# additional bike access with oneway bikes
+oneway_bike
 bugs
