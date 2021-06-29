@@ -41,7 +41,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 182, 130)
 
 # check parameters
-netedit.checkParameters(referencePosition, 6, False)
+netedit.checkParameters(referencePosition, 7, False)
 
 # save TAZs
 netedit.saveAdditionals(referencePosition)
