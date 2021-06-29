@@ -41,16 +41,16 @@ netedit.selectionInvertDemand()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 586, 303)
+netedit.leftClick(referencePosition, 113, 395)
 
 # change arrivalPos with an invalid value
-netedit.modifyAttribute(7, "", True)
+netedit.modifyAttribute(7, "", False)
 
 # change arrivalPos with an invalid value
-netedit.modifyAttribute(7, "dummyPos", True)
+netedit.modifyAttribute(7, "dummyPos", False)
 
 # change arrivalPos with a valid value
-netedit.modifyAttribute(7, "max", True)
+netedit.modifyAttribute(7, "max", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

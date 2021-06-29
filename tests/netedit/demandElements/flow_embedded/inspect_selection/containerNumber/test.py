@@ -41,22 +41,22 @@ netedit.selectionInvertDemand()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 586, 303)
+netedit.leftClick(referencePosition, 115, 400)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(11, "", True)
+netedit.modifyAttribute(11, "", False)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(11, "dummyNumber", True)
+netedit.modifyAttribute(11, "dummyNumber", False)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(11, "-5", True)
+netedit.modifyAttribute(11, "-5", False)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(11, "2.5", True)
+netedit.modifyAttribute(11, "2.5", False)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(11, "3", True)
+netedit.modifyAttribute(11, "3", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

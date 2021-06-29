@@ -41,19 +41,19 @@ netedit.selectionInvertDemand()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 586, 303)
+netedit.leftClick(referencePosition, 113, 395)
 
 # change color with an invalid value
-netedit.modifyAttribute(2, "", True)
+netedit.modifyAttribute(2, "", False)
 
 # change color with an invalid value
-netedit.modifyAttribute(2, "dummyColor", True)
+netedit.modifyAttribute(2, "dummyColor", False)
 
 # change color with an valid value
-netedit.modifyAttribute(2, "cyan", True)
+netedit.modifyAttribute(2, "cyan", False)
 
 # change color with a valid value
-netedit.modifyAttribute(2, "12,13,14", True)
+netedit.modifyAttribute(2, "12,13,14", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)
