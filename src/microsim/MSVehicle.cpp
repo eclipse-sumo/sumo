@@ -5065,7 +5065,8 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     int seen = 0;
     double seenLength = 0;
     bool progress = true;
-    const double maxBrakeDist = getCarFollowModel().brakeGap(getMaxSpeed()) + getVehicleType().getMinGap();
+    // bestLanes must cover the braking distance even when at the very end of the current lane to avoid unecessary slow down
+    const double maxBrakeDist = startLane->getLength() + getCarFollowModel().getHeadwayTime() * getMaxSpeed() + getCarFollowModel().brakeGap(getMaxSpeed()) + getVehicleType().getMinGap();
     for (MSRouteIterator ce = myCurrEdge; progress;) {
         std::vector<LaneQ> currentLanes;
         const std::vector<MSLane*>* allowed = nullptr;
