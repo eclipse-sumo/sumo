@@ -142,20 +142,15 @@ Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt
 Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle 'pt_tram_M1:2.0'.
 Warning: busStop '3918673888' on lane '388702039#10_0' is too short for vehicle 'pt_bus_N6:0.0'.
 Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle 'pt_bus_147:0.0'.
+Warning: Person 'ped37' is jammed on edge ':1264074482_c0', time=435.00.
 Warning: Teleporting vehicle 'pt_tram_M2:3.0'; frontal collision with vehicle 'pt_tram_M2:0.1', lane='-148458500#1_0', gap=-1.00, time=481.00 stage=move.
 Warning: busStop '3928759794' on lane '388702041#11_0' is too short for vehicle 'pt_bus_N6:1.0'.
 Warning: Vehicle 'pt_tram_M2:3.0' ends teleporting on edge '-148458500#0', time 485.00.
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; collision with vehicle 'pt_tram_M2:3.0', lane='148458500#1_0', gap=-1.00, time=486.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', time 486.00.
 Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=486.00.
-Warning: Teleporting vehicle 'bike37'; waited too long (wrong lane), lane='24992428_3', time=782.00.
-Warning: Vehicle 'bike37' ends teleporting on edge '81112790#1', time 782.00.
-Warning: Teleporting vehicle 'bike14'; waited too long (wrong lane), lane='24992428_4', time=783.00.
-Warning: Vehicle 'bike14' ends teleporting on edge '606078065', time 783.00.
-Warning: Person 'ped168' aborted waiting for 147:1 at busStop '3869306774'.
-Warning: Person 'ped49' aborted waiting for M5:0 at busStop '1633759766'.
-Warning: Person 'ped180' aborted waiting for TXL:1 at busStop '272408975'.
-Warning: Person 'ped75' aborted waiting for 200:0 at busStop '271296293'.
-Warning: Person 'ped44' aborted waiting for 200:0 at busStop '3867910420'.
-Warning: Person 'ped110' aborted waiting for 147:0 at busStop '3869306762'.
-Warning: Person 'ped162' aborted waiting for 147:0 at busStop '3869306762'.
+Warning: Person 'ped104' is jammed on edge ':2915545317_c0', time=1442.00.
+Warning: Person 'ped45' aborted waiting for 147:0 at busStop '3869306764'.
+Warning: Person 'ped87' aborted waiting for S5:1 at busStop '27411231'.
+Warning: Person 'ped171' aborted waiting for N2:1 at busStop '-3867910429'.
+Warning: Person 'ped190' aborted waiting for M48:0 at busStop '270718978'.
