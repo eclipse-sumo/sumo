@@ -2743,12 +2743,19 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
         divideSelectedLanesOnEdges(outgoing, availableLanes);
     }
     // clean up unassigned fromLanes
+    bool explicitTurnaround = false;
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
         if ((*i).fromLane == -1) {
+            if ((*i).toEdge == myTurnDestination && myTurnDestination != nullptr) {
+                explicitTurnaround = true;
+            }
             i = myConnections.erase(i);
         } else {
             ++i;
         }
+    }
+    if (explicitTurnaround) {
+        myConnections.push_back(Connection(myLanes.size() - 1, myTurnDestination, myTurnDestination->getNumLanes() - 1));
     }
     sortOutgoingConnectionsByIndex();
 }
