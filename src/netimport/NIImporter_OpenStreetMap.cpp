@@ -1579,8 +1579,11 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                     if (myStopAreas.count(n->id)) {
                         ptStop->setIsMultipleStopPositions(false, myStopAreas[n->id]);
                     }
+                    if (myPlatformStops.count(n->id) > 0) {
+                        ptStop->setIsPlatform();
+                    }
                 }
-                ptLine->addPTStop(ptStop, myPlatformStops.count(n->id) > 0);
+                ptLine->addPTStop(ptStop);
             }
             for (long long& myWay : myWays) {
                 auto entr = myOSMEdges.find(myWay);

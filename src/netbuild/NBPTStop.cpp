@@ -43,6 +43,7 @@ NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, 
     myEndPos(0),
     myBidiStop(nullptr),
     myIsLoose(origEdgeId == ""),
+    myIsPlatform(false),
     myIsMultipleStopPositions(false),
     myAreaID(-1) {
 }
