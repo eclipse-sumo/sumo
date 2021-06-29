@@ -1,14 +1,14 @@
 <viewsettings>
     <delay value="400"/>
     <viewport zoom="1000" x="500" y="650" centerX="664" centerY="631"/>
-    <decal filename="bs_141125_small_1/master.ive" centerX="-715838" centerY="-5808214" centerZ="-118"/>
-    <decal filename="tl:cluster_104171179_28142770_28298581_28298587:0" centerX="680" centerY="660" rotation="180" width="-1" height="-1" altitude="3"/>
-    <decal filename="tl:cluster_104171179_28142770_28298581_28298587:5" centerX="690" centerY="630" rotation="90" width="-1" height="-1" altitude="4"/>
-    <decal filename="tl:cluster_104171179_28142770_28298581_28298587:10" layer="-1" centerX="655" centerY="622.5" centerZ="3" width="-1" height="-1" altitude="1"/>
-    <decal filename="tl:cluster_104171179_28142770_28298581_28298587:11" layer="-1" centerX="654" centerY="627.5" centerZ="8" width="-1" height="-1" altitude="1"/>
-    <decal filename="tl:cluster_104171179_28142770_28298581_28298587:13" layer="-1" centerX="651.5" centerY="633" centerZ="8" width="-1" height="-1" altitude="1"/>
-    <decal filename="tl:cluster_104171179_28142770_28298581_28298587:14" layer="-1" centerX="650.5" centerY="636" centerZ="8" width="-1" height="-1" altitude="1"/>
-    <decal filename="tl:cluster_104171179_28142770_28298581_28298587:15" centerX="650" centerY="650" rotation="-90" width="-1" height="-1" altitude="4"/>
+    <decal file="bs_141125_small_1/master.ive" centerX="-715838" centerY="-5808214" centerZ="-118"/>
+    <decal file="tl:cluster_104171179_28142770_28298581_28298587:0" centerX="680" centerY="660" rotation="180" width="-1" height="-1" altitude="3"/>
+    <decal file="tl:cluster_104171179_28142770_28298581_28298587:5" centerX="690" centerY="630" rotation="90" width="-1" height="-1" altitude="4"/>
+    <decal file="tl:cluster_104171179_28142770_28298581_28298587:10" layer="-1" centerX="655" centerY="622.5" centerZ="3" width="-1" height="-1" altitude="1"/>
+    <decal file="tl:cluster_104171179_28142770_28298581_28298587:11" layer="-1" centerX="654" centerY="627.5" centerZ="8" width="-1" height="-1" altitude="1"/>
+    <decal file="tl:cluster_104171179_28142770_28298581_28298587:13" layer="-1" centerX="651.5" centerY="633" centerZ="8" width="-1" height="-1" altitude="1"/>
+    <decal file="tl:cluster_104171179_28142770_28298581_28298587:14" layer="-1" centerX="650.5" centerY="636" centerZ="8" width="-1" height="-1" altitude="1"/>
+    <decal file="tl:cluster_104171179_28142770_28298581_28298587:15" centerX="650" centerY="650" rotation="-90" width="-1" height="-1" altitude="4"/>
     <light centerX="671.02" centerY="639.20" centerZ="200"/>
     <scheme name="game_cross">
         <opengl antialiase="0" dither="0"/>
