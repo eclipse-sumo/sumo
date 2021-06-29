@@ -121,7 +121,7 @@ class Colorgen:
         return ','.join(map(str, self.byteTuple()))
 
 
-class PriorityDictionary(dict):
+class priorityDictionary(dict):
 
     def __init__(self):
         '''Initialize priorityDictionary by creating binary heap
