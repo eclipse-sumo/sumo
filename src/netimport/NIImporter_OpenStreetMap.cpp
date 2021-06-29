@@ -406,7 +406,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     }
     SVCPermissions forwardPermissions = permissions;
     SVCPermissions backwardPermissions = permissions;
-    const std::string streetName = isRailway(forwardPermissions) && e->ref != "" ? e->ref : e->streetName;
+    const std::string streetName = isRailway(permissions) && e->ref != "" ? e->ref : e->streetName;
     if (streetName == e->ref) {
         e->unsetParameter("ref"); // avoid superfluous param for railways
     }
@@ -430,6 +430,14 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     if (!e->myIsOneWay.empty() && e->myIsOneWay != "false" && e->myIsOneWay != "no" && e->myIsOneWay != "true"
             && e->myIsOneWay != "yes" && e->myIsOneWay != "-1" && e->myIsOneWay != "1" && e->myIsOneWay != "reverse") {
         WRITE_WARNINGF("New value for oneway found: %", e->myIsOneWay);
+    }
+    if (isBikepath(permissions) && e->myCyclewayType != WAY_UNKNOWN) {
+        if ((e->myCyclewayType & WAY_BACKWARD) == 0) {
+            addBackward = false;
+        }
+        if ((e->myCyclewayType & WAY_FORWARD) == 0) {
+            addForward = false;
+        }
     }
     // if we had been able to extract the number of lanes, override the highway type default
     if (e->myNoLanes > 0) {
