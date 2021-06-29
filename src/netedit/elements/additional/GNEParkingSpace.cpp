@@ -70,9 +70,9 @@ GNEParkingSpace::updateGeometry() {
 
 void
 GNEParkingSpace::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // obtain double values (temporal)
-    const double width = myWidth.empty()? 3.20 : parse<double>(myWidth);
-    const double length = myLength.empty()? 5.00 : parse<double>(myLength);
+    // obtain double values
+    const double width = myWidth.empty()? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_WIDTH) : parse<double>(myWidth);
+    const double length = myLength.empty()? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_LENGTH) : parse<double>(myLength);
     // first reset boundary
     myBoundary.reset();
     // add position
@@ -108,10 +108,10 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     const double parkingAreaExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // obtain double values (temporal)
-        const double width = myWidth.empty()? 3.20 : parse<double>(myWidth);
-        const double length = myLength.empty()? 5.00 : parse<double>(myLength);
-        const double angle = myAngle.empty()? 0 : parse<double>(myAngle);
+        // obtain double values
+        const double width = myWidth.empty()? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_WIDTH) : parse<double>(myWidth);
+        const double length = myLength.empty()? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_LENGTH) : parse<double>(myLength);
+        const double angle = myAngle.empty()? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ANGLE) : parse<double>(myAngle);
         // obtain values with exaggeration
         const double widthExaggeration = width * parkingAreaExaggeration;
         const double lengthExaggeration = length * parkingAreaExaggeration;
@@ -364,7 +364,7 @@ GNEParkingSpace::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNEParkingSpace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_X, toString(moveResult.newFirstPos)));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_X, toString(moveResult.shapeToUpdate.front().x())));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_Y, toString(moveResult.shapeToUpdate.front().y())));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_Z, toString(moveResult.shapeToUpdate.front().z())));
     undoList->p_end();

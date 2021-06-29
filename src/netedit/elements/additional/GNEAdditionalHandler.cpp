@@ -359,17 +359,18 @@ GNEAdditionalHandler::buildParkingSpace(const CommonXMLStructure::SumoBaseObject
     NeteditParameters neteditParameters(sumoBaseObject);
     // get lane
     GNEAdditional *parkingArea = myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    // get double values
+    const double widthDouble = GNEAttributeCarrier::canParse<double>(width)? GNEAttributeCarrier::parse<double>(width) : 0;
+    const double lengthDouble = GNEAttributeCarrier::canParse<double>(length)? GNEAttributeCarrier::parse<double>(length) : 0;
     // check lane
     if (parkingArea == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_PARKING_SPACE, SUMO_TAG_PARKING_AREA);
     } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
         writeErrorInvalidName(SUMO_TAG_PARKING_SPACE, parkingArea->getID(), SUMO_ATTR_NAME);
-/*
-    } else if (width < 0) {
+    } else if (widthDouble < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_PARKING_SPACE, parkingArea->getID(), SUMO_ATTR_WIDTH);
-    } else if (length < 0) {
+    } else if (lengthDouble < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_PARKING_SPACE, parkingArea->getID(), SUMO_ATTR_LENGTH);
-*/
     } else {
         // build parkingSpace
         GNEAdditional* parkingSpace = new GNEParkingSpace(myNet, parkingArea, x, y, z, width, length, angle, slope, name, parameters, neteditParameters.blockMovement);

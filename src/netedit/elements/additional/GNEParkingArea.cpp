@@ -206,6 +206,38 @@ GNEParkingArea::getAttribute(SumoXMLAttr key) const {
 }
 
 
+double
+GNEParkingArea::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_STARTPOS:
+            if (myStartPosition != INVALID_DOUBLE) {
+                return myStartPosition;
+            } else {
+                return 0;
+            }
+        case SUMO_ATTR_ENDPOS:
+            if (myEndPosition != INVALID_DOUBLE) {
+                return myEndPosition;
+            } else {
+                return getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+            }
+        case GNE_ATTR_CENTER:
+            return ((getAttributeDouble(SUMO_ATTR_ENDPOS) - getAttributeDouble(SUMO_ATTR_STARTPOS)) * 0.5) + getAttributeDouble(SUMO_ATTR_STARTPOS);
+        case SUMO_ATTR_WIDTH:
+            return myWidth;
+        case SUMO_ATTR_LENGTH: {
+            // calculate spaceDim
+            const double spaceDim = myRoadSideCapacity > 0 ? (getAttributeDouble(SUMO_ATTR_ENDPOS) - getAttributeDouble(SUMO_ATTR_STARTPOS)) / myRoadSideCapacity * getParentLanes().front()->getLengthGeometryFactor() : 7.5;
+            return (myLength > 0)? myLength : spaceDim;
+        }
+        case SUMO_ATTR_ANGLE:
+            return myAngle;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
+}
+
+
 void
 GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -377,11 +409,19 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_WIDTH:
             myWidth = parse<double>(value);
+            // update geometry of all spaces
+            for (const auto &space : getChildAdditionals()) {
+                space->updateGeometry();
+            }
             // update boundary
             updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_LENGTH:
             myLength = parse<double>(value);
+            // update geometry of all spaces
+            for (const auto &space : getChildAdditionals()) {
+                space->updateGeometry();
+            }
             break;
         case SUMO_ATTR_ANGLE:
             myAngle = parse<double>(value);
