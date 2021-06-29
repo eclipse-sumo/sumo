@@ -42,6 +42,7 @@ title: ChangeLog
   - Call tracing is now reset properly on restart in the python client for libsumo. Issue #8671
   - Fixed sumo-gui crash when calling loadState. Issue #8698
   - Fixed crash when calling vehicle.moveTo. Issue #8714
+  - Fixed missing follower information when calling 'traci.vehicle.getFollower' while on an internal edge. Issue #8701
   - Fixed crash when calling simulation.loadState while retrieving insertion backlog in sumo-gui. Issue #8730
   - Fixed deadlock after calling trafficlight.swapConstraints. Issue #8455
   - Libsumo now works with python3.8 on windows. Issue #5700
@@ -77,8 +78,7 @@ title: ChangeLog
 
 - traci
   - Added function 'traci.vehicle.getTimeLoss' to retrieve the timeLoss since departure. Issue #8679
-  - Added function 'traci.vehicle.setPreviousSpeed' to modify the speed assumed by Sumo during the prior step (i.e. for computation of possible acceleration). This can be combined with 'traci.vehicle.moveTo' to override the behavior in the previous step. Issue #7190
-  - Fixed missing follower information when calling 'traci.vehicle.getFollower' while on an internal edge. Issue #8701
+  - Added function 'traci.vehicle.setPreviousSpeed' to modify the speed assumed by Sumo during the prior step (i.e. for computation of possible acceleration). This can be combined with 'traci.vehicle.moveTo' to override the behavior in the previous step. Issue #7190  
   - Added new speed mode bit to control right-of-way compliance w.r.t. foe vehicles within an intersection. Issue #8675
 
 - tools
