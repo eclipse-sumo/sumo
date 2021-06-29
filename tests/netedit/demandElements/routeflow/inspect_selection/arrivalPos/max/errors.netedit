@@ -74,6 +74,7 @@ Debug: Setting new attribute selected 'true' into flowRoute 'flowA'
 Debug: Setting new attribute selected 'true' into flowRoute 'flowB'
 Debug: Setting new attribute arrivalPos 'max' into flowRoute 'flowA'
 Debug: Setting new attribute arrivalPos 'max' into flowRoute 'flowB'
+Debug: Value 'dummyPos' for attribute arrivalPos of flowRoute isn't valid
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute arrivalPos 'random' into flowRoute 'flowB'
