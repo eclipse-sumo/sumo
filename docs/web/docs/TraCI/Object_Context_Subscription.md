@@ -77,8 +77,8 @@ Some notes:
   the subscription is removed if the simulation has reached a higher
   time step; in ms
 - Context Domain: the type of objects in the addressed object's
-  surrounding to ask values from
-- Context Range: the radius of the surrounding
+  surroundings to ask values from
+- Context Range: the radius of the surroundings
 - The size of the variables list must be equal to the field "Variable
   Number".
 
@@ -108,14 +108,26 @@ Count).
 | :---------: | :------------: | :--------------------------------: |
 | filter type | parameter type |          parameter value           |
 
-For the parameter, different value types are possible depending on the
-filter type. The lanes filter (FILTER_TYPE_LANES) takes a list of
-bytes, vType (FILTER_TYPE_VTYPE) and vClass filter
-(FILTER_TYPE_VCLASS) take a list of strings, the downstream/upstream/lateral
-filters, as well as the field of vision filter take a double (FILTER_TYPE_DOWNSTREAM_DIST,
-FILTER_TYPE_UPSTREAM_DIST, FILTER_TYPE_LATERAL_DIST, FILTER_TYPE_FIELD_OF_VISION),
-and no parameters are expected for the no-opposite filter (FILTER_TYPE_NOOPPOSITE),
-the lead/follow filter (FILTER_TYPE_LEAD_FOLLOW), and the turn filter (FILTER_TYPE_TURN).
+Currently, the following context subscription filter types are implemented:
+
+| filter name | filter type |   parameter value   |     description     |       uses context range       |
+|  ---------  | :---------: | :-----------------: |  -----------------  | :----------------------------: |
+| lanes       | 0x01        |    list(byte)       | only return vehicles on list of lanes relative to ego vehicle | no |
+| no-opposite | 0x02        |    -                | exclude vehicles on opposite (and other) lanes | yes |
+| downstream distance | 0x03|    double           | only return vehicles within the given downstream distance | no |
+| upstream distance | 0x04  |    double           | only return vehicles within the given maximal upstream distance | no |
+| leader/follower   | 0x05  |    -                | only return leader and follower on the specified lanes (requires 'lanes' filter) | no |
+| turn        | 0x07        |    -                | only return foes on upcoming junction | no |
+| vClass      | 0x08        |    list(string)     | only return vehicles of the given vClass(es) | yes |
+| vType       | 0x09        |    list(string)     | only return vehicles of the given vType(s) | yes |
+| field of vision | 0x0A    |    double           | only return vehicles within field of vision (angle in degrees) | yes |
+| lateral distance| 0x0B    |    double           | only return vehicles within the given lateral distance | no |
+
+### Intercompatibility
+
+While the context subscription filters can - in principal - be combined, be aware that not all combinations will work (or at least not as expected).
+This is due to the fact that a sub-class of the filters (see last column 'uses context range' above) does not operate on the set of objects collected within the context subscription's range but operates on the set of objects defined by their respective filter parameters instead.
+Consequently, a combination of, e.g., the field-of-vision and lateral distance filter is infeasible.
 
 # Client library methods
 
