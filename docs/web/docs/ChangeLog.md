@@ -9,8 +9,14 @@ title: ChangeLog
 - simulation
   - fixed invalid state file when using option **--vehroute-output.exit-times** and saved vehicles are still on their first edge. Issue #8536 (regression in 1.9.1)
   - Saved simulation state now restores traffic light phase and phase duration. Issue #7020
+  - Fixed deadlock after loading rail signal constraints from state. Issue #8732
+  - Fixed emergency braking with continuous lane changing. Issue #8466
+  - Fixed crash when using routing algorithm 'CH' with device.rerouting.threads > 1. Issue #8767
+  - Fixed train colliding with itself after early reversal. Issue #8768
+  - Fixed collision with indirect left turn at priority junction (requires network with new 'indirect' attribute). Issue #8775
 
 - sumo-gui
+  - Fixed briefly invisible vehicle while passing short internal edge. Issue #8749 (regression in 1.9.0)
   - Drawing parkingAreas with large roadsideCapacity no longer causes the gui to slow down. Issue #8400
 
 - netedit
@@ -18,17 +24,32 @@ title: ChangeLog
   - Fixed invalid error when trying to place additional objects on edges with length/geometry mismatch. Issue #8692
   - Fixed invalid restriction when trying to move additional objects on edges with length/geometry mismatch. Issue #8694
   - Fixed invalid rendering of detEntry and detExit direction. Issue #8693
+  - Default edge permission in create edge mode are now working. Issue #8562
+  - Fixed crash in tls mode after deleting lanes. Issue #8743
 
 - netconvert
   - Fixed missing bus permissions in OSM import. Issue #8587
+  - Fixed invalid junction shape at geometry-like junction with crossing (was causing invalid simulation behavior). Issue #8779
+  - Fixed duplicate busStops when importing public transport lines from OSM. Issue #8791
+  - Fixed missing turnaround when specifying edge-level connectivity in .con.xml. Issue #8796
+
+- duarouter
+  - Access cost is no longer ignored when using persontrip.transfer.car-walk=ptStops. Issue #8515
+  - Fixed invalid error when using routing algorithm 'CH' in multimodal network. Issue #8756
+  - Fixed invalid acceptance of broken input when using routing algorithm CHWrapper. Issue #8766
 
 - traci
   - Call tracing is now reset properly on restart in the python client for libsumo. Issue #8671
   - Fixed sumo-gui crash when calling loadState. Issue #8698
   - Fixed crash when calling vehicle.moveTo. Issue #8714
+  - Fixed crash when calling simulation.loadState while retrieving insertion backlog in sumo-gui. Issue #8730
+  - Fixed deadlock after calling trafficlight.swapConstraints. Issue #8455
+  - Libsumo now works with python3.8 on windows. Issue #5700
+  - Libtraci now supports multiple traci client. Issue #8773
 
 - tools
   - sumolib function 'parse_fast_nested' can now (again) ignore intermediate child elements (i.e. to parse vehicle and route if the route is inside a routeDistribution element). Issue #8508 (regression in 1.9.2)
+  - routeSampler.py: Fixec crashing when using **--geh-ok** or when setting more threads than intervals. Issue #8755
 
   
 
@@ -40,8 +61,14 @@ title: ChangeLog
   
 - netedit
   - Connection mode button 'Reset connections' now immediately recomputes connections at the affected junctions. Issue #8658
+  - Add demand mode toggle button to show the shortest route for all trips. Issue #8638
+  - Vehicle arrival position can now be modified in move mode. Issue #8543
 
-- neconvert
+- sumo-gui
+  - Active insertionPredecessor constraints are now indicated via lane parameters. Issue #8737
+
+- netconvert
+  - Indirect (bicycled) turns can now be created by setting connection attribute 'indirect'. Issue #4252
   - Option **--default.spreadtype roadCenter** can now be used to improve the geometry of edges with different lane numbers per direction when importing OSM. Issue #8713
 
 - duarouter
@@ -52,13 +79,16 @@ title: ChangeLog
   - Added function 'traci.vehicle.getTimeLoss' to retrieve the timeLoss since departure. Issue #8679
   - Added function 'traci.vehicle.setPreviousSpeed' to modify the speed assumed by Sumo during the prior step (i.e. for computation of possible acceleration). This can be combined with 'traci.vehicle.moveTo' to override the behavior in the previous step. Issue #7190
   - Fixed missing follower information when calling 'traci.vehicle.getFollower' while on an internal edge. Issue #8701
+  - Added new speed mode bit to control right-of-way compliance w.r.t. foe vehicles within an intersection. Issue #8675
 
 - tools
   - [cutRoutes.py](Tools/Routes.md#cutroutespy) now handles vehicle attributes 'arrivalEdge' and 'departEdge'. Issue #8644  
   - Added new tool [stateReplay.py](Tools/Misc.md#statereplaypy) to visually observe a simulation that is running without gui (i.e. on a remote server).
   - [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy) can now make use of post-facto stop timing data (attribute 'started', 'ended'). Issue #8610
+  - [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy) now generates insertionPredecessor constraint to fix the insertion order after a parking-stop. Issue #8736
   - Added netdiff.py option **--remove-plain** to automatically clean up temporary files. Issue #8712
   - [gtfs2pt.py](Tools/Import/GTFS.md) vTypes are now written as a separated output file. The name of the file can be defined with **--vtype-output**. Issue #8646
+  - Added option **--dpi** to plot_summary.py and other plotting tools. Issue #8761
   
 
 ### Miscelaneous
