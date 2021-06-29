@@ -8,12 +8,11 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding parkingArea 'parkingArea_0' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 3.00,-23.60,52.00,-3.60
 Error: Attribute 'roadsideCapacity' in definition of parkingArea 'parkingArea_1' is not of type int.
-Debug: Adding parkingArea 'parkingArea_2' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingArea_2 into SUMORTree with boundary 7.00,-23.60,56.00,-3.60
+Error: Could not build parkingArea with ID 'parkingArea_2' in netedit; attribute roadsideCapacity cannot be negative.
 Error: Attribute 'roadsideCapacity' in definition of parkingArea 'parkingArea_3' is not of type int.
 Debug: Adding parkingArea 'parkingArea_4' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_4 into SUMORTree with boundary 16.00,3.60,65.00,23.60
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun095412.18776\netedit.gui\additionalElements\parkingarea\load\roadsidecapacity\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.29Jun113700.7052\netedit.gui\additionalElements\parkingarea\load\roadsidecapacity\input_additionals.add.xml failed.
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -31,8 +30,6 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced parkingArea 'parkingArea_4'
 GLDebug: 	Removed object parkingArea:parkingArea_4 from SUMORTree with boundary 16.00,3.60,65.00,23.60
-Debug: Deleting unreferenced parkingArea 'parkingArea_2'
-GLDebug: 	Removed object parkingArea:parkingArea_2 from SUMORTree with boundary 7.00,-23.60,56.00,-3.60
 Debug: Deleting unreferenced parkingArea 'parkingArea_0'
 GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 3.00,-23.60,52.00,-3.60
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
