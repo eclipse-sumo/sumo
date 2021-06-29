@@ -161,8 +161,15 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
                 WRITE_WARNINGF("Could not re-assign PT stop '%', probably broken osm file.", stop->getID());
                 continue;
             }
+            if (stop->getLines().size() > 0) {
+                NBPTStop* reverseStop = sc.getReverseStop(stop, ec);
+                sc.insert(reverseStop);
+                line->replaceStop(stop, reverseStop);
+                stop = reverseStop;
+            } else {
+                WRITE_WARNINGF("PT stop '%' has been moved to edge '%'.", stop->getID(), reverse->getID());
+            }
             stop->setEdgeId(reverse->getID(), ec);
-            WRITE_WARNINGF("PT stop '%' has been moved to edge '%'.", stop->getID(), reverse->getID());
         }
         stop->addLine(line->getRef());
     }

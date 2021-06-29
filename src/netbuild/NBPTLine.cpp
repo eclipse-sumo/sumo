@@ -40,9 +40,16 @@ NBPTLine::NBPTLine(const std::string& id, const std::string& name, const std::st
     myVClass(vClass)
 { }
 
-void NBPTLine::addPTStop(NBPTStop* pStop) {
+void NBPTLine::addPTStop(NBPTStop* pStop, bool isPlatform) {
+    if (!myPTStops.empty() && myPTStops.back()->getName() == pStop->getName()) {
+        // avoid duplicate stop when both platform and stop_position are given as nodes
+        if (!isPlatform) {
+            myPTStops.pop_back();
+        }  else {
+            return;
+        }
+    }
     myPTStops.push_back(pStop);
-
 }
 
 std::vector<NBPTStop*> NBPTLine::getStops() {
@@ -250,15 +257,20 @@ void
 NBPTLine::deleteDuplicateStops() {
     // delete subsequent stops that belong to the same stopArea
     long long int lastAreaID = -1;
+    std::string lastName = "";
     for (auto it = myPTStops.begin(); it != myPTStops.end();) {
         NBPTStop* stop = *it;
         if (lastAreaID != -1 && stop->getAreaID() == lastAreaID) {
             WRITE_WARNINGF("Removed duplicate stop '%' at area '%' from line '%'.", stop->getID(), toString(lastAreaID), getLineID());
             it = myPTStops.erase(it);
+        } else if (lastName != "" && stop->getName() == lastName) {
+            WRITE_WARNINGF("Removed duplicate stop '%' named '%' from line '%'.", stop->getID(), lastName, getLineID());
+            it = myPTStops.erase(it);
         } else {
             it++;
         }
         lastAreaID = stop->getAreaID();
+        lastName = stop->getName();
     }
 }
 

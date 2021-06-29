@@ -93,6 +93,8 @@ public:
 
     NBPTStop* findStop(const std::string& origEdgeID, Position pos, double threshold = 1) const;
 
+    NBPTStop* getReverseStop(NBPTStop* pStop, const NBEdgeCont& ec);
+
 private:
     /// @brief Definition of the map of names to pt stops
     typedef std::map<std::string, NBPTStop*> PTStopsCont;
@@ -102,8 +104,6 @@ private:
 
     /// @brief The map of edge ids to stops
     std::map<std::string, std::vector<NBPTStop*> > myPTStopLookup;
-
-    NBPTStop* getReverseStop(NBPTStop* pStop, NBEdgeCont& cont);
 
 
     void assignPTStopToEdgeOfClosestPlatform(NBPTStop* pStop, NBEdgeCont& cont);

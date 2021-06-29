@@ -628,6 +628,9 @@ protected:
         /// @brief bus stop references
         std::vector<long long int> myStops;
 
+        /// @brief myStops which are actually platforms (in case there is no stop_position)
+        std::set<long long int> myPlatformStops;
+
 
         struct NIIPTPlatform {
             long long int ref;

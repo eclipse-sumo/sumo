@@ -42,7 +42,7 @@ public:
              const std::string& type, const std::string& ref, int interval, const std::string& nightService,
              SUMOVehicleClass vClass);
 
-    void addPTStop(NBPTStop* pStop);
+    void addPTStop(NBPTStop* pStop, bool isPlatform = false);
 
     const std::string& getLineID() const {
         return myPTLineId;

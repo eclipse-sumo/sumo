@@ -106,6 +106,10 @@ public:
         return myEndPos;
     }
 
+    const std::vector<std::string>& getLines() const {
+        return myLines;
+    }
+
     /// @brief mirror coordinates along the x-axis
     void mirrorX();
 

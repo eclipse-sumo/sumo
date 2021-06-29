@@ -1306,6 +1306,7 @@ NIImporter_OpenStreetMap::RelationHandler::resetValues() {
     myRestrictionType = RestrictionType::UNKNOWN;
     myPlatforms.clear();
     myStops.clear();
+    myPlatformStops.clear();
     myWays.clear();
     myIsStopArea = false;
     myIsRoute = false;
@@ -1373,6 +1374,7 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
             } else if (memberType == "node") {
                 // myIsStopArea may not be set yet
                 myStops.push_back(ref);
+                myPlatformStops.insert(ref);
                 NIIPTPlatform platform;
                 platform.isWay = false;
                 platform.ref = ref;
@@ -1578,7 +1580,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                         ptStop->setIsMultipleStopPositions(false, myStopAreas[n->id]);
                     }
                 }
-                ptLine->addPTStop(ptStop);
+                ptLine->addPTStop(ptStop, myPlatformStops.count(n->id) > 0);
             }
             for (long long& myWay : myWays) {
                 auto entr = myOSMEdges.find(myWay);
