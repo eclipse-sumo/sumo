@@ -75,7 +75,7 @@ void NBPTLineCont::process(NBEdgeCont& ec, NBPTStopCont& sc, bool routeOnly) {
             }
         }
         line->deleteInvalidStops(ec, sc);
-        line->deleteDuplicateStops();
+        //line->deleteDuplicateStops();
         for (NBPTStop* stop : line->getStops()) {
             myServedPTStops.insert(stop->getID());
         }
