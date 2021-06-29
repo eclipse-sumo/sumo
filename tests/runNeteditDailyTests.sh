@@ -83,7 +83,7 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.demand.vehicle_embedded "$@" &
   texttest -a netedit.daily.demand.vehicletype "$@" &
   texttest -a netedit.daily.demand.stop.basic "$@" &
-  texttest -a netedit.daily.demand.stop.bustop "$@" & 
+  texttest -a netedit.daily.demand.stop.busstop "$@" & 
   texttest -a netedit.daily.demand.stop.chargingstation "$@" &
   texttest -a netedit.daily.demand.stop.containerstop "$@" &
   texttest -a netedit.daily.demand.stop.lane "$@" &
@@ -143,7 +143,7 @@ else
   texttest.py -a netedit.daily.demand.vehicle_embedded "$@" &
   texttest.py -a netedit.daily.demand.vehicletype "$@" &
   texttest.py -a netedit.daily.demand.stop.basic "$@" &
-  texttest.py -a netedit.daily.demand.stop.bustop "$@" & 
+  texttest.py -a netedit.daily.demand.stop.busstop "$@" & 
   texttest.py -a netedit.daily.demand.stop.chargingstation "$@" &
   texttest.py -a netedit.daily.demand.stop.containerstop "$@" &
   texttest.py -a netedit.daily.demand.stop.lane "$@" &
