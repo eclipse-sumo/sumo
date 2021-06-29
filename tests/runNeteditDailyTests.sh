@@ -78,7 +78,6 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.demand.personflow "$@" &
   texttest -a netedit.daily.demand.route "$@" &
   texttest -a netedit.daily.demand.routeflow "$@" &
-  texttest -a netedit.daily.demand.stop "$@" &
   texttest -a netedit.daily.demand.trip "$@" &
   texttest -a netedit.daily.demand.vehicle "$@" &
   texttest -a netedit.daily.demand.vehicle_embedded "$@" &
@@ -139,7 +138,6 @@ else
   texttest.py -a netedit.daily.demand.personflow "$@" &
   texttest.py -a netedit.daily.demand.route "$@" &
   texttest.py -a netedit.daily.demand.routeflow "$@" &
-  texttest.py -a netedit.daily.demand.stop "$@" &
   texttest.py -a netedit.daily.demand.trip "$@" &
   texttest.py -a netedit.daily.demand.vehicle "$@" &
   texttest.py -a netedit.daily.demand.vehicle_embedded "$@" &
