@@ -848,6 +848,7 @@ Here, a connection from the edge's "*<FROM_EDGE_ID\>*" lane with the number *<IN
 | changeLeft        | list of vehicle classes | List of vehicle classes that may change left from this lane |
 | changeRight       | list of vehicle classes | List of vehicle classes that may change right from this lane |
 | length  | float    |    | set a [custom length](../Simulation/Distances.md#length-geometry-mismatch) for this connection |
+| indirect | bool    | false | declare an indirect (two-step) turning movement (affects geometry and right-of-way) |
 
 If you only wish to **remove** a connection it may be convenient to use
 the following xml definition: `<delete from="<FROM_EDGE_ID>" to="<T0_EDGE_ID>"/>`. The attributes are the same as for the
