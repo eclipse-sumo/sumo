@@ -71,6 +71,8 @@ title: ChangeLog
 - netconvert
   - Indirect (bicycled) turns can now be created by setting connection attribute 'indirect'. Issue #4252
   - Option **--default.spreadtype roadCenter** can now be used to improve the geometry of edges with different lane numbers per direction when importing OSM. Issue #8713
+  - Option **--osm.bike-access** now enables the import of additional bike path tags such as bicycle=yes/no and oneway:bicycle=yes/no. Issue #8788
+  - Tag foot=yes/no is now imported from OSM to adapt permissions for pedestrians. Issue #8788
 
 - duarouter
   - Attributes fromLonLat and toLonLat are now supported for personTrip. Issue #8665

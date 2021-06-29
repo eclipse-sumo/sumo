@@ -104,6 +104,14 @@ below.
 !!! caution
     When specifying a typemap using the option **--type-files**, the defaults are not loaded. To achieve the desired types, the user should load the default typemap along with the desired modification (**--type-files <SUMO_HOME\>/data/typemap/osmNetconvert.typ.de,<SUMO_HOME\>/data/typemap/osmNetconvertUrbanDe.typ.de** or create a fully specified typemap file by himself.
 
+### Bicycle Traffic
+
+Importing bicycle infrastructure can be achieved using the option **--osm-bike-access** and the bicycle typemap.
+The first will evaluate the [bike=yes/no tags](https://wiki.openstreetmap.org/wiki/Key:bicycle)
+as well as oneway information for bicycles. This usually applies only to the permissions
+for existing lanes and streets. If you want to add further bike lanes use the bicycle
+type map mentioned above.
+
 # Importing additional Polygons (Buildings, Water, etc.)
 
 OSM-data not only contains the road network but also a wide range of
