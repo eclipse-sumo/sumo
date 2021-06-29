@@ -30,8 +30,8 @@ Debug: Setting new attribute speedThreshold '6.3' into e2MultilaneDetector 'e2Mu
 Debug: Setting new attribute speedThreshold '6.3' into e2MultilaneDetector 'e2MultilaneDetector_1'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute speedThreshold '0.13' into e2MultilaneDetector 'e2MultilaneDetector_1'
-Debug: Setting previous attribute speedThreshold '0.13' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting previous attribute speedThreshold '1.39' into e2MultilaneDetector 'e2MultilaneDetector_1'
+Debug: Setting previous attribute speedThreshold '1.39' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into e2MultilaneDetector 'e2MultilaneDetector_1'

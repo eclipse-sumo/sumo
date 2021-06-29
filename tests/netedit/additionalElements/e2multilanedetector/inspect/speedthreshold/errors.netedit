@@ -13,7 +13,7 @@ Debug: Value '-12.1' for attribute speedThreshold of e2MultilaneDetector isn't v
 Debug: Setting new attribute speedThreshold '6.3' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute speedThreshold '0.13' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting previous attribute speedThreshold '1.39' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
