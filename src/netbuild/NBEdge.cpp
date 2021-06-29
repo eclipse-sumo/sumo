@@ -2411,6 +2411,10 @@ NBEdge::computeEdge2Edges(bool noLeftMovers) {
                 fabs(NBHelpers::normRelAngle(getAngleAtNode(myTo), (*i)->getAngleAtNode(myTo))) > 90) {
             continue;
         }
+        if (*i == myTurnDestination) {
+            // will be added by appendTurnaround
+            continue;
+        }
         myConnections.push_back(Connection(-1, *i, -1));
     }
     myStep = EdgeBuildingStep::EDGE2EDGES;
