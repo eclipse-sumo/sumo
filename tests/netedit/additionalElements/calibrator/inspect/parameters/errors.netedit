@@ -1,7 +1,7 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'calibrator' in TagSelector
-Debug: Format of optional optional string attribute 'routeProbe' of calibrator with ID 'calibrator_gneE2_0' is invalid; RouteProbe ID contains invalid characters; Default value will be used.
 Debug: Adding calibrator 'calibrator_gneE2_0' in GNEChange_Additional
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into calibrator 'calibrator_gneE2_0'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into calibrator 'calibrator_gneE2_0'

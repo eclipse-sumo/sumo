@@ -34,6 +34,9 @@ netedit.additionalMode()
 # select calibrator
 netedit.changeElement("calibrator")
 
+# disable center view
+netedit.changeDefaultBoolValue(11)
+
 # change routeprobe with a invalid routeProbe ID
 netedit.changeDefaultValue(6, ";;;;;%%;;;;")
 
