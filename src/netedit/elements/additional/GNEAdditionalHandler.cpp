@@ -313,6 +313,8 @@ GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject*
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
         GNELane *lane = myNet->retrieveLane(laneID, false);
+        // get departPos double
+        const double departPosDouble = GNEAttributeCarrier::canParse<double>(departPos)? GNEAttributeCarrier::parse<double>(departPos) : 0;
         // check lane
         if (lane == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_PARKING_AREA, SUMO_TAG_LANE);
@@ -326,14 +328,12 @@ GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject*
             writeErrorInvalidNegativeValue(SUMO_TAG_PARKING_AREA, id, SUMO_ATTR_WIDTH);
         } else if (length < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_PARKING_AREA, id, SUMO_ATTR_LENGTH);
-/*
-} else if ((departPos < 0) || departPos > 
-CHECK DEPART POS
-*/
+        } else if ((departPosDouble < 0) || (departPosDouble > lane->getParentEdge()->getNBEdge()->getFinalLength())) {
+            WRITE_ERROR("Could not build " + toString(SUMO_TAG_PARKING_AREA) + " with ID '" + id + "' in netedit; Invalid " + toString(SUMO_ATTR_DEPARTPOS) + " over lane.");
         } else {
             // build parkingArea
             GNEAdditional* parkingArea = new GNEParkingArea(id, lane, myNet, startPos, endPos, departPos, name, friendlyPosition, roadSideCapacity,
-                                                            onRoad, width, length, angle, parameters, neteditParameters.blockMovement);
+                                                            onRoad, (width == 0)? SUMO_const_laneWidth : width, length, angle, parameters, neteditParameters.blockMovement);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_PARKING_AREA));
