@@ -83,12 +83,12 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.demand.vehicle "$@" &
   texttest -a netedit.daily.demand.vehicle_embedded "$@" &
   texttest -a netedit.daily.demand.vehicletype "$@" &
-  texttest -a netedit.daily.demand.basic "$@" &
-  texttest -a netedit.daily.demand.bustop "$@" & 
-  texttest -a netedit.daily.demand.chargingstation "$@" &
-  texttest -a netedit.daily.demand.containerstop "$@" &
-  texttest -a netedit.daily.demand.lane "$@" &
-  texttest -a netedit.daily.demand.parkingarea "$@" &
+  texttest -a netedit.daily.demand.stop.basic "$@" &
+  texttest -a netedit.daily.demand.stop.bustop "$@" & 
+  texttest -a netedit.daily.demand.stop.chargingstation "$@" &
+  texttest -a netedit.daily.demand.stop.containerstop "$@" &
+  texttest -a netedit.daily.demand.stop.lane "$@" &
+  texttest -a netedit.daily.demand.stop.parkingarea "$@" &
   texttest -a netedit.daily.data.edgeData "$@" &
   texttest -a netedit.daily.data.edgeRelData "$@" &
   texttest -a netedit.daily.complex "$@" &
@@ -144,11 +144,11 @@ else
   texttest.py -a netedit.daily.demand.vehicle "$@" &
   texttest.py -a netedit.daily.demand.vehicle_embedded "$@" &
   texttest.py -a netedit.daily.demand.vehicletype "$@" &
-  texttest.py -a netedit.daily.demand.basic "$@" &
-  texttest.py -a netedit.daily.demand.bustop "$@" & 
-  texttest.py -a netedit.daily.demand.chargingstation "$@" &
-  texttest.py -a netedit.daily.demand.containerstop "$@" &
-  texttest.py -a netedit.daily.demand.lane "$@" &
+  texttest.py -a netedit.daily.demand.stop.basic "$@" &
+  texttest.py -a netedit.daily.demand.stop.bustop "$@" & 
+  texttest.py -a netedit.daily.demand.stop.chargingstation "$@" &
+  texttest.py -a netedit.daily.demand.stop.containerstop "$@" &
+  texttest.py -a netedit.daily.demand.stop.lane "$@" &
   texttest.py -a netedit.daily.demand.parkingarea "$@" &
   texttest.py -a netedit.daily.data.edgeData "$@" &
   texttest.py -a netedit.daily.data.edgeRelData "$@" &
