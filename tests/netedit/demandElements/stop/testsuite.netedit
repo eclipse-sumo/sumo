@@ -1,11 +1,11 @@
 basic
 
-stopLane
+lane
 
-stopBusStop
+busstop
 
-stopContainerStop
+containerstop
 
-stopChargingStation
+chargingstation
 
-stopParkingArea
+parkingarea
