@@ -44,8 +44,8 @@ def createTaxi(time):
     for i in range(0, 20, 5):
         # declaring the name(unique), route(from demand.route.xml), type of vehicle(declared in demand.route.xml),
         # depart time, and line
-        traci.vehicle.add(f'taxiV{i}', 'route_0',
-                          'taxi', depart=f'{time}', line='taxi')
+        traci.vehicle.add('taxiV%i' % i, 'route_0',
+                          'taxi', depart=time, line='taxi')
 
 
 # Dispatching taxis to cater to people waiting at a busstop
