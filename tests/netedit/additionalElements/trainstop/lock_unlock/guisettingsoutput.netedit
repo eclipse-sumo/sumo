@@ -1,7 +1,7 @@
 <viewsettings>
     <scheme name="testing">
         <opengl dither="0" fps="0" drawBoundaries="0" forceDrawPositionSelection="0" forceDrawRectangleSelection="0" forceDrawDottedContour="0"/>
-        <background backgroundColor="white" showGrid="1" gridXSize="1.00" gridYSize="1.00"/>
+        <background backgroundColor="white" showGrid="1" gridXSize="5.00" gridYSize="5.00"/>
         <edges laneEdgeMode="0" scaleMode="0" laneShowBorders="0" showBikeMarkings="1" showLinkDecals="1" showLinkRules="1" showRails="1" hideConnectors="0" widthExaggeration="1.00" minSize="0.00" showDirection="0" showSublanes="1" spreadSuperposed="0" edgeParam="EDGE_KEY" laneParam="LANE_KEY" vehicleParam="PARAM_NUMERICAL" vehicleTextParam="PARAM_TEXT" edgeData="speed" edgeValueHideCheck="0" edgeValueHideThreshold="0.00"
                 edgeName_show="0" edgeName_size="60.00" edgeName_color="orange" edgeName_bgColor="128,0,0,0" edgeName_constantSize="1"
                 internalEdgeName_show="0" internalEdgeName_size="45.00" internalEdgeName_color="128,64,0" internalEdgeName_bgColor="128,0,0,0" internalEdgeName_constantSize="1"
@@ -31,7 +31,7 @@
                 <entry color="grey" threshold="32.00" name="pedestrian"/>
                 <entry color="10,10,10" threshold="64.00" name="passenger"/>
                 <entry color="166,147,26" threshold="256.00" name="taxi"/>
-                <entry color="40,100,40" threshold="512.00" name="train"/>
+                <entry color="40,100,40" threshold="512.00" name="bus"/>
                 <entry color="80,80,80" threshold="2080.00" name="pedestrian_delivery"/>
                 <entry color="192,66,44" threshold="65536.00" name="bicycle"/>
                 <entry color="150,200,200" threshold="8388608.00" name="waterway"/>
@@ -119,7 +119,7 @@
                 <entry color="1.00" name="uniform"/>
             </scalingScheme>
         </edges>
-        <vehicles vehicleMode="0" vehicleQuality="0" vehicle_minSize="1.00" vehicle_exaggeration="1.00" vehicle_constantSize="0" vehicle_constantSizeSelected="0" showBlinker="1" drawMinGap="0" drawBrakeGap="0" showBTRange="0" showRouteIndex="0"
+        <vehicles vehicleMode="0" vehicleQuality="0" vehicle_minSize="1.00" vehicle_exaggeration="1.00" vehicle_constantSize="0" vehicle_constantSizeSelected="0" showBlinker="1" drawMinGap="0" drawBrakeGap="0" showBTRange="0" showRouteIndex="0" scaleLength="1"
                   vehicleName_show="0" vehicleName_size="60.00" vehicleName_color="204,153,0" vehicleName_bgColor="128,0,0,0" vehicleName_constantSize="1"
                   vehicleValue_show="0" vehicleValue_size="80.00" vehicleValue_color="cyan" vehicleValue_bgColor="128,0,0,0" vehicleValue_constantSize="1"
                   vehicleText_show="0" vehicleText_size="80.00" vehicleText_color="red" vehicleText_bgColor="128,0,0,0" vehicleText_constantSize="1">
@@ -211,5 +211,5 @@
         </polys>
         <legend showSizeLegend="1" showColorLegend="0" showVehicleColorLegend="0"/>
     </scheme>
-    <viewport zoom="100.00" x="35.04" y="0.00" angle="0.00"/>
+    <viewport zoom="100.00" x="39.06" y="0.00" angle="0.00"/>
 </viewsettings>

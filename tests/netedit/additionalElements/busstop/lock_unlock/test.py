@@ -26,7 +26,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to additional mode
 netedit.additionalMode()
@@ -38,32 +38,32 @@ netedit.changeElement("busStop")
 netedit.changeDefaultValue(9, "reference center")
 
 # create busStop in mode "reference center"
-netedit.leftClick(referencePosition, 250, 235)
+netedit.leftClick(referencePosition, 231, 238)
 
 # change to move mode
 netedit.moveMode()
 
 # move busStop to right
-netedit.moveElement(referencePosition, 250, 250, 350, 250)
+netedit.moveElement(referencePosition, 231, 260, 371, 260)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect busStop
-netedit.leftClick(referencePosition, 350, 250)
+netedit.leftClick(referencePosition, 371, 260)
 
-# unblock additional
-netedit.modifyBoolAttribute(13, True)
+# block additional
+netedit.modifyBoolAttribute(13, False)
 
 # change to move mode
 netedit.moveMode()
 
 # move busStop to right
-netedit.moveElement(referencePosition, 350, 250, 250, 250)
+netedit.moveElement(referencePosition, 371, 260, 231, 260)
 
 # Check undos and redos
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

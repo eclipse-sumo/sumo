@@ -3,14 +3,18 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'trainStop' in TagSelector
 Debug: Adding trainStop 'trainStop_gneE0_0_0' in GNEChange_Additional
-Debug: Setting new attribute shape '28.00,0.00' into edge 'gneE0'
-Debug: Setting new attribute shape '17.00,0.00' into edge 'gneE0'
+Debug: Setting new attribute startPos '25.00' into trainStop 'trainStop_gneE0_0_0'
+Debug: Setting new attribute endPos '35.00' into trainStop 'trainStop_gneE0_0_0'
+Debug: Setting new attribute startPos '15.00' into trainStop 'trainStop_gneE0_0_0'
+Debug: Setting new attribute endPos '25.00' into trainStop 'trainStop_gneE0_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute shape '28.00,0.00' into edge 'gneE0'
+Debug: Setting previous attribute endPos '35.00' into trainStop 'trainStop_gneE0_0_0'
+Debug: Setting previous attribute startPos '25.00' into trainStop 'trainStop_gneE0_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute shape '' into edge 'gneE0'
+Debug: Setting previous attribute endPos '20.00' into trainStop 'trainStop_gneE0_0_0'
+Debug: Setting previous attribute startPos '10.00' into trainStop 'trainStop_gneE0_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing trainStop 'trainStop_gneE0_0_0' in GNEChange_Additional
@@ -19,10 +23,12 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding trainStop 'trainStop_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute shape '28.00,0.00' into edge 'gneE0'
+Debug: Setting new attribute startPos '25.00' into trainStop 'trainStop_gneE0_0_0'
+Debug: Setting new attribute endPos '35.00' into trainStop 'trainStop_gneE0_0_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute shape '17.00,0.00' into edge 'gneE0'
+Debug: Setting new attribute startPos '15.00' into trainStop 'trainStop_gneE0_0_0'
+Debug: Setting new attribute endPos '25.00' into trainStop 'trainStop_gneE0_0_0'
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
@@ -39,4 +45,3 @@ Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destr
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
-X connection to :2756.0 broken (explicit kill or server shutdown).
