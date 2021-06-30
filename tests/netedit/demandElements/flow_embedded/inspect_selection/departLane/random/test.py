@@ -40,9 +40,11 @@ netedit.selectionInvertDemand()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect vehicle
-netedit.leftClick(referencePosition, 115, 400)
+# apply zoom
+netedit.setZoom("14", "17", "12") 
 
+# inspect vehicle
+netedit.leftClick(referencePosition, 330, 150)
 # change departLane with an invalid value
 netedit.modifyAttribute(3, "", False)
 
