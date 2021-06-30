@@ -17,6 +17,7 @@
 
     <processing>
         <offset.disable-normalization value="true"/>
+        <junctions.small-radius value="4"/>
     </processing>
 
 </configuration>
