@@ -47,16 +47,16 @@ netedit.setZoom("14", "17", "12")
 netedit.leftClick(referencePosition, 330, 150)
 
 # change arrivalPos with an invalid value
-netedit.modifyAttribute(7, "", True)
+netedit.modifyAttribute(7, "", False)
 
 # change arrivalPos with an invalid value
-netedit.modifyAttribute(7, "dummyPos", True)
+netedit.modifyAttribute(7, "dummyPos", False)
 
 # change departColor with a valid value
-netedit.modifyAttribute(7, "500", True)
+netedit.modifyAttribute(7, "500", False)
 
 # change arrivalPos with a valid value
-netedit.modifyAttribute(7, "random", True)
+netedit.modifyAttribute(7, "random", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

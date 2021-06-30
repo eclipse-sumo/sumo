@@ -47,16 +47,16 @@ netedit.setZoom("14", "17", "12")
 netedit.leftClick(referencePosition, 330, 150)
 
 # change arrivalLane with an invalid value
-netedit.modifyAttribute(6, "", True)
+netedit.modifyAttribute(6, "", False)
 
 # change arrivalLane with an invalid value
-netedit.modifyAttribute(6, "dummyLane", True)
+netedit.modifyAttribute(6, "dummyLane", False)
 
 # change departColor with a valid value
-netedit.modifyAttribute(6, "500", True)
+netedit.modifyAttribute(6, "500", False)
 
 # change arrivalLane with a valid value
-netedit.modifyAttribute(6, "0", True)
+netedit.modifyAttribute(6, "0", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

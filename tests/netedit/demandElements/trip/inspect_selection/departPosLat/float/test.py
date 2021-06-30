@@ -47,16 +47,16 @@ netedit.setZoom("14", "17", "12")
 netedit.leftClick(referencePosition, 330, 150)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(12, "", True)
+netedit.modifyAttribute(12, "", False)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(12, "dummyPosLat", True)
+netedit.modifyAttribute(12, "dummyPosLat", False)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(12, "-5", True)
+netedit.modifyAttribute(12, "-5", False)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(12, "5.6", True)
+netedit.modifyAttribute(12, "5.6", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

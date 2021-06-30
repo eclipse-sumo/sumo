@@ -47,13 +47,13 @@ netedit.setZoom("14", "17", "12")
 netedit.leftClick(referencePosition, 330, 150)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(5, "", True)
+netedit.modifyAttribute(5, "", False)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(5, "dummySpeed", True)
+netedit.modifyAttribute(5, "dummySpeed", False)
 
 # change departSpeed with a valid value
-netedit.modifyAttribute(5, "speedLimit", True)
+netedit.modifyAttribute(5, "speedLimit", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

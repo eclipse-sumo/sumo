@@ -47,13 +47,13 @@ netedit.setZoom("14", "17", "12")
 netedit.leftClick(referencePosition, 330, 150)
 
 # change depart with an invalid value
-netedit.modifyAttribute(14, "", True)
+netedit.modifyAttribute(14, "", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(14, "dummyDepart", True)
+netedit.modifyAttribute(14, "dummyDepart", False)
 
 # change depart with an valid value
-netedit.modifyAttribute(14, "containerTriggered", True)
+netedit.modifyAttribute(14, "containerTriggered", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)
