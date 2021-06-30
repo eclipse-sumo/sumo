@@ -43,14 +43,14 @@ netedit.inspectMode()
 # inspect first polygon
 netedit.leftClick(referencePosition, 105, 70)
 
-# Change parameter 6 with a non valid value (invalid)
-netedit.modifyAttribute(6, "%$$%%%%%", False)
+# Change parameter 7 with a non valid value (invalid)
+netedit.modifyAttribute(7, "%$$%%%%%", False)
 
-# Change parameter 6 with a non valid value (non exist)
-netedit.modifyAttribute(6, "paris.ico", False)
+# Change parameter 7 with a non valid value (non exist)
+netedit.modifyAttribute(7, "paris.ico", False)
 
-# Change parameter 8 with a valid value (valid)
-netedit.modifyAttribute(6, "berlin_icon.ico", False)
+# Change parameter 7 with a valid value (valid)
+netedit.modifyAttribute(7, "berlin_icon.ico", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

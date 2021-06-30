@@ -4,16 +4,17 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.0
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Inserting generic parameter 'keyA1|valueA1' into poly
+Debug: Inserting generic parameter 'keyA2|valueA2' into poly
+Debug: Inserting generic parameter 'keyA3|valueA3' into poly
 Debug: Adding poly 'poly_0' into viewNet
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -8.00,-2.00,22.00,28.00
-Debug: Inserting parameter 'keyA1|valueA1' into shape poly.
-Debug: Inserting parameter 'keyA2|valueA2' into shape poly.
-Debug: Inserting parameter 'keyA3|valueA3' into shape poly.
+Debug: Inserting generic parameter 'keyB1|valueB1' into poly
+Debug: Inserting generic parameter 'keyB2|valueB2' into poly
+Debug: Inserting generic parameter 'keyB3|valueB3' into poly
 Debug: Adding poly 'poly_1' into viewNet
 GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 12.00,-2.00,42.00,28.00
-Debug: Inserting parameter 'keyB1|valueB1' into shape poly.
-Debug: Inserting parameter 'keyB2|valueB2' into shape poly.
-Debug: Inserting parameter 'keyB3|valueB3' into shape poly.
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into poly 'poly_0'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into poly 'poly_1'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into poly 'poly_0'
