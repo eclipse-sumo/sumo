@@ -38,18 +38,18 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
 	<!-- test ploegKp -->
-    <vType id="vType0" carFollowModel="CC" ploegKp="dummy_ploegKp"/>
+    <vType id="vType0" carFollowModel="CC" lanesCount="0" ploegKp="dummy_ploegKp"/>
 	
 	<!-- test ploegKp -->
-    <vType id="vType1" carFollowModel="CC" ploegKp="-3"/>
+    <vType id="vType1" carFollowModel="CC" lanesCount="0" ploegKp="-3"/>
 	
 	<!-- test ploegKp -->
-    <vType id="vType2" carFollowModel="CC" ploegKp="0"/>
+    <vType id="vType2" carFollowModel="CC" lanesCount="0" ploegKp="0"/>
 	
 	<!-- test ploegKp -->
-    <vType id="vType3" carFollowModel="CC" ploegKp="12"/>
+    <vType id="vType3" carFollowModel="CC" lanesCount="0" ploegKp="12"/>
 	
 	<!-- test ploegKp -->
-    <vType id="vType4" carFollowModel="CC" ploegKp="4.5"/>
+    <vType id="vType4" carFollowModel="CC" lanesCount="0" ploegKp="4.5"/>
 	
 </routes>
