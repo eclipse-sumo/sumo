@@ -59,7 +59,7 @@ with open(outfile, 'w') as outf:
         outf.write("<shapes>\n")
         for i, (id, shape) in enumerate(shapes):
             if len(shape) > 1:
-                outf.write('    <poly id="%s" shape="%s" color="%s" fill="%s"/>\n' % (
+                outf.write('    <poly id="%s" shape="%s" color="%s" fill="%s" layer="100" lineWidth="0.1"/>\n' % (
                     id, " ".join(shape), COLORS[i % len(COLORS)], fill))
                 numPoly += 1
             else:
