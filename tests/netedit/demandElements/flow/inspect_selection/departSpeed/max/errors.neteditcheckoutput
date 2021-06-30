@@ -1,3 +1,6 @@
+Warning: Vehicle 'flowB.16' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=59.00.
+Warning: Vehicle 'flowB.16' performs emergency stop at the end of lane 'gneE4_0' because there is no connection to the next edge (decel=-16.37, offset=0.25), time=59.00.
+Warning: Vehicle 'flowB.17' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=62.00.
 Warning: Teleporting vehicle 'flowA.0'; waited too long (jam), lane=':gneJ5_1_1', time=309.00.
 Warning: Vehicle 'flowA.0' ends teleporting on edge 'gneE4', time 309.00.
 Warning: Teleporting vehicle 'flowA.1'; waited too long (jam), lane=':gneJ5_1_1', time=614.00.
@@ -21,8 +24,8 @@ Warning: Vehicle 'flowA.9' ends teleporting on edge 'gneE4', time 3057.00.
 Warning: Teleporting vehicle 'flowA.10'; waited too long (jam), lane=':gneJ5_1_1', time=3362.00.
 Warning: Vehicle 'flowA.10' ends teleporting on edge 'gneE4', time 3362.00.
 Warning: Teleporting vehicle 'flowA.11'; waited too long (jam), lane=':gneJ5_1_1', time=3667.00.
-Warning: Vehicle 'flowA.11' ends teleporting on edge 'gneE4', time 3667.00.
+Warning: Vehicle 'flowA.11' ends teleporting on edge 'gneE5', time 3670.00.
 Warning: Teleporting vehicle 'flowA.12'; waited too long (jam), lane=':gneJ5_1_1', time=3972.00.
-Warning: Vehicle 'flowA.12' ends teleporting on edge 'gneE4', time 3972.00.
+Warning: Vehicle 'flowA.12' ends teleporting on edge 'gneE5', time 3975.00.
 Warning: Teleporting vehicle 'flowA.13'; waited too long (jam), lane=':gneJ5_1_1', time=4277.00.
 Warning: Vehicle 'flowA.13' ends teleporting on edge 'gneE4', time 4277.00.

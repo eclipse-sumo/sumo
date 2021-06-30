@@ -1,0 +1,144 @@
+Warning: Teleporting vehicle 'flow_1.1'; collision with vehicle 'flow_0.2', lane='gneE2_0', gap=-3.64, time=13.00 stage=insertion.
+Warning: Vehicle 'flow_1.1' ends teleporting on edge 'gneE4', time 14.00.
+Warning: Teleporting vehicle 'flow_1.7'; collision with vehicle 'flow_0.8', lane='gneE2_0', gap=-3.74, time=58.00 stage=insertion.
+Warning: Vehicle 'flow_1.7' ends teleporting on edge 'gneE4', time 59.00.
+Warning: Teleporting vehicle 'flow_1.8'; collision with vehicle 'flow_0.9', lane='gneE2_0', gap=-4.32, time=64.00 stage=insertion.
+Warning: Vehicle 'flow_1.8' ends teleporting on edge 'gneE4', time 68.00.
+Warning: Teleporting vehicle 'flow_0.14'; collision with vehicle 'flow_1.14', lane='gneE2_0', gap=-1.07, time=104.00 stage=insertion.
+Warning: Vehicle 'flow_0.14' ends teleporting on edge 'gneE4', time 105.00.
+Warning: Teleporting vehicle 'flow_2.13'; collision with vehicle 'flow_0.15', lane='gneE2_0', gap=-3.24, time=108.00 stage=insertion.
+Warning: Vehicle 'flow_2.13' ends teleporting on edge 'gneE4', time 111.00.
+Warning: Teleporting vehicle 'flow_1.54'; collision with vehicle 'flow_0.55', lane='gneE2_0', gap=-3.39, time=451.00 stage=insertion.
+Warning: Vehicle 'flow_1.54' ends teleporting on edge 'gneE5', time 455.00.
+Warning: Teleporting vehicle 'flow_1.69'; collision with vehicle 'flow_0.70', lane='gneE2_0', gap=-3.39, time=568.00 stage=insertion.
+Warning: Vehicle 'flow_1.69' ends teleporting on edge 'gneE4', time 569.00.
+Warning: Teleporting vehicle 'flow_1.78'; collision with vehicle 'flow_0.79', lane='gneE2_0', gap=-3.63, time=638.00 stage=insertion.
+Warning: Vehicle 'flow_1.78' ends teleporting on edge 'gneE4', time 639.00.
+Warning: Teleporting vehicle 'flow_1.85'; collision with vehicle 'flow_0.86', lane='gneE2_0', gap=-3.36, time=692.00 stage=insertion.
+Warning: Vehicle 'flow_1.85' ends teleporting on edge 'gneE5', time 697.00.
+Warning: Vehicle 'flow_1.133' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1098.00.
+Warning: Teleporting vehicle 'flow_0.143'; collision with vehicle 'flow_1.143', lane='gneE2_0', gap=-0.78, time=1175.00 stage=insertion.
+Warning: Vehicle 'flow_0.143' ends teleporting on edge 'gneE4', time 1175.00.
+Warning: Vehicle 'flow_1.145' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1200.00.
+Warning: Teleporting vehicle 'flow_1.145'; collision with vehicle 'flow_0.146', lane='gneE2_0', gap=-0.37, time=1200.00 stage=move.
+Warning: Vehicle 'flow_1.145' ends teleporting on edge 'gneE4', time 1201.00.
+Warning: Teleporting vehicle 'flow_1.149'; collision with vehicle 'flow_0.150', lane='gneE2_0', gap=-3.94, time=1230.00 stage=insertion.
+Warning: Vehicle 'flow_1.149' ends teleporting on edge 'gneE4', time 1231.00.
+Warning: Teleporting vehicle 'flow_1.151'; collision with vehicle 'flow_0.152', lane='gneE2_0', gap=-3.45, time=1243.00 stage=insertion.
+Warning: Vehicle 'flow_1.151' ends teleporting on edge 'gneE4', time 1244.00.
+Warning: Teleporting vehicle 'flow_1.191'; collision with vehicle 'flow_0.192', lane='gneE2_0', gap=-3.52, time=1582.00 stage=insertion.
+Warning: Vehicle 'flow_1.191' teleports beyond arrival edge 'gneE5', time 1589.00.
+Warning: Teleporting vehicle 'flow_0.217'; collision with vehicle 'flow_1.217', lane='gneE2_0', gap=-1.81, time=1791.00 stage=insertion.
+Warning: Vehicle 'flow_0.217' ends teleporting on edge 'gneE4', time 1792.00.
+Warning: Teleporting vehicle 'flow_0.238'; collision with vehicle 'flow_1.238', lane='gneE2_0', gap=-1.64, time=1959.00 stage=insertion.
+Warning: Vehicle 'flow_0.238' ends teleporting on edge 'gneE4', time 1960.00.
+Warning: Teleporting vehicle 'flow_0.242'; collision with vehicle 'flow_1.242', lane='gneE2_0', gap=-2.03, time=1994.00 stage=insertion.
+Warning: Vehicle 'flow_0.242' ends teleporting on edge 'gneE4', time 1997.00.
+Warning: Teleporting vehicle 'flow_2.241'; collision with vehicle 'flow_0.243', lane='gneE2_0', gap=-3.01, time=1998.00 stage=insertion.
+Warning: Vehicle 'flow_2.241' ends teleporting on edge 'gneE4', time 1998.00.
+Warning: Teleporting vehicle 'flow_1.260'; collision with vehicle 'flow_0.261', lane='gneE2_0', gap=-3.51, time=2161.00 stage=insertion.
+Warning: Vehicle 'flow_1.260' ends teleporting on edge 'gneE4', time 2162.00.
+Warning: Teleporting vehicle 'flow_1.268'; collision with vehicle 'flow_0.269', lane='gneE2_0', gap=-3.09, time=2228.00 stage=insertion.
+Warning: Vehicle 'flow_1.268' ends teleporting on edge 'gneE5', time 2235.00.
+Warning: Teleporting vehicle 'flow_1.271'; collision with vehicle 'flow_0.272', lane='gneE2_0', gap=-2.84, time=2249.00 stage=insertion.
+Warning: Vehicle 'flow_1.271' ends teleporting on edge 'gneE4', time 2250.00.
+Warning: Teleporting vehicle 'flow_1.312'; collision with vehicle 'flow_0.313', lane='gneE2_0', gap=-3.70, time=2586.00 stage=insertion.
+Warning: Vehicle 'flow_1.312' ends teleporting on edge 'gneE4', time 2590.00.
+Warning: Teleporting vehicle 'flow_0.316'; collision with vehicle 'flow_1.316', lane='gneE2_0', gap=-1.52, time=2609.00 stage=insertion.
+Warning: Vehicle 'flow_0.316' ends teleporting on edge 'gneE4', time 2609.00.
+Warning: Teleporting vehicle 'flow_1.344'; collision with vehicle 'flow_0.345', lane='gneE2_0', gap=-3.68, time=2845.00 stage=insertion.
+Warning: Vehicle 'flow_1.344' ends teleporting on edge 'gneE4', time 2846.00.
+Warning: Teleporting vehicle 'flow_1.366'; collision with vehicle 'flow_0.367', lane='gneE2_0', gap=-3.67, time=3023.00 stage=insertion.
+Warning: Vehicle 'flow_1.366' ends teleporting on edge 'gneE4', time 3023.00.
+Warning: Teleporting vehicle 'flow_0.382'; collision with vehicle 'flow_1.382', lane='gneE2_0', gap=-2.07, time=3148.00 stage=insertion.
+Warning: Vehicle 'flow_0.382' ends teleporting on edge 'gneE4', time 3148.00.
+Warning: Teleporting vehicle 'flow_2.381'; collision with vehicle 'flow_0.383', lane='gneE2_0', gap=-2.44, time=3152.00 stage=insertion.
+Warning: Vehicle 'flow_2.381' teleports beyond arrival edge 'gneE5', time 3160.00.
+Warning: Teleporting vehicle 'flow_0.415'; collision with vehicle 'flow_1.415', lane='gneE2_0', gap=-2.36, time=3416.00 stage=insertion.
+Warning: Vehicle 'flow_0.415' ends teleporting on edge 'gneE4', time 3416.00.
+Warning: Teleporting vehicle 'flow_1.459'; collision with vehicle 'flow_0.460', lane='gneE2_0', gap=-3.93, time=3783.00 stage=insertion.
+Warning: Vehicle 'flow_1.459' ends teleporting on edge 'gneE4', time 3784.00.
+Warning: Teleporting vehicle 'flow_1.484'; collision with vehicle 'flow_0.485', lane='gneE2_0', gap=-4.13, time=3987.00 stage=insertion.
+Warning: Vehicle 'flow_1.484' ends teleporting on edge 'gneE4', time 3988.00.
+Warning: Teleporting vehicle 'flow_0.535'; collision with vehicle 'flow_1.535', lane='gneE2_0', gap=-1.44, time=4408.00 stage=insertion.
+Warning: Vehicle 'flow_0.535' ends teleporting on edge 'gneE4', time 4410.00.
+Warning: Teleporting vehicle 'flow_0.579'; collision with vehicle 'flow_1.579', lane='gneE2_0', gap=-2.11, time=4760.00 stage=insertion.
+Warning: Vehicle 'flow_0.579' ends teleporting on edge 'gneE4', time 4760.00.
+Warning: Teleporting vehicle 'flow_1.593'; collision with vehicle 'flow_0.594', lane='gneE2_0', gap=-3.59, time=4874.00 stage=insertion.
+Warning: Vehicle 'flow_1.593' ends teleporting on edge 'gneE4', time 4878.00.
+Warning: Vehicle 'flow_1.607' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=4993.00.
+Warning: Teleporting vehicle 'flow_1.615'; collision with vehicle 'flow_0.616', lane='gneE2_0', gap=-4.04, time=5060.00 stage=insertion.
+Warning: Vehicle 'flow_1.615' ends teleporting on edge 'gneE4', time 5061.00.
+Warning: Teleporting vehicle 'flow_1.632'; collision with vehicle 'flow_0.633', lane='gneE2_0', gap=-3.77, time=5199.00 stage=insertion.
+Warning: Vehicle 'flow_1.632' ends teleporting on edge 'gneE4', time 5200.00.
+Warning: Teleporting vehicle 'flow_0.635'; collision with vehicle 'flow_1.635', lane='gneE2_0', gap=-1.55, time=5213.00 stage=insertion.
+Warning: Vehicle 'flow_0.635' ends teleporting on edge 'gneE4', time 5216.00.
+Warning: Teleporting vehicle 'flow_1.652'; collision with vehicle 'flow_0.653', lane='gneE2_0', gap=-3.59, time=5354.00 stage=insertion.
+Warning: Vehicle 'flow_1.652' ends teleporting on edge 'gneE4', time 5356.00.
+Warning: Teleporting vehicle 'flow_1.660'; collision with vehicle 'flow_0.661', lane='gneE2_0', gap=-4.00, time=5422.00 stage=insertion.
+Warning: Vehicle 'flow_1.660' ends teleporting on edge 'gneE4', time 5422.00.
+Warning: Teleporting vehicle 'flow_0.729'; collision with vehicle 'flow_1.729', lane='gneE2_0', gap=-2.17, time=5989.00 stage=insertion.
+Warning: Vehicle 'flow_0.729' ends teleporting on edge 'gneE4', time 5993.00.
+Warning: Vehicle 'flow_1.735' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=6048.00.
+Warning: Vehicle 'flow_1.762' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=6286.00.
+Warning: Teleporting vehicle 'flow_0.820'; collision with vehicle 'flow_1.820', lane='gneE2_0', gap=-2.04, time=6760.00 stage=insertion.
+Warning: Vehicle 'flow_0.820' ends teleporting on edge 'gneE4', time 6763.00.
+Warning: Vehicle 'flow_1.831' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=6857.00.
+Warning: Teleporting vehicle 'flow_1.861'; collision with vehicle 'flow_0.862', lane='gneE2_0', gap=-3.84, time=7102.00 stage=insertion.
+Warning: Vehicle 'flow_1.861' ends teleporting on edge 'gneE4', time 7103.00.
+Warning: Teleporting vehicle 'flow_0.877'; collision with vehicle 'flow_1.877', lane='gneE2_0', gap=-0.73, time=7231.00 stage=insertion.
+Warning: Vehicle 'flow_0.877' ends teleporting on edge 'gneE4', time 7232.00.
+Warning: Teleporting vehicle 'flow_0.914'; collision with vehicle 'flow_1.914', lane='gneE2_0', gap=-2.45, time=7544.00 stage=insertion.
+Warning: Vehicle 'flow_0.914' ends teleporting on edge 'gneE4', time 7544.00.
+Warning: Teleporting vehicle 'flow_1.920'; collision with vehicle 'flow_0.921', lane='gneE2_0', gap=-3.56, time=7599.00 stage=insertion.
+Warning: Vehicle 'flow_1.920' ends teleporting on edge 'gneE4', time 7600.00.
+Warning: Teleporting vehicle 'flow_1.983'; collision with vehicle 'flow_0.984', lane='gneE2_0', gap=-4.07, time=8134.00 stage=insertion.
+Warning: Vehicle 'flow_1.983' ends teleporting on edge 'gneE4', time 8135.00.
+Warning: Teleporting vehicle 'flow_1.1029'; collision with vehicle 'flow_0.1030', lane='gneE2_0', gap=-3.07, time=8524.00 stage=insertion.
+Warning: Vehicle 'flow_1.1029' ends teleporting on edge 'gneE4', time 8525.00.
+Warning: Teleporting vehicle 'flow_0.1050'; collision with vehicle 'flow_1.1050', lane='gneE2_0', gap=-0.75, time=8682.00 stage=insertion.
+Warning: Vehicle 'flow_0.1050' ends teleporting on edge 'gneE4', time 8685.00.
+Warning: Vehicle 'flow_1.1099' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=9103.00.
+Warning: Teleporting vehicle 'flow_0.1104'; collision with vehicle 'flow_1.1104', lane='gneE2_0', gap=-1.77, time=9134.00 stage=insertion.
+Warning: Vehicle 'flow_0.1104' ends teleporting on edge 'gneE4', time 9137.00.
+Warning: Teleporting vehicle 'flow_2.1103'; collision with vehicle 'flow_0.1105', lane='gneE2_0', gap=-3.04, time=9138.00 stage=insertion.
+Warning: Vehicle 'flow_2.1103' ends teleporting on edge 'gneE5', time 9144.00.
+Warning: Teleporting vehicle 'flow_1.1129'; collision with vehicle 'flow_0.1130', lane='gneE2_0', gap=-3.76, time=9345.00 stage=insertion.
+Warning: Vehicle 'flow_1.1129' ends teleporting on edge 'gneE4', time 9346.00.
+Warning: Teleporting vehicle 'flow_0.1188'; collision with vehicle 'flow_1.1188', lane='gneE2_0', gap=-1.54, time=9841.00 stage=insertion.
+Warning: Vehicle 'flow_0.1188' ends teleporting on edge 'gneE4', time 9841.00.
+Warning: Teleporting vehicle 'flow_1.1199'; collision with vehicle 'flow_0.1200', lane='gneE2_0', gap=-3.90, time=9936.00 stage=insertion.
+Warning: Vehicle 'flow_1.1199' ends teleporting on edge 'gneE4', time 9937.00.
+Warning: Teleporting vehicle 'flow_0.1306'; collision with vehicle 'flow_1.1306', lane='gneE2_0', gap=-0.95, time=10803.00 stage=insertion.
+Warning: Vehicle 'flow_0.1306' ends teleporting on edge 'gneE4', time 10806.00.
+Warning: Teleporting vehicle 'flow_1.1358'; collision with vehicle 'flow_0.1359', lane='gneE2_0', gap=-3.35, time=11232.00 stage=insertion.
+Warning: Vehicle 'flow_1.1358' ends teleporting on edge 'gneE4', time 11233.00.
+Warning: Teleporting vehicle 'flow_1.1368'; collision with vehicle 'flow_0.1369', lane='gneE2_0', gap=-3.82, time=11309.00 stage=insertion.
+Warning: Vehicle 'flow_1.1368' ends teleporting on edge 'gneE4', time 11310.00.
+Warning: Teleporting vehicle 'flow_2.1417'; collision with vehicle 'flow_0.1419', lane='gneE2_0', gap=-3.74, time=11719.00 stage=insertion.
+Warning: Vehicle 'flow_2.1417' ends teleporting on edge 'gneE5', time 11725.00.
+Warning: Teleporting vehicle 'flow_1.1427'; collision with vehicle 'flow_0.1428', lane='gneE2_0', gap=-3.37, time=11794.00 stage=insertion.
+Warning: Vehicle 'flow_1.1427' ends teleporting on edge 'gneE4', time 11796.00.
+Warning: Teleporting vehicle 'flow_1.1430'; collision with vehicle 'flow_0.1431', lane='gneE2_0', gap=-3.70, time=11817.00 stage=insertion.
+Warning: Vehicle 'flow_1.1430' ends teleporting on edge 'gneE4', time 11818.00.
+Warning: Teleporting vehicle 'flow_1.1492'; collision with vehicle 'flow_0.1493', lane='gneE2_0', gap=-3.71, time=12344.00 stage=insertion.
+Warning: Vehicle 'flow_1.1492' ends teleporting on edge 'gneE4', time 12345.00.
+Warning: Teleporting vehicle 'flow_1.1534'; collision with vehicle 'flow_0.1535', lane='gneE2_0', gap=-3.74, time=12693.00 stage=insertion.
+Warning: Vehicle 'flow_1.1534' ends teleporting on edge 'gneE4', time 12694.00.
+Warning: Vehicle 'flow_1.1550' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=12839.00.
+Warning: Teleporting vehicle 'flow_1.1584'; collision with vehicle 'flow_0.1585', lane='gneE2_0', gap=-3.77, time=13125.00 stage=insertion.
+Warning: Vehicle 'flow_1.1584' ends teleporting on edge 'gneE4', time 13126.00.
+Warning: Teleporting vehicle 'flow_1.1596'; collision with vehicle 'flow_0.1597', lane='gneE2_0', gap=-3.62, time=13222.00 stage=insertion.
+Warning: Vehicle 'flow_1.1596' ends teleporting on edge 'gneE4', time 13223.00.
+Warning: Teleporting vehicle 'flow_0.1610'; collision with vehicle 'flow_1.1610', lane='gneE2_0', gap=-0.86, time=13326.00 stage=insertion.
+Warning: Vehicle 'flow_0.1610' ends teleporting on edge 'gneE4', time 13326.00.
+Warning: Teleporting vehicle 'flow_0.1643'; collision with vehicle 'flow_1.1643', lane='gneE2_0', gap=-0.11, time=13600.00 stage=insertion.
+Warning: Vehicle 'flow_0.1643' ends teleporting on edge 'gneE4', time 13602.00.
+Warning: Teleporting vehicle 'flow_1.1649'; collision with vehicle 'flow_0.1650', lane='gneE2_0', gap=-4.13, time=13652.00 stage=insertion.
+Warning: Vehicle 'flow_1.1649' ends teleporting on edge 'gneE4', time 13653.00.
+Warning: Teleporting vehicle 'flow_1.1707'; collision with vehicle 'flow_0.1708', lane='gneE2_0', gap=-3.25, time=14150.00 stage=insertion.
+Warning: Vehicle 'flow_1.1707' ends teleporting on edge 'gneE4', time 14154.00.
+Warning: Teleporting vehicle 'flow_1.1763'; collision with vehicle 'flow_0.1764', lane='gneE2_0', gap=-4.40, time=14619.00 stage=insertion.
+Warning: Vehicle 'flow_1.1763' ends teleporting on edge 'gneE4', time 14623.00.
+Warning: Teleporting vehicle 'flow_0.1793'; collision with vehicle 'flow_1.1793', lane='gneE2_0', gap=-1.03, time=14860.00 stage=insertion.
+Warning: Vehicle 'flow_0.1793' ends teleporting on edge 'gneE4', time 14860.00.

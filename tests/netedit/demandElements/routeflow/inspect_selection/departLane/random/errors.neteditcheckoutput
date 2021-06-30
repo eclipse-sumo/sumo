@@ -1,11 +1,5 @@
-Error: Vehicle 'flowB.3' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.5' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.8' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.9' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.12' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.11' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.13' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.15' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowB.16' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Teleporting vehicle 'flowA.0'; waited too long (jam), lane=':gneJ5_1_1', time=310.00.
 Warning: Vehicle 'flowA.0' ends teleporting on edge 'gneE4', time 310.00.
 Warning: Teleporting vehicle 'flowA.1'; waited too long (jam), lane=':gneJ5_1_1', time=615.00.
@@ -27,8 +21,8 @@ Warning: Vehicle 'flowA.8' ends teleporting on edge 'gneE4', time 2749.00.
 Warning: Teleporting vehicle 'flowA.9'; waited too long (jam), lane=':gneJ5_1_1', time=3054.00.
 Warning: Vehicle 'flowA.9' ends teleporting on edge 'gneE4', time 3054.00.
 Warning: Teleporting vehicle 'flowA.10'; waited too long (jam), lane=':gneJ5_1_1', time=3358.00.
-Warning: Vehicle 'flowA.10' ends teleporting on edge 'gneE4', time 3358.00.
+Warning: Vehicle 'flowA.10' ends teleporting on edge 'gneE5', time 3361.00.
 Warning: Teleporting vehicle 'flowA.11'; waited too long (jam), lane=':gneJ5_1_1', time=3664.00.
-Warning: Vehicle 'flowA.11' ends teleporting on edge 'gneE4', time 3664.00.
+Warning: Vehicle 'flowA.11' ends teleporting on edge 'gneE5', time 3667.00.
 Warning: Teleporting vehicle 'flowA.12'; waited too long (jam), lane=':gneJ5_1_1', time=3968.00.
 Warning: Vehicle 'flowA.12' ends teleporting on edge 'gneE4', time 3968.00.

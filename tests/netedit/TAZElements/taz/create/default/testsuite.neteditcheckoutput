@@ -4,8 +4,8 @@ open
 
 same_points
 
-one_point
+#one_point
 
-open_line
+#open_line
 
 close_line

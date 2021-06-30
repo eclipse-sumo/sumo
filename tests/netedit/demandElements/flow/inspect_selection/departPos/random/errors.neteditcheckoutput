@@ -1,20 +1,17 @@
-Error: Vehicle 'flowA.0' will not be able to depart using the given velocity (slow lane ahead)!
 Error: Vehicle 'flowB.0' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
-Error: Vehicle 'flowB.1' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
-Error: Vehicle 'flowB.2' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
 Error: Vehicle 'flowB.3' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
 Error: Vehicle 'flowB.4' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
-Error: Vehicle 'flowB.5' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
-Error: Vehicle 'flowA.6' will not be able to depart using the given velocity (slow lane ahead)!
+Warning: Vehicle 'flowB.5' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=22.00.
+Warning: Vehicle 'flowB.5' performs emergency stop at the end of lane 'gneE4_0' because there is no connection to the next edge (decel=-13.89, offset=0.07), time=22.00.
 Error: Vehicle 'flowB.6' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
 Error: Vehicle 'flowB.7' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
 Error: Vehicle 'flowB.8' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
 Error: Vehicle 'flowB.9' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
 Error: Vehicle 'flowB.10' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
-Error: Vehicle 'flowB.11' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
 Error: Vehicle 'flowB.12' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
 Error: Vehicle 'flowB.13' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
-Error: Vehicle 'flowB.14' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
 Error: Vehicle 'flowB.15' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
-Error: Vehicle 'flowB.16' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
 Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
+Warning: Vehicle 'flowB.16' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=54.00.
+Warning: Teleporting vehicle 'flowB.16'; collision with vehicle 'flowB.14', lane='gneE4_1', gap=-0.00, time=54.00 stage=move.
+Warning: Vehicle 'flowB.16' ends teleporting on edge 'gneE5', time 58.00.

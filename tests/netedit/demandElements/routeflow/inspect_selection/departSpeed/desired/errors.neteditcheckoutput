@@ -1,8 +1,6 @@
-Error: Vehicle 'flowB.5' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowB.8' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.12' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.9' will not be able to depart using the given velocity (slow lane ahead)!
 Error: Vehicle 'flowB.11' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.14' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Teleporting vehicle 'flowA.0'; waited too long (jam), lane=':gneJ5_1_1', time=309.00.
 Warning: Vehicle 'flowA.0' ends teleporting on edge 'gneE4', time 309.00.
 Warning: Teleporting vehicle 'flowA.1'; waited too long (jam), lane=':gneJ5_1_1', time=614.00.
@@ -24,8 +22,8 @@ Warning: Vehicle 'flowA.8' ends teleporting on edge 'gneE4', time 2749.00.
 Warning: Teleporting vehicle 'flowA.9'; waited too long (jam), lane=':gneJ5_1_1', time=3055.00.
 Warning: Vehicle 'flowA.9' ends teleporting on edge 'gneE4', time 3055.00.
 Warning: Teleporting vehicle 'flowA.10'; waited too long (jam), lane=':gneJ5_1_1', time=3360.00.
-Warning: Vehicle 'flowA.10' ends teleporting on edge 'gneE4', time 3360.00.
+Warning: Vehicle 'flowA.10' ends teleporting on edge 'gneE5', time 3363.00.
 Warning: Teleporting vehicle 'flowA.11'; waited too long (jam), lane=':gneJ5_1_1', time=3665.00.
-Warning: Vehicle 'flowA.11' ends teleporting on edge 'gneE4', time 3665.00.
+Warning: Vehicle 'flowA.11' ends teleporting on edge 'gneE5', time 3668.00.
 Warning: Teleporting vehicle 'flowA.12'; waited too long (jam), lane=':gneJ5_1_1', time=3970.00.
 Warning: Vehicle 'flowA.12' ends teleporting on edge 'gneE4', time 3970.00.

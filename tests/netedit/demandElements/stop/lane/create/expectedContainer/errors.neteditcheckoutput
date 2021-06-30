@@ -1,89 +1,100 @@
 Warning: Vehicle 'routeFlow.0' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'routeFlow.1' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.56), time=153.00.
 Warning: Vehicle 'routeFlow.2' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.18), time=154.00.
-Warning: Vehicle 'routeFlow.3' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'routeFlow.0' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.4' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.2' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.29), time=226.00.
-Warning: Vehicle 'routeFlow.5' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.2' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.6' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'routeFlow.1' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.4' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.91), time=300.00.
-Warning: Vehicle 'routeFlow.7' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.4' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.8' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'routeFlow.3' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.9' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.10' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.6' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.47), time=444.00.
-Warning: Vehicle 'routeFlow.11' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.6' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.12' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.4' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.2' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.48), time=302.00.
 Warning: Vehicle 'routeFlow.5' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Teleporting vehicle 'routeFlow.6'; collision with vehicle 'routeFlow.4', lane='gneE1_0', gap=-0.83, time=304.00 stage=events.
+Warning: Vehicle 'routeFlow.6' teleports beyond arrival edge 'gneE1', time 304.00.
+Warning: Vehicle 'routeFlow.6' skips stop on lane 'gneE1_0' time=304.00.
+Warning: Vehicle 'routeFlow.6' skips stop on lane 'gneE1_0' time=304.00.
+Warning: Vehicle 'routeFlow.4' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.13), time=304.00.
+Warning: Vehicle 'routeFlow.2' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.4' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.7' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.3' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.8' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.5' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.06), time=447.00.
+Warning: Vehicle 'routeFlow.7' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.58), time=449.00.
+Warning: Vehicle 'routeFlow.5' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.7' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.9' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.10' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.11' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.12' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'routeFlow.13' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'routeFlow.14' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.8' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.49), time=588.00.
-Warning: Vehicle 'routeFlow.15' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.8' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.66), time=689.00.
 Warning: Vehicle 'routeFlow.8' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.15' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'routeFlow.16' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.10' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.35), time=660.00.
 Warning: Vehicle 'routeFlow.17' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.10' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'routeFlow.18' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.19' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.12' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.20' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.7' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.21' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'routeFlow.9' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.19' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.20' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.21' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'routeFlow.22' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.10' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.60), time=1010.00.
+Warning: Vehicle 'routeFlow.10' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'routeFlow.23' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.14' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.80), time=883.00.
-Warning: Vehicle 'routeFlow.14' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'routeFlow.24' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.16' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.40), time=956.00.
 Warning: Vehicle 'routeFlow.25' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.16' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'routeFlow.26' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.11' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.69), time=1173.00.
 Warning: Vehicle 'routeFlow.11' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'routeFlow.27' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'routeFlow.28' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'routeFlow.29' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.30' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.18' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.80), time=1171.00.
-Warning: Vehicle 'routeFlow.31' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.18' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.32' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.13' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.48), time=1323.00.
+Warning: Vehicle 'routeFlow.12' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Teleporting vehicle 'routeFlow.30'; collision with vehicle 'routeFlow.15', lane='gneE1_0', gap=-0.62, time=1325.00 stage=events.
+Warning: Vehicle 'routeFlow.30' teleports beyond arrival edge 'gneE1', time 1325.00.
+Warning: Vehicle 'routeFlow.30' skips stop on lane 'gneE1_0' time=1325.00.
+Warning: Vehicle 'routeFlow.30' skips stop on lane 'gneE1_0' time=1325.00.
+Warning: Vehicle 'routeFlow.15' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.18), time=1325.00.
 Warning: Vehicle 'routeFlow.13' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.33' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'routeFlow.15' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.17' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.20' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.88), time=1251.00.
-Warning: Vehicle 'routeFlow.19' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.20' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.22' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.08), time=1255.00.
-Warning: Vehicle 'routeFlow.21' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.22' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.24' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.96), time=1259.00.
-Warning: Vehicle 'routeFlow.23' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.24' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.26' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.19), time=1263.00.
-Warning: Vehicle 'routeFlow.25' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.26' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.28' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.08), time=1267.00.
-Warning: Vehicle 'routeFlow.27' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.28' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.30' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.71), time=1271.00.
-Warning: Vehicle 'routeFlow.29' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.30' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'routeFlow.31' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.32' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.78), time=1296.00.
-Warning: Vehicle 'routeFlow.32' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.33' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.34' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.35' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Teleporting vehicle 'routeFlow.32'; collision with vehicle 'routeFlow.17', lane='gneE1_0', gap=-0.65, time=1396.00 stage=events.
+Warning: Vehicle 'routeFlow.32' teleports beyond arrival edge 'gneE1', time 1396.00.
+Warning: Vehicle 'routeFlow.32' skips stop on lane 'gneE1_0' time=1396.00.
+Warning: Vehicle 'routeFlow.32' skips stop on lane 'gneE1_0' time=1396.00.
+Warning: Vehicle 'routeFlow.17' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.71), time=1396.00.
+Warning: Vehicle 'routeFlow.19' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.40), time=1398.00.
+Warning: Vehicle 'routeFlow.17' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Teleporting vehicle 'routeFlow.33'; collision with vehicle 'routeFlow.21', lane='gneE1_0', gap=-0.63, time=1400.00 stage=events.
+Warning: Vehicle 'routeFlow.33' teleports beyond arrival edge 'gneE1', time 1400.00.
+Warning: Vehicle 'routeFlow.33' skips stop on lane 'gneE1_0' time=1400.00.
+Warning: Vehicle 'routeFlow.33' skips stop on lane 'gneE1_0' time=1400.00.
+Warning: Vehicle 'routeFlow.33' skips stop on lane 'gneE1_0' time=1400.00.
+Warning: Vehicle 'routeFlow.21' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.62), time=1400.00.
+Warning: Vehicle 'routeFlow.19' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.27' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.32), time=1402.00.
+Warning: Vehicle 'routeFlow.21' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Teleporting vehicle 'routeFlow.34'; collision with vehicle 'routeFlow.23', lane='gneE1_0', gap=-0.76, time=1404.00 stage=events.
+Warning: Vehicle 'routeFlow.34' teleports beyond arrival edge 'gneE1', time 1404.00.
+Warning: Vehicle 'routeFlow.34' skips stop on lane 'gneE1_0' time=1404.00.
+Warning: Vehicle 'routeFlow.34' skips stop on lane 'gneE1_0' time=1404.00.
+Warning: Vehicle 'routeFlow.34' skips stop on lane 'gneE1_0' time=1404.00.
+Warning: Vehicle 'routeFlow.23' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.63), time=1404.00.
+Warning: Vehicle 'routeFlow.27' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.23' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Teleporting vehicle 'routeFlow.35'; collision with vehicle 'routeFlow.25', lane='gneE1_0', gap=-3.88, time=1407.00 stage=events.
+Warning: Vehicle 'routeFlow.35' teleports beyond arrival edge 'gneE1', time 1407.00.
+Warning: Vehicle 'routeFlow.35' skips stop on lane 'gneE1_0' time=1407.00.
+Warning: Vehicle 'routeFlow.35' skips stop on lane 'gneE1_0' time=1407.00.
+Warning: Vehicle 'routeFlow.35' skips stop on lane 'gneE1_0' time=1407.00.
+Warning: Vehicle 'routeFlow.25' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.97), time=1407.00.
+Warning: Vehicle 'routeFlow.25' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Teleporting vehicle 'routeFlow.37'; collision with vehicle 'routeFlow.14', lane='gneE1_0', gap=-0.00, time=1474.00 stage=events.
+Warning: Vehicle 'routeFlow.37' teleports beyond arrival edge 'gneE1', time 1474.00.
+Warning: Vehicle 'routeFlow.37' aborts stop.
+Warning: Vehicle 'routeFlow.37' skips stop on lane 'gneE1_0' time=1474.00.
+Warning: Vehicle 'routeFlow.37' skips stop on lane 'gneE1_0' time=1474.00.
 Warning: Vehicle 'routeFlow.36' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.37' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow.38' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'routeFlow.14' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
