@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_9_2+0045-34c5379
+Eclipse SUMO sumo Version v1_9_2+0771-c9ec6b8
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -300,6 +300,8 @@ Processing Options:
   --ride.stop-tolerance FLOAT          Tolerance to apply when matching
                                         pedestrian and vehicle positions on
                                         boarding at individual stops
+  --persontrip.walk-opposite-factor FLOAT  Use FLOAT as a factor on walking
+                                        speed against vehicle traffic direction
 
 Routing Options:
   --routing-algorithm STR              Select among routing algorithms
