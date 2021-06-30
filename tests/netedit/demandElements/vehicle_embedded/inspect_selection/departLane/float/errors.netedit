@@ -70,6 +70,7 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Setting new attribute selected 'true' into vehicleWithRoute 'vehicle_embeddedA'
 Debug: Setting new attribute selected 'true' into vehicleWithRoute 'vehicle_embeddedB'
+Debug: Current Viewport values: 14.00, 17.00, 12.00. Zoom = '723.33'
 Debug: Setting new attribute departLane 'first' into vehicleWithRoute 'vehicle_embeddedA'
 Debug: Setting new attribute departLane 'first' into vehicleWithRoute 'vehicle_embeddedB'
 Debug: Value 'dummyDepart' for attribute departLane of vehicleWithRoute isn't valid

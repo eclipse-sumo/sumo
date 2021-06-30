@@ -70,6 +70,7 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Setting new attribute selected 'true' into vehicleWithRoute 'vehicle_embeddedA'
 Debug: Setting new attribute selected 'true' into vehicleWithRoute 'vehicle_embeddedB'
+Debug: Current Viewport values: 14.00, 17.00, 12.00. Zoom = '723.33'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into vehicleWithRoute 'vehicle_embeddedA'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into vehicleWithRoute 'vehicle_embeddedB'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into vehicleWithRoute 'vehicle_embeddedA'
@@ -233,3 +234,4 @@ Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destru
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 16
+X connection to :27199.0 broken (explicit kill or server shutdown).

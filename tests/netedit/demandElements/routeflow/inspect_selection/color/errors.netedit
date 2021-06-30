@@ -72,6 +72,7 @@ Debug: Setting new attribute selected 'true' into route 'routeA'
 Debug: Setting new attribute selected 'true' into route 'routeB'
 Debug: Setting new attribute selected 'true' into flowRoute 'flowA'
 Debug: Setting new attribute selected 'true' into flowRoute 'flowB'
+Debug: Current Viewport values: 14.00, 17.00, 12.00. Zoom = '723.33'
 Debug: Setting new attribute color 'yellow' into flowRoute 'flowA'
 Debug: Setting new attribute color 'yellow' into flowRoute 'flowB'
 Debug: Value 'dummyColor' for attribute color of flowRoute isn't valid

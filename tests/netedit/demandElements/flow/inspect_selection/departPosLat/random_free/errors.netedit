@@ -68,6 +68,7 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Setting new attribute selected 'true' into flow 'flowA'
 Debug: Setting new attribute selected 'true' into flow 'flowB'
+Debug: Current Viewport values: 14.00, 17.00, 12.00. Zoom = '723.33'
 Debug: Setting new attribute departPosLat 'center' into flow 'flowA'
 Debug: Setting new attribute departPosLat 'center' into flow 'flowB'
 Debug: Value 'dummyPosLat' for attribute departPosLat of flow isn't valid
@@ -190,3 +191,4 @@ Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destru
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 16
+X connection to :7304.0 broken (explicit kill or server shutdown).

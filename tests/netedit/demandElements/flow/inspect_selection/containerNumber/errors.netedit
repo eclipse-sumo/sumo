@@ -68,6 +68,7 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Setting new attribute selected 'true' into flow 'flowA'
 Debug: Setting new attribute selected 'true' into flow 'flowB'
+Debug: Current Viewport values: 14.00, 17.00, 12.00. Zoom = '723.33'
 Debug: Setting new attribute containerNumber '0' into flow 'flowA'
 Debug: Setting new attribute containerNumber '0' into flow 'flowB'
 Debug: Value 'dummyNumber' for attribute containerNumber of flow isn't valid

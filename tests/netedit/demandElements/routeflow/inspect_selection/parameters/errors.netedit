@@ -72,6 +72,7 @@ Debug: Setting new attribute selected 'true' into route 'routeA'
 Debug: Setting new attribute selected 'true' into route 'routeB'
 Debug: Setting new attribute selected 'true' into flowRoute 'flowA'
 Debug: Setting new attribute selected 'true' into flowRoute 'flowB'
+Debug: Current Viewport values: 14.00, 17.00, 12.00. Zoom = '723.33'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into flowRoute 'flowA'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into flowRoute 'flowB'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into flowRoute 'flowA'
@@ -239,3 +240,4 @@ Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destru
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 16
+X connection to :26891.0 broken (explicit kill or server shutdown).
