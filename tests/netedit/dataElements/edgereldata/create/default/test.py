@@ -41,7 +41,7 @@ netedit.createDataSet()
 netedit.createDataInterval()
 
 # create edgeRelData
-netedit.leftClick(referencePosition, 300, 120)
+netedit.leftClick(referencePosition, 285, 120)
 netedit.leftClick(referencePosition, 450, 270)
 netedit.typeEnter()
 

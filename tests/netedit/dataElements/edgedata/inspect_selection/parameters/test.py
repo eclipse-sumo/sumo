@@ -41,7 +41,7 @@ netedit.createDataSet()
 netedit.createDataInterval()
 
 # create edgeData
-netedit.leftClick(referencePosition, 350, 120)
+netedit.leftClick(referencePosition, 366, 120)
 
 # create second edgeData
 netedit.leftClick(referencePosition, 450, 220)
@@ -56,7 +56,7 @@ netedit.selectionInvertData()
 netedit.inspectMode()
 
 # inspect edgeData
-netedit.leftClick(referencePosition, 350, 120)
+netedit.leftClick(referencePosition, 366, 120)
 
 # check double parameters
 netedit.checkDoubleParameters(referencePosition, 1, False, 0, 30)
