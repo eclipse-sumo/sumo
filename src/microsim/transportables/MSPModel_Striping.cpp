@@ -931,6 +931,7 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                             tp->myRelY = usableWidth - p->myRelY;
                             tp->myDir = !path->dir;
                             tp->mySpeed = -p->mySpeed;
+						    tp->mySpeedLat = -p->mySpeedLat;
                             toDelete.push_back(tp);
                             transformedPeds.push_back(tp);
                             if (path == debugPath) std::cout << "  ped=" << p->myPerson->getID() << "  relX=" << p->myRelX << " relY=" << p->myRelY << " (semi-transformed), vecCoord="
@@ -946,6 +947,7 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                             // only an obstacle, speed may be orthogonal to dir
                             tp->myDir = !dir;
                             tp->mySpeed = 0;
+                            tp->mySpeedLat = 0;
                             toDelete.push_back(tp);
                             transformedPeds.push_back(tp);
                             if (path == debugPath) {
@@ -1423,6 +1425,7 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, const 
     myRelY(stage->getDepartPosLat()),
     myDir(FORWARD),
     mySpeed(0),
+    mySpeedLat(0),
     myWaitingToEnter(true),
     myWaitingTime(0),
     myWalkingAreaPath(nullptr),
@@ -1488,6 +1491,7 @@ MSPModel_Striping::PState::PState():
     myRelY(0),
     myDir(UNDEFINED_DIRECTION),
     mySpeed(0),
+    mySpeedLat(0),
     myWaitingToEnter(false),
     myWaitingTime(0),
     myWalkingAreaPath(nullptr),
@@ -1915,6 +1919,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     }
     myRelX += SPEED2DIST(xSpeed * myDir);
     myRelY += SPEED2DIST(ySpeed);
+    mySpeedLat = ySpeed;
     mySpeed = xSpeed;
     if (xSpeed >= SUMO_const_haltingSpeed) {
         myWaitingToEnter = false;
@@ -1979,6 +1984,11 @@ MSPModel_Striping::PState::getAngle(const MSStageMoving&, SUMOTime) const {
     const PositionVector& shp = myWalkingAreaPath == nullptr ? myLane->getShape() : myWalkingAreaPath->shape;
     double geomX = myWalkingAreaPath == nullptr ? myLane->interpolateLanePosToGeometryPos(myRelX) : myRelX;
     double angle = shp.rotationAtOffset(geomX) + (myDir == MSPModel::BACKWARD ? M_PI : 0);
+    if (myDir == MSPModel::BACKWARD) {
+        angle += atan2(mySpeedLat, MAX2(mySpeed, NUMERICAL_EPS));
+    } else { // myDir == MSPModel::FORWARD
+        angle -= atan2(mySpeedLat, MAX2(mySpeed, NUMERICAL_EPS));
+    }
     if (angle > M_PI) {
         angle -= 2 * M_PI;
     }
