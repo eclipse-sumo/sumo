@@ -1561,7 +1561,8 @@ MSLane::detectPedestrianJunctionCollision(const MSVehicle* collider, const Posit
                           << "\n";
             }
 #endif
-            if (colliderBoundary.overlapsWith((*it_p)->getBoundingBox())) {
+            if (colliderBoundary.overlapsWith((*it_p)->getBoundingBox())
+                    && collider->getBoundingPoly().overlapsWith((*it_p)->getBoundingBox())) {
                 std::string collisionType = "junctionPedestrian";
                 if (foeLane->getEdge().isCrossing()) {
                     collisionType = "crossing";
