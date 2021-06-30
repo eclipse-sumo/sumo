@@ -27,6 +27,7 @@ int gPrecisionGeo = 6;
 bool gHumanReadableTime = false;
 bool gSimulation = false;
 double gWeightsRandomFactor = 1;
+double gWeightsWalkOppositeFactor = 1;
 
 bool gDebugFlag1 = false;
 bool gDebugFlag2 = false;

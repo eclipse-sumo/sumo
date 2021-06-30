@@ -131,6 +131,9 @@ SystemFrame::checkOptions() {
     if (oc.exists("weights.random-factor")) {
         gWeightsRandomFactor = oc.getFloat("weights.random-factor");
     }
+    if (oc.exists("persontrip.walk-opposite-factor")) {
+        gWeightsWalkOppositeFactor = oc.getFloat("persontrip.walk-opposite-factor");
+    }
     if (oc.exists("xml-validation.routes") && oc.isDefault("xml-validation.routes") && !oc.isDefault("xml-validation")) {
         oc.set("xml-validation.routes", oc.getString("xml-validation"));
     }

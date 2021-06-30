@@ -124,6 +124,7 @@ extern int gPrecisionGeo; // for lon,lat
 extern bool gHumanReadableTime;
 extern bool gSimulation; // whether the current application is sumo or sumo-gui (as opposed to a router)
 extern double gWeightsRandomFactor; // randomization for edge weights
+extern double gWeightsWalkOppositeFactor; // factor for walking against flow of traffic
 
 
 /// @brief global utility flags for debugging
