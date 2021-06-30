@@ -292,10 +292,10 @@ protected:
         double myRelY;
         /// @brief the walking direction on the current lane (1 forward, -1 backward)
         int myDir;
-        /// @brief the current lateral walking speed
-        double mySpeedLat;
         /// @brief the current walking speed
         double mySpeed;
+        /// @brief the current lateral walking speed
+        double mySpeedLat;
         /// @brief whether the pedestrian is waiting to start its walk
         bool myWaitingToEnter;
         /// @brief the consecutive time spent at speed 0
