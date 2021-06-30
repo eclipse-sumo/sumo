@@ -38,7 +38,7 @@ netedit.leftClick(referencePosition, 220, 240)
 netedit.leftClick(referencePosition, 220, 210)
 
 # select both junctions
-netedit.leftClick(referencePosition, 75, 21)
+netedit.leftClick(referencePosition, 75, 210)
 
 # change to move mode
 netedit.moveMode()
