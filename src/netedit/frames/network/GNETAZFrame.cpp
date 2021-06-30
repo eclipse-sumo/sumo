@@ -1468,8 +1468,8 @@ GNETAZFrame::shapeDrawed() {
     // show warning dialogbox and stop check if input parameters are valid
     if (!myTAZParameters->isCurrentParametersValid()) {
         return false;
-    } else if (myDrawingShape->getTemporalShape().size() == 0) {
-        WRITE_WARNING("TAZ shape cannot be empty");
+    } else if (myDrawingShape->getTemporalShape().size() < 3) {
+        WRITE_WARNING("TAZ shape needs at least three points");
         return false;
     } else {
         // get attributes and values
