@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-04 08:59:33 by Eclipse SUMO sumo Version v1_9_1+0005-3b04622
+<!-- generated on 2021-06-30 13:06:45 by Eclipse SUMO sumo Version v1_9_2+0763-fdcd89e
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -24,7 +24,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="57385"/>
+        <remote-port value="58415"/>
     </traci_server>
 
     <gui_only>
@@ -102,7 +102,7 @@
         <vehicle id="veh0" x="504.95" y="485.91" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.70" pos="234.41" lane="3si_2" slope="0.00"/>
         <person id="newPerson" x="504.95" y="485.91" angle="0.00" speed="2.70" pos="234.41" edge="3si" slope="0.00"/>
         <person id="horiz" x="750.94" y="505.46" angle="351.38" speed="1.45" pos="2.03" edge=":m2_w0" slope="0.00"/>
-        <person id="tripTest" x="752.82" y="504.39" angle="270.00" speed="1.30" pos="247.18" edge="2fi" slope="0.00"/>
+        <person id="tripTest" x="752.82" y="504.39" angle="246.81" speed="1.30" pos="247.18" edge="2fi" slope="0.00"/>
         <person id="detour2" x="511.55" y="478.15" angle="0.00" speed="1.35" pos="226.65" edge="3si" slope="0.00"/>
         <person id="detour" x="511.55" y="482.93" angle="0.00" speed="1.35" pos="231.43" edge="3si" slope="0.00"/>
     </timestep>
@@ -110,7 +110,7 @@
         <vehicle id="veh0" x="504.95" y="486.33" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.41" pos="234.83" lane="3si_2" slope="0.00"/>
         <person id="newPerson" x="504.95" y="486.33" angle="0.00" speed="0.41" pos="234.83" edge="3si" slope="0.00"/>
         <person id="horiz" x="750.71" y="506.99" angle="351.38" speed="1.54" pos="3.58" edge=":m2_w0" slope="0.00"/>
-        <person id="tripTest" x="751.70" y="504.31" angle="270.00" speed="1.12" pos="248.30" edge="2fi" slope="0.00"/>
+        <person id="tripTest" x="751.70" y="504.31" angle="265.69" speed="1.12" pos="248.30" edge="2fi" slope="0.00"/>
         <person id="detour2" x="511.55" y="479.48" angle="0.00" speed="1.33" pos="227.98" edge="3si" slope="0.00"/>
         <person id="detour" x="511.55" y="484.24" angle="0.00" speed="1.32" pos="232.74" edge="3si" slope="0.00"/>
     </timestep>
@@ -293,14 +293,14 @@
     </timestep>
     <timestep time="34.00">
         <vehicle id="veh0" x="324.39" y="501.65" angle="270.00" type="DEFAULT_VEHTYPE" speed="9.98" pos="162.16" lane="1o_1" slope="0.00"/>
-        <person id="detour2" x="512.41" y="508.43" angle="0.00" speed="1.22" pos="11.68" edge=":0_c1" slope="0.00"/>
+        <person id="detour2" x="512.41" y="508.43" angle="335.59" speed="1.22" pos="11.68" edge=":0_c1" slope="0.00"/>
         <person id="detour" x="511.14" y="513.35" angle="266.31" speed="1.23" pos="2.21" edge=":0_w1" slope="0.00"/>
         <person id="tripTest" x="727.70" y="510.91" angle="270.00" speed="1.15" pos="20.80" edge="2si" slope="0.00"/>
         <person id="horiz" x="716.32" y="511.55" angle="270.00" speed="1.65" pos="32.18" edge="2si" slope="0.00"/>
     </timestep>
     <timestep time="35.00">
         <vehicle id="veh0" x="314.47" y="501.65" angle="270.00" type="DEFAULT_VEHTYPE" speed="9.91" pos="172.08" lane="1o_1" slope="0.00"/>
-        <person id="detour2" x="512.33" y="509.64" angle="0.00" speed="1.21" pos="12.89" edge=":0_c1" slope="0.00"/>
+        <person id="detour2" x="512.33" y="509.64" angle="356.01" speed="1.21" pos="12.89" edge=":0_c1" slope="0.00"/>
         <person id="detour" x="509.99" y="513.28" angle="266.31" speed="1.16" pos="3.37" edge=":0_w1" slope="0.00"/>
         <person id="tripTest" x="726.46" y="510.91" angle="270.00" speed="1.24" pos="22.04" edge="2si" slope="0.00"/>
         <person id="horiz" x="714.95" y="511.55" angle="270.00" speed="1.36" pos="33.55" edge="2si" slope="0.00"/>
@@ -342,14 +342,14 @@
     </timestep>
     <timestep time="41.00">
         <vehicle id="veh0" x="252.95" y="501.65" angle="270.00" type="DEFAULT_VEHTYPE" speed="10.08" pos="233.60" lane="1o_1" slope="0.00"/>
-        <person id="detour2" x="505.71" y="512.92" angle="266.31" speed="1.11" pos="7.66" edge=":0_w1" slope="0.00"/>
+        <person id="detour2" x="505.71" y="512.92" angle="292.86" speed="1.11" pos="7.66" edge=":0_w1" slope="0.00"/>
         <person id="detour" x="503.36" y="512.97" angle="270.00" speed="0.81" pos="10.10" edge=":0_w1" slope="0.00"/>
         <person id="tripTest" x="719.41" y="510.91" angle="270.00" speed="1.13" pos="29.09" edge="2si" slope="0.00"/>
         <person id="horiz" x="705.90" y="511.55" angle="270.00" speed="1.52" pos="42.60" edge="2si" slope="0.00"/>
     </timestep>
     <timestep time="42.00">
         <vehicle id="veh0" x="242.70" y="501.65" angle="270.00" type="DEFAULT_VEHTYPE" speed="10.25" pos="243.85" lane="1o_1" slope="0.00"/>
-        <person id="detour2" x="504.54" y="512.97" angle="270.00" speed="1.26" pos="8.92" edge=":0_w1" slope="0.00"/>
+        <person id="detour2" x="504.54" y="512.97" angle="273.83" speed="1.26" pos="8.92" edge=":0_w1" slope="0.00"/>
         <person id="detour" x="503.36" y="512.97" angle="270.00" speed="0.00" pos="10.10" edge=":0_w1" slope="0.00"/>
         <person id="tripTest" x="718.11" y="510.91" angle="270.00" speed="1.30" pos="30.39" edge="2si" slope="0.00"/>
         <person id="horiz" x="704.50" y="511.55" angle="270.00" speed="1.40" pos="44.00" edge="2si" slope="0.00"/>
@@ -447,14 +447,14 @@
     </timestep>
     <timestep time="56.00">
         <vehicle id="veh0" x="97.11" y="501.65" angle="270.00" type="DEFAULT_VEHTYPE" speed="10.43" pos="389.44" lane="1o_1" slope="0.00"/>
-        <person id="detour2" x="490.24" y="512.45" angle="339.68" speed="1.24" pos="1.28" edge=":0_w0" slope="0.00"/>
+        <person id="detour2" x="490.24" y="512.45" angle="315.50" speed="1.24" pos="1.28" edge=":0_w0" slope="0.00"/>
         <person id="detour" x="486.65" y="511.02" angle="176.31" speed="1.32" pos="2.33" edge=":0_w0" slope="0.00"/>
         <person id="tripTest" x="700.79" y="510.91" angle="270.00" speed="1.14" pos="47.71" edge="2si" slope="0.00"/>
         <person id="horiz" x="683.05" y="511.55" angle="270.00" speed="1.36" pos="65.45" edge="2si" slope="0.00"/>
     </timestep>
     <timestep time="57.00">
         <vehicle id="veh0" x="86.13" y="501.65" angle="270.00" type="DEFAULT_VEHTYPE" speed="10.98" pos="400.42" lane="1o_1" slope="0.00"/>
-        <person id="detour2" x="489.46" y="513.19" angle="0.00" speed="1.13" pos="2.41" edge=":0_w0" slope="0.00"/>
+        <person id="detour2" x="489.46" y="513.19" angle="333.91" speed="1.13" pos="2.41" edge=":0_w0" slope="0.00"/>
         <person id="detour" x="486.74" y="509.70" angle="176.31" speed="1.33" pos="3.66" edge=":0_w0" slope="0.00"/>
         <person id="tripTest" x="699.46" y="510.91" angle="270.00" speed="1.34" pos="49.04" edge="2si" slope="0.00"/>
         <person id="horiz" x="681.45" y="511.55" angle="270.00" speed="1.60" pos="67.05" edge="2si" slope="0.00"/>
@@ -464,7 +464,7 @@
         <person id="detour" x="486.82" y="508.41" angle="176.31" speed="1.29" pos="4.95" edge=":0_w0" slope="0.00"/>
         <person id="tripTest" x="698.15" y="510.91" angle="270.00" speed="1.30" pos="50.35" edge="2si" slope="0.00"/>
         <person id="horiz" x="679.92" y="511.55" angle="270.00" speed="1.53" pos="68.58" edge="2si" slope="0.00"/>
-        <person id="detour2" x="489.73" y="514.51" angle="0.00" speed="1.32" pos="233.99" edge="4si" slope="0.00"/>
+        <person id="detour2" x="489.73" y="514.51" angle="7.32" speed="1.32" pos="233.99" edge="4si" slope="0.00"/>
     </timestep>
     <timestep time="59.00">
         <vehicle id="veh0" x="64.71" y="501.65" angle="270.00" type="DEFAULT_VEHTYPE" speed="10.58" pos="421.84" lane="1o_1" slope="0.00"/>
@@ -726,19 +726,19 @@
         <person id="detour2" x="489.73" y="566.92" angle="0.00" speed="1.37" pos="181.58" edge="4si" slope="0.00"/>
     </timestep>
     <timestep time="101.00">
-        <person id="detour" x="486.83" y="489.97" angle="249.68" speed="1.31" pos="2.05" edge=":0_w3" slope="0.00"/>
+        <person id="detour" x="486.83" y="489.97" angle="226.65" speed="1.31" pos="2.05" edge=":0_w3" slope="0.00"/>
         <person id="tripTest" x="644.76" y="510.91" angle="270.00" speed="1.36" pos="103.74" edge="2si" slope="0.00"/>
         <person id="horiz" x="615.84" y="511.55" angle="270.00" speed="1.41" pos="132.66" edge="2si" slope="0.00"/>
         <person id="detour2" x="489.73" y="568.07" angle="0.00" speed="1.15" pos="180.43" edge="4si" slope="0.00"/>
     </timestep>
     <timestep time="102.00">
-        <person id="detour" x="486.63" y="489.37" angle="270.00" speed="0.53" pos="2.59" edge=":0_w3" slope="0.00"/>
+        <person id="detour" x="486.63" y="489.37" angle="219.81" speed="0.53" pos="2.59" edge=":0_w3" slope="0.00"/>
         <person id="tripTest" x="643.44" y="510.91" angle="270.00" speed="1.32" pos="105.06" edge="2si" slope="0.00"/>
         <person id="horiz" x="614.23" y="511.55" angle="270.00" speed="1.62" pos="134.27" edge="2si" slope="0.00"/>
         <person id="detour2" x="489.73" y="569.20" angle="0.00" speed="1.12" pos="179.30" edge="4si" slope="0.00"/>
     </timestep>
     <timestep time="103.00">
-        <person id="detour" x="485.48" y="489.73" angle="270.00" speed="1.15" pos="233.98" edge="1si" slope="0.00"/>
+        <person id="detour" x="485.48" y="489.73" angle="274.21" speed="1.15" pos="233.98" edge="1si" slope="0.00"/>
         <person id="tripTest" x="642.16" y="510.91" angle="270.00" speed="1.28" pos="106.34" edge="2si" slope="0.00"/>
         <person id="horiz" x="612.86" y="511.55" angle="270.00" speed="1.37" pos="135.64" edge="2si" slope="0.00"/>
         <person id="detour2" x="489.73" y="570.39" angle="0.00" speed="1.19" pos="178.11" edge="4si" slope="0.00"/>

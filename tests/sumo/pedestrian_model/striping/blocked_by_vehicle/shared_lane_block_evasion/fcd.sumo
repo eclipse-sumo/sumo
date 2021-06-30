@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug  7 17:08:04 2017 by SUMO Version dev-SVN-r25502
+<!-- generated on 2021-06-30 13:06:16 by Eclipse SUMO sumo Version v1_9_2+0763-fdcd89e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,10 +14,12 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <fcd-output value="fcd.xml"/>
     </output>
 
     <processing>
+        <default.speeddev value="0"/>
         <pedestrian.model value="striping"/>
         <pedestrian.striping.stripe-width value="0.64"/>
         <pedestrian.striping.dawdling value="0"/>
@@ -25,6 +27,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -79,7 +82,7 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="9.00">
         <vehicle id="v0" x="94.56" y="-1.65" angle="90.00" type="car" speed="13.89" pos="94.56" lane="beg_0" slope="0.00"/>
-        <person id="p1" x="64.03" y="-2.29" angle="90.00" speed="0.50" pos="64.03" edge="beg" slope="0.00"/>
+        <person id="p1" x="64.03" y="-2.29" angle="38.00" speed="0.50" pos="64.03" edge="beg" slope="0.00"/>
         <person id="p0" x="64.50" y="-2.93" angle="90.00" speed="0.50" pos="64.50" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="10.00">
