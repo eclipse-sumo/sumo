@@ -1,4 +1,7 @@
 personTrip
+
+# test routing on shared roads
+opposite-factor
 basic
 
 # use edges instead of from and to
