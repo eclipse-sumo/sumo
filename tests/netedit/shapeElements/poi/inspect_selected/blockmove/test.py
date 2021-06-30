@@ -32,19 +32,19 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.selectMode()
 
 # select first POI
-netedit.leftClick(referencePosition, 103, 67)
+netedit.leftClick(referencePosition, 103, 57)
 
 # select second POI
-netedit.leftClick(referencePosition, 153, 67)
+netedit.leftClick(referencePosition, 153, 57)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 103, 67)
+netedit.leftClick(referencePosition, 103, 57)
 
 # Change boolean parameter block
-netedit.modifyBoolAttribute(13, False)
+netedit.modifyBoolAttribute(15, False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

@@ -32,16 +32,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.selectMode()
 
 # select first POI
-netedit.leftClick(referencePosition, 103, 67)
+netedit.leftClick(referencePosition, 103, 57)
 
 # select second POI
-netedit.leftClick(referencePosition, 153, 67)
+netedit.leftClick(referencePosition, 153, 57)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 103, 67)
+netedit.leftClick(referencePosition, 103, 57)
 
 # Change parameter 2 with a non valid value (dummy)
 netedit.modifyAttribute(1, "dummyColor", False)

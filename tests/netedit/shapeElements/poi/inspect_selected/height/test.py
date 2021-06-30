@@ -32,25 +32,25 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.selectMode()
 
 # select first POI
-netedit.leftClick(referencePosition, 103, 67)
+netedit.leftClick(referencePosition, 103, 57)
 
 # select second POI
-netedit.leftClick(referencePosition, 153, 67)
+netedit.leftClick(referencePosition, 153, 57)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 103, 67)
+netedit.leftClick(referencePosition, 103, 57)
 
 # Change parameter 7 with a non valid value (dummy)
-netedit.modifyAttribute(5, "dummyHeight", False)
+netedit.modifyAttribute(6, "dummyHeight", False)
 
 # Change parameter 7 with a non valid value (negative)
-netedit.modifyAttribute(5, "-3", False)
+netedit.modifyAttribute(6, "-3", False)
 
 # Change parameter 7 with a valid value
-netedit.modifyAttribute(5, "5", False)
+netedit.modifyAttribute(6, "5", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

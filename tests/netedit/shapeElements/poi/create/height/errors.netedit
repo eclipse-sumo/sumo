@@ -8,7 +8,7 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'poly' in TagSelector
 Debug: Selected item 'poi' in TagSelector
 Debug: Invalid input parameter of poi: 'height' doesn't have a valid 'float' format
-Debug: Invalid input parameter of poi: 'height' doesn't have a valid 'float' format
+Debug: Invalid input parameter of poi: 'height' cannot be negative
 Debug: Adding poi 'poi_0' into viewNet
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -2.40,3.60,26.40,32.40
 Debug: Keys Ctrl+Z (Undo) pressed

@@ -5,11 +5,10 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Adding poiLane 'POI_0' into viewNet
+Error: Could not build poi with ID 'POI_0' in netedit; filename is invalid.
 Debug: Adding poiLane 'POI_1' into viewNet
 Debug: Adding poiLane 'POI_2' into viewNet
-Error: Could not load '%%;;;:::'.
-Unknown file extension '' for image '%%;;;:::'!
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.30Jun143657.34952\netedit.gui\shapeElements\poilane\load\imgfile\input_additionals.add.xml failed.
 Error: Could not load 'paris.ico'.
 Loading failed!
 Debug: Additionals saved
@@ -31,8 +30,6 @@ Debug: Removing poiLane 'POI_2' from net in ~GNEChange_Shape()
 Debug: delete poiLane 'POI_2' in ~GNEChange_Shape()
 Debug: Removing poiLane 'POI_1' from net in ~GNEChange_Shape()
 Debug: delete poiLane 'POI_1' in ~GNEChange_Shape()
-Debug: Removing poiLane 'POI_0' from net in ~GNEChange_Shape()
-Debug: delete poiLane 'POI_0' in ~GNEChange_Shape()
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
