@@ -194,6 +194,15 @@ public:
     virtual double interactionGap(const MSVehicle* const veh, double vL) const;
 
 
+    /** @brief Returns the maximum velocity the CF-model wants to achieve in the next step
+     * @param[in] maxSpeed The maximum achievable speed in the next step
+     * @param[in] maxSpeedLane The maximum speed the vehicle wants to drive on this lane (Speedlimit*SpeedFactor)
+     */
+    virtual double maximumLaneSpeedCF(double maxSpeed, double maxSpeedLane) const {
+        return MIN2(maxSpeed, maxSpeedLane);
+    }
+
+
     /** @brief Returns the model's ID; the XML-Tag number is used
      * @return The model's ID
      */
