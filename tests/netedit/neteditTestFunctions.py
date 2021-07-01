@@ -511,6 +511,10 @@ def undo(referencePosition, number, posX=0, posY=0):
     time.sleep(DELAY_UNDOREDO)
     # focus current frame
     focusOnFrame()
+    # focus current frame
+    focusOnFrame()
+    # needed to avoid errors with undo/redo (Provisionally)
+    typeKey('i')
     # click over referencePosition
     leftClick(referencePosition, posX, posY)
     for _ in range(number):
@@ -526,6 +530,8 @@ def redo(referencePosition, number, posX=0, posY=0):
     time.sleep(DELAY_UNDOREDO)
     # focus current frame
     focusOnFrame()
+    # needed to avoid errors with undo/redo (Provisionally)
+    typeKey('i')
     # click over referencePosition
     leftClick(referencePosition, posX, posY)
     for _ in range(number):
