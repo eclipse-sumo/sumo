@@ -5382,8 +5382,12 @@ MSVehicle::getUpcomingLanesUntil(double distance) const {
         return lanes;
     }
 
-    distance += getPositionOnLane();
-    MSLane* lane = myLane;
+    if (!myLaneChangeModel->isOpposite()) {
+        distance += getPositionOnLane();
+    } else {
+        distance += myLane->getOppositePos(getPositionOnLane());
+    }
+    MSLane* lane = myLaneChangeModel->isOpposite() ? myLane->getOpposite() : myLane;
     while (lane->isInternal() && (distance > 0.)) {  // include initial internal lanes
         lanes.insert(lanes.end(), lane);
         distance -= lane->getLength();
@@ -5448,8 +5452,12 @@ MSVehicle::getPastLanesUntil(double distance) const {
     }
 
     MSRouteIterator routeIt = myCurrEdge;
-    distance += myLane->getLength() - getPositionOnLane();
-    MSLane* lane = myLane;
+    if (!myLaneChangeModel->isOpposite()) {
+        distance += myLane->getLength() - getPositionOnLane();
+    } else {
+        distance += myLane->getOpposite()->getLength() - myLane->getOppositePos(getPositionOnLane());
+    }
+    MSLane* lane = myLaneChangeModel->isOpposite() ? myLane->getOpposite() : myLane;
     while (lane->isInternal() && (distance > 0.)) {  // include initial internal lanes
         lanes.insert(lanes.end(), lane);
         distance -= lane->getLength();
