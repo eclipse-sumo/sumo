@@ -35,7 +35,6 @@ Debug: Created connection 'from8_1to1_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to4_1' in retrieveGNEConnection()
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
-Debug: Value 'dummyType' for attribute type of junction isn't valid
 Debug: Deleting TLS from junction 'Center'
 Debug: Setting new attribute type 'rail_signal' into junction 'Center'
 Debug: Setting new attribute linkIndex '-1' into crossing ':Center_c0'
