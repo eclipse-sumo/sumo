@@ -1376,13 +1376,11 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagPropertie
     }
     // Obtain position as the clicked position over view
     const Position viewPos = myViewNet->snapToActiveGrid(myViewNet->getPositionInformation());
-    if (tagProperties.hasAttribute(SUMO_ATTR_POSITION)) {
-        myBaseAdditional->addPositionAttribute(SUMO_ATTR_POSITION, viewPos);
-    } else {
-        myBaseAdditional->addDoubleAttribute(SUMO_ATTR_X, viewPos.x());
-        myBaseAdditional->addDoubleAttribute(SUMO_ATTR_Y, viewPos.y());
-        myBaseAdditional->addDoubleAttribute(SUMO_ATTR_Z, viewPos.z());
-    }
+    // add position and X-Y-Z attributes
+    myBaseAdditional->addPositionAttribute(SUMO_ATTR_POSITION, viewPos);
+    myBaseAdditional->addDoubleAttribute(SUMO_ATTR_X, viewPos.x());
+    myBaseAdditional->addDoubleAttribute(SUMO_ATTR_Y, viewPos.y());
+    myBaseAdditional->addDoubleAttribute(SUMO_ATTR_Z, viewPos.z());
     // parse common attributes
     if (!buildAdditionalCommonAttributes(tagProperties)) {
         return false;

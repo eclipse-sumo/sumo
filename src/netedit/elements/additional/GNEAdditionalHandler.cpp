@@ -355,37 +355,49 @@ void
 GNEAdditionalHandler::buildParkingSpace(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const double x, const double y, const double z, 
     const std::string& name, const std::string &width, const std::string &length, const std::string &angle, const double slope, 
     const std::map<std::string, std::string> &parameters) {
-    // get NETEDIT parameters
-    NeteditParameters neteditParameters(sumoBaseObject);
-    // get lane
-    GNEAdditional *parkingArea = myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
-    // get double values
-    const double widthDouble = GNEAttributeCarrier::canParse<double>(width)? GNEAttributeCarrier::parse<double>(width) : 0;
-    const double lengthDouble = GNEAttributeCarrier::canParse<double>(length)? GNEAttributeCarrier::parse<double>(length) : 0;
-    // check lane
-    if (parkingArea == nullptr) {
-        writeErrorInvalidParent(SUMO_TAG_PARKING_SPACE, SUMO_TAG_PARKING_AREA);
-    } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-        writeErrorInvalidName(SUMO_TAG_PARKING_SPACE, parkingArea->getID(), SUMO_ATTR_NAME);
-    } else if (widthDouble < 0) {
-        writeErrorInvalidNegativeValue(SUMO_TAG_PARKING_SPACE, parkingArea->getID(), SUMO_ATTR_WIDTH);
-    } else if (lengthDouble < 0) {
-        writeErrorInvalidNegativeValue(SUMO_TAG_PARKING_SPACE, parkingArea->getID(), SUMO_ATTR_LENGTH);
+    // check width and heights
+    if (!width.empty() && !GNEAttributeCarrier::canParse<double>(width)) {
+        WRITE_ERROR("Could not build " + toString(SUMO_TAG_PARKING_SPACE) + " with ID '" + sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID) + 
+                    "' in netedit; attribute " +  toString(SUMO_ATTR_WIDTH) + " cannot be parse to float.");
+    } else if (!length.empty() && !GNEAttributeCarrier::canParse<double>(length)) {
+        WRITE_ERROR("Could not build " + toString(SUMO_TAG_PARKING_SPACE) + " with ID '" + sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID) + 
+                    "' in netedit; attribute " +  toString(SUMO_ATTR_LENGTH) + " cannot be parse to float.");
+    } else if (!angle.empty() && !GNEAttributeCarrier::canParse<double>(angle)) {
+        WRITE_ERROR("Could not build " + toString(SUMO_TAG_PARKING_SPACE) + " with ID '" + sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID) + 
+                    "' in netedit; attribute " +  toString(SUMO_ATTR_ANGLE) + " cannot be parse to float.");
     } else {
-        // build parkingSpace
-        GNEAdditional* parkingSpace = new GNEParkingSpace(myNet, parkingArea, x, y, z, width, length, angle, slope, name, parameters, neteditParameters.blockMovement);
-        // insert depending of allowUndoRedo
-        if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_PARKING_SPACE));
-            myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingSpace, true), true);
-            myNet->getViewNet()->getUndoList()->p_end();
+        // get NETEDIT parameters
+        NeteditParameters neteditParameters(sumoBaseObject);
+        // get lane
+        GNEAdditional *parkingArea = myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+        // get double values
+        const double widthDouble = width.empty()? 0 : GNEAttributeCarrier::parse<double>(width);
+        const double lengthDouble = length.empty()? 0 : GNEAttributeCarrier::parse<double>(length);
+        // check lane
+        if (parkingArea == nullptr) {
+            writeErrorInvalidParent(SUMO_TAG_PARKING_SPACE, SUMO_TAG_PARKING_AREA);
+        } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
+            writeErrorInvalidName(SUMO_TAG_PARKING_SPACE, parkingArea->getID(), SUMO_ATTR_NAME);
+        } else if (widthDouble < 0) {
+            writeErrorInvalidNegativeValue(SUMO_TAG_PARKING_SPACE, parkingArea->getID(), SUMO_ATTR_WIDTH);
+        } else if (lengthDouble < 0) {
+            writeErrorInvalidNegativeValue(SUMO_TAG_PARKING_SPACE, parkingArea->getID(), SUMO_ATTR_LENGTH);
         } else {
-            myNet->getAttributeCarriers()->insertAdditional(parkingSpace);
-            parkingArea->addChildElement(parkingSpace);
-            parkingSpace->incRef("buildParkingSpace");
+            // build parkingSpace
+            GNEAdditional* parkingSpace = new GNEParkingSpace(myNet, parkingArea, Position(x, y, z), width, length, angle, slope, name, parameters, neteditParameters.blockMovement);
+            // insert depending of allowUndoRedo
+            if (myAllowUndoRedo) {
+                myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_PARKING_SPACE));
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingSpace, true), true);
+                myNet->getViewNet()->getUndoList()->p_end();
+            } else {
+                myNet->getAttributeCarriers()->insertAdditional(parkingSpace);
+                parkingArea->addChildElement(parkingSpace);
+                parkingSpace->incRef("buildParkingSpace");
+            }
+            // update geometry (due boundaries)
+            parkingSpace->updateGeometry();
         }
-        // update geometry (due boundaries)
-        parkingSpace->updateGeometry();
     }
 }
 

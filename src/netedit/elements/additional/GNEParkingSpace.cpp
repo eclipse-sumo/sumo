@@ -31,13 +31,13 @@
 // method definitions
 // ===========================================================================
 
-GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const double x, const double y, 
-    const double z, const std::string &width, const std::string &length, const std::string &angle, double slope, 
+GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position &pos, 
+    const std::string &width, const std::string &length, const std::string &angle, double slope, 
     const std::string &name, const std::map<std::string, std::string> &parameters, bool blockMovement) :
     GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, name,
         {}, {}, {}, {parkingAreaParent}, {}, {}, {}, {},
         parameters, blockMovement),
-    myPosition(x, y, z),
+    myPosition(pos),
     myWidth(width),
     myLength(length),
     myAngle(angle),
@@ -177,12 +177,8 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getID();
-        case SUMO_ATTR_X:
-            return toString(myPosition.x());
-        case SUMO_ATTR_Y:
-            return toString(myPosition.y());
-        case SUMO_ATTR_Z:
-            return toString(myPosition.z());
+        case SUMO_ATTR_POSITION:
+            return toString(myPosition);
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_WIDTH:
@@ -219,9 +215,7 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_X:
-        case SUMO_ATTR_Y:
-        case SUMO_ATTR_Z:
+        case SUMO_ATTR_POSITION:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
@@ -242,10 +236,8 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
 bool
 GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_X:
-        case SUMO_ATTR_Y:
-        case SUMO_ATTR_Z:
-            return canParse<double>(value);
+        case SUMO_ATTR_POSITION:
+            return canParse<Position>(value);
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_WIDTH:
@@ -284,7 +276,7 @@ GNEParkingSpace::getPopUpID() const {
 
 std::string
 GNEParkingSpace::getHierarchyName() const {
-    return getTagStr() + ": " + getAttribute(SUMO_ATTR_X) + ", "+ getAttribute(SUMO_ATTR_Y) + ", "+ getAttribute(SUMO_ATTR_Z);
+    return getTagStr() + ": " + getAttribute(SUMO_ATTR_POSITION);
 }
 
 // ===========================================================================
@@ -294,18 +286,8 @@ GNEParkingSpace::getHierarchyName() const {
 void
 GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_X:
-            myPosition.setx(parse<double>(value));
-            // update boundary
-            updateCenteringBoundary(true);
-            break;
-        case SUMO_ATTR_Y:
-            myPosition.sety(parse<double>(value));
-            // update boundary
-            updateCenteringBoundary(true);
-            break;
-        case SUMO_ATTR_Z:
-            myPosition.setz(parse<double>(value));
+        case SUMO_ATTR_POSITION:
+            myPosition = parse<Position>(value);
             // update boundary
             updateCenteringBoundary(true);
             break;
@@ -364,9 +346,7 @@ GNEParkingSpace::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNEParkingSpace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_X, toString(moveResult.shapeToUpdate.front().x())));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_Y, toString(moveResult.shapeToUpdate.front().y())));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_Z, toString(moveResult.shapeToUpdate.front().z())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
     undoList->p_end();
 }
 
