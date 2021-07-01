@@ -491,6 +491,7 @@
         <xsd:attribute name="x" type="xsd:float" use="required"/>
         <xsd:attribute name="y" type="xsd:float" use="required"/>
         <xsd:attribute name="z" type="xsd:float" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="length" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="angle" type="xsd:float" use="optional"/>
