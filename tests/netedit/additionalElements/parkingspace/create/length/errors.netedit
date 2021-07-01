@@ -1,28 +1,35 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'parkingArea' in TagSelector
-Debug: Format of optional positive optional float attribute 'length' of parkingArea with ID 'parkingArea_gneE0_0_0' is invalid; Cannot be parsed to float; Default value will be used.
+Debug: Selected item 'parkingArea' in TagSelector
 Debug: Adding parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
 Debug: Selected item 'space' in TagSelector
-Debug: Invalid input parameter of space: 'length' doesn't have a valid 'float' format
-Debug: Invalid input parameter of space: 'length' doesn't have a valid 'float' format
-Debug: Invalid input parameter of space: 'length' cannot be negative
+Debug: Selected item 'space' in TagSelector
+Debug: Key ENTER pressed
+Error: Could not build space with ID 'parkingArea_gneE0_0_0' in netedit; attribute length cannot be parse to float.
+Debug: Key ENTER pressed
+Debug: Adding space 'parkingArea_gneE0_0_0' in GNEChange_Additional
+Debug: Key ENTER pressed
+Error: Could not build space with ID 'parkingArea_gneE0_0_0' in netedit; attribute length cannot be negative.
+Debug: Key ENTER pressed
 Debug: Adding space 'parkingArea_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing space 'parkingArea_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
+Debug: Removing space 'parkingArea_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
+Debug: Adding space 'parkingArea_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding space 'parkingArea_gneE0_0_0' in GNEChange_Additional
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Deleting unreferenced space 'parkingArea_gneE0_0_0'
 Debug: Deleting unreferenced space 'parkingArea_gneE0_0_0'
 Debug: Deleting unreferenced parkingArea 'parkingArea_gneE0_0_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor

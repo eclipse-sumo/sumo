@@ -42,25 +42,28 @@ netedit.changeElement("space")
 
 # set invalid width (dummy)
 netedit.selectAdditionalChild(10, 0)
-netedit.changeDefaultValue(2, "dummyWidth")
+netedit.changeDefaultValue(3, "dummyWidth")
 
 # try to create area
 netedit.leftClick(referencePosition, 280, 100)
 
 # set invalid width (empty)
-netedit.changeDefaultValue(2, "")
+netedit.selectAdditionalChild(10, 0)
+netedit.changeDefaultValue(3, "")
 
 # try to create area
 netedit.leftClick(referencePosition, 280, 100)
 
 # set invalid width (negative)
-netedit.changeDefaultValue(2, "-3")
+netedit.selectAdditionalChild(10, 0)
+netedit.changeDefaultValue(3, "-3")
 
 # try to create area
 netedit.leftClick(referencePosition, 280, 100)
 
 # set valid width
-netedit.changeDefaultValue(2, "2.5")
+netedit.selectAdditionalChild(10, 0)
+netedit.changeDefaultValue(3, "2.5")
 
 # create area
 netedit.leftClick(referencePosition, 280, 100)
