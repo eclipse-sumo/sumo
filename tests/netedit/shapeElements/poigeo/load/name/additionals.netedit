@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-06-24 16:53:36 by Eclipse SUMO netedit Version v1_9_2+0644-f4a64959a8
+<!-- generated on 2021-07-01 16:47:14 by Eclipse SUMO netedit Version v1_9_2+0799-42b2810642a
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.24Jun160554.1588\netedit.gui\shapeElements\poigeo\load\name\input_net.net.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.01Jul153420.106181/netedit.daily.shape.poigeo/shapeElements/poigeo/load/name/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.24Jun160554.1588\netedit.gui\shapeElements\poigeo\load\name\net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.01Jul153420.106181/netedit.daily.shape.poigeo/shapeElements/poigeo/load/name/net.net.xml"/>
     </output>
 
     <processing>
@@ -30,33 +30,33 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.24Jun160554.1588\netedit.gui\shapeElements\poigeo\load\name\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.24Jun160554.1588\netedit.gui\shapeElements\poigeo\load\name\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.24Jun160554.1588\netedit.gui\shapeElements\poigeo\load\name\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.24Jun160554.1588\netedit.gui\shapeElements\poigeo\load\name\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.24Jun160554.1588\netedit.gui\shapeElements\poigeo\load\name\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.24Jun160554.1588\netedit.gui\shapeElements\poigeo\load\name\datas.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.01Jul153420.106181/netedit.daily.shape.poigeo/shapeElements/poigeo/load/name/additionals.xml"/>
+        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.01Jul153420.106181/netedit.daily.shape.poigeo/shapeElements/poigeo/load/name/additionals.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.01Jul153420.106181/netedit.daily.shape.poigeo/shapeElements/poigeo/load/name/routes.xml"/>
+        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.01Jul153420.106181/netedit.daily.shape.poigeo/shapeElements/poigeo/load/name/routes.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.01Jul153420.106181/netedit.daily.shape.poigeo/shapeElements/poigeo/load/name/datas.xml"/>
+        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.01Jul153420.106181/netedit.daily.shape.poigeo/shapeElements/poigeo/load/name/datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.24Jun160554.1588\netedit.gui\shapeElements\poigeo\load\name\gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.01Jul153420.106181/netedit.daily.shape.poigeo/shapeElements/poigeo/load/name/gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.24Jun160554.1588\netedit.gui\shapeElements\poigeo\load\name\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.01Jul153420.106181/netedit.daily.shape.poigeo/shapeElements/poigeo/load/name/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.24Jun160554.1588\netedit.gui\shapeElements\poigeo\load\name\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.01Jul153420.106181/netedit.daily.shape.poigeo/shapeElements/poigeo/load/name/log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poi id="POI_2" color="red" layer="202.00" lon="-20.000000" lat="-30.000000" width="0.00" height="0.00"/>
+    <poi id="POI_2" color="red" layer="202.00" name="myName" lon="-20.000000" lat="-30.000000" width="0.00" height="0.00"/>
 </additional>

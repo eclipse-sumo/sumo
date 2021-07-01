@@ -71,6 +71,7 @@ Debug: Selected item 'trip' in TagSelector
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'vehicle (over route)' in TagSelector
 Debug: Adding vehicle 'vehicle_0' in GNEChange_DemandElement
+Debug: Value 'vehicle (over route)' for attribute departPos of vehicle isn't valid
 Debug: Value 'dummyPos' for attribute departPos of vehicle isn't valid
 Debug: Setting new attribute departPos '500' into vehicle 'vehicle_0'
 Debug: Setting new attribute departPos 'random_free' into vehicle 'vehicle_0'

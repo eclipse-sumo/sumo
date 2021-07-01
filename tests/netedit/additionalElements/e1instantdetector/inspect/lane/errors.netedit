@@ -12,7 +12,6 @@ Debug: Value 'dummy lane' for attribute lane of instantInductionLoop isn't valid
 Debug: Setting new attribute lane 'gneE0_0' into instantInductionLoop 'instantInductionLoop_gneE1_0_0'
 Debug: Value 'gneE2_1' for attribute lane of instantInductionLoop isn't valid
 Debug: Value 'gneE2_0' for attribute lane of instantInductionLoop isn't valid
-Debug: Value 'gneE2_0i' for attribute lane of instantInductionLoop isn't valid
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute lane 'gneE1_0' into instantInductionLoop 'instantInductionLoop_gneE1_0_0'
