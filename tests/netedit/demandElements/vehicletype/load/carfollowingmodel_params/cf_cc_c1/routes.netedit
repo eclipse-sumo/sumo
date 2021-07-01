@@ -59,8 +59,8 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="vType0" carFollowModel="CC"/>
-    <vType id="vType1" carFollowModel="CC" c1="-3" lanesCount="0"/>
-    <vType id="vType2" carFollowModel="CC" c1="0" lanesCount="0"/>
-    <vType id="vType3" carFollowModel="CC" c1="12" lanesCount="0"/>
-    <vType id="vType4" carFollowModel="CC" c1="4.5" lanesCount="0"/>
+    <vType id="vType1" carFollowModel="CC" c1="-3" lanesCount="1"/>
+    <vType id="vType2" carFollowModel="CC" c1="0" lanesCount="1"/>
+    <vType id="vType3" carFollowModel="CC" c1="12" lanesCount="1"/>
+    <vType id="vType4" carFollowModel="CC" c1="4.5" lanesCount="1"/>
 </routes>
