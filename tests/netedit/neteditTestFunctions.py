@@ -28,9 +28,9 @@ import time
 import pyperclip
 
 # define delay before every operation
-DELAY_KEY = 1         # 0.2 0.3
+DELAY_KEY = 0.5         # 0.2 0.3
 DELAY_KEY_TAB = 0.5     # 0.1 0.2
-DELAY_MOUSE_MOVE = 1  # 0.1 0.5
+DELAY_MOUSE_MOVE = 0.5  # 0.1
 DELAY_MOUSE_CLICK = 1  # 0.5 0.7
 DELAY_QUESTION = 3
 DELAY_RELOAD = 5
@@ -189,9 +189,9 @@ def pasteIntoTextField(value, removePreviousContents=True, useClipboard=True, la
         pyautogui.hotkey('ctrl', 'v')
     else:
         pyautogui.typewrite(translateKeys(value, layout))
-    # wait after every operation
-    time.sleep(DELAY_KEY)
-
+    # enter to confirm paste
+    typeEnter()
+    
 
 def leftClick(referencePosition, positionx, positiony):
     """
