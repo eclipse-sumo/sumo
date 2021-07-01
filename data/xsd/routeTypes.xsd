@@ -760,8 +760,8 @@
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="speed" type="nonNegativeFloatType"/>
         <xsd:attribute name="priorEdges" type="xsd:string"/>
-        <xsd:attribute name="started" type="timeType"/>
-        <xsd:attribute name="ended" type="timeType"/>
+        <xsd:attribute name="started" type="timeTypeWithErrorValue"/>
+        <xsd:attribute name="ended" type="timeTypeWithErrorValue"/>
         <!-- save-state backward compatibility -->
         <xsd:attribute name="actualArrival" type="timeType"/>
         <xsd:attribute name="depart" type="timeType"/>
@@ -860,7 +860,7 @@
                     <xsd:attribute name="depart" type="timeType" use="optional"/>
                     <xsd:attribute name="routeLength" type="xsd:float"/>
                     <xsd:attribute name="group" type="xsd:string" use="optional"/>
-                    <xsd:attribute name="ended" type="timeType"/>
+                    <xsd:attribute name="ended" type="timeTypeWithErrorValue"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="walk">
@@ -942,7 +942,7 @@
                     <xsd:attribute name="depart" type="timeType" use="optional"/>
                     <xsd:attribute name="routeLength" type="xsd:float"/>
                     <xsd:attribute name="group" type="xsd:string" use="optional"/>
-                    <xsd:attribute name="ended" type="timeType"/>
+                    <xsd:attribute name="ended" type="timeTypeWithErrorValue"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="tranship">
