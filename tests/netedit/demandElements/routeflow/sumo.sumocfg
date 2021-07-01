@@ -4,14 +4,8 @@
 
     <input>
         <net-file value="net.netedit"/>
-        <additional-files value="additionals.netedit"/>
-		<route-files value="routes.netedit"/>
+        <route-files value="routes.netedit"/>
     </input>
-	
-	<time>
-        <begin value="0"/>
-		<end value="1500"/>
-    </time>
 	
 	<report>
 		<no-warnings value="false"/>
