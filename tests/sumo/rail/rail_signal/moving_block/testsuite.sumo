@@ -1,2 +1,5 @@
 # rail signal protects against oncoming traffic in bidi section but allows forward traffic freely
 protect_bidi
+
+# rail signal protects against oncoming traffic in bidi section but allows forward traffic freely
+protect_bidi_option
