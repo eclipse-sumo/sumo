@@ -7,8 +7,6 @@ Debug: Created connection 'fromgneE4_0togneE5_0' in retrieveGNEConnection()
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e2MultilaneDetector' in TagSelector
 Debug: Key ENTER pressed
-Debug: Invalid input parameter of e2MultilaneDetector: 'jamThreshold' cannot be negative
-Debug: Key ENTER pressed
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

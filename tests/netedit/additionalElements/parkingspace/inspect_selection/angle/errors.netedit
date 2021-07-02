@@ -46,7 +46,6 @@ Debug: Setting new attribute selected 'true' into space 'parkingArea_A'
 Debug: Setting new attribute selected 'true' into parkingArea 'parkingArea_B'
 Debug: Setting new attribute selected 'true' into space 'parkingArea_B'
 Debug: Value 'dummyAngle' for attribute angle of space isn't valid
-Debug: Value 'dummyAngle' for attribute angle of space isn't valid
 Debug: Setting new attribute angle '-6.00' into space 'parkingArea_A'
 GLDebug: 	Removed object parkingArea:parkingArea_A from SUMORTree with boundary -1.20,-14.80,35.20,22.00
 GLDebug: 	Inserted parkingArea:parkingArea_A into SUMORTree with boundary -1.20,-14.80,35.20,22.00
@@ -57,7 +56,6 @@ GLDebug: 	Removed object parkingArea:parkingArea_B from SUMORTree with boundary 
 GLDebug: 	Inserted parkingArea:parkingArea_B into SUMORTree with boundary 15.80,-14.80,52.20,19.00
 GLDebug: 	Removed object parkingArea:parkingArea_B from SUMORTree with boundary 15.80,-14.80,52.20,19.00
 GLDebug: 	Inserted parkingArea:parkingArea_B into SUMORTree with boundary 15.80,-14.80,52.20,19.00
-Debug: Key ENTER pressed
 Debug: Setting new attribute angle '140.00' into space 'parkingArea_A'
 GLDebug: 	Removed object parkingArea:parkingArea_A from SUMORTree with boundary -1.20,-14.80,35.20,22.00
 GLDebug: 	Inserted parkingArea:parkingArea_A into SUMORTree with boundary -1.20,-14.80,35.20,22.00
@@ -68,7 +66,6 @@ GLDebug: 	Removed object parkingArea:parkingArea_B from SUMORTree with boundary 
 GLDebug: 	Inserted parkingArea:parkingArea_B into SUMORTree with boundary 15.80,-14.80,52.20,19.00
 GLDebug: 	Removed object parkingArea:parkingArea_B from SUMORTree with boundary 15.80,-14.80,52.20,19.00
 GLDebug: 	Inserted parkingArea:parkingArea_B into SUMORTree with boundary 15.80,-14.80,52.20,19.00
-Debug: Key ENTER pressed
 Debug: Setting new attribute angle '32.50' into space 'parkingArea_A'
 GLDebug: 	Removed object parkingArea:parkingArea_A from SUMORTree with boundary -1.20,-14.80,35.20,22.00
 GLDebug: 	Inserted parkingArea:parkingArea_A into SUMORTree with boundary -1.20,-14.80,35.20,22.00
@@ -79,7 +76,6 @@ GLDebug: 	Removed object parkingArea:parkingArea_B from SUMORTree with boundary 
 GLDebug: 	Inserted parkingArea:parkingArea_B into SUMORTree with boundary 15.80,-14.80,52.20,19.00
 GLDebug: 	Removed object parkingArea:parkingArea_B from SUMORTree with boundary 15.80,-14.80,52.20,19.00
 GLDebug: 	Inserted parkingArea:parkingArea_B into SUMORTree with boundary 15.80,-14.80,52.20,19.00
-Debug: Key ENTER pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute angle '140.00' into space 'parkingArea_B'

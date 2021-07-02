@@ -16,7 +16,6 @@ Debug: Setting new attribute selected 'true' into edge 'gneE0'
 Debug: Setting new attribute selected 'true' into poiGeo 'POI_1'
 Debug: Setting new attribute selected 'true' into poiGeo 'POI_2'
 Debug: Value '<<myOwnType>>' for attribute name of poiGeo isn't valid
-Debug: Value '<<myOwnType>>i' for attribute name of poiGeo isn't valid
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into poiGeo 'POI_2'

@@ -4,7 +4,7 @@ Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'trainStop' in TagSelector
 Debug: Adding trainStop 'trainStop_gneE2_1_0' in GNEChange_Additional
 Debug: Value 'dummyPersonCapacity' for attribute personCapacity of trainStop isn't valid
-Debug: Value '-7' for attribute personCapacity of trainStop isn't valid
+Debug: Value 'dummyPersonCapacity' for attribute personCapacity of trainStop isn't valid
 Debug: Value '' for attribute personCapacity of trainStop isn't valid
 Debug: Setting new attribute personCapacity '10' into trainStop 'trainStop_gneE2_1_0'
 Debug: Keys Ctrl+Z (Undo) pressed
