@@ -407,6 +407,9 @@ MSFrame::fillOptions() {
     oc.doRegister("tls.yellow.min-decel", new Option_Float(3.0));
     oc.addDescription("tls.yellow.min-decel", "Processing", "Minimum deceleration when braking at yellow");
 
+    oc.doRegister("railsignal-moving-block", new Option_Bool(false));
+    oc.addDescription("railsignal-moving-block", "Processing", "Let railsignals operate in moving-block mode by default");
+
     oc.doRegister("time-to-impatience", new Option_String("300", "TIME"));
     oc.addDescription("time-to-impatience", "Processing", "Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth");
 
