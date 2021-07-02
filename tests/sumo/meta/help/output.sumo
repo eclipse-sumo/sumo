@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_9_2+0771-c9ec6b8
+Eclipse SUMO sumo Version v1_9_2+0829-3c89482
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -236,6 +236,8 @@ Processing Options:
                                         delayed vehicles
   --tls.yellow.min-decel FLOAT         Minimum deceleration when braking at
                                         yellow
+  --railsignal-moving-block            Let railsignals operate in moving-block
+                                        mode by default
   --time-to-impatience TIME            Specify how long a vehicle may wait
                                         until impatience grows from 0 to 1,
                                         defaults to 300, non-positive values

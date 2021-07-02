@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-06-30 16:03:41 by Eclipse SUMO sumo Version v1_9_2+0771-c9ec6b8
+<!-- generated on 2021-07-02 23:33:43 by Eclipse SUMO sumo Version v1_9_2+0829-3c89482
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -371,6 +371,9 @@
 
         <!-- Minimum deceleration when braking at yellow -->
         <tls.yellow.min-decel value="3" type="FLOAT"/>
+
+        <!-- Let railsignals operate in moving-block mode by default -->
+        <railsignal-moving-block value="false" type="BOOL"/>
 
         <!-- Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth -->
         <time-to-impatience value="300" type="TIME"/>
