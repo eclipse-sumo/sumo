@@ -5,8 +5,11 @@ priority
 constraints
 insertionConstraints
 
-# switch from block signaling to moving block
+# switch from block signaling to moving block by inserting a traffic light node
 end_block_mode
+
+# tests for moving block operation
+moving_block
 
 # a forking rail line without a signal at the fork. a warning should appear
 fork_without_signal
