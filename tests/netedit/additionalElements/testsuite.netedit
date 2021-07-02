@@ -56,7 +56,7 @@ routeprobe
 vaporizer
 
 # rerouter
-#rerouter
+rerouter
 
 # variable speed sign
-#variablespeedsign
+variablespeedsign

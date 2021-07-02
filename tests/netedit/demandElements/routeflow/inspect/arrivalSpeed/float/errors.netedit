@@ -71,6 +71,7 @@ Debug: Selected item 'trip' in TagSelector
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'flow (over route)' in TagSelector
 Debug: Adding flowRoute 'flow_0' in GNEChange_DemandElement
+Debug: Value 'flow (over route)' for attribute arrivalSpeed of flowRoute isn't valid
 Debug: Value 'dummySpeed' for attribute arrivalSpeed of flowRoute isn't valid
 Debug: Setting new attribute arrivalSpeed '500' into flowRoute 'flow_0'
 Debug: Value '-10' for attribute arrivalSpeed of flowRoute isn't valid

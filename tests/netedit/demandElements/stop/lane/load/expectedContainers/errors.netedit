@@ -12,7 +12,7 @@ Debug: Adding stopLane 'route_0' in GNEChange_DemandElement
 Debug: Adding stopLane 'route_0' in GNEChange_DemandElement
 Debug: Adding stopLane 'route_0' in GNEChange_DemandElement
 Debug: Adding flowRoute 'routeFlow' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun124909.1060\netedit.gui\demandElements\stop\stopLane\load\expectedContainers\input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stop.lane.02Jul080812.2562/netedit.daily.demand.stop.lane/demandElements/stop/lane/load/expectedContainers/input_routes.rou.xml failed.
 Debug: Disabled toggle show grid throught alt + 1
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing

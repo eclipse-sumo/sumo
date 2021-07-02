@@ -73,7 +73,7 @@ Debug: Selected item 'flow (over route)' in TagSelector
 Debug: Adding flowRoute 'flow_0' in GNEChange_DemandElement
 Debug: Value 'dummyDepart' for attribute departLane of flowRoute isn't valid
 Debug: Value '500' for attribute departLane of flowRoute isn't valid
-Debug: Value '500' for attribute departLane of flowRoute isn't valid
+Debug: Value '-10' for attribute departLane of flowRoute isn't valid
 Debug: Setting new attribute departLane '0' into flowRoute 'flow_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
