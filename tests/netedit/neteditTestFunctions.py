@@ -511,8 +511,6 @@ def undo(referencePosition, number, posX=0, posY=0):
     time.sleep(DELAY_UNDOREDO)
     # focus current frame
     focusOnFrame()
-    # focus current frame
-    focusOnFrame()
     # needed to avoid errors with undo/redo (Provisionally)
     typeKey('i')
     # click over referencePosition
@@ -959,8 +957,8 @@ def modifyAttribute(attributeNumber, value, overlapped):
             typeTab()
     # paste the new value
     pasteIntoTextField(value)
-    # tab to confirm paste
-    typeTab()
+    # type Enter to commit change
+    typeEnter()
 
 
 def modifyBoolAttribute(attributeNumber, overlapped):
@@ -1102,8 +1100,8 @@ def modifyCrossingDefaultValue(numtabs, value):
         typeTab()
     # paste the new value
     pasteIntoTextField(value)
-    # tab to confirm paste
-    typeTab()
+    # type enter to save change
+    typeEnter()
 
 
 def modifyCrossingDefaultBoolValue(numtabs):
@@ -1227,8 +1225,8 @@ def changeElement(additional):
     typeTab()
     # paste the new value
     pasteIntoTextField(additional)
-    # tab to confirm paste
-    typeTab()
+    # type enter to save change
+    typeEnter()
 
 
 def changeDefaultValue(numTabs, length):
@@ -1242,8 +1240,8 @@ def changeDefaultValue(numTabs, length):
         typeTab()
     # paste new length
     pasteIntoTextField(length)
-    # tab to confirm paste
-    typeTab()
+    # type enter to save new length
+    typeEnter()
 
 
 def changeDefaultBoolValue(numTabs):
@@ -1368,8 +1366,8 @@ def changeRouteMode(value):
     typeTab()
     # paste the new value
     pasteIntoTextField(value)
-    # tab to confirm paste
-    typeTab()
+    # type enter to save change
+    typeEnter()
 
 
 def changeRouteVClass(value):
@@ -1383,8 +1381,8 @@ def changeRouteVClass(value):
         typeTab()
     # paste the new value
     pasteIntoTextField(value)
-    # tab to confirm paste
-    typeTab()
+    # type enter to save change
+    typeEnter()
 
 #################################################
 # person elements
@@ -1410,8 +1408,8 @@ def changePersonMode(value):
     typeTab()
     # paste the new value
     pasteIntoTextField(value)
-    # tab to confirm paste
-    typeTab()
+    # type enter to save change
+    typeEnter()
 
 
 def changePersonVClass(value):
@@ -1425,8 +1423,8 @@ def changePersonVClass(value):
         typeTab()
     # paste the new value
     pasteIntoTextField(value)
-    # tab to confirm paste
-    typeTab()
+    # type enter to save change
+    typeEnter()
 
 
 def changePersonPlan(personPlan, subPersonPlan):
@@ -1445,8 +1443,8 @@ def changePersonPlan(personPlan, subPersonPlan):
         typeTab()
     # paste the new subPersonPlan
     pasteIntoTextField(subPersonPlan)
-    # tab to confirm paste
-    typeTab()
+    # type enter to save change
+    typeEnter()
 
 
 def changePersonFlowPlan(personFlowPlan, subPersonFlowPlan):
@@ -1465,8 +1463,8 @@ def changePersonFlowPlan(personFlowPlan, subPersonFlowPlan):
         typeTab()
     # paste the new subPersonFlowPlan
     pasteIntoTextField(subPersonFlowPlan)
-    # tab to confirm paste
-    typeTab()
+    # type enter to save change
+    typeEnter()
 
 #################################################
 # stop elements
@@ -1490,8 +1488,8 @@ def changeStopParent(stopParent):
     typeTab()
     # paste the new stop parent
     pasteIntoTextField(stopParent)
-    # tab to confirm paste
-    typeTab()
+    # type enter to save change
+    typeEnter()
 
 
 def changeStopType(stopType):
@@ -1505,8 +1503,8 @@ def changeStopType(stopType):
         typeTab()
     # paste the new personPlan
     pasteIntoTextField(stopType)
-    # tab to confirm paste
-    typeTab()
+    # type enter to save change
+    typeEnter()
 
 #################################################
 # vehicle elements
