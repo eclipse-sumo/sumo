@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-07-01 15:48:43 by Eclipse SUMO netedit Version v1_9_2+0799-42b2810642a
+<!-- generated on 2021-07-02 16:13:25 by Eclipse SUMO netedit Version v1_9_2+0825-5495129d683
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.01Jul153420.106191/netedit.daily.demand.route/demandElements/route/create_consecutive/color/input_net.net.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.02Jul155933.46859/netedit.daily.demand.route/demandElements/route/create_consecutive/color/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.01Jul153420.106191/netedit.daily.demand.route/demandElements/route/create_consecutive/color/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.02Jul155933.46859/netedit.daily.demand.route/demandElements/route/create_consecutive/color/net.net.xml"/>
     </output>
 
     <processing>
@@ -30,33 +30,34 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.01Jul153420.106191/netedit.daily.demand.route/demandElements/route/create_consecutive/color/additionals.xml"/>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.01Jul153420.106191/netedit.daily.demand.route/demandElements/route/create_consecutive/color/additionals.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.01Jul153420.106191/netedit.daily.demand.route/demandElements/route/create_consecutive/color/routes.xml"/>
-        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.01Jul153420.106191/netedit.daily.demand.route/demandElements/route/create_consecutive/color/routes.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.01Jul153420.106191/netedit.daily.demand.route/demandElements/route/create_consecutive/color/datas.xml"/>
-        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.01Jul153420.106191/netedit.daily.demand.route/demandElements/route/create_consecutive/color/datas.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.02Jul155933.46859/netedit.daily.demand.route/demandElements/route/create_consecutive/color/additionals.xml"/>
+        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.02Jul155933.46859/netedit.daily.demand.route/demandElements/route/create_consecutive/color/additionals.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.02Jul155933.46859/netedit.daily.demand.route/demandElements/route/create_consecutive/color/routes.xml"/>
+        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.02Jul155933.46859/netedit.daily.demand.route/demandElements/route/create_consecutive/color/routes.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.02Jul155933.46859/netedit.daily.demand.route/demandElements/route/create_consecutive/color/datas.xml"/>
+        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.02Jul155933.46859/netedit.daily.demand.route/demandElements/route/create_consecutive/color/datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.01Jul153420.106191/netedit.daily.demand.route/demandElements/route/create_consecutive/color/gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.02Jul155933.46859/netedit.daily.demand.route/demandElements/route/create_consecutive/color/gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.01Jul153420.106191/netedit.daily.demand.route/demandElements/route/create_consecutive/color/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.02Jul155933.46859/netedit.daily.demand.route/demandElements/route/create_consecutive/color/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.01Jul153420.106191/netedit.daily.demand.route/demandElements/route/create_consecutive/color/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.demand.route.02Jul155933.46859/netedit.daily.demand.route/demandElements/route/create_consecutive/color/log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="gneE2 gneE4 gneE5" color="blue" id="route_0"/>
+    <route edges="gneE2 gneE4" color="120,20,30" id="route_0"/>
+    <route edges="gneE5" color="blue" id="route_1"/>
 </routes>
