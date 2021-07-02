@@ -33,3 +33,6 @@ customLength_keepRoute2
 
 # test retrieving the original speed
 speedWithoutTraCI
+
+# tests for mapping vehicle with bad position data
+matchThreshold
