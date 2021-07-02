@@ -505,6 +505,11 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             numLanesForward = 1;
             // do not add an additional sidewalk
             sidewalkType = (WayType)(sidewalkType & ~WAY_FORWARD);  //clang tidy thinks "!WAY_FORWARD" is always false
+        } else if (addForward && (sidewalkType & WAY_BOTH) == 0 && numLanesForward == 1) {
+            // our typemap says pedestrians should walk here but the data says
+            // there is no sidewalk at all. If the road is small, pedestrians can just walk
+            // on the road
+            forwardPermissions |= SVC_PEDESTRIAN;
         }
         if (!addBackward && (sidewalkType & WAY_BACKWARD) != 0) {
             addBackward = true;
@@ -513,6 +518,11 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             numLanesBackward = 1;
             // do not add an additional cycle lane
             sidewalkType = (WayType)(sidewalkType & ~WAY_BACKWARD); //clang tidy thinks "!WAY_BACKWARD" is always false
+        } else if (addBackward && (sidewalkType & WAY_BOTH) == 0 && numLanesBackward == 1) {
+            // our typemap says pedestrians should walk here but the data says
+            // there is no sidewalk at all. If the road is small, pedestrians can just walk
+            // on the road
+            backwardPermissions |= SVC_PEDESTRIAN;
         }
     }
     // deal with busways that run in the opposite direction of a one-way street
