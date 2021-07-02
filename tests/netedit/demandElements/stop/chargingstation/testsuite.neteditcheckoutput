@@ -4,8 +4,8 @@ delete
 
 inspect
 
-inspect_selection
+#inspect_selection Disabled until implementation of new demand Handler
 
-load
+#load Disabled until implementation of new demand Handler
 
 volatileRecomputing
