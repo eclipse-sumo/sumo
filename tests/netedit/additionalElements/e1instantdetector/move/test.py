@@ -44,10 +44,10 @@ netedit.moveMode()
 netedit.moveElement(referencePosition, 183, 210, 241, 210)
 
 # move E1 to left
-netedit.moveElement(referencePosition, 241, 210, 210, 210)
+netedit.moveElement(referencePosition, 241, 210, 232, 210)
 
 # move E1 to right again
-netedit.moveElement(referencePosition, 210, 210, 400, 210)
+netedit.moveElement(referencePosition, 232, 210, 419, 210)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

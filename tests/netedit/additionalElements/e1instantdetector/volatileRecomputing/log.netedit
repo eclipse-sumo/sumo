@@ -1,6 +1,7 @@
-Warning: The lane 'gneE2_0' to use within the instantInductionLoop 'instantInductionLoop_gneE2_0_0' is not known.
-Warning: The lane 'gneE2_1' to use within the instantInductionLoop 'instantInductionLoop_gneE2_1_1' is not known.
-Warning: The lane 'gneE2_2' to use within the instantInductionLoop 'instantInductionLoop_gneE2_2_2' is not known.
-Warning: The lane 'gneE2_3' to use within the instantInductionLoop 'instantInductionLoop_gneE2_3_3' is not known.
-Warning: The lane 'gneE2_4' to use within the instantInductionLoop 'instantInductionLoop_gneE2_4_4' is not known.
-Warning: The lane 'gneE4_0' to use within the instantInductionLoop 'instantInductionLoop_gneE4_0_5' is not known.
+Error: Could not build inductionLoop in netedit; lane doesn't exist.
+Error: Could not build inductionLoop in netedit; lane doesn't exist.
+Error: Could not build inductionLoop in netedit; lane doesn't exist.
+Error: Could not build inductionLoop in netedit; lane doesn't exist.
+Error: Could not build inductionLoop in netedit; lane doesn't exist.
+Error: Could not build inductionLoop in netedit; lane doesn't exist.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul100952.17416\netedit.gui\additionalElements\e1instantdetector\volatileRecomputing\input_additionals.add.xml failed.

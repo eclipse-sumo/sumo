@@ -47,6 +47,9 @@ netedit.moveElement(referencePosition, 278, 130, 278, 319)
 netedit.undo(referencePosition, 2)
 netedit.redo(referencePosition, 2)
 
+# apply zoom
+netedit.setZoom("25", "0", "74") 
+
 # save TAZs
 netedit.saveAdditionals(referencePosition)
 

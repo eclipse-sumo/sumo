@@ -77,6 +77,9 @@ netedit.moveElement(referencePosition, 250, 240, 50, 240)
 netedit.undo(referencePosition, 5)
 netedit.redo(referencePosition, 5)
 
+# apply zoom
+netedit.setZoom("25", "0", "74") 
+
 # save additionals
 netedit.saveAdditionals(referencePosition)
 

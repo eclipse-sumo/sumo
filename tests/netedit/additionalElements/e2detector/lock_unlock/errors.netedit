@@ -42,6 +42,7 @@ Debug: Setting new attribute blockMovement 'false' into e2Detector 'e2Detector_g
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute pos '9.00' into e2Detector 'e2Detector_gneE0_0_0'
+Debug: Current Viewport values: 25.00, 0.00, 74.00. Zoom = '100.00'
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

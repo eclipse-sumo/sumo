@@ -8,33 +8,28 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'instantInductionLoop' in TagSelector
 Debug: Adding instantInductionLoop 'instantInductionLoop_gneE1_0_0' in GNEChange_Additional
-Debug: Setting new attribute pos '34.00' into instantInductionLoop 'instantInductionLoop_gneE1_0_0'
-Debug: Setting new attribute pos '37.00' into instantInductionLoop 'instantInductionLoop_gneE1_0_0'
-Debug: Setting new attribute pos '17.00' into instantInductionLoop 'instantInductionLoop_gneE1_0_0'
+Debug: Setting new attribute pos '35.00' into instantInductionLoop 'instantInductionLoop_gneE1_0_0'
+Debug: Setting new attribute pos '15.00' into instantInductionLoop 'instantInductionLoop_gneE1_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '37.00' into instantInductionLoop 'instantInductionLoop_gneE1_0_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '34.00' into instantInductionLoop 'instantInductionLoop_gneE1_0_0'
+Debug: Setting previous attribute pos '35.00' into instantInductionLoop 'instantInductionLoop_gneE1_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute pos '40.00' into instantInductionLoop 'instantInductionLoop_gneE1_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing instantInductionLoop 'instantInductionLoop_gneE1_0_0' in GNEChange_Additional
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding instantInductionLoop 'instantInductionLoop_gneE1_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '34.00' into instantInductionLoop 'instantInductionLoop_gneE1_0_0'
+Debug: Setting new attribute pos '35.00' into instantInductionLoop 'instantInductionLoop_gneE1_0_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '37.00' into instantInductionLoop 'instantInductionLoop_gneE1_0_0'
+Debug: Setting new attribute pos '15.00' into instantInductionLoop 'instantInductionLoop_gneE1_0_0'
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '17.00' into instantInductionLoop 'instantInductionLoop_gneE1_0_0'
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -64,4 +59,3 @@ Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destru
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4
-X connection to :8256.0 broken (explicit kill or server shutdown).

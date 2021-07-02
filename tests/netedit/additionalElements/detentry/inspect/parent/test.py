@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # apply zoom
-netedit.setZoom("25", "25", "25")
+netedit.setZoom("25", "0", "25")
 
 # go to additional mode
 netedit.additionalMode()

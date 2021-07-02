@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # apply zoom
-netedit.setZoom("25", "25", "25")
+netedit.setZoom("25", "0", "25")
 
 # go to additional mode
 netedit.additionalMode()
@@ -59,7 +59,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 186, 240)
 
 # Change boolean parameter block move
-netedit.modifyBoolAttribute(9, True)
+netedit.modifyBoolAttribute(8, True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

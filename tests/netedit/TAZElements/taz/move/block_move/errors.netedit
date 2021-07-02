@@ -19,6 +19,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding taz 'taz_0' into viewNet
 GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary 0.00,-10.00,50.00,40.00
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Current Viewport values: 25.00, 0.00, 74.00. Zoom = '100.00'
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

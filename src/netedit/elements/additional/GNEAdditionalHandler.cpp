@@ -698,6 +698,8 @@ GNEAdditionalHandler::buildDetectorE1Instant(const CommonXMLStructure::SumoBaseO
             writeErrorInvalidName(SUMO_TAG_INSTANT_INDUCTION_LOOP, id, SUMO_ATTR_NAME);
         } else if (!SUMOXMLDefinitions::isValidFilename(filename)) {
             writeErrorInvalidFilename(SUMO_TAG_INSTANT_INDUCTION_LOOP, id);
+        } else if (!checkSinglePositionOverLane(pos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
+            writeErrorInvalidPosition(SUMO_TAG_INSTANT_INDUCTION_LOOP, id);
         } else {
             // build E1 instant
             GNEAdditional* detectorE1Instant = new GNEDetectorE1Instant(id, lane, myNet, pos, filename, vehicleTypes, name, friendlyPos, parameters, neteditParameters.blockMovement);
