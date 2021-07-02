@@ -196,6 +196,9 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, bool close) const {
             dev.writeAttr(SUMO_ATTR_ENDPOS, endPos);
         }
     }
+    if ((parametersSet & STOP_POSLAT_SET) != 0 && posLat != INVALID_DOUBLE) {
+        dev.writeAttr(SUMO_ATTR_POSITION_LAT, posLat);
+    }
     if ((parametersSet & STOP_ARRIVAL_SET) && (arrival >= 0)) {
         dev.writeAttr(SUMO_ATTR_ARRIVAL, time2string(arrival));
     }

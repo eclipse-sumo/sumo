@@ -1723,6 +1723,9 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
 
                 boardTransportables(stop);
+                if (stop.pars.posLat != INVALID_DOUBLE) {
+                    myState.myPosLat = stop.pars.posLat;
+                }
             }
         }
     }
